@@ -1,3 +1,28 @@
+/*
+The DigitDropdownExample widget is a stateful widget that initializes a TextEditingController and a list of DropdownItem objects.
+The DigitDropdown component is then used with the provided parameters,
+and the onChange callback is used to handle the selected value.
+
+ Example usage:
+ ```dart
+ DigitDropdown(
+       // Pass the TextEditingController
+       textEditingController: _textEditingController,
+
+       // Pass the list of DropdownItems
+       items: _dropdownItems,
+
+       // Callback function when an option is selected
+       onChange: (value, index) {
+         print('Selected: $value'); // Handle the selected value here
+       },
+
+       // Optional parameters can be customized as needed
+       icon: Icon(Icons.arrow_drop_down),
+       dropdownType: DropdownType.defaultSelect,
+      emptyItemText: 'No Options available',
+)
+....*/
 
 import 'package:digit_components/digit_components.dart';
 import 'package:flutter/foundation.dart';
@@ -7,31 +32,6 @@ import '../../constants/AppView.dart';
 import '../../constants/app_constants.dart';
 import '../../enum/app_enums.dart';
 import '../../models/DropdownModels.dart';
-
-///The DigitDropdownExample widget is a stateful widget that initializes a TextEditingController and a list of DropdownItem objects.
-///The DigitDropdown component is then used with the provided parameters,
-///and the onChange callback is used to handle the selected value.
-///
-/// Example usage:
-/// ```dart
-/// DigitDropdown(
-///       // Pass the TextEditingController
-///       textEditingController: _textEditingController,
-///
-///       // Pass the list of DropdownItems
-///       items: _dropdownItems,
-///
-///       // Callback function when an option is selected
-///       onChange: (value, index) {
-///         print('Selected: $value'); // Handle the selected value here
-///       },
-///
-///       // Optional parameters can be customized as needed
-///       icon: Icon(Icons.arrow_drop_down),
-///       dropdownType: DropdownType.defaultSelect,
-///      emptyItemText: 'No Options available',
-///    )
-///
 
 class DigitDropdown<T> extends StatefulWidget {
   final TextEditingController textEditingController;
@@ -109,10 +109,8 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
     _focusNode.removeListener(_onFocusChange);
     _focusNode.dispose();
 
-
-    // Dispose the AnimationController
+    /// Dispose the AnimationController
     _animationController.dispose();
-    /// ...
     super.dispose();
   }
 
@@ -124,7 +122,6 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
 
   @override
   Widget build(BuildContext context) {
-
     /// Responsive width based on screen size
     double dropdownWidth =
         AppView.isMobileView(MediaQuery.of(context).size.width)
@@ -165,10 +162,9 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                   color: const DigitColors().burningOrange, width: 1.0),
               borderRadius: BorderRadius.zero,
             ),
-            contentPadding:
-                const EdgeInsets.only(
-                  left: 8,
-                ),
+            contentPadding: const EdgeInsets.only(
+              left: 8,
+            ),
             suffixIcon: RotationTransition(
               turns: _rotateAnimation,
               child: widget.icon ?? const Icon(Icons.arrow_drop_down),
@@ -225,8 +221,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
     var offset = renderBox.localToGlobal(Offset.zero);
     var topOffset = offset.dy + size.height;
     OverlayEntry overlayEntry = OverlayEntry(
-      /// full screen GestureDetector to register when a
-      /// user has clicked away from the dropdown
+      /// full screen GestureDetector to register when a user has clicked away from the dropdown
       builder: (context) => GestureDetector(
         onTap: () => _toggleDropdown(close: true),
         behavior: HitTestBehavior.translucent,
@@ -254,12 +249,11 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                       axisAlignment: 1,
                       sizeFactor: _expandAnimation,
                       child: ConstrainedBox(
-                        constraints:
-                            BoxConstraints(
-                              maxHeight: MediaQuery.of(context).size.height -
-                                  topOffset -
-                                  15,
-                            ),
+                        constraints: BoxConstraints(
+                          maxHeight: MediaQuery.of(context).size.height -
+                              topOffset -
+                              15,
+                        ),
                         child: _buildDropdownListView(),
                       ),
                     ),
@@ -347,6 +341,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                 width: DropdownConstants.defaultProfileSize,
                                 child: CircleAvatar(
                                   radius: DropdownConstants.defaultImageRadius,
+
                                   /// This radius is the radius of the picture in the circle avatar itself.
                                   backgroundImage: item.value.profileImage,
                                   backgroundColor: const DigitColors().davyGray,
@@ -370,16 +365,16 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                       ),
                                     if (item.value.textIcon != null)
                                       const Gap(
-                                        kPadding/2,
+                                        kPadding / 2,
                                       ),
                                     Text(
-                                            item.value.name,
-                                            style: DigitTheme.instance
-                                                .mobileTheme.textTheme.bodyLarge
-                                                ?.copyWith(
-                                                    color: const DigitColors()
-                                                        .davyGray),
-                                          )
+                                      item.value.name,
+                                      style: DigitTheme.instance.mobileTheme
+                                          .textTheme.bodyLarge
+                                          ?.copyWith(
+                                              color:
+                                                  const DigitColors().davyGray),
+                                    )
                                   ],
                                 ),
                                 if (item.value.description != null)
@@ -479,9 +474,9 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                         ),
                         padding: EdgeInsets.zero,
                         child: Padding(
-                          padding:
-                          widget.dropdownType == DropdownType.defaultSelect &&
-                              item.description == null
+                          padding: widget.dropdownType ==
+                                      DropdownType.defaultSelect &&
+                                  item.description == null
                               ? DropdownConstants.defaultPadding
                               : DropdownConstants.nestedItemPadding,
                           child: Row(
@@ -492,11 +487,13 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                   height: DropdownConstants.defaultProfileSize,
                                   width: DropdownConstants.defaultProfileSize,
                                   child: CircleAvatar(
-                                    radius: DropdownConstants.defaultImageRadius,
+                                    radius:
+                                        DropdownConstants.defaultImageRadius,
 
                                     /// This radius is the radius of the picture in the circle avatar itself.
                                     backgroundImage: item.profileImage,
-                                    backgroundColor: const DigitColors().davyGray,
+                                    backgroundColor:
+                                        const DigitColors().davyGray,
                                   ),
                                 ),
                               if (widget.dropdownType ==
@@ -517,21 +514,21 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                         ),
                                       if (item.textIcon != null)
                                         const Gap(
-                                          kPadding/2,
+                                          kPadding / 2,
                                         ),
                                       Text(
                                         item.name,
-                                        style: DigitTheme.instance
-                                            .mobileTheme.textTheme.bodyLarge
+                                        style: DigitTheme.instance.mobileTheme
+                                            .textTheme.bodyLarge
                                             ?.copyWith(
-                                            color: const DigitColors()
-                                                .davyGray),
+                                                color: const DigitColors()
+                                                    .davyGray),
                                       )
                                     ],
                                   ),
                                   if (item.description != null)
                                     Text(
-                                      item  .description!,
+                                      item.description!,
                                       style: DigitTheme.instance.mobileTheme
                                           .textTheme.bodySmall
                                           ?.copyWith(

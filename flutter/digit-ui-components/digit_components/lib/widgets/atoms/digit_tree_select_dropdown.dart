@@ -1,4 +1,32 @@
-library multiselect_dropdown;
+/*
+ The TreeSelectDropDown component is a Flutter dropdown widget with a tree-like structure, allowing the selection of multiple or single options
+ It initializes the options, selected options, and other configurations.
+ It supports the integration of a TreeSelectController for programmatically controlling the dropdown.
+ It provides customization options for the appearance of the dropdown, chips, and other elements.
+
+ Example usage:
+ ```dart
+
+TreeSelectDropDown<int>(
+  // Provide the list of options
+  options: options,
+  // Provide the initially selected options
+  selectedOptions: selectedOptions,
+  // Define the callback function when options are selected/deselected
+  onOptionSelected: (List<TreeNode> selectedItems) {
+    // Handle the selected items
+    setState(() {
+      selectedOptions = selectedItems;
+    });
+  },
+  // Customize the appearance of chips
+  chipConfig: ChipConfig(),
+  // Customize the suffix icon (dropdown arrow)
+  suffixIcon: Icon(Icons.arrow_drop_down),
+  // Customize the selection type (multiSelect or singleSelect)
+  treeSelectionType: TreeSelectionType.multiSelect,
+),
+ ....*/
 
 import 'package:digit_components/digit_components.dart';
 import 'package:flutter/foundation.dart';
@@ -11,35 +39,6 @@ import '../../models/TreeModel.dart';
 import '../../models/chipModel.dart';
 import '../helper_widget/selection_chip.dart';
 import '../helper_widget/tree_node_widget.dart';
-
-/// The TreeSelectDropDown component is a Flutter dropdown widget with tree-like structure, allowing the selection of multiple or single options
-/// It initializes the options, selected options, and other configurations.
-/// It supports the integration of a TreeSelectController for programmatically controlling the dropdown.
-/// It provides customization options for the appearance of the dropdown, chips, and other elements.
-///
-/// Example usage:
-/// ```dart
-///
-/// TreeSelectDropDown<int>(
-///             // Provide the list of options
-///             options: options,
-///             // Provide the initially selected options
-///             selectedOptions: selectedOptions,
-///             // Define the callback function when options are selected/deselected
-///             onOptionSelected: (List<TreeNode> selectedItems) {
-///               // Handle the selected items
-///               setState(() {
-///                 selectedOptions = selectedItems;
-///               });
-///             },
-///             // Customize the appearance of chips
-///             chipConfig: ChipConfig(),
-///             // Customize the suffix icon (dropdown arrow)
-///             suffixIcon: Icon(Icons.arrow_drop_down),
-///             // Customize the selection type (multiSelect or singleSelect)
-///             treeSelectionType: TreeSelectionType.multiSelect,
-///           ),
-///
 
 typedef OnOptionSelected<T> = void Function(List<TreeNode> selectedOptions);
 
@@ -207,11 +206,11 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
 
   @override
   Widget build(BuildContext context) {
-
     ///calculate the dropdown width based on the view
-    double dropdownWidth = AppView.isMobileView(MediaQuery.of(context).size.width)
-        ? Default.mobileInputWidth
-        : Default.desktopInputWidth;
+    double dropdownWidth =
+        AppView.isMobileView(MediaQuery.of(context).size.width)
+            ? Default.mobileInputWidth
+            : Default.desktopInputWidth;
     return Column(
       children: [
         CompositedTransformTarget(
@@ -233,8 +232,9 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
                     minWidth: Default.mobileInputWidth,
                     minHeight: Default.height,
                   ),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: kPadding,),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: kPadding,
+                  ),
                   decoration: _getContainerDecoration(),
                   child: Row(
                     children: [
@@ -290,10 +290,13 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
 
           return chip;
         }),
-        if (_selectedOptions
-            .isNotEmpty) /// Display "Clear All" only if there are selected options
+        if (_selectedOptions.isNotEmpty)
+
+          /// Display "Clear All" only if there are selected options
           InkWell(
-            onTap: () => clear(), /// onTap Clear all the
+            onTap: () => clear(),
+
+            /// onTap Clear all the
             child: Chip(
               backgroundColor: const DigitColors().white,
               shape: RoundedRectangleBorder(
@@ -302,9 +305,10 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
                 ),
                 borderRadius: BorderRadius.circular(50),
               ),
-              padding:
-                  const EdgeInsets.symmetric(horizontal: kPadding,),
-              labelPadding: const EdgeInsets.symmetric(vertical: kPadding/4),
+              padding: const EdgeInsets.symmetric(
+                horizontal: kPadding,
+              ),
+              labelPadding: const EdgeInsets.symmetric(vertical: kPadding / 4),
               label: Text('Clear All',
                   style: TextStyle(color: const DigitColors().burningOrange)),
             ),
@@ -392,6 +396,7 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
   OverlayEntry _buildOverlayEntry() {
     /// Calculate the offset and the size of the dropdown button
     final values = _calculateOffsetSize();
+
     /// Get the size from the first item in the values list
     final size = values[0] as Size;
 
@@ -449,8 +454,7 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
         maxHeight: values[1] - 30,
       ),
       child: ListView.separated(
-        separatorBuilder: (_, __) =>
-            const SizedBox(height: 0),
+        separatorBuilder: (_, __) => const SizedBox(height: 0),
         shrinkWrap: true,
         padding: EdgeInsets.zero,
         itemCount: options.length,

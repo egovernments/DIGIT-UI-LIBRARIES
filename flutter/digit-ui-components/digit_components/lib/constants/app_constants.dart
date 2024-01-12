@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 
 import '../theme/colors.dart';
+import '../theme/digit_theme.dart';
 
 class Default{
   static const double height = 40;
   static const double mobileInputWidth = 328;
   static const double desktopInputWidth = 600;
+  static const double defaultChipRadius = 50;
+  static const EdgeInsets defaultChipPadding = EdgeInsets.only(
+    left: 12,
+    right: kPadding / 2,
+  );
 }
 
 class BaseConstants {

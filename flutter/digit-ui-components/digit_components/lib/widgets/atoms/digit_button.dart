@@ -1,24 +1,25 @@
-/// `DigitButton` is a customizable button widget that supports various styles and states.
-///
-/// This widget provides options for primary, secondary, tertiary, and link button types.
-/// It handles hover effects, disabled state, and different icon placements.
-///
-/// Example usage:
-/// ```dart
-/// DigitButton(
-///   label: 'Click me',
-///   onPressed: () {
-///     // Handle button press
-///   },
-///   type: ButtonType.primary,
-///   prefixIcon: Icons.star,
-///   suffixIcon: Icons.arrow_forward,
-///   isDisabled: false,
-///   buttonPadding: DigitButtonConstants.defaultButtonPadding,
-///   contentPadding: DigitButtonConstants.defaultContentPadding,
-///   iconSize: DigitButtonConstants.defaultIconSize,
-/// )
-/// ```
+/*`DigitButton` is a customizable button widget that supports various styles and states.
+
+ This widget provides options for primary, secondary, tertiary, and link button types.
+ It handles hover effects, disabled state, and different icon placements.
+
+Example usage:
+```dart
+ DigitButton(
+   label: 'Click me',
+   onPressed: () {
+    // Handle button press
+   },
+   type: ButtonType.primary,
+   prefixIcon: Icons.star,
+   suffixIcon: Icons.arrow_forward,
+   isDisabled: false,
+   buttonPadding: DigitButtonConstants.defaultButtonPadding,
+   contentPadding: DigitButtonConstants.defaultContentPadding,
+   iconSize: DigitButtonConstants.defaultIconSize,
+ )
+ ```*/
+
 import 'package:digit_components/digit_components.dart';
 import 'package:flutter/material.dart';
 import '../../constants/app_constants.dart';
@@ -75,20 +76,22 @@ class _DigitButtonState extends State<DigitButton> {
   @override
   Widget build(BuildContext context) {
     return widget.isDisabled
-        ? _buildButtonWidget() // If disabled, don't use MouseRegion
+        ? _buildButtonWidget()
+
+        /// If disabled, don't use MouseRegion
         : MouseRegion(
-      onEnter: (_) {
-        setState(() {
-          isHovered = true;
-        });
-      },
-      onExit: (_) {
-        setState(() {
-          isHovered = false;
-        });
-      },
-      child: _buildButtonWidget(),
-    );
+            onEnter: (_) {
+              setState(() {
+                isHovered = true;
+              });
+            },
+            onExit: (_) {
+              setState(() {
+                isHovered = false;
+              });
+            },
+            child: _buildButtonWidget(),
+          );
   }
 
   /// Build the button widget based on its type and state.
@@ -105,25 +108,27 @@ class _DigitButtonState extends State<DigitButton> {
             decoration: BoxDecoration(
               boxShadow: (widget.type == ButtonType.primary)
                   ? [
-                BoxShadow(
-                  color: isHovered
-                      ? DigitButtonConstants.defaultPrimaryColor
-                      : DigitButtonConstants.defaultSecondaryColor,
-                  offset: const Offset(0, 2.0),
-                ),
-              ]
+                      BoxShadow(
+                        color: isHovered
+                            ? DigitButtonConstants.defaultPrimaryColor
+                            : DigitButtonConstants.defaultSecondaryColor,
+                        offset: const Offset(0, 2.0),
+                      ),
+                    ]
                   : [],
               borderRadius: BorderRadius.zero,
               border: Border.all(
                 color: widget.isDisabled
                     ? DigitButtonConstants.defaultDisabledColor
                     : DigitButtonConstants.defaultPrimaryColor,
-                width: isHovered ? DigitButtonConstants.defaultHoverWidth : DigitButtonConstants.defaultWidth,
+                width: isHovered
+                    ? DigitButtonConstants.defaultHoverWidth
+                    : DigitButtonConstants.defaultWidth,
               ),
               color: widget.type == ButtonType.primary
                   ? (widget.isDisabled
-                  ? DigitButtonConstants.defaultDisabledColor
-                  : DigitButtonConstants.defaultPrimaryColor)
+                      ? DigitButtonConstants.defaultDisabledColor
+                      : DigitButtonConstants.defaultPrimaryColor)
                   : null,
             ),
             child: _buildButton(),
@@ -157,8 +162,8 @@ class _DigitButtonState extends State<DigitButton> {
                 color: widget.type == ButtonType.primary
                     ? DigitButtonConstants.defaultTextColor
                     : (widget.isDisabled
-                    ? DigitButtonConstants.defaultDisabledColor
-                    : DigitButtonConstants.defaultPrimaryColor),
+                        ? DigitButtonConstants.defaultDisabledColor
+                        : DigitButtonConstants.defaultPrimaryColor),
               ),
             ],
             Text(widget.label,
@@ -167,8 +172,8 @@ class _DigitButtonState extends State<DigitButton> {
                   color: widget.type == ButtonType.primary
                       ? DigitButtonConstants.defaultTextColor
                       : (widget.isDisabled
-                      ? DigitButtonConstants.defaultDisabledColor
-                      : DigitButtonConstants.defaultPrimaryColor),
+                          ? DigitButtonConstants.defaultDisabledColor
+                          : DigitButtonConstants.defaultPrimaryColor),
                   decoration: widget.type == ButtonType.link
                       ? TextDecoration.underline
                       : null,
@@ -180,8 +185,8 @@ class _DigitButtonState extends State<DigitButton> {
                 color: widget.type == ButtonType.primary
                     ? DigitButtonConstants.defaultTextColor
                     : (widget.isDisabled
-                    ? DigitButtonConstants.defaultDisabledColor
-                    : DigitButtonConstants.defaultPrimaryColor),
+                        ? DigitButtonConstants.defaultDisabledColor
+                        : DigitButtonConstants.defaultPrimaryColor),
               ),
             ],
           ],

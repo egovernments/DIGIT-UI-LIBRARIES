@@ -1,9 +1,8 @@
 import 'package:digit_components/digit_components.dart';
 import 'package:flutter/material.dart';
-
+import '../../constants/app_constants.dart';
 import '../../enum/app_enums.dart';
 import '../../models/chipModel.dart';
-import '../../theme/colors.dart';
 
 class SelectionChip<T> extends StatelessWidget {
   final SelectionType? selectionType;
@@ -27,18 +26,18 @@ class SelectionChip<T> extends StatelessWidget {
           ? Text('${item.type}: ${item.name}')
           : Text(item.name),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(50),
+        borderRadius: BorderRadius.circular(Default.defaultChipRadius),
       ),
       deleteIcon: Icon(
         Icons.cancel,
         color: const DigitColors().davyGray,
       ),
       deleteIconColor: chipConfig.deleteIconColor,
-      labelPadding: const EdgeInsets.only(top: 4, bottom: 4),
+      labelPadding: const EdgeInsets.symmetric(vertical: kPadding / 2),
       backgroundColor: const DigitColors().quillGray,
-      labelStyle: chipConfig.labelStyle ?? DigitTheme.instance.mobileTheme.textTheme.bodyMedium,
+      labelStyle: chipConfig.labelStyle ??
+          DigitTheme.instance.mobileTheme.textTheme.bodyMedium,
       onDeleted: () => onItemDelete(item),
     );
   }
 }
-

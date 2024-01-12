@@ -1,4 +1,35 @@
 library multiselect_dropdown;
+/*
+the MultiSelectDropDown component is used to create a multi-select dropdown with a list of options.
+The onOptionSelected callback is used to handle the selected items, and the appearance of the dropdown, chips,
+and other elements can be customized using various properties.
+
+ Example usage:
+ ```dart
+ MultiSelectDropDown(
+             // Provide the list of options
+             options: options,
+             // Provide the initially selected options
+             selectedOptions: selectedOptions,
+             // Define the callback function when options are selected/deselected
+             onOptionSelected: (List<DropdownItem> selectedItems) {
+               // Handle the selected items
+               setState(() {
+                 selectedOptions = selectedItems;
+               });
+             },
+             // Customize the appearance of chips
+             chipConfig: ChipConfig(
+               labelStyle: TextStyle(color: Colors.white),
+               backgroundColor: Colors.blue,
+               deleteIconColor: Colors.white,
+             ),
+             // Customize the suffix icon (dropdown arrow)
+             suffixIcon: Icon(Icons.arrow_drop_down),
+             // Customize the selection type (multiSelect or singleSelect)
+             selectionType: SelectionType.multiSelect,
+           ),
+ ....*/
 
 import 'package:collection/collection.dart';
 import 'package:digit_components/digit_components.dart';
@@ -13,41 +44,7 @@ import '../../models/chipModel.dart';
 import '../helper_widget/selection_chip.dart';
 import 'digit_checkbox_icon.dart';
 
-
-///the MultiSelectDropDown component is used to create a multi-select dropdown with a list of options.
-///The onOptionSelected callback is used to handle the selected items,
-/// and the appearance of the dropdown, chips,
-/// and other elements can be customized using various properties.
-///
-/// Example usage:
-/// ```dart
-/// MultiSelectDropDown(
-///             // Provide the list of options
-///             options: options,
-///             // Provide the initially selected options
-///             selectedOptions: selectedOptions,
-///             // Define the callback function when options are selected/deselected
-///             onOptionSelected: (List<DropdownItem> selectedItems) {
-///               // Handle the selected items
-///               setState(() {
-///                 selectedOptions = selectedItems;
-///               });
-///             },
-///             // Customize the appearance of chips
-///             chipConfig: ChipConfig(
-///               labelStyle: TextStyle(color: Colors.white),
-///               backgroundColor: Colors.blue,
-///               deleteIconColor: Colors.white,
-///             ),
-///             // Customize the suffix icon (dropdown arrow)
-///             suffixIcon: Icon(Icons.arrow_drop_down),
-///             // Customize the selection type (multiSelect or singleSelect)
-///             selectionType: SelectionType.multiSelect,
-///           ),
-///
-
-typedef OnOptionSelected<T> = void Function(
-    List<DropdownItem> selectedOptions);
+typedef OnOptionSelected<T> = void Function(List<DropdownItem> selectedOptions);
 
 class MultiSelectDropDown<int> extends StatefulWidget {
   /// selection type of the dropdown
@@ -214,9 +211,10 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
 
   @override
   Widget build(BuildContext context) {
-    double dropdownWidth = AppView.isMobileView(MediaQuery.of(context).size.width)
-        ? Default.mobileInputWidth
-        : Default.desktopInputWidth;
+    double dropdownWidth =
+        AppView.isMobileView(MediaQuery.of(context).size.width)
+            ? Default.mobileInputWidth
+            : Default.desktopInputWidth;
     return Column(
       children: [
         CompositedTransformTarget(
@@ -238,8 +236,9 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                     minWidth: Default.mobileInputWidth,
                     minHeight: Default.height,
                   ),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: kPadding,),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: kPadding,
+                  ),
                   decoration: _getContainerDecoration(),
                   child: Row(
                     children: [
@@ -340,6 +339,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
   OverlayEntry _buildOverlayEntry() {
     /// Calculate the offset and the size of the dropdown button
     final values = _calculateOffsetSize();
+
     /// Get the size from the first item in the values list
     final size = values[0] as Size;
 
@@ -351,13 +351,14 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
         return Stack(
           children: [
             Positioned.fill(
-                child: GestureDetector(
-              behavior: HitTestBehavior.translucent,
-              onTap: _onOutSideTap,
-              child: Container(
-                color: Colors.transparent,
+              child: GestureDetector(
+                behavior: HitTestBehavior.translucent,
+                onTap: _onOutSideTap,
+                child: Container(
+                  color: Colors.transparent,
+                ),
               ),
-            )),
+            ),
             CompositedTransformFollower(
               link: _layerLink,
               showWhenUnlinked: false,
@@ -388,18 +389,14 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
     });
   }
 
-  Widget _buildFlatOptions(
-      List<dynamic> values,
-      List<DropdownItem> options,
-      List<DropdownItem> selectedOptions,
-      StateSetter dropdownState) {
+  Widget _buildFlatOptions(List<dynamic> values, List<DropdownItem> options,
+      List<DropdownItem> selectedOptions, StateSetter dropdownState) {
     return ConstrainedBox(
       constraints: BoxConstraints(
         maxHeight: values[1] - 30,
       ),
       child: ListView.separated(
-        separatorBuilder: (_, __) =>
-            const SizedBox(height: 0),
+        separatorBuilder: (_, __) => const SizedBox(height: 0),
         shrinkWrap: true,
         padding: EdgeInsets.zero,
         itemCount: options.length,
@@ -422,11 +419,8 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
     );
   }
 
-  Widget _buildNestedOptions(
-      List<dynamic> values,
-      List<DropdownItem> options,
-      List<DropdownItem> selectedOptions,
-      StateSetter dropdownState) {
+  Widget _buildNestedOptions(List<dynamic> values, List<DropdownItem> options,
+      List<DropdownItem> selectedOptions, StateSetter dropdownState) {
     /// Group options by type
     final groupedOptions = groupBy(options, (option) => option.type);
 
@@ -450,7 +444,9 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                   color: const DigitColors().alabasterWhite,
                   child: Text(
                     type,
-                    style: DigitTheme.instance.mobileTheme.textTheme.headlineSmall?.copyWith(
+                    style: DigitTheme
+                        .instance.mobileTheme.textTheme.headlineSmall
+                        ?.copyWith(
                       color: const DigitColors().davyGray,
                     ),
                   ),
@@ -521,7 +517,8 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                       Text(
                         option.name,
                         style: DigitTheme
-                            .instance.mobileTheme.textTheme.headlineSmall?.copyWith(
+                            .instance.mobileTheme.textTheme.headlineSmall
+                            ?.copyWith(
                           color: isSelected
                               ? const DigitColors().white
                               : const DigitColors().davyGray,
@@ -551,8 +548,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
               ? const DigitColors().white
               : backgroundColor,
           selectedTileColor: const DigitColors().burningOrange,
-          contentPadding:
-              const EdgeInsets.symmetric(horizontal: 10),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 10),
           onTap: () {
             if (isSelected) {
               dropdownState(() {
@@ -618,8 +614,9 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
 
           return chip;
         }),
-        if (_selectedOptions
-            .isNotEmpty) /// Display "Clear All" only if there are selected options
+        if (_selectedOptions.isNotEmpty)
+
+          /// Display "Clear All" only if there are selected options
           InkWell(
             onTap: () => clear(),
             child: Chip(
@@ -630,8 +627,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                 ),
                 borderRadius: BorderRadius.circular(50),
               ),
-              padding:
-                  const EdgeInsets.symmetric(horizontal: kPadding),
+              padding: const EdgeInsets.symmetric(horizontal: kPadding),
               labelPadding: const EdgeInsets.only(top: 2, bottom: 2),
               label: Text('Clear All',
                   style: TextStyle(color: const DigitColors().burningOrange)),
@@ -698,7 +694,6 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
 /// This is just base class. The implementation of this class is in the MultiSelectController class.
 /// The implementation of this class is hidden from the user.
 class _MultiSelectController<T> {
-
   final List<DropdownItem> _options = [];
   final List<DropdownItem> _selectedOptions = [];
   bool _isDropdownOpen = false;
@@ -750,7 +745,6 @@ class MultiSelectController<T>
   /// add selected option
   /// [MultiSelectController] is used to add selected option.
   void addSelectedOption(DropdownItem option) {
-
     if (!value._options.contains(option)) {
       throw Exception('Cannot select option that is not in the options list');
     }

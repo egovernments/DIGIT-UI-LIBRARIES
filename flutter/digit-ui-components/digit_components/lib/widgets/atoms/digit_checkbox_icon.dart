@@ -1,10 +1,8 @@
-
 import 'package:flutter/material.dart';
 import '../../constants/app_constants.dart';
 import '../../enum/app_enums.dart';
 
 /// `DigitCheckboxIcon` is a widget that represents the visual appearance of a checkbox.
-///
 /// It supports three states: unchecked, intermediate, and checked. The appearance can be customized
 /// based on the state, disabled status, and color.
 class DigitCheckboxIcon extends StatelessWidget {
@@ -18,7 +16,8 @@ class DigitCheckboxIcon extends StatelessWidget {
   final Color? color;
 
   /// Creates a `DigitCheckboxIcon` widget with the given parameters.
-  const DigitCheckboxIcon({super.key,
+  const DigitCheckboxIcon({
+    super.key,
     required this.state,
     this.isDisabled = false,
     this.color,
@@ -38,7 +37,8 @@ class DigitCheckboxIcon extends StatelessWidget {
           height: CheckboxConstants.containerSize,
           decoration: BoxDecoration(
             border: Border.all(
-              color: CheckboxConstants.uncheckedBorderColor(isDisabled: isDisabled, customColor: color),
+              color: CheckboxConstants.uncheckedBorderColor(
+                  isDisabled: isDisabled, customColor: color),
               width: CheckboxConstants.borderWidth,
             ),
             borderRadius: BorderRadius.zero,
@@ -50,7 +50,8 @@ class DigitCheckboxIcon extends StatelessWidget {
           height: CheckboxConstants.containerSize,
           decoration: BoxDecoration(
             border: Border.all(
-              color: CheckboxConstants.intermediateBorderColor(isDisabled: isDisabled, customColor: color),
+              color: CheckboxConstants.intermediateBorderColor(
+                  isDisabled: isDisabled, customColor: color),
               width: CheckboxConstants.borderWidth,
             ),
             borderRadius: BorderRadius.zero,
@@ -59,7 +60,8 @@ class DigitCheckboxIcon extends StatelessWidget {
             child: Icon(
               Icons.square,
               size: CheckboxConstants.iconSize,
-              color: CheckboxConstants.iconColor(isDisabled: isDisabled, customColor: color),
+              color: CheckboxConstants.iconColor(
+                  isDisabled: isDisabled, customColor: color),
             ),
           ),
         );
@@ -69,7 +71,8 @@ class DigitCheckboxIcon extends StatelessWidget {
           height: CheckboxConstants.containerSize,
           decoration: BoxDecoration(
             border: Border.all(
-              color: CheckboxConstants.checkedBorderColor(isDisabled: isDisabled, customColor: color),
+              color: CheckboxConstants.checkedBorderColor(
+                  isDisabled: isDisabled, customColor: color),
               width: CheckboxConstants.borderWidth,
             ),
             borderRadius: BorderRadius.zero,
@@ -78,11 +81,11 @@ class DigitCheckboxIcon extends StatelessWidget {
             child: Icon(
               Icons.check,
               size: CheckboxConstants.iconSize,
-              color: CheckboxConstants.iconColor(isDisabled: isDisabled, customColor: color),
+              color: CheckboxConstants.iconColor(
+                  isDisabled: isDisabled, customColor: color),
             ),
           ),
         );
     }
   }
 }
-

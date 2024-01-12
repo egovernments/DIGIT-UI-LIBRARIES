@@ -1,3 +1,22 @@
+/*
+ DigitToggleList is a row of toggle buttons that allows selecting one item at a time.
+
+  Example usage:
+ ```dart
+ DigitToggleList(
+  toggleButtons: [
+    ToggleButtonModel(name: 'Option 1', onSelected: () => print('Option 1 selected')),
+    ToggleButtonModel(name: 'Option 2', onSelected: () => print('Option 2 selected')),
+    // Add more ToggleButtonModel instances as needed
+  ],
+  onChanged: (selectedValues) {
+    // Handle the selected values if needed
+    print('Selected values: $selectedValues');
+  },
+  contentPadding: EdgeInsets.symmetric(horizontal: 16), // Optional content padding
+)
+ ....*/
+
 import 'package:flutter/material.dart';
 import '../../models/toggleButtonModel.dart';
 import 'digit_toggle.dart';
@@ -26,7 +45,7 @@ class _DigitToggleListState extends State<DigitToggleList> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: widget.toggleButtons.map(
-            (button) {
+        (button) {
           final index = widget.toggleButtons.indexOf(button);
           return Padding(
             padding: widget.contentPadding ?? const EdgeInsets.only(bottom: 8),
@@ -63,4 +82,3 @@ class _DigitToggleListState extends State<DigitToggleList> {
     );
   }
 }
-

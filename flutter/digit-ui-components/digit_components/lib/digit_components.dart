@@ -1,7 +1,5 @@
 library digit_components;
 
-// import 'package:google_fonts/google_fonts.dart';
-
 export 'theme/theme.dart';
 export 'widgets/widgets.dart';
 
@@ -12,6 +10,6 @@ class DigitUi {
   const DigitUi._internal();
 
   Future<void> initThemeComponents() async {
-    // GoogleFonts.config.allowRuntimeFetching = false;
+    /// can be used to add custom theme components
   }
 }

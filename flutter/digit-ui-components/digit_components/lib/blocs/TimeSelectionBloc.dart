@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../utils/time_utils.dart';
 
-class TimeBloc {
+class TimeSelectionBloc {
   Future<void> selectTime({
     required BuildContext context,
     required TextEditingController controller,

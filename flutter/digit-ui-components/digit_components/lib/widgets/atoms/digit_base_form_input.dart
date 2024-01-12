@@ -1,4 +1,3 @@
-
 import 'package:digit_components/digit_components.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -276,12 +275,16 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
               hoverColor: const DigitColors().transaparent,
               constraints: inputWidth == Default.mobileInputWidth
                   ? BoxConstraints(
-                      maxHeight: widget.minLine > 1 ? BaseConstants.inputMaxHeight : BaseConstants.inputMinHeight,
+                      maxHeight: widget.minLine > 1
+                          ? BaseConstants.inputMaxHeight
+                          : BaseConstants.inputMinHeight,
                       minHeight: BaseConstants.inputMinHeight,
                       minWidth: BaseConstants.mobileInputMinWidth,
                     )
                   : BoxConstraints(
-                      maxHeight: widget.minLine > 1 ? BaseConstants.inputMaxHeight : BaseConstants.inputMinHeight,
+                      maxHeight: widget.minLine > 1
+                          ? BaseConstants.inputMaxHeight
+                          : BaseConstants.inputMinHeight,
                       minHeight: BaseConstants.inputMinHeight,
                       minWidth: BaseConstants.desktopInputMinWidth,
                     ),
@@ -290,7 +293,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                       12,
                     )
                   : const EdgeInsets.symmetric(
-                      vertical: kPadding/2,
+                      vertical: kPadding / 2,
                       horizontal: 12,
                     ),
               hintText: widget.innerLabel,
@@ -308,7 +311,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                 borderRadius: BorderRadius.zero,
               ),
               focusedBorder: BaseConstants.focusedBorder,
-              disabledBorder:BaseConstants.disabledBorder,
+              disabledBorder: BaseConstants.disabledBorder,
               prefixIconConstraints: widget.prefixIcon != null
                   ? const BoxConstraints(
                       maxWidth: 48,
