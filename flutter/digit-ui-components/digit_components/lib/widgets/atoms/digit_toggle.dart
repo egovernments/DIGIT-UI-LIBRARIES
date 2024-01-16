@@ -20,6 +20,7 @@ class DigitToggle extends StatefulWidget {
 
 class _DigitToggleState extends State<DigitToggle> {
   bool isHovered = false;
+  bool isMouseDown = false;
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +38,18 @@ class _DigitToggleState extends State<DigitToggle> {
           });
         },
         child: GestureDetector(
+          onTapDown: (_) {
+            /// Handle mouse down state
+            setState(() {
+              isMouseDown = true;
+            });
+          },
+          onTapUp: (_) {
+            /// Handle mouse up state
+            setState(() {
+              isMouseDown = false;
+            });
+          },
           onTap: () {
             widget.onChanged(true);
           },
@@ -50,21 +63,31 @@ class _DigitToggleState extends State<DigitToggle> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.zero,
               border: Border.all(
-                color: (isHovered || widget.isSelected)
+                color: (isHovered || widget.isSelected || isMouseDown)
                     ? const DigitColors().burningOrange
                     : const DigitColors().cloudGray,
                 width: 1.0,
               ),
               color: widget.isSelected
                   ? const DigitColors().burningOrange
-                  : Colors.transparent,
+                  : const DigitColors().white,
+              boxShadow: [
+                BoxShadow(
+                  color: isMouseDown ? const DigitColors().shadowColor : const DigitColors().transaparent,
+                  offset: const Offset(
+                    0,
+                    0,
+                  ),
+                  spreadRadius: 2,
+                ),
+              ],
             ),
             child: Center(
               child: Text(
                 widget.label,
                 textAlign: TextAlign.center,
                 style: DigitTheme.instance.mobileTheme.textTheme.bodyMedium?.copyWith(
-                  color: (isHovered && !widget.isSelected)
+                  color: (isHovered && !widget.isSelected || isMouseDown)
                       ? const DigitColors().burningOrange
                       : widget.isSelected
                       ? const DigitColors().white

@@ -22,6 +22,7 @@ Example usage:
 
 import 'package:digit_components/digit_components.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import '../../constants/app_constants.dart';
 import '../../enum/app_enums.dart';
 
@@ -72,6 +73,7 @@ class DigitButton extends StatefulWidget {
 
 class _DigitButtonState extends State<DigitButton> {
   bool isHovered = false;
+  bool isMouseDown = false;
 
   @override
   Widget build(BuildContext context) {
@@ -99,6 +101,18 @@ class _DigitButtonState extends State<DigitButton> {
     if (widget.type == ButtonType.primary ||
         widget.type == ButtonType.secondary) {
       return InkWell(
+        onTapDown: (_) {
+          /// Handle mouse down state
+          setState(() {
+            isMouseDown = true;
+          });
+        },
+        onTapUp: (_) {
+          /// Handle mouse up state
+          setState(() {
+            isMouseDown = false;
+          });
+        },
         onTap: widget.isDisabled ? null : widget.onPressed,
         splashColor: const DigitColors().transaparent,
         hoverColor: const DigitColors().transaparent,
@@ -106,16 +120,30 @@ class _DigitButtonState extends State<DigitButton> {
           child: Container(
             padding: widget.buttonPadding,
             decoration: BoxDecoration(
-              boxShadow: (widget.type == ButtonType.primary)
+              boxShadow: (widget.type == ButtonType.primary &&
+                      (isHovered == false || isMouseDown))
                   ? [
                       BoxShadow(
-                        color: isHovered
-                            ? DigitButtonConstants.defaultPrimaryColor
+                        color: isMouseDown
+                            ? const DigitColors().burningOrange
                             : DigitButtonConstants.defaultSecondaryColor,
-                        offset: const Offset(0, 2.0),
+                        offset: isMouseDown
+                            ? const Offset(0, 0)
+                            : const Offset(0, 2.0),
+                        spreadRadius: 0,
+                        blurRadius: isMouseDown ? 4.50 : 0,
                       ),
                     ]
-                  : [],
+                  : isMouseDown
+                      ? [
+                          BoxShadow(
+                            color: const DigitColors().burningOrange,
+                            offset: const Offset(0, 0),
+                            spreadRadius: 0,
+                            blurRadius: 4.50,
+                          ),
+                        ]
+                      : [],
               borderRadius: BorderRadius.zero,
               border: Border.all(
                 color: widget.isDisabled
@@ -128,8 +156,12 @@ class _DigitButtonState extends State<DigitButton> {
               color: widget.type == ButtonType.primary
                   ? (widget.isDisabled
                       ? DigitButtonConstants.defaultDisabledColor
-                      : DigitButtonConstants.defaultPrimaryColor)
-                  : null,
+                      : isHovered
+                          ? isMouseDown
+                              ? const DigitColors().burningOrange
+                              : const DigitColors().primaryOrange
+                          : const DigitColors().burningOrange)
+                  : const DigitColors().white,
             ),
             child: _buildButton(),
           ),
@@ -137,11 +169,26 @@ class _DigitButtonState extends State<DigitButton> {
       );
     } else {
       return InkWell(
+        onTapDown: (_) {
+          /// Handle mouse down state
+          setState(() {
+            isMouseDown = true;
+          });
+        },
+        onTapUp: (_) {
+          /// Handle mouse up state
+          setState(() {
+            isMouseDown = false;
+          });
+        },
+
         onTap: widget.isDisabled ? null : widget.onPressed,
         hoverColor: const DigitColors().transaparent,
         splashColor: const DigitColors().transaparent,
         child: IntrinsicWidth(
-          child: _buildButton(),
+          child: Container(
+            color: const DigitColors().transaparent,
+              child: _buildButton()),
         ),
       );
     }
@@ -149,11 +196,19 @@ class _DigitButtonState extends State<DigitButton> {
 
   /// Build the content of the button, including label and icons.
   Widget _buildButton() {
+    String truncatedLabel = widget.label;
+
+    // Truncate label if it exceeds 64 characters
+    if (widget.type != ButtonType.link && widget.label.length > 64) {
+      truncatedLabel = '${widget.label.substring(0, 64)}...';
+    }
     return Center(
       child: Padding(
         padding: widget.contentPadding,
         child: Row(
+          mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             if (widget.prefixIcon != null) ...[
               Icon(
@@ -165,20 +220,31 @@ class _DigitButtonState extends State<DigitButton> {
                         ? DigitButtonConstants.defaultDisabledColor
                         : DigitButtonConstants.defaultPrimaryColor),
               ),
+              const Gap(kPadding / 2),
             ],
-            Text(widget.label,
-                style: DigitTheme.instance.mobileTheme.textTheme.bodyLarge
-                    ?.copyWith(
-                  color: widget.type == ButtonType.primary
-                      ? DigitButtonConstants.defaultTextColor
-                      : (widget.isDisabled
-                          ? DigitButtonConstants.defaultDisabledColor
-                          : DigitButtonConstants.defaultPrimaryColor),
-                  decoration: widget.type == ButtonType.link
-                      ? TextDecoration.underline
-                      : null,
-                )),
+            Flexible(
+              child: Text(
+                truncatedLabel,
+                style: widget.type == ButtonType.link
+                    ? DigitTheme.instance.mobileTheme.textTheme.bodyLarge
+                        ?.copyWith(
+                            color: widget.isDisabled
+                                ? DigitButtonConstants.defaultDisabledColor
+                                : DigitButtonConstants.defaultPrimaryColor,
+                            decoration: TextDecoration.underline)
+                    : DigitTheme.instance.mobileTheme.textTheme.labelLarge
+                        ?.copyWith(
+                        color: widget.type == ButtonType.primary
+                            ? DigitButtonConstants.defaultTextColor
+                            : (widget.isDisabled
+                                ? DigitButtonConstants.defaultDisabledColor
+                                : DigitButtonConstants.defaultPrimaryColor),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+              ),
+            ),
             if (widget.suffixIcon != null) ...[
+              const Gap(kPadding / 2),
               Icon(
                 widget.suffixIcon,
                 size: widget.iconSize,
