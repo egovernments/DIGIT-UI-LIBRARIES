@@ -31,7 +31,8 @@ jobs:
          run: flutter --disable-telemetry 
          
        - name: Disable Config
-         run: flutter pub add digit_components
+         run: cd flutter/digit-ui-components/digit_components || exit 
+          app_root="$PWD"
 
        - name: Install Dependencies
          run: flutter pub get
