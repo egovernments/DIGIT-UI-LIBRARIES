@@ -32,11 +32,11 @@ jobs:
          
        - name: Navigate to Root Folder
          run: ${{ github.workspace }}
-          home="$PWD"
-          cd flutter/digit-ui-components/digit_components
+          cd flutter/digit-ui-components/example
 
        - name: Install Dependencies
-         run: flutter pub get
+         run: ${{ github.workspace }}
+          flutter pub get
 
        - name: Run Tests
          run: flutter test
