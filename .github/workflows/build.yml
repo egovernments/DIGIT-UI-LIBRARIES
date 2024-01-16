@@ -30,10 +30,9 @@ jobs:
        - name: Disable Config
          run: flutter --disable-telemetry 
          
-       - name: Disable Config
+       - name: Navigate to Root Folder
          run: home="$PWD"
-          cd ./flutter/digit-ui-components/example || exit 
-          app_root="$PWD"
+          cd ./flutter/digit-ui-components/example
 
        - name: Install Dependencies
          run: flutter pub get
