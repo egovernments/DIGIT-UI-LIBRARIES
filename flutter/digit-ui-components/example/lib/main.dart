@@ -500,7 +500,7 @@ class MyHomePageState extends State<MyHomePage> {
                   ),
                   DigitButton(
                     prefixIcon: Icons.add,
-                    label: 'Primary Button',
+                    label: 'primary Button',
                     onPressed: () {
                       // Add your primary button logic here
                       print('Primary button pressed');
@@ -509,7 +509,7 @@ class MyHomePageState extends State<MyHomePage> {
                   ),
                   const SizedBox(height: 16),
                   DigitButton(
-                    label: 'Secondary Button',
+                    label: 'secondary Button',
                     onPressed: () {
                       // Add your secondary button logic here
                       print('Secondary button pressed');
@@ -518,7 +518,7 @@ class MyHomePageState extends State<MyHomePage> {
                   ),
                   const SizedBox(height: 16),
                   DigitButton(
-                    label: 'Link',
+                    label: 'link',
                     onPressed: () {
                       // Add your secondary button logic here
                       print('link pressed');
@@ -572,7 +572,7 @@ class MyHomePageState extends State<MyHomePage> {
                   ),
                   const SizedBox(height: 16),
                   DigitCheckbox(
-                    label: 'checkbox',
+                    label: 'checkboxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
                     value: false,
                     onChanged: (value) {
                       print(value);

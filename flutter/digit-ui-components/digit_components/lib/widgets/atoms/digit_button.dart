@@ -183,11 +183,11 @@ class _DigitButtonState extends State<DigitButton> {
         },
 
         onTap: widget.isDisabled ? null : widget.onPressed,
-        hoverColor: const DigitColors().transaparent,
-        splashColor: const DigitColors().transaparent,
+        hoverColor: const DigitColors().transaparent.withOpacity(0),
+        splashColor: const DigitColors().transaparent.withOpacity(0),
         child: IntrinsicWidth(
           child: Container(
-            color: const DigitColors().transaparent,
+            color: const DigitColors().transaparent.withOpacity(0),
               child: _buildButton()),
         ),
       );
@@ -198,9 +198,13 @@ class _DigitButtonState extends State<DigitButton> {
   Widget _buildButton() {
     String truncatedLabel = widget.label;
 
-    // Truncate label if it exceeds 64 characters
-    if (widget.type != ButtonType.link && widget.label.length > 64) {
-      truncatedLabel = '${widget.label.substring(0, 64)}...';
+    /// Truncate label if it exceeds 64 characters &&  Capitalize the first letter of the label
+    if (widget.type != ButtonType.link) {
+      truncatedLabel =
+      truncatedLabel.isEmpty ? truncatedLabel : truncatedLabel[0].toUpperCase() + truncatedLabel.substring(1);
+      if(widget.label.length > 64){
+        truncatedLabel = '${widget.label.substring(0, 64)}...';
+      }
     }
     return Center(
       child: Padding(
