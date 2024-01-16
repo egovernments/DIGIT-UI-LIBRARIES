@@ -32,7 +32,7 @@ jobs:
          
        - name: Disable Config
          run: home="$PWD"
-          cd flutter/digit-ui-components/example || exit 
+          cd ./flutter/digit-ui-components/example || exit 
           app_root="$PWD"
 
        - name: Install Dependencies
