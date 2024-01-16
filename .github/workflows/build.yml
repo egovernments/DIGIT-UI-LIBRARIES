@@ -29,6 +29,9 @@ jobs:
           
        - name: Disable Config
          run: flutter --disable-telemetry 
+         
+       - name: Disable Config
+         run: flutter pub add digit_components
 
        - name: Install Dependencies
          run: flutter pub get
