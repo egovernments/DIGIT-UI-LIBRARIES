@@ -26,6 +26,9 @@ jobs:
          uses: subosito/flutter-action@v2.8.0
          with:
           flutter-version: "3.10.5"
+          
+       - name: Disable Config
+         run: flutter --disable-telemetry 
 
        - name: Install Dependencies
          run: flutter pub get
