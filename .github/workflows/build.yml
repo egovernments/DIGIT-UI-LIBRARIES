@@ -32,7 +32,7 @@ jobs:
          
        - name: Navigate to Root Folder
          run: home="$PWD"
-          cd ./flutter/digit-ui-components/example
+          cd flutter/digit-ui-components/digit_components
 
        - name: Install Dependencies
          run: flutter pub get
