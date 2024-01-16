@@ -31,7 +31,10 @@ jobs:
          run: flutter --disable-telemetry 
          
        - name: Navigate to Root Folder
-         run: cd /home/runner/work/DIGIT-UI-LIBRARIES/DIGIT-UI-LIBRARIES/flutter/digit-ui-components/example
+         run: |
+           cd flutter/digit-ui-components/digit_components || exit
+           app_root="$PWD"
+              echo "Current directory: $PWD"
 
 
        - name: Install Dependencies
