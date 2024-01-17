@@ -491,6 +491,7 @@ class MyHomePageState extends State<MyHomePage> {
                             print('Toggle 3 selected!');
                           }),
                     ],
+                    selectedIndex: 1,
                     onChanged: (selectedValues) {
                       print('Selected values: $selectedValues');
                     },
@@ -500,7 +501,7 @@ class MyHomePageState extends State<MyHomePage> {
                   ),
                   DigitButton(
                     prefixIcon: Icons.add,
-                    label: 'primary Button',
+                    label: 'p',
                     onPressed: () {
                       // Add your primary button logic here
                       print('Primary button pressed');
@@ -572,7 +573,7 @@ class MyHomePageState extends State<MyHomePage> {
                   ),
                   const SizedBox(height: 16),
                   DigitCheckbox(
-                    label: 'checkboxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+                    label: 'checkbox',
                     value: false,
                     onChanged: (value) {
                       print(value);

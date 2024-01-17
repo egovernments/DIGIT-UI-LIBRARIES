@@ -469,6 +469,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
             ],
           );
         },
+
       ),
     );
   }
@@ -574,7 +575,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
           },
         ),
         Container(
-          height: 2,
+          height: 1,
           color: const DigitColors().quillGray,
           width: MediaQuery.of(context).size.width,
           margin: const EdgeInsets.only(

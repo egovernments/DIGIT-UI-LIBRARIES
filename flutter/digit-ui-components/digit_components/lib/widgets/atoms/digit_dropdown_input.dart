@@ -84,6 +84,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
   late List<DropdownItem> filteredItems;
   late List<DropdownItem> _lastFilteredItems;
   late List<bool> itemHoverStates;
+  late List<bool> itemMouseDownStates;
 
   @override
   void initState() {
@@ -92,6 +93,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
     filteredItems = List.from(widget.items);
     _lastFilteredItems = List.from(widget.items);
     itemHoverStates = List.generate(widget.items.length, (index) => false);
+    itemMouseDownStates = List.generate(widget.items.length, (index) => false);
     _animationController = AnimationController(
         vsync: this, duration: DropdownConstants.animationDuration);
     _expandAnimation = CurvedAnimation(
@@ -302,6 +304,16 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
               return StatefulBuilder(
                 builder: (context, setState) {
                   return InkWell(
+                    onTapDown: (details) {
+                      setState(() {
+                        itemHoverStates[item.key] = true;
+                      });
+                    },
+                    onTapUp: (details) {
+                      setState(() {
+                        itemHoverStates[item.key] = false;
+                      });
+                    },
                     splashColor: const DigitColors().transaparent,
                     hoverColor: const DigitColors().transaparent,
                     onHover: (hover) {
@@ -545,7 +557,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
 
                     /// Divider after each option
                     Container(
-                      height: 2,
+                      height: 1,
                       color: const DigitColors().quillGray,
                       width: MediaQuery.of(context).size.width,
                       margin: const EdgeInsets.symmetric(
@@ -559,6 +571,10 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
               },
             ),
           );
+        }
+        /// Add space if it's not the last type
+        if (type != uniqueTypes.last) {
+          groupedItems.add(const Gap(16),); // Adjust the spacing as needed
         }
       }
     }

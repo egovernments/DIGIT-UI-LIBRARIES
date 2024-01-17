@@ -51,7 +51,10 @@ class _DigitToggleState extends State<DigitToggle> {
             });
           },
           onTap: () {
-            widget.onChanged(true);
+            print(widget.isSelected);
+            if(widget.isSelected==false){
+              widget.onChanged(true);
+            }
           },
           child: Container(
             height: 32,
@@ -78,7 +81,8 @@ class _DigitToggleState extends State<DigitToggle> {
                     0,
                     0,
                   ),
-                  spreadRadius: 2,
+                  spreadRadius: 0,
+                  blurRadius: 6,
                 ),
               ],
             ),
