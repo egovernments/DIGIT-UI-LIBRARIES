@@ -86,13 +86,15 @@ class _DigitRadioListState extends State<DigitRadioList> {
     if (AppView.isMobileView(MediaQuery.of(context).size.width)) {
       /// Mobile view layout
       return Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: _buildRadioButtons(),
       );
     } else {
       /// Tablet or desktop view layout
       return Row(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: _buildRadioButtons(),
       );
     }
@@ -176,14 +178,17 @@ class _DigitRadioListState extends State<DigitRadioList> {
                       ),
                       Align(
                         alignment: Alignment.center,
-                        child: Text(
-                          button.name,
-                          style: DigitTheme
-                              .instance.mobileTheme.textTheme.bodyLarge
-                              ?.copyWith(
-                            color: widget.isDisabled
-                                ? const DigitColors().cloudGray
-                                : const DigitColors().woodsmokeBlack,
+                        child: Flexible(
+                          child: Text(
+                            button.name,
+                            style: DigitTheme
+                                .instance.mobileTheme.textTheme.bodyLarge
+                                ?.copyWith(
+                              color: widget.isDisabled
+                                  ? const DigitColors().cloudGray
+                                  : const DigitColors().woodsmokeBlack,
+                              overflow: TextOverflow.ellipsis
+                            ),
                           ),
                         ),
                       ),

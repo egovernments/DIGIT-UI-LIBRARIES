@@ -448,14 +448,16 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                             ),
                           ],
                         )
-                      : Text(
-                          widget.helpText!,
-                          style: DigitTheme
-                              .instance.mobileTheme.textTheme.bodyMedium
-                              ?.copyWith(
-                            color: const DigitColors().davyGray,
+                      : Expanded(
+                        child: Text(
+                            widget.helpText!,
+                            style: DigitTheme
+                                .instance.mobileTheme.textTheme.bodyMedium
+                                ?.copyWith(
+                              color: const DigitColors().davyGray,
+                            ),
                           ),
-                        ),
+                      ),
                 if (widget.helpText == null && _hasError == false)
                   const Spacer(),
                 if (widget.charCount == true)
