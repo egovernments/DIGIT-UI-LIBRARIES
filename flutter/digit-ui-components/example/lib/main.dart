@@ -491,6 +491,7 @@ class MyHomePageState extends State<MyHomePage> {
                             print('Toggle 3 selected!');
                           }),
                     ],
+                    selectedIndex: 1,
                     onChanged: (selectedValues) {
                       print('Selected values: $selectedValues');
                     },
@@ -500,7 +501,7 @@ class MyHomePageState extends State<MyHomePage> {
                   ),
                   DigitButton(
                     prefixIcon: Icons.add,
-                    label: 'Primary Button',
+                    label: 'p',
                     onPressed: () {
                       // Add your primary button logic here
                       print('Primary button pressed');
@@ -509,7 +510,7 @@ class MyHomePageState extends State<MyHomePage> {
                   ),
                   const SizedBox(height: 16),
                   DigitButton(
-                    label: 'Secondary Button',
+                    label: 'secondary Button',
                     onPressed: () {
                       // Add your secondary button logic here
                       print('Secondary button pressed');
@@ -518,7 +519,7 @@ class MyHomePageState extends State<MyHomePage> {
                   ),
                   const SizedBox(height: 16),
                   DigitButton(
-                    label: 'Link',
+                    label: 'link',
                     onPressed: () {
                       // Add your secondary button logic here
                       print('link pressed');

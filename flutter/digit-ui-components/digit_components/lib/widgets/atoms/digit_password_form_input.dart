@@ -34,7 +34,7 @@ class DigitPasswordFormInput extends BaseDigitFormInput {
     String? helpText,
     TooltipTriggerMode triggerMode = TooltipTriggerMode.tap,
     bool preferToolTipBelow = false,
-    IconData suffix = Icons.visibility,
+    IconData suffix = Icons.visibility_off,
     void Function(String?)? onError,
     void Function(String)? onSuffixTap,
     final List<Validator>? validations,

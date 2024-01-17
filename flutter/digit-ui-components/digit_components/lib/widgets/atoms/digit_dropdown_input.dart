@@ -545,7 +545,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
 
                     /// Divider after each option
                     Container(
-                      height: 2,
+                      height: 1,
                       color: const DigitColors().quillGray,
                       width: MediaQuery.of(context).size.width,
                       margin: const EdgeInsets.symmetric(
@@ -559,6 +559,10 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
               },
             ),
           );
+        }
+        /// Add space if it's not the last type
+        if (type != uniqueTypes.last) {
+          groupedItems.add(const Gap(16),); // Adjust the spacing as needed
         }
       }
     }

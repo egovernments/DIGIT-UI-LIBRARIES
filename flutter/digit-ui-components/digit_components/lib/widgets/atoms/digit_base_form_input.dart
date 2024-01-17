@@ -242,6 +242,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                     color: const DigitColors().woodsmokeBlack,
                   ),
                 ),
+              if (widget?.info == true) const Gap(kPadding/2),
               if (widget?.info == true)
                 Tooltip(
                   message: widget.infoText,
@@ -368,7 +369,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                             ),
                             child: Icon(
                               isVisible == true
-                                  ? Icons.visibility_off
+                                  ? Icons.visibility
                                   : widget.suffix,
                               size: BaseConstants.suffixIconSize,
                             ),
@@ -436,6 +437,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                               color: const DigitColors().lavaRed,
                               size: BaseConstants.errorIconSize,
                             ),
+                            const Gap(kPadding/2),
                             Text(
                               _errorMessage!,
                               style: DigitTheme
@@ -446,14 +448,16 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                             ),
                           ],
                         )
-                      : Text(
-                          widget.helpText!,
-                          style: DigitTheme
-                              .instance.mobileTheme.textTheme.bodyMedium
-                              ?.copyWith(
-                            color: const DigitColors().davyGray,
+                      : Expanded(
+                        child: Text(
+                            widget.helpText!,
+                            style: DigitTheme
+                                .instance.mobileTheme.textTheme.bodyMedium
+                                ?.copyWith(
+                              color: const DigitColors().davyGray,
+                            ),
                           ),
-                        ),
+                      ),
                 if (widget.helpText == null && _hasError == false)
                   const Spacer(),
                 if (widget.charCount == true)

@@ -68,6 +68,7 @@ class DigitRadioList extends StatefulWidget {
 class _DigitRadioListState extends State<DigitRadioList> {
   /// List to track whether each radio button is being hovered over
   late List<bool> isHoveredList;
+  late List<bool> isMouseDown;
 
   /// Initialize the state
   @override
@@ -76,6 +77,7 @@ class _DigitRadioListState extends State<DigitRadioList> {
 
     /// Initialize the hover list with false values
     isHoveredList = List.generate(widget.radioButtons.length, (index) => false);
+    isMouseDown = List.generate(widget.radioButtons.length, (index) => false);
   }
 
   /// Build the widget based on screen width
@@ -84,13 +86,15 @@ class _DigitRadioListState extends State<DigitRadioList> {
     if (AppView.isMobileView(MediaQuery.of(context).size.width)) {
       /// Mobile view layout
       return Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: _buildRadioButtons(),
       );
     } else {
       /// Tablet or desktop view layout
       return Row(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: _buildRadioButtons(),
       );
     }
@@ -117,14 +121,24 @@ class _DigitRadioListState extends State<DigitRadioList> {
                   });
                 },
                 child: GestureDetector(
+                  onTapDown: (_) {
+                    /// Handle mouse down state
+                    setState(() {
+                      isMouseDown[index] = true;
+                    });
+                  },
+                  onTapUp: (_) {
+                    /// Handle mouse up state
+                    setState(() {
+                      isMouseDown[index] = false;
+                    });
+                  },
                   onTap: widget.isDisabled
                       ? null
                       : () {
                           setState(() {
                             /// Update the selected value and call the onChanged callback
-                            widget.groupValue == button.code
-                                ? widget.groupValue = ''
-                                : widget.groupValue = button.code;
+                            widget.groupValue = button.code;
                           });
                           widget.onChanged!(widget.groupValue);
                         },
@@ -141,7 +155,7 @@ class _DigitRadioListState extends State<DigitRadioList> {
                             color: widget.isDisabled
                                 ? const DigitColors().cloudGray
                                 : (widget.groupValue == button.code ||
-                                        isHoveredList[index])
+                                        isHoveredList[index] || isMouseDown[index])
                                     ? const DigitColors().burningOrange
                                     : const DigitColors().davyGray,
                             width: 1.0,
@@ -164,14 +178,17 @@ class _DigitRadioListState extends State<DigitRadioList> {
                       ),
                       Align(
                         alignment: Alignment.center,
-                        child: Text(
-                          button.name,
-                          style: DigitTheme
-                              .instance.mobileTheme.textTheme.bodyLarge
-                              ?.copyWith(
-                            color: widget.isDisabled
-                                ? const DigitColors().cloudGray
-                                : const DigitColors().woodsmokeBlack,
+                        child: Flexible(
+                          child: Text(
+                            button.name,
+                            style: DigitTheme
+                                .instance.mobileTheme.textTheme.bodyLarge
+                                ?.copyWith(
+                              color: widget.isDisabled
+                                  ? const DigitColors().cloudGray
+                                  : const DigitColors().woodsmokeBlack,
+                              overflow: TextOverflow.ellipsis
+                            ),
                           ),
                         ),
                       ),

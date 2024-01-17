@@ -19,18 +19,21 @@
 
 import 'package:flutter/material.dart';
 import '../../models/toggleButtonModel.dart';
+import '../../theme/digit_theme.dart';
 import 'digit_toggle.dart';
 
 class DigitToggleList extends StatefulWidget {
   final List<ToggleButtonModel> toggleButtons;
   final void Function(List<bool> selectedValues) onChanged;
   final EdgeInsets? contentPadding;
+  final int selectedIndex;
 
   const DigitToggleList({
     Key? key,
     required this.toggleButtons,
     required this.onChanged,
     this.contentPadding,
+    required this.selectedIndex,
   }) : super(key: key);
 
   @override
@@ -41,6 +44,14 @@ class _DigitToggleListState extends State<DigitToggleList> {
   int? selectedIndex;
 
   @override
+  void initState() {
+    super.initState();
+
+    /// Find the index of current selected toggle
+    selectedIndex = widget.selectedIndex;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -48,23 +59,20 @@ class _DigitToggleListState extends State<DigitToggleList> {
         (button) {
           final index = widget.toggleButtons.indexOf(button);
           return Padding(
-            padding: widget.contentPadding ?? const EdgeInsets.only(bottom: 8),
+            padding: widget.contentPadding ??
+                const EdgeInsets.only(bottom: kPadding),
             child: DigitToggle(
               onChanged: (isSelected) {
                 setState(() {
                   if (isSelected) {
-                    if (selectedIndex != null && selectedIndex == index) {
-                      /// Clicked on the already selected item, unselect it
-                      selectedIndex = null;
-                    } else {
+                    if (selectedIndex != null ) {
                       /// Unselect the previously selected item
-                      if (selectedIndex != null) {
                         widget.toggleButtons[selectedIndex!].onSelected?.call();
-                      }
-                      selectedIndex = index;
+                        selectedIndex = index;
                     }
                   } else {
-                    selectedIndex = null;
+                    /// Clicking on the already selected button, do nothing
+                    return;
                   }
                 });
 
