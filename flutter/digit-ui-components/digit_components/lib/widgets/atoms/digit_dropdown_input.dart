@@ -46,8 +46,14 @@ class DigitDropdown<T> extends StatefulWidget {
   /// used for text with icon
   final IconData? textIcon;
 
+  /// default selected option
+  final DropdownItem? selectedOption;
+
   /// dropdown button icon defaults to caret
   final Icon? icon;
+
+  /// Whether the dropdown should be searchable or not.
+  final bool isSearchable;
 
   final DropdownType dropdownType;
 
@@ -63,6 +69,8 @@ class DigitDropdown<T> extends StatefulWidget {
     this.dropdownType = DropdownType.defaultSelect,
     required this.textEditingController,
     this.emptyItemText = "No Options available",
+    this.isSearchable = false,
+    this.selectedOption,
   }) : super(key: key);
 
   @override
@@ -80,7 +88,6 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
   int _nestedIndex = -1;
   late AnimationController _animationController;
   late Animation<double> _expandAnimation;
-  late Animation<double> _rotateAnimation;
   late List<DropdownItem> filteredItems;
   late List<DropdownItem> _lastFilteredItems;
   late List<bool> itemHoverStates;
@@ -98,19 +105,12 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
       parent: _animationController,
       curve: Curves.easeInOut,
     );
-    _rotateAnimation = Tween(begin: 0.0, end: 0.5).animate(CurvedAnimation(
-      parent: _animationController,
-      curve: Curves.easeInOut,
-    ));
   }
 
   @override
   void dispose() {
     _focusNode.removeListener(_onFocusChange);
     _focusNode.dispose();
-
-    /// Dispose the AnimationController
-    _animationController.dispose();
     super.dispose();
   }
 
@@ -137,15 +137,20 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
         child: TextField(
           onTap: () {
             _toggleDropdown();
-            FocusScope.of(context).requestFocus(_focusNode);
+            // if (!widget.isSearchable) {
+            //   /// Unfocus the TextField if the dropdown is not searchable
+            //   FocusScope.of(context).requestFocus(FocusNode());
+            // } else {
+            //   FocusScope.of(context).requestFocus(_focusNode);
+            // }
           },
-          onChanged: (input) {
+          onChanged: widget.isSearchable ? (input) {
             _filterItems(input);
             if (!listEquals(filteredItems, _lastFilteredItems)) {
               _updateOverlay();
               _lastFilteredItems = filteredItems;
             }
-          },
+          }: null,
           focusNode: _focusNode,
           controller: widget.textEditingController,
           decoration: InputDecoration(
@@ -165,10 +170,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
             contentPadding: const EdgeInsets.only(
               left: 8,
             ),
-            suffixIcon: RotationTransition(
-              turns: _rotateAnimation,
-              child: widget.icon ?? const Icon(Icons.arrow_drop_down),
-            ),
+            suffixIcon: const Icon(Icons.arrow_drop_down),
             suffixIconColor: const DigitColors().davyGray,
           ),
         ),

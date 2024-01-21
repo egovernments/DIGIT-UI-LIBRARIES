@@ -54,7 +54,7 @@ class TreeSelectDropDown<int> extends StatefulWidget {
   final ChipConfig chipConfig;
 
   /// dropdownfield configuration
-  final Icon? suffixIcon;
+  final IconData suffixIcon;
   final Decoration? inputDecoration;
 
   /// focus node
@@ -71,7 +71,7 @@ class TreeSelectDropDown<int> extends StatefulWidget {
     this.treeSelectionType = TreeSelectionType.MultiSelect,
     this.selectedOptions = const [],
     this.chipConfig = const ChipConfig(),
-    this.suffixIcon = const Icon(Icons.arrow_drop_down),
+    this.suffixIcon = Icons.arrow_drop_down,
     this.inputDecoration,
     this.focusNode,
     this.controller,
@@ -112,6 +112,9 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
 
   void _initialize() {
     if (!mounted) return;
+    _options.addAll(_controller?.options.isNotEmpty == true
+        ? _controller!.options
+        : widget.options);
     _addOptions();
     _overlayState ??= Overlay.of(context);
     _focusNode.addListener(_handleFocusChange);
@@ -246,11 +249,7 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
                                 : Text(_selectedOptions.first.code.toString())
                             : const SizedBox(),
                       ),
-                      AnimatedRotation(
-                        turns: _selectionMode ? 0.5 : 0,
-                        duration: DropdownConstants.animationDuration,
-                        child: widget.suffixIcon,
-                      ),
+                      Icon(widget.suffixIcon),
                     ],
                   ),
                 );

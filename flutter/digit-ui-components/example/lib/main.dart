@@ -386,6 +386,11 @@ class MyHomePageState extends State<MyHomePage> {
                   MultiSelectDropDown<int>(
                     onOptionSelected:
                         (List<DropdownItem> selectedOptions) {},
+                    selectedOptions: const [DropdownItem(
+                      code: '1',
+                      name: 'firstddddddddddddd',
+                      description: 'ddddddddddddddddddddd',
+                    ),],
                     options: const [
                       DropdownItem(
                         code: '1',

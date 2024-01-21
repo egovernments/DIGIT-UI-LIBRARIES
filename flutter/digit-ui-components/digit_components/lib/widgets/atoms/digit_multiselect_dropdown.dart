@@ -59,7 +59,7 @@ class MultiSelectDropDown<int> extends StatefulWidget {
   final ChipConfig chipConfig;
 
   /// dropdownfield configuration
-  final Icon? suffixIcon;
+  final IconData? suffixIcon;
 
   /// focus node
   final FocusNode? focusNode;
@@ -75,7 +75,7 @@ class MultiSelectDropDown<int> extends StatefulWidget {
     this.chipConfig = const ChipConfig(),
     this.selectionType = SelectionType.multiSelect,
     this.selectedOptions = const [],
-    this.suffixIcon = const Icon(Icons.arrow_drop_down),
+    this.suffixIcon =Icons.arrow_drop_down,
     this.focusNode,
     this.controller,
   }) : super(key: key);
@@ -115,19 +115,21 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
 
   void _initialize() {
     if (!mounted) return;
+    _options.addAll(_controller?.options.isNotEmpty == true
+        ? _controller!.options
+        : widget.options);
     _addOptions();
     _overlayState ??= Overlay.of(context);
     _focusNode.addListener(_handleFocusChange);
   }
 
-  /// Adds the selected options and disabled options to the options list.
+  /// Adds the selected options to the options list.
   void _addOptions() {
     setState(() {
       _selectedOptions.addAll(_controller?.selectedOptions.isNotEmpty == true
           ? _controller!.selectedOptions
           : widget.selectedOptions);
     });
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (_controller != null && _controller?._isDisposed == false) {
         _controller!.setOptions(_options);
@@ -247,11 +249,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                             ? Text('${_selectedOptions.length} Selected')
                             : const Text(''),
                       ),
-                      AnimatedRotation(
-                        turns: _selectionMode ? 0.5 : 0,
-                        duration: DropdownConstants.animationDuration,
-                        child: widget.suffixIcon,
-                      ),
+                      Icon(widget.suffixIcon),
                     ],
                   ),
                 );
