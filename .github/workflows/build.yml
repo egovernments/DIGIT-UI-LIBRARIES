@@ -32,7 +32,7 @@ jobs:
          
        - name: Navigate to Root Folder
          run: |
-           cd flutter/digit-ui-components/digit_components || exit
+           cd ./flutter/digit-ui-components/digit_components || exit
            app_root="$PWD"
               echo "Current directory: $PWD"
 
