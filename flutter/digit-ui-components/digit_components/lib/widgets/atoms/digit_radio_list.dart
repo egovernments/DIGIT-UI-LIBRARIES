@@ -178,17 +178,15 @@ class _DigitRadioListState extends State<DigitRadioList> {
                       ),
                       Align(
                         alignment: Alignment.center,
-                        child: Flexible(
-                          child: Text(
-                            button.name,
-                            style: DigitTheme
-                                .instance.mobileTheme.textTheme.bodyLarge
-                                ?.copyWith(
-                              color: widget.isDisabled
-                                  ? const DigitColors().cloudGray
-                                  : const DigitColors().woodsmokeBlack,
-                              overflow: TextOverflow.ellipsis
-                            ),
+                        child: Text(
+                          button.name,
+                          style: DigitTheme
+                              .instance.mobileTheme.textTheme.bodyLarge
+                              ?.copyWith(
+                            color: widget.isDisabled
+                                ? const DigitColors().cloudGray
+                                : const DigitColors().woodsmokeBlack,
+                            overflow: TextOverflow.ellipsis
                           ),
                         ),
                       ),

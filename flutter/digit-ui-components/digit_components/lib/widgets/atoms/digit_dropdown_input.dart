@@ -221,7 +221,8 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
     var size = renderBox.size;
 
     var offset = renderBox.localToGlobal(Offset.zero);
-    var topOffset = offset.dy + size.height;
+    var topOffset = Scaffold.of(context).hasAppBar ? kToolbarHeight : offset.dy + size.height;
+    print(topOffset);
     OverlayEntry overlayEntry = OverlayEntry(
       /// full screen GestureDetector to register when a user has clicked away from the dropdown
       builder: (context) => GestureDetector(
@@ -234,34 +235,27 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
           width: MediaQuery.of(context).size.width,
           child: Stack(
             children: [
-              Positioned(
-                left: offset.dx,
-                top: topOffset,
-                width: size.width,
-                child: CompositedTransformFollower(
-                  offset: Offset(0, size.height),
-                  link: this._layerLink,
-                  showWhenUnlinked: false,
-                  child: Material(
-                    elevation: 0,
-                    borderRadius: BorderRadius.zero,
-                    color: const DigitColors().white,
-                    clipBehavior: Clip.none,
-                    child: SizeTransition(
-                      axisAlignment: 1,
-                      sizeFactor: _expandAnimation,
-                      child: ConstrainedBox(
-                        constraints: BoxConstraints(
-                          maxHeight: MediaQuery.of(context).size.height -
-                              topOffset -
-                              15,
-                        ),
-                        child: _buildDropdownListView(),
-                      ),
+              CompositedTransformFollower(
+                // offset: Offset(0, size.height),
+                link: this._layerLink,
+                showWhenUnlinked: false,
+                targetAnchor: Alignment.bottomLeft,
+                followerAnchor: Alignment.topLeft,
+                offset: Offset.zero,
+                child: Material(
+                  borderRadius: BorderRadius.zero,
+                  shadowColor: null,
+                  child: SizedBox(
+                    width: size.width,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        _buildDropdownListView(),
+                      ],
                     ),
                   ),
                 ),
-              ),
+                ),
             ],
           ),
         ),
@@ -274,10 +268,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
   Widget _buildDropdownListView() {
     switch (widget.dropdownType) {
       case DropdownType.defaultSelect:
-        return SingleChildScrollView(
-          physics: const AlwaysScrollableScrollPhysics(),
-          child: _buildListView(),
-        );
+        return _buildListView();
       case DropdownType.profileSelect:
         return SingleChildScrollView(
           physics: const AlwaysScrollableScrollPhysics(),
@@ -292,130 +283,104 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
   }
 
   Widget _buildListView() {
-    return ListView(
-      padding: EdgeInsets.zero,
-      shrinkWrap: true,
-      children: filteredItems.isNotEmpty
-          ? filteredItems.asMap().entries.map((item) {
-              Color backgroundColor = item.key % 2 == 0
-                  ? const DigitColors().white
-                  : const DigitColors().alabasterWhite;
-
-              return StatefulBuilder(
-                builder: (context, setState) {
-                  return InkWell(
-                    splashColor: const DigitColors().transaparent,
-                    hoverColor: const DigitColors().transaparent,
-                    onHover: (hover) {
-                      setState(() {
-                        itemHoverStates[item.key] = hover;
-                      });
-                    },
-                    onTap: () {
-                      setState(() => _currentIndex = item.key);
-                      widget.onChange(item.value.name, 'selected');
-                      _toggleDropdown();
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: itemHoverStates[item.key]
-                              ? const DigitColors().burningOrange
-                              : Colors.transparent,
+    return ConstrainedBox(
+      constraints: const BoxConstraints(
+        maxHeight: 200,
+      ),
+      child: ListView.separated(
+        separatorBuilder: (_, __) => const SizedBox(height: 0),
+        shrinkWrap: true,
+        padding: EdgeInsets.zero,
+        itemCount: filteredItems.length,
+        itemBuilder: (context, index) {
+          final item = filteredItems[index];
+          // bool isSelected = selectedOptions.any(
+          //         (item) => item.code == option.code && item.name == option.name);
+          Color backgroundColor = index % 2 == 0
+              ? const DigitColors().white
+              : const DigitColors().alabasterWhite;
+          return ListTile(
+            splashColor: const DigitColors().transaparent,
+            focusColor: const DigitColors().transaparent,
+            hoverColor: const DigitColors().transaparent,
+            title: Row(
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        if (item.textIcon != null)
+                          Icon(
+                            item.textIcon,
+                            size: DropdownConstants.textIconSize,
+                            // color: isSelected
+                            //     ? const DigitColors().white
+                            //     : const DigitColors().davyGray,
+                          ),
+                        if (item.textIcon != null)
+                          const Gap(
+                            kPadding / 2,
+                          ),
+                        Text(
+                          item.name,
+                          style: DigitTheme
+                              .instance.mobileTheme.textTheme.headlineSmall
+                              ?.copyWith(
+                            // color: isSelected
+                            //     ? const DigitColors().white
+                            //     : const DigitColors().davyGray,
+                          ),
                         ),
-                        color: itemHoverStates[item.key]
-                            ? const DigitColors().orangeBG
-                            : backgroundColor,
-                      ),
-                      padding: EdgeInsets.zero,
-                      child: Padding(
-                        padding:
-                            widget.dropdownType == DropdownType.defaultSelect &&
-                                    item.value.description == null
-                                ? DropdownConstants.defaultPadding
-                                : DropdownConstants.nestedItemPadding,
-                        child: Row(
-                          children: [
-                            if (widget.dropdownType ==
-                                DropdownType.profileSelect)
-                              SizedBox(
-                                height: DropdownConstants.defaultProfileSize,
-                                width: DropdownConstants.defaultProfileSize,
-                                child: CircleAvatar(
-                                  radius: DropdownConstants.defaultImageRadius,
-
-                                  /// This radius is the radius of the picture in the circle avatar itself.
-                                  backgroundImage: item.value.profileImage,
-                                  backgroundColor: const DigitColors().davyGray,
-                                ),
-                              ),
-                            if (widget.dropdownType ==
-                                DropdownType.profileSelect)
-                              const Gap(
-                                6,
-                              ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  children: [
-                                    if (item.value.textIcon != null)
-                                      Icon(
-                                        item.value.textIcon,
-                                        size: DropdownConstants.textIconSize,
-                                        color: const DigitColors().davyGray,
-                                      ),
-                                    if (item.value.textIcon != null)
-                                      const Gap(
-                                        kPadding / 2,
-                                      ),
-                                    Text(
-                                      item.value.name,
-                                      style: DigitTheme.instance.mobileTheme
-                                          .textTheme.bodyLarge
-                                          ?.copyWith(
-                                              color:
-                                                  const DigitColors().davyGray),
-                                    )
-                                  ],
-                                ),
-                                if (item.value.description != null)
-                                  Text(
-                                    item.value.description!,
-                                    style: DigitTheme.instance.mobileTheme
-                                        .textTheme.bodySmall
-                                        ?.copyWith(
-                                      color: const DigitColors().davyGray,
-                                    ),
-                                  ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
+                      ],
                     ),
-                  );
-                },
-              );
-            }).toList()
-          : [
-              Center(
-                child: Padding(
-                  padding: DropdownConstants.noItemAvailablePadding,
-                  child: Text(widget.emptyItemText),
+                    if (item.description != null)
+                      Text(
+                        item.description!,
+                        style: DigitTheme.instance.mobileTheme.textTheme.bodySmall
+                            ?.copyWith(
+                          // color: isSelected
+                          //     ? const DigitColors().white
+                          //     : const DigitColors().davyGray,
+                        ),
+                      ),
+                  ],
                 ),
-              ),
-            ],
+              ],
+            ),
+            textColor: const DigitColors().davyGray,
+            selectedColor: const DigitColors().white,
+            // selected: isSelected,
+            autofocus: true,
+            // tileColor: widget.selectionType == SelectionType.nestedMultiSelect
+            //     ? const DigitColors().white
+            //     : backgroundColor,
+            selectedTileColor: const DigitColors().burningOrange,
+            contentPadding: const EdgeInsets.symmetric(horizontal: 10),
+            onTap: () {
+              setState(() => _currentIndex = index);
+              widget.onChange(item.name, 'selected');
+              _toggleDropdown();
+            },
+          );
+        },
+      ),
     );
+
   }
+
 
   Widget _buildNestedListView() {
-    return ListView(
+    return ListView.builder(
       padding: EdgeInsets.zero,
       shrinkWrap: true,
-      children: _buildGroupedItems(),
+      itemCount: _buildGroupedItems().length,
+      itemBuilder: (context, index) {
+        return _buildGroupedItems()[index];
+      },
     );
   }
+
 
   List<Widget> _buildGroupedItems() {
     List<Widget> groupedItems = [];
@@ -619,3 +584,5 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
     }
   }
 }
+
+
