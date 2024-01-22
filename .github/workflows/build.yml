@@ -33,9 +33,15 @@ jobs:
        - name: Navigate to Root Folder
          run: cd flutter/digit-ui-components/example
 
+       - name: PWD
+         run: ls
+
 
        - name: Install Dependencies
          run: flutter pub get
+         
+
+         
 
        - name: Run Tests
          run: flutter test
