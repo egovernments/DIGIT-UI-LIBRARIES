@@ -404,43 +404,43 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
       List<TreeNode> selectedOptions = [..._selectedOptions];
 
       return StatefulBuilder(builder: ((context, dropdownState) {
-        return Stack(
-          children: [
-            Positioned.fill(
-              child: GestureDetector(
-                behavior: HitTestBehavior.translucent,
-                onTap: _onOutSideTap,
-                child: Container(
-                  color: Colors.transparent,
-                ),
-              ),
-            ),
-            CompositedTransformFollower(
-              link: _layerLink,
-              showWhenUnlinked: false,
-              targetAnchor: Alignment.bottomLeft,
-              followerAnchor: Alignment.topLeft,
-              offset: Offset.zero,
-              child: Material(
-                borderRadius: BorderRadius.zero,
-                shadowColor: null,
-                clipBehavior: Clip.none,
-                child: SingleChildScrollView(
-                  physics: const AlwaysScrollableScrollPhysics(),
-                  child: SizedBox(
-                    width: size.width,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        _buildFlatOptions(
-                            values, options, selectedOptions, dropdownState),
-                      ],
+        return GestureDetector(
+          onTap: _onOutSideTap,
+          behavior: HitTestBehavior.translucent,
+          /// full screen SizedBox to register taps anywhere and close drop down
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            child: Stack(
+              children: [
+                CompositedTransformFollower(
+                  link: _layerLink,
+                  showWhenUnlinked: false,
+                  targetAnchor: Alignment.bottomLeft,
+                  followerAnchor: Alignment.topLeft,
+                  offset: Offset.zero,
+                  child: Material(
+                    borderRadius: BorderRadius.zero,
+                    shadowColor: null,
+                    clipBehavior: Clip.none,
+                    child: SingleChildScrollView(
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      child: SizedBox(
+                        width: size.width,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            _buildFlatOptions(
+                                values, options, selectedOptions, dropdownState),
+                          ],
+                        ),
+                      ),
                     ),
                   ),
                 ),
-              ),
+              ],
             ),
-          ],
+          ),
         );
       }));
     });

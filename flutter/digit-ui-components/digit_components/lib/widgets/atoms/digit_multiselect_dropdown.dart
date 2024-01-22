@@ -346,42 +346,43 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
       List<DropdownItem> selectedOptions = [..._selectedOptions];
 
       return StatefulBuilder(builder: ((context, dropdownState) {
-        return Stack(
-          children: [
-            Positioned.fill(
-              child: GestureDetector(
-                behavior: HitTestBehavior.translucent,
-                onTap: _onOutSideTap,
-                child: Container(
-                  color: Colors.transparent,
-                ),
-              ),
-            ),
-            CompositedTransformFollower(
-              link: _layerLink,
-              showWhenUnlinked: false,
-              targetAnchor: Alignment.bottomLeft,
-              followerAnchor: Alignment.topLeft,
-              offset: Offset.zero,
-              child: Material(
-                borderRadius: BorderRadius.zero,
-                shadowColor: null,
-                child: SizedBox(
-                  width: size.width,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      widget.selectionType == SelectionType.nestedMultiSelect
-                          ? _buildNestedOptions(
-                              values, options, selectedOptions, dropdownState)
-                          : _buildFlatOptions(
-                              values, options, selectedOptions, dropdownState),
-                    ],
+        /// full screen GestureDetector to register when a user has clicked away from the dropdown
+        return GestureDetector(
+          onTap: _onOutSideTap,
+          behavior: HitTestBehavior.translucent,
+          /// full screen SizedBox to register taps anywhere and close drop down
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            child: Stack(
+              children: [
+                CompositedTransformFollower(
+                  link: _layerLink,
+                  showWhenUnlinked: false,
+                  targetAnchor: Alignment.bottomLeft,
+                  followerAnchor: Alignment.topLeft,
+                  offset: Offset.zero,
+                  child: Material(
+                    borderRadius: BorderRadius.zero,
+                    shadowColor: null,
+                    child: SizedBox(
+                      width: size.width,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          widget.selectionType == SelectionType.nestedMultiSelect
+                              ? _buildNestedOptions(
+                                  values, options, selectedOptions, dropdownState)
+                              : _buildFlatOptions(
+                                  values, options, selectedOptions, dropdownState),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
-              ),
+              ],
             ),
-          ],
+          ),
         );
       }));
     });
