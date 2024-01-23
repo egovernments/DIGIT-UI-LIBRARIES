@@ -11,15 +11,11 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.2
   digit_components: ^0.0.1
-  auto_route: ^7.8.4
   collection: ^1.16.0
   reactive_forms: ^14.1.0
-  dart_mappable: ^4.2.0
   flutter_keyboard_visibility: ^5.4.0
   material_design_icons_flutter: ^7.0.7296
-  speech_to_text: ^6.1.1
   expandable: ^5.0.1
-  qr_code_scanner: ^1.0.1
   geolocator: ^10.1.0
 
 dev_dependencies:
@@ -30,8 +26,6 @@ dev_dependencies:
   freezed: ^2.1.0+1
   build_runner: ^2.2.1
   json_serializable: ^6.4.0
-  drift_dev: ^2.15.0
-  auto_route_generator: ^7.3.2
   bloc_test: ^9.1.0
   mocktail: ^1.0.3
   flutter_launcher_icons: ^0.13.1
