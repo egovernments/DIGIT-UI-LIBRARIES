@@ -21,7 +21,7 @@ config:
   # digit-ui-flutter
   - name: builds/Digit-UI-Libraries/flutter/digit-ui-components
     build:
-      - work-dir: flutter/digit-ui-components
+      - work-dir: flutter/digit-ui-components/example
         dockerfile: flutter/docker/Dockerfile
         image-name: digit-ui-flutter
 
