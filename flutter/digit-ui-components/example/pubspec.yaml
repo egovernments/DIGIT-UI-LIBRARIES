@@ -39,10 +39,6 @@ dev_dependencies:
   flutter_launcher_icons: ^0.11.0
   widgetbook: ^3.4.1
 
-dependency_overrides:
-  intl: ^0.18.0
-
-
 flutter:
   assets:
     - ./
