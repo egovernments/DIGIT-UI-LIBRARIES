@@ -11,12 +11,12 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.2
   digit_components: ^0.0.1
-  auto_route: ^5.0.2
+  auto_route: ^7.8.4
   collection: ^1.16.0
   reactive_forms: ^14.1.0
-  dart_mappable: ^1.2.0
+  dart_mappable: ^4.2.0
   flutter_keyboard_visibility: ^5.4.0
-  material_design_icons_flutter: ^6.0.7096
+  material_design_icons_flutter: ^7.0.7296
   speech_to_text: ^6.1.1
   expandable: ^5.0.1
   qr_code_scanner: ^1.0.1
@@ -25,18 +25,18 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
-  dart_code_metrics: ^4.19.1
+  flutter_lints: ^3.0.1
+  dart_code_metrics: ^5.7.6
   freezed: ^2.1.0+1
   build_runner: ^2.2.1
   json_serializable: ^6.4.0
-  drift_dev: ^1.7.0
-  auto_route_generator: ^5.0.2
+  drift_dev: ^2.15.0
+  auto_route_generator: ^7.3.2
   bloc_test: ^9.1.0
-  mocktail: ^0.3.0
-  dart_mappable_builder: ^1.2.1
+  mocktail: ^1.0.3
+  dart_mappable_builder: ^4.2.0
   isar_generator: ^3.0.5
-  flutter_launcher_icons: ^0.11.0
+  flutter_launcher_icons: ^0.13.1
   widgetbook: ^3.4.1
 
 flutter:

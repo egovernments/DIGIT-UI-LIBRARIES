@@ -35,7 +35,6 @@ import 'package:collection/collection.dart';
 import 'package:digit_components/digit_components.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import '../../constants/AppView.dart';
 import '../../constants/app_constants.dart';
 import '../../enum/app_enums.dart';
@@ -259,8 +258,8 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
             ),
           ),
         ),
-        const Gap(
-          kPadding,
+        const SizedBox(
+          height: kPadding,
         ),
         if (_anyItemSelected)
           SizedBox(
@@ -494,8 +493,8 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                 ),
               if (!isSelected)
                 const DigitCheckboxIcon(state: CheckboxState.unchecked),
-              const Gap(
-                10,
+              const SizedBox(
+                width: 10,
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -511,8 +510,8 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                               : const DigitColors().davyGray,
                         ),
                       if (option.textIcon != null)
-                        const Gap(
-                          kPadding / 2,
+                        const SizedBox(
+                          width: kPadding / 2,
                         ),
                       Text(
                         option.name,

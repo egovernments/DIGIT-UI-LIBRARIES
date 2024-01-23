@@ -22,7 +22,6 @@
 import 'package:digit_components/digit_components.dart';
 import 'package:digit_components/widgets/atoms/digit_checkbox_icon.dart';
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import '../../constants/app_constants.dart';
 import '../../enum/app_enums.dart';
 
@@ -102,7 +101,7 @@ class _DigitCheckboxState extends State<DigitCheckbox> {
                   color: widget.iconColor,
                 ),
               ),
-              const Gap(kPadding * 2),
+              const SizedBox(width: kPadding * 2),
               Text(
                 widget.label,
                 style: DigitTheme.instance.mobileTheme.textTheme.bodyLarge
