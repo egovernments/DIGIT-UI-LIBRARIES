@@ -12,7 +12,7 @@ packages:
   accessibility_tools:
     dependency: transitive
     description:
-      name: accessibility_toolsF
+      name: accessibility_tools
       sha256: "0a16adc8dfa3a7ebd38775135d86443011a65d4ecbb438913e4992b5d29135fe"
       url: "https://pub.dev"
     source: hosted
