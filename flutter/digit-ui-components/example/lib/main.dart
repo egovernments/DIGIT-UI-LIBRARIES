@@ -22,6 +22,7 @@ import 'package:digit_components/widgets/atoms/digit_toggle_list.dart';
 import 'package:digit_components/widgets/atoms/digit_tree_select_dropdown.dart';
 import 'package:digit_components/widgets/scrollable_content.dart';
 import 'package:flutter/material.dart';
+import 'package:url_strategy/url_strategy.dart';
 
 
 final List<TreeNode> Nodes = [
@@ -53,6 +54,9 @@ final TreeSelectController<int> _controller = TreeSelectController();
 final controller = MultiSelectController<int>();
 
 void main() {
+  /// Here we set the URL strategy for our web app.
+  /// It is safe to call this function when running on mobile or desktop as well.
+  setPathUrlStrategy();
   runApp(const MyApp());
 }
 
