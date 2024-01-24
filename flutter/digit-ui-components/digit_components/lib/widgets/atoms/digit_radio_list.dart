@@ -45,6 +45,9 @@ class DigitRadioList extends StatefulWidget {
   /// radio button height
   final double radioHeight;
 
+  /// flag for horizontal layout
+  final bool horizontallyListed;
+
   /// Constructor for the DigitRadioList widget
   DigitRadioList({
     Key? key,
@@ -55,6 +58,7 @@ class DigitRadioList extends StatefulWidget {
     this.containerPadding = RadioConstant.defaultPadding,
     this.radioWidth = RadioConstant.radioWidth,
     this.radioHeight = RadioConstant.radioHeight,
+    this.horizontallyListed = false,
   }) : super(key: key);
 
   /// Create the state for the widget
@@ -78,19 +82,19 @@ class _DigitRadioListState extends State<DigitRadioList> {
     isMouseDown = List.generate(widget.radioButtons.length, (index) => false);
   }
 
-  /// Build the widget based on screen width
+  /// Build the widget based on layout => default will be vertical
   @override
   Widget build(BuildContext context) {
-    if (AppView.isMobileView(MediaQuery.of(context).size.width)) {
-      /// Mobile view layout
-      return Column(
+    if (widget.horizontallyListed) {
+      /// layout
+      return Row(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: _buildRadioButtons(),
       );
     } else {
-      /// Tablet or desktop view layout
-      return Row(
+      /// Default layout
+      return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: _buildRadioButtons(),
@@ -174,18 +178,16 @@ class _DigitRadioListState extends State<DigitRadioList> {
                       const SizedBox(
                         width: kPadding,
                       ),
-                      Align(
-                        alignment: Alignment.center,
-                        child: Text(
-                          button.name,
-                          style: DigitTheme
-                              .instance.mobileTheme.textTheme.bodyLarge
-                              ?.copyWith(
-                            color: widget.isDisabled
-                                ? const DigitColors().cloudGray
-                                : const DigitColors().woodsmokeBlack,
-                            overflow: TextOverflow.ellipsis
-                          ),
+                      Text(
+                        button.name,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: DigitTheme
+                            .instance.mobileTheme.textTheme.bodyLarge
+                            ?.copyWith(
+                          color: widget.isDisabled
+                              ? const DigitColors().cloudGray
+                              : const DigitColors().woodsmokeBlack,
                         ),
                       ),
                     ],

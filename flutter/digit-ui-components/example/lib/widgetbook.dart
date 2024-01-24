@@ -1025,30 +1025,10 @@ class HotReload extends StatelessWidget {
                           RadioButtonModel(code: '3', name: context.knobs.string(label: 'name3', initialValue: "three")),
                           // Add more radio buttons as needed
                         ],
+                      horizontallyListed: context.knobs.boolean(label: 'HorizontallyListed', initialValue: false,),
                       ),
                     ),
                 ),
-                WidgetbookUseCase(
-                  name: 'filled',
-                  builder: (context) => Center(
-                    child: DigitRadioList(
-                        onChanged: (value) {
-                          // print(value);
-                        },
-                        radioButtons: [
-                          RadioButtonModel(
-                            code: '', name: context.knobs.string(label: 'name1', initialValue: "one")),
-                          RadioButtonModel(code: '2', name: context.knobs.string(label: 'name1', initialValue: "two")),
-                          RadioButtonModel(code: '3', name: context.knobs.string(label: 'name1', initialValue: "three")),
-                          // Add more radio buttons as needed
-                        ],
-                        isDisabled: context.knobs.boolean(
-                          label: 'disabled',
-                          initialValue: false,
-                        ),
-                      ),
-                    ),
-                  ),
               ],
             ),
             WidgetbookComponent(
@@ -1057,38 +1037,30 @@ class HotReload extends StatelessWidget {
                 WidgetbookUseCase(
                   name: 'default',
                   builder: (context) => Center(
-                    child: Container(
-                      height: 200,
-                      width: 350,
-                      child: DigitToggleList(
-                        selectedIndex: 0,
-                        toggleButtons: [
-                          ToggleButtonModel(
-                              name: context.knobs.string(label: 'Toggle1', initialValue: 'toggle1'), key: 'key1', onSelected: () {}),
-                        ],
-                        onChanged: (selectedValues) {},
-                      ),
+                    child: DigitToggleList(
+                      selectedIndex: 0,
+                      toggleButtons: [
+                        ToggleButtonModel(
+                            name: context.knobs.string(label: 'Toggle1', initialValue: 'toggle1'), key: 'key1', onSelected: (value) {print(value);}),
+                      ],
+                      onChanged: (selectedValues) {},
                     ),
                   ),
                 ),
                 WidgetbookUseCase(
                   name: 'Group',
                   builder: (context) => Center(
-                    child: Container(
-                      height: 200,
-                      width: 350,
-                      child: DigitToggleList(
-                        selectedIndex: 0,
-                        toggleButtons: [
-                          ToggleButtonModel(
-                              name: context.knobs.string(label: 'Toggle1', initialValue: 'toggle1'), key: 'key1', onSelected: () {}),
-                          ToggleButtonModel(
-                              name: context.knobs.string(label: 'Toggle2', initialValue: 'toggle2'), key: 'key1', onSelected: () {}),
-                          ToggleButtonModel(
-                              name: context.knobs.string(label: 'Toggle3', initialValue: 'toggle3'), key: 'key1', onSelected: () {}),
-                        ],
-                        onChanged: (selectedValues) {},
-                      ),
+                    child: DigitToggleList(
+                      selectedIndex: 0,
+                      toggleButtons: [
+                        ToggleButtonModel(
+                            name: context.knobs.string(label: 'Toggle1', initialValue: 'toggle1'), key: 'key1', onSelected: (value) {print('${value}1');}),
+                        ToggleButtonModel(
+                            name: context.knobs.string(label: 'Toggle2', initialValue: 'toggle2'), key: 'key1', onSelected: (value) {print('${value}2');}),
+                        ToggleButtonModel(
+                            name: context.knobs.string(label: 'Toggle3', initialValue: 'toggle3'), key: 'key1', onSelected: (value) {print('${value}3');}),
+                      ],
+                      onChanged: (selectedValues) {},
                     ),
                   ),
                 ),

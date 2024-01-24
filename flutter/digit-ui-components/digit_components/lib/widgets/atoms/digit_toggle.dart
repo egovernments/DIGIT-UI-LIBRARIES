@@ -6,12 +6,14 @@ class DigitToggle extends StatefulWidget {
   final void Function(bool isSelected) onChanged;
   final String label;
   bool isSelected;
+  final double maxLabelWidth;
 
   DigitToggle({
     Key? key,
     required this.onChanged,
     required this.label,
     this.isSelected = false,
+    required this.maxLabelWidth,
   }) : super(key: key);
 
   @override
@@ -51,14 +53,13 @@ class _DigitToggleState extends State<DigitToggle> {
             });
           },
           onTap: () {
-            print(widget.isSelected);
             if(widget.isSelected==false){
               widget.onChanged(true);
             }
           },
           child: Container(
             height: 32,
-            width: 112,
+            width: widget.maxLabelWidth+40,
             constraints: const BoxConstraints(
               minWidth: 40,
               maxWidth: 200,
@@ -96,6 +97,7 @@ class _DigitToggleState extends State<DigitToggle> {
                       : widget.isSelected
                       ? const DigitColors().white
                       : const DigitColors().cloudGray,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
             ),

@@ -17,6 +17,8 @@
 )
  ....*/
 
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import '../../models/toggleButtonModel.dart';
 import '../../theme/digit_theme.dart';
@@ -42,13 +44,32 @@ class DigitToggleList extends StatefulWidget {
 
 class _DigitToggleListState extends State<DigitToggleList> {
   int? selectedIndex;
+  late double maxLabelWidth;
 
   @override
   void initState() {
     super.initState();
-
-    /// Find the index of current selected toggle
+    /// select the index of default toggle
     selectedIndex = widget.selectedIndex;
+    /// call the onSelect for default selected toggle
+    widget.toggleButtons[selectedIndex!].onSelected?.call(true);
+    maxLabelWidth = _calculateMaxLabelWidth();
+  }
+
+  double _calculateMaxLabelWidth() {
+    double maxLabelWidth = 0;
+    for (ToggleButtonModel button in widget.toggleButtons) {
+      TextPainter textPainter = TextPainter(
+        text: TextSpan(
+          text: button.name.length > 64 ? "${button.name.substring(0, 64)}..." : button.name,
+          style: const TextStyle(),
+        ),
+        textDirection: TextDirection.ltr,
+      )..layout();
+      double labelWidth = textPainter.width;
+      maxLabelWidth = max(maxLabelWidth, labelWidth);
+    }
+    return maxLabelWidth;
   }
 
   @override
@@ -56,33 +77,33 @@ class _DigitToggleListState extends State<DigitToggleList> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: widget.toggleButtons.map(
-        (button) {
+            (button) {
           final index = widget.toggleButtons.indexOf(button);
           return Padding(
-            padding: widget.contentPadding ??
-                const EdgeInsets.only(bottom: kPadding),
+            padding: widget.contentPadding ?? const EdgeInsets.only(bottom: kPadding),
             child: DigitToggle(
               onChanged: (isSelected) {
                 setState(() {
                   if (isSelected) {
-                    if (selectedIndex != null ) {
-                      /// Unselect the previously selected item
-                        widget.toggleButtons[selectedIndex!].onSelected?.call();
-                        selectedIndex = index;
+                    if (selectedIndex != index) {
+                      // Unselect the previously selected item
+                      widget.toggleButtons[selectedIndex!].onSelected?.call(false);
+                      selectedIndex = index;
                     }
                   } else {
-                    /// Clicking on the already selected button, do nothing
+                    // Clicking on the already selected button, do nothing
                     return;
                   }
                 });
 
-                /// Check if the button is selected and has a callback
-                if (isSelected && button.onSelected != null) {
-                  button.onSelected!();
+                // /// Check if the button is selected and has a callback
+                if (selectedIndex==index && button.onSelected != null) {
+                  button.onSelected!(true);
                 }
               },
-              label: button.name,
+              label: button.name.length > 64 ? "${button.name.substring(0, 64)}..." : button.name,
               isSelected: selectedIndex == index,
+              maxLabelWidth: maxLabelWidth,
             ),
           );
         },
@@ -90,3 +111,4 @@ class _DigitToggleListState extends State<DigitToggleList> {
     );
   }
 }
+

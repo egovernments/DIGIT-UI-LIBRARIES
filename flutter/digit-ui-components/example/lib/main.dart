@@ -484,19 +484,19 @@ class MyHomePageState extends State<MyHomePage> {
                       ToggleButtonModel(
                           name: 'Toggle 1',
                           key: 'key1',
-                          onSelected: () {
+                          onSelected: (value) {
                             print('Toggle 1 selected!');
                           }),
                       ToggleButtonModel(
                           name: 'Toggle 2',
                           key: 'key2',
-                          onSelected: () {
+                          onSelected: (value) {
                             print('Toggle 2 selected!');
                           }),
                       ToggleButtonModel(
                           name: 'Toggle 3',
                           key: 'key3',
-                          onSelected: () {
+                          onSelected: (value) {
                             print('Toggle 3 selected!');
                           }),
                     ],
