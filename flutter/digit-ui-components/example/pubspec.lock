@@ -286,7 +286,7 @@ packages:
     description:
       path: "flutter/digit-ui-components/digit_components"
       ref: build-branch
-      resolved-ref: "809be7ae22f3389c9b3a8e7959b3e4b33f169ac0"
+      resolved-ref: af0d40fc2019430ea5daeb542508cb7aa05ee46e
       url: "https://github.com/egovernments/DIGIT-UI-LIBRARIES"
     source: git
     version: "0.0.1+8"
@@ -415,11 +415,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.3"
-  flutter_localizations:
-    dependency: transitive
-    description: flutter
-    source: sdk
-    version: "0.0.0"
   flutter_spinkit:
     dependency: transitive
     description:
