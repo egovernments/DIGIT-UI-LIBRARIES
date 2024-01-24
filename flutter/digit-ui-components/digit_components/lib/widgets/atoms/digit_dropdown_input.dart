@@ -27,8 +27,6 @@ and the onChange callback is used to handle the selected value.
 import 'package:digit_components/digit_components.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
-import 'package:visibility_detector/visibility_detector.dart';
 import '../../constants/AppView.dart';
 import '../../constants/app_constants.dart';
 import '../../enum/app_enums.dart';
@@ -355,8 +353,8 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                         ),
                       ),
                     if (widget.dropdownType == DropdownType.profileSelect)
-                      const Gap(
-                        6,
+                      const SizedBox(
+                       width: 6,
                       ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -370,8 +368,8 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                 color: const DigitColors().davyGray,
                               ),
                             if (item.textIcon != null)
-                              const Gap(
-                                kPadding / 2,
+                              const SizedBox(
+                                width: kPadding / 2,
                               ),
                             Text(
                               item.name,
@@ -455,7 +453,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                 ),
               ),
               ..._buildGroupedItems(type),
-              if (index != uniqueTypes.length - 1) const Gap(16),
+              if (index != uniqueTypes.length - 1) const SizedBox(height: 16),
               // Adjust the spacing as needed
             ],
           );
@@ -510,8 +508,8 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                       ),
                     ),
                   if (widget.dropdownType == DropdownType.profileSelect)
-                    const Gap(
-                      6,
+                    const SizedBox(
+                      width:6,
                     ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -525,8 +523,8 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                               color: const DigitColors().davyGray,
                             ),
                           if (item.textIcon != null)
-                            const Gap(
-                              kPadding / 2,
+                            const SizedBox(
+                              width: kPadding / 2,
                             ),
                           Text(
                             item.name,

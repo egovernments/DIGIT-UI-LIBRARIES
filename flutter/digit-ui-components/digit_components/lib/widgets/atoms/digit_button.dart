@@ -21,7 +21,6 @@ Example usage:
 
 import 'package:digit_components/digit_components.dart';
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import '../../constants/app_constants.dart';
 import '../../enum/app_enums.dart';
 
@@ -273,7 +272,7 @@ class _DigitButtonState extends State<DigitButton> {
                         ? DigitButtonConstants.defaultDisabledColor
                         : DigitButtonConstants.defaultPrimaryColor),
               ),
-              const Gap(kPadding / 2),
+              const SizedBox(width: kPadding / 2),
             ],
             Flexible(
               child: Text(
@@ -297,7 +296,7 @@ class _DigitButtonState extends State<DigitButton> {
               ),
             ),
             if (widget.suffixIcon != null) ...[
-              const Gap(kPadding / 2),
+              const SizedBox(width: kPadding / 2),
               Icon(
                 widget.suffixIcon,
                 size: widget.iconSize,

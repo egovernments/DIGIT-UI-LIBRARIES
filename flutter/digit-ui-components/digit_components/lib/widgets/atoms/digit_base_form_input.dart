@@ -1,6 +1,5 @@
 import 'package:digit_components/digit_components.dart';
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import '../../constants/AppView.dart';
 import '../../constants/app_constants.dart';
 import '../../utils/validators/validator.dart';
@@ -275,7 +274,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                     ],
                   ),
                 ),
-              if (widget?.info == true) const Gap(kPadding / 2),
+              if (widget?.info == true) const SizedBox(width: kPadding / 2),
               if (widget?.info == true)
                 Tooltip(
                   message: widget.infoText,
@@ -288,8 +287,8 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                 )
             ],
           ),
-          const Gap(
-            kPadding / 2,
+          const SizedBox(
+            height: kPadding / 2,
           ),
           TextFormField(
             focusNode: myFocusNode,
@@ -454,8 +453,8 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
               widget.onChange?.call(value);
             },
           ),
-          const Gap(
-            kPadding / 2,
+          const SizedBox(
+            height: kPadding / 2,
           ),
           if (widget.helpText != null || widget.charCount != null || _hasError)
             Row(
@@ -474,7 +473,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                                 color: const DigitColors().lavaRed,
                                 size: BaseConstants.errorIconSize,
                               ),
-                              const Gap(kPadding / 2),
+                              const SizedBox(width: kPadding / 2),
                               Expanded(
                                 child: Text(
                                   _errorMessage!.length > 256
@@ -504,7 +503,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                         ),
                 if ((widget.helpText != null || _hasError) &&
                     (widget.charCount == true))
-                  const Gap(8),
+                  const SizedBox(width: 8,),
                 if (widget.helpText == null && _hasError == false)
                   const Spacer(),
                 if (widget.charCount == true)

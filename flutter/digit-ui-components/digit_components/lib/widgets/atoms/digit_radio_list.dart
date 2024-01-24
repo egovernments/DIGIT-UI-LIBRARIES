@@ -19,8 +19,6 @@
 
 import 'package:digit_components/digit_components.dart';
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
-
 import '../../constants/AppView.dart';
 import '../../constants/app_constants.dart';
 import '../../models/RadioButtonModel.dart';
@@ -173,8 +171,8 @@ class _DigitRadioListState extends State<DigitRadioList> {
                               )
                             : null,
                       ),
-                      const Gap(
-                        kPadding,
+                      const SizedBox(
+                        width: kPadding,
                       ),
                       Align(
                         alignment: Alignment.center,

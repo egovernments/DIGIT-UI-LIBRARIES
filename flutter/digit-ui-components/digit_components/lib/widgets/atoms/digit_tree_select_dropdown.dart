@@ -31,7 +31,6 @@ TreeSelectDropDown<int>(
 import 'package:digit_components/digit_components.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import '../../constants/AppView.dart';
 import '../../constants/app_constants.dart';
 import '../../enum/app_enums.dart';
@@ -257,8 +256,8 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
             ),
           ),
         ),
-        const Gap(
-          kPadding,
+        const SizedBox(
+          height: kPadding,
         ),
         if (_anyItemSelected &&
             widget.treeSelectionType == TreeSelectionType.MultiSelect)
