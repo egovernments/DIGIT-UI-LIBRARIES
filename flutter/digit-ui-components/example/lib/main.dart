@@ -55,7 +55,6 @@ final controller = MultiSelectController<int>();
 
 void main() {
   /// Here we set the URL strategy for our web app.
-  /// It is safe to call this function when running on mobile or desktop as well.
   setPathUrlStrategy();
   runApp(const MyApp());
 }
@@ -593,12 +592,3 @@ class MyHomePageState extends State<MyHomePage> {
 
 }
 
-// void main() {
-//   runApp(
-//     MaterialApp(
-//       home: Scaffold(
-//         body:
-//       ),
-//     ),
-//   );
-// }
