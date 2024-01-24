@@ -14,4 +14,4 @@ FROM nginx:mainline-alpine
 ENV WEB_DIR=/var/web/widgetbook
 #RUN mkdir -p ${WEB_DIR}
 COPY --from=build /app/build/web/ ${WEB_DIR}/
-COPY --from=build /app/docker/nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=build /app/nginx.conf /etc/nginx/conf.d/default.conf
