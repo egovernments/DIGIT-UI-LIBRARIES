@@ -1,6 +1,5 @@
 import 'package:digit_components/digit_components.dart';
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import '../../constants/AppView.dart';
 import '../../constants/app_constants.dart';
 import '../../utils/validators/validator.dart';
@@ -254,9 +253,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                 )
             ],
           ),
-          const Gap(
-            kPadding / 2,
-          ),
+          const SizedBox(height: kPadding/2,),
           TextFormField(
             focusNode: myFocusNode,
             obscureText: isVisible,
@@ -420,8 +417,8 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
               widget.onChange?.call(value);
             },
           ),
-          const Gap(
-            kPadding / 2,
+          const SizedBox(
+            height: kPadding / 2,
           ),
           if (widget.helpText != null || widget.charCount != null || _hasError)
             Row(
