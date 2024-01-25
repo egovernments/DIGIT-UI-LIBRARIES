@@ -364,13 +364,14 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                   child: Material(
                     borderRadius: BorderRadius.zero,
                     shadowColor: null,
+                    color: Colors.red,
                     child: SizedBox(
                       width: size.width,
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           widget.selectionType == SelectionType.nestedMultiSelect
-                              ? _buildNestedOptions(
+                              ? _buildNestedItems(
                                   values, options, selectedOptions, dropdownState)
                               : _buildFlatOptions(
                                   values, options, selectedOptions, dropdownState),
@@ -417,58 +418,66 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
     );
   }
 
+  Widget _buildNestedItems(List<dynamic> values, List<DropdownItem> options,
+      List<DropdownItem> selectedOptions, StateSetter dropdownState){
+    return ConstrainedBox(constraints: BoxConstraints(
+      maxHeight: values[1] - 30,
+    ),
+      child: _buildNestedOptions(
+          values, options, selectedOptions, dropdownState)
+    );
+  }
+
   Widget _buildNestedOptions(List<dynamic> values, List<DropdownItem> options,
       List<DropdownItem> selectedOptions, StateSetter dropdownState) {
     /// Group options by type
     final groupedOptions = groupBy(options, (option) => option.type);
 
-    return ConstrainedBox(
-      constraints: BoxConstraints(
-        maxHeight: values[1] - 30,
-      ),
-      child: ListView.builder(
-        shrinkWrap: true,
-        itemCount: groupedOptions.length,
-        itemBuilder: (context, index) {
-          final type = groupedOptions.keys.elementAt(index);
-          final typeOptions = groupedOptions[type] ?? [];
+    return ListView.builder(
+      shrinkWrap: true,
+      itemCount: groupedOptions.length,
+      itemBuilder: (context, index) {
+        final type = groupedOptions.keys.elementAt(index);
+        final typeOptions = groupedOptions[type] ?? [];
 
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (type != null)
-                Container(
-                  padding: const EdgeInsets.all(10),
-                  color: const DigitColors().alabasterWhite,
-                  child: Text(
-                    type,
-                    style: DigitTheme
-                        .instance.mobileTheme.textTheme.headlineSmall
-                        ?.copyWith(
-                      color: const DigitColors().davyGray,
-                    ),
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (type != null)
+              Container(
+                width:(values[0] as Size).width,
+                padding: const EdgeInsets.all(10),
+                color: const DigitColors().alabasterWhite,
+                child: Text(
+                  type,
+                  style: DigitTheme
+                      .instance.mobileTheme.textTheme.headlineSmall
+                      ?.copyWith(
+                    color: const DigitColors().davyGray,
                   ),
                 ),
-              ...typeOptions.map((option) {
-                bool isSelected = selectedOptions.any((item) =>
-                    item.code == option.code && item.name == option.name);
-                Color backgroundColor = options.indexOf(option) % 2 == 0
-                    ? const DigitColors().white
-                    : const DigitColors().alabasterWhite;
+              ),
+            ...typeOptions.map((option) {
+              bool isSelected = selectedOptions.any((item) =>
+                  item.code == option.code && item.name == option.name);
+              Color backgroundColor = options.indexOf(option) % 2 == 0
+                  ? const DigitColors().white
+                  : const DigitColors().alabasterWhite;
 
-                return _buildOption(
-                  option,
-                  isSelected,
-                  dropdownState,
-                  backgroundColor,
-                  selectedOptions,
-                );
-              }).toList(),
-            ],
-          );
-        },
+              return _buildOption(
+                option,
+                isSelected,
+                dropdownState,
+                backgroundColor,
+                selectedOptions,
+              );
+            }).toList(),
+            if(index!=groupedOptions.length-1)
+              const SizedBox(height: kPadding*2,),
+          ],
+        );
+      },
 
-      ),
     );
   }
 
@@ -572,7 +581,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
             widget.onOptionSelected?.call(_selectedOptions);
           },
         ),
-        Container(
+        if(widget.selectionType==SelectionType.nestedMultiSelect)Container(
           height: 1,
           color: const DigitColors().quillGray,
           width: MediaQuery.of(context).size.width,
