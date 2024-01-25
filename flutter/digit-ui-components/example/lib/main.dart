@@ -196,8 +196,6 @@ class MyHomePageState extends State<MyHomePage> {
                   DigitLocationFormInput(
                     label: "input",
                     controller: TextEditingController(),
-                    // state: 'Disabled',
-                    // info: 'this is info',
                     innerLabel: 'innerlabel',
                     helpText: 'help text',
                   ),
@@ -208,12 +206,8 @@ class MyHomePageState extends State<MyHomePage> {
                     height: 8,
                   ),
                   DigitDropdown<int>(
-                    onChange: (String value, String index) => {
-                      print(value),
-                      print(index),
-                    },
+                    onChange: (String value, String index) => {},
                     textEditingController: TextEditingController(),
-                    textIcon: Icons.article,
                     dropdownType: DropdownType.profileSelect,
                     items: const [
                       DropdownItem(
@@ -238,10 +232,7 @@ class MyHomePageState extends State<MyHomePage> {
                     height: 16,
                   ),
                   DigitDropdown<int>(
-                    onChange: (String value, String index) => {
-                      print(value),
-                      print(index),
-                    },
+                    onChange: (String value, String index) => {},
                     textEditingController: TextEditingController(),
                     textIcon: Icons.article,
                     items: [
@@ -265,11 +256,9 @@ class MyHomePageState extends State<MyHomePage> {
                     )
                         .toList(),
                   ),
+                  const SizedBox(height: 16,),
                   DigitDropdown<int>(
-                    onChange: (String value, String index) => {
-                      print(value),
-                      print(index),
-                    },
+                    onChange: (String value, String index) => {},
                     textEditingController: TextEditingController(),
                     items: [
                       'apple',
@@ -291,10 +280,7 @@ class MyHomePageState extends State<MyHomePage> {
                     height: 16,
                   ),
                   DigitDropdown(
-                    onChange: (String value, String type) => {
-                      print(value),
-                      print(type),
-                    },
+                    onChange: (String value, String type) => {},
                     textEditingController: TextEditingController(),
                     dropdownType: DropdownType.nestedSelect,
                     items: const [
@@ -374,6 +360,7 @@ class MyHomePageState extends State<MyHomePage> {
                     ],
                     selectionType: SelectionType.multiSelect,
                   ),
+                  const SizedBox(height: 16,),
                   MultiSelectDropDown<int>(
                     onOptionSelected:
                         (List<DropdownItem> selectedOptions) {},
@@ -387,6 +374,7 @@ class MyHomePageState extends State<MyHomePage> {
                     ],
                     selectionType: SelectionType.multiSelect,
                   ),
+                  const SizedBox(height: 16,),
                   MultiSelectDropDown<int>(
                     onOptionSelected:
                         (List<DropdownItem> selectedOptions) {},
@@ -456,6 +444,31 @@ class MyHomePageState extends State<MyHomePage> {
                         name: 'fivssssssssssse',
                         type: 'bbbbb',
                       ),
+                      DropdownItem(
+                        code: '6',
+                        name: 'firstddddddddddddd',
+                        type: 'ccccc',
+                      ),
+                      DropdownItem(
+                        code: '7',
+                        name: 'seconddddddddddddddddd',
+                        type: 'ccccc',
+                      ),
+                      DropdownItem(
+                        code: '8',
+                        name: 'thiraaaaaaaaaaaad',
+                        type: 'ddddd',
+                      ),
+                      DropdownItem(
+                        code: '9',
+                        name: 'foussssssssr',
+                        type: 'ddddd',
+                      ),
+                      DropdownItem(
+                        code: '10',
+                        name: 'fivssssssssssse',
+                        type: 'ddddd',
+                      ),
                     ],
                     selectionType: SelectionType.nestedMultiSelect,
                   ),
@@ -463,9 +476,7 @@ class MyHomePageState extends State<MyHomePage> {
                     height: 8,
                   ),
                   DigitRadioList(
-                    onChanged: (value) {
-                      // print(value);
-                    },
+                    onChanged: (value) {},
                     radioButtons: [
                       RadioButtonModel(
                         code: '1',
@@ -484,26 +495,18 @@ class MyHomePageState extends State<MyHomePage> {
                       ToggleButtonModel(
                           name: 'Toggle 1',
                           key: 'key1',
-                          onSelected: (value) {
-                            print('Toggle 1 selected!');
-                          }),
+                          onSelected: (value) {}),
                       ToggleButtonModel(
                           name: 'Toggle 2',
                           key: 'key2',
-                          onSelected: (value) {
-                            print('Toggle 2 selected!');
-                          }),
+                          onSelected: (value) {}),
                       ToggleButtonModel(
                           name: 'Toggle 3',
                           key: 'key3',
-                          onSelected: (value) {
-                            print('Toggle 3 selected!');
-                          }),
+                          onSelected: (value) {}),
                     ],
                     selectedIndex: 1,
-                    onChanged: (selectedValues) {
-                      print('Selected values: $selectedValues');
-                    },
+                    onChanged: (selectedValues) {},
                   ),
                   const SizedBox(
                     height: 16,
@@ -511,72 +514,52 @@ class MyHomePageState extends State<MyHomePage> {
                   DigitButton(
                     prefixIcon: Icons.add,
                     label: 'p',
-                    onPressed: () {
-                      // Add your primary button logic here
-                      print('Primary button pressed');
-                    },
+                    onPressed: () {},
                     type: ButtonType.primary,
                   ),
                   const SizedBox(height: 16),
                   DigitButton(
                     label: 'secondary Button',
-                    onPressed: () {
-                      // Add your secondary button logic here
-                      print('Secondary button pressed');
-                    },
+                    onPressed: () {},
                     type: ButtonType.secondary,
                   ),
                   const SizedBox(height: 16),
                   DigitButton(
                     label: 'link',
-                    onPressed: () {
-                      // Add your secondary button logic here
-                      print('link pressed');
-                    },
+                    onPressed: () {},
                     type: ButtonType.link,
                   ),
                   const SizedBox(height: 16),
                   DigitButton(
                     label: 'tertiary Button',
-                    onPressed: () {
-                      // Add your secondary button logic here
-                      print('tertiary button pressed');
-                    },
+                    onPressed: () {},
                     type: ButtonType.tertiary,
                   ),
                   DigitButton(
                     prefixIcon: Icons.add,
                     label: 'Primary Button',
-                    onPressed: () {
-                      print('Primary button pressed');
-                    },
+                    onPressed: () {},
                     type: ButtonType.primary,
                     isDisabled: true,
                   ),
                   const SizedBox(height: 16),
                   DigitButton(
                     label: 'Secondary Button',
-                    onPressed: () {
-                      print('Secondary button pressed');
-                    },
+                    onPressed: () {},
                     isDisabled: true,
                     type: ButtonType.secondary,
                   ),
                   const SizedBox(height: 16),
                   DigitButton(
                     label: 'Link',
-                    onPressed: () {
-                      print('link pressed');
-                    },
+                    onPressed: () {},
                     isDisabled: true,
                     type: ButtonType.link,
                   ),
                   const SizedBox(height: 16),
                   DigitButton(
                     label: 'tertiary Button',
-                    onPressed: () {
-                      print('tertiary button pressed');
-                    },
+                    onPressed: () {},
                     isDisabled: true,
                     type: ButtonType.tertiary,
                   ),
@@ -584,9 +567,7 @@ class MyHomePageState extends State<MyHomePage> {
                   DigitCheckbox(
                     label: 'checkbox',
                     value: false,
-                    onChanged: (value) {
-                      print(value);
-                    },
+                    onChanged: (value) {},
                   ),
                 ],
               ),
@@ -599,12 +580,3 @@ class MyHomePageState extends State<MyHomePage> {
 
 }
 
-// void main() {
-//   runApp(
-//     MaterialApp(
-//       home: Scaffold(
-//         body:
-//       ),
-//     ),
-//   );
-// }

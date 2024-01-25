@@ -283,7 +283,10 @@ class _DigitButtonState extends State<DigitButton> {
                             color: widget.isDisabled
                                 ? DigitButtonConstants.defaultDisabledColor
                                 : DigitButtonConstants.defaultPrimaryColor,
-                            decoration: TextDecoration.underline)
+                            decoration: TextDecoration.underline,
+                  decorationColor: widget.isDisabled
+                      ? DigitButtonConstants.defaultDisabledColor
+                      : DigitButtonConstants.defaultPrimaryColor,)
                     : DigitTheme.instance.mobileTheme.textTheme.labelLarge
                         ?.copyWith(
                         color: widget.type == ButtonType.primary
