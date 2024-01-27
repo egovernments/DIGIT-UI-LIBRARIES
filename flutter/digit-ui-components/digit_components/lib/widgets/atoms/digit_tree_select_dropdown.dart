@@ -429,7 +429,7 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            _buildFlatOptions(
+                            _buildOptions(
                                 values, options, selectedOptions, dropdownState),
                           ],
                         ),
@@ -445,7 +445,7 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
     });
   }
 
-  Widget _buildFlatOptions(List<dynamic> values, List<TreeNode> options,
+  Widget _buildOptions(List<dynamic> values, List<TreeNode> options,
       List<TreeNode> selectedOptions, StateSetter dropdownState) {
     return ConstrainedBox(
       constraints: BoxConstraints(

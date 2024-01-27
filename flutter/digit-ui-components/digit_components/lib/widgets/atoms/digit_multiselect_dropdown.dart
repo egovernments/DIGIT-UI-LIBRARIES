@@ -40,6 +40,7 @@ import '../../constants/app_constants.dart';
 import '../../enum/app_enums.dart';
 import '../../models/DropdownModels.dart';
 import '../../models/chipModel.dart';
+import '../helper_widget/dropdown_options.dart';
 import '../helper_widget/selection_chip.dart';
 import 'digit_checkbox_icon.dart';
 
@@ -96,8 +97,8 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
   OverlayEntry? _overlayEntry;
   bool _selectionMode = false;
 
-  Map<DropdownItem, bool> _itemHoverStates = {};
-  Map<DropdownItem, bool> _itemMouseDownStates = {};
+  final Map<DropdownItem, bool> _itemHoverStates = {};
+  final Map<DropdownItem, bool> _itemMouseDownStates = {};
 
   late final FocusNode _focusNode;
   final LayerLink _layerLink = LayerLink();
@@ -410,12 +411,35 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
           Color backgroundColor = index % 2 == 0
               ? const DigitColors().white
               : const DigitColors().alabasterWhite;
-          return _buildOption(
-            option,
-            isSelected,
-            dropdownState,
-            backgroundColor,
-            selectedOptions,
+          return DropdownOption(
+            option: option,
+            isSelected: selectedOptions.contains(option),
+            backgroundColor: backgroundColor,
+            selectedOptions: selectedOptions,
+            onOptionSelected: (List<DropdownItem> selectedOptions) {
+              if (isSelected) {
+                dropdownState(() {
+                  selectedOptions.remove(option);
+                });
+                setState(() {
+                  _selectedOptions.remove(option);
+                });
+              } else {
+                dropdownState(() {
+                  selectedOptions.add(option);
+                });
+                setState(() {
+                  _selectedOptions.add(option);
+                });
+              }
+
+              if (_controller != null) {
+                _controller!.value._selectedOptions.clear();
+                _controller!.value._selectedOptions.addAll(_selectedOptions);
+              }
+              widget.onOptionSelected?.call(_selectedOptions);
+            },
+            selectionType: widget.selectionType,
           );
         },
       ),
@@ -466,12 +490,35 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                   item.code == option.code && item.name == option.name);
               Color backgroundColor = const DigitColors().white;
 
-              return _buildOption(
-                option,
-                isSelected,
-                dropdownState,
-                backgroundColor,
-                selectedOptions,
+              return DropdownOption(
+                option: option,
+                isSelected: selectedOptions.contains(option),
+                backgroundColor: backgroundColor,
+                selectedOptions: selectedOptions,
+                onOptionSelected: (List<DropdownItem> selectedOptions) {
+                  if (isSelected) {
+                    dropdownState(() {
+                      selectedOptions.remove(option);
+                    });
+                    setState(() {
+                      _selectedOptions.remove(option);
+                    });
+                  } else {
+                    dropdownState(() {
+                      selectedOptions.add(option);
+                    });
+                    setState(() {
+                      _selectedOptions.add(option);
+                    });
+                  }
+
+                  if (_controller != null) {
+                    _controller!.value._selectedOptions.clear();
+                    _controller!.value._selectedOptions.addAll(_selectedOptions);
+                  }
+                  widget.onOptionSelected?.call(_selectedOptions);
+                },
+                selectionType: widget.selectionType,
               );
             }).toList(),
             if (index != groupedOptions.length - 1)
@@ -482,243 +529,6 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
           ],
         );
       },
-    );
-  }
-
-  Column _buildOption(
-      DropdownItem option,
-      bool isSelected,
-      StateSetter dropdownState,
-      Color backgroundColor,
-      List<DropdownItem> selectedOptions) {
-    return Column(
-      children: [
-        StatefulBuilder(
-          builder: (context, setState) {
-            return InkWell(
-              onTapDown: (_) {
-                /// Handle mouse down state
-                setState(() {
-                  _itemMouseDownStates[option] = true;
-                });
-              },
-              onTapUp: (_) {
-                /// Handle mouse up state
-                setState(() {
-                  _itemMouseDownStates[option] = false;
-                });
-              },
-              splashColor: const DigitColors().transaparent,
-              hoverColor: const DigitColors().transaparent,
-              onHover: (hover) {
-                setState(() {
-                  _itemHoverStates[option] = hover;
-                });
-              },
-              onTap: () {
-                if (isSelected) {
-                  dropdownState(() {
-                    selectedOptions.remove(option);
-                  });
-                  setState(() {
-                    _selectedOptions.remove(option);
-                  });
-                } else {
-                  dropdownState(() {
-                    selectedOptions.add(option);
-                  });
-                  setState(() {
-                    _selectedOptions.add(option);
-                  });
-                }
-
-                if (_controller != null) {
-                  _controller!.value._selectedOptions.clear();
-                  _controller!.value._selectedOptions.addAll(_selectedOptions);
-                }
-                widget.onOptionSelected?.call(_selectedOptions);
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: _itemMouseDownStates[option]==true || _itemHoverStates[option] ==true
-                        ? const DigitColors().burningOrange
-                        : Colors.transparent,
-                  ),
-                  color: _itemMouseDownStates[option]==true || isSelected
-                      ? const DigitColors().burningOrange
-                      : _itemHoverStates[option] ==true
-                          ? const DigitColors().orangeBG
-                          : backgroundColor,
-                ),
-                padding: EdgeInsets.zero,
-                child: Padding(
-                  padding: widget.selectionType == SelectionType.multiSelect
-                      ? DropdownConstants.defaultPadding
-                      : DropdownConstants.nestedItemPadding,
-                  child: Row(
-                    children: [
-                      isSelected || _itemMouseDownStates[option] ==true
-                       ? DigitCheckboxIcon(
-                          state: CheckboxState.checked,
-                          color: const DigitColors().white,
-                        )
-                        :const DigitCheckboxIcon(state: CheckboxState.unchecked),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              if (option.textIcon != null)
-                                Icon(
-                                  option.textIcon,
-                                  size: DropdownConstants.textIconSize,
-                                  color: isSelected || _itemMouseDownStates[option]==true
-                                      ? const DigitColors().white
-                                      : const DigitColors().davyGray,
-                                ),
-                              if (option.textIcon != null)
-                                const SizedBox(
-                                  width: kPadding / 2,
-                                ),
-                              Text(
-                                option.name,
-                                style: DigitTheme
-                                    .instance.mobileTheme.textTheme.headlineSmall
-                                    ?.copyWith(
-                                  color: isSelected || _itemMouseDownStates[option] == true
-                                      ? const DigitColors().white
-                                      : const DigitColors().davyGray,
-                                ),
-                              ),
-                            ],
-                          ),
-                          if (option.description != null)
-                            Text(
-                              option.description!,
-                              style: DigitTheme
-                                  .instance.mobileTheme.textTheme.bodySmall
-                                  ?.copyWith(
-                                color: isSelected || _itemMouseDownStates[option] == true
-                                    ? const DigitColors().white
-                                    : const DigitColors().davyGray,
-                              ),
-                            ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            );
-          }
-        ),
-        // ListTile(
-        //   splashColor: const DigitColors().transaparent,
-        //   focusColor: const DigitColors().transaparent,
-        //   hoverColor: const DigitColors().transaparent,
-        //   title: Row(
-        //     children: [
-        //       if (isSelected)
-        //         DigitCheckboxIcon(
-        //           state: CheckboxState.checked,
-        //           color: const DigitColors().white,
-        //         ),
-        //       if (!isSelected)
-        //         const DigitCheckboxIcon(state: CheckboxState.unchecked),
-        //       const SizedBox(
-        //         width: 10,
-        //       ),
-        //       Column(
-        //         crossAxisAlignment: CrossAxisAlignment.start,
-        //         children: [
-        //           Row(
-        //             children: [
-        //               if (option.textIcon != null)
-        //                 Icon(
-        //                   option.textIcon,
-        //                   size: DropdownConstants.textIconSize,
-        //                   color: isSelected
-        //                       ? const DigitColors().white
-        //                       : const DigitColors().davyGray,
-        //                 ),
-        //               if (option.textIcon != null)
-        //                 const SizedBox(
-        //                   width: kPadding / 2,
-        //                 ),
-        //               Text(
-        //                 option.name,
-        //                 style: DigitTheme
-        //                     .instance.mobileTheme.textTheme.headlineSmall
-        //                     ?.copyWith(
-        //                   color: isSelected
-        //                       ? const DigitColors().white
-        //                       : const DigitColors().davyGray,
-        //                 ),
-        //               ),
-        //             ],
-        //           ),
-        //           if (option.description != null)
-        //             Text(
-        //               option.description!,
-        //               style: DigitTheme.instance.mobileTheme.textTheme.bodySmall
-        //                   ?.copyWith(
-        //                 color: isSelected
-        //                     ? const DigitColors().white
-        //                     : const DigitColors().davyGray,
-        //               ),
-        //             ),
-        //         ],
-        //       ),
-        //     ],
-        //   ),
-        //   textColor: const DigitColors().davyGray,
-        //   selectedColor: const DigitColors().white,
-        //   selected: isSelected,
-        //   autofocus: true,
-        //   tileColor: widget.selectionType == SelectionType.nestedMultiSelect
-        //       ? const DigitColors().white
-        //       : backgroundColor,
-        //   selectedTileColor: const DigitColors().burningOrange,
-        //   contentPadding: const EdgeInsets.symmetric(horizontal: 10),
-        //   onTap: () {
-        //     if (isSelected) {
-        //       dropdownState(() {
-        //         selectedOptions.remove(option);
-        //       });
-        //       setState(() {
-        //         _selectedOptions.remove(option);
-        //       });
-        //     } else {
-        //       dropdownState(() {
-        //         selectedOptions.add(option);
-        //       });
-        //       setState(() {
-        //         _selectedOptions.add(option);
-        //       });
-        //     }
-        //
-        //     if (_controller != null) {
-        //       _controller!.value._selectedOptions.clear();
-        //       _controller!.value._selectedOptions.addAll(_selectedOptions);
-        //     }
-        //     widget.onOptionSelected?.call(_selectedOptions);
-        //   },
-        // ),
-        if (widget.selectionType == SelectionType.nestedMultiSelect)
-          Container(
-            height: 1,
-            color: const DigitColors().quillGray,
-            width: MediaQuery.of(context).size.width,
-            margin: const EdgeInsets.only(
-              left: 10,
-              right: 10,
-            ),
-          )
-      ],
     );
   }
 
