@@ -118,7 +118,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
 
   void _onFocusChange() {
     print('fromhereeeeeeeeeeeeeeeee');
-    if (!_focusNode.hasFocus && isMouseDown) {
+    if (!_focusNode.hasFocus) {
       _toggleDropdown(close: true);
     }
   }
@@ -588,6 +588,8 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                   setState(() {
                                     _nestedIndex = typeItems[index].code;
                                   });
+                                  print(typeItems[index].name);
+                                  print(typeItems[index].code);
                                   widget.onChange(typeItems[index].name, typeItems[index].code);
                                   _toggleDropdown();
                                 },
@@ -911,7 +913,8 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
       DropdownItem selectedItem = filteredItems.firstWhere(
             (item) => item.code == _nestedIndex,
       );
-
+      print(_nestedIndex);
+      print(selectedItem.name);
       // Check if the found item is not the default item
       if (selectedItem.name.isNotEmpty) {
         setState(() {

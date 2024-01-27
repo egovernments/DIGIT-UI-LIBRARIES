@@ -305,12 +305,12 @@ class MyHomePageState extends State<MyHomePage> {
                       ),
                       DropdownItem(
                         name: 'pine apple',
-                        code: '4',
+                        code: '5',
                         type: 'group B',
                       ),
                       DropdownItem(
                         name: 'watermelon',
-                        code: '5',
+                        code: '6',
                         type: 'group A',
                       ),
                     ],

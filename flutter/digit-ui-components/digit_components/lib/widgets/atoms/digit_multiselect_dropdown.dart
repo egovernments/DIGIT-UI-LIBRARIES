@@ -74,7 +74,7 @@ class MultiSelectDropDown<int> extends StatefulWidget {
     this.chipConfig = const ChipConfig(),
     this.selectionType = SelectionType.multiSelect,
     this.selectedOptions = const [],
-    this.suffixIcon =Icons.arrow_drop_down,
+    this.suffixIcon = Icons.arrow_drop_down,
     this.focusNode,
     this.controller,
   }) : super(key: key);
@@ -95,6 +95,9 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
   OverlayState? _overlayState;
   OverlayEntry? _overlayEntry;
   bool _selectionMode = false;
+
+  Map<DropdownItem, bool> _itemHoverStates = {};
+  Map<DropdownItem, bool> _itemMouseDownStates = {};
 
   late final FocusNode _focusNode;
   final LayerLink _layerLink = LayerLink();
@@ -349,6 +352,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
         return GestureDetector(
           onTap: _onOutSideTap,
           behavior: HitTestBehavior.translucent,
+
           /// full screen SizedBox to register taps anywhere and close drop down
           child: SizedBox(
             height: MediaQuery.of(context).size.height,
@@ -364,17 +368,17 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                   child: Material(
                     borderRadius: BorderRadius.zero,
                     shadowColor: null,
-                    color: Colors.red,
                     child: SizedBox(
                       width: size.width,
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          widget.selectionType == SelectionType.nestedMultiSelect
-                              ? _buildNestedItems(
-                                  values, options, selectedOptions, dropdownState)
-                              : _buildFlatOptions(
-                                  values, options, selectedOptions, dropdownState),
+                          widget.selectionType ==
+                                  SelectionType.nestedMultiSelect
+                              ? _buildNestedItems(values, options,
+                                  selectedOptions, dropdownState)
+                              : _buildFlatOptions(values, options,
+                                  selectedOptions, dropdownState),
                         ],
                       ),
                     ),
@@ -419,13 +423,13 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
   }
 
   Widget _buildNestedItems(List<dynamic> values, List<DropdownItem> options,
-      List<DropdownItem> selectedOptions, StateSetter dropdownState){
-    return ConstrainedBox(constraints: BoxConstraints(
-      maxHeight: values[1] - 30,
-    ),
-      child: _buildNestedOptions(
-          values, options, selectedOptions, dropdownState)
-    );
+      List<DropdownItem> selectedOptions, StateSetter dropdownState) {
+    return ConstrainedBox(
+        constraints: BoxConstraints(
+          maxHeight: values[1] - 30,
+        ),
+        child: _buildNestedOptions(
+            values, options, selectedOptions, dropdownState));
   }
 
   Widget _buildNestedOptions(List<dynamic> values, List<DropdownItem> options,
@@ -436,6 +440,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
     return ListView.builder(
       shrinkWrap: true,
       itemCount: groupedOptions.length,
+      padding: EdgeInsets.zero,
       itemBuilder: (context, index) {
         final type = groupedOptions.keys.elementAt(index);
         final typeOptions = groupedOptions[type] ?? [];
@@ -445,13 +450,12 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
           children: [
             if (type != null)
               Container(
-                width:(values[0] as Size).width,
+                width: (values[0] as Size).width,
                 padding: const EdgeInsets.all(10),
                 color: const DigitColors().alabasterWhite,
                 child: Text(
                   type,
-                  style: DigitTheme
-                      .instance.mobileTheme.textTheme.headlineSmall
+                  style: DigitTheme.instance.mobileTheme.textTheme.headlineSmall
                       ?.copyWith(
                     color: const DigitColors().davyGray,
                   ),
@@ -460,9 +464,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
             ...typeOptions.map((option) {
               bool isSelected = selectedOptions.any((item) =>
                   item.code == option.code && item.name == option.name);
-              Color backgroundColor = options.indexOf(option) % 2 == 0
-                  ? const DigitColors().white
-                  : const DigitColors().alabasterWhite;
+              Color backgroundColor = const DigitColors().white;
 
               return _buildOption(
                 option,
@@ -472,12 +474,14 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                 selectedOptions,
               );
             }).toList(),
-            if(index!=groupedOptions.length-1)
-              const SizedBox(height: kPadding*2,),
+            if (index != groupedOptions.length - 1)
+               Container(
+                height: kPadding * 2,
+                color: const DigitColors().white,
+              ),
           ],
         );
       },
-
     );
   }
 
@@ -489,107 +493,231 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
       List<DropdownItem> selectedOptions) {
     return Column(
       children: [
-        ListTile(
-          splashColor: const DigitColors().transaparent,
-          focusColor: const DigitColors().transaparent,
-          hoverColor: const DigitColors().transaparent,
-          title: Row(
-            children: [
-              if (isSelected)
-                DigitCheckboxIcon(
-                  state: CheckboxState.checked,
-                  color: const DigitColors().white,
+        StatefulBuilder(
+          builder: (context, setState) {
+            return InkWell(
+              onTapDown: (_) {
+                /// Handle mouse down state
+                setState(() {
+                  _itemMouseDownStates[option] = true;
+                });
+              },
+              onTapUp: (_) {
+                /// Handle mouse up state
+                setState(() {
+                  _itemMouseDownStates[option] = false;
+                });
+              },
+              splashColor: const DigitColors().transaparent,
+              hoverColor: const DigitColors().transaparent,
+              onHover: (hover) {
+                setState(() {
+                  _itemHoverStates[option] = hover;
+                });
+              },
+              onTap: () {
+                if (isSelected) {
+                  dropdownState(() {
+                    selectedOptions.remove(option);
+                  });
+                  setState(() {
+                    _selectedOptions.remove(option);
+                  });
+                } else {
+                  dropdownState(() {
+                    selectedOptions.add(option);
+                  });
+                  setState(() {
+                    _selectedOptions.add(option);
+                  });
+                }
+
+                if (_controller != null) {
+                  _controller!.value._selectedOptions.clear();
+                  _controller!.value._selectedOptions.addAll(_selectedOptions);
+                }
+                widget.onOptionSelected?.call(_selectedOptions);
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: _itemMouseDownStates[option]==true || _itemHoverStates[option] ==true
+                        ? const DigitColors().burningOrange
+                        : Colors.transparent,
+                  ),
+                  color: _itemMouseDownStates[option]==true || isSelected
+                      ? const DigitColors().burningOrange
+                      : _itemHoverStates[option] ==true
+                          ? const DigitColors().orangeBG
+                          : backgroundColor,
                 ),
-              if (!isSelected)
-                const DigitCheckboxIcon(state: CheckboxState.unchecked),
-              const SizedBox(
-                width: 10,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
+                padding: EdgeInsets.zero,
+                child: Padding(
+                  padding: widget.selectionType == SelectionType.multiSelect
+                      ? DropdownConstants.defaultPadding
+                      : DropdownConstants.nestedItemPadding,
+                  child: Row(
                     children: [
-                      if (option.textIcon != null)
-                        Icon(
-                          option.textIcon,
-                          size: DropdownConstants.textIconSize,
-                          color: isSelected
-                              ? const DigitColors().white
-                              : const DigitColors().davyGray,
-                        ),
-                      if (option.textIcon != null)
-                        const SizedBox(
-                          width: kPadding / 2,
-                        ),
-                      Text(
-                        option.name,
-                        style: DigitTheme
-                            .instance.mobileTheme.textTheme.headlineSmall
-                            ?.copyWith(
-                          color: isSelected
-                              ? const DigitColors().white
-                              : const DigitColors().davyGray,
-                        ),
+                      isSelected || _itemMouseDownStates[option] ==true
+                       ? DigitCheckboxIcon(
+                          state: CheckboxState.checked,
+                          color: const DigitColors().white,
+                        )
+                        :const DigitCheckboxIcon(state: CheckboxState.unchecked),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              if (option.textIcon != null)
+                                Icon(
+                                  option.textIcon,
+                                  size: DropdownConstants.textIconSize,
+                                  color: isSelected || _itemMouseDownStates[option]==true
+                                      ? const DigitColors().white
+                                      : const DigitColors().davyGray,
+                                ),
+                              if (option.textIcon != null)
+                                const SizedBox(
+                                  width: kPadding / 2,
+                                ),
+                              Text(
+                                option.name,
+                                style: DigitTheme
+                                    .instance.mobileTheme.textTheme.headlineSmall
+                                    ?.copyWith(
+                                  color: isSelected || _itemMouseDownStates[option] == true
+                                      ? const DigitColors().white
+                                      : const DigitColors().davyGray,
+                                ),
+                              ),
+                            ],
+                          ),
+                          if (option.description != null)
+                            Text(
+                              option.description!,
+                              style: DigitTheme
+                                  .instance.mobileTheme.textTheme.bodySmall
+                                  ?.copyWith(
+                                color: isSelected || _itemMouseDownStates[option] == true
+                                    ? const DigitColors().white
+                                    : const DigitColors().davyGray,
+                              ),
+                            ),
+                        ],
                       ),
                     ],
                   ),
-                  if (option.description != null)
-                    Text(
-                      option.description!,
-                      style: DigitTheme.instance.mobileTheme.textTheme.bodySmall
-                          ?.copyWith(
-                        color: isSelected
-                            ? const DigitColors().white
-                            : const DigitColors().davyGray,
-                      ),
-                    ),
-                ],
+                ),
               ),
-            ],
-          ),
-          textColor: const DigitColors().davyGray,
-          selectedColor: const DigitColors().white,
-          selected: isSelected,
-          autofocus: true,
-          tileColor: widget.selectionType == SelectionType.nestedMultiSelect
-              ? const DigitColors().white
-              : backgroundColor,
-          selectedTileColor: const DigitColors().burningOrange,
-          contentPadding: const EdgeInsets.symmetric(horizontal: 10),
-          onTap: () {
-            if (isSelected) {
-              dropdownState(() {
-                selectedOptions.remove(option);
-              });
-              setState(() {
-                _selectedOptions.remove(option);
-              });
-            } else {
-              dropdownState(() {
-                selectedOptions.add(option);
-              });
-              setState(() {
-                _selectedOptions.add(option);
-              });
-            }
-
-            if (_controller != null) {
-              _controller!.value._selectedOptions.clear();
-              _controller!.value._selectedOptions.addAll(_selectedOptions);
-            }
-            widget.onOptionSelected?.call(_selectedOptions);
-          },
+            );
+          }
         ),
-        if(widget.selectionType==SelectionType.nestedMultiSelect)Container(
-          height: 1,
-          color: const DigitColors().quillGray,
-          width: MediaQuery.of(context).size.width,
-          margin: const EdgeInsets.only(
-            left: 10,
-            right: 10,
-          ),
-        )
+        // ListTile(
+        //   splashColor: const DigitColors().transaparent,
+        //   focusColor: const DigitColors().transaparent,
+        //   hoverColor: const DigitColors().transaparent,
+        //   title: Row(
+        //     children: [
+        //       if (isSelected)
+        //         DigitCheckboxIcon(
+        //           state: CheckboxState.checked,
+        //           color: const DigitColors().white,
+        //         ),
+        //       if (!isSelected)
+        //         const DigitCheckboxIcon(state: CheckboxState.unchecked),
+        //       const SizedBox(
+        //         width: 10,
+        //       ),
+        //       Column(
+        //         crossAxisAlignment: CrossAxisAlignment.start,
+        //         children: [
+        //           Row(
+        //             children: [
+        //               if (option.textIcon != null)
+        //                 Icon(
+        //                   option.textIcon,
+        //                   size: DropdownConstants.textIconSize,
+        //                   color: isSelected
+        //                       ? const DigitColors().white
+        //                       : const DigitColors().davyGray,
+        //                 ),
+        //               if (option.textIcon != null)
+        //                 const SizedBox(
+        //                   width: kPadding / 2,
+        //                 ),
+        //               Text(
+        //                 option.name,
+        //                 style: DigitTheme
+        //                     .instance.mobileTheme.textTheme.headlineSmall
+        //                     ?.copyWith(
+        //                   color: isSelected
+        //                       ? const DigitColors().white
+        //                       : const DigitColors().davyGray,
+        //                 ),
+        //               ),
+        //             ],
+        //           ),
+        //           if (option.description != null)
+        //             Text(
+        //               option.description!,
+        //               style: DigitTheme.instance.mobileTheme.textTheme.bodySmall
+        //                   ?.copyWith(
+        //                 color: isSelected
+        //                     ? const DigitColors().white
+        //                     : const DigitColors().davyGray,
+        //               ),
+        //             ),
+        //         ],
+        //       ),
+        //     ],
+        //   ),
+        //   textColor: const DigitColors().davyGray,
+        //   selectedColor: const DigitColors().white,
+        //   selected: isSelected,
+        //   autofocus: true,
+        //   tileColor: widget.selectionType == SelectionType.nestedMultiSelect
+        //       ? const DigitColors().white
+        //       : backgroundColor,
+        //   selectedTileColor: const DigitColors().burningOrange,
+        //   contentPadding: const EdgeInsets.symmetric(horizontal: 10),
+        //   onTap: () {
+        //     if (isSelected) {
+        //       dropdownState(() {
+        //         selectedOptions.remove(option);
+        //       });
+        //       setState(() {
+        //         _selectedOptions.remove(option);
+        //       });
+        //     } else {
+        //       dropdownState(() {
+        //         selectedOptions.add(option);
+        //       });
+        //       setState(() {
+        //         _selectedOptions.add(option);
+        //       });
+        //     }
+        //
+        //     if (_controller != null) {
+        //       _controller!.value._selectedOptions.clear();
+        //       _controller!.value._selectedOptions.addAll(_selectedOptions);
+        //     }
+        //     widget.onOptionSelected?.call(_selectedOptions);
+        //   },
+        // ),
+        if (widget.selectionType == SelectionType.nestedMultiSelect)
+          Container(
+            height: 1,
+            color: const DigitColors().quillGray,
+            width: MediaQuery.of(context).size.width,
+            margin: const EdgeInsets.only(
+              left: 10,
+              right: 10,
+            ),
+          )
       ],
     );
   }
