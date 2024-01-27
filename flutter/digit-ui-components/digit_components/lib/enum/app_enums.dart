@@ -11,7 +11,6 @@ enum ButtonType {
 enum DropdownType {
   defaultSelect,
   nestedSelect,
-  profileSelect,
 }
 
 /// Enum representing different types of multi select dropdowns.

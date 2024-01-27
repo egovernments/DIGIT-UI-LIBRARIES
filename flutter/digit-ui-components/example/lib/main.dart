@@ -208,7 +208,6 @@ class MyHomePageState extends State<MyHomePage> {
                   DigitDropdown<int>(
                     onChange: (String value, String index) => {},
                     textEditingController: TextEditingController(),
-                    dropdownType: DropdownType.profileSelect,
                     items: const [
                       DropdownItem(
                         name: 'first',

@@ -851,35 +851,32 @@ class HotReload extends StatelessWidget {
                 WidgetbookUseCase(
                   name: 'non Editable',
                   builder: (context) => Center(
-                    child: Container(
-                      height: 100,
-                      child: DigitLocationFormInput(
-                        controller: TextEditingController(),
-                        readOnly: true,
-                        label: context.knobs.string(
-                          label: 'Title',
-                          initialValue: '',
-                        ),
-                        helpText: context.knobs.string(
-                          label: 'help text',
-                          initialValue: '',
-                        ),
-                        charCount: context.knobs.boolean(
-                          label: 'char count',
-                          initialValue: false,
-                        ),
-                        innerLabel: context.knobs.string(
-                          label: 'inner label',
-                          initialValue: '',
-                        ),
-                        info: context.knobs.boolean(
-                          label: 'info',
-                          initialValue: false,
-                        ),
-                        infoText: context.knobs.string(
-                          label: 'infoText',
-                          initialValue: 'this is info',
-                        ),
+                    child: DigitLocationFormInput(
+                      controller: TextEditingController(),
+                      readOnly: true,
+                      label: context.knobs.string(
+                        label: 'Title',
+                        initialValue: '',
+                      ),
+                      helpText: context.knobs.string(
+                        label: 'help text',
+                        initialValue: '',
+                      ),
+                      charCount: context.knobs.boolean(
+                        label: 'char count',
+                        initialValue: false,
+                      ),
+                      innerLabel: context.knobs.string(
+                        label: 'inner label',
+                        initialValue: '',
+                      ),
+                      info: context.knobs.boolean(
+                        label: 'info',
+                        initialValue: false,
+                      ),
+                      infoText: context.knobs.string(
+                        label: 'infoText',
+                        initialValue: 'this is info',
                       ),
                     ),
                   ),
@@ -892,35 +889,32 @@ class HotReload extends StatelessWidget {
                 WidgetbookUseCase(
                   name: 'default',
                   builder: (context) => Center(
-                    child: Container(
-                      height: 200,
-                      child: DigitTextAreaFormInput(
-                        controller: TextEditingController(),
-                        label: context.knobs.string(
-                          label: 'Title',
-                          initialValue: '',
-                        ),
-                        isRequired: context.knobs.boolean(label: 'Required', initialValue: false),
-                        helpText: context.knobs.string(
-                          label: 'help text',
-                          initialValue: '',
-                        ),
-                        charCount: context.knobs.boolean(
-                          label: 'char count',
-                          initialValue: false,
-                        ),
-                        innerLabel: context.knobs.string(
-                          label: 'inner label',
-                          initialValue: '',
-                        ),
-                        info: context.knobs.boolean(
-                          label: 'info',
-                          initialValue: false,
-                        ),
-                        infoText: context.knobs.string(
-                          label: 'infoText',
-                          initialValue: 'this is info',
-                        ),
+                    child: DigitTextAreaFormInput(
+                      controller: TextEditingController(),
+                      label: context.knobs.string(
+                        label: 'Title',
+                        initialValue: '',
+                      ),
+                      isRequired: context.knobs.boolean(label: 'Required', initialValue: false),
+                      helpText: context.knobs.string(
+                        label: 'help text',
+                        initialValue: '',
+                      ),
+                      charCount: context.knobs.boolean(
+                        label: 'char count',
+                        initialValue: false,
+                      ),
+                      innerLabel: context.knobs.string(
+                        label: 'inner label',
+                        initialValue: '',
+                      ),
+                      info: context.knobs.boolean(
+                        label: 'info',
+                        initialValue: false,
+                      ),
+                      infoText: context.knobs.string(
+                        label: 'infoText',
+                        initialValue: 'this is info',
                       ),
                     ),
                   ),
@@ -928,35 +922,32 @@ class HotReload extends StatelessWidget {
                 WidgetbookUseCase(
                   name: 'disabled',
                   builder: (context) => Center(
-                    child: Container(
-                      height: 200,
-                      child: DigitTextAreaFormInput(
-                        controller: TextEditingController(),
-                        isDisabled: true,
-                        label: context.knobs.string(
-                          label: 'Title',
-                          initialValue: '',
-                        ),
-                        helpText: context.knobs.string(
-                          label: 'help text',
-                          initialValue: '',
-                        ),
-                        charCount: context.knobs.boolean(
-                          label: 'char count',
-                          initialValue: false,
-                        ),
-                        innerLabel: context.knobs.string(
-                          label: 'inner label',
-                          initialValue: '',
-                        ),
-                        info: context.knobs.boolean(
-                          label: 'info',
-                          initialValue: false,
-                        ),
-                        infoText: context.knobs.string(
-                          label: 'infoText',
-                          initialValue: 'this is info',
-                        ),
+                    child: DigitTextAreaFormInput(
+                      controller: TextEditingController(),
+                      isDisabled: true,
+                      label: context.knobs.string(
+                        label: 'Title',
+                        initialValue: '',
+                      ),
+                      helpText: context.knobs.string(
+                        label: 'help text',
+                        initialValue: '',
+                      ),
+                      charCount: context.knobs.boolean(
+                        label: 'char count',
+                        initialValue: false,
+                      ),
+                      innerLabel: context.knobs.string(
+                        label: 'inner label',
+                        initialValue: '',
+                      ),
+                      info: context.knobs.boolean(
+                        label: 'info',
+                        initialValue: false,
+                      ),
+                      infoText: context.knobs.string(
+                        label: 'infoText',
+                        initialValue: 'this is info',
                       ),
                     ),
                   ),
@@ -1079,7 +1070,7 @@ class HotReload extends StatelessWidget {
                   builder: (context) => DigitDropdown<int>(
                     onChange: (String value, String index) => print(value),
                     textEditingController: TextEditingController(),
-                    isSearchable: context.knobs.boolean(label: 'Searchable', initialValue: false),
+                    // isSearchable: context.knobs.boolean(label: 'Searchable', initialValue: false),
                     items: [
                       'one',
                       'two',
@@ -1106,7 +1097,7 @@ class HotReload extends StatelessWidget {
                     },
                     textEditingController: TextEditingController(),
                     dropdownType: DropdownType.nestedSelect,
-                    isSearchable: context.knobs.boolean(label: 'Searchable', initialValue: false),
+                    // isSearchable: context.knobs.boolean(label: 'Searchable', initialValue: false),
                     items: const [
                       DropdownItem(
                         name: 'one',
@@ -1148,7 +1139,7 @@ class HotReload extends StatelessWidget {
                       print(value),
                       print(index),
                     },
-                    isSearchable: context.knobs.boolean(label: 'Searchable', initialValue: false),
+                    // isSearchable: context.knobs.boolean(label: 'Searchable', initialValue: false),
                     textEditingController: TextEditingController(),
                     items: [
                       'one',
@@ -1176,7 +1167,7 @@ class HotReload extends StatelessWidget {
                       print(index),
                     },
                     textEditingController: TextEditingController(),
-                    isSearchable: context.knobs.boolean(label: 'Searchable', initialValue: false),
+                    // isSearchable: context.knobs.boolean(label: 'Searchable', initialValue: false),
                     items: [
                       'one',
                       'two',
@@ -1202,7 +1193,7 @@ class HotReload extends StatelessWidget {
                       print(value),
                       print(index),
                     },
-                    isSearchable: context.knobs.boolean(label: 'Searchable', initialValue: false),
+                    // isSearchable: context.knobs.boolean(label: 'Searchable', initialValue: false),
                     textEditingController: TextEditingController(),
                     textIcon: Icons.article,
                     dropdownType: DropdownType.profileSelect,
