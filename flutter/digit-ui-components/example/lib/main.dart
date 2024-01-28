@@ -282,6 +282,11 @@ class MyHomePageState extends State<MyHomePage> {
                     onChange: (String value, String type) => {},
                     textEditingController: TextEditingController(),
                     dropdownType: DropdownType.nestedSelect,
+                    selectedOption: const DropdownItem(
+                      name: 'apple',
+                      code: '1',
+                      type: 'group B',
+                    ),
                     items: const [
                       DropdownItem(
                         name: 'apple',
