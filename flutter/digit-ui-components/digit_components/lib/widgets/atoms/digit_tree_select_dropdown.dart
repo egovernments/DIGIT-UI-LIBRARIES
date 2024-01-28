@@ -59,6 +59,9 @@ class TreeSelectDropDown<int> extends StatefulWidget {
   /// focus node
   final FocusNode? focusNode;
 
+  /// Whether the dropdown is enabled or disabled.
+  final bool isDisabled;
+
   /// Controller for the dropdown
   /// [controller] is the controller for the dropdown. It can be used to programmatically open and close the dropdown.
   final TreeSelectController<int>? controller;
@@ -74,6 +77,7 @@ class TreeSelectDropDown<int> extends StatefulWidget {
     this.inputDecoration,
     this.focusNode,
     this.controller,
+    this.isDisabled = false,
   }) : super(key: key);
 
   @override
@@ -214,18 +218,24 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
             ? Default.mobileInputWidth
             : Default.desktopInputWidth;
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         CompositedTransformTarget(
           link: _layerLink,
           child: Focus(
-            canRequestFocus: true,
-            skipTraversal: true,
+            canRequestFocus: !widget.isDisabled,
+
+            /// Only allow focus if the dropdown is enabled
+            skipTraversal: !widget.isDisabled,
             focusNode: _focusNode,
             child: InkWell(
               splashColor: Colors.transparent,
               highlightColor: Colors.transparent,
               hoverColor: Colors.transparent,
-              onTap: _toggleFocus,
+              onTap: !widget.isDisabled ? _toggleFocus : null,
+
+              /// Disable onTap if dropdown is disabled
               child: StatefulBuilder(builder: (context, setState) {
                 return Container(
                   height: Default.height,
@@ -237,7 +247,9 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
                   padding: const EdgeInsets.symmetric(
                     horizontal: kPadding,
                   ),
-                  decoration: _getContainerDecoration(),
+                  decoration: !widget.isDisabled
+                      ? _getContainerDecoration()
+                      : _getDisabledContainerDecoration(),
                   child: Row(
                     children: [
                       Expanded(
@@ -248,7 +260,12 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
                                 : Text(_selectedOptions.first.code.toString())
                             : const SizedBox(),
                       ),
-                      Icon(widget.suffixIcon),
+                      Icon(
+                        widget.suffixIcon,
+                        color: widget.isDisabled
+                            ? const DigitColors().cloudGray
+                            : const DigitColors().davyGray,
+                      ),
                     ],
                   ),
                 );
@@ -292,9 +309,10 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
 
           /// Display "Clear All" only if there are selected options
           InkWell(
+            hoverColor: const DigitColors().transparent,
+            splashColor: const DigitColors().transparent,
             onTap: () => clear(),
-
-            /// onTap Clear all the
+            /// onTap Clear all the selected options
             child: Chip(
               backgroundColor: const DigitColors().white,
               shape: RoundedRectangleBorder(
@@ -338,10 +356,22 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
   /// return true if any item is selected.
   bool get _anyItemSelected => _selectedOptions.isNotEmpty;
 
+  /// Container decoration for disabled dropdown.
+  Decoration _getDisabledContainerDecoration() {
+    return BoxDecoration(
+      color: const DigitColors().cloudGray,
+      borderRadius: BorderRadius.zero,
+      border: Border.all(
+        color: const DigitColors().cloudGray,
+        width: 1,
+      ),
+    );
+  }
+
   /// Container decoration for the dropdown.
   Decoration _getContainerDecoration() {
     return BoxDecoration(
-      color: Colors.white,
+      color: const DigitColors().transparent,
       borderRadius: BorderRadius.zero,
       border: _selectionMode
           ? Border.all(
@@ -406,6 +436,7 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
         return GestureDetector(
           onTap: _onOutSideTap,
           behavior: HitTestBehavior.translucent,
+
           /// full screen SizedBox to register taps anywhere and close drop down
           child: SizedBox(
             height: MediaQuery.of(context).size.height,
@@ -429,8 +460,8 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            _buildOptions(
-                                values, options, selectedOptions, dropdownState),
+                            _buildOptions(values, options, selectedOptions,
+                                dropdownState),
                           ],
                         ),
                       ),

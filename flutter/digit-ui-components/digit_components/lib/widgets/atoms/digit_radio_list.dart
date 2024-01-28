@@ -157,12 +157,13 @@ class _DigitRadioListState extends State<DigitRadioList> {
                             color: widget.isDisabled
                                 ? const DigitColors().cloudGray
                                 : (widget.groupValue == button.code ||
-                                        isHoveredList[index] || isMouseDown[index])
+                                        isHoveredList[index] ||
+                                        isMouseDown[index])
                                     ? const DigitColors().burningOrange
                                     : const DigitColors().davyGray,
                             width: 1.0,
                           ),
-                          color: const DigitColors().transaparent,
+                          color: const DigitColors().transparent,
                         ),
                         child: widget.groupValue == button.code
                             ? Container(

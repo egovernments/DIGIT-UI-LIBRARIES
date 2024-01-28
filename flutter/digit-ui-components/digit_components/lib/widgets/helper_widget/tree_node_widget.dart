@@ -100,11 +100,11 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
               _isMouseDown = false;
             });
           },
-          splashColor: const DigitColors().transaparent,
-          hoverColor: const DigitColors().transaparent,
+          splashColor: const DigitColors().transparent,
+          hoverColor: const DigitColors().transparent,
           onHover: (hover) {
             setState(() {
-              _isHover = hover;
+              // _isHover = hover;
             });
           },
           onTap: () {
@@ -136,15 +136,9 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
           child: Container(
             decoration: BoxDecoration(
               border: Border.all(
-                color:  _isHover || _isMouseDown
-                    ? const DigitColors().burningOrange
-                    : Colors.transparent,
+                color:  Colors.transparent,
               ),
-              color: (_isMouseDown && _areAllChildrenSelected(widget.currentOption)) || _isSelected
-                  ? const DigitColors().burningOrange
-                  : _isHover
-                  ? const DigitColors().orangeBG
-                  : const DigitColors().white,
+              color: const DigitColors().white,
             ),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: kPadding*2,),
@@ -175,10 +169,9 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
                                   _areAllChildrenSelected(widget.currentOption);
                             });
                           },
-                          child: _areAllChildrenSelected(widget.currentOption) || _isMouseDown
-                              ?  DigitCheckboxIcon(
+                          child: _areAllChildrenSelected(widget.currentOption)
+                              ?  const DigitCheckboxIcon(
                             state: CheckboxState.checked,
-                            color: const DigitColors().white,
                           )
                               : _isAnyChildSelected(widget.currentOption)
                               ? const DigitCheckboxIcon(
@@ -193,7 +186,7 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
                         widget.currentOption.name,
                         style: DigitTheme.instance.mobileTheme.textTheme.headlineSmall
                             ?.copyWith(
-                          color: _isMouseDown || _isSelected ? const DigitColors().white :const DigitColors().davyGray,
+                          color: const DigitColors().davyGray,
                         ),
                       ),
                     ],

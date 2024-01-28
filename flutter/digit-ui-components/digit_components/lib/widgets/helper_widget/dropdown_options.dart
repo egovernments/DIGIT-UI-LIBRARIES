@@ -49,8 +49,8 @@ class _DropdownOptionState extends State<DropdownOption> {
                   _itemMouseDownStates[widget.option] = false;
                 });
               },
-              splashColor: const DigitColors().transaparent,
-              hoverColor: const DigitColors().transaparent,
+              splashColor: const DigitColors().transparent,
+              hoverColor: const DigitColors().transparent,
               onHover: (hover) {
                 setState(() {
                   _itemHoverStates[widget.option] = hover;

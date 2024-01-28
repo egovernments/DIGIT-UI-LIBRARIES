@@ -99,7 +99,7 @@ class MyHomePageState extends State<MyHomePage> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   DigitTextFormInput(
-                    label: "input",
+                    label: "Text Field",
                     initialValue: 'value',
                     controller: TextEditingController(),
                     innerLabel: 'label',
@@ -116,10 +116,8 @@ class MyHomePageState extends State<MyHomePage> {
                     height: 8,
                   ),
                   DigitTextAreaFormInput(
-                    label: "input",
+                    label: "Text Area",
                     controller: TextEditingController(),
-                    // state: 'Disabled',
-                    // info: 'this is info',
                     innerLabel: 'label',
                     helpText: 'help text',
                   ),
@@ -127,7 +125,7 @@ class MyHomePageState extends State<MyHomePage> {
                     height: 8,
                   ),
                   DigitDateFormInput(
-                    label: "input",
+                    label: "Date Field",
                     controller: TextEditingController(),
                     innerLabel: 'innerlabel',
                     helpText: 'help text',
@@ -136,10 +134,8 @@ class MyHomePageState extends State<MyHomePage> {
                     height: 8,
                   ),
                   DigitTimeFormInput(
-                    label: "input",
+                    label: "Time Field",
                     controller: TextEditingController(),
-                    // state: 'Disabled',
-                    // info: 'this is info',
                     innerLabel: 'innerlabel',
                     helpText: 'help text',
                   ),
@@ -147,7 +143,7 @@ class MyHomePageState extends State<MyHomePage> {
                     height: 8,
                   ),
                   DigitSearchFormInput(
-                    label: "input",
+                    label: "Search Field",
                     controller: TextEditingController(),
                     innerLabel: 'innerlabel',
                     helpText: 'help text',
@@ -156,7 +152,7 @@ class MyHomePageState extends State<MyHomePage> {
                     height: 8,
                   ),
                   DigitPasswordFormInput(
-                    label: "input",
+                    label: "password Field",
                     controller: TextEditingController(),
                     innerLabel: 'innerlabel',
                     helpText: 'help text',
@@ -166,45 +162,40 @@ class MyHomePageState extends State<MyHomePage> {
                           'Password must be at least 6 characters.'),
                     ],
                   ),
+                  const SizedBox(
+                    height: 8,
+                  ),
                   DigitTextFormInput(
-                    label: "input",
+                    label: "Text Field With Suffix Icon",
                     controller: TextEditingController(),
-                    // state: 'Disabled',
-                    // info: 'this is info',
                     innerLabel: 'innerlabel',
                     helpText: 'help text',
-                    // isDisabled: true,
-                    // onSuffixTap: (){print('tapppppppppp');},
                     suffixIcon: Icons.currency_rupee_sharp,
-                    prefixIcon: Icons.currency_rupee,
                   ),
                   const SizedBox(
                     height: 8,
                   ),
                   DigitNumericFormInput(
-                    label: "input",
+                    label: "Numeric Field",
                     controller: TextEditingController(),
-                    // state: 'Disabled',
                     innerLabel: 'innerlabel',
                     helpText: 'help text',
                     initialValue: '0',
-                    // readOnly: true,
+                    step: 1,
                   ),
                   const SizedBox(
                     height: 8,
                   ),
                   DigitLocationFormInput(
-                    label: "input",
+                    label: "Location Field",
                     controller: TextEditingController(),
                     innerLabel: 'innerlabel',
                     helpText: 'help text',
                   ),
                   const SizedBox(
-                    height: 16,
-                  ),
-                  const SizedBox(
                     height: 8,
                   ),
+                  const Text('Dropdown Varients'),
                   DigitDropdown<int>(
                     onChange: (String value, String index) => {},
                     textEditingController: TextEditingController(),
@@ -225,24 +216,60 @@ class MyHomePageState extends State<MyHomePage> {
                           'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
                         ),
                       ),
+                      DropdownItem(
+                        name: 'third',
+                        code: '3',
+                        description: 'description for third one',
+                        profileImage: NetworkImage(
+                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                        ),
+                      ),
+                      DropdownItem(
+                        name: 'fourth',
+                        code: '4',
+                        description: 'description for fourth one',
+                        profileImage: NetworkImage(
+                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                        ),
+                      ),
                     ],
                   ),
                   const SizedBox(
-                    height: 16,
+                    height: 8,
                   ),
+                  DigitDropdown<int>(
+                    onChange: (String value, String index) => {},
+                    textEditingController: TextEditingController(),
+                    items: [
+                      'one',
+                      'two',
+                      'three',
+                      'four',
+                    ]
+                        .asMap()
+                        .entries
+                        .map(
+                          (item) => DropdownItem(
+                        name: item.value,
+                        code: item.key.toString(),
+                      ),
+                    )
+                        .toList(),
+                  ),
+                  const SizedBox(height: 16,),
                   DigitDropdown<int>(
                     onChange: (String value, String index) => {},
                     textEditingController: TextEditingController(),
                     textIcon: Icons.article,
                     items: [
-                      'apple',
-                      'banana',
-                      'orange',
-                      'grapes',
-                      'apple',
-                      'banana',
-                      'orange',
-                      'grapes',
+                      'one',
+                      'two',
+                      'three',
+                      'four',
+                      'five',
+                      'six',
+                      'seven',
+                      'eight',
                     ]
                         .asMap()
                         .entries
@@ -255,26 +282,6 @@ class MyHomePageState extends State<MyHomePage> {
                     )
                         .toList(),
                   ),
-                  const SizedBox(height: 16,),
-                  DigitDropdown<int>(
-                    onChange: (String value, String index) => {},
-                    textEditingController: TextEditingController(),
-                    items: [
-                      'apple',
-                      'banana',
-                      'orange',
-                      'grapes',
-                    ]
-                        .asMap()
-                        .entries
-                        .map(
-                          (item) => DropdownItem(
-                        name: item.value,
-                        code: item.key.toString(),
-                      ),
-                    )
-                        .toList(),
-                  ),
                   const SizedBox(
                     height: 16,
                   ),
@@ -283,38 +290,38 @@ class MyHomePageState extends State<MyHomePage> {
                     textEditingController: TextEditingController(),
                     dropdownType: DropdownType.nestedSelect,
                     selectedOption: const DropdownItem(
-                      name: 'apple',
+                      name: 'one',
                       code: '1',
                       type: 'group B',
                     ),
                     items: const [
                       DropdownItem(
-                        name: 'apple',
+                        name: 'one',
                         code: '1',
                         type: 'group B',
                       ),
                       DropdownItem(
-                        name: 'grapes',
+                        name: 'two',
                         code: '2',
                         type: 'group A',
                       ),
                       DropdownItem(
-                        name: 'banana',
+                        name: 'three',
                         code: '3',
                         type: 'group B',
                       ),
                       DropdownItem(
-                        name: 'papaya',
+                        name: 'four',
                         code:'4',
                         type: 'group A',
                       ),
                       DropdownItem(
-                        name: 'pine apple',
+                        name: 'five',
                         code: '5',
                         type: 'group B',
                       ),
                       DropdownItem(
-                        name: 'watermelon',
+                        name: 'six',
                         code: '6',
                         type: 'group A',
                       ),
@@ -323,6 +330,76 @@ class MyHomePageState extends State<MyHomePage> {
                   const SizedBox(
                     height: 16,
                   ),
+                  const Text('MultiSelect Dropdowns'),
+                  MultiSelectDropDown<int>(
+                    onOptionSelected:
+                        (List<DropdownItem> selectedOptions) {},
+                    options: const [
+                      DropdownItem(code: '1', name: 'first'),
+                      DropdownItem(
+                          code: '2', name: 'second'),
+                      DropdownItem(code: '3', name: 'third'),
+                      DropdownItem(code: '4', name: 'four'),
+                      DropdownItem(code: '5', name: 'five'),
+                    ],
+                    selectionType: SelectionType.multiSelect,
+                  ),
+                  const SizedBox(height: 8,),
+                  MultiSelectDropDown<int>(
+                    onOptionSelected:
+                        (List<DropdownItem> selectedOptions) {},
+                    options: const [
+                      DropdownItem(code: '1', name: 'first'),
+                      DropdownItem(
+                          code: '2', name: 'second'),
+                      DropdownItem(code: '3', name: 'third'),
+                      DropdownItem(code: '4', name: 'four'),
+                      DropdownItem(code: '5', name: 'five'),
+                    ],
+                    selectionType: SelectionType.multiSelect,
+                  ),
+                  const SizedBox(height: 8,),
+                  MultiSelectDropDown<int>(
+                    onOptionSelected:
+                        (List<DropdownItem> selectedOptions) {},
+                    selectedOptions: const [DropdownItem(
+                      code: '1',
+                      name: 'first',
+                      description: 'description',
+                    ),],
+                    options: const [
+                      DropdownItem(
+                        code: '1',
+                        name: 'first',
+                        description: 'description',
+                      ),
+                      DropdownItem(
+                        code: '2',
+                        name: 'second',
+                        description: 'description',
+                      ),
+                      DropdownItem(
+                        code: '3',
+                        name: 'third',
+                        description: 'description',
+                      ),
+                      DropdownItem(
+                        code: '4',
+                        name: 'four',
+                        description: 'description',
+                      ),
+                      DropdownItem(
+                        code: '5',
+                        name: 'five',
+                        description: 'description',
+                      ),
+                    ],
+                    selectionType: SelectionType.multiSelect,
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  const Text('TreeSelect Dropdowns'),
                   TreeSelectDropDown<int>(
                     onOptionSelected: (List<TreeNode> selectedOptions) {
                       // print(selectedOptions);
@@ -332,11 +409,10 @@ class MyHomePageState extends State<MyHomePage> {
                     },
                     options: Nodes,
                     treeSelectionType: TreeSelectionType.MultiSelect,
-                    // chipConfig: const ChipConfig(wrapType: WrapType.wrap),
                     controller: _controller,
                   ),
                   const SizedBox(
-                    height: 16,
+                    height: 8,
                   ),
                   TreeSelectDropDown<int>(
                     onOptionSelected: (List<TreeNode> selectedOptions) {
@@ -349,136 +425,9 @@ class MyHomePageState extends State<MyHomePage> {
                     treeSelectionType: TreeSelectionType.singleSelect,
                   ),
                   const SizedBox(
-                    height: 16,
-                  ),
-                  MultiSelectDropDown<int>(
-                    onOptionSelected:
-                        (List<DropdownItem> selectedOptions) {},
-                    options: const [
-                      DropdownItem(code: '1', name: 'firstddddddddddddd'),
-                      DropdownItem(
-                          code: '2', name: 'seconddddddddddddddddd'),
-                      DropdownItem(code: '3', name: 'thiraaaaaaaaaaaad'),
-                      DropdownItem(code: '4', name: 'foussssssssr'),
-                      DropdownItem(code: '5', name: 'fivssssssssssse'),
-                    ],
-                    selectionType: SelectionType.multiSelect,
-                  ),
-                  const SizedBox(height: 16,),
-                  MultiSelectDropDown<int>(
-                    onOptionSelected:
-                        (List<DropdownItem> selectedOptions) {},
-                    options: const [
-                      DropdownItem(code: '1', name: 'firstddddddddddddd'),
-                      DropdownItem(
-                          code: '2', name: 'seconddddddddddddddddd'),
-                      DropdownItem(code: '3', name: 'thiraaaaaaaaaaaad'),
-                      DropdownItem(code: '4', name: 'foussssssssr'),
-                      DropdownItem(code: '5', name: 'fivssssssssssse'),
-                    ],
-                    selectionType: SelectionType.multiSelect,
-                  ),
-                  const SizedBox(height: 16,),
-                  MultiSelectDropDown<int>(
-                    onOptionSelected:
-                        (List<DropdownItem> selectedOptions) {},
-                    selectedOptions: const [DropdownItem(
-                      code: '1',
-                      name: 'firstddddddddddddd',
-                      description: 'ddddddddddddddddddddd',
-                    ),],
-                    options: const [
-                      DropdownItem(
-                        code: '1',
-                        name: 'firstddddddddddddd',
-                        description: 'ddddddddddddddddddddd',
-                      ),
-                      DropdownItem(
-                        code: '2',
-                        name: 'seconddddddddddddddddd',
-                        description: 'ddddddddddddddddddddd',
-                      ),
-                      DropdownItem(
-                        code: '3',
-                        name: 'thiraaaaaaaaaaaad',
-                        description: 'ddddddddddddddddddddd',
-                      ),
-                      DropdownItem(
-                        code: '4',
-                        name: 'foussssssssr',
-                        description: 'ddddddddddddddddddddd',
-                      ),
-                      DropdownItem(
-                        code: '5',
-                        name: 'fivssssssssssse',
-                        description: 'ddddddddddddddddddddd',
-                      ),
-                    ],
-                    selectionType: SelectionType.multiSelect,
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  MultiSelectDropDown<int>(
-                    onOptionSelected:
-                        (List<DropdownItem> selectedOptions) {},
-                    options: const [
-                      DropdownItem(
-                        code: '1',
-                        name: 'firstddddddddddddd',
-                        type: 'aaaaa',
-                      ),
-                      DropdownItem(
-                        code: '2',
-                        name: 'seconddddddddddddddddd',
-                        type: 'aaaaa',
-                      ),
-                      DropdownItem(
-                        code: '3',
-                        name: 'thiraaaaaaaaaaaad',
-                        type: 'bbbbb',
-                      ),
-                      DropdownItem(
-                        code: '4',
-                        name: 'foussssssssr',
-                        type: 'aaaaa',
-                      ),
-                      DropdownItem(
-                        code: '5',
-                        name: 'fivssssssssssse',
-                        type: 'bbbbb',
-                      ),
-                      DropdownItem(
-                        code: '6',
-                        name: 'firstddddddddddddd',
-                        type: 'ccccc',
-                      ),
-                      DropdownItem(
-                        code: '7',
-                        name: 'seconddddddddddddddddd',
-                        type: 'ccccc',
-                      ),
-                      DropdownItem(
-                        code: '8',
-                        name: 'thiraaaaaaaaaaaad',
-                        type: 'ddddd',
-                      ),
-                      DropdownItem(
-                        code: '9',
-                        name: 'foussssssssr',
-                        type: 'ddddd',
-                      ),
-                      DropdownItem(
-                        code: '10',
-                        name: 'fivssssssssssse',
-                        type: 'ddddd',
-                      ),
-                    ],
-                    selectionType: SelectionType.nestedMultiSelect,
-                  ),
-                  const SizedBox(
                     height: 8,
                   ),
+
                   DigitRadioList(
                     onChanged: (value) {},
                     radioButtons: [
@@ -492,7 +441,7 @@ class MyHomePageState extends State<MyHomePage> {
                     ],
                   ),
                   const SizedBox(
-                    height: 16,
+                    height: 8,
                   ),
                   DigitToggleList(
                     toggleButtons: [
@@ -513,7 +462,7 @@ class MyHomePageState extends State<MyHomePage> {
                     onChanged: (selectedValues) {},
                   ),
                   const SizedBox(
-                    height: 16,
+                    height: 8,
                   ),
                   DigitButton(
                     prefixIcon: Icons.add,
@@ -521,53 +470,25 @@ class MyHomePageState extends State<MyHomePage> {
                     onPressed: () {},
                     type: ButtonType.primary,
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 8),
                   DigitButton(
                     label: 'secondary Button',
                     onPressed: () {},
                     type: ButtonType.secondary,
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 8),
                   DigitButton(
                     label: 'link',
                     onPressed: () {},
                     type: ButtonType.link,
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 8),
                   DigitButton(
                     label: 'tertiary Button',
                     onPressed: () {},
                     type: ButtonType.tertiary,
                   ),
-                  DigitButton(
-                    prefixIcon: Icons.add,
-                    label: 'Primary Button',
-                    onPressed: () {},
-                    type: ButtonType.primary,
-                    isDisabled: true,
-                  ),
-                  const SizedBox(height: 16),
-                  DigitButton(
-                    label: 'Secondary Button',
-                    onPressed: () {},
-                    isDisabled: true,
-                    type: ButtonType.secondary,
-                  ),
-                  const SizedBox(height: 16),
-                  DigitButton(
-                    label: 'Link',
-                    onPressed: () {},
-                    isDisabled: true,
-                    type: ButtonType.link,
-                  ),
-                  const SizedBox(height: 16),
-                  DigitButton(
-                    label: 'tertiary Button',
-                    onPressed: () {},
-                    isDisabled: true,
-                    type: ButtonType.tertiary,
-                  ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 8,),
                   DigitCheckbox(
                     label: 'checkbox',
                     value: false,

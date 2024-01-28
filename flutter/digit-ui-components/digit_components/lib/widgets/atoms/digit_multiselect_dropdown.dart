@@ -64,6 +64,9 @@ class MultiSelectDropDown<int> extends StatefulWidget {
   /// focus node
   final FocusNode? focusNode;
 
+  /// Whether the dropdown is enabled or disabled.
+  final bool isDisabled;
+
   /// Controller for the dropdown
   /// [controller] is the controller for the dropdown. It can be used to programmatically open and close the dropdown.
   final MultiSelectController<int>? controller;
@@ -78,6 +81,7 @@ class MultiSelectDropDown<int> extends StatefulWidget {
     this.suffixIcon = Icons.arrow_drop_down,
     this.focusNode,
     this.controller,
+    this.isDisabled = false,
   }) : super(key: key);
 
   @override
@@ -96,9 +100,6 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
   OverlayState? _overlayState;
   OverlayEntry? _overlayEntry;
   bool _selectionMode = false;
-
-  final Map<DropdownItem, bool> _itemHoverStates = {};
-  final Map<DropdownItem, bool> _itemMouseDownStates = {};
 
   late final FocusNode _focusNode;
   final LayerLink _layerLink = LayerLink();
@@ -147,7 +148,6 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
     if (_focusNode.hasFocus && mounted) {
       _overlayEntry = _buildOverlayEntry();
       Overlay.of(context).insert(_overlayEntry!);
-      // return;
     }
 
     if (_focusNode.hasFocus == false && _overlayEntry != null) {
@@ -221,18 +221,24 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
             ? Default.mobileInputWidth
             : Default.desktopInputWidth;
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         CompositedTransformTarget(
           link: _layerLink,
           child: Focus(
-            canRequestFocus: true,
-            skipTraversal: true,
+            canRequestFocus: !widget.isDisabled,
+
+            /// Only allow focus if the dropdown is enabled
+            skipTraversal: !widget.isDisabled,
             focusNode: _focusNode,
             child: InkWell(
-              splashColor: const DigitColors().transaparent,
-              highlightColor: const DigitColors().transaparent,
-              hoverColor: const DigitColors().transaparent,
-              onTap: _toggleFocus,
+              splashColor: const DigitColors().transparent,
+              highlightColor: const DigitColors().transparent,
+              hoverColor: const DigitColors().transparent,
+              onTap: !widget.isDisabled ? _toggleFocus : null,
+
+              /// Disable onTap if dropdown is disabled
               child: StatefulBuilder(builder: (context, setState) {
                 return Container(
                   height: Default.height,
@@ -244,7 +250,9 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                   padding: const EdgeInsets.symmetric(
                     horizontal: kPadding,
                   ),
-                  decoration: _getContainerDecoration(),
+                  decoration: !widget.isDisabled
+                      ? _getContainerDecoration()
+                      : _getDisabledContainerDecoration(),
                   child: Row(
                     children: [
                       Expanded(
@@ -252,7 +260,12 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                             ? Text('${_selectedOptions.length} Selected')
                             : const Text(''),
                       ),
-                      Icon(widget.suffixIcon),
+                      Icon(
+                        widget.suffixIcon,
+                        color: widget.isDisabled
+                            ? const DigitColors().cloudGray
+                            : const DigitColors().davyGray,
+                      ),
                     ],
                   ),
                 );
@@ -284,10 +297,22 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
   /// return true if any item is selected.
   bool get _anyItemSelected => _selectedOptions.isNotEmpty;
 
+  /// Container decoration for disabled dropdown.
+  Decoration _getDisabledContainerDecoration() {
+    return BoxDecoration(
+      color: const DigitColors().cloudGray,
+      borderRadius: BorderRadius.zero,
+      border: Border.all(
+        color: const DigitColors().cloudGray,
+        width: 1,
+      ),
+    );
+  }
+
   /// Container decoration for the dropdown.
   Decoration _getContainerDecoration() {
     return BoxDecoration(
-      color: Colors.white,
+      color: const DigitColors().transparent,
       borderRadius: BorderRadius.zero,
       border: _selectionMode
           ? Border.all(
@@ -514,7 +539,8 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
 
                   if (_controller != null) {
                     _controller!.value._selectedOptions.clear();
-                    _controller!.value._selectedOptions.addAll(_selectedOptions);
+                    _controller!.value._selectedOptions
+                        .addAll(_selectedOptions);
                   }
                   widget.onOptionSelected?.call(_selectedOptions);
                 },
@@ -522,7 +548,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
               );
             }).toList(),
             if (index != groupedOptions.length - 1)
-               Container(
+              Container(
                 height: kPadding * 2,
                 color: const DigitColors().white,
               ),
@@ -558,13 +584,20 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
 
           Widget chip = _buildChip(item, widget.chipConfig);
 
-          return chip;
+          return IgnorePointer(
+            ignoring: widget.isDisabled,
+
+            /// Disable pointer events when dropdown is disabled
+            child: chip,
+          );
         }),
-        if (_selectedOptions.isNotEmpty)
+        if (_selectedOptions.isNotEmpty && !widget.isDisabled)
 
           /// Display "Clear All" only if there are selected options
           InkWell(
             onTap: () => clear(),
+            hoverColor: const DigitColors().transparent,
+            splashColor: const DigitColors().transparent,
             child: Chip(
               backgroundColor: const DigitColors().white,
               shape: RoundedRectangleBorder(

@@ -271,20 +271,20 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                             color: const DigitColors().lavaRed,
                           ),
                         ),
+                      if (widget?.info == true) const SizedBox(width: kPadding / 2),
+                      if (widget?.info == true)
+                        Tooltip(
+                          message: widget.infoText,
+                          preferBelow: widget.preferToolTipBelow,
+                          triggerMode: widget.triggerMode,
+                          child: const Icon(
+                            Icons.info_outline,
+                            size: 16,
+                          ),
+                        )
                     ],
                   ),
                 ),
-              if (widget?.info == true) const SizedBox(width: kPadding / 2),
-              if (widget?.info == true)
-                Tooltip(
-                  message: widget.infoText,
-                  preferBelow: widget.preferToolTipBelow,
-                  triggerMode: widget.triggerMode,
-                  child: const Icon(
-                    Icons.info_outline,
-                    size: 16,
-                  ),
-                )
             ],
           ),
           const SizedBox(
@@ -305,7 +305,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
             showCursor: widget.showCurser,
             decoration: InputDecoration(
               counterText: '',
-              hoverColor: const DigitColors().transaparent,
+              hoverColor: const DigitColors().transparent,
               constraints: inputWidth == Default.mobileInputWidth
                   ? BoxConstraints(
                       maxHeight: widget.minLine > 1
@@ -333,7 +333,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
               filled: true,
               fillColor: widget.readOnly
                   ? const DigitColors().seaShellGray
-                  : const DigitColors().transaparent,
+                  : const DigitColors().transparent,
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(
                   color: _hasError

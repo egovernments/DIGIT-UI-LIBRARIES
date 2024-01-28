@@ -77,7 +77,7 @@ class _DigitToggleState extends State<DigitToggle> {
                   : const DigitColors().white,
               boxShadow: [
                 BoxShadow(
-                  color: isMouseDown ? const DigitColors().shadowColor : const DigitColors().transaparent,
+                  color: isMouseDown ? const DigitColors().shadowColor : const DigitColors().transparent,
                   offset: const Offset(
                     0,
                     0,

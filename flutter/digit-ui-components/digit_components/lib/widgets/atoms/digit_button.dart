@@ -165,8 +165,8 @@ class _DigitButtonState extends State<DigitButton> {
             });
           },
           onTap: widget.isDisabled ? null : widget.onPressed,
-          splashColor: const DigitColors().transaparent,
-          hoverColor: const DigitColors().transaparent,
+          splashColor: const DigitColors().transparent,
+          hoverColor: const DigitColors().transparent,
           child: IntrinsicHeight(
             child: IntrinsicWidth(
               child: Container(
@@ -231,8 +231,8 @@ class _DigitButtonState extends State<DigitButton> {
       }else{
         return InkWell(
           onTap: widget.isDisabled ? null : widget.onPressed,
-          hoverColor: const DigitColors().transaparent.withOpacity(0),
-          splashColor: const DigitColors().transaparent.withOpacity(0),
+          hoverColor: const DigitColors().transparent.withOpacity(0),
+          splashColor: const DigitColors().transparent.withOpacity(0),
           child: IntrinsicWidth(
                 child: _buildButton(),),
         );

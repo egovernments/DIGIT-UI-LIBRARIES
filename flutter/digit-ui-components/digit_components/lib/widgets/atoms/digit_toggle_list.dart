@@ -75,7 +75,8 @@ class _DigitToggleListState extends State<DigitToggleList> {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: widget.toggleButtons.map(
             (button) {
           final index = widget.toggleButtons.indexOf(button);

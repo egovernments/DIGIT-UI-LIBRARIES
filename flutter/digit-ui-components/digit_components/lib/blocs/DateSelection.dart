@@ -6,7 +6,9 @@ class DateSelectionBloc {
   Future<void> selectDate({
     required BuildContext context,
     required TextEditingController controller,
-    DateFormat? dateFormat, /// Added parameter for custom date format
+    DateFormat? dateFormat,
+
+    /// Added parameter for custom date format
   }) async {
     DateTime? selectedDate = await showDatePicker(
       context: context,
@@ -19,7 +21,7 @@ class DateSelectionBloc {
             colorScheme: DigitTheme.instance.colorScheme,
             textButtonTheme: TextButtonThemeData(
               style: TextButton.styleFrom(
-                foregroundColor: Colors.red, // button text color
+                foregroundColor: Colors.red,
               ),
             ),
           ),
@@ -28,9 +30,8 @@ class DateSelectionBloc {
       },
     );
     if (selectedDate != null) {
-      String formattedDate =
-          dateFormat?.format(selectedDate.toLocal()) ??
-              DateFormat('dd/MM/yyyy').format(selectedDate.toLocal());
+      String formattedDate = dateFormat?.format(selectedDate.toLocal()) ??
+          DateFormat('dd/MM/yyyy').format(selectedDate.toLocal());
       controller.text = formattedDate;
     }
   }

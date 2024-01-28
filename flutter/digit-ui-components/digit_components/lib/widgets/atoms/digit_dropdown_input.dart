@@ -62,6 +62,9 @@ class DigitDropdown<T> extends StatefulWidget {
   /// default selected Item
   final DropdownItem? selectedOption;
 
+  /// Whether the dropdown is enabled or disabled.
+  final bool isDisabled;
+
   const DigitDropdown({
     Key? key,
     required this.items,
@@ -73,6 +76,7 @@ class DigitDropdown<T> extends StatefulWidget {
     required this.textEditingController,
     this.emptyItemText = "No Options available",
     this.selectedOption,
+    this.isDisabled = false,
   }) : super(key: key);
 
   @override
@@ -105,11 +109,11 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
     if(widget.selectedOption!=null){
       setState(() {
         if(widget.dropdownType== DropdownType.nestedSelect) {
-          _currentIndex = widget.selectedOption!.code;
-          widget.textEditingController.text = widget.selectedOption!.name;
-        }else{
           _nestedIndex = widget.selectedOption!.code;
           widget.textEditingController.text = '${widget.selectedOption?.type}: ${widget.selectedOption?.name}';
+        }else{
+          _currentIndex = widget.selectedOption!.code;
+          widget.textEditingController.text = widget.selectedOption!.name;
         }
       });
     }
@@ -119,6 +123,11 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
   void dispose() {
     _focusNode.removeListener(_onFocusChange);
     _focusNode.dispose();
+    /// Check if _overlayEntry is not null before removing and disposing
+    if (_overlayEntry != null) {
+      _overlayEntry.remove();
+      _overlayEntry.dispose();
+    }
     super.dispose();
   }
 
@@ -149,6 +158,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
         width: dropdownWidth,
         height: Default.height,
         child: TextField(
+          enabled: !widget.isDisabled,
           onTap: () {
             _toggleDropdown();
             FocusScope.of(context).requestFocus(_focusNode);
@@ -180,7 +190,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
               left: 8,
             ),
             suffixIcon: Icon(widget.suffixIcon),
-            suffixIconColor: const DigitColors().davyGray,
+            suffixIconColor: widget.isDisabled ? const DigitColors().cloudGray :const DigitColors().davyGray,
           ),
         ),
       ),
@@ -309,8 +319,8 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                   _itemMouseDownStates[filteredItems[index].code] = false;
                 });
               },
-              splashColor: const DigitColors().transaparent,
-              hoverColor: const DigitColors().transaparent,
+              splashColor: const DigitColors().transparent,
+              hoverColor: const DigitColors().transparent,
               onHover: (hover) {
                 setState(() {
                   _itemHoverStates[filteredItems[index].code] = hover;
@@ -468,8 +478,8 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                           return Column(
                             children: [
                               InkWell(
-                                splashColor: const DigitColors().transaparent,
-                                hoverColor: const DigitColors().transaparent,
+                                splashColor: const DigitColors().transparent,
+                                hoverColor: const DigitColors().transparent,
                                 onTapDown: (_) {
                                   /// Handle mouse down state
                                   setState(() {
@@ -662,7 +672,10 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
   /// function to make change when the dropdown is opening or closing.... we will reset and set the value inside this
   void _toggleDropdown({bool close = false}) async {
     if (_isOpen || close) {
-      _overlayEntry?.remove();
+      /// Check if _overlayEntry is not null before removing
+      if (_overlayEntry != null && _overlayEntry.mounted) {
+        _overlayEntry.remove();
+      }
       setState(() {
         _isOpen = false;
       });

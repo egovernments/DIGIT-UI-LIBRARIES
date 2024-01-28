@@ -610,41 +610,38 @@ class HotReload extends StatelessWidget {
                 WidgetbookUseCase(
                   name: 'non Editable',
                   builder: (context) => Center(
-                    child: Container(
-                      height: 100,
-                      child: DigitPasswordFormInput(
-                        readOnly: true,
-                        controller: TextEditingController(),
-                        label: context.knobs.string(
-                          label: 'Title',
-                          initialValue: '',
-                        ),
-                        helpText: context.knobs.string(
-                          label: 'help text',
-                          initialValue: '',
-                        ),
-                        charCount: context.knobs.boolean(
-                          label: 'char count',
-                          initialValue: false,
-                        ),
-                        innerLabel: context.knobs.string(
-                          label: 'inner label',
-                          initialValue: '',
-                        ),
-                        info: context.knobs.boolean(
-                          label: 'info',
-                          initialValue: false,
-                        ),
-                        infoText: context.knobs.string(
-                          label: 'infoText',
-                          initialValue: 'this is info',
-                        ),
-                        validations: [
-                          Validator(ValidatorType.minLength, 6,
-                              errorMessage:
-                              'Password must be at least 6 characters.'),
-                        ],
+                    child: DigitPasswordFormInput(
+                      readOnly: true,
+                      controller: TextEditingController(),
+                      label: context.knobs.string(
+                        label: 'Title',
+                        initialValue: '',
                       ),
+                      helpText: context.knobs.string(
+                        label: 'help text',
+                        initialValue: '',
+                      ),
+                      charCount: context.knobs.boolean(
+                        label: 'char count',
+                        initialValue: false,
+                      ),
+                      innerLabel: context.knobs.string(
+                        label: 'inner label',
+                        initialValue: '',
+                      ),
+                      info: context.knobs.boolean(
+                        label: 'info',
+                        initialValue: false,
+                      ),
+                      infoText: context.knobs.string(
+                        label: 'infoText',
+                        initialValue: 'this is info',
+                      ),
+                      validations: [
+                        Validator(ValidatorType.minLength, 6,
+                            errorMessage:
+                            'Password must be at least 6 characters.'),
+                      ],
                     ),
                   ),
                 ),
@@ -656,45 +653,42 @@ class HotReload extends StatelessWidget {
                 WidgetbookUseCase(
                   name: 'default',
                   builder: (context) => Center(
-                    child: Container(
-                      height: 100,
-                      child: DigitNumericFormInput(
-                        controller: TextEditingController(),
-                        step: context.knobs.doubleOrNull
-                            .slider(
-                          label: 'step',
-                          min: 0,
-                          initialValue: 1,
-                          max: 10,
-                          divisions: 10,
-                        )
-                            ?.toInt() ??
-                            0,
-                        label: context.knobs.string(
-                          label: 'Title',
-                          initialValue: '',
-                        ),
-                        isRequired: context.knobs.boolean(label: 'Required', initialValue: false),
-                        helpText: context.knobs.string(
-                          label: 'help text',
-                          initialValue: '',
-                        ),
-                        charCount: context.knobs.boolean(
-                          label: 'char count',
-                          initialValue: false,
-                        ),
-                        innerLabel: context.knobs.string(
-                          label: 'inner label',
-                          initialValue: '',
-                        ),
-                        info: context.knobs.boolean(
-                          label: 'info',
-                          initialValue: false,
-                        ),
-                        infoText: context.knobs.string(
-                          label: 'infoText',
-                          initialValue: 'this is info',
-                        ),
+                    child: DigitNumericFormInput(
+                      controller: TextEditingController(),
+                      step: context.knobs.doubleOrNull
+                          .slider(
+                        label: 'step',
+                        min: 0,
+                        initialValue: 1,
+                        max: 10,
+                        divisions: 10,
+                      )
+                          ?.toInt() ??
+                          0,
+                      label: context.knobs.string(
+                        label: 'Title',
+                        initialValue: '',
+                      ),
+                      isRequired: context.knobs.boolean(label: 'Required', initialValue: false),
+                      helpText: context.knobs.string(
+                        label: 'help text',
+                        initialValue: '',
+                      ),
+                      charCount: context.knobs.boolean(
+                        label: 'char count',
+                        initialValue: false,
+                      ),
+                      innerLabel: context.knobs.string(
+                        label: 'inner label',
+                        initialValue: '',
+                      ),
+                      info: context.knobs.boolean(
+                        label: 'info',
+                        initialValue: false,
+                      ),
+                      infoText: context.knobs.string(
+                        label: 'infoText',
+                        initialValue: 'this is info',
                       ),
                     ),
                   ),
@@ -702,35 +696,32 @@ class HotReload extends StatelessWidget {
                 WidgetbookUseCase(
                   name: 'disabled',
                   builder: (context) => Center(
-                    child: Container(
-                      height: 100,
-                      child: DigitNumericFormInput(
-                        isDisabled: true,
-                        controller: TextEditingController(),
-                        label: context.knobs.string(
-                          label: 'Title',
-                          initialValue: '',
-                        ),
-                        helpText: context.knobs.string(
-                          label: 'help text',
-                          initialValue: '',
-                        ),
-                        charCount: context.knobs.boolean(
-                          label: 'char count',
-                          initialValue: false,
-                        ),
-                        innerLabel: context.knobs.string(
-                          label: 'inner label',
-                          initialValue: '',
-                        ),
-                        info: context.knobs.boolean(
-                          label: 'info',
-                          initialValue: false,
-                        ),
-                        infoText: context.knobs.string(
-                          label: 'infoText',
-                          initialValue: 'this is info',
-                        ),
+                    child: DigitNumericFormInput(
+                      isDisabled: true,
+                      controller: TextEditingController(),
+                      label: context.knobs.string(
+                        label: 'Title',
+                        initialValue: '',
+                      ),
+                      helpText: context.knobs.string(
+                        label: 'help text',
+                        initialValue: '',
+                      ),
+                      charCount: context.knobs.boolean(
+                        label: 'char count',
+                        initialValue: false,
+                      ),
+                      innerLabel: context.knobs.string(
+                        label: 'inner label',
+                        initialValue: '',
+                      ),
+                      info: context.knobs.boolean(
+                        label: 'info',
+                        initialValue: false,
+                      ),
+                      infoText: context.knobs.string(
+                        label: 'infoText',
+                        initialValue: 'this is info',
                       ),
                     ),
                   ),
@@ -738,35 +729,32 @@ class HotReload extends StatelessWidget {
                 WidgetbookUseCase(
                   name: 'non Editable',
                   builder: (context) => Center(
-                    child: Container(
-                      height: 100,
-                      child: DigitNumericFormInput(
-                        readOnly: true,
-                        controller: TextEditingController(),
-                        label: context.knobs.string(
-                          label: 'Title',
-                          initialValue: '',
-                        ),
-                        helpText: context.knobs.string(
-                          label: 'help text',
-                          initialValue: '',
-                        ),
-                        charCount: context.knobs.boolean(
-                          label: 'char count',
-                          initialValue: false,
-                        ),
-                        innerLabel: context.knobs.string(
-                          label: 'inner label',
-                          initialValue: '',
-                        ),
-                        info: context.knobs.boolean(
-                          label: 'info',
-                          initialValue: false,
-                        ),
-                        infoText: context.knobs.string(
-                          label: 'infoText',
-                          initialValue: 'this is info',
-                        ),
+                    child: DigitNumericFormInput(
+                      readOnly: true,
+                      controller: TextEditingController(),
+                      label: context.knobs.string(
+                        label: 'Title',
+                        initialValue: '',
+                      ),
+                      helpText: context.knobs.string(
+                        label: 'help text',
+                        initialValue: '',
+                      ),
+                      charCount: context.knobs.boolean(
+                        label: 'char count',
+                        initialValue: false,
+                      ),
+                      innerLabel: context.knobs.string(
+                        label: 'inner label',
+                        initialValue: '',
+                      ),
+                      info: context.knobs.boolean(
+                        label: 'info',
+                        initialValue: false,
+                      ),
+                      infoText: context.knobs.string(
+                        label: 'infoText',
+                        initialValue: 'this is info',
                       ),
                     ),
                   ),
@@ -779,35 +767,32 @@ class HotReload extends StatelessWidget {
                 WidgetbookUseCase(
                   name: 'default',
                   builder: (context) => Center(
-                    child: Container(
-                      height: 100,
-                      child: DigitLocationFormInput(
-                        controller: TextEditingController(),
-                        label: context.knobs.string(
-                          label: 'Title',
-                          initialValue: '',
-                        ),
-                        isRequired: context.knobs.boolean(label: 'Required', initialValue: false),
-                        helpText: context.knobs.string(
-                          label: 'help text',
-                          initialValue: '',
-                        ),
-                        charCount: context.knobs.boolean(
-                          label: 'char count',
-                          initialValue: false,
-                        ),
-                        innerLabel: context.knobs.string(
-                          label: 'inner label',
-                          initialValue: '',
-                        ),
-                        info: context.knobs.boolean(
-                          label: 'info',
-                          initialValue: false,
-                        ),
-                        infoText: context.knobs.string(
-                          label: 'infoText',
-                          initialValue: 'this is info',
-                        ),
+                    child: DigitLocationFormInput(
+                      controller: TextEditingController(),
+                      label: context.knobs.string(
+                        label: 'Title',
+                        initialValue: '',
+                      ),
+                      isRequired: context.knobs.boolean(label: 'Required', initialValue: false),
+                      helpText: context.knobs.string(
+                        label: 'help text',
+                        initialValue: '',
+                      ),
+                      charCount: context.knobs.boolean(
+                        label: 'char count',
+                        initialValue: false,
+                      ),
+                      innerLabel: context.knobs.string(
+                        label: 'inner label',
+                        initialValue: '',
+                      ),
+                      info: context.knobs.boolean(
+                        label: 'info',
+                        initialValue: false,
+                      ),
+                      infoText: context.knobs.string(
+                        label: 'infoText',
+                        initialValue: 'this is info',
                       ),
                     ),
                   ),
@@ -815,35 +800,32 @@ class HotReload extends StatelessWidget {
                 WidgetbookUseCase(
                   name: 'disabled',
                   builder: (context) => Center(
-                    child: Container(
-                      height: 100,
-                      child: DigitLocationFormInput(
-                        controller: TextEditingController(),
-                        isDisabled: true,
-                        label: context.knobs.string(
-                          label: 'Title',
-                          initialValue: '',
-                        ),
-                        helpText: context.knobs.string(
-                          label: 'help text',
-                          initialValue: '',
-                        ),
-                        charCount: context.knobs.boolean(
-                          label: 'char count',
-                          initialValue: false,
-                        ),
-                        innerLabel: context.knobs.string(
-                          label: 'inner label',
-                          initialValue: '',
-                        ),
-                        info: context.knobs.boolean(
-                          label: 'info',
-                          initialValue: false,
-                        ),
-                        infoText: context.knobs.string(
-                          label: 'infoText',
-                          initialValue: 'this is info',
-                        ),
+                    child: DigitLocationFormInput(
+                      controller: TextEditingController(),
+                      isDisabled: true,
+                      label: context.knobs.string(
+                        label: 'Title',
+                        initialValue: '',
+                      ),
+                      helpText: context.knobs.string(
+                        label: 'help text',
+                        initialValue: '',
+                      ),
+                      charCount: context.knobs.boolean(
+                        label: 'char count',
+                        initialValue: false,
+                      ),
+                      innerLabel: context.knobs.string(
+                        label: 'inner label',
+                        initialValue: '',
+                      ),
+                      info: context.knobs.boolean(
+                        label: 'info',
+                        initialValue: false,
+                      ),
+                      infoText: context.knobs.string(
+                        label: 'infoText',
+                        initialValue: 'this is info',
                       ),
                     ),
                   ),
@@ -955,35 +937,32 @@ class HotReload extends StatelessWidget {
                 WidgetbookUseCase(
                   name: 'non Editable',
                   builder: (context) => Center(
-                    child: Container(
-                      height: 200,
-                      child: DigitTextAreaFormInput(
-                        controller: TextEditingController(),
-                        readOnly: true,
-                        label: context.knobs.string(
-                          label: 'Title',
-                          initialValue: '',
-                        ),
-                        helpText: context.knobs.string(
-                          label: 'help text',
-                          initialValue: '',
-                        ),
-                        charCount: context.knobs.boolean(
-                          label: 'char count',
-                          initialValue: false,
-                        ),
-                        innerLabel: context.knobs.string(
-                          label: 'inner label',
-                          initialValue: '',
-                        ),
-                        info: context.knobs.boolean(
-                          label: 'info',
-                          initialValue: false,
-                        ),
-                        infoText: context.knobs.string(
-                          label: 'infoText',
-                          initialValue: 'this is info',
-                        ),
+                    child: DigitTextAreaFormInput(
+                      controller: TextEditingController(),
+                      readOnly: true,
+                      label: context.knobs.string(
+                        label: 'Title',
+                        initialValue: '',
+                      ),
+                      helpText: context.knobs.string(
+                        label: 'help text',
+                        initialValue: '',
+                      ),
+                      charCount: context.knobs.boolean(
+                        label: 'char count',
+                        initialValue: false,
+                      ),
+                      innerLabel: context.knobs.string(
+                        label: 'inner label',
+                        initialValue: '',
+                      ),
+                      info: context.knobs.boolean(
+                        label: 'info',
+                        initialValue: false,
+                      ),
+                      infoText: context.knobs.string(
+                        label: 'infoText',
+                        initialValue: 'this is info',
                       ),
                     ),
                   ),
@@ -1014,7 +993,6 @@ class HotReload extends StatelessWidget {
                               code: '', name: context.knobs.string(label: 'name1', initialValue: "one")),
                           RadioButtonModel(code: '2', name: context.knobs.string(label: 'name2', initialValue: "two")),
                           RadioButtonModel(code: '3', name: context.knobs.string(label: 'name3', initialValue: "three")),
-                          // Add more radio buttons as needed
                         ],
                       horizontallyListed: context.knobs.boolean(label: 'HorizontallyListed', initialValue: false,),
                       ),
@@ -1025,19 +1003,6 @@ class HotReload extends StatelessWidget {
             WidgetbookComponent(
               name: 'Toggle Group',
               useCases: [
-                WidgetbookUseCase(
-                  name: 'default',
-                  builder: (context) => Center(
-                    child: DigitToggleList(
-                      selectedIndex: 0,
-                      toggleButtons: [
-                        ToggleButtonModel(
-                            name: context.knobs.string(label: 'Toggle1', initialValue: 'toggle1'), key: 'key1', onSelected: (value) {print(value);}),
-                      ],
-                      onChanged: (selectedValues) {},
-                    ),
-                  ),
-                ),
                 WidgetbookUseCase(
                   name: 'Group',
                   builder: (context) => Center(
@@ -1068,9 +1033,10 @@ class HotReload extends StatelessWidget {
                 WidgetbookUseCase(
                   name: 'default',
                   builder: (context) => DigitDropdown<int>(
+                    isDisabled: context.knobs.boolean(label: 'Disabled', initialValue: false,),
                     onChange: (String value, String index) => print(value),
                     textEditingController: TextEditingController(),
-                    // isSearchable: context.knobs.boolean(label: 'Searchable', initialValue: false),
+                    isSearchable: context.knobs.boolean(label: 'Searchable', initialValue: false),
                     items: [
                       'one',
                       'two',
@@ -1091,13 +1057,14 @@ class HotReload extends StatelessWidget {
                 WidgetbookUseCase(
                   name: 'nested',
                   builder: (context) => DigitDropdown<int>(
+                    isDisabled: context.knobs.boolean(label: 'Disabled', initialValue: false,),
                     onChange: (String value, String type) => {
                       print(value),
                       print(type),
                     },
                     textEditingController: TextEditingController(),
                     dropdownType: DropdownType.nestedSelect,
-                    // isSearchable: context.knobs.boolean(label: 'Searchable', initialValue: false),
+                    isSearchable: context.knobs.boolean(label: 'Searchable', initialValue: false),
                     items: const [
                       DropdownItem(
                         name: 'one',
@@ -1135,11 +1102,12 @@ class HotReload extends StatelessWidget {
                 WidgetbookUseCase(
                   name: 'nested text',
                   builder: (context) => DigitDropdown<int>(
+                    isDisabled: context.knobs.boolean(label: 'Disabled', initialValue: false,),
                     onChange: (String value, String index) => {
                       print(value),
                       print(index),
                     },
-                    // isSearchable: context.knobs.boolean(label: 'Searchable', initialValue: false),
+                    isSearchable: context.knobs.boolean(label: 'Searchable', initialValue: false),
                     textEditingController: TextEditingController(),
                     items: [
                       'one',
@@ -1162,12 +1130,13 @@ class HotReload extends StatelessWidget {
                 WidgetbookUseCase(
                   name: 'with icon',
                   builder: (context) => DigitDropdown<int>(
+                    isDisabled: context.knobs.boolean(label: 'Disabled', initialValue: false,),
                     onChange: (String value, String index) => {
                       print(value),
                       print(index),
                     },
                     textEditingController: TextEditingController(),
-                    // isSearchable: context.knobs.boolean(label: 'Searchable', initialValue: false),
+                    isSearchable: context.knobs.boolean(label: 'Searchable', initialValue: false),
                     items: [
                       'one',
                       'two',
@@ -1189,14 +1158,13 @@ class HotReload extends StatelessWidget {
                 WidgetbookUseCase(
                   name: 'profile select',
                   builder: (context) => DigitDropdown<int>(
+                    isDisabled: context.knobs.boolean(label: 'Disabled', initialValue: false,),
                     onChange: (String value, String index) => {
                       print(value),
                       print(index),
                     },
-                    // isSearchable: context.knobs.boolean(label: 'Searchable', initialValue: false),
+                    isSearchable: context.knobs.boolean(label: 'Searchable', initialValue: false),
                     textEditingController: TextEditingController(),
-                    textIcon: Icons.article,
-                    dropdownType: DropdownType.profileSelect,
                     items: [
                       'one',
                       'two',
@@ -1225,169 +1193,159 @@ class HotReload extends StatelessWidget {
                 WidgetbookUseCase(
                   name: 'default',
                   builder: (context) => Center(
-                    child: Container(
-                      height: 100,
-                      child: MultiSelectDropDown<int>(
-                        onOptionSelected:
-                            (List<DropdownItem> selectedOptions) {},
-                        options: const [
-                          DropdownItem(code: '1', name: 'one'),
-                          DropdownItem(
-                              code: '2', name: 'two'),
-                          DropdownItem(code: '3', name: 'three'),
-                          DropdownItem(code: '4', name: 'four'),
-                          DropdownItem(code: '5', name: 'five'),
-                        ],
-                        selectionType: SelectionType.multiSelect,
-                      ),
+                    child: MultiSelectDropDown<int>(
+                      isDisabled: context.knobs.boolean(label: 'disabled', initialValue: false),
+                      onOptionSelected:
+                          (List<DropdownItem> selectedOptions) {},
+                      options: const [
+                        DropdownItem(code: '1', name: 'one'),
+                        DropdownItem(
+                            code: '2', name: 'two'),
+                        DropdownItem(code: '3', name: 'three'),
+                        DropdownItem(code: '4', name: 'four'),
+                        DropdownItem(code: '5', name: 'five'),
+                      ],
+                      selectionType: SelectionType.multiSelect,
                     ),
                   ),
                 ),
                 WidgetbookUseCase(
                   name: 'preSelected',
                   builder: (context) => Center(
-                    child: Container(
-                      height: 100,
-                      child: MultiSelectDropDown<int>(
-                        onOptionSelected:
-                            (List<DropdownItem> selectedOptions) {},
-                        selectedOptions: const [DropdownItem(code: '1', name: 'one'),DropdownItem(code: '3', name: 'three'),
-                          DropdownItem(code: '4', name: 'four'),],
-                        options: const [
-                          DropdownItem(code: '1', name: 'one'),
-                          DropdownItem(
-                              code: '2', name: 'two'),
-                          DropdownItem(code: '3', name: 'three'),
-                          DropdownItem(code: '4', name: 'four'),
-                          DropdownItem(code: '5', name: 'five'),
-                        ],
-                        selectionType: SelectionType.multiSelect,
-                      ),
+                    child: MultiSelectDropDown<int>(
+                      isDisabled: context.knobs.boolean(label: 'disabled', initialValue: false),
+                      onOptionSelected:
+                          (List<DropdownItem> selectedOptions) {},
+                      selectedOptions: const [DropdownItem(code: '1', name: 'one'),DropdownItem(code: '3', name: 'three'),
+                        DropdownItem(code: '4', name: 'four'),],
+                      options: const [
+                        DropdownItem(code: '1', name: 'one'),
+                        DropdownItem(
+                            code: '2', name: 'two'),
+                        DropdownItem(code: '3', name: 'three'),
+                        DropdownItem(code: '4', name: 'four'),
+                        DropdownItem(code: '5', name: 'five'),
+                      ],
+                      selectionType: SelectionType.multiSelect,
                     ),
                   ),
                 ),
                 WidgetbookUseCase(
                   name: 'nested',
                   builder: (context) => Center(
-                    child: Container(
-                      height: 300,
-                      child: MultiSelectDropDown<int>(
-                        onOptionSelected:
-                            (List<DropdownItem> selectedOptions) {},
-                        options: const [
-                          DropdownItem(
-                            code: '1',
-                            name: 'one',
-                            description: 'description for one',
-                            type: 'Group A'
-                          ),
-                          DropdownItem(
-                            code: '2',
-                            name: 'two',
-                            description: 'description for two',
+                    child: MultiSelectDropDown<int>(
+                      isDisabled: context.knobs.boolean(label: 'disabled', initialValue: false),
+                      onOptionSelected:
+                          (List<DropdownItem> selectedOptions) {},
+                      options: const [
+                        DropdownItem(
+                          code: '1',
+                          name: 'one',
+                          description: 'description for one',
+                          type: 'Group A'
+                        ),
+                        DropdownItem(
+                          code: '2',
+                          name: 'two',
+                          description: 'description for two',
+                          type: 'Group B'
+                        ),
+                        DropdownItem(
+                          code: '3',
+                          name: 'three',
+                          description: 'description for third',
                             type: 'Group B'
-                          ),
-                          DropdownItem(
-                            code: '3',
-                            name: 'three',
-                            description: 'description for third',
-                              type: 'Group B'
-                          ),
-                          DropdownItem(
-                            code: '4',
-                            name: 'four',
-                            description: 'description for four',
-                              type: 'Group B'
-                          ),
-                          DropdownItem(
-                            code: '5',
-                            name: 'five',
-                            description: 'description for five',
-                              type: 'Group A'
-                          ),
-                        ],
-                        selectionType: SelectionType.nestedMultiSelect,
-                      ),
+                        ),
+                        DropdownItem(
+                          code: '4',
+                          name: 'four',
+                          description: 'description for four',
+                            type: 'Group B'
+                        ),
+                        DropdownItem(
+                          code: '5',
+                          name: 'five',
+                          description: 'description for five',
+                            type: 'Group A'
+                        ),
+                      ],
+                      selectionType: SelectionType.nestedMultiSelect,
                     ),
                   ),
                 ),
                 WidgetbookUseCase(
                   name: 'nested text',
                   builder: (context) => Center(
-                    child: Container(
-                      height: 300,
-                      child: MultiSelectDropDown<int>(
-                        onOptionSelected:
-                            (List<DropdownItem> selectedOptions) {},
-                        options: const [
-                          DropdownItem(
-                            code: '1',
-                            name: 'first',
-                            description: 'this is first',
-                          ),
-                          DropdownItem(
-                            code: '2',
-                            name: 'second',
-                            description: 'this is second',
-                          ),
-                          DropdownItem(
-                            code: '3',
-                            name: 'third',
-                            description: 'this is third',
-                          ),
-                          DropdownItem(
-                            code: '4',
-                            name: 'four',
-                            description: 'this is fourth',
-                          ),
-                          DropdownItem(
-                            code: '5',
-                            name: 'five',
-                            description: 'this is fifth',
-                          ),
-                        ],
-                        selectionType: SelectionType.multiSelect,
-                      ),
+                    child: MultiSelectDropDown<int>(
+                      isDisabled: context.knobs.boolean(label: 'disabled', initialValue: false),
+                      onOptionSelected:
+                          (List<DropdownItem> selectedOptions) {},
+                      options: const [
+                        DropdownItem(
+                          code: '1',
+                          name: 'first',
+                          description: 'this is first',
+                        ),
+                        DropdownItem(
+                          code: '2',
+                          name: 'second',
+                          description: 'this is second',
+                        ),
+                        DropdownItem(
+                          code: '3',
+                          name: 'third',
+                          description: 'this is third',
+                        ),
+                        DropdownItem(
+                          code: '4',
+                          name: 'four',
+                          description: 'this is fourth',
+                        ),
+                        DropdownItem(
+                          code: '5',
+                          name: 'five',
+                          description: 'this is fifth',
+                        ),
+                      ],
+                      selectionType: SelectionType.multiSelect,
                     ),
                   ),
                 ),
                 WidgetbookUseCase(
                   name: 'with icon',
                   builder: (context) => Center(
-                    child: Container(
-                      height: 300,
-                      child: MultiSelectDropDown<int>(
-                        onOptionSelected:
-                            (List<DropdownItem> selectedOptions) {},
-                        options: const [
-                          DropdownItem(
-                            code: '1',
-                            name: 'first',
-                            textIcon: Icons.article,
-                          ),
-                          DropdownItem(
-                            code: '2',
-                            name: 'second',
-                            textIcon: Icons.article,
-                          ),
-                          DropdownItem(
-                            code: '3',
-                            name: 'third',
-                            textIcon: Icons.article,
-                          ),
-                          DropdownItem(
-                            code: '4',
-                            name: 'four',
-                            textIcon: Icons.article,
-                          ),
-                          DropdownItem(
-                            code: '5',
-                            name: 'five',
-                            textIcon: Icons.article,
-                          ),
-                        ],
-                        selectionType: SelectionType.multiSelect,
-                      ),
+                    child: MultiSelectDropDown<int>(
+                      isDisabled: context.knobs.boolean(label: 'disabled', initialValue: false),
+                      onOptionSelected:
+                          (List<DropdownItem> selectedOptions) {},
+                      options: const [
+                        DropdownItem(
+                          code: '1',
+                          name: 'first',
+                          textIcon: Icons.article,
+                        ),
+                        DropdownItem(
+                          code: '2',
+                          name: 'second',
+                          textIcon: Icons.article,
+                        ),
+                        DropdownItem(
+                          code: '3',
+                          name: 'third',
+                          textIcon: Icons.article,
+                        ),
+                        DropdownItem(
+                          code: '4',
+                          name: 'four',
+                          textIcon: Icons.article,
+                        ),
+                        DropdownItem(
+                          code: '5',
+                          name: 'five',
+                          textIcon: Icons.article,
+                        ),
+                      ],
+                      selectionType: SelectionType.multiSelect,
                     ),
                   ),
                 ),
@@ -1398,83 +1356,75 @@ class HotReload extends StatelessWidget {
               useCases: [
                 WidgetbookUseCase(
                   name: 'default',
-                  builder: (context) => Center(
-                    child: Container(
-                      height: 100,
-                      child: TreeSelectDropDown<int>(
-                        onOptionSelected: (List<TreeNode> selectedOptions) {
-                          // print(selectedOptions);
-                          for (TreeNode node in selectedOptions) {
-                            // print("Node: ${node.value}");
-                          }
-                        },
-                        options: [
-                          TreeNode('A', 'A', [
-                            TreeNode('A.A1', 'A1', [
-                              TreeNode('A.A1.A3', 'A3', [
-                                TreeNode('A.A1.A3.A5', 'A5', []),
-                                TreeNode('A.A1.A3.A6', 'A6', []),
-                              ]),
-                              TreeNode('A.A1.A4', 'A4', []),
-                            ]),
-                            TreeNode('A.A2', 'A2', []),
+                  builder: (context) => TreeSelectDropDown<int>(
+                    isDisabled: context.knobs.boolean(label: 'disabled', initialValue: false),
+                    onOptionSelected: (List<TreeNode> selectedOptions) {
+                      // print(selectedOptions);
+                      for (TreeNode node in selectedOptions) {
+                        // print("Node: ${node.value}");
+                      }
+                    },
+                    options: [
+                      TreeNode('A', 'A', [
+                        TreeNode('A.A1', 'A1', [
+                          TreeNode('A.A1.A3', 'A3', [
+                            TreeNode('A.A1.A3.A5', 'A5', []),
+                            TreeNode('A.A1.A3.A6', 'A6', []),
                           ]),
-                          TreeNode('B', 'B', [
-                            TreeNode('B.B1', 'B1', []),
-                            TreeNode('B.B2', 'B2', []),
-                          ]),
-                          TreeNode('C', 'C', [
-                            TreeNode('C.C1', 'C1', []),
-                            TreeNode('C.C2', 'C2', []),
-                          ]),
-                          TreeNode('D', 'D', [
-                            TreeNode('D.D1', 'D1', []),
-                            TreeNode('D.D2', 'D2', []),
-                          ]),
-                        ],
-                        treeSelectionType: TreeSelectionType.singleSelect,
-                      ),
-                    ),
+                          TreeNode('A.A1.A4', 'A4', []),
+                        ]),
+                        TreeNode('A.A2', 'A2', []),
+                      ]),
+                      TreeNode('B', 'B', [
+                        TreeNode('B.B1', 'B1', []),
+                        TreeNode('B.B2', 'B2', []),
+                      ]),
+                      TreeNode('C', 'C', [
+                        TreeNode('C.C1', 'C1', []),
+                        TreeNode('C.C2', 'C2', []),
+                      ]),
+                      TreeNode('D', 'D', [
+                        TreeNode('D.D1', 'D1', []),
+                        TreeNode('D.D2', 'D2', []),
+                      ]),
+                    ],
+                    treeSelectionType: TreeSelectionType.singleSelect,
                   ),
                 ),
                 WidgetbookUseCase(
                   name: 'Multi Select Tree',
-                  builder: (context) => Center(
-                    child: Container(
-                      height: 300,
-                      child: TreeSelectDropDown<int>(
-                        onOptionSelected: (List<TreeNode> selectedOptions) {
-                          for (TreeNode node in selectedOptions) {
-                            // print("Node: ${node.value}");
-                          }
-                        },
-                        options: [
-                          TreeNode('A', 'A', [
-                            TreeNode('A.A1', 'A1', [
-                              TreeNode('A.A1.A3', 'A3', [
-                                TreeNode('A.A1.A3.A5', 'A5', []),
-                                TreeNode('A.A1.A3.A6', 'A6', []),
-                              ]),
-                              TreeNode('A.A1.A4', 'A4', []),
-                            ]),
-                            TreeNode('A.A2', 'A2', []),
+                  builder: (context) => TreeSelectDropDown<int>(
+                    isDisabled: context.knobs.boolean(label: 'disabled', initialValue: false),
+                    onOptionSelected: (List<TreeNode> selectedOptions) {
+                      for (TreeNode node in selectedOptions) {
+                        // print("Node: ${node.value}");
+                      }
+                    },
+                    options: [
+                      TreeNode('A', 'A', [
+                        TreeNode('A.A1', 'A1', [
+                          TreeNode('A.A1.A3', 'A3', [
+                            TreeNode('A.A1.A3.A5', 'A5', []),
+                            TreeNode('A.A1.A3.A6', 'A6', []),
                           ]),
-                          TreeNode('B', 'B', [
-                            TreeNode('B.B1', 'B1', []),
-                            TreeNode('B.B2', 'B2', []),
-                          ]),
-                          TreeNode('C', 'C', [
-                            TreeNode('C.C1', 'C1', []),
-                            TreeNode('C.C2', 'C2', []),
-                          ]),
-                          TreeNode('D', 'D', [
-                            TreeNode('D.D1', 'D1', []),
-                            TreeNode('D.D2', 'D2', []),
-                          ]),
-                        ],
-                        treeSelectionType: TreeSelectionType.MultiSelect,
-                      ),
-                    ),
+                          TreeNode('A.A1.A4', 'A4', []),
+                        ]),
+                        TreeNode('A.A2', 'A2', []),
+                      ]),
+                      TreeNode('B', 'B', [
+                        TreeNode('B.B1', 'B1', []),
+                        TreeNode('B.B2', 'B2', []),
+                      ]),
+                      TreeNode('C', 'C', [
+                        TreeNode('C.C1', 'C1', []),
+                        TreeNode('C.C2', 'C2', []),
+                      ]),
+                      TreeNode('D', 'D', [
+                        TreeNode('D.D1', 'D1', []),
+                        TreeNode('D.D2', 'D2', []),
+                      ]),
+                    ],
+                    treeSelectionType: TreeSelectionType.MultiSelect,
                   ),
                 ),
               ],
