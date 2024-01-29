@@ -45,154 +45,151 @@ Import the package in your Dart code:
 
 ### Date Input Field
 
-DigitDateFormInput(
-label: "Date Field",
-controller: TextEditingController(),
-innerLabel: 'innerlabel',
-helpText: 'help text',
-),
+        DigitDateFormInput(
+            label: "Date Field",
+            controller: TextEditingController(),
+            innerLabel: 'innerlabel',
+            helpText: 'help text',
+        ),
 
 ### Time Input Field
 
-DigitTimeFormInput(
-label: "Time Field",
-controller: TextEditingController(),
-innerLabel: 'innerlabel',
-helpText: 'help text',
-),
+        DigitTimeFormInput(
+            label: "Time Field",
+            controller: TextEditingController(),
+            innerLabel: 'innerlabel',
+            helpText: 'help text',
+        ),
 
 ### Location Input Field
 
-DigitLocationFormInput(
-label: "Location Field",
-controller: TextEditingController(),
-innerLabel: 'innerlabel',
-helpText: 'help text',
-),
+        DigitLocationFormInput(
+            label: "Location Field",
+            controller: TextEditingController(),
+            innerLabel: 'innerlabel',
+            helpText: 'help text',
+        ),
 
 ### Numeric Input Field
 
-DigitNumericFormInput(
-label: "Numeric Field",
-controller: TextEditingController(),
-innerLabel: 'innerlabel',
-helpText: 'help text',
-initialValue: '0',
-step: 1,
-),
+        DigitNumericFormInput(
+            label: "Numeric Field",
+            controller: TextEditingController(),
+            innerLabel: 'innerlabel',
+            helpText: 'help text',
+            initialValue: '0',
+            step: 1,
+        ),
 
 ### Password Input Field
 
-DigitPasswordFormInput(
-label: "password Field",
-controller: TextEditingController(),
-innerLabel: 'innerlabel',
-helpText: 'help text',
-validations: [
-Validator(ValidatorType.minLength, 6,
-errorMessage:
-'Password must be at least 6 characters.'),
-],
-),
+        DigitPasswordFormInput(
+            label: "password Field",
+            controller: TextEditingController(),
+            innerLabel: 'innerlabel',
+            helpText: 'help text',
+            validations: [
+                Validator(ValidatorType.minLength, 6,
+                errorMessage:
+                'Password must be at least 6 characters.'),
+            ],
+        ),
 
 ### Search Input Field
 
-DigitSearchFormInput(
-label: "Search Field",
-controller: TextEditingController(),
-innerLabel: 'innerlabel',
-helpText: 'help text',
-),
+        DigitSearchFormInput(
+            label: "Search Field",
+            controller: TextEditingController(),
+            innerLabel: 'innerlabel',
+            helpText: 'help text',
+        ),
 
 ### TextArea Input Field
 
-DigitTextAreaFormInput(
-label: "Text Area",
-controller: TextEditingController(),
-innerLabel: 'label',
-helpText: 'help text',
-),
+        DigitTextAreaFormInput(
+            label: "Text Area",
+            controller: TextEditingController(),
+            innerLabel: 'label',
+            helpText: 'help text',
+        ),
 
 ## Button Variants
 
 ### Primary Button
 
-DigitButton(
-label: 'p',
-onPressed: () {},
-type: ButtonType.primary,
-),
+        DigitButton(
+            label: 'p',
+            onPressed: () {},
+            type: ButtonType.primary,
+        ),
 
 with Suffix Icon
 
-DigitButton(
-suffixIcon: Icons.add,
-label: 'p',
-onPressed: () {},
-type: ButtonType.primary,
-),
+        DigitButton(
+            suffixIcon: Icons.add,
+            label: 'p',
+            onPressed: () {},
+            type: ButtonType.primary,
+        ),
 
 ### Secondary Button
 
-DigitButton(
-label: 'secondary Button',
-onPressed: () {},
-type: ButtonType.secondary,
-),
+        DigitButton(
+            label: 'secondary Button',
+            onPressed: () {},
+            type: ButtonType.secondary,
+        ),
 
 with Suffix Icon
 
-DigitButton(
-suffixIcon: Icons.arrow_forward,
-label: 'secondary Button',
-onPressed: () {},
-type: ButtonType.secondary,
-),
+        DigitButton(
+            suffixIcon: Icons.arrow_forward,
+            label: 'secondary Button',
+            onPressed: () {},
+            type: ButtonType.secondary,
+        ),
 
 ### Tertiary Button
 
-DigitButton(
-label: 'tertiary Button',
-onPressed: () {},
-type: ButtonType.tertiary,
-),
+        DigitButton(
+            label: 'tertiary Button',
+            onPressed: () {},
+            type: ButtonType.tertiary,
+        ),
 
 ### Link
 
-DigitButton(
-label: 'link',
-onPressed: () {},
-type: ButtonType.link,
-),
+        DigitButton(
+            label: 'link',
+            onPressed: () {},
+            type: ButtonType.link,
+        ),
 
 ## Radio Buttons
 
-DigitRadioList(
-onChanged: (value) {},
-radioButtons: [
-RadioButtonModel(
-code: '1',
-name: 'One',
-),
-RadioButtonModel(code: '2', name: 'Two'),
-RadioButtonModel(code: '3', name: 'Three'),
-],
-),
+        DigitRadioList(
+            onChanged: (value) {},
+            radioButtons: [
+                RadioButtonModel(code: '1',name: 'One',),
+                RadioButtonModel(code: '2', name: 'Two'),
+                RadioButtonModel(code: '3', name: 'Three'),
+            ],
+        ),
 
 ## Toggle Buttons
 
-DigitToggleList(
-toggleButtons: [
-ToggleButtonModel(
-name: 'Toggle 1', key: 'key1', onSelected: (value) {}),
-ToggleButtonModel(
-name: 'Toggle 2', key: 'key2', onSelected: (value) {}),
-ToggleButtonModel(
-name: 'Toggle 3', key: 'key3', onSelected: (value) {}),
-],
-selectedIndex: 1,
-onChanged: (selectedValues) {},
-),
+        DigitToggleList(
+            toggleButtons: [
+                ToggleButtonModel(
+                    name: 'Toggle 1', key: 'key1', onSelected: (value) {}),
+                ToggleButtonModel(
+                    name: 'Toggle 2', key: 'key2', onSelected: (value) {}),
+                ToggleButtonModel(
+                    name: 'Toggle 3', key: 'key3', onSelected: (value) {}),
+                ],
+            selectedIndex: 1,
+            onChanged: (selectedValues) {},
+        ),
 
 ## Dropdown Variants
 
