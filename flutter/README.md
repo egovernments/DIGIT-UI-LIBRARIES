@@ -41,7 +41,7 @@ Import the package in your Dart code:
             innerLabel: 'label',
             helpText: 'help text',
             charCount: true,
-        )
+        );
         
 ![text-field](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/613d8da2-33a9-4342-9d8e-a25c83199bb3)
 
@@ -52,7 +52,7 @@ Import the package in your Dart code:
             controller: TextEditingController(),
             innerLabel: 'innerlabel',
             helpText: 'help text',
-        ),
+        );
 
 ![date-field-1](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/7e291aac-b0dd-4de8-b1dc-d2f1f592b2f3)
      
@@ -65,7 +65,7 @@ Import the package in your Dart code:
             controller: TextEditingController(),
             innerLabel: 'innerlabel',
             helpText: 'help text',
-        ),
+        );
 
 ![time-field-1](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/465fcd5d-c0ae-4085-8cf7-16fedd67d3d1)
 
@@ -79,7 +79,7 @@ Import the package in your Dart code:
             controller: TextEditingController(),
             innerLabel: 'innerlabel',
             helpText: 'help text',
-        ),
+        );
 
 ![location](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/1619fb97-57dc-45bc-b249-4a626e53a8f5)
 
@@ -94,7 +94,7 @@ Import the package in your Dart code:
             helpText: 'help text',
             initialValue: '0',
             step: 1,
-        ),
+        );
 
 ![numeric](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/4f3e5510-c58a-46ba-8e38-3f4c28d71953)
 
@@ -110,7 +110,7 @@ Import the package in your Dart code:
                 errorMessage:
                 'Password must be at least 6 characters.'),
             ],
-        ),
+        );
 
 ![password-1](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/5f1cf36d-de98-4759-b7c3-169d5ed10751)
 
@@ -124,7 +124,7 @@ Import the package in your Dart code:
             innerLabel: 'innerlabel',
             helpText: 'help text',
             onSuffixTap: (value){},
-        ),
+        );
 
 ![search](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/585c0060-0a5c-44ab-a08b-927b07eb594d)
 
@@ -135,9 +135,9 @@ Import the package in your Dart code:
             controller: TextEditingController(),
             innerLabel: 'innerlabel',
             helpText: 'help text',
-        ),
+        );
 
-  ![textArea](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/307cc5a0-87e2-4ca0-bf6e-cdc1d6b26741)
+![textArea](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/307cc5a0-87e2-4ca0-bf6e-cdc1d6b26741)
 
 ### Button Variants
 
@@ -147,9 +147,9 @@ Import the package in your Dart code:
             label: 'Primary Button',
             onPressed: () {},
             type: ButtonType.primary,
-        ),
+        );
 
-  ![primary-button](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/2de133ff-f400-4612-a064-7989730b84a1)
+![primary-button](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/2de133ff-f400-4612-a064-7989730b84a1)
 
 with Suffix Icon
 
@@ -158,9 +158,9 @@ with Suffix Icon
             label: 'Primary Button',
             onPressed: () {},
             type: ButtonType.primary,
-        ),
+        );
 
-  ![primary-button-1](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/6972ce4b-3bb2-4912-ae6b-784473093601)
+![primary-button-1](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/6972ce4b-3bb2-4912-ae6b-784473093601)
 
 #### Secondary Button
 
@@ -168,9 +168,9 @@ with Suffix Icon
             label: 'secondary Button',
             onPressed: () {},
             type: ButtonType.secondary,
-        ),
+        );
 
-  ![secondary-button](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/e07bbfaf-536a-4daf-bca1-4c8d9ff016d4)
+![secondary-button](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/e07bbfaf-536a-4daf-bca1-4c8d9ff016d4)
 
 #### Tertiary Button
 
@@ -178,7 +178,7 @@ with Suffix Icon
             label: 'tertiary Button',
             onPressed: () {},
             type: ButtonType.tertiary,
-        ),
+        );
 
 ![tertiary-button](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/b56da9f2-3806-4216-8bbd-d902cc4f94fc)
 
@@ -188,7 +188,7 @@ with Suffix Icon
             label: 'link',
             onPressed: () {},
             type: ButtonType.link,
-        ),
+        );
 
 ![link](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/5424ff0e-142a-4482-9559-bfb83d0ad201)
 
@@ -202,9 +202,9 @@ with Suffix Icon
                 RadioButtonModel(code: '2', name: 'Two'),
                 RadioButtonModel(code: '3', name: 'Three'),
             ],
-        ),
+        );
 
-  ![radio](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/23bd8fc9-1c44-485c-861d-cd443cc43661)
+![radio](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/23bd8fc9-1c44-485c-861d-cd443cc43661)
 
 ### Toggle Buttons
 
@@ -219,9 +219,9 @@ with Suffix Icon
                 ],
             selectedIndex: 1,
             onChanged: (selectedValues) {},
-        ),
+        );
 
-  ![toggle-list](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/104898b8-dbd6-423e-94e0-3fe46f820bc9)
+![toggle-list](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/104898b8-dbd6-423e-94e0-3fe46f820bc9)
 
 ### Dropdown Variants
 
@@ -237,7 +237,7 @@ with Suffix Icon
             DropdownItem(name: 'fourth',code: '4',
             ),
         ],
-    ),
+    );
 
 With description and profile Image
 
@@ -278,7 +278,7 @@ With description and profile Image
                 ),
             ),
         ],
-    ),
+    );
 
 With Different Type of Options
 
@@ -292,7 +292,7 @@ With Different Type of Options
             DropdownItem(name: 'third',code: '3',type: 'Type A',),
             DropdownItem(name: 'fourth',code: '4',type: 'Type B'),
         ],
-    ),
+    );
 
 #### Multi Select Dropdown
 
@@ -304,7 +304,7 @@ With Different Type of Options
             DropdownItem(code: '3', name: 'third'),
             DropdownItem(code: '4', name: 'four'),
         ],
-),
+    );
 
 #### Tree Select Dropdown
 
@@ -323,7 +323,7 @@ Single Select Option
             ]),
         ],
         controller: TreeSelectController(),
-    ),
+    );
 
 Multi Select Option
 
@@ -341,7 +341,7 @@ Multi Select Option
         ],
         treeSelectionType: TreeSelectionType.MultiSelect,
         controller: TreeSelectController(),
-    ),
+    );
 
 
 
