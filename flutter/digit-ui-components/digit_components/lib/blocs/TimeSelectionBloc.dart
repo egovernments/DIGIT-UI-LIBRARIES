@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../utils/time_utils.dart';
-import '../theme/digit_theme.dart';
 
 class TimeSelectionBloc {
   Future<void> selectTime({
@@ -11,16 +10,9 @@ class TimeSelectionBloc {
     TimeOfDay? selectedTime = await showTimePicker(
       context: context,
       initialTime: TimeOfDay.now(),
-      builder: (context, child) {
-        return Theme(
-          data: Theme.of(context).copyWith(
-            colorScheme: DigitTheme.instance.colorScheme,
-            textButtonTheme: TextButtonThemeData(
-              style: TextButton.styleFrom(
-                foregroundColor: Colors.red,
-              ),
-            ),
-          ),
+      builder: (BuildContext context, Widget? child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: false),
           child: child!,
         );
       },

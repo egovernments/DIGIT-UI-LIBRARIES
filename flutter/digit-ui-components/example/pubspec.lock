@@ -285,8 +285,8 @@ packages:
     dependency: "direct main"
     description:
       path: "flutter/digit-ui-components/digit_components"
-      ref: build-branch
-      resolved-ref: af0d40fc2019430ea5daeb542508cb7aa05ee46e
+      ref: master
+      resolved-ref: ec78acc6a33addc6811e198c7a9182960df27ffa
       url: "https://github.com/egovernments/DIGIT-UI-LIBRARIES"
     source: git
     version: "0.0.1+8"
