@@ -43,7 +43,7 @@ Import the package in your Dart code:
             charCount: true,
         )
         
-        ![text-field](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/613d8da2-33a9-4342-9d8e-a25c83199bb3)
+![text-field](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/613d8da2-33a9-4342-9d8e-a25c83199bb3)
 
 #### Date Input Field
 
