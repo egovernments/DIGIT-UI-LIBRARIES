@@ -30,9 +30,9 @@ Import the package in your Dart code:
 
 ## Example
 
-## Text Input Variants
+### Text Input Variants
 
-### Text Input Field
+#### Text Input Field
 
         DigitTextFormInput(
             label: "Text Field",
@@ -43,7 +43,7 @@ Import the package in your Dart code:
             charCount: true,
         )
 
-### Date Input Field
+#### Date Input Field
 
         DigitDateFormInput(
             label: "Date Field",
@@ -52,7 +52,7 @@ Import the package in your Dart code:
             helpText: 'help text',
         ),
 
-### Time Input Field
+#### Time Input Field
 
         DigitTimeFormInput(
             label: "Time Field",
@@ -61,7 +61,7 @@ Import the package in your Dart code:
             helpText: 'help text',
         ),
 
-### Location Input Field
+#### Location Input Field
 
         DigitLocationFormInput(
             label: "Location Field",
@@ -70,7 +70,7 @@ Import the package in your Dart code:
             helpText: 'help text',
         ),
 
-### Numeric Input Field
+##### Numeric Input Field
 
         DigitNumericFormInput(
             label: "Numeric Field",
@@ -81,7 +81,7 @@ Import the package in your Dart code:
             step: 1,
         ),
 
-### Password Input Field
+#### Password Input Field
 
         DigitPasswordFormInput(
             label: "password Field",
@@ -95,30 +95,31 @@ Import the package in your Dart code:
             ],
         ),
 
-### Search Input Field
+#### Search Input Field
 
         DigitSearchFormInput(
             label: "Search Field",
             controller: TextEditingController(),
             innerLabel: 'innerlabel',
             helpText: 'help text',
+            onSuffixTap: (value){},
         ),
 
-### TextArea Input Field
+#### TextArea Input Field
 
         DigitTextAreaFormInput(
             label: "Text Area",
             controller: TextEditingController(),
-            innerLabel: 'label',
+            innerLabel: 'innerlabel',
             helpText: 'help text',
         ),
 
-## Button Variants
+### Button Variants
 
-### Primary Button
+#### Primary Button
 
         DigitButton(
-            label: 'p',
+            label: 'Primary Button',
             onPressed: () {},
             type: ButtonType.primary,
         ),
@@ -127,12 +128,12 @@ with Suffix Icon
 
         DigitButton(
             suffixIcon: Icons.add,
-            label: 'p',
+            label: 'Primary Button',
             onPressed: () {},
             type: ButtonType.primary,
         ),
 
-### Secondary Button
+#### Secondary Button
 
         DigitButton(
             label: 'secondary Button',
@@ -140,16 +141,7 @@ with Suffix Icon
             type: ButtonType.secondary,
         ),
 
-with Suffix Icon
-
-        DigitButton(
-            suffixIcon: Icons.arrow_forward,
-            label: 'secondary Button',
-            onPressed: () {},
-            type: ButtonType.secondary,
-        ),
-
-### Tertiary Button
+#### Tertiary Button
 
         DigitButton(
             label: 'tertiary Button',
@@ -157,7 +149,7 @@ with Suffix Icon
             type: ButtonType.tertiary,
         ),
 
-### Link
+#### Link
 
         DigitButton(
             label: 'link',
@@ -165,10 +157,11 @@ with Suffix Icon
             type: ButtonType.link,
         ),
 
-## Radio Buttons
+### Radio Buttons
 
         DigitRadioList(
             onChanged: (value) {},
+            groupValue: '1',
             radioButtons: [
                 RadioButtonModel(code: '1',name: 'One',),
                 RadioButtonModel(code: '2', name: 'Two'),
@@ -176,7 +169,7 @@ with Suffix Icon
             ],
         ),
 
-## Toggle Buttons
+### Toggle Buttons
 
         DigitToggleList(
             toggleButtons: [
@@ -191,9 +184,9 @@ with Suffix Icon
             onChanged: (selectedValues) {},
         ),
 
-## Dropdown Variants
+### Dropdown Variants
 
-### Single Select Dropdown
+#### Single Select Dropdown
 
     DigitDropdown<int>(
         onChange: (String value, String index) => {},
@@ -262,7 +255,7 @@ With Different Type of Options
         ],
     ),
 
-### Multi Select Dropdown
+#### Multi Select Dropdown
 
     MultiSelectDropDown<int>(
         onOptionSelected: (List<DropdownItem> selectedOptions) {},
@@ -274,7 +267,7 @@ With Different Type of Options
         ],
 ),
 
-### Tree Select Dropdown
+#### Tree Select Dropdown
 
 Single Select Option
 
