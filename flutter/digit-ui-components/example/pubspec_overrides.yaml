@@ -2,5 +2,5 @@ dependency_overrides:
   digit_components:
     git:
       url: https://github.com/egovernments/DIGIT-UI-LIBRARIES
-      ref: build-1
+      ref: master
       path: ./flutter/digit-ui-components/digit_components
