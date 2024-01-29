@@ -451,7 +451,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
               return Column(
                 children: [
                   Container(
-                    width: MediaQuery.sizeOf(context).width,
+                    width: MediaQuery.of(context).size.width,
                     padding: DropdownConstants.nestedItemHeaderPadding,
                     color: const DigitColors().alabasterWhite,
                     child: Row(
