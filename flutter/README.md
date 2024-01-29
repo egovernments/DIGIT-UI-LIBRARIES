@@ -34,14 +34,14 @@ Import the package in your Dart code:
 
 ### Text Input Field
 
-DigitTextFormInput(
-label: "Text Field",
-initialValue: 'value',
-controller: TextEditingController(),
-innerLabel: 'label',
-helpText: 'help text',
-charCount: true,
-)
+        DigitTextFormInput(
+            label: "Text Field",
+            initialValue: 'value',
+            controller: TextEditingController(),
+            innerLabel: 'label',
+            helpText: 'help text',
+            charCount: true,
+        )
 
 ### Date Input Field
 
