@@ -239,6 +239,10 @@ with Suffix Icon
         ],
     );
 
+![simple-dropdown](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/4530a905-25aa-494c-ad48-ed9c50f5bf78)
+
+![simple-dropdown-1](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/d8e38b5d-ecb6-4d9a-b7d2-f8ae8e5fae6f)
+
 With description and profile Image
 
     DigitDropdown<int>(
@@ -280,6 +284,8 @@ With description and profile Image
         ],
     );
 
+![simple-dropdown-variation](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/2236d396-3f5f-476b-97a2-9e66460b5807)
+
 With Different Type of Options
 
     DigitDropdown<int>(
@@ -294,6 +300,8 @@ With Different Type of Options
         ],
     );
 
+![dropdown-type](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/ba7c2ccf-b51c-4784-9a3a-4891bbc996a3)
+
 #### Multi Select Dropdown
 
     MultiSelectDropDown<int>(
@@ -305,6 +313,11 @@ With Different Type of Options
             DropdownItem(code: '4', name: 'four'),
         ],
     );
+
+![multiselect](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/2cd90fe3-ce0e-4c32-b186-9b48c1470171)
+
+![multiselect-1](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/e100de0e-8fb8-463e-b58d-ff441f7b9721)
+
 
 #### Tree Select Dropdown
 
@@ -325,6 +338,10 @@ Single Select Option
         controller: TreeSelectController(),
     );
 
+![tree-select](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/aa11f73e-5e9e-4cc8-a571-5e2695e56378)
+
+![tree-select-1](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/e05f1846-d10d-471c-b4c2-f1a4831e71e7)
+
 Multi Select Option
 
     TreeSelectDropDown<int>(
@@ -342,6 +359,12 @@ Multi Select Option
         treeSelectionType: TreeSelectionType.MultiSelect,
         controller: TreeSelectController(),
     );
+
+![tree-multiselect](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/183ec3fa-34fd-428d-a19c-66735a65ad0b)
+
+![tree-multiselect-1](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/dd793878-c807-40d6-beda-d349e0a0bfc7)
+
+
 
 
 
