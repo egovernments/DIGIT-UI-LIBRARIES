@@ -42,9 +42,8 @@ Import the package in your Dart code:
             helpText: 'help text',
             charCount: true,
         )
+        
         ![text-field](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/613d8da2-33a9-4342-9d8e-a25c83199bb3)
-![time-field-1](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/cf260e80-640f-405b-a59c-249c4af75b7e)
-
 
 #### Date Input Field
 
@@ -55,6 +54,10 @@ Import the package in your Dart code:
             helpText: 'help text',
         ),
 
+![date-field-1](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/7e291aac-b0dd-4de8-b1dc-d2f1f592b2f3)
+     
+![date-field-2](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/89cb85e6-b941-4944-a3df-a27c51d58a67)  
+
 #### Time Input Field
 
         DigitTimeFormInput(
@@ -64,6 +67,11 @@ Import the package in your Dart code:
             helpText: 'help text',
         ),
 
+![time-field-1](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/465fcd5d-c0ae-4085-8cf7-16fedd67d3d1)
+
+![time-field-2](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/5011ecfb-46b4-4085-bc29-1cc85e098c54)
+
+
 #### Location Input Field
 
         DigitLocationFormInput(
@@ -72,6 +80,10 @@ Import the package in your Dart code:
             innerLabel: 'innerlabel',
             helpText: 'help text',
         ),
+
+![location](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/1619fb97-57dc-45bc-b249-4a626e53a8f5)
+
+![location-1](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/3f013759-45d9-4b33-b581-0e8a9d70139b)
 
 ##### Numeric Input Field
 
@@ -83,6 +95,8 @@ Import the package in your Dart code:
             initialValue: '0',
             step: 1,
         ),
+
+![numeric](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/4f3e5510-c58a-46ba-8e38-3f4c28d71953)
 
 #### Password Input Field
 
@@ -98,6 +112,10 @@ Import the package in your Dart code:
             ],
         ),
 
+![password-1](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/5f1cf36d-de98-4759-b7c3-169d5ed10751)
+
+![password-2](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/b7e17a2a-5245-43dd-94ec-3480ce71460e)
+
 #### Search Input Field
 
         DigitSearchFormInput(
@@ -108,6 +126,8 @@ Import the package in your Dart code:
             onSuffixTap: (value){},
         ),
 
+![search](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/585c0060-0a5c-44ab-a08b-927b07eb594d)
+
 #### TextArea Input Field
 
         DigitTextAreaFormInput(
@@ -116,6 +136,8 @@ Import the package in your Dart code:
             innerLabel: 'innerlabel',
             helpText: 'help text',
         ),
+
+  ![textArea](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/307cc5a0-87e2-4ca0-bf6e-cdc1d6b26741)
 
 ### Button Variants
 
@@ -127,6 +149,8 @@ Import the package in your Dart code:
             type: ButtonType.primary,
         ),
 
+  ![primary-button](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/2de133ff-f400-4612-a064-7989730b84a1)
+
 with Suffix Icon
 
         DigitButton(
@@ -136,6 +160,8 @@ with Suffix Icon
             type: ButtonType.primary,
         ),
 
+  ![primary-button-1](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/6972ce4b-3bb2-4912-ae6b-784473093601)
+
 #### Secondary Button
 
         DigitButton(
@@ -143,6 +169,8 @@ with Suffix Icon
             onPressed: () {},
             type: ButtonType.secondary,
         ),
+
+  ![secondary-button](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/e07bbfaf-536a-4daf-bca1-4c8d9ff016d4)
 
 #### Tertiary Button
 
@@ -152,6 +180,8 @@ with Suffix Icon
             type: ButtonType.tertiary,
         ),
 
+![tertiary-button](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/b56da9f2-3806-4216-8bbd-d902cc4f94fc)
+
 #### Link
 
         DigitButton(
@@ -159,6 +189,8 @@ with Suffix Icon
             onPressed: () {},
             type: ButtonType.link,
         ),
+
+![link](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/5424ff0e-142a-4482-9559-bfb83d0ad201)
 
 ### Radio Buttons
 
@@ -171,6 +203,8 @@ with Suffix Icon
                 RadioButtonModel(code: '3', name: 'Three'),
             ],
         ),
+
+  ![radio](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/23bd8fc9-1c44-485c-861d-cd443cc43661)
 
 ### Toggle Buttons
 
@@ -186,6 +220,8 @@ with Suffix Icon
             selectedIndex: 1,
             onChanged: (selectedValues) {},
         ),
+
+  ![toggle-list](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/104898b8-dbd6-423e-94e0-3fe46f820bc9)
 
 ### Dropdown Variants
 
