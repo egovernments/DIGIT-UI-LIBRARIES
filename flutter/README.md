@@ -193,6 +193,126 @@ with Suffix Icon
 
 ## Dropdown Variants
 
+### Single Select Dropdown
+
+    DigitDropdown<int>(
+        onChange: (String value, String index) => {},
+        textEditingController: TextEditingController(),
+        items: const [
+            DropdownItem(name: 'first',code: '1',),
+            DropdownItem(name: 'second',code: '2',),
+            DropdownItem(name: 'third',code: '3',),
+            DropdownItem(name: 'fourth',code: '4',
+            ),
+        ],
+    ),
+
+With description and profile Image
+
+    DigitDropdown<int>(
+        onChange: (String value, String index) => {},
+        textEditingController: TextEditingController(),
+        items: const [
+            DropdownItem(
+                name: 'first',
+                code: '1',
+                description: 'description for first one',
+                profileImage: NetworkImage(
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                ),
+            ),
+            DropdownItem(
+                name: 'second',
+                code: '2',
+                description: 'description for second one',
+                profileImage: NetworkImage(
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                ),
+            ),
+            DropdownItem(
+                name: 'third',
+                code: '3',
+                description: 'description for third one',
+                profileImage: NetworkImage(
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                ),
+            ),
+            DropdownItem(
+                name: 'fourth',
+                code: '4',
+                description: 'description for fourth one',
+                profileImage: NetworkImage(
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                ),
+            ),
+        ],
+    ),
+
+With Different Type of Options
+
+    DigitDropdown<int>(
+        onChange: (String value, String index) => {},
+        textEditingController: TextEditingController(),
+        dropdownType: DropdownType.nestedSelect,
+        items: const [
+            DropdownItem(name: 'first',code: '1',type: 'Type A',),
+            DropdownItem(name: 'second',code: '2',type: 'Type B'),
+            DropdownItem(name: 'third',code: '3',type: 'Type A',),
+            DropdownItem(name: 'fourth',code: '4',type: 'Type B'),
+        ],
+    ),
+
+### Multi Select Dropdown
+
+    MultiSelectDropDown<int>(
+        onOptionSelected: (List<DropdownItem> selectedOptions) {},
+        options: const [
+            DropdownItem(code: '1', name: 'first'),
+            DropdownItem(code: '2', name: 'second'),
+            DropdownItem(code: '3', name: 'third'),
+            DropdownItem(code: '4', name: 'four'),
+        ],
+),
+
+### Tree Select Dropdown
+
+Single Select Option
+
+    TreeSelectDropDown<int>(
+        onOptionSelected: (List<TreeNode> selectedOptions) {},
+        options: [
+            TreeNode('C', 'C', [
+                TreeNode('C.C1', 'C1', []),
+                TreeNode('C.C2', 'C2', []),
+            ]),
+            TreeNode('D', 'D', [
+                TreeNode('D.D1', 'D1', []),
+                TreeNode('D.D2', 'D2', []),
+            ]),
+        ],
+        controller: TreeSelectController(),
+    ),
+
+Multi Select Option
+
+    TreeSelectDropDown<int>(
+        onOptionSelected: (List<TreeNode> selectedOptions) {},
+        options: [
+            TreeNode('C', 'C', [
+                TreeNode('C.C1', 'C1', []),
+                TreeNode('C.C2', 'C2', []),
+            ]),
+            TreeNode('D', 'D', [
+                TreeNode('D.D1', 'D1', []),
+                TreeNode('D.D2', 'D2', []),
+            ]),
+        ],
+        treeSelectionType: TreeSelectionType.MultiSelect,
+        controller: TreeSelectController(),
+    ),
+
+
+
 
 
 ## License
