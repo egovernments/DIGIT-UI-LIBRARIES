@@ -3,7 +3,7 @@ class ToggleButtonModel {
   final String key;
 
   /// Callback function when the button is selected
-  final void Function()? onSelected;
+  final void Function(bool value)? onSelected;
 
   ToggleButtonModel({
     required this.name,

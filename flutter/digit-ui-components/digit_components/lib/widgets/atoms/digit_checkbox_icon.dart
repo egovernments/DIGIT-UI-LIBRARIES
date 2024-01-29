@@ -39,7 +39,7 @@ class DigitCheckboxIcon extends StatelessWidget {
             border: Border.all(
               color: CheckboxConstants.uncheckedBorderColor(
                   isDisabled: isDisabled, customColor: color),
-              width: CheckboxConstants.borderWidth,
+              width: 1,
             ),
             borderRadius: BorderRadius.zero,
           ),

@@ -53,11 +53,14 @@ class TreeSelectDropDown<int> extends StatefulWidget {
   final ChipConfig chipConfig;
 
   /// dropdownfield configuration
-  final Icon? suffixIcon;
+  final IconData suffixIcon;
   final Decoration? inputDecoration;
 
   /// focus node
   final FocusNode? focusNode;
+
+  /// Whether the dropdown is enabled or disabled.
+  final bool isDisabled;
 
   /// Controller for the dropdown
   /// [controller] is the controller for the dropdown. It can be used to programmatically open and close the dropdown.
@@ -70,10 +73,11 @@ class TreeSelectDropDown<int> extends StatefulWidget {
     this.treeSelectionType = TreeSelectionType.MultiSelect,
     this.selectedOptions = const [],
     this.chipConfig = const ChipConfig(),
-    this.suffixIcon = const Icon(Icons.arrow_drop_down),
+    this.suffixIcon = Icons.arrow_drop_down,
     this.inputDecoration,
     this.focusNode,
     this.controller,
+    this.isDisabled = false,
   }) : super(key: key);
 
   @override
@@ -111,6 +115,9 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
 
   void _initialize() {
     if (!mounted) return;
+    _options.addAll(_controller?.options.isNotEmpty == true
+        ? _controller!.options
+        : widget.options);
     _addOptions();
     _overlayState ??= Overlay.of(context);
     _focusNode.addListener(_handleFocusChange);
@@ -211,18 +218,24 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
             ? Default.mobileInputWidth
             : Default.desktopInputWidth;
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         CompositedTransformTarget(
           link: _layerLink,
           child: Focus(
-            canRequestFocus: true,
-            skipTraversal: true,
+            canRequestFocus: !widget.isDisabled,
+
+            /// Only allow focus if the dropdown is enabled
+            skipTraversal: !widget.isDisabled,
             focusNode: _focusNode,
             child: InkWell(
               splashColor: Colors.transparent,
               highlightColor: Colors.transparent,
               hoverColor: Colors.transparent,
-              onTap: _toggleFocus,
+              onTap: !widget.isDisabled ? _toggleFocus : null,
+
+              /// Disable onTap if dropdown is disabled
               child: StatefulBuilder(builder: (context, setState) {
                 return Container(
                   height: Default.height,
@@ -234,7 +247,9 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
                   padding: const EdgeInsets.symmetric(
                     horizontal: kPadding,
                   ),
-                  decoration: _getContainerDecoration(),
+                  decoration: !widget.isDisabled
+                      ? _getContainerDecoration()
+                      : _getDisabledContainerDecoration(),
                   child: Row(
                     children: [
                       Expanded(
@@ -245,10 +260,11 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
                                 : Text(_selectedOptions.first.code.toString())
                             : const SizedBox(),
                       ),
-                      AnimatedRotation(
-                        turns: _selectionMode ? 0.5 : 0,
-                        duration: DropdownConstants.animationDuration,
-                        child: widget.suffixIcon,
+                      Icon(
+                        widget.suffixIcon,
+                        color: widget.isDisabled
+                            ? const DigitColors().cloudGray
+                            : const DigitColors().davyGray,
                       ),
                     ],
                   ),
@@ -293,9 +309,10 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
 
           /// Display "Clear All" only if there are selected options
           InkWell(
+            hoverColor: const DigitColors().transparent,
+            splashColor: const DigitColors().transparent,
             onTap: () => clear(),
-
-            /// onTap Clear all the
+            /// onTap Clear all the selected options
             child: Chip(
               backgroundColor: const DigitColors().white,
               shape: RoundedRectangleBorder(
@@ -339,10 +356,22 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
   /// return true if any item is selected.
   bool get _anyItemSelected => _selectedOptions.isNotEmpty;
 
+  /// Container decoration for disabled dropdown.
+  Decoration _getDisabledContainerDecoration() {
+    return BoxDecoration(
+      color: const DigitColors().cloudGray,
+      borderRadius: BorderRadius.zero,
+      border: Border.all(
+        color: const DigitColors().cloudGray,
+        width: 1,
+      ),
+    );
+  }
+
   /// Container decoration for the dropdown.
   Decoration _getContainerDecoration() {
     return BoxDecoration(
-      color: Colors.white,
+      color: const DigitColors().transparent,
       borderRadius: BorderRadius.zero,
       border: _selectionMode
           ? Border.all(
@@ -404,49 +433,50 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
       List<TreeNode> selectedOptions = [..._selectedOptions];
 
       return StatefulBuilder(builder: ((context, dropdownState) {
-        return Stack(
-          children: [
-            Positioned.fill(
-              child: GestureDetector(
-                behavior: HitTestBehavior.translucent,
-                onTap: _onOutSideTap,
-                child: Container(
-                  color: Colors.transparent,
-                ),
-              ),
-            ),
-            CompositedTransformFollower(
-              link: _layerLink,
-              showWhenUnlinked: false,
-              targetAnchor: Alignment.bottomLeft,
-              followerAnchor: Alignment.topLeft,
-              offset: Offset.zero,
-              child: Material(
-                borderRadius: BorderRadius.zero,
-                shadowColor: null,
-                clipBehavior: Clip.none,
-                child: SingleChildScrollView(
-                  physics: const AlwaysScrollableScrollPhysics(),
-                  child: SizedBox(
-                    width: size.width,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        _buildFlatOptions(
-                            values, options, selectedOptions, dropdownState),
-                      ],
+        return GestureDetector(
+          onTap: _onOutSideTap,
+          behavior: HitTestBehavior.translucent,
+
+          /// full screen SizedBox to register taps anywhere and close drop down
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            child: Stack(
+              children: [
+                CompositedTransformFollower(
+                  link: _layerLink,
+                  showWhenUnlinked: false,
+                  targetAnchor: Alignment.bottomLeft,
+                  followerAnchor: Alignment.topLeft,
+                  offset: Offset.zero,
+                  child: Material(
+                    borderRadius: BorderRadius.zero,
+                    shadowColor: null,
+                    clipBehavior: Clip.none,
+                    child: SingleChildScrollView(
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      child: SizedBox(
+                        width: size.width,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            _buildOptions(values, options, selectedOptions,
+                                dropdownState),
+                          ],
+                        ),
+                      ),
                     ),
                   ),
                 ),
-              ),
+              ],
             ),
-          ],
+          ),
         );
       }));
     });
   }
 
-  Widget _buildFlatOptions(List<dynamic> values, List<TreeNode> options,
+  Widget _buildOptions(List<dynamic> values, List<TreeNode> options,
       List<TreeNode> selectedOptions, StateSetter dropdownState) {
     return ConstrainedBox(
       constraints: BoxConstraints(

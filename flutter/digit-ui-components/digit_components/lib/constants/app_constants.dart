@@ -72,7 +72,7 @@ class CheckboxConstants {
 
 class DropdownConstants {
   static const EdgeInsetsGeometry defaultPadding =
-  EdgeInsets.only(left: 10, top: 16, bottom: 16);
+  EdgeInsets.only(left: 10, top: 10, bottom: 10);
   static const EdgeInsetsGeometry nestedItemPadding =
   EdgeInsets.only(left: 10, top: 8, bottom: 8);
   static const EdgeInsetsGeometry nestedItemHeaderPadding =EdgeInsets.all(10);

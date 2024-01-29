@@ -14,7 +14,6 @@ Example usage:
    prefixIcon: Icons.star,
    suffixIcon: Icons.arrow_forward,
    isDisabled: false,
-   buttonPadding: DigitButtonConstants.defaultButtonPadding,
    contentPadding: DigitButtonConstants.defaultContentPadding,
    iconSize: DigitButtonConstants.defaultIconSize,
  )
@@ -44,9 +43,6 @@ class DigitButton extends StatefulWidget {
   /// Indicates whether the button is in a disabled state. If true, the button is disabled and cannot be interacted with.
   final bool isDisabled;
 
-  /// Padding around the entire button. Customizes the spacing between the button's content and its border.
-  final EdgeInsetsGeometry buttonPadding;
-
   /// Padding around the content of the button (label and icons).
   final EdgeInsetsGeometry contentPadding;
 
@@ -61,7 +57,6 @@ class DigitButton extends StatefulWidget {
     this.prefixIcon,
     this.suffixIcon,
     this.isDisabled = false,
-    this.buttonPadding = DigitButtonConstants.defaultButtonPadding,
     this.contentPadding = DigitButtonConstants.defaultContentPadding,
     this.iconSize = DigitButtonConstants.defaultIconSize,
   }) : super(key: key);
@@ -72,6 +67,7 @@ class DigitButton extends StatefulWidget {
 
 class _DigitButtonState extends State<DigitButton> {
   bool isHovered = false;
+  bool isMouseDown = false;
 
   @override
   Widget build(BuildContext context) {
@@ -98,62 +94,173 @@ class _DigitButtonState extends State<DigitButton> {
   Widget _buildButtonWidget() {
     if (widget.type == ButtonType.primary ||
         widget.type == ButtonType.secondary) {
-      return InkWell(
-        onTap: widget.isDisabled ? null : widget.onPressed,
-        splashColor: const DigitColors().transaparent,
-        hoverColor: const DigitColors().transaparent,
-        child: IntrinsicWidth(
-          child: Container(
-            padding: widget.buttonPadding,
-            decoration: BoxDecoration(
-              boxShadow: (widget.type == ButtonType.primary)
-                  ? [
-                      BoxShadow(
-                        color: isHovered
-                            ? DigitButtonConstants.defaultPrimaryColor
-                            : DigitButtonConstants.defaultSecondaryColor,
-                        offset: const Offset(0, 2.0),
-                      ),
-                    ]
-                  : [],
-              borderRadius: BorderRadius.zero,
-              border: Border.all(
-                color: widget.isDisabled
-                    ? DigitButtonConstants.defaultDisabledColor
-                    : DigitButtonConstants.defaultPrimaryColor,
-                width: isHovered
-                    ? DigitButtonConstants.defaultHoverWidth
-                    : DigitButtonConstants.defaultWidth,
+      if(widget.isDisabled){
+        return IntrinsicHeight(
+          child: IntrinsicWidth(
+            child: Container(
+              constraints: const BoxConstraints(
+                minWidth: 32.0, // Set the minimum width
+                minHeight: 32.0, // Set the minimum height
               ),
-              color: widget.type == ButtonType.primary
-                  ? (widget.isDisabled
+              decoration: BoxDecoration(
+                boxShadow: (widget.type == ButtonType.primary &&
+                    (isHovered == false || isMouseDown))
+                    ? [
+                  BoxShadow(
+                    color: isMouseDown
+                        ? const DigitColors().burningOrange
+                        : DigitButtonConstants.defaultSecondaryColor,
+                    offset: isMouseDown
+                        ? const Offset(0, 0)
+                        : const Offset(0, 2.0),
+                    spreadRadius: 0,
+                    blurRadius: isMouseDown ? 4.50 : 0,
+                  ),
+                ]
+                    : isMouseDown
+                    ? [
+                  BoxShadow(
+                    color: const DigitColors().burningOrange,
+                    offset: const Offset(0, 0),
+                    spreadRadius: 0,
+                    blurRadius: 4.50,
+                  ),
+                ]
+                    : [],
+                borderRadius: BorderRadius.zero,
+                border: Border.all(
+                  color: widget.isDisabled
                       ? DigitButtonConstants.defaultDisabledColor
-                      : DigitButtonConstants.defaultPrimaryColor)
-                  : null,
+                      : DigitButtonConstants.defaultPrimaryColor,
+                  width: isHovered
+                      ? DigitButtonConstants.defaultHoverWidth
+                      : DigitButtonConstants.defaultWidth,
+                ),
+                color: widget.type == ButtonType.primary
+                    ? (widget.isDisabled
+                    ? DigitButtonConstants.defaultDisabledColor
+                    : isHovered
+                    ? isMouseDown
+                    ? const DigitColors().burningOrange
+                    : const DigitColors().primaryOrange
+                    : const DigitColors().burningOrange)
+                    : const DigitColors().white,
+              ),
+              child: _buildButton(),
             ),
-            child: _buildButton(),
           ),
-        ),
-      );
+        );
+      }else{
+        return InkWell(
+          onTapDown: (_) {
+            /// Handle mouse down state
+            setState(() {
+              isMouseDown = true;
+            });
+          },
+          onTapUp: (_) {
+            /// Handle mouse up state
+            setState(() {
+              isMouseDown = false;
+            });
+          },
+          onTap: widget.isDisabled ? null : widget.onPressed,
+          splashColor: const DigitColors().transparent,
+          hoverColor: const DigitColors().transparent,
+          child: IntrinsicHeight(
+            child: IntrinsicWidth(
+              child: Container(
+                constraints: const BoxConstraints(
+                  minWidth: 32.0, // Set the minimum width
+                  minHeight: 32.0, // Set the minimum height
+                ),
+                decoration: BoxDecoration(
+                  boxShadow: (widget.type == ButtonType.primary &&
+                      (isHovered == false || isMouseDown))
+                      ? [
+                    BoxShadow(
+                      color: isMouseDown
+                          ? const DigitColors().burningOrange
+                          : DigitButtonConstants.defaultSecondaryColor,
+                      offset: isMouseDown
+                          ? const Offset(0, 0)
+                          : const Offset(0, 2.0),
+                      spreadRadius: 0,
+                      blurRadius: isMouseDown ? 4.50 : 0,
+                    ),
+                  ]
+                      : isMouseDown
+                      ? [
+                    BoxShadow(
+                      color: const DigitColors().burningOrange,
+                      offset: const Offset(0, 0),
+                      spreadRadius: 0,
+                      blurRadius: 4.50,
+                    ),
+                  ]
+                      : [],
+                  borderRadius: BorderRadius.zero,
+                  border: Border.all(
+                    color: widget.isDisabled
+                        ? DigitButtonConstants.defaultDisabledColor
+                        : DigitButtonConstants.defaultPrimaryColor,
+                    width: isHovered
+                        ? DigitButtonConstants.defaultHoverWidth
+                        : DigitButtonConstants.defaultWidth,
+                  ),
+                  color: widget.type == ButtonType.primary
+                      ? (widget.isDisabled
+                      ? DigitButtonConstants.defaultDisabledColor
+                      : isHovered
+                      ? isMouseDown
+                      ? const DigitColors().burningOrange
+                      : const DigitColors().primaryOrange
+                      : const DigitColors().burningOrange)
+                      : const DigitColors().white,
+                ),
+                child: _buildButton(),
+              ),
+            ),
+          ),
+        );
+      }
+
     } else {
-      return InkWell(
-        onTap: widget.isDisabled ? null : widget.onPressed,
-        hoverColor: const DigitColors().transaparent,
-        splashColor: const DigitColors().transaparent,
-        child: IntrinsicWidth(
-          child: _buildButton(),
-        ),
-      );
+      if(widget.isDisabled){
+        return _buildButton();
+      }else{
+        return InkWell(
+          onTap: widget.isDisabled ? null : widget.onPressed,
+          hoverColor: const DigitColors().transparent.withOpacity(0),
+          splashColor: const DigitColors().transparent.withOpacity(0),
+          child: IntrinsicWidth(
+                child: _buildButton(),),
+        );
+      }
     }
   }
 
   /// Build the content of the button, including label and icons.
   Widget _buildButton() {
+    String truncatedLabel = widget.label;
+
+    /// Truncate label if it exceeds 64 characters &&  Capitalize the first letter of the label
+    if (widget.type != ButtonType.link) {
+
+      if(widget.label.length > 64){
+        truncatedLabel = '${widget.label.substring(0, 64)}...';
+      }
+
+      truncatedLabel =
+      truncatedLabel.isEmpty ? truncatedLabel : truncatedLabel[0].toUpperCase() + truncatedLabel.substring(1);
+    }
     return Center(
       child: Padding(
         padding: widget.contentPadding,
         child: Row(
+          mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             if (widget.prefixIcon != null) ...[
               Icon(
@@ -165,20 +272,34 @@ class _DigitButtonState extends State<DigitButton> {
                         ? DigitButtonConstants.defaultDisabledColor
                         : DigitButtonConstants.defaultPrimaryColor),
               ),
+              const SizedBox(width: kPadding / 2),
             ],
-            Text(widget.label,
-                style: DigitTheme.instance.mobileTheme.textTheme.bodyLarge
-                    ?.copyWith(
-                  color: widget.type == ButtonType.primary
-                      ? DigitButtonConstants.defaultTextColor
-                      : (widget.isDisabled
-                          ? DigitButtonConstants.defaultDisabledColor
-                          : DigitButtonConstants.defaultPrimaryColor),
-                  decoration: widget.type == ButtonType.link
-                      ? TextDecoration.underline
-                      : null,
-                )),
+            Flexible(
+              child: Text(
+                truncatedLabel,
+                style: widget.type == ButtonType.link
+                    ? DigitTheme.instance.mobileTheme.textTheme.bodyLarge
+                        ?.copyWith(
+                            color: widget.isDisabled
+                                ? DigitButtonConstants.defaultDisabledColor
+                                : DigitButtonConstants.defaultPrimaryColor,
+                            decoration: TextDecoration.underline,
+                  decorationColor: widget.isDisabled
+                      ? DigitButtonConstants.defaultDisabledColor
+                      : DigitButtonConstants.defaultPrimaryColor,)
+                    : DigitTheme.instance.mobileTheme.textTheme.labelLarge
+                        ?.copyWith(
+                        color: widget.type == ButtonType.primary
+                            ? DigitButtonConstants.defaultTextColor
+                            : (widget.isDisabled
+                                ? DigitButtonConstants.defaultDisabledColor
+                                : DigitButtonConstants.defaultPrimaryColor),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+              ),
+            ),
             if (widget.suffixIcon != null) ...[
+              const SizedBox(width: kPadding / 2),
               Icon(
                 widget.suffixIcon,
                 size: widget.iconSize,

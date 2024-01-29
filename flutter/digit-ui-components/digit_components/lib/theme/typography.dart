@@ -101,6 +101,7 @@ class DigitMobileTypography extends DigitTypography {
       labelLarge: _normal.copyWith(
         fontSize: 19,
         fontWeight: FontWeight.w500,
+        fontFamily: 'Roboto',
       ),
       labelMedium: _light.copyWith(
         fontSize: 18,

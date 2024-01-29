@@ -13,6 +13,9 @@ class BaseDigitFormInput extends StatefulWidget {
   /// Determines if the input field is read-only.
   final bool readOnly;
 
+  /// Determines if the input field is required.
+  final bool isRequired;
+
   /// Indicates whether the input field is disabled.
   final bool isDisabled;
 
@@ -99,6 +102,7 @@ class BaseDigitFormInput extends StatefulWidget {
       required this.controller,
       this.isDisabled = false,
       this.readOnly = false,
+      this.isRequired = false,
       this.initialValue,
       this.label,
       this.info,
@@ -175,10 +179,18 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
   }
 
   String? customValidator(String? value) {
+    /// Perform other validations
+    final List<Validator> allValidations = [
+      if (widget.isRequired) Validator(ValidatorType.required, 0),
+      ...(widget.validations ?? []),
+    ];
+
     final validationError = InputValidators.validate(
       value,
-      widget.validations ?? [],
+      allValidations,
     );
+
+
 
     setState(() {
       _errorMessage = validationError;
@@ -207,6 +219,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
   @override
   Widget build(BuildContext context) {
     int? getValidatorValue(List<Validator>? validators, ValidatorType type) {
+
       for (var validator in validators!) {
         if (validator?.type == type) {
           return validator?.value as int?;
@@ -230,30 +243,53 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
       width: inputWidth,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Row(
             children: [
               if (widget?.label != null)
-                Text(
-                  widget!.label!,
-                  style: DigitTheme.instance.mobileTheme.textTheme.bodyLarge
-                      ?.copyWith(
-                    color: const DigitColors().woodsmokeBlack,
+                Expanded(
+                  child: Row(
+                    children: [
+                      Text(
+                        widget!.label!.length > 64
+                            ? '${widget.label!.substring(0, 64)}...'
+                            : widget.label!,
+                        style: DigitTheme
+                            .instance.mobileTheme.textTheme.bodyLarge
+                            ?.copyWith(
+                          color: const DigitColors().woodsmokeBlack,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      if (widget.isRequired)
+                        Text(
+                          ' *',
+                          style: DigitTheme
+                              .instance.mobileTheme.textTheme.bodyLarge
+                              ?.copyWith(
+                            color: const DigitColors().lavaRed,
+                          ),
+                        ),
+                      if (widget?.info == true) const SizedBox(width: kPadding / 2),
+                      if (widget?.info == true)
+                        Tooltip(
+                          message: widget.infoText,
+                          preferBelow: widget.preferToolTipBelow,
+                          triggerMode: widget.triggerMode,
+                          child: const Icon(
+                            Icons.info_outline,
+                            size: 16,
+                          ),
+                        )
+                    ],
                   ),
                 ),
-              if (widget?.info == true)
-                Tooltip(
-                  message: widget.infoText,
-                  preferBelow: widget.preferToolTipBelow,
-                  triggerMode: widget.triggerMode,
-                  child: const Icon(
-                    Icons.info_outline,
-                    size: 16,
-                  ),
-                )
             ],
           ),
-          const SizedBox(height: kPadding/2,),
+          const SizedBox(
+            height: kPadding / 2,
+          ),
           TextFormField(
             focusNode: myFocusNode,
             obscureText: isVisible,
@@ -269,7 +305,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
             showCursor: widget.showCurser,
             decoration: InputDecoration(
               counterText: '',
-              hoverColor: const DigitColors().transaparent,
+              hoverColor: const DigitColors().transparent,
               constraints: inputWidth == Default.mobileInputWidth
                   ? BoxConstraints(
                       maxHeight: widget.minLine > 1
@@ -297,7 +333,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
               filled: true,
               fillColor: widget.readOnly
                   ? const DigitColors().seaShellGray
-                  : const DigitColors().transaparent,
+                  : const DigitColors().transparent,
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(
                   color: _hasError
@@ -365,7 +401,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                             ),
                             child: Icon(
                               isVisible == true
-                                  ? Icons.visibility_off
+                                  ? Icons.visibility
                                   : widget.suffix,
                               size: BaseConstants.suffixIconSize,
                             ),
@@ -423,34 +459,51 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
           if (widget.helpText != null || widget.charCount != null || _hasError)
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 if (widget.helpText != null || _hasError)
                   _hasError
-                      ? Row(
-                          children: [
-                            Icon(
-                              Icons.info,
-                              color: const DigitColors().lavaRed,
-                              size: BaseConstants.errorIconSize,
-                            ),
-                            Text(
-                              _errorMessage!,
-                              style: DigitTheme
-                                  .instance.mobileTheme.textTheme.bodyMedium
-                                  ?.copyWith(
+                      ? Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Icon(
+                                Icons.info,
                                 color: const DigitColors().lavaRed,
+                                size: BaseConstants.errorIconSize,
                               ),
-                            ),
-                          ],
+                              const SizedBox(width: kPadding / 2),
+                              Expanded(
+                                child: Text(
+                                  _errorMessage!.length > 256
+                                      ? '${_errorMessage!.substring(0, 256)}...'
+                                      : _errorMessage!,
+                                  style: DigitTheme
+                                      .instance.mobileTheme.textTheme.bodyMedium
+                                      ?.copyWith(
+                                    color: const DigitColors().lavaRed,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         )
-                      : Text(
-                          widget.helpText!,
-                          style: DigitTheme
-                              .instance.mobileTheme.textTheme.bodyMedium
-                              ?.copyWith(
-                            color: const DigitColors().davyGray,
+                      : Expanded(
+                          child: Text(
+                            widget.helpText!.length > 256
+                                ? '${widget.helpText!.substring(0, 256)}...'
+                                : widget.helpText!,
+                            style: DigitTheme
+                                .instance.mobileTheme.textTheme.bodyMedium
+                                ?.copyWith(
+                              color: const DigitColors().davyGray,
+                            ),
                           ),
                         ),
+                if ((widget.helpText != null || _hasError) &&
+                    (widget.charCount == true))
+                  const SizedBox(width: 8,),
                 if (widget.helpText == null && _hasError == false)
                   const Spacer(),
                 if (widget.charCount == true)

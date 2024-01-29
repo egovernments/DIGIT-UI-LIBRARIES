@@ -73,10 +73,7 @@ class _DigitCheckboxState extends State<DigitCheckbox> {
     return IntrinsicWidth(
       child: Padding(
         padding: widget.padding,
-        child: InkWell(
-          hoverColor: const DigitColors().transaparent,
-          splashColor: const DigitColors().transaparent,
-          focusColor: const DigitColors().transaparent,
+        child: GestureDetector(
           onTap: widget.disabled
               ? null
               : () {
@@ -88,7 +85,9 @@ class _DigitCheckboxState extends State<DigitCheckbox> {
                   }
                 },
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
                 height: CheckboxConstants.containerSize,
@@ -102,13 +101,15 @@ class _DigitCheckboxState extends State<DigitCheckbox> {
                 ),
               ),
               const SizedBox(width: kPadding * 2),
-              Text(
-                widget.label,
-                style: DigitTheme.instance.mobileTheme.textTheme.bodyLarge
-                    ?.copyWith(
-                  color: widget.disabled
-                      ? const DigitColors().cloudGray
-                      : const DigitColors().woodsmokeBlack,
+              Expanded(
+                child: Text(
+                  widget.label,
+                  style: DigitTheme.instance.mobileTheme.textTheme.bodyLarge
+                      ?.copyWith(
+                    color: widget.disabled
+                        ? const DigitColors().cloudGray
+                        : const DigitColors().woodsmokeBlack,
+                  ),
                 ),
               ),
             ],
