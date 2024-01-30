@@ -70,7 +70,7 @@ class TreeSelectDropDown<int> extends StatefulWidget {
     Key? key,
     required this.onOptionSelected,
     required this.options,
-    this.treeSelectionType = TreeSelectionType.MultiSelect,
+    this.treeSelectionType = TreeSelectionType.singleSelect,
     this.selectedOptions = const [],
     this.chipConfig = const ChipConfig(),
     this.suffixIcon = Icons.arrow_drop_down,

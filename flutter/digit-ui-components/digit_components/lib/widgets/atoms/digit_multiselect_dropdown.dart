@@ -42,9 +42,8 @@ import '../../models/DropdownModels.dart';
 import '../../models/chipModel.dart';
 import '../helper_widget/dropdown_options.dart';
 import '../helper_widget/selection_chip.dart';
-import 'digit_checkbox_icon.dart';
 
-typedef OnOptionSelected<T> = void Function(List<DropdownItem> selectedOptions);
+typedef OnOptionSelect<T> = void Function(List<DropdownItem> selectedOptions);
 
 class MultiSelectDropDown<int> extends StatefulWidget {
   /// selection type of the dropdown
@@ -53,7 +52,7 @@ class MultiSelectDropDown<int> extends StatefulWidget {
   /// Options
   final List<DropdownItem> options;
   final List<DropdownItem> selectedOptions;
-  final OnOptionSelected<int>? onOptionSelected;
+  final OnOptionSelect<int>? onOptionSelected;
 
   /// chip configuration
   final ChipConfig chipConfig;

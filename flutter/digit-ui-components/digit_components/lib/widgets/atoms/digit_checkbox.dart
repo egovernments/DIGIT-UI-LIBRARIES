@@ -20,7 +20,6 @@
  ...*/
 
 import 'package:digit_components/digit_components.dart';
-import 'package:digit_components/widgets/atoms/digit_checkbox_icon.dart';
 import 'package:flutter/material.dart';
 import '../../constants/app_constants.dart';
 import '../../enum/app_enums.dart';
