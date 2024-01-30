@@ -194,7 +194,7 @@ with Suffix Icon
 ![link](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/5424ff0e-142a-4482-9559-bfb83d0ad201)
 
 ### Radio Buttons
-A group of radio buttons allows users to select a single option from a list, with hover and mouse-down effects.
+The Radio Buttons component in Digit UI Components empowers users to make a single selection from a list of options. This intuitive interface provides a smooth user experience with hover and mouse-down effects.
 
         DigitRadioList(
             onChanged: (value) {},
@@ -209,7 +209,7 @@ A group of radio buttons allows users to select a single option from a list, wit
 ![radio](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/23bd8fc9-1c44-485c-861d-cd443cc43661)
 
 ### Toggle Buttons
-A list of toggle buttons enabling users to select option with a specified callback also having mouse down and hover effect.
+The Toggle Buttons component in Digit UI Components presents a list of interactive toggle buttons, providing users with the ability to select a option. Each button is equipped with callbacks for both mouse-down and hover effects, ensuring a responsive and engaging user interface.
 
         DigitToggleList(
             toggleButtons: [
@@ -230,7 +230,7 @@ A list of toggle buttons enabling users to select option with a specified callba
 Digit UI Components offers various dropdown menus, including single-select, multi-select, and tree-select options.
 
 #### Single Select Dropdown
-A dropdown menu for single selection, with options that may include images, icons and descriptions, also having hover and mouse down effect.
+The Single Select Dropdown in Digit UI Components provides a dropdown menu for users to make a single selection. This intuitive component supports options with additional features such as images, icons, and descriptions, complemented by hover and mouse-down effects.
 
     DigitDropdown<int>(
         onChange: (String value, String index) => {},
@@ -308,7 +308,7 @@ With Different Type of Options
 ![dropdown-type](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/ba7c2ccf-b51c-4784-9a3a-4891bbc996a3)
 
 #### Multi Select Dropdown
-A dropdown menu allowing users to select multiple options simultaneously with a clean UI, comes with build in chips and mouse down and hover effect.
+The Multi Select Dropdown in Digit UI Components offers a user-friendly interface for selecting multiple options simultaneously. This clean and intuitive component is equipped with built-in chips and provides responsive mouse-down and hover effects.
 
     MultiSelectDropDown<int>(
         onOptionSelected: (List<DropdownItem> selectedOptions) {},
