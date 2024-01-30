@@ -45,9 +45,9 @@ class DigitTheme {
 
   ColorScheme get colorScheme => ColorScheme(
         brightness: Brightness.light,
-        primary: colors.regalBlue,
+        primary: colors.burningOrange,
         onPrimary: colors.white,
-        secondary: colors.burningOrange,
+        secondary: colors.regalBlue,
         onSecondary: colors.white,
         error: colors.lavaRed,
         onError: colors.white,
