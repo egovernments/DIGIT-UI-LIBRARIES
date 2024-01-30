@@ -56,7 +56,9 @@ Digit UI Components includes various text input fields with optional features su
 
 ![date-field-1](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/7e291aac-b0dd-4de8-b1dc-d2f1f592b2f3)
 
-![date-field-2](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/89cb85e6-b941-4944-a3df-a27c51d58a67)
+![date](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/127411f3-92ec-44a5-9cf3-12e59b4694e3)
+
+![date-1](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/ef44253a-076a-43d9-b6eb-05b2e440a45b)
 
 #### Time Input Field
 
@@ -69,8 +71,9 @@ Digit UI Components includes various text input fields with optional features su
 
 ![time-field-1](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/465fcd5d-c0ae-4085-8cf7-16fedd67d3d1)
 
-![time-field-2](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/5011ecfb-46b4-4085-bc29-1cc85e098c54)
+![time](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/52e809c7-ac53-4778-8980-2a30bdbc87d0)
 
+![time-1](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/b3a274bd-b90d-4517-a145-57ad968249a5)
 
 #### Location Input Field
 
