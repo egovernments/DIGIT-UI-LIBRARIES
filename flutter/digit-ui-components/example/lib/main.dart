@@ -66,7 +66,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Digit UI Flutter',
-      theme: DigitTheme.instance.mobileTheme,
+      theme: DigitTheme.instance.mobileTheme.copyWith(
+        appBarTheme: AppBarTheme(
+          backgroundColor: DigitTheme.instance.colorScheme.secondary,
+        )
+      ),
       home: const MyHomePage(title: 'Digit Components Page'),
     );
   }
