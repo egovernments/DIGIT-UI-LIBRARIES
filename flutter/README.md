@@ -31,6 +31,7 @@ Import the package in your Dart code:
 ## Example
 
 ### Text Input Variants
+Digit UI Components includes various text input fields with optional features such as character count display, inner labels, and help text. These fields also come with built-in validation support for improved data integrity.
 
 #### Text Input Field
 
@@ -140,6 +141,7 @@ Import the package in your Dart code:
 ![textArea](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/307cc5a0-87e2-4ca0-bf6e-cdc1d6b26741)
 
 ### Button Variants
+Digit UI Components provides a variety of buttons with optional suffix and prefix icons, contributing to a cohesive and visually appealing UI.
 
 #### Primary Button
 
@@ -193,6 +195,7 @@ with Suffix Icon
 ![link](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/5424ff0e-142a-4482-9559-bfb83d0ad201)
 
 ### Radio Buttons
+A group of radio buttons allows users to select a single option from a list, with hover and mouse-down effects.
 
         DigitRadioList(
             onChanged: (value) {},
@@ -207,6 +210,7 @@ with Suffix Icon
 ![radio](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/23bd8fc9-1c44-485c-861d-cd443cc43661)
 
 ### Toggle Buttons
+A list of toggle buttons enabling users to select option with a specified callback also having mouse down and hover effect.
 
         DigitToggleList(
             toggleButtons: [
@@ -224,8 +228,10 @@ with Suffix Icon
 ![toggle-list](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/104898b8-dbd6-423e-94e0-3fe46f820bc9)
 
 ### Dropdown Variants
+Digit UI Components offers various dropdown menus, including single-select, multi-select, and tree-select options.
 
 #### Single Select Dropdown
+A dropdown menu for single selection, with options that may include images, icons and descriptions, also having hover and mouse down effect.
 
     DigitDropdown<int>(
         onChange: (String value, String index) => {},
@@ -303,6 +309,7 @@ With Different Type of Options
 ![dropdown-type](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/ba7c2ccf-b51c-4784-9a3a-4891bbc996a3)
 
 #### Multi Select Dropdown
+A dropdown menu allowing users to select multiple options simultaneously with a clean UI, comes with build in chips and mouse down and hover effect.
 
     MultiSelectDropDown<int>(
         onOptionSelected: (List<DropdownItem> selectedOptions) {},
@@ -320,6 +327,7 @@ With Different Type of Options
 
 
 #### Tree Select Dropdown
+A hierarchical dropdown menu enabling single or multiple selections from a tree-like structure.
 
 Single Select Option
 
