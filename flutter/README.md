@@ -2,8 +2,7 @@
 
 # Flutter Common UI Widgets
 
-A collection of common widgets for Flutter, designed to streamline UI development by providing
-easy-to-use and customizable components.
+Digit UI Components is a collection of common Flutter widgets designed to simplify UI development. These components offer easy-to-use and customizable features to enhance UI design and streamline the development process.
 
 ## Installation
 
