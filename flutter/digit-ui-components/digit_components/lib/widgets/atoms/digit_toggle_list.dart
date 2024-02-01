@@ -51,13 +51,12 @@ class _DigitToggleListState extends State<DigitToggleList> {
     super.initState();
     /// select the index of default toggle
     selectedIndex = widget.selectedIndex;
-    /// call the onSelect for default selected toggle
-    widget.toggleButtons[selectedIndex!].onSelected?.call(true);
-    maxLabelWidth = _calculateMaxLabelWidth();
+
   }
 
   double _calculateMaxLabelWidth() {
-    double maxLabelWidth = 0;
+    double maxLabelWidth = (MediaQuery.of(context).size.width)/3 -40;
+    double maxLabel =0;
     for (ToggleButtonModel button in widget.toggleButtons) {
       TextPainter textPainter = TextPainter(
         text: TextSpan(
@@ -67,13 +66,14 @@ class _DigitToggleListState extends State<DigitToggleList> {
         textDirection: TextDirection.ltr,
       )..layout();
       double labelWidth = textPainter.width;
-      maxLabelWidth = max(maxLabelWidth, labelWidth);
+      maxLabel = max(maxLabel, labelWidth);
     }
-    return maxLabelWidth;
+    return min(maxLabelWidth, maxLabel);
   }
 
   @override
   Widget build(BuildContext context) {
+    maxLabelWidth = _calculateMaxLabelWidth();
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,

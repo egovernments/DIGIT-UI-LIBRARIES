@@ -97,6 +97,11 @@ class BaseDigitFormInput extends StatefulWidget {
   /// Text alignment within the input field.
   final TextAlign textAlign;
 
+  /// specifically for date component
+  final DateTime? initialDate;
+  final DateTime? firstDate;
+  final DateTime? lastDate;
+
   const BaseDigitFormInput(
       {Key? key,
       required this.controller,
@@ -128,6 +133,9 @@ class BaseDigitFormInput extends StatefulWidget {
       this.onChange,
       this.keyboardType = TextInputType.text,
       this.validations,
+      this.firstDate,
+      this.initialDate,
+      this.lastDate,
       this.textAlign = TextAlign.start})
       : super(key: key);
 
@@ -190,8 +198,6 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
       allValidations,
     );
 
-
-
     setState(() {
       _errorMessage = validationError;
       _hasError = validationError != null;
@@ -219,7 +225,6 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
   @override
   Widget build(BuildContext context) {
     int? getValidatorValue(List<Validator>? validators, ValidatorType type) {
-
       for (var validator in validators!) {
         if (validator?.type == type) {
           return validator?.value as int?;
@@ -245,48 +250,42 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Row(
-            children: [
-              if (widget?.label != null)
-                Expanded(
-                  child: Row(
-                    children: [
-                      Text(
-                        widget!.label!.length > 64
-                            ? '${widget.label!.substring(0, 64)}...'
-                            : widget.label!,
-                        style: DigitTheme
-                            .instance.mobileTheme.textTheme.bodyLarge
-                            ?.copyWith(
-                          color: const DigitColors().woodsmokeBlack,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                      if (widget.isRequired)
-                        Text(
-                          ' *',
-                          style: DigitTheme
-                              .instance.mobileTheme.textTheme.bodyLarge
-                              ?.copyWith(
-                            color: const DigitColors().lavaRed,
-                          ),
-                        ),
-                      if (widget?.info == true) const SizedBox(width: kPadding / 2),
-                      if (widget?.info == true)
-                        Tooltip(
-                          message: widget.infoText,
-                          preferBelow: widget.preferToolTipBelow,
-                          triggerMode: widget.triggerMode,
-                          child: const Icon(
-                            Icons.info_outline,
-                            size: 16,
-                          ),
-                        )
-                    ],
+          if (widget?.label != null)
+            Row(
+              children: [
+                Flexible(
+                  child: Text(
+                    widget!.label!.length > 64
+                        ? '${widget.label!.substring(0, 64)}...'
+                        : widget.label!,
+                    style: DigitTheme.instance.mobileTheme.textTheme.bodyLarge
+                        ?.copyWith(
+                      color: const DigitColors().woodsmokeBlack,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                 ),
-            ],
-          ),
+                if (widget.isRequired)
+                  Text(
+                    ' *',
+                    style: DigitTheme.instance.mobileTheme.textTheme.bodyLarge
+                        ?.copyWith(
+                      color: const DigitColors().lavaRed,
+                    ),
+                  ),
+                if (widget?.info == true) const SizedBox(width: kPadding / 2),
+                if (widget?.info == true)
+                  Tooltip(
+                    message: widget.infoText,
+                    preferBelow: widget.preferToolTipBelow,
+                    triggerMode: widget.triggerMode,
+                    child: const Icon(
+                      Icons.info_outline,
+                      size: 16,
+                    ),
+                  )
+              ],
+            ),
           const SizedBox(
             height: kPadding / 2,
           ),
@@ -503,7 +502,9 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                         ),
                 if ((widget.helpText != null || _hasError) &&
                     (widget.charCount == true))
-                  const SizedBox(width: 8,),
+                  const SizedBox(
+                    width: 8,
+                  ),
                 if (widget.helpText == null && _hasError == false)
                   const Spacer(),
                 if (widget.charCount == true)

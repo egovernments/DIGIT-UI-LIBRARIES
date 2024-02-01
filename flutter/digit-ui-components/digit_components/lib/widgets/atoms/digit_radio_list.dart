@@ -45,9 +45,6 @@ class DigitRadioList extends StatefulWidget {
   /// radio button height
   final double radioHeight;
 
-  /// flag for horizontal layout
-  final bool horizontallyListed;
-
   /// Constructor for the DigitRadioList widget
   DigitRadioList({
     Key? key,
@@ -58,7 +55,6 @@ class DigitRadioList extends StatefulWidget {
     this.containerPadding = RadioConstant.defaultPadding,
     this.radioWidth = RadioConstant.radioWidth,
     this.radioHeight = RadioConstant.radioHeight,
-    this.horizontallyListed = false,
   }) : super(key: key);
 
   /// Create the state for the widget
@@ -82,24 +78,15 @@ class _DigitRadioListState extends State<DigitRadioList> {
     isMouseDown = List.generate(widget.radioButtons.length, (index) => false);
   }
 
-  /// Build the widget based on layout => default will be vertical
+  /// Build the widget layout
   @override
   Widget build(BuildContext context) {
-    if (widget.horizontallyListed) {
-      /// layout
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: _buildRadioButtons(),
-      );
-    } else {
       /// Default layout
       return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: _buildRadioButtons(),
       );
-    }
   }
 
   List<Widget> _buildRadioButtons() {
@@ -108,94 +95,84 @@ class _DigitRadioListState extends State<DigitRadioList> {
         final index = widget.radioButtons.indexOf(button);
         return Padding(
           padding: widget.containerPadding,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              MouseRegion(
-                onEnter: (_) {
-                  setState(() {
-                    isHoveredList[index] = true;
-                  });
-                },
-                onExit: (_) {
-                  setState(() {
-                    isHoveredList[index] = false;
-                  });
-                },
-                child: GestureDetector(
-                  onTapDown: (_) {
-                    /// Handle mouse down state
-                    setState(() {
-                      isMouseDown[index] = true;
-                    });
-                  },
-                  onTapUp: (_) {
-                    /// Handle mouse up state
-                    setState(() {
-                      isMouseDown[index] = false;
-                    });
-                  },
-                  onTap: widget.isDisabled
-                      ? null
-                      : () {
-                          setState(() {
-                            /// Update the selected value and call the onChanged callback
-                            widget.groupValue = button.code;
-                          });
-                          widget.onChanged!(widget.groupValue);
-                        },
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(kPadding / 2),
-                        width: widget.radioWidth,
-                        height: widget.radioHeight,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
+          child: InkWell(
+            onHover: (hover) {
+              setState(() {
+                isHoveredList[index] = hover;
+              });
+            },
+            onTapDown: (_) {
+              /// Handle mouse down state
+              setState(() {
+                isMouseDown[index] = true;
+              });
+            },
+            onTapUp: (_) {
+              /// Handle mouse up state
+              setState(() {
+                isMouseDown[index] = false;
+              });
+            },
+            onTap: widget.isDisabled
+                ? null
+                : () {
+              setState(() {
+                /// Update the selected value and call the onChanged callback
+                widget.groupValue = button.code;
+              });
+              widget.onChanged!(widget.groupValue);
+            },
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(kPadding / 2),
+                  width: widget.radioWidth,
+                  height: widget.radioHeight,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: widget.isDisabled
+                          ? const DigitColors().cloudGray
+                          : (widget.groupValue == button.code ||
+                                  isHoveredList[index] ||
+                                  isMouseDown[index])
+                              ? const DigitColors().burningOrange
+                              : const DigitColors().davyGray,
+                      width: 1.0,
+                    ),
+                    color: const DigitColors().transparent,
+                  ),
+                  child: widget.groupValue == button.code
+                      ? Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
                             color: widget.isDisabled
                                 ? const DigitColors().cloudGray
-                                : (widget.groupValue == button.code ||
-                                        isHoveredList[index] ||
-                                        isMouseDown[index])
-                                    ? const DigitColors().burningOrange
-                                    : const DigitColors().davyGray,
-                            width: 1.0,
+                                : const DigitColors().burningOrange,
                           ),
-                          color: const DigitColors().transparent,
-                        ),
-                        child: widget.groupValue == button.code
-                            ? Container(
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: widget.isDisabled
-                                      ? const DigitColors().cloudGray
-                                      : const DigitColors().burningOrange,
-                                ),
-                              )
-                            : null,
-                      ),
-                      const SizedBox(
-                        width: kPadding,
-                      ),
-                      Text(
-                        button.name,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: DigitTheme
-                            .instance.mobileTheme.textTheme.bodyLarge
-                            ?.copyWith(
-                          color: widget.isDisabled
-                              ? const DigitColors().cloudGray
-                              : const DigitColors().woodsmokeBlack,
-                        ),
-                      ),
-                    ],
+                        )
+                      : null,
+                ),
+                const SizedBox(
+                  width: kPadding,
+                ),
+                Expanded(
+                  child: Text(
+                    button.name,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: DigitTheme
+                        .instance.mobileTheme.textTheme.bodyLarge
+                        ?.copyWith(
+                      color: widget.isDisabled
+                          ? const DigitColors().cloudGray
+                          : const DigitColors().woodsmokeBlack,
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         );
       },

@@ -88,16 +88,19 @@ class _DigitToggleState extends State<DigitToggle> {
               ],
             ),
             child: Center(
-              child: Text(
-                widget.label,
-                textAlign: TextAlign.center,
-                style: DigitTheme.instance.mobileTheme.textTheme.bodyMedium?.copyWith(
-                  color: (isHovered && !widget.isSelected || isMouseDown)
-                      ? const DigitColors().burningOrange
-                      : widget.isSelected
-                      ? const DigitColors().white
-                      : const DigitColors().cloudGray,
+              child: Expanded(
+                child: Text(
+                  widget.label,
+                  textAlign: TextAlign.center,
                   overflow: TextOverflow.ellipsis,
+                  style: DigitTheme.instance.mobileTheme.textTheme.bodyMedium?.copyWith(
+                    color: (isHovered && !widget.isSelected || isMouseDown)
+                        ? const DigitColors().burningOrange
+                        : widget.isSelected
+                        ? const DigitColors().white
+                        : const DigitColors().cloudGray,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
               ),
             ),

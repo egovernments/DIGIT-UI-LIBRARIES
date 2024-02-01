@@ -359,7 +359,7 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
   /// Container decoration for disabled dropdown.
   Decoration _getDisabledContainerDecoration() {
     return BoxDecoration(
-      color: const DigitColors().cloudGray,
+      color: const DigitColors().transparent,
       borderRadius: BorderRadius.zero,
       border: Border.all(
         color: const DigitColors().cloudGray,
