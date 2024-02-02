@@ -457,11 +457,11 @@ class MyHomePageState extends State<MyHomePage> {
                 DigitToggleList(
                   toggleButtons: [
                     ToggleButtonModel(
-                        name: 'Toggle 1', key: 'key1', onSelected: (value) {}),
+                        name: 'Toggle 1', code: 'key1'),
                     ToggleButtonModel(
-                        name: 'Toggle 2', key: 'key2', onSelected: (value) {}),
+                        name: 'Toggle 2', code: 'key2'),
                     ToggleButtonModel(
-                        name: 'Toggle 3', key: 'key3', onSelected: (value) {}),
+                        name: 'Toggle 3', code: 'key3'),
                   ],
                   selectedIndex: 1,
                   onChanged: (selectedValues) {},

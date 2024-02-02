@@ -19,7 +19,6 @@
 
 import 'package:digit_components/digit_components.dart';
 import 'package:flutter/material.dart';
-import '../../constants/AppView.dart';
 import '../../constants/app_constants.dart';
 import '../../models/RadioButtonModel.dart';
 
@@ -28,7 +27,7 @@ class DigitRadioList extends StatefulWidget {
   final List<RadioButtonModel> radioButtons;
 
   /// Callback function to be called when a radio button is selected
-  final void Function(String selectedValue) onChanged;
+  final void Function(RadioButtonModel) onChanged;
 
   /// Currently selected value in the radio button group
   String groupValue;
@@ -120,7 +119,7 @@ class _DigitRadioListState extends State<DigitRadioList> {
                 /// Update the selected value and call the onChanged callback
                 widget.groupValue = button.code;
               });
-              widget.onChanged!(widget.groupValue);
+              widget.onChanged!(button);
             },
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,

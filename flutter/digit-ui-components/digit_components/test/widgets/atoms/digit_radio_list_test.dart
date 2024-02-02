@@ -41,7 +41,7 @@ void main() {
                 RadioButtonModel(code: 'B', name: 'Option B'),
               ],
               onChanged: (value) {
-                selectedValue = value;
+                selectedValue = value.name;
               },
             ),
           ),

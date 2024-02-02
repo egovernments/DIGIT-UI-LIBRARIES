@@ -966,11 +966,11 @@ class HotReload extends StatelessWidget {
                       selectedIndex: 0,
                       toggleButtons: [
                         ToggleButtonModel(
-                            name: context.knobs.string(label: 'Toggle1', initialValue: 'toggle1'), key: 'key1', onSelected: (value) {print('${value}1');}),
+                            name: context.knobs.string(label: 'Toggle1', initialValue: 'toggle1'), code: 'key1'),
                         ToggleButtonModel(
-                            name: context.knobs.string(label: 'Toggle2', initialValue: 'toggle2'), key: 'key1', onSelected: (value) {print('${value}2');}),
+                            name: context.knobs.string(label: 'Toggle2', initialValue: 'toggle2'), code: 'key1'),
                         ToggleButtonModel(
-                            name: context.knobs.string(label: 'Toggle3', initialValue: 'toggle3'), key: 'key1', onSelected: (value) {print('${value}3');}),
+                            name: context.knobs.string(label: 'Toggle3', initialValue: 'toggle3'), code: 'key1'),
                       ],
                       onChanged: (selectedValues) {},
                     ),

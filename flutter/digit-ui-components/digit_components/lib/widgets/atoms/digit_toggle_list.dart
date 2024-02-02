@@ -26,7 +26,7 @@ import 'digit_toggle.dart';
 
 class DigitToggleList extends StatefulWidget {
   final List<ToggleButtonModel> toggleButtons;
-  final void Function(List<bool> selectedValues) onChanged;
+  final void Function(ToggleButtonModel) onChanged;
   final EdgeInsets? contentPadding;
   final int selectedIndex;
 
@@ -88,19 +88,15 @@ class _DigitToggleListState extends State<DigitToggleList> {
                   if (isSelected) {
                     if (selectedIndex != index) {
                       // Unselect the previously selected item
-                      widget.toggleButtons[selectedIndex!].onSelected?.call(false);
                       selectedIndex = index;
+                      widget.onChanged(button);
                     }
                   } else {
-                    // Clicking on the already selected button, do nothing
+                    /// Clicking on the already selected button, do nothing
                     return;
                   }
                 });
 
-                // /// Check if the button is selected and has a callback
-                if (selectedIndex==index && button.onSelected != null) {
-                  button.onSelected!(true);
-                }
               },
               label: button.name.length > 64 ? "${button.name.substring(0, 64)}..." : button.name,
               isSelected: selectedIndex == index,
