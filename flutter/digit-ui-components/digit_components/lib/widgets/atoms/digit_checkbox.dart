@@ -32,7 +32,7 @@ class DigitCheckbox extends StatefulWidget {
   final String label;
 
   /// Callback function triggered when the checkbox value changes.
-  final ValueChanged<bool?>? onChanged;
+  final ValueChanged<bool> onChanged;
 
   /// Padding around the checkbox widget.
   final EdgeInsetsGeometry padding;
@@ -47,7 +47,7 @@ class DigitCheckbox extends StatefulWidget {
   const DigitCheckbox({
     Key? key,
     required this.label,
-    this.onChanged,
+    required this.onChanged,
     this.disabled = false,
     this.value = false,
     this.padding = CheckboxConstants.defaultPadding,
@@ -79,9 +79,7 @@ class _DigitCheckboxState extends State<DigitCheckbox> {
                   setState(() {
                     _currentState = !_currentState;
                   });
-                  if (widget.onChanged != null) {
-                    widget.onChanged!(_currentState);
-                  }
+                  widget.onChanged(_currentState);
                 },
           child: Row(
             mainAxisSize: MainAxisSize.min,

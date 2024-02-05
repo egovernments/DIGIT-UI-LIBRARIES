@@ -95,6 +95,8 @@ class _DigitRadioListState extends State<DigitRadioList> {
         return Padding(
           padding: widget.containerPadding,
           child: InkWell(
+            hoverColor: const DigitColors().transparent,
+            splashColor: const DigitColors().transparent,
             onHover: (hover) {
               setState(() {
                 isHoveredList[index] = hover;
