@@ -51,7 +51,7 @@ class DigitTheme {
         onSecondary: colors.white,
         error: colors.lavaRed,
         onError: colors.white,
-        background: colors.seaShellGray,
+        background: colors.white,
         onBackground: colors.woodsmokeBlack,
         surface: colors.alabasterWhite,
         onSurface: colors.woodsmokeBlack,

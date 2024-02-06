@@ -633,13 +633,13 @@ class MyHomePageState extends State<MyHomePage> {
                 MultiSelectDropDown<int>(
                   onOptionSelected: (List<DropdownItem> selectedOptions) {},
                   options: const [
-                    DropdownItem(code: '1', name: 'first'),
-                    DropdownItem(code: '2', name: 'second'),
-                    DropdownItem(code: '3', name: 'third'),
-                    DropdownItem(code: '4', name: 'four'),
-                    DropdownItem(code: '5', name: 'five'),
+                    DropdownItem(code: '1', name: 'first', type: "Type A"),
+                    DropdownItem(code: '2', name: 'second', type: "Type A"),
+                    DropdownItem(code: '3', name: 'third', type: "Type A"),
+                    DropdownItem(code: '4', name: 'four', type: "Type B"),
+                    DropdownItem(code: '5', name: 'five', type: "Type B"),
                   ],
-                  selectionType: SelectionType.multiSelect,
+                  selectionType: SelectionType.nestedMultiSelect,
                 ),
                 const SizedBox(
                   height: 8,

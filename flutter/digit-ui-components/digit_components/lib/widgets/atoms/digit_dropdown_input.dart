@@ -95,7 +95,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
   late List<DropdownItem> _lastFilteredItems;
   late Map<String, bool> _itemMouseDownStates;
   late Map<String, bool> _itemHoverStates;
-  bool isMouseDown = true;
+  late bool isMouseDown;
 
   @override
   void initState() {
@@ -105,6 +105,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
     _lastFilteredItems = List.from(widget.items);
     _itemHoverStates = {};
     _itemMouseDownStates = {};
+    isMouseDown = true;
     /// if there is a selectedOption
     if(widget.selectedOption!=null){
       setState(() {
@@ -468,12 +469,8 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                       ],
                     ),
                   ),
-                  ListView.builder(
-                    shrinkWrap: true,
-                    padding: EdgeInsets.zero,
-                    itemCount: typeItems.length,
-                    itemBuilder: (context, index) {
-                      return StatefulBuilder(
+                  for (int index = 0; index < typeItems.length; index++)
+                    StatefulBuilder(
                         builder: (context, setState) {
                           return Column(
                             children: [
@@ -654,9 +651,9 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                             ],
                           );
                         },
-                      );
-                    },
-                  ),
+                      ),
+                  if(outerIndex!=uniqueTypes.length-1)
+                    Container(height: kPadding*2,),
                 ],
               );
             },
@@ -682,11 +679,6 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
       _focusNode.unfocus();
     } else {
       setState(() {
-        _currentIndex = '';
-
-        /// Reset the index when opening the dropdown
-        _nestedIndex = '';
-
         /// Reset the index when opening the dropdown
         _itemHoverStates = {};
         _itemMouseDownStates = {};
