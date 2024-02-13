@@ -32,11 +32,12 @@ class DigitLocationFormInput extends BaseDigitFormInput {
     bool isRequired = false,
     String? initialValue,
     bool charCount = false,
+    bool editable = false,
     String? innerLabel,
     String? helpText,
     TooltipTriggerMode triggerMode = TooltipTriggerMode.tap,
     bool preferToolTipBelow = false,
-    IconData suffix = Icons.my_location,
+    IconData suffixIcon = Icons.my_location,
     void Function(String?)? onError,
     final List<Validator>? validations,
     final void Function(String)? onChange,
@@ -54,11 +55,13 @@ class DigitLocationFormInput extends BaseDigitFormInput {
           helpText: helpText,
           triggerMode: triggerMode,
           preferToolTipBelow: preferToolTipBelow,
-          suffix: suffix,
+          suffixIcon: suffixIcon,
           onError: onError,
           initialValue: initialValue,
           validations: validations,
           onChange: onChange,
+          showCurser: editable,
+          isEditable: editable,
         );
 
   @override
@@ -70,6 +73,11 @@ class _DigitLocationFormInputState extends BaseDigitFormInputState {
 
   @override
   void onSuffixIconClick({void Function()? customFunction}) async {
+    await locationBloc.getCurrentLocation(widget.controller);
+  }
+
+  @override
+  void onTap() async{
     await locationBloc.getCurrentLocation(widget.controller);
   }
 

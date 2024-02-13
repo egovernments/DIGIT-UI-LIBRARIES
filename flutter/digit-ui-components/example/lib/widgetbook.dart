@@ -203,6 +203,39 @@ class HotReload extends StatelessWidget {
                   ),
                 ),
                 WidgetbookUseCase(
+                  name: 'Editable',
+                  builder: (context) => Center(
+                    child: DigitDateFormInput(
+                      controller: TextEditingController(),
+                      label: context.knobs.string(
+                        label: 'Title',
+                        initialValue: '',
+                      ),
+                      editable: true,
+                      helpText: context.knobs.string(
+                        label: 'help text',
+                        initialValue: '',
+                      ),
+                      charCount: context.knobs.boolean(
+                        label: 'char count',
+                        initialValue: false,
+                      ),
+                      innerLabel: context.knobs.string(
+                        label: 'inner label',
+                        initialValue: '',
+                      ),
+                      info: context.knobs.boolean(
+                        label: 'info',
+                        initialValue: false,
+                      ),
+                      infoText: context.knobs.string(
+                        label: 'infoText',
+                        initialValue: 'this is info',
+                      ),
+                    ),
+                  ),
+                ),
+                WidgetbookUseCase(
                   name: 'disabled',
                   builder: (context) => Center(
                     child: DigitDateFormInput(
@@ -283,6 +316,39 @@ class HotReload extends StatelessWidget {
                         initialValue: '',
                       ),
                       isRequired: context.knobs.boolean(label: 'Required', initialValue: false),
+                      helpText: context.knobs.string(
+                        label: 'help text',
+                        initialValue: '',
+                      ),
+                      charCount: context.knobs.boolean(
+                        label: 'char count',
+                        initialValue: false,
+                      ),
+                      innerLabel: context.knobs.string(
+                        label: 'inner label',
+                        initialValue: '',
+                      ),
+                      info: context.knobs.boolean(
+                        label: 'info',
+                        initialValue: false,
+                      ),
+                      infoText: context.knobs.string(
+                        label: 'infoText',
+                        initialValue: 'this is info',
+                      ),
+                    ),
+                  ),
+                ),
+                WidgetbookUseCase(
+                  name: 'Editable',
+                  builder: (context) => Center(
+                    child: DigitTimeFormInput(
+                      controller: TextEditingController(),
+                      editable: true,
+                      label: context.knobs.string(
+                        label: 'Title',
+                        initialValue: '',
+                      ),
                       helpText: context.knobs.string(
                         label: 'help text',
                         initialValue: '',
@@ -644,6 +710,39 @@ class HotReload extends StatelessWidget {
                   ),
                 ),
                 WidgetbookUseCase(
+                  name: 'Editable',
+                  builder: (context) => Center(
+                    child: DigitNumericFormInput(
+                      editable: true,
+                      controller: TextEditingController(),
+                      label: context.knobs.string(
+                        label: 'Title',
+                        initialValue: '',
+                      ),
+                      helpText: context.knobs.string(
+                        label: 'help text',
+                        initialValue: '',
+                      ),
+                      charCount: context.knobs.boolean(
+                        label: 'char count',
+                        initialValue: false,
+                      ),
+                      innerLabel: context.knobs.string(
+                        label: 'inner label',
+                        initialValue: '',
+                      ),
+                      info: context.knobs.boolean(
+                        label: 'info',
+                        initialValue: false,
+                      ),
+                      infoText: context.knobs.string(
+                        label: 'infoText',
+                        initialValue: 'this is info',
+                      ),
+                    ),
+                  ),
+                ),
+                WidgetbookUseCase(
                   name: 'disabled',
                   builder: (context) => Center(
                     child: DigitNumericFormInput(
@@ -724,6 +823,39 @@ class HotReload extends StatelessWidget {
                         initialValue: '',
                       ),
                       isRequired: context.knobs.boolean(label: 'Required', initialValue: false),
+                      helpText: context.knobs.string(
+                        label: 'help text',
+                        initialValue: '',
+                      ),
+                      charCount: context.knobs.boolean(
+                        label: 'char count',
+                        initialValue: false,
+                      ),
+                      innerLabel: context.knobs.string(
+                        label: 'inner label',
+                        initialValue: '',
+                      ),
+                      info: context.knobs.boolean(
+                        label: 'info',
+                        initialValue: false,
+                      ),
+                      infoText: context.knobs.string(
+                        label: 'infoText',
+                        initialValue: 'this is info',
+                      ),
+                    ),
+                  ),
+                ),
+                WidgetbookUseCase(
+                  name: 'Editable',
+                  builder: (context) => Center(
+                    child: DigitLocationFormInput(
+                      controller: TextEditingController(),
+                      editable: true,
+                      label: context.knobs.string(
+                        label: 'Title',
+                        initialValue: '',
+                      ),
                       helpText: context.knobs.string(
                         label: 'help text',
                         initialValue: '',
@@ -894,6 +1026,138 @@ class HotReload extends StatelessWidget {
                         label: 'Title',
                         initialValue: '',
                       ),
+                      helpText: context.knobs.string(
+                        label: 'help text',
+                        initialValue: '',
+                      ),
+                      charCount: context.knobs.boolean(
+                        label: 'char count',
+                        initialValue: false,
+                      ),
+                      innerLabel: context.knobs.string(
+                        label: 'inner label',
+                        initialValue: '',
+                      ),
+                      info: context.knobs.boolean(
+                        label: 'info',
+                        initialValue: false,
+                      ),
+                      infoText: context.knobs.string(
+                        label: 'infoText',
+                        initialValue: 'this is info',
+                      ),
+                    ),
+                  ),
+                ),
+                WidgetbookUseCase(
+                  name: 'Scroll Non',
+                  builder: (context) => Center(
+                    child: DigitTextAreaFormInput(
+                      controller: TextEditingController(),
+                      label: context.knobs.string(
+                        label: 'Title',
+                        initialValue: '',
+                      ),
+                      textAreaScroll: TextAreaScroll.none,
+                      helpText: context.knobs.string(
+                        label: 'help text',
+                        initialValue: '',
+                      ),
+                      charCount: context.knobs.boolean(
+                        label: 'char count',
+                        initialValue: false,
+                      ),
+                      innerLabel: context.knobs.string(
+                        label: 'inner label',
+                        initialValue: '',
+                      ),
+                      info: context.knobs.boolean(
+                        label: 'info',
+                        initialValue: false,
+                      ),
+                      infoText: context.knobs.string(
+                        label: 'infoText',
+                        initialValue: 'this is info',
+                      ),
+                    ),
+                  ),
+                ),
+                WidgetbookUseCase(
+                  name: 'Horizontal Scroll',
+                  builder: (context) => Center(
+                    child: DigitTextAreaFormInput(
+                      controller: TextEditingController(),
+                      label: context.knobs.string(
+                        label: 'Title',
+                        initialValue: '',
+                      ),
+                      textAreaScroll: TextAreaScroll.horizontal,
+                      helpText: context.knobs.string(
+                        label: 'help text',
+                        initialValue: '',
+                      ),
+                      charCount: context.knobs.boolean(
+                        label: 'char count',
+                        initialValue: false,
+                      ),
+                      innerLabel: context.knobs.string(
+                        label: 'inner label',
+                        initialValue: '',
+                      ),
+                      info: context.knobs.boolean(
+                        label: 'info',
+                        initialValue: false,
+                      ),
+                      infoText: context.knobs.string(
+                        label: 'infoText',
+                        initialValue: 'this is info',
+                      ),
+                    ),
+                  ),
+                ),
+                WidgetbookUseCase(
+                  name: 'Vertical Scroll',
+                  builder: (context) => Center(
+                    child: DigitTextAreaFormInput(
+                      controller: TextEditingController(),
+                      label: context.knobs.string(
+                        label: 'Title',
+                        initialValue: '',
+                      ),
+                      textAreaScroll: TextAreaScroll.vertical,
+                      helpText: context.knobs.string(
+                        label: 'help text',
+                        initialValue: '',
+                      ),
+                      charCount: context.knobs.boolean(
+                        label: 'char count',
+                        initialValue: false,
+                      ),
+                      innerLabel: context.knobs.string(
+                        label: 'inner label',
+                        initialValue: '',
+                      ),
+                      info: context.knobs.boolean(
+                        label: 'info',
+                        initialValue: false,
+                      ),
+                      infoText: context.knobs.string(
+                        label: 'infoText',
+                        initialValue: 'this is info',
+                      ),
+                    ),
+                  ),
+                ),
+                WidgetbookUseCase(
+                  name: 'Smart Scroll',
+                  builder: (context) => Center(
+                    child: DigitTextAreaFormInput(
+                      controller: TextEditingController(),
+                      label: context.knobs.string(
+                        label: 'Title',
+                        initialValue: '',
+                      ),
+                      textAreaScroll: TextAreaScroll.smart,
                       helpText: context.knobs.string(
                         label: 'help text',
                         initialValue: '',

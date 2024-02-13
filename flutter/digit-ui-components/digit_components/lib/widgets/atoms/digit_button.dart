@@ -99,8 +99,8 @@ class _DigitButtonState extends State<DigitButton> {
           child: IntrinsicWidth(
             child: Container(
               constraints: const BoxConstraints(
-                minWidth: 32.0, // Set the minimum width
-                minHeight: 32.0, // Set the minimum height
+                minWidth: 32.0,
+                minHeight: 32.0,
               ),
               decoration: BoxDecoration(
                 boxShadow: (widget.type == ButtonType.primary &&
@@ -171,8 +171,8 @@ class _DigitButtonState extends State<DigitButton> {
             child: IntrinsicWidth(
               child: Container(
                 constraints: const BoxConstraints(
-                  minWidth: 32.0, // Set the minimum width
-                  minHeight: 32.0, // Set the minimum height
+                  minWidth: 32.0,
+                  minHeight: 32.0,
                 ),
                 decoration: BoxDecoration(
                   boxShadow: (widget.type == ButtonType.primary &&

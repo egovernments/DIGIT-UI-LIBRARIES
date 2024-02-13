@@ -30,6 +30,7 @@ and the onChange callback is used to handle the selected value.
 import 'package:digit_components/digit_components.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../../constants/AppView.dart';
 import '../../constants/app_constants.dart';
 import '../../enum/app_enums.dart';
@@ -96,6 +97,8 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
   late Map<String, bool> _itemMouseDownStates;
   late Map<String, bool> _itemHoverStates;
   late bool isMouseDown;
+  late FocusNode _listViewFocusNode;
+  int _focusedIndex = -1;
 
   @override
   void initState() {
@@ -106,24 +109,33 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
     _itemHoverStates = {};
     _itemMouseDownStates = {};
     isMouseDown = true;
+    _listViewFocusNode = FocusNode();
+
     /// if there is a selectedOption
-    if(widget.selectedOption!=null){
+    if (widget.selectedOption != null) {
       setState(() {
-        if(widget.dropdownType== DropdownType.nestedSelect) {
+        if (widget.dropdownType == DropdownType.nestedSelect) {
           _nestedIndex = widget.selectedOption!.code;
-          widget.textEditingController.text = '${widget.selectedOption?.type}: ${widget.selectedOption?.name}';
-        }else{
+          widget.textEditingController.text =
+              '${widget.selectedOption?.type}: ${widget.selectedOption?.name}';
+        } else {
           _currentIndex = widget.selectedOption!.code;
           widget.textEditingController.text = widget.selectedOption!.name;
         }
       });
     }
+
+    // Add global key event listener
+    RawKeyboard.instance.addListener(_handleGlobalKeyEvent);
   }
 
   @override
   void dispose() {
     _focusNode.removeListener(_onFocusChange);
     _focusNode.dispose();
+    // Remove the global key event listener
+    RawKeyboard.instance.removeListener(_handleGlobalKeyEvent);
+
     /// Check if _overlayEntry is not null before removing and disposing
     if (_overlayEntry != null) {
       _overlayEntry.remove();
@@ -137,6 +149,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
       if (_isOpen && isMouseDown == false) {
         _toggleDropdown(close: true);
       }
+
       /// If no match found, clear the controller text
       if (_currentIndex == '' && _nestedIndex == '') {
         widget.textEditingController.clear();
@@ -164,13 +177,15 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
             _toggleDropdown();
             FocusScope.of(context).requestFocus(_focusNode);
           },
-          onChanged: widget.isSearchable ?(input) {
-            _filterItems(input);
-            if (!listEquals(filteredItems, _lastFilteredItems)) {
-              _updateOverlay();
-              _lastFilteredItems = filteredItems;
-            }
-          } : null,
+          onChanged: widget.isSearchable
+              ? (input) {
+                  _filterItems(input);
+                  if (!listEquals(filteredItems, _lastFilteredItems)) {
+                    _updateOverlay();
+                    _lastFilteredItems = filteredItems;
+                  }
+                }
+              : null,
           focusNode: _focusNode,
           controller: widget.textEditingController,
           decoration: InputDecoration(
@@ -191,7 +206,9 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
               left: 8,
             ),
             suffixIcon: Icon(widget.suffixIcon),
-            suffixIconColor: widget.isDisabled ? const DigitColors().cloudGray :const DigitColors().davyGray,
+            suffixIconColor: widget.isDisabled
+                ? const DigitColors().cloudGray
+                : const DigitColors().davyGray,
           ),
         ),
       ),
@@ -245,6 +262,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
       builder: (context) => GestureDetector(
         onTap: () => _toggleDropdown(close: true),
         behavior: HitTestBehavior.translucent,
+
         /// full screen SizedBox to register taps anywhere and close drop down
         child: SizedBox(
           height: MediaQuery.of(context).size.height,
@@ -284,320 +302,379 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
 
   /// build the dropdown based on the type
   Widget _buildDropdownListView() {
-    switch (widget.dropdownType) {
-      case DropdownType.defaultSelect:
-        return _buildListView();
-      case DropdownType.nestedSelect:
-        return _buildNestedListView();
+    return widget.dropdownType == DropdownType.nestedSelect
+        ? _buildNestedListView()
+        : _buildListView();
+  }
+
+  void _handleGlobalKeyEvent(RawKeyEvent event) {
+    if (event is RawKeyDownEvent) {
+      print('Global key down event: ${event.logicalKey}');
+      // Handle arrow keys and other global key events here
+      if (_focusNode.hasFocus) {
+        if (event.logicalKey == LogicalKeyboardKey.arrowDown) {
+          print('ddddddddddddddddddddddddddddd');
+          _navigateDropdown(1);
+        } else if (event.logicalKey == LogicalKeyboardKey.arrowUp) {
+          _navigateDropdown(-1);
+        } else if (event.logicalKey == LogicalKeyboardKey.enter) {
+          _selectDropdownOption();
+        }
+      }
     }
   }
 
   Widget _buildListView() {
-    return filteredItems.isNotEmpty ?
-    ListView.separated(
-      separatorBuilder: (_, __) => const SizedBox(height: 0),
-      shrinkWrap: true,
-      padding: EdgeInsets.zero,
-      itemCount: filteredItems.length,
-      itemBuilder: (context, index) {
-        return StatefulBuilder(
-          builder: (context, setState) {
-            Color backgroundColor = index % 2 == 0
-                ? const DigitColors().white
-                : const DigitColors().alabasterWhite;
-            return InkWell(
-              onTapDown: (_) {
-                /// Handle mouse down state
-                setState(() {
-                  isMouseDown = false;
-                  _itemMouseDownStates[filteredItems[index].code] = true;
-                });
-              },
-              onTapUp: (_) {
-                /// Handle mouse up state
-                setState(() {
-                  isMouseDown = true;
-                  _itemMouseDownStates[filteredItems[index].code] = false;
-                });
-              },
-              splashColor: const DigitColors().transparent,
-              hoverColor: const DigitColors().transparent,
-              onHover: (hover) {
-                setState(() {
-                  _itemHoverStates[filteredItems[index].code] = hover;
-                });
-              },
-              onTap: () {
-                setState(() => _currentIndex = filteredItems[index].code);
-                widget.onChange(
-                    filteredItems[index].name, filteredItems[index].code);
-                _toggleDropdown();
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: _itemMouseDownStates[filteredItems[index].code] ==
-                                true ||
-                            _itemHoverStates[filteredItems[index].code] == true
-                        ? const DigitColors().burningOrange
-                        : Colors.transparent,
-                  ),
-                  color: _itemMouseDownStates[filteredItems[index].code] == true
-                      ? const DigitColors().burningOrange
-                      : _itemHoverStates[filteredItems[index].code] == true
-                          ? const DigitColors().orangeBG
-                          : backgroundColor,
-                ),
-                padding: EdgeInsets.zero,
-                child: Padding(
-                  padding: widget.dropdownType == DropdownType.defaultSelect &&
-                          filteredItems[index].description == null
-                      ? DropdownConstants.defaultPadding
-                      : DropdownConstants.nestedItemPadding,
-                  child: Row(
-                    children: [
-                      if (filteredItems[index].profileImage != null)
-                        SizedBox(
-                          height: DropdownConstants.defaultProfileSize,
-                          width: DropdownConstants.defaultProfileSize,
-                          child: CircleAvatar(
-                            radius: DropdownConstants.defaultImageRadius,
-                            /// This radius is the radius of the picture in the circle avatar itself.
-                            backgroundImage: filteredItems[index].profileImage,
-                            backgroundColor: const DigitColors().davyGray,
-                          ),
+    return filteredItems.isNotEmpty
+        ? ListView.separated(
+            separatorBuilder: (_, __) => const SizedBox(height: 0),
+            shrinkWrap: true,
+            padding: EdgeInsets.zero,
+            itemCount: filteredItems.length,
+            itemBuilder: (context, index) {
+              return StatefulBuilder(
+                builder: (context, setState) {
+                  Color backgroundColor = index % 2 == 0
+                      ? const DigitColors().white
+                      : const DigitColors().alabasterWhite;
+                  bool isFocused = _focusedIndex == index;
+                  print(isFocused);
+                  return InkWell(
+                    onTapDown: (_) {
+                      /// Handle mouse down state
+                      setState(() {
+                        isMouseDown = false;
+                        _itemMouseDownStates[filteredItems[index].code] = true;
+                      });
+                    },
+                    onTapUp: (_) {
+                      /// Handle mouse up state
+                      setState(() {
+                        isMouseDown = true;
+                        _itemMouseDownStates[filteredItems[index].code] = false;
+                      });
+                    },
+                    splashColor: const DigitColors().transparent,
+                    hoverColor: const DigitColors().transparent,
+                    onHover: (hover) {
+                      setState(() {
+                        _itemHoverStates[filteredItems[index].code] = hover;
+                      });
+                    },
+                    onTap: () {
+                      setState(() => _currentIndex = filteredItems[index].code);
+                      widget.onChange(
+                          filteredItems[index].name, filteredItems[index].code);
+                      _toggleDropdown();
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: _itemMouseDownStates[
+                                          filteredItems[index].code] ==
+                                      true ||
+                                  _itemHoverStates[filteredItems[index].code] ==
+                                      true ||
+                                  isFocused
+                              ? const DigitColors().burningOrange
+                              : Colors.transparent,
                         ),
-                      if (filteredItems[index].profileImage != null)
-                        const SizedBox(
-                          width: 6,
-                        ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              if (filteredItems[index].textIcon != null)
-                                Icon(
-                                  filteredItems[index].textIcon,
-                                  size: DropdownConstants.textIconSize,
-                                  color: _itemMouseDownStates[
-                                              filteredItems[index].code] ==
-                                          true
-                                      ? const DigitColors().white
-                                      : const DigitColors().davyGray,
+                        color:
+                            _itemMouseDownStates[filteredItems[index].code] ==
+                                    true
+                                ? const DigitColors().burningOrange
+                                : _itemHoverStates[filteredItems[index].code] ==
+                                            true ||
+                                        isFocused
+                                    ? const DigitColors().orangeBG
+                                    : backgroundColor,
+                      ),
+                      padding: EdgeInsets.zero,
+                      child: Padding(
+                        padding:
+                            widget.dropdownType == DropdownType.defaultSelect &&
+                                    filteredItems[index].description == null
+                                ? DropdownConstants.defaultPadding
+                                : DropdownConstants.nestedItemPadding,
+                        child: Row(
+                          children: [
+                            if (filteredItems[index].profileImage != null)
+                              SizedBox(
+                                height: DropdownConstants.defaultProfileSize,
+                                width: DropdownConstants.defaultProfileSize,
+                                child: CircleAvatar(
+                                  radius: DropdownConstants.defaultImageRadius,
+
+                                  /// This radius is the radius of the picture in the circle avatar itself.
+                                  backgroundImage:
+                                      filteredItems[index].profileImage,
+                                  backgroundColor: const DigitColors().davyGray,
                                 ),
-                              if (filteredItems[index].textIcon != null)
-                                const SizedBox(
-                                  width: kPadding / 2,
-                                ),
-                              Text(
-                                filteredItems[index].name,
-                                style: DigitTheme
-                                    .instance.mobileTheme.textTheme.bodyLarge
-                                    ?.copyWith(
+                              ),
+                            if (filteredItems[index].profileImage != null)
+                              const SizedBox(
+                                width: 6,
+                              ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    if (filteredItems[index].textIcon != null)
+                                      Icon(
+                                        filteredItems[index].textIcon,
+                                        size: DropdownConstants.textIconSize,
                                         color: _itemMouseDownStates[
                                                     filteredItems[index]
                                                         .code] ==
                                                 true
                                             ? const DigitColors().white
-                                            : const DigitColors().davyGray),
-                              )
-                            ],
-                          ),
-                          if (filteredItems[index].description != null)
-                            Text(
-                              filteredItems[index].description!,
-                              style: DigitTheme
-                                  .instance.mobileTheme.textTheme.bodySmall
-                                  ?.copyWith(
-                                color: _itemMouseDownStates[
-                                            filteredItems[index].code] ==
-                                        true
-                                    ? const DigitColors().white
-                                    : const DigitColors().davyGray,
-                              ),
+                                            : const DigitColors().davyGray,
+                                      ),
+                                    if (filteredItems[index].textIcon != null)
+                                      const SizedBox(
+                                        width: kPadding / 2,
+                                      ),
+                                    Text(
+                                      filteredItems[index].name,
+                                      style: DigitTheme.instance.mobileTheme
+                                          .textTheme.bodyLarge
+                                          ?.copyWith(
+                                              color: _itemMouseDownStates[
+                                                          filteredItems[index]
+                                                              .code] ==
+                                                      true
+                                                  ? const DigitColors().white
+                                                  : const DigitColors()
+                                                      .davyGray),
+                                    )
+                                  ],
+                                ),
+                                if (filteredItems[index].description != null)
+                                  Text(
+                                    filteredItems[index].description!,
+                                    style: DigitTheme.instance.mobileTheme
+                                        .textTheme.bodySmall
+                                        ?.copyWith(
+                                      color: _itemMouseDownStates[
+                                                  filteredItems[index].code] ==
+                                              true
+                                          ? const DigitColors().white
+                                          : const DigitColors().davyGray,
+                                    ),
+                                  ),
+                              ],
                             ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ],
-                  ),
-                ),
-              ),
-            );
-          },
-        );
-      },
-    ) :
-      Padding(
-        padding: DropdownConstants.noItemAvailablePadding,
-        child: Text(widget.emptyItemText),
-      );
+                    ),
+                  );
+                },
+              );
+            },
+          )
+        : Padding(
+            padding: DropdownConstants.noItemAvailablePadding,
+            child: Text(widget.emptyItemText),
+          );
   }
 
   Widget _buildNestedListView() {
     Set<String?> uniqueTypes = filteredItems.map((item) => item.type).toSet();
-    return filteredItems.isNotEmpty ?
-    ListView.separated(
-        separatorBuilder: (_, __) => const SizedBox(height: 0),
-        shrinkWrap: true,
-        padding: EdgeInsets.zero,
-        itemCount: uniqueTypes.length,
-        itemBuilder: (context, outerIndex) {
-          return StatefulBuilder(
-            builder: (context, setState) {
-              String? currentType = uniqueTypes.elementAt(outerIndex);
-              List<DropdownItem> typeItems = filteredItems
-                  .where((item) => item.type == currentType)
-                  .toList();
-              return Column(
-                children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    padding: DropdownConstants.nestedItemHeaderPadding,
-                    color: const DigitColors().alabasterWhite,
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(currentType!,
-                            style: DigitTheme
-                                .instance.mobileTheme.textTheme.headlineSmall
-                                ?.copyWith(
-                              color: const DigitColors().davyGray,
-                            )),
-                      ],
-                    ),
-                  ),
-                  for (int index = 0; index < typeItems.length; index++)
-                    StatefulBuilder(
-                        builder: (context, setState) {
-                          return Column(
-                            children: [
-                              InkWell(
-                                splashColor: const DigitColors().transparent,
-                                hoverColor: const DigitColors().transparent,
-                                onTapDown: (_) {
-                                  /// Handle mouse down state
-                                  setState(() {
-                                    isMouseDown = false;
-                                    _itemMouseDownStates[
-                                        typeItems[index].code] = true;
-                                  });
-                                },
-                                onTapUp: (_) {
-                                  /// Handle mouse up state
-                                  setState(() {
-                                    isMouseDown = true;
-                                    _itemMouseDownStates[
-                                        typeItems[index].code] = false;
-                                  });
-                                },
-                                onHover: (hover) {
-                                  setState(() {
-                                    _itemHoverStates[typeItems[index].code] =
-                                        hover;
-                                  });
-                                },
-                                onTap: () {
-                                  setState(() {
-                                    _nestedIndex = typeItems[index].code;
-                                  });
-                                  widget.onChange(typeItems[index].name,
-                                      typeItems[index].code);
-                                  _toggleDropdown();
-                                },
-                                child: Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
+    return filteredItems.isNotEmpty
+        ? ListView.separated(
+            separatorBuilder: (_, __) => const SizedBox(height: 0),
+            shrinkWrap: true,
+            padding: EdgeInsets.zero,
+            itemCount: uniqueTypes.length,
+            itemBuilder: (context, outerIndex) {
+              return StatefulBuilder(
+                builder: (context, setState) {
+                  String? currentType = uniqueTypes.elementAt(outerIndex);
+                  List<DropdownItem> typeItems = filteredItems
+                      .where((item) => item.type == currentType)
+                      .toList();
+                  return Column(
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        padding: DropdownConstants.nestedItemHeaderPadding,
+                        color: const DigitColors().alabasterWhite,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(currentType!,
+                                style: DigitTheme.instance.mobileTheme.textTheme
+                                    .headlineSmall
+                                    ?.copyWith(
+                                  color: const DigitColors().davyGray,
+                                )),
+                          ],
+                        ),
+                      ),
+                      for (int index = 0; index < typeItems.length; index++)
+                        StatefulBuilder(
+                          builder: (context, setState) {
+                            return Column(
+                              children: [
+                                InkWell(
+                                  splashColor: const DigitColors().transparent,
+                                  hoverColor: const DigitColors().transparent,
+                                  onTapDown: (_) {
+                                    /// Handle mouse down state
+                                    setState(() {
+                                      isMouseDown = false;
+                                      _itemMouseDownStates[
+                                          typeItems[index].code] = true;
+                                    });
+                                  },
+                                  onTapUp: (_) {
+                                    /// Handle mouse up state
+                                    setState(() {
+                                      isMouseDown = true;
+                                      _itemMouseDownStates[
+                                          typeItems[index].code] = false;
+                                    });
+                                  },
+                                  onHover: (hover) {
+                                    setState(() {
+                                      _itemHoverStates[typeItems[index].code] =
+                                          hover;
+                                    });
+                                  },
+                                  onTap: () {
+                                    setState(() {
+                                      _nestedIndex = typeItems[index].code;
+                                    });
+                                    widget.onChange(typeItems[index].name,
+                                        typeItems[index].code);
+                                    _toggleDropdown();
+                                  },
+                                  child: Container(
+                                    width: MediaQuery.of(context).size.width,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: _itemMouseDownStates[
+                                                    typeItems[index].code] ==
+                                                true
+                                            ? Colors.transparent
+                                            : _itemHoverStates[typeItems[index]
+                                                        .code] ==
+                                                    true
+                                                ? const DigitColors()
+                                                    .burningOrange
+                                                : Colors.transparent,
+                                      ),
                                       color: _itemMouseDownStates[
                                                   typeItems[index].code] ==
                                               true
-                                          ? Colors.transparent
+                                          ? const DigitColors().burningOrange
                                           : _itemHoverStates[
                                                       typeItems[index].code] ==
                                                   true
-                                              ? const DigitColors()
-                                                  .burningOrange
-                                              : Colors.transparent,
+                                              ? const DigitColors().orangeBG
+                                              : const DigitColors().white,
                                     ),
-                                    color: _itemMouseDownStates[
-                                                typeItems[index].code] ==
-                                            true
-                                        ? const DigitColors().burningOrange
-                                        : _itemHoverStates[
-                                                    typeItems[index].code] ==
-                                                true
-                                            ? const DigitColors().orangeBG
-                                            : const DigitColors().white,
-                                  ),
-                                  padding: EdgeInsets.zero,
-                                  child: Padding(
-                                    padding: widget.dropdownType ==
-                                                DropdownType.defaultSelect &&
-                                            typeItems[index].description == null
-                                        ? DropdownConstants.defaultPadding
-                                        : DropdownConstants.nestedItemPadding,
-                                    child: Row(
-                                      children: [
-                                        if (filteredItems[index].profileImage !=
-                                            null)
-                                          SizedBox(
-                                            height: DropdownConstants
-                                                .defaultProfileSize,
-                                            width: DropdownConstants
-                                                .defaultProfileSize,
-                                            child: CircleAvatar(
-                                              radius: DropdownConstants
-                                                  .defaultImageRadius,
+                                    padding: EdgeInsets.zero,
+                                    child: Padding(
+                                      padding: widget.dropdownType ==
+                                                  DropdownType.defaultSelect &&
+                                              typeItems[index].description ==
+                                                  null
+                                          ? DropdownConstants.defaultPadding
+                                          : DropdownConstants.nestedItemPadding,
+                                      child: Row(
+                                        children: [
+                                          if (filteredItems[index]
+                                                  .profileImage !=
+                                              null)
+                                            SizedBox(
+                                              height: DropdownConstants
+                                                  .defaultProfileSize,
+                                              width: DropdownConstants
+                                                  .defaultProfileSize,
+                                              child: CircleAvatar(
+                                                radius: DropdownConstants
+                                                    .defaultImageRadius,
 
-                                              /// This radius is the radius of the picture in the circle avatar itself.
-                                              backgroundImage:
-                                                  filteredItems[index]
-                                                      .profileImage,
-                                              backgroundColor:
-                                                  const DigitColors().davyGray,
+                                                /// This radius is the radius of the picture in the circle avatar itself.
+                                                backgroundImage:
+                                                    filteredItems[index]
+                                                        .profileImage,
+                                                backgroundColor:
+                                                    const DigitColors()
+                                                        .davyGray,
+                                              ),
                                             ),
-                                          ),
-                                        if (filteredItems[index].profileImage !=
-                                            null)
-                                          const SizedBox(
-                                            width: 6,
-                                          ),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Row(
-                                              children: [
-                                                if (typeItems[index].textIcon !=
-                                                    null)
-                                                  Icon(
-                                                    typeItems[index].textIcon,
-                                                    size: DropdownConstants
-                                                        .textIconSize,
-                                                    color: _itemMouseDownStates[
-                                                                typeItems[index]
-                                                                    .code] ==
-                                                            true
-                                                        ? const DigitColors()
-                                                            .white
-                                                        : const DigitColors()
-                                                            .davyGray,
-                                                  ),
-                                                if (typeItems[index].textIcon !=
-                                                    null)
-                                                  const SizedBox(
-                                                    width: kPadding / 2,
-                                                  ),
+                                          if (filteredItems[index]
+                                                  .profileImage !=
+                                              null)
+                                            const SizedBox(
+                                              width: 6,
+                                            ),
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  if (typeItems[index]
+                                                          .textIcon !=
+                                                      null)
+                                                    Icon(
+                                                      typeItems[index].textIcon,
+                                                      size: DropdownConstants
+                                                          .textIconSize,
+                                                      color: _itemMouseDownStates[
+                                                                  typeItems[
+                                                                          index]
+                                                                      .code] ==
+                                                              true
+                                                          ? const DigitColors()
+                                                              .white
+                                                          : const DigitColors()
+                                                              .davyGray,
+                                                    ),
+                                                  if (typeItems[index]
+                                                          .textIcon !=
+                                                      null)
+                                                    const SizedBox(
+                                                      width: kPadding / 2,
+                                                    ),
+                                                  Text(
+                                                    typeItems[index].name,
+                                                    style: DigitTheme
+                                                        .instance
+                                                        .mobileTheme
+                                                        .textTheme
+                                                        .bodyLarge
+                                                        ?.copyWith(
+                                                      color: _itemMouseDownStates[
+                                                                  typeItems[
+                                                                          index]
+                                                                      .code] ==
+                                                              true
+                                                          ? const DigitColors()
+                                                              .white
+                                                          : const DigitColors()
+                                                              .davyGray,
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                              if (typeItems[index]
+                                                      .description !=
+                                                  null)
                                                 Text(
-                                                  typeItems[index].name,
+                                                  typeItems[index].description!,
                                                   style: DigitTheme
                                                       .instance
                                                       .mobileTheme
                                                       .textTheme
-                                                      .bodyLarge
+                                                      .bodySmall
                                                       ?.copyWith(
                                                     color: _itemMouseDownStates[
                                                                 typeItems[index]
@@ -608,62 +685,72 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                                         : const DigitColors()
                                                             .davyGray,
                                                   ),
-                                                )
-                                              ],
-                                            ),
-                                            if (typeItems[index].description !=
-                                                null)
-                                              Text(
-                                                typeItems[index].description!,
-                                                style: DigitTheme
-                                                    .instance
-                                                    .mobileTheme
-                                                    .textTheme
-                                                    .bodySmall
-                                                    ?.copyWith(
-                                                  color: _itemMouseDownStates[
-                                                              typeItems[index]
-                                                                  .code] ==
-                                                          true
-                                                      ? const DigitColors()
-                                                          .white
-                                                      : const DigitColors()
-                                                          .davyGray,
                                                 ),
-                                              ),
-                                          ],
-                                        ),
-                                      ],
+                                            ],
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
 
-                              /// Divider after each option
-                              Container(
-                                height: 1,
-                                color: const DigitColors().quillGray,
-                                width: MediaQuery.of(context).size.width,
-                                margin: const EdgeInsets.symmetric(
-                                  horizontal: 10,
-                                ),
-                              )
-                            ],
-                          );
-                        },
-                      ),
-                  if(outerIndex!=uniqueTypes.length-1)
-                    Container(height: kPadding*2,),
-                ],
+                                /// Divider after each option
+                                Container(
+                                  height: 1,
+                                  color: const DigitColors().quillGray,
+                                  width: MediaQuery.of(context).size.width,
+                                  margin: const EdgeInsets.symmetric(
+                                    horizontal: 10,
+                                  ),
+                                )
+                              ],
+                            );
+                          },
+                        ),
+                      if (outerIndex != uniqueTypes.length - 1)
+                        Container(
+                          height: kPadding * 2,
+                        ),
+                    ],
+                  );
+                },
               );
-            },
+            })
+        : Padding(
+            padding: DropdownConstants.noItemAvailablePadding,
+            child: Text(widget.emptyItemText),
           );
-        })
-        :
-      Padding(
-        padding: DropdownConstants.noItemAvailablePadding,
-        child: Text(widget.emptyItemText),
-      );
+  }
+
+  void _navigateDropdown(int direction) {
+    if (_focusedIndex == -1) {
+      setState(() {
+        _focusedIndex = 0;
+      });
+    } else {
+      int newIndex = _focusedIndex + direction;
+      if (newIndex < filteredItems.length) {
+        setState(() {
+          _focusedIndex = newIndex;
+        });
+      } else if (newIndex >= filteredItems.length) {
+        setState(() {
+          _focusedIndex = 0;
+        });
+      } else {
+        setState(() {
+          _focusedIndex = filteredItems.length - 1;
+        });
+      }
+    }
+  }
+
+  void _selectDropdownOption() {
+    if (_focusedIndex != -1) {
+      DropdownItem selectedItem = filteredItems[_focusedIndex];
+      widget.onChange(selectedItem.name, selectedItem.code);
+      _toggleDropdown(close: true);
+    }
   }
 
   /// function to make change when the dropdown is opening or closing.... we will reset and set the value inside this

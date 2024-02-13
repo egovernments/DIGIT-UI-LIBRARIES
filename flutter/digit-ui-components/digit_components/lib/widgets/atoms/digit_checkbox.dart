@@ -72,21 +72,23 @@ class _DigitCheckboxState extends State<DigitCheckbox> {
     return IntrinsicWidth(
       child: Padding(
         padding: widget.padding,
-        child: GestureDetector(
-          onTap: widget.disabled
-              ? null
-              : () {
-                  setState(() {
-                    _currentState = !_currentState;
-                  });
-                  widget.onChanged(_currentState);
-                },
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            InkWell(
+              hoverColor: const DigitColors().transparent,
+              splashColor: const DigitColors().transparent,
+              onTap: widget.disabled
+                  ? null
+                  : () {
+                      setState(() {
+                        _currentState = !_currentState;
+                      });
+                      widget.onChanged(_currentState);
+                    },
+              child: SizedBox(
                 height: CheckboxConstants.containerSize,
                 width: CheckboxConstants.containerSize,
                 child: DigitCheckboxIcon(
@@ -97,20 +99,20 @@ class _DigitCheckboxState extends State<DigitCheckbox> {
                   color: widget.iconColor,
                 ),
               ),
-              const SizedBox(width: kPadding * 2),
-              Expanded(
-                child: Text(
-                  widget.label,
-                  style: DigitTheme.instance.mobileTheme.textTheme.bodyLarge
-                      ?.copyWith(
-                    color: widget.disabled
-                        ? const DigitColors().cloudGray
-                        : const DigitColors().woodsmokeBlack,
-                  ),
+            ),
+            const SizedBox(width: kPadding * 2),
+            Expanded(
+              child: Text(
+                widget.label,
+                style: DigitTheme.instance.mobileTheme.textTheme.bodyLarge
+                    ?.copyWith(
+                  color: widget.disabled
+                      ? const DigitColors().cloudGray
+                      : const DigitColors().woodsmokeBlack,
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

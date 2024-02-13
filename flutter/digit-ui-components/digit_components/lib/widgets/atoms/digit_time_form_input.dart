@@ -34,9 +34,10 @@ class DigitTimeFormInput extends BaseDigitFormInput {
     bool readOnly = false,
     bool isDisabled = false,
     bool isRequired = false,
+    bool editable = false,
     TooltipTriggerMode triggerMode = TooltipTriggerMode.tap,
     bool preferToolTipBelow = false,
-    IconData suffix = Icons.access_time,
+    IconData suffixIcon = Icons.access_time,
     void Function(String?)? onError,
     final List<Validator>? validations,
     String? initialValue,
@@ -55,11 +56,13 @@ class DigitTimeFormInput extends BaseDigitFormInput {
           helpText: helpText,
           triggerMode: triggerMode,
           preferToolTipBelow: preferToolTipBelow,
-          suffix: suffix,
+          suffixIcon: suffixIcon,
           onError: onError,
           initialValue: initialValue,
           validations: validations,
           onChange: onChange,
+          showCurser: editable,
+    isEditable: editable,
         );
 
   @override
@@ -69,6 +72,16 @@ class DigitTimeFormInput extends BaseDigitFormInput {
 class _DigitTimeFormInputState extends BaseDigitFormInputState {
   @override
   void onSuffixIconClick({void Function()? customFunction}) async {
+    TimeSelectionBloc timeSelectionBloc = TimeSelectionBloc();
+
+    await timeSelectionBloc.selectTime(
+      context: context,
+      controller: widget.controller,
+    );
+  }
+
+  @override
+  void onTap() async{
     TimeSelectionBloc timeSelectionBloc = TimeSelectionBloc();
 
     await timeSelectionBloc.selectTime(

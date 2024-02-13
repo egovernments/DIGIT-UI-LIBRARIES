@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../constants/AppView.dart';
 import '../../theme/colors.dart';
 import '../../theme/digit_theme.dart';
 
@@ -39,8 +40,8 @@ class LabeledField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isDesktop = MediaQuery.of(context).size.width > 600;
-    if(isDesktop){
+    bool isMobile = AppView.isMobileView(MediaQuery.of(context).size.width);
+    if(!isMobile){
       return Padding(
         padding: padding ?? const EdgeInsets.only(top: kPadding),
         child: Row(
@@ -58,6 +59,7 @@ class LabeledField extends StatelessWidget {
                           : label!,
                       style: DigitTheme.instance.mobileTheme.textTheme.bodyLarge
                           ?.copyWith(
+                        height: 1.1875,
                         color: const DigitColors().woodsmokeBlack,
                         overflow: wrapLabelText
                             ? TextOverflow.visible
@@ -79,9 +81,10 @@ class LabeledField extends StatelessWidget {
                       message: infoText,
                       preferBelow: preferToolTipBelow,
                       triggerMode: triggerMode,
-                      child: const Icon(
+                      child: Icon(
                         Icons.info_outline,
-                        size: 16,
+                        size: 15.83,
+                        color: const DigitColors().davyGray,
                       ),
                     )
                 ],
@@ -101,7 +104,8 @@ class LabeledField extends StatelessWidget {
           children: [
             Row(
               children: [
-                Flexible(
+                if(label!=null)
+                  Flexible(
                   child: Text(
                     label!.length > 64
                         ? '${label!.substring(0, 64)}...'

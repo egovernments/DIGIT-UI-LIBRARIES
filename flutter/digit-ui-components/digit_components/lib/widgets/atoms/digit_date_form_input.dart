@@ -32,6 +32,7 @@ class DigitDateFormInput extends BaseDigitFormInput {
     String? initialValue,
     bool readOnly = false,
     bool isDisabled = false,
+    bool editable = false,
     bool charCount = false,
     DateTime? initialDate,
     DateTime? firstDate,
@@ -41,7 +42,7 @@ class DigitDateFormInput extends BaseDigitFormInput {
     bool isRequired = false,
     TooltipTriggerMode triggerMode = TooltipTriggerMode.tap,
     bool preferToolTipBelow = false,
-    IconData suffix = Icons.date_range,
+    IconData suffixIcon = Icons.date_range,
     void Function(String?)? onError,
     final List<Validator>? validations,
     final void Function(String)? onChange,
@@ -60,13 +61,16 @@ class DigitDateFormInput extends BaseDigitFormInput {
     triggerMode: triggerMode,
     preferToolTipBelow: preferToolTipBelow,
     onError: onError,
-    suffix: suffix,
+    suffixIcon: suffixIcon,
     initialValue: initialValue,
     validations: validations,
     onChange: onChange,
     initialDate: initialDate,
     firstDate: firstDate,
     lastDate: lastDate,
+    keyboardType: TextInputType.none,
+    showCurser: editable,
+    isEditable: editable,
   );
 
   @override
@@ -87,6 +91,18 @@ class _DigitDateFormInputState extends BaseDigitFormInputState {
       context: context,
       controller: widget.controller,
     );
+  }
+
+  @override
+  void onTap() async{
+    /// Show a date picker and update the controller's value
+      await dateSelectionBloc.selectDate(
+        firstDate:widget.firstDate,
+        lastDate:widget.lastDate,
+        initialDate:widget.initialDate,
+        context: context,
+        controller: widget.controller,
+      );
   }
 
   @override
