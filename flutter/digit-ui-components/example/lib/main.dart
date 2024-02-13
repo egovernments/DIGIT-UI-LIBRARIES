@@ -49,6 +49,28 @@ final List<TreeNode> Nodes = [
   ]),
 ];
 
+final controller1 = TextEditingController();
+final controller2 = TextEditingController();
+final controller3 = TextEditingController();
+final controller4 = TextEditingController();
+final controller5 = TextEditingController();
+final controller6 = TextEditingController();
+final controller7 = TextEditingController();
+final controller8 = TextEditingController();
+final controller9 = TextEditingController();
+final controller10 = TextEditingController();
+final controller11 = TextEditingController();
+final controller12 = TextEditingController();
+final controller13 = TextEditingController();
+final controller14 = TextEditingController();
+final controller15 = TextEditingController();
+final controller16 = TextEditingController();
+final controller17 = TextEditingController();
+final controller18 = TextEditingController();
+final controller19 = TextEditingController();
+final controller20 = TextEditingController();
+final controller21 = TextEditingController();
+final controller22 = TextEditingController();
 final TreeSelectController<int> _controller = TreeSelectController();
 final controller = MultiSelectController<int>();
 
@@ -126,7 +148,7 @@ class MyHomePageState extends State<MyHomePage> {
               children: [
                 DigitTextFormInput(
                   label: "Text Field",
-                  controller: TextEditingController(),
+                  controller: controller1,
                   innerLabel: 'label',
                   info: true,
                   infoText: 'this is infoText',
@@ -152,7 +174,7 @@ class MyHomePageState extends State<MyHomePage> {
                       ),
                       DigitTextFormInput(
                         label: "Text Field With Validation",
-                        controller: TextEditingController(),
+                        controller: controller2,
                         innerLabel: 'label',
                         helpText: 'help text',
                         charCount: true,
@@ -183,10 +205,10 @@ class MyHomePageState extends State<MyHomePage> {
                       ),
                       DigitTextFormInput(
                         label: "Text Field With Suffix Icon",
-                        controller: TextEditingController(),
+                        controller: controller3,
                         innerLabel: 'innerlabel',
                         helpText: 'help text',
-                        suffixIcon: Icons.currency_rupee_sharp,
+                        suffixText: '@',
                       ),
                     ],
                   ),
@@ -194,8 +216,9 @@ class MyHomePageState extends State<MyHomePage> {
                   height: 8,
                 ),
                 DigitTextAreaFormInput(
-                  label: "Text Area",
                   controller: TextEditingController(),
+                  maxLine: 10000,
+                  label: "Text Area",
                   innerLabel: 'label',
                   helpText: 'help text',
                 ),
@@ -211,50 +234,50 @@ class MyHomePageState extends State<MyHomePage> {
                   },
                 ),
                 if(showAllVariantsOfTextAreaField)
-                  Column(
-                    children: [
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      DigitTextAreaFormInput(
-                        label: "Text Field With Validation",
-                        controller: TextEditingController(),
-                        innerLabel: 'label',
-                        helpText: 'help text',
-                        charCount: true,
-                        validations: [
-                          Validator(ValidatorType.maxLength, 10,
-                              errorMessage: 'Maximum length is 10.'),
-                          Validator(ValidatorType.pattern, r'^[a-zA-Z0-9]+$',
-                              errorMessage: 'Invalid format.'),
-                        ],
-                      ),
-                      DigitTextAreaFormInput(
-                        label: "Text Field With Disabled State",
-                        controller: TextEditingController(),
-                        innerLabel: 'label',
-                        helpText: 'help text',
-                        isDisabled: true,
-                        charCount: true,
-                      ),
-                      DigitTextAreaFormInput(
-                        label: "Text Field With Read Only State",
-                        controller: TextEditingController(),
-                        innerLabel: 'label',
-                        initialValue: 'ReadOnly',
-                        helpText: 'help text',
-                        isDisabled: true,
-                        charCount: true,
-                        readOnly: true,
-                      ),
-                    ],
-                  ),
+                  // Column(
+                  //   children: [
+                  //     const SizedBox(
+                  //       height: 8,
+                  //     ),
+                  //     DigitTextAreaFormInput(
+                  //       label: "Text Field With Validation",
+                  //       controller: controller5,
+                  //       innerLabel: 'label',
+                  //       helpText: 'help text',
+                  //       charCount: true,
+                  //       validations: [
+                  //         Validator(ValidatorType.maxLength, 10,
+                  //             errorMessage: 'Maximum length is 10.'),
+                  //         Validator(ValidatorType.pattern, r'^[a-zA-Z0-9]+$',
+                  //             errorMessage: 'Invalid format.'),
+                  //       ],
+                  //     ),
+                  //     DigitTextAreaFormInput(
+                  //       // label: "Text Field With Disabled State",
+                  //       // controller: TextEditingController(),
+                  //       // innerLabel: 'label',
+                  //       // helpText: 'help text',
+                  //       // isDisabled: true,
+                  //       // charCount: true,
+                  //     ),
+                  //     DigitTextAreaFormInput(
+                  //       label: "Text Field With Read Only State",
+                  //       controller: TextEditingController(),
+                  //       innerLabel: 'label',
+                  //       initialValue: 'ReadOnly',
+                  //       helpText: 'help text',
+                  //       isDisabled: true,
+                  //       charCount: true,
+                  //       readOnly: true,
+                  //     ),
+                  //   ],
+                  // ),
                 const SizedBox(
                   height: 8,
                 ),
                 DigitDateFormInput(
                   label: "Date Field",
-                  controller: TextEditingController(),
+                  controller: controller6,
                   innerLabel: 'innerlabel',
                   helpText: 'help text',
                 ),
@@ -282,7 +305,7 @@ class MyHomePageState extends State<MyHomePage> {
                       ),
                       DigitDateFormInput(
                         label: "Date Field with Current Date as Max Date",
-                        controller: TextEditingController(),
+                        controller: controller7,
                         lastDate: DateTime.now(),
                       ),
                     ],
@@ -292,7 +315,7 @@ class MyHomePageState extends State<MyHomePage> {
                 ),
                 DigitTimeFormInput(
                   label: "Time Field",
-                  controller: TextEditingController(),
+                  controller: controller8,
                   innerLabel: 'innerlabel',
                   helpText: 'help text',
                 ),
@@ -301,7 +324,7 @@ class MyHomePageState extends State<MyHomePage> {
                   label: "Show All The Variants Of Time Field",
                   onChanged: (value) {
                       setState(() {
-                        showAllVariantsOfTimeField = true;
+                        showAllVariantsOfTimeField = value;
                       });
                   },
                 ),
@@ -318,7 +341,7 @@ class MyHomePageState extends State<MyHomePage> {
                       ),
                       DigitTimeFormInput(
                         label: "Time Field with ReadOnly State",
-                        controller: TextEditingController(),
+                        controller: controller9,
                         innerLabel: 'innerlabel',
                         readOnly: true,
                         initialValue: '11:56 PM',
@@ -330,7 +353,7 @@ class MyHomePageState extends State<MyHomePage> {
                 ),
                 DigitSearchFormInput(
                   label: "Search Field",
-                  controller: TextEditingController(),
+                  controller: controller10,
                   innerLabel: 'innerlabel',
                   helpText: 'help text',
                 ),
@@ -355,7 +378,7 @@ class MyHomePageState extends State<MyHomePage> {
                       ),
                       DigitSearchFormInput(
                         label: "Search Field With on SearchIcon click",
-                        controller: TextEditingController(),
+                        controller: controller11,
                         innerLabel: 'innerlabel',
                         helpText: 'help text',
                         onSuffixTap: (value){
@@ -374,7 +397,7 @@ class MyHomePageState extends State<MyHomePage> {
                 ),
                 DigitPasswordFormInput(
                   label: "password Field",
-                  controller: TextEditingController(),
+                  controller: controller12,
                   innerLabel: 'innerlabel',
                   helpText: 'help text',
                   charCount: true,
@@ -396,7 +419,7 @@ class MyHomePageState extends State<MyHomePage> {
                       const SizedBox(height: 8,),
                       DigitPasswordFormInput(
                         label: "password Field With min 8 char validation",
-                        controller: TextEditingController(),
+                        controller: controller13,
                         innerLabel: 'innerlabel',
                         helpText: 'help text',
                         validations: [
@@ -407,7 +430,7 @@ class MyHomePageState extends State<MyHomePage> {
                       ),
                       DigitPasswordFormInput(
                         label: "password Field",
-                        controller: TextEditingController(),
+                        controller: controller14,
                         innerLabel: 'innerlabel',
                         initialValue: 'initialValue',
                         helpText: 'help text',
@@ -419,7 +442,7 @@ class MyHomePageState extends State<MyHomePage> {
                 ),
                 DigitNumericFormInput(
                   label: "Numeric Field",
-                  controller: TextEditingController(),
+                  controller: controller15,
                   innerLabel: 'innerlabel',
                   helpText: 'help text',
                   initialValue: '0',
@@ -440,7 +463,7 @@ class MyHomePageState extends State<MyHomePage> {
                       const SizedBox(height: 8,),
                       DigitNumericFormInput(
                         label: "Numeric Field With Max value 100 and step 5 and Min value -10",
-                        controller: TextEditingController(),
+                        controller: controller16,
                         innerLabel: 'innerlabel',
                         helpText: 'help text',
                         initialValue: '0',
@@ -471,7 +494,7 @@ class MyHomePageState extends State<MyHomePage> {
                 ),
                 DigitLocationFormInput(
                   label: "Location Field",
-                  controller: TextEditingController(),
+                  controller: controller17,
                   innerLabel: 'innerlabel',
                   helpText: 'help text',
                 ),
@@ -481,7 +504,7 @@ class MyHomePageState extends State<MyHomePage> {
                 const Text('Dropdown Varients'),
                 DigitDropdown<int>(
                   onChange: (String value, String index) => {},
-                  textEditingController: TextEditingController(),
+                  textEditingController: controller18,
                   items: const [
                     DropdownItem(
                       name: 'first',
@@ -522,7 +545,7 @@ class MyHomePageState extends State<MyHomePage> {
                 ),
                 DigitDropdown<int>(
                   onChange: (String value, String index) => {},
-                  textEditingController: TextEditingController(),
+                  textEditingController: controller19,
                   items: [
                     'one',
                     'two',
@@ -544,7 +567,7 @@ class MyHomePageState extends State<MyHomePage> {
                 ),
                 DigitDropdown<int>(
                   onChange: (String value, String index) => {},
-                  textEditingController: TextEditingController(),
+                  textEditingController: controller20,
                   textIcon: Icons.article,
                   items: [
                     'one',
@@ -572,7 +595,7 @@ class MyHomePageState extends State<MyHomePage> {
                 ),
                 DigitDropdown(
                   onChange: (String value, String type) => {},
-                  textEditingController: TextEditingController(),
+                  textEditingController: controller21,
                   dropdownType: DropdownType.nestedSelect,
                   selectedOption: const DropdownItem(
                     name: 'one',
