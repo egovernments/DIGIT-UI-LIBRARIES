@@ -225,10 +225,8 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> with WidgetsBind
     if (mounted) {
       setState(() {
         _width = AppView.isMobileView(MediaQuery.of(context).size.width)
-            ? Default.mobileInputWidth
-            : AppView.isTabletView(MediaQuery.of(context).size.width)
-            ? Default.tabInputWidth
-            : Default.desktopInputWidth;
+            ? MediaQuery.of(context).size.width-8
+            : MediaQuery.of(context).size.width/ 1.7;
       });
     }
   }
