@@ -32,34 +32,37 @@ class DigitLocationFormInput extends BaseDigitFormInput {
     bool isRequired = false,
     String? initialValue,
     bool charCount = false,
+    bool editable = false,
     String? innerLabel,
     String? helpText,
     TooltipTriggerMode triggerMode = TooltipTriggerMode.tap,
     bool preferToolTipBelow = false,
-    IconData suffix = Icons.my_location,
+    IconData suffixIcon = Icons.my_location,
     void Function(String?)? onError,
     final List<Validator>? validations,
     final void Function(String)? onChange,
   }) : super(
-          key: key,
-          controller: controller,
-          label: label,
-          info: info,
-          infoText: infoText,
-          readOnly: readOnly,
-          isDisabled: isDisabled,
-          isRequired: isRequired,
-          charCount: charCount,
-          innerLabel: innerLabel,
-          helpText: helpText,
-          triggerMode: triggerMode,
-          preferToolTipBelow: preferToolTipBelow,
-          suffix: suffix,
-          onError: onError,
-          initialValue: initialValue,
-          validations: validations,
-          onChange: onChange,
-        );
+    key: key,
+    controller: controller,
+    label: label,
+    info: info,
+    infoText: infoText,
+    readOnly: readOnly,
+    isDisabled: isDisabled,
+    isRequired: isRequired,
+    charCount: charCount,
+    innerLabel: innerLabel,
+    helpText: helpText,
+    triggerMode: triggerMode,
+    preferToolTipBelow: preferToolTipBelow,
+    suffixIcon: suffixIcon,
+    onError: onError,
+    initialValue: initialValue,
+    validations: validations,
+    onChange: onChange,
+    showCurser: editable,
+    isEditable: editable,
+  );
 
   @override
   _DigitLocationFormInputState createState() => _DigitLocationFormInputState();
@@ -70,6 +73,11 @@ class _DigitLocationFormInputState extends BaseDigitFormInputState {
 
   @override
   void onSuffixIconClick({void Function()? customFunction}) async {
+    await locationBloc.getCurrentLocation(widget.controller);
+  }
+
+  @override
+  void onTap() async{
     await locationBloc.getCurrentLocation(widget.controller);
   }
 

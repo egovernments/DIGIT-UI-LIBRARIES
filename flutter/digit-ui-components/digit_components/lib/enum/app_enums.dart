@@ -38,3 +38,12 @@ enum CheckboxState {
   /// Represents a checked state.
   checked,
 }
+
+// Enum representing the scroll for textArea
+enum TextAreaScroll{
+  auto,
+  horizontal,
+  vertical,
+  smart,
+  none,
+}

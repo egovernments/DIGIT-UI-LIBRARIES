@@ -34,33 +34,36 @@ class DigitTimeFormInput extends BaseDigitFormInput {
     bool readOnly = false,
     bool isDisabled = false,
     bool isRequired = false,
+    bool editable = false,
     TooltipTriggerMode triggerMode = TooltipTriggerMode.tap,
     bool preferToolTipBelow = false,
-    IconData suffix = Icons.access_time,
+    IconData suffixIcon = Icons.access_time,
     void Function(String?)? onError,
     final List<Validator>? validations,
     String? initialValue,
     final void Function(String)? onChange,
   }) : super(
-          key: key,
-          controller: controller,
-          label: label,
-          info: info,
-          infoText: infoText,
-          readOnly: readOnly,
-          isRequired: isRequired,
-          isDisabled: isDisabled,
-          charCount: charCount,
-          innerLabel: innerLabel,
-          helpText: helpText,
-          triggerMode: triggerMode,
-          preferToolTipBelow: preferToolTipBelow,
-          suffix: suffix,
-          onError: onError,
-          initialValue: initialValue,
-          validations: validations,
-          onChange: onChange,
-        );
+    key: key,
+    controller: controller,
+    label: label,
+    info: info,
+    infoText: infoText,
+    readOnly: readOnly,
+    isRequired: isRequired,
+    isDisabled: isDisabled,
+    charCount: charCount,
+    innerLabel: innerLabel,
+    helpText: helpText,
+    triggerMode: triggerMode,
+    preferToolTipBelow: preferToolTipBelow,
+    suffixIcon: suffixIcon,
+    onError: onError,
+    initialValue: initialValue,
+    validations: validations,
+    onChange: onChange,
+    showCurser: editable,
+    isEditable: editable,
+  );
 
   @override
   _DigitTimeFormInputState createState() => _DigitTimeFormInputState();
@@ -69,6 +72,16 @@ class DigitTimeFormInput extends BaseDigitFormInput {
 class _DigitTimeFormInputState extends BaseDigitFormInputState {
   @override
   void onSuffixIconClick({void Function()? customFunction}) async {
+    TimeSelectionBloc timeSelectionBloc = TimeSelectionBloc();
+
+    await timeSelectionBloc.selectTime(
+      context: context,
+      controller: widget.controller,
+    );
+  }
+
+  @override
+  void onTap() async{
     TimeSelectionBloc timeSelectionBloc = TimeSelectionBloc();
 
     await timeSelectionBloc.selectTime(

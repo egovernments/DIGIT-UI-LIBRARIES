@@ -28,7 +28,7 @@ class DigitRadioList extends StatefulWidget {
   final List<RadioButtonModel> radioButtons;
 
   /// Callback function to be called when a radio button is selected
-  final void Function(String selectedValue) onChanged;
+  final void Function(RadioButtonModel) onChanged;
 
   /// Currently selected value in the radio button group
   String groupValue;
@@ -45,9 +45,6 @@ class DigitRadioList extends StatefulWidget {
   /// radio button height
   final double radioHeight;
 
-  /// flag for horizontal layout
-  final bool horizontallyListed;
-
   /// Constructor for the DigitRadioList widget
   DigitRadioList({
     Key? key,
@@ -58,7 +55,6 @@ class DigitRadioList extends StatefulWidget {
     this.containerPadding = RadioConstant.defaultPadding,
     this.radioWidth = RadioConstant.radioWidth,
     this.radioHeight = RadioConstant.radioHeight,
-    this.horizontallyListed = false,
   }) : super(key: key);
 
   /// Create the state for the widget
@@ -71,6 +67,7 @@ class _DigitRadioListState extends State<DigitRadioList> {
   /// List to track whether each radio button is being hovered over
   late List<bool> isHoveredList;
   late List<bool> isMouseDown;
+  late bool isMobile;
 
   /// Initialize the state
   @override
@@ -82,117 +79,132 @@ class _DigitRadioListState extends State<DigitRadioList> {
     isMouseDown = List.generate(widget.radioButtons.length, (index) => false);
   }
 
-  /// Build the widget based on layout => default will be vertical
+  /// Build the widget layout
   @override
   Widget build(BuildContext context) {
-    if (widget.horizontallyListed) {
-      /// layout
+    isMobile = AppView.isMobileView(MediaQuery.of(context).size.width);
+    if (!isMobile) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: _buildRadioButtons(),
       );
-    } else {
-      /// Default layout
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: _buildRadioButtons(),
-      );
     }
+
+    /// Default layout
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: _buildRadioButtons(),
+    );
   }
 
   List<Widget> _buildRadioButtons() {
     return widget.radioButtons.map(
-      (button) {
+          (button) {
         final index = widget.radioButtons.indexOf(button);
         return Padding(
           padding: widget.containerPadding,
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              MouseRegion(
-                onEnter: (_) {
+              InkWell(
+                hoverColor: const DigitColors().transparent,
+                splashColor: const DigitColors().transparent,
+                highlightColor: const DigitColors().transparent,
+                onHover: (hover) {
                   setState(() {
-                    isHoveredList[index] = true;
+                    isHoveredList[index] = hover;
                   });
                 },
-                onExit: (_) {
+                onTapDown: (_) {
+                  /// Handle mouse down state
                   setState(() {
-                    isHoveredList[index] = false;
+                    isMouseDown[index] = true;
                   });
                 },
-                child: GestureDetector(
-                  onTapDown: (_) {
-                    /// Handle mouse down state
-                    setState(() {
-                      isMouseDown[index] = true;
-                    });
-                  },
-                  onTapUp: (_) {
-                    /// Handle mouse up state
-                    setState(() {
-                      isMouseDown[index] = false;
-                    });
-                  },
-                  onTap: widget.isDisabled
-                      ? null
-                      : () {
-                          setState(() {
-                            /// Update the selected value and call the onChanged callback
-                            widget.groupValue = button.code;
-                          });
-                          widget.onChanged!(widget.groupValue);
-                        },
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(kPadding / 2),
-                        width: widget.radioWidth,
-                        height: widget.radioHeight,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: widget.isDisabled
-                                ? const DigitColors().cloudGray
-                                : (widget.groupValue == button.code ||
-                                        isHoveredList[index] ||
-                                        isMouseDown[index])
-                                    ? const DigitColors().burningOrange
-                                    : const DigitColors().davyGray,
-                            width: 1.0,
-                          ),
-                          color: const DigitColors().transparent,
-                        ),
-                        child: widget.groupValue == button.code
-                            ? Container(
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: widget.isDisabled
-                                      ? const DigitColors().cloudGray
-                                      : const DigitColors().burningOrange,
-                                ),
-                              )
-                            : null,
+                onTapUp: (_) {
+                  /// Handle mouse up state
+                  setState(() {
+                    isMouseDown[index] = false;
+                  });
+                },
+                onTap: widget.isDisabled
+                    ? null
+                    : () {
+                  setState(() {
+                    /// Update the selected value and call the onChanged callback
+                    widget.groupValue = button.code;
+                  });
+                  widget.onChanged!(button);
+                },
+                child: Container(
+                  padding: const EdgeInsets.all(kPadding / 2),
+                  width: widget.radioWidth,
+                  height: widget.radioHeight,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: widget.isDisabled
+                          ? const DigitColors().cloudGray
+                          : (widget.groupValue == button.code ||
+                          isHoveredList[index] ||
+                          isMouseDown[index])
+                          ? const DigitColors().burningOrange
+                          : const DigitColors().davyGray,
+                      width: 1.0,
+                    ),
+                    color: const DigitColors().white,
+                    boxShadow: isMouseDown[index]
+                        ? [
+                      BoxShadow(
+                        color: const DigitColors().orangeBG,
+                        spreadRadius: 3,
+                        blurRadius: 3,
+                        offset: const Offset(0, 0),
                       ),
-                      const SizedBox(
-                        width: kPadding,
-                      ),
-                      Text(
-                        button.name,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: DigitTheme
-                            .instance.mobileTheme.textTheme.bodyLarge
-                            ?.copyWith(
-                          color: widget.isDisabled
-                              ? const DigitColors().cloudGray
-                              : const DigitColors().woodsmokeBlack,
-                        ),
-                      ),
-                    ],
+                    ]
+                        : [],
                   ),
+                  child: widget.groupValue == button.code
+                      ? Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: widget.isDisabled
+                          ? const DigitColors().cloudGray
+                          : const DigitColors().burningOrange,
+                    ),
+                  )
+                      : null,
+                ),
+              ),
+              const SizedBox(
+                width: kPadding,
+              ),
+              isMobile
+                  ? Expanded(
+                child: Text(
+                  button.name,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: DigitTheme
+                      .instance.mobileTheme.textTheme.bodyLarge
+                      ?.copyWith(
+                    color: widget.isDisabled
+                        ? const DigitColors().cloudGray
+                        : const DigitColors().woodsmokeBlack,
+                  ),
+                ),
+              )
+                  : Text(
+                button.name,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: DigitTheme.instance.mobileTheme.textTheme.bodyLarge
+                    ?.copyWith(
+                  color: widget.isDisabled
+                      ? const DigitColors().cloudGray
+                      : const DigitColors().woodsmokeBlack,
                 ),
               ),
             ],

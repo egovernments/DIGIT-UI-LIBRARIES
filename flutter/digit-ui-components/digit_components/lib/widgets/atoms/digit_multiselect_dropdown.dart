@@ -216,9 +216,9 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
   @override
   Widget build(BuildContext context) {
     double dropdownWidth =
-        AppView.isMobileView(MediaQuery.of(context).size.width)
-            ? Default.mobileInputWidth
-            : Default.desktopInputWidth;
+    AppView.isMobileView(MediaQuery.of(context).size.width)
+        ? Default.mobileInputWidth
+        : Default.desktopInputWidth;
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -299,7 +299,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
   /// Container decoration for disabled dropdown.
   Decoration _getDisabledContainerDecoration() {
     return BoxDecoration(
-      color: const DigitColors().cloudGray,
+      color: const DigitColors().transparent,
       borderRadius: BorderRadius.zero,
       border: Border.all(
         color: const DigitColors().cloudGray,
@@ -315,13 +315,13 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
       borderRadius: BorderRadius.zero,
       border: _selectionMode
           ? Border.all(
-              color: const DigitColors().burningOrange,
-              width: 1,
-            )
+        color: const DigitColors().burningOrange,
+        width: 1,
+      )
           : Border.all(
-              color: const DigitColors().davyGray,
-              width: 1,
-            ),
+        color: const DigitColors().davyGray,
+        width: 1,
+      ),
     );
   }
 
@@ -399,11 +399,11 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           widget.selectionType ==
-                                  SelectionType.nestedMultiSelect
+                              SelectionType.nestedMultiSelect
                               ? _buildNestedItems(values, options,
-                                  selectedOptions, dropdownState)
+                              selectedOptions, dropdownState)
                               : _buildFlatOptions(values, options,
-                                  selectedOptions, dropdownState),
+                              selectedOptions, dropdownState),
                         ],
                       ),
                     ),
@@ -431,7 +431,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
         itemBuilder: (context, index) {
           final option = options[index];
           bool isSelected = selectedOptions.any(
-              (item) => item.code == option.code && item.name == option.name);
+                  (item) => item.code == option.code && item.name == option.name);
           Color backgroundColor = index % 2 == 0
               ? const DigitColors().white
               : const DigitColors().alabasterWhite;
@@ -511,7 +511,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
               ),
             ...typeOptions.map((option) {
               bool isSelected = selectedOptions.any((item) =>
-                  item.code == option.code && item.name == option.name);
+              item.code == option.code && item.name == option.name);
               Color backgroundColor = const DigitColors().white;
 
               return DropdownOption(
@@ -592,7 +592,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
         }),
         if (_selectedOptions.isNotEmpty && !widget.isDisabled)
 
-          /// Display "Clear All" only if there are selected options
+        /// Display "Clear All" only if there are selected options
           InkWell(
             onTap: () => clear(),
             hoverColor: const DigitColors().transparent,

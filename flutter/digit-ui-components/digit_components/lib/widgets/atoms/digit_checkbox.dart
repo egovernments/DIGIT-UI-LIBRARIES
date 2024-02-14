@@ -32,7 +32,7 @@ class DigitCheckbox extends StatefulWidget {
   final String label;
 
   /// Callback function triggered when the checkbox value changes.
-  final ValueChanged<bool?>? onChanged;
+  final ValueChanged<bool> onChanged;
 
   /// Padding around the checkbox widget.
   final EdgeInsetsGeometry padding;
@@ -43,15 +43,20 @@ class DigitCheckbox extends StatefulWidget {
   /// Custom color for the checkbox icon.
   final Color? iconColor;
 
+  final MainAxisAlignment mainAxisAlignment;
+  final CrossAxisAlignment crossAxisAlignment;
+
   /// Creates a `DigitCheckbox` widget with the given parameters.
   const DigitCheckbox({
     Key? key,
     required this.label,
-    this.onChanged,
+    required this.onChanged,
     this.disabled = false,
     this.value = false,
     this.padding = CheckboxConstants.defaultPadding,
     this.iconColor,
+    this.mainAxisAlignment = MainAxisAlignment.start,
+    this.crossAxisAlignment = CrossAxisAlignment.start,
   }) : super(key: key);
 
   @override
@@ -72,49 +77,61 @@ class _DigitCheckboxState extends State<DigitCheckbox> {
     return IntrinsicWidth(
       child: Padding(
         padding: widget.padding,
-        child: GestureDetector(
-          onTap: widget.disabled
-              ? null
-              : () {
-                  setState(() {
-                    _currentState = !_currentState;
-                  });
-                  if (widget.onChanged != null) {
-                    widget.onChanged!(_currentState);
-                  }
-                },
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: CheckboxConstants.containerSize,
-                width: CheckboxConstants.containerSize,
-                child: DigitCheckboxIcon(
-                  state: _currentState
-                      ? CheckboxState.checked
-                      : CheckboxState.unchecked,
-                  isDisabled: widget.disabled,
-                  color: widget.iconColor,
-                ),
-              ),
-              const SizedBox(width: kPadding * 2),
-              Expanded(
-                child: Text(
-                  widget.label,
-                  style: DigitTheme.instance.mobileTheme.textTheme.bodyLarge
-                      ?.copyWith(
-                    color: widget.disabled
-                        ? const DigitColors().cloudGray
-                        : const DigitColors().woodsmokeBlack,
+        child: Column(
+          mainAxisAlignment: widget.mainAxisAlignment,
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: widget.crossAxisAlignment,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                InkWell(
+                  hoverColor: const DigitColors().transparent,
+                  splashColor: const DigitColors().transparent,
+                  highlightColor: const DigitColors().transparent,
+                  onTap: widget.disabled
+                      ? null
+                      : () {
+                    setState(() {
+                      _currentState = !_currentState;
+                    });
+                    widget.onChanged(_currentState);
+                  },
+                  child: SizedBox(
+                    height: CheckboxConstants.containerSize,
+                    width: CheckboxConstants.containerSize,
+                    child: DigitCheckboxIcon(
+                      state: _currentState
+                          ? CheckboxState.checked
+                          : CheckboxState.unchecked,
+                      isDisabled: widget.disabled,
+                      color: widget.iconColor,
+                    ),
                   ),
                 ),
-              ),
-            ],
-          ),
+                const SizedBox(width: kPadding),
+                Expanded(
+                  child: Align(
+                    alignment: Alignment.topCenter,
+                    child: Text(
+                      widget.label,
+                      style: DigitTheme.instance.mobileTheme.textTheme.bodyLarge
+                          ?.copyWith(
+                        color: widget.disabled
+                            ? const DigitColors().cloudGray
+                            : const DigitColors().woodsmokeBlack,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
   }
+
+
 }

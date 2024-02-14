@@ -214,9 +214,9 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
   Widget build(BuildContext context) {
     ///calculate the dropdown width based on the view
     double dropdownWidth =
-        AppView.isMobileView(MediaQuery.of(context).size.width)
-            ? Default.mobileInputWidth
-            : Default.desktopInputWidth;
+    AppView.isMobileView(MediaQuery.of(context).size.width)
+        ? Default.mobileInputWidth
+        : Default.desktopInputWidth;
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -255,9 +255,9 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
                       Expanded(
                         child: (_selectedOptions.isNotEmpty)
                             ? (widget.treeSelectionType ==
-                                    TreeSelectionType.MultiSelect)
-                                ? Text('${_selectedOptions.length} Selected')
-                                : Text(_selectedOptions.first.code.toString())
+                            TreeSelectionType.MultiSelect)
+                            ? Text('${_selectedOptions.length} Selected')
+                            : Text(_selectedOptions.first.code.toString())
                             : const SizedBox(),
                       ),
                       Icon(
@@ -307,7 +307,7 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
         }),
         if (_selectedOptions.isNotEmpty)
 
-          /// Display "Clear All" only if there are selected options
+        /// Display "Clear All" only if there are selected options
           InkWell(
             hoverColor: const DigitColors().transparent,
             splashColor: const DigitColors().transparent,
@@ -359,7 +359,7 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
   /// Container decoration for disabled dropdown.
   Decoration _getDisabledContainerDecoration() {
     return BoxDecoration(
-      color: const DigitColors().cloudGray,
+      color: const DigitColors().transparent,
       borderRadius: BorderRadius.zero,
       border: Border.all(
         color: const DigitColors().cloudGray,
@@ -375,13 +375,13 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
       borderRadius: BorderRadius.zero,
       border: _selectionMode
           ? Border.all(
-              color: const DigitColors().burningOrange,
-              width: 1,
-            )
+        color: const DigitColors().burningOrange,
+        width: 1,
+      )
           : Border.all(
-              color: const DigitColors().davyGray,
-              width: 1,
-            ),
+        color: const DigitColors().davyGray,
+        width: 1,
+      ),
     );
   }
 
@@ -490,7 +490,7 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
         itemBuilder: (context, index) {
           final option = options[index];
           bool isSelected =
-              selectedOptions.any((item) => item.name == option.name);
+          selectedOptions.any((item) => item.name == option.name);
           Color backgroundColor = index % 2 == 0
               ? const DigitColors().white
               : const DigitColors().alabasterWhite;
@@ -507,12 +507,12 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
   }
 
   Widget _buildOption(
-    TreeNode option,
-    bool isSelected,
-    StateSetter dropdownState,
-    Color backgroundColor,
-    List<TreeNode> selectedOptions,
-  ) {
+      TreeNode option,
+      bool isSelected,
+      StateSetter dropdownState,
+      Color backgroundColor,
+      List<TreeNode> selectedOptions,
+      ) {
     return TreeNodeWidget(
       currentOption: option,
       option: option,
@@ -638,7 +638,7 @@ class TreeSelectController<T> extends ValueNotifier<_TreeSelectController<T>> {
       return;
     }
     value._selectedOptions.removeWhere(
-        (item) => item.code == option.code && item.name == option.name);
+            (item) => item.code == option.code && item.name == option.name);
     notifyListeners();
   }
 
