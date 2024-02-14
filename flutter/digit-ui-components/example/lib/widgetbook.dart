@@ -14,6 +14,7 @@ import 'package:digit_components/widgets/atoms/digit_numeric_form_input.dart';
 import 'package:digit_components/widgets/atoms/digit_password_form_input.dart';
 import 'package:digit_components/widgets/atoms/digit_radio_list.dart';
 import 'package:digit_components/widgets/atoms/digit_search_form_input.dart';
+import 'package:digit_components/widgets/atoms/digit_stepper.dart';
 import 'package:digit_components/widgets/atoms/digit_text_area_form_input.dart';
 import 'package:digit_components/widgets/atoms/digit_text_form_input.dart';
 import 'package:digit_components/widgets/atoms/digit_time_form_input.dart';
@@ -1908,7 +1909,59 @@ class HotReload extends StatelessWidget {
             ),
           ],
         ),
+        WidgetbookFolder(
+          name: 'Stepper',
+          children: [
+            WidgetbookComponent(
+              name: 'Stepper',
+              useCases: [
+                WidgetbookUseCase(
+                  name: 'Default',
+                  builder: (context) => DigitStepper(
+                    activeStep:2,
+                    stepRadius: 12.5,
+                    steps: const [
+                      StepsModel(
+                        title: 'fffffffffffffff',
+                        number: '1',
+                      ),
+                      StepsModel(
+                        title: 'fffffffffffffff',
+                        number: '2',
+                      ),
+                      StepsModel(
+                        title: 'fffffffffffffff',
+                        number: '3',
+                      ),
+                      StepsModel(
+                        title: 'fffffffffffffff',
+                        number: '4',
+                      ),
+                      StepsModel(
+                        title: 'fffffffffffffff',
+                        number: '5',
+                      ),
+
+                    ],
+                    maxStepReached: 3,
+                    lineLength:
+                    (MediaQuery.of(context)
+                        .size
+                        .width -
+                        12.5 *
+                            2 *
+                            5 -
+                        50) /
+                        (5- 1),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ],
     );
   }
 }
+
+
