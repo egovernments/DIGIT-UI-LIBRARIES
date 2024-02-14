@@ -106,7 +106,7 @@ class _DigitRadioListState extends State<DigitRadioList> {
         return Padding(
           padding: widget.containerPadding,
           child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               InkWell(
                 hoverColor: const DigitColors().transparent,
@@ -152,9 +152,9 @@ class _DigitRadioListState extends State<DigitRadioList> {
                           isMouseDown[index])
                           ? const DigitColors().burningOrange
                           : const DigitColors().davyGray,
-                      width: 1.0,
+                      width: widget.isDisabled && widget.groupValue == button.code ? 2.0 : 1.0,
                     ),
-                    color: const DigitColors().white,
+                    color: isMouseDown[index] ? const DigitColors().orangeBG : const DigitColors().white,
                     boxShadow: isMouseDown[index]
                         ? [
                       BoxShadow(
@@ -190,6 +190,7 @@ class _DigitRadioListState extends State<DigitRadioList> {
                   style: DigitTheme
                       .instance.mobileTheme.textTheme.bodyLarge
                       ?.copyWith(
+                    height: 1.172,
                     color: widget.isDisabled
                         ? const DigitColors().cloudGray
                         : const DigitColors().woodsmokeBlack,
@@ -197,16 +198,17 @@ class _DigitRadioListState extends State<DigitRadioList> {
                 ),
               )
                   : Text(
-                button.name,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: DigitTheme.instance.mobileTheme.textTheme.bodyLarge
+                                  button.name,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: DigitTheme.instance.mobileTheme.textTheme.bodyLarge
                     ?.copyWith(
+                  height: 1.172,
                   color: widget.isDisabled
                       ? const DigitColors().cloudGray
                       : const DigitColors().woodsmokeBlack,
-                ),
-              ),
+                                  ),
+                                ),
             ],
           ),
         );

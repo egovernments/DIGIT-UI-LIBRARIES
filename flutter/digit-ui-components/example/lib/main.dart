@@ -121,6 +121,7 @@ class MyHomePageState extends State<MyHomePage> {
   bool showAllVariantsOfTextAreaField = false;
   bool showSearchResult = false;
   late String searchResultValue;
+  bool showAllVariantsOfRadio = false;
 
   // button variants
   bool showAllVariantsPrimaryButton = false;
@@ -533,7 +534,80 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 8,
                 ),
-                const Text('Dropdown Varients'),
+                const Divider(),
+                const SizedBox(
+                  height: 8,
+                ),
+                DigitRadioList(
+                  onChanged: (value) {},
+
+                  radioButtons: [
+                    RadioButtonModel(
+                      code: '1',
+                      name: 'One',
+                    ),
+                    RadioButtonModel(code: '2', name: 'Two'),
+                    RadioButtonModel(code: '3', name: 'Three'),
+                    // Add more radio buttons as needed
+                  ],
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                DigitCheckbox(
+                  label: "Show All The Variants Of Radio Buttons",
+                  onChanged: (value) {
+                    setState(() {
+                      showAllVariantsOfRadio = value;
+                    });
+                  },
+                ),
+                if(showAllVariantsOfRadio)
+                  Column(
+                    children: [
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      DigitRadioList(
+                        onChanged: (value) {},
+                        radioButtons: [
+                          RadioButtonModel(
+                            code: '',
+                            name: 'One',
+                          ),
+                          RadioButtonModel(code: '2', name: 'Two'),
+                          RadioButtonModel(code: '3', name: 'Three'),
+                          // Add more radio buttons as needed
+                        ],
+                      ),
+                      DigitRadioList(
+                        onChanged: (value) {},
+                        isDisabled: true,
+                        radioButtons: [
+                          RadioButtonModel(
+                            code: '',
+                            name: 'One',
+                          ),
+                          RadioButtonModel(code: '2', name: 'Two'),
+                          RadioButtonModel(code: '3', name: 'Three'),
+                          // Add more radio buttons as needed
+                        ],
+                      ),
+                      DigitRadioList(
+                        onChanged: (value) {},
+                        isDisabled: true,
+                        radioButtons: [
+                          RadioButtonModel(
+                            code: '1',
+                            name: 'One',
+                          ),
+                          RadioButtonModel(code: '2', name: 'Two'),
+                          RadioButtonModel(code: '3', name: 'Three'),
+                          // Add more radio buttons as needed
+                        ],
+                      ),
+                    ],
+                  ),
                 const SizedBox(
                   height: 8,
                 ),
@@ -541,6 +615,253 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 8,
                 ),
+                DigitToggleList(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  toggleButtons: [
+                    ToggleButtonModel(name: 'Toggle 1', code: 'key1'),
+                    ToggleButtonModel(name: 'Toggle 2', code: 'key2'),
+                    ToggleButtonModel(name: 'Toggle 3', code: 'key3'),
+                  ],
+                  selectedIndex: 1,
+                  onChanged: (selectedValues) {},
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                const Divider(),
+                const SizedBox(
+                  height: 8,
+                ),
+                Center(
+                  child: DigitButton(
+                    label: 'Primary Button',
+                    onPressed: () {},
+                    type: ButtonType.primary,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                DigitCheckbox(label: 'Show All Variants Of Primary Button', onChanged: (value){
+                  setState(() {
+                    showAllVariantsPrimaryButton = value;
+                  });
+                }),
+                if(showAllVariantsPrimaryButton)
+                  Center(
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 8),
+                        DigitButton(
+                          label: 'Primary Button With Prefix Icon',
+                          onPressed: () {},
+                          type: ButtonType.primary,
+                          prefixIcon: Icons.arrow_forward,
+                        ),
+                        const SizedBox(height: 8),
+                        DigitButton(
+                          label: 'Primary Button With Suffix Icon',
+                          onPressed: () {},
+                          type: ButtonType.primary,
+                          suffixIcon: Icons.arrow_forward,
+                        ),
+                        const SizedBox(height: 8),
+                        DigitButton(
+                          label: 'Primary Button With Disabled State',
+                          onPressed: () {},
+                          type: ButtonType.primary,
+                          isDisabled: true,
+                        ),
+                      ],
+                    ),
+                  ),
+                const SizedBox(height: 8),
+                const Divider(),
+                const SizedBox(
+                  height: 8,
+                ),
+                Center(
+                  child: DigitButton(
+                    label: 'secondary Button',
+                    onPressed: () {},
+                    type: ButtonType.secondary,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                DigitCheckbox(label: 'Show All Variants Of Secondary Button', onChanged: (value){
+                  setState(() {
+                    showAllVariantsOfSecondaryButton = value;
+                  });
+                }),
+                if(showAllVariantsOfSecondaryButton)
+                  Center(
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 8),
+                        DigitButton(
+                          label: 'Secondary Button With Prefix Icon',
+                          onPressed: () {},
+                          type: ButtonType.secondary,
+                          prefixIcon: Icons.arrow_forward,
+                        ),
+                        const SizedBox(height: 8),
+                        DigitButton(
+                          label: 'Secondary Button With Suffix Icon',
+                          onPressed: () {},
+                          type: ButtonType.secondary,
+                          suffixIcon: Icons.arrow_forward,
+                        ),
+                        const SizedBox(height: 8),
+                        DigitButton(
+                          label: 'Secondary Button With Disabled State',
+                          onPressed: () {},
+                          type: ButtonType.secondary,
+                          isDisabled: true,
+                        ),
+                      ],
+                    ),
+                  ),
+                const SizedBox(height: 8),
+                const Divider(),
+                const SizedBox(
+                  height: 8,
+                ),
+                Center(
+                  child: DigitButton(
+                    label: 'tertiary Button',
+                    onPressed: () {},
+                    type: ButtonType.tertiary,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                DigitCheckbox(label: 'Show All Variants Of Tertiary Button', onChanged: (value){
+                  setState(() {
+                    showAllVariantsOfTertiaryButton = value;
+                  });
+                }),
+                if(showAllVariantsOfTertiaryButton)
+                  Column(
+                    children: [
+                      const SizedBox(height: 8),
+                      DigitButton(
+                        label: 'Tertiary Button With Prefix Icon',
+                        onPressed: () {},
+                        type: ButtonType.tertiary,
+                        prefixIcon: Icons.arrow_forward,
+                      ),
+                      const SizedBox(height: 8),
+                      DigitButton(
+                        label: 'Tertiary Button With Suffix Icon',
+                        onPressed: () {},
+                        type: ButtonType.tertiary,
+                        suffixIcon: Icons.arrow_forward,
+                      ),
+                      const SizedBox(height: 8),
+                      DigitButton(
+                        label: 'Tertiary Button With Disabled State',
+                        onPressed: () {},
+                        type: ButtonType.tertiary,
+                        isDisabled: true,
+                      ),
+                    ],
+                  ),
+                const SizedBox(
+                  height: 8,
+                ),
+                const Divider(),
+                const SizedBox(
+                  height: 8,
+                ),
+                Center(
+                  child: DigitButton(
+                    label: 'link',
+                    onPressed: () {},
+                    type: ButtonType.link,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                DigitCheckbox(label: 'Show All Variants Of Link', onChanged: (value){
+                  setState(() {
+                    showAllVariantsOfLink = value;
+                  });
+                }),
+                if(showAllVariantsOfLink)
+                  Column(
+                    children: [
+                      const SizedBox(height: 8),
+                      DigitButton(
+                        label: 'Link With Prefix Icon',
+                        onPressed: () {},
+                        type: ButtonType.link,
+                        prefixIcon: Icons.arrow_forward,
+                      ),
+                      const SizedBox(height: 8),
+                      DigitButton(
+                        label: 'Link With Suffix Icon',
+                        onPressed: () {},
+                        type: ButtonType.link,
+                        suffixIcon: Icons.arrow_forward,
+                      ),
+                      const SizedBox(height: 8),
+                      DigitButton(
+                        label: 'Link With Disabled State',
+                        onPressed: () {},
+                        type: ButtonType.link,
+                        isDisabled: true,
+                      ),
+                    ],
+                  ),
+                const SizedBox(height: 8),
+                const Divider(),
+                const SizedBox(
+                  height: 8,
+                ),
+                DigitCheckbox(
+                  label: 'checkbox',
+                  value: false,
+                  onChanged: (value) {},
+                ),
+                const SizedBox(height: 8),
+                DigitCheckbox(label: 'Show All Variants Of Checkbox', onChanged: (value){
+                  setState(() {
+                    showAllVariantsOfCheckbox = value;
+                  });
+                }),
+                if(showAllVariantsOfCheckbox)
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 8),
+                      DigitCheckbox(
+                        label: 'CheckBox With Checked State',
+                        value: true,
+                        onChanged: (value) {},
+                      ),
+                      const SizedBox(height: 8),
+                      DigitCheckbox(
+                        label: 'Checkbox with Disabled State',
+                        value: false,
+                        disabled: true,
+                        onChanged: (value) {},
+                      ),
+                      const SizedBox(height: 8),
+                      DigitCheckbox(
+                        label: 'Checkbox With Checked and Disabled StateCheckbox With Checked and Disabled StateCheckbox With Checked and Disabled StateCheckbox With Checked and Disabled StateCheckbox With Checked and Disabled StateCheckbox With Checked and Disabled StateCheckbox With Checked and Disabled StateCheckbox With Checked and Disabled StateCheckbox With Checked and Disabled StateCheckbox With Checked and Disabled StateCheckbox With Checked and Disabled StateCheckbox With Checked and Disabled StateCheckbox With Checked and Disabled State',
+                        value: true,
+                        disabled: true,
+                        onChanged: (value) {},
+                      ),
+                    ],
+                  ),
+
+                const SizedBox(
+                  height: 8,
+                ),
+                const Divider(),
+                const SizedBox(
+                  height: 8,
+                ),
+                const Text('Dropdown Varients'),
                 DigitDropdown<int>(
                   onChange: (String value, String index) => {},
                   textEditingController: controller18,
@@ -775,226 +1096,6 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 8,
                 ),
-                DigitRadioList(
-                  onChanged: (value) {},
-                  radioButtons: [
-                    RadioButtonModel(
-                      code: '1',
-                      name: 'One',
-                    ),
-                    RadioButtonModel(code: '2', name: 'Two'),
-                    RadioButtonModel(code: '3', name: 'Three'),
-                    // Add more radio buttons as needed
-                  ],
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                DigitToggleList(
-                  toggleButtons: [
-                    ToggleButtonModel(name: 'Toggle 1', code: 'key1'),
-                    ToggleButtonModel(name: 'Toggle 2', code: 'key2'),
-                    ToggleButtonModel(name: 'Toggle 3', code: 'key3'),
-                  ],
-                  selectedIndex: 1,
-                  onChanged: (selectedValues) {},
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-
-                DigitButton(
-                  label: 'Primary Button',
-                  onPressed: () {},
-                  type: ButtonType.primary,
-                ),
-                const SizedBox(height: 8),
-                DigitCheckbox(label: 'Show All Variants Of Primary Button', onChanged: (value){
-                  setState(() {
-                    showAllVariantsPrimaryButton = value;
-                  });
-                }),
-                if(showAllVariantsPrimaryButton)
-                  Column(
-                    children: [
-                      const SizedBox(height: 8),
-                      DigitButton(
-                        label: 'Primary Button With Prefix Icon',
-                        onPressed: () {},
-                        type: ButtonType.primary,
-                        prefixIcon: Icons.arrow_forward,
-                      ),
-                      const SizedBox(height: 8),
-                      DigitButton(
-                        label: 'Primary Button With Suffix Icon',
-                        onPressed: () {},
-                        type: ButtonType.primary,
-                        suffixIcon: Icons.arrow_forward,
-                      ),
-                      const SizedBox(height: 8),
-                      DigitButton(
-                        label: 'Primary Button With Disabled State',
-                        onPressed: () {},
-                        type: ButtonType.primary,
-                        isDisabled: true,
-                      ),
-                    ],
-                  ),
-                const SizedBox(height: 8),
-                DigitButton(
-                  label: 'secondary Button',
-                  onPressed: () {},
-                  type: ButtonType.secondary,
-                ),
-                const SizedBox(height: 8),
-                DigitCheckbox(label: 'Show All Variants Of Secondary Button', onChanged: (value){
-                  setState(() {
-                    showAllVariantsOfSecondaryButton = value;
-                  });
-                }),
-                if(showAllVariantsOfSecondaryButton)
-                  Column(
-                    children: [
-                      const SizedBox(height: 8),
-                      DigitButton(
-                        label: 'Secondary Button With Prefix Icon',
-                        onPressed: () {},
-                        type: ButtonType.secondary,
-                        prefixIcon: Icons.arrow_forward,
-                      ),
-                      const SizedBox(height: 8),
-                      DigitButton(
-                        label: 'Secondary Button With Suffix Icon',
-                        onPressed: () {},
-                        type: ButtonType.secondary,
-                        suffixIcon: Icons.arrow_forward,
-                      ),
-                      const SizedBox(height: 8),
-                      DigitButton(
-                        label: 'Secondary Button With Disabled State',
-                        onPressed: () {},
-                        type: ButtonType.secondary,
-                        isDisabled: true,
-                      ),
-                    ],
-                  ),
-                const SizedBox(height: 8),
-                DigitButton(
-                  label: 'tertiary Button',
-                  onPressed: () {},
-                  type: ButtonType.tertiary,
-                ),
-                const SizedBox(height: 8),
-                DigitCheckbox(label: 'Show All Variants Of Tertiary Button', onChanged: (value){
-                  setState(() {
-                    showAllVariantsOfTertiaryButton = value;
-                  });
-                }),
-                if(showAllVariantsOfTertiaryButton)
-                  Column(
-                    children: [
-                      const SizedBox(height: 8),
-                      DigitButton(
-                        label: 'Tertiary Button With Prefix Icon',
-                        onPressed: () {},
-                        type: ButtonType.tertiary,
-                        prefixIcon: Icons.arrow_forward,
-                      ),
-                      const SizedBox(height: 8),
-                      DigitButton(
-                        label: 'Tertiary Button With Suffix Icon',
-                        onPressed: () {},
-                        type: ButtonType.tertiary,
-                        suffixIcon: Icons.arrow_forward,
-                      ),
-                      const SizedBox(height: 8),
-                      DigitButton(
-                        label: 'Tertiary Button With Disabled State',
-                        onPressed: () {},
-                        type: ButtonType.tertiary,
-                        isDisabled: true,
-                      ),
-                    ],
-                  ),
-                const SizedBox(
-                  height: 8,
-                ),
-                DigitButton(
-                  label: 'link',
-                  onPressed: () {},
-                  type: ButtonType.link,
-                ),
-                const SizedBox(height: 8),
-                DigitCheckbox(label: 'Show All Variants Of Link', onChanged: (value){
-                  setState(() {
-                    showAllVariantsOfLink = value;
-                  });
-                }),
-                if(showAllVariantsOfLink)
-                  Column(
-                    children: [
-                      const SizedBox(height: 8),
-                      DigitButton(
-                        label: 'Link With Prefix Icon',
-                        onPressed: () {},
-                        type: ButtonType.link,
-                        prefixIcon: Icons.arrow_forward,
-                      ),
-                      const SizedBox(height: 8),
-                      DigitButton(
-                        label: 'Link With Suffix Icon',
-                        onPressed: () {},
-                        type: ButtonType.link,
-                        suffixIcon: Icons.arrow_forward,
-                      ),
-                      const SizedBox(height: 8),
-                      DigitButton(
-                        label: 'Link With Disabled State',
-                        onPressed: () {},
-                        type: ButtonType.link,
-                        isDisabled: true,
-                      ),
-                    ],
-                  ),
-                const SizedBox(height: 8),
-                DigitCheckbox(
-                  label: 'checkbox',
-                  value: false,
-                  onChanged: (value) {},
-                ),
-                const SizedBox(height: 8),
-                DigitCheckbox(label: 'Show All Variants Of Checkbox', onChanged: (value){
-                  setState(() {
-                    showAllVariantsOfCheckbox = value;
-                  });
-                }),
-                if(showAllVariantsOfCheckbox)
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: 8),
-                      DigitCheckbox(
-                        label: 'CheckBox With Checked State',
-                        value: true,
-                        onChanged: (value) {},
-                      ),
-                      const SizedBox(height: 8),
-                      DigitCheckbox(
-                        label: 'Checkbox with Disabled State',
-                        value: false,
-                        disabled: true,
-                        onChanged: (value) {},
-                      ),
-                      const SizedBox(height: 8),
-                      DigitCheckbox(
-                        label: 'Checkbox With Checked and Disabled StateCheckbox With Checked and Disabled StateCheckbox With Checked and Disabled StateCheckbox With Checked and Disabled StateCheckbox With Checked and Disabled StateCheckbox With Checked and Disabled StateCheckbox With Checked and Disabled StateCheckbox With Checked and Disabled StateCheckbox With Checked and Disabled StateCheckbox With Checked and Disabled StateCheckbox With Checked and Disabled StateCheckbox With Checked and Disabled StateCheckbox With Checked and Disabled State',
-                        value: true,
-                        disabled: true,
-                        onChanged: (value) {},
-                      ),
-                    ],
-                  ),
               ],
             ),
           ),

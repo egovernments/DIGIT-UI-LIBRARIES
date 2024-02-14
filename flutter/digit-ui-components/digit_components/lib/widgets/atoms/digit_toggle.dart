@@ -60,6 +60,7 @@ class _DigitToggleState extends State<DigitToggle> {
           child: Container(
             height: 32,
             width: widget.maxLabelWidth+40,
+            padding: widget.isSelected ? const EdgeInsets.all(2.0) : const EdgeInsets.symmetric(horizontal: 2.0),
             constraints: const BoxConstraints(
               minWidth: 40,
               maxWidth: 200,
@@ -96,6 +97,7 @@ class _DigitToggleState extends State<DigitToggle> {
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
                     style: DigitTheme.instance.mobileTheme.textTheme.bodyMedium?.copyWith(
+                      height: 1.5,
                       color: (isHovered && !widget.isSelected || isMouseDown)
                           ? const DigitColors().burningOrange
                           : widget.isSelected
