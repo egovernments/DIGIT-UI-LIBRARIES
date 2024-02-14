@@ -65,6 +65,7 @@ class DigitCheckbox extends StatefulWidget {
 
 class _DigitCheckboxState extends State<DigitCheckbox> {
   late bool _currentState;
+  bool isHovered = false;
 
   @override
   void initState() {
@@ -90,6 +91,11 @@ class _DigitCheckboxState extends State<DigitCheckbox> {
                   hoverColor: const DigitColors().transparent,
                   splashColor: const DigitColors().transparent,
                   highlightColor: const DigitColors().transparent,
+                  onHover: (hover) {
+                    setState(() {
+                      isHovered = hover;
+                    });
+                  },
                   onTap: widget.disabled
                       ? null
                       : () {
@@ -106,11 +112,11 @@ class _DigitCheckboxState extends State<DigitCheckbox> {
                           ? CheckboxState.checked
                           : CheckboxState.unchecked,
                       isDisabled: widget.disabled,
-                      color: widget.iconColor,
+                      color: isHovered ? const DigitColors().burningOrange :widget.iconColor,
                     ),
                   ),
                 ),
-                const SizedBox(width: kPadding),
+                const SizedBox(width: kPadding*2),
                 Expanded(
                   child: Align(
                     alignment: Alignment.topCenter,
@@ -118,6 +124,7 @@ class _DigitCheckboxState extends State<DigitCheckbox> {
                       widget.label,
                       style: DigitTheme.instance.mobileTheme.textTheme.bodyLarge
                           ?.copyWith(
+                        height: 1.5,
                         color: widget.disabled
                             ? const DigitColors().cloudGray
                             : const DigitColors().woodsmokeBlack,
