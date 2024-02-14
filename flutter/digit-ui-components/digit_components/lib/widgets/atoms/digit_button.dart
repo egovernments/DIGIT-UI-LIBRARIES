@@ -204,7 +204,7 @@ class _DigitButtonState extends State<DigitButton> {
                     color: widget.isDisabled
                         ? DigitButtonConstants.defaultDisabledColor
                         : DigitButtonConstants.defaultPrimaryColor,
-                    width: isHovered
+                    width: isHovered || isMouseDown
                         ? DigitButtonConstants.defaultHoverWidth
                         : DigitButtonConstants.defaultWidth,
                   ),
@@ -265,7 +265,7 @@ class _DigitButtonState extends State<DigitButton> {
             if (widget.prefixIcon != null) ...[
               Icon(
                 widget.prefixIcon,
-                size: widget.iconSize,
+                size: widget.type == ButtonType.link ? 20 : widget.iconSize,
                 color: widget.type == ButtonType.primary
                     ? DigitButtonConstants.defaultTextColor
                     : (widget.isDisabled
@@ -280,6 +280,7 @@ class _DigitButtonState extends State<DigitButton> {
                 style: widget.type == ButtonType.link
                     ? DigitTheme.instance.mobileTheme.textTheme.bodyLarge
                     ?.copyWith(
+                  height: 1.172,
                   color: widget.isDisabled
                       ? DigitButtonConstants.defaultDisabledColor
                       : DigitButtonConstants.defaultPrimaryColor,
@@ -289,6 +290,7 @@ class _DigitButtonState extends State<DigitButton> {
                       : DigitButtonConstants.defaultPrimaryColor,)
                     : DigitTheme.instance.mobileTheme.textTheme.labelLarge
                     ?.copyWith(
+                  height: 1.5,
                   color: widget.type == ButtonType.primary
                       ? DigitButtonConstants.defaultTextColor
                       : (widget.isDisabled
@@ -302,7 +304,7 @@ class _DigitButtonState extends State<DigitButton> {
               const SizedBox(width: kPadding / 2),
               Icon(
                 widget.suffixIcon,
-                size: widget.iconSize,
+                size: widget.type == ButtonType.link ? 20 : widget.iconSize,
                 color: widget.type == ButtonType.primary
                     ? DigitButtonConstants.defaultTextColor
                     : (widget.isDisabled
