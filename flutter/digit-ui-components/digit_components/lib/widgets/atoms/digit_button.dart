@@ -255,66 +255,64 @@ class _DigitButtonState extends State<DigitButton> {
       truncatedLabel =
       truncatedLabel.isEmpty ? truncatedLabel : truncatedLabel[0].toUpperCase() + truncatedLabel.substring(1);
     }
-    return Center(
-      child: Padding(
-        padding: widget.contentPadding,
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            if (widget.prefixIcon != null) ...[
-              Icon(
-                widget.prefixIcon,
-                size: widget.type == ButtonType.link ? 20 : widget.iconSize,
+    return Padding(
+      padding: widget.contentPadding,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          if (widget.prefixIcon != null) ...[
+            Icon(
+              widget.prefixIcon,
+              size: widget.type == ButtonType.link ? 20 : widget.iconSize,
+              color: widget.type == ButtonType.primary
+                  ? DigitButtonConstants.defaultTextColor
+                  : (widget.isDisabled
+                  ? DigitButtonConstants.defaultDisabledColor
+                  : DigitButtonConstants.defaultPrimaryColor),
+            ),
+            const SizedBox(width: kPadding),
+          ],
+          Flexible(
+            child: Text(
+              truncatedLabel,
+              style: widget.type == ButtonType.link
+                  ? DigitTheme.instance.mobileTheme.textTheme.bodyLarge
+                  ?.copyWith(
+                height: 1.172,
+                color: widget.isDisabled
+                    ? DigitButtonConstants.defaultDisabledColor
+                    : DigitButtonConstants.defaultPrimaryColor,
+                decoration: TextDecoration.underline,
+                decorationColor: widget.isDisabled
+                    ? DigitButtonConstants.defaultDisabledColor
+                    : DigitButtonConstants.defaultPrimaryColor,)
+                  : DigitTheme.instance.mobileTheme.textTheme.labelLarge
+                  ?.copyWith(
+                height: 1.5,
                 color: widget.type == ButtonType.primary
                     ? DigitButtonConstants.defaultTextColor
                     : (widget.isDisabled
                     ? DigitButtonConstants.defaultDisabledColor
                     : DigitButtonConstants.defaultPrimaryColor),
-              ),
-              const SizedBox(width: kPadding),
-            ],
-            Flexible(
-              child: Text(
-                truncatedLabel,
-                style: widget.type == ButtonType.link
-                    ? DigitTheme.instance.mobileTheme.textTheme.bodyLarge
-                    ?.copyWith(
-                  height: 1.172,
-                  color: widget.isDisabled
-                      ? DigitButtonConstants.defaultDisabledColor
-                      : DigitButtonConstants.defaultPrimaryColor,
-                  decoration: TextDecoration.underline,
-                  decorationColor: widget.isDisabled
-                      ? DigitButtonConstants.defaultDisabledColor
-                      : DigitButtonConstants.defaultPrimaryColor,)
-                    : DigitTheme.instance.mobileTheme.textTheme.labelLarge
-                    ?.copyWith(
-                  height: 1.5,
-                  color: widget.type == ButtonType.primary
-                      ? DigitButtonConstants.defaultTextColor
-                      : (widget.isDisabled
-                      ? DigitButtonConstants.defaultDisabledColor
-                      : DigitButtonConstants.defaultPrimaryColor),
-                  overflow: TextOverflow.ellipsis,
-                ),
+                overflow: TextOverflow.ellipsis,
               ),
             ),
-            if (widget.suffixIcon != null) ...[
-              const SizedBox(width: kPadding),
-              Icon(
-                widget.suffixIcon,
-                size: widget.type == ButtonType.link ? 20 : widget.iconSize,
-                color: widget.type == ButtonType.primary
-                    ? DigitButtonConstants.defaultTextColor
-                    : (widget.isDisabled
-                    ? DigitButtonConstants.defaultDisabledColor
-                    : DigitButtonConstants.defaultPrimaryColor),
-              ),
-            ],
+          ),
+          if (widget.suffixIcon != null) ...[
+            const SizedBox(width: kPadding),
+            Icon(
+              widget.suffixIcon,
+              size: widget.type == ButtonType.link ? 20 : widget.iconSize,
+              color: widget.type == ButtonType.primary
+                  ? DigitButtonConstants.defaultTextColor
+                  : (widget.isDisabled
+                  ? DigitButtonConstants.defaultDisabledColor
+                  : DigitButtonConstants.defaultPrimaryColor),
+            ),
           ],
-        ),
+        ],
       ),
     );
   }
