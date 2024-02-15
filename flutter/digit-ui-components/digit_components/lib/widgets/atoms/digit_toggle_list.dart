@@ -39,7 +39,7 @@ class DigitToggleList extends StatefulWidget {
     this.contentPadding,
     required this.selectedIndex,
     this.mainAxisAlignment = MainAxisAlignment.start,
-    this.crossAxisAlignment = CrossAxisAlignment.start,
+    this.crossAxisAlignment = CrossAxisAlignment.center,
   }) : super(key: key);
 
   @override
@@ -59,7 +59,7 @@ class _DigitToggleListState extends State<DigitToggleList> {
   }
 
   double _calculateMaxLabelWidth() {
-    double maxLabelWidth = (MediaQuery.of(context).size.width)/3 -40;
+    double maxLabelWidth = (MediaQuery.of(context).size.width)/3 -46;
     double maxLabel =0;
     for (ToggleButtonModel button in widget.toggleButtons) {
       TextPainter textPainter = TextPainter(

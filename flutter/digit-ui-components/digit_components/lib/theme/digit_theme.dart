@@ -34,6 +34,9 @@ class DigitTheme {
       scaffoldBackgroundColor: colorScheme.background,
       textTheme: mobileTypography.textTheme,
       appBarTheme: const AppBarTheme(elevation: 0),
+      elevatedButtonTheme: elevatedButtonTheme,
+      outlinedButtonTheme: outlinedButtonTheme,
+      textButtonTheme: textButtonTheme,
       cardTheme: cardTheme,
       inputDecorationTheme: inputDecorationTheme,
       dialogTheme: dialogTheme,
@@ -79,7 +82,36 @@ class DigitTheme {
     borderRadius: BorderRadius.all(Radius.zero),
   );
 
+  ElevatedButtonThemeData get elevatedButtonTheme => ElevatedButtonThemeData(
+    style: ElevatedButton.styleFrom(
+      shape: buttonBorder,
+      padding: buttonPadding,
+      backgroundColor: colorScheme.secondary,
+      foregroundColor: colorScheme.onSecondary,
+      disabledBackgroundColor: colorScheme.secondary.withOpacity(
+        0.5,
+      ),
+      disabledForegroundColor: colorScheme.onSecondary,
+      elevation: 0,
+    ),
+  );
 
+  OutlinedButtonThemeData get outlinedButtonTheme => OutlinedButtonThemeData(
+    style: OutlinedButton.styleFrom(
+      foregroundColor: colorScheme.secondary,
+      side: BorderSide(color: colorScheme.secondary),
+      padding: buttonPadding,
+    ),
+  );
+
+  TextButtonThemeData get textButtonTheme => TextButtonThemeData(
+    style: TextButton.styleFrom(
+      shape: buttonBorder,
+      padding: buttonPadding,
+      textStyle: const TextStyle(fontSize: 16),
+      foregroundColor: colorScheme.secondary,
+    ),
+  );
 
   CardTheme get cardTheme => const CardTheme(
     margin: EdgeInsets.fromLTRB(kPadding, kPadding * 2, kPadding, 0),

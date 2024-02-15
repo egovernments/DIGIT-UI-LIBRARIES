@@ -70,7 +70,7 @@ class _DigitToggleState extends State<DigitToggle> {
               border: Border.all(
                 color: (isHovered || widget.isSelected || isMouseDown)
                     ? const DigitColors().burningOrange
-                    : const DigitColors().cloudGray,
+                    : const DigitColors().quillGray,
                 width: 1.0,
               ),
               color: widget.isSelected
@@ -96,9 +96,16 @@ class _DigitToggleState extends State<DigitToggle> {
                     widget.label,
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
-                    style: DigitTheme.instance.mobileTheme.textTheme.bodyMedium?.copyWith(
+                    style: widget.isSelected
+                   ? DigitTheme.instance.mobileTheme.textTheme.bodyMedium?.copyWith(
+                        height: 1.5,
+                        fontWeight: FontWeight.w700,
+                        color: const DigitColors().white,
+                        overflow: TextOverflow.ellipsis,
+                    )
+                    :DigitTheme.instance.mobileTheme.textTheme.bodyMedium?.copyWith(
                       height: 1.5,
-                      color: (isHovered && !widget.isSelected || isMouseDown)
+                      color: (isHovered || isMouseDown)
                           ? const DigitColors().burningOrange
                           : widget.isSelected
                           ? const DigitColors().white
