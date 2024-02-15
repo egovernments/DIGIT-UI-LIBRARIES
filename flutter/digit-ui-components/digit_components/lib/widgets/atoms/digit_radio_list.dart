@@ -146,20 +146,23 @@ class _DigitRadioListState extends State<DigitRadioList> {
                     shape: BoxShape.circle,
                     border: Border.all(
                       color: widget.isDisabled
-                          ? const DigitColors().cloudGray
+                          ? const DigitColors().quillGray
                           : (widget.groupValue == button.code ||
                                   isHoveredList[index] ||
                                   isMouseDown[index])
                               ? const DigitColors().burningOrange
                               : const DigitColors().davyGray,
-                      width:
-                          (widget.isDisabled && widget.groupValue == button.code) || widget.groupValue == button.code
-                              ? 2.0
-                              : 1.0,
+                      width: (widget.isDisabled &&
+                                  widget.groupValue == button.code) ||
+                              widget.groupValue == button.code
+                          ? 2.0
+                          : 1.0,
                     ),
-                    color: isMouseDown[index]
-                        ? const DigitColors().orangeBG
-                        : const DigitColors().white,
+                    color: widget.isDisabled
+                        ? const DigitColors().alabasterWhite
+                        : isMouseDown[index]
+                            ? const DigitColors().orangeBG
+                            : const DigitColors().white,
                     boxShadow: isMouseDown[index]
                         ? [
                             BoxShadow(
