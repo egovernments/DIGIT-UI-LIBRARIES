@@ -342,7 +342,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> with WidgetsBind
                             focusNode: myFocusNode,
                             obscureText: isVisible,
                             controller: widget.controller,
-                            readOnly: widget.readOnly || widget.isEditable,
+                            readOnly: widget.readOnly,
                             enabled: !widget.isDisabled,
                             autovalidateMode: AutovalidateMode.disabled,
                             minLines: widget.textAreaScroll ==
