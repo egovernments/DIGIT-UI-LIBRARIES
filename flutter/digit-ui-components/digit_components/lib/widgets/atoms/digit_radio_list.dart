@@ -101,7 +101,7 @@ class _DigitRadioListState extends State<DigitRadioList> {
 
   List<Widget> _buildRadioButtons() {
     return widget.radioButtons.map(
-          (button) {
+      (button) {
         final index = widget.radioButtons.indexOf(button);
         return Padding(
           padding: widget.containerPadding,
@@ -132,12 +132,12 @@ class _DigitRadioListState extends State<DigitRadioList> {
                 onTap: widget.isDisabled
                     ? null
                     : () {
-                  setState(() {
-                    /// Update the selected value and call the onChanged callback
-                    widget.groupValue = button.code;
-                  });
-                  widget.onChanged!(button);
-                },
+                        setState(() {
+                          /// Update the selected value and call the onChanged callback
+                          widget.groupValue = button.code;
+                        });
+                        widget.onChanged!(button);
+                      },
                 child: Container(
                   padding: const EdgeInsets.all(kPadding / 2),
                   width: widget.radioWidth,
@@ -148,33 +148,40 @@ class _DigitRadioListState extends State<DigitRadioList> {
                       color: widget.isDisabled
                           ? const DigitColors().cloudGray
                           : (widget.groupValue == button.code ||
-                          isHoveredList[index] ||
-                          isMouseDown[index])
-                          ? const DigitColors().burningOrange
-                          : const DigitColors().davyGray,
-                      width: widget.isDisabled && widget.groupValue == button.code ? 2.0 : 1.0,
+                                  isHoveredList[index] ||
+                                  isMouseDown[index])
+                              ? const DigitColors().burningOrange
+                              : const DigitColors().davyGray,
+                      width:
+                          (widget.isDisabled && widget.groupValue == button.code) || widget.groupValue == button.code
+                              ? 2.0
+                              : 1.0,
                     ),
-                    color: isMouseDown[index] ? const DigitColors().orangeBG : const DigitColors().white,
+                    color: isMouseDown[index]
+                        ? const DigitColors().orangeBG
+                        : const DigitColors().white,
                     boxShadow: isMouseDown[index]
                         ? [
-                      BoxShadow(
-                        color: const DigitColors().orangeBG,
-                        spreadRadius: 3,
-                        blurRadius: 3,
-                        offset: const Offset(0, 0),
-                      ),
-                    ]
+                            BoxShadow(
+                              color: const DigitColors().orangeBG,
+                              spreadRadius: 3,
+                              blurRadius: 3,
+                              offset: const Offset(0, 0),
+                            ),
+                          ]
                         : [],
                   ),
                   child: widget.groupValue == button.code
                       ? Container(
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: widget.isDisabled
-                          ? const DigitColors().cloudGray
-                          : const DigitColors().burningOrange,
-                    ),
-                  )
+                          height: 12,
+                          width: 12,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: widget.isDisabled
+                                ? const DigitColors().cloudGray
+                                : const DigitColors().burningOrange,
+                          ),
+                        )
                       : null,
                 ),
               ),
@@ -183,32 +190,32 @@ class _DigitRadioListState extends State<DigitRadioList> {
               ),
               isMobile
                   ? Expanded(
-                child: Text(
-                  button.name,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: DigitTheme
-                      .instance.mobileTheme.textTheme.bodyLarge
-                      ?.copyWith(
-                    height: 1.172,
-                    color: widget.isDisabled
-                        ? const DigitColors().cloudGray
-                        : const DigitColors().woodsmokeBlack,
-                  ),
-                ),
-              )
+                      child: Text(
+                        button.name,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: DigitTheme
+                            .instance.mobileTheme.textTheme.bodyLarge
+                            ?.copyWith(
+                          height: 1.172,
+                          color: widget.isDisabled
+                              ? const DigitColors().cloudGray
+                              : const DigitColors().woodsmokeBlack,
+                        ),
+                      ),
+                    )
                   : Text(
-                                  button.name,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: DigitTheme.instance.mobileTheme.textTheme.bodyLarge
-                    ?.copyWith(
-                  height: 1.172,
-                  color: widget.isDisabled
-                      ? const DigitColors().cloudGray
-                      : const DigitColors().woodsmokeBlack,
-                                  ),
-                                ),
+                      button.name,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: DigitTheme.instance.mobileTheme.textTheme.bodyLarge
+                          ?.copyWith(
+                        height: 1.172,
+                        color: widget.isDisabled
+                            ? const DigitColors().cloudGray
+                            : const DigitColors().woodsmokeBlack,
+                      ),
+                    ),
             ],
           ),
         );

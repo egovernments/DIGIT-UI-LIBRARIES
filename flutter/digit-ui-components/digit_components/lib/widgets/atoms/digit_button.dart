@@ -233,6 +233,7 @@ class _DigitButtonState extends State<DigitButton> {
           onTap: widget.isDisabled ? null : widget.onPressed,
           hoverColor: const DigitColors().transparent.withOpacity(0),
           splashColor: const DigitColors().transparent.withOpacity(0),
+          highlightColor: const DigitColors().transparent,
           child: IntrinsicWidth(
             child: _buildButton(),),
         );
@@ -272,7 +273,7 @@ class _DigitButtonState extends State<DigitButton> {
                     ? DigitButtonConstants.defaultDisabledColor
                     : DigitButtonConstants.defaultPrimaryColor),
               ),
-              const SizedBox(width: kPadding / 2),
+              const SizedBox(width: kPadding),
             ],
             Flexible(
               child: Text(
@@ -301,7 +302,7 @@ class _DigitButtonState extends State<DigitButton> {
               ),
             ),
             if (widget.suffixIcon != null) ...[
-              const SizedBox(width: kPadding / 2),
+              const SizedBox(width: kPadding),
               Icon(
                 widget.suffixIcon,
                 size: widget.type == ButtonType.link ? 20 : widget.iconSize,
