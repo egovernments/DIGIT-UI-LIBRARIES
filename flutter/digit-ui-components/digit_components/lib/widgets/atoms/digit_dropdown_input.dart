@@ -99,6 +99,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
   late bool isMouseDown;
   int _focusedIndex = -1;
   late ScrollController _scrollController;
+  late bool isMouseUsed;
 
   @override
   void initState() {
@@ -109,6 +110,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
     _itemHoverStates = {};
     _itemMouseDownStates = {};
     isMouseDown = true;
+    isMouseUsed = false;
 
     _scrollController = ScrollController();
 
@@ -363,6 +365,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                     highlightColor: const DigitColors().transparent,
                     onHover: (hover) {
                       setState(() {
+                        isMouseUsed = hover;
                         _itemHoverStates[filteredItems[index].code] = hover;
                       });
                     },

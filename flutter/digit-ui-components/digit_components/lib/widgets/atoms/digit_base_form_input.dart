@@ -456,13 +456,13 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> with WidgetsBind
               DigitTheme.instance.mobileTheme.textTheme.headlineLarge
                   ?.copyWith(
                 height: 1.3,
-                color: const DigitColors().davyGray,
+                color: widget.readOnly ? const DigitColors().davyGray :const DigitColors().woodsmokeBlack,
               )
                   :
               DigitTheme.instance.mobileTheme.textTheme.bodyLarge
                   ?.copyWith(
                 height: 1.5,
-                color: const DigitColors().davyGray,
+                color: widget.readOnly ? const DigitColors().davyGray :const DigitColors().woodsmokeBlack,
               ),
               decoration: InputDecoration(
                 counterText: '',
@@ -557,15 +557,18 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> with WidgetsBind
                       ),
                     ),
                     child: Center(
-                      child: Text(
-                        widget.suffixText!,
-                        style: DigitTheme
-                            .instance.mobileTheme.textTheme.headlineLarge
-                            ?.copyWith(
-                          height: 1.758,
-                          color: widget.isDisabled
-                              ? const DigitColors().quillGray
-                              : const DigitColors().davyGray,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 2, bottom: 4, top: 0),
+                        child: Text(
+                          widget.suffixText!,
+                          style: DigitTheme
+                              .instance.mobileTheme.textTheme.headlineLarge
+                              ?.copyWith(
+                            height: 1.758,
+                            color: widget.isDisabled
+                                ? const DigitColors().quillGray
+                                : const DigitColors().davyGray,
+                          ),
                         ),
                       ),
                     ),
@@ -656,7 +659,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> with WidgetsBind
                         ? Expanded(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Icon(
                             Icons.info,

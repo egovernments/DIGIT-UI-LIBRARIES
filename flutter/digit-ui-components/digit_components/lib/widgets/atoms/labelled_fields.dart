@@ -88,7 +88,7 @@ class LabeledField extends StatelessWidget {
                       triggerMode: triggerMode,
                       child: Icon(
                         Icons.info_outline,
-                        size: 15.83,
+                        size: 19,
                         color: const DigitColors().davyGray,
                       ),
                     )
