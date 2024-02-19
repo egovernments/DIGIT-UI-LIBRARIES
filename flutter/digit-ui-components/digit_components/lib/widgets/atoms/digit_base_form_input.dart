@@ -626,13 +626,14 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                 widget.charCount != null ||
                 _hasError)
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   if (widget.helpText != null || _hasError)
                     _hasError
                         ? Expanded(
                             child: Row(
+                              mainAxisSize: MainAxisSize.min,
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [

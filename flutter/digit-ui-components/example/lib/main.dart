@@ -202,7 +202,7 @@ class MyHomePageState extends State<MyHomePage> {
                           Validator(ValidatorType.maxLength, 10,
                               errorMessage: 'Maximum length is 10.'),
                           Validator(ValidatorType.pattern, r'^[a-zA-Z0-9]+$',
-                              errorMessage: 'Invalid format.'),
+                              errorMessage: 'Error'),
                         ],
                       ),
                       DigitTextFormInput(
