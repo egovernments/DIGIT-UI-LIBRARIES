@@ -138,7 +138,7 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
               border: Border.all(
                 color:  Colors.transparent,
               ),
-              color: const DigitColors().white,
+              color: const DigitColors().lightPaperPrimary,
             ),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: kPadding*2,),
@@ -151,7 +151,7 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
                         child: Icon(
                           Icons.arrow_drop_down,
                           size: 24,
-                          color: const DigitColors().woodsmokeBlack,
+                          color: const DigitColors().lightTextPrimary,
                         ),
                       ),
                       if (widget.treeSelectionType == TreeSelectionType.MultiSelect) const SizedBox(width: kPadding/2,),
@@ -186,7 +186,7 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
                         widget.currentOption.name,
                         style: DigitTheme.instance.mobileTheme.textTheme.headlineSmall
                             ?.copyWith(
-                          color: const DigitColors().davyGray,
+                          color: const DigitColors().lightTextSecondary,
                         ),
                       ),
                     ],
@@ -199,7 +199,7 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
                         decoration: BoxDecoration(
                           border: Border(
                             left: BorderSide(
-                              color: const DigitColors().quillGray,
+                              color: const DigitColors().lightGenericDivider,
                               width: 1.0,
                             ),
                             top: BorderSide.none,

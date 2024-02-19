@@ -64,11 +64,11 @@ class _DropdownOptionState extends State<DropdownOption> {
                   border: Border.all(
                     color: _itemMouseDownStates[widget.option] == true ||
                         _itemHoverStates[widget.option] == true
-                        ? const DigitColors().burningOrange
+                        ? const DigitColors().lightPrimaryOrange
                         : Colors.transparent,
                   ),
                   color: _itemMouseDownStates[widget.option] == true || widget.isSelected
-                      ? const DigitColors().burningOrange
+                      ? const DigitColors().lightPrimaryOrange
                       : _itemHoverStates[widget.option] == true
                       ? const DigitColors().orangeBG
                       : widget.backgroundColor,
@@ -83,7 +83,7 @@ class _DropdownOptionState extends State<DropdownOption> {
                       widget.isSelected || _itemMouseDownStates[widget.option] == true
                           ? DigitCheckboxIcon(
                         state: CheckboxState.checked,
-                        color: const DigitColors().white,
+                        color: const DigitColors().lightPaperPrimary,
                       )
                           : const DigitCheckboxIcon(
                           state: CheckboxState.unchecked),
@@ -101,8 +101,8 @@ class _DropdownOptionState extends State<DropdownOption> {
                                   size: DropdownConstants.textIconSize,
                                   color: widget.isSelected ||
                                       _itemMouseDownStates[widget.option] == true
-                                      ? const DigitColors().white
-                                      : const DigitColors().davyGray,
+                                      ? const DigitColors().lightPaperPrimary
+                                      : const DigitColors().lightTextSecondary,
                                 ),
                               if (widget.option.textIcon != null)
                                 const SizedBox(
@@ -119,8 +119,8 @@ class _DropdownOptionState extends State<DropdownOption> {
                                   color: widget.isSelected ||
                                       _itemMouseDownStates[widget.option] ==
                                           true
-                                      ? const DigitColors().white
-                                      : const DigitColors().davyGray,
+                                      ? const DigitColors().lightPaperPrimary
+                                      : const DigitColors().lightTextSecondary,
                                 ),
                               ),
                             ],
@@ -136,8 +136,8 @@ class _DropdownOptionState extends State<DropdownOption> {
                                   ?.copyWith(
                                 color: widget.isSelected ||
                                     _itemMouseDownStates[widget.option] == true
-                                    ? const DigitColors().white
-                                    : const DigitColors().davyGray,
+                                    ? const DigitColors().lightPaperPrimary
+                                    : const DigitColors().lightTextSecondary,
                               ),
                             ),
                         ],
@@ -152,7 +152,7 @@ class _DropdownOptionState extends State<DropdownOption> {
         if (widget.selectionType == SelectionType.nestedMultiSelect)
           Container(
             height: 1,
-            color: const DigitColors().quillGray,
+            color: const DigitColors().lightGenericDivider,
             width: MediaQuery.of(context).size.width,
             margin: const EdgeInsets.only(
               left: 10,

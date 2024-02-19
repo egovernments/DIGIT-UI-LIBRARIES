@@ -88,7 +88,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
     with TickerProviderStateMixin {
   final FocusNode _focusNode = FocusNode();
   final LayerLink _layerLink = LayerLink();
-  late OverlayEntry _overlayEntry;
+  late OverlayEntry? _overlayEntry;
   bool _isOpen = false;
   String _currentIndex = '';
   String _nestedIndex = '';
@@ -98,8 +98,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
   late Map<String, bool> _itemHoverStates;
   late bool isMouseDown;
   int _focusedIndex = -1;
-  late ScrollController _scrollController;
-  late bool isMouseUsed;
+  late bool _isMouseUsed;
 
   @override
   void initState() {
@@ -110,9 +109,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
     _itemHoverStates = {};
     _itemMouseDownStates = {};
     isMouseDown = true;
-    isMouseUsed = false;
-
-    _scrollController = ScrollController();
+    _isMouseUsed = false;
 
     /// if there is a selectedOption
     if (widget.selectedOption != null) {
@@ -136,8 +133,8 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
 
     /// Check if _overlayEntry is not null before removing and disposing
     if (_overlayEntry != null) {
-      _overlayEntry.remove();
-      _overlayEntry.dispose();
+      _overlayEntry?.remove();
+      _overlayEntry?.dispose();
     }
     super.dispose();
   }
@@ -168,14 +165,12 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
     return RawKeyboardListener(
       focusNode: FocusNode(),
       onKey: (RawKeyEvent event) {
-        // Check for arrow up and arrow down key events
+        /// Check for arrow up and arrow down key events
         if (event is RawKeyDownEvent) {
           if (event.logicalKey == LogicalKeyboardKey.arrowUp) {
             _navigateDropdown(-1);
           } else if (event.logicalKey == LogicalKeyboardKey.arrowDown) {
             _navigateDropdown(1);
-          } else if (event.logicalKey == LogicalKeyboardKey.enter) {
-            _selectDropdownOption();
           }
         }
       },
@@ -201,27 +196,30 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                 : null,
             focusNode: _focusNode,
             controller: widget.textEditingController,
+            style: DigitTheme.instance.mobileTheme.textTheme.bodyLarge
+                ?.copyWith(
+              height: 1.5,
+              color: const DigitColors().lightTextPrimary,
+            ),
             decoration: InputDecoration(
+              contentPadding : const EdgeInsets.only(left: 12, top: 8,),
               border: const OutlineInputBorder(
                 borderRadius: BorderRadius.zero,
               ),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(
-                    color: const DigitColors().woodsmokeBlack, width: 1.0),
+                    color: const DigitColors().lightTextPrimary, width: 1.0),
                 borderRadius: BorderRadius.zero,
               ),
               focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(
-                    color: const DigitColors().burningOrange, width: 1.0),
+                    color: const DigitColors().lightPrimaryOrange, width: 1.0),
                 borderRadius: BorderRadius.zero,
               ),
-              contentPadding: const EdgeInsets.only(
-                left: 8,
-              ),
-              suffixIcon: Icon(widget.suffixIcon),
+              suffixIcon: Icon(widget.suffixIcon, size: 24,),
               suffixIconColor: widget.isDisabled
-                  ? const DigitColors().cloudGray
-                  : const DigitColors().davyGray,
+                  ? const DigitColors().lightTextDisabled
+                  : const DigitColors().lightTextSecondary,
             ),
           ),
         ),
@@ -254,7 +252,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
   /// update the overlay when overlay needs to build again
   void _updateOverlay() {
     if (_isOpen && _overlayEntry != null) {
-      _overlayEntry!.remove();
+      _overlayEntry?.remove();
       _overlayEntry = _createOverlayEntry();
       Overlay.of(context)!.insert(_overlayEntry!);
     }
@@ -294,14 +292,26 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                   child: Material(
                     elevation: 0,
                     borderRadius: BorderRadius.zero,
-                    color: const DigitColors().white,
+                    color: const DigitColors().lightPaperPrimary,
                     clipBehavior: Clip.none,
                     child: ConstrainedBox(
                       constraints: BoxConstraints(
                         maxHeight:
                             MediaQuery.of(context).size.height - topOffset - 15,
                       ),
-                      child: _buildDropdownListView(),
+                      child: Container(
+                          decoration: BoxDecoration(
+                            boxShadow: [
+                              if(filteredItems.isNotEmpty)
+                              const BoxShadow(
+                                offset: Offset(0, 1),
+                                blurRadius: 4.4,
+                                spreadRadius: 0,
+                                color: Color(0x26000000), // #00000026
+                              ),
+                            ],
+                          ),
+                          child: _buildDropdownListView()),
                     ),
                   ),
                 ),
@@ -324,7 +334,6 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
   Widget _buildListView() {
     return filteredItems.isNotEmpty
         ? ListView.separated(
-      controller: _scrollController,
             separatorBuilder: (_, __) => const SizedBox(height: 0),
             shrinkWrap: true,
             padding: EdgeInsets.zero,
@@ -333,17 +342,12 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
               return StatefulBuilder(
                 builder: (context, setState) {
                   Color backgroundColor = index % 2 == 0
-                      ? const DigitColors().white
-                      : const DigitColors().alabasterWhite;
-                  bool isFocused = _focusedIndex == index;
-                  // print(isFocused);
-                  if(isFocused){
-                    print('sssssssssssssssssssss');
-                    _scrollController.animateTo(
-                      index*50, // Calculate the height of each item
-                      duration: Duration(milliseconds: 300),
-                      curve: Curves.easeInOut,
-                    );
+                      ? const DigitColors().lightPaperPrimary
+                      : const DigitColors().lightPaperSecondary;
+
+                  bool isFocused = _focusedIndex == index && !_isMouseUsed;
+                  if(_isMouseUsed){
+                    _focusedIndex = -1;
                   }
                   return InkWell(
                     onTapDown: (_) {
@@ -365,7 +369,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                     highlightColor: const DigitColors().transparent,
                     onHover: (hover) {
                       setState(() {
-                        isMouseUsed = hover;
+                        _isMouseUsed = hover;
                         _itemHoverStates[filteredItems[index].code] = hover;
                       });
                     },
@@ -378,19 +382,20 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                     child: Container(
                       decoration: BoxDecoration(
                         border: Border.all(
+                          width: .5,
                           color: _itemMouseDownStates[
                                           filteredItems[index].code] ==
                                       true ||
                                   _itemHoverStates[filteredItems[index].code] ==
                                       true ||
                                   isFocused
-                              ? const DigitColors().burningOrange
+                              ? const DigitColors().lightPrimaryOrange
                               : Colors.transparent,
                         ),
                         color:
                             _itemMouseDownStates[filteredItems[index].code] ==
                                     true
-                                ? const DigitColors().burningOrange
+                                ? const DigitColors().lightPrimaryOrange
                                 : _itemHoverStates[filteredItems[index].code] ==
                                             true ||
                                         isFocused
@@ -416,7 +421,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                   /// This radius is the radius of the picture in the circle avatar itself.
                                   backgroundImage:
                                       filteredItems[index].profileImage,
-                                  backgroundColor: const DigitColors().davyGray,
+                                  backgroundColor: const DigitColors().lightTextSecondary,
                                 ),
                               ),
                             if (filteredItems[index].profileImage != null)
@@ -436,8 +441,8 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                                     filteredItems[index]
                                                         .code] ==
                                                 true
-                                            ? const DigitColors().white
-                                            : const DigitColors().davyGray,
+                                            ? const DigitColors().lightPaperPrimary
+                                            : const DigitColors().lightTextSecondary,
                                       ),
                                     if (filteredItems[index].textIcon != null)
                                       const SizedBox(
@@ -446,15 +451,16 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                     Text(
                                       filteredItems[index].name,
                                       style: DigitTheme.instance.mobileTheme
-                                          .textTheme.bodyLarge
+                                          .textTheme.bodyMedium
                                           ?.copyWith(
+                                        height: 1.125,
                                               color: _itemMouseDownStates[
                                                           filteredItems[index]
                                                               .code] ==
                                                       true
-                                                  ? const DigitColors().white
+                                                  ? const DigitColors().lightPaperPrimary
                                                   : const DigitColors()
-                                                      .davyGray),
+                                                      .lightTextPrimary),
                                     )
                                   ],
                                 ),
@@ -467,8 +473,8 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                       color: _itemMouseDownStates[
                                                   filteredItems[index].code] ==
                                               true
-                                          ? const DigitColors().white
-                                          : const DigitColors().davyGray,
+                                          ? const DigitColors().lightPaperPrimary
+                                          : const DigitColors().lightTextSecondary,
                                     ),
                                   ),
                               ],
@@ -508,7 +514,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                       Container(
                         width: MediaQuery.of(context).size.width,
                         padding: DropdownConstants.nestedItemHeaderPadding,
-                        color: const DigitColors().alabasterWhite,
+                        color: const DigitColors().lightPaperSecondary,
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -518,7 +524,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                 style: DigitTheme.instance.mobileTheme.textTheme
                                     .headlineSmall
                                     ?.copyWith(
-                                  color: const DigitColors().davyGray,
+                                  color: const DigitColors().lightTextSecondary,
                                 )),
                           ],
                         ),
@@ -573,18 +579,18 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                                         .code] ==
                                                     true
                                                 ? const DigitColors()
-                                                    .burningOrange
+                                                    .lightPrimaryOrange
                                                 : Colors.transparent,
                                       ),
                                       color: _itemMouseDownStates[
                                                   typeItems[index].code] ==
                                               true
-                                          ? const DigitColors().burningOrange
+                                          ? const DigitColors().lightPrimaryOrange
                                           : _itemHoverStates[
                                                       typeItems[index].code] ==
                                                   true
                                               ? const DigitColors().orangeBG
-                                              : const DigitColors().white,
+                                              : const DigitColors().lightPaperPrimary,
                                     ),
                                     padding: EdgeInsets.zero,
                                     child: Padding(
@@ -614,7 +620,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                                         .profileImage,
                                                 backgroundColor:
                                                     const DigitColors()
-                                                        .davyGray,
+                                                        .lightTextSecondary,
                                               ),
                                             ),
                                           if (filteredItems[index]
@@ -642,9 +648,9 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                                                       .code] ==
                                                               true
                                                           ? const DigitColors()
-                                                              .white
+                                                              .lightPaperPrimary
                                                           : const DigitColors()
-                                                              .davyGray,
+                                                              .lightTextSecondary,
                                                     ),
                                                   if (typeItems[index]
                                                           .textIcon !=
@@ -666,9 +672,9 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                                                       .code] ==
                                                               true
                                                           ? const DigitColors()
-                                                              .white
+                                                              .lightPaperPrimary
                                                           : const DigitColors()
-                                                              .davyGray,
+                                                              .lightTextSecondary,
                                                     ),
                                                   )
                                                 ],
@@ -689,9 +695,9 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                                                     .code] ==
                                                             true
                                                         ? const DigitColors()
-                                                            .white
+                                                            .lightPaperPrimary
                                                         : const DigitColors()
-                                                            .davyGray,
+                                                            .lightTextSecondary,
                                                   ),
                                                 ),
                                             ],
@@ -705,7 +711,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                 /// Divider after each option
                                 Container(
                                   height: 1,
-                                  color: const DigitColors().quillGray,
+                                  color: const DigitColors().lightGenericDivider,
                                   width: MediaQuery.of(context).size.width,
                                   margin: const EdgeInsets.symmetric(
                                     horizontal: 10,
@@ -718,6 +724,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                       if (outerIndex != uniqueTypes.length - 1)
                         Container(
                           height: kPadding * 2,
+                          color: const DigitColors().lightPaperPrimary,
                         ),
                     ],
                   );
@@ -767,8 +774,8 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
   void _toggleDropdown({bool close = false}) async {
     if (_isOpen || close) {
       /// Check if _overlayEntry is not null before removing
-      if (_overlayEntry != null && _overlayEntry.mounted) {
-        _overlayEntry.remove();
+      if (_overlayEntry != null ) {
+        _overlayEntry?.remove();
       }
       setState(() {
         _isOpen = false;

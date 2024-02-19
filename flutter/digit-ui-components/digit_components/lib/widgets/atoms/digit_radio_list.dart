@@ -146,12 +146,12 @@ class _DigitRadioListState extends State<DigitRadioList> {
                     shape: BoxShape.circle,
                     border: Border.all(
                       color: widget.isDisabled
-                          ? const DigitColors().quillGray
+                          ? const DigitColors().lightGenericDivider
                           : (widget.groupValue == button.code ||
                                   isHoveredList[index] ||
                                   isMouseDown[index])
-                              ? const DigitColors().burningOrange
-                              : const DigitColors().davyGray,
+                              ? const DigitColors().lightPrimaryOrange
+                              : const DigitColors().lightTextSecondary,
                       width: (widget.isDisabled &&
                                   widget.groupValue == button.code) ||
                               widget.groupValue == button.code
@@ -159,10 +159,10 @@ class _DigitRadioListState extends State<DigitRadioList> {
                           : 1.0,
                     ),
                     color: widget.isDisabled
-                        ? const DigitColors().alabasterWhite
+                        ? const DigitColors().lightPaperSecondary
                         : isMouseDown[index]
                             ? const DigitColors().orangeBG
-                            : const DigitColors().white,
+                            : const DigitColors().lightPaperPrimary,
                     boxShadow: isMouseDown[index]
                         ? [
                             BoxShadow(
@@ -181,8 +181,8 @@ class _DigitRadioListState extends State<DigitRadioList> {
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             color: widget.isDisabled
-                                ? const DigitColors().cloudGray
-                                : const DigitColors().burningOrange,
+                                ? const DigitColors().lightTextDisabled
+                                : const DigitColors().lightPrimaryOrange,
                           ),
                         )
                       : null,
@@ -202,8 +202,8 @@ class _DigitRadioListState extends State<DigitRadioList> {
                             ?.copyWith(
                           height: 1.172,
                           color: widget.isDisabled
-                              ? const DigitColors().cloudGray
-                              : const DigitColors().woodsmokeBlack,
+                              ? const DigitColors().lightTextDisabled
+                              : const DigitColors().lightTextPrimary,
                         ),
                       ),
                     )
@@ -215,8 +215,8 @@ class _DigitRadioListState extends State<DigitRadioList> {
                           ?.copyWith(
                         height: 1.172,
                         color: widget.isDisabled
-                            ? const DigitColors().cloudGray
-                            : const DigitColors().woodsmokeBlack,
+                            ? const DigitColors().lightTextDisabled
+                            : const DigitColors().lightTextPrimary,
                       ),
                     ),
             ],

@@ -108,7 +108,7 @@ class _DigitButtonState extends State<DigitButton> {
                     ? [
                   BoxShadow(
                     color: isMouseDown
-                        ? const DigitColors().burningOrange
+                        ? const DigitColors().lightPrimaryOrange
                         : DigitButtonConstants.defaultSecondaryColor,
                     offset: isMouseDown
                         ? const Offset(0, 0)
@@ -120,7 +120,7 @@ class _DigitButtonState extends State<DigitButton> {
                     : isMouseDown
                     ? [
                   BoxShadow(
-                    color: const DigitColors().burningOrange,
+                    color: const DigitColors().lightPrimaryOrange,
                     offset: const Offset(0, 0),
                     spreadRadius: 0,
                     blurRadius: 4.50,
@@ -141,10 +141,10 @@ class _DigitButtonState extends State<DigitButton> {
                     ? DigitButtonConstants.defaultDisabledColor
                     : isHovered
                     ? isMouseDown
-                    ? const DigitColors().burningOrange
+                    ? const DigitColors().lightPrimaryOrange
                     : const DigitColors().primaryOrange
-                    : const DigitColors().burningOrange)
-                    : const DigitColors().white,
+                    : const DigitColors().lightPrimaryOrange)
+                    : const DigitColors().lightPaperPrimary,
               ),
               child: _buildButton(),
             ),
@@ -180,7 +180,7 @@ class _DigitButtonState extends State<DigitButton> {
                       ? [
                     BoxShadow(
                       color: isMouseDown
-                          ? const DigitColors().burningOrange
+                          ? const DigitColors().lightPrimaryOrange
                           : DigitButtonConstants.defaultSecondaryColor,
                       offset: isMouseDown
                           ? const Offset(0, 0)
@@ -192,7 +192,7 @@ class _DigitButtonState extends State<DigitButton> {
                       : isMouseDown
                       ? [
                     BoxShadow(
-                      color: const DigitColors().burningOrange,
+                      color: const DigitColors().lightPrimaryOrange,
                       offset: const Offset(0, 0),
                       spreadRadius: 0,
                       blurRadius: 4.50,
@@ -213,10 +213,10 @@ class _DigitButtonState extends State<DigitButton> {
                       ? DigitButtonConstants.defaultDisabledColor
                       : isHovered
                       ? isMouseDown
-                      ? const DigitColors().burningOrange
+                      ? const DigitColors().lightPrimaryOrange
                       : const DigitColors().primaryOrange
-                      : const DigitColors().burningOrange)
-                      : const DigitColors().white,
+                      : const DigitColors().lightPrimaryOrange)
+                      : const DigitColors().lightPaperPrimary,
                 ),
                 child: _buildButton(),
               ),

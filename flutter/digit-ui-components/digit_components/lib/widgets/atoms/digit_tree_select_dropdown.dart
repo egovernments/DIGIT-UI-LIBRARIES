@@ -263,8 +263,8 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
                       Icon(
                         widget.suffixIcon,
                         color: widget.isDisabled
-                            ? const DigitColors().cloudGray
-                            : const DigitColors().davyGray,
+                            ? const DigitColors().lightTextDisabled
+                            : const DigitColors().lightTextSecondary,
                       ),
                     ],
                   ),
@@ -314,10 +314,10 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
             onTap: () => clear(),
             /// onTap Clear all the selected options
             child: Chip(
-              backgroundColor: const DigitColors().white,
+              backgroundColor: const DigitColors().lightPaperPrimary,
               shape: RoundedRectangleBorder(
                 side: BorderSide(
-                  color: const DigitColors().burningOrange,
+                  color: const DigitColors().lightPrimaryOrange,
                 ),
                 borderRadius: BorderRadius.circular(50),
               ),
@@ -326,7 +326,7 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
               ),
               labelPadding: const EdgeInsets.symmetric(vertical: kPadding / 4),
               label: Text('Clear All',
-                  style: TextStyle(color: const DigitColors().burningOrange)),
+                  style: TextStyle(color: const DigitColors().lightPrimaryOrange)),
             ),
           ),
       ],
@@ -362,7 +362,7 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
       color: const DigitColors().transparent,
       borderRadius: BorderRadius.zero,
       border: Border.all(
-        color: const DigitColors().cloudGray,
+        color: const DigitColors().lightTextDisabled,
         width: 1,
       ),
     );
@@ -375,11 +375,11 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
       borderRadius: BorderRadius.zero,
       border: _selectionMode
           ? Border.all(
-        color: const DigitColors().burningOrange,
+        color: const DigitColors().lightPrimaryOrange,
         width: 1,
       )
           : Border.all(
-        color: const DigitColors().davyGray,
+        color: const DigitColors().lightTextSecondary,
         width: 1,
       ),
     );
@@ -492,8 +492,8 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
           bool isSelected =
           selectedOptions.any((item) => item.name == option.name);
           Color backgroundColor = index % 2 == 0
-              ? const DigitColors().white
-              : const DigitColors().alabasterWhite;
+              ? const DigitColors().lightPaperPrimary
+              : const DigitColors().lightPaperSecondary;
           return _buildOption(
             option,
             isSelected,

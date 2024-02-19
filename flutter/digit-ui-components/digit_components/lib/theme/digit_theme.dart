@@ -20,8 +20,8 @@ class DigitTheme {
     displayBase: const TextStyle(
       fontFamily: 'Roboto',
     ),
-    light: colors.davyGray,
-    normal: colors.woodsmokeBlack,
+    light: colors.lightTextSecondary,
+    normal: colors.lightTextPrimary,
   );
 
   const DigitTheme._internal();
@@ -45,24 +45,24 @@ class DigitTheme {
 
   ColorScheme get colorScheme => ColorScheme(
     brightness: Brightness.light,
-    primary: colors.burningOrange,
-    onPrimary: colors.white,
-    secondary: colors.regalBlue,
-    onSecondary: colors.white,
-    error: colors.lavaRed,
-    onError: colors.white,
-    background: colors.white,
-    onBackground: colors.woodsmokeBlack,
-    surface: colors.alabasterWhite,
-    onSurface: colors.woodsmokeBlack,
-    onSurfaceVariant: colors.darkSpringGreen,
+    primary: colors.lightPrimaryOrange,
+    onPrimary: colors.lightPaperPrimary,
+    secondary: colors.lightPrimaryBlueGray,
+    onSecondary: colors.lightPaperPrimary,
+    error: colors.lightAlertError,
+    onError: colors.lightPaperPrimary,
+    background: colors.lightPaperPrimary,
+    onBackground: colors.lightTextPrimary,
+    surface: colors.lightPaperSecondary,
+    onSurface: colors.lightTextPrimary,
+    onSurfaceVariant: colors.lightAlertSuccess,
     tertiaryContainer: colors.tropicalBlue,
-    inversePrimary: colors.paleLeafGreen,
+    inversePrimary: colors.lightAlertSuccessBg,
     surfaceTint: colors.waterBlue,
-    outline: colors.quillGray,
-    shadow: colors.davyGray,
+    outline: colors.lightGenericDivider,
+    shadow: colors.lightTextSecondary,
     tertiary: colors.paleRose,
-    onTertiaryContainer: colors.curiousBlue,
+    onTertiaryContainer: colors.lightAlertInfoBg,
   );
 
   EdgeInsets get buttonPadding => const EdgeInsets.symmetric(
@@ -131,7 +131,7 @@ class DigitTheme {
         ),
       ),
       borderSide: BorderSide(
-        color: colors.davyGray,
+        color: colors.lightTextSecondary,
       ),
     ),
     focusedBorder: OutlineInputBorder(
@@ -141,7 +141,7 @@ class DigitTheme {
         ),
       ),
       borderSide: BorderSide(
-        color: colors.burningOrange,
+        color: colors.lightPrimaryOrange,
         width: 2,
       ),
     ),
@@ -151,7 +151,7 @@ class DigitTheme {
           0,
         ),
       ),
-      borderSide: BorderSide(color: colors.cloudGray, width: 1),
+      borderSide: BorderSide(color: colors.lightTextDisabled, width: 1),
     ),
     contentPadding: const EdgeInsets.all(12),
     floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -162,7 +162,7 @@ class DigitTheme {
         ),
       ),
       borderSide: BorderSide(
-        color: colors.lavaRed,
+        color: colors.lightAlertError,
       ),
     ),
     focusedErrorBorder: OutlineInputBorder(
@@ -171,7 +171,7 @@ class DigitTheme {
           0,
         ),
       ),
-      borderSide: BorderSide(color: colors.lavaRed, width: 2),
+      borderSide: BorderSide(color: colors.lightAlertError, width: 2),
     ),
   );
 

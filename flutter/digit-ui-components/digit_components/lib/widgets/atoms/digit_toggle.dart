@@ -69,13 +69,13 @@ class _DigitToggleState extends State<DigitToggle> {
               borderRadius: BorderRadius.zero,
               border: Border.all(
                 color: (isHovered || widget.isSelected || isMouseDown)
-                    ? const DigitColors().burningOrange
-                    : const DigitColors().quillGray,
+                    ? const DigitColors().lightPrimaryOrange
+                    : const DigitColors().lightGenericDivider,
                 width: 1.0,
               ),
               color: widget.isSelected
-                  ? const DigitColors().burningOrange
-                  : const DigitColors().white,
+                  ? const DigitColors().lightPrimaryOrange
+                  : const DigitColors().lightPaperPrimary,
               boxShadow: [
                 BoxShadow(
                   color: isMouseDown ? const DigitColors().shadowColor : const DigitColors().transparent,
@@ -100,16 +100,16 @@ class _DigitToggleState extends State<DigitToggle> {
                    ? DigitTheme.instance.mobileTheme.textTheme.bodyMedium?.copyWith(
                         height: 1.5,
                         fontWeight: FontWeight.w700,
-                        color: const DigitColors().white,
+                        color: const DigitColors().lightPaperPrimary,
                         overflow: TextOverflow.ellipsis,
                     )
                     :DigitTheme.instance.mobileTheme.textTheme.bodyMedium?.copyWith(
                       height: 1.5,
                       color: (isHovered || isMouseDown)
-                          ? const DigitColors().burningOrange
+                          ? const DigitColors().lightPrimaryOrange
                           : widget.isSelected
-                          ? const DigitColors().white
-                          : const DigitColors().cloudGray,
+                          ? const DigitColors().lightPaperPrimary
+                          : const DigitColors().lightTextDisabled,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),

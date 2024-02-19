@@ -4,10 +4,10 @@ import '../constants/app_constants.dart';
 
 class ChipConfig {
   final Icon? deleteIcon;
-  final Color deleteIconColor;
-  final Color labelColor;
+  // final Color deleteIconColor;
+  // final Color labelColor;
   final Color? backgroundColor;
-  final TextStyle? labelStyle;
+  // final TextStyle? labelStyle;
   final EdgeInsets padding;
   final EdgeInsets labelPadding;
   final double radius;
@@ -18,15 +18,15 @@ class ChipConfig {
 
   const ChipConfig({
     this.deleteIcon,
-    this.deleteIconColor = Colors.white,
+    // this.deleteIconColor = Colors.lightPaperPrimary,
     this.backgroundColor,
     this.padding = Default.defaultChipPadding,
     this.radius = Default.defaultChipRadius,
     this.spacing = kPadding,
     this.runSpacing = kPadding,
     this.separator,
-    this.labelColor = Colors.white,
-    this.labelStyle,
+    // this.labelColor = Colors.lightPaperPrimary,
+    // this.labelStyle,
     this.labelPadding = EdgeInsets.zero,
     this.autoScroll = false,
   });

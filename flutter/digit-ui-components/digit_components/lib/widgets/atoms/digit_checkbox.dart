@@ -112,7 +112,7 @@ class _DigitCheckboxState extends State<DigitCheckbox> {
                           ? CheckboxState.checked
                           : CheckboxState.unchecked,
                       isDisabled: widget.disabled,
-                      color: isHovered ? const DigitColors().burningOrange :widget.iconColor,
+                      color: isHovered ? const DigitColors().lightPrimaryOrange :widget.iconColor,
                     ),
                   ),
                 ),
@@ -126,8 +126,8 @@ class _DigitCheckboxState extends State<DigitCheckbox> {
                           ?.copyWith(
                         height: 1.5,
                         color: widget.disabled
-                            ? const DigitColors().cloudGray
-                            : const DigitColors().woodsmokeBlack,
+                            ? const DigitColors().lightTextDisabled
+                            : const DigitColors().lightTextPrimary,
                       ),
                     ),
                   ),

@@ -20,6 +20,7 @@ import 'package:digit_components/widgets/atoms/digit_text_form_input.dart';
 import 'package:digit_components/widgets/atoms/digit_time_form_input.dart';
 import 'package:digit_components/widgets/atoms/digit_toggle_list.dart';
 import 'package:digit_components/widgets/atoms/digit_tree_select_dropdown.dart';
+import 'package:digit_components/widgets/atoms/labelled_fields.dart';
 import 'package:digit_components/widgets/scrollable_content.dart';
 import 'package:flutter/material.dart';
 import 'package:url_strategy/url_strategy.dart';
@@ -145,6 +146,9 @@ class MyHomePageState extends State<MyHomePage> {
   bool showAllVariantsOfLink = false;
 
   bool showAllVariantsOfCheckbox = false;
+
+  bool showAllVariantsOfDropdown = false;
+  bool showAllVariantsOfMultiSelectDropdown = false;
 
   @override
   Widget build(BuildContext context) {
@@ -1060,210 +1064,384 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 8,
                 ),
-                const Text('Dropdown Varients'),
-                DigitDropdown<int>(
-                  onChange: (String value, String index) => {},
-                  textEditingController: controller18,
-                  items: const [
-                    DropdownItem(
-                      name: 'first',
-                      code: '1',
-                      description: 'description for first one',
-                      profileImage: NetworkImage(
-                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+
+                LabeledField(
+                  label: 'Dropdown Variants',
+                  child: DigitDropdown<int>(
+                    onChange: (String value, String index) => {},
+                    textEditingController: controller19,
+                    items: [
+                      'one',
+                      'two',
+                      'three',
+                      'four',
+                    ]
+                        .asMap()
+                        .entries
+                        .map(
+                          (item) => DropdownItem(
+                        name: item.value,
+                        code: item.key.toString(),
                       ),
-                    ),
-                    DropdownItem(
-                      name: 'second',
-                      code: '2',
-                      description: 'description for second one',
-                      profileImage: NetworkImage(
-                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
-                      ),
-                    ),
-                    DropdownItem(
-                      name: 'third',
-                      code: '3',
-                      description: 'description for third one',
-                      profileImage: NetworkImage(
-                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
-                      ),
-                    ),
-                    DropdownItem(
-                      name: 'fourth',
-                      code: '4',
-                      description: 'description for fourth one',
-                      profileImage: NetworkImage(
-                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                DigitDropdown<int>(
-                  onChange: (String value, String index) => {},
-                  textEditingController: controller19,
-                  items: [
-                    'one',
-                    'two',
-                    'three',
-                    'four',
-                  ]
-                      .asMap()
-                      .entries
-                      .map(
-                        (item) => DropdownItem(
-                      name: item.value,
-                      code: item.key.toString(),
-                    ),
-                  )
-                      .toList(),
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                DigitDropdown<int>(
-                  onChange: (String value, String index) => {},
-                  textEditingController: controller20,
-                  textIcon: Icons.article,
-                  items: [
-                    'one',
-                    'two',
-                    'three',
-                    'four',
-                    'five',
-                    'six',
-                    'seven',
-                    'eight',
-                  ]
-                      .asMap()
-                      .entries
-                      .map(
-                        (item) => DropdownItem(
-                      name: item.value,
-                      code: item.key.toString(),
-                      description: 'description for ${item.value} one',
-                    ),
-                  )
-                      .toList(),
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                DigitDropdown(
-                  onChange: (String value, String type) => {},
-                  textEditingController: controller21,
-                  dropdownType: DropdownType.nestedSelect,
-                  selectedOption: const DropdownItem(
-                    name: 'one',
-                    code: '1',
-                    type: 'group B',
+                    )
+                        .toList(),
                   ),
-                  items: const [
-                    DropdownItem(
-                      name: 'one',
-                      code: '1',
-                      type: 'group B',
-                    ),
-                    DropdownItem(
-                      name: 'two',
-                      code: '2',
-                      type: 'group A',
-                    ),
-                    DropdownItem(
-                      name: 'three',
-                      code: '3',
-                      type: 'group B',
-                    ),
-                    DropdownItem(
-                      name: 'four',
-                      code: '4',
-                      type: 'group A',
-                    ),
-                    DropdownItem(
-                      name: 'five',
-                      code: '5',
-                      type: 'group B',
-                    ),
-                    DropdownItem(
-                      name: 'six',
-                      code: '6',
-                      type: 'group A',
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                const Text('MultiSelect Dropdowns'),
-                MultiSelectDropDown<int>(
-                  onOptionSelected: (List<DropdownItem> selectedOptions) {},
-                  options: const [
-                    DropdownItem(code: '1', name: 'first'),
-                    DropdownItem(code: '2', name: 'second'),
-                    DropdownItem(code: '3', name: 'third'),
-                    DropdownItem(code: '4', name: 'four'),
-                    DropdownItem(code: '5', name: 'five'),
-                  ],
-                  selectionType: SelectionType.multiSelect,
                 ),
                 const SizedBox(
                   height: 8,
                 ),
-                MultiSelectDropDown<int>(
-                  onOptionSelected: (List<DropdownItem> selectedOptions) {},
-                  options: const [
-                    DropdownItem(code: '1', name: 'first', type: "Type A"),
-                    DropdownItem(code: '2', name: 'second', type: "Type A"),
-                    DropdownItem(code: '3', name: 'third', type: "Type A"),
-                    DropdownItem(code: '4', name: 'four', type: "Type B"),
-                    DropdownItem(code: '5', name: 'five', type: "Type B"),
-                  ],
-                  selectionType: SelectionType.nestedMultiSelect,
+                DigitCheckbox(label: 'Show All Variants Of Default Dropdown', onChanged: (value){
+                  setState(() {
+                    showAllVariantsOfDropdown = value;
+                  });
+                }),
+                const SizedBox(
+                  height: 8,
+                ),
+                if(showAllVariantsOfDropdown)
+                  Column(
+                    children: [
+                      const SizedBox(height: 8),
+                      LabeledField(
+                        label: "Dropdown with Profile",
+                        child: DigitDropdown<int>(
+                        onChange: (String value, String index) => {},
+                        textEditingController: controller30,
+                        items: const [
+                          DropdownItem(
+                            name: 'first',
+                            code: '1',
+                            description: 'description for first one',
+                            profileImage: NetworkImage(
+                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                            ),
+                          ),
+                          DropdownItem(
+                            name: 'second',
+                            code: '2',
+                            description: 'description for second one',
+                            profileImage: NetworkImage(
+                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                            ),
+                          ),
+                          DropdownItem(
+                            name: 'third',
+                            code: '3',
+                            description: 'description for third one',
+                            profileImage: NetworkImage(
+                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                            ),
+                          ),
+                          DropdownItem(
+                            name: 'fourth',
+                            code: '4',
+                            description: 'description for fourth one',
+                            profileImage: NetworkImage(
+                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                            ),
+                          ),
+                        ],
+                      ),
+                      ),
+                      const SizedBox(height: 8),
+                      LabeledField(
+                        label: "Dropdown with Description",
+                        child: DigitDropdown<int>(
+                          onChange: (String value, String index) => {},
+                          textEditingController: controller31,
+                          items: [
+                            'one',
+                            'two',
+                            'three',
+                            'four',
+                          ]
+                              .asMap()
+                              .entries
+                              .map(
+                                (item) => DropdownItem(
+                              name: item.value,
+                              code: item.key.toString(),
+                                  description: 'This is just example description'
+                            ),
+                          )
+                              .toList(),
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      LabeledField(
+                        label: "Dropdown with Icon",
+                        child: DigitDropdown<int>(
+                          onChange: (String value, String index) => {},
+                          textEditingController: controller32,
+                          items: [
+                            'one',
+                            'two',
+                            'three',
+                            'four',
+                          ]
+                              .asMap()
+                              .entries
+                              .map(
+                                (item) => DropdownItem(
+                              name: item.value,
+                              code: item.key.toString(),
+                                  textIcon: Icons.article,
+                            ),
+                          )
+                              .toList(),
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      LabeledField(
+                        label: "Dropdown with nested Type",
+                        child: DigitDropdown(
+                          onChange: (String value, String type) => {},
+                          textEditingController: controller33,
+                          dropdownType: DropdownType.nestedSelect,
+                          selectedOption: const DropdownItem(
+                            name: 'one',
+                            code: '1',
+                            type: 'group B',
+                          ),
+                          items: const [
+                            DropdownItem(
+                              name: 'one',
+                              code: '1',
+                              type: 'group B',
+                            ),
+                            DropdownItem(
+                              name: 'two',
+                              code: '2',
+                              type: 'group A',
+                            ),
+                            DropdownItem(
+                              name: 'three',
+                              code: '3',
+                              type: 'group B',
+                            ),
+                            DropdownItem(
+                              name: 'four',
+                              code: '4',
+                              type: 'group A',
+                            ),
+                            DropdownItem(
+                              name: 'five',
+                              code: '5',
+                              type: 'group B',
+                            ),
+                            DropdownItem(
+                              name: 'six',
+                              code: '6',
+                              type: 'group A',
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      LabeledField(
+                        label: "Dropdown with nested Type",
+                        child: DigitDropdown(
+                          onChange: (String value, String type) => {},
+                          textEditingController: controller33,
+                          isDisabled: true,
+                          items: const [
+                            DropdownItem(
+                              name: 'one',
+                              code: '1',
+                            ),
+                            DropdownItem(
+                              name: 'two',
+                              code: '2',
+                            ),
+                            DropdownItem(
+                              name: 'three',
+                              code: '3',
+                            ),
+                            DropdownItem(
+                              name: 'four',
+                              code: '4',
+                            ),
+                            DropdownItem(
+                              name: 'five',
+                              code: '5',
+                            ),
+                            DropdownItem(
+                              name: 'six',
+                              code: '6',
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                const SizedBox(
+                  height: 8,
+                ),
+                const Divider(),
+                const SizedBox(
+                  height: 8,
+                ),
+                LabeledField(
+                  label: 'MultiSelect Dropdowns',
+                  child: MultiSelectDropDown<int>(
+                    onOptionSelected: (List<DropdownItem> selectedOptions) {},
+                    options: const [
+                      DropdownItem(code: '1', name: 'first'),
+                      DropdownItem(code: '2', name: 'second'),
+                      DropdownItem(code: '3', name: 'third'),
+                      DropdownItem(code: '4', name: 'four'),
+                      DropdownItem(code: '5', name: 'five'),
+                    ],
+                    selectionType: SelectionType.multiSelect,
+                  ),
                 ),
                 const SizedBox(
                   height: 8,
                 ),
-                MultiSelectDropDown<int>(
-                  onOptionSelected: (List<DropdownItem> selectedOptions) {},
-                  selectedOptions: const [
-                    DropdownItem(
-                      code: '1',
-                      name: 'first',
-                      description: 'description',
-                    ),
-                  ],
-                  options: const [
-                    DropdownItem(
-                      code: '1',
-                      name: 'first',
-                      description: 'description',
-                    ),
-                    DropdownItem(
-                      code: '2',
-                      name: 'second',
-                      description: 'description',
-                    ),
-                    DropdownItem(
-                      code: '3',
-                      name: 'third',
-                      description: 'description',
-                    ),
-                    DropdownItem(
-                      code: '4',
-                      name: 'four',
-                      description: 'description',
-                    ),
-                    DropdownItem(
-                      code: '5',
-                      name: 'five',
-                      description: 'description',
-                    ),
-                  ],
-                  selectionType: SelectionType.multiSelect,
+                DigitCheckbox(label: 'Show All Variants Of MultiSelect Dropdown', onChanged: (value){
+                  setState(() {
+                    showAllVariantsOfMultiSelectDropdown = value;
+                  });
+                }),
+                const SizedBox(
+                  height: 8,
                 ),
+                if(showAllVariantsOfMultiSelectDropdown)
+                  Column(
+                    children: [
+                      const SizedBox(height: 8),
+                      LabeledField(
+                        label: "MultiSelect Dropdown with Selected Option",
+                        child: MultiSelectDropDown<int>(
+                          onOptionSelected: (List<DropdownItem> selectedOptions) {},
+                          selectedOptions: const [
+                            DropdownItem(
+                              code: '1',
+                              name: 'first',
+                              description: 'description',
+                            ),
+                          ],
+                          options: const [
+                            DropdownItem(
+                              code: '1',
+                              name: 'first',
+                              description: 'description',
+                            ),
+                            DropdownItem(
+                              code: '2',
+                              name: 'second',
+                              description: 'description',
+                            ),
+                            DropdownItem(
+                              code: '3',
+                              name: 'third',
+                              description: 'description',
+                            ),
+                            DropdownItem(
+                              code: '4',
+                              name: 'four',
+                              description: 'description',
+                            ),
+                            DropdownItem(
+                              code: '5',
+                              name: 'five',
+                              description: 'description',
+                            ),
+                          ],
+                          selectionType: SelectionType.multiSelect,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      LabeledField(
+                        label: "MultiSelect Dropdown with Description",
+                        child: MultiSelectDropDown<int>(
+                          onOptionSelected: (List<DropdownItem> selectedOptions) {},
+                          options: const [
+                            DropdownItem(
+                              code: '1',
+                              name: 'first',
+                              description: 'this is description',
+                            ),
+                            DropdownItem(
+                              code: '2',
+                              name: 'second',
+                              description: 'this is description',
+                            ),
+                            DropdownItem(
+                              code: '3',
+                              name: 'third',
+                              description: 'this is description',
+                            ),
+                            DropdownItem(
+                              code: '4',
+                              name: 'four',
+                              description: 'this is description',
+                            ),
+                            DropdownItem(
+                              code: '5',
+                              name: 'five',
+                              description: 'this is description',
+                            ),
+                          ],
+                          selectionType: SelectionType.multiSelect,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      LabeledField(
+                        label: "MultiSelect Dropdown with Icon",
+                        child: MultiSelectDropDown<int>(
+                          onOptionSelected: (List<DropdownItem> selectedOptions) {},
+                          options: const [
+                            DropdownItem(
+                              code: '1',
+                              name: 'first',
+                              textIcon: Icons.article,
+                            ),
+                            DropdownItem(
+                              code: '2',
+                              name: 'second',
+                              textIcon: Icons.article,
+                            ),
+                            DropdownItem(
+                              code: '3',
+                              name: 'third',
+                              textIcon: Icons.article,
+                            ),
+                            DropdownItem(
+                              code: '4',
+                              name: 'four',
+                              textIcon: Icons.article,
+                            ),
+                            DropdownItem(
+                              code: '5',
+                              name: 'five',
+                              textIcon: Icons.article,
+                            ),
+                          ],
+                          selectionType: SelectionType.multiSelect,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      LabeledField(
+                        label: "MultiSelect Dropdown with nested Type",
+                        child: MultiSelectDropDown<int>(
+                          onOptionSelected: (List<DropdownItem> selectedOptions) {},
+                          options: const [
+                            DropdownItem(code: '1', name: 'first', type: "Type A"),
+                            DropdownItem(code: '2', name: 'second', type: "Type A"),
+                            DropdownItem(code: '3', name: 'third', type: "Type A"),
+                            DropdownItem(code: '4', name: 'four', type: "Type B"),
+                            DropdownItem(code: '5', name: 'five', type: "Type B"),
+                          ],
+                          selectionType: SelectionType.nestedMultiSelect,
+                        ),
+                      ),
+                    ],
+                  ),
+                const SizedBox(
+                  height: 8,
+                ),
+
                 const SizedBox(
                   height: 8,
                 ),

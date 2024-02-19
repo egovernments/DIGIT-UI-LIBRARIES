@@ -30,12 +30,12 @@ class SelectionChip<T> extends StatelessWidget {
       ),
       deleteIcon: Icon(
         Icons.cancel,
-        color: const DigitColors().davyGray,
+        color: const DigitColors().lightTextSecondary,
       ),
-      deleteIconColor: chipConfig.deleteIconColor,
+      deleteIconColor: DigitColors().waterBlue,
       labelPadding: const EdgeInsets.symmetric(vertical: kPadding / 2),
-      backgroundColor: const DigitColors().quillGray,
-      labelStyle: chipConfig.labelStyle ??
+      backgroundColor: const DigitColors().lightGenericDivider,
+      labelStyle:
           DigitTheme.instance.mobileTheme.textTheme.bodyMedium,
       onDeleted: () => onItemDelete(item),
     );

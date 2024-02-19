@@ -65,7 +65,7 @@ class LabeledField extends StatelessWidget {
                       style: DigitTheme.instance.mobileTheme.textTheme.bodyLarge
                           ?.copyWith(
                         height: 1.1875,
-                        color: const DigitColors().woodsmokeBlack,
+                        color: const DigitColors().lightTextPrimary,
                         overflow: wrapLabelText
                             ? TextOverflow.visible
                             : TextOverflow.ellipsis,
@@ -77,7 +77,7 @@ class LabeledField extends StatelessWidget {
                       ' *',
                       style: DigitTheme.instance.mobileTheme.textTheme.bodyLarge
                           ?.copyWith(
-                        color: const DigitColors().lavaRed,
+                        color: const DigitColors().lightAlertError,
                       ),
                     ),
                   if (info == true) const SizedBox(width: kPadding / 2),
@@ -89,7 +89,7 @@ class LabeledField extends StatelessWidget {
                       child: Icon(
                         Icons.info_outline,
                         size: 19,
-                        color: const DigitColors().davyGray,
+                        color: const DigitColors().lightTextSecondary,
                       ),
                     )
                 ],
@@ -117,7 +117,7 @@ class LabeledField extends StatelessWidget {
                           : label!,
                       style: DigitTheme.instance.mobileTheme.textTheme.bodyLarge
                           ?.copyWith(
-                        color: const DigitColors().woodsmokeBlack,
+                        color: const DigitColors().lightTextPrimary,
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
@@ -127,7 +127,7 @@ class LabeledField extends StatelessWidget {
                     ' *',
                     style: DigitTheme.instance.mobileTheme.textTheme.bodyLarge
                         ?.copyWith(
-                      color: const DigitColors().lavaRed,
+                      color: const DigitColors().lightAlertError,
                     ),
                   ),
                 if (info == true) const SizedBox(width: kPadding / 2),
