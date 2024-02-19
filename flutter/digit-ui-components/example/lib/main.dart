@@ -99,13 +99,9 @@ class MyApp extends StatelessWidget {
   /// This widget is the root of the application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Digit UI Flutter',
-      theme: DigitTheme.instance.mobileTheme.copyWith(
-          appBarTheme: AppBarTheme(
-            backgroundColor: DigitTheme.instance.colorScheme.secondary,
-          )),
-      home: const MyHomePage(title: 'Digit Components Page'),
+      home: MyHomePage(title: 'Digit Components Page'),
     );
   }
 }
@@ -243,10 +239,10 @@ class MyHomePageState extends State<MyHomePage> {
                 ),
                 DigitTextAreaFormInput(
                   controller: controller23,
-                  maxLine: 10000,
                   label: "Text Area",
                   innerLabel: 'label',
                   helpText: 'help text',
+                  textAreaScroll: TextAreaScroll.vertical,
                 ),
                 const SizedBox(
                   height: 8,
@@ -286,7 +282,6 @@ class MyHomePageState extends State<MyHomePage> {
                       controller: TextEditingController(),
                       innerLabel: 'label',
                       helpText: 'help text',
-                      isDisabled: true,
                       isRequired: true,
                     ),
                     DigitTextAreaFormInput(

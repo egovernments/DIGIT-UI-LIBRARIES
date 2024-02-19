@@ -41,8 +41,6 @@ enum CheckboxState {
 
 // Enum representing the scroll for textArea
 enum TextAreaScroll{
-  auto,
-  horizontal,
   vertical,
   smart,
   none,

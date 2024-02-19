@@ -149,7 +149,7 @@ class BaseDigitFormInput extends StatefulWidget {
       this.validations,
       this.firstDate,
       this.initialDate,
-      this.textAreaScroll = TextAreaScroll.auto,
+      this.textAreaScroll = TextAreaScroll.none,
       this.lastDate,
       this.onTap,
       this.isEditable = true,
@@ -168,11 +168,6 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
   bool _hasError = false;
   late FocusNode myFocusNode;
   bool isVisible = false;
-  late double _width = AppView.isMobileView(MediaQuery.of(context).size.width)
-      ? Default.mobileInputWidth
-      : AppView.isTabletView(MediaQuery.of(context).size.width)
-          ? Default.tabInputWidth
-          : Default.desktopInputWidth;
   double _height = 100;
   bool _isFocusOn = false;
 
@@ -209,36 +204,16 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
     if (widget.initialValue != null) {
       widget.controller.text = widget.initialValue!;
     }
-    // Add observer to listen for layout changes
-    WidgetsBinding.instance?.addObserver(this);
+
   }
 
-  @override
-  void didChangeMetrics() {
-    // Called when the size of the window changes
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
-      // Update width here
-      updateWidth();
-    });
-  }
 
-  void updateWidth() {
-    if (mounted) {
-      setState(() {
-        _width = AppView.isMobileView(MediaQuery.of(context).size.width)
-            ? MediaQuery.of(context).size.width - 8
-            : MediaQuery.of(context).size.width / 1.7;
-      });
-    }
-  }
 
   @override
   void dispose() {
     super.dispose();
     myFocusNode.removeListener(onFocusChange);
     myFocusNode.dispose();
-    // Remove the observer when the widget is disposed
-    WidgetsBinding.instance?.removeObserver(this);
   }
 
   String? customValidator(String? value) {
@@ -318,124 +293,119 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
         child: Column(
           children: [
             widget.isTextArea
-                ? Row(
-                    children: [
-                      Stack(
-                        children: [
-                          StatefulBuilder(builder: (context, setState) {
-                            return Container(
-                                width: _width,
-                                height: widget.textAreaScroll ==
-                                        TextAreaScroll.smart
-                                    ? null
-                                    : _height,
-                                constraints: BoxConstraints(
-                                  minWidth: 156,
-                                  minHeight: 40,
-                                  maxWidth: inputWidth,
+                ? Stack(
+                  children: [
+                    StatefulBuilder(builder: (context, setState) {
+                      return Container(
+                          height: widget.textAreaScroll ==
+                                  TextAreaScroll.smart
+                              ? null
+                              : _height,
+                          constraints: BoxConstraints(
+                            minWidth: 156,
+                            minHeight: 40,
+                            maxWidth: inputWidth,
+                          ),
+                          child: TextFormField(
+                            onTapOutside: (PointerDownEvent event) {
+                              /// Remove focus when tapped outside the input field
+                              myFocusNode.unfocus();
+                            },
+                            onTap: onTap,
+                            focusNode: myFocusNode,
+                            obscureText: isVisible,
+                            controller: widget.controller,
+                            readOnly: widget.readOnly,
+                            enabled: !widget.isDisabled,
+                            autovalidateMode: AutovalidateMode.disabled,
+                            minLines: widget.textAreaScroll ==
+                                        TextAreaScroll.smart ||
+                                    widget.textAreaScroll ==
+                                        TextAreaScroll.none
+                                ? 4
+                                : null,
+                            maxLines: widget.textAreaScroll ==
+                                    TextAreaScroll.smart
+                                ? null
+                                : 1000,
+                            keyboardType: widget.keyboardType,
+                            textAlign: widget.textAlign,
+                            maxLength: maxLengthValue,
+                            showCursor: widget.showCurser,
+                            style: DigitTheme.instance.mobileTheme.textTheme.bodyLarge
+                                ?.copyWith(
+                              height: 1.5,
+                              color: widget.readOnly
+                                  ? const DigitColors().lightTextSecondary
+                                  : const DigitColors().lightTextPrimary,
+                            ),
+                            decoration: InputDecoration(
+                              counterText: '',
+                              hoverColor: const DigitColors().transparent,
+                              contentPadding: const EdgeInsets.only(
+                                left: 12,
+                                right: 2,
+                                top: 8,
+                                bottom: 8,
+                              ),
+                              hintText: widget.innerLabel,
+                              hintStyle: DigitTheme
+                                  .instance.mobileTheme.textTheme.bodyLarge
+                                  ?.copyWith(
+                                height: 1.5,
+                                color: const DigitColors().lightTextDisabled,
+                              ),
+                              filled: true,
+                              fillColor: widget.isDisabled ? const DigitColors().lightPaperSecondary
+                                  :widget.readOnly
+                                  ? const DigitColors().lightGenericBackground
+                                  : const DigitColors().transparent,
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: _hasError
+                                      ? const DigitColors().lightAlertError
+                                      : const DigitColors().lightTextSecondary,
+                                  width: _hasError ? 1.5 : 1.0,
                                 ),
-                                child: TextFormField(
-                                  onTapOutside: (PointerDownEvent event) {
-                                    /// Remove focus when tapped outside the input field
-                                    myFocusNode.unfocus();
-                                  },
-                                  onTap: onTap,
-                                  focusNode: myFocusNode,
-                                  obscureText: isVisible,
-                                  controller: widget.controller,
-                                  readOnly: widget.readOnly,
-                                  enabled: !widget.isDisabled,
-                                  autovalidateMode: AutovalidateMode.disabled,
-                                  minLines: widget.textAreaScroll ==
-                                              TextAreaScroll.smart ||
-                                          widget.textAreaScroll ==
-                                              TextAreaScroll.none
-                                      ? 3
-                                      : null,
-                                  maxLines: widget.textAreaScroll ==
-                                          TextAreaScroll.smart
-                                      ? null
-                                      : 1000,
-                                  keyboardType: widget.keyboardType,
-                                  textAlign: widget.textAlign,
-                                  maxLength: maxLengthValue,
-                                  showCursor: widget.showCurser,
-                                  decoration: InputDecoration(
-                                    counterText: '',
-                                    hoverColor: const DigitColors().transparent,
-                                    contentPadding: const EdgeInsets.all(
-                                      12,
-                                    ),
-                                    hintText: widget.innerLabel,
-                                    filled: true,
-                                    fillColor:
-                                        (widget.readOnly && !widget.isEditable)
-                                            ? const DigitColors().lightGenericBackground
-                                            : const DigitColors().transparent,
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: _hasError
-                                            ? const DigitColors().lightAlertError
-                                            : const DigitColors().lightTextSecondary,
-                                        width: _hasError ? 1.5 : 1.0,
-                                      ),
-                                      borderRadius: BorderRadius.zero,
-                                    ),
-                                    focusedBorder: BaseConstants.focusedBorder,
-                                    disabledBorder:
-                                        BaseConstants.disabledBorder,
-                                  ),
-                                  onChanged: (value) {
-                                    setState(() {
-                                      _value = value;
-                                    });
-                                    widget.onChange?.call(value);
-                                  },
-                                ));
-                          }),
-                          if (widget.textAreaScroll != TextAreaScroll.smart &&
-                              widget.textAreaScroll != TextAreaScroll.none)
-                            Positioned(
-                              bottom: 0,
-                              right: 0,
-                              child: MouseRegion(
-                                cursor: widget.textAreaScroll ==
-                                        TextAreaScroll.horizontal
-                                    ? SystemMouseCursors.resizeLeftRight
-                                    : widget.textAreaScroll ==
-                                            TextAreaScroll.vertical
-                                        ? SystemMouseCursors.resizeUpDown
-                                        : SystemMouseCursors
-                                            .resizeUpLeftDownRight,
-                                child: GestureDetector(
-                                  onPanUpdate: (details) {
-                                    if (widget.textAreaScroll !=
-                                        TextAreaScroll.vertical) {
-                                      setState(() {
-                                        _width = _width + details.delta.dx;
-                                      });
-                                    }
-                                    if (widget.textAreaScroll !=
-                                        TextAreaScroll.horizontal) {
-                                      setState(() {
-                                        _height = _height + details.delta.dy;
-                                      });
-                                    }
-                                  },
-                                  child: Transform.rotate(
-                                    angle: -0.5, // Adjust the angle as needed
-                                    child: const Icon(
-                                      Icons.drag_handle,
-                                      size: 16,
-                                    ),
-                                  ),
-                                ),
+                                borderRadius: BorderRadius.zero,
+                              ),
+                              focusedBorder: BaseConstants.focusedBorder,
+                              disabledBorder: BaseConstants.disabledBorder,
+                            ),
+                            onChanged: (value) {
+                              setState(() {
+                                _value = value;
+                              });
+                              widget.onChange?.call(value);
+                            },
+                          ));
+                    }),
+                    if (widget.textAreaScroll != TextAreaScroll.smart &&
+                        widget.textAreaScroll != TextAreaScroll.none)
+                      Positioned(
+                        bottom: 0,
+                        right: 0,
+                        child: MouseRegion(
+                          cursor:  SystemMouseCursors.resizeUpDown,
+                          child: GestureDetector(
+                            onPanUpdate: (details) {
+
+                                setState(() {
+                                  _height = _height + details.delta.dy;
+                                });
+                            },
+                            child: Transform.rotate(
+                              angle: -0.5, // Adjust the angle as needed
+                              child: const Icon(
+                                Icons.drag_handle,
+                                size: 16,
                               ),
                             ),
-                        ],
+                          ),
+                        ),
                       ),
-                    ],
-                  )
+                  ],
+                )
                 : TextFormField(
                     onTapOutside: (PointerDownEvent event) {
                       /// Remove focus when tapped outside the input field
@@ -494,11 +464,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                                   minWidth: BaseConstants.desktopInputMinWidth,
                                   maxWidth: BaseConstants.desktopInputMaxWidth,
                                 ),
-                      contentPadding: widget.minLine > 1
-                          ? const EdgeInsets.all(
-                              12,
-                            )
-                          : const EdgeInsets.symmetric(
+                      contentPadding: const EdgeInsets.symmetric(
                               vertical: kPadding / 2,
                               horizontal: 12,
                             ),

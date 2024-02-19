@@ -27,7 +27,7 @@ class DigitTextAreaFormInput extends BaseDigitFormInput {
     String? label,
     String? initialValue,
     String? infoText,
-    TextAreaScroll textAreaScroll = TextAreaScroll.auto,
+    TextAreaScroll textAreaScroll = TextAreaScroll.none,
     bool? info,
     bool readOnly = false,
     bool isDisabled = false,
