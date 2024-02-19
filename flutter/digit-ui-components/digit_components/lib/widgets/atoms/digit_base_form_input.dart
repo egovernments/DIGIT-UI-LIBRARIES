@@ -633,7 +633,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                     _hasError
                         ? Expanded(
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Icon(
@@ -642,17 +642,15 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                                   size: BaseConstants.errorIconSize,
                                 ),
                                 const SizedBox(width: kPadding / 2),
-                                Expanded(
-                                  child: Text(
-                                    _errorMessage!.length > 256
-                                        ? '${_errorMessage!.substring(0, 256)}...'
-                                        : _errorMessage!,
-                                    style: DigitTheme.instance.mobileTheme
-                                        .textTheme.bodyMedium
-                                        ?.copyWith(
-                                      height: 1.5,
-                                      color: const DigitColors().lightAlertError,
-                                    ),
+                                Text(
+                                  _errorMessage!.length > 256
+                                      ? '${_errorMessage!.substring(0, 256)}...'
+                                      : _errorMessage!,
+                                  style: DigitTheme.instance.mobileTheme
+                                      .textTheme.bodyMedium
+                                      ?.copyWith(
+                                    height: 1.5,
+                                    color: const DigitColors().lightAlertError,
                                   ),
                                 ),
                               ],
