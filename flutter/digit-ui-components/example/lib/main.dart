@@ -99,9 +99,13 @@ class MyApp extends StatelessWidget {
   /// This widget is the root of the application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'Digit UI Flutter',
-      home: MyHomePage(title: 'Digit Components Page'),
+      theme: DigitTheme.instance.mobileTheme.copyWith(
+          appBarTheme: AppBarTheme(
+            backgroundColor: DigitTheme.instance.colorScheme.secondary,
+          )),
+      home: const MyHomePage(title: 'Digit Components Page'),
     );
   }
 }

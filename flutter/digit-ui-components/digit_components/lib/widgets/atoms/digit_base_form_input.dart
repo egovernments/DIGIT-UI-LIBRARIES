@@ -204,10 +204,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
     if (widget.initialValue != null) {
       widget.controller.text = widget.initialValue!;
     }
-
   }
-
-
 
   @override
   void dispose() {
@@ -294,118 +291,121 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
           children: [
             widget.isTextArea
                 ? Stack(
-                  children: [
-                    StatefulBuilder(builder: (context, setState) {
-                      return Container(
-                          height: widget.textAreaScroll ==
-                                  TextAreaScroll.smart
-                              ? null
-                              : _height,
-                          constraints: BoxConstraints(
-                            minWidth: 156,
-                            minHeight: 40,
-                            maxWidth: inputWidth,
-                          ),
-                          child: TextFormField(
-                            onTapOutside: (PointerDownEvent event) {
-                              /// Remove focus when tapped outside the input field
-                              myFocusNode.unfocus();
-                            },
-                            onTap: onTap,
-                            focusNode: myFocusNode,
-                            obscureText: isVisible,
-                            controller: widget.controller,
-                            readOnly: widget.readOnly,
-                            enabled: !widget.isDisabled,
-                            autovalidateMode: AutovalidateMode.disabled,
-                            minLines: widget.textAreaScroll ==
-                                        TextAreaScroll.smart ||
-                                    widget.textAreaScroll ==
-                                        TextAreaScroll.none
-                                ? 4
-                                : null,
-                            maxLines: widget.textAreaScroll ==
-                                    TextAreaScroll.smart
-                                ? null
-                                : 1000,
-                            keyboardType: widget.keyboardType,
-                            textAlign: widget.textAlign,
-                            maxLength: maxLengthValue,
-                            showCursor: widget.showCurser,
-                            style: DigitTheme.instance.mobileTheme.textTheme.bodyLarge
-                                ?.copyWith(
-                              height: 1.5,
-                              color: widget.readOnly
-                                  ? const DigitColors().lightTextSecondary
-                                  : const DigitColors().lightTextPrimary,
+                    children: [
+                      StatefulBuilder(builder: (context, setState) {
+                        return Container(
+                            height:
+                                widget.textAreaScroll == TextAreaScroll.smart
+                                    ? null
+                                    : _height,
+                            constraints: BoxConstraints(
+                              minWidth: 156,
+                              minHeight: 40,
+                              maxWidth: inputWidth,
                             ),
-                            decoration: InputDecoration(
-                              counterText: '',
-                              hoverColor: const DigitColors().transparent,
-                              contentPadding: const EdgeInsets.only(
-                                left: 12,
-                                right: 2,
-                                top: 8,
-                                bottom: 8,
-                              ),
-                              hintText: widget.innerLabel,
-                              hintStyle: DigitTheme
+                            child: TextFormField(
+                              onTapOutside: (PointerDownEvent event) {
+                                /// Remove focus when tapped outside the input field
+                                myFocusNode.unfocus();
+                              },
+                              onTap: onTap,
+                              focusNode: myFocusNode,
+                              obscureText: isVisible,
+                              controller: widget.controller,
+                              readOnly: widget.readOnly,
+                              enabled: !widget.isDisabled,
+                              autovalidateMode: AutovalidateMode.disabled,
+                              minLines: widget.textAreaScroll ==
+                                          TextAreaScroll.smart ||
+                                      widget.textAreaScroll ==
+                                          TextAreaScroll.none
+                                  ? 4
+                                  : null,
+                              maxLines:
+                                  widget.textAreaScroll == TextAreaScroll.smart
+                                      ? null
+                                      : 1000,
+                              keyboardType: widget.keyboardType,
+                              textAlign: widget.textAlign,
+                              maxLength: maxLengthValue,
+                              showCursor: widget.showCurser,
+                              style: DigitTheme
                                   .instance.mobileTheme.textTheme.bodyLarge
                                   ?.copyWith(
                                 height: 1.5,
-                                color: const DigitColors().lightTextDisabled,
+                                color: widget.readOnly
+                                    ? const DigitColors().lightTextSecondary
+                                    : const DigitColors().lightTextPrimary,
                               ),
-                              filled: true,
-                              fillColor: widget.isDisabled ? const DigitColors().lightPaperSecondary
-                                  :widget.readOnly
-                                  ? const DigitColors().lightGenericBackground
-                                  : const DigitColors().transparent,
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: _hasError
-                                      ? const DigitColors().lightAlertError
-                                      : const DigitColors().lightTextSecondary,
-                                  width: _hasError ? 1.5 : 1.0,
+                              decoration: InputDecoration(
+                                counterText: '',
+                                hoverColor: const DigitColors().transparent,
+                                contentPadding: const EdgeInsets.only(
+                                  left: 12,
+                                  right: 2,
+                                  top: 8,
+                                  bottom: 8,
                                 ),
-                                borderRadius: BorderRadius.zero,
+                                hintText: widget.innerLabel,
+                                hintStyle: DigitTheme
+                                    .instance.mobileTheme.textTheme.bodyLarge
+                                    ?.copyWith(
+                                  height: 1.5,
+                                  color: const DigitColors().lightTextDisabled,
+                                ),
+                                filled: true,
+                                fillColor: widget.isDisabled
+                                    ? const DigitColors().lightPaperSecondary
+                                    : widget.readOnly
+                                        ? const DigitColors()
+                                            .lightGenericBackground
+                                        : const DigitColors().transparent,
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: _hasError
+                                        ? const DigitColors().lightAlertError
+                                        : const DigitColors()
+                                            .lightTextSecondary,
+                                    width: _hasError ? 1.5 : 1.0,
+                                  ),
+                                  borderRadius: BorderRadius.zero,
+                                ),
+                                focusedBorder: BaseConstants.focusedBorder,
+                                disabledBorder: BaseConstants.disabledBorder,
                               ),
-                              focusedBorder: BaseConstants.focusedBorder,
-                              disabledBorder: BaseConstants.disabledBorder,
-                            ),
-                            onChanged: (value) {
-                              setState(() {
-                                _value = value;
-                              });
-                              widget.onChange?.call(value);
-                            },
-                          ));
-                    }),
-                    if (widget.textAreaScroll != TextAreaScroll.smart &&
-                        widget.textAreaScroll != TextAreaScroll.none)
-                      Positioned(
-                        bottom: 0,
-                        right: 0,
-                        child: MouseRegion(
-                          cursor:  SystemMouseCursors.resizeUpDown,
-                          child: GestureDetector(
-                            onPanUpdate: (details) {
-
+                              onChanged: (value) {
+                                setState(() {
+                                  _value = value;
+                                });
+                                widget.onChange?.call(value);
+                              },
+                            ));
+                      }),
+                      if (widget.textAreaScroll != TextAreaScroll.smart &&
+                          widget.textAreaScroll != TextAreaScroll.none)
+                        Positioned(
+                          bottom: 0,
+                          right: 0,
+                          child: MouseRegion(
+                            cursor: SystemMouseCursors.resizeUpDown,
+                            child: GestureDetector(
+                              onPanUpdate: (details) {
                                 setState(() {
                                   _height = _height + details.delta.dy;
                                 });
-                            },
-                            child: Transform.rotate(
-                              angle: -0.5, // Adjust the angle as needed
-                              child: const Icon(
-                                Icons.drag_handle,
-                                size: 16,
+                              },
+                              child: Transform.rotate(
+                                angle: -0.5, // Adjust the angle as needed
+                                child: const Icon(
+                                  Icons.drag_handle,
+                                  size: 16,
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                  ],
-                )
+                    ],
+                  )
                 : TextFormField(
                     onTapOutside: (PointerDownEvent event) {
                       /// Remove focus when tapped outside the input field
@@ -433,6 +433,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                             color: widget.readOnly
                                 ? const DigitColors().lightTextSecondary
                                 : const DigitColors().lightTextPrimary,
+                        decoration: TextDecoration.none
                           )
                         : DigitTheme.instance.mobileTheme.textTheme.bodyLarge
                             ?.copyWith(
@@ -440,6 +441,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                             color: widget.readOnly
                                 ? const DigitColors().lightTextSecondary
                                 : const DigitColors().lightTextPrimary,
+                        decoration: TextDecoration.none
                           ),
                     decoration: InputDecoration(
                       counterText: '',
@@ -465,9 +467,9 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                                   maxWidth: BaseConstants.desktopInputMaxWidth,
                                 ),
                       contentPadding: const EdgeInsets.symmetric(
-                              vertical: kPadding / 2,
-                              horizontal: 12,
-                            ),
+                        vertical: kPadding / 2,
+                        horizontal: 12,
+                      ),
                       hintText: widget.innerLabel,
                       hintStyle: DigitTheme
                           .instance.mobileTheme.textTheme.bodyLarge
@@ -476,10 +478,11 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                         color: const DigitColors().lightTextDisabled,
                       ),
                       filled: true,
-                      fillColor: widget.isDisabled ? const DigitColors().lightPaperSecondary
-                      :widget.readOnly
-                          ? const DigitColors().lightGenericBackground
-                          : const DigitColors().transparent,
+                      fillColor: widget.isDisabled
+                          ? const DigitColors().lightPaperSecondary
+                          : widget.readOnly
+                              ? const DigitColors().lightGenericBackground
+                              : const DigitColors().transparent,
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: _hasError
@@ -506,7 +509,10 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                               maxHeight: 24,
                             ),
                       suffixIcon: widget.suffixText != null
-                          ? GestureDetector(
+                          ? InkWell(
+                              hoverColor: const DigitColors().transparent,
+                              splashColor: const DigitColors().transparent,
+                              highlightColor: const DigitColors().transparent,
                               onTap: widget.readOnly ? null : onSuffixIconClick,
                               child: Container(
                                 height: _isFocusOn || _hasError ? 36 : 38,
@@ -516,14 +522,16 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                                   right: _isFocusOn || _hasError ? 2 : 1,
                                 ),
                                 decoration: BoxDecoration(
-                                  color: const DigitColors().lightGenericBackground,
+                                  color: const DigitColors()
+                                      .lightGenericBackground,
                                   border: Border(
                                     left: BorderSide(
                                       color: widget.isDisabled
-                                          ? const DigitColors().lightTextDisabled
-                                          : const DigitColors().lightTextSecondary,
-                                      width:
-                                          1.0,
+                                          ? const DigitColors()
+                                              .lightTextDisabled
+                                          : const DigitColors()
+                                              .lightTextSecondary,
+                                      width: 1.0,
                                     ),
                                     top: BorderSide.none,
                                     bottom: BorderSide.none,
@@ -541,8 +549,10 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                                           ?.copyWith(
                                         height: 1.758,
                                         color: widget.isDisabled
-                                            ? const DigitColors().lightGenericDivider
-                                            : const DigitColors().lightTextSecondary,
+                                            ? const DigitColors()
+                                                .lightGenericDivider
+                                            : const DigitColors()
+                                                .lightTextSecondary,
                                       ),
                                     ),
                                   ),
@@ -550,7 +560,11 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                               ),
                             )
                           : widget.suffixIcon != null
-                              ? GestureDetector(
+                              ? InkWell(
+                                  hoverColor: const DigitColors().transparent,
+                                  splashColor: const DigitColors().transparent,
+                                  highlightColor:
+                                      const DigitColors().transparent,
                                   onTap: widget.readOnly
                                       ? null
                                       : onSuffixIconClick,
@@ -571,7 +585,10 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                           ? const DigitColors().lightTextDisabled
                           : const DigitColors().lightTextSecondary,
                       prefixIcon: widget.prefixText != null
-                          ? GestureDetector(
+                          ? InkWell(
+                              hoverColor: const DigitColors().transparent,
+                              splashColor: const DigitColors().transparent,
+                              highlightColor: const DigitColors().transparent,
                               onTap: widget.readOnly ? null : onPrefixIconClick,
                               child: Container(
                                 height: _isFocusOn || _hasError ? 36 : 38,
@@ -581,12 +598,15 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                                   left: _isFocusOn || _hasError ? 2 : 1,
                                 ),
                                 decoration: BoxDecoration(
-                                  color: const DigitColors().lightGenericBackground,
+                                  color: const DigitColors()
+                                      .lightGenericBackground,
                                   border: Border(
                                     right: BorderSide(
                                       color: widget.isDisabled
-                                          ? const DigitColors().lightGenericDivider
-                                          : const DigitColors().lightTextSecondary,
+                                          ? const DigitColors()
+                                              .lightGenericDivider
+                                          : const DigitColors()
+                                              .lightTextSecondary,
                                       width:
                                           1.0, // specify the width of the border
                                     ),
@@ -603,8 +623,10 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                                         ?.copyWith(
                                       height: 1.758,
                                       color: widget.isDisabled
-                                          ? const DigitColors().lightTextDisabled
-                                          : const DigitColors().lightTextSecondary,
+                                          ? const DigitColors()
+                                              .lightTextDisabled
+                                          : const DigitColors()
+                                              .lightTextSecondary,
                                     ),
                                   ),
                                 ),
@@ -647,8 +669,8 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                                   _errorMessage!.length > 256
                                       ? '${_errorMessage!.substring(0, 256)}...'
                                       : _errorMessage!,
-                                  style: DigitTheme.instance.mobileTheme
-                                      .textTheme.bodyMedium
+                                  style: DigitTheme
+                                      .instance.mobileTheme.textTheme.bodyMedium
                                       ?.copyWith(
                                     height: 1.5,
                                     color: const DigitColors().lightAlertError,

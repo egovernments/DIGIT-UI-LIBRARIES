@@ -216,9 +216,9 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
   @override
   Widget build(BuildContext context) {
     double dropdownWidth =
-    AppView.isMobileView(MediaQuery.of(context).size.width)
-        ? Default.mobileInputWidth
-        : Default.desktopInputWidth;
+        AppView.isMobileView(MediaQuery.of(context).size.width)
+            ? Default.mobileInputWidth
+            : Default.desktopInputWidth;
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -315,13 +315,13 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
       borderRadius: BorderRadius.zero,
       border: _selectionMode
           ? Border.all(
-        color: const DigitColors().lightPrimaryOrange,
-        width: 1,
-      )
+              color: const DigitColors().lightPrimaryOrange,
+              width: 1,
+            )
           : Border.all(
-        color: const DigitColors().lightTextSecondary,
-        width: 1,
-      ),
+              color: const DigitColors().lightTextSecondary,
+              width: 1,
+            ),
     );
   }
 
@@ -399,11 +399,11 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           widget.selectionType ==
-                              SelectionType.nestedMultiSelect
+                                  SelectionType.nestedMultiSelect
                               ? _buildNestedItems(values, options,
-                              selectedOptions, dropdownState)
+                                  selectedOptions, dropdownState)
                               : _buildFlatOptions(values, options,
-                              selectedOptions, dropdownState),
+                                  selectedOptions, dropdownState),
                         ],
                       ),
                     ),
@@ -431,7 +431,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
         itemBuilder: (context, index) {
           final option = options[index];
           bool isSelected = selectedOptions.any(
-                  (item) => item.code == option.code && item.name == option.name);
+              (item) => item.code == option.code && item.name == option.name);
           Color backgroundColor = index % 2 == 0
               ? const DigitColors().lightPaperPrimary
               : const DigitColors().lightPaperSecondary;
@@ -511,7 +511,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
               ),
             ...typeOptions.map((option) {
               bool isSelected = selectedOptions.any((item) =>
-              item.code == option.code && item.name == option.name);
+                  item.code == option.code && item.name == option.name);
               Color backgroundColor = const DigitColors().lightPaperPrimary;
 
               return DropdownOption(
@@ -592,23 +592,27 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
         }),
         if (_selectedOptions.isNotEmpty && !widget.isDisabled)
 
-        /// Display "Clear All" only if there are selected options
+          /// Display "Clear All" only if there are selected options
           InkWell(
             onTap: () => clear(),
             hoverColor: const DigitColors().transparent,
             splashColor: const DigitColors().transparent,
-            child: Chip(
-              backgroundColor: const DigitColors().lightPaperPrimary,
-              shape: RoundedRectangleBorder(
-                side: BorderSide(
+            highlightColor: const DigitColors().transparent,
+            child: Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: kPadding,
+                vertical: kPadding,
+              ),
+              decoration: BoxDecoration(
+                border: Border.all(
                   color: const DigitColors().lightPrimaryOrange,
                 ),
                 borderRadius: BorderRadius.circular(50),
               ),
-              padding: const EdgeInsets.symmetric(horizontal: kPadding),
-              labelPadding: const EdgeInsets.only(top: 2, bottom: 2),
-              label: Text('Clear All',
-                  style: TextStyle(color: const DigitColors().lightPrimaryOrange)),
+              child: Text(
+                'Clear All',
+                style: TextStyle(color: const DigitColors().lightPrimaryOrange),
+              ),
             ),
           ),
       ],
