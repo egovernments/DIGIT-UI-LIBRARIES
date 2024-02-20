@@ -516,7 +516,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                               onTap: widget.readOnly ? null : onSuffixIconClick,
                               child: Container(
                                 height: _isFocusOn || _hasError ? 36 : 38,
-                                width: 40,
+                                // width: 40,
                                 margin: EdgeInsets.only(
                                   left: kPadding,
                                   right: _isFocusOn || _hasError ? 2 : 1,
@@ -592,7 +592,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                               onTap: widget.readOnly ? null : onPrefixIconClick,
                               child: Container(
                                 height: _isFocusOn || _hasError ? 36 : 38,
-                                width: 40,
+                                width: 200,
                                 margin: EdgeInsets.only(
                                   right: kPadding,
                                   left: _isFocusOn || _hasError ? 2 : 1,
