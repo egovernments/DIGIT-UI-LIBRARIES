@@ -2,11 +2,13 @@
 
 FROM cirrusci/flutter:3.7.7 AS build
 ARG WORK_DIR
+# Set the Flutter channel as an ARG
+ARG FLUTTER_CHANNEL=stable
 WORKDIR /app
 # copy the project files
 COPY ${WORK_DIR} .
 # Set Flutter channel to master
-RUN flutter channel stable
+RUN flutter channel $FLUTTER_CHANNEL
 RUN flutter doctor
 RUN flutter clean
 RUN flutter pub get
