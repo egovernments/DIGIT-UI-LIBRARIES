@@ -1,12 +1,12 @@
 # Docker flutter tags https://hub.docker.com/r/cirrusci/flutter/tags?page=1&name=1.16
 
 FROM cirrusci/flutter:3.7.7 AS build
-# Set Flutter channel to master
-RUN flutter channel master
 ARG WORK_DIR
 WORKDIR /app
 # copy the project files
 COPY ${WORK_DIR} .
+# Set Flutter channel to master
+RUN flutter channel stable
 RUN flutter doctor
 RUN flutter clean
 RUN flutter pub get
