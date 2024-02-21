@@ -582,6 +582,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                     .headlineSmall
                                     ?.copyWith(
                                   color: const DigitColors().lightTextSecondary,
+                                  height: 1.188,
                                 )),
                           ],
                         ),
@@ -747,6 +748,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                                                 .lightPaperPrimary
                                                             : const DigitColors()
                                                                 .lightTextSecondary,
+                                                        height: 1.5,
                                                       ),
                                                     ),
                                                   )
