@@ -84,6 +84,7 @@ final controller31 = TextEditingController();
 final controller32 = TextEditingController();
 final controller33 = TextEditingController();
 final controller34 = TextEditingController();
+final controller35 = TextEditingController();
 final TreeSelectController<int> _controller = TreeSelectController();
 final controller = MultiSelectController<int>();
 
@@ -657,7 +658,7 @@ class MyHomePageState extends State<MyHomePage> {
                   controller: controller27,
                   innerLabel: 'innerlabel',
                   helpText: 'help text',
-                  prefixText: '#',
+                  prefixText: '#####',
                 ),
                 DigitCheckbox(
                   label: "Show All The Variants Of prefix Input Field",
@@ -701,7 +702,7 @@ class MyHomePageState extends State<MyHomePage> {
                   controller: controller28,
                   innerLabel: 'innerlabel',
                   helpText: 'help text',
-                  suffixText: '#',
+                  suffixText: '####',
                 ),
                 DigitCheckbox(
                   label: "Show All The Variants Of Suffix Input Field",
@@ -910,6 +911,52 @@ class MyHomePageState extends State<MyHomePage> {
                               name: 'six',
                               code: '6',
                               type: 'group A',
+                            ),
+                          ],
+                        ),
+                      ),
+                      LabeledField(
+                        label: "Dropdown with nested Type",
+                        child: DigitDropdown(
+                          onChange: (String value, String type) => {},
+                          textEditingController: controller35,
+                          dropdownType: DropdownType.nestedSelect,
+                          items: const [
+                            DropdownItem(
+                              name: 'one',
+                              code: '1',
+                              type: 'group B',
+                              textIcon: Icons.article,
+                            ),
+                            DropdownItem(
+                              name: 'two',
+                              code: '2',
+                              type: 'group A',
+                              textIcon: Icons.article,
+                            ),
+                            DropdownItem(
+                              name: 'three',
+                              code: '3',
+                              type: 'group B',
+                              textIcon: Icons.article,
+                            ),
+                            DropdownItem(
+                              name: 'four',
+                              code: '4',
+                              type: 'group A',
+                              textIcon: Icons.article,
+                            ),
+                            DropdownItem(
+                              name: 'five',
+                              code: '5',
+                              type: 'group B',
+                              textIcon: Icons.article,
+                            ),
+                            DropdownItem(
+                              name: 'six',
+                              code: '6',
+                              type: 'group A',
+                              textIcon: Icons.article,
                             ),
                           ],
                         ),

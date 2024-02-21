@@ -629,6 +629,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                     width: MediaQuery.of(context).size.width,
                                     decoration: BoxDecoration(
                                       border: Border.all(
+                                        width: 0.5,
                                         color: _itemMouseDownStates[
                                                     typeItems[index].code] ==
                                                 true
@@ -733,23 +734,32 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                                       typeItems[index].name,
                                                       maxLines: 1,
                                                       softWrap: true,
-                                                      style: DigitTheme
-                                                          .instance
-                                                          .mobileTheme
-                                                          .textTheme
-                                                          .bodyLarge
-                                                          ?.copyWith(
-                                                        color: _itemMouseDownStates[
-                                                                    typeItems[
-                                                                            index]
-                                                                        .code] ==
-                                                                true
-                                                            ? const DigitColors()
-                                                                .lightPaperPrimary
-                                                            : const DigitColors()
-                                                                .lightTextSecondary,
-                                                        height: 1.5,
-                                                      ),
+                                                      style: _itemMouseDownStates[
+                                                                  typeItems[
+                                                                          index]
+                                                                      .code] ==
+                                                              true
+                                                          ? DigitTheme
+                                                              .instance
+                                                              .mobileTheme
+                                                              .textTheme
+                                                              .headlineSmall
+                                                              ?.copyWith(
+                                                              color:  const DigitColors()
+                                                                      .lightPaperPrimary,
+                                                              height: 1.188,
+                                                            )
+                                                          : DigitTheme
+                                                              .instance
+                                                              .mobileTheme
+                                                              .textTheme
+                                                              .bodyLarge
+                                                              ?.copyWith(
+                                                              color
+                                                                  : const DigitColors()
+                                                                      .lightTextPrimary,
+                                                              height: 1.125,
+                                                            ),
                                                     ),
                                                   )
                                                 ],
