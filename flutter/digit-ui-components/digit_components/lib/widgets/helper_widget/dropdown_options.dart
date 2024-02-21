@@ -62,16 +62,18 @@ class _DropdownOptionState extends State<DropdownOption> {
               child: Container(
                 decoration: BoxDecoration(
                   border: Border.all(
+                    width: 0.5,
                     color: _itemMouseDownStates[widget.option] == true ||
-                        _itemHoverStates[widget.option] == true
+                            _itemHoverStates[widget.option] == true
                         ? const DigitColors().lightPrimaryOrange
                         : Colors.transparent,
                   ),
-                  color: _itemMouseDownStates[widget.option] == true || widget.isSelected
+                  color: _itemMouseDownStates[widget.option] == true ||
+                          widget.isSelected
                       ? const DigitColors().lightPrimaryOrange
                       : _itemHoverStates[widget.option] == true
-                      ? const DigitColors().orangeBG
-                      : widget.backgroundColor,
+                          ? const DigitColors().orangeBG
+                          : widget.backgroundColor,
                 ),
                 padding: EdgeInsets.zero,
                 child: Padding(
@@ -80,15 +82,17 @@ class _DropdownOptionState extends State<DropdownOption> {
                       : DropdownConstants.nestedItemPadding,
                   child: Row(
                     children: [
-                      widget.isSelected || _itemMouseDownStates[widget.option] == true
+                      widget.isSelected ||
+                              _itemMouseDownStates[widget.option] == true
                           ? DigitCheckboxIcon(
-                        state: CheckboxState.checked,
-                        color: const DigitColors().lightPaperPrimary,
-                      )
+                              size: 20,
+                              state: CheckboxState.checked,
+                              color: const DigitColors().lightPaperPrimary,
+                            )
                           : const DigitCheckboxIcon(
-                          state: CheckboxState.unchecked),
+                              size: 20, state: CheckboxState.unchecked),
                       const SizedBox(
-                        width: 10,
+                        width: 16,
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -100,7 +104,8 @@ class _DropdownOptionState extends State<DropdownOption> {
                                   widget.option.textIcon,
                                   size: DropdownConstants.textIconSize,
                                   color: widget.isSelected ||
-                                      _itemMouseDownStates[widget.option] == true
+                                          _itemMouseDownStates[widget.option] ==
+                                              true
                                       ? const DigitColors().lightPaperPrimary
                                       : const DigitColors().lightTextSecondary,
                                 ),
@@ -110,18 +115,23 @@ class _DropdownOptionState extends State<DropdownOption> {
                                 ),
                               Text(
                                 widget.option.name,
-                                style: DigitTheme
-                                    .instance
-                                    .mobileTheme
-                                    .textTheme
-                                    .headlineSmall
-                                    ?.copyWith(
-                                  color: widget.isSelected ||
-                                      _itemMouseDownStates[widget.option] ==
-                                          true
-                                      ? const DigitColors().lightPaperPrimary
-                                      : const DigitColors().lightTextSecondary,
-                                ),
+                                style: widget.isSelected ||
+                                        _itemMouseDownStates[widget.option] ==
+                                            true
+                                    ? DigitTheme.instance.mobileTheme.textTheme
+                                        .headlineSmall
+                                        ?.copyWith(
+                                        color: const DigitColors()
+                                            .lightPaperPrimary,
+                                        height: 1.188,
+                                      )
+                                    : DigitTheme.instance.mobileTheme.textTheme
+                                        .bodyMedium
+                                        ?.copyWith(
+                                        color: const DigitColors()
+                                            .lightTextPrimary,
+                                        height: 1.125,
+                                      ),
                               ),
                             ],
                           ),
@@ -129,13 +139,11 @@ class _DropdownOptionState extends State<DropdownOption> {
                             Text(
                               widget.option.description!,
                               style: DigitTheme
-                                  .instance
-                                  .mobileTheme
-                                  .textTheme
-                                  .bodySmall
+                                  .instance.mobileTheme.textTheme.bodySmall
                                   ?.copyWith(
                                 color: widget.isSelected ||
-                                    _itemMouseDownStates[widget.option] == true
+                                        _itemMouseDownStates[widget.option] ==
+                                            true
                                     ? const DigitColors().lightPaperPrimary
                                     : const DigitColors().lightTextSecondary,
                               ),

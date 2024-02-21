@@ -243,7 +243,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                   height: Default.height,
                   width: dropdownWidth,
                   constraints: const BoxConstraints(
-                    minWidth: Default.mobileInputWidth,
+                    minWidth: 200,
                     minHeight: Default.height,
                   ),
                   padding: const EdgeInsets.symmetric(
@@ -256,13 +256,21 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                     children: [
                       Expanded(
                         child: (_selectedOptions.isNotEmpty)
-                            ? Text('${_selectedOptions.length} Selected')
+                            ? Text(
+                                '${_selectedOptions.length} Selected',
+                                style: DigitTheme
+                                    .instance.mobileTheme.textTheme.bodyLarge
+                                    ?.copyWith(
+                                  height: 1.5,
+                                  color: const DigitColors().lightTextPrimary,
+                                ),
+                              )
                             : const Text(''),
                       ),
                       Icon(
                         widget.suffixIcon,
                         color: widget.isDisabled
-                            ? const DigitColors().lightTextDisabled
+                            ? const DigitColors().lightGenericDivider
                             : const DigitColors().lightTextSecondary,
                       ),
                     ],
@@ -311,7 +319,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
   /// Container decoration for the dropdown.
   Decoration _getContainerDecoration() {
     return BoxDecoration(
-      color: const DigitColors().transparent,
+      color: const DigitColors().lightPaperPrimary,
       borderRadius: BorderRadius.zero,
       border: _selectionMode
           ? Border.all(
@@ -608,10 +616,14 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                   color: const DigitColors().lightPrimaryOrange,
                 ),
                 borderRadius: BorderRadius.circular(50),
+                color: const DigitColors().lightPaperSecondary,
               ),
               child: Text(
                 'Clear All',
-                style: TextStyle(color: const DigitColors().lightPrimaryOrange),
+                style: DigitTheme.instance.mobileTheme.textTheme.bodyMedium?.copyWith(
+                  color: const DigitColors().lightPrimaryOrange,
+                  height: 1,
+                ),
               ),
             ),
           ),

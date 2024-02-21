@@ -216,7 +216,8 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
               ),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(
-                    color: const DigitColors().lightTextPrimary, width: 1.0),
+                    color: const DigitColors().lightGenericInputBorder,
+                    width: 1.0),
                 borderRadius: BorderRadius.zero,
               ),
               focusedBorder: OutlineInputBorder(
@@ -239,7 +240,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                 ),
               ),
               suffixIconColor: widget.isDisabled
-                  ? const DigitColors().lightTextDisabled
+                  ? const DigitColors().lightGenericDivider
                   : const DigitColors().lightTextSecondary,
             ),
           ),
@@ -486,17 +487,21 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                         softWrap: true,
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
-                                        style: DigitTheme.instance.mobileTheme
-                                            .textTheme.bodyMedium
-                                            ?.copyWith(
-                                                height: 1.125,
-                                                color: _itemMouseDownStates[
-                                                            filteredItems[index]
-                                                                .code] ==
-                                                        true
-                                                    ? const DigitColors()
-                                                        .lightPaperPrimary
-                                                    : const DigitColors()
+                                        style: _itemMouseDownStates[
+                                                    filteredItems[index]
+                                                        .code] ==
+                                                true
+                                            ? DigitTheme.instance.mobileTheme
+                                                .textTheme.headlineSmall
+                                                ?.copyWith(
+                                                    height: 1.188,
+                                                    color: const DigitColors()
+                                                        .lightPaperPrimary)
+                                            : DigitTheme.instance.mobileTheme
+                                                .textTheme.bodyMedium
+                                                ?.copyWith(
+                                                    height: 1.125,
+                                                    color: const DigitColors()
                                                         .lightTextPrimary),
                                       ),
                                     )
@@ -713,14 +718,16 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                                       width: kPadding / 2,
                                                     ),
                                                   SizedBox(
-                                                    width:
-                                                    filteredItems[index].profileImage !=
-                                                        null
+                                                    width: filteredItems[index]
+                                                                .profileImage !=
+                                                            null
                                                         ? dropdownWidth - 50
-                                                        : filteredItems[index].textIcon !=
-                                                        null
-                                                        ? dropdownWidth - 40
-                                                        : dropdownWidth - 16,
+                                                        : filteredItems[index]
+                                                                    .textIcon !=
+                                                                null
+                                                            ? dropdownWidth - 40
+                                                            : dropdownWidth -
+                                                                16,
                                                     child: Text(
                                                       typeItems[index].name,
                                                       maxLines: 1,
@@ -749,16 +756,18 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                                       .description !=
                                                   null)
                                                 SizedBox(
-                                                  width:
-                                                  filteredItems[index].profileImage !=
-                                                      null
+                                                  width: filteredItems[index]
+                                                              .profileImage !=
+                                                          null
                                                       ? dropdownWidth - 50
-                                                      : filteredItems[index].textIcon !=
-                                                      null
-                                                      ? dropdownWidth - 40
-                                                      : dropdownWidth - 16,
+                                                      : filteredItems[index]
+                                                                  .textIcon !=
+                                                              null
+                                                          ? dropdownWidth - 40
+                                                          : dropdownWidth - 16,
                                                   child: Text(
-                                                    typeItems[index].description!,
+                                                    typeItems[index]
+                                                        .description!,
                                                     maxLines: 3,
                                                     softWrap: true,
                                                     style: DigitTheme
@@ -768,7 +777,8 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                                         .bodySmall
                                                         ?.copyWith(
                                                       color: _itemMouseDownStates[
-                                                                  typeItems[index]
+                                                                  typeItems[
+                                                                          index]
                                                                       .code] ==
                                                               true
                                                           ? const DigitColors()
