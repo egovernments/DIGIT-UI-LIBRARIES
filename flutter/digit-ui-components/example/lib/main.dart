@@ -657,7 +657,7 @@ class MyHomePageState extends State<MyHomePage> {
                   controller: controller27,
                   innerLabel: 'innerlabel',
                   helpText: 'help text',
-                  prefixText: '#####',
+                  prefixText: '#',
                 ),
                 DigitCheckbox(
                   label: "Show All The Variants Of prefix Input Field",
@@ -701,7 +701,7 @@ class MyHomePageState extends State<MyHomePage> {
                   controller: controller28,
                   innerLabel: 'innerlabel',
                   helpText: 'help text',
-                  suffixText: '#####',
+                  suffixText: '#',
                 ),
                 DigitCheckbox(
                   label: "Show All The Variants Of Suffix Input Field",
