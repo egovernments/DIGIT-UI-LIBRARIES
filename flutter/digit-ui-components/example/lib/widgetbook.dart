@@ -1917,42 +1917,9 @@ class HotReload extends StatelessWidget {
               useCases: [
                 WidgetbookUseCase(
                   name: 'Default',
-                  builder: (context) => DigitStepper(
-                    activeStep:2,
-                    stepRadius: 12.5,
-                    steps: const [
-                      StepsModel(
-                        title: 'fffffffffffffff',
-                        number: '1',
-                      ),
-                      StepsModel(
-                        title: 'fffffffffffffff',
-                        number: '2',
-                      ),
-                      StepsModel(
-                        title: 'fffffffffffffff',
-                        number: '3',
-                      ),
-                      StepsModel(
-                        title: 'fffffffffffffff',
-                        number: '4',
-                      ),
-                      StepsModel(
-                        title: 'fffffffffffffff',
-                        number: '5',
-                      ),
-
-                    ],
-                    maxStepReached: 3,
-                    lineLength:
-                    (MediaQuery.of(context)
-                        .size
-                        .width -
-                        12.5 *
-                            2 *
-                            5 -
-                        50) /
-                        (5- 1),
+                  builder: (context) => const CustomStepper(
+                    currentStep: 2,
+                    steps: ['Step 1', 'Step 2', 'Step 3', 'Step 4'],
                   ),
                 ),
               ],
