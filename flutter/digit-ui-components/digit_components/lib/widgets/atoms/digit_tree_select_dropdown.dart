@@ -91,6 +91,8 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
 
   /// Selected options list that is used to display the selected options.
   final List<TreeNode> _selectedOptions = [];
+  Map<String, bool> hoverStates = {};
+  Map<String, bool> mouseStates = {};
 
   /// The controller for the dropdown.
   OverlayState? _overlayState;
@@ -309,24 +311,29 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
 
         /// Display "Clear All" only if there are selected options
           InkWell(
+            onTap: () => clear(),
             hoverColor: const DigitColors().transparent,
             splashColor: const DigitColors().transparent,
-            onTap: () => clear(),
-            /// onTap Clear all the selected options
-            child: Chip(
-              backgroundColor: const DigitColors().lightPaperPrimary,
-              shape: RoundedRectangleBorder(
-                side: BorderSide(
+            highlightColor: const DigitColors().transparent,
+            child: Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: kPadding,
+                vertical: kPadding,
+              ),
+              decoration: BoxDecoration(
+                border: Border.all(
                   color: const DigitColors().lightPrimaryOrange,
                 ),
                 borderRadius: BorderRadius.circular(50),
+                color: const DigitColors().lightPaperSecondary,
               ),
-              padding: const EdgeInsets.symmetric(
-                horizontal: kPadding,
+              child: Text(
+                'Clear All',
+                style: DigitTheme.instance.mobileTheme.textTheme.bodyMedium?.copyWith(
+                  color: const DigitColors().lightPrimaryOrange,
+                  height: 1,
+                ),
               ),
-              labelPadding: const EdgeInsets.symmetric(vertical: kPadding / 4),
-              label: Text('Clear All',
-                  style: TextStyle(color: const DigitColors().lightPrimaryOrange)),
             ),
           ),
       ],
@@ -519,7 +526,10 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
       isSelected: isSelected,
       selectedOptions: selectedOptions,
       backgroundColor: backgroundColor,
+      currentHorPadding: 22,
       focusNode: _focusNode,
+      hoverStates: hoverStates,
+      mouseStates: mouseStates,
       treeSelectionType: widget.treeSelectionType,
       onOptionSelected: (updatedOptions) {
         if (widget.treeSelectionType == TreeSelectionType.MultiSelect) {

@@ -500,8 +500,9 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                             : DigitTheme.instance.mobileTheme
                                                 .textTheme.bodyMedium
                                                 ?.copyWith(
-                                                    height: 1.125,
-                                                    color: const DigitColors()
+                                                    height: filteredItems[index].description != null ? 1.5 : 1.125,
+                                                    color: filteredItems[index].description != null ? const DigitColors()
+                                                        .lightTextSecondary: const DigitColors()
                                                         .lightTextPrimary),
                                       ),
                                     )
@@ -814,8 +815,13 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                   color:
                                       const DigitColors().lightGenericDivider,
                                   width: MediaQuery.of(context).size.width,
-                                  margin: const EdgeInsets.symmetric(
-                                    horizontal: 10,
+                                  margin: const EdgeInsets.only(
+                                    left: 30,
+                                    right: 30,
+                                  ),
+                                  padding: const EdgeInsets.only(
+                                    left: 30,
+                                    right: 30,
                                   ),
                                 )
                               ],
@@ -825,6 +831,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                       if (outerIndex != uniqueTypes.length - 1)
                         Container(
                           height: kPadding * 2,
+
                           color: const DigitColors().lightPaperPrimary,
                         ),
                     ],

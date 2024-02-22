@@ -27,14 +27,9 @@ import 'package:url_strategy/url_strategy.dart';
 
 final List<TreeNode> Nodes = [
   TreeNode('A', 'A', [
-    TreeNode('A.A1', 'A1', [
-      TreeNode('A.A1.A3', 'A3', [
-        TreeNode('A.A1.A3.A5', 'A5', []),
-        TreeNode('A.A1.A3.A6', 'A6', []),
-      ]),
-      TreeNode('A.A1.A4', 'A4', []),
-    ]),
+    TreeNode('A.A1', 'A1', []),
     TreeNode('A.A2', 'A2', []),
+    TreeNode('A.A1.A3', 'A3', []),
   ]),
   TreeNode('B', 'B', [
     TreeNode('B.B1', 'B1', []),
@@ -783,6 +778,44 @@ class MyHomePageState extends State<MyHomePage> {
                       LabeledField(
                         label: "Dropdown with Profile",
                         child: DigitDropdown<int>(
+                          onChange: (String value, String index) => {},
+                          textEditingController: controller30,
+                          items: const [
+                            DropdownItem(
+                              name: 'first',
+                              code: '1',
+                              profileImage: NetworkImage(
+                                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                              ),
+                            ),
+                            DropdownItem(
+                              name: 'second',
+                              code: '2',
+                              profileImage: NetworkImage(
+                                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                              ),
+                            ),
+                            DropdownItem(
+                              name: 'third',
+                              code: '3',
+                              profileImage: NetworkImage(
+                                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                              ),
+                            ),
+                            DropdownItem(
+                              name: 'fourth',
+                              code: '4',
+                              profileImage: NetworkImage(
+                                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      LabeledField(
+                        label: "Dropdown with Profile And Description",
+                        child: DigitDropdown<int>(
                         onChange: (String value, String index) => {},
                         textEditingController: controller30,
                         items: const [
@@ -1160,42 +1193,59 @@ class MyHomePageState extends State<MyHomePage> {
                           selectionType: SelectionType.nestedMultiSelect,
                         ),
                       ),
+                      const SizedBox(height: 8),
+                      LabeledField(
+                        label: "MultiSelect Dropdown with nested Type and Icon",
+                        child: MultiSelectDropDown<int>(
+                          onOptionSelected: (List<DropdownItem> selectedOptions) {},
+                          options: const [
+                            DropdownItem(code: '1', name: 'first', type: "Type A", textIcon: Icons.article),
+                            DropdownItem(code: '2', name: 'second', type: "Type A", textIcon: Icons.article),
+                            DropdownItem(code: '3', name: 'third', type: "Type A", textIcon: Icons.article),
+                            DropdownItem(code: '4', name: 'four', type: "Type B", textIcon: Icons.article),
+                            DropdownItem(code: '5', name: 'five', type: "Type B", textIcon: Icons.article),
+                          ],
+                          selectionType: SelectionType.nestedMultiSelect,
+                        ),
+                      ),
                     ],
                   ),
                 const SizedBox(
                   height: 8,
                 ),
-
+                const Divider(),
                 const SizedBox(
                   height: 8,
                 ),
-                const Text('TreeSelect Dropdowns'),
-                TreeSelectDropDown<int>(
-                  onOptionSelected: (List<TreeNode> selectedOptions) {
-                    // print(selectedOptions);
-                    for (TreeNode node in selectedOptions) {
-                      // print("Node: ${node.value}");
-                    }
-                  },
-                  options: Nodes,
-                  treeSelectionType: TreeSelectionType.MultiSelect,
-                  controller: _controller,
+                LabeledField(
+                  label: 'Tree Select Dropdowns',
+                  child: TreeSelectDropDown<int>(
+                    onOptionSelected: (List<TreeNode> selectedOptions) {
+                      // print(selectedOptions);
+                      for (TreeNode node in selectedOptions) {
+                        // print("Node: ${node.value}");
+                      }
+                    },
+                    options: Nodes,
+                    treeSelectionType: TreeSelectionType.singleSelect,
+                  ),
                 ),
                 const SizedBox(
                   height: 8,
                 ),
-                TreeSelectDropDown<int>(
-                  onOptionSelected: (List<TreeNode> selectedOptions) {
-                    // print(selectedOptions);
-                    for (TreeNode node in selectedOptions) {
-                      // print("Node: ${node.value}");
-                    }
-                  },
-                  options: Nodes,
-                  treeSelectionType: TreeSelectionType.singleSelect,
-                ),
-                const SizedBox(
-                  height: 8,
+                LabeledField(
+                  label: 'Tree Multi Select Dropdowns',
+                  child: TreeSelectDropDown<int>(
+                    onOptionSelected: (List<TreeNode> selectedOptions) {
+                      // print(selectedOptions);
+                      for (TreeNode node in selectedOptions) {
+                        // print("Node: ${node.value}");
+                      }
+                    },
+                    options: Nodes,
+                    treeSelectionType: TreeSelectionType.MultiSelect,
+                    controller: _controller,
+                  ),
                 ),
                 const SizedBox(
                   height: 8,

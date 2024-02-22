@@ -35,7 +35,7 @@ class SelectionChip<T> extends StatelessWidget {
       ),
       shadowColor: const DigitColors().transparent,
       deleteIconColor: const DigitColors().lightTextSecondary,
-      labelPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
+      labelPadding: const EdgeInsets.symmetric(vertical: 4, horizontal: 0),
       backgroundColor: const DigitColors().lightGenericDivider,
       labelStyle: DigitTheme.instance.mobileTheme.textTheme.bodyMedium?.copyWith(
         color: const DigitColors().lightTextPrimary,

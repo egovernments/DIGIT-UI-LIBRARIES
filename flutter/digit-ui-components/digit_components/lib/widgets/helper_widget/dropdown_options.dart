@@ -92,7 +92,7 @@ class _DropdownOptionState extends State<DropdownOption> {
                           : const DigitCheckboxIcon(
                               size: 20, state: CheckboxState.unchecked),
                       const SizedBox(
-                        width: 16,
+                        width: 12,
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
