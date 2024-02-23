@@ -242,7 +242,7 @@ class MyHomePageState extends State<MyHomePage> {
                   label: "Text Area",
                   innerLabel: 'label',
                   helpText: 'help text',
-                  textAreaScroll: TextAreaScroll.vertical,
+                  textAreaScroll: TextAreaScroll.smart,
                 ),
                 const SizedBox(
                   height: 8,
