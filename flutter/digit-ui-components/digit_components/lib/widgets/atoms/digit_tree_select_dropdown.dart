@@ -298,6 +298,7 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
     return Wrap(
       spacing: widget.chipConfig.spacing,
       runSpacing: widget.chipConfig.runSpacing,
+      alignment: WrapAlignment.center,
       children: [
         ..._selectedOptions.asMap().entries.map((entry) {
           final index = entry.key;

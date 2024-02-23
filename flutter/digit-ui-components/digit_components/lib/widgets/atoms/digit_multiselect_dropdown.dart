@@ -584,6 +584,8 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
     return Wrap(
       spacing: widget.chipConfig.spacing,
       runSpacing: widget.chipConfig.runSpacing,
+      alignment: WrapAlignment.start,
+      crossAxisAlignment: WrapCrossAlignment.center,
       children: [
         ..._selectedOptions.asMap().entries.map((entry) {
           final index = entry.key;

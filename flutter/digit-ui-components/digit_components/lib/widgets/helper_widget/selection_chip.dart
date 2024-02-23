@@ -21,7 +21,7 @@ class SelectionChip<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Chip(
-      padding: chipConfig?.padding ?? const EdgeInsets.symmetric(vertical: kPadding , horizontal: kPadding),
+      padding: chipConfig?.padding ?? const EdgeInsets.only(top: kPadding , bottom: kPadding, left: kPadding, right: 0,),
       label: selectionType == SelectionType.nestedMultiSelect
           ? Text('${item.type}: ${item.name}')
           : Text(item.name),
@@ -30,7 +30,7 @@ class SelectionChip<T> extends StatelessWidget {
       ),
       deleteIcon: Icon(
         Icons.cancel,
-        size: 20,
+        size: 24,
         color: const DigitColors().lightTextSecondary,
       ),
       shadowColor: const DigitColors().transparent,
