@@ -819,10 +819,6 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                     left: 30,
                                     right: 30,
                                   ),
-                                  padding: const EdgeInsets.only(
-                                    left: 30,
-                                    right: 30,
-                                  ),
                                 )
                               ],
                             );

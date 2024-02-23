@@ -8,7 +8,7 @@ COPY ${WORK_DIR} .
 RUN flutter doctor
 RUN flutter clean
 RUN flutter pub get
-RUN flutter build web --web-renderer html --release
+RUN flutter build web --release
 # Create runtime image
 FROM nginx:mainline-alpine
 ENV WEB_DIR=/var/web/digit-ui-flutter

@@ -273,7 +273,7 @@ class _DigitButtonState extends State<DigitButton> {
                     ? DigitButtonConstants.defaultDisabledColor
                     : DigitButtonConstants.defaultPrimaryColor),
               ),
-              const SizedBox(width: kPadding),
+              SizedBox(width: widget.type == ButtonType.link  ? kPadding/2:kPadding),
             ],
             Flexible(
               child: Text(
@@ -302,7 +302,7 @@ class _DigitButtonState extends State<DigitButton> {
               ),
             ),
             if (widget.suffixIcon != null) ...[
-              const SizedBox(width: kPadding),
+              SizedBox(width: widget.type == ButtonType.link  ? kPadding/2:kPadding),
               Icon(
                 widget.suffixIcon,
                 size: widget.type == ButtonType.link ? 20 : widget.iconSize,

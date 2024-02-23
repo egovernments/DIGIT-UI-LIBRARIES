@@ -27,21 +27,21 @@ import 'package:url_strategy/url_strategy.dart';
 
 final List<TreeNode> Nodes = [
   TreeNode('A', 'A', [
-    TreeNode('A.A1', 'A1', []),
-    TreeNode('A.A2', 'A2', []),
-    TreeNode('A.A1.A3', 'A3', []),
+    TreeNode('A:A1', 'A1', []),
+    TreeNode('A:A2', 'A2', []),
+    TreeNode('A:A3', 'A3', []),
   ]),
   TreeNode('B', 'B', [
-    TreeNode('B.B1', 'B1', []),
-    TreeNode('B.B2', 'B2', []),
+    TreeNode('B:B1', 'B1', []),
+    TreeNode('B:B2', 'B2', []),
   ]),
   TreeNode('C', 'C', [
-    TreeNode('C.C1', 'C1', []),
-    TreeNode('C.C2', 'C2', []),
+    TreeNode('C:C1', 'C1', []),
+    TreeNode('C:C2', 'C2', []),
   ]),
   TreeNode('D', 'D', [
-    TreeNode('D.D1', 'D1', []),
-    TreeNode('D.D2', 'D2', []),
+    TreeNode('D:D1', 'D1', []),
+    TreeNode('D:2', 'D2', []),
   ]),
 ];
 
