@@ -208,8 +208,6 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
                                                 .lightGenericDivider,
                           ),
                         ),
-                        if (widget.treeSelectionType ==
-                            TreeSelectionType.MultiSelect)
                           const SizedBox(
                             width: kPadding / 2,
                           ),
@@ -263,6 +261,8 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
                                         size: 20,
                                         state: CheckboxState.unchecked),
                           ),
+                        if (widget.treeSelectionType ==
+                            TreeSelectionType.MultiSelect)
                         const SizedBox(
                           width: 12,
                         ),

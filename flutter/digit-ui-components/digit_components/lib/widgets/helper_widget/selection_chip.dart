@@ -20,28 +20,38 @@ class SelectionChip<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Chip(
-      padding: chipConfig?.padding ?? const EdgeInsets.only(top: kPadding , bottom: kPadding, left: kPadding, right: 0,),
-      label: selectionType == SelectionType.nestedMultiSelect
-          ? Text('${item.type}: ${item.name}')
-          : Text(item.name),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(Default.defaultChipRadius),
+    return IntrinsicWidth(
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+          horizontal: kPadding,
+          vertical: kPadding,
+        ),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(Default.defaultChipRadius),
+          color: const DigitColors().lightGenericDivider,
+        ),
+        child: Row(
+          children: [
+            selectionType == SelectionType.nestedMultiSelect
+                ? Text('${item.type}: ${item.name}')
+                : Text(item.name),
+            const SizedBox(width: kPadding,),
+            InkWell(
+              onTap: () => onItemDelete(item),
+              hoverColor: const DigitColors().transparent,
+              splashColor: const DigitColors().transparent,
+              highlightColor: const DigitColors().transparent,
+              child: Icon(
+                Icons.cancel,
+                size: 24,
+                color: const DigitColors().lightTextSecondary,
+              ),
+            ),
+          ],
+        ),
       ),
-      deleteIcon: Icon(
-        Icons.cancel,
-        size: 24,
-        color: const DigitColors().lightTextSecondary,
-      ),
-      shadowColor: const DigitColors().transparent,
-      deleteIconColor: const DigitColors().lightTextSecondary,
-      labelPadding: const EdgeInsets.symmetric(vertical: 4, horizontal: 0),
-      backgroundColor: const DigitColors().lightGenericDivider,
-      labelStyle: DigitTheme.instance.mobileTheme.textTheme.bodyMedium?.copyWith(
-        color: const DigitColors().lightTextPrimary,
-        height: 1,
-      ),
-      onDeleted: () => onItemDelete(item),
     );
+
   }
 }
+

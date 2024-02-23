@@ -144,12 +144,17 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
     if (!_focusNode.hasFocus) {
       _selectDropdownOption();
       if (_isOpen && isMouseDown == false) {
+        /// If no match found, clear the controller text
+        if (_currentIndex == '' && _nestedIndex == '') {
+          widget.textEditingController.clear();
+        }
         _toggleDropdown(close: true);
       }
-
-      /// If no match found, clear the controller text
       if (_currentIndex == '' && _nestedIndex == '') {
         widget.textEditingController.clear();
+      }
+      if (isMouseDown && !_isOpen) {
+        _toggleDropdown(close: true);
       }
     }
   }
@@ -216,13 +221,13 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
               ),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(
-                    color: const DigitColors().lightGenericInputBorder,
-                    width: 1.0),
+                    color: _isOpen ? const DigitColors().lightPrimaryOrange : const DigitColors().lightGenericInputBorder,
+                    width: _isOpen ? 1.5 : 1.0),
                 borderRadius: BorderRadius.zero,
               ),
               focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(
-                    color: const DigitColors().lightPrimaryOrange, width: 1.0),
+                    color: const DigitColors().lightPrimaryOrange, width: 1.5),
                 borderRadius: BorderRadius.zero,
               ),
               disabledBorder: BaseConstants.disabledBorder,
@@ -232,7 +237,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                 hoverColor: const DigitColors().transparent,
                 onTap: () {
                   _toggleDropdown();
-                  FocusScope.of(context).requestFocus(_focusNode);
+                  // FocusScope.of(context).requestFocus(_focusNode);
                 },
                 child: Icon(
                   widget.suffixIcon,
@@ -448,8 +453,10 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                 ),
                               ),
                             if (filteredItems[index].profileImage != null)
-                              const SizedBox(
-                                width: 6,
+                              SizedBox(
+                                width: filteredItems[index].description != null
+                                    ? 16
+                                    : 10,
                               ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -487,23 +494,31 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                         softWrap: true,
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
-                                        style: _itemMouseDownStates[
-                                                    filteredItems[index]
-                                                        .code] ==
-                                                true
+                                        style: _itemMouseDownStates[filteredItems[index].code] == true
                                             ? DigitTheme.instance.mobileTheme
                                                 .textTheme.headlineSmall
                                                 ?.copyWith(
-                                                    height: 1.188,
+                                                    height: filteredItems[index]
+                                                        .description !=
+                                                        null
+                                                        ? 1.5 : 1.188,
                                                     color: const DigitColors()
                                                         .lightPaperPrimary)
                                             : DigitTheme.instance.mobileTheme
                                                 .textTheme.bodyMedium
                                                 ?.copyWith(
-                                                    height: filteredItems[index].description != null ? 1.5 : 1.125,
-                                                    color: filteredItems[index].description != null ? const DigitColors()
-                                                        .lightTextSecondary: const DigitColors()
-                                                        .lightTextPrimary),
+                                                    height: filteredItems[index]
+                                                                .description !=
+                                                            null
+                                                        ? 1.5
+                                                        : 1.125,
+                                                    color: filteredItems[index]
+                                                                .description !=
+                                                            null
+                                                        ? const DigitColors()
+                                                            .lightTextSecondary
+                                                        : const DigitColors()
+                                                            .lightTextPrimary),
                                       ),
                                     )
                                   ],
@@ -524,6 +539,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                       style: DigitTheme.instance.mobileTheme
                                           .textTheme.bodySmall
                                           ?.copyWith(
+                                        height: 1.125,
                                         color: _itemMouseDownStates[
                                                     filteredItems[index]
                                                         .code] ==
@@ -746,8 +762,8 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                                               .textTheme
                                                               .headlineSmall
                                                               ?.copyWith(
-                                                              color:  const DigitColors()
-                                                                      .lightPaperPrimary,
+                                                              color: const DigitColors()
+                                                                  .lightPaperPrimary,
                                                               height: 1.188,
                                                             )
                                                           : DigitTheme
@@ -756,9 +772,8 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                                               .textTheme
                                                               .bodyLarge
                                                               ?.copyWith(
-                                                              color
-                                                                  : const DigitColors()
-                                                                      .lightTextPrimary,
+                                                              color: const DigitColors()
+                                                                  .lightTextPrimary,
                                                               height: 1.125,
                                                             ),
                                                     ),
@@ -827,7 +842,6 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                       if (outerIndex != uniqueTypes.length - 1)
                         Container(
                           height: kPadding * 2,
-
                           color: const DigitColors().lightPaperPrimary,
                         ),
                     ],
@@ -896,6 +910,8 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
         /// Reset the index when opening the dropdown
         _itemHoverStates = {};
         _itemMouseDownStates = {};
+        _currentIndex = '';
+        _nestedIndex = '';
         _overlayEntry = _createOverlayEntry();
       });
       Overlay.of(context).insert(_overlayEntry!);

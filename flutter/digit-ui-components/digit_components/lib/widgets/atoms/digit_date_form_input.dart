@@ -68,7 +68,7 @@ class DigitDateFormInput extends BaseDigitFormInput {
     initialDate: initialDate,
     firstDate: firstDate,
     lastDate: lastDate,
-    keyboardType: TextInputType.none,
+    keyboardType: TextInputType.datetime,
     showCurser: editable,
     isEditable: editable,
   );

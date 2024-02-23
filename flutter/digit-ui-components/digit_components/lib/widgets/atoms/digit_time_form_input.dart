@@ -61,6 +61,7 @@ class DigitTimeFormInput extends BaseDigitFormInput {
     initialValue: initialValue,
     validations: validations,
     onChange: onChange,
+    keyboardType: TextInputType.datetime,
     showCurser: editable,
     isEditable: editable,
   );

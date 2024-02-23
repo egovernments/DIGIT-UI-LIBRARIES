@@ -564,6 +564,17 @@ class MyHomePageState extends State<MyHomePage> {
                     children: [
                       const SizedBox(height: 8,),
                       DigitNumericFormInput(
+                        label: "Numeric Field With Editable",
+                        controller: controller16,
+                        innerLabel: 'innerlabel',
+                        helpText: 'help text',
+                        initialValue: '0',
+                        editable: true,
+                        step: 5,
+                        maxValue: 100,
+                        minValue: -10,
+                      ),
+                      DigitNumericFormInput(
                         label: "Numeric Field With Max value 100 and step 5 and Min value -10",
                         controller: controller16,
                         innerLabel: 'innerlabel',
