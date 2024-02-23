@@ -14,15 +14,15 @@ class DigitTheme {
   DigitColors get colors => const DigitColors();
 
   DigitMobileTypography get mobileTypography => DigitMobileTypography(
-        normalBase: const TextStyle(
-          fontFamily: 'Roboto',
-        ),
-        displayBase: const TextStyle(
-          fontFamily: 'Roboto',
-        ),
-        light: colors.davyGray,
-        normal: colors.woodsmokeBlack,
-      );
+    normalBase: const TextStyle(
+      fontFamily: 'Roboto',
+    ),
+    displayBase: const TextStyle(
+      fontFamily: 'Roboto',
+    ),
+    light: colors.lightTextSecondary,
+    normal: colors.lightTextPrimary,
+  );
 
   const DigitTheme._internal();
 
@@ -44,157 +44,157 @@ class DigitTheme {
   }
 
   ColorScheme get colorScheme => ColorScheme(
-        brightness: Brightness.light,
-        primary: colors.burningOrange,
-        onPrimary: colors.white,
-        secondary: colors.regalBlue,
-        onSecondary: colors.white,
-        error: colors.lavaRed,
-        onError: colors.white,
-        background: colors.white,
-        onBackground: colors.woodsmokeBlack,
-        surface: colors.alabasterWhite,
-        onSurface: colors.woodsmokeBlack,
-        onSurfaceVariant: colors.darkSpringGreen,
-        tertiaryContainer: colors.tropicalBlue,
-        inversePrimary: colors.paleLeafGreen,
-        surfaceTint: colors.waterBlue,
-        outline: colors.quillGray,
-        shadow: colors.davyGray,
-        tertiary: colors.paleRose,
-        onTertiaryContainer: colors.curiousBlue,
-      );
+    brightness: Brightness.light,
+    primary: colors.lightPrimaryOrange,
+    onPrimary: colors.lightPaperPrimary,
+    secondary: colors.lightPrimaryBlueGray,
+    onSecondary: colors.lightPaperPrimary,
+    error: colors.lightAlertError,
+    onError: colors.lightPaperPrimary,
+    background: colors.lightPaperPrimary,
+    onBackground: colors.lightTextPrimary,
+    surface: colors.lightPaperSecondary,
+    onSurface: colors.lightTextPrimary,
+    onSurfaceVariant: colors.lightAlertSuccess,
+    tertiaryContainer: colors.tropicalBlue,
+    inversePrimary: colors.lightAlertSuccessBg,
+    surfaceTint: colors.waterBlue,
+    outline: colors.lightGenericDivider,
+    shadow: colors.lightTextSecondary,
+    tertiary: colors.paleRose,
+    onTertiaryContainer: colors.lightAlertInfoBg,
+  );
 
   EdgeInsets get buttonPadding => const EdgeInsets.symmetric(
-        vertical: kPadding,
-        horizontal: kPadding * 2,
-      );
+    vertical: kPadding,
+    horizontal: kPadding * 2,
+  );
 
   EdgeInsets get containerMargin => const EdgeInsets.all(kPadding);
 
   EdgeInsets get verticalMargin => const EdgeInsets.symmetric(
-        vertical: kPadding,
-      );
+    vertical: kPadding,
+  );
 
   Duration get toastDuration => const Duration(seconds: 2);
 
   OutlinedBorder get buttonBorder => const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.zero),
-      );
+    borderRadius: BorderRadius.all(Radius.zero),
+  );
 
   ElevatedButtonThemeData get elevatedButtonTheme => ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(
-          shape: buttonBorder,
-          padding: buttonPadding,
-          backgroundColor: colorScheme.secondary,
-          foregroundColor: colorScheme.onSecondary,
-          disabledBackgroundColor: colorScheme.secondary.withOpacity(
-            0.5,
-          ),
-          disabledForegroundColor: colorScheme.onSecondary,
-          elevation: 0,
-        ),
-      );
+    style: ElevatedButton.styleFrom(
+      shape: buttonBorder,
+      padding: buttonPadding,
+      backgroundColor: colorScheme.secondary,
+      foregroundColor: colorScheme.onSecondary,
+      disabledBackgroundColor: colorScheme.secondary.withOpacity(
+        0.5,
+      ),
+      disabledForegroundColor: colorScheme.onSecondary,
+      elevation: 0,
+    ),
+  );
 
   OutlinedButtonThemeData get outlinedButtonTheme => OutlinedButtonThemeData(
-        style: OutlinedButton.styleFrom(
-          foregroundColor: colorScheme.secondary,
-          side: BorderSide(color: colorScheme.secondary),
-          padding: buttonPadding,
-        ),
-      );
+    style: OutlinedButton.styleFrom(
+      foregroundColor: colorScheme.secondary,
+      side: BorderSide(color: colorScheme.secondary),
+      padding: buttonPadding,
+    ),
+  );
 
   TextButtonThemeData get textButtonTheme => TextButtonThemeData(
-        style: TextButton.styleFrom(
-          shape: buttonBorder,
-          padding: buttonPadding,
-          textStyle: const TextStyle(fontSize: 16),
-          foregroundColor: colorScheme.secondary,
-        ),
-      );
+    style: TextButton.styleFrom(
+      shape: buttonBorder,
+      padding: buttonPadding,
+      textStyle: const TextStyle(fontSize: 16),
+      foregroundColor: colorScheme.secondary,
+    ),
+  );
 
   CardTheme get cardTheme => const CardTheme(
-        margin: EdgeInsets.fromLTRB(kPadding, kPadding * 2, kPadding, 0),
-        elevation: 1,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(4),
-          ),
-        ),
-      );
+    margin: EdgeInsets.fromLTRB(kPadding, kPadding * 2, kPadding, 0),
+    elevation: 1,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(
+        Radius.circular(4),
+      ),
+    ),
+  );
 
   InputDecorationTheme get inputDecorationTheme => InputDecorationTheme(
-        enabledBorder: OutlineInputBorder(
-          borderRadius: const BorderRadius.all(
-            Radius.circular(
-              0,
-            ),
-          ),
-          borderSide: BorderSide(
-            color: colors.davyGray,
-          ),
+    enabledBorder: OutlineInputBorder(
+      borderRadius: const BorderRadius.all(
+        Radius.circular(
+          0,
         ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: const BorderRadius.all(
-            Radius.circular(
-              0,
-            ),
-          ),
-          borderSide: BorderSide(
-            color: colors.burningOrange,
-            width: 2,
-          ),
+      ),
+      borderSide: BorderSide(
+        color: colors.lightTextSecondary,
+      ),
+    ),
+    focusedBorder: OutlineInputBorder(
+      borderRadius: const BorderRadius.all(
+        Radius.circular(
+          0,
         ),
-        disabledBorder: OutlineInputBorder(
-          borderRadius: const BorderRadius.all(
-            Radius.circular(
-              0,
-            ),
-          ),
-          borderSide: BorderSide(color: colors.cloudGray, width: 1),
+      ),
+      borderSide: BorderSide(
+        color: colors.lightPrimaryOrange,
+        width: 2,
+      ),
+    ),
+    disabledBorder: OutlineInputBorder(
+      borderRadius: const BorderRadius.all(
+        Radius.circular(
+          0,
         ),
-        contentPadding: const EdgeInsets.all(12),
-        floatingLabelBehavior: FloatingLabelBehavior.never,
-        errorBorder: OutlineInputBorder(
-          borderRadius: const BorderRadius.all(
-            Radius.circular(
-              0,
-            ),
-          ),
-          borderSide: BorderSide(
-            color: colors.lavaRed,
-          ),
+      ),
+      borderSide: BorderSide(color: colors.lightTextDisabled, width: 1),
+    ),
+    contentPadding: const EdgeInsets.all(12),
+    floatingLabelBehavior: FloatingLabelBehavior.never,
+    errorBorder: OutlineInputBorder(
+      borderRadius: const BorderRadius.all(
+        Radius.circular(
+          0,
         ),
-        focusedErrorBorder: OutlineInputBorder(
-          borderRadius: const BorderRadius.all(
-            Radius.circular(
-              0,
-            ),
-          ),
-          borderSide: BorderSide(color: colors.lavaRed, width: 2),
+      ),
+      borderSide: BorderSide(
+        color: colors.lightAlertError,
+      ),
+    ),
+    focusedErrorBorder: OutlineInputBorder(
+      borderRadius: const BorderRadius.all(
+        Radius.circular(
+          0,
         ),
-      );
+      ),
+      borderSide: BorderSide(color: colors.lightAlertError, width: 2),
+    ),
+  );
 
   DialogTheme get dialogTheme => DialogTheme(
-        titleTextStyle: mobileTypography.headingL,
-        contentTextStyle: mobileTypography.bodyL,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(
-              4,
-            ),
-          ),
+    titleTextStyle: mobileTypography.headingL,
+    contentTextStyle: mobileTypography.bodyL,
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(
+        Radius.circular(
+          4,
         ),
-        actionsPadding: const EdgeInsets.all(kPadding),
-      );
+      ),
+    ),
+    actionsPadding: const EdgeInsets.all(kPadding),
+  );
 
   BorderSide get tableCellBorder => BorderSide(
-        color: colorScheme.outline,
-        width: 0.5,
-      );
+    color: colorScheme.outline,
+    width: 0.5,
+  );
 
   BorderSide get tableCellStrongBorder => BorderSide(
-        color: colorScheme.outline,
-        width: 2,
-      );
+    color: colorScheme.outline,
+    width: 2,
+  );
 }

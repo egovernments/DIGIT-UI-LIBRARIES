@@ -14,6 +14,7 @@ class DigitCheckboxIcon extends StatelessWidget {
 
   /// Custom color for the checkbox. If not provided, default colors will be used based on the state and disabled status.
   final Color? color;
+  final double size;
 
   /// Creates a `DigitCheckboxIcon` widget with the given parameters.
   const DigitCheckboxIcon({
@@ -21,6 +22,7 @@ class DigitCheckboxIcon extends StatelessWidget {
     required this.state,
     this.isDisabled = false,
     this.color,
+    this.size = CheckboxConstants.containerSize,
   });
 
   @override
@@ -33,8 +35,8 @@ class DigitCheckboxIcon extends StatelessWidget {
     switch (state) {
       case CheckboxState.unchecked:
         return Container(
-          width: CheckboxConstants.containerSize,
-          height: CheckboxConstants.containerSize,
+          width: size,
+          height: size,
           decoration: BoxDecoration(
             border: Border.all(
               color: CheckboxConstants.uncheckedBorderColor(

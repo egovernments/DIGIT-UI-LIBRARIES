@@ -58,8 +58,9 @@ class _DigitToggleState extends State<DigitToggle> {
             }
           },
           child: Container(
-            height: 32,
+            // height: 32,
             width: widget.maxLabelWidth+40,
+            padding: widget.isSelected ? const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8,) : const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8,),
             constraints: const BoxConstraints(
               minWidth: 40,
               maxWidth: 200,
@@ -68,13 +69,13 @@ class _DigitToggleState extends State<DigitToggle> {
               borderRadius: BorderRadius.zero,
               border: Border.all(
                 color: (isHovered || widget.isSelected || isMouseDown)
-                    ? const DigitColors().burningOrange
-                    : const DigitColors().cloudGray,
+                    ? const DigitColors().lightPrimaryOrange
+                    : const DigitColors().lightGenericDivider,
                 width: 1.0,
               ),
               color: widget.isSelected
-                  ? const DigitColors().burningOrange
-                  : const DigitColors().white,
+                  ? const DigitColors().lightPrimaryOrange
+                  : const DigitColors().lightPaperPrimary,
               boxShadow: [
                 BoxShadow(
                   color: isMouseDown ? const DigitColors().shadowColor : const DigitColors().transparent,
@@ -95,12 +96,20 @@ class _DigitToggleState extends State<DigitToggle> {
                     widget.label,
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
-                    style: DigitTheme.instance.mobileTheme.textTheme.bodyMedium?.copyWith(
-                      color: (isHovered && !widget.isSelected || isMouseDown)
-                          ? const DigitColors().burningOrange
+                    style: widget.isSelected
+                        ? DigitTheme.instance.mobileTheme.textTheme.bodyMedium?.copyWith(
+                      height: 1.5,
+                      fontWeight: FontWeight.w700,
+                      color: const DigitColors().lightPaperPrimary,
+                      overflow: TextOverflow.ellipsis,
+                    )
+                        :DigitTheme.instance.mobileTheme.textTheme.bodyMedium?.copyWith(
+                      height: 1.5,
+                      color: (isHovered || isMouseDown)
+                          ? const DigitColors().lightPrimaryOrange
                           : widget.isSelected
-                          ? const DigitColors().white
-                          : const DigitColors().cloudGray,
+                          ? const DigitColors().lightPaperPrimary
+                          : const DigitColors().lightTextDisabled,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),

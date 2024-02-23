@@ -19,6 +19,8 @@ class LabeledField extends StatelessWidget {
   final TooltipTriggerMode tooltipTriggerMode;
   final TextStyle? textStyle;
   final bool wrapLabelText;
+  final MainAxisAlignment mainAxisAlignment;
+  final CrossAxisAlignment crossAxisAlignment;
 
   const LabeledField({
     super.key,
@@ -36,6 +38,8 @@ class LabeledField extends StatelessWidget {
     this.textStyle,
     this.triggerMode = TooltipTriggerMode.tap,
     this.wrapLabelText = true,
+    this.mainAxisAlignment = MainAxisAlignment.start,
+    this.crossAxisAlignment = CrossAxisAlignment.start,
   });
 
   @override
@@ -45,8 +49,9 @@ class LabeledField extends StatelessWidget {
       return Padding(
         padding: padding ?? const EdgeInsets.only(top: kPadding),
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          // mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: crossAxisAlignment,
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: mainAxisAlignment,
           children: [
             SizedBox(
               width: MediaQuery.of(context).size.width * 0.33,
@@ -60,7 +65,7 @@ class LabeledField extends StatelessWidget {
                       style: DigitTheme.instance.mobileTheme.textTheme.bodyLarge
                           ?.copyWith(
                         height: 1.1875,
-                        color: const DigitColors().woodsmokeBlack,
+                        color: const DigitColors().lightTextPrimary,
                         overflow: wrapLabelText
                             ? TextOverflow.visible
                             : TextOverflow.ellipsis,
@@ -72,7 +77,7 @@ class LabeledField extends StatelessWidget {
                       ' *',
                       style: DigitTheme.instance.mobileTheme.textTheme.bodyLarge
                           ?.copyWith(
-                        color: const DigitColors().lavaRed,
+                        color: const DigitColors().lightAlertError,
                       ),
                     ),
                   if (info == true) const SizedBox(width: kPadding / 2),
@@ -83,15 +88,15 @@ class LabeledField extends StatelessWidget {
                       triggerMode: triggerMode,
                       child: Icon(
                         Icons.info_outline,
-                        size: 15.83,
-                        color: const DigitColors().davyGray,
+                        size: 19,
+                        color: const DigitColors().lightTextSecondary,
                       ),
                     )
                 ],
               ),
             ),
             const SizedBox(width: 16,),
-            child,
+            Flexible(child: child),
           ],
         ),
       );
@@ -106,23 +111,23 @@ class LabeledField extends StatelessWidget {
               children: [
                 if(label!=null)
                   Flexible(
-                  child: Text(
-                    label!.length > 64
-                        ? '${label!.substring(0, 64)}...'
-                        : label!,
-                    style: DigitTheme.instance.mobileTheme.textTheme.bodyLarge
-                        ?.copyWith(
-                      color: const DigitColors().woodsmokeBlack,
-                      overflow: TextOverflow.ellipsis,
+                    child: Text(
+                      label!.length > 64
+                          ? '${label!.substring(0, 64)}...'
+                          : label!,
+                      style: DigitTheme.instance.mobileTheme.textTheme.bodyLarge
+                          ?.copyWith(
+                        color: const DigitColors().lightTextPrimary,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                   ),
-                ),
                 if (isRequired)
                   Text(
                     ' *',
                     style: DigitTheme.instance.mobileTheme.textTheme.bodyLarge
                         ?.copyWith(
-                      color: const DigitColors().lavaRed,
+                      color: const DigitColors().lightAlertError,
                     ),
                   ),
                 if (info == true) const SizedBox(width: kPadding / 2),

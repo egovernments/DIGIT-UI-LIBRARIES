@@ -20,9 +20,9 @@ and other elements can be customized using various properties.
              },
              // Customize the appearance of chips
              chipConfig: ChipConfig(
-               labelStyle: TextStyle(color: Colors.white),
+               labelStyle: TextStyle(color: Colors.lightPaperPrimary),
                backgroundColor: Colors.blue,
-               deleteIconColor: Colors.white,
+               deleteIconColor: Colors.lightPaperPrimary,
              ),
              // Customize the suffix icon (dropdown arrow)
              suffixIcon: Icon(Icons.arrow_drop_down),
@@ -216,9 +216,9 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
   @override
   Widget build(BuildContext context) {
     double dropdownWidth =
-        AppView.isMobileView(MediaQuery.of(context).size.width)
-            ? Default.mobileInputWidth
-            : Default.desktopInputWidth;
+    AppView.isMobileView(MediaQuery.of(context).size.width)
+        ? Default.mobileInputWidth
+        : Default.desktopInputWidth;
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -243,7 +243,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                   height: Default.height,
                   width: dropdownWidth,
                   constraints: const BoxConstraints(
-                    minWidth: Default.mobileInputWidth,
+                    minWidth: 200,
                     minHeight: Default.height,
                   ),
                   padding: const EdgeInsets.symmetric(
@@ -256,14 +256,22 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                     children: [
                       Expanded(
                         child: (_selectedOptions.isNotEmpty)
-                            ? Text('${_selectedOptions.length} Selected')
+                            ? Text(
+                          '${_selectedOptions.length} Selected',
+                          style: DigitTheme
+                              .instance.mobileTheme.textTheme.bodyLarge
+                              ?.copyWith(
+                            height: 1.5,
+                            color: const DigitColors().lightTextPrimary,
+                          ),
+                        )
                             : const Text(''),
                       ),
                       Icon(
                         widget.suffixIcon,
                         color: widget.isDisabled
-                            ? const DigitColors().cloudGray
-                            : const DigitColors().davyGray,
+                            ? const DigitColors().lightGenericDivider
+                            : const DigitColors().lightTextSecondary,
                       ),
                     ],
                   ),
@@ -302,7 +310,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
       color: const DigitColors().transparent,
       borderRadius: BorderRadius.zero,
       border: Border.all(
-        color: const DigitColors().cloudGray,
+        color: const DigitColors().lightTextDisabled,
         width: 1,
       ),
     );
@@ -311,17 +319,17 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
   /// Container decoration for the dropdown.
   Decoration _getContainerDecoration() {
     return BoxDecoration(
-      color: const DigitColors().transparent,
+      color: const DigitColors().lightPaperPrimary,
       borderRadius: BorderRadius.zero,
       border: _selectionMode
           ? Border.all(
-              color: const DigitColors().burningOrange,
-              width: 1,
-            )
+        color: const DigitColors().lightPrimaryOrange,
+        width: 1,
+      )
           : Border.all(
-              color: const DigitColors().davyGray,
-              width: 1,
-            ),
+        color: const DigitColors().lightTextSecondary,
+        width: 1,
+      ),
     );
   }
 
@@ -399,11 +407,11 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           widget.selectionType ==
-                                  SelectionType.nestedMultiSelect
+                              SelectionType.nestedMultiSelect
                               ? _buildNestedItems(values, options,
-                                  selectedOptions, dropdownState)
+                              selectedOptions, dropdownState)
                               : _buildFlatOptions(values, options,
-                                  selectedOptions, dropdownState),
+                              selectedOptions, dropdownState),
                         ],
                       ),
                     ),
@@ -431,10 +439,10 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
         itemBuilder: (context, index) {
           final option = options[index];
           bool isSelected = selectedOptions.any(
-              (item) => item.code == option.code && item.name == option.name);
+                  (item) => item.code == option.code && item.name == option.name);
           Color backgroundColor = index % 2 == 0
-              ? const DigitColors().white
-              : const DigitColors().alabasterWhite;
+              ? const DigitColors().lightPaperPrimary
+              : const DigitColors().lightPaperSecondary;
           return DropdownOption(
             option: option,
             isSelected: selectedOptions.contains(option),
@@ -500,19 +508,19 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
               Container(
                 width: (values[0] as Size).width,
                 padding: const EdgeInsets.all(10),
-                color: const DigitColors().alabasterWhite,
+                color: const DigitColors().lightPaperSecondary,
                 child: Text(
                   type,
                   style: DigitTheme.instance.mobileTheme.textTheme.headlineSmall
                       ?.copyWith(
-                    color: const DigitColors().davyGray,
+                    color: const DigitColors().lightTextSecondary,
                   ),
                 ),
               ),
             ...typeOptions.map((option) {
               bool isSelected = selectedOptions.any((item) =>
-                  item.code == option.code && item.name == option.name);
-              Color backgroundColor = const DigitColors().white;
+              item.code == option.code && item.name == option.name);
+              Color backgroundColor = const DigitColors().lightPaperPrimary;
 
               return DropdownOption(
                 option: option,
@@ -549,7 +557,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
             if (index != groupedOptions.length - 1)
               Container(
                 height: kPadding * 2,
-                color: const DigitColors().white,
+                color: const DigitColors().lightPaperPrimary,
               ),
           ],
         );
@@ -576,6 +584,8 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
     return Wrap(
       spacing: widget.chipConfig.spacing,
       runSpacing: widget.chipConfig.runSpacing,
+      alignment: WrapAlignment.start,
+      crossAxisAlignment: WrapCrossAlignment.center,
       children: [
         ..._selectedOptions.asMap().entries.map((entry) {
           final index = entry.key;
@@ -592,23 +602,31 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
         }),
         if (_selectedOptions.isNotEmpty && !widget.isDisabled)
 
-          /// Display "Clear All" only if there are selected options
+        /// Display "Clear All" only if there are selected options
           InkWell(
             onTap: () => clear(),
             hoverColor: const DigitColors().transparent,
             splashColor: const DigitColors().transparent,
-            child: Chip(
-              backgroundColor: const DigitColors().white,
-              shape: RoundedRectangleBorder(
-                side: BorderSide(
-                  color: const DigitColors().burningOrange,
+            highlightColor: const DigitColors().transparent,
+            child: Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: kPadding,
+                vertical: kPadding,
+              ),
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: const DigitColors().lightPrimaryOrange,
                 ),
                 borderRadius: BorderRadius.circular(50),
+                color: const DigitColors().lightPaperSecondary,
               ),
-              padding: const EdgeInsets.symmetric(horizontal: kPadding),
-              labelPadding: const EdgeInsets.only(top: 2, bottom: 2),
-              label: Text('Clear All',
-                  style: TextStyle(color: const DigitColors().burningOrange)),
+              child: Text(
+                'Clear All',
+                style: DigitTheme.instance.mobileTheme.textTheme.bodyMedium?.copyWith(
+                  color: const DigitColors().lightPrimaryOrange,
+                  height: 1,
+                ),
+              ),
             ),
           ),
       ],

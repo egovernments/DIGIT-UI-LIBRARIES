@@ -19,6 +19,7 @@
 
 import 'package:digit_components/digit_components.dart';
 import 'package:flutter/material.dart';
+import '../../constants/AppView.dart';
 import '../../constants/app_constants.dart';
 import '../../models/RadioButtonModel.dart';
 
@@ -66,6 +67,7 @@ class _DigitRadioListState extends State<DigitRadioList> {
   /// List to track whether each radio button is being hovered over
   late List<bool> isHoveredList;
   late List<bool> isMouseDown;
+  late bool isMobile;
 
   /// Initialize the state
   @override
@@ -80,53 +82,63 @@ class _DigitRadioListState extends State<DigitRadioList> {
   /// Build the widget layout
   @override
   Widget build(BuildContext context) {
-      /// Default layout
-      return Column(
+    isMobile = AppView.isMobileView(MediaQuery.of(context).size.width);
+    if (!isMobile) {
+      return Row(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: _buildRadioButtons(),
       );
+    }
+
+    /// Default layout
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: _buildRadioButtons(),
+    );
   }
 
   List<Widget> _buildRadioButtons() {
     return widget.radioButtons.map(
-      (button) {
+          (button) {
         final index = widget.radioButtons.indexOf(button);
         return Padding(
           padding: widget.containerPadding,
-          child: InkWell(
-            hoverColor: const DigitColors().transparent,
-            splashColor: const DigitColors().transparent,
-            onHover: (hover) {
-              setState(() {
-                isHoveredList[index] = hover;
-              });
-            },
-            onTapDown: (_) {
-              /// Handle mouse down state
-              setState(() {
-                isMouseDown[index] = true;
-              });
-            },
-            onTapUp: (_) {
-              /// Handle mouse up state
-              setState(() {
-                isMouseDown[index] = false;
-              });
-            },
-            onTap: widget.isDisabled
-                ? null
-                : () {
-              setState(() {
-                /// Update the selected value and call the onChanged callback
-                widget.groupValue = button.code;
-              });
-              widget.onChanged!(button);
-            },
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              InkWell(
+                hoverColor: const DigitColors().transparent,
+                splashColor: const DigitColors().transparent,
+                highlightColor: const DigitColors().transparent,
+                onHover: (hover) {
+                  setState(() {
+                    isHoveredList[index] = hover;
+                  });
+                },
+                onTapDown: (_) {
+                  /// Handle mouse down state
+                  setState(() {
+                    isMouseDown[index] = true;
+                  });
+                },
+                onTapUp: (_) {
+                  /// Handle mouse up state
+                  setState(() {
+                    isMouseDown[index] = false;
+                  });
+                },
+                onTap: widget.isDisabled
+                    ? null
+                    : () {
+                  setState(() {
+                    /// Update the selected value and call the onChanged callback
+                    widget.groupValue = button.code;
+                  });
+                  widget.onChanged!(button);
+                },
+                child: Container(
                   padding: const EdgeInsets.all(kPadding / 2),
                   width: widget.radioWidth,
                   height: widget.radioHeight,
@@ -134,46 +146,80 @@ class _DigitRadioListState extends State<DigitRadioList> {
                     shape: BoxShape.circle,
                     border: Border.all(
                       color: widget.isDisabled
-                          ? const DigitColors().cloudGray
+                          ? const DigitColors().lightGenericDivider
                           : (widget.groupValue == button.code ||
-                                  isHoveredList[index] ||
-                                  isMouseDown[index])
-                              ? const DigitColors().burningOrange
-                              : const DigitColors().davyGray,
-                      width: 1.0,
+                          isHoveredList[index] ||
+                          isMouseDown[index])
+                          ? const DigitColors().lightPrimaryOrange
+                          : const DigitColors().lightTextSecondary,
+                      width: (widget.isDisabled &&
+                          widget.groupValue == button.code) ||
+                          widget.groupValue == button.code
+                          ? 2.0
+                          : 1.0,
                     ),
-                    color: const DigitColors().transparent,
+                    color: widget.isDisabled
+                        ? const DigitColors().lightPaperSecondary
+                        : isMouseDown[index]
+                        ? const DigitColors().orangeBG
+                        : const DigitColors().lightPaperPrimary,
+                    boxShadow: isMouseDown[index]
+                        ? [
+                      BoxShadow(
+                        color: const DigitColors().orangeBG,
+                        spreadRadius: 3,
+                        blurRadius: 3,
+                        offset: const Offset(0, 0),
+                      ),
+                    ]
+                        : [],
                   ),
                   child: widget.groupValue == button.code
                       ? Container(
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: widget.isDisabled
-                                ? const DigitColors().cloudGray
-                                : const DigitColors().burningOrange,
-                          ),
-                        )
+                    height: 12,
+                    width: 12,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: widget.isDisabled
+                          ? const DigitColors().lightTextDisabled
+                          : const DigitColors().lightPrimaryOrange,
+                    ),
+                  )
                       : null,
                 ),
-                const SizedBox(
-                  width: kPadding,
-                ),
-                Expanded(
-                  child: Text(
-                    button.name,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: DigitTheme
-                        .instance.mobileTheme.textTheme.bodyLarge
-                        ?.copyWith(
-                      color: widget.isDisabled
-                          ? const DigitColors().cloudGray
-                          : const DigitColors().woodsmokeBlack,
-                    ),
+              ),
+              const SizedBox(
+                width: kPadding,
+              ),
+              isMobile
+                  ? Expanded(
+                child: Text(
+                  button.name,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: DigitTheme
+                      .instance.mobileTheme.textTheme.bodyLarge
+                      ?.copyWith(
+                    height: 1.172,
+                    color: widget.isDisabled
+                        ? const DigitColors().lightTextDisabled
+                        : const DigitColors().lightTextPrimary,
                   ),
                 ),
-              ],
-            ),
+              )
+                  : Text(
+                button.name,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: DigitTheme.instance.mobileTheme.textTheme.bodyLarge
+                    ?.copyWith(
+                  height: 1.172,
+                  color: widget.isDisabled
+                      ? const DigitColors().lightTextDisabled
+                      : const DigitColors().lightTextPrimary,
+                ),
+              ),
+            ],
           ),
         );
       },

@@ -43,6 +43,9 @@ class DigitCheckbox extends StatefulWidget {
   /// Custom color for the checkbox icon.
   final Color? iconColor;
 
+  final MainAxisAlignment mainAxisAlignment;
+  final CrossAxisAlignment crossAxisAlignment;
+
   /// Creates a `DigitCheckbox` widget with the given parameters.
   const DigitCheckbox({
     Key? key,
@@ -52,6 +55,8 @@ class DigitCheckbox extends StatefulWidget {
     this.value = false,
     this.padding = CheckboxConstants.defaultPadding,
     this.iconColor,
+    this.mainAxisAlignment = MainAxisAlignment.start,
+    this.crossAxisAlignment = CrossAxisAlignment.start,
   }) : super(key: key);
 
   @override
@@ -60,6 +65,7 @@ class DigitCheckbox extends StatefulWidget {
 
 class _DigitCheckboxState extends State<DigitCheckbox> {
   late bool _currentState;
+  bool isHovered = false;
 
   @override
   void initState() {
@@ -72,49 +78,67 @@ class _DigitCheckboxState extends State<DigitCheckbox> {
     return IntrinsicWidth(
       child: Padding(
         padding: widget.padding,
-        child: Row(
+        child: Column(
+          mainAxisAlignment: widget.mainAxisAlignment,
           mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: widget.crossAxisAlignment,
           children: [
-            InkWell(
-              hoverColor: const DigitColors().transparent,
-              splashColor: const DigitColors().transparent,
-              onTap: widget.disabled
-                  ? null
-                  : () {
-                      setState(() {
-                        _currentState = !_currentState;
-                      });
-                      widget.onChanged(_currentState);
-                    },
-              child: SizedBox(
-                height: CheckboxConstants.containerSize,
-                width: CheckboxConstants.containerSize,
-                child: DigitCheckboxIcon(
-                  state: _currentState
-                      ? CheckboxState.checked
-                      : CheckboxState.unchecked,
-                  isDisabled: widget.disabled,
-                  color: widget.iconColor,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                InkWell(
+                  hoverColor: const DigitColors().transparent,
+                  splashColor: const DigitColors().transparent,
+                  highlightColor: const DigitColors().transparent,
+                  onHover: (hover) {
+                    setState(() {
+                      isHovered = hover;
+                    });
+                  },
+                  onTap: widget.disabled
+                      ? null
+                      : () {
+                    setState(() {
+                      _currentState = !_currentState;
+                    });
+                    widget.onChanged(_currentState);
+                  },
+                  child: SizedBox(
+                    height: CheckboxConstants.containerSize,
+                    width: CheckboxConstants.containerSize,
+                    child: DigitCheckboxIcon(
+                      state: _currentState
+                          ? CheckboxState.checked
+                          : CheckboxState.unchecked,
+                      isDisabled: widget.disabled,
+                      color: isHovered ? const DigitColors().lightPrimaryOrange :widget.iconColor,
+                    ),
+                  ),
                 ),
-              ),
-            ),
-            const SizedBox(width: kPadding * 2),
-            Expanded(
-              child: Text(
-                widget.label,
-                style: DigitTheme.instance.mobileTheme.textTheme.bodyLarge
-                    ?.copyWith(
-                  color: widget.disabled
-                      ? const DigitColors().cloudGray
-                      : const DigitColors().woodsmokeBlack,
+                const SizedBox(width: kPadding*2),
+                Expanded(
+                  child: Align(
+                    alignment: Alignment.topCenter,
+                    child: Text(
+                      widget.label,
+                      style: DigitTheme.instance.mobileTheme.textTheme.bodyLarge
+                          ?.copyWith(
+                        height: 1.5,
+                        color: widget.disabled
+                            ? const DigitColors().lightTextDisabled
+                            : const DigitColors().lightTextPrimary,
+                      ),
+                    ),
+                  ),
                 ),
-              ),
+              ],
             ),
           ],
         ),
       ),
     );
   }
+
+
 }

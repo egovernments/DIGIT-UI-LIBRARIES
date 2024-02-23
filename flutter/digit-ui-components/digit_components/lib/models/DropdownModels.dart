@@ -20,3 +20,14 @@ class DropdownItem {
     this.profileImage,
   });
 }
+
+
+class ValueMapper {
+  final String code;
+  final String name;
+
+  ValueMapper({
+    required this.code,
+    required this.name,
+  });
+}

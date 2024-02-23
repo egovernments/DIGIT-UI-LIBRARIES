@@ -6,13 +6,13 @@ import '../../models/chipModel.dart';
 
 class SelectionChip<T> extends StatelessWidget {
   final SelectionType? selectionType;
-  final ChipConfig chipConfig;
+  final ChipConfig? chipConfig;
   final Function(dynamic) onItemDelete;
   final dynamic item;
 
   const SelectionChip({
     Key? key,
-    required this.chipConfig,
+    this.chipConfig,
     required this.item,
     required this.onItemDelete,
     this.selectionType,
@@ -20,24 +20,37 @@ class SelectionChip<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Chip(
-      padding: chipConfig.padding,
-      label: selectionType == SelectionType.nestedMultiSelect
-          ? Text('${item.type}: ${item.name}')
-          : Text(item.name),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(Default.defaultChipRadius),
+    return IntrinsicWidth(
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+          horizontal: kPadding,
+          vertical: kPadding,
+        ),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(Default.defaultChipRadius),
+          color: const DigitColors().lightGenericDivider,
+        ),
+        child: Row(
+          children: [
+            selectionType == SelectionType.nestedMultiSelect
+                ? Text('${item.type}: ${item.name}')
+                : Text(item.name),
+            const SizedBox(width: kPadding,),
+            InkWell(
+              onTap: () => onItemDelete(item),
+              hoverColor: const DigitColors().transparent,
+              splashColor: const DigitColors().transparent,
+              highlightColor: const DigitColors().transparent,
+              child: Icon(
+                Icons.cancel,
+                size: 24,
+                color: const DigitColors().lightTextSecondary,
+              ),
+            ),
+          ],
+        ),
       ),
-      deleteIcon: Icon(
-        Icons.cancel,
-        color: const DigitColors().davyGray,
-      ),
-      deleteIconColor: chipConfig.deleteIconColor,
-      labelPadding: const EdgeInsets.symmetric(vertical: kPadding / 2),
-      backgroundColor: const DigitColors().quillGray,
-      labelStyle: chipConfig.labelStyle ??
-          DigitTheme.instance.mobileTheme.textTheme.bodyMedium,
-      onDeleted: () => onItemDelete(item),
     );
+
   }
 }

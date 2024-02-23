@@ -74,20 +74,20 @@ class _DigitButtonState extends State<DigitButton> {
     return widget.isDisabled
         ? _buildButtonWidget()
 
-        /// If disabled, don't use MouseRegion
+    /// If disabled, don't use MouseRegion
         : MouseRegion(
-            onEnter: (_) {
-              setState(() {
-                isHovered = true;
-              });
-            },
-            onExit: (_) {
-              setState(() {
-                isHovered = false;
-              });
-            },
-            child: _buildButtonWidget(),
-          );
+      onEnter: (_) {
+        setState(() {
+          isHovered = true;
+        });
+      },
+      onExit: (_) {
+        setState(() {
+          isHovered = false;
+        });
+      },
+      child: _buildButtonWidget(),
+    );
   }
 
   /// Build the button widget based on its type and state.
@@ -108,7 +108,7 @@ class _DigitButtonState extends State<DigitButton> {
                     ? [
                   BoxShadow(
                     color: isMouseDown
-                        ? const DigitColors().burningOrange
+                        ? const DigitColors().lightPrimaryOrange
                         : DigitButtonConstants.defaultSecondaryColor,
                     offset: isMouseDown
                         ? const Offset(0, 0)
@@ -120,7 +120,7 @@ class _DigitButtonState extends State<DigitButton> {
                     : isMouseDown
                     ? [
                   BoxShadow(
-                    color: const DigitColors().burningOrange,
+                    color: const DigitColors().lightPrimaryOrange,
                     offset: const Offset(0, 0),
                     spreadRadius: 0,
                     blurRadius: 4.50,
@@ -141,10 +141,10 @@ class _DigitButtonState extends State<DigitButton> {
                     ? DigitButtonConstants.defaultDisabledColor
                     : isHovered
                     ? isMouseDown
-                    ? const DigitColors().burningOrange
+                    ? const DigitColors().lightPrimaryOrange
                     : const DigitColors().primaryOrange
-                    : const DigitColors().burningOrange)
-                    : const DigitColors().white,
+                    : const DigitColors().lightPrimaryOrange)
+                    : const DigitColors().lightPaperPrimary,
               ),
               child: _buildButton(),
             ),
@@ -180,7 +180,7 @@ class _DigitButtonState extends State<DigitButton> {
                       ? [
                     BoxShadow(
                       color: isMouseDown
-                          ? const DigitColors().burningOrange
+                          ? const DigitColors().lightPrimaryOrange
                           : DigitButtonConstants.defaultSecondaryColor,
                       offset: isMouseDown
                           ? const Offset(0, 0)
@@ -192,7 +192,7 @@ class _DigitButtonState extends State<DigitButton> {
                       : isMouseDown
                       ? [
                     BoxShadow(
-                      color: const DigitColors().burningOrange,
+                      color: const DigitColors().lightPrimaryOrange,
                       offset: const Offset(0, 0),
                       spreadRadius: 0,
                       blurRadius: 4.50,
@@ -204,7 +204,7 @@ class _DigitButtonState extends State<DigitButton> {
                     color: widget.isDisabled
                         ? DigitButtonConstants.defaultDisabledColor
                         : DigitButtonConstants.defaultPrimaryColor,
-                    width: isHovered
+                    width: isHovered || isMouseDown
                         ? DigitButtonConstants.defaultHoverWidth
                         : DigitButtonConstants.defaultWidth,
                   ),
@@ -213,10 +213,10 @@ class _DigitButtonState extends State<DigitButton> {
                       ? DigitButtonConstants.defaultDisabledColor
                       : isHovered
                       ? isMouseDown
-                      ? const DigitColors().burningOrange
+                      ? const DigitColors().lightPrimaryOrange
                       : const DigitColors().primaryOrange
-                      : const DigitColors().burningOrange)
-                      : const DigitColors().white,
+                      : const DigitColors().lightPrimaryOrange)
+                      : const DigitColors().lightPaperPrimary,
                 ),
                 child: _buildButton(),
               ),
@@ -233,8 +233,9 @@ class _DigitButtonState extends State<DigitButton> {
           onTap: widget.isDisabled ? null : widget.onPressed,
           hoverColor: const DigitColors().transparent.withOpacity(0),
           splashColor: const DigitColors().transparent.withOpacity(0),
+          highlightColor: const DigitColors().transparent,
           child: IntrinsicWidth(
-                child: _buildButton(),),
+            child: _buildButton(),),
         );
       }
     }
@@ -259,55 +260,57 @@ class _DigitButtonState extends State<DigitButton> {
         padding: widget.contentPadding,
         child: Row(
           mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             if (widget.prefixIcon != null) ...[
               Icon(
                 widget.prefixIcon,
-                size: widget.iconSize,
+                size: widget.type == ButtonType.link ? 20 : widget.iconSize,
                 color: widget.type == ButtonType.primary
                     ? DigitButtonConstants.defaultTextColor
                     : (widget.isDisabled
-                        ? DigitButtonConstants.defaultDisabledColor
-                        : DigitButtonConstants.defaultPrimaryColor),
+                    ? DigitButtonConstants.defaultDisabledColor
+                    : DigitButtonConstants.defaultPrimaryColor),
               ),
-              const SizedBox(width: kPadding / 2),
+              SizedBox(width: widget.type == ButtonType.link  ? kPadding/2:kPadding),
             ],
             Flexible(
               child: Text(
                 truncatedLabel,
                 style: widget.type == ButtonType.link
                     ? DigitTheme.instance.mobileTheme.textTheme.bodyLarge
-                        ?.copyWith(
-                            color: widget.isDisabled
-                                ? DigitButtonConstants.defaultDisabledColor
-                                : DigitButtonConstants.defaultPrimaryColor,
-                            decoration: TextDecoration.underline,
+                    ?.copyWith(
+                  height: 1.172,
+                  color: widget.isDisabled
+                      ? DigitButtonConstants.defaultDisabledColor
+                      : DigitButtonConstants.defaultPrimaryColor,
+                  decoration: TextDecoration.underline,
                   decorationColor: widget.isDisabled
                       ? DigitButtonConstants.defaultDisabledColor
                       : DigitButtonConstants.defaultPrimaryColor,)
                     : DigitTheme.instance.mobileTheme.textTheme.labelLarge
-                        ?.copyWith(
-                        color: widget.type == ButtonType.primary
-                            ? DigitButtonConstants.defaultTextColor
-                            : (widget.isDisabled
-                                ? DigitButtonConstants.defaultDisabledColor
-                                : DigitButtonConstants.defaultPrimaryColor),
-                        overflow: TextOverflow.ellipsis,
-                      ),
+                    ?.copyWith(
+                  height: 1.5,
+                  color: widget.type == ButtonType.primary
+                      ? DigitButtonConstants.defaultTextColor
+                      : (widget.isDisabled
+                      ? DigitButtonConstants.defaultDisabledColor
+                      : DigitButtonConstants.defaultPrimaryColor),
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
             ),
             if (widget.suffixIcon != null) ...[
-              const SizedBox(width: kPadding / 2),
+              SizedBox(width: widget.type == ButtonType.link  ? kPadding/2:kPadding),
               Icon(
                 widget.suffixIcon,
-                size: widget.iconSize,
+                size: widget.type == ButtonType.link ? 20 : widget.iconSize,
                 color: widget.type == ButtonType.primary
                     ? DigitButtonConstants.defaultTextColor
                     : (widget.isDisabled
-                        ? DigitButtonConstants.defaultDisabledColor
-                        : DigitButtonConstants.defaultPrimaryColor),
+                    ? DigitButtonConstants.defaultDisabledColor
+                    : DigitButtonConstants.defaultPrimaryColor),
               ),
             ],
           ],

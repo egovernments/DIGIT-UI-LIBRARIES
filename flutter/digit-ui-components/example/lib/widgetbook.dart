@@ -125,6 +125,72 @@ class HotReload extends StatelessWidget {
                   ),
                 ),
                 WidgetbookUseCase(
+                  name: 'Prefix',
+                  builder: (context) => Center(
+                    child: DigitTextFormInput(
+                      controller: TextEditingController(),
+                      prefixText: "####",
+                      label: context.knobs.string(
+                        label: 'Title',
+                        initialValue: '',
+                      ),
+                      helpText: context.knobs.string(
+                        label: 'help text',
+                        initialValue: '',
+                      ),
+                      charCount: context.knobs.boolean(
+                        label: 'char count',
+                        initialValue: false,
+                      ),
+                      innerLabel: context.knobs.string(
+                        label: 'inner label',
+                        initialValue: '',
+                      ),
+                      info: context.knobs.boolean(
+                        label: 'info',
+                        initialValue: false,
+                      ),
+                      infoText: context.knobs.string(
+                        label: 'infoText',
+                        initialValue: 'this is info',
+                      ),
+                    ),
+                  ),
+                ),
+                WidgetbookUseCase(
+                  name: 'suffix',
+                  builder: (context) => Center(
+                    child: DigitTextFormInput(
+                      controller: TextEditingController(),
+                      suffixText: "####",
+                      label: context.knobs.string(
+                        label: 'Title',
+                        initialValue: '',
+                      ),
+                      helpText: context.knobs.string(
+                        label: 'help text',
+                        initialValue: '',
+                      ),
+                      charCount: context.knobs.boolean(
+                        label: 'char count',
+                        initialValue: false,
+                      ),
+                      innerLabel: context.knobs.string(
+                        label: 'inner label',
+                        initialValue: '',
+                      ),
+                      info: context.knobs.boolean(
+                        label: 'info',
+                        initialValue: false,
+                      ),
+                      infoText: context.knobs.string(
+                        label: 'infoText',
+                        initialValue: 'this is info',
+                      ),
+                    ),
+                  ),
+                ),
+                WidgetbookUseCase(
                   name: 'non Editable',
                   builder: (context) => Center(
                     child: DigitTextFormInput(
