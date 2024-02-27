@@ -24,31 +24,31 @@ class InfoCard extends StatelessWidget {
     Color containerColor = const DigitColors().lightAlertInfoBg;
     DigitTypography currentTypography = getTypography(context);
 
-    // Choose icon and color based on InfoType
+    /// Choose icon and color based on InfoType
     switch (type) {
       case InfoType.success:
         selectedIcon = Icons.check_circle;
         iconColor = const DigitColors().lightAlertSuccess;
         containerColor =
-            const DigitColors().lightAlertSuccessBg; // Set your success color
+            const DigitColors().lightAlertSuccessBg;
         break;
       case InfoType.error:
         selectedIcon = Icons.error;
         iconColor = const DigitColors().lightAlertError;
         containerColor =
-            const DigitColors().lightAlertErrorBg; // Set your error color
+            const DigitColors().lightAlertErrorBg;
         break;
       case InfoType.warning:
         selectedIcon = Icons.warning;
         iconColor = const DigitColors().warning;
         containerColor =
-            const DigitColors().warningBg; // Set your warning color
+            const DigitColors().warningBg;
         break;
       case InfoType.info:
       default:
         selectedIcon = Icons.info;
         iconColor = const DigitColors().info;
-        containerColor = const DigitColors().infoBg; // Set your info color
+        containerColor = const DigitColors().infoBg;
     }
 
     return Container(
@@ -68,7 +68,7 @@ class InfoCard extends StatelessWidget {
                 Icon(
                   icon ?? selectedIcon,
                   size: 24,
-                  color: iconColor, // You can customize the color
+                  color: iconColor, 
                 ),
                 const SizedBox(width: kPadding),
                 Text(

@@ -2102,7 +2102,7 @@ class HotReload extends StatelessWidget {
                     onPressed: () {
                       DigitToast.show(context,
                           options: DigitToastOptions(
-                              "Your Warning message", ToastType.warning));
+                              "Your Warning message", ToastType.warning, ));
                     },
                     child: Text("Show Toast"),
                   ),

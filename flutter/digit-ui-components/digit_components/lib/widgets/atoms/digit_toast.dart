@@ -17,22 +17,31 @@ class DigitToast {
   });
 
   static show<T>(
-    BuildContext context, {
-    required DigitToastOptions options,
-  }) {
+      BuildContext context, {
+        required DigitToastOptions options,
+      }) {
     fToast.init(context);
 
     DigitTypography currentTypography = getTypography(context);
 
+    double inputWidth = AppView.isMobileView(MediaQuery.of(context).size.width)
+        ? 360
+        : AppView.isTabletView(MediaQuery.of(context).size.width)
+        ? 480
+        : 800;
+
     return fToast.showToast(
       child: Container(
+        constraints: BoxConstraints(
+          minWidth: options.toastWidth ?? inputWidth,
+        ),
         color: options.type == ToastType.success
             ? const DigitColors().lightAlertSuccess
             : options.type == ToastType.error
-                ? const DigitColors().lightAlertError
-                : const DigitColors().warning,
+            ? const DigitColors().lightAlertError
+            : const DigitColors().warning,
         padding:
-            const EdgeInsets.symmetric(horizontal: 12.0, vertical: kPadding),
+        const EdgeInsets.symmetric(horizontal: 12.0, vertical: kPadding),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -40,8 +49,8 @@ class DigitToast {
               options.type == ToastType.success
                   ? Icons.check_circle
                   : options.type == ToastType.error
-                      ? Icons.error
-                      : Icons.warning,
+                  ? Icons.error
+                  : Icons.warning,
               color: Colors.white,
               size: 24,
             ),
@@ -84,8 +93,9 @@ class DigitToast {
 class DigitToastOptions {
   final String message;
   final ToastType type;
+  final double? toastWidth;
 
-  DigitToastOptions(this.message, this.type);
+  DigitToastOptions(this.message, this.type, {this.toastWidth});
 }
 
 enum ToastType {
