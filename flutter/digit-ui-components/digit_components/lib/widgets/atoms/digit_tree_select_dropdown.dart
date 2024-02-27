@@ -232,9 +232,9 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
             skipTraversal: !widget.isDisabled,
             focusNode: _focusNode,
             child: InkWell(
-              splashColor: Colors.transparent,
-              highlightColor: Colors.transparent,
-              hoverColor: Colors.transparent,
+              splashColor: const DigitColors().transparent,
+              highlightColor: const DigitColors().transparent,
+              hoverColor: const DigitColors().transparent,
               onTap: !widget.isDisabled ? _toggleFocus : null,
 
               /// Disable onTap if dropdown is disabled

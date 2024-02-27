@@ -419,10 +419,12 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                     autovalidateMode: AutovalidateMode.disabled,
                     minLines: widget.minLine,
                     maxLines: widget.maxLine,
-                    keyboardType: widget.keyboardType,
+                    keyboardType: widget.readOnly ? TextInputType.none : widget.keyboardType,
                     textAlign: widget.textAlign,
                     maxLength: maxLengthValue,
-                    showCursor: widget.showCurser ?? widget.isEditable,
+                    showCursor: widget.readOnly
+                        ? false
+                        : widget.showCurser ?? widget.isEditable,
                     style: isVisible
                         ? DigitTheme.instance.mobileTheme.textTheme.bodyLarge
                             ?.copyWith(
@@ -489,18 +491,24 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                         ),
                         borderRadius: BorderRadius.zero,
                       ),
-                      focusedBorder: BaseConstants.focusedBorder,
+                      focusedBorder: widget.readOnly
+                          ? OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: const DigitColors().lightTextSecondary,
+                                width: 1.0,
+                              ),
+                              borderRadius: BorderRadius.zero,
+                            )
+                          : BaseConstants.focusedBorder,
                       disabledBorder: BaseConstants.disabledBorder,
                       prefixIconConstraints: widget.prefixText != null
                           ? const BoxConstraints(
-                              // maxWidth: 48,
                               minWidth: 40,
                               maxHeight: 40,
                             )
                           : null,
                       suffixIconConstraints: widget.suffixText != null
                           ? const BoxConstraints(
-                              // maxWidth: 48,
                               minWidth: 40,
                               maxHeight: 40,
                             )
@@ -515,6 +523,9 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                               onTap: widget.readOnly ? null : onSuffixIconClick,
                               child: IntrinsicWidth(
                                 child: Container(
+                                  constraints: const BoxConstraints(
+                                    minWidth: 40
+                                  ),
                                   height: _isFocusOn || _hasError ? 36 : 38,
                                   // width: 40,
                                   padding:
@@ -595,6 +606,9 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                               onTap: widget.readOnly ? null : onPrefixIconClick,
                               child: IntrinsicWidth(
                                 child: Container(
+                                  constraints: const BoxConstraints(
+                                      minWidth: 40
+                                  ),
                                   padding:
                                       const EdgeInsets.symmetric(horizontal: 4),
                                   height: _isFocusOn || _hasError ? 36 : 38,

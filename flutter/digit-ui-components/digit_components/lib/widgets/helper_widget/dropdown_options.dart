@@ -51,6 +51,7 @@ class _DropdownOptionState extends State<DropdownOption> {
               },
               splashColor: const DigitColors().transparent,
               hoverColor: const DigitColors().transparent,
+              highlightColor: const DigitColors().transparent,
               onHover: (hover) {
                 setState(() {
                   _itemHoverStates[widget.option] = hover;
@@ -64,7 +65,7 @@ class _DropdownOptionState extends State<DropdownOption> {
                   border: Border.all(
                     width: 0.5,
                     color: _itemMouseDownStates[widget.option] == true ||
-                            _itemHoverStates[widget.option] == true
+                            _itemHoverStates[widget.option] == true || widget.isSelected
                         ? const DigitColors().lightPrimaryOrange
                         : Colors.transparent,
                   ),

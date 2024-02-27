@@ -624,6 +624,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                 return Column(
                                   children: [
                                     InkWell(
+                                      highlightColor: const DigitColors().transparent,
                                       splashColor:
                                           const DigitColors().transparent,
                                       hoverColor:
