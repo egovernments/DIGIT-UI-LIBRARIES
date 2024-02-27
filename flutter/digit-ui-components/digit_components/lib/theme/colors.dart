@@ -45,4 +45,7 @@ class DigitColors {
   Color get shadowColor => const Color.fromRGBO(244, 119, 56, 0.50);
   Color get primaryOrange => const Color.fromRGBO(234, 99, 31, 1);
   Color get warning => const Color.fromRGBO(233, 140, 2, 1);
+  Color get warningBg => const Color(0xFFF8E5C8);
+  Color get info => const Color(0xFF3498DB);
+  Color get infoBg => const Color(0xFFC7E0F1);
 }

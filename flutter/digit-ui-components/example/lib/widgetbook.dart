@@ -4,6 +4,7 @@ import 'package:digit_components/models/RadioButtonModel.dart';
 import 'package:digit_components/models/TreeModel.dart';
 import 'package:digit_components/models/toggleButtonModel.dart';
 import 'package:digit_components/utils/validators/validator.dart';
+import 'package:digit_components/widgets/atoms/digit_info_card.dart';
 import 'package:digit_components/widgets/atoms/digit_toast.dart';
 import 'package:digit_components/widgets/atoms/digit_button.dart';
 import 'package:digit_components/widgets/atoms/digit_checkbox.dart';
@@ -2104,6 +2105,48 @@ class HotReload extends StatelessWidget {
                               "Your Warning message", ToastType.warning));
                     },
                     child: Text("Show Toast"),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+        WidgetbookFolder(
+          name: 'Info Card',
+          children: [
+            WidgetbookComponent(
+              name: 'Info Card',
+              useCases: [
+                WidgetbookUseCase(
+                  name: 'Info',
+                  builder: (context) => InfoCard(
+                    title: 'Info',
+                    type: InfoType.info,
+                    description: 'Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect theservice to get completed in 24 hrs from the time of payment.',
+                  ),
+                ),
+                WidgetbookUseCase(
+                  name: 'Success',
+                  builder: (context) => InfoCard(
+                    title: 'Success',
+                    type: InfoType.success,
+                    description: 'Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect theservice to get completed in 24 hrs from the time of payment.',
+                  ),
+                ),
+                WidgetbookUseCase(
+                  name: 'Error',
+                  builder: (context) => InfoCard(
+                    title: 'Error',
+                    type: InfoType.error,
+                    description: 'Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect theservice to get completed in 24 hrs from the time of payment.',
+                  ),
+                ),
+                WidgetbookUseCase(
+                  name: 'Warning',
+                  builder: (context) => InfoCard(
+                    title: 'Warning',
+                    type: InfoType.warning,
+                    description: 'Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect theservice to get completed in 24 hrs from the time of payment.',
                   ),
                 ),
               ],
