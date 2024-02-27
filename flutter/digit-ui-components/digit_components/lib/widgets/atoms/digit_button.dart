@@ -264,59 +264,53 @@ class _DigitButtonState extends State<DigitButton> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             if (widget.prefixIcon != null) ...[
-              SizedBox(
-                height: widget.type == ButtonType.link ? 20 : widget.iconSize,
-                width: widget.type == ButtonType.link ? 20 : widget.iconSize,
-                child: Icon(
-                  widget.prefixIcon,
-                  size: widget.type == ButtonType.link ? 20 : widget.iconSize,
-                  color: widget.type == ButtonType.primary
-                      ? DigitButtonConstants.defaultTextColor
-                      : (widget.isDisabled
-                      ? DigitButtonConstants.defaultDisabledColor
-                      : DigitButtonConstants.defaultPrimaryColor),
-                ),
-              ),
-              SizedBox(width: widget.type == ButtonType.link  ? kPadding/2:kPadding),
-            ],
-            Text(
-              truncatedLabel,
-              style: widget.type == ButtonType.link
-                  ? DigitTheme.instance.mobileTheme.textTheme.bodyLarge
-                  ?.copyWith(
-                height: 1.172,
-                color: widget.isDisabled
-                    ? DigitButtonConstants.defaultDisabledColor
-                    : DigitButtonConstants.defaultPrimaryColor,
-                decoration: TextDecoration.underline,
-                decorationColor: widget.isDisabled
-                    ? DigitButtonConstants.defaultDisabledColor
-                    : DigitButtonConstants.defaultPrimaryColor,)
-                  : DigitTheme.instance.mobileTheme.textTheme.labelLarge
-                  ?.copyWith(
-                height: 1.5,
+              Icon(
+                widget.prefixIcon,
+                size: widget.type == ButtonType.link ? 20 : widget.iconSize,
                 color: widget.type == ButtonType.primary
                     ? DigitButtonConstants.defaultTextColor
                     : (widget.isDisabled
                     ? DigitButtonConstants.defaultDisabledColor
                     : DigitButtonConstants.defaultPrimaryColor),
-                overflow: TextOverflow.ellipsis,
               ),
-            ),
-            if (widget.suffixIcon != null) ...[
               SizedBox(width: widget.type == ButtonType.link  ? kPadding/2:kPadding),
-              SizedBox(
-                height: widget.type == ButtonType.link ? 20 : widget.iconSize,
-                width: widget.type == ButtonType.link ? 20 : widget.iconSize,
-                child: Icon(
-                  widget.suffixIcon,
-                  size: widget.type == ButtonType.link ? 20 : widget.iconSize,
+            ],
+            Flexible(
+              child: Text(
+                truncatedLabel,
+                style: widget.type == ButtonType.link
+                    ? DigitTheme.instance.mobileTheme.textTheme.bodyLarge
+                    ?.copyWith(
+                  height: 1.172,
+                  color: widget.isDisabled
+                      ? DigitButtonConstants.defaultDisabledColor
+                      : DigitButtonConstants.defaultPrimaryColor,
+                  decoration: TextDecoration.underline,
+                  decorationColor: widget.isDisabled
+                      ? DigitButtonConstants.defaultDisabledColor
+                      : DigitButtonConstants.defaultPrimaryColor,)
+                    : DigitTheme.instance.mobileTheme.textTheme.labelLarge
+                    ?.copyWith(
+                  height: 1.5,
                   color: widget.type == ButtonType.primary
                       ? DigitButtonConstants.defaultTextColor
                       : (widget.isDisabled
                       ? DigitButtonConstants.defaultDisabledColor
                       : DigitButtonConstants.defaultPrimaryColor),
+                  overflow: TextOverflow.ellipsis,
                 ),
+              ),
+            ),
+            if (widget.suffixIcon != null) ...[
+              SizedBox(width: widget.type == ButtonType.link  ? kPadding/2:kPadding),
+              Icon(
+                widget.suffixIcon,
+                size: widget.type == ButtonType.link ? 20 : widget.iconSize,
+                color: widget.type == ButtonType.primary
+                    ? DigitButtonConstants.defaultTextColor
+                    : (widget.isDisabled
+                    ? DigitButtonConstants.defaultDisabledColor
+                    : DigitButtonConstants.defaultPrimaryColor),
               ),
             ],
           ],
