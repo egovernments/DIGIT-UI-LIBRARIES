@@ -57,7 +57,7 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
   /// Update _isAnyChildSelected method in _TreeNodeWidgetState
   bool _isAnyChildSelected(TreeNode node) {
     return node.children.any((child) =>
-        widget.selectedOptions.any((item) => item.code == child.code) ||
+    widget.selectedOptions.any((item) => item.code == child.code) ||
         _isAnyChildSelected(child));
   }
 
@@ -95,10 +95,10 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
       return widget.mouseStates?[widget.currentOption.code] == true
           ? const DigitColors().lightPrimaryOrange
           : widget.hoverStates?[widget.currentOption.code] == true
-              ? const DigitColors().orangeBG
-              : _isExpanded
-                  ? const DigitColors().lightPaperSecondary
-                  : widget.backgroundColor;
+          ? const DigitColors().orangeBG
+          : _isExpanded
+          ? const DigitColors().lightPaperSecondary
+          : widget.backgroundColor;
     }
   }
 
@@ -148,7 +148,7 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
                   .any((item) => item.code == widget.currentOption.code)) {
                 widget.onOptionSelected([...widget.selectedOptions]
                   ..removeWhere(
-                      (item) => item.code == widget.currentOption.code));
+                          (item) => item.code == widget.currentOption.code));
               } else {
                 if (widget.treeSelectionType == TreeSelectionType.MultiSelect) {
                   if (!widget.selectedOptions
@@ -172,7 +172,7 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
                   decoration: BoxDecoration(
                       border: Border.all(
                         color: widget.hoverStates?[widget.currentOption.code] ==
-                                true
+                            true
                             ? const DigitColors().lightPrimaryOrange
                             : Colors.transparent,
                       ),
@@ -185,32 +185,33 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
                     ),
                     child: Row(
                       children: [
+
                         Transform.rotate(
                           angle: _isExpanded ? 0 : -1.5,
-                          child: Icon(
+                          child: widget.currentOption.children.isNotEmpty ?Icon(
                             Icons.arrow_drop_down,
                             size: 24,
                             color: widget.mouseStates?[
-                                        widget.currentOption.code] ==
-                                    true
+                            widget.currentOption.code] ==
+                                true
                                 ? const DigitColors().lightPaperPrimary
                                 : _parentSelected(
-                                        widget.currentOption, widget.parentNode)
-                                    ? const DigitColors().lightTextSecondary
-                                    : _areAllChildrenSelected(
-                                            widget.currentOption)
-                                        ? const DigitColors().lightPaperPrimary
-                                        : widget.currentOption.children
-                                                .isNotEmpty
-                                            ? const DigitColors()
-                                                .lightTextPrimary
-                                            : const DigitColors()
-                                                .lightGenericDivider,
-                          ),
+                                widget.currentOption, widget.parentNode)
+                                ? const DigitColors().lightTextSecondary
+                                : _areAllChildrenSelected(
+                                widget.currentOption)
+                                ? const DigitColors().lightPaperPrimary
+                                : widget.currentOption.children
+                                .isNotEmpty
+                                ? const DigitColors()
+                                .lightTextPrimary
+                                : const DigitColors()
+                                .lightGenericDivider,
+                          ): const SizedBox(width: 24,),
                         ),
-                          const SizedBox(
-                            width: kPadding / 2,
-                          ),
+                        const SizedBox(
+                          width: kPadding / 2,
+                        ),
                         if (widget.treeSelectionType ==
                             TreeSelectionType.MultiSelect)
                           InkWell(
@@ -231,74 +232,74 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
                               });
                             },
                             child: _areAllChildrenSelected(
-                                        widget.currentOption) ||
-                                    widget.mouseStates?[
-                                            widget.currentOption.code] ==
-                                        true
+                                widget.currentOption) ||
+                                widget.mouseStates?[
+                                widget.currentOption.code] ==
+                                    true
                                 ? DigitCheckboxIcon(
-                                    size: 20,
-                                    state: CheckboxState.checked,
-                                    color: widget.mouseStates?[
-                                                widget.currentOption.code] ==
-                                            true
-                                        ? const DigitColors().lightPaperPrimary
-                                        : _parentSelected(widget.currentOption,
-                                                widget.parentNode)
-                                            ? const DigitColors()
-                                                .lightPrimaryOrange
-                                            : _areAllChildrenSelected(
-                                                    widget.currentOption)
-                                                ? const DigitColors()
-                                                    .lightPaperPrimary
-                                                : const DigitColors()
-                                                    .lightPaperPrimary,
-                                  )
+                              size: 20,
+                              state: CheckboxState.checked,
+                              color: widget.mouseStates?[
+                              widget.currentOption.code] ==
+                                  true
+                                  ? const DigitColors().lightPaperPrimary
+                                  : _parentSelected(widget.currentOption,
+                                  widget.parentNode)
+                                  ? const DigitColors()
+                                  .lightPrimaryOrange
+                                  : _areAllChildrenSelected(
+                                  widget.currentOption)
+                                  ? const DigitColors()
+                                  .lightPaperPrimary
+                                  : const DigitColors()
+                                  .lightPaperPrimary,
+                            )
                                 : _isAnyChildSelected(widget.currentOption)
-                                    ? const DigitCheckboxIcon(
-                                        size: 20,
-                                        state: CheckboxState.intermediate)
-                                    : const DigitCheckboxIcon(
-                                        size: 20,
-                                        state: CheckboxState.unchecked),
+                                ? const DigitCheckboxIcon(
+                                size: 20,
+                                state: CheckboxState.intermediate)
+                                : const DigitCheckboxIcon(
+                                size: 20,
+                                state: CheckboxState.unchecked),
                           ),
                         if (widget.treeSelectionType ==
                             TreeSelectionType.MultiSelect)
-                        const SizedBox(
-                          width: 12,
-                        ),
+                          const SizedBox(
+                            width: 12,
+                          ),
                         Text(
                           widget.currentOption.name,
                           style: _isExpanded ||
-                                  _areAllChildrenSelected(
-                                      widget.currentOption) ||
-                                  widget.mouseStates?[
-                                          widget.currentOption.code] ==
-                                      true
+                              _areAllChildrenSelected(
+                                  widget.currentOption) ||
+                              widget.mouseStates?[
+                              widget.currentOption.code] ==
+                                  true
                               ? DigitTheme
-                                  .instance.mobileTheme.textTheme.headlineSmall
-                                  ?.copyWith(
-                                  height: 1.188,
-                                  color: widget.mouseStates?[
-                                              widget.currentOption.code] ==
-                                          true
-                                      ? const DigitColors().lightPaperPrimary
-                                      : _parentSelected(widget.currentOption,
-                                              widget.parentNode)
-                                          ? const DigitColors()
-                                              .lightTextSecondary
-                                          : _areAllChildrenSelected(
-                                                  widget.currentOption)
-                                              ? const DigitColors()
-                                                  .lightPaperPrimary
-                                              : const DigitColors()
-                                                  .lightTextSecondary,
-                                )
+                              .instance.mobileTheme.textTheme.headlineSmall
+                              ?.copyWith(
+                            height: 1.188,
+                            color: widget.mouseStates?[
+                            widget.currentOption.code] ==
+                                true
+                                ? const DigitColors().lightPaperPrimary
+                                : _parentSelected(widget.currentOption,
+                                widget.parentNode)
+                                ? const DigitColors()
+                                .lightTextSecondary
+                                : _areAllChildrenSelected(
+                                widget.currentOption)
+                                ? const DigitColors()
+                                .lightPaperPrimary
+                                : const DigitColors()
+                                .lightTextSecondary,
+                          )
                               : DigitTheme
-                                  .instance.mobileTheme.textTheme.bodyMedium
-                                  ?.copyWith(
-                                  height: 1.125,
-                                  color: const DigitColors().lightTextPrimary,
-                                ),
+                              .instance.mobileTheme.textTheme.bodyMedium
+                              ?.copyWith(
+                            height: 1.125,
+                            color: const DigitColors().lightTextPrimary,
+                          ),
                         ),
                       ],
                     ),
@@ -326,7 +327,7 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
                 child: Column(
                   children: widget.currentOption.children.map((child) {
                     bool isChildSelected =
-                        _areAllChildrenSelected(widget.currentOption);
+                    _areAllChildrenSelected(widget.currentOption);
                     return TreeNodeWidget(
                       option: widget.option,
                       parentNode: widget.currentOption,
