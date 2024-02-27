@@ -425,9 +425,12 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                     showCursor: widget.showCurser ?? widget.isEditable,
                     style: isVisible
                         ? DigitTheme
-                            .instance.mobileTheme.textTheme.headlineLarge
+                            .instance.mobileTheme.textTheme.bodyLarge
                             ?.copyWith(
-                                height: 1.3,
+                      fontWeight: FontWeight.w900,
+                                fontFamily: "Roboto-bold",
+                                height: 1.5,
+
                                 color: widget.readOnly
                                     ? const DigitColors().lightTextSecondary
                                     : const DigitColors().lightTextPrimary,

@@ -48,3 +48,11 @@ flutter:
     - family: Roboto
       fonts:
         - asset: assets/fonts/Roboto/Roboto-Regular.ttf
+
+    - family: Roboto Italic
+      fonts:
+        - asset: assets/fonts/Roboto/Roboto-Italic.ttf
+
+    - family: Roboto Bold
+      fonts:
+        - asset: assets/fonts/Roboto/Roboto-Bold.ttf

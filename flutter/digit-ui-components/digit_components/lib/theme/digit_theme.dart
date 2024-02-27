@@ -4,6 +4,8 @@ import 'package:digit_components/theme/colors.dart';
 import 'package:digit_components/theme/typography.dart';
 import 'package:flutter/material.dart';
 
+import '../constants/AppView.dart';
+
 const kPadding = 8.0;
 
 class DigitTheme {
@@ -13,6 +15,26 @@ class DigitTheme {
 
   DigitColors get colors => const DigitColors();
 
+  DigitTabTypography get tabTypography => DigitTabTypography(
+    normalBase: const TextStyle(
+      fontFamily: 'Roboto',
+    ),
+    displayBase: const TextStyle(
+      fontFamily: 'Roboto',
+    ),
+    light: colors.lightTextSecondary,
+    normal: colors.lightTextPrimary,
+  );
+  DigitDesktopTypography get desktopTypography => DigitDesktopTypography(
+    normalBase: const TextStyle(
+      fontFamily: 'Roboto',
+    ),
+    displayBase: const TextStyle(
+      fontFamily: 'Roboto',
+    ),
+    light: colors.lightTextSecondary,
+    normal: colors.lightTextPrimary,
+  );
   DigitMobileTypography get mobileTypography => DigitMobileTypography(
     normalBase: const TextStyle(
       fontFamily: 'Roboto',
@@ -33,6 +55,38 @@ class DigitTheme {
       colorScheme: colorScheme,
       scaffoldBackgroundColor: colorScheme.background,
       textTheme: mobileTypography.textTheme,
+      appBarTheme: const AppBarTheme(elevation: 0),
+      elevatedButtonTheme: elevatedButtonTheme,
+      outlinedButtonTheme: outlinedButtonTheme,
+      textButtonTheme: textButtonTheme,
+      cardTheme: cardTheme,
+      inputDecorationTheme: inputDecorationTheme,
+      dialogTheme: dialogTheme,
+    );
+  }
+  ThemeData get tabTheme {
+    const Border(top: BorderSide());
+
+    return ThemeData(
+      colorScheme: colorScheme,
+      scaffoldBackgroundColor: colorScheme.background,
+      textTheme: tabTypography.textTheme,
+      appBarTheme: const AppBarTheme(elevation: 0),
+      elevatedButtonTheme: elevatedButtonTheme,
+      outlinedButtonTheme: outlinedButtonTheme,
+      textButtonTheme: textButtonTheme,
+      cardTheme: cardTheme,
+      inputDecorationTheme: inputDecorationTheme,
+      dialogTheme: dialogTheme,
+    );
+  }
+  ThemeData get desktopTheme {
+    const Border(top: BorderSide());
+
+    return ThemeData(
+      colorScheme: colorScheme,
+      scaffoldBackgroundColor: colorScheme.background,
+      textTheme: desktopTypography.textTheme,
       appBarTheme: const AppBarTheme(elevation: 0),
       elevatedButtonTheme: elevatedButtonTheme,
       outlinedButtonTheme: outlinedButtonTheme,
@@ -76,7 +130,7 @@ class DigitTheme {
     vertical: kPadding,
   );
 
-  Duration get toastDuration => const Duration(seconds: 2);
+
 
   OutlinedBorder get buttonBorder => const RoundedRectangleBorder(
     borderRadius: BorderRadius.all(Radius.zero),

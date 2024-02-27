@@ -185,9 +185,10 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
                     ),
                     child: Row(
                       children: [
+
                         Transform.rotate(
                           angle: _isExpanded ? 0 : -1.5,
-                          child: Icon(
+                          child: widget.currentOption.children.isNotEmpty ?Icon(
                             Icons.arrow_drop_down,
                             size: 24,
                             color: widget.mouseStates?[
@@ -206,7 +207,7 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
                                 .lightTextPrimary
                                 : const DigitColors()
                                 .lightGenericDivider,
-                          ),
+                          ): const SizedBox(width: 24,),
                         ),
                         const SizedBox(
                           width: kPadding / 2,

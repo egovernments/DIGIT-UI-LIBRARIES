@@ -4,6 +4,7 @@ import 'package:digit_components/models/RadioButtonModel.dart';
 import 'package:digit_components/models/TreeModel.dart';
 import 'package:digit_components/models/toggleButtonModel.dart';
 import 'package:digit_components/utils/validators/validator.dart';
+import 'package:digit_components/widgets/atoms/Digit_toast.dart';
 import 'package:digit_components/widgets/atoms/digit_button.dart';
 import 'package:digit_components/widgets/atoms/digit_checkbox.dart';
 import 'package:digit_components/widgets/atoms/digit_date_form_input.dart';
@@ -54,7 +55,8 @@ class HotReload extends StatelessWidget {
                         label: 'Title',
                         initialValue: 'title',
                       ),
-                      isRequired: context.knobs.boolean(label: 'Required', initialValue: false),
+                      isRequired: context.knobs
+                          .boolean(label: 'Required', initialValue: false),
                       helpText: context.knobs.string(
                         label: 'help text',
                         initialValue: '',
@@ -243,13 +245,14 @@ class HotReload extends StatelessWidget {
                         label: 'Title',
                         initialValue: 'title',
                       ),
-                      isRequired: context.knobs.boolean(label: 'Required', initialValue: false),
+                      isRequired: context.knobs
+                          .boolean(label: 'Required', initialValue: false),
                       helpText: context.knobs.string(
                         label: 'help text',
                         initialValue: '',
                       ),
                       firstDate: DateTime(2001),
-                      lastDate: DateTime(2024,2,25),
+                      lastDate: DateTime(2024, 2, 25),
                       charCount: context.knobs.boolean(
                         label: 'char count',
                         initialValue: false,
@@ -382,7 +385,8 @@ class HotReload extends StatelessWidget {
                         label: 'Title',
                         initialValue: '',
                       ),
-                      isRequired: context.knobs.boolean(label: 'Required', initialValue: false),
+                      isRequired: context.knobs
+                          .boolean(label: 'Required', initialValue: false),
                       helpText: context.knobs.string(
                         label: 'help text',
                         initialValue: '',
@@ -519,7 +523,8 @@ class HotReload extends StatelessWidget {
                         label: 'Title',
                         initialValue: '',
                       ),
-                      isRequired: context.knobs.boolean(label: 'Required', initialValue: false),
+                      isRequired: context.knobs
+                          .boolean(label: 'Required', initialValue: false),
                       helpText: context.knobs.string(
                         label: 'help text',
                         initialValue: '',
@@ -623,7 +628,8 @@ class HotReload extends StatelessWidget {
                         label: 'Title',
                         initialValue: '',
                       ),
-                      isRequired: context.knobs.boolean(label: 'Required', initialValue: false),
+                      isRequired: context.knobs
+                          .boolean(label: 'Required', initialValue: false),
                       helpText: context.knobs.string(
                         label: 'help text',
                         initialValue: '',
@@ -647,7 +653,7 @@ class HotReload extends StatelessWidget {
                       validations: [
                         Validator(ValidatorType.minLength, 6,
                             errorMessage:
-                            'Password must be at least 6 characters.'),
+                                'Password must be at least 6 characters.'),
                       ],
                     ),
                   ),
@@ -685,7 +691,7 @@ class HotReload extends StatelessWidget {
                       validations: [
                         Validator(ValidatorType.minLength, 6,
                             errorMessage:
-                            'Password must be at least 6 characters.'),
+                                'Password must be at least 6 characters.'),
                       ],
                     ),
                   ),
@@ -723,7 +729,7 @@ class HotReload extends StatelessWidget {
                       validations: [
                         Validator(ValidatorType.minLength, 6,
                             errorMessage:
-                            'Password must be at least 6 characters.'),
+                                'Password must be at least 6 characters.'),
                       ],
                     ),
                   ),
@@ -739,20 +745,21 @@ class HotReload extends StatelessWidget {
                     child: DigitNumericFormInput(
                       controller: TextEditingController(),
                       step: context.knobs.doubleOrNull
-                          .slider(
-                        label: 'step',
-                        min: 0,
-                        initialValue: 1,
-                        max: 10,
-                        divisions: 10,
-                      )
-                          ?.toInt() ??
+                              .slider(
+                                label: 'step',
+                                min: 0,
+                                initialValue: 1,
+                                max: 10,
+                                divisions: 10,
+                              )
+                              ?.toInt() ??
                           0,
                       label: context.knobs.string(
                         label: 'Title',
                         initialValue: '',
                       ),
-                      isRequired: context.knobs.boolean(label: 'Required', initialValue: false),
+                      isRequired: context.knobs
+                          .boolean(label: 'Required', initialValue: false),
                       helpText: context.knobs.string(
                         label: 'help text',
                         initialValue: '',
@@ -889,7 +896,8 @@ class HotReload extends StatelessWidget {
                         label: 'Title',
                         initialValue: '',
                       ),
-                      isRequired: context.knobs.boolean(label: 'Required', initialValue: false),
+                      isRequired: context.knobs
+                          .boolean(label: 'Required', initialValue: false),
                       helpText: context.knobs.string(
                         label: 'help text',
                         initialValue: '',
@@ -1026,7 +1034,8 @@ class HotReload extends StatelessWidget {
                         label: 'Title',
                         initialValue: '',
                       ),
-                      isRequired: context.knobs.boolean(label: 'Required', initialValue: false),
+                      isRequired: context.knobs
+                          .boolean(label: 'Required', initialValue: false),
                       helpText: context.knobs.string(
                         label: 'help text',
                         initialValue: '',
@@ -1261,7 +1270,7 @@ class HotReload extends StatelessWidget {
                 WidgetbookUseCase(
                   name: 'default',
                   builder: (context) => Center(
-                    child:  DigitRadioList(
+                    child: DigitRadioList(
                       onChanged: (value) {
                         // print(value);
                       },
@@ -1271,9 +1280,17 @@ class HotReload extends StatelessWidget {
                       ),
                       radioButtons: [
                         RadioButtonModel(
-                            code: '', name: context.knobs.string(label: 'name1', initialValue: "one")),
-                        RadioButtonModel(code: '2', name: context.knobs.string(label: 'name2', initialValue: "two")),
-                        RadioButtonModel(code: '3', name: context.knobs.string(label: 'name3', initialValue: "three")),
+                            code: '',
+                            name: context.knobs
+                                .string(label: 'name1', initialValue: "one")),
+                        RadioButtonModel(
+                            code: '2',
+                            name: context.knobs
+                                .string(label: 'name2', initialValue: "two")),
+                        RadioButtonModel(
+                            code: '3',
+                            name: context.knobs
+                                .string(label: 'name3', initialValue: "three")),
                       ],
                     ),
                   ),
@@ -1290,11 +1307,17 @@ class HotReload extends StatelessWidget {
                       selectedIndex: 0,
                       toggleButtons: [
                         ToggleButtonModel(
-                            name: context.knobs.string(label: 'Toggle1', initialValue: 'toggle1'), code: 'key1'),
+                            name: context.knobs.string(
+                                label: 'Toggle1', initialValue: 'toggle1'),
+                            code: 'key1'),
                         ToggleButtonModel(
-                            name: context.knobs.string(label: 'Toggle2', initialValue: 'toggle2'), code: 'key1'),
+                            name: context.knobs.string(
+                                label: 'Toggle2', initialValue: 'toggle2'),
+                            code: 'key1'),
                         ToggleButtonModel(
-                            name: context.knobs.string(label: 'Toggle3', initialValue: 'toggle3'), code: 'key1'),
+                            name: context.knobs.string(
+                                label: 'Toggle3', initialValue: 'toggle3'),
+                            code: 'key1'),
                       ],
                       onChanged: (selectedValues) {},
                     ),
@@ -1313,10 +1336,14 @@ class HotReload extends StatelessWidget {
                 WidgetbookUseCase(
                   name: 'default',
                   builder: (context) => DigitDropdown<int>(
-                    isDisabled: context.knobs.boolean(label: 'Disabled', initialValue: false,),
+                    isDisabled: context.knobs.boolean(
+                      label: 'Disabled',
+                      initialValue: false,
+                    ),
                     onChange: (String value, String index) => {},
                     textEditingController: TextEditingController(),
-                    isSearchable: context.knobs.boolean(label: 'Searchable', initialValue: false),
+                    isSearchable: context.knobs
+                        .boolean(label: 'Searchable', initialValue: false),
                     items: [
                       'one',
                       'two',
@@ -1327,21 +1354,25 @@ class HotReload extends StatelessWidget {
                         .entries
                         .map(
                           (item) => DropdownItem(
-                        name: item.value,
-                        code: item.key.toString(),
-                      ),
-                    )
+                            name: item.value,
+                            code: item.key.toString(),
+                          ),
+                        )
                         .toList(),
                   ),
                 ),
                 WidgetbookUseCase(
                   name: 'nested',
                   builder: (context) => DigitDropdown<int>(
-                    isDisabled: context.knobs.boolean(label: 'Disabled', initialValue: false,),
+                    isDisabled: context.knobs.boolean(
+                      label: 'Disabled',
+                      initialValue: false,
+                    ),
                     onChange: (String value, String type) => {},
                     textEditingController: TextEditingController(),
                     dropdownType: DropdownType.nestedSelect,
-                    isSearchable: context.knobs.boolean(label: 'Searchable', initialValue: false),
+                    isSearchable: context.knobs
+                        .boolean(label: 'Searchable', initialValue: false),
                     items: const [
                       DropdownItem(
                         name: 'one',
@@ -1379,9 +1410,13 @@ class HotReload extends StatelessWidget {
                 WidgetbookUseCase(
                   name: 'nested text',
                   builder: (context) => DigitDropdown<int>(
-                    isDisabled: context.knobs.boolean(label: 'Disabled', initialValue: false,),
+                    isDisabled: context.knobs.boolean(
+                      label: 'Disabled',
+                      initialValue: false,
+                    ),
                     onChange: (String value, String index) => {},
-                    isSearchable: context.knobs.boolean(label: 'Searchable', initialValue: false),
+                    isSearchable: context.knobs
+                        .boolean(label: 'Searchable', initialValue: false),
                     textEditingController: TextEditingController(),
                     items: [
                       'one',
@@ -1393,21 +1428,25 @@ class HotReload extends StatelessWidget {
                         .entries
                         .map(
                           (item) => DropdownItem(
-                        name: item.value,
-                        code: item.key.toString(),
-                        description: 'description for ${item.value} one',
-                      ),
-                    )
+                            name: item.value,
+                            code: item.key.toString(),
+                            description: 'description for ${item.value} one',
+                          ),
+                        )
                         .toList(),
                   ),
                 ),
                 WidgetbookUseCase(
                   name: 'with icon',
                   builder: (context) => DigitDropdown<int>(
-                    isDisabled: context.knobs.boolean(label: 'Disabled', initialValue: false,),
+                    isDisabled: context.knobs.boolean(
+                      label: 'Disabled',
+                      initialValue: false,
+                    ),
                     onChange: (String value, String index) => {},
                     textEditingController: TextEditingController(),
-                    isSearchable: context.knobs.boolean(label: 'Searchable', initialValue: false),
+                    isSearchable: context.knobs
+                        .boolean(label: 'Searchable', initialValue: false),
                     items: [
                       'one',
                       'two',
@@ -1418,20 +1457,24 @@ class HotReload extends StatelessWidget {
                         .entries
                         .map(
                           (item) => DropdownItem(
-                        name: item.value,
-                        code: item.key.toString(),
-                        textIcon: Icons.article,
-                      ),
-                    )
+                            name: item.value,
+                            code: item.key.toString(),
+                            textIcon: Icons.article,
+                          ),
+                        )
                         .toList(),
                   ),
                 ),
                 WidgetbookUseCase(
                   name: 'profile select',
                   builder: (context) => DigitDropdown<int>(
-                    isDisabled: context.knobs.boolean(label: 'Disabled', initialValue: false,),
+                    isDisabled: context.knobs.boolean(
+                      label: 'Disabled',
+                      initialValue: false,
+                    ),
                     onChange: (String value, String index) => {},
-                    isSearchable: context.knobs.boolean(label: 'Searchable', initialValue: false),
+                    isSearchable: context.knobs
+                        .boolean(label: 'Searchable', initialValue: false),
                     textEditingController: TextEditingController(),
                     items: [
                       'one',
@@ -1443,13 +1486,13 @@ class HotReload extends StatelessWidget {
                         .entries
                         .map(
                           (item) => DropdownItem(
-                        name: item.value,
-                        code: item.key.toString(),
-                        profileImage: const NetworkImage(
-                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
-                        ),
-                      ),
-                    )
+                            name: item.value,
+                            code: item.key.toString(),
+                            profileImage: const NetworkImage(
+                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                            ),
+                          ),
+                        )
                         .toList(),
                   ),
                 ),
@@ -1462,13 +1505,12 @@ class HotReload extends StatelessWidget {
                   name: 'default',
                   builder: (context) => Center(
                     child: MultiSelectDropDown<int>(
-                      isDisabled: context.knobs.boolean(label: 'disabled', initialValue: false),
-                      onOptionSelected:
-                          (List<DropdownItem> selectedOptions) {},
+                      isDisabled: context.knobs
+                          .boolean(label: 'disabled', initialValue: false),
+                      onOptionSelected: (List<DropdownItem> selectedOptions) {},
                       options: const [
                         DropdownItem(code: '1', name: 'one'),
-                        DropdownItem(
-                            code: '2', name: 'two'),
+                        DropdownItem(code: '2', name: 'two'),
                         DropdownItem(code: '3', name: 'three'),
                         DropdownItem(code: '4', name: 'four'),
                         DropdownItem(code: '5', name: 'five'),
@@ -1481,15 +1523,17 @@ class HotReload extends StatelessWidget {
                   name: 'preSelected',
                   builder: (context) => Center(
                     child: MultiSelectDropDown<int>(
-                      isDisabled: context.knobs.boolean(label: 'disabled', initialValue: false),
-                      onOptionSelected:
-                          (List<DropdownItem> selectedOptions) {},
-                      selectedOptions: const [DropdownItem(code: '1', name: 'one'),DropdownItem(code: '3', name: 'three'),
-                        DropdownItem(code: '4', name: 'four'),],
+                      isDisabled: context.knobs
+                          .boolean(label: 'disabled', initialValue: false),
+                      onOptionSelected: (List<DropdownItem> selectedOptions) {},
+                      selectedOptions: const [
+                        DropdownItem(code: '1', name: 'one'),
+                        DropdownItem(code: '3', name: 'three'),
+                        DropdownItem(code: '4', name: 'four'),
+                      ],
                       options: const [
                         DropdownItem(code: '1', name: 'one'),
-                        DropdownItem(
-                            code: '2', name: 'two'),
+                        DropdownItem(code: '2', name: 'two'),
                         DropdownItem(code: '3', name: 'three'),
                         DropdownItem(code: '4', name: 'four'),
                         DropdownItem(code: '5', name: 'five'),
@@ -1502,40 +1546,35 @@ class HotReload extends StatelessWidget {
                   name: 'nested',
                   builder: (context) => Center(
                     child: MultiSelectDropDown<int>(
-                      isDisabled: context.knobs.boolean(label: 'disabled', initialValue: false),
-                      onOptionSelected:
-                          (List<DropdownItem> selectedOptions) {},
+                      isDisabled: context.knobs
+                          .boolean(label: 'disabled', initialValue: false),
+                      onOptionSelected: (List<DropdownItem> selectedOptions) {},
                       options: const [
                         DropdownItem(
                             code: '1',
                             name: 'one',
                             description: 'description for one',
-                            type: 'Group A'
-                        ),
+                            type: 'Group A'),
                         DropdownItem(
                             code: '2',
                             name: 'two',
                             description: 'description for two',
-                            type: 'Group B'
-                        ),
+                            type: 'Group B'),
                         DropdownItem(
                             code: '3',
                             name: 'three',
                             description: 'description for third',
-                            type: 'Group B'
-                        ),
+                            type: 'Group B'),
                         DropdownItem(
                             code: '4',
                             name: 'four',
                             description: 'description for four',
-                            type: 'Group B'
-                        ),
+                            type: 'Group B'),
                         DropdownItem(
                             code: '5',
                             name: 'five',
                             description: 'description for five',
-                            type: 'Group A'
-                        ),
+                            type: 'Group A'),
                       ],
                       selectionType: SelectionType.nestedMultiSelect,
                     ),
@@ -1545,9 +1584,9 @@ class HotReload extends StatelessWidget {
                   name: 'nested text',
                   builder: (context) => Center(
                     child: MultiSelectDropDown<int>(
-                      isDisabled: context.knobs.boolean(label: 'disabled', initialValue: false),
-                      onOptionSelected:
-                          (List<DropdownItem> selectedOptions) {},
+                      isDisabled: context.knobs
+                          .boolean(label: 'disabled', initialValue: false),
+                      onOptionSelected: (List<DropdownItem> selectedOptions) {},
                       options: const [
                         DropdownItem(
                           code: '1',
@@ -1583,9 +1622,9 @@ class HotReload extends StatelessWidget {
                   name: 'with icon',
                   builder: (context) => Center(
                     child: MultiSelectDropDown<int>(
-                      isDisabled: context.knobs.boolean(label: 'disabled', initialValue: false),
-                      onOptionSelected:
-                          (List<DropdownItem> selectedOptions) {},
+                      isDisabled: context.knobs
+                          .boolean(label: 'disabled', initialValue: false),
+                      onOptionSelected: (List<DropdownItem> selectedOptions) {},
                       options: const [
                         DropdownItem(
                           code: '1',
@@ -1625,7 +1664,8 @@ class HotReload extends StatelessWidget {
                 WidgetbookUseCase(
                   name: 'default',
                   builder: (context) => TreeSelectDropDown<int>(
-                    isDisabled: context.knobs.boolean(label: 'disabled', initialValue: false),
+                    isDisabled: context.knobs
+                        .boolean(label: 'disabled', initialValue: false),
                     onOptionSelected: (List<TreeNode> selectedOptions) {},
                     options: [
                       TreeNode('A', 'A', [
@@ -1657,7 +1697,8 @@ class HotReload extends StatelessWidget {
                 WidgetbookUseCase(
                   name: 'Multi Select Tree',
                   builder: (context) => TreeSelectDropDown<int>(
-                    isDisabled: context.knobs.boolean(label: 'disabled', initialValue: false),
+                    isDisabled: context.knobs
+                        .boolean(label: 'disabled', initialValue: false),
                     onOptionSelected: (List<TreeNode> selectedOptions) {},
                     options: [
                       TreeNode('A', 'A', [
@@ -1699,7 +1740,8 @@ class HotReload extends StatelessWidget {
                 WidgetbookUseCase(
                   name: 'default',
                   builder: (context) => DigitButton(
-                    label: context.knobs.string(label: 'Label' , initialValue: 'Primary Button'),
+                    label: context.knobs
+                        .string(label: 'Label', initialValue: 'Primary Button'),
                     onPressed: () {
                       // Add your primary button logic here
                     },
@@ -1714,14 +1756,15 @@ class HotReload extends StatelessWidget {
                   name: 'prefixIcon',
                   builder: (context) => DigitButton(
                     prefixIcon:
-                    context.knobs.list(label: 'prefixIcon', options: [
+                        context.knobs.list(label: 'prefixIcon', options: [
                       Icons.arrow_forward,
                       Icons.add,
                       Icons.crop_square_sharp,
                       Icons.circle,
                       Icons.location_disabled_outlined,
                     ]),
-                    label: context.knobs.string(label: 'Label' , initialValue: 'Primary Button'),
+                    label: context.knobs
+                        .string(label: 'Label', initialValue: 'Primary Button'),
                     onPressed: () {
                       // Add your primary button logic here
                     },
@@ -1735,7 +1778,8 @@ class HotReload extends StatelessWidget {
                 WidgetbookUseCase(
                   name: 'suffixIcon',
                   builder: (context) => DigitButton(
-                    label: context.knobs.string(label: 'Label' , initialValue: 'Primary Button'),
+                    label: context.knobs
+                        .string(label: 'Label', initialValue: 'Primary Button'),
                     onPressed: () {
                       // Add your primary button logic here
                     },
@@ -1745,7 +1789,7 @@ class HotReload extends StatelessWidget {
                       initialValue: false,
                     ),
                     suffixIcon:
-                    context.knobs.list(label: 'suffixIcon', options: [
+                        context.knobs.list(label: 'suffixIcon', options: [
                       Icons.arrow_forward,
                       Icons.add,
                       Icons.crop_square_sharp,
@@ -1762,7 +1806,8 @@ class HotReload extends StatelessWidget {
                 WidgetbookUseCase(
                   name: 'default',
                   builder: (context) => DigitButton(
-                    label: context.knobs.string(label: 'Label' , initialValue: 'Secondary Button'),
+                    label: context.knobs.string(
+                        label: 'Label', initialValue: 'Secondary Button'),
                     onPressed: () {
                       // Add your secondary button logic here
                     },
@@ -1776,7 +1821,8 @@ class HotReload extends StatelessWidget {
                 WidgetbookUseCase(
                   name: 'prefixIcon',
                   builder: (context) => DigitButton(
-                    label: context.knobs.string(label: 'Label' , initialValue: 'Secondary Button'),
+                    label: context.knobs.string(
+                        label: 'Label', initialValue: 'Secondary Button'),
                     onPressed: () {
                       // Add your secondary button logic here
                     },
@@ -1786,7 +1832,7 @@ class HotReload extends StatelessWidget {
                     ),
                     type: ButtonType.secondary,
                     prefixIcon:
-                    context.knobs.list(label: 'prefixIcon', options: [
+                        context.knobs.list(label: 'prefixIcon', options: [
                       Icons.arrow_forward,
                       Icons.add,
                       Icons.crop_square_sharp,
@@ -1798,7 +1844,8 @@ class HotReload extends StatelessWidget {
                 WidgetbookUseCase(
                   name: 'suffixIcon',
                   builder: (context) => DigitButton(
-                    label: context.knobs.string(label: 'Label' , initialValue: 'Secondary Button'),
+                    label: context.knobs.string(
+                        label: 'Label', initialValue: 'Secondary Button'),
                     onPressed: () {
                       // Add your secondary button logic here
                     },
@@ -1808,7 +1855,7 @@ class HotReload extends StatelessWidget {
                     ),
                     type: ButtonType.secondary,
                     suffixIcon:
-                    context.knobs.list(label: 'suffixIcon', options: [
+                        context.knobs.list(label: 'suffixIcon', options: [
                       Icons.arrow_forward,
                       Icons.add,
                       Icons.crop_square_sharp,
@@ -1825,7 +1872,8 @@ class HotReload extends StatelessWidget {
                 WidgetbookUseCase(
                   name: 'default',
                   builder: (context) => DigitButton(
-                    label: context.knobs.string(label: 'Label' , initialValue: 'Tertiary Button'),
+                    label: context.knobs.string(
+                        label: 'Label', initialValue: 'Tertiary Button'),
                     onPressed: () {
                       // Add your secondary button logic here
                     },
@@ -1839,7 +1887,8 @@ class HotReload extends StatelessWidget {
                 WidgetbookUseCase(
                   name: 'prefixIcon',
                   builder: (context) => DigitButton(
-                    label: context.knobs.string(label: 'Label' , initialValue: 'Tertiary Button'),
+                    label: context.knobs.string(
+                        label: 'Label', initialValue: 'Tertiary Button'),
                     onPressed: () {
                       // Add your secondary button logic here
                     },
@@ -1849,7 +1898,7 @@ class HotReload extends StatelessWidget {
                     ),
                     type: ButtonType.tertiary,
                     prefixIcon:
-                    context.knobs.list(label: 'prefixIcon', options: [
+                        context.knobs.list(label: 'prefixIcon', options: [
                       Icons.arrow_forward,
                       Icons.add,
                       Icons.crop_square_sharp,
@@ -1861,7 +1910,8 @@ class HotReload extends StatelessWidget {
                 WidgetbookUseCase(
                   name: 'suffixIcon',
                   builder: (context) => DigitButton(
-                    label: context.knobs.string(label: 'Label' , initialValue: 'Tertiary Button'),
+                    label: context.knobs.string(
+                        label: 'Label', initialValue: 'Tertiary Button'),
                     onPressed: () {
                       // Add your secondary button logic here
                     },
@@ -1871,7 +1921,7 @@ class HotReload extends StatelessWidget {
                     ),
                     type: ButtonType.tertiary,
                     suffixIcon:
-                    context.knobs.list(label: 'suffixIcon', options: [
+                        context.knobs.list(label: 'suffixIcon', options: [
                       Icons.arrow_forward,
                       Icons.add,
                       Icons.crop_square_sharp,
@@ -1888,7 +1938,8 @@ class HotReload extends StatelessWidget {
                 WidgetbookUseCase(
                   name: 'default',
                   builder: (context) => DigitButton(
-                    label: context.knobs.string(label: 'Label' , initialValue: 'link'),
+                    label: context.knobs
+                        .string(label: 'Label', initialValue: 'link'),
                     onPressed: () {
                       // Add your secondary button logic here
                     },
@@ -1902,7 +1953,8 @@ class HotReload extends StatelessWidget {
                 WidgetbookUseCase(
                   name: 'prefixIcon',
                   builder: (context) => DigitButton(
-                    label: context.knobs.string(label: 'Label' , initialValue: 'link'),
+                    label: context.knobs
+                        .string(label: 'Label', initialValue: 'link'),
                     onPressed: () {
                       // Add your secondary button logic here
                     },
@@ -1912,7 +1964,7 @@ class HotReload extends StatelessWidget {
                     ),
                     type: ButtonType.link,
                     prefixIcon:
-                    context.knobs.list(label: 'prefixIcon', options: [
+                        context.knobs.list(label: 'prefixIcon', options: [
                       Icons.arrow_forward,
                       Icons.add,
                       Icons.crop_square_sharp,
@@ -1924,7 +1976,8 @@ class HotReload extends StatelessWidget {
                 WidgetbookUseCase(
                   name: 'suffixIcon',
                   builder: (context) => DigitButton(
-                    label: context.knobs.string(label: 'Label' , initialValue: 'link'),
+                    label: context.knobs
+                        .string(label: 'Label', initialValue: 'link'),
                     onPressed: () {
                       // Add your secondary button logic here
                     },
@@ -1934,7 +1987,7 @@ class HotReload extends StatelessWidget {
                     ),
                     type: ButtonType.link,
                     suffixIcon:
-                    context.knobs.list(label: 'suffixIcon', options: [
+                        context.knobs.list(label: 'suffixIcon', options: [
                       Icons.arrow_forward,
                       Icons.add,
                       Icons.crop_square_sharp,
@@ -1983,9 +2036,74 @@ class HotReload extends StatelessWidget {
               useCases: [
                 WidgetbookUseCase(
                   name: 'Default',
-                  builder: (context) => const CustomStepper(
-                    currentStep: 2,
-                    steps: ['Step 1', 'Step 2', 'Step 3', 'Step 4'],
+                  builder: (context) => const DigitStepper(
+                    steps: [
+                      StepsModel(
+                        title: 'Step 1',
+                        number: "1",
+                      ),
+                      StepsModel(
+                        title: 'Step 2',
+                        number: "2",
+                      ),
+                      StepsModel(
+                        title: 'Step 3',
+                        number: "3",
+                      ),
+                      StepsModel(
+                        title: 'Step 4',
+                        number: "4",
+                      ),
+                      StepsModel(
+                        title: 'Step 5',
+                        number: "5",
+                      ),
+                    ],
+                    activeStep: 2,
+                    maxStepReached: 1,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+        WidgetbookFolder(
+          name: 'Toast',
+          children: [
+            WidgetbookComponent(
+              name: 'Toast',
+              useCases: [
+                WidgetbookUseCase(
+                  name: 'Success',
+                  builder: (context) => ElevatedButton(
+                    onPressed: () {
+                      DigitToast.show(context,
+                          options: DigitToastOptions(
+                              "Your successour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning message message", ToastType.success));
+                    },
+                    child: Text("Show Toast"),
+                  ),
+                ),
+                WidgetbookUseCase(
+                  name: 'Error',
+                  builder: (context) => ElevatedButton(
+                    onPressed: () {
+                      DigitToast.show(context,
+                          options: DigitToastOptions(
+                              "Your error message", ToastType.error));
+                    },
+                    child: Text("Show Toast"),
+                  ),
+                ),
+                WidgetbookUseCase(
+                  name: 'Warning',
+                  builder: (context) => ElevatedButton(
+                    onPressed: () {
+                      DigitToast.show(context,
+                          options: DigitToastOptions(
+                              "Your Warning message", ToastType.warning));
+                    },
+                    child: Text("Show Toast"),
                   ),
                 ),
               ],
@@ -1996,5 +2114,3 @@ class HotReload extends StatelessWidget {
     );
   }
 }
-
-

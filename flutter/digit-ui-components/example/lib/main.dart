@@ -1,9 +1,11 @@
+import 'package:digit_components/constants/AppView.dart';
 import 'package:digit_components/enum/app_enums.dart';
 import 'package:digit_components/models/DropdownModels.dart';
 import 'package:digit_components/models/RadioButtonModel.dart';
 import 'package:digit_components/models/TreeModel.dart';
 import 'package:digit_components/models/toggleButtonModel.dart';
 import 'package:digit_components/theme/digit_theme.dart';
+import 'package:digit_components/theme/typography.dart';
 import 'package:digit_components/utils/validators/validator.dart';
 import 'package:digit_components/widgets/atoms/digit_button.dart';
 import 'package:digit_components/widgets/atoms/digit_checkbox.dart';
@@ -83,12 +85,32 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+
+
   /// This widget is the root of the application.
   @override
   Widget build(BuildContext context) {
+    ThemeData _getTypography() {
+      // Get screen width from MediaQuery
+      bool isMobile = AppView.isMobileView(MediaQuery.of(context).size.width);
+      bool isTab = AppView.isMobileView(MediaQuery.of(context).size.width);
+      bool isDesktop = AppView.isMobileView(MediaQuery.of(context).size.width);
+
+      // Adjust the threshold as needed
+      if (isDesktop) {
+        // Desktop
+        return DigitTheme.instance.desktopTheme;
+      } else if (isTab) {
+        // Tablet
+        return DigitTheme.instance.tabTheme;
+      } else {
+        // Mobile
+        return DigitTheme.instance.mobileTheme;
+      }
+    }
     return MaterialApp(
       title: 'Digit UI Flutter',
-      theme: DigitTheme.instance.mobileTheme.copyWith(
+      theme: _getTypography().copyWith(
           appBarTheme: AppBarTheme(
         backgroundColor: DigitTheme.instance.colorScheme.secondary,
       )),
