@@ -713,7 +713,7 @@ class MyHomePageState extends State<MyHomePage> {
                   controller: controller28,
                   innerLabel: 'innerlabel',
                   helpText: 'help text',
-                  suffixText: '##',
+                  suffixText: '#',
                 ),
                 DigitCheckbox(
                   label: "Show All The Variants Of Suffix Input Field",
@@ -754,7 +754,6 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 8,
                 ),
-
                 LabeledField(
                   label: 'Dropdown Variants',
                   child: DigitDropdown<int>(

@@ -509,9 +509,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                               ? DigitTheme.instance.mobileTheme
                                                   .textTheme.headlineSmall
                                                   ?.copyWith(
-                                                      height: filteredItems[index].description != null
-                                                          ? 1.5
-                                                          : 1.188,
+                                                      height: 1.172,
                                                       color: const DigitColors()
                                                           .lightPaperPrimary)
                                               : DigitTheme.instance.mobileTheme

@@ -108,7 +108,57 @@ class _DigitRadioListState extends State<DigitRadioList> {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              InkWell(
+              widget.isDisabled ?
+              Container(
+                padding: const EdgeInsets.all(kPadding / 2),
+                width: widget.radioWidth,
+                height: widget.radioHeight,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: widget.isDisabled
+                        ? const DigitColors().lightGenericDivider
+                        : (widget.groupValue == button.code ||
+                        isHoveredList[index] ||
+                        isMouseDown[index])
+                        ? const DigitColors().lightPrimaryOrange
+                        : const DigitColors().lightTextSecondary,
+                    width: (widget.isDisabled &&
+                        widget.groupValue == button.code) ||
+                        widget.groupValue == button.code
+                        ? 2.0
+                        : 1.0,
+                  ),
+                  color: widget.isDisabled
+                      ? const DigitColors().lightPaperSecondary
+                      : isMouseDown[index]
+                      ? const DigitColors().orangeBG
+                      : const DigitColors().lightPaperPrimary,
+                  boxShadow: isMouseDown[index]
+                      ? [
+                    BoxShadow(
+                      color: const DigitColors().orangeBG,
+                      spreadRadius: 3,
+                      blurRadius: 3,
+                      offset: const Offset(0, 0),
+                    ),
+                  ]
+                      : [],
+                ),
+                child: widget.groupValue == button.code
+                    ? Container(
+                  height: 12,
+                  width: 12,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: widget.isDisabled
+                        ? const DigitColors().lightTextDisabled
+                        : const DigitColors().lightPrimaryOrange,
+                  ),
+                )
+                    : null,
+              )
+              :InkWell(
                 hoverColor: const DigitColors().transparent,
                 splashColor: const DigitColors().transparent,
                 highlightColor: const DigitColors().transparent,

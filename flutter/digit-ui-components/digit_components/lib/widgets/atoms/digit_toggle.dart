@@ -39,7 +39,10 @@ class _DigitToggleState extends State<DigitToggle> {
             isHovered = false;
           });
         },
-        child: GestureDetector(
+        child: InkWell(
+          hoverColor: const DigitColors().transparent,
+          splashColor: const DigitColors().transparent,
+          highlightColor: const DigitColors().transparent,
           onTapDown: (_) {
             /// Handle mouse down state
             setState(() {

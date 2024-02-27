@@ -419,7 +419,9 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                     autovalidateMode: AutovalidateMode.disabled,
                     minLines: widget.minLine,
                     maxLines: widget.maxLine,
-                    keyboardType: widget.readOnly ? TextInputType.none : widget.keyboardType,
+                    keyboardType: widget.readOnly
+                        ? TextInputType.none
+                        : widget.keyboardType,
                     textAlign: widget.textAlign,
                     maxLength: maxLengthValue,
                     showCursor: widget.readOnly
@@ -516,63 +518,119 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                               maxHeight: 24,
                             ),
                       suffixIcon: widget.suffixText != null
-                          ? InkWell(
-                              hoverColor: const DigitColors().transparent,
-                              splashColor: const DigitColors().transparent,
-                              highlightColor: const DigitColors().transparent,
-                              onTap: widget.readOnly ? null : onSuffixIconClick,
-                              child: IntrinsicWidth(
-                                child: Container(
-                                  constraints: const BoxConstraints(
-                                    minWidth: 40
-                                  ),
-                                  height: _isFocusOn || _hasError ? 36 : 38,
-                                  // width: 40,
-                                  padding:
-                                      const EdgeInsets.symmetric(horizontal: 4),
-                                  margin: EdgeInsets.only(
-                                    left: kPadding,
-                                    right: _isFocusOn || _hasError ? 2 : 1,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: const DigitColors()
-                                        .lightGenericBackground,
-                                    border: Border(
-                                      left: BorderSide(
-                                        color: widget.isDisabled
-                                            ? const DigitColors()
-                                                .lightTextDisabled
-                                            : const DigitColors()
-                                                .lightTextSecondary,
-                                        width: 1.0,
+                          ? widget.suffixText == "+"
+                              ? InkWell(
+                                  hoverColor: const DigitColors().transparent,
+                                  splashColor: const DigitColors().transparent,
+                                  highlightColor:
+                                      const DigitColors().transparent,
+                                  onTap: widget.readOnly
+                                      ? null
+                                      : onSuffixIconClick,
+                                  child: IntrinsicWidth(
+                                    child: Container(
+                                      constraints:
+                                          const BoxConstraints(minWidth: 40),
+                                      height: _isFocusOn || _hasError ? 36 : 38,
+                                      // width: 40,
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 4),
+                                      margin: EdgeInsets.only(
+                                        left: kPadding,
+                                        right: _isFocusOn || _hasError ? 2 : 1,
                                       ),
-                                      top: BorderSide.none,
-                                      bottom: BorderSide.none,
-                                      right: BorderSide.none,
-                                    ),
-                                  ),
-                                  child: Center(
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 2, bottom: 4, top: 0),
-                                      child: Text(
-                                        widget.suffixText!,
-                                        style: DigitTheme.instance.mobileTheme
-                                            .textTheme.headlineLarge
-                                            ?.copyWith(
-                                          height: 1.758,
-                                          color: widget.isDisabled
-                                              ? const DigitColors()
-                                                  .lightGenericDivider
-                                              : const DigitColors()
-                                                  .lightTextSecondary,
+                                      decoration: BoxDecoration(
+                                        color: const DigitColors()
+                                            .lightGenericBackground,
+                                        border: Border(
+                                          left: BorderSide(
+                                            color: widget.isDisabled
+                                                ? const DigitColors()
+                                                    .lightTextDisabled
+                                                : const DigitColors()
+                                                    .lightTextSecondary,
+                                            width: 1.0,
+                                          ),
+                                          top: BorderSide.none,
+                                          bottom: BorderSide.none,
+                                          right: BorderSide.none,
+                                        ),
+                                      ),
+                                      child: Center(
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 2, bottom: 4, top: 0),
+                                          child: Text(
+                                            widget.suffixText!,
+                                            style: DigitTheme
+                                                .instance
+                                                .mobileTheme
+                                                .textTheme
+                                                .headlineLarge
+                                                ?.copyWith(
+                                              height: 1.758,
+                                              color: widget.isDisabled
+                                                  ? const DigitColors()
+                                                      .lightGenericDivider
+                                                  : const DigitColors()
+                                                      .lightTextSecondary,
+                                            ),
+                                          ),
                                         ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              ),
-                            )
+                                )
+                              : IntrinsicWidth(
+                                  child: Container(
+                                    constraints:
+                                        const BoxConstraints(minWidth: 40),
+                                    height: _isFocusOn || _hasError ? 36 : 38,
+                                    // width: 40,
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 4),
+                                    margin: EdgeInsets.only(
+                                      left: kPadding,
+                                      right: _isFocusOn || _hasError ? 2 : 1,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: const DigitColors()
+                                          .lightGenericBackground,
+                                      border: Border(
+                                        left: BorderSide(
+                                          color: widget.isDisabled
+                                              ? const DigitColors()
+                                                  .lightTextDisabled
+                                              : const DigitColors()
+                                                  .lightTextSecondary,
+                                          width: 1.0,
+                                        ),
+                                        top: BorderSide.none,
+                                        bottom: BorderSide.none,
+                                        right: BorderSide.none,
+                                      ),
+                                    ),
+                                    child: Center(
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 2, bottom: 4, top: 0),
+                                        child: Text(
+                                          widget.suffixText!,
+                                          style: DigitTheme.instance.mobileTheme
+                                              .textTheme.headlineLarge
+                                              ?.copyWith(
+                                            height: 1.758,
+                                            color: widget.isDisabled
+                                                ? const DigitColors()
+                                                    .lightGenericDivider
+                                                : const DigitColors()
+                                                    .lightTextSecondary,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                )
                           : widget.suffixIcon != null
                               ? InkWell(
                                   hoverColor: const DigitColors().transparent,
@@ -599,59 +657,107 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                           ? const DigitColors().lightTextDisabled
                           : const DigitColors().lightTextSecondary,
                       prefixIcon: widget.prefixText != null
-                          ? InkWell(
-                              hoverColor: const DigitColors().transparent,
-                              splashColor: const DigitColors().transparent,
-                              highlightColor: const DigitColors().transparent,
-                              onTap: widget.readOnly ? null : onPrefixIconClick,
-                              child: IntrinsicWidth(
-                                child: Container(
-                                  constraints: const BoxConstraints(
-                                      minWidth: 40
-                                  ),
-                                  padding:
-                                      const EdgeInsets.symmetric(horizontal: 4),
-                                  height: _isFocusOn || _hasError ? 36 : 38,
-                                  // width: 200,
-                                  margin: EdgeInsets.only(
-                                    right: kPadding,
-                                    left: _isFocusOn || _hasError ? 2 : 1,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: const DigitColors()
-                                        .lightGenericBackground,
-                                    border: Border(
-                                      right: BorderSide(
-                                        color: widget.isDisabled
-                                            ? const DigitColors()
-                                                .lightGenericDivider
-                                            : const DigitColors()
-                                                .lightGenericInputBorder,
-                                        width: 1.0,
+                          ? widget.prefixText == "-"
+                              ? InkWell(
+                                  hoverColor: const DigitColors().transparent,
+                                  splashColor: const DigitColors().transparent,
+                                  highlightColor:
+                                      const DigitColors().transparent,
+                                  onTap: widget.readOnly
+                                      ? null
+                                      : onPrefixIconClick,
+                                  child: IntrinsicWidth(
+                                    child: Container(
+                                      constraints:
+                                          const BoxConstraints(minWidth: 40),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 4),
+                                      height: _isFocusOn || _hasError ? 36 : 38,
+                                      // width: 200,
+                                      margin: EdgeInsets.only(
+                                        right: kPadding,
+                                        left: _isFocusOn || _hasError ? 2 : 1,
                                       ),
-                                      top: BorderSide.none,
-                                      bottom: BorderSide.none,
-                                      left: BorderSide.none,
+                                      decoration: BoxDecoration(
+                                        color: const DigitColors()
+                                            .lightGenericBackground,
+                                        border: Border(
+                                          right: BorderSide(
+                                            color: widget.isDisabled
+                                                ? const DigitColors()
+                                                    .lightGenericDivider
+                                                : const DigitColors()
+                                                    .lightGenericInputBorder,
+                                            width: 1.0,
+                                          ),
+                                          top: BorderSide.none,
+                                          bottom: BorderSide.none,
+                                          left: BorderSide.none,
+                                        ),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          widget.prefixText!,
+                                          style: DigitTheme.instance.mobileTheme
+                                              .textTheme.headlineLarge
+                                              ?.copyWith(
+                                            height: 1.758,
+                                            color: widget.isDisabled
+                                                ? const DigitColors()
+                                                    .lightTextDisabled
+                                                : const DigitColors()
+                                                    .lightTextSecondary,
+                                          ),
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                  child: Center(
-                                    child: Text(
-                                      widget.prefixText!,
-                                      style: DigitTheme.instance.mobileTheme
-                                          .textTheme.headlineLarge
-                                          ?.copyWith(
-                                        height: 1.758,
-                                        color: widget.isDisabled
-                                            ? const DigitColors()
-                                                .lightTextDisabled
-                                            : const DigitColors()
-                                                .lightTextSecondary,
+                                )
+                              : IntrinsicWidth(
+                                  child: Container(
+                                    constraints:
+                                        const BoxConstraints(minWidth: 40),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 4),
+                                    height: _isFocusOn || _hasError ? 36 : 38,
+                                    margin: EdgeInsets.only(
+                                      right: kPadding,
+                                      left: _isFocusOn || _hasError ? 2 : 1,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: const DigitColors()
+                                          .lightGenericBackground,
+                                      border: Border(
+                                        right: BorderSide(
+                                          color: widget.isDisabled
+                                              ? const DigitColors()
+                                                  .lightGenericDivider
+                                              : const DigitColors()
+                                                  .lightGenericInputBorder,
+                                          width: 1.0,
+                                        ),
+                                        top: BorderSide.none,
+                                        bottom: BorderSide.none,
+                                        left: BorderSide.none,
+                                      ),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        widget.prefixText!,
+                                        style: DigitTheme.instance.mobileTheme
+                                            .textTheme.headlineLarge
+                                            ?.copyWith(
+                                          height: 1.758,
+                                          color: widget.isDisabled
+                                              ? const DigitColors()
+                                                  .lightTextDisabled
+                                              : const DigitColors()
+                                                  .lightTextSecondary,
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              ),
-                            )
+                                )
                           : null,
                     ),
                     onChanged: (value) {
