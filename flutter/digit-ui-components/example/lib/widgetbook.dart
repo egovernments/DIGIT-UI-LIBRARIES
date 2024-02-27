@@ -4,7 +4,7 @@ import 'package:digit_components/models/RadioButtonModel.dart';
 import 'package:digit_components/models/TreeModel.dart';
 import 'package:digit_components/models/toggleButtonModel.dart';
 import 'package:digit_components/utils/validators/validator.dart';
-import 'package:digit_components/widgets/atoms/Digit_toast.dart';
+import 'package:digit_components/widgets/atoms/digit_toast.dart';
 import 'package:digit_components/widgets/atoms/digit_button.dart';
 import 'package:digit_components/widgets/atoms/digit_checkbox.dart';
 import 'package:digit_components/widgets/atoms/digit_date_form_input.dart';
