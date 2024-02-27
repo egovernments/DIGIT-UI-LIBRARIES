@@ -264,14 +264,18 @@ class _DigitButtonState extends State<DigitButton> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             if (widget.prefixIcon != null) ...[
-              Icon(
-                widget.prefixIcon,
-                size: widget.type == ButtonType.link ? 20 : widget.iconSize,
-                color: widget.type == ButtonType.primary
-                    ? DigitButtonConstants.defaultTextColor
-                    : (widget.isDisabled
-                    ? DigitButtonConstants.defaultDisabledColor
-                    : DigitButtonConstants.defaultPrimaryColor),
+              SizedBox(
+                height: widget.type == ButtonType.link ? 20 : widget.iconSize,
+                width: widget.type == ButtonType.link ? 20 : widget.iconSize,
+                child: Icon(
+                  widget.prefixIcon,
+                  size: widget.type == ButtonType.link ? 20 : widget.iconSize,
+                  color: widget.type == ButtonType.primary
+                      ? DigitButtonConstants.defaultTextColor
+                      : (widget.isDisabled
+                      ? DigitButtonConstants.defaultDisabledColor
+                      : DigitButtonConstants.defaultPrimaryColor),
+                ),
               ),
               SizedBox(width: widget.type == ButtonType.link  ? kPadding/2:kPadding),
             ],
@@ -303,14 +307,18 @@ class _DigitButtonState extends State<DigitButton> {
             ),
             if (widget.suffixIcon != null) ...[
               SizedBox(width: widget.type == ButtonType.link  ? kPadding/2:kPadding),
-              Icon(
-                widget.suffixIcon,
-                size: widget.type == ButtonType.link ? 20 : widget.iconSize,
-                color: widget.type == ButtonType.primary
-                    ? DigitButtonConstants.defaultTextColor
-                    : (widget.isDisabled
-                    ? DigitButtonConstants.defaultDisabledColor
-                    : DigitButtonConstants.defaultPrimaryColor),
+              SizedBox(
+                height: widget.type == ButtonType.link ? 20 : widget.iconSize,
+                width: widget.type == ButtonType.link ? 20 : widget.iconSize,
+                child: Icon(
+                  widget.suffixIcon,
+                  size: widget.type == ButtonType.link ? 20 : widget.iconSize,
+                  color: widget.type == ButtonType.primary
+                      ? DigitButtonConstants.defaultTextColor
+                      : (widget.isDisabled
+                      ? DigitButtonConstants.defaultDisabledColor
+                      : DigitButtonConstants.defaultPrimaryColor),
+                ),
               ),
             ],
           ],

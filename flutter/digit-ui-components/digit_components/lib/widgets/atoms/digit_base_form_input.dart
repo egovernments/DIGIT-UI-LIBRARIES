@@ -116,44 +116,44 @@ class BaseDigitFormInput extends StatefulWidget {
 
   const BaseDigitFormInput(
       {Key? key,
-        required this.controller,
-        this.isDisabled = false,
-        this.readOnly = false,
-        this.isRequired = false,
-        this.initialValue,
-        this.label,
-        this.info,
-        this.infoText,
-        this.suffixIcon,
-        this.charCount = false,
-        this.innerLabel,
-        this.helpText,
-        this.onError,
-        this.triggerMode = TooltipTriggerMode.tap,
-        this.preferToolTipBelow = false,
-        this.suffixText,
-        this.prefixText,
-        this.onSuffixTap,
-        this.minLine = 1,
-        this.maxLine = 1,
-        this.height = Default.height,
-        this.step = 1,
-        this.minValue = 0,
-        this.maxValue = 100,
-        this.showCurser,
-        this.width = Default.mobileInputWidth,
-        this.onChange,
-        this.keyboardType = TextInputType.text,
-        this.validations,
-        this.firstDate,
-        this.initialDate,
-        this.textAreaScroll = TextAreaScroll.none,
-        this.lastDate,
-        this.onTap,
-        this.isEditable = true,
-        this.isTextArea = false,
-        this.toggleSuffixIcon,
-        this.textAlign = TextAlign.start})
+      required this.controller,
+      this.isDisabled = false,
+      this.readOnly = false,
+      this.isRequired = false,
+      this.initialValue,
+      this.label,
+      this.info,
+      this.infoText,
+      this.suffixIcon,
+      this.charCount = false,
+      this.innerLabel,
+      this.helpText,
+      this.onError,
+      this.triggerMode = TooltipTriggerMode.tap,
+      this.preferToolTipBelow = false,
+      this.suffixText,
+      this.prefixText,
+      this.onSuffixTap,
+      this.minLine = 1,
+      this.maxLine = 1,
+      this.height = Default.height,
+      this.step = 1,
+      this.minValue = 0,
+      this.maxValue = 100,
+      this.showCurser,
+      this.width = Default.mobileInputWidth,
+      this.onChange,
+      this.keyboardType = TextInputType.text,
+      this.validations,
+      this.firstDate,
+      this.initialDate,
+      this.textAreaScroll = TextAreaScroll.none,
+      this.lastDate,
+      this.onTap,
+      this.isEditable = true,
+      this.isTextArea = false,
+      this.toggleSuffixIcon,
+      this.textAlign = TextAlign.start})
       : super(key: key);
 
   @override
@@ -265,16 +265,16 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
 
     int? maxLengthValue = widget.charCount
         ? (widget.validations != null
-        ? getValidatorValue(widget.validations, ValidatorType.maxLength) ??
-        64
-        : 64)
+            ? getValidatorValue(widget.validations, ValidatorType.maxLength) ??
+                64
+            : 64)
         : null;
 
     double inputWidth = AppView.isMobileView(MediaQuery.of(context).size.width)
         ? Default.mobileInputWidth
         : AppView.isTabletView(MediaQuery.of(context).size.width)
-        ? Default.tabInputWidth
-        : Default.desktopInputWidth;
+            ? Default.tabInputWidth
+            : Default.desktopInputWidth;
 
     return LabeledField(
       label: widget.label,
@@ -289,365 +289,364 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
           children: [
             widget.isTextArea
                 ? Stack(
-              children: [
-                StatefulBuilder(builder: (context, setState) {
-                  return Container(
-                      height:
-                      widget.textAreaScroll == TextAreaScroll.smart
-                          ? null
-                          : _height,
-                      constraints: BoxConstraints(
-                        minWidth: 156,
-                        minHeight: 40,
-                        maxWidth: inputWidth,
-                      ),
-                      child: TextFormField(
-                        onTapOutside: (PointerDownEvent event) {
-                          /// Remove focus when tapped outside the input field
-                          myFocusNode.unfocus();
-                        },
-                        onTap: onTap,
-                        focusNode: myFocusNode,
-                        obscureText: isVisible,
-                        controller: widget.controller,
-                        readOnly: widget.readOnly,
-                        enabled: !widget.isDisabled,
-                        autovalidateMode: AutovalidateMode.disabled,
-                        minLines: widget.textAreaScroll ==
-                            TextAreaScroll.smart ||
-                            widget.textAreaScroll ==
-                                TextAreaScroll.none
-                            ? 4
-                            : null,
-                        maxLines:
-                        widget.textAreaScroll == TextAreaScroll.smart
-                            ? null
-                            : 1000,
-                        keyboardType: widget.keyboardType,
-                        textAlign: widget.textAlign,
-                        maxLength: maxLengthValue,
-                        showCursor: widget.showCurser,
-                        style: DigitTheme
-                            .instance.mobileTheme.textTheme.bodyLarge
-                            ?.copyWith(
-                          height: 1.5,
-                          color: widget.readOnly
-                              ? const DigitColors().lightTextSecondary
-                              : const DigitColors().lightTextPrimary,
-                        ),
-                        decoration: InputDecoration(
-                          counterText: '',
-                          hoverColor: const DigitColors().transparent,
-                          contentPadding: const EdgeInsets.only(
-                            left: 12,
-                            right: 2,
-                            top: 8,
-                            bottom: 8,
-                          ),
-                          hintText: widget.innerLabel,
-                          hintStyle: DigitTheme
-                              .instance.mobileTheme.textTheme.bodyLarge
-                              ?.copyWith(
-                            height: 1.5,
-                            color: const DigitColors().lightTextDisabled,
-                          ),
-                          filled: true,
-                          fillColor: widget.isDisabled
-                              ? const DigitColors().lightPaperSecondary
-                              : widget.readOnly
-                              ? const DigitColors()
-                              .lightGenericBackground
-                              : const DigitColors().transparent,
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: _hasError
-                                  ? const DigitColors().lightAlertError
-                                  : const DigitColors()
-                                  .lightTextSecondary,
-                              width: _hasError ? 1.5 : 1.0,
+                    children: [
+                      StatefulBuilder(builder: (context, setState) {
+                        return Container(
+                            height:
+                                widget.textAreaScroll == TextAreaScroll.smart
+                                    ? null
+                                    : _height,
+                            constraints: BoxConstraints(
+                              minWidth: 156,
+                              minHeight: 40,
+                              maxWidth: inputWidth,
                             ),
-                            borderRadius: BorderRadius.zero,
+                            child: TextFormField(
+                              onTapOutside: (PointerDownEvent event) {
+                                /// Remove focus when tapped outside the input field
+                                myFocusNode.unfocus();
+                              },
+                              onTap: onTap,
+                              focusNode: myFocusNode,
+                              obscureText: isVisible,
+                              controller: widget.controller,
+                              readOnly: widget.readOnly,
+                              enabled: !widget.isDisabled,
+                              autovalidateMode: AutovalidateMode.disabled,
+                              minLines: widget.textAreaScroll ==
+                                          TextAreaScroll.smart ||
+                                      widget.textAreaScroll ==
+                                          TextAreaScroll.none
+                                  ? 4
+                                  : null,
+                              maxLines:
+                                  widget.textAreaScroll == TextAreaScroll.smart
+                                      ? null
+                                      : 1000,
+                              keyboardType: widget.keyboardType,
+                              textAlign: widget.textAlign,
+                              maxLength: maxLengthValue,
+                              showCursor: widget.showCurser,
+                              style: DigitTheme
+                                  .instance.mobileTheme.textTheme.bodyLarge
+                                  ?.copyWith(
+                                height: 1.5,
+                                color: widget.readOnly
+                                    ? const DigitColors().lightTextSecondary
+                                    : const DigitColors().lightTextPrimary,
+                              ),
+                              decoration: InputDecoration(
+                                counterText: '',
+                                hoverColor: const DigitColors().transparent,
+                                contentPadding: const EdgeInsets.only(
+                                  left: 12,
+                                  right: 2,
+                                  top: 8,
+                                  bottom: 8,
+                                ),
+                                hintText: widget.innerLabel,
+                                hintStyle: DigitTheme
+                                    .instance.mobileTheme.textTheme.bodyLarge
+                                    ?.copyWith(
+                                  height: 1.5,
+                                  color: const DigitColors().lightTextDisabled,
+                                ),
+                                filled: true,
+                                fillColor: widget.isDisabled
+                                    ? const DigitColors().lightPaperSecondary
+                                    : widget.readOnly
+                                        ? const DigitColors()
+                                            .lightGenericBackground
+                                        : const DigitColors().transparent,
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: _hasError
+                                        ? const DigitColors().lightAlertError
+                                        : const DigitColors()
+                                            .lightTextSecondary,
+                                    width: _hasError ? 1.5 : 1.0,
+                                  ),
+                                  borderRadius: BorderRadius.zero,
+                                ),
+                                focusedBorder: BaseConstants.focusedBorder,
+                                disabledBorder: BaseConstants.disabledBorder,
+                              ),
+                              onChanged: (value) {
+                                setState(() {
+                                  _value = value;
+                                });
+                                widget.onChange?.call(value);
+                              },
+                            ));
+                      }),
+                      if (widget.textAreaScroll != TextAreaScroll.smart &&
+                          widget.textAreaScroll != TextAreaScroll.none)
+                        Positioned(
+                          bottom: 0,
+                          right: 0,
+                          child: MouseRegion(
+                            cursor: SystemMouseCursors.resizeUpDown,
+                            child: GestureDetector(
+                              onPanUpdate: (details) {
+                                setState(() {
+                                  _height = _height + details.delta.dy;
+                                });
+                              },
+                              child: Transform.rotate(
+                                angle: -0.5, // Adjust the angle as needed
+                                child: const Icon(
+                                  Icons.drag_handle,
+                                  size: 16,
+                                ),
+                              ),
+                            ),
                           ),
-                          focusedBorder: BaseConstants.focusedBorder,
-                          disabledBorder: BaseConstants.disabledBorder,
                         ),
-                        onChanged: (value) {
-                          setState(() {
-                            _value = value;
-                          });
-                          widget.onChange?.call(value);
-                        },
-                      ));
-                }),
-                if (widget.textAreaScroll != TextAreaScroll.smart &&
-                    widget.textAreaScroll != TextAreaScroll.none)
-                  Positioned(
-                    bottom: 0,
-                    right: 0,
-                    child: MouseRegion(
-                      cursor: SystemMouseCursors.resizeUpDown,
-                      child: GestureDetector(
-                        onPanUpdate: (details) {
-                          setState(() {
-                            _height = _height + details.delta.dy;
-                          });
-                        },
-                        child: Transform.rotate(
-                          angle: -0.5, // Adjust the angle as needed
-                          child: const Icon(
-                            Icons.drag_handle,
-                            size: 16,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-              ],
-            )
+                    ],
+                  )
                 : TextFormField(
-              onTapOutside: (PointerDownEvent event) {
-                /// Remove focus when tapped outside the input field
-                myFocusNode.unfocus();
-              },
-              onTap: widget.isEditable || widget.readOnly ? null : onTap,
-              focusNode: myFocusNode,
-              obscureText: isVisible,
-              controller: widget.controller,
-              readOnly:
-              widget.readOnly || !widget.isEditable ? true : false,
-              enabled: !widget.isDisabled,
-              autovalidateMode: AutovalidateMode.disabled,
-              minLines: widget.minLine,
-              maxLines: widget.maxLine,
-              keyboardType: widget.keyboardType,
-              textAlign: widget.textAlign,
-              maxLength: maxLengthValue,
-              showCursor: widget.showCurser ?? widget.isEditable,
-              style: isVisible
-                  ? DigitTheme
-                  .instance.mobileTheme.textTheme.bodyLarge
-                  ?.copyWith(
-                  fontWeight: FontWeight.w900,
-                  fontFamily: "Roboto-bold",
-                  height: 1.5,
-
-                  color: widget.readOnly
-                      ? const DigitColors().lightTextSecondary
-                      : const DigitColors().lightTextPrimary,
-                  decoration: TextDecoration.none)
-                  : DigitTheme.instance.mobileTheme.textTheme.bodyLarge
-                  ?.copyWith(
-                  height: 1.5,
-                  color: widget.readOnly
-                      ? const DigitColors().lightTextSecondary
-                      : const DigitColors().lightTextPrimary,
-                  decoration: TextDecoration.none),
-              decoration: InputDecoration(
-                counterText: '',
-                hoverColor: const DigitColors().transparent,
-                constraints: inputWidth == Default.mobileInputWidth
-                    ? const BoxConstraints(
-                  maxHeight: BaseConstants.inputMinHeight,
-                  minHeight: BaseConstants.inputMinHeight,
-                  minWidth: BaseConstants.mobileInputMinWidth,
-                  maxWidth: BaseConstants.mobileInputMaxWidth,
-                )
-                    : inputWidth == Default.tabInputWidth
-                    ? const BoxConstraints(
-                  maxHeight: BaseConstants.inputMinHeight,
-                  minHeight: BaseConstants.inputMinHeight,
-                  minWidth: BaseConstants.tabInputMinWidth,
-                  maxWidth: BaseConstants.tabInputMaxWidth,
-                )
-                    : const BoxConstraints(
-                  maxHeight: BaseConstants.inputMinHeight,
-                  minHeight: BaseConstants.inputMinHeight,
-                  minWidth: BaseConstants.desktopInputMinWidth,
-                  maxWidth: BaseConstants.desktopInputMaxWidth,
-                ),
-                contentPadding: const EdgeInsets.symmetric(
-                  vertical: kPadding / 2,
-                  horizontal: 12,
-                ),
-                hintText: widget.innerLabel,
-                hintStyle: DigitTheme
-                    .instance.mobileTheme.textTheme.bodyLarge
-                    ?.copyWith(
-                  height: 1.5,
-                  color: const DigitColors().lightTextDisabled,
-                ),
-                filled: true,
-                fillColor: widget.isDisabled
-                    ? const DigitColors().lightPaperSecondary
-                    : widget.readOnly
-                    ? const DigitColors().lightGenericBackground
-                    : const DigitColors().transparent,
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: _hasError
-                        ? const DigitColors().lightAlertError
-                        : const DigitColors().lightTextSecondary,
-                    width: _hasError ? 1.5 : 1.0,
-                  ),
-                  borderRadius: BorderRadius.zero,
-                ),
-                focusedBorder: BaseConstants.focusedBorder,
-                disabledBorder: BaseConstants.disabledBorder,
-                prefixIconConstraints: widget.prefixText != null
-                    ? const BoxConstraints(
-                  // maxWidth: 48,
-                  minWidth: 40,
-                  maxHeight: 40,
-                )
-                    : null,
-                suffixIconConstraints: widget.suffixText != null
-                    ? const BoxConstraints(
-                  // maxWidth: 48,
-                  minWidth: 40,
-                  maxHeight: 40,
-                )
-                    : const BoxConstraints(
-                  maxHeight: 24,
-                ),
-                suffixIcon: widget.suffixText != null
-                    ? InkWell(
-                  hoverColor: const DigitColors().transparent,
-                  splashColor: const DigitColors().transparent,
-                  highlightColor: const DigitColors().transparent,
-                  onTap: widget.readOnly ? null : onSuffixIconClick,
-                  child: IntrinsicWidth(
-                    child: Container(
-                      height: _isFocusOn || _hasError ? 36 : 38,
-                      // width: 40,
-                      padding: const EdgeInsets.symmetric(horizontal: 4),
-                      margin: EdgeInsets.only(
-                        left: kPadding,
-                        right: _isFocusOn || _hasError ? 2 : 1,
+                    onTapOutside: (PointerDownEvent event) {
+                      /// Remove focus when tapped outside the input field
+                      myFocusNode.unfocus();
+                    },
+                    onTap: widget.isEditable || widget.readOnly ? null : onTap,
+                    focusNode: myFocusNode,
+                    obscureText: isVisible,
+                    controller: widget.controller,
+                    readOnly:
+                        widget.readOnly || !widget.isEditable ? true : false,
+                    enabled: !widget.isDisabled,
+                    autovalidateMode: AutovalidateMode.disabled,
+                    minLines: widget.minLine,
+                    maxLines: widget.maxLine,
+                    keyboardType: widget.keyboardType,
+                    textAlign: widget.textAlign,
+                    maxLength: maxLengthValue,
+                    showCursor: widget.showCurser ?? widget.isEditable,
+                    style: isVisible
+                        ? DigitTheme.instance.mobileTheme.textTheme.bodyLarge
+                            ?.copyWith(
+                                fontWeight: FontWeight.w900,
+                                fontFamily: "Roboto-bold",
+                                height: 1.5,
+                                color: widget.readOnly
+                                    ? const DigitColors().lightTextSecondary
+                                    : const DigitColors().lightTextPrimary,
+                                decoration: TextDecoration.none)
+                        : DigitTheme.instance.mobileTheme.textTheme.bodyLarge
+                            ?.copyWith(
+                                height: 1.5,
+                                color: widget.readOnly
+                                    ? const DigitColors().lightTextSecondary
+                                    : const DigitColors().lightTextPrimary,
+                                decoration: TextDecoration.none),
+                    decoration: InputDecoration(
+                      counterText: '',
+                      hoverColor: const DigitColors().transparent,
+                      constraints: inputWidth == Default.mobileInputWidth
+                          ? const BoxConstraints(
+                              maxHeight: BaseConstants.inputMinHeight,
+                              minHeight: BaseConstants.inputMinHeight,
+                              minWidth: BaseConstants.mobileInputMinWidth,
+                              maxWidth: BaseConstants.mobileInputMaxWidth,
+                            )
+                          : inputWidth == Default.tabInputWidth
+                              ? const BoxConstraints(
+                                  maxHeight: BaseConstants.inputMinHeight,
+                                  minHeight: BaseConstants.inputMinHeight,
+                                  minWidth: BaseConstants.tabInputMinWidth,
+                                  maxWidth: BaseConstants.tabInputMaxWidth,
+                                )
+                              : const BoxConstraints(
+                                  maxHeight: BaseConstants.inputMinHeight,
+                                  minHeight: BaseConstants.inputMinHeight,
+                                  minWidth: BaseConstants.desktopInputMinWidth,
+                                  maxWidth: BaseConstants.desktopInputMaxWidth,
+                                ),
+                      contentPadding: const EdgeInsets.symmetric(
+                        vertical: kPadding / 2,
+                        horizontal: 12,
                       ),
-                      decoration: BoxDecoration(
-                        color: const DigitColors()
-                            .lightGenericBackground,
-                        border: Border(
-                          left: BorderSide(
-                            color: widget.isDisabled
-                                ? const DigitColors()
-                                .lightTextDisabled
-                                : const DigitColors()
-                                .lightTextSecondary,
-                            width: 1.0,
-                          ),
-                          top: BorderSide.none,
-                          bottom: BorderSide.none,
-                          right: BorderSide.none,
+                      hintText: widget.innerLabel,
+                      hintStyle: DigitTheme
+                          .instance.mobileTheme.textTheme.bodyLarge
+                          ?.copyWith(
+                        height: 1.5,
+                        color: const DigitColors().lightTextDisabled,
+                      ),
+                      filled: true,
+                      fillColor: widget.isDisabled
+                          ? const DigitColors().lightPaperSecondary
+                          : widget.readOnly
+                              ? const DigitColors().lightGenericBackground
+                              : const DigitColors().transparent,
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: _hasError
+                              ? const DigitColors().lightAlertError
+                              : const DigitColors().lightTextSecondary,
+                          width: _hasError ? 1.5 : 1.0,
                         ),
+                        borderRadius: BorderRadius.zero,
                       ),
-                      child: Center(
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                              left: 2, bottom: 4, top: 0),
-                          child: Text(
-                            widget.suffixText!,
-                            style: DigitTheme.instance.mobileTheme
-                                .textTheme.headlineLarge
-                                ?.copyWith(
-                              height: 1.758,
-                              color: widget.isDisabled
-                                  ? const DigitColors()
-                                  .lightGenericDivider
-                                  : const DigitColors()
-                                  .lightTextSecondary,
+                      focusedBorder: BaseConstants.focusedBorder,
+                      disabledBorder: BaseConstants.disabledBorder,
+                      prefixIconConstraints: widget.prefixText != null
+                          ? const BoxConstraints(
+                              // maxWidth: 48,
+                              minWidth: 40,
+                              maxHeight: 40,
+                            )
+                          : null,
+                      suffixIconConstraints: widget.suffixText != null
+                          ? const BoxConstraints(
+                              // maxWidth: 48,
+                              minWidth: 40,
+                              maxHeight: 40,
+                            )
+                          : const BoxConstraints(
+                              maxHeight: 24,
                             ),
-                          ),
-                        ),
-                      ),
+                      suffixIcon: widget.suffixText != null
+                          ? InkWell(
+                              hoverColor: const DigitColors().transparent,
+                              splashColor: const DigitColors().transparent,
+                              highlightColor: const DigitColors().transparent,
+                              onTap: widget.readOnly ? null : onSuffixIconClick,
+                              child: IntrinsicWidth(
+                                child: Container(
+                                  height: _isFocusOn || _hasError ? 36 : 38,
+                                  // width: 40,
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 4),
+                                  margin: EdgeInsets.only(
+                                    left: kPadding,
+                                    right: _isFocusOn || _hasError ? 2 : 1,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: const DigitColors()
+                                        .lightGenericBackground,
+                                    border: Border(
+                                      left: BorderSide(
+                                        color: widget.isDisabled
+                                            ? const DigitColors()
+                                                .lightTextDisabled
+                                            : const DigitColors()
+                                                .lightTextSecondary,
+                                        width: 1.0,
+                                      ),
+                                      top: BorderSide.none,
+                                      bottom: BorderSide.none,
+                                      right: BorderSide.none,
+                                    ),
+                                  ),
+                                  child: Center(
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 2, bottom: 4, top: 0),
+                                      child: Text(
+                                        widget.suffixText!,
+                                        style: DigitTheme.instance.mobileTheme
+                                            .textTheme.headlineLarge
+                                            ?.copyWith(
+                                          height: 1.758,
+                                          color: widget.isDisabled
+                                              ? const DigitColors()
+                                                  .lightGenericDivider
+                                              : const DigitColors()
+                                                  .lightTextSecondary,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            )
+                          : widget.suffixIcon != null
+                              ? InkWell(
+                                  hoverColor: const DigitColors().transparent,
+                                  splashColor: const DigitColors().transparent,
+                                  highlightColor:
+                                      const DigitColors().transparent,
+                                  onTap: widget.readOnly
+                                      ? null
+                                      : onSuffixIconClick,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                      right: kPadding,
+                                    ),
+                                    child: Icon(
+                                      isVisible == true
+                                          ? widget.toggleSuffixIcon
+                                          : widget.suffixIcon,
+                                      size: BaseConstants.suffixIconSize,
+                                    ),
+                                  ),
+                                )
+                              : null,
+                      suffixIconColor: widget.isDisabled
+                          ? const DigitColors().lightTextDisabled
+                          : const DigitColors().lightTextSecondary,
+                      prefixIcon: widget.prefixText != null
+                          ? InkWell(
+                              hoverColor: const DigitColors().transparent,
+                              splashColor: const DigitColors().transparent,
+                              highlightColor: const DigitColors().transparent,
+                              onTap: widget.readOnly ? null : onPrefixIconClick,
+                              child: IntrinsicWidth(
+                                child: Container(
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 4),
+                                  height: _isFocusOn || _hasError ? 36 : 38,
+                                  // width: 200,
+                                  margin: EdgeInsets.only(
+                                    right: kPadding,
+                                    left: _isFocusOn || _hasError ? 2 : 1,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: const DigitColors()
+                                        .lightGenericBackground,
+                                    border: Border(
+                                      right: BorderSide(
+                                        color: widget.isDisabled
+                                            ? const DigitColors()
+                                                .lightGenericDivider
+                                            : const DigitColors()
+                                                .lightGenericInputBorder,
+                                        width: 1.0,
+                                      ),
+                                      top: BorderSide.none,
+                                      bottom: BorderSide.none,
+                                      left: BorderSide.none,
+                                    ),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      widget.prefixText!,
+                                      style: DigitTheme.instance.mobileTheme
+                                          .textTheme.headlineLarge
+                                          ?.copyWith(
+                                        height: 1.758,
+                                        color: widget.isDisabled
+                                            ? const DigitColors()
+                                                .lightTextDisabled
+                                            : const DigitColors()
+                                                .lightTextSecondary,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            )
+                          : null,
                     ),
+                    onChanged: (value) {
+                      setState(() {
+                        _value = value;
+                      });
+                      widget.onChange?.call(value);
+                    },
                   ),
-                )
-                    : widget.suffixIcon != null
-                    ? InkWell(
-                  hoverColor: const DigitColors().transparent,
-                  splashColor: const DigitColors().transparent,
-                  highlightColor:
-                  const DigitColors().transparent,
-                  onTap: widget.readOnly
-                      ? null
-                      : onSuffixIconClick,
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                      right: kPadding,
-                    ),
-                    child: Icon(
-                      isVisible == true
-                          ? widget.toggleSuffixIcon
-                          : widget.suffixIcon,
-                      size: BaseConstants.suffixIconSize,
-                    ),
-                  ),
-                )
-                    : null,
-                suffixIconColor: widget.isDisabled
-                    ? const DigitColors().lightTextDisabled
-                    : const DigitColors().lightTextSecondary,
-                prefixIcon: widget.prefixText != null
-                    ? InkWell(
-                  hoverColor: const DigitColors().transparent,
-                  splashColor: const DigitColors().transparent,
-                  highlightColor: const DigitColors().transparent,
-                  onTap: widget.readOnly ? null : onPrefixIconClick,
-                  child: IntrinsicWidth(
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 4),
-                      height: _isFocusOn || _hasError ? 36 : 38,
-                      // width: 200,
-                      margin: EdgeInsets.only(
-                        right: kPadding,
-                        left: _isFocusOn || _hasError ? 2 : 1,
-                      ),
-                      decoration: BoxDecoration(
-                        color: const DigitColors()
-                            .lightGenericBackground,
-                        border: Border(
-                          right: BorderSide(
-                            color: widget.isDisabled
-                                ? const DigitColors()
-                                .lightGenericDivider
-                                : const DigitColors()
-                                .lightGenericInputBorder,
-                            width:
-                            1.0,
-                          ),
-                          top: BorderSide.none,
-                          bottom: BorderSide.none,
-                          left: BorderSide.none,
-                        ),
-                      ),
-                      child: Center(
-                        child: Text(
-                          widget.prefixText!,
-                          style: DigitTheme.instance.mobileTheme
-                              .textTheme.headlineLarge
-                              ?.copyWith(
-                            height: 1.758,
-                            color: widget.isDisabled
-                                ? const DigitColors()
-                                .lightTextDisabled
-                                : const DigitColors()
-                                .lightTextSecondary,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                )
-                    : null,
-              ),
-              onChanged: (value) {
-                setState(() {
-                  _value = value;
-                });
-                widget.onChange?.call(value);
-              },
-            ),
             const SizedBox(
               height: kPadding / 2,
             ),
@@ -661,44 +660,48 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                   if (widget.helpText != null || _hasError)
                     _hasError
                         ? Expanded(
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.info,
-                            color: const DigitColors().lightAlertError,
-                            size: BaseConstants.errorIconSize,
-                          ),
-                          const SizedBox(width: kPadding / 2),
-                          Text(
-                            _errorMessage!.length > 256
-                                ? '${_errorMessage!.substring(0, 256)}...'
-                                : _errorMessage!,
-                            style: DigitTheme
-                                .instance.mobileTheme.textTheme.bodyMedium
-                                ?.copyWith(
-                              height: 1.5,
-                              color: const DigitColors().lightAlertError,
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  height: 16,
+                                  width: 16,
+                                  child: Icon(
+                                    Icons.info,
+                                    color: const DigitColors().lightAlertError,
+                                    size: BaseConstants.errorIconSize,
+                                  ),
+                                ),
+                                const SizedBox(width: kPadding / 2),
+                                Text(
+                                  _errorMessage!.length > 256
+                                      ? '${_errorMessage!.substring(0, 256)}...'
+                                      : _errorMessage!,
+                                  style: DigitTheme
+                                      .instance.mobileTheme.textTheme.bodyMedium
+                                      ?.copyWith(
+                                    height: 1.5,
+                                    color: const DigitColors().lightAlertError,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        : Expanded(
+                            child: Text(
+                              widget.helpText!.length > 256
+                                  ? '${widget.helpText!.substring(0, 256)}...'
+                                  : widget.helpText!,
+                              style: DigitTheme
+                                  .instance.mobileTheme.textTheme.bodyMedium
+                                  ?.copyWith(
+                                height: 1.5,
+                                color: const DigitColors().lightTextSecondary,
+                              ),
                             ),
                           ),
-                        ],
-                      ),
-                    )
-                        : Expanded(
-                      child: Text(
-                        widget.helpText!.length > 256
-                            ? '${widget.helpText!.substring(0, 256)}...'
-                            : widget.helpText!,
-                        style: DigitTheme
-                            .instance.mobileTheme.textTheme.bodyMedium
-                            ?.copyWith(
-                          height: 1.5,
-                          color: const DigitColors().lightTextSecondary,
-                        ),
-                      ),
-                    ),
                   if ((widget.helpText != null || _hasError) &&
                       (widget.charCount == true))
                     const SizedBox(

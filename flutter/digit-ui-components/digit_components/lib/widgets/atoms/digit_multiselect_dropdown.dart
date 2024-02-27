@@ -427,65 +427,78 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
 
   Widget _buildFlatOptions(List<dynamic> values, List<DropdownItem> options,
       List<DropdownItem> selectedOptions, StateSetter dropdownState) {
-    return ConstrainedBox(
-      constraints: BoxConstraints(
-        maxHeight: values[1] - 30,
-      ),
-      child: ListView.separated(
-        separatorBuilder: (_, __) => const SizedBox(height: 0),
-        shrinkWrap: true,
-        padding: EdgeInsets.zero,
-        itemCount: options.length,
-        itemBuilder: (context, index) {
-          final option = options[index];
-          bool isSelected = selectedOptions.any(
-              (item) => item.code == option.code && item.name == option.name);
-          Color backgroundColor = index % 2 == 0
-              ? const DigitColors().lightPaperPrimary
-              : const DigitColors().lightPaperSecondary;
-          return DropdownOption(
-            option: option,
-            isSelected: selectedOptions.contains(option),
-            backgroundColor: backgroundColor,
-            selectedOptions: selectedOptions,
-            onOptionSelected: (List<DropdownItem> selectedOptions) {
-              if (isSelected) {
-                dropdownState(() {
-                  selectedOptions.remove(option);
-                });
-                setState(() {
-                  _selectedOptions.remove(option);
-                });
-              } else {
-                dropdownState(() {
-                  selectedOptions.add(option);
-                });
-                setState(() {
-                  _selectedOptions.add(option);
-                });
-              }
+    return Scrollbar(
+      radius: const Radius.circular(50),
+      thickness: 10,
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+          maxHeight: values[1] - 30,
+        ),
+        child: ListView.separated(
+          separatorBuilder: (_, __) => const SizedBox(height: 0),
+          shrinkWrap: true,
+          physics: const AlwaysScrollableScrollPhysics(),
+          padding: EdgeInsets.zero,
+          itemCount: options.length,
+          itemBuilder: (context, index) {
+            final option = options[index];
+            bool isSelected = selectedOptions.any(
+                (item) => item.code == option.code && item.name == option.name);
+            Color backgroundColor = index % 2 == 0
+                ? const DigitColors().lightPaperPrimary
+                : const DigitColors().lightPaperSecondary;
+            return Column(
+              children: [
+                DropdownOption(
+                  option: option,
+                  isSelected: selectedOptions.contains(option),
+                  backgroundColor: backgroundColor,
+                  selectedOptions: selectedOptions,
+                  onOptionSelected: (List<DropdownItem> selectedOptions) {
+                    if (isSelected) {
+                      dropdownState(() {
+                        selectedOptions.remove(option);
+                      });
+                      setState(() {
+                        _selectedOptions.remove(option);
+                      });
+                    } else {
+                      dropdownState(() {
+                        selectedOptions.add(option);
+                      });
+                      setState(() {
+                        _selectedOptions.add(option);
+                      });
+                    }
 
-              if (_controller != null) {
-                _controller!.value._selectedOptions.clear();
-                _controller!.value._selectedOptions.addAll(_selectedOptions);
-              }
-              widget.onOptionSelected?.call(_selectedOptions);
-            },
-            selectionType: widget.selectionType,
-          );
-        },
+                    if (_controller != null) {
+                      _controller!.value._selectedOptions.clear();
+                      _controller!.value._selectedOptions.addAll(_selectedOptions);
+                    }
+                    widget.onOptionSelected?.call(_selectedOptions);
+                  },
+                  selectionType: widget.selectionType,
+                ),
+              ],
+            );
+          },
+        ),
       ),
     );
   }
 
   Widget _buildNestedItems(List<dynamic> values, List<DropdownItem> options,
       List<DropdownItem> selectedOptions, StateSetter dropdownState) {
-    return ConstrainedBox(
-        constraints: BoxConstraints(
-          maxHeight: values[1] - 30,
-        ),
-        child: _buildNestedOptions(
-            values, options, selectedOptions, dropdownState));
+    return Scrollbar(
+      radius: const Radius.circular(50),
+      thickness: 10,
+      child: ConstrainedBox(
+          constraints: BoxConstraints(
+            maxHeight: values[1] - 30,
+          ),
+          child: _buildNestedOptions(
+              values, options, selectedOptions, dropdownState)),
+    );
   }
 
   Widget _buildNestedOptions(List<dynamic> values, List<DropdownItem> options,

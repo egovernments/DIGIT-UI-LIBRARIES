@@ -89,7 +89,7 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
   Color _calculateBackgroundColor(TreeNode node, TreeNode? parentNode) {
     if (parentNode != null && _areAllChildrenSelected(parentNode)) {
       return const DigitColors().orangeBG;
-    } else if (_areAllChildrenSelected(node)) {
+    } else if (_areAllChildrenSelected(node) && widget.treeSelectionType== TreeSelectionType.MultiSelect) {
       return const DigitColors().lightPrimaryOrange;
     } else {
       return widget.mouseStates?[widget.currentOption.code] == true
@@ -199,7 +199,7 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
                                 widget.currentOption, widget.parentNode)
                                 ? const DigitColors().lightTextSecondary
                                 : _areAllChildrenSelected(
-                                widget.currentOption)
+                                widget.currentOption) && widget.treeSelectionType== TreeSelectionType.MultiSelect
                                 ? const DigitColors().lightPaperPrimary
                                 : widget.currentOption.children
                                 .isNotEmpty
@@ -271,7 +271,7 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
                           widget.currentOption.name,
                           style: _isExpanded ||
                               _areAllChildrenSelected(
-                                  widget.currentOption) ||
+                                  widget.currentOption) && widget.treeSelectionType== TreeSelectionType.MultiSelect ||
                               widget.mouseStates?[
                               widget.currentOption.code] ==
                                   true

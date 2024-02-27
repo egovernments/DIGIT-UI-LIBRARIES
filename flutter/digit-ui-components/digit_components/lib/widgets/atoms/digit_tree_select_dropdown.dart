@@ -487,30 +487,34 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
 
   Widget _buildOptions(List<dynamic> values, List<TreeNode> options,
       List<TreeNode> selectedOptions, StateSetter dropdownState) {
-    return ConstrainedBox(
-      constraints: BoxConstraints(
-        maxHeight: values[1] - 30,
-      ),
-      child: ListView.separated(
-        separatorBuilder: (_, __) => const SizedBox(height: 0),
-        shrinkWrap: true,
-        padding: EdgeInsets.zero,
-        itemCount: options.length,
-        itemBuilder: (context, index) {
-          final option = options[index];
-          bool isSelected =
-          selectedOptions.any((item) => item.name == option.name);
-          Color backgroundColor = index % 2 == 0
-              ? const DigitColors().lightPaperPrimary
-              : const DigitColors().lightPaperSecondary;
-          return _buildOption(
-            option,
-            isSelected,
-            dropdownState,
-            backgroundColor,
-            selectedOptions,
-          );
-        },
+    return Scrollbar(
+      radius: const Radius.circular(50),
+      thickness: 10,
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+          maxHeight: values[1] - 30,
+        ),
+        child: ListView.separated(
+          separatorBuilder: (_, __) => const SizedBox(height: 0),
+          shrinkWrap: true,
+          padding: EdgeInsets.zero,
+          itemCount: options.length,
+          itemBuilder: (context, index) {
+            final option = options[index];
+            bool isSelected =
+            selectedOptions.any((item) => item.name == option.name);
+            Color backgroundColor = index % 2 == 0
+                ? const DigitColors().lightPaperPrimary
+                : const DigitColors().lightPaperSecondary;
+            return _buildOption(
+              option,
+              isSelected,
+              dropdownState,
+              backgroundColor,
+              selectedOptions,
+            );
+          },
+        ),
       ),
     );
   }
