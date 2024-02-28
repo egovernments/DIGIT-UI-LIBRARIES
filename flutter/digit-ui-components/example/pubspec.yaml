@@ -18,6 +18,7 @@ dependencies:
   expandable: ^5.0.1
   geolocator: ^10.1.0
   url_strategy: ^0.2.0
+  flutter_svg: ^2.0.8
 
 dev_dependencies:
   flutter_test:
@@ -33,7 +34,7 @@ dev_dependencies:
 
 flutter:
   assets:
-    - ./
+    - assets/icons/svg/
 
   fonts:
     - family: Roboto

@@ -9,7 +9,7 @@ class DropdownItem {
   final String? type;
   final String? description;
   final IconData? textIcon;
-  final NetworkImage? profileImage;
+  final String? profileImageUrl;
 
   const DropdownItem({
     required this.name,
@@ -17,6 +17,6 @@ class DropdownItem {
     this.type,
     this.description,
     this.textIcon,
-    this.profileImage,
+    this.profileImageUrl,
   });
 }

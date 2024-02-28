@@ -31,6 +31,7 @@ import 'package:digit_components/digit_components.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 import '../../constants/AppView.dart';
 import '../../constants/app_constants.dart';
 import '../../enum/app_enums.dart';
@@ -447,22 +448,42 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                               : DropdownConstants.nestedItemPadding,
                           child: Row(
                             children: [
-                              if (filteredItems[index].profileImage != null)
+                              if (filteredItems[index].profileImageUrl != null)
                                 SizedBox(
-                                  height: DropdownConstants.defaultProfileSize,
-                                  width: DropdownConstants.defaultProfileSize,
+                                  height: filteredItems[index].description!=null ? 47 :DropdownConstants.defaultProfileSize,
+                                  width: filteredItems[index].description!=null ? 47 :DropdownConstants.defaultProfileSize,
                                   child: CircleAvatar(
                                     radius:
                                         DropdownConstants.defaultImageRadius,
-
-                                    /// This radius is the radius of the picture in the circle avatar itself.
-                                    backgroundImage:
-                                        filteredItems[index].profileImage,
                                     backgroundColor:
-                                        const DigitColors().lightTextSecondary,
+                                        const DigitColors().transparent,
+                                    child: Container(
+                                      height: filteredItems[index].description!=null ? 47 : 32,
+                                      width: filteredItems[index].description!=null ? 47 : 32,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(DropdownConstants.defaultImageRadius,)
+                                      ),
+                                      child: ClipOval(
+                                        child: Image.network(
+                                          filteredItems[index].profileImageUrl!,
+                                          loadingBuilder: (context, child, loadingProgress) {
+                                            if (loadingProgress == null) {
+                                              return child;
+                                            } else {
+                                              return SvgPicture.asset('assets/icons/svg/Profile.svg');
+                                            }
+                                          },
+                                          errorBuilder: (context, error, stackTrace) {
+                                            print('iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiimmmmmmmmmmmmmmmmmmmmmmmmmmmaaaaaaaaaaaaaaaaaaagggggggggggggggggggggg4444444444');
+                                            return Container(color: DigitColors().lightPaperPrimary, child: SvgPicture.asset('assets/icons/svg/Profile.svg'));
+                                          },
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              if (filteredItems[index].profileImage != null)
+                              if (filteredItems[index].profileImageUrl != null)
                                 SizedBox(
                                   width:
                                       filteredItems[index].description != null
@@ -493,7 +514,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                         ),
                                       SizedBox(
                                         width: filteredItems[index]
-                                                    .profileImage !=
+                                                    .profileImageUrl !=
                                                 null
                                             ? dropdownWidth - 50
                                             : filteredItems[index].textIcon !=
@@ -515,11 +536,14 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                               : DigitTheme.instance.mobileTheme
                                                   .textTheme.bodyMedium
                                                   ?.copyWith(
-                                                      height:
-                                                          filteredItems[index].description != null
-                                                              ? 1.5
-                                                              : 1.125,
-                                                      color: filteredItems[index].description != null
+                                                      height: filteredItems[index]
+                                                                  .description !=
+                                                              null
+                                                          ? 1.5
+                                                          : 1.125,
+                                                      color: filteredItems[index]
+                                                                  .description !=
+                                                              null
                                                           ? const DigitColors()
                                                               .lightTextSecondary
                                                           : const DigitColors()
@@ -530,14 +554,14 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                   ),
                                   if (filteredItems[index].description != null)
                                     SizedBox(
-                                      width:
-                                          filteredItems[index].profileImage !=
+                                      width: filteredItems[index]
+                                                  .profileImageUrl !=
+                                              null
+                                          ? dropdownWidth - 50
+                                          : filteredItems[index].textIcon !=
                                                   null
-                                              ? dropdownWidth - 50
-                                              : filteredItems[index].textIcon !=
-                                                      null
-                                                  ? dropdownWidth - 40
-                                                  : dropdownWidth - 16,
+                                              ? dropdownWidth - 40
+                                              : dropdownWidth - 16,
                                       child: Text(
                                         filteredItems[index].description!,
                                         overflow: TextOverflow.ellipsis,
@@ -622,7 +646,8 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                 return Column(
                                   children: [
                                     InkWell(
-                                      highlightColor: const DigitColors().transparent,
+                                      highlightColor:
+                                          const DigitColors().transparent,
                                       splashColor:
                                           const DigitColors().transparent,
                                       hoverColor:
@@ -703,28 +728,44 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                           child: Row(
                                             children: [
                                               if (filteredItems[index]
-                                                      .profileImage !=
+                                                      .profileImageUrl !=
                                                   null)
                                                 SizedBox(
-                                                  height: DropdownConstants
-                                                      .defaultProfileSize,
-                                                  width: DropdownConstants
-                                                      .defaultProfileSize,
+                                                  height: filteredItems[index].description!=null ? 47 :DropdownConstants.defaultProfileSize,
+                                                  width: filteredItems[index].description!=null ? 47 :DropdownConstants.defaultProfileSize,
                                                   child: CircleAvatar(
-                                                    radius: DropdownConstants
-                                                        .defaultImageRadius,
-
-                                                    /// This radius is the radius of the picture in the circle avatar itself.
-                                                    backgroundImage:
-                                                        filteredItems[index]
-                                                            .profileImage,
+                                                    radius:
+                                                    DropdownConstants.defaultImageRadius,
                                                     backgroundColor:
-                                                        const DigitColors()
-                                                            .lightTextSecondary,
+                                                    const DigitColors().transparent,
+                                                    child: Container(
+                                                      height: filteredItems[index].description!=null ? 47 : 32,
+                                                      width: filteredItems[index].description!=null ? 47 : 32,
+                                                      decoration: BoxDecoration(
+                                                          borderRadius: BorderRadius.circular(DropdownConstants.defaultImageRadius,)
+                                                      ),
+                                                      child: ClipOval(
+                                                        child: Image.network(
+                                                          filteredItems[index].profileImageUrl!,
+                                                          loadingBuilder: (context, child, loadingProgress) {
+                                                            if (loadingProgress == null) {
+                                                              return child;
+                                                            } else {
+                                                              return SvgPicture.asset('assets/icons/svg/Profile.svg');
+                                                            }
+                                                          },
+                                                          errorBuilder: (context, error, stackTrace) {
+                                                            print('iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiimmmmmmmmmmmmmmmmmmmmmmmmmmmaaaaaaaaaaaaaaaaaaagggggggggggggggggggggg4444444444');
+                                                            return Container(color: DigitColors().lightPaperPrimary, child: SvgPicture.asset('assets/icons/svg/Profile.svg'));
+                                                          },
+                                                          fit: BoxFit.cover,
+                                                        ),
+                                                      ),
+                                                    ),
                                                   ),
                                                 ),
                                               if (filteredItems[index]
-                                                      .profileImage !=
+                                                      .profileImageUrl !=
                                                   null)
                                                 const SizedBox(
                                                   width: 6,
@@ -763,7 +804,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                                       SizedBox(
                                                         width: filteredItems[
                                                                         index]
-                                                                    .profileImage !=
+                                                                    .profileImageUrl !=
                                                                 null
                                                             ? dropdownWidth - 50
                                                             : filteredItems[index]
@@ -812,7 +853,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                                     SizedBox(
                                                       width: filteredItems[
                                                                       index]
-                                                                  .profileImage !=
+                                                                  .profileImageUrl !=
                                                               null
                                                           ? dropdownWidth - 50
                                                           : filteredItems[index]

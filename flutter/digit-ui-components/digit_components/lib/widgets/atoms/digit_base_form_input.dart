@@ -2,6 +2,7 @@ import 'package:digit_components/digit_components.dart';
 import 'package:digit_components/enum/app_enums.dart';
 import 'package:digit_components/widgets/atoms/labelled_fields.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import '../../constants/AppView.dart';
 import '../../constants/app_constants.dart';
 import '../../utils/validators/validator.dart';
@@ -239,11 +240,13 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
 
   void onSuffixIconClick({void Function()? customFunction}) {
     /// Call the provided function if it's not null
+    myFocusNode.requestFocus();
     customFunction?.call();
   }
 
   void onPrefixIconClick({void Function()? customFunction}) {
     /// Call the provided function if it's not null
+    /// myFocusNode.requestFocus();
     customFunction?.call();
   }
 
@@ -323,10 +326,10 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                                   widget.textAreaScroll == TextAreaScroll.smart
                                       ? null
                                       : 1000,
-                              keyboardType: widget.keyboardType,
+                              keyboardType: widget.readOnly ? TextInputType.none : widget.keyboardType,
                               textAlign: widget.textAlign,
                               maxLength: maxLengthValue,
-                              showCursor: widget.showCurser,
+                              showCursor: widget.readOnly ? false : widget.showCurser,
                               style: DigitTheme
                                   .instance.mobileTheme.textTheme.bodyLarge
                                   ?.copyWith(
@@ -368,7 +371,15 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                                   ),
                                   borderRadius: BorderRadius.zero,
                                 ),
-                                focusedBorder: BaseConstants.focusedBorder,
+                                focusedBorder: widget.readOnly
+                                    ? OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: const DigitColors().lightTextSecondary,
+                                    width: 1.0,
+                                  ),
+                                  borderRadius: BorderRadius.zero,
+                                )
+                                    :BaseConstants.focusedBorder,
                                 disabledBorder: BaseConstants.disabledBorder,
                               ),
                               onChanged: (value) {
@@ -392,13 +403,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                                   _height = _height + details.delta.dy;
                                 });
                               },
-                              child: Transform.rotate(
-                                angle: -0.5, // Adjust the angle as needed
-                                child: const Icon(
-                                  Icons.drag_handle,
-                                  size: 16,
-                                ),
-                              ),
+                              child: SvgPicture.asset(Default.textAreaSvg),
                             ),
                           ),
                         ),
@@ -526,7 +531,9 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                                       const DigitColors().transparent,
                                   onTap: widget.readOnly
                                       ? null
-                                      : onSuffixIconClick,
+                                      : (){
+                                    myFocusNode.requestFocus();
+                                    onSuffixIconClick();},
                                   child: IntrinsicWidth(
                                     child: Container(
                                       constraints:
@@ -665,7 +672,9 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                                       const DigitColors().transparent,
                                   onTap: widget.readOnly
                                       ? null
-                                      : onPrefixIconClick,
+                                      : (){
+                                    myFocusNode.requestFocus();
+                                    onPrefixIconClick();},
                                   child: IntrinsicWidth(
                                     child: Container(
                                       constraints:
@@ -673,7 +682,6 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 4),
                                       height: _isFocusOn || _hasError ? 36 : 38,
-                                      // width: 200,
                                       margin: EdgeInsets.only(
                                         right: kPadding,
                                         left: _isFocusOn || _hasError ? 2 : 1,

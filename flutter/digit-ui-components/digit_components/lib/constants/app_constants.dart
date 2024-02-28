@@ -13,6 +13,8 @@ class Default{
     left: 12,
     right: kPadding / 2,
   );
+  static const String textAreaSvg = 'assets/icons/svg/text_area_expand.svg';
+  static const String profileSvg = 'assets/icons/svg/Profile.svg';
 }
 
 class BaseConstants {

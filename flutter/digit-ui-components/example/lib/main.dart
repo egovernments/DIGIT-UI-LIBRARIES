@@ -84,6 +84,7 @@ final controller36 = TextEditingController();
 final controller37 = TextEditingController();
 final controller38 = TextEditingController();
 final controller39 = TextEditingController();
+final controller40 = TextEditingController();
 final TreeSelectController<int> _controller = TreeSelectController();
 final controller = MultiSelectController<int>();
 
@@ -266,11 +267,11 @@ class MyHomePageState extends State<MyHomePage> {
                       height: 8,
                     ),
                     DigitTextAreaFormInput(
-                      label: "TextArea Field With Smart Scroll",
+                      label: "TextArea Field With Vertical Scroll",
                       controller: controller24,
                       innerLabel: 'label',
                       helpText: 'help text',
-                      textAreaScroll: TextAreaScroll.smart,
+                      textAreaScroll: TextAreaScroll.vertical,
                     ),
                     DigitTextAreaFormInput(
                       textAreaScroll: TextAreaScroll.none,
@@ -800,30 +801,28 @@ class MyHomePageState extends State<MyHomePage> {
                             DropdownItem(
                               name: 'first',
                               code: '1',
-                              profileImage: NetworkImage(
+                              profileImageUrl:
                                 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
-                              ),
+
                             ),
                             DropdownItem(
                               name: 'second',
                               code: '2',
-                              profileImage: NetworkImage(
+                              profileImageUrl:
                                 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
-                              ),
+
                             ),
                             DropdownItem(
                               name: 'third',
                               code: '3',
-                              profileImage: NetworkImage(
+                              profileImageUrl:
                                 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
-                              ),
                             ),
                             DropdownItem(
                               name: 'fourth',
                               code: '4',
-                              profileImage: NetworkImage(
+                              profileImageUrl:
                                 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
-                              ),
                             ),
                           ],
                         ),
@@ -833,39 +832,35 @@ class MyHomePageState extends State<MyHomePage> {
                         label: "Dropdown with Profile And Description",
                         child: DigitDropdown<int>(
                         onChange: (String value, String index) => {},
-                        textEditingController: controller30,
+                        textEditingController: controller40,
                         items: const [
                           DropdownItem(
                             name: 'first',
                             code: '1',
                             description: 'description for first one',
-                            profileImage: NetworkImage(
+                            profileImageUrl:
                               'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
-                            ),
                           ),
                           DropdownItem(
                             name: 'second',
                             code: '2',
                             description: 'description for second one',
-                            profileImage: NetworkImage(
+                            profileImageUrl:
                               'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
-                            ),
                           ),
                           DropdownItem(
                             name: 'third',
                             code: '3',
                             description: 'description for third one',
-                            profileImage: NetworkImage(
+                            profileImageUrl:
                               'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
-                            ),
                           ),
                           DropdownItem(
                             name: 'fourth',
                             code: '4',
                             description: 'description for fourth one',
-                            profileImage: NetworkImage(
+                            profileImageUrl:
                               'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
-                            ),
                           ),
                         ],
                       ),
