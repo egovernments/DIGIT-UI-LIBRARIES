@@ -2080,7 +2080,8 @@ class HotReload extends StatelessWidget {
                     onPressed: () {
                       DigitToast.show(context,
                           options: DigitToastOptions(
-                              "Your successour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning message message", ToastType.success));
+                              "Your successour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning message message",
+                              ToastType.success));
                     },
                     child: Text("Show Toast"),
                   ),
@@ -2102,7 +2103,9 @@ class HotReload extends StatelessWidget {
                     onPressed: () {
                       DigitToast.show(context,
                           options: DigitToastOptions(
-                              "Your Warning message", ToastType.warning, ));
+                            "Your Warning message",
+                            ToastType.warning,
+                          ));
                     },
                     child: Text("Show Toast"),
                   ),
@@ -2122,7 +2125,8 @@ class HotReload extends StatelessWidget {
                   builder: (context) => InfoCard(
                     title: 'Info',
                     type: InfoType.info,
-                    description: 'Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect theservice to get completed in 24 hrs from the time of payment.',
+                    description:
+                        'Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect theservice to get completed in 24 hrs from the time of payment.',
                   ),
                 ),
                 WidgetbookUseCase(
@@ -2130,7 +2134,8 @@ class HotReload extends StatelessWidget {
                   builder: (context) => InfoCard(
                     title: 'Success',
                     type: InfoType.success,
-                    description: 'Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect theservice to get completed in 24 hrs from the time of payment.',
+                    description:
+                        'Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect theservice to get completed in 24 hrs from the time of payment.',
                   ),
                 ),
                 WidgetbookUseCase(
@@ -2138,7 +2143,8 @@ class HotReload extends StatelessWidget {
                   builder: (context) => InfoCard(
                     title: 'Error',
                     type: InfoType.error,
-                    description: 'Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect theservice to get completed in 24 hrs from the time of payment.',
+                    description:
+                        'Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect theservice to get completed in 24 hrs from the time of payment.',
                   ),
                 ),
                 WidgetbookUseCase(
@@ -2146,9 +2152,90 @@ class HotReload extends StatelessWidget {
                   builder: (context) => InfoCard(
                     title: 'Warning',
                     type: InfoType.warning,
-                    description: 'Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect theservice to get completed in 24 hrs from the time of payment.',
+                    description:
+                        'Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect theservice to get completed in 24 hrs from the time of payment.',
                   ),
                 ),
+                WidgetbookUseCase(
+                  name: 'Info Additional Widget',
+                  builder: (context) => InfoCard(
+                    title: 'Info',
+                    type: InfoType.info,
+                    inline: context.knobs.boolean(label: "inline", initialValue: false),
+                    description:
+                        'Application process will take a minute to complete.',
+                    additionalWidgets: [
+                      Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+                      Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+                      Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+                      Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+                      DigitTextFormInput(
+                        controller: TextEditingController(),
+                        label: 'text',
+                      ),
+                      DigitButton(
+                        label: 'button',
+                        onPressed: () {},
+                        type: ButtonType.secondary,
+                      )
+                    ],
+                  ),
+                ),
+                WidgetbookUseCase(
+                  name: 'Info Additional Widget Error',
+                  builder: (context) => InfoCard(
+                    title: 'Info',
+                    type: InfoType.error,
+                    inline: context.knobs.boolean(label: "inline", initialValue: false),
+                    description:
+                    'Application process will take a minute to complete.',
+                    additionalWidgets: [
+                      Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+                      Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+                      Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+                      Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+                      DigitCheckbox(label: "Click to understand", onChanged: (value){}),
+                      DigitCheckbox(label: "Click to understand", onChanged: (value){}),
+                      DigitCheckbox(label: "Click to understand", onChanged: (value){}),
+                      DigitCheckbox(label: "Click to understand", onChanged: (value){}),
+                      DigitCheckbox(label: "Click to understand", onChanged: (value){}),
+                    ],
+                  ),
+                ),
+                WidgetbookUseCase(
+                  name: 'Info Additional Widget Success',
+                  builder: (context) => InfoCard(
+                    title: 'Info',
+                    type: InfoType.success,
+                    inline: context.knobs.boolean(label: "inline", initialValue: false),
+                    description:
+                    'Application process will take a minute to complete.',
+                    additionalWidgets: [
+                      Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+                      Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+                      Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+                      Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+                    ],
+                  ),
+                ),
+                WidgetbookUseCase(
+                  name: 'Info Additional Widget Warning',
+                  builder: (context) => InfoCard(
+                    title: 'Info',
+                    type: InfoType.warning,
+                    inline: context.knobs.boolean(label: "inline", initialValue: false),
+                    description:
+                    'Application process will take a minute to complete.',
+                    additionalWidgets: [
+                      Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+                      Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+                      Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+                      Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+                      InfoCard(title: "Info Text", type: InfoType.error, description: 'This is the warning')
+                    ],
+                  ),
+                ),
+
               ],
             ),
           ],
