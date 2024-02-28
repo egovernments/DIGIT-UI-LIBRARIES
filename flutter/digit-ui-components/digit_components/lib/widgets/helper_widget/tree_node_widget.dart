@@ -185,7 +185,6 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
                     ),
                     child: Row(
                       children: [
-
                         Transform.rotate(
                           angle: _isExpanded ? 0 : -1.5,
                           child: widget.currentOption.children.isNotEmpty ?Icon(

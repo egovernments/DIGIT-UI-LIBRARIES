@@ -31,7 +31,7 @@ dependencies:
   intl: ^0.18.1
   geolocator: ^10.1.0
   collection: ^1.15.0
-  flutter_svg: ^2.0.8
+  flutter_svg: ^2.0.10+1
 
 
 dev_dependencies:

@@ -901,8 +901,8 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                           .lightGenericDivider,
                                       width: MediaQuery.of(context).size.width,
                                       margin: const EdgeInsets.only(
-                                        left: 30,
-                                        right: 30,
+                                        left: 10,
+                                        right: 10,
                                       ),
                                     )
                                   ],
