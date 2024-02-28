@@ -31,7 +31,6 @@ import 'package:digit_components/digit_components.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/svg.dart';
 import '../../constants/AppView.dart';
 import '../../constants/app_constants.dart';
 import '../../enum/app_enums.dart';
@@ -470,12 +469,11 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                             if (loadingProgress == null) {
                                               return child;
                                             } else {
-                                              return SvgPicture.asset('assets/icons/svg/Profile.svg');
+                                              return Container();
                                             }
                                           },
                                           errorBuilder: (context, error, stackTrace) {
-                                            print('iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiimmmmmmmmmmmmmmmmmmmmmmmmmmmaaaaaaaaaaaaaaaaaaagggggggggggggggggggggg4444444444');
-                                            return Container(color: DigitColors().lightPaperPrimary, child: SvgPicture.asset('assets/icons/svg/Profile.svg'));
+                                            return Container(color: const DigitColors().lightPaperPrimary, child: const Icon(Icons.add));
                                           },
                                           fit: BoxFit.cover,
                                         ),
@@ -751,12 +749,11 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                                             if (loadingProgress == null) {
                                                               return child;
                                                             } else {
-                                                              return SvgPicture.asset('assets/icons/svg/Profile.svg');
+                                                              return Container();
                                                             }
                                                           },
                                                           errorBuilder: (context, error, stackTrace) {
-                                                            print('iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiimmmmmmmmmmmmmmmmmmmmmmmmmmmaaaaaaaaaaaaaaaaaaagggggggggggggggggggggg4444444444');
-                                                            return Container(color: DigitColors().lightPaperPrimary, child: SvgPicture.asset('assets/icons/svg/Profile.svg'));
+                                                            return Container(color: const DigitColors().lightPaperPrimary, child: const Icon(Icons.add));
                                                           },
                                                           fit: BoxFit.cover,
                                                         ),

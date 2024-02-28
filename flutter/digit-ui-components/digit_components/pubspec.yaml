@@ -31,7 +31,7 @@ dependencies:
   intl: ^0.18.1
   geolocator: ^10.1.0
   collection: ^1.15.0
-  flutter_svg: ^2.0.10+1
+
 
 
 dev_dependencies:
@@ -50,3 +50,7 @@ flutter:
     - family: Roboto
       fonts:
         - asset: assets/fonts/Roboto/Roboto-Regular.ttf
+
+    - family: TextArea
+      fonts:
+        - asset: assets/fonts/TextArea.ttf

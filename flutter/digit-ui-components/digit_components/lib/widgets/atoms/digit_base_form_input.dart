@@ -1,8 +1,8 @@
 import 'package:digit_components/digit_components.dart';
 import 'package:digit_components/enum/app_enums.dart';
 import 'package:digit_components/widgets/atoms/labelled_fields.dart';
+import 'package:digit_components/widgets/atoms/text_area_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import '../../constants/AppView.dart';
 import '../../constants/app_constants.dart';
 import '../../utils/validators/validator.dart';
@@ -403,7 +403,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                                   _height = _height + details.delta.dy;
                                 });
                               },
-                              child: SvgPicture.asset(Default.textAreaSvg),
+                              child: Icon(TextArea.text_area_expand, size: 8, color: const DigitColors().lightTextSecondary,),
                             ),
                           ),
                         ),
