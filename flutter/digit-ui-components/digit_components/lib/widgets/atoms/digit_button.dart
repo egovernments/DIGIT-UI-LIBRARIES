@@ -117,7 +117,7 @@ class _DigitButtonState extends State<DigitButton> {
                         ? [
                             BoxShadow(
                               color: const DigitColors().lightTextSecondary,
-                              offset: const Offset(0, -2),
+                              offset: const Offset(0, 2),
                               spreadRadius: 0,
                               blurRadius: 0,
                             ),
