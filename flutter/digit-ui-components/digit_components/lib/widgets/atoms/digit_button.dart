@@ -20,6 +20,7 @@ Example usage:
  ```*/
 
 import 'package:digit_components/digit_components.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../../constants/app_constants.dart';
 import '../../enum/app_enums.dart';
@@ -292,32 +293,35 @@ class _DigitButtonState extends State<DigitButton> {
                     widget.type == ButtonType.link ? kPadding / 2 : kPadding),
           ],
           Flexible(
-            child:Text(
-                truncatedLabel,
-                textAlign: TextAlign.center,
-                style: widget.type == ButtonType.link
-                    ? DigitTheme.instance.mobileTheme.textTheme.bodyLarge
-                        ?.copyWith(
-                        height: 1.172,
-                        color: widget.isDisabled
-                            ? DigitButtonConstants.defaultDisabledColor
-                            : DigitButtonConstants.defaultPrimaryColor,
-                        decoration: TextDecoration.underline,
-                        decorationColor: widget.isDisabled
-                            ? DigitButtonConstants.defaultDisabledColor
-                            : DigitButtonConstants.defaultPrimaryColor,
-                      )
-                    : DigitTheme.instance.mobileTheme.textTheme.labelLarge
-                        ?.copyWith(
-                        height: 1.5,
-                        color: widget.type == ButtonType.primary
-                            ? DigitButtonConstants.defaultTextColor
-                            : (widget.isDisabled
-                                ? DigitButtonConstants.defaultDisabledColor
-                                : DigitButtonConstants.defaultPrimaryColor),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-              ),
+            child:Padding(
+              padding: kIsWeb ? const EdgeInsets.only(bottom: 2.0) : EdgeInsets.zero,  /// need to remove when the flutter version is updated in docker as there is a alignment issue
+              child: Text(
+                  truncatedLabel,
+                  textAlign: TextAlign.center,
+                  style: widget.type == ButtonType.link
+                      ? DigitTheme.instance.mobileTheme.textTheme.bodyLarge
+                          ?.copyWith(
+                          height: 1.172,
+                          color: widget.isDisabled
+                              ? DigitButtonConstants.defaultDisabledColor
+                              : DigitButtonConstants.defaultPrimaryColor,
+                          decoration: TextDecoration.underline,
+                          decorationColor: widget.isDisabled
+                              ? DigitButtonConstants.defaultDisabledColor
+                              : DigitButtonConstants.defaultPrimaryColor,
+                        )
+                      : DigitTheme.instance.mobileTheme.textTheme.labelLarge
+                          ?.copyWith(
+                          height: 1.5,
+                          color: widget.type == ButtonType.primary
+                              ? DigitButtonConstants.defaultTextColor
+                              : (widget.isDisabled
+                                  ? DigitButtonConstants.defaultDisabledColor
+                                  : DigitButtonConstants.defaultPrimaryColor),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                ),
+            ),
           ),
           if (widget.suffixIcon != null) ...[
             SizedBox(
