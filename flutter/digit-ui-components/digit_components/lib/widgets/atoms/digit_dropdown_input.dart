@@ -109,6 +109,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
     _lastFilteredItems = List.from(widget.items);
     _itemHoverStates = {};
     _itemMouseDownStates = {};
+    _overlayEntry = null;
     isMouseDown = true;
     _isMouseUsed = false;
 

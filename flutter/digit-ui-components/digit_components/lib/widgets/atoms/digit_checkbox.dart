@@ -99,10 +99,12 @@ class _DigitCheckboxState extends State<DigitCheckbox> {
                   onTap: widget.disabled
                       ? null
                       : () {
-                    setState(() {
-                      _currentState = !_currentState;
-                    });
-                    widget.onChanged(_currentState);
+                    if(mounted){
+                      setState(() {
+                        _currentState = !_currentState;
+                      });
+                      widget.onChanged(_currentState);
+                    }
                   },
                   child: SizedBox(
                     height: CheckboxConstants.containerSize,

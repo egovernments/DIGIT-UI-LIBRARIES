@@ -1413,11 +1413,14 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 8,
                 ),
-                Center(
-                  child: DigitButton(
-                    label: 'Primary Button',
-                    onPressed: () {},
-                    type: ButtonType.primary,
+                Container(
+                  height: 45,
+                  child: Center(
+                    child: DigitButton(
+                      label: 'Primary Button',
+                      onPressed: () {},
+                      type: ButtonType.primary,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 8),
@@ -1431,25 +1434,34 @@ class MyHomePageState extends State<MyHomePage> {
                     child: Column(
                       children: [
                         const SizedBox(height: 8),
-                        DigitButton(
-                          label: 'Primary Button With Prefix Icon',
-                          onPressed: () {},
-                          type: ButtonType.primary,
-                          prefixIcon: Icons.arrow_forward,
+                        SizedBox(
+                          height: 45,
+                          child: DigitButton(
+                            label: 'Primary Button With Prefix Icon',
+                            onPressed: () {},
+                            type: ButtonType.primary,
+                            prefixIcon: Icons.arrow_forward,
+                          ),
                         ),
                         const SizedBox(height: 8),
-                        DigitButton(
-                          label: 'Primary Button With Suffix Icon',
-                          onPressed: () {},
-                          type: ButtonType.primary,
-                          suffixIcon: Icons.arrow_forward,
+                        SizedBox(
+                          height: 45,
+                          child: DigitButton(
+                            label: 'Primary Button With Suffix Icon',
+                            onPressed: () {},
+                            type: ButtonType.primary,
+                            suffixIcon: Icons.arrow_forward,
+                          ),
                         ),
                         const SizedBox(height: 8),
-                        DigitButton(
-                          label: 'Primary Button With Disabled State',
-                          onPressed: () {},
-                          type: ButtonType.primary,
-                          isDisabled: true,
+                        SizedBox(
+                          height: 45,
+                          child: DigitButton(
+                            label: 'Primary Button With Disabled State',
+                            onPressed: () {},
+                            type: ButtonType.primary,
+                            isDisabled: true,
+                          ),
                         ),
                       ],
                     ),
@@ -1459,11 +1471,14 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 8,
                 ),
-                Center(
-                  child: DigitButton(
-                    label: 'secondary Button',
-                    onPressed: () {},
-                    type: ButtonType.secondary,
+                SizedBox(
+                  height: 45,
+                  child: Center(
+                    child: DigitButton(
+                      label: 'secondary Button',
+                      onPressed: () {},
+                      type: ButtonType.secondary,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 8),
@@ -1477,25 +1492,34 @@ class MyHomePageState extends State<MyHomePage> {
                     child: Column(
                       children: [
                         const SizedBox(height: 8),
-                        DigitButton(
-                          label: 'Secondary Button With Prefix Icon',
-                          onPressed: () {},
-                          type: ButtonType.secondary,
-                          prefixIcon: Icons.arrow_forward,
+                        SizedBox(
+                          height: 45,
+                          child: DigitButton(
+                            label: 'Secondary Button With Prefix Icon',
+                            onPressed: () {},
+                            type: ButtonType.secondary,
+                            prefixIcon: Icons.arrow_forward,
+                          ),
                         ),
                         const SizedBox(height: 8),
-                        DigitButton(
-                          label: 'Secondary Button With Suffix Icon',
-                          onPressed: () {},
-                          type: ButtonType.secondary,
-                          suffixIcon: Icons.arrow_forward,
+                        SizedBox(
+                          height: 45,
+                          child: DigitButton(
+                            label: 'Secondary Button With Suffix Icon',
+                            onPressed: () {},
+                            type: ButtonType.secondary,
+                            suffixIcon: Icons.arrow_forward,
+                          ),
                         ),
                         const SizedBox(height: 8),
-                        DigitButton(
-                          label: 'Secondary Button With Disabled State',
-                          onPressed: () {},
-                          type: ButtonType.secondary,
-                          isDisabled: true,
+                        SizedBox(
+                          height: 45,
+                          child: DigitButton(
+                            label: 'Secondary Button With Disabled State',
+                            onPressed: () {},
+                            type: ButtonType.secondary,
+                            isDisabled: true,
+                          ),
                         ),
                       ],
                     ),

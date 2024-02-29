@@ -472,9 +472,10 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                                   minWidth: BaseConstants.desktopInputMinWidth,
                                   maxWidth: BaseConstants.desktopInputMaxWidth,
                                 ),
-                      contentPadding: const EdgeInsets.symmetric(
-                        vertical: kPadding / 2,
-                        horizontal: 12,
+                      contentPadding: const EdgeInsets.only(
+                        top: kPadding ,
+                        left: 12,
+                        right: 12,
                       ),
                       hintText: widget.innerLabel,
                       hintStyle: DigitTheme

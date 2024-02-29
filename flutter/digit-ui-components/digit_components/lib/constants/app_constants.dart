@@ -47,7 +47,7 @@ class BaseConstants {
 
 class DigitButtonConstants {
   static const EdgeInsets defaultButtonPadding = EdgeInsets.all(8.0);
-  static const EdgeInsets defaultContentPadding = EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0);
+  static const EdgeInsets defaultContentPadding = EdgeInsets.only(left: 24.0, top: 7.0, right: 24.0, bottom: 8.0);
   static const double defaultIconSize = 24.0;
   static final Color defaultDisabledColor = const DigitColors().lightTextDisabled;
   static final Color defaultPrimaryColor = const DigitColors().lightPrimaryOrange;
