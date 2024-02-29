@@ -1,4 +1,4 @@
-FROM instrumentisto/flutter:3.16.0 AS build
+FROM fischerscode/flutter:3.16.0 AS build
 ARG WORK_DIR
 WORKDIR /app
 # copy the project files
