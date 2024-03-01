@@ -45,3 +45,4 @@ class DigitColors {
   Color get shadowColor => const Color.fromRGBO(244, 119, 56, 0.25);
   Color get primaryOrange => const Color.fromRGBO(234, 99, 31, 1);
 }
+
