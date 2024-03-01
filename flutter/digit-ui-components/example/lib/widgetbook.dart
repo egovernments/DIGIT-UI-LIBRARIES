@@ -2037,32 +2037,23 @@ class HotReload extends StatelessWidget {
               useCases: [
                 WidgetbookUseCase(
                   name: 'Default',
-                  builder: (context) => const DigitStepper(
+                  builder: (context) => CustomStepper(
+                    currentStep: 3, // Index of the current step
                     steps: [
-                      StepsModel(
-                        title: 'Step 1',
-                        number: "1",
-                      ),
-                      StepsModel(
-                        title: 'Step 2',
-                        number: "2",
-                      ),
-                      StepsModel(
-                        title: 'Step 3',
-                        number: "3",
-                      ),
-                      StepsModel(
-                        title: 'Step 4',
-                        number: "4",
-                      ),
-                      StepsModel(
-                        title: 'Step 5',
-                        number: "5",
-                      ),
+                      StepData(stepName: 'Step 1', onClick: (){ print(
+                        'clicked'
+                      );}),
+                      StepData(stepName: 'Step 2', onClick: (){ print(
+                          'clicked'
+                      );}),
+                      StepData(stepName: 'Step 3', onClick: (){ print(
+                          'clicked'
+                      );}),
+                      StepData(stepName: 'Step 4'),
+                      StepData(stepName: 'Step 5'),
+                      StepData(stepName: 'Step 6'),
                     ],
-                    activeStep: 2,
-                    maxStepReached: 1,
-                  ),
+                  )
                 ),
               ],
             ),

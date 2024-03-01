@@ -48,4 +48,5 @@ class DigitColors {
   Color get warningBg => const Color(0xFFF8E5C8);
   Color get info => const Color(0xFF3498DB);
   Color get infoBg => const Color(0xFFC7E0F1);
+  Color get hoverColor => const Color.fromRGBO(244, 119, 56, 0.12);
 }

@@ -158,22 +158,22 @@ class DigitTabTypography extends DigitTypography {
       headlineLarge: _normal.copyWith(
         fontSize: 28,
         fontWeight: FontWeight.w700,
-        fontFamily: 'Robot-bold',
+        fontFamily: 'Roboto-bold',
       ),
       headlineMedium: _normal.copyWith(
         fontSize: 22,
         fontWeight: FontWeight.w700,
-        fontFamily: 'Robot-bold',
+        fontFamily: 'Roboto-bold',
       ),
       headlineSmall: _normal.copyWith(
         fontSize: 16,
         fontWeight: FontWeight.w700,
-        fontFamily: 'Robot-bold',
+        fontFamily: 'Roboto-bold',
       ),
       displaySmall: _normal.copyWith(
         fontSize: 12,
         fontWeight: FontWeight.w700,
-        fontFamily: 'Robot-bold',
+        fontFamily: 'Roboto-bold',
       ),
       bodyLarge: _normal.copyWith(
         fontSize: 20,
