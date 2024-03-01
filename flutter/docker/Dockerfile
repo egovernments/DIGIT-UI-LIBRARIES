@@ -1,4 +1,6 @@
-FROM cirrusci/flutter:stable AS build
+# Docker flutter tags https://hub.docker.com/r/cirrusci/flutter/tags?page=1&name=1.16
+
+FROM cirruslabs/flutter:3.16.0 AS build
 ARG WORK_DIR
 WORKDIR /app
 # copy the project files
@@ -6,7 +8,7 @@ COPY ${WORK_DIR} .
 RUN flutter doctor
 RUN flutter clean
 RUN flutter pub get
-RUN flutter build web --release --no-tree-shake-icons
+RUN flutter build web
 # Create runtime image
 FROM nginx:mainline-alpine
 ENV WEB_DIR=/var/web/digit-ui-flutter
