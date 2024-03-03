@@ -20,3 +20,17 @@ class DropdownItem {
     this.profileImageUrl,
   });
 }
+
+
+/// value mapper for dropdown items
+class ValueMapper {
+
+  final String code;
+  final String name;
+
+  const ValueMapper({
+    required this.code,
+    required this.name,
+  });
+
+}

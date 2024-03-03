@@ -66,6 +66,9 @@ class DigitDropdown<T> extends StatefulWidget {
   /// Whether the dropdown is enabled or disabled.
   final bool isDisabled;
 
+  /// value Mapper to show something else for selected option
+  final List<ValueMapper>? valueMapper;
+
   const DigitDropdown({
     Key? key,
     required this.items,
@@ -78,6 +81,7 @@ class DigitDropdown<T> extends StatefulWidget {
     this.emptyItemText = "No Options available",
     this.selectedOption,
     this.isDisabled = false,
+    this.valueMapper
   }) : super(key: key);
 
   @override
@@ -963,6 +967,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
       /// Check if _overlayEntry is not null before removing
       if (_overlayEntry != null) {
         _overlayEntry?.remove();
+        _overlayEntry = null;
       }
       setState(() {
         _isOpen = false;
@@ -987,9 +992,51 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
       setState(() => _isOpen = true);
     }
     if (_currentIndex != '') {
+      _updateControllerValue(_currentIndex, false);
+    }
+    if (widget.dropdownType == DropdownType.nestedSelect &&
+        _nestedIndex != '') {
+      _updateControllerValue(_nestedIndex, true);
+    }
+  }
+
+  /// Update the controller value based on the selected code
+  void _updateControllerValue(String selectedCode, bool isNested) {
+    String? selectedText;
+    if(widget.valueMapper!=null){
+      ValueMapper? selectedValue = widget.valueMapper!.firstWhere(
+            (value) => value.code == selectedCode,
+        orElse: () => const ValueMapper(code: '', name: ''), // Provide default values here
+      );
+
+      /// If the code is present in the value mapper, set the controller value accordingly
+      if (selectedValue.code != '') {
+        selectedText = selectedValue.name;
+      }
+    }
+
+    /// If the code is present in the value mapper, set the controller value accordingly
+    if (selectedText != null) {
+      setState(() {
+        widget.textEditingController.text = selectedText!;
+      });
+    }else if(isNested){
       /// Find the item with the code matching the current index
       DropdownItem selectedItem = filteredItems.firstWhere(
-        (item) => item.code == _currentIndex,
+            (item) => item.code == _nestedIndex,
+      );
+
+      /// Check if the found item is not the default item
+      if (selectedItem.name.isNotEmpty) {
+        setState(() {
+          widget.textEditingController.text =
+          '${selectedItem.type}: ${selectedItem.name}';
+        });
+      }
+    }else{
+      /// Find the item with the code matching the current index
+      DropdownItem selectedItem = filteredItems.firstWhere(
+            (item) => item.code == _currentIndex,
       );
 
       /// Check if the found item is not the default item
@@ -998,23 +1045,8 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
           widget.textEditingController.text = selectedItem.name;
         });
       }
-      _focusNode.unfocus();
     }
-    if (widget.dropdownType == DropdownType.nestedSelect &&
-        _nestedIndex != '') {
-      /// Find the item with the code matching the current index
-      DropdownItem selectedItem = filteredItems.firstWhere(
-        (item) => item.code == _nestedIndex,
-      );
 
-      /// Check if the found item is not the default item
-      if (selectedItem.name.isNotEmpty) {
-        setState(() {
-          widget.textEditingController.text =
-              '${selectedItem.type}: ${selectedItem.name}';
-        });
-      }
-      _focusNode.unfocus();
-    }
+    _focusNode.unfocus();
   }
 }

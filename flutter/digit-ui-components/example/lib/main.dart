@@ -85,8 +85,10 @@ final controller37 = TextEditingController();
 final controller38 = TextEditingController();
 final controller39 = TextEditingController();
 final controller40 = TextEditingController();
+final controller41 = TextEditingController();
 final TreeSelectController<int> _controller = TreeSelectController();
 final controller = MultiSelectController<int>();
+final controllerM1 = MultiSelectController<int>();
 
 void main() {
   /// Here we set the URL strategy for our web app.
@@ -104,8 +106,8 @@ class MyApp extends StatelessWidget {
       title: 'Digit UI Flutter',
       theme: DigitTheme.instance.mobileTheme.copyWith(
           appBarTheme: AppBarTheme(
-            backgroundColor: DigitTheme.instance.colorScheme.secondary,
-          )),
+        backgroundColor: DigitTheme.instance.colorScheme.secondary,
+      )),
       home: const MyHomePage(title: 'Digit Components Page'),
     );
   }
@@ -191,7 +193,7 @@ class MyHomePageState extends State<MyHomePage> {
                     });
                   },
                 ),
-                if(showAllVariantsOfInputField)
+                if (showAllVariantsOfInputField)
                   Column(
                     children: [
                       const SizedBox(
@@ -260,49 +262,49 @@ class MyHomePageState extends State<MyHomePage> {
                     });
                   },
                 ),
-                if(showAllVariantsOfTextAreaField)
-                Column(
-                  children: [
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    DigitTextAreaFormInput(
-                      label: "TextArea Field With Vertical Scroll",
-                      controller: controller24,
-                      innerLabel: 'label',
-                      helpText: 'help text',
-                      textAreaScroll: TextAreaScroll.vertical,
-                    ),
-                    DigitTextAreaFormInput(
-                      textAreaScroll: TextAreaScroll.none,
-                      label: "TextArea Field With Disabled State",
-                      controller: TextEditingController(),
-                      innerLabel: 'label',
-                      helpText: 'help text',
-                      isDisabled: true,
-                    ),
-                    DigitTextAreaFormInput(
-                      textAreaScroll: TextAreaScroll.none,
-                      label: "TextArea Field With Required State",
-                      controller: TextEditingController(),
-                      innerLabel: 'label',
-                      helpText: 'help text',
-                      isRequired: true,
-                    ),
-                    DigitTextAreaFormInput(
-                      label: "TextArea Field With Read Only State",
-                      controller: TextEditingController(),
-                      innerLabel: 'label',
-                      initialValue: 'ReadOnly',
-                      helpText: 'help text',
-                      readOnly: true,
-                      textAreaScroll: TextAreaScroll.none,
-                    ),
-                  ],
-                ),
-                  const SizedBox(
-                    height: 8,
+                if (showAllVariantsOfTextAreaField)
+                  Column(
+                    children: [
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      DigitTextAreaFormInput(
+                        label: "TextArea Field With Vertical Scroll",
+                        controller: controller24,
+                        innerLabel: 'label',
+                        helpText: 'help text',
+                        textAreaScroll: TextAreaScroll.vertical,
+                      ),
+                      DigitTextAreaFormInput(
+                        textAreaScroll: TextAreaScroll.none,
+                        label: "TextArea Field With Disabled State",
+                        controller: TextEditingController(),
+                        innerLabel: 'label',
+                        helpText: 'help text',
+                        isDisabled: true,
+                      ),
+                      DigitTextAreaFormInput(
+                        textAreaScroll: TextAreaScroll.none,
+                        label: "TextArea Field With Required State",
+                        controller: TextEditingController(),
+                        innerLabel: 'label',
+                        helpText: 'help text',
+                        isRequired: true,
+                      ),
+                      DigitTextAreaFormInput(
+                        label: "TextArea Field With Read Only State",
+                        controller: TextEditingController(),
+                        innerLabel: 'label',
+                        initialValue: 'ReadOnly',
+                        helpText: 'help text',
+                        readOnly: true,
+                        textAreaScroll: TextAreaScroll.none,
+                      ),
+                    ],
                   ),
+                const SizedBox(
+                  height: 8,
+                ),
                 const Divider(),
                 const SizedBox(
                   height: 8,
@@ -313,7 +315,9 @@ class MyHomePageState extends State<MyHomePage> {
                   innerLabel: 'innerlabel',
                   helpText: 'help text',
                 ),
-                const SizedBox(height: 8,),
+                const SizedBox(
+                  height: 8,
+                ),
                 DigitCheckbox(
                   label: "Show All The Variants Of Date Field",
                   onChanged: (value) {
@@ -322,7 +326,7 @@ class MyHomePageState extends State<MyHomePage> {
                     });
                   },
                 ),
-                if(showAllVariantsOfDateField)
+                if (showAllVariantsOfDateField)
                   Column(
                     children: [
                       const SizedBox(
@@ -377,7 +381,9 @@ class MyHomePageState extends State<MyHomePage> {
                   innerLabel: 'innerlabel',
                   helpText: 'help text',
                 ),
-                const SizedBox(height: 8,),
+                const SizedBox(
+                  height: 8,
+                ),
                 DigitCheckbox(
                   label: "Show All The Variants Of Time Field",
                   onChanged: (value) {
@@ -386,10 +392,12 @@ class MyHomePageState extends State<MyHomePage> {
                     });
                   },
                 ),
-                if(showAllVariantsOfTimeField)
+                if (showAllVariantsOfTimeField)
                   Column(
                     children: [
-                      const SizedBox(height: 8,),
+                      const SizedBox(
+                        height: 8,
+                      ),
                       DigitTimeFormInput(
                         label: "Time Field with Editable Input",
                         controller: controller37,
@@ -433,7 +441,9 @@ class MyHomePageState extends State<MyHomePage> {
                   innerLabel: 'innerlabel',
                   helpText: 'help text',
                 ),
-                const SizedBox(height: 8,),
+                const SizedBox(
+                  height: 8,
+                ),
                 DigitCheckbox(
                   label: "Show All The Variants Of Search Field",
                   onChanged: (value) {
@@ -442,10 +452,12 @@ class MyHomePageState extends State<MyHomePage> {
                     });
                   },
                 ),
-                if(showAllVariantsOfSearchField)
+                if (showAllVariantsOfSearchField)
                   Column(
                     children: [
-                      const SizedBox(height: 8,),
+                      const SizedBox(
+                        height: 8,
+                      ),
                       DigitSearchFormInput(
                         isDisabled: true,
                         label: "Search Field With Disabled State",
@@ -473,15 +485,14 @@ class MyHomePageState extends State<MyHomePage> {
                         controller: controller11,
                         innerLabel: 'innerlabel',
                         helpText: 'help text',
-                        onSuffixTap: (value){
+                        onSuffixTap: (value) {
                           setState(() {
                             showSearchResult = true;
                             searchResultValue = value;
                           });
                         },
                       ),
-                      if(showSearchResult)
-                        Text(searchResultValue),
+                      if (showSearchResult) Text(searchResultValue),
                     ],
                   ),
                 const SizedBox(
@@ -500,7 +511,9 @@ class MyHomePageState extends State<MyHomePage> {
                   info: true,
                   infoText: 'this is infoText',
                 ),
-                const SizedBox(height: 8,),
+                const SizedBox(
+                  height: 8,
+                ),
                 DigitCheckbox(
                   label: "Show All The Variants Of Password Field",
                   onChanged: (value) {
@@ -509,10 +522,12 @@ class MyHomePageState extends State<MyHomePage> {
                     });
                   },
                 ),
-                if(showAllVariantsOfPasswordField)
+                if (showAllVariantsOfPasswordField)
                   Column(
                     children: [
-                      const SizedBox(height: 8,),
+                      const SizedBox(
+                        height: 8,
+                      ),
                       DigitPasswordFormInput(
                         label: "password Field With min 8 char validation",
                         controller: controller13,
@@ -521,7 +536,7 @@ class MyHomePageState extends State<MyHomePage> {
                         validations: [
                           Validator(ValidatorType.minLength, 8,
                               errorMessage:
-                              'Password must be at least 8 characters.'),
+                                  'Password must be at least 8 characters.'),
                         ],
                       ),
                       DigitPasswordFormInput(
@@ -556,7 +571,9 @@ class MyHomePageState extends State<MyHomePage> {
                   initialValue: '0',
                   step: 1,
                 ),
-                const SizedBox(height: 8,),
+                const SizedBox(
+                  height: 8,
+                ),
                 DigitCheckbox(
                   label: "Show All The Variants Of Numeric Field",
                   onChanged: (value) {
@@ -565,10 +582,12 @@ class MyHomePageState extends State<MyHomePage> {
                     });
                   },
                 ),
-                if(showAllVariantsOfNumericField)
+                if (showAllVariantsOfNumericField)
                   Column(
                     children: [
-                      const SizedBox(height: 8,),
+                      const SizedBox(
+                        height: 8,
+                      ),
                       DigitNumericFormInput(
                         label: "Numeric Field With Editable",
                         controller: controller16,
@@ -581,7 +600,8 @@ class MyHomePageState extends State<MyHomePage> {
                         minValue: -10,
                       ),
                       DigitNumericFormInput(
-                        label: "Numeric Field With Max value 100 and step 5 and Min value -10",
+                        label:
+                            "Numeric Field With Max value 100 and step 5 and Min value -10",
                         controller: controller39,
                         innerLabel: 'innerlabel',
                         helpText: 'help text',
@@ -621,7 +641,9 @@ class MyHomePageState extends State<MyHomePage> {
                   innerLabel: 'innerlabel',
                   helpText: 'help text',
                 ),
-                const SizedBox(height: 8,),
+                const SizedBox(
+                  height: 8,
+                ),
                 DigitCheckbox(
                   label: "Show All The Variants Of Location Field",
                   onChanged: (value) {
@@ -630,10 +652,12 @@ class MyHomePageState extends State<MyHomePage> {
                     });
                   },
                 ),
-                if(showAllVariantsOfLocationField)
+                if (showAllVariantsOfLocationField)
                   Column(
                     children: [
-                      const SizedBox(height: 8,),
+                      const SizedBox(
+                        height: 8,
+                      ),
                       DigitLocationFormInput(
                         label: "Location Field With Editable Input",
                         controller: controller26,
@@ -680,10 +704,12 @@ class MyHomePageState extends State<MyHomePage> {
                     });
                   },
                 ),
-                if(showAllVariantsOfPrefixField)
+                if (showAllVariantsOfPrefixField)
                   Column(
                     children: [
-                      const SizedBox(height: 8,),
+                      const SizedBox(
+                        height: 8,
+                      ),
                       DigitTextFormInput(
                         label: "Text Field With Prefix Icon with ReadOnly",
                         controller: TextEditingController(),
@@ -724,10 +750,12 @@ class MyHomePageState extends State<MyHomePage> {
                     });
                   },
                 ),
-                if(showAllVariantsOfSuffixField)
+                if (showAllVariantsOfSuffixField)
                   Column(
                     children: [
-                      const SizedBox(height: 8,),
+                      const SizedBox(
+                        height: 8,
+                      ),
                       DigitTextFormInput(
                         label: "Text Field With Suffix Icon with ReadOnly",
                         controller: TextEditingController(),
@@ -747,7 +775,6 @@ class MyHomePageState extends State<MyHomePage> {
                       ),
                     ],
                   ),
-
                 const SizedBox(
                   height: 8,
                 ),
@@ -770,27 +797,69 @@ class MyHomePageState extends State<MyHomePage> {
                         .entries
                         .map(
                           (item) => DropdownItem(
-                        name: item.value,
-                        code: item.key.toString(),
-                      ),
-                    )
+                            name: item.value,
+                            code: item.key.toString(),
+                          ),
+                        )
                         .toList(),
                   ),
                 ),
                 const SizedBox(
                   height: 8,
                 ),
-                DigitCheckbox(label: 'Show All Variants Of Default Dropdown', onChanged: (value){
-                  setState(() {
-                    showAllVariantsOfDropdown = value;
-                  });
-                }),
+                DigitCheckbox(
+                    label: 'Show All Variants Of Default Dropdown',
+                    onChanged: (value) {
+                      setState(() {
+                        showAllVariantsOfDropdown = value;
+                      });
+                    }),
                 const SizedBox(
                   height: 8,
                 ),
-                if(showAllVariantsOfDropdown)
+                if (showAllVariantsOfDropdown)
                   Column(
                     children: [
+                      const SizedBox(height: 8),
+                      LabeledField(
+                        label: "Dropdown with Value Mapper",
+                        child: DigitDropdown<int>(
+                          onChange: (String value, String index) => {},
+                          textEditingController: controller41,
+                          valueMapper: const [
+                            ValueMapper(code: '1', name: 'first Mapper'),
+                            ValueMapper(code: '2', name: 'second mapper'),
+                            // ValueMapper(code: '3', name: 'third mapper'),
+                            // ValueMapper(code: '4', name: 'fourth mapper')
+                          ],
+                          items: const [
+                            DropdownItem(
+                              name: 'first',
+                              code: '1',
+                              profileImageUrl:
+                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                            ),
+                            DropdownItem(
+                              name: 'second',
+                              code: '2',
+                              profileImageUrl:
+                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                            ),
+                            DropdownItem(
+                              name: 'third',
+                              code: '3',
+                              profileImageUrl:
+                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                            ),
+                            DropdownItem(
+                              name: 'fourth',
+                              code: '4',
+                              profileImageUrl:
+                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                            ),
+                          ],
+                        ),
+                      ),
                       const SizedBox(height: 8),
                       LabeledField(
                         label: "Dropdown with Profile",
@@ -802,27 +871,25 @@ class MyHomePageState extends State<MyHomePage> {
                               name: 'first',
                               code: '1',
                               profileImageUrl:
-                                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
-
+                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
                             ),
                             DropdownItem(
                               name: 'second',
                               code: '2',
                               profileImageUrl:
-                                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
-
+                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
                             ),
                             DropdownItem(
                               name: 'third',
                               code: '3',
                               profileImageUrl:
-                                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
                             ),
                             DropdownItem(
                               name: 'fourth',
                               code: '4',
                               profileImageUrl:
-                                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
                             ),
                           ],
                         ),
@@ -831,39 +898,39 @@ class MyHomePageState extends State<MyHomePage> {
                       LabeledField(
                         label: "Dropdown with Profile And Description",
                         child: DigitDropdown<int>(
-                        onChange: (String value, String index) => {},
-                        textEditingController: controller40,
-                        items: const [
-                          DropdownItem(
-                            name: 'first',
-                            code: '1',
-                            description: 'description for first one',
-                            profileImageUrl:
-                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
-                          ),
-                          DropdownItem(
-                            name: 'second',
-                            code: '2',
-                            description: 'description for second one',
-                            profileImageUrl:
-                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
-                          ),
-                          DropdownItem(
-                            name: 'third',
-                            code: '3',
-                            description: 'description for third one',
-                            profileImageUrl:
-                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
-                          ),
-                          DropdownItem(
-                            name: 'fourth',
-                            code: '4',
-                            description: 'description for fourth one',
-                            profileImageUrl:
-                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
-                          ),
-                        ],
-                      ),
+                          onChange: (String value, String index) => {},
+                          textEditingController: controller40,
+                          items: const [
+                            DropdownItem(
+                              name: 'first',
+                              code: '1',
+                              description: 'description for first one',
+                              profileImageUrl:
+                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                            ),
+                            DropdownItem(
+                              name: 'second',
+                              code: '2',
+                              description: 'description for second one',
+                              profileImageUrl:
+                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                            ),
+                            DropdownItem(
+                              name: 'third',
+                              code: '3',
+                              description: 'description for third one',
+                              profileImageUrl:
+                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                            ),
+                            DropdownItem(
+                              name: 'fourth',
+                              code: '4',
+                              description: 'description for fourth one',
+                              profileImageUrl:
+                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                            ),
+                          ],
+                        ),
                       ),
                       const SizedBox(height: 8),
                       LabeledField(
@@ -881,11 +948,11 @@ class MyHomePageState extends State<MyHomePage> {
                               .entries
                               .map(
                                 (item) => DropdownItem(
-                              name: item.value,
-                              code: item.key.toString(),
-                                  description: 'This is just example description'
-                            ),
-                          )
+                                    name: item.value,
+                                    code: item.key.toString(),
+                                    description:
+                                        'This is just example description'),
+                              )
                               .toList(),
                         ),
                       ),
@@ -905,11 +972,11 @@ class MyHomePageState extends State<MyHomePage> {
                               .entries
                               .map(
                                 (item) => DropdownItem(
-                              name: item.value,
-                              code: item.key.toString(),
+                                  name: item.value,
+                                  code: item.key.toString(),
                                   textIcon: Icons.article,
-                            ),
-                          )
+                                ),
+                              )
                               .toList(),
                         ),
                       ),
@@ -1007,7 +1074,8 @@ class MyHomePageState extends State<MyHomePage> {
                       ),
                       const SizedBox(height: 8),
                       LabeledField(
-                        label: "Dropdown with nested Type With Icons and description",
+                        label:
+                            "Dropdown with nested Type With Icons and description",
                         child: DigitDropdown(
                           onChange: (String value, String type) => {},
                           textEditingController: controller35,
@@ -1119,22 +1187,65 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 8,
                 ),
-                DigitCheckbox(label: 'Show All Variants Of MultiSelect Dropdown', onChanged: (value){
-                  setState(() {
-                    showAllVariantsOfMultiSelectDropdown = value;
-                  });
-                }),
+                DigitCheckbox(
+                    label: 'Show All Variants Of MultiSelect Dropdown',
+                    onChanged: (value) {
+                      setState(() {
+                        showAllVariantsOfMultiSelectDropdown = value;
+                      });
+                    }),
                 const SizedBox(
                   height: 8,
                 ),
-                if(showAllVariantsOfMultiSelectDropdown)
+                if (showAllVariantsOfMultiSelectDropdown)
                   Column(
                     children: [
                       const SizedBox(height: 8),
                       LabeledField(
+                        label: "MultiSelect Dropdown with value mapper",
+                        child: MultiSelectDropDown<int>(
+                          onOptionSelected:
+                              (List<DropdownItem> selectedOptions) {},
+                          valueMapper: const [
+                            ValueMapper(code: '1', name: 'first mapper'),
+                            ValueMapper(code: '2', name: 'second mapper'),
+                          ],
+                          options: const [
+                            DropdownItem(
+                              code: '1',
+                              name: 'first',
+                              description: 'description',
+                            ),
+                            DropdownItem(
+                              code: '2',
+                              name: 'second',
+                              description: 'description',
+                            ),
+                            DropdownItem(
+                              code: '3',
+                              name: 'third',
+                              description: 'description',
+                            ),
+                            DropdownItem(
+                              code: '4',
+                              name: 'four',
+                              description: 'description',
+                            ),
+                            DropdownItem(
+                              code: '5',
+                              name: 'five',
+                              description: 'description',
+                            ),
+                          ],
+                          selectionType: SelectionType.multiSelect,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      LabeledField(
                         label: "MultiSelect Dropdown with Selected Option",
                         child: MultiSelectDropDown<int>(
-                          onOptionSelected: (List<DropdownItem> selectedOptions) {},
+                          onOptionSelected:
+                              (List<DropdownItem> selectedOptions) {},
                           selectedOptions: const [
                             DropdownItem(
                               code: '1',
@@ -1176,7 +1287,8 @@ class MyHomePageState extends State<MyHomePage> {
                       LabeledField(
                         label: "MultiSelect Dropdown with Description",
                         child: MultiSelectDropDown<int>(
-                          onOptionSelected: (List<DropdownItem> selectedOptions) {},
+                          onOptionSelected:
+                              (List<DropdownItem> selectedOptions) {},
                           options: const [
                             DropdownItem(
                               code: '1',
@@ -1211,7 +1323,8 @@ class MyHomePageState extends State<MyHomePage> {
                       LabeledField(
                         label: "MultiSelect Dropdown with Icon",
                         child: MultiSelectDropDown<int>(
-                          onOptionSelected: (List<DropdownItem> selectedOptions) {},
+                          onOptionSelected:
+                              (List<DropdownItem> selectedOptions) {},
                           options: const [
                             DropdownItem(
                               code: '1',
@@ -1246,13 +1359,19 @@ class MyHomePageState extends State<MyHomePage> {
                       LabeledField(
                         label: "MultiSelect Dropdown with nested Type",
                         child: MultiSelectDropDown<int>(
-                          onOptionSelected: (List<DropdownItem> selectedOptions) {},
+                          onOptionSelected:
+                              (List<DropdownItem> selectedOptions) {},
                           options: const [
-                            DropdownItem(code: '1', name: 'first', type: "Type A"),
-                            DropdownItem(code: '2', name: 'second', type: "Type A"),
-                            DropdownItem(code: '3', name: 'third', type: "Type A"),
-                            DropdownItem(code: '4', name: 'four', type: "Type B"),
-                            DropdownItem(code: '5', name: 'five', type: "Type B"),
+                            DropdownItem(
+                                code: '1', name: 'first', type: "Type A"),
+                            DropdownItem(
+                                code: '2', name: 'second', type: "Type A"),
+                            DropdownItem(
+                                code: '3', name: 'third', type: "Type A"),
+                            DropdownItem(
+                                code: '4', name: 'four', type: "Type B"),
+                            DropdownItem(
+                                code: '5', name: 'five', type: "Type B"),
                           ],
                           selectionType: SelectionType.nestedMultiSelect,
                         ),
@@ -1261,13 +1380,34 @@ class MyHomePageState extends State<MyHomePage> {
                       LabeledField(
                         label: "MultiSelect Dropdown with nested Type and Icon",
                         child: MultiSelectDropDown<int>(
-                          onOptionSelected: (List<DropdownItem> selectedOptions) {},
+                          onOptionSelected:
+                              (List<DropdownItem> selectedOptions) {},
                           options: const [
-                            DropdownItem(code: '1', name: 'first', type: "Type A", textIcon: Icons.article),
-                            DropdownItem(code: '2', name: 'second', type: "Type A", textIcon: Icons.article),
-                            DropdownItem(code: '3', name: 'third', type: "Type A", textIcon: Icons.article),
-                            DropdownItem(code: '4', name: 'four', type: "Type B", textIcon: Icons.article),
-                            DropdownItem(code: '5', name: 'five', type: "Type B", textIcon: Icons.article),
+                            DropdownItem(
+                                code: '1',
+                                name: 'first',
+                                type: "Type A",
+                                textIcon: Icons.article),
+                            DropdownItem(
+                                code: '2',
+                                name: 'second',
+                                type: "Type A",
+                                textIcon: Icons.article),
+                            DropdownItem(
+                                code: '3',
+                                name: 'third',
+                                type: "Type A",
+                                textIcon: Icons.article),
+                            DropdownItem(
+                                code: '4',
+                                name: 'four',
+                                type: "Type B",
+                                textIcon: Icons.article),
+                            DropdownItem(
+                                code: '5',
+                                name: 'five',
+                                type: "Type B",
+                                textIcon: Icons.article),
                           ],
                           selectionType: SelectionType.nestedMultiSelect,
                         ),
@@ -1320,7 +1460,6 @@ class MyHomePageState extends State<MyHomePage> {
                 ),
                 DigitRadioList(
                   onChanged: (value) {},
-
                   radioButtons: [
                     RadioButtonModel(
                       code: '1',
@@ -1342,7 +1481,7 @@ class MyHomePageState extends State<MyHomePage> {
                     });
                   },
                 ),
-                if(showAllVariantsOfRadio)
+                if (showAllVariantsOfRadio)
                   Column(
                     children: [
                       const SizedBox(
@@ -1424,12 +1563,14 @@ class MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 const SizedBox(height: 8),
-                DigitCheckbox(label: 'Show All Variants Of Primary Button', onChanged: (value){
-                  setState(() {
-                    showAllVariantsPrimaryButton = value;
-                  });
-                }),
-                if(showAllVariantsPrimaryButton)
+                DigitCheckbox(
+                    label: 'Show All Variants Of Primary Button',
+                    onChanged: (value) {
+                      setState(() {
+                        showAllVariantsPrimaryButton = value;
+                      });
+                    }),
+                if (showAllVariantsPrimaryButton)
                   Center(
                     child: Column(
                       children: [
@@ -1482,12 +1623,14 @@ class MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 const SizedBox(height: 8),
-                DigitCheckbox(label: 'Show All Variants Of Secondary Button', onChanged: (value){
-                  setState(() {
-                    showAllVariantsOfSecondaryButton = value;
-                  });
-                }),
-                if(showAllVariantsOfSecondaryButton)
+                DigitCheckbox(
+                    label: 'Show All Variants Of Secondary Button',
+                    onChanged: (value) {
+                      setState(() {
+                        showAllVariantsOfSecondaryButton = value;
+                      });
+                    }),
+                if (showAllVariantsOfSecondaryButton)
                   Center(
                     child: Column(
                       children: [
@@ -1537,12 +1680,14 @@ class MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 const SizedBox(height: 8),
-                DigitCheckbox(label: 'Show All Variants Of Tertiary Button', onChanged: (value){
-                  setState(() {
-                    showAllVariantsOfTertiaryButton = value;
-                  });
-                }),
-                if(showAllVariantsOfTertiaryButton)
+                DigitCheckbox(
+                    label: 'Show All Variants Of Tertiary Button',
+                    onChanged: (value) {
+                      setState(() {
+                        showAllVariantsOfTertiaryButton = value;
+                      });
+                    }),
+                if (showAllVariantsOfTertiaryButton)
                   Column(
                     children: [
                       const SizedBox(height: 8),
@@ -1583,12 +1728,14 @@ class MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 const SizedBox(height: 8),
-                DigitCheckbox(label: 'Show All Variants Of Link', onChanged: (value){
-                  setState(() {
-                    showAllVariantsOfLink = value;
-                  });
-                }),
-                if(showAllVariantsOfLink)
+                DigitCheckbox(
+                    label: 'Show All Variants Of Link',
+                    onChanged: (value) {
+                      setState(() {
+                        showAllVariantsOfLink = value;
+                      });
+                    }),
+                if (showAllVariantsOfLink)
                   Column(
                     children: [
                       const SizedBox(height: 8),
@@ -1625,12 +1772,14 @@ class MyHomePageState extends State<MyHomePage> {
                   onChanged: (value) {},
                 ),
                 const SizedBox(height: 8),
-                DigitCheckbox(label: 'Show All Variants Of Checkbox', onChanged: (value){
-                  setState(() {
-                    showAllVariantsOfCheckbox = value;
-                  });
-                }),
-                if(showAllVariantsOfCheckbox)
+                DigitCheckbox(
+                    label: 'Show All Variants Of Checkbox',
+                    onChanged: (value) {
+                      setState(() {
+                        showAllVariantsOfCheckbox = value;
+                      });
+                    }),
+                if (showAllVariantsOfCheckbox)
                   Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -1650,7 +1799,8 @@ class MyHomePageState extends State<MyHomePage> {
                       ),
                       const SizedBox(height: 8),
                       DigitCheckbox(
-                        label: 'Checkbox With Checked and Disabled StateCheckbox With Checked and Disabled StateCheckbox With Checked and Disabled StateCheckbox With Checked and Disabled StateCheckbox With Checked and Disabled StateCheckbox With Checked and Disabled StateCheckbox With Checked and Disabled StateCheckbox With Checked and Disabled StateCheckbox With Checked and Disabled StateCheckbox With Checked and Disabled StateCheckbox With Checked and Disabled StateCheckbox With Checked and Disabled StateCheckbox With Checked and Disabled State',
+                        label:
+                            'Checkbox With Checked and Disabled StateCheckbox With Checked and Disabled StateCheckbox With Checked and Disabled StateCheckbox With Checked and Disabled StateCheckbox With Checked and Disabled StateCheckbox With Checked and Disabled StateCheckbox With Checked and Disabled StateCheckbox With Checked and Disabled StateCheckbox With Checked and Disabled StateCheckbox With Checked and Disabled StateCheckbox With Checked and Disabled StateCheckbox With Checked and Disabled StateCheckbox With Checked and Disabled State',
                         value: true,
                         disabled: true,
                         onChanged: (value) {},

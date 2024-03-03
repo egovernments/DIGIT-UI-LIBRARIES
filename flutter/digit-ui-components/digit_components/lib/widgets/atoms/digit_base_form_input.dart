@@ -347,7 +347,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                                 contentPadding: const EdgeInsets.only(
                                   left: 12,
                                   right: 2,
-                                  top: 8,
+                                  top: 12,
                                   bottom: 8,
                                 ),
                                 hintText: widget.innerLabel,

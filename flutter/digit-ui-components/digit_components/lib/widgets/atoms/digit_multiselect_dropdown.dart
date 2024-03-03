@@ -66,6 +66,12 @@ class MultiSelectDropDown<int> extends StatefulWidget {
   /// Whether the dropdown is enabled or disabled.
   final bool isDisabled;
 
+  /// Clear All text
+  final String clearAllText;
+
+  /// value mapper to show selected options inside the chip
+  final List<ValueMapper>? valueMapper;
+
   /// Controller for the dropdown
   /// [controller] is the controller for the dropdown. It can be used to programmatically open and close the dropdown.
   final MultiSelectController<int>? controller;
@@ -81,6 +87,8 @@ class MultiSelectDropDown<int> extends StatefulWidget {
     this.focusNode,
     this.controller,
     this.isDisabled = false,
+    this.clearAllText = 'Clear All',
+    this.valueMapper,
   }) : super(key: key);
 
   @override
@@ -634,7 +642,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                 color: const DigitColors().lightPaperSecondary,
               ),
               child: Text(
-                'Clear All',
+                widget.clearAllText,
                 style: DigitTheme.instance.mobileTheme.textTheme.bodyMedium?.copyWith(
                   color: const DigitColors().lightPrimaryOrange,
                   height: 1,
@@ -652,6 +660,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
       item: item,
       selectionType: widget.selectionType,
       chipConfig: chipConfig,
+      valueMapper: widget.valueMapper,
       onItemDelete: (removedItem) {
         if (_controller != null) {
           _controller!.clearSelection(removedItem);
