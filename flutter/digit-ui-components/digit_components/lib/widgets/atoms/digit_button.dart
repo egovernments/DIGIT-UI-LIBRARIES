@@ -276,7 +276,7 @@ class _DigitButtonState extends State<DigitButton> {
 
             Column(
               children: [
-                  const SizedBox(height: 3,),
+                  if(widget.type==ButtonType.secondary || widget.type==ButtonType.primary)const SizedBox(height: 3,),
                 Icon(
                   widget.prefixIcon,
                   size: widget.type == ButtonType.link ? 20 : widget.iconSize,
@@ -293,35 +293,32 @@ class _DigitButtonState extends State<DigitButton> {
                     widget.type == ButtonType.link ? kPadding / 2 : kPadding),
           ],
           Flexible(
-            child:Padding(
-              padding: kIsWeb ? const EdgeInsets.only(bottom: 2.0) : EdgeInsets.zero,  /// need to remove when the flutter version is updated in docker as there is a alignment issue
-              child: Text(
-                  truncatedLabel,
-                  textAlign: TextAlign.center,
-                  style: widget.type == ButtonType.link
-                      ? DigitTheme.instance.mobileTheme.textTheme.bodyLarge
-                          ?.copyWith(
-                          height: 1.172,
-                          color: widget.isDisabled
-                              ? DigitButtonConstants.defaultDisabledColor
-                              : DigitButtonConstants.defaultPrimaryColor,
-                          decoration: TextDecoration.underline,
-                          decorationColor: widget.isDisabled
-                              ? DigitButtonConstants.defaultDisabledColor
-                              : DigitButtonConstants.defaultPrimaryColor,
-                        )
-                      : DigitTheme.instance.mobileTheme.textTheme.labelLarge
-                          ?.copyWith(
-                          height: 1.5,
-                          color: widget.type == ButtonType.primary
-                              ? DigitButtonConstants.defaultTextColor
-                              : (widget.isDisabled
-                                  ? DigitButtonConstants.defaultDisabledColor
-                                  : DigitButtonConstants.defaultPrimaryColor),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                ),
-            ),
+            child:Text(
+                truncatedLabel,
+                textAlign: TextAlign.center,
+                style: widget.type == ButtonType.link
+                    ? DigitTheme.instance.mobileTheme.textTheme.bodyLarge
+                        ?.copyWith(
+                        height: 1.172,
+                        color: widget.isDisabled
+                            ? DigitButtonConstants.defaultDisabledColor
+                            : DigitButtonConstants.defaultPrimaryColor,
+                        decoration: TextDecoration.underline,
+                        decorationColor: widget.isDisabled
+                            ? DigitButtonConstants.defaultDisabledColor
+                            : DigitButtonConstants.defaultPrimaryColor,
+                      )
+                    : DigitTheme.instance.mobileTheme.textTheme.labelLarge
+                        ?.copyWith(
+                        height: 1.5,
+                        color: widget.type == ButtonType.primary
+                            ? DigitButtonConstants.defaultTextColor
+                            : (widget.isDisabled
+                                ? DigitButtonConstants.defaultDisabledColor
+                                : DigitButtonConstants.defaultPrimaryColor),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+              ),
           ),
           if (widget.suffixIcon != null) ...[
             SizedBox(
@@ -329,7 +326,7 @@ class _DigitButtonState extends State<DigitButton> {
                     widget.type == ButtonType.link ? kPadding / 2 : kPadding),
             Column(
               children: [
-                const SizedBox(height: 3,),
+                if(widget.type==ButtonType.secondary || widget.type==ButtonType.primary)const SizedBox(height: 3,),
                 Icon(
                   widget.suffixIcon,
                   size: widget.type == ButtonType.link ? 20 : widget.iconSize,
