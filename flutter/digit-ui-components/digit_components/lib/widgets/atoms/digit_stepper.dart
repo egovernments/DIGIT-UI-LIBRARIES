@@ -26,18 +26,14 @@ class _CustomStepperState extends State<CustomStepper> {
 
     return Stack(
       children: [
-        Align(
-          alignment: Alignment.center,
-            child: _buildLine()),
-        Align(
-            alignment: Alignment.center,
-            child: _buildSteps(currentTypography)),
+        _buildLine(),
+        _buildSteps(currentTypography),
       ],
     );
   }
 
   Widget _buildSteps(DigitTypography currentTypography) {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -54,10 +50,10 @@ class _CustomStepperState extends State<CustomStepper> {
     return Container(
       width: double.infinity,
       height: 4.0,
-      margin: const EdgeInsets.only(bottom: 30, left: 8, right: 8),
+      margin: const EdgeInsets.only(top: 16, left: 16, right: 16),
       child: Row(
         children: List.generate(
-          widget.steps.length - 1, // Exclude the last one
+          widget.steps.length - 1,
           (i) => _buildLineSegment(i),
         ),
       ),
@@ -84,56 +80,12 @@ class _CustomStepperState extends State<CustomStepper> {
     final isCurrent = index == widget.currentStep;
 
     Widget stepWidget = Container(
-      margin: _isHovered[index] ? EdgeInsets.zero: const EdgeInsets.only(bottom: 2) ,
+      // margin: _isHovered[index] ? EdgeInsets.zero: const EdgeInsets.only(bottom: 2) ,
       child: Column(
         mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          _isHovered[index]
-              ? Container(
-            // margin: const EdgeInsets.only(bottom: 6),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: const DigitColors().hoverColor,
-                      width: 4.0,
-                    ),
-                    borderRadius: BorderRadius.circular(50),
-
-                  ),
-                  child: Container(
-                    height: 32,
-                    width: 32,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
-                      color: isCompleted || isCurrent
-                          ? const DigitColors().lightPrimaryOrange
-                          : const DigitColors().lightTextDisabled,
-                    ),
-                    child: isCompleted
-                        ? Icon(
-                            Icons.check,
-                            size: 24,
-                            color: const DigitColors().lightPaperPrimary,
-                          )
-                        : Center(
-                            child: Text(
-                              (index + 1).toString(),
-                              style: isCurrent
-                                  ? currentTypography.headingS.copyWith(
-                                      fontFamily: 'Roboto',
-                                      color:
-                                          const DigitColors().lightPaperPrimary,
-                                      height: 1.172,
-                                    )
-                                  : currentTypography.bodyL.copyWith(
-                                      color:
-                                          const DigitColors().lightPaperPrimary,
-                                      height: 1.5,
-                                    ),
-                            ),
-                          ),
-                  ),
-                )
-              : Container(
+          Container(
                   height: 32,
                   width: 32,
                   decoration: BoxDecoration(
