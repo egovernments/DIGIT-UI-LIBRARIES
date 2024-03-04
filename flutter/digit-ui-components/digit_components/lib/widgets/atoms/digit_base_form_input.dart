@@ -551,10 +551,10 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                                       horizontal: 6,
                                       vertical: 2,
                                     ),
-                                    height: _isFocusOn || _hasError ? 37 : 38,
+                                    height: (_isFocusOn || _hasError) && !widget.readOnly ? 37 : 38,
                                     margin: EdgeInsets.only(
                                       left: kPadding,
-                                      right: _isFocusOn || _hasError ? 1.5 : 1,
+                                      right: (_isFocusOn || _hasError) && !widget.readOnly  ? 1.5 : 1,
                                     ),
                                     decoration: BoxDecoration(
                                       color: const DigitColors()
@@ -596,10 +596,10 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                                     horizontal: 6,
                                     vertical: 2,
                                   ),
-                                  height: _isFocusOn || _hasError ? 37 : 38,
+                                  height:(_isFocusOn || _hasError) && !widget.readOnly  ? 37 : 38,
                                   margin: EdgeInsets.only(
                                     left: kPadding,
-                                    right: _isFocusOn || _hasError ? 1.5 : 1,
+                                    right: (_isFocusOn || _hasError) && !widget.readOnly  ? 1.5 : 1,
                                   ),
                                   decoration: BoxDecoration(
                                     color: const DigitColors()
@@ -678,10 +678,10 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                                       horizontal: 6,
                                       vertical: 2,
                                     ),
-                                    height: _isFocusOn || _hasError ? 37 : 38,
+                                    height: (_isFocusOn || _hasError) && !widget.readOnly  ? 37 : 38,
                                     margin: EdgeInsets.only(
                                       right: kPadding,
-                                      left: _isFocusOn || _hasError ? 1.5 : 1,
+                                      left: (_isFocusOn || _hasError) && !widget.readOnly  ? 1.5 : 1,
                                     ),
                                     decoration: BoxDecoration(
                                       color: const DigitColors()
@@ -723,10 +723,10 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                                     horizontal: 6,
                                     vertical: 2,
                                   ),
-                                  height: _isFocusOn || _hasError ? 37 : 38,
+                                  height: (_isFocusOn || _hasError) && !widget.readOnly  ? 37 : 38,
                                   margin: EdgeInsets.only(
                                     right: kPadding,
-                                    left: _isFocusOn || _hasError ? 1.5 : 1,
+                                    left:(_isFocusOn || _hasError) && !widget.readOnly  ? 1.5 : 1,
                                   ),
                                   decoration: BoxDecoration(
                                     color: const DigitColors()

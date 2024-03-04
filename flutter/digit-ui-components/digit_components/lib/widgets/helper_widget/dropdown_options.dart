@@ -82,6 +82,8 @@ class _DropdownOptionState extends State<DropdownOption> {
                       ? DropdownConstants.defaultPadding
                       : DropdownConstants.nestedItemPadding,
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       widget.isSelected ||
                               _itemMouseDownStates[widget.option] == true

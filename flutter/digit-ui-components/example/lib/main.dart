@@ -716,6 +716,7 @@ class MyHomePageState extends State<MyHomePage> {
                         innerLabel: 'innerlabel',
                         helpText: 'help text',
                         prefixText: '+91',
+                        initialValue: 'Value',
                         readOnly: true,
                       ),
                       DigitTextFormInput(
@@ -1314,6 +1315,47 @@ class MyHomePageState extends State<MyHomePage> {
                               code: '5',
                               name: 'five',
                               description: 'this is description',
+                            ),
+                          ],
+                          selectionType: SelectionType.multiSelect,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      LabeledField(
+                        label: "MultiSelect Dropdown with Description and Icon",
+                        child: MultiSelectDropDown<int>(
+                          onOptionSelected:
+                              (List<DropdownItem> selectedOptions) {},
+                          options: const [
+                            DropdownItem(
+                              code: '1',
+                              name: 'first',
+                              description: 'this is description',
+                              textIcon: Icons.article,
+                            ),
+                            DropdownItem(
+                              code: '2',
+                              name: 'second',
+                              description: 'this is description',
+                              textIcon: Icons.article,
+                            ),
+                            DropdownItem(
+                              code: '3',
+                              name: 'third',
+                              description: 'this is description',
+                              textIcon: Icons.article,
+                            ),
+                            DropdownItem(
+                              code: '4',
+                              name: 'four',
+                              description: 'this is description',
+                              textIcon: Icons.article,
+                            ),
+                            DropdownItem(
+                              code: '5',
+                              name: 'five',
+                              description: 'this is description',
+                              textIcon: Icons.article,
                             ),
                           ],
                           selectionType: SelectionType.multiSelect,
