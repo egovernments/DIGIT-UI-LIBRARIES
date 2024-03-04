@@ -77,9 +77,9 @@ class CheckboxConstants {
 
 class DropdownConstants {
   static const EdgeInsetsGeometry defaultPadding =
-  EdgeInsets.only(left: 10, top: 10, bottom: 10,);
+  EdgeInsets.only(left: 10, top: 9.5, bottom: 9.5,);
   static const EdgeInsetsGeometry nestedItemPadding =
-  EdgeInsets.only(left: 10, top: 10.5, bottom: 10.5,);
+  EdgeInsets.only(left: 10, top: 9.5, bottom: 9.5,);
   static const EdgeInsetsGeometry nestedItemHeaderPadding =EdgeInsets.all(10);
   static const double defaultProfileSize = 32;
   static const double defaultImageRadius = 72;

@@ -79,7 +79,7 @@ class _DropdownOptionState extends State<DropdownOption> {
                 padding: EdgeInsets.zero,
                 child: Padding(
                   padding: widget.selectionType == SelectionType.multiSelect
-                      ? DropdownConstants.defaultPadding
+                      ? widget.option.description != null  ? const EdgeInsets.symmetric(horizontal: 16, vertical: 8,) : DropdownConstants.defaultPadding
                       : DropdownConstants.nestedItemPadding,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
