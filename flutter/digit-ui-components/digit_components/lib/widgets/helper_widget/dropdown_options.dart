@@ -65,7 +65,8 @@ class _DropdownOptionState extends State<DropdownOption> {
                   border: Border.all(
                     width: 0.5,
                     color: _itemMouseDownStates[widget.option] == true ||
-                            _itemHoverStates[widget.option] == true || widget.isSelected
+                            _itemHoverStates[widget.option] == true ||
+                            widget.isSelected
                         ? const DigitColors().lightPrimaryOrange
                         : Colors.transparent,
                   ),
@@ -79,27 +80,33 @@ class _DropdownOptionState extends State<DropdownOption> {
                 padding: EdgeInsets.zero,
                 child: Padding(
                   padding: widget.selectionType == SelectionType.multiSelect
-                      ? widget.option.description != null  ? const EdgeInsets.symmetric(horizontal: 16, vertical: 8,) : DropdownConstants.defaultPadding
+                      ? widget.option.description != null
+                          ? const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 8,
+                            )
+                          : DropdownConstants.defaultPadding
                       : DropdownConstants.nestedItemPadding,
-                  child: Row(
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      widget.isSelected ||
-                              _itemMouseDownStates[widget.option] == true
-                          ? DigitCheckboxIcon(
-                              size: 20,
-                              state: CheckboxState.checked,
-                              color: const DigitColors().lightPaperPrimary,
-                            )
-                          : const DigitCheckboxIcon(
-                              size: 20, state: CheckboxState.unchecked),
-                      const SizedBox(
-                        width: 12,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
+                          widget.isSelected ||
+                                  _itemMouseDownStates[widget.option] == true
+                              ? DigitCheckboxIcon(
+                                  size: 20,
+                                  state: CheckboxState.checked,
+                                  color: const DigitColors().lightPaperPrimary,
+                                )
+                              : const DigitCheckboxIcon(
+                                  size: 20, state: CheckboxState.unchecked),
+                          const SizedBox(
+                            width: 12,
+                          ),
                           Row(
                             children: [
                               if (widget.option.textIcon != null)
@@ -126,33 +133,44 @@ class _DropdownOptionState extends State<DropdownOption> {
                                         ?.copyWith(
                                         color: const DigitColors()
                                             .lightPaperPrimary,
-                                        height: 1.188,
+                                        height: 1.172,
                                       )
-                                    : DigitTheme.instance.mobileTheme.textTheme
-                                        .bodyMedium
-                                        ?.copyWith(
-                                        color: const DigitColors()
-                                            .lightTextPrimary,
-                                        height: 1.125,
-                                      ),
+                                    : widget.option.description != null
+                                        ? DigitTheme.instance.mobileTheme
+                                            .textTheme.bodyLarge
+                                            ?.copyWith(
+                                            color: const DigitColors()
+                                                .lightTextSecondary,
+                                            height: 1.5,
+                                          )
+                                        : DigitTheme.instance.mobileTheme
+                                            .textTheme.bodyMedium
+                                            ?.copyWith(
+                                            color: const DigitColors()
+                                                .lightTextPrimary,
+                                            height: 1.125,
+                                          ),
                               ),
                             ],
                           ),
-                          if (widget.option.description != null)
-                            Text(
-                              widget.option.description!,
-                              style: DigitTheme
-                                  .instance.mobileTheme.textTheme.bodySmall
-                                  ?.copyWith(
-                                color: widget.isSelected ||
-                                        _itemMouseDownStates[widget.option] ==
-                                            true
-                                    ? const DigitColors().lightPaperPrimary
-                                    : const DigitColors().lightTextSecondary,
-                              ),
-                            ),
                         ],
                       ),
+                      if (widget.option.description != null)
+                        Padding(
+                          padding: const EdgeInsets.only(left: kPadding*4),
+                          child: Text(
+                            widget.option.description!,
+                            style: DigitTheme
+                                .instance.mobileTheme.textTheme.bodySmall
+                                ?.copyWith(
+                              color: widget.isSelected ||
+                                  _itemMouseDownStates[widget.option] ==
+                                      true
+                                  ? const DigitColors().lightPaperPrimary
+                                  : const DigitColors().lightTextSecondary,
+                            ),
+                          ),
+                        ),
                     ],
                   ),
                 ),

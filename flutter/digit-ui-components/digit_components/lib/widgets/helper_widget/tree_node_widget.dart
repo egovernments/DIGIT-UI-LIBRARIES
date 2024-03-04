@@ -92,9 +92,7 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
     } else if (_areAllChildrenSelected(node) && widget.treeSelectionType== TreeSelectionType.MultiSelect) {
       return const DigitColors().lightPrimaryOrange;
     } else {
-      return widget.mouseStates?[widget.currentOption.code] == true
-          ? const DigitColors().lightPrimaryOrange
-          : widget.hoverStates?[widget.currentOption.code] == true
+      return  widget.hoverStates?[widget.currentOption.code] == true
           ? const DigitColors().orangeBG
           : _isExpanded
           ? const DigitColors().lightPaperSecondary
@@ -171,8 +169,11 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
                 Container(
                   decoration: BoxDecoration(
                       border: Border.all(
+                        width: 0.5,
                         color: widget.hoverStates?[widget.currentOption.code] ==
-                            true
+                            true || _areAllChildrenSelected(
+                            widget.currentOption) && !_parentSelected(
+                            widget.currentOption, widget.parentNode) && widget.treeSelectionType== TreeSelectionType.MultiSelect
                             ? const DigitColors().lightPrimaryOrange
                             : Colors.transparent,
                       ),
@@ -190,11 +191,7 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
                           child: widget.currentOption.children.isNotEmpty ?Icon(
                             Icons.arrow_drop_down,
                             size: 24,
-                            color: widget.mouseStates?[
-                            widget.currentOption.code] ==
-                                true
-                                ? const DigitColors().lightPaperPrimary
-                                : _parentSelected(
+                            color: _parentSelected(
                                 widget.currentOption, widget.parentNode)
                                 ? const DigitColors().lightTextSecondary
                                 : _areAllChildrenSelected(
@@ -230,19 +227,13 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
                                     widget.currentOption);
                               });
                             },
+
                             child: _areAllChildrenSelected(
-                                widget.currentOption) ||
-                                widget.mouseStates?[
-                                widget.currentOption.code] ==
-                                    true
+                                widget.currentOption)
                                 ? DigitCheckboxIcon(
                               size: 20,
                               state: CheckboxState.checked,
-                              color: widget.mouseStates?[
-                              widget.currentOption.code] ==
-                                  true
-                                  ? const DigitColors().lightPaperPrimary
-                                  : _parentSelected(widget.currentOption,
+                              color: _parentSelected(widget.currentOption,
                                   widget.parentNode)
                                   ? const DigitColors()
                                   .lightPrimaryOrange
@@ -278,11 +269,7 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
                               .instance.mobileTheme.textTheme.headlineSmall
                               ?.copyWith(
                             height: 1.188,
-                            color: widget.mouseStates?[
-                            widget.currentOption.code] ==
-                                true
-                                ? const DigitColors().lightPaperPrimary
-                                : _parentSelected(widget.currentOption,
+                            color:_parentSelected(widget.currentOption,
                                 widget.parentNode)
                                 ? const DigitColors()
                                 .lightTextSecondary
@@ -308,40 +295,43 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
             ),
           ),
           if (_isExpanded && widget.currentOption.children.isNotEmpty)
-            Padding(
-              padding: EdgeInsets.only(left: widget.currentHorPadding),
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                  border: Border(
-                    left: BorderSide(
-                      color: const DigitColors().lightGenericDivider,
-                      width: 1.0,
+            Container(
+              color: _areAllChildrenSelected(widget.currentOption) ? DigitColors().orangeBG : DigitColors().transparent,
+              child: Padding(
+                padding: EdgeInsets.only(left: widget.currentHorPadding),
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    border:  Border(
+                      left: _areAllChildrenSelected(widget.currentOption) ?  BorderSide.none : BorderSide(
+                        color: const DigitColors().lightGenericDivider,
+                        width: 1.0,
+                      ) ,
+                      top: BorderSide.none,
+                      bottom: BorderSide.none,
+                      right: BorderSide.none,
                     ),
-                    top: BorderSide.none,
-                    bottom: BorderSide.none,
-                    right: BorderSide.none,
                   ),
-                ),
-                child: Column(
-                  children: widget.currentOption.children.map((child) {
-                    bool isChildSelected =
-                    _areAllChildrenSelected(widget.currentOption);
-                    return TreeNodeWidget(
-                      option: widget.option,
-                      parentNode: widget.currentOption,
-                      isSelected: isChildSelected,
-                      mouseStates: widget.mouseStates,
-                      focusNode: widget.focusNode,
-                      hoverStates: widget.hoverStates,
-                      selectedOptions: widget.selectedOptions,
-                      onOptionSelected: widget.onOptionSelected,
-                      backgroundColor: const DigitColors().lightPaperPrimary,
-                      treeSelectionType: widget.treeSelectionType,
-                      currentOption: child,
-                      currentHorPadding: widget.currentHorPadding + 2,
-                    );
-                  }).toList(),
+                  child: Column(
+                    children: widget.currentOption.children.map((child) {
+                      bool isChildSelected =
+                      _areAllChildrenSelected(widget.currentOption);
+                      return TreeNodeWidget(
+                        option: widget.option,
+                        parentNode: widget.currentOption,
+                        isSelected: isChildSelected,
+                        mouseStates: widget.mouseStates,
+                        focusNode: widget.focusNode,
+                        hoverStates: widget.hoverStates,
+                        selectedOptions: widget.selectedOptions,
+                        onOptionSelected: widget.onOptionSelected,
+                        backgroundColor: const DigitColors().lightPaperPrimary,
+                        treeSelectionType: widget.treeSelectionType,
+                        currentOption: child,
+                        currentHorPadding: widget.currentHorPadding + 2,
+                      );
+                    }).toList(),
+                  ),
                 ),
               ),
             ),

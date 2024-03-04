@@ -48,8 +48,8 @@ class DigitCheckboxIcon extends StatelessWidget {
         );
       case CheckboxState.intermediate:
         return Container(
-          width: CheckboxConstants.containerSize,
-          height: CheckboxConstants.containerSize,
+          width: size,
+          height: size,
           decoration: BoxDecoration(
             border: Border.all(
               color: CheckboxConstants.intermediateBorderColor(
@@ -69,8 +69,8 @@ class DigitCheckboxIcon extends StatelessWidget {
         );
       case CheckboxState.checked:
         return Container(
-          width: CheckboxConstants.containerSize,
-          height: CheckboxConstants.containerSize,
+          width: size,
+          height: size,
           decoration: BoxDecoration(
             border: Border.all(
               color: CheckboxConstants.checkedBorderColor(

@@ -69,20 +69,20 @@ class DigitDropdown<T> extends StatefulWidget {
   /// value Mapper to show something else for selected option
   final List<ValueMapper>? valueMapper;
 
-  const DigitDropdown({
-    Key? key,
-    required this.items,
-    this.suffixIcon = Icons.arrow_drop_down,
-    this.textIcon,
-    required this.onChange,
-    this.isSearchable = true,
-    this.dropdownType = DropdownType.defaultSelect,
-    required this.textEditingController,
-    this.emptyItemText = "No Options available",
-    this.selectedOption,
-    this.isDisabled = false,
-    this.valueMapper
-  }) : super(key: key);
+  const DigitDropdown(
+      {Key? key,
+      required this.items,
+      this.suffixIcon = Icons.arrow_drop_down,
+      this.textIcon,
+      required this.onChange,
+      this.isSearchable = true,
+      this.dropdownType = DropdownType.defaultSelect,
+      required this.textEditingController,
+      this.emptyItemText = "No Options available",
+      this.selectedOption,
+      this.isDisabled = false,
+      this.valueMapper})
+      : super(key: key);
 
   @override
   _DigitDropdownState<T> createState() => _DigitDropdownState<T>();
@@ -445,43 +445,74 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                         ),
                         padding: EdgeInsets.zero,
                         child: Padding(
-                          padding: widget.dropdownType ==
-                                      DropdownType.defaultSelect &&
-                                  filteredItems[index].description == null
-                              ? DropdownConstants.defaultPadding
-                              : DropdownConstants.nestedItemPadding,
+                          padding: filteredItems[index].description == null
+                              ? filteredItems[index].profileImageUrl == null
+                                  ? const EdgeInsets.only(
+                                      left: 10,
+                                      top: 10.5,
+                                      bottom: 10.5,
+                                    )
+                                  : const EdgeInsets.only(
+                                      left: 10,
+                                      top: 8,
+                                      bottom: 8,
+                                    )
+                              : filteredItems[index].profileImageUrl == null
+                                  ? const EdgeInsets.only(
+                                      left: 10,
+                                      top: 8,
+                                      bottom: 8,
+                                    )
+                                  : const EdgeInsets.only(
+                                      left: 16,
+                                      top: 14.5,
+                                      bottom: 14.5,
+                                    ),
                           child: Row(
                             children: [
                               if (filteredItems[index].profileImageUrl != null)
                                 SizedBox(
-                                  height: filteredItems[index].description!=null ? 47 :DropdownConstants.defaultProfileSize,
-                                  width: filteredItems[index].description!=null ? 47 :DropdownConstants.defaultProfileSize,
-                                  child: CircleAvatar(
-                                    radius:
-                                        DropdownConstants.defaultImageRadius,
-                                    backgroundColor:
-                                        const DigitColors().transparent,
-                                    child: Container(
-                                      height: filteredItems[index].description!=null ? 47 : 32,
-                                      width: filteredItems[index].description!=null ? 47 : 32,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(DropdownConstants.defaultImageRadius,)
-                                      ),
-                                      child: ClipOval(
-                                        child: Image.network(
-                                          filteredItems[index].profileImageUrl!,
-                                          loadingBuilder: (context, child, loadingProgress) {
-                                            if (loadingProgress == null) {
-                                              return child;
-                                            } else {
-                                              return Container();
-                                            }
-                                          },
-                                          errorBuilder: (context, error, stackTrace) {
-                                            return Container(color: const DigitColors().lightPaperPrimary, child: const Icon(Icons.add));
-                                          },
-                                          fit: BoxFit.cover,
-                                        ),
+                                  height: filteredItems[index].description !=
+                                          null
+                                      ? 47
+                                      : DropdownConstants.defaultProfileSize,
+                                  width: filteredItems[index].description !=
+                                          null
+                                      ? 47
+                                      : DropdownConstants.defaultProfileSize,
+                                  child: Container(
+                                    height:
+                                        filteredItems[index].description !=
+                                                null
+                                            ? 47
+                                            : 32,
+                                    width: filteredItems[index].description !=
+                                            null
+                                        ? 47
+                                        : 32,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(
+                                      DropdownConstants.defaultImageRadius,
+                                    )),
+                                    child: ClipOval(
+                                      child: Image.network(
+                                        filteredItems[index].profileImageUrl!,
+                                        loadingBuilder: (context, child,
+                                            loadingProgress) {
+                                          if (loadingProgress == null) {
+                                            return child;
+                                          } else {
+                                            return Container();
+                                          }
+                                        },
+                                        errorBuilder:
+                                            (context, error, stackTrace) {
+                                          return Container(
+                                              color: const DigitColors()
+                                                  .lightPaperPrimary,
+                                              child: const Icon(Icons.add));
+                                        },
+                                        fit: BoxFit.cover,
                                       ),
                                     ),
                                   ),
@@ -497,6 +528,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Row(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
                                     children: [
                                       if (filteredItems[index].textIcon != null)
                                         Icon(
@@ -529,28 +561,34 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                           softWrap: true,
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
-                                          style: _itemMouseDownStates[filteredItems[index].code] == true
+                                          style: _itemMouseDownStates[filteredItems[index].code] ==
+                                                  true
                                               ? DigitTheme.instance.mobileTheme
                                                   .textTheme.headlineSmall
                                                   ?.copyWith(
                                                       height: 1.172,
                                                       color: const DigitColors()
                                                           .lightPaperPrimary)
-                                              : DigitTheme.instance.mobileTheme
-                                                  .textTheme.bodyMedium
-                                                  ?.copyWith(
-                                                      height: filteredItems[index]
-                                                                  .description !=
-                                                              null
-                                                          ? 1.5
-                                                          : 1.125,
-                                                      color: filteredItems[index]
-                                                                  .description !=
-                                                              null
-                                                          ? const DigitColors()
-                                                              .lightTextSecondary
-                                                          : const DigitColors()
-                                                              .lightTextPrimary),
+                                              : filteredItems[index].description !=
+                                                      null
+                                                  ? DigitTheme
+                                                      .instance
+                                                      .mobileTheme
+                                                      .textTheme
+                                                      .bodyLarge
+                                                      ?.copyWith(
+                                                          height: 1.5,
+                                                          color: const DigitColors()
+                                                              .lightTextSecondary)
+                                                  : DigitTheme
+                                                      .instance
+                                                      .mobileTheme
+                                                      .textTheme
+                                                      .bodyMedium
+                                                      ?.copyWith(
+                                                          height:
+                                                              filteredItems[index].description != null ? 1.5 : 1.125,
+                                                          color: filteredItems[index].description != null ? const DigitColors().lightTextSecondary : const DigitColors().lightTextPrimary),
                                         ),
                                       )
                                     ],
@@ -734,31 +772,66 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                                       .profileImageUrl !=
                                                   null)
                                                 SizedBox(
-                                                  height: filteredItems[index].description!=null ? 47 :DropdownConstants.defaultProfileSize,
-                                                  width: filteredItems[index].description!=null ? 47 :DropdownConstants.defaultProfileSize,
+                                                  height: filteredItems[index]
+                                                              .description !=
+                                                          null
+                                                      ? 47
+                                                      : DropdownConstants
+                                                          .defaultProfileSize,
+                                                  width: filteredItems[index]
+                                                              .description !=
+                                                          null
+                                                      ? 47
+                                                      : DropdownConstants
+                                                          .defaultProfileSize,
                                                   child: CircleAvatar(
-                                                    radius:
-                                                    DropdownConstants.defaultImageRadius,
+                                                    radius: DropdownConstants
+                                                        .defaultImageRadius,
                                                     backgroundColor:
-                                                    const DigitColors().transparent,
+                                                        const DigitColors()
+                                                            .transparent,
                                                     child: Container(
-                                                      height: filteredItems[index].description!=null ? 47 : 32,
-                                                      width: filteredItems[index].description!=null ? 47 : 32,
+                                                      height: filteredItems[
+                                                                      index]
+                                                                  .description !=
+                                                              null
+                                                          ? 47
+                                                          : 32,
+                                                      width: filteredItems[
+                                                                      index]
+                                                                  .description !=
+                                                              null
+                                                          ? 47
+                                                          : 32,
                                                       decoration: BoxDecoration(
-                                                          borderRadius: BorderRadius.circular(DropdownConstants.defaultImageRadius,)
-                                                      ),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                        DropdownConstants
+                                                            .defaultImageRadius,
+                                                      )),
                                                       child: ClipOval(
                                                         child: Image.network(
-                                                          filteredItems[index].profileImageUrl!,
-                                                          loadingBuilder: (context, child, loadingProgress) {
-                                                            if (loadingProgress == null) {
+                                                          filteredItems[index]
+                                                              .profileImageUrl!,
+                                                          loadingBuilder: (context,
+                                                              child,
+                                                              loadingProgress) {
+                                                            if (loadingProgress ==
+                                                                null) {
                                                               return child;
                                                             } else {
                                                               return Container();
                                                             }
                                                           },
-                                                          errorBuilder: (context, error, stackTrace) {
-                                                            return Container(color: const DigitColors().lightPaperPrimary, child: const Icon(Icons.add));
+                                                          errorBuilder:
+                                                              (context, error,
+                                                                  stackTrace) {
+                                                            return Container(
+                                                                color: const DigitColors()
+                                                                    .lightPaperPrimary,
+                                                                child: const Icon(
+                                                                    Icons.add));
                                                           },
                                                           fit: BoxFit.cover,
                                                         ),
@@ -1003,10 +1076,11 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
   /// Update the controller value based on the selected code
   void _updateControllerValue(String selectedCode, bool isNested) {
     String? selectedText;
-    if(widget.valueMapper!=null){
+    if (widget.valueMapper != null) {
       ValueMapper? selectedValue = widget.valueMapper!.firstWhere(
-            (value) => value.code == selectedCode,
-        orElse: () => const ValueMapper(code: '', name: ''), // Provide default values here
+        (value) => value.code == selectedCode,
+        orElse: () => const ValueMapper(
+            code: '', name: ''), // Provide default values here
       );
 
       /// If the code is present in the value mapper, set the controller value accordingly
@@ -1020,23 +1094,23 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
       setState(() {
         widget.textEditingController.text = selectedText!;
       });
-    }else if(isNested){
+    } else if (isNested) {
       /// Find the item with the code matching the current index
       DropdownItem selectedItem = filteredItems.firstWhere(
-            (item) => item.code == _nestedIndex,
+        (item) => item.code == _nestedIndex,
       );
 
       /// Check if the found item is not the default item
       if (selectedItem.name.isNotEmpty) {
         setState(() {
           widget.textEditingController.text =
-          '${selectedItem.type}: ${selectedItem.name}';
+              '${selectedItem.type}: ${selectedItem.name}';
         });
       }
-    }else{
+    } else {
       /// Find the item with the code matching the current index
       DropdownItem selectedItem = filteredItems.firstWhere(
-            (item) => item.code == _currentIndex,
+        (item) => item.code == _currentIndex,
       );
 
       /// Check if the found item is not the default item

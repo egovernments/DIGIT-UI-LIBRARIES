@@ -1483,6 +1483,17 @@ class MyHomePageState extends State<MyHomePage> {
                 LabeledField(
                   label: 'Tree Multi Select Dropdowns',
                   child: TreeSelectDropDown<int>(
+                    valueMapper: const [
+                      ValueMapper(code: 'A: A1', name: "A: A1"),
+                      ValueMapper(code: 'A: A2', name: "A: A2"),
+                      ValueMapper(code: 'A: A3', name: "A: A3"),
+                      ValueMapper(code: 'B: B1', name: "B: B1"),
+                      ValueMapper(code: 'B: B2', name: "B: B2"),
+                      ValueMapper(code: 'C: C1', name: "C: C1"),
+                      ValueMapper(code: 'C: C2', name: "C: C2"),
+                      ValueMapper(code: 'D: D1', name: "D: D1"),
+                      ValueMapper(code: 'D: D2', name: "D: D2")
+                    ],
                     onOptionSelected: (List<TreeNode> selectedOptions) {
                       // print(selectedOptions);
                       for (TreeNode node in selectedOptions) {

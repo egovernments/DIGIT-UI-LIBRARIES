@@ -122,6 +122,7 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
     });
     _focusNode = widget.focusNode ?? FocusNode();
     _controller = widget.controller ?? TreeSelectController<T>();
+
   }
 
   void _initialize() {
@@ -131,6 +132,8 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
         : widget.options);
     _addOptions();
     _overlayState ??= Overlay.of(context);
+    hoverStates = {};
+    mouseStates = {};
     _focusNode.addListener(_handleFocusChange);
   }
 
@@ -155,6 +158,8 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
   _handleFocusChange() {
     if (_focusNode.hasFocus && mounted) {
       _overlayEntry = _buildOverlayEntry();
+      hoverStates = {};
+      mouseStates = {};
       Overlay.of(context).insert(_overlayEntry!);
     }
 
