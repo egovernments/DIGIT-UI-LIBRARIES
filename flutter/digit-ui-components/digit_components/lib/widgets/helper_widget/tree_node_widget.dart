@@ -261,10 +261,7 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
                           widget.currentOption.name,
                           style: _isExpanded ||
                               _areAllChildrenSelected(
-                                  widget.currentOption) && widget.treeSelectionType== TreeSelectionType.MultiSelect ||
-                              widget.mouseStates?[
-                              widget.currentOption.code] ==
-                                  true
+                                  widget.currentOption) && widget.treeSelectionType== TreeSelectionType.MultiSelect
                               ? DigitTheme
                               .instance.mobileTheme.textTheme.headlineSmall
                               ?.copyWith(
