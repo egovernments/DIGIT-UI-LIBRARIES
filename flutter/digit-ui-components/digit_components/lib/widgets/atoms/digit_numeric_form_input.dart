@@ -92,6 +92,10 @@ class _DigitNumericFormInputState extends BaseDigitFormInputState {
       int currentValue = int.tryParse(widget.controller.text) ?? 0;
       if ((currentValue - widget.step) >= widget.minValue) {
         widget.controller.text = (currentValue - widget.step).toString();
+        // Set the cursor position to the end
+        widget.controller.selection = TextSelection.fromPosition(
+          TextPosition(offset: widget.controller.text.length),
+        );
       }
     });
   }
@@ -99,10 +103,14 @@ class _DigitNumericFormInputState extends BaseDigitFormInputState {
   @override
   void onSuffixIconClick({void Function()? customFunction}) {
     setState(() {
-      /// Add step to the input value when the suffix icon is clicked
+      // Add step to the input value when the suffix icon is clicked
       int currentValue = int.tryParse(widget.controller.text) ?? 0;
       if ((currentValue + widget.step) <= widget.maxValue) {
         widget.controller.text = (currentValue + widget.step).toString();
+        // Set the cursor position to the end
+        widget.controller.selection = TextSelection.fromPosition(
+          TextPosition(offset: widget.controller.text.length),
+        );
       }
     });
   }

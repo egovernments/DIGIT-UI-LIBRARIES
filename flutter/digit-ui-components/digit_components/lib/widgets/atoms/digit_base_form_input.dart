@@ -850,16 +850,3 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
   }
 }
 
-// Text(
-// widget.prefixText!,
-// style: DigitTheme.instance.mobileTheme
-//     .textTheme.headlineLarge
-//     ?.copyWith(
-// height: 1.758,
-// color: widget.isDisabled
-// ? const DigitColors()
-//     .lightTextDisabled
-//     : const DigitColors()
-//     .lightTextSecondary,
-// ),
-// ),
