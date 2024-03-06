@@ -117,12 +117,12 @@ class _DigitRadioListState extends State<DigitRadioList> {
                         shape: BoxShape.circle,
                         border: Border.all(
                           color: widget.isDisabled
-                              ? const DigitColors().lightGenericDivider
+                              ? const DigitColors().light.genericDivider
                               : (widget.groupValue == button.code ||
                                       isHoveredList[index] ||
                                       isMouseDown[index])
-                                  ? const DigitColors().lightPrimaryOrange
-                                  : const DigitColors().lightTextSecondary,
+                                  ? const DigitColors().light.primaryOrange
+                                  : const DigitColors().light.textSecondary,
                           width: (widget.isDisabled &&
                                       widget.groupValue == button.code) ||
                                   widget.groupValue == button.code
@@ -130,10 +130,10 @@ class _DigitRadioListState extends State<DigitRadioList> {
                               : 1.0,
                         ),
                         color: widget.isDisabled
-                            ? const DigitColors().lightPaperSecondary
+                            ? const DigitColors().light.paperSecondary
                             : isMouseDown[index]
                                 ? const DigitColors().orangeBG
-                                : const DigitColors().lightPaperPrimary,
+                                : const DigitColors().light.paperPrimary,
                         boxShadow: isMouseDown[index]
                             ? [
                                 BoxShadow(
@@ -152,8 +152,8 @@ class _DigitRadioListState extends State<DigitRadioList> {
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: widget.isDisabled
-                                    ? const DigitColors().lightTextDisabled
-                                    : const DigitColors().lightPrimaryOrange,
+                                    ? const DigitColors().light.textDisabled
+                                    : const DigitColors().light.primaryOrange,
                               ),
                             )
                           : null,
@@ -198,12 +198,12 @@ class _DigitRadioListState extends State<DigitRadioList> {
                           shape: BoxShape.circle,
                           border: Border.all(
                             color: widget.isDisabled
-                                ? const DigitColors().lightGenericDivider
+                                ? const DigitColors().light.genericDivider
                                 : (widget.groupValue == button.code ||
                                         isHoveredList[index] ||
                                         isMouseDown[index])
-                                    ? const DigitColors().lightPrimaryOrange
-                                    : const DigitColors().lightTextSecondary,
+                                    ? const DigitColors().light.primaryOrange
+                                    : const DigitColors().light.textSecondary,
                             width: (widget.isDisabled &&
                                         widget.groupValue == button.code) ||
                                     widget.groupValue == button.code
@@ -211,10 +211,10 @@ class _DigitRadioListState extends State<DigitRadioList> {
                                 : 1.0,
                           ),
                           color: widget.isDisabled
-                              ? const DigitColors().lightPaperSecondary
+                              ? const DigitColors().light.paperSecondary
                               : isMouseDown[index]
                                   ? const DigitColors().orangeBG
-                                  : const DigitColors().lightPaperPrimary,
+                                  : const DigitColors().light.paperPrimary,
                           boxShadow: isMouseDown[index]
                               ? [
                                   BoxShadow(
@@ -233,8 +233,8 @@ class _DigitRadioListState extends State<DigitRadioList> {
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   color: widget.isDisabled
-                                      ? const DigitColors().lightTextDisabled
-                                      : const DigitColors().lightPrimaryOrange,
+                                      ? const DigitColors().light.textDisabled
+                                      : const DigitColors().light.primaryOrange,
                                 ),
                               )
                             : null,
@@ -254,8 +254,8 @@ class _DigitRadioListState extends State<DigitRadioList> {
                             ?.copyWith(
                           height: 1.172,
                           color: widget.isDisabled
-                              ? const DigitColors().lightTextDisabled
-                              : const DigitColors().lightTextPrimary,
+                              ? const DigitColors().light.textDisabled
+                              : const DigitColors().light.textPrimary,
                         ),
                       ),
                     )
@@ -267,8 +267,8 @@ class _DigitRadioListState extends State<DigitRadioList> {
                           ?.copyWith(
                         height: 1.172,
                         color: widget.isDisabled
-                            ? const DigitColors().lightTextDisabled
-                            : const DigitColors().lightTextPrimary,
+                            ? const DigitColors().light.textDisabled
+                            : const DigitColors().light.textPrimary,
                       ),
                     ),
             ],

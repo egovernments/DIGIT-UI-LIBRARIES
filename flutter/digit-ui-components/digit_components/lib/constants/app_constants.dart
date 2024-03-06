@@ -31,13 +31,13 @@ class BaseConstants {
 
   static final OutlineInputBorder focusedBorder = OutlineInputBorder(
     borderSide: BorderSide(
-        color: const DigitColors().lightPrimaryOrange, width: 1.5),
+        color: const DigitColors().light.primaryOrange, width: 1.5),
     borderRadius: BorderRadius.zero,
   );
 
   static final OutlineInputBorder disabledBorder = OutlineInputBorder(
     borderSide: BorderSide(
-        color: const DigitColors().lightGenericDivider, width: 1.0),
+        color: const DigitColors().light.genericDivider, width: 1.0),
     borderRadius: BorderRadius.zero,
   );
   // Spacing
@@ -49,10 +49,10 @@ class DigitButtonConstants {
   static const EdgeInsets defaultButtonPadding = EdgeInsets.all(8.0);
   static const EdgeInsets defaultContentPadding = EdgeInsets.only(left: 24.0, top: 7.0, right: 24.0, bottom: 8.0);
   static const double defaultIconSize = 24.0;
-  static final Color defaultDisabledColor = const DigitColors().lightTextDisabled;
-  static final Color defaultPrimaryColor = const DigitColors().lightPrimaryOrange;
-  static final Color defaultSecondaryColor = const DigitColors().lightTextPrimary;
-  static final Color defaultTextColor = const DigitColors().lightPaperPrimary;
+  static final Color defaultDisabledColor = const DigitColors().light.textDisabled;
+  static final Color defaultPrimaryColor = const DigitColors().light.primaryOrange;
+  static final Color defaultSecondaryColor = const DigitColors().light.textPrimary;
+  static final Color defaultTextColor = const DigitColors().light.paperPrimary;
   static const double defaultWidth = 1.0;
   static const double defaultHoverWidth = 2.0;
 }
@@ -63,16 +63,16 @@ class CheckboxConstants {
   static const EdgeInsets defaultPadding = EdgeInsets.only(left: 4.0);
 
   static Color uncheckedBorderColor({required bool isDisabled, required Color? customColor}) =>
-      customColor ?? (isDisabled ? const DigitColors().lightTextDisabled : const DigitColors().lightTextSecondary);
+      customColor ?? (isDisabled ? const DigitColors().light.textDisabled : const DigitColors().light.textSecondary);
 
   static Color checkedBorderColor({required bool isDisabled, required Color? customColor}) =>
-      customColor ?? (isDisabled ? const DigitColors().lightTextDisabled : const DigitColors().lightPrimaryOrange);
+      customColor ?? (isDisabled ? const DigitColors().light.textDisabled : const DigitColors().light.primaryOrange);
 
   static Color intermediateBorderColor({required bool isDisabled, required Color? customColor}) =>
-      customColor ?? (isDisabled ? const DigitColors().lightTextDisabled : const DigitColors().lightPrimaryOrange);
+      customColor ?? (isDisabled ? const DigitColors().light.textDisabled : const DigitColors().light.primaryOrange);
 
   static Color iconColor({required bool isDisabled, required Color? customColor}) =>
-      customColor ?? (isDisabled ? const DigitColors().lightTextDisabled : const DigitColors().lightPrimaryOrange);
+      customColor ?? (isDisabled ? const DigitColors().light.textDisabled : const DigitColors().light.primaryOrange);
 }
 
 class DropdownConstants {
@@ -84,7 +84,7 @@ class DropdownConstants {
   static const double defaultProfileSize = 32;
   static const double defaultImageRadius = 72;
   static const double textIconSize = 20;
-  static const EdgeInsets noItemAvailablePadding =  EdgeInsets.all(8.0);
+  static const EdgeInsets noItemAvailablePadding =  EdgeInsets.symmetric(horizontal: kPadding*2, vertical: 10.0);
   static const Duration animationDuration = Duration(milliseconds: 200);
 }
 

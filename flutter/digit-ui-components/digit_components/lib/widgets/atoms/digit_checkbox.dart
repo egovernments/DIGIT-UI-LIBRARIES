@@ -75,6 +75,9 @@ class _DigitCheckboxState extends State<DigitCheckbox> {
 
   @override
   Widget build(BuildContext context) {
+    /// typography based on screen
+    DigitTypography currentTypography = getTypography(context);
+
     return IntrinsicWidth(
       child: Padding(
         padding: widget.padding,
@@ -114,7 +117,7 @@ class _DigitCheckboxState extends State<DigitCheckbox> {
                           ? CheckboxState.checked
                           : CheckboxState.unchecked,
                       isDisabled: widget.disabled,
-                      color: isHovered ? const DigitColors().lightPrimaryOrange :widget.iconColor,
+                      color: isHovered ? const DigitColors().light.primaryOrange :widget.iconColor,
                     ),
                   ),
                 ),
@@ -124,12 +127,12 @@ class _DigitCheckboxState extends State<DigitCheckbox> {
                     alignment: Alignment.topCenter,
                     child: Text(
                       widget.label,
-                      style: DigitTheme.instance.mobileTheme.textTheme.bodyLarge
-                          ?.copyWith(
+                      style: currentTypography.bodyL
+                          .copyWith(
                         height: 1.5,
                         color: widget.disabled
-                            ? const DigitColors().lightTextDisabled
-                            : const DigitColors().lightTextPrimary,
+                            ? const DigitColors().light.textDisabled
+                            : const DigitColors().light.textPrimary,
                       ),
                     ),
                   ),

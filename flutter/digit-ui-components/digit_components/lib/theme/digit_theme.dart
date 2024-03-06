@@ -13,6 +13,26 @@ class DigitTheme {
 
   DigitColors get colors => const DigitColors();
 
+  DigitTabTypography get tabTypography => DigitTabTypography(
+    normalBase: const TextStyle(
+      fontFamily: 'Roboto',
+    ),
+    displayBase: const TextStyle(
+      fontFamily: 'Roboto',
+    ),
+    light: colors.light.textSecondary,
+    normal: colors.light.textPrimary,
+  );
+  DigitDesktopTypography get desktopTypography => DigitDesktopTypography(
+    normalBase: const TextStyle(
+      fontFamily: 'Roboto',
+    ),
+    displayBase: const TextStyle(
+      fontFamily: 'Roboto',
+    ),
+    light: colors.light.textSecondary,
+    normal: colors.light.textPrimary,
+  );
   DigitMobileTypography get mobileTypography => DigitMobileTypography(
     normalBase: const TextStyle(
       fontFamily: 'Roboto',
@@ -20,8 +40,8 @@ class DigitTheme {
     displayBase: const TextStyle(
       fontFamily: 'Roboto',
     ),
-    light: colors.lightTextSecondary,
-    normal: colors.lightTextPrimary,
+    light: colors.light.textSecondary,
+    normal: colors.light.textPrimary,
   );
 
   const DigitTheme._internal();
@@ -45,24 +65,21 @@ class DigitTheme {
 
   ColorScheme get colorScheme => ColorScheme(
     brightness: Brightness.light,
-    primary: colors.lightPrimaryOrange,
-    onPrimary: colors.lightPaperPrimary,
-    secondary: colors.lightPrimaryBlueGray,
-    onSecondary: colors.lightPaperPrimary,
-    error: colors.lightAlertError,
-    onError: colors.lightPaperPrimary,
-    background: colors.lightPaperPrimary,
-    onBackground: colors.lightTextPrimary,
-    surface: colors.lightPaperSecondary,
-    onSurface: colors.lightTextPrimary,
-    onSurfaceVariant: colors.lightAlertSuccess,
-    tertiaryContainer: colors.tropicalBlue,
-    inversePrimary: colors.lightAlertSuccessBg,
-    surfaceTint: colors.waterBlue,
-    outline: colors.lightGenericDivider,
-    shadow: colors.lightTextSecondary,
-    tertiary: colors.paleRose,
-    onTertiaryContainer: colors.lightAlertInfoBg,
+    primary: colors.light.primaryOrange,
+    onPrimary: colors.light.paperPrimary,
+    secondary: colors.light.primaryBlueGray,
+    onSecondary: colors.light.paperPrimary,
+    error: colors.light.alertError,
+    onError: colors.light.paperPrimary,
+    background: colors.light.paperPrimary,
+    onBackground: colors.light.textPrimary,
+    surface: colors.light.paperSecondary,
+    onSurface: colors.light.textPrimary,
+    onSurfaceVariant: colors.light.alertSuccess,
+    inversePrimary: colors.light.alertSuccessBg,
+    outline: colors.light.genericDivider,
+    shadow: colors.light.textSecondary,
+    onTertiaryContainer: colors.light.alertInfoBg,
   );
 
   EdgeInsets get buttonPadding => const EdgeInsets.symmetric(
@@ -131,7 +148,7 @@ class DigitTheme {
         ),
       ),
       borderSide: BorderSide(
-        color: colors.lightTextSecondary,
+        color: colors.light.textSecondary,
       ),
     ),
     focusedBorder: OutlineInputBorder(
@@ -141,7 +158,7 @@ class DigitTheme {
         ),
       ),
       borderSide: BorderSide(
-        color: colors.lightPrimaryOrange,
+        color: colors.light.primaryOrange,
         width: 2,
       ),
     ),
@@ -151,7 +168,7 @@ class DigitTheme {
           0,
         ),
       ),
-      borderSide: BorderSide(color: colors.lightTextDisabled, width: 1),
+      borderSide: BorderSide(color: colors.light.textDisabled, width: 1),
     ),
     contentPadding: const EdgeInsets.all(12),
     floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -162,7 +179,7 @@ class DigitTheme {
         ),
       ),
       borderSide: BorderSide(
-        color: colors.lightAlertError,
+        color: colors.light.alertError,
       ),
     ),
     focusedErrorBorder: OutlineInputBorder(
@@ -171,7 +188,7 @@ class DigitTheme {
           0,
         ),
       ),
-      borderSide: BorderSide(color: colors.lightAlertError, width: 2),
+      borderSide: BorderSide(color: colors.light.alertError, width: 2),
     ),
   );
 

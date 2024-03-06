@@ -5,13 +5,13 @@ class PoweredByDigit extends StatefulWidget {
   final Size? size;
   final EdgeInsets? padding;
   final String version;
-  final bool islightPaperPrimaryLogo;
+  final bool ispaperPrimaryLogo;
 
   const PoweredByDigit(
       {super.key,
       this.size,
       this.padding,
-      this.islightPaperPrimaryLogo = false,
+      this.ispaperPrimaryLogo = false,
       required this.version});
 
   @override
@@ -30,7 +30,7 @@ class _PoweredByDigitState extends State<PoweredByDigit> {
               child: Image.asset('assets/images/powered_by_digit.png',
                   package: 'digit_components',
                   fit: BoxFit.contain,
-                  color: widget.islightPaperPrimaryLogo
+                  color: widget.ispaperPrimaryLogo
                       ? DigitTheme.instance.colorScheme.onPrimary
                       : null),
             ),

@@ -279,8 +279,8 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
                       Icon(
                         widget.suffixIcon,
                         color: widget.isDisabled
-                            ? const DigitColors().lightTextDisabled
-                            : const DigitColors().lightTextSecondary,
+                            ? const DigitColors().light.textDisabled
+                            : const DigitColors().light.textSecondary,
                       ),
                     ],
                   ),
@@ -338,15 +338,15 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
               ),
               decoration: BoxDecoration(
                 border: Border.all(
-                  color: const DigitColors().lightPrimaryOrange,
+                  color: const DigitColors().light.primaryOrange,
                 ),
                 borderRadius: BorderRadius.circular(50),
-                color: const DigitColors().lightPaperSecondary,
+                color: const DigitColors().light.paperSecondary,
               ),
               child: Text(
                 widget.clearAllText,
                 style: DigitTheme.instance.mobileTheme.textTheme.bodyMedium?.copyWith(
-                  color: const DigitColors().lightPrimaryOrange,
+                  color: const DigitColors().light.primaryOrange,
                   height: 1,
                 ),
               ),
@@ -386,7 +386,7 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
       color: const DigitColors().transparent,
       borderRadius: BorderRadius.zero,
       border: Border.all(
-        color: const DigitColors().lightTextDisabled,
+        color: const DigitColors().light.textDisabled,
         width: 1,
       ),
     );
@@ -399,11 +399,11 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
       borderRadius: BorderRadius.zero,
       border: _selectionMode
           ? Border.all(
-        color: const DigitColors().lightPrimaryOrange,
+        color: const DigitColors().light.primaryOrange,
         width: 1,
       )
           : Border.all(
-        color: const DigitColors().lightTextSecondary,
+        color: const DigitColors().light.textSecondary,
         width: 1,
       ),
     );
@@ -519,8 +519,8 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
             bool isSelected =
             selectedOptions.any((item) => item.name == option.name);
             Color backgroundColor = index % 2 == 0
-                ? const DigitColors().lightPaperPrimary
-                : const DigitColors().lightPaperSecondary;
+                ? const DigitColors().light.paperPrimary
+                : const DigitColors().light.paperSecondary;
             return _buildOption(
               option,
               isSelected,

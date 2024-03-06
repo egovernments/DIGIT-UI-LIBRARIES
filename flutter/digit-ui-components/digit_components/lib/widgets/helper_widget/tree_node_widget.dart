@@ -90,12 +90,12 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
     if (parentNode != null && _areAllChildrenSelected(parentNode)) {
       return const DigitColors().orangeBG;
     } else if (_areAllChildrenSelected(node) && widget.treeSelectionType== TreeSelectionType.MultiSelect) {
-      return const DigitColors().lightPrimaryOrange;
+      return const DigitColors().light.primaryOrange;
     } else {
       return  widget.hoverStates?[widget.currentOption.code] == true
           ? const DigitColors().orangeBG
           : _isExpanded
-          ? const DigitColors().lightPaperSecondary
+          ? const DigitColors().light.paperSecondary
           : widget.backgroundColor;
     }
   }
@@ -174,7 +174,7 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
                             true || _areAllChildrenSelected(
                             widget.currentOption) && !_parentSelected(
                             widget.currentOption, widget.parentNode) && widget.treeSelectionType== TreeSelectionType.MultiSelect
-                            ? const DigitColors().lightPrimaryOrange
+                            ? const DigitColors().light.primaryOrange
                             : Colors.transparent,
                       ),
                       color: _calculateBackgroundColor(
@@ -193,16 +193,16 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
                             size: 24,
                             color: _parentSelected(
                                 widget.currentOption, widget.parentNode)
-                                ? const DigitColors().lightTextSecondary
+                                ? const DigitColors().light.textSecondary
                                 : _areAllChildrenSelected(
                                 widget.currentOption) && widget.treeSelectionType== TreeSelectionType.MultiSelect
-                                ? const DigitColors().lightPaperPrimary
+                                ? const DigitColors().light.paperPrimary
                                 : widget.currentOption.children
                                 .isNotEmpty
-                                ? const DigitColors()
-                                .lightTextPrimary
-                                : const DigitColors()
-                                .lightGenericDivider,
+                                ? const DigitColors().light
+                                .textPrimary
+                                : const DigitColors().light
+                                .genericDivider,
                           ): const SizedBox(width: 24,),
                         ),
                         const SizedBox(
@@ -235,14 +235,14 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
                               state: CheckboxState.checked,
                               color: _parentSelected(widget.currentOption,
                                   widget.parentNode)
-                                  ? const DigitColors()
-                                  .lightPrimaryOrange
+                                  ? const DigitColors().light
+                                  .primaryOrange
                                   : _areAllChildrenSelected(
                                   widget.currentOption)
-                                  ? const DigitColors()
-                                  .lightPaperPrimary
-                                  : const DigitColors()
-                                  .lightPaperPrimary,
+                                  ? const DigitColors().light
+                                  .paperPrimary
+                                  : const DigitColors().light
+                                  .paperPrimary,
                             )
                                 : _isAnyChildSelected(widget.currentOption)
                                 ? const DigitCheckboxIcon(
@@ -268,20 +268,20 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
                             height: 1.188,
                             color:_parentSelected(widget.currentOption,
                                 widget.parentNode)
-                                ? const DigitColors()
-                                .lightTextSecondary
+                                ? const DigitColors().light
+                                .textSecondary
                                 : _areAllChildrenSelected(
                                 widget.currentOption)
-                                ? const DigitColors()
-                                .lightPaperPrimary
-                                : const DigitColors()
-                                .lightTextSecondary,
+                                ? const DigitColors().light
+                                .paperPrimary
+                                : const DigitColors().light
+                                .textSecondary,
                           )
                               : DigitTheme
                               .instance.mobileTheme.textTheme.bodyMedium
                               ?.copyWith(
                             height: 1.125,
-                            color: const DigitColors().lightTextPrimary,
+                            color: const DigitColors().light.textPrimary,
                           ),
                         ),
                       ],
@@ -301,7 +301,7 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
                   decoration: BoxDecoration(
                     border:  Border(
                       left: _areAllChildrenSelected(widget.currentOption) ?  BorderSide.none : BorderSide(
-                        color: const DigitColors().lightGenericDivider,
+                        color: const DigitColors().light.genericDivider,
                         width: 1.0,
                       ) ,
                       top: BorderSide.none,
@@ -322,7 +322,7 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
                         hoverStates: widget.hoverStates,
                         selectedOptions: widget.selectedOptions,
                         onOptionSelected: widget.onOptionSelected,
-                        backgroundColor: const DigitColors().lightPaperPrimary,
+                        backgroundColor: const DigitColors().light.paperPrimary,
                         treeSelectionType: widget.treeSelectionType,
                         currentOption: child,
                         currentHorPadding: widget.currentHorPadding + 2,

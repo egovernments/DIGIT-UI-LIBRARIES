@@ -26,6 +26,9 @@ class _DigitToggleState extends State<DigitToggle> {
 
   @override
   Widget build(BuildContext context) {
+    /// typography based on screen
+    DigitTypography currentTypography = getTypography(context);
+
     return Align(
       alignment: Alignment.centerLeft,
       child: MouseRegion(
@@ -72,13 +75,13 @@ class _DigitToggleState extends State<DigitToggle> {
               borderRadius: BorderRadius.zero,
               border: Border.all(
                 color: (isHovered || widget.isSelected || isMouseDown)
-                    ? const DigitColors().lightPrimaryOrange
-                    : const DigitColors().lightGenericDivider,
+                    ? const DigitColors().light.primaryOrange
+                    : const DigitColors().light.genericDivider,
                 width: 1.0,
               ),
               color: widget.isSelected
-                  ? const DigitColors().lightPrimaryOrange
-                  : const DigitColors().lightPaperPrimary,
+                  ? const DigitColors().light.primaryOrange
+                  : const DigitColors().light.paperPrimary,
               boxShadow: [
                 BoxShadow(
                   color: isMouseDown ? const DigitColors().shadowColor : const DigitColors().transparent,
@@ -100,19 +103,17 @@ class _DigitToggleState extends State<DigitToggle> {
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
                     style: widget.isSelected
-                   ? DigitTheme.instance.mobileTheme.textTheme.bodyMedium?.copyWith(
+                   ? currentTypography.headingS.copyWith(
                         height: 1.5,
                         fontWeight: FontWeight.w700,
-                        color: const DigitColors().lightPaperPrimary,
+                        color: const DigitColors().light.paperPrimary,
                         overflow: TextOverflow.ellipsis,
                     )
-                    :DigitTheme.instance.mobileTheme.textTheme.bodyMedium?.copyWith(
-                      height: 1.5,
+                    :currentTypography.bodyS.copyWith(
+                      height: 1.094,
                       color: (isHovered || isMouseDown)
-                          ? const DigitColors().lightPrimaryOrange
-                          : widget.isSelected
-                          ? const DigitColors().lightPaperPrimary
-                          : const DigitColors().lightTextDisabled,
+                          ? const DigitColors().light.primaryOrange
+                          : const DigitColors().light.textDisabled,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),

@@ -67,12 +67,12 @@ class _DropdownOptionState extends State<DropdownOption> {
                     color: _itemMouseDownStates[widget.option] == true ||
                             _itemHoverStates[widget.option] == true ||
                             widget.isSelected
-                        ? const DigitColors().lightPrimaryOrange
+                        ? const DigitColors().light.primaryOrange
                         : Colors.transparent,
                   ),
                   color: _itemMouseDownStates[widget.option] == true ||
                           widget.isSelected
-                      ? const DigitColors().lightPrimaryOrange
+                      ? const DigitColors().light.primaryOrange
                       : _itemHoverStates[widget.option] == true
                           ? const DigitColors().orangeBG
                           : widget.backgroundColor,
@@ -100,7 +100,7 @@ class _DropdownOptionState extends State<DropdownOption> {
                               ? DigitCheckboxIcon(
                                   size: 20,
                                   state: CheckboxState.checked,
-                                  color: const DigitColors().lightPaperPrimary,
+                                  color: const DigitColors().light.paperPrimary,
                                 )
                               : const DigitCheckboxIcon(
                                   size: 20, state: CheckboxState.unchecked),
@@ -116,8 +116,8 @@ class _DropdownOptionState extends State<DropdownOption> {
                                   color: widget.isSelected ||
                                           _itemMouseDownStates[widget.option] ==
                                               true
-                                      ? const DigitColors().lightPaperPrimary
-                                      : const DigitColors().lightTextSecondary,
+                                      ? const DigitColors().light.paperPrimary
+                                      : const DigitColors().light.textSecondary,
                                 ),
                               if (widget.option.textIcon != null)
                                 const SizedBox(
@@ -131,23 +131,23 @@ class _DropdownOptionState extends State<DropdownOption> {
                                     ? DigitTheme.instance.mobileTheme.textTheme
                                         .headlineSmall
                                         ?.copyWith(
-                                        color: const DigitColors()
-                                            .lightPaperPrimary,
+                                        color: const DigitColors().light
+                                            .paperPrimary,
                                         height: 1.172,
                                       )
                                     : widget.option.description != null
                                         ? DigitTheme.instance.mobileTheme
                                             .textTheme.bodyLarge
                                             ?.copyWith(
-                                            color: const DigitColors()
-                                                .lightTextSecondary,
+                                            color: const DigitColors().light
+                                                .textSecondary,
                                             height: 1.5,
                                           )
                                         : DigitTheme.instance.mobileTheme
                                             .textTheme.bodyMedium
                                             ?.copyWith(
-                                            color: const DigitColors()
-                                                .lightTextPrimary,
+                                            color: const DigitColors().light
+                                                .textPrimary,
                                             height: 1.125,
                                           ),
                               ),
@@ -166,8 +166,8 @@ class _DropdownOptionState extends State<DropdownOption> {
                               color: widget.isSelected ||
                                   _itemMouseDownStates[widget.option] ==
                                       true
-                                  ? const DigitColors().lightPaperPrimary
-                                  : const DigitColors().lightTextSecondary,
+                                  ? const DigitColors().light.paperPrimary
+                                  : const DigitColors().light.textSecondary,
                             ),
                           ),
                         ),
@@ -181,7 +181,7 @@ class _DropdownOptionState extends State<DropdownOption> {
         if (widget.selectionType == SelectionType.nestedMultiSelect)
           Container(
             height: 1,
-            color: const DigitColors().lightGenericDivider,
+            color: const DigitColors().light.genericDivider,
             width: MediaQuery.of(context).size.width,
             margin: const EdgeInsets.only(
               left: 10,

@@ -824,16 +824,11 @@ class MyHomePageState extends State<MyHomePage> {
                     children: [
                       const SizedBox(height: 8),
                       LabeledField(
-                        label: "Dropdown with Value Mapper",
+                        label: "Non Searchable Dropdown",
                         child: DigitDropdown<int>(
                           onChange: (String value, String index) => {},
                           textEditingController: controller41,
-                          valueMapper: const [
-                            ValueMapper(code: '1', name: 'first Mapper'),
-                            ValueMapper(code: '2', name: 'second mapper'),
-                            // ValueMapper(code: '3', name: 'third mapper'),
-                            // ValueMapper(code: '4', name: 'fourth mapper')
-                          ],
+                          isSearchable: false,
                           items: const [
                             DropdownItem(
                               name: 'first',

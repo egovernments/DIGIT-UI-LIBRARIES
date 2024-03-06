@@ -18,14 +18,14 @@ class ChipConfig {
 
   const ChipConfig({
     this.deleteIcon,
-    // this.deleteIconColor = Colors.lightPaperPrimary,
+    // this.deleteIconColor = Colors.paperPrimary,
     this.backgroundColor,
     this.padding = Default.defaultChipPadding,
     this.radius = Default.defaultChipRadius,
     this.spacing = kPadding,
     this.runSpacing = kPadding,
     this.separator,
-    // this.labelColor = Colors.lightPaperPrimary,
+    // this.labelColor = Colors.paperPrimary,
     // this.labelStyle,
     this.labelPadding = EdgeInsets.zero,
     this.autoScroll = false,

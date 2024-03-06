@@ -161,8 +161,8 @@ class BaseDigitFormInput extends StatefulWidget {
   BaseDigitFormInputState createState() => BaseDigitFormInputState();
 }
 
-class BaseDigitFormInputState extends State<BaseDigitFormInput>
-    with WidgetsBindingObserver {
+class BaseDigitFormInputState extends State<BaseDigitFormInput> {
+
   String? _value;
   bool _hasError = false;
   late FocusNode myFocusNode;
@@ -257,6 +257,9 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
 
   @override
   Widget build(BuildContext context) {
+    /// typography based on screen
+    DigitTypography currentTypography = getTypography(context);
+
     int? getValidatorValue(List<Validator>? validators, ValidatorType type) {
       for (var validator in validators!) {
         if (validator?.type == type) {
@@ -338,8 +341,8 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                                   ?.copyWith(
                                 height: 1.5,
                                 color: widget.readOnly
-                                    ? const DigitColors().lightTextSecondary
-                                    : const DigitColors().lightTextPrimary,
+                                    ? const DigitColors().light.textSecondary
+                                    : const DigitColors().light.textPrimary,
                               ),
                               decoration: InputDecoration(
                                 counterText: '',
@@ -355,21 +358,21 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                                     .instance.mobileTheme.textTheme.bodyLarge
                                     ?.copyWith(
                                   height: 1.5,
-                                  color: const DigitColors().lightTextDisabled,
+                                  color: const DigitColors().light.textDisabled,
                                 ),
                                 filled: true,
                                 fillColor: widget.isDisabled
-                                    ? const DigitColors().lightPaperSecondary
+                                    ? const DigitColors().light.paperSecondary
                                     : widget.readOnly
-                                        ? const DigitColors()
-                                            .lightGenericBackground
+                                        ? const DigitColors().light
+                                            .genericBackground
                                         : const DigitColors().transparent,
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     color: _hasError
-                                        ? const DigitColors().lightAlertError
-                                        : const DigitColors()
-                                            .lightTextSecondary,
+                                        ? const DigitColors().light.alertError
+                                        : const DigitColors().light
+                                            .textSecondary,
                                     width: _hasError ? 1.5 : 1.0,
                                   ),
                                   borderRadius: BorderRadius.zero,
@@ -377,8 +380,8 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                                 focusedBorder: widget.readOnly
                                     ? OutlineInputBorder(
                                         borderSide: BorderSide(
-                                          color: const DigitColors()
-                                              .lightTextSecondary,
+                                          color: const DigitColors().light
+                                              .textSecondary,
                                           width: 1.0,
                                         ),
                                         borderRadius: BorderRadius.zero,
@@ -410,7 +413,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                               child: Icon(
                                 TextArea.text_area_expand,
                                 size: 8,
-                                color: const DigitColors().lightTextSecondary,
+                                color: const DigitColors().light.textSecondary,
                               ),
                             ),
                           ),
@@ -447,15 +450,15 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                                 fontFamily: "Roboto-bold",
                                 height: 1.5,
                                 color: widget.readOnly
-                                    ? const DigitColors().lightTextSecondary
-                                    : const DigitColors().lightTextPrimary,
+                                    ? const DigitColors().light.textSecondary
+                                    : const DigitColors().light.textPrimary,
                                 decoration: TextDecoration.none)
                         : DigitTheme.instance.mobileTheme.textTheme.bodyLarge
                             ?.copyWith(
                                 height: 1.5,
                                 color: widget.readOnly
-                                    ? const DigitColors().lightTextSecondary
-                                    : const DigitColors().lightTextPrimary,
+                                    ? const DigitColors().light.textSecondary
+                                    : const DigitColors().light.textPrimary,
                                 decoration: TextDecoration.none),
                     decoration: InputDecoration(
                       counterText: '',
@@ -490,19 +493,19 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                           .instance.mobileTheme.textTheme.bodyLarge
                           ?.copyWith(
                         height: 1.5,
-                        color: const DigitColors().lightTextDisabled,
+                        color: const DigitColors().light.textDisabled,
                       ),
                       filled: true,
                       fillColor: widget.isDisabled
-                          ? const DigitColors().lightPaperSecondary
+                          ? const DigitColors().light.paperSecondary
                           : widget.readOnly
-                              ? const DigitColors().lightGenericBackground
+                              ? const DigitColors().light.genericBackground
                               : const DigitColors().transparent,
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: _hasError
-                              ? const DigitColors().lightAlertError
-                              : const DigitColors().lightTextSecondary,
+                              ? const DigitColors().light.alertError
+                              : const DigitColors().light.textSecondary,
                           width: _hasError ? 1.5 : 1.0,
                         ),
                         borderRadius: BorderRadius.zero,
@@ -510,7 +513,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                       focusedBorder: widget.readOnly
                           ? OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: const DigitColors().lightTextSecondary,
+                                color: const DigitColors().light.textSecondary,
                                 width: 1.0,
                               ),
                               borderRadius: BorderRadius.zero,
@@ -557,18 +560,18 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                                       right: (_isFocusOn || _hasError) && !widget.readOnly  ? 1.5 : 1,
                                     ),
                                     decoration: BoxDecoration(
-                                      color: const DigitColors()
-                                          .lightGenericBackground,
+                                      color: const DigitColors().light
+                                          .genericBackground,
                                       border: Border(
                                         right: BorderSide.none,
                                         top: BorderSide.none,
                                         bottom: BorderSide.none,
                                         left: BorderSide(
                                           color: widget.isDisabled
-                                              ? const DigitColors()
-                                                  .lightGenericDivider
-                                              : const DigitColors()
-                                                  .lightGenericInputBorder,
+                                              ? const DigitColors().light
+                                                  .genericDivider
+                                              : const DigitColors().light
+                                                  .genericInputBorder,
                                           width: 1.0,
                                         ),
                                       ),
@@ -581,10 +584,10 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                                           ?.copyWith(
                                         height: 1.5,
                                         color: widget.isDisabled
-                                            ? const DigitColors()
-                                                .lightTextDisabled
-                                            : const DigitColors()
-                                                .lightTextSecondary,
+                                            ? const DigitColors().light
+                                                .textDisabled
+                                            : const DigitColors().light
+                                                .textSecondary,
                                       ),
                                     ),
                                   ),
@@ -602,18 +605,18 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                                     right: (_isFocusOn || _hasError) && !widget.readOnly  ? 1.5 : 1,
                                   ),
                                   decoration: BoxDecoration(
-                                    color: const DigitColors()
-                                        .lightGenericBackground,
+                                    color: const DigitColors().light
+                                        .genericBackground,
                                     border: Border(
                                       right: BorderSide.none,
                                       top: BorderSide.none,
                                       bottom: BorderSide.none,
                                       left: BorderSide(
                                         color: widget.isDisabled
-                                            ? const DigitColors()
-                                                .lightGenericDivider
-                                            : const DigitColors()
-                                                .lightGenericInputBorder,
+                                            ? const DigitColors().light
+                                                .genericDivider
+                                            : const DigitColors().light
+                                                .genericInputBorder,
                                         width: 1.0,
                                       ),
                                     ),
@@ -626,10 +629,10 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                                         ?.copyWith(
                                       height: 1.5,
                                       color: widget.isDisabled
-                                          ? const DigitColors()
-                                              .lightTextDisabled
-                                          : const DigitColors()
-                                              .lightTextSecondary,
+                                          ? const DigitColors().light
+                                              .textDisabled
+                                          : const DigitColors().light
+                                              .textSecondary,
                                     ),
                                   ),
                                 )
@@ -656,8 +659,8 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                                 )
                               : null,
                       suffixIconColor: widget.isDisabled
-                          ? const DigitColors().lightTextDisabled
-                          : const DigitColors().lightTextSecondary,
+                          ? const DigitColors().light.textDisabled
+                          : const DigitColors().light.textSecondary,
                       prefixIcon: widget.prefixText != null
                           ? widget.prefixText == "-"
                               ? InkWell(
@@ -684,15 +687,15 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                                       left: (_isFocusOn || _hasError) && !widget.readOnly  ? 1.5 : 1,
                                     ),
                                     decoration: BoxDecoration(
-                                      color: const DigitColors()
-                                          .lightGenericBackground,
+                                      color: const DigitColors().light
+                                          .genericBackground,
                                       border: Border(
                                         right: BorderSide(
                                           color: widget.isDisabled
-                                              ? const DigitColors()
-                                                  .lightGenericDivider
-                                              : const DigitColors()
-                                                  .lightGenericInputBorder,
+                                              ? const DigitColors().light
+                                                  .genericDivider
+                                              : const DigitColors().light
+                                                  .genericInputBorder,
                                           width: 1.0,
                                         ),
                                         top: BorderSide.none,
@@ -708,10 +711,10 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                                           ?.copyWith(
                                         height: 1.5,
                                         color: widget.isDisabled
-                                            ? const DigitColors()
-                                                .lightTextDisabled
-                                            : const DigitColors()
-                                                .lightTextSecondary,
+                                            ? const DigitColors().light
+                                                .textDisabled
+                                            : const DigitColors().light
+                                                .textSecondary,
                                       ),
                                     ),
                                   ),
@@ -729,15 +732,15 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                                     left:(_isFocusOn || _hasError) && !widget.readOnly  ? 1.5 : 1,
                                   ),
                                   decoration: BoxDecoration(
-                                    color: const DigitColors()
-                                        .lightGenericBackground,
+                                    color: const DigitColors().light
+                                        .genericBackground,
                                     border: Border(
                                       right: BorderSide(
                                         color: widget.isDisabled
-                                            ? const DigitColors()
-                                                .lightGenericDivider
-                                            : const DigitColors()
-                                                .lightGenericInputBorder,
+                                            ? const DigitColors().light
+                                                .genericDivider
+                                            : const DigitColors().light
+                                                .genericInputBorder,
                                         width: 1.0,
                                       ),
                                       top: BorderSide.none,
@@ -753,10 +756,10 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                                         ?.copyWith(
                                       height: 1.5,
                                       color: widget.isDisabled
-                                          ? const DigitColors()
-                                              .lightTextDisabled
-                                          : const DigitColors()
-                                              .lightTextSecondary,
+                                          ? const DigitColors().light
+                                              .textDisabled
+                                          : const DigitColors().light
+                                              .textSecondary,
                                     ),
                                   ),
                                 )
@@ -792,7 +795,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                                   width: 16,
                                   child: Icon(
                                     Icons.info,
-                                    color: const DigitColors().lightAlertError,
+                                    color: const DigitColors().light.alertError,
                                     size: BaseConstants.errorIconSize,
                                   ),
                                 ),
@@ -805,7 +808,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                                       .instance.mobileTheme.textTheme.bodyMedium
                                       ?.copyWith(
                                     height: 1.5,
-                                    color: const DigitColors().lightAlertError,
+                                    color: const DigitColors().light.alertError,
                                   ),
                                 ),
                               ],
@@ -820,7 +823,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                                   .instance.mobileTheme.textTheme.bodyMedium
                                   ?.copyWith(
                                 height: 1.5,
-                                color: const DigitColors().lightTextSecondary,
+                                color: const DigitColors().light.textSecondary,
                               ),
                             ),
                           ),
@@ -838,7 +841,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput>
                           .instance.mobileTheme.textTheme.bodyMedium
                           ?.copyWith(
                         height: 1.5,
-                        color: const DigitColors().lightTextSecondary,
+                        color: const DigitColors().light.textSecondary,
                       ),
                     ),
                 ],

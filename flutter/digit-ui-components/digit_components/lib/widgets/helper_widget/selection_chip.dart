@@ -48,7 +48,7 @@ class SelectionChip<T> extends StatelessWidget {
         ),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(Default.defaultChipRadius),
-          color: const DigitColors().lightGenericDivider,
+          color: const DigitColors().light.genericDivider,
         ),
         child: Row(
           children: [
@@ -68,7 +68,7 @@ class SelectionChip<T> extends StatelessWidget {
               child: Icon(
                 Icons.cancel,
                 size: 24,
-                color: const DigitColors().lightTextSecondary,
+                color: const DigitColors().light.textSecondary,
               ),
             ),
           ],

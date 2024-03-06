@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../constants/AppView.dart';
 import '../../theme/colors.dart';
 import '../../theme/digit_theme.dart';
+import '../../theme/typography.dart';
 
 class LabeledField extends StatelessWidget {
   final Widget child;
@@ -44,6 +45,9 @@ class LabeledField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    /// typography based on screen
+    DigitTypography currentTypography = getTypography(context);
+
     bool isMobile = AppView.isMobileView(MediaQuery.of(context).size.width);
     if(!isMobile){
       return Padding(
@@ -62,10 +66,10 @@ class LabeledField extends StatelessWidget {
                       label!.length > 64
                           ? '${label!.substring(0, 64)}...'
                           : label!,
-                      style: DigitTheme.instance.mobileTheme.textTheme.bodyLarge
-                          ?.copyWith(
-                        height: 1.1875,
-                        color: const DigitColors().lightTextPrimary,
+                      style: currentTypography.bodyL
+                          .copyWith(
+                        height: 1.172,
+                        color: const DigitColors().light.textPrimary,
                         overflow: wrapLabelText
                             ? TextOverflow.visible
                             : TextOverflow.ellipsis,
@@ -75,9 +79,9 @@ class LabeledField extends StatelessWidget {
                   if (isRequired)
                     Text(
                       ' *',
-                      style: DigitTheme.instance.mobileTheme.textTheme.bodyLarge
-                          ?.copyWith(
-                        color: const DigitColors().lightAlertError,
+                      style: currentTypography.bodyL
+                          .copyWith(
+                        color: const DigitColors().light.alertError,
                       ),
                     ),
                   if (info == true) const SizedBox(width: kPadding / 2),
@@ -89,7 +93,7 @@ class LabeledField extends StatelessWidget {
                       child: Icon(
                         Icons.info_outline,
                         size: 19,
-                        color: const DigitColors().lightTextSecondary,
+                        color: const DigitColors().light.textSecondary,
                       ),
                     )
                 ],
@@ -115,9 +119,9 @@ class LabeledField extends StatelessWidget {
                       label!.length > 64
                           ? '${label!.substring(0, 64)}...'
                           : label!,
-                      style: DigitTheme.instance.mobileTheme.textTheme.bodyLarge
-                          ?.copyWith(
-                        color: const DigitColors().lightTextPrimary,
+                      style: currentTypography.bodyL
+                          .copyWith(
+                        color: const DigitColors().light.textPrimary,
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
@@ -125,9 +129,9 @@ class LabeledField extends StatelessWidget {
                 if (isRequired)
                   Text(
                     ' *',
-                    style: DigitTheme.instance.mobileTheme.textTheme.bodyLarge
-                        ?.copyWith(
-                      color: const DigitColors().lightAlertError,
+                    style: currentTypography.bodyL
+                        .copyWith(
+                      color: const DigitColors().light.alertError,
                     ),
                   ),
                 if (info == true) const SizedBox(width: kPadding / 2),
