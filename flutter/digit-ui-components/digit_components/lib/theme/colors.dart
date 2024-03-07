@@ -33,6 +33,8 @@ class Light {
   Color get alertErrorBg => const Color(0xFFEFC7C1);
   Color get alertSuccessBg => const Color(0xFFBAD6C9);
   Color get alertInfoBg => const Color(0xFF3498DB);
+  Color get alertWarning => const Color(0xFFF19100);
+  Color get alertWarningBg => const Color(0xFFF8E5C8);
 
   /// Generic
   Color get genericBackground => const Color(0xFFEEEEEE);

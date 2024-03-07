@@ -21,6 +21,8 @@ import 'package:digit_components/widgets/atoms/digit_time_form_input.dart';
 import 'package:digit_components/widgets/atoms/digit_toggle_list.dart';
 import 'package:digit_components/widgets/atoms/digit_tree_select_dropdown.dart';
 import 'package:digit_components/widgets/atoms/labelled_fields.dart';
+import 'package:digit_components/widgets/atoms/digit_info_card.dart';
+import 'package:digit_components/widgets/atoms/digit_toast.dart';
 import 'package:digit_components/widgets/scrollable_content.dart';
 import 'package:flutter/material.dart';
 import 'package:url_strategy/url_strategy.dart';
@@ -1810,6 +1812,58 @@ class MyHomePageState extends State<MyHomePage> {
                       ),
                     ],
                   ),
+                const SizedBox(height: 8),
+                const Divider(),
+                const SizedBox(
+                  height: 8,
+                ),
+                DigitCheckbox(
+                  label: 'Click to see the Success toast',
+                  value: false,
+                  onChanged: (value) {
+                    if (value) {
+                      DigitToast.show(context,
+                          options: DigitToastOptions(
+                              "Your Success message", ToastType.success));
+                    }
+                  },
+                ),
+                const SizedBox(height: 8),
+                DigitCheckbox(
+                  label: 'Click to see the error toast',
+                  value: false,
+                  onChanged: (value) {
+                    if (value) {
+                      DigitToast.show(context,
+                          options: DigitToastOptions(
+                              "Your error message", ToastType.error));
+                    }
+                  },
+                ),
+               const SizedBox(height: 8,),
+                DigitCheckbox(
+                  label: 'Click to see the Warning toast',
+                  value: false,
+                  onChanged: (value) {
+                    if (value) {
+                      DigitToast.show(context,
+                          options: DigitToastOptions(
+                              "Your Warning message", ToastType.warning));
+                    }
+                  },
+                ),
+                const SizedBox(height: 8,),
+                DigitCheckbox(
+                  label: 'Click to see the Success toast with long message',
+                  value: false,
+                  onChanged: (value) {
+                    if (value) {
+                      DigitToast.show(context,
+                          options: DigitToastOptions(
+                              "Message token created successfully and Users Are Unable to Login to the Professional after an Upgrade to Version it is working fine. Learn about token based authentication and how to easily implement JWT in your application", ToastType.success));
+                    }
+                  },
+                ),
                 const SizedBox(height: 8),
                 const Divider(),
                 const SizedBox(

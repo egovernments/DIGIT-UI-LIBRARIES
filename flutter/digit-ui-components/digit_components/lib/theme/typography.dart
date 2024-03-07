@@ -274,17 +274,17 @@ class DigitDesktopTypography extends DigitTypography {
         fontFamily: 'Robot-bold',
       ),
       bodyLarge: _normal.copyWith(
-        fontSize: 16,
+        fontSize: 20,
         fontWeight: FontWeight.w400,
         fontFamily: 'Roboto',
       ),
       bodyMedium: _normal.copyWith(
-        fontSize: 14,
+        fontSize: 16,
         fontWeight: FontWeight.w400,
         fontFamily: 'Roboto',
       ),
       bodySmall: _normal.copyWith(
-        fontSize: 12,
+        fontSize: 14,
         fontWeight: FontWeight.w400,
         fontFamily: 'Roboto',
       ),

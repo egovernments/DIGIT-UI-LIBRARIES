@@ -109,7 +109,7 @@ class _DigitToggleState extends State<DigitToggle> {
                         color: const DigitColors().light.paperPrimary,
                         overflow: TextOverflow.ellipsis,
                     )
-                    :currentTypography.bodyS.copyWith(
+                    :currentTypography.bodyXS.copyWith(
                       height: 1.094,
                       color: (isHovered || isMouseDown)
                           ? const DigitColors().light.primaryOrange
