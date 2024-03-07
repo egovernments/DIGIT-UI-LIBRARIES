@@ -2039,7 +2039,7 @@ class HotReload extends StatelessWidget {
                   name: 'Default',
                   builder: (context) => DigitStepper(
                     list: const ['Step 1', 'Step 2', 'Step 3', 'Step 4', 'Step 5', 'Step 6'],
-                    currentStep: context.knobs.doubleOrNull
+                    page: context.knobs.doubleOrNull
                         .slider(
                       label: 'Current Step',
                       min: 0,

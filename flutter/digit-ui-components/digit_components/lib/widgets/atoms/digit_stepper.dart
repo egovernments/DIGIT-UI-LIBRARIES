@@ -7,8 +7,6 @@ import 'dart:async';
 import 'package:digit_components/digit_components.dart';
 import 'package:flutter/material.dart';
 
-import '../../theme/typography.dart';
-
 /// The `FlutterStepIndicator` is a widget that displays a step indicator for visualizing progress through a multi-step process. This class extends `StatefulWidget` and can be used to display and monitor various stages, such as the steps in a registration process or multiple stages in a specific task.
 
 /// Parameters:
@@ -29,7 +27,8 @@ import '../../theme/typography.dart';
 
 class DigitStepper extends StatefulWidget {
   final List list;
-  final int currentStep;
+  final int page;
+  final Widget? positiveCheck;
   final double height;
   final Duration? durationScroller;
   final Duration? durationCheckBulb;
@@ -52,10 +51,11 @@ class DigitStepper extends StatefulWidget {
     this.onClickItem,
     this.paddingLine,
     this.padding,
+    this.positiveCheck,
     this.negativeColor,
     this.positiveColor,
     this.progressColor,
-    required this.currentStep,
+    required this.page,
     required this.height,
   });
 
@@ -75,7 +75,6 @@ class _DigitStepperState extends State<DigitStepper> {
 
   @override
   Widget build(BuildContext context) {
-    DigitTypography currentTypography = getTypography(context);
     return SizedBox(
       width: double.maxFinite,
       // height: widget.height,
@@ -89,9 +88,8 @@ class _DigitStepperState extends State<DigitStepper> {
             scrollDirection: Axis.horizontal,
             itemCount: widget.list.length,
             itemBuilder: (context, index) => Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-
                 (index == 0)
                     ? ItemStepIndicatorZero(
                         onClickItem: widget.onClickItem,
@@ -108,8 +106,7 @@ class _DigitStepperState extends State<DigitStepper> {
                             ? Colors.orange
                             : widget.progressColor!,
                         index: index,
-                        item: widget.list[index],
-                        currentPage: widget.currentStep,
+                        currentPage: widget.page,
                         height: widget.height,
                         width: widget.height)
                     : ItemStepIndicator(
@@ -119,8 +116,7 @@ class _DigitStepperState extends State<DigitStepper> {
                         height: widget.height,
                         paddingLine: paddingLine,
                         padding: paddingBulb,
-                        currentPage: widget.currentStep,
-                        item: widget.list[index],
+                        currentPage: widget.page,
                         disableColor: (widget.negativeColor == null)
                             ? Colors.grey
                             : widget.negativeColor!,
@@ -136,13 +132,47 @@ class _DigitStepperState extends State<DigitStepper> {
                 const SizedBox(
                   height: 8,
                 ),
-                Text(
-                    widget.list[index], // Assuming list contains step names
-                    style: currentTypography.bodyL.copyWith(
-                      height: 1.5,
-                      color: const DigitColors().lightTextPrimary,
-                    ) // Adjust the font size as needed
-                ),
+                (index == 0)
+                    ? ItemStepIndicatorZero1(
+                        onClickItem: widget.onClickItem,
+                        duration: _currentDurationBulb(),
+                        childCheck: _checkEnable(index),
+                        padding: paddingBulb,
+                        item: widget.list[index],
+                        disableColor: (widget.negativeColor == null)
+                            ? Colors.grey
+                            : widget.negativeColor!,
+                        enableColor: (widget.positiveColor == null)
+                            ? Colors.green
+                            : widget.positiveColor!,
+                        progressColor: (widget.progressColor == null)
+                            ? Colors.orange
+                            : widget.progressColor!,
+                        index: index,
+                        currentPage: widget.page,
+                        height: widget.height,
+                        width: widget.height)
+                    : ItemStepIndicator1(
+                        onClickItem: widget.onClickItem,
+                        duration: _currentDurationBulb(),
+                        childCheck: _checkEnable(index),
+                        height: widget.height,
+                        paddingLine: paddingLine,
+                        padding: paddingBulb,
+                        item: widget.list[index],
+                        currentPage: widget.page,
+                        disableColor: (widget.negativeColor == null)
+                            ? Colors.grey
+                            : widget.negativeColor!,
+                        enableColor: (widget.positiveColor == null)
+                            ? Colors.green
+                            : widget.positiveColor!,
+                        progressColor: (widget.progressColor == null)
+                            ? Colors.orange
+                            : widget.progressColor!,
+                        index: index,
+                        width: widthIndicator(constraints.maxWidth),
+                      ),
               ],
             ),
           );
@@ -164,42 +194,38 @@ class _DigitStepperState extends State<DigitStepper> {
   }
 
   Widget _checkEnable(int currentIndex) {
-    return widget.currentStep > currentIndex
-        ? const Icon(
-            Icons.check,
-            size: 24,
-            color: Colors.white,
-          )
-        : Text(
-        (currentIndex+1).toString(),
-    );
+    return currentIndex == widget.page
+        ? Text(currentIndex.toString())
+        : currentIndex > widget.page
+            ? Text(currentIndex.toString())
+            : const Icon(
+                Icons.check,
+                size: 24,
+                color: Colors.white,
+              );
   }
 
   @override
   void didUpdateWidget(covariant DigitStepper oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (((widget.list.length * widget.height) > (maxWidths / 2))) {
-      if ((widget.currentStep - 2) >= 0 &&
-          (widget.currentStep - 2) <= (widget.list.length - 5)) {
-        controller.animateTo(
-            (widget.currentStep - 2) * widthIndicator(maxWidths),
-            duration: _currentDuration(),
-            curve: Curves.decelerate);
+      if ((widget.page - 2) >= 0 &&
+          (widget.page - 2) <= (widget.list.length - 5)) {
+        controller.animateTo((widget.page - 2) * widthIndicator(maxWidths),
+            duration: _currentDuration(), curve: Curves.decelerate);
       }
     } else {
       // ignore: curly_braces_in_flow_control_structures
       if (((((maxWidths - widget.height) / (widget.list.length - 1)) <
           // ignore: curly_braces_in_flow_control_structures
-          (widget.height + 5)))) if ((widget.currentStep - 2) >=
+          (widget.height + 5)))) if ((widget.page - 2) >=
               0 &&
-          (widget.currentStep - 2) <= (widget.list.length - 5)) {
-        controller.animateTo(
-            (widget.currentStep - 2) * widthIndicator(maxWidths),
-            duration: _currentDuration(),
-            curve: Curves.decelerate);
+          (widget.page - 2) <= (widget.list.length - 5)) {
+        controller.animateTo((widget.page - 2) * widthIndicator(maxWidths),
+            duration: _currentDuration(), curve: Curves.decelerate);
       }
     }
-    widget.onChange.call(widget.currentStep);
+    widget.onChange.call(widget.page);
   }
 
   double widthIndicator(double maxWidth) {
@@ -235,7 +261,6 @@ class ItemStepIndicatorZero extends StatelessWidget {
   final Color disableColor;
   final Color progressColor;
   final Color enableColor;
-  final String item;
   final Widget childCheck;
 
   const ItemStepIndicatorZero({
@@ -251,12 +276,10 @@ class ItemStepIndicatorZero extends StatelessWidget {
     required this.progressColor,
     required this.enableColor,
     required this.childCheck,
-    required this.item,
   });
 
   @override
   Widget build(BuildContext context) {
-
     return Center(
       child: InkWell(
         splashColor: Colors.transparent,
@@ -268,40 +291,45 @@ class ItemStepIndicatorZero extends StatelessWidget {
         child: Container(
           height: 32,
           width: 32,
+          margin: const EdgeInsets.only(
+            left: 8,
+          ),
           padding: padding,
           child: AnimatedContainer(
             curve: Curves.easeOutQuint,
             duration: duration,
             decoration: BoxDecoration(
-              color: (index == currentPage)
-                  ? Colors.transparent
-                  : (index < currentPage ? enableColor : disableColor),
-              borderRadius: BorderRadius.circular(150),
+              color: index <= currentPage
+                  ? const DigitColors().lightPrimaryOrange
+                  : const DigitColors().lightTextDisabled,
+              borderRadius: BorderRadius.circular(50),
               border: Border.all(
-                  color: (index == currentPage)
-                      ? progressColor
-                      : (index < currentPage ? enableColor : disableColor),
+                  color: index <= currentPage
+                      ? const DigitColors().lightPrimaryOrange
+                      : const DigitColors().lightTextDisabled,
                   width: (index == currentPage) ? 2 : 0),
             ),
-            padding: EdgeInsets.all((index == currentPage) ? 2.5 : 0),
+            // padding: EdgeInsets.all((index == currentPage) ? 2.5 : 0),
             alignment: Alignment.centerRight,
             child: Center(
                 child: (index == currentPage)
-                    ? AnimatedContainer(
-                        duration: Duration(
-                            milliseconds: duration.inMilliseconds ~/ 1.3),
+                    ? Container(
                         width: double.maxFinite,
                         height: double.maxFinite,
                         decoration: BoxDecoration(
-                            color: (index == currentPage)
-                                ? progressColor
-                                : (index < currentPage
-                                    ? enableColor
-                                    : disableColor),
-                            borderRadius: BorderRadius.circular(150)),
-                      )
-                    : index+1 == currentPage ? ShowUpAnimationPage(
-                        duration: duration, delay: 0, child: childCheck) : childCheck),
+                            color: index <= currentPage
+                                ? const DigitColors().lightPrimaryOrange
+                                : const DigitColors().lightTextDisabled,
+                            borderRadius: BorderRadius.circular(50)),
+                  child: Center(
+                    child: Text(
+                      (index + 1).toString(),
+                      style: TextStyle(color: const DigitColors().lightPaperPrimary)),
+                  ))
+                    : index + 1 == currentPage
+                        ? ShowUpAnimationPage(
+                            duration: duration, delay: 0, child: childCheck)
+                        : childCheck),
           ),
         ),
       ),
@@ -309,7 +337,47 @@ class ItemStepIndicatorZero extends StatelessWidget {
   }
 }
 
-class ItemStepIndicator extends StatelessWidget {
+class ItemStepIndicatorZero1 extends StatelessWidget {
+  final double width;
+  final double height;
+  final int currentPage;
+  final EdgeInsetsGeometry padding;
+  final Duration duration;
+  final int index;
+  final Function(int)? onClickItem;
+  final Color disableColor;
+  final Color progressColor;
+  final String item;
+  final Color enableColor;
+  final Widget childCheck;
+
+  const ItemStepIndicatorZero1({
+    super.key,
+    required this.height,
+    required this.duration,
+    required this.padding,
+    this.onClickItem,
+    required this.item,
+    required this.width,
+    required this.currentPage,
+    required this.index,
+    required this.disableColor,
+    required this.progressColor,
+    required this.enableColor,
+    required this.childCheck,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(
+        child: Text(item),
+      ),
+    );
+  }
+}
+
+class ItemStepIndicator extends StatefulWidget {
   final double width;
   final double height;
   final int currentPage;
@@ -318,14 +386,13 @@ class ItemStepIndicator extends StatelessWidget {
   final Function(int)? onClickItem;
   final Duration duration;
   final int index;
-  final String item;
   final Color disableColor;
   final Color progressColor;
   final Color enableColor;
   final Widget childCheck;
 
   const ItemStepIndicator({
-    super.key,
+    Key? key,
     required this.height,
     required this.duration,
     required this.width,
@@ -334,7 +401,251 @@ class ItemStepIndicator extends StatelessWidget {
     this.onClickItem,
     required this.padding,
     required this.index,
+    required this.disableColor,
+    required this.progressColor,
+    required this.enableColor,
+    required this.childCheck,
+  }) : super(key: key);
+
+  @override
+  _ItemStepIndicatorState createState() => _ItemStepIndicatorState();
+}
+
+class _ItemStepIndicatorState extends State<ItemStepIndicator> {
+  late AnimationController _animationController;
+  bool _isdone = false;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: widget.width,
+      child: Row(
+        textDirection: TextDirection.rtl,
+        children: [
+          InkWell(
+            splashColor: Colors.transparent,
+            onTap: (widget.onClickItem == null)
+                ? null
+                : () {
+              widget.onClickItem!.call(widget.index);
+            },
+            child: Container(
+              padding: widget.padding,
+              height: 32,
+              width: 32,
+              child: SizedBox(
+                child: (widget.index == widget.currentPage)
+                    ? _isdone ? _enable(widget.index):_disable(widget.index)
+                    : (widget.index < widget.currentPage)
+                    ? _done(widget.index)
+                    : _disable(widget.index),
+              ),
+            ),
+          ),
+          Expanded(
+            child: Container(
+              padding: widget.paddingLine,
+              height: 4,
+              child: TweenAnimationBuilder<double>(
+                tween: Tween(begin: 0,
+                    end: (widget.index == widget.currentPage) ? 1.0 : 0.0),
+                curve: Curves.decelerate,
+                onEnd: () {
+                  setState(() {
+                    _isdone = true;
+                  });
+                },
+                duration: Duration(
+                    milliseconds: widget.duration.inMilliseconds ~/ 1.6),
+                builder: (context, value, _) =>
+                    LayoutBuilder(
+                      builder: (context, constraints) {
+                        return ClipRRect(
+                          borderRadius: BorderRadius.circular(0),
+                          child: Stack(
+                            children: [
+                              Visibility(
+                                visible: true,
+                                child: Container(
+                                  width: double.maxFinite,
+                                  height: double.maxFinite,
+                                  color: widget.index < widget.currentPage
+                                      ? const DigitColors().lightPrimaryOrange
+                                      : const DigitColors().lightTextDisabled,
+                                ),
+                              ),
+                              AnimatedContainer(
+                                duration: Duration(
+                                  milliseconds: widget.duration
+                                      .inMilliseconds ~/ 1.6,
+                                ),
+                                width: (constraints.maxWidth * value),
+                                height: double.maxFinite,
+                                decoration: BoxDecoration(
+                                  gradient: (widget.index == widget.currentPage)
+                                      ? LinearGradient(
+                                      colors: [
+                                        const DigitColors().lightPrimaryOrange,
+                                        const DigitColors().lightPrimaryOrange
+                                      ],
+                                      end: Alignment.centerRight,
+                                      begin: Alignment.centerLeft)
+                                      : (widget.index < widget.currentPage
+                                      ? LinearGradient(
+                                      colors: [
+                                        const DigitColors().lightPrimaryOrange,
+                                        const DigitColors().lightPrimaryOrange
+                                      ],
+                                      end: Alignment.centerRight,
+                                      begin: Alignment.centerLeft)
+                                      : LinearGradient(
+                                      colors: [
+                                        const DigitColors().lightPrimaryOrange,
+                                        const DigitColors().lightTextDisabled
+                                      ],
+                                      end: Alignment.centerRight,
+                                      begin: Alignment.centerLeft)),
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+  Widget _done(int currIndex) {
+    return Container(
+      decoration: BoxDecoration(
+        color: const DigitColors().lightPrimaryOrange,
+        borderRadius: BorderRadius.circular(50),
+      ),
+      alignment: Alignment.centerRight,
+      child: Center(
+        child: (currIndex + 1 == widget.currentPage)
+            ? AnimatedContainer(
+          curve: Curves.easeOutQuint,
+          duration: Duration(milliseconds: widget.duration.inMilliseconds),
+          width: double.maxFinite,
+          height: double.maxFinite,
+          decoration: BoxDecoration(
+            color: const DigitColors().lightPrimaryOrange,
+            borderRadius: BorderRadius.circular(50),
+          ),
+          child: ShowUpAnimationPage(
+            duration: widget.duration,
+            delay: 0,
+            child: widget.childCheck,
+          ),
+        )
+            : Container(
+            decoration: BoxDecoration(
+              color: const DigitColors().lightPrimaryOrange,
+              borderRadius: BorderRadius.circular(50),
+            ),
+            alignment: Alignment.centerRight,
+            child: Center(child: widget.childCheck)),
+      ),
+    );
+  }
+
+  Widget _disable(int currentIndex) {
+    return AnimatedContainer(
+      curve: Curves.easeOutQuint,
+      duration: Duration(milliseconds: widget.duration.inMilliseconds),
+      decoration: BoxDecoration(
+        color: Colors.transparent,
+        borderRadius: BorderRadius.circular(50),
+        border: Border.all(color: Colors.transparent, width: 0.0),
+      ),
+      alignment: Alignment.centerRight,
+      child: Center(
+        child: Container(
+          width: double.maxFinite,
+          height: double.maxFinite,
+          decoration: BoxDecoration(
+              color: const DigitColors().lightTextDisabled,
+              borderRadius: BorderRadius.circular(50)),
+          child: Center(
+              child: Text(
+                (currentIndex + 1).toString(),
+                style: TextStyle(color: const DigitColors().lightPaperPrimary),
+              )),
+        ),
+      ),
+    );
+  }
+
+  Widget _enable(int currentIndex) {
+    return AnimatedContainer(
+      curve: Curves.easeOutQuint,
+      duration: Duration(milliseconds: widget.duration.inMilliseconds),
+      decoration: BoxDecoration(
+        color: const DigitColors().lightPrimaryOrange,
+        borderRadius: BorderRadius.circular(50),
+        border: Border.all(color: const DigitColors().lightPrimaryOrange, width: 2.0),
+      ),
+      alignment: Alignment.centerRight,
+      child: Center(
+        child: Container(
+          width: double.maxFinite,
+          height: double.maxFinite,
+          decoration: BoxDecoration(
+              color: const DigitColors().lightPrimaryOrange,
+              borderRadius: BorderRadius.circular(50)),
+          child: Center(
+            child: Text(
+              (currentIndex + 1).toString(),
+              style: TextStyle(color: const DigitColors().lightPaperPrimary),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class ItemStepIndicator1 extends StatelessWidget {
+  final double width;
+  final double height;
+  final int currentPage;
+  final String item;
+  final EdgeInsetsGeometry padding;
+  final EdgeInsetsGeometry paddingLine;
+  final Function(int)? onClickItem;
+  final Duration duration;
+  final int index;
+  final Color disableColor;
+  final Color progressColor;
+  final Color enableColor;
+  final Widget childCheck;
+
+  const ItemStepIndicator1({
+    super.key,
+    required this.height,
+    required this.duration,
+    required this.width,
+    required this.currentPage,
+    required this.paddingLine,
     required this.item,
+    this.onClickItem,
+    required this.padding,
+    required this.index,
     required this.disableColor,
     required this.progressColor,
     required this.enableColor,
@@ -348,54 +659,35 @@ class ItemStepIndicator extends StatelessWidget {
       child: Row(
         textDirection: TextDirection.rtl,
         children: [
-          InkWell(
-            splashColor: Colors.transparent,
-            onTap: (onClickItem == null)
-                ? null
-                : () {
-                    onClickItem!.call(index);
-                  },
-            child: Container(
-              padding: padding,
-              height: 32,
-              width: 32,
-              child: SizedBox(
-                  child: (index == currentPage)
-                      ? _enable()
-                      : (index < currentPage)
-                          ? _done(index)
-                          : _disable()),
-            ),
+          Container(
+            // width: height,
+            child: Text(item),
           ),
           Expanded(
             child: Container(
-              // margin: const EdgeInsets.only(bottom: 24,),
-              padding: EdgeInsets.zero,
+              padding: paddingLine,
               height: 4,
               child: TweenAnimationBuilder<double>(
-                tween: Tween(
-                    begin: 0,
-                    end: (index == currentPage)
-                        ? 1.0
-                        : (index < currentPage ? 0.0 : 0.0)),
-                curve: Curves.linear,
+                tween: Tween(begin: 0, end: (index == currentPage) ? 0.0 : 0.0),
+                curve: Curves.decelerate,
                 duration:
                     Duration(milliseconds: duration.inMilliseconds ~/ 1.6),
                 builder: (context, value, _) => LayoutBuilder(
                   builder: (context, constraints) {
                     return ClipRRect(
-                      borderRadius: BorderRadius.circular(0),
+                      borderRadius: BorderRadius.circular(50),
                       child: Stack(
                         children: [
                           Visibility(
-                              visible: true,
-                              child: Container(
-                                width: double.maxFinite,
-                                height: double.maxFinite,
-                                color: index < currentPage
-                                    ? enableColor
-                                    : disableColor.withOpacity(0.5),
-                              )),
+                            visible: false,
+                            child: Container(
+                              width: double.maxFinite,
+                              height: double.maxFinite,
+                              color: index < currentPage
+                                  ? enableColor
+                                  : disableColor.withOpacity(0.5),
+                            ),
+                          ),
                           AnimatedContainer(
                             duration: Duration(
                                 milliseconds: duration.inMilliseconds ~/ 1.6),
@@ -442,7 +734,7 @@ class ItemStepIndicator extends StatelessWidget {
       ),
       alignment: Alignment.centerRight,
       child: Center(
-        child: (currIndex+1 == currentPage)
+        child: (currIndex + 1 == currentPage)
             ? AnimatedContainer(
                 curve: Curves.easeOutQuint,
                 duration: Duration(milliseconds: duration.inMilliseconds),
@@ -464,16 +756,26 @@ class ItemStepIndicator extends StatelessWidget {
   }
 
   Widget _disable() {
-    return Center(
-        child: AnimatedContainer(
-      duration: Duration(milliseconds: duration.inMilliseconds ~/ 1),
-      width: double.maxFinite,
-      height: double.maxFinite,
+    return AnimatedContainer(
+      curve: Curves.easeOutQuint,
+      duration: Duration(milliseconds: duration.inMilliseconds),
       decoration: BoxDecoration(
-          color: disableColor.withOpacity(0.5),
-          borderRadius: BorderRadius.circular(50)),
-          child: childCheck,
-    ));
+        color: Colors.transparent,
+        borderRadius: BorderRadius.circular(50),
+        border: Border.all(color: Colors.transparent, width: 0.0),
+      ),
+      alignment: Alignment.centerRight,
+      child: Center(
+        child: AnimatedContainer(
+          duration: Duration(milliseconds: duration.inMilliseconds ~/ 1),
+          width: double.maxFinite,
+          height: double.maxFinite,
+          decoration: BoxDecoration(
+              color: disableColor.withOpacity(0.5),
+              borderRadius: BorderRadius.circular(50)),
+        ),
+      ),
+    );
   }
 
   Widget _enable() {
@@ -485,7 +787,6 @@ class ItemStepIndicator extends StatelessWidget {
         borderRadius: BorderRadius.circular(50),
         border: Border.all(color: progressColor, width: 2.0),
       ),
-      padding: const EdgeInsets.all(2.5),
       alignment: Alignment.centerRight,
       child: Center(
           child: AnimatedContainer(
@@ -494,7 +795,6 @@ class ItemStepIndicator extends StatelessWidget {
         height: double.maxFinite,
         decoration: BoxDecoration(
             color: progressColor, borderRadius: BorderRadius.circular(50)),
-            child: childCheck,
       )),
     );
   }

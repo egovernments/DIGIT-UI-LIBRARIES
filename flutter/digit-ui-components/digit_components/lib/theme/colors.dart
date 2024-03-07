@@ -43,7 +43,7 @@ class DigitColors {
   Color get orangeBG  => const Color.fromRGBO(255, 250, 247, 1);
   Color get transparent => const Color.fromRGBO(0, 0, 0, 0);
   Color get shadowColor => const Color.fromRGBO(244, 119, 56, 0.50);
-  Color get primaryOrange => const Color.fromRGBO(234, 99, 31, 1);
+  Color get primaryOrange => const Color.fromRGBO(234, 99, 31, 1); /// hover
   Color get warning => const Color.fromRGBO(233, 140, 2, 1);
   Color get warningBg => const Color(0xFFF8E5C8);
   Color get info => const Color(0xFF3498DB);
