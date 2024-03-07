@@ -1910,6 +1910,44 @@ class MyHomePageState extends State<MyHomePage> {
                       ),
                     ],
                   ),
+                const SizedBox(height: 8),
+                const Divider(),
+                const SizedBox(
+                  height: 8,
+                ),
+                InfoCard(
+                  title: 'Info',
+                  type: InfoType.info,
+                  description:
+                  'Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect theservice to get completed in 24 hrs from the time of payment.',
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                InfoCard(
+                  title: 'Success',
+                  type: InfoType.success,
+                  description:
+                  'Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect theservice to get completed in 24 hrs from the time of payment.',
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                InfoCard(
+                  title: 'Error',
+                  type: InfoType.error,
+                  description:
+                  'Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect theservice to get completed in 24 hrs from the time of payment.',
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                InfoCard(
+                  title: 'Warning',
+                  type: InfoType.warning,
+                  description:
+                  'Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect theservice to get completed in 24 hrs from the time of payment.',
+                ),
               ],
             ),
           ),

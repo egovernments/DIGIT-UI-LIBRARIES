@@ -23,7 +23,9 @@ class DigitToast {
 
     DigitTypography currentTypography = getTypography(context);
 
-    double inputWidth = AppView.isMobileView(MediaQuery.of(context).size.width)
+    bool isMobile = AppView.isMobileView(MediaQuery.of(context).size.width);
+
+    double inputWidth = isMobile
         ? 360
         : AppView.isTabletView(MediaQuery.of(context).size.width)
         ? 480
@@ -67,6 +69,7 @@ class DigitToast {
                 overflow: TextOverflow.ellipsis,
                 style: currentTypography.captionS.copyWith(
                   color: const DigitColors().light.paperPrimary,
+                  height: isMobile ? 1.188 : 1.5,
                 ),
               ),
             ),

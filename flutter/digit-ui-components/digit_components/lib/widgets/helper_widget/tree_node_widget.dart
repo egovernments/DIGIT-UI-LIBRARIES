@@ -293,7 +293,7 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
           ),
           if (_isExpanded && widget.currentOption.children.isNotEmpty)
             Container(
-              color: _areAllChildrenSelected(widget.currentOption) ? DigitColors().orangeBG : DigitColors().transparent,
+              color: _areAllChildrenSelected(widget.currentOption) ? const DigitColors().orangeBG : const DigitColors().light.paperPrimary,
               child: Padding(
                 padding: EdgeInsets.only(left: widget.currentHorPadding),
                 child: Container(

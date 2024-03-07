@@ -479,8 +479,18 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
                     clipBehavior: Clip.none,
                     child: SingleChildScrollView(
                       physics: const AlwaysScrollableScrollPhysics(),
-                      child: SizedBox(
+                      child: Container(
                         width: size.width,
+                        decoration: const BoxDecoration(
+                          boxShadow: [
+                              BoxShadow(
+                                offset: Offset(0, 1),
+                                blurRadius: 4.4,
+                                spreadRadius: 0,
+                                color: Color(0x26000000), // #00000026
+                              ),
+                          ],
+                        ),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [

@@ -15,7 +15,7 @@ class Light {
   /// Primary
   Color get primaryOrange => const Color(0xFFF47738);
   Color get primaryBlueGray => const Color(0xFF0B4B66);
-  Color get primaryOrangebg => const Color(0xFFFEEFE7);
+  Color get primaryOrangeBg => const Color(0xFFFEEFE7);
 
   /// Text
   Color get textPrimary => const Color(0xFF0B0C0C);
@@ -29,10 +29,10 @@ class Light {
   /// Alert
   Color get alertError => const Color(0xFFD4351C);
   Color get alertSuccess => const Color(0xFF00703C);
-  Color get alertInfo => const Color(0xFF1E8FE1);
+  Color get alertInfo => const Color(0xFF3498DB);
   Color get alertErrorBg => const Color(0xFFEFC7C1);
   Color get alertSuccessBg => const Color(0xFFBAD6C9);
-  Color get alertInfoBg => const Color(0xFF3498DB);
+  Color get alertInfoBg => const Color(0xFFC7E0F1);
   Color get alertWarning => const Color(0xFFF19100);
   Color get alertWarningBg => const Color(0xFFF8E5C8);
 

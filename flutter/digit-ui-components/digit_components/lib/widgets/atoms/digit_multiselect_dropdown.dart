@@ -409,8 +409,18 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                   child: Material(
                     borderRadius: BorderRadius.zero,
                     shadowColor: null,
-                    child: SizedBox(
+                    child: Container(
                       width: size.width,
+                      decoration: const BoxDecoration(
+                        boxShadow: [
+                            BoxShadow(
+                              offset: Offset(0, 1),
+                              blurRadius: 4.4,
+                              spreadRadius: 0,
+                              color: Color(0x26000000), // #00000026
+                            ),
+                        ],
+                      ),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
