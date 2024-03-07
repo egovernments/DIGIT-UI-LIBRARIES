@@ -44,14 +44,18 @@ class DigitToast {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(
-              options.type == ToastType.success
-                  ? Icons.check_circle
-                  : options.type == ToastType.error
-                  ? Icons.error
-                  : Icons.warning,
-              color: Colors.white,
-              size: 24,
+            SizedBox(
+              height: 24,
+              width: 24,
+              child: Icon(
+                options.type == ToastType.success
+                    ? Icons.check_circle
+                    : options.type == ToastType.error
+                    ? Icons.error
+                    : Icons.warning,
+                color: const DigitColors().light.paperPrimary,
+                size: 24,
+              ),
             ),
             const SizedBox(
               width: kPadding,

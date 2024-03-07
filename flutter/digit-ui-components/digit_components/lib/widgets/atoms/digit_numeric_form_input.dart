@@ -106,8 +106,6 @@ class _DigitNumericFormInputState extends BaseDigitFormInputState {
       // Add step to the input value when the suffix icon is clicked
       int currentValue = int.tryParse(widget.controller.text) ?? 0;
       if ((currentValue + widget.step) <= widget.maxValue) {
-        /// Remove the text selection
-        widget.controller.selection = const TextSelection.collapsed(offset: -1);
         widget.controller.text = (currentValue + widget.step).toString();
         /// Remove the text selection
         widget.controller.selection = const TextSelection.collapsed(offset: -1);
