@@ -98,7 +98,7 @@ class InfoCard extends StatelessWidget {
               const SizedBox(height: kPadding),
               Text(
                 description,
-                maxLines: 5,
+                maxLines: 100,
                 overflow: TextOverflow.ellipsis,
                 style: currentTypography.bodyS.copyWith(
                   color: const DigitColors().light.textSecondary,

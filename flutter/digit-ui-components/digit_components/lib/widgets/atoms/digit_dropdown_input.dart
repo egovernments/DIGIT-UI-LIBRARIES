@@ -222,8 +222,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
             decoration: InputDecoration(
               filled: true,
               hoverColor: const DigitColors().transparent,
-              fillColor: widget.isDisabled
-                  ? const DigitColors().light.paperSecondary
+              fillColor
                   : const DigitColors().light.paperPrimary,
               contentPadding: const EdgeInsets.only(
                 left: 12,
@@ -651,6 +650,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                 widget.emptyItemText,
                 style: DigitTheme.instance.mobileTheme.textTheme.bodyMedium
                     ?.copyWith(
+                  height: 1.25,
                   color: const DigitColors().light.textDisabled,
                 ),
               ),
@@ -929,7 +929,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                                                   .instance
                                                                   .mobileTheme
                                                                   .textTheme
-                                                                  .bodyLarge
+                                                                  .bodyMedium
                                                                   ?.copyWith(
                                                                   color: const DigitColors().light
                                                                       .textPrimary,

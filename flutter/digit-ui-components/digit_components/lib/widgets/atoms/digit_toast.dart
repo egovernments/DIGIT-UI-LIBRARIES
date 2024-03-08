@@ -42,7 +42,7 @@ class DigitToast {
             ? const DigitColors().light.alertError
             : const DigitColors().light.alertWarning,
         padding:
-        const EdgeInsets.symmetric(horizontal: 12.0, vertical: kPadding),
+        const EdgeInsets.only(left: 12.0, top: 12.0, right: 8, bottom: 12),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -69,7 +69,7 @@ class DigitToast {
                 overflow: TextOverflow.ellipsis,
                 style: currentTypography.captionS.copyWith(
                   color: const DigitColors().light.paperPrimary,
-                  height: isMobile ? 1.188 : 1.5,
+                  height: 1.172,
                 ),
               ),
             ),

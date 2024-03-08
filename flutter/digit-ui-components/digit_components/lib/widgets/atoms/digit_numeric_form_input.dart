@@ -20,6 +20,7 @@
  ....*/
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../../utils/validators/validator.dart';
 import 'digit_base_form_input.dart';
 
@@ -51,6 +52,7 @@ class DigitNumericFormInput extends BaseDigitFormInput {
     final int step = 5,
     final int minValue = 0,
     final int maxValue = 100,
+    final List<TextInputFormatter>? inputFormatters,
   }) : super(
     key: key,
     controller: controller,
@@ -78,7 +80,9 @@ class DigitNumericFormInput extends BaseDigitFormInput {
     minValue: minValue,
     showCurser: editable,
     isEditable: editable,
+    inputFormatters:inputFormatters,
   );
+
 
   @override
   _DigitNumericFormInputState createState() => _DigitNumericFormInputState();
