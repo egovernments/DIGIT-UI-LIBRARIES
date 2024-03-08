@@ -5,6 +5,7 @@ import 'package:digit_components/models/TreeModel.dart';
 import 'package:digit_components/models/toggleButtonModel.dart';
 import 'package:digit_components/utils/validators/validator.dart';
 import 'package:digit_components/widgets/atoms/digit_info_card.dart';
+import 'package:digit_components/widgets/atoms/digit_timeline.dart';
 import 'package:digit_components/widgets/atoms/digit_toast.dart';
 import 'package:digit_components/widgets/atoms/digit_button.dart';
 import 'package:digit_components/widgets/atoms/digit_checkbox.dart';
@@ -2227,6 +2228,21 @@ class HotReload extends StatelessWidget {
                   ),
                 ),
 
+              ],
+            ),
+          ],
+        ),
+        WidgetbookFolder(
+          name: 'Timeline',
+          children: [
+            WidgetbookComponent(
+              name: 'Completed',
+              useCases: [
+                WidgetbookUseCase(
+                  name: 'Default',
+                  builder: (context) => const DigitTimeline(currentStep: TimelineStepState.completed,
+                  ),
+                ),
               ],
             ),
           ],
