@@ -62,7 +62,7 @@ class DigitTheme {
       dialogTheme: dialogTheme,
       textSelectionTheme:  TextSelectionThemeData(
         cursorColor: const DigitColors().light.primaryOrange,
-        selectionColor: const DigitColors().transparent,
+        selectionColor: const DigitColors().light.primaryOrangeBg,
         selectionHandleColor: const DigitColors().transparent,
       )
     );

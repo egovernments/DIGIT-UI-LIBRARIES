@@ -546,6 +546,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                                   onTap: widget.readOnly
                                       ? null
                                       : () {
+                                    myFocusNode.requestFocus();
                                           onSuffixIconClick();
                                         },
                                   child: Container(
@@ -694,6 +695,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                                   onTap: widget.readOnly
                                       ? null
                                       : () {
+                                    myFocusNode.requestFocus();
                                           onPrefixIconClick();
                                         },
                                   child: Container(
