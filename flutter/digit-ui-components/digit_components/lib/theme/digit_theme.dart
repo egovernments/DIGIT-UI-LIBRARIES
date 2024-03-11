@@ -60,6 +60,11 @@ class DigitTheme {
       cardTheme: cardTheme,
       inputDecorationTheme: inputDecorationTheme,
       dialogTheme: dialogTheme,
+      textSelectionTheme:  TextSelectionThemeData(
+        cursorColor: const DigitColors().light.primaryOrange,
+        selectionColor: const DigitColors().transparent,
+        selectionHandleColor: const DigitColors().transparent,
+      )
     );
   }
 

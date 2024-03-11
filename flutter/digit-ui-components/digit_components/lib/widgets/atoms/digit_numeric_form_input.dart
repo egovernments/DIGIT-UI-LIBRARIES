@@ -96,7 +96,11 @@ class _DigitNumericFormInputState extends BaseDigitFormInputState {
       /// Subtract step from the input value when the prefix icon is clicked
       int currentValue = int.tryParse(widget.controller.text) ?? 0;
       if ((currentValue - widget.step) >= widget.minValue) {
-        widget.controller.text = (currentValue - widget.step).toString();
+        setState(() {
+          widget.controller.text = (currentValue - widget.step).toString();
+        });
+/// Remove the text selection
+        widget.controller.selection = const TextSelection.collapsed(offset: 0);
       }
     });
   }
@@ -107,7 +111,12 @@ class _DigitNumericFormInputState extends BaseDigitFormInputState {
       /// Add step to the input value when the suffix icon is clicked
       int currentValue = int.tryParse(widget.controller.text) ?? 0;
       if ((currentValue + widget.step) <= widget.maxValue) {
-        widget.controller.text = (currentValue + widget.step).toString();
+        setState(() {
+          widget.controller.text = (currentValue + widget.step).toString();
+        });
+/// Remove the text selection
+        widget.controller.selection = const TextSelection.collapsed(offset: 0);
+
       }
     });
   }
