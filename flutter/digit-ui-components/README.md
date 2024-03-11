@@ -407,6 +407,48 @@ Warning toast
 ![Screenshot from 2024-03-11 14-32-34](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/f1e4d9c5-d465-4c4e-83eb-513d9767a10c)
 
 
+### Info Card 
+InfoCard is a versatile widget designed to showcase informational content in a visually appealing manner. It is commonly used to display messages, alerts, or other important information. The card supports various customization options to adapt to different use cases.
+
+Info card
+
+        InfoCard(
+                  title: 'Info',
+                  type: InfoType.info,
+                  description:
+                  'Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect theservice to get completed in 24 hrs from the time of payment.',
+                ),
+
+
+
+Success card
+
+        InfoCard(
+                  title: 'Success',
+                  type: InfoType.success,
+                  description:
+                  'Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect theservice to get completed in 24 hrs from the time of payment.',
+                ),
+
+Warning card
+
+       InfoCard(
+                  title: 'Warning',
+                  type: InfoType.warning,
+                  description:
+                  'Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect theservice to get completed in 24 hrs from the time of payment.',
+                ),
+
+Error card
+
+        InfoCard(
+                title: 'Error',
+                type: InfoType.error,
+                description:
+                'Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect theservice to get completed in 24 hrs from the time of payment.',
+                ),
+
+
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
