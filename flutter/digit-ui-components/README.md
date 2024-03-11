@@ -375,9 +375,27 @@ Multi Select Option
 ![tree-multiselect-1](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/dd793878-c807-40d6-beda-d349e0a0bfc7)
 
 
+### Toast
+The toast component is used for displaying toast messages with various types such as success, error, and warning.
+
+Success toast
+
+        DigitToast.show(context,
+                          options: DigitToastOptions(
+                              "Your Warning message", ToastType.success));
 
 
+error toast
 
+        DigitToast.show(context,
+                        options: DigitToastOptions(
+                            "Your Warning message", ToastType.error));
+
+Warning toast
+
+        DigitToast.show(context,
+                            options: DigitToastOptions(
+                                "Your Warning message", ToastType.warning));
 
 
 ## License
