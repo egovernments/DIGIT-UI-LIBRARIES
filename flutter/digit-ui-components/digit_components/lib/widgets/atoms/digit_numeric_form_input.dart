@@ -96,10 +96,8 @@ class _DigitNumericFormInputState extends BaseDigitFormInputState {
       int currentValue = int.tryParse(widget.controller.text) ?? 0;
       if ((currentValue - widget.step) >= widget.minValue) {
         widget.controller.text = (currentValue - widget.step).toString();
-        // Set the cursor position to the end
-        widget.controller.selection = TextSelection.fromPosition(
-          TextPosition(offset: widget.controller.text.length),
-        );
+        /// Remove the text selection
+        widget.controller.selection = const TextSelection.collapsed(offset: 0);
       }
     });
   }
@@ -112,7 +110,7 @@ class _DigitNumericFormInputState extends BaseDigitFormInputState {
       if ((currentValue + widget.step) <= widget.maxValue) {
         widget.controller.text = (currentValue + widget.step).toString();
         /// Remove the text selection
-        widget.controller.selection = const TextSelection.collapsed(offset: -1);
+        widget.controller.selection = const TextSelection.collapsed(offset: 0);
       }
     });
   }
