@@ -384,6 +384,9 @@ Success toast
                           options: DigitToastOptions(
                               "Your Warning message", ToastType.success));
 
+![Screenshot from 2024-03-11 14-32-23](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/51d227a9-1adb-4bc7-a945-bb0b320bef50)
+
+
 
 error toast
 
@@ -391,11 +394,17 @@ error toast
                         options: DigitToastOptions(
                             "Your Warning message", ToastType.error));
 
+![Screenshot from 2024-03-11 14-32-28](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/fc9734cd-3ef5-406b-bc74-9fe2d74670ee)
+
+
 Warning toast
 
         DigitToast.show(context,
                             options: DigitToastOptions(
                                 "Your Warning message", ToastType.warning));
+
+
+![Screenshot from 2024-03-11 14-32-34](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/f1e4d9c5-d465-4c4e-83eb-513d9767a10c)
 
 
 ## License
