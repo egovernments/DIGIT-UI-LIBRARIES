@@ -1,5 +1,4 @@
-import 'package:digit_components/utils/validators/validator.dart';
-import 'package:digit_components/widgets/atoms/digit_location_form_input.dart';
+import 'package:digit_flutter_components/digit_components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:geolocator/geolocator.dart';

@@ -16,6 +16,7 @@ DigitLocationFormInput` is a customizable formfield widget that  extends the bas
  ....*/
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../../blocs/LocationBloc.dart';
 import '../../utils/validators/validator.dart';
 import 'digit_base_form_input.dart';
@@ -42,29 +43,33 @@ class DigitLocationFormInput extends BaseDigitFormInput {
     void Function(String?)? onError,
     final List<Validator>? validations,
     final void Function(String)? onChange,
+    final String? errorMessage,
+    final List<TextInputFormatter>? inputFormatters,
   }) : super(
-    key: key,
-    controller: controller,
-    label: label,
-    info: info,
-    infoText: infoText,
-    readOnly: readOnly,
-    isDisabled: isDisabled,
-    isRequired: isRequired,
-    charCount: charCount,
-    innerLabel: innerLabel,
-    helpText: helpText,
-    triggerMode: triggerMode,
-    preferToolTipBelow: preferToolTipBelow,
-    suffixIcon: suffixIcon,
-    onError: onError,
-    initialValue: initialValue,
-    validations: validations,
-    keyboardType: keyboardType,
-    onChange: onChange,
-    showCurser: editable,
-    isEditable: editable,
-  );
+          key: key,
+          controller: controller,
+          label: label,
+          info: info,
+          infoText: infoText,
+          readOnly: readOnly,
+          isDisabled: isDisabled,
+          isRequired: isRequired,
+          charCount: charCount,
+          innerLabel: innerLabel,
+          helpText: helpText,
+          triggerMode: triggerMode,
+          preferToolTipBelow: preferToolTipBelow,
+          suffixIcon: suffixIcon,
+          onError: onError,
+          initialValue: initialValue,
+          validations: validations,
+          keyboardType: keyboardType,
+          onChange: onChange,
+          showCurser: editable,
+          isEditable: editable,
+          errorMessage: errorMessage,
+          inputFormatters: inputFormatters,
+        );
 
   @override
   _DigitLocationFormInputState createState() => _DigitLocationFormInputState();
@@ -79,7 +84,7 @@ class _DigitLocationFormInputState extends BaseDigitFormInputState {
   }
 
   @override
-  void onTap() async{
+  void onTap() async {
     await locationBloc.getCurrentLocation(widget.controller);
   }
 

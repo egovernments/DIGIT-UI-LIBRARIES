@@ -15,8 +15,10 @@
  ),
  ....*/
 
-import 'package:digit_components/enum/app_enums.dart';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import '../../enum/app_enums.dart';
 import '../../utils/validators/validator.dart';
 import 'digit_base_form_input.dart';
 
@@ -42,29 +44,33 @@ class DigitTextAreaFormInput extends BaseDigitFormInput {
     int maxLine = 10,
     double height = 200,
     final void Function(String)? onChange,
+    final String? errorMessage,
+    final List<TextInputFormatter>? inputFormatters,
   }) : super(
-    key: key,
-    controller: controller,
-    label: label,
-    info: info,
-    infoText: infoText,
-    readOnly: readOnly,
-    isRequired: isRequired,
-    isDisabled: isDisabled,
-    charCount: charCount,
-    innerLabel: innerLabel,
-    helpText: helpText,
-    triggerMode: triggerMode,
-    preferToolTipBelow: preferToolTipBelow,
-    onError: onError,
-    maxLine: maxLine,
-    initialValue: initialValue,
-    height: height,
-    validations: validations,
-    onChange: onChange,
-    textAreaScroll: textAreaScroll,
-    isTextArea: true,
-  );
+          key: key,
+          controller: controller,
+          label: label,
+          info: info,
+          infoText: infoText,
+          readOnly: readOnly,
+          isRequired: isRequired,
+          isDisabled: isDisabled,
+          charCount: charCount,
+          innerLabel: innerLabel,
+          helpText: helpText,
+          triggerMode: triggerMode,
+          preferToolTipBelow: preferToolTipBelow,
+          onError: onError,
+          maxLine: maxLine,
+          initialValue: initialValue,
+          height: height,
+          validations: validations,
+          onChange: onChange,
+          textAreaScroll: textAreaScroll,
+          isTextArea: true,
+          errorMessage: errorMessage,
+          inputFormatters: inputFormatters,
+        );
 
   @override
   _DigitTextAreaFormInputState createState() => _DigitTextAreaFormInputState();

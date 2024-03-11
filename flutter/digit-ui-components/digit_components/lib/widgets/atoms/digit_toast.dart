@@ -1,4 +1,4 @@
-import 'package:digit_components/digit_components.dart';
+import 'package:digit_flutter_components/digit_components.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -16,9 +16,9 @@ class DigitToast {
   });
 
   static show<T>(
-      BuildContext context, {
-        required DigitToastOptions options,
-      }) {
+    BuildContext context, {
+    required DigitToastOptions options,
+  }) {
     fToast.init(context);
 
     DigitTypography currentTypography = getTypography(context);
@@ -28,8 +28,8 @@ class DigitToast {
     double inputWidth = isMobile
         ? 360
         : AppView.isTabletView(MediaQuery.of(context).size.width)
-        ? 480
-        : 800;
+            ? 480
+            : 800;
 
     return fToast.showToast(
       child: Container(
@@ -39,10 +39,10 @@ class DigitToast {
         color: options.type == ToastType.success
             ? const DigitColors().light.alertSuccess
             : options.type == ToastType.error
-            ? const DigitColors().light.alertError
-            : const DigitColors().light.alertWarning,
+                ? const DigitColors().light.alertError
+                : const DigitColors().light.alertWarning,
         padding:
-        const EdgeInsets.only(left: 12.0, top: 12.0, right: 8, bottom: 12),
+            const EdgeInsets.only(left: 12.0, top: 12.0, right: 8, bottom: 12),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -53,8 +53,8 @@ class DigitToast {
                 options.type == ToastType.success
                     ? Icons.check_circle
                     : options.type == ToastType.error
-                    ? Icons.error
-                    : Icons.warning,
+                        ? Icons.error
+                        : Icons.warning,
                 color: const DigitColors().light.paperPrimary,
                 size: 24,
               ),

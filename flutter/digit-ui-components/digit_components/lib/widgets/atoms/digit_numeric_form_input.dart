@@ -53,36 +53,37 @@ class DigitNumericFormInput extends BaseDigitFormInput {
     final int minValue = 0,
     final int maxValue = 100,
     final List<TextInputFormatter>? inputFormatters,
+    final String? errorMessage,
   }) : super(
-    key: key,
-    controller: controller,
-    label: label,
-    info: info,
-    infoText: infoText,
-    readOnly: readOnly,
-    isDisabled: isDisabled,
-    isRequired: isRequired,
-    charCount: charCount,
-    innerLabel: innerLabel,
-    helpText: helpText,
-    triggerMode: triggerMode,
-    preferToolTipBelow: preferToolTipBelow,
-    suffixText: suffixText,
-    prefixText: prefixText,
-    onError: onError,
-    keyboardType: keyboardType,
-    textAlign: textAlign,
-    initialValue: initialValue,
-    validations: validations,
-    onChange: onChange,
-    step: step,
-    maxValue: maxValue,
-    minValue: minValue,
-    showCurser: editable,
-    isEditable: editable,
-    inputFormatters:inputFormatters,
-  );
-
+          key: key,
+          controller: controller,
+          label: label,
+          info: info,
+          infoText: infoText,
+          readOnly: readOnly,
+          isDisabled: isDisabled,
+          isRequired: isRequired,
+          charCount: charCount,
+          innerLabel: innerLabel,
+          helpText: helpText,
+          triggerMode: triggerMode,
+          preferToolTipBelow: preferToolTipBelow,
+          suffixText: suffixText,
+          prefixText: prefixText,
+          onError: onError,
+          keyboardType: keyboardType,
+          textAlign: textAlign,
+          initialValue: initialValue,
+          validations: validations,
+          onChange: onChange,
+          step: step,
+          maxValue: maxValue,
+          minValue: minValue,
+          showCurser: editable,
+          isEditable: editable,
+          errorMessage: errorMessage,
+          inputFormatters: inputFormatters,
+        );
 
   @override
   _DigitNumericFormInputState createState() => _DigitNumericFormInputState();
@@ -92,13 +93,14 @@ class _DigitNumericFormInputState extends BaseDigitFormInputState {
   @override
   void onPrefixIconClick({void Function()? customFunction}) {
     setState(() {
-      // Subtract step from the input value when the prefix icon is clicked
+      /// Subtract step from the input value when the prefix icon is clicked
       int currentValue = int.tryParse(widget.controller.text) ?? 0;
       if ((currentValue - widget.step) >= widget.minValue) {
         widget.controller.text = (currentValue - widget.step).toString();
-        // Set the cursor position to the end
+
+        /// Set the cursor position to the end
         widget.controller.selection = TextSelection.fromPosition(
-          TextPosition(offset: widget.controller.text.length),
+          const TextPosition(offset: -1),
         );
       }
     });
@@ -107,10 +109,11 @@ class _DigitNumericFormInputState extends BaseDigitFormInputState {
   @override
   void onSuffixIconClick({void Function()? customFunction}) {
     setState(() {
-      // Add step to the input value when the suffix icon is clicked
+      /// Add step to the input value when the suffix icon is clicked
       int currentValue = int.tryParse(widget.controller.text) ?? 0;
       if ((currentValue + widget.step) <= widget.maxValue) {
         widget.controller.text = (currentValue + widget.step).toString();
+
         /// Remove the text selection
         widget.controller.selection = const TextSelection.collapsed(offset: -1);
       }

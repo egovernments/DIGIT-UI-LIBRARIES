@@ -32,7 +32,7 @@ and other elements can be customized using various properties.
  ....*/
 
 import 'package:collection/collection.dart';
-import 'package:digit_components/digit_components.dart';
+import 'package:digit_flutter_components/digit_components.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../../constants/AppView.dart';
@@ -76,6 +76,12 @@ class MultiSelectDropDown<int> extends StatefulWidget {
   /// [controller] is the controller for the dropdown. It can be used to programmatically open and close the dropdown.
   final MultiSelectController<int>? controller;
 
+  /// custom errorMessage Props
+  final String? errorMessage;
+
+  /// custom helpText Props
+  final String? helpText;
+
   const MultiSelectDropDown({
     Key? key,
     required this.onOptionSelected,
@@ -89,6 +95,8 @@ class MultiSelectDropDown<int> extends StatefulWidget {
     this.isDisabled = false,
     this.clearAllText = 'Clear All',
     this.valueMapper,
+    this.helpText,
+    this.errorMessage,
   }) : super(key: key);
 
   @override
@@ -288,6 +296,71 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
             ),
           ),
         ),
+        if (widget.helpText != null || widget.errorMessage != null)
+          const SizedBox(
+            height: kPadding / 2,
+          ),
+        if (widget.helpText != null || widget.errorMessage != null)
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              widget.errorMessage != null
+                  ? Expanded(
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Column(
+                            children: [
+                              const SizedBox(
+                                height: 2,
+                              ),
+                              SizedBox(
+                                height: 16,
+                                width: 16,
+                                child: Icon(
+                                  Icons.info,
+                                  color: const DigitColors().light.alertError,
+                                  size: BaseConstants.errorIconSize,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(width: kPadding / 2),
+                          Flexible(
+                            fit: FlexFit.tight,
+                            child: Text(
+                              widget.errorMessage!.length > 256
+                                  ? '${widget.errorMessage!.substring(0, 256)}...'
+                                  : widget.errorMessage!,
+                              style: DigitTheme
+                                  .instance.mobileTheme.textTheme.bodyMedium
+                                  ?.copyWith(
+                                height: 1.5,
+                                color: const DigitColors().light.alertError,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  : Expanded(
+                      child: Text(
+                        widget.helpText!.length > 256
+                            ? '${widget.helpText!.substring(0, 256)}...'
+                            : widget.helpText!,
+                        style: DigitTheme
+                            .instance.mobileTheme.textTheme.bodyMedium
+                            ?.copyWith(
+                          height: 1.5,
+                          color: const DigitColors().light.textSecondary,
+                        ),
+                      ),
+                    ),
+            ],
+          ),
         const SizedBox(
           height: kPadding,
         ),
@@ -413,12 +486,12 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                       width: size.width,
                       decoration: const BoxDecoration(
                         boxShadow: [
-                            BoxShadow(
-                              offset: Offset(0, 1),
-                              blurRadius: 4.4,
-                              spreadRadius: 0,
-                              color: Color(0x26000000), // #00000026
-                            ),
+                          BoxShadow(
+                            offset: Offset(0, 1),
+                            blurRadius: 4.4,
+                            spreadRadius: 0,
+                            color: Color(0x26000000), // #00000026
+                          ),
                         ],
                       ),
                       child: Column(
@@ -491,7 +564,8 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
 
                     if (_controller != null) {
                       _controller!.value._selectedOptions.clear();
-                      _controller!.value._selectedOptions.addAll(_selectedOptions);
+                      _controller!.value._selectedOptions
+                          .addAll(_selectedOptions);
                     }
                     widget.onOptionSelected?.call(_selectedOptions);
                   },
@@ -653,7 +727,8 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
               ),
               child: Text(
                 widget.clearAllText,
-                style: DigitTheme.instance.mobileTheme.textTheme.bodyMedium?.copyWith(
+                style: DigitTheme.instance.mobileTheme.textTheme.bodyMedium
+                    ?.copyWith(
                   color: const DigitColors().light.primaryOrange,
                   height: 1,
                 ),

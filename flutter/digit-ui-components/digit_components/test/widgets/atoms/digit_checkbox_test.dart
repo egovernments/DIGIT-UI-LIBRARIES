@@ -1,5 +1,4 @@
-import 'package:digit_components/widgets/atoms/digit_checkbox.dart';
-import 'package:digit_components/widgets/atoms/digit_checkbox_icon.dart';
+import 'package:digit_flutter_components/digit_components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 

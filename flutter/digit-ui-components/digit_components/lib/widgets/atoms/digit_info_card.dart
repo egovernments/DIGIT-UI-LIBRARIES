@@ -5,14 +5,15 @@ import '../../theme/colors.dart';
 import '../../theme/digit_theme.dart';
 import '../../theme/typography.dart';
 
-
 class InfoCard extends StatelessWidget {
   final String title;
   final String description;
   final InfoType type;
   final IconData? icon;
+
   /// List of additional widgets
   final List<Widget>? additionalWidgets;
+
   /// Whether to display additional widgets inline or one below the other
   final bool inline;
 
@@ -34,28 +35,25 @@ class InfoCard extends StatelessWidget {
     double minWidth = AppView.isMobileView(MediaQuery.of(context).size.width)
         ? 240
         : AppView.isTabletView(MediaQuery.of(context).size.width)
-        ? 360
-        : 400;
+            ? 360
+            : 400;
 
     /// Choose icon and color based on InfoType
     switch (type) {
       case InfoType.success:
         selectedIcon = Icons.check_circle;
         iconColor = const DigitColors().light.alertSuccess;
-        containerColor =
-            const DigitColors().light.alertSuccessBg;
+        containerColor = const DigitColors().light.alertSuccessBg;
         break;
       case InfoType.error:
         selectedIcon = Icons.error;
         iconColor = const DigitColors().light.alertError;
-        containerColor =
-            const DigitColors().light.alertErrorBg;
+        containerColor = const DigitColors().light.alertErrorBg;
         break;
       case InfoType.warning:
         selectedIcon = Icons.warning;
         iconColor = const DigitColors().light.alertWarning;
-        containerColor =
-            const DigitColors().light.alertWarningBg;
+        containerColor = const DigitColors().light.alertWarningBg;
         break;
       case InfoType.info:
       default:
@@ -105,7 +103,10 @@ class InfoCard extends StatelessWidget {
                   height: 1.094,
                 ),
               ),
-              const SizedBox(height: kPadding*2,),
+              const SizedBox(
+                height: kPadding * 2,
+              ),
+
               /// Display additional widgets based on the 'inline' prop
               if (additionalWidgets != null)
                 if (inline)
@@ -114,10 +115,10 @@ class InfoCard extends StatelessWidget {
                     children: additionalWidgets!
                         .map(
                           (widget) => Padding(
-                        padding: const EdgeInsets.all(kPadding),
-                        child: widget,
-                      ),
-                    )
+                            padding: const EdgeInsets.only(right: kPadding),
+                            child: widget,
+                          ),
+                        )
                         .toList(),
                   )
                 else
@@ -126,10 +127,10 @@ class InfoCard extends StatelessWidget {
                     children: additionalWidgets!
                         .map(
                           (widget) => Padding(
-                        padding: const EdgeInsets.all(kPadding),
-                        child: widget,
-                      ),
-                    )
+                            padding: const EdgeInsets.only(right: kPadding),
+                            child: widget,
+                          ),
+                        )
                         .toList(),
                   ),
             ],

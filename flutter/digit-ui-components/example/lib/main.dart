@@ -1,30 +1,13 @@
-import 'package:digit_components/enum/app_enums.dart';
-import 'package:digit_components/models/DropdownModels.dart';
-import 'package:digit_components/models/RadioButtonModel.dart';
-import 'package:digit_components/models/TreeModel.dart';
-import 'package:digit_components/models/toggleButtonModel.dart';
-import 'package:digit_components/theme/digit_theme.dart';
-import 'package:digit_components/utils/validators/validator.dart';
-import 'package:digit_components/widgets/atoms/digit_button.dart';
-import 'package:digit_components/widgets/atoms/digit_checkbox.dart';
-import 'package:digit_components/widgets/atoms/digit_date_form_input.dart';
-import 'package:digit_components/widgets/atoms/digit_dropdown_input.dart';
-import 'package:digit_components/widgets/atoms/digit_location_form_input.dart';
-import 'package:digit_components/widgets/atoms/digit_multiselect_dropdown.dart';
-import 'package:digit_components/widgets/atoms/digit_numeric_form_input.dart';
-import 'package:digit_components/widgets/atoms/digit_password_form_input.dart';
-import 'package:digit_components/widgets/atoms/digit_radio_list.dart';
-import 'package:digit_components/widgets/atoms/digit_search_form_input.dart';
-import 'package:digit_components/widgets/atoms/digit_text_area_form_input.dart';
-import 'package:digit_components/widgets/atoms/digit_text_form_input.dart';
-import 'package:digit_components/widgets/atoms/digit_time_form_input.dart';
-import 'package:digit_components/widgets/atoms/digit_toggle_list.dart';
-import 'package:digit_components/widgets/atoms/digit_tree_select_dropdown.dart';
-import 'package:digit_components/widgets/atoms/labelled_fields.dart';
-import 'package:digit_components/widgets/atoms/digit_info_card.dart';
-import 'package:digit_components/widgets/atoms/digit_toast.dart';
-import 'package:digit_components/widgets/scrollable_content.dart';
+
+import 'package:digit_flutter_components/enum/app_enums.dart';
+import 'package:digit_flutter_components/models/DropdownModels.dart';
+import 'package:digit_flutter_components/models/RadioButtonModel.dart';
+import 'package:digit_flutter_components/models/TreeModel.dart';
+import 'package:digit_flutter_components/digit_components.dart';
+import 'package:digit_flutter_components/models/toggleButtonModel.dart';
+import 'package:digit_flutter_components/utils/validators/validator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:url_strategy/url_strategy.dart';
 
 final List<TreeNode> Nodes = [
@@ -212,14 +195,15 @@ class MyHomePageState extends State<MyHomePage> {
                           Validator(ValidatorType.maxLength, 10,
                               errorMessage: 'Maximum length is 10.'),
                           Validator(ValidatorType.pattern, r'^[a-zA-Z0-9]+$',
-                              errorMessage: 'Error'),
+                              errorMessage: 'Errowwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwr'),
                         ],
                       ),
                       DigitTextFormInput(
                         label: "Text Field With Required State",
                         controller: TextEditingController(),
                         innerLabel: 'label',
-                        helpText: 'help text',
+                        charCount: true,
+                        helpText: 'help ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddtext',
                         isRequired: true,
                       ),
                       DigitTextFormInput(
@@ -597,6 +581,7 @@ class MyHomePageState extends State<MyHomePage> {
                         innerLabel: 'innerlabel',
                         helpText: 'help text',
                         initialValue: '0',
+                        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                         editable: true,
                         step: 5,
                         maxValue: 100,

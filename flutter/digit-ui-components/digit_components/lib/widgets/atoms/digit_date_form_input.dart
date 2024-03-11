@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../../blocs/DateSelection.dart';
 import '../../utils/validators/validator.dart';
 import 'digit_base_form_input.dart';
@@ -22,7 +23,6 @@ import 'digit_base_form_input.dart';
  */
 
 class DigitDateFormInput extends BaseDigitFormInput {
-
   const DigitDateFormInput({
     Key? key,
     required TextEditingController controller,
@@ -46,32 +46,36 @@ class DigitDateFormInput extends BaseDigitFormInput {
     void Function(String?)? onError,
     final List<Validator>? validations,
     final void Function(String)? onChange,
+    final String? errorMessage,
+    final List<TextInputFormatter>? inputFormatters,
   }) : super(
-    key: key,
-    controller: controller,
-    label: label,
-    info: info,
-    infoText: infoText,
-    readOnly: readOnly,
-    isRequired: isRequired,
-    isDisabled: isDisabled,
-    charCount: charCount,
-    innerLabel: innerLabel,
-    helpText: helpText,
-    triggerMode: triggerMode,
-    preferToolTipBelow: preferToolTipBelow,
-    onError: onError,
-    suffixIcon: suffixIcon,
-    initialValue: initialValue,
-    validations: validations,
-    onChange: onChange,
-    initialDate: initialDate,
-    firstDate: firstDate,
-    lastDate: lastDate,
-    keyboardType: TextInputType.datetime,
-    showCurser: editable,
-    isEditable: editable,
-  );
+          key: key,
+          controller: controller,
+          label: label,
+          info: info,
+          infoText: infoText,
+          readOnly: readOnly,
+          isRequired: isRequired,
+          isDisabled: isDisabled,
+          charCount: charCount,
+          innerLabel: innerLabel,
+          helpText: helpText,
+          triggerMode: triggerMode,
+          preferToolTipBelow: preferToolTipBelow,
+          onError: onError,
+          suffixIcon: suffixIcon,
+          initialValue: initialValue,
+          validations: validations,
+          onChange: onChange,
+          initialDate: initialDate,
+          firstDate: firstDate,
+          lastDate: lastDate,
+          keyboardType: TextInputType.datetime,
+          showCurser: editable,
+          isEditable: editable,
+          errorMessage: errorMessage,
+          inputFormatters: inputFormatters,
+        );
 
   @override
   _DigitDateFormInputState createState() => _DigitDateFormInputState();
@@ -85,21 +89,21 @@ class _DigitDateFormInputState extends BaseDigitFormInputState {
     /// Show a date picker and update the controller's value
 
     await dateSelectionBloc.selectDate(
-      firstDate:widget.firstDate,
-      lastDate:widget.lastDate,
-      initialDate:widget.initialDate,
+      firstDate: widget.firstDate,
+      lastDate: widget.lastDate,
+      initialDate: widget.initialDate,
       context: context,
       controller: widget.controller,
     );
   }
 
   @override
-  void onTap() async{
+  void onTap() async {
     /// Show a date picker and update the controller's value
     await dateSelectionBloc.selectDate(
-      firstDate:widget.firstDate,
-      lastDate:widget.lastDate,
-      initialDate:widget.initialDate,
+      firstDate: widget.firstDate,
+      lastDate: widget.lastDate,
+      initialDate: widget.initialDate,
       context: context,
       controller: widget.controller,
     );

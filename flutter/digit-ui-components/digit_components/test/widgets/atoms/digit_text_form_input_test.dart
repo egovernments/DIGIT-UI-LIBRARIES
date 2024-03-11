@@ -1,5 +1,5 @@
-import 'package:digit_components/utils/validators/validator.dart';
-import 'package:digit_components/widgets/atoms/digit_text_form_input.dart';
+import 'package:digit_flutter_components/digit_components.dart';
+import 'package:digit_flutter_components/utils/validators/validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -210,63 +210,6 @@ void main() {
       expect(find.text('10/10'), findsOneWidget);
     });
 
-    //Testing Prefix and Suffix Icons
-
-    testWidgets('Displays prefix and suffix icons',
-        (WidgetTester tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: DigitTextFormInput(
-              controller: controller,
-              label: 'Test Label',
-              prefixIcon: Icons.person,
-              suffixIcon: Icons.visibility,
-            ),
-          ),
-        ),
-      );
-
-      // Verify the prefix and suffix icons are displayed
-      expect(find.byIcon(Icons.person), findsOneWidget);
-      expect(find.byIcon(Icons.visibility), findsOneWidget);
-    });
-
-    // Testing Prefix and Suffix Icon Click Handling
-    //
-    // testWidgets('Handles click events on prefix and suffix icons', (WidgetTester tester) async {
-    //   bool prefixIconClicked = false;
-    //   bool suffixIconClicked = false;
-    //
-    //   await tester.pumpWidget(
-    //     MaterialApp(
-    //       home: Scaffold(
-    //         body: DigitTextFormInput(
-    //           controller: controller,
-    //           label: 'Test Label',
-    //           prefixIcon: Icons.person,
-    //           suffixIcon: Icons.visibility,
-    //           onPrefixIconClick: () {
-    //             prefixIconClicked = true;
-    //           },
-    //           onSuffixIconClick: () {
-    //             suffixIconClicked = true;
-    //           },
-    //         ),
-    //       ),
-    //     ),
-    //   );
-    //
-    //   // Tap on prefix icon
-    //   await tester.tap(find.byIcon(Icons.person));
-    //   expect(prefixIconClicked, isTrue);
-    //
-    //   // Tap on suffix icon
-    //   await tester.tap(find.byIcon(Icons.visibility));
-    //   expect(suffixIconClicked, isTrue);
-    // });
-
-    // Testing Initial Value
 
     testWidgets('Sets initial value correctly', (WidgetTester tester) async {
       await tester.pumpWidget(

@@ -16,6 +16,7 @@
  ....*/
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../../utils/validators/validator.dart';
 import 'digit_base_form_input.dart';
 
@@ -41,28 +42,32 @@ class DigitPasswordFormInput extends BaseDigitFormInput {
     void Function(String)? onSuffixTap,
     final List<Validator>? validations,
     final void Function(String)? onChange,
+    final String? errorMessage,
+    final List<TextInputFormatter>? inputFormatters,
   }) : super(
-    key: key,
-    controller: controller,
-    label: label,
-    info: info,
-    infoText: infoText,
-    readOnly: readOnly,
-    isRequired: isRequired,
-    isDisabled: isDisabled,
-    charCount: charCount,
-    innerLabel: innerLabel,
-    helpText: helpText,
-    triggerMode: triggerMode,
-    preferToolTipBelow: preferToolTipBelow,
-    suffixIcon: suffixIcon,
-    onError: onError,
-    onSuffixTap: onSuffixTap,
-    initialValue: initialValue,
-    validations: validations,
-    onChange: onChange,
-    toggleSuffixIcon: toggleSuffixIcon,
-  );
+          key: key,
+          controller: controller,
+          label: label,
+          info: info,
+          infoText: infoText,
+          readOnly: readOnly,
+          isRequired: isRequired,
+          isDisabled: isDisabled,
+          charCount: charCount,
+          innerLabel: innerLabel,
+          helpText: helpText,
+          triggerMode: triggerMode,
+          preferToolTipBelow: preferToolTipBelow,
+          suffixIcon: suffixIcon,
+          onError: onError,
+          onSuffixTap: onSuffixTap,
+          initialValue: initialValue,
+          validations: validations,
+          onChange: onChange,
+          toggleSuffixIcon: toggleSuffixIcon,
+          errorMessage: errorMessage,
+          inputFormatters: inputFormatters,
+        );
 
   @override
   _DigitPasswordFormInputState createState() => _DigitPasswordFormInputState();

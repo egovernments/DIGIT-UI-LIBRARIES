@@ -49,7 +49,7 @@ class LabeledField extends StatelessWidget {
     DigitTypography currentTypography = getTypography(context);
 
     bool isMobile = AppView.isMobileView(MediaQuery.of(context).size.width);
-    if(!isMobile){
+    if (!isMobile) {
       return Padding(
         padding: padding ?? const EdgeInsets.only(top: kPadding),
         child: Row(
@@ -66,8 +66,7 @@ class LabeledField extends StatelessWidget {
                       label!.length > 64
                           ? '${label!.substring(0, 64)}...'
                           : label!,
-                      style: currentTypography.bodyL
-                          .copyWith(
+                      style: currentTypography.bodyL.copyWith(
                         height: 1.172,
                         color: const DigitColors().light.textPrimary,
                         overflow: wrapLabelText
@@ -79,8 +78,7 @@ class LabeledField extends StatelessWidget {
                   if (isRequired)
                     Text(
                       ' *',
-                      style: currentTypography.bodyL
-                          .copyWith(
+                      style: currentTypography.bodyL.copyWith(
                         color: const DigitColors().light.alertError,
                       ),
                     ),
@@ -99,12 +97,14 @@ class LabeledField extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(width: 16,),
+            const SizedBox(
+              width: 16,
+            ),
             Flexible(child: child),
           ],
         ),
       );
-    }else {
+    } else {
       return Padding(
         padding: padding ?? const EdgeInsets.only(top: kPadding),
         child: Column(
@@ -113,14 +113,13 @@ class LabeledField extends StatelessWidget {
           children: [
             Row(
               children: [
-                if(label!=null)
+                if (label != null)
                   Flexible(
                     child: Text(
                       label!.length > 64
                           ? '${label!.substring(0, 64)}...'
                           : label!,
-                      style: currentTypography.bodyL
-                          .copyWith(
+                      style: currentTypography.bodyL.copyWith(
                         color: const DigitColors().light.textPrimary,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -129,8 +128,7 @@ class LabeledField extends StatelessWidget {
                 if (isRequired)
                   Text(
                     ' *',
-                    style: currentTypography.bodyL
-                        .copyWith(
+                    style: currentTypography.bodyL.copyWith(
                       color: const DigitColors().light.alertError,
                     ),
                   ),
@@ -147,7 +145,9 @@ class LabeledField extends StatelessWidget {
                   )
               ],
             ),
-            const SizedBox(height: 4,),
+            const SizedBox(
+              height: 4,
+            ),
             child,
           ],
         ),

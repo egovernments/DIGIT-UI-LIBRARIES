@@ -1,6 +1,5 @@
-import 'package:digit_components/models/RadioButtonModel.dart';
-import 'package:digit_components/widgets/atoms/digit_radio_list.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:digit_flutter_components/digit_components.dart';
+import 'package:digit_flutter_components/models/RadioButtonModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -39,10 +38,7 @@ void main() {
               radioButtons: [
                 RadioButtonModel(code: 'A', name: 'Option A'),
                 RadioButtonModel(code: 'B', name: 'Option B'),
-              ],
-              onChanged: (value) {
-                selectedValue = value;
-              },
+              ], onChanged: (RadioButtonModel ) {  },
             ),
           ),
         ),

@@ -16,6 +16,7 @@
  ....*/
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../../blocs/TimeSelectionBloc.dart';
 import '../../utils/time_utils.dart';
 import '../../utils/validators/validator.dart';
@@ -42,29 +43,33 @@ class DigitTimeFormInput extends BaseDigitFormInput {
     final List<Validator>? validations,
     String? initialValue,
     final void Function(String)? onChange,
+    final String? errorMessage,
+    final List<TextInputFormatter>? inputFormatters,
   }) : super(
-    key: key,
-    controller: controller,
-    label: label,
-    info: info,
-    infoText: infoText,
-    readOnly: readOnly,
-    isRequired: isRequired,
-    isDisabled: isDisabled,
-    charCount: charCount,
-    innerLabel: innerLabel,
-    helpText: helpText,
-    triggerMode: triggerMode,
-    preferToolTipBelow: preferToolTipBelow,
-    suffixIcon: suffixIcon,
-    onError: onError,
-    initialValue: initialValue,
-    validations: validations,
-    onChange: onChange,
-    keyboardType: TextInputType.datetime,
-    showCurser: editable,
-    isEditable: editable,
-  );
+          key: key,
+          controller: controller,
+          label: label,
+          info: info,
+          infoText: infoText,
+          readOnly: readOnly,
+          isRequired: isRequired,
+          isDisabled: isDisabled,
+          charCount: charCount,
+          innerLabel: innerLabel,
+          helpText: helpText,
+          triggerMode: triggerMode,
+          preferToolTipBelow: preferToolTipBelow,
+          suffixIcon: suffixIcon,
+          onError: onError,
+          initialValue: initialValue,
+          validations: validations,
+          onChange: onChange,
+          keyboardType: TextInputType.datetime,
+          showCurser: editable,
+          isEditable: editable,
+          errorMessage: errorMessage,
+          inputFormatters: inputFormatters,
+        );
 
   @override
   _DigitTimeFormInputState createState() => _DigitTimeFormInputState();
@@ -82,7 +87,7 @@ class _DigitTimeFormInputState extends BaseDigitFormInputState {
   }
 
   @override
-  void onTap() async{
+  void onTap() async {
     TimeSelectionBloc timeSelectionBloc = TimeSelectionBloc();
 
     await timeSelectionBloc.selectTime(

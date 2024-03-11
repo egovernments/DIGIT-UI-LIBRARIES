@@ -1,6 +1,5 @@
-import 'package:digit_components/utils/validators/validator.dart';
-import 'package:digit_components/widgets/atoms/digit_numeric_form_input.dart';
-import 'package:digit_components/widgets/atoms/digit_text_form_input.dart';
+import 'package:digit_flutter_components/digit_components.dart';
+import 'package:digit_flutter_components/utils/validators/validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -168,43 +167,6 @@ void main() {
       expect(find.text('2/64'), findsOneWidget);
     });
 
-    testWidgets('DigitNumericFormInput handles custom suffix and prefix icons', (WidgetTester tester) async {
-      // Build our app and trigger a frame.
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: DigitNumericFormInput(
-              controller: TextEditingController(),
-              label: 'Numeric Input',
-              suffixIcon: Icons.add_circle,
-              prefixIcon: Icons.remove_circle,
-              step: 1,
-            ),
-          ),
-        ),
-      );
-
-      // Find the widget in the tree
-      final numericInput = find.byType(DigitNumericFormInput);
-
-      // Verify that custom suffix and prefix icons are displayed
-      expect(find.byIcon(Icons.add_circle), findsOneWidget);
-      expect(find.byIcon(Icons.remove_circle), findsOneWidget);
-
-      // Tap on the suffix icon to increment value
-      await tester.tap(find.byIcon(Icons.add_circle));
-      await tester.pump();
-
-      // Verify that the value has been incremented
-      expect((tester.widget(numericInput) as DigitNumericFormInput).controller.text, '1');
-
-      // Tap on the prefix icon to decrement value
-      await tester.tap(find.byIcon(Icons.remove_circle));
-      await tester.pump();
-
-      // Verify that the value has been decremented
-      expect((tester.widget(numericInput) as DigitNumericFormInput).controller.text, '0');
-    });
 
     testWidgets('DigitNumericFormInput handles keyboard input', (WidgetTester tester) async {
       // Build our app and trigger a frame.

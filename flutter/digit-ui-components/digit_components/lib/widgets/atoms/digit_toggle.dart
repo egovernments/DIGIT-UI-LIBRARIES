@@ -1,5 +1,6 @@
-import 'package:digit_components/digit_components.dart';
+import 'package:digit_flutter_components/digit_components.dart';
 import 'package:flutter/material.dart';
+
 /// DigitToggle is a custom toggle button widget that provides visual feedback on hover and supports selection.
 
 class DigitToggle extends StatefulWidget {
@@ -59,14 +60,16 @@ class _DigitToggleState extends State<DigitToggle> {
             });
           },
           onTap: () {
-            if(widget.isSelected==false){
+            if (widget.isSelected == false) {
               widget.onChanged(true);
             }
           },
           child: Container(
             height: 32,
-            width: widget.maxLabelWidth+40,
-            padding: widget.isSelected ? const EdgeInsets.all(2.0) : const EdgeInsets.symmetric(horizontal: 2.0),
+            width: widget.maxLabelWidth + 40,
+            padding: widget.isSelected
+                ? const EdgeInsets.all(2.0)
+                : const EdgeInsets.symmetric(horizontal: 2.0),
             constraints: const BoxConstraints(
               minWidth: 40,
               maxWidth: 200,
@@ -84,7 +87,9 @@ class _DigitToggleState extends State<DigitToggle> {
                   : const DigitColors().light.paperPrimary,
               boxShadow: [
                 BoxShadow(
-                  color: isMouseDown ? const DigitColors().shadowColor : const DigitColors().transparent,
+                  color: isMouseDown
+                      ? const DigitColors().shadowColor
+                      : const DigitColors().transparent,
                   offset: const Offset(
                     0,
                     0,
@@ -103,19 +108,19 @@ class _DigitToggleState extends State<DigitToggle> {
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
                     style: widget.isSelected
-                   ? currentTypography.headingS.copyWith(
-                        height: 1.5,
-                        fontWeight: FontWeight.w700,
-                        color: const DigitColors().light.paperPrimary,
-                        overflow: TextOverflow.ellipsis,
-                    )
-                    :currentTypography.bodyXS.copyWith(
-                      height: 1.094,
-                      color: (isHovered || isMouseDown)
-                          ? const DigitColors().light.primaryOrange
-                          : const DigitColors().light.textDisabled,
-                      overflow: TextOverflow.ellipsis,
-                    ),
+                        ? currentTypography.headingS.copyWith(
+                            height: 1.5,
+                            fontWeight: FontWeight.w700,
+                            color: const DigitColors().light.paperPrimary,
+                            overflow: TextOverflow.ellipsis,
+                          )
+                        : currentTypography.bodyXS.copyWith(
+                            height: 1.25,
+                            color: (isHovered || isMouseDown)
+                                ? const DigitColors().light.primaryOrange
+                                : const DigitColors().light.textDisabled,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                   ),
                 ),
               ],

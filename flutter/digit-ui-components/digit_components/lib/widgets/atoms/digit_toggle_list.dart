@@ -53,18 +53,20 @@ class _DigitToggleListState extends State<DigitToggleList> {
   @override
   void initState() {
     super.initState();
+
     /// select the index of default toggle
     selectedIndex = widget.selectedIndex;
-
   }
 
   double _calculateMaxLabelWidth() {
-    double maxLabelWidth = (MediaQuery.of(context).size.width)/3 -46;
-    double maxLabel =0;
+    double maxLabelWidth = (MediaQuery.of(context).size.width) / 3 - 46;
+    double maxLabel = 0;
     for (ToggleButtonModel button in widget.toggleButtons) {
       TextPainter textPainter = TextPainter(
         text: TextSpan(
-          text: button.name.length > 64 ? "${button.name.substring(0, 64)}..." : button.name,
+          text: button.name.length > 64
+              ? "${button.name.substring(0, 64)}..."
+              : button.name,
           style: const TextStyle(),
         ),
         textDirection: TextDirection.ltr,
@@ -82,10 +84,11 @@ class _DigitToggleListState extends State<DigitToggleList> {
       mainAxisAlignment: widget.mainAxisAlignment,
       crossAxisAlignment: widget.crossAxisAlignment,
       children: widget.toggleButtons.map(
-            (button) {
+        (button) {
           final index = widget.toggleButtons.indexOf(button);
           return Padding(
-            padding: widget.contentPadding ?? const EdgeInsets.only(bottom: kPadding),
+            padding: widget.contentPadding ??
+                const EdgeInsets.only(bottom: kPadding),
             child: DigitToggle(
               onChanged: (isSelected) {
                 setState(() {
@@ -100,9 +103,10 @@ class _DigitToggleListState extends State<DigitToggleList> {
                     return;
                   }
                 });
-
               },
-              label: button.name.length > 64 ? "${button.name.substring(0, 64)}..." : button.name,
+              label: button.name.length > 64
+                  ? "${button.name.substring(0, 64)}..."
+                  : button.name,
               isSelected: selectedIndex == index,
               maxLabelWidth: maxLabelWidth,
             ),

@@ -20,6 +20,7 @@
  ....*/
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../../utils/validators/validator.dart';
 import 'digit_base_form_input.dart';
 
@@ -44,27 +45,31 @@ class DigitTextFormInput extends BaseDigitFormInput {
     void Function(String?)? onError,
     final List<Validator>? validations,
     final void Function(String)? onChange,
+    final String? errorMessage,
+    final List<TextInputFormatter>? inputFormatters,
   }) : super(
-    key: key,
-    controller: controller,
-    label: label,
-    info: info,
-    infoText: infoText,
-    readOnly: readOnly,
-    isRequired: isRequired,
-    isDisabled: isDisabled,
-    charCount: charCount,
-    innerLabel: innerLabel,
-    helpText: helpText,
-    triggerMode: triggerMode,
-    preferToolTipBelow: preferToolTipBelow,
-    suffixText: suffixText,
-    prefixText: prefixText,
-    onError: onError,
-    initialValue: initialValue,
-    validations: validations,
-    onChange: onChange,
-  );
+          key: key,
+          controller: controller,
+          label: label,
+          info: info,
+          infoText: infoText,
+          readOnly: readOnly,
+          isRequired: isRequired,
+          isDisabled: isDisabled,
+          charCount: charCount,
+          innerLabel: innerLabel,
+          helpText: helpText,
+          triggerMode: triggerMode,
+          preferToolTipBelow: preferToolTipBelow,
+          suffixText: suffixText,
+          prefixText: prefixText,
+          onError: onError,
+          initialValue: initialValue,
+          validations: validations,
+          onChange: onChange,
+          errorMessage: errorMessage,
+          inputFormatters: inputFormatters,
+        );
 
   @override
   _DigitTextFormInputState createState() => _DigitTextFormInputState();

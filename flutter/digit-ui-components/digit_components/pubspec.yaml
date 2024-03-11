@@ -1,6 +1,6 @@
-name: digit_components
+name: digit_flutter_components
 description: Digit UI Design specification
-version: 0.0.1+9
+version: 1.0.0
 homepage:
 
 environment:

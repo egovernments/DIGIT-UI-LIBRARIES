@@ -1,11 +1,10 @@
-import 'package:digit_components/digit_components.dart';
-import 'package:digit_components/enum/app_enums.dart';
-import 'package:digit_components/widgets/atoms/labelled_fields.dart';
-import 'package:digit_components/widgets/atoms/text_area_icons.dart';
+import 'package:digit_flutter_components/digit_components.dart';
+import 'package:digit_flutter_components/widgets/atoms/text_area_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../constants/AppView.dart';
 import '../../constants/app_constants.dart';
+import '../../enum/app_enums.dart';
 import '../../utils/validators/validator.dart';
 
 /// `BaseDigitFormInput` is a base class for different form input fields. It provides a set of customizable
@@ -119,6 +118,9 @@ class BaseDigitFormInput extends StatefulWidget {
   final DateTime? firstDate;
   final DateTime? lastDate;
 
+  /// validations provide you to send a error message, but you only want to pass a custom error message that can be also done by sending a errorMessage
+  final String? errorMessage;
+
   const BaseDigitFormInput(
       {Key? key,
       required this.controller,
@@ -159,7 +161,8 @@ class BaseDigitFormInput extends StatefulWidget {
       this.isTextArea = false,
       this.toggleSuffixIcon,
       this.inputFormatters,
-      this.textAlign = TextAlign.start})
+      this.textAlign = TextAlign.start,
+      this.errorMessage})
       : super(key: key);
 
   @override
@@ -543,7 +546,6 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                                   onTap: widget.readOnly
                                       ? null
                                       : () {
-                                          myFocusNode.requestFocus();
                                           onSuffixIconClick();
                                         },
                                   child: Container(
@@ -692,7 +694,6 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                                   onTap: widget.readOnly
                                       ? null
                                       : () {
-                                          myFocusNode.requestFocus();
                                           onPrefixIconClick();
                                         },
                                   child: Container(
@@ -815,67 +816,137 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                       widget.onChange?.call(value);
                     },
                   ),
-            const SizedBox(
-              height: kPadding / 2,
-            ),
             if (widget.helpText != null ||
-                widget.charCount != null ||
-                _hasError)
+                widget.charCount ||
+                _hasError ||
+                widget.errorMessage != null)
+              const SizedBox(
+                height: kPadding / 2,
+              ),
+            if (widget.helpText != null ||
+                widget.charCount ||
+                _hasError ||
+                widget.errorMessage != null)
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  if (widget.helpText != null || _hasError)
+                  if (widget.helpText != null ||
+                      _hasError ||
+                      widget.errorMessage != null)
                     _hasError
                         ? Expanded(
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                SizedBox(
-                                  height: 16,
-                                  width: 16,
-                                  child: Icon(
-                                    Icons.info,
-                                    color: const DigitColors().light.alertError,
-                                    size: BaseConstants.errorIconSize,
-                                  ),
+                                Column(
+                                  children: [
+                                    const SizedBox(
+                                      height: 2,
+                                    ),
+                                    SizedBox(
+                                      height: 16,
+                                      width: 16,
+                                      child: Icon(
+                                        Icons.info,
+                                        color: const DigitColors()
+                                            .light
+                                            .alertError,
+                                        size: BaseConstants.errorIconSize,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                                 const SizedBox(width: kPadding / 2),
-                                Text(
-                                  _errorMessage!.length > 256
-                                      ? '${_errorMessage!.substring(0, 256)}...'
-                                      : _errorMessage!,
-                                  style: DigitTheme
-                                      .instance.mobileTheme.textTheme.bodyMedium
-                                      ?.copyWith(
-                                    height: 1.5,
-                                    color: const DigitColors().light.alertError,
+                                Flexible(
+                                  fit: FlexFit.tight,
+                                  child: Text(
+                                    _errorMessage!.length > 256
+                                        ? '${_errorMessage!.substring(0, 256)}...'
+                                        : _errorMessage!,
+                                    style: DigitTheme.instance.mobileTheme
+                                        .textTheme.bodyMedium
+                                        ?.copyWith(
+                                      height: 1.5,
+                                      color:
+                                          const DigitColors().light.alertError,
+                                    ),
                                   ),
                                 ),
                               ],
                             ),
                           )
-                        : Expanded(
-                            child: Text(
-                              widget.helpText!.length > 256
-                                  ? '${widget.helpText!.substring(0, 256)}...'
-                                  : widget.helpText!,
-                              style: DigitTheme
-                                  .instance.mobileTheme.textTheme.bodyMedium
-                                  ?.copyWith(
-                                height: 1.5,
-                                color: const DigitColors().light.textSecondary,
+                        : widget.errorMessage != null
+                            ? Expanded(
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Column(
+                                      children: [
+                                        const SizedBox(
+                                          height: 2,
+                                        ),
+                                        SizedBox(
+                                          height: 16,
+                                          width: 16,
+                                          child: Icon(
+                                            Icons.info,
+                                            color: const DigitColors()
+                                                .light
+                                                .alertError,
+                                            size: BaseConstants.errorIconSize,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(width: kPadding / 2),
+                                    Flexible(
+                                      fit: FlexFit.tight,
+                                      child: Text(
+                                        widget.errorMessage!.length > 256
+                                            ? '${widget.errorMessage!.substring(0, 256)}...'
+                                            : widget.errorMessage!,
+                                        style: DigitTheme.instance.mobileTheme
+                                            .textTheme.bodyMedium
+                                            ?.copyWith(
+                                          height: 1.5,
+                                          color: const DigitColors()
+                                              .light
+                                              .alertError,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            : Expanded(
+                                child: Text(
+                                  widget.helpText!.length > 256
+                                      ? '${widget.helpText!.substring(0, 256)}...'
+                                      : widget.helpText!,
+                                  style: DigitTheme
+                                      .instance.mobileTheme.textTheme.bodyMedium
+                                      ?.copyWith(
+                                    height: 1.5,
+                                    color:
+                                        const DigitColors().light.textSecondary,
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                  if ((widget.helpText != null || _hasError) &&
+                  if ((widget.helpText != null ||
+                          _hasError ||
+                          widget.errorMessage != null) &&
                       (widget.charCount == true))
                     const SizedBox(
                       width: 8,
                     ),
-                  if (widget.helpText == null && _hasError == false)
+                  if (widget.helpText == null &&
+                      _hasError == false &&
+                      widget.errorMessage == null)
                     const Spacer(),
                   if (widget.charCount == true)
                     Text(

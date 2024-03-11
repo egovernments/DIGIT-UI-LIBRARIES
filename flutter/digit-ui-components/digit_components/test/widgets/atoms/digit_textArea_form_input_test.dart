@@ -1,6 +1,4 @@
-import 'package:digit_components/utils/validators/validator.dart';
-import 'package:digit_components/widgets/atoms/digit_text_area_form_input.dart';
-import 'package:digit_components/widgets/atoms/digit_text_form_input.dart';
+import 'package:digit_flutter_components/digit_components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -34,7 +32,6 @@ void main() {
           home: Scaffold(
             body: DigitTextAreaFormInput(
               controller: TextEditingController(),
-              minLine: minLines,
               maxLine: maxLines,
             ),
           ),
@@ -153,25 +150,3 @@ void main() {
 
   });
 }
-// testWidgets('Location permission granted updates controller text', (WidgetTester tester) async {
-//   when(mockGeolocator.checkPermission()).thenAnswer((_) async => LocationPermission.whileInUse);
-//   when(mockGeolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high))
-//       .thenAnswer((_) async => Position(latitude: 37.7749, longitude: -122.4194));
-//
-//   await tester.pumpWidget(
-//     MaterialApp(
-//       home: Scaffold(
-//         body: DigitLocationFormInput(controller: controller),
-//       ),
-//     ),
-//   );
-//
-//   // Tap the suffix icon to get location
-//   await tester.tap(find.byIcon(Icons.my_location));
-//
-//   // Allow time for the asynchronous operation to complete
-//   await tester.pumpAndSettle();
-//
-//   // Ensure the controller's text is updated with the expected location
-//   expect(controller.text, '37.7749, -122.4194');
-// });
