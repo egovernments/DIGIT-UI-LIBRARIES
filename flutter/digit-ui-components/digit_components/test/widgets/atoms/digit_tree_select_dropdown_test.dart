@@ -12,7 +12,7 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: TreeSelectDropDown<int>(
-              options: [], // Add some test options
+              options: const [], // Add some test options
               onOptionSelected: (selectedOptions) {},
             ),
           ),

@@ -90,7 +90,7 @@ enum ValidatorType {
 
 class Validator {
   final ValidatorType type;
-  final dynamic? value;
+  final dynamic value;
   final String? errorMessage;
   final String? Function(String?)? customValidation;
 

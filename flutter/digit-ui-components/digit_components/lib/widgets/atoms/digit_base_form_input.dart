@@ -184,7 +184,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
       /// If the focus is lost, perform validation
       setState(() {
         _isFocusOn = false;
-        _errorMessage = customValidator?.call(widget.controller.text);
+        _errorMessage = customValidator.call(widget.controller.text);
         _hasError = _errorMessage != null;
       });
 
@@ -269,8 +269,8 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
 
     int? getValidatorValue(List<Validator>? validators, ValidatorType type) {
       for (var validator in validators!) {
-        if (validator?.type == type) {
-          return validator?.value as int?;
+        if (validator.type == type) {
+          return validator.value as int?;
         }
       }
       return null;

@@ -108,10 +108,6 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
     return false;
   }
 
-  bool _selected(TreeNode node) {
-    return widget.selectedOptions.any((item) => item.code == node.code);
-  }
-
   @override
   Widget build(BuildContext context) {
     return StatefulBuilder(builder: (context, setState) {

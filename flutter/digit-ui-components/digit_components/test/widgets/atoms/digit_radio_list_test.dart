@@ -38,7 +38,7 @@ void main() {
               radioButtons: [
                 RadioButtonModel(code: 'A', name: 'Option A'),
                 RadioButtonModel(code: 'B', name: 'Option B'),
-              ], onChanged: (RadioButtonModel ) {  },
+              ], onChanged: (value) {},
             ),
           ),
         ),
