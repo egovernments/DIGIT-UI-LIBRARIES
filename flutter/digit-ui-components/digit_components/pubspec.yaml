@@ -1,10 +1,10 @@
 name: digit_flutter_components
 description: Digit UI Design specification
 version: 1.0.0
-homepage:
+homepage: https://github.com/egovernments/DIGIT-UI-LIBRARIES/tree/master/flutter/digit-ui-components
 
 environment:
-  sdk: '>=2.19.4 <=4.0.0'
+  sdk: '>=2.19.4 <=3.9.0'
   flutter: ">=1.17.0"
 
 dependencies:

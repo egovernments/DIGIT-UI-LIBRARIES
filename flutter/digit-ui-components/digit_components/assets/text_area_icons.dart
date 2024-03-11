@@ -21,5 +21,5 @@ class TextArea {
   static const _kFontFam = 'TextArea';
   static const String? _kFontPkg = null;
 
-  static const IconData text_area_expand = IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData textAreaExpand = IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

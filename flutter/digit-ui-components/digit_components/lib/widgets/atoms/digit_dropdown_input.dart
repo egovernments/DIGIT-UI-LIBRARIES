@@ -681,9 +681,8 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                                       .textTheme
                                                       .bodyMedium
                                                       ?.copyWith(
-                                                          height:
-                                                              filteredItems[index].description != null ? 1.5 : 1.125,
-                                                          color: filteredItems[index].description != null ? const DigitColors().light.textSecondary : const DigitColors().light.textPrimary),
+                                                          height: 1.125,
+                                                          color: const DigitColors().light.textPrimary),
                                         ),
                                       )
                                     ],

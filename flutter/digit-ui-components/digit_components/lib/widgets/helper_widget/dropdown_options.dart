@@ -15,7 +15,7 @@ class DropdownOption extends StatefulWidget {
   final List<DropdownItem> selectedOptions;
   final Function(List<DropdownItem>)? onOptionSelected;
 
-  DropdownOption({
+  const DropdownOption({super.key,
     required this.option,
     required this.isSelected,
     required this.selectionType,

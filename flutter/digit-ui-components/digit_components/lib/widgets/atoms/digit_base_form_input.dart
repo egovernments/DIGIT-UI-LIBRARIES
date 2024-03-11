@@ -414,7 +414,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                                 });
                               },
                               child: Icon(
-                                TextArea.text_area_expand,
+                                TextArea.textAreaExpand,
                                 size: 8,
                                 color: const DigitColors().light.textSecondary,
                               ),
@@ -952,7 +952,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                     const Spacer(),
                   if (widget.charCount == true)
                     Text(
-                      '${widget.controller.text.length ?? 0}/$maxLengthValue',
+                      '${widget.controller.text.length}/$maxLengthValue',
                       style: DigitTheme
                           .instance.mobileTheme.textTheme.bodyMedium
                           ?.copyWith(

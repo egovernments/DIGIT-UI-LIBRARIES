@@ -20,7 +20,6 @@ Example usage:
  ```*/
 
 import 'package:digit_flutter_components/digit_components.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../../constants/app_constants.dart';
 import '../../enum/app_enums.dart';
