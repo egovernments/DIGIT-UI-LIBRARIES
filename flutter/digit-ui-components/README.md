@@ -419,6 +419,7 @@ Info card
                   'Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect theservice to get completed in 24 hrs from the time of payment.',
                 ),
 
+![Screenshot from 2024-03-11 14-39-56](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/6b73f9ba-44ec-433a-b789-a6b75f9fb28d)
 
 
 Success card
@@ -430,6 +431,9 @@ Success card
                   'Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect theservice to get completed in 24 hrs from the time of payment.',
                 ),
 
+![Screenshot from 2024-03-11 14-40-34](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/49a8f592-702e-4559-a230-f925c9b3851b)
+
+
 Warning card
 
        InfoCard(
@@ -439,6 +443,9 @@ Warning card
                   'Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect theservice to get completed in 24 hrs from the time of payment.',
                 ),
 
+![Screenshot from 2024-03-11 14-41-10](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/3296bcbd-98dc-4e29-a64d-f921499fa30e)
+
+
 Error card
 
         InfoCard(
@@ -447,6 +454,9 @@ Error card
                 description:
                 'Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect theservice to get completed in 24 hrs from the time of payment.',
                 ),
+
+![Screenshot from 2024-03-11 14-40-57](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/7b43c6c5-ac91-485a-880a-b4c0b2e28b11)
+
 
 
 ## License
