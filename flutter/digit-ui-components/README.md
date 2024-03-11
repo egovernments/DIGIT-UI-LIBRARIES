@@ -10,7 +10,7 @@ Add this to your `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  digit_components: ^0.0.1+8
+  digit_flutter_components: 1.0.0
 ```
 
 Then run:
