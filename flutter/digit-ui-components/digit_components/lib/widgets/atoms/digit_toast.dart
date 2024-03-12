@@ -1,5 +1,4 @@
-import 'package:digit_components/digit_components.dart';
-import 'package:digit_components/theme/digit_theme.dart';
+import 'package:digit_flutter_components/digit_components.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -19,6 +18,7 @@ class DigitToast {
   static show<T>(
       BuildContext context, {
         required DigitToastOptions options,
+        Duration? duration,
       }) {
     fToast.init(context);
 
@@ -85,7 +85,7 @@ class DigitToast {
         ),
       ),
       gravity: ToastGravity.SNACKBAR,
-      toastDuration: toastDuration,
+      toastDuration: duration ?? toastDuration,
     );
   }
 }

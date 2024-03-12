@@ -1,4 +1,4 @@
 dependency_overrides:
-  digit_components:
+  digit_flutter_components:
     path:
       ../digit_components

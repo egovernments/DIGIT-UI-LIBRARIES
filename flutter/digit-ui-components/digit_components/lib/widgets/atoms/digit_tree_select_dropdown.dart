@@ -28,7 +28,7 @@ TreeSelectDropDown<int>(
 ),
  ....*/
 
-import 'package:digit_components/digit_components.dart';
+import 'package:digit_flutter_components/digit_components.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../../constants/AppView.dart';

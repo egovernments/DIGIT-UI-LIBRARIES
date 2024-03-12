@@ -1,10 +1,10 @@
-import 'package:digit_components/digit_components.dart';
-import 'package:digit_components/enum/app_enums.dart';
-import 'package:digit_components/widgets/atoms/labelled_fields.dart';
+import 'package:digit_flutter_components/digit_components.dart';
 import 'package:flutter/material.dart';
 import '../../constants/AppView.dart';
 import '../../constants/app_constants.dart';
+import '../../enum/app_enums.dart';
 import '../../utils/validators/validator.dart';
+import 'labelled_fields.dart';
 
 /// `BaseDigitFormInput` is a base class for different form input fields. It provides a set of customizable
 /// parameters and common functionality for building various types of input fields within a form.

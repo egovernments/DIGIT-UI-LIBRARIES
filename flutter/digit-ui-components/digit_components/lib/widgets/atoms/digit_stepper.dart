@@ -1,29 +1,8 @@
 // ignore_for_file: must_be_immutable
 
-library flutter_stepindicator;
-
 import 'dart:async';
-
-import 'package:digit_components/digit_components.dart';
+import 'package:digit_flutter_components/digit_components.dart';
 import 'package:flutter/material.dart';
-
-/// The `FlutterStepIndicator` is a widget that displays a step indicator for visualizing progress through a multi-step process. This class extends `StatefulWidget` and can be used to display and monitor various stages, such as the steps in a registration process or multiple stages in a specific task.
-
-/// Parameters:
-/// - `list`: A list of stages or steps to be displayed.
-/// - `page`: The current page number or active step.
-/// - `positiveCheck`: An optional widget for displaying a positive checkmark.
-/// - `disableAutoScroll`: A flag to enable or disable automatic scrolling.
-/// - `height`: The height of the step indicator.
-/// - `durationScroller`: The duration for scrolling animations.
-/// - `durationCheckBulb`: The duration for checkmark bulb animations.
-/// - `division`: The number of divisions for rendering steps.
-/// - `positiveColor`: The color for positive steps.
-/// - `negativeColor`: The color for negative (disabled) steps.
-/// - `progressColor`: The color for the progress indicator.
-/// - `onChange`: A callback function that triggers when the active step changes.
-
-/// The `FlutterStepIndicator` class provides a flexible way to create step indicators and customize their appearance for various use cases.
 
 class DigitStepper extends StatefulWidget {
   final List list;
@@ -83,8 +62,8 @@ class _DigitStepperState extends State<DigitStepper> {
           return ListView.builder(
             shrinkWrap: true,
             controller: controller,
-            physics: const NeverScrollableScrollPhysics(
-                parent: NeverScrollableScrollPhysics()),
+            physics: const AlwaysScrollableScrollPhysics(
+                parent: AlwaysScrollableScrollPhysics()),
             scrollDirection: Axis.horizontal,
             itemCount: widget.list.length,
             itemBuilder: (context, index) => Column(
@@ -321,11 +300,12 @@ class ItemStepIndicatorZero extends StatelessWidget {
                                 ? const DigitColors().lightPrimaryOrange
                                 : const DigitColors().lightTextDisabled,
                             borderRadius: BorderRadius.circular(50)),
-                  child: Center(
-                    child: Text(
-                      (index + 1).toString(),
-                      style: TextStyle(color: const DigitColors().lightPaperPrimary)),
-                  ))
+                        child: Center(
+                          child: Text((index + 1).toString(),
+                              style: TextStyle(
+                                  color:
+                                      const DigitColors().lightPaperPrimary)),
+                        ))
                     : index + 1 == currentPage
                         ? ShowUpAnimationPage(
                             duration: duration, delay: 0, child: childCheck)
@@ -412,8 +392,7 @@ class ItemStepIndicator extends StatefulWidget {
 }
 
 class _ItemStepIndicatorState extends State<ItemStepIndicator> {
-  late AnimationController _animationController;
-  bool _isdone = false;
+  bool _isDone = false;
 
   @override
   void initState() {
@@ -429,106 +408,117 @@ class _ItemStepIndicatorState extends State<ItemStepIndicator> {
   Widget build(BuildContext context) {
     return SizedBox(
       width: widget.width,
-      child: Row(
-        textDirection: TextDirection.rtl,
-        children: [
-          InkWell(
-            splashColor: Colors.transparent,
-            onTap: (widget.onClickItem == null)
-                ? null
-                : () {
-              widget.onClickItem!.call(widget.index);
-            },
-            child: Container(
-              padding: widget.padding,
-              height: 32,
-              width: 32,
-              child: SizedBox(
-                child: (widget.index == widget.currentPage)
-                    ? _isdone ? _enable(widget.index):_disable(widget.index)
-                    : (widget.index < widget.currentPage)
-                    ? _done(widget.index)
-                    : _disable(widget.index),
+      child: StatefulBuilder(builder: (context, setState) {
+        return Row(
+          textDirection: TextDirection.rtl,
+          children: [
+            InkWell(
+              splashColor: Colors.transparent,
+              onTap: (widget.onClickItem == null)
+                  ? null
+                  : () {
+                      widget.onClickItem!.call(widget.index);
+                    },
+              child: Container(
+                padding: widget.padding,
+                height: 32,
+                width: 32,
+                child: SizedBox(
+                  child: (widget.index == widget.currentPage)
+                      ? _isDone
+                          ? _enable(widget.index)
+                          : _disable(widget.index)
+                      : (widget.index < widget.currentPage)
+                          ? _done(widget.index)
+                          : _disable(widget.index),
+                ),
               ),
             ),
-          ),
-          Expanded(
-            child: Container(
-              padding: widget.paddingLine,
-              height: 4,
-              child: TweenAnimationBuilder<double>(
-                tween: Tween(begin: 0,
-                    end: (widget.index == widget.currentPage) ? 1.0 : 0.0),
-                curve: Curves.decelerate,
-                onEnd: () {
-                  setState(() {
-                    _isdone = true;
-                  });
-                },
-                duration: Duration(
-                    milliseconds: widget.duration.inMilliseconds ~/ 1.6),
-                builder: (context, value, _) =>
-                    LayoutBuilder(
-                      builder: (context, constraints) {
-                        return ClipRRect(
-                          borderRadius: BorderRadius.circular(0),
-                          child: Stack(
-                            children: [
-                              Visibility(
-                                visible: true,
-                                child: Container(
-                                  width: double.maxFinite,
-                                  height: double.maxFinite,
-                                  color: widget.index < widget.currentPage
-                                      ? const DigitColors().lightPrimaryOrange
-                                      : const DigitColors().lightTextDisabled,
-                                ),
-                              ),
-                              AnimatedContainer(
-                                duration: Duration(
-                                  milliseconds: widget.duration
-                                      .inMilliseconds ~/ 1.6,
-                                ),
-                                width: (constraints.maxWidth * value),
+            Expanded(
+              child: Container(
+                padding: widget.paddingLine,
+                height: 4,
+                child: TweenAnimationBuilder<double>(
+                  tween: Tween(
+                      begin: 0,
+                      end: (widget.index == widget.currentPage) ? 1.0 : 0.0),
+                  curve: Curves.decelerate,
+                  duration: Duration(
+                      milliseconds: widget.duration.inMilliseconds ~/ 1.6),
+                  builder: (context, value, _) => LayoutBuilder(
+                    builder: (context, constraints) {
+                      return ClipRRect(
+                        borderRadius: BorderRadius.circular(0),
+                        child: Stack(
+                          children: [
+                            Visibility(
+                              visible: true,
+                              child: Container(
+                                width: double.maxFinite,
                                 height: double.maxFinite,
-                                decoration: BoxDecoration(
-                                  gradient: (widget.index == widget.currentPage)
-                                      ? LinearGradient(
-                                      colors: [
-                                        const DigitColors().lightPrimaryOrange,
-                                        const DigitColors().lightPrimaryOrange
-                                      ],
-                                      end: Alignment.centerRight,
-                                      begin: Alignment.centerLeft)
-                                      : (widget.index < widget.currentPage
-                                      ? LinearGradient(
-                                      colors: [
-                                        const DigitColors().lightPrimaryOrange,
-                                        const DigitColors().lightPrimaryOrange
-                                      ],
-                                      end: Alignment.centerRight,
-                                      begin: Alignment.centerLeft)
-                                      : LinearGradient(
-                                      colors: [
-                                        const DigitColors().lightPrimaryOrange,
-                                        const DigitColors().lightTextDisabled
-                                      ],
-                                      end: Alignment.centerRight,
-                                      begin: Alignment.centerLeft)),
-                                ),
+                                color: widget.index < widget.currentPage
+                                    ? const DigitColors().lightPrimaryOrange
+                                    : const DigitColors().lightTextDisabled,
                               ),
-                            ],
-                          ),
-                        );
-                      },
-                    ),
+                            ),
+                            AnimatedContainer(
+                              duration: Duration(
+                                milliseconds:
+                                    500,
+                              ),
+                              onEnd: () {
+                                setState(() {
+                                  _isDone = true;
+                                });
+                              },
+                              width: (constraints.maxWidth * value),
+                              height: double.maxFinite,
+                              decoration: BoxDecoration(
+                                gradient: (widget.index == widget.currentPage)
+                                    ? LinearGradient(
+                                        colors: [
+                                            const DigitColors()
+                                                .lightPrimaryOrange,
+                                            const DigitColors()
+                                                .lightPrimaryOrange
+                                          ],
+                                        end: Alignment.centerRight,
+                                        begin: Alignment.centerLeft)
+                                    : (widget.index < widget.currentPage
+                                        ? LinearGradient(
+                                            colors: [
+                                                const DigitColors()
+                                                    .lightPrimaryOrange,
+                                                const DigitColors()
+                                                    .lightPrimaryOrange
+                                              ],
+                                            end: Alignment.centerRight,
+                                            begin: Alignment.centerLeft)
+                                        : LinearGradient(
+                                            colors: [
+                                                const DigitColors()
+                                                    .lightPrimaryOrange,
+                                                const DigitColors()
+                                                    .lightTextDisabled
+                                              ],
+                                            end: Alignment.centerRight,
+                                            begin: Alignment.centerLeft)),
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                ),
               ),
-            ),
-          )
-        ],
-      ),
+            )
+          ],
+        );
+      }),
     );
   }
+
   Widget _done(int currIndex) {
     return Container(
       decoration: BoxDecoration(
@@ -539,27 +529,28 @@ class _ItemStepIndicatorState extends State<ItemStepIndicator> {
       child: Center(
         child: (currIndex + 1 == widget.currentPage)
             ? AnimatedContainer(
-          curve: Curves.easeOutQuint,
-          duration: Duration(milliseconds: widget.duration.inMilliseconds),
-          width: double.maxFinite,
-          height: double.maxFinite,
-          decoration: BoxDecoration(
-            color: const DigitColors().lightPrimaryOrange,
-            borderRadius: BorderRadius.circular(50),
-          ),
-          child: ShowUpAnimationPage(
-            duration: widget.duration,
-            delay: 0,
-            child: widget.childCheck,
-          ),
-        )
+                curve: Curves.easeOutQuint,
+                duration:
+                    Duration(milliseconds: widget.duration.inMilliseconds),
+                width: double.maxFinite,
+                height: double.maxFinite,
+                decoration: BoxDecoration(
+                  color: const DigitColors().lightPrimaryOrange,
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                child: ShowUpAnimationPage(
+                  duration: widget.duration,
+                  delay: 0,
+                  child: widget.childCheck,
+                ),
+              )
             : Container(
-            decoration: BoxDecoration(
-              color: const DigitColors().lightPrimaryOrange,
-              borderRadius: BorderRadius.circular(50),
-            ),
-            alignment: Alignment.centerRight,
-            child: Center(child: widget.childCheck)),
+                decoration: BoxDecoration(
+                  color: const DigitColors().lightPrimaryOrange,
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                alignment: Alignment.centerRight,
+                child: Center(child: widget.childCheck)),
       ),
     );
   }
@@ -583,9 +574,9 @@ class _ItemStepIndicatorState extends State<ItemStepIndicator> {
               borderRadius: BorderRadius.circular(50)),
           child: Center(
               child: Text(
-                (currentIndex + 1).toString(),
-                style: TextStyle(color: const DigitColors().lightPaperPrimary),
-              )),
+            (currentIndex + 1).toString(),
+            style: TextStyle(color: const DigitColors().lightPaperPrimary),
+          )),
         ),
       ),
     );
@@ -598,7 +589,8 @@ class _ItemStepIndicatorState extends State<ItemStepIndicator> {
       decoration: BoxDecoration(
         color: const DigitColors().lightPrimaryOrange,
         borderRadius: BorderRadius.circular(50),
-        border: Border.all(color: const DigitColors().lightPrimaryOrange, width: 2.0),
+        border: Border.all(
+            color: const DigitColors().lightPrimaryOrange, width: 2.0),
       ),
       alignment: Alignment.centerRight,
       child: Center(
@@ -690,7 +682,7 @@ class ItemStepIndicator1 extends StatelessWidget {
                           ),
                           AnimatedContainer(
                             duration: Duration(
-                                milliseconds: duration.inMilliseconds ~/ 1.6),
+                                milliseconds: duration.inMilliseconds ~/ 1.2),
                             width: (constraints.maxWidth * value),
                             height: double.maxFinite,
                             decoration: BoxDecoration(

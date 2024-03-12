@@ -15,8 +15,9 @@
  ),
  ....*/
 
-import 'package:digit_components/enum/app_enums.dart';
+import 'package:digit_flutter_components/digit_components.dart';
 import 'package:flutter/material.dart';
+import '../../enum/app_enums.dart';
 import '../../utils/validators/validator.dart';
 import 'digit_base_form_input.dart';
 

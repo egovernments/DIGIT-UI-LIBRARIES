@@ -1,28 +1,10 @@
-import 'package:digit_components/enum/app_enums.dart';
-import 'package:digit_components/models/DropdownModels.dart';
-import 'package:digit_components/models/RadioButtonModel.dart';
-import 'package:digit_components/models/TreeModel.dart';
-import 'package:digit_components/models/toggleButtonModel.dart';
-import 'package:digit_components/utils/validators/validator.dart';
-import 'package:digit_components/widgets/atoms/digit_info_card.dart';
-import 'package:digit_components/widgets/atoms/digit_timeline.dart';
-import 'package:digit_components/widgets/atoms/digit_toast.dart';
-import 'package:digit_components/widgets/atoms/digit_button.dart';
-import 'package:digit_components/widgets/atoms/digit_checkbox.dart';
-import 'package:digit_components/widgets/atoms/digit_date_form_input.dart';
-import 'package:digit_components/widgets/atoms/digit_dropdown_input.dart';
-import 'package:digit_components/widgets/atoms/digit_location_form_input.dart';
-import 'package:digit_components/widgets/atoms/digit_multiselect_dropdown.dart';
-import 'package:digit_components/widgets/atoms/digit_numeric_form_input.dart';
-import 'package:digit_components/widgets/atoms/digit_password_form_input.dart';
-import 'package:digit_components/widgets/atoms/digit_radio_list.dart';
-import 'package:digit_components/widgets/atoms/digit_search_form_input.dart';
-import 'package:digit_components/widgets/atoms/digit_stepper.dart';
-import 'package:digit_components/widgets/atoms/digit_text_area_form_input.dart';
-import 'package:digit_components/widgets/atoms/digit_text_form_input.dart';
-import 'package:digit_components/widgets/atoms/digit_time_form_input.dart';
-import 'package:digit_components/widgets/atoms/digit_toggle_list.dart';
-import 'package:digit_components/widgets/atoms/digit_tree_select_dropdown.dart';
+import 'package:digit_flutter_components/digit_components.dart';
+import 'package:digit_flutter_components/enum/app_enums.dart';
+import 'package:digit_flutter_components/models/DropdownModels.dart';
+import 'package:digit_flutter_components/models/RadioButtonModel.dart';
+import 'package:digit_flutter_components/models/TreeModel.dart';
+import 'package:digit_flutter_components/models/toggleButtonModel.dart';
+import 'package:digit_flutter_components/utils/validators/validator.dart';
 import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
 
@@ -2039,21 +2021,21 @@ class HotReload extends StatelessWidget {
                 WidgetbookUseCase(
                   name: 'Default',
                   builder: (context) => DigitStepper(
-                    list: const ['Step 1', 'Step 2', 'Step 3', 'Step 4', 'Step 5', 'Step 6'],
+                    list: const ['Step 1', 'Step 2', 'Step 3', 'Step 4', 'Step 5', 'Step 6','Step 7', 'Step 8', 'Step 9', 'Step 10'],
                     page: context.knobs.doubleOrNull
                         .slider(
                       label: 'Current Step',
                       min: 0,
                       initialValue: 1,
-                      max: 5,
-                      divisions: 5,
+                      max: 10,
+                      divisions: 10,
                     )
                         ?.toInt() ??
                         0,
                     onChange: (int page) {
                       print('Current Step: $page');
                     },
-                    height: 50.0,
+                    height: 10.0,
                   ),
                 ),
               ],
@@ -2222,7 +2204,10 @@ class HotReload extends StatelessWidget {
                       Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
                       Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
                       Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
-                      Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+                      Image.network(
+                      'https://digit.org/wp-content/uploads/2023/06/Digit-Logo-1.png',
+                      scale: 1.0,
+                      ),
                       InfoCard(title: "Info Text", type: InfoType.error, description: 'This is the warning')
                     ],
                   ),

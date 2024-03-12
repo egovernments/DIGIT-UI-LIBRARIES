@@ -114,7 +114,7 @@ class InfoCard extends StatelessWidget {
                     children: additionalWidgets!
                         .map(
                           (widget) => Padding(
-                        padding: const EdgeInsets.all(kPadding),
+                        padding: const EdgeInsets.only(right: kPadding, bottom: kPadding, top: kPadding),
                         child: widget,
                       ),
                     )
@@ -126,7 +126,7 @@ class InfoCard extends StatelessWidget {
                     children: additionalWidgets!
                         .map(
                           (widget) => Padding(
-                        padding: const EdgeInsets.all(kPadding),
+                        padding: const EdgeInsets.only(right: kPadding, bottom: kPadding, top: kPadding),
                         child: widget,
                       ),
                     )

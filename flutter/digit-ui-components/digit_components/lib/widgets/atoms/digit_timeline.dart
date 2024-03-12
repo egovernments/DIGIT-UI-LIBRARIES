@@ -21,7 +21,15 @@ class DigitTimeline extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
+              currentStep == TimelineStepState.completed ? Container(
+          width: 24,
+            height: 24,
+            decoration: BoxDecoration(
+              color: const DigitColors().lightTextDisabled,
+              borderRadius: BorderRadius.circular(50),
+            ),
+                child:  Icon(Icons.check_circle, color: const DigitColors().lightPrimaryOrange,),
+          ): Container(
                 width: 24,
                 height: 24,
                 decoration: BoxDecoration(

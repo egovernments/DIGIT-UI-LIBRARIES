@@ -1,7 +1,6 @@
 library digit_theme;
 
-import 'package:digit_components/theme/colors.dart';
-import 'package:digit_components/theme/typography.dart';
+import 'package:digit_flutter_components/digit_components.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/AppView.dart';
