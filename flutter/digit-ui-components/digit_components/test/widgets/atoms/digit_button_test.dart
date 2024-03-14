@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  testWidgets('DigitButton renders correctly and handles tap', (WidgetTester tester) async {
+  testWidgets('Button renders correctly and handles tap', (WidgetTester tester) async {
     // Primary button
     await _testButton(tester, ButtonType.primary);
 
@@ -18,7 +18,7 @@ void main() {
     await _testButton(tester, ButtonType.link);
   });
 
-  testWidgets('DigitButton is disabled and handles tap', (WidgetTester tester) async {
+  testWidgets('Button is disabled and handles tap', (WidgetTester tester) async {
     // Primary button disabled
     await _testDisabledButton(tester, ButtonType.primary);
 
@@ -39,7 +39,7 @@ Future<void> _testButton(WidgetTester tester, ButtonType buttonType) async {
   await tester.pumpWidget(
     MaterialApp(
       home: Scaffold(
-        body: DigitButton(
+        body: Button(
           label: 'Click me',
           onPressed: () {
             onPressedCalled = true;
@@ -51,9 +51,9 @@ Future<void> _testButton(WidgetTester tester, ButtonType buttonType) async {
   );
 
   expect(find.text('Click me'), findsOneWidget);
-  expect(tester.widget<DigitButton>(find.byType(DigitButton)).isDisabled, false);
+  expect(tester.widget<Button>(find.byType(Button)).isDisabled, false);
 
-  await tester.tap(find.byType(DigitButton));
+  await tester.tap(find.byType(Button));
   await tester.pump();
 
   expect(onPressedCalled, true);
@@ -65,7 +65,7 @@ Future<void> _testDisabledButton(WidgetTester tester, ButtonType buttonType) asy
   await tester.pumpWidget(
     MaterialApp(
       home: Scaffold(
-        body: DigitButton(
+        body: Button(
           label: 'Click me',
           onPressed: () {
             onPressedCalled = true;
@@ -78,9 +78,9 @@ Future<void> _testDisabledButton(WidgetTester tester, ButtonType buttonType) asy
   );
 
   expect(find.text('Click me'), findsOneWidget);
-  expect(tester.widget<DigitButton>(find.byType(DigitButton)).isDisabled, true);
+  expect(tester.widget<Button>(find.byType(Button)).isDisabled, true);
 
-  await tester.tap(find.byType(DigitButton));
+  await tester.tap(find.byType(Button));
   await tester.pump();
 
   expect(onPressedCalled, false);

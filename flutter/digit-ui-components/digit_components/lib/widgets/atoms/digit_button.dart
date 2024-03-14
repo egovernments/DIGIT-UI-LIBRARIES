@@ -1,11 +1,11 @@
-/*`DigitButton` is a customizable button widget that supports various styles and states.
+/*`Button` is a customizable button widget that supports various styles and states.
 
  This widget provides options for primary, secondary, tertiary, and link button types.
  It handles hover effects, disabled state, and different icon placements.
 
 Example usage:
 ```dart
- DigitButton(
+ Button(
    label: 'Click me',
    onPressed: () {
     // Handle button press
@@ -14,8 +14,8 @@ Example usage:
    prefixIcon: Icons.star,
    suffixIcon: Icons.arrow_forward,
    isDisabled: false,
-   contentPadding: DigitButtonConstants.defaultContentPadding,
-   iconSize: DigitButtonConstants.defaultIconSize,
+   contentPadding: ButtonConstants.defaultContentPadding,
+   iconSize: ButtonConstants.defaultIconSize,
  )
  ```*/
 
@@ -24,7 +24,7 @@ import 'package:flutter/material.dart';
 import '../../constants/app_constants.dart';
 import '../../enum/app_enums.dart';
 
-class DigitButton extends StatefulWidget {
+class Button extends StatefulWidget {
   /// The text displayed on the button, representing the button's label or content.
   final String label;
 
@@ -52,7 +52,7 @@ class DigitButton extends StatefulWidget {
   /// Size of the icons (prefixIcon and suffixIcon) displayed on the button in logical pixels.
   final double iconSize;
 
-  const DigitButton({
+  const Button({
     Key? key,
     required this.label,
     required this.onPressed,
@@ -61,15 +61,15 @@ class DigitButton extends StatefulWidget {
     this.suffixIcon,
     this.isDisabled = false,
     this.width = 400,
-    this.contentPadding = DigitButtonConstants.defaultContentPadding,
-    this.iconSize = DigitButtonConstants.defaultIconSize,
+    this.contentPadding = ButtonConstants.defaultContentPadding,
+    this.iconSize = ButtonConstants.defaultIconSize,
   }) : super(key: key);
 
   @override
-  _DigitButtonState createState() => _DigitButtonState();
+  _ButtonState createState() => _ButtonState();
 }
 
-class _DigitButtonState extends State<DigitButton> {
+class _ButtonState extends State<Button> {
   bool isHovered = false;
   bool isMouseDown = false;
   late DigitTypography _currentTypography;
@@ -132,21 +132,21 @@ class _DigitButtonState extends State<DigitButton> {
             borderRadius: BorderRadius.zero,
             border: Border.all(
               color: widget.isDisabled
-                  ? DigitButtonConstants.defaultDisabledColor
+                  ? ButtonConstants.defaultDisabledColor
                   : isMouseDown
-                      ? DigitButtonConstants.defaultPrimaryColor
+                      ? ButtonConstants.defaultPrimaryColor
                       : isHovered
                           ? const DigitColors().light.primaryOrange
-                          : DigitButtonConstants.defaultPrimaryColor,
+                          : ButtonConstants.defaultPrimaryColor,
               width: isHovered
                   ? widget.type == ButtonType.secondary
-                      ? DigitButtonConstants.defaultHoverWidth
-                      : DigitButtonConstants.defaultWidth
-                  : DigitButtonConstants.defaultWidth,
+                      ? ButtonConstants.defaultHoverWidth
+                      : ButtonConstants.defaultWidth
+                  : ButtonConstants.defaultWidth,
             ),
             color: widget.type == ButtonType.primary
                 ? (widget.isDisabled
-                    ? DigitButtonConstants.defaultDisabledColor
+                    ? ButtonConstants.defaultDisabledColor
                     : isHovered
                         ? isMouseDown
                             ? const DigitColors().light.primaryOrange
@@ -208,21 +208,21 @@ class _DigitButtonState extends State<DigitButton> {
               borderRadius: BorderRadius.zero,
               border: Border.all(
                 color: widget.isDisabled
-                    ? DigitButtonConstants.defaultDisabledColor
+                    ? ButtonConstants.defaultDisabledColor
                     : isMouseDown
-                        ? DigitButtonConstants.defaultPrimaryColor
+                        ? ButtonConstants.defaultPrimaryColor
                         : isHovered
                             ? const DigitColors().light.primaryOrange
-                            : DigitButtonConstants.defaultPrimaryColor,
+                            : ButtonConstants.defaultPrimaryColor,
                 width: isHovered
                     ? widget.type == ButtonType.secondary
-                        ? DigitButtonConstants.defaultHoverWidth
-                        : DigitButtonConstants.defaultWidth
-                    : DigitButtonConstants.defaultWidth,
+                        ? ButtonConstants.defaultHoverWidth
+                        : ButtonConstants.defaultWidth
+                    : ButtonConstants.defaultWidth,
               ),
               color: widget.type == ButtonType.primary
                   ? (widget.isDisabled
-                      ? DigitButtonConstants.defaultDisabledColor
+                      ? ButtonConstants.defaultDisabledColor
                       : isHovered
                           ? isMouseDown
                               ? const DigitColors().light.primaryOrange
@@ -296,10 +296,10 @@ class _DigitButtonState extends State<DigitButton> {
                   widget.prefixIcon,
                   size: widget.type == ButtonType.link ? 20 : widget.iconSize,
                   color: widget.type == ButtonType.primary
-                      ? DigitButtonConstants.defaultTextColor
+                      ? ButtonConstants.defaultTextColor
                       : (widget.isDisabled
-                          ? DigitButtonConstants.defaultDisabledColor
-                          : DigitButtonConstants.defaultPrimaryColor),
+                          ? ButtonConstants.defaultDisabledColor
+                          : ButtonConstants.defaultPrimaryColor),
                 ),
               ],
             ),
@@ -315,20 +315,20 @@ class _DigitButtonState extends State<DigitButton> {
                   ? _currentTypography.link.copyWith(
                       height: 1.172,
                       color: widget.isDisabled
-                          ? DigitButtonConstants.defaultDisabledColor
-                          : DigitButtonConstants.defaultPrimaryColor,
+                          ? ButtonConstants.defaultDisabledColor
+                          : ButtonConstants.defaultPrimaryColor,
                       decoration: TextDecoration.underline,
                       decorationColor: widget.isDisabled
-                          ? DigitButtonConstants.defaultDisabledColor
-                          : DigitButtonConstants.defaultPrimaryColor,
+                          ? ButtonConstants.defaultDisabledColor
+                          : ButtonConstants.defaultPrimaryColor,
                     )
                   : _currentTypography.button.copyWith(
                       height: 1.5,
                       color: widget.type == ButtonType.primary
-                          ? DigitButtonConstants.defaultTextColor
+                          ? ButtonConstants.defaultTextColor
                           : (widget.isDisabled
-                              ? DigitButtonConstants.defaultDisabledColor
-                              : DigitButtonConstants.defaultPrimaryColor),
+                              ? ButtonConstants.defaultDisabledColor
+                              : ButtonConstants.defaultPrimaryColor),
                       overflow: TextOverflow.ellipsis,
                     ),
             ),
@@ -348,10 +348,10 @@ class _DigitButtonState extends State<DigitButton> {
                   widget.suffixIcon,
                   size: widget.type == ButtonType.link ? 20 : widget.iconSize,
                   color: widget.type == ButtonType.primary
-                      ? DigitButtonConstants.defaultTextColor
+                      ? ButtonConstants.defaultTextColor
                       : (widget.isDisabled
-                          ? DigitButtonConstants.defaultDisabledColor
-                          : DigitButtonConstants.defaultPrimaryColor),
+                          ? ButtonConstants.defaultDisabledColor
+                          : ButtonConstants.defaultPrimaryColor),
                 ),
               ],
             ),

@@ -147,7 +147,7 @@ Digit UI Components provides a variety of buttons with optional suffix and prefi
 
 #### Primary Button
 
-        DigitButton(
+        Button(
             label: 'Primary Button',
             onPressed: () {},
             type: ButtonType.primary,
@@ -157,7 +157,7 @@ Digit UI Components provides a variety of buttons with optional suffix and prefi
 
 with Suffix Icon
 
-        DigitButton(
+        Button(
             suffixIcon: Icons.add,
             label: 'Primary Button',
             onPressed: () {},
@@ -168,7 +168,7 @@ with Suffix Icon
 
 #### Secondary Button
 
-        DigitButton(
+        Button(
             label: 'secondary Button',
             onPressed: () {},
             type: ButtonType.secondary,
@@ -178,7 +178,7 @@ with Suffix Icon
 
 #### Tertiary Button
 
-        DigitButton(
+        Button(
             label: 'tertiary Button',
             onPressed: () {},
             type: ButtonType.tertiary,
@@ -188,7 +188,7 @@ with Suffix Icon
 
 #### Link
 
-        DigitButton(
+        Button(
             label: 'link',
             onPressed: () {},
             type: ButtonType.link,
@@ -199,7 +199,7 @@ with Suffix Icon
 ### Radio Buttons
 The Radio Buttons component in Digit UI Components empowers users to make a single selection from a list of options. This intuitive interface provides a smooth user experience with hover and mouse-down effects.
 
-        DigitRadioList(
+        RadioList(
             onChanged: (value) {},
             groupValue: '1',
             radioButtons: [
@@ -214,7 +214,7 @@ The Radio Buttons component in Digit UI Components empowers users to make a sing
 ### Toggle Buttons
 The Toggle Buttons component in Digit UI Components presents a list of interactive toggle buttons, providing users with the ability to select a option. Each button is equipped with callbacks for both mouse-down and hover effects, ensuring a responsive and engaging user interface.
 
-        DigitToggleList(
+        ToggleList(
             toggleButtons: [
                 ToggleButtonModel(
                     name: 'Toggle 1', key: 'key1', onSelected: (value) {}),
@@ -380,8 +380,8 @@ The toast component is used for displaying toast messages with various types suc
 
 Success toast
 
-        DigitToast.show(context,
-                          options: DigitToastOptions(
+        Toast.show(context,
+                          options: ToastOptions(
                               "Your Warning message", ToastType.success));
 
 ![Screenshot from 2024-03-11 14-32-23](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/51d227a9-1adb-4bc7-a945-bb0b320bef50)
@@ -390,8 +390,8 @@ Success toast
 
 error toast
 
-        DigitToast.show(context,
-                        options: DigitToastOptions(
+        Toast.show(context,
+                        options: ToastOptions(
                             "Your Warning message", ToastType.error));
 
 ![Screenshot from 2024-03-11 14-32-28](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/fc9734cd-3ef5-406b-bc74-9fe2d74670ee)
@@ -399,8 +399,8 @@ error toast
 
 Warning toast
 
-        DigitToast.show(context,
-                            options: DigitToastOptions(
+        Toast.show(context,
+                            options: ToastOptions(
                                 "Your Warning message", ToastType.warning));
 
 

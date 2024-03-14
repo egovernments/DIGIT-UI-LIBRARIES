@@ -31,6 +31,7 @@ TreeSelectDropDown<int>(
 import 'package:digit_flutter_components/digit_components.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../../constants/AppView.dart';
 import '../../constants/app_constants.dart';
 import '../../enum/app_enums.dart';
@@ -121,6 +122,8 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
 
   /// value notifier that is used for controller.
   TreeSelectController<T>? _controller;
+
+  late DigitTypography currentTypography;
 
   @override
   void initState() {
@@ -235,6 +238,7 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
 
   @override
   Widget build(BuildContext context) {
+    currentTypography = getTypography(context);
     ///calculate the dropdown width based on the view
     double dropdownWidth =
         AppView.isMobileView(MediaQuery.of(context).size.width)
@@ -248,7 +252,6 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
           link: _layerLink,
           child: Focus(
             canRequestFocus: !widget.isDisabled,
-
             /// Only allow focus if the dropdown is enabled
             skipTraversal: !widget.isDisabled,
             focusNode: _focusNode,
@@ -257,7 +260,6 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
               highlightColor: const DigitColors().transparent,
               hoverColor: const DigitColors().transparent,
               onTap: !widget.isDisabled ? _toggleFocus : null,
-
               /// Disable onTap if dropdown is disabled
               child: StatefulBuilder(builder: (context, setState) {
                 return Container(
@@ -335,9 +337,7 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
                               widget.errorMessage!.length > 256
                                   ? '${widget.errorMessage!.substring(0, 256)}...'
                                   : widget.errorMessage!,
-                              style: DigitTheme
-                                  .instance.mobileTheme.textTheme.bodyMedium
-                                  ?.copyWith(
+                              style: currentTypography.bodyS.copyWith(
                                 height: 1.5,
                                 color: const DigitColors().light.alertError,
                               ),
@@ -351,9 +351,7 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
                         widget.helpText!.length > 256
                             ? '${widget.helpText!.substring(0, 256)}...'
                             : widget.helpText!,
-                        style: DigitTheme
-                            .instance.mobileTheme.textTheme.bodyMedium
-                            ?.copyWith(
+                        style: currentTypography.bodyS.copyWith(
                           height: 1.5,
                           color: const DigitColors().light.textSecondary,
                         ),
@@ -417,8 +415,7 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
               ),
               child: Text(
                 widget.clearAllText,
-                style: DigitTheme.instance.mobileTheme.textTheme.bodyMedium
-                    ?.copyWith(
+                style: currentTypography.bodyS.copyWith(
                   color: const DigitColors().light.primaryOrange,
                   height: 1,
                 ),
@@ -468,17 +465,20 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
   /// Container decoration for the dropdown.
   Decoration _getContainerDecoration() {
     return BoxDecoration(
-      color: const DigitColors().transparent,
+      color: const DigitColors().light.paperPrimary,
       borderRadius: BorderRadius.zero,
-      border: _selectionMode
+      border: widget.errorMessage!=null ? Border.all(
+        color: const DigitColors().light.alertError,
+        width: 1.5,
+      ): _selectionMode
           ? Border.all(
-              color: const DigitColors().light.primaryOrange,
-              width: 1,
-            )
+        color: const DigitColors().light.primaryOrange,
+        width: 1.5,
+      )
           : Border.all(
-              color: const DigitColors().light.textSecondary,
-              width: 1,
-            ),
+        color: const DigitColors().light.textSecondary,
+        width: 1,
+      ),
     );
   }
 

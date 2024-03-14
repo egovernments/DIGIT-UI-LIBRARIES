@@ -1,15 +1,15 @@
 import 'package:digit_flutter_components/digit_components.dart';
 import 'package:flutter/material.dart';
 
-/// DigitToggle is a custom toggle button widget that provides visual feedback on hover and supports selection.
+/// Toggle is a custom toggle button widget that provides visual feedback on hover and supports selection.
 
-class DigitToggle extends StatefulWidget {
+class Toggle extends StatefulWidget {
   final void Function(bool isSelected) onChanged;
   final String label;
   bool isSelected;
   final double maxLabelWidth;
 
-  DigitToggle({
+  Toggle({
     Key? key,
     required this.onChanged,
     required this.label,
@@ -18,10 +18,10 @@ class DigitToggle extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _DigitToggleState createState() => _DigitToggleState();
+  _ToggleState createState() => _ToggleState();
 }
 
-class _DigitToggleState extends State<DigitToggle> {
+class _ToggleState extends State<Toggle> {
   bool isHovered = false;
   bool isMouseDown = false;
 

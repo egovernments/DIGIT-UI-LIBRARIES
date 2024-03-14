@@ -45,7 +45,7 @@ class BaseConstants {
 }
 
 
-class DigitButtonConstants {
+class ButtonConstants {
   static const EdgeInsets defaultButtonPadding = EdgeInsets.all(8.0);
   static const EdgeInsets defaultContentPadding = EdgeInsets.only(left: 24.0, top: 7.0, right: 24.0, bottom: 8.0);
   static const double defaultIconSize = 24.0;

@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import '../../constants/app_constants.dart';
 import '../../enum/app_enums.dart';
 
-/// `DigitCheckboxIcon` is a widget that represents the visual appearance of a checkbox.
+/// `CheckboxIcon` is a widget that represents the visual appearance of a checkbox.
 /// It supports three states: unchecked, intermediate, and checked. The appearance can be customized
 /// based on the state, disabled status, and color.
-class DigitCheckboxIcon extends StatelessWidget {
+class CheckboxIcon extends StatelessWidget {
   /// Represents the current state of the checkbox.
   final CheckboxState state;
 
@@ -16,8 +16,8 @@ class DigitCheckboxIcon extends StatelessWidget {
   final Color? color;
   final double size;
 
-  /// Creates a `DigitCheckboxIcon` widget with the given parameters.
-  const DigitCheckboxIcon({
+  /// Creates a `CheckboxIcon` widget with the given parameters.
+  const CheckboxIcon({
     super.key,
     required this.state,
     this.isDisabled = false,

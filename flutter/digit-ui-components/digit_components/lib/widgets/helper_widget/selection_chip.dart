@@ -24,14 +24,18 @@ class SelectionChip<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String? chipValue;
+    DigitTypography currentTypography = getTypography(context);
+
     /// Helper function to get the associated value from the value mapper
     bool getAssociatedValue(String code) {
-      if(valueMapper!=null){
+      if (valueMapper != null) {
         ValueMapper? mappedValue = valueMapper?.firstWhere(
-              (value) => value.code == code,
-          orElse: () => const ValueMapper(code: '', name: ''), /// Provide default values here
+          (value) => value.code == code,
+          orElse: () => const ValueMapper(code: '', name: ''),
+
+          /// Provide default values here
         );
-        if(mappedValue?.code!=''){
+        if (mappedValue?.code != '') {
           chipValue = mappedValue?.name;
           return true;
         }
@@ -53,10 +57,28 @@ class SelectionChip<T> extends StatelessWidget {
         child: Row(
           children: [
             getAssociatedValue(item.code)
-                ? Text(chipValue!)
+                ? Text(
+                    chipValue!,
+                    style: currentTypography.bodyS.copyWith(
+                      color: const DigitColors().light.textPrimary,
+                      height: 1.025,
+                    ),
+                  )
                 : selectionType == SelectionType.nestedMultiSelect
-                    ? Text('${item.type}: ${item.name}')
-                    : Text(item.name),
+                    ? Text(
+                        '${item.type}: ${item.name}',
+                        style: currentTypography.bodyS.copyWith(
+                          color: const DigitColors().light.textPrimary,
+                          height: 1.025,
+                        ),
+                      )
+                    : Text(
+                        item.name,
+                        style: currentTypography.bodyS.copyWith(
+                          color: const DigitColors().light.textPrimary,
+                          height: 1.025,
+                        ),
+                      ),
             const SizedBox(
               width: kPadding,
             ),

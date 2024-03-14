@@ -1,9 +1,9 @@
 /*
- DigitToggleList is a row of toggle buttons that allows selecting one item at a time.
+ ToggleList is a row of toggle buttons that allows selecting one item at a time.
 
   Example usage:
  ```dart
- DigitToggleList(
+ ToggleList(
   toggleButtons: [
     ToggleButtonModel(name: 'Option 1', onSelected: () => print('Option 1 selected')),
     ToggleButtonModel(name: 'Option 2', onSelected: () => print('Option 2 selected')),
@@ -24,7 +24,7 @@ import '../../models/toggleButtonModel.dart';
 import '../../theme/digit_theme.dart';
 import 'digit_toggle.dart';
 
-class DigitToggleList extends StatefulWidget {
+class ToggleList extends StatefulWidget {
   final List<ToggleButtonModel> toggleButtons;
   final void Function(ToggleButtonModel) onChanged;
   final EdgeInsets? contentPadding;
@@ -32,7 +32,7 @@ class DigitToggleList extends StatefulWidget {
   final MainAxisAlignment mainAxisAlignment;
   final CrossAxisAlignment crossAxisAlignment;
 
-  const DigitToggleList({
+  const ToggleList({
     Key? key,
     required this.toggleButtons,
     required this.onChanged,
@@ -43,10 +43,10 @@ class DigitToggleList extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _DigitToggleListState createState() => _DigitToggleListState();
+  _ToggleListState createState() => _ToggleListState();
 }
 
-class _DigitToggleListState extends State<DigitToggleList> {
+class _ToggleListState extends State<ToggleList> {
   int? selectedIndex;
   late double maxLabelWidth;
 
@@ -89,7 +89,7 @@ class _DigitToggleListState extends State<DigitToggleList> {
           return Padding(
             padding: widget.contentPadding ??
                 const EdgeInsets.only(bottom: kPadding),
-            child: DigitToggle(
+            child: Toggle(
               onChanged: (isSelected) {
                 setState(() {
                   if (isSelected) {

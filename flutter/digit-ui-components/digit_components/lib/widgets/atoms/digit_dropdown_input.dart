@@ -112,6 +112,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
   int _focusedIndex = -1;
   late bool _isMouseUsed;
   late double dropdownWidth;
+  late DigitTypography currentTypography;
 
   @override
   void initState() {
@@ -175,6 +176,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
 
   @override
   Widget build(BuildContext context) {
+    currentTypography = getTypography(context);
     /// Responsive width based on screen size
     dropdownWidth = AppView.isMobileView(MediaQuery.of(context).size.width)
         ? Default.mobileInputWidth
@@ -230,8 +232,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                     : null,
                 focusNode: _focusNode,
                 controller: widget.textEditingController,
-                style: DigitTheme.instance.mobileTheme.textTheme.bodyLarge
-                    ?.copyWith(
+                style: currentTypography.bodyL.copyWith(
                   height: 1.5,
                   color: const DigitColors().light.textPrimary,
                 ),
@@ -248,10 +249,10 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                        color: _isOpen
+                        color: widget.errorMessage !=null ? const DigitColors().light.alertError:_isOpen
                             ? const DigitColors().light.primaryOrange
                             : const DigitColors().light.genericInputBorder,
-                        width: _isOpen ? 1.5 : 1.0),
+                        width: _isOpen || widget.errorMessage !=null ? 1.5 : 1.0),
                     borderRadius: BorderRadius.zero,
                   ),
                   focusedBorder: OutlineInputBorder(
@@ -319,9 +320,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                   widget.errorMessage!.length > 256
                                       ? '${widget.errorMessage!.substring(0, 256)}...'
                                       : widget.errorMessage!,
-                                  style: DigitTheme
-                                      .instance.mobileTheme.textTheme.bodyMedium
-                                      ?.copyWith(
+                                  style: currentTypography.bodyS.copyWith(
                                     height: 1.5,
                                     color: const DigitColors().light.alertError,
                                   ),
@@ -335,9 +334,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                             widget.helpText!.length > 256
                                 ? '${widget.helpText!.substring(0, 256)}...'
                                 : widget.helpText!,
-                            style: DigitTheme
-                                .instance.mobileTheme.textTheme.bodyMedium
-                                ?.copyWith(
+                            style: currentTypography.bodyS.copyWith(
                               height: 1.5,
                               color: const DigitColors().light.textSecondary,
                             ),
@@ -656,31 +653,19 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                           overflow: TextOverflow.ellipsis,
                                           style: _itemMouseDownStates[filteredItems[index].code] ==
                                                   true
-                                              ? DigitTheme.instance.mobileTheme
-                                                  .textTheme.headlineSmall
-                                                  ?.copyWith(
+                                              ? currentTypography.headingS.copyWith(
                                                       height: 1.172,
                                                       color: const DigitColors()
                                                           .light
                                                           .paperPrimary)
                                               : filteredItems[index].description !=
                                                       null
-                                                  ? DigitTheme
-                                                      .instance
-                                                      .mobileTheme
-                                                      .textTheme
-                                                      .bodyLarge
-                                                      ?.copyWith(
+                                                  ? currentTypography.bodyL.copyWith(
                                                           height: 1.5,
                                                           color: const DigitColors()
                                                               .light
                                                               .textSecondary)
-                                                  : DigitTheme
-                                                      .instance
-                                                      .mobileTheme
-                                                      .textTheme
-                                                      .bodyMedium
-                                                      ?.copyWith(
+                                                  : currentTypography.bodyS.copyWith(
                                                           height: 1.125,
                                                           color: const DigitColors().light.textPrimary),
                                         ),
@@ -702,9 +687,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                         overflow: TextOverflow.ellipsis,
                                         maxLines: 3,
                                         softWrap: true,
-                                        style: DigitTheme.instance.mobileTheme
-                                            .textTheme.bodySmall
-                                            ?.copyWith(
+                                        style: currentTypography.bodyXS.copyWith(
                                           height: 1.125,
                                           color: _itemMouseDownStates[
                                                       filteredItems[index]
@@ -737,8 +720,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
               padding: DropdownConstants.noItemAvailablePadding,
               child: Text(
                 widget.emptyItemText,
-                style: DigitTheme.instance.mobileTheme.textTheme.bodyMedium
-                    ?.copyWith(
+                style: currentTypography.bodyS.copyWith(
                   height: 1.25,
                   color: const DigitColors().light.textDisabled,
                 ),
@@ -777,9 +759,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Text(currentType!,
-                                    style: DigitTheme.instance.mobileTheme
-                                        .textTheme.headlineSmall
-                                        ?.copyWith(
+                                    style: currentTypography.headingS.copyWith(
                                       color: const DigitColors()
                                           .light
                                           .textSecondary,
@@ -1011,23 +991,13 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                                                               index]
                                                                           .code] ==
                                                                   true
-                                                              ? DigitTheme
-                                                                  .instance
-                                                                  .mobileTheme
-                                                                  .textTheme
-                                                                  .headlineSmall
-                                                                  ?.copyWith(
+                                                              ? currentTypography.headingS.copyWith(
                                                                   color: const DigitColors()
                                                                       .light
                                                                       .paperPrimary,
                                                                   height: 1.188,
                                                                 )
-                                                              : DigitTheme
-                                                                  .instance
-                                                                  .mobileTheme
-                                                                  .textTheme
-                                                                  .bodyMedium
-                                                                  ?.copyWith(
+                                                              : currentTypography.bodyS.copyWith(
                                                                   color: const DigitColors()
                                                                       .light
                                                                       .textPrimary,
@@ -1058,12 +1028,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                                             .description!,
                                                         maxLines: 3,
                                                         softWrap: true,
-                                                        style: DigitTheme
-                                                            .instance
-                                                            .mobileTheme
-                                                            .textTheme
-                                                            .bodySmall
-                                                            ?.copyWith(
+                                                        style: currentTypography.bodyXS.copyWith(
                                                           color: _itemMouseDownStates[
                                                                       typeItems[
                                                                               index]
@@ -1119,8 +1084,8 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
               padding: DropdownConstants.noItemAvailablePadding,
               child: Text(
                 widget.emptyItemText,
-                style: DigitTheme.instance.mobileTheme.textTheme.bodyMedium
-                    ?.copyWith(
+                style: currentTypography.bodyS
+                    .copyWith(
                   color: const DigitColors().light.textDisabled,
                 ),
               ),

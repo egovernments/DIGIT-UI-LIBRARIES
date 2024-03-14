@@ -5,6 +5,7 @@ import '../../enum/app_enums.dart';
 import '../../models/TreeModel.dart';
 import '../../theme/colors.dart';
 import '../../theme/digit_theme.dart';
+import '../../theme/typography.dart';
 import '../atoms/digit_checkbox_icon.dart';
 
 class TreeNodeWidget extends StatefulWidget {
@@ -110,6 +111,7 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
 
   @override
   Widget build(BuildContext context) {
+    DigitTypography currentTypography = getTypography(context);
     return StatefulBuilder(builder: (context, setState) {
       return Column(
         children: [
@@ -239,7 +241,7 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
                               });
                             },
                             child: _areAllChildrenSelected(widget.currentOption)
-                                ? DigitCheckboxIcon(
+                                ? CheckboxIcon(
                                     size: 20,
                                     state: CheckboxState.checked,
                                     color: _parentSelected(widget.currentOption,
@@ -257,10 +259,10 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
                                                 .paperPrimary,
                                   )
                                 : _isAnyChildSelected(widget.currentOption)
-                                    ? const DigitCheckboxIcon(
+                                    ? const CheckboxIcon(
                                         size: 20,
                                         state: CheckboxState.intermediate)
-                                    : const DigitCheckboxIcon(
+                                    : const CheckboxIcon(
                                         size: 20,
                                         state: CheckboxState.unchecked),
                           ),
@@ -276,9 +278,7 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
                                           widget.currentOption) &&
                                       widget.treeSelectionType ==
                                           TreeSelectionType.MultiSelect
-                              ? DigitTheme
-                                  .instance.mobileTheme.textTheme.headlineSmall
-                                  ?.copyWith(
+                              ? currentTypography.headingS.copyWith(
                                   height: 1.188,
                                   color: _parentSelected(widget.currentOption,
                                           widget.parentNode)
@@ -292,9 +292,7 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
                                               .light
                                               .textSecondary,
                                 )
-                              : DigitTheme
-                                  .instance.mobileTheme.textTheme.bodyMedium
-                                  ?.copyWith(
+                              : currentTypography.bodyS.copyWith(
                                   height: 1.125,
                                   color: const DigitColors().light.textPrimary,
                                 ),

@@ -1,12 +1,12 @@
 /*?
- `DigitCheckbox` is a checkbox component with a label and optional icon customization.
+ `Checkbox` is a checkbox component with a label and optional icon customization.
 
  This widget allows the user to toggle between checked and unchecked states. It supports
  customization of the checkbox icon color, label, and disabled state.
 
  Example usage:
  ```dart
- DigitCheckbox(
+ Checkbox(
    label: 'CheckBox label',
    onChanged: (value) {
      // Handle checkbox state change
@@ -24,7 +24,7 @@ import 'package:flutter/material.dart';
 import '../../constants/app_constants.dart';
 import '../../enum/app_enums.dart';
 
-class DigitCheckbox extends StatefulWidget {
+class Checkbox extends StatefulWidget {
   /// The current value of the checkbox.
   final bool value;
 
@@ -46,8 +46,8 @@ class DigitCheckbox extends StatefulWidget {
   final MainAxisAlignment mainAxisAlignment;
   final CrossAxisAlignment crossAxisAlignment;
 
-  /// Creates a `DigitCheckbox` widget with the given parameters.
-  const DigitCheckbox({
+  /// Creates a `Checkbox` widget with the given parameters.
+  const Checkbox({
     Key? key,
     required this.label,
     required this.onChanged,
@@ -60,10 +60,10 @@ class DigitCheckbox extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _DigitCheckboxState createState() => _DigitCheckboxState();
+  _CheckboxState createState() => _CheckboxState();
 }
 
-class _DigitCheckboxState extends State<DigitCheckbox> {
+class _CheckboxState extends State<Checkbox> {
   late bool _currentState;
   bool isHovered = false;
 
@@ -112,7 +112,7 @@ class _DigitCheckboxState extends State<DigitCheckbox> {
                   child: SizedBox(
                     height: CheckboxConstants.containerSize,
                     width: CheckboxConstants.containerSize,
-                    child: DigitCheckboxIcon(
+                    child: CheckboxIcon(
                       state: _currentState
                           ? CheckboxState.checked
                           : CheckboxState.unchecked,

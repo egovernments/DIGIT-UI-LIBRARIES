@@ -5,6 +5,7 @@ import '../../enum/app_enums.dart';
 import '../../models/DropdownModels.dart';
 import '../../theme/colors.dart';
 import '../../theme/digit_theme.dart';
+import '../../theme/typography.dart';
 import '../atoms/digit_checkbox_icon.dart';
 
 class DropdownOption extends StatefulWidget {
@@ -12,8 +13,11 @@ class DropdownOption extends StatefulWidget {
   final bool isSelected;
   final SelectionType selectionType;
   final Color backgroundColor;
+  final bool? isFocused;
+  final int? focusedIndex;
   final List<DropdownItem> selectedOptions;
   final Function(List<DropdownItem>)? onOptionSelected;
+  final Function(DropdownItem currentHoverItem, bool isHovered)? onHover;
 
   const DropdownOption({super.key,
     required this.option,
@@ -22,6 +26,9 @@ class DropdownOption extends StatefulWidget {
     required this.backgroundColor,
     required this.selectedOptions,
     this.onOptionSelected,
+    this.isFocused,
+    this.onHover,
+    this.focusedIndex,
   });
 
   @override
@@ -34,6 +41,7 @@ class _DropdownOptionState extends State<DropdownOption> {
 
   @override
   Widget build(BuildContext context) {
+    DigitTypography currentTypography = getTypography(context);
     return Column(
       children: [
         StatefulBuilder(
@@ -53,9 +61,18 @@ class _DropdownOptionState extends State<DropdownOption> {
               hoverColor: const DigitColors().transparent,
               highlightColor: const DigitColors().transparent,
               onHover: (hover) {
-                setState(() {
-                  _itemHoverStates[widget.option] = hover;
-                });
+                if(widget.focusedIndex!=-1 && widget.isFocused==true){
+                  setState((){
+                    _itemHoverStates[widget.option] = false;
+                  });
+                }else{
+                  setState(() {
+                    if (hover && _itemHoverStates[widget.option] ==null ) {
+                      widget.onHover?.call(widget.option, true);
+                    }
+                    _itemHoverStates[widget.option] = hover;
+                  });
+                }
               },
               onTap: () {
                 widget.onOptionSelected?.call(widget.selectedOptions);
@@ -64,16 +81,16 @@ class _DropdownOptionState extends State<DropdownOption> {
                 decoration: BoxDecoration(
                   border: Border.all(
                     width: 0.5,
-                    color: _itemMouseDownStates[widget.option] == true ||
+                    color: _itemMouseDownStates[widget.option] == true || widget.isFocused==true ||
                             _itemHoverStates[widget.option] == true ||
                             widget.isSelected
                         ? const DigitColors().light.primaryOrange
                         : Colors.transparent,
                   ),
-                  color: _itemMouseDownStates[widget.option] == true ||
-                          widget.isSelected
+                  color: _itemMouseDownStates[widget.option] == true  ||
+                      widget.isSelected
                       ? const DigitColors().light.primaryOrange
-                      : _itemHoverStates[widget.option] == true
+                      : _itemHoverStates[widget.option] == true || widget.isFocused==true
                           ? const DigitColors().orangeBG
                           : widget.backgroundColor,
                 ),
@@ -97,12 +114,12 @@ class _DropdownOptionState extends State<DropdownOption> {
                         children: [
                           widget.isSelected ||
                                   _itemMouseDownStates[widget.option] == true
-                              ? DigitCheckboxIcon(
+                              ? CheckboxIcon(
                                   size: 20,
                                   state: CheckboxState.checked,
                                   color: const DigitColors().light.paperPrimary,
                                 )
-                              : const DigitCheckboxIcon(
+                              : const CheckboxIcon(
                                   size: 20, state: CheckboxState.unchecked),
                           const SizedBox(
                             width: 12,
@@ -128,24 +145,18 @@ class _DropdownOptionState extends State<DropdownOption> {
                                 style: widget.isSelected ||
                                         _itemMouseDownStates[widget.option] ==
                                             true
-                                    ? DigitTheme.instance.mobileTheme.textTheme
-                                        .headlineSmall
-                                        ?.copyWith(
+                                    ? currentTypography.headingS.copyWith(
                                         color: const DigitColors().light
                                             .paperPrimary,
                                         height: 1.172,
                                       )
                                     : widget.option.description != null
-                                        ? DigitTheme.instance.mobileTheme
-                                            .textTheme.bodyLarge
-                                            ?.copyWith(
+                                        ? currentTypography.bodyL.copyWith(
                                             color: const DigitColors().light
                                                 .textSecondary,
                                             height: 1.5,
                                           )
-                                        : DigitTheme.instance.mobileTheme
-                                            .textTheme.bodyMedium
-                                            ?.copyWith(
+                                        : currentTypography.bodyS.copyWith(
                                             color: const DigitColors().light
                                                 .textPrimary,
                                             height: 1.125,
@@ -160,9 +171,7 @@ class _DropdownOptionState extends State<DropdownOption> {
                           padding: const EdgeInsets.only(left: kPadding*4),
                           child: Text(
                             widget.option.description!,
-                            style: DigitTheme
-                                .instance.mobileTheme.textTheme.bodySmall
-                                ?.copyWith(
+                            style: currentTypography.bodyXS.copyWith(
                               color: widget.isSelected ||
                                   _itemMouseDownStates[widget.option] ==
                                       true

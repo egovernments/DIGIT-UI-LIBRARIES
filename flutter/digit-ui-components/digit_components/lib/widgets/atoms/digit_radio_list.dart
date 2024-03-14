@@ -1,10 +1,10 @@
 /*
- `DigitRadioList` is a widget for rendering a list of radio buttons.
+ `RadioList` is a widget for rendering a list of radio buttons.
  This widget provides options for radio buttons, handling hover effects, and a disabled state.
 
  Example usage:
  ```dart
- DigitRadioList(
+ RadioList(
    radioButtons: [
      RadioButtonModel(code: 'option1', name: 'Option 1'),
      RadioButtonModel(code: 'option2', name: 'Option 2'),
@@ -23,7 +23,7 @@ import '../../constants/AppView.dart';
 import '../../constants/app_constants.dart';
 import '../../models/RadioButtonModel.dart';
 
-class DigitRadioList extends StatefulWidget {
+class RadioList extends StatefulWidget {
   /// List of RadioButtonModel objects representing the radio buttons
   final List<RadioButtonModel> radioButtons;
 
@@ -45,8 +45,8 @@ class DigitRadioList extends StatefulWidget {
   /// radio button height
   final double radioHeight;
 
-  /// Constructor for the DigitRadioList widget
-  DigitRadioList({
+  /// Constructor for the RadioList widget
+  RadioList({
     Key? key,
     required this.radioButtons,
     required this.onChanged,
@@ -59,11 +59,11 @@ class DigitRadioList extends StatefulWidget {
 
   /// Create the state for the widget
   @override
-  _DigitRadioListState createState() => _DigitRadioListState();
+  _RadioListState createState() => _RadioListState();
 }
 
-/// State class for the DigitRadioList widget
-class _DigitRadioListState extends State<DigitRadioList> {
+/// State class for the RadioList widget
+class _RadioListState extends State<RadioList> {
   /// List to track whether each radio button is being hovered over
   late List<bool> isHoveredList;
   late List<bool> isMouseDown;
@@ -82,12 +82,13 @@ class _DigitRadioListState extends State<DigitRadioList> {
   /// Build the widget layout
   @override
   Widget build(BuildContext context) {
+    DigitTypography currentTypography = getTypography(context);
     isMobile = AppView.isMobileView(MediaQuery.of(context).size.width);
     if (!isMobile) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: _buildRadioButtons(),
+        children: _buildRadioButtons(currentTypography),
       );
     }
 
@@ -95,11 +96,11 @@ class _DigitRadioListState extends State<DigitRadioList> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
-      children: _buildRadioButtons(),
+      children: _buildRadioButtons(currentTypography),
     );
   }
 
-  List<Widget> _buildRadioButtons() {
+  List<Widget> _buildRadioButtons(DigitTypography currentTypography) {
     return widget.radioButtons.map(
       (button) {
         final index = widget.radioButtons.indexOf(button);
@@ -249,9 +250,7 @@ class _DigitRadioListState extends State<DigitRadioList> {
                         button.name,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: DigitTheme
-                            .instance.mobileTheme.textTheme.bodyLarge
-                            ?.copyWith(
+                        style: currentTypography.bodyL.copyWith(
                           height: 1.172,
                           color: widget.isDisabled
                               ? const DigitColors().light.textDisabled
@@ -263,8 +262,7 @@ class _DigitRadioListState extends State<DigitRadioList> {
                       button.name,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: DigitTheme.instance.mobileTheme.textTheme.bodyLarge
-                          ?.copyWith(
+                      style: currentTypography.bodyL.copyWith(
                         height: 1.172,
                         color: widget.isDisabled
                             ? const DigitColors().light.textDisabled
