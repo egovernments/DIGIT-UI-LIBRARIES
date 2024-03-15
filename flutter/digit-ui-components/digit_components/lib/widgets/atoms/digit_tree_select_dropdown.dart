@@ -289,8 +289,14 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
                         child: (_selectedOptions.isNotEmpty)
                             ? (widget.treeSelectionType ==
                                     TreeSelectionType.MultiSelect)
-                                ? Text('${_selectedOptions.length} Selected')
-                                : Text(_selectedOptions.first.code.toString())
+                                ? Text(capitalizeFirstLetter('${_selectedOptions.length} Selected'), style: currentTypography.bodyL.copyWith(
+                          height: 1.5,
+                          color: const DigitColors().light.textPrimary,
+                        ),)
+                                : Text(capitalizeFirstLetter(_selectedOptions.first.code.toString()), style: currentTypography.bodyL.copyWith(
+                          height: 1.5,
+                          color: const DigitColors().light.textPrimary,
+                        ),)
                             : const SizedBox(),
                       ),
                       Icon(

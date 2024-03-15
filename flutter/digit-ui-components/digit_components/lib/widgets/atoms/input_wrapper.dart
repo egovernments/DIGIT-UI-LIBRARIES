@@ -274,6 +274,7 @@ class InputField extends StatelessWidget {
           onChange: onChange,
           errorMessage: errorMessage,
           inputFormatters: inputFormatters,
+          editable: editable,
         );
       case InputType.textArea:
         return DigitTextAreaFormInput(
