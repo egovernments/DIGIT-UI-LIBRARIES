@@ -1,8 +1,8 @@
 export './powered_by_digit.dart';
 export './scrollable_content.dart';
 export './atoms/digit_button.dart';
-export './atoms/digit_checkbox.dart';
 export './atoms/digit_checkbox_icon.dart';
+export './atoms/digit_checkbox.dart';
 export './atoms/digit_date_form_input.dart';
 export './atoms/digit_base_form_input.dart';
 export './atoms/digit_location_form_input.dart';

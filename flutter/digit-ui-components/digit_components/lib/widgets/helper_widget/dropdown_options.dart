@@ -8,6 +8,7 @@ import '../../theme/digit_theme.dart';
 import '../../theme/typography.dart';
 import '../atoms/digit_checkbox_icon.dart';
 
+
 class DropdownOption extends StatefulWidget {
   final DropdownItem option;
   final bool isSelected;
@@ -122,13 +123,13 @@ class _DropdownOptionState extends State<DropdownOption> {
                         children: [
                           widget.isSelected ||
                                   _itemMouseDownStates[widget.option] == true
-                              ? CheckboxIcon(
+                              ? DigitCheckboxIcon(
                                   size: 20,
-                                  state: CheckboxState.checked,
+                                  state: DigitCheckboxState.checked,
                                   color: const DigitColors().light.paperPrimary,
                                 )
-                              : const CheckboxIcon(
-                                  size: 20, state: CheckboxState.unchecked),
+                              : const DigitCheckboxIcon(
+                                  size: 20, state: DigitCheckboxState.unchecked),
                           const SizedBox(
                             width: 12,
                           ),

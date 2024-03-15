@@ -1,5 +1,5 @@
-import 'package:digit_flutter_components/digit_components.dart';
-import 'package:digit_flutter_components/widgets/atoms/text_area_icons.dart';
+import 'package:digit_ui_components/digit_components.dart';
+import 'package:digit_ui_components/widgets/atoms/text_area_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../constants/AppView.dart';

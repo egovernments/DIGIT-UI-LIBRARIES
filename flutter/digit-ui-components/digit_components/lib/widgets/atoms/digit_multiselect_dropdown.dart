@@ -32,7 +32,7 @@ and other elements can be customized using various properties.
  ....*/
 
 import 'package:collection/collection.dart';
-import 'package:digit_flutter_components/digit_components.dart';
+import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

@@ -1,5 +1,5 @@
-import 'package:digit_flutter_components/digit_components.dart';
-import 'package:digit_flutter_components/utils/validators/validator.dart';
+import 'package:digit_ui_components/digit_components.dart';
+import 'package:digit_ui_components/utils/validators/validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 

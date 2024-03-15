@@ -1,4 +1,4 @@
-library digit_flutter_components;
+library digit_ui_components;
 
 export 'theme/theme.dart';
 export 'widgets/widgets.dart';

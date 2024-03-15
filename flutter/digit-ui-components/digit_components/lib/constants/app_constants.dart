@@ -56,7 +56,7 @@ class ButtonConstants {
   static const double defaultWidth = 1.0;
   static const double defaultHoverWidth = 2.0;
 }
-class CheckboxConstants {
+class DigitCheckboxConstants {
   static const double iconSize = 16.0;
   static const double containerSize = 24.0;
   static const double borderWidth = 2.0;

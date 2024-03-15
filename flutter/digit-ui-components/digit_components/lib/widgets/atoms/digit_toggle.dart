@@ -1,4 +1,4 @@
-import 'package:digit_flutter_components/digit_components.dart';
+import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/material.dart';
 
 /// Toggle is a custom toggle button widget that provides visual feedback on hover and supports selection.

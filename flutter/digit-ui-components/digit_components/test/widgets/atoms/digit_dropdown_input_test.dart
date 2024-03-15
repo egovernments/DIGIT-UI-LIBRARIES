@@ -1,6 +1,6 @@
-import 'package:digit_flutter_components/digit_components.dart';
-import 'package:digit_flutter_components/enum/app_enums.dart';
-import 'package:digit_flutter_components/models/DropdownModels.dart';
+import 'package:digit_ui_components/digit_components.dart';
+import 'package:digit_ui_components/enum/app_enums.dart';
+import 'package:digit_ui_components/models/DropdownModels.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 

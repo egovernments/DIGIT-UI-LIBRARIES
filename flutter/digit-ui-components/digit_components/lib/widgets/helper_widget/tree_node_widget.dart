@@ -250,9 +250,9 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
                               });
                             },
                             child: _areAllChildrenSelected(widget.currentOption)
-                                ? CheckboxIcon(
+                                ? DigitCheckboxIcon(
                                     size: 20,
-                                    state: CheckboxState.checked,
+                                    state: DigitCheckboxState.checked,
                                     color: _parentSelected(widget.currentOption,
                                             widget.parentNode)
                                         ? const DigitColors()
@@ -268,12 +268,12 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
                                                 .paperPrimary,
                                   )
                                 : _isAnyChildSelected(widget.currentOption)
-                                    ? const CheckboxIcon(
+                                    ? const DigitCheckboxIcon(
                                         size: 20,
-                                        state: CheckboxState.intermediate)
-                                    : const CheckboxIcon(
+                                        state: DigitCheckboxState.intermediate)
+                                    : const DigitCheckboxIcon(
                                         size: 20,
-                                        state: CheckboxState.unchecked),
+                                        state: DigitCheckboxState.unchecked),
                           ),
                         if (widget.treeSelectionType ==
                             TreeSelectionType.MultiSelect)

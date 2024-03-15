@@ -10,7 +10,7 @@ Add this to your `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  digit_flutter_components: 1.0.0
+  digit_ui_components: 1.0.0
 ```
 
 Then run:
@@ -24,7 +24,7 @@ Then run:
 Import the package in your Dart code:
 
 ```dart
-   import 'package:digit_flutter_components/digit_components.dart';
+   import 'package:digit_ui_components/digit_components.dart';
 ```
 
 ## Example

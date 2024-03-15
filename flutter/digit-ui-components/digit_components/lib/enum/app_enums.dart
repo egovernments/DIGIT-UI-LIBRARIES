@@ -27,8 +27,8 @@ enum TreeSelectionType {
 
 
 
-/// Enum representing the possible states of the checkbox.
-enum CheckboxState {
+/// Enum representing the possible states of the DigitCheckbox.
+enum DigitCheckboxState {
   /// Represents an unchecked state.
   unchecked,
 

@@ -1,4 +1,4 @@
-import 'package:digit_flutter_components/digit_components.dart';
+import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/material.dart';
 
 class ScrollableContent extends StatelessWidget {

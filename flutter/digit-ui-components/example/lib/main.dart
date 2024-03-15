@@ -1,14 +1,14 @@
 
-import 'package:digit_flutter_components/enum/app_enums.dart';
-import 'package:digit_flutter_components/models/DropdownModels.dart';
-import 'package:digit_flutter_components/models/RadioButtonModel.dart';
-import 'package:digit_flutter_components/models/TreeModel.dart';
-import 'package:digit_flutter_components/digit_components.dart';
-import 'package:digit_flutter_components/models/toggleButtonModel.dart';
-import 'package:digit_flutter_components/utils/validators/validator.dart';
+import 'package:digit_ui_components/enum/app_enums.dart';
+import 'package:digit_ui_components/models/DropdownModels.dart';
+import 'package:digit_ui_components/models/RadioButtonModel.dart';
+import 'package:digit_ui_components/models/TreeModel.dart';
+import 'package:digit_ui_components/digit_components.dart';
+import 'package:digit_ui_components/models/toggleButtonModel.dart';
+import 'package:digit_ui_components/utils/validators/validator.dart';
+import 'package:digit_ui_components/widgets/atoms/digit_checkbox.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:digit_flutter_components/widgets/atoms/digit_checkbox.dart' as Digit;
 import 'package:url_strategy/url_strategy.dart';
 
 final List<TreeNode> Nodes = [
@@ -135,7 +135,7 @@ class MyHomePageState extends State<MyHomePage> {
   bool showAllVariantsOfTertiaryButton = false;
   bool showAllVariantsOfLink = false;
 
-  bool showAllVariantsOfCheckbox = false;
+  bool showAllVariantsOfDigitCheckbox = false;
 
   bool showAllVariantsOfDropdown = false;
   bool showAllVariantsOfMultiSelectDropdown = false;
@@ -172,7 +172,7 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 8,
                 ),
-                Digit.Checkbox(
+                DigitCheckbox(
                   label: "Show All The Variants Of Text Field",
                   onChanged: (value) {
                     setState(() {
@@ -242,7 +242,7 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 8,
                 ),
-                Digit.Checkbox(
+                DigitCheckbox(
                   label: "Show All The Variants Of Text Area Field",
                   onChanged: (value) {
                     setState(() {
@@ -306,7 +306,7 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 8,
                 ),
-                Digit.Checkbox(
+                DigitCheckbox(
                   label: "Show All The Variants Of Date Field",
                   onChanged: (value) {
                     setState(() {
@@ -372,7 +372,7 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 8,
                 ),
-                Digit.Checkbox(
+                DigitCheckbox(
                   label: "Show All The Variants Of Time Field",
                   onChanged: (value) {
                     setState(() {
@@ -432,7 +432,7 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 8,
                 ),
-                Digit.Checkbox(
+                DigitCheckbox(
                   label: "Show All The Variants Of Search Field",
                   onChanged: (value) {
                     setState(() {
@@ -502,7 +502,7 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 8,
                 ),
-                Digit.Checkbox(
+                DigitCheckbox(
                   label: "Show All The Variants Of Password Field",
                   onChanged: (value) {
                     setState(() {
@@ -562,7 +562,7 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 8,
                 ),
-                Digit.Checkbox(
+                DigitCheckbox(
                   label: "Show All The Variants Of Numeric Field",
                   onChanged: (value) {
                     setState(() {
@@ -633,7 +633,7 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 8,
                 ),
-                Digit.Checkbox(
+                DigitCheckbox(
                   label: "Show All The Variants Of Location Field",
                   onChanged: (value) {
                     setState(() {
@@ -685,7 +685,7 @@ class MyHomePageState extends State<MyHomePage> {
                   helpText: 'help text',
                   prefixText: '+88',
                 ),
-                Digit.Checkbox(
+                DigitCheckbox(
                   label: "Show All The Variants Of prefix Input Field",
                   onChanged: (value) {
                     setState(() {
@@ -732,7 +732,7 @@ class MyHomePageState extends State<MyHomePage> {
                   helpText: 'help text',
                   suffixText: '#',
                 ),
-                Digit.Checkbox(
+                DigitCheckbox(
                   label: "Show All The Variants Of Suffix Input Field",
                   onChanged: (value) {
                     setState(() {
@@ -797,7 +797,7 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 8,
                 ),
-                Digit.Checkbox(
+                DigitCheckbox(
                     label: 'Show All Variants Of Default Dropdown',
                     onChanged: (value) {
                       setState(() {
@@ -1172,7 +1172,7 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 8,
                 ),
-                Digit.Checkbox(
+                DigitCheckbox(
                     label: 'Show All Variants Of MultiSelect Dropdown',
                     onChanged: (value) {
                       setState(() {
@@ -1511,7 +1511,7 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 8,
                 ),
-                Digit.Checkbox(
+                DigitCheckbox(
                   label: "Show All The Variants Of Radio Buttons",
                   onChanged: (value) {
                     setState(() {
@@ -1601,7 +1601,7 @@ class MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 const SizedBox(height: 8),
-                Digit.Checkbox(
+                DigitCheckbox(
                     label: 'Show All Variants Of Primary Button',
                     onChanged: (value) {
                       setState(() {
@@ -1661,7 +1661,7 @@ class MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 const SizedBox(height: 8),
-                Digit.Checkbox(
+                DigitCheckbox(
                     label: 'Show All Variants Of Secondary Button',
                     onChanged: (value) {
                       setState(() {
@@ -1718,7 +1718,7 @@ class MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 const SizedBox(height: 8),
-                Digit.Checkbox(
+                DigitCheckbox(
                     label: 'Show All Variants Of Tertiary Button',
                     onChanged: (value) {
                       setState(() {
@@ -1766,7 +1766,7 @@ class MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 const SizedBox(height: 8),
-                Digit.Checkbox(
+                DigitCheckbox(
                     label: 'Show All Variants Of Link',
                     onChanged: (value) {
                       setState(() {
@@ -1804,7 +1804,7 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 8,
                 ),
-                Digit.Checkbox(
+                DigitCheckbox(
                   label: 'Click to see the Success toast',
                   value: false,
                   onChanged: (value) {
@@ -1816,7 +1816,7 @@ class MyHomePageState extends State<MyHomePage> {
                   },
                 ),
                 const SizedBox(height: 8),
-                Digit.Checkbox(
+                DigitCheckbox(
                   label: 'Click to see the error toast',
                   value: false,
                   onChanged: (value) {
@@ -1828,7 +1828,7 @@ class MyHomePageState extends State<MyHomePage> {
                   },
                 ),
                const SizedBox(height: 8,),
-                Digit.Checkbox(
+                DigitCheckbox(
                   label: 'Click to see the Warning toast',
                   value: false,
                   onChanged: (value) {
@@ -1841,7 +1841,7 @@ class MyHomePageState extends State<MyHomePage> {
                 ),
 
                 const SizedBox(height: 8,),
-                Digit.Checkbox(
+                DigitCheckbox(
                   label: 'Click to see the Success toast with long message',
                   value: false,
                   onChanged: (value) {
@@ -1852,7 +1852,7 @@ class MyHomePageState extends State<MyHomePage> {
                     }
                   },
                 ),const SizedBox(height: 8,),
-                Digit.Checkbox(
+                DigitCheckbox(
                   label: 'Click to see the Success toast with long message',
                   value: false,
                   onChanged: (value) {
@@ -1863,7 +1863,7 @@ class MyHomePageState extends State<MyHomePage> {
                     }
                   },
                 ),const SizedBox(height: 8,),
-                Digit.Checkbox(
+                DigitCheckbox(
                   label: 'Click to see the Success toast with long message',
                   value: false,
                   onChanged: (value) {
@@ -1879,41 +1879,41 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 8,
                 ),
-                Digit.Checkbox(
-                  label: 'checkbox',
+                DigitCheckbox(
+                  label: 'DigitCheckbox',
                   value: false,
                   onChanged: (value) {},
                 ),
                 const SizedBox(height: 8),
-                Digit.Checkbox(
-                    label: 'Show All Variants Of Checkbox',
+                DigitCheckbox(
+                    label: 'Show All Variants Of DigitCheckbox',
                     onChanged: (value) {
                       setState(() {
-                        showAllVariantsOfCheckbox = value;
+                        showAllVariantsOfDigitCheckbox = value;
                       });
                     }),
-                if (showAllVariantsOfCheckbox)
+                if (showAllVariantsOfDigitCheckbox)
                   Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const SizedBox(height: 8),
-                      Digit.Checkbox(
-                        label: 'CheckBox With Checked State',
+                      DigitCheckbox(
+                        label: 'DigitCheckbox With Checked State',
                         value: true,
                         onChanged: (value) {},
                       ),
                       const SizedBox(height: 8),
-                      Digit.Checkbox(
-                        label: 'Checkbox with Disabled State',
+                      DigitCheckbox(
+                        label: 'DigitCheckbox with Disabled State',
                         value: false,
                         disabled: true,
                         onChanged: (value) {},
                       ),
                       const SizedBox(height: 8),
-                      Digit.Checkbox(
+                      DigitCheckbox(
                         label:
-                            'Checkbox With Checked and Disabled StateCheckbox With Checked and Disabled StateCheckbox With Checked and Disabled StateCheckbox With Checked and Disabled StateCheckbox With Checked and Disabled StateCheckbox With Checked and Disabled StateCheckbox With Checked and Disabled StateCheckbox With Checked and Disabled StateCheckbox With Checked and Disabled StateCheckbox With Checked and Disabled StateCheckbox With Checked and Disabled StateCheckbox With Checked and Disabled StateCheckbox With Checked and Disabled State',
+                            'DigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled State',
                         value: true,
                         disabled: true,
                         onChanged: (value) {},
@@ -1925,7 +1925,7 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 8,
                 ),
-                InfoCard(
+                const InfoCard(
                   title: 'Info',
                   type: InfoType.info,
                   description:

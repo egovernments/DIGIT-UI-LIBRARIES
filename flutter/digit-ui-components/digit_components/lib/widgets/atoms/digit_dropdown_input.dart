@@ -27,7 +27,7 @@ and the onChange callback is used to handle the selected value.
 )
 ....*/
 
-import 'package:digit_flutter_components/digit_components.dart';
+import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
