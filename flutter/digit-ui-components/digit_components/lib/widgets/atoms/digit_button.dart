@@ -110,16 +110,7 @@ class _ButtonState extends State<Button> {
             minHeight: 32.0,
           ),
           decoration: BoxDecoration(
-            boxShadow: (isMouseDown)
-                ? [
-                    BoxShadow(
-                      color: const DigitColors().light.primaryOrange,
-                      offset: const Offset(0, 0),
-                      spreadRadius: 0,
-                      blurRadius: 4.50,
-                    ),
-                  ]
-                : widget.type == ButtonType.primary && isHovered == false
+            boxShadow: widget.type == ButtonType.primary && isHovered == false
                     ? [
                         BoxShadow(
                           color:  const DigitColors().light.textPrimary.withOpacity(.5),

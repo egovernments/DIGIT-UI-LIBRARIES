@@ -42,11 +42,13 @@ class DigitTextFormInput extends BaseDigitFormInput {
     bool preferToolTipBelow = false,
     String? suffixText,
     String? prefixText,
+    IconData? suffixIcon,
     void Function(String?)? onError,
     final List<Validator>? validations,
     final void Function(String)? onChange,
     final String? errorMessage,
     final List<TextInputFormatter>? inputFormatters,
+    void Function(String)? onSuffixTap,
   }) : super(
           key: key,
           controller: controller,
@@ -69,6 +71,8 @@ class DigitTextFormInput extends BaseDigitFormInput {
           onChange: onChange,
           errorMessage: errorMessage,
           inputFormatters: inputFormatters,
+          suffixIcon: suffixIcon,
+          onSuffixTap: onSuffixTap,
         );
 
   @override

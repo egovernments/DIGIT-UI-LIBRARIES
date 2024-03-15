@@ -1,4 +1,7 @@
 
+import 'dart:html';
+
+import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/enum/app_enums.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,6 +17,7 @@ import 'digit_time_form_input.dart';
 
 
 enum InputType {
+  text,
   date,
   location,
   numeric,
@@ -37,9 +41,11 @@ class InputField extends StatelessWidget {
   final bool editable;
   final String? innerLabel;
   final String? helpText;
+  final String? suffixText;
+  final String? prefixText;
   final TooltipTriggerMode triggerMode;
   final bool preferToolTipBelow;
-  final IconData suffixIcon;
+  final IconData? suffixIcon;
   final TextInputType keyboardType;
   final void Function(String?)? onError;
   final List<Validator>? validations;
@@ -47,6 +53,21 @@ class InputField extends StatelessWidget {
   final String? errorMessage;
   final List<TextInputFormatter>? inputFormatters;
   final TextAreaScroll textAreaScroll;
+  final void Function(String)? onSuffixTap;
+
+  /// specifically for date component
+  final DateTime? initialDate;
+  final DateTime? firstDate;
+  final DateTime? lastDate;
+
+  /// Step value (used for specific input types like numeric).
+  final int step;
+
+  /// Minimum allowed value (used for specific input types like numeric).
+  final int minValue;
+
+  /// Maximum allowed value (used for specific input types like numeric).
+  final int maxValue;
 
   const InputField({
     Key? key,
@@ -65,7 +86,7 @@ class InputField extends StatelessWidget {
     this.helpText,
     this.triggerMode = TooltipTriggerMode.tap,
     this.preferToolTipBelow = false,
-    this.suffixIcon = Icons.date_range,
+    this.suffixIcon,
     this.keyboardType = TextInputType.text,
     this.onError,
     this.validations,
@@ -73,11 +94,44 @@ class InputField extends StatelessWidget {
     this.errorMessage,
     this.inputFormatters,
     this.textAreaScroll = TextAreaScroll.smart,
+    this.suffixText,
+    this.prefixText,
+    this.initialDate,
+    this.lastDate,
+    this.firstDate,
+    this.onSuffixTap,
+    this.step = 1,
+    this.minValue = 0,
+    this.maxValue = 100,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     switch (type) {
+      case InputType.text:
+        return DigitTextFormInput(
+          controller: controller,
+          label: label,
+          infoText: infoText,
+          info: info,
+          initialValue: initialValue,
+          readOnly: readOnly,
+          isDisabled: isDisabled,
+          isRequired: isRequired,
+          charCount: charCount,
+          innerLabel: innerLabel,
+          helpText: helpText,
+          triggerMode: triggerMode,
+          preferToolTipBelow: preferToolTipBelow,
+          suffixText: suffixText,
+          prefixText: prefixText,
+          onError: onError,
+          validations: validations,
+          onChange: onChange,
+          errorMessage: errorMessage,
+          inputFormatters: inputFormatters,
+          onSuffixTap: onSuffixTap,
+        );
       case InputType.date:
         return DigitDateFormInput(
           controller: controller,
@@ -100,6 +154,9 @@ class InputField extends StatelessWidget {
           onChange: onChange,
           errorMessage: errorMessage,
           inputFormatters: inputFormatters,
+          firstDate: firstDate,
+          lastDate: lastDate,
+          initialDate: initialDate,
         );
       case InputType.location:
         return DigitLocationFormInput(
@@ -131,6 +188,9 @@ class InputField extends StatelessWidget {
           label: label,
           infoText: infoText,
           info: info,
+          step: step,
+          maxValue: maxValue,
+          minValue: minValue,
           initialValue: initialValue,
           readOnly: readOnly,
           isDisabled: isDisabled,
@@ -191,6 +251,7 @@ class InputField extends StatelessWidget {
           onChange: onChange,
           errorMessage: errorMessage,
           inputFormatters: inputFormatters,
+          onSuffixTap: onSuffixTap,
         );
       case InputType.time:
         return DigitTimeFormInput(

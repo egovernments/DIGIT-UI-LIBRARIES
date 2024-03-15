@@ -7,6 +7,8 @@ import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/models/toggleButtonModel.dart';
 import 'package:digit_ui_components/utils/validators/validator.dart';
 import 'package:digit_ui_components/widgets/atoms/digit_checkbox.dart';
+import 'package:digit_ui_components/widgets/atoms/dropdown_wrapper.dart';
+import 'package:digit_ui_components/widgets/atoms/input_wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:url_strategy/url_strategy.dart';
@@ -196,7 +198,7 @@ class MyHomePageState extends State<MyHomePage> {
                           Validator(ValidatorType.maxLength, 10,
                               errorMessage: 'Maximum length is 10.'),
                           Validator(ValidatorType.pattern, r'^[a-zA-Z0-9]+$',
-                              errorMessage: 'Errowwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwr'),
+                              errorMessage: 'long error message long error message long error message long error message long error message'),
                         ],
                       ),
                       DigitTextFormInput(
@@ -204,7 +206,7 @@ class MyHomePageState extends State<MyHomePage> {
                         controller: TextEditingController(),
                         innerLabel: 'label',
                         charCount: true,
-                        helpText: 'help ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddtext',
+                        helpText: 'help text',
                         isRequired: true,
                       ),
                       DigitTextFormInput(
@@ -232,7 +234,8 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 8,
                 ),
-                DigitTextAreaFormInput(
+                InputField(
+                  type: InputType.textArea,
                   controller: controller23,
                   label: "Text Area",
                   innerLabel: 'label',
@@ -256,14 +259,16 @@ class MyHomePageState extends State<MyHomePage> {
                       const SizedBox(
                         height: 8,
                       ),
-                      DigitTextAreaFormInput(
+                      InputField(
+                        type: InputType.textArea,
                         label: "TextArea Field With Vertical Scroll",
                         controller: controller24,
                         innerLabel: 'label',
                         helpText: 'help text',
                         textAreaScroll: TextAreaScroll.vertical,
                       ),
-                      DigitTextAreaFormInput(
+                      InputField(
+                        type: InputType.textArea,
                         textAreaScroll: TextAreaScroll.none,
                         label: "TextArea Field With Disabled State",
                         controller: TextEditingController(),
@@ -271,7 +276,8 @@ class MyHomePageState extends State<MyHomePage> {
                         helpText: 'help text',
                         isDisabled: true,
                       ),
-                      DigitTextAreaFormInput(
+                      InputField(
+                        type: InputType.textArea,
                         textAreaScroll: TextAreaScroll.none,
                         label: "TextArea Field With Required State",
                         controller: TextEditingController(),
@@ -279,7 +285,8 @@ class MyHomePageState extends State<MyHomePage> {
                         helpText: 'help text',
                         isRequired: true,
                       ),
-                      DigitTextAreaFormInput(
+                      InputField(
+                        type: InputType.textArea,
                         label: "TextArea Field With Read Only State",
                         controller: TextEditingController(),
                         innerLabel: 'label',
@@ -297,7 +304,8 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 8,
                 ),
-                DigitDateFormInput(
+                InputField(
+                  type: InputType.date,
                   label: "Date Field",
                   controller: controller6,
                   innerLabel: 'innerlabel',
@@ -320,21 +328,24 @@ class MyHomePageState extends State<MyHomePage> {
                       const SizedBox(
                         height: 8,
                       ),
-                      DigitDateFormInput(
+                      InputField(
+                        type: InputType.date,
                         label: "Date Field With Editable Input",
                         controller: controller36,
                         innerLabel: 'innerlabel',
                         helpText: 'help text',
                         editable: true,
                       ),
-                      DigitDateFormInput(
+                      InputField(
+                        type: InputType.date,
                         label: "Date Field With Disabled State",
                         controller: TextEditingController(),
                         innerLabel: 'innerlabel',
                         helpText: 'help text',
                         isDisabled: true,
                       ),
-                      DigitDateFormInput(
+                      InputField(
+                        type: InputType.date,
                         label: "Date Field With ReadOnly State",
                         controller: TextEditingController(),
                         innerLabel: 'innerlabel',
@@ -342,12 +353,8 @@ class MyHomePageState extends State<MyHomePage> {
                         helpText: 'help text',
                         readOnly: true,
                       ),
-                      DigitDateFormInput(
-                        label: "Date Field with Current Date as Max Date",
-                        controller: controller7,
-                        lastDate: DateTime.now(),
-                      ),
-                      DigitDateFormInput(
+                      InputField(
+                        type: InputType.date,
                         label: "Date Field With Required State",
                         controller: TextEditingController(),
                         innerLabel: 'innerlabel',
@@ -363,7 +370,8 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 8,
                 ),
-                DigitTimeFormInput(
+                InputField(
+                  type: InputType.time,
                   label: "Time Field",
                   controller: controller8,
                   innerLabel: 'innerlabel',
@@ -386,28 +394,32 @@ class MyHomePageState extends State<MyHomePage> {
                       const SizedBox(
                         height: 8,
                       ),
-                      DigitTimeFormInput(
+                      InputField(
+                        type: InputType.time,
                         label: "Time Field with Editable Input",
                         controller: controller37,
                         innerLabel: 'innerlabel',
                         helpText: 'help text',
                         editable: true,
                       ),
-                      DigitTimeFormInput(
+                      InputField(
+                        type: InputType.time,
                         label: "Time Field With Disabled State",
                         controller: TextEditingController(),
                         innerLabel: 'innerlabel',
                         helpText: 'help text',
                         isDisabled: true,
                       ),
-                      DigitTimeFormInput(
+                      InputField(
+                        type: InputType.time,
                         label: "Time Field With Required State",
                         controller: TextEditingController(),
                         innerLabel: 'innerlabel',
                         helpText: 'help text',
                         isRequired: true,
                       ),
-                      DigitTimeFormInput(
+                      InputField(
+                        type: InputType.time,
                         label: "Time Field with ReadOnly State",
                         controller: controller9,
                         innerLabel: 'innerlabel',
@@ -423,7 +435,8 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 8,
                 ),
-                DigitSearchFormInput(
+                InputField(
+                  type: InputType.search,
                   label: "Search Field",
                   controller: controller10,
                   innerLabel: 'innerlabel',
@@ -446,14 +459,16 @@ class MyHomePageState extends State<MyHomePage> {
                       const SizedBox(
                         height: 8,
                       ),
-                      DigitSearchFormInput(
+                      InputField(
+                        type: InputType.search,
                         isDisabled: true,
                         label: "Search Field With Disabled State",
                         controller: TextEditingController(),
                         innerLabel: 'innerlabel',
                         helpText: 'help text',
                       ),
-                      DigitSearchFormInput(
+                      InputField(
+                        type: InputType.search,
                         label: "Search Field With ReadOnly State",
                         controller: TextEditingController(),
                         innerLabel: 'innerlabel',
@@ -461,26 +476,14 @@ class MyHomePageState extends State<MyHomePage> {
                         helpText: 'help text',
                         readOnly: true,
                       ),
-                      DigitSearchFormInput(
+                      InputField(
+                        type: InputType.search,
                         label: "Search Field With Required State",
                         controller: TextEditingController(),
                         innerLabel: 'innerlabel',
                         helpText: 'help text',
                         isRequired: true,
                       ),
-                      DigitSearchFormInput(
-                        label: "Search Field With on SearchIcon click",
-                        controller: controller11,
-                        innerLabel: 'innerlabel',
-                        helpText: 'help text',
-                        onSuffixTap: (value) {
-                          setState(() {
-                            showSearchResult = true;
-                            searchResultValue = value;
-                          });
-                        },
-                      ),
-                      if (showSearchResult) Text(searchResultValue),
                     ],
                   ),
                 const SizedBox(
@@ -490,7 +493,8 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 8,
                 ),
-                DigitPasswordFormInput(
+                InputField(
+                  type: InputType.password,
                   label: "password Field",
                   controller: controller12,
                   innerLabel: 'innerlabel',
@@ -516,7 +520,8 @@ class MyHomePageState extends State<MyHomePage> {
                       const SizedBox(
                         height: 8,
                       ),
-                      DigitPasswordFormInput(
+                      InputField(
+                        type: InputType.password,
                         label: "password Field With min 8 char validation",
                         controller: controller13,
                         innerLabel: 'innerlabel',
@@ -527,7 +532,8 @@ class MyHomePageState extends State<MyHomePage> {
                                   'Password must be at least 8 characters.'),
                         ],
                       ),
-                      DigitPasswordFormInput(
+                      InputField(
+                        type: InputType.password,
                         label: "password Field With ReadOnly State",
                         controller: controller14,
                         innerLabel: 'innerlabel',
@@ -535,7 +541,8 @@ class MyHomePageState extends State<MyHomePage> {
                         helpText: 'help text',
                         readOnly: true,
                       ),
-                      DigitPasswordFormInput(
+                      InputField(
+                        type: InputType.password,
                         label: "password Field With Disable State",
                         controller: TextEditingController(),
                         innerLabel: 'innerlabel',
@@ -551,13 +558,13 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 8,
                 ),
-                DigitNumericFormInput(
+                InputField(
+                  type: InputType.numeric,
                   label: "Numeric Field",
                   controller: controller15,
                   innerLabel: 'innerlabel',
                   helpText: 'help text',
                   initialValue: '0',
-                  step: 1,
                 ),
                 const SizedBox(
                   height: 8,
@@ -576,7 +583,8 @@ class MyHomePageState extends State<MyHomePage> {
                       const SizedBox(
                         height: 8,
                       ),
-                      DigitNumericFormInput(
+                      InputField(
+                        type: InputType.numeric,
                         label: "Numeric Field With Editable",
                         controller: controller16,
                         innerLabel: 'innerlabel',
@@ -584,35 +592,22 @@ class MyHomePageState extends State<MyHomePage> {
                         initialValue: '0',
                         inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                         editable: true,
-                        step: 5,
-                        maxValue: 100,
-                        minValue: -10,
                       ),
-                      DigitNumericFormInput(
-                        label:
-                            "Numeric Field With Max value 100 and step 5 and Min value -10",
-                        controller: controller39,
-                        innerLabel: 'innerlabel',
-                        helpText: 'help text',
-                        initialValue: '0',
-                        step: 5,
-                        maxValue: 100,
-                        minValue: -10,
-                      ),
-                      DigitNumericFormInput(
+                      InputField(
+                        type: InputType.numeric,
                         label: "Numeric Field with Disabled State",
                         controller: TextEditingController(),
                         innerLabel: 'innerlabel',
                         helpText: 'help text',
                         isDisabled: true,
                       ),
-                      DigitNumericFormInput(
+                      InputField(
+                        type: InputType.numeric,
                         label: "Numeric Field With ReadOnly State",
                         controller: controller38,
                         innerLabel: 'innerlabel',
                         helpText: 'help text',
                         initialValue: '20',
-                        step: 1,
                         readOnly: true,
                       ),
                     ],
@@ -624,7 +619,8 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 8,
                 ),
-                DigitLocationFormInput(
+                InputField(
+                  type: InputType.location,
                   label: "Location Field",
                   controller: controller17,
                   innerLabel: 'innerlabel',
@@ -647,14 +643,16 @@ class MyHomePageState extends State<MyHomePage> {
                       const SizedBox(
                         height: 8,
                       ),
-                      DigitLocationFormInput(
+                      InputField(
+                        type: InputType.location,
                         label: "Location Field With Editable Input",
                         controller: controller26,
                         innerLabel: 'innerlabel',
                         helpText: 'help text',
                         editable: true,
                       ),
-                      DigitLocationFormInput(
+                      InputField(
+                        type: InputType.location,
                         label: "Location Field With ReadOnly",
                         controller: TextEditingController(),
                         innerLabel: 'innerlabel',
@@ -662,7 +660,8 @@ class MyHomePageState extends State<MyHomePage> {
                         initialValue: "23.444444444444444, 43.333333333",
                         readOnly: true,
                       ),
-                      DigitLocationFormInput(
+                      InputField(
+                        type: InputType.location,
                         label: "Location Field with Disabled State",
                         controller: TextEditingController(),
                         innerLabel: 'innerlabel',
@@ -774,7 +773,8 @@ class MyHomePageState extends State<MyHomePage> {
                 ),
                 LabeledField(
                   label: 'Dropdown Variants',
-                  child: DigitDropdown<int>(
+                  child: Dropdown(
+                    dropdownType: Type.singleSelect,
                     onChange: (String value, String index) => {},
                     textEditingController: controller19,
                     items: [
@@ -813,7 +813,7 @@ class MyHomePageState extends State<MyHomePage> {
                       const SizedBox(height: 8),
                       LabeledField(
                         label: "Non Searchable Dropdown",
-                        child: DigitDropdown<int>(
+                        child: Dropdown(
                           onChange: (String value, String index) => {},
                           textEditingController: controller41,
                           isSearchable: false,
@@ -848,7 +848,7 @@ class MyHomePageState extends State<MyHomePage> {
                       const SizedBox(height: 8),
                       LabeledField(
                         label: "Dropdown with Profile",
-                        child: DigitDropdown<int>(
+                        child: Dropdown(
                           onChange: (String value, String index) => {},
                           textEditingController: controller30,
                           items: const [
@@ -882,7 +882,7 @@ class MyHomePageState extends State<MyHomePage> {
                       const SizedBox(height: 8),
                       LabeledField(
                         label: "Dropdown with Profile And Description",
-                        child: DigitDropdown<int>(
+                        child: Dropdown(
                           onChange: (String value, String index) => {},
                           textEditingController: controller40,
                           items: const [
@@ -920,7 +920,7 @@ class MyHomePageState extends State<MyHomePage> {
                       const SizedBox(height: 8),
                       LabeledField(
                         label: "Dropdown with Description",
-                        child: DigitDropdown<int>(
+                        child: Dropdown(
                           onChange: (String value, String index) => {},
                           textEditingController: controller31,
                           items: [
@@ -944,7 +944,7 @@ class MyHomePageState extends State<MyHomePage> {
                       const SizedBox(height: 8),
                       LabeledField(
                         label: "Dropdown with Icon",
-                        child: DigitDropdown<int>(
+                        child: Dropdown(
                           onChange: (String value, String index) => {},
                           textEditingController: controller32,
                           items: [
@@ -968,10 +968,11 @@ class MyHomePageState extends State<MyHomePage> {
                       const SizedBox(height: 8),
                       LabeledField(
                         label: "Dropdown with nested Type",
-                        child: DigitDropdown(
+                        child: Dropdown(
+                          dropdownSubtype: DropdownSubtype.nested,
                           onChange: (String value, String type) => {},
                           textEditingController: controller33,
-                          dropdownType: DropdownType.nestedSelect,
+
                           selectedOption: const DropdownItem(
                             name: 'one',
                             code: '1',
@@ -1013,10 +1014,10 @@ class MyHomePageState extends State<MyHomePage> {
                       ),
                       LabeledField(
                         label: "Dropdown with nested Type With Icons",
-                        child: DigitDropdown(
+                        child: Dropdown(
                           onChange: (String value, String type) => {},
                           textEditingController: controller35,
-                          dropdownType: DropdownType.nestedSelect,
+                          dropdownSubtype: DropdownSubtype.nested,
                           items: const [
                             DropdownItem(
                               name: 'one',
@@ -1061,10 +1062,10 @@ class MyHomePageState extends State<MyHomePage> {
                       LabeledField(
                         label:
                             "Dropdown with nested Type With Icons and description",
-                        child: DigitDropdown(
+                        child: Dropdown(
                           onChange: (String value, String type) => {},
                           textEditingController: controller42,
-                          dropdownType: DropdownType.nestedSelect,
+                          dropdownSubtype: DropdownSubtype.nested,
                           items: const [
                             DropdownItem(
                               name: 'one',
@@ -1114,7 +1115,7 @@ class MyHomePageState extends State<MyHomePage> {
                       const SizedBox(height: 8),
                       LabeledField(
                         label: "Dropdown Disabled",
-                        child: DigitDropdown(
+                        child: Dropdown(
                           onChange: (String value, String type) => {},
                           textEditingController: controller34,
                           isDisabled: true,
@@ -1157,7 +1158,8 @@ class MyHomePageState extends State<MyHomePage> {
                 ),
                 LabeledField(
                   label: 'MultiSelect Dropdowns',
-                  child: MultiSelectDropDown<int>(
+                  child: Dropdown(
+                    dropdownType: Type.multiSelect,
                     onOptionSelected: (List<DropdownItem> selectedOptions) {},
                     options: const [
                       DropdownItem(code: '1', name: 'first'),
@@ -1188,7 +1190,8 @@ class MyHomePageState extends State<MyHomePage> {
                       const SizedBox(height: 8),
                       LabeledField(
                         label: "MultiSelect Dropdown with value mapper",
-                        child: MultiSelectDropDown<int>(
+                        child: Dropdown(
+                          dropdownType: Type.multiSelect,
                           onOptionSelected:
                               (List<DropdownItem> selectedOptions) {},
                           valueMapper: const [
@@ -1228,7 +1231,8 @@ class MyHomePageState extends State<MyHomePage> {
                       const SizedBox(height: 8),
                       LabeledField(
                         label: "MultiSelect Dropdown with Selected Option",
-                        child: MultiSelectDropDown<int>(
+                        child: Dropdown(
+                          dropdownType: Type.multiSelect,
                           onOptionSelected:
                               (List<DropdownItem> selectedOptions) {},
                           selectedOptions: const [
@@ -1271,7 +1275,8 @@ class MyHomePageState extends State<MyHomePage> {
                       const SizedBox(height: 8),
                       LabeledField(
                         label: "MultiSelect Dropdown with Description",
-                        child: MultiSelectDropDown<int>(
+                        child: Dropdown(
+                          dropdownType: Type.multiSelect,
                           onOptionSelected:
                               (List<DropdownItem> selectedOptions) {},
                           options: const [
@@ -1307,7 +1312,8 @@ class MyHomePageState extends State<MyHomePage> {
                       const SizedBox(height: 8),
                       LabeledField(
                         label: "MultiSelect Dropdown with Description and Icon",
-                        child: MultiSelectDropDown<int>(
+                        child: Dropdown(
+                          dropdownType: Type.multiSelect,
                           onOptionSelected:
                               (List<DropdownItem> selectedOptions) {},
                           options: const [
@@ -1348,7 +1354,8 @@ class MyHomePageState extends State<MyHomePage> {
                       const SizedBox(height: 8),
                       LabeledField(
                         label: "MultiSelect Dropdown with Icon",
-                        child: MultiSelectDropDown<int>(
+                        child: Dropdown(
+                          dropdownType: Type.multiSelect,
                           onOptionSelected:
                               (List<DropdownItem> selectedOptions) {},
                           options: const [
@@ -1384,7 +1391,9 @@ class MyHomePageState extends State<MyHomePage> {
                       const SizedBox(height: 8),
                       LabeledField(
                         label: "MultiSelect Dropdown with nested Type",
-                        child: MultiSelectDropDown<int>(
+                        child: Dropdown(
+                          dropdownType: Type.multiSelect,
+                          dropdownSubtype: DropdownSubtype.nested,
                           onOptionSelected:
                               (List<DropdownItem> selectedOptions) {},
                           options: const [
@@ -1405,8 +1414,9 @@ class MyHomePageState extends State<MyHomePage> {
                       const SizedBox(height: 8),
                       LabeledField(
                         label: "MultiSelect Dropdown with nested Type and Icon",
-                        child: MultiSelectDropDown<int>(
-                          selectionType: SelectionType.nestedMultiSelect,
+                        child: Dropdown(
+                          dropdownType: Type.multiSelect,
+                          dropdownSubtype: DropdownSubtype.nested,
                           onOptionSelected:
                               (List<DropdownItem> selectedOptions) {},
                           options: const [
@@ -1450,14 +1460,15 @@ class MyHomePageState extends State<MyHomePage> {
                 ),
                 LabeledField(
                   label: 'Tree Select Dropdowns',
-                  child: TreeSelectDropDown<int>(
-                    onOptionSelected: (List<TreeNode> selectedOptions) {
+                  child: Dropdown(
+                    dropdownSubtype: DropdownSubtype.tree,
+                    onTreeOptionSelected: (List<TreeNode> selectedOptions) {
                       // print(selectedOptions);
                       for (TreeNode node in selectedOptions) {
                         // print("Node: ${node.value}");
                       }
                     },
-                    options: Nodes,
+                    treeOptions: Nodes,
                     treeSelectionType: TreeSelectionType.singleSelect,
                   ),
                 ),
@@ -1466,7 +1477,15 @@ class MyHomePageState extends State<MyHomePage> {
                 ),
                 LabeledField(
                   label: 'Tree Multi Select Dropdowns',
-                  child: TreeSelectDropDown<int>(
+                  child: Dropdown(
+                    dropdownSubtype: DropdownSubtype.tree,
+                    dropdownType: Type.multiSelect,
+                    onTreeOptionSelected: (List<TreeNode> selectedOptions) {
+                      // print(selectedOptions);
+                      for (TreeNode node in selectedOptions) {
+                        // print("Node: ${node.value}");
+                      }
+                    },
                     valueMapper: const [
                       ValueMapper(code: 'A: A1', name: "A: A1"),
                       ValueMapper(code: 'A: A2', name: "A: A2"),
@@ -1478,15 +1497,8 @@ class MyHomePageState extends State<MyHomePage> {
                       ValueMapper(code: 'D: D1', name: "D: D1"),
                       ValueMapper(code: 'D: D2', name: "D: D2")
                     ],
-                    onOptionSelected: (List<TreeNode> selectedOptions) {
-                      // print(selectedOptions);
-                      for (TreeNode node in selectedOptions) {
-                        // print("Node: ${node.value}");
-                      }
-                    },
-                    options: Nodes,
-                    treeSelectionType: TreeSelectionType.MultiSelect,
-                    controller: _controller,
+                    treeOptions: Nodes,
+                    treeSelectionType: TreeSelectionType.singleSelect,
                   ),
                 ),
                 const SizedBox(
@@ -1805,13 +1817,13 @@ class MyHomePageState extends State<MyHomePage> {
                   height: 8,
                 ),
                 DigitCheckbox(
-                  label: 'Click to see the Success toast',
+                  label: 'Click to see the success toast',
                   value: false,
                   onChanged: (value) {
                     if (value) {
                       Toast.show(context,
                           options: ToastOptions(
-                              "Your Success message", ToastType.success));
+                              "Your success message", ToastType.success));
                     }
                   },
                 ),
@@ -1829,13 +1841,13 @@ class MyHomePageState extends State<MyHomePage> {
                 ),
                const SizedBox(height: 8,),
                 DigitCheckbox(
-                  label: 'Click to see the Warning toast',
+                  label: 'Click to see the warning toast',
                   value: false,
                   onChanged: (value) {
                     if (value) {
                       Toast.show(context,
                           options: ToastOptions(
-                              "Your Warning message", ToastType.warning));
+                              "Your warning message", ToastType.warning));
                     }
                   },
                 ),

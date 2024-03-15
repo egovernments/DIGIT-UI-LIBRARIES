@@ -22,8 +22,8 @@ enum DropdownSubtype {
 class Dropdown extends StatelessWidget {
   final Type dropdownType;
   final DropdownSubtype dropdownSubtype;
-  final TextEditingController textEditingController;
-  final void Function(String, String) onChange;
+  final TextEditingController? textEditingController;
+  final void Function(String, String)? onChange;
   final List<DropdownItem> items;
   final IconData? textIcon;
   final IconData suffixIcon;
@@ -37,6 +37,7 @@ class Dropdown extends StatelessWidget {
 
   // MultiSelectDropDown props
   final SelectionType selectionType;
+  final List<DropdownItem> options;
   final List<DropdownItem> selectedOptions;
   final OnOptionSelect<int>? onOptionSelected;
   final ChipConfig chipConfig;
@@ -48,16 +49,17 @@ class Dropdown extends StatelessWidget {
   final TreeSelectionType treeSelectionType;
   final List<TreeNode> treeOptions;
   final List<TreeNode> selectedTreeOptions;
-  final OnOptionSelected<int>? onTreeOptionSelected;
+  final OnOptionSelected<List<TreeNode>>? onTreeOptionSelected;
   final Decoration? treeInputDecoration;
 
   const Dropdown({
     Key? key,
-    required this.dropdownType,
+    this.dropdownType = Type.singleSelect,
     this.dropdownSubtype = DropdownSubtype.defaultSelect,
-    required this.textEditingController,
-    required this.onChange,
-    required this.items,
+    this.textEditingController,
+    this.onChange,
+    this.items = const [],
+    this.options = const [],
     this.textIcon,
     this.suffixIcon = Icons.arrow_drop_down,
     this.emptyItemText = "No Options available",
@@ -89,8 +91,8 @@ class Dropdown extends StatelessWidget {
       case Type.singleSelect:
         return dropdownSubtype == DropdownSubtype.defaultSelect
             ? DigitDropdown(
-                textEditingController: textEditingController,
-                onChange: onChange,
+                textEditingController: textEditingController ?? TextEditingController(),
+                onChange: onChange ?? (value, index){},
                 items: items,
                 textIcon: textIcon,
                 suffixIcon: suffixIcon,
@@ -104,8 +106,8 @@ class Dropdown extends StatelessWidget {
               )
             : dropdownSubtype == DropdownSubtype.nested
                 ? DigitDropdown(
-                    textEditingController: textEditingController,
-                    onChange: onChange,
+          textEditingController: textEditingController ?? TextEditingController(),
+          onChange: onChange ?? (value, index){},
                     items: items,
                     textIcon: textIcon,
                     suffixIcon: suffixIcon,
@@ -137,7 +139,7 @@ class Dropdown extends StatelessWidget {
         return dropdownSubtype == DropdownSubtype.defaultSelect
             ? MultiSelectDropDown(
                 selectionType: SelectionType.multiSelect,
-                options: items,
+                options: options,
                 selectedOptions: selectedOptions,
                 onOptionSelected: onOptionSelected,
                 chipConfig: chipConfig,
@@ -153,7 +155,7 @@ class Dropdown extends StatelessWidget {
             : dropdownSubtype == DropdownSubtype.nested
                 ? MultiSelectDropDown(
                     selectionType: SelectionType.nestedMultiSelect,
-                    options: items,
+                    options: options,
                     selectedOptions: selectedOptions,
                     onOptionSelected: onOptionSelected,
                     chipConfig: chipConfig,
