@@ -17,7 +17,7 @@ class InfoCard extends StatelessWidget {
   /// Whether to display additional widgets inline or one below the other
   final bool inline;
 
-  InfoCard({
+  const InfoCard({super.key,
     required this.title,
     required this.type,
     required this.description,
@@ -25,6 +25,14 @@ class InfoCard extends StatelessWidget {
     this.additionalWidgets,
     this.inline = false,
   });
+
+  /// Capitalize the first letter if required
+  String capitalizeFirstLetter(String text) {
+    if (text.isNotEmpty) {
+      return text.substring(0, 1).toUpperCase() + text.substring(1);
+    }
+    return text;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +45,9 @@ class InfoCard extends StatelessWidget {
         : AppView.isTabletView(MediaQuery.of(context).size.width)
             ? 360
             : 400;
+
+    String capitalizedHeading = capitalizeFirstLetter(title);
+    String capitalizedDescription = capitalizeFirstLetter(description);
 
     /// Choose icon and color based on InfoType
     switch (type) {
@@ -84,18 +95,22 @@ class InfoCard extends StatelessWidget {
                     color: iconColor,
                   ),
                   const SizedBox(width: kPadding),
-                  Text(
-                    title,
-                    style: currentTypography.headingS.copyWith(
-                      color: const DigitColors().light.textPrimary,
-                      height: 1.172,
+                  Expanded(
+                    child: Text(
+                      capitalizedHeading,
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                      style: currentTypography.headingS.copyWith(
+                        color: const DigitColors().light.textPrimary,
+                        height: 1.172,
+                      ),
                     ),
                   ),
                 ],
               ),
               const SizedBox(height: kPadding),
               Text(
-                description,
+                capitalizedDescription,
                 maxLines: 100,
                 overflow: TextOverflow.ellipsis,
                 style: currentTypography.bodyS.copyWith(

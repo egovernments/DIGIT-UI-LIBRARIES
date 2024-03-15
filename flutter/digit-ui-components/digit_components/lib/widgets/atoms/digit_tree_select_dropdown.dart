@@ -224,6 +224,14 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
     super.didUpdateWidget(oldWidget);
   }
 
+  /// Capitalize the first letter if required
+  String capitalizeFirstLetter(String text) {
+    if (text.isNotEmpty) {
+      return text.substring(0, 1).toUpperCase() + text.substring(1);
+    }
+    return text;
+  }
+
   /// Calculate offset size for dropdown.
   List _calculateOffsetSize() {
     RenderBox? renderBox = context.findRenderObject() as RenderBox?;
@@ -335,8 +343,8 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
                             fit: FlexFit.tight,
                             child: Text(
                               widget.errorMessage!.length > 256
-                                  ? '${widget.errorMessage!.substring(0, 256)}...'
-                                  : widget.errorMessage!,
+                                  ? '${capitalizeFirstLetter(widget.errorMessage!).substring(0, 256)}...'
+                                  : capitalizeFirstLetter(widget.errorMessage!),
                               style: currentTypography.bodyS.copyWith(
                                 height: 1.5,
                                 color: const DigitColors().light.alertError,
@@ -349,7 +357,7 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
                   : Expanded(
                       child: Text(
                         widget.helpText!.length > 256
-                            ? '${widget.helpText!.substring(0, 256)}...'
+                            ? '${capitalizeFirstLetter(widget.helpText!).substring(0, 256)}...'
                             : widget.helpText!,
                         style: currentTypography.bodyS.copyWith(
                           height: 1.5,
@@ -414,7 +422,7 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
                 color: const DigitColors().light.paperSecondary,
               ),
               child: Text(
-                widget.clearAllText,
+                capitalizeFirstLetter(widget.clearAllText),
                 style: currentTypography.bodyS.copyWith(
                   color: const DigitColors().light.primaryOrange,
                   height: 1,

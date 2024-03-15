@@ -84,6 +84,7 @@ class DigitTheme {
     inversePrimary: colors.light.alertSuccessBg,
     outline: colors.light.genericDivider,
     shadow: colors.light.textSecondary,
+    surfaceTint: colors.light.paperPrimary,
     onTertiaryContainer: colors.light.alertInfoBg,
   );
 
@@ -108,8 +109,8 @@ class DigitTheme {
     style: ElevatedButton.styleFrom(
       shape: buttonBorder,
       padding: buttonPadding,
-      backgroundColor: colorScheme.secondary,
-      foregroundColor: colorScheme.onSecondary,
+      backgroundColor: colorScheme.primary,
+      foregroundColor: const DigitColors().light.textSecondary,
       disabledBackgroundColor: colorScheme.secondary.withOpacity(
         0.5,
       ),
@@ -120,7 +121,7 @@ class DigitTheme {
 
   OutlinedButtonThemeData get outlinedButtonTheme => OutlinedButtonThemeData(
     style: OutlinedButton.styleFrom(
-      foregroundColor: colorScheme.secondary,
+      foregroundColor: const DigitColors().light.textSecondary,
       side: BorderSide(color: colorScheme.secondary),
       padding: buttonPadding,
     ),
@@ -130,8 +131,8 @@ class DigitTheme {
     style: TextButton.styleFrom(
       shape: buttonBorder,
       padding: buttonPadding,
-      textStyle: const TextStyle(fontSize: 16),
-      foregroundColor: colorScheme.secondary,
+      textStyle: const TextStyle(fontSize: 16, fontFamily: 'Roboto'),
+      foregroundColor: const DigitColors().light.textSecondary,
     ),
   );
 

@@ -22,6 +22,7 @@ class LabeledField extends StatelessWidget {
   final bool wrapLabelText;
   final MainAxisAlignment mainAxisAlignment;
   final CrossAxisAlignment crossAxisAlignment;
+  final bool capitalizeFirstLetter;
 
   const LabeledField({
     super.key,
@@ -41,12 +42,18 @@ class LabeledField extends StatelessWidget {
     this.wrapLabelText = true,
     this.mainAxisAlignment = MainAxisAlignment.start,
     this.crossAxisAlignment = CrossAxisAlignment.start,
+    this.capitalizeFirstLetter = true,
   });
 
   @override
   Widget build(BuildContext context) {
     /// typography based on screen
     DigitTypography currentTypography = getTypography(context);
+
+    /// Capitalize the first letter of the label if required
+    final processedLabel = capitalizeFirstLetter
+        ? label?.replaceRange(0, 1, label![0].toUpperCase())
+        : label;
 
     bool isMobile = AppView.isMobileView(MediaQuery.of(context).size.width);
     if (!isMobile) {
@@ -63,9 +70,9 @@ class LabeledField extends StatelessWidget {
                 children: [
                   Flexible(
                     child: Text(
-                      label!.length > 64
-                          ? '${label!.substring(0, 64)}...'
-                          : label!,
+                      processedLabel!.length > 64
+                          ? '${processedLabel!.substring(0, 64)}...'
+                          : processedLabel!,
                       style: currentTypography.bodyL.copyWith(
                         height: 1.172,
                         color: const DigitColors().light.textPrimary,
@@ -116,9 +123,9 @@ class LabeledField extends StatelessWidget {
                 if (label != null)
                   Flexible(
                     child: Text(
-                      label!.length > 64
-                          ? '${label!.substring(0, 64)}...'
-                          : label!,
+                      processedLabel!.length > 64
+                          ? '${processedLabel!.substring(0, 64)}...'
+                          : processedLabel!,
                       style: currentTypography.bodyL.copyWith(
                         color: const DigitColors().light.textPrimary,
                         overflow: TextOverflow.ellipsis,

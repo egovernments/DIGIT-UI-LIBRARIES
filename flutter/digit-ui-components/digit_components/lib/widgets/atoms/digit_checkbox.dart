@@ -45,6 +45,7 @@ class Checkbox extends StatefulWidget {
 
   final MainAxisAlignment mainAxisAlignment;
   final CrossAxisAlignment crossAxisAlignment;
+  final bool capitalizeFirstLetter;
 
   /// Creates a `Checkbox` widget with the given parameters.
   const Checkbox({
@@ -57,6 +58,7 @@ class Checkbox extends StatefulWidget {
     this.iconColor,
     this.mainAxisAlignment = MainAxisAlignment.start,
     this.crossAxisAlignment = CrossAxisAlignment.start,
+    this.capitalizeFirstLetter = true,
   }) : super(key: key);
 
   @override
@@ -78,6 +80,11 @@ class _CheckboxState extends State<Checkbox> {
     /// typography based on screen
     DigitTypography currentTypography = getTypography(context);
 
+    /// Capitalize the first letter of the label if required
+    final processedLabel = widget.capitalizeFirstLetter
+        ? widget.label.replaceRange(0, 1, widget.label[0].toUpperCase())
+        : widget.label;
+
     return IntrinsicWidth(
       child: Padding(
         padding: widget.padding,
@@ -87,46 +94,51 @@ class _CheckboxState extends State<Checkbox> {
           crossAxisAlignment: widget.crossAxisAlignment,
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                InkWell(
-                  hoverColor: const DigitColors().transparent,
-                  splashColor: const DigitColors().transparent,
-                  highlightColor: const DigitColors().transparent,
-                  onHover: (hover) {
-                    setState(() {
-                      isHovered = hover;
-                    });
-                  },
-                  onTap: widget.disabled
-                      ? null
-                      : () {
-                    if(mounted){
-                      setState(() {
-                        _currentState = !_currentState;
-                      });
-                      widget.onChanged(_currentState);
-                    }
-                  },
-                  child: SizedBox(
-                    height: CheckboxConstants.containerSize,
-                    width: CheckboxConstants.containerSize,
-                    child: CheckboxIcon(
-                      state: _currentState
-                          ? CheckboxState.checked
-                          : CheckboxState.unchecked,
-                      isDisabled: widget.disabled,
-                      color: isHovered ? const DigitColors().light.primaryOrange :widget.iconColor,
+                Column(
+                  children: [
+                    const SizedBox(height: 2,),
+                    InkWell(
+                      hoverColor: const DigitColors().transparent,
+                      splashColor: const DigitColors().transparent,
+                      highlightColor: const DigitColors().transparent,
+                      onHover: (hover) {
+                        setState(() {
+                          isHovered = hover;
+                        });
+                      },
+                      onTap: widget.disabled
+                          ? null
+                          : () {
+                        if(mounted){
+                          setState(() {
+                            _currentState = !_currentState;
+                          });
+                          widget.onChanged(_currentState);
+                        }
+                      },
+                      child: SizedBox(
+                        height: CheckboxConstants.containerSize,
+                        width: CheckboxConstants.containerSize,
+                        child: CheckboxIcon(
+                          state: _currentState
+                              ? CheckboxState.checked
+                              : CheckboxState.unchecked,
+                          isDisabled: widget.disabled,
+                          color: isHovered ? const DigitColors().light.primaryOrange :widget.iconColor,
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
                 const SizedBox(width: kPadding*2),
                 Expanded(
                   child: Align(
                     alignment: Alignment.topCenter,
                     child: Text(
-                      widget.label,
+                      processedLabel,
                       style: currentTypography.bodyL
                           .copyWith(
                         height: 1.5,

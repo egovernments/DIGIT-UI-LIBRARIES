@@ -122,7 +122,7 @@ class _ButtonState extends State<Button> {
                 : widget.type == ButtonType.primary && isHovered == false
                     ? [
                         BoxShadow(
-                          color: const DigitColors().light.textPrimary,
+                          color:  const DigitColors().light.textPrimary.withOpacity(.5),
                           offset: const Offset(0, 2),
                           spreadRadius: 0,
                           blurRadius: 0,

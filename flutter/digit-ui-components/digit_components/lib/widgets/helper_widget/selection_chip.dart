@@ -23,6 +23,15 @@ class SelectionChip<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    /// Capitalize the first letter if required
+    String capitalizeFirstLetter(String text) {
+      if (text.isNotEmpty) {
+        return text.substring(0, 1).toUpperCase() + text.substring(1);
+      }
+      return text;
+    }
+    
     String? chipValue;
     DigitTypography currentTypography = getTypography(context);
 
@@ -58,7 +67,7 @@ class SelectionChip<T> extends StatelessWidget {
           children: [
             getAssociatedValue(item.code)
                 ? Text(
-                    chipValue!,
+                    capitalizeFirstLetter(chipValue!),
                     style: currentTypography.bodyS.copyWith(
                       color: const DigitColors().light.textPrimary,
                       height: 1.025,
@@ -66,14 +75,14 @@ class SelectionChip<T> extends StatelessWidget {
                   )
                 : selectionType == SelectionType.nestedMultiSelect
                     ? Text(
-                        '${item.type}: ${item.name}',
+                        capitalizeFirstLetter('${item.type}: ${item.name}'),
                         style: currentTypography.bodyS.copyWith(
                           color: const DigitColors().light.textPrimary,
                           height: 1.025,
                         ),
                       )
                     : Text(
-                        item.name,
+                        capitalizeFirstLetter(item.name),
                         style: currentTypography.bodyS.copyWith(
                           color: const DigitColors().light.textPrimary,
                           height: 1.025,

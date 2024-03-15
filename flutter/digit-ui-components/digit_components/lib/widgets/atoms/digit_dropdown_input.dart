@@ -379,6 +379,14 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
     }
   }
 
+  /// Capitalize the first letter if required
+  String capitalizeFirstLetter(String text) {
+    if (text.isNotEmpty) {
+      return text.substring(0, 1).toUpperCase() + text.substring(1);
+    }
+    return text;
+  }
+
   ///overlay for dropdown
   OverlayEntry _createOverlayEntry() {
     /// find the size and position of the current widget
@@ -641,13 +649,15 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                         width: filteredItems[index]
                                                     .profileImageUrl !=
                                                 null
-                                            ? dropdownWidth - 50
+                                            ? filteredItems[index]
+                                            .description !=
+                                            null ? dropdownWidth-80: dropdownWidth - 53
                                             : filteredItems[index].textIcon !=
                                                     null
                                                 ? dropdownWidth - 40
                                                 : dropdownWidth - 16,
                                         child: Text(
-                                          filteredItems[index].name,
+                                          capitalizeFirstLetter(filteredItems[index].name),
                                           softWrap: true,
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
@@ -677,13 +687,15 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                       width: filteredItems[index]
                                                   .profileImageUrl !=
                                               null
-                                          ? dropdownWidth - 50
+                                          ? filteredItems[index]
+                                          .description !=
+                                          null ? dropdownWidth-80 : dropdownWidth - 53
                                           : filteredItems[index].textIcon !=
                                                   null
                                               ? dropdownWidth - 40
                                               : dropdownWidth - 16,
                                       child: Text(
-                                        filteredItems[index].description!,
+                                        capitalizeFirstLetter(filteredItems[index].description!),
                                         overflow: TextOverflow.ellipsis,
                                         maxLines: 3,
                                         softWrap: true,
@@ -719,7 +731,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
             child: Padding(
               padding: DropdownConstants.noItemAvailablePadding,
               child: Text(
-                widget.emptyItemText,
+                capitalizeFirstLetter(widget.emptyItemText),
                 style: currentTypography.bodyS.copyWith(
                   height: 1.25,
                   color: const DigitColors().light.textDisabled,
@@ -758,7 +770,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Text(currentType!,
+                                Text(capitalizeFirstLetter(currentType!),
                                     style: currentTypography.headingS.copyWith(
                                       color: const DigitColors()
                                           .light
@@ -983,7 +995,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                                                 : dropdownWidth -
                                                                     16,
                                                         child: Text(
-                                                          typeItems[index].name,
+                                                          capitalizeFirstLetter(typeItems[index].name),
                                                           maxLines: 1,
                                                           softWrap: true,
                                                           style: _itemMouseDownStates[
@@ -1024,8 +1036,8 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                                               : dropdownWidth -
                                                                   16,
                                                       child: Text(
-                                                        typeItems[index]
-                                                            .description!,
+                                                        capitalizeFirstLetter(typeItems[index]
+                                                            .description!),
                                                         maxLines: 3,
                                                         softWrap: true,
                                                         style: currentTypography.bodyXS.copyWith(
@@ -1083,7 +1095,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
             child: Padding(
               padding: DropdownConstants.noItemAvailablePadding,
               child: Text(
-                widget.emptyItemText,
+                capitalizeFirstLetter(widget.emptyItemText),
                 style: currentTypography.bodyS
                     .copyWith(
                   color: const DigitColors().light.textDisabled,

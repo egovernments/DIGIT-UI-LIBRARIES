@@ -5,6 +5,7 @@ class DigitColors {
 
   Light get light => Light();
 
+
   Color get orangeBG  => const Color.fromRGBO(255, 250, 247, 1);
   Color get transparent => const Color.fromRGBO(0, 0, 0, 0);
   Color get shadowColor => const Color.fromRGBO(244, 119, 56, 0.25);
@@ -12,6 +13,8 @@ class DigitColors {
 }
 
 class Light {
+
+
   /// Primary
   Color get primaryOrange => const Color(0xFFF47738);
   Color get primaryBlueGray => const Color(0xFF0B4B66);

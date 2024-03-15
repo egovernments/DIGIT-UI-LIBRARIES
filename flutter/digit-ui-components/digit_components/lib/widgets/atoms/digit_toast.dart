@@ -32,66 +32,77 @@ class Toast {
             ? 480
             : 800;
 
+    /// Capitalize the first letter if required
+    String capitalizeFirstLetter(String text) {
+      if (text.isNotEmpty ) {
+        return text.substring(0, 1).toUpperCase() + text.substring(1);
+      }
+      return text;
+    }
+
+
     return fToast.showToast(
-      child: Flexible(
-        child: Container(
-          // width: inputWidth,
-          constraints: BoxConstraints(
-            minWidth: inputWidth,
-          ),
-          color: options.type == ToastType.success
-              ? const DigitColors().light.alertSuccess
-              : options.type == ToastType.error
-                  ? const DigitColors().light.alertError
-                  : const DigitColors().light.alertWarning,
-          padding:
-              const EdgeInsets.only(left: 12.0, top: 12.0, right: 8, bottom: 12),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SizedBox(
-                height: 24,
-                width: 24,
-                child: Icon(
-                  options.type == ToastType.success
-                      ? Icons.check_circle
-                      : options.type == ToastType.error
-                          ? Icons.error
-                          : Icons.warning,
-                  color: const DigitColors().light.paperPrimary,
-                  size: 24,
-                ),
-              ),
-              const SizedBox(
-                width: kPadding,
-              ),
-              Expanded(
-                child: Text(
-                  options.message,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: currentTypography.captionS.copyWith(
+      child: Container(
+        constraints: BoxConstraints(
+          minWidth: inputWidth,
+        ),
+        color: options.type == ToastType.success
+            ? const DigitColors().light.alertSuccess
+            : options.type == ToastType.error
+            ? const DigitColors().light.alertError
+            : const DigitColors().light.alertWarning,
+        padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 8),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(
+                  height: 24,
+                  width: 24,
+                  child: Icon(
+                    options.type == ToastType.success
+                        ? Icons.check_circle
+                        : options.type == ToastType.error
+                        ? Icons.error
+                        : Icons.warning,
                     color: const DigitColors().light.paperPrimary,
-                    height: 1.172,
+                    size: 24,
                   ),
                 ),
-              ),
-              const SizedBox(width: kPadding),
-              InkWell(
-                hoverColor: const DigitColors().transparent,
-                highlightColor: const DigitColors().transparent,
-                splashColor: const DigitColors().transparent,
-                onTap: () {
-                  fToast.removeCustomToast();
-                },
-                child: Icon(
-                  Icons.close,
-                  size: 24,
-                  color: const DigitColors().light.paperPrimary,
+                const SizedBox(width: kPadding),
+                ConstrainedBox(
+                  constraints: BoxConstraints(
+                    maxWidth:  MediaQuery.of(context).size.width- 24 - kPadding * 3 - 24,
+                  ),
+                  child: Flexible(
+                    child: Text(
+                      capitalizeFirstLetter(options.message),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: currentTypography.captionS.copyWith(
+                        color: const DigitColors().light.paperPrimary,
+                        height: 1.172,
+                      ),
+                    ),
+                  ),
                 ),
+
+              ],
+            ),
+            InkWell(
+              onTap: () {
+                fToast.removeCustomToast();
+              },
+              child: Icon(
+                Icons.close,
+                size: 24,
+                color: const DigitColors().light.paperPrimary,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
       gravity: ToastGravity.SNACKBAR,

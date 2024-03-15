@@ -120,50 +120,52 @@ class BaseDigitFormInput extends StatefulWidget {
 
   /// validations provide you to send a error message, but you only want to pass a custom error message that can be also done by sending a errorMessage
   final String? errorMessage;
+  final bool capitalizeFirstLetter;
 
-  const BaseDigitFormInput(
-      {Key? key,
-      required this.controller,
-      this.isDisabled = false,
-      this.readOnly = false,
-      this.isRequired = false,
-      this.initialValue,
-      this.label,
-      this.info,
-      this.infoText,
-      this.suffixIcon,
-      this.charCount = false,
-      this.innerLabel,
-      this.helpText,
-      this.onError,
-      this.triggerMode = TooltipTriggerMode.tap,
-      this.preferToolTipBelow = false,
-      this.suffixText,
-      this.prefixText,
-      this.onSuffixTap,
-      this.minLine = 1,
-      this.maxLine = 1,
-      this.height = Default.height,
-      this.step = 1,
-      this.minValue = 0,
-      this.maxValue = 100,
-      this.showCurser,
-      this.width = Default.mobileInputWidth,
-      this.onChange,
-      this.keyboardType = TextInputType.text,
-      this.validations,
-      this.firstDate,
-      this.initialDate,
-      this.textAreaScroll = TextAreaScroll.none,
-      this.lastDate,
-      this.onTap,
-      this.isEditable = true,
-      this.isTextArea = false,
-      this.toggleSuffixIcon,
-      this.inputFormatters,
-      this.textAlign = TextAlign.start,
-      this.errorMessage})
-      : super(key: key);
+  const BaseDigitFormInput({
+    Key? key,
+    required this.controller,
+    this.isDisabled = false,
+    this.readOnly = false,
+    this.isRequired = false,
+    this.initialValue,
+    this.label,
+    this.info,
+    this.infoText,
+    this.suffixIcon,
+    this.charCount = false,
+    this.innerLabel,
+    this.helpText,
+    this.onError,
+    this.triggerMode = TooltipTriggerMode.tap,
+    this.preferToolTipBelow = false,
+    this.suffixText,
+    this.prefixText,
+    this.onSuffixTap,
+    this.minLine = 1,
+    this.maxLine = 1,
+    this.height = Default.height,
+    this.step = 1,
+    this.minValue = 0,
+    this.maxValue = 100,
+    this.showCurser,
+    this.width = Default.mobileInputWidth,
+    this.onChange,
+    this.keyboardType = TextInputType.text,
+    this.validations,
+    this.firstDate,
+    this.initialDate,
+    this.textAreaScroll = TextAreaScroll.none,
+    this.lastDate,
+    this.onTap,
+    this.isEditable = true,
+    this.isTextArea = false,
+    this.toggleSuffixIcon,
+    this.inputFormatters,
+    this.textAlign = TextAlign.start,
+    this.errorMessage,
+    this.capitalizeFirstLetter = true,
+  }) : super(key: key);
 
   @override
   BaseDigitFormInputState createState() => BaseDigitFormInputState();
@@ -178,6 +180,14 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
   bool _isFocusOn = false;
 
   String? _errorMessage;
+
+  /// Capitalize the first letter if required
+  String? capitalizeFirstLetter(String? text) {
+    if (text != null && text.isNotEmpty && widget.capitalizeFirstLetter) {
+      return text.substring(0, 1).toUpperCase() + text.substring(1);
+    }
+    return text;
+  }
 
   void onFocusChange() {
     if (!myFocusNode.hasFocus) {
@@ -266,6 +276,12 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
   Widget build(BuildContext context) {
     /// typography based on screen
     DigitTypography currentTypography = getTypography(context);
+
+    /// Capitalize innerLabel, helpText, and errorMessage
+    String? capitalizedInnerLabel = capitalizeFirstLetter(widget.innerLabel);
+    String? capitalizedHelpText = capitalizeFirstLetter(widget.helpText);
+    String? capitalizedErrorMessage =
+        capitalizeFirstLetter(widget.errorMessage);
 
     int? getValidatorValue(List<Validator>? validators, ValidatorType type) {
       for (var validator in validators!) {
@@ -358,7 +374,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                                 top: 12,
                                 bottom: 8,
                               ),
-                              hintText: widget.innerLabel,
+                              hintText: capitalizedInnerLabel,
                               hintStyle: currentTypography.bodyL.copyWith(
                                 height: 1.5,
                                 color: const DigitColors().light.textDisabled,
@@ -447,19 +463,19 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                         : widget.showCurser ?? widget.isEditable,
                     style: isVisible
                         ? currentTypography.bodyL.copyWith(
-                                fontWeight: FontWeight.w900,
-                                fontFamily: "Roboto-bold",
-                                height: 1.5,
-                                color: widget.readOnly
-                                    ? const DigitColors().light.textSecondary
-                                    : const DigitColors().light.textPrimary,
-                                decoration: TextDecoration.none)
+                            fontWeight: FontWeight.w900,
+                            fontFamily: "Roboto-bold",
+                            height: 1.5,
+                            color: widget.readOnly
+                                ? const DigitColors().light.textSecondary
+                                : const DigitColors().light.textPrimary,
+                            decoration: TextDecoration.none)
                         : currentTypography.bodyL.copyWith(
-                                height: 1.5,
-                                color: widget.readOnly
-                                    ? const DigitColors().light.textSecondary
-                                    : const DigitColors().light.textPrimary,
-                                decoration: TextDecoration.none),
+                            height: 1.5,
+                            color: widget.readOnly
+                                ? const DigitColors().light.textSecondary
+                                : const DigitColors().light.textPrimary,
+                            decoration: TextDecoration.none),
                     decoration: InputDecoration(
                       counterText: '',
                       hoverColor: const DigitColors().transparent,
@@ -488,7 +504,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                         left: 12,
                         right: 12,
                       ),
-                      hintText: widget.innerLabel,
+                      hintText: capitalizedInnerLabel,
                       hintStyle: currentTypography.bodyL.copyWith(
                         height: 1.5,
                         color: const DigitColors().light.textDisabled,
@@ -499,10 +515,12 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                           : const DigitColors().transparent,
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                          color: _hasError || widget.errorMessage!=null
+                          color: _hasError || widget.errorMessage != null
                               ? const DigitColors().light.alertError
                               : const DigitColors().light.textSecondary,
-                          width: _hasError || widget.errorMessage!=null ? 1.5 : 1.0,
+                          width: _hasError || widget.errorMessage != null
+                              ? 1.5
+                              : 1.0,
                         ),
                         borderRadius: BorderRadius.zero,
                       ),
@@ -540,7 +558,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                                   onTap: widget.readOnly
                                       ? null
                                       : () {
-                                    myFocusNode.requestFocus();
+                                          myFocusNode.requestFocus();
                                           onSuffixIconClick();
                                         },
                                   child: Container(
@@ -584,7 +602,8 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                                     child: Text(
                                       widget.suffixText!,
                                       textAlign: TextAlign.center,
-                                      style: currentTypography.headingM.copyWith(
+                                      style:
+                                          currentTypography.headingL.copyWith(
                                         height: 1.5,
                                         color: widget.isDisabled
                                             ? const DigitColors()
@@ -685,7 +704,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                                   onTap: widget.readOnly
                                       ? null
                                       : () {
-                                    myFocusNode.requestFocus();
+                                          myFocusNode.requestFocus();
                                           onPrefixIconClick();
                                         },
                                   child: Container(
@@ -729,7 +748,8 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                                     child: Text(
                                       widget.prefixText!,
                                       textAlign: TextAlign.center,
-                                      style: currentTypography.headingM.copyWith(
+                                      style:
+                                          currentTypography.headingL.copyWith(
                                         height: 1.5,
                                         color: widget.isDisabled
                                             ? const DigitColors()
@@ -893,7 +913,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                                     Flexible(
                                       fit: FlexFit.tight,
                                       child: Text(
-                                        widget.errorMessage!.length > 256
+                                        capitalizedErrorMessage!.length > 256
                                             ? '${widget.errorMessage!.substring(0, 256)}...'
                                             : widget.errorMessage!,
                                         style: currentTypography.bodyS.copyWith(
@@ -909,9 +929,9 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                               )
                             : Expanded(
                                 child: Text(
-                                  widget.helpText!.length > 256
-                                      ? '${widget.helpText!.substring(0, 256)}...'
-                                      : widget.helpText!,
+                                  capitalizedHelpText!.length > 256
+                                      ? '${capitalizedHelpText!.substring(0, 256)}...'
+                                      : capitalizedHelpText!,
                                   style: currentTypography.bodyS.copyWith(
                                     height: 1.5,
                                     color:

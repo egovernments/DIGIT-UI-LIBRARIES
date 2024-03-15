@@ -25,10 +25,29 @@ class _ToggleState extends State<Toggle> {
   bool isHovered = false;
   bool isMouseDown = false;
 
+  /// Utility function to capitalize the first letter of every word
+  String capitalizeFirstLetterOfEveryWord(String text) {
+    List<String> words = text.split(' ');
+    List<String> capitalizedWords = [];
+
+    for (String word in words) {
+      if (word.isNotEmpty) {
+        String capitalizedWord =
+            word[0].toUpperCase() + word.substring(1).toLowerCase();
+        capitalizedWords.add(capitalizedWord);
+      }
+    }
+
+    return capitalizedWords.join(' ');
+  }
+
   @override
   Widget build(BuildContext context) {
     /// typography based on screen
     DigitTypography currentTypography = getTypography(context);
+
+    /// Capitalize the first letter of the label if required
+    final processedLabel = capitalizeFirstLetterOfEveryWord(widget.label);
 
     return Align(
       alignment: Alignment.centerLeft,
@@ -104,7 +123,7 @@ class _ToggleState extends State<Toggle> {
               children: [
                 Expanded(
                   child: Text(
-                    widget.label,
+                    processedLabel,
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
                     style: widget.isSelected

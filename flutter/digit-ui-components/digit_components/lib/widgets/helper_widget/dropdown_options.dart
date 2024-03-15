@@ -39,6 +39,14 @@ class _DropdownOptionState extends State<DropdownOption> {
   final Map<DropdownItem, bool> _itemMouseDownStates = {};
   final Map<DropdownItem, bool> _itemHoverStates = {};
 
+  /// Capitalize the first letter if required
+  String capitalizeFirstLetter(String text) {
+    if (text.isNotEmpty) {
+      return text.substring(0, 1).toUpperCase() + text.substring(1);
+    }
+    return text;
+  }
+
   @override
   Widget build(BuildContext context) {
     DigitTypography currentTypography = getTypography(context);
@@ -141,7 +149,7 @@ class _DropdownOptionState extends State<DropdownOption> {
                                   width: kPadding / 2,
                                 ),
                               Text(
-                                widget.option.name,
+                                capitalizeFirstLetter(widget.option.name),
                                 style: widget.isSelected ||
                                         _itemMouseDownStates[widget.option] ==
                                             true
@@ -170,7 +178,7 @@ class _DropdownOptionState extends State<DropdownOption> {
                         Padding(
                           padding: const EdgeInsets.only(left: kPadding*4),
                           child: Text(
-                            widget.option.description!,
+                            capitalizeFirstLetter(widget.option.description!),
                             style: currentTypography.bodyXS.copyWith(
                               color: widget.isSelected ||
                                   _itemMouseDownStates[widget.option] ==

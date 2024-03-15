@@ -46,6 +46,14 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
   bool _isExpanded = false;
   bool _isSelected = false;
 
+  /// Capitalize the first letter if required
+  String capitalizeFirstLetter(String text) {
+    if (text.isNotEmpty) {
+      return text.substring(0, 1).toUpperCase() + text.substring(1);
+    }
+    return text;
+  }
+
   /// Update _areAllChildrenSelected method in _TreeNodeWidgetState
   bool _areAllChildrenSelected(TreeNode node) {
     if (node.children.isEmpty) {
@@ -238,6 +246,7 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
                               setState(() {
                                 _isSelected = _areAllChildrenSelected(
                                     widget.currentOption);
+                                _isExpanded = true;/// need to add as configuration
                               });
                             },
                             child: _areAllChildrenSelected(widget.currentOption)
@@ -272,7 +281,7 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
                             width: 12,
                           ),
                         Text(
-                          widget.currentOption.name,
+                          capitalizeFirstLetter(widget.currentOption.name),
                           style: _isExpanded ||
                                   _areAllChildrenSelected(
                                           widget.currentOption) &&

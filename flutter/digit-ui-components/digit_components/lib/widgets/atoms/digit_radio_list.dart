@@ -44,6 +44,7 @@ class RadioList extends StatefulWidget {
 
   /// radio button height
   final double radioHeight;
+  final bool capitalizeFirstLetter;
 
   /// Constructor for the RadioList widget
   RadioList({
@@ -55,6 +56,7 @@ class RadioList extends StatefulWidget {
     this.containerPadding = RadioConstant.defaultPadding,
     this.radioWidth = RadioConstant.radioWidth,
     this.radioHeight = RadioConstant.radioHeight,
+    this.capitalizeFirstLetter = true,
   }) : super(key: key);
 
   /// Create the state for the widget
@@ -98,6 +100,14 @@ class _RadioListState extends State<RadioList> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: _buildRadioButtons(currentTypography),
     );
+  }
+
+  /// Capitalize the first letter if required
+  String capitalizeFirstLetter(String text) {
+    if (text.isNotEmpty && widget.capitalizeFirstLetter) {
+      return text.substring(0, 1).toUpperCase() + text.substring(1);
+    }
+    return text;
   }
 
   List<Widget> _buildRadioButtons(DigitTypography currentTypography) {
@@ -247,8 +257,8 @@ class _RadioListState extends State<RadioList> {
               isMobile
                   ? Expanded(
                       child: Text(
-                        button.name,
-                        maxLines: 1,
+                        capitalizeFirstLetter(button.name),
+                        maxLines: 5,
                         overflow: TextOverflow.ellipsis,
                         style: currentTypography.bodyL.copyWith(
                           height: 1.172,
@@ -259,8 +269,8 @@ class _RadioListState extends State<RadioList> {
                       ),
                     )
                   : Text(
-                      button.name,
-                      maxLines: 1,
+                      capitalizeFirstLetter(button.name),
+                      maxLines: 5,
                       overflow: TextOverflow.ellipsis,
                       style: currentTypography.bodyL.copyWith(
                         height: 1.172,
