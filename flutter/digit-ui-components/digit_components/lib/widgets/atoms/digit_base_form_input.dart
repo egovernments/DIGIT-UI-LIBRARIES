@@ -603,7 +603,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                                       widget.suffixText!,
                                       textAlign: TextAlign.center,
                                       style:
-                                          currentTypography.headingL.copyWith(
+                                          currentTypography.headingM.copyWith(
                                         height: 1.5,
                                         color: widget.isDisabled
                                             ? const DigitColors()
@@ -749,7 +749,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                                       widget.prefixText!,
                                       textAlign: TextAlign.center,
                                       style:
-                                          currentTypography.headingL.copyWith(
+                                          currentTypography.headingM.copyWith(
                                         height: 1.5,
                                         color: widget.isDisabled
                                             ? const DigitColors()

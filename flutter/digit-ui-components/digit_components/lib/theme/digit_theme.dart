@@ -74,20 +74,20 @@ class DigitTheme {
       ),
       timePickerTheme: TimePickerThemeData(
         backgroundColor: const DigitColors().light.paperPrimary,
-        hourMinuteShape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(4)),
-          side: BorderSide(color: Colors.orange, width: 1),
+        hourMinuteShape:  RoundedRectangleBorder(
+          borderRadius: const BorderRadius.all(Radius.circular(4)),
+          side: BorderSide(color: const DigitColors().light.primaryOrange, width: 1),
         ),
-        dayPeriodBorderSide: const BorderSide(color: Colors.orange, width: 1),
+        dayPeriodBorderSide:  BorderSide(color: const DigitColors().light.primaryOrange, width: 1),
         dayPeriodColor: const DigitColors().light.paperPrimary,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(4)),
-          side: BorderSide(color: Colors.orange, width: 1),
+        shape:  RoundedRectangleBorder(
+          borderRadius: const BorderRadius.all(Radius.circular(4)),
+          side: BorderSide(color: const DigitColors().light.primaryOrange, width: 1),
         ),
         dayPeriodTextColor: const DigitColors().light.textPrimary,
-        dayPeriodShape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(1)),
-          side: BorderSide(color: Colors.orange, width: 1),
+        dayPeriodShape:  RoundedRectangleBorder(
+          borderRadius: const BorderRadius.all(Radius.circular(1)),
+          side: BorderSide(color: const DigitColors().light.primaryOrange, width: 1),
         ),
         hourMinuteColor: MaterialStateColor.resolveWith((states) =>
         states.contains(MaterialState.selected) ? const DigitColors().light.primaryOrangeBg : const DigitColors().transparent,),
@@ -105,7 +105,8 @@ class DigitTheme {
         ),
         dialTextColor: MaterialStateColor.resolveWith(
                 (states) => const DigitColors().light.textPrimary,),
-        entryModeIconColor: Colors.orange,
+        entryModeIconColor: const DigitColors().light.primaryOrange,
+
       ),
     );
   }
