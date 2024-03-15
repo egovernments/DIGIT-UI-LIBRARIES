@@ -221,9 +221,10 @@ import {
   TextInputCard,
 } from "./molecules";
 
-import { initCoreLibraries } from "@egovernments/digit-ui-libraries-core";
+// import { initCoreLibraries } from "@egovernments/digit-ui-libraries-core";
+import { initLibraries } from "@egovernments/digit-ui-libraries";
 
-initCoreLibraries().then(() => {
+initLibraries().then(() => {
   console.log("DIGIT Contants enabled", window?.Digit);
 });
 

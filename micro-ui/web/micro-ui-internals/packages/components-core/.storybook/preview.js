@@ -1,6 +1,7 @@
 // import "@egovernments/digit-ui-css/example/index.css";
 import "@egovernments/digit-ui-css/dist/index.css";
-import { initCoreLibraries } from "@egovernments/digit-ui-libraries-core";
+// import { initCoreLibraries } from "@egovernments/digit-ui-libraries-core";
+import { initLibraries } from "@egovernments/digit-ui-libraries";
 
 // import '../src/index.css';
 //:point_down: Configures Storybook to log the actions( onArchiveTask and onPinTask ) in the UI.
@@ -48,7 +49,7 @@ const preview = {
   },
 };
 
-initCoreLibraries().then(() => {
+initLibraries().then(() => {
   console.info("DIGIT Contant, HOOKS enabled", window?.Digit);
 });
 

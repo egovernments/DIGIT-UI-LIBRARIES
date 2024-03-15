@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import { initLibraries } from "@egovernments/digit-ui-libraries";
-import { initCoreLibraries } from "@egovernments/digit-ui-libraries-core";
+// import { initCoreLibraries } from "@egovernments/digit-ui-libraries-core";
 // import { paymentConfigs, PaymentLinks, PaymentModule } from "@egovernments/digit-ui-module-common";
 import { DigitUI } from "@egovernments/digit-ui-module-core";
 import { initDSSComponents } from "@egovernments/digit-ui-module-dss";
@@ -88,6 +88,6 @@ initLibraries().then(() => {
   initDigitUI();
 });
 
-initCoreLibraries().then(() => {
-  initDigitUI();
-});
+// initCoreLibraries().then(() => {
+//   initDigitUI();
+// });
