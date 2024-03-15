@@ -73,19 +73,17 @@ class Toast {
                   ),
                 ),
                 const SizedBox(width: kPadding),
-                ConstrainedBox(
+                Container(
                   constraints: BoxConstraints(
                     maxWidth:  MediaQuery.of(context).size.width- 24 - kPadding * 3 - 24,
                   ),
-                  child: Flexible(
-                    child: Text(
-                      capitalizeFirstLetter(options.message),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: currentTypography.captionS.copyWith(
-                        color: const DigitColors().light.paperPrimary,
-                        height: 1.172,
-                      ),
+                  child: Text(
+                    capitalizeFirstLetter(options.message),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: currentTypography.captionS.copyWith(
+                      color: const DigitColors().light.paperPrimary,
+                      height: 1.172,
                     ),
                   ),
                 ),

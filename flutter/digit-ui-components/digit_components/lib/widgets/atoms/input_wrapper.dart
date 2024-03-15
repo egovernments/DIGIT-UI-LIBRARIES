@@ -1,4 +1,5 @@
 
+import 'package:digit_flutter_components/enum/app_enums.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -45,6 +46,7 @@ class InputField extends StatelessWidget {
   final void Function(String)? onChange;
   final String? errorMessage;
   final List<TextInputFormatter>? inputFormatters;
+  final TextAreaScroll textAreaScroll;
 
   const InputField({
     Key? key,
@@ -70,6 +72,7 @@ class InputField extends StatelessWidget {
     this.onChange,
     this.errorMessage,
     this.inputFormatters,
+    this.textAreaScroll = TextAreaScroll.smart,
   }) : super(key: key);
 
   @override
@@ -143,7 +146,7 @@ class InputField extends StatelessWidget {
           validations: validations,
           onChange: onChange,
           errorMessage: errorMessage,
-          inputFormatters: inputFormatters,
+          inputFormatters: inputFormatters ?? [FilteringTextInputFormatter.digitsOnly],
         );
       case InputType.password:
         return DigitPasswordFormInput(
@@ -230,6 +233,7 @@ class InputField extends StatelessWidget {
           validations: validations,
           onChange: onChange,
           errorMessage: errorMessage,
+          textAreaScroll: textAreaScroll,
           inputFormatters: inputFormatters,
         );
       default:
