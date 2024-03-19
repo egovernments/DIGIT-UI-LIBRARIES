@@ -265,7 +265,7 @@ class _ButtonState extends State<Button> {
     return Padding(
       padding:
           widget.type == ButtonType.link || widget.type == ButtonType.tertiary
-              ? EdgeInsets.zero
+              ? const EdgeInsets.only(left: kPadding, right: kPadding, bottom: kPadding)
               : isHovered && widget.type == ButtonType.secondary
                   ? const EdgeInsets.only(
                       left: 24.0, top: 6.0, right: 24.0, bottom: 8.0)
