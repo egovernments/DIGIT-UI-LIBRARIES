@@ -2230,6 +2230,26 @@ class HotReload extends StatelessWidget {
                 ),
               ],
             ),
+            WidgetbookComponent(
+              name: 'Current',
+              useCases: [
+                WidgetbookUseCase(
+                  name: 'Default',
+                  builder: (context) => const DigitTimeline(currentStep: TimelineStepState.present,
+                  ),
+                ),
+              ],
+            ),
+            WidgetbookComponent(
+              name: 'Future',
+              useCases: [
+                WidgetbookUseCase(
+                  name: 'Default',
+                  builder: (context) => const DigitTimeline(currentStep: TimelineStepState.future,
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
       ],
