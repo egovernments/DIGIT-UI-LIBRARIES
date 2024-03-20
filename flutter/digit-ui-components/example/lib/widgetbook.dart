@@ -2021,16 +2021,27 @@ class HotReload extends StatelessWidget {
                 WidgetbookUseCase(
                   name: 'Default',
                   builder: (context) => DigitStepper(
-                    list: const ['Step 1', 'Step 2', 'Step 3', 'Step 4', 'Step 5', 'Step 6','Step 7', 'Step 8', 'Step 9', 'Step 10'],
+                    list: const [
+                      'Step 1',
+                      'Step 2',
+                      'Step 3',
+                      'Step 4',
+                      'Step 5',
+                      'Step 6',
+                      'Step 7',
+                      'Step 8',
+                      'Step 9',
+                      'Step 10'
+                    ],
                     page: context.knobs.doubleOrNull
-                        .slider(
-                      label: 'Current Step',
-                      min: 0,
-                      initialValue: 1,
-                      max: 10,
-                      divisions: 10,
-                    )
-                        ?.toInt() ??
+                            .slider(
+                              label: 'Current Step',
+                              min: 0,
+                              initialValue: 1,
+                              max: 10,
+                              divisions: 10,
+                            )
+                            ?.toInt() ??
                         0,
                     onChange: (int page) {
                       print('Current Step: $page');
@@ -2135,14 +2146,19 @@ class HotReload extends StatelessWidget {
                   builder: (context) => InfoCard(
                     title: 'Info',
                     type: InfoType.info,
-                    inline: context.knobs.boolean(label: "inline", initialValue: false),
+                    inline: context.knobs
+                        .boolean(label: "inline", initialValue: false),
                     description:
                         'Application process will take a minute to complete.',
                     additionalWidgets: [
-                      Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
-                      Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
-                      Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
-                      Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+                      Image.network(
+                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+                      Image.network(
+                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+                      Image.network(
+                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+                      Image.network(
+                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
                       DigitTextFormInput(
                         controller: TextEditingController(),
                         label: 'text',
@@ -2160,19 +2176,29 @@ class HotReload extends StatelessWidget {
                   builder: (context) => InfoCard(
                     title: 'Info',
                     type: InfoType.error,
-                    inline: context.knobs.boolean(label: "inline", initialValue: false),
+                    inline: context.knobs
+                        .boolean(label: "inline", initialValue: false),
                     description:
-                    'Application process will take a minute to complete.',
+                        'Application process will take a minute to complete.',
                     additionalWidgets: [
-                      Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
-                      Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
-                      Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
-                      Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
-                      DigitCheckbox(label: "Click to understand", onChanged: (value){}),
-                      DigitCheckbox(label: "Click to understand", onChanged: (value){}),
-                      DigitCheckbox(label: "Click to understand", onChanged: (value){}),
-                      DigitCheckbox(label: "Click to understand", onChanged: (value){}),
-                      DigitCheckbox(label: "Click to understand", onChanged: (value){}),
+                      Image.network(
+                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+                      Image.network(
+                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+                      Image.network(
+                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+                      Image.network(
+                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+                      DigitCheckbox(
+                          label: "Click to understand", onChanged: (value) {}),
+                      DigitCheckbox(
+                          label: "Click to understand", onChanged: (value) {}),
+                      DigitCheckbox(
+                          label: "Click to understand", onChanged: (value) {}),
+                      DigitCheckbox(
+                          label: "Click to understand", onChanged: (value) {}),
+                      DigitCheckbox(
+                          label: "Click to understand", onChanged: (value) {}),
                     ],
                   ),
                 ),
@@ -2181,14 +2207,19 @@ class HotReload extends StatelessWidget {
                   builder: (context) => InfoCard(
                     title: 'Info',
                     type: InfoType.success,
-                    inline: context.knobs.boolean(label: "inline", initialValue: false),
+                    inline: context.knobs
+                        .boolean(label: "inline", initialValue: false),
                     description:
-                    'Application process will take a minute to complete.',
+                        'Application process will take a minute to complete.',
                     additionalWidgets: [
-                      Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
-                      Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
-                      Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
-                      Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+                      Image.network(
+                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+                      Image.network(
+                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+                      Image.network(
+                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+                      Image.network(
+                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
                     ],
                   ),
                 ),
@@ -2197,22 +2228,28 @@ class HotReload extends StatelessWidget {
                   builder: (context) => InfoCard(
                     title: 'Info',
                     type: InfoType.warning,
-                    inline: context.knobs.boolean(label: "inline", initialValue: false),
+                    inline: context.knobs
+                        .boolean(label: "inline", initialValue: false),
                     description:
-                    'Application process will take a minute to complete.',
+                        'Application process will take a minute to complete.',
                     additionalWidgets: [
-                      Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
-                      Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
-                      Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
                       Image.network(
-                      'https://digit.org/wp-content/uploads/2023/06/Digit-Logo-1.png',
-                      scale: 1.0,
+                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+                      Image.network(
+                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+                      Image.network(
+                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+                      Image.network(
+                        'https://digit.org/wp-content/uploads/2023/06/Digit-Logo-1.png',
+                        scale: 1.0,
                       ),
-                      InfoCard(title: "Info Text", type: InfoType.error, description: 'This is the warning')
+                      InfoCard(
+                          title: "Info Text",
+                          type: InfoType.error,
+                          description: 'This is the warning')
                     ],
                   ),
                 ),
-
               ],
             ),
           ],
@@ -2225,7 +2262,57 @@ class HotReload extends StatelessWidget {
               useCases: [
                 WidgetbookUseCase(
                   name: 'Default',
-                  builder: (context) => const DigitTimeline(currentStep: TimelineStepState.completed,
+                  builder: (context) => const DigitTimeline(
+                    currentStep: TimelineStepState.completed,
+                    label: 'Completed',
+                    description: '18 / 02 / 2023',
+                  ),
+                ),
+                WidgetbookUseCase(
+                  name: 'with additional widget',
+                  builder: (context) => DigitTimeline(
+                    currentStep: TimelineStepState.completed,
+                    label: 'Completed',
+                    description: '18 / 02 / 2023',
+                    additionalWidgets: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          const Text("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's"),
+                          DigitButton(
+                            label:'Click On The Link',
+                            onPressed: () {},
+                            type: ButtonType.link,
+                          ),
+                        ],
+                      ),
+                      InfoCard(
+                          title: "Info Text",
+                          type: InfoType.error,
+                          description: 'This is the warning')
+                    ],
+                  ),
+                ),
+                WidgetbookUseCase(
+                  name: 'with additional hide widget',
+                  builder: (context) => DigitTimeline(
+                    currentStep: TimelineStepState.completed,
+                    label: 'Completed',
+                    description: '18 / 02 / 2023',
+                    additionalHideWidgets: [
+                      Image.network(
+                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+                      Image.network(
+                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+                      Image.network(
+                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+                      InfoCard(
+                          title: "Info Text",
+                          type: InfoType.error,
+                          description: 'This is the warning')
+                    ],
                   ),
                 ),
               ],
@@ -2235,7 +2322,10 @@ class HotReload extends StatelessWidget {
               useCases: [
                 WidgetbookUseCase(
                   name: 'Default',
-                  builder: (context) => const DigitTimeline(currentStep: TimelineStepState.present,
+                  builder: (context) => const DigitTimeline(
+                    currentStep: TimelineStepState.present,
+                    label: 'Current',
+                    description: '18 / 02 / 2023',
                   ),
                 ),
               ],
@@ -2245,7 +2335,10 @@ class HotReload extends StatelessWidget {
               useCases: [
                 WidgetbookUseCase(
                   name: 'Default',
-                  builder: (context) => const DigitTimeline(currentStep: TimelineStepState.future,
+                  builder: (context) => const DigitTimeline(
+                    currentStep: TimelineStepState.future,
+                    label: 'Future',
+                    description: '18 / 02 / 2023',
                   ),
                 ),
               ],
