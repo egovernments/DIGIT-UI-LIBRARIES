@@ -33,6 +33,7 @@
     "build:core": "cd modules/core && yarn build",
     "build:sample": "cd modules/sample && yarn build",
     "build:project": "cd modules/Project && yarn build",
+    "buildW:webpack":"yarn build && ls && cd ./example && ls && yarn build",
     "deploy:jenkins": "./scripts/jenkins.sh",
     "clean": "rm -rf node_modules"
   },

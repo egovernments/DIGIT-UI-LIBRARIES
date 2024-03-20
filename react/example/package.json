@@ -6,7 +6,8 @@
   "private": true,
   "homepage": "digit-ui",
   "scripts": {
-    "start": "react-scripts start"
+    "start": "react-scripts start",
+    "build": "webpack --mode production"
   },
   "devDependencies": {
     "@egovernments/digit-ui-libraries": "1.7.10",
