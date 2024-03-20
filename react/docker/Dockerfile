@@ -10,7 +10,7 @@ COPY ${WORK_DIR} .
 RUN ls -lah
 
 #RUN node web/envs.js
-RUN cd yarn install \
+RUN yarn install \
     && yarn buildW:webpack
 
 FROM nginx:mainline-alpine
