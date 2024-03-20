@@ -14,17 +14,17 @@ const SideBar = ({ t, CITIZEN, isSidebarOpen, toggleSidebar, handleLogout, mobil
         islinkDataLoading={islinkDataLoading}
       />
     );
-  else {
-    return (!isSidebarOpen && userDetails?.access_token) ? (
-      <div className="digit-employeeSidebar">
-        <EmployeeSideBar {...{ mobileView, userDetails, modules }} />
-      </div>
-    ) : (
-      <div className="digit-citizenSidebar">
-        <CitizenSideBar isOpen={isSidebarOpen} isMobile={true} toggleSidebar={toggleSidebar} onLogout={handleLogout} isEmployee={true} />
-      </div>
-    );
-  }
+    else {
+      return (!isSidebarOpen && userDetails?.access_token) ? (
+        <div className="digit-employeeSidebar">
+          <EmployeeSideBar {...{ mobileView, userDetails, modules }} />
+        </div>
+      ) : (
+        <div className="digit-citizenSidebar">
+          <CitizenSideBar isOpen={isSidebarOpen} isMobile={true} toggleSidebar={toggleSidebar} onLogout={handleLogout} isEmployee={true} />
+        </div>
+      );
+    }
 };
 
 export default SideBar;

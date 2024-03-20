@@ -1,6 +1,7 @@
 import cloneDeep from "lodash/cloneDeep";
 import _ from "lodash";
 import { WorksService } from "../../elements/Works";
+import HrmsService from "../../elements/HRMS";
 import { convertEpochToDate } from "../../../utils/pt";
 
 const createProjectsArray = (t, project, searchParams, headerLocale) => {
@@ -129,7 +130,6 @@ const createProjectsArray = (t, project, searchParams, headerLocale) => {
     return totalProjects;
 }
 
-
 export const WorksSearch = {
     searchEstimate: async (tenantId="pb.jalandhar", filters = {} ) => {
         
@@ -147,51 +147,45 @@ export const WorksSearch = {
         const response = await WorksService?.loiSearch({tenantId,filters})
         return response?.letterOfIndents
     },
-    viewProjectDetailsScreen: async (
-        t,
-        tenantId,
-        searchParams,
-        filters = { limit: 10, offset: 0, includeAncestors: true, includeDescendants: true },
-        headerLocale
-      ) => {
+    viewProjectDetailsScreen: async(t,tenantId, searchParams, filters = {limit : 10, offset : 0, includeAncestors : true, includeDescendants : true}, headerLocale)=> {
         const response = await WorksService?.searchProject(tenantId, searchParams, filters);
 
-    
+        //Categoring the response into an object of searched project and its sub-projects ( if any )
+        //searched projects will have basic details, project details and financial details
+        //subprojects will be shown in a table similar to what create project has
         let projectDetails = {
-          searchedProject: {
-            basicDetails: {},
-            details: {
-              projectDetails: [],
+            searchedProject : {
+                basicDetails : {},
+                details : {
+                    projectDetails : [],
+                    financialDetails : []
+                }
             },
-          },
-        };
-    
-        if (response?.Project) {
-          let projects = createProjectsArray(t, response?.Project, searchParams, headerLocale);
-    
-          //searched Project details
-          projectDetails.searchedProject["basicDetails"] = projects?.searchedProject?.basicDetails;
-          projectDetails.searchedProject["details"]["projectDetails"] = {
-            applicationDetails: [
-              projects?.searchedProject?.headerDetails,
-              projects?.searchedProject?.projectDetails,
-              projects?.searchedProject?.locationDetails,
-              projects?.searchedProject?.documentDetails,
-            ],
-          }; //rest categories will come here
+            subProjects : []
         }
-    
-        return {
-          projectDetails: response?.Project ? projectDetails : [],
-          response: response?.Project,
-          processInstancesDetails: [],
-          applicationData: {},
-          workflowDetails: [],
-          applicationData: {},
-          isNoDataFound: response?.Project?.length === 0,
-        };
-      },
 
+        //Upon Search, we will get a response of one Project which will be our Searched Projects
+        //That project will have descendants, which will be the part of Sub-Projects.
+
+        let projects = createProjectsArray(t, response?.Projects, searchParams, headerLocale);
+        //searched Project details
+        projectDetails.searchedProject['basicDetails'] = projects?.searchedProject?.basicDetails;
+        projectDetails.searchedProject['details']['projectDetails'] = {applicationDetails : [projects?.searchedProject?.departmentDetails, projects?.searchedProject?.workTypeDetails, projects?.searchedProject?.locationDetails, projects?.searchedProject?.documentDetails]}; //rest categories will come here
+        projectDetails.searchedProject['details']['financialDetails'] = {applicationDetails :  [projects?.searchedProject?.financialDetails]}; //rest categories will come here
+
+        if(response?.Projects?.[0]?.descendants) {
+            projects = createProjectsArray(t, response?.Projects?.[0]?.descendants, searchParams, headerLocale);
+            //all details of searched project will come here
+            projectDetails.subProjects?.push(projects?.subProjects);
+        }
+        return {
+            projectDetails : projectDetails,
+            processInstancesDetails: [],
+            applicationData: {},
+            workflowDetails: [],
+            applicationData:{}
+        }
+    }, 
     viewEstimateScreen: async (t, tenantId, estimateNumber) => {
 
         

@@ -1,4 +1,4 @@
-import { Button, Dropdown } from "@egovernments/digit-ui-components-core";
+import { CustomButton, Dropdown } from "@egovernments/digit-ui-react-components";
 import React, { useState } from "react";
 
 const ChangeLanguage = (prop) => {
@@ -34,7 +34,11 @@ const ChangeLanguage = (prop) => {
         <div className="language-selector">
           {languages.map((language, index) => (
             <div className="language-button-container" key={index}>
-              <Button label={language.label} onClick={() => handleChangeLanguage(language)} variation={language.value === selected ? "primary" : ""} />
+              <CustomButton
+                selected={language.value === selected}
+                text={language.label}
+                onClick={() => handleChangeLanguage(language)}
+              ></CustomButton>
             </div>
           ))}
         </div>

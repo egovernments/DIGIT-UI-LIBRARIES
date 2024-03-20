@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Loader } from "@egovernments/digit-ui-components-core";
 import {
   HomeIcon,
   EditPencilIcon,
   LogoutIcon,
+  Loader,
   AddressBookIcon,
   PropertyHouse,
   CaseIcon,

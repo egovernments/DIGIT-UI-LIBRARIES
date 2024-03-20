@@ -1,5 +1,6 @@
-import { BackButton, Header, Loader, Button } from "@egovernments/digit-ui-components-core";
-import { CloseSvg, DownloadImgIcon, PDFSvg } from "@egovernments/digit-ui-react-components";
+import {
+  BackButton, CloseSvg, CustomButton, DownloadImgIcon, Header, Loader, PDFSvg
+} from "@egovernments/digit-ui-react-components";
 import React, { Fragment, useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -60,12 +61,16 @@ const HowItWorks = ({ module }) => {
       <div className="how-it-works-page">
         <BackButton></BackButton>
         <div className="how-it-works-page-header">
-          <Header>{t("HOW_IT_WORKS")}</Header>
+          <Header>{t(mdmsConfigResult.screenHeader ? mdmsConfigResult.screenHeader : "HOW_IT_WORKS")}</Header>
         </div>
         <div className="language-selector" style={{ margin: "10px" }}>
           {languages.map((language, index) => (
             <div className="language-button-container" key={index}>
-              <Button text={language.label} onClick={() => handleChangeLanguage(language)} variation={language.value === selected ? "primary" : ""} />
+              <CustomButton
+                selected={language.value === selected}
+                text={language.label}
+                onClick={() => handleChangeLanguage(language)}
+              ></CustomButton>
             </div>
           ))}
         </div>
@@ -84,7 +89,7 @@ const HowItWorks = ({ module }) => {
             </div>
           </div>
         ))}
-        <div className="WhatsNewCard" style={{ position: "relative", width: "100%", marginBottom: 10, display: "inline-block" }}>
+        {mdmsConfigResult.pdfHeader && mdmsConfigResult.pdfDesc && <div className="WhatsNewCard" style={{ position: "relative", width: "100%", marginBottom: 10, display: "inline-block" }}>
           <div className="how-it-works-pdf-section">
             <div className="pdf-icon-header-desc">
               <div className="pdf-icon">
@@ -99,7 +104,7 @@ const HowItWorks = ({ module }) => {
               <DownloadImgIcon />
             </div>
           </div>
-        </div>
+        </div>}
         {videoPlay && (
           <div className="how-it-works-video-play">
             <div className="close-button">
