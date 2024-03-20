@@ -1,5 +1,6 @@
-import { Loader } from "@egovernments/digit-ui-components-core";
-import { NavBar } from "@egovernments/digit-ui-react-components";
+import {
+  Loader, NavBar
+} from "@egovernments/digit-ui-react-components";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
@@ -24,6 +25,9 @@ const Profile = ({ info, stateName, t }) => {
       }
     }
   }, [profilePic !== null]);
+
+  const CustomEmployeeTopBar = Digit.ComponentRegistryService?.getComponent("CustomEmployeeTopBar")
+
   return (
     <div className="profile-section">
       <div className="imageloader imageloader-loaded">
@@ -47,7 +51,7 @@ const Profile = ({ info, stateName, t }) => {
       <div className="profile-divider"></div>
       {window.location.href.includes("/employee") &&
         !window.location.href.includes("/employee/user/login") &&
-        !window.location.href.includes("employee/user/language-selection") && <ChangeCity t={t} mobileView={true} />}
+        !window.location.href.includes("employee/user/language-selection") && !CustomEmployeeTopBar && <ChangeCity t={t} mobileView={true} />}
     </div>
   );
 };
@@ -207,9 +211,7 @@ export const CitizenSideBar = ({ isOpen, isMobile = false, toggleSidebar, onLogo
         menuItems.splice(1, 0, {
           type: "dynamic",
           moduleName: t(`ACTION_TEST_${getParentDisplayName}`),
-          links: configEmployeeSideBar[keys[i]]?.map((ob) => {
-            return { ...ob, displayName: t(`ACTION_TEST_${ob?.displayName?.toUpperCase()?.replace(/[ -]/g, "_")}`) };
-          }),
+          links: configEmployeeSideBar[keys[i]]?.map((ob) => {return {...ob, displayName: t(`ACTION_TEST_${ob?.displayName?.toUpperCase()?.replace(/[ -]/g, "_")}`)}}),
           icon: configEmployeeSideBar[keys[i]][1]?.leftIcon,
         });
       }

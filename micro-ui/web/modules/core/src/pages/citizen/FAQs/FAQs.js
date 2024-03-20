@@ -1,4 +1,4 @@
-import { BackButton, Header, Loader, SVG } from "@egovernments/digit-ui-components-core";
+import { BackButton, Header, Loader, SearchIconSvg } from "@egovernments/digit-ui-react-components";
 import React, { Fragment } from "react";
 import { useTranslation } from "react-i18next";
 import FaqComponent from "./FaqComponent";
@@ -9,7 +9,7 @@ const FAQsSection = ({ module }) => {
   const { t } = useTranslation();
 
   const SearchImg = () => {
-    return <SVG.Search className="signature-img" />;
+    return <SearchIconSvg className="signature-img" />;
   };
 
   const { isLoading, data } = Digit.Hooks.useGetFAQsJSON(Digit.ULBService.getStateId());

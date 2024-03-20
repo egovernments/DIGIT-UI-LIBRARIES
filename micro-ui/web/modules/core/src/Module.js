@@ -7,7 +7,8 @@ import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
 import { DigitApp } from "./App";
 import SelectOtp from "./pages/citizen/Login/SelectOtp";
-
+import ChangeCity from "./components/ChangeCity";
+import ChangeLanguage from "./components/ChangeLanguage";
 import { useState } from "react";
 import ErrorBoundary from "./components/ErrorBoundaries";
 import getStore from "./redux/store";
@@ -110,6 +111,8 @@ export const DigitUI = ({ stateCode, registry, enabledModules, moduleReducers, d
 
 const componentsToRegister = {
   SelectOtp,
+  ChangeCity,
+  ChangeLanguage
 };
 
 export const initCoreComponents = () => {
