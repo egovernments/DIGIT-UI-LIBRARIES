@@ -2020,34 +2020,63 @@ class HotReload extends StatelessWidget {
               useCases: [
                 WidgetbookUseCase(
                   name: 'Default',
-                  builder: (context) => DigitStepper(
-                    list: const [
-                      'Step 1',
-                      'Step 2',
-                      'Step 3',
-                      'Step 4',
-                      'Step 5',
-                      'Step 6',
-                      'Step 7',
-                      'Step 8',
-                      'Step 9',
-                      'Step 10'
-                    ],
-                    page: context.knobs.doubleOrNull
-                            .slider(
-                              label: 'Current Step',
-                              min: 0,
-                              initialValue: 1,
-                              max: 10,
-                              divisions: 10,
-                            )
-                            ?.toInt() ??
+                  builder: (context) =>  AnotherStepper(
+                    activeIndex: context.knobs.doubleOrNull
+                        .slider(
+                      label: 'step',
+                      min: 0,
+                      initialValue: 1,
+                      max: 10,
+                      divisions: 10,
+                    )
+                        ?.toInt() ??
                         0,
-                    onChange: (int page) {
-                      print('Current Step: $page');
-                    },
-                    height: 10.0,
-                  ),
+                    stepperList: const [
+                      StepperData(
+                        title: "Preparing",
+                      ),
+                      StepperData(
+                          title: "Preparing",
+                          ),
+                      StepperData(
+                        title: "Preparing",
+                      ),
+                      StepperData(
+                        title: "Preparing",
+                      ),
+                      StepperData(
+                        title: "Preparing",
+                      ),
+                      StepperData(
+                        title: "Preparing",
+                      ),
+                      StepperData(
+                        title: "Preparing",
+                      ),StepperData(
+                        title: "Preparing",
+                      ),
+                      StepperData(
+                        title: "Preparing",
+                      ),
+                      StepperData(
+                        title: "Preparing",
+                      ),
+                      StepperData(
+                        title: "Preparing",
+                      ),
+                      StepperData(
+                        title: "Preparing",
+                      ),
+                      StepperData(
+                        title: "Preparing",
+                      ),
+                      StepperData(
+                        title: "Preparing",
+                      ),
+                    ],
+                    stepperDirection: Axis.horizontal,
+inverted: true,
+                  )
                 ),
               ],
             ),

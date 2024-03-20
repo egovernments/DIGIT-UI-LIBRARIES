@@ -1,852 +1,413 @@
-// ignore_for_file: must_be_immutable
-
-import 'dart:async';
 import 'package:digit_flutter_components/digit_components.dart';
 import 'package:flutter/material.dart';
 
-class DigitStepper extends StatefulWidget {
-  final List list;
-  final int page;
-  final Widget? positiveCheck;
-  final double height;
-  final Duration? durationScroller;
-  final Duration? durationCheckBulb;
-  final EdgeInsetsGeometry? padding;
-  final Function(int)? onClickItem;
-  final EdgeInsetsGeometry? paddingLine;
-  final int? division;
-  Color? positiveColor;
-  Color? negativeColor;
-  Color? progressColor;
-  final Function(int) onChange;
+import '../../constants/AppView.dart';
 
-  DigitStepper({
-    super.key,
-    required this.onChange,
-    required this.list,
-    this.durationScroller,
-    this.durationCheckBulb,
-    this.division,
-    this.onClickItem,
-    this.paddingLine,
-    this.padding,
-    this.positiveCheck,
-    this.negativeColor,
-    this.positiveColor,
-    this.progressColor,
-    required this.page,
-    required this.height,
-  });
+class AnotherStepper extends StatelessWidget {
+  /// Another stepper is a package, which helps build
+  /// customizable and easy to manage steppers.
+  ///
+  /// The package and be used to build horizontal as well
+  /// as vertical steppers just by providing [Axis] in the [gap] parameter.
+  const AnotherStepper({
+    Key? key,
+    required this.stepperList,
+    this.gap = 40,
+    this.activeIndex = 0,
+    this.stepperDirection = Axis.horizontal,
+    this.inverted = false,
+    this.activeBarColor,
+    this.inActiveBarColor,
+    this.barThickness = 2,
+    this.dotWidget,
+    this.titleTextStyle = const TextStyle(
+      fontSize: 14,
+      color: Colors.black,
+      fontWeight: FontWeight.w600,
+    ),
+    this.subtitleTextStyle = const TextStyle(
+      fontSize: 12,
+      color: Colors.grey,
+      fontWeight: FontWeight.w500,
+    ),
+    this.scrollPhysics,
+  }) : super(key: key);
 
-  @override
-  State<DigitStepper> createState() => _DigitStepperState();
-}
+  /// Stepper [List] of type [StepperData] to inflate stepper with data
+  final List<StepperData> stepperList;
 
-class _DigitStepperState extends State<DigitStepper> {
-  ScrollController controller = ScrollController();
-  double maxWidths = 0.0;
+  /// Gap between the items in the vertical stepper, Default = 40
+  /// Recommended to keep it greater than 20.
+  final double gap;
 
-  EdgeInsetsGeometry get paddingBulb =>
-      (widget.padding != null) ? widget.padding! : EdgeInsets.zero;
+  /// Active index, till which [index] the stepper will be highlighted
+  final int activeIndex;
 
-  EdgeInsetsGeometry get paddingLine =>
-      (widget.paddingLine != null) ? widget.paddingLine! : EdgeInsets.zero;
+  /// Stepper direction takes [Axis]
+  /// Use [Axis.horizontal] to get horizontal stepper
+  /// /// Use [Axis.vertical] to get vertical stepper
+  final Axis stepperDirection;
+
+  /// Inverts the stepper with text that is being used
+  final bool inverted;
+
+  /// Bar color for active step
+  final Color? activeBarColor;
+
+  /// Bar color for inactive step
+  final Color? inActiveBarColor;
+
+  /// Bar width/thickness/height
+  final double barThickness;
+
+  /// [Widget] for dot/point
+  final Widget? dotWidget;
+
+  /// [TextStyle] for title
+  final TextStyle titleTextStyle;
+
+  /// [TextStyle] for subtitle
+  final TextStyle subtitleTextStyle;
+
+  /// Scroll physics for listview
+  final ScrollPhysics? scrollPhysics;
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.maxFinite,
-      // height: widget.height,
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          return ListView.builder(
-            shrinkWrap: true,
-            controller: controller,
-            physics: const AlwaysScrollableScrollPhysics(
-                parent: AlwaysScrollableScrollPhysics()),
-            scrollDirection: Axis.horizontal,
-            itemCount: widget.list.length,
-            itemBuilder: (context, index) => Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                (index == 0)
-                    ? ItemStepIndicatorZero(
-                        onClickItem: widget.onClickItem,
-                        duration: _currentDurationBulb(),
-                        childCheck: _checkEnable(index),
-                        padding: paddingBulb,
-                        disableColor: (widget.negativeColor == null)
-                            ? Colors.grey
-                            : widget.negativeColor!,
-                        enableColor: (widget.positiveColor == null)
-                            ? Colors.green
-                            : widget.positiveColor!,
-                        progressColor: (widget.progressColor == null)
-                            ? Colors.orange
-                            : widget.progressColor!,
-                        index: index,
-                        currentPage: widget.page,
-                        height: widget.height,
-                        width: widget.height)
-                    : ItemStepIndicator(
-                        onClickItem: widget.onClickItem,
-                        duration: _currentDurationBulb(),
-                        childCheck: _checkEnable(index),
-                        height: widget.height,
-                        paddingLine: paddingLine,
-                        padding: paddingBulb,
-                        currentPage: widget.page,
-                        disableColor: (widget.negativeColor == null)
-                            ? Colors.grey
-                            : widget.negativeColor!,
-                        enableColor: (widget.positiveColor == null)
-                            ? Colors.green
-                            : widget.positiveColor!,
-                        progressColor: (widget.progressColor == null)
-                            ? Colors.orange
-                            : widget.progressColor!,
-                        index: index,
-                        width: widthIndicator(constraints.maxWidth),
-                      ),
-                const SizedBox(
-                  height: 8,
-                ),
-                (index == 0)
-                    ? ItemStepIndicatorZero1(
-                        onClickItem: widget.onClickItem,
-                        duration: _currentDurationBulb(),
-                        childCheck: _checkEnable(index),
-                        padding: paddingBulb,
-                        item: widget.list[index],
-                        disableColor: (widget.negativeColor == null)
-                            ? Colors.grey
-                            : widget.negativeColor!,
-                        enableColor: (widget.positiveColor == null)
-                            ? Colors.green
-                            : widget.positiveColor!,
-                        progressColor: (widget.progressColor == null)
-                            ? Colors.orange
-                            : widget.progressColor!,
-                        index: index,
-                        currentPage: widget.page,
-                        height: widget.height,
-                        width: widget.height)
-                    : ItemStepIndicator1(
-                        onClickItem: widget.onClickItem,
-                        duration: _currentDurationBulb(),
-                        childCheck: _checkEnable(index),
-                        height: widget.height,
-                        paddingLine: paddingLine,
-                        padding: paddingBulb,
-                        item: widget.list[index],
-                        currentPage: widget.page,
-                        disableColor: (widget.negativeColor == null)
-                            ? Colors.grey
-                            : widget.negativeColor!,
-                        enableColor: (widget.positiveColor == null)
-                            ? Colors.green
-                            : widget.positiveColor!,
-                        progressColor: (widget.progressColor == null)
-                            ? Colors.orange
-                            : widget.progressColor!,
-                        index: index,
-                        width: widthIndicator(constraints.maxWidth),
-                      ),
-              ],
-            ),
-          );
-        },
-      ),
-    );
-  }
 
-  Duration _currentDuration() {
-    return (widget.durationScroller == null)
-        ? const Duration(milliseconds: 250)
-        : widget.durationScroller!;
-  }
+    bool isMobile = AppView.isMobileView(MediaQuery.of(context).size.width);
 
-  Duration _currentDurationBulb() {
-    return (widget.durationCheckBulb == null)
-        ? const Duration(milliseconds: 250)
-        : widget.durationCheckBulb!;
-  }
-
-  Widget _checkEnable(int currentIndex) {
-    return currentIndex == widget.page
-        ? Text(currentIndex.toString())
-        : currentIndex > widget.page
-            ? Text(currentIndex.toString())
-            : const Icon(
-                Icons.check,
-                size: 24,
-                color: Colors.white,
-              );
-  }
-
-  @override
-  void didUpdateWidget(covariant DigitStepper oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (((widget.list.length * widget.height) > (maxWidths / 2))) {
-      if ((widget.page - 2) >= 0 &&
-          (widget.page - 2) <= (widget.list.length - 5)) {
-        controller.animateTo((widget.page - 2) * widthIndicator(maxWidths),
-            duration: _currentDuration(), curve: Curves.decelerate);
-      }
-    } else {
-      // ignore: curly_braces_in_flow_control_structures
-      if (((((maxWidths - widget.height) / (widget.list.length - 1)) <
-          // ignore: curly_braces_in_flow_control_structures
-          (widget.height + 5)))) if ((widget.page - 2) >=
-              0 &&
-          (widget.page - 2) <= (widget.list.length - 5)) {
-        controller.animateTo((widget.page - 2) * widthIndicator(maxWidths),
-            duration: _currentDuration(), curve: Curves.decelerate);
-      }
+    var caa = stepperDirection == Axis.horizontal
+        ? CrossAxisAlignment.end
+        : CrossAxisAlignment.start;
+    if (inverted) {
+      // invert Alignment
+      caa = caa == CrossAxisAlignment.end
+          ? CrossAxisAlignment.start
+          : CrossAxisAlignment.end;
     }
-    widget.onChange.call(widget.page);
-  }
-
-  double widthIndicator(double maxWidth) {
-    maxWidths = maxWidth;
-    return (((widget.list.length * widget.height) > (maxWidth / 2)))
-        ? widthScroller(maxWidth)
-        : ((((maxWidth - widget.height) / (widget.list.length - 1)) >
-                (widget.height + 5)))
-            ? ((maxWidth - widget.height) / (widget.list.length - 1))
-            : widthScroller(maxWidth);
-  }
-
-  double widthScroller(double maxWidth) {
-    return ((maxWidth - widget.height) /
-        (((widget.list.length - 1) <= 2)
-            ? (widget.list.length - 1)
-            : (widget.division == null ||
-                    (widget.division! <= 0) ||
-                    (widget.division! >= widget.list.length))
-                ? 4
-                : widget.division!));
-  }
-}
-
-class ItemStepIndicatorZero extends StatelessWidget {
-  final double width;
-  final double height;
-  final int currentPage;
-  final EdgeInsetsGeometry padding;
-  final Duration duration;
-  final int index;
-  final Function(int)? onClickItem;
-  final Color disableColor;
-  final Color progressColor;
-  final Color enableColor;
-  final Widget childCheck;
-
-  const ItemStepIndicatorZero({
-    super.key,
-    required this.height,
-    required this.duration,
-    required this.padding,
-    this.onClickItem,
-    required this.width,
-    required this.currentPage,
-    required this.index,
-    required this.disableColor,
-    required this.progressColor,
-    required this.enableColor,
-    required this.childCheck,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: InkWell(
-        splashColor: Colors.transparent,
-        onTap: (onClickItem == null)
-            ? null
-            : () {
-                onClickItem!.call(index);
-              },
-        child: Container(
-          height: 32,
-          width: 32,
-          margin: const EdgeInsets.only(
-            left: 8,
-          ),
-          padding: padding,
-          child: AnimatedContainer(
-            curve: Curves.easeOutQuint,
-            duration: duration,
-            decoration: BoxDecoration(
-              color: index <= currentPage
-                  ? const DigitColors().lightPrimaryOrange
-                  : const DigitColors().lightTextDisabled,
-              borderRadius: BorderRadius.circular(50),
-              border: Border.all(
-                  color: index <= currentPage
-                      ? const DigitColors().lightPrimaryOrange
-                      : const DigitColors().lightTextDisabled,
-                  width: (index == currentPage) ? 2 : 0),
-            ),
-            // padding: EdgeInsets.all((index == currentPage) ? 2.5 : 0),
-            alignment: Alignment.centerRight,
-            child: Center(
-                child: (index == currentPage)
-                    ? Container(
-                        width: double.maxFinite,
-                        height: double.maxFinite,
-                        decoration: BoxDecoration(
-                            color: index <= currentPage
-                                ? const DigitColors().lightPrimaryOrange
-                                : const DigitColors().lightTextDisabled,
-                            borderRadius: BorderRadius.circular(50)),
-                        child: Center(
-                          child: Text((index + 1).toString(),
-                              style: TextStyle(
-                                  color:
-                                      const DigitColors().lightPaperPrimary)),
-                        ))
-                    : index + 1 == currentPage
-                        ? ShowUpAnimationPage(
-                            duration: duration, delay: 0, child: childCheck)
-                        : childCheck),
-          ),
+    final Iterable<int> iter = Iterable<int>.generate(stepperList.length);
+    return SizedBox(
+      width: double.infinity,
+      child: SingleChildScrollView(
+        physics: const AlwaysScrollableScrollPhysics(),
+        child: Flex(
+          crossAxisAlignment: caa,
+          direction: stepperDirection,
+          children: iter
+              .map((index) => _getPreferredStepper(context, index))
+              .toList(),
         ),
       ),
     );
   }
-}
 
-class ItemStepIndicatorZero1 extends StatelessWidget {
-  final double width;
-  final double height;
-  final int currentPage;
-  final EdgeInsetsGeometry padding;
-  final Duration duration;
-  final int index;
-  final Function(int)? onClickItem;
-  final Color disableColor;
-  final Color progressColor;
-  final String item;
-  final Color enableColor;
-  final Widget childCheck;
-
-  const ItemStepIndicatorZero1({
-    super.key,
-    required this.height,
-    required this.duration,
-    required this.padding,
-    this.onClickItem,
-    required this.item,
-    required this.width,
-    required this.currentPage,
-    required this.index,
-    required this.disableColor,
-    required this.progressColor,
-    required this.enableColor,
-    required this.childCheck,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        child: Text(item),
-      ),
+  Widget _getPreferredStepper(BuildContext context, index) {
+    return HorizontalStepperItem(
+      index: index,
+      item: stepperList[index],
+      totalLength: stepperList.length,
+      activeIndex: activeIndex,
+      isInverted: inverted,
+      inActiveBarColor: inActiveBarColor ?? Theme.of(context).disabledColor,
+      activeBarColor: inActiveBarColor ?? Theme.of(context).colorScheme.primary,
+      barHeight: barThickness,
+      dotWidget: dotWidget,
+      titleTextStyle: titleTextStyle,
+      subtitleTextStyle: subtitleTextStyle,
     );
   }
 }
 
-class ItemStepIndicator extends StatefulWidget {
-  final double width;
-  final double height;
-  final int currentPage;
-  final EdgeInsetsGeometry padding;
-  final EdgeInsetsGeometry paddingLine;
-  final Function(int)? onClickItem;
-  final Duration duration;
-  final int index;
-  final Color disableColor;
-  final Color progressColor;
-  final Color enableColor;
-  final Widget childCheck;
-
-  const ItemStepIndicator({
+class HorizontalStepperItem extends StatefulWidget {
+  const HorizontalStepperItem({
     Key? key,
-    required this.height,
-    required this.duration,
-    required this.width,
-    required this.currentPage,
-    required this.paddingLine,
-    this.onClickItem,
-    required this.padding,
+    required this.item,
     required this.index,
-    required this.disableColor,
-    required this.progressColor,
-    required this.enableColor,
-    required this.childCheck,
+    required this.totalLength,
+    required this.activeIndex,
+    required this.isInverted,
+    required this.activeBarColor,
+    required this.inActiveBarColor,
+    required this.barHeight,
+    required this.dotWidget,
+    required this.titleTextStyle,
+    required this.subtitleTextStyle,
   }) : super(key: key);
 
+  final StepperData item;
+  final int index;
+  final int totalLength;
+  final int activeIndex;
+  final bool isInverted;
+  final Color activeBarColor;
+  final Color inActiveBarColor;
+  final double barHeight;
+  final Widget? dotWidget;
+  final TextStyle titleTextStyle;
+  final TextStyle subtitleTextStyle;
+
   @override
-  _ItemStepIndicatorState createState() => _ItemStepIndicatorState();
+  _HorizontalStepperItemState createState() => _HorizontalStepperItemState();
 }
 
-class _ItemStepIndicatorState extends State<ItemStepIndicator> {
-  bool _isDone = false;
+class _HorizontalStepperItemState extends State<HorizontalStepperItem> {
+  bool isHovered = false;
 
-  @override
-  void initState() {
-    super.initState();
+  List<Widget> getChildren(DigitTypography currentTypography, bool isHover) {
+    final Widget dot = StepperDot(
+      isHover: isHover,
+      index: widget.index,
+      totalLength: widget.totalLength,
+      activeIndex: widget.activeIndex,
+    );
+    return [
+      if (widget.item.title != null) ...[
+        SizedBox(
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Text(
+                        widget.item.title!,
+                        textAlign: TextAlign.center,
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
+                        style: widget.index == widget.activeIndex || isHover
+                ? currentTypography.headingS.copyWith(
+                    color: const DigitColors().lightTextPrimary, height: 1.172)
+                : currentTypography.bodyL.copyWith(
+                    color: const DigitColors().lightTextPrimary, height: 1.5),
+                      ),
+            )),
+        const SizedBox(height: 8),
+      ],
+      Row(
+        children: [
+          Flexible(
+            child: Container(
+              constraints: const BoxConstraints(
+                minWidth: 10,
+              ),
+              color: widget.index == 0
+                  ? Colors.transparent
+                  : (widget.index <= widget.activeIndex
+                      ? const DigitColors().lightPrimaryOrange
+                      : const DigitColors().lightTextDisabled),
+              height: 4,
+            ),
+          ),
+          widget.index <= widget.activeIndex
+              ? dot
+              : ColorFiltered(
+                  colorFilter: getGreyScaleColorFilter(),
+                  child: dot,
+                ),
+          Flexible(
+            child: Container(
+              constraints: const BoxConstraints(
+                minWidth: 10,
+              ),
+              color: widget.index == widget.totalLength - 1
+                  ? Colors.transparent
+                  : (widget.index < widget.activeIndex
+                      ? const DigitColors().lightPrimaryOrange
+                      : const DigitColors().lightTextDisabled),
+              height: 4,
+            ),
+          ),
+        ],
+      ),
+    ];
   }
 
-  @override
-  void dispose() {
-    super.dispose();
+  List<Widget> getInvertedChildren(
+      DigitTypography currentTypography, bool isHover) {
+    return getChildren(currentTypography, isHover).reversed.toList();
   }
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: widget.width,
-      child: StatefulBuilder(builder: (context, setState) {
-        return Row(
-          textDirection: TextDirection.rtl,
-          children: [
-            InkWell(
-              splashColor: Colors.transparent,
-              onTap: (widget.onClickItem == null)
-                  ? null
-                  : () {
-                      widget.onClickItem!.call(widget.index);
-                    },
-              child: Container(
-                padding: widget.padding,
-                height: 32,
-                width: 32,
-                child: SizedBox(
-                  child: (widget.index == widget.currentPage)
-                      ? _isDone
-                          ? _enable(widget.index)
-                          : _disable(widget.index)
-                      : (widget.index < widget.currentPage)
-                          ? _done(widget.index)
-                          : _disable(widget.index),
-                ),
-              ),
-            ),
-            Expanded(
-              child: Container(
-                padding: widget.paddingLine,
-                height: 4,
-                child: TweenAnimationBuilder<double>(
-                  tween: Tween(
-                      begin: 0,
-                      end: (widget.index == widget.currentPage) ? 1.0 : 0.0),
-                  curve: Curves.decelerate,
-                  duration: Duration(
-                      milliseconds: widget.duration.inMilliseconds ~/ 1.6),
-                  builder: (context, value, _) => LayoutBuilder(
-                    builder: (context, constraints) {
-                      return ClipRRect(
-                        borderRadius: BorderRadius.circular(0),
-                        child: Stack(
-                          children: [
-                            Visibility(
-                              visible: true,
-                              child: Container(
-                                width: double.maxFinite,
-                                height: double.maxFinite,
-                                color: widget.index < widget.currentPage
-                                    ? const DigitColors().lightPrimaryOrange
-                                    : const DigitColors().lightTextDisabled,
-                              ),
-                            ),
-                            AnimatedContainer(
-                              duration: Duration(
-                                milliseconds:
-                                    500,
-                              ),
-                              onEnd: () {
-                                setState(() {
-                                  _isDone = true;
-                                });
-                              },
-                              width: (constraints.maxWidth * value),
-                              height: double.maxFinite,
-                              decoration: BoxDecoration(
-                                gradient: (widget.index == widget.currentPage)
-                                    ? LinearGradient(
-                                        colors: [
-                                            const DigitColors()
-                                                .lightPrimaryOrange,
-                                            const DigitColors()
-                                                .lightPrimaryOrange
-                                          ],
-                                        end: Alignment.centerRight,
-                                        begin: Alignment.centerLeft)
-                                    : (widget.index < widget.currentPage
-                                        ? LinearGradient(
-                                            colors: [
-                                                const DigitColors()
-                                                    .lightPrimaryOrange,
-                                                const DigitColors()
-                                                    .lightPrimaryOrange
-                                              ],
-                                            end: Alignment.centerRight,
-                                            begin: Alignment.centerLeft)
-                                        : LinearGradient(
-                                            colors: [
-                                                const DigitColors()
-                                                    .lightPrimaryOrange,
-                                                const DigitColors()
-                                                    .lightTextDisabled
-                                              ],
-                                            end: Alignment.centerRight,
-                                            begin: Alignment.centerLeft)),
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ),
-            )
-          ],
-        );
-      }),
-    );
+    DigitTypography currentTypography = getTypography(context);
+    bool isHover = false;
+    return StatefulBuilder(builder: (context, setState) {
+      return Flexible(
+        child: InkWell(
+          onHover: (hover) {
+            setState(() {
+              isHover = hover;
+            });
+          },
+          onTap: widget.item.onStepTap!=null ? () {} : null,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: widget.isInverted
+                ? MainAxisAlignment.start
+                : MainAxisAlignment.end,
+            children: widget.isInverted
+                ? getInvertedChildren(currentTypography, isHover)
+                : getChildren(currentTypography, isHover),
+          ),
+        ),
+      );
+    });
   }
+}
 
-  Widget _done(int currIndex) {
-    return Container(
-      decoration: BoxDecoration(
-        color: const DigitColors().lightPrimaryOrange,
-        borderRadius: BorderRadius.circular(50),
-      ),
-      alignment: Alignment.centerRight,
-      child: Center(
-        child: (currIndex + 1 == widget.currentPage)
-            ? AnimatedContainer(
-                curve: Curves.easeOutQuint,
-                duration:
-                    Duration(milliseconds: widget.duration.inMilliseconds),
-                width: double.maxFinite,
-                height: double.maxFinite,
+class StepperData {
+  final String? title;
+  final Function()? onStepTap;
+
+  const StepperData({
+    this.title,
+    this.onStepTap,
+  });
+}
+
+ColorFilter getGreyScaleColorFilter() {
+  ColorFilter greyscale = const ColorFilter.matrix(<double>[
+    0.2126,
+    0.7152,
+    0.0722,
+    0,
+    0,
+    0.2126,
+    0.7152,
+    0.0722,
+    0,
+    0,
+    0.2126,
+    0.7152,
+    0.0722,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+  ]);
+
+  return greyscale;
+}
+
+class StepperDot extends StatelessWidget {
+  /// Default stepper dot
+  const StepperDot({
+    Key? key,
+    required this.index,
+    required this.totalLength,
+    required this.activeIndex,
+    this.isHover = false,
+  }) : super(key: key);
+
+  /// Index at which the item is present
+  final int index;
+
+  /// Total length of the list provided
+  final int totalLength;
+
+  /// Active index which needs to be highlighted and before that
+  final int activeIndex;
+
+  final bool isHover;
+
+  @override
+  Widget build(BuildContext context) {
+    DigitTypography currentTypography = getTypography(context);
+    bool isMobile = AppView.isMobileView(MediaQuery.of(context).size.width);
+    return index == activeIndex
+        ? Container(
+            height: isMobile ? 24 : 32,
+            width: isMobile ? 24 : 32,
+            decoration: BoxDecoration(
+              color: const DigitColors().lightPrimaryOrange,
+              border: Border.all(
+                color: const DigitColors().lightPrimaryOrange,
+                width: 1,
+              ),
+              borderRadius: const BorderRadius.all(
+                Radius.circular(50),
+              ),
+              boxShadow: isHover
+                  ? [
+                      BoxShadow(
+                        color: const DigitColors()
+                            .lightPrimaryOrange
+                            .withOpacity(.12),
+                        offset: const Offset(0, 0),
+                        spreadRadius: 4,
+                        blurRadius: 0,
+                      ),
+                    ]
+                  : [],
+            ),
+            child: Center(
+                child: Text(
+              '${index + 1}',
+              style: currentTypography.headingS
+                  .copyWith(color: const DigitColors().lightPaperPrimary),
+            )),
+          )
+        : index < activeIndex
+            ? Container(
+                height: isMobile ? 24 : 32,
+                width: isMobile ? 24 : 32,
                 decoration: BoxDecoration(
                   color: const DigitColors().lightPrimaryOrange,
-                  borderRadius: BorderRadius.circular(50),
+                  border: Border.all(
+                    color: const DigitColors().lightPrimaryOrange,
+                    width: 1,
+                  ),
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(50),
+                  ),
+                  boxShadow: isHover
+                      ? [
+                          BoxShadow(
+                            color: const DigitColors()
+                                .lightPrimaryOrange
+                                .withOpacity(.12),
+                            offset: const Offset(0, 0),
+                            spreadRadius: 4,
+                            blurRadius: 0,
+                          ),
+                        ]
+                      : [],
                 ),
-                child: ShowUpAnimationPage(
-                  duration: widget.duration,
-                  delay: 0,
-                  child: widget.childCheck,
+                child: Icon(
+                  Icons.check,
+                  size: isMobile ? 18 : 24,
+                  color: const DigitColors().lightPaperPrimary,
                 ),
               )
             : Container(
+                height: isMobile ? 24 : 32,
+                width: isMobile ? 24 : 32,
                 decoration: BoxDecoration(
-                  color: const DigitColors().lightPrimaryOrange,
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                alignment: Alignment.centerRight,
-                child: Center(child: widget.childCheck)),
-      ),
-    );
-  }
-
-  Widget _disable(int currentIndex) {
-    return AnimatedContainer(
-      curve: Curves.easeOutQuint,
-      duration: Duration(milliseconds: widget.duration.inMilliseconds),
-      decoration: BoxDecoration(
-        color: Colors.transparent,
-        borderRadius: BorderRadius.circular(50),
-        border: Border.all(color: Colors.transparent, width: 0.0),
-      ),
-      alignment: Alignment.centerRight,
-      child: Center(
-        child: Container(
-          width: double.maxFinite,
-          height: double.maxFinite,
-          decoration: BoxDecoration(
-              color: const DigitColors().lightTextDisabled,
-              borderRadius: BorderRadius.circular(50)),
-          child: Center(
-              child: Text(
-            (currentIndex + 1).toString(),
-            style: TextStyle(color: const DigitColors().lightPaperPrimary),
-          )),
-        ),
-      ),
-    );
-  }
-
-  Widget _enable(int currentIndex) {
-    return AnimatedContainer(
-      curve: Curves.easeOutQuint,
-      duration: Duration(milliseconds: widget.duration.inMilliseconds),
-      decoration: BoxDecoration(
-        color: const DigitColors().lightPrimaryOrange,
-        borderRadius: BorderRadius.circular(50),
-        border: Border.all(
-            color: const DigitColors().lightPrimaryOrange, width: 2.0),
-      ),
-      alignment: Alignment.centerRight,
-      child: Center(
-        child: Container(
-          width: double.maxFinite,
-          height: double.maxFinite,
-          decoration: BoxDecoration(
-              color: const DigitColors().lightPrimaryOrange,
-              borderRadius: BorderRadius.circular(50)),
-          child: Center(
-            child: Text(
-              (currentIndex + 1).toString(),
-              style: TextStyle(color: const DigitColors().lightPaperPrimary),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class ItemStepIndicator1 extends StatelessWidget {
-  final double width;
-  final double height;
-  final int currentPage;
-  final String item;
-  final EdgeInsetsGeometry padding;
-  final EdgeInsetsGeometry paddingLine;
-  final Function(int)? onClickItem;
-  final Duration duration;
-  final int index;
-  final Color disableColor;
-  final Color progressColor;
-  final Color enableColor;
-  final Widget childCheck;
-
-  const ItemStepIndicator1({
-    super.key,
-    required this.height,
-    required this.duration,
-    required this.width,
-    required this.currentPage,
-    required this.paddingLine,
-    required this.item,
-    this.onClickItem,
-    required this.padding,
-    required this.index,
-    required this.disableColor,
-    required this.progressColor,
-    required this.enableColor,
-    required this.childCheck,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: width,
-      child: Row(
-        textDirection: TextDirection.rtl,
-        children: [
-          Container(
-            // width: height,
-            child: Text(item),
-          ),
-          Expanded(
-            child: Container(
-              padding: paddingLine,
-              height: 4,
-              child: TweenAnimationBuilder<double>(
-                tween: Tween(begin: 0, end: (index == currentPage) ? 0.0 : 0.0),
-                curve: Curves.decelerate,
-                duration:
-                    Duration(milliseconds: duration.inMilliseconds ~/ 1.6),
-                builder: (context, value, _) => LayoutBuilder(
-                  builder: (context, constraints) {
-                    return ClipRRect(
-                      borderRadius: BorderRadius.circular(50),
-                      child: Stack(
-                        children: [
-                          Visibility(
-                            visible: false,
-                            child: Container(
-                              width: double.maxFinite,
-                              height: double.maxFinite,
-                              color: index < currentPage
-                                  ? enableColor
-                                  : disableColor.withOpacity(0.5),
-                            ),
+                  color: const DigitColors().lightTextDisabled,
+                  border: Border.all(
+                    color: const DigitColors().lightTextDisabled,
+                    width: 1,
+                  ),
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(50),
+                  ),
+                  boxShadow: isHover
+                      ? [
+                          BoxShadow(
+                            color: const DigitColors()
+                                .lightPrimaryOrange
+                                .withOpacity(.12),
+                            offset: const Offset(0, 0),
+                            spreadRadius: 4,
+                            blurRadius: 0,
                           ),
-                          AnimatedContainer(
-                            duration: Duration(
-                                milliseconds: duration.inMilliseconds ~/ 1.2),
-                            width: (constraints.maxWidth * value),
-                            height: double.maxFinite,
-                            decoration: BoxDecoration(
-                              gradient: (index == currentPage)
-                                  ? LinearGradient(
-                                      colors: [enableColor, enableColor],
-                                      end: Alignment.centerRight,
-                                      begin: Alignment.centerLeft)
-                                  : (index < currentPage
-                                      ? LinearGradient(
-                                          colors: [enableColor, enableColor],
-                                          end: Alignment.centerRight,
-                                          begin: Alignment.centerLeft)
-                                      : LinearGradient(
-                                          colors: [
-                                              enableColor.withOpacity(0.5),
-                                              disableColor.withOpacity(0.5)
-                                            ],
-                                          end: Alignment.centerRight,
-                                          begin: Alignment.centerLeft)),
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
+                        ]
+                      : [],
                 ),
-              ),
-            ),
-          )
-        ],
-      ),
-    );
-  }
-
-  Widget _done(int currIndex) {
-    return Container(
-      decoration: BoxDecoration(
-        color: enableColor,
-        borderRadius: BorderRadius.circular(50),
-      ),
-      alignment: Alignment.centerRight,
-      child: Center(
-        child: (currIndex + 1 == currentPage)
-            ? AnimatedContainer(
-                curve: Curves.easeOutQuint,
-                duration: Duration(milliseconds: duration.inMilliseconds),
-                width: double.maxFinite,
-                height: double.maxFinite,
-                decoration: BoxDecoration(
-                  color: enableColor,
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                child: ShowUpAnimationPage(
-                  duration: duration,
-                  delay: 0,
-                  child: childCheck,
-                ),
-              )
-            : childCheck,
-      ),
-    );
-  }
-
-  Widget _disable() {
-    return AnimatedContainer(
-      curve: Curves.easeOutQuint,
-      duration: Duration(milliseconds: duration.inMilliseconds),
-      decoration: BoxDecoration(
-        color: Colors.transparent,
-        borderRadius: BorderRadius.circular(50),
-        border: Border.all(color: Colors.transparent, width: 0.0),
-      ),
-      alignment: Alignment.centerRight,
-      child: Center(
-        child: AnimatedContainer(
-          duration: Duration(milliseconds: duration.inMilliseconds ~/ 1),
-          width: double.maxFinite,
-          height: double.maxFinite,
-          decoration: BoxDecoration(
-              color: disableColor.withOpacity(0.5),
-              borderRadius: BorderRadius.circular(50)),
-        ),
-      ),
-    );
-  }
-
-  Widget _enable() {
-    return AnimatedContainer(
-      curve: Curves.easeOutQuint,
-      duration: Duration(milliseconds: duration.inMilliseconds),
-      decoration: BoxDecoration(
-        color: Colors.transparent,
-        borderRadius: BorderRadius.circular(50),
-        border: Border.all(color: progressColor, width: 2.0),
-      ),
-      alignment: Alignment.centerRight,
-      child: Center(
-          child: AnimatedContainer(
-        duration: Duration(milliseconds: duration.inMilliseconds ~/ 1),
-        width: double.maxFinite,
-        height: double.maxFinite,
-        decoration: BoxDecoration(
-            color: progressColor, borderRadius: BorderRadius.circular(50)),
-      )),
-    );
-  }
-}
-
-class ShowUpAnimationPage extends StatefulWidget {
-  final Duration duration;
-  final Widget child;
-  final int delay;
-
-  const ShowUpAnimationPage(
-      {super.key,
-      required this.duration,
-      required this.child,
-      required this.delay});
-
-  @override
-  createState() => _ShowUpAnimationPage();
-}
-
-class _ShowUpAnimationPage extends State<ShowUpAnimationPage>
-    with TickerProviderStateMixin {
-  late AnimationController _animController;
-  late Animation<Offset> _animOffset;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _animController =
-        AnimationController(vsync: this, duration: widget.duration);
-    final curve =
-        CurvedAnimation(curve: Curves.decelerate, parent: _animController);
-    _animOffset =
-        Tween<Offset>(begin: const Offset(0.0, -0.05), end: Offset.zero)
-            .animate(curve);
-// ignore: unnecessary_null_comparison
-    if (widget.delay == null) {
-      _animController.forward();
-    } else {
-      Timer(Duration(milliseconds: widget.delay), () {
-        _animController.forward();
-      });
-    }
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _animController.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return FadeTransition(
-      opacity: _animController,
-      child: SlideTransition(
-        position: _animOffset,
-        child: widget.child,
-      ),
-    );
+                child: Center(
+                    child: Text('${index + 1}',
+                        style: currentTypography.bodyL.copyWith(
+                            color: const DigitColors().lightPaperPrimary))),
+              );
   }
 }
