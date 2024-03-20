@@ -1,0 +1,10 @@
+.DS_Store
+.idea
+index.lock
+
+#react 
+node_modules/
+dist/
+
+
+
