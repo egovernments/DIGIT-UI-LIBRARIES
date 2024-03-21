@@ -1,7 +1,7 @@
 import React from "react";
 import { initLibraries } from "@egovernments/digit-ui-libraries";
 
-import { UICustomizations } from "./Customisations/UICustomizations";
+import { UICustomizations } from "./UICustomizations";
 
 import {
   DigitUI,
