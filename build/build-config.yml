@@ -21,7 +21,7 @@ config:
   # digit-ui-react
   - name: builds/Digit-UI-Libraries/react/core-ui
     build:
-      - work-dir: react/example
+      - work-dir: react/
         dockerfile: react/docker/Dockerfile
         image-name: core-ui
 
