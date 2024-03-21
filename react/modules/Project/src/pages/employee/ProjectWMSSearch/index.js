@@ -1,11 +1,9 @@
 import React, { useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { Header, Loader } from "@egovernments/digit-ui-react-components";
-import { InboxSearchComposer } from "@egovernments/digit-ui-components-core";
-import {Button} from "@egovernments/digit-ui-components-core";
+import { Button, Loader ,InboxSearchComposer } from "@egovernments/digit-ui-components-core";
+import { Header } from "@egovernments/digit-ui-react-components";
 import { useHistory, useLocation } from "react-router-dom";
 import searchWMSProjectConfig from "../../../configs/searchWMSProjectConfig";
-// import { InboxSearchComposer } from "@egovernments/digit-ui-react-components";
 
 const ProjectWMSSearch = () => {
   const { t } = useTranslation();
