@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 const BodyContainer = (props) => {
   return (
-    <div className={`digit-body ${props?.className ? props?.className : ""}`} style={props?.style}>
+    <div className={`body-container ${props?.className ? props?.className : ""}`} style={props?.style}>
       {props.children}
     </div>
   );

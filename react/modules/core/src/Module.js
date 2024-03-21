@@ -1,4 +1,4 @@
-import { Body } from "@egovernments/digit-ui-react-components";
+import { BodyContainer } from "@egovernments/digit-ui-components-core";
 import { Loader } from "@egovernments/digit-ui-components-core";
 import React from "react";
 import { getI18n } from "react-i18next";
@@ -23,7 +23,7 @@ const DigitUIWrapper = ({ stateCode, enabledModules, moduleReducers, defaultLand
   return (
     <Provider store={getStore(initData, moduleReducers(initData))}>
       <Router>
-        <Body>
+        <BodyContainer>
           <DigitApp
             initData={initData}
             stateCode={stateCode}
@@ -32,7 +32,7 @@ const DigitUIWrapper = ({ stateCode, enabledModules, moduleReducers, defaultLand
             logoUrl={initData?.stateInfo?.logoUrl}
             defaultLanding={defaultLanding}
           />
-        </Body>
+        </BodyContainer>
       </Router>
     </Provider>
   );

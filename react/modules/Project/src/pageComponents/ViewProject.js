@@ -1,4 +1,4 @@
-import { Loader, Card, Toast } from "@egovernments/digit-ui-react-components";
+import { Loader, Card,Toast } from "@egovernments/digit-ui-components-core";
 import React, { Fragment, useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import ApplicationDetails from "../../../templates/ApplicationDetails";
