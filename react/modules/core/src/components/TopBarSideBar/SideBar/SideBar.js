@@ -130,9 +130,10 @@ const Sidebar = ({ data }) => {
       const item = data[key];
 
       if (key === "item" && item?.leftIcon !== "") {
+        const splitedPath=item?.leftIcon?.split(":");
         return {
-          isDynamic: item.leftIcon.split(":")[0],
-          leftIconArray: item.leftIcon.split(":")[1],
+          isDynamic: splitedPath?.length>0&&splitedPath?.[0],
+          leftIconArray: splitedPath?.length>1&&splitedPath?.[1],
         };
       }
 
