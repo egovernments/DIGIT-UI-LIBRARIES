@@ -48,10 +48,10 @@ const Modal = ({
             style={popupModuleActionBarStyles}
           >
             {actionCancelLabel ? (
-              <Button variation="digit-action-cancel" theme="border" label={actionCancelLabel} onClick={actionCancelOnSubmit} style={style} />
+              <Button textStyles={{width:"100%"}} variation="digit-action-cancel" theme="border" label={actionCancelLabel} onClick={actionCancelOnSubmit} style={style} />
             ) : null}
             {!hideSubmit ? (
-              <Button label={actionSaveLabel} onClick={actionSaveOnSubmit} formId={formId} isDisabled={isDisabled} style={style} />
+              <Button textStyles={{width:"100%"}} label={actionSaveLabel} onClick={actionSaveOnSubmit} formId={formId} isDisabled={isDisabled} style={style} />
             ) : null}
           </div>
         </div>
