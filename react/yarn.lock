@@ -1265,6 +1265,27 @@
   resolved "https://registry.yarnpkg.com/@discoveryjs/json-ext/-/json-ext-0.5.7.tgz#1d572bfbbe14b7704e0ba0f39b74815b84870d70"
   integrity sha512-dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw==
 
+"@egovernments/digit-ui-libraries@1.8.1-beta.1":
+  version "1.8.1-beta.1"
+  resolved "https://registry.yarnpkg.com/@egovernments/digit-ui-libraries/-/digit-ui-libraries-1.8.1-beta.1.tgz#9ebcc420b44d51eb6879bea25e0a0106e0295b65"
+  integrity sha512-uezzaD8wJNGd0jNJo6bdkpPlsAY/8v4vY7x3L+4vuLUtiPO9QxftjzjD04ODywPEJZdRkEGVynySKhe0or9XnQ==
+  dependencies:
+    axios "0.21.1"
+    babel-preset-react "6.24.1"
+    date-fns "2.28.0"
+    dom-to-image "2.6.0"
+    html2canvas "1.4.1"
+    i18next "19.9.2"
+    i18next-react-postprocessor "3.0.7"
+    pdfmake "0.1.72"
+    react "17.0.2"
+    react-i18next "11.16.2"
+    react-query "3.6.1"
+    react-redux "7.2.8"
+    react-router-dom "5.3.0"
+    redux "4.1.2"
+    xlsx "0.17.5"
+
 "@egovernments/digit-ui-module-common@1.7.10":
   version "1.7.10"
   resolved "https://registry.yarnpkg.com/@egovernments/digit-ui-module-common/-/digit-ui-module-common-1.7.10.tgz#a9cf631dfc85e3bddbe49e963fb4ba158bf0cb0a"
