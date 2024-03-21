@@ -12,8 +12,12 @@ RUN ls -lah
 #RUN node web/envs.js
 RUN  ls \
    && yarn install \
-    && yarn build \
-    && ./install-deps.sh \
+    && yarn build
+
+COPY ./example/src ${WORK_DIR}/src
+COPY ./example/public ${WORK_DIR}/public
+
+RUN  ls \
     && yarn buildW:webpack
 
 FROM nginx:mainline-alpine
