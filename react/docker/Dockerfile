@@ -13,7 +13,7 @@ RUN ls -lah
 RUN  ls \
    && yarn install \
     && yarn build\
-    &&  ./install-deps.sh \
+    && sudo ./install-deps.sh \
     && yarn buildW:webpack
 
 FROM nginx:mainline-alpine
