@@ -638,7 +638,7 @@
 
 .ldio-pjg92h09b2o div {
   -webkit-box-sizing: content-box;
-  box-sizing: content-box; }
+  box-sizing: initial; }
 
 .body-container, body {
   --bg-opacity:1;
@@ -1724,7 +1724,7 @@
       border-color: rgba(244, 119, 56, var(--border-opacity)); }
     .employee-select-wrap .select input[type=text], .employee-select-wrap .select .checkbox-wrap .input-emp[type=text], .checkbox-wrap .employee-select-wrap .select .input-emp[type=text], .employee-select-wrap .select .digit-checkbox-wrap .input-emp[type=text], .digit-checkbox-wrap .employee-select-wrap .select .input-emp[type=text] {
       width: calc(100% - 32px);
-      background-color: transparent;
+      background-color: initial;
       position: absolute;
       z-index: 10;
       width: 100%;
@@ -1761,7 +1761,7 @@
     border-color: rgba(244, 119, 56, var(--border-opacity)); }
     .employee-select-wrap .select-active input[type=text], .employee-select-wrap .select-active .checkbox-wrap .input-emp[type=text], .checkbox-wrap .employee-select-wrap .select-active .input-emp[type=text], .employee-select-wrap .select-active .digit-checkbox-wrap .input-emp[type=text], .digit-checkbox-wrap .employee-select-wrap .select-active .input-emp[type=text] {
       width: calc(100% - 32px);
-      background-color: transparent;
+      background-color: initial;
       position: absolute;
       z-index: 10;
       width: 100%;
@@ -1836,7 +1836,7 @@
     border-color: rgba(70, 70, 70, var(--border-opacity)); }
     .select-wrap .select input[type=text], .select-wrap .select .checkbox-wrap .input-emp[type=text], .checkbox-wrap .select-wrap .select .input-emp[type=text], .select-wrap .select .digit-checkbox-wrap .input-emp[type=text], .digit-checkbox-wrap .select-wrap .select .input-emp[type=text] {
       width: calc(100% - 32px);
-      background-color: transparent;
+      background-color: initial;
       position: absolute;
       z-index: 10;
       width: 100%;
@@ -1873,7 +1873,7 @@
     border-color: rgba(244, 119, 56, var(--border-opacity)); }
     .select-wrap .select-active input[type=text], .select-wrap .select-active .checkbox-wrap .input-emp[type=text], .checkbox-wrap .select-wrap .select-active .input-emp[type=text], .select-wrap .select-active .digit-checkbox-wrap .input-emp[type=text], .digit-checkbox-wrap .select-wrap .select-active .input-emp[type=text] {
       width: calc(100% - 32px);
-      background-color: transparent;
+      background-color: initial;
       position: absolute;
       z-index: 10;
       width: 100%;
@@ -2924,7 +2924,7 @@
   border: 1px solid #b1b4b6;
   border-radius: 4px;
   border-spacing: 0;
-  border-collapse: separate; }
+  border-collapse: initial; }
 
 .dss-table-wrapper {
   width: 100%;
@@ -8906,7 +8906,7 @@ body {
 
 .employee-search-input {
   width: 150px;
-  background-color: transparent; }
+  background-color: initial; }
   .employee-search-input.nav-bar {
     color: #fff; }
   .employee-search-input.nav-bar::-webkit-input-placeholder {
@@ -10775,7 +10775,7 @@ ol, ul {
     padding: 7px; }
 
 .text-input input, .text-input .checkbox-wrap .input-emp, .checkbox-wrap .text-input .input-emp, .text-input .digit-checkbox-wrap .input-emp, .digit-checkbox-wrap .text-input .input-emp {
-  background-color: transparent; }
+  background-color: initial; }
   .text-input input:hover, .text-input .checkbox-wrap .input-emp:hover, .checkbox-wrap .text-input .input-emp:hover, .text-input .digit-checkbox-wrap .input-emp:hover, .digit-checkbox-wrap .text-input .input-emp:hover {
     --border-opacity:1;
     border: 1px solid #f47738;
@@ -11229,7 +11229,7 @@ ol, ul {
 
 .digit-ldio-pjg92h09b2o div {
   -webkit-box-sizing: content-box;
-  box-sizing: content-box; }
+  box-sizing: initial; }
 
 .digit-mobile-number-container {
   display: -webkit-box;
@@ -12024,7 +12024,7 @@ ol, ul {
       color: #d6d5d4 !important; }
     .digit-employee-select-wrap .digit-select input[type=text], .digit-employee-select-wrap .digit-select .checkbox-wrap .input-emp[type=text], .checkbox-wrap .digit-employee-select-wrap .digit-select .input-emp[type=text], .digit-employee-select-wrap .digit-select .digit-checkbox-wrap .input-emp[type=text], .digit-checkbox-wrap .digit-employee-select-wrap .digit-select .input-emp[type=text] {
       width: calc(100% - 2rem);
-      background-color: transparent;
+      background-color: initial;
       position: absolute;
       z-index: 10;
       width: 100%;
@@ -12064,7 +12064,7 @@ ol, ul {
     border: .063rem solid #f47738; }
     .digit-employee-select-wrap .digit-select-active input[type=text], .digit-employee-select-wrap .digit-select-active .checkbox-wrap .input-emp[type=text], .checkbox-wrap .digit-employee-select-wrap .digit-select-active .input-emp[type=text], .digit-employee-select-wrap .digit-select-active .digit-checkbox-wrap .input-emp[type=text], .digit-checkbox-wrap .digit-employee-select-wrap .digit-select-active .input-emp[type=text] {
       width: calc(100% - 2rem);
-      background-color: transparent;
+      background-color: initial;
       position: absolute;
       z-index: 10;
       width: 100%;
@@ -12306,7 +12306,7 @@ ol, ul {
     border: .063rem solid #505a5f; }
     .digit-select-wrap .digit-select input[type=text], .digit-select-wrap .digit-select .checkbox-wrap .input-emp[type=text], .checkbox-wrap .digit-select-wrap .digit-select .input-emp[type=text], .digit-select-wrap .digit-select .digit-checkbox-wrap .input-emp[type=text], .digit-checkbox-wrap .digit-select-wrap .digit-select .input-emp[type=text] {
       width: calc(100% - 2rem);
-      background-color: transparent;
+      background-color: initial;
       position: absolute;
       z-index: 10;
       width: 100%;
@@ -12352,7 +12352,7 @@ ol, ul {
     border: .063rem solid #f47738; }
     .digit-select-wrap .digit-select-active input[type=text], .digit-select-wrap .digit-select-active .checkbox-wrap .input-emp[type=text], .checkbox-wrap .digit-select-wrap .digit-select-active .input-emp[type=text], .digit-select-wrap .digit-select-active .digit-checkbox-wrap .input-emp[type=text], .digit-checkbox-wrap .digit-select-wrap .digit-select-active .input-emp[type=text] {
       width: calc(100% - 2rem);
-      background-color: transparent;
+      background-color: initial;
       position: absolute;
       z-index: 10;
       width: 100%;
@@ -14310,7 +14310,7 @@ video::-webkit-media-controls-panel {
       -webkit-transform: rotate(90deg);
       transform: rotate(90deg); }
       .digit-stepper-container .line.vertical.active {
-        background-color: transparent;
+        background-color: initial;
         border-color: #f47738; }
   .digit-stepper-container .digit-stepper-content:hover .circle.active {
     outline: 0.25rem solid rgba(244, 119, 56, 0.12157); }
@@ -14413,17 +14413,12 @@ video::-webkit-media-controls-panel {
           .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field .all-input-field-wrapper .form-control.form-select {
             padding: 0;
             border: 0; }
-            .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field .all-input-field-wrapper .form-control.form-select .digit__control {
-              outline: 2px solid transparent;
-              outline-offset: 2px; }
-              .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field .all-input-field-wrapper .form-control.form-select .digit__control .digit__value-container:in-range {
-                border-color: unset;
-                -webkit-box-shadow: none;
-                box-shadow: none;
-                -webkit-box-sizing: unset;
-                box-sizing: unset;
-                outline: 2px solid transparent;
-                outline-offset: 2px; }
+            .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field .all-input-field-wrapper .form-control.form-select .digit__control .digit__value-container:in-range {
+              border-color: unset;
+              -webkit-box-shadow: none;
+              box-shadow: none;
+              -webkit-box-sizing: unset;
+              box-sizing: unset; }
             .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field .all-input-field-wrapper .form-control.form-select .digit__control--is-focused {
               border-color: #f47738 !important; }
             .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field .all-input-field-wrapper .form-control.form-select .digit__control--is-focused, .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field .all-input-field-wrapper .form-control.form-select .digit__control:hover {

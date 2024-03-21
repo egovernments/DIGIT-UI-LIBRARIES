@@ -21,6 +21,7 @@ const enabledModules = [
   "HRMS",
   "Engagement",
   "Workbench",
+  "Project", "Sample"
 ];
 
 const moduleReducers = (initData) => ({
