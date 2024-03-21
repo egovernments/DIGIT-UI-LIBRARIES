@@ -118,6 +118,7 @@ class InfoCard extends StatelessWidget {
                   height: 1.094,
                 ),
               ),
+              if (additionalWidgets != null)
               const SizedBox(
                 height: kPadding * 2,
               ),

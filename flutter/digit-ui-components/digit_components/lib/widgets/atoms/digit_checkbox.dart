@@ -39,7 +39,7 @@ class DigitCheckbox extends StatefulWidget {
   final EdgeInsetsGeometry padding;
 
   /// Indicates whether the DigitCheckbox is disabled or not.
-  final bool disabled;
+  final bool isDisabled;
 
   /// Custom color for the DigitCheckbox icon.
   final Color? iconColor;
@@ -53,7 +53,7 @@ class DigitCheckbox extends StatefulWidget {
     Key? key,
     required this.label,
     required this.onChanged,
-    this.disabled = false,
+    this.isDisabled = false,
     this.value = false,
     this.padding = DigitCheckboxConstants.defaultPadding,
     this.iconColor,
@@ -110,7 +110,7 @@ class _DigitCheckboxState extends State<DigitCheckbox> {
                           isHovered = hover;
                         });
                       },
-                      onTap: widget.disabled
+                      onTap: widget.isDisabled
                           ? null
                           : () {
                         if(mounted){
@@ -127,7 +127,7 @@ class _DigitCheckboxState extends State<DigitCheckbox> {
                           state: _currentState
                               ? DigitCheckboxState.checked
                               : DigitCheckboxState.unchecked,
-                          isDisabled: widget.disabled,
+                          isDisabled: widget.isDisabled,
                           color: isHovered ? const DigitColors().light.primaryOrange :widget.iconColor,
                         ),
                       ),
@@ -143,7 +143,7 @@ class _DigitCheckboxState extends State<DigitCheckbox> {
                       style: currentTypography.bodyL
                           .copyWith(
                         height: 1.5,
-                        color: widget.disabled
+                        color: widget.isDisabled
                             ? const DigitColors().light.textDisabled
                             : const DigitColors().light.textPrimary,
                       ),

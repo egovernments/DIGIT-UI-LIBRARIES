@@ -67,6 +67,9 @@ class MultiSelectDropDown<int> extends StatefulWidget {
   /// Whether the dropdown is enabled or disabled.
   final bool isDisabled;
 
+  /// Whether the dropdown is readOnly.
+  final bool readOnly;
+
   /// Clear All text
   final String clearAllText;
 
@@ -98,6 +101,7 @@ class MultiSelectDropDown<int> extends StatefulWidget {
     this.valueMapper,
     this.helpText,
     this.errorMessage,
+    this.readOnly = false,
   }) : super(key: key);
 
   @override
@@ -273,15 +277,15 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
               }
               return KeyEventResult.ignored;
             },
-            canRequestFocus: !widget.isDisabled,
+            canRequestFocus: !widget.isDisabled && !widget.readOnly,
             /// Only allow focus if the dropdown is enabled
-            skipTraversal: !widget.isDisabled,
+            skipTraversal: !widget.isDisabled && !widget.readOnly,
             focusNode: _focusNode,
             child: InkWell(
               splashColor: const DigitColors().transparent,
               highlightColor: const DigitColors().transparent,
               hoverColor: const DigitColors().transparent,
-              onTap: !widget.isDisabled ? _toggleFocus : null,
+              onTap: !widget.isDisabled && !widget.readOnly ? _toggleFocus : null,
 
               /// Disable onTap if dropdown is disabled
               child: StatefulBuilder(builder: (context, setState) {
@@ -295,9 +299,9 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                   padding: const EdgeInsets.symmetric(
                     horizontal: kPadding,
                   ),
-                  decoration: !widget.isDisabled
-                      ? _getContainerDecoration()
-                      : _getDisabledContainerDecoration(),
+                  decoration: widget.isDisabled
+                      ? _getDisabledContainerDecoration()
+                      : widget.readOnly ? _getReadOnlyContainerDecoration() : _getContainerDecoration(),
                   child: Row(
                     children: [
                       Expanded(
@@ -306,7 +310,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                                 '${_selectedOptions.length} Selected',
                                 style: currentTypography.bodyL.copyWith(
                                   height: 1.5,
-                                  color: const DigitColors().light.textPrimary,
+                                  color: widget.readOnly ? const DigitColors().light.textSecondary : const DigitColors().light.textPrimary,
                                 ),
                               )
                             : const Text(''),
@@ -560,10 +564,22 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
   /// Container decoration for disabled dropdown.
   Decoration _getDisabledContainerDecoration() {
     return BoxDecoration(
-      color: const DigitColors().transparent,
+      color:  const DigitColors().transparent,
       borderRadius: BorderRadius.zero,
       border: Border.all(
         color: const DigitColors().light.textDisabled,
+        width: 1,
+      ),
+    );
+  }
+
+  /// Container decoration for readOnly dropdown.
+  Decoration _getReadOnlyContainerDecoration() {
+    return BoxDecoration(
+      color: const DigitColors().light.genericBackground,
+      borderRadius: BorderRadius.zero,
+      border: Border.all(
+        color:const DigitColors().light.genericInputBorder,
         width: 1,
       ),
     );
@@ -583,7 +599,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
               width: 1.5,
             )
           : Border.all(
-              color: const DigitColors().light.textSecondary,
+              color: const DigitColors().light.genericInputBorder,
               width: 1,
             ),
     );
@@ -906,13 +922,13 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
           Widget chip = _buildChip(item, widget.chipConfig);
 
           return IgnorePointer(
-            ignoring: widget.isDisabled,
+            ignoring: widget.readOnly,
 
             /// Disable pointer events when dropdown is disabled
             child: chip,
           );
         }),
-        if (_selectedOptions.isNotEmpty && !widget.isDisabled)
+        if (_selectedOptions.isNotEmpty && !widget.readOnly)
 
           /// Display "Clear All" only if there are selected options
           InkWell(

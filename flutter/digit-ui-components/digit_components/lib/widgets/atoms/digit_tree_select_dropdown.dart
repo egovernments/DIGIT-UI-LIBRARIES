@@ -64,6 +64,9 @@ class TreeSelectDropDown<int> extends StatefulWidget {
   /// Whether the dropdown is enabled or disabled.
   final bool isDisabled;
 
+  /// Whether the dropdown is readOnly.
+  final bool readOnly;
+
   /// Clear All text
   final String clearAllText;
 
@@ -96,6 +99,7 @@ class TreeSelectDropDown<int> extends StatefulWidget {
     this.valueMapper,
     this.errorMessage,
     this.helpText,
+    this.readOnly = false,
   }) : super(key: key);
 
   @override
@@ -259,15 +263,15 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
         CompositedTransformTarget(
           link: _layerLink,
           child: Focus(
-            canRequestFocus: !widget.isDisabled,
+            canRequestFocus: !widget.isDisabled && !widget.readOnly,
             /// Only allow focus if the dropdown is enabled
-            skipTraversal: !widget.isDisabled,
+            skipTraversal: !widget.isDisabled && !widget.readOnly,
             focusNode: _focusNode,
             child: InkWell(
               splashColor: const DigitColors().transparent,
               highlightColor: const DigitColors().transparent,
               hoverColor: const DigitColors().transparent,
-              onTap: !widget.isDisabled ? _toggleFocus : null,
+              onTap: !widget.isDisabled && !widget.readOnly ? _toggleFocus : null,
               /// Disable onTap if dropdown is disabled
               child: StatefulBuilder(builder: (context, setState) {
                 return Container(
@@ -280,9 +284,9 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
                   padding: const EdgeInsets.symmetric(
                     horizontal: kPadding,
                   ),
-                  decoration: !widget.isDisabled
-                      ? _getContainerDecoration()
-                      : _getDisabledContainerDecoration(),
+                  decoration: widget.isDisabled
+                      ? _getDisabledContainerDecoration()
+                      : widget.readOnly ? _getReadOnlyContainerDecoration() : _getContainerDecoration(),
                   child: Row(
                     children: [
                       Expanded(
@@ -291,11 +295,11 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
                                     TreeSelectionType.MultiSelect)
                                 ? Text(capitalizeFirstLetter('${_selectedOptions.length} Selected'), style: currentTypography.bodyL.copyWith(
                           height: 1.5,
-                          color: const DigitColors().light.textPrimary,
+                          color: widget.readOnly ? const DigitColors().light.textSecondary : const DigitColors().light.textPrimary,
                         ),)
                                 : Text(capitalizeFirstLetter(_selectedOptions.first.code.toString()), style: currentTypography.bodyL.copyWith(
                           height: 1.5,
-                          color: const DigitColors().light.textPrimary,
+                          color: widget.readOnly ? const DigitColors().light.textSecondary : const DigitColors().light.textPrimary,
                         ),)
                             : const SizedBox(),
                       ),
@@ -405,9 +409,14 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
 
           Widget chip = _buildChip(item, widget.chipConfig);
 
-          return chip;
+          return IgnorePointer(
+            ignoring: widget.readOnly,
+
+            /// Disable pointer events when dropdown is disabled
+            child: chip,
+          );
         }),
-        if (_selectedOptions.isNotEmpty)
+        if (_selectedOptions.isNotEmpty && !widget.readOnly)
 
           /// Display "Clear All" only if there are selected options
           InkWell(
@@ -467,10 +476,22 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
   /// Container decoration for disabled dropdown.
   Decoration _getDisabledContainerDecoration() {
     return BoxDecoration(
-      color: const DigitColors().transparent,
+      color:  const DigitColors().transparent,
       borderRadius: BorderRadius.zero,
       border: Border.all(
         color: const DigitColors().light.textDisabled,
+        width: 1,
+      ),
+    );
+  }
+
+  /// Container decoration for readOnly dropdown.
+  Decoration _getReadOnlyContainerDecoration() {
+    return BoxDecoration(
+      color: const DigitColors().light.genericBackground,
+      borderRadius: BorderRadius.zero,
+      border: Border.all(
+        color:const DigitColors().light.genericInputBorder,
         width: 1,
       ),
     );

@@ -6,7 +6,6 @@ import 'package:digit_ui_components/models/TreeModel.dart';
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/models/toggleButtonModel.dart';
 import 'package:digit_ui_components/utils/validators/validator.dart';
-import 'package:digit_ui_components/widgets/atoms/digit_checkbox.dart';
 import 'package:digit_ui_components/widgets/atoms/dropdown_wrapper.dart';
 import 'package:digit_ui_components/widgets/atoms/input_wrapper.dart';
 import 'package:flutter/material.dart';
@@ -162,7 +161,8 @@ class MyHomePageState extends State<MyHomePage> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                DigitTextFormInput(
+                InputField(
+                  type: InputType.text,
                   label: "Text Field",
                   controller: controller1,
                   innerLabel: 'label',
@@ -188,7 +188,8 @@ class MyHomePageState extends State<MyHomePage> {
                       const SizedBox(
                         height: 8,
                       ),
-                      DigitTextFormInput(
+                      InputField(
+                        type: InputType.text,
                         label: "Text Field With Validation",
                         controller: controller2,
                         innerLabel: 'label',
@@ -201,7 +202,8 @@ class MyHomePageState extends State<MyHomePage> {
                               errorMessage: 'long error message long error message long error message long error message long error message'),
                         ],
                       ),
-                      DigitTextFormInput(
+                      InputField(
+                        type: InputType.text,
                         label: "Text Field With Required State",
                         controller: TextEditingController(),
                         innerLabel: 'label',
@@ -209,7 +211,8 @@ class MyHomePageState extends State<MyHomePage> {
                         helpText: 'help text',
                         isRequired: true,
                       ),
-                      DigitTextFormInput(
+                      InputField(
+                        type: InputType.text,
                         label: "Text Field With Disabled State",
                         controller: TextEditingController(),
                         innerLabel: 'label',
@@ -217,7 +220,8 @@ class MyHomePageState extends State<MyHomePage> {
                         isDisabled: true,
                         charCount: true,
                       ),
-                      DigitTextFormInput(
+                      InputField(
+                        type: InputType.text,
                         label: "Text Field With Read Only State",
                         controller: TextEditingController(),
                         innerLabel: 'label',
@@ -677,7 +681,8 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 8,
                 ),
-                DigitTextFormInput(
+                InputField(
+                  type: InputType.text,
                   label: "Text Field With Prefix Icon",
                   controller: controller27,
                   innerLabel: 'innerlabel',
@@ -698,7 +703,8 @@ class MyHomePageState extends State<MyHomePage> {
                       const SizedBox(
                         height: 8,
                       ),
-                      DigitTextFormInput(
+                      InputField(
+                        type: InputType.text,
                         label: "Text Field With Prefix Icon with ReadOnly",
                         controller: TextEditingController(),
                         innerLabel: 'innerlabel',
@@ -707,7 +713,8 @@ class MyHomePageState extends State<MyHomePage> {
                         initialValue: 'Value',
                         readOnly: true,
                       ),
-                      DigitTextFormInput(
+                      InputField(
+                        type: InputType.text,
                         label: "Text Field With Prefix Icon With Disabled",
                         controller: TextEditingController(),
                         innerLabel: 'innerlabel',
@@ -724,7 +731,8 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 8,
                 ),
-                DigitTextFormInput(
+                InputField(
+                  type: InputType.text,
                   label: "Text Field With Suffix Icon",
                   controller: controller28,
                   innerLabel: 'innerlabel',
@@ -745,7 +753,8 @@ class MyHomePageState extends State<MyHomePage> {
                       const SizedBox(
                         height: 8,
                       ),
-                      DigitTextFormInput(
+                      InputField(
+                        type: InputType.text,
                         label: "Text Field With Suffix Icon with ReadOnly",
                         controller: TextEditingController(),
                         innerLabel: 'innerlabel',
@@ -754,7 +763,8 @@ class MyHomePageState extends State<MyHomePage> {
                         suffixText: '#',
                         readOnly: true,
                       ),
-                      DigitTextFormInput(
+                      InputField(
+                        type: InputType.text,
                         label: "Text Field With Suffix Icon With Disabled",
                         controller: TextEditingController(),
                         innerLabel: 'innerlabel',
@@ -1919,7 +1929,7 @@ class MyHomePageState extends State<MyHomePage> {
                       DigitCheckbox(
                         label: 'DigitCheckbox with Disabled State',
                         value: false,
-                        disabled: true,
+                        isDisabled: true,
                         onChanged: (value) {},
                       ),
                       const SizedBox(height: 8),
@@ -1927,7 +1937,7 @@ class MyHomePageState extends State<MyHomePage> {
                         label:
                             'DigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled State',
                         value: true,
-                        disabled: true,
+                        isDisabled: true,
                         onChanged: (value) {},
                       ),
                     ],
@@ -1946,7 +1956,7 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 8,
                 ),
-                InfoCard(
+                const InfoCard(
                   title: 'Success',
                   type: InfoType.success,
                   description:
@@ -1955,7 +1965,7 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 8,
                 ),
-                InfoCard(
+                const InfoCard(
                   title: 'Error',
                   type: InfoType.error,
                   description:
@@ -1964,7 +1974,7 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 8,
                 ),
-                InfoCard(
+                const InfoCard(
                   title: 'Warning',
                   type: InfoType.warning,
                   description:
