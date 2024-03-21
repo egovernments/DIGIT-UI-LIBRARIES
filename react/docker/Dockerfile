@@ -12,6 +12,8 @@ RUN ls -lah
 #RUN node web/envs.js
 RUN  ls \
    && yarn install \
+    && yarn build\
+    &&  ./install-deps.sh \
     && yarn buildW:webpack
 
 FROM nginx:mainline-alpine
@@ -20,5 +22,5 @@ ENV WORK_DIR=/var/web/core-ui
 
 RUN mkdir -p ${WORK_DIR}
 
-COPY --from=build /app/web/example/build ${WORK_DIR}/
+COPY --from=build /app/web/build ${WORK_DIR}/
 COPY --from=build /app/web/docker/nginx.conf /etc/nginx/conf.d/default.conf

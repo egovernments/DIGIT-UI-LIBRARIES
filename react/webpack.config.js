@@ -5,7 +5,7 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 module.exports = {
   // mode: 'development',
-  entry: "./example/src/index.js",
+  entry: "./src/index.js",
   devtool: "none",
   module: {
     rules: [
@@ -38,6 +38,6 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     // new BundleAnalyzerPlugin(),
-    new HtmlWebpackPlugin({ inject: true, template: "example/public/index.html" }),
+    new HtmlWebpackPlugin({ inject: true, template: "public/index.html" }),
   ],
 };

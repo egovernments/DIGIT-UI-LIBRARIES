@@ -5,6 +5,6 @@ index.lock
 #react 
 node_modules/
 dist/
-
+build/
 
 
