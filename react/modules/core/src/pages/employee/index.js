@@ -1,4 +1,3 @@
-import { PrivateRoute } from "@egovernments/digit-ui-components-core";
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Redirect, Route, Switch, useLocation, useRouteMatch, useHistory } from "react-router-dom";
@@ -11,6 +10,7 @@ import LanguageSelection from "./LanguageSelection";
 import EmployeeLogin from "./Login";
 import UserProfile from "../citizen/Home/UserProfile";
 import ErrorComponent from "../../components/ErrorComponent";
+import { PrivateRoute } from "@egovernments/digit-ui-components-core";
 
 const userScreensExempted = ["user/profile", "user/error"];
 
@@ -40,6 +40,8 @@ const EmployeeApp = ({
     Digit.UserService.setType("employee");
   }, []);
 
+  const additionalComponent = initData?.modules?.filter((i) => i?.additionalComponent)?.map((i) => i?.additionalComponent);
+
   return (
     <div className="employee">
       <Switch>
@@ -62,7 +64,7 @@ const EmployeeApp = ({
             className={isUserProfile ? "grounded-container" : "loginContainer"}
             style={
               isUserProfile
-                ? { padding: 0, paddingTop: "80px" }
+                ? { padding: 0, paddingTop: "80px", marginLeft: mobileView ? "" : "64px" }
                 : { "--banner-url": `url(${stateInfo?.bannerUrl})`, padding: "0px" }
             }
           >
@@ -111,7 +113,7 @@ const EmployeeApp = ({
           <div className={`main ${DSO ? "m-auto" : ""}`}>
             <div className="employee-app-wrapper">
               <ErrorBoundary initData={initData}>
-                <AppModules stateCode={stateCode} userType="employee" modules={modules} appTenants={appTenants} />
+                <AppModules stateCode={stateCode} userType="employee" modules={modules} appTenants={appTenants} additionalComponent={additionalComponent} />
               </ErrorBoundary>
             </div>
             <div className="employee-home-footer">

@@ -1,5 +1,5 @@
-import { Loader } from "@egovernments/digit-ui-components-core";
 import { NavBar } from "@egovernments/digit-ui-react-components";
+import { Loader } from "@egovernments/digit-ui-components-core";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
@@ -8,14 +8,17 @@ import ChangeCity from "../../ChangeCity";
 import { defaultImage } from "../../utils";
 import StaticCitizenSideBar from "./StaticCitizenSideBar";
 
-
 const Profile = ({ info, stateName, t }) => {
   const [profilePic, setProfilePic] = React.useState(null);
   React.useEffect(async () => {
     const tenant = Digit.ULBService.getCurrentTenantId();
     const uuid = info?.uuid;
     if (uuid) {
-      const usersResponse = await Digit.UserService.userSearch(tenant, { uuid: [uuid] }, {});
+      const usersResponse = await Digit.UserService.userSearch(
+        tenant,
+        { uuid: [uuid] },
+        {}
+      );
 
       if (usersResponse && usersResponse.user && usersResponse.user.length) {
         const userDetails = usersResponse.user[0];
@@ -24,6 +27,11 @@ const Profile = ({ info, stateName, t }) => {
       }
     }
   }, [profilePic !== null]);
+
+  const CustomEmployeeTopBar = Digit.ComponentRegistryService?.getComponent(
+    "CustomEmployeeTopBar"
+  );
+
   return (
     <div className="profile-section">
       <div className="imageloader imageloader-loaded">
@@ -47,7 +55,8 @@ const Profile = ({ info, stateName, t }) => {
       <div className="profile-divider"></div>
       {window.location.href.includes("/employee") &&
         !window.location.href.includes("/employee/user/login") &&
-        !window.location.href.includes("employee/user/language-selection") && <ChangeCity t={t} mobileView={true} />}
+        !window.location.href.includes("employee/user/language-selection") &&
+        !CustomEmployeeTopBar && <ChangeCity t={t} mobileView={true} />}
     </div>
   );
 };
@@ -58,7 +67,9 @@ const PoweredBy = () => (
       src={window?.globalConfigs?.getConfig?.("DIGIT_FOOTER")}
       style={{ cursor: "pointer" }}
       onClick={() => {
-        window.open(window?.globalConfigs?.getConfig?.("DIGIT_HOME_URL"), "_blank").focus();
+        window
+          .open(window?.globalConfigs?.getConfig?.("DIGIT_HOME_URL"), "_blank")
+          .focus();
       }}
     />{" "}
   </div>
@@ -67,7 +78,15 @@ const PoweredBy = () => (
 /* 
 Feature :: Citizen Webview sidebar
 */
-export const CitizenSideBar = ({ isOpen, isMobile = false, toggleSidebar, onLogout, isEmployee = false, linkData, islinkDataLoading }) => {
+export const CitizenSideBar = ({
+  isOpen,
+  isMobile = false,
+  toggleSidebar,
+  onLogout,
+  isEmployee = false,
+  linkData,
+  islinkDataLoading,
+}) => {
   const { data: storeData, isFetched } = Digit.Hooks.useStore.getInitData();
   const { stateInfo } = storeData || {};
   const user = Digit.UserService.getUser();
@@ -83,7 +102,9 @@ export const CitizenSideBar = ({ isOpen, isMobile = false, toggleSidebar, onLogo
   const { isLoading, data } = Digit.Hooks.useAccessControl();
   const tenantId = Digit.ULBService.getCurrentTenantId();
   const showProfilePage = () => {
-    const redirectUrl = isEmployee ? `/${window?.contextPath}/employee/user/profile` : `/${window?.contextPath}/citizen/user/profile`;
+    const redirectUrl = isEmployee
+      ? `/${window?.contextPath}/employee/user/profile`
+      : `/${window?.contextPath}/citizen/user/profile`;
     history.push(redirectUrl);
     closeSidebar();
   };
@@ -97,10 +118,14 @@ export const CitizenSideBar = ({ isOpen, isMobile = false, toggleSidebar, onLogo
     return <Loader />;
   }
 
-  let menuItems = [...SideBarMenu(t, closeSidebar, redirectToLoginPage, isEmployee)];
+  let menuItems = [
+    ...SideBarMenu(t, closeSidebar, redirectToLoginPage, isEmployee),
+  ];
   let profileItem;
   if (isFetched && user && user.access_token) {
-    profileItem = <Profile info={user?.info} stateName={stateInfo?.name} t={t} />;
+    profileItem = (
+      <Profile info={user?.info} stateName={stateInfo?.name} t={t} />
+    );
     menuItems = menuItems.filter((item) => item?.id !== "login-btn");
     menuItems = [
       ...menuItems,
@@ -128,16 +153,22 @@ export const CitizenSideBar = ({ isOpen, isMobile = false, toggleSidebar, onLogo
               {storeData?.tenants.map((i) => {
                 i.code === tenantId ? (
                   <div className="link">
-                    <a href={`tel:${storeData?.tenants[i].contactNumber}`}>{storeData?.tenants[i].contactNumber}</a>
+                    <a href={`tel:${storeData?.tenants[i].contactNumber}`}>
+                      {storeData?.tenants[i].contactNumber}
+                    </a>
                   </div>
                 ) : (
                   <div className="link">
-                    <a href={`tel:${storeData?.tenants[0].contactNumber}`}>{storeData?.tenants[0].contactNumber}</a>
+                    <a href={`tel:${storeData?.tenants[0].contactNumber}`}>
+                      {storeData?.tenants[0].contactNumber}
+                    </a>
                   </div>
                 );
               })}
               <div className="link">
-                <a href={`tel:${storeData?.tenants[0].contactNumber}`}>{storeData?.tenants[0].contactNumber}</a>
+                <a href={`tel:${storeData?.tenants[0].contactNumber}`}>
+                  {storeData?.tenants[0].contactNumber}
+                </a>
               </div>
             </div>
           </React.Fragment>
@@ -156,8 +187,12 @@ export const CitizenSideBar = ({ isOpen, isMobile = false, toggleSidebar, onLogo
       ?.map((key) => {
         if (linkData[key][0]?.sidebar === "digit-ui-links")
           menuItems.splice(1, 0, {
-            type: linkData[key][0]?.sidebarURL?.includes(window?.contextPath) ? "link" : "external-link",
-            text: t(`ACTION_TEST_${Digit.Utils.locale.getTransformedLocale(key)}`),
+            type: linkData[key][0]?.sidebarURL?.includes(window?.contextPath)
+              ? "link"
+              : "external-link",
+            text: t(
+              `ACTION_TEST_${Digit.Utils.locale.getTransformedLocale(key)}`
+            ),
             links: linkData[key],
             icon: linkData[key][0]?.leftIcon,
             link: linkData[key][0]?.sidebarURL,
@@ -175,7 +210,10 @@ export const CitizenSideBar = ({ isOpen, isMobile = false, toggleSidebar, onLogo
           } else {
             configEmployeeSideBar[index].push(item);
           }
-        } else if (item.path !== "" && item?.displayName?.toLowerCase().includes(search.toLowerCase())) {
+        } else if (
+          item.path !== "" &&
+          item?.displayName?.toLowerCase().includes(search.toLowerCase())
+        ) {
           let index = item.path.split(".")[0];
           if (index === "TradeLicense") index = "Trade License";
           if (!configEmployeeSideBar[index]) {
@@ -187,8 +225,14 @@ export const CitizenSideBar = ({ isOpen, isMobile = false, toggleSidebar, onLogo
       });
     const keys = Object.keys(configEmployeeSideBar);
     for (let i = 0; i < keys.length; i++) {
-      const getSingleDisplayName = configEmployeeSideBar[keys[i]][0]?.displayName?.toUpperCase()?.replace(/[ -]/g, "_");
-      const getParentDisplayName = keys[i]?.toUpperCase()?.replace(/[ -]/g, "_");
+      const getSingleDisplayName = configEmployeeSideBar[
+        keys[i]
+      ][0]?.displayName
+        ?.toUpperCase()
+        ?.replace(/[ -]/g, "_");
+      const getParentDisplayName = keys[i]
+        ?.toUpperCase()
+        ?.replace(/[ -]/g, "_");
 
       if (configEmployeeSideBar[keys[i]][0].path.indexOf(".") === -1) {
         menuItems.splice(1, 0, {
@@ -208,23 +252,30 @@ export const CitizenSideBar = ({ isOpen, isMobile = false, toggleSidebar, onLogo
           type: "dynamic",
           moduleName: t(`ACTION_TEST_${getParentDisplayName}`),
           links: configEmployeeSideBar[keys[i]]?.map((ob) => {
-            return { ...ob, displayName: t(`ACTION_TEST_${ob?.displayName?.toUpperCase()?.replace(/[ -]/g, "_")}`) };
+            return {
+              ...ob,
+              displayName: t(
+                `ACTION_TEST_${ob?.displayName
+                  ?.toUpperCase()
+                  ?.replace(/[ -]/g, "_")}`
+              ),
+            };
           }),
           icon: configEmployeeSideBar[keys[i]][1]?.leftIcon,
         });
       }
     }
-     const indx = menuItems.findIndex(a => a.element === "HOME");
-     const home = menuItems.splice(indx,1);
-     const comp = menuItems.findIndex(a => a.element === "LANGUAGE");
-     const part = menuItems.splice(comp,menuItems?.length-comp);
-     menuItems.sort((a,b) => {
+    const indx = menuItems.findIndex((a) => a.element === "HOME");
+    const home = menuItems.splice(indx, 1);
+    const comp = menuItems.findIndex((a) => a.element === "LANGUAGE");
+    const part = menuItems.splice(comp, menuItems?.length - comp);
+    menuItems.sort((a, b) => {
       let c1 = a?.type === "dynamic" ? a?.moduleName : a?.text;
       let c2 = b?.type === "dynamic" ? b?.moduleName : b?.text;
-      return c1.localeCompare(c2)
-     } );
-     home?.[0] && menuItems.splice(0,0,home[0]);
-     menuItems =  part?.length > 0 ? menuItems.concat(part) : menuItems;
+      return c1.localeCompare(c2);
+    });
+    home?.[0] && menuItems.splice(0, 0, home[0]);
+    menuItems = part?.length > 0 ? menuItems.concat(part) : menuItems;
   }
 
   /*  URL with openlink wont have sidebar and actions    */

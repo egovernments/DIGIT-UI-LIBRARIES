@@ -1,4 +1,5 @@
-import { Loader, Modal, FormComposer } from "@egovernments/digit-ui-react-components";
+import { FormComposer } from "@egovernments/digit-ui-react-components";
+import { Loader, Modal } from "@egovernments/digit-ui-components-core";
 import React, { useState, useEffect } from "react";
 import { configApproveModal, configRejectModal, configCheckModal } from "../config";
 
