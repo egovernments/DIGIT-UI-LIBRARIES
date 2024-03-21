@@ -1,5 +1,5 @@
 import React from "react";
-import { Dropdown } from "@egovernments/digit-ui-react-components";
+import { Dropdown } from "@egovernments/digit-ui-components-core";
 
 export const configRejectApplication = ({ t, rejectMenu, setReason, reason, action }) => {
   return {

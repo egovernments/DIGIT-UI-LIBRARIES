@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import _ from "lodash";
-import { Loader, Modal, FormComposer } from "@egovernments/digit-ui-react-components";
+import { FormComposer } from "@egovernments/digit-ui-react-components";
+import { Loader, Modal } from "@egovernments/digit-ui-components-core";
 import { configAttendanceApproveModal, configAttendanceRejectModal, configAttendanceCheckModal } from "../config";
 
 

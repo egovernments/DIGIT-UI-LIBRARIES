@@ -38,9 +38,6 @@ export const createProjectConfigMUKTA = {
               "key": "basicDetails_dateOfProposal",
               "type": "date",
               "disable": false,
-              "preProcess" : {
-                "updateDependent" : ["populators.validation.max"]
-              },
               "populators": {
                 "name": "basicDetails_dateOfProposal",
                 "validation":{

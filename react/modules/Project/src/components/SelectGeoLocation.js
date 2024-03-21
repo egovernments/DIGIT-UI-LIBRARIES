@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from "react";
-import {LocationSearch, Modal} from "@egovernments/digit-ui-react-components";
-import { CardLabel, LabelFieldPair, TextInput} from "@egovernments/digit-ui-components-core";
+import {LocationSearch} from "@egovernments/digit-ui-react-components";
+import { CardLabel, LabelFieldPair, TextInput, Modal} from "@egovernments/digit-ui-components-core";
 import { useTranslation } from "react-i18next";
 
 const SelectGeoLocation = ({ onSelect, config, formData }) => {

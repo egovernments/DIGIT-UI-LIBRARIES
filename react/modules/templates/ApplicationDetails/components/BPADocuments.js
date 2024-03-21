@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import {
     CardLabel,
+    CardSubHeader
+} from "@egovernments/digit-ui-react-components";
+import {
     Dropdown,
     LabelFieldPair,
     MultiUploadWrapper,
-    CardSubHeader
-} from "@egovernments/digit-ui-react-components";
+} from "@egovernments/digit-ui-components-core";
 import DocumentsPreview from "./DocumentsPreview";
 
 const BPADocuments = ({ t, formData, applicationData, docs, bpaActionsDetails }) => {
