@@ -1,5 +1,5 @@
-import 'package:digit_components/models/TreeModel.dart';
-import 'package:digit_components/widgets/atoms/digit_tree_select_dropdown.dart';
+import 'package:digit_ui_components/digit_components.dart';
+import 'package:digit_ui_components/models/TreeModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -12,7 +12,7 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: TreeSelectDropDown<int>(
-              options: [], // Add some test options
+              options: const [], // Add some test options
               onOptionSelected: (selectedOptions) {},
             ),
           ),

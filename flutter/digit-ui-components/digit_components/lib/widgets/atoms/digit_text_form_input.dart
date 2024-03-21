@@ -20,6 +20,7 @@
  ....*/
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../../utils/validators/validator.dart';
 import 'digit_base_form_input.dart';
 
@@ -39,11 +40,15 @@ class DigitTextFormInput extends BaseDigitFormInput {
     String? helpText,
     TooltipTriggerMode triggerMode = TooltipTriggerMode.tap,
     bool preferToolTipBelow = false,
+    String? suffixText,
+    String? prefixText,
     IconData? suffixIcon,
-    IconData? prefixIcon,
     void Function(String?)? onError,
     final List<Validator>? validations,
     final void Function(String)? onChange,
+    final String? errorMessage,
+    final List<TextInputFormatter>? inputFormatters,
+    void Function(String)? onSuffixTap,
   }) : super(
           key: key,
           controller: controller,
@@ -58,12 +63,16 @@ class DigitTextFormInput extends BaseDigitFormInput {
           helpText: helpText,
           triggerMode: triggerMode,
           preferToolTipBelow: preferToolTipBelow,
-          suffixIcon: suffixIcon,
-          prefixIcon: prefixIcon,
+          suffixText: suffixText,
+          prefixText: prefixText,
           onError: onError,
           initialValue: initialValue,
           validations: validations,
           onChange: onChange,
+          errorMessage: errorMessage,
+          inputFormatters: inputFormatters,
+          suffixIcon: suffixIcon,
+          onSuffixTap: onSuffixTap,
         );
 
   @override

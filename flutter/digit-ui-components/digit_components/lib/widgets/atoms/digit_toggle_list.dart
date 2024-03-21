@@ -1,9 +1,9 @@
 /*
- DigitToggleList is a row of toggle buttons that allows selecting one item at a time.
+ ToggleList is a row of toggle buttons that allows selecting one item at a time.
 
   Example usage:
  ```dart
- DigitToggleList(
+ ToggleList(
   toggleButtons: [
     ToggleButtonModel(name: 'Option 1', onSelected: () => print('Option 1 selected')),
     ToggleButtonModel(name: 'Option 2', onSelected: () => print('Option 2 selected')),
@@ -24,85 +24,89 @@ import '../../models/toggleButtonModel.dart';
 import '../../theme/digit_theme.dart';
 import 'digit_toggle.dart';
 
-class DigitToggleList extends StatefulWidget {
+class ToggleList extends StatefulWidget {
   final List<ToggleButtonModel> toggleButtons;
-  final void Function(List<bool> selectedValues) onChanged;
+  final void Function(ToggleButtonModel) onChanged;
   final EdgeInsets? contentPadding;
   final int selectedIndex;
+  final MainAxisAlignment mainAxisAlignment;
+  final CrossAxisAlignment crossAxisAlignment;
 
-  const DigitToggleList({
+  const ToggleList({
     Key? key,
     required this.toggleButtons,
     required this.onChanged,
     this.contentPadding,
     required this.selectedIndex,
+    this.mainAxisAlignment = MainAxisAlignment.start,
+    this.crossAxisAlignment = CrossAxisAlignment.center,
   }) : super(key: key);
 
   @override
-  _DigitToggleListState createState() => _DigitToggleListState();
+  _ToggleListState createState() => _ToggleListState();
 }
 
-class _DigitToggleListState extends State<DigitToggleList> {
+class _ToggleListState extends State<ToggleList> {
   int? selectedIndex;
   late double maxLabelWidth;
 
   @override
   void initState() {
     super.initState();
+
     /// select the index of default toggle
     selectedIndex = widget.selectedIndex;
-    /// call the onSelect for default selected toggle
-    widget.toggleButtons[selectedIndex!].onSelected?.call(true);
-    maxLabelWidth = _calculateMaxLabelWidth();
   }
 
   double _calculateMaxLabelWidth() {
-    double maxLabelWidth = 0;
+    double maxLabelWidth = (MediaQuery.of(context).size.width) / 3 - 46;
+    double maxLabel = 0;
     for (ToggleButtonModel button in widget.toggleButtons) {
       TextPainter textPainter = TextPainter(
         text: TextSpan(
-          text: button.name.length > 64 ? "${button.name.substring(0, 64)}..." : button.name,
+          text: button.name.length > 64
+              ? "${button.name.substring(0, 64)}..."
+              : button.name,
           style: const TextStyle(),
         ),
         textDirection: TextDirection.ltr,
       )..layout();
       double labelWidth = textPainter.width;
-      maxLabelWidth = max(maxLabelWidth, labelWidth);
+      maxLabel = max(maxLabel, labelWidth);
     }
-    return maxLabelWidth;
+    return min(maxLabelWidth, maxLabel);
   }
 
   @override
   Widget build(BuildContext context) {
+    maxLabelWidth = _calculateMaxLabelWidth();
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: widget.mainAxisAlignment,
+      crossAxisAlignment: widget.crossAxisAlignment,
       children: widget.toggleButtons.map(
-            (button) {
+        (button) {
           final index = widget.toggleButtons.indexOf(button);
           return Padding(
-            padding: widget.contentPadding ?? const EdgeInsets.only(bottom: kPadding),
-            child: DigitToggle(
+            padding: widget.contentPadding ??
+                const EdgeInsets.only(bottom: kPadding),
+            child: Toggle(
               onChanged: (isSelected) {
                 setState(() {
                   if (isSelected) {
                     if (selectedIndex != index) {
                       // Unselect the previously selected item
-                      widget.toggleButtons[selectedIndex!].onSelected?.call(false);
                       selectedIndex = index;
+                      widget.onChanged(button);
                     }
                   } else {
-                    // Clicking on the already selected button, do nothing
+                    /// Clicking on the already selected button, do nothing
                     return;
                   }
                 });
-
-                // /// Check if the button is selected and has a callback
-                if (selectedIndex==index && button.onSelected != null) {
-                  button.onSelected!(true);
-                }
               },
-              label: button.name.length > 64 ? "${button.name.substring(0, 64)}..." : button.name,
+              label: button.name.length > 64
+                  ? "${button.name.substring(0, 64)}..."
+                  : button.name,
               isSelected: selectedIndex == index,
               maxLabelWidth: maxLabelWidth,
             ),
@@ -112,4 +116,3 @@ class _DigitToggleListState extends State<DigitToggleList> {
     );
   }
 }
-

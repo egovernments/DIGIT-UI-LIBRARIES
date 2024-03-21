@@ -1,6 +1,4 @@
-import 'package:digit_components/utils/validators/validator.dart';
-import 'package:digit_components/widgets/atoms/digit_text_form_input.dart';
-import 'package:digit_components/widgets/atoms/digit_time_form_input.dart';
+import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 

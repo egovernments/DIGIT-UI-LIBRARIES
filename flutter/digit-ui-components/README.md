@@ -10,7 +10,7 @@ Add this to your `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  digit_components: ^0.0.1+8
+  digit_ui_components: 1.0.0
 ```
 
 Then run:
@@ -147,7 +147,7 @@ Digit UI Components provides a variety of buttons with optional suffix and prefi
 
 #### Primary Button
 
-        DigitButton(
+        Button(
             label: 'Primary Button',
             onPressed: () {},
             type: ButtonType.primary,
@@ -157,7 +157,7 @@ Digit UI Components provides a variety of buttons with optional suffix and prefi
 
 with Suffix Icon
 
-        DigitButton(
+        Button(
             suffixIcon: Icons.add,
             label: 'Primary Button',
             onPressed: () {},
@@ -168,7 +168,7 @@ with Suffix Icon
 
 #### Secondary Button
 
-        DigitButton(
+        Button(
             label: 'secondary Button',
             onPressed: () {},
             type: ButtonType.secondary,
@@ -178,7 +178,7 @@ with Suffix Icon
 
 #### Tertiary Button
 
-        DigitButton(
+        Button(
             label: 'tertiary Button',
             onPressed: () {},
             type: ButtonType.tertiary,
@@ -188,7 +188,7 @@ with Suffix Icon
 
 #### Link
 
-        DigitButton(
+        Button(
             label: 'link',
             onPressed: () {},
             type: ButtonType.link,
@@ -199,7 +199,7 @@ with Suffix Icon
 ### Radio Buttons
 The Radio Buttons component in Digit UI Components empowers users to make a single selection from a list of options. This intuitive interface provides a smooth user experience with hover and mouse-down effects.
 
-        DigitRadioList(
+        RadioList(
             onChanged: (value) {},
             groupValue: '1',
             radioButtons: [
@@ -214,7 +214,7 @@ The Radio Buttons component in Digit UI Components empowers users to make a sing
 ### Toggle Buttons
 The Toggle Buttons component in Digit UI Components presents a list of interactive toggle buttons, providing users with the ability to select a option. Each button is equipped with callbacks for both mouse-down and hover effects, ensuring a responsive and engaging user interface.
 
-        DigitToggleList(
+        ToggleList(
             toggleButtons: [
                 ToggleButtonModel(
                     name: 'Toggle 1', key: 'key1', onSelected: (value) {}),
@@ -375,8 +375,87 @@ Multi Select Option
 ![tree-multiselect-1](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/dd793878-c807-40d6-beda-d349e0a0bfc7)
 
 
+### Toast
+The toast component is used for displaying toast messages with various types such as success, error, and warning.
+
+Success toast
+
+        Toast.show(context,
+                          options: ToastOptions(
+                              "Your Warning message", ToastType.success));
+
+![Screenshot from 2024-03-11 14-32-23](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/51d227a9-1adb-4bc7-a945-bb0b320bef50)
 
 
+
+error toast
+
+        Toast.show(context,
+                        options: ToastOptions(
+                            "Your Warning message", ToastType.error));
+
+![Screenshot from 2024-03-11 14-32-28](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/fc9734cd-3ef5-406b-bc74-9fe2d74670ee)
+
+
+Warning toast
+
+        Toast.show(context,
+                            options: ToastOptions(
+                                "Your Warning message", ToastType.warning));
+
+
+![Screenshot from 2024-03-11 14-32-34](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/f1e4d9c5-d465-4c4e-83eb-513d9767a10c)
+
+
+### Info Card 
+InfoCard is a versatile widget designed to showcase informational content in a visually appealing manner. It is commonly used to display messages, alerts, or other important information. The card supports various customization options to adapt to different use cases.
+
+Info card
+
+        InfoCard(
+                  title: 'Info',
+                  type: InfoType.info,
+                  description:
+                  'Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect theservice to get completed in 24 hrs from the time of payment.',
+                ),
+
+![Screenshot from 2024-03-11 14-39-56](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/6b73f9ba-44ec-433a-b789-a6b75f9fb28d)
+
+
+Success card
+
+        InfoCard(
+                  title: 'Success',
+                  type: InfoType.success,
+                  description:
+                  'Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect theservice to get completed in 24 hrs from the time of payment.',
+                ),
+
+![Screenshot from 2024-03-11 14-40-34](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/49a8f592-702e-4559-a230-f925c9b3851b)
+
+
+Warning card
+
+       InfoCard(
+                  title: 'Warning',
+                  type: InfoType.warning,
+                  description:
+                  'Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect theservice to get completed in 24 hrs from the time of payment.',
+                ),
+
+![Screenshot from 2024-03-11 14-41-10](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/3296bcbd-98dc-4e29-a64d-f921499fa30e)
+
+
+Error card
+
+        InfoCard(
+                title: 'Error',
+                type: InfoType.error,
+                description:
+                'Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect theservice to get completed in 24 hrs from the time of payment.',
+                ),
+
+![Screenshot from 2024-03-11 14-40-57](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/7b43c6c5-ac91-485a-880a-b4c0b2e28b11)
 
 
 
@@ -384,4 +463,4 @@ Multi Select Option
 
 [MIT](https://choosealicense.com/licenses/mit/)
 
-![Logo](https://s3.ap-south-1.amazonaws.com/works-dev-asset/mseva-white-logo.png)
+![Logo](https://s3.ap-south-1.amazonaws.com/works-dev-asset/mseva-lightPaperPrimary-logo.png)
