@@ -1,4 +1,5 @@
-import { Dropdown, UploadFile } from "@egovernments/digit-ui-react-components";
+import { UploadFile } from "@egovernments/digit-ui-react-components";
+import { Dropdown } from "@egovernments/digit-ui-components-core";
 import React from "react";
 
 export const configBPAApproverApplication = ({

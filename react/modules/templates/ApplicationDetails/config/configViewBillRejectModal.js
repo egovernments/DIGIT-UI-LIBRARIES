@@ -1,5 +1,6 @@
 import React from 'react'
-import { LabelFieldPair,CardLabel} from '@egovernments/digit-ui-react-components';
+import { CardLabel} from '@egovernments/digit-ui-react-components';
+import { LabelFieldPair} from '@egovernments/digit-ui-components-core';
 
 const configViewBillRejectModal = ({
     t,
