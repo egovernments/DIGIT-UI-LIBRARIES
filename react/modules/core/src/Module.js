@@ -1,4 +1,4 @@
-import { Body } from "@egovernments/digit-ui-react-components";
+import { BodyContainer } from "@egovernments/digit-ui-components-core";
 import { Loader } from "@egovernments/digit-ui-components-core";
 import React from "react";
 import { getI18n } from "react-i18next";
@@ -7,7 +7,8 @@ import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
 import { DigitApp } from "./App";
 import SelectOtp from "./pages/citizen/Login/SelectOtp";
-
+import ChangeCity from "./components/ChangeCity";
+import ChangeLanguage from "./components/ChangeLanguage";
 import { useState } from "react";
 import ErrorBoundary from "./components/ErrorBoundaries";
 import getStore from "./redux/store";
@@ -22,7 +23,7 @@ const DigitUIWrapper = ({ stateCode, enabledModules, moduleReducers, defaultLand
   return (
     <Provider store={getStore(initData, moduleReducers(initData))}>
       <Router>
-        <Body>
+        <BodyContainer>
           <DigitApp
             initData={initData}
             stateCode={stateCode}
@@ -31,7 +32,7 @@ const DigitUIWrapper = ({ stateCode, enabledModules, moduleReducers, defaultLand
             logoUrl={initData?.stateInfo?.logoUrl}
             defaultLanding={defaultLanding}
           />
-        </Body>
+        </BodyContainer>
       </Router>
     </Provider>
   );
@@ -110,6 +111,8 @@ export const DigitUI = ({ stateCode, registry, enabledModules, moduleReducers, d
 
 const componentsToRegister = {
   SelectOtp,
+  ChangeCity,
+  ChangeLanguage
 };
 
 export const initCoreComponents = () => {
