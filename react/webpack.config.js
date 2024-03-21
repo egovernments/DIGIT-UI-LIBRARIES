@@ -5,12 +5,12 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 module.exports = {
   // mode: 'development',
-  entry: "./src/index.js",
+  entry: "./example/src/index.js",
   devtool: "none",
   module: {
     rules: [
       {
-        test: /\.(js)$/,
+        test: /\.(js|jsx)$/,
         use: ["babel-loader"],
       },
       {
@@ -38,6 +38,6 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     // new BundleAnalyzerPlugin(),
-    new HtmlWebpackPlugin({ inject: true, template: "public/index.html" }),
+    new HtmlWebpackPlugin({ inject: true, template: "example/public/index.html" }),
   ],
 };
