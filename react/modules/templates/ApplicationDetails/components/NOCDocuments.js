@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import {
   CardLabel,
-  MultiUploadWrapper,
   StatusTable,
   Row,
-  LabelFieldPair
 } from "@egovernments/digit-ui-react-components";
+import {
+  MultiUploadWrapper,
+  LabelFieldPair
+} from "@egovernments/digit-ui-components-core";
 import DocumentsPreview from "./DocumentsPreview";
 
 function SelectDocument({

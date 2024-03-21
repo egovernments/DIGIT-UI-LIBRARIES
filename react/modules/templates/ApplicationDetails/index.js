@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useQueryClient } from "react-query";
 import { format } from "date-fns";
 
-import { Loader } from "@egovernments/digit-ui-react-components";
+import { Loader } from "@egovernments/digit-ui-components-core";
 
 import ActionModal from "./Modal";
 
