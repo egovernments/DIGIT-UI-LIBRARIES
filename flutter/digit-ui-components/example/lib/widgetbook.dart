@@ -2031,46 +2031,54 @@ class HotReload extends StatelessWidget {
                     )
                         ?.toInt() ??
                         0,
-                    stepperList: const [
+                    stepperList:  [
                       StepperData(
                         title: "Preparing",
+                        onStepTap: (){},
                       ),
-                      StepperData(
+                      const StepperData(
                           title: "Preparing",
                           ),
-                      StepperData(
+                      const StepperData(
                         title: "Preparing",
                       ),
-                      StepperData(
+                      const StepperData(
                         title: "Preparing",
                       ),
-                      StepperData(
+                      const StepperData(
                         title: "Preparing",
                       ),
-                      StepperData(
+                      const StepperData(
                         title: "Preparing",
                       ),
-                      StepperData(
-                        title: "Preparing",
-                      ),StepperData(
+                      const StepperData(
                         title: "Preparing",
                       ),
-                      StepperData(
+                      const StepperData(
                         title: "Preparing",
                       ),
-                      StepperData(
+                      const StepperData(
                         title: "Preparing",
                       ),
-                      StepperData(
+                      const StepperData(
                         title: "Preparing",
                       ),
-                      StepperData(
+                      const StepperData(
                         title: "Preparing",
                       ),
-                      StepperData(
+                      const StepperData(
                         title: "Preparing",
                       ),
-                      StepperData(
+                      const StepperData(
+                        title: "Preparing",
+                      ),
+                      const StepperData(
+                        title: "Preparing",
+                      ),
+                      const StepperData(
+                        title: "Preparing",
+                      ),
+                      const StepperData(
                         title: "Preparing",
                       ),
                     ],

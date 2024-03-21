@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 
 import '../../constants/AppView.dart';
 
-class AnotherStepper extends StatelessWidget {
+import 'package:flutter/material.dart';
+
+class AnotherStepper extends StatefulWidget {
   /// Another stepper is a package, which helps build
   /// customizable and easy to manage steppers.
   ///
@@ -73,48 +75,82 @@ class AnotherStepper extends StatelessWidget {
   final ScrollPhysics? scrollPhysics;
 
   @override
+  _AnotherStepperState createState() => _AnotherStepperState();
+}
+
+class _AnotherStepperState extends State<AnotherStepper> {
+  late  ScrollController _scrollController= ScrollController();
+  double _lastScrollOffset = 0.0;
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _scrollController = ScrollController();
+  // }
+
+  @override
+  void didUpdateWidget(covariant AnotherStepper oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _scrollToActiveIndex();
+  }
+
+  void _scrollToActiveIndex() {
+    if (widget.activeIndex >= 0 && widget.activeIndex < widget.stepperList.length) {
+      double offset = widget.activeIndex * MediaQuery.of(context).size.width / 16;
+      _lastScrollOffset = offset; // Store the current scroll offset
+      _scrollController.animateTo(
+        offset,
+        duration: Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
+      );
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
+    bool isMobile = MediaQuery.of(context).size.width < 600;
+    print(_lastScrollOffset);
+    _scrollController = ScrollController(initialScrollOffset: _lastScrollOffset);
 
-    bool isMobile = AppView.isMobileView(MediaQuery.of(context).size.width);
-
-    var caa = stepperDirection == Axis.horizontal
+    var caa = widget.stepperDirection == Axis.horizontal
         ? CrossAxisAlignment.end
         : CrossAxisAlignment.start;
-    if (inverted) {
+    if (widget.inverted) {
       // invert Alignment
       caa = caa == CrossAxisAlignment.end
           ? CrossAxisAlignment.start
           : CrossAxisAlignment.end;
     }
-    final Iterable<int> iter = Iterable<int>.generate(stepperList.length);
+
     return SizedBox(
-      width: double.infinity,
-      child: SingleChildScrollView(
-        physics: const AlwaysScrollableScrollPhysics(),
-        child: Flex(
-          crossAxisAlignment: caa,
-          direction: stepperDirection,
-          children: iter
-              .map((index) => _getPreferredStepper(context, index))
-              .toList(),
-        ),
+      // Add a container to provide size constraints
+      width: MediaQuery.of(context).size.width, // Set explicit width
+      height: MediaQuery.of(context).size.height, // Set explicit height
+      child: ListView.builder(
+        controller: _scrollController,
+        scrollDirection: widget.stepperDirection,
+        physics: widget.scrollPhysics ?? const AlwaysScrollableScrollPhysics(),
+        itemCount: widget.stepperList.length,
+        itemBuilder: (context, index) {
+          return _getPreferredStepper(context, index);
+        },
       ),
     );
   }
 
-  Widget _getPreferredStepper(BuildContext context, index) {
+  Widget _getPreferredStepper(BuildContext context, int index) {
     return HorizontalStepperItem(
       index: index,
-      item: stepperList[index],
-      totalLength: stepperList.length,
-      activeIndex: activeIndex,
-      isInverted: inverted,
-      inActiveBarColor: inActiveBarColor ?? Theme.of(context).disabledColor,
-      activeBarColor: inActiveBarColor ?? Theme.of(context).colorScheme.primary,
-      barHeight: barThickness,
-      dotWidget: dotWidget,
-      titleTextStyle: titleTextStyle,
-      subtitleTextStyle: subtitleTextStyle,
+      item: widget.stepperList[index],
+      totalLength: widget.stepperList.length,
+      activeIndex: widget.activeIndex,
+      isInverted: widget.inverted,
+      inActiveBarColor: widget.inActiveBarColor ?? Theme.of(context).disabledColor,
+      activeBarColor: widget.inActiveBarColor ?? Theme.of(context).colorScheme.primary,
+      barHeight: widget.barThickness,
+      dotWidget: widget.dotWidget,
+      titleTextStyle: widget.titleTextStyle,
+      subtitleTextStyle: widget.subtitleTextStyle,
     );
   }
 }
@@ -165,27 +201,27 @@ class _HorizontalStepperItemState extends State<HorizontalStepperItem> {
       if (widget.item.title != null) ...[
         SizedBox(
             child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Text(
-                        widget.item.title!,
-                        textAlign: TextAlign.center,
-                        maxLines: 3,
-                        overflow: TextOverflow.ellipsis,
-                        style: widget.index == widget.activeIndex || isHover
+          padding: const EdgeInsets.all(10.0),
+          child: Text(
+            widget.item.title!,
+            textAlign: TextAlign.center,
+            maxLines: 3,
+            overflow: TextOverflow.ellipsis,
+            style: widget.index == widget.activeIndex || isHover
                 ? currentTypography.headingS.copyWith(
                     color: const DigitColors().lightTextPrimary, height: 1.172)
-                : currentTypography.bodyL.copyWith(
+                : currentTypography.bodyS.copyWith(
                     color: const DigitColors().lightTextPrimary, height: 1.5),
-                      ),
-            )),
+          ),
+        )),
         const SizedBox(height: 8),
       ],
       Row(
         children: [
-          Flexible(
+          Expanded(
             child: Container(
               constraints: const BoxConstraints(
-                minWidth: 10,
+                minWidth: 20,
               ),
               color: widget.index == 0
                   ? Colors.transparent
@@ -201,10 +237,10 @@ class _HorizontalStepperItemState extends State<HorizontalStepperItem> {
                   colorFilter: getGreyScaleColorFilter(),
                   child: dot,
                 ),
-          Flexible(
+          Expanded(
             child: Container(
               constraints: const BoxConstraints(
-                minWidth: 10,
+                minWidth: 20,
               ),
               color: widget.index == widget.totalLength - 1
                   ? Colors.transparent
@@ -229,22 +265,27 @@ class _HorizontalStepperItemState extends State<HorizontalStepperItem> {
     DigitTypography currentTypography = getTypography(context);
     bool isHover = false;
     return StatefulBuilder(builder: (context, setState) {
-      return Flexible(
-        child: InkWell(
-          onHover: (hover) {
-            setState(() {
-              isHover = hover;
-            });
-          },
-          onTap: widget.item.onStepTap!=null ? () {} : null,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: widget.isInverted
-                ? MainAxisAlignment.start
-                : MainAxisAlignment.end,
-            children: widget.isInverted
-                ? getInvertedChildren(currentTypography, isHover)
-                : getChildren(currentTypography, isHover),
+      return ConstrainedBox(
+        constraints: const BoxConstraints(
+          maxWidth: 100,
+        ),
+        child: Expanded(
+          child: InkWell(
+            onHover: (hover) {
+              setState(() {
+                isHover = hover;
+              });
+            },
+            onTap: widget.item.onStepTap,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: widget.isInverted
+                  ? MainAxisAlignment.start
+                  : MainAxisAlignment.end,
+              children: widget.isInverted
+                  ? getInvertedChildren(currentTypography, isHover)
+                  : getChildren(currentTypography, isHover),
+            ),
           ),
         ),
       );
@@ -341,11 +382,12 @@ class StepperDot extends StatelessWidget {
                   : [],
             ),
             child: Center(
-                child: Text(
-              '${index + 1}',
-              style: currentTypography.headingS
-                  .copyWith(color: const DigitColors().lightPaperPrimary),
-            )),
+              child: Text(
+                '${index + 1}',
+                style: currentTypography.headingS
+                    .copyWith(color: const DigitColors().lightPaperPrimary),
+              ),
+            ),
           )
         : index < activeIndex
             ? Container(
@@ -405,9 +447,12 @@ class StepperDot extends StatelessWidget {
                       : [],
                 ),
                 child: Center(
-                    child: Text('${index + 1}',
-                        style: currentTypography.bodyL.copyWith(
-                            color: const DigitColors().lightPaperPrimary))),
+                  child: Text(
+                    '${index + 1}',
+                    style: currentTypography.bodyS
+                        .copyWith(color: const DigitColors().lightPaperPrimary),
+                  ),
+                ),
               );
   }
 }
