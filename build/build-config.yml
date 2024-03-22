@@ -27,8 +27,8 @@ config:
 
   - name: builds/Digit-UI-Libraries/react/storybook
     build:
-      - work-dir: react/components-core/
-        dockerfile: react/components-core/docker/Dockerfile
+      - work-dir: react/ui-components/
+        dockerfile: react/ui-components/docker/Dockerfile
         image-name: storybook
 
   # digit-ui-flutter
