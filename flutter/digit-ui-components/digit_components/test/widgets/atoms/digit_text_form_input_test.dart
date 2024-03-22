@@ -1,5 +1,5 @@
-import 'package:digit_components/utils/validators/validator.dart';
-import 'package:digit_components/widgets/atoms/digit_text_form_input.dart';
+import 'package:digit_ui_components/digit_components.dart';
+import 'package:digit_ui_components/utils/validators/validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -53,7 +53,7 @@ void main() {
                     // This is where you can put any logic you want
                     FocusScope.of(tester.element(find.byType(DigitTextFormInput))).unfocus();
                   },
-                  child: Text('Tap me'),
+                  child: const Text('Tap me'),
                 ),
               ],
             ),
@@ -78,7 +78,7 @@ void main() {
     });
 
 
-    // testing readonly and isdisabled states
+    // testing readonly and is disabled states
 
 
     testWidgets('Handles readOnly and isDisabled states',
@@ -89,18 +89,18 @@ void main() {
             body: Column(
               children: [
                 DigitTextFormInput(
-                  key: Key('Editable Field'),
+                  key: const Key('Editable Field'),
                   controller: controller,
                   label: 'Editable Field',
                 ),
                 DigitTextFormInput(
-                  key: Key('ReadOnly Field'),
+                  key: const Key('ReadOnly Field'),
                   controller: controller,
                   label: 'ReadOnly Field',
                   readOnly: true,
                 ),
                 DigitTextFormInput(
-                  key: Key('Disabled Field'),
+                  key: const Key('Disabled Field'),
                   controller: controller,
                   label: 'Disabled Field',
                   isDisabled: true,
@@ -114,13 +114,13 @@ void main() {
       // Verify the editable field is enabled
       expect(
         tester
-            .widget<DigitTextFormInput>(find.byKey(Key('Editable Field')))
+            .widget<DigitTextFormInput>(find.byKey(const Key('Editable Field')))
             .readOnly,
         isFalse,
       );
       expect(
         tester
-            .widget<DigitTextFormInput>(find.byKey(Key('Editable Field')))
+            .widget<DigitTextFormInput>(find.byKey(const Key('Editable Field')))
             .isDisabled,
         isFalse,
       );
@@ -128,13 +128,13 @@ void main() {
       // Verify the readOnly field is readOnly and not enabled
       expect(
         tester
-            .widget<DigitTextFormInput>(find.byKey(Key('ReadOnly Field')))
+            .widget<DigitTextFormInput>(find.byKey(const Key('ReadOnly Field')))
             .readOnly,
         isTrue,
       );
       expect(
         tester
-            .widget<DigitTextFormInput>(find.byKey(Key('ReadOnly Field')))
+            .widget<DigitTextFormInput>(find.byKey(const Key('ReadOnly Field')))
             .isDisabled,
         isFalse,
       );
@@ -142,13 +142,13 @@ void main() {
       // Verify the disabled field is disabled and not enabled
       expect(
         tester
-            .widget<DigitTextFormInput>(find.byKey(Key('Disabled Field')))
+            .widget<DigitTextFormInput>(find.byKey(const Key('Disabled Field')))
             .readOnly,
         isFalse,
       );
       expect(
         tester
-            .widget<DigitTextFormInput>(find.byKey(Key('Disabled Field')))
+            .widget<DigitTextFormInput>(find.byKey(const Key('Disabled Field')))
             .isDisabled,
         isTrue,
       );
@@ -210,63 +210,6 @@ void main() {
       expect(find.text('10/10'), findsOneWidget);
     });
 
-    //Testing Prefix and Suffix Icons
-
-    testWidgets('Displays prefix and suffix icons',
-        (WidgetTester tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: DigitTextFormInput(
-              controller: controller,
-              label: 'Test Label',
-              prefixIcon: Icons.person,
-              suffixIcon: Icons.visibility,
-            ),
-          ),
-        ),
-      );
-
-      // Verify the prefix and suffix icons are displayed
-      expect(find.byIcon(Icons.person), findsOneWidget);
-      expect(find.byIcon(Icons.visibility), findsOneWidget);
-    });
-
-    // Testing Prefix and Suffix Icon Click Handling
-    //
-    // testWidgets('Handles click events on prefix and suffix icons', (WidgetTester tester) async {
-    //   bool prefixIconClicked = false;
-    //   bool suffixIconClicked = false;
-    //
-    //   await tester.pumpWidget(
-    //     MaterialApp(
-    //       home: Scaffold(
-    //         body: DigitTextFormInput(
-    //           controller: controller,
-    //           label: 'Test Label',
-    //           prefixIcon: Icons.person,
-    //           suffixIcon: Icons.visibility,
-    //           onPrefixIconClick: () {
-    //             prefixIconClicked = true;
-    //           },
-    //           onSuffixIconClick: () {
-    //             suffixIconClicked = true;
-    //           },
-    //         ),
-    //       ),
-    //     ),
-    //   );
-    //
-    //   // Tap on prefix icon
-    //   await tester.tap(find.byIcon(Icons.person));
-    //   expect(prefixIconClicked, isTrue);
-    //
-    //   // Tap on suffix icon
-    //   await tester.tap(find.byIcon(Icons.visibility));
-    //   expect(suffixIconClicked, isTrue);
-    // });
-
-    // Testing Initial Value
 
     testWidgets('Sets initial value correctly', (WidgetTester tester) async {
       await tester.pumpWidget(

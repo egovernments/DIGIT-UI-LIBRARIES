@@ -20,6 +20,7 @@
  ....*/
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../../utils/validators/validator.dart';
 import 'digit_base_form_input.dart';
 
@@ -35,11 +36,13 @@ class DigitNumericFormInput extends BaseDigitFormInput {
     bool isDisabled = false,
     bool isRequired = false,
     bool charCount = false,
+    bool editable = false,
     String? innerLabel,
     String? helpText,
     TooltipTriggerMode triggerMode = TooltipTriggerMode.tap,
     bool preferToolTipBelow = false,
-    IconData suffixIcon = Icons.add,
+    String suffixText = '+',
+    String prefixText = '-',
     IconData prefixIcon = Icons.remove,
     void Function(String?)? onError,
     TextInputType keyboardType = TextInputType.number,
@@ -49,6 +52,8 @@ class DigitNumericFormInput extends BaseDigitFormInput {
     final int step = 5,
     final int minValue = 0,
     final int maxValue = 100,
+    final List<TextInputFormatter>? inputFormatters,
+    final String? errorMessage,
   }) : super(
           key: key,
           controller: controller,
@@ -63,8 +68,8 @@ class DigitNumericFormInput extends BaseDigitFormInput {
           helpText: helpText,
           triggerMode: triggerMode,
           preferToolTipBelow: preferToolTipBelow,
-          suffixIcon: suffixIcon,
-          prefixIcon: prefixIcon,
+          suffixText: suffixText,
+          prefixText: prefixText,
           onError: onError,
           keyboardType: keyboardType,
           textAlign: textAlign,
@@ -74,7 +79,10 @@ class DigitNumericFormInput extends BaseDigitFormInput {
           step: step,
           maxValue: maxValue,
           minValue: minValue,
-          showCurser: false,
+          showCurser: editable,
+          isEditable: editable,
+          errorMessage: errorMessage,
+          inputFormatters: inputFormatters,
         );
 
   @override
@@ -85,10 +93,14 @@ class _DigitNumericFormInputState extends BaseDigitFormInputState {
   @override
   void onPrefixIconClick({void Function()? customFunction}) {
     setState(() {
-      // Subtract step from the input value when the prefix icon is clicked
+      /// Subtract step from the input value when the prefix icon is clicked
       int currentValue = int.tryParse(widget.controller.text) ?? 0;
       if ((currentValue - widget.step) >= widget.minValue) {
-        widget.controller.text = (currentValue - widget.step).toString();
+        setState(() {
+          widget.controller.text = (currentValue - widget.step).toString();
+        });
+/// Remove the text selection
+        widget.controller.selection = const TextSelection.collapsed(offset: 0);
       }
     });
   }
@@ -99,7 +111,12 @@ class _DigitNumericFormInputState extends BaseDigitFormInputState {
       /// Add step to the input value when the suffix icon is clicked
       int currentValue = int.tryParse(widget.controller.text) ?? 0;
       if ((currentValue + widget.step) <= widget.maxValue) {
-        widget.controller.text = (currentValue + widget.step).toString();
+        setState(() {
+          widget.controller.text = (currentValue + widget.step).toString();
+        });
+/// Remove the text selection
+        widget.controller.selection = const TextSelection.collapsed(offset: 0);
+
       }
     });
   }

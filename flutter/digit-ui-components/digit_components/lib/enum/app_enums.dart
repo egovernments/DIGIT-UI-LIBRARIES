@@ -27,8 +27,8 @@ enum TreeSelectionType {
 
 
 
-/// Enum representing the possible states of the checkbox.
-enum CheckboxState {
+/// Enum representing the possible states of the DigitCheckbox.
+enum DigitCheckboxState {
   /// Represents an unchecked state.
   unchecked,
 
@@ -37,4 +37,11 @@ enum CheckboxState {
 
   /// Represents a checked state.
   checked,
+}
+
+// Enum representing the scroll for textArea
+enum TextAreaScroll{
+  vertical,
+  smart,
+  none,
 }
