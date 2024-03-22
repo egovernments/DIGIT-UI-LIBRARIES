@@ -1,4 +1,4 @@
-import { Button, Card ,SubmitBar} from "@egovernments/digit-ui-components";
+import { Button, Card ,SubmitBar,Loader} from "@egovernments/digit-ui-components";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
@@ -20,7 +20,11 @@ const LanguageSelection = () => {
     history.push(`/${window?.contextPath}/employee/user/login`);
   };
 
-  if (isLoading) return null;
+  if (isLoading) return <Loader/>;
+  let defaultLanguages=languages;
+  if(!defaultLanguages || defaultLanguages?.length==0){
+defaultLanguages=[{label:"English",value:"en_IN"}]
+  }
 
   return (
     <Background>
@@ -28,10 +32,10 @@ const LanguageSelection = () => {
         <div className="bannerHeader">
           <img className="bannerLogo" src={stateInfo?.logoUrl} alt="Digit" />
 
-          <p>{t(`TENANT_TENANTS_${stateInfo?.code.toUpperCase()}`)}</p>
+          <p>{t(`TENANT_TENANTS_${stateInfo?.code?.toUpperCase()}`)}</p>
         </div>
         <div className="language-selector" style={{ justifyContent: "space-around", marginBottom: "24px", padding: "0 5%" }}>
-          {languages.map((language, index) => (
+          {defaultLanguages.map((language, index) => (
             <div className="language-button-container" key={index}>
               <Button
                 label={language.label}
