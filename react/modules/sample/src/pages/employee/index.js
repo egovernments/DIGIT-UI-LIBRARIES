@@ -18,7 +18,7 @@ const ProjectBreadCrumb = ({ location }) => {
       show: true,
     },
   ];
-  return <BreadCrumb crumbs={crumbs} spanStyle={{ maxWidth: "min-content" }} />;
+  return <BreadCrumb crumbs={crumbs} style={{marginLeft:"16px"}} spanStyle={{ maxWidth: "min-content" }} />;
 };
 
 const App = ({ path, stateCode, userType, tenants }) => {

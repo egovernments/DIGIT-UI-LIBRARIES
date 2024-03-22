@@ -1,8 +1,8 @@
-import { FormComposerV2, InfoCard, Stepper } from "@egovernments/digit-ui-components";
+import { FormComposerV2, InfoCard, Stepper,Button } from "@egovernments/digit-ui-components";
+import { Header } from "@egovernments/digit-ui-react-components";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { newConfig } from "../../configs/SampleConfig";
-import { Button } from "@egovernments/digit-ui-components";
 import { useState } from "react";
 
 const Create = () => {
@@ -50,7 +50,6 @@ const Create = () => {
     "textarea-Mandatory": "Sample TextArea mandatory",
     "textarea-With Info": "Sample TextArea with infomessage",
     "textarea-Info&Mandatory": "Sample TextArea mandatory&infomessage",
-    "textarea-With InnerLabel": "Sample TextArea with innerlabel",
     "textarea-Withoutlabel": "Sample TextArea withoutlabel",
     "textarea-With Validation": "Sample",
     "textarea-Complete": "Sample TextArea complete",
@@ -88,6 +87,7 @@ const Create = () => {
 
   return (
     <React.Fragment>
+      <Header styles={{marginLeft:"16px"}}>{"New Components"}</Header>
       <FormComposerV2
         label={t("Submit")}
         config={configs.map((config) => {
