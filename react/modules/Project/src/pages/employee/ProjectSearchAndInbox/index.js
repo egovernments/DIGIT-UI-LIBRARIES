@@ -1,7 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Header, Loader,InboxSearchComposer} from "@egovernments/digit-ui-components-core";
-// import { InboxSearchComposer } from "@egovernments/digit-ui-react-components";
 import inboxConfig from "../../../configs/InboxConfig";
 
 const ProjectSearchAndInboxComponent = () => {

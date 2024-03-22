@@ -1,6 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { EmployeeModuleCard, PTIcon } from "@egovernments/digit-ui-react-components";
+import { EmployeeModuleCard } from "@egovernments/digit-ui-react-components";
+import {PTIcon } from "@egovernments/digit-ui-components-core";
 
 const ProjectCard = () => {
   const { t } = useTranslation();
