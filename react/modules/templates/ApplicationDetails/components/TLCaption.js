@@ -1,6 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { TelePhone, DisplayPhotos, UnMaskComponent } from "@egovernments/digit-ui-react-components";
+import {UnMaskComponent,TelePhone} from "@egovernments/digit-ui-react-components";
+import { DisplayPhotos } from "@egovernments/digit-ui-components-core";
 import Reason from "./Reason";
 
 const TLCaption = ({ data,OpenImage,privacy={}}) => {
