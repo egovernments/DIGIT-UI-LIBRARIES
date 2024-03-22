@@ -34,6 +34,7 @@ class Dropdown extends StatelessWidget {
   final List<ValueMapper>? valueMapper;
   final String? errorMessage;
   final String? helpText;
+  final bool readOnly;
 
   // MultiSelectDropDown props
   final SelectionType selectionType;
@@ -61,6 +62,7 @@ class Dropdown extends StatelessWidget {
     this.items = const [],
     this.options = const [],
     this.textIcon,
+    this.readOnly = false,
     this.suffixIcon = Icons.arrow_drop_down,
     this.emptyItemText = "No Options available",
     this.isSearchable = true,
@@ -91,9 +93,11 @@ class Dropdown extends StatelessWidget {
       case Type.singleSelect:
         return dropdownSubtype == DropdownSubtype.defaultSelect
             ? DigitDropdown(
-                textEditingController: textEditingController ?? TextEditingController(),
-                onChange: onChange ?? (value, index){},
+                textEditingController:
+                    textEditingController ?? TextEditingController(),
+                onChange: onChange ?? (value, index) {},
                 items: items,
+                readOnly: readOnly,
                 textIcon: textIcon,
                 suffixIcon: suffixIcon,
                 emptyItemText: emptyItemText,
@@ -106,9 +110,11 @@ class Dropdown extends StatelessWidget {
               )
             : dropdownSubtype == DropdownSubtype.nested
                 ? DigitDropdown(
-          textEditingController: textEditingController ?? TextEditingController(),
-          onChange: onChange ?? (value, index){},
+                    textEditingController:
+                        textEditingController ?? TextEditingController(),
+                    onChange: onChange ?? (value, index) {},
                     items: items,
+                    readOnly: readOnly,
                     textIcon: textIcon,
                     suffixIcon: suffixIcon,
                     emptyItemText: emptyItemText,
@@ -123,6 +129,7 @@ class Dropdown extends StatelessWidget {
                 : TreeSelectDropDown(
                     treeSelectionType: TreeSelectionType.singleSelect,
                     options: treeOptions,
+                    readOnly: readOnly,
                     selectedOptions: selectedTreeOptions,
                     onOptionSelected: onTreeOptionSelected,
                     chipConfig: chipConfig,
@@ -140,6 +147,7 @@ class Dropdown extends StatelessWidget {
             ? MultiSelectDropDown(
                 selectionType: SelectionType.multiSelect,
                 options: options,
+                readOnly: readOnly,
                 selectedOptions: selectedOptions,
                 onOptionSelected: onOptionSelected,
                 chipConfig: chipConfig,
@@ -156,6 +164,7 @@ class Dropdown extends StatelessWidget {
                 ? MultiSelectDropDown(
                     selectionType: SelectionType.nestedMultiSelect,
                     options: options,
+                    readOnly: readOnly,
                     selectedOptions: selectedOptions,
                     onOptionSelected: onOptionSelected,
                     chipConfig: chipConfig,
@@ -171,6 +180,7 @@ class Dropdown extends StatelessWidget {
                 : TreeSelectDropDown(
                     treeSelectionType: TreeSelectionType.MultiSelect,
                     options: treeOptions,
+                    readOnly: readOnly,
                     selectedOptions: selectedTreeOptions,
                     onOptionSelected: onTreeOptionSelected,
                     chipConfig: chipConfig,

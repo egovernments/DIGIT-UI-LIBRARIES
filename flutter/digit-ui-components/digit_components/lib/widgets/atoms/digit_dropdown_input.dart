@@ -66,6 +66,9 @@ class DigitDropdown<T> extends StatefulWidget {
   /// Whether the dropdown is enabled or disabled.
   final bool isDisabled;
 
+  /// Whether the dropdown is readOnly.
+  final bool readOnly;
+
   /// value Mapper to show something else for selected option
   final List<ValueMapper>? valueMapper;
 
@@ -90,6 +93,7 @@ class DigitDropdown<T> extends StatefulWidget {
     this.valueMapper,
     this.errorMessage,
     this.helpText,
+    this.readOnly = false,
   }) : super(key: key);
 
   @override
@@ -203,9 +207,9 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
               width: dropdownWidth,
               height: Default.height,
               child: TextField(
-                readOnly: !widget.isSearchable,
+                readOnly: !widget.isSearchable || widget.readOnly,
                 enabled: !widget.isDisabled,
-                onTap: widget.isSearchable
+                onTap: widget.readOnly ? null:widget.isSearchable
                     ? () {
                         _toggleDropdown();
                         FocusScope.of(context).requestFocus(_focusNode);
@@ -213,8 +217,8 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                     : () {
                         _toggleDropdown();
                       },
-                showCursor: widget.isSearchable ? true : false,
-                keyboardType: widget.isSearchable
+                showCursor: widget.isSearchable && !widget.readOnly ? true : false,
+                keyboardType: widget.isSearchable && !widget.readOnly
                     ? TextInputType.text
                     : TextInputType.none,
                 onChanged: widget.isSearchable
@@ -234,12 +238,12 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                 controller: widget.textEditingController,
                 style: currentTypography.bodyL.copyWith(
                   height: 1.5,
-                  color: const DigitColors().light.textPrimary,
+                  color: widget.readOnly ?const DigitColors().light.textSecondary :const DigitColors().light.textPrimary,
                 ),
                 decoration: InputDecoration(
                   filled: true,
                   hoverColor: const DigitColors().transparent,
-                  fillColor: const DigitColors().light.paperPrimary,
+                  fillColor: widget.readOnly ?const DigitColors().light.genericBackground :const DigitColors().transparent,
                   contentPadding: const EdgeInsets.only(
                     left: 12,
                     top: 8,
@@ -255,7 +259,14 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                         width: _isOpen || widget.errorMessage !=null ? 1.5 : 1.0),
                     borderRadius: BorderRadius.zero,
                   ),
-                  focusedBorder: OutlineInputBorder(
+                  focusedBorder: widget.readOnly
+                      ? OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: const DigitColors().light.textSecondary,
+                      width: 1.0,
+                    ),
+                    borderRadius: BorderRadius.zero,
+                  ) : OutlineInputBorder(
                     borderSide: BorderSide(
                         color: const DigitColors().light.primaryOrange,
                         width: 1.5),
@@ -266,7 +277,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                     highlightColor: const DigitColors().transparent,
                     splashColor: const DigitColors().transparent,
                     hoverColor: const DigitColors().transparent,
-                    onTap: () {
+                    onTap: widget.readOnly ? null :() {
                       _toggleDropdown();
                     },
                     child: Icon(

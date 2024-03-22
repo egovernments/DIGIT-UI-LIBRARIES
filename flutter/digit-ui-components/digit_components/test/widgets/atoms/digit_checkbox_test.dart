@@ -62,7 +62,7 @@ void main() {
               onChanged: (value) {
                 isChecked = value ?? false;
               },
-              disabled: true,
+              isDisabled: true,
             ),
           ),
         ),
