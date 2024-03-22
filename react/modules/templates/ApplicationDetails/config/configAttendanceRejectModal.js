@@ -1,5 +1,5 @@
 import { CardLabel} from '@egovernments/digit-ui-react-components';
-import { LabelFieldPair} from '@egovernments/digit-ui-components-core';
+import { LabelFieldPair} from '@egovernments/digit-ui-components';
 import React from 'react'
 
 const configAttendanceRejectModal = ({

@@ -9,7 +9,7 @@ import {
   ActionBar,
   ArrowLeftWhite,
   AddFileFilled,
-} from "@egovernments/digit-ui-components-core";
+} from "@egovernments/digit-ui-components";
 
 const CreateProjectResponse = () => {
   const { t } = useTranslation();

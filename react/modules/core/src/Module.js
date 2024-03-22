@@ -1,5 +1,5 @@
-import { BodyContainer } from "@egovernments/digit-ui-components-core";
-import { Loader } from "@egovernments/digit-ui-components-core";
+import { BodyContainer } from "@egovernments/digit-ui-components";
+import { Loader } from "@egovernments/digit-ui-components";
 import React from "react";
 import { getI18n } from "react-i18next";
 import { QueryClient, QueryClientProvider } from "react-query";

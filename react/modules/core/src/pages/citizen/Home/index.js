@@ -9,7 +9,7 @@ import {
   PTIcon,
   Loader,
   WhatsNewCard,
-} from "@egovernments/digit-ui-components-core";
+} from "@egovernments/digit-ui-components";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";

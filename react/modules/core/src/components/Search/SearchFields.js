@@ -1,4 +1,4 @@
-import { DatePicker, SearchField, Button } from "@egovernments/digit-ui-components-core";
+import { DatePicker, SearchField, Button } from "@egovernments/digit-ui-components";
 import React from "react";
 import { Controller } from "react-hook-form";
 const SearchFields = ({ register, control, reset, tenantId, t, previousPage, formState, isLoading }) => {

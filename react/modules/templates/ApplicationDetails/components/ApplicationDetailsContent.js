@@ -10,7 +10,7 @@ import {
   StatusTable,
   Table,
 } from "@egovernments/digit-ui-react-components";
-import { Card, Loader } from "@egovernments/digit-ui-components-core";
+import { Card, Loader } from "@egovernments/digit-ui-components";
 import { values } from "lodash";
 import React, { Fragment, useCallback, useReducer, useState } from "react";
 import { useTranslation } from "react-i18next";

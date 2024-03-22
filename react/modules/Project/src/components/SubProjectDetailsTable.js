@@ -9,7 +9,7 @@ import {
   AddIcon,
   DeleteIcon,
   RemoveIcon,
-} from "@egovernments/digit-ui-components-core";
+} from "@egovernments/digit-ui-components";
 import { Controller } from "react-hook-form";
 import _ from "lodash";
 

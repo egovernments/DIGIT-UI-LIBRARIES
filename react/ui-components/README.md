@@ -5,7 +5,7 @@
 ## Install
 
 ```bash
-npm install --save @egovernments/digit-ui-components-core
+npm install --save @egovernments/digit-ui-components
 ```
 
 ## Limitation
@@ -23,7 +23,7 @@ frontend/micro-ui/web/package.json
 ```
 
 ```json
-"@egovernments/digit-ui-components-core":"0.0.1",
+"@egovernments/digit-ui-components":"0.0.1",
 ```
 
 then navigate to App.js
@@ -35,7 +35,7 @@ then navigate to App.js
 # Syntax for importing any components
 
 ```jsx
-import { SVG } from "@egovernments/digit-ui-components-core";
+import { SVG } from "@egovernments/digit-ui-components";
 
 <SVG.Accessibility />;
 ```
@@ -77,3 +77,6 @@ Home Page (https://unified-dev.digit.org/storybook/)
 ## License
 
 MIT © [jagankumar-egov](https://github.com/jagankumar-egov)
+
+![Logo](https://s3.ap-south-1.amazonaws.com/works-dev-asset/mseva-white-logo.png)
+

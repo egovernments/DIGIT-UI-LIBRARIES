@@ -1,5 +1,5 @@
 import React from "react";
-import { Dropdown } from "@egovernments/digit-ui-components-core";
+import { Dropdown } from "@egovernments/digit-ui-components";
 
 function getFilteredDsoData(dsoData, vehicle) {
   return dsoData?.filter((e) => e.vehicles?.find((veh) => veh?.type == vehicle?.code));

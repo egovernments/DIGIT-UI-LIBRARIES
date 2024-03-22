@@ -1,4 +1,4 @@
-import { Loader} from "@egovernments/digit-ui-components-core";
+import { Loader} from "@egovernments/digit-ui-components";
 import React from "react";
 import { useRouteMatch } from "react-router-dom";
 import { default as EmployeeApp } from "./pages/employee";

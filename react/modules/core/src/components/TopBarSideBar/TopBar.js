@@ -1,5 +1,5 @@
 import { Hamburger, TopBar as TopBarComponent } from "@egovernments/digit-ui-react-components";
-import { Dropdown } from "@egovernments/digit-ui-components-core";
+import { Dropdown } from "@egovernments/digit-ui-components";
 import React from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import ChangeCity from "../ChangeCity";

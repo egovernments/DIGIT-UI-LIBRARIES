@@ -7,7 +7,7 @@ import {
     Dropdown,
     LabelFieldPair,
     MultiUploadWrapper,
-} from "@egovernments/digit-ui-components-core";
+} from "@egovernments/digit-ui-components";
 import DocumentsPreview from "./DocumentsPreview";
 
 const BPADocuments = ({ t, formData, applicationData, docs, bpaActionsDetails }) => {

@@ -5,7 +5,7 @@ import {
   CloseSvg,
   DownloadImgIcon,
   PDFSvg,
-} from "@egovernments/digit-ui-components-core";
+} from "@egovernments/digit-ui-components";
 import { CustomButton } from "@egovernments/digit-ui-react-components";
 import React, { Fragment, useState } from "react";
 import { useTranslation } from "react-i18next";

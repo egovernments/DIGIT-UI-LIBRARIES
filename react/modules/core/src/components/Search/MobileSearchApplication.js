@@ -8,7 +8,7 @@ import {
   SearchForm,
   CloseSvg,
   DownloadBtnCommon,
-} from "@egovernments/digit-ui-components-core";
+} from "@egovernments/digit-ui-components";
 import React, {
   useCallback,
   useEffect,

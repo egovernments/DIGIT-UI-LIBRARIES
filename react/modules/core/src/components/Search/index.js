@@ -7,7 +7,7 @@ import {
   Loader,
   SearchForm,
   Header
-} from "@egovernments/digit-ui-components-core";
+} from "@egovernments/digit-ui-components";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import MobileSearchApplication from "./MobileSearchApplication";

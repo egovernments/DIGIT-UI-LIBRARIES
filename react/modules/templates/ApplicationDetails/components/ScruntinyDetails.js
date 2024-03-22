@@ -1,5 +1,5 @@
 import { StatusTable, Row, CardLabel, CardSubHeader } from "@egovernments/digit-ui-react-components";
-import { PDFSvg } from "@egovernments/digit-ui-components-core";
+import { PDFSvg } from "@egovernments/digit-ui-components";
 import React, { Fragment } from "react";
 import { useTranslation } from "react-i18next";
 

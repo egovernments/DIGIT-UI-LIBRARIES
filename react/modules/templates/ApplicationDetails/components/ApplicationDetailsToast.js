@@ -1,5 +1,5 @@
 import React from "react";
-import { Toast } from "@egovernments/digit-ui-components-core";
+import { Toast } from "@egovernments/digit-ui-components";
 
 function ApplicationDetailsToast({ t, showToast, closeToast, businessService }) {
   if (businessService?.includes("NewTL") || businessService?.includes("TL") || businessService?.includes("EDITRENEWAL")) {

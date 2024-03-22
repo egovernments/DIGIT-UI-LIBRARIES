@@ -1,4 +1,4 @@
-import { EditIcon } from '@egovernments/digit-ui-components-core';
+import { EditIcon } from '@egovernments/digit-ui-components';
 import React from 'react'
 import { useTranslation } from "react-i18next";
 import { useHistory } from 'react-router-dom';

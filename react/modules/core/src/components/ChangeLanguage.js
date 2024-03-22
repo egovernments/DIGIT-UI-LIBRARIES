@@ -1,4 +1,4 @@
-import { Button, Dropdown } from "@egovernments/digit-ui-components-core";
+import { Button, Dropdown } from "@egovernments/digit-ui-components";
 import React, { useState } from "react";
 
 const ChangeLanguage = (prop) => {

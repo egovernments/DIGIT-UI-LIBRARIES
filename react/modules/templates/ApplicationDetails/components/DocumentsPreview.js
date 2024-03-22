@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { CardSubHeader } from "@egovernments/digit-ui-react-components";
-import { PDFSvg } from "@egovernments/digit-ui-components-core";
+import { PDFSvg } from "@egovernments/digit-ui-components";
 
 function DocumentsPreview({ documents, svgStyles = {}, isSendBackFlow = false, isHrLine = false, titleStyles }) {
     const { t } = useTranslation();

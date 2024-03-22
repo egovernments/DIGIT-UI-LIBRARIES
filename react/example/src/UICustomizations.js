@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import _ from "lodash";
-import { Amount} from "@egovernments/digit-ui-components-core";
+import { Amount} from "@egovernments/digit-ui-components";
 
 
 //create functions here based on module name set in mdms(eg->SearchProjectConfig)

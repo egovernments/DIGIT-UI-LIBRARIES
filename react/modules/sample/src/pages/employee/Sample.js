@@ -1,8 +1,8 @@
-import { FormComposerV2, InfoCard, Stepper } from "@egovernments/digit-ui-components-core";
+import { FormComposerV2, InfoCard, Stepper } from "@egovernments/digit-ui-components";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { newConfig } from "../../configs/SampleConfig";
-import { Button } from "@egovernments/digit-ui-components-core";
+import { Button } from "@egovernments/digit-ui-components";
 import { useState } from "react";
 
 const Create = () => {

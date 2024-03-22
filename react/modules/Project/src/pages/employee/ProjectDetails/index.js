@@ -13,7 +13,7 @@ import {
   ActionBar,
   HorizontalNav,
   Toast,
-} from "@egovernments/digit-ui-components-core";
+} from "@egovernments/digit-ui-components";
 import React, { Fragment, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory, useLocation } from "react-router-dom";

@@ -1,4 +1,4 @@
-import { CitizenInfoLabel, Loader } from "@egovernments/digit-ui-components-core";
+import { CitizenInfoLabel, Loader } from "@egovernments/digit-ui-components";
 import React, { useEffect } from "react";
 import { useRouteMatch } from "react-router-dom";
 import ProjectCard from "./components/ProjectCard";

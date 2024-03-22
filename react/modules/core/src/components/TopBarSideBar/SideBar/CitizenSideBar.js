@@ -1,5 +1,5 @@
 import { NavBar } from "@egovernments/digit-ui-react-components";
-import { Loader } from "@egovernments/digit-ui-components-core";
+import { Loader } from "@egovernments/digit-ui-components";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";

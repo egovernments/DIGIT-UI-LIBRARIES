@@ -1,7 +1,7 @@
 import React, {useEffect, useRef} from "react";
 import { useTranslation } from "react-i18next";
 import { Menu } from "@egovernments/digit-ui-react-components";
-import { SubmitBar, ActionBar } from "@egovernments/digit-ui-components-core";
+import { SubmitBar, ActionBar } from "@egovernments/digit-ui-components";
 
 function ApplicationDetailsActionBar({ workflowDetails, displayMenu, onActionSelect, setDisplayMenu, businessService, forcedActionPrefix,ActionBarStyle={},MenuStyle={}, saveAttendanceState }) {
   const { t } = useTranslation();

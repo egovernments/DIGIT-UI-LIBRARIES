@@ -11,7 +11,7 @@ import {
   TimerIcon,
   ValidityTimeIcon,
   WhatsappIconGreen,
-} from "@egovernments/digit-ui-components-core";
+} from "@egovernments/digit-ui-components";
 import React from "react";
 import { useTranslation } from "react-i18next";
 

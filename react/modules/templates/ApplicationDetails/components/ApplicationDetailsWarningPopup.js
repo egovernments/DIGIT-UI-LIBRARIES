@@ -2,7 +2,7 @@ import {
   ButtonSelector,
   Row,
 } from "@egovernments/digit-ui-react-components";
-import { Card, Modal } from "@egovernments/digit-ui-components-core";
+import { Card, Modal } from "@egovernments/digit-ui-components";
 import React from "react";
 import { useTranslation } from "react-i18next";
 

@@ -7,7 +7,7 @@ import {
 import {
   MultiUploadWrapper,
   LabelFieldPair
-} from "@egovernments/digit-ui-components-core";
+} from "@egovernments/digit-ui-components";
 import DocumentsPreview from "./DocumentsPreview";
 
 function SelectDocument({

@@ -1,4 +1,4 @@
-import {CardText, SVG, Modal} from "@egovernments/digit-ui-components-core";
+import {CardText, SVG, Modal} from "@egovernments/digit-ui-components";
 import React from "react";
 import { useTranslation } from "react-i18next";
 

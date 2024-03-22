@@ -1,5 +1,5 @@
 import { UploadFile } from "@egovernments/digit-ui-react-components";
-import { Dropdown } from "@egovernments/digit-ui-components-core";
+import { Dropdown } from "@egovernments/digit-ui-components";
 import React from "react";
 
 export const configNOCApproverApplication = ({

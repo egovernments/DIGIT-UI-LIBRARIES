@@ -15,7 +15,7 @@ import {
   PropertyHouse,
   ReceiptIcon,
   CaseIcon,
-} from "@egovernments/digit-ui-components-core";
+} from "@egovernments/digit-ui-components";
 import ReactTooltip from "react-tooltip";
 import { set } from "lodash";
 import { useHistory, useLocation, Link } from "react-router-dom";
