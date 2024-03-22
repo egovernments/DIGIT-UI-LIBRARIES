@@ -1,4 +1,5 @@
-import {EmployeeModuleCard, ProjectIcon} from "@egovernments/digit-ui-react-components";
+import {EmployeeModuleCard} from "@egovernments/digit-ui-react-components";
+import {ProjectIcon} from "@egovernments/digit-ui-components-core";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
