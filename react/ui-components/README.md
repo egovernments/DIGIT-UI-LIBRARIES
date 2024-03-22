@@ -1,6 +1,5 @@
-<!-- TODO: update this -->
 
-# digit-ui-components-core
+# digit-ui-components
 
 ## Install
 
@@ -68,7 +67,7 @@ Digit Core Repo (https://github.com/egovernments/Core-Platform/tree/digit-ui-cor
 
 # Contributors
 
-[nabeelmd-egov] [anilsingha-eGov] [nipunarora-eGov] [jagankumar-egov]
+[nabeelmd-egov] [anilsingha-eGov] [nipunarora-eGov] [swathi-egov] [jagankumar-egov]
 
 # Reference
 
