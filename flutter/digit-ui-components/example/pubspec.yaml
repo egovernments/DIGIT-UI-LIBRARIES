@@ -1,0 +1,55 @@
+name: example
+description: A new Flutter project.
+publish_to: 'none'
+version: 1.0.0
+
+environment:
+  sdk: '>=2.19.4 <=4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+  digit_ui_components: 0.0.2-beta
+  collection: ^1.16.0
+  reactive_forms: ^14.1.0
+  flutter_keyboard_visibility: ^5.4.0
+  material_design_icons_flutter: ^7.0.7296
+  expandable: ^5.0.1
+  geolocator: ^10.1.0
+  url_strategy: ^0.2.0
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: 2.0.3
+  freezed: ^2.1.0+1
+  build_runner: ^2.2.1
+  json_serializable: ^6.4.0
+  bloc_test: ^9.1.0
+  flutter_launcher_icons: ^0.13.1
+  widgetbook: ^3.4.1
+
+flutter:
+  assets:
+    - assets/icons/svg/
+
+  fonts:
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/Roboto/Roboto-Regular.ttf
+
+    - family: Roboto Italic
+      fonts:
+        - asset: assets/fonts/Roboto/Roboto-Italic.ttf
+
+    - family: Roboto Bold
+      fonts:
+        - asset: assets/fonts/Roboto/Roboto-Bold.ttf
+
+    - family: TextArea
+      fonts:
+        - asset: assets/fonts/TextArea.ttf
+
+  uses-material-design: true
