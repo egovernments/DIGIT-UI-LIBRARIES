@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import isEqual from "lodash/isEqual";
+import StringManipulator from "./StringManipulator";
 import { useTranslation } from "react-i18next";
 
 const RadioButtons = (props) => {
@@ -10,7 +11,6 @@ const RadioButtons = (props) => {
   function selectOption(value) {
     props.onSelect(value);
   }
-
 
   return (
     <div style={props?.style} className={`digit-radio-wrap ${props?.additionalWrapperClass ? props?.additionalWrapperClass : ""}`}>
@@ -31,7 +31,7 @@ const RadioButtons = (props) => {
                 />
                 <span className="digit-radio-btn-checkmark"></span>
               </span>
-              <label style={props.inputStyle}>{t(option[props.optionsKey])}</label>
+              <label style={props.inputStyle}>{t(StringManipulator('toSentenceCase', option[props.optionsKey]))}</label>
             </div>
           );
         } else if (props?.optionsKey && props?.isDependent) {
@@ -50,7 +50,7 @@ const RadioButtons = (props) => {
                 />
                 <span className="digit-radio-btn-checkmark"></span>
               </span>
-              <label style={props.inputStyle}>{t(props.labelKey ? `${props.labelKey}_${option.code}` : option.code)}</label>
+              <label style={props.inputStyle}>{t(props.labelKey ? `${props.labelKey}_${option.code}` : StringManipulator('toSentenceCase', option.code))}</label>
             </div>
           );
         } else {
@@ -69,7 +69,7 @@ const RadioButtons = (props) => {
                 />
                 <span className="digit-radio-btn-checkmark"></span>
               </span>
-              <label style={props.inputStyle}>{t(option)}</label>
+              <label style={props.inputStyle}>{t(StringManipulator('toSentenceCase', option))}</label>
             </div>
           );
         }

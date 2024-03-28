@@ -41,6 +41,7 @@ const Template = (args) => {
     }
   };
 
+
   return <FieldV1 {...args} value={value} onChange={handleInputChange} type={type} />;
 };
 
@@ -64,13 +65,11 @@ const commonArgs = {
     editableTime:false,
     editableDate:false,
   },
-  value: "",
   error: "",
   label: "",
   disabled: false,
   nonEditable: false,
   placeholder: "",
-  inline: false,
   required: false,
   description: "",
   charCount: false,

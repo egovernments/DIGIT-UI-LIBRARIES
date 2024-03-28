@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { SVG } from "./SVG";
 import Button from "./Button";
+import StringManipulator from "./StringManipulator";
 
 const Toast = (props) => {
   const [isVisible, setIsVisible] = useState(true);
@@ -23,8 +24,18 @@ const Toast = (props) => {
     setIsVisible(false);
   };
 
-  const variant = props?.error ? "digit-error" : props?.warning ? "digit-warning" : props?.variant ? props?.variant : "";
-  const isWarningButtons = props?.isWarningButtons ? "digit-warning-buttons" : "";
+  const variant = props?.error
+    ? "digit-error"
+    : props?.warning
+    ? "digit-warning"
+    : props?.variant
+    ? props?.variant
+    : "";
+  const isWarningButtons = props?.isWarningButtons
+    ? "digit-warning-buttons"
+    : "";
+
+  const sentenceCaseLabel = StringManipulator("toSentenceCase", props.label);
 
   if (!isVisible) {
     return null;
@@ -32,12 +43,20 @@ const Toast = (props) => {
 
   if (props.error) {
     return (
-      <div className={`digit-toast-success ${variant}`} style={{ ...props.style }}>
+      <div
+        className={`digit-toast-success ${variant}`}
+        style={{ ...props.style }}
+      >
         <SVG.Error fill="#FFFFFF" />
         <div style={{ ...props.labelstyle }} className="toast-label">
-          {props.label}
+          {sentenceCaseLabel}
         </div>
-        <SVG.Close fill="#FFFFFF" className="digit-toast-close-btn" onClick={props.onClose ? props.onClose : handleClose} />
+        <SVG.Close
+          fill="#FFFFFF"
+          className="digit-toast-close-btn"
+          style={{ cursor: "pointer" }}
+          onClick={props.onClose ? props.onClose : handleClose}
+        />
       </div>
     );
   }
@@ -45,23 +64,36 @@ const Toast = (props) => {
   if (props.warning) {
     return (
       <div>
-        <div className={`digit-toast-success ${variant} ${isWarningButtons}`} style={{ ...props.style }}>
+        <div
+          className={`digit-toast-success ${variant} ${isWarningButtons}`}
+          style={{ ...props.style }}
+        >
           {!props?.isWarningButtons ? (
             <>
               <SVG.Warning fill="#FFFFFF" />
               <div className="toast-label" style={{ ...props.labelstyle }}>
-                {props.label}
+                {sentenceCaseLabel}
               </div>
-              <SVG.Close fill="#FFFFFF" className="digit-toast-close-btn" onClick={props.onClose ? props.onClose : handleClose} />
+              <SVG.Close
+                fill="#FFFFFF"
+                className="digit-toast-close-btn"
+                style={{ cursor: "pointer" }}
+                onClick={props.onClose ? props.onClose : handleClose}
+              />
             </>
           ) : (
             <div className="digit-toast-sub-container">
               <SVG.Error fill="#FFFFFF" />
               <div className="toast-label" style={{ ...props.labelstyle }}>
-                {props.label}
+                {sentenceCaseLabel}
               </div>
               {props.isDleteBtn ? (
-                <SVG.Close fill="#FFFFFF" className="digit-toast-close-btn" onClick={props.onClose ? props.onClose : handleClose} />
+                <SVG.Close
+                  fill="#FFFFFF"
+                  className="digit-toast-close-btn"
+                  style={{ cursor: "pointer" }}
+                  onClick={props.onClose ? props.onClose : handleClose}
+                />
               ) : null}
             </div>
           )}
@@ -80,9 +112,14 @@ const Toast = (props) => {
     <div className="digit-toast-success" style={{ ...props.style }}>
       <SVG.CheckCircle fill="#FFFFFF" />
       <div className="toast-label" style={{ ...props.labelstyle }}>
-        {props.label}
+        {sentenceCaseLabel}
       </div>
-      <SVG.Close fill="#FFFFFF" className="digit-toast-close-btn" onClick={props.onClose ? props.onClose : handleClose} />
+      <SVG.Close
+        fill="#FFFFFF"
+        className="digit-toast-close-btn"
+        style={{ cursor: "pointer" }}
+        onClick={props.onClose ? props.onClose : handleClose}
+      />
     </div>
   );
 };

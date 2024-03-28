@@ -1,8 +1,7 @@
 @import url("../index.scss");
 
 .digit-radio-wrap {
-  @apply leading-10 flex justify-start;
-  gap: "3rem";
+  @apply leading-10 flex justify-between flex-wrap;
   margin-bottom: 0.5rem;
 
   @media (max-width: 30rem) {
@@ -32,8 +31,9 @@
   }
 
   .radio-option-container {
-    @apply inline-flex items-center;
+    @apply inline-flex;
     gap: 0.5rem;
+    align-items: self-start;
 
     &.disabled {
       .digit-radio-btn-checkmark {
@@ -60,8 +60,13 @@
 
   }
 
+  .radio-option-container label:only-child {
+    align-items: flex-start;
+  }
+
   .digit-radio-btn {
-    @apply opacity-0 absolute cursor-pointer h-10 w-10;
+    @apply opacity-0 absolute cursor-pointer h-6 w-6;
+    margin: 0rem;
   }
 
   .digit-radio-btn-checkmark {
@@ -73,6 +78,8 @@
     @extend .typography.body-s;
     line-height: 1.172rem;
     color: theme(digitv2.lightTheme.text-primary);
+    overflow-wrap: anywhere;
+    margin-top: 0.25rem;
   }
 
   .digit-radio-btn-checkmark:after {

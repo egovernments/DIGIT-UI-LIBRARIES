@@ -36,14 +36,14 @@
     border: 0.094rem solid theme(digitv2.lightTheme.alert-error);
   }
 
+  &:hover {
+    overflow-y: auto;
+  }
+
   &.resize-smart {
     min-height: 6rem;
     overflow: hidden;
     resize: none;
-  }
-
-  &:hover {
-    overflow-y: auto;
   }
 }
 
@@ -94,4 +94,11 @@ textarea::-webkit-scrollbar-thumb:hover {
 .digit-employee-card-textarea:focus {
   border: 0.094rem solid theme(digitv2.lightTheme.primary-orange);
   overflow-y: auto;
+}
+
+.digit-card-textarea.resize-smart:focus,
+.digit-employee-card-textarea.resize-smart:focus,
+.digit-card-textarea.resize-smart:hover,
+.digit-employee-card-textarea.resize-smart:hover  {
+  overflow: hidden; 
 }
