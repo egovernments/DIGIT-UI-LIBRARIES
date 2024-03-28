@@ -10,7 +10,7 @@
   background-color: #C7E0F1;
 
   div {
-    @apply flex items-center;
+    @apply flex;
     gap: 0.5rem;
     min-height: 1.5rem;
 
@@ -27,9 +27,9 @@
     font-size: 1rem;
     line-height: 1.172rem;
     letter-spacing: 0rem;
-    margin: 0rem;
-    text-overflow: ellipsis;
-    margin-top: 0.165rem;
+    margin: 0.164rem 0rem;
+    white-space: normal;
+    word-break: break-word;
   }
 
   p {
