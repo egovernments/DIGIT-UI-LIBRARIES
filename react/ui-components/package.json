@@ -15,6 +15,7 @@
     "build": "microbundle-crl --compress --no-sourcemap --format cjs",
     "start": "microbundle-crl watch --no-compress --format modern,cjs",
     "prepare": "yarn build",
+    "publish:components": "npm publish --tag core-v0.1",
     "predeploy": "cd example && yarn install && yarn run build",
     "deploy": "gh-pages -d example/build",
     "storybook": "start-storybook -p 6006 -s public",
@@ -50,7 +51,7 @@
     "dist"
   ],
   "dependencies": {
-    "@egovernments/digit-ui-css": "1.8.2-coreui.1",
+    "@egovernments/digit-ui-css": "1.8.2-coreui.2",
     "@egovernments/digit-ui-libraries": "1.8.1-beta.1",
     "@egovernments/digit-ui-svg-components": "1.0.4",
     "@googlemaps/js-api-loader": "1.13.10",
