@@ -87,6 +87,15 @@ const TreeMultiSelect = ({ option, onSelect, isSelected, renderOptions, level = 
 
   const allChildrenSelected = option.options && option.options.every((child) => isSelected(child));
 
+  const isIntermediate = () => {
+    if (option.options) {
+      const selectedOptions = getFlattenedOptions(option.options);
+      const someChildrenSelected = selectedOptions.some((child) => isSelected(child));
+      return someChildrenSelected && !allChildrenSelected;
+    }
+    return false;
+  };
+
   useEffect(() => {
     if (allChildrenSelected && !isSelected(option)) {
       // If all children are selected and the current option is not selected, select the option.
@@ -97,14 +106,7 @@ const TreeMultiSelect = ({ option, onSelect, isSelected, renderOptions, level = 
     }
   }, [allChildrenSelected, isSelected, isIntermediate, option, onSelect]);
 
-  const isIntermediate = () => {
-    if (option.options) {
-      const selectedOptions = getFlattenedOptions(option.options);
-      const someChildrenSelected = selectedOptions.some((child) => isSelected(child));
-      return someChildrenSelected && !allChildrenSelected;
-    }
-    return false;
-  };
+
   return (
     <div style={{ marginLeft: `${level !== 0 ? 22 : 0}px` }} className={`container ${level === 0 ? "outerlevel" : "innerlevel"}`}>
       <div

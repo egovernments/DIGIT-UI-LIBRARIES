@@ -12,12 +12,12 @@ const BreadCrumb = (props) => {
         if (!crumb?.show) return;
         if (crumb?.isBack)
           return (
-            <li key={ci} style={props?.style} className="digit-bread-crumb--item">
+            <li key={ci} style={props?.itemStyle} className="digit-bread-crumb--item">
               <span onClick={() => window.history.back()}>{crumb.content}</span>
             </li>
           );
         return (
-          <li key={ci} style={props?.style} className="digit-bread-crumb--item">
+          <li key={ci} style={props?.itemStyle} className="digit-bread-crumb--item">
             {isLast(ci) || !crumb?.path ? (
               <span className="last" style={props?.spanStyle}>
                 {crumb.content}

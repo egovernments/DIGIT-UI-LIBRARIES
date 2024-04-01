@@ -12,6 +12,15 @@ export const newConfig = [
       },
       {
         inline: true,
+        label: "With InnerLabel",
+        isMandatory: false,
+        type: "text",
+        disable: false,
+        placeholder:"Inner label",
+        populators: { name: "text-With InnerLabel", error: "Error!"},
+      },
+      {
+        inline: true,
         label: "Disabled",
         isMandatory: false,
         type: "text",
@@ -33,7 +42,7 @@ export const newConfig = [
         isMandatory: true,
         type: "text",
         disable: false,
-        populators: { name: "text-Error", error: "Error!" },
+        populators: { name: "text-Error", error: "This field is mandatory!" },
       },
       {
         inline: true,
@@ -79,7 +88,7 @@ export const newConfig = [
         isMandatory: true,
         type: "text",
         disable: false,
-        populators: { name: "text-Mandatory", error: "Required" },
+        populators: { name: "text-Mandatory", error: "This field is mandatory!" },
       },
       {
         inline: true,
@@ -114,7 +123,7 @@ export const newConfig = [
         isMandatory: true,
         type: "text",
         disable: false,
-        populators: { name: "text-With Validation", error: "Error!", validation: { minlength: 2, maxlength: 10 } },
+        populators: { name: "text-With Validation", error: "Enter minimum two characters", validation: { minlength: 2, maxlength: 10 } },
       },
       {
         inline: true,
@@ -141,7 +150,7 @@ export const newConfig = [
         infoMessage: "Complete text field",
         description: "Help Text",
         charCount: true,
-        populators: { name: "text-Complete", error: "Required" ,wrapLabel:true},
+        populators: { name: "text-Complete", error: "This field is mandatory!" ,wrapLabel:true},
       },
       {
         inline: true,
@@ -207,6 +216,16 @@ export const newConfig = [
       },
       {
         inline: true,
+        label: "With Innerlabel",
+        isMandatory: false,
+        description: "",
+        type: "date",
+        disable: false,
+        placeholder:"date",
+        populators: { name: "date-With Innerlabel", error: "Error!" },
+      },
+      {
+        inline: true,
         label: "Disabled",
         isMandatory: false,
         description: "",
@@ -231,7 +250,7 @@ export const newConfig = [
         description: "",
         type: "date",
         disable: false,
-        populators: { name: "date-Error", error: "Error!" },
+        populators: { name: "date-Error", error: "This field is mandatory!" },
       },
       {
         inline: true,
@@ -268,6 +287,16 @@ export const newConfig = [
       },
       {
         inline: true,
+        label: "With Innerlabel",
+        isMandatory: false,
+        description: "",
+        type: "time",
+        disable: false,
+        placeholder:"time",
+        populators: { name: "time-With Innerlabel", error: "Error!" },
+      },
+      {
+        inline: true,
         label: "Disabled",
         isMandatory: false,
         description: "",
@@ -292,7 +321,7 @@ export const newConfig = [
         description: "",
         type: "time",
         disable: false,
-        populators: { name: "time-Error", error: "Error!" },
+        populators: { name: "time-Error", error: "This field is mandatory!" },
       },
       {
         inline: true,
@@ -329,6 +358,16 @@ export const newConfig = [
       },
       {
         inline: true,
+        label: "With Innerlabel",
+        isMandatory: false,
+        description: "",
+        type: "geolocation",
+        disable: false,
+        placeholder:"Innerlabel",
+        populators: { name: "geolocation-With Innerlabel", error: "Error!" },
+      },
+      {
+        inline: true,
         label: "Disabled",
         isMandatory: false,
         description: "",
@@ -353,7 +392,7 @@ export const newConfig = [
         description: "",
         type: "geolocation",
         disable: false,
-        populators: { name: "geolocation-Error", error: "Error!" },
+        populators: { name: "geolocation-Error", error: "This field is mandatory!" },
       },
       {
         inline: true,
@@ -378,6 +417,16 @@ export const newConfig = [
         type: "numeric",
         disable: false,
         populators: { name: "numeric-Default", error: "Error!" },
+      },
+      {
+        inline: true,
+        label: "With Innerlabel",
+        isMandatory: false,
+        description: "",
+        type: "numeric",
+        disable: false,
+        placeholder:0,
+        populators: { name: "numeric-With Innerlabel", error: "Error!" },
       },
       {
         inline: true,
@@ -415,7 +464,7 @@ export const newConfig = [
         description: "",
         type: "numeric",
         disable: false,
-        populators: { name: "numeric-Error", error: "Error!" },
+        populators: { name: "numeric-Error", error: "This field is mandatory!" },
       },
       {
         inline: true,
@@ -440,6 +489,16 @@ export const newConfig = [
         type: "text",
         disable: false,
         populators: { name: "prefix-Default", error: "Error!", prefix: "₹" },
+      },
+      {
+        inline: true,
+        label: "With Innerlabel",
+        isMandatory: false,
+        description: "",
+        type: "text",
+        disable: false,
+        placeholder:"Prefix",
+        populators: { name: "prefix-With Innerlabel", error: "Error!", prefix: "₹" },
       },
       {
         inline: true,
@@ -476,7 +535,7 @@ export const newConfig = [
         description: "",
         type: "text",
         disable: false,
-        populators: { name: "prefix-Error", error: "Error!", prefix: "₹" },
+        populators: { name: "prefix-Error", error: "This field is mandatory!", prefix: "₹" },
       },
       {
         inline: true,
@@ -514,6 +573,16 @@ export const newConfig = [
       },
       {
         inline: true,
+        label: "With Innerlabel",
+        isMandatory: false,
+        description: "",
+        type: "text",
+        disable: false,
+        placeholder:"suffix",
+        populators: { name: "suffix-With Innerlabel", error: "Error!", suffix: "₹" },
+      },
+      {
+        inline: true,
         label: "Large Suffix",
         isMandatory: false,
         description: "",
@@ -547,7 +616,7 @@ export const newConfig = [
         description: "",
         type: "text",
         disable: false,
-        populators: { name: "suffix-Error", error: "Error!", suffix: "₹" },
+        populators: { name: "suffix-Error", error: "This field is mandatory!", suffix: "₹" },
       },
       {
         inline: true,
@@ -585,6 +654,16 @@ export const newConfig = [
       },
       {
         inline: true,
+        label: "With Innerlabel",
+        isMandatory: false,
+        description: "",
+        type: "password",
+        disable: false,
+        placeholder:"Password",
+        populators: { name: "password-With Innerlabel", error: "Error!" },
+      },
+      {
+        inline: true,
         label: "Disabled",
         isMandatory: false,
         description: "",
@@ -609,7 +688,7 @@ export const newConfig = [
         description: "",
         type: "password",
         disable: false,
-        populators: { name: "password-Error", error: "Error!" },
+        populators: { name: "password-Error", error: "This field is mandatory!" },
       },
       {
         inline: true,
@@ -655,6 +734,16 @@ export const newConfig = [
       },
       {
         inline: true,
+        label: "With Innerlabel",
+        isMandatory: false,
+        description: "",
+        type: "search",
+        disable: false,
+        placeholder:"Inner label",
+        populators: { name: "search-With Innerlabel", error: "Error!" },
+      },
+      {
+        inline: true,
         label: "Disabled",
         isMandatory: false,
         description: "",
@@ -679,7 +768,7 @@ export const newConfig = [
         description: "",
         type: "search",
         disable: false,
-        populators: { name: "search-Error", error: "Error!" },
+        populators: { name: "search-Error", error: "This field is mandatory!" },
       },
       {
         inline: true,
@@ -717,6 +806,15 @@ export const newConfig = [
       },
       {
         inline: true,
+        label: "With InnerLabel",
+        placeholder: "Innerlabel",
+        isMandatory: false,
+        type: "textarea",
+        disable: false,
+        populators: { name: "textarea-With InnerLabel", error: "Error!" },
+      },
+      {
+        inline: true,
         label: "Smart Resize",
         isMandatory: false,
         description: "",
@@ -750,7 +848,7 @@ export const newConfig = [
         description: "",
         type: "textarea",
         disable: false,
-        populators: { name: "textarea-Error", error: "Error!" },
+        populators: { name: "textarea-Error", error: "This field is mandatory!" },
       },
       {
         inline: true,
@@ -788,7 +886,7 @@ export const newConfig = [
         disable: false,
         description: "Help text",
         charCount: true,
-        populators: { name: "textarea-With Des&Err", error: "Error!" },
+        populators: { name: "textarea-With Des&Err", error: "This field is mandatory!" },
       },
       {
         inline: true,
@@ -796,7 +894,7 @@ export const newConfig = [
         isMandatory: true,
         type: "textarea",
         disable: false,
-        populators: { name: "textarea-Mandatory", error: "Required" },
+        populators: { name: "textarea-Mandatory", error: "This field is mandatory" },
       },
       {
         inline: true,
@@ -814,16 +912,7 @@ export const newConfig = [
         type: "textarea",
         disable: false,
         infoMessage: "Textare field information",
-        populators: { name: "textarea-Info&Mandatory", error: "Required" },
-      },
-      {
-        inline: true,
-        label: "With InnerLabel",
-        placeholder: "Description",
-        isMandatory: false,
-        type: "textarea",
-        disable: false,
-        populators: { name: "textarea-With InnerLabel", error: "Error!" },
+        populators: { name: "textarea-Info&Mandatory", error: "This field is mandatory" },
       },
       {
         inline: true,
@@ -843,7 +932,7 @@ export const newConfig = [
         infoMessage: "Textare field complete",
         description: "Help Text",
         charCount: true,
-        populators: { name: "textarea-Complete", error: "Required" },
+        populators: { name: "textarea-Complete", error: "This field is mandatory" },
       },
       {
         inline: true,
@@ -905,7 +994,7 @@ export const newConfig = [
         populators: {
           name: "radio-Error",
           optionsKey: "name",
-          error: "Error!",
+          error: "This field is mandatory!",
           required: true,
           mdmsConfig: {
             masterName: "GenderType",
@@ -1050,7 +1139,7 @@ export const newConfig = [
         populators: {
           name: "dropdown-Error",
           optionsKey: "name",
-          error: "Error!",
+          error: "This field is mandatory!",
           required: true,
           mdmsConfig: {
             masterName: "GenderType",
@@ -1192,7 +1281,7 @@ export const newConfig = [
         populators: {
           name: "nesteddropdown-Error",
           optionsKey: "name",
-          error: "Error!",
+          error: "This field is mandatory!",
           required: true,
           options: [
             {
@@ -1417,7 +1506,7 @@ export const newConfig = [
         populators: {
           name: "treedropdown-Error",
           optionsKey: "name",
-          error: "Error!",
+          error: "This field is mandatory!",
           required: true,
           options: [
             {
@@ -1542,7 +1631,7 @@ export const newConfig = [
         populators: {
           name: "nestedtextdropdown-Error",
           optionsKey: "name",
-          error: "Error!",
+          error: "This field is mandatory!",
           required: true,
           options: [
             {
@@ -1701,7 +1790,7 @@ export const newConfig = [
         populators: {
           name: "profiledropdown-Error",
           optionsKey: "name",
-          error: "Error!",
+          error: "This field is mandatory!",
           required: true,
           options: [
             {

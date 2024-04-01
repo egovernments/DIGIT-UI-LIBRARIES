@@ -65,6 +65,8 @@ import SearchComponent from "./SearchComponent";
 import LinkLabel from "./LinkLabel";
 import RoundedLabel from "./RoundedLabel";
 import Stepper from "./Stepper";
+import Timeline from "./Timeline";
+import StringManipulator from "./StringManipulator";
 
 import {
   AnnouncementIcon,
@@ -266,6 +268,8 @@ export {
   SubmitBar,
   ButtonSelector,
   Stepper,
+  Timeline,
+  StringManipulator,
   InboxSearchLinks,
   SearchComponent,
   LinkLabel,

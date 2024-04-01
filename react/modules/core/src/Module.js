@@ -20,6 +20,7 @@ const DigitUIWrapper = ({ stateCode, enabledModules, moduleReducers, defaultLand
   }
 
   const i18n = getI18n();
+  const data=getStore(initData, moduleReducers(initData)) || {};
   return (
     <Provider store={getStore(initData, moduleReducers(initData))}>
       <Router>
