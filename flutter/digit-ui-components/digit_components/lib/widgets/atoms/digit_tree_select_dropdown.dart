@@ -38,6 +38,7 @@ import '../../enum/app_enums.dart';
 import '../../models/DropdownModels.dart';
 import '../../models/TreeModel.dart';
 import '../../models/chipModel.dart';
+import '../../utils/utils.dart';
 import '../helper_widget/selection_chip.dart';
 import '../helper_widget/tree_node_widget.dart';
 
@@ -228,13 +229,6 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
     super.didUpdateWidget(oldWidget);
   }
 
-  /// Capitalize the first letter if required
-  String capitalizeFirstLetter(String text) {
-    if (text.isNotEmpty) {
-      return text.substring(0, 1).toUpperCase() + text.substring(1);
-    }
-    return text;
-  }
 
   /// Calculate offset size for dropdown.
   List _calculateOffsetSize() {
@@ -293,11 +287,11 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
                         child: (_selectedOptions.isNotEmpty)
                             ? (widget.treeSelectionType ==
                                     TreeSelectionType.MultiSelect)
-                                ? Text(capitalizeFirstLetter('${_selectedOptions.length} Selected'), style: currentTypography.bodyL.copyWith(
+                                ? Text(capitalizeFirstLetter('${_selectedOptions.length} Selected')!, style: currentTypography.bodyL.copyWith(
                           height: 1.5,
                           color: widget.readOnly ? const DigitColors().light.textSecondary : const DigitColors().light.textPrimary,
                         ),)
-                                : Text(capitalizeFirstLetter(_selectedOptions.first.code.toString()), style: currentTypography.bodyL.copyWith(
+                                : Text(capitalizeFirstLetter(_selectedOptions.first.code.toString())!, style: currentTypography.bodyL.copyWith(
                           height: 1.5,
                           color: widget.readOnly ? const DigitColors().light.textSecondary : const DigitColors().light.textPrimary,
                         ),)
@@ -353,8 +347,8 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
                             fit: FlexFit.tight,
                             child: Text(
                               widget.errorMessage!.length > 256
-                                  ? '${capitalizeFirstLetter(widget.errorMessage!).substring(0, 256)}...'
-                                  : capitalizeFirstLetter(widget.errorMessage!),
+                                  ? '${capitalizeFirstLetter(widget.errorMessage!)?.substring(0, 256)}...'
+                                  : capitalizeFirstLetter(widget.errorMessage!)!,
                               style: currentTypography.bodyS.copyWith(
                                 height: 1.5,
                                 color: const DigitColors().light.alertError,
@@ -367,7 +361,7 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
                   : Expanded(
                       child: Text(
                         widget.helpText!.length > 256
-                            ? '${capitalizeFirstLetter(widget.helpText!).substring(0, 256)}...'
+                            ? '${capitalizeFirstLetter(widget.helpText!)?.substring(0, 256)}...'
                             : widget.helpText!,
                         style: currentTypography.bodyS.copyWith(
                           height: 1.5,
@@ -437,7 +431,7 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
                 color: const DigitColors().light.paperSecondary,
               ),
               child: Text(
-                capitalizeFirstLetter(widget.clearAllText),
+                capitalizeFirstLetter(widget.clearAllText)!,
                 style: currentTypography.bodyS.copyWith(
                   color: const DigitColors().light.primaryOrange,
                   height: 1,

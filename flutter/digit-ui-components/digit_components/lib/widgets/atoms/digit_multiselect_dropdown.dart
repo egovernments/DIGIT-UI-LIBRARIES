@@ -41,6 +41,7 @@ import '../../constants/app_constants.dart';
 import '../../enum/app_enums.dart';
 import '../../models/DropdownModels.dart';
 import '../../models/chipModel.dart';
+import '../../utils/utils.dart';
 import '../helper_widget/dropdown_options.dart';
 import '../helper_widget/selection_chip.dart';
 
@@ -553,14 +554,6 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
     }
   }
 
-  /// Capitalize the first letter if required
-  String capitalizeFirstLetter(String text) {
-    if (text.isNotEmpty) {
-      return text.substring(0, 1).toUpperCase() + text.substring(1);
-    }
-    return text;
-  }
-
   /// Container decoration for disabled dropdown.
   Decoration _getDisabledContainerDecoration() {
     return BoxDecoration(
@@ -829,7 +822,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                 padding: const EdgeInsets.all(10),
                 color: const DigitColors().light.paperSecondary,
                 child: Text(
-                  capitalizeFirstLetter(type),
+                  capitalizeFirstLetter(type)!,
                   style: currentTypography.headingS.copyWith(
                     color: const DigitColors().light.textSecondary,
                   ),
@@ -949,7 +942,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                 color: const DigitColors().light.paperSecondary,
               ),
               child: Text(
-                capitalizeFirstLetter(widget.clearAllText),
+                capitalizeFirstLetter(widget.clearAllText)!,
                 style: currentTypography.bodyS.copyWith(
                   color: const DigitColors().light.primaryOrange,
                   height: 1,

@@ -4,6 +4,7 @@ import '../../constants/AppView.dart';
 import '../../theme/colors.dart';
 import '../../theme/digit_theme.dart';
 import '../../theme/typography.dart';
+import '../../utils/utils.dart';
 
 class InfoCard extends StatelessWidget {
   final String title;
@@ -26,14 +27,6 @@ class InfoCard extends StatelessWidget {
     this.inline = false,
   });
 
-  /// Capitalize the first letter if required
-  String capitalizeFirstLetter(String text) {
-    if (text.isNotEmpty) {
-      return text.substring(0, 1).toUpperCase() + text.substring(1);
-    }
-    return text;
-  }
-
   @override
   Widget build(BuildContext context) {
     IconData selectedIcon;
@@ -46,8 +39,8 @@ class InfoCard extends StatelessWidget {
             ? 360
             : 400;
 
-    String capitalizedHeading = capitalizeFirstLetter(title);
-    String capitalizedDescription = capitalizeFirstLetter(description);
+    String capitalizedHeading = capitalizeFirstLetter(title)!;
+    String capitalizedDescription = capitalizeFirstLetter(description)!;
 
     /// Choose icon and color based on InfoType
     switch (type) {

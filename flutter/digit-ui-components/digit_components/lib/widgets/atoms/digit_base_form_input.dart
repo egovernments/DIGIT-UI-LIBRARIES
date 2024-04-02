@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import '../../constants/AppView.dart';
 import '../../constants/app_constants.dart';
 import '../../enum/app_enums.dart';
+import '../../utils/utils.dart';
 import '../../utils/validators/validator.dart';
 
 /// `BaseDigitFormInput` is a base class for different form input fields. It provides a set of customizable
@@ -181,13 +182,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
 
   String? _errorMessage;
 
-  /// Capitalize the first letter if required
-  String? capitalizeFirstLetter(String? text) {
-    if (text != null && text.isNotEmpty && widget.capitalizeFirstLetter) {
-      return text.substring(0, 1).toUpperCase() + text.substring(1);
-    }
-    return text;
-  }
+
 
   void onFocusChange() {
     if (!myFocusNode.hasFocus) {

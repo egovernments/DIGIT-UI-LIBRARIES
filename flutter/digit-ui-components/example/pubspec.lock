@@ -245,10 +245,10 @@ packages:
     dependency: "direct main"
     description:
       name: digit_ui_components
-      sha256: "498d23e641f39a05d2ed2a3e18485cd972e7a528ac6b5bb48dd2eed25d4234f3"
+      sha256: d6720339263e48951e747aed31f45795ab7d7b4f0923e0fe13d63c4f83c41d97
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.2-beta"
+    version: "0.0.3-beta"
   easy_stepper:
     dependency: transitive
     description:

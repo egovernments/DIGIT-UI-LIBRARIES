@@ -23,6 +23,7 @@ import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/material.dart';
 import '../../constants/app_constants.dart';
 import '../../enum/app_enums.dart';
+import '../../utils/utils.dart';
 import 'digit_checkbox_icon.dart';
 
 class DigitCheckbox extends StatefulWidget {
@@ -83,7 +84,7 @@ class _DigitCheckboxState extends State<DigitCheckbox> {
 
     /// Capitalize the first letter of the label if required
     final processedLabel = widget.capitalizeFirstLetter
-        ? widget.label.replaceRange(0, 1, widget.label[0].toUpperCase())
+        ? capitalizeFirstLetter(widget.label)
         : widget.label;
 
     return IntrinsicWidth(
@@ -139,7 +140,7 @@ class _DigitCheckboxState extends State<DigitCheckbox> {
                   child: Align(
                     alignment: Alignment.topCenter,
                     child: Text(
-                      processedLabel,
+                      processedLabel!,
                       style: currentTypography.bodyL
                           .copyWith(
                         height: 1.5,

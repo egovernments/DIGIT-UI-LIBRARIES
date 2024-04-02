@@ -1,6 +1,8 @@
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/material.dart';
 
+import '../../utils/utils.dart';
+
 /// Toggle is a custom toggle button widget that provides visual feedback on hover and supports selection.
 
 class Toggle extends StatefulWidget {
@@ -25,21 +27,7 @@ class _ToggleState extends State<Toggle> {
   bool isHovered = false;
   bool isMouseDown = false;
 
-  /// Utility function to capitalize the first letter of every word
-  String capitalizeFirstLetterOfEveryWord(String text) {
-    List<String> words = text.split(' ');
-    List<String> capitalizedWords = [];
 
-    for (String word in words) {
-      if (word.isNotEmpty) {
-        String capitalizedWord =
-            word[0].toUpperCase() + word.substring(1).toLowerCase();
-        capitalizedWords.add(capitalizedWord);
-      }
-    }
-
-    return capitalizedWords.join(' ');
-  }
 
   @override
   Widget build(BuildContext context) {

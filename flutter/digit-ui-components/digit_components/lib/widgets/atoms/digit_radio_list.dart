@@ -22,6 +22,7 @@ import 'package:flutter/material.dart';
 import '../../constants/AppView.dart';
 import '../../constants/app_constants.dart';
 import '../../models/RadioButtonModel.dart';
+import '../../utils/utils.dart';
 
 class RadioList extends StatefulWidget {
   /// List of RadioButtonModel objects representing the radio buttons
@@ -100,14 +101,6 @@ class _RadioListState extends State<RadioList> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: _buildRadioButtons(currentTypography),
     );
-  }
-
-  /// Capitalize the first letter if required
-  String capitalizeFirstLetter(String text) {
-    if (text.isNotEmpty && widget.capitalizeFirstLetter) {
-      return text.substring(0, 1).toUpperCase() + text.substring(1);
-    }
-    return text;
   }
 
   List<Widget> _buildRadioButtons(DigitTypography currentTypography) {
@@ -257,7 +250,7 @@ class _RadioListState extends State<RadioList> {
               isMobile
                   ? Expanded(
                       child: Text(
-                        capitalizeFirstLetter(button.name),
+                        capitalizeFirstLetter(button.name)!,
                         maxLines: 5,
                         overflow: TextOverflow.ellipsis,
                         style: currentTypography.bodyL.copyWith(
@@ -269,7 +262,7 @@ class _RadioListState extends State<RadioList> {
                       ),
                     )
                   : Text(
-                      capitalizeFirstLetter(button.name),
+                      capitalizeFirstLetter(button.name)!,
                       maxLines: 5,
                       overflow: TextOverflow.ellipsis,
                       style: currentTypography.bodyL.copyWith(

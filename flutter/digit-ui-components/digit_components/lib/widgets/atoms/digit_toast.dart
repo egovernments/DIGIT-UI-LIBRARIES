@@ -4,6 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../constants/AppView.dart';
 import '../../constants/app_constants.dart';
+import '../../utils/utils.dart';
 
 class Toast {
   final ToastOptions options;
@@ -31,14 +32,6 @@ class Toast {
         : AppView.isTabletView(MediaQuery.of(context).size.width)
             ? 480
             : 800;
-
-    /// Capitalize the first letter if required
-    String capitalizeFirstLetter(String text) {
-      if (text.isNotEmpty ) {
-        return text.substring(0, 1).toUpperCase() + text.substring(1);
-      }
-      return text;
-    }
 
 
     return fToast.showToast(
@@ -78,7 +71,7 @@ class Toast {
                     maxWidth:  MediaQuery.of(context).size.width- 24 - kPadding * 3 - 24,
                   ),
                   child: Text(
-                    capitalizeFirstLetter(options.message),
+                    capitalizeFirstLetter(options.message)!,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: currentTypography.captionS.copyWith(

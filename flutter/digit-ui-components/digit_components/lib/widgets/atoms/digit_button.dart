@@ -23,6 +23,7 @@ import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/material.dart';
 import '../../constants/app_constants.dart';
 import '../../enum/app_enums.dart';
+import '../../utils/utils.dart';
 
 class Button extends StatefulWidget {
   /// The text displayed on the button, representing the button's label or content.
@@ -260,7 +261,7 @@ class _ButtonState extends State<Button> {
 
       truncatedLabel = truncatedLabel.isEmpty
           ? truncatedLabel
-          : truncatedLabel[0].toUpperCase() + truncatedLabel.substring(1);
+          : capitalizeFirstLetterOfEveryWord(truncatedLabel);
     }
     return Padding(
       padding:

@@ -4,6 +4,7 @@ import '../../constants/AppView.dart';
 import '../../theme/colors.dart';
 import '../../theme/digit_theme.dart';
 import '../../theme/typography.dart';
+import '../../utils/utils.dart';
 
 class LabeledField extends StatelessWidget {
   final Widget child;
@@ -22,7 +23,7 @@ class LabeledField extends StatelessWidget {
   final bool wrapLabelText;
   final MainAxisAlignment mainAxisAlignment;
   final CrossAxisAlignment crossAxisAlignment;
-  final bool capitalizeFirstLetter;
+  final bool capitalizedFirstLetter;
 
   const LabeledField({
     super.key,
@@ -42,7 +43,7 @@ class LabeledField extends StatelessWidget {
     this.wrapLabelText = true,
     this.mainAxisAlignment = MainAxisAlignment.start,
     this.crossAxisAlignment = CrossAxisAlignment.start,
-    this.capitalizeFirstLetter = true,
+    this.capitalizedFirstLetter = true,
   });
 
   @override
@@ -51,8 +52,8 @@ class LabeledField extends StatelessWidget {
     DigitTypography currentTypography = getTypography(context);
 
     /// Capitalize the first letter of the label if required
-    final processedLabel = capitalizeFirstLetter
-        ? label?.replaceRange(0, 1, label![0].toUpperCase())
+    final processedLabel = capitalizedFirstLetter
+        ? capitalizeFirstLetter(label)
         : label;
 
     bool isMobile = AppView.isMobileView(MediaQuery.of(context).size.width);
