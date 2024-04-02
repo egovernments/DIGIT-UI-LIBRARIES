@@ -79,7 +79,7 @@ class AnotherStepper extends StatefulWidget {
 }
 
 class _AnotherStepperState extends State<AnotherStepper> {
-  late  ScrollController _scrollController= ScrollController();
+  late ScrollController _scrollController = ScrollController();
   double _lastScrollOffset = 0.0;
 
   // @override
@@ -95,8 +95,10 @@ class _AnotherStepperState extends State<AnotherStepper> {
   }
 
   void _scrollToActiveIndex() {
-    if (widget.activeIndex >= 0 && widget.activeIndex < widget.stepperList.length) {
-      double offset = widget.activeIndex * MediaQuery.of(context).size.width / 16;
+    if (widget.activeIndex >= 0 &&
+        widget.activeIndex < widget.stepperList.length) {
+      double offset =
+          widget.activeIndex * MediaQuery.of(context).size.width / 16;
       _lastScrollOffset = offset; // Store the current scroll offset
       _scrollController.animateTo(
         offset,
@@ -109,8 +111,8 @@ class _AnotherStepperState extends State<AnotherStepper> {
   @override
   Widget build(BuildContext context) {
     bool isMobile = MediaQuery.of(context).size.width < 600;
-    print(_lastScrollOffset);
-    _scrollController = ScrollController(initialScrollOffset: _lastScrollOffset);
+    _scrollController =
+        ScrollController(initialScrollOffset: _lastScrollOffset);
 
     var caa = widget.stepperDirection == Axis.horizontal
         ? CrossAxisAlignment.end
@@ -145,8 +147,10 @@ class _AnotherStepperState extends State<AnotherStepper> {
       totalLength: widget.stepperList.length,
       activeIndex: widget.activeIndex,
       isInverted: widget.inverted,
-      inActiveBarColor: widget.inActiveBarColor ?? Theme.of(context).disabledColor,
-      activeBarColor: widget.inActiveBarColor ?? Theme.of(context).colorScheme.primary,
+      inActiveBarColor:
+          widget.inActiveBarColor ?? Theme.of(context).disabledColor,
+      activeBarColor:
+          widget.inActiveBarColor ?? Theme.of(context).colorScheme.primary,
       barHeight: widget.barThickness,
       dotWidget: widget.dotWidget,
       titleTextStyle: widget.titleTextStyle,
@@ -217,6 +221,7 @@ class _HorizontalStepperItemState extends State<HorizontalStepperItem> {
         const SizedBox(height: 8),
       ],
       Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
           Expanded(
             child: Container(
@@ -269,23 +274,21 @@ class _HorizontalStepperItemState extends State<HorizontalStepperItem> {
         constraints: const BoxConstraints(
           maxWidth: 100,
         ),
-        child: Expanded(
-          child: InkWell(
-            onHover: (hover) {
-              setState(() {
-                isHover = hover;
-              });
-            },
-            onTap: widget.item.onStepTap,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: widget.isInverted
-                  ? MainAxisAlignment.start
-                  : MainAxisAlignment.end,
-              children: widget.isInverted
-                  ? getInvertedChildren(currentTypography, isHover)
-                  : getChildren(currentTypography, isHover),
-            ),
+        child: InkWell(
+          onHover: (hover) {
+            setState(() {
+              isHover = hover;
+            });
+          },
+          onTap: widget.item.onStepTap,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: widget.isInverted
+                ? MainAxisAlignment.start
+                : MainAxisAlignment.end,
+            children: widget.isInverted
+                ? getInvertedChildren(currentTypography, isHover)
+                : getChildren(currentTypography, isHover),
           ),
         ),
       );
