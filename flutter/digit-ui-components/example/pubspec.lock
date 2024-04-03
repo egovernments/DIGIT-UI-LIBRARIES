@@ -244,10 +244,9 @@ packages:
   digit_ui_components:
     dependency: "direct main"
     description:
-      name: digit_ui_components
-      sha256: d6720339263e48951e747aed31f45795ab7d7b4f0923e0fe13d63c4f83c41d97
-      url: "https://pub.dev"
-    source: hosted
+      path: "../digit_components"
+      relative: true
+    source: path
     version: "0.0.3-beta"
   easy_stepper:
     dependency: transitive
@@ -1158,5 +1157,5 @@ packages:
     source: hosted
     version: "3.1.2"
 sdks:
-  dart: ">=3.2.0 <=3.9.0"
+  dart: ">=3.2.0 <4.0.0"
   flutter: ">=3.13.0"

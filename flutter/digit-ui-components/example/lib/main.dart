@@ -6,6 +6,7 @@ import 'package:digit_ui_components/models/TreeModel.dart';
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/models/toggleButtonModel.dart';
 import 'package:digit_ui_components/utils/validators/validator.dart';
+import 'package:digit_ui_components/widgets/atoms/digit_timeline.dart';
 import 'package:digit_ui_components/widgets/atoms/dropdown_wrapper.dart';
 import 'package:digit_ui_components/widgets/atoms/input_wrapper.dart';
 import 'package:flutter/material.dart';
@@ -1947,6 +1948,52 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 8,
                 ),
+                const DigitTimeline(
+                  currentStep: TimelineStepState.present,
+                  label: 'Current',
+                  description: '18 / 02 / 2023',
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                const DigitTimeline(
+                  currentStep: TimelineStepState.future,
+                  label: 'Future',
+                  description: '18 / 02 / 2023',
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                const DigitTimeline(
+                  currentStep: TimelineStepState.completed,
+                  label: 'Completed',
+                  description: '18 / 02 / 2023',
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                DigitTimeline(
+                  currentStep: TimelineStepState.completed,
+                  label: 'Completed',
+                  description: '18 / 02 / 2023',
+                  additionalHideWidgets: [
+                    Image.network(
+                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+                    Image.network(
+                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+                    Image.network(
+                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+                    const InfoCard(
+                        title: "Info Text",
+                        type: InfoType.error,
+                        description: 'This is the warning')
+                  ],
+                ),
+                const SizedBox(height: 8),
+                const Divider(),
+                const SizedBox(
+                  height: 8,
+                ),
                 const InfoCard(
                   title: 'Info',
                   type: InfoType.info,
@@ -1980,6 +2027,7 @@ class MyHomePageState extends State<MyHomePage> {
                   description:
                   'Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect theservice to get completed in 24 hrs from the time of payment.',
                 ),
+
               ],
             ),
           ),
