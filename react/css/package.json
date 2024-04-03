@@ -1,6 +1,6 @@
 {
   "name": "@egovernments/digit-ui-css",
-  "version": "1.8.2-coreui.1",
+  "version": "1.8.2-coreui.2",
   "license": "MIT",
   "main": "dist/index.css",
   "author": "Jagankumar <jagan.kumar@egov.org.in>",
@@ -14,6 +14,7 @@
     "start": "gulp build",
     "build:prod": "NODE_ENV=production gulp build",
     "prepublish": "yarn build:prod",
+    "publish:css": "npm publish --tag core-v0.1",
     "deploy": "gulp && cp -R svg example && cp -R img example && gh-pages -d example"
   },
   "browserslist": [
@@ -30,7 +31,7 @@
   "devDependencies": {
     "autoprefixer": "^10.0.0",
     "cssnano": "^4.1.10",
-    "gh-pages": "^3.1.0",
+    "gh-pages": "3.1.0",
     "gulp": "^4.0.2",
     "gulp-clean": "^0.4.0",
     "gulp-clean-css": "^4.3.0",
