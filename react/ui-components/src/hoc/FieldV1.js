@@ -100,12 +100,12 @@ const FieldV1 = ({
             <SVG.Info width="1rem" height="1rem" fill="#D4351C" />
           </div>
           <ErrorMessage
-            message={t(
+            message={
               StringManipulator(
                 "toSentenceCase",
-                StringManipulator("truncateString", error, { maxLength: 256 })
+                StringManipulator("truncateString", t(error), { maxLength: 256 })
               )
-            )}
+            }
           />
         </div>
       );
@@ -121,14 +121,14 @@ const FieldV1 = ({
             lineHeight: "1.5rem",
           }}
         >
-          {t(
+          {
             StringManipulator(
               "toSentenceCase",
-              StringManipulator("truncateString", description, {
+              StringManipulator("truncateString", t(description), {
                 maxLength: 256,
               })
             )
-          )}
+          }
         </CardText>
       );
     }
@@ -168,8 +168,6 @@ const FieldV1 = ({
             customIcon={populators?.customIcon}
             customClass={populators?.customClass}
             onIconSelection={populators?.onIconSelection}
-            editableDate={populators?.editableDate}
-            editableTime={populators?.editableTime}
           />
         );
       case "textarea":
@@ -373,14 +371,12 @@ const FieldV1 = ({
               }`}
             >
               {populators?.wrapLabel
-                ? t(StringManipulator("toSentenceCase", label))
-                : t(
-                    StringManipulator(
-                      "toSentenceCase",
-                      StringManipulator("truncateString", label, {
-                        maxLength: 64,
-                      })
-                    )
+                ? StringManipulator("toSentenceCase", t(label))
+                : StringManipulator(
+                    "toSentenceCase",
+                    StringManipulator("truncateString", t(label), {
+                      maxLength: 64,
+                    })
                   )}
             </div>
             <div style={{ color: "#D4351C" }}>{required ? " * " : null}</div>

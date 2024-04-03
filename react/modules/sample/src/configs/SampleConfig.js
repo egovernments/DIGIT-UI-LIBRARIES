@@ -261,16 +261,7 @@ export const newConfig = [
         disable: false,
         infoMessage: "Select the date",
         populators: { name: "date-With Info", error: "Error!" },
-      },
-      {
-        inline: true,
-        label: "EditableDate",
-        isMandatory: false,
-        description: "",
-        type: "date",
-        disable: false,
-        populators: { name: "date-EditableDate", error: "Error!" ,editableDate:true},
-      },
+      }
     ],
   },
   {
@@ -332,15 +323,6 @@ export const newConfig = [
         disable: false,
         infoMessage: "Select time",
         populators: { name: "time-With Info", error: "Error!" },
-      },
-      {
-        inline: true,
-        label: "EditableTime",
-        isMandatory: false,
-        description: "",
-        type: "time",
-        disable: false,
-        populators: { name: "time-EditableTime", error: "Error!" ,editableTime:true},
       },
     ],
   },

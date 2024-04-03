@@ -1,6 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { SVG } from "./SVG";
+import StringManipulator from "./StringManipulator";
 
 const Stepper = ({ currentStep = 1, onStepClick, totalSteps, customSteps, direction }) => {
 
@@ -29,14 +30,6 @@ const Stepper = ({ currentStep = 1, onStepClick, totalSteps, customSteps, direct
     };
   });
 
-
-  const truncateStepLabel = (stepLabel, maxLength) => {
-    if (stepLabel.length > maxLength) {
-      return stepLabel.slice(0, maxLength) + "...";
-    }
-    return stepLabel;
-  };
-
   const getAction = (totalSteps, customSteps) => {
     if (customSteps && Object.keys(customSteps).length !== 0) {
       return Object.values(customSteps);
@@ -58,7 +51,7 @@ const Stepper = ({ currentStep = 1, onStepClick, totalSteps, customSteps, direct
           }}
         >
           <div className={`digit-stepper-content ${direction ? direction : ""}`}>
-            <span className={`circle ${index <= currentStep - 1 && "active"}`}>
+            <span className={`stepper-circle ${index <= currentStep - 1 && "active"}`}>
               {index < currentStep - 1 ? (
                   <SVG.Check
                   width={isMobileView ? "18px" : "24px"}
@@ -69,11 +62,11 @@ const Stepper = ({ currentStep = 1, onStepClick, totalSteps, customSteps, direct
                 index + 1
               )}
             </span>
-            <span className={`secondary-color ${index <= currentStep - 1 && "text-done"} ${currentStep - 1 === index && "text-active"}`}>
-              {t(truncateStepLabel(action, 64))}
+            <span className={`stepper-label ${index < currentStep - 1 && "completed"} ${currentStep - 1 === index && "current"}`}>
+              {t(StringManipulator("truncateString", action, {maxLength:64}))}
             </span>
           </div>
-          {index < arr.length - 1 && <span className={`line ${index < currentStep - 1 && "active"} ${direction ? direction : ""}`}></span>}
+          {index < arr.length - 1 && <span className={`stepper-connect ${index < currentStep - 1 && "active"} ${direction ? direction : ""}`}></span>}
         </div>
       ))}
     </div>

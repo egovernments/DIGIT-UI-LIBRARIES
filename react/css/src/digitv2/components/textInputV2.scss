@@ -103,8 +103,8 @@
     filter: invert(85%) sepia(0%) saturate(337%) hue-rotate(50deg) brightness(99%) contrast(99%);
   }
 
-  input[type="date"]:in-range::-webkit-datetime-edit,
-  input[type="time"]:in-range::-webkit-datetime-edit,
+  input[type="date"][value=""]::-webkit-datetime-edit,
+  input[type="time"][value=""]::-webkit-datetime-edit,
   input[type="date"]:disabled::-webkit-datetime-edit,
   input[type="time"]:disabled::-webkit-datetime-edit,
   input[type="search"]::-webkit-search-cancel-button,
@@ -195,30 +195,6 @@
       input {
         border-left-style: hidden;
       }
-    }
-  }
-
-  &.editableTime {
-
-    input[type="time"]:in-range::-webkit-datetime-edit,
-    input[type="time"]:disabled::-webkit-datetime-edit {
-      display: block !important;
-    }
-
-    input[type="time"][value=""]:not(:placeholder-shown)::before {
-      display: none !important;
-    }
-  }
-
-  &.editableDate {
-
-    input[type="date"]:in-range::-webkit-datetime-edit,
-    input[type="date"]:disabled::-webkit-datetime-edit {
-      display: block !important;
-    }
-
-    input[type="date"][value=""]:not(:placeholder-shown)::before {
-      display: none !important;
     }
   }
 }

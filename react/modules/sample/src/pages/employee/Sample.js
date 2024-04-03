@@ -3,13 +3,12 @@ import {
   InfoCard,
   Stepper,
   Button,
-  Timeline
+  Timeline,
 } from "@egovernments/digit-ui-components";
 import { Header } from "@egovernments/digit-ui-react-components";
-import React from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { newConfig } from "../../configs/SampleConfig";
-import { useState } from "react";
 
 const Create = () => {
   const { t } = useTranslation();
@@ -186,6 +185,9 @@ const Create = () => {
     "password-Error": "password",
     "password-With Description": "password",
     "password-With InfoMessage": "password",
+
+    "date-Noneditable": "2024-04-03",
+    "time-Noneditable": "03:00",
   };
 
   const onSubmit = (data) => {
