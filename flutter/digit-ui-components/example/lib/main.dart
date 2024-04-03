@@ -1948,7 +1948,7 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 8,
                 ),
-                const DigitTimeline(
+                const Timeline(
                   currentStep: TimelineStepState.present,
                   label: 'Current',
                   description: '18 / 02 / 2023',
@@ -1956,7 +1956,7 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 8,
                 ),
-                const DigitTimeline(
+                const Timeline(
                   currentStep: TimelineStepState.future,
                   label: 'Future',
                   description: '18 / 02 / 2023',
@@ -1964,7 +1964,7 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 8,
                 ),
-                const DigitTimeline(
+                const Timeline(
                   currentStep: TimelineStepState.completed,
                   label: 'Completed',
                   description: '18 / 02 / 2023',
@@ -1972,7 +1972,7 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 8,
                 ),
-                DigitTimeline(
+                Timeline(
                   currentStep: TimelineStepState.completed,
                   label: 'Completed',
                   description: '18 / 02 / 2023',

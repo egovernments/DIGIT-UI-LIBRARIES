@@ -4,7 +4,7 @@ import '../../theme/colors.dart';
 import '../../theme/digit_theme.dart';
 import '../../theme/typography.dart';
 
-class DigitTimeline extends StatefulWidget {
+class Timeline extends StatefulWidget {
   final String label;
   final String description;
   final TimelineStepState currentStep;
@@ -13,7 +13,7 @@ class DigitTimeline extends StatefulWidget {
   final String viewDetailText;
   final String hideDetailText;
 
-  const DigitTimeline({
+  const Timeline({
     Key? key,
     required this.currentStep,
     required this.label,
@@ -25,10 +25,10 @@ class DigitTimeline extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _DigitTimelineState createState() => _DigitTimelineState();
+  _TimelineState createState() => _TimelineState();
 }
 
-class _DigitTimelineState extends State<DigitTimeline> {
+class _TimelineState extends State<Timeline> {
   bool isExpanded = false;
 
   @override
