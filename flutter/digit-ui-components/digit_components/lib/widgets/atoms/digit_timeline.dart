@@ -61,7 +61,7 @@ class _DigitTimelineState extends State<DigitTimeline> {
                       widget.description,
                       style: currentTypography.bodyS.copyWith(
                         height: 1.25,
-                        color: const DigitColors().light.textPrimary,
+                        color: const DigitColors().light.textSecondary,
                       ),
                     ),
                     const SizedBox(height: 4),
