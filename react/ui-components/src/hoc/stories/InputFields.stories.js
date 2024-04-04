@@ -8,7 +8,17 @@ export default {
     type: {
       control: {
         type: "select",
-        options: ["text", "date", "time", "geolocation", "numeric", "password", "search", "textarea","number"],
+        options: [
+          "text",
+          "date",
+          "time",
+          "geolocation",
+          "numeric",
+          "password",
+          "search",
+          "textarea",
+          "number",
+        ],
       },
     },
     disabled: { control: "boolean" },
@@ -61,9 +71,7 @@ const commonArgs = {
     onIconSelection: () => {
       console.log("Icon Clicked");
     },
-    resizeSmart:false,
-    editableTime:false,
-    editableDate:false,
+    resizeSmart: false,
   },
   error: "",
   label: "",

@@ -16,9 +16,9 @@ const TextInput = (props) => {
     : {};
 
   const handleDate = (event) => {
-    const { value } = event.target;
+    const { value } = event?.target;
     setDate(value);
-    props.onChange(value);
+    props?.onChange(value);
   };
   const incrementCount = () => {
     const newValue =
@@ -192,15 +192,24 @@ const TextInput = (props) => {
 
   const openPicker = () => {
     document.addEventListener("DOMContentLoaded", function () {
-      document
-        .querySelector('input[type="date"]')
-        .addEventListener("click", (event) => {
-          try {
-            event.target.showPicker();
-          } catch (error) {
-            window.alert(error);
-          }
-        });
+      const dateInput = document.querySelector('input[type="date"]');
+      const timeInput = document.querySelector('input[type="time"]');
+
+      const handleClick = (event) => {
+        try {
+          event.target.showPicker();
+        } catch (error) {
+          window.alert(error);
+        }
+      };
+
+      if (dateInput) {
+        dateInput.addEventListener("click", handleClick);
+      }
+
+      if (timeInput) {
+        timeInput.addEventListener("click", handleClick);
+      }
     });
   };
 
@@ -238,9 +247,7 @@ const TextInput = (props) => {
           props.error ? "error" : ""
         } ${defaultType ? defaultType : ""} ${
           props?.populators?.prefix ? "prefix" : ""
-        } ${props?.populators?.suffix ? "suffix" : ""} ${
-          props?.editableTime ? "editableTime" : ""
-        } ${props?.editableDate ? "editableDate" : ""}`}
+        } ${props?.populators?.suffix ? "suffix" : ""} `}
         style={props?.textInputStyle ? { ...props.textInputStyle } : {}}
       >
         {props.required ? (
@@ -307,8 +314,7 @@ const TextInput = (props) => {
               config={props.config}
               populators={props.populators}
               onclick={
-                (props.type === "date" && !props?.editableDate) ||
-                (props.type === "time" && !props?.editableTime)
+                props.type === "date" || props.type === "time"
                   ? openPicker()
                   : null
               }
@@ -396,8 +402,7 @@ const TextInput = (props) => {
               config={props.config}
               populators={props.populators}
               onClick={
-                (props.type === "date" && !props?.editableDate) ||
-                (props.type === "time" && !props?.editableTime)
+                props.type === "date" || props.type === "time"
                   ? openPicker()
                   : null
               }

@@ -71,7 +71,7 @@ const MultiSelectDropdown = ({
   window?.Digit?.Hooks.useClickOutside(dropdownRef, handleOutsideClickAndSubmitSimultaneously, active, { capture: true });
   const filtOptns =
     searchQuery?.length > 0
-      ? options.filter(
+      ? options?.filter(
           (option) =>
             t(option[optionsKey] && typeof option[optionsKey] == "string" && option[optionsKey].toUpperCase())
               .toLowerCase()
@@ -86,7 +86,7 @@ const MultiSelectDropdown = ({
   function onSelectToAddToQueue(...props) {
     if (variant === "treemultiselect") {
       const currentoptions = props[0];
-      currentoptions.forEach((option) => {
+      currentoptions?.forEach((option) => {
         const isAlreadySelected = alreadyQueuedSelectedState.some((selectedOption) => selectedOption.code === option.code);
         if (!isAlreadySelected) {
           dispatch({ type: "ADD_TO_SELECTED_EVENT_QUEUE", payload: [null, option] });
@@ -142,7 +142,7 @@ const MultiSelectDropdown = ({
 
   const countFinalChildOptions = (totalselectedOptions) => {
     let count = 0;
-    totalselectedOptions.forEach((option) => {
+    totalselectedOptions?.forEach((option) => {
       if (!option.propsData[1]?.options) {
         count += 1;
       }
@@ -175,7 +175,7 @@ const MultiSelectDropdown = ({
 
   const filteredOptions =
     searchQuery?.length > 0
-      ? options.filter(
+      ? options?.filter(
           (option) =>
             t(option[optionsKey] && typeof option[optionsKey] == "string" && option[optionsKey].toUpperCase())
               .toLowerCase()
@@ -185,7 +185,7 @@ const MultiSelectDropdown = ({
 
   const flattenOptions = (options) => {
     let flattened = [];
-    options.forEach((option) => {
+    options?.forEach((option) => {
       if (option.options) {
         flattened.push(option);
         flattened = flattened.concat(option.options);
@@ -222,8 +222,13 @@ const MultiSelectDropdown = ({
           alreadyQueuedSelectedState.find((selectedOption) => selectedOption.code === option.code) ? "checked" : ""
         }`}
         onMouseDown={() => setIsActive(true)}
-      onMouseUp={() => setIsActive(false)}
-      onMouseLeave={() => setIsActive(false)}
+        onMouseUp={() => setIsActive(false)}
+        onMouseLeave={() => setIsActive(false)}
+        style={
+          index === optionIndex && !alreadyQueuedSelectedState.find((selectedOption) => selectedOption.code === option.code)
+            ? { opacity: 1, backgroundColor: "#FFFAF7", border: "0.5px solid #F47738" }
+            : {}
+        }
       >
         <input
           type="checkbox"
@@ -245,7 +250,11 @@ const MultiSelectDropdown = ({
           <div style={{ display: "flex", gap: "0.25rem", alignItems: "center", width: "100%" }}>
             {config?.showIcon &&
               option?.icon &&
-              IconRender(option?.icon, isActive,alreadyQueuedSelectedState.find((selectedOption) => selectedOption.code === option.code) ? true : false)}
+              IconRender(
+                option?.icon,
+                isActive,
+                alreadyQueuedSelectedState.find((selectedOption) => selectedOption.code === option.code) ? true : false
+              )}
             <p className="digit-label">{t(option[optionsKey] && typeof option[optionsKey] == "string" && option[optionsKey])}</p>
           </div>
           {variant === "nestedtextmultiselect" && option.description && <div className="option-description">{option.description}</div>}
@@ -257,7 +266,11 @@ const MultiSelectDropdown = ({
   const Menu = () => {
     const optionsToRender = variant === "nestedmultiselect" ? flattenedOptions : filteredOptions;
 
-    return optionsToRender.map((option, index) => {
+    if (!optionsToRender) {
+      return null; 
+    }
+
+    return optionsToRender?.map((option, index) => {
       if (option.options) {
         return (
           <div key={index} className="digit-nested-category">
@@ -350,7 +363,7 @@ const MultiSelectDropdown = ({
                 border: "1px solid #F47738",
                 background: "#FAFAFA",
               }}
-              textStyles={{height:"auto",fontSize: "0.875rem", fontWeight: "400", width: "100%", lineHeight: "16px", color: "#F47738" }}
+              textStyles={{ height: "auto", fontSize: "0.875rem", fontWeight: "400", width: "100%", lineHeight: "16px", color: "#F47738" }}
             />
           )}
         </div>
