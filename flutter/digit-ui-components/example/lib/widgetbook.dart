@@ -5,8 +5,10 @@ import 'package:digit_flutter_components/models/RadioButtonModel.dart';
 import 'package:digit_flutter_components/models/TreeModel.dart';
 import 'package:digit_flutter_components/models/toggleButtonModel.dart';
 import 'package:digit_flutter_components/utils/validators/validator.dart';
+import 'package:digit_flutter_components/widgets/atoms/file_uploaded.dart';
 import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
+import 'dart:io';
 
 void main() {
   runApp(const HotReload());
@@ -2377,6 +2379,26 @@ inverted: true,
                     label: 'Future',
                     description: '18 / 02 / 2023',
                   ),
+                ),
+              ],
+            ),
+          ],
+        ),
+        WidgetbookFolder(
+          name: 'Uploader',
+          children: [
+            WidgetbookComponent(
+              name: 'file uploader',
+              useCases: [
+                WidgetbookUseCase(
+                    name: 'Default',
+                    builder: (context) =>  FileUploadWidget(
+                      label: 'Upload', onFilesSelected: (List<File> files) {  },
+                      // onFileSelected: (File file) {
+                      //   // Handle the selected file here
+                      //   // print('File path: ${file.path}');
+                      // },
+                    ),
                 ),
               ],
             ),

@@ -90,7 +90,7 @@ class _AnotherStepperState extends State<AnotherStepper> {
 
   @override
   void didUpdateWidget(covariant AnotherStepper oldWidget) {
-    super.didUpdateWidget(oldWidget);
+    // super.didUpdateWidget(oldWidget);
     _scrollToActiveIndex();
   }
 
@@ -204,20 +204,22 @@ class _HorizontalStepperItemState extends State<HorizontalStepperItem> {
     return [
       if (widget.item.title != null) ...[
         SizedBox(
-            child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Text(
-            widget.item.title!,
-            textAlign: TextAlign.center,
-            maxLines: 3,
-            overflow: TextOverflow.ellipsis,
-            style: widget.index == widget.activeIndex || isHover
-                ? currentTypography.headingS.copyWith(
-                    color: const DigitColors().lightTextPrimary, height: 1.172)
-                : currentTypography.bodyS.copyWith(
-                    color: const DigitColors().lightTextPrimary, height: 1.5),
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Text(
+              widget.item.title!,
+              textAlign: TextAlign.center,
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
+              style: widget.index == widget.activeIndex || isHover
+                  ? currentTypography.headingS.copyWith(
+                      color: const DigitColors().lightTextPrimary,
+                      height: 1.172)
+                  : currentTypography.bodyS.copyWith(
+                      color: const DigitColors().lightTextPrimary, height: 1.5),
+            ),
           ),
-        )),
+        ),
         const SizedBox(height: 8),
       ],
       Row(
@@ -274,22 +276,27 @@ class _HorizontalStepperItemState extends State<HorizontalStepperItem> {
         constraints: const BoxConstraints(
           maxWidth: 100,
         ),
-        child: InkWell(
-          onHover: (hover) {
-            setState(() {
-              isHover = hover;
-            });
-          },
-          onTap: widget.item.onStepTap,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: widget.isInverted
-                ? MainAxisAlignment.start
-                : MainAxisAlignment.end,
-            children: widget.isInverted
-                ? getInvertedChildren(currentTypography, isHover)
-                : getChildren(currentTypography, isHover),
-          ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            InkWell(
+              onHover: (hover) {
+                setState(() {
+                  isHover = hover;
+                });
+              },
+              onTap: widget.item.onStepTap,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: widget.isInverted
+                    ? MainAxisAlignment.start
+                    : MainAxisAlignment.end,
+                children: widget.isInverted
+                    ? getInvertedChildren(currentTypography, isHover)
+                    : getChildren(currentTypography, isHover),
+              ),
+            ),
+          ],
         ),
       );
     });
