@@ -218,7 +218,7 @@ const MultiSelectDropdown = ({
     return (
       <div
         key={index}
-        className={`multiselect-dropodwn-menuitem ${variant ? variant : ""} ${
+        className={`digit-multiselectdropodwn-menuitem ${variant ? variant : ""} ${
           alreadyQueuedSelectedState.find((selectedOption) => selectedOption.code === option.code) ? "checked" : ""
         }`}
         onMouseDown={() => setIsActive(true)}
@@ -243,7 +243,7 @@ const MultiSelectDropdown = ({
           }}
           className={`digit-multi-select-dropdown-menuitem ${variant ? variant : ""}`}
         />
-        <div className="digit-custom-checkbox">
+        <div className="digit-multiselectdropodwn-custom-checkbox">
           <SVG.Check width="20px" height="20px" fill={"#FFFFFF"} />
         </div>
         <div className="option-des-container">
@@ -286,11 +286,11 @@ const MultiSelectDropdown = ({
   return (
     <div>
       <div
-        className={`digit-multi-select-dropdown-wrap ${props?.className ? props?.className : ""} ${variant ? variant : ""}`}
+        className={`digit-multiselectdropdown-wrap ${props?.className ? props?.className : ""} ${variant ? variant : ""}`}
         ref={dropdownRef}
         style={props?.style}
       >
-        <div className={`digit-master${active ? `-active` : ``} ${disabled ? "disabled" : ""}  ${variant ? variant : ""}`}>
+        <div className={`digit-multiselectdropdown-master${active ? `-active` : ``} ${disabled ? "disabled" : ""}  ${variant ? variant : ""}`}>
           <input
             className="digit-cursorPointer"
             style={{ opacity: 0 }}
@@ -300,7 +300,7 @@ const MultiSelectDropdown = ({
             value={searchQuery}
             onChange={onSearch}
           />
-          <div className="digit-label">
+          <div className="digit-multiselectdropdown-label">
             {variant === "treemultiselect" ? (
               <p>
                 {alreadyQueuedSelectedState.length > 0
@@ -314,7 +314,7 @@ const MultiSelectDropdown = ({
           </div>
         </div>
         {active ? (
-          <div className="digit-server" id="jk-dropdown-unique" style={ServerStyle ? ServerStyle : {}}>
+          <div className="digit-multiselectdropdown-server" id="jk-dropdown-unique" style={ServerStyle ? ServerStyle : {}}>
             {variant === "treemultiselect" ? (
               <TreeSelect options={options} onSelect={onSelectToAddToQueue} selectedOption={alreadyQueuedSelectedState} variant={variant} />
             ) : (

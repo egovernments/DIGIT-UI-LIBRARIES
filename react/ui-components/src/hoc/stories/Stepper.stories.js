@@ -21,6 +21,8 @@ export default {
         options: ["vertical", "horizontal"],
       },
     },
+    style: { control: "object" },
+    props: { control: "object" },
   },
 };
 
@@ -51,6 +53,10 @@ const commonArgs = {
   totalSteps: 5,
   direction: "horizontal",
   onStepClick: () => {},
+  style: {},
+  props: {
+    labelStyles: {},
+  },
 };
 
 //Default stepper

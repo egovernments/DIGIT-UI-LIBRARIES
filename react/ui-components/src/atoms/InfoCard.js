@@ -23,7 +23,7 @@ const InfoCard = ({ label, text, variant, style, textStyle, additionalElements, 
   const displayedLabel = StringManipulator("toTitleCase", label) || defaultLabel;
 
   return (
-    <div className={`digit-info-banner-wrap ${variant ? variant : "default"}`} style={style}>
+    <div className={`digit-infobanner-wrap ${variant ? variant : "default"}`} style={style}>
       <div height="24px">
         {icon}
         <h2>{displayedLabel}</h2>

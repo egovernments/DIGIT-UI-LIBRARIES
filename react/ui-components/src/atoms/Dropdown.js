@@ -71,7 +71,7 @@ const TextField = (props) => {
   return (
     <input
       ref={props.inputRef}
-      className={`digit-employee-select-wrap--elipses ${!props.isSearchable ? "notSearchable" : ""} ${props.disable && "disabled"} ${props.variant ? props.variant : ""}`}
+      className={`digit-dropdown-employee-select-wrap--elipses ${!props.isSearchable ? "notSearchable" : ""} ${props.disable && "disabled"} ${props.variant ? props.variant : ""}`}
       type="text"
       value={replaceDotWithColon(value)}
       onChange={inputChange}
@@ -291,7 +291,7 @@ const Dropdown = (props) => {
   };
   return (
     <div
-      className={`${user_type === "employee" ? "digit-employee-select-wrap" : "digit-select-wrap"} ${props?.className ? props?.className : ""}`}
+      className={`${user_type === "employee" ? "digit-dropdown-employee-select-wrap" : "digit-dropdown-select-wrap"} ${props?.className ? props?.className : ""}`}
       style={props?.style || {}}
     >
       {hasCustomSelector && (
@@ -302,7 +302,7 @@ const Dropdown = (props) => {
       )}
       {!hasCustomSelector && (
         <div
-          className={`${dropdownStatus ? "digit-select-active" : "digit-select"} ${props?.variant ? props?.variant : ""} ${!props?.isSearchable ? "notSearchable" : ""} ${
+          className={`${dropdownStatus ? "digit-dropdown-select-active" : "digit-dropdown-select"} ${props?.variant ? props?.variant : ""} ${!props?.isSearchable ? "notSearchable" : ""} ${
             props.disabled && "disabled"
           }`}
           style={

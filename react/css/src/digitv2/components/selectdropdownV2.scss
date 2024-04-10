@@ -1,9 +1,9 @@
-.digit-employee-select-wrap {
+.digit-dropdown-employee-select-wrap {
   @apply w-full relative;
 
   max-width: 37.5rem;
 
-  .digit-select {
+  .digit-dropdown-select {
     @extend .light-input-border;
     @apply relative block w-full h-10 bg-white;
     border: 0.063rem solid theme(digitv2.lightTheme.text-secondary);
@@ -21,7 +21,6 @@
 
 
     input[type="text"] {
-      @extend .light-input-border;
       @extend .light-text-color-primary;
       width: calc(100% - 2rem);
       background-color: transparent;
@@ -48,7 +47,7 @@
     }
   }
 
-  .digit-select-active {
+  .digit-dropdown-select-active {
     @apply relative block w-full h-10;
     border: 0.063rem solid #F47738;
 
@@ -102,8 +101,8 @@
     }
   }
 
-  .digit-select,
-  .digit-select-active {
+  .digit-dropdown-select,
+  .digit-dropdown-select-active {
 
     &.treedropdown,
     &.notSearchable {
@@ -278,7 +277,7 @@
   }
 }
 
-.digit-employee-select-wrap--elipses {
+.digit-dropdown-employee-select-wrap--elipses {
   @apply overflow-hidden whitespace-no-wrap;
   width: 85% !important;
   text-overflow: ellipsis;
@@ -289,7 +288,7 @@
   }
 }
 
-.digit-select-wrap {
+.digit-dropdown-select-wrap {
   @apply mb-lg relative bg-white;
 
   @media (min-width: 30.063rem) and (max-width: 47.938rem) {
@@ -311,7 +310,7 @@
     min-width: 12.5rem;
   }
 
-  .digit-select {
+  .digit-dropdown-select {
     @extend .light-input-border;
     @apply relative block w-full h-10 bg-white;
     border: 0.063rem solid theme(digitv2.lightTheme.text-secondary);
@@ -350,7 +349,7 @@
     }
   }
 
-  .digit-select-active {
+  .digit-dropdown-select-active {
     @apply relative block w-full h-10;
     border: 0.063rem solid #F47738;
 
@@ -384,8 +383,8 @@
     }
   }
 
-  .digit-select,
-  .digit-select-active {
+  .digit-dropdown-select,
+  .digit-dropdown-select-active {
 
     &.treedropdown,
     &.notSearchable {
