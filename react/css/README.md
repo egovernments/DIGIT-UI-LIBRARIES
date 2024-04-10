@@ -42,6 +42,7 @@ frontend/micro-ui/web/public/index.html
 # Changelog
 
 ```bash
+1.8.2-coreui.4 updated classnames 
 1.8.2-coreui.3 styles for stepper and fixed date issue
 1.8.0-beta.13 fixed the login text styling issue
 1.8.0-beta.1 styles for login dropdown and homepage dropdowns
