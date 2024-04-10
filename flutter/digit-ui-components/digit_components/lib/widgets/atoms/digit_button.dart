@@ -104,49 +104,53 @@ class _ButtonState extends State<Button> {
     if (widget.type == ButtonType.primary ||
         widget.type == ButtonType.secondary) {
       if (widget.isDisabled) {
-        return Container(
-          width: widget.width,
-          constraints: const BoxConstraints(
-            minWidth: 32.0,
-            minHeight: 32.0,
-          ),
-          decoration: BoxDecoration(
-            boxShadow: widget.type == ButtonType.primary && isHovered == false
-                    ? [
-                        BoxShadow(
-                          color:  const DigitColors().light.textPrimary.withOpacity(.5),
-                          offset: const Offset(0, 2),
-                          spreadRadius: 0,
-                          blurRadius: 0,
-                        ),
-                      ]
-                    : [],
-            borderRadius: BorderRadius.zero,
-            border: Border.all(
-              color: widget.isDisabled
-                  ? ButtonConstants.defaultDisabledColor
-                  : isMouseDown
-                      ? ButtonConstants.defaultPrimaryColor
-                      : isHovered
-                          ? const DigitColors().light.primaryOrange
-                          : ButtonConstants.defaultPrimaryColor,
-              width: isHovered
-                  ? widget.type == ButtonType.secondary
-                      ? ButtonConstants.defaultHoverWidth
-                      : ButtonConstants.defaultWidth
-                  : ButtonConstants.defaultWidth,
+        return IntrinsicHeight(
+          child: IntrinsicWidth(
+            child: Container(
+              // width: widget.width,
+              constraints: const BoxConstraints(
+                minWidth: 32.0,
+                minHeight: 32.0,
+              ),
+              decoration: BoxDecoration(
+                boxShadow: widget.type == ButtonType.primary && isHovered == false
+                        ? [
+                            BoxShadow(
+                              color:  const DigitColors().light.textPrimary.withOpacity(.5),
+                              offset: const Offset(0, 2),
+                              spreadRadius: 0,
+                              blurRadius: 0,
+                            ),
+                          ]
+                        : [],
+                borderRadius: BorderRadius.zero,
+                border: Border.all(
+                  color: widget.isDisabled
+                      ? ButtonConstants.defaultDisabledColor
+                      : isMouseDown
+                          ? ButtonConstants.defaultPrimaryColor
+                          : isHovered
+                              ? const DigitColors().light.primaryOrange
+                              : ButtonConstants.defaultPrimaryColor,
+                  width: isHovered
+                      ? widget.type == ButtonType.secondary
+                          ? ButtonConstants.defaultHoverWidth
+                          : ButtonConstants.defaultWidth
+                      : ButtonConstants.defaultWidth,
+                ),
+                color: widget.type == ButtonType.primary
+                    ? (widget.isDisabled
+                        ? ButtonConstants.defaultDisabledColor
+                        : isHovered
+                            ? isMouseDown
+                                ? const DigitColors().light.primaryOrange
+                                : const DigitColors().darkPrimaryOrange
+                            : const DigitColors().light.primaryOrange)
+                    : const DigitColors().light.paperPrimary,
+              ),
+              child: _buildButton(),
             ),
-            color: widget.type == ButtonType.primary
-                ? (widget.isDisabled
-                    ? ButtonConstants.defaultDisabledColor
-                    : isHovered
-                        ? isMouseDown
-                            ? const DigitColors().light.primaryOrange
-                            : const DigitColors().darkPrimaryOrange
-                        : const DigitColors().light.primaryOrange)
-                : const DigitColors().light.paperPrimary,
           ),
-          child: _buildButton(),
         );
       } else {
         return InkWell(
@@ -171,58 +175,62 @@ class _ButtonState extends State<Button> {
                 },
           splashColor: const DigitColors().transparent,
           hoverColor: const DigitColors().transparent,
-          child: Container(
-            width: widget.width,
-            constraints: const BoxConstraints(
-              minWidth: 32.0,
-              minHeight: 32.0,
-            ),
-            decoration: BoxDecoration(
-              boxShadow: (isMouseDown)
-                  ? [
-                      BoxShadow(
-                        color: const DigitColors().light.primaryOrange,
-                        offset: const Offset(0, 0),
-                        spreadRadius: 0,
-                        blurRadius: 4.50,
-                      ),
-                    ]
-                  : widget.type == ButtonType.primary && isHovered == false
+          child: IntrinsicHeight(
+            child: IntrinsicWidth(
+              child: Container(
+                // width: widget.width,
+                constraints: const BoxConstraints(
+                  minWidth: 32.0,
+                  minHeight: 32.0,
+                ),
+                decoration: BoxDecoration(
+                  boxShadow: (isMouseDown)
                       ? [
                           BoxShadow(
-                            color: const DigitColors().light.textPrimary,
-                            offset: const Offset(0, 2),
+                            color: const DigitColors().light.primaryOrange,
+                            offset: const Offset(0, 0),
                             spreadRadius: 0,
-                            blurRadius: 0,
+                            blurRadius: 4.50,
                           ),
                         ]
-                      : [],
-              borderRadius: BorderRadius.zero,
-              border: Border.all(
-                color: widget.isDisabled
-                    ? ButtonConstants.defaultDisabledColor
-                    : isMouseDown
-                        ? ButtonConstants.defaultPrimaryColor
-                        : isHovered
-                            ? const DigitColors().light.primaryOrange
-                            : ButtonConstants.defaultPrimaryColor,
-                width: isHovered
-                    ? widget.type == ButtonType.secondary
-                        ? ButtonConstants.defaultHoverWidth
-                        : ButtonConstants.defaultWidth
-                    : ButtonConstants.defaultWidth,
+                      : widget.type == ButtonType.primary && isHovered == false
+                          ? [
+                              BoxShadow(
+                                color: const DigitColors().light.textPrimary,
+                                offset: const Offset(0, 2),
+                                spreadRadius: 0,
+                                blurRadius: 0,
+                              ),
+                            ]
+                          : [],
+                  borderRadius: BorderRadius.zero,
+                  border: Border.all(
+                    color: widget.isDisabled
+                        ? ButtonConstants.defaultDisabledColor
+                        : isMouseDown
+                            ? ButtonConstants.defaultPrimaryColor
+                            : isHovered
+                                ? const DigitColors().light.primaryOrange
+                                : ButtonConstants.defaultPrimaryColor,
+                    width: isHovered
+                        ? widget.type == ButtonType.secondary
+                            ? ButtonConstants.defaultHoverWidth
+                            : ButtonConstants.defaultWidth
+                        : ButtonConstants.defaultWidth,
+                  ),
+                  color: widget.type == ButtonType.primary
+                      ? (widget.isDisabled
+                          ? ButtonConstants.defaultDisabledColor
+                          : isHovered
+                              ? isMouseDown
+                                  ? const DigitColors().light.primaryOrange
+                                  : const DigitColors().darkPrimaryOrange
+                              : const DigitColors().light.primaryOrange)
+                      : const DigitColors().light.paperPrimary,
+                ),
+                child: _buildButton(),
               ),
-              color: widget.type == ButtonType.primary
-                  ? (widget.isDisabled
-                      ? ButtonConstants.defaultDisabledColor
-                      : isHovered
-                          ? isMouseDown
-                              ? const DigitColors().light.primaryOrange
-                              : const DigitColors().darkPrimaryOrange
-                          : const DigitColors().light.primaryOrange)
-                  : const DigitColors().light.paperPrimary,
             ),
-            child: _buildButton(),
           ),
         );
       }

@@ -6,7 +6,7 @@ import '../../theme/typography.dart';
 
 class Timeline extends StatefulWidget {
   final String label;
-  final String description;
+  final List<String> description;
   final TimelineStepState currentStep;
   final List<Widget>? additionalWidgets;
   final List<Widget>? additionalHideWidgets;
@@ -57,20 +57,26 @@ class _TimelineState extends State<Timeline> {
                         color: const DigitColors().light.textPrimary,
                       ),
                     ),
-                    Text(
-                      widget.description,
-                      style: currentTypography.bodyS.copyWith(
-                        height: 1.25,
-                        color: const DigitColors().light.textSecondary,
-                      ),
+                    SizedBox(height: isMobile ? kPadding/2 : kPadding,),
+                    Column(
+                      // Change here
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: widget.description
+                          .map((desc) => Text(
+                                // Change here
+                                desc,
+                                style: currentTypography.bodyS.copyWith(
+                                  height: 1.25,
+                                  color:
+                                      const DigitColors().light.textSecondary,
+                                ),
+                              ))
+                          .toList(), // Change here
                     ),
                     const SizedBox(height: 4),
-                    Transform.rotate(
-                      angle: 0.21 * (3.141592653589793 / 180), // Converting 0.21 degrees to radians
-                      child: Container(
-                        height: 1,
-                        color: const DigitColors().light.genericDivider,
-                      ),
+                    Container(
+                      height: 1,
+                      color: const DigitColors().light.genericDivider,
                     )
                   ],
                 ),
@@ -88,13 +94,13 @@ class _TimelineState extends State<Timeline> {
                     children: widget.additionalWidgets!
                         .map(
                           (widget) => Padding(
-                        padding: const EdgeInsets.only(
-                          right: kPadding,
-                          bottom: kPadding,
-                        ),
-                        child: widget,
-                      ),
-                    )
+                            padding: const EdgeInsets.only(
+                              right: kPadding,
+                              bottom: kPadding,
+                            ),
+                            child: widget,
+                          ),
+                        )
                         .toList(),
                   ),
                 if (!isExpanded && widget.additionalHideWidgets != null)
@@ -104,13 +110,13 @@ class _TimelineState extends State<Timeline> {
                     children: widget.additionalHideWidgets!
                         .map(
                           (widget) => Padding(
-                        padding: const EdgeInsets.only(
-                          right: kPadding,
-                          bottom: kPadding,
-                        ),
-                        child: widget,
-                      ),
-                    )
+                            padding: const EdgeInsets.only(
+                              right: kPadding,
+                              bottom: kPadding,
+                            ),
+                            child: widget,
+                          ),
+                        )
                         .toList(),
                   ),
                 if (isExpanded && widget.additionalHideWidgets != null)
@@ -135,46 +141,48 @@ class _TimelineState extends State<Timeline> {
         color: widget.currentStep == TimelineStepState.completed
             ? const DigitColors().light.primaryOrange
             : widget.currentStep == TimelineStepState.present
-            ? const DigitColors().light.paperPrimary
-            : const DigitColors().light.textDisabled,
+                ? const DigitColors().light.paperPrimary
+                : const DigitColors().light.textDisabled,
         borderRadius: BorderRadius.circular(50),
       ),
       child: widget.currentStep == TimelineStepState.completed
           ? Icon(
-        Icons.check,
-        color: const DigitColors().light.paperPrimary,
-        size: isMobile ? 18 : 24,
-      )
+              Icons.check,
+              color: const DigitColors().light.paperPrimary,
+              size: isMobile ? 18 : 24,
+            )
           : widget.currentStep == TimelineStepState.present
-          ? Container(
-        padding: isMobile ? const EdgeInsets.all(kPadding / 2) : const EdgeInsets.all(6),
-        width: isMobile ? 24 : 32,
-        height: isMobile ? 24 : 32,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          border: Border.all(
-            color: const DigitColors().light.primaryOrange,
-            width: 2.0,
-          ),
-          color: const DigitColors().light.paperPrimary,
-        ),
-        child: Container(
-          height: isMobile ? 12 : 16,
-          width: isMobile ? 12 : 16,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: const DigitColors().light.primaryOrange,
-          ),
-        ),
-      )
-          : Container(
-        width: isMobile ? 24 : 32,
-        height: isMobile ? 24 : 32,
-        decoration: BoxDecoration(
-          color: const DigitColors().light.textDisabled,
-          borderRadius: BorderRadius.circular(50),
-        ),
-      ),
+              ? Container(
+                  padding: isMobile
+                      ? const EdgeInsets.all(kPadding / 2)
+                      : const EdgeInsets.all(6),
+                  width: isMobile ? 24 : 32,
+                  height: isMobile ? 24 : 32,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: const DigitColors().light.primaryOrange,
+                      width: 2.0,
+                    ),
+                    color: const DigitColors().light.paperPrimary,
+                  ),
+                  child: Container(
+                    height: isMobile ? 12 : 16,
+                    width: isMobile ? 12 : 16,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: const DigitColors().light.primaryOrange,
+                    ),
+                  ),
+                )
+              : Container(
+                  width: isMobile ? 24 : 32,
+                  height: isMobile ? 24 : 32,
+                  decoration: BoxDecoration(
+                    color: const DigitColors().light.textDisabled,
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                ),
     );
   }
 

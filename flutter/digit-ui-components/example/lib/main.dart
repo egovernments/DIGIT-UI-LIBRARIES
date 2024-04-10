@@ -8,10 +8,14 @@ import 'package:digit_ui_components/models/toggleButtonModel.dart';
 import 'package:digit_ui_components/utils/validators/validator.dart';
 import 'package:digit_ui_components/widgets/atoms/digit_timeline.dart';
 import 'package:digit_ui_components/widgets/atoms/dropdown_wrapper.dart';
+import 'package:digit_ui_components/widgets/atoms/file_uploader.dart';
+import 'package:digit_ui_components/widgets/atoms/file_uploader2.dart';
+import 'package:digit_ui_components/widgets/atoms/image_uploader.dart';
 import 'package:digit_ui_components/widgets/atoms/input_wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:url_strategy/url_strategy.dart';
+import 'dart:io';
 
 final List<TreeNode> Nodes = [
   TreeNode('A', 'A', [
@@ -1613,7 +1617,7 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 8,
                 ),
-                Container(
+                SizedBox(
                   height: 45,
                   child: Center(
                     child: Button(
@@ -1827,6 +1831,79 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 8,
                 ),
+                Center(
+                  child: Container(
+                    width: 1000,
+                    height: 400,
+                    child: FileUploadWidget(
+                      label: 'Upload', onFilesSelected: (List<File> files) {  },
+                      // onFileSelected: (File file) {
+                      //   // Handle the selected file here
+                      //   // print('File path: ${file.path}');
+                      // },
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Center(
+                  child: Container(
+                    width: 1000,
+                    height: 400,
+                    child: FileUploadWidget(
+                      showPreview: true,
+                      allowMultipleImages: true,
+                      label: 'Upload', onFilesSelected: (List<File> files) {  },
+                      // onFileSelected: (File file) {
+                      //   // Handle the selected file here
+                      //   // print('File path: ${file.path}');
+                      // },
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 8),
+                const Divider(),
+                const SizedBox(
+                  height: 8,
+                ),
+                Center(
+                  child: Container(
+                    width: 1300,
+                    height: 400,
+                    child: FileUploadWidget2(
+                      showPreview: true,
+                      allowMultipleImages: true,
+                      label: 'Upload', onFilesSelected: (List<File> files) {  },
+                      // onFileSelected: (File file) {
+                      //   // Handle the selected file here
+                      //   // print('File path: ${file.path}');
+                      // },
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 8),
+                const Divider(),
+                const SizedBox(
+                  height: 8,
+                ),
+                Center(
+                  child: Container(
+                    width: 600,
+                    height: 400,
+                    child: ImageUploader(
+                      allowMultipleImages: true,
+                      label: 'Upload', onFilesSelected: (List<File> files) {  },
+                      // onFileSelected: (File file) {
+                      //   // Handle the selected file here
+                      //   // print('File path: ${file.path}');
+                      // },
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 8),
+                const Divider(),
+                const SizedBox(
+                  height: 8,
+                ),
                 DigitCheckbox(
                   label: 'Click to see the success toast',
                   value: false,
@@ -1951,7 +2028,7 @@ class MyHomePageState extends State<MyHomePage> {
                 const Timeline(
                   currentStep: TimelineStepState.present,
                   label: 'Current',
-                  description: '18 / 02 / 2023',
+                  description: ['18 / 02 / 2023'],
                 ),
                 const SizedBox(
                   height: 8,
@@ -1959,7 +2036,7 @@ class MyHomePageState extends State<MyHomePage> {
                 const Timeline(
                   currentStep: TimelineStepState.future,
                   label: 'Future',
-                  description: '18 / 02 / 2023',
+                  description: ['18 / 02 / 2023'],
                 ),
                 const SizedBox(
                   height: 8,
@@ -1967,7 +2044,7 @@ class MyHomePageState extends State<MyHomePage> {
                 const Timeline(
                   currentStep: TimelineStepState.completed,
                   label: 'Completed',
-                  description: '18 / 02 / 2023',
+                  description: ['18 / 02 / 2023'],
                 ),
                 const SizedBox(
                   height: 8,
@@ -1975,7 +2052,7 @@ class MyHomePageState extends State<MyHomePage> {
                 Timeline(
                   currentStep: TimelineStepState.completed,
                   label: 'Completed',
-                  description: '18 / 02 / 2023',
+                  description: const ['18 / 02 / 2023', '11:10 AM', 'processing'],
                   additionalHideWidgets: [
                     Image.network(
                         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),

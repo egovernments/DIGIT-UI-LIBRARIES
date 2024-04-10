@@ -60,8 +60,12 @@ class SelectionChip<T> extends StatelessWidget {
           vertical: kPadding,
         ),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(Default.defaultChipRadius),
-          color: const DigitColors().light.genericDivider,
+          border: Border.all(
+            color: const DigitColors().light.genericDivider,
+            width: 1,
+          ),
+          borderRadius: BorderRadius.circular(4),
+          color: const DigitColors().light.genericBackground,
         ),
         child: Row(
           children: [
@@ -69,6 +73,7 @@ class SelectionChip<T> extends StatelessWidget {
                 ? Text(
                     capitalizeFirstLetter(chipValue!),
                     style: currentTypography.bodyS.copyWith(
+                      overflow: TextOverflow.ellipsis,
                       color: const DigitColors().light.textPrimary,
                       height: 1.025,
                     ),
@@ -76,13 +81,16 @@ class SelectionChip<T> extends StatelessWidget {
                 : selectionType == SelectionType.nestedMultiSelect
                     ? Text(
                         capitalizeFirstLetter('${item.type}: ${item.name}'),
+              overflow: TextOverflow.ellipsis,
                         style: currentTypography.bodyS.copyWith(
+                          overflow: TextOverflow.ellipsis,
                           color: const DigitColors().light.textPrimary,
                           height: 1.025,
                         ),
                       )
                     : Text(
                         capitalizeFirstLetter(item.name),
+              overflow: TextOverflow.ellipsis,
                         style: currentTypography.bodyS.copyWith(
                           color: const DigitColors().light.textPrimary,
                           height: 1.025,
@@ -96,15 +104,32 @@ class SelectionChip<T> extends StatelessWidget {
               hoverColor: const DigitColors().transparent,
               splashColor: const DigitColors().transparent,
               highlightColor: const DigitColors().transparent,
-              child: Icon(
-                Icons.cancel,
-                size: 24,
-                color: const DigitColors().light.textSecondary,
-              ),
+              child: Container(
+                width: 24,
+                height: 24,
+                // padding: EdgeInsets.only(top: 4),
+                decoration: BoxDecoration(
+                  color: const DigitColors().light.textSecondary,
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                child: Icon(
+                  Icons.close, // Replace 'your_icon_here' with the desired icon
+                  size: 24,
+                  color: const DigitColors().light.paperPrimary,
+                ),
+              )
+
             ),
           ],
         ),
       ),
     );
   }
+}
+
+class FileData {
+  final String name;
+  final String code;
+
+  FileData({required this.name, required this.code});
 }
