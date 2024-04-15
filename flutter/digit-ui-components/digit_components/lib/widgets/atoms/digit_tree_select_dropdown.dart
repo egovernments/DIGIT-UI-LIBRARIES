@@ -427,7 +427,7 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
                 border: Border.all(
                   color: const DigitColors().light.primaryOrange,
                 ),
-                borderRadius: BorderRadius.circular(50),
+                borderRadius: BorderRadius.circular(4),
                 color: const DigitColors().light.paperSecondary,
               ),
               child: Text(

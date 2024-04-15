@@ -1,13 +1,8 @@
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/enum/app_enums.dart';
-import 'package:digit_ui_components/models/RadioButtonModel.dart';
-import 'package:digit_ui_components/widgets/atoms/digit_button.dart';
-import 'package:digit_ui_components/widgets/atoms/digit_checkbox.dart';
-import 'package:digit_ui_components/widgets/atoms/digit_info_card.dart';
-import 'package:digit_ui_components/widgets/atoms/digit_radio_list.dart';
 import 'package:digit_ui_components/widgets/atoms/digit_timeline.dart';
-import 'package:digit_ui_components/widgets/atoms/digit_toast.dart';
 import 'package:digit_ui_components/widgets/atoms/input_wrapper.dart';
+import 'package:digit_ui_components/widgets/atoms/stepper.dart';
 import 'package:flutter/material.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
 
@@ -219,6 +214,16 @@ class MyApp extends StatelessWidget {
             currentStep: TimelineStepState.future,
             label: 'Completed',
             description: ['18 / 02 / 2023'],
+          ),
+        ),
+        Story(
+          name: 'Widgets/Stepper',
+          builder: (context) => DigitStepper(
+            axis: TimelineAxis.horizontal,
+            alignment: TimelineAlign.start,
+            endChild: Container(
+              color: Colors.amberAccent,
+            ),
           ),
         ),
       ],
