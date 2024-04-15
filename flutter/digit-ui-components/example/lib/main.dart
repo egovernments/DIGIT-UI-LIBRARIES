@@ -1831,79 +1831,79 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 8,
                 ),
-                Center(
-                  child: Container(
-                    width: 1000,
-                    height: 400,
-                    child: FileUploadWidget(
-                      label: 'Upload', onFilesSelected: (List<File> files) {  },
-                      // onFileSelected: (File file) {
-                      //   // Handle the selected file here
-                      //   // print('File path: ${file.path}');
-                      // },
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Center(
-                  child: Container(
-                    width: 1000,
-                    height: 400,
-                    child: FileUploadWidget(
-                      showPreview: true,
-                      allowMultipleImages: true,
-                      label: 'Upload', onFilesSelected: (List<File> files) {  },
-                      // onFileSelected: (File file) {
-                      //   // Handle the selected file here
-                      //   // print('File path: ${file.path}');
-                      // },
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 8),
-                const Divider(),
-                const SizedBox(
-                  height: 8,
-                ),
-                Center(
-                  child: Container(
-                    width: 1300,
-                    height: 400,
-                    child: FileUploadWidget2(
-                      showPreview: true,
-                      allowMultipleImages: true,
-                      label: 'Upload', onFilesSelected: (List<File> files) {  },
-                      // onFileSelected: (File file) {
-                      //   // Handle the selected file here
-                      //   // print('File path: ${file.path}');
-                      // },
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 8),
-                const Divider(),
-                const SizedBox(
-                  height: 8,
-                ),
-                Center(
-                  child: Container(
-                    width: 600,
-                    height: 400,
-                    child: ImageUploader(
-                      allowMultipleImages: true,
-                      label: 'Upload', onFilesSelected: (List<File> files) {  },
-                      // onFileSelected: (File file) {
-                      //   // Handle the selected file here
-                      //   // print('File path: ${file.path}');
-                      // },
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 8),
-                const Divider(),
-                const SizedBox(
-                  height: 8,
-                ),
+                // Center(
+                //   child: Container(
+                //     width: 1000,
+                //     height: 400,
+                //     child: FileUploadWidget(
+                //       label: 'Upload', onFilesSelected: (List<File> files) {  },
+                //       // onFileSelected: (File file) {
+                //       //   // Handle the selected file here
+                //       //   // print('File path: ${file.path}');
+                //       // },
+                //     ),
+                //   ),
+                // ),
+                // const SizedBox(height: 8),
+                // Center(
+                //   child: Container(
+                //     width: 1000,
+                //     height: 400,
+                //     child: FileUploadWidget(
+                //       showPreview: true,
+                //       allowMultipleImages: true,
+                //       label: 'Upload', onFilesSelected: (List<File> files) {  },
+                //       // onFileSelected: (File file) {
+                //       //   // Handle the selected file here
+                //       //   // print('File path: ${file.path}');
+                //       // },
+                //     ),
+                //   ),
+                // ),
+                // const SizedBox(height: 8),
+                // const Divider(),
+                // const SizedBox(
+                //   height: 8,
+                // ),
+                // Center(
+                //   child: Container(
+                //     width: 1300,
+                //     height: 400,
+                //     child: FileUploadWidget2(
+                //       showPreview: true,
+                //       allowMultipleImages: true,
+                //       label: 'Upload', onFilesSelected: (List<File> files) {  },
+                //       // onFileSelected: (File file) {
+                //       //   // Handle the selected file here
+                //       //   // print('File path: ${file.path}');
+                //       // },
+                //     ),
+                //   ),
+                // ),
+                // const SizedBox(height: 8),
+                // const Divider(),
+                // const SizedBox(
+                //   height: 8,
+                // ),
+                // Center(
+                //   child: Container(
+                //     width: 600,
+                //     height: 400,
+                //     child: ImageUploader(
+                //       allowMultipleImages: true,
+                //       label: 'Upload', onFilesSelected: (List<File> files) {  },
+                //       // onFileSelected: (File file) {
+                //       //   // Handle the selected file here
+                //       //   // print('File path: ${file.path}');
+                //       // },
+                //     ),
+                //   ),
+                // ),
+                // const SizedBox(height: 8),
+                // const Divider(),
+                // const SizedBox(
+                //   height: 8,
+                // ),
                 DigitCheckbox(
                   label: 'Click to see the success toast',
                   value: false,

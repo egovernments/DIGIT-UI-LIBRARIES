@@ -3,6 +3,7 @@ import '../../constants/AppView.dart';
 import '../../theme/colors.dart';
 import '../../theme/digit_theme.dart';
 import '../../theme/typography.dart';
+import '../../utils/utils.dart';
 
 class Timeline extends StatefulWidget {
   final String label;
@@ -51,7 +52,7 @@ class _TimelineState extends State<Timeline> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      widget.label,
+                    capitalizeFirstLetterOfEveryWord(widget.label),
                       style: currentTypography.headingS.copyWith(
                         height: 1.172,
                         color: const DigitColors().light.textPrimary,
