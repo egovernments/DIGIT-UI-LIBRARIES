@@ -30,8 +30,6 @@ class _FileUploadWidgetState extends State<FileUploadWidget2> {
   List<String> fileNames = [];
   List<Uint8List> imageBytesList = [];
 
-  // final GlobalKey<DropzoneState> _dropzoneKey = GlobalKey<DropzoneState>();
-
   void _openFileExplorer() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       allowMultiple: widget.allowMultipleImages,
@@ -134,7 +132,7 @@ class _FileUploadWidgetState extends State<FileUploadWidget2> {
         children: [
           Stack(
             children: [
-              Container(
+              SizedBox(
                 width: 1300,
                 height: 150,
                 child: DropzoneView(

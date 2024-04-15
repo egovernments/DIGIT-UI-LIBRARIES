@@ -43,5 +43,9 @@ class Light {
   Color get genericBackground => const Color(0xFFEEEEEE);
   Color get genericDivider => const Color(0xFFD6D5D4);
   Color get genericInputBorder => const Color(0xFF505A5F);
+
+  /// Header
+  Color get headerSideNav => const Color(0xFF0B4B66);
+
 }
 
