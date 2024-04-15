@@ -1,4 +1,6 @@
 dependency_overrides:
   digit_ui_components:
-    path:
-      ../digit_components
+    git:
+      url: https://github.com/egovernments/DIGIT-UI-LIBRARIES
+      ref: DPG-2263-timeline-steps
+      path: ./flutter/digit-ui-components/digit_components
