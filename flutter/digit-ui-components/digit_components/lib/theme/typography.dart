@@ -331,10 +331,10 @@ class DigitDesktopTypography extends DigitTypography {
 
 DigitTypography getTypography(BuildContext context) {
 
-  if (AppView.isDesktopView(MediaQuery.of(context).size.width)) {
+  if (AppView.isDesktopView(MediaQuery.of(context).size)) {
     /// Desktop
     return DigitTheme.instance.desktopTypography;
-  } else if (AppView.isTabletView(MediaQuery.of(context).size.width)) {
+  } else if (AppView.isTabletView(MediaQuery.of(context).size)) {
     /// Tablet
     return DigitTheme.instance.tabTypography;
   } else {

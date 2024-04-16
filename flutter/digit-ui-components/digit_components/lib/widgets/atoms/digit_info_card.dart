@@ -33,9 +33,9 @@ class InfoCard extends StatelessWidget {
     Color iconColor;
     Color containerColor = const DigitColors().light.alertInfoBg;
     DigitTypography currentTypography = getTypography(context);
-    double minWidth = AppView.isMobileView(MediaQuery.of(context).size.width)
+    double minWidth = AppView.isMobileView(MediaQuery.of(context).size)
         ? 240
-        : AppView.isTabletView(MediaQuery.of(context).size.width)
+        : AppView.isTabletView(MediaQuery.of(context).size)
             ? 360
             : 400;
 

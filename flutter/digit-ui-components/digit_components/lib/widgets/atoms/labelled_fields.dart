@@ -56,7 +56,7 @@ class LabeledField extends StatelessWidget {
         ? capitalizeFirstLetter(label)
         : label;
 
-    bool isMobile = AppView.isMobileView(MediaQuery.of(context).size.width);
+    bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
     if (!isMobile) {
       return Padding(
         padding: padding ?? const EdgeInsets.only(top: kPadding),

@@ -294,11 +294,16 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
             : 64)
         : null;
 
-    double inputWidth = AppView.isMobileView(MediaQuery.of(context).size.width)
-        ? Default.mobileInputWidth
-        : AppView.isTabletView(MediaQuery.of(context).size.width)
-            ? Default.tabInputWidth
-            : Default.desktopInputWidth;
+    double maxWidth = AppView.isMobileView(MediaQuery.of(context).size)
+        ? MediaQuery.of(context).size.width * .91
+        : AppView.isTabletView(MediaQuery.of(context).size)
+            ? MediaQuery.of(context).size.width* .60
+            : MediaQuery.of(context).size.width * .416;
+    double minWidth = AppView.isMobileView(MediaQuery.of(context).size)
+        ? MediaQuery.of(context).size.width * .43
+        : AppView.isTabletView(MediaQuery.of(context).size)
+        ? MediaQuery.of(context).size.width* .268
+        : MediaQuery.of(context).size.width * .138;
 
     return LabeledField(
       label: widget.label,
@@ -307,9 +312,13 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
       isRequired: widget.isRequired,
       preferToolTipBelow: widget.preferToolTipBelow,
       triggerMode: widget.triggerMode,
-      child: SizedBox(
-        width: inputWidth,
+      child: Container(
+        constraints: BoxConstraints(
+          maxWidth: maxWidth,
+          minWidth: minWidth,
+        ),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             widget.isTextArea
                 ? Stack(
@@ -320,9 +329,9 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                               ? null
                               : _height,
                           constraints: BoxConstraints(
-                            minWidth: 156,
+                            minWidth: minWidth,
                             minHeight: 40,
-                            maxWidth: inputWidth,
+                            maxWidth: maxWidth,
                           ),
                           child: TextFormField(
                             onTapOutside: (PointerDownEvent event) {
@@ -474,26 +483,12 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                     decoration: InputDecoration(
                       counterText: '',
                       hoverColor: const DigitColors().transparent,
-                      constraints: inputWidth == Default.mobileInputWidth
-                          ? const BoxConstraints(
+                      constraints:  BoxConstraints(
                               maxHeight: BaseConstants.inputMinHeight,
                               minHeight: BaseConstants.inputMinHeight,
-                              minWidth: BaseConstants.mobileInputMinWidth,
-                              maxWidth: BaseConstants.mobileInputMaxWidth,
-                            )
-                          : inputWidth == Default.tabInputWidth
-                              ? const BoxConstraints(
-                                  maxHeight: BaseConstants.inputMinHeight,
-                                  minHeight: BaseConstants.inputMinHeight,
-                                  minWidth: BaseConstants.tabInputMinWidth,
-                                  maxWidth: BaseConstants.tabInputMaxWidth,
-                                )
-                              : const BoxConstraints(
-                                  maxHeight: BaseConstants.inputMinHeight,
-                                  minHeight: BaseConstants.inputMinHeight,
-                                  minWidth: BaseConstants.desktopInputMinWidth,
-                                  maxWidth: BaseConstants.desktopInputMaxWidth,
-                                ),
+                              minWidth: minWidth,
+                              maxWidth: maxWidth,
+                            ),
                       contentPadding: const EdgeInsets.only(
                         top: kPadding,
                         left: 12,

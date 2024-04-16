@@ -24,7 +24,6 @@ import 'package:flutter/material.dart';
 import '../../constants/app_constants.dart';
 import '../../enum/app_enums.dart';
 import '../../utils/utils.dart';
-import 'digit_checkbox_icon.dart';
 
 class DigitCheckbox extends StatefulWidget {
   /// The current value of the DigitCheckbox.
