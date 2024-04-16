@@ -80,7 +80,7 @@ npm manifest:
       "dist"
     ],
     "dependencies": {
-      "@egovernments/digit-ui-css": "1.8.2-coreui.4",
+      "@egovernments/digit-ui-css": "1.8.2-coreui.5",
       "@egovernments/digit-ui-libraries": "1.8.1-beta.1",
       "@egovernments/digit-ui-svg-components": "1.0.4",
       "@googlemaps/js-api-loader": "1.13.10",
