@@ -1,13 +1,11 @@
 import 'dart:async';
-import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';
 import 'package:digit_ui_components/digit_components.dart';
 
 class FileUploadWidget2 extends StatefulWidget {
-  final Function(List<File> files) onFilesSelected;
+  final Function(List<DroppedFile>) onFilesSelected;
   final String label;
   final bool showPreview;
   final bool allowMultipleImages;
@@ -25,75 +23,27 @@ class FileUploadWidget2 extends StatefulWidget {
 }
 
 class _FileUploadWidgetState extends State<FileUploadWidget2> {
+  List<DroppedFile> files = [];
+  late DropzoneViewController controller;
   double _uploadProgress = 0.0;
   Timer? _uploadTimer;
-  List<String> fileNames = [];
-  List<Uint8List> imageBytesList = [];
-
-  void _openFileExplorer() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      allowMultiple: widget.allowMultipleImages,
-    );
-
-    if (result != null) {
-      List<File> files = [];
-
-      if (!widget.allowMultipleImages && imageBytesList.isNotEmpty) {
-        imageBytesList.clear();
-        fileNames.clear();
-      }
-
-      if (kIsWeb) {
-        files =
-            result.files.map((file) => File(file.bytes!.toString())).toList();
-        for (var file in result.files) {
-          setState(() {
-            imageBytesList.add(file.bytes!);
-            fileNames.add(file.name);
-          });
-        }
-      } else {
-        files = result.paths.map((path) => File(path!)).toList();
-        for (var path in result.paths) {
-          fileNames.add(path!.split('/').last);
-        }
-      }
-
-      _startUploadProgress();
-      widget.onFilesSelected(files);
-    } else {
-      // User canceled the picker
-    }
-
-    setState(() {});
-  }
-
-  void _startUploadProgress() {
-    _uploadProgress = 0.0;
-    const uploadInterval = Duration(milliseconds: 100);
-
-    _uploadTimer?.cancel();
-
-    _uploadTimer = Timer.periodic(uploadInterval, (timer) {
-      setState(() {
-        _uploadProgress += 0.05;
-      });
-
-      if (_uploadProgress >= 1.0) {
-        _uploadTimer?.cancel();
-      }
-    });
-  }
 
   Widget _buildImagePreview(int index) {
-    if (imageBytesList.length > index) {
-      return Stack(
+    return Container(
+      height: 280,
+      width: 1300,
+      padding: const EdgeInsets.all(kPadding * 2),
+      child: Stack(
         children: [
-          Image.memory(
-            imageBytesList[index],
-            fit: BoxFit.cover,
-            width: 100,
-            height: 100,
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: NetworkImage(
+                  files[index].url,
+                ),
+                fit: BoxFit.cover,
+              )
+            ),
           ),
           Positioned(
             top: 0,
@@ -104,29 +54,70 @@ class _FileUploadWidgetState extends State<FileUploadWidget2> {
               splashColor: const DigitColors().transparent,
               onTap: () {
                 setState(() {
-                  imageBytesList.removeAt(index);
+                  files.removeAt(index);
                 });
               },
               child: Container(
+                width: 24,
+                height: 24,
                 decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.white.withOpacity(0.7),
+                  color: const DigitColors().light.headerSideNav,
                 ),
-                child: const Icon(Icons.close, size: 16),
+                child: Icon(
+                  Icons.close,
+                  size: 16,
+                  color: const DigitColors().light.paperPrimary,
+                ),
               ),
             ),
           ),
         ],
-      );
-    } else {
-      return const SizedBox.shrink();
-    }
+      ),
+    );
+  }
+
+  Widget _buildProgressBar() {
+    return Container(
+      width: 1300,
+      height: 100,
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: const DigitColors().light.genericDivider,
+          width: 1,
+        ),
+        color: const DigitColors().light.paperSecondary,
+      ),
+      padding: const EdgeInsets.all(kPadding*2),
+
+      child: Column(
+        children: [
+          const Text('File Name'),
+          Container(
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: const DigitColors().light.textDisabled,
+                width: 1,
+              )
+            ),
+            child: LinearProgressIndicator(
+              value: _uploadProgress,
+              backgroundColor: const DigitColors().light.paperPrimary,
+              valueColor: AlwaysStoppedAnimation<Color>(
+                const DigitColors().light.headerSideNav,
+              ),
+              minHeight: 8,
+            ),
+          ),
+          Text('$_uploadProgress % progress'),
+        ],
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: MediaQuery.of(context).size.width,
+      width: 1300,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -136,34 +127,19 @@ class _FileUploadWidgetState extends State<FileUploadWidget2> {
                 width: 1300,
                 height: 150,
                 child: DropzoneView(
-                  operation: DragOperation.copy,
-                  cursor: CursorType.grab,
-                  // onCreated: (ctrl) => _dropzoneKey.currentState = ctrl,
-                  onDrop: (ev) async {
-                    print(ev);
-
-                    if (ev is PlatformFile) { // Using PlatformFile for non-web platforms
-                      print('File dropped: ${ev.name}');
-                      final bytes = await ev.bytes; // Use bytes property to get file content
-                      setState(() {
-                        imageBytesList.add(bytes!);
-                        fileNames.add(ev.name!);
-                      });
-
-                    } else if (ev is String) {
-                      print('Text dropped: $ev');
-                      // Handle text drop if needed
-                    } else {
-                      print('Unknown type dropped: ${ev.runtimeType}');
-                    }
-                  },
+                  onCreated: (controller) => this.controller = controller,
+                  onDrop: acceptFile,
                 ),
               ),
               InkWell(
                 highlightColor: const DigitColors().transparent,
                 hoverColor: const DigitColors().transparent,
                 splashColor: const DigitColors().transparent,
-                onTap: _openFileExplorer,
+                onTap: () async {
+                  final events = await controller.pickFiles();
+                  if (events.isEmpty) return;
+                  acceptFile(events.first);
+                },
                 child: Container(
                   width: 1300,
                   height: 150,
@@ -195,39 +171,93 @@ class _FileUploadWidgetState extends State<FileUploadWidget2> {
             ],
           ),
           const SizedBox(height: 8),
+          _buildProgressBar(),
+          const SizedBox(height: 8),
           widget.showPreview
-              ? GridView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    crossAxisSpacing: 8,
-                    mainAxisSpacing: 8,
-                  ),
-                  itemCount: imageBytesList.length,
-                  itemBuilder: (context, index) {
-                    return _buildImagePreview(index);
-                  },
-                )
+              ? Wrap(
+            spacing: 8.0,
+            children: List.generate(files.length, (index) {
+              return _buildImagePreview(index);
+            }),
+          )
               : Wrap(
-                  spacing: 8.0,
-                  children: List.generate(fileNames.length, (index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 8.0),
-                      child: Chip(
-                        label: Text(fileNames[index]),
-                        onDeleted: () {
-                          setState(() {
-                            fileNames.removeAt(index);
-                            imageBytesList.removeAt(index);
-                          });
-                        },
-                      ),
-                    );
-                  }),
+            spacing: 8.0,
+            children: List.generate(files.length, (index) {
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 8.0),
+                child: Chip(
+                  label: Text(files[index].name),
+                  onDeleted: () {
+                    setState(() {
+                      files.removeAt(index);
+                    });
+                  },
                 ),
+              );
+            }),
+          ),
         ],
       ),
     );
   }
+
+  Future acceptFile(dynamic event) async {
+    try {
+      final name = event.name;
+      final mime = await controller.getFileMIME(event);
+      final bytes = await controller.getFileSize(event);
+      final url = await controller.createFileUrl(event);
+
+      final droppedFile = DroppedFile(
+        url: url,
+        name: name,
+        mime: mime,
+        bytes: bytes,
+      );
+
+      _startUploadProgress();
+
+      setState(() {
+        files.add(droppedFile);
+      });
+
+      widget.onFilesSelected(files);
+    } catch (e) {
+      if (kDebugMode) {
+        print('Error accepting file: $e');
+      }
+    }
+  }
+
+  void _startUploadProgress() {
+    _uploadProgress = 0.0;
+    const uploadInterval = Duration(milliseconds: 100);
+
+    _uploadTimer?.cancel();
+
+    _uploadTimer = Timer.periodic(uploadInterval, (timer) {
+      setState(() {
+        _uploadProgress += 0.05;
+      });
+
+      if (_uploadProgress >= 1.0) {
+        _uploadTimer?.cancel();
+        _uploadProgress = 0.0;
+      }
+    });
+  }
+}
+
+class DroppedFile {
+  final String url;
+  final String name;
+  final String mime;
+  final int bytes;
+
+  const DroppedFile({
+    required this.url,
+    required this.name,
+    required this.bytes,
+    required this.mime,
+  });
 }

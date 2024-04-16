@@ -4,22 +4,12 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="527a2fe1-eac1-442a-a699-c8c48a8f093b" name="Changes" comment="updated timeline component">
-      <change afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/buttons_story.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/checkbox_story.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/dropdown_story.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/file_uploader_story.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/info_card_story.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/input_field_story.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/radio_list_story.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/timeline_story.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/toast_story.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/toggle_group_story.dart" afterDir="false" />
+    <list default="true" id="527a2fe1-eac1-442a-a699-c8c48a8f093b" name="Changes" comment="updated file uploader component">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/theme/colors.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/theme/colors.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/file_uploader.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/file_uploader.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/file_uploader2.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/file_uploader2.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/image_uploader.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/image_uploader.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/file_uploader_story.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/file_uploader_story.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,13 +111,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1704952952175</updated>
-    </task>
-    <task id="LOCAL-00172" summary="issue resolved">
-      <created>1709452513345</created>
-      <option name="number" value="00172" />
-      <option name="presentableId" value="LOCAL-00172" />
-      <option name="project" value="LOCAL" />
-      <updated>1709452513345</updated>
     </task>
     <task id="LOCAL-00173" summary="issue resolved">
       <created>1709476848432</created>
@@ -465,7 +448,14 @@
       <option name="project" value="LOCAL" />
       <updated>1712910110292</updated>
     </task>
-    <option name="localTasksCounter" value="221" />
+    <task id="LOCAL-00221" summary="updated file uploader component">
+      <created>1713187829194</created>
+      <option name="number" value="00221" />
+      <option name="presentableId" value="LOCAL-00221" />
+      <option name="project" value="LOCAL" />
+      <updated>1713187829194</updated>
+    </task>
+    <option name="localTasksCounter" value="222" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -480,7 +470,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added story book" />
     <MESSAGE value="expanded issue fix" />
     <MESSAGE value="widget-book for components" />
     <MESSAGE value="code cleaning" />
@@ -505,6 +494,7 @@
     <MESSAGE value="package update for code rabbit testing" />
     <MESSAGE value="timeline component" />
     <MESSAGE value="storybook for flutter components" />
-    <option name="LAST_COMMIT_MESSAGE" value="storybook for flutter components" />
+    <MESSAGE value="updated file uploader component" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated file uploader component" />
   </component>
 </project>

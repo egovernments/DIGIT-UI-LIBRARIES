@@ -121,7 +121,7 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
                       color: const DigitColors().light.textDisabled,
                       initialColor: const DigitColors().light.genericBackground,
                     ),
-                    child:  Icon(
+                    child: Icon(
                       Icons.insert_drive_file,
                       size: 48,
                       color: const DigitColors().light.genericInputBorder,
@@ -282,15 +282,22 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
+    /// typography based on screen
+    DigitTypography currentTypography = getTypography(context);
+
     return SizedBox(
       width: MediaQuery.of(context).size.width,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
           Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
             children: [
               Container(
                 width: 468,
@@ -302,16 +309,22 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
                   ),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 8.0, left: 8),
-                  child: Text(
-                    imageBytesList.isEmpty
-                        ? 'No File Selected'
-                        : '${imageBytesList.length} Selected',
-                    style: TextStyle(
-                      color: const DigitColors().light.textPrimary,
-                    ),
-                  ),
-                ),
+                    padding: const EdgeInsets.only(top: 8.0, left: 8),
+                    child: imageBytesList.isEmpty
+                        ? Text(
+                            'No File Selected',
+                            style: currentTypography.bodyS.copyWith(
+                              color: const DigitColors().light.textDisabled,
+                              height: 1.5,
+                            ),
+                          )
+                        : Text(
+                            '${imageBytesList.length} Selected',
+                            style: currentTypography.bodyS.copyWith(
+                              color: const DigitColors().light.textPrimary,
+                              height: 1.5,
+                            ),
+                          )),
               ),
               const SizedBox(
                 width: 16,
@@ -365,7 +378,10 @@ class FillProgressPainter extends CustomPainter {
   final Color color;
   final Color initialColor;
 
-  FillProgressPainter({required this.progress, required this.color, required this.initialColor});
+  FillProgressPainter(
+      {required this.progress,
+      required this.color,
+      required this.initialColor});
 
   @override
   void paint(Canvas canvas, Size size) {

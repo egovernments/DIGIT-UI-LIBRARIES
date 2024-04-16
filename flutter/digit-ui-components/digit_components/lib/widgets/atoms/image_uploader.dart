@@ -87,38 +87,54 @@ class _ImageUploaderState extends State<ImageUploader> {
 
   Widget _buildImagePreview(int index) {
     if (imageBytesList.length > index) {
-      return
-        Stack(
-          children: [
-            Image.memory(
-              imageBytesList[index],
-              fit: BoxFit.cover,
-              width: 100,
-              height: 100,
-            ),
-            Positioned(
-              top: 0,
-              right: 0,
-              child: InkWell(
-                hoverColor: const DigitColors().transparent,
-                highlightColor: const DigitColors().transparent,
-                splashColor: const DigitColors().transparent,
-                onTap: () {
-                  setState(() {
-                    imageBytesList.removeAt(index);
-                  });
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.white.withOpacity(0.7),
+      return Stack(
+        children: [
+          Container(
+            color: const DigitColors().light.genericDivider,
+            width: 100,
+            height: 100,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(0),
+              child: Stack(
+                fit: StackFit.expand,
+                children: [
+                  Image.memory(
+                    imageBytesList[index],
+                    fit: BoxFit.cover,
                   ),
-                  child: const Icon(Icons.close, size: 16),
-                ),
+                  Positioned(
+                    top: 0,
+                    right: 0,
+                    child: InkWell(
+                      hoverColor: const DigitColors().transparent,
+                      highlightColor: const DigitColors().transparent,
+                      splashColor: const DigitColors().transparent,
+                      onTap: () {
+                        setState(() {
+                          imageBytesList.removeAt(index);
+                          fileNames.removeAt(index);
+                        });
+                      },
+                      child: Container(
+                        width: 24,
+                        height: 24,
+                        decoration: BoxDecoration(
+                          color: const DigitColors().light.headerSideNav,
+                        ),
+                        child: Icon(
+                          Icons.close,
+                          size: 16,
+                          color: const DigitColors().light.paperPrimary,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
-          ],
-        );
+          ),
+        ],
+      );
     } else {
       return const SizedBox.shrink(); // Return an empty SizedBox if no image is selected
     }
@@ -127,14 +143,14 @@ class _ImageUploaderState extends State<ImageUploader> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: MediaQuery
-          .of(context)
-          .size
-          .width,
+      width: 600,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               InkWell(
                 highlightColor: const DigitColors().transparent,
@@ -166,18 +182,11 @@ class _ImageUploaderState extends State<ImageUploader> {
             ],
           ),
           const SizedBox(height: 8),
-          GridView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
-              crossAxisSpacing: 8,
-              mainAxisSpacing: 8,
-            ),
-            itemCount: imageBytesList.length,
-            itemBuilder: (context, index) {
+          Wrap(
+            spacing: 8.0,
+            children: List.generate(fileNames.length, (index) {
               return _buildImagePreview(index);
-            },
+            }),
           )
         ],
       ),
