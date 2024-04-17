@@ -126,7 +126,9 @@ const TextInput = (props) => {
                 ? props?.onIconSelection
                 : handleLocationClick
             }
-            className="digit-text-input-customIcon"
+            className={` digit-text-input-customIcon ${
+              props.disabled ? "disabled" : ""
+            } ${props.nonEditable ? "nonEditable" : ""}`}
           />
         );
       } else if (reqIcon === "password" && inputType === "text" && visibility) {

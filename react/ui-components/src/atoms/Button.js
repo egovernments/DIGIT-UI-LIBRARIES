@@ -1,22 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
+import StringManipulator from "./StringManipulator";
 
 const Button = (props) => {
-  const capitalizeFirstLetter = (str) => {
-    return str.charAt(0).toUpperCase() + str.slice(1);
-  };
-
-  //Label truncated to maximum of 64chars
-  const truncateLabel = (label,maxLength) => {
-    if (label.length > maxLength) {
-      return label.slice(0, maxLength) + "...";
-    }
-    return label;
-  };
-
+  
   //To render the icon
   const IconRender = () => {
-    const iconFill = props?.variation === "primary" ? "#FFFFFF" : props?.isDisabled ? "#B1B4B6" : "#F47738";
+    const iconFill =
+      props?.variation === "primary"
+        ? "#FFFFFF"
+        : props?.isDisabled
+        ? "#B1B4B6"
+        : "#F47738";
     const iconReq = props?.icon;
     const width = props?.variation === "link" ? "1.25" : "1.5rem";
     const height = props?.variation === "link" ? "1.25" : "1.5rem";
@@ -42,12 +37,23 @@ const Button = (props) => {
   };
 
   const icon = IconRender();
-  const formattedLabel = props?.variation === "link" ? props?.label : capitalizeFirstLetter(truncateLabel(props?.label,64));
+
+  const formattedLabel =
+    props?.variation === "link"
+      ? props?.label
+      : StringManipulator(
+          "capitalizeFirstLetter",
+          StringManipulator("truncateString", props?.label, {
+            maxLength: 64,
+          })
+        );
 
   return (
     <button
       ref={props?.ref}
-      className={`digit-button-${props?.variation ? props?.variation : "default"} ${props?.className ? props?.className : ""} ${
+      className={`digit-button-${
+        props?.variation ? props?.variation : "default"
+      } ${props?.className ? props?.className : ""} ${
         props?.isDisabled ? "disabled" : ""
       }`}
       type={props?.submit ? "submit" : props.type || "button"}
@@ -56,7 +62,11 @@ const Button = (props) => {
       disabled={props?.isDisabled || null}
       style={props.style ? props.style : null}
     >
-      <div className={`icon-label-container ${props?.variation ? props?.variation : ""}`}>
+      <div
+        className={`icon-label-container ${
+          props?.variation ? props?.variation : ""
+        }`}
+      >
         {!props?.isSuffix && props?.icon && icon}
         <h2 style={{ ...props?.textStyles }} className="digit-button-label">
           {formattedLabel}

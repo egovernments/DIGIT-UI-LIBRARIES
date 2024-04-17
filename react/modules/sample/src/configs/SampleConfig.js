@@ -8,7 +8,7 @@ export const newConfig = [
         isMandatory: false,
         type: "text",
         disable: false,
-        populators: { name: "text-Default", error: "Error!"},
+        populators: { name: "text-Default", error: "Error!" },
       },
       {
         inline: true,
@@ -16,8 +16,8 @@ export const newConfig = [
         isMandatory: false,
         type: "text",
         disable: false,
-        placeholder:"Inner label",
-        populators: { name: "text-With InnerLabel", error: "Error!"},
+        placeholder: "Inner label",
+        populators: { name: "text-With InnerLabel", error: "Error!" },
       },
       {
         inline: true,
@@ -38,11 +38,14 @@ export const newConfig = [
       },
       {
         inline: true,
-        label: "Error",
+        label: "Required Field",
         isMandatory: true,
         type: "text",
         disable: false,
-        populators: { name: "text-Error", error: "This field is mandatory!" },
+        populators: {
+          name: "text-Required Field",
+          error: "This field is mandatory!",
+        },
       },
       {
         inline: true,
@@ -59,6 +62,8 @@ export const newConfig = [
         isMandatory: false,
         type: "text",
         disable: false,
+        description:
+          "If maxlength is specified in the validation,then the user cannot enter more than that,else max charCount will be shown as 0 by default.",
         charCount: true,
         populators: { name: "text-With CharCount", error: "Error!" },
       },
@@ -74,21 +79,27 @@ export const newConfig = [
       },
       {
         inline: true,
-        label: "With Des&Err",
+        label: "Required Field With Des",
         isMandatory: true,
         type: "text",
         disable: false,
         description: "Help text",
         charCount: true,
-        populators: { name: "text-With Des&Err", error: "Error!" },
+        populators: {
+          name: "text-Required Field With Des",
+          error: "This field is mandatory!",
+        },
       },
       {
         inline: true,
-        label: "Mandatory",
+        label: "Required",
         isMandatory: true,
         type: "text",
         disable: false,
-        populators: { name: "text-Mandatory", error: "This field is mandatory!" },
+        populators: {
+          name: "text-Required",
+          error: "This field is mandatory!",
+        },
       },
       {
         inline: true,
@@ -106,7 +117,10 @@ export const newConfig = [
         type: "text",
         disable: false,
         infoMessage: "This is mandatory",
-        populators: { name: "text-Info&Mandatory", error: "Required" },
+        populators: {
+          name: "text-Info&Mandatory",
+          error: "This field is mandatory!",
+        },
       },
       {
         inline: true,
@@ -119,11 +133,17 @@ export const newConfig = [
       },
       {
         inline: true,
-        label: "With Validation",
+        label: "With Validation max chars as 10 and min chars as 2",
         isMandatory: true,
         type: "text",
         disable: false,
-        populators: { name: "text-With Validation", error: "Enter minimum two characters", validation: { minlength: 2, maxlength: 10 } },
+        charCount: true,
+        populators: {
+          name: "text-With Validation",
+          wrapLabel: true,
+          error: "Enter minimum two characters and maximum ten characters",
+          validation: { minlength: 2, maxlength: 10 },
+        },
       },
       {
         inline: true,
@@ -142,7 +162,7 @@ export const newConfig = [
       },
       {
         inline: true,
-        label: "Complete hufiewgfruefgweochwioecheihcowecjkncjkrncnfekjjsiwhsuwyduyodweydpxiwoecbhiorbiocrbhiobciorfciorexfibwfyxiowebfyxyfpiweqbdzpuwdpwefyewixbfefhxwioexfbhwebfiweh",
+        label: "With all properties",
         placeholder: "Enter Text",
         isMandatory: true,
         type: "text",
@@ -150,15 +170,34 @@ export const newConfig = [
         infoMessage: "Complete text field",
         description: "Help Text",
         charCount: true,
-        populators: { name: "text-Complete", error: "This field is mandatory!" ,wrapLabel:true},
+        populators: {
+          name: "text-Complete",
+          error: "This field is mandatory!",
+          wrapLabel: true,
+        },
       },
       {
         inline: true,
-        label: "qazwsxedcrfvtgbyhnujmikolpplmoknijbuhvygctfxrdzeswaqedfrtgyhujikl",
+        label:
+          "Max chars allowed for the label are 64, then ellipsis are added.",
+        isMandatory: true,
+        type: "text",
+        disable: false,
+        infoMessage: "hvgvbsdvdvfvfd",
+        description: "text-With MaxCharsLabel",
+        populators: {
+          name: "text-With MaxCharsLabel",
+          error: "Error!",
+          wrapLabel: true,
+        },
+      },
+      {
+        inline: true,
+        label: "Wraplabel-false ellipsis-added",
         isMandatory: false,
         type: "text",
         disable: false,
-        description:"text-With MaxCharsLabel",
+        description: "text-Withot wrapLabel",
         populators: { name: "text-With MaxCharsLabel", error: "Error!" },
       },
       {
@@ -168,7 +207,7 @@ export const newConfig = [
         type: "text",
         disable: false,
         description:
-          "qazwsxedcrfvtgbyhnujmikolpplmoknijbuhvygctfxrdzeswaqedfrtgyhujikqazwsxedcrfvtgbyhnujmikolpplmoknijbuhvygctfxrdzeswaqedfrtgyhujikqazwsxedcrfvtgbyhnujmikolpplmoknijbuhvygctfxrdzeswaqedfrtgyhujikqazwsxedcrfvtgbyhnujmikolpplmoknijbuhvygctfxrdzeswaqedfrtgyhujikl",
+          "Maximum characters allowed for the description is 256 characters,If more than 256 characters are sent then ellipsis will be added for the description and shown in this way.The error also follows the same way,so max characters allowed for description - 256,,",
         charCount: true,
         populators: { name: "text-With MaxDes&CharCount", error: "Error!" },
       },
@@ -178,17 +217,13 @@ export const newConfig = [
         isMandatory: true,
         type: "text",
         disable: false,
-        description:"",
+        description: "",
         charCount: true,
-        populators: { name: "text-With MaxErr&CharCount", error: "qazwsxedcrfvtgbyhnujmikolpplmoknijbuhvygctfxrdzeswaqedfrtgyhujikqazwsxedcrfvtgbyhnujmikolpplmoknijbuhvygctfxrdzeswaqedfrtgyhujikqazwsxedcrfvtgbyhnujmikolpplmoknijbuhvygctfxrdzeswaqedfrtgyhujikqazwsxedcrfvtgbyhnujmikolpplmoknijbuhvygctfxrdzeswaqedfrtgyhujikl" },
-      },
-      {
-        inline: true,
-        label: "In the quiet glow of dawn, the city stirred to life. A gentle breeze carried whispers of possibility through the streets, as if the day itself held secrets waiting to unfold. Birds painted ribbons of melody across the sky, joining the symphony of a waking world. The first rays of sunlight tiptoed over the horizon, casting a warm, golden hue on the buildings and trees below. In this tranquil moment, the promise of a new day hung in the air, inviting everyone to embrace the journey ahead",
-        isMandatory: false,
-        type: "text",
-        disable: false,
-        populators: { name: "text-labelwrap", error: "Error!" ,wrapLabel:true},
+        populators: {
+          name: "text-With MaxErr&CharCount",
+          error:
+            "Maximum characters allowed for the error is 256 characters,If more than 256 characters are sent then ellipsis will be added for the error message and shown in this way.The description also follows the same way.The maximum characters allowed for error - 256.",
+        },
       },
       {
         inline: true,
@@ -221,7 +256,7 @@ export const newConfig = [
         description: "",
         type: "date",
         disable: false,
-        placeholder:"date",
+        placeholder: "date",
         populators: { name: "date-With Innerlabel", error: "Error!" },
       },
       {
@@ -245,12 +280,15 @@ export const newConfig = [
       },
       {
         inline: true,
-        label: "Error",
+        label: "Required Field",
         isMandatory: true,
         description: "",
         type: "date",
         disable: false,
-        populators: { name: "date-Error", error: "This field is mandatory!" },
+        populators: {
+          name: "date-Required Field",
+          error: "This field is mandatory!",
+        },
       },
       {
         inline: true,
@@ -261,7 +299,7 @@ export const newConfig = [
         disable: false,
         infoMessage: "Select the date",
         populators: { name: "date-With Info", error: "Error!" },
-      }
+      },
     ],
   },
   {
@@ -283,7 +321,7 @@ export const newConfig = [
         description: "",
         type: "time",
         disable: false,
-        placeholder:"time",
+        placeholder: "time",
         populators: { name: "time-With Innerlabel", error: "Error!" },
       },
       {
@@ -307,12 +345,15 @@ export const newConfig = [
       },
       {
         inline: true,
-        label: "Error",
+        label: "Required Field",
         isMandatory: true,
         description: "",
         type: "time",
         disable: false,
-        populators: { name: "time-Error", error: "This field is mandatory!" },
+        populators: {
+          name: "time-Required Field",
+          error: "This field is mandatory!",
+        },
       },
       {
         inline: true,
@@ -345,7 +386,7 @@ export const newConfig = [
         description: "",
         type: "geolocation",
         disable: false,
-        placeholder:"Innerlabel",
+        placeholder: "Innerlabel",
         populators: { name: "geolocation-With Innerlabel", error: "Error!" },
       },
       {
@@ -369,12 +410,15 @@ export const newConfig = [
       },
       {
         inline: true,
-        label: "Error",
+        label: "Required Field",
         isMandatory: true,
         description: "",
         type: "geolocation",
         disable: false,
-        populators: { name: "geolocation-Error", error: "This field is mandatory!" },
+        populators: {
+          name: "geolocation-Required Field",
+          error: "This field is mandatory!",
+        },
       },
       {
         inline: true,
@@ -407,7 +451,7 @@ export const newConfig = [
         description: "",
         type: "numeric",
         disable: false,
-        placeholder:0,
+        placeholder: "0",
         populators: { name: "numeric-With Innerlabel", error: "Error!" },
       },
       {
@@ -441,12 +485,15 @@ export const newConfig = [
       },
       {
         inline: true,
-        label: "Error",
+        label: "Required Field",
         isMandatory: true,
         description: "",
         type: "numeric",
         disable: false,
-        populators: { name: "numeric-Error", error: "This field is mandatory!" },
+        populators: {
+          name: "numeric-Required Field",
+          error: "This field is mandatory!",
+        },
       },
       {
         inline: true,
@@ -457,6 +504,20 @@ export const newConfig = [
         disable: false,
         infoMessage: "this is numeric field",
         populators: { name: "numeric-With Info", error: "Error!" },
+      },
+      {
+        inline: true,
+        label: "With minimum 2 and maximum 10",
+        isMandatory: false,
+        description: "",
+        type: "numeric",
+        disable: false,
+        populators: {
+          name: "numeric-With Validation",
+          error: "Enter value in between 1 to 11!",
+          validation: { min: 2, max: 10 },
+          wrapLabel: true,
+        },
       },
     ],
   },
@@ -479,8 +540,12 @@ export const newConfig = [
         description: "",
         type: "text",
         disable: false,
-        placeholder:"Prefix",
-        populators: { name: "prefix-With Innerlabel", error: "Error!", prefix: "₹" },
+        placeholder: "Prefix",
+        populators: {
+          name: "prefix-With Innerlabel",
+          error: "Error!",
+          prefix: "₹",
+        },
       },
       {
         inline: true,
@@ -489,7 +554,11 @@ export const newConfig = [
         description: "",
         type: "text",
         disable: false,
-        populators: { name: "prefix-Large Prefix", error: "Error!", prefix: "1234567890" },
+        populators: {
+          name: "prefix-Large Prefix",
+          error: "Error!",
+          prefix: "1234567890",
+        },
       },
       {
         inline: true,
@@ -508,16 +577,24 @@ export const newConfig = [
         type: "text",
         disable: false,
         nonEditable: true,
-        populators: { name: "prefix-Noneditable", error: "Error!", prefix: "₹" },
+        populators: {
+          name: "prefix-Noneditable",
+          error: "Error!",
+          prefix: "₹",
+        },
       },
       {
         inline: true,
-        label: "Error",
+        label: "Required Field",
         isMandatory: true,
         description: "",
         type: "text",
         disable: false,
-        populators: { name: "prefix-Error", error: "This field is mandatory!", prefix: "₹" },
+        populators: {
+          name: "prefix-Required Field",
+          error: "This field is mandatory!",
+          prefix: "₹",
+        },
       },
       {
         inline: true,
@@ -560,8 +637,12 @@ export const newConfig = [
         description: "",
         type: "text",
         disable: false,
-        placeholder:"suffix",
-        populators: { name: "suffix-With Innerlabel", error: "Error!", suffix: "₹" },
+        placeholder: "suffix",
+        populators: {
+          name: "suffix-With Innerlabel",
+          error: "Error!",
+          suffix: "₹",
+        },
       },
       {
         inline: true,
@@ -570,7 +651,11 @@ export const newConfig = [
         description: "",
         type: "text",
         disable: false,
-        populators: { name: "suffix-Large Suffix", error: "Error!", suffix: "1234567890" },
+        populators: {
+          name: "suffix-Large Suffix",
+          error: "Error!",
+          suffix: "1234567890",
+        },
       },
       {
         inline: true,
@@ -589,16 +674,24 @@ export const newConfig = [
         type: "text",
         disable: false,
         nonEditable: true,
-        populators: { name: "suffix-Noneditable", error: "Error!", suffix: "₹" },
+        populators: {
+          name: "suffix-Noneditable",
+          error: "Error!",
+          suffix: "₹",
+        },
       },
       {
         inline: true,
-        label: "Error",
+        label: "Required Field",
         isMandatory: true,
         description: "",
         type: "text",
         disable: false,
-        populators: { name: "suffix-Error", error: "This field is mandatory!", suffix: "₹" },
+        populators: {
+          name: "suffix-Required Field",
+          error: "This field is mandatory!",
+          suffix: "₹",
+        },
       },
       {
         inline: true,
@@ -608,7 +701,11 @@ export const newConfig = [
         type: "text",
         disable: false,
         description: "Help Text",
-        populators: { name: "suffix-With Description", error: "Error!", suffix: "₹" },
+        populators: {
+          name: "suffix-With Description",
+          error: "Error!",
+          suffix: "₹",
+        },
       },
       {
         inline: true,
@@ -641,7 +738,7 @@ export const newConfig = [
         description: "",
         type: "password",
         disable: false,
-        placeholder:"Password",
+        placeholder: "Password",
         populators: { name: "password-With Innerlabel", error: "Error!" },
       },
       {
@@ -665,12 +762,15 @@ export const newConfig = [
       },
       {
         inline: true,
-        label: "Error",
+        label: "Required Field",
         isMandatory: true,
         description: "",
         type: "password",
         disable: false,
-        populators: { name: "password-Error", error: "This field is mandatory!" },
+        populators: {
+          name: "password-Required Field",
+          error: "This field is mandatory!",
+        },
       },
       {
         inline: true,
@@ -698,7 +798,11 @@ export const newConfig = [
         isMandatory: false,
         type: "password",
         disable: false,
-        populators: { name: "password-With Validation", error: "Error!", validation: { minlength: 6 } },
+        populators: {
+          name: "password-With Validation",
+          error: "Error!",
+          validation: { minlength: 6 },
+        },
       },
     ],
   },
@@ -721,7 +825,7 @@ export const newConfig = [
         description: "",
         type: "search",
         disable: false,
-        placeholder:"Inner label",
+        placeholder: "Inner label",
         populators: { name: "search-With Innerlabel", error: "Error!" },
       },
       {
@@ -745,12 +849,15 @@ export const newConfig = [
       },
       {
         inline: true,
-        label: "Error",
+        label: "Required Field",
         isMandatory: true,
         description: "",
         type: "search",
         disable: false,
-        populators: { name: "search-Error", error: "This field is mandatory!" },
+        populators: {
+          name: "search-Required Field",
+          error: "This field is mandatory!",
+        },
       },
       {
         inline: true,
@@ -802,7 +909,11 @@ export const newConfig = [
         description: "",
         type: "textarea",
         disable: false,
-        populators: { name: "textarea-Smart Resize", error: "Error!" ,resizeSmart:true},
+        populators: {
+          name: "textarea-Smart Resize",
+          error: "Error!",
+          resizeSmart: true,
+        },
       },
       {
         inline: true,
@@ -825,12 +936,15 @@ export const newConfig = [
       },
       {
         inline: true,
-        label: "Error",
+        label: "Required Field",
         isMandatory: true,
         description: "",
         type: "textarea",
         disable: false,
-        populators: { name: "textarea-Error", error: "This field is mandatory!" },
+        populators: {
+          name: "textarea-Required Field",
+          error: "This field is mandatory!",
+        },
       },
       {
         inline: true,
@@ -862,13 +976,16 @@ export const newConfig = [
       },
       {
         inline: true,
-        label: "With Des&Err",
+        label: "Required Field With Des",
         isMandatory: true,
         type: "textarea",
         disable: false,
         description: "Help text",
         charCount: true,
-        populators: { name: "textarea-With Des&Err", error: "This field is mandatory!" },
+        populators: {
+          name: "textarea-Required Field With Des",
+          error: "This field is mandatory!",
+        },
       },
       {
         inline: true,
@@ -876,7 +993,10 @@ export const newConfig = [
         isMandatory: true,
         type: "textarea",
         disable: false,
-        populators: { name: "textarea-Mandatory", error: "This field is mandatory" },
+        populators: {
+          name: "textarea-Mandatory",
+          error: "This field is mandatory",
+        },
       },
       {
         inline: true,
@@ -894,15 +1014,10 @@ export const newConfig = [
         type: "textarea",
         disable: false,
         infoMessage: "Textare field information",
-        populators: { name: "textarea-Info&Mandatory", error: "This field is mandatory" },
-      },
-      {
-        inline: true,
-        label: "With Validation",
-        isMandatory: false,
-        type: "textarea",
-        disable: false,
-        populators: { name: "textarea-With Validation", error: "Error!", validation: { minlength: 20, maxlength: 500 } },
+        populators: {
+          name: "textarea-Info&Mandatory",
+          error: "This field is mandatory",
+        },
       },
       {
         inline: true,
@@ -914,7 +1029,10 @@ export const newConfig = [
         infoMessage: "Textare field complete",
         description: "Help Text",
         charCount: true,
-        populators: { name: "textarea-Complete", error: "This field is mandatory" },
+        populators: {
+          name: "textarea-Complete",
+          error: "This field is mandatory",
+        },
       },
       {
         inline: true,
@@ -971,10 +1089,10 @@ export const newConfig = [
         isMandatory: true,
         type: "radio",
         key: "genders",
-        label: "Error",
+        label: "Required Field",
         disable: false,
         populators: {
-          name: "radio-Error",
+          name: "radio-Required Field",
           optionsKey: "name",
           error: "This field is mandatory!",
           required: true,
@@ -1058,7 +1176,7 @@ export const newConfig = [
           options: [
             {
               code: "1",
-              name: "maxlabeloneuiuichjkdcbd",
+              name: "max labelon eui uichjkdcbdhjfjhvfbjfdvjkfhgrghrjekghruieghuireghruieghruieghregrejghreighruieghre",
             },
             {
               code: "2",
@@ -1116,10 +1234,10 @@ export const newConfig = [
         isMandatory: true,
         type: "dropdown",
         key: "genders",
-        label: "Error",
+        label: "Required Field",
         disable: false,
         populators: {
-          name: "dropdown-Error",
+          name: "dropdown-Required Field",
           optionsKey: "name",
           error: "This field is mandatory!",
           required: true,
@@ -1177,7 +1295,7 @@ export const newConfig = [
             moduleName: "common-masters",
             localePrefix: "COMMON_GENDER",
           },
-          isSearchable:false
+          isSearchable: false,
         },
       },
     ],
@@ -1257,11 +1375,11 @@ export const newConfig = [
         isMandatory: true,
         type: "dropdown",
         key: "genders",
-        label: "Error",
+        label: "Required Field",
         disable: false,
         variant: "nesteddropdown",
         populators: {
-          name: "nesteddropdown-Error",
+          name: "nesteddropdown-Required Field",
           optionsKey: "name",
           error: "This field is mandatory!",
           required: true,
@@ -1299,23 +1417,47 @@ export const newConfig = [
           optionsKey: "name",
           error: "",
           required: true,
-          showIcon:true,
+          showIcon: true,
           options: [
             {
               name: "Category A",
               options: [
-                { code: "Category A.Option A", name: "Option A", icon: "Article" },
-                { code: "Category A.Option B", name: "Option B", icon: "Article" },
-                { code: "Category A.Option C", name: "Option C", icon: "Article" },
+                {
+                  code: "Category A.Option A",
+                  name: "Option A",
+                  icon: "Article",
+                },
+                {
+                  code: "Category A.Option B",
+                  name: "Option B",
+                  icon: "Article",
+                },
+                {
+                  code: "Category A.Option C",
+                  name: "Option C",
+                  icon: "Article",
+                },
               ],
               code: "Category A",
             },
             {
               name: "Category B",
               options: [
-                { code: "Category B.Option A", name: "Option A", icon: "Article" },
-                { code: "Category B.Option 2", name: "Option 2", icon: "Article" },
-                { code: "Category B.Option 3", name: "Option 3", icon: "Article" },
+                {
+                  code: "Category B.Option A",
+                  name: "Option A",
+                  icon: "Article",
+                },
+                {
+                  code: "Category B.Option 2",
+                  name: "Option 2",
+                  icon: "Article",
+                },
+                {
+                  code: "Category B.Option 3",
+                  name: "Option 3",
+                  icon: "Article",
+                },
               ],
               code: "Category B",
             },
@@ -1354,7 +1496,7 @@ export const newConfig = [
               code: "Category B",
             },
           ],
-          isSearchable:false
+          isSearchable: false,
         },
       },
     ],
@@ -1482,11 +1624,11 @@ export const newConfig = [
         isMandatory: true,
         type: "dropdown",
         key: "genders",
-        label: "Error",
+        label: "Required Field",
         disable: false,
         variant: "treedropdown",
         populators: {
-          name: "treedropdown-Error",
+          name: "treedropdown-Required Field",
           optionsKey: "name",
           error: "This field is mandatory!",
           required: true,
@@ -1557,17 +1699,20 @@ export const newConfig = [
             {
               code: "Option1",
               name: "Option1",
-              description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
+              description:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
             },
             {
               code: "Option2",
               name: "Option2",
-              description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
+              description:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
             },
             {
               code: "Option3",
               name: "Option3",
-              description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
+              description:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
             },
           ],
         },
@@ -1588,17 +1733,20 @@ export const newConfig = [
             {
               code: "Option1",
               name: "Option1",
-              description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
+              description:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
             },
             {
               code: "Option2",
               name: "Option2",
-              description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
+              description:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
             },
             {
               code: "Option3",
               name: "Option3",
-              description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
+              description:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
             },
           ],
         },
@@ -1607,11 +1755,11 @@ export const newConfig = [
         isMandatory: true,
         type: "dropdown",
         key: "genders",
-        label: "Error",
+        label: "Required Field",
         disable: false,
         variant: "nestedtextdropdown",
         populators: {
-          name: "nestedtextdropdown-Error",
+          name: "nestedtextdropdown-Required Field",
           optionsKey: "name",
           error: "This field is mandatory!",
           required: true,
@@ -1619,17 +1767,20 @@ export const newConfig = [
             {
               code: "Option1",
               name: "Option1",
-              description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
+              description:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
             },
             {
               code: "Option2",
               name: "Option2",
-              description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
+              description:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
             },
             {
               code: "Option3",
               name: "Option3",
-              description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
+              description:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
             },
           ],
         },
@@ -1646,25 +1797,28 @@ export const newConfig = [
           optionsKey: "name",
           error: "",
           required: true,
-          showIcon:true,
+          showIcon: true,
           options: [
             {
               code: "Option1",
               name: "Option1",
-              icon:"Article",
-              description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
+              icon: "Article",
+              description:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
             },
             {
               code: "Option2",
               name: "Option2",
-              icon:"Article",
-              description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
+              icon: "Article",
+              description:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
             },
             {
               code: "Option3",
               name: "Option3",
-              icon:"Article",
-              description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
+              icon: "Article",
+              description:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
             },
           ],
         },
@@ -1685,20 +1839,23 @@ export const newConfig = [
             {
               code: "Option1",
               name: "Option1",
-              description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
+              description:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
             },
             {
               code: "Option2",
               name: "Option2",
-              description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
+              description:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
             },
             {
               code: "Option3",
               name: "Option3",
-              description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
+              description:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
             },
           ],
-          isSearchable:false
+          isSearchable: false,
         },
       },
     ],
@@ -1721,15 +1878,15 @@ export const newConfig = [
           options: [
             {
               code: "Option1",
-              name: "Option1"
+              name: "Option1",
             },
             {
               code: "Option2",
-              name: "Option2"
+              name: "Option2",
             },
             {
               code: "Option3",
-              name: "Option3"
+              name: "Option3",
             },
           ],
         },
@@ -1749,15 +1906,15 @@ export const newConfig = [
           options: [
             {
               code: "Option1",
-              name: "Option1"
+              name: "Option1",
             },
             {
               code: "Option2",
-              name: "Option2"
+              name: "Option2",
             },
             {
               code: "Option3",
-              name: "Option3"
+              name: "Option3",
             },
           ],
         },
@@ -1766,26 +1923,26 @@ export const newConfig = [
         isMandatory: true,
         type: "dropdown",
         key: "genders",
-        label: "Error",
+        label: "Required Field",
         disable: false,
         variant: "profiledropdown",
         populators: {
-          name: "profiledropdown-Error",
+          name: "profiledropdown-Required Field",
           optionsKey: "name",
           error: "This field is mandatory!",
           required: true,
           options: [
             {
               code: "Option1",
-              name: "Option1"
+              name: "Option1",
             },
             {
               code: "Option2",
-              name: "Option2"
+              name: "Option2",
             },
             {
               code: "Option3",
-              name: "Option3"
+              name: "Option3",
             },
           ],
         },
@@ -1806,17 +1963,20 @@ export const newConfig = [
             {
               code: "Option1",
               name: "Option1",
-              profileIcon: "https://www.freeiconspng.com/uploads/am-a-19-year-old-multimedia-artist-student-from-manila--21.png",
+              profileIcon:
+                "https://www.freeiconspng.com/uploads/am-a-19-year-old-multimedia-artist-student-from-manila--21.png",
             },
             {
               code: "Option2",
               name: "Option2",
-              profileIcon: "https://www.freeiconspng.com/uploads/am-a-19-year-old-multimedia-artist-student-from-manila--21.png",
+              profileIcon:
+                "https://www.freeiconspng.com/uploads/am-a-19-year-old-multimedia-artist-student-from-manila--21.png",
             },
             {
               code: "Option3",
               name: "Option3",
-              profileIcon: "https://www.freeiconspng.com/uploads/am-a-19-year-old-multimedia-artist-student-from-manila--21.png",
+              profileIcon:
+                "https://www.freeiconspng.com/uploads/am-a-19-year-old-multimedia-artist-student-from-manila--21.png",
             },
           ],
         },
@@ -1837,20 +1997,26 @@ export const newConfig = [
             {
               code: "Option1",
               name: "Option1",
-              description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
-              profileIcon: "https://www.freeiconspng.com/uploads/am-a-19-year-old-multimedia-artist-student-from-manila--21.png",
+              description:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
+              profileIcon:
+                "https://www.freeiconspng.com/uploads/am-a-19-year-old-multimedia-artist-student-from-manila--21.png",
             },
             {
               code: "Option2",
               name: "Option2",
-              description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
-              profileIcon: "https://www.freeiconspng.com/uploads/am-a-19-year-old-multimedia-artist-student-from-manila--21.png",
+              description:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
+              profileIcon:
+                "https://www.freeiconspng.com/uploads/am-a-19-year-old-multimedia-artist-student-from-manila--21.png",
             },
             {
               code: "Option3",
               name: "Option3",
-              description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
-              profileIcon: "https://www.freeiconspng.com/uploads/am-a-19-year-old-multimedia-artist-student-from-manila--21.png",
+              description:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
+              profileIcon:
+                "https://www.freeiconspng.com/uploads/am-a-19-year-old-multimedia-artist-student-from-manila--21.png",
             },
           ],
         },
@@ -1870,18 +2036,18 @@ export const newConfig = [
           options: [
             {
               code: "Option1",
-              name: "Option1"
+              name: "Option1",
             },
             {
               code: "Option2",
-              name: "Option2"
+              name: "Option2",
             },
             {
               code: "Option3",
-              name: "Option3"
+              name: "Option3",
             },
           ],
-          isSearchable:false
+          isSearchable: false,
         },
       },
     ],
@@ -1957,7 +2123,7 @@ export const newConfig = [
           error: "Error!",
           required: false,
           isDropdownWithChip: true,
-          showIcon:true,
+          showIcon: true,
           options: [
             {
               code: "Option1",
@@ -2065,23 +2231,47 @@ export const newConfig = [
           error: "Error!",
           required: false,
           isDropdownWithChip: true,
-          showIcon:true,
+          showIcon: true,
           options: [
             {
               name: "Category A",
               options: [
-                { code: "Category A.Option A", name: "Option A", icon: "Article" },
-                { code: "Category A.Option B", name: "Option B", icon: "Article" },
-                { code: "Category A.Option C", name: "Option C", icon: "Article" },
+                {
+                  code: "Category A.Option A",
+                  name: "Option A",
+                  icon: "Article",
+                },
+                {
+                  code: "Category A.Option B",
+                  name: "Option B",
+                  icon: "Article",
+                },
+                {
+                  code: "Category A.Option C",
+                  name: "Option C",
+                  icon: "Article",
+                },
               ],
               code: "Category A",
             },
             {
               name: "Category B",
               options: [
-                { code: "Category B.Option A", name: "Option A", icon: "Article" },
-                { code: "Category B.Option 2", name: "Option 2", icon: "Article" },
-                { code: "Category B.Option 3", name: "Option 3", icon: "Article" },
+                {
+                  code: "Category B.Option A",
+                  name: "Option A",
+                  icon: "Article",
+                },
+                {
+                  code: "Category B.Option 2",
+                  name: "Option 2",
+                  icon: "Article",
+                },
+                {
+                  code: "Category B.Option 3",
+                  name: "Option 3",
+                  icon: "Article",
+                },
               ],
               code: "Category B",
             },
@@ -2233,17 +2423,20 @@ export const newConfig = [
             {
               code: "Option1",
               name: "Option1",
-              description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
+              description:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
             },
             {
               code: "Option2",
               name: "Option2",
-              description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
+              description:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
             },
             {
               code: "Option3",
               name: "Option3",
-              description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
+              description:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
             },
           ],
         },
@@ -2265,17 +2458,20 @@ export const newConfig = [
             {
               code: "Option1",
               name: "Option1",
-              description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
+              description:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
             },
             {
               code: "Option2",
               name: "Option2",
-              description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
+              description:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
             },
             {
               code: "Option3",
               name: "Option3",
-              description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
+              description:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
             },
           ],
         },
@@ -2293,25 +2489,28 @@ export const newConfig = [
           error: "Error!",
           required: false,
           isDropdownWithChip: true,
-          showIcon:true,
+          showIcon: true,
           options: [
             {
               code: "Option1",
               name: "Option1",
-              icon:"Article",
-              description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
+              icon: "Article",
+              description:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
             },
             {
               code: "Option2",
               name: "Option2",
-              icon:"Article",
-              description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
+              icon: "Article",
+              description:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
             },
             {
               code: "Option3",
               name: "Option3",
-              icon:"Article",
-              description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
+              icon: "Article",
+              description:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
             },
           ],
         },
@@ -2335,7 +2534,11 @@ export const newConfig = [
         type: "checkbox",
         disable: false,
         withoutLabel: true,
-        populators: { name: "checkbox-Labelled", error: "Error!", title: "Labelled" },
+        populators: {
+          name: "checkbox-Labelled",
+          error: "Error!",
+          title: "Labelled",
+        },
       },
       {
         inline: true,
@@ -2356,7 +2559,11 @@ export const newConfig = [
         type: "checkbox",
         disable: true,
         withoutLabel: true,
-        populators: { name: "checkbox-DefaultDisabled", error: "Error!", title: "" },
+        populators: {
+          name: "checkbox-DefaultDisabled",
+          error: "Error!",
+          title: "",
+        },
       },
       {
         inline: true,
@@ -2364,7 +2571,11 @@ export const newConfig = [
         type: "checkbox",
         disable: true,
         withoutLabel: true,
-        populators: { name: "checkbox-Disabled", error: "Error!", title: "Disabled" },
+        populators: {
+          name: "checkbox-Disabled",
+          error: "Error!",
+          title: "Disabled",
+        },
       },
       {
         inline: true,
@@ -2385,7 +2596,12 @@ export const newConfig = [
         type: "checkbox",
         disable: false,
         withoutLabel: true,
-        populators: { name: "checkbox-LabelledFirst", isLabelFirst:true, error: "Error!", title: "LabelledFirst" },
+        populators: {
+          name: "checkbox-LabelledFirst",
+          isLabelFirst: true,
+          error: "Error!",
+          title: "LabelledFirst",
+        },
       },
       {
         inline: true,
@@ -2395,7 +2611,7 @@ export const newConfig = [
         withoutLabel: true,
         populators: {
           name: "checkbox-LabelFirst",
-          isLabelFirst:true,
+          isLabelFirst: true,
           error: "Error!",
           title:
             "In the quiet glow of dawn, the city stirred to life. A gentle breeze carried whispers of possibility through the streets, as if the day itself held secrets waiting to unfold. Birds painted ribbons of melody across the sky, joining the symphony of a waking world. The first rays of sunlight tiptoed over the horizon, casting a warm, golden hue on the buildings and trees below. In this tranquil moment, the promise of a new day hung in the air, inviting everyone to embrace the journey ahead",
@@ -2407,7 +2623,12 @@ export const newConfig = [
         type: "checkbox",
         disable: true,
         withoutLabel: true,
-        populators: { name: "checkbox-LabelledFirstDisabled", isLabelFirst:true, error: "Error!", title: "LabelledFirstDisabled" },
+        populators: {
+          name: "checkbox-LabelledFirstDisabled",
+          isLabelFirst: true,
+          error: "Error!",
+          title: "LabelledFirstDisabled",
+        },
       },
       {
         inline: true,
@@ -2417,7 +2638,7 @@ export const newConfig = [
         withoutLabel: true,
         populators: {
           name: "checkbox-LabelFirstDisabled",
-          isLabelFirst:true,
+          isLabelFirst: true,
           error: "Error!",
           title:
             "In the quiet glow of dawn, the city stirred to life. A gentle breeze carried whispers of possibility through the streets, as if the day itself held secrets waiting to unfold. Birds painted ribbons of melody across the sky, joining the symphony of a waking world. The first rays of sunlight tiptoed over the horizon, casting a warm, golden hue on the buildings and trees below. In this tranquil moment, the promise of a new day hung in the air, inviting everyone to embrace the journey ahead",

@@ -238,7 +238,7 @@ const FieldV1 = ({
         );
       case "multiselectdropdown":
         return (
-          <div style={{ display: "grid", gridAutoFlow: "row" }}>
+          <div style={{ display: "grid", gridAutoFlow: "row" ,width:"100%"}}>
             <MultiSelectDropdown
               options={populators?.options}
               optionsKey={populators?.optionsKey}
@@ -370,9 +370,7 @@ const FieldV1 = ({
                 populators?.wrapLabel ? "wraplabel" : ""
               }`}
             >
-              {populators?.wrapLabel
-                ? StringManipulator("toSentenceCase", t(label))
-                : StringManipulator(
+              {StringManipulator(
                     "toSentenceCase",
                     StringManipulator("truncateString", t(label), {
                       maxLength: 64,

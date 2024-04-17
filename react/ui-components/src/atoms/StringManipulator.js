@@ -26,11 +26,11 @@ const StringManipulator = (functionName, string, props) => {
   };
 
   const capitalizeFirstLetter = (str) => {
-    return str.charAt(0).toUpperCase() + str.slice(1);
+    return str.replace(/\b\w/g, char => char.toUpperCase());
   };
 
   const toTitleCase = (str) => {
-    return str.toLowerCase().replace(/\b\w/g, (c) => {
+    return str.toLowerCase().replace(/\b\w|\b[^a-zA-Z0-9\s]*\w/g, (c) => {
       return c.toUpperCase();
     });
   };

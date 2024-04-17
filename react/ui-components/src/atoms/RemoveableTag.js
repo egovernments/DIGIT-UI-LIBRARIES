@@ -2,18 +2,18 @@ import React from "react";
 import PropTypes from "prop-types";
 import { SVG } from "./SVG";
 
-const RemoveableTag = ({ className, text, onClick, extraStyles, disabled = false }) => {
+const RemoveableTag = ({ className, text, onClick, extraStyles, disabled = false, isErrorTag }) => {
   const tagStyles = extraStyles && extraStyles.tagStyles ? extraStyles.tagStyles : {};
   const textStyles = extraStyles && extraStyles.textStyles ? extraStyles.textStyles : {};
   const closeIconStyles = extraStyles && extraStyles.closeIconStyles ? extraStyles.closeIconStyles : {};
 
   return (
-    <div className={`digit-tag ${className ? className : ""}`} style={tagStyles}>
+    <div className={`digit-tag ${isErrorTag ? "errortag" : ""} ${className ? className : ""}`} style={tagStyles}>
       <span className="digit-text" style={textStyles}>
         {text}
       </span>
       <span onClick={disabled ? null : onClick} className="close-icon">
-        <SVG.Close fill="#d6d5d4" className="close" style={closeIconStyles} />
+        <SVG.Close fill="#FFFFFF" className="close" style={closeIconStyles} />
       </span>
     </div>
   );
