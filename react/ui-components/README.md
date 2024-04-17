@@ -58,6 +58,7 @@ yarn storybook
 # Changelog
 
 ```bash
+0.0.1-beta.7 updated classnames 
 0.0.1-beta.6 updated version
 0.0.1-beta.5 modified classnames
 0.0.1-beta.4 fixed some date issues 

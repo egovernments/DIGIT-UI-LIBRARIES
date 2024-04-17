@@ -13,7 +13,7 @@ const RadioButtons = (props) => {
   }
 
   return (
-    <div style={props?.style} className={`digit-radio-wrap ${props?.additionalWrapperClass ? props?.additionalWrapperClass : ""}`}>
+    <div style={props?.style} className={`digit-radio-options-wrap ${props?.additionalWrapperClass ? props?.additionalWrapperClass : ""}`}>
       {props?.options?.map((option, ind) => {
         if (props?.optionsKey && !props?.isDependent) {
           return (
@@ -31,7 +31,12 @@ const RadioButtons = (props) => {
                 />
                 <span className="digit-radio-btn-checkmark"></span>
               </span>
-              <label style={props.inputStyle}>{t(StringManipulator('toSentenceCase', option[props.optionsKey]))}</label>
+              <label style={props.inputStyle}>
+                {StringManipulator(
+                  "toSentenceCase",
+                  t(option[props.optionsKey])
+                )}
+              </label>
             </div>
           );
         } else if (props?.optionsKey && props?.isDependent) {
@@ -50,7 +55,13 @@ const RadioButtons = (props) => {
                 />
                 <span className="digit-radio-btn-checkmark"></span>
               </span>
-              <label style={props.inputStyle}>{t(props.labelKey ? `${props.labelKey}_${option.code}` : StringManipulator('toSentenceCase', option.code))}</label>
+              <label style={props.inputStyle}>
+                {StringManipulator("toSentenceCase",t(
+                  props.labelKey
+                    ? `${props.labelKey}_${option.code}`
+                    : option.code
+                ))}
+              </label>
             </div>
           );
         } else {
@@ -69,7 +80,10 @@ const RadioButtons = (props) => {
                 />
                 <span className="digit-radio-btn-checkmark"></span>
               </span>
-              <label style={props.inputStyle}>{t(StringManipulator('toSentenceCase', option))}</label>
+
+              <label style={props.inputStyle}>
+                {StringManipulator("toSentenceCase", t(option))}
+              </label>
             </div>
           );
         }

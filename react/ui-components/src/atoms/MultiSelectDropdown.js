@@ -359,7 +359,7 @@ const MultiSelectDropdown = ({
                 padding: "0.5rem",
                 justifyContent: "center",
                 alignItems: "center",
-                borderRadius: "3.125rem",
+                borderRadius: "0.25rem",
                 border: "1px solid #F47738",
                 background: "#FAFAFA",
               }}

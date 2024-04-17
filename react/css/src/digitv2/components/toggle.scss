@@ -23,7 +23,7 @@
 
   .digit-toggle-label {
     @extend .typography.body-xs;
-    @apply w-full overflow-hidden;
+    @apply w-full overflow-hidden whitespace-no-wrap;
     line-height: 1.25rem;
     color: theme(digitv2.lightTheme.text-disabled);
     text-overflow: ellipsis;

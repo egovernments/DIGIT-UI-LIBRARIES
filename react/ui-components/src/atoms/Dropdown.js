@@ -150,6 +150,7 @@ const Dropdown = (props) => {
     } else {
       setSelectedOption(val);
       setforceSet(forceSet + 1);
+      setDropdownStatus(false);
     }
   }
 
@@ -227,7 +228,7 @@ const Dropdown = (props) => {
 
     return (
       <div
-        className={`cp profile-dropdown--item ${props.variant ? props?.variant : ""}`}
+        className={`cp digit-dropdown-item ${props.variant ? props?.variant : ""}`}
         style={index === optionIndex ? { opacity: 1, backgroundColor: "#FFFAF7", border: "0.5px solid #F47738" } : {}}
         key={index}
         onClick={() => onSelect(option)}
@@ -359,7 +360,7 @@ const Dropdown = (props) => {
         props.optionKey ? (
           <div
             id="jk-dropdown-unique"
-            className={`${hasCustomSelector ? "margin-top-10 display: table" : ""} digit-options-card`}
+            className={`${hasCustomSelector ? "margin-top-10 display: table" : ""} digit-dropdown-options-card`}
             style={{ ...props.optionCardStyles }}
             ref={optionRef}
           >
@@ -370,14 +371,14 @@ const Dropdown = (props) => {
             )}
             {(props.variant === "nesteddropdown" ? flattenedOptions : filteredOption) &&
               (props.variant === "nesteddropdown" ? flattenedOptions : filteredOption).length === 0 && (
-                <div className={`cp profile-dropdown--item ${props.variant ? props?.variant : ""}`} key={"-1"} onClick={() => {}}>
+                <div className={`cp digit-dropdown-item ${props.variant ? props?.variant : ""}`} key={"-1"} onClick={() => {}}>
                   {<span> {"NO RESULTS FOUND"}</span>}
                 </div>
               )}
           </div>
         ) : (
           <div
-            className="digit-options-card"
+            className="digit-dropdown-options-card"
             style={{ ...props.optionCardStyles, overflow: "scroll", maxHeight: "350px" }}
             id="jk-dropdown-unique"
             ref={optionRef}

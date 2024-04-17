@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { SVG } from "./SVG";
+import StringManipulator from "./StringManipulator";
 
 const TextArea = (props) => {
   const user_type = window?.Digit?.SessionStorage.get("userType");
@@ -23,7 +24,7 @@ const TextArea = (props) => {
     <React.Fragment>
       <textarea
         onInput={props.populators?.resizeSmart && textAreaAdjust}
-        placeholder={props.placeholder}
+        placeholder={StringManipulator("toSentenceCase", props.placeholder)}
         name={props.name}
         ref={props.inputRef}
         style={props.style}
@@ -34,9 +35,15 @@ const TextArea = (props) => {
             props?.onChange(event);
           }
         }}
-        className={`${user_type !== "citizen" ? "digit-employee-card-textarea" : "digit-card-textarea"} ${props?.className ? props?.className : ""} ${
+        className={`${
+          user_type !== "citizen"
+            ? "digit-employee-card-textarea"
+            : "digit-card-textarea"
+        } ${props?.className ? props?.className : ""} ${
           props.disabled ? "disabled" : ""
-        } ${props.nonEditable ? "noneditable" : ""} ${props.error ? "error" : ""} ${props.populators?.resizeSmart ? "resize-smart" : ""}`}
+        } ${props.nonEditable ? "noneditable" : ""} ${
+          props.error ? "error" : ""
+        } ${props.populators?.resizeSmart ? "resize-smart" : ""}`}
         minLength={props.minlength}
         maxLength={props.maxlength}
         autoComplete="off"
