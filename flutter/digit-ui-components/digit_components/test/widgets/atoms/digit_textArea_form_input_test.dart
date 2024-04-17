@@ -1,6 +1,4 @@
-import 'package:digit_components/utils/validators/validator.dart';
-import 'package:digit_components/widgets/atoms/digit_text_area_form_input.dart';
-import 'package:digit_components/widgets/atoms/digit_text_form_input.dart';
+import 'package:digit_ui_components/widgets/atoms/digit_text_area_form_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -34,7 +32,6 @@ void main() {
           home: Scaffold(
             body: DigitTextAreaFormInput(
               controller: TextEditingController(),
-              minLine: minLines,
               maxLine: maxLines,
             ),
           ),

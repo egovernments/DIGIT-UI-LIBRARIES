@@ -16,6 +16,7 @@ DigitLocationFormInput` is a customizable formfield widget that  extends the bas
  ....*/
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../../blocs/LocationBloc.dart';
 import '../../utils/validators/validator.dart';
 import 'digit_base_form_input.dart';
@@ -32,14 +33,18 @@ class DigitLocationFormInput extends BaseDigitFormInput {
     bool isRequired = false,
     String? initialValue,
     bool charCount = false,
+    bool editable = false,
     String? innerLabel,
     String? helpText,
     TooltipTriggerMode triggerMode = TooltipTriggerMode.tap,
     bool preferToolTipBelow = false,
-    IconData suffix = Icons.my_location,
+    IconData? suffixIcon,
+    TextInputType keyboardType = TextInputType.number,
     void Function(String?)? onError,
     final List<Validator>? validations,
     final void Function(String)? onChange,
+    final String? errorMessage,
+    final List<TextInputFormatter>? inputFormatters,
   }) : super(
           key: key,
           controller: controller,
@@ -54,11 +59,16 @@ class DigitLocationFormInput extends BaseDigitFormInput {
           helpText: helpText,
           triggerMode: triggerMode,
           preferToolTipBelow: preferToolTipBelow,
-          suffix: suffix,
+          suffixIcon: suffixIcon ?? Icons.my_location,
           onError: onError,
           initialValue: initialValue,
           validations: validations,
+          keyboardType: keyboardType,
           onChange: onChange,
+          showCurser: editable,
+          isEditable: editable,
+          errorMessage: errorMessage,
+          inputFormatters: inputFormatters,
         );
 
   @override
@@ -70,6 +80,11 @@ class _DigitLocationFormInputState extends BaseDigitFormInputState {
 
   @override
   void onSuffixIconClick({void Function()? customFunction}) async {
+    await locationBloc.getCurrentLocation(widget.controller);
+  }
+
+  @override
+  void onTap() async {
     await locationBloc.getCurrentLocation(widget.controller);
   }
 

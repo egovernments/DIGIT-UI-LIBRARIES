@@ -16,6 +16,7 @@
  ....*/
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../../blocs/TimeSelectionBloc.dart';
 import '../../utils/time_utils.dart';
 import '../../utils/validators/validator.dart';
@@ -34,13 +35,16 @@ class DigitTimeFormInput extends BaseDigitFormInput {
     bool readOnly = false,
     bool isDisabled = false,
     bool isRequired = false,
+    bool editable = false,
     TooltipTriggerMode triggerMode = TooltipTriggerMode.tap,
     bool preferToolTipBelow = false,
-    IconData suffix = Icons.access_time,
+    IconData? suffixIcon,
     void Function(String?)? onError,
     final List<Validator>? validations,
     String? initialValue,
     final void Function(String)? onChange,
+    final String? errorMessage,
+    final List<TextInputFormatter>? inputFormatters,
   }) : super(
           key: key,
           controller: controller,
@@ -55,11 +59,16 @@ class DigitTimeFormInput extends BaseDigitFormInput {
           helpText: helpText,
           triggerMode: triggerMode,
           preferToolTipBelow: preferToolTipBelow,
-          suffix: suffix,
+          suffixIcon: suffixIcon ?? Icons.access_time,
           onError: onError,
           initialValue: initialValue,
           validations: validations,
           onChange: onChange,
+          keyboardType: TextInputType.datetime,
+          showCurser: editable,
+          isEditable: editable,
+          errorMessage: errorMessage,
+          inputFormatters: inputFormatters,
         );
 
   @override
@@ -69,6 +78,16 @@ class DigitTimeFormInput extends BaseDigitFormInput {
 class _DigitTimeFormInputState extends BaseDigitFormInputState {
   @override
   void onSuffixIconClick({void Function()? customFunction}) async {
+    TimeSelectionBloc timeSelectionBloc = TimeSelectionBloc();
+
+    await timeSelectionBloc.selectTime(
+      context: context,
+      controller: widget.controller,
+    );
+  }
+
+  @override
+  void onTap() async {
     TimeSelectionBloc timeSelectionBloc = TimeSelectionBloc();
 
     await timeSelectionBloc.selectTime(

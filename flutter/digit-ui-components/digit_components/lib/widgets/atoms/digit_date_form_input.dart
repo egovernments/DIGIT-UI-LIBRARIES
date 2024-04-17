@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../../blocs/DateSelection.dart';
 import '../../utils/validators/validator.dart';
 import 'digit_base_form_input.dart';
@@ -31,16 +32,22 @@ class DigitDateFormInput extends BaseDigitFormInput {
     String? initialValue,
     bool readOnly = false,
     bool isDisabled = false,
+    bool editable = false,
     bool charCount = false,
+    DateTime? initialDate,
+    DateTime? firstDate,
+    DateTime? lastDate,
     String? innerLabel,
     String? helpText,
     bool isRequired = false,
     TooltipTriggerMode triggerMode = TooltipTriggerMode.tap,
     bool preferToolTipBelow = false,
-    IconData suffix = Icons.date_range,
+    IconData? suffixIcon,
     void Function(String?)? onError,
     final List<Validator>? validations,
     final void Function(String)? onChange,
+    final String? errorMessage,
+    final List<TextInputFormatter>? inputFormatters,
   }) : super(
           key: key,
           controller: controller,
@@ -56,10 +63,18 @@ class DigitDateFormInput extends BaseDigitFormInput {
           triggerMode: triggerMode,
           preferToolTipBelow: preferToolTipBelow,
           onError: onError,
-          suffix: suffix,
+          suffixIcon: suffixIcon ?? Icons.date_range,
           initialValue: initialValue,
           validations: validations,
           onChange: onChange,
+          initialDate: initialDate,
+          firstDate: firstDate,
+          lastDate: lastDate,
+          keyboardType: TextInputType.datetime,
+          showCurser: editable,
+          isEditable: editable,
+          errorMessage: errorMessage,
+          inputFormatters: inputFormatters,
         );
 
   @override
@@ -74,6 +89,21 @@ class _DigitDateFormInputState extends BaseDigitFormInputState {
     /// Show a date picker and update the controller's value
 
     await dateSelectionBloc.selectDate(
+      firstDate: widget.firstDate,
+      lastDate: widget.lastDate,
+      initialDate: widget.initialDate,
+      context: context,
+      controller: widget.controller,
+    );
+  }
+
+  @override
+  void onTap() async {
+    /// Show a date picker and update the controller's value
+    await dateSelectionBloc.selectDate(
+      firstDate: widget.firstDate,
+      lastDate: widget.lastDate,
+      initialDate: widget.initialDate,
       context: context,
       controller: widget.controller,
     );

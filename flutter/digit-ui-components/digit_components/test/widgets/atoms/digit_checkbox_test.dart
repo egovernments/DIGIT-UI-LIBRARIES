@@ -1,5 +1,4 @@
-import 'package:digit_components/widgets/atoms/digit_checkbox.dart';
-import 'package:digit_components/widgets/atoms/digit_checkbox_icon.dart';
+import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -11,7 +10,7 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: DigitCheckbox(
-              label: 'Test Checkbox',
+              label: 'Test DigitCheckbox',
               onChanged: (value) {},
             ),
           ),
@@ -30,7 +29,7 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: DigitCheckbox(
-              label: 'Test Checkbox',
+              label: 'Test DigitCheckbox',
               value: isChecked,
               onChanged: (value) {
                 isChecked = value ?? false;
@@ -58,12 +57,12 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: DigitCheckbox(
-              label: 'Test Checkbox',
+              label: 'Test DigitCheckbox',
               value: isChecked,
               onChanged: (value) {
                 isChecked = value ?? false;
               },
-              disabled: true,
+              isDisabled: true,
             ),
           ),
         ),
@@ -87,7 +86,7 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: DigitCheckbox(
-              label: 'Test Checkbox',
+              label: 'Test DigitCheckbox',
               value: isChecked,
               onChanged: (value) {
                 isChecked = value ?? false;
@@ -117,7 +116,7 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: DigitCheckbox(
-              label: 'Test Checkbox',
+              label: 'Test DigitCheckbox',
               iconColor: Colors.red,
               onChanged: (value) {},
             ),
@@ -136,7 +135,7 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: DigitCheckbox(
-              label: 'Test Checkbox',
+              label: 'Test DigitCheckbox',
               value: isChecked,
               onChanged: (value) {
                 isChecked = value ?? false;
