@@ -94,7 +94,7 @@ const Stepper = ({
               style={{ ...props?.labelStyles }}
             >
               {t(
-                StringManipulator("truncateString", action, { maxLength: 64 })
+                StringManipulator("TRUNCATESTRING", action, { maxLength: 64 })
               )}
             </span>
           </div>

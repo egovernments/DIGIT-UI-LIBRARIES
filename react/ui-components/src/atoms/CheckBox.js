@@ -23,7 +23,7 @@ const CheckBox = ({
   const userType = pageType || window?.Digit?.SessionStorage.get("userType");
   let styles = props.styles;
 
-  const sentenceCaseLabel = StringManipulator("toSentenceCase", label);
+  const sentenceCaseLabel = StringManipulator("TOSENTENCECASE", label);
 
   return (
     <div

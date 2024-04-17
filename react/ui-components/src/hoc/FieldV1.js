@@ -102,8 +102,8 @@ const FieldV1 = ({
           <ErrorMessage
             message={
               StringManipulator(
-                "toSentenceCase",
-                StringManipulator("truncateString", t(error), { maxLength: 256 })
+                "TOSENTENCECASE",
+                StringManipulator("TRUNCATESTRING", t(error), { maxLength: 256 })
               )
             }
           />
@@ -123,8 +123,8 @@ const FieldV1 = ({
         >
           {
             StringManipulator(
-              "toSentenceCase",
-              StringManipulator("truncateString", t(description), {
+              "TOSENTENCECASE",
+              StringManipulator("TRUNCATESTRING", t(description), {
                 maxLength: 256,
               })
             )
@@ -371,8 +371,8 @@ const FieldV1 = ({
               }`}
             >
               {StringManipulator(
-                    "toSentenceCase",
-                    StringManipulator("truncateString", t(label), {
+                    "TOSENTENCECASE",
+                    StringManipulator("TRUNCATESTRING", t(label), {
                       maxLength: 64,
                     })
                   )}

@@ -42,8 +42,8 @@ const Button = (props) => {
     props?.variation === "link"
       ? props?.label
       : StringManipulator(
-          "capitalizeFirstLetter",
-          StringManipulator("truncateString", props?.label, {
+          "CAPITALIZEFIRSTLETTER",
+          StringManipulator("TRUNCATESTRING", props?.label, {
             maxLength: 64,
           })
         );

@@ -61,7 +61,7 @@ const Toggle = (props) => {
             <span className="digit-toggle-label">
               {t(
                 StringManipulator(
-                  "capitalizeFirstLetter",
+                  "CAPITALIZEFIRSTLETTER",
                   option[props.optionsKey]
                 )
               )}

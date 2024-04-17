@@ -35,7 +35,7 @@ const Toast = (props) => {
     ? "digit-warning-buttons"
     : "";
 
-  const sentenceCaseLabel = StringManipulator("toSentenceCase", props.label);
+  const sentenceCaseLabel = StringManipulator("TOSENTENCECASE", props.label);
 
   if (!isVisible) {
     return null;

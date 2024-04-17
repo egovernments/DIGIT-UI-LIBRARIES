@@ -265,7 +265,7 @@ const TextInput = (props) => {
               id={props.id}
               className={inputClassNameForMandatory}
               placeholder={StringManipulator(
-                "toSentenceCase",
+                "TOSENTENCECASE",
                 props.placeholder
               )}
               onChange={(event) => {
@@ -345,7 +345,7 @@ const TextInput = (props) => {
               id={props.id}
               className={inputClassName}
               placeholder={StringManipulator(
-                "toSentenceCase",
+                "TOSENTENCECASE",
                 props.placeholder
               )}
               onChange={(event) => {

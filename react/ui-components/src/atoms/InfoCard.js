@@ -20,7 +20,7 @@ const InfoCard = ({ label, text, variant, style, textStyle, additionalElements, 
 
   const hasAdditionalElements = additionalElements && additionalElements.length > 0;
 
-  const displayedLabel = StringManipulator("toTitleCase", label) || defaultLabel;
+  const displayedLabel = StringManipulator("TOTITLECASE", label) || defaultLabel;
 
   return (
     <div className={`digit-infobanner-wrap ${variant ? variant : "default"}`} style={style}>
@@ -28,7 +28,7 @@ const InfoCard = ({ label, text, variant, style, textStyle, additionalElements, 
         {icon}
         <h2>{displayedLabel}</h2>
       </div>
-      {text && <p style={{ ...textStyle }}>{StringManipulator("toSentenceCase", text)}</p>}
+      {text && <p style={{ ...textStyle }}>{StringManipulator("TOSENTENCECASE", text)}</p>}
       {hasAdditionalElements && (
         <div className={inline ? "additional-elements-inline" : "additional-elements-column"}>
           {additionalElements.map((element, index) => (

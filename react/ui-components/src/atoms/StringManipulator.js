@@ -6,13 +6,13 @@ const StringManipulator = (functionName, string, props) => {
     if (!string) return null;
 
     switch (functionName) {
-      case "toSentenceCase":
+      case "TOSENTENCECASE":
         return toSentenceCase(string);
-      case "capitalizeFirstLetter":
+      case "CAPITALIZEFIRSTLETTER":
         return capitalizeFirstLetter(string);
-      case "toTitleCase":
+      case "TOTITLECASE":
         return toTitleCase(string);
-      case "truncateString":
+      case "TRUNCATESTRING":
         return truncateString(string, props?.maxLength);
       default:
         return string;
@@ -46,7 +46,7 @@ const StringManipulator = (functionName, string, props) => {
 };
 
 StringManipulator.propTypes = {
-  functionName: PropTypes.func,
+  functionName: PropTypes.string,
   string: PropTypes.string,
   props: PropTypes.object,
 };
