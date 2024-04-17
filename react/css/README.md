@@ -42,6 +42,7 @@ frontend/micro-ui/web/public/index.html
 # Changelog
 
 ```bash
+1.8.2-coreui.6 updated css with new classnames and updated tag styles 
 1.8.2-coreui.5 updated css version 
 1.8.2-coreui.4 updated classnames 
 1.8.2-coreui.3 styles for stepper and fixed date issue
