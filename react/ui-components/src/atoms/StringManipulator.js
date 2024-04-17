@@ -1,21 +1,28 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const StringManipulator = (functionName, string, props) => {
+const StringManipulator = (functionName, key, props) => {
+ 
+
+
+  const isStringManipulated=window?.globalConfigs?.getConfig("isStringManipulated")|| false;
+  if(!isStringManipulated){
+    return key;
+  }
   const manipulateString = () => {
-    if (!string) return null;
+    if (!key) return null;
 
     switch (functionName) {
       case "toSentenceCase":
-        return toSentenceCase(string);
+        return toSentenceCase(key);
       case "capitalizeFirstLetter":
-        return capitalizeFirstLetter(string);
+        return capitalizeFirstLetter(key);
       case "toTitleCase":
-        return toTitleCase(string);
+        return toTitleCase(key);
       case "truncateString":
-        return truncateString(string, props?.maxLength);
+        return truncateString(key, props?.maxLength);
       default:
-        return string;
+        return key;
     }
   };
 
@@ -46,8 +53,8 @@ const StringManipulator = (functionName, string, props) => {
 };
 
 StringManipulator.propTypes = {
-  functionName: PropTypes.func,
-  string: PropTypes.string,
+  functionName: PropTypes.string, 
+  key: PropTypes.string,
   props: PropTypes.object,
 };
 
