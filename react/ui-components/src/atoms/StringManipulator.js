@@ -5,7 +5,7 @@ const StringManipulator = (functionName, key, props) => {
  
 
 
-  const isStringManipulated=window?.globalConfigs?.getConfig("isStringManipulated")|| false;
+  const isStringManipulated=window?.globalConfigs?.getConfig("IS_STRING_MANIPULATED")|| false;
   if(!isStringManipulated){
     return key;
   }
