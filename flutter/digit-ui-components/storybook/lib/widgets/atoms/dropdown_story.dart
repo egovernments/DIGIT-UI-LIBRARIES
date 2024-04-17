@@ -13,214 +13,242 @@ List<Story> dropdownStories() {
   return [
     Story(
       name: 'Dropdown/Simple Dropdown/default/default',
-      builder: (context) => Center(
-        child: DigitDropdown<int>(
-          isDisabled: context.knobs.boolean(
-            label: 'Disabled',
-            initial: false,
-          ),
-          onChange: (String value, String index) => {},
-          textEditingController: TextEditingController(),
-          isSearchable: context.knobs
-              .boolean(label: 'Searchable', initial: false),
-          items: [
-            'one',
-            'two',
-            'three',
-            'four',
-          ]
-              .asMap()
-              .entries
-              .map(
-                (item) => DropdownItem(
-              name: item.value,
-              code: item.key.toString(),
+      builder: (context) => Column(
+        children: [
+          const SizedBox(height: 300,),
+          DigitDropdown<int>(
+            isDisabled: context.knobs.boolean(
+              label: 'Disabled',
+              initial: false,
             ),
-          )
-              .toList(),
-        ),
+            onChange: (String value, String index) => {},
+            textEditingController: TextEditingController(),
+            isSearchable: context.knobs
+                .boolean(label: 'Searchable', initial: false),
+            items: [
+              'one',
+              'two',
+              'three',
+              'four',
+            ]
+                .asMap()
+                .entries
+                .map(
+                  (item) => DropdownItem(
+                name: item.value,
+                code: item.key.toString(),
+              ),
+            )
+                .toList(),
+          ),
+        ],
       ),
     ),
     Story(
       name: 'Dropdown/Simple Dropdown/default/nested text',
-      builder: (context) => DigitDropdown<int>(
-        isDisabled: context.knobs.boolean(
-          label: 'Disabled',
-          initial: false,
-        ),
-        onChange: (String value, String index) => {},
-        isSearchable: context.knobs
-            .boolean(label: 'Searchable', initial: false),
-        textEditingController: TextEditingController(),
-        items: [
-          'one',
-          'two',
-          'three',
-          'four',
-        ]
-            .asMap()
-            .entries
-            .map(
-              (item) => DropdownItem(
-            name: item.value,
-            code: item.key.toString(),
-            description: 'description for ${item.value} one',
+      builder: (context) => Column(
+        children: [
+          const SizedBox(height: 300,),
+          DigitDropdown<int>(
+            isDisabled: context.knobs.boolean(
+              label: 'Disabled',
+              initial: false,
+            ),
+            onChange: (String value, String index) => {},
+            isSearchable: context.knobs
+                .boolean(label: 'Searchable', initial: false),
+            textEditingController: TextEditingController(),
+            items: [
+              'one',
+              'two',
+              'three',
+              'four',
+            ]
+                .asMap()
+                .entries
+                .map(
+                  (item) => DropdownItem(
+                name: item.value,
+                code: item.key.toString(),
+                description: 'description for ${item.value} one',
+              ),
+            )
+                .toList(),
           ),
-        )
-            .toList(),
+        ],
       ),
     ),
     Story(
       name: 'Dropdown/Simple Dropdown/default/icon',
-      builder: (context) => DigitDropdown<int>(
-        isDisabled: context.knobs.boolean(
-          label: 'Disabled',
-          initial: false,
-        ),
-        onChange: (String value, String index) => {},
-        isSearchable: context.knobs
-            .boolean(label: 'Searchable', initial: false),
-        textEditingController: TextEditingController(),
-        items: [
-          'one',
-          'two',
-          'three',
-          'four',
-        ]
-            .asMap()
-            .entries
-            .map(
-              (item) => DropdownItem(
-            name: item.value,
-            code: item.key.toString(),
-            textIcon: Icons.article,
+      builder: (context) => Column(
+        children: [
+          const SizedBox(height: 300,),
+          DigitDropdown<int>(
+            isDisabled: context.knobs.boolean(
+              label: 'Disabled',
+              initial: false,
+            ),
+            onChange: (String value, String index) => {},
+            isSearchable: context.knobs
+                .boolean(label: 'Searchable', initial: false),
+            textEditingController: TextEditingController(),
+            items: [
+              'one',
+              'two',
+              'three',
+              'four',
+            ]
+                .asMap()
+                .entries
+                .map(
+                  (item) => DropdownItem(
+                name: item.value,
+                code: item.key.toString(),
+                textIcon: Icons.article,
+              ),
+            )
+                .toList(),
           ),
-        )
-            .toList(),
+        ],
       ),
     ),
     Story(
       name: 'Dropdown/Simple Dropdown/default/profile',
-      builder: (context) => DigitDropdown<int>(
-        isDisabled: context.knobs.boolean(
-          label: 'Disabled',
-          initial: false,
-        ),
-        onChange: (String value, String index) => {},
-        isSearchable: context.knobs
-            .boolean(label: 'Searchable', initial: false),
-        textEditingController: TextEditingController(),
-        items: [
-          'one',
-          'two',
-          'three',
-          'four',
-        ]
-            .asMap()
-            .entries
-            .map(
-              (item) => DropdownItem(
-            name: item.value,
-            code: item.key.toString(),
-            profileImageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+      builder: (context) => Column(
+        children: [
+          const SizedBox(height: 300,),
+          DigitDropdown<int>(
+            isDisabled: context.knobs.boolean(
+              label: 'Disabled',
+              initial: false,
+            ),
+            onChange: (String value, String index) => {},
+            isSearchable: context.knobs
+                .boolean(label: 'Searchable', initial: false),
+            textEditingController: TextEditingController(),
+            items: [
+              'one',
+              'two',
+              'three',
+              'four',
+            ]
+                .asMap()
+                .entries
+                .map(
+                  (item) => DropdownItem(
+                name: item.value,
+                code: item.key.toString(),
+                profileImageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+              ),
+            ).toList(),
           ),
-        ).toList(),
+        ],
       ),
     ),
     Story(
       name: 'Dropdown/Simple Dropdown/nested/simple',
-      builder: (context) => DigitDropdown<int>(
-        isDisabled: context.knobs.boolean(
-          label: 'Disabled',
-          initial: false,
-        ),
-        onChange: (String value, String type) => {},
-        textEditingController: TextEditingController(),
-        dropdownType: DropdownType.nestedSelect,
-        isSearchable: context.knobs
-            .boolean(label: 'Searchable', initial: false),
-        items: const [
-          DropdownItem(
-            name: 'one',
-            code: '1',
-            type: 'group B',
-          ),
-          DropdownItem(
-            name: 'two',
-            code: '2',
-            type: 'group A',
-          ),
-          DropdownItem(
-            name: 'three',
-            code: '3',
-            type: 'group B',
-          ),
-          DropdownItem(
-            name: 'four',
-            code: '4',
-            type: 'group A',
-          ),
-          DropdownItem(
-            name: 'five',
-            code: '4',
-            type: 'group B',
-          ),
-          DropdownItem(
-            name: 'six',
-            code: '5',
-            type: 'group A',
+      builder: (context) => Column(
+        children: [
+          const SizedBox(height: 300,),
+          DigitDropdown<int>(
+            isDisabled: context.knobs.boolean(
+              label: 'Disabled',
+              initial: false,
+            ),
+            onChange: (String value, String type) => {},
+            textEditingController: TextEditingController(),
+            dropdownType: DropdownType.nestedSelect,
+            isSearchable: context.knobs
+                .boolean(label: 'Searchable', initial: false),
+            items: const [
+              DropdownItem(
+                name: 'one',
+                code: '1',
+                type: 'group B',
+              ),
+              DropdownItem(
+                name: 'two',
+                code: '2',
+                type: 'group A',
+              ),
+              DropdownItem(
+                name: 'three',
+                code: '3',
+                type: 'group B',
+              ),
+              DropdownItem(
+                name: 'four',
+                code: '4',
+                type: 'group A',
+              ),
+              DropdownItem(
+                name: 'five',
+                code: '4',
+                type: 'group B',
+              ),
+              DropdownItem(
+                name: 'six',
+                code: '5',
+                type: 'group A',
+              ),
+            ],
           ),
         ],
       ),
     ),
     Story(
       name: 'Dropdown/Simple Dropdown/nested/nested text',
-      builder: (context) => DigitDropdown<int>(
-        isDisabled: context.knobs.boolean(
-          label: 'Disabled',
-          initial: false,
-        ),
-        onChange: (String value, String type) => {},
-        textEditingController: TextEditingController(),
-        dropdownType: DropdownType.nestedSelect,
-        isSearchable: context.knobs
-            .boolean(label: 'Searchable', initial: false),
-        items: const [
-          DropdownItem(
-            name: 'one',
-            code: '1',
-            type: 'group B',
-            description: 'this is sample description',
-          ),
-          DropdownItem(
-            name: 'two',
-            code: '2',
-            type: 'group A',
-            description: 'this is sample description',
-          ),
-          DropdownItem(
-            name: 'three',
-            code: '3',
-            type: 'group B',
-            description: 'this is sample description',
-          ),
-          DropdownItem(
-            name: 'four',
-            code: '4',
-            type: 'group A',
-            description: 'this is sample description',
-          ),
-          DropdownItem(
-            name: 'five',
-            code: '4',
-            type: 'group B',
-            description: 'this is sample description',
-          ),
-          DropdownItem(
-            name: 'six',
-            code: '5',
-            type: 'group A',
-            description: 'this is sample description',
+      builder: (context) => Column(
+        children: [
+          const SizedBox(height: 300,),
+          DigitDropdown<int>(
+            isDisabled: context.knobs.boolean(
+              label: 'Disabled',
+              initial: false,
+            ),
+            onChange: (String value, String type) => {},
+            textEditingController: TextEditingController(),
+            dropdownType: DropdownType.nestedSelect,
+            isSearchable: context.knobs
+                .boolean(label: 'Searchable', initial: false),
+            items: const [
+              DropdownItem(
+                name: 'one',
+                code: '1',
+                type: 'group B',
+                description: 'this is sample description',
+              ),
+              DropdownItem(
+                name: 'two',
+                code: '2',
+                type: 'group A',
+                description: 'this is sample description',
+              ),
+              DropdownItem(
+                name: 'three',
+                code: '3',
+                type: 'group B',
+                description: 'this is sample description',
+              ),
+              DropdownItem(
+                name: 'four',
+                code: '4',
+                type: 'group A',
+                description: 'this is sample description',
+              ),
+              DropdownItem(
+                name: 'five',
+                code: '4',
+                type: 'group B',
+                description: 'this is sample description',
+              ),
+              DropdownItem(
+                name: 'six',
+                code: '5',
+                type: 'group A',
+                description: 'this is sample description',
+              ),
+            ],
           ),
         ],
       ),
@@ -449,13 +477,7 @@ List<Story> dropdownStories() {
         onOptionSelected: (List<TreeNode> selectedOptions) {},
         options: [
           TreeNode('A', 'A', [
-            TreeNode('A.A1', 'A1', [
-              TreeNode('A.A1.A3', 'A3', [
-                TreeNode('A.A1.A3.A5', 'A5', []),
-                TreeNode('A.A1.A3.A6', 'A6', []),
-              ]),
-              TreeNode('A.A1.A4', 'A4', []),
-            ]),
+            TreeNode('A.A1', 'A1', []),
             TreeNode('A.A2', 'A2', []),
           ]),
           TreeNode('B', 'B', [

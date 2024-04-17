@@ -45,16 +45,16 @@ class MyApp extends StatelessWidget {
           ...toggleGroupStories(),
           ...dropdownStories(),
           ...fileUploaderStories(),
-          Story(
-            name: 'Stepper',
-            builder: (context) => DigitStepper(
-              axis: TimelineAxis.horizontal,
-              alignment: TimelineAlign.start,
-              endChild: Container(
-                color: Colors.amberAccent,
-              ),
-            ),
-          ),
+          // Story(
+          //   name: 'Stepper',
+          //   builder: (context) => DigitStepper(
+          //     axis: TimelineAxis.horizontal,
+          //     alignment: TimelineAlign.start,
+          //     endChild: Container(
+          //       color: Colors.amberAccent,
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );

@@ -72,11 +72,8 @@ class _ToggleState extends State<Toggle> {
             }
           },
           child: Container(
-            height: 32,
             width: widget.maxLabelWidth + 40,
-            padding: widget.isSelected
-                ? const EdgeInsets.all(2.0)
-                : const EdgeInsets.symmetric(horizontal: 2.0),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8,),
             constraints: const BoxConstraints(
               minWidth: 40,
               maxWidth: 200,
@@ -116,7 +113,7 @@ class _ToggleState extends State<Toggle> {
                     overflow: TextOverflow.ellipsis,
                     style: widget.isSelected
                         ? currentTypography.headingS.copyWith(
-                            height: 1.5,
+                            height: 1.175,
                             fontWeight: FontWeight.w700,
                             color: const DigitColors().light.paperPrimary,
                             overflow: TextOverflow.ellipsis,

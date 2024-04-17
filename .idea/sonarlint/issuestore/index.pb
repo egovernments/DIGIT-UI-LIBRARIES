@@ -299,3 +299,9 @@ G.idea/sonarlint/issuestore/3/c/3c854b81f95cc3df719b3ef14db68534e98a0570,1/3/13
 Q.idea/sonarlint/securityhotspotstore/3/6/367e51b68adf62eb88abd2bda1d564e83661b1d5,d/8/d8f7f8d3d3134a0db783aee6dc6b17e268cfabac
 Å
 Q.idea/sonarlint/securityhotspotstore/3/c/3c854b81f95cc3df719b3ef14db68534e98a0570,8/9/891c6c0acc0473decd1852857d0c597f7a1b78f4
+à
+Xflutter/digit-ui-components/digit_components/lib/widgets/atoms/digit_dropdown_input.dart,6/4/64a2f950a2495469d98ff227ff16522c388d357d
+Ä
+Pflutter/digit-ui-components/digit_components/lib/widgets/atoms/digit_toggle.dart,7/a/7a4f6c6ce5a45dff30a0ef21fef4b55afa7564fd
+É
+Sflutter/digit-ui-components/digit_components/lib/widgets/atoms/labelled_fields.dart,2/e/2e765e2541d30eab2a010f43a59c9282186e21b7

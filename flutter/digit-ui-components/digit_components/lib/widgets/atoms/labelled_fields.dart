@@ -65,22 +65,24 @@ class LabeledField extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: mainAxisAlignment,
           children: [
-            SizedBox(
+            Container(
               width: MediaQuery.of(context).size.width * 0.33,
-              child: Row(
+              constraints: BoxConstraints(
+                maxWidth: MediaQuery.of(context).size.width * 0.33,
+              ),
+              child: Wrap(
+                crossAxisAlignment: WrapCrossAlignment.center,
                 children: [
-                  Flexible(
-                    child: Text(
-                      processedLabel!.length > 64
-                          ? '${processedLabel!.substring(0, 64)}...'
-                          : processedLabel!,
-                      style: currentTypography.bodyL.copyWith(
-                        height: 1.172,
-                        color: const DigitColors().light.textPrimary,
-                        overflow: wrapLabelText
-                            ? TextOverflow.visible
-                            : TextOverflow.ellipsis,
-                      ),
+                  Text(
+                    processedLabel!.length > 64
+                        ? '${processedLabel!.substring(0, 64)}...'
+                        : processedLabel!,
+                    style: currentTypography.bodyL.copyWith(
+                      height: 1.172,
+                      color: const DigitColors().light.textPrimary,
+                      overflow: wrapLabelText
+                          ? TextOverflow.visible
+                          : TextOverflow.ellipsis,
                     ),
                   ),
                   if (isRequired)
@@ -101,18 +103,21 @@ class LabeledField extends StatelessWidget {
                         size: 19,
                         color: const DigitColors().light.textSecondary,
                       ),
-                    )
+                    ),
                 ],
               ),
             ),
             const SizedBox(
               width: 16,
             ),
-            Flexible(child: child),
+            Flexible(
+              child: child,
+            ),
           ],
         ),
       );
-    } else {
+    }
+    else {
       return Padding(
         padding: padding ?? const EdgeInsets.only(top: kPadding),
         child: Column(

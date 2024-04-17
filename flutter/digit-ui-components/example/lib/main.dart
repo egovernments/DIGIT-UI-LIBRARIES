@@ -1832,7 +1832,7 @@ class MyHomePageState extends State<MyHomePage> {
                   height: 8,
                 ),
                 Center(
-                  child: Container(
+                  child: SizedBox(
                     width: 1000,
                     height: 400,
                     child: FileUploadWidget(
@@ -1846,7 +1846,7 @@ class MyHomePageState extends State<MyHomePage> {
                 ),
                 const SizedBox(height: 8),
                 Center(
-                  child: Container(
+                  child: SizedBox(
                     width: 1000,
                     height: 400,
                     child: FileUploadWidget(
@@ -1866,13 +1866,13 @@ class MyHomePageState extends State<MyHomePage> {
                   height: 8,
                 ),
                 Center(
-                  child: Container(
+                  child: SizedBox(
                     width: 1300,
                     height: 400,
                     child: FileUploadWidget2(
                       showPreview: true,
                       allowMultipleImages: true,
-                      label: 'Upload', onFilesSelected: (List<File> files) {  },
+                      label: 'Upload', onFilesSelected: (List<DroppedFile> files) {  },
                       // onFileSelected: (File file) {
                       //   // Handle the selected file here
                       //   // print('File path: ${file.path}');
@@ -1886,7 +1886,7 @@ class MyHomePageState extends State<MyHomePage> {
                   height: 8,
                 ),
                 Center(
-                  child: Container(
+                  child: SizedBox(
                     width: 600,
                     height: 400,
                     child: ImageUploader(

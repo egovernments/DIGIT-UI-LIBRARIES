@@ -288,7 +288,7 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
     DigitTypography currentTypography = getTypography(context);
 
     return SizedBox(
-      width: MediaQuery.of(context).size.width,
+      width: 468,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,

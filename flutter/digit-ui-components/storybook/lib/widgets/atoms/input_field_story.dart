@@ -54,7 +54,7 @@ List<Story> inputFieldStories() {
         ),
         controller: TextEditingController(),
         validations: [
-          Validator(ValidatorType.maxLength, 10,
+          Validator(ValidatorType.maxLength, 100,
               errorMessage: 'Maximum length is 10.'),
           Validator(ValidatorType.pattern, r'^[a-zA-Z0-9]+$',
               errorMessage: 'Invalid format.'),
