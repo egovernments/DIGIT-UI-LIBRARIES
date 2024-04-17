@@ -1,7 +1,7 @@
 @import url("../index.scss");
 
 .icon-label-container {
-  @apply w-full flex max-w-full;
+  @apply w-full flex max-w-full items-center;
   gap: 0.5rem;
 
   .digit-button-customIcon {
@@ -12,16 +12,13 @@
 
   &.link {
     gap: 0.25rem;
+    align-items: flex-start;
 
     .digit-button-customIcon {
       width: 1.25rem;
       height: 1.25rem;
     }
   }
-}
-
-.icon-label-container:not(.link) {
-  @apply items-center; 
 }
 
 .digit-button-label {

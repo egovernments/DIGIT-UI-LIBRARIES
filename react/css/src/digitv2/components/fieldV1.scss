@@ -19,18 +19,14 @@
         }
 
         .label-container {
-            @apply flex;
-            width: 80%;
+            @apply flex items-end w-full;
             gap: 0.25rem;
-
-            @media (max-width: 30rem) {
-                /* Media query for mobile */
-                width: 100%;
-            }
         }
 
         .info-icon {
             @apply relative cursor-pointer;
+            width: 1.188rem;
+            height: 1.188rem;
         }
 
         .info-icon .infotext {
