@@ -34,10 +34,10 @@ class InfoCard extends StatelessWidget {
     Color containerColor = const DigitColors().light.alertInfoBg;
     DigitTypography currentTypography = getTypography(context);
     double minWidth = AppView.isMobileView(MediaQuery.of(context).size)
-        ? 240
+        ? MediaQuery.of(context).size.width * .77
         : AppView.isTabletView(MediaQuery.of(context).size)
-            ? 360
-            : 400;
+            ? MediaQuery.of(context).size.width * .48
+            : MediaQuery.of(context).size.width * .27;
 
     String capitalizedHeading = capitalizeFirstLetter(title)!;
     String capitalizedDescription = capitalizeFirstLetter(description)!;

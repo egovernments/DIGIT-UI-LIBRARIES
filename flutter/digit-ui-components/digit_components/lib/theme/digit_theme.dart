@@ -117,7 +117,7 @@ class DigitTheme {
         dialHandColor: const DigitColors().light.primaryOrange,
         dialBackgroundColor: const DigitColors().light.primaryOrangeBg,
         hourMinuteTextStyle:
-            const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            const TextStyle(fontSize: 36, fontWeight: FontWeight.bold, fontFamily: 'Roboto', height: 1.5),
         dayPeriodTextStyle:
             const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
         helpTextStyle: TextStyle(

@@ -938,7 +938,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                 border: Border.all(
                   color: const DigitColors().light.primaryOrange,
                 ),
-                borderRadius: BorderRadius.circular(50),
+                borderRadius: BorderRadius.circular(4),
                 color: const DigitColors().light.paperSecondary,
               ),
               child: Text(

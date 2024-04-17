@@ -28,10 +28,10 @@ class Toast {
     bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
 
     double inputWidth = isMobile
-        ? 360
+        ? MediaQuery.of(context).size.width
         : AppView.isTabletView(MediaQuery.of(context).size)
-            ? 480
-            : 800;
+            ? MediaQuery.of(context).size.width * .64
+            : MediaQuery.of(context).size.width * .55;
 
 
     return fToast.showToast(
