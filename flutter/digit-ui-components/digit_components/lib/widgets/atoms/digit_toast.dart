@@ -25,11 +25,11 @@ class Toast {
 
     DigitTypography currentTypography = getTypography(context);
 
-    bool isMobile = AppView.isMobileView(MediaQuery.of(context).size.width);
+    bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
 
     double inputWidth = isMobile
         ? 360
-        : AppView.isTabletView(MediaQuery.of(context).size.width)
+        : AppView.isTabletView(MediaQuery.of(context).size)
             ? 480
             : 800;
 

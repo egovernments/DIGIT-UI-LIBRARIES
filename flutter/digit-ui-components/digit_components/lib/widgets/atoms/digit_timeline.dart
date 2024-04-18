@@ -34,7 +34,7 @@ class _TimelineState extends State<Timeline> {
   @override
   Widget build(BuildContext context) {
     DigitTypography currentTypography = getTypography(context);
-    bool isMobile = AppView.isMobileView(MediaQuery.of(context).size.width);
+    bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
 
     return SizedBox(
       width: double.infinity,

@@ -294,9 +294,9 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
             : 64)
         : null;
 
-    double inputWidth = AppView.isMobileView(MediaQuery.of(context).size.width)
+    double inputWidth = AppView.isMobileView(MediaQuery.of(context).size)
         ? Default.mobileInputWidth
-        : AppView.isTabletView(MediaQuery.of(context).size.width)
+        : AppView.isTabletView(MediaQuery.of(context).size)
             ? Default.tabInputWidth
             : Default.desktopInputWidth;
 

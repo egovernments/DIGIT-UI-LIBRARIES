@@ -183,7 +183,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
   Widget build(BuildContext context) {
     currentTypography = getTypography(context);
     /// Responsive width based on screen size
-    dropdownWidth = AppView.isMobileView(MediaQuery.of(context).size.width)
+    dropdownWidth = AppView.isMobileView(MediaQuery.of(context).size)
         ? Default.mobileInputWidth
         : Default.desktopInputWidth;
 

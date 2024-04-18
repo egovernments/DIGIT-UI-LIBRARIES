@@ -86,7 +86,7 @@ class _RadioListState extends State<RadioList> {
   @override
   Widget build(BuildContext context) {
     DigitTypography currentTypography = getTypography(context);
-    isMobile = AppView.isMobileView(MediaQuery.of(context).size.width);
+    isMobile = AppView.isMobileView(MediaQuery.of(context).size);
     if (!isMobile) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.center,

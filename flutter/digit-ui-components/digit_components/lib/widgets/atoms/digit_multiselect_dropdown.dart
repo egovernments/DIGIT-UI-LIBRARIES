@@ -247,7 +247,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
   Widget build(BuildContext context) {
     currentTypography = getTypography(context);
     double dropdownWidth =
-        AppView.isMobileView(MediaQuery.of(context).size.width)
+        AppView.isMobileView(MediaQuery.of(context).size)
             ? Default.mobileInputWidth
             : Default.desktopInputWidth;
     return Column(

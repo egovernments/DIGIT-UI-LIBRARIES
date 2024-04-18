@@ -247,7 +247,7 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
     currentTypography = getTypography(context);
     ///calculate the dropdown width based on the view
     double dropdownWidth =
-        AppView.isMobileView(MediaQuery.of(context).size.width)
+        AppView.isMobileView(MediaQuery.of(context).size)
             ? Default.mobileInputWidth
             : Default.desktopInputWidth;
     return Column(

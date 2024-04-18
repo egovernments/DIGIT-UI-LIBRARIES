@@ -1,9 +1,12 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:digit_ui_components/digit_components.dart';
+import 'package:excel/excel.dart' as ex;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:pdfrx/pdfrx.dart';
+import '../../constants/AppView.dart';
 import '../../enum/app_enums.dart';
 import '../helper_widget/selection_chip.dart';
 
@@ -70,8 +73,8 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
 
       for (var file in result.files) {
         setState(() {
-          imageBytesList.add(Uint8List.fromList(file.bytes!));
-          fileNames.add(file.name); // Add file name to the list
+          imageBytesList.add(file.bytes!);
+          fileNames.add(file.name!); // Add file name to the list
           uploadingStatus.add(true); // Set uploading status to true
         });
       }
@@ -85,6 +88,7 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
 
     setState(() {});
   }
+
 
   void _startUploadProgress() {
     _uploadProgress = 0.0;
@@ -104,182 +108,328 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
   Widget _buildImagePreview(int index) {
     if (uploadingStatus[index]) {
       // Display custom box during upload
-      return Stack(
-        children: [
-          Container(
-            color: const DigitColors().light.genericDivider,
-            width: 100,
-            height: 100,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(0),
-              child: Stack(
-                fit: StackFit.expand,
-                children: [
-                  CustomPaint(
-                    painter: FillProgressPainter(
-                      progress: _uploadProgress,
-                      color: const DigitColors().light.textDisabled,
-                      initialColor: const DigitColors().light.genericBackground,
-                    ),
-                    child: Icon(
-                      Icons.insert_drive_file,
-                      size: 48,
-                      color: const DigitColors().light.genericInputBorder,
-                    ),
-                  ),
-                  Positioned(
-                    top: 0,
-                    right: 0,
-                    child: InkWell(
-                      hoverColor: const DigitColors().transparent,
-                      highlightColor: const DigitColors().transparent,
-                      splashColor: const DigitColors().transparent,
-                      onTap: () {
-                        setState(() {
-                          imageBytesList.removeAt(index);
-                          fileNames.removeAt(index);
-                          uploadingStatus.removeAt(index);
-                        });
-                      },
-                      child: Container(
-                        width: 24,
-                        height: 24,
-                        decoration: BoxDecoration(
-                          color: const DigitColors().light.headerSideNav,
-                        ),
-                        child: Icon(
-                          Icons.close,
-                          size: 16,
-                          color: const DigitColors().light.paperPrimary,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      );
+      return _buildUploadProgressWidget(index);
     } else if (imageBytesList.length > index) {
       // Check file extension to determine if it's an image or not
       String fileName = fileNames[index].toLowerCase();
       if (fileName.endsWith('.jpg') ||
           fileName.endsWith('.jpeg') ||
           fileName.endsWith('.png')) {
-        // Display actual image preview after upload
-        return Stack(
-          children: [
-            Container(
-              color: const DigitColors().light.genericDivider,
-              width: 100,
-              height: 100,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(0),
-                child: Stack(
-                  fit: StackFit.expand,
-                  children: [
-                    ColorFiltered(
-                      colorFilter: ColorFilter.mode(
-                        const DigitColors().light.textDisabled,
-                        BlendMode.darken,
-                      ),
-                      child: Image.memory(
-                        imageBytesList[index],
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    Positioned(
-                      top: 0,
-                      right: 0,
-                      child: InkWell(
-                        hoverColor: const DigitColors().transparent,
-                        highlightColor: const DigitColors().transparent,
-                        splashColor: const DigitColors().transparent,
-                        onTap: () {
-                          setState(() {
-                            imageBytesList.removeAt(index);
-                            fileNames.removeAt(index);
-                            uploadingStatus.removeAt(index);
-                          });
-                        },
-                        child: Container(
-                          width: 24,
-                          height: 24,
-                          decoration: BoxDecoration(
-                            color: const DigitColors().light.headerSideNav,
-                          ),
-                          child: Icon(
-                            Icons.close,
-                            size: 16,
-                            color: const DigitColors().light.paperPrimary,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        );
+        /// Display actual image preview after upload
+        return _buildImageWidget(index);
+      } else if (fileName.endsWith('.pdf')) {
+        // Display PDF preview and allow opening full PDF on tap
+        return _buildPdfPreviewWidget(index);
+      } else if (fileName.endsWith('.xlsx') || fileName.endsWith('.xls')) {
+        // Display Excel preview and allow opening full Excel on tap
+        return _buildExcelPreviewWidget(index);
       } else {
-        // Display file preview for non-image files
-        return Stack(
-          children: [
-            Container(
-              color: const DigitColors().light.genericDivider,
-              width: 100,
-              height: 100,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(0),
-                child: Stack(
-                  fit: StackFit.expand,
-                  children: [
-                    Icon(
-                      Icons.insert_drive_file,
-                      size: 48,
-                      color: const DigitColors().light.genericInputBorder,
-                    ),
-                    Positioned(
-                      top: 0,
-                      right: 0,
-                      child: InkWell(
-                        hoverColor: const DigitColors().transparent,
-                        highlightColor: const DigitColors().transparent,
-                        splashColor: const DigitColors().transparent,
-                        onTap: () {
-                          setState(() {
-                            imageBytesList.removeAt(index);
-                            fileNames.removeAt(index);
-                            uploadingStatus.removeAt(index);
-                          });
-                        },
-                        child: Container(
-                          width: 24,
-                          height: 24,
-                          decoration: BoxDecoration(
-                            color: const DigitColors().light.headerSideNav,
-                          ),
-                          child: Icon(
-                            Icons.close,
-                            size: 16,
-                            color: const DigitColors().light.paperPrimary,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        );
+        // Display file preview for other file types
+        return _buildFilePreviewWidget(index);
+        return const SizedBox();
       }
     } else {
-      return const SizedBox
-          .shrink(); // Return an empty SizedBox if no image is selected
+      return const SizedBox.shrink(); // Return an empty SizedBox if no image is selected
     }
+  }
+
+
+  Widget _buildUploadProgressWidget(int index) {
+    return Stack(
+      children: [
+        Container(
+          color: const DigitColors().light.genericDivider,
+          width: 100,
+          height: 100,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(0),
+            child: Stack(
+              fit: StackFit.expand,
+              children: [
+                CustomPaint(
+                  painter: FillProgressPainter(
+                    progress: _uploadProgress,
+                    color: const DigitColors().light.textDisabled,
+                    initialColor: const DigitColors().light.genericBackground,
+                  ),
+                  child: Icon(
+                    Icons.insert_drive_file,
+                    size: 48,
+                    color: const DigitColors().light.genericInputBorder,
+                  ),
+                ),
+                Positioned(
+                  top: 0,
+                  right: 0,
+                  child: InkWell(
+                    hoverColor: const DigitColors().transparent,
+                    highlightColor: const DigitColors().transparent,
+                    splashColor: const DigitColors().transparent,
+                    onTap: () {
+                      _cancelUpload(index);
+                    },
+                    child: Container(
+                      width: 24,
+                      height: 24,
+                      decoration: BoxDecoration(
+                        color: const DigitColors().light.headerSideNav,
+                      ),
+                      child: Icon(
+                        Icons.close,
+                        size: 16,
+                        color: const DigitColors().light.paperPrimary,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildImageWidget(int index) {
+    return Stack(
+      children: [
+        Container(
+          color: const DigitColors().light.genericDivider,
+          width: 100,
+          height: 100,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(0),
+            child: Stack(
+              fit: StackFit.expand,
+              children: [
+                Image.memory(
+                  imageBytesList[index],
+                  fit: BoxFit.cover,
+                ),
+                Positioned(
+                  top: 0,
+                  right: 0,
+                  child: InkWell(
+                    hoverColor: const DigitColors().transparent,
+                    highlightColor: const DigitColors().transparent,
+                    splashColor: const DigitColors().transparent,
+                    onTap: () {
+                      _removeFile(index);
+                    },
+                    child: Container(
+                      width: 24,
+                      height: 24,
+                      decoration: BoxDecoration(
+                        color: const DigitColors().light.headerSideNav,
+                      ),
+                      child: Icon(
+                        Icons.close,
+                        size: 16,
+                        color: const DigitColors().light.paperPrimary,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+
+  import 'package:pdfrx/pdfrx.dart';
+
+  Widget _buildPdfPreviewWidget(int index) {
+    return Stack(
+      children: [
+        Container(
+          color: const DigitColors().light.genericDivider,
+          width: 100,
+          height: 100,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(0),
+            child: Stack(
+              fit: StackFit.expand,
+              children: [
+                FutureBuilder<PdfDocument>(
+                  future: PdfDocument.openData(imageBytesList[index]),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done &&
+                        snapshot.hasData) {
+                      return PdfViewer(
+                        documentRef: PdfDocumentRef(snapshot.data!),
+                        initialPageNumber: 1,
+                      );
+                    } else if (snapshot.hasError) {
+                      return Center(
+                        child: Text('Error loading PDF'),
+                      );
+                    } else {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                  },
+                ),
+                Positioned(
+                  top: 0,
+                  right: 0,
+                  child: InkWell(
+                    hoverColor: const DigitColors().transparent,
+                    highlightColor: const DigitColors().transparent,
+                    splashColor: const DigitColors().transparent,
+                    onTap: () {
+                      _removeFile(index);
+                    },
+                    child: Container(
+                      width: 24,
+                      height: 24,
+                      decoration: BoxDecoration(
+                        color: const DigitColors().light.headerSideNav,
+                      ),
+                      child: Icon(
+                        Icons.close,
+                        size: 16,
+                        color: const DigitColors().light.paperPrimary,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+
+
+
+
+
+
+  Widget _buildExcelPreviewWidget(int index) {
+    return Stack(
+      children: [
+        Container(
+          color: const DigitColors().light.genericDivider,
+          width: 100,
+          height: 100,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(0),
+            child: Stack(
+              fit: StackFit.expand,
+              children: [
+                Image.memory(
+                  _generateExcelPreview(imageBytesList[index]),
+                  fit: BoxFit.cover,
+                ),
+                Positioned(
+                  top: 0,
+                  right: 0,
+                  child: InkWell(
+                    hoverColor: const DigitColors().transparent,
+                    highlightColor: const DigitColors().transparent,
+                    splashColor: const DigitColors().transparent,
+                    onTap: () {
+                      _removeFile(index);
+                    },
+                    child: Container(
+                      width: 24,
+                      height: 24,
+                      decoration: BoxDecoration(
+                        color: const DigitColors().light.headerSideNav,
+                      ),
+                      child: Icon(
+                        Icons.close,
+                        size: 16,
+                        color: const DigitColors().light.paperPrimary,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildFilePreviewWidget(int index) {
+    return Stack(
+      children: [
+        Container(
+          color: const DigitColors().light.genericDivider,
+          width: 100,
+          height: 100,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(0),
+            child: Stack(
+              fit: StackFit.expand,
+              children: [
+                Icon(
+                  Icons.insert_drive_file,
+                  size: 48,
+                  color: const DigitColors().light.genericInputBorder,
+                ),
+                Positioned(
+                  top: 0,
+                  right: 0,
+                  child: InkWell(
+                    hoverColor: const DigitColors().transparent,
+                    highlightColor: const DigitColors().transparent,
+                    splashColor: const DigitColors().transparent,
+                    onTap: () {
+                      _removeFile(index);
+                    },
+                    child: Container(
+                      width: 24,
+                      height: 24,
+                      decoration: BoxDecoration(
+                        color: const DigitColors().light.headerSideNav,
+                      ),
+                      child: Icon(
+                        Icons.close,
+                        size: 16,
+                        color: const DigitColors().light.paperPrimary,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Uint8List _generateExcelPreview(Uint8List excelBytes) {
+    final excel = ex.Excel.decodeBytes(excelBytes);
+    final sheet = excel.tables.keys.first;
+    final image = excel.tables[sheet]!.rows[0].first?.value; // Get the first cell as an image
+
+    return image;
+  }
+
+  void _removeFile(int index) {
+    setState(() {
+      imageBytesList.removeAt(index);
+      fileNames.removeAt(index);
+      uploadingStatus.removeAt(index);
+    });
+  }
+
+  void _cancelUpload(int index) {
+    setState(() {
+      _animationController.stop();
+      _uploadProgress = 0.0;
+      uploadingStatus[index] = false;
+    });
   }
 
   @override
@@ -287,8 +437,14 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
     /// typography based on screen
     DigitTypography currentTypography = getTypography(context);
 
+    double inputWidth = AppView.isMobileView(MediaQuery.of(context).size)
+        ? MediaQuery.of(context).size.width *.91
+        : AppView.isTabletView(MediaQuery.of(context).size)
+        ? MediaQuery.of(context).size.width* .59
+        : MediaQuery.of(context).size.width*.416;
+
     return SizedBox(
-      width: 468,
+      width: inputWidth,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -332,7 +488,7 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
               Button(
                 width: 200,
                 label: !widget.allowMultipleImages && imageBytesList.isNotEmpty
-                    ? 'Re Upload'
+                    ? 'Re-Upload'
                     : 'Upload',
                 onPressed: _openFileExplorer,
                 type: ButtonType.secondary,
