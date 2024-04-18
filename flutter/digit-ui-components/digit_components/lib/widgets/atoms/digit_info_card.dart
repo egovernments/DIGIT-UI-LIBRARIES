@@ -34,10 +34,10 @@ class InfoCard extends StatelessWidget {
     Color containerColor = const DigitColors().light.alertInfoBg;
     DigitTypography currentTypography = getTypography(context);
     double minWidth = AppView.isMobileView(MediaQuery.of(context).size)
-        ? 240
+        ? MediaQuery.of(context).size.width * .77
         : AppView.isTabletView(MediaQuery.of(context).size)
-            ? 360
-            : 400;
+        ? MediaQuery.of(context).size.width * .48
+        : MediaQuery.of(context).size.width * .27;
 
     String capitalizedHeading = capitalizeFirstLetter(title)!;
     String capitalizedDescription = capitalizeFirstLetter(description)!;
@@ -112,9 +112,9 @@ class InfoCard extends StatelessWidget {
                 ),
               ),
               if (additionalWidgets != null)
-              const SizedBox(
-                height: kPadding * 2,
-              ),
+                const SizedBox(
+                  height: kPadding * 2,
+                ),
 
               /// Display additional widgets based on the 'inline' prop
               if (additionalWidgets != null)
@@ -124,10 +124,10 @@ class InfoCard extends StatelessWidget {
                     children: additionalWidgets!
                         .map(
                           (widget) => Padding(
-                            padding: const EdgeInsets.only(right: kPadding),
-                            child: widget,
-                          ),
-                        )
+                        padding: const EdgeInsets.only(right: kPadding),
+                        child: widget,
+                      ),
+                    )
                         .toList(),
                   )
                 else
@@ -136,10 +136,10 @@ class InfoCard extends StatelessWidget {
                     children: additionalWidgets!
                         .map(
                           (widget) => Padding(
-                            padding: const EdgeInsets.only(right: kPadding),
-                            child: widget,
-                          ),
-                        )
+                        padding: const EdgeInsets.only(right: kPadding),
+                        child: widget,
+                      ),
+                    )
                         .toList(),
                   ),
             ],

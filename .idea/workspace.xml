@@ -5,31 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="527a2fe1-eac1-442a-a699-c8c48a8f093b" name="Changes" comment="fixed alignment issue">
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/index.pb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/.flutter-plugins" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/constants/AppView.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/constants/AppView.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/theme/typography.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/theme/typography.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/digit_base_form_input.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/digit_base_form_input.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/digit_dropdown_input.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/digit_dropdown_input.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/digit_info_card.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/digit_info_card.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/digit_multiselect_dropdown.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/digit_multiselect_dropdown.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/digit_radio_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/digit_radio_list.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/digit_timeline.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/digit_timeline.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/digit_toast.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/digit_toast.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/digit_toggle.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/digit_toggle.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/digit_tree_select_dropdown.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/digit_tree_select_dropdown.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/file_uploader.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/file_uploader.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/labelled_fields.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/labelled_fields.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/pubspec.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/example/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/dropdown_story.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/dropdown_story.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/input_field_story.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/input_field_story.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/example/linux/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/example/linux/flutter/generated_plugin_registrant.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/example/linux/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/example/linux/flutter/generated_plugins.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/example/macos/Flutter/GeneratedPluginRegistrant.swift" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/example/macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/example/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/example/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/example/windows/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/example/windows/flutter/generated_plugin_registrant.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/example/windows/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/example/windows/flutter/generated_plugins.cmake" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,7 +80,7 @@
       <recent name="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/assets/icons/svg" />
     </key>
   </component>
-  <component name="RunManager" selected="Flutter.main.dart (2)">
+  <component name="RunManager" selected="Flutter.main.dart (1)">
     <configuration name="main.dart (1)" type="FlutterRunConfigurationType" factoryName="Flutter" temporary="true" nameIsGenerated="true">
       <option name="filePath" value="$PROJECT_DIR$/flutter/digit-ui-components/example/lib/main.dart" />
       <method v="2" />
@@ -115,8 +101,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Flutter.main.dart (2)" />
         <item itemvalue="Flutter.main.dart (1)" />
+        <item itemvalue="Flutter.main.dart (2)" />
         <item itemvalue="Flutter.main.dart" />
         <item itemvalue="Flutter.main.dart (1)" />
         <item itemvalue="Flutter.main.dart (2)" />
@@ -131,13 +117,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1704952952175</updated>
-    </task>
-    <task id="LOCAL-00173" summary="issue resolved">
-      <created>1709476848432</created>
-      <option name="number" value="00173" />
-      <option name="presentableId" value="LOCAL-00173" />
-      <option name="project" value="LOCAL" />
-      <updated>1709476848432</updated>
     </task>
     <task id="LOCAL-00174" summary="issue resolved">
       <created>1709525030358</created>
@@ -475,7 +454,14 @@
       <option name="project" value="LOCAL" />
       <updated>1713187829194</updated>
     </task>
-    <option name="localTasksCounter" value="222" />
+    <task id="LOCAL-00222" summary="fixed alignment issue">
+      <created>1713416173887</created>
+      <option name="number" value="00222" />
+      <option name="presentableId" value="LOCAL-00222" />
+      <option name="project" value="LOCAL" />
+      <updated>1713416173887</updated>
+    </task>
+    <option name="localTasksCounter" value="223" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -490,7 +476,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="expanded issue fix" />
     <MESSAGE value="widget-book for components" />
     <MESSAGE value="code cleaning" />
     <MESSAGE value="added variation for all the components" />
@@ -515,6 +500,7 @@
     <MESSAGE value="timeline component" />
     <MESSAGE value="storybook for flutter components" />
     <MESSAGE value="updated file uploader component" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated file uploader component" />
+    <MESSAGE value="fixed alignment issue" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed alignment issue" />
   </component>
 </project>

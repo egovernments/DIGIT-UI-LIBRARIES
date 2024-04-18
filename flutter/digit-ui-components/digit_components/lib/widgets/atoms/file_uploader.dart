@@ -5,7 +5,6 @@ import 'package:excel/excel.dart' as ex;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:pdfrx/pdfrx.dart';
 import '../../constants/AppView.dart';
 import '../../enum/app_enums.dart';
 import '../helper_widget/selection_chip.dart';
@@ -119,7 +118,8 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
         return _buildImageWidget(index);
       } else if (fileName.endsWith('.pdf')) {
         // Display PDF preview and allow opening full PDF on tap
-        return _buildPdfPreviewWidget(index);
+        // return _buildPdfPreviewWidget(index);
+        return const SizedBox();
       } else if (fileName.endsWith('.xlsx') || fileName.endsWith('.xls')) {
         // Display Excel preview and allow opening full Excel on tap
         return _buildExcelPreviewWidget(index);
@@ -239,75 +239,69 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
   }
 
 
-  import 'package:pdfrx/pdfrx.dart';
-
-  Widget _buildPdfPreviewWidget(int index) {
-    return Stack(
-      children: [
-        Container(
-          color: const DigitColors().light.genericDivider,
-          width: 100,
-          height: 100,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(0),
-            child: Stack(
-              fit: StackFit.expand,
-              children: [
-                FutureBuilder<PdfDocument>(
-                  future: PdfDocument.openData(imageBytesList[index]),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.done &&
-                        snapshot.hasData) {
-                      return PdfViewer(
-                        documentRef: PdfDocumentRef(snapshot.data!),
-                        initialPageNumber: 1,
-                      );
-                    } else if (snapshot.hasError) {
-                      return Center(
-                        child: Text('Error loading PDF'),
-                      );
-                    } else {
-                      return Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-                  },
-                ),
-                Positioned(
-                  top: 0,
-                  right: 0,
-                  child: InkWell(
-                    hoverColor: const DigitColors().transparent,
-                    highlightColor: const DigitColors().transparent,
-                    splashColor: const DigitColors().transparent,
-                    onTap: () {
-                      _removeFile(index);
-                    },
-                    child: Container(
-                      width: 24,
-                      height: 24,
-                      decoration: BoxDecoration(
-                        color: const DigitColors().light.headerSideNav,
-                      ),
-                      child: Icon(
-                        Icons.close,
-                        size: 16,
-                        color: const DigitColors().light.paperPrimary,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-
-
-
+  // Widget _buildPdfPreviewWidget(int index) {
+  //   return Stack(
+  //     children: [
+  //       Container(
+  //         color: const DigitColors().light.genericDivider,
+  //         width: 100,
+  //         height: 100,
+  //         child: ClipRRect(
+  //           borderRadius: BorderRadius.circular(0),
+  //           child: Stack(
+  //             fit: StackFit.expand,
+  //             children: [
+  //               FutureBuilder<PdfDocument>(
+  //                 future: PdfDocument.openData(imageBytesList[index]),
+  //                 builder: (context, snapshot) {
+  //                   if (snapshot.connectionState == ConnectionState.done &&
+  //                       snapshot.hasData) {
+  //                     return const PdfViewer(
+  //
+  //
+  //                     );
+  //                   } else if (snapshot.hasError) {
+  //                     return Center(
+  //                       child: Text('Error loading PDF'),
+  //                     );
+  //                   } else {
+  //                     return Center(
+  //                       child: CircularProgressIndicator(),
+  //                     );
+  //                   }
+  //                 },
+  //               ),
+  //               Positioned(
+  //                 top: 0,
+  //                 right: 0,
+  //                 child: InkWell(
+  //                   hoverColor: const DigitColors().transparent,
+  //                   highlightColor: const DigitColors().transparent,
+  //                   splashColor: const DigitColors().transparent,
+  //                   onTap: () {
+  //                     _removeFile(index);
+  //                   },
+  //                   child: Container(
+  //                     width: 24,
+  //                     height: 24,
+  //                     decoration: BoxDecoration(
+  //                       color: const DigitColors().light.headerSideNav,
+  //                     ),
+  //                     child: Icon(
+  //                       Icons.close,
+  //                       size: 16,
+  //                       color: const DigitColors().light.paperPrimary,
+  //                     ),
+  //                   ),
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
 
 
 
