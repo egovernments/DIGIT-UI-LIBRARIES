@@ -38,3 +38,8 @@ config:
         dockerfile: flutter/docker/Dockerfile
         image-name: digit-ui-flutter
 
+  - name: builds/Digit-UI-Libraries/flutter/storybook
+    build:
+      - work-dir: flutter/digit-ui-components/storybook
+        dockerfile: flutter/docker/storybook/Dockerfile
+        image-name: storybook
