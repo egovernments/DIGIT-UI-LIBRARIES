@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:digit_ui_components/digit_components.dart';
-import 'package:excel/excel.dart' as ex;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
@@ -123,10 +122,13 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
         return const SizedBox();
       } else if (fileName.endsWith('.xlsx') || fileName.endsWith('.xls')) {
         // Display Excel preview and allow opening full Excel on tap
-        return _buildExcelPreviewWidget(index);
+        // return _buildExcelPreviewWidget(index);
+        return const SizedBox();
       } else {
+
         // Display file preview for other file types
-        return _buildFilePreviewWidget(index);
+        return const SizedBox();
+        // return _buildFilePreviewWidget(index);
         return const SizedBox();
       }
     } else {
@@ -306,110 +308,110 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
 
 
 
-  Widget _buildExcelPreviewWidget(int index) {
-    return Stack(
-      children: [
-        Container(
-          color: const DigitColors().light.genericDivider,
-          width: 100,
-          height: 100,
-          child: ClipRRect(
-            borderRadius: Common.radius,
-            child: Stack(
-              fit: StackFit.expand,
-              children: [
-                Image.memory(
-                  _generateExcelPreview(imageBytesList[index]),
-                  fit: BoxFit.cover,
-                ),
-                Positioned(
-                  top: 0,
-                  right: 0,
-                  child: InkWell(
-                    hoverColor: const DigitColors().transparent,
-                    highlightColor: const DigitColors().transparent,
-                    splashColor: const DigitColors().transparent,
-                    onTap: () {
-                      _removeFile(index);
-                    },
-                    child: Container(
-                      width: 24,
-                      height: 24,
-                      decoration: BoxDecoration(
-                        color: const DigitColors().light.primary2,
-                      ),
-                      child: Icon(
-                        Icons.close,
-                        size: 16,
-                        color: const DigitColors().light.paperPrimary,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ],
-    );
-  }
+  // Widget _buildExcelPreviewWidget(int index) {
+  //   return Stack(
+  //     children: [
+  //       Container(
+  //         color: const DigitColors().light.genericDivider,
+  //         width: 100,
+  //         height: 100,
+  //         child: ClipRRect(
+  //           borderRadius: Common.radius,
+  //           child: Stack(
+  //             fit: StackFit.expand,
+  //             children: [
+  //               Image.memory(
+  //                 _generateExcelPreview(imageBytesList[index]),
+  //                 fit: BoxFit.cover,
+  //               ),
+  //               Positioned(
+  //                 top: 0,
+  //                 right: 0,
+  //                 child: InkWell(
+  //                   hoverColor: const DigitColors().transparent,
+  //                   highlightColor: const DigitColors().transparent,
+  //                   splashColor: const DigitColors().transparent,
+  //                   onTap: () {
+  //                     _removeFile(index);
+  //                   },
+  //                   child: Container(
+  //                     width: 24,
+  //                     height: 24,
+  //                     decoration: BoxDecoration(
+  //                       color: const DigitColors().light.primary2,
+  //                     ),
+  //                     child: Icon(
+  //                       Icons.close,
+  //                       size: 16,
+  //                       color: const DigitColors().light.paperPrimary,
+  //                     ),
+  //                   ),
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
 
-  Widget _buildFilePreviewWidget(int index) {
-    return Stack(
-      children: [
-        Container(
-          color: const DigitColors().light.genericDivider,
-          width: 100,
-          height: 100,
-          child: ClipRRect(
-            borderRadius: Common.radius,
-            child: Stack(
-              fit: StackFit.expand,
-              children: [
-                Icon(
-                  Icons.insert_drive_file,
-                  size: 48,
-                  color: const DigitColors().light.genericInputBorder,
-                ),
-                Positioned(
-                  top: 0,
-                  right: 0,
-                  child: InkWell(
-                    hoverColor: const DigitColors().transparent,
-                    highlightColor: const DigitColors().transparent,
-                    splashColor: const DigitColors().transparent,
-                    onTap: () {
-                      _removeFile(index);
-                    },
-                    child: Container(
-                      width: 24,
-                      height: 24,
-                      decoration: BoxDecoration(
-                        color: const DigitColors().light.primary2,
-                      ),
-                      child: Icon(
-                        Icons.close,
-                        size: 16,
-                        color: const DigitColors().light.paperPrimary,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Uint8List _generateExcelPreview(Uint8List excelBytes) {
-    final excel = ex.Excel.decodeBytes(excelBytes);
-    final sheet = excel.tables.keys.first;
-    final image = excel.tables[sheet]!.rows[0].first?.value; // Get the first cell as an image
-
-    return image;
-  }
+  // Widget _buildFilePreviewWidget(int index) {
+  //   return Stack(
+  //     children: [
+  //       Container(
+  //         color: const DigitColors().light.genericDivider,
+  //         width: 100,
+  //         height: 100,
+  //         child: ClipRRect(
+  //           borderRadius: Common.radius,
+  //           child: Stack(
+  //             fit: StackFit.expand,
+  //             children: [
+  //               Icon(
+  //                 Icons.insert_drive_file,
+  //                 size: 48,
+  //                 color: const DigitColors().light.genericInputBorder,
+  //               ),
+  //               Positioned(
+  //                 top: 0,
+  //                 right: 0,
+  //                 child: InkWell(
+  //                   hoverColor: const DigitColors().transparent,
+  //                   highlightColor: const DigitColors().transparent,
+  //                   splashColor: const DigitColors().transparent,
+  //                   onTap: () {
+  //                     _removeFile(index);
+  //                   },
+  //                   child: Container(
+  //                     width: 24,
+  //                     height: 24,
+  //                     decoration: BoxDecoration(
+  //                       color: const DigitColors().light.primary2,
+  //                     ),
+  //                     child: Icon(
+  //                       Icons.close,
+  //                       size: 16,
+  //                       color: const DigitColors().light.paperPrimary,
+  //                     ),
+  //                   ),
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
+  //
+  // Uint8List _generateExcelPreview(Uint8List excelBytes) {
+  //   final excel = ex.Excel.decodeBytes(excelBytes);
+  //   final sheet = excel.tables.keys.first;
+  //   final image = excel.tables[sheet]!.rows[0].first?.value; // Get the first cell as an image
+  //
+  //   return image;
+  // }
 
   void _removeFile(int index) {
     setState(() {

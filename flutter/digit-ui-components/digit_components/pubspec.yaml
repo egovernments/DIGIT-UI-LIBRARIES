@@ -21,8 +21,8 @@ dependencies:
   collection: ^1.15.0
   file_picker: ^8.0.0+1
   flutter_dropzone: ^3.0.7
-  excel: ^2.0.0
-  pdfrx: ^0.4.54
+
+
 
 
 
