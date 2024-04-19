@@ -27,17 +27,17 @@ class Toast {
 
     bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
 
-    double inputWidth = isMobile
+    double minWidth = AppView.isMobileView(MediaQuery.of(context).size)
         ? MediaQuery.of(context).size.width
         : AppView.isTabletView(MediaQuery.of(context).size)
-        ? MediaQuery.of(context).size.width * .64
-        : MediaQuery.of(context).size.width * .55;
+        ? 480
+        : 800;
 
 
     return fToast.showToast(
       child: Container(
         constraints: BoxConstraints(
-          minWidth: inputWidth,
+          minWidth: minWidth,
         ),
         color: options.type == ToastType.success
             ? const DigitColors().light.alertSuccess
