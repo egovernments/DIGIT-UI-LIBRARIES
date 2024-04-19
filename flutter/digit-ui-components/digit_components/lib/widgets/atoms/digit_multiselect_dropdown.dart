@@ -245,11 +245,11 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
 
   @override
   Widget build(BuildContext context) {
-    currentTypography = getTypography(context);
+    currentTypography = getTypography(context, false);
     double dropdownWidth =
         AppView.isMobileView(MediaQuery.of(context).size)
-            ? Default.mobileInputWidth
-            : Default.desktopInputWidth;
+            ? Common.mobileInputWidth
+            : Common.desktopInputWidth;
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -291,11 +291,11 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
               /// Disable onTap if dropdown is disabled
               child: StatefulBuilder(builder: (context, setState) {
                 return Container(
-                  height: Default.height,
+                  height: Common.height,
                   width: dropdownWidth,
                   constraints: const BoxConstraints(
                     minWidth: 200,
-                    minHeight: Default.height,
+                    minHeight: Common.height,
                   ),
                   padding: const EdgeInsets.symmetric(
                     horizontal: kPadding,
@@ -310,7 +310,6 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                             ? Text(
                                 '${_selectedOptions.length} Selected',
                                 style: currentTypography.bodyL.copyWith(
-                                  height: 1.5,
                                   color: widget.readOnly ? const DigitColors().light.textSecondary : const DigitColors().light.textPrimary,
                                 ),
                               )
@@ -369,7 +368,6 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                                   ? '${widget.errorMessage!.substring(0, 256)}...'
                                   : widget.errorMessage!,
                               style: currentTypography.bodyS.copyWith(
-                                height: 1.5,
                                 color: const DigitColors().light.alertError,
                               ),
                             ),
@@ -383,7 +381,6 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                             ? '${widget.helpText!.substring(0, 256)}...'
                             : widget.helpText!,
                         style: currentTypography.bodyS.copyWith(
-                          height: 1.5,
                           color: const DigitColors().light.textSecondary,
                         ),
                       ),
@@ -558,7 +555,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
   Decoration _getDisabledContainerDecoration() {
     return BoxDecoration(
       color:  const DigitColors().transparent,
-      borderRadius: BorderRadius.zero,
+      borderRadius: Common.radius,
       border: Border.all(
         color: const DigitColors().light.textDisabled,
         width: 1,
@@ -570,7 +567,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
   Decoration _getReadOnlyContainerDecoration() {
     return BoxDecoration(
       color: const DigitColors().light.genericBackground,
-      borderRadius: BorderRadius.zero,
+      borderRadius: Common.radius,
       border: Border.all(
         color:const DigitColors().light.genericInputBorder,
         width: 1,
@@ -582,13 +579,13 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
   Decoration _getContainerDecoration() {
     return BoxDecoration(
       color: const DigitColors().light.paperPrimary,
-      borderRadius: BorderRadius.zero,
+      borderRadius: Common.radius,
       border: widget.errorMessage!=null ? Border.all(
         color: const DigitColors().light.alertError,
         width: 1.5,
       ): _selectionMode
           ? Border.all(
-              color: const DigitColors().light.primaryOrange,
+              color: const DigitColors().light.primary1,
               width: 1.5,
             )
           : Border.all(
@@ -664,7 +661,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                   followerAnchor: Alignment.topLeft,
                   offset: Offset.zero,
                   child: Material(
-                    borderRadius: BorderRadius.zero,
+                    borderRadius: Common.radius,
                     shadowColor: null,
                     child: Container(
                       width: size.width,
@@ -711,6 +708,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
 
   Widget _buildFlatOptions(List<dynamic> values, List<DropdownItem> options,
       List<DropdownItem> selectedOptions, StateSetter dropdownState) {
+    bool isAllSelected = false;
     return StatefulBuilder(
       builder: (context, setState) {
         return Scrollbar(
@@ -741,7 +739,6 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                       isSelected: selectedOptions.contains(option),
                       backgroundColor: backgroundColor,
                       selectedOptions: selectedOptions,
-                      isFocused: isFocused,
                       onOptionSelected: (List<DropdownItem> selectedOptions) {
                         if (isSelected) {
                           dropdownState(() {
@@ -764,18 +761,10 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                           _controller!.value._selectedOptions
                               .addAll(_selectedOptions);
                         }
+                        print(_controller!.value._selectedOptions.length);
                         widget.onOptionSelected?.call(_selectedOptions);
                       },
                       selectionType: widget.selectionType,
-                      focusedIndex: _focusedIndex,
-                      onHover: (value, isHover){
-                        if(isHover && _focusedIndex!=-1){
-                          int hoveredIndex = options.indexWhere((item) => item.code == value.code);
-                          setState(() {
-                            _focusedIndex = -1;
-                          });
-                        }
-                      },
                     ),
                   ],
                 );
@@ -936,7 +925,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
               ),
               decoration: BoxDecoration(
                 border: Border.all(
-                  color: const DigitColors().light.primaryOrange,
+                  color: const DigitColors().light.primary1,
                 ),
                 borderRadius: BorderRadius.circular(4),
                 color: const DigitColors().light.paperSecondary,
@@ -944,8 +933,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
               child: Text(
                 capitalizeFirstLetter(widget.clearAllText)!,
                 style: currentTypography.bodyS.copyWith(
-                  color: const DigitColors().light.primaryOrange,
-                  height: 1,
+                  color: const DigitColors().light.primary1,
                 ),
               ),
             ),

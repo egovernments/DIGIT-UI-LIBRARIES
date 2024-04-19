@@ -1,5 +1,5 @@
+import 'package:digit_ui_components/constants/app_constants.dart';
 import 'package:flutter/material.dart';
-
 import '../../constants/AppView.dart';
 import '../../theme/colors.dart';
 import '../../theme/digit_theme.dart';
@@ -30,9 +30,12 @@ class InfoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     IconData selectedIcon;
+
+
+
     Color iconColor;
     Color containerColor = const DigitColors().light.alertInfoBg;
-    DigitTypography currentTypography = getTypography(context);
+    DigitTypography currentTypography = getTypography(context, false);
     double minWidth = AppView.isMobileView(MediaQuery.of(context).size)
         ? MediaQuery.of(context).size.width * .77
         : AppView.isTabletView(MediaQuery.of(context).size)
@@ -72,7 +75,25 @@ class InfoCard extends StatelessWidget {
           minWidth: minWidth,
         ),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(4),
+          borderRadius: Common.radius,
+          border: Border(
+            right: BorderSide(
+              color: iconColor,
+              width: 1,
+            ),
+            left: BorderSide(
+              color: iconColor,
+              width: 4,
+            ),
+            top: BorderSide(
+              color: iconColor,
+              width: 1,
+            ),
+            bottom: BorderSide(
+              color: iconColor,
+              width: 1,
+            ),
+          ),
           color: containerColor,
         ),
         child: Padding(
@@ -94,8 +115,7 @@ class InfoCard extends StatelessWidget {
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                       style: currentTypography.headingS.copyWith(
-                        color: const DigitColors().light.textPrimary,
-                        height: 1.172,
+                        color: iconColor,
                       ),
                     ),
                   ),
@@ -108,7 +128,6 @@ class InfoCard extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 style: currentTypography.bodyS.copyWith(
                   color: const DigitColors().light.textSecondary,
-                  height: 1.094,
                 ),
               ),
               if (additionalWidgets != null)

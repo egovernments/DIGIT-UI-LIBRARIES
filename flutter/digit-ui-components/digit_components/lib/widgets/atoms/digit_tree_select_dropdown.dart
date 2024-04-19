@@ -244,12 +244,12 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
 
   @override
   Widget build(BuildContext context) {
-    currentTypography = getTypography(context);
+    currentTypography = getTypography(context, false);
     ///calculate the dropdown width based on the view
     double dropdownWidth =
         AppView.isMobileView(MediaQuery.of(context).size)
-            ? Default.mobileInputWidth
-            : Default.desktopInputWidth;
+            ? Common.mobileInputWidth
+            : Common.desktopInputWidth;
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -269,11 +269,11 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
               /// Disable onTap if dropdown is disabled
               child: StatefulBuilder(builder: (context, setState) {
                 return Container(
-                  height: Default.height,
+                  height: Common.height,
                   width: dropdownWidth,
                   constraints: const BoxConstraints(
-                    minWidth: Default.mobileInputWidth,
-                    minHeight: Default.height,
+                    minWidth: Common.mobileInputWidth,
+                    minHeight: Common.height,
                   ),
                   padding: const EdgeInsets.symmetric(
                     horizontal: kPadding,
@@ -425,7 +425,7 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
               ),
               decoration: BoxDecoration(
                 border: Border.all(
-                  color: const DigitColors().light.primaryOrange,
+                  color: const DigitColors().light.primary1,
                 ),
                 borderRadius: BorderRadius.circular(4),
                 color: const DigitColors().light.paperSecondary,
@@ -433,7 +433,7 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
               child: Text(
                 capitalizeFirstLetter(widget.clearAllText)!,
                 style: currentTypography.bodyS.copyWith(
-                  color: const DigitColors().light.primaryOrange,
+                  color: const DigitColors().light.primary1,
                   height: 1,
                 ),
               ),
@@ -471,7 +471,7 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
   Decoration _getDisabledContainerDecoration() {
     return BoxDecoration(
       color:  const DigitColors().transparent,
-      borderRadius: BorderRadius.zero,
+      borderRadius: Common.radius,
       border: Border.all(
         color: const DigitColors().light.textDisabled,
         width: 1,
@@ -483,7 +483,7 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
   Decoration _getReadOnlyContainerDecoration() {
     return BoxDecoration(
       color: const DigitColors().light.genericBackground,
-      borderRadius: BorderRadius.zero,
+      borderRadius: Common.radius,
       border: Border.all(
         color:const DigitColors().light.genericInputBorder,
         width: 1,
@@ -495,13 +495,13 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
   Decoration _getContainerDecoration() {
     return BoxDecoration(
       color: const DigitColors().light.paperPrimary,
-      borderRadius: BorderRadius.zero,
+      borderRadius: Common.radius,
       border: widget.errorMessage!=null ? Border.all(
         color: const DigitColors().light.alertError,
         width: 1.5,
       ): _selectionMode
           ? Border.all(
-        color: const DigitColors().light.primaryOrange,
+        color: const DigitColors().light.primary1,
         width: 1.5,
       )
           : Border.all(
@@ -576,7 +576,7 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
                   followerAnchor: Alignment.topLeft,
                   offset: Offset.zero,
                   child: Material(
-                    borderRadius: BorderRadius.zero,
+                    borderRadius: Common.radius,
                     shadowColor: null,
                     clipBehavior: Clip.none,
                     child: SingleChildScrollView(

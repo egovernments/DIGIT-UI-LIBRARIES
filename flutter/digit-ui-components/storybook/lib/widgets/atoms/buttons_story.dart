@@ -17,11 +17,13 @@ List<Story> buttonStories() {
           label: 'disable',
           initial: false,
         ),
+        size: context.knobs.options(label: 'Size of Button', initial: ButtonSize.small,)
       ),
     ),
     Story(
       name: 'Buttons/Secondary',
       builder: (context) => Button(
+        size: ButtonSize.large,
         label: context.knobs.text(
             label: 'Label', initial: 'Secondary Button'),
         onPressed: () {
@@ -37,6 +39,7 @@ List<Story> buttonStories() {
     Story(
       name: 'Buttons/Tertiary',
       builder: (context) => Button(
+        size: ButtonSize.large,
         label: context.knobs.text(
             label: 'Label', initial: 'Tertiary Button'),
         onPressed: () {
@@ -52,6 +55,7 @@ List<Story> buttonStories() {
     Story(
       name: 'Buttons/Link',
       builder: (context) => Button(
+        size: ButtonSize.large,
         label: context.knobs
             .text(label: 'Label', initial: 'link'),
         onPressed: () {

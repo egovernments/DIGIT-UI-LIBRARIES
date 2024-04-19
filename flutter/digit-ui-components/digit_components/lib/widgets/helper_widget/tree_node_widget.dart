@@ -97,13 +97,13 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
 
   Color _calculateBackgroundColor(TreeNode node, TreeNode? parentNode) {
     if (parentNode != null && _areAllChildrenSelected(parentNode)) {
-      return const DigitColors().orangeBG;
+      return const DigitColors().light.primary1Bg;
     } else if (_areAllChildrenSelected(node) &&
         widget.treeSelectionType == TreeSelectionType.MultiSelect) {
-      return const DigitColors().light.primaryOrange;
+      return const DigitColors().light.primary1;
     } else {
       return widget.hoverStates?[widget.currentOption.code] == true
-          ? const DigitColors().orangeBG
+          ? const DigitColors().light.primary1Bg
           : _isExpanded
               ? const DigitColors().light.paperSecondary
               : widget.backgroundColor;
@@ -119,7 +119,7 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
 
   @override
   Widget build(BuildContext context) {
-    DigitTypography currentTypography = getTypography(context);
+    DigitTypography currentTypography = getTypography(context, false);
     return StatefulBuilder(builder: (context, setState) {
       return Column(
         children: [
@@ -184,7 +184,7 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
                                         widget.parentNode) &&
                                     widget.treeSelectionType ==
                                         TreeSelectionType.MultiSelect
-                            ? const DigitColors().light.primaryOrange
+                            ? const DigitColors().light.primary1
                             : Colors.transparent,
                       ),
                       color: _calculateBackgroundColor(
@@ -257,7 +257,7 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
                                             widget.parentNode)
                                         ? const DigitColors()
                                             .light
-                                            .primaryOrange
+                                            .primary1
                                         : _areAllChildrenSelected(
                                                 widget.currentOption)
                                             ? const DigitColors()
@@ -316,7 +316,7 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
           if (_isExpanded && widget.currentOption.children.isNotEmpty)
             Container(
               color: _areAllChildrenSelected(widget.currentOption)
-                  ? const DigitColors().orangeBG
+                  ? const DigitColors().light.primary1Bg
                   : const DigitColors().light.paperPrimary,
               child: Padding(
                 padding: EdgeInsets.only(left: widget.currentHorPadding),

@@ -23,7 +23,7 @@ class Toast {
       }) {
     fToast.init(context);
 
-    DigitTypography currentTypography = getTypography(context);
+    DigitTypography currentTypography = getTypography(context, false);
 
     bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
 
@@ -76,7 +76,6 @@ class Toast {
                     overflow: TextOverflow.ellipsis,
                     style: currentTypography.captionS.copyWith(
                       color: const DigitColors().light.paperPrimary,
-                      height: 1.172,
                     ),
                   ),
                 ),

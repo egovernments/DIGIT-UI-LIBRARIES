@@ -24,7 +24,6 @@ import 'package:flutter/material.dart';
 import '../../constants/app_constants.dart';
 import '../../enum/app_enums.dart';
 import '../../utils/utils.dart';
-import 'digit_checkbox_icon.dart';
 
 class DigitCheckbox extends StatefulWidget {
   /// The current value of the DigitCheckbox.
@@ -38,6 +37,8 @@ class DigitCheckbox extends StatefulWidget {
 
   /// Padding around the DigitCheckbox widget.
   final EdgeInsetsGeometry padding;
+  /// Custom color for the DigitCheckbox label.
+  final Color? textColor;
 
   /// Indicates whether the DigitCheckbox is disabled or not.
   final bool isDisabled;
@@ -55,6 +56,7 @@ class DigitCheckbox extends StatefulWidget {
     required this.label,
     required this.onChanged,
     this.isDisabled = false,
+    this.textColor,
     this.value = false,
     this.padding = DigitCheckboxConstants.defaultPadding,
     this.iconColor,
@@ -80,7 +82,7 @@ class _DigitCheckboxState extends State<DigitCheckbox> {
   @override
   Widget build(BuildContext context) {
     /// typography based on screen
-    DigitTypography currentTypography = getTypography(context);
+    DigitTypography currentTypography = getTypography(context, false);
 
     /// Capitalize the first letter of the label if required
     final processedLabel = widget.capitalizeFirstLetter
@@ -129,7 +131,7 @@ class _DigitCheckboxState extends State<DigitCheckbox> {
                               ? DigitCheckboxState.checked
                               : DigitCheckboxState.unchecked,
                           isDisabled: widget.isDisabled,
-                          color: isHovered ? const DigitColors().light.primaryOrange :widget.iconColor,
+                          color: isHovered ? const DigitColors().light.primary1 :widget.iconColor,
                         ),
                       ),
                     ),
@@ -143,10 +145,9 @@ class _DigitCheckboxState extends State<DigitCheckbox> {
                       processedLabel!,
                       style: currentTypography.bodyL
                           .copyWith(
-                        height: 1.5,
-                        color: widget.isDisabled
+                        color: widget.textColor ?? (widget.isDisabled
                             ? const DigitColors().light.textDisabled
-                            : const DigitColors().light.textPrimary,
+                            : const DigitColors().light.textPrimary),
                       ),
                     ),
                   ),

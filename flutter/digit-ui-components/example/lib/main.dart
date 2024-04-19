@@ -12,6 +12,7 @@ import 'package:digit_ui_components/widgets/atoms/file_uploader.dart';
 import 'package:digit_ui_components/widgets/atoms/file_uploader2.dart';
 import 'package:digit_ui_components/widgets/atoms/image_uploader.dart';
 import 'package:digit_ui_components/widgets/atoms/input_wrapper.dart';
+import 'package:digit_ui_components/widgets/helper_widget/info_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:url_strategy/url_strategy.dart';
@@ -204,7 +205,7 @@ class MyHomePageState extends State<MyHomePage> {
                           Validator(ValidatorType.maxLength, 10,
                               errorMessage: 'Maximum length is 10.'),
                           Validator(ValidatorType.pattern, r'^[a-zA-Z0-9]+$',
-                              errorMessage: 'long error message long error message long error message long error message long error message'),
+                              errorMessage: 'Long error message long error message long error message long error message long error message'),
                         ],
                       ),
                       InputField(
@@ -1618,9 +1619,65 @@ class MyHomePageState extends State<MyHomePage> {
                   height: 8,
                 ),
                 SizedBox(
-                  height: 45,
+                  // height: 45,
+                  child: Column(
+                    children: [
+                      Center(
+                        child: InfoButton(
+                          size: ButtonSize.large,
+                          label: 'Primary Button',
+                          onPressed: () {},
+                          type: InfoButtonType.success,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Center(
+                        child: InfoButton(
+                          size: ButtonSize.large,
+                          label: 'Primary Button',
+                          onPressed: () {},
+                          type: InfoButtonType.error,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Center(
+                        child: InfoButton(
+                          size: ButtonSize.large,
+                          label: 'Primary Button',
+                          onPressed: () {},
+                          type: InfoButtonType.warning,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Center(
+                        child: InfoButton(
+                          size: ButtonSize.large,
+                          label: 'Primary Button',
+                          onPressed: () {},
+                          type: InfoButtonType.info,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                const Divider(),
+                const SizedBox(
+                  height: 8,
+                ),
+                SizedBox(
+                  // height: 45,
                   child: Center(
                     child: Button(
+                      size: ButtonSize.large,
                       label: 'Primary Button',
                       onPressed: () {},
                       type: ButtonType.primary,
@@ -1641,8 +1698,9 @@ class MyHomePageState extends State<MyHomePage> {
                       children: [
                         const SizedBox(height: 8),
                         SizedBox(
-                          height: 45,
+                          // height: 45,
                           child: Button(
+                            size: ButtonSize.large,
                             label: 'Primary Button With Prefix Icon',
                             onPressed: () {},
                             type: ButtonType.primary,
@@ -1651,8 +1709,9 @@ class MyHomePageState extends State<MyHomePage> {
                         ),
                         const SizedBox(height: 8),
                         SizedBox(
-                          height: 45,
+                          // height: 45,
                           child: Button(
+                            size: ButtonSize.medium,
                             label: 'Primary Button With Suffix Icon',
                             onPressed: () {},
                             type: ButtonType.primary,
@@ -1661,8 +1720,9 @@ class MyHomePageState extends State<MyHomePage> {
                         ),
                         const SizedBox(height: 8),
                         SizedBox(
-                          height: 45,
+                          // height: 45,
                           child: Button(
+                            size: ButtonSize.small,
                             label: 'Primary Button With Disabled State',
                             onPressed: () {},
                             type: ButtonType.primary,
@@ -1681,6 +1741,7 @@ class MyHomePageState extends State<MyHomePage> {
                   height: 45,
                   child: Center(
                     child: Button(
+                      size: ButtonSize.large,
                       label: 'secondary Button',
                       onPressed: () {},
                       type: ButtonType.secondary,
@@ -1701,8 +1762,9 @@ class MyHomePageState extends State<MyHomePage> {
                       children: [
                         const SizedBox(height: 8),
                         SizedBox(
-                          height: 45,
+                          // height: 45,
                           child: Button(
+                            size: ButtonSize.medium,
                             label: 'Secondary Button With Prefix Icon',
                             onPressed: () {},
                             type: ButtonType.secondary,
@@ -1711,8 +1773,9 @@ class MyHomePageState extends State<MyHomePage> {
                         ),
                         const SizedBox(height: 8),
                         SizedBox(
-                          height: 45,
+                          // height: 45,
                           child: Button(
+                            size: ButtonSize.small,
                             label: 'Secondary Button With Suffix Icon',
                             onPressed: () {},
                             type: ButtonType.secondary,
@@ -1721,8 +1784,9 @@ class MyHomePageState extends State<MyHomePage> {
                         ),
                         const SizedBox(height: 8),
                         SizedBox(
-                          height: 45,
+                          // height: 45,
                           child: Button(
+                            size: ButtonSize.small,
                             label: 'Secondary Button With Disabled State',
                             onPressed: () {},
                             type: ButtonType.secondary,
@@ -1739,6 +1803,7 @@ class MyHomePageState extends State<MyHomePage> {
                 ),
                 Center(
                   child: Button(
+                    size: ButtonSize.large,
                     label: 'tertiary Button',
                     onPressed: () {},
                     type: ButtonType.tertiary,
@@ -1753,30 +1818,35 @@ class MyHomePageState extends State<MyHomePage> {
                       });
                     }),
                 if (showAllVariantsOfTertiaryButton)
-                  Column(
-                    children: [
-                      const SizedBox(height: 8),
-                      Button(
-                        label: 'Tertiary Button With Prefix Icon',
-                        onPressed: () {},
-                        type: ButtonType.tertiary,
-                        prefixIcon: Icons.arrow_forward,
-                      ),
-                      const SizedBox(height: 8),
-                      Button(
-                        label: 'Tertiary Button With Suffix Icon',
-                        onPressed: () {},
-                        type: ButtonType.tertiary,
-                        suffixIcon: Icons.arrow_forward,
-                      ),
-                      const SizedBox(height: 8),
-                      Button(
-                        label: 'Tertiary Button With Disabled State',
-                        onPressed: () {},
-                        type: ButtonType.tertiary,
-                        isDisabled: true,
-                      ),
-                    ],
+                  Center(
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 8),
+                        Button(
+                          size: ButtonSize.medium,
+                          label: 'Tertiary Button With Prefix Icon',
+                          onPressed: () {},
+                          type: ButtonType.tertiary,
+                          prefixIcon: Icons.arrow_forward,
+                        ),
+                        const SizedBox(height: 8),
+                        Button(
+                          size: ButtonSize.small,
+                          label: 'Tertiary Button With Suffix Icon',
+                          onPressed: () {},
+                          type: ButtonType.tertiary,
+                          suffixIcon: Icons.arrow_forward,
+                        ),
+                        const SizedBox(height: 8),
+                        Button(
+                          size: ButtonSize.large,
+                          label: 'Tertiary Button With Disabled State',
+                          onPressed: () {},
+                          type: ButtonType.tertiary,
+                          isDisabled: true,
+                        ),
+                      ],
+                    ),
                   ),
                 const SizedBox(
                   height: 8,
@@ -1787,6 +1857,7 @@ class MyHomePageState extends State<MyHomePage> {
                 ),
                 Center(
                   child: Button(
+                    size: ButtonSize.large,
                     label: 'link',
                     onPressed: () {},
                     type: ButtonType.link,
@@ -1801,30 +1872,35 @@ class MyHomePageState extends State<MyHomePage> {
                       });
                     }),
                 if (showAllVariantsOfLink)
-                  Column(
-                    children: [
-                      const SizedBox(height: 8),
-                      Button(
-                        label: 'Link With Prefix Icon',
-                        onPressed: () {},
-                        type: ButtonType.link,
-                        prefixIcon: Icons.arrow_forward,
-                      ),
-                      const SizedBox(height: 8),
-                      Button(
-                        label: 'Link With Suffix Icon',
-                        onPressed: () {},
-                        type: ButtonType.link,
-                        suffixIcon: Icons.arrow_forward,
-                      ),
-                      const SizedBox(height: 8),
-                      Button(
-                        label: 'Link With Disabled State',
-                        onPressed: () {},
-                        type: ButtonType.link,
-                        isDisabled: true,
-                      ),
-                    ],
+                  Center(
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 8),
+                        Button(
+                          size: ButtonSize.small,
+                          label: 'Link With Prefix Icon',
+                          onPressed: () {},
+                          type: ButtonType.link,
+                          prefixIcon: Icons.arrow_forward,
+                        ),
+                        const SizedBox(height: 8),
+                        Button(
+                          size: ButtonSize.medium,
+                          label: 'Link With Suffix Icon',
+                          onPressed: () {},
+                          type: ButtonType.link,
+                          suffixIcon: Icons.arrow_forward,
+                        ),
+                        const SizedBox(height: 8),
+                        Button(
+                          size: ButtonSize.large,
+                          label: 'Link With Disabled State',
+                          onPressed: () {},
+                          type: ButtonType.link,
+                          isDisabled: true,
+                        ),
+                      ],
+                    ),
                   ),
                 const SizedBox(height: 8),
                 const Divider(),

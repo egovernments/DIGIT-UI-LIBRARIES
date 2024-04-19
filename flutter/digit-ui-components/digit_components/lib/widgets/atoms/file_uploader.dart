@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import '../../constants/AppView.dart';
+import '../../constants/app_constants.dart';
 import '../../enum/app_enums.dart';
 import '../helper_widget/selection_chip.dart';
 
@@ -142,7 +143,7 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
           width: 100,
           height: 100,
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(0),
+            borderRadius: Common.radius,
             child: Stack(
               fit: StackFit.expand,
               children: [
@@ -172,7 +173,7 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
                       width: 24,
                       height: 24,
                       decoration: BoxDecoration(
-                        color: const DigitColors().light.headerSideNav,
+                        color: const DigitColors().light.primary2,
                       ),
                       child: Icon(
                         Icons.close,
@@ -198,7 +199,7 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
           width: 100,
           height: 100,
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(0),
+            borderRadius: Common.radius,
             child: Stack(
               fit: StackFit.expand,
               children: [
@@ -220,7 +221,7 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
                       width: 24,
                       height: 24,
                       decoration: BoxDecoration(
-                        color: const DigitColors().light.headerSideNav,
+                        color: const DigitColors().light.primary2,
                       ),
                       child: Icon(
                         Icons.close,
@@ -285,7 +286,7 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
   //                     width: 24,
   //                     height: 24,
   //                     decoration: BoxDecoration(
-  //                       color: const DigitColors().light.headerSideNav,
+  //                       color: const DigitColors().light.primary2,
   //                     ),
   //                     child: Icon(
   //                       Icons.close,
@@ -313,7 +314,7 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
           width: 100,
           height: 100,
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(0),
+            borderRadius: Common.radius,
             child: Stack(
               fit: StackFit.expand,
               children: [
@@ -335,7 +336,7 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
                       width: 24,
                       height: 24,
                       decoration: BoxDecoration(
-                        color: const DigitColors().light.headerSideNav,
+                        color: const DigitColors().light.primary2,
                       ),
                       child: Icon(
                         Icons.close,
@@ -361,7 +362,7 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
           width: 100,
           height: 100,
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(0),
+            borderRadius: Common.radius,
             child: Stack(
               fit: StackFit.expand,
               children: [
@@ -384,7 +385,7 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
                       width: 24,
                       height: 24,
                       decoration: BoxDecoration(
-                        color: const DigitColors().light.headerSideNav,
+                        color: const DigitColors().light.primary2,
                       ),
                       child: Icon(
                         Icons.close,
@@ -429,7 +430,7 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
   @override
   Widget build(BuildContext context) {
     /// typography based on screen
-    DigitTypography currentTypography = getTypography(context);
+    DigitTypography currentTypography = getTypography(context, false);
 
     double inputWidth = AppView.isMobileView(MediaQuery.of(context).size)
         ? MediaQuery.of(context).size.width *.91
@@ -479,16 +480,16 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
               const SizedBox(
                 width: 16,
               ),
-              Button(
-                width: 200,
-                label: !widget.allowMultipleImages && imageBytesList.isNotEmpty
-                    ? 'Re-Upload'
-                    : 'Upload',
-                onPressed: _openFileExplorer,
-                type: ButtonType.secondary,
-                prefixIcon: Icons.file_upload,
-                // contentPadding: const EdgeInsets.all(),
-              ),
+              // Button(
+              //   width: 200,
+              //   label: !widget.allowMultipleImages && imageBytesList.isNotEmpty
+              //       ? 'Re-Upload'
+              //       : 'Upload',
+              //   onPressed: _openFileExplorer,
+              //   type: ButtonType.secondary,
+              //   prefixIcon: Icons.file_upload,
+              //   // contentPadding: const EdgeInsets.all(),
+              // ),
             ],
           ),
           const SizedBox(height: 8),

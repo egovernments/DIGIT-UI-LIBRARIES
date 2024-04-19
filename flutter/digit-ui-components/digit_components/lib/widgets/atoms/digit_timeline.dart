@@ -33,7 +33,7 @@ class _TimelineState extends State<Timeline> {
 
   @override
   Widget build(BuildContext context) {
-    DigitTypography currentTypography = getTypography(context);
+    DigitTypography currentTypography = getTypography(context, false);
     bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
 
     return SizedBox(
@@ -53,7 +53,6 @@ class _TimelineState extends State<Timeline> {
                     Text(
                       widget.label,
                       style: currentTypography.headingS.copyWith(
-                        height: 1.172,
                         color: const DigitColors().light.textPrimary,
                       ),
                     ),
@@ -66,7 +65,6 @@ class _TimelineState extends State<Timeline> {
                                 // Change here
                                 desc,
                                 style: currentTypography.bodyS.copyWith(
-                                  height: 1.25,
                                   color:
                                       const DigitColors().light.textSecondary,
                                 ),
@@ -139,7 +137,7 @@ class _TimelineState extends State<Timeline> {
       height: isMobile ? 24 : 32,
       decoration: BoxDecoration(
         color: widget.currentStep == TimelineStepState.completed
-            ? const DigitColors().light.primaryOrange
+            ? const DigitColors().light.primary1
             : widget.currentStep == TimelineStepState.present
                 ? const DigitColors().light.paperPrimary
                 : const DigitColors().light.textDisabled,
@@ -161,7 +159,7 @@ class _TimelineState extends State<Timeline> {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color: const DigitColors().light.primaryOrange,
+                      color: const DigitColors().light.primary1,
                       width: 2.0,
                     ),
                     color: const DigitColors().light.paperPrimary,
@@ -171,7 +169,7 @@ class _TimelineState extends State<Timeline> {
                     width: isMobile ? 12 : 16,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: const DigitColors().light.primaryOrange,
+                      color: const DigitColors().light.primary1,
                     ),
                   ),
                 )
@@ -202,17 +200,16 @@ class _TimelineState extends State<Timeline> {
           Text(
             isExpanded ? widget.hideDetailText : widget.viewDetailText,
             style: currentTypography.bodyL.copyWith(
-              color: const DigitColors().light.primaryOrange,
-              height: 1.5,
+              color: const DigitColors().light.primary1,
               decoration: TextDecoration.underline,
-              decorationColor: const DigitColors().light.primaryOrange,
+              decorationColor: const DigitColors().light.primary1,
             ),
           ),
           const SizedBox(width: kPadding / 2),
           Icon(
             isExpanded ? Icons.arrow_drop_up : Icons.arrow_drop_down,
             size: 24,
-            color: const DigitColors().light.primaryOrange,
+            color: const DigitColors().light.primary1,
           ),
         ],
       ),

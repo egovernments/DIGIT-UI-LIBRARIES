@@ -50,7 +50,7 @@ class _DropdownOptionState extends State<DropdownOption> {
 
   @override
   Widget build(BuildContext context) {
-    DigitTypography currentTypography = getTypography(context);
+    DigitTypography currentTypography = getTypography(context, false);
     return Column(
       children: [
         StatefulBuilder(
@@ -93,14 +93,14 @@ class _DropdownOptionState extends State<DropdownOption> {
                     color: _itemMouseDownStates[widget.option] == true || widget.isFocused==true ||
                             _itemHoverStates[widget.option] == true ||
                             widget.isSelected
-                        ? const DigitColors().light.primaryOrange
+                        ? const DigitColors().light.primary1
                         : Colors.transparent,
                   ),
                   color: _itemMouseDownStates[widget.option] == true  ||
                       widget.isSelected
-                      ? const DigitColors().light.primaryOrange
+                      ? const DigitColors().light.primary1
                       : _itemHoverStates[widget.option] == true || widget.isFocused==true
-                          ? const DigitColors().orangeBG
+                          ? const DigitColors().light.primary1Bg
                           : widget.backgroundColor,
                 ),
                 padding: EdgeInsets.zero,

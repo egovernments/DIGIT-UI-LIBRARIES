@@ -1,3 +1,4 @@
+import 'package:digit_ui_components/constants/app_constants.dart';
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/material.dart';
 
@@ -32,7 +33,7 @@ class _ToggleState extends State<Toggle> {
   @override
   Widget build(BuildContext context) {
     /// typography based on screen
-    DigitTypography currentTypography = getTypography(context);
+    DigitTypography currentTypography = getTypography(context, false);
 
     /// Capitalize the first letter of the label if required
     final processedLabel = capitalizeFirstLetterOfEveryWord(widget.label);
@@ -79,15 +80,15 @@ class _ToggleState extends State<Toggle> {
               maxWidth: 200,
             ),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.zero,
+              borderRadius: Common.radius,
               border: Border.all(
                 color: (isHovered || widget.isSelected || isMouseDown)
-                    ? const DigitColors().light.primaryOrange
+                    ? const DigitColors().light.primary1
                     : const DigitColors().light.genericDivider,
                 width: 1.0,
               ),
               color: widget.isSelected
-                  ? const DigitColors().light.primaryOrange
+                  ? const DigitColors().light.primary1
                   : const DigitColors().light.paperPrimary,
               boxShadow: [
                 BoxShadow(
@@ -113,15 +114,13 @@ class _ToggleState extends State<Toggle> {
                     overflow: TextOverflow.ellipsis,
                     style: widget.isSelected
                         ? currentTypography.headingS.copyWith(
-                            height: 1.175,
                             fontWeight: FontWeight.w700,
                             color: const DigitColors().light.paperPrimary,
                             overflow: TextOverflow.ellipsis,
                           )
                         : currentTypography.bodyXS.copyWith(
-                            height: 1.25,
                             color: (isHovered || isMouseDown)
-                                ? const DigitColors().light.primaryOrange
+                                ? const DigitColors().light.primary1
                                 : const DigitColors().light.textDisabled,
                             overflow: TextOverflow.ellipsis,
                           ),

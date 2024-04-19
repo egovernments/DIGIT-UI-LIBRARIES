@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:digit_ui_components/constants/app_constants.dart';
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -94,7 +95,7 @@ class _ImageUploaderState extends State<ImageUploader> {
             width: 100,
             height: 100,
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(0),
+              borderRadius: Common.radius,
               child: Stack(
                 fit: StackFit.expand,
                 children: [
@@ -119,7 +120,7 @@ class _ImageUploaderState extends State<ImageUploader> {
                         width: 24,
                         height: 24,
                         decoration: BoxDecoration(
-                          color: const DigitColors().light.headerSideNav,
+                          color: const DigitColors().light.primary2,
                         ),
                         child: Icon(
                           Icons.close,
@@ -171,8 +172,8 @@ class _ImageUploaderState extends State<ImageUploader> {
                       padding: const EdgeInsets.symmetric(vertical: 31.5),
                       child: Column(
                         children: [
-                          Icon(Icons.camera_enhance, size: 40, color: const DigitColors().light.primaryOrange,),
-                           Text('Click to add photo', style: TextStyle(color: const DigitColors().light.primaryOrange),),
+                          Icon(Icons.camera_enhance, size: 40, color: const DigitColors().light.primary1,),
+                           Text('Click to add photo', style: TextStyle(color: const DigitColors().light.primary1),),
                         ],
                       ),
                     ),

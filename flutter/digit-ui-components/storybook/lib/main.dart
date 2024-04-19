@@ -4,7 +4,9 @@ import 'package:digit_ui_components/models/toggleButtonModel.dart';
 import 'package:digit_ui_components/utils/validators/validator.dart';
 import 'package:digit_ui_components/widgets/atoms/digit_timeline.dart';
 import 'package:digit_ui_components/widgets/atoms/stepper.dart';
+import 'package:digit_ui_components/widgets/atoms/toast.dart';
 import 'package:flutter/material.dart';
+import 'package:inspector/inspector.dart';
 import 'package:storybook/widgets/atoms/buttons_story.dart';
 import 'package:storybook/widgets/atoms/checkbox_story.dart';
 import 'package:storybook/widgets/atoms/dropdown_story.dart';
@@ -32,32 +34,26 @@ class MyApp extends StatelessWidget {
           appBarTheme: AppBarTheme(
             backgroundColor: DigitTheme.instance.colorScheme.secondary,
           )),
-      home: Storybook(
-        initialStory: 'Screens/Scaffold',
-        stories: [
-          ...buttonStories(),
-          ...checkboxStories(),
-          ...toastStories(),
-          ...infoCardStories(),
-          ...timeLineStories(),
-          ...inputFieldStories(),
-          ...radioListStories(),
-          ...toggleGroupStories(),
-          ...dropdownStories(),
-          ...fileUploaderStories(),
-          // Story(
-          //   name: 'Stepper',
-          //   builder: (context) => DigitStepper(
-          //     axis: TimelineAxis.horizontal,
-          //     alignment: TimelineAlign.start,
-          //     endChild: Container(
-          //       color: Colors.amberAccent,
-          //     ),
-          //   ),
-          // ),
-        ],
+      home: Scaffold(
+        body: Inspector(
+          isEnabled: true,
+          child: Storybook(
+            initialStory: 'Screens/Scaffold',
+            stories: [
+              ...buttonStories(),
+              ...checkboxStories(),
+              ...toastStories(),
+              ...infoCardStories(),
+              ...timeLineStories(),
+              ...inputFieldStories(),
+              ...radioListStories(),
+              ...toggleGroupStories(),
+              ...dropdownStories(),
+              // ...fileUploaderStories(),
+            ],
+          ),
+        ),
       ),
     );
   }
 }
-

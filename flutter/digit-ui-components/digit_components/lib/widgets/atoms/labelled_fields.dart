@@ -49,7 +49,7 @@ class LabeledField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     /// typography based on screen
-    DigitTypography currentTypography = getTypography(context);
+    DigitTypography currentTypography = getTypography(context, false);
 
     /// Capitalize the first letter of the label if required
     final processedLabel = capitalizedFirstLetter
@@ -78,7 +78,6 @@ class LabeledField extends StatelessWidget {
                         ? '${processedLabel!.substring(0, 64)}...'
                         : processedLabel!,
                     style: currentTypography.bodyL.copyWith(
-                      height: 1.172,
                       color: const DigitColors().light.textPrimary,
                       overflow: wrapLabelText
                           ? TextOverflow.visible
@@ -119,7 +118,7 @@ class LabeledField extends StatelessWidget {
     }
     else {
       return Padding(
-        padding: padding ?? const EdgeInsets.only(top: kPadding),
+        padding: padding ?? const EdgeInsets.all(kPadding*2),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,

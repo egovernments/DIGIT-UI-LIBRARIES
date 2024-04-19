@@ -33,7 +33,7 @@ class SelectionChip<T> extends StatelessWidget {
     }
     
     String? chipValue;
-    DigitTypography currentTypography = getTypography(context);
+    DigitTypography currentTypography = getTypography(context, false);
 
     /// Helper function to get the associated value from the value mapper
     bool getAssociatedValue(String code) {

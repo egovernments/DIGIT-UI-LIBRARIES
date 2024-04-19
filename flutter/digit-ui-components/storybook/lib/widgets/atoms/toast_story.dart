@@ -1,4 +1,5 @@
 import 'package:digit_ui_components/widgets/atoms/digit_toast.dart';
+import 'package:digit_ui_components/widgets/atoms/toast.dart';
 import 'package:flutter/material.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
 
@@ -8,10 +9,7 @@ List<Story> toastStories() {
       name: 'Toast/Success',
       builder: (context) => ElevatedButton(
         onPressed: () {
-          Toast.show(context,
-              options: ToastOptions(
-                  "Your successour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning messageour Warning message message",
-                  ToastType.success));
+          ToastManager().toastShow(context, "This is a custom toast message", ToastType.success);
         },
         child: const Text("Show Toast"),
       ),

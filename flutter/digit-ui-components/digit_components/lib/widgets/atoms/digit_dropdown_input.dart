@@ -181,11 +181,11 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
 
   @override
   Widget build(BuildContext context) {
-    currentTypography = getTypography(context);
+    currentTypography = getTypography(context, false);
     /// Responsive width based on screen size
     dropdownWidth = AppView.isMobileView(MediaQuery.of(context).size)
-        ? Default.mobileInputWidth
-        : Default.desktopInputWidth;
+        ? Common.mobileInputWidth
+        : Common.desktopInputWidth;
 
     /// link the overlay to the button
     return RawKeyboardListener(
@@ -206,7 +206,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
           children: [
             SizedBox(
               width: dropdownWidth,
-              height: Default.height,
+              height: Common.height,
               child: TextField(
                 readOnly: !widget.isSearchable || widget.readOnly,
                 enabled: !widget.isDisabled,
@@ -238,7 +238,6 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                 focusNode: _focusNode,
                 controller: widget.textEditingController,
                 style: currentTypography.bodyL.copyWith(
-                  height: 1.5,
                   color: widget.readOnly ?const DigitColors().light.textSecondary :const DigitColors().light.textPrimary,
                 ),
                 decoration: InputDecoration(
@@ -250,15 +249,15 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                     top: 8,
                   ),
                   border: const OutlineInputBorder(
-                    borderRadius: BorderRadius.zero,
+                    borderRadius: Common.radius,
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
                         color: widget.errorMessage !=null ? const DigitColors().light.alertError:_isOpen
-                            ? const DigitColors().light.primaryOrange
+                            ? const DigitColors().light.primary1
                             : const DigitColors().light.genericInputBorder,
                         width: _isOpen || widget.errorMessage !=null ? 1.5 : 1.0),
-                    borderRadius: BorderRadius.zero,
+                    borderRadius: Common.radius,
                   ),
                   focusedBorder: widget.readOnly
                       ? OutlineInputBorder(
@@ -266,12 +265,12 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                       color: const DigitColors().light.textSecondary,
                       width: 1.0,
                     ),
-                    borderRadius: BorderRadius.zero,
+                    borderRadius: Common.radius,
                   ) : OutlineInputBorder(
                     borderSide: BorderSide(
-                        color: const DigitColors().light.primaryOrange,
+                        color: const DigitColors().light.primary1,
                         width: 1.5),
-                    borderRadius: BorderRadius.zero,
+                    borderRadius: Common.radius,
                   ),
                   disabledBorder: BaseConstants.disabledBorder,
                   suffixIcon: InkWell(
@@ -333,7 +332,6 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                       ? '${widget.errorMessage!.substring(0, 256)}...'
                                       : widget.errorMessage!,
                                   style: currentTypography.bodyS.copyWith(
-                                    height: 1.5,
                                     color: const DigitColors().light.alertError,
                                   ),
                                 ),
@@ -347,7 +345,6 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                 ? '${widget.helpText!.substring(0, 256)}...'
                                 : widget.helpText!,
                             style: currentTypography.bodyS.copyWith(
-                              height: 1.5,
                               color: const DigitColors().light.textSecondary,
                             ),
                           ),
@@ -425,7 +422,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                   showWhenUnlinked: false,
                   child: Material(
                     elevation: 0,
-                    borderRadius: BorderRadius.zero,
+                    borderRadius: Common.radius,
                     color: const DigitColors().light.paperPrimary,
                     clipBehavior: Clip.none,
                     child: ConstrainedBox(
@@ -530,17 +527,17 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                             filteredItems[index].code] ==
                                         true ||
                                     isFocused
-                                ? const DigitColors().light.primaryOrange
+                                ? const DigitColors().light.primary1
                                 : Colors.transparent,
                           ),
                           color: _itemMouseDownStates[
                                       filteredItems[index].code] ==
                                   true
-                              ? const DigitColors().light.primaryOrange
+                              ? const DigitColors().light.primary1
                               : _itemHoverStates[filteredItems[index].code] ==
                                           true ||
                                       isFocused
-                                  ? const DigitColors().orangeBG
+                                  ? const DigitColors().light.primary1Bg
                                   : backgroundColor,
                         ),
                         padding: EdgeInsets.zero,
@@ -669,19 +666,16 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                           style: _itemMouseDownStates[filteredItems[index].code] ==
                                                   true
                                               ? currentTypography.headingS.copyWith(
-                                                      height: 1.172,
                                                       color: const DigitColors()
                                                           .light
                                                           .paperPrimary)
                                               : filteredItems[index].description !=
                                                       null
                                                   ? currentTypography.bodyL.copyWith(
-                                                          height: 1.5,
                                                           color: const DigitColors()
                                                               .light
                                                               .textSecondary)
                                                   : currentTypography.bodyS.copyWith(
-                                                          height: 1.125,
                                                           color: const DigitColors().light.textPrimary),
                                         ),
                                       )
@@ -705,7 +699,6 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                         maxLines: 3,
                                         softWrap: true,
                                         style: currentTypography.bodyXS.copyWith(
-                                          height: 1.125,
                                           color: _itemMouseDownStates[
                                                       filteredItems[index]
                                                           .code] ==
@@ -738,7 +731,6 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
               child: Text(
                 capitalizeFirstLetter(widget.emptyItemText)!,
                 style: currentTypography.bodyS.copyWith(
-                  height: 1.25,
                   color: const DigitColors().light.textDisabled,
                 ),
               ),
@@ -844,7 +836,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                                         true
                                                     ? const DigitColors()
                                                         .light
-                                                        .primaryOrange
+                                                        .primary1
                                                     : Colors.transparent,
                                           ),
                                           color: _itemMouseDownStates[
@@ -852,12 +844,12 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                                   true
                                               ? const DigitColors()
                                                   .light
-                                                  .primaryOrange
+                                                  .primary1
                                               : _itemHoverStates[
                                                           typeItems[index]
                                                               .code] ==
                                                       true
-                                                  ? const DigitColors().orangeBG
+                                                  ? const DigitColors().light.primary1Bg
                                                   : const DigitColors()
                                                       .light
                                                       .paperPrimary,
@@ -1012,13 +1004,13 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                                                   color: const DigitColors()
                                                                       .light
                                                                       .paperPrimary,
-                                                                  height: 1.188,
+
                                                                 )
                                                               : currentTypography.bodyS.copyWith(
                                                                   color: const DigitColors()
                                                                       .light
                                                                       .textPrimary,
-                                                                  height: 1.125,
+
                                                                 ),
                                                         ),
                                                       )

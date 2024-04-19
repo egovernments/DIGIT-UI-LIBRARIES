@@ -85,7 +85,7 @@ class _RadioListState extends State<RadioList> {
   /// Build the widget layout
   @override
   Widget build(BuildContext context) {
-    DigitTypography currentTypography = getTypography(context);
+    DigitTypography currentTypography = getTypography(context, false);
     isMobile = AppView.isMobileView(MediaQuery.of(context).size);
     if (!isMobile) {
       return Row(
@@ -125,7 +125,7 @@ class _RadioListState extends State<RadioList> {
                               : (widget.groupValue == button.code ||
                                       isHoveredList[index] ||
                                       isMouseDown[index])
-                                  ? const DigitColors().light.primaryOrange
+                                  ? const DigitColors().light.primary1
                                   : const DigitColors().light.textSecondary,
                           width: (widget.isDisabled &&
                                       widget.groupValue == button.code) ||
@@ -136,12 +136,12 @@ class _RadioListState extends State<RadioList> {
                         color: widget.isDisabled
                             ? const DigitColors().light.paperSecondary
                             : isMouseDown[index]
-                                ? const DigitColors().orangeBG
+                                ? const DigitColors().light.primary1Bg
                                 : const DigitColors().light.paperPrimary,
                         boxShadow: isMouseDown[index]
                             ? [
                                 BoxShadow(
-                                  color: const DigitColors().orangeBG,
+                                  color: const DigitColors().light.primary1Bg,
                                   spreadRadius: 3,
                                   blurRadius: 3,
                                   offset: const Offset(0, 0),
@@ -157,7 +157,7 @@ class _RadioListState extends State<RadioList> {
                                 shape: BoxShape.circle,
                                 color: widget.isDisabled
                                     ? const DigitColors().light.textDisabled
-                                    : const DigitColors().light.primaryOrange,
+                                    : const DigitColors().light.primary1,
                               ),
                             )
                           : null,
@@ -206,7 +206,7 @@ class _RadioListState extends State<RadioList> {
                                 : (widget.groupValue == button.code ||
                                         isHoveredList[index] ||
                                         isMouseDown[index])
-                                    ? const DigitColors().light.primaryOrange
+                                    ? const DigitColors().light.primary1
                                     : const DigitColors().light.textSecondary,
                             width: (widget.isDisabled &&
                                         widget.groupValue == button.code) ||
@@ -217,12 +217,12 @@ class _RadioListState extends State<RadioList> {
                           color: widget.isDisabled
                               ? const DigitColors().light.paperSecondary
                               : isMouseDown[index]
-                                  ? const DigitColors().orangeBG
+                                  ? const DigitColors().light.primary1Bg
                                   : const DigitColors().light.paperPrimary,
                           boxShadow: isMouseDown[index]
                               ? [
                                   BoxShadow(
-                                    color: const DigitColors().orangeBG,
+                                    color: const DigitColors().light.primary1Bg,
                                     spreadRadius: 3,
                                     blurRadius: 3,
                                     offset: const Offset(0, 0),
@@ -238,7 +238,7 @@ class _RadioListState extends State<RadioList> {
                                   shape: BoxShape.circle,
                                   color: widget.isDisabled
                                       ? const DigitColors().light.textDisabled
-                                      : const DigitColors().light.primaryOrange,
+                                      : const DigitColors().light.primary1,
                                 ),
                               )
                             : null,
@@ -254,7 +254,6 @@ class _RadioListState extends State<RadioList> {
                         maxLines: 5,
                         overflow: TextOverflow.ellipsis,
                         style: currentTypography.bodyL.copyWith(
-                          height: 1.172,
                           color: widget.isDisabled
                               ? const DigitColors().light.textDisabled
                               : const DigitColors().light.textPrimary,
@@ -266,7 +265,6 @@ class _RadioListState extends State<RadioList> {
                       maxLines: 5,
                       overflow: TextOverflow.ellipsis,
                       style: currentTypography.bodyL.copyWith(
-                        height: 1.172,
                         color: widget.isDisabled
                             ? const DigitColors().light.textDisabled
                             : const DigitColors().light.textPrimary,

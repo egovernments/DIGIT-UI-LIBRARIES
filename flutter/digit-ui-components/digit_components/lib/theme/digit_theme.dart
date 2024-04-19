@@ -24,6 +24,18 @@ class DigitTheme {
         normal: colors.light.textPrimary,
       );
 
+  ButtonTypography get buttonTypography => ButtonTypography(
+    normalBase: const TextStyle(
+      fontFamily: 'Roboto',
+    ),
+    displayBase: const TextStyle(
+      fontFamily: 'Roboto',
+    ),
+    light: colors.light.textSecondary,
+    normal: colors.light.textPrimary,
+  );
+
+
   DigitDesktopTypography get desktopTypography => DigitDesktopTypography(
         normalBase: const TextStyle(
           fontFamily: 'Roboto',
@@ -63,8 +75,8 @@ class DigitTheme {
       inputDecorationTheme: inputDecorationTheme,
       dialogTheme: dialogTheme,
       textSelectionTheme: TextSelectionThemeData(
-        cursorColor: const DigitColors().light.primaryOrange,
-        selectionColor: const DigitColors().light.primaryOrangeBg,
+        cursorColor: const DigitColors().light.primary1,
+        selectionColor: const DigitColors().light.primary1Bg,
         selectionHandleColor: const DigitColors().transparent,
       ),
       datePickerTheme: DatePickerThemeData(
@@ -87,13 +99,13 @@ class DigitTheme {
         hourMinuteShape: RoundedRectangleBorder(
           borderRadius: const BorderRadius.all(Radius.circular(4)),
           side: BorderSide(
-              color: const DigitColors().light.primaryOrange, width: 1),
+              color: const DigitColors().light.primary1, width: 1),
         ),
         dayPeriodBorderSide: BorderSide(
-            color: const DigitColors().light.primaryOrange, width: 1),
+            color: const DigitColors().light.primary1, width: 1),
         dayPeriodColor: MaterialStateColor.resolveWith(
           (states) => states.contains(MaterialState.selected)
-              ? const DigitColors().light.primaryOrange
+              ? const DigitColors().light.primary1
               : const DigitColors().transparent,
         ),
         dayPeriodTextColor: MaterialStateColor.resolveWith((states) =>
@@ -103,19 +115,19 @@ class DigitTheme {
         dayPeriodShape: RoundedRectangleBorder(
           borderRadius: const BorderRadius.all(Radius.circular(1)),
           side: BorderSide(
-              color: const DigitColors().light.primaryOrange, width: 1),
+              color: const DigitColors().light.primary1, width: 1),
         ),
         hourMinuteColor: MaterialStateColor.resolveWith(
           (states) => states.contains(MaterialState.selected)
-              ? const DigitColors().light.primaryOrange
+              ? const DigitColors().light.primary1
               : const DigitColors().transparent,
         ),
         hourMinuteTextColor: MaterialStateColor.resolveWith((states) =>
             states.contains(MaterialState.selected)
                 ? const DigitColors().light.paperPrimary
                 : const DigitColors().light.textPrimary),
-        dialHandColor: const DigitColors().light.primaryOrange,
-        dialBackgroundColor: const DigitColors().light.primaryOrangeBg,
+        dialHandColor: const DigitColors().light.primary1,
+        dialBackgroundColor: const DigitColors().light.primary1Bg,
         hourMinuteTextStyle:
             const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         dayPeriodTextStyle:
@@ -132,7 +144,7 @@ class DigitTheme {
         dialTextColor: MaterialStateColor.resolveWith(
           (states) => const DigitColors().light.textPrimary,
         ),
-        entryModeIconColor: const DigitColors().light.primaryOrange,
+        entryModeIconColor: const DigitColors().light.primary1,
         cancelButtonStyle: ButtonStyle(
           textStyle: MaterialStateProperty.resolveWith<TextStyle>(
               (Set<MaterialState> states) {
@@ -140,7 +152,7 @@ class DigitTheme {
               fontFamily: 'Roboto',
               fontWeight: FontWeight.w500,
               fontSize: 19,
-              color: const DigitColors().light.primaryOrange,
+              color: const DigitColors().light.primary1,
             );
           }),
         ),
@@ -151,7 +163,7 @@ class DigitTheme {
                   fontFamily: 'Roboto',
                   fontWeight: FontWeight.w500,
                   fontSize: 19,
-                  color: const DigitColors().light.primaryOrange,
+                  color: const DigitColors().light.primary1,
                 );
               }),
         ),
@@ -161,9 +173,9 @@ class DigitTheme {
 
   ColorScheme get colorScheme => ColorScheme(
         brightness: Brightness.light,
-        primary: colors.light.primaryOrange,
+        primary: colors.light.primary1,
         onPrimary: colors.light.paperPrimary,
-        secondary: colors.light.primaryBlueGray,
+        secondary: colors.light.primary2,
         onSecondary: colors.light.paperPrimary,
         error: colors.light.alertError,
         onError: colors.light.paperPrimary,
@@ -201,7 +213,7 @@ class DigitTheme {
           shape: buttonBorder,
           padding: buttonPadding,
           backgroundColor: colorScheme.primary,
-          foregroundColor: const DigitColors().light.primaryOrange,
+          foregroundColor: const DigitColors().light.primary1,
           disabledBackgroundColor: colorScheme.secondary.withOpacity(
             0.5,
           ),
@@ -212,7 +224,7 @@ class DigitTheme {
 
   OutlinedButtonThemeData get outlinedButtonTheme => OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
-          foregroundColor: const DigitColors().light.primaryOrange,
+          foregroundColor: const DigitColors().light.primary1,
           side: BorderSide(color: colorScheme.secondary),
           padding: buttonPadding,
         ),
@@ -225,8 +237,8 @@ class DigitTheme {
           textStyle:  TextStyle(fontFamily: 'Roboto',
             fontWeight: FontWeight.w500,
             fontSize: 19,
-            color: const DigitColors().light.primaryOrange,),
-          foregroundColor: const DigitColors().light.primaryOrange,
+            color: const DigitColors().light.primary1,),
+          foregroundColor: const DigitColors().light.primary1,
         ),
       );
 
@@ -258,7 +270,7 @@ class DigitTheme {
             ),
           ),
           borderSide: BorderSide(
-            color: colors.light.primaryOrange,
+            color: colors.light.primary1,
             width: 2,
           ),
         ),

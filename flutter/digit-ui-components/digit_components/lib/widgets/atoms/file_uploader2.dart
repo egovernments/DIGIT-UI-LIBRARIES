@@ -61,7 +61,7 @@ class _FileUploadWidgetState extends State<FileUploadWidget2> {
                 width: 24,
                 height: 24,
                 decoration: BoxDecoration(
-                  color: const DigitColors().light.headerSideNav,
+                  color: const DigitColors().light.primary2,
                 ),
                 child: Icon(
                   Icons.close,
@@ -103,7 +103,7 @@ class _FileUploadWidgetState extends State<FileUploadWidget2> {
               value: _uploadProgress,
               backgroundColor: const DigitColors().light.paperPrimary,
               valueColor: AlwaysStoppedAnimation<Color>(
-                const DigitColors().light.headerSideNav,
+                const DigitColors().light.primary2,
               ),
               minHeight: 8,
             ),
