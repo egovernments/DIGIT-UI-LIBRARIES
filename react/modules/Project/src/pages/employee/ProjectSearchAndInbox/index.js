@@ -1,6 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Header, Loader,InboxSearchComposer} from "@egovernments/digit-ui-components";
+import { Header, Loader} from "@egovernments/digit-ui-components";
+import InboxSearchComposerV2 from "../../../../../../ui-components/src/hoc/InboxSearchComposerV2";
 import inboxConfig from "../../../configs/InboxConfig";
 
 const ProjectSearchAndInboxComponent = () => {
@@ -25,7 +26,7 @@ const ProjectSearchAndInboxComponent = () => {
            <React.Fragment>
               <Header styles={{ fontSize: "32px" }}>{t(configs?.label)}</Header>
               <div className="inbox-search-wrapper">
-                <InboxSearchComposer configs={configs}></InboxSearchComposer>
+                <InboxSearchComposerV2 configs={configs}></InboxSearchComposerV2>
               </div>
           </React.Fragment>
       );

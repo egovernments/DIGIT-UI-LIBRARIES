@@ -1,26 +1,122 @@
 import React, { useEffect, useRef, useState, Fragment } from "react";
-import PropTypes from "prop-types";
 import ButtonSelector from "./ButtonSelector";
+import { Close } from "./svgindex";
 import { useTranslation } from "react-i18next";
 import RemoveableTag from "./RemoveableTag";
-import ErrorMessage from "./ErrorMessage";
 
 const getRandomId = () => {
   return Math.floor((Math.random() || 1) * 139);
 };
 
+const getCitizenStyles = (value) => {
+  let citizenStyles = {};
+  if (value === "propertyCreate") {
+    citizenStyles = {
+      textStyles: {
+        whiteSpace: "nowrap",
+        width: "100%",
+        overflow: "hidden",
+        textOverflow: "ellipsis",
+        width: "80%"
+      },
+      tagStyles: {
+        width: "90%",
+        flexWrap: "nowrap",
+      },
+      inputStyles: {
+        width: "44%",
+        minHeight: "2rem",
+        maxHeight: "3rem",
+        top: "20%"
+      },
+      buttonStyles: {
+        height: "auto",
+        minHeight: "2rem",
+        width: "40%",
+        maxHeight: "3rem"
+      },
+      tagContainerStyles: {
+        width: "60%",
+        display: "flex",
+        marginTop: "0px"
+      },
+      closeIconStyles: {
+        width : "20px"
+      },
+      containerStyles: {
+        padding: "10px",
+        marginTop: "0px"
+      },
+    };
+  } else if (value === "IP") {
+    citizenStyles = {
+      textStyles: {
+        whiteSpace: "nowrap",
+        maxWidth: "250px",
+        overflow: "hidden",
+        textOverflow: "ellipsis",
+      },
+      tagStyles: {
+        marginLeft:"-30px"
+      },
+      inputStyles: {},
+      closeIconStyles: {
+        position:"absolute",
+        marginTop:"-12px"
+      },
+      buttonStyles: {},
+      tagContainerStyles: {},
+    };
+  } else if (value === "OBPS") {
+    citizenStyles = {
+      containerStyles: {
+        display: "flex",
+        justifyContent: "flex-start",
+        alignItems: "center",
+        flexWrap: "wrap",
+        margin: "0px",
+        padding: "0px"
+      },
+      tagContainerStyles: {
+        margin: "0px",
+        padding: "0px",
+        width: "46%"
+      },
+      tagStyles: {
+        height: "auto",
+        padding: "8px",
+        margin: 0,
+        width: "100%",
+        margin: "5px"
+      },
+      textStyles: {
+        wordBreak: "break-word",
+        height: "auto",
+        lineHeight: "16px",
+        overflow: "hidden",
+        maxHeight: "34px"
+      },
+      inputStyles: {
+        width: "43%",
+        minHeight: "42px",
+        maxHeight: "42px",
+        top: "5px",
+        left: "5px"
+      },
+      buttonStyles: {
+        height: "auto",
+      },
+    };
+  }
+  return citizenStyles;
+};
+
 const UploadFile = (props) => {
-  const { t } = useTranslation();
-  const inpRef = useRef();
   const [hasFile, setHasFile] = useState(false);
-  const [prevSate, setprevSate] = useState(null);
-  const user_type = window?.Digit?.SessionStorage.get("userType");
-  const handleChange = () => {
-    if (inpRef.current.files[0]) {
-      setHasFile(true);
-      setprevSate(inpRef.current.files[0]);
-    } else setHasFile(false);
-  };
+  const inpRef = useRef(null);
+  const { t } = useTranslation();
+
+  const extraStyles = getCitizenStyles("OBPS");
 
   const handleDelete = () => {
     inpRef.current.value = "";
@@ -28,7 +124,7 @@ const UploadFile = (props) => {
   };
 
   const handleEmpty = () => {
-    if (inpRef.current.files.length <= 0 && prevSate !== null) {
+    if (inpRef.current.files.length <= 0 && prevState !== null) {
       inpRef.current.value = "";
       props.onDelete();
     }
@@ -40,44 +136,48 @@ const UploadFile = (props) => {
   }
 
   useEffect(() => handleEmpty(), [inpRef?.current?.files]);
-
   useEffect(() => handleChange(), [props.message]);
 
   const showHint = props?.showHint || false;
 
   return (
     <Fragment>
-      {showHint && <p className="digit-cell-text">{t(props?.hintText)}</p>}
-      <div
-        className={`digit-upload-file ${props?.customClass ? props?.customClass : ""} ${
-          user_type === "employee" ? "" : "digit-upload-file-max-width"
-        } ${props.disabled ? " disabled" : ""}`}
-        style={props?.style}
-      >
-        <div className="digit-upload-file-button-wrap">
+      {showHint && <p className="cell-text">{t(props?.hintText)}</p>}
+      <div className={`upload-file ${user_type === "employee" ? "" : "upload-file-max-width"} ${props.disabled ? " disabled" : ""}`} style={extraStyles?.uploadFile ? extraStyles?.uploadFile : {}}>
+        <div style={extraStyles ? extraStyles?.containerStyles : null}>
           <ButtonSelector
             theme="border"
             label={t("CS_COMMON_CHOOSE_FILE")}
-            style={{ ...(props?.extraStyles ? props?.extraStyles?.buttonStyles : {}), ...(!props?.enableButton ? { opacity: 0.5 } : {}) }}
+            style={{ ...(extraStyles ? extraStyles?.buttonStyles : {}), ...(props.disabled ? { display: "none" } : {}) }}
             textStyles={props?.textStyles}
             type={props.buttonType}
           />
           {props?.uploadedFiles?.map((file, index) => {
             const fileDetailsData = file[1];
             return (
-              <div className="digit-tag-container">
-                <RemoveableTag
-                  key={index}
-                  text={file[0].length > 64 ? `${file[0].slice(0, 64)} ...` : file[0]}
-                  onClick={(e) => props?.removeTargetedFile(fileDetailsData, e)}
-                />
+              <div className="tag-container" style={extraStyles ? extraStyles?.tagContainerStyles : null} key={index}>
+                <RemoveableTag extraStyles={extraStyles} text={file[0]} onClick={(e) => props?.removeTargetedFile(fileDetailsData, e)} />
               </div>
             );
           })}
-          {props?.uploadedFiles.length === 0 && <h2 className="digit-file-upload-status">{props.message}</h2>}
+          {!hasFile || props.error ? (
+            <h2 className="file-upload-status">{props.message}</h2>
+          ) : (
+            <div className="tag-container" style={extraStyles ? extraStyles?.tagContainerStyles : null}>
+              <div className="tag" style={extraStyles ? extraStyles?.tagStyles : null}>
+                <span className="text" style={extraStyles ? extraStyles?.textStyles : null}>
+                  {(typeof inpRef.current.files[0]?.name !== "undefined") && !(props?.file) ? inpRef.current.files[0]?.name : props.file?.name}
+                </span>
+                <span onClick={() => handleDelete()} style={extraStyles ? extraStyles?.closeIconStyles : null}>
+                  <Close style={props.Multistyle} className="close" />
+                </span>
+              </div>
+            </div>
+          )}
         </div>
         <input
-          className={props.disabled ? "disabled" : "" + "digit-input-mirror-selector-button"}
+          className={`${props.disabled ? "disabled" : ""} input-mirror-selector-button`}
+          style={extraStyles ? { ...extraStyles?.inputStyles, ...props?.inputStyles } : { ...props?.inputStyles }}
           ref={inpRef}
           type="file"
           id={props.id || `document-${getRandomId()}`}
@@ -87,38 +187,15 @@ const UploadFile = (props) => {
           disabled={props.disabled}
           onChange={(e) => props.onUpload(e)}
           onClick={(event) => {
-            if (!props?.enableButton) {
-              event.preventDefault();
-            } else {
-              const { target = {} } = event || {};
-              target.value = "";
-            }
+            const { target = {} } = event || {};
+            target.value = "";
           }}
         />
       </div>
-      {props.iserror && <ErrorMessage message={props.iserror} />}
-      {props?.showHintBelow && <p className="digit-cell-text">{t(props?.hintText)}</p>}
+      {props.iserror && <p style={{ color: "red" }}>{props.iserror}</p>}
+      {props?.showHintBelow && <p className="cell-text">{t(props?.hintText)}</p>}
     </Fragment>
   );
-};
-UploadFile.propTypes = {
-  hintText: PropTypes.string,
-  customClass: PropTypes.string,
-  uploadedFiles: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.object]))),
-  enableButton: PropTypes.bool,
-  showHint: PropTypes.bool,
-  buttonType: PropTypes.string,
-  onUpload: PropTypes.func.isRequired,
-  removeTargetedFile: PropTypes.func.isRequired,
-  onDelete: PropTypes.func,
-  iserror: PropTypes.string,
-  showHintBelow: PropTypes.bool,
-  message: PropTypes.string,
-  disabled: PropTypes.bool,
-  inputStyles: PropTypes.object,
-  multiple: PropTypes.bool,
-  accept: PropTypes.string,
-  id: PropTypes.string,
 };
 
 export default UploadFile;

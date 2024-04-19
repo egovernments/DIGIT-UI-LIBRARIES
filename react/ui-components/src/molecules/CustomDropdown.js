@@ -1,136 +1,111 @@
 import _ from "lodash";
-import React from "react";
-import PropTypes from "prop-types";
+import React, { useEffect, useState } from "react";
 import { Loader } from "../atoms/Loader";
 import RadioButtons from "../atoms/RadioButtons";
 import Dropdown from "../atoms/Dropdown";
-import Toggle from "../atoms/Toggle";
-import { createFunction } from "./techMolecules/createFunction";
-
-const CustomDropdown = ({ t, config, inputRef, label, onChange, value, errorStyle, disabled, type, additionalWrapperClass = "",variant }) => {
+import MultiSelectDropdown from "../atoms/MultiSelectDropdown";
+const CustomDropdown = ({ t, config, inputRef, label, onChange, value, errorStyle, disable, type, additionalWrapperClass = "",mdmsv2=false,props}) => {
   const master = { name: config?.mdmsConfig?.masterName };
   if (config?.mdmsConfig?.filter) {
     master["filter"] = config?.mdmsConfig?.filter;
   }
-
-  const { isLoading, data } = window?.Digit?.Hooks.useCustomMDMS(Digit?.ULBService?.getStateId(), config?.mdmsConfig?.moduleName, [master], {
+  const { isLoading, data } = Digit.Hooks.useCustomMDMS(Digit.ULBService.getStateId(), config?.mdmsConfig?.moduleName, [master], {
     select: config?.mdmsConfig?.select
-      ? createFunction(config?.mdmsConfig?.select)
-      : (data) => {
+    ? Digit.Utils.createFunction(config?.mdmsConfig?.select)
+    : (data) => {
         const optionsData = _.get(data, `${config?.mdmsConfig?.moduleName}.${config?.mdmsConfig?.masterName}`, []);
         return optionsData
           .filter((opt) => (opt?.hasOwnProperty("active") ? opt.active : true))
           .map((opt) => ({ ...opt, name: `${config?.mdmsConfig?.localePrefix}_${Digit.Utils.locale.getTransformedLocale(opt.code)}` }));
       },
-    enabled: config?.mdmsConfig ? true : false,
-  });
+  enabled: (config?.mdmsConfig || config?.mdmsv2) ? true : false,
+},mdmsv2);
+if (isLoading) {
+  return <Loader />;
+}
+if(config?.optionsDisable && config?.options && config?.defaultOptions){
+  config?.options?.forEach(obj1 => obj1.isDisabled = config?.defaultOptions.some(obj2 => obj2.type === obj1.code));
+}
 
-  if (isLoading) {
-    return <Loader />;
-  }
+return (
+  <React.Fragment key={config.name}>
+    {/* <LabelFieldPair>
+      <CardLabel className="card-label-smaller">
+        {t(label)}
+        {config.required ? " * " : null}
+      </CardLabel> */}
 
-  const renderField = () => {
-    switch (type) {
-      case "radio":
-        return (
-          <RadioButtons
-            inputRef={inputRef}
-            style={{...config.styles }}
+{ (config.allowMultiSelect && type==="dropdown") ?
+        <div style={{ display: "grid", gridAutoFlow: "row" }}>
+          <MultiSelectDropdown
             options={data || config?.options || []}
-            key={config.name}
             optionsKey={config?.optionsKey}
-            value={value}
+            props={props} //these are props from Controller
+            isPropsNeeded={true}
             onSelect={(e) => {
-              onChange(e, config.name);
+              props?.onChange
+                ? props.onChange(
+                    e
+                      ?.map((row) => {
+                        return row?.[1] ? row[1] : null;
+                      })
+                      .filter((e) => e)
+                  )
+                : onChange(
+                    e
+                      ?.map((row) => {
+                        return row?.[1] ? row[1] : null;
+                      })
+                      .filter((e) => e)
+                  );
             }}
-            disabled={disabled}
-            selectedOption={value}
-            defaultValue={value}
-            t={t}
-            errorStyle={errorStyle}
-            additionalWrapperClass={additionalWrapperClass}
-            innerStyles={config?.innerStyles}
+            selected={props?.value || value}
+            defaultLabel={t(config?.defaultText) }
+            defaultUnit={t(config?.selectedText) || t("COMMON_SELECTED")}
+            config={config}
+            disable={disable}
+            optionsDisable={config?.optionsDisable}
           />
-        );
-      case "dropdown":
-      case "radioordropdown":
-      case "select":
-        return (
-          <Dropdown
-            inputRef={inputRef}
-            style={{...config.styles }}
-            option={data || config?.options || []}
-            key={config.name}
-            optionKey={config?.optionsKey}
-            value={value}
-            select={(e) => {
-              onChange(e, config.name);
-            }}
-            disabled={disabled}
-            selected={value || config.defaultValue}
-            defaultValue={value || config.defaultValue}
-            t={t}
-            errorStyle={errorStyle}
-            optionCardStyles={config?.optionsCustomStyle}
-            showIcon={config?.showIcon}
-            variant={variant}
-            isSearchable={config?.isSearchable}
-          />
-        );
-      case "toggle":
-        return (
-         <Toggle
-            inputRef={inputRef}
-            options={data || config?.options || []}
-            key={config.name}
-            optionsKey={config?.optionsKey}
-            value={value}
-            onSelect={(e) => {
-              onChange(e, config.name);
-            }}
-            disabled={disabled}
-            selectedOption={value}
-            defaultValue={value}
-            t={t}
-            errorStyle={errorStyle}
-            additionalWrapperClass={additionalWrapperClass}
-            innerStyles={config?.innerStyles}
-          />
-        );
-      default:
-        return null;
+        </div> : type === "radio" ? (
+        <RadioButtons
+          inputRef={inputRef}
+          style={{ display: "flex", justifyContent: "flex-start", gap: "3rem", ...config.styles }}
+          options={data || config?.options || []}
+          key={config.name}
+          optionsKey={config?.optionsKey}
+          value={value}
+          onSelect={(e) => {
+            onChange(e, config.name);
+          }}
+          disable={disable}
+          selectedOption={value}
+          defaultValue={value}
+          t={t}
+          errorStyle={errorStyle}
+          additionalWrapperClass={additionalWrapperClass}
+          innerStyles={config?.innerStyles}
+        />
+      ) : (
+        <Dropdown
+          inputRef={inputRef}
+          style={{ display: "flex", justifyContent: "space-between", ...config.styles }}
+          option={data || config?.options || []}
+          key={config.name}
+          optionKey={config?.optionsKey}
+          value={value}
+          select={(e) => {
+            onChange(e, config.name);
+          }}
+          disable={disable}
+          selected={value || config.defaultValue}
+          defaultValue={value || config.defaultValue}
+          t={t}
+          errorStyle={errorStyle}
+          optionCardStyles={config?.optionsCustomStyle}
+        />
+      )
     }
-  };
-  return <React.Fragment key={config.name}>{renderField()}</React.Fragment>;
+  </React.Fragment>
+);
 };
-
-CustomDropdown.propTypes = {
-  t: PropTypes.func.isRequired,
-  config: PropTypes.shape({
-    mdmsConfig: PropTypes.shape({
-      masterName: PropTypes.string,
-      moduleName: PropTypes.string,
-      filter: PropTypes.object,
-      select: PropTypes.string,
-      localePrefix: PropTypes.string,
-    }),
-    name: PropTypes.string,
-    optionsKey: PropTypes.string,
-    styles: PropTypes.object,
-    innerStyles: PropTypes.object,
-    options: PropTypes.array,
-    defaultValue: PropTypes.string,
-    optionsCustomStyle: PropTypes.object,
-    required: PropTypes.bool,
-  }),
-  inputRef: PropTypes.object,
-  label: PropTypes.string,
-  onChange: PropTypes.func,
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
-  errorStyle: PropTypes.object,
-  disabled: PropTypes.bool,
-  type: PropTypes.string,
-  additionalWrapperClass: PropTypes.string,
-};
-
 export default CustomDropdown;

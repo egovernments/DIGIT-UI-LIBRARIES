@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import {InboxSearchComposer, Loader, Button ,AddFilled} from "@egovernments/digit-ui-components";
+import {Loader, Button ,AddFilled} from "@egovernments/digit-ui-components";
+import InboxSearchComposerV2 from "../../../../../../ui-components/src/hoc/InboxSearchComposerV2";
 import { Header } from "@egovernments/digit-ui-react-components";
 import { useHistory, useLocation } from "react-router-dom";
 import searchConfigMUKTA from "../../../configs/searchConfigMUKTA";
@@ -68,7 +69,7 @@ const ProjectSearch = () => {
         )}
       </div>
       <div className="inbox-search-wrapper">
-        <InboxSearchComposer configs={configs}></InboxSearchComposer>
+        <InboxSearchComposerV2 configs={configs}></InboxSearchComposerV2>
       </div>
     </React.Fragment>
   );

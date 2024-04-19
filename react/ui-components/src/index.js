@@ -206,8 +206,8 @@ import {
 import { Phone } from "./atoms/svgindex";
 import { DownloadBtnCommon } from "./atoms/svgindex";
 
-import { FieldComposer, FieldController, Fields, FormComposerV2, Modal, UploadFileComposer, FieldV1, InboxSearchComposer, ResultsTable } from "./hoc";
-
+import { FieldComposer, FieldController, Fields, FormComposerV2, Modal, UploadFileComposer, FieldV1, ResultsTable } from "./hoc";
+import InboxSearchComposerV2 from "./hoc/InboxSearchComposerV2";
 import {
   ApiDropdown,
   CustomDropdown,
@@ -242,6 +242,7 @@ export {
   BreakLine,
   Button,
   Card,
+  InboxSearchComposerV2,
   CardBasedOptions,
   CardCaption,
   CardHeader,
@@ -316,7 +317,6 @@ export {
   StringManipulator,
   InboxSearchLinks,
   SearchComponent,
-  InboxSearchComposer,
   ResultsTable,
   LinkLabel,
   RoundedLabel,

@@ -1,11 +1,12 @@
 import React from "react";
-import { FilterSvg } from "../atoms/svgindex";
-import { RoundedLabel } from "../atoms";
+import { FilterSvg,FilterIcon,SortSvg } from "../atoms/svgindex";
+import RoundedLabel from "../atoms/RoundedLabel";
 
 const FilterAction = ({ text, handleActionClick, ...props }) => (
-  <div className="digit-search-action" onClick={handleActionClick}>
+  <div className="searchAction" onClick={handleActionClick}>
     <RoundedLabel count={props.filterCount}></RoundedLabel>
-    <FilterSvg /> <span className="digit-search-text">{text}</span>
+    
+    <SortSvg fill={"#f47738"}/> <span className="searchText">{text}</span>
   </div>
 );
 
