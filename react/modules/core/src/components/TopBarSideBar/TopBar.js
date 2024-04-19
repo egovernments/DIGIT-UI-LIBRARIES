@@ -99,6 +99,26 @@ const TopBar = ({
     );
   }
   const loggedin = userDetails?.access_token ? true : false;
+
+  //checking for custom topbar components
+  const CustomEmployeeTopBar = Digit.ComponentRegistryService?.getComponent("CustomEmployeeTopBar")
+
+  if(CustomEmployeeTopBar) {
+    return <CustomEmployeeTopBar {...{t,
+      stateInfo,
+      toggleSidebar,
+      isSidebarOpen,
+      handleLogout,
+      userDetails,
+      CITIZEN,
+      cityDetails,
+      mobileView,
+      userOptions,
+      handleUserDropdownSelection,
+      logoUrl,
+      showLanguageChange,
+      loggedin}} />
+  }
   return (
     <div className="topbar">
       <div className="digit-hamburger-class">{<Hamburger  handleClick={toggleSidebar} color="#9E9E9E" />}</div>
