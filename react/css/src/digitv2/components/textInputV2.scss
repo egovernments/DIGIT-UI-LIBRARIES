@@ -1,7 +1,7 @@
 @import url("../index.scss");
 @import url("../typography.scss");
 
-.digit-card-input-error {
+.digit-card-inputError {
   @apply block w-full h-10 outline-none bg-white text-text-primary;
   font-style: theme(digitv2.fontStyle.normal);
   padding-left: 0.75rem;
@@ -12,7 +12,7 @@
   border: 0.094rem solid theme(digitv2.lightTheme.alert-error);
 }
 
-.digit-text-input {
+.digit-text-input-field {
   @apply relative w-full;
 
   &.geolocation {
@@ -200,7 +200,7 @@
 }
 
 
-.digit-card-input {
+.digit-card-input-field {
   @apply outline-none mt-sm block w-full h-10 bg-white text-form-field;
   padding-left: 0.75rem;
   border: 0.063rem solid theme(digitv2.lightTheme.text-secondary);
@@ -208,7 +208,7 @@
   line-height: 1.5rem;
 }
 
-.digit-card-input-error {
+.digit-card-inputError {
   @apply block w-full h-10 outline-none bg-white text-form-field text-text-primary;
   font-style: theme(digitv2.fontStyle.normal);
   padding-left: 0.75rem;
@@ -219,7 +219,7 @@
   border: 0.094rem solid theme(digitv2.lightTheme.alert-error);
 }
 
-.digit-employee-card-input {
+.digit-employeeCard-input {
   @extend .typography.text-body-s;
   @apply outline-none block w-full h-10 bg-white text-form-field;
   font-style: theme(digitv2.fontStyle.normal);
@@ -231,12 +231,12 @@
   line-height: 1.5rem;
 }
 
-.digit-employee-card-input:disabled {
+.digit-employeeCard-input:disabled {
   @apply border-grey-dark text-grey-dark !important;
   pointer-events: none !important;
 }
 
-.digit-employee-card-input--front {
+.digit-employeeCard-input--front {
   @extend .typography.text-body-s;
   @apply flex items-center;
   width: fit-content !important;
@@ -245,7 +245,7 @@
   padding-right: 0.313rem;
 }
 
-.digit-employee-card-input-error {
+.digit-employeeCard-inputError {
   @extend .typography.text-body-s;
   @apply block w-full h-10 outline-none bg-white text-form-field text-text-primary;
   font-style: theme(digitv2.fontStyle.normal);
@@ -273,27 +273,27 @@
 }
 
 @screen dt {
-  .digit-card-input {
+  .digit-card-input-field {
     width: 30rem;
   }
 
-  .digit-card-input-emp {
+  .digit-card-input-field-emp {
     width: 15rem;
   }
 
-  .digit-card-input-error {
+  .digit-card-inputError {
     width: 30rem;
   }
 
-  .digit-employee-card-input {
+  .digit-employeeCard-input {
     @apply w-full;
   }
 
-  .digit-employee-card-input-error {
+  .digit-employeeCard-inputError {
     @apply w-full;
   }
 
-  .digit-card-textarea {
+  .digit-card-textarea-field {
     @apply w-full;
     max-width: 33.75rem;
   }
@@ -303,7 +303,7 @@
   }
 }
 
-.digit-citizen-card-input {
+.digit-citizenCard-input {
   @extend .typography.text-body-s;
   @apply outline-none block w-full h-10 bg-white;
   font-style: theme(digitv2.fontStyle.normal);
@@ -315,7 +315,7 @@
   line-height: 1.5rem;
 }
 
-.digit-citizen-card-input--front {
+.digit-citizenCard-input--front {
   @extend .typography.text-body-s;
   @apply flex items-center;
   width: fit-content !important;
@@ -324,7 +324,7 @@
   padding-right: 0.313rem;
 }
 
-.digit-employee-card-input-error {
+.digit-employeeCard-inputError {
   @extend .typography.text-body-s;
   @extend .light-input-border;
   @apply block w-full h-10 outline-none bg-white text-form-field text-text-primary;
@@ -337,7 +337,7 @@
   border: 0.094rem solid theme(digitv2.lightTheme.alert-error);
 }
 
-.digit-card-input-error {
+.digit-card-inputError {
   @extend .light-input-border;
   @apply block w-full h-10 outline-none bg-white text-form-field text-text-primary;
   font-family: theme(digitv2.fontFamily.sans);

@@ -216,15 +216,15 @@ const TextInput = (props) => {
   };
 
   const inputClassNameForMandatory = `${
-    user_type ? "digit-employee-card-input-error" : "digit-card-input-error"
+    user_type ? "digit-employeeCard-inputError" : "digit-card-inputError"
   } ${props.disabled ? "disabled" : ""} ${props.customClass || ""} ${
     props.nonEditable ? "noneditable" : ""
   }  ${props.type === "numeric" ? "numeric" : ""}`;
 
   const inputClassName = `${
-    user_type ? "digit-employee-card-input" : "digit-citizen-card-input"
+    user_type ? "digit-employeeCard-input" : "digit-citizenCard-input"
   } ${props.disabled ? "disabled" : ""} focus-visible ${
-    props.errorStyle ? "digit-employee-card-input-error" : ""
+    props.errorStyle ? "digit-employeeCard-inputError" : ""
   } ${props.nonEditable ? "noneditable" : ""} ${
     props.type === "numeric" ? "numeric" : ""
   }`;
@@ -241,8 +241,8 @@ const TextInput = (props) => {
   return (
     <React.Fragment>
       <div
-        className={`digit-text-input ${
-          user_type === "employee" ? "" : "digit-text-input-width"
+        className={`digit-text-input-field ${
+          user_type === "employee" ? "" : "digit-text-input-field-width"
         } ${props?.className ? props?.className : ""} ${
           props.disabled ? "disabled" : ""
         }  ${props.nonEditable ? "noneditable" : ""} ${
