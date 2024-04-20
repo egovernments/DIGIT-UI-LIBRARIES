@@ -17,7 +17,7 @@ const MobileNumber = (props) => {
     <React.Fragment>
       <div className={`digit-mobile-number-container ${props?.className ? props?.className : ""}`} style={props?.style}>
         {!props.hideSpan ? (
-          <span style={props?.style} className="digit-citizen-card-input digit-citizen-card-input--front">
+          <span style={props?.style} className="digit-citizenCard-input digit-citizenCard-input--front">
             +91
           </span>
         ) : null}
