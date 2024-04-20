@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 const Header = (props) => {
   return (
-    <header className={`digit-header ${props?.className || ""}`} style={props?.styles || {}}>
+    <header className={`digit-header-content ${props?.className || ""}`} style={props?.styles || {}}>
       {props.children}
     </header>
   );

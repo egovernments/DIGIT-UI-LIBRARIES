@@ -1,5 +1,5 @@
-.digit-card-textarea,
-.digit-employee-card-textarea {
+.digit-card-textarea-field,
+.digit-employee-card-textarea-field {
   @apply block outline-none w-full bg-white text-form-field overflow-x-hidden overflow-y-hidden whitespace-pre-wrap;
 
 
@@ -62,7 +62,7 @@ textarea::-webkit-scrollbar-thumb {
   border-radius: 0.563rem;
 }
 
-.digit-employee-card-textarea {
+.digit-employee-card-textarea-field {
   @apply w-full;
   height: 6.25rem;
 
@@ -86,15 +86,15 @@ textarea::-webkit-scrollbar-thumb {
   }
 }
 
-.digit-card-textarea:focus,
-.digit-employee-card-textarea:focus {
+.digit-card-textarea-field:focus,
+.digit-employee-card-textarea-field:focus {
   border: 0.094rem solid theme(digitv2.lightTheme.primary-orange);
   overflow-y: auto;
 }
 
-.digit-card-textarea.resize-smart:focus,
-.digit-employee-card-textarea.resize-smart:focus,
-.digit-card-textarea.resize-smart:hover,
-.digit-employee-card-textarea.resize-smart:hover  {
+.digit-card-textarea-field.resize-smart:focus,
+.digit-employee-card-textarea-field.resize-smart:focus,
+.digit-card-textarea-field.resize-smart:hover,
+.digit-employee-card-textarea-field.resize-smart:hover  {
   overflow: hidden; 
 }
