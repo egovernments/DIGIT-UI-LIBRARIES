@@ -5,7 +5,7 @@ import { FormComposer as FormComposerV2 } from "./FormComposerV2";
 import Modal from "./Modal";
 import UploadFileComposer from "./UploadFileComposer";
 import FieldV1 from "./FieldV1";
-import ResultsTable from "./MobileView/ResultsTable";
+import ResultsTable from "./ResultsTable";
 import reducer from "./InboxSearchComposerReducer";
 import { initialInboxState } from "./InboxSearchComposerReducer";
 import { InboxContext } from "./InboxSearchComposerContext";

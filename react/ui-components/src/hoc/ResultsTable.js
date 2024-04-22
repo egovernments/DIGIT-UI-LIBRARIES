@@ -1,13 +1,13 @@
 import React, { useMemo, useCallback, useState, useEffect, Fragment,useContext } from 'react'
 import { useTranslation } from 'react-i18next';
 //import Table from '../../atoms/Table'
-import TextInput from '../../atoms/TextInput'
+import TextInput from '../atoms/TextInput'
 import { useForm, Controller } from "react-hook-form";
 import _ from "lodash";
-// import { InboxContext } from './nbox
-import { Loader } from '../../atoms/Loader';
-import NoResultsFound from '../../atoms/NoResultsFound';
-import { InfoIcon } from "../../atoms/svgindex";
+ import { InboxContext } from './InboxSearchComposerContext';
+import { Loader } from '../atoms/Loader';
+import NoResultsFound from '../atoms/NoResultsFound';
+import { InfoIcon } from "../atoms/svgindex";
 const ResultsTable = ({ tableContainerClass, config,data,isLoading,isFetching,fullConfig,revalidate,type,activeLink,browserSession }) => {
     const {apiDetails} = fullConfig
     const { t } = useTranslation();
@@ -20,7 +20,7 @@ const ResultsTable = ({ tableContainerClass, config,data,isLoading,isFetching,fu
     searchResult = searchResult.reverse();
     const tenantId = Digit.ULBService.getCurrentTenantId();
     const headerLocale = Digit.Utils.locale.getTransformedLocale(tenantId);
-    const {state,dispatch} = useContext(InboxContext)
+   const {state,dispatch} = useContext(InboxContext)
 
     //here I am just checking state.searchForm has all empty keys or not(when clicked on clear search)
     useEffect(() => {

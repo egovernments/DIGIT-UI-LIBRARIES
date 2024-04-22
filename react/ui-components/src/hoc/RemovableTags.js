@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
-import RemoveableTagNew from "../../atoms/RemovableTagNew";
+import RemoveableTagNew from "../atoms/RemovableTagNew";
 import { useTranslation } from 'react-i18next';
-import { Loader } from '../../atoms/Loader';
-import { InboxContext } from '../InboxSearchComposerContext';
+import { Loader } from '../atoms/Loader';
+import { InboxContext } from './InboxSearchComposerContext';
 import _ from "lodash";
 
 const generateTagsFromFields = (fields, sessionData, t,data) => {
