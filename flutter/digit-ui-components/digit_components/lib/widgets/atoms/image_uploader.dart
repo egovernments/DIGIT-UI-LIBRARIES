@@ -6,6 +6,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 
+import '../../constants/AppView.dart';
+
 class ImageUploader extends StatefulWidget {
   final Function(List<File> files) onFilesSelected;
   final String label;
@@ -141,10 +143,21 @@ class _ImageUploaderState extends State<ImageUploader> {
     }
   }
 
+
+
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 600,
+
+    double minWidth = AppView.isMobileView(MediaQuery.of(context).size)
+        ? 328
+        : AppView.isTabletView(MediaQuery.of(context).size)
+        ? 440
+        : 600;
+
+    return Container(
+      constraints: BoxConstraints(
+        minWidth: minWidth,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
@@ -159,8 +172,10 @@ class _ImageUploaderState extends State<ImageUploader> {
                 splashColor: const DigitColors().transparent,
                 onTap: _openFileExplorer,
                 child: Container(
-                  width: 600,
-                  height: 130,
+                  constraints: BoxConstraints(
+                    minWidth: minWidth,
+                  ),
+                  height: 120,
                   decoration: BoxDecoration(
                     border: Border.all(
                       color: const DigitColors().light.genericInputBorder,
@@ -168,14 +183,11 @@ class _ImageUploaderState extends State<ImageUploader> {
                     ),
                   ),
                   child:  Center(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 31.5),
-                      child: Column(
-                        children: [
-                          Icon(Icons.camera_enhance, size: 40, color: const DigitColors().light.primary1,),
-                           Text('Click to add photo', style: TextStyle(color: const DigitColors().light.primary1),),
-                        ],
-                      ),
+                    child: Column(
+                      children: [
+                        Icon(Icons.camera_enhance, size: 40, color: const DigitColors().light.primary1,),
+                         Text('Click to add photo', style: TextStyle(color: const DigitColors().light.primary1),),
+                      ],
                     ),
                   ),
                 ),

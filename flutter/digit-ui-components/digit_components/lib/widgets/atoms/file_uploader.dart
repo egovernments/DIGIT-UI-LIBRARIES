@@ -434,14 +434,22 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
     /// typography based on screen
     DigitTypography currentTypography = getTypography(context, false);
 
-    double inputWidth = AppView.isMobileView(MediaQuery.of(context).size)
-        ? MediaQuery.of(context).size.width *.91
+    double minWidth = AppView.isMobileView(MediaQuery.of(context).size)
+        ? 328
         : AppView.isTabletView(MediaQuery.of(context).size)
-        ? MediaQuery.of(context).size.width* .59
-        : MediaQuery.of(context).size.width*.416;
+        ? 440
+        : 600;
 
-    return SizedBox(
-      width: inputWidth,
+    double minInputWidth = AppView.isMobileView(MediaQuery.of(context).size)
+        ? 198
+        : AppView.isTabletView(MediaQuery.of(context).size)
+        ? 304
+        : 468;
+
+    return Container(
+      constraints: BoxConstraints(
+        minWidth: minWidth,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -453,8 +461,10 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
             mainAxisSize: MainAxisSize.min,
             children: [
               Container(
-                width: 468,
-                height: 42,
+                height: 40,
+                constraints: BoxConstraints(
+                  minWidth: minInputWidth,
+                ),
                 decoration: BoxDecoration(
                   border: Border.all(
                     color: const DigitColors().light.textPrimary,
@@ -482,16 +492,15 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
               const SizedBox(
                 width: 16,
               ),
-              // Button(
-              //   width: 200,
-              //   label: !widget.allowMultipleImages && imageBytesList.isNotEmpty
-              //       ? 'Re-Upload'
-              //       : 'Upload',
-              //   onPressed: _openFileExplorer,
-              //   type: ButtonType.secondary,
-              //   prefixIcon: Icons.file_upload,
-              //   // contentPadding: const EdgeInsets.all(),
-              // ),
+              Button(
+                label: !widget.allowMultipleImages && imageBytesList.isNotEmpty
+                    ? 'Re-Upload'
+                    : 'Upload',
+                onPressed: _openFileExplorer,
+                type: ButtonType.secondary,
+                prefixIcon: Icons.file_upload, size: ButtonSize.large,
+                // contentPadding: const EdgeInsets.all(),
+              ),
             ],
           ),
           const SizedBox(height: 8),

@@ -206,7 +206,7 @@ class _HorizontalStepperItemState extends State<HorizontalStepperItem> {
         children: [
           Container(
             constraints: const BoxConstraints(
-              maxWidth: 100,
+              minWidth: 40,
             ),
             color: widget.index == 0
                 ? Colors.transparent
@@ -218,7 +218,7 @@ class _HorizontalStepperItemState extends State<HorizontalStepperItem> {
           dot,
           Container(
             constraints: const BoxConstraints(
-              maxWidth: 100,
+              minWidth: 40,
             ),
             color: widget.index == widget.totalLength - 1
                 ? Colors.transparent

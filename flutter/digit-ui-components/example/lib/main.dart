@@ -6,6 +6,7 @@ import 'package:digit_ui_components/models/TreeModel.dart';
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/models/toggleButtonModel.dart';
 import 'package:digit_ui_components/utils/validators/validator.dart';
+import 'package:digit_ui_components/widgets/atoms/digit_stepper.dart';
 import 'package:digit_ui_components/widgets/atoms/digit_timeline.dart';
 import 'package:digit_ui_components/widgets/atoms/dropdown_wrapper.dart';
 import 'package:digit_ui_components/widgets/atoms/file_uploader.dart';
@@ -83,6 +84,7 @@ final controller42 = TextEditingController();
 final TreeSelectController<int> _controller = TreeSelectController();
 final controller = MultiSelectController<int>();
 final controllerM1 = MultiSelectController<int>();
+int stepNumber = 0;
 
 void main() {
   /// Here we set the URL strategy for our web app.
@@ -1907,6 +1909,87 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 8,
                 ),
+                Column(
+                  children: [
+                    Button(label: 'Click to increase steps', onPressed: (){ setState(() {
+                      stepNumber += 1;
+                    });}, type: ButtonType.primary, size: ButtonSize.large),
+                    const SizedBox(height: 8,),
+                    Button(label: 'Click to decrease steps', onPressed: (){ setState(() {
+                      if(stepNumber>0){
+                        stepNumber -= 1;
+                      }
+                    });}, type: ButtonType.primary, size: ButtonSize.large),
+                    SizedBox(
+                      height: 500,
+                      width: MediaQuery.of(context).size.width,
+                      child: DigitStepper(
+                        activeIndex: stepNumber,
+                        stepperList:  [
+                          StepperData(
+                            title: "Preparing",
+                            onStepTap: (){},
+                          ),
+                          const StepperData(
+                            title: "Preparing",
+                          ),
+                          const StepperData(
+                            title: "Preparing",
+                          ),
+                          const StepperData(
+                            title: "Preparing",
+                          ),
+                          const StepperData(
+                            title: "Preparing",
+                          ),
+                          const StepperData(
+                            title: "Preparing",
+                          ),
+                          const StepperData(
+                            title: "Preparing",
+                          ),
+                          const StepperData(
+                            title: "Preparing",
+                          ),
+                          const StepperData(
+                            title: "Preparing",
+                          ),
+                          const StepperData(
+                            title: "Preparing",
+                          ),
+                          const StepperData(
+                            title: "Preparing",
+                          ),
+                          const StepperData(
+                            title: "Preparing",
+                          ),
+                          const StepperData(
+                            title: "Preparing",
+                          ),
+                          const StepperData(
+                            title: "Preparing",
+                          ),
+                          const StepperData(
+                            title: "Preparing",
+                          ),
+                          const StepperData(
+                            title: "Preparing",
+                          ),
+                          const StepperData(
+                            title: "Preparing",
+                          ),
+                        ],
+                        stepperDirection: Axis.horizontal,
+                        inverted: true,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                const Divider(),
+                const SizedBox(
+                  height: 8,
+                ),
                 Center(
                   child: SizedBox(
                     width: 1000,
@@ -1936,45 +2019,45 @@ class MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 8),
-                const Divider(),
-                const SizedBox(
-                  height: 8,
-                ),
-                Center(
-                  child: SizedBox(
-                    width: 1300,
-                    height: 400,
-                    child: FileUploadWidget2(
-                      showPreview: true,
-                      allowMultipleImages: true,
-                      label: 'Upload', onFilesSelected: (List<DroppedFile> files) {  },
-                      // onFileSelected: (File file) {
-                      //   // Handle the selected file here
-                      //   // print('File path: ${file.path}');
-                      // },
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 8),
-                const Divider(),
-                const SizedBox(
-                  height: 8,
-                ),
-                Center(
-                  child: SizedBox(
-                    width: 600,
-                    height: 400,
-                    child: ImageUploader(
-                      allowMultipleImages: true,
-                      label: 'Upload', onFilesSelected: (List<File> files) {  },
-                      // onFileSelected: (File file) {
-                      //   // Handle the selected file here
-                      //   // print('File path: ${file.path}');
-                      // },
-                    ),
-                  ),
-                ),
+                // const SizedBox(height: 8),
+                // const Divider(),
+                // const SizedBox(
+                //   height: 8,
+                // ),
+                // Center(
+                //   child: SizedBox(
+                //     width: 1300,
+                //     height: 400,
+                //     child: FileUploadWidget2(
+                //       showPreview: true,
+                //       allowMultipleImages: true,
+                //       label: 'Upload', onFilesSelected: (List<DroppedFile> files) {  },
+                //       // onFileSelected: (File file) {
+                //       //   // Handle the selected file here
+                //       //   // print('File path: ${file.path}');
+                //       // },
+                //     ),
+                //   ),
+                // ),
+                // const SizedBox(height: 8),
+                // const Divider(),
+                // const SizedBox(
+                //   height: 8,
+                // ),
+                // Center(
+                //   child: SizedBox(
+                //     width: 600,
+                //     height: 400,
+                //     child: ImageUploader(
+                //       allowMultipleImages: true,
+                //       label: 'Upload', onFilesSelected: (List<File> files) {  },
+                //       // onFileSelected: (File file) {
+                //       //   // Handle the selected file here
+                //       //   // print('File path: ${file.path}');
+                //       // },
+                //     ),
+                //   ),
+                // ),
                 const SizedBox(height: 8),
                 const Divider(),
                 const SizedBox(
