@@ -35,7 +35,7 @@
     "@storybook/react": "6.4.20",
     "babel-eslint": "10.1.0",
     "cross-env": "7.0.3",
-    "gh-pages": "2.2.0",
+    "gh-pages": "5.0.0",
     "husky": "7.0.4",
     "lint-staged": "12.3.7",
     "microbundle-crl": "0.13.11",
