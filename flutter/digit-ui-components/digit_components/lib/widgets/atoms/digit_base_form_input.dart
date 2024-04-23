@@ -293,15 +293,13 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
         : null;
 
     double maxWidth = AppView.isMobileView(MediaQuery.of(context).size)
-        ? MediaQuery.of(context).size.width * .91
+        ? 328
         : AppView.isTabletView(MediaQuery.of(context).size)
-            ? MediaQuery.of(context).size.width * .60
-            : MediaQuery.of(context).size.width * .416;
+            ? 440
+            : 600;
     double minWidth = AppView.isMobileView(MediaQuery.of(context).size)
-        ? MediaQuery.of(context).size.width * .43
-        : AppView.isTabletView(MediaQuery.of(context).size)
-            ? MediaQuery.of(context).size.width * .268
-            : MediaQuery.of(context).size.width * .138;
+        ? 156
+        : 200;
 
     return LabeledField(
       label: widget.label,

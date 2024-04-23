@@ -157,18 +157,16 @@ class _DropdownOptionState extends State<DropdownOption> {
                                     ? currentTypography.headingS.copyWith(
                                         color: const DigitColors().light
                                             .paperPrimary,
-                                        height: 1.172,
                                       )
                                     : widget.option.description != null
                                         ? currentTypography.bodyL.copyWith(
                                             color: const DigitColors().light
                                                 .textSecondary,
-                                            height: 1.5,
+
                                           )
                                         : currentTypography.bodyS.copyWith(
                                             color: const DigitColors().light
                                                 .textPrimary,
-                                            height: 1.125,
                                           ),
                               ),
                             ],

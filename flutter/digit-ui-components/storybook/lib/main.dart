@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:inspector/inspector.dart';
 import 'package:storybook/widgets/atoms/buttons_story.dart';
 import 'package:storybook/widgets/atoms/checkbox_story.dart';
+import 'package:storybook/widgets/atoms/chip_stoty.dart';
+import 'package:storybook/widgets/atoms/custom_toast_story.dart';
 import 'package:storybook/widgets/atoms/dropdown_story.dart';
 import 'package:storybook/widgets/atoms/file_uploader_story.dart';
 import 'package:storybook/widgets/atoms/info_card_story.dart';
@@ -43,6 +45,7 @@ class MyApp extends StatelessWidget {
             stories: [
               ...buttonStories(),
               ...checkboxStories(),
+              ...chipStories(),
               ...toastStories(),
               ...infoCardStories(),
               ...timeLineStories(),
@@ -52,6 +55,7 @@ class MyApp extends StatelessWidget {
               ...dropdownStories(),
               ...stepperStories(),
               // ...fileUploaderStories(),
+              ...animatedToastStories(),
             ],
           ),
         ),

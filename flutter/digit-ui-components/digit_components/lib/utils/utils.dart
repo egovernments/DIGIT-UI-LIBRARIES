@@ -1,3 +1,5 @@
+import 'package:digit_ui_components/models/DropdownModels.dart';
+
 /// Capitalize the first letter if required
 String? capitalizeFirstLetter(String? text) {
   if (text != null && text.isNotEmpty ) {
@@ -21,4 +23,16 @@ String capitalizeFirstLetterOfEveryWord(String text) {
   }
 
   return capitalizedWords.join(' ');
+}
+
+
+/// Helper function to get the associated value from the value mapper
+String getAssociatedValue(String code, List<ValueMapper> valueMapper ) {
+  ValueMapper? mappedValue = valueMapper.firstWhere(
+        (value) => value.code == code,
+    orElse: () => const ValueMapper(code: '', name: ''),
+
+    /// Provide default values here
+  );
+  return mappedValue.name;
 }

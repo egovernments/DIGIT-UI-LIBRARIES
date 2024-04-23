@@ -5,11 +5,42 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="527a2fe1-eac1-442a-a699-c8c48a8f093b" name="Changes" comment="stepper component fixes">
+      <change afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/chip_stoty.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/custom_toast_story.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/.flutter-plugins" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/.flutter-plugins-dependencies" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/utils/utils.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/utils/utils.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/digit_base_form_input.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/digit_base_form_input.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/digit_button.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/digit_button.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/digit_multiselect_dropdown.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/digit_multiselect_dropdown.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/digit_stepper.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/digit_stepper.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/digit_tree_select_dropdown.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/digit_tree_select_dropdown.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/file_uploader.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/file_uploader.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/image_uploader.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/image_uploader.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/toast.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/toast.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/helper_widget/dropdown_options.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/helper_widget/dropdown_options.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/helper_widget/selection_chip.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/helper_widget/selection_chip.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/pubspec.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/example/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/example/linux/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/example/linux/flutter/generated_plugin_registrant.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/example/linux/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/example/linux/flutter/generated_plugins.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/example/macos/Flutter/GeneratedPluginRegistrant.swift" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/example/macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/example/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/example/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/example/pubspec_overrides.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/example/pubspec_overrides.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/example/windows/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/example/windows/flutter/generated_plugin_registrant.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/example/windows/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/example/windows/flutter/generated_plugins.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/file_uploader_story.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/file_uploader_story.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/stepper_story.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/stepper_story.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/linux/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/linux/flutter/generated_plugin_registrant.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/linux/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/linux/flutter/generated_plugins.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/macos/Flutter/GeneratedPluginRegistrant.swift" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/web/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/web/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/windows/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/windows/flutter/generated_plugin_registrant.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/windows/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/windows/flutter/generated_plugins.cmake" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,36 +76,36 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Git.Branch.Popup.ShowAllRemotes&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;com.google.services.firebase.aqiPopupShown&quot;: &quot;true&quot;,
-    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/admin1/DIGIT-OSS/DIGIT-UI-LIBRARIES/flutter/digit-ui-components/storybook&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;dart.settings&quot;,
-    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Git.Branch.Popup.ShowAllRemotes": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
+    "cidr.known.project.marker": "true",
+    "com.google.services.firebase.aqiPopupShown": "true",
+    "dart.analysis.tool.window.visible": "false",
+    "io.flutter.reload.alreadyRun": "true",
+    "last_opened_file_path": "/home/admin1/DIGIT-OSS/DIGIT-UI-LIBRARIES/flutter/digit-ui-components/digit_components",
+    "settings.editor.selected.configurable": "dart.settings",
+    "show.migrate.to.gradle.popup": "false"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/flutter/digit-ui-components/digit_components" />
       <recent name="$PROJECT_DIR$/flutter/digit-ui-components/storybook" />
       <recent name="$PROJECT_DIR$/flutter/digit-ui-components/example/assets/fonts" />
       <recent name="$PROJECT_DIR$/flutter/digit-ui-components/example/lib" />
       <recent name="$PROJECT_DIR$/flutter/digit-ui-components/example/assets" />
-      <recent name="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/flutter/digit-ui-components/example" />
       <recent name="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/assets/icons/svg" />
     </key>
   </component>
-  <component name="RunManager" selected="Flutter.main.dart (1)">
+  <component name="RunManager" selected="Flutter.main.dart (2)">
     <configuration name="main.dart (1)" type="FlutterRunConfigurationType" factoryName="Flutter" temporary="true" nameIsGenerated="true">
       <option name="filePath" value="$PROJECT_DIR$/flutter/digit-ui-components/example/lib/main.dart" />
       <method v="2" />
@@ -95,8 +126,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Flutter.main.dart (1)" />
         <item itemvalue="Flutter.main.dart (2)" />
+        <item itemvalue="Flutter.main.dart (1)" />
         <item itemvalue="Flutter.main.dart" />
         <item itemvalue="Flutter.main.dart (2)" />
         <item itemvalue="Flutter.main.dart (1)" />
@@ -111,13 +142,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1704952952175</updated>
-    </task>
-    <task id="LOCAL-00180" summary="issue resolved">
-      <created>1709633796472</created>
-      <option name="number" value="00180" />
-      <option name="presentableId" value="LOCAL-00180" />
-      <option name="project" value="LOCAL" />
-      <updated>1709633796472</updated>
     </task>
     <task id="LOCAL-00181" summary="issue resolved">
       <created>1709718232725</created>
@@ -455,7 +479,14 @@
       <option name="project" value="LOCAL" />
       <updated>1713701470401</updated>
     </task>
-    <option name="localTasksCounter" value="229" />
+    <task id="LOCAL-00229" summary="stepper component fixes">
+      <created>1713760881606</created>
+      <option name="number" value="00229" />
+      <option name="presentableId" value="LOCAL-00229" />
+      <option name="project" value="LOCAL" />
+      <updated>1713760881606</updated>
+    </task>
+    <option name="localTasksCounter" value="230" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

@@ -1,4 +1,5 @@
 
+import 'package:digit_ui_components/constants/AppView.dart';
 import 'package:digit_ui_components/enum/app_enums.dart';
 import 'package:digit_ui_components/models/DropdownModels.dart';
 import 'package:digit_ui_components/models/RadioButtonModel.dart';
@@ -1681,7 +1682,8 @@ class MyHomePageState extends State<MyHomePage> {
                     child: Button(
                       size: ButtonSize.large,
                       label: 'Primary Button',
-                      onPressed: () {},
+                      onPressed: () {
+                      },
                       type: ButtonType.primary,
                     ),
                   ),
@@ -1990,33 +1992,52 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 8,
                 ),
-                Center(
-                  child: SizedBox(
-                    width: 1000,
-                    height: 400,
-                    child: FileUploadWidget(
-                      label: 'Upload', onFilesSelected: (List<File> files) {  },
-                      // onFileSelected: (File file) {
-                      //   // Handle the selected file here
-                      //   // print('File path: ${file.path}');
-                      // },
-                    ),
+                LabeledField(
+                  label: 'File Upload with single selected',
+                  child: FileUploadWidget(
+                    label: 'Upload', onFilesSelected: (List<File> files) {  },
+                    // onFileSelected: (File file) {
+                    //   // Handle the selected file here
+                    //   // print('File path: ${file.path}');
+                    // },
                   ),
                 ),
                 const SizedBox(height: 8),
-                Center(
-                  child: SizedBox(
-                    width: 1000,
-                    height: 400,
-                    child: FileUploadWidget(
-                      showPreview: true,
-                      allowMultipleImages: true,
-                      label: 'Upload', onFilesSelected: (List<File> files) {  },
-                      // onFileSelected: (File file) {
-                      //   // Handle the selected file here
-                      //   // print('File path: ${file.path}');
-                      // },
-                    ),
+                LabeledField(
+                  label: 'File Upload with single selected with Preview',
+                  child: FileUploadWidget(
+                    showPreview: true,
+                    label: 'Upload', onFilesSelected: (List<File> files) {  },
+                    // onFileSelected: (File file) {
+                    //   // Handle the selected file here
+                    //   // print('File path: ${file.path}');
+                    // },
+                  ),
+                ),
+                const SizedBox(height: 8),
+                LabeledField(
+                  label: 'File Upload with Multiple file upload',
+                  child: FileUploadWidget(
+                    showPreview: false,
+                    allowMultipleImages: true,
+                    label: 'Upload', onFilesSelected: (List<File> files) {  },
+                    // onFileSelected: (File file) {
+                    //   // Handle the selected file here
+                    //   // print('File path: ${file.path}');
+                    // },
+                  ),
+                ),
+                const SizedBox(height: 8),
+                LabeledField(
+                  label: 'File Upload with Multiple file upload',
+                  child: FileUploadWidget(
+                    showPreview: false,
+                    allowMultipleImages: true,
+                    label: 'Upload', onFilesSelected: (List<File> files) {  },
+                    // onFileSelected: (File file) {
+                    //   // Handle the selected file here
+                    //   // print('File path: ${file.path}');
+                    // },
                   ),
                 ),
                 // const SizedBox(height: 8),

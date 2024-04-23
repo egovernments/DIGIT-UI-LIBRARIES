@@ -7,25 +7,25 @@ import 'dart:io';
 
 List<Story> fileUploaderStories() {
   return [
-    Story(
-      name: 'File Upload/Pop UP/Single Upload',
-      builder: (context) => Center(
-        child: FileUploadWidget(
-          label: 'Upload', onFilesSelected: (List<File> files) {  },
-          showPreview: context.knobs.boolean(label: 'Show preview', initial: false),
-        ),
-      ),
-    ),
-    Story(
-      name: 'File Upload/Pop UP/Multiple Upload',
-      builder: (context) => Center(
-        child: FileUploadWidget(
-          allowMultipleImages: true,
-          label: 'Upload', onFilesSelected: (List<File> files) {  },
-          showPreview: context.knobs.boolean(label: 'Show preview', initial: false),
-        ),
-      ),
-    ),
+    // Story(
+    //   name: 'File Upload/Pop UP/Single Upload',
+    //   builder: (context) => Center(
+    //     child: FileUploadWidget(
+    //       label: 'Upload', onFilesSelected: (List<File> files) {  },
+    //       showPreview: context.knobs.boolean(label: 'Show preview', initial: false),
+    //     ),
+    //   ),
+    // ),
+    // Story(
+    //   name: 'File Upload/Pop UP/Multiple Upload',
+    //   builder: (context) => Center(
+    //     child: FileUploadWidget(
+    //       allowMultipleImages: true,
+    //       label: 'Upload', onFilesSelected: (List<File> files) {  },
+    //       showPreview: context.knobs.boolean(label: 'Show preview', initial: false),
+    //     ),
+    //   ),
+    // ),
     Story(
       name: 'File Upload/Drag file',
       builder: (context) => Center(
@@ -39,18 +39,25 @@ List<Story> fileUploaderStories() {
     Story(
       name: 'File Upload/Image/Single Upload',
       builder: (context) => Center(
-        child: ImageUploader(
-          label: 'Upload', onFilesSelected: (List<File> files) {  },
-        ),
+        child: CustomImageUploader(
+          onImageSelected: (File imageFile) {
+            // Handle the selected image file here
+            print('Image selected: ${imageFile.path}');
+          },
+        )
+
       ),
     ),
     Story(
       name: 'File Upload/Image/Multiple Upload',
       builder: (context) => Center(
-        child: ImageUploader(
-          allowMultipleImages: true,
-          label: 'Upload', onFilesSelected: (List<File> files) {  },
-        ),
+        child: CustomImageUploader(
+          onImageSelected: (File imageFile) {
+            // Handle the selected image file here
+            print('Image selected: ${imageFile.path}');
+          },
+        )
+
       ),
     ),
   ];

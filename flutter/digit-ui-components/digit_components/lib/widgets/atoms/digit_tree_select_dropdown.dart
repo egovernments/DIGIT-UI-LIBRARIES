@@ -446,15 +446,13 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
   /// Build the selected item chip.
   Widget _buildChip(TreeNode item, ChipConfig chipConfig) {
     return SelectionChip<T>(
-      item: item,
-      chipConfig: chipConfig,
-      valueMapper: widget.valueMapper,
-      onItemDelete: (removedItem) {
+      label: widget.valueMapper!=null ? getAssociatedValue(item.code, widget.valueMapper!) : item.name,
+      onItemDelete: () {
         if (_controller != null) {
-          _controller!.clearSelection(removedItem);
+          _controller!.clearSelection(item);
         } else {
           setState(() {
-            _selectedOptions.remove(removedItem);
+            _selectedOptions.remove(item);
           });
 
           widget.onOptionSelected?.call(_selectedOptions);

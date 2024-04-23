@@ -21,6 +21,10 @@ dependencies:
   collection: ^1.15.0
   file_picker: ^8.0.0+1
   flutter_dropzone: ^3.0.7
+  image_picker: ^1.0.8
+  flutter_cached_pdfview: 0.4.2
+  camera: 0.10.5+9
+  flutter_styled_toast: 2.2.1
 
 
 

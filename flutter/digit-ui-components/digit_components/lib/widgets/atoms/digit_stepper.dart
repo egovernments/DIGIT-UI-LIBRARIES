@@ -192,9 +192,11 @@ class _HorizontalStepperItemState extends State<HorizontalStepperItem> {
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
             style: widget.index == widget.activeIndex || isHover
-                ? currentTypography.headingS.copyWith(
+                ? currentTypography.bodyL.copyWith(
+
                     color: const DigitColors().light.textPrimary,)
                 : currentTypography.bodyS.copyWith(
+
                     color: const DigitColors().light.textPrimary,),
           ),
         ),
@@ -376,10 +378,10 @@ class StepperDot extends StatelessWidget {
                 height: isMobile ? 24 : 32,
                 width: isMobile ? 24 : 32,
                 decoration: BoxDecoration(
-                  color: const DigitColors().light.textDisabled,
+                  color: const DigitColors().light.paperPrimary,
                   border: Border.all(
                     color: const DigitColors().light.textDisabled,
-                    width: 1,
+                    width: 2,
                   ),
                   borderRadius: const BorderRadius.all(
                     Radius.circular(50),
@@ -402,7 +404,7 @@ class StepperDot extends StatelessWidget {
                   child: Text(
                     '${index + 1}',
                     style: currentTypography.bodyS.copyWith(
-                        color: const DigitColors().light.paperPrimary),
+                        color: const DigitColors().light.textSecondary),
                   ),
                 ),
               );
@@ -455,14 +457,16 @@ class _VerticalStepperItemState extends State<VerticalStepperItem> {
           padding: const EdgeInsets.symmetric(vertical: 10),
           constraints: const BoxConstraints(
             maxHeight: 200,
+            maxWidth: 200
           ),
           child: Text(
             widget.item.title!,
             textAlign: TextAlign.center,
-            maxLines: 2,
+            maxLines: 4,
             overflow: TextOverflow.ellipsis,
             style: widget.index == widget.activeIndex || isHover
                 ? currentTypography.headingS.copyWith(
+              height: 1.37,
                     color: const DigitColors().light.textPrimary,)
                 : currentTypography.bodyS.copyWith(
                     color: const DigitColors().light.textPrimary,),
@@ -472,29 +476,30 @@ class _VerticalStepperItemState extends State<VerticalStepperItem> {
       ],
       Column(
         mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
             constraints: const BoxConstraints(
-              minHeight: 100,
+              minHeight: 40,
             ),
             color: widget.index == 0
                 ? Colors.transparent
                 : (widget.index <= widget.activeIndex
                     ? const DigitColors().light.primary1
                     : const DigitColors().light.textDisabled),
-            width: 4,
+            width: widget.index <= widget.activeIndex ? 4 : 2,
           ),
           dot,
           Container(
             constraints: const BoxConstraints(
-              minHeight: 100,
+              minHeight: 40,
             ),
             color: widget.index == widget.totalLength - 1
                 ? Colors.transparent
                 : (widget.index < widget.activeIndex
                     ? const DigitColors().light.primary1
                     : const DigitColors().light.textDisabled),
-            width: 4,
+            width: widget.index < widget.activeIndex ? 4 : 2,
           ),
         ],
       ),
