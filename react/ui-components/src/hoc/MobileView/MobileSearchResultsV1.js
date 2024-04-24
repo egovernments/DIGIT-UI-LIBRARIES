@@ -104,4 +104,3 @@ const MobileSearchResultsv1 = ({
 };
 
 export default MobileSearchResultsv1;
-

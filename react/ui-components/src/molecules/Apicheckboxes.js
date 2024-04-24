@@ -12,7 +12,7 @@ const ApiCheckboxes = ({ populators, formData, props }) => {
   const { t } = useTranslation();
 
   const reqCriteria = Digit?.Customizations?.[populators?.masterName]?.[populators?.moduleName]?.[populators?.customfn](populators)
-
+  
   const { isLoading: isApiLoading, data: apiData, revalidate, isFetching: isApiFetching } = Digit.Hooks.useCustomAPIHook(reqCriteria);
 
   useEffect(() => {

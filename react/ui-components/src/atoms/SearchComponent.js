@@ -37,6 +37,7 @@ const SearchComponent = ({ uiConfig, header = "", screenType = "search", fullCon
 
   const defValuesFromSession = uiConfig?.type === "search" ? session?.searchForm : session?.filterForm
   
+  	
   const {
     register,
     handleSubmit,
@@ -195,36 +196,36 @@ const SearchComponent = ({ uiConfig, header = "", screenType = "search", fullCon
               labelStyle={{ fontSize: "16px" }}
               apiDetails={apiDetails}
               data={data}
-              />
-              <div className={`search-button-wrapper ${screenType} ${uiConfig?.type} ${uiConfig?.searchWrapperClassName}`} style={uiConfig?.searchWrapperStyles}>
-                {uiConfig?.secondaryLabel && <LinkLabel style={{ marginBottom: 0, whiteSpace: 'nowrap' }} onClick={clearSearch}>{t(uiConfig?.secondaryLabel)}</LinkLabel>}
-                {uiConfig?.isPopUp && uiConfig?.primaryLabel && <SubmitBar label={t(uiConfig?.primaryLabel)} onSubmit={(e) => {
-                  handleSubmit(onSubmit)(e);
-                  // onSubmit(formData, e)
-                }} disabled={false} />}
-                {!uiConfig?.isPopUp && uiConfig?.primaryLabel && <SubmitBar label={t(uiConfig?.primaryLabel)} submit="submit" disabled={false} />}
-              </div>
+            />
+            <div className={`search-button-wrapper ${screenType} ${uiConfig?.type} ${uiConfig?.searchWrapperClassName}`} style={uiConfig?.searchWrapperStyles}>
+              {uiConfig?.secondaryLabel && <LinkLabel style={{ marginBottom: 0, whiteSpace: 'nowrap' }} onClick={clearSearch}>{t(uiConfig?.secondaryLabel)}</LinkLabel>}
+              {uiConfig?.isPopUp && uiConfig?.primaryLabel && <SubmitBar label={t(uiConfig?.primaryLabel)} onSubmit={(e) => {
+                handleSubmit(onSubmit)(e);
+                // onSubmit(formData, e)
+              }} disabled={false} />}
+              {!uiConfig?.isPopUp && uiConfig?.primaryLabel && <SubmitBar label={t(uiConfig?.primaryLabel)} submit="submit" disabled={false} />}
             </div>
           </div>
-        </form>
-        {showToast && <Toast
-          error={showToast.error}
-          warning={showToast.warning}
-          label={t(showToast.label)}
-          isDleteBtn={true}
-          onClose={closeToast} />
-        }
-      </div>
-    </React.Fragment>
-    }
-    return (
-      <HorizontalNavV2 configNavItems={navConfig?.length > 0 ? navConfig : []} showNav={navConfig?.length > 0 ? true : false} activeLink={activeLink} setActiveLink={setActiveLink} fromSearchComp={true} horizontalLine={uiConfig?.horizontalLine}>
-        <div className={'search-wrapper'}>
-          {header && renderHeader()}
-          <form onSubmit={handleSubmit(onSubmit)} onKeyDown={(e) => checkKeyDown(e)}>
-            <div>
-              {uiConfig?.showFormInstruction && <p className="search-instruction-header">{t(uiConfig?.showFormInstruction)}</p>}
-              <div className={`search-field-wrapper ${screenType} ${uiConfig?.formClassName ? uiConfig?.formClassName:""}`}>
+        </div>
+      </form>
+      {showToast && <Toast
+        error={showToast.error}
+        warning={showToast.warning}
+        label={t(showToast.label)}
+        isDleteBtn={true}
+        onClose={closeToast} />
+      }
+    </div>
+  </React.Fragment>
+  }
+  return (
+    <HorizontalNavV2 configNavItems={navConfig?.length > 0 ? navConfig : []} showNav={navConfig?.length > 0 ? true : false} activeLink={activeLink} setActiveLink={setActiveLink} fromSearchComp={true} horizontalLine={uiConfig?.horizontalLine}>
+      <div className={'search-wrapper'}>
+        {header && renderHeader()}
+        <form onSubmit={handleSubmit(onSubmit)} onKeyDown={(e) => checkKeyDown(e)}>
+          <div>
+            {uiConfig?.showFormInstruction && <p className="search-instruction-header">{t(uiConfig?.showFormInstruction)}</p>}
+            <div className={`search-field-wrapper ${screenType} ${uiConfig?.formClassName ? uiConfig?.formClassName:""}`}>
               <RenderFormFields 
                 // fields={uiConfig?.fields} 
                 fields={activeLink ? allUiConfigs?.filter(uiConf => activeLink?.name === uiConf.uiConfig.navLink)?.[0]?.uiConfig?.fields : uiConfig?.fields}

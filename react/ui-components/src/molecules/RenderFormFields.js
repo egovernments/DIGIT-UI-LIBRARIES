@@ -200,189 +200,188 @@ const RenderFormFields = ({data,...props}) => {
                 />
               );
 
-              case "locationdropdown":
-                return (
-                  <Controller
-                    name={`${populators.name}`}
-                    control={control}
-                    defaultValue={formData?.[populators.name]}
-                    rules={{ required: populators?.isMandatory, ...populators.validation }}
-                    render={(props) => {
-                      return (
-                        <div style={{ display: "grid", gridAutoFlow: "row" }}>
-                          <LocationDropdownWrapper
-                            props={props}
-                            populators={populators}
-                            formData={formData}
-                            inputRef={props.ref}
-                            errors={errors}
-                            setValue={setValue}
-                          />
-                        </div>
-                      );
-                    }}
-                  />
-                );
-    
-                case "apidropdown":
-                return (
-                  <Controller
-                    name={`${populators.name}`}
-                    control={control}
-                    defaultValue={formData?.[populators.name]}
-                    rules={{ required: populators?.isMandatory, ...populators.validation }}
-                    render={(props) => {
-                      return (
-                        <div style={{ display: "grid", gridAutoFlow: "row" }}>
-                          <ApiDropdown
-                            props={props}
-                            populators={populators}
-                            formData={formData}
-                            inputRef={props.ref}
-                            errors={errors}
-                            />
-                            </div>
-                          );
-                        }}
+            case "locationdropdown":
+            return (
+              <Controller
+                name={`${populators.name}`}
+                control={control}
+                defaultValue={formData?.[populators.name]}
+                rules={{ required: populators?.isMandatory, ...populators.validation }}
+                render={(props) => {
+                  return (
+                    <div style={{ display: "grid", gridAutoFlow: "row" }}>
+                      <LocationDropdownWrapper
+                        props={props}
+                        populators={populators}
+                        formData={formData}
+                        inputRef={props.ref}
+                        errors={errors}
+                        setValue={setValue}
                       />
-                    );
-        
-                    case "apicheckboxes":
-                      return (
-                        <Controller
-                          name={`${populators.name}`}
-                          control={control}
-                          defaultValue={formData?.[populators.name]}
-                          rules={{ required: populators?.isMandatory, ...populators.validation }}
-                          render={(props) => {
-                            return (
-                              <div style={{ display: "grid", gridAutoFlow: "row" }}>
-                                <ApiCheckboxes
-                                  props={props}
-                                  populators={populators}
-                                  formData={formData}
-                                  inputRef={props.ref}
-                                  errors={errors}
-                                />
-                              </div>
-                            );
-                          }}
-                        />
-                      );
-                    case "workflowstatesfilter":
-                    return (
-                      <Controller
-                        name={`${populators.name}`}
-                        control={control}
-                        defaultValue={formData?.[populators.name]}
-                        rules={{ required: populators?.isMandatory }}
-                        render={(props) => {
-                          return (
-                            <div style={{ display: "grid", gridAutoFlow: "row" }}>
-                              <WorkflowStatusFilter
-                                inboxResponse={data}
-                                props={props}
-                                populators={populators}
-                                t={t}
-                                formData={formData}
-                              />
-                            </div>
-                          );
-                        }}
-                      />
-                    );
-                    case "dateRange":
-                      return (
-                        <Controller
-                          render={(props) => (
-                            <DateRangeNew
-                              t={t}
-                              values={formData?.[populators.name]?.range}
-                              // values={
-                              //   typeof formData?.[populators.name]?.range?.startDate === "string" ?
-                              //   {
-                              //   duration: formData?.[populators.name]?.range?.duration,
-                              //   endDate: new Date(
-                              //     formData?.[populators.name]?.range?.endDate
-                              //   ),
-                              //   startDate: new Date(
-                              //     formData?.[populators.name]?.range?.startDate
-                              //   ),
-                              //   title:
-                              //     formData?.[populators.name]?.range?.startDate?.title,
-                              // }: formData?.[populators.name]?.range}
-                              name={populators.name}
-                              onFilterChange={props.onChange}
-                              inputRef={props.ref}
-                              errorStyle={errors?.[populators.name]}
-                              populators={populators}
-                            />
+                    </div>
+                  );
+                }}
+              />
+            );
 
-                          )}
-                          rules={{ required: isMandatory, ...populators.validation }}
-                          defaultValue={formData?.[populators.name]}
-                          name={populators?.name}
-                          control={control}
-                        />
-                      );
-        
-                    case "component":
-                    return (
-                      <Controller
-                        render={(props) => (
-                          <Component
-                            userType={"employee"}
-                            t={t}
-                            setValue={setValue}
-                            onSelect={setValue}
-                            config={config}
-                            data={formData}
-                            formData={formData}
-                            register={register}
-                            errors={errors}
-                            props={props}
-                            setError={setError}
-                            clearErrors={clearErrors}
-                            onBlur={props.onBlur}
-                            control={control}
-                            getValues={getValues}
-                            responseData={data}
-                            populators={populators}
-                          />
-                        )}
-                        name={config?.key}
-                        control={control}
+            case "apidropdown":
+            return (
+              <Controller
+                name={`${populators.name}`}
+                control={control}
+                defaultValue={formData?.[populators.name]}
+                rules={{ required: populators?.isMandatory, ...populators.validation }}
+                render={(props) => {
+                  return (
+                    <div style={{ display: "grid", gridAutoFlow: "row" }}>
+                      <ApiDropdown
+                        props={props}
+                        populators={populators}
+                        formData={formData}
+                        inputRef={props.ref}
+                        errors={errors}
                       />
+                    </div>
+                  );
+                }}
+              />
+            );
+
+            case "apicheckboxes":
+              return (
+                <Controller
+                  name={`${populators.name}`}
+                  control={control}
+                  defaultValue={formData?.[populators.name]}
+                  rules={{ required: populators?.isMandatory, ...populators.validation }}
+                  render={(props) => {
+                    return (
+                      <div style={{ display: "grid", gridAutoFlow: "row" }}>
+                        <ApiCheckboxes
+                          props={props}
+                          populators={populators}
+                          formData={formData}
+                          inputRef={props.ref}
+                          errors={errors}
+                        />
+                      </div>
                     );
+                  }}
+                />
+              );
+            case "workflowstatesfilter":
+            return (
+              <Controller
+                name={`${populators.name}`}
+                control={control}
+                defaultValue={formData?.[populators.name]}
+                rules={{ required: populators?.isMandatory }}
+                render={(props) => {
+                  return (
+                    <div style={{ display: "grid", gridAutoFlow: "row" }}>
+                      <WorkflowStatusFilter
+                        inboxResponse={data}
+                        props={props}
+                        populators={populators}
+                        t={t}
+                        formData={formData}
+                      />
+                    </div>
+                  );
+                }}
+              />
+            );
+            case "dateRange":
+              return (
+                <Controller
+                  render={(props) => (
+                    <DateRangeNew
+                      t={t}
+                      values={formData?.[populators.name]?.range}
+                      // values={
+                      //   typeof formData?.[populators.name]?.range?.startDate === "string" ?
+                      //   {
+                      //   duration: formData?.[populators.name]?.range?.duration,
+                      //   endDate: new Date(
+                      //     formData?.[populators.name]?.range?.endDate
+                      //   ),
+                      //   startDate: new Date(
+                      //     formData?.[populators.name]?.range?.startDate
+                      //   ),
+                      //   title:
+                      //     formData?.[populators.name]?.range?.startDate?.title,
+                      // }: formData?.[populators.name]?.range}
+                      name={populators.name}
+                      onFilterChange={props.onChange}
+                      inputRef={props.ref}
+                      errorStyle={errors?.[populators.name]}
+                      populators={populators}
+                    />
+                  )}
+                  rules={{ required: isMandatory, ...populators.validation }}
+                  defaultValue={formData?.[populators.name]}
+                  name={populators?.name}
+                  control={control}
+                />
+              );
+
+            case "component":
+            return (
+              <Controller
+                render={(props) => (
+                  <Component
+                    userType={"employee"}
+                    t={t}
+                    setValue={setValue}
+                    onSelect={setValue}
+                    config={config}
+                    data={formData}
+                    formData={formData}
+                    register={register}
+                    errors={errors}
+                    props={props}
+                    setError={setError}
+                    clearErrors={clearErrors}
+                    onBlur={props.onBlur}
+                    control={control}
+                    getValues={getValues}
+                    responseData={data}
+                    populators={populators}
+                  />
+                )}
+                name={config?.key}
+                control={control}
+              />
+            );
                     
-                    default:
-                      return populators?.dependency !== false ? populators : null;
-              }
-          };
-      
+            default:
+                return populators?.dependency !== false ? populators : null;
+        }
+    };
+
+    return (
+      <React.Fragment>
+        {fields?.map((item, index) => {
           return (
-            <React.Fragment>
-              {fields?.map((item, index) => {
-                return (
-                  <LabelFieldPair key={index} style={item.hideInForm ? {"display":"none"}:{}}>
-                      { item.label && (
-                        <CardLabel style={{...props.labelStyle,marginBottom:"0.4rem"}}>
-                          {t(item.label)}{ item?.isMandatory ? " * " : null }
-                        </CardLabel>) 
-                      }
-      
-                      { fieldSelector(item.type, item.populators, item.isMandatory, item?.disable, item?.component, item) }
-                      
-                      { item?.populators?.name && errors && errors[item?.populators?.name] && Object.keys(errors[item?.populators?.name]).length ? (
-                        <CardLabelError style={{ fontSize: "12px", marginTop: "-20px" }}>
-                          {t(item?.populators?.error)}
-                        </CardLabelError> ) : null
-                      }
-                  </LabelFieldPair>
-                )
-              })}
-            </React.Fragment>
+            <LabelFieldPair key={index} style={item.hideInForm ? {"display":"none"}:{}}>
+                { item.label && (
+                  <CardLabel style={{...props.labelStyle,marginBottom:"0.4rem"}}>
+                    {t(item.label)}{ item?.isMandatory ? " * " : null }
+                  </CardLabel>) 
+                }
+
+                { fieldSelector(item.type, item.populators, item.isMandatory, item?.disable, item?.component, item) }
+                
+                { item?.populators?.name && errors && errors[item?.populators?.name] && Object.keys(errors[item?.populators?.name]).length ? (
+                  <CardLabelError style={{ fontSize: "12px", marginTop: "-20px" }}>
+                    {t(item?.populators?.error)}
+                  </CardLabelError> ) : null
+                }
+            </LabelFieldPair>
           )
-      }
-      
-      export default RenderFormFields;
+        })}
+      </React.Fragment>
+    )
+}
+
+export default RenderFormFields;

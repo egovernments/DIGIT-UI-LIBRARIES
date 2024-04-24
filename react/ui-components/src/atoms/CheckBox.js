@@ -1,89 +1,71 @@
-import React, { Fragment } from "react";
-import { SVG } from "./SVG";
-import StringManipulator from "./StringManipulator";
+import React,{Fragment} from "react";
+import { CheckSvg } from "./svgindex";
 import PropTypes from "prop-types";
 import { useTranslation } from "react-i18next";
-
-const CheckBox = ({
-  onChange,
-  label,
-  value,
-  disabled,
-  ref,
-  checked,
-  inputRef,
-  pageType,
-  style,
-  index,
-  isLabelFirst,
-  customLabelMarkup,
-  ...props
-}) => {
-  const { t } = useTranslation();
-  const userType = pageType || window?.Digit?.SessionStorage.get("userType");
-  let styles = props.styles;
-
-  const sentenceCaseLabel = StringManipulator("toSentenceCase", label);
-
-  return (
-    <div
-      className={`digit-checkbox-container ${
-        !isLabelFirst ? "checkboxFirst" : "labelFirst"
-      } ${disabled ? "disabled" : " "}`}
-    >
-      {isLabelFirst ? (
-        <p className="label" style={{ maxWidth: "100%", width: "auto" ,marginRight:"0rem"}}>
-          {customLabelMarkup ? (
-            <>
-              <span>{t("COMMON_CERTIFY_ONE")}</span>
-              <br />
-              <span>
-                <b> {t("ES_COMMON_NOTE")}</b>
-                {t("COMMON_CERTIFY_TWO")}
-              </span>
-            </>
-          ) : (
-            sentenceCaseLabel
-          )}
+const CheckBox = ({ onChange, label, value, disable, ref, checked, inputRef, pageType, style, index, isLabelFirst,customLabelMarkup,  ...props }) => {
+  const { t } = useTranslation()
+  const userType = pageType || Digit.SessionStorage.get("userType");
+  let wrkflwStyle = props.styles;
+  if (isLabelFirst) {
+    return (
+      <div className="checkbox-wrap" style={wrkflwStyle ? wrkflwStyle : {}}>
+        <p style={style ? style : null}> {index+1}.</p>
+        <p className="label" style={{maxWidth: "80%", marginLeft: "10px"}}>
+          {label}
         </p>
-      ) : null}
-      <div style={{ cursor: "pointer", display: "flex", position: "relative" }}>
-        <input
-          type="checkbox"
-          className={`input ${userType === "employee" ? "input-emp" : ""}`}
-          onChange={onChange}
-          value={value || label}
-          {...props}
-          ref={inputRef}
-          disabled={disabled}
-          checked={checked}
-        />
-        <p
-          className={`digit-custom-checkbox ${
-            userType === "employee" ? "digit-custom-checkbox-emp" : ""
-          }`}
-        >
-          <SVG.Check fill={disabled ? "#B1B4B6" : "#F47738"} />
+        <div>
+          <input
+            type="checkbox"
+            className={userType === "employee" ? "input-emp" : ""}
+            onChange={onChange}
+            style={{ cursor: "pointer", left: "90%" }}
+            value={value || label}
+            {...props}
+            ref={inputRef}
+            disabled={disable}
+            checked={checked}
+          />
+          <p className={userType === "employee" ? "custom-checkbox-emp" : "custom-checkbox"} style={disable ? { opacity: 0.5 } : {left: "90%"}}>
+            <CheckSvg />
+          </p>
+        </div>
+      </div>
+    );
+  } else {
+    return (
+      <div className="checkbox-wrap" style={wrkflwStyle ? wrkflwStyle : {}}>
+        <div>
+          <input
+            type="checkbox"
+            className={userType === "employee" ? "input-emp" : ""}
+            onChange={onChange}
+            style={{ cursor: "pointer" }}
+            value={value || label}
+            {...props}
+            ref={inputRef}
+            disabled={disable}
+            // {(checked ? (checked = { checked }) : null)}
+            checked={checked}
+          />
+          <p className={userType === "employee" ? "custom-checkbox-emp" : "custom-checkbox"} style={disable ? { opacity: 0.5 } : (props?.checkboxWidth ? {...props?.checkboxWidth} : null)}>
+            {/* <img src={check} alt="" /> */}
+            <CheckSvg />
+          </p>
+        </div>
+        <p className="label" style={style ? style : null}>
+        {customLabelMarkup ? 
+          <>
+            <p>{t("COMMON_CERTIFY_ONE")}</p>
+            <br />
+            <p>
+            <b> {t("ES_COMMON_NOTE")}</b>{t("COMMON_CERTIFY_TWO")}
+            </p>
+            </> : label}
         </p>
       </div>
-      {!isLabelFirst ? (
-        <p className="label" style={{ maxWidth: "100%", width: "100%",marginRight:"0rem" }}>
-          {customLabelMarkup ? (
-            <>
-              <span>{t("COMMON_CERTIFY_ONE")}</span>
-              <br />
-              <span>
-                <b> {t("ES_COMMON_NOTE")}</b>
-                {t("COMMON_CERTIFY_TWO")}
-              </span>
-            </>
-          ) : (
-            sentenceCaseLabel
-          )}
-        </p>
-      ) : null}
-    </div>
-  );
+    );
+  }
+  
 };
 
 CheckBox.propTypes = {
@@ -102,15 +84,6 @@ CheckBox.propTypes = {
   userType: PropTypes.string,
 };
 
-CheckBox.defaultProps = {
-  label: "Default",
-  isLabelFirst: false,
-  onChange: () => console.log("CLICK"),
-  value: "",
-  checked: false,
-  ref: "ww",
-  // pageType: "EMPLOYEE",
-  index: 0,
-};
+CheckBox.defaultProps = {};
 
 export default CheckBox;

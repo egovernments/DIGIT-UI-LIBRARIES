@@ -11,7 +11,7 @@ import MobileSearchComponent from "./MobileView/MobileSearchComponent";
 import MediaQuery from 'react-responsive';
 import _ from "lodash";
 import { useTranslation } from "react-i18next";
-import MobileSearchResultsv1 from "./MobileView/MobilSearchResultsV1";
+import MobileSearchResultsv1 from "./MobileView/MobileSearchResultsv1";
 import RemovableTags from "./RemovableTags";
 
 function isFalsyOrEmpty(input) {
@@ -33,7 +33,8 @@ function isFalsyOrEmpty(input) {
     
     return false;
   }
-  const InboxSearchComposerV2 = ({configs,scrollPosition,browserSession,additionalConfig}) => {
+
+const InboxSearchComposerV2 = ({configs,scrollPosition,browserSession,additionalConfig}) => {
     
     
     const [session,setSession,clearSession] = browserSession || []
@@ -111,7 +112,7 @@ function isFalsyOrEmpty(input) {
     //adding another effect to sync session with state, the component invoking InboxSearchComposer will be passing session as prop
     useEffect(() => {
         // if(_.isEqual(state, initialInboxState)){
-             //     return 
+        //     return 
         // }
         // if(_.isEqual(state, session)){
         //     return 
@@ -127,6 +128,8 @@ function isFalsyOrEmpty(input) {
         // }
         
     },[state])
+
+    
 
     let requestCriteria = {
         url:configs?.apiDetails?.serviceName,
@@ -248,7 +251,7 @@ function isFalsyOrEmpty(input) {
                                 data={data}
                                 browserSession={browserSession}
                                 />
-                                   </div>
+                        </div>
                      </MediaQuery>
                 }
                 {   
@@ -287,7 +290,7 @@ function isFalsyOrEmpty(input) {
                                 setPopup(true);
                             }}
                         />
-                    )}
+                        )}
                     </div>
                    </MediaQuery>
                 }
@@ -327,60 +330,60 @@ function isFalsyOrEmpty(input) {
                               isFetching={isFetching} 
                               fullConfig={configs}/> */}
                               <MobileSearchResultsv1
-                               config={configs?.sections?.searchResult?.uiConfig} 
-                               data={data} 
-                               isLoading={isLoading} 
-                               isFetching={isFetching} 
-                               fullConfig={configs}/>
-                             </MediaQuery>
-                         </div>
-                 }
-                 {popup && (
-               <PopUp>
-               {type === "FILTER" && (
-                 <div className="popup-module">
-                     <MobileSearchComponent
-                     uiConfig={ configs?.sections?.filter?.uiConfig} 
-                     header={configs?.sections?.filter?.label} 
-                     modalType={type}
-                     screenType={configs.type}
-                     fullConfig={configs}
-                     data={data}
-                     onClose={handlePopupClose}
-                     defaultValues={configs?.sections?.filter?.uiConfig?.defaultValues}
-                     browserSession={browserSession}
-                     />
-                 </div>
-               )}
-               {/* {type === "SORT" && (
-             <div className="popup-module">
-               {<SortBy type="mobile" sortParams={sortParams} onClose={handlePopupClose} onSort={onSort} />}
-             </div>
-               )} */}
-               {type === "SEARCH" && (
-                 <div className="popup-module">
-                     <MobileSearchComponent
-                     uiConfig={ configs?.sections?.search?.uiConfig} 
-                     header={configs?.sections?.search?.label} 
-                     modalType={type}
-                     screenType={configs.type}
-                     fullConfig={configs}
-                     data={data}
-                     onClose={handlePopupClose}
-                     defaultValues={configs?.sections?.search?.uiConfig?.defaultValues}
-                     browserSession={browserSession}
-                     />
-                 </div>
-               )}
-             </PopUp>
-           )}
-             </div>
-             <div className="additional-sections-parent">
-                 {/* One can use this Parent to add additional sub parents to render more sections */}
-             </div>
-             </div>   
-         </InboxContext.Provider>
-     )
- }
- 
- export default InboxSearchComposerV2;
+                              config={configs?.sections?.searchResult?.uiConfig} 
+                              data={data} 
+                              isLoading={isLoading} 
+                              isFetching={isFetching} 
+                              fullConfig={configs}/>
+                            </MediaQuery>
+                        </div>
+                }
+                {popup && (
+              <PopUp>
+              {type === "FILTER" && (
+                <div className="popup-module">
+                    <MobileSearchComponent
+                    uiConfig={ configs?.sections?.filter?.uiConfig} 
+                    header={configs?.sections?.filter?.label} 
+                    modalType={type}
+                    screenType={configs.type}
+                    fullConfig={configs}
+                    data={data}
+                    onClose={handlePopupClose}
+                    defaultValues={configs?.sections?.filter?.uiConfig?.defaultValues}
+                    browserSession={browserSession}
+                    />
+                </div>
+              )}
+              {/* {type === "SORT" && (
+            <div className="popup-module">
+              {<SortBy type="mobile" sortParams={sortParams} onClose={handlePopupClose} onSort={onSort} />}
+            </div>
+              )} */}
+              {type === "SEARCH" && (
+                <div className="popup-module">
+                    <MobileSearchComponent
+                    uiConfig={ configs?.sections?.search?.uiConfig} 
+                    header={configs?.sections?.search?.label} 
+                    modalType={type}
+                    screenType={configs.type}
+                    fullConfig={configs}
+                    data={data}
+                    onClose={handlePopupClose}
+                    defaultValues={configs?.sections?.search?.uiConfig?.defaultValues}
+                    browserSession={browserSession}
+                    />
+                </div>
+              )}
+            </PopUp>
+          )}
+            </div>
+            <div className="additional-sections-parent">
+                {/* One can use this Parent to add additional sub parents to render more sections */}
+            </div>
+            </div>   
+        </InboxContext.Provider>
+    )
+}
+
+export default InboxSearchComposerV2;
