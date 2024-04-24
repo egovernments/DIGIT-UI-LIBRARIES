@@ -1,9 +1,9 @@
 import React from "react";
-import { SVG } from "../atoms/SVG";
+import { SearchIconSvg,FilterSvg,FilterIcon } from "../atoms/svgindex";
 
 const SearchAction = ({ text, handleActionClick }) => (
-  <div className="digit-search-action" onClick={handleActionClick}>
-    <SVG.Search /> <span className="digit-search-text">{text}</span>
+  <div className="searchAction" onClick={handleActionClick}>
+    <FilterIcon fill={"#f47738"}/> <span className="searchText">{text}</span>
   </div>
 );
 

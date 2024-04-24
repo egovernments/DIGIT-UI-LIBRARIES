@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react"
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-// import { PropertyHouse, BioMetricIcon,WorksMgmtIcon} from "./svgindex";
 
 const getIconComponent = (iconName="")=>{
-    return require("@egovernments/digit-ui-svg-components")?.[iconName];
+    return require("@egovernments/digit-ui-react-components")?.[iconName];
 }
 
 const InboxSearchLinks = ({headerText, links, businessService, customClass="", logoIcon}) => {
