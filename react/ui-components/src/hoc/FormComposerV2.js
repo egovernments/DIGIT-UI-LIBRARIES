@@ -265,6 +265,7 @@ export const FormComposer = (props) => {
                     ? { ...wrapperStyles, ...field?.populators?.customStyle }
                     : { border: "none", background: "white", ...field?.populators?.customStyle }
                 }
+                className={props?.labelfielddirectionvertical ? "vertical" : ""}
               >
                 {fieldSelector(field.type, field.populators, field.isMandatory, field?.disable, field?.component, field, sectionFormCategory)}
 

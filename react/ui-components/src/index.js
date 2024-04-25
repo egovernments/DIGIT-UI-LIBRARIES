@@ -66,7 +66,8 @@ import {
   RoundedLabel,
   Stepper,
   Timeline,
-  StringManipulator
+  StringManipulator,
+  InfoButton,
 } from "./atoms";
 
 import {
@@ -314,6 +315,7 @@ export {
   Stepper,
   Timeline,
   StringManipulator,
+  InfoButton,
   InboxSearchLinks,
   SearchComponent,
   InboxSearchComposer,

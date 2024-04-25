@@ -231,7 +231,11 @@ const commonArgs = {
     options: gendersOptions,
     showIcon: false,
     isSearchable:true,
-    clearLabel:"Clear All"
+    clearLabel:"Clear All",
+    addSelectAllCheck:false,
+    addCategorySelectAllCheck:false,
+    selectAllLabel: "",
+    categorySelectAllLabel:""
   },
   error: "",
   inputRef: null,
@@ -280,6 +284,17 @@ MultiSelectDropdown.args = {
   populators: {
     ...commonArgs.populators,
     isDropdownWithChip: true,
+  },
+};
+
+export const MultiSelectDropdownWithSelectAllCheck = Template.bind({});
+MultiSelectDropdownWithSelectAllCheck.args = {
+  ...commonArgs,
+  type: "multiselectdropdown",
+  populators: {
+    ...commonArgs.populators,
+    isDropdownWithChip: true,
+    addSelectAllCheck:true,
   },
 };
 
@@ -350,6 +365,21 @@ NestedMultiSelectDropdown.args = {
     name: "nestedmultiselectoptions",
     options: nestedOptions,
     isDropdownWithChip: true,
+  },
+  variant: "nestedmultiselect",
+};
+
+export const NestedMultiSelectDropdownWithSelectAllCheck = Template.bind({});
+NestedMultiSelectDropdownWithSelectAllCheck.args = {
+  ...commonArgs,
+  type: "multiselectdropdown",
+  populators: {
+    ...commonArgs.populators,
+    name: "nestedmultiselectoptions",
+    options: nestedOptions,
+    isDropdownWithChip: true,
+    addSelectAllCheck:true,
+    addCategorySelectAllCheck:true
   },
   variant: "nestedmultiselect",
 };
@@ -427,6 +457,20 @@ NestedTextMultiSelect.args = {
     name: "nestedtextltiselect",
     options: OptionsWithNestedText,
     isDropdownWithChip: true,
+  },
+  variant: "nestedtextmultiselect",
+};
+
+export const NestedTextMultiSelectWithSelectAllCheck = Template.bind({});
+NestedTextMultiSelectWithSelectAllCheck.args = {
+  ...commonArgs,
+  type: "multiselectdropdown",
+  populators: {
+    ...commonArgs.populators,
+    name: "nestedtextltiselect",
+    options: OptionsWithNestedText,
+    isDropdownWithChip: true,
+    addSelectAllCheck:true
   },
   variant: "nestedtextmultiselect",
 };

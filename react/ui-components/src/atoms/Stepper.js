@@ -17,10 +17,10 @@ const Stepper = ({
   const { t } = useTranslation();
 
   const [isMobileView, setIsMobileView] = React.useState(
-    window.innerWidth <= 480
+    (window.innerWidth / window.innerHeight <= 9/16)
   );
   const onResize = () => {
-    if (window.innerWidth <= 480) {
+    if (window.innerWidth / window.innerHeight <= 9/16) {
       if (!isMobileView) {
         setIsMobileView(true);
       }
@@ -90,11 +90,11 @@ const Stepper = ({
             <span
               className={`stepper-label ${
                 index < currentStep - 1 && "completed"
-              } ${currentStep - 1 === index && "current"}`}
+              } ${currentStep - 1 === index && "current"} ${direction ? direction : ""}`}
               style={{ ...props?.labelStyles }}
             >
               {t(
-                StringManipulator("truncateString", action, { maxLength: 64 })
+                StringManipulator("TRUNCATESTRING", action, { maxLength: 64 })
               )}
             </span>
           </div>

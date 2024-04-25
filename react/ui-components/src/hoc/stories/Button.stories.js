@@ -12,6 +12,7 @@ export default {
       control: "text",
     },
     variation: { control: "select", options: ["primary", "secondary", "teritiary", "link"] },
+    size: { control: "select", options: ["large", "medium", "small"] },
     className: {
       control: "text",
     },
@@ -37,6 +38,7 @@ const commonArgs = {
   isDisabled: false,
   variation: "",
   isSuffix: false,
+  size:""
 };
 
 // Button default

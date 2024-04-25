@@ -67,6 +67,7 @@ import RoundedLabel from "./RoundedLabel";
 import Stepper from "./Stepper";
 import Timeline from "./Timeline";
 import StringManipulator from "./StringManipulator";
+import InfoButton from "./InfoButton";
 
 import {
   AnnouncementIcon,
@@ -270,6 +271,7 @@ export {
   Stepper,
   Timeline,
   StringManipulator,
+  InfoButton,
   InboxSearchLinks,
   SearchComponent,
   LinkLabel,

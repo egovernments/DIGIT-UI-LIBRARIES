@@ -152,7 +152,7 @@ const TreeMultiSelect = ({ option, onSelect, isSelected, renderOptions, level = 
           {isIntermediate() ? (
             <div className="intermediate-state"></div>
           ) : (
-            <SVG.Check fill={(allChildrenSelected || isSelected(option)) && !isParentSelected ? "#FFFFFF" : "#F47738"} />
+            <SVG.Check fill={(allChildrenSelected || isSelected(option)) && !isParentSelected ? "#FFFFFF" : "#C84C0E"} />
           )}
         </div>
         <div className="digit-option-label">{option.name}</div>
