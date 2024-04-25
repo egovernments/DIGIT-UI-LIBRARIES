@@ -4,7 +4,7 @@
   @apply leading-10 flex justify-between flex-wrap;
   margin-bottom: 0.5rem;
 
-  @media (max-width: 30rem) {
+  @media (max-aspect-ratio: 9/16) {
     @apply flex-col;
   }
 
@@ -17,14 +17,14 @@
 
     &:hover {
       .digit-radio-btn-checkmark {
-        @apply border-primary-main;
+        border-color: theme(digitv2.lightTheme.primary-1);
       }
     }
 
     &:active {
       .digit-radio-btn-checkmark {
-        @apply border-primary-main;
         outline: 0.188rem solid #FFFAF7;
+        border-color: theme(digitv2.lightTheme.primary-1);
       }
     }
 
@@ -76,10 +76,8 @@
 
   label {
     @extend .typography.body-s;
-    line-height: 1.172rem;
     color: theme(digitv2.lightTheme.text-primary);
     overflow-wrap: anywhere;
-    margin-top: 0.25rem;
   }
 
   .digit-radio-btn-checkmark:after {
@@ -87,13 +85,14 @@
   }
 
   .digit-radio-btn-wrap input:checked~.digit-radio-btn-checkmark {
-    border: 0.125rem solid theme(digitv2.lightTheme.primary-orange);
+    border: 0.125rem solid theme(digitv2.lightTheme.primary-1);
   }
 
   .digit-radio-btn-wrap input:checked~.digit-radio-btn-checkmark:after {
-    @apply block bg-primary-main h-3 w-3 rounded-full absolute;
+    @apply block h-3 w-3 rounded-full absolute;
     top: 25%;
-    left: 25%
+    left: 25%;
+    background-color: theme(digitv2.lightTheme.primary-1);
   }
 
   .preselected .digit-radio-btn-wrap input:checked~.digit-radio-btn-checkmark {

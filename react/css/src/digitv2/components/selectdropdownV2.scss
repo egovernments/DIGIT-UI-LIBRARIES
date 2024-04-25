@@ -1,18 +1,18 @@
 .digit-dropdown-employee-select-wrap {
   @apply w-full relative;
 
-  @media (min-width: 30.063rem) and (max-width: 47.938rem) {
+  @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
     /* Media query for tablets */
     max-width: 27.5rem;
   }
 
-  @media (max-width: 30rem) {
+  @media (max-aspect-ratio: 9/16) {
     /* Media query for mobile */
     max-width: 20.5rem;
     width: 100%;
   }
 
-  @media (min-width: 48rem) {
+  @media (min-aspect-ratio: 3/4) {
     /* Media query for desktop */
     max-width: 37.5rem;
   }
@@ -35,15 +35,14 @@
 
 
     input[type="text"] {
-      @extend .light-text-color-primary;
-      width: calc(100% - 2rem);
+      @extend .typography.body-l;
+      @apply absolute z-10 h-full outline-none;
+      width:calc(100%-1.75rem);
       background-color: transparent;
-      @apply absolute z-10 w-full h-full outline-none text-text-primary;
-      line-height: 1.5rem;
-      font-size: 1rem;
       padding-top: 0.5rem;
       padding-bottom: 0.5rem;
       padding-left: 0.75rem;
+      color: theme(digitv2.lightTheme.text-primary);
     }
 
     p {
@@ -63,20 +62,19 @@
 
   .digit-dropdown-select-active {
     @apply relative block w-full h-10;
-    border: 0.063rem solid #F47738;
+    border: 0.063rem solid theme(digitv2.lightTheme.primary-1);
 
 
     input[type="text"] {
-      @extend .light-text-color-primary;
-      width: calc(100% - 2rem);
+      @extend .typography.body-l;
+      @apply absolute z-10 h-full outline-none;
+      width:calc(100%-1.75rem);
       background-color: transparent;
-
-      @apply absolute z-10 w-full h-full outline-none text-text-primary;
-      line-height: 1.5rem;
       font-size: 1rem;
       padding-top: 0.5rem;
       padding-bottom: 0.5rem;
       padding-left: 0.75rem;
+      color: theme(digitv2.lightTheme.text-primary);
     }
 
     p {
@@ -125,17 +123,17 @@
   }
 }
 
-.digit-options-card::-webkit-scrollbar {
+.digit-dropdown-options-card::-webkit-scrollbar {
   width: 0.5rem;
   background-color: theme(digitv2.lightTheme.generic-background);
 }
 
-.digit-options-card::-webkit-scrollbar-track {
+.digit-dropdown-options-card::-webkit-scrollbar-track {
   background-color: theme(digitv2.lightTheme.generic-background);
   border-radius: 0.563rem;
 }
 
-.digit-options-card::-webkit-scrollbar-thumb {
+.digit-dropdown-options-card::-webkit-scrollbar-thumb {
   background-color: theme(digitv2.lightTheme.generic-divider);
   border-radius: 0.563rem;
 }
@@ -154,21 +152,17 @@
 }
 
 .digit-category-name {
-  @apply flex items-center font-bold overflow-hidden whitespace-no-wrap;
+  @extend .typography.heading-s;
+  @apply flex items-center overflow-hidden whitespace-no-wrap;
   color: theme(digitv2.lightTheme.text-secondary);
-  font-family: theme(digitv2.fontFamily.sans);
-  font-size: 1rem;
-  font-style: theme(digitv2.fontStyle.normal);
-  line-height: 1.188rem;
   gap: 0.25rem;
-  height: 1.188rem;
 }
 
 .digit-dropdown-item {
 
   @apply flex flex-row;
   padding: 0.625rem;
-  gap:0.625rem;
+  gap: 0.625rem;
   min-height: 2.438rem;
   color: theme(digitv2.lightTheme.text-primary) !important;
 
@@ -180,31 +174,29 @@
   }
 
   .option-des-container {
-    @apply flex flex-col justify-center items-start w-full max-w-full overflow-hidden box-border;
+    @apply flex-col justify-center w-full max-w-full overflow-hidden box-border;
+    display: flex !important;
+    align-items: center;
     min-height: 1.125rem;
 
 
     .main-option {
-      @apply whitespace-no-wrap w-full overflow-hidden;
-      line-height: 1.125rem;
-      font-size: 0.875rem;
-      min-height: 1.125rem;
+      @extend .typography.body-s;
+      @apply whitespace-no-wrap w-full max-w-full overflow-hidden;
+      text-overflow: ellipsis;
+
 
       &.nestedtextdropdown,
       &.profilenestedtext {
-        line-height: 1.5rem;
-        font-size: 1rem;
+        @extend .typography.body-l;
+        color: theme(digitv2.lightTheme.text-secondary);
       }
     }
 
 
     .option-description {
+      @extend .typography.body-xs;
       color: theme(digitv2.lightTheme.text-secondary);
-      font-family: theme(digitv2.fontFamily.sans);
-      font-size: 0.75rem;
-      font-style: theme(digitv2.fontStyle.normal);
-      font-weight: theme(digitv2.fontWeight.regular);
-      line-height: 1.125rem;
     }
   }
 
@@ -217,9 +209,6 @@
     position: relative;
     height: 2.4375rem;
 
-    .option-des-container {
-      height: 1.125rem;
-    }
 
     &::before {
       content: "";
@@ -239,12 +228,13 @@
   }
 
   &:hover {
-    background: #FFFAF7 !important;
-    border: 0.031rem solid theme(digitv2.lightTheme.primary-orange);
+    background: theme(digitv2.lightTheme.primary-bg) !important;
+    border: 0.031rem solid theme(digitv2.lightTheme.primary-1);
   }
 
   &:active {
-    background: theme(digitv2.lightTheme.primary-orange) !important;
+    background: theme(digitv2.lightTheme.primary-1) !important;
+
 
     span,
     .option-description {
@@ -255,10 +245,10 @@
       width: 6.25rem;
     }
 
-    .main-option {
-      font-weight: theme(digitv2.fontWeight.bold);
-      font-size: 1rem;
-      line-height: 1.188rem;
+    .option-des-container {
+      .main-option {
+        @extend .typography.heading-s;
+      }
     }
   }
 
@@ -268,11 +258,20 @@
     color: theme(digitv2.lightTheme.text-secondary) !important;
 
     &:hover {
-      border: 0.063rem solid theme(digitv2.lightTheme.primary-orange);
+      border: 0.063rem solid theme(digitv2.lightTheme.primary-1);
     }
 
     .option-des-container {
       padding-right: 0.125rem !important;
+    }
+
+    &:active {
+      .option-des-container {
+        .main-option {
+          @extend .typography.heading-s;
+          color: theme(digitv2.lightTheme.paper-primary);
+        }
+      }
     }
   }
 
@@ -287,12 +286,31 @@
     gap: 1rem;
     align-items: center;
     color: theme(digitv2.lightTheme.text-secondary) !important;
+
+    &:active {
+      .option-des-container {
+        .main-option {
+          @extend .typography.heading-s;
+          color: theme(digitv2.lightTheme.paper-primary);
+        }
+      }
+    }
+  }
+
+  &.unsuccessfulresults {
+    background-color: theme(digitv2.lightTheme.paper-secondary);
+    pointer-events: none;
+
+    span {
+      @extend .typography.body-s;
+      color: theme(digitv2.lightTheme.text-disabled);
+    }
   }
 }
 
 .digit-dropdown-employee-select-wrap--elipses {
   @apply overflow-hidden whitespace-no-wrap;
-  width: 85% !important;
+  width:calc(100%-1.75rem);
   text-overflow: ellipsis;
 
   &.treedropdown,
@@ -304,18 +322,18 @@
 .digit-dropdown-select-wrap {
   @apply mb-lg relative bg-white;
 
-  @media (min-width: 30.063rem) and (max-width: 47.938rem) {
+  @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
     /* Media query for tablets */
     max-width: 27.5rem;
   }
 
-  @media (max-width: 30rem) {
+  @media (max-aspect-ratio: 9/16) {
     /* Media query for mobile */
     max-width: 20.5rem;
     width: 100%;
   }
 
-  @media (min-width: 48rem) {
+  @media (min-aspect-ratio: 3/4) {
     /* Media query for desktop */
     max-width: 37.5rem;
   }
@@ -326,15 +344,14 @@
     border: 0.063rem solid theme(digitv2.lightTheme.text-secondary);
 
     input[type="text"] {
-      @extend .light-text-color-primary;
-      width: calc(100% - 2rem);
+      @extend .typography.body-l;
+      @apply absolute z-10  h-full outline-none;
+      width:calc(100%-1.75rem);
       background-color: transparent;
-      @apply absolute z-10 w-full h-full outline-none text-text-primary;
-      line-height: 1.5rem;
-      font-size: 1rem;
       padding-top: 0.5rem;
       padding-bottom: 0.5rem;
       padding-left: 0.75rem;
+      color: theme(digitv2.lightTheme.text-primary);
     }
 
 
@@ -361,18 +378,17 @@
 
   .digit-dropdown-select-active {
     @apply relative block w-full h-10;
-    border: 0.063rem solid #F47738;
+    border: 0.063rem solid theme(digitv2.lightTheme.primary-1);
 
     input[type="text"] {
-      @extend .light-text-color-primary;
-      width: calc(100% - 2rem);
+      @extend .typography.body-l;
+      @apply absolute z-10  h-full outline-none;
+      width:calc(100%-1.75rem);
       background-color: transparent;
-      @apply absolute z-10 w-full h-full outline-none text-text-primary;
-      line-height: 1.5rem;
-      font-size: 1rem;
       padding-top: 0.5rem;
       padding-bottom: 0.5rem;
       padding-left: 0.75rem;
+      color: theme(digitv2.lightTheme.text-primary);
     }
 
     p {

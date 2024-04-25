@@ -24,20 +24,19 @@
   .digit-toggle-label {
     @extend .typography.body-xs;
     @apply w-full overflow-hidden whitespace-no-wrap;
-    line-height: 1.25rem;
     color: theme(digitv2.lightTheme.text-disabled);
     text-overflow: ellipsis;
   }
 
   &:hover,
   &:active {
-    border: 0.063rem solid theme(digitv2.lightTheme.primary-orange);
+    border: 0.063rem solid theme(digitv2.lightTheme.primary-1);
     background: theme(digitv2.lightTheme.paper-primary);
     width: 7.125rem;
-    color: theme(digitv2.lightTheme.primary-orange);
+    color: theme(digitv2.lightTheme.primary-1);
 
     .digit-toggle-label {
-      color: theme(digitv2.lightTheme.primary-orange) !important;
+      color: theme(digitv2.lightTheme.primary-1) !important;
     }
   }
 
@@ -47,19 +46,17 @@
 
   input:checked+.digit-toggle-label {
     @extend .typography.heading-s;
-    background-color: theme(digitv2.lightTheme.primary-orange);
+    background-color: theme(digitv2.lightTheme.primary-1);
     color: theme(digitv2.lightTheme.paper-primary) !important;
-    line-height: 1.172rem;
   }
 
   &.checked {
-    background-color: theme(digitv2.lightTheme.primary-orange);
+    background-color: theme(digitv2.lightTheme.primary-1);
     width: 7.125rem;
-    border: 0.063rem solid theme(digitv2.lightTheme.primary-orange);
+    border: 0.063rem solid theme(digitv2.lightTheme.primary-1);
 
     .digit-toggle-label {
       @extend .typography.heading-s;
-      line-height: 1.172rem;
       color: theme(digitv2.lightTheme.paper-primary);
     }
   }
