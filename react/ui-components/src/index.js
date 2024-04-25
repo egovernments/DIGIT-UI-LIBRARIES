@@ -68,6 +68,9 @@ import {
   Timeline,
   StringManipulator,
   InfoButton,
+  Uploader,
+  UploadPopup,
+  DocPreview
 } from "./atoms";
 
 import {
@@ -316,6 +319,9 @@ export {
   Timeline,
   StringManipulator,
   InfoButton,
+  Uploader,
+  UploadPopup,
+  DocPreview,
   InboxSearchLinks,
   SearchComponent,
   InboxSearchComposer,

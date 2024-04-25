@@ -68,6 +68,9 @@ import Stepper from "./Stepper";
 import Timeline from "./Timeline";
 import StringManipulator from "./StringManipulator";
 import InfoButton from "./InfoButton";
+import Uploader  from "./Uploader";
+import UploadPopup from "./UploadPopup";
+import DocPreview from "./DocPreview";
 
 import {
   AnnouncementIcon,
@@ -272,6 +275,9 @@ export {
   Timeline,
   StringManipulator,
   InfoButton,
+  Uploader,
+  UploadPopup,
+  DocPreview,
   InboxSearchLinks,
   SearchComponent,
   LinkLabel,
