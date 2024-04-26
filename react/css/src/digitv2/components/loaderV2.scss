@@ -27,7 +27,11 @@
 }
 
 .digit-page-loader {
-  padding-top: 88px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: unset;
 }
 
 .digit-module-loader {
