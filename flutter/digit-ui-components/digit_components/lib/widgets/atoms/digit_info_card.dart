@@ -1,6 +1,6 @@
-import 'package:digit_ui_components/constants/app_constants.dart';
 import 'package:flutter/material.dart';
 import '../../constants/AppView.dart';
+import '../../constants/app_constants.dart';
 import '../../theme/colors.dart';
 import '../../theme/digit_theme.dart';
 import '../../theme/typography.dart';
@@ -11,41 +11,37 @@ class InfoCard extends StatelessWidget {
   final String description;
   final InfoType type;
   final IconData? icon;
-
-  /// List of additional widgets
   final List<Widget>? additionalWidgets;
-
-  /// Whether to display additional widgets inline or one below the other
   final bool inline;
+  final bool capitalizedLetter;
 
-  const InfoCard({super.key,
+  const InfoCard({
+    super.key,
     required this.title,
     required this.type,
     required this.description,
     this.icon,
     this.additionalWidgets,
     this.inline = false,
+    this.capitalizedLetter = true,
   });
 
   @override
   Widget build(BuildContext context) {
     IconData selectedIcon;
-
-
-
     Color iconColor;
     Color containerColor = const DigitColors().light.alertInfoBg;
     DigitTypography currentTypography = getTypography(context, false);
+
     double minWidth = AppView.isMobileView(MediaQuery.of(context).size)
         ? MediaQuery.of(context).size.width * .77
         : AppView.isTabletView(MediaQuery.of(context).size)
         ? MediaQuery.of(context).size.width * .48
         : MediaQuery.of(context).size.width * .27;
 
-    String capitalizedHeading = capitalizeFirstLetter(title)!;
-    String capitalizedDescription = capitalizeFirstLetter(description)!;
+    String capitalizedHeading = capitalizedLetter ? capitalizeFirstLetterOfEveryWord(title)! : title;
+    String capitalizedDescription = capitalizedLetter ? capitalizeFirstLetter(description)! : description;
 
-    /// Choose icon and color based on InfoType
     switch (type) {
       case InfoType.success:
         selectedIcon = Icons.check_circle;
@@ -77,22 +73,10 @@ class InfoCard extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: Common.radius,
           border: Border(
-            right: BorderSide(
-              color: iconColor,
-              width: 1,
-            ),
-            left: BorderSide(
-              color: iconColor,
-              width: 4,
-            ),
-            top: BorderSide(
-              color: iconColor,
-              width: 1,
-            ),
-            bottom: BorderSide(
-              color: iconColor,
-              width: 1,
-            ),
+            right: BorderSide(color: iconColor, width: 1),
+            left: BorderSide(color: iconColor, width: 4),
+            top: BorderSide(color: iconColor, width: 1),
+            bottom: BorderSide(color: iconColor, width: 1),
           ),
           color: containerColor,
         ),
@@ -100,8 +84,11 @@ class InfoCard extends StatelessWidget {
           padding: const EdgeInsets.all(kPadding * 2),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
             children: [
               Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start, // Aligns the icon to the top
                 children: [
                   Icon(
                     icon ?? selectedIcon,
@@ -110,12 +97,14 @@ class InfoCard extends StatelessWidget {
                   ),
                   const SizedBox(width: kPadding),
                   Expanded(
-                    child: Text(
-                      capitalizedHeading,
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
-                      style: currentTypography.headingS.copyWith(
-                        color: iconColor,
+                    child: Container(
+                      alignment: Alignment.topLeft,
+                      padding: const EdgeInsets.only(top: 3,),
+                      child: Text(
+                        capitalizedHeading,
+                        style: currentTypography.headingS.copyWith(
+                          color: iconColor,
+                        ),
                       ),
                     ),
                   ),
@@ -124,42 +113,28 @@ class InfoCard extends StatelessWidget {
               const SizedBox(height: kPadding),
               Text(
                 capitalizedDescription,
-                maxLines: 100,
-                overflow: TextOverflow.ellipsis,
                 style: currentTypography.bodyS.copyWith(
                   color: const DigitColors().light.textSecondary,
                 ),
               ),
               if (additionalWidgets != null)
-                const SizedBox(
-                  height: kPadding * 2,
-                ),
-
-              /// Display additional widgets based on the 'inline' prop
+                const SizedBox(height: kPadding * 2),
               if (additionalWidgets != null)
                 if (inline)
                   Wrap(
                     spacing: kPadding,
-                    children: additionalWidgets!
-                        .map(
-                          (widget) => Padding(
-                        padding: const EdgeInsets.only(right: kPadding),
-                        child: widget,
-                      ),
-                    )
-                        .toList(),
+                    children: additionalWidgets!.map((widget) => Padding(
+                      padding: const EdgeInsets.only(right: kPadding),
+                      child: widget,
+                    )).toList(),
                   )
                 else
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: additionalWidgets!
-                        .map(
-                          (widget) => Padding(
-                        padding: const EdgeInsets.only(right: kPadding),
-                        child: widget,
-                      ),
-                    )
-                        .toList(),
+                    children: additionalWidgets!.map((widget) => Padding(
+                      padding: const EdgeInsets.only(bottom: kPadding),
+                      child: widget,
+                    )).toList(),
                   ),
             ],
           ),
@@ -169,9 +144,4 @@ class InfoCard extends StatelessWidget {
   }
 }
 
-enum InfoType {
-  info,
-  success,
-  error,
-  warning,
-}
+enum InfoType { info, success, error, warning }

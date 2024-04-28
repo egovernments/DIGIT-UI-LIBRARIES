@@ -1014,7 +1014,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                         children: [
                           Text(
                             'Select All',
-                            style: currentTypography.bodyL.copyWith(
+                            style: currentTypography.bodyS.copyWith(
                                 color: const DigitColors().light.primary1),
                           ),
                           const SizedBox(

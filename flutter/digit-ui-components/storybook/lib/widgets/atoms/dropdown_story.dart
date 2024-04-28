@@ -164,7 +164,6 @@ List<Story> dropdownStories() {
               DropdownItem(
                 name: 'one',
                 code: '1',
-                type: 'group B',
               ),
               DropdownItem(
                 name: 'two',

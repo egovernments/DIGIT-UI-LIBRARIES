@@ -12,23 +12,13 @@ class DigitStepper extends StatefulWidget {
   const DigitStepper({
     Key? key,
     required this.stepperList,
-    this.gap = 40,
     this.activeIndex = 0,
     this.stepperDirection = Axis.horizontal,
     this.inverted = false,
-    this.activeBarColor,
-    this.inActiveBarColor,
-    this.barThickness = 2,
-    this.dotWidget,
-    this.scrollPhysics,
   }) : super(key: key);
 
   /// Stepper [List] of type [StepperData] to inflate stepper with data
   final List<StepperData> stepperList;
-
-  /// Gap between the items in the vertical stepper, Default = 40
-  /// Recommended to keep it greater than 20.
-  final double gap;
 
   /// Active index, till which [index] the stepper will be highlighted
   final int activeIndex;
@@ -41,21 +31,6 @@ class DigitStepper extends StatefulWidget {
   /// Inverts the stepper with text that is being used
   final bool inverted;
 
-  /// Bar color for active step
-  final Color? activeBarColor;
-
-  /// Bar color for inactive step
-  final Color? inActiveBarColor;
-
-  /// Bar width/thickness/height
-  final double barThickness;
-
-  /// [Widget] for dot/point
-  final Widget? dotWidget;
-
-  /// Scroll physics for listview
-  final ScrollPhysics? scrollPhysics;
-
   @override
   _AnotherStepperState createState() => _AnotherStepperState();
 }
@@ -67,7 +42,8 @@ class _AnotherStepperState extends State<DigitStepper> {
   @override
   void initState() {
     super.initState();
-    _scrollController = ScrollController(initialScrollOffset: _lastScrollOffset);
+    _scrollController =
+        ScrollController(initialScrollOffset: _lastScrollOffset);
   }
 
   @override
@@ -76,10 +52,8 @@ class _AnotherStepperState extends State<DigitStepper> {
     super.dispose();
   }
 
-
   @override
   void didUpdateWidget(covariant DigitStepper oldWidget) {
-    // super.didUpdateWidget(oldWidget);
     _scrollToActiveIndex();
   }
 
@@ -87,8 +61,8 @@ class _AnotherStepperState extends State<DigitStepper> {
     if (widget.activeIndex >= 0 &&
         widget.activeIndex < widget.stepperList.length) {
       double offset =
-          widget.activeIndex * MediaQuery.of(context).size.width / 16;
-      _lastScrollOffset = offset; // Store the current scroll offset
+          widget.activeIndex * MediaQuery.of(context).size.width /widget.stepperList.length;
+      _lastScrollOffset = offset; /// Store the current scroll offset
       _scrollController.animateTo(
         offset,
         duration: const Duration(milliseconds: 500),
@@ -101,7 +75,7 @@ class _AnotherStepperState extends State<DigitStepper> {
   Widget build(BuildContext context) {
     bool isMobile = MediaQuery.of(context).size.width < 600;
     // _scrollController =
-        // ScrollController(initialScrollOffset: _lastScrollOffset);
+    // ScrollController(initialScrollOffset: _lastScrollOffset);
 
     var caa = widget.stepperDirection == Axis.horizontal
         ? CrossAxisAlignment.end
@@ -119,7 +93,7 @@ class _AnotherStepperState extends State<DigitStepper> {
         controller: _scrollController,
         padding: const EdgeInsets.all(8),
         scrollDirection: widget.stepperDirection,
-        physics: widget.scrollPhysics ?? const AlwaysScrollableScrollPhysics(),
+        physics:const AlwaysScrollableScrollPhysics(),
         itemCount: widget.stepperList.length,
         itemBuilder: (context, index) {
           return _getPreferredStepper(context, index);
@@ -184,20 +158,20 @@ class _HorizontalStepperItemState extends State<HorizontalStepperItem> {
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           constraints: const BoxConstraints(
-            maxWidth: 200,
+            // maxWidth: 200,
           ),
           child: Text(
             widget.item.title!,
             textAlign: TextAlign.center,
-            maxLines: 3,
             overflow: TextOverflow.ellipsis,
             style: widget.index == widget.activeIndex || isHover
-                ? currentTypography.bodyL.copyWith(
-
-                    color: const DigitColors().light.textPrimary,)
+                ? currentTypography.headingS.copyWith(
+              height: 1.37,
+                    color: const DigitColors().light.textPrimary,
+                  )
                 : currentTypography.bodyS.copyWith(
-
-                    color: const DigitColors().light.textPrimary,),
+                    color: const DigitColors().light.textPrimary,
+                  ),
           ),
         ),
         const SizedBox(height: 8),
@@ -209,6 +183,7 @@ class _HorizontalStepperItemState extends State<HorizontalStepperItem> {
           Container(
             constraints: const BoxConstraints(
               minWidth: 40,
+              maxWidth: 120,
             ),
             color: widget.index == 0
                 ? Colors.transparent
@@ -221,6 +196,7 @@ class _HorizontalStepperItemState extends State<HorizontalStepperItem> {
           Container(
             constraints: const BoxConstraints(
               minWidth: 40,
+              maxWidth: 120
             ),
             color: widget.index == widget.totalLength - 1
                 ? Colors.transparent
@@ -309,37 +285,43 @@ class StepperDot extends StatelessWidget {
     DigitTypography currentTypography = getTypography(context, false);
     bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
     return index == activeIndex
-        ? Container(
-            height: isMobile ? 24 : 32,
-            width: isMobile ? 24 : 32,
-            decoration: BoxDecoration(
-              color: const DigitColors().light.primary1,
-              border: Border.all(
-                color: const DigitColors().light.primary1,
-                width: 1,
+        ? Row(
+            children: [
+              Container(
+                height: isMobile ? 24 : 32,
+                width: isMobile ? 24 : 32,
+                decoration: BoxDecoration(
+                  color: const DigitColors().light.primary1,
+                  border: Border.all(
+                    color: const DigitColors().light.primary1,
+                    width: 1,
+                  ),
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(50),
+                  ),
+                  boxShadow: isHover
+                      ? [
+                          BoxShadow(
+                            color: const DigitColors()
+                                .light
+                                .primary1
+                                .withOpacity(.12),
+                            offset: const Offset(0, 0),
+                            spreadRadius: 4,
+                            blurRadius: 0,
+                          ),
+                        ]
+                      : [],
+                ),
+                child: Center(
+                  child: Text(
+                    '${index + 1}',
+                    style: currentTypography.headingS.copyWith(
+                        color: const DigitColors().light.paperPrimary),
+                  ),
+                ),
               ),
-              borderRadius: const BorderRadius.all(
-                Radius.circular(50),
-              ),
-              boxShadow: isHover
-                  ? [
-                      BoxShadow(
-                        color:
-                            const DigitColors().light.primary1.withOpacity(.12),
-                        offset: const Offset(0, 0),
-                        spreadRadius: 4,
-                        blurRadius: 0,
-                      ),
-                    ]
-                  : [],
-            ),
-            child: Center(
-              child: Text(
-                '${index + 1}',
-                style: currentTypography.headingS
-                    .copyWith(color: const DigitColors().light.paperPrimary),
-              ),
-            ),
+            ],
           )
         : index < activeIndex
             ? Container(
@@ -413,14 +395,14 @@ class StepperDot extends StatelessWidget {
 
 class VerticalStepperItem extends StatefulWidget {
   /// Stepper Item to show vertical stepper
-  const VerticalStepperItem(
-      {Key? key,
-      required this.item,
-      required this.index,
-      required this.totalLength,
-      required this.activeIndex,
-      required this.isInverted,})
-      : super(key: key);
+  const VerticalStepperItem({
+    Key? key,
+    required this.item,
+    required this.index,
+    required this.totalLength,
+    required this.activeIndex,
+    required this.isInverted,
+  }) : super(key: key);
 
   /// Stepper item of type [StepperData] to inflate stepper with data
   final StepperData item;
@@ -455,10 +437,7 @@ class _VerticalStepperItemState extends State<VerticalStepperItem> {
       if (widget.item.title != null) ...[
         Container(
           padding: const EdgeInsets.symmetric(vertical: 10),
-          constraints: const BoxConstraints(
-            maxHeight: 200,
-            maxWidth: 200
-          ),
+          constraints: const BoxConstraints(maxHeight: 200, maxWidth: 200),
           child: Text(
             widget.item.title!,
             textAlign: TextAlign.center,
@@ -466,10 +445,14 @@ class _VerticalStepperItemState extends State<VerticalStepperItem> {
             overflow: TextOverflow.ellipsis,
             style: widget.index == widget.activeIndex || isHover
                 ? currentTypography.headingS.copyWith(
-              height: 1.37,
-                    color: const DigitColors().light.textPrimary,)
+                    height: 1.37,
+                    color: const DigitColors().light.textPrimary,
+                  )
                 : currentTypography.bodyS.copyWith(
-                    color: const DigitColors().light.textPrimary,),
+                    color: widget.index < widget.activeIndex
+                        ? const DigitColors().light.textPrimary
+                        : const DigitColors().light.textSecondary,
+                  ),
           ),
         ),
         const SizedBox(width: 8),

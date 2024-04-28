@@ -24,6 +24,24 @@ dev_dependencies:
 
 
 flutter:
+  assets:
+    - assets/images/
+    - assets/icons/svg/
+  fonts:
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/Roboto/Roboto-Regular.ttf
 
+    - family: Roboto Italic
+      fonts:
+        - asset: assets/fonts/Roboto/Roboto-Italic.ttf
+
+    - family: Roboto Bold
+      fonts:
+        - asset: assets/fonts/Roboto/Roboto-Bold.ttf
+
+    - family: TextArea
+      fonts:
+        - asset: assets/fonts/TextArea.ttf
 
   uses-material-design: true

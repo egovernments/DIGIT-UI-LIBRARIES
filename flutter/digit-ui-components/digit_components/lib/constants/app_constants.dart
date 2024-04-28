@@ -16,6 +16,12 @@ class Common{
   );
   static const String textAreaSvg = 'assets/icons/svg/textAreaExpand.svg';
   static const String profileSvg = 'assets/icons/svg/Profile.svg';
+  static const String docSvg = 'assets/icons/svg/doc.svg';
+  static const String jpgSvg = 'assets/icons/svg/jpg.svg';
+  static const String pdfSvg = 'assets/icons/svg/pdf.svg';
+  static const String pngSvg = 'assets/icons/svg/png.svg';
+  static const String xlsxSvg = 'assets/icons/svg/xlsx.svg';
+  static const String fileSvg = 'assets/icons/svg/file.svg';
 }
 
 class BaseConstants {

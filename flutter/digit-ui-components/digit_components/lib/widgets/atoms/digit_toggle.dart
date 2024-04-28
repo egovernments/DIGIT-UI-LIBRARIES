@@ -1,11 +1,7 @@
-import 'package:digit_ui_components/constants/app_constants.dart';
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/material.dart';
 
-import '../../utils/utils.dart';
-
 /// Toggle is a custom toggle button widget that provides visual feedback on hover and supports selection.
-
 class Toggle extends StatefulWidget {
   final void Function(bool isSelected) onChanged;
   final String label;
@@ -28,7 +24,21 @@ class _ToggleState extends State<Toggle> {
   bool isHovered = false;
   bool isMouseDown = false;
 
+  /// Utility function to capitalize the first letter of every word
+  String capitalizeFirstLetterOfEveryWord(String text) {
+    List<String> words = text.split(' ');
+    List<String> capitalizedWords = [];
 
+    for (String word in words) {
+      if (word.isNotEmpty) {
+        String capitalizedWord =
+            word[0].toUpperCase() + word.substring(1).toLowerCase();
+        capitalizedWords.add(capitalizedWord);
+      }
+    }
+
+    return capitalizedWords.join(' ');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,14 +83,15 @@ class _ToggleState extends State<Toggle> {
             }
           },
           child: Container(
-            width: widget.maxLabelWidth + 40,
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8,),
+            height: 32,
+            width: widget.maxLabelWidth + 52,
+            padding:const EdgeInsets.symmetric(horizontal: 12.0),
             constraints: const BoxConstraints(
               minWidth: 40,
               maxWidth: 200,
             ),
             decoration: BoxDecoration(
-              borderRadius: Common.radius,
+              borderRadius: BorderRadius.zero,
               border: Border.all(
                 color: (isHovered || widget.isSelected || isMouseDown)
                     ? const DigitColors().light.primary1
@@ -114,16 +125,16 @@ class _ToggleState extends State<Toggle> {
                     overflow: TextOverflow.ellipsis,
                     style: widget.isSelected
                         ? currentTypography.headingS.copyWith(
-                            fontWeight: FontWeight.w700,
-                            color: const DigitColors().light.paperPrimary,
-                            overflow: TextOverflow.ellipsis,
-                          )
+                      height: 1.5,
+                      color: const DigitColors().light.paperPrimary,
+                      overflow: TextOverflow.ellipsis,
+                    )
                         : currentTypography.bodyXS.copyWith(
-                            color: (isHovered || isMouseDown)
-                                ? const DigitColors().light.primary1
-                                : const DigitColors().light.textDisabled,
-                            overflow: TextOverflow.ellipsis,
-                          ),
+                      color: (isHovered || isMouseDown)
+                          ? const DigitColors().light.primary1
+                          : const DigitColors().light.textDisabled,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                 ),
               ],

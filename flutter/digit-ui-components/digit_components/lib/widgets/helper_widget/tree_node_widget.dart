@@ -288,7 +288,6 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
                                       widget.treeSelectionType ==
                                           TreeSelectionType.MultiSelect
                               ? currentTypography.headingS.copyWith(
-                                  height: 1.188,
                                   color: _parentSelected(widget.currentOption,
                                           widget.parentNode)
                                       ? const DigitColors().light.textSecondary
@@ -302,7 +301,6 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
                                               .textSecondary,
                                 )
                               : currentTypography.bodyS.copyWith(
-                                  height: 1.125,
                                   color: const DigitColors().light.textPrimary,
                                 ),
                         ),

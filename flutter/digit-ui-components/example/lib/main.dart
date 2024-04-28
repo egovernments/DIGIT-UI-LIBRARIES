@@ -14,6 +14,7 @@ import 'package:digit_ui_components/widgets/atoms/file_uploader.dart';
 import 'package:digit_ui_components/widgets/atoms/file_uploader2.dart';
 import 'package:digit_ui_components/widgets/atoms/image_uploader.dart';
 import 'package:digit_ui_components/widgets/atoms/input_wrapper.dart';
+import 'package:digit_ui_components/widgets/atoms/stepper.dart';
 import 'package:digit_ui_components/widgets/helper_widget/info_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -1985,6 +1986,13 @@ class MyHomePageState extends State<MyHomePage> {
                         inverted: true,
                       ),
                     ),
+                    const SizedBox(height: 16,),
+                    // CustomStepper(
+                    //   height: 20, // Set the height of the step indicator.// Enable or disable automatic scrolling.
+                    //   list: const [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], // Provide a list of steps or stages to display.
+                    //   onChange: (int index) {},
+                    //   page: 8, // Specify the current step or page.// Specify the number of divisions for rendering steps.
+                    // ),
                   ],
                 ),
                 const SizedBox(height: 8),

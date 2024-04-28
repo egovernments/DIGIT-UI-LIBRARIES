@@ -7,25 +7,25 @@ import 'dart:io';
 
 List<Story> fileUploaderStories() {
   return [
-    // Story(
-    //   name: 'File Upload/Pop UP/Single Upload',
-    //   builder: (context) => Center(
-    //     child: FileUploadWidget(
-    //       label: 'Upload', onFilesSelected: (List<File> files) {  },
-    //       showPreview: context.knobs.boolean(label: 'Show preview', initial: false),
-    //     ),
-    //   ),
-    // ),
-    // Story(
-    //   name: 'File Upload/Pop UP/Multiple Upload',
-    //   builder: (context) => Center(
-    //     child: FileUploadWidget(
-    //       allowMultipleImages: true,
-    //       label: 'Upload', onFilesSelected: (List<File> files) {  },
-    //       showPreview: context.knobs.boolean(label: 'Show preview', initial: false),
-    //     ),
-    //   ),
-    // ),
+    Story(
+      name: 'File Upload/Pop UP/Single Upload',
+      builder: (context) => Center(
+        child: FileUploadWidget(
+          label: 'Upload', onFilesSelected: (List<File> files) {  },
+          showPreview: context.knobs.boolean(label: 'Show preview', initial: false),
+        ),
+      ),
+    ),
+    Story(
+      name: 'File Upload/Pop UP/Multiple Upload',
+      builder: (context) => Center(
+        child: FileUploadWidget(
+          allowMultipleImages: true,
+          label: 'Upload', onFilesSelected: (List<File> files) {  },
+          showPreview: context.knobs.boolean(label: 'Show preview', initial: false),
+        ),
+      ),
+    ),
     Story(
       name: 'File Upload/Drag file',
       builder: (context) => Center(

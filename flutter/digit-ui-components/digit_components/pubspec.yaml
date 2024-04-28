@@ -25,6 +25,11 @@ dependencies:
   flutter_cached_pdfview: 0.4.2
   camera: 0.10.5+9
   flutter_styled_toast: 2.2.1
+  flutter_svg: 2.0.10+1
+  url_launcher: 6.2.6
+  http: 1.2.0
+  open_file: 3.3.2
+  file_selector: 1.0.3
 
 
 

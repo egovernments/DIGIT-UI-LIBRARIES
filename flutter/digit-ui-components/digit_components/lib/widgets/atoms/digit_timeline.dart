@@ -1,8 +1,12 @@
+import 'package:digit_ui_components/constants/app_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../constants/AppView.dart';
 import '../../theme/colors.dart';
 import '../../theme/digit_theme.dart';
 import '../../theme/typography.dart';
+import '../../utils/utils.dart';
 
 class Timeline extends StatefulWidget {
   final String label;
@@ -12,6 +16,7 @@ class Timeline extends StatefulWidget {
   final List<Widget>? additionalHideWidgets;
   final String viewDetailText;
   final String hideDetailText;
+  final bool capitalizedLetter;
 
   const Timeline({
     Key? key,
@@ -22,6 +27,7 @@ class Timeline extends StatefulWidget {
     this.additionalHideWidgets,
     this.viewDetailText = 'View Details',
     this.hideDetailText = 'Hide Details',
+    this.capitalizedLetter = true,
   }) : super(key: key);
 
   @override
@@ -35,6 +41,9 @@ class _TimelineState extends State<Timeline> {
   Widget build(BuildContext context) {
     DigitTypography currentTypography = getTypography(context, false);
     bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
+    String capitalizedLabel = widget.capitalizedLetter
+        ? capitalizeFirstLetterOfEveryWord(widget.label)
+        : widget.label;
 
     return SizedBox(
       width: double.infinity,
@@ -47,36 +56,41 @@ class _TimelineState extends State<Timeline> {
               _buildTimelineIcon(isMobile),
               const SizedBox(width: 16),
               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      widget.label,
-                      style: currentTypography.headingS.copyWith(
-                        color: const DigitColors().light.textPrimary,
+                child: Padding(
+                  padding: EdgeInsets.only(top: isMobile ? 2.5 : 6.5),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        capitalizedLabel,
+                        style: currentTypography.headingS.copyWith(
+                          color: const DigitColors().light.textPrimary,
+                        ),
                       ),
-                    ),
-                    SizedBox(height: isMobile ? kPadding/2 : kPadding,),
-                    Column(
-                      // Change here
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: widget.description
-                          .map((desc) => Text(
-                                // Change here
-                                desc,
-                                style: currentTypography.bodyS.copyWith(
-                                  color:
-                                      const DigitColors().light.textSecondary,
-                                ),
-                              ))
-                          .toList(), // Change here
-                    ),
-                    const SizedBox(height: 4),
-                    Container(
-                      height: 1,
-                      color: const DigitColors().light.genericDivider,
-                    )
-                  ],
+                      SizedBox(
+                        height: isMobile ? kPadding / 2 : kPadding,
+                      ),
+                      Column(
+                        // Change here
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: widget.description
+                            .map((desc) => Text(
+                                  // Change here
+                                  desc,
+                                  style: currentTypography.bodyS.copyWith(
+                                    color:
+                                        const DigitColors().light.textSecondary,
+                                  ),
+                                ))
+                            .toList(), // Change here
+                      ),
+                      const SizedBox(height: 4),
+                      Container(
+                        height: 1,
+                        color: const DigitColors().light.genericDivider,
+                      )
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -91,12 +105,14 @@ class _TimelineState extends State<Timeline> {
                   Wrap(
                     children: widget.additionalWidgets!
                         .map(
-                          (widget) => Padding(
+                          (widgets) => Padding(
                             padding: const EdgeInsets.only(
                               right: kPadding,
                               bottom: kPadding,
                             ),
-                            child: widget,
+                            child: widgets is TimelineFiles
+                                ? widgets
+                                : widgets,
                           ),
                         )
                         .toList(),
@@ -107,12 +123,14 @@ class _TimelineState extends State<Timeline> {
                   Wrap(
                     children: widget.additionalHideWidgets!
                         .map(
-                          (widget) => Padding(
+                          (widgets) => Padding(
                             padding: const EdgeInsets.only(
                               right: kPadding,
                               bottom: kPadding,
                             ),
-                            child: widget,
+                            child: widgets is TimelineFiles
+                                ? widgets
+                                : widgets,
                           ),
                         )
                         .toList(),
@@ -218,3 +236,91 @@ class _TimelineState extends State<Timeline> {
 }
 
 enum TimelineStepState { completed, present, future }
+
+class TimelineFiles {
+  final String url;
+  final String name;
+  final String fileType;
+
+  TimelineFiles({
+    required this.url,
+    required this.name,
+    required this.fileType,
+  });
+}
+
+class TimelineFileWidget extends StatelessWidget {
+  final TimelineFiles file;
+  final bool openFile;
+
+  const TimelineFileWidget({
+    Key? key,
+    required this.file,
+    required this.openFile,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return _buildFileWidget(context, file);
+  }
+
+  Widget _buildFileWidget(BuildContext context, TimelineFiles file) {
+    String fileType = file.fileType.toLowerCase();
+
+    return InkWell(
+      highlightColor: const DigitColors().transparent,
+      hoverColor: const DigitColors().transparent,
+      splashColor: const DigitColors().transparent,
+      onTap: () {
+        // Check isPreview here before calling _viewDocument
+        print(openFile);
+        if (openFile) {
+          _viewDocument(file.url);
+        }
+      },
+      child: SizedBox(
+        height: 100,
+        width: 100,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              _buildFileIcon(fileType),
+              Text(file.name),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildFileIcon(String fileType) {
+    switch (fileType) {
+      case 'pdf':
+        return SvgPicture.asset(Common.pdfSvg);
+      case 'jpg':
+        return SvgPicture.asset(Common.jpgSvg);
+      case 'png':
+        return SvgPicture.asset(Common.pngSvg);
+      case 'doc':
+        return SvgPicture.asset(Common.docSvg);
+      case 'xlsx':
+        return SvgPicture.asset(Common.xlsxSvg);
+      default:
+        return Container();
+    }
+  }
+
+  void _viewDocument(String url) async {
+    Uri uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+}
+

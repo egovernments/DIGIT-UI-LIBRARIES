@@ -1,21 +1,21 @@
-/*
- `RadioList` is a widget for rendering a list of radio buttons.
- This widget provides options for radio buttons, handling hover effects, and a disabled state.
 
- Example usage:
- ```dart
- RadioList(
-   radioButtons: [
-     RadioButtonModel(code: 'option1', name: 'Option 1'),
-     RadioButtonModel(code: 'option2', name: 'Option 2'),
-   ],
-   onChanged: (selectedValue) {
-     // Handle radio button selection
-   },
-   groupValue: 'option1', // can be passed same to select value initially
-   isDisabled: false,
- )
- ....*/
+/// `RadioList` is a widget for rendering a list of radio buttons.
+/// This widget provides options for radio buttons, handling hover effects, and a disabled state.
+
+/// Example usage:
+/// ```dart
+/// RadioList(
+///   radioButtons: [
+///     RadioButtonModel(code: 'option1', name: 'Option 1'),
+///     RadioButtonModel(code: 'option2', name: 'Option 2'),
+///   ],
+///   onChanged: (selectedValue) {
+///     // Handle radio button selection
+///   },
+///   groupValue: 'option1', // can be passed same to select value initially
+///   isDisabled: false,
+/// )
+
 
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +32,7 @@ class RadioList extends StatefulWidget {
   final void Function(RadioButtonModel) onChanged;
 
   /// Currently selected value in the radio button group
-  String groupValue;
+   String groupValue;
 
   /// Flag to indicate if the radio buttons are disabled
   final bool isDisabled;
@@ -48,7 +48,7 @@ class RadioList extends StatefulWidget {
   final bool capitalizeFirstLetter;
 
   /// Constructor for the RadioList widget
-  RadioList({
+   RadioList({
     Key? key,
     required this.radioButtons,
     required this.onChanged,
@@ -88,17 +88,16 @@ class _RadioListState extends State<RadioList> {
     DigitTypography currentTypography = getTypography(context, false);
     isMobile = AppView.isMobileView(MediaQuery.of(context).size);
     if (!isMobile) {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
+      return Wrap(
+        crossAxisAlignment: WrapCrossAlignment.start,
         children: _buildRadioButtons(currentTypography),
       );
     }
 
     /// Default layout
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: _buildRadioButtons(currentTypography),
     );
   }
@@ -110,166 +109,116 @@ class _RadioListState extends State<RadioList> {
         return Padding(
           padding: widget.containerPadding,
           child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              widget.isDisabled
-                  ? Container(
-                      padding: const EdgeInsets.all(kPadding / 2),
-                      width: widget.radioWidth,
-                      height: widget.radioHeight,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          color: widget.isDisabled
-                              ? const DigitColors().light.genericDivider
-                              : (widget.groupValue == button.code ||
-                                      isHoveredList[index] ||
-                                      isMouseDown[index])
-                                  ? const DigitColors().light.primary1
-                                  : const DigitColors().light.textSecondary,
-                          width: (widget.isDisabled &&
-                                      widget.groupValue == button.code) ||
-                                  widget.groupValue == button.code
-                              ? 2.0
-                              : 1.0,
-                        ),
-                        color: widget.isDisabled
-                            ? const DigitColors().light.paperSecondary
-                            : isMouseDown[index]
-                                ? const DigitColors().light.primary1Bg
-                                : const DigitColors().light.paperPrimary,
-                        boxShadow: isMouseDown[index]
-                            ? [
-                                BoxShadow(
-                                  color: const DigitColors().light.primary1Bg,
-                                  spreadRadius: 3,
-                                  blurRadius: 3,
-                                  offset: const Offset(0, 0),
-                                ),
-                              ]
-                            : [],
-                      ),
-                      child: widget.groupValue == button.code
-                          ? Container(
-                              height: 12,
-                              width: 12,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
+             Column(
+               children: [
+                 SizedBox(height: isMobile? 0 : 2,),
+                 InkWell(
+                          hoverColor: const DigitColors().transparent,
+                          splashColor: const DigitColors().transparent,
+                          highlightColor: const DigitColors().transparent,
+                          onHover: widget.isDisabled ? null  : (hover) {
+                            setState(() {
+                              isHoveredList[index] = hover;
+                            });
+                          },
+                          onTapDown: widget.isDisabled ? null :  (_) {
+                            /// Handle mouse down state
+                            setState(() {
+                              isMouseDown[index] = true;
+                            });
+                          },
+                          onTapUp: widget.isDisabled ? null : (_) {
+                            /// Handle mouse up state
+                            setState(() {
+                              isMouseDown[index] = false;
+                            });
+                          },
+                          onTap: widget.isDisabled
+                              ? null
+                              : () {
+                                  if (mounted) {
+                                    setState(() {
+                                      /// Update the selected value and call the onChanged callback
+                                      widget.groupValue = button.code;
+                                    });
+                                    widget.onChanged!(button);
+                                  }
+                                },
+                          child: Container(
+                            padding: const EdgeInsets.all(kPadding / 2),
+                            width: widget.radioWidth,
+                            height: widget.radioHeight,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
                                 color: widget.isDisabled
-                                    ? const DigitColors().light.textDisabled
-                                    : const DigitColors().light.primary1,
+                                    ? const DigitColors().light.genericDivider
+                                    : (widget.groupValue == button.code ||
+                                            isHoveredList[index] ||
+                                            isMouseDown[index])
+                                        ? const DigitColors().light.primary1
+                                        : const DigitColors().light.textSecondary,
+                                width: (widget.isDisabled &&
+                                            widget.groupValue == button.code) ||
+                                        widget.groupValue == button.code
+                                    ? 2.0
+                                    : 1.0,
                               ),
-                            )
-                          : null,
-                    )
-                  : InkWell(
-                      hoverColor: const DigitColors().transparent,
-                      splashColor: const DigitColors().transparent,
-                      highlightColor: const DigitColors().transparent,
-                      onHover: (hover) {
-                        setState(() {
-                          isHoveredList[index] = hover;
-                        });
-                      },
-                      onTapDown: (_) {
-                        /// Handle mouse down state
-                        setState(() {
-                          isMouseDown[index] = true;
-                        });
-                      },
-                      onTapUp: (_) {
-                        /// Handle mouse up state
-                        setState(() {
-                          isMouseDown[index] = false;
-                        });
-                      },
-                      onTap: widget.isDisabled
-                          ? null
-                          : () {
-                              if (mounted) {
-                                setState(() {
-                                  /// Update the selected value and call the onChanged callback
-                                  widget.groupValue = button.code;
-                                });
-                                widget.onChanged!(button);
-                              }
-                            },
-                      child: Container(
-                        padding: const EdgeInsets.all(kPadding / 2),
-                        width: widget.radioWidth,
-                        height: widget.radioHeight,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: widget.isDisabled
-                                ? const DigitColors().light.genericDivider
-                                : (widget.groupValue == button.code ||
-                                        isHoveredList[index] ||
-                                        isMouseDown[index])
-                                    ? const DigitColors().light.primary1
-                                    : const DigitColors().light.textSecondary,
-                            width: (widget.isDisabled &&
-                                        widget.groupValue == button.code) ||
-                                    widget.groupValue == button.code
-                                ? 2.0
-                                : 1.0,
+                              color: widget.isDisabled
+                                  ? const DigitColors().light.paperSecondary
+                                  : isMouseDown[index]
+                                      ? const DigitColors().light.primary1Bg
+                                      : const DigitColors().light.paperPrimary,
+                              boxShadow: isMouseDown[index]
+                                  ? [
+                                      BoxShadow(
+                                        color: const DigitColors().light.primary1Bg,
+                                        spreadRadius: 3,
+                                        blurRadius: 3,
+                                        offset: const Offset(0, 0),
+                                      ),
+                                    ]
+                                  : [],
+                            ),
+                            child: widget.groupValue == button.code
+                                ? Container(
+                                    height: 12,
+                                    width: 12,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: widget.isDisabled
+                                          ? const DigitColors().light.textDisabled
+                                          : const DigitColors().light.primary1,
+                                    ),
+                                  )
+                                : null,
                           ),
-                          color: widget.isDisabled
-                              ? const DigitColors().light.paperSecondary
-                              : isMouseDown[index]
-                                  ? const DigitColors().light.primary1Bg
-                                  : const DigitColors().light.paperPrimary,
-                          boxShadow: isMouseDown[index]
-                              ? [
-                                  BoxShadow(
-                                    color: const DigitColors().light.primary1Bg,
-                                    spreadRadius: 3,
-                                    blurRadius: 3,
-                                    offset: const Offset(0, 0),
-                                  ),
-                                ]
-                              : [],
                         ),
-                        child: widget.groupValue == button.code
-                            ? Container(
-                                height: 12,
-                                width: 12,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: widget.isDisabled
-                                      ? const DigitColors().light.textDisabled
-                                      : const DigitColors().light.primary1,
-                                ),
-                              )
-                            : null,
-                      ),
-                    ),
+               ],
+             ),
               const SizedBox(
                 width: kPadding,
               ),
-              isMobile
-                  ? Expanded(
-                      child: Text(
-                        capitalizeFirstLetter(button.name)!,
-                        maxLines: 5,
-                        overflow: TextOverflow.ellipsis,
-                        style: currentTypography.bodyL.copyWith(
-                          color: widget.isDisabled
-                              ? const DigitColors().light.textDisabled
-                              : const DigitColors().light.textPrimary,
-                        ),
-                      ),
-                    )
-                  : Text(
-                      capitalizeFirstLetter(button.name)!,
-                      maxLines: 5,
-                      overflow: TextOverflow.ellipsis,
-                      style: currentTypography.bodyL.copyWith(
-                        color: widget.isDisabled
-                            ? const DigitColors().light.textDisabled
-                            : const DigitColors().light.textPrimary,
-                      ),
+              Flexible(
+                fit: FlexFit.loose,
+                child: Padding(
+                  padding:  EdgeInsets.only(top: isMobile ? 2.0: 0),
+                  child: Text(
+                    capitalizeFirstLetter(button.name)!,
+                    maxLines: 5,
+                    overflow: TextOverflow.ellipsis,
+                    style: currentTypography.bodyL.copyWith(
+                      color: widget.isDisabled
+                          ? const DigitColors().light.textDisabled
+                          : const DigitColors().light.textPrimary,
                     ),
+                  ),
+                ),
+              )
             ],
           ),
         );
@@ -277,3 +226,4 @@ class _RadioListState extends State<RadioList> {
     ).toList();
   }
 }
+

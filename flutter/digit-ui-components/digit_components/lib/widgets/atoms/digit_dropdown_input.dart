@@ -739,7 +739,11 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
   }
 
   Widget _buildNestedListView() {
-    Set<String?> uniqueTypes = filteredItems.map((item) => item.type).toSet();
+    /// Filter out items with null or empty type
+    Set<String?> uniqueTypes = filteredItems
+        .where((item) => item.type != null && item.type!.isNotEmpty)
+        .map((item) => item.type)
+        .toSet();
     return filteredItems.isNotEmpty
         ? Scrollbar(
             radius: const Radius.circular(50),
@@ -772,7 +776,6 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                       color: const DigitColors()
                                           .light
                                           .textSecondary,
-                                      height: 1.188,
                                     )),
                               ],
                             ),
