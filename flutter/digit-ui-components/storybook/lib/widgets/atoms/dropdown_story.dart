@@ -260,13 +260,7 @@ List<Story> dropdownStories() {
         onOptionSelected: (List<TreeNode> selectedOptions) {},
         options: [
           TreeNode('A', 'A', [
-            TreeNode('A.A1', 'A1', [
-              TreeNode('A.A1.A3', 'A3', [
-                TreeNode('A.A1.A3.A5', 'A5', []),
-                TreeNode('A.A1.A3.A6', 'A6', []),
-              ]),
-              TreeNode('A.A1.A4', 'A4', []),
-            ]),
+            TreeNode('A.A1', 'A1', []),
             TreeNode('A.A2', 'A2', []),
           ]),
           TreeNode('B', 'B', [

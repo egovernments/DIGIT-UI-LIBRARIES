@@ -1062,7 +1062,6 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                         ),
                                       ),
                                     ),
-
                                     /// Divider after each option
                                     Container(
                                       height: 1,
@@ -1224,7 +1223,6 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
         });
       }
     }
-
     _focusNode.unfocus();
   }
 }

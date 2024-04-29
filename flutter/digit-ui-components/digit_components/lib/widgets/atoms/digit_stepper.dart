@@ -158,7 +158,7 @@ class _HorizontalStepperItemState extends State<HorizontalStepperItem> {
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           constraints: const BoxConstraints(
-            // maxWidth: 200,
+            maxWidth: 200,
           ),
           child: Text(
             widget.item.title!,
@@ -166,7 +166,6 @@ class _HorizontalStepperItemState extends State<HorizontalStepperItem> {
             overflow: TextOverflow.ellipsis,
             style: widget.index == widget.activeIndex || isHover
                 ? currentTypography.headingS.copyWith(
-              height: 1.37,
                     color: const DigitColors().light.textPrimary,
                   )
                 : currentTypography.bodyS.copyWith(
@@ -183,7 +182,6 @@ class _HorizontalStepperItemState extends State<HorizontalStepperItem> {
           Container(
             constraints: const BoxConstraints(
               minWidth: 40,
-              maxWidth: 120,
             ),
             color: widget.index == 0
                 ? Colors.transparent
@@ -196,7 +194,6 @@ class _HorizontalStepperItemState extends State<HorizontalStepperItem> {
           Container(
             constraints: const BoxConstraints(
               minWidth: 40,
-              maxWidth: 120
             ),
             color: widget.index == widget.totalLength - 1
                 ? Colors.transparent

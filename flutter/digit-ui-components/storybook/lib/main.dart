@@ -49,153 +49,153 @@ class MyApp extends StatelessWidget {
               ...toggleGroupStories(),
               ...dropdownStories(),
               ...stepperStories(),
-              ...fileUploaderStories(),
+              // ...fileUploaderStories(),
               ...animatedToastStories(),
-              Story(
-                name: 'Custom Stepper',
-                builder: (context) => Steppers(
-                  direction: StepperDirection.horizontal,
-                  labels: [
-                    StepperDataModel(
-                      label: 'Step asdddddddddddddddddddddddddddddddddddddddddddddddddddddddd1',
-                    ),
-                    StepperDataModel(
-                      label: 'Step sdffffffasddddddddddddddddddfffffffffffff2',
-                    ),
-                    StepperDataModel(
-                      label: 'Step sdfffffffffasddddddddddddddddddddddddddddddfffffff3',
-                    ),
-                    StepperDataModel(
-                      label: 'Step sdfffffffffasddddddddddddddddddddddddddddfffffffffffzxczx4',
-                    ),
-                    StepperDataModel(
-                      label: 'Stepzxcccccccccccasddddddddddddddddddddddddddddcccccccccccccccc 1',
-                    ),
-                    StepperDataModel(
-                      label: 'Step 2sdffffffffasdddddddddddddddddddddddddddddddddddddffffffffffffff',
-                    ),
-
-                  ],
-                  currentStep: 6,
-                ),
-              ),
-              Story(
-                name: 'Custom Stepper Max',
-                builder: (context) => Steppers(
-                  direction: StepperDirection.horizontal,
-                  labels: [
-                    StepperDataModel(
-                      label: 'Step asdddddddddddddddddddddddddddddddddddddddddddddddddddddddd1',
-                    ),
-                    StepperDataModel(
-                      label: 'Step sdffffffasddddddddddddddddddfffffffffffff2',
-                    ),
-                    StepperDataModel(
-                      label: 'Step sdfffffffffasddddddddddddddddddddddddddddddfffffff3',
-                    ),
-                    StepperDataModel(
-                      label: 'Step sdfffffffffasddddddddddddddddddddddddddddfffffffffffzxczx4',
-                    ),
-                    StepperDataModel(
-                      label: 'Stepzxcccccccccccasddddddddddddddddddddddddddddcccccccccccccccc 1',
-                    ),
-                    StepperDataModel(
-                      label: 'Step 2sdffffffffasdddddddddddddddddddddddddddddddddddddffffffffffffff',
-                    ),
-                    StepperDataModel(
-                      label: 'Step asdddddddddddddddddddddddddddddddddddddddddddddddddddddddd1',
-                    ),
-                    StepperDataModel(
-                      label: 'Step sdffffffasddddddddddddddddddfffffffffffff2',
-                    ),
-                    StepperDataModel(
-                      label: 'Step sdfffffffffasddddddddddddddddddddddddddddddfffffff3',
-                    ),
-                    StepperDataModel(
-                      label: 'Step sdfffffffffasddddddddddddddddddddddddddddfffffffffffzxczx4',
-                    ),
-                    StepperDataModel(
-                      label: 'Stepzxcccccccccccasddddddddddddddddddddddddddddcccccccccccccccc 1',
-                    ),
-                    StepperDataModel(
-                      label: 'Step 2sdffffffffasdddddddddddddddddddddddddddddddddddddffffffffffffff',
-                    ),
-                    StepperDataModel(
-                      label: 'Step asdddddddddddddddddddddddddddddddddddddddddddddddddddddddd1',
-                    ),
-                    StepperDataModel(
-                      label: 'Step sdffffffasddddddddddddddddddfffffffffffff2',
-                    ),
-                    StepperDataModel(
-                      label: 'Step sdfffffffffasddddddddddddddddddddddddddddddfffffff3',
-                    ),
-                    StepperDataModel(
-                      label: 'Step sdfffffffffasddddddddddddddddddddddddddddfffffffffffzxczx4',
-                    ),
-                    StepperDataModel(
-                      label: 'Stepzxcccccccccccasddddddddddddddddddddddddddddcccccccccccccccc 1',
-                    ),
-                    StepperDataModel(
-                      label: 'Step 2sdffffffffasdddddddddddddddddddddddddddddddddddddffffffffffffff',
-                    ),
-                    StepperDataModel(
-                      label: 'Step asdddddddddddddddddddddddddddddddddddddddddddddddddddddddd1',
-                    ),
-                    StepperDataModel(
-                      label: 'Step sdffffffasddddddddddddddddddfffffffffffff2',
-                    ),
-                    StepperDataModel(
-                      label: 'Step sdfffffffffasddddddddddddddddddddddddddddddfffffff3',
-                    ),
-                    StepperDataModel(
-                      label: 'Step sdfffffffffasddddddddddddddddddddddddddddfffffffffffzxczx4',
-                    ),
-                    StepperDataModel(
-                      label: 'Stepzxcccccccccccasddddddddddddddddddddddddddddcccccccccccccccc 1',
-                    ),
-                    StepperDataModel(
-                      label: 'Step 2sdffffffffasdddddddddddddddddddddddddddddddddddddffffffffffffff',
-                    ),
-                    StepperDataModel(
-                      label: 'Step asdddddddddddddddddddddddddddddddddddddddddddddddddddddddd1',
-                    ),
-                    StepperDataModel(
-                      label: 'Step sdffffffasddddddddddddddddddfffffffffffff2',
-                    ),
-                    StepperDataModel(
-                      label: 'Step sdfffffffffasddddddddddddddddddddddddddddddfffffff3',
-                    ),
-                    StepperDataModel(
-                      label: 'Step sdfffffffffasddddddddddddddddddddddddddddfffffffffffzxczx4',
-                    ),
-                    StepperDataModel(
-                      label: 'Stepzxcccccccccccasddddddddddddddddddddddddddddcccccccccccccccc 1',
-                    ),
-                    StepperDataModel(
-                      label: 'Step 2sdffffffffasdddddddddddddddddddddddddddddddddddddffffffffffffff',
-                    ),
-                    StepperDataModel(
-                      label: 'Step asdddddddddddddddddddddddddddddddddddddddddddddddddddddddd1',
-                    ),
-                    StepperDataModel(
-                      label: 'Step sdffffffasddddddddddddddddddfffffffffffff2',
-                    ),
-                    StepperDataModel(
-                      label: 'Step sdfffffffffasddddddddddddddddddddddddddddddfffffff3',
-                    ),
-                    StepperDataModel(
-                      label: 'Step sdfffffffffasddddddddddddddddddddddddddddfffffffffffzxczx4',
-                    ),
-                    StepperDataModel(
-                      label: 'Stepzxcccccccccccasddddddddddddddddddddddddddddcccccccccccccccc 1',
-                    ),
-                    StepperDataModel(
-                      label: 'Step 2sdffffffffasdddddddddddddddddddddddddddddddddddddffffffffffffff',
-                    ),
-                  ],
-                  currentStep: 6,
-                ),
-              ),
+              // Story(
+              //   name: 'Custom Stepper',
+              //   builder: (context) => Steppers(
+              //     direction: StepperDirection.horizontal,
+              //     labels: [
+              //       StepperDataModel(
+              //         label: 'Step asdddddddddddddddddddddddddddddddddddddddddddddddddddddddd1',
+              //       ),
+              //       StepperDataModel(
+              //         label: 'Step sdffffffasddddddddddddddddddfffffffffffff2',
+              //       ),
+              //       StepperDataModel(
+              //         label: 'Step sdfffffffffasddddddddddddddddddddddddddddddfffffff3',
+              //       ),
+              //       StepperDataModel(
+              //         label: 'Step sdfffffffffasddddddddddddddddddddddddddddfffffffffffzxczx4',
+              //       ),
+              //       StepperDataModel(
+              //         label: 'Stepzxcccccccccccasddddddddddddddddddddddddddddcccccccccccccccc 1',
+              //       ),
+              //       StepperDataModel(
+              //         label: 'Step 2sdffffffffasdddddddddddddddddddddddddddddddddddddffffffffffffff',
+              //       ),
+              //
+              //     ],
+              //     currentStep: 6,
+              //   ),
+              // ),
+              // Story(
+              //   name: 'Custom Stepper Max',
+              //   builder: (context) => Steppers(
+              //     direction: StepperDirection.horizontal,
+              //     labels: [
+              //       StepperDataModel(
+              //         label: 'Step asdddddddddddddddddddddddddddddddddddddddddddddddddddddddd1',
+              //       ),
+              //       StepperDataModel(
+              //         label: 'Step sdffffffasddddddddddddddddddfffffffffffff2',
+              //       ),
+              //       StepperDataModel(
+              //         label: 'Step sdfffffffffasddddddddddddddddddddddddddddddfffffff3',
+              //       ),
+              //       StepperDataModel(
+              //         label: 'Step sdfffffffffasddddddddddddddddddddddddddddfffffffffffzxczx4',
+              //       ),
+              //       StepperDataModel(
+              //         label: 'Stepzxcccccccccccasddddddddddddddddddddddddddddcccccccccccccccc 1',
+              //       ),
+              //       StepperDataModel(
+              //         label: 'Step 2sdffffffffasdddddddddddddddddddddddddddddddddddddffffffffffffff',
+              //       ),
+              //       StepperDataModel(
+              //         label: 'Step asdddddddddddddddddddddddddddddddddddddddddddddddddddddddd1',
+              //       ),
+              //       StepperDataModel(
+              //         label: 'Step sdffffffasddddddddddddddddddfffffffffffff2',
+              //       ),
+              //       StepperDataModel(
+              //         label: 'Step sdfffffffffasddddddddddddddddddddddddddddddfffffff3',
+              //       ),
+              //       StepperDataModel(
+              //         label: 'Step sdfffffffffasddddddddddddddddddddddddddddfffffffffffzxczx4',
+              //       ),
+              //       StepperDataModel(
+              //         label: 'Stepzxcccccccccccasddddddddddddddddddddddddddddcccccccccccccccc 1',
+              //       ),
+              //       StepperDataModel(
+              //         label: 'Step 2sdffffffffasdddddddddddddddddddddddddddddddddddddffffffffffffff',
+              //       ),
+              //       StepperDataModel(
+              //         label: 'Step asdddddddddddddddddddddddddddddddddddddddddddddddddddddddd1',
+              //       ),
+              //       StepperDataModel(
+              //         label: 'Step sdffffffasddddddddddddddddddfffffffffffff2',
+              //       ),
+              //       StepperDataModel(
+              //         label: 'Step sdfffffffffasddddddddddddddddddddddddddddddfffffff3',
+              //       ),
+              //       StepperDataModel(
+              //         label: 'Step sdfffffffffasddddddddddddddddddddddddddddfffffffffffzxczx4',
+              //       ),
+              //       StepperDataModel(
+              //         label: 'Stepzxcccccccccccasddddddddddddddddddddddddddddcccccccccccccccc 1',
+              //       ),
+              //       StepperDataModel(
+              //         label: 'Step 2sdffffffffasdddddddddddddddddddddddddddddddddddddffffffffffffff',
+              //       ),
+              //       StepperDataModel(
+              //         label: 'Step asdddddddddddddddddddddddddddddddddddddddddddddddddddddddd1',
+              //       ),
+              //       StepperDataModel(
+              //         label: 'Step sdffffffasddddddddddddddddddfffffffffffff2',
+              //       ),
+              //       StepperDataModel(
+              //         label: 'Step sdfffffffffasddddddddddddddddddddddddddddddfffffff3',
+              //       ),
+              //       StepperDataModel(
+              //         label: 'Step sdfffffffffasddddddddddddddddddddddddddddfffffffffffzxczx4',
+              //       ),
+              //       StepperDataModel(
+              //         label: 'Stepzxcccccccccccasddddddddddddddddddddddddddddcccccccccccccccc 1',
+              //       ),
+              //       StepperDataModel(
+              //         label: 'Step 2sdffffffffasdddddddddddddddddddddddddddddddddddddffffffffffffff',
+              //       ),
+              //       StepperDataModel(
+              //         label: 'Step asdddddddddddddddddddddddddddddddddddddddddddddddddddddddd1',
+              //       ),
+              //       StepperDataModel(
+              //         label: 'Step sdffffffasddddddddddddddddddfffffffffffff2',
+              //       ),
+              //       StepperDataModel(
+              //         label: 'Step sdfffffffffasddddddddddddddddddddddddddddddfffffff3',
+              //       ),
+              //       StepperDataModel(
+              //         label: 'Step sdfffffffffasddddddddddddddddddddddddddddfffffffffffzxczx4',
+              //       ),
+              //       StepperDataModel(
+              //         label: 'Stepzxcccccccccccasddddddddddddddddddddddddddddcccccccccccccccc 1',
+              //       ),
+              //       StepperDataModel(
+              //         label: 'Step 2sdffffffffasdddddddddddddddddddddddddddddddddddddffffffffffffff',
+              //       ),
+              //       StepperDataModel(
+              //         label: 'Step asdddddddddddddddddddddddddddddddddddddddddddddddddddddddd1',
+              //       ),
+              //       StepperDataModel(
+              //         label: 'Step sdffffffasddddddddddddddddddfffffffffffff2',
+              //       ),
+              //       StepperDataModel(
+              //         label: 'Step sdfffffffffasddddddddddddddddddddddddddddddfffffff3',
+              //       ),
+              //       StepperDataModel(
+              //         label: 'Step sdfffffffffasddddddddddddddddddddddddddddfffffffffffzxczx4',
+              //       ),
+              //       StepperDataModel(
+              //         label: 'Stepzxcccccccccccasddddddddddddddddddddddddddddcccccccccccccccc 1',
+              //       ),
+              //       StepperDataModel(
+              //         label: 'Step 2sdffffffffasdddddddddddddddddddddddddddddddddddddffffffffffffff',
+              //       ),
+              //     ],
+              //     currentStep: 6,
+              //   ),
+              // ),
             ],
           ),
         ),

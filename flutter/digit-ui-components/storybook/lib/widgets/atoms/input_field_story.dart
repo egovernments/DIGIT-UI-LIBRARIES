@@ -261,10 +261,6 @@ List<Story> inputFieldStories() {
     Story(
       name: 'Input Field/Numeric Field',
       builder: (context) => DigitNumericFormInput(
-        label: context.knobs.text(
-          label: 'Title',
-          initial: 'title',
-        ),
         helpText: context.knobs.text(
           label: 'help text',
           initial: '',
@@ -277,14 +273,8 @@ List<Story> inputFieldStories() {
           label: 'inner label',
           initial: '',
         ),
-        info: context.knobs.boolean(
-          label: 'info',
-          initial: false,
-        ),
-        infoText: context.knobs.text(
-          label: 'infoText',
-          initial: 'this is info',
-        ),
+        editable: context.knobs.boolean(label: 'Editable', initial: false),
+        initialValue: '0',
         isDisabled: context.knobs.boolean(
           label: 'Disabled',
           initial: false,

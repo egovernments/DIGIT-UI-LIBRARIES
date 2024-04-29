@@ -272,8 +272,7 @@ class TimelineFileWidget extends StatelessWidget {
       hoverColor: const DigitColors().transparent,
       splashColor: const DigitColors().transparent,
       onTap: () {
-        // Check isPreview here before calling _viewDocument
-        print(openFile);
+        /// Check isPreview here before calling _viewDocument
         if (openFile) {
           _viewDocument(file.url);
         }
