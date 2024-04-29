@@ -377,22 +377,17 @@ const MultiSelectDropdown = ({
           )
             ? "checked"
             : ""
-        }`}
-        onMouseDown={() => setIsActive(true)}
-        onMouseUp={() => setIsActive(false)}
-        onMouseLeave={() => setIsActive(false)}
-        style={
+        } ${
           index === optionIndex &&
           !alreadyQueuedSelectedState.find(
             (selectedOption) => selectedOption.code === option.code
           )
-            ? {
-                opacity: 1,
-                backgroundColor: "#FFFAF7",
-                border: "0.5px solid #F47738",
-              }
-            : {}
-        }
+            ? "keyChange"
+            : ""
+        }`}
+        onMouseDown={() => setIsActive(true)}
+        onMouseUp={() => setIsActive(false)}
+        onMouseLeave={() => setIsActive(false)}
       >
         <input
           type="checkbox"
@@ -419,14 +414,7 @@ const MultiSelectDropdown = ({
           <SVG.Check width="20px" height="20px" fill={"#FFFFFF"} />
         </div>
         <div className="option-des-container">
-          <div
-            style={{
-              display: "flex",
-              gap: "0.25rem",
-              alignItems: "center",
-              width: "100%",
-            }}
-          >
+          <div className="multiselectdropdown-icon-option">
             {config?.showIcon &&
               option?.icon &&
               IconRender(
@@ -501,7 +489,9 @@ const MultiSelectDropdown = ({
                     onClick={() => handleCategorySelection(option)}
                   >
                     <div className="category-selectAll-label">
-                      {categorySelectAllLabel ? categorySelectAllLabel : "Select All"}
+                      {categorySelectAllLabel
+                        ? categorySelectAllLabel
+                        : "Select All"}
                     </div>
                     <input
                       type="checkbox"

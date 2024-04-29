@@ -155,8 +155,14 @@
       @apply w-full max-w-full overflow-hidden box-border;
       margin: 0.594rem 0rem 0.594rem 0rem;
 
-      .svg {
-        flex-shrink: 0;
+      .multiselectdropdown-icon-option {
+        @apply w-full items-center;
+        display: flex !important;
+        gap: 0.25rem;
+
+        svg {
+          flex-shrink: 0;
+        }
       }
     }
 
@@ -180,11 +186,12 @@
       }
     }
 
-    &:not(.nestedmultiselect, .checked):not(:active):not(:hover):nth-of-type(even) {
+    &:not(.nestedmultiselect, .keyChange, .checked):not(:active):not(:hover):nth-of-type(even) {
       background: theme(digitv2.lightTheme.paper-secondary);
     }
 
-    &:hover {
+    &:hover,
+    &.keyChange {
       background: theme(digitv2.lightTheme.primary-bg);
       border: 0.031rem solid theme(digitv2.lightTheme.primary-1);
     }

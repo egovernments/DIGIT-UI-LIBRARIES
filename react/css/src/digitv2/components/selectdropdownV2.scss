@@ -179,6 +179,16 @@
     align-items: center;
     min-height: 1.125rem;
 
+    .icon-option{
+      @apply w-full items-center;
+      display: flex !important;
+      gap:0.25rem;
+
+      svg{
+        flex-shrink: 0;
+      }
+    }
+
 
     .main-option {
       @extend .typography.body-s;
@@ -227,7 +237,8 @@
     }
   }
 
-  &:hover {
+  &:hover,
+  &.keyChange{
     background: theme(digitv2.lightTheme.primary-bg) !important;
     border: 0.031rem solid theme(digitv2.lightTheme.primary-1);
   }

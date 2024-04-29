@@ -129,7 +129,7 @@ const UploadPopup = ({
     return fileData?.map((file, index) => {
       const fileError = errors.find(error => error.file === file);
       return (
-        <div className="uploaded-file-container" key={index}>
+        <div className="digit-uploaded-file-container" key={index}>
           <span
             className="digit-uploadpopup-close-icon"
             style={{display:"flex"}}
@@ -160,7 +160,7 @@ const UploadPopup = ({
           )}
           </div>
           <div
-            className="delete-and-download-button"
+            className="digit-upload-and-download-button"
             style={{ display: "flex" }}
           >
             <Button
@@ -168,7 +168,6 @@ const UploadPopup = ({
               variation="secondary"
               icon={"FileUpload"}
               type="button"
-              className="workbench-download-template-btn"
               onClick={handleReUpload}
             />
             <Button
@@ -176,7 +175,6 @@ const UploadPopup = ({
               variation="secondary"
               icon={"FileDownload"}
               type="button"
-              className="workbench-download-template-btn"
               onButtonClick={() => handleFileDownload(file)}
             />
           </div>
@@ -196,9 +194,7 @@ const UploadPopup = ({
           children={dragDropJSX}
         />
       )}
-      {console.log(fileData, "filedata")}
       {fileData?.length > 0 && renderFileCards}
-      {console.log(fileUrl, "fileurl")}
       {showPreview && <DocPreview file={fileUrl} />}
       {showToast && (
         <Toast

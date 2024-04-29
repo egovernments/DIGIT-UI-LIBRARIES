@@ -35,7 +35,6 @@ const Uploader = (props) => {
       setUploadedFiles(newFiles);
       setUploadedFilesCount(newFiles.length);
       setErrors([...errors, ...newErrors]);
-      props?.onUpload(e);
     }
   };
 
@@ -47,7 +46,6 @@ const Uploader = (props) => {
     const updatedFiles = uploadedFiles.filter((file) => file !== fileToRemove);
     setUploadedFiles(updatedFiles);
     setUploadedFilesCount(updatedFiles.length);
-    props?.removeTargetedFile(fileToRemove);
   };
 
   useEffect(() => {
@@ -85,8 +83,6 @@ const Uploader = (props) => {
       const reader = new FileReader();
       reader.onload = (e) => {
         const result = e.target.result;
-        console.log("Preview generated for:", file.name);
-        console.log("Preview data:", result);
         resolve(result);
       };
       reader.readAsDataURL(file);
@@ -170,7 +166,6 @@ const Uploader = (props) => {
             {props?.showAsTags && (
               <div className="digit-tag-container" style={{ marginTop: "0px" }}>
                 {uploadedFiles?.map((file, index) => {
-                  console.log(file, "file");
                   return (
                     <RemoveableTag
                       key={index}

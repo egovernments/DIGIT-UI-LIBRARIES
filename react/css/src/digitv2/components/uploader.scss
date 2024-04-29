@@ -171,8 +171,8 @@
       color: theme(digitv2.lightTheme.text-secondary);
     }
 
-    .uploaded-file-container{
-      display: flex;
+    .digit-uploaded-file-container{
+      display: flex !important;
       flex-direction: column;
       gap: 12px;
       align-items: flex-start;
@@ -210,7 +210,7 @@
         }
       }
 
-      .delete-and-download-button{
+      .digit-upload-and-download-button{
         display: flex;
         gap:16px;
       }
