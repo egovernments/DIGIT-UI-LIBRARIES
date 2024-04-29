@@ -42,7 +42,8 @@ frontend/micro-ui/web/public/index.html
 # Changelog
 
 ```bash
-1.8.2-coreui.8 enhancements of components
+1.8.2-coreui.9 enhancements of components
+1.8.2-coreui.8 updated css of loader
 1.8.2-coreui.7 updated header and textinput classnames 
 1.8.2-coreui.6 updated css with new classnames and updated tag styles 
 1.8.2-coreui.5 updated css version 
