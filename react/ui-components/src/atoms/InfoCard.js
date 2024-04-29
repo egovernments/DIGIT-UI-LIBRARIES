@@ -7,20 +7,20 @@ const InfoCard = ({ label, text, variant, style, textStyle, additionalElements, 
   const getIconAndLabelByVariant = (variant) => {
     switch (variant) {
       case "warning":
-        return { icon: <SVG.Warning fill={"#F19100"} />, defaultLabel: "Warning" };
+        return { icon: <SVG.Warning fill={"#EA8D00"} />, defaultLabel: "Warning" };
       case "success":
         return { icon: <SVG.CheckCircle fill={"#00703C"} />, defaultLabel: "Success" };
       case "error":
-        return { icon: <SVG.Error fill={"#D4351C"} />, defaultLabel: "Error" };
+        return { icon: <SVG.Error fill={"#B91900"} />, defaultLabel: "Error" };
       default:
-        return { icon: <SVG.Info fill={"#3498DB"} />, defaultLabel: "Info" };
+        return { icon: <SVG.Info fill={"#0057BD"} />, defaultLabel: "Info" };
     }
   };
   const { icon, defaultLabel } = getIconAndLabelByVariant(variant);
 
   const hasAdditionalElements = additionalElements && additionalElements.length > 0;
 
-  const displayedLabel = StringManipulator("toTitleCase", label) || defaultLabel;
+  const displayedLabel = StringManipulator("TOTITLECASE", label) || defaultLabel;
 
   return (
     <div className={`digit-infobanner-wrap ${variant ? variant : "default"}`} style={style}>
@@ -28,7 +28,7 @@ const InfoCard = ({ label, text, variant, style, textStyle, additionalElements, 
         {icon}
         <h2>{displayedLabel}</h2>
       </div>
-      {text && <p style={{ ...textStyle }}>{StringManipulator("toSentenceCase", text)}</p>}
+      {text && <p style={{ ...textStyle }}>{StringManipulator("TOSENTENCECASE", text)}</p>}
       {hasAdditionalElements && (
         <div className={inline ? "additional-elements-inline" : "additional-elements-column"}>
           {additionalElements.map((element, index) => (

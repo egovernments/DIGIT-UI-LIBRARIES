@@ -21,7 +21,7 @@
 
   &:hover {
     width: 7.125rem;
-    border: 1px solid theme(digitv2.lightTheme.primary-orange);
+    border: 1px solid theme(digitv2.lightTheme.primary-1);
     background: theme(digitv2.lightTheme.paper-primary);
     box-shadow: 0px 0px 6px 0px rgba(244, 119, 56, 0.25);
   }
@@ -34,7 +34,7 @@
 
 .react-switch-checkbox:checked+.react-switch-label {
   width: 7.125rem;
-  background: theme(digitv2.lightTheme.primary-orange);
+  background: theme(digitv2.lightTheme.primary-1);
 }
 
 .react-switch-label:active .react-switch-button {

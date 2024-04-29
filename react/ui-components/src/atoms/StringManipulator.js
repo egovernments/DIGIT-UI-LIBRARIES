@@ -13,13 +13,13 @@ const StringManipulator = (functionName, key, props) => {
     if (!key) return null;
 
     switch (functionName) {
-      case "toSentenceCase":
+      case "TOSENTENCECASE":
         return toSentenceCase(key);
-      case "capitalizeFirstLetter":
+      case "CAPITALIZEFIRSTLETTER":
         return capitalizeFirstLetter(key);
-      case "toTitleCase":
+      case "TOTITLECASE":
         return toTitleCase(key);
-      case "truncateString":
+      case "TRUNCATESTRING":
         return truncateString(key, props?.maxLength);
       default:
         return key;

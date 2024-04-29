@@ -58,6 +58,7 @@ yarn storybook
 # Changelog
 
 ```bash
+0.0.1-beta.12 enhancements of components
 0.0.1-beta.11 updated mobilenumber classname
 0.0.1-beta.10 updated header and textinput classnames
 0.0.1-beta.9 updated key to IS_STRING_MANIPULATED

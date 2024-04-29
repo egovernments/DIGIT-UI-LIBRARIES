@@ -6,6 +6,7 @@ import StringManipulator from "./StringManipulator";
 
 const Toast = (props) => {
   const [isVisible, setIsVisible] = useState(true);
+  const [isAnimating, setIsAnimating] = useState(false);
 
   useEffect(() => {
     const timeout = setTimeout(
@@ -17,7 +18,14 @@ const Toast = (props) => {
       },
       props?.transitionTime ? props.transitionTime : 5000
     );
-    return () => clearTimeout(timeout);
+    const animateTimeout = setTimeout(() => {
+      setIsAnimating(true);
+    }, 100);
+
+    return () => {
+      clearTimeout(timeout);
+      clearTimeout(animateTimeout);
+    };
   }, [props.transitionTime, props.onClose]);
 
   const handleClose = () => {
@@ -35,7 +43,7 @@ const Toast = (props) => {
     ? "digit-warning-buttons"
     : "";
 
-  const sentenceCaseLabel = StringManipulator("toSentenceCase", props.label);
+  const sentenceCaseLabel = StringManipulator("TOSENTENCECASE", props.label);
 
   if (!isVisible) {
     return null;
@@ -44,7 +52,7 @@ const Toast = (props) => {
   if (props.error) {
     return (
       <div
-        className={`digit-toast-success ${variant}`}
+        className={`digit-toast-success ${isVisible && isAnimating ? "animate" : ""} ${variant}`}
         style={{ ...props.style }}
       >
         <SVG.Error fill="#FFFFFF" />
@@ -65,7 +73,7 @@ const Toast = (props) => {
     return (
       <div>
         <div
-          className={`digit-toast-success ${variant} ${isWarningButtons}`}
+          className={`digit-toast-success ${isVisible && isAnimating ? "animate" : ""} ${variant} ${isWarningButtons}`}
           style={{ ...props.style }}
         >
           {!props?.isWarningButtons ? (
@@ -109,7 +117,7 @@ const Toast = (props) => {
   }
 
   return (
-    <div className="digit-toast-success" style={{ ...props.style }}>
+    <div className={`digit-toast-success ${isVisible && isAnimating ? "animate" : ""}`} style={{ ...props.style }}>
       <SVG.CheckCircle fill="#FFFFFF" />
       <div className="toast-label" style={{ ...props.labelstyle }}>
         {sentenceCaseLabel}

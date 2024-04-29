@@ -228,8 +228,7 @@ const Dropdown = (props) => {
 
     return (
       <div
-        className={`cp digit-dropdown-item ${props.variant ? props?.variant : ""}`}
-        style={index === optionIndex ? { opacity: 1, backgroundColor: "#FFFAF7", border: "0.5px solid #F47738" } : {}}
+        className={`cp digit-dropdown-item ${props.variant ? props?.variant : ""} ${index === optionIndex ? "keyChange" : ""}`}
         key={index}
         onClick={() => onSelect(option)}
         onMouseDown={handleMouseDown}
@@ -250,7 +249,7 @@ const Dropdown = (props) => {
           />
         ) : null}
         <div className="option-des-container">
-          <div style={{ display: "flex", gap: "0.25rem", alignItems: "center", width: "100%", minHeight: "18px" }}>
+          <div className="icon-option">
             {props?.showIcon && option?.icon && IconRender(option?.icon, index === isActive)}
             {props.isPropertyAssess ? (
               <div>{props.t ? props.t(option[props.optionKey]) : option[props.optionKey]}</div>
@@ -281,7 +280,7 @@ const Dropdown = (props) => {
               {props.variant === "treedropdown" && option.options.length > 0 && (
                 <SVG.ArrowDropDown width="1.5rem" height="1.5rem" className="cp" fill="#505a5f" />
               )}
-              {option.name}
+              {option[props.optionKey]}
             </div>
           </div>
         );
@@ -371,7 +370,7 @@ const Dropdown = (props) => {
             )}
             {(props.variant === "nesteddropdown" ? flattenedOptions : filteredOption) &&
               (props.variant === "nesteddropdown" ? flattenedOptions : filteredOption).length === 0 && (
-                <div className={`cp digit-dropdown-item ${props.variant ? props?.variant : ""}`} key={"-1"} onClick={() => {}}>
+                <div className={`cp digit-dropdown-item unsuccessfulresults ${props.variant ? props?.variant : ""}`} key={"-1"} onClick={() => {}}>
                   {<span> {"NO RESULTS FOUND"}</span>}
                 </div>
               )}

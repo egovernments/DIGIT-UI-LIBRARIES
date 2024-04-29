@@ -366,18 +366,18 @@
     }
   }
 
-  @media (min-width: 30.063rem) and (max-width: 47.938rem) {
+  @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4)  {
     /* Media query for tablets */
     max-width: 27.5rem;
   }
 
-  @media (max-width: 30rem) {
+  @media (max-aspect-ratio: 9/16) {
     /* Media query for mobile */
     max-width: 20.5rem;
     width: 100%;
   }
 
-  @media (min-width: 48rem) {
+  @media (min-aspect-ratio: 3/4) {
     /* Media query for desktop */
     max-width: 37.5rem;
   }
@@ -392,7 +392,7 @@
   .digit-suffix:not([readonly]),
   input:not([readonly]) {
     outline: none;
-    border: 0.094rem solid theme(digitv2.lightTheme.primary-orange);
+    border: 0.094rem solid theme(digitv2.lightTheme.primary-1);
   }
 
   .digit-numeric-button-prefix,

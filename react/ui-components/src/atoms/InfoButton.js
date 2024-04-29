@@ -2,31 +2,21 @@ import React from "react";
 import PropTypes from "prop-types";
 import StringManipulator from "./StringManipulator";
 
-const Button = (props) => {
+const InfoButton = (props) => {
   
   //To render the icon
   const IconRender = () => {
-    const iconFill =
-      props?.variation === "primary"
-        ? "#FFFFFF"
-        : props?.isDisabled
-        ? "#C5C5C5"
-        : "#C84C0E";
+    const iconFill = "#FFFFFF"
     const iconReq = props?.icon;
-    let width, height;
+    let width = "1.5rem";
+    let height = "1.5rem";
 
-    if (props.size === "large") {
-        width = props.variation === "link" ? "1.25rem" : "1.5rem";
-        height = props.variation === "link" ? "1.25rem" : "1.5rem";
-    } else if (props.size === "medium") {
+    if (props.size === "medium") {
         width = "1.25rem";
         height = "1.25rem";
     } else if (props.size === "small") {
         width = "0.875rem";
         height = "0.875rem";
-    }else{
-      width = "1.5rem";
-      height ="1.5rem";
     }
     
     try {
@@ -65,9 +55,7 @@ const Button = (props) => {
   return (
     <button
       ref={props?.ref}
-      className={`digit-button-${
-        props?.variation ? props?.variation : "default"
-      } ${props?.size ? props?.size : "large"} ${props?.className ? props?.className : ""} ${
+      className={`digit-info-button ${props?.infobuttontype ? props?.infobuttontype : ""} ${props?.size ? props?.size : "large"} ${props?.className ? props?.className : ""} ${
         props?.isDisabled ? "disabled" : ""
       }`}
       type={props?.submit ? "submit" : props.type || "button"}
@@ -78,31 +66,25 @@ const Button = (props) => {
     >
       <div
         className={`icon-label-container ${
-          props?.variation ? props?.variation : ""
-        } ${
           props?.size ? props?.size : ""
         }`}
       >
         {!props?.isSuffix && props?.icon && icon}
-        <h2 style={{ ...props?.textStyles }} className="digit-button-label">
+        <h1 style={{ ...props?.textStyles }} className="digit-button-label">
           {formattedLabel}
-        </h2>
+        </h1>
         {props?.isSuffix && props?.icon && icon}
       </div>
     </button>
   );
 };
 
-Button.propTypes = {
+InfoButton.propTypes = {
   isDisabled: PropTypes.bool,
   /**
    * ButtonSelector content
    */
   label: PropTypes.string.isRequired,
-  /**
-   * button border theme
-   */
-  variation: PropTypes.string,
   /**
    * button icon if any
    */
@@ -127,17 +109,18 @@ Button.propTypes = {
    * button icon position
    */
   isSuffix: PropTypes.bool,
-      /**
+    /**
    * button size 
    */
-  size: PropTypes.string,
+    size: PropTypes.string,
+
+    infobuttontype: PropTypes.string,
 };
 
-Button.defaultProps = {
+InfoButton.defaultProps = {
   label: "TEST",
-  variation: "primary",
   onClick: () => {},
-  size:"large"
+  infobuttontype:"info"
 };
 
-export default Button;
+export default InfoButton;

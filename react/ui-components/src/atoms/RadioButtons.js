@@ -33,7 +33,7 @@ const RadioButtons = (props) => {
               </span>
               <label style={props.inputStyle}>
                 {StringManipulator(
-                  "toSentenceCase",
+                  "TOSENTENCECASE",
                   t(option[props.optionsKey])
                 )}
               </label>
@@ -56,7 +56,7 @@ const RadioButtons = (props) => {
                 <span className="digit-radio-btn-checkmark"></span>
               </span>
               <label style={props.inputStyle}>
-                {StringManipulator("toSentenceCase",t(
+                {StringManipulator("TOSENTENCECASE",t(
                   props.labelKey
                     ? `${props.labelKey}_${option.code}`
                     : option.code
@@ -82,7 +82,7 @@ const RadioButtons = (props) => {
               </span>
 
               <label style={props.inputStyle}>
-                {StringManipulator("toSentenceCase", t(option))}
+                {StringManipulator("TOSENTENCECASE", t(option))}
               </label>
             </div>
           );

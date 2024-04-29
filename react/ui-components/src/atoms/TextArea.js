@@ -24,7 +24,7 @@ const TextArea = (props) => {
     <React.Fragment>
       <textarea
         onInput={props.populators?.resizeSmart && textAreaAdjust}
-        placeholder={StringManipulator("toSentenceCase", props.placeholder)}
+        placeholder={StringManipulator("TOSENTENCECASE", props.placeholder)}
         name={props.name}
         ref={props.inputRef}
         style={props.style}

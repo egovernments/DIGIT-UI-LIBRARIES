@@ -27,7 +27,8 @@
     }
 
     &:hover {
-      @apply border-2 border-primary-main;
+      @apply border-2 ;
+      border-color: theme(digitv2.lightTheme.primary-1);
     }
   }
 
@@ -36,11 +37,12 @@
   }
 
   input:hover~.digit-custom-checkbox {
-    @apply border-2 border-primary-main;
+    @apply border-2;
+    border-color: theme(digitv2.lightTheme.primary-1);
   }
 
   input:checked~.digit-custom-checkbox {
-    border: 0.125rem solid theme(digitv2.lightTheme.primary-orange);
+    border: 0.125rem solid theme(digitv2.lightTheme.primary-1);
   }
 
 
@@ -58,7 +60,6 @@
     @extend .typography.body-s;
     @apply text-left;
     word-break: break-word;
-    line-height: 1.5rem;
     letter-spacing: 0rem;
     color: theme(digitv2.lightTheme.text-primary);
   }

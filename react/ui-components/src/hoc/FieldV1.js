@@ -94,16 +94,17 @@ const FieldV1 = ({
             whiteSpace: "pre-wrap",
             wordBreak: "break-word",
             marginTop: "0px",
+            display:"flex"
           }}
         >
-          <div className="digit-error-icon">
-            <SVG.Info width="1rem" height="1rem" fill="#D4351C" />
+          <div className="digit-error-icon" style={{display:"flex"}}>
+            <SVG.Info width="1rem" height="1rem" fill="#B91900" />
           </div>
           <ErrorMessage
             message={
               StringManipulator(
-                "toSentenceCase",
-                StringManipulator("truncateString", t(error), { maxLength: 256 })
+                "TOSENTENCECASE",
+                StringManipulator("TRUNCATESTRING", t(error), { maxLength: 256 })
               )
             }
           />
@@ -123,8 +124,8 @@ const FieldV1 = ({
         >
           {
             StringManipulator(
-              "toSentenceCase",
-              StringManipulator("truncateString", t(description), {
+              "TOSENTENCECASE",
+              StringManipulator("TRUNCATESTRING", t(description), {
                 maxLength: 256,
               })
             )
@@ -259,6 +260,10 @@ const FieldV1 = ({
               config={populators}
               disabled={disabled}
               variant={variant}
+              addSelectAllCheck={populators?.addSelectAllCheck}
+              addCategorySelectAllCheck={populators?.addCategorySelectAllCheck}
+              selectAllLabel={populators?.selectAllLabel}
+              categorySelectAllLabel={populators?.categorySelectAllLabel}
             />
           </div>
         );
@@ -364,20 +369,22 @@ const FieldV1 = ({
             nonEditable ? "noneditable" : ""
           } ${populators?.wrapLabel ? "wraplabel" : ""}`}
         >
-          <div className={"label-container"}>
+          <div className={`label-container ${
+                populators?.wrapLabel ? "wraplabel" : ""
+              }`}>
             <div
               className={`label-styles ${
                 populators?.wrapLabel ? "wraplabel" : ""
               }`}
             >
               {StringManipulator(
-                    "toSentenceCase",
-                    StringManipulator("truncateString", t(label), {
+                    "TOSENTENCECASE",
+                    StringManipulator("TRUNCATESTRING", t(label), {
                       maxLength: 64,
                     })
                   )}
             </div>
-            <div style={{ color: "#D4351C" }}>{required ? " * " : null}</div>
+            <div style={{ color: "#B91900" }}>{required ? " * " : null}</div>
             {infoMessage ? (
               <div className="info-icon">
                 <SVG.InfoOutline

@@ -1,5 +1,5 @@
 import React from "react";
-import { InfoCard, TextArea } from "../../atoms";
+import { InfoCard, TextArea, InfoButton } from "../../atoms";
 
 export default {
   title: "Atom-Groups/InfoCard",
@@ -8,7 +8,10 @@ export default {
     label: {
       control: "text",
     },
-    variant: { control: "select", options: ["default", "success", "warning", "error"] },
+    variant: {
+      control: "select",
+      options: ["default", "success", "warning", "error"],
+    },
     text: { control: "text" },
     style: {
       control: "object",
@@ -37,6 +40,50 @@ const commonArgs = {
   variant: "default",
 };
 
+const additionalElements = [
+  <p key="1">Additional Element 1</p>,
+  <img
+    key="2"
+    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s"
+    alt="Additional Element 2"
+  />,
+  <img
+    key="3"
+    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s"
+    alt="Additional Element 3"
+  />,
+  <img
+    key="4"
+    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s"
+    alt="Additional Element 4"
+  />,
+  <img
+    key="5"
+    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s"
+    alt="Additional Element 5"
+  />,
+  <img
+    key="6"
+    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s"
+    alt="Additional Element 6"
+  />,
+  <img
+    key="7"
+    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s"
+    alt="Additional Element 7"
+  />,
+  <img
+    key="8"
+    src="https://digit.org/wp-content/uploads/2023/06/Digit-Logo-1.png"
+    alt="Additional Element 8"
+  />,
+  <TextArea
+    type="textarea"
+    disabled={false}
+    populators={{ resizeSmart: true }}
+  ></TextArea>,
+];
+
 // Info default
 export const Info = Template.bind({});
 Info.args = {
@@ -48,39 +95,8 @@ export const InfoWithAdditionalElements = Template.bind({});
 InfoWithAdditionalElements.args = {
   ...commonArgs,
   additionalElements: [
-    <p key="1">Additional Element 1</p>,
-    <img
-      key="2"
-      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s"
-      alt="Additional Element 2"
-    />,
-    <img
-      key="3"
-      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s"
-      alt="Additional Element 3"
-    />,
-    <img
-      key="4"
-      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s"
-      alt="Additional Element 4"
-    />,
-    <img
-      key="5"
-      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s"
-      alt="Additional Element 5"
-    />,
-    <img
-      key="6"
-      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s"
-      alt="Additional Element 6"
-    />,
-    <img
-      key="7"
-      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s"
-      alt="Additional Element 7"
-    />,
-    <img key="8" src="https://digit.org/wp-content/uploads/2023/06/Digit-Logo-1.png" alt="Additional Element 8" />,
-    <TextArea type="textarea" disabled={false} populators={{ resizeSmart: true }}></TextArea>,
+    ...additionalElements,
+    <InfoButton label={"Button"} size="large" isDisabled={false}></InfoButton>,
   ],
 };
 
@@ -100,39 +116,13 @@ export const InfoSuccessWithAdditionalElements = Template.bind({});
 InfoSuccessWithAdditionalElements.args = {
   ...commonArgs,
   additionalElements: [
-    <p key="1">Additional Element 1</p>,
-    <img
-      key="2"
-      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s"
-      alt="Additional Element 2"
-    />,
-    <img
-      key="3"
-      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s"
-      alt="Additional Element 3"
-    />,
-    <img
-      key="4"
-      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s"
-      alt="Additional Element 4"
-    />,
-    <img
-      key="5"
-      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s"
-      alt="Additional Element 5"
-    />,
-    <img
-      key="6"
-      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s"
-      alt="Additional Element 6"
-    />,
-    <img
-      key="7"
-      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s"
-      alt="Additional Element 7"
-    />,
-    <img key="8" src="https://digit.org/wp-content/uploads/2023/06/Digit-Logo-1.png" alt="Additional Element 8" />,
-    <TextArea type="textarea" disabled={false} populators={{ resizeSmart: true }}></TextArea>,
+    ...additionalElements,
+    <InfoButton
+      size="large"
+      isDisabled={false}
+      infobuttontype={"success"}
+      label={"Button"}
+    ></InfoButton>,
   ],
   label: "Success",
   variant: "success",
@@ -157,39 +147,13 @@ export const InfoWarningWithAdditionalElements = Template.bind({});
 InfoWarningWithAdditionalElements.args = {
   ...commonArgs,
   additionalElements: [
-    <p key="1">Additional Element 1</p>,
-    <img
-      key="2"
-      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s"
-      alt="Additional Element 2"
-    />,
-    <img
-      key="3"
-      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s"
-      alt="Additional Element 3"
-    />,
-    <img
-      key="4"
-      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s"
-      alt="Additional Element 4"
-    />,
-    <img
-      key="5"
-      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s"
-      alt="Additional Element 5"
-    />,
-    <img
-      key="6"
-      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s"
-      alt="Additional Element 6"
-    />,
-    <img
-      key="7"
-      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s"
-      alt="Additional Element 7"
-    />,
-    <img key="8" src="https://digit.org/wp-content/uploads/2023/06/Digit-Logo-1.png" alt="Additional Element 8" />,
-    <TextArea type="textarea" disabled={false} populators={{ resizeSmart: true }}></TextArea>,
+    ...additionalElements,
+    <InfoButton
+      size="large"
+      isDisabled={false}
+      infobuttontype={"warning"}
+      label={"Button"}
+    ></InfoButton>,
   ],
   label: "Warning",
   variant: "warning",
@@ -197,7 +161,6 @@ InfoWarningWithAdditionalElements.args = {
 InfoWarningWithAdditionalElements.argTypes = {
   variant: { control: { disable: true } },
 };
-
 
 // Info Error
 export const InfoError = Template.bind({});
@@ -215,38 +178,13 @@ export const InfoErrorWithAdditionalElements = Template.bind({});
 InfoErrorWithAdditionalElements.args = {
   ...commonArgs,
   additionalElements: [
-    <p key="1">Additional Element 1</p>,
-    <img
-      key="2"
-      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s"
-      alt="Additional Element 2"
-    />,
-    <img
-      key="3"
-      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s"
-      alt="Additional Element 3"
-    />,
-    <img
-      key="4"
-      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s"
-      alt="Additional Element 4"
-    />,
-    <img
-      key="5"
-      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s"
-      alt="Additional Element 5"
-    />,
-    <img
-      key="6"
-      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s"
-      alt="Additional Element 6"
-    />,
-    <img
-      key="7"
-      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s"
-      alt="Additional Element 7"
-    />,
-    <img key="8" src="https://digit.org/wp-content/uploads/2023/06/Digit-Logo-1.png" alt="Additional Element 8" />,
+    ...additionalElements,
+    <InfoButton
+      size="large"
+      isDisabled={false}
+      infobuttontype={"error"}
+      label={"Button"}
+    ></InfoButton>,
   ],
   label: "Error",
   variant: "error",

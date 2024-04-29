@@ -17,119 +17,94 @@
     min-height: 4rem;
     gap: 0.5rem;
 
-    span {
-      @apply text-center;
-      color: theme(digitv2.lightTheme.paper-primary);
-    }
-
     .stepper-label {
       @extend .typography.body-s;
       @apply text-center;
       color: theme(digitv2.lightTheme.text-secondary);
-      line-height: 1.5rem;
       letter-spacing: 0rem;
-      height: 1.5rem;
-
-      @media (max-width: 30rem) {
-        line-height: 1.25rem;
-      }
-
       &.completed {
         color: theme(digitv2.lightTheme.text-primary);
       }
-
       &.current {
         @extend .typography.heading-s;
+        line-height:1.37rem;
         color: theme(digitv2.lightTheme.text-primary);
-        line-height: 1.172rem;
+      }
+      &.vertical{
+        @apply text-left;
+        margin-top:0.438rem;
       }
     }
-
     &.vertical {
       @apply flex-row;
     }
   }
-
   .stepper-circle {
-    @apply flex text-center justify-center items-center font-regular;
-    width: 2rem;
-    height: 2rem;
-    background-color: theme(digitv2.lightTheme.text-disabled);
+    @apply flex text-center justify-center items-center font-regular w-8 h-8;
+    background-color: theme(digitv2.lightTheme.paper-primary);
     border-radius: 50%;
     margin-top: 0.25rem;
-
-
-    @media (max-width: 30rem) {
-      width: 1.5rem;
-      height: 1.5rem;
+    border: 0.125rem solid theme(digitv2.lightTheme.generic-divider);
+    color: #787878;
+    @media (max-aspect-ratio: 9/16) {
+      @apply w-6 h-6;
     }
   }
-
   .active {
     @apply font-bold;
-    background-color: theme(digitv2.lightTheme.primary-orange);
-    border-color: theme(digitv2.lightTheme.primary-orange);
+    background-color: theme(digitv2.lightTheme.primary-1);
+    border-color: theme(digitv2.lightTheme.primary-1);
+    color:theme(digitv2.lightTheme.paper-primary);
   }
-
   .stepper-connect {
     @apply absolute;
     top: 1.25rem;
     left: calc(50% + 0.5rem);
     right: calc(-50% + 0.5rem);
-    border-top: 0.25rem solid theme(colors.border);
+    border-top: 0.125rem solid theme(colors.border);
     z-index: -1;
-    height: 0.25rem;
-
-    @media (min-width: 30.063rem) and (max-width: 47.938rem) {
-      /* Media query for tablets */
+    height: 0.125rem;
+    @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
       min-width: 6.313rem;
       max-width: 39.438rem;
     }
-
-    @media (max-width: 30rem) {
-      /* Media query for mobile */
+    @media (max-aspect-ratio: 9/16) {
       min-width: 4.313rem;
       max-width: 16.875rem;
       top: 0.875rem;
     }
-
-    @media (min-width: 48rem) {
-      /* Media query for desktop */
+    @media (min-aspect-ratio: 3/4) {
       min-width: 5.313rem;
       max-width: 82.688rem;
     }
-
     &.active {
-      background-color: theme(digitv2.lightTheme.primary-orange);
-      border-color: theme(digitv2.lightTheme.primary-orange);
+      background-color: theme(digitv2.lightTheme.primary-1);
+      border-color: theme(digitv2.lightTheme.primary-1);
+      height:0.25rem;
+      border-top: 0.25rem solid theme(digitv2.lightTheme.primary-1);
     }
-
     &.vertical {
       top: calc(50% + 0.5rem);
       bottom: calc(-50% + 0.5rem);
       left: -3rem;
-      width: 0.25rem;
+      width: 0.125rem;
       height: auto;
       transform: rotate(90deg);
-
       &.active {
         background-color: transparent;
-        border-color: theme(digitv2.lightTheme.primary-orange);
+        border-color: theme(digitv2.lightTheme.primary-1);
       }
     }
   }
-
   .digit-stepper-content:hover {
     .stepper-circle.active {
       outline: 0.25rem solid #F477381F;
     }
-
-    .stepper-label{
-      font-size: 1rem;
-      line-height: 1.5rem;
-      
-      &.completed{
+    .stepper-label {
+      &.completed {
         @extend .typography.heading-s;
+        line-height:1.37rem;
+        color: theme(digitv2.lightTheme.text-primary);
       }
     }
   }

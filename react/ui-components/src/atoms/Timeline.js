@@ -76,7 +76,9 @@ const Timeline = ({
       <div className="timeline-content">
         <div className="timeline-info">
           <div className="timeline-label">
-            {label ? StringManipulator("capitalizeFirstLetter", label) : defaultLabel}
+            {label
+              ? StringManipulator("CAPITALIZEFIRSTLETTER", label)
+              : defaultLabel}
           </div>
           {subElements && subElements.length > 0 ? (
             <div className="timeline-subelements">
@@ -111,17 +113,29 @@ const Timeline = ({
           </div>
         )}
         {hasAdditionalElements && (
-          <div className="timeline-toggle-details">
-            <button onClick={toggleDetails} className={getDetailsButtonStyle()}>
+          <div className="timeline-toggle-details" onClick={toggleDetails} >
+            <button className={getDetailsButtonStyle()}>
               {showDetails
                 ? hideDetailsLabel
-                  ? StringManipulator("capitalizeFirstLetter", hideDetailsLabel)
+                  ? StringManipulator("CAPITALIZEFIRSTLETTER", hideDetailsLabel)
                   : "Hide Details"
                 : viewDetailsLabel
-                ?  StringManipulator("capitalizeFirstLetter", viewDetailsLabel)
+                ? StringManipulator("CAPITALIZEFIRSTLETTER", viewDetailsLabel)
                 : "View Details"}
             </button>
-            <SVG.ArrowDropDown width="24px" height="24px"></SVG.ArrowDropDown>
+            {showDetails ? (
+              <SVG.ArrowDropUp
+                width="24px"
+                height="24px"
+                fill="#C84C0E"
+              ></SVG.ArrowDropUp>
+            ) : (
+              <SVG.ArrowDropDown
+                width="24px"
+                height="24px"
+                fill="#C84C0E"
+              ></SVG.ArrowDropDown>
+            )}
           </div>
         )}
       </div>

@@ -23,7 +23,7 @@ const CheckBox = ({
   const userType = pageType || window?.Digit?.SessionStorage.get("userType");
   let styles = props.styles;
 
-  const sentenceCaseLabel = StringManipulator("toSentenceCase", label);
+  const sentenceCaseLabel = StringManipulator("TOSENTENCECASE", label);
 
   return (
     <div
@@ -63,7 +63,7 @@ const CheckBox = ({
             userType === "employee" ? "digit-custom-checkbox-emp" : ""
           }`}
         >
-          <SVG.Check fill={disabled ? "#B1B4B6" : "#F47738"} />
+          <SVG.Check fill={disabled ? "#C5C5C5" : "#C84C0E"} />
         </p>
       </div>
       {!isLabelFirst ? (

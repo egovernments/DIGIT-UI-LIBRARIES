@@ -21,19 +21,30 @@ const MultiSelectDropdown = ({
   config,
   disabled,
   variant,
+  addSelectAllCheck = false,
+  addCategorySelectAllCheck = false,
+  selectAllLabel = "",
+  categorySelectAllLabel = ""
 }) => {
   const [active, setActive] = useState(false);
   const [searchQuery, setSearchQuery] = useState();
   const [optionIndex, setOptionIndex] = useState(-1);
+  const [selectAllChecked, setSelectAllChecked] = useState(false);
+  const [categorySelected, setCategorySelected] = useState({});
   const dropdownRef = useRef();
   const { t } = useTranslation();
 
   function reducer(state, action) {
     switch (action.type) {
       case "ADD_TO_SELECTED_EVENT_QUEUE":
-        return [...state, { code: action.payload?.[1]?.code, propsData: action.payload }];
+        return [
+          ...state,
+          { code: action.payload?.[1]?.code, propsData: action.payload },
+        ];
       case "REMOVE_FROM_SELECTED_EVENT_QUEUE":
-        const newState = state.filter((e) => e?.code !== action.payload?.[1]?.code);
+        const newState = state.filter(
+          (e) => e?.code !== action.payload?.[1]?.code
+        );
         onSelect(
           newState.map((e) => e.propsData),
           props
@@ -47,13 +58,20 @@ const MultiSelectDropdown = ({
   }
 
   useEffect(() => {
-    dispatch({ type: "REPLACE_COMPLETE_STATE", payload: fnToSelectOptionThroughProvidedSelection(selected) });
+    dispatch({
+      type: "REPLACE_COMPLETE_STATE",
+      payload: fnToSelectOptionThroughProvidedSelection(selected),
+    });
   }, [selected?.length]);
 
   function fnToSelectOptionThroughProvidedSelection(selected) {
     return selected?.map((e) => ({ code: e?.code, propsData: [null, e] }));
   }
-  const [alreadyQueuedSelectedState, dispatch] = useReducer(reducer, selected, fnToSelectOptionThroughProvidedSelection);
+  const [alreadyQueuedSelectedState, dispatch] = useReducer(
+    reducer,
+    selected,
+    fnToSelectOptionThroughProvidedSelection
+  );
 
   useEffect(() => {
     if (!active) {
@@ -64,16 +82,69 @@ const MultiSelectDropdown = ({
     }
   }, [active]);
 
+  useEffect(() => {
+    const initialCategorySelectedState = options.reduce((acc, category) => {
+      if (category.options) {
+        acc[category.code] = category.options.every((option) =>
+          alreadyQueuedSelectedState.some(
+            (selectedOption) => selectedOption.code === option.code
+          )
+        );
+      }
+      return acc;
+    }, {});
+    setCategorySelected(initialCategorySelectedState);
+  }, [options, alreadyQueuedSelectedState]);
+
+  const checkSelection = (optionstobeiterated) => {
+    if (optionstobeiterated && optionstobeiterated.length > 0) {
+      return optionstobeiterated?.every((option) =>
+        alreadyQueuedSelectedState.some(
+          (selectedOption) => selectedOption.code === option.code
+        )
+      );
+    } else {
+      return false;
+    }
+  };
+
+  useEffect(() => {
+    const allOptionsSelected =
+      variant === "nestedmultiselect"
+        ? checkSelection(flattenedOptions.filter((option) => !option.options))
+        : checkSelection(options);
+
+    setSelectAllChecked(allOptionsSelected);
+
+    const newCategorySelected = { ...categorySelected };
+    options
+      .filter((option) => option.options)
+      .forEach((category) => {
+        const allChildrenSelected = checkSelection(category.options);
+        newCategorySelected[category.code] = allChildrenSelected;
+      });
+    setCategorySelected(newCategorySelected);
+  }, [alreadyQueuedSelectedState]);
+
   function handleOutsideClickAndSubmitSimultaneously() {
     setActive(false);
   }
 
-  window?.Digit?.Hooks.useClickOutside(dropdownRef, handleOutsideClickAndSubmitSimultaneously, active, { capture: true });
+  window?.Digit?.Hooks.useClickOutside(
+    dropdownRef,
+    handleOutsideClickAndSubmitSimultaneously,
+    active,
+    { capture: true }
+  );
   const filtOptns =
     searchQuery?.length > 0
       ? options?.filter(
           (option) =>
-            t(option[optionsKey] && typeof option[optionsKey] == "string" && option[optionsKey].toUpperCase())
+            t(
+              option[optionsKey] &&
+                typeof option[optionsKey] == "string" &&
+                option[optionsKey].toUpperCase()
+            )
               .toLowerCase()
               .indexOf(searchQuery.toLowerCase()) >= 0
         )
@@ -87,14 +158,25 @@ const MultiSelectDropdown = ({
     if (variant === "treemultiselect") {
       const currentoptions = props[0];
       currentoptions?.forEach((option) => {
-        const isAlreadySelected = alreadyQueuedSelectedState.some((selectedOption) => selectedOption.code === option.code);
+        const isAlreadySelected = alreadyQueuedSelectedState.some(
+          (selectedOption) => selectedOption.code === option.code
+        );
         if (!isAlreadySelected) {
-          dispatch({ type: "ADD_TO_SELECTED_EVENT_QUEUE", payload: [null, option] });
+          dispatch({
+            type: "ADD_TO_SELECTED_EVENT_QUEUE",
+            payload: [null, option],
+          });
         } else {
-          dispatch({ type: "REMOVE_FROM_SELECTED_EVENT_QUEUE", payload: [null, option] });
+          dispatch({
+            type: "REMOVE_FROM_SELECTED_EVENT_QUEUE",
+            payload: [null, option],
+          });
           const parentOption = findParentOption(option, options);
           if (parentOption) {
-            dispatch({ type: "REMOVE_FROM_SELECTED_EVENT_QUEUE", payload: [null, parentOption] });
+            dispatch({
+              type: "REMOVE_FROM_SELECTED_EVENT_QUEUE",
+              payload: [null, parentOption],
+            });
           }
         }
       });
@@ -102,11 +184,14 @@ const MultiSelectDropdown = ({
       const isChecked = arguments[0].target.checked;
       isChecked
         ? dispatch({ type: "ADD_TO_SELECTED_EVENT_QUEUE", payload: arguments })
-        : dispatch({ type: "REMOVE_FROM_SELECTED_EVENT_QUEUE", payload: arguments });
+        : dispatch({
+            type: "REMOVE_FROM_SELECTED_EVENT_QUEUE",
+            payload: arguments,
+          });
     }
   }
 
-  const IconRender = (iconReq, isActive,isSelected) => {
+  const IconRender = (iconReq, isActive, isSelected) => {
     const iconFill = isActive || isSelected ? "#FFFFFF" : "#505A5F";
     try {
       const components = require("@egovernments/digit-ui-svg-components");
@@ -128,9 +213,54 @@ const MultiSelectDropdown = ({
       return null;
     }
   };
+
   const handleClearAll = () => {
     dispatch({ type: "REPLACE_COMPLETE_STATE", payload: [] });
     onSelect([], props);
+  };
+
+  const handleSelectAll = () => {
+    if (selectAllChecked) {
+      dispatch({ type: "REPLACE_COMPLETE_STATE", payload: [] });
+      setSelectAllChecked(false);
+    } else {
+      const payload =
+        variant === "nestedmultiselect"
+          ? flattenedOptions
+              .filter((option) => !option.options)
+              .map((option) => ({
+                code: option.code,
+                propsData: [null, option],
+              }))
+          : options.map((option) => ({
+              code: option.code,
+              propsData: [null, option],
+            }));
+      dispatch({
+        type: "REPLACE_COMPLETE_STATE",
+        payload: payload,
+      });
+      setSelectAllChecked(true);
+    }
+  };
+
+  const handleCategorySelection = (parentOption) => {
+    const childoptions = parentOption.options;
+    if (!categorySelected[parentOption.code]) {
+      childoptions?.forEach((option) => {
+        dispatch({
+          type: "ADD_TO_SELECTED_EVENT_QUEUE",
+          payload: [null, option],
+        });
+      });
+    } else {
+      childoptions?.forEach((option) => {
+        dispatch({
+          type: "REMOVE_FROM_SELECTED_EVENT_QUEUE",
+          payload: [null, option],
+        });
+      });
+    }
   };
 
   const replaceDotWithColon = (inputString) => {
@@ -153,19 +283,33 @@ const MultiSelectDropdown = ({
   /* Custom function to scroll and select in the dropdowns while using key up and down */
   const keyChange = (e) => {
     if (e.key == "ArrowDown") {
-      setOptionIndex((state) => (state + 1 == filtOptns.length ? 0 : state + 1));
+      setOptionIndex((state) =>
+        state + 1 == filtOptns.length ? 0 : state + 1
+      );
       if (optionIndex + 1 == filtOptns.length) {
-        e?.target?.parentElement?.parentElement?.children?.namedItem("jk-dropdown-unique")?.scrollTo?.(0, 0);
+        e?.target?.parentElement?.parentElement?.children
+          ?.namedItem("jk-dropdown-unique")
+          ?.scrollTo?.(0, 0);
       } else {
-        optionIndex > 2 && e?.target?.parentElement?.parentElement?.children?.namedItem("jk-dropdown-unique")?.scrollBy?.(0, 45);
+        optionIndex > 2 &&
+          e?.target?.parentElement?.parentElement?.children
+            ?.namedItem("jk-dropdown-unique")
+            ?.scrollBy?.(0, 45);
       }
       e.preventDefault();
     } else if (e.key == "ArrowUp") {
-      setOptionIndex((state) => (state !== 0 ? state - 1 : filtOptns.length - 1));
+      setOptionIndex((state) =>
+        state !== 0 ? state - 1 : filtOptns.length - 1
+      );
       if (optionIndex === 0) {
-        e?.target?.parentElement?.parentElement?.children?.namedItem("jk-dropdown-unique")?.scrollTo?.(100000, 100000);
+        e?.target?.parentElement?.parentElement?.children
+          ?.namedItem("jk-dropdown-unique")
+          ?.scrollTo?.(100000, 100000);
       } else {
-        optionIndex > 2 && e?.target?.parentElement?.parentElement?.children?.namedItem("jk-dropdown-unique")?.scrollBy?.(0, -45);
+        optionIndex > 2 &&
+          e?.target?.parentElement?.parentElement?.children
+            ?.namedItem("jk-dropdown-unique")
+            ?.scrollBy?.(0, -45);
       }
       e.preventDefault();
     } else if (e.key == "Enter") {
@@ -177,7 +321,11 @@ const MultiSelectDropdown = ({
     searchQuery?.length > 0
       ? options?.filter(
           (option) =>
-            t(option[optionsKey] && typeof option[optionsKey] == "string" && option[optionsKey].toUpperCase())
+            t(
+              option[optionsKey] &&
+                typeof option[optionsKey] == "string" &&
+                option[optionsKey].toUpperCase()
+            )
               .toLowerCase()
               .indexOf(searchQuery.toLowerCase()) >= 0
         )
@@ -200,7 +348,10 @@ const MultiSelectDropdown = ({
 
   function findParentOption(childOption, options) {
     for (const option of options) {
-      if (option.options && option.options.some((child) => child.code === childOption.code)) {
+      if (
+        option.options &&
+        option.options.some((child) => child.code === childOption.code)
+      ) {
         return option;
       }
       if (option.options) {
@@ -218,22 +369,36 @@ const MultiSelectDropdown = ({
     return (
       <div
         key={index}
-        className={`digit-multiselectdropodwn-menuitem ${variant ? variant : ""} ${
-          alreadyQueuedSelectedState.find((selectedOption) => selectedOption.code === option.code) ? "checked" : ""
+        className={`digit-multiselectdropodwn-menuitem ${
+          variant ? variant : ""
+        } ${
+          alreadyQueuedSelectedState.find(
+            (selectedOption) => selectedOption.code === option.code
+          )
+            ? "checked"
+            : ""
+        } ${
+          index === optionIndex &&
+          !alreadyQueuedSelectedState.find(
+            (selectedOption) => selectedOption.code === option.code
+          )
+            ? "keyChange"
+            : ""
         }`}
         onMouseDown={() => setIsActive(true)}
         onMouseUp={() => setIsActive(false)}
         onMouseLeave={() => setIsActive(false)}
-        style={
-          index === optionIndex && !alreadyQueuedSelectedState.find((selectedOption) => selectedOption.code === option.code)
-            ? { opacity: 1, backgroundColor: "#FFFAF7", border: "0.5px solid #F47738" }
-            : {}
-        }
       >
         <input
           type="checkbox"
           value={option.code}
-          checked={alreadyQueuedSelectedState.find((selectedOption) => selectedOption.code === option.code) ? true : false}
+          checked={
+            alreadyQueuedSelectedState.find(
+              (selectedOption) => selectedOption.code === option.code
+            )
+              ? true
+              : false
+          }
           onChange={(e) => {
             isPropsNeeded
               ? onSelectToAddToQueue(e, option, props)
@@ -241,56 +406,130 @@ const MultiSelectDropdown = ({
               ? onSelectToAddToQueue(e, option, BlockNumber)
               : onSelectToAddToQueue(e, option);
           }}
-          className={`digit-multi-select-dropdown-menuitem ${variant ? variant : ""}`}
+          className={`digit-multi-select-dropdown-menuitem ${
+            variant ? variant : ""
+          }`}
         />
         <div className="digit-multiselectdropodwn-custom-checkbox">
           <SVG.Check width="20px" height="20px" fill={"#FFFFFF"} />
         </div>
         <div className="option-des-container">
-          <div style={{ display: "flex", gap: "0.25rem", alignItems: "center", width: "100%" }}>
+          <div className="multiselectdropdown-icon-option">
             {config?.showIcon &&
               option?.icon &&
               IconRender(
                 option?.icon,
                 isActive,
-                alreadyQueuedSelectedState.find((selectedOption) => selectedOption.code === option.code) ? true : false
+                alreadyQueuedSelectedState.find(
+                  (selectedOption) => selectedOption.code === option.code
+                )
+                  ? true
+                  : false
               )}
-            <p className="digit-label">{t(option[optionsKey] && typeof option[optionsKey] == "string" && option[optionsKey])}</p>
+            <p className="digit-label">
+              {t(
+                option[optionsKey] &&
+                  typeof option[optionsKey] == "string" &&
+                  option[optionsKey]
+              )}
+            </p>
           </div>
-          {variant === "nestedtextmultiselect" && option.description && <div className="option-description">{option.description}</div>}
+          {variant === "nestedtextmultiselect" && option.description && (
+            <div className="option-description">{option.description}</div>
+          )}
         </div>
       </div>
     );
   };
 
+  const selectAllOption = addSelectAllCheck && (
+    <div
+      className={`digit-multiselectdropodwn-menuitem ${
+        variant ? variant : ""
+      } ${addSelectAllCheck ? "selectAll" : ""}`}
+    >
+      <input
+        type="checkbox"
+        checked={selectAllChecked}
+        onChange={handleSelectAll}
+      />
+      <div className={`digit-multiselectdropodwn-custom-checkbox-selectAll`}>
+        <SVG.Check width="20px" height="20px" fill={"#C84C0E"} />
+      </div>
+      <p className={`digit-label ${addSelectAllCheck ? "selectAll" : ""}`}>
+        {selectAllLabel ? selectAllLabel : "Select All"}
+      </p>
+    </div>
+  );
+
   const Menu = () => {
-    const optionsToRender = variant === "nestedmultiselect" ? flattenedOptions : filteredOptions;
+    const optionsToRender =
+      variant === "nestedmultiselect" ? flattenedOptions : filteredOptions;
 
     if (!optionsToRender) {
-      return null; 
+      return null;
     }
 
-    return optionsToRender?.map((option, index) => {
-      if (option.options) {
-        return (
-          <div key={index} className="digit-nested-category">
-            <div className="digit-category-name">{option.name}</div>
-          </div>
-        );
-      } else {
-        return <MenuItem option={option} key={index} index={index} />;
-      }
-    });
+    return (
+      <div>
+        {selectAllOption}
+        {optionsToRender?.map((option, index) => {
+          if (option.options) {
+            return (
+              <div
+                key={index}
+                className={`digit-nested-category ${
+                  addSelectAllCheck ? "selectAll" : ""
+                }`}
+              >
+                <div className="digit-category-name">{option.name}</div>
+                {addCategorySelectAllCheck && (
+                  <div
+                    className="digit-category-selectAll"
+                    onClick={() => handleCategorySelection(option)}
+                  >
+                    <div className="category-selectAll-label">
+                      {categorySelectAllLabel
+                        ? categorySelectAllLabel
+                        : "Select All"}
+                    </div>
+                    <input
+                      type="checkbox"
+                      checked={
+                        selectAllChecked || categorySelected[option.code]
+                      }
+                    />
+                    <div
+                      className={`digit-multiselectdropodwn-custom-checkbox-selectAll`}
+                    >
+                      <SVG.Check width="20px" height="20px" fill={"#C84C0E"} />
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          } else {
+            return <MenuItem option={option} key={index} index={index} />;
+          }
+        })}
+      </div>
+    );
   };
 
   return (
     <div>
       <div
-        className={`digit-multiselectdropdown-wrap ${props?.className ? props?.className : ""} ${variant ? variant : ""}`}
+        className={`digit-multiselectdropdown-wrap ${
+          props?.className ? props?.className : ""
+        } ${variant ? variant : ""}`}
         ref={dropdownRef}
         style={props?.style}
       >
-        <div className={`digit-multiselectdropdown-master${active ? `-active` : ``} ${disabled ? "disabled" : ""}  ${variant ? variant : ""}`}>
+        <div
+          className={`digit-multiselectdropdown-master${
+            active ? `-active` : ``
+          } ${disabled ? "disabled" : ""}  ${variant ? variant : ""}`}
+        >
           <input
             className="digit-cursorPointer"
             style={{ opacity: 0 }}
@@ -304,19 +543,34 @@ const MultiSelectDropdown = ({
             {variant === "treemultiselect" ? (
               <p>
                 {alreadyQueuedSelectedState.length > 0
-                  ? `${countFinalChildOptions(alreadyQueuedSelectedState)} ${defaultUnit} Selected`
+                  ? `${countFinalChildOptions(
+                      alreadyQueuedSelectedState
+                    )} ${defaultUnit} Selected`
                   : defaultLabel}
               </p>
             ) : (
-              <p>{alreadyQueuedSelectedState.length > 0 ? `${alreadyQueuedSelectedState.length} ${defaultUnit} Selected` : defaultLabel}</p>
+              <p>
+                {alreadyQueuedSelectedState.length > 0
+                  ? `${alreadyQueuedSelectedState.length} ${defaultUnit} Selected`
+                  : defaultLabel}
+              </p>
             )}
             <SVG.ArrowDropDown fill={disabled ? "#D6D5D4" : "#505A5F"} />
           </div>
         </div>
         {active ? (
-          <div className="digit-multiselectdropdown-server" id="jk-dropdown-unique" style={ServerStyle ? ServerStyle : {}}>
+          <div
+            className="digit-multiselectdropdown-server"
+            id="jk-dropdown-unique"
+            style={ServerStyle ? ServerStyle : {}}
+          >
             {variant === "treemultiselect" ? (
-              <TreeSelect options={options} onSelect={onSelectToAddToQueue} selectedOption={alreadyQueuedSelectedState} variant={variant} />
+              <TreeSelect
+                options={options}
+                onSelect={onSelectToAddToQueue}
+                selectedOption={alreadyQueuedSelectedState}
+                variant={variant}
+              />
             ) : (
               <Menu />
             )}
@@ -333,7 +587,11 @@ const MultiSelectDropdown = ({
                 return (
                   <RemoveableTag
                     key={index}
-                    text={replacedText.length > 64 ? `${replacedText.slice(0, 64)}...` : replacedText}
+                    text={
+                      replacedText.length > 64
+                        ? `${replacedText.slice(0, 64)}...`
+                        : replacedText
+                    }
                     onClick={
                       variant === "treemultiselect"
                         ? () => onSelectToAddToQueue([value])
@@ -360,10 +618,17 @@ const MultiSelectDropdown = ({
                 justifyContent: "center",
                 alignItems: "center",
                 borderRadius: "0.25rem",
-                border: "1px solid #F47738",
+                border: "1px solid #C84C0E",
                 background: "#FAFAFA",
               }}
-              textStyles={{ height: "auto", fontSize: "0.875rem", fontWeight: "400", width: "100%", lineHeight: "16px", color: "#F47738" }}
+              textStyles={{
+                height: "auto",
+                fontSize: "0.875rem",
+                fontWeight: "400",
+                width: "100%",
+                lineHeight: "16px",
+                color: "#C84C0E",
+              }}
             />
           )}
         </div>
