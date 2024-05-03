@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { SVG } from "./SVG";
 
-const TreeSelectOption = ({ option, onSelect, isSelected, renderOptions, level = 0 }) => {
+const TreeSelectOption = ({ option, onSelect, isSelected, renderOptions, level = 0,optionsKey }) => {
   const [isExpanded, setExpanded] = useState(false);
   const handleToggleDropdown = () => {
     if (option.options) {
@@ -29,7 +29,7 @@ const TreeSelectOption = ({ option, onSelect, isSelected, renderOptions, level =
             )}
           </div>
         )}
-        <div className="digit-option-label">{option.name}</div>
+        <div className="digit-option-label">{option[optionsKey]}</div>
       </div>
       {isExpanded &&
         option.options &&
@@ -38,7 +38,7 @@ const TreeSelectOption = ({ option, onSelect, isSelected, renderOptions, level =
     </div>
   );
 };
-const TreeMultiSelect = ({ option, onSelect, isSelected, renderOptions, level = 0, isParentSelected, setParentSelected }) => {
+const TreeMultiSelect = ({ option, onSelect, isSelected, renderOptions, level = 0, isParentSelected, setParentSelected, optionsKey}) => {
   const [isExpanded, setExpanded] = useState(false);
   const handleToggleDropdown = () => {
     if (option.options) {
@@ -155,7 +155,7 @@ const TreeMultiSelect = ({ option, onSelect, isSelected, renderOptions, level = 
             <SVG.Check fill={(allChildrenSelected || isSelected(option)) && !isParentSelected ? "#FFFFFF" : "#C84C0E"} />
           )}
         </div>
-        <div className="digit-option-label">{option.name}</div>
+        <div className="digit-option-label">{option[optionsKey]}</div>
       </div>
       {isExpanded && option.options && option.options.length > 0 && (
         <div className="child-options-container">
@@ -172,7 +172,7 @@ const TreeMultiSelect = ({ option, onSelect, isSelected, renderOptions, level = 
     </div>
   );
 };
-const TreeSelect = ({ options, onSelect, selectedOption, variant }) => {
+const TreeSelect = ({ options, onSelect, selectedOption, variant,optionsKey }) => {
   const renderOptions = ({ options, onSelect, isSelected, level, isParentSelected, setParentSelected }) => {
     return options.map((option) => (
       <div key={option.id} className={`digit-tree-select-options-container ${level === 0 ? "first-level" : ""}`}>
@@ -185,9 +185,10 @@ const TreeSelect = ({ options, onSelect, selectedOption, variant }) => {
             level={level}
             isParentSelected={isParentSelected}
             setParentSelected={setParentSelected}
+            optionsKey={optionsKey}
           />
         ) : (
-          <TreeSelectOption option={option} onSelect={onSelect} isSelected={isSelected} renderOptions={renderOptions} level={level} />
+          <TreeSelectOption option={option} onSelect={onSelect} isSelected={isSelected} renderOptions={renderOptions} level={level} optionsKey={optionsKey}/>
         )}
       </div>
     ));

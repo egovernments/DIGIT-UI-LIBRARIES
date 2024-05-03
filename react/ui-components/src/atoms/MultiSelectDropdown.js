@@ -484,7 +484,7 @@ const MultiSelectDropdown = ({
                   addSelectAllCheck ? "selectAll" : ""
                 }`}
               >
-                <div className="digit-category-name">{option.name}</div>
+                <div className="digit-category-name">{option[optionsKey]}</div>
                 {addCategorySelectAllCheck && (
                   <div
                     className="digit-category-selectAll"
@@ -572,6 +572,7 @@ const MultiSelectDropdown = ({
                 onSelect={onSelectToAddToQueue}
                 selectedOption={alreadyQueuedSelectedState}
                 variant={variant}
+                optionsKey={optionsKey}
               />
             ) : (
               <Menu />
