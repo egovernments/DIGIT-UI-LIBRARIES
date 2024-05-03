@@ -98,7 +98,7 @@
   .digit-dropdown-options-card {
     width: 100% !important;
     box-shadow: 0rem 0.063rem 0.275rem 0rem #00000026;
-    max-height: 70vmax;
+    max-height: 20vmax;
     @apply absolute z-20 bg-white max-w-full overflow-y-auto overflow-x-hidden;
 
     p {
@@ -432,8 +432,8 @@
   .digit-dropdown-options-card {
     width: 100% !important;
     box-shadow: 0rem 0.063rem 0.275rem 0rem #00000026;
-    @apply absolute z-20 bg-white overflow-y-auto overflow-x-hidden;
-    max-height: 70vmax;
+    @apply  z-20 bg-white overflow-y-auto overflow-x-hidden;
+    max-height: 20vmax;
 
     p {
       @extend .light-text-color-primary;

@@ -331,6 +331,8 @@ const MultiSelectDropdown = ({
         )
       : options;
 
+  const parentOptionsWithChildren = filteredOptions.filter(option => option.options && option.options.length > 0);
+
   const flattenOptions = (options) => {
     let flattened = [];
     options?.forEach((option) => {
@@ -344,7 +346,7 @@ const MultiSelectDropdown = ({
     return flattened;
   };
 
-  const flattenedOptions = flattenOptions(filteredOptions);
+  const flattenedOptions = flattenOptions(parentOptionsWithChildren);
 
   function findParentOption(childOption, options) {
     for (const option of options) {
@@ -566,7 +568,7 @@ const MultiSelectDropdown = ({
           >
             {variant === "treemultiselect" ? (
               <TreeSelect
-                options={options}
+                options={parentOptionsWithChildren}
                 onSelect={onSelectToAddToQueue}
                 selectedOption={alreadyQueuedSelectedState}
                 variant={variant}
