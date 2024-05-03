@@ -483,6 +483,7 @@ const Dropdown = (props) => {
                 onSelect={onSelect}
                 selectedOption={selectedOption}
                 variant={props.variant}
+                optionsKey={props?.optionKey}
               />
             ) : (
               renderOptions()
