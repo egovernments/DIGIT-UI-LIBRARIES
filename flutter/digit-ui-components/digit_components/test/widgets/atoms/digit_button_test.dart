@@ -40,6 +40,7 @@ Future<void> _testButton(WidgetTester tester, ButtonType buttonType) async {
     MaterialApp(
       home: Scaffold(
         body: Button(
+          size: ButtonSize.small,
           label: 'Click me',
           onPressed: () {
             onPressedCalled = true;
@@ -66,6 +67,7 @@ Future<void> _testDisabledButton(WidgetTester tester, ButtonType buttonType) asy
     MaterialApp(
       home: Scaffold(
         body: Button(
+          size: ButtonSize.large,
           label: 'Click me',
           onPressed: () {
             onPressedCalled = true;

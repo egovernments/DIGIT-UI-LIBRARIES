@@ -1,12 +1,10 @@
-import 'dart:async';
 import 'dart:io';
+import 'dart:html' as html;
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';  // <-- Import the PDFView widget
 import 'package:flutter_svg/svg.dart';
-import 'package:open_file/open_file.dart';
 import '../../constants/AppView.dart';
 import '../../constants/app_constants.dart';
 import '../../enum/app_enums.dart';
@@ -19,7 +17,6 @@ class FileUploadWidget extends StatefulWidget {
   final String label;
   final bool showPreview;
   final bool allowMultipleImages;
-
   const FileUploadWidget({
     super.key,
     required this.onFilesSelected,
@@ -36,7 +33,6 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
     with SingleTickerProviderStateMixin {
   double _uploadProgress = 0.0;
   late AnimationController _animationController;
-  Timer? _uploadTimer;
   List<String> fileNames = [];
   List<Uint8List> fileBytesList = [];  // Generalized list for both images and PDFs
   List<bool> uploadingStatus = [];
@@ -44,16 +40,6 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
   @override
   void initState() {
     super.initState();
-    _animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 5),
-    );
-
-    _animationController.addListener(() {
-      setState(() {
-        _uploadProgress = _animationController.value;
-      });
-    });
   }
 
   void _openFileExplorer() async {
@@ -64,159 +50,107 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
     );
 
     if (result != null) {
-      if (!widget.allowMultipleImages && fileBytesList.isNotEmpty) {
-        fileBytesList.clear();
-        fileNames.clear();
-        uploadingStatus.clear();
-      }
+      List<File> files = [];
 
-      for (var file in result.files) {
-        setState(() {
-          fileBytesList.add(file.bytes!);
-          fileNames.add(file.name!);
-          uploadingStatus.add(true);
-        });
+      if (kIsWeb) {
+        /// Handle file picking for web where paths are unavailable
+        files = result.files.map((file) => File(file.bytes!.toString())).toList();
+        for (var file in result.files) {
+          if(widget.allowMultipleImages){
+            setState(() {
+              fileBytesList.add(file.bytes!);
+              fileNames.add(file.name!);
+            });
+          }else{
+            fileBytesList.clear();
+            fileNames.clear();
+            setState(() {
+              fileBytesList.add(file.bytes!);
+              fileNames.add(file.name!);
+            });
+          }
+        }
+      } else {
+        //
+        /// Handle file picking for mobile/desktop where paths are available
+        files = result.files.map((file) => File(file.path!)).toList();
+        for (var file in result.files) {
+          if(widget.allowMultipleImages){
+            setState(() {
+              fileBytesList.add(file.bytes!);
+              fileNames.add(file.name);
+            });
+          }else{
+            fileBytesList.clear();
+            fileNames.clear();
+            setState(() {
+              fileBytesList.add(file.bytes!);
+              fileNames.add(file.name);
+            });
+          }
+        }
       }
-
-      _startUploadProgress();
-      widget.onFilesSelected(result.files.map((e) => File(e.path!)).toList());
+      widget.onFilesSelected(files);
     }
   }
 
-  void _startUploadProgress() {
-    _uploadProgress = 0.0;
-    _animationController.forward(from: 0.0);
+  Future<String> writeToTemporaryFile(Uint8List dataBytes, String fileName) async {
+    if (!kIsWeb) {
+      // Use path_provider for mobile or desktop platforms.
+      final directory = await getTemporaryDirectory();
+      final file = File('${directory.path}/$fileName');
+      await file.writeAsBytes(dataBytes);
+      return file.path;
+    } else {
+      // Handle the web case where writing to the disk is not possible.
+      // Map file extensions to MIME types
+      final Map<String, String> mimeTypes = {
+        'pdf': 'application/pdf',
+        'doc': 'application/msword',
+        'docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        'xls': 'application/vnd.ms-excel',
+        'xlsx': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        'jpg': 'image/jpeg',
+        'jpeg': 'image/jpeg',
+        'png': 'image/png',
+        // Add more file types as needed
+      };
 
-    _animationController.addStatusListener((status) {
-      if (status == AnimationStatus.completed) {
-        for (int i = 0; i < uploadingStatus.length; i++) {
-          setState(() {
-            uploadingStatus[i] = false;
-          });
-        }
+      // Extract file extension from the file name
+      final extension = fileName.split('.').last.toLowerCase();
+      final mimeType = mimeTypes[extension];
+
+      if (mimeType != null) {
+        // Create a Blob with the appropriate MIME type
+        final blob = html.Blob([dataBytes], mimeType);
+        final url = html.Url.createObjectUrlFromBlob(blob);
+        // Open the URL in a new tab/window.
+        html.window.open(url, '_blank');
+        return url; // Returning URL for potential further use
+      } else {
+        // Handle unsupported file types
+        print('Unsupported file type: $extension');
+        // You can provide feedback to the user or handle the unsupported file type in a different way.
+        return '';
       }
-    });
+    }
   }
 
   void _openFile(Uint8List fileBytes, String fileName) async {
-    final tempDir = await getTemporaryDirectory();
-    final filePath = '${tempDir.path}/$fileName';
-    final file = File(filePath);
-
-    await file.writeAsBytes(fileBytes);
-
-    OpenFile.open(filePath);
+    String tempFilePath = await writeToTemporaryFile(fileBytes, fileName);
+    print('heeeeeeeeeeeeeee');
   }
 
-
   Widget _buildFilePreview(int index) {
-    if (uploadingStatus[index]) {
-      return _buildUploadProgressWidget(index);
-    } else if (fileBytesList.length > index) {
-      if (fileNames[index].toLowerCase().endsWith('.pdf')) {
-        return Column(
-          children: [
-            InkWell(
-              onTap: () {
-                _openFile(fileBytesList[index], fileNames[index]);
-              },
-              child: SvgPicture.asset(Common.pdfSvg),
-            ),
-            Text(fileNames[index]),
-          ],
-        );
-      } else if (fileNames[index].toLowerCase().endsWith('.doc')) {
-        return Column(
-          children: [
-            SvgPicture.asset(Common.docSvg),
-            Text(fileNames[index]),
-          ],
-        );
-      } else if (fileNames[index].toLowerCase().endsWith('.png')) {
-        return Column(
-          children: [
-            SvgPicture.asset(Common.pngSvg),
-            Text(fileNames[index]),
-          ],
-        );
-      } else if (fileNames[index].toLowerCase().endsWith('.jpg')) {
-        return Column(
-          children: [
-            SvgPicture.asset(Common.jpgSvg),
-            Text(fileNames[index]),
-          ],
-        );
-      } else if (fileNames[index].toLowerCase().endsWith('.xlsx')) {
-        return Column(
-          children: [
-            SvgPicture.asset(Common.xlsxSvg),
-            Text(fileNames[index]),
-          ],
-        );
-      } else {
+  if (fileBytesList.length > index) {
+      if (fileNames[index].toLowerCase().endsWith('.jpg') || fileNames[index].toLowerCase().endsWith('.png')){
         return _buildImageWidget(index);
+      } else {
+        return _buildFileWidget(index);
       }
     } else {
       return const SizedBox.shrink();
     }
-  }
-
-
-
-  Widget _buildUploadProgressWidget(int index) {
-    return Stack(
-      children: [
-        Container(
-          color: const DigitColors().light.genericDivider,
-          width: 100,
-          height: 100,
-          child: ClipRRect(
-            borderRadius: Common.radius,
-            child: Stack(
-              fit: StackFit.expand,
-              children: [
-                CustomPaint(
-                  painter: FillProgressPainter(
-                    progress: _uploadProgress,
-                    color: const DigitColors().light.textDisabled,
-                    initialColor: const DigitColors().light.genericBackground,
-                  ),
-                  child: Icon(
-                    Icons.insert_drive_file,
-                    size: 48,
-                    color: const DigitColors().light.genericInputBorder,
-                  ),
-                ),
-                Positioned(
-                  top: 0,
-                  right: 0,
-                  child: InkWell(
-                    hoverColor: const DigitColors().transparent,
-                    highlightColor: const DigitColors().transparent,
-                    splashColor: const DigitColors().transparent,
-                    onTap: () {
-                      _cancelUpload(index);
-                    },
-                    child: Container(
-                      width: 24,
-                      height: 24,
-                      decoration: BoxDecoration(
-                        color: const DigitColors().light.primary2,
-                      ),
-                      child: Icon(
-                        Icons.close,
-                        size: 16,
-                        color: const DigitColors().light.paperPrimary,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ],
-    );
   }
 
   Widget _buildImageWidget(int index) {
@@ -264,7 +198,7 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
                     color: Colors.transparent,
                     child: InkWell(
                       onTap: () {
-                        _showFilePreviewDialog(fileBytesList[index], fileNames[index]);
+                        _openFile(fileBytesList[index], fileNames[index]);
                       },
                     ),
                   ),
@@ -277,89 +211,79 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
     );
   }
 
-  // Widget _buildPDFPreviewWidget(int index) {
-  //   return Stack(
-  //     children: [
-  //       Container(
-  //         color: const DigitColors().light.genericDivider,
-  //         width: 100,
-  //         height: 100,
-  //         child: ClipRRect(
-  //           borderRadius: Common.radius,
-  //           child: Stack(
-  //             fit: StackFit.expand,
-  //             children: [
-  //               PDFView(
-  //                 filePath: '',
-  //                 document: PdfDocument.openData(fileBytesList[index]),
-  //                 pageLoader: Center(child: CircularProgressIndicator()),
-  //                 onError: (error) {
-  //                   print(error);
-  //                 },
-  //                 onPageChanged: (int page, int total) {
-  //                   print('page change: $page/$total');
-  //                 },
-  //               ),
-  //               Positioned(
-  //                 top: 0,
-  //                 right: 0,
-  //                 child: InkWell(
-  //                   hoverColor: const DigitColors().transparent,
-  //                   highlightColor: const DigitColors().transparent,
-  //                   splashColor: const DigitColors().transparent,
-  //                   onTap: () {
-  //                     _removeFile(index);
-  //                   },
-  //                   child: Container(
-  //                     width: 24,
-  //                     height: 24,
-  //                     decoration: BoxDecoration(
-  //                       color: const DigitColors().light.primary2,
-  //                     ),
-  //                     child: Icon(
-  //                       Icons.close,
-  //                       size: 16,
-  //                       color: const DigitColors().light.paperPrimary,
-  //                     ),
-  //                   ),
-  //                 ),
-  //               ),
-  //             ],
-  //           ),
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
+  Widget _buildFileWidget(int index) {
+    SvgPicture viewIcon;
+    String fileType = fileNames[index].split('.').last.toLowerCase();
 
-  void _showFilePreviewDialog(Uint8List fileBytes, String fileName) {
-    showDialog(
-      context: context,
-      builder: (context) {
-          return Dialog(
+    switch (fileType) {
+      case 'pdf':
+        viewIcon = SvgPicture.asset(Common.pdfSvg);
+        break;
+      case 'doc':
+      case 'docx':
+        viewIcon = SvgPicture.asset(Common.docSvg);
+        break;
+      case 'xlsx':
+      case 'xls':
+        viewIcon = SvgPicture.asset(Common.xlsxSvg);
+        break;
+      default:
+        viewIcon = SvgPicture.asset(Common.fileSvg);
+        break;
+    }
+
+    return Stack(
+      children: [
+        Container(
+          color: const DigitColors().light.genericDivider,
+          width: 100,
+          height: 100,
+          child: ClipRRect(
+            borderRadius: Common.radius,
             child: Stack(
+              alignment: Alignment.center,
+              // fit: StackFit.expand,
               children: [
-                Image.memory(
-                  fileBytes,
-                  fit: BoxFit.cover,
-                ),
+                viewIcon,
                 Positioned(
                   top: 0,
                   right: 0,
-                  child: IconButton(
-                    icon: const Icon(
-                      Icons.close,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {
-                      Navigator.of(context).pop(); // Close the dialog
+                  child: InkWell(
+                    hoverColor: const DigitColors().transparent,
+                    highlightColor: const DigitColors().transparent,
+                    splashColor: const DigitColors().transparent,
+                    onTap: () {
+                      _removeFile(index);
                     },
+                    child: Container(
+                      width: 24,
+                      height: 24,
+                      decoration: BoxDecoration(
+                        color: const DigitColors().light.primary2,
+                      ),
+                      child: Icon(
+                        Icons.close,
+                        size: 16,
+                        color: const DigitColors().light.paperPrimary,
+                      ),
+                    ),
+                  ),
+                ),
+                Positioned.fill(
+                  child: Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      onTap: () {
+                        _openFile(fileBytesList[index], fileNames[index]);
+                      },
+                    ),
                   ),
                 ),
               ],
             ),
-          );
-      },
+          ),
+        ),
+      ],
     );
   }
 
@@ -368,14 +292,6 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
       fileBytesList.removeAt(index);
       fileNames.removeAt(index);
       uploadingStatus.removeAt(index);
-    });
-  }
-
-  void _cancelUpload(int index) {
-    setState(() {
-      _animationController.stop();
-      _uploadProgress = 0.0;
-      uploadingStatus[index] = false;
     });
   }
 
@@ -473,7 +389,6 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
                     setState(() {
                       fileNames.removeAt(index);
                       fileBytesList.removeAt(index);
-                      uploadingStatus.removeAt(index);
                     });
                   },
                 ),

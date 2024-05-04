@@ -27,22 +27,28 @@ List<Story> fileUploaderStories() {
       ),
     ),
     Story(
-      name: 'File Upload/Drag file',
-      builder: (context) => Center(
-        child: FileUploadWidget2(
-          showPreview: true,
-          allowMultipleImages: true,
-          label: 'Upload', onFilesSelected: (DroppedFile) {  },
-        ),
+      name: 'File Upload/Drag/Single file',
+      builder: (context) => FileUploadWidget2(
+        showPreview: true,
+        allowMultipleImages: false,
+        label: 'Upload', onFilesSelected: (DroppedFile) {  },
+      ),
+    ),
+    Story(
+      name: 'File Upload/Drag/Multiple files',
+      builder: (context) => FileUploadWidget2(
+        showPreview: true,
+        allowMultipleImages: true,
+        label: 'Upload', onFilesSelected: (DroppedFile) {  },
       ),
     ),
     Story(
       name: 'File Upload/Image/Single Upload',
       builder: (context) => Center(
-        child: CustomImageUploader(
-          onImageSelected: (File imageFile) {
+        child: ImageUploader(
+          onImagesSelected: (List<File> imageFile) {
             // Handle the selected image file here
-            print('Image selected: ${imageFile.path}');
+            // print('Image selected: ${imageFile.path}');
           },
         )
 
@@ -51,11 +57,12 @@ List<Story> fileUploaderStories() {
     Story(
       name: 'File Upload/Image/Multiple Upload',
       builder: (context) => Center(
-        child: CustomImageUploader(
-          onImageSelected: (File imageFile) {
+        child: ImageUploader(
+          onImagesSelected: (List<File> imageFile) {
             // Handle the selected image file here
-            print('Image selected: ${imageFile.path}');
+            // print('Image selected: ${imageFile.path}');
           },
+          allowMultipleImages: true,
         )
 
       ),

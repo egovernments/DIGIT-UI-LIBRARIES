@@ -60,8 +60,8 @@ class _AnotherStepperState extends State<DigitStepper> {
   void _scrollToActiveIndex() {
     if (widget.activeIndex >= 0 &&
         widget.activeIndex < widget.stepperList.length) {
-      double offset =
-          widget.activeIndex * MediaQuery.of(context).size.width /widget.stepperList.length;
+      double middleIndex = widget.stepperList.length / 2;
+      double offset = (widget.activeIndex - middleIndex) * MediaQuery.of(context).size.width / widget.stepperList.length;
       _lastScrollOffset = offset; /// Store the current scroll offset
       _scrollController.animateTo(
         offset,
@@ -70,6 +70,7 @@ class _AnotherStepperState extends State<DigitStepper> {
       );
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -166,6 +167,7 @@ class _HorizontalStepperItemState extends State<HorizontalStepperItem> {
             overflow: TextOverflow.ellipsis,
             style: widget.index == widget.activeIndex || isHover
                 ? currentTypography.headingS.copyWith(
+              height: 1.37,
                     color: const DigitColors().light.textPrimary,
                   )
                 : currentTypography.bodyS.copyWith(
@@ -188,7 +190,7 @@ class _HorizontalStepperItemState extends State<HorizontalStepperItem> {
                 : (widget.index <= widget.activeIndex
                     ? const DigitColors().light.primary1
                     : const DigitColors().light.textDisabled),
-            height: 4,
+            height: widget.index <= widget.activeIndex ? 4 : 2,
           ),
           dot,
           Container(
@@ -200,7 +202,7 @@ class _HorizontalStepperItemState extends State<HorizontalStepperItem> {
                 : (widget.index < widget.activeIndex
                     ? const DigitColors().light.primary1
                     : const DigitColors().light.textDisabled),
-            height: 4,
+            height: widget.index < widget.activeIndex ? 4 : 2,
           ),
         ],
       ),

@@ -53,9 +53,16 @@ enum DigitCheckboxState {
   checked,
 }
 
-// Enum representing the scroll for textArea
+/// Enum representing the scroll for textArea
 enum TextAreaScroll{
   vertical,
   smart,
   none,
+}
+
+/// Enum representing toast types
+enum ToastType {
+  success,
+  error,
+  warning,
 }

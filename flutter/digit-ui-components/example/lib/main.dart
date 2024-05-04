@@ -1,5 +1,4 @@
 
-import 'package:digit_ui_components/constants/AppView.dart';
 import 'package:digit_ui_components/enum/app_enums.dart';
 import 'package:digit_ui_components/models/DropdownModels.dart';
 import 'package:digit_ui_components/models/RadioButtonModel.dart';
@@ -11,10 +10,8 @@ import 'package:digit_ui_components/widgets/atoms/digit_stepper.dart';
 import 'package:digit_ui_components/widgets/atoms/digit_timeline.dart';
 import 'package:digit_ui_components/widgets/atoms/dropdown_wrapper.dart';
 import 'package:digit_ui_components/widgets/atoms/file_uploader.dart';
-import 'package:digit_ui_components/widgets/atoms/file_uploader2.dart';
-import 'package:digit_ui_components/widgets/atoms/image_uploader.dart';
 import 'package:digit_ui_components/widgets/atoms/input_wrapper.dart';
-import 'package:digit_ui_components/widgets/atoms/stepper.dart';
+import 'package:digit_ui_components/widgets/atoms/toast.dart';
 import 'package:digit_ui_components/widgets/helper_widget/info_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -2097,9 +2094,11 @@ class MyHomePageState extends State<MyHomePage> {
                   value: false,
                   onChanged: (value) {
                     if (value) {
-                      Toast.show(context,
-                          options: ToastOptions(
-                              "Your success message", ToastType.success));
+                      Toast.showToast(
+                        context,
+                        message: 'This is a success toast!',
+                        type: ToastType.success,
+                      );
                     }
                   },
                 ),
@@ -2109,9 +2108,11 @@ class MyHomePageState extends State<MyHomePage> {
                   value: false,
                   onChanged: (value) {
                     if (value) {
-                      Toast.show(context,
-                          options: ToastOptions(
-                              "Your error message", ToastType.error));
+                      Toast.showToast(
+                        context,
+                        message: 'This is a error toast!',
+                        type: ToastType.error,
+                      );
                     }
                   },
                 ),
@@ -2121,22 +2122,39 @@ class MyHomePageState extends State<MyHomePage> {
                   value: false,
                   onChanged: (value) {
                     if (value) {
-                      Toast.show(context,
-                          options: ToastOptions(
-                              "Your warning message", ToastType.warning));
+                      Toast.showToast(
+                        context,
+                        message: 'This is a Warning toast!',
+                        type: ToastType.warning,
+                      );
                     }
                   },
                 ),
 
                 const SizedBox(height: 8,),
                 DigitCheckbox(
-                  label: 'Click to see the Success toast with long message',
+                  label: 'Click to see the warning toast with long message',
                   value: false,
                   onChanged: (value) {
                     if (value) {
-                      Toast.show(context,
-                          options: ToastOptions(
-                              "Message token created successfully and Users Are Unable to Login to the Professional after an Upgrade to Version it is working fine. Learn about token based authentication and how to easily implement JWT in your application", ToastType.success));
+                      Toast.showToast(
+                        context,
+                        message: 'Message token created successfully and Users Are Unable to Login to the Professional after an Upgrade to Version it is working fine. Learn about token based authentication and how to easily implement JWT in your application',
+                        type: ToastType.warning,
+                      );
+                    }
+                  },
+                ),const SizedBox(height: 8,),
+                DigitCheckbox(
+                  label: 'Click to see the error toast with long message',
+                  value: false,
+                  onChanged: (value) {
+                    if (value) {
+                      Toast.showToast(
+                        context,
+                        message: 'Message token created successfully and Users Are Unable to Login to the Professional after an Upgrade to Version it is working fine. Learn about token based authentication and how to easily implement JWT in your application',
+                        type: ToastType.error,
+                      );
                     }
                   },
                 ),const SizedBox(height: 8,),
@@ -2145,20 +2163,11 @@ class MyHomePageState extends State<MyHomePage> {
                   value: false,
                   onChanged: (value) {
                     if (value) {
-                      Toast.show(context,
-                          options: ToastOptions(
-                              "Message token created successfully and Users Are Unable to Login to the Professional after an Upgrade to Version it is working fine. Learn about token based authentication and how to easily implement JWT in your application", ToastType.success));
-                    }
-                  },
-                ),const SizedBox(height: 8,),
-                DigitCheckbox(
-                  label: 'Click to see the Success toast with long message',
-                  value: false,
-                  onChanged: (value) {
-                    if (value) {
-                      Toast.show(context,
-                          options: ToastOptions(
-                              "Message token created successfully and Users Are Unable to Login to the Professional after an Upgrade to Version it is working fine. Learn about token based authentication and how to easily implement JWT in your application", ToastType.success));
+                      Toast.showToast(
+                        context,
+                        message: 'Message token created successfully and Users Are Unable to Login to the Professional after an Upgrade to Version it is working fine. Learn about token based authentication and how to easily implement JWT in your application",',
+                        type: ToastType.success,
+                      );
                     }
                   },
                 ),

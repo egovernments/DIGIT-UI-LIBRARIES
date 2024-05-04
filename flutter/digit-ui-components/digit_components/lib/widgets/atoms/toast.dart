@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-
 import '../../constants/AppView.dart';
-import '../../theme/colors.dart';
-import '../../theme/digit_theme.dart';
-import '../../theme/typography.dart';
+import '../../enum/app_enums.dart';
+import '../../theme/theme.dart';
 import '../../utils/utils.dart';
-import 'digit_toast.dart';
 
-class AnimatedToast {
-  static void showCustomToast(
+/// This class provides a static method to show custom toast notifications
+/// with various options like duration, animation, and position.
+/// Parameters:
+/// - [context]: The build context from where the toast is shown.
+/// - [message]: The message to be displayed in the toast.
+/// - [type]: The type of toast to display, affecting the color and icon.
+/// - [duration]: How long the toast should be visible (default is 5 seconds).
+/// - [animationDuration]: The duration of the animation (if specified).
+/// - [position]: The position on the screen where the toast appears (default is bottom center).
+
+class Toast {
+  static void showToast(
     BuildContext context, {
     required String message,
     required ToastType type,
@@ -33,8 +40,6 @@ class AnimatedToast {
   static Widget _buildToastWidget(
       String message, ToastType type, BuildContext context) {
     DigitTypography currentTypography = getTypography(context, false);
-
-    bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
 
     double minWidth = AppView.isMobileView(MediaQuery.of(context).size)
         ? MediaQuery.of(context).size.width
