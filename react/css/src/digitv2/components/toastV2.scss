@@ -46,6 +46,14 @@
     text-overflow: ellipsis;
   }
 
+  &.digit-info {
+    background-color: theme(digitv2.alert.info-bg);
+
+    .toast-label{
+      color: theme(digitv2.lightTheme.text-primary);
+    }
+  }
+
   .digit-warning-button-container {
     @apply w-full flex justify-end;
 

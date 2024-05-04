@@ -42,6 +42,7 @@ frontend/micro-ui/web/public/index.html
 # Changelog
 
 ```bash
+1.8.2-coreui.11 added info varinat for toast
 1.8.2-coreui.10 dropdown options card height updated
 1.8.2-coreui.9 enhancements of components
 1.8.2-coreui.8 updated css of loader

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,Fragment } from "react";
 import PropTypes from "prop-types";
 import { SVG } from "./SVG";
 import Button from "./Button";
@@ -36,6 +36,8 @@ const Toast = (props) => {
     ? "digit-error"
     : props?.warning
     ? "digit-warning"
+    : props?.info
+    ? "digit-info"
     : props?.variant
     ? props?.variant
     : "";
@@ -68,6 +70,27 @@ const Toast = (props) => {
       </div>
     );
   }
+
+  if (props.info) {
+    return (
+      <div
+        className={`digit-toast-success ${isVisible && isAnimating ? "animate" : ""} ${variant}`}
+        style={{ ...props.style }}
+      >
+        <SVG.Info fill="#3498DB" />
+        <div style={{ ...props.labelstyle }} className="toast-label">
+          {sentenceCaseLabel}
+        </div>
+        <SVG.Close
+          fill="#363636"
+          className="digit-toast-close-btn"
+          style={{ cursor: "pointer" }}
+          onClick={props.onClose ? props.onClose : handleClose}
+        />
+      </div>
+    );
+  }
+
 
   if (props.warning) {
     return (
