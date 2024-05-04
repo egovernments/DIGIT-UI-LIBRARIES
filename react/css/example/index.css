@@ -1,5 +1,5 @@
 /*!
- * @egovernments/digit-ui-css - 1.8.2-coreui.10
+ * @egovernments/digit-ui-css - 1.8.2-coreui.11
  *
  * Copyright (c) 2024 Jagankumar <jagan.kumar@egov.org.in>
  * 
@@ -13243,6 +13243,9 @@ textarea::-webkit-scrollbar-thumb {
     -webkit-box-flex: 1;
     -ms-flex-positive: 1;
     flex-grow: 1;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
@@ -13251,12 +13254,15 @@ textarea::-webkit-scrollbar-thumb {
     color: #fff;
     margin: 0;
     text-overflow: ellipsis; }
-  .digit-toast-success .digit-warning-button-container, .digit-toast-success .toast-label {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex; }
+  .digit-toast-success.digit-info {
+    background-color: #c7e0f1; }
+    .digit-toast-success.digit-info .toast-label {
+      color: #363636; }
   .digit-toast-success .digit-warning-button-container {
     width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
     -webkit-box-pack: end;
     -ms-flex-pack: end;
     justify-content: flex-end; }
