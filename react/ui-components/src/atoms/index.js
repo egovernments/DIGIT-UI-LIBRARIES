@@ -71,8 +71,10 @@ import InfoButton from "./InfoButton";
 import Uploader  from "./Uploader";
 import UploadPopup from "./UploadPopup";
 import DocPreview from "./DocPreview";
+import ErrorBoundary from "./ErrorBoundary";
 
 import {
+  ErrorBoundary,
   AnnouncementIcon,
   Calender,
   CitizenTruck,

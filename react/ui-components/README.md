@@ -58,6 +58,7 @@ yarn storybook
 # Changelog
 
 ```bash
+0.0.1-beta.16 added erroe boundary atom
 0.0.1-beta.15 added info varinat for toast
 0.0.1-beta.14 updated dropdown options label to use optionsKey
 0.0.1-beta.13 nested and tree dropdown varinat updated

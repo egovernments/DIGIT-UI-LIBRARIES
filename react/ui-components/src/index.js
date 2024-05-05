@@ -70,7 +70,8 @@ import {
   InfoButton,
   Uploader,
   UploadPopup,
-  DocPreview
+  DocPreview,
+  ErrorBoundary
 } from "./atoms";
 
 import {
@@ -462,4 +463,5 @@ export {
   ArrowLeftWhite,
   ArrowRightInbox,
   SearchIconSvg,
+  ErrorBoundary
 };
