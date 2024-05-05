@@ -74,7 +74,6 @@ import DocPreview from "./DocPreview";
 import ErrorBoundary from "./ErrorBoundary";
 
 import {
-  ErrorBoundary,
   AnnouncementIcon,
   Calender,
   CitizenTruck,
@@ -212,6 +211,7 @@ import { Phone } from "./svgindex";
 import { DownloadBtnCommon } from "./svgindex";
 
 export {
+  ErrorBoundary,
   PageBasedInput,
   ActionBar,
   ActionLinks,
