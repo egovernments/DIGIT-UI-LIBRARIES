@@ -1,5 +1,4 @@
 @import url("../index.scss");
-
 .digit-multiselectdropdown-wrap {
   margin-bottom: 0.625rem;
 
@@ -19,47 +18,36 @@
     max-width: 37.5rem;
   }
 
-
   @apply relative text-form-field text-text-primary w-full;
-
   .digit-multiselectdropdown-master,
   .digit-multiselectdropdown-master-active {
     @apply relative h-10 w-full bg-white;
     border: 0.063rem solid theme(digitv2.lightTheme.generic-inputborder);
-
     input[type="text"] {
       @extend .typography.body-l;
       @apply absolute top-0 left-0 p-sm min-h-full min-w-full opacity-0;
       letter-spacing: 0rem;
-
       &:focus {
         @apply outline-none;
       }
     }
-
     .digit-multiselectdropdown-label {
       @apply flex justify-between p-sm w-full h-full;
-
       svg {
         @apply h-6 w-6;
       }
     }
   }
-
   .digit-multiselectdropdown-master {
-
     &.disabled {
       pointer-events: none !important;
       border: 0.063rem solid theme(digitv2.lightTheme.generic-divider) !important;
       color: theme(digitv2.lightTheme.generic-divider) !important;
     }
   }
-
   .digit-multiselectdropdown-master-active {
     border: 0.063rem solid theme(digitv2.lightTheme.primary-1);
-
   }
-
   .digit-multiselectdropdown-server {
     top: 2.5rem;
     @apply absolute z-20 bg-white overflow-x-hidden overflow-y-auto;
@@ -67,77 +55,63 @@
     box-shadow: 0rem 0.063rem 0.275rem 0rem #00000026;
     width: 100% !important;
   }
-
   .digit-multiselectdropdown-server::-webkit-scrollbar {
     width: 0.5rem;
     background-color: theme(digitv2.lightTheme.generic-background);
   }
-
   .digit-multiselectdropdown-server::-webkit-scrollbar-track {
     background-color: theme(digitv2.lightTheme.generic-background);
     border-radius: 0.563rem;
   }
-
   .digit-multiselectdropdown-server::-webkit-scrollbar-thumb {
     background-color: theme(digitv2.lightTheme.generic-divider);
     border-radius: 0.563rem;
   }
-
   .digit-nested-category {
     @apply flex items-center flex-shrink-0;
-    background: theme(digitv2.lightTheme.paper-secondary);
+    background: theme(digitv2.lightTheme.background);
     height: 2.4375rem;
     padding: 1rem 0.625rem;
     gap: 0.625rem;
     margin-top: 1rem;
-
     &.selectAll {
       justify-content: space-between;
     }
   }
-
   .digit-nested-category:nth-child(-n+2) {
     margin-top: 0rem;
   }
-
   .digit-category-name {
     @extend .typography.heading-s;
-    color: theme(digitv2.lightTheme.text-secondary);
+    color: theme(digitv2.lightTheme.text-primary);
   }
-
   .digit-category-selectAll {
     @apply flex relative;
     gap: 0.625rem;
     cursor: pointer !important;
     align-items: center;
-
     .category-selectAll-label {
       @extend .typography.body-s;
       text-align: left;
       color: theme(digitv2.lightTheme.primary-1);
     }
-
     input {
       @apply absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer;
       margin: 0rem;
     }
-
     .digit-multiselectdropodwn-custom-checkbox-selectAll {
       height: 1.25rem;
       width: 1.25rem;
       border: 0.063rem solid theme(digitv2.lightTheme.text-secondary);
-
       svg {
         @apply opacity-0 z-10;
       }
     }
-
     input:active~.digit-multiselectdropodwn-custom-checkbox-selectAll,
     input:checked~.digit-multiselectdropodwn-custom-checkbox-selectAll {
       border: 0.125rem solid theme(digitv2.lightTheme.primary-1);
       background-color: theme(digitv2.lightTheme.paper-secondary);
     }
-
     input:active~.digit-multiselectdropodwn-custom-checkbox-selectAll svg,
     input:checked~.digit-multiselectdropodwn-custom-checkbox-selectAll svg {
       @apply opacity-100;
@@ -145,30 +119,23 @@
       height: 1rem;
     }
   }
-
   .digit-multiselectdropodwn-menuitem {
-
     @apply flex w-full bg-white justify-start items-center;
     min-height: 2.438rem;
-
     .option-des-container {
       @apply w-full max-w-full overflow-hidden box-border;
       margin: 0.594rem 0rem 0.594rem 0rem;
-
       .multiselectdropdown-icon-option {
         @apply w-full items-center;
         display: flex !important;
         gap: 0.25rem;
-
         svg {
           flex-shrink: 0;
         }
       }
     }
-
     &.nestedmultiselect {
       position: relative;
-
       &:not(.selectAll)::before {
         content: "";
         position: absolute;
@@ -177,7 +144,6 @@
         right: 0.625rem;
         border-bottom: 0.063rem solid theme(digitv2.lightTheme.generic-divider);
       }
-
       &:not(.selectAll):hover,
       &:not(.selectAll):active {
         &::before {
@@ -185,28 +151,22 @@
         }
       }
     }
-
     &:not(.nestedmultiselect, .keyChange, .checked):not(:active):not(:hover):nth-of-type(even) {
       background: theme(digitv2.lightTheme.paper-secondary);
     }
-
     &:hover,
     &.keyChange {
       background: theme(digitv2.lightTheme.primary-bg);
       border: 0.031rem solid theme(digitv2.lightTheme.primary-1);
     }
-
     &:active,
     &:active:hover {
       background: theme(digitv2.lightTheme.primary-1);
       border: 0.031rem solid theme(digitv2.lightTheme.primary-1);
-
-
       p {
         @extend .typography.heading-s;
         color: theme(digitv2.lightTheme.paper-primary);
       }
-
       .digit-label {
         &.selectAll {
           @extend .typography.body-l;
@@ -214,12 +174,10 @@
         }
       }
     }
-
     input {
       min-height: 2.438rem;
       @apply absolute min-w-full opacity-0 z-20 cursor-pointer;
     }
-
     p {
       @extend .typography.body-s;
       @apply w-full overflow-hidden whitespace-no-wrap max-w-full;
@@ -227,15 +185,12 @@
       margin: 0rem;
       text-overflow: ellipsis;
     }
-
     &.checked {
       background: theme(digitv2.lightTheme.primary-1);
-
       p {
         @extend .typography.heading-s;
         color: theme(digitv2.lightTheme.paper-primary);
       }
-
       .digit-label {
         &.selectAll {
           @extend .typography.body-l;
@@ -243,32 +198,26 @@
         }
       }
     }
-
     .digit-multiselectdropodwn-custom-checkbox,
     .digit-multiselectdropodwn-custom-checkbox-selectAll {
       height: 1.25rem;
       width: 1.25rem;
       border: 0.063rem solid theme(digitv2.lightTheme.text-secondary);
       margin: 0.594rem 0.75rem 0.594rem 0.625rem;
-
       svg {
         @apply opacity-0 z-10;
       }
     }
-
-
     input:active~.digit-multiselectdropodwn-custom-checkbox,
     input:checked~.digit-multiselectdropodwn-custom-checkbox {
       border: 0.125rem solid theme(digitv2.lightTheme.paper-primary);
       background-color: theme(digitv2.lightTheme.primary-1);
     }
-
     input:active~.digit-multiselectdropodwn-custom-checkbox-selectAll,
     input:checked~.digit-multiselectdropodwn-custom-checkbox-selectAll {
       border: 0.125rem solid theme(digitv2.lightTheme.primary-1);
       background-color: theme(digitv2.lightTheme.paper-secondary);
     }
-
     input:active~.digit-multiselectdropodwn-custom-checkbox svg,
     input:checked~.digit-multiselectdropodwn-custom-checkbox svg,
     input:active~.digit-multiselectdropodwn-custom-checkbox-selectAll svg,
@@ -277,25 +226,20 @@
       width: 1rem;
       height: 1rem;
     }
-
     &.nestedtextmultiselect {
       padding: 0.5rem 1rem;
       gap: 0.75rem;
       align-items: flex-start !important;
-
       &:not(.selectAll) {
         min-height: 4.75rem;
-
         .input {
           min-height: 3.75rem;
         }
       }
-
       .option-des-container {
         @apply flex flex-col justify-center items-start;
         width: 100% !important;
         margin: 0rem;
-
         p {
           @extend .typography.body-l;
           color: theme(digitv2.lightTheme.text-secondary);
@@ -303,7 +247,6 @@
           margin-bottom: 0rem;
           margin-top: 0rem;
         }
-
         .option-description {
           color: theme(digitv2.lightTheme.text-secondary);
           font-family: theme(digitv2.fontFamily.sans);
@@ -312,51 +255,41 @@
           font-weight: theme(digitv2.fontWeight.regular);
           line-height: 1.125rem;
         }
-
         .svg {
           flex-shrink: 0;
         }
       }
-
       .digit-multiselectdropodwn-custom-checkbox {
         margin: 0rem;
         margin-top: 0.125rem;
       }
-
       &:active,
       &.checked {
-
         .option-description,
         p {
           color: theme(digitv2.lightTheme.paper-primary);
         }
-
         .option-des-container {
           p {
             @extend .typography.heading-s;
           }
         }
-
         .digit-multiselectdropodwn-custom-checkbox {
           margin-top: 0rem;
         }
       }
-
       &:active {
         background: theme(digitv2.lightTheme.primary-1);
       }
-
       .digit-multiselectdropodwn-custom-checkbox-selectAll {
         margin: 0rem;
         margin-top: 0.125rem;
       }
     }
-
     &.selectAll {
       background-color: theme(digitv2.lightTheme.paper-secondary) !important;
       border: 0.063rem solid theme(digitv2.lightTheme.generic-divider) !important;
     }
-
     .digit-label {
       &.selectAll {
         @extend .typography.body-l;
@@ -364,11 +297,9 @@
       }
     }
   }
-
   .digit-cursorPointer {
     @apply cursor-pointer;
   }
-
   .digit-multiselectdropdown-master,
   .digit-multiselectdropdown-master-active {
     .digit-multiselectdropdown-label {

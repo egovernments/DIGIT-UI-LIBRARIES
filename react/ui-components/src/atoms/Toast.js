@@ -77,12 +77,12 @@ const Toast = (props) => {
         className={`digit-toast-success ${isVisible && isAnimating ? "animate" : ""} ${variant}`}
         style={{ ...props.style }}
       >
-        <SVG.Info fill="#3498DB" />
+        <SVG.Info fill="#FFFFFF" />
         <div style={{ ...props.labelstyle }} className="toast-label">
           {sentenceCaseLabel}
         </div>
         <SVG.Close
-          fill="#363636"
+          fill="#FFFFFF"
           className="digit-toast-close-btn"
           style={{ cursor: "pointer" }}
           onClick={props.onClose ? props.onClose : handleClose}

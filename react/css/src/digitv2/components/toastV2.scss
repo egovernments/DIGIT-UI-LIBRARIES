@@ -47,11 +47,7 @@
   }
 
   &.digit-info {
-    background-color: theme(digitv2.alert.info-bg);
-
-    .toast-label{
-      color: theme(digitv2.lightTheme.text-primary);
-    }
+    background-color: theme(digitv2.lightTheme.alert-info);
   }
 
   .digit-warning-button-container {
