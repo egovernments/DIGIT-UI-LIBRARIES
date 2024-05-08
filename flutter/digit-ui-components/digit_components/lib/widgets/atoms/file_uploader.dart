@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:html' as html;
 import 'package:digit_ui_components/digit_components.dart';
+import 'package:digit_ui_components/widgets/atoms/file_uploader2.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
@@ -8,21 +9,32 @@ import 'package:flutter_svg/svg.dart';
 import '../../constants/AppView.dart';
 import '../../constants/app_constants.dart';
 import '../../enum/app_enums.dart';
+import '../../utils/utils.dart';
+import '../../utils/validators/file_validator.dart';
 import '../helper_widget/selection_chip.dart';
 import 'package:path_provider/path_provider.dart';
 
+typedef OnFilesSelectedCallback = Map<PlatformFile, String?> Function(
+    List<PlatformFile> files);
 
 class FileUploadWidget extends StatefulWidget {
-  final Function(List<File> files) onFilesSelected;
+  final OnFilesSelectedCallback onFilesSelected;
   final String label;
   final bool showPreview;
   final bool allowMultipleImages;
+  final String? errorMessage;
+  final List<FileValidator>? validators;
+  final List<String>? allowedExtensions;
+
   const FileUploadWidget({
     super.key,
     required this.onFilesSelected,
     required this.label,
     this.showPreview = false,
     this.allowMultipleImages = false,
+    this.errorMessage,
+    this.validators,
+    this.allowedExtensions,
   });
 
   @override
@@ -31,11 +43,13 @@ class FileUploadWidget extends StatefulWidget {
 
 class _FileUploadWidgetState extends State<FileUploadWidget>
     with SingleTickerProviderStateMixin {
-  double _uploadProgress = 0.0;
-  late AnimationController _animationController;
+  List<PlatformFile> files = [];
   List<String> fileNames = [];
-  List<Uint8List> fileBytesList = [];  // Generalized list for both images and PDFs
+  List<Uint8List> fileBytesList = [];
   List<bool> uploadingStatus = [];
+  String fileErrorMessage = '';
+  Map<PlatformFile, String?> fileErrors = {};
+  late DigitTypography currentTypography;
 
   @override
   void initState() {
@@ -46,22 +60,33 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       allowMultiple: widget.allowMultipleImages,
       type: FileType.custom,
-      allowedExtensions: ['xlsx', 'xls', 'pdf', 'jpg', 'jpeg', 'png'],
+      allowedExtensions: widget.allowedExtensions ?? ['xlsx', 'xls', 'pdf', 'jpg', 'jpeg', 'png'],
     );
 
     if (result != null) {
-      List<File> files = [];
+      if (widget.validators != null) {
+        for (var platformFile in result.files) {
+          String? validationError =
+              _validateFile(platformFile, widget.validators!);
+          if (validationError != null) {
+            setState(() {
+              fileErrorMessage = validationError;
+            });
+            return;
+          }
+        }
+      }
 
       if (kIsWeb) {
         /// Handle file picking for web where paths are unavailable
-        files = result.files.map((file) => File(file.bytes!.toString())).toList();
+
         for (var file in result.files) {
-          if(widget.allowMultipleImages){
+          if (widget.allowMultipleImages) {
             setState(() {
               fileBytesList.add(file.bytes!);
               fileNames.add(file.name!);
             });
-          }else{
+          } else {
             fileBytesList.clear();
             fileNames.clear();
             setState(() {
@@ -69,18 +94,18 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
               fileNames.add(file.name!);
             });
           }
+          files.add(file);
         }
       } else {
         //
         /// Handle file picking for mobile/desktop where paths are available
-        files = result.files.map((file) => File(file.path!)).toList();
         for (var file in result.files) {
-          if(widget.allowMultipleImages){
+          if (widget.allowMultipleImages) {
             setState(() {
               fileBytesList.add(file.bytes!);
               fileNames.add(file.name);
             });
-          }else{
+          } else {
             fileBytesList.clear();
             fileNames.clear();
             setState(() {
@@ -88,13 +113,19 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
               fileNames.add(file.name);
             });
           }
+          files.add(file);
         }
       }
-      widget.onFilesSelected(files);
+      // Call onFilesSelected with the selected files
+      setState(() {
+        fileErrors = widget.onFilesSelected(result.files);
+      });
+      print(fileErrors.length);
     }
   }
 
-  Future<String> writeToTemporaryFile(Uint8List dataBytes, String fileName) async {
+  Future<String> writeToTemporaryFile(
+      Uint8List dataBytes, String fileName) async {
     if (!kIsWeb) {
       // Use path_provider for mobile or desktop platforms.
       final directory = await getTemporaryDirectory();
@@ -107,9 +138,11 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
       final Map<String, String> mimeTypes = {
         'pdf': 'application/pdf',
         'doc': 'application/msword',
-        'docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        'docx':
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
         'xls': 'application/vnd.ms-excel',
-        'xlsx': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        'xlsx':
+            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         'jpg': 'image/jpeg',
         'jpeg': 'image/jpeg',
         'png': 'image/png',
@@ -141,33 +174,75 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
     print('heeeeeeeeeeeeeee');
   }
 
-  Widget _buildFilePreview(int index) {
-  if (fileBytesList.length > index) {
-      if (fileNames[index].toLowerCase().endsWith('.jpg') || fileNames[index].toLowerCase().endsWith('.png')){
-        return _buildImageWidget(index);
+  Widget _buildFilePreview(int index, double width) {
+    if (fileBytesList.length > index) {
+      if (fileNames[index].toLowerCase().endsWith('.jpg') ||
+          fileNames[index].toLowerCase().endsWith('.png')) {
+        return _buildImageWidget(index, width);
       } else {
-        return _buildFileWidget(index);
+        return _buildFileWidget(index, width);
       }
     } else {
       return const SizedBox.shrink();
     }
   }
 
-  Widget _buildImageWidget(int index) {
-    return Stack(
-      children: [
-        Container(
-          color: const DigitColors().light.genericDivider,
-          width: 100,
-          height: 100,
-          child: ClipRRect(
-            borderRadius: Common.radius,
-            child: Stack(
-              fit: StackFit.expand,
+  Widget _buildImageWidget(int index, double width) {
+    bool showOverlay = false;
+
+    return StatefulBuilder(builder: (context, setState) {
+      return SizedBox(
+        width: widget.allowMultipleImages ?100 : width,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Stack(
               children: [
-                Image.memory(
-                  fileBytesList[index],
-                  fit: BoxFit.cover,
+                InkWell(
+                  onTap: () {
+                    _openFile(fileBytesList[index], fileNames[index]);
+                  },
+                  onHover: (hovering) {
+                    setState(() {
+                      showOverlay = hovering;
+                    });
+                  },
+                  child: Container(
+                    width: widget.allowMultipleImages ?100 : width,
+                    height: 100,
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                      color: fileErrors.containsKey(files[index])
+                          ? const DigitColors().light.alertError
+                          : const DigitColors().light.genericDivider,
+                      width: 1,
+                    )),
+                    child: ClipRRect(
+                      borderRadius: Common.radius,
+                      child: Stack(
+                        fit: StackFit.expand,
+                        children: [
+                          Image.memory(
+                            fileBytesList[index],
+                            fit: BoxFit.cover,
+                          ),
+                          if (!showOverlay)
+                            Container(
+                              color: fileErrors.containsKey(files[index])
+                                  ? const DigitColors()
+                                      .light
+                                      .alertError
+                                      .withOpacity(.20)
+                                  : const DigitColors()
+                                      .background
+                                      .withOpacity(.70), // Light overlay color
+                            ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
                 Positioned(
                   top: 0,
@@ -177,13 +252,19 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
                     highlightColor: const DigitColors().transparent,
                     splashColor: const DigitColors().transparent,
                     onTap: () {
+                      print(fileErrors.containsKey(files[index]));
                       _removeFile(index);
+                    },
+                    onHover: (hovering) {
+                      setState(() {
+                        showOverlay = hovering;
+                      });
                     },
                     child: Container(
                       width: 24,
                       height: 24,
                       decoration: BoxDecoration(
-                        color: const DigitColors().light.primary2,
+                        color: fileErrors.containsKey(files[index]) ? const DigitColors().light.alertError : const DigitColors().light.primary2,
                       ),
                       child: Icon(
                         Icons.close,
@@ -193,58 +274,133 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
                     ),
                   ),
                 ),
-                Positioned.fill(
-                  child: Material(
-                    color: Colors.transparent,
-                    child: InkWell(
-                      onTap: () {
-                        _openFile(fileBytesList[index], fileNames[index]);
-                      },
-                    ),
-                  ),
-                ),
               ],
             ),
-          ),
+            const SizedBox(height: 4,),
+            fileErrors.containsKey(files[index])
+                ? Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Column(
+                        children: [
+                          const SizedBox(
+                            height: 2,
+                          ),
+                          Icon(
+                            Icons.info,
+                            color: const DigitColors().light.alertError,
+                            size: 16,
+                          ),
+                        ],
+                      ),
+                      const SizedBox(width: kPadding / 2),
+                      Flexible(
+                          fit: FlexFit.tight,
+                          child: Text(
+                            fileErrors[files[index]]!,
+                            style: currentTypography.bodyXS.copyWith(
+                                color: const DigitColors().light.alertError),
+                          )),
+                    ],
+                  )
+                : Text(
+                    fileNames[index],
+                    style: currentTypography.bodyXS
+                        .copyWith(color: const DigitColors().light.textPrimary),
+                  ),
+          ],
         ),
-      ],
-    );
+      );
+    });
   }
 
-  Widget _buildFileWidget(int index) {
+  Widget _buildFileWidget(int index, double width) {
     SvgPicture viewIcon;
     String fileType = fileNames[index].split('.').last.toLowerCase();
+    bool showOverlay = false;
 
     switch (fileType) {
       case 'pdf':
-        viewIcon = SvgPicture.asset(Common.pdfSvg);
+        viewIcon = SvgPicture.asset(
+          Common.pdfSvg,
+        );
         break;
       case 'doc':
       case 'docx':
-        viewIcon = SvgPicture.asset(Common.docSvg);
+        viewIcon = SvgPicture.asset(
+          Common.docSvg,
+        );
         break;
       case 'xlsx':
       case 'xls':
-        viewIcon = SvgPicture.asset(Common.xlsxSvg);
+        viewIcon = SvgPicture.asset(
+          Common.xlsxSvg,
+        );
         break;
       default:
-        viewIcon = SvgPicture.asset(Common.fileSvg);
+        viewIcon = SvgPicture.asset(
+          Common.fileSvg,
+        );
         break;
     }
 
-    return Stack(
-      children: [
-        Container(
-          color: const DigitColors().light.genericDivider,
-          width: 100,
-          height: 100,
-          child: ClipRRect(
-            borderRadius: Common.radius,
-            child: Stack(
-              alignment: Alignment.center,
-              // fit: StackFit.expand,
+    return StatefulBuilder(builder: (context, setState) {
+      return SizedBox(
+        width: widget.allowMultipleImages ?100 : width,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Stack(
               children: [
-                viewIcon,
+                InkWell(
+                  onTap: () {
+                    _openFile(fileBytesList[index], fileNames[index]);
+                  },
+                  onHover: (hovering) {
+                    setState(() {
+                      showOverlay = hovering;
+                    });
+                  },
+                  child: Container(
+                    width: widget.allowMultipleImages ?100 : width,
+                    height: 100,
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                          color: fileErrors.containsKey(files[index])
+                              ? const DigitColors().light.alertError
+                              : const DigitColors().light.genericDivider,
+                          width: 1,
+                        )),
+                    child: ClipRRect(
+                      borderRadius: Common.radius,
+                      child: Stack(
+                        fit: StackFit.expand,
+                        children: [
+                          SizedBox(
+                          width: 100,
+                          height: 100,
+                          child: Container(
+                              padding: const EdgeInsets.all(24), child: viewIcon)),
+                          if (!showOverlay)
+                            Container(
+                              color: fileErrors.containsKey(files[index])
+                                  ? const DigitColors()
+                                  .light
+                                  .alertError
+                                  .withOpacity(.20)
+                                  : const DigitColors()
+                                  .background
+                                  .withOpacity(.70), // Light overlay color
+                            ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
                 Positioned(
                   top: 0,
                   right: 0,
@@ -253,13 +409,19 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
                     highlightColor: const DigitColors().transparent,
                     splashColor: const DigitColors().transparent,
                     onTap: () {
+                      print(fileErrors.containsKey(files[index]));
                       _removeFile(index);
+                    },
+                    onHover: (hovering) {
+                      setState(() {
+                        showOverlay = hovering;
+                      });
                     },
                     child: Container(
                       width: 24,
                       height: 24,
                       decoration: BoxDecoration(
-                        color: const DigitColors().light.primary2,
+                        color: fileErrors.containsKey(files[index]) ? const DigitColors().light.alertError : const DigitColors().light.primary2,
                       ),
                       child: Icon(
                         Icons.close,
@@ -269,56 +431,80 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
                     ),
                   ),
                 ),
-                Positioned.fill(
-                  child: Material(
-                    color: Colors.transparent,
-                    child: InkWell(
-                      onTap: () {
-                        _openFile(fileBytesList[index], fileNames[index]);
-                      },
-                    ),
-                  ),
-                ),
               ],
             ),
-          ),
+            fileErrors.containsKey(files[index])
+                ? Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Column(
+                  children: [
+                    const SizedBox(
+                      height: 2,
+                    ),
+                    Icon(
+                      Icons.info,
+                      color: const DigitColors().light.alertError,
+                      size: 16,
+                    ),
+                  ],
+                ),
+                const SizedBox(width: kPadding / 2),
+                Flexible(
+                    fit: FlexFit.tight,
+                    child: Text(
+                      fileErrors[files[index]]!,
+                      style: currentTypography.bodyXS.copyWith(
+                          color: const DigitColors().light.alertError),
+                    )),
+              ],
+            )
+                : Text(
+              fileNames[index],
+              style: currentTypography.bodyXS
+                  .copyWith(color: const DigitColors().light.textPrimary),
+            ),
+          ],
         ),
-      ],
-    );
+      );
+    });
   }
 
   void _removeFile(int index) {
     setState(() {
       fileBytesList.removeAt(index);
       fileNames.removeAt(index);
-      uploadingStatus.removeAt(index);
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    DigitTypography currentTypography = getTypography(context, false);
+    currentTypography = getTypography(context, false);
+    String? capitalizedErrorMessage =
+        capitalizeFirstLetter(widget.errorMessage);
 
     double minWidth = AppView.isMobileView(MediaQuery.of(context).size)
         ? 328
         : AppView.isTabletView(MediaQuery.of(context).size)
-        ? 440
-        : 600;
+            ? 440
+            : 600;
 
     double minInputWidth = AppView.isMobileView(MediaQuery.of(context).size)
         ? 198
         : AppView.isTabletView(MediaQuery.of(context).size)
-        ? 304
-        : 468;
+            ? 304
+            : 468;
 
     return Container(
       constraints: BoxConstraints(
         maxWidth: minWidth,
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -333,25 +519,31 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
                   ),
                   decoration: BoxDecoration(
                     border: Border.all(
-                      color: const DigitColors().light.textPrimary,
-                      width: 1,
+                      color:
+                          widget.errorMessage != null || fileErrorMessage != ''
+                              ? const DigitColors().light.alertError
+                              : const DigitColors().light.textPrimary,
+                      width:
+                          widget.errorMessage != null || fileErrorMessage != ''
+                              ? 1.5
+                              : 1,
                     ),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.only(top: 8.0, left: 8),
                     child: fileBytesList.isEmpty
                         ? Text(
-                      'No File Selected',
-                      style: currentTypography.bodyS.copyWith(
-                        color: const DigitColors().light.textDisabled,
-                      ),
-                    )
+                            'No File Selected',
+                            style: currentTypography.bodyS.copyWith(
+                              color: const DigitColors().light.textDisabled,
+                            ),
+                          )
                         : Text(
-                      '${fileBytesList.length} Selected',
-                      style: currentTypography.bodyS.copyWith(
-                        color: const DigitColors().light.textPrimary,
-                      ),
-                    ),
+                            '${fileBytesList.length} Selected',
+                            style: currentTypography.bodyS.copyWith(
+                              color: const DigitColors().light.textPrimary,
+                            ),
+                          ),
                   ),
                 ),
               ),
@@ -363,38 +555,97 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
                 label: !widget.allowMultipleImages && fileBytesList.isNotEmpty
                     ? 'Re-Upload'
                     : 'Upload',
-                onPressed: _openFileExplorer,
+                onPressed: () {
+                  fileErrorMessage = '';
+                  _openFileExplorer();
+                },
                 type: ButtonType.secondary,
                 prefixIcon: Icons.file_upload,
                 size: ButtonSize.large,
               ),
             ],
           ),
+          if (widget.errorMessage != null || fileErrorMessage != '')
+            const SizedBox(
+              height: 4,
+            ),
+          if (widget.errorMessage != null || fileErrorMessage != '')
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Column(
+                  children: [
+                    const SizedBox(
+                      height: 2,
+                    ),
+                    Icon(
+                      Icons.info,
+                      color: const DigitColors().light.alertError,
+                      size: BaseConstants.errorIconSize,
+                    ),
+                  ],
+                ),
+                const SizedBox(width: kPadding / 2),
+                Flexible(
+                  fit: FlexFit.tight,
+                  child: fileErrorMessage != ''
+                      ? Text(
+                          fileErrorMessage.length > 256
+                              ? '${fileErrorMessage.substring(0, 256)}...'
+                              : fileErrorMessage,
+                          style: currentTypography.bodyS.copyWith(
+                            color: const DigitColors().light.alertError,
+                          ),
+                        )
+                      : Text(
+                          capitalizedErrorMessage!.length > 256
+                              ? '${capitalizedErrorMessage.substring(0, 256)}...'
+                              : capitalizedErrorMessage,
+                          style: currentTypography.bodyS.copyWith(
+                            color: const DigitColors().light.alertError,
+                          ),
+                        ),
+                ),
+              ],
+            ),
           const SizedBox(height: 8),
           widget.showPreview
               ? Wrap(
-            spacing: 8.0,
-            children: List.generate(fileNames.length, (index) {
-              return _buildFilePreview(index);
-            }),
-          )
+                  spacing: 8.0,
+                  children: List.generate(fileNames.length, (index) {
+                    return _buildFilePreview(index, minWidth);
+                  }),
+                )
               : Wrap(
-            spacing: 8.0,
-            children: List.generate(fileNames.length, (index) {
-              return Padding(
-                padding: const EdgeInsets.only(bottom: 8.0),
-                child: SelectionChip(
-                  label: fileNames[index],
-                  onItemDelete: () {
-                    setState(() {
-                      fileNames.removeAt(index);
-                      fileBytesList.removeAt(index);
-                    });
-                  },
+                  spacing: 8.0,
+                  children: List.generate(fileNames.length, (index) {
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 8.0),
+                      child: fileErrors.containsKey(files[index])
+                          ? SelectionChip(
+                              errorMessage: fileErrors[files[index]],
+                              label: fileNames[index],
+                              onItemDelete: () {
+                                setState(() {
+                                  fileNames.removeAt(index);
+                                  fileBytesList.removeAt(index);
+                                });
+                              },
+                            )
+                          : SelectionChip(
+                              label: fileNames[index],
+                              onItemDelete: () {
+                                setState(() {
+                                  fileNames.removeAt(index);
+                                  fileBytesList.removeAt(index);
+                                });
+                              },
+                            ),
+                    );
+                  }),
                 ),
-              );
-            }),
-          ),
         ],
       ),
     );
@@ -439,4 +690,54 @@ class FillProgressPainter extends CustomPainter {
   bool shouldRepaint(covariant CustomPainter oldDelegate) {
     return true;
   }
+}
+
+String? _validateFile(PlatformFile file, List<FileValidator> validators) {
+  // Perform validation for the given file using the provided validators
+  for (var validator in validators) {
+    switch (validator.type) {
+      case FileValidatorType.fileType:
+        if (!_isFileTypeAllowed(file, validator.value)) {
+          return validator.errorMessage ?? 'Invalid file type';
+        }
+        break;
+      case FileValidatorType.minSize:
+        if (!_isFileSizeAboveMin(file, validator.value)) {
+          return validator.errorMessage ?? 'File size is too small';
+        }
+        break;
+      case FileValidatorType.maxSize:
+        if (!_isFileSizeBelowMax(file, validator.value)) {
+          return validator.errorMessage ?? 'File size exceeds maximum limit';
+        }
+        break;
+    }
+  }
+
+  // If the file passes all validations, return null
+  return null;
+}
+
+bool _isFileTypeAllowed(PlatformFile file, List<String> allowedExtensions) {
+  // Get the file extension
+  String fileExtension = file.name!.split('.').last.toLowerCase();
+
+  // Check if the file extension is in the list of allowed file types
+  return allowedExtensions.contains(fileExtension);
+}
+
+bool _isFileSizeAboveMin(PlatformFile file, int minFileSizeInBytes) {
+  // Get the file size in bytes
+  int fileSizeInBytes = file.size ?? 0;
+
+  // Check if the file size is above the minimum threshold
+  return fileSizeInBytes >= minFileSizeInBytes;
+}
+
+bool _isFileSizeBelowMax(PlatformFile file, int maxFileSizeInBytes) {
+  // Get the file size in bytes
+  int fileSizeInBytes = file.size ?? 0;
+
+  // Check if the file size is below the maximum threshold
+  return fileSizeInBytes <= maxFileSizeInBytes;
 }

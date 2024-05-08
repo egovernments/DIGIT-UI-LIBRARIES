@@ -8,6 +8,8 @@ class DigitColors {
   Color get transparent => const Color.fromRGBO(0, 0, 0, 0);
   Color get shadowColor => const Color.fromRGBO(244, 119, 56, 0.25);
   Color get darkprimary1 => const Color.fromRGBO(234, 99, 31, 1);
+  Color get background => const Color(0xFF6F6F6F);
+  Color get overLayColor => const Color(0xFF0B0C0C);
 }
 
 class Light {

@@ -10,15 +10,22 @@ import '../../constants/AppView.dart';
 import '../../constants/app_constants.dart';
 import '../../theme/colors.dart';
 import '../../theme/typography.dart';
+import '../../utils/utils.dart';
+import '../../utils/validators/file_validator.dart';
+import '../helper_widget/button_list.dart';
 
 class ImageUploader extends StatefulWidget {
   final Function(List<File>) onImagesSelected;
   final bool allowMultipleImages;
+  final String? errorMessage;
+  final List<FileValidator>? validators;
 
   const ImageUploader(
       {super.key,
       required this.onImagesSelected,
-      this.allowMultipleImages = false});
+      this.allowMultipleImages = false,
+      this.errorMessage,
+      this.validators});
 
   @override
   _ImageUploaderState createState() => _ImageUploaderState();
@@ -31,6 +38,8 @@ class _ImageUploaderState extends State<ImageUploader> {
   late DigitTypography currentTypography;
   late bool isMobile;
   late bool isTab;
+  String? capitalizedErrorMessage;
+  String fileError = '';
 
   Future<void> _initializeWebCamera() async {
     final cameras = await availableCameras();
@@ -50,119 +59,239 @@ class _ImageUploaderState extends State<ImageUploader> {
       _initializeWebCamera().then((_) {
         showDialog(
           context: context,
+          useSafeArea: false,
           builder: (BuildContext context) {
-            return AlertDialog(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(4),
-              ),
-              surfaceTintColor: const DigitColors().light.paperPrimary,
-              contentPadding: EdgeInsets.zero,
-              content: SizedBox(
-                width: isMobile ? 328 : isTab ? 440: 720,
-                height: isMobile? 624 : isTab ? 508 : 448,
-                child: Padding(
-                  padding: const EdgeInsets.all(24.0),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Camera',
-                        style: currentTypography.headingM.copyWith(
-                            color: const DigitColors().light.textPrimary),
-                      ),
-                      const SizedBox(
-                        height: 24,
-                      ),
-                      SizedBox(
-                        width: isMobile? 280 :isTab ? 392 :672,
-                        height: isMobile? 416 : isTab ? 346 : 285,
-                        child: FutureBuilder<void>(
-                          future: _initializeControllerFuture,
-                          builder: (context, snapshot) {
-                            if (snapshot.connectionState ==
-                                ConnectionState.done) {
-                              return CameraPreview(_cameraController!);
-                            } else {
-                              return const Center(
-                                  child: CircularProgressIndicator());
-                            }
-                          },
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 24,
-                      ),
-                      isMobile ?
-                      Column(
-                        // textDirection: TextDirection.rtl,
-                        mainAxisAlignment: MainAxisAlignment.center,
+            return isMobile
+                ? Dialog.fullscreen(
+                    backgroundColor:
+                        const DigitColors().overLayColor.withOpacity(.70),
+                    child: Container(
+                      margin: const EdgeInsets.all(16),
+                      color: const DigitColors().light.paperPrimary,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Button(
-                            label: 'Cancel',
-                            size: ButtonSize.large,
-                            type: ButtonType.secondary,
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                              _closeCamera();
-                            },
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(24.0),
+                                child: Text(
+                                  'Camera',
+                                  style: currentTypography.headingM.copyWith(
+                                      color: const DigitColors()
+                                          .light
+                                          .textPrimary),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                  top: 8,
+                                  right: 8,
+                                ),
+                                child: InkWell(
+                                    hoverColor: const DigitColors().transparent,
+                                    highlightColor:
+                                    const DigitColors().transparent,
+                                    splashColor:
+                                    const DigitColors().transparent,
+                                    onTap: () {
+                                      _closeCamera();
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Icon(
+                                      Icons.close,
+                                      size: 32,
+                                      color: const DigitColors().light.primary2,
+                                    )),
+                              ),
+                            ],
                           ),
-                          const SizedBox(
-                            height: 8,
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                              child: FutureBuilder<void>(
+                                future: _initializeControllerFuture,
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.done) {
+                                    return CameraPreview(_cameraController!);
+                                  } else {
+                                    return const Center(
+                                        child: CircularProgressIndicator());
+                                  }
+                                },
+                              ),
+                            ),
                           ),
-                          Button(
-                            label: 'Capture Image',
-                            size: ButtonSize.large,
-                            type: ButtonType.primary,
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                              _handleImageCapture();
-                            },
+                          Padding(
+                            padding: const EdgeInsets.all(24.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Button(
+                                  mainAxisSize: MainAxisSize.max,
+                                  prefixIcon: Icons.camera_enhance,
+                                  label: 'Capture',
+                                  size: ButtonSize.large,
+                                  type: ButtonType.primary,
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                    _handleImageCapture();
+                                  },
+                                ),
+                                const SizedBox(
+                                  height: 16,
+                                ),
+                                Button(
+                                  mainAxisSize: MainAxisSize.max,
+                                  label: 'Cancel',
+                                  size: ButtonSize.large,
+                                  type: ButtonType.secondary,
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                    _closeCamera();
+                                  },
+                                ),
+                              ],
+                            ),
                           ),
                         ],
-                      )
-                          :Row(
-                        // textDirection: TextDirection.rtl,
-                        mainAxisAlignment: MainAxisAlignment.end,
+                      ),
+                    ),
+                  )
+                : AlertDialog(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    surfaceTintColor: const DigitColors().light.paperPrimary,
+                    contentPadding: EdgeInsets.zero,
+                    content: SizedBox(
+                      width: isTab ? 440 : 720,
+                      height: isTab ? 508 : 448,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Button(
-                            label: 'Cancel',
-                            size: ButtonSize.large,
-                            type: ButtonType.secondary,
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                              _closeCamera();
-                            },
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(24.0),
+                                child: Text(
+                                  'Camera',
+                                  style: currentTypography.headingM.copyWith(
+                                      color: const DigitColors()
+                                          .light
+                                          .textPrimary),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                  top: isTab ? 8 : 12.0,
+                                  right: isTab ? 8 : 12.0,
+                                ),
+                                child: InkWell(
+                                    hoverColor: const DigitColors().transparent,
+                                    highlightColor:
+                                    const DigitColors().transparent,
+                                    splashColor:
+                                    const DigitColors().transparent,
+                                    onTap: () {
+                                      _closeCamera();
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Icon(
+                                      Icons.close,
+                                      size: 32,
+                                      color: const DigitColors().light.primary2,
+                                    )),
+                              ),
+                            ],
                           ),
-                          const SizedBox(
-                            width: 8,
+                          Container(
+                            width: isTab ? 392 : 672,
+                            height: isTab ? 346 : 285,
+                            // padding: const EdgeInsets.symmetric(horizontal: 24),
+                            child: FutureBuilder<void>(
+                              future: _initializeControllerFuture,
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.done) {
+                                  return CameraPreview(_cameraController!);
+                                } else {
+                                  return const Center(
+                                      child: CircularProgressIndicator());
+                                }
+                              },
+                            ),
                           ),
-                          Button(
-                            label: 'Capture Image',
-                            size: ButtonSize.large,
-                            type: ButtonType.primary,
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                              _handleImageCapture();
-                            },
+                          Padding(
+                            padding: const EdgeInsets.all(24),
+                            child: Row(
+                              // textDirection: TextDirection.rtl,
+                              mainAxisAlignment: isTab ? MainAxisAlignment.start : MainAxisAlignment.end,
+                              // mainAxisSize: MainAxisSize.min,
+                              children: [
+                                ButtonListTile(
+                                  spacing: 24,
+                                  buttons: [
+                                    Button(
+                                      label: 'Cancel',
+                                      mainAxisSize: MainAxisSize.max,
+                                      size: ButtonSize.large,
+                                      type: ButtonType.secondary,
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                        _closeCamera();
+                                      },
+                                    ),
+                                    Button(
+                                      label: 'Capture',
+                                      size: ButtonSize.large,
+                                      mainAxisSize: MainAxisSize.max,
+                                      prefixIcon: Icons.camera_enhance,
+                                      type: ButtonType.primary,
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                        _handleImageCapture();
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),
-                    ],
-                  ),
-                ),
-              ),
-            );
+                    ),
+                  );
           },
         );
       });
     } else {
       ImagePicker().pickImage(source: source).then((pickedFile) {
         if (pickedFile != null) {
+          if (widget.validators != null) {
+            String? validationError =
+                _validateFile(pickedFile, widget.validators!, pickedFile.name);
+            print('eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee');
+            if (validationError != null) {
+              setState(() {
+                fileError = validationError;
+              });
+              return;
+            }
+          }
           setState(() {
-            // For single image, replace the existing image file
-            // For multiple images, add the new image file to the list
+            fileError = ''; // Clear the error message
             widget.allowMultipleImages
                 ? _imageFiles.add(File(pickedFile.path))
                 : _imageFiles.add(File(pickedFile.path));
@@ -178,9 +307,19 @@ class _ImageUploaderState extends State<ImageUploader> {
   Future<void> _handleImageCapture() async {
     try {
       final XFile picture = await _cameraController!.takePicture();
+      if (widget.validators != null) {
+        String? validationError =
+            _validateFile(picture, widget.validators!, picture.name);
+        print('eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee');
+        if (validationError != null) {
+          setState(() {
+            fileError = validationError;
+          });
+          return;
+        }
+      }
       setState(() {
-        // For single image, replace the existing image file
-        // For multiple images, add the new image file to the list
+        fileError = ''; // Clear the error message
         widget.allowMultipleImages
             ? _imageFiles.add(File(picture.path))
             : _imageFiles.add(File(picture.path));
@@ -210,6 +349,7 @@ class _ImageUploaderState extends State<ImageUploader> {
     currentTypography = getTypography(context, false);
     isMobile = AppView.isMobileView(MediaQuery.of(context).size);
     isTab = AppView.isTabletView(MediaQuery.of(context).size);
+    capitalizedErrorMessage = capitalizeFirstLetter(widget.errorMessage);
     double minWidth = AppView.isMobileView(MediaQuery.of(context).size)
         ? 328
         : AppView.isTabletView(MediaQuery.of(context).size)
@@ -218,6 +358,9 @@ class _ImageUploaderState extends State<ImageUploader> {
 
     return GestureDetector(
       onTap: () {
+        setState(() {
+          fileError = '';
+        });
         !isMobile
             ? showDialog(
                 context: context,
@@ -359,6 +502,9 @@ class _ImageUploaderState extends State<ImageUploader> {
   }
 
   Widget _buildImageDisplay(double minWidth) {
+    if (fileError != '') {
+      _closeCamera();
+    }
     return Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -372,7 +518,9 @@ class _ImageUploaderState extends State<ImageUploader> {
               height: 120,
               decoration: BoxDecoration(
                 border: Border.all(
-                  color: const DigitColors().light.genericInputBorder,
+                  color: widget.errorMessage != null || fileError != ''
+                      ? const DigitColors().light.alertError
+                      : const DigitColors().light.genericInputBorder,
                   width: 1,
                 ),
               ),
@@ -389,25 +537,68 @@ class _ImageUploaderState extends State<ImageUploader> {
                 ),
               ),
             ),
+          if (widget.errorMessage != null || fileError != '')
+            const SizedBox(
+              height: 4,
+            ),
+          if (widget.errorMessage != null || fileError != '')
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Column(
+                  children: [
+                    const SizedBox(
+                      height: 2,
+                    ),
+                    Icon(
+                      Icons.info,
+                      color: const DigitColors().light.alertError,
+                      size: BaseConstants.errorIconSize,
+                    ),
+                  ],
+                ),
+                const SizedBox(width: kPadding / 2),
+                Flexible(
+                  fit: FlexFit.tight,
+                  child: fileError != ''
+                      ? Text(
+                          fileError.length > 256
+                              ? '${fileError.substring(0, 256)}...'
+                              : fileError,
+                          style: currentTypography.bodyS.copyWith(
+                            color: const DigitColors().light.alertError,
+                          ),
+                        )
+                      : Text(
+                          capitalizedErrorMessage!.length > 256
+                              ? '${capitalizedErrorMessage?.substring(0, 256)}...'
+                              : capitalizedErrorMessage!,
+                          style: currentTypography.bodyS.copyWith(
+                            color: const DigitColors().light.alertError,
+                          ),
+                        ),
+                ),
+              ],
+            ),
           if (!(widget.allowMultipleImages == false && _imageFiles.isNotEmpty))
             const SizedBox(
               height: 8,
             ),
-          Padding(
-            padding: const EdgeInsets.only(left: 8.0),
-            child: Wrap(
-              spacing: 8.0,
-              runSpacing: 8.0,
-              children: List.generate(_imageFiles.length, (index) {
-                return _buildImageItem(index, minWidth);
-              }),
-            ),
+          Wrap(
+            spacing: 8.0,
+            runSpacing: 8.0,
+            children: List.generate(_imageFiles.length, (index) {
+              return _buildImageItem(index, minWidth);
+            }),
           ),
         ]);
   }
 
   Widget _buildImageItem(int index, double minWidth) {
-    if (_imageFiles.isNotEmpty && _imageFiles[index].path.isNotEmpty) {
+    if ((_imageFiles.isNotEmpty && _imageFiles[index].path.isNotEmpty) ||
+        fileError != '') {
       _closeCamera();
     }
     return _imageFiles.isNotEmpty
@@ -477,5 +668,40 @@ class _ImageUploaderState extends State<ImageUploader> {
     setState(() {
       _imageFiles.removeAt(index);
     });
+  }
+
+  // Validate the file against all validators
+  String? _validateFile(
+      XFile xFile, List<FileValidator> validators, String? name) {
+    final file = File(xFile.path);
+    for (var validator in validators) {
+      switch (validator.type) {
+        case FileValidatorType.fileType:
+          final List<String> allowedTypes = validator.value;
+          print(name);
+          final fileType = name?.split('.').last.toLowerCase();
+
+          if (!allowedTypes.contains(fileType)) {
+            print(fileType);
+            return validator.errorMessage;
+          }
+          break;
+        case FileValidatorType.minSize:
+          final int minSize = validator.value;
+          final fileSize = file.lengthSync();
+          if (fileSize < minSize) {
+            return validator.errorMessage;
+          }
+          break;
+        case FileValidatorType.maxSize:
+          final int maxSize = validator.value;
+          final fileSize = file.lengthSync();
+          if (fileSize > maxSize) {
+            return validator.errorMessage;
+          }
+          break;
+      }
+    }
+    return null; // Validation passed
   }
 }
