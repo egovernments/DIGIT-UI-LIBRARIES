@@ -1,36 +1,35 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useEffect, useRef } from "react";
 import { FileUploader } from "react-drag-drop-files";
 import { useTranslation } from "react-i18next";
-import DocPreview from "./DocPreview";
+import StringManipulator from "./StringManipulator";
 import Button from "./Button";
-import Toast from "./Toast";
 import { SVG } from "./SVG";
+import InfoCard from "./InfoCard";
 import { PngFile, JpgFile, PdfFile, DocFile, XlsxFile } from "./svgindex";
 import ErrorMessage from "./ErrorMessage";
 
 const UploadPopup = ({
-  multiple = true,
   onSubmit,
   fileData,
-  onFileDelete,
-  onFileDownload,
   fileTypes,
-  errors
+  onFileDelete,
+  errors,
+  additionalElements,
+  multiple,
+  handleFileClick,
+  showErrorCard,
+  iserror,
+  showDownloadButton,
+  showReUploadButton,
 }) => {
   const { t } = useTranslation();
   const [files, setFiles] = useState([]);
-  const [showPreview, setShowPreview] = useState(false);
-  const [fileUrl, setFileUrl] = useState(fileData?.[0]);
-  const [fileName, setFileName] = useState(null);
-  const [showToast, setShowToast] = useState(false);
-  const types = fileTypes?.split(',');
-
-
+  const types = fileTypes?.split(",");
   const [isMobileView, setIsMobileView] = React.useState(
-    window.innerWidth / window.innerHeight <= 9 / 16
+    window.innerWidth <= 480
   );
   const onResize = () => {
-    if (window.innerWidth / window.innerHeight <= 9 / 16) {
+    if (window.innerWidth <= 480) {
       if (!isMobileView) {
         setIsMobileView(true);
       }
@@ -40,7 +39,7 @@ const UploadPopup = ({
       }
     }
   };
-  React.useEffect(() => {
+  useEffect(() => {
     window.addEventListener("resize", () => {
       onResize();
     });
@@ -51,22 +50,10 @@ const UploadPopup = ({
     };
   });
 
-  useEffect(() => {
-    setFileUrl(fileData?.[0]);
-  }, [fileData]);
-
-  const documents = fileUrl
-    ? [
-        {
-          fileType: "xlsx",
-          fileName: "fileData?.fileName",
-          uri: fileUrl?.url,
-        },
-      ]
-    : null;
-
   const dragDropJSX = (
-    <div className="digit-uploader-content-uploadpopup">
+    <div
+      className={`digit-uploader-content-uploadpopup ${iserror ? "error" : ""}`}
+    >
       {
         <SVG.FileUpload
           width={isMobileView ? "48px" : "64px"}
@@ -81,28 +68,54 @@ const UploadPopup = ({
     </div>
   );
 
-  const handleFileDelete = (file) => {
-    onFileDelete(file);
+  const handleFileDelete = (fileToRemove) => {
+    const updatedFiles = files.filter((file) => file !== fileToRemove);
+    setFiles(updatedFiles);
+    onFileDelete(fileToRemove);
   };
 
   const handleFileDownload = async (file) => {
-    onFileDownload(file);
-  };
-
-  const handleReUpload = () => {
-    console.log("reupload");
-  };
-
-  const handleChange = async (newFiles) => {
     try {
-      onSubmit([...newFiles]);
+      const downloadLink = document.createElement("a");
+      downloadLink.href = window.URL.createObjectURL(file);
+      downloadLink.download = file.name;
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      document.body.removeChild(downloadLink);
     } catch (error) {
-      // Handle the validation error, you can display a message or take appropriate actions.
-      setShowToast({ isError: true, label: error });
+      console.error("Error downloading file:", error);
     }
   };
 
-  const renderFileIcon = (fileType) => {
+  const handleReUpload = (fileToReupload) => {
+    const filesAfterRemoval = files.filter((file) => file !== fileToReupload);
+    const fileInput = document.createElement("input");
+    fileInput.type = "file";
+    fileInput.accept = fileTypes;
+    fileInput.multiple = multiple;
+    fileInput.style.display = "none";
+    fileInput.addEventListener("change", (event) => {
+      setFiles(filesAfterRemoval);
+    });
+    fileInput.addEventListener("change", (event) => {
+      const newFiles = event?.target?.files;
+      setFiles([...filesAfterRemoval,newFiles[0]]);
+    });
+    document.body.appendChild(fileInput);
+    fileInput.click();
+  };
+
+  const handleChange = async (newFiles) => {
+    let newlyUploadedFiles;
+    newlyUploadedFiles = multiple ? [...files, ...newFiles] : [newFiles];
+    setFiles(newlyUploadedFiles);
+  };
+
+  useEffect(() => {
+    onSubmit(files);
+  }, [files]);
+
+  const renderFileIcon = (fileType, fileErrors) => {
     switch (fileType) {
       case "application/pdf":
         return <PdfFile className="icon" />;
@@ -121,63 +134,112 @@ const UploadPopup = ({
       case "application/msword":
         return <DocFile className="icon" />;
       default:
-        return <SVG.File className="icon" fill={"#505a5f"} />;
+        return (
+          <SVG.File
+            className="icon"
+            fill={fileErrors ? "#B91900" : "#505a5f"}
+          />
+        );
     }
   };
 
   const renderFileCards = useMemo(() => {
     return fileData?.map((file, index) => {
-      const fileError = errors.find(error => error.file === file);
+      const fileErrors = errors?.find((error) => error.file === file);
+
       return (
-        <div className="digit-uploaded-file-container" key={index}>
+        <div
+          className={`digit-uploaded-file-container ${
+            fileErrors ? "error" : ""
+          }`}
+          style={{ display: "flex" }}
+          key={index}
+        >
+          <div
+            className="uploaded-file-container-sub"
+            style={{ cursor: "pointer", display: "flex" }}
+            onClick={() => {
+              handleFileClick(index, file);
+            }}
+          >
+            {renderFileIcon(file?.type, fileErrors)}
+            <div
+              className={`uploaded-file-details ${fileErrors ? "error" : ""}`}
+            >
+              {file?.name}
+              {fileErrors && !showErrorCard && (
+                <div
+                  className="digit-tag-error"
+                  style={{
+                    whiteSpace: "pre-wrap",
+                    wordBreak: "break-word",
+                  }}
+                >
+                  <div className="digit-error-icon" style={{ display: "flex" }}>
+                    <SVG.Info width="1rem" height="1rem" fill="#B91900" />
+                  </div>
+                  <ErrorMessage
+                    message={StringManipulator(
+                      "TOSENTENCECASE",
+                      StringManipulator("TRUNCATESTRING", fileErrors?.error, {
+                        maxLength: 256,
+                      })
+                    )}
+                    className="digit-tag-error-message"
+                  />
+                </div>
+              )}
+            </div>
+          </div>
+          {fileErrors && showErrorCard && (
+            <InfoCard
+              variant={"error"}
+              text={fileErrors?.error}
+              className={"uploadpopup-error-card"}
+            />
+          )}
+          <div
+            className="digit-upload-and-download-button"
+            style={{ display: "flex" }}
+          >
+            {showReUploadButton && (
+              <Button
+                label={"Re-Upload"}
+                variation="secondary"
+                icon={"FileUpload"}
+                type="button"
+                onClick={() => handleReUpload(file)}
+                size={isMobileView ? "small" : "medium"}
+              />
+            )}
+
+            {showDownloadButton && (
+              <Button
+                label={"Download"}
+                variation="secondary"
+                icon={"FileDownload"}
+                type="button"
+                onClick={() => handleFileDownload(file)}
+                size={isMobileView ? "small" : "medium"}
+              />
+            )}
+
+            {additionalElements?.map((element, index) => (
+              <div key={index}>{element}</div>
+            ))}
+          </div>
           <span
             className="digit-uploadpopup-close-icon"
-            style={{display:"flex"}}
+            style={{ display: "flex" }}
             onClick={() => handleFileDelete(file)}
           >
             <SVG.Close
-              fill="#0B4B66"
+              fill={fileErrors ? "#FFFFFF" : "#0B4B66"}
               width={"14px"}
               height={"14px"}
               className="uploader-close"
             />
           </span>
-          <div
-            className="uploaded-file-container-sub"
-            style={{ cursor: "pointer" }}
-            onClick={() => {
-              setShowPreview(true);
-            }}
-          >
-            {renderFileIcon(file.type)}
-            <div className="uploaded-file-details">{file.name}</div>
-          </div>
-          <div>
-          {fileError ? (
-            <ErrorMessage message={fileError.message} />
-          ) : (
-            null
-          )}
-          </div>
-          <div
-            className="digit-upload-and-download-button"
-            style={{ display: "flex" }}
-          >
-            <Button
-              label={"Re-Upload"}
-              variation="secondary"
-              icon={"FileUpload"}
-              type="button"
-              onClick={handleReUpload}
-            />
-            <Button
-              label={"Download"}
-              variation="secondary"
-              icon={"FileDownload"}
-              type="button"
-              onButtonClick={() => handleFileDownload(file)}
-            />
-          </div>
         </div>
       );
     });
@@ -185,7 +247,8 @@ const UploadPopup = ({
 
   return (
     <React.Fragment>
-      {(!fileData || fileData?.length === 0) && (
+      {((multiple === false && (!fileData || fileData?.length === 0)) ||
+        multiple === true) && (
         <FileUploader
           multiple={multiple}
           handleChange={handleChange}
@@ -195,15 +258,6 @@ const UploadPopup = ({
         />
       )}
       {fileData?.length > 0 && renderFileCards}
-      {showPreview && <DocPreview file={fileUrl} />}
-      {showToast && (
-        <Toast
-          label={showToast.label}
-          error={showToast?.isError}
-          isDleteBtn={true}
-          onClose={() => setShowToast(null)}
-        ></Toast>
-      )}
     </React.Fragment>
   );
 };

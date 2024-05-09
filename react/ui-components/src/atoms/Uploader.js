@@ -1,12 +1,19 @@
 import React, { useEffect, useRef, useState, Fragment } from "react";
 import PropTypes from "prop-types";
-import Button from "./Button";
 import { useTranslation } from "react-i18next";
 import ErrorMessage from "./ErrorMessage";
+import Button from "./Button";
 import StringManipulator from "./StringManipulator";
 import RemoveableTag from "./RemoveableTag";
 import { SVG } from "./SVG";
 import UploadPopup from "./UploadPopup";
+import UploadImage from "./UploadImage";
+import {
+  DocUpload,
+  DocPdfUpload,
+  DocXlsxUpload,
+  DocdocUpload,
+} from "./svgindex";
 
 const getRandomId = () => {
   return Math.floor((Math.random() || 1) * 139);
@@ -15,26 +22,66 @@ const getRandomId = () => {
 const Uploader = (props) => {
   const { t } = useTranslation();
   const inpRef = useRef();
-  const [uploadedFilesCount, setUploadedFilesCount] = useState(0);
-  const [uploadedFiles, setUploadedFiles] = useState([]);
+  const user_type = window?.Digit?.SessionStorage.get("userType");
   const [buttonLabel, setButtonLabel] = useState("Upload");
   const [inputLabel, setInputLabel] = useState("");
+  const [uploadedFilesCount, setUploadedFilesCount] = useState(0);
+  const [uploadedFiles, setUploadedFiles] = useState([]);
   const [previews, setPreviews] = useState([]);
-  const user_type = window?.Digit?.SessionStorage.get("userType");
   const [errors, setErrors] = useState([]);
 
-  const handleFileUpload = (e) => {
+  const handleFileUpload = async (e) => {
     const files = props.variant === "uploadFile" ? e.target.files : e;
     const newErrors = [];
-
     if (files.length > 0) {
-      const newFiles = props.multiple
-        ? [...uploadedFiles, ...files]
-        : [files[0]];
-
+      const acceptedFiles = [];
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        let isValid = true;
+        let error = "";
+        if (
+          props.validations &&
+          props.validations.maxSizeAllowedInMB &&
+          Math.round(file?.size / 1024 / 1024) >
+            props.validations.maxSizeAllowedInMB
+        ) {
+          isValid = false;
+          error = "File size exceeds the maximum allowed size";
+        } else if (
+          props.validations &&
+          props.validations.minSizeRequiredInMB &&
+          Math.round(file?.size / 1024 / 1024) <
+            props.validations.minSizeRequiredInMB
+        ) {
+          isValid = false;
+          error = "File size is below the minimum required size";
+        }
+        if (isValid) {
+          acceptedFiles.push(file);
+        } else {
+          newErrors.push({ file, error });
+        }
+      }
+      let newFiles;
+      if (props.variant === "uploadImage" || props.variant === "uploadPopup") {
+        newFiles = files;
+      } else {
+        newFiles = props?.multiple ? [...uploadedFiles, ...files] : [files[0]];
+      }
       setUploadedFiles(newFiles);
       setUploadedFilesCount(newFiles.length);
       setErrors([...errors, ...newErrors]);
+    }
+    const uploadResult = await props?.onUpload(uploadedFiles);
+    if (uploadResult && uploadResult.length !== 0) {
+      uploadResult.forEach(({ file, error }) => {
+        const fileIndex = newErrors.findIndex((item) => item.file === file);
+        if (fileIndex !== -1) {
+          newErrors[fileIndex].error = error;
+        } else {
+          newErrors.push({ file, error });
+        }
+      });
     }
   };
 
@@ -43,10 +90,62 @@ const Uploader = (props) => {
   };
 
   const handleFileRemove = (fileToRemove) => {
-    const updatedFiles = uploadedFiles.filter((file) => file !== fileToRemove);
-    setUploadedFiles(updatedFiles);
-    setUploadedFilesCount(updatedFiles.length);
+    if (!Array.isArray(uploadedFiles)) {
+      setUploadedFiles([]);
+      setUploadedFilesCount(0);
+      setErrors([]);
+    } else {
+      const updatedFiles = uploadedFiles.filter(
+        (file) => file !== fileToRemove
+      );
+      const updatedErrors = errors.filter(
+        (error) => error.file !== fileToRemove
+      );
+      setUploadedFiles(updatedFiles);
+      setUploadedFilesCount(updatedFiles.length);
+      setErrors(updatedErrors);
+    }
+    props?.removeTargetedFile(fileToRemove);
   };
+
+  const handleFileDownload = (file) => {
+    if (file && file?.url) {
+      window.location.href = file?.url;
+    }
+  };
+
+  const generatePreview = (file) => {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const result = e.target.result;
+        resolve(result);
+      };
+      reader.readAsDataURL(file);
+    });
+  };
+
+  useEffect(() => {
+    const uploadFiles = async () => {
+      const uploadResult = await props?.onUpload(uploadedFiles);
+
+      if (uploadResult && uploadResult.length !== 0) {
+        const newErrors = [];
+        uploadResult.forEach(({ file, error }) => {
+          const fileIndex = errors.findIndex((item) => item.file === file);
+          if (fileIndex !== -1) {
+            errors[fileIndex].error = error;
+          } else {
+            newErrors.push({ file, error });
+          }
+        });
+        setErrors([...errors, ...newErrors]);
+      }
+    };
+    if (uploadedFiles.length > 0) {
+      uploadFiles();
+    }
+  }, [uploadedFiles]);
 
   useEffect(() => {
     setButtonLabel(
@@ -64,34 +163,111 @@ const Uploader = (props) => {
     const generatePreviews = async () => {
       const previewsArray = [];
       for (const file of uploadedFiles) {
-        const preview = await generatePreview(file);
-        previewsArray.push(preview);
+        if (file instanceof Blob) {
+          const preview = await generatePreview(file);
+          if (preview) {
+            const fileErrors = errors.filter((error) => error.file === file);
+            previewsArray.push({
+              file,
+              preview,
+              error: fileErrors.length > 0 ? fileErrors[0].error : null,
+            });
+          } else {
+            console.error("Failed to generate preview for:", file);
+          }
+        } else {
+          const blob = new Blob([file], { type: file?.type });
+          const preview = await generatePreview(blob);
+          if (preview) {
+            const fileErrors = errors.filter((error) => error.file === file);
+            previewsArray.push({
+              file,
+              preview,
+              error: fileErrors.length > 0 ? fileErrors[0].error : null,
+            });
+          } else {
+            console.error("Failed to generate preview for:", file);
+          }
+          console.error("Invalid file object:", file);
+        }
       }
       setPreviews(previewsArray);
     };
-
     generatePreviews();
-
     return () => {
-      // Clean up previews
       setPreviews([]);
     };
   }, [uploadedFiles]);
 
-  const generatePreview = (file) => {
-    return new Promise((resolve) => {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const result = e.target.result;
-        resolve(result);
-      };
-      reader.readAsDataURL(file);
-    });
-  };
-
   const showHint = props?.showHint || false;
 
   const showLabel = props?.showLabel || false;
+
+  const { fileUrl, fileName = "Unknown File" } = Digit.Hooks.useQueryParams();
+
+  const changeToBlobAndCreateUrl = (file) => {
+    if (file) {
+      const blob = new Blob([file], { type: file?.type });
+      const url = URL.createObjectURL(blob);
+      return url;
+    } else {
+      return null;
+    }
+  };
+
+  const documents = fileUrl
+    ? [{ uri: fileUrl, fileName }]
+    : uploadedFiles.map((file) => ({
+        uri: changeToBlobAndCreateUrl(file),
+        fileName: file?.name || fileName,
+      }));
+
+  const handleFileClick = (index, file) => {
+    const url = changeToBlobAndCreateUrl(file);
+    window.open(url, "_blank");
+  };
+
+  const getFileUploadIcon = (fileType, isError) => {
+    switch (fileType) {
+      case "application/pdf":
+        return (
+          <DocPdfUpload
+            className={`digit-docupload-icon ${isError ? "error" : ""}`}
+            styles={isError ? { border: "1px solid #B91900" } : {}}
+            fill={isError ? "#B91900" : ""}
+          />
+        );
+      case "application/vnd.ms-excel":
+      case "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
+      case "application/excel":
+      case "application/x-excel":
+      case "application/x-msexcel":
+        return (
+          <DocXlsxUpload
+            className={`digit-docupload-icon ${isError ? "error" : ""}`}
+            styles={isError ? { border: "1px solid #B91900" } : {}}
+            fill={isError ? "#B91900" : ""}
+          />
+        );
+      case "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+      case "application/msword":
+        return (
+          <DocdocUpload
+            className={`digit-docupload-icon ${isError ? "error" : ""}`}
+            styles={isError ? { border: "1px solid #B91900" } : {}}
+            fill={isError ? "#B91900" : ""}
+          />
+        );
+      default:
+        return (
+          <DocUpload
+            className={`digit-docupload-icon ${isError ? "error" : ""}`}
+            styles={isError ? { border: "1px solid #B91900" } : {}}
+            fill={isError ? "#B91900" : ""}
+          />
+        );
+    }
+  };
 
   const renderVariant = () => {
     switch (props.variant) {
@@ -102,9 +278,34 @@ const Uploader = (props) => {
               onSubmit={handleFileUpload}
               fileData={uploadedFiles}
               fileTypes={props.accept}
-              uploadedFiles={uploadedFiles}
               onFileDelete={handleFileRemove}
               errors={errors}
+              additionalElements={props?.additionalElements}
+              onFileDownload={handleFileDownload}
+              documents={documents}
+              handleFileClick={handleFileClick}
+              showErrorCard={props?.showErrorCard}
+              iserror={props?.iserror}
+              showDownloadButton={props?.showDownloadButton}
+              showReUploadButton={props?.showReUploadButton}
+              multiple={props?.multiple}
+            />
+          </Fragment>
+        );
+      case "uploadImage":
+        return (
+          <Fragment>
+            <UploadImage
+              onSubmit={handleFileUpload}
+              fileData={uploadedFiles}
+              onFileDelete={handleFileRemove}
+              errors={errors}
+              multiple={props?.multiple}
+              userType={user_type}
+              previews={previews}
+              uploadedFilesCount={uploadedFilesCount}
+              documents={documents}
+              handleFileClick={handleFileClick}
             />
           </Fragment>
         );
@@ -136,7 +337,9 @@ const Uploader = (props) => {
                   style={{ display: "none" }}
                 />
                 <input
-                  className="digit-uploader-input"
+                  className={`digit-uploader-input ${
+                    props?.iserror ? "error" : ""
+                  }`}
                   type="text"
                   placeholder={"No File Selected"}
                   value={inputLabel}
@@ -147,6 +350,7 @@ const Uploader = (props) => {
                 label={buttonLabel}
                 style={{
                   height: "40px",
+                  flexShrink: 0,
                   ...(props?.extraStyles ? props.extraStyles.buttonStyles : {}),
                   ...(props?.disableButton
                     ? {
@@ -166,11 +370,21 @@ const Uploader = (props) => {
             {props?.showAsTags && (
               <div className="digit-tag-container" style={{ marginTop: "0px" }}>
                 {uploadedFiles?.map((file, index) => {
+                  const fileErrors = errors.filter(
+                    (error) => error.file === file
+                  );
+                  const isError = fileErrors.length > 0;
                   return (
                     <RemoveableTag
                       key={index}
                       text={file?.name}
-                      onClick={() => handleFileRemove(file)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleFileRemove(file);
+                      }}
+                      isErrorTag={isError}
+                      error={fileErrors[0]?.error}
+                      onTagClick={() => handleFileClick(index, file)}
                     />
                   );
                 })}
@@ -178,27 +392,86 @@ const Uploader = (props) => {
             )}
             {props?.showAsPreview && (
               <div className="digit-img-container">
-                {previews.map((preview, index) => (
-                  <div
-                    key={index}
-                    className={`preview-container ${
-                      uploadedFilesCount > 1 ? " multiple" : ""
-                    }`}
-                  >
-                    <img src={preview} alt={`Preview ${index}`} />
-                    <span
-                      onClick={() => handleFileRemove(uploadedFiles[index])}
-                      className="digit-uploader-close-icon"
-                    >
-                      <SVG.Close
-                        fill="#FFFFFF"
-                        width={"16px"}
-                        height={"16px"}
-                        className="uploader-close"
-                      />
-                    </span>
-                  </div>
-                ))}
+                {uploadedFiles.map((file, index) => {
+                  const fileErrors = errors.filter(
+                    (error) => error.file === file
+                  );
+                  const isError = fileErrors.length > 0;
+
+                  return (
+                    <Fragment key={index}>
+                      <div
+                        className={`preview-container ${
+                          uploadedFilesCount > 1 ? " multiple" : ""
+                        } ${isError ? "error" : ""}`}
+                        onClick={() => {
+                          handleFileClick(index, file);
+                        }}
+                      >
+                        {file?.type.startsWith("image/") ? (
+                          <img
+                            src={previews[index]?.preview}
+                            alt={`Preview ${index}`}
+                          />
+                        ) : (
+                          getFileUploadIcon(file?.type, isError)
+                        )}
+                        {file?.name && !isError ? file?.name : ""}
+                        <span
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleFileRemove(file);
+                          }}
+                          className={`digit-uploader-close-icon ${
+                            isError ? "error" : ""
+                          }`}
+                        >
+                          <SVG.Close
+                            fill="#FFFFFF"
+                            width={"16px"}
+                            height={"16px"}
+                            className={`uploader-close ${
+                              isError ? "error" : ""
+                            }`}
+                          />
+                        </span>
+                        {fileErrors[0]?.error && (
+                          <div
+                            className="digit-tag-error"
+                            style={{
+                              whiteSpace: "pre-wrap",
+                              wordBreak: "break-word",
+                            }}
+                          >
+                            <div
+                              className="digit-error-icon"
+                              style={{ display: "flex" }}
+                            >
+                              <SVG.Info
+                                width="1rem"
+                                height="1rem"
+                                fill="#B91900"
+                              />
+                            </div>
+                            <ErrorMessage
+                              message={StringManipulator(
+                                "TOSENTENCECASE",
+                                StringManipulator(
+                                  "TRUNCATESTRING",
+                                  fileErrors[0]?.error,
+                                  {
+                                    maxLength: 256,
+                                  }
+                                )
+                              )}
+                              className="digit-tag-error-message"
+                            />
+                          </div>
+                        )}
+                      </div>
+                    </Fragment>
+                  );
+                })}
               </div>
             )}
           </Fragment>
@@ -211,15 +484,22 @@ const Uploader = (props) => {
       <div className="digit-uploader-wrap">
         {showLabel && <p className="digit-upload-label">{t(props?.label)}</p>}
         {renderVariant()}
-        {props.iserror && (
-          <ErrorMessage
-            message={StringManipulator(
-              "toSentenceCase",
-              StringManipulator("truncateString", t(props.iserror), {
-                maxLength: 256,
-              })
-            )}
-          />
+        {props?.iserror && (
+          <div
+            className="digit-error-icon"
+            style={{ display: "flex", gap: "4px" }}
+          >
+            <SVG.Info width="1rem" height="1rem" fill="#B91900" />
+            <ErrorMessage
+              message={StringManipulator(
+                "toSentenceCase",
+                StringManipulator("truncateString", t(props?.iserror), {
+                  maxLength: 256,
+                })
+              )}
+              style={{ margin: "0px", fontStyle: "normal" }}
+            />
+          </div>
         )}
         {showHint && (
           <p className="digit-upload-helptext">
@@ -243,14 +523,16 @@ Uploader.propTypes = {
   showLabel: PropTypes.bool,
   showAsTags: PropTypes.bool,
   showAsPreview: PropTypes.bool,
+  showDownloadButton: PropTypes.bool,
+  showReUploadButton: PropTypes.bool,
   customClass: PropTypes.string,
   uploadedFiles: PropTypes.arrayOf(
     PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.object]))
   ),
   disableButton: PropTypes.bool,
   buttonType: PropTypes.string,
-  onUpload: PropTypes.func.isRequired,
-  removeTargetedFile: PropTypes.func.isRequired,
+  onUpload: PropTypes.func,
+  removeTargetedFile: PropTypes.func,
   onDelete: PropTypes.func,
   iserror: PropTypes.string,
   disabled: PropTypes.bool,

@@ -1,5 +1,4 @@
 import React from "react";
-import { action } from "@storybook/addon-actions";
 import Uploader from "../../atoms/Uploader";
 
 export default {
@@ -12,14 +11,14 @@ export default {
       },
     },
     variant: {
-        control: {
-          type: "select",
-          options: ["uploadFile","uploadPopup"],
-        },
+      control: {
+        type: "select",
+        options: ["uploadFile", "uploadPopup", "uploadImage"],
       },
-      showLabel: {
-        control: "boolean",
-      },
+    },
+    showLabel: {
+      control: "boolean",
+    },
     showHint: {
       control: "boolean",
     },
@@ -62,39 +61,174 @@ export default {
     accept: {
       control: "text",
     },
-    showAsTags:{
-      control:"boolean"
+    showAsTags: {
+      control: "boolean",
     },
-    showAsPreview:{
-      control:"boolean"
-    }
+    showAsPreview: {
+      control: "boolean",
+    },
+    additionalElements: {
+      control: "array",
+    },
+    validations: {
+      control: "object",
+    },
+    showErrorCard: {
+      control: "boolean",
+    },
+    showReUploadButton: {
+      control: "boolean",
+    },
+    showDownloadButton: {
+      control: "boolean",
+    },
+    onUpload: {
+      control: "function",
+    },
   },
 };
 
 const Template = (args) => <Uploader {...args} />;
 
-
-export const Default = Template.bind({});
-Default.args = {
+export const UploadFile = Template.bind({});
+UploadFile.args = {
   uploadedFiles: [],
+  variant: "uploadFile",
 };
 
-export const WithLabel = Template.bind({});
-WithLabel.args = {
+export const UploadFileWithTags = Template.bind({});
+UploadFileWithTags.args = {
   uploadedFiles: [],
-  showLabel: true,
-  label: "Upload Documents",
+  variant: "uploadFile",
+  showAsTags: true,
+  multiple: true,
 };
 
-export const WithCustomHint = Template.bind({});
-WithCustomHint.args = {
+export const UploadFileWithTagsAndonUploadLogic = Template.bind({});
+UploadFileWithTagsAndonUploadLogic.args = {
   uploadedFiles: [],
-  showHint: true,
-  hintText: "Hint Text",
+  variant: "uploadFile",
+  showAsTags: true,
+  multiple: true,
+  onUpload: (uploadedFiles) => {
+    return uploadedFiles.map((file) => ({
+      file,
+      error: "Error!",
+    }));
+  },
 };
 
-export const WithError = Template.bind({});
-WithError.args = {
+export const UploadFileWithTagsValidations = Template.bind({});
+UploadFileWithTagsValidations.args = {
   uploadedFiles: [],
-  iserror: "File size exceeded the limit",
+  variant: "uploadFile",
+  multiple: true,
+  showAsTags: true,
+  validations: {
+    maxSizeAllowedInMB: 5,
+    minSizeRequiredInMB: 1,
+  },
+};
+
+export const UploadFileWithPreview = Template.bind({});
+UploadFileWithPreview.args = {
+  uploadedFiles: [],
+  variant: "uploadFile",
+  showAsPreview: true,
+  multiple: true,
+};
+
+export const UploadFileWithPreviewAndonUploadLogic = Template.bind({});
+UploadFileWithPreviewAndonUploadLogic.args = {
+  uploadedFiles: [],
+  variant: "uploadFile",
+  showAsPreview: true,
+  multiple: true,
+  onUpload: (uploadedFiles) => {
+    return uploadedFiles.map((file) => ({
+      file,
+      error: "Error!",
+    }));
+  },
+};
+
+export const UploadFileWithPreviewValidations = Template.bind({});
+UploadFileWithPreviewValidations.args = {
+  uploadedFiles: [],
+  variant: "uploadFile",
+  showAsPreview: true,
+  multiple: true,
+  validations: {
+    maxSizeAllowedInMB: 5,
+    minSizeRequiredInMB: 1,
+  },
+};
+
+
+
+export const UploadFileWithError = Template.bind({});
+UploadFileWithError.args = {
+  uploadedFiles: [],
+  variant: "uploadFile",
+  iserror: "Component Level Error!",
+};
+
+export const UploadPopup = Template.bind({});
+UploadPopup.args = {
+  uploadedFiles: [],
+  variant: "uploadPopup",
+  showDownloadButton: true,
+  showReUploadButton: true,
+  multiple: false,
+};
+
+export const UploadPopupWithValidations = Template.bind({});
+UploadPopupWithValidations.args = {
+  uploadedFiles: [],
+  variant: "uploadPopup",
+  multiple: true,
+  validations: {
+    maxSizeAllowedInMB: 5,
+    minSizeRequiredInMB: 1,
+  },
+  showDownloadButton: true,
+  showReUploadButton: true,
+};
+
+export const UploadPopupWithValidationsWithErrorCard = Template.bind({});
+UploadPopupWithValidationsWithErrorCard.args = {
+  uploadedFiles: [],
+  variant: "uploadPopup",
+  multiple: true,
+  validations: {
+    maxSizeAllowedInMB: 5,
+    minSizeRequiredInMB: 1,
+  },
+  showErrorCard: true,
+  showDownloadButton: true,
+  showReUploadButton: true,
+};
+
+export const UploadImage = Template.bind({});
+UploadImage.args = {
+  uploadedFiles: [],
+  variant: "uploadImage",
+};
+
+export const UploadMultipleImages = Template.bind({});
+UploadMultipleImages.args = {
+  uploadedFiles: [],
+  variant: "uploadImage",
+  multiple: true,
+};
+
+export const UploadMultipleImagesWithValidations = Template.bind({});
+UploadMultipleImagesWithValidations.args = {
+  uploadedFiles: [],
+  variant: "uploadImage",
+  multiple: true,
+  validations: {
+    maxSizeAllowedInMB: 5,
+    minSizeRequiredInMB: 1,
+  },
 };
