@@ -484,7 +484,7 @@ const MultiSelectDropdown = ({
                   addSelectAllCheck ? "selectAll" : ""
                 }`}
               >
-                <div className="digit-category-name">{option[optionsKey]}</div>
+                <div className="digit-category-name">{t(option[optionsKey])}</div>
                 {addCategorySelectAllCheck && (
                   <div
                     className="digit-category-selectAll"

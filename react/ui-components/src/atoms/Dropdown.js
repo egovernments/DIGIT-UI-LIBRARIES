@@ -306,16 +306,16 @@ const Dropdown = (props) => {
             {props.isPropertyAssess ? (
               <div>
                 {props.t
-                  ? props.t(option[props.optionKey])
-                  : option[props.optionKey]}
+                  ? props.t(option[props?.optionKey])
+                  : option[props?.optionKey]}
               </div>
             ) : (
               <span
                 className={`main-option ${props.variant ? props?.variant : ""}`}
               >
                 {props.t
-                  ? props.t(option[props.optionKey])
-                  : option[props.optionKey]}
+                  ? props.t(option[props?.optionKey])
+                  : option[props?.optionKey]}
               </span>
             )}
           </div>
@@ -352,7 +352,7 @@ const Dropdown = (props) => {
                     fill="#505a5f"
                   />
                 )}
-              {option[props.optionKey]}
+              {t(option[props?.optionKey])}
             </div>
           </div>
         );
