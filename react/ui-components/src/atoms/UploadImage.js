@@ -15,7 +15,7 @@ const UploadImage = ({
   uploadedFilesCount,
   handleFileClick,
 }) => {
-  const [openUploadSlide, setOpenUploadSide] = useState(false);
+  const [openUploadSlide, setOpenUploadSlide] = useState(false);
   const [capturedImages, setCapturedImages] = useState([]);
   const [isWebcamOpen, setIsWebcamOpen] = useState(false);
   const webRef = useRef(null);
@@ -50,7 +50,7 @@ const UploadImage = ({
   };
 
   const closeDrawer = () => {
-    setOpenUploadSide(false);
+    setOpenUploadSlide(false);
   };
 
   const toggleWebcam = () => {
@@ -59,7 +59,7 @@ const UploadImage = ({
   };
 
   const toggleOpenUploadSlide = () => {
-    setOpenUploadSide(!openUploadSlide);
+    setOpenUploadSlide(!openUploadSlide);
   };
 
   const captureImg = () => {

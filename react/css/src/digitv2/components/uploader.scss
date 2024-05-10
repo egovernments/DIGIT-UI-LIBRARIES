@@ -45,10 +45,7 @@
 
   @media (max-width: 30rem) {
     height: 7.625rem;
-      animation-duration: 0.5s;
-      animation-timing-function: ease-out;
-      animation-fill-mode: forwards;
-      animation-name: slideInFromBottom;
+    animation: slideInFromBottom 0.5s ease-out forwards;
   }
 
 
