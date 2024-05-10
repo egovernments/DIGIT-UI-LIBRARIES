@@ -280,13 +280,35 @@ const MultiSelectDropdown = ({
     return count;
   };
 
+
+  const selectOptionThroughKeys = (e, option) => {
+    let checked = alreadyQueuedSelectedState.find(
+      (selectedOption) => selectedOption.code === option.code
+    )
+      ? true
+      : false;
+    if (!checked) {
+      dispatch({
+        type: "ADD_TO_SELECTED_EVENT_QUEUE",
+        payload: [null, option],
+      });
+    } else {
+      dispatch({
+        type: "REMOVE_FROM_SELECTED_EVENT_QUEUE",
+        payload: [null, option],
+      });
+    }
+  };
+
   /* Custom function to scroll and select in the dropdowns while using key up and down */
   const keyChange = (e) => {
+    const optionToScroll =
+      variant === "nestedmultiselect" ? flattenedOptions : filteredOptions;
     if (e.key == "ArrowDown") {
       setOptionIndex((state) =>
-        state + 1 == filtOptns.length ? 0 : state + 1
+        state + 1 == optionToScroll.length ? 0 : state + 1
       );
-      if (optionIndex + 1 == filtOptns.length) {
+      if (optionIndex + 1 == optionToScroll.length) {
         e?.target?.parentElement?.parentElement?.children
           ?.namedItem("jk-dropdown-unique")
           ?.scrollTo?.(0, 0);
@@ -299,7 +321,7 @@ const MultiSelectDropdown = ({
       e.preventDefault();
     } else if (e.key == "ArrowUp") {
       setOptionIndex((state) =>
-        state !== 0 ? state - 1 : filtOptns.length - 1
+        state !== 0 ? state - 1 : optionToScroll.length - 1
       );
       if (optionIndex === 0) {
         e?.target?.parentElement?.parentElement?.children
@@ -313,7 +335,7 @@ const MultiSelectDropdown = ({
       }
       e.preventDefault();
     } else if (e.key == "Enter") {
-      onSelectToAddToQueue(e, filtOptns[optionIndex]);
+      selectOptionThroughKeys(e, optionToScroll[optionIndex]);
     }
   };
 
@@ -484,7 +506,7 @@ const MultiSelectDropdown = ({
                   addSelectAllCheck ? "selectAll" : ""
                 }`}
               >
-                <div className="digit-category-name">{option[optionsKey]}</div>
+                <div className="digit-category-name">{t(option[optionsKey])}</div>
                 {addCategorySelectAllCheck && (
                   <div
                     className="digit-category-selectAll"

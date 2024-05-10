@@ -1,4 +1,4 @@
-import { Toast } from '@egovernments/digit-ui-components';
+import Toast  from './Toast';
 import React, { Component } from 'react';
 
 class ErrorBoundary extends Component {
