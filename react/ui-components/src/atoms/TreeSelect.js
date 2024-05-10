@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { SVG } from "./SVG";
+import { useTranslation } from "react-i18next";
 
 const TreeSelectOption = ({ option, onSelect, isSelected, renderOptions, level = 0,optionsKey }) => {
   const [isExpanded, setExpanded] = useState(false);
+  const { t } = useTranslation();
   const handleToggleDropdown = () => {
     if (option.options) {
       setExpanded(!isExpanded);
@@ -29,7 +31,7 @@ const TreeSelectOption = ({ option, onSelect, isSelected, renderOptions, level =
             )}
           </div>
         )}
-        <div className="digit-option-label">{option[optionsKey]}</div>
+        <div className="digit-option-label">{t(option[optionsKey])}</div>
       </div>
       {isExpanded &&
         option.options &&
@@ -40,6 +42,7 @@ const TreeSelectOption = ({ option, onSelect, isSelected, renderOptions, level =
 };
 const TreeMultiSelect = ({ option, onSelect, isSelected, renderOptions, level = 0, isParentSelected, setParentSelected, optionsKey}) => {
   const [isExpanded, setExpanded] = useState(false);
+  const { t } = useTranslation();
   const handleToggleDropdown = () => {
     if (option.options) {
       setExpanded(!isExpanded);
@@ -155,7 +158,7 @@ const TreeMultiSelect = ({ option, onSelect, isSelected, renderOptions, level = 
             <SVG.Check fill={(allChildrenSelected || isSelected(option)) && !isParentSelected ? "#FFFFFF" : "#C84C0E"} />
           )}
         </div>
-        <div className="digit-option-label">{option[optionsKey]}</div>
+        <div className="digit-option-label">{t(option[optionsKey])}</div>
       </div>
       {isExpanded && option.options && option.options.length > 0 && (
         <div className="child-options-container">
