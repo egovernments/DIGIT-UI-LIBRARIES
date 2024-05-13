@@ -7,6 +7,7 @@ import 'package:digit_ui_components/models/toggleButtonModel.dart';
 import 'package:digit_ui_components/utils/validators/validator.dart';
 import 'package:digit_ui_components/widgets/atoms/dropdown_wrapper.dart';
 import 'package:digit_ui_components/widgets/atoms/input_wrapper.dart';
+import 'package:digit_ui_components/widgets/atoms/timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:url_strategy/url_strategy.dart';
@@ -2060,6 +2061,52 @@ class MyHomePageState extends State<MyHomePage> {
                       ),
                     ],
                   ),
+                const SizedBox(height: 8),
+                const Divider(),
+                const SizedBox(
+                  height: 8,
+                ),
+                const Timeline(
+                  currentStep: TimelineStepState.present,
+                  label: 'Current',
+                  description: ['18 / 02 / 2023'],
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                const Timeline(
+                  currentStep: TimelineStepState.future,
+                  label: 'Future',
+                  description: ['18 / 02 / 2023'],
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                const Timeline(
+                  currentStep: TimelineStepState.completed,
+                  label: 'Completed',
+                  description: ['18 / 02 / 2023'],
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                Timeline(
+                  currentStep: TimelineStepState.completed,
+                  label: 'Completed',
+                  description: const ['18 / 02 / 2023', '11:10 AM', 'processing'],
+                  additionalHideWidgets: [
+                    Image.network(
+                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+                    Image.network(
+                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+                    Image.network(
+                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+                    const InfoCard(
+                        title: "Info Text",
+                        type: InfoType.error,
+                        description: 'This is the warning')
+                  ],
+                ),
                 const SizedBox(height: 8),
                 const Divider(),
                 const SizedBox(

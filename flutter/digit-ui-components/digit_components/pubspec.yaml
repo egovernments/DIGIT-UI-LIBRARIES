@@ -32,6 +32,8 @@ dependencies:
   geolocator: ^10.1.0
   collection: ^1.15.0
   flutter_styled_toast: 2.2.1
+  flutter_svg: 2.0.10+1
+  url_launcher: 6.2.6
 
 
 
