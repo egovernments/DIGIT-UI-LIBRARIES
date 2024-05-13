@@ -2,9 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import '../../enum/app_enums.dart';
 import '../../models/TreeModel.dart';
-import '../../theme/colors.dart';
-import '../../theme/digit_theme.dart';
-import '../../theme/typography.dart';
+import '../../theme/theme.dart';
 import '../atoms/digit_checkbox_icon.dart';
 
 class TreeNodeWidget extends StatefulWidget {
@@ -201,7 +199,7 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
                           child: widget.currentOption.children.isNotEmpty
                               ? Icon(
                             Icons.arrow_drop_down,
-                            size: 24,
+                            size: spacer6,
                             color: _parentSelected(widget.currentOption,
                                 widget.parentNode)
                                 ? const DigitColors().light.textSecondary
@@ -222,11 +220,11 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
                                 .genericDivider,
                           )
                               : const SizedBox(
-                            width: 24,
+                            width: spacer6,
                           ),
                         ),
                         const SizedBox(
-                          width: kPadding / 2,
+                          width: spacer1,
                         ),
                         if (widget.treeSelectionType ==
                             TreeSelectionType.MultiSelect)
@@ -250,7 +248,7 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
                             },
                             child: _areAllChildrenSelected(widget.currentOption)
                                 ? DigitCheckboxIcon(
-                              size: 20,
+                              size: spacer5,
                               state: DigitCheckboxState.checked,
                               color: _parentSelected(widget.currentOption,
                                   widget.parentNode)
@@ -268,16 +266,16 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
                             )
                                 : _isAnyChildSelected(widget.currentOption)
                                 ? const DigitCheckboxIcon(
-                                size: 20,
+                                size: spacer5,
                                 state: DigitCheckboxState.intermediate)
                                 : const DigitCheckboxIcon(
-                                size: 20,
+                                size: spacer5,
                                 state: DigitCheckboxState.unchecked),
                           ),
                         if (widget.treeSelectionType ==
                             TreeSelectionType.MultiSelect)
                           const SizedBox(
-                            width: 12,
+                            width: spacer3,
                           ),
                         Text(
                           capitalizeFirstLetter(widget.currentOption.name),

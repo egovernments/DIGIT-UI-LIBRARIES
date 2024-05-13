@@ -2,10 +2,8 @@
 /// It initializes the options, selected options, and other configurations.
 /// It supports the integration of a TreeSelectController for programmatically controlling the dropdown.
 /// It provides customization options for the appearance of the dropdown, chips, and other elements.
-
 /// Example usage:
 /// ```dart
-
 ///TreeSelectDropDown<int>(
 ///  // Provide the list of options
 ///  options: options,
@@ -35,7 +33,6 @@ import '../../constants/app_constants.dart';
 import '../../enum/app_enums.dart';
 import '../../models/DropdownModels.dart';
 import '../../models/TreeModel.dart';
-import '../../models/chipModel.dart';
 import '../../utils/utils.dart';
 import '../helper_widget/selection_chip.dart';
 import '../helper_widget/tree_node_widget.dart';
@@ -50,10 +47,6 @@ class TreeSelectDropDown<int> extends StatefulWidget {
   final List<TreeNode> options;
   final List<TreeNode> selectedOptions;
   final OnOptionSelected<int>? onOptionSelected;
-
-  final ChipConfig chipConfig;
-
-  /// dropdownfield configuration
   final IconData suffixIcon;
   final Decoration? inputDecoration;
 
@@ -88,7 +81,6 @@ class TreeSelectDropDown<int> extends StatefulWidget {
     required this.options,
     this.treeSelectionType = TreeSelectionType.singleSelect,
     this.selectedOptions = const [],
-    this.chipConfig = const ChipConfig(),
     this.suffixIcon = Icons.arrow_drop_down,
     this.inputDecoration,
     this.focusNode,
@@ -227,7 +219,6 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
     super.didUpdateWidget(oldWidget);
   }
 
-
   /// Calculate offset size for dropdown.
   List _calculateOffsetSize() {
     RenderBox? renderBox = context.findRenderObject() as RenderBox?;
@@ -243,14 +234,16 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
   @override
   Widget build(BuildContext context) {
     currentTypography = getTypography(context, false);
-    ///calculate the dropdown width based on the view
+
+    /// Responsive width based on screen size
     double width = AppView.isMobileView(MediaQuery.of(context).size)
-        ? 360
+        ? MediaQuery.of(context).size.width
         : AppView.isTabletView(MediaQuery.of(context).size)
-        ? 440
-        : 600;
-    double minWidth =
-    AppView.isMobileView(MediaQuery.of(context).size) ? 156 : 200;
+            ? BaseConstants.tabInputMaxWidth
+            : BaseConstants.desktopInputMaxWidth;
+    double minWidth = AppView.isMobileView(MediaQuery.of(context).size)
+        ? BaseConstants.mobileInputMinWidth
+        : BaseConstants.desktopInputMaxWidth;
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -259,6 +252,7 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
           link: _layerLink,
           child: Focus(
             canRequestFocus: !widget.isDisabled && !widget.readOnly,
+
             /// Only allow focus if the dropdown is enabled
             skipTraversal: !widget.isDisabled && !widget.readOnly,
             focusNode: _focusNode,
@@ -266,7 +260,9 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
               splashColor: const DigitColors().transparent,
               highlightColor: const DigitColors().transparent,
               hoverColor: const DigitColors().transparent,
-              onTap: !widget.isDisabled && !widget.readOnly ? _toggleFocus : null,
+              onTap:
+                  !widget.isDisabled && !widget.readOnly ? _toggleFocus : null,
+
               /// Disable onTap if dropdown is disabled
               child: StatefulBuilder(builder: (context, setState) {
                 return Container(
@@ -277,23 +273,46 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
                     minHeight: Common.height,
                   ),
                   padding: const EdgeInsets.symmetric(
-                    horizontal: kPadding,
+                    horizontal: spacer2,
                   ),
                   decoration: widget.isDisabled
                       ? _getDisabledContainerDecoration()
-                      : widget.readOnly ? _getReadOnlyContainerDecoration() : _getContainerDecoration(),
+                      : widget.readOnly
+                          ? _getReadOnlyContainerDecoration()
+                          : _getContainerDecoration(),
                   child: Row(
                     children: [
                       Expanded(
                         child: (_selectedOptions.isNotEmpty)
                             ? (widget.treeSelectionType ==
-                            TreeSelectionType.MultiSelect)
-                            ? Text(capitalizeFirstLetter('${_selectedOptions.length} Selected')!, style: currentTypography.bodyL.copyWith(
-                          color: widget.readOnly ? const DigitColors().light.textSecondary : const DigitColors().light.textPrimary,
-                        ),)
-                            : Text(capitalizeFirstLetter(_selectedOptions.first.code.toString())!, style: currentTypography.bodyL.copyWith(
-                          color: widget.readOnly ? const DigitColors().light.textSecondary : const DigitColors().light.textPrimary,
-                        ),)
+                                    TreeSelectionType.MultiSelect)
+                                ? Text(
+                                    capitalizeFirstLetter(
+                                        '${_selectedOptions.length} Selected')!,
+                                    style: currentTypography.bodyL.copyWith(
+                                      color: widget.readOnly
+                                          ? const DigitColors()
+                                              .light
+                                              .textSecondary
+                                          : const DigitColors()
+                                              .light
+                                              .textPrimary,
+                                    ),
+                                  )
+                                : Text(
+                                    capitalizeFirstLetter(_selectedOptions
+                                        .first.code
+                                        .toString())!,
+                                    style: currentTypography.bodyL.copyWith(
+                                      color: widget.readOnly
+                                          ? const DigitColors()
+                                              .light
+                                              .textSecondary
+                                          : const DigitColors()
+                                              .light
+                                              .textPrimary,
+                                    ),
+                                  )
                             : const SizedBox(),
                       ),
                       Icon(
@@ -311,7 +330,7 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
         ),
         if (widget.helpText != null || widget.errorMessage != null)
           const SizedBox(
-            height: kPadding / 2,
+            height: spacer1,
           ),
         if (widget.helpText != null || widget.errorMessage != null)
           Row(
@@ -320,56 +339,57 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
             children: [
               widget.errorMessage != null
                   ? Expanded(
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Column(
-                      children: [
-                        const SizedBox(
-                          height: 2,
-                        ),
-                        SizedBox(
-                          height: 16,
-                          width: 16,
-                          child: Icon(
-                            Icons.info,
-                            color: const DigitColors().light.alertError,
-                            size: BaseConstants.errorIconSize,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Column(
+                            children: [
+                              const SizedBox(
+                                height: spacer1 / 2,
+                              ),
+                              SizedBox(
+                                height: spacer4,
+                                width: spacer4,
+                                child: Icon(
+                                  Icons.info,
+                                  color: const DigitColors().light.alertError,
+                                  size: BaseConstants.errorIconSize,
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(width: kPadding / 2),
-                    Flexible(
-                      fit: FlexFit.tight,
+                          const SizedBox(width: spacer1),
+                          Flexible(
+                            fit: FlexFit.tight,
+                            child: Text(
+                              widget.errorMessage!.length > 256
+                                  ? '${capitalizeFirstLetter(widget.errorMessage!)?.substring(0, 256)}...'
+                                  : capitalizeFirstLetter(
+                                      widget.errorMessage!)!,
+                              style: currentTypography.bodyS.copyWith(
+                                color: const DigitColors().light.alertError,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  : Expanded(
                       child: Text(
-                        widget.errorMessage!.length > 256
-                            ? '${capitalizeFirstLetter(widget.errorMessage!)?.substring(0, 256)}...'
-                            : capitalizeFirstLetter(widget.errorMessage!)!,
+                        widget.helpText!.length > 256
+                            ? '${capitalizeFirstLetter(widget.helpText!)?.substring(0, 256)}...'
+                            : widget.helpText!,
                         style: currentTypography.bodyS.copyWith(
-                          color: const DigitColors().light.alertError,
+                          color: const DigitColors().light.textSecondary,
                         ),
                       ),
                     ),
-                  ],
-                ),
-              )
-                  : Expanded(
-                child: Text(
-                  widget.helpText!.length > 256
-                      ? '${capitalizeFirstLetter(widget.helpText!)?.substring(0, 256)}...'
-                      : widget.helpText!,
-                  style: currentTypography.bodyS.copyWith(
-                    color: const DigitColors().light.textSecondary,
-                  ),
-                ),
-              ),
             ],
           ),
         const SizedBox(
-          height: kPadding,
+          height: spacer2,
         ),
         if (_anyItemSelected &&
             widget.treeSelectionType == TreeSelectionType.MultiSelect)
@@ -389,8 +409,8 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
   /// Build the selected items for the dropdown.
   Widget _buildSelectedItems() {
     return Wrap(
-      spacing: widget.chipConfig.spacing,
-      runSpacing: widget.chipConfig.runSpacing,
+      spacing: spacer2,
+      runSpacing: spacer2,
       alignment: WrapAlignment.start,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
@@ -398,7 +418,7 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
           final index = entry.key;
           final item = entry.value;
 
-          Widget chip = _buildChip(item, widget.chipConfig);
+          Widget chip = _buildChip(item);
 
           return IgnorePointer(
             ignoring: widget.readOnly,
@@ -409,7 +429,7 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
         }),
         if (_selectedOptions.isNotEmpty && !widget.readOnly)
 
-        /// Display "Clear All" only if there are selected options
+          /// Display "Clear All" only if there are selected options
           InkWell(
             onTap: () => clear(),
             hoverColor: const DigitColors().transparent,
@@ -417,21 +437,20 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
             highlightColor: const DigitColors().transparent,
             child: Container(
               padding: const EdgeInsets.symmetric(
-                horizontal: kPadding,
-                vertical: kPadding,
+                horizontal: spacer2,
+                vertical: spacer2,
               ),
               decoration: BoxDecoration(
                 border: Border.all(
                   color: const DigitColors().light.primary1,
                 ),
-                borderRadius: BorderRadius.circular(4),
+                borderRadius: BorderRadius.circular(spacer1),
                 color: const DigitColors().light.paperSecondary,
               ),
               child: Text(
                 capitalizeFirstLetter(widget.clearAllText)!,
                 style: currentTypography.bodyS.copyWith(
                   color: const DigitColors().light.primary1,
-                  height: 1,
                 ),
               ),
             ),
@@ -441,9 +460,11 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
   }
 
   /// Build the selected item chip.
-  Widget _buildChip(TreeNode item, ChipConfig chipConfig) {
+  Widget _buildChip(TreeNode item) {
     return SelectionChip<T>(
-      label: widget.valueMapper!=null ? getAssociatedValue(item.code, widget.valueMapper!) : item.name,
+      label: widget.valueMapper != null
+          ? getAssociatedValue(item.code, widget.valueMapper!)
+          : item.name,
       onItemDelete: () {
         if (_controller != null) {
           _controller!.clearSelection(item);
@@ -465,11 +486,11 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
   /// Container decoration for disabled dropdown.
   Decoration _getDisabledContainerDecoration() {
     return BoxDecoration(
-      color:  const DigitColors().transparent,
+      color: const DigitColors().transparent,
       borderRadius: Common.radius,
       border: Border.all(
         color: const DigitColors().light.textDisabled,
-        width: 1,
+        width: Common.defaultBorderWidth,
       ),
     );
   }
@@ -480,8 +501,8 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
       color: const DigitColors().light.genericBackground,
       borderRadius: Common.radius,
       border: Border.all(
-        color:const DigitColors().light.genericInputBorder,
-        width: 1,
+        color: const DigitColors().light.genericInputBorder,
+        width: Common.defaultBorderWidth,
       ),
     );
   }
@@ -491,18 +512,20 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
     return BoxDecoration(
       color: const DigitColors().light.paperPrimary,
       borderRadius: Common.radius,
-      border: widget.errorMessage!=null ? Border.all(
-        color: const DigitColors().light.alertError,
-        width: 1.5,
-      ): _selectionMode
+      border: widget.errorMessage != null
           ? Border.all(
-        color: const DigitColors().light.primary1,
-        width: 1.5,
-      )
-          : Border.all(
-        color: const DigitColors().light.textSecondary,
-        width: 1,
-      ),
+              color: const DigitColors().light.alertError,
+              width: Common.errorBorderWidth,
+            )
+          : _selectionMode
+              ? Border.all(
+                  color: const DigitColors().light.primary1,
+                  width: Common.focusedBorderWidth,
+                )
+              : Border.all(
+                  color: const DigitColors().light.textSecondary,
+                  width: Common.defaultBorderWidth,
+                ),
     );
   }
 
@@ -610,7 +633,7 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
   Widget _buildOptions(List<dynamic> values, List<TreeNode> options,
       List<TreeNode> selectedOptions, StateSetter dropdownState) {
     return Scrollbar(
-      radius: const Radius.circular(50),
+      radius: const Radius.circular(Common.defaultCircularRadius),
       thickness: 10,
       child: ConstrainedBox(
         constraints: BoxConstraints(
@@ -624,7 +647,7 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
           itemBuilder: (context, index) {
             final option = options[index];
             bool isSelected =
-            selectedOptions.any((item) => item.name == option.name);
+                selectedOptions.any((item) => item.name == option.name);
             Color backgroundColor = index % 2 == 0
                 ? const DigitColors().light.paperPrimary
                 : const DigitColors().light.paperSecondary;
@@ -642,12 +665,12 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
   }
 
   Widget _buildOption(
-      TreeNode option,
-      bool isSelected,
-      StateSetter dropdownState,
-      Color backgroundColor,
-      List<TreeNode> selectedOptions,
-      ) {
+    TreeNode option,
+    bool isSelected,
+    StateSetter dropdownState,
+    Color backgroundColor,
+    List<TreeNode> selectedOptions,
+  ) {
     return TreeNodeWidget(
       currentOption: option,
       option: option,
@@ -776,7 +799,7 @@ class TreeSelectController<T> extends ValueNotifier<_TreeSelectController<T>> {
       return;
     }
     value._selectedOptions.removeWhere(
-            (item) => item.code == option.code && item.name == option.name);
+        (item) => item.code == option.code && item.name == option.name);
     notifyListeners();
   }
 

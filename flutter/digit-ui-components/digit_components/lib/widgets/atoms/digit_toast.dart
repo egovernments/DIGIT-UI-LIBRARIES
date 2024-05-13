@@ -1,3 +1,4 @@
+import 'package:digit_ui_components/constants/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import '../../constants/AppView.dart';
@@ -17,20 +18,21 @@ import '../../utils/utils.dart';
 
 class Toast {
   static void showToast(
-      BuildContext context, {
-        required String message,
-        required ToastType type,
-        Duration? duration,
-        Duration? animationDuration,
-        StyledToastPosition? position,
-      }) {
+    BuildContext context, {
+    required String message,
+    required ToastType type,
+    Duration? duration,
+    Duration? animationDuration,
+    StyledToastPosition? position,
+  }) {
     showToastWidget(
       _buildToastWidget(message, type, context),
       context: context,
-      duration: duration ?? const Duration(seconds: 5),
-      position: position ?? const StyledToastPosition(
-        align: Alignment.bottomCenter,
-      ),
+      duration: duration ?? ToastConstant().toastDuration,
+      position: position ??
+          const StyledToastPosition(
+            align: Alignment.bottomCenter,
+          ),
       isIgnoring: false,
       animation: StyledToastAnimation.slideFromBottom,
       animDuration: animationDuration,
@@ -44,8 +46,8 @@ class Toast {
     double minWidth = AppView.isMobileView(MediaQuery.of(context).size)
         ? MediaQuery.of(context).size.width
         : AppView.isTabletView(MediaQuery.of(context).size)
-        ? 480
-        : 800;
+            ? ToastConstant.tabMinWidth
+            : ToastConstant.desktopMinWidth;
 
     return Container(
       constraints: BoxConstraints(
@@ -54,9 +56,10 @@ class Toast {
       color: type == ToastType.success
           ? const DigitColors().light.alertSuccess
           : type == ToastType.error
-          ? const DigitColors().light.alertError
-          : const DigitColors().light.alertWarning,
-      padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 8),
+              ? const DigitColors().light.alertError
+              : const DigitColors().light.alertWarning,
+      padding:
+          const EdgeInsets.symmetric(vertical: spacer3, horizontal: spacer2),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         mainAxisSize: MainAxisSize.min,
@@ -65,25 +68,25 @@ class Toast {
             mainAxisSize: MainAxisSize.min,
             children: [
               SizedBox(
-                height: 24,
-                width: 24,
+                height: spacer6,
+                width: spacer6,
                 child: Icon(
                   type == ToastType.success
                       ? Icons.check_circle
                       : type == ToastType.error
-                      ? Icons.error
-                      : Icons.warning,
+                          ? Icons.error
+                          : Icons.warning,
                   color: const DigitColors().light.paperPrimary,
-                  size: 24,
+                  size: spacer6,
                 ),
               ),
-              const SizedBox(width: kPadding),
+              const SizedBox(width: spacer2),
               Container(
                 constraints: BoxConstraints(
                   maxWidth: MediaQuery.of(context).size.width -
-                      24 -
-                      kPadding * 3 -
-                      24,
+                      spacer6 -
+                      spacer6 -
+                      spacer6,
                 ),
                 child: Text(
                   capitalizeFirstLetter(message)!,
@@ -102,7 +105,7 @@ class Toast {
             },
             child: Icon(
               Icons.close,
-              size: 24,
+              size: spacer6,
               color: const DigitColors().light.paperPrimary,
             ),
           ),

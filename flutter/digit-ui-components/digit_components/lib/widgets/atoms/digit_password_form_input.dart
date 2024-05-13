@@ -1,19 +1,17 @@
-/*
- `DigitPasswordFormInput` is a customizable formfield widget that extends the baseforminput.
-
- Example usage:
- ```dart
- DigitPasswordFormInput(
- controller: _textController,
- label: 'Username',
- innerLabel: 'Please enter a valid password',
- charCount: true,
- helpText: 'This is a simple example of DigitPasswordFormInput',
- onChange: (value) {
- print(value);
- },
- ),
- ....*/
+///`DigitPasswordFormInput` is a customizable formfield widget that extends the baseforminput.
+///
+/// Example usage:
+/// ```dart
+/// DigitPasswordFormInput(
+/// controller: _textController,
+/// label: 'Username',
+/// innerLabel: 'Please enter a valid password',
+/// charCount: true,
+/// helpText: 'This is a simple example of DigitPasswordFormInput',
+/// onChange: (value) {
+/// print(value);
+/// },
+/// ),
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

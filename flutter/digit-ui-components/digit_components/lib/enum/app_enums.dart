@@ -66,3 +66,21 @@ enum ToastType {
   error,
   warning,
 }
+
+/// dropdown type and subtype for dropdown wrapper
+enum Type {
+  singleSelect,
+  multiSelect,
+}
+
+enum DropdownSubtype {
+  defaultSelect,
+  nested,
+  tree,
+}
+
+/// Enum to define different types of information for the InfoCard
+enum InfoType { info, success, error, warning }
+
+/// Enum to define different state for timeline
+enum TimelineStepState { completed, present, future }

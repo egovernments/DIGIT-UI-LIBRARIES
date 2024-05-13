@@ -44,7 +44,7 @@ class ScrollableContent extends StatelessWidget {
                   ),
                 ),
                 if (footer != null) ...[
-                  const SizedBox(height: kPadding*2),
+                  const SizedBox(height: spacer4),
                   footer!,
                 ],
               ],

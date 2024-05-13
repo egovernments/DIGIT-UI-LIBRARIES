@@ -1,19 +1,17 @@
-/*
-DigitLocationFormInput` is a customizable formfield widget that  extends the baseforminput.
-
- Example usage:
- ```dart
- DigitLocationFormInput(
- controller: _textController,
- label: 'Username',
- innerLabel: 'Click on the icon to add your current location',
- charCount: true,
- helpText: 'This is a simple example of DigitLocationFormInput',
- onChange: (value) {
- print(value);
- },
- ),
- ....*/
+///DigitLocationFormInput` is a customizable formfield widget that  extends the baseforminput.
+///
+/// Example usage:
+/// ```dart
+/// DigitLocationFormInput(
+/// controller: _textController,
+/// label: 'Username',
+/// innerLabel: 'Click on the icon to add your current location',
+/// charCount: true,
+/// helpText: 'This is a simple example of DigitLocationFormInput',
+/// onChange: (value) {
+/// print(value);
+/// },
+/// ),```
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

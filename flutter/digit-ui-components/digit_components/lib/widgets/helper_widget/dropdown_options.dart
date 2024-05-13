@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
-
 import '../../constants/app_constants.dart';
 import '../../enum/app_enums.dart';
 import '../../models/DropdownModels.dart';
-import '../../theme/colors.dart';
-import '../../theme/digit_theme.dart';
-import '../../theme/typography.dart';
+import '../../theme/theme.dart';
 import '../atoms/digit_checkbox_icon.dart';
-
 
 class DropdownOption extends StatefulWidget {
   final DropdownItem option;
@@ -20,7 +16,8 @@ class DropdownOption extends StatefulWidget {
   final Function(List<DropdownItem>)? onOptionSelected;
   final Function(DropdownItem currentHoverItem, bool isHovered)? onHover;
 
-  const DropdownOption({super.key,
+  const DropdownOption({
+    super.key,
     required this.option,
     required this.isSelected,
     required this.selectionType,
@@ -70,13 +67,13 @@ class _DropdownOptionState extends State<DropdownOption> {
               hoverColor: const DigitColors().transparent,
               highlightColor: const DigitColors().transparent,
               onHover: (hover) {
-                if(widget.focusedIndex!=-1 && widget.isFocused==true){
-                  setState((){
+                if (widget.focusedIndex != -1 && widget.isFocused == true) {
+                  setState(() {
                     _itemHoverStates[widget.option] = false;
                   });
-                }else{
+                } else {
                   setState(() {
-                    if (hover && _itemHoverStates[widget.option] ==null ) {
+                    if (hover && _itemHoverStates[widget.option] == null) {
                       widget.onHover?.call(widget.option, true);
                     }
                     _itemHoverStates[widget.option] = hover;
@@ -89,29 +86,31 @@ class _DropdownOptionState extends State<DropdownOption> {
               child: Container(
                 decoration: BoxDecoration(
                   border: Border.all(
-                    width: 0.5,
-                    color: _itemMouseDownStates[widget.option] == true || widget.isFocused==true ||
-                        _itemHoverStates[widget.option] == true ||
-                        widget.isSelected
+                    width: Common.hoverBorderWidth,
+                    color: _itemMouseDownStates[widget.option] == true ||
+                            widget.isFocused == true ||
+                            _itemHoverStates[widget.option] == true ||
+                            widget.isSelected
                         ? const DigitColors().light.primary1
                         : Colors.transparent,
                   ),
-                  color: _itemMouseDownStates[widget.option] == true  ||
-                      widget.isSelected
+                  color: _itemMouseDownStates[widget.option] == true ||
+                          widget.isSelected
                       ? const DigitColors().light.primary1
-                      : _itemHoverStates[widget.option] == true || widget.isFocused==true
-                      ? const DigitColors().light.primary1Bg
-                      : widget.backgroundColor,
+                      : _itemHoverStates[widget.option] == true ||
+                              widget.isFocused == true
+                          ? const DigitColors().light.primary1Bg
+                          : widget.backgroundColor,
                 ),
                 padding: EdgeInsets.zero,
                 child: Padding(
                   padding: widget.selectionType == SelectionType.multiSelect
                       ? widget.option.description != null
-                      ? const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 8,
-                  )
-                      : DropdownConstants.defaultPadding
+                          ? const EdgeInsets.symmetric(
+                              horizontal: spacer4,
+                              vertical: spacer2,
+                            )
+                          : DropdownConstants.defaultPadding
                       : DropdownConstants.nestedItemPadding,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -122,16 +121,17 @@ class _DropdownOptionState extends State<DropdownOption> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           widget.isSelected ||
-                              _itemMouseDownStates[widget.option] == true
+                                  _itemMouseDownStates[widget.option] == true
                               ? DigitCheckboxIcon(
-                            size: 20,
-                            state: DigitCheckboxState.checked,
-                            color: const DigitColors().light.paperPrimary,
-                          )
+                                  size: spacer5,
+                                  state: DigitCheckboxState.checked,
+                                  color: const DigitColors().light.paperPrimary,
+                                )
                               : const DigitCheckboxIcon(
-                              size: 20, state: DigitCheckboxState.unchecked),
+                                  size: spacer5,
+                                  state: DigitCheckboxState.unchecked),
                           const SizedBox(
-                            width: 12,
+                            width: spacer3,
                           ),
                           Row(
                             children: [
@@ -140,34 +140,36 @@ class _DropdownOptionState extends State<DropdownOption> {
                                   widget.option.textIcon,
                                   size: DropdownConstants.textIconSize,
                                   color: widget.isSelected ||
-                                      _itemMouseDownStates[widget.option] ==
-                                          true
+                                          _itemMouseDownStates[widget.option] ==
+                                              true
                                       ? const DigitColors().light.paperPrimary
                                       : const DigitColors().light.textSecondary,
                                 ),
                               if (widget.option.textIcon != null)
                                 const SizedBox(
-                                  width: kPadding / 2,
+                                  width: spacer1,
                                 ),
                               Text(
                                 capitalizeFirstLetter(widget.option.name),
                                 style: widget.isSelected ||
-                                    _itemMouseDownStates[widget.option] ==
-                                        true
+                                        _itemMouseDownStates[widget.option] ==
+                                            true
                                     ? currentTypography.headingS.copyWith(
-                                  color: const DigitColors().light
-                                      .paperPrimary,
-                                )
+                                        color: const DigitColors()
+                                            .light
+                                            .paperPrimary,
+                                      )
                                     : widget.option.description != null
-                                    ? currentTypography.bodyL.copyWith(
-                                  color: const DigitColors().light
-                                      .textSecondary,
-
-                                )
-                                    : currentTypography.bodyS.copyWith(
-                                  color: const DigitColors().light
-                                      .textPrimary,
-                                ),
+                                        ? currentTypography.bodyL.copyWith(
+                                            color: const DigitColors()
+                                                .light
+                                                .textSecondary,
+                                          )
+                                        : currentTypography.bodyS.copyWith(
+                                            color: const DigitColors()
+                                                .light
+                                                .textPrimary,
+                                          ),
                               ),
                             ],
                           ),
@@ -175,13 +177,13 @@ class _DropdownOptionState extends State<DropdownOption> {
                       ),
                       if (widget.option.description != null)
                         Padding(
-                          padding: const EdgeInsets.only(left: kPadding*4),
+                          padding: const EdgeInsets.only(left: spacer8),
                           child: Text(
                             capitalizeFirstLetter(widget.option.description!),
                             style: currentTypography.bodyXS.copyWith(
                               color: widget.isSelected ||
-                                  _itemMouseDownStates[widget.option] ==
-                                      true
+                                      _itemMouseDownStates[widget.option] ==
+                                          true
                                   ? const DigitColors().light.paperPrimary
                                   : const DigitColors().light.textSecondary,
                             ),

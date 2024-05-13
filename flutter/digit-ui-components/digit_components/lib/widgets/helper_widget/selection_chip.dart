@@ -1,7 +1,6 @@
+import 'package:digit_ui_components/constants/app_constants.dart';
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/material.dart';
-import '../../constants/app_constants.dart';
-import '../../models/DropdownModels.dart';
 
 class SelectionChip<T> extends StatelessWidget {
   final String label;
@@ -35,28 +34,30 @@ class SelectionChip<T> extends StatelessWidget {
         children: [
           Container(
             padding: const EdgeInsets.symmetric(
-              horizontal: kPadding,
-              vertical: kPadding,
+              horizontal: spacer2,
+              vertical: spacer2,
             ),
             decoration: BoxDecoration(
               boxShadow: errorMessage != null
                   ? [
-                BoxShadow(
-                  color:
-                  const DigitColors().light.alertError.withOpacity(.30),
-                  offset: const Offset(0, 2),
-                  spreadRadius: 0,
-                  blurRadius: 4,
-                ),
-              ]
+                      BoxShadow(
+                        color: const DigitColors()
+                            .light
+                            .alertError
+                            .withOpacity(.30),
+                        offset: const Offset(0, 2),
+                        spreadRadius: 0,
+                        blurRadius: 4,
+                      ),
+                    ]
                   : [],
               border: Border.all(
                 color: errorMessage != null
                     ? const DigitColors().light.alertError
                     : const DigitColors().light.genericDivider,
-                width: 1,
+                width: Common.defaultBorderWidth,
               ),
-              borderRadius: BorderRadius.circular(4),
+              borderRadius: BorderRadius.circular(spacer1),
               color: errorMessage != null
                   ? const DigitColors().light.paperPrimary
                   : const DigitColors().light.genericBackground,
@@ -66,17 +67,19 @@ class SelectionChip<T> extends StatelessWidget {
                 Expanded(
                   child: Text(
                     capitalizeFirstLetter(label),
-                    style: errorMessage!=null ?currentTypography.headingS.copyWith(
-                      overflow: TextOverflow.ellipsis,
-                      color: const DigitColors().light.alertError,
-                    ) :currentTypography.bodyS.copyWith(
-                      overflow: TextOverflow.ellipsis,
-                      color: const DigitColors().light.textPrimary,
-                    ),
+                    style: errorMessage != null
+                        ? currentTypography.headingS.copyWith(
+                            overflow: TextOverflow.ellipsis,
+                            color: const DigitColors().light.alertError,
+                          )
+                        : currentTypography.bodyS.copyWith(
+                            overflow: TextOverflow.ellipsis,
+                            color: const DigitColors().light.textPrimary,
+                          ),
                   ),
                 ),
                 const SizedBox(
-                  width: kPadding,
+                  width: spacer2,
                 ),
                 InkWell(
                   onTap: onItemDelete,
@@ -84,17 +87,17 @@ class SelectionChip<T> extends StatelessWidget {
                   splashColor: const DigitColors().transparent,
                   highlightColor: const DigitColors().transparent,
                   child: Container(
-                    width: 24,
-                    height: 24,
+                    width: spacer6,
+                    height: spacer6,
                     decoration: BoxDecoration(
                       color: errorMessage != null
                           ? const DigitColors().light.alertError
                           : const DigitColors().light.textSecondary,
-                      borderRadius: BorderRadius.circular(4),
+                      borderRadius: BorderRadius.circular(spacer1),
                     ),
                     child: Icon(
                       Icons.close,
-                      size: 24,
+                      size: spacer6,
                       color: const DigitColors().light.paperPrimary,
                     ),
                   ),
@@ -102,49 +105,44 @@ class SelectionChip<T> extends StatelessWidget {
               ],
             ),
           ),
-          if(errorMessage!=null)const SizedBox(height: 4,),
-          if(errorMessage!=null)Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Column(
-                children: [
-                  const SizedBox(height: 2,),
-                  Icon(
-                    Icons.info,
-                    color: const DigitColors()
-                        .light
-                        .alertError,
-                    size: 16,
-                  ),
-                ],
-              ),
-              const SizedBox(width: kPadding / 2),
-              Flexible(
-                fit: FlexFit.tight,
-                child: Text(
-                  errorMessage!.length > 256
-                      ? '${capitalizeFirstLetter(errorMessage!).substring(0, 256)}...'
-                      : capitalizeFirstLetter(errorMessage!),
-                  style: currentTypography.bodyS.copyWith(
-                    color: const DigitColors()
-                        .light
-                        .alertError,
+          if (errorMessage != null)
+            const SizedBox(
+              height: spacer1,
+            ),
+          if (errorMessage != null)
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Column(
+                  children: [
+                    const SizedBox(
+                      height: spacer1 / 2,
+                    ),
+                    Icon(
+                      Icons.info,
+                      color: const DigitColors().light.alertError,
+                      size: spacer4,
+                    ),
+                  ],
+                ),
+                const SizedBox(width: spacer1),
+                Flexible(
+                  fit: FlexFit.tight,
+                  child: Text(
+                    errorMessage!.length > 256
+                        ? '${capitalizeFirstLetter(errorMessage!).substring(0, 256)}...'
+                        : capitalizeFirstLetter(errorMessage!),
+                    style: currentTypography.bodyS.copyWith(
+                      color: const DigitColors().light.alertError,
+                    ),
                   ),
                 ),
-              ),
-            ],
-          )
+              ],
+            )
         ],
       ),
     );
   }
-}
-
-class FileData {
-  final String name;
-  final String code;
-
-  FileData({required this.name, required this.code});
 }

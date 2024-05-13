@@ -1,20 +1,18 @@
-/*
- `DigitSearchFormInput` is a customizable form-field widget that extends the baseforminput.
-
- Example usage:
- ```dart
- DigitSearchFormInput(
- controller: _textController,
- label: 'Search',
- innerLabel: 'Enter your username',
- charCount: true,
- helpText: 'This is a simple example of DigitSearchFormInput',
- onChange: (value) {
- print(value);
- },
- onSuffixTap(value){}
- ),
- ....*/
+///`DigitSearchFormInput` is a customizable form-field widget that extends the baseforminput.
+///
+/// Example usage:
+/// ```dart
+/// DigitSearchFormInput(
+/// controller: _textController,
+/// label: 'Search',
+/// innerLabel: 'Enter your username',
+/// charCount: true,
+/// helpText: 'This is a simple example of DigitSearchFormInput',
+/// onChange: (value) {
+/// print(value);
+/// },
+/// onSuffixTap(value){}
+/// ),```
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

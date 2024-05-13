@@ -1,23 +1,21 @@
-/*
- `DigitTextFormInput` is a customizable textformfield widget that extends the baseforminput.
-
- Example usage:
- ```dart
- DigitTextFormInput(
- controller: _textController,
- label: 'Username',
- innerLabel: 'Enter your username',
- charCount: true,
- helpText: 'This is a simple example of DigitTextFormInput',
- validations: [
- // Example validation: Required field
- Validator(ValidatorType.required),
- ],
- onChange: (value) {
- print('Username changed to: $value');
- },
- ),
- ....*/
+///`DigitTextFormInput` is a customizable textformfield widget that extends the baseforminput.
+///
+/// Example usage:
+/// ```dart
+/// DigitTextFormInput(
+/// controller: _textController,
+/// label: 'Username',
+/// innerLabel: 'Enter your username',
+/// charCount: true,
+/// helpText: 'This is a simple example of DigitTextFormInput',
+/// validations: [
+/// // Example validation: Required field
+/// Validator(ValidatorType.required),
+/// ],
+/// onChange: (value) {
+/// print('Username changed to: $value');
+/// },
+/// ),
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

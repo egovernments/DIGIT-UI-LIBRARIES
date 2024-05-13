@@ -1,23 +1,21 @@
-/*
- `DigitNumericFormInput` is a customizable formfield widget that extends the baseforminput.
-
- Example usage:
- ```dart
- DigitNumericFormInput(
- controller: _textController,
- label: 'Username',
- innerLabel: 'Enter a numeric value',
- charCount: true,
- helpText: 'This is a simple example of DigitNumericFormInput',
- validations: [
- // Example validation: Required field
- Validator(ValidatorType.required),
- ],
- onChange: (value) {
- print(value);
- },
- ),
- ....*/
+///`DigitNumericFormInput` is a customizable formfield widget that extends the baseforminput.
+///
+/// Example usage:
+/// ```dart
+/// DigitNumericFormInput(
+/// controller: _textController,
+/// label: 'Username',
+/// innerLabel: 'Enter a numeric value',
+/// charCount: true,
+/// helpText: 'This is a simple example of DigitNumericFormInput',
+/// validations: [
+/// // Example validation: Required field
+/// Validator(ValidatorType.required),
+/// ],
+/// onChange: (value) {
+/// print(value);
+/// },
+/// ),
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -99,7 +97,8 @@ class _DigitNumericFormInputState extends BaseDigitFormInputState {
         setState(() {
           widget.controller.text = (currentValue - widget.step).toString();
         });
-/// Remove the text selection
+
+        /// Remove the text selection
         widget.controller.selection = const TextSelection.collapsed(offset: 0);
       }
     });
@@ -114,9 +113,9 @@ class _DigitNumericFormInputState extends BaseDigitFormInputState {
         setState(() {
           widget.controller.text = (currentValue + widget.step).toString();
         });
-/// Remove the text selection
-        widget.controller.selection = const TextSelection.collapsed(offset: 0);
 
+        /// Remove the text selection
+        widget.controller.selection = const TextSelection.collapsed(offset: 0);
       }
     });
   }

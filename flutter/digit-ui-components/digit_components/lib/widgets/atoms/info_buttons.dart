@@ -92,7 +92,8 @@ class _InfoButtonState extends State<InfoButton> {
                   ? const DigitColors().light.textDisabled
                   : const DigitColors().light.paperPrimary),
             ),
-            SizedBox(width: widget.size == ButtonSize.small ? kPadding/2 : kPadding),
+            SizedBox(
+                width: widget.size == ButtonSize.small ? spacer1 : spacer2),
           ],
           Flexible(
             child: Text(
@@ -108,7 +109,8 @@ class _InfoButtonState extends State<InfoButton> {
             ),
           ),
           if (widget.suffixIcon != null) ...[
-            SizedBox(width: widget.size == ButtonSize.small ? kPadding/2 : kPadding),
+            SizedBox(
+                width: widget.size == ButtonSize.small ? spacer1 : spacer2),
             Icon(
               widget.suffixIcon,
               size: widget.iconSize ?? buttonIconSize,
@@ -153,11 +155,11 @@ class _InfoButtonState extends State<InfoButton> {
         buttonColor = const DigitColors().light.alertError;
         break;
       case InfoButtonType.success:
-        buttonColor =const DigitColors().light.alertSuccess;
+        buttonColor = const DigitColors().light.alertSuccess;
         break;
     }
 
-    return  _buildButtonWidget();
+    return _buildButtonWidget();
   }
 
   /// Build the button widget based on its type and state.
@@ -165,28 +167,28 @@ class _InfoButtonState extends State<InfoButton> {
     return InkWell(
       onTapDown: widget.isDisabled
           ? null
-          :(_) {
-        /// Handle mouse down state
-        setState(() {
-          isMouseDown = true;
-        });
-      },
+          : (_) {
+              /// Handle mouse down state
+              setState(() {
+                isMouseDown = true;
+              });
+            },
       onTapUp: widget.isDisabled
           ? null
-          :(_) {
-        /// Handle mouse up state
-        setState(() {
-          isMouseDown = false;
-        });
-      },
+          : (_) {
+              /// Handle mouse up state
+              setState(() {
+                isMouseDown = false;
+              });
+            },
       onTap: widget.isDisabled
           ? null
           : () {
-        if (mounted) {
-          widget.onPressed();
-        }
-      },
-      onHover: (hover){
+              if (mounted) {
+                widget.onPressed();
+              }
+            },
+      onHover: (hover) {
         setState(() {
           isHovered = hover;
         });
@@ -195,45 +197,43 @@ class _InfoButtonState extends State<InfoButton> {
       hoverColor: const DigitColors().transparent,
       child: Container(
         height: widget.size == ButtonSize.large
-            ? 40
+            ? ButtonConstants.largeButtonSize
             : widget.size == ButtonSize.medium
-            ? 32
-            : 24,
+            ? ButtonConstants.mediumButtonSize
+            : ButtonConstants.smallButtonSize,
         decoration: BoxDecoration(
           boxShadow: (isMouseDown)
               ? [
-            BoxShadow(
-              color: const DigitColors().light.textPrimary,
-              offset: const Offset(0, 2),
-              spreadRadius: 0,
-              blurRadius: 0,
-            ),
-            BoxShadow(
-              color: const DigitColors()
-                  .light
-                  .textPrimary
-                  .withOpacity(.25),
-              offset: const Offset(0, 4),
-              spreadRadius: 0,
-              blurRadius: 2.8,
-            ),
-          ]
+                  BoxShadow(
+                    color: const DigitColors().light.textPrimary,
+                    offset: const Offset(0, 2),
+                    spreadRadius: 0,
+                    blurRadius: 0,
+                  ),
+                  BoxShadow(
+                    color:
+                        const DigitColors().light.textPrimary.withOpacity(.25),
+                    offset: const Offset(0, 4),
+                    spreadRadius: 0,
+                    blurRadius: 2.8,
+                  ),
+                ]
               : isHovered
-              ? [
-            BoxShadow(
-              color: const DigitColors().light.textPrimary,
-              offset: const Offset(0, 2),
-              spreadRadius: 0,
-              blurRadius: 0,
-            ),
-          ]
-              : [],
+                  ? [
+                      BoxShadow(
+                        color: const DigitColors().light.textPrimary,
+                        offset: const Offset(0, 2),
+                        spreadRadius: 0,
+                        blurRadius: 0,
+                      ),
+                    ]
+                  : [],
           borderRadius: BorderRadius.zero,
           border: Border.all(
-            color:  widget.isDisabled
+            color: widget.isDisabled
                 ? const DigitColors().light.textDisabled
                 : buttonColor,
-            width: ButtonConstants.defaultWidth,
+            width: Common.defaultBorderWidth,
           ),
           color: widget.isDisabled
               ? const DigitColors().light.textDisabled

@@ -1,3 +1,4 @@
+import 'package:digit_ui_components/constants/app_constants.dart';
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/material.dart';
 
@@ -83,11 +84,11 @@ class _ToggleState extends State<Toggle> {
             }
           },
           child: Container(
-            height: 32,
-            width: widget.maxLabelWidth + 52,
-            padding:const EdgeInsets.symmetric(horizontal: 12.0),
+            height: spacer8,
+            width: widget.maxLabelWidth + spacer12+spacer1,
+            padding:const EdgeInsets.symmetric(horizontal: spacer3),
             constraints: const BoxConstraints(
-              minWidth: 40,
+              minWidth: spacer10,
               maxWidth: 200,
             ),
             decoration: BoxDecoration(
@@ -96,7 +97,7 @@ class _ToggleState extends State<Toggle> {
                 color: (isHovered || widget.isSelected || isMouseDown)
                     ? const DigitColors().light.primary1
                     : const DigitColors().light.genericDivider,
-                width: 1.0,
+                width: Common.defaultBorderWidth,
               ),
               color: widget.isSelected
                   ? const DigitColors().light.primary1

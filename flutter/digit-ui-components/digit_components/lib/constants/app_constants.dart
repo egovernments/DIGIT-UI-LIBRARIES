@@ -1,19 +1,19 @@
+import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/material.dart';
-
-import '../theme/colors.dart';
-import '../theme/digit_theme.dart';
+import '../theme/theme.dart';
 
 class Common{
   static const double height = 40;
   static const double mobileInputWidth = 328;
   static const double desktopInputWidth = 600;
   static const double tabInputWidth = 440;
-  static const double defaultChipRadius = 50;
+  static const double defaultCircularRadius = 50;
+  static const double defaultBorderWidth = 1;
+  static const double selectedBorderWidth = 1;
+  static const double focusedBorderWidth = 1.5;
+  static const double errorBorderWidth = 1.5;
+  static const double hoverBorderWidth = 0.5;
   static const BorderRadius radius = BorderRadius.zero;
-  static const EdgeInsets defaultChipPadding = EdgeInsets.only(
-    left: 12,
-    right: kPadding / 2,
-  );
   static const String textAreaSvg = 'assets/icons/svg/textAreaExpand.svg';
   static const String profileSvg = 'assets/icons/svg/Profile.svg';
   static const String docSvg = 'assets/icons/svg/doc.svg';
@@ -53,16 +53,17 @@ class BaseConstants {
 
 
 class ButtonConstants {
-  static const EdgeInsets defaultButtonPadding = EdgeInsets.all(8.0);
-  static const EdgeInsets defaultContentPadding = EdgeInsets.symmetric(horizontal: kPadding * 3, vertical: 0);
+  static const EdgeInsets defaultButtonPadding = EdgeInsets.all(spacer1);
+  static const EdgeInsets defaultContentPadding = EdgeInsets.symmetric(horizontal: spacer6, vertical: 0);
+  static const double largeButtonSize = 40.0;
+  static const double mediumButtonSize = 32.0;
+  static const double smallButtonSize = 24.0;
   static const double largeIconSize = 24.0;
   static const double mediumIconSize = 20.0;
   static const double smallIconSize = 14.0;
   static const double largeLinkIconSize = 20.0;
   static const double mediumLinkIconSize = 20.0;
   static const double smallLinkIconSize = 14.0;
-  static const double defaultWidth = 1.0;
-  static const double defaultHoverWidth = 2.0;
 }
 class DigitCheckboxConstants {
   static const double iconSize = 16.0;
@@ -92,14 +93,19 @@ class DropdownConstants {
   static const double defaultProfileSize = 32;
   static const double defaultImageRadius = 72;
   static const double textIconSize = 20;
-  static const EdgeInsets noItemAvailablePadding =  EdgeInsets.symmetric(horizontal: kPadding*2, vertical: 10.0);
+  static const EdgeInsets noItemAvailablePadding =  EdgeInsets.symmetric(horizontal: spacer4, vertical: 10.0);
   static const Duration animationDuration = Duration(milliseconds: 200);
 }
 
 class RadioConstant {
-  static const EdgeInsets defaultPadding = EdgeInsets.all(8);
-  static const double radioWidth = 24.0;
-  static const double radioHeight = 24.0;
+  static const EdgeInsets defaultPadding = EdgeInsets.all(spacer2);
+  static const double radioWidth = spacer6;
+  static const double radioHeight = spacer6;
 }
 
-Duration get toastDuration => const Duration(seconds: 5);
+class ToastConstant {
+  static const double tabMinWidth = 480;
+  static const double desktopMinWidth = 800;
+  Duration get toastDuration => const Duration(seconds: 5);
+}
+

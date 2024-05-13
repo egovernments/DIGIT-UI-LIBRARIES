@@ -1,10 +1,9 @@
 library digit_theme;
 
+import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/theme/colors.dart';
 import 'package:digit_ui_components/theme/typography.dart';
 import 'package:flutter/material.dart';
-
-const kPadding = 8.0;
 
 class DigitTheme {
   static const DigitTheme _instance = DigitTheme._internal();
@@ -192,14 +191,14 @@ class DigitTheme {
   );
 
   EdgeInsets get buttonPadding => const EdgeInsets.symmetric(
-    vertical: kPadding,
-    horizontal: kPadding * 2,
+    vertical: spacer2,
+    horizontal: spacer4,
   );
 
-  EdgeInsets get containerMargin => const EdgeInsets.all(kPadding);
+  EdgeInsets get containerMargin => const EdgeInsets.all(spacer2);
 
   EdgeInsets get verticalMargin => const EdgeInsets.symmetric(
-    vertical: kPadding,
+    vertical: spacer2,
   );
 
   Duration get toastDuration => const Duration(seconds: 2);
@@ -243,7 +242,7 @@ class DigitTheme {
   );
 
   CardTheme get cardTheme => const CardTheme(
-    margin: EdgeInsets.fromLTRB(kPadding, kPadding * 2, kPadding, 0),
+    margin: EdgeInsets.fromLTRB(spacer2, spacer4, spacer2, 0),
     elevation: 1,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.all(
@@ -314,7 +313,7 @@ class DigitTheme {
         ),
       ),
     ),
-    actionsPadding: const EdgeInsets.all(kPadding),
+    actionsPadding: const EdgeInsets.all(spacer2),
   );
 
   BorderSide get tableCellBorder => BorderSide(

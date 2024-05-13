@@ -37,7 +37,6 @@ import '../../constants/AppView.dart';
 import '../../constants/app_constants.dart';
 import '../../enum/app_enums.dart';
 import '../../models/DropdownModels.dart';
-import '../../models/chipModel.dart';
 import '../../utils/utils.dart';
 import '../helper_widget/dropdown_options.dart';
 import '../helper_widget/selection_chip.dart';
@@ -53,10 +52,6 @@ class MultiSelectDropDown<int> extends StatefulWidget {
   final List<DropdownItem> selectedOptions;
   final OnOptionSelect<int>? onOptionSelected;
 
-  /// chip configuration
-  final ChipConfig chipConfig;
-
-  /// dropdownfield configuration
   final IconData? suffixIcon;
 
   /// focus node
@@ -88,7 +83,6 @@ class MultiSelectDropDown<int> extends StatefulWidget {
     Key? key,
     required this.onOptionSelected,
     required this.options,
-    this.chipConfig = const ChipConfig(),
     this.selectionType = SelectionType.multiSelect,
     this.selectedOptions = const [],
     this.suffixIcon = Icons.arrow_drop_down,
@@ -243,13 +237,15 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
   @override
   Widget build(BuildContext context) {
     currentTypography = getTypography(context, false);
+    /// Responsive width based on screen size
     double width = AppView.isMobileView(MediaQuery.of(context).size)
-        ? 360
+        ? MediaQuery.of(context).size.width
         : AppView.isTabletView(MediaQuery.of(context).size)
-        ? 440
-        : 600;
-    double minWidth =
-    AppView.isMobileView(MediaQuery.of(context).size) ? 156 : 200;
+        ? BaseConstants.tabInputMaxWidth
+        : BaseConstants.desktopInputMaxWidth;
+    double minWidth = AppView.isMobileView(MediaQuery.of(context).size)
+        ? BaseConstants.mobileInputMinWidth
+        : BaseConstants.desktopInputMaxWidth;
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -298,12 +294,12 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                 return Container(
                   height: Common.height,
                   width: width,
-                  constraints: const BoxConstraints(
-                    minWidth: 200,
+                  constraints:  BoxConstraints(
+                    minWidth: minWidth,
                     minHeight: Common.height,
                   ),
                   padding: const EdgeInsets.symmetric(
-                    horizontal: kPadding,
+                    horizontal: spacer2,
                   ),
                   decoration: widget.isDisabled
                       ? _getDisabledContainerDecoration()
@@ -339,7 +335,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
         ),
         if (widget.helpText != null || widget.errorMessage != null)
           const SizedBox(
-            height: kPadding / 2,
+            height: spacer1,
           ),
         if (widget.helpText != null || widget.errorMessage != null)
           Row(
@@ -356,11 +352,11 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                     Column(
                       children: [
                         const SizedBox(
-                          height: 2,
+                          height: spacer1/2,
                         ),
                         SizedBox(
-                          height: 16,
-                          width: 16,
+                          height: spacer4,
+                          width: spacer4,
                           child: Icon(
                             Icons.info,
                             color: const DigitColors().light.alertError,
@@ -369,7 +365,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                         ),
                       ],
                     ),
-                    const SizedBox(width: kPadding / 2),
+                    const SizedBox(width: spacer1),
                     Flexible(
                       fit: FlexFit.tight,
                       child: Text(
@@ -397,7 +393,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
             ],
           ),
         const SizedBox(
-          height: kPadding,
+          height: spacer2,
         ),
         if (_anyItemSelected)
           SizedBox(
@@ -568,7 +564,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
       borderRadius: Common.radius,
       border: Border.all(
         color: const DigitColors().light.textDisabled,
-        width: 1,
+        width: Common.defaultBorderWidth,
       ),
     );
   }
@@ -580,7 +576,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
       borderRadius: Common.radius,
       border: Border.all(
         color: const DigitColors().light.genericInputBorder,
-        width: 1,
+        width: Common.defaultBorderWidth,
       ),
     );
   }
@@ -593,16 +589,16 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
       border: widget.errorMessage != null
           ? Border.all(
         color: const DigitColors().light.alertError,
-        width: 1.5,
+        width: Common.errorBorderWidth,
       )
           : _selectionMode
           ? Border.all(
         color: const DigitColors().light.primary1,
-        width: 1.5,
+        width: Common.focusedBorderWidth,
       )
           : Border.all(
         color: const DigitColors().light.genericInputBorder,
-        width: 1,
+        width: Common.defaultBorderWidth,
       ),
     );
   }
@@ -723,7 +719,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
     // Determine if all are selected initially by comparing lengths
     bool isAllSelected = selectedOptions.length == options.length;
     return Scrollbar(
-      radius: const Radius.circular(50),
+      radius: const Radius.circular(Common.defaultCircularRadius),
       thickness: 10,
       child: ConstrainedBox(
         constraints: BoxConstraints(
@@ -765,12 +761,12 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                 }
               },
               child: Container(
-                height: 40,
+                height: Common.height,
                 padding: const EdgeInsets.only(left: 10),
                 decoration: BoxDecoration(
                   border: Border.all(
                     color: const DigitColors().light.genericDivider,
-                    width: 1,
+                    width: Common.defaultBorderWidth,
                   ),
                   color: const DigitColors().light.paperSecondary,
                 ),
@@ -856,7 +852,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
     // Determine if all are selected initially by comparing lengths
     bool isAllSelected = selectedOptions.length == options.length;
     return Scrollbar(
-      radius: const Radius.circular(50),
+      radius: const Radius.circular(Common.defaultCircularRadius),
       thickness: 10,
       child: ConstrainedBox(
         constraints: BoxConstraints(
@@ -900,12 +896,12 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                 }
               },
               child: Container(
-                height: 40,
+                height: Common.height,
                 padding: const EdgeInsets.only(left: 10),
                 decoration: BoxDecoration(
                   border: Border.all(
                     color: const DigitColors().light.genericDivider,
-                    width: 1,
+                    width: Common.defaultBorderWidth,
                   ),
                   color: const DigitColors().light.paperSecondary,
                 ),
@@ -1082,7 +1078,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
             }).toList(),
             if (groupIndex != groupedOptions.length - 1)
               Container(
-                height: kPadding * 2,
+                height: spacer4,
                 color: const DigitColors().light.paperPrimary,
               ),
           ],
@@ -1108,8 +1104,8 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
   /// Build the selected items for the dropdown.
   Widget _buildSelectedItems() {
     return Wrap(
-      spacing: widget.chipConfig.spacing,
-      runSpacing: widget.chipConfig.runSpacing,
+      spacing: spacer2,
+      runSpacing: spacer2,
       alignment: WrapAlignment.start,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
@@ -1117,7 +1113,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
           final index = entry.key;
           final item = entry.value;
 
-          Widget chip = _buildChip(item, widget.chipConfig);
+          Widget chip = _buildChip(item);
 
           return IgnorePointer(
             ignoring: widget.readOnly,
@@ -1136,14 +1132,14 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
             highlightColor: const DigitColors().transparent,
             child: Container(
               padding: const EdgeInsets.symmetric(
-                horizontal: kPadding,
-                vertical: kPadding,
+                horizontal: spacer2,
+                vertical: spacer2,
               ),
               decoration: BoxDecoration(
                 border: Border.all(
                   color: const DigitColors().light.primary1,
                 ),
-                borderRadius: BorderRadius.circular(4),
+                borderRadius: BorderRadius.circular(spacer1),
                 color: const DigitColors().light.paperSecondary,
               ),
               child: Text(
@@ -1159,7 +1155,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
   }
 
   /// Build the selected item chip.
-  Widget _buildChip(DropdownItem item, ChipConfig chipConfig) {
+  Widget _buildChip(DropdownItem item) {
     return SelectionChip(
       label: widget.valueMapper!=null ? getAssociatedValue(item.code, widget.valueMapper!): widget.selectionType == SelectionType.nestedMultiSelect ? '${item.type}: ${item.name}' : item.name,
       onItemDelete: () {

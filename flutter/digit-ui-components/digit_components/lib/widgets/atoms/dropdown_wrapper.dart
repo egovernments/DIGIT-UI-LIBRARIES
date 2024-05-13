@@ -1,23 +1,10 @@
 import 'package:flutter/material.dart';
-
 import '../../enum/app_enums.dart';
 import '../../models/DropdownModels.dart';
 import '../../models/TreeModel.dart';
-import '../../models/chipModel.dart';
 import 'digit_dropdown_input.dart';
 import 'digit_multiselect_dropdown.dart';
 import 'digit_tree_select_dropdown.dart';
-
-enum Type {
-  singleSelect,
-  multiSelect,
-}
-
-enum DropdownSubtype {
-  defaultSelect,
-  nested,
-  tree,
-}
 
 class Dropdown extends StatelessWidget {
   final Type dropdownType;
@@ -41,7 +28,6 @@ class Dropdown extends StatelessWidget {
   final List<DropdownItem> options;
   final List<DropdownItem> selectedOptions;
   final OnOptionSelect<int>? onOptionSelected;
-  final ChipConfig chipConfig;
   final FocusNode? focusNode;
   final String clearAllText;
   final MultiSelectController<int>? controller;
@@ -75,7 +61,6 @@ class Dropdown extends StatelessWidget {
     this.selectionType = SelectionType.multiSelect,
     this.selectedOptions = const [],
     this.onOptionSelected,
-    this.chipConfig = const ChipConfig(),
     this.focusNode,
     this.controller,
     this.clearAllText = 'Clear All',
@@ -132,7 +117,6 @@ class Dropdown extends StatelessWidget {
                     readOnly: readOnly,
                     selectedOptions: selectedTreeOptions,
                     onOptionSelected: onTreeOptionSelected,
-                    chipConfig: chipConfig,
                     suffixIcon: suffixIcon,
                     focusNode: focusNode,
                     isDisabled: isDisabled,
@@ -150,7 +134,6 @@ class Dropdown extends StatelessWidget {
                 readOnly: readOnly,
                 selectedOptions: selectedOptions,
                 onOptionSelected: onOptionSelected,
-                chipConfig: chipConfig,
                 suffixIcon: suffixIcon,
                 focusNode: focusNode,
                 isDisabled: isDisabled,
@@ -167,7 +150,6 @@ class Dropdown extends StatelessWidget {
                     readOnly: readOnly,
                     selectedOptions: selectedOptions,
                     onOptionSelected: onOptionSelected,
-                    chipConfig: chipConfig,
                     suffixIcon: suffixIcon,
                     focusNode: focusNode,
                     isDisabled: isDisabled,
@@ -183,7 +165,6 @@ class Dropdown extends StatelessWidget {
                     readOnly: readOnly,
                     selectedOptions: selectedTreeOptions,
                     onOptionSelected: onTreeOptionSelected,
-                    chipConfig: chipConfig,
                     suffixIcon: suffixIcon,
                     focusNode: focusNode,
                     isDisabled: isDisabled,

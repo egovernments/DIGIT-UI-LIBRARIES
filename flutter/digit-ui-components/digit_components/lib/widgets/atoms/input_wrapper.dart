@@ -1,4 +1,3 @@
-
 import 'dart:html';
 
 import 'package:digit_ui_components/digit_components.dart';
@@ -14,7 +13,6 @@ import 'digit_password_form_input.dart';
 import 'digit_search_form_input.dart';
 import 'digit_text_area_form_input.dart';
 import 'digit_time_form_input.dart';
-
 
 enum InputType {
   text,
@@ -206,7 +204,8 @@ class InputField extends StatelessWidget {
           validations: validations,
           onChange: onChange,
           errorMessage: errorMessage,
-          inputFormatters: inputFormatters ?? [FilteringTextInputFormatter.digitsOnly],
+          inputFormatters:
+              inputFormatters ?? [FilteringTextInputFormatter.digitsOnly],
         );
       case InputType.password:
         return DigitPasswordFormInput(

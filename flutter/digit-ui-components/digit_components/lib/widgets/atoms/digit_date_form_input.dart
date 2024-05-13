@@ -1,26 +1,23 @@
+/// `DigitDateFormInput` is a customizable formfield widget that  extends the baseforminput.
+///
+/// Example usage:
+/// ```dart
+/// DigitDateFormInput(
+/// controller: _textController,
+/// label: 'Username',
+/// innerLabel: 'click on the icon to choose a date',
+/// charCount: true,
+/// helpText: 'This is a simple example of DigitDateFormInput',
+/// onChange: (value) {
+/// print(value);
+/// },
+/// ),```
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../blocs/DateSelection.dart';
 import '../../utils/validators/validator.dart';
 import 'digit_base_form_input.dart';
-
-/*
- `DigitDateFormInput` is a customizable formfield widget that  extends the baseforminput.
-
- Example usage:
- ```dart
- DigitDateFormInput(
- controller: _textController,
- label: 'Username',
- innerLabel: 'click on the icon to choose a date',
- charCount: true,
- helpText: 'This is a simple example of DigitDateFormInput',
- onChange: (value) {
- print(value);
- },
- ),
- ....
- */
 
 class DigitDateFormInput extends BaseDigitFormInput {
   const DigitDateFormInput({

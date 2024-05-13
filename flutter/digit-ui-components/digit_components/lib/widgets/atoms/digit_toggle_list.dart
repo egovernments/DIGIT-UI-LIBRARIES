@@ -1,4 +1,3 @@
-
 /// ToggleList is a row of toggle buttons that allows selecting one item at a time.
 
 ///  Example usage:
@@ -16,9 +15,9 @@
 ///  contentPadding: EdgeInsets.symmetric(horizontal: 16), // Optional content padding
 ///)
 
-
 import 'dart:math';
 
+import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/material.dart';
 import '../../models/toggleButtonModel.dart';
 import '../../theme/digit_theme.dart';
@@ -64,7 +63,7 @@ class _ToggleListState extends State<ToggleList> {
     for (ToggleButtonModel button in widget.toggleButtons) {
       TextPainter textPainter = TextPainter(
         text: TextSpan(
-          text:button.name,
+          text: button.name,
           style: const TextStyle(),
         ),
         textDirection: TextDirection.ltr,
@@ -82,17 +81,17 @@ class _ToggleListState extends State<ToggleList> {
       mainAxisAlignment: widget.mainAxisAlignment,
       crossAxisAlignment: widget.crossAxisAlignment,
       children: widget.toggleButtons.map(
-            (button) {
+        (button) {
           final index = widget.toggleButtons.indexOf(button);
           return Padding(
-            padding: widget.contentPadding ??
-                const EdgeInsets.only(bottom: kPadding),
+            padding:
+                widget.contentPadding ?? const EdgeInsets.only(bottom: spacer2),
             child: Toggle(
               onChanged: (isSelected) {
                 setState(() {
                   if (isSelected) {
                     if (selectedIndex != index) {
-                      // Unselect the previously selected item
+                      /// Unselect the previously selected item
                       selectedIndex = index;
                       widget.onChanged(button);
                     }
@@ -102,7 +101,7 @@ class _ToggleListState extends State<ToggleList> {
                   }
                 });
               },
-              label:button.name,
+              label: button.name,
               isSelected: selectedIndex == index,
               maxLabelWidth: maxLabelWidth,
             ),

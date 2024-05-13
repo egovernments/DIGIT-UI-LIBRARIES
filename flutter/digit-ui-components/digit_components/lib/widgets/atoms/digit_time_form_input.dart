@@ -1,24 +1,21 @@
-/*
- `DigitTextFormInput` is a customizable textformfield widget that extends the baseforminput
-
- Example usage:
- ```dart
- DigitTimeFormInput(
- controller: _textController,
- label: 'Time Picker',
- innerLabel: 'click on the icon to select a time',
- charCount: true,
- helpText: 'This is a simple example of DigitTimeFormInput',
- onChange: (value) {
- print(value);
- },
- ),
- ....*/
+///`DigitTextFormInput` is a customizable textformfield widget that extends the baseforminput
+///
+/// Example usage:
+/// ```dart
+/// DigitTimeFormInput(
+/// controller: _textController,
+/// label: 'Time Picker',
+/// innerLabel: 'click on the icon to select a time',
+/// charCount: true,
+/// helpText: 'This is a simple example of DigitTimeFormInput',
+/// onChange: (value) {
+/// print(value);
+/// },
+/// ),
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../blocs/TimeSelectionBloc.dart';
-import '../../utils/time_utils.dart';
 import '../../utils/validators/validator.dart';
 import 'digit_base_form_input.dart';
 

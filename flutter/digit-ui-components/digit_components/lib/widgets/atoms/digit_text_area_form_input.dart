@@ -1,20 +1,17 @@
-/*
 /// `DigitTextAreaFormInput` is a customizable formfield widget that extends the baseforminput.
-
- Example usage:
- ```dart
- DigitTextAreaFormInput(
- controller: _textController,
- label: 'Description',
- innerLabel: 'Enter your details',
- charCount: true,
- helpText: 'This is a simple example of DigitTextAreaFormInput',
- onChange: (value) {
- print(value);
- },
- ),
- ....*/
-
+///
+/// Example usage:
+/// ```dart
+/// DigitTextAreaFormInput(
+/// controller: _textController,
+/// label: 'Description',
+/// innerLabel: 'Enter your details',
+/// charCount: true,
+/// helpText: 'This is a simple example of DigitTextAreaFormInput',
+/// onChange: (value) {
+/// print(value);
+/// },
+/// ),
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

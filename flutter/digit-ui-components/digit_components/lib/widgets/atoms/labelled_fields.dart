@@ -1,3 +1,4 @@
+import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants/AppView.dart';
@@ -54,9 +55,8 @@ class LabeledField extends StatelessWidget {
     DigitTypography currentTypography = getTypography(context, false);
 
     /// Capitalize the first letter of the label if required
-    final processedLabel = capitalizedFirstLetter
-        ? capitalizeFirstLetter(label)
-        : label;
+    final processedLabel =
+        capitalizedFirstLetter ? capitalizeFirstLetter(label) : label;
 
     bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
     if (isMobile || !labelInline) {
@@ -86,7 +86,7 @@ class LabeledField extends StatelessWidget {
                     color: const DigitColors().light.alertError,
                   ),
                 ),
-              if (info == true) const SizedBox(width: kPadding / 2),
+              if (info == true) const SizedBox(width: spacer1),
               if (info == true)
                 Tooltip(
                   message: infoText,
@@ -94,20 +94,18 @@ class LabeledField extends StatelessWidget {
                   triggerMode: triggerMode,
                   child: const Icon(
                     Icons.info_outline,
-                    size: 16,
+                    size: spacer4,
                   ),
                 )
             ],
           ),
           const SizedBox(
-            height: 4,
+            height: spacer1,
           ),
           child,
         ],
       );
-
-    }
-    else {
+    } else {
       return Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
@@ -140,7 +138,7 @@ class LabeledField extends StatelessWidget {
                       color: const DigitColors().light.alertError,
                     ),
                   ),
-                if (info == true) const SizedBox(width: kPadding / 2),
+                if (info == true) const SizedBox(width: spacer1),
                 if (info == true)
                   Tooltip(
                     message: infoText,
@@ -148,7 +146,7 @@ class LabeledField extends StatelessWidget {
                     triggerMode: triggerMode,
                     child: Icon(
                       Icons.info_outline,
-                      size: 19,
+                      size: spacer5,
                       color: const DigitColors().light.textSecondary,
                     ),
                   ),
@@ -156,7 +154,7 @@ class LabeledField extends StatelessWidget {
             ),
           ),
           const SizedBox(
-            width: 16,
+            width: spacer4,
           ),
           Flexible(
             child: child,

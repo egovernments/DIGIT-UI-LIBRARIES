@@ -1,7 +1,5 @@
-
 /// `RadioList` is a widget for rendering a list of radio buttons.
 /// This widget provides options for radio buttons, handling hover effects, and a disabled state.
-
 /// Example usage:
 /// ```dart
 /// RadioList(
@@ -15,7 +13,6 @@
 ///   groupValue: 'option1', // can be passed same to select value initially
 ///   isDisabled: false,
 /// )
-
 
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/material.dart';
@@ -104,7 +101,7 @@ class _RadioListState extends State<RadioList> {
 
   List<Widget> _buildRadioButtons(DigitTypography currentTypography) {
     return widget.radioButtons.map(
-          (button) {
+      (button) {
         final index = widget.radioButtons.indexOf(button);
         return Padding(
           padding: widget.containerPadding,
@@ -115,41 +112,49 @@ class _RadioListState extends State<RadioList> {
             children: [
               Column(
                 children: [
-                  SizedBox(height: isMobile? 0 : 2,),
+                  SizedBox(
+                    height: isMobile ? 0 : spacer1 / 2,
+                  ),
                   InkWell(
                     hoverColor: const DigitColors().transparent,
                     splashColor: const DigitColors().transparent,
                     highlightColor: const DigitColors().transparent,
-                    onHover: widget.isDisabled ? null  : (hover) {
-                      setState(() {
-                        isHoveredList[index] = hover;
-                      });
-                    },
-                    onTapDown: widget.isDisabled ? null :  (_) {
-                      /// Handle mouse down state
-                      setState(() {
-                        isMouseDown[index] = true;
-                      });
-                    },
-                    onTapUp: widget.isDisabled ? null : (_) {
-                      /// Handle mouse up state
-                      setState(() {
-                        isMouseDown[index] = false;
-                      });
-                    },
+                    onHover: widget.isDisabled
+                        ? null
+                        : (hover) {
+                            setState(() {
+                              isHoveredList[index] = hover;
+                            });
+                          },
+                    onTapDown: widget.isDisabled
+                        ? null
+                        : (_) {
+                            /// Handle mouse down state
+                            setState(() {
+                              isMouseDown[index] = true;
+                            });
+                          },
+                    onTapUp: widget.isDisabled
+                        ? null
+                        : (_) {
+                            /// Handle mouse up state
+                            setState(() {
+                              isMouseDown[index] = false;
+                            });
+                          },
                     onTap: widget.isDisabled
                         ? null
                         : () {
-                      if (mounted) {
-                        setState(() {
-                          /// Update the selected value and call the onChanged callback
-                          widget.groupValue = button.code;
-                        });
-                        widget.onChanged!(button);
-                      }
-                    },
+                            if (mounted) {
+                              setState(() {
+                                /// Update the selected value and call the onChanged callback
+                                widget.groupValue = button.code;
+                              });
+                              widget.onChanged!(button);
+                            }
+                          },
                     child: Container(
-                      padding: const EdgeInsets.all(kPadding / 2),
+                      padding: const EdgeInsets.all(spacer1),
                       width: widget.radioWidth,
                       height: widget.radioHeight,
                       decoration: BoxDecoration(
@@ -158,55 +163,55 @@ class _RadioListState extends State<RadioList> {
                           color: widget.isDisabled
                               ? const DigitColors().light.genericDivider
                               : (widget.groupValue == button.code ||
-                              isHoveredList[index] ||
-                              isMouseDown[index])
-                              ? const DigitColors().light.primary1
-                              : const DigitColors().light.textSecondary,
+                                      isHoveredList[index] ||
+                                      isMouseDown[index])
+                                  ? const DigitColors().light.primary1
+                                  : const DigitColors().light.textSecondary,
                           width: (widget.isDisabled &&
-                              widget.groupValue == button.code) ||
-                              widget.groupValue == button.code
-                              ? 2.0
-                              : 1.0,
+                                      widget.groupValue == button.code) ||
+                                  widget.groupValue == button.code
+                              ? Common.selectedBorderWidth
+                              : Common.defaultBorderWidth,
                         ),
                         color: widget.isDisabled
                             ? const DigitColors().light.paperSecondary
                             : isMouseDown[index]
-                            ? const DigitColors().light.primary1Bg
-                            : const DigitColors().light.paperPrimary,
+                                ? const DigitColors().light.primary1Bg
+                                : const DigitColors().light.paperPrimary,
                         boxShadow: isMouseDown[index]
                             ? [
-                          BoxShadow(
-                            color: const DigitColors().light.primary1Bg,
-                            spreadRadius: 3,
-                            blurRadius: 3,
-                            offset: const Offset(0, 0),
-                          ),
-                        ]
+                                BoxShadow(
+                                  color: const DigitColors().light.primary1Bg,
+                                  spreadRadius: 3,
+                                  blurRadius: 3,
+                                  offset: const Offset(0, 0),
+                                ),
+                              ]
                             : [],
                       ),
                       child: widget.groupValue == button.code
                           ? Container(
-                        height: 12,
-                        width: 12,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: widget.isDisabled
-                              ? const DigitColors().light.textDisabled
-                              : const DigitColors().light.primary1,
-                        ),
-                      )
+                              height: spacer3,
+                              width: spacer3,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: widget.isDisabled
+                                    ? const DigitColors().light.textDisabled
+                                    : const DigitColors().light.primary1,
+                              ),
+                            )
                           : null,
                     ),
                   ),
                 ],
               ),
               const SizedBox(
-                width: kPadding,
+                width: spacer2,
               ),
               Flexible(
                 fit: FlexFit.loose,
                 child: Padding(
-                  padding:  EdgeInsets.only(top: isMobile ? 2.0: 0),
+                  padding: EdgeInsets.only(top: isMobile ? spacer1 / 2 : 0),
                   child: Text(
                     capitalizeFirstLetter(button.name)!,
                     maxLines: 5,

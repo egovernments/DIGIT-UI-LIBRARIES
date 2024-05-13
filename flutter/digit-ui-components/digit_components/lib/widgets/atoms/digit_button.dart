@@ -10,6 +10,7 @@
 ///   onPressed: () {
 ///    // Handle button press
 ///   },
+///   size: ButtonSize.large
 ///   type: ButtonType.primary,
 ///   prefixIcon: Icons.star,
 ///   suffixIcon: Icons.arrow_forward,
@@ -33,6 +34,7 @@ class Button extends StatefulWidget {
   /// Specifies the type or style of the button (primary, secondary, tertiary, or link).
   final ButtonType type;
 
+  /// Specifies the size of the button (large, medium, small).
   final ButtonSize size;
 
   /// Icon to be displayed before the label text. Can be null if no prefix icon is needed.
@@ -161,10 +163,10 @@ class _ButtonState extends State<Button> {
         },
         child: Container(
           height: widget.size == ButtonSize.large
-              ? 40
+              ? ButtonConstants.largeButtonSize
               : widget.size == ButtonSize.medium
-              ? 32
-              : 24,
+              ? ButtonConstants.mediumButtonSize
+              : ButtonConstants.smallButtonSize,
           decoration: BoxDecoration(
             boxShadow: (isMouseDown)
                 ? [
@@ -205,7 +207,7 @@ class _ButtonState extends State<Button> {
               color: widget.isDisabled
                   ? const DigitColors().light.textDisabled
                   : const DigitColors().light.primary1,
-              width: ButtonConstants.defaultWidth,
+              width: Common.defaultBorderWidth,
             ),
             color: widget.type == ButtonType.primary
                 ? (widget.isDisabled
@@ -255,9 +257,6 @@ class _ButtonState extends State<Button> {
             isMouseDown = false;
           });
         },
-        // hoverColor: const DigitColors().transparent,
-        // splashColor: const DigitColors().transparent,
-        // highlightColor: const DigitColors().transparent,
         child: _buildButton(isHovered, isMouseDown, isFocused),
       );
     }
@@ -282,7 +281,7 @@ class _ButtonState extends State<Button> {
       child: Padding(
         padding: widget.type == ButtonType.link ||
             widget.type == ButtonType.tertiary
-            ? const EdgeInsets.all(kPadding)
+            ? const EdgeInsets.all(spacer2)
             : widget.contentPadding,
         child: Row(
           mainAxisSize: widget.mainAxisSize ?? MainAxisSize.min,
@@ -301,7 +300,7 @@ class _ButtonState extends State<Button> {
               ),
               SizedBox(
                   width:
-                  widget.type == ButtonType.link || widget.size == ButtonSize.small  || widget.size == ButtonSize.medium? kPadding/2 : kPadding),
+                  widget.type == ButtonType.link || widget.size == ButtonSize.small  || widget.size == ButtonSize.medium? spacer1 : spacer2),
             ],
             Flexible(
               child: Text(
@@ -333,7 +332,7 @@ class _ButtonState extends State<Button> {
             if (widget.suffixIcon != null) ...[
               SizedBox(
                   width:
-                  widget.type == ButtonType.link || widget.size == ButtonSize.small || widget.size == ButtonSize.medium ? kPadding/2 : kPadding),
+                  widget.type == ButtonType.link || widget.size == ButtonSize.small || widget.size == ButtonSize.medium ? spacer1 : spacer2),
               Icon(
                 widget.suffixIcon,
                 size: widget.type == ButtonType.link ? linkIconSize : widget.iconSize ?? buttonIconSize,

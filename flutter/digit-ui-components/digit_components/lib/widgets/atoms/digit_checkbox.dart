@@ -100,11 +100,12 @@ class _DigitCheckboxState extends State<DigitCheckbox> {
             children: [
               Column(
                 children: [
-                  const SizedBox(height: 2,),
+                  const SizedBox(height: spacer1/2,),
                   InkWell(
                     hoverColor: const DigitColors().transparent,
                     splashColor: const DigitColors().transparent,
                     highlightColor: const DigitColors().transparent,
+                    focusColor: const DigitColors().transparent,
                     onFocusChange: (value){
                       setState(() {
                         isFocused = value;
@@ -139,7 +140,7 @@ class _DigitCheckboxState extends State<DigitCheckbox> {
                   ),
                 ],
               ),
-              const SizedBox(width: kPadding*2),
+              const SizedBox(width: spacer4),
               Expanded(
                 child: Align(
                   alignment: Alignment.topCenter,
