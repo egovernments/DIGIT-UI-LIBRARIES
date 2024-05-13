@@ -122,6 +122,10 @@ class _ButtonState extends State<Button> {
     if (widget.type == ButtonType.primary ||
         widget.type == ButtonType.secondary) {
       return InkWell(
+        highlightColor: const DigitColors().transparent,
+        hoverColor: const DigitColors().transparent,
+        splashColor: const DigitColors().transparent,
+        focusColor: const DigitColors().transparent,
         onFocusChange: (value){
           setState(() {
             isFocused = value;
@@ -155,8 +159,6 @@ class _ButtonState extends State<Button> {
             widget.onPressed();
           }
         },
-        splashColor: const DigitColors().transparent,
-        hoverColor: const DigitColors().transparent,
         child: Container(
           height: widget.size == ButtonSize.large
               ? 40
@@ -216,7 +218,10 @@ class _ButtonState extends State<Button> {
       );
     } else {
       return InkWell(
-        focusColor: const DigitColors().light.textPrimary,
+        highlightColor: const DigitColors().transparent,
+        hoverColor: const DigitColors().transparent,
+        splashColor: const DigitColors().transparent,
+        focusColor: const DigitColors().transparent,
         onFocusChange: (value){
           setState(() {
             isFocused = value;

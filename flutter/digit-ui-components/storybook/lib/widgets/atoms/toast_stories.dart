@@ -3,7 +3,7 @@ import 'package:digit_ui_components/widgets/atoms/digit_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
 
-List<Story> ToastStories() {
+List<Story> toastStories() {
   return [
     Story(
       name: 'Atom/Animated Toast/Success',

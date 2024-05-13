@@ -6,8 +6,12 @@ import 'package:storybook/widgets/atoms/button_stories.dart';
 import 'package:storybook/widgets/atoms/checkbox_stories.dart';
 import 'package:storybook/widgets/atoms/chip_stories.dart';
 import 'package:storybook/widgets/atoms/dropdown_stories.dart';
+import 'package:storybook/widgets/atoms/flie_upload_stories.dart';
 import 'package:storybook/widgets/atoms/input_field_stories.dart';
 import 'package:storybook/widgets/atoms/radio_list_stories.dart';
+import 'package:storybook/widgets/atoms/stepper_stories.dart';
+import 'package:storybook/widgets/atoms/timeline_stories.dart';
+import 'package:storybook/widgets/atoms/toast_stories.dart';
 import 'package:storybook/widgets/atoms/toggle_stories.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
 
@@ -35,11 +39,15 @@ class MyApp extends StatelessWidget {
               ...buttonStories(),
               ...checkboxStories(),
               ...chipStories(),
+              ...toastStories(),
               ...infoCardStories(),
+              ...timeLineStories(),
               ...inputFieldStories(),
               ...radioListStories(),
               ...toggleGroupStories(),
               ...dropdownStories(),
+              ...stepperStories(),
+              ...fileUploaderStories(),
             ],
           ),
         ),
