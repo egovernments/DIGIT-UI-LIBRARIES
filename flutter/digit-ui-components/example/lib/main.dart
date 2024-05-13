@@ -1,4 +1,3 @@
-
 import 'package:digit_ui_components/enum/app_enums.dart';
 import 'package:digit_ui_components/models/DropdownModels.dart';
 import 'package:digit_ui_components/models/RadioButtonModel.dart';
@@ -11,6 +10,7 @@ import 'package:digit_ui_components/widgets/atoms/input_wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:url_strategy/url_strategy.dart';
+import 'dart:io';
 
 final List<TreeNode> Nodes = [
   TreeNode('A', 'A', [
@@ -77,6 +77,7 @@ final controller42 = TextEditingController();
 final TreeSelectController<int> _controller = TreeSelectController();
 final controller = MultiSelectController<int>();
 final controllerM1 = MultiSelectController<int>();
+int stepNumber = 0;
 
 void main() {
   /// Here we set the URL strategy for our web app.
@@ -94,8 +95,8 @@ class MyApp extends StatelessWidget {
       title: 'Digit UI Flutter',
       theme: DigitTheme.instance.mobileTheme.copyWith(
           appBarTheme: AppBarTheme(
-        backgroundColor: DigitTheme.instance.colorScheme.secondary,
-      )),
+            backgroundColor: DigitTheme.instance.colorScheme.secondary,
+          )),
       home: const MyHomePage(title: 'Digit Components Page'),
     );
   }
@@ -161,15 +162,17 @@ class MyHomePageState extends State<MyHomePage> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                InputField(
-                  type: InputType.text,
+                LabeledField(
                   label: "Text Field",
-                  controller: controller1,
-                  innerLabel: 'label',
-                  info: true,
-                  infoText: 'this is infoText',
-                  helpText: 'help text',
-                  charCount: true,
+                  child: InputField(
+                    type: InputType.text,
+                    controller: controller1,
+                    innerLabel: 'label',
+                    info: true,
+                    infoText: 'this is infoText',
+                    helpText: 'help text',
+                    charCount: true,
+                  ),
                 ),
                 const SizedBox(
                   height: 8,
@@ -188,46 +191,54 @@ class MyHomePageState extends State<MyHomePage> {
                       const SizedBox(
                         height: 8,
                       ),
-                      InputField(
-                        type: InputType.text,
+                      LabeledField(
                         label: "Text Field With Validation",
-                        controller: controller2,
-                        innerLabel: 'label',
-                        helpText: 'help text',
-                        charCount: true,
-                        validations: [
-                          Validator(ValidatorType.maxLength, 10,
-                              errorMessage: 'Maximum length is 10.'),
-                          Validator(ValidatorType.pattern, r'^[a-zA-Z0-9]+$',
-                              errorMessage: 'long error message long error message long error message long error message long error message'),
-                        ],
+                        child: InputField(
+                          type: InputType.text,
+                          controller: controller2,
+                          innerLabel: 'label',
+                          helpText: 'help text',
+                          charCount: true,
+                          validations: [
+                            Validator(ValidatorType.maxLength, 10,
+                                errorMessage: 'Maximum length is 10.'),
+                            Validator(ValidatorType.pattern, r'^[a-zA-Z0-9]+$',
+                                errorMessage: 'Long error message long error message long error message long error message long error message'),
+                          ],
+                        ),
                       ),
-                      InputField(
-                        type: InputType.text,
+                      LabeledField(
                         label: "Text Field With Required State",
-                        controller: TextEditingController(),
-                        innerLabel: 'label',
-                        charCount: true,
-                        helpText: 'help text',
-                        isRequired: true,
+                        child: InputField(
+                          type: InputType.text,
+                          controller: TextEditingController(),
+                          innerLabel: 'label',
+                          charCount: true,
+                          helpText: 'help text',
+                          isRequired: true,
+                        ),
                       ),
-                      InputField(
-                        type: InputType.text,
+                      LabeledField(
                         label: "Text Field With Disabled State",
-                        controller: TextEditingController(),
-                        innerLabel: 'label',
-                        helpText: 'help text',
-                        isDisabled: true,
-                        charCount: true,
+                        child: InputField(
+                          type: InputType.text,
+                          controller: TextEditingController(),
+                          innerLabel: 'label',
+                          helpText: 'help text',
+                          isDisabled: true,
+                          charCount: true,
+                        ),
                       ),
-                      InputField(
-                        type: InputType.text,
+                      LabeledField(
                         label: "Text Field With Read Only State",
-                        controller: TextEditingController(),
-                        innerLabel: 'label',
-                        initialValue: 'ReadOnly',
-                        helpText: 'help text',
-                        readOnly: true,
+                        child: InputField(
+                          type: InputType.text,
+                          controller: TextEditingController(),
+                          innerLabel: 'label',
+                          initialValue: 'ReadOnly',
+                          helpText: 'help text',
+                          readOnly: true,
+                        ),
                       ),
                     ],
                   ),
@@ -238,13 +249,15 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 8,
                 ),
-                InputField(
-                  type: InputType.textArea,
-                  controller: controller23,
+                LabeledField(
                   label: "Text Area",
-                  innerLabel: 'label',
-                  helpText: 'help text',
-                  textAreaScroll: TextAreaScroll.smart,
+                  child: InputField(
+                    type: InputType.textArea,
+                    controller: controller23,
+                    innerLabel: 'label',
+                    helpText: 'help text',
+                    textAreaScroll: TextAreaScroll.smart,
+                  ),
                 ),
                 const SizedBox(
                   height: 8,
@@ -263,41 +276,49 @@ class MyHomePageState extends State<MyHomePage> {
                       const SizedBox(
                         height: 8,
                       ),
-                      InputField(
-                        type: InputType.textArea,
+                      LabeledField(
                         label: "TextArea Field With Vertical Scroll",
-                        controller: controller24,
-                        innerLabel: 'label',
-                        helpText: 'help text',
-                        textAreaScroll: TextAreaScroll.vertical,
+                        child: InputField(
+                          type: InputType.textArea,
+                          controller: controller24,
+                          innerLabel: 'label',
+                          helpText: 'help text',
+                          textAreaScroll: TextAreaScroll.vertical,
+                        ),
                       ),
-                      InputField(
-                        type: InputType.textArea,
-                        textAreaScroll: TextAreaScroll.none,
+                      LabeledField(
                         label: "TextArea Field With Disabled State",
-                        controller: TextEditingController(),
-                        innerLabel: 'label',
-                        helpText: 'help text',
-                        isDisabled: true,
+                        child: InputField(
+                          type: InputType.textArea,
+                          textAreaScroll: TextAreaScroll.none,
+                          controller: TextEditingController(),
+                          innerLabel: 'label',
+                          helpText: 'help text',
+                          isDisabled: true,
+                        ),
                       ),
-                      InputField(
-                        type: InputType.textArea,
-                        textAreaScroll: TextAreaScroll.none,
+                      LabeledField(
                         label: "TextArea Field With Required State",
-                        controller: TextEditingController(),
-                        innerLabel: 'label',
-                        helpText: 'help text',
-                        isRequired: true,
+                        child: InputField(
+                          type: InputType.textArea,
+                          textAreaScroll: TextAreaScroll.none,
+                          controller: TextEditingController(),
+                          innerLabel: 'label',
+                          helpText: 'help text',
+                          isRequired: true,
+                        ),
                       ),
-                      InputField(
-                        type: InputType.textArea,
+                      LabeledField(
                         label: "TextArea Field With Read Only State",
-                        controller: TextEditingController(),
-                        innerLabel: 'label',
-                        initialValue: 'ReadOnly',
-                        helpText: 'help text',
-                        readOnly: true,
-                        textAreaScroll: TextAreaScroll.none,
+                        child: InputField(
+                          type: InputType.textArea,
+                          controller: TextEditingController(),
+                          innerLabel: 'label',
+                          initialValue: 'ReadOnly',
+                          helpText: 'help text',
+                          readOnly: true,
+                          textAreaScroll: TextAreaScroll.none,
+                        ),
                       ),
                     ],
                   ),
@@ -308,12 +329,14 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 8,
                 ),
-                InputField(
-                  type: InputType.date,
+                LabeledField(
                   label: "Date Field",
-                  controller: controller6,
-                  innerLabel: 'innerlabel',
-                  helpText: 'help text',
+                  child: InputField(
+                    type: InputType.date,
+                    controller: controller6,
+                    innerLabel: 'innerlabel',
+                    helpText: 'help text',
+                  ),
                 ),
                 const SizedBox(
                   height: 8,
@@ -332,38 +355,46 @@ class MyHomePageState extends State<MyHomePage> {
                       const SizedBox(
                         height: 8,
                       ),
-                      InputField(
-                        type: InputType.date,
+                      LabeledField(
                         label: "Date Field With Editable Input",
-                        controller: controller36,
-                        innerLabel: 'innerlabel',
-                        helpText: 'help text',
-                        editable: true,
+                        child: InputField(
+                          type: InputType.date,
+                          controller: controller36,
+                          innerLabel: 'innerlabel',
+                          helpText: 'help text',
+                          editable: true,
+                        ),
                       ),
-                      InputField(
-                        type: InputType.date,
+                      LabeledField(
                         label: "Date Field With Disabled State",
-                        controller: TextEditingController(),
-                        innerLabel: 'innerlabel',
-                        helpText: 'help text',
-                        isDisabled: true,
+                        child: InputField(
+                          type: InputType.date,
+                          controller: TextEditingController(),
+                          innerLabel: 'innerlabel',
+                          helpText: 'help text',
+                          isDisabled: true,
+                        ),
                       ),
-                      InputField(
-                        type: InputType.date,
-                        label: "Date Field With ReadOnly State",
-                        controller: TextEditingController(),
-                        innerLabel: 'innerlabel',
-                        initialValue: "12/07/2023",
-                        helpText: 'help text',
-                        readOnly: true,
+                      LabeledField(
+                        child: InputField(
+                          label: "Date Field With ReadOnly State",
+                          type: InputType.date,
+                          controller: TextEditingController(),
+                          innerLabel: 'innerlabel',
+                          initialValue: "12/07/2023",
+                          helpText: 'help text',
+                          readOnly: true,
+                        ),
                       ),
-                      InputField(
-                        type: InputType.date,
+                      LabeledField(
                         label: "Date Field With Required State",
-                        controller: TextEditingController(),
-                        innerLabel: 'innerlabel',
-                        helpText: 'help text',
-                        isRequired: true,
+                        child: InputField(
+                          type: InputType.date,
+                          controller: TextEditingController(),
+                          innerLabel: 'innerlabel',
+                          helpText: 'help text',
+                          isRequired: true,
+                        ),
                       ),
                     ],
                   ),
@@ -374,12 +405,14 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 8,
                 ),
-                InputField(
-                  type: InputType.time,
+                LabeledField(
                   label: "Time Field",
-                  controller: controller8,
-                  innerLabel: 'innerlabel',
-                  helpText: 'help text',
+                  child: InputField(
+                    type: InputType.time,
+                    controller: controller8,
+                    innerLabel: 'innerlabel',
+                    helpText: 'help text',
+                  ),
                 ),
                 const SizedBox(
                   height: 8,
@@ -398,37 +431,45 @@ class MyHomePageState extends State<MyHomePage> {
                       const SizedBox(
                         height: 8,
                       ),
-                      InputField(
-                        type: InputType.time,
+                      LabeledField(
                         label: "Time Field with Editable Input",
-                        controller: controller37,
-                        innerLabel: 'innerlabel',
-                        helpText: 'help text',
-                        editable: true,
+                        child: InputField(
+                          type: InputType.time,
+                          controller: controller37,
+                          innerLabel: 'innerlabel',
+                          helpText: 'help text',
+                          editable: true,
+                        ),
                       ),
-                      InputField(
-                        type: InputType.time,
+                      LabeledField(
                         label: "Time Field With Disabled State",
-                        controller: TextEditingController(),
-                        innerLabel: 'innerlabel',
-                        helpText: 'help text',
-                        isDisabled: true,
+                        child: InputField(
+                          type: InputType.time,
+                          controller: TextEditingController(),
+                          innerLabel: 'innerlabel',
+                          helpText: 'help text',
+                          isDisabled: true,
+                        ),
                       ),
-                      InputField(
-                        type: InputType.time,
+                      LabeledField(
                         label: "Time Field With Required State",
-                        controller: TextEditingController(),
-                        innerLabel: 'innerlabel',
-                        helpText: 'help text',
-                        isRequired: true,
+                        child: InputField(
+                          type: InputType.time,
+                          controller: TextEditingController(),
+                          innerLabel: 'innerlabel',
+                          helpText: 'help text',
+                          isRequired: true,
+                        ),
                       ),
-                      InputField(
-                        type: InputType.time,
+                      LabeledField(
                         label: "Time Field with ReadOnly State",
-                        controller: controller9,
-                        innerLabel: 'innerlabel',
-                        readOnly: true,
-                        initialValue: '11:56 PM',
+                        child: InputField(
+                          type: InputType.time,
+                          controller: controller9,
+                          innerLabel: 'innerlabel',
+                          readOnly: true,
+                          initialValue: '11:56 PM',
+                        ),
                       ),
                     ],
                   ),
@@ -439,12 +480,14 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 8,
                 ),
-                InputField(
-                  type: InputType.search,
+                LabeledField(
                   label: "Search Field",
-                  controller: controller10,
-                  innerLabel: 'innerlabel',
-                  helpText: 'help text',
+                  child: InputField(
+                    type: InputType.search,
+                    controller: controller10,
+                    innerLabel: 'innerlabel',
+                    helpText: 'help text',
+                  ),
                 ),
                 const SizedBox(
                   height: 8,
@@ -463,30 +506,36 @@ class MyHomePageState extends State<MyHomePage> {
                       const SizedBox(
                         height: 8,
                       ),
-                      InputField(
-                        type: InputType.search,
-                        isDisabled: true,
+                      LabeledField(
                         label: "Search Field With Disabled State",
-                        controller: TextEditingController(),
-                        innerLabel: 'innerlabel',
-                        helpText: 'help text',
+                        child: InputField(
+                          type: InputType.search,
+                          isDisabled: true,
+                          controller: TextEditingController(),
+                          innerLabel: 'innerlabel',
+                          helpText: 'help text',
+                        ),
                       ),
-                      InputField(
-                        type: InputType.search,
+                      LabeledField(
                         label: "Search Field With ReadOnly State",
-                        controller: TextEditingController(),
-                        innerLabel: 'innerlabel',
-                        initialValue: "search",
-                        helpText: 'help text',
-                        readOnly: true,
+                        child: InputField(
+                          type: InputType.search,
+                          controller: TextEditingController(),
+                          innerLabel: 'innerlabel',
+                          initialValue: "search",
+                          helpText: 'help text',
+                          readOnly: true,
+                        ),
                       ),
-                      InputField(
-                        type: InputType.search,
+                      LabeledField(
                         label: "Search Field With Required State",
-                        controller: TextEditingController(),
-                        innerLabel: 'innerlabel',
-                        helpText: 'help text',
-                        isRequired: true,
+                        child: InputField(
+                          type: InputType.search,
+                          controller: TextEditingController(),
+                          innerLabel: 'innerlabel',
+                          helpText: 'help text',
+                          isRequired: true,
+                        ),
                       ),
                     ],
                   ),
@@ -497,15 +546,17 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 8,
                 ),
-                InputField(
-                  type: InputType.password,
+                LabeledField(
                   label: "password Field",
-                  controller: controller12,
-                  innerLabel: 'innerlabel',
-                  helpText: 'help text',
-                  charCount: true,
-                  info: true,
-                  infoText: 'this is infoText',
+                  child: InputField(
+                    type: InputType.password,
+                    controller: controller12,
+                    innerLabel: 'innerlabel',
+                    helpText: 'help text',
+                    charCount: true,
+                    info: true,
+                    infoText: 'this is infoText',
+                  ),
                 ),
                 const SizedBox(
                   height: 8,
@@ -524,34 +575,40 @@ class MyHomePageState extends State<MyHomePage> {
                       const SizedBox(
                         height: 8,
                       ),
-                      InputField(
-                        type: InputType.password,
+                      LabeledField(
                         label: "password Field With min 8 char validation",
-                        controller: controller13,
-                        innerLabel: 'innerlabel',
-                        helpText: 'help text',
-                        validations: [
-                          Validator(ValidatorType.minLength, 8,
-                              errorMessage:
-                                  'Password must be at least 8 characters.'),
-                        ],
+                        child: InputField(
+                          type: InputType.password,
+                          controller: controller13,
+                          innerLabel: 'innerlabel',
+                          helpText: 'help text',
+                          validations: [
+                            Validator(ValidatorType.minLength, 8,
+                                errorMessage:
+                                'Password must be at least 8 characters.'),
+                          ],
+                        ),
                       ),
-                      InputField(
-                        type: InputType.password,
+                      LabeledField(
                         label: "password Field With ReadOnly State",
-                        controller: controller14,
-                        innerLabel: 'innerlabel',
-                        initialValue: 'initialValue',
-                        helpText: 'help text',
-                        readOnly: true,
+                        child: InputField(
+                          type: InputType.password,
+                          controller: controller14,
+                          innerLabel: 'innerlabel',
+                          initialValue: 'initialValue',
+                          helpText: 'help text',
+                          readOnly: true,
+                        ),
                       ),
-                      InputField(
-                        type: InputType.password,
+                      LabeledField(
                         label: "password Field With Disable State",
-                        controller: TextEditingController(),
-                        innerLabel: 'innerlabel',
-                        helpText: 'help text',
-                        isDisabled: true,
+                        child: InputField(
+                          type: InputType.password,
+                          controller: TextEditingController(),
+                          innerLabel: 'innerlabel',
+                          helpText: 'help text',
+                          isDisabled: true,
+                        ),
                       ),
                     ],
                   ),
@@ -562,13 +619,15 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 8,
                 ),
-                InputField(
-                  type: InputType.numeric,
+                LabeledField(
                   label: "Numeric Field",
-                  controller: controller15,
-                  innerLabel: 'innerlabel',
-                  helpText: 'help text',
-                  initialValue: '0',
+                  child: InputField(
+                    type: InputType.numeric,
+                    controller: controller15,
+                    innerLabel: 'innerlabel',
+                    helpText: 'help text',
+                    initialValue: '0',
+                  ),
                 ),
                 const SizedBox(
                   height: 8,
@@ -587,32 +646,38 @@ class MyHomePageState extends State<MyHomePage> {
                       const SizedBox(
                         height: 8,
                       ),
-                      InputField(
-                        type: InputType.numeric,
+                      LabeledField(
                         label: "Numeric Field With Editable",
-                        controller: controller16,
-                        innerLabel: 'innerlabel',
-                        helpText: 'help text',
-                        initialValue: '0',
-                        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                        editable: true,
+                        child: InputField(
+                          type: InputType.numeric,
+                          controller: controller16,
+                          innerLabel: 'innerlabel',
+                          helpText: 'help text',
+                          initialValue: '0',
+                          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                          editable: true,
+                        ),
                       ),
-                      InputField(
-                        type: InputType.numeric,
+                      LabeledField(
                         label: "Numeric Field with Disabled State",
-                        controller: TextEditingController(),
-                        innerLabel: 'innerlabel',
-                        helpText: 'help text',
-                        isDisabled: true,
+                        child: InputField(
+                          type: InputType.numeric,
+                          controller: TextEditingController(),
+                          innerLabel: 'innerlabel',
+                          helpText: 'help text',
+                          isDisabled: true,
+                        ),
                       ),
-                      InputField(
-                        type: InputType.numeric,
+                      LabeledField(
                         label: "Numeric Field With ReadOnly State",
-                        controller: controller38,
-                        innerLabel: 'innerlabel',
-                        helpText: 'help text',
-                        initialValue: '20',
-                        readOnly: true,
+                        child: InputField(
+                          type: InputType.numeric,
+                          controller: controller38,
+                          innerLabel: 'innerlabel',
+                          helpText: 'help text',
+                          initialValue: '20',
+                          readOnly: true,
+                        ),
                       ),
                     ],
                   ),
@@ -623,12 +688,14 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 8,
                 ),
-                InputField(
-                  type: InputType.location,
+                LabeledField(
                   label: "Location Field",
-                  controller: controller17,
-                  innerLabel: 'innerlabel',
-                  helpText: 'help text',
+                  child: InputField(
+                    type: InputType.location,
+                    controller: controller17,
+                    innerLabel: 'innerlabel',
+                    helpText: 'help text',
+                  ),
                 ),
                 const SizedBox(
                   height: 8,
@@ -647,30 +714,36 @@ class MyHomePageState extends State<MyHomePage> {
                       const SizedBox(
                         height: 8,
                       ),
-                      InputField(
-                        type: InputType.location,
+                      LabeledField(
                         label: "Location Field With Editable Input",
-                        controller: controller26,
-                        innerLabel: 'innerlabel',
-                        helpText: 'help text',
-                        editable: true,
+                        child: InputField(
+                          type: InputType.location,
+                          controller: controller26,
+                          innerLabel: 'innerlabel',
+                          helpText: 'help text',
+                          editable: true,
+                        ),
                       ),
-                      InputField(
-                        type: InputType.location,
+                      LabeledField(
                         label: "Location Field With ReadOnly",
-                        controller: TextEditingController(),
-                        innerLabel: 'innerlabel',
-                        helpText: 'help text',
-                        initialValue: "23.444444444444444, 43.333333333",
-                        readOnly: true,
+                        child: InputField(
+                          type: InputType.location,
+                          controller: TextEditingController(),
+                          innerLabel: 'innerlabel',
+                          helpText: 'help text',
+                          initialValue: "23.444444444444444, 43.333333333",
+                          readOnly: true,
+                        ),
                       ),
-                      InputField(
-                        type: InputType.location,
+                      LabeledField(
                         label: "Location Field with Disabled State",
-                        controller: TextEditingController(),
-                        innerLabel: 'innerlabel',
-                        helpText: 'help text',
-                        isDisabled: true,
+                        child: InputField(
+                          type: InputType.location,
+                          controller: TextEditingController(),
+                          innerLabel: 'innerlabel',
+                          helpText: 'help text',
+                          isDisabled: true,
+                        ),
                       ),
                     ],
                   ),
@@ -681,13 +754,15 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 8,
                 ),
-                InputField(
-                  type: InputType.text,
+                LabeledField(
                   label: "Text Field With Prefix Icon",
-                  controller: controller27,
-                  innerLabel: 'innerlabel',
-                  helpText: 'help text',
-                  prefixText: '+88',
+                  child: InputField(
+                    type: InputType.text,
+                    controller: controller27,
+                    innerLabel: 'innerlabel',
+                    helpText: 'help text',
+                    prefixText: '+88',
+                  ),
                 ),
                 DigitCheckbox(
                   label: "Show All The Variants Of prefix Input Field",
@@ -703,24 +778,28 @@ class MyHomePageState extends State<MyHomePage> {
                       const SizedBox(
                         height: 8,
                       ),
-                      InputField(
-                        type: InputType.text,
+                      LabeledField(
                         label: "Text Field With Prefix Icon with ReadOnly",
-                        controller: TextEditingController(),
-                        innerLabel: 'innerlabel',
-                        helpText: 'help text',
-                        prefixText: '+91',
-                        initialValue: 'Value',
-                        readOnly: true,
+                        child: InputField(
+                          type: InputType.text,
+                          controller: TextEditingController(),
+                          innerLabel: 'innerlabel',
+                          helpText: 'help text',
+                          prefixText: '+91',
+                          initialValue: 'Value',
+                          readOnly: true,
+                        ),
                       ),
-                      InputField(
-                        type: InputType.text,
+                      LabeledField(
                         label: "Text Field With Prefix Icon With Disabled",
-                        controller: TextEditingController(),
-                        innerLabel: 'innerlabel',
-                        helpText: 'help text',
-                        isDisabled: true,
-                        prefixText: '+91',
+                        child: InputField(
+                          type: InputType.text,
+                          controller: TextEditingController(),
+                          innerLabel: 'innerlabel',
+                          helpText: 'help text',
+                          isDisabled: true,
+                          prefixText: '+91',
+                        ),
                       ),
                     ],
                   ),
@@ -731,13 +810,15 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 8,
                 ),
-                InputField(
-                  type: InputType.text,
+                LabeledField(
                   label: "Text Field With Suffix Icon",
-                  controller: controller28,
-                  innerLabel: 'innerlabel',
-                  helpText: 'help text',
-                  suffixText: '#',
+                  child: InputField(
+                    type: InputType.text,
+                    controller: controller28,
+                    innerLabel: 'innerlabel',
+                    helpText: 'help text',
+                    suffixText: '#',
+                  ),
                 ),
                 DigitCheckbox(
                   label: "Show All The Variants Of Suffix Input Field",
@@ -753,24 +834,28 @@ class MyHomePageState extends State<MyHomePage> {
                       const SizedBox(
                         height: 8,
                       ),
-                      InputField(
-                        type: InputType.text,
+                      LabeledField(
                         label: "Text Field With Suffix Icon with ReadOnly",
-                        controller: TextEditingController(),
-                        innerLabel: 'innerlabel',
-                        initialValue: 'value',
-                        helpText: 'help text',
-                        suffixText: '#',
-                        readOnly: true,
+                        child: InputField(
+                          type: InputType.text,
+                          controller: TextEditingController(),
+                          innerLabel: 'innerlabel',
+                          initialValue: 'value',
+                          helpText: 'help text',
+                          suffixText: '#',
+                          readOnly: true,
+                        ),
                       ),
-                      InputField(
-                        type: InputType.text,
+                      LabeledField(
                         label: "Text Field With Suffix Icon With Disabled",
-                        controller: TextEditingController(),
-                        innerLabel: 'innerlabel',
-                        helpText: 'help text',
-                        isDisabled: true,
-                        suffixText: '#',
+                        child: InputField(
+                          type: InputType.text,
+                          controller: TextEditingController(),
+                          innerLabel: 'innerlabel',
+                          helpText: 'help text',
+                          isDisabled: true,
+                          suffixText: '#',
+                        ),
                       ),
                     ],
                   ),
@@ -797,10 +882,10 @@ class MyHomePageState extends State<MyHomePage> {
                         .entries
                         .map(
                           (item) => DropdownItem(
-                            name: item.value,
-                            code: item.key.toString(),
-                          ),
-                        )
+                        name: item.value,
+                        code: item.key.toString(),
+                      ),
+                    )
                         .toList(),
                   ),
                 ),
@@ -832,25 +917,25 @@ class MyHomePageState extends State<MyHomePage> {
                               name: 'first',
                               code: '1',
                               profileImageUrl:
-                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
                             ),
                             DropdownItem(
                               name: 'second',
                               code: '2',
                               profileImageUrl:
-                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
                             ),
                             DropdownItem(
                               name: 'third',
                               code: '3',
                               profileImageUrl:
-                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
                             ),
                             DropdownItem(
                               name: 'fourth',
                               code: '4',
                               profileImageUrl:
-                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
                             ),
                           ],
                         ),
@@ -866,25 +951,25 @@ class MyHomePageState extends State<MyHomePage> {
                               name: 'first',
                               code: '1',
                               profileImageUrl:
-                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
                             ),
                             DropdownItem(
                               name: 'second',
                               code: '2',
                               profileImageUrl:
-                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
                             ),
                             DropdownItem(
                               name: 'third',
                               code: '3',
                               profileImageUrl:
-                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
                             ),
                             DropdownItem(
                               name: 'fourth',
                               code: '4',
                               profileImageUrl:
-                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
                             ),
                           ],
                         ),
@@ -901,28 +986,28 @@ class MyHomePageState extends State<MyHomePage> {
                               code: '1',
                               description: 'description for first one',
                               profileImageUrl:
-                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
                             ),
                             DropdownItem(
                               name: 'second',
                               code: '2',
                               description: 'description for second one',
                               profileImageUrl:
-                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
                             ),
                             DropdownItem(
                               name: 'third',
                               code: '3',
                               description: 'description for third one',
                               profileImageUrl:
-                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
                             ),
                             DropdownItem(
                               name: 'fourth',
                               code: '4',
                               description: 'description for fourth one',
                               profileImageUrl:
-                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
                             ),
                           ],
                         ),
@@ -943,11 +1028,11 @@ class MyHomePageState extends State<MyHomePage> {
                               .entries
                               .map(
                                 (item) => DropdownItem(
-                                    name: item.value,
-                                    code: item.key.toString(),
-                                    description:
-                                        'This is just example description'),
-                              )
+                                name: item.value,
+                                code: item.key.toString(),
+                                description:
+                                'This is just example description'),
+                          )
                               .toList(),
                         ),
                       ),
@@ -967,11 +1052,11 @@ class MyHomePageState extends State<MyHomePage> {
                               .entries
                               .map(
                                 (item) => DropdownItem(
-                                  name: item.value,
-                                  code: item.key.toString(),
-                                  textIcon: Icons.article,
-                                ),
-                              )
+                              name: item.value,
+                              code: item.key.toString(),
+                              textIcon: Icons.article,
+                            ),
+                          )
                               .toList(),
                         ),
                       ),
@@ -1071,7 +1156,7 @@ class MyHomePageState extends State<MyHomePage> {
                       const SizedBox(height: 8),
                       LabeledField(
                         label:
-                            "Dropdown with nested Type With Icons and description",
+                        "Dropdown with nested Type With Icons and description",
                         child: Dropdown(
                           onChange: (String value, String type) => {},
                           textEditingController: controller42,
@@ -1612,12 +1697,14 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 8,
                 ),
-                Container(
-                  height: 45,
+                SizedBox(
+                  // height: 45,
                   child: Center(
                     child: Button(
+                      size: ButtonSize.large,
                       label: 'Primary Button',
-                      onPressed: () {},
+                      onPressed: () {
+                      },
                       type: ButtonType.primary,
                     ),
                   ),
@@ -1636,8 +1723,9 @@ class MyHomePageState extends State<MyHomePage> {
                       children: [
                         const SizedBox(height: 8),
                         SizedBox(
-                          height: 45,
+                          // height: 45,
                           child: Button(
+                            size: ButtonSize.large,
                             label: 'Primary Button With Prefix Icon',
                             onPressed: () {},
                             type: ButtonType.primary,
@@ -1646,8 +1734,9 @@ class MyHomePageState extends State<MyHomePage> {
                         ),
                         const SizedBox(height: 8),
                         SizedBox(
-                          height: 45,
+                          // height: 45,
                           child: Button(
+                            size: ButtonSize.medium,
                             label: 'Primary Button With Suffix Icon',
                             onPressed: () {},
                             type: ButtonType.primary,
@@ -1656,8 +1745,9 @@ class MyHomePageState extends State<MyHomePage> {
                         ),
                         const SizedBox(height: 8),
                         SizedBox(
-                          height: 45,
+                          // height: 45,
                           child: Button(
+                            size: ButtonSize.small,
                             label: 'Primary Button With Disabled State',
                             onPressed: () {},
                             type: ButtonType.primary,
@@ -1676,6 +1766,7 @@ class MyHomePageState extends State<MyHomePage> {
                   height: 45,
                   child: Center(
                     child: Button(
+                      size: ButtonSize.large,
                       label: 'secondary Button',
                       onPressed: () {},
                       type: ButtonType.secondary,
@@ -1696,8 +1787,9 @@ class MyHomePageState extends State<MyHomePage> {
                       children: [
                         const SizedBox(height: 8),
                         SizedBox(
-                          height: 45,
+                          // height: 45,
                           child: Button(
+                            size: ButtonSize.medium,
                             label: 'Secondary Button With Prefix Icon',
                             onPressed: () {},
                             type: ButtonType.secondary,
@@ -1706,8 +1798,9 @@ class MyHomePageState extends State<MyHomePage> {
                         ),
                         const SizedBox(height: 8),
                         SizedBox(
-                          height: 45,
+                          // height: 45,
                           child: Button(
+                            size: ButtonSize.small,
                             label: 'Secondary Button With Suffix Icon',
                             onPressed: () {},
                             type: ButtonType.secondary,
@@ -1716,8 +1809,9 @@ class MyHomePageState extends State<MyHomePage> {
                         ),
                         const SizedBox(height: 8),
                         SizedBox(
-                          height: 45,
+                          // height: 45,
                           child: Button(
+                            size: ButtonSize.small,
                             label: 'Secondary Button With Disabled State',
                             onPressed: () {},
                             type: ButtonType.secondary,
@@ -1734,6 +1828,7 @@ class MyHomePageState extends State<MyHomePage> {
                 ),
                 Center(
                   child: Button(
+                    size: ButtonSize.large,
                     label: 'tertiary Button',
                     onPressed: () {},
                     type: ButtonType.tertiary,
@@ -1748,30 +1843,35 @@ class MyHomePageState extends State<MyHomePage> {
                       });
                     }),
                 if (showAllVariantsOfTertiaryButton)
-                  Column(
-                    children: [
-                      const SizedBox(height: 8),
-                      Button(
-                        label: 'Tertiary Button With Prefix Icon',
-                        onPressed: () {},
-                        type: ButtonType.tertiary,
-                        prefixIcon: Icons.arrow_forward,
-                      ),
-                      const SizedBox(height: 8),
-                      Button(
-                        label: 'Tertiary Button With Suffix Icon',
-                        onPressed: () {},
-                        type: ButtonType.tertiary,
-                        suffixIcon: Icons.arrow_forward,
-                      ),
-                      const SizedBox(height: 8),
-                      Button(
-                        label: 'Tertiary Button With Disabled State',
-                        onPressed: () {},
-                        type: ButtonType.tertiary,
-                        isDisabled: true,
-                      ),
-                    ],
+                  Center(
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 8),
+                        Button(
+                          size: ButtonSize.medium,
+                          label: 'Tertiary Button With Prefix Icon',
+                          onPressed: () {},
+                          type: ButtonType.tertiary,
+                          prefixIcon: Icons.arrow_forward,
+                        ),
+                        const SizedBox(height: 8),
+                        Button(
+                          size: ButtonSize.small,
+                          label: 'Tertiary Button With Suffix Icon',
+                          onPressed: () {},
+                          type: ButtonType.tertiary,
+                          suffixIcon: Icons.arrow_forward,
+                        ),
+                        const SizedBox(height: 8),
+                        Button(
+                          size: ButtonSize.large,
+                          label: 'Tertiary Button With Disabled State',
+                          onPressed: () {},
+                          type: ButtonType.tertiary,
+                          isDisabled: true,
+                        ),
+                      ],
+                    ),
                   ),
                 const SizedBox(
                   height: 8,
@@ -1782,6 +1882,7 @@ class MyHomePageState extends State<MyHomePage> {
                 ),
                 Center(
                   child: Button(
+                    size: ButtonSize.large,
                     label: 'link',
                     onPressed: () {},
                     type: ButtonType.link,
@@ -1796,30 +1897,35 @@ class MyHomePageState extends State<MyHomePage> {
                       });
                     }),
                 if (showAllVariantsOfLink)
-                  Column(
-                    children: [
-                      const SizedBox(height: 8),
-                      Button(
-                        label: 'Link With Prefix Icon',
-                        onPressed: () {},
-                        type: ButtonType.link,
-                        prefixIcon: Icons.arrow_forward,
-                      ),
-                      const SizedBox(height: 8),
-                      Button(
-                        label: 'Link With Suffix Icon',
-                        onPressed: () {},
-                        type: ButtonType.link,
-                        suffixIcon: Icons.arrow_forward,
-                      ),
-                      const SizedBox(height: 8),
-                      Button(
-                        label: 'Link With Disabled State',
-                        onPressed: () {},
-                        type: ButtonType.link,
-                        isDisabled: true,
-                      ),
-                    ],
+                  Center(
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 8),
+                        Button(
+                          size: ButtonSize.small,
+                          label: 'Link With Prefix Icon',
+                          onPressed: () {},
+                          type: ButtonType.link,
+                          prefixIcon: Icons.arrow_forward,
+                        ),
+                        const SizedBox(height: 8),
+                        Button(
+                          size: ButtonSize.medium,
+                          label: 'Link With Suffix Icon',
+                          onPressed: () {},
+                          type: ButtonType.link,
+                          suffixIcon: Icons.arrow_forward,
+                        ),
+                        const SizedBox(height: 8),
+                        Button(
+                          size: ButtonSize.large,
+                          label: 'Link With Disabled State',
+                          onPressed: () {},
+                          type: ButtonType.link,
+                          isDisabled: true,
+                        ),
+                      ],
+                    ),
                   ),
                 const SizedBox(height: 8),
                 const Divider(),
@@ -1831,9 +1937,11 @@ class MyHomePageState extends State<MyHomePage> {
                   value: false,
                   onChanged: (value) {
                     if (value) {
-                      Toast.show(context,
-                          options: ToastOptions(
-                              "Your success message", ToastType.success));
+                      Toast.showToast(
+                        context,
+                        message: 'This is a success toast!',
+                        type: ToastType.success,
+                      );
                     }
                   },
                 ),
@@ -1843,34 +1951,53 @@ class MyHomePageState extends State<MyHomePage> {
                   value: false,
                   onChanged: (value) {
                     if (value) {
-                      Toast.show(context,
-                          options: ToastOptions(
-                              "Your error message", ToastType.error));
+                      Toast.showToast(
+                        context,
+                        message: 'This is a error toast!',
+                        type: ToastType.error,
+                      );
                     }
                   },
                 ),
-               const SizedBox(height: 8,),
+                const SizedBox(height: 8,),
                 DigitCheckbox(
                   label: 'Click to see the warning toast',
                   value: false,
                   onChanged: (value) {
                     if (value) {
-                      Toast.show(context,
-                          options: ToastOptions(
-                              "Your warning message", ToastType.warning));
+                      Toast.showToast(
+                        context,
+                        message: 'This is a Warning toast!',
+                        type: ToastType.warning,
+                      );
                     }
                   },
                 ),
 
                 const SizedBox(height: 8,),
                 DigitCheckbox(
-                  label: 'Click to see the Success toast with long message',
+                  label: 'Click to see the warning toast with long message',
                   value: false,
                   onChanged: (value) {
                     if (value) {
-                      Toast.show(context,
-                          options: ToastOptions(
-                              "Message token created successfully and Users Are Unable to Login to the Professional after an Upgrade to Version it is working fine. Learn about token based authentication and how to easily implement JWT in your application", ToastType.success));
+                      Toast.showToast(
+                        context,
+                        message: 'Message token created successfully and Users Are Unable to Login to the Professional after an Upgrade to Version it is working fine. Learn about token based authentication and how to easily implement JWT in your application',
+                        type: ToastType.warning,
+                      );
+                    }
+                  },
+                ),const SizedBox(height: 8,),
+                DigitCheckbox(
+                  label: 'Click to see the error toast with long message',
+                  value: false,
+                  onChanged: (value) {
+                    if (value) {
+                      Toast.showToast(
+                        context,
+                        message: 'Message token created successfully and Users Are Unable to Login to the Professional after an Upgrade to Version it is working fine. Learn about token based authentication and how to easily implement JWT in your application',
+                        type: ToastType.error,
+                      );
                     }
                   },
                 ),const SizedBox(height: 8,),
@@ -1879,20 +2006,11 @@ class MyHomePageState extends State<MyHomePage> {
                   value: false,
                   onChanged: (value) {
                     if (value) {
-                      Toast.show(context,
-                          options: ToastOptions(
-                              "Message token created successfully and Users Are Unable to Login to the Professional after an Upgrade to Version it is working fine. Learn about token based authentication and how to easily implement JWT in your application", ToastType.success));
-                    }
-                  },
-                ),const SizedBox(height: 8,),
-                DigitCheckbox(
-                  label: 'Click to see the Success toast with long message',
-                  value: false,
-                  onChanged: (value) {
-                    if (value) {
-                      Toast.show(context,
-                          options: ToastOptions(
-                              "Message token created successfully and Users Are Unable to Login to the Professional after an Upgrade to Version it is working fine. Learn about token based authentication and how to easily implement JWT in your application", ToastType.success));
+                      Toast.showToast(
+                        context,
+                        message: 'Message token created successfully and Users Are Unable to Login to the Professional after an Upgrade to Version it is working fine. Learn about token based authentication and how to easily implement JWT in your application",',
+                        type: ToastType.success,
+                      );
                     }
                   },
                 ),
@@ -1935,7 +2053,7 @@ class MyHomePageState extends State<MyHomePage> {
                       const SizedBox(height: 8),
                       DigitCheckbox(
                         label:
-                            'DigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled State',
+                        'DigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled State',
                         value: true,
                         isDisabled: true,
                         onChanged: (value) {},
@@ -1980,6 +2098,7 @@ class MyHomePageState extends State<MyHomePage> {
                   description:
                   'Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect theservice to get completed in 24 hrs from the time of payment.',
                 ),
+
               ],
             ),
           ),

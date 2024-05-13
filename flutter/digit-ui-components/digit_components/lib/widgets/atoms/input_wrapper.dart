@@ -30,7 +30,7 @@ enum InputType {
 class InputField extends StatelessWidget {
   final TextEditingController controller;
   final InputType type;
-  final String label;
+  final String? label;
   final String? infoText;
   final bool? info;
   final String? initialValue;
@@ -73,7 +73,7 @@ class InputField extends StatelessWidget {
     Key? key,
     required this.controller,
     required this.type,
-    required this.label,
+    this.label,
     this.infoText,
     this.info,
     this.initialValue,

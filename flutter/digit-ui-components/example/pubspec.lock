@@ -244,10 +244,9 @@ packages:
   digit_ui_components:
     dependency: "direct main"
     description:
-      name: digit_ui_components
-      sha256: "498d23e641f39a05d2ed2a3e18485cd972e7a528ac6b5bb48dd2eed25d4234f3"
-      url: "https://pub.dev"
-    source: hosted
+      path: "../digit_components"
+      relative: true
+    source: path
     version: "0.0.2-beta"
   easy_stepper:
     dependency: transitive
@@ -374,6 +373,11 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.3"
+  flutter_localizations:
+    dependency: transitive
+    description: flutter
+    source: sdk
+    version: "0.0.0"
   flutter_spinkit:
     dependency: transitive
     description:
@@ -382,6 +386,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.2.0"
+  flutter_styled_toast:
+    dependency: transitive
+    description:
+      name: flutter_styled_toast
+      sha256: e667f13a665820eb0fa8506547e47eacbcddf1948d6d3036cfd3b089bd4b0516
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.2.1"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -1158,5 +1170,5 @@ packages:
     source: hosted
     version: "3.1.2"
 sdks:
-  dart: ">=3.2.0 <=3.9.0"
+  dart: ">=3.2.0 <4.0.0"
   flutter: ">=3.13.0"
