@@ -3,18 +3,25 @@ import 'package:flutter/material.dart';
 import '../theme/colors.dart';
 import '../theme/digit_theme.dart';
 
-class Default{
+class Common{
   static const double height = 40;
   static const double mobileInputWidth = 328;
   static const double desktopInputWidth = 600;
   static const double tabInputWidth = 440;
   static const double defaultChipRadius = 50;
+  static const BorderRadius radius = BorderRadius.zero;
   static const EdgeInsets defaultChipPadding = EdgeInsets.only(
     left: 12,
     right: kPadding / 2,
   );
   static const String textAreaSvg = 'assets/icons/svg/textAreaExpand.svg';
   static const String profileSvg = 'assets/icons/svg/Profile.svg';
+  static const String docSvg = 'assets/icons/svg/doc.svg';
+  static const String jpgSvg = 'assets/icons/svg/jpg.svg';
+  static const String pdfSvg = 'assets/icons/svg/pdf.svg';
+  static const String pngSvg = 'assets/icons/svg/png.svg';
+  static const String xlsxSvg = 'assets/icons/svg/xlsx.svg';
+  static const String fileSvg = 'assets/icons/svg/file.svg';
 }
 
 class BaseConstants {
@@ -31,7 +38,7 @@ class BaseConstants {
 
   static final OutlineInputBorder focusedBorder = OutlineInputBorder(
     borderSide: BorderSide(
-        color: const DigitColors().light.primaryOrange, width: 1.5),
+        color: const DigitColors().light.primary1, width: 1.5),
     borderRadius: BorderRadius.zero,
   );
 
@@ -47,12 +54,13 @@ class BaseConstants {
 
 class ButtonConstants {
   static const EdgeInsets defaultButtonPadding = EdgeInsets.all(8.0);
-  static const EdgeInsets defaultContentPadding = EdgeInsets.only(left: 24.0, top: 7.0, right: 24.0, bottom: 8.0);
-  static const double defaultIconSize = 24.0;
-  static final Color defaultDisabledColor = const DigitColors().light.textDisabled;
-  static final Color defaultPrimaryColor = const DigitColors().light.primaryOrange;
-  static final Color defaultSecondaryColor = const DigitColors().light.textPrimary;
-  static final Color defaultTextColor = const DigitColors().light.paperPrimary;
+  static const EdgeInsets defaultContentPadding = EdgeInsets.symmetric(horizontal: kPadding * 3, vertical: 0);
+  static const double largeIconSize = 24.0;
+  static const double mediumIconSize = 20.0;
+  static const double smallIconSize = 14.0;
+  static const double largeLinkIconSize = 20.0;
+  static const double mediumLinkIconSize = 20.0;
+  static const double smallLinkIconSize = 14.0;
   static const double defaultWidth = 1.0;
   static const double defaultHoverWidth = 2.0;
 }
@@ -66,13 +74,13 @@ class DigitCheckboxConstants {
       customColor ?? (isDisabled ? const DigitColors().light.textDisabled : const DigitColors().light.textSecondary);
 
   static Color checkedBorderColor({required bool isDisabled, required Color? customColor}) =>
-      customColor ?? (isDisabled ? const DigitColors().light.textDisabled : const DigitColors().light.primaryOrange);
+      customColor ?? (isDisabled ? const DigitColors().light.textDisabled : const DigitColors().light.primary1);
 
   static Color intermediateBorderColor({required bool isDisabled, required Color? customColor}) =>
-      customColor ?? (isDisabled ? const DigitColors().light.textDisabled : const DigitColors().light.primaryOrange);
+      customColor ?? (isDisabled ? const DigitColors().light.textDisabled : const DigitColors().light.primary1);
 
   static Color iconColor({required bool isDisabled, required Color? customColor}) =>
-      customColor ?? (isDisabled ? const DigitColors().light.textDisabled : const DigitColors().light.primaryOrange);
+      customColor ?? (isDisabled ? const DigitColors().light.textDisabled : const DigitColors().light.primary1);
 }
 
 class DropdownConstants {
