@@ -12,7 +12,7 @@ import 'package:storybook_flutter/storybook_flutter.dart';
 List<Story> dropdownStories() {
   return [
     Story(
-      name: 'Dropdown/Simple Dropdown/default/default',
+      name: 'Atom/Dropdown/Simple Dropdown/default/default',
       builder: (context) => Column(
         children: [
           const SizedBox(height: 300,),
@@ -45,7 +45,7 @@ List<Story> dropdownStories() {
       ),
     ),
     Story(
-      name: 'Dropdown/Simple Dropdown/default/nested text',
+      name: 'Atom/Dropdown/Simple Dropdown/default/nested text',
       builder: (context) => Column(
         children: [
           const SizedBox(height: 300,),
@@ -79,7 +79,7 @@ List<Story> dropdownStories() {
       ),
     ),
     Story(
-      name: 'Dropdown/Simple Dropdown/default/icon',
+      name: 'Atom/Dropdown/Simple Dropdown/default/icon',
       builder: (context) => Column(
         children: [
           const SizedBox(height: 300,),
@@ -113,7 +113,7 @@ List<Story> dropdownStories() {
       ),
     ),
     Story(
-      name: 'Dropdown/Simple Dropdown/default/profile',
+      name: 'Atom/Dropdown/Simple Dropdown/default/profile',
       builder: (context) => Column(
         children: [
           const SizedBox(height: 300,),
@@ -146,7 +146,7 @@ List<Story> dropdownStories() {
       ),
     ),
     Story(
-      name: 'Dropdown/Simple Dropdown/nested/simple',
+      name: 'Atom/Dropdown/Simple Dropdown/nested/simple',
       builder: (context) => Column(
         children: [
           const SizedBox(height: 300,),
@@ -196,7 +196,7 @@ List<Story> dropdownStories() {
       ),
     ),
     Story(
-      name: 'Dropdown/Simple Dropdown/nested/nested text',
+      name: 'Atom/Dropdown/Simple Dropdown/nested/nested text',
       builder: (context) => Column(
         children: [
           const SizedBox(height: 300,),
@@ -253,7 +253,7 @@ List<Story> dropdownStories() {
       ),
     ),
     Story(
-      name: 'Dropdown/Simple Dropdown/tree',
+      name: 'Atom/Dropdown/Simple Dropdown/tree',
       builder: (context) => TreeSelectDropDown<int>(
         isDisabled: context.knobs
             .boolean(label: 'disabled', initial: false),
@@ -280,7 +280,7 @@ List<Story> dropdownStories() {
       ),
     ),
     Story(
-      name: 'Dropdown/Simple Dropdown/default/default',
+      name: 'Atom/Dropdown/Simple Dropdown/default/default',
       builder: (context) => DigitDropdown<int>(
         isDisabled: context.knobs.boolean(
           label: 'Disabled',
@@ -308,7 +308,7 @@ List<Story> dropdownStories() {
       ),
     ),
     Story(
-      name: 'Dropdown/MultiSelect Dropdown/default/default',
+      name: 'Atom/Dropdown/MultiSelect Dropdown/default/default',
       builder: (context) => MultiSelectDropDown<int>(
         isDisabled: context.knobs
             .boolean(label: 'disabled', initial: false),
@@ -324,7 +324,7 @@ List<Story> dropdownStories() {
       ),
     ),
     Story(
-      name: 'Dropdown/MultiSelect Dropdown/default/nested text',
+      name: 'Atom/Dropdown/MultiSelect Dropdown/default/nested text',
       builder: (context) => MultiSelectDropDown<int>(
         isDisabled: context.knobs
             .boolean(label: 'disabled', initial: false),
@@ -340,7 +340,7 @@ List<Story> dropdownStories() {
       ),
     ),
     Story(
-      name: 'Dropdown/MultiSelect Dropdown/default/icon',
+      name: 'Atom/Dropdown/MultiSelect Dropdown/default/icon',
       builder: (context) => MultiSelectDropDown<int>(
         isDisabled: context.knobs
             .boolean(label: 'disabled', initial: false),
@@ -356,7 +356,7 @@ List<Story> dropdownStories() {
       ),
     ),
     Story(
-      name: 'Dropdown/MultiSelect Dropdown/nested/default',
+      name: 'Atom/Dropdown/MultiSelect Dropdown/nested/default',
       builder: (context) => MultiSelectDropDown<int>(
         isDisabled: context.knobs
             .boolean(label: 'disabled', initial: false),
@@ -387,7 +387,7 @@ List<Story> dropdownStories() {
       ),
     ),
     Story(
-      name: 'Dropdown/MultiSelect Dropdown/nested/nested text',
+      name: 'Atom/Dropdown/MultiSelect Dropdown/nested/nested text',
       builder: (context) => MultiSelectDropDown<int>(
         isDisabled: context.knobs
             .boolean(label: 'disabled', initial: false),
@@ -423,7 +423,7 @@ List<Story> dropdownStories() {
       ),
     ),
     Story(
-      name: 'Dropdown/MultiSelect Dropdown/nested/icon',
+      name: 'Atom/Dropdown/MultiSelect Dropdown/nested/icon',
       builder: (context) => MultiSelectDropDown<int>(
         isDisabled: context.knobs
             .boolean(label: 'disabled', initial: false),
@@ -463,7 +463,7 @@ List<Story> dropdownStories() {
       ),
     ),
     Story(
-      name: 'Dropdown/MultiSelect Dropdown/tree',
+      name: 'Atom/Dropdown/MultiSelect Dropdown/tree',
       builder: (context) => TreeSelectDropDown<int>(
         isDisabled: context.knobs
             .boolean(label: 'disabled', initial: false),

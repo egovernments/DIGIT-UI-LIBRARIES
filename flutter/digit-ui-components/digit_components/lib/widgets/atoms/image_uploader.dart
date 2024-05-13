@@ -604,6 +604,7 @@ class _ImageUploaderState extends State<ImageUploader> {
     return _imageFiles.isNotEmpty
         ? Stack(
             children: [
+              widget.allowMultipleImages ?
               Container(
                 color: const DigitColors().light.genericDivider,
                 width: widget.allowMultipleImages ? 100 : minWidth,
@@ -631,6 +632,53 @@ class _ImageUploaderState extends State<ImageUploader> {
                               height: widget.allowMultipleImages ? 100 : 500,
                               fit: BoxFit.cover,
                             ),
+                      Positioned(
+                        top: 0,
+                        right: 0,
+                        child: InkWell(
+                          hoverColor: const DigitColors().transparent,
+                          highlightColor: const DigitColors().transparent,
+                          splashColor: const DigitColors().transparent,
+                          onTap: () {
+                            _removeImage(index);
+                          },
+                          child: Container(
+                            width: 24,
+                            height: 24,
+                            decoration: BoxDecoration(
+                              color: const DigitColors().light.primary2,
+                            ),
+                            child: Icon(
+                              Icons.close,
+                              size: 16,
+                              color: const DigitColors().light.paperPrimary,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ):
+              AspectRatio(
+                aspectRatio: 3/2,
+                child: ClipRRect(
+                  borderRadius: Common.radius,
+                  child: Stack(
+                    fit: StackFit.expand,
+                    children: [
+                      kIsWeb
+                          ? Image.network(
+                        _imageFiles[index].path,
+                        fit: BoxFit.fitHeight,
+                      )
+                          : Image.file(
+                        _imageFiles[index],
+                        width:
+                        widget.allowMultipleImages ? 100 : minWidth,
+                        height: widget.allowMultipleImages ? 100 : 500,
+                        fit: BoxFit.cover,
+                      ),
                       Positioned(
                         top: 0,
                         right: 0,

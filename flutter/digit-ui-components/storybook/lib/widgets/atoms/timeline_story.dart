@@ -9,7 +9,7 @@ import 'package:storybook_flutter/storybook_flutter.dart';
 List<Story> timeLineStories() {
   return [
     Story(
-      name: 'Timeline/default',
+      name: 'Atom/Timeline/default',
       builder: (context) =>  Timeline(
         currentStep: context.knobs.options(label: 'Current Step', initial: TimelineStepState.present, options: const [
           Option(
@@ -30,7 +30,7 @@ List<Story> timeLineStories() {
       ),
     ),
     Story(
-      name: 'Timeline/list of description',
+      name: 'Atom/Timeline/list of description',
       builder: (context) => Timeline(
         currentStep: context.knobs.options(label: 'Current Step', initial: TimelineStepState.present, options: const [
           Option(
@@ -51,7 +51,7 @@ List<Story> timeLineStories() {
       ),
     ),
     Story(
-      name: 'Timeline/Additional widget',
+      name: 'Atom/Timeline/Additional widget',
       builder: (context) => Timeline(
         label: 'Sample Timeline',
         description: const ['Description 1', 'Description 2'],

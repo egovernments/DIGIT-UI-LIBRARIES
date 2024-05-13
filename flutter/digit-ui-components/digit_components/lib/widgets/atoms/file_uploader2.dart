@@ -453,7 +453,7 @@ class _FileUploadWidgetState extends State<FileUploadWidget2> {
                   child: DottedBorder(
                     color: widget.errorMessage!=null ? const DigitColors().light.alertError : const DigitColors().light.genericDivider,
                     strokeWidth: 1.5,
-                    dashPattern: const [6, 2],
+                    dashPattern: const [4, 2],
                     child: Container(
                       height: isMobile ? 140 : 144,
                       child: Center(

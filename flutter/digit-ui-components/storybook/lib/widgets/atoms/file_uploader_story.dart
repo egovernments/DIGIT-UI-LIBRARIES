@@ -10,7 +10,7 @@ import 'dart:io';
 List<Story> fileUploaderStories() {
   return [
     Story(
-      name: 'File Upload/Pop UP/Single Upload/default',
+      name: 'Atom/File Upload/Pop UP/Single Upload/default',
       builder: (context) => Center(
         child: FileUploadWidget(
           label: 'Upload', onFilesSelected: (List<PlatformFile> files) {
@@ -23,7 +23,7 @@ List<Story> fileUploaderStories() {
       ),
     ),
     Story(
-      name: 'File Upload/Pop UP/Single Upload/Field Error',
+      name: 'Atom/File Upload/Pop UP/Single Upload/Field Error',
       builder: (context) => FileUploadWidget(
         label: 'Upload', onFilesSelected: (List<PlatformFile> files) {
         Map<PlatformFile, String?> fileErrors = {};
@@ -35,7 +35,7 @@ List<Story> fileUploaderStories() {
       ),
     ),
     Story(
-      name: 'File Upload/Pop UP/Single Upload/File Error(only pdf)',
+      name: 'Atom/File Upload/Pop UP/Single Upload/File Error(only pdf)',
       builder: (context) => FileUploadWidget(
         label: 'Upload', onFilesSelected: (List<PlatformFile> files) {
         Map<PlatformFile, String?> fileErrors = {};
@@ -49,7 +49,7 @@ List<Story> fileUploaderStories() {
       ),
     ),
       Story(
-        name: 'File Upload/Pop UP/Single Upload/File Validation Error(less than 50kb)',
+        name: 'Atom/File Upload/Pop UP/Single Upload/File Validation Error(less than 50kb)',
         builder: (context) => FileUploadWidget(
           label: 'Upload', onFilesSelected: (List<PlatformFile> files) {
           Map<PlatformFile, String?> fileErrors = {};
@@ -76,7 +76,7 @@ List<Story> fileUploaderStories() {
         ),
       ),
     Story(
-      name: 'File Upload/Pop UP/Multiple Upload/default',
+      name: 'Atom/File Upload/Pop UP/Multiple Upload/default',
       builder: (context) => Center(
         child: FileUploadWidget(
           allowMultipleImages: true,
@@ -90,7 +90,7 @@ List<Story> fileUploaderStories() {
       ),
     ),
     Story(
-      name: 'File Upload/Pop UP/Multiple Upload/Field Error',
+      name: 'Atom/File Upload/Pop UP/Multiple Upload/Field Error',
       builder: (context) => FileUploadWidget(
         allowMultipleImages: true,
         label: 'Upload', onFilesSelected: (List<PlatformFile> files) {
@@ -103,7 +103,7 @@ List<Story> fileUploaderStories() {
       ),
     ),
     Story(
-      name: 'File Upload/Pop UP/Multiple Upload/File Error(only pdf)',
+      name: 'Atom/File Upload/Pop UP/Multiple Upload/File Error(only pdf)',
       builder: (context) => FileUploadWidget(
         allowMultipleImages: true,
         label: 'Upload', onFilesSelected: (List<PlatformFile> files) {
@@ -118,7 +118,7 @@ List<Story> fileUploaderStories() {
       ),
     ),
     Story(
-      name: 'File Upload/Pop UP/Multiple Upload/File Validation Error(less than 50kb)',
+      name: 'Atom/File Upload/Pop UP/Multiple Upload/File Validation Error(less than 50kb)',
       builder: (context) => FileUploadWidget(
         allowMultipleImages: true,
         label: 'Upload', onFilesSelected: (List<PlatformFile> files) {
@@ -146,7 +146,7 @@ List<Story> fileUploaderStories() {
       ),
     ),
     Story(
-      name: 'File Upload/Drag/Single file/default',
+      name: 'Atom/File Upload/Drag/Single file/default',
       builder: (context) => FileUploadWidget2(
         showPreview: true,
         allowMultipleImages: false,
@@ -154,7 +154,7 @@ List<Story> fileUploaderStories() {
       ),
     ),
     Story(
-      name: 'File Upload/Drag/Single file/field error',
+      name: 'Atom/File Upload/Drag/Single file/field error',
       builder: (context) => FileUploadWidget2(
         showPreview: true,
         allowMultipleImages: false,
@@ -163,7 +163,7 @@ List<Story> fileUploaderStories() {
       ),
     ),
     Story(
-      name: 'File Upload/Drag/Multiple files/default',
+      name: 'Atom/File Upload/Drag/Multiple files/default',
       builder: (context) => FileUploadWidget2(
         showPreview: true,
         allowMultipleImages: true,
@@ -171,7 +171,7 @@ List<Story> fileUploaderStories() {
       ),
     ),
     Story(
-      name: 'File Upload/Drag/Multiple files/field error',
+      name: 'Atom/File Upload/Drag/Multiple files/field error',
       builder: (context) => FileUploadWidget2(
         showPreview: true,
         allowMultipleImages: true,
@@ -180,7 +180,7 @@ List<Story> fileUploaderStories() {
       ),
     ),
     Story(
-      name: 'File Upload/Image/Single Upload/default',
+      name: 'Atom/File Upload/Image/Single Upload/default',
       builder: (context) => Center(
         child: ImageUploader(
           onImagesSelected: (List<File> imageFile) {
@@ -192,7 +192,7 @@ List<Story> fileUploaderStories() {
       ),
     ),
     Story(
-      name: 'File Upload/Image/Single Upload/Field Error',
+      name: 'Atom/File Upload/Image/Single Upload/Field Error',
       builder: (context) => Center(
           child: ImageUploader(
             errorMessage: context.knobs.text(label: 'Error Message', initial: 'error'),
@@ -205,7 +205,7 @@ List<Story> fileUploaderStories() {
       ),
     ),
     Story(
-      name: 'File Upload/Image/Single Upload/File Error',
+      name: 'Atom/File Upload/Image/Single Upload/File Error',
       builder: (context) => Center(
           child: ImageUploader(
             validators: [
@@ -220,7 +220,7 @@ List<Story> fileUploaderStories() {
       ),
     ),
     Story(
-      name: 'File Upload/Image/Multiple Upload/default',
+      name: 'Atom/File Upload/Image/Multiple Upload/default',
       builder: (context) => Center(
         child: ImageUploader(
           onImagesSelected: (List<File> imageFile) {
@@ -233,7 +233,7 @@ List<Story> fileUploaderStories() {
       ),
     ),
     Story(
-      name: 'File Upload/Image/Multiple Upload/Field Error',
+      name: 'Atom/File Upload/Image/Multiple Upload/Field Error',
       builder: (context) => Center(
           child: ImageUploader(
             errorMessage: context.knobs.text(label: 'Error Message', initial: 'error'),
@@ -246,7 +246,7 @@ List<Story> fileUploaderStories() {
       ),
     ),
     Story(
-      name: 'File Upload/Image/Multiple Upload/File Error',
+      name: 'Atom/File Upload/Image/Multiple Upload/File Error',
       builder: (context) => Center(
           child: ImageUploader(
             onImagesSelected: (List<File> imageFile) {

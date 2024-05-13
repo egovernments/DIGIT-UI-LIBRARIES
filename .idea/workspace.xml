@@ -4,23 +4,42 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="527a2fe1-eac1-442a-a699-c8c48a8f093b" name="Changes" comment="updated the changes for file uploader components">
-      <change afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/blocs/AppLocalization.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/blocs/LocalizationDelegate.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/utils/i18_key_constants.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/utils/validators/file_validator.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/helper_widget/button_list.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/localized.dart" afterDir="false" />
+    <list default="true" id="527a2fe1-eac1-442a-a699-c8c48a8f093b" name="Changes" comment="completed file uploader components">
+      <change afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/helper_widget/key_board_focus_list.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/molecules/digit_card.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/molecules/digit_card_story.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/theme/colors.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/theme/colors.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/file_uploader.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/file_uploader.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/utils/i18_key_constants.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/utils/i18_key_constants.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/digit_base_form_input.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/digit_base_form_input.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/digit_button.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/digit_button.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/digit_checkbox.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/digit_checkbox.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/digit_dropdown_input.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/digit_dropdown_input.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/digit_multiselect_dropdown.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/digit_multiselect_dropdown.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/digit_tree_select_dropdown.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/digit_tree_select_dropdown.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/file_uploader2.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/file_uploader2.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/image_uploader.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/image_uploader.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/labelled_fields.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/labelled_fields.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/pubspec.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/example/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/example/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/example/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/animated_toast_story.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/animated_toast_story.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/buttons_story.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/buttons_story.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/checkbox_story.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/checkbox_story.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/chip_stoty.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/chip_stoty.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/dropdown_story.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/dropdown_story.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/file_uploader_story.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/file_uploader_story.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/info_card_story.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/info_card_story.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/input_field_story.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/input_field_story.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/radio_list_story.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/radio_list_story.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/stepper_story.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/stepper_story.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/timeline_story.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/timeline_story.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/toggle_group_story.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/toggle_group_story.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/pubspec_overrides.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/pubspec_overrides.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -122,13 +141,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1704952952175</updated>
-    </task>
-    <task id="LOCAL-00189" summary="issue resolved">
-      <created>1710146069265</created>
-      <option name="number" value="00189" />
-      <option name="presentableId" value="LOCAL-00189" />
-      <option name="project" value="LOCAL" />
-      <updated>1710146069265</updated>
     </task>
     <task id="LOCAL-00190" summary="issue resolved">
       <created>1710146195368</created>
@@ -466,7 +478,14 @@
       <option name="project" value="LOCAL" />
       <updated>1714823558235</updated>
     </task>
-    <option name="localTasksCounter" value="238" />
+    <task id="LOCAL-00238" summary="completed file uploader components">
+      <created>1715231326612</created>
+      <option name="number" value="00238" />
+      <option name="presentableId" value="LOCAL-00238" />
+      <option name="project" value="LOCAL" />
+      <updated>1715231326612</updated>
+    </task>
+    <option name="localTasksCounter" value="239" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -481,7 +500,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="issue fixes" />
     <MESSAGE value="stepper component" />
     <MESSAGE value="issues resolved" />
     <MESSAGE value="fixed button issues" />
@@ -506,7 +524,8 @@
     <MESSAGE value="animation for toast" />
     <MESSAGE value="updated pubspec overrides file" />
     <MESSAGE value="updated the changes for file uploader components" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated the changes for file uploader components" />
+    <MESSAGE value="completed file uploader components" />
+    <option name="LAST_COMMIT_MESSAGE" value="completed file uploader components" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

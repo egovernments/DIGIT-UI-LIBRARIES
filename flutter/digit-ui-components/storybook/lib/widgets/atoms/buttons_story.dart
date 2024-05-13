@@ -6,7 +6,7 @@ import 'package:storybook_flutter/storybook_flutter.dart';
 List<Story> buttonStories() {
   return [
     Story(
-      name: 'Buttons/Primary',
+      name: 'Atom/Buttons/Primary',
       builder: (context) => Button(
         label: context.knobs.text(label: 'Label', initial: 'Primary Button'),
         onPressed: () {
@@ -41,7 +41,7 @@ List<Story> buttonStories() {
     ),
 
     Story(
-      name: 'Buttons/Secondary',
+      name: 'Atom/Buttons/Secondary',
       builder: (context) => Button(
         label: context.knobs.text(label: 'Label', initial: 'Secondary Button'),
         onPressed: () {
@@ -75,7 +75,7 @@ List<Story> buttonStories() {
       ),
     ),
     Story(
-      name: 'Buttons/Tertiary',
+      name: 'Atom/Buttons/Tertiary',
       builder: (context) => Button(
         label: context.knobs.text(label: 'Label', initial: 'Tertiary Button'),
         onPressed: () {
@@ -109,7 +109,7 @@ List<Story> buttonStories() {
       ),
     ),
     Story(
-      name: 'Buttons/Link',
+      name: 'Atom/Buttons/Link',
       builder: (context) => Button(
         label: context.knobs.text(label: 'Label', initial: 'link'),
         onPressed: () {

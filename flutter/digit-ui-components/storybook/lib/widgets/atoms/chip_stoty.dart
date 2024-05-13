@@ -6,14 +6,14 @@ import 'package:storybook_flutter/storybook_flutter.dart';
 List<Story> chipStories() {
   return [
     Story(
-      name: 'Chip/default',
+      name: 'Atom/Chip/default',
       builder: (context) => SelectionChip(
         label: context.knobs.text(label: 'chip label', initial: 'label'),
         onItemDelete: () {}
       )
     ),
     Story(
-      name: 'Chip/error',
+      name: 'Atom/Chip/error',
       builder: (context) => SelectionChip(
           label: context.knobs.text(label: 'chip label', initial: 'label'),
           onItemDelete: () {},

@@ -9,7 +9,7 @@ import 'package:storybook_flutter/storybook_flutter.dart';
 List<Story> toggleGroupStories() {
   return [
     Story(
-      name: 'Toggle Group',
+      name: 'Atom/Toggle Group',
       builder: (context) => ToggleList(
         mainAxisAlignment: MainAxisAlignment.center,
         selectedIndex: 0,

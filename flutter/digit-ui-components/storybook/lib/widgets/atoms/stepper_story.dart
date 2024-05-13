@@ -5,7 +5,7 @@ import 'package:storybook_flutter/storybook_flutter.dart';
 List<Story> stepperStories() {
   return [
     Story(
-      name: 'Stepper/horizontal',
+      name: 'Atom/Stepper/horizontal',
       builder: (context) => SizedBox(
         height: 500,
         width: MediaQuery.of(context).size.width,
@@ -91,7 +91,7 @@ List<Story> stepperStories() {
       ),
     ),
     Story(
-      name: 'Stepper/vertical',
+      name: 'Atom/Stepper/vertical',
       builder: (context) => SizedBox(
         height: 600,
         width: 400,

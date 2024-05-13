@@ -13,6 +13,7 @@ import 'package:digit_ui_components/widgets/atoms/file_uploader.dart';
 import 'package:digit_ui_components/widgets/atoms/input_wrapper.dart';
 import 'package:digit_ui_components/widgets/atoms/toast.dart';
 import 'package:digit_ui_components/widgets/helper_widget/info_buttons.dart';
+import 'package:digit_ui_components/widgets/molecules/digit_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:url_strategy/url_strategy.dart';
@@ -1997,54 +1998,98 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 8,
                 ),
-                LabeledField(
-                  label: 'File Upload with single selected',
-                  child: FileUploadWidget(
-                    label: 'Upload', onFilesSelected: (List<File> files) {  },
-                    // onFileSelected: (File file) {
-                    //   // Handle the selected file here
-                    //   // print('File path: ${file.path}');
-                    // },
-                  ),
+                DigitCard(
+                  inline: true,
+                  cardType: CardType.primary,
+                  children: [
+                    LabeledField(labelInline: false, label: 'Text Field',child: DigitTextFormInput(controller: TextEditingController(), )),
+                    LabeledField(
+                      labelInline: false,
+                      label: "Dropdown",
+                      child: MultiSelectDropDown<int>(
+                        onOptionSelected: (List<DropdownItem> selectedOptions) {},
+                        options: const [
+                          DropdownItem(code: '1', name: 'one'),
+                          DropdownItem(code: '2', name: 'two'),
+                          DropdownItem(code: '3', name: 'three'),
+                          DropdownItem(code: '4', name: 'four'),
+                          DropdownItem(code: '5', name: 'five'),
+                        ],
+                        selectionType: SelectionType.multiSelect,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 100,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const SizedBox(height: 32,),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Button(label: 'Clear All', onPressed: (){}, type: ButtonType.tertiary, size: ButtonSize.large),
+                              const SizedBox(width: 16,),
+                              Flexible(
+                                child: Container(
+                                    width: 300, child: Button( mainAxisSize: MainAxisSize.max, label: 'Submit', onPressed: (){}, type: ButtonType.primary, size: ButtonSize.large)),
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                    )
+
+                  ],
                 ),
-                const SizedBox(height: 8),
-                LabeledField(
-                  label: 'File Upload with single selected with Preview',
-                  child: FileUploadWidget(
-                    showPreview: true,
-                    label: 'Upload', onFilesSelected: (List<File> files) {  },
-                    // onFileSelected: (File file) {
-                    //   // Handle the selected file here
-                    //   // print('File path: ${file.path}');
-                    // },
-                  ),
-                ),
-                const SizedBox(height: 8),
-                LabeledField(
-                  label: 'File Upload with Multiple file upload',
-                  child: FileUploadWidget(
-                    showPreview: false,
-                    allowMultipleImages: true,
-                    label: 'Upload', onFilesSelected: (List<File> files) {  },
-                    // onFileSelected: (File file) {
-                    //   // Handle the selected file here
-                    //   // print('File path: ${file.path}');
-                    // },
-                  ),
-                ),
-                const SizedBox(height: 8),
-                LabeledField(
-                  label: 'File Upload with Multiple file upload',
-                  child: FileUploadWidget(
-                    showPreview: false,
-                    allowMultipleImages: true,
-                    label: 'Upload', onFilesSelected: (List<File> files) {  },
-                    // onFileSelected: (File file) {
-                    //   // Handle the selected file here
-                    //   // print('File path: ${file.path}');
-                    // },
-                  ),
-                ),
+                // LabeledField(
+                //   label: 'File Upload with single selected',
+                //   child: FileUploadWidget(
+                //     label: 'Upload', onFilesSelected: (List<File> files) {  },
+                //     // onFileSelected: (File file) {
+                //     //   // Handle the selected file here
+                //     //   // print('File path: ${file.path}');
+                //     // },
+                //   ),
+                // ),
+                // const SizedBox(height: 8),
+                // LabeledField(
+                //   label: 'File Upload with single selected with Preview',
+                //   child: FileUploadWidget(
+                //     showPreview: true,
+                //     label: 'Upload', onFilesSelected: (List<File> files) {  },
+                //     // onFileSelected: (File file) {
+                //     //   // Handle the selected file here
+                //     //   // print('File path: ${file.path}');
+                //     // },
+                //   ),
+                // ),
+                // const SizedBox(height: 8),
+                // LabeledField(
+                //   label: 'File Upload with Multiple file upload',
+                //   child: FileUploadWidget(
+                //     showPreview: false,
+                //     allowMultipleImages: true,
+                //     label: 'Upload', onFilesSelected: (List<File> files) {  },
+                //     // onFileSelected: (File file) {
+                //     //   // Handle the selected file here
+                //     //   // print('File path: ${file.path}');
+                //     // },
+                //   ),
+                // ),
+                // const SizedBox(height: 8),
+                // LabeledField(
+                //   label: 'File Upload with Multiple file upload',
+                //   child: FileUploadWidget(
+                //     showPreview: false,
+                //     allowMultipleImages: true,
+                //     label: 'Upload', onFilesSelected: (List<File> files) {  },
+                //     // onFileSelected: (File file) {
+                //     //   // Handle the selected file here
+                //     //   // print('File path: ${file.path}');
+                //     // },
+                //   ),
+                // ),
                 // const SizedBox(height: 8),
                 // const Divider(),
                 // const SizedBox(

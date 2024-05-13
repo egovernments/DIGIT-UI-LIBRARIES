@@ -6,7 +6,7 @@ import 'package:storybook_flutter/storybook_flutter.dart';
 List<Story> radioListStories() {
   return [
     Story(
-      name: 'Radio List',
+      name: 'Atom/Radio List',
       builder: (context) => RadioList(
         onChanged: (value) {
           // print(value);

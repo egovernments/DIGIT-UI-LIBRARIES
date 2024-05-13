@@ -1,32 +1,30 @@
-/*
- The TreeSelectDropDown component is a Flutter dropdown widget with a tree-like structure, allowing the selection of multiple or single options
- It initializes the options, selected options, and other configurations.
- It supports the integration of a TreeSelectController for programmatically controlling the dropdown.
- It provides customization options for the appearance of the dropdown, chips, and other elements.
+/// The TreeSelectDropDown component is a Flutter dropdown widget with a tree-like structure, allowing the selection of multiple or single options
+/// It initializes the options, selected options, and other configurations.
+/// It supports the integration of a TreeSelectController for programmatically controlling the dropdown.
+/// It provides customization options for the appearance of the dropdown, chips, and other elements.
 
- Example usage:
- ```dart
+/// Example usage:
+/// ```dart
 
-TreeSelectDropDown<int>(
-  // Provide the list of options
-  options: options,
-  // Provide the initially selected options
-  selectedOptions: selectedOptions,
-  // Define the callback function when options are selected/deselected
-  onOptionSelected: (List<TreeNode> selectedItems) {
-    // Handle the selected items
-    setState(() {
-      selectedOptions = selectedItems;
-    });
-  },
-  // Customize the appearance of chips
-  chipConfig: ChipConfig(),
-  // Customize the suffix icon (dropdown arrow)
-  suffixIcon: Icon(Icons.arrow_drop_down),
-  // Customize the selection type (multiSelect or singleSelect)
-  treeSelectionType: TreeSelectionType.multiSelect,
-),
- ....*/
+///TreeSelectDropDown<int>(
+///  // Provide the list of options
+///  options: options,
+///  // Provide the initially selected options
+///  selectedOptions: selectedOptions,
+///  // Define the callback function when options are selected/deselected
+///  onOptionSelected: (List<TreeNode> selectedItems) {
+///    // Handle the selected items
+///    setState(() {
+///      selectedOptions = selectedItems;
+///    });
+///  },
+///  // Customize the appearance of chips
+///  chipConfig: ChipConfig(),
+///  // Customize the suffix icon (dropdown arrow)
+///  suffixIcon: Icon(Icons.arrow_drop_down),
+///  // Customize the selection type (multiSelect or singleSelect)
+///  treeSelectionType: TreeSelectionType.multiSelect,
+///),
 
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/foundation.dart';
@@ -246,10 +244,13 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
   Widget build(BuildContext context) {
     currentTypography = getTypography(context, false);
     ///calculate the dropdown width based on the view
-    double dropdownWidth =
-        AppView.isMobileView(MediaQuery.of(context).size)
-            ? Common.mobileInputWidth
-            : Common.desktopInputWidth;
+    double width = AppView.isMobileView(MediaQuery.of(context).size)
+        ? 360
+        : AppView.isTabletView(MediaQuery.of(context).size)
+        ? 440
+        : 600;
+    double minWidth =
+    AppView.isMobileView(MediaQuery.of(context).size) ? 156 : 200;
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -270,7 +271,7 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
               child: StatefulBuilder(builder: (context, setState) {
                 return Container(
                   height: Common.height,
-                  width: dropdownWidth,
+                  width: width,
                   constraints: const BoxConstraints(
                     minWidth: Common.mobileInputWidth,
                     minHeight: Common.height,
@@ -373,7 +374,7 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
         if (_anyItemSelected &&
             widget.treeSelectionType == TreeSelectionType.MultiSelect)
           SizedBox(
-            width: dropdownWidth,
+            width: width,
             child: _getContainerContent(),
           )
       ],

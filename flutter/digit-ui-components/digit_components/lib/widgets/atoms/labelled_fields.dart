@@ -60,53 +60,50 @@ class LabeledField extends StatelessWidget {
 
     bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
     if (isMobile || !labelInline) {
-      return Padding(
-        padding: padding ?? const EdgeInsets.all(kPadding*2),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
-              children: [
-                if (label != null)
-                  Flexible(
-                    child: Text(
-                      processedLabel!.length > 64
-                          ? '${processedLabel!.substring(0, 64)}...'
-                          : processedLabel!,
-                      maxLines: 2,
-                      style: currentTypography.bodyL.copyWith(
-                        color: const DigitColors().light.textPrimary,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                  ),
-                if (isRequired)
-                  Text(
-                    ' *',
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Row(
+            children: [
+              if (label != null)
+                Expanded(
+                  child: Text(
+                    processedLabel!.length > 64
+                        ? '${processedLabel!.substring(0, 64)}...'
+                        : processedLabel!,
+                    maxLines: 1,
                     style: currentTypography.bodyL.copyWith(
-                      color: const DigitColors().light.alertError,
+                      color: const DigitColors().light.textPrimary,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                if (info == true) const SizedBox(width: kPadding / 2),
-                if (info == true)
-                  Tooltip(
-                    message: infoText,
-                    preferBelow: preferToolTipBelow,
-                    triggerMode: triggerMode,
-                    child: const Icon(
-                      Icons.info_outline,
-                      size: 16,
-                    ),
-                  )
-              ],
-            ),
-            const SizedBox(
-              height: 4,
-            ),
-            child,
-          ],
-        ),
+                ),
+              if (isRequired)
+                Text(
+                  ' *',
+                  style: currentTypography.bodyL.copyWith(
+                    color: const DigitColors().light.alertError,
+                  ),
+                ),
+              if (info == true) const SizedBox(width: kPadding / 2),
+              if (info == true)
+                Tooltip(
+                  message: infoText,
+                  preferBelow: preferToolTipBelow,
+                  triggerMode: triggerMode,
+                  child: const Icon(
+                    Icons.info_outline,
+                    size: 16,
+                  ),
+                )
+            ],
+          ),
+          const SizedBox(
+            height: 4,
+          ),
+          child,
+        ],
       );
 
     }
@@ -117,21 +114,23 @@ class LabeledField extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
-            width: MediaQuery.of(context).size.width * 0.20,
+            width: MediaQuery.of(context).size.width * 0.33,
             constraints: BoxConstraints(
-              maxWidth: MediaQuery.of(context).size.width * 0.20,
+              maxWidth: MediaQuery.of(context).size.width * 0.33,
             ),
             child: Row(
               children: [
-                Text(
-                  processedLabel!.length > 64
-                      ? '${processedLabel!.substring(0, 64)}...'
-                      : processedLabel!,
-                  style: currentTypography.bodyL.copyWith(
-                    color: const DigitColors().light.textPrimary,
-                    overflow: wrapLabelText
-                        ? TextOverflow.visible
-                        : TextOverflow.ellipsis,
+                Expanded(
+                  child: Text(
+                    processedLabel!.length > 64
+                        ? '${processedLabel!.substring(0, 64)}...'
+                        : processedLabel!,
+                    style: currentTypography.bodyL.copyWith(
+                      color: const DigitColors().light.textPrimary,
+                      overflow: wrapLabelText
+                          ? TextOverflow.visible
+                          : TextOverflow.ellipsis,
+                    ),
                   ),
                 ),
                 if (isRequired)

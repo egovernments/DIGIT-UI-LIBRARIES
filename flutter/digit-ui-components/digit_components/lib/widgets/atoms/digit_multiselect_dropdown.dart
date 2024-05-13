@@ -1,35 +1,32 @@
-library multiselect_dropdown;
-/*
-the MultiSelectDropDown component is used to create a multi-select dropdown with a list of options.
-The onOptionSelected callback is used to handle the selected items, and the appearance of the dropdown, chips,
-and other elements can be customized using various properties.
+///the MultiSelectDropDown component is used to create a multi-select dropdown with a list of options.
+///The onOptionSelected callback is used to handle the selected items, and the appearance of the dropdown, chips,
+///and other elements can be customized using various properties.
 
- Example usage:
- ```dart
- MultiSelectDropDown(
-             // Provide the list of options
-             options: options,
-             // Provide the initially selected options
-             selectedOptions: selectedOptions,
-             // Define the callback function when options are selected/deselected
-             onOptionSelected: (List<DropdownItem> selectedItems) {
-               // Handle the selected items
-               setState(() {
-                 selectedOptions = selectedItems;
-               });
-             },
-             // Customize the appearance of chips
-             chipConfig: ChipConfig(
-               labelStyle: TextStyle(color: Colors.paperPrimary),
-               backgroundColor: Colors.blue,
-               deleteIconColor: Colors.paperPrimary,
-             ),
-             // Customize the suffix icon (dropdown arrow)
-             suffixIcon: Icon(Icons.arrow_drop_down),
-             // Customize the selection type (multiSelect or singleSelect)
-             selectionType: SelectionType.multiSelect,
-           ),
- ....*/
+/// Example usage:
+/// ```dart
+/// MultiSelectDropDown(
+///             // Provide the list of options
+///             options: options,
+///             // Provide the initially selected options
+///             selectedOptions: selectedOptions,
+///             // Define the callback function when options are selected/deselected
+///             onOptionSelected: (List<DropdownItem> selectedItems) {
+///               // Handle the selected items
+///               setState(() {
+///                 selectedOptions = selectedItems;
+///               });
+///             },
+///             // Customize the appearance of chips
+///             chipConfig: ChipConfig(
+///               labelStyle: TextStyle(color: Colors.paperPrimary),
+///               backgroundColor: Colors.blue,
+///               deleteIconColor: Colors.paperPrimary,
+///             ),
+///             // Customize the suffix icon (dropdown arrow)
+///             suffixIcon: Icon(Icons.arrow_drop_down),
+///             // Customize the selection type (multiSelect or singleSelect)
+///             selectionType: SelectionType.multiSelect,
+///           ),
 
 import 'package:collection/collection.dart';
 import 'package:digit_ui_components/digit_components.dart';
@@ -246,9 +243,13 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
   @override
   Widget build(BuildContext context) {
     currentTypography = getTypography(context, false);
-    double dropdownWidth = AppView.isMobileView(MediaQuery.of(context).size)
-        ? Common.mobileInputWidth
-        : Common.desktopInputWidth;
+    double width = AppView.isMobileView(MediaQuery.of(context).size)
+        ? 360
+        : AppView.isTabletView(MediaQuery.of(context).size)
+        ? 440
+        : 600;
+    double minWidth =
+    AppView.isMobileView(MediaQuery.of(context).size) ? 156 : 200;
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -296,7 +297,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
               child: StatefulBuilder(builder: (context, setState) {
                 return Container(
                   height: Common.height,
-                  width: dropdownWidth,
+                  width: width,
                   constraints: const BoxConstraints(
                     minWidth: 200,
                     minHeight: Common.height,
@@ -400,7 +401,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
         ),
         if (_anyItemSelected)
           SizedBox(
-            width: dropdownWidth,
+            width: width,
             child: _getContainerContent(),
           )
       ],
@@ -810,6 +811,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                   children: [
                     DropdownOption(
                       option: option,
+                      isFocused: isFocused,
                       isSelected: selectedOptions.contains(option),
                       backgroundColor: backgroundColor,
                       selectedOptions: selectedOptions,

@@ -4,7 +4,7 @@ import 'package:storybook_flutter/storybook_flutter.dart';
 List<Story> checkboxStories() {
   return [
     Story(
-      name: 'Checkbox/default',
+      name: 'Atom/Checkbox/default',
       builder: (context) => DigitCheckbox(
         label: context.knobs.text(
           label: 'Label',
@@ -18,7 +18,7 @@ List<Story> checkboxStories() {
       ),
     ),
     Story(
-      name: 'Checkbox/Selected',
+      name: 'Atom/Checkbox/Selected',
       builder: (context) => DigitCheckbox(
         label: context.knobs.text(
           label: 'Label',

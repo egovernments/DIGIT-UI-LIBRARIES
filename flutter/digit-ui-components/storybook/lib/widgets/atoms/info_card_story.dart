@@ -11,7 +11,7 @@ import 'package:storybook_flutter/storybook_flutter.dart';
 List<Story> infoCardStories() {
   return [
     Story(
-      name: 'Info/Info',
+      name: 'Atom/Info/Info',
       builder: (context) => InfoCard(
         title: context.knobs.text(label: "Title", initial: 'Info'),
         type: context.knobs
@@ -37,7 +37,7 @@ List<Story> infoCardStories() {
       ),
     ),
     Story(
-      name: 'Info/Additional widgets',
+      name: 'Atom/Info/Additional widgets',
       builder: (context) =>  InfoCard(
         title: context.knobs.text(label: "Title", initial: 'Info'),
         type: context.knobs

@@ -1,31 +1,29 @@
-/*
-The DigitDropdownExample widget is a stateful widget that initializes a TextEditingController and a list of DropdownItem objects.
-The DigitDropdown component is then used with the provided parameters,
-and the onChange callback is used to handle the selected value.
+///The DigitDropdownExample widget is a stateful widget that initializes a TextEditingController and a list of DropdownItem objects.
+///The DigitDropdown component is then used with the provided parameters,
+///and the onChange callback is used to handle the selected value.
 
- Example usage:
- ```dart
- DigitDropdown(
-       // Pass the TextEditingController
-       textEditingController: _textEditingController,
-
-       // Pass the list of DropdownItems
-       items: _dropdownItems,
-
-       // default is searchable but can be configured
-       isSearchable: false,
-
-       // Callback function when an option is selected
-       onChange: (value, index) {
-         print('Selected: $value'); // Handle the selected value here
-       },
-
-       // Optional parameters can be customized as needed
-       suffixIcon: Icons.arrow_drop_down,
-       dropdownType: DropdownType.defaultSelect,
-      emptyItemText: 'No Options available',
-)
-....*/
+/// Example usage:
+/// ```dart
+/// DigitDropdown(
+///       // Pass the TextEditingController
+///       textEditingController: _textEditingController,
+///
+///       // Pass the list of DropdownItems
+///       items: _dropdownItems,
+///
+///       // default is searchable but can be configured
+///       isSearchable: false,
+///
+///       // Callback function when an option is selected
+///       onChange: (value, index) {
+///         print('Selected: $value'); // Handle the selected value here
+///       },
+///
+///       // Optional parameters can be customized as needed
+///       suffixIcon: Icons.arrow_drop_down,
+///       dropdownType: DropdownType.defaultSelect,
+///      emptyItemText: 'No Options available',
+///)
 
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/foundation.dart';
@@ -116,7 +114,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
   late bool isMouseDown;
   int _focusedIndex = -1;
   late bool _isMouseUsed;
-  late double dropdownWidth;
+  late double width;
   late DigitTypography currentTypography;
 
   @override
@@ -183,9 +181,13 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
   Widget build(BuildContext context) {
     currentTypography = getTypography(context, false);
     /// Responsive width based on screen size
-    dropdownWidth = AppView.isMobileView(MediaQuery.of(context).size)
-        ? Common.mobileInputWidth
-        : Common.desktopInputWidth;
+     width = AppView.isMobileView(MediaQuery.of(context).size)
+        ? 360
+        : AppView.isTabletView(MediaQuery.of(context).size)
+        ? 440
+        : 600;
+    double minWidth =
+    AppView.isMobileView(MediaQuery.of(context).size) ? 156 : 200;
 
     /// link the overlay to the button
     return RawKeyboardListener(
@@ -205,7 +207,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
         child: Column(
           children: [
             SizedBox(
-              width: dropdownWidth,
+              width: width,
               height: Common.height,
               child: TextField(
                 readOnly: !widget.isSearchable || widget.readOnly,
@@ -653,11 +655,11 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                                 null
                                             ? filteredItems[index]
                                             .description !=
-                                            null ? dropdownWidth-80: dropdownWidth - 53
+                                            null ? width-80: width - 53
                                             : filteredItems[index].textIcon !=
                                                     null
-                                                ? dropdownWidth - 40
-                                                : dropdownWidth - 16,
+                                                ? width - 40
+                                                : width - 16,
                                         child: Text(
                                           capitalizeFirstLetter(filteredItems[index].name)!,
                                           softWrap: true,
@@ -688,11 +690,11 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                               null
                                           ? filteredItems[index]
                                           .description !=
-                                          null ? dropdownWidth-80 : dropdownWidth - 53
+                                          null ? width-80 : width - 53
                                           : filteredItems[index].textIcon !=
                                                   null
-                                              ? dropdownWidth - 40
-                                              : dropdownWidth - 16,
+                                              ? width - 40
+                                              : width - 16,
                                       child: Text(
                                         capitalizeFirstLetter(filteredItems[index].description!)!,
                                         overflow: TextOverflow.ellipsis,
@@ -986,13 +988,13 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                                                         index]
                                                                     .profileImageUrl !=
                                                                 null
-                                                            ? dropdownWidth - 50
+                                                            ? width - 50
                                                             : filteredItems[index]
                                                                         .textIcon !=
                                                                     null
-                                                                ? dropdownWidth -
+                                                                ? width -
                                                                     40
-                                                                : dropdownWidth -
+                                                                : width -
                                                                     16,
                                                         child: Text(
                                                           capitalizeFirstLetter(typeItems[index].name)!,
@@ -1027,13 +1029,13 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                                                       index]
                                                                   .profileImageUrl !=
                                                               null
-                                                          ? dropdownWidth - 50
+                                                          ? width - 50
                                                           : filteredItems[index]
                                                                       .textIcon !=
                                                                   null
-                                                              ? dropdownWidth -
+                                                              ? width -
                                                                   40
-                                                              : dropdownWidth -
+                                                              : width -
                                                                   16,
                                                       child: Text(
                                                         capitalizeFirstLetter(typeItems[index]

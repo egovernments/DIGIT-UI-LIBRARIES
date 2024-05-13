@@ -293,16 +293,15 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
         : null;
 
     double Width = AppView.isMobileView(MediaQuery.of(context).size)
-        ? 360
+        ? MediaQuery.of(context).size.width
         : AppView.isTabletView(MediaQuery.of(context).size)
             ? 440
             : 600;
-    double minWidth = AppView.isMobileView(MediaQuery.of(context).size)
-        ? 156
-        : 200;
+    double minWidth =
+        AppView.isMobileView(MediaQuery.of(context).size) ? 156 : 200;
 
     return Container(
-width: Width,
+      width: Width,
       constraints: BoxConstraints(
         minWidth: minWidth,
       ),
@@ -526,8 +525,7 @@ width: Width,
                             ? InkWell(
                                 hoverColor: const DigitColors().transparent,
                                 splashColor: const DigitColors().transparent,
-                                highlightColor:
-                                    const DigitColors().transparent,
+                                highlightColor: const DigitColors().transparent,
                                 onTap: widget.readOnly
                                     ? null
                                     : () {
@@ -575,8 +573,7 @@ width: Width,
                                   child: Text(
                                     widget.suffixText!,
                                     textAlign: TextAlign.center,
-                                    style:
-                                        currentTypography.headingL.copyWith(
+                                    style: currentTypography.headingL.copyWith(
                                       color: widget.isDisabled
                                           ? const DigitColors()
                                               .light
@@ -589,8 +586,7 @@ width: Width,
                                 ),
                               )
                             : Container(
-                                constraints:
-                                    const BoxConstraints(minWidth: 38),
+                                constraints: const BoxConstraints(minWidth: 38),
                                 padding: const EdgeInsets.symmetric(
                                   horizontal: 6,
                                   vertical: 2,
@@ -649,11 +645,9 @@ width: Width,
                             ? InkWell(
                                 hoverColor: const DigitColors().transparent,
                                 splashColor: const DigitColors().transparent,
-                                highlightColor:
-                                    const DigitColors().transparent,
-                                onTap: widget.readOnly
-                                    ? null
-                                    : onSuffixIconClick,
+                                highlightColor: const DigitColors().transparent,
+                                onTap:
+                                    widget.readOnly ? null : onSuffixIconClick,
                                 child: Padding(
                                   padding: const EdgeInsets.only(
                                     right: kPadding,
@@ -675,8 +669,7 @@ width: Width,
                             ? InkWell(
                                 hoverColor: const DigitColors().transparent,
                                 splashColor: const DigitColors().transparent,
-                                highlightColor:
-                                    const DigitColors().transparent,
+                                highlightColor: const DigitColors().transparent,
                                 onTap: widget.readOnly
                                     ? null
                                     : () {
@@ -724,8 +717,7 @@ width: Width,
                                   child: Text(
                                     widget.prefixText!,
                                     textAlign: TextAlign.center,
-                                    style:
-                                        currentTypography.headingL.copyWith(
+                                    style: currentTypography.headingL.copyWith(
                                       color: widget.isDisabled
                                           ? const DigitColors()
                                               .light
@@ -839,9 +831,8 @@ width: Width,
                                     width: 16,
                                     child: Icon(
                                       Icons.info,
-                                      color: const DigitColors()
-                                          .light
-                                          .alertError,
+                                      color:
+                                          const DigitColors().light.alertError,
                                       size: BaseConstants.errorIconSize,
                                     ),
                                   ),
@@ -855,8 +846,7 @@ width: Width,
                                       ? '${_errorMessage!.substring(0, 256)}...'
                                       : _errorMessage!,
                                   style: currentTypography.bodyS.copyWith(
-                                    color:
-                                        const DigitColors().light.alertError,
+                                    color: const DigitColors().light.alertError,
                                   ),
                                 ),
                               ),

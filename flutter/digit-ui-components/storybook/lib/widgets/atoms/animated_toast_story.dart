@@ -7,7 +7,7 @@ import 'package:storybook_flutter/storybook_flutter.dart';
 List<Story> animatedToastStories() {
   return [
     Story(
-      name: 'Animated Toast/Success',
+      name: 'Atom/Animated Toast/Success',
       builder: (context) => ElevatedButton(
         onPressed: () {
           Toast.showToast(
@@ -20,7 +20,7 @@ List<Story> animatedToastStories() {
       ),
     ),
     Story(
-      name: 'Animated Toast/Error',
+      name: 'Atom/Animated Toast/Error',
       builder: (context) => ElevatedButton(
         onPressed: () {
           Toast.showToast(
@@ -33,7 +33,7 @@ List<Story> animatedToastStories() {
       ),
     ),
     Story(
-      name: 'Animated Toast/Warning',
+      name: 'Atom/Animated Toast/Warning',
       builder: (context) => ElevatedButton(
         onPressed: () {
           Toast.showToast(
