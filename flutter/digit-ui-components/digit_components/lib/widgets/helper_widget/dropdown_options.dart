@@ -50,7 +50,7 @@ class _DropdownOptionState extends State<DropdownOption> {
 
   @override
   Widget build(BuildContext context) {
-    DigitTypography currentTypography = getTypography(context);
+    DigitTypography currentTypography = getTypography(context, false);
     return Column(
       children: [
         StatefulBuilder(
@@ -91,27 +91,27 @@ class _DropdownOptionState extends State<DropdownOption> {
                   border: Border.all(
                     width: 0.5,
                     color: _itemMouseDownStates[widget.option] == true || widget.isFocused==true ||
-                            _itemHoverStates[widget.option] == true ||
-                            widget.isSelected
-                        ? const DigitColors().light.primaryOrange
+                        _itemHoverStates[widget.option] == true ||
+                        widget.isSelected
+                        ? const DigitColors().light.primary1
                         : Colors.transparent,
                   ),
                   color: _itemMouseDownStates[widget.option] == true  ||
                       widget.isSelected
-                      ? const DigitColors().light.primaryOrange
+                      ? const DigitColors().light.primary1
                       : _itemHoverStates[widget.option] == true || widget.isFocused==true
-                          ? const DigitColors().orangeBG
-                          : widget.backgroundColor,
+                      ? const DigitColors().light.primary1Bg
+                      : widget.backgroundColor,
                 ),
                 padding: EdgeInsets.zero,
                 child: Padding(
                   padding: widget.selectionType == SelectionType.multiSelect
                       ? widget.option.description != null
-                          ? const EdgeInsets.symmetric(
-                              horizontal: 16,
-                              vertical: 8,
-                            )
-                          : DropdownConstants.defaultPadding
+                      ? const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 8,
+                  )
+                      : DropdownConstants.defaultPadding
                       : DropdownConstants.nestedItemPadding,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -122,14 +122,14 @@ class _DropdownOptionState extends State<DropdownOption> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           widget.isSelected ||
-                                  _itemMouseDownStates[widget.option] == true
+                              _itemMouseDownStates[widget.option] == true
                               ? DigitCheckboxIcon(
-                                  size: 20,
-                                  state: DigitCheckboxState.checked,
-                                  color: const DigitColors().light.paperPrimary,
-                                )
+                            size: 20,
+                            state: DigitCheckboxState.checked,
+                            color: const DigitColors().light.paperPrimary,
+                          )
                               : const DigitCheckboxIcon(
-                                  size: 20, state: DigitCheckboxState.unchecked),
+                              size: 20, state: DigitCheckboxState.unchecked),
                           const SizedBox(
                             width: 12,
                           ),
@@ -140,8 +140,8 @@ class _DropdownOptionState extends State<DropdownOption> {
                                   widget.option.textIcon,
                                   size: DropdownConstants.textIconSize,
                                   color: widget.isSelected ||
-                                          _itemMouseDownStates[widget.option] ==
-                                              true
+                                      _itemMouseDownStates[widget.option] ==
+                                          true
                                       ? const DigitColors().light.paperPrimary
                                       : const DigitColors().light.textSecondary,
                                 ),
@@ -152,24 +152,22 @@ class _DropdownOptionState extends State<DropdownOption> {
                               Text(
                                 capitalizeFirstLetter(widget.option.name),
                                 style: widget.isSelected ||
-                                        _itemMouseDownStates[widget.option] ==
-                                            true
+                                    _itemMouseDownStates[widget.option] ==
+                                        true
                                     ? currentTypography.headingS.copyWith(
-                                        color: const DigitColors().light
-                                            .paperPrimary,
-                                        height: 1.172,
-                                      )
+                                  color: const DigitColors().light
+                                      .paperPrimary,
+                                )
                                     : widget.option.description != null
-                                        ? currentTypography.bodyL.copyWith(
-                                            color: const DigitColors().light
-                                                .textSecondary,
-                                            height: 1.5,
-                                          )
-                                        : currentTypography.bodyS.copyWith(
-                                            color: const DigitColors().light
-                                                .textPrimary,
-                                            height: 1.125,
-                                          ),
+                                    ? currentTypography.bodyL.copyWith(
+                                  color: const DigitColors().light
+                                      .textSecondary,
+
+                                )
+                                    : currentTypography.bodyS.copyWith(
+                                  color: const DigitColors().light
+                                      .textPrimary,
+                                ),
                               ),
                             ],
                           ),

@@ -4,6 +4,7 @@ import '../../constants/AppView.dart';
 import '../../theme/colors.dart';
 import '../../theme/digit_theme.dart';
 import '../../theme/typography.dart';
+import '../../utils/utils.dart';
 
 class LabeledField extends StatelessWidget {
   final Widget child;
@@ -22,7 +23,8 @@ class LabeledField extends StatelessWidget {
   final bool wrapLabelText;
   final MainAxisAlignment mainAxisAlignment;
   final CrossAxisAlignment crossAxisAlignment;
-  final bool capitalizeFirstLetter;
+  final bool capitalizedFirstLetter;
+  final bool labelInline;
 
   const LabeledField({
     super.key,
@@ -42,96 +44,95 @@ class LabeledField extends StatelessWidget {
     this.wrapLabelText = true,
     this.mainAxisAlignment = MainAxisAlignment.start,
     this.crossAxisAlignment = CrossAxisAlignment.start,
-    this.capitalizeFirstLetter = true,
+    this.capitalizedFirstLetter = true,
+    this.labelInline = true,
   });
 
   @override
   Widget build(BuildContext context) {
     /// typography based on screen
-    DigitTypography currentTypography = getTypography(context);
+    DigitTypography currentTypography = getTypography(context, false);
 
     /// Capitalize the first letter of the label if required
-    final processedLabel = capitalizeFirstLetter
-        ? label?.replaceRange(0, 1, label![0].toUpperCase())
+    final processedLabel = capitalizedFirstLetter
+        ? capitalizeFirstLetter(label)
         : label;
 
-    bool isMobile = AppView.isMobileView(MediaQuery.of(context).size.width);
-    if (!isMobile) {
-      return Padding(
-        padding: padding ?? const EdgeInsets.only(top: kPadding),
-        child: Row(
-          crossAxisAlignment: crossAxisAlignment,
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: mainAxisAlignment,
-          children: [
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.33,
-              child: Row(
-                children: [
-                  Flexible(
-                    child: Text(
-                      processedLabel!.length > 64
-                          ? '${processedLabel!.substring(0, 64)}...'
-                          : processedLabel!,
-                      style: currentTypography.bodyL.copyWith(
-                        height: 1.172,
-                        color: const DigitColors().light.textPrimary,
-                        overflow: wrapLabelText
-                            ? TextOverflow.visible
-                            : TextOverflow.ellipsis,
-                      ),
+    bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
+    if (isMobile || !labelInline) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Row(
+            children: [
+              if (label != null)
+                Expanded(
+                  child: Text(
+                    processedLabel!.length > 64
+                        ? '${processedLabel!.substring(0, 64)}...'
+                        : processedLabel!,
+                    maxLines: 1,
+                    style: currentTypography.bodyL.copyWith(
+                      color: const DigitColors().light.textPrimary,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                  if (isRequired)
-                    Text(
-                      ' *',
-                      style: currentTypography.bodyL.copyWith(
-                        color: const DigitColors().light.alertError,
-                      ),
-                    ),
-                  if (info == true) const SizedBox(width: kPadding / 2),
-                  if (info == true)
-                    Tooltip(
-                      message: infoText,
-                      preferBelow: preferToolTipBelow,
-                      triggerMode: triggerMode,
-                      child: Icon(
-                        Icons.info_outline,
-                        size: 19,
-                        color: const DigitColors().light.textSecondary,
-                      ),
-                    )
-                ],
-              ),
-            ),
-            const SizedBox(
-              width: 16,
-            ),
-            Flexible(child: child),
-          ],
-        ),
+                ),
+              if (isRequired)
+                Text(
+                  ' *',
+                  style: currentTypography.bodyL.copyWith(
+                    color: const DigitColors().light.alertError,
+                  ),
+                ),
+              if (info == true) const SizedBox(width: kPadding / 2),
+              if (info == true)
+                Tooltip(
+                  message: infoText,
+                  preferBelow: preferToolTipBelow,
+                  triggerMode: triggerMode,
+                  child: const Icon(
+                    Icons.info_outline,
+                    size: 16,
+                  ),
+                )
+            ],
+          ),
+          const SizedBox(
+            height: 4,
+          ),
+          child,
+        ],
       );
-    } else {
-      return Padding(
-        padding: padding ?? const EdgeInsets.only(top: kPadding),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
+
+    }
+    else {
+      return Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Container(
+            width: MediaQuery.of(context).size.width * 0.33,
+            constraints: BoxConstraints(
+              maxWidth: MediaQuery.of(context).size.width * 0.33,
+            ),
+            child: Row(
               children: [
-                if (label != null)
-                  Flexible(
-                    child: Text(
-                      processedLabel!.length > 64
-                          ? '${processedLabel!.substring(0, 64)}...'
-                          : processedLabel!,
-                      style: currentTypography.bodyL.copyWith(
-                        color: const DigitColors().light.textPrimary,
-                        overflow: TextOverflow.ellipsis,
-                      ),
+                Expanded(
+                  child: Text(
+                    processedLabel!.length > 64
+                        ? '${processedLabel!.substring(0, 64)}...'
+                        : processedLabel!,
+                    style: currentTypography.bodyL.copyWith(
+                      color: const DigitColors().light.textPrimary,
+                      overflow: wrapLabelText
+                          ? TextOverflow.visible
+                          : TextOverflow.ellipsis,
                     ),
                   ),
+                ),
                 if (isRequired)
                   Text(
                     ' *',
@@ -145,19 +146,22 @@ class LabeledField extends StatelessWidget {
                     message: infoText,
                     preferBelow: preferToolTipBelow,
                     triggerMode: triggerMode,
-                    child: const Icon(
+                    child: Icon(
                       Icons.info_outline,
-                      size: 16,
+                      size: 19,
+                      color: const DigitColors().light.textSecondary,
                     ),
-                  )
+                  ),
               ],
             ),
-            const SizedBox(
-              height: 4,
-            ),
-            child,
-          ],
-        ),
+          ),
+          const SizedBox(
+            width: 16,
+          ),
+          Flexible(
+            child: child,
+          ),
+        ],
       );
     }
   }

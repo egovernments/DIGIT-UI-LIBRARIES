@@ -1,21 +1,21 @@
-/*
- ToggleList is a row of toggle buttons that allows selecting one item at a time.
 
-  Example usage:
- ```dart
- ToggleList(
-  toggleButtons: [
-    ToggleButtonModel(name: 'Option 1', onSelected: () => print('Option 1 selected')),
-    ToggleButtonModel(name: 'Option 2', onSelected: () => print('Option 2 selected')),
-    // Add more ToggleButtonModel instances as needed
-  ],
-  onChanged: (selectedValues) {
-    // Handle the selected values if needed
-    print('Selected values: $selectedValues');
-  },
-  contentPadding: EdgeInsets.symmetric(horizontal: 16), // Optional content padding
-)
- ....*/
+/// ToggleList is a row of toggle buttons that allows selecting one item at a time.
+
+///  Example usage:
+/// ```dart
+/// ToggleList(
+///  toggleButtons: [
+///    ToggleButtonModel(name: 'Option 1', onSelected: () => print('Option 1 selected')),
+///    ToggleButtonModel(name: 'Option 2', onSelected: () => print('Option 2 selected')),
+///    // Add more ToggleButtonModel instances as needed
+///  ],
+///  onChanged: (selectedValues) {
+/// Handle the selected values if needed
+///    print('Selected values: $selectedValues');
+///  },
+///  contentPadding: EdgeInsets.symmetric(horizontal: 16), // Optional content padding
+///)
+
 
 import 'dart:math';
 
@@ -64,9 +64,7 @@ class _ToggleListState extends State<ToggleList> {
     for (ToggleButtonModel button in widget.toggleButtons) {
       TextPainter textPainter = TextPainter(
         text: TextSpan(
-          text: button.name.length > 64
-              ? "${button.name.substring(0, 64)}..."
-              : button.name,
+          text:button.name,
           style: const TextStyle(),
         ),
         textDirection: TextDirection.ltr,
@@ -84,7 +82,7 @@ class _ToggleListState extends State<ToggleList> {
       mainAxisAlignment: widget.mainAxisAlignment,
       crossAxisAlignment: widget.crossAxisAlignment,
       children: widget.toggleButtons.map(
-        (button) {
+            (button) {
           final index = widget.toggleButtons.indexOf(button);
           return Padding(
             padding: widget.contentPadding ??
@@ -104,9 +102,7 @@ class _ToggleListState extends State<ToggleList> {
                   }
                 });
               },
-              label: button.name.length > 64
-                  ? "${button.name.substring(0, 64)}..."
-                  : button.name,
+              label:button.name,
               isSelected: selectedIndex == index,
               maxLabelWidth: maxLabelWidth,
             ),

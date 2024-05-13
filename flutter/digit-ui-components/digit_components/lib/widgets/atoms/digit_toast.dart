@@ -1,123 +1,113 @@
-import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import '../../constants/AppView.dart';
-import '../../constants/app_constants.dart';
+import '../../enum/app_enums.dart';
+import '../../theme/theme.dart';
+import '../../utils/utils.dart';
+
+/// This class provides a static method to show custom toast notifications
+/// with various options like duration, animation, and position.
+/// Parameters:
+/// - [context]: The build context from where the toast is shown.
+/// - [message]: The message to be displayed in the toast.
+/// - [type]: The type of toast to display, affecting the color and icon.
+/// - [duration]: How long the toast should be visible (default is 5 seconds).
+/// - [animationDuration]: The duration of the animation (if specified).
+/// - [position]: The position on the screen where the toast appears (default is bottom center).
 
 class Toast {
-  final ToastOptions options;
-
-  static FToast fToast = FToast();
-
-  @visibleForTesting
-  Toast({
-    required this.options,
-  });
-
-  static show<T>(
-    BuildContext context, {
-    required ToastOptions options,
+  static void showToast(
+      BuildContext context, {
+        required String message,
+        required ToastType type,
         Duration? duration,
-  }) {
-    fToast.init(context);
-
-    DigitTypography currentTypography = getTypography(context);
-
-    bool isMobile = AppView.isMobileView(MediaQuery.of(context).size.width);
-
-    double inputWidth = isMobile
-        ? 360
-        : AppView.isTabletView(MediaQuery.of(context).size.width)
-            ? 480
-            : 800;
-
-    /// Capitalize the first letter if required
-    String capitalizeFirstLetter(String text) {
-      if (text.isNotEmpty ) {
-        return text.substring(0, 1).toUpperCase() + text.substring(1);
-      }
-      return text;
-    }
-
-
-    return fToast.showToast(
-      child: Container(
-        constraints: BoxConstraints(
-          minWidth: inputWidth,
-        ),
-        color: options.type == ToastType.success
-            ? const DigitColors().light.alertSuccess
-            : options.type == ToastType.error
-            ? const DigitColors().light.alertError
-            : const DigitColors().light.alertWarning,
-        padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 8),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                SizedBox(
-                  height: 24,
-                  width: 24,
-                  child: Icon(
-                    options.type == ToastType.success
-                        ? Icons.check_circle
-                        : options.type == ToastType.error
-                        ? Icons.error
-                        : Icons.warning,
-                    color: const DigitColors().light.paperPrimary,
-                    size: 24,
-                  ),
-                ),
-                const SizedBox(width: kPadding),
-                Container(
-                  constraints: BoxConstraints(
-                    maxWidth:  MediaQuery.of(context).size.width- 24 - kPadding * 3 - 24,
-                  ),
-                  child: Text(
-                    capitalizeFirstLetter(options.message),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: currentTypography.captionS.copyWith(
-                      color: const DigitColors().light.paperPrimary,
-                      height: 1.172,
-                    ),
-                  ),
-                ),
-
-              ],
-            ),
-            InkWell(
-              onTap: () {
-                fToast.removeCustomToast();
-              },
-              child: Icon(
-                Icons.close,
-                size: 24,
-                color: const DigitColors().light.paperPrimary,
-              ),
-            ),
-          ],
-        ),
+        Duration? animationDuration,
+        StyledToastPosition? position,
+      }) {
+    showToastWidget(
+      _buildToastWidget(message, type, context),
+      context: context,
+      duration: duration ?? const Duration(seconds: 5),
+      position: position ?? const StyledToastPosition(
+        align: Alignment.bottomCenter,
       ),
-      gravity: ToastGravity.SNACKBAR,
-      toastDuration: duration ?? toastDuration,
+      isIgnoring: false,
+      animation: StyledToastAnimation.slideFromBottom,
+      animDuration: animationDuration,
     );
   }
-}
 
-class ToastOptions {
-  final String message;
-  final ToastType type;
+  static Widget _buildToastWidget(
+      String message, ToastType type, BuildContext context) {
+    DigitTypography currentTypography = getTypography(context, false);
 
-  ToastOptions(this.message, this.type);
-}
+    double minWidth = AppView.isMobileView(MediaQuery.of(context).size)
+        ? MediaQuery.of(context).size.width
+        : AppView.isTabletView(MediaQuery.of(context).size)
+        ? 480
+        : 800;
 
-enum ToastType {
-  success,
-  error,
-  warning,
+    return Container(
+      constraints: BoxConstraints(
+        minWidth: minWidth,
+      ),
+      color: type == ToastType.success
+          ? const DigitColors().light.alertSuccess
+          : type == ToastType.error
+          ? const DigitColors().light.alertError
+          : const DigitColors().light.alertWarning,
+      padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(
+                height: 24,
+                width: 24,
+                child: Icon(
+                  type == ToastType.success
+                      ? Icons.check_circle
+                      : type == ToastType.error
+                      ? Icons.error
+                      : Icons.warning,
+                  color: const DigitColors().light.paperPrimary,
+                  size: 24,
+                ),
+              ),
+              const SizedBox(width: kPadding),
+              Container(
+                constraints: BoxConstraints(
+                  maxWidth: MediaQuery.of(context).size.width -
+                      24 -
+                      kPadding * 3 -
+                      24,
+                ),
+                child: Text(
+                  capitalizeFirstLetter(message)!,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: currentTypography.captionS.copyWith(
+                    color: const DigitColors().light.paperPrimary,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          InkWell(
+            onTap: () {
+              ToastManager().dismissAll(showAnim: false);
+            },
+            child: Icon(
+              Icons.close,
+              size: 24,
+              color: const DigitColors().light.paperPrimary,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }

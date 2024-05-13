@@ -6,6 +6,20 @@ enum ButtonType {
   link,
 }
 
+/// Enum representing the possible sizes of the button.
+enum ButtonSize {
+  large,
+  medium,
+  small,
+}
+
+/// Enum representing the possible type of info buttons
+enum InfoButtonType {
+  error,
+  info,
+  success,
+  warning,
+}
 
 /// Enum representing different types of single select dropdowns.
 enum DropdownType {
@@ -39,9 +53,16 @@ enum DigitCheckboxState {
   checked,
 }
 
-// Enum representing the scroll for textArea
+/// Enum representing the scroll for textArea
 enum TextAreaScroll{
   vertical,
   smart,
   none,
+}
+
+/// Enum representing toast types
+enum ToastType {
+  success,
+  error,
+  warning,
 }

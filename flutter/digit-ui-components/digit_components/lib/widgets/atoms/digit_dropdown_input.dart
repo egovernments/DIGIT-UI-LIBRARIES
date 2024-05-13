@@ -1,31 +1,29 @@
-/*
-The DigitDropdownExample widget is a stateful widget that initializes a TextEditingController and a list of DropdownItem objects.
-The DigitDropdown component is then used with the provided parameters,
-and the onChange callback is used to handle the selected value.
+///The DigitDropdownExample widget is a stateful widget that initializes a TextEditingController and a list of DropdownItem objects.
+///The DigitDropdown component is then used with the provided parameters,
+///and the onChange callback is used to handle the selected value.
 
- Example usage:
- ```dart
- DigitDropdown(
-       // Pass the TextEditingController
-       textEditingController: _textEditingController,
-
-       // Pass the list of DropdownItems
-       items: _dropdownItems,
-
-       // default is searchable but can be configured
-       isSearchable: false,
-
-       // Callback function when an option is selected
-       onChange: (value, index) {
-         print('Selected: $value'); // Handle the selected value here
-       },
-
-       // Optional parameters can be customized as needed
-       suffixIcon: Icons.arrow_drop_down,
-       dropdownType: DropdownType.defaultSelect,
-      emptyItemText: 'No Options available',
-)
-....*/
+/// Example usage:
+/// ```dart
+/// DigitDropdown(
+///       // Pass the TextEditingController
+///       textEditingController: _textEditingController,
+///
+///       // Pass the list of DropdownItems
+///       items: _dropdownItems,
+///
+///       // default is searchable but can be configured
+///       isSearchable: false,
+///
+///       // Callback function when an option is selected
+///       onChange: (value, index) {
+///         print('Selected: $value'); // Handle the selected value here
+///       },
+///
+///       // Optional parameters can be customized as needed
+///       suffixIcon: Icons.arrow_drop_down,
+///       dropdownType: DropdownType.defaultSelect,
+///      emptyItemText: 'No Options available',
+///)
 
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/foundation.dart';
@@ -35,6 +33,7 @@ import '../../constants/AppView.dart';
 import '../../constants/app_constants.dart';
 import '../../enum/app_enums.dart';
 import '../../models/DropdownModels.dart';
+import '../../utils/utils.dart';
 
 class DigitDropdown<T> extends StatefulWidget {
   final TextEditingController textEditingController;
@@ -115,7 +114,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
   late bool isMouseDown;
   int _focusedIndex = -1;
   late bool _isMouseUsed;
-  late double dropdownWidth;
+  late double width;
   late DigitTypography currentTypography;
 
   @override
@@ -136,7 +135,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
         if (widget.dropdownType == DropdownType.nestedSelect) {
           _nestedIndex = widget.selectedOption!.code;
           widget.textEditingController.text =
-              '${widget.selectedOption?.type}: ${widget.selectedOption?.name}';
+          '${widget.selectedOption?.type}: ${widget.selectedOption?.name}';
         } else {
           _currentIndex = widget.selectedOption!.code;
           widget.textEditingController.text = widget.selectedOption!.name;
@@ -180,11 +179,15 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
 
   @override
   Widget build(BuildContext context) {
-    currentTypography = getTypography(context);
+    currentTypography = getTypography(context, false);
     /// Responsive width based on screen size
-    dropdownWidth = AppView.isMobileView(MediaQuery.of(context).size.width)
-        ? Default.mobileInputWidth
-        : Default.desktopInputWidth;
+    width = AppView.isMobileView(MediaQuery.of(context).size)
+        ? 360
+        : AppView.isTabletView(MediaQuery.of(context).size)
+        ? 440
+        : 600;
+    double minWidth =
+    AppView.isMobileView(MediaQuery.of(context).size) ? 156 : 200;
 
     /// link the overlay to the button
     return RawKeyboardListener(
@@ -204,40 +207,39 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
         child: Column(
           children: [
             SizedBox(
-              width: dropdownWidth,
-              height: Default.height,
+              width: width,
+              height: Common.height,
               child: TextField(
                 readOnly: !widget.isSearchable || widget.readOnly,
                 enabled: !widget.isDisabled,
                 onTap: widget.readOnly ? null:widget.isSearchable
                     ? () {
-                        _toggleDropdown();
-                        FocusScope.of(context).requestFocus(_focusNode);
-                      }
+                  _toggleDropdown();
+                  FocusScope.of(context).requestFocus(_focusNode);
+                }
                     : () {
-                        _toggleDropdown();
-                      },
+                  _toggleDropdown();
+                },
                 showCursor: widget.isSearchable && !widget.readOnly ? true : false,
                 keyboardType: widget.isSearchable && !widget.readOnly
                     ? TextInputType.text
                     : TextInputType.none,
                 onChanged: widget.isSearchable
                     ? (input) {
-                        if (widget.textEditingController.text == '') {
-                          _currentIndex = '';
-                          _nestedIndex = '';
-                        }
-                        _filterItems(input);
-                        if (!listEquals(filteredItems, _lastFilteredItems)) {
-                          _updateOverlay();
-                          _lastFilteredItems = filteredItems;
-                        }
-                      }
+                  if (widget.textEditingController.text == '') {
+                    _currentIndex = '';
+                    _nestedIndex = '';
+                  }
+                  _filterItems(input);
+                  if (!listEquals(filteredItems, _lastFilteredItems)) {
+                    _updateOverlay();
+                    _lastFilteredItems = filteredItems;
+                  }
+                }
                     : null,
                 focusNode: _focusNode,
                 controller: widget.textEditingController,
                 style: currentTypography.bodyL.copyWith(
-                  height: 1.5,
                   color: widget.readOnly ?const DigitColors().light.textSecondary :const DigitColors().light.textPrimary,
                 ),
                 decoration: InputDecoration(
@@ -249,15 +251,15 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                     top: 8,
                   ),
                   border: const OutlineInputBorder(
-                    borderRadius: BorderRadius.zero,
+                    borderRadius: Common.radius,
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
                         color: widget.errorMessage !=null ? const DigitColors().light.alertError:_isOpen
-                            ? const DigitColors().light.primaryOrange
+                            ? const DigitColors().light.primary1
                             : const DigitColors().light.genericInputBorder,
                         width: _isOpen || widget.errorMessage !=null ? 1.5 : 1.0),
-                    borderRadius: BorderRadius.zero,
+                    borderRadius: Common.radius,
                   ),
                   focusedBorder: widget.readOnly
                       ? OutlineInputBorder(
@@ -265,12 +267,12 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                       color: const DigitColors().light.textSecondary,
                       width: 1.0,
                     ),
-                    borderRadius: BorderRadius.zero,
+                    borderRadius: Common.radius,
                   ) : OutlineInputBorder(
                     borderSide: BorderSide(
-                        color: const DigitColors().light.primaryOrange,
+                        color: const DigitColors().light.primary1,
                         width: 1.5),
-                    borderRadius: BorderRadius.zero,
+                    borderRadius: Common.radius,
                   ),
                   disabledBorder: BaseConstants.disabledBorder,
                   suffixIcon: InkWell(
@@ -302,55 +304,53 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                 children: [
                   widget.errorMessage != null
                       ? Expanded(
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Column(
-                                children: [
-                                  const SizedBox(
-                                    height: 2,
-                                  ),
-                                  SizedBox(
-                                    height: 16,
-                                    width: 16,
-                                    child: Icon(
-                                      Icons.info,
-                                      color:
-                                          const DigitColors().light.alertError,
-                                      size: BaseConstants.errorIconSize,
-                                    ),
-                                  ),
-                                ],
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Column(
+                          children: [
+                            const SizedBox(
+                              height: 2,
+                            ),
+                            SizedBox(
+                              height: 16,
+                              width: 16,
+                              child: Icon(
+                                Icons.info,
+                                color:
+                                const DigitColors().light.alertError,
+                                size: BaseConstants.errorIconSize,
                               ),
-                              const SizedBox(width: kPadding / 2),
-                              Flexible(
-                                fit: FlexFit.tight,
-                                child: Text(
-                                  widget.errorMessage!.length > 256
-                                      ? '${widget.errorMessage!.substring(0, 256)}...'
-                                      : widget.errorMessage!,
-                                  style: currentTypography.bodyS.copyWith(
-                                    height: 1.5,
-                                    color: const DigitColors().light.alertError,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        )
-                      : Expanded(
+                            ),
+                          ],
+                        ),
+                        const SizedBox(width: kPadding / 2),
+                        Flexible(
+                          fit: FlexFit.tight,
                           child: Text(
-                            widget.helpText!.length > 256
-                                ? '${widget.helpText!.substring(0, 256)}...'
-                                : widget.helpText!,
+                            widget.errorMessage!.length > 256
+                                ? '${widget.errorMessage!.substring(0, 256)}...'
+                                : widget.errorMessage!,
                             style: currentTypography.bodyS.copyWith(
-                              height: 1.5,
-                              color: const DigitColors().light.textSecondary,
+                              color: const DigitColors().light.alertError,
                             ),
                           ),
                         ),
+                      ],
+                    ),
+                  )
+                      : Expanded(
+                    child: Text(
+                      widget.helpText!.length > 256
+                          ? '${widget.helpText!.substring(0, 256)}...'
+                          : widget.helpText!,
+                      style: currentTypography.bodyS.copyWith(
+                        color: const DigitColors().light.textSecondary,
+                      ),
+                    ),
+                  ),
                 ],
               ),
           ],
@@ -363,15 +363,15 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
   void _filterItems(String input) {
     List<DropdownItem> newFilteredItems = widget.items
         .where((item) =>
-            item.name
+    item.name
+        .trim()
+        .toLowerCase()
+        .contains(input.trim().toLowerCase()) ||
+        (item.description != null &&
+            item.description!
                 .trim()
                 .toLowerCase()
-                .contains(input.trim().toLowerCase()) ||
-            (item.description != null &&
-                item.description!
-                    .trim()
-                    .toLowerCase()
-                    .contains(input.trim().toLowerCase())))
+                .contains(input.trim().toLowerCase())))
         .toList();
 
     if (!listEquals(newFilteredItems, _lastFilteredItems)) {
@@ -390,13 +390,6 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
     }
   }
 
-  /// Capitalize the first letter if required
-  String capitalizeFirstLetter(String text) {
-    if (text.isNotEmpty) {
-      return text.substring(0, 1).toUpperCase() + text.substring(1);
-    }
-    return text;
-  }
 
   ///overlay for dropdown
   OverlayEntry _createOverlayEntry() {
@@ -431,13 +424,13 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                   showWhenUnlinked: false,
                   child: Material(
                     elevation: 0,
-                    borderRadius: BorderRadius.zero,
+                    borderRadius: Common.radius,
                     color: const DigitColors().light.paperPrimary,
                     clipBehavior: Clip.none,
                     child: ConstrainedBox(
                       constraints: BoxConstraints(
                         maxHeight:
-                            MediaQuery.of(context).size.height - topOffset - 15,
+                        MediaQuery.of(context).size.height - topOffset - 15,
                       ),
                       child: Container(
                           decoration: BoxDecoration(
@@ -474,646 +467,643 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
   Widget _buildListView() {
     return filteredItems.isNotEmpty
         ? Scrollbar(
-            radius: const Radius.circular(50),
-            thickness: 10,
-            child: ListView.separated(
-              separatorBuilder: (_, __) => const SizedBox(height: 0),
-              shrinkWrap: true,
-              padding: EdgeInsets.zero,
-              itemCount: filteredItems.length,
-              itemBuilder: (context, index) {
-                return StatefulBuilder(
-                  builder: (context, setState) {
-                    Color backgroundColor = index % 2 == 0
-                        ? const DigitColors().light.paperPrimary
-                        : const DigitColors().light.paperSecondary;
+      radius: const Radius.circular(50),
+      thickness: 10,
+      child: ListView.separated(
+        separatorBuilder: (_, __) => const SizedBox(height: 0),
+        shrinkWrap: true,
+        padding: EdgeInsets.zero,
+        itemCount: filteredItems.length,
+        itemBuilder: (context, index) {
+          return StatefulBuilder(
+            builder: (context, setState) {
+              Color backgroundColor = index % 2 == 0
+                  ? const DigitColors().light.paperPrimary
+                  : const DigitColors().light.paperSecondary;
 
-                    bool isFocused = _focusedIndex == index && !_isMouseUsed;
-                    if (_isMouseUsed) {
-                      _focusedIndex = -1;
-                    }
-                    return InkWell(
-                      onTapDown: (_) {
-                        /// Handle mouse down state
-                        setState(() {
-                          isMouseDown = false;
-                          _itemMouseDownStates[filteredItems[index].code] =
-                              true;
-                        });
-                      },
-                      onTapUp: (_) {
-                        /// Handle mouse up state
-                        setState(() {
-                          isMouseDown = true;
-                          _itemMouseDownStates[filteredItems[index].code] =
-                              false;
-                        });
-                      },
-                      splashColor: const DigitColors().transparent,
-                      hoverColor: const DigitColors().transparent,
-                      highlightColor: const DigitColors().transparent,
-                      onHover: (hover) {
-                        setState(() {
-                          _isMouseUsed = hover;
-                          _itemHoverStates[filteredItems[index].code] = hover;
-                        });
-                      },
-                      onTap: () {
-                        setState(
-                            () => _currentIndex = filteredItems[index].code);
-                        widget.onChange(filteredItems[index].name,
-                            filteredItems[index].code);
-                        _toggleDropdown();
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            width: .5,
-                            color: _itemMouseDownStates[
-                                            filteredItems[index].code] ==
-                                        true ||
-                                    _itemHoverStates[
-                                            filteredItems[index].code] ==
-                                        true ||
-                                    isFocused
-                                ? const DigitColors().light.primaryOrange
-                                : Colors.transparent,
-                          ),
-                          color: _itemMouseDownStates[
-                                      filteredItems[index].code] ==
-                                  true
-                              ? const DigitColors().light.primaryOrange
-                              : _itemHoverStates[filteredItems[index].code] ==
-                                          true ||
-                                      isFocused
-                                  ? const DigitColors().orangeBG
-                                  : backgroundColor,
-                        ),
-                        padding: EdgeInsets.zero,
-                        child: Padding(
-                          padding: filteredItems[index].description == null
-                              ? filteredItems[index].profileImageUrl == null
-                                  ? const EdgeInsets.only(
-                                      left: 10,
-                                      top: 10.5,
-                                      bottom: 10.5,
-                                    )
-                                  : const EdgeInsets.only(
-                                      left: 10,
-                                      top: 8,
-                                      bottom: 8,
-                                    )
-                              : filteredItems[index].profileImageUrl == null
-                                  ? const EdgeInsets.only(
-                                      left: 10,
-                                      top: 8,
-                                      bottom: 8,
-                                    )
-                                  : const EdgeInsets.only(
-                                      left: 16,
-                                      top: 14.5,
-                                      bottom: 14.5,
-                                    ),
-                          child: Row(
-                            children: [
-                              if (filteredItems[index].profileImageUrl != null)
-                                SizedBox(
-                                  height: filteredItems[index].description !=
-                                          null
-                                      ? 47
-                                      : DropdownConstants.defaultProfileSize,
-                                  width: filteredItems[index].description !=
-                                          null
-                                      ? 47
-                                      : DropdownConstants.defaultProfileSize,
-                                  child: Container(
-                                    height:
-                                        filteredItems[index].description != null
-                                            ? 47
-                                            : 32,
-                                    width:
-                                        filteredItems[index].description != null
-                                            ? 47
-                                            : 32,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(
-                                      DropdownConstants.defaultImageRadius,
-                                    )),
-                                    child: ClipOval(
-                                      child: Image.network(
-                                        filteredItems[index].profileImageUrl!,
-                                        loadingBuilder:
-                                            (context, child, loadingProgress) {
-                                          if (loadingProgress == null) {
-                                            return child;
-                                          } else {
-                                            return Container();
-                                          }
-                                        },
-                                        errorBuilder:
-                                            (context, error, stackTrace) {
-                                          return Container(
-                                              color: const DigitColors()
-                                                  .light
-                                                  .paperPrimary,
-                                              child: const Icon(Icons.add));
-                                        },
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  ),
+              bool isFocused = _focusedIndex == index && !_isMouseUsed;
+              if (_isMouseUsed) {
+                _focusedIndex = -1;
+              }
+              return InkWell(
+                onTapDown: (_) {
+                  /// Handle mouse down state
+                  setState(() {
+                    isMouseDown = false;
+                    _itemMouseDownStates[filteredItems[index].code] =
+                    true;
+                  });
+                },
+                onTapUp: (_) {
+                  /// Handle mouse up state
+                  setState(() {
+                    isMouseDown = true;
+                    _itemMouseDownStates[filteredItems[index].code] =
+                    false;
+                  });
+                },
+                splashColor: const DigitColors().transparent,
+                hoverColor: const DigitColors().transparent,
+                highlightColor: const DigitColors().transparent,
+                onHover: (hover) {
+                  setState(() {
+                    _isMouseUsed = hover;
+                    _itemHoverStates[filteredItems[index].code] = hover;
+                  });
+                },
+                onTap: () {
+                  setState(
+                          () => _currentIndex = filteredItems[index].code);
+                  widget.onChange(filteredItems[index].name,
+                      filteredItems[index].code);
+                  _toggleDropdown();
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      width: .5,
+                      color: _itemMouseDownStates[
+                      filteredItems[index].code] ==
+                          true ||
+                          _itemHoverStates[
+                          filteredItems[index].code] ==
+                              true ||
+                          isFocused
+                          ? const DigitColors().light.primary1
+                          : Colors.transparent,
+                    ),
+                    color: _itemMouseDownStates[
+                    filteredItems[index].code] ==
+                        true
+                        ? const DigitColors().light.primary1
+                        : _itemHoverStates[filteredItems[index].code] ==
+                        true ||
+                        isFocused
+                        ? const DigitColors().light.primary1Bg
+                        : backgroundColor,
+                  ),
+                  padding: EdgeInsets.zero,
+                  child: Padding(
+                    padding: filteredItems[index].description == null
+                        ? filteredItems[index].profileImageUrl == null
+                        ? const EdgeInsets.only(
+                      left: 10,
+                      top: 10.5,
+                      bottom: 10.5,
+                    )
+                        : const EdgeInsets.only(
+                      left: 10,
+                      top: 8,
+                      bottom: 8,
+                    )
+                        : filteredItems[index].profileImageUrl == null
+                        ? const EdgeInsets.only(
+                      left: 10,
+                      top: 8,
+                      bottom: 8,
+                    )
+                        : const EdgeInsets.only(
+                      left: 16,
+                      top: 14.5,
+                      bottom: 14.5,
+                    ),
+                    child: Row(
+                      children: [
+                        if (filteredItems[index].profileImageUrl != null)
+                          SizedBox(
+                            height: filteredItems[index].description !=
+                                null
+                                ? 47
+                                : DropdownConstants.defaultProfileSize,
+                            width: filteredItems[index].description !=
+                                null
+                                ? 47
+                                : DropdownConstants.defaultProfileSize,
+                            child: Container(
+                              height:
+                              filteredItems[index].description != null
+                                  ? 47
+                                  : 32,
+                              width:
+                              filteredItems[index].description != null
+                                  ? 47
+                                  : 32,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(
+                                    DropdownConstants.defaultImageRadius,
+                                  )),
+                              child: ClipOval(
+                                child: Image.network(
+                                  filteredItems[index].profileImageUrl!,
+                                  loadingBuilder:
+                                      (context, child, loadingProgress) {
+                                    if (loadingProgress == null) {
+                                      return child;
+                                    } else {
+                                      return Container();
+                                    }
+                                  },
+                                  errorBuilder:
+                                      (context, error, stackTrace) {
+                                    return Container(
+                                        color: const DigitColors()
+                                            .light
+                                            .paperPrimary,
+                                        child: const Icon(Icons.add));
+                                  },
+                                  fit: BoxFit.cover,
                                 ),
-                              if (filteredItems[index].profileImageUrl != null)
-                                SizedBox(
-                                  width:
-                                      filteredItems[index].description != null
-                                          ? 16
-                                          : 10,
-                                ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      if (filteredItems[index].textIcon != null)
-                                        Icon(
-                                          filteredItems[index].textIcon,
-                                          size: DropdownConstants.textIconSize,
-                                          color: _itemMouseDownStates[
-                                                      filteredItems[index]
-                                                          .code] ==
-                                                  true
-                                              ? const DigitColors()
-                                                  .light
-                                                  .paperPrimary
-                                              : const DigitColors()
-                                                  .light
-                                                  .textSecondary,
-                                        ),
-                                      if (filteredItems[index].textIcon != null)
-                                        const SizedBox(
-                                          width: kPadding / 2,
-                                        ),
-                                      SizedBox(
-                                        width: filteredItems[index]
-                                                    .profileImageUrl !=
-                                                null
-                                            ? filteredItems[index]
-                                            .description !=
-                                            null ? dropdownWidth-80: dropdownWidth - 53
-                                            : filteredItems[index].textIcon !=
-                                                    null
-                                                ? dropdownWidth - 40
-                                                : dropdownWidth - 16,
-                                        child: Text(
-                                          capitalizeFirstLetter(filteredItems[index].name),
-                                          softWrap: true,
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: _itemMouseDownStates[filteredItems[index].code] ==
-                                                  true
-                                              ? currentTypography.headingS.copyWith(
-                                                      height: 1.172,
-                                                      color: const DigitColors()
-                                                          .light
-                                                          .paperPrimary)
-                                              : filteredItems[index].description !=
-                                                      null
-                                                  ? currentTypography.bodyL.copyWith(
-                                                          height: 1.5,
-                                                          color: const DigitColors()
-                                                              .light
-                                                              .textSecondary)
-                                                  : currentTypography.bodyS.copyWith(
-                                                          height: 1.125,
-                                                          color: const DigitColors().light.textPrimary),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                  if (filteredItems[index].description != null)
-                                    SizedBox(
-                                      width: filteredItems[index]
-                                                  .profileImageUrl !=
-                                              null
-                                          ? filteredItems[index]
-                                          .description !=
-                                          null ? dropdownWidth-80 : dropdownWidth - 53
-                                          : filteredItems[index].textIcon !=
-                                                  null
-                                              ? dropdownWidth - 40
-                                              : dropdownWidth - 16,
-                                      child: Text(
-                                        capitalizeFirstLetter(filteredItems[index].description!),
-                                        overflow: TextOverflow.ellipsis,
-                                        maxLines: 3,
-                                        softWrap: true,
-                                        style: currentTypography.bodyXS.copyWith(
-                                          height: 1.125,
-                                          color: _itemMouseDownStates[
-                                                      filteredItems[index]
-                                                          .code] ==
-                                                  true
-                                              ? const DigitColors()
-                                                  .light
-                                                  .paperPrimary
-                                              : const DigitColors()
-                                                  .light
-                                                  .textSecondary,
-                                        ),
-                                      ),
-                                    ),
-                                ],
                               ),
-                            ],
+                            ),
                           ),
+                        if (filteredItems[index].profileImageUrl != null)
+                          SizedBox(
+                            width:
+                            filteredItems[index].description != null
+                                ? 16
+                                : 10,
+                          ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              crossAxisAlignment:
+                              CrossAxisAlignment.center,
+                              children: [
+                                if (filteredItems[index].textIcon != null)
+                                  Icon(
+                                    filteredItems[index].textIcon,
+                                    size: DropdownConstants.textIconSize,
+                                    color: _itemMouseDownStates[
+                                    filteredItems[index]
+                                        .code] ==
+                                        true
+                                        ? const DigitColors()
+                                        .light
+                                        .paperPrimary
+                                        : const DigitColors()
+                                        .light
+                                        .textSecondary,
+                                  ),
+                                if (filteredItems[index].textIcon != null)
+                                  const SizedBox(
+                                    width: kPadding / 2,
+                                  ),
+                                SizedBox(
+                                  width: filteredItems[index]
+                                      .profileImageUrl !=
+                                      null
+                                      ? filteredItems[index]
+                                      .description !=
+                                      null ? width-80: width - 53
+                                      : filteredItems[index].textIcon !=
+                                      null
+                                      ? width - 40
+                                      : width - 16,
+                                  child: Text(
+                                    capitalizeFirstLetter(filteredItems[index].name)!,
+                                    softWrap: true,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: _itemMouseDownStates[filteredItems[index].code] ==
+                                        true
+                                        ? currentTypography.headingS.copyWith(
+                                        color: const DigitColors()
+                                            .light
+                                            .paperPrimary)
+                                        : filteredItems[index].description !=
+                                        null
+                                        ? currentTypography.bodyL.copyWith(
+                                        color: const DigitColors()
+                                            .light
+                                            .textSecondary)
+                                        : currentTypography.bodyS.copyWith(
+                                        color: const DigitColors().light.textPrimary),
+                                  ),
+                                )
+                              ],
+                            ),
+                            if (filteredItems[index].description != null)
+                              SizedBox(
+                                width: filteredItems[index]
+                                    .profileImageUrl !=
+                                    null
+                                    ? filteredItems[index]
+                                    .description !=
+                                    null ? width-80 : width - 53
+                                    : filteredItems[index].textIcon !=
+                                    null
+                                    ? width - 40
+                                    : width - 16,
+                                child: Text(
+                                  capitalizeFirstLetter(filteredItems[index].description!)!,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 3,
+                                  softWrap: true,
+                                  style: currentTypography.bodyXS.copyWith(
+                                    color: _itemMouseDownStates[
+                                    filteredItems[index]
+                                        .code] ==
+                                        true
+                                        ? const DigitColors()
+                                        .light
+                                        .paperPrimary
+                                        : const DigitColors()
+                                        .light
+                                        .textSecondary,
+                                  ),
+                                ),
+                              ),
+                          ],
                         ),
-                      ),
-                    );
-                  },
-                );
-              },
-            ),
-          )
-        : Container(
-            color: const DigitColors().light.paperSecondary,
-            child: Padding(
-              padding: DropdownConstants.noItemAvailablePadding,
-              child: Text(
-                capitalizeFirstLetter(widget.emptyItemText),
-                style: currentTypography.bodyS.copyWith(
-                  height: 1.25,
-                  color: const DigitColors().light.textDisabled,
+                      ],
+                    ),
+                  ),
                 ),
-              ),
-            ),
+              );
+            },
           );
+        },
+      ),
+    )
+        : Container(
+      color: const DigitColors().light.paperSecondary,
+      child: Padding(
+        padding: DropdownConstants.noItemAvailablePadding,
+        child: Text(
+          capitalizeFirstLetter(widget.emptyItemText)!,
+          style: currentTypography.bodyS.copyWith(
+            color: const DigitColors().light.textDisabled,
+          ),
+        ),
+      ),
+    );
   }
 
   Widget _buildNestedListView() {
-    Set<String?> uniqueTypes = filteredItems.map((item) => item.type).toSet();
+    /// Filter out items with null or empty type
+    Set<String?> uniqueTypes = filteredItems
+        .where((item) => item.type != null && item.type!.isNotEmpty)
+        .map((item) => item.type)
+        .toSet();
     return filteredItems.isNotEmpty
         ? Scrollbar(
-            radius: const Radius.circular(50),
-            thickness: 10,
-            child: ListView.separated(
-                separatorBuilder: (_, __) => const SizedBox(height: 0),
-                shrinkWrap: true,
-                padding: EdgeInsets.zero,
-                itemCount: uniqueTypes.length,
-                itemBuilder: (context, outerIndex) {
-                  return StatefulBuilder(
-                    builder: (context, setState) {
-                      String? currentType = uniqueTypes.elementAt(outerIndex);
-                      List<DropdownItem> typeItems = filteredItems
-                          .where((item) => item.type == currentType)
-                          .toList();
-                      return Column(
+      radius: const Radius.circular(50),
+      thickness: 10,
+      child: ListView.separated(
+          separatorBuilder: (_, __) => const SizedBox(height: 0),
+          shrinkWrap: true,
+          padding: EdgeInsets.zero,
+          itemCount: uniqueTypes.length,
+          itemBuilder: (context, outerIndex) {
+            return StatefulBuilder(
+              builder: (context, setState) {
+                String? currentType = uniqueTypes.elementAt(outerIndex);
+                List<DropdownItem> typeItems = filteredItems
+                    .where((item) => item.type == currentType)
+                    .toList();
+                return Column(
+                  children: [
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      padding: DropdownConstants.nestedItemHeaderPadding,
+                      color: const DigitColors().light.paperSecondary,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Container(
-                            width: MediaQuery.of(context).size.width,
-                            padding: DropdownConstants.nestedItemHeaderPadding,
-                            color: const DigitColors().light.paperSecondary,
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(capitalizeFirstLetter(currentType!),
-                                    style: currentTypography.headingS.copyWith(
-                                      color: const DigitColors()
-                                          .light
-                                          .textSecondary,
-                                      height: 1.188,
-                                    )),
-                              ],
-                            ),
-                          ),
-                          for (int index = 0; index < typeItems.length; index++)
-                            StatefulBuilder(
-                              builder: (context, setState) {
-                                return Column(
-                                  children: [
-                                    InkWell(
-                                      highlightColor:
-                                          const DigitColors().transparent,
-                                      splashColor:
-                                          const DigitColors().transparent,
-                                      hoverColor:
-                                          const DigitColors().transparent,
-                                      onTapDown: (_) {
-                                        /// Handle mouse down state
-                                        setState(() {
-                                          isMouseDown = false;
-                                          _itemMouseDownStates[
-                                              typeItems[index].code] = true;
-                                        });
-                                      },
-                                      onTapUp: (_) {
-                                        /// Handle mouse up state
-                                        setState(() {
-                                          isMouseDown = true;
-                                          _itemMouseDownStates[
-                                              typeItems[index].code] = false;
-                                        });
-                                      },
-                                      onHover: (hover) {
-                                        setState(() {
-                                          _itemHoverStates[
-                                              typeItems[index].code] = hover;
-                                        });
-                                      },
-                                      onTap: () {
-                                        setState(() {
-                                          _nestedIndex = typeItems[index].code;
-                                        });
-                                        widget.onChange(typeItems[index].name,
-                                            typeItems[index].code);
-                                        _toggleDropdown();
-                                      },
-                                      child: Container(
-                                        width:
-                                            MediaQuery.of(context).size.width,
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                            width: 0.5,
-                                            color: _itemMouseDownStates[
-                                                        typeItems[index]
-                                                            .code] ==
-                                                    true
-                                                ? Colors.transparent
-                                                : _itemHoverStates[
-                                                            typeItems[index]
-                                                                .code] ==
-                                                        true
-                                                    ? const DigitColors()
-                                                        .light
-                                                        .primaryOrange
-                                                    : Colors.transparent,
-                                          ),
-                                          color: _itemMouseDownStates[
-                                                      typeItems[index].code] ==
-                                                  true
-                                              ? const DigitColors()
-                                                  .light
-                                                  .primaryOrange
-                                              : _itemHoverStates[
-                                                          typeItems[index]
-                                                              .code] ==
-                                                      true
-                                                  ? const DigitColors().orangeBG
-                                                  : const DigitColors()
-                                                      .light
-                                                      .paperPrimary,
-                                        ),
-                                        padding: EdgeInsets.zero,
-                                        child: Padding(
-                                          padding: widget.dropdownType ==
-                                                      DropdownType
-                                                          .defaultSelect &&
-                                                  typeItems[index]
-                                                          .description ==
-                                                      null
-                                              ? DropdownConstants.defaultPadding
-                                              : DropdownConstants
-                                                  .nestedItemPadding,
-                                          child: Row(
-                                            children: [
-                                              if (filteredItems[index]
-                                                      .profileImageUrl !=
-                                                  null)
-                                                SizedBox(
-                                                  height: filteredItems[index]
-                                                              .description !=
-                                                          null
-                                                      ? 47
-                                                      : DropdownConstants
-                                                          .defaultProfileSize,
-                                                  width: filteredItems[index]
-                                                              .description !=
-                                                          null
-                                                      ? 47
-                                                      : DropdownConstants
-                                                          .defaultProfileSize,
-                                                  child: CircleAvatar(
-                                                    radius: DropdownConstants
-                                                        .defaultImageRadius,
-                                                    backgroundColor:
-                                                        const DigitColors()
-                                                            .transparent,
-                                                    child: Container(
-                                                      height: filteredItems[
-                                                                      index]
-                                                                  .description !=
-                                                              null
-                                                          ? 47
-                                                          : 32,
-                                                      width: filteredItems[
-                                                                      index]
-                                                                  .description !=
-                                                              null
-                                                          ? 47
-                                                          : 32,
-                                                      decoration: BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                        DropdownConstants
-                                                            .defaultImageRadius,
-                                                      )),
-                                                      child: ClipOval(
-                                                        child: Image.network(
-                                                          filteredItems[index]
-                                                              .profileImageUrl!,
-                                                          loadingBuilder: (context,
-                                                              child,
-                                                              loadingProgress) {
-                                                            if (loadingProgress ==
-                                                                null) {
-                                                              return child;
-                                                            } else {
-                                                              return Container();
-                                                            }
-                                                          },
-                                                          errorBuilder:
-                                                              (context, error,
-                                                                  stackTrace) {
-                                                            return Container(
-                                                                color: const DigitColors()
-                                                                    .light
-                                                                    .paperPrimary,
-                                                                child: const Icon(
-                                                                    Icons.add));
-                                                          },
-                                                          fit: BoxFit.cover,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              if (filteredItems[index]
-                                                      .profileImageUrl !=
-                                                  null)
-                                                const SizedBox(
-                                                  width: 6,
-                                                ),
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Row(
-                                                    children: [
-                                                      if (typeItems[index]
-                                                              .textIcon !=
-                                                          null)
-                                                        Icon(
-                                                          typeItems[index]
-                                                              .textIcon,
-                                                          size:
-                                                              DropdownConstants
-                                                                  .textIconSize,
-                                                          color: _itemMouseDownStates[
-                                                                      typeItems[
-                                                                              index]
-                                                                          .code] ==
-                                                                  true
-                                                              ? const DigitColors()
-                                                                  .light
-                                                                  .paperPrimary
-                                                              : const DigitColors()
-                                                                  .light
-                                                                  .textSecondary,
-                                                        ),
-                                                      if (typeItems[index]
-                                                              .textIcon !=
-                                                          null)
-                                                        const SizedBox(
-                                                          width: kPadding / 2,
-                                                        ),
-                                                      SizedBox(
-                                                        width: filteredItems[
-                                                                        index]
-                                                                    .profileImageUrl !=
-                                                                null
-                                                            ? dropdownWidth - 50
-                                                            : filteredItems[index]
-                                                                        .textIcon !=
-                                                                    null
-                                                                ? dropdownWidth -
-                                                                    40
-                                                                : dropdownWidth -
-                                                                    16,
-                                                        child: Text(
-                                                          capitalizeFirstLetter(typeItems[index].name),
-                                                          maxLines: 1,
-                                                          softWrap: true,
-                                                          style: _itemMouseDownStates[
-                                                                      typeItems[
-                                                                              index]
-                                                                          .code] ==
-                                                                  true
-                                                              ? currentTypography.headingS.copyWith(
-                                                                  color: const DigitColors()
-                                                                      .light
-                                                                      .paperPrimary,
-                                                                  height: 1.188,
-                                                                )
-                                                              : currentTypography.bodyS.copyWith(
-                                                                  color: const DigitColors()
-                                                                      .light
-                                                                      .textPrimary,
-                                                                  height: 1.125,
-                                                                ),
-                                                        ),
-                                                      )
-                                                    ],
-                                                  ),
-                                                  if (typeItems[index]
-                                                          .description !=
-                                                      null)
-                                                    SizedBox(
-                                                      width: filteredItems[
-                                                                      index]
-                                                                  .profileImageUrl !=
-                                                              null
-                                                          ? dropdownWidth - 50
-                                                          : filteredItems[index]
-                                                                      .textIcon !=
-                                                                  null
-                                                              ? dropdownWidth -
-                                                                  40
-                                                              : dropdownWidth -
-                                                                  16,
-                                                      child: Text(
-                                                        capitalizeFirstLetter(typeItems[index]
-                                                            .description!),
-                                                        maxLines: 3,
-                                                        softWrap: true,
-                                                        style: currentTypography.bodyXS.copyWith(
-                                                          color: _itemMouseDownStates[
-                                                                      typeItems[
-                                                                              index]
-                                                                          .code] ==
-                                                                  true
-                                                              ? const DigitColors()
-                                                                  .light
-                                                                  .paperPrimary
-                                                              : const DigitColors()
-                                                                  .light
-                                                                  .textSecondary,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-
-                                    /// Divider after each option
-                                    Container(
-                                      height: 1,
-                                      color: const DigitColors()
-                                          .light
-                                          .genericDivider,
-                                      width: MediaQuery.of(context).size.width,
-                                      margin: const EdgeInsets.only(
-                                        left: 10,
-                                        right: 10,
-                                      ),
-                                    )
-                                  ],
-                                );
-                              },
-                            ),
-                          if (outerIndex != uniqueTypes.length - 1)
-                            Container(
-                              height: kPadding * 2,
-                              color: const DigitColors().light.paperPrimary,
-                            ),
+                          Text(capitalizeFirstLetter(currentType!)!,
+                              style: currentTypography.headingS.copyWith(
+                                color: const DigitColors()
+                                    .light
+                                    .textSecondary,
+                              )),
                         ],
-                      );
-                    },
-                  );
-                }),
-          )
+                      ),
+                    ),
+                    for (int index = 0; index < typeItems.length; index++)
+                      StatefulBuilder(
+                        builder: (context, setState) {
+                          return Column(
+                            children: [
+                              InkWell(
+                                highlightColor:
+                                const DigitColors().transparent,
+                                splashColor:
+                                const DigitColors().transparent,
+                                hoverColor:
+                                const DigitColors().transparent,
+                                onTapDown: (_) {
+                                  /// Handle mouse down state
+                                  setState(() {
+                                    isMouseDown = false;
+                                    _itemMouseDownStates[
+                                    typeItems[index].code] = true;
+                                  });
+                                },
+                                onTapUp: (_) {
+                                  /// Handle mouse up state
+                                  setState(() {
+                                    isMouseDown = true;
+                                    _itemMouseDownStates[
+                                    typeItems[index].code] = false;
+                                  });
+                                },
+                                onHover: (hover) {
+                                  setState(() {
+                                    _itemHoverStates[
+                                    typeItems[index].code] = hover;
+                                  });
+                                },
+                                onTap: () {
+                                  setState(() {
+                                    _nestedIndex = typeItems[index].code;
+                                  });
+                                  widget.onChange(typeItems[index].name,
+                                      typeItems[index].code);
+                                  _toggleDropdown();
+                                },
+                                child: Container(
+                                  width:
+                                  MediaQuery.of(context).size.width,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      width: 0.5,
+                                      color: _itemMouseDownStates[
+                                      typeItems[index]
+                                          .code] ==
+                                          true
+                                          ? Colors.transparent
+                                          : _itemHoverStates[
+                                      typeItems[index]
+                                          .code] ==
+                                          true
+                                          ? const DigitColors()
+                                          .light
+                                          .primary1
+                                          : Colors.transparent,
+                                    ),
+                                    color: _itemMouseDownStates[
+                                    typeItems[index].code] ==
+                                        true
+                                        ? const DigitColors()
+                                        .light
+                                        .primary1
+                                        : _itemHoverStates[
+                                    typeItems[index]
+                                        .code] ==
+                                        true
+                                        ? const DigitColors().light.primary1Bg
+                                        : const DigitColors()
+                                        .light
+                                        .paperPrimary,
+                                  ),
+                                  padding: EdgeInsets.zero,
+                                  child: Padding(
+                                    padding: widget.dropdownType ==
+                                        DropdownType
+                                            .defaultSelect &&
+                                        typeItems[index]
+                                            .description ==
+                                            null
+                                        ? DropdownConstants.defaultPadding
+                                        : DropdownConstants
+                                        .nestedItemPadding,
+                                    child: Row(
+                                      children: [
+                                        if (filteredItems[index]
+                                            .profileImageUrl !=
+                                            null)
+                                          SizedBox(
+                                            height: filteredItems[index]
+                                                .description !=
+                                                null
+                                                ? 47
+                                                : DropdownConstants
+                                                .defaultProfileSize,
+                                            width: filteredItems[index]
+                                                .description !=
+                                                null
+                                                ? 47
+                                                : DropdownConstants
+                                                .defaultProfileSize,
+                                            child: CircleAvatar(
+                                              radius: DropdownConstants
+                                                  .defaultImageRadius,
+                                              backgroundColor:
+                                              const DigitColors()
+                                                  .transparent,
+                                              child: Container(
+                                                height: filteredItems[
+                                                index]
+                                                    .description !=
+                                                    null
+                                                    ? 47
+                                                    : 32,
+                                                width: filteredItems[
+                                                index]
+                                                    .description !=
+                                                    null
+                                                    ? 47
+                                                    : 32,
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                    BorderRadius
+                                                        .circular(
+                                                      DropdownConstants
+                                                          .defaultImageRadius,
+                                                    )),
+                                                child: ClipOval(
+                                                  child: Image.network(
+                                                    filteredItems[index]
+                                                        .profileImageUrl!,
+                                                    loadingBuilder: (context,
+                                                        child,
+                                                        loadingProgress) {
+                                                      if (loadingProgress ==
+                                                          null) {
+                                                        return child;
+                                                      } else {
+                                                        return Container();
+                                                      }
+                                                    },
+                                                    errorBuilder:
+                                                        (context, error,
+                                                        stackTrace) {
+                                                      return Container(
+                                                          color: const DigitColors()
+                                                              .light
+                                                              .paperPrimary,
+                                                          child: const Icon(
+                                                              Icons.add));
+                                                    },
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        if (filteredItems[index]
+                                            .profileImageUrl !=
+                                            null)
+                                          const SizedBox(
+                                            width: 6,
+                                          ),
+                                        Column(
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                if (typeItems[index]
+                                                    .textIcon !=
+                                                    null)
+                                                  Icon(
+                                                    typeItems[index]
+                                                        .textIcon,
+                                                    size:
+                                                    DropdownConstants
+                                                        .textIconSize,
+                                                    color: _itemMouseDownStates[
+                                                    typeItems[
+                                                    index]
+                                                        .code] ==
+                                                        true
+                                                        ? const DigitColors()
+                                                        .light
+                                                        .paperPrimary
+                                                        : const DigitColors()
+                                                        .light
+                                                        .textSecondary,
+                                                  ),
+                                                if (typeItems[index]
+                                                    .textIcon !=
+                                                    null)
+                                                  const SizedBox(
+                                                    width: kPadding / 2,
+                                                  ),
+                                                SizedBox(
+                                                  width: filteredItems[
+                                                  index]
+                                                      .profileImageUrl !=
+                                                      null
+                                                      ? width - 50
+                                                      : filteredItems[index]
+                                                      .textIcon !=
+                                                      null
+                                                      ? width -
+                                                      40
+                                                      : width -
+                                                      16,
+                                                  child: Text(
+                                                    capitalizeFirstLetter(typeItems[index].name)!,
+                                                    maxLines: 1,
+                                                    softWrap: true,
+                                                    style: _itemMouseDownStates[
+                                                    typeItems[
+                                                    index]
+                                                        .code] ==
+                                                        true
+                                                        ? currentTypography.headingS.copyWith(
+                                                      color: const DigitColors()
+                                                          .light
+                                                          .paperPrimary,
+
+                                                    )
+                                                        : currentTypography.bodyS.copyWith(
+                                                      color: const DigitColors()
+                                                          .light
+                                                          .textPrimary,
+
+                                                    ),
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                            if (typeItems[index]
+                                                .description !=
+                                                null)
+                                              SizedBox(
+                                                width: filteredItems[
+                                                index]
+                                                    .profileImageUrl !=
+                                                    null
+                                                    ? width - 50
+                                                    : filteredItems[index]
+                                                    .textIcon !=
+                                                    null
+                                                    ? width -
+                                                    40
+                                                    : width -
+                                                    16,
+                                                child: Text(
+                                                  capitalizeFirstLetter(typeItems[index]
+                                                      .description!)!,
+                                                  maxLines: 3,
+                                                  softWrap: true,
+                                                  style: currentTypography.bodyXS.copyWith(
+                                                    color: _itemMouseDownStates[
+                                                    typeItems[
+                                                    index]
+                                                        .code] ==
+                                                        true
+                                                        ? const DigitColors()
+                                                        .light
+                                                        .paperPrimary
+                                                        : const DigitColors()
+                                                        .light
+                                                        .textSecondary,
+                                                  ),
+                                                ),
+                                              ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              /// Divider after each option
+                              Container(
+                                height: 1,
+                                color: const DigitColors()
+                                    .light
+                                    .genericDivider,
+                                width: MediaQuery.of(context).size.width,
+                                margin: const EdgeInsets.only(
+                                  left: 10,
+                                  right: 10,
+                                ),
+                              )
+                            ],
+                          );
+                        },
+                      ),
+                    if (outerIndex != uniqueTypes.length - 1)
+                      Container(
+                        height: kPadding * 2,
+                        color: const DigitColors().light.paperPrimary,
+                      ),
+                  ],
+                );
+              },
+            );
+          }),
+    )
         : Container(
-            color: const DigitColors().light.paperSecondary,
-            child: Padding(
-              padding: DropdownConstants.noItemAvailablePadding,
-              child: Text(
-                capitalizeFirstLetter(widget.emptyItemText),
-                style: currentTypography.bodyS
-                    .copyWith(
-                  color: const DigitColors().light.textDisabled,
-                ),
-              ),
-            ),
-          );
+      color: const DigitColors().light.paperSecondary,
+      child: Padding(
+        padding: DropdownConstants.noItemAvailablePadding,
+        child: Text(
+          capitalizeFirstLetter(widget.emptyItemText)!,
+          style: currentTypography.bodyS
+              .copyWith(
+            color: const DigitColors().light.textDisabled,
+          ),
+        ),
+      ),
+    );
   }
 
   void _navigateDropdown(int direction) {
@@ -1193,7 +1183,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
     String? selectedText;
     if (widget.valueMapper != null) {
       ValueMapper? selectedValue = widget.valueMapper!.firstWhere(
-        (value) => value.code == selectedCode,
+            (value) => value.code == selectedCode,
         orElse: () => const ValueMapper(
             code: '', name: ''), // Provide default values here
       );
@@ -1212,20 +1202,20 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
     } else if (isNested) {
       /// Find the item with the code matching the current index
       DropdownItem selectedItem = filteredItems.firstWhere(
-        (item) => item.code == _nestedIndex,
+            (item) => item.code == _nestedIndex,
       );
 
       /// Check if the found item is not the default item
       if (selectedItem.name.isNotEmpty) {
         setState(() {
           widget.textEditingController.text =
-              '${selectedItem.type}: ${selectedItem.name}';
+          '${selectedItem.type}: ${selectedItem.name}';
         });
       }
     } else {
       /// Find the item with the code matching the current index
       DropdownItem selectedItem = filteredItems.firstWhere(
-        (item) => item.code == _currentIndex,
+            (item) => item.code == _currentIndex,
       );
 
       /// Check if the found item is not the default item
@@ -1235,7 +1225,6 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
         });
       }
     }
-
     _focusNode.unfocus();
   }
 }

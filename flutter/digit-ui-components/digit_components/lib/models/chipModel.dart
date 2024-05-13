@@ -20,8 +20,8 @@ class ChipConfig {
     this.deleteIcon,
     // this.deleteIconColor = Colors.paperPrimary,
     this.backgroundColor,
-    this.padding = Default.defaultChipPadding,
-    this.radius = Default.defaultChipRadius,
+    this.padding = Common.defaultChipPadding,
+    this.radius = Common.defaultChipRadius,
     this.spacing = kPadding,
     this.runSpacing = kPadding,
     this.separator,
@@ -31,5 +31,3 @@ class ChipConfig {
     this.autoScroll = false,
   });
 }
-
-
