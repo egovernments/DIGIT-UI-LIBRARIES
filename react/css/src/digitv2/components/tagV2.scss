@@ -55,8 +55,8 @@
     .digit-text {
       @extend .typography.body-s;
       @apply overflow-hidden;
-      max-width: calc(100% - 28px);
-      width: calc(100% - 28px);
+      max-width: calc(100% - 1.75rem);
+      width: calc(100% - 1.75rem);
       text-overflow: clip;
       color: theme(digitv2.lightTheme.text-primary);
       white-space: nowrap;
