@@ -8,12 +8,12 @@
   font-weight: theme(digitv2.fontWeight.regular);
   color: theme(digitv2.lightTheme.text-primary);
   border: 0.063rem solid theme(digitv2.lightTheme.text-secondary);
-  font-size: 1rem;
-  line-height: 1.5rem;
-  padding: 0.75rem !important;
-  padding-top: 0.5rem !important;
+  font-size: theme(digitv2.spacers.spacer4);
+  line-height: theme(digitv2.spacers.spacer6);
+  padding: theme(digitv2.spacers.spacer3) !important;
+  padding-top: theme(digitv2.spacers.spacer2) !important;
   height: 6.25rem;
-  min-height: 2.5rem;
+  min-height:theme(digitv2.spacers.spacer10);
   overflow-wrap: break-word;
 
 
@@ -48,7 +48,7 @@
 }
 
 textarea::-webkit-scrollbar {
-  width: 0.5rem;
+  width: theme(digitv2.spacers.spacer2);
   background-color: theme(digitv2.lightTheme.generic-background);
 }
 

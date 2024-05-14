@@ -1,5 +1,5 @@
 /*!
- * @egovernments/digit-ui-css - 1.8.2-coreui.11
+ * @egovernments/digit-ui-css - 1.8.2-coreui.13
  *
  * Copyright (c) 2024 Jagankumar <jagan.kumar@egov.org.in>
  * 
@@ -9957,7 +9957,7 @@ ol, ul {
       .icon-label-container.link .digit-button-customIcon.small {
         width: .875rem;
         height: .875rem;
-        margin-top: 4px; }
+        margin-top: .25rem; }
 
 .digit-button-label {
   text-align: center;
@@ -11601,7 +11601,7 @@ ol, ul {
     align-items: center;
     -ms-flex-negative: 0;
     flex-shrink: 0;
-    background: #fafafa;
+    background: #eee;
     height: 2.4375rem;
     padding: 1rem .625rem;
     grid-gap: .625rem;
@@ -11614,7 +11614,7 @@ ol, ul {
   .digit-multiselectdropdown-wrap .digit-nested-category:nth-child(-n+2) {
     margin-top: 0; }
   .digit-multiselectdropdown-wrap .digit-category-name {
-    color: #7d7d7d; }
+    color: #363636; }
   .digit-multiselectdropdown-wrap .digit-category-selectAll {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -11646,7 +11646,7 @@ ol, ul {
         opacity: 0;
         z-index: 10; }
     .digit-multiselectdropdown-wrap .digit-category-selectAll input:active ~ .digit-multiselectdropodwn-custom-checkbox-selectAll, .digit-multiselectdropdown-wrap .digit-category-selectAll .checkbox-wrap .input-emp:active ~ .digit-multiselectdropodwn-custom-checkbox-selectAll, .checkbox-wrap .digit-multiselectdropdown-wrap .digit-category-selectAll .input-emp:active ~ .digit-multiselectdropodwn-custom-checkbox-selectAll, .digit-multiselectdropdown-wrap .digit-category-selectAll .digit-checkbox-container .input-emp:active ~ .digit-multiselectdropodwn-custom-checkbox-selectAll, .digit-checkbox-container .digit-multiselectdropdown-wrap .digit-category-selectAll .input-emp:active ~ .digit-multiselectdropodwn-custom-checkbox-selectAll, .digit-multiselectdropdown-wrap .digit-category-selectAll input:checked ~ .digit-multiselectdropodwn-custom-checkbox-selectAll, .digit-multiselectdropdown-wrap .digit-category-selectAll .checkbox-wrap .input-emp:checked ~ .digit-multiselectdropodwn-custom-checkbox-selectAll, .checkbox-wrap .digit-multiselectdropdown-wrap .digit-category-selectAll .input-emp:checked ~ .digit-multiselectdropodwn-custom-checkbox-selectAll, .digit-multiselectdropdown-wrap .digit-category-selectAll .digit-checkbox-container .input-emp:checked ~ .digit-multiselectdropodwn-custom-checkbox-selectAll, .digit-checkbox-container .digit-multiselectdropdown-wrap .digit-category-selectAll .input-emp:checked ~ .digit-multiselectdropodwn-custom-checkbox-selectAll {
-      border: .125rem solid #c84c0e;
+      border: 1.25rem solid #c84c0e;
       background-color: #fafafa; }
     .digit-multiselectdropdown-wrap .digit-category-selectAll input:active ~ .digit-multiselectdropodwn-custom-checkbox-selectAll svg, .digit-multiselectdropdown-wrap .digit-category-selectAll .checkbox-wrap .input-emp:active ~ .digit-multiselectdropodwn-custom-checkbox-selectAll svg, .checkbox-wrap .digit-multiselectdropdown-wrap .digit-category-selectAll .input-emp:active ~ .digit-multiselectdropodwn-custom-checkbox-selectAll svg, .digit-multiselectdropdown-wrap .digit-category-selectAll .digit-checkbox-container .input-emp:active ~ .digit-multiselectdropodwn-custom-checkbox-selectAll svg, .digit-checkbox-container .digit-multiselectdropdown-wrap .digit-category-selectAll .input-emp:active ~ .digit-multiselectdropodwn-custom-checkbox-selectAll svg, .digit-multiselectdropdown-wrap .digit-category-selectAll input:checked ~ .digit-multiselectdropodwn-custom-checkbox-selectAll svg, .digit-multiselectdropdown-wrap .digit-category-selectAll .checkbox-wrap .input-emp:checked ~ .digit-multiselectdropodwn-custom-checkbox-selectAll svg, .checkbox-wrap .digit-multiselectdropdown-wrap .digit-category-selectAll .input-emp:checked ~ .digit-multiselectdropodwn-custom-checkbox-selectAll svg, .digit-multiselectdropdown-wrap .digit-category-selectAll .digit-checkbox-container .input-emp:checked ~ .digit-multiselectdropodwn-custom-checkbox-selectAll svg, .digit-checkbox-container .digit-multiselectdropdown-wrap .digit-category-selectAll .input-emp:checked ~ .digit-multiselectdropodwn-custom-checkbox-selectAll svg {
       opacity: 1;
@@ -12335,7 +12335,7 @@ ol, ul {
   align-items: center;
   -ms-flex-negative: 0;
   flex-shrink: 0;
-  background: #fafafa;
+  background: #eee;
   height: 2.4375rem;
   padding: 1rem .625rem;
   grid-gap: .625rem;
@@ -12350,7 +12350,7 @@ ol, ul {
   align-items: center;
   overflow: hidden;
   white-space: nowrap;
-  color: #7d7d7d;
+  color: #363636;
   grid-gap: .25rem;
   gap: .25rem; }
 
@@ -12648,7 +12648,7 @@ ol, ul {
     .digit-tag-container .digit-tag .digit-text {
       overflow: hidden;
       height: 1rem;
-      max-width: calc(100% - 24px);
+      max-width: calc(100% - 1.5rem);
       text-overflow: clip;
       color: #363636;
       line-height: 1.026rem; }
@@ -13255,9 +13255,7 @@ textarea::-webkit-scrollbar-thumb {
     margin: 0;
     text-overflow: ellipsis; }
   .digit-toast-success.digit-info {
-    background-color: #c7e0f1; }
-    .digit-toast-success.digit-info .toast-label {
-      color: #363636; }
+    background-color: #0057bd; }
   .digit-toast-success .digit-warning-button-container {
     width: 100%;
     display: -webkit-box;
@@ -13914,7 +13912,7 @@ video::-webkit-media-controls-panel {
     background: #fbeee8;
     border: .063rem solid #c84c0e; }
   .digit-tree-multiselect-option.expanded .digit-option-label, .digit-tree-select-option.expanded .digit-option-label {
-    color: #7d7d7d; }
+    color: #363636; }
   .digit-tree-multiselect-option input, .digit-tree-multiselect-option .checkbox-wrap .input-emp, .checkbox-wrap .digit-tree-multiselect-option .input-emp, .digit-tree-multiselect-option .digit-checkbox-container .input-emp, .digit-checkbox-container .digit-tree-multiselect-option .input-emp, .digit-tree-select-option input, .digit-tree-select-option .checkbox-wrap .input-emp, .checkbox-wrap .digit-tree-select-option .input-emp, .digit-tree-select-option .digit-checkbox-container .input-emp, .digit-checkbox-container .digit-tree-select-option .input-emp {
     position: absolute;
     opacity: 0;
@@ -14868,15 +14866,15 @@ img {
     -webkit-box-direction: normal;
     -ms-flex-direction: column;
     flex-direction: column;
-    grid-gap: 12px;
-    gap: 12px;
+    grid-gap: .75rem;
+    gap: .75rem;
     -webkit-box-align: start;
     -ms-flex-align: start;
     align-items: flex-start;
-    border: 1px solid #d6d5d4;
+    border: .063rem solid #d6d5d4;
     background-color: #fafafa;
     margin: 0;
-    padding: 16px;
+    padding: 1rem;
     border-radius: 0;
     position: relative; }
     @media (min-aspect-ratio: 9 / 16) and (max-aspect-ratio: 3 / 4) {
@@ -14895,8 +14893,8 @@ img {
       display: -webkit-box;
       display: -ms-flexbox;
       display: flex;
-      grid-gap: 8px;
-      gap: 8px; }
+      grid-gap: .5rem;
+      gap: .5rem; }
       .digit-uploader-wrap .digit-uploaded-file-container .uploaded-file-container-sub .uploaded-file-details {
         color: #7d7d7d; }
       .digit-uploader-wrap .digit-uploaded-file-container .uploaded-file-container-sub svg {
@@ -14906,8 +14904,8 @@ img {
       display: -webkit-box;
       display: -ms-flexbox;
       display: flex;
-      grid-gap: 16px;
-      gap: 16px; }
+      grid-gap: 1rem;
+      gap: 1rem; }
     .digit-uploader-wrap .digit-uploaded-file-container .digit-uploadpopup-close-icon {
       position: absolute;
       top: 0;
@@ -14925,7 +14923,7 @@ img {
       -ms-flex-pack: center;
       justify-content: center;
       cursor: pointer;
-      border: 1px solid #d6d5d4;
+      border: .063rem solid #d6d5d4;
       border-top: none;
       border-right: none; }
       .digit-uploader-wrap .digit-uploaded-file-container .digit-uploadpopup-close-icon svg {

@@ -6,8 +6,7 @@
         @extend .typography.body-l;
         @apply flex ;
         color: theme(digitv2.lightTheme.text-primary);
-        gap: 0.25rem;
-
+        gap: theme(digitv2.spacers.spacer1);
 
         &.wraplabel {
             @media (min-aspect-ratio: 9/16){
@@ -18,7 +17,7 @@
 
         .label-container {
             @apply flex items-center w-full;
-            gap: 0.25rem;
+            gap: theme(digitv2.spacers.spacer1);
 
             &.wraplabel{
                 @media (min-aspect-ratio: 9/16) {
@@ -40,7 +39,7 @@
             width: 7.5rem;
             background-color: #555555;
             color: theme(digitv2.lightTheme.paper-primary);
-            padding: 0.5rem 0;
+            padding: theme(digitv2.spacers.spacer2) theme(digitv2.spacers.spacer0);
             z-index: 1;
             bottom: 100%;
             left: 50%;
@@ -68,14 +67,14 @@
 .digit-field {
 
     @apply flex flex-col w-full;
-    gap: 0.25rem;
+    gap: theme(digitv2.spacers.spacer1);
 
     .digit-description,
     .digit-charcount {
         @extend .typography.body-s;
         @apply flex justify-between items-baseline;
         color: theme(digitv2.lightTheme.text-secondary);
-        gap: 0.5rem;
+        gap: theme(digitv2.spacers.spacer2);
 
 
         @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4)  {
@@ -98,18 +97,18 @@
 
     .digit-error {
         @apply flex;
-        gap: 0.25rem;
+        gap: theme(digitv2.spacers.spacer1);
 
         .digit-error-icon{
             @apply items-center;
             display: flex;
-            width:1rem;
+            width:theme(digitv2.spacers.spacer4);
             height:1.37rem;
         }
         .digit-error-message {
             @extend .typography.body-s;
             @apply  w-full;
-            margin: 0rem;
+            margin: theme(digitv2.spacers.spacer0);
             color: theme(digitv2.lightTheme.alert-error)
         }
     }
