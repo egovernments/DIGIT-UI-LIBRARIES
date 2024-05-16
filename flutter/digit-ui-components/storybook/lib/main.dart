@@ -1,3 +1,4 @@
+import 'package:digit_ui_components/blocs/AppLocalization.dart';
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/material.dart';
 import 'package:inspector/inspector.dart';
@@ -26,6 +27,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      // localizationsDelegates: [
+      //   ComponentLocalization(locale, localizedStrings, languages),
+      //
+      // ],
       theme: DigitTheme.instance.mobileTheme.copyWith(
           appBarTheme: AppBarTheme(
             backgroundColor: DigitTheme.instance.colorScheme.secondary,

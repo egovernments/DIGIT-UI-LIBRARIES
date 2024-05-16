@@ -42,8 +42,4 @@ flutter:
       fonts:
         - asset: assets/fonts/Roboto/Roboto-Bold.ttf
 
-    - family: TextArea
-      fonts:
-        - asset: assets/fonts/TextArea.ttf
-
   uses-material-design: true

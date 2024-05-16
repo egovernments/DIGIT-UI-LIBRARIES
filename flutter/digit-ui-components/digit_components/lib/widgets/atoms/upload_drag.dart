@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:digit_ui_components/constants/AppView.dart';
+import 'package:digit_ui_components/utils/fileService/file_service.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -7,11 +8,9 @@ import 'package:flutter_dropzone/flutter_dropzone.dart';
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'dart:io';
-import 'dart:html' as html;
-import 'package:path_provider/path_provider.dart';
-
 import '../../constants/app_constants.dart';
 import '../../enum/app_enums.dart';
+import '../../utils/fileService/file_download.dart';
 import '../../utils/utils.dart';
 
 class FileUploadWidget2 extends StatefulWidget {
@@ -327,19 +326,8 @@ class _FileUploadWidgetState extends State<FileUploadWidget2> {
   }
 
   Future<void> _downloadFile(DroppedFile file) async {
-    if (kIsWeb) {
-      // For web, create a download link and trigger a download
-      html.AnchorElement(
-          href: html.Url.createObjectUrlFromBlob(html.Blob([file.data])))
-        ..setAttribute("download", file.name)
-        ..click();
-    } else {
-      // For non-web platforms, write the file to the temporary directory
-      final directory = await getTemporaryDirectory();
-      final path = directory.path + Platform.pathSeparator + file.name;
-      final localFile = File(path); // Renamed from 'file' to 'localFile'
-      await localFile.writeAsBytes(file.data);
-    }
+    final fileDownloaderService = FileDownloaderService();
+    await fileDownloaderService.downloadFile(file);
   }
 
   void _reUploadFile(int index) async {
@@ -362,53 +350,8 @@ class _FileUploadWidgetState extends State<FileUploadWidget2> {
     widget.onFilesSelected(files);
   }
 
-  Future<String> writeToTemporaryFile(
-      Uint8List dataBytes, String fileName) async {
-    if (!kIsWeb) {
-      // Use path_provider for mobile or desktop platforms.
-      final directory = await getTemporaryDirectory();
-      final file = File('${directory.path}/$fileName');
-      await file.writeAsBytes(dataBytes);
-      return file.path;
-    } else {
-      // Handle the web case where writing to the disk is not possible.
-      // Map file extensions to MIME types
-      final Map<String, String> mimeTypes = {
-        'pdf': 'application/pdf',
-        'doc': 'application/msword',
-        'docx':
-            'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-        'xls': 'application/vnd.ms-excel',
-        'xlsx':
-            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-        'jpg': 'image/jpeg',
-        'jpeg': 'image/jpeg',
-        'png': 'image/png',
-      };
-
-      // Extract file extension from the file name
-      final extension = fileName.split('.').last.toLowerCase();
-      final mimeType = mimeTypes[extension];
-
-      if (mimeType != null) {
-        // Create a Blob with the appropriate MIME type
-        final blob = html.Blob([dataBytes], mimeType);
-        final url = html.Url.createObjectUrlFromBlob(blob);
-        // Open the URL in a new tab/window.
-        html.window.open(url, '_blank');
-        return url; // Returning URL for potential further use
-      } else {
-        // Handle unsupported file types
-        print('Unsupported file type: $extension');
-        // You can provide feedback to the user or handle the unsupported file type in a different way.
-        return '';
-      }
-    }
-  }
-
   void _openFile(Uint8List fileBytes, String fileName) async {
-    String tempFilePath = await writeToTemporaryFile(fileBytes, fileName);
-    print('heeeeeeeeeeeeeee');
+    FileService();
   }
 
   @override

@@ -5,13 +5,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:camera/camera.dart';
-
 import '../../constants/AppView.dart';
 import '../../constants/app_constants.dart';
-import '../../theme/colors.dart';
-import '../../theme/typography.dart';
 import '../../utils/utils.dart';
 import '../../utils/validators/file_validator.dart';
+import '../../utils/validators/image_validator.dart';
 import '../helper_widget/button_list.dart';
 
 class ImageUploader extends StatefulWidget {
@@ -284,7 +282,7 @@ class _ImageUploaderState extends State<ImageUploader> {
         if (pickedFile != null) {
           if (widget.validators != null) {
             String? validationError =
-                _validateFile(pickedFile, widget.validators!, pickedFile.name);
+                validateFile(pickedFile, widget.validators!, pickedFile.name);
             if (validationError != null) {
               setState(() {
                 fileError = validationError;
@@ -313,7 +311,7 @@ class _ImageUploaderState extends State<ImageUploader> {
       final XFile picture = await _cameraController!.takePicture();
       if (widget.validators != null) {
         String? validationError =
-            _validateFile(picture, widget.validators!, picture.name);
+            validateFile(picture, widget.validators!, picture.name);
         if (validationError != null) {
           setState(() {
             fileError = validationError;
@@ -322,7 +320,7 @@ class _ImageUploaderState extends State<ImageUploader> {
         }
       }
       setState(() {
-        fileError = ''; // Clear the error message
+        fileError = '';
         widget.allowMultipleImages
             ? _imageFiles.add(File(picture.path))
             : _imageFiles.add(File(picture.path));
@@ -367,7 +365,7 @@ class _ImageUploaderState extends State<ImageUploader> {
                 builder: (BuildContext context) {
                   return AlertDialog(
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(4),
+                      borderRadius: BorderRadius.circular(spacer1),
                     ),
                     contentPadding: EdgeInsets.zero,
                     surfaceTintColor: const DigitColors().light.paperPrimary,
@@ -550,7 +548,7 @@ class _ImageUploaderState extends State<ImageUploader> {
                 Column(
                   children: [
                     const SizedBox(
-                      height: 2,
+                      height: spacer1/2,
                     ),
                     Icon(
                       Icons.info,
@@ -715,38 +713,4 @@ class _ImageUploaderState extends State<ImageUploader> {
     });
   }
 
-  // Validate the file against all validators
-  String? _validateFile(
-      XFile xFile, List<FileValidator> validators, String? name) {
-    final file = File(xFile.path);
-    for (var validator in validators) {
-      switch (validator.type) {
-        case FileValidatorType.fileType:
-          final List<String> allowedTypes = validator.value;
-          print(name);
-          final fileType = name?.split('.').last.toLowerCase();
-
-          if (!allowedTypes.contains(fileType)) {
-            print(fileType);
-            return validator.errorMessage;
-          }
-          break;
-        case FileValidatorType.minSize:
-          final int minSize = validator.value;
-          final fileSize = file.lengthSync();
-          if (fileSize < minSize) {
-            return validator.errorMessage;
-          }
-          break;
-        case FileValidatorType.maxSize:
-          final int maxSize = validator.value;
-          final fileSize = file.lengthSync();
-          if (fileSize > maxSize) {
-            return validator.errorMessage;
-          }
-          break;
-      }
-    }
-    return null; // Validation passed
-  }
 }
