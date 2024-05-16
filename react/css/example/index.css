@@ -1,5 +1,5 @@
 /*!
- * @egovernments/digit-ui-css - 1.8.2-coreui.13
+ * @egovernments/digit-ui-css - 1.8.2-coreui.14
  *
  * Copyright (c) 2024 Jagankumar <jagan.kumar@egov.org.in>
  * 
@@ -12673,8 +12673,8 @@ ol, ul {
     width: 100%; }
     .digit-tag-container .digit-tag .digit-text {
       overflow: hidden;
-      max-width: calc(100% - 28px);
-      width: calc(100% - 28px);
+      max-width: calc(100% - 1.75rem);
+      width: calc(100% - 1.75rem);
       text-overflow: clip;
       color: #363636;
       white-space: nowrap;
@@ -14742,7 +14742,7 @@ img {
   display: -ms-flexbox;
   display: flex;
   background-color: #fff;
-  border-radius: .5rem,.5rem,0,0;
+  border-radius: .5rem .5rem 0 0;
   z-index: 1000;
   border-radius: .25rem;
   grid-gap: 1.5rem;
@@ -14788,14 +14788,8 @@ img {
   @media (max-width: 30rem) {
     .digit-upload-image-drawer {
       height: 7.625rem;
-      -webkit-animation-duration: .5s;
-      animation-duration: .5s;
-      -webkit-animation-timing-function: ease-out;
-      animation-timing-function: ease-out;
-      -webkit-animation-fill-mode: forwards;
-      animation-fill-mode: forwards;
-      -webkit-animation-name: slideInFromBottom;
-      animation-name: slideInFromBottom; } }
+      -webkit-animation: slideInFromBottom .5s ease-out forwards;
+      animation: slideInFromBottom .5s ease-out forwards; } }
   .digit-upload-image-drawer .capture-close {
     width: 2rem;
     height: 2rem;
@@ -14881,7 +14875,8 @@ img {
       color: #c5c5c5;
       display: -webkit-box;
       display: -ms-flexbox;
-      display: flex; }
+      display: flex;
+      margin: 0; }
       @media (max-width: 30rem) {
         .digit-uploader-wrap .digit-uploader-content-uploadpopup .drag-drop-text {
           -webkit-box-orient: vertical;
@@ -15005,6 +15000,7 @@ img {
       -webkit-box-align: center;
       -ms-flex-align: center;
       align-items: center;
+      cursor: pointer;
       grid-gap: .5rem;
       gap: .5rem; }
       .digit-uploader-wrap .digit-uploaded-file-container .uploaded-file-container-sub .uploaded-file-details {
@@ -15015,9 +15011,6 @@ img {
     .digit-uploader-wrap .digit-uploaded-file-container .digit-upload-and-download-button {
       -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: flex;
       grid-gap: 1rem;
       gap: 1rem;
       margin-left: auto;
@@ -15033,9 +15026,6 @@ img {
       align-items: center;
       cursor: pointer;
       background: #eee;
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: flex;
       -webkit-box-pack: center;
       -ms-flex-pack: center;
       justify-content: center;
