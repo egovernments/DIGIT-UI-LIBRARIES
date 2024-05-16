@@ -163,17 +163,14 @@ class MyHomePageState extends State<MyHomePage> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                LabeledField(
-                  label: "Text Field",
-                  child: InputField(
-                    type: InputType.text,
-                    controller: controller1,
-                    innerLabel: 'label',
-                    info: true,
-                    infoText: 'this is infoText',
-                    helpText: 'help text',
-                    charCount: true,
-                  ),
+                InputField(
+                  type: InputType.text,
+                  controller: controller1,
+                  innerLabel: 'label',
+                  info: true,
+                  infoText: 'this is infoText',
+                  helpText: 'help text',
+                  charCount: true,
                 ),
                 const SizedBox(
                   height: 8,
