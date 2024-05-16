@@ -2,7 +2,7 @@
 
 .digit-radio-options-wrap {
   @apply leading-10 flex justify-between flex-wrap;
-  margin-bottom: 0.5rem;
+  margin-bottom: theme(digitv2.spacers.spacer2);
 
   @media (max-aspect-ratio: 9/16) {
     @apply flex-col;
@@ -32,7 +32,7 @@
 
   .radio-option-container {
     @apply inline-flex;
-    gap: 0.5rem;
+    gap: theme(digitv2.spacers.spacer2);
     align-items: self-start;
 
     &.disabled {
@@ -66,7 +66,7 @@
 
   .digit-radio-btn {
     @apply opacity-0 absolute cursor-pointer h-6 w-6;
-    margin: 0rem;
+    margin: theme(digitv2.spacers.spacer0);
   }
 
   .digit-radio-btn-checkmark {

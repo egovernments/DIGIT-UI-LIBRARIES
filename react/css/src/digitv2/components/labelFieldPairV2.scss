@@ -16,7 +16,7 @@
 
    & .label,
    & header {
-     margin-right: 1.5rem;
+     margin-right: theme(digitv2.spacers.spacer6);
      width: 33%;
 
      @media (max-aspect-ratio: 9/16) {

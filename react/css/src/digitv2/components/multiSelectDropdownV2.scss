@@ -109,7 +109,7 @@
     }
     input:active~.digit-multiselectdropodwn-custom-checkbox-selectAll,
     input:checked~.digit-multiselectdropodwn-custom-checkbox-selectAll {
-      border: 0.125rem solid theme(digitv2.lightTheme.primary-1);
+      border: theme(digitv2.spacers.spacer5) solid theme(digitv2.lightTheme.primary-1);
       background-color: theme(digitv2.lightTheme.paper-secondary);
     }
     input:active~.digit-multiselectdropodwn-custom-checkbox-selectAll svg,

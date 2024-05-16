@@ -1,6 +1,6 @@
 .digit-timeline-item {
   @apply flex items-start;
-  gap: 1rem;
+  gap: theme(digitv2.spacers.spacer4);
 }
 
 .timeline-circle {
@@ -16,13 +16,13 @@
 .timeline-content,
 .timeline-info {
   @apply flex flex-col w-full;
-  gap: 0.5rem;
+  gap: theme(digitv2.spacers.spacer2);
 }
 
 .timeline-info{
   @media (max-aspect-ratio: 9/16) {
     /* Media query for mobile */
-    gap: 0.25rem;
+    gap: theme(digitv2.spacers.spacer1);
   }
 }
 
@@ -51,18 +51,18 @@
 
 .timeline-toggle-details {
   @apply flex items-center cursor-pointer;
-  gap: 0.25rem;
+  gap: theme(digitv2.spacers.spacer1);
   width: fit-content;
 }
 
 .timeline-additional-elements-inline {
   @apply flex flex-wrap items-start;
-  gap: 1rem;
+  gap: theme(digitv2.spacers.spacer4);
 }
 
 .timeline-additional-elements-column {
   @apply flex flex-col items-start;
-  gap: 1rem;
+  gap: theme(digitv2.spacers.spacer4);
 
   .timeline-individual-element {
     @apply w-full max-w-full;
@@ -80,7 +80,7 @@ img {
   background-color: transparent;
   border: none;
   color: theme(digitv2.lightTheme.primary-1);
-  padding: 0rem;
+  padding: theme(digitv2.spacers.spacer0);
 }
 
 /* Circle Variants */
