@@ -2,13 +2,13 @@
 
 .digit-checkbox-container {
   @apply flex mb-md relative;
-  gap: 1rem;
+  gap: theme(digitv2.spacers.spacer4);
 
   input {
     @apply opacity-0 absolute cursor-pointer z-10;
     @extend .light-input-border;
-    width: 2rem;
-    height: 2rem;
+    width: theme(digitv2.spacers.spacer8);
+    height: theme(digitv2.spacers.spacer8);
     left: -15%;
   }
 
@@ -18,8 +18,8 @@
 
   .digit-custom-checkbox {
     @apply flex items-center border border-solid border-text-secondary justify-center;
-    width: 1.5rem;
-    height: 1.5rem;
+    width: theme(digitv2.spacers.spacer6);
+    height: theme(digitv2.spacers.spacer6);
 
     img,
     svg {
@@ -52,15 +52,15 @@
 
   input:checked~.digit-custom-checkbox svg {
     @apply opacity-100;
-    width: 1rem;
-    height: 1rem;
+    width: theme(digitv2.spacers.spacer4);
+    height: theme(digitv2.spacers.spacer4);
   }
 
   .label {
     @extend .typography.body-s;
     @apply text-left;
     word-break: break-word;
-    letter-spacing: 0rem;
+    letter-spacing: theme(digitv2.spacers.spacer0);
     color: theme(digitv2.lightTheme.text-primary);
   }
 
