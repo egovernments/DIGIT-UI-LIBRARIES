@@ -13,3 +13,7 @@
 ## 0.0.1
 
 * initial release
+
+## 0.0.1+1
+
+* compatible with reactive forms
