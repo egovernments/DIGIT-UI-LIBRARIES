@@ -1,5 +1,4 @@
 import 'package:digit_ui_components/models/DropdownModels.dart';
-
 /// Capitalize the first letter if required
 String? capitalizeFirstLetter(String? text) {
   if (text != null && text.isNotEmpty ) {
