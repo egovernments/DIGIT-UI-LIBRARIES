@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
-class ReactiveCustomField<T> extends ReactiveFormField<T, T> {
+class ReactiveWrapperField<T> extends ReactiveFormField<T, T> {
   final Widget Function(ReactiveFormFieldState) builder;
 
-  ReactiveCustomField({
+  ReactiveWrapperField({
     Key? key,
     required String formControlName,
     required this.builder,
