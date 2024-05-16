@@ -42,7 +42,7 @@ frontend/micro-ui/web/public/index.html
 # Changelog
 
 ```bash
-1.8.2-coreui.13 added uploader varinats and its css
+1.8.2-coreui.14 added uploader varinats and its css
 1.8.2-coreui.12 updated css for toast info and category option css 
 1.8.2-coreui.11 added info varinat for toast
 1.8.2-coreui.10 dropdown options card height updated
