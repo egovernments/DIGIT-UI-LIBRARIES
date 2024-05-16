@@ -9956,7 +9956,7 @@ ol, ul {
       .icon-label-container.link .digit-button-customIcon.small {
         width: .875rem;
         height: .875rem;
-        margin-top: 4px; }
+        margin-top: .25rem; }
 
 .digit-button-label {
   text-align: center;
