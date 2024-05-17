@@ -29,7 +29,7 @@ const CheckBox = ({
     <div
       className={`digit-checkbox-container ${
         !isLabelFirst ? "checkboxFirst" : "labelFirst"
-      } ${disabled ? "disabled" : " "} ${props.mainClasaName}`}
+      } ${disabled ? "disabled" : " "} ${props.mainClassName}`}
     >
       {isLabelFirst ? (
         <p className={`label ${labelClassName} `} style={{ maxWidth: "100%", width: "auto" ,marginRight:"0rem"}} onClick={props.onLabelClick}>
@@ -63,7 +63,7 @@ const CheckBox = ({
             userType === "employee" ? "digit-custom-checkbox-emp" : ""
           } ${props.inputIconClassname} `}
         >
-          <SVG.Check fill={props.iconFill?props.iconFill:disabled ? "#C5C5C5" : "#C84C0E"} />
+          <SVG.Check fill={props.iconFill || (disabled ? "#C5C5C5" : "#C84C0E")} />
         </p>
       </div>
       {!isLabelFirst ? (
