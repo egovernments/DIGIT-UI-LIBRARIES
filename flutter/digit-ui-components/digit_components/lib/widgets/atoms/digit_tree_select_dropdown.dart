@@ -41,7 +41,7 @@ typedef OnOptionSelected<T> = void Function(List<TreeNode> selectedOptions);
 
 class TreeSelectDropDown<int> extends StatefulWidget {
   /// selection type of the dropdown
-  final TreeSelectionType treeSelectionType;
+  final DropdownType treeSelectionType;
 
   /// Options
   final List<TreeNode> options;
@@ -79,7 +79,7 @@ class TreeSelectDropDown<int> extends StatefulWidget {
     Key? key,
     required this.onOptionSelected,
     required this.options,
-    this.treeSelectionType = TreeSelectionType.singleSelect,
+    this.treeSelectionType = DropdownType.singleSelect,
     this.selectedOptions = const [],
     this.suffixIcon = Icons.arrow_drop_down,
     this.inputDecoration,
@@ -285,7 +285,7 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
                       Expanded(
                         child: (_selectedOptions.isNotEmpty)
                             ? (widget.treeSelectionType ==
-                                    TreeSelectionType.MultiSelect)
+                                    DropdownType.multiSelect)
                                 ? Text(
                                     capitalizeFirstLetter(
                                         '${_selectedOptions.length} Selected')!,
@@ -392,7 +392,7 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
           height: spacer2,
         ),
         if (_anyItemSelected &&
-            widget.treeSelectionType == TreeSelectionType.MultiSelect)
+            widget.treeSelectionType == DropdownType.multiSelect)
           SizedBox(
             width: width,
             child: _getContainerContent(),
@@ -683,7 +683,7 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
       mouseStates: mouseStates,
       treeSelectionType: widget.treeSelectionType,
       onOptionSelected: (updatedOptions) {
-        if (widget.treeSelectionType == TreeSelectionType.MultiSelect) {
+        if (widget.treeSelectionType == DropdownType.multiSelect) {
           dropdownState(() {
             selectedOptions.clear();
             selectedOptions.addAll(updatedOptions);

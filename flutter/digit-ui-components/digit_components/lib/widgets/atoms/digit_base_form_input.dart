@@ -179,6 +179,8 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
   bool isVisible = false;
   double _height = BaseConstants.inputMaxHeight;
   bool _isFocusOn = false;
+  late double width;
+  late double minWidth;
 
   String? _errorMessage;
 
@@ -292,12 +294,12 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
             : 64)
         : null;
 
-    double width = AppView.isMobileView(MediaQuery.of(context).size)
+     width = AppView.isMobileView(MediaQuery.of(context).size)
         ? MediaQuery.of(context).size.width
         : AppView.isTabletView(MediaQuery.of(context).size)
             ? BaseConstants.tabInputMaxWidth
             : BaseConstants.desktopInputMaxWidth;
-    double minWidth = AppView.isMobileView(MediaQuery.of(context).size)
+     minWidth = AppView.isMobileView(MediaQuery.of(context).size)
         ? BaseConstants.mobileInputMinWidth
         : BaseConstants.desktopInputMaxWidth;
 
@@ -362,8 +364,8 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                             hoverColor: const DigitColors().transparent,
                             contentPadding: const EdgeInsets.only(
                               left: spacer3,
-                              right: spacer1 / 2,
-                              top: spacer3,
+                              right: spacer1,
+                              top: 0,
                               bottom: spacer2,
                             ),
                             hintText: capitalizedInnerLabel,
@@ -457,7 +459,6 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                   style: isVisible
                       ? currentTypography.bodyL.copyWith(
                           fontWeight: FontWeight.w900,
-                          fontFamily: "Roboto-bold",
                           color: widget.readOnly
                               ? const DigitColors().light.textSecondary
                               : const DigitColors().light.textPrimary,

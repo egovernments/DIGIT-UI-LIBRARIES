@@ -12,8 +12,8 @@ void main() {
       MaterialApp(
         home: Scaffold(
           body: DigitDropdown(
-            textEditingController: TextEditingController(),
-            onChange: (value, index) {},
+            dropdownController: TextEditingController(),
+            onSelect: (item) {},
             items: const [
               DropdownItem(name: 'Item 1', code: ''),
               DropdownItem(name: 'Item 2', code: ''),
@@ -45,8 +45,8 @@ void main() {
       MaterialApp(
         home: Scaffold(
           body: DigitDropdown(
-            textEditingController: TextEditingController(),
-            onChange: (value, index) {},
+            dropdownController: TextEditingController(),
+            onSelect: (item) {},
             items: const [
               DropdownItem(name: 'Item 1', code: '1'),
               DropdownItem(name: 'Item 2', code: '2'),
@@ -78,8 +78,8 @@ void main() {
       MaterialApp(
         home: Scaffold(
           body: DigitDropdown(
-            textEditingController: TextEditingController(),
-            onChange: (value, index) {},
+            dropdownController: TextEditingController(),
+            onSelect: (item) {},
             items: const [
               DropdownItem(name: 'Apple', code: 'A'),
               DropdownItem(name: 'Banana', code: 'B'),
@@ -109,8 +109,8 @@ void main() {
       MaterialApp(
         home: Scaffold(
           body: DigitDropdown(
-            textEditingController: TextEditingController(),
-            onChange: (value, index) {},
+            dropdownController: TextEditingController(),
+            onSelect: (item) {},
             items: const [
               DropdownItem(name: 'Item 1', code: '1', description: 'Description 1'),
               DropdownItem(name: 'Item 2', code: '2', description: 'Description 2'),
@@ -138,8 +138,8 @@ void main() {
       MaterialApp(
         home: Scaffold(
           body: DigitDropdown(
-            textEditingController: TextEditingController(),
-            onChange: (value, index) {},
+            dropdownController: TextEditingController(),
+            onSelect: (item) {},
             items: const [
               DropdownItem(name: 'Item 1', code: '1', description: 'Description 1'),
               DropdownItem(name: 'Item 2', code: '2', description: 'Description 2'),
@@ -173,9 +173,9 @@ void main() {
       MaterialApp(
         home: Scaffold(
           body: DigitDropdown(
-            textEditingController: TextEditingController(),
-            onChange: (value, index) {},
-            dropdownType: DropdownType.nestedSelect,
+            dropdownController: TextEditingController(),
+            onSelect: (item) {},
+            selectionType: SelectionType.nestedSelect,
             items: const [
               DropdownItem(name: 'Item 1', code: '1', type: 'Type A'),
               DropdownItem(name: 'Item 2', code: '2', type: 'Type B'),
@@ -199,7 +199,7 @@ void main() {
 
     /// Verify that the selected item with type is displayed in the text field.
     expect(find.byType(DigitDropdown), findsOneWidget);
-    final String selectedValue = tester.widget<DigitDropdown>(find.byType(DigitDropdown)).textEditingController.text;
+    final String? selectedValue = tester.widget<DigitDropdown>(find.byType(DigitDropdown)).dropdownController?.text;
     expect(selectedValue, 'Type B,Item 2');
   });
 
@@ -208,8 +208,8 @@ void main() {
       MaterialApp(
         home: Scaffold(
           body: DigitDropdown(
-            textEditingController: TextEditingController(),
-            onChange: (value, index) {},
+            dropdownController: TextEditingController(),
+            onSelect: (item) {},
             items: const [], // Empty list
           ),
         ),
@@ -229,8 +229,8 @@ void main() {
       MaterialApp(
         home: Scaffold(
           body: DigitDropdown(
-            textEditingController: TextEditingController(),
-            onChange: (value, index) {},
+            dropdownController: TextEditingController(),
+            onSelect: (item) {},
             textIcon: Icons.star,
             items: const [
               DropdownItem(name: 'Item 1', code: '1', ),

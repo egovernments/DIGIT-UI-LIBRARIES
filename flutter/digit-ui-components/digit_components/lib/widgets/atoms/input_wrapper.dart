@@ -1,18 +1,7 @@
-import 'dart:html';
-
 import 'package:digit_ui_components/digit_components.dart';
-import 'package:digit_ui_components/enum/app_enums.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import '../../utils/validators/validator.dart';
-import 'digit_date_form_input.dart';
-import 'digit_location_form_input.dart';
-import 'digit_numeric_form_input.dart';
-import 'digit_password_form_input.dart';
-import 'digit_search_form_input.dart';
-import 'digit_text_area_form_input.dart';
-import 'digit_time_form_input.dart';
 
 enum InputType {
   text,

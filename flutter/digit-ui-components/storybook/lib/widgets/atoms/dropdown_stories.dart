@@ -1,10 +1,8 @@
 import 'package:digit_ui_components/enum/app_enums.dart';
 import 'package:digit_ui_components/models/DropdownModels.dart';
 import 'package:digit_ui_components/models/TreeModel.dart';
-import 'package:digit_ui_components/models/toggleButtonModel.dart';
 import 'package:digit_ui_components/widgets/atoms/digit_dropdown_input.dart';
 import 'package:digit_ui_components/widgets/atoms/digit_multiselect_dropdown.dart';
-import 'package:digit_ui_components/widgets/atoms/digit_toggle_list.dart';
 import 'package:digit_ui_components/widgets/atoms/digit_tree_select_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
@@ -21,8 +19,8 @@ List<Story> dropdownStories() {
               label: 'Disabled',
               initial: false,
             ),
-            onChange: (String value, String index) => {},
-            textEditingController: TextEditingController(),
+            onSelect: (item) => {},
+            dropdownController: TextEditingController(),
             isSearchable: context.knobs
                 .boolean(label: 'Searchable', initial: false),
             items: [
@@ -54,10 +52,10 @@ List<Story> dropdownStories() {
               label: 'Disabled',
               initial: false,
             ),
-            onChange: (String value, String index) => {},
+            onSelect: (item) => {},
             isSearchable: context.knobs
                 .boolean(label: 'Searchable', initial: false),
-            textEditingController: TextEditingController(),
+            dropdownController: TextEditingController(),
             items: [
               'one',
               'two',
@@ -88,10 +86,10 @@ List<Story> dropdownStories() {
               label: 'Disabled',
               initial: false,
             ),
-            onChange: (String value, String index) => {},
+            onSelect: (item) => {},
             isSearchable: context.knobs
                 .boolean(label: 'Searchable', initial: false),
-            textEditingController: TextEditingController(),
+            dropdownController: TextEditingController(),
             items: [
               'one',
               'two',
@@ -122,10 +120,10 @@ List<Story> dropdownStories() {
               label: 'Disabled',
               initial: false,
             ),
-            onChange: (String value, String index) => {},
+            onSelect: (item) => {},
             isSearchable: context.knobs
                 .boolean(label: 'Searchable', initial: false),
-            textEditingController: TextEditingController(),
+            dropdownController: TextEditingController(),
             items: [
               'one',
               'two',
@@ -155,9 +153,9 @@ List<Story> dropdownStories() {
               label: 'Disabled',
               initial: false,
             ),
-            onChange: (String value, String type) => {},
-            textEditingController: TextEditingController(),
-            dropdownType: DropdownType.nestedSelect,
+            onSelect: (item) => {},
+            dropdownController: TextEditingController(),
+            selectionType: SelectionType.nestedSelect,
             isSearchable: context.knobs
                 .boolean(label: 'Searchable', initial: false),
             items: const [
@@ -205,9 +203,9 @@ List<Story> dropdownStories() {
               label: 'Disabled',
               initial: false,
             ),
-            onChange: (String value, String type) => {},
-            textEditingController: TextEditingController(),
-            dropdownType: DropdownType.nestedSelect,
+            onSelect: (item) => {},
+            dropdownController: TextEditingController(),
+            selectionType: SelectionType.nestedSelect,
             isSearchable: context.knobs
                 .boolean(label: 'Searchable', initial: false),
             items: const [
@@ -276,7 +274,7 @@ List<Story> dropdownStories() {
             TreeNode('D.D2', 'D2', []),
           ]),
         ],
-        treeSelectionType: TreeSelectionType.singleSelect,
+        treeSelectionType: DropdownType.singleSelect,
       ),
     ),
     Story(
@@ -286,8 +284,8 @@ List<Story> dropdownStories() {
           label: 'Disabled',
           initial: false,
         ),
-        onChange: (String value, String index) => {},
-        textEditingController: TextEditingController(),
+        onSelect: (item) => {},
+        dropdownController: TextEditingController(),
         isSearchable: context.knobs
             .boolean(label: 'Searchable', initial: false),
         items: [
@@ -320,7 +318,6 @@ List<Story> dropdownStories() {
           DropdownItem(code: '4', name: 'four'),
           DropdownItem(code: '5', name: 'five'),
         ],
-        selectionType: SelectionType.multiSelect,
       ),
     ),
     Story(
@@ -336,7 +333,6 @@ List<Story> dropdownStories() {
           DropdownItem(code: '4', name: 'four', description: 'description for four',),
           DropdownItem(code: '5', name: 'five', description: 'description for five',),
         ],
-        selectionType: SelectionType.multiSelect,
       ),
     ),
     Story(
@@ -352,7 +348,6 @@ List<Story> dropdownStories() {
           DropdownItem(code: '4', name: 'four', textIcon: Icons.article),
           DropdownItem(code: '5', name: 'five', textIcon: Icons.article),
         ],
-        selectionType: SelectionType.multiSelect,
       ),
     ),
     Story(
@@ -383,7 +378,7 @@ List<Story> dropdownStories() {
               name: 'five',
               type: 'Group A'),
         ],
-        selectionType: SelectionType.nestedMultiSelect,
+        selectionType: SelectionType.nestedSelect,
       ),
     ),
     Story(
@@ -419,7 +414,7 @@ List<Story> dropdownStories() {
               description: 'description for five',
               type: 'Group A'),
         ],
-        selectionType: SelectionType.nestedMultiSelect,
+        selectionType: SelectionType.nestedSelect,
       ),
     ),
     Story(
@@ -459,7 +454,7 @@ List<Story> dropdownStories() {
             type: 'Group A',
             textIcon: Icons.article,),
         ],
-        selectionType: SelectionType.nestedMultiSelect,
+        selectionType: SelectionType.nestedSelect,
       ),
     ),
     Story(
@@ -486,7 +481,7 @@ List<Story> dropdownStories() {
             TreeNode('D.D2', 'D2', []),
           ]),
         ],
-        treeSelectionType: TreeSelectionType.MultiSelect,
+        treeSelectionType: DropdownType.multiSelect,
       ),
     ),
   ];

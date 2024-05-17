@@ -33,10 +33,6 @@ import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../../constants/AppView.dart';
-import '../../constants/app_constants.dart';
-import '../../enum/app_enums.dart';
-import '../../models/DropdownModels.dart';
 import '../../utils/utils.dart';
 import '../helper_widget/dropdown_options.dart';
 import '../helper_widget/selection_chip.dart';
@@ -83,7 +79,7 @@ class MultiSelectDropDown<int> extends StatefulWidget {
     Key? key,
     required this.onOptionSelected,
     required this.options,
-    this.selectionType = SelectionType.multiSelect,
+    this.selectionType = SelectionType.defaultSelect,
     this.selectedOptions = const [],
     this.suffixIcon = Icons.arrow_drop_down,
     this.focusNode,
@@ -257,17 +253,17 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
               /// Check for arrow up and arrow down key events
               if (event is RawKeyDownEvent) {
                 if (event.logicalKey == LogicalKeyboardKey.arrowUp) {
-                  widget.selectionType == SelectionType.nestedMultiSelect
+                  widget.selectionType == SelectionType.nestedSelect
                       ? _navigateNestedDropdown(-1)
                       : _navigateDropdown(-1);
                   return KeyEventResult.handled;
                 } else if (event.logicalKey == LogicalKeyboardKey.arrowDown) {
-                  widget.selectionType == SelectionType.nestedMultiSelect
+                  widget.selectionType == SelectionType.nestedSelect
                       ? _navigateNestedDropdown(1)
                       : _navigateDropdown(1);
                   return KeyEventResult.handled;
                 } else if (event.logicalKey == LogicalKeyboardKey.enter) {
-                  widget.selectionType == SelectionType.nestedMultiSelect
+                  widget.selectionType == SelectionType.nestedSelect
                       ? _selectNestedDropdownOption()
                       : _selectDropdownOption();
                   return KeyEventResult.handled;
@@ -687,7 +683,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           widget.selectionType ==
-                              SelectionType.nestedMultiSelect
+                              SelectionType.nestedSelect
                               ? _buildNestedItems(values, options,
                               selectedOptions, dropdownState)
                               : _buildFlatOptions(values, options,
@@ -1157,7 +1153,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
   /// Build the selected item chip.
   Widget _buildChip(DropdownItem item) {
     return SelectionChip(
-      label: widget.valueMapper!=null ? getAssociatedValue(item.code, widget.valueMapper!): widget.selectionType == SelectionType.nestedMultiSelect ? '${item.type}: ${item.name}' : item.name,
+      label: widget.valueMapper!=null ? getAssociatedValue(item.code, widget.valueMapper!): widget.selectionType == SelectionType.nestedSelect ? '${item.type}: ${item.name}' : item.name,
       onItemDelete: () {
         if (_controller != null) {
           _controller!.clearSelection(item);

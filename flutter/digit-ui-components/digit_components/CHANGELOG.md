@@ -17,3 +17,7 @@
 ## 0.0.1+1
 
 * compatible with reactive forms
+
+## 0.0.1+2
+
+* miner bug fixes

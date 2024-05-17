@@ -16,7 +16,7 @@ class TreeNodeWidget extends StatefulWidget {
   final Color backgroundColor;
   final ValueChanged<List<TreeNode>> onOptionSelected;
   final FocusNode focusNode;
-  final TreeSelectionType treeSelectionType;
+  final DropdownType treeSelectionType;
   final double currentHorPadding;
 
   const TreeNodeWidget({
@@ -96,7 +96,7 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
     if (parentNode != null && _areAllChildrenSelected(parentNode)) {
       return const DigitColors().light.primary1Bg;
     } else if (_areAllChildrenSelected(node) &&
-        widget.treeSelectionType == TreeSelectionType.MultiSelect) {
+        widget.treeSelectionType == DropdownType.multiSelect) {
       return const DigitColors().light.primary1;
     } else {
       return widget.hoverStates?[widget.currentOption.code] == true
@@ -152,7 +152,7 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
                   ..removeWhere(
                           (item) => item.code == widget.currentOption.code));
               } else {
-                if (widget.treeSelectionType == TreeSelectionType.MultiSelect) {
+                if (widget.treeSelectionType == DropdownType.multiSelect) {
                   if (!widget.selectedOptions
                       .any((item) => item.code == widget.currentOption.code)) {
                     widget.onOptionSelected(
@@ -180,7 +180,7 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
                                 !_parentSelected(widget.currentOption,
                                     widget.parentNode) &&
                                 widget.treeSelectionType ==
-                                    TreeSelectionType.MultiSelect
+                                    DropdownType.multiSelect
                             ? const DigitColors().light.primary1
                             : Colors.transparent,
                       ),
@@ -206,7 +206,7 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
                                 : _areAllChildrenSelected(
                                 widget.currentOption) &&
                                 widget.treeSelectionType ==
-                                    TreeSelectionType.MultiSelect
+                                    DropdownType.multiSelect
                                 ? const DigitColors()
                                 .light
                                 .paperPrimary
@@ -227,7 +227,7 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
                           width: spacer1,
                         ),
                         if (widget.treeSelectionType ==
-                            TreeSelectionType.MultiSelect)
+                            DropdownType.multiSelect)
                           InkWell(
                             highlightColor: const DigitColors().transparent,
                             hoverColor: const DigitColors().transparent,
@@ -273,7 +273,7 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
                                 state: DigitCheckboxState.unchecked),
                           ),
                         if (widget.treeSelectionType ==
-                            TreeSelectionType.MultiSelect)
+                            DropdownType.multiSelect)
                           const SizedBox(
                             width: spacer3,
                           ),
@@ -283,7 +283,7 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
                               _areAllChildrenSelected(
                                   widget.currentOption) &&
                                   widget.treeSelectionType ==
-                                      TreeSelectionType.MultiSelect
+                                      DropdownType.multiSelect
                               ? currentTypography.headingS.copyWith(
                             color: _parentSelected(widget.currentOption,
                                 widget.parentNode)

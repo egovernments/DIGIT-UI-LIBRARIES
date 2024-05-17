@@ -21,25 +21,12 @@ enum InfoButtonType {
   warning,
 }
 
-/// Enum representing different types of single select dropdowns.
-enum DropdownType {
-  defaultSelect,
-  nestedSelect,
-}
-
 /// Enum representing different types of multi select dropdowns.
 enum SelectionType {
-  multiSelect,
-  nestedMultiSelect,
+  defaultSelect,
+  nestedSelect,
+  treeSelect,
 }
-
-/// Enum representing different types of multi select dropdowns.
-enum TreeSelectionType {
-  singleSelect,
-  MultiSelect,
-}
-
-
 
 /// Enum representing the possible states of the DigitCheckbox.
 enum DigitCheckboxState {
@@ -68,15 +55,9 @@ enum ToastType {
 }
 
 /// dropdown type and subtype for dropdown wrapper
-enum Type {
+enum DropdownType {
   singleSelect,
   multiSelect,
-}
-
-enum DropdownSubtype {
-  defaultSelect,
-  nested,
-  tree,
 }
 
 /// Enum to define different types of information for the InfoCard

@@ -7,10 +7,11 @@ import 'digit_multiselect_dropdown.dart';
 import 'digit_tree_select_dropdown.dart';
 
 class Dropdown extends StatelessWidget {
-  final Type dropdownType;
-  final DropdownSubtype dropdownSubtype;
-  final TextEditingController? textEditingController;
-  final void Function(String, String)? onChange;
+  final DropdownType dropdownType;
+  final SelectionType dropdownSelectionType;
+
+  final TextEditingController? dropdownController;
+  final void Function(DropdownItem)? onSelect;
   final List<DropdownItem> items;
   final IconData? textIcon;
   final IconData suffixIcon;
@@ -24,16 +25,12 @@ class Dropdown extends StatelessWidget {
   final bool readOnly;
 
   // MultiSelectDropDown props
-  final SelectionType selectionType;
   final List<DropdownItem> options;
   final List<DropdownItem> selectedOptions;
   final OnOptionSelect<int>? onOptionSelected;
   final FocusNode? focusNode;
   final String clearAllText;
   final MultiSelectController<int>? controller;
-
-  // TreeSelectDropDown props
-  final TreeSelectionType treeSelectionType;
   final List<TreeNode> treeOptions;
   final List<TreeNode> selectedTreeOptions;
   final OnOptionSelected<List<TreeNode>>? onTreeOptionSelected;
@@ -41,10 +38,10 @@ class Dropdown extends StatelessWidget {
 
   const Dropdown({
     Key? key,
-    this.dropdownType = Type.singleSelect,
-    this.dropdownSubtype = DropdownSubtype.defaultSelect,
-    this.textEditingController,
-    this.onChange,
+    this.dropdownType = DropdownType.singleSelect,
+    this.dropdownSelectionType = SelectionType.defaultSelect,
+    this.dropdownController,
+    this.onSelect,
     this.items = const [],
     this.options = const [],
     this.textIcon,
@@ -58,14 +55,12 @@ class Dropdown extends StatelessWidget {
     this.errorMessage,
     this.helpText,
     // MultiSelectDropDown props
-    this.selectionType = SelectionType.multiSelect,
     this.selectedOptions = const [],
     this.onOptionSelected,
     this.focusNode,
     this.controller,
     this.clearAllText = 'Clear All',
     // TreeSelectDropDown props
-    this.treeSelectionType = TreeSelectionType.singleSelect,
     this.treeOptions = const [],
     this.selectedTreeOptions = const [],
     this.onTreeOptionSelected,
@@ -75,12 +70,26 @@ class Dropdown extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     switch (dropdownType) {
-      case Type.singleSelect:
-        return dropdownSubtype == DropdownSubtype.defaultSelect
-            ? DigitDropdown(
-                textEditingController:
-                    textEditingController ?? TextEditingController(),
-                onChange: onChange ?? (value, index) {},
+      case DropdownType.singleSelect:
+        return dropdownSelectionType == SelectionType.treeSelect
+            ? TreeSelectDropDown(
+                treeSelectionType: dropdownType,
+                options: treeOptions,
+                readOnly: readOnly,
+                selectedOptions: selectedTreeOptions,
+                onOptionSelected: onTreeOptionSelected,
+                suffixIcon: suffixIcon,
+                focusNode: focusNode,
+                isDisabled: isDisabled,
+                clearAllText: clearAllText,
+                valueMapper: valueMapper,
+                errorMessage: errorMessage,
+                helpText: helpText,
+                inputDecoration: treeInputDecoration,
+              )
+            : DigitDropdown(
+                dropdownController: dropdownController,
+                onSelect: onSelect,
                 items: items,
                 readOnly: readOnly,
                 textIcon: textIcon,
@@ -92,44 +101,27 @@ class Dropdown extends StatelessWidget {
                 valueMapper: valueMapper,
                 errorMessage: errorMessage,
                 helpText: helpText,
+                selectionType: dropdownSelectionType,
+              );
+      case DropdownType.multiSelect:
+        return dropdownSelectionType == SelectionType.treeSelect
+            ? TreeSelectDropDown(
+                treeSelectionType: dropdownType,
+                options: treeOptions,
+                readOnly: readOnly,
+                selectedOptions: selectedTreeOptions,
+                onOptionSelected: onTreeOptionSelected,
+                suffixIcon: suffixIcon,
+                focusNode: focusNode,
+                isDisabled: isDisabled,
+                clearAllText: clearAllText,
+                valueMapper: valueMapper,
+                errorMessage: errorMessage,
+                helpText: helpText,
+                inputDecoration: treeInputDecoration,
               )
-            : dropdownSubtype == DropdownSubtype.nested
-                ? DigitDropdown(
-                    textEditingController:
-                        textEditingController ?? TextEditingController(),
-                    onChange: onChange ?? (value, index) {},
-                    items: items,
-                    readOnly: readOnly,
-                    textIcon: textIcon,
-                    suffixIcon: suffixIcon,
-                    emptyItemText: emptyItemText,
-                    isSearchable: isSearchable,
-                    selectedOption: selectedOption,
-                    isDisabled: isDisabled,
-                    valueMapper: valueMapper,
-                    errorMessage: errorMessage,
-                    helpText: helpText,
-                    dropdownType: DropdownType.nestedSelect,
-                  )
-                : TreeSelectDropDown(
-                    treeSelectionType: TreeSelectionType.singleSelect,
-                    options: treeOptions,
-                    readOnly: readOnly,
-                    selectedOptions: selectedTreeOptions,
-                    onOptionSelected: onTreeOptionSelected,
-                    suffixIcon: suffixIcon,
-                    focusNode: focusNode,
-                    isDisabled: isDisabled,
-                    clearAllText: clearAllText,
-                    valueMapper: valueMapper,
-                    errorMessage: errorMessage,
-                    helpText: helpText,
-                    inputDecoration: treeInputDecoration,
-                  );
-      case Type.multiSelect:
-        return dropdownSubtype == DropdownSubtype.defaultSelect
-            ? MultiSelectDropDown(
-                selectionType: SelectionType.multiSelect,
+            : MultiSelectDropDown(
+                selectionType: dropdownSelectionType,
                 options: options,
                 readOnly: readOnly,
                 selectedOptions: selectedOptions,
@@ -142,38 +134,7 @@ class Dropdown extends StatelessWidget {
                 errorMessage: errorMessage,
                 helpText: helpText,
                 controller: controller,
-              )
-            : dropdownSubtype == DropdownSubtype.nested
-                ? MultiSelectDropDown(
-                    selectionType: SelectionType.nestedMultiSelect,
-                    options: options,
-                    readOnly: readOnly,
-                    selectedOptions: selectedOptions,
-                    onOptionSelected: onOptionSelected,
-                    suffixIcon: suffixIcon,
-                    focusNode: focusNode,
-                    isDisabled: isDisabled,
-                    clearAllText: clearAllText,
-                    valueMapper: valueMapper,
-                    errorMessage: errorMessage,
-                    helpText: helpText,
-                    controller: controller,
-                  )
-                : TreeSelectDropDown(
-                    treeSelectionType: TreeSelectionType.MultiSelect,
-                    options: treeOptions,
-                    readOnly: readOnly,
-                    selectedOptions: selectedTreeOptions,
-                    onOptionSelected: onTreeOptionSelected,
-                    suffixIcon: suffixIcon,
-                    focusNode: focusNode,
-                    isDisabled: isDisabled,
-                    clearAllText: clearAllText,
-                    valueMapper: valueMapper,
-                    errorMessage: errorMessage,
-                    helpText: helpText,
-                    inputDecoration: treeInputDecoration,
-                  );
+              );
       default:
         throw Exception('Unsupported dropdown type');
     }

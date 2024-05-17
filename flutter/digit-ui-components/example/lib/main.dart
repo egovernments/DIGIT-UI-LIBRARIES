@@ -867,9 +867,8 @@ class MyHomePageState extends State<MyHomePage> {
                 LabeledField(
                   label: 'Dropdown Variants',
                   child: Dropdown(
-                    dropdownType: Type.singleSelect,
-                    onChange: (String value, String index) => {},
-                    textEditingController: controller19,
+                    dropdownType: DropdownType.singleSelect,
+                    onSelect: (item) => {},
                     items: [
                       'one',
                       'two',
@@ -907,8 +906,8 @@ class MyHomePageState extends State<MyHomePage> {
                       LabeledField(
                         label: "Non Searchable Dropdown",
                         child: Dropdown(
-                          onChange: (String value, String index) => {},
-                          textEditingController: controller41,
+                          onSelect: (item) => {},
+                          dropdownController: controller41,
                           isSearchable: false,
                           items: const [
                             DropdownItem(
@@ -942,8 +941,8 @@ class MyHomePageState extends State<MyHomePage> {
                       LabeledField(
                         label: "Dropdown with Profile",
                         child: Dropdown(
-                          onChange: (String value, String index) => {},
-                          textEditingController: controller30,
+                          onSelect: (item) => {},
+                          dropdownController: controller30,
                           items: const [
                             DropdownItem(
                               name: 'first',
@@ -976,8 +975,8 @@ class MyHomePageState extends State<MyHomePage> {
                       LabeledField(
                         label: "Dropdown with Profile And Description",
                         child: Dropdown(
-                          onChange: (String value, String index) => {},
-                          textEditingController: controller40,
+                          onSelect: (item) => {},
+                          dropdownController: controller40,
                           items: const [
                             DropdownItem(
                               name: 'first',
@@ -1014,8 +1013,8 @@ class MyHomePageState extends State<MyHomePage> {
                       LabeledField(
                         label: "Dropdown with Description",
                         child: Dropdown(
-                          onChange: (String value, String index) => {},
-                          textEditingController: controller31,
+                          onSelect: (item) => {},
+                          dropdownController: controller31,
                           items: [
                             'one',
                             'two',
@@ -1038,8 +1037,8 @@ class MyHomePageState extends State<MyHomePage> {
                       LabeledField(
                         label: "Dropdown with Icon",
                         child: Dropdown(
-                          onChange: (String value, String index) => {},
-                          textEditingController: controller32,
+                          onSelect: (item) => {},
+                          dropdownController: controller32,
                           items: [
                             'One',
                             'two',
@@ -1062,10 +1061,9 @@ class MyHomePageState extends State<MyHomePage> {
                       LabeledField(
                         label: "Dropdown with nested Type",
                         child: Dropdown(
-                          dropdownSubtype: DropdownSubtype.nested,
-                          onChange: (String value, String type) => {},
-                          textEditingController: controller33,
-
+                          dropdownSelectionType: SelectionType.nestedSelect,
+                          onSelect: (item) => {},
+                          dropdownController: controller33,
                           selectedOption: const DropdownItem(
                             name: 'one',
                             code: '1',
@@ -1108,9 +1106,9 @@ class MyHomePageState extends State<MyHomePage> {
                       LabeledField(
                         label: "Dropdown with nested Type With Icons",
                         child: Dropdown(
-                          onChange: (String value, String type) => {},
-                          textEditingController: controller35,
-                          dropdownSubtype: DropdownSubtype.nested,
+                          onSelect: (item) => {},
+                          dropdownController: controller35,
+                          dropdownSelectionType: SelectionType.nestedSelect,
                           items: const [
                             DropdownItem(
                               name: 'one',
@@ -1156,9 +1154,9 @@ class MyHomePageState extends State<MyHomePage> {
                         label:
                         "Dropdown with nested Type With Icons and description",
                         child: Dropdown(
-                          onChange: (String value, String type) => {},
-                          textEditingController: controller42,
-                          dropdownSubtype: DropdownSubtype.nested,
+                          onSelect: (item) => {},
+                          dropdownController: controller42,
+                          dropdownSelectionType: SelectionType.nestedSelect,
                           items: const [
                             DropdownItem(
                               name: 'one',
@@ -1209,8 +1207,8 @@ class MyHomePageState extends State<MyHomePage> {
                       LabeledField(
                         label: "Dropdown Disabled",
                         child: Dropdown(
-                          onChange: (String value, String type) => {},
-                          textEditingController: controller34,
+                          onSelect: (item) => {},
+                          dropdownController: controller34,
                           isDisabled: true,
                           items: const [
                             DropdownItem(
@@ -1252,7 +1250,7 @@ class MyHomePageState extends State<MyHomePage> {
                 LabeledField(
                   label: 'MultiSelect Dropdowns',
                   child: Dropdown(
-                    dropdownType: Type.multiSelect,
+                    dropdownType: DropdownType.multiSelect,
                     onOptionSelected: (List<DropdownItem> selectedOptions) {},
                     options: const [
                       DropdownItem(code: '1', name: 'first'),
@@ -1261,7 +1259,6 @@ class MyHomePageState extends State<MyHomePage> {
                       DropdownItem(code: '4', name: 'four'),
                       DropdownItem(code: '5', name: 'five'),
                     ],
-                    selectionType: SelectionType.multiSelect,
                   ),
                 ),
                 const SizedBox(
@@ -1284,7 +1281,7 @@ class MyHomePageState extends State<MyHomePage> {
                       LabeledField(
                         label: "MultiSelect Dropdown with value mapper",
                         child: Dropdown(
-                          dropdownType: Type.multiSelect,
+                          dropdownType: DropdownType.multiSelect,
                           onOptionSelected:
                               (List<DropdownItem> selectedOptions) {},
                           valueMapper: const [
@@ -1318,14 +1315,13 @@ class MyHomePageState extends State<MyHomePage> {
                               description: 'description',
                             ),
                           ],
-                          selectionType: SelectionType.multiSelect,
                         ),
                       ),
                       const SizedBox(height: 8),
                       LabeledField(
                         label: "MultiSelect Dropdown with Selected Option",
                         child: Dropdown(
-                          dropdownType: Type.multiSelect,
+                          dropdownType: DropdownType.multiSelect,
                           onOptionSelected:
                               (List<DropdownItem> selectedOptions) {},
                           selectedOptions: const [
@@ -1362,14 +1358,13 @@ class MyHomePageState extends State<MyHomePage> {
                               description: 'description',
                             ),
                           ],
-                          selectionType: SelectionType.multiSelect,
                         ),
                       ),
                       const SizedBox(height: 8),
                       LabeledField(
                         label: "MultiSelect Dropdown with Description",
                         child: Dropdown(
-                          dropdownType: Type.multiSelect,
+                          dropdownType: DropdownType.multiSelect,
                           onOptionSelected:
                               (List<DropdownItem> selectedOptions) {},
                           options: const [
@@ -1399,14 +1394,13 @@ class MyHomePageState extends State<MyHomePage> {
                               description: 'this is description',
                             ),
                           ],
-                          selectionType: SelectionType.multiSelect,
                         ),
                       ),
                       const SizedBox(height: 8),
                       LabeledField(
                         label: "MultiSelect Dropdown with Description and Icon",
                         child: Dropdown(
-                          dropdownType: Type.multiSelect,
+                          dropdownType: DropdownType.multiSelect,
                           onOptionSelected:
                               (List<DropdownItem> selectedOptions) {},
                           options: const [
@@ -1441,14 +1435,13 @@ class MyHomePageState extends State<MyHomePage> {
                               textIcon: Icons.article,
                             ),
                           ],
-                          selectionType: SelectionType.multiSelect,
                         ),
                       ),
                       const SizedBox(height: 8),
                       LabeledField(
                         label: "MultiSelect Dropdown with Icon",
                         child: Dropdown(
-                          dropdownType: Type.multiSelect,
+                          dropdownType: DropdownType.multiSelect,
                           onOptionSelected:
                               (List<DropdownItem> selectedOptions) {},
                           options: const [
@@ -1478,15 +1471,14 @@ class MyHomePageState extends State<MyHomePage> {
                               textIcon: Icons.article,
                             ),
                           ],
-                          selectionType: SelectionType.multiSelect,
                         ),
                       ),
                       const SizedBox(height: 8),
                       LabeledField(
                         label: "MultiSelect Dropdown with nested Type",
                         child: Dropdown(
-                          dropdownType: Type.multiSelect,
-                          dropdownSubtype: DropdownSubtype.nested,
+                          dropdownType: DropdownType.multiSelect,
+                          dropdownSelectionType: SelectionType.nestedSelect,
                           onOptionSelected:
                               (List<DropdownItem> selectedOptions) {},
                           options: const [
@@ -1501,15 +1493,14 @@ class MyHomePageState extends State<MyHomePage> {
                             DropdownItem(
                                 code: '5', name: 'five', type: "Type B"),
                           ],
-                          selectionType: SelectionType.nestedMultiSelect,
                         ),
                       ),
                       const SizedBox(height: 8),
                       LabeledField(
                         label: "MultiSelect Dropdown with nested Type and Icon",
                         child: Dropdown(
-                          dropdownType: Type.multiSelect,
-                          dropdownSubtype: DropdownSubtype.nested,
+                          dropdownType: DropdownType.multiSelect,
+                          dropdownSelectionType: SelectionType.nestedSelect,
                           onOptionSelected:
                               (List<DropdownItem> selectedOptions) {},
                           options: const [
@@ -1554,7 +1545,6 @@ class MyHomePageState extends State<MyHomePage> {
                 LabeledField(
                   label: 'Tree Select Dropdowns',
                   child: Dropdown(
-                    dropdownSubtype: DropdownSubtype.tree,
                     onTreeOptionSelected: (List<TreeNode> selectedOptions) {
                       // print(selectedOptions);
                       for (TreeNode node in selectedOptions) {
@@ -1562,7 +1552,7 @@ class MyHomePageState extends State<MyHomePage> {
                       }
                     },
                     treeOptions: Nodes,
-                    treeSelectionType: TreeSelectionType.singleSelect,
+                    dropdownSelectionType: SelectionType.treeSelect,
                   ),
                 ),
                 const SizedBox(
@@ -1571,8 +1561,8 @@ class MyHomePageState extends State<MyHomePage> {
                 LabeledField(
                   label: 'Tree Multi Select Dropdowns',
                   child: Dropdown(
-                    dropdownSubtype: DropdownSubtype.tree,
-                    dropdownType: Type.multiSelect,
+                    dropdownSelectionType: SelectionType.treeSelect,
+                    dropdownType: DropdownType.multiSelect,
                     onTreeOptionSelected: (List<TreeNode> selectedOptions) {
                       // print(selectedOptions);
                       for (TreeNode node in selectedOptions) {
@@ -1591,7 +1581,6 @@ class MyHomePageState extends State<MyHomePage> {
                       ValueMapper(code: 'D: D2', name: "D: D2")
                     ],
                     treeOptions: Nodes,
-                    treeSelectionType: TreeSelectionType.singleSelect,
                   ),
                 ),
                 const SizedBox(

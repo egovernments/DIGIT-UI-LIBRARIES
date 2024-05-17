@@ -104,7 +104,7 @@ class _DropdownOptionState extends State<DropdownOption> {
                 ),
                 padding: EdgeInsets.zero,
                 child: Padding(
-                  padding: widget.selectionType == SelectionType.multiSelect
+                  padding: widget.selectionType == SelectionType.nestedSelect
                       ? widget.option.description != null
                           ? const EdgeInsets.symmetric(
                               horizontal: spacer4,
@@ -196,7 +196,7 @@ class _DropdownOptionState extends State<DropdownOption> {
             );
           },
         ),
-        if (widget.selectionType == SelectionType.nestedMultiSelect)
+        if (widget.selectionType == SelectionType.nestedSelect)
           Container(
             height: 1,
             color: const DigitColors().light.genericDivider,

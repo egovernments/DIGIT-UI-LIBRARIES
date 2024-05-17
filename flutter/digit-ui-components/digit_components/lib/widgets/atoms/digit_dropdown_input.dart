@@ -36,11 +36,11 @@ import '../../models/DropdownModels.dart';
 import '../../utils/utils.dart';
 
 class DigitDropdown<T> extends StatefulWidget {
-  final TextEditingController textEditingController;
+  final TextEditingController? dropdownController;
 
   /// onChange is called when the selected option is changed
   /// It will pass back the value and the index of the option (can be different for different case).
-  final void Function(String, String) onChange;
+  final void Function(DropdownItem)? onSelect;
 
   /// list of DropdownItems
   final List<DropdownItem> items;
@@ -51,7 +51,7 @@ class DigitDropdown<T> extends StatefulWidget {
   /// dropdown button icon defaults to caret
   final IconData suffixIcon;
 
-  final DropdownType dropdownType;
+  final SelectionType selectionType;
 
   /// text to shown, when no options is available....... even while searching if no options matches
   final String emptyItemText;
@@ -82,10 +82,10 @@ class DigitDropdown<T> extends StatefulWidget {
     required this.items,
     this.suffixIcon = Icons.arrow_drop_down,
     this.textIcon,
-    required this.onChange,
+    this.onSelect,
     this.isSearchable = true,
-    this.dropdownType = DropdownType.defaultSelect,
-    required this.textEditingController,
+    this.selectionType = SelectionType.defaultSelect,
+    this.dropdownController,
     this.emptyItemText = "No Options available",
     this.selectedOption,
     this.isDisabled = false,
@@ -116,10 +116,12 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
   late bool _isMouseUsed;
   late double width;
   late DigitTypography currentTypography;
+  late final TextEditingController _controller;
 
   @override
   void initState() {
     super.initState();
+    _controller = widget.dropdownController ?? TextEditingController();
     _focusNode.addListener(_onFocusChange);
     filteredItems = List.from(widget.items);
     _lastFilteredItems = List.from(widget.items);
@@ -132,13 +134,13 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
     /// if there is a selectedOption
     if (widget.selectedOption != null) {
       setState(() {
-        if (widget.dropdownType == DropdownType.nestedSelect) {
+        if (widget.selectionType == SelectionType.nestedSelect) {
           _nestedIndex = widget.selectedOption!.code;
-          widget.textEditingController.text =
+          _controller.text =
               '${widget.selectedOption?.type}: ${widget.selectedOption?.name}';
         } else {
           _currentIndex = widget.selectedOption!.code;
-          widget.textEditingController.text = widget.selectedOption!.name;
+          _controller.text = widget.selectedOption!.name;
         }
       });
     }
@@ -163,13 +165,13 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
       if (_isOpen && isMouseDown == false) {
         /// If no match found, clear the controller text
         if (_currentIndex == '' && _nestedIndex == '') {
-          widget.textEditingController.clear();
+          _controller.clear();
         }
 
         _toggleDropdown(close: true);
       }
       if (_currentIndex == '' && _nestedIndex == '') {
-        widget.textEditingController.clear();
+        _controller.clear();
       }
       if (isMouseDown && !_isOpen) {
         _toggleDropdown(close: true);
@@ -187,9 +189,6 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
         : AppView.isTabletView(MediaQuery.of(context).size)
             ? BaseConstants.tabInputMaxWidth
             : BaseConstants.desktopInputMaxWidth;
-    double minWidth = AppView.isMobileView(MediaQuery.of(context).size)
-        ? BaseConstants.mobileInputMinWidth
-        : BaseConstants.desktopInputMaxWidth;
 
     /// link the overlay to the button
     return RawKeyboardListener(
@@ -231,7 +230,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                     : TextInputType.none,
                 onChanged: widget.isSearchable
                     ? (input) {
-                        if (widget.textEditingController.text == '') {
+                        if (_controller.text == '') {
                           _currentIndex = '';
                           _nestedIndex = '';
                         }
@@ -243,7 +242,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                       }
                     : null,
                 focusNode: _focusNode,
-                controller: widget.textEditingController,
+                controller: _controller,
                 style: currentTypography.bodyL.copyWith(
                   color: widget.readOnly
                       ? const DigitColors().light.textSecondary
@@ -474,7 +473,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
 
   /// build the dropdown based on the type
   Widget _buildDropdownListView() {
-    return widget.dropdownType == DropdownType.nestedSelect
+    return widget.selectionType == SelectionType.nestedSelect
         ? _buildNestedListView()
         : _buildListView();
   }
@@ -529,8 +528,9 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                       onTap: () {
                         setState(
                             () => _currentIndex = filteredItems[index].code);
-                        widget.onChange(filteredItems[index].name,
-                            filteredItems[index].code);
+                        if(widget.onSelect!=null){
+                          widget.onSelect!(filteredItems[index]);
+                        }
                         _toggleDropdown();
                       },
                       child: Container(
@@ -851,8 +851,9 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                         setState(() {
                                           _nestedIndex = typeItems[index].code;
                                         });
-                                        widget.onChange(typeItems[index].name,
-                                            typeItems[index].code);
+                                        if(widget.onSelect!=null){
+                                          widget.onSelect!(typeItems[index]);
+                                        }
                                         _toggleDropdown();
                                       },
                                       child: Container(
@@ -894,8 +895,8 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                         ),
                                         padding: EdgeInsets.zero,
                                         child: Padding(
-                                          padding: widget.dropdownType ==
-                                                      DropdownType
+                                          padding: widget.selectionType ==
+                                                      SelectionType
                                                           .defaultSelect &&
                                                   typeItems[index]
                                                           .description ==
@@ -1170,7 +1171,9 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
     if (_focusedIndex != -1) {
       DropdownItem selectedItem = filteredItems[_focusedIndex];
       setState(() => _currentIndex = selectedItem.code);
-      widget.onChange(selectedItem.name, selectedItem.code);
+      if(widget.onSelect!=null){
+        widget.onSelect!(selectedItem);
+      }
       _toggleDropdown(close: true);
     }
   }
@@ -1208,7 +1211,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
     if (_currentIndex != '') {
       _updateControllerValue(_currentIndex, false);
     }
-    if (widget.dropdownType == DropdownType.nestedSelect &&
+    if (widget.selectionType == SelectionType.nestedSelect &&
         _nestedIndex != '') {
       _updateControllerValue(_nestedIndex, true);
     }
@@ -1233,7 +1236,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
     /// If the code is present in the value mapper, set the controller value accordingly
     if (selectedText != null) {
       setState(() {
-        widget.textEditingController.text = selectedText!;
+        _controller.text = selectedText!;
       });
     } else if (isNested) {
       /// Find the item with the code matching the current index
@@ -1244,7 +1247,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
       /// Check if the found item is not the default item
       if (selectedItem.name.isNotEmpty) {
         setState(() {
-          widget.textEditingController.text =
+          _controller.text =
               '${selectedItem.type}: ${selectedItem.name}';
         });
       }
@@ -1257,7 +1260,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
       /// Check if the found item is not the default item
       if (selectedItem.name.isNotEmpty) {
         setState(() {
-          widget.textEditingController.text = selectedItem.name;
+          _controller.text = selectedItem.name;
         });
       }
     }
