@@ -58,6 +58,7 @@ yarn storybook
 # Changelog
 
 ```bash
+0.0.1-beta.19 making CheckBox more customizable and adding custom color for Button
 0.0.1-beta.18 updated dropdown option labels
 0.0.1-beta.17 updated toast info varinat css and category option css 
 0.0.1-beta.16 added erroe boundary atom
