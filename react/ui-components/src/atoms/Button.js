@@ -7,11 +7,13 @@ const Button = (props) => {
   //To render the icon
   const IconRender = () => {
     const iconFill =
-      props?.variation === "primary"
-        ? "#FFFFFF"
-        : props?.isDisabled
-        ? "#C5C5C5"
-        : "#C84C0E";
+      props.iconFill? 
+        props.iconFill:
+        props?.variation === "primary"
+          ? "#FFFFFF"
+          : props?.isDisabled
+          ? "#C5C5C5"
+          : "#C84C0E";
     const iconReq = props?.icon;
     let width, height;
 

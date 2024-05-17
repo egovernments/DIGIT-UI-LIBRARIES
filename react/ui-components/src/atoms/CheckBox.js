@@ -29,10 +29,10 @@ const CheckBox = ({
     <div
       className={`digit-checkbox-container ${
         !isLabelFirst ? "checkboxFirst" : "labelFirst"
-      } ${disabled ? "disabled" : " "}`}
+      } ${disabled ? "disabled" : " "} ${props.mainClasaName}`}
     >
       {isLabelFirst ? (
-        <p className="label" style={{ maxWidth: "100%", width: "auto" ,marginRight:"0rem"}}>
+        <p className={`label ${labelClassName} `} style={{ maxWidth: "100%", width: "auto" ,marginRight:"0rem"}} onClick={props.onLabelClick}>
           {customLabelMarkup ? (
             <>
               <span>{t("COMMON_CERTIFY_ONE")}</span>
@@ -47,27 +47,27 @@ const CheckBox = ({
           )}
         </p>
       ) : null}
-      <div style={{ cursor: "pointer", display: "flex", position: "relative" }}>
+      <div style={{ cursor: "pointer", display: "flex", position: "relative" }} className={props.inputWrapperClassName}>
         <input
           type="checkbox"
-          className={`input ${userType === "employee" ? "input-emp" : ""}`}
+          className={`input ${userType === "employee" ? "input-emp" : ""} ${props.inputClassName} `}
           onChange={onChange}
           value={value || label}
           {...props}
           ref={inputRef}
           disabled={disabled}
           checked={checked}
-        />
+          />
         <p
           className={`digit-custom-checkbox ${
             userType === "employee" ? "digit-custom-checkbox-emp" : ""
-          }`}
+          } ${props.inputIconClassname} `}
         >
-          <SVG.Check fill={disabled ? "#C5C5C5" : "#C84C0E"} />
+          <SVG.Check fill={props.iconFill?props.iconFill:disabled ? "#C5C5C5" : "#C84C0E"} />
         </p>
       </div>
       {!isLabelFirst ? (
-        <p className="label" style={{ maxWidth: "100%", width: "100%",marginRight:"0rem" }}>
+        <p className={`label ${props.labelClassName} `} style={{ maxWidth: "100%", width: "100%",marginRight:"0rem" }} onClick={props.onLabelClick}>
           {customLabelMarkup ? (
             <>
               <span>{t("COMMON_CERTIFY_ONE")}</span>
