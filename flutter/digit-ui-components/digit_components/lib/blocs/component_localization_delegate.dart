@@ -22,7 +22,6 @@ class ComponentLocalizationDelegate
     ComponentLocalization localization =
     ComponentLocalization(locale, localizedStrings, languages);
     await localization.load();
-
     return localization;
   }
 

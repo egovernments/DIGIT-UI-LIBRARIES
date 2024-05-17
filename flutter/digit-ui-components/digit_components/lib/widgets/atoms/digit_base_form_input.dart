@@ -424,7 +424,6 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                               Common.textAreaSvg,
                               width: spacer2,
                               height: spacer2,
-                              color: const DigitColors().light.textSecondary,
                             ),
                           ),
                         ),

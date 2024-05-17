@@ -27,10 +27,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // localizationsDelegates: [
-      //   ComponentLocalization(locale, localizedStrings, languages),
-      //
-      // ],
       theme: DigitTheme.instance.mobileTheme.copyWith(
           appBarTheme: AppBarTheme(
             backgroundColor: DigitTheme.instance.colorScheme.secondary,

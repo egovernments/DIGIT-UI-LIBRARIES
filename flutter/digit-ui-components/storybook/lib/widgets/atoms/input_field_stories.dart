@@ -1,3 +1,4 @@
+import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/utils/validators/validator.dart';
 import 'package:digit_ui_components/widgets/atoms/digit_date_form_input.dart';
 import 'package:digit_ui_components/widgets/atoms/digit_location_form_input.dart';
@@ -175,6 +176,20 @@ List<Story> inputFieldStories() {
           label: 'inner label',
           initial: '',
         ),
+        textAreaScroll: context.knobs.options(label: 'Scroll Type', initial: TextAreaScroll.smart, options: const [
+          Option(
+            label: 'Smart',
+            value: TextAreaScroll.smart,
+          ),
+          Option(
+            label: 'Vertical',
+            value: TextAreaScroll.vertical,
+          ),
+          Option(
+            label: 'None',
+            value: TextAreaScroll.none,
+          ),
+        ],),
         isDisabled: context.knobs.boolean(
           label: 'Disabled',
           initial: false,

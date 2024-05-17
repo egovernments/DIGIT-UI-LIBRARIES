@@ -14,7 +14,7 @@ class Common{
   static const double errorBorderWidth = 1.5;
   static const double hoverBorderWidth = 0.5;
   static const BorderRadius radius = BorderRadius.zero;
-  static const String textAreaSvg = 'assets/icons/svg/textAreaExpand.svg';
+  static const String textAreaSvg = 'assets/icons/svg/text_area_expand.svg';
   static const String profileSvg = 'assets/icons/svg/Profile.svg';
   static const String docSvg = 'assets/icons/svg/doc.svg';
   static const String jpgSvg = 'assets/icons/svg/jpg.svg';

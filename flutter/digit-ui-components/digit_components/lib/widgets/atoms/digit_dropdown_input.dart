@@ -182,7 +182,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
     currentTypography = getTypography(context, false);
 
     /// Responsive width based on screen size
-    double width = AppView.isMobileView(MediaQuery.of(context).size)
+    width = AppView.isMobileView(MediaQuery.of(context).size)
         ? MediaQuery.of(context).size.width
         : AppView.isTabletView(MediaQuery.of(context).size)
             ? BaseConstants.tabInputMaxWidth
@@ -728,7 +728,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                         capitalizeFirstLetter(
                                             filteredItems[index].description!)!,
                                         overflow: TextOverflow.ellipsis,
-                                        maxLines: 3,
+                                        maxLines: 10,
                                         softWrap: true,
                                         style:
                                             currentTypography.bodyXS.copyWith(
@@ -1074,7 +1074,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                                         capitalizeFirstLetter(
                                                             typeItems[index]
                                                                 .description!)!,
-                                                        maxLines: 3,
+                                                        maxLines: 10,
                                                         softWrap: true,
                                                         style: currentTypography
                                                             .bodyXS
