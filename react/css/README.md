@@ -42,6 +42,7 @@ frontend/micro-ui/web/public/index.html
 # Changelog
 
 ```bash
+1.8.2-coreui.14 updated dropdown checkbox css
 1.8.2-coreui.13 added spacers
 1.8.2-coreui.12 updated css for toast info and category option css 
 1.8.2-coreui.11 added info varinat for toast

@@ -190,9 +190,13 @@ const Dropdown = (props) => {
             ?.indexOf(filterVal?.toUpperCase()) > -1
       )) ||
     [];
-  function selectOption(ind) {
-    onSelect(filteredOption[ind]);
-  }
+    function selectOption(ind) {
+      const optionsToSelect =
+      props.variant === "nesteddropdown" || props.variant === "treedropdown"
+        ? flattenedOptions
+        : filteredOption;
+      onSelect(optionsToSelect[ind]);
+    }
 
   if (props.isBPAREG && selectedOption) {
     let isSelectedSameAsOptions =
@@ -437,7 +441,11 @@ const Dropdown = (props) => {
             }
             filterVal={filterVal}
             addProps={{
-              length: filteredOption.length,
+              length:
+                props.variant === "nesteddropdown" ||
+                props.variant === "treedropdown"
+                  ? flattenedOptions.length
+                  : filteredOption.length,
               currentIndex: optionIndex,
               selectOption: selectOption,
             }}
