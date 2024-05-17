@@ -58,7 +58,9 @@ yarn storybook
 # Changelog
 
 ```bash
-0.0.1-beta.19 added uploader variants
+0.0.1-beta.21 added uploader variants
+0.0.1-beta.20 updated multiselectdropdown categoryselectall functionality and added key navigation for dropdown options 
+0.0.1-beta.19 making CheckBox more customizable and adding custom color for Button
 0.0.1-beta.18 updated dropdown option labels
 0.0.1-beta.17 updated toast info varinat css and category option css 
 0.0.1-beta.16 added error boundary atom

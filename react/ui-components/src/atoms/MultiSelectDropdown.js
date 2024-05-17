@@ -24,7 +24,7 @@ const MultiSelectDropdown = ({
   addSelectAllCheck = false,
   addCategorySelectAllCheck = false,
   selectAllLabel = "",
-  categorySelectAllLabel = ""
+  categorySelectAllLabel = "",
 }) => {
   const [active, setActive] = useState(false);
   const [searchQuery, setSearchQuery] = useState();
@@ -124,7 +124,7 @@ const MultiSelectDropdown = ({
         newCategorySelected[category.code] = allChildrenSelected;
       });
     setCategorySelected(newCategorySelected);
-  }, [alreadyQueuedSelectedState]);
+  }, [options, alreadyQueuedSelectedState]);
 
   function handleOutsideClickAndSubmitSimultaneously() {
     setActive(false);
@@ -248,10 +248,15 @@ const MultiSelectDropdown = ({
     const childoptions = parentOption.options;
     if (!categorySelected[parentOption.code]) {
       childoptions?.forEach((option) => {
-        dispatch({
-          type: "ADD_TO_SELECTED_EVENT_QUEUE",
-          payload: [null, option],
-        });
+        const isAlreadySelected = alreadyQueuedSelectedState.some(
+          (selectedOption) => selectedOption.code === option.code
+        );
+        if (!isAlreadySelected) {
+          dispatch({
+            type: "ADD_TO_SELECTED_EVENT_QUEUE",
+            payload: [null, option],
+          });
+        }
       });
     } else {
       childoptions?.forEach((option) => {
@@ -353,7 +358,9 @@ const MultiSelectDropdown = ({
         )
       : options;
 
-  const parentOptionsWithChildren = filteredOptions.filter(option => option.options && option.options.length > 0);
+  const parentOptionsWithChildren = filteredOptions.filter(
+    (option) => option.options && option.options.length > 0
+  );
 
   const flattenOptions = (options) => {
     let flattened = [];
@@ -506,7 +513,9 @@ const MultiSelectDropdown = ({
                   addSelectAllCheck ? "selectAll" : ""
                 }`}
               >
-                <div className="digit-category-name">{t(option[optionsKey])}</div>
+                <div className="digit-category-name">
+                  {t(option[optionsKey])}
+                </div>
                 {addCategorySelectAllCheck && (
                   <div
                     className="digit-category-selectAll"
