@@ -29,6 +29,7 @@ import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 import '../../constants/AppView.dart';
 import '../../constants/app_constants.dart';
 import '../../enum/app_enums.dart';
@@ -117,6 +118,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
   late double width;
   late DigitTypography currentTypography;
   late final TextEditingController _controller;
+  bool _isVisible = true;
 
   @override
   void initState() {
@@ -156,6 +158,9 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
       _overlayEntry?.remove();
       _overlayEntry?.dispose();
     }
+    if (widget.dropdownController == null) {
+      _controller.dispose();
+    }
     super.dispose();
   }
 
@@ -179,6 +184,28 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
     }
   }
 
+  void _onVisibilityChanged(VisibilityInfo info) {
+    setState(() {
+      _isVisible = info.visibleFraction > 0;
+
+      final RenderBox renderBox = context.findRenderObject() as RenderBox;
+      final Offset position = renderBox.localToGlobal(Offset.zero);
+      final Size screenSize = MediaQuery.of(context).size;
+
+      if (!_isVisible && _isOpen) {
+        if (_isOpen) {
+          _overlayEntry?.remove();
+          _overlayEntry = null;
+          _isOpen = false;
+        }
+      } else if (_isVisible && !_isOpen && _focusNode.hasFocus) {
+          _overlayEntry = _createOverlayEntry();
+          Overlay.of(context)!.insert(_overlayEntry!);
+          _isOpen = true;
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     currentTypography = getTypography(context, false);
@@ -191,184 +218,188 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
             : BaseConstants.desktopInputMaxWidth;
 
     /// link the overlay to the button
-    return RawKeyboardListener(
-      focusNode: FocusNode(),
-      onKey: (RawKeyEvent event) {
-        /// Check for arrow up and arrow down key events
-        if (event is RawKeyDownEvent) {
-          if (event.logicalKey == LogicalKeyboardKey.arrowUp) {
-            _navigateDropdown(-1);
-          } else if (event.logicalKey == LogicalKeyboardKey.arrowDown) {
-            _navigateDropdown(1);
+    return VisibilityDetector(
+      key: const Key('digit-dropdown-visibility-detector'),
+      onVisibilityChanged: _onVisibilityChanged,
+      child: RawKeyboardListener(
+        focusNode: FocusNode(),
+        onKey: (RawKeyEvent event) {
+          /// Check for arrow up and arrow down key events
+          if (event is RawKeyDownEvent) {
+            if (event.logicalKey == LogicalKeyboardKey.arrowUp) {
+              _navigateDropdown(-1);
+            } else if (event.logicalKey == LogicalKeyboardKey.arrowDown) {
+              _navigateDropdown(1);
+            }
           }
-        }
-      },
-      child: CompositedTransformTarget(
-        link: this._layerLink,
-        child: Column(
-          children: [
-            SizedBox(
-              width: width,
-              height: Common.height,
-              child: TextField(
-                readOnly: !widget.isSearchable || widget.readOnly,
-                enabled: !widget.isDisabled,
-                onTap: widget.readOnly
-                    ? null
-                    : widget.isSearchable
-                        ? () {
-                            _toggleDropdown();
-                            FocusScope.of(context).requestFocus(_focusNode);
+        },
+        child: CompositedTransformTarget(
+          link: this._layerLink,
+          child: Column(
+            children: [
+              SizedBox(
+                width: width,
+                height: Common.height,
+                child: TextField(
+                  readOnly: !widget.isSearchable || widget.readOnly,
+                  enabled: !widget.isDisabled,
+                  onTap: widget.readOnly
+                      ? null
+                      : widget.isSearchable
+                          ? () {
+                              _toggleDropdown();
+                              FocusScope.of(context).requestFocus(_focusNode);
+                            }
+                          : () {
+                              _toggleDropdown();
+                            },
+                  showCursor:
+                      widget.isSearchable && !widget.readOnly ? true : false,
+                  keyboardType: widget.isSearchable && !widget.readOnly
+                      ? TextInputType.text
+                      : TextInputType.none,
+                  onChanged: widget.isSearchable
+                      ? (input) {
+                          if (_controller.text == '') {
+                            _currentIndex = '';
+                            _nestedIndex = '';
                           }
-                        : () {
-                            _toggleDropdown();
-                          },
-                showCursor:
-                    widget.isSearchable && !widget.readOnly ? true : false,
-                keyboardType: widget.isSearchable && !widget.readOnly
-                    ? TextInputType.text
-                    : TextInputType.none,
-                onChanged: widget.isSearchable
-                    ? (input) {
-                        if (_controller.text == '') {
-                          _currentIndex = '';
-                          _nestedIndex = '';
+                          _filterItems(input);
+                          if (!listEquals(filteredItems, _lastFilteredItems)) {
+                            _updateOverlay();
+                            _lastFilteredItems = filteredItems;
+                          }
                         }
-                        _filterItems(input);
-                        if (!listEquals(filteredItems, _lastFilteredItems)) {
-                          _updateOverlay();
-                          _lastFilteredItems = filteredItems;
-                        }
-                      }
-                    : null,
-                focusNode: _focusNode,
-                controller: _controller,
-                style: currentTypography.bodyL.copyWith(
-                  color: widget.readOnly
-                      ? const DigitColors().light.textSecondary
-                      : const DigitColors().light.textPrimary,
-                ),
-                decoration: InputDecoration(
-                  filled: true,
-                  hoverColor: const DigitColors().transparent,
-                  fillColor: widget.readOnly
-                      ? const DigitColors().light.genericBackground
-                      : const DigitColors().transparent,
-                  contentPadding: const EdgeInsets.only(
-                    left: spacer3,
-                    top: spacer2,
+                      : null,
+                  focusNode: _focusNode,
+                  controller: _controller,
+                  style: currentTypography.bodyL.copyWith(
+                    color: widget.readOnly
+                        ? const DigitColors().light.textSecondary
+                        : const DigitColors().light.textPrimary,
                   ),
-                  border: const OutlineInputBorder(
-                    borderRadius: Common.radius,
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                        color: widget.errorMessage != null
-                            ? const DigitColors().light.alertError
-                            : _isOpen
-                                ? const DigitColors().light.primary1
-                                : const DigitColors().light.genericInputBorder,
-                        width: _isOpen || widget.errorMessage != null
-                            ? Common.errorBorderWidth
-                            : Common.defaultBorderWidth),
-                    borderRadius: Common.radius,
-                  ),
-                  focusedBorder: widget.readOnly
-                      ? OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: const DigitColors().light.textSecondary,
-                            width: Common.defaultBorderWidth,
-                          ),
-                          borderRadius: Common.radius,
-                        )
-                      : OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: const DigitColors().light.primary1,
-                              width: Common.focusedBorderWidth),
-                          borderRadius: Common.radius,
-                        ),
-                  disabledBorder: BaseConstants.disabledBorder,
-                  suffixIcon: InkWell(
-                    highlightColor: const DigitColors().transparent,
-                    splashColor: const DigitColors().transparent,
+                  decoration: InputDecoration(
+                    filled: true,
                     hoverColor: const DigitColors().transparent,
-                    onTap: widget.readOnly
-                        ? null
-                        : () {
-                            _toggleDropdown();
-                          },
-                    child: Icon(
-                      widget.suffixIcon,
-                      size: spacer6,
+                    fillColor: widget.readOnly
+                        ? const DigitColors().light.genericBackground
+                        : const DigitColors().transparent,
+                    contentPadding: const EdgeInsets.only(
+                      left: spacer3,
+                      top: spacer2,
                     ),
+                    border: const OutlineInputBorder(
+                      borderRadius: Common.radius,
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                          color: widget.errorMessage != null
+                              ? const DigitColors().light.alertError
+                              : _isOpen
+                                  ? const DigitColors().light.primary1
+                                  : const DigitColors().light.genericInputBorder,
+                          width: _isOpen || widget.errorMessage != null
+                              ? Common.errorBorderWidth
+                              : Common.defaultBorderWidth),
+                      borderRadius: Common.radius,
+                    ),
+                    focusedBorder: widget.readOnly
+                        ? OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: const DigitColors().light.textSecondary,
+                              width: Common.defaultBorderWidth,
+                            ),
+                            borderRadius: Common.radius,
+                          )
+                        : OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: const DigitColors().light.primary1,
+                                width: Common.focusedBorderWidth),
+                            borderRadius: Common.radius,
+                          ),
+                    disabledBorder: BaseConstants.disabledBorder,
+                    suffixIcon: InkWell(
+                      highlightColor: const DigitColors().transparent,
+                      splashColor: const DigitColors().transparent,
+                      hoverColor: const DigitColors().transparent,
+                      onTap: widget.readOnly
+                          ? null
+                          : () {
+                              _toggleDropdown();
+                            },
+                      child: Icon(
+                        widget.suffixIcon,
+                        size: spacer6,
+                      ),
+                    ),
+                    suffixIconColor: widget.isDisabled
+                        ? const DigitColors().light.genericDivider
+                        : const DigitColors().light.textSecondary,
                   ),
-                  suffixIconColor: widget.isDisabled
-                      ? const DigitColors().light.genericDivider
-                      : const DigitColors().light.textSecondary,
                 ),
               ),
-            ),
-            if (widget.helpText != null || widget.errorMessage != null)
-              const SizedBox(
-                height: spacer1,
-              ),
-            if (widget.helpText != null || widget.errorMessage != null)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  widget.errorMessage != null
-                      ? Expanded(
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Column(
-                                children: [
-                                  const SizedBox(
-                                    height: spacer1 / 2,
-                                  ),
-                                  SizedBox(
-                                    height: spacer4,
-                                    width: spacer4,
-                                    child: Icon(
-                                      Icons.info,
-                                      color:
-                                          const DigitColors().light.alertError,
-                                      size: BaseConstants.errorIconSize,
+              if (widget.helpText != null || widget.errorMessage != null)
+                const SizedBox(
+                  height: spacer1,
+                ),
+              if (widget.helpText != null || widget.errorMessage != null)
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    widget.errorMessage != null
+                        ? Expanded(
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Column(
+                                  children: [
+                                    const SizedBox(
+                                      height: spacer1 / 2,
+                                    ),
+                                    SizedBox(
+                                      height: spacer4,
+                                      width: spacer4,
+                                      child: Icon(
+                                        Icons.info,
+                                        color:
+                                            const DigitColors().light.alertError,
+                                        size: BaseConstants.errorIconSize,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(width: spacer1),
+                                Flexible(
+                                  fit: FlexFit.tight,
+                                  child: Text(
+                                    widget.errorMessage!.length > 256
+                                        ? '${widget.errorMessage!.substring(0, 256)}...'
+                                        : widget.errorMessage!,
+                                    style: currentTypography.bodyS.copyWith(
+                                      color: const DigitColors().light.alertError,
                                     ),
                                   ),
-                                ],
-                              ),
-                              const SizedBox(width: spacer1),
-                              Flexible(
-                                fit: FlexFit.tight,
-                                child: Text(
-                                  widget.errorMessage!.length > 256
-                                      ? '${widget.errorMessage!.substring(0, 256)}...'
-                                      : widget.errorMessage!,
-                                  style: currentTypography.bodyS.copyWith(
-                                    color: const DigitColors().light.alertError,
-                                  ),
                                 ),
+                              ],
+                            ),
+                          )
+                        : Expanded(
+                            child: Text(
+                              widget.helpText!.length > 256
+                                  ? '${widget.helpText!.substring(0, 256)}...'
+                                  : widget.helpText!,
+                              style: currentTypography.bodyS.copyWith(
+                                color: const DigitColors().light.textSecondary,
                               ),
-                            ],
-                          ),
-                        )
-                      : Expanded(
-                          child: Text(
-                            widget.helpText!.length > 256
-                                ? '${widget.helpText!.substring(0, 256)}...'
-                                : widget.helpText!,
-                            style: currentTypography.bodyS.copyWith(
-                              color: const DigitColors().light.textSecondary,
                             ),
                           ),
-                        ),
-                ],
-              ),
-          ],
+                  ],
+                ),
+            ],
+          ),
         ),
       ),
     );
@@ -458,7 +489,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                 ),
                             ],
                           ),
-                          child: _buildDropdownListView()),
+                          child: _buildDropdownListView(size.width)),
                     ),
                   ),
                 ),
@@ -472,13 +503,13 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
   }
 
   /// build the dropdown based on the type
-  Widget _buildDropdownListView() {
+  Widget _buildDropdownListView(double overlayWidth) {
     return widget.selectionType == SelectionType.nestedSelect
-        ? _buildNestedListView()
-        : _buildListView();
+        ? _buildNestedListView(overlayWidth)
+        : _buildListView(overlayWidth);
   }
 
-  Widget _buildListView() {
+  Widget _buildListView(double overlayWidth) {
     return filteredItems.isNotEmpty
         ? Scrollbar(
             radius: const Radius.circular(Common.defaultCircularRadius),
@@ -671,12 +702,12 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                             ? filteredItems[index]
                                                         .description !=
                                                     null
-                                                ? width - 80
-                                                : width - 53
+                                                ? overlayWidth - 80
+                                                : overlayWidth - 53
                                             : filteredItems[index].textIcon !=
                                                     null
-                                                ? width - 40
-                                                : width - 16,
+                                                ? overlayWidth - 40
+                                                : overlayWidth - 16,
                                         child: Text(
                                           capitalizeFirstLetter(
                                               filteredItems[index].name)!,
@@ -718,12 +749,12 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                               null
                                           ? filteredItems[index].description !=
                                                   null
-                                              ? width - 80
-                                              : width - 53
+                                              ? overlayWidth - 80
+                                              : overlayWidth - 53
                                           : filteredItems[index].textIcon !=
                                                   null
-                                              ? width - 40
-                                              : width - 16,
+                                              ? overlayWidth - 40
+                                              : overlayWidth - 16,
                                       child: Text(
                                         capitalizeFirstLetter(
                                             filteredItems[index].description!)!,
@@ -771,7 +802,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
           );
   }
 
-  Widget _buildNestedListView() {
+  Widget _buildNestedListView(double overlayWidth) {
     /// Filter out items with null or empty type
     Set<String?> uniqueTypes = filteredItems
         .where((item) => item.type != null && item.type!.isNotEmpty)
@@ -1022,12 +1053,12 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                                                         index]
                                                                     .profileImageUrl !=
                                                                 null
-                                                            ? width - 50
+                                                            ? overlayWidth - 50
                                                             : filteredItems[index]
                                                                         .textIcon !=
                                                                     null
-                                                                ? width - 40
-                                                                : width - 16,
+                                                                ? overlayWidth - 40
+                                                                : overlayWidth - 16,
                                                         child: Text(
                                                           capitalizeFirstLetter(
                                                               typeItems[index]
@@ -1065,12 +1096,12 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                                                       index]
                                                                   .profileImageUrl !=
                                                               null
-                                                          ? width - 50
+                                                          ? overlayWidth - 50
                                                           : filteredItems[index]
                                                                       .textIcon !=
                                                                   null
-                                                              ? width - 40
-                                                              : width - 16,
+                                                              ? overlayWidth - 40
+                                                              : overlayWidth - 16,
                                                       child: Text(
                                                         capitalizeFirstLetter(
                                                             typeItems[index]

@@ -22,7 +22,7 @@ import 'digit_base_form_input.dart';
 class DigitSearchFormInput extends BaseDigitFormInput {
   const DigitSearchFormInput({
     Key? key,
-    required TextEditingController controller,
+    TextEditingController? controller,
     String? label,
     String? infoText,
     bool? info,
@@ -74,7 +74,7 @@ class _DigitSearchFormInputState extends BaseDigitFormInputState {
   @override
   void onSuffixIconClick({void Function()? customFunction}) {
     /// Use the onTap function directly
-    widget.onSuffixTap?.call(widget.controller.text);
+    widget.onSuffixTap?.call(controller.text);
   }
 
   @override

@@ -22,7 +22,7 @@ import 'digit_base_form_input.dart';
 class DigitTimeFormInput extends BaseDigitFormInput {
   const DigitTimeFormInput({
     Key? key,
-    required TextEditingController controller,
+    TextEditingController? controller,
     String? label,
     String? infoText,
     bool? info,
@@ -79,7 +79,7 @@ class _DigitTimeFormInputState extends BaseDigitFormInputState {
 
     await timeSelectionBloc.selectTime(
       context: context,
-      controller: widget.controller,
+      controller: controller,
     );
   }
 
@@ -89,7 +89,7 @@ class _DigitTimeFormInputState extends BaseDigitFormInputState {
 
     await timeSelectionBloc.selectTime(
       context: context,
-      controller: widget.controller,
+      controller: controller,
     );
   }
 

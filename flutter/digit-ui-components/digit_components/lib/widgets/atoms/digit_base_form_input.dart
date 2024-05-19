@@ -12,7 +12,7 @@ import '../../utils/validators/validator.dart';
 /// parameters and common functionality for building various types of input fields within a form.
 class BaseDigitFormInput extends StatefulWidget {
   /// Text editing controller for the input field.
-  final TextEditingController controller;
+  final TextEditingController? controller;
 
   /// Determines if the input field is read-only.
   final bool readOnly;
@@ -125,7 +125,7 @@ class BaseDigitFormInput extends StatefulWidget {
 
   const BaseDigitFormInput({
     Key? key,
-    required this.controller,
+    this.controller,
     this.isDisabled = false,
     this.readOnly = false,
     this.isRequired = false,
@@ -181,15 +181,17 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
   bool _isFocusOn = false;
   late double width;
   late double minWidth;
+  late final TextEditingController _controller;
 
   String? _errorMessage;
+  TextEditingController get controller => _controller;
 
   void onFocusChange() {
     if (!myFocusNode.hasFocus) {
       /// If the focus is lost, perform validation
       setState(() {
         _isFocusOn = false;
-        _errorMessage = customValidator.call(widget.controller.text);
+        _errorMessage = customValidator.call(_controller.text);
         _hasError = _errorMessage != null;
       });
 
@@ -211,15 +213,19 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
     myFocusNode = FocusNode();
 
     myFocusNode.addListener(onFocusChange);
+    _controller = widget.controller ?? TextEditingController();
 
     if (widget.initialValue != null) {
-      widget.controller.text = widget.initialValue!;
+      _controller.text = widget.initialValue!;
     }
   }
 
   @override
   void dispose() {
     super.dispose();
+    if (widget.controller == null) {
+      _controller.dispose();
+    }
     myFocusNode.removeListener(onFocusChange);
     myFocusNode.dispose();
   }
@@ -332,7 +338,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                           onTap: onTap,
                           focusNode: myFocusNode,
                           obscureText: isVisible,
-                          controller: widget.controller,
+                          controller: _controller,
                           readOnly: widget.readOnly,
                           enabled: !widget.isDisabled,
                           autovalidateMode: AutovalidateMode.disabled,
@@ -441,7 +447,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                   onTap: widget.isEditable || widget.readOnly ? null : onTap,
                   focusNode: myFocusNode,
                   obscureText: isVisible,
-                  controller: widget.controller,
+                  controller: _controller,
                   readOnly:
                       widget.readOnly || !widget.isEditable ? true : false,
                   enabled: !widget.isDisabled,
@@ -919,7 +925,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                   const Spacer(),
                 if (widget.charCount == true)
                   Text(
-                    '${widget.controller.text.length}/$maxLengthValue',
+                    '${_controller.text.length}/$maxLengthValue',
                     style: currentTypography.bodyS.copyWith(
                       color: const DigitColors().light.textSecondary,
                     ),

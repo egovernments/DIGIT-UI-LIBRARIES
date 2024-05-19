@@ -25,7 +25,7 @@ import 'digit_base_form_input.dart';
 class DigitNumericFormInput extends BaseDigitFormInput {
   const DigitNumericFormInput({
     Key? key,
-    required TextEditingController controller,
+    TextEditingController? controller,
     String? label,
     String? infoText,
     bool? info,
@@ -92,14 +92,14 @@ class _DigitNumericFormInputState extends BaseDigitFormInputState {
   void onPrefixIconClick({void Function()? customFunction}) {
     setState(() {
       /// Subtract step from the input value when the prefix icon is clicked
-      int currentValue = int.tryParse(widget.controller.text) ?? 0;
+      int currentValue = int.tryParse(controller.text) ?? 0;
       if ((currentValue - widget.step) >= widget.minValue) {
         setState(() {
-          widget.controller.text = (currentValue - widget.step).toString();
+          controller.text = (currentValue - widget.step).toString();
         });
 
         /// Remove the text selection
-        widget.controller.selection = const TextSelection.collapsed(offset: 0);
+        controller.selection = const TextSelection.collapsed(offset: 0);
       }
     });
   }
@@ -108,14 +108,14 @@ class _DigitNumericFormInputState extends BaseDigitFormInputState {
   void onSuffixIconClick({void Function()? customFunction}) {
     setState(() {
       /// Add step to the input value when the suffix icon is clicked
-      int currentValue = int.tryParse(widget.controller.text) ?? 0;
+      int currentValue = int.tryParse(controller.text) ?? 0;
       if ((currentValue + widget.step) <= widget.maxValue) {
         setState(() {
-          widget.controller.text = (currentValue + widget.step).toString();
+          controller.text = (currentValue + widget.step).toString();
         });
 
         /// Remove the text selection
-        widget.controller.selection = const TextSelection.collapsed(offset: 0);
+        controller.selection = const TextSelection.collapsed(offset: 0);
       }
     });
   }

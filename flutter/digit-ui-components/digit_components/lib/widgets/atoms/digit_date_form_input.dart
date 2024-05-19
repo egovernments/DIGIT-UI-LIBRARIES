@@ -22,7 +22,7 @@ import 'digit_base_form_input.dart';
 class DigitDateFormInput extends BaseDigitFormInput {
   const DigitDateFormInput({
     Key? key,
-    required TextEditingController controller,
+    TextEditingController? controller,
     String? label,
     String? infoText,
     bool? info,
@@ -90,7 +90,7 @@ class _DigitDateFormInputState extends BaseDigitFormInputState {
       lastDate: widget.lastDate,
       initialDate: widget.initialDate,
       context: context,
-      controller: widget.controller,
+      controller: controller,
     );
   }
 
@@ -102,7 +102,7 @@ class _DigitDateFormInputState extends BaseDigitFormInputState {
       lastDate: widget.lastDate,
       initialDate: widget.initialDate,
       context: context,
-      controller: widget.controller,
+      controller: controller,
     );
   }
 

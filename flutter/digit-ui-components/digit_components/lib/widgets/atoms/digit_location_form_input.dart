@@ -22,7 +22,7 @@ import 'digit_base_form_input.dart';
 class DigitLocationFormInput extends BaseDigitFormInput {
   const DigitLocationFormInput({
     Key? key,
-    required TextEditingController controller,
+    TextEditingController? controller,
     String? label,
     String? infoText,
     bool? info,
@@ -78,12 +78,12 @@ class _DigitLocationFormInputState extends BaseDigitFormInputState {
 
   @override
   void onSuffixIconClick({void Function()? customFunction}) async {
-    await locationBloc.getCurrentLocation(widget.controller);
+    await locationBloc.getCurrentLocation(controller);
   }
 
   @override
   void onTap() async {
-    await locationBloc.getCurrentLocation(widget.controller);
+    await locationBloc.getCurrentLocation(controller);
   }
 
   @override

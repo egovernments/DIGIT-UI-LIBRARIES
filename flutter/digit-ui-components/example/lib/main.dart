@@ -1,9 +1,4 @@
-import 'package:digit_ui_components/enum/app_enums.dart';
-import 'package:digit_ui_components/models/DropdownModels.dart';
-import 'package:digit_ui_components/models/RadioButtonModel.dart';
-import 'package:digit_ui_components/models/TreeModel.dart';
 import 'package:digit_ui_components/digit_components.dart';
-import 'package:digit_ui_components/models/toggleButtonModel.dart';
 import 'package:digit_ui_components/utils/validators/validator.dart';
 import 'package:digit_ui_components/widgets/atoms/dropdown_wrapper.dart';
 import 'package:digit_ui_components/widgets/atoms/input_wrapper.dart';
@@ -96,8 +91,8 @@ class MyApp extends StatelessWidget {
       title: 'Digit UI Flutter',
       theme: DigitTheme.instance.mobileTheme.copyWith(
           appBarTheme: AppBarTheme(
-            backgroundColor: DigitTheme.instance.colorScheme.secondary,
-          )),
+        backgroundColor: DigitTheme.instance.colorScheme.secondary,
+      )),
       home: const MyHomePage(title: 'Digit Components Page'),
     );
   }
@@ -155,6 +150,22 @@ class MyHomePageState extends State<MyHomePage> {
       body: ScrollableContent(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
+        enableFixedButton: true,
+        footer: Container(
+          margin: const EdgeInsets.fromLTRB(0, spacer2, 0, 0),
+          padding: const EdgeInsets.fromLTRB(
+            spacer2,
+            0,
+            spacer2,
+            0,
+          ),
+          child: Button(
+            size: ButtonSize.large,
+            type: ButtonType.primary,
+            onPressed: () {},
+            label: 'Submit',
+          ),
+        ),
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -201,7 +212,8 @@ class MyHomePageState extends State<MyHomePage> {
                             Validator(ValidatorType.maxLength, 10,
                                 errorMessage: 'Maximum length is 10.'),
                             Validator(ValidatorType.pattern, r'^[a-zA-Z0-9]+$',
-                                errorMessage: 'Long error message long error message long error message long error message long error message'),
+                                errorMessage:
+                                    'Long error message long error message long error message long error message long error message'),
                           ],
                         ),
                       ),
@@ -583,7 +595,7 @@ class MyHomePageState extends State<MyHomePage> {
                           validations: [
                             Validator(ValidatorType.minLength, 8,
                                 errorMessage:
-                                'Password must be at least 8 characters.'),
+                                    'Password must be at least 8 characters.'),
                           ],
                         ),
                       ),
@@ -652,7 +664,9 @@ class MyHomePageState extends State<MyHomePage> {
                           innerLabel: 'innerlabel',
                           helpText: 'help text',
                           initialValue: '0',
-                          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
                           editable: true,
                         ),
                       ),
@@ -879,10 +893,10 @@ class MyHomePageState extends State<MyHomePage> {
                         .entries
                         .map(
                           (item) => DropdownItem(
-                        name: item.value,
-                        code: item.key.toString(),
-                      ),
-                    )
+                            name: item.value,
+                            code: item.key.toString(),
+                          ),
+                        )
                         .toList(),
                   ),
                 ),
@@ -914,25 +928,25 @@ class MyHomePageState extends State<MyHomePage> {
                               name: 'first',
                               code: '1',
                               profileImageUrl:
-                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
                             ),
                             DropdownItem(
                               name: 'second',
                               code: '2',
                               profileImageUrl:
-                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
                             ),
                             DropdownItem(
                               name: 'third',
                               code: '3',
                               profileImageUrl:
-                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
                             ),
                             DropdownItem(
                               name: 'fourth',
                               code: '4',
                               profileImageUrl:
-                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
                             ),
                           ],
                         ),
@@ -948,25 +962,25 @@ class MyHomePageState extends State<MyHomePage> {
                               name: 'first',
                               code: '1',
                               profileImageUrl:
-                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
                             ),
                             DropdownItem(
                               name: 'second',
                               code: '2',
                               profileImageUrl:
-                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
                             ),
                             DropdownItem(
                               name: 'third',
                               code: '3',
                               profileImageUrl:
-                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
                             ),
                             DropdownItem(
                               name: 'fourth',
                               code: '4',
                               profileImageUrl:
-                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
                             ),
                           ],
                         ),
@@ -983,28 +997,28 @@ class MyHomePageState extends State<MyHomePage> {
                               code: '1',
                               description: 'description for first one',
                               profileImageUrl:
-                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
                             ),
                             DropdownItem(
                               name: 'second',
                               code: '2',
                               description: 'description for second one',
                               profileImageUrl:
-                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
                             ),
                             DropdownItem(
                               name: 'third',
                               code: '3',
                               description: 'description for third one',
                               profileImageUrl:
-                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
                             ),
                             DropdownItem(
                               name: 'fourth',
                               code: '4',
                               description: 'description for fourth one',
                               profileImageUrl:
-                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
                             ),
                           ],
                         ),
@@ -1025,11 +1039,11 @@ class MyHomePageState extends State<MyHomePage> {
                               .entries
                               .map(
                                 (item) => DropdownItem(
-                                name: item.value,
-                                code: item.key.toString(),
-                                description:
-                                'This is just example description'),
-                          )
+                                    name: item.value,
+                                    code: item.key.toString(),
+                                    description:
+                                        'This is just example description'),
+                              )
                               .toList(),
                         ),
                       ),
@@ -1049,11 +1063,11 @@ class MyHomePageState extends State<MyHomePage> {
                               .entries
                               .map(
                                 (item) => DropdownItem(
-                              name: item.value,
-                              code: item.key.toString(),
-                              textIcon: Icons.article,
-                            ),
-                          )
+                                  name: item.value,
+                                  code: item.key.toString(),
+                                  textIcon: Icons.article,
+                                ),
+                              )
                               .toList(),
                         ),
                       ),
@@ -1152,7 +1166,7 @@ class MyHomePageState extends State<MyHomePage> {
                       const SizedBox(height: 8),
                       LabeledField(
                         label:
-                        "Dropdown with nested Type With Icons and description",
+                            "Dropdown with nested Type With Icons and description",
                         child: Dropdown(
                           onSelect: (item) => {},
                           dropdownController: controller42,
@@ -1690,8 +1704,7 @@ class MyHomePageState extends State<MyHomePage> {
                     child: Button(
                       size: ButtonSize.large,
                       label: 'Primary Button',
-                      onPressed: () {
-                      },
+                      onPressed: () {},
                       type: ButtonType.primary,
                     ),
                   ),
@@ -1946,7 +1959,9 @@ class MyHomePageState extends State<MyHomePage> {
                     }
                   },
                 ),
-                const SizedBox(height: 8,),
+                const SizedBox(
+                  height: 8,
+                ),
                 DigitCheckbox(
                   label: 'Click to see the warning toast',
                   value: false,
@@ -1960,8 +1975,9 @@ class MyHomePageState extends State<MyHomePage> {
                     }
                   },
                 ),
-
-                const SizedBox(height: 8,),
+                const SizedBox(
+                  height: 8,
+                ),
                 DigitCheckbox(
                   label: 'Click to see the warning toast with long message',
                   value: false,
@@ -1969,12 +1985,16 @@ class MyHomePageState extends State<MyHomePage> {
                     if (value) {
                       Toast.showToast(
                         context,
-                        message: 'Message token created successfully and Users Are Unable to Login to the Professional after an Upgrade to Version it is working fine. Learn about token based authentication and how to easily implement JWT in your application',
+                        message:
+                            'Message token created successfully and Users Are Unable to Login to the Professional after an Upgrade to Version it is working fine. Learn about token based authentication and how to easily implement JWT in your application',
                         type: ToastType.warning,
                       );
                     }
                   },
-                ),const SizedBox(height: 8,),
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
                 DigitCheckbox(
                   label: 'Click to see the error toast with long message',
                   value: false,
@@ -1982,12 +2002,16 @@ class MyHomePageState extends State<MyHomePage> {
                     if (value) {
                       Toast.showToast(
                         context,
-                        message: 'Message token created successfully and Users Are Unable to Login to the Professional after an Upgrade to Version it is working fine. Learn about token based authentication and how to easily implement JWT in your application',
+                        message:
+                            'Message token created successfully and Users Are Unable to Login to the Professional after an Upgrade to Version it is working fine. Learn about token based authentication and how to easily implement JWT in your application',
                         type: ToastType.error,
                       );
                     }
                   },
-                ),const SizedBox(height: 8,),
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
                 DigitCheckbox(
                   label: 'Click to see the Success toast with long message',
                   value: false,
@@ -1995,7 +2019,8 @@ class MyHomePageState extends State<MyHomePage> {
                     if (value) {
                       Toast.showToast(
                         context,
-                        message: 'Message token created successfully and Users Are Unable to Login to the Professional after an Upgrade to Version it is working fine. Learn about token based authentication and how to easily implement JWT in your application",',
+                        message:
+                            'Message token created successfully and Users Are Unable to Login to the Professional after an Upgrade to Version it is working fine. Learn about token based authentication and how to easily implement JWT in your application",',
                         type: ToastType.success,
                       );
                     }
@@ -2040,7 +2065,7 @@ class MyHomePageState extends State<MyHomePage> {
                       const SizedBox(height: 8),
                       DigitCheckbox(
                         label:
-                        'DigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled State',
+                            'DigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled State',
                         value: true,
                         isDisabled: true,
                         onChanged: (value) {},
@@ -2079,7 +2104,11 @@ class MyHomePageState extends State<MyHomePage> {
                 Timeline(
                   currentStep: TimelineStepState.completed,
                   label: 'Completed',
-                  description: const ['18 / 02 / 2023', '11:10 AM', 'processing'],
+                  description: const [
+                    '18 / 02 / 2023',
+                    '11:10 AM',
+                    'processing'
+                  ],
                   additionalHideWidgets: [
                     Image.network(
                         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
@@ -2102,7 +2131,7 @@ class MyHomePageState extends State<MyHomePage> {
                   title: 'Info',
                   type: InfoType.info,
                   description:
-                  'Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect theservice to get completed in 24 hrs from the time of payment.',
+                      'Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect theservice to get completed in 24 hrs from the time of payment.',
                 ),
                 const SizedBox(
                   height: 8,
@@ -2111,7 +2140,7 @@ class MyHomePageState extends State<MyHomePage> {
                   title: 'Success',
                   type: InfoType.success,
                   description:
-                  'Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect theservice to get completed in 24 hrs from the time of payment.',
+                      'Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect theservice to get completed in 24 hrs from the time of payment.',
                 ),
                 const SizedBox(
                   height: 8,
@@ -2120,7 +2149,7 @@ class MyHomePageState extends State<MyHomePage> {
                   title: 'Error',
                   type: InfoType.error,
                   description:
-                  'Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect theservice to get completed in 24 hrs from the time of payment.',
+                      'Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect theservice to get completed in 24 hrs from the time of payment.',
                 ),
                 const SizedBox(
                   height: 8,
@@ -2129,9 +2158,8 @@ class MyHomePageState extends State<MyHomePage> {
                   title: 'Warning',
                   type: InfoType.warning,
                   description:
-                  'Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect theservice to get completed in 24 hrs from the time of payment.',
+                      'Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect theservice to get completed in 24 hrs from the time of payment.',
                 ),
-
               ],
             ),
           ),
