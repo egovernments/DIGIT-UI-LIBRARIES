@@ -415,7 +415,7 @@ export const FormComposer = (props) => {
           {props.onSkip && props.showSkip && <ActionLinks style={props?.skipStyle} label={t(`CS_SKIP_CONTINUE`)} onClick={props.onSkip} />}
         </ActionBar>
       )}
-      {showErrorToast && <Toast error={true} label={t("ES_COMMON_PLEASE_ENTER_ALL_MANDATORY_FIELDS")} isDleteBtn={true} onClose={closeToast} />}
+      {showErrorToast && <Toast type={"error"} label={t("ES_COMMON_PLEASE_ENTER_ALL_MANDATORY_FIELDS")} isDleteBtn={true} onClose={closeToast} />}
     </form>
   );
 };
