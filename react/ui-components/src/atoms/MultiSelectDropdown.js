@@ -290,7 +290,6 @@ const MultiSelectDropdown = ({
   };
 
   function getCategorySelectAllState() {
-    console.log("getCategorySlectall")
     if (variant === "nestedmultiselect") {
       const categorySelectAllState = {};
       options
@@ -300,7 +299,6 @@ const MultiSelectDropdown = ({
             isSelectAllChecked: categorySelected[category.code] || false,
           };
         });
-        console.log(categorySelectAllState,"categorySelectAllState")
       return categorySelectAllState;
     }
     return {};
