@@ -21,7 +21,7 @@ const commonArgs = {
     name: "toast",
   },
   label: "",
-  type:"",
+  type:"success",
 };
 
 export const SuccessToast = Template.bind({});
