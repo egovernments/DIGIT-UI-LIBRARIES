@@ -29,7 +29,7 @@ Trace:
 npm manifest: 
   {
     "name": "@egovernments/digit-ui-components",
-    "version": "0.0.1-beta.21",
+    "version": "0.0.1-beta.22",
     "license": "MIT",
     "main": "dist/index.js",
     "module": "dist/index.modern.js",

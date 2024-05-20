@@ -58,6 +58,7 @@ yarn storybook
 # Changelog
 
 ```bash
+0.0.1-beta.22 Updated Toast to have type prop
 0.0.1-beta.21 Added categorySelectAllState in the nestedmultiselect variant of multiselectdropdown
 0.0.1-beta.20 updated multiselectdropdown categoryselectall functionality and added key navigation for dropdown options 
 0.0.1-beta.19 making CheckBox more customizable and adding custom color for Button
