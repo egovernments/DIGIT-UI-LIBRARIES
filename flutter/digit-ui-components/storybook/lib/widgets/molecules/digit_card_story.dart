@@ -20,22 +20,7 @@ List<Story> cardStories() {
               child: DigitTextFormInput(
                 controller: TextEditingController(),
               )),
-          LabeledField(
-              label: 'Numeric Field',
-              child: DigitNumericFormInput(
-                controller: TextEditingController(),
-              )),
-          LabeledField(
-              label: 'Search Field',
-              child: DigitSearchFormInput(
-                controller: TextEditingController(),
-              )),
-          LabeledField(
-              label: 'Location Field',
-              child: DigitLocationFormInput(
-                controller: TextEditingController(),
-              )),
-          DigitCheckbox(label: 'Click to know more', onChanged: (value) {})
+
         ],
       ),
     ),

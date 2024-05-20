@@ -13,6 +13,7 @@ import 'package:storybook/widgets/atoms/info_card_story.dart';
 import 'package:storybook/widgets/atoms/input_field_story.dart';
 import 'package:storybook/widgets/atoms/radio_list_story.dart';
 import 'package:storybook/widgets/atoms/stepper_story.dart';
+import 'package:storybook/widgets/atoms/text_block_story.dart';
 import 'package:storybook/widgets/atoms/timeline_story.dart';
 import 'package:storybook/widgets/atoms/toast_story.dart';
 import 'package:storybook/widgets/atoms/toggle_group_story.dart';
@@ -46,7 +47,7 @@ class MyApp extends StatelessWidget {
               ...buttonStories(),
               ...checkboxStories(),
               ...chipStories(),
-              // ...toastStories(),
+              ...textBlockStories(),
               ...infoCardStories(),
               ...timeLineStories(),
               ...inputFieldStories(),

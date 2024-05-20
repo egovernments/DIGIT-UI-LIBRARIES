@@ -1,5 +1,4 @@
 import 'package:digit_ui_components/constants/AppView.dart';
-import 'package:digit_ui_components/constants/app_constants.dart';
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/material.dart';
 import '../../theme/digit_theme.dart';
@@ -27,7 +26,10 @@ class DigitCard extends StatelessWidget {
     bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
     bool isTab = AppView.isTabletView(MediaQuery.of(context).size);
     return Container(
-      width: MediaQuery.of(context).size.width,
+      //width: MediaQuery.of(context).size.width,
+      // will take the max width of the content present inside this
+      // provide a max width for the card
+
       margin: margin,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4),
