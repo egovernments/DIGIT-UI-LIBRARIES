@@ -7,7 +7,10 @@ export default {
   argTypes: {
     populators: { control: "object" },
     label: { control: "text" },
-    error: { control: "boolean" },
+    type: {
+      control: "select",
+      options: ["success", "warning", "error", "info"],
+    }
   },
 };
 
@@ -18,42 +21,42 @@ const commonArgs = {
     name: "toast",
   },
   label: "",
-  error: false,
-  warning: "",
-  info: false,
+  type:"",
 };
 
 export const SuccessToast = Template.bind({});
 SuccessToast.args = {
   ...commonArgs,
   label: "Success Toast Message",
+  type:"success",
 };
 
 export const WarningToast = Template.bind({});
 WarningToast.args = {
   ...commonArgs,
   label: "Warning Toast Message",
-  warning: "warning",
+  type:"warning",
 };
 
 export const ErrorToast = Template.bind({});
 ErrorToast.args = {
   ...commonArgs,
   label: "Error Toast Message",
-  error: true,
+  type:"error",
 };
 
 export const InfoToast = Template.bind({});
 InfoToast.args = {
   ...commonArgs,
   label: "Info Toast Message",
-  info: true,
+  type:"info",
 };
 
 export const SuccessToastWithTransitionTime = Template.bind({});
 SuccessToastWithTransitionTime.args = {
   ...commonArgs,
   label: "Success Toast Message",
+  type:"success",
   transitionTime: 600000,
 };
 
@@ -61,7 +64,7 @@ export const WarningToastWithTransitionTime = Template.bind({});
 WarningToastWithTransitionTime.args = {
   ...commonArgs,
   label: "Warning Toast Message",
-  warning: "warning",
+  type:"warning",
   transitionTime: 600000,
 };
 
@@ -69,7 +72,7 @@ export const ErrorToastWithTrnasitionTime = Template.bind({});
 ErrorToastWithTrnasitionTime.args = {
   ...commonArgs,
   label: "Error Toast Message",
-  error: true,
+  type:"error",
   transitionTime: 600000,
 };
 
@@ -77,6 +80,6 @@ export const InfoToastWithTrnasitionTime = Template.bind({});
 InfoToastWithTrnasitionTime.args = {
   ...commonArgs,
   label: "Info Toast Message",
-  info: true,
+  type:"info",
   transitionTime: 600000,
 };
