@@ -47,6 +47,7 @@ const MultiSelectDropdown = ({
         );
         onSelect(
           newState.map((e) => e.propsData),
+          getCategorySelectAllState(),
           props
         ); // Update the form state here
         return newState;
@@ -77,6 +78,7 @@ const MultiSelectDropdown = ({
     if (!active) {
       onSelect(
         alreadyQueuedSelectedState?.map((e) => e.propsData),
+        getCategorySelectAllState(),
         props
       );
     }
@@ -189,6 +191,11 @@ const MultiSelectDropdown = ({
             payload: arguments,
           });
     }
+    onSelect(
+      alreadyQueuedSelectedState?.map((e) => e.propsData),
+      getCategorySelectAllState(),
+      props
+    );
   }
 
   const IconRender = (iconReq, isActive, isSelected) => {
@@ -216,7 +223,7 @@ const MultiSelectDropdown = ({
 
   const handleClearAll = () => {
     dispatch({ type: "REPLACE_COMPLETE_STATE", payload: [] });
-    onSelect([], props);
+    onSelect([],getCategorySelectAllState(),props);
   };
 
   const handleSelectAll = () => {
@@ -242,6 +249,11 @@ const MultiSelectDropdown = ({
       });
       setSelectAllChecked(true);
     }
+    onSelect(
+      alreadyQueuedSelectedState?.map((e) => e.propsData),
+      getCategorySelectAllState(),
+      props
+    );
   };
 
   const handleCategorySelection = (parentOption) => {
@@ -266,7 +278,34 @@ const MultiSelectDropdown = ({
         });
       });
     }
+    setCategorySelected((prev) => ({
+      ...prev,
+      [parentOption.code]: !categorySelected[parentOption.code],
+    }));
+    onSelect(
+      alreadyQueuedSelectedState?.map((e) => e.propsData),
+      getCategorySelectAllState(),
+      props
+    );
   };
+
+  function getCategorySelectAllState() {
+    console.log("getCategorySlectall")
+    if (variant === "nestedmultiselect") {
+      const categorySelectAllState = {};
+      options
+        .filter((option) => option.options)
+        .forEach((category) => {
+          categorySelectAllState[category.code] = {
+            isSelectAllChecked: categorySelected[category.code] || false,
+          };
+        });
+        console.log(categorySelectAllState,"categorySelectAllState")
+      return categorySelectAllState;
+    }
+    return {};
+  }
+
 
   const replaceDotWithColon = (inputString) => {
     if (inputString) {
