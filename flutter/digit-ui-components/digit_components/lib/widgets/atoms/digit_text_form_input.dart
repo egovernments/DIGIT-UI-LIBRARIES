@@ -25,7 +25,7 @@ import 'digit_base_form_input.dart';
 class DigitTextFormInput extends BaseDigitFormInput {
   const DigitTextFormInput({
     Key? key,
-    required TextEditingController controller,
+    TextEditingController? controller,
     String? label,
     String? initialValue,
     String? infoText,

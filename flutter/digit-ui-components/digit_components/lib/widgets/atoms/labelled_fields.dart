@@ -65,14 +65,15 @@ class LabeledField extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               if (label != null)
-                Expanded(
+                Flexible(
                   child: Text(
                     processedLabel!.length > 64
                         ? '${processedLabel!.substring(0, 64)}...'
                         : processedLabel!,
-                    maxLines: 1,
+                    maxLines: 2,
                     style: currentTypography.bodyL.copyWith(
                       color: const DigitColors().light.textPrimary,
                       overflow: TextOverflow.ellipsis,
@@ -94,13 +95,13 @@ class LabeledField extends StatelessWidget {
                   triggerMode: triggerMode,
                   child: const Icon(
                     Icons.info_outline,
-                    size: spacer4,
+                    size: 16,
                   ),
                 )
             ],
           ),
           const SizedBox(
-            height: spacer1,
+            height: 4,
           ),
           child,
         ],

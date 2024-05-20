@@ -21,3 +21,7 @@
 ## 0.0.1+2
 
 * miner bug fixes
+
+## 0.0.1+3
+
+* dropdown overlay issues fixes

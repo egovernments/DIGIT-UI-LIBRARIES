@@ -21,7 +21,7 @@ import 'digit_base_form_input.dart';
 class DigitPasswordFormInput extends BaseDigitFormInput {
   const DigitPasswordFormInput({
     Key? key,
-    required TextEditingController controller,
+    TextEditingController? controller,
     String? label,
     String? infoText,
     bool? info,
