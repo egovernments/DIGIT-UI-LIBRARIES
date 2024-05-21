@@ -94,22 +94,4 @@
     .digit-charcount {
         @apply justify-end;
     }
-
-    .digit-error {
-        @apply flex;
-        gap: theme(digitv2.spacers.spacer1);
-
-        .digit-error-icon{
-            @apply items-center;
-            display: flex;
-            width:theme(digitv2.spacers.spacer4);
-            height:1.37rem;
-        }
-        .digit-error-message {
-            @extend .typography.body-s;
-            @apply  w-full;
-            margin: theme(digitv2.spacers.spacer0);
-            color: theme(digitv2.lightTheme.alert-error)
-        }
-    }
 }

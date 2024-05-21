@@ -401,7 +401,6 @@ const Dropdown = (props) => {
           style={
             props.errorStyle
               ? {
-                  border: "1px solid red",
                   ...(props.noBorder ? { border: "none" } : {}),
                 }
               : { ...(props.noBorder ? { border: "none" } : {}) }

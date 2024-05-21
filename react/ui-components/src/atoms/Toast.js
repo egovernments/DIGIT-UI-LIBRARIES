@@ -5,6 +5,7 @@ import Button from "./Button";
 import StringManipulator from "./StringManipulator";
 
 const Toast = (props) => {
+
   const [isVisible, setIsVisible] = useState(true);
   const [isAnimating, setIsAnimating] = useState(false);
 
@@ -32,15 +33,25 @@ const Toast = (props) => {
     setIsVisible(false);
   };
 
-  const variant = props?.error
-    ? "digit-error"
-    : props?.warning
-    ? "digit-warning"
-    : props?.info
-    ? "digit-info"
-    : props?.variant
-    ? props?.variant
-    : "";
+  let variant;
+  switch (props?.type) {
+    case "success":
+      variant = "digit-success";
+      break;
+    case "error":
+      variant = "digit-error";
+      break;
+    case "warning":
+      variant = "digit-warning";
+      break;
+    case "info":
+      variant = "digit-info";
+      break;
+    default:
+      variant = props?.variant || "";
+      break;
+  }
+
   const isWarningButtons = props?.isWarningButtons
     ? "digit-warning-buttons"
     : "";
@@ -51,52 +62,13 @@ const Toast = (props) => {
     return null;
   }
 
-  if (props.error) {
-    return (
-      <div
-        className={`digit-toast-success ${isVisible && isAnimating ? "animate" : ""} ${variant}`}
-        style={{ ...props.style }}
-      >
-        <SVG.Error fill="#FFFFFF" />
-        <div style={{ ...props.labelstyle }} className="toast-label">
-          {sentenceCaseLabel}
-        </div>
-        <SVG.Close
-          fill="#FFFFFF"
-          className="digit-toast-close-btn"
-          style={{ cursor: "pointer" }}
-          onClick={props.onClose ? props.onClose : handleClose}
-        />
-      </div>
-    );
-  }
-
-  if (props.info) {
-    return (
-      <div
-        className={`digit-toast-success ${isVisible && isAnimating ? "animate" : ""} ${variant}`}
-        style={{ ...props.style }}
-      >
-        <SVG.Info fill="#FFFFFF" />
-        <div style={{ ...props.labelstyle }} className="toast-label">
-          {sentenceCaseLabel}
-        </div>
-        <SVG.Close
-          fill="#FFFFFF"
-          className="digit-toast-close-btn"
-          style={{ cursor: "pointer" }}
-          onClick={props.onClose ? props.onClose : handleClose}
-        />
-      </div>
-    );
-  }
-
-
-  if (props.warning) {
+  if (props?.type === "warning") {
     return (
       <div>
         <div
-          className={`digit-toast-success ${isVisible && isAnimating ? "animate" : ""} ${variant} ${isWarningButtons}`}
+          className={`digit-toast-success ${
+            isVisible && isAnimating ? "animate" : ""
+          } ${variant} ${isWarningButtons}`}
           style={{ ...props.style }}
         >
           {!props?.isWarningButtons ? (
@@ -139,9 +111,23 @@ const Toast = (props) => {
     );
   }
 
-  return (
-    <div className={`digit-toast-success ${isVisible && isAnimating ? "animate" : ""}`} style={{ ...props.style }}>
+  const icon =
+    props?.type === "error" ? (
+      <SVG.Error fill="#FFFFFF" />
+    ) : props?.type === "info" ? (
+      <SVG.Info fill="#FFFFFF" />
+    ) : (
       <SVG.CheckCircle fill="#FFFFFF" />
+    );
+    
+  return (
+    <div
+      className={`digit-toast-success ${
+        isVisible && isAnimating ? "animate" : ""
+      } ${variant}`}
+      style={{ ...props.style }}
+    >
+      {icon}
       <div className="toast-label" style={{ ...props.labelstyle }}>
         {sentenceCaseLabel}
       </div>
@@ -160,6 +146,7 @@ Toast.propTypes = {
   onClose: PropTypes.func,
   isDleteBtn: PropTypes.bool,
   transitionTime: PropTypes.number,
+  type: PropTypes.string,
 };
 
 Toast.defaultProps = {

@@ -58,7 +58,10 @@ yarn storybook
 # Changelog
 
 ```bash
-0.0.1-beta.21 added uploader variants
+0.0.1-beta.24 added uploader variants
+0.0.1-beta.23 Updated ErrorMessage component to have new props named showIcon,truncateMessage and maxLength
+0.0.1-beta.22 From this version of ui-components the Toast component will have a new prop named type, replacing the seperate props for  info,warning and error
+0.0.1-beta.21 Added categorySelectAllState in the nestedmultiselect variant of multiselectdropdown
 0.0.1-beta.20 updated multiselectdropdown categoryselectall functionality and added key navigation for dropdown options 
 0.0.1-beta.19 making CheckBox more customizable and adding custom color for Button
 0.0.1-beta.18 updated dropdown option labels
@@ -79,6 +82,26 @@ yarn storybook
 0.0.3 Added new components
 0.0.1 base version
 ```
+
+## [0.0.1-beta.22] - 2024-05-20
+
+### Breaking Changes
+
+- Toast Component: From this version of `ui-components`, the `Toast` component has a new prop named `type`, replacing the separate props for `info`, `warning`, and `error`.
+  - Old Usage:
+    ```jsx
+        <Toast info={true} label={"Info Toast"} />
+        <Toast warning="warning" label={"Warning Toast"}/>
+        <Toast error={true} label={"Error Toast"}/>
+    ```
+  - New Usage:
+    ```jsx
+        <Toast type="info" label={"Info Toast"} />
+        <Toast type="warning" label={"Warning Toast"} />
+        <Toast type="error" label={"Error Toast"} />
+        <Toast type="success" label={"Success Toast"} />
+    ```
+
 
 ## Published from DIGIT Core
 
