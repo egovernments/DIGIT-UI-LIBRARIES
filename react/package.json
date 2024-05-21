@@ -77,7 +77,7 @@
     "@egovernments/digit-ui-module-sample": "0.0.1",
     "@egovernments/digit-ui-react-components": "1.7.10",
     "@egovernments/digit-ui-svg-components": "1.0.4",
-    "@egovernments/digit-ui-components": "0.0.1-beta.22",
+    "@egovernments/digit-ui-components": "0.0.1-beta.23",
     "babel-loader": "8.1.0",
     "clean-webpack-plugin": "4.0.0",
     "css-loader": "5.2.6",
