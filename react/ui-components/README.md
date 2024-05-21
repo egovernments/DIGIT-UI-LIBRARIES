@@ -58,6 +58,7 @@ yarn storybook
 # Changelog
 
 ```bash
+0.0.1-beta.24 Updated RemoveableTag component to have error 
 0.0.1-beta.23 Updated ErrorMessage component to have new props named showIcon,truncateMessage and maxLength
 0.0.1-beta.22 From this version of ui-components the Toast component will have a new prop named type, replacing the seperate props for  info,warning and error
 0.0.1-beta.21 Added categorySelectAllState in the nestedmultiselect variant of multiselectdropdown
