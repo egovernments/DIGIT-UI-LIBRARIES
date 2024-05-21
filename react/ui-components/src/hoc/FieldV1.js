@@ -87,28 +87,12 @@ const FieldV1 = ({
   const renderDescriptionOrError = () => {
     if (error) {
       return (
-        <div
-          className="digit-error"
-          style={{
-            width: "100%",
-            whiteSpace: "pre-wrap",
-            wordBreak: "break-word",
-            marginTop: "0px",
-            display:"flex"
-          }}
-        >
-          <div className="digit-error-icon" style={{display:"flex"}}>
-            <SVG.Info width="1rem" height="1rem" fill="#B91900" />
-          </div>
-          <ErrorMessage
-            message={
-              StringManipulator(
-                "TOSENTENCECASE",
-                StringManipulator("TRUNCATESTRING", t(error), { maxLength: 256 })
-              )
-            }
-          />
-        </div>
+        <ErrorMessage
+          message={t(error)}
+          truncateMessage={true}
+          maxLength={256}
+          showIcon={true}
+        />
       );
     } else if (description) {
       return (
@@ -122,14 +106,12 @@ const FieldV1 = ({
             lineHeight: "1.5rem",
           }}
         >
-          {
-            StringManipulator(
-              "TOSENTENCECASE",
-              StringManipulator("TRUNCATESTRING", t(description), {
-                maxLength: 256,
-              })
-            )
-          }
+          {StringManipulator(
+            "TOSENTENCECASE",
+            StringManipulator("TRUNCATESTRING", t(description), {
+              maxLength: 256,
+            })
+          )}
         </CardText>
       );
     }
@@ -239,7 +221,7 @@ const FieldV1 = ({
         );
       case "multiselectdropdown":
         return (
-          <div style={{ display: "grid", gridAutoFlow: "row" ,width:"100%"}}>
+          <div style={{ display: "grid", gridAutoFlow: "row", width: "100%" }}>
             <MultiSelectDropdown
               options={populators?.options}
               optionsKey={populators?.optionsKey}
@@ -369,20 +351,22 @@ const FieldV1 = ({
             nonEditable ? "noneditable" : ""
           } ${populators?.wrapLabel ? "wraplabel" : ""}`}
         >
-          <div className={`label-container ${
-                populators?.wrapLabel ? "wraplabel" : ""
-              }`}>
+          <div
+            className={`label-container ${
+              populators?.wrapLabel ? "wraplabel" : ""
+            }`}
+          >
             <div
               className={`label-styles ${
                 populators?.wrapLabel ? "wraplabel" : ""
               }`}
             >
               {StringManipulator(
-                    "TOSENTENCECASE",
-                    StringManipulator("TRUNCATESTRING", t(label), {
-                      maxLength: 64,
-                    })
-                  )}
+                "TOSENTENCECASE",
+                StringManipulator("TRUNCATESTRING", t(label), {
+                  maxLength: 64,
+                })
+              )}
             </div>
             <div style={{ color: "#B91900" }}>{required ? " * " : null}</div>
             {infoMessage ? (
