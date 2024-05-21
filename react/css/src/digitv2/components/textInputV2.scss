@@ -33,6 +33,13 @@
         border-right-style: hidden;
       }
     }
+
+    &.numeric-buttons-only{
+      input{
+        pointer-events: none !important;
+        cursor: not-allowed;
+      }
+    }
   }
 
   &.prefix {

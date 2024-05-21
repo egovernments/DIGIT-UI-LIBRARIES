@@ -72,6 +72,7 @@ const commonArgs = {
       console.log("Icon Clicked");
     },
     resizeSmart: false,
+    disableTextField:false
   },
   error: "",
   label: "",

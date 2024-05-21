@@ -192,29 +192,6 @@ const TextInput = (props) => {
 
   const icon = renderIcon();
 
-  const openPicker = () => {
-    document.addEventListener("DOMContentLoaded", function () {
-      const dateInput = document.querySelector('input[type="date"]');
-      const timeInput = document.querySelector('input[type="time"]');
-
-      const handleClick = (event) => {
-        try {
-          event.target.showPicker();
-        } catch (error) {
-          window.alert(error);
-        }
-      };
-
-      if (dateInput) {
-        dateInput.addEventListener("click", handleClick);
-      }
-
-      if (timeInput) {
-        timeInput.addEventListener("click", handleClick);
-      }
-    });
-  };
-
   const inputClassNameForMandatory = `${
     user_type ? "digit-employeeCard-inputError" : "digit-card-inputError"
   } ${props.disabled ? "disabled" : ""} ${props.customClass || ""} ${
@@ -247,7 +224,7 @@ const TextInput = (props) => {
           props.disabled ? "disabled" : ""
         }  ${props.nonEditable ? "noneditable" : ""} ${
           props.error ? "error" : ""
-        } ${defaultType ? defaultType : ""} ${
+        } ${defaultType ? defaultType : ""} ${props?.populators?.disableTextField ? "numeric-buttons-only" : ""} ${
           props?.populators?.prefix ? "prefix" : ""
         } ${props?.populators?.suffix ? "suffix" : ""} `}
         style={props?.textInputStyle ? { ...props.textInputStyle } : {}}
@@ -315,11 +292,15 @@ const TextInput = (props) => {
               nonEditable={props.nonEditable}
               config={props.config}
               populators={props.populators}
-              onclick={
-                props.type === "date" || props.type === "time"
-                  ? openPicker()
-                  : null
-              }
+              onClick={(event) => {
+                if (props.type === "date" || (props.type === "time")) {
+                  try {
+                    event.target.showPicker();
+                  } catch (error) {
+                    console.error("Error opening picker:", error);
+                  }
+                }
+              }}
             />
             {renderSuffix()}
             {props.signature && props.signatureImg}
@@ -403,11 +384,15 @@ const TextInput = (props) => {
               nonEditable={props.nonEditable}
               config={props.config}
               populators={props.populators}
-              onClick={
-                props.type === "date" || props.type === "time"
-                  ? openPicker()
-                  : null
-              }
+              onClick={(event) => {
+                if (props.type === "date" || (props.type === "time")) {
+                  try {
+                    event.target.showPicker();
+                  } catch (error) {
+                    console.error("Error opening picker:", error);
+                  }
+                }
+              }}
             />
             {renderSuffix()}
             {props.signature && props.signatureImg}
