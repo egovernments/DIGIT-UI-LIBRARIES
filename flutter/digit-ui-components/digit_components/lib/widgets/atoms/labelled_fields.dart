@@ -1,24 +1,15 @@
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/material.dart';
-
-import '../../constants/AppView.dart';
-import '../../theme/colors.dart';
-import '../../theme/digit_theme.dart';
-import '../../theme/typography.dart';
 import '../../utils/utils.dart';
 
 class LabeledField extends StatelessWidget {
   final Widget child;
   final String? label;
   final bool isRequired;
-  final IconData? icon;
-  final String? tooltipMessage;
   final TextStyle? labelStyle;
   final EdgeInsets? padding;
   final bool preferToolTipBelow;
-  final bool? info;
   final String? infoText;
-  final TooltipTriggerMode triggerMode;
   final TooltipTriggerMode tooltipTriggerMode;
   final TextStyle? textStyle;
   final bool wrapLabelText;
@@ -31,17 +22,13 @@ class LabeledField extends StatelessWidget {
     super.key,
     required this.child,
     this.label,
-    this.icon,
-    this.tooltipMessage,
     this.labelStyle,
     this.padding,
     this.isRequired = false,
-    this.info,
     this.infoText,
     this.preferToolTipBelow = false,
     this.tooltipTriggerMode = TooltipTriggerMode.tap,
     this.textStyle,
-    this.triggerMode = TooltipTriggerMode.tap,
     this.wrapLabelText = true,
     this.mainAxisAlignment = MainAxisAlignment.start,
     this.crossAxisAlignment = CrossAxisAlignment.start,
@@ -73,7 +60,7 @@ class LabeledField extends StatelessWidget {
                     processedLabel!.length > 64
                         ? '${processedLabel!.substring(0, 64)}...'
                         : processedLabel!,
-                    maxLines: 2,
+                    maxLines: wrapLabelText ? 5 : 1,
                     style: currentTypography.bodyL.copyWith(
                       color: const DigitColors().light.textPrimary,
                       overflow: TextOverflow.ellipsis,
@@ -87,12 +74,12 @@ class LabeledField extends StatelessWidget {
                     color: const DigitColors().light.alertError,
                   ),
                 ),
-              if (info == true) const SizedBox(width: spacer1),
-              if (info == true)
+              if (infoText !=null) const SizedBox(width: spacer1),
+              if (infoText !=null)
                 Tooltip(
                   message: infoText,
                   preferBelow: preferToolTipBelow,
-                  triggerMode: triggerMode,
+                  triggerMode: tooltipTriggerMode,
                   child: const Icon(
                     Icons.info_outline,
                     size: 16,
@@ -139,12 +126,12 @@ class LabeledField extends StatelessWidget {
                       color: const DigitColors().light.alertError,
                     ),
                   ),
-                if (info == true) const SizedBox(width: spacer1),
-                if (info == true)
+                if (infoText !=null) const SizedBox(width: spacer1),
+                if (infoText !=null)
                   Tooltip(
                     message: infoText,
                     preferBelow: preferToolTipBelow,
-                    triggerMode: triggerMode,
+                    triggerMode: tooltipTriggerMode,
                     child: Icon(
                       Icons.info_outline,
                       size: spacer5,

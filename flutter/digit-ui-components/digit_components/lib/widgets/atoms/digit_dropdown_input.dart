@@ -150,14 +150,15 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
 
   @override
   void dispose() {
-    _focusNode.removeListener(_onFocusChange);
-    _focusNode.dispose();
 
     /// Check if _overlayEntry is not null before removing and disposing
     if (_overlayEntry != null) {
       _overlayEntry?.remove();
       _overlayEntry?.dispose();
     }
+    _focusNode.removeListener(_onFocusChange);
+    _focusNode.dispose();
+
     if (widget.dropdownController == null) {
       _controller.dispose();
     }

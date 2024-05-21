@@ -21,7 +21,6 @@ void main() {
           home: Scaffold(
             body: DigitTextFormInput(
               controller: controller,
-              label: 'Test Label',
             ),
           ),
         ),
@@ -40,9 +39,7 @@ void main() {
             body: Column(
               children: [
                 DigitTextFormInput(
-
                   controller: controller,
-                  label: 'Test Label',
                   validations: [
                     Validator(ValidatorType.pattern, r'^[a-zA-Z0-9]+$', errorMessage: 'Invalid format.'),
                   ],
@@ -91,18 +88,15 @@ void main() {
                 DigitTextFormInput(
                   key: const Key('Editable Field'),
                   controller: controller,
-                  label: 'Editable Field',
                 ),
                 DigitTextFormInput(
                   key: const Key('ReadOnly Field'),
                   controller: controller,
-                  label: 'ReadOnly Field',
                   readOnly: true,
                 ),
                 DigitTextFormInput(
                   key: const Key('Disabled Field'),
                   controller: controller,
-                  label: 'Disabled Field',
                   isDisabled: true,
                 ),
               ],
@@ -162,9 +156,6 @@ void main() {
           home: Scaffold(
             body: DigitTextFormInput(
               controller: controller,
-              label: 'Test Label',
-              info: true,
-              infoText: 'Info Tooltip',
             ),
           ),
         ),
@@ -192,7 +183,6 @@ void main() {
           home: Scaffold(
             body: DigitTextFormInput(
               controller: controller,
-              label: 'Test Label',
               charCount: true,
               initialValue: 'helloworld',
               validations: [
@@ -217,7 +207,6 @@ void main() {
           home: Scaffold(
             body: DigitTextFormInput(
               controller: controller,
-              label: 'Test Label',
               initialValue: 'Initial',
             ),
           ),

@@ -2,9 +2,6 @@ import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../../constants/AppView.dart';
-import '../../constants/app_constants.dart';
-import '../../enum/app_enums.dart';
 import '../../utils/utils.dart';
 import '../../utils/validators/validator.dart';
 
@@ -23,15 +20,6 @@ class BaseDigitFormInput extends StatefulWidget {
   /// Indicates whether the input field is disabled.
   final bool isDisabled;
 
-  /// Label displayed above the input field.
-  final String? label;
-
-  /// Indicates whether additional information (tooltip) is available.
-  final bool? info;
-
-  /// Additional information text for tooltip.
-  final String? infoText;
-
   /// Indicates whether to show character count.
   final bool charCount;
 
@@ -43,12 +31,6 @@ class BaseDigitFormInput extends StatefulWidget {
 
   /// Icon to be displayed as a suffix in the input field.
   final IconData? suffixIcon;
-
-  /// Determines when the tooltip should be triggered.
-  final TooltipTriggerMode triggerMode;
-
-  /// Determines whether the tooltip should appear below the input field.
-  final bool preferToolTipBelow;
 
   /// Icon to be displayed as a suffix in the input field.
   final String? suffixText;
@@ -118,6 +100,8 @@ class BaseDigitFormInput extends StatefulWidget {
   final DateTime? initialDate;
   final DateTime? firstDate;
   final DateTime? lastDate;
+  final String? cancelText;
+  final String? confirmText;
 
   /// validations provide you to send a error message, but you only want to pass a custom error message that can be also done by sending a errorMessage
   final String? errorMessage;
@@ -130,16 +114,11 @@ class BaseDigitFormInput extends StatefulWidget {
     this.readOnly = false,
     this.isRequired = false,
     this.initialValue,
-    this.label,
-    this.info,
-    this.infoText,
     this.suffixIcon,
     this.charCount = false,
     this.innerLabel,
     this.helpText,
     this.onError,
-    this.triggerMode = TooltipTriggerMode.tap,
-    this.preferToolTipBelow = false,
     this.suffixText,
     this.prefixText,
     this.onSuffixTap,
@@ -156,6 +135,8 @@ class BaseDigitFormInput extends StatefulWidget {
     this.validations,
     this.firstDate,
     this.initialDate,
+    this.cancelText,
+    this.confirmText,
     this.textAreaScroll = TextAreaScroll.none,
     this.lastDate,
     this.onTap,
@@ -173,7 +154,6 @@ class BaseDigitFormInput extends StatefulWidget {
 }
 
 class BaseDigitFormInputState extends State<BaseDigitFormInput> {
-  String? _value;
   bool _hasError = false;
   late FocusNode myFocusNode;
   bool isVisible = false;
@@ -232,10 +212,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
 
   String? customValidator(String? value) {
     /// Perform other validations
-    final List<Validator> allValidations = [
-      if (widget.isRequired) Validator(ValidatorType.required, 0),
-      ...(widget.validations ?? []),
-    ];
+    final List<Validator> allValidations = widget.validations ?? [];
 
     final validationError = InputValidators.validate(
       value,
@@ -371,7 +348,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                             contentPadding: const EdgeInsets.only(
                               left: spacer3,
                               right: spacer1,
-                              top: 0,
+                              top: spacer1,
                               bottom: spacer2,
                             ),
                             hintText: capitalizedInnerLabel,
@@ -408,7 +385,6 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                           ),
                           onChanged: (value) {
                             setState(() {
-                              _value = value;
                             });
                             widget.onChange?.call(value);
                           },
@@ -797,7 +773,6 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                   ),
                   onChanged: (value) {
                     setState(() {
-                      _value = value;
                     });
                     widget.onChange?.call(value);
                   },

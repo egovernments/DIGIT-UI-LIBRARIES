@@ -23,9 +23,6 @@ class DigitTimeFormInput extends BaseDigitFormInput {
   const DigitTimeFormInput({
     Key? key,
     TextEditingController? controller,
-    String? label,
-    String? infoText,
-    bool? info,
     bool charCount = false,
     String? innerLabel,
     String? helpText,
@@ -33,34 +30,31 @@ class DigitTimeFormInput extends BaseDigitFormInput {
     bool isDisabled = false,
     bool isRequired = false,
     bool editable = false,
-    TooltipTriggerMode triggerMode = TooltipTriggerMode.tap,
-    bool preferToolTipBelow = false,
     IconData? suffixIcon,
     void Function(String?)? onError,
     final List<Validator>? validations,
     String? initialValue,
     final void Function(String)? onChange,
     final String? errorMessage,
+    final String? cancelText,
+    final String? confirmText,
     final List<TextInputFormatter>? inputFormatters,
   }) : super(
           key: key,
           controller: controller,
-          label: label,
-          info: info,
-          infoText: infoText,
           readOnly: readOnly,
           isRequired: isRequired,
           isDisabled: isDisabled,
           charCount: charCount,
           innerLabel: innerLabel,
           helpText: helpText,
-          triggerMode: triggerMode,
-          preferToolTipBelow: preferToolTipBelow,
           suffixIcon: suffixIcon ?? Icons.access_time,
           onError: onError,
           initialValue: initialValue,
           validations: validations,
           onChange: onChange,
+          cancelText: cancelText,
+          confirmText: confirmText,
           keyboardType: TextInputType.datetime,
           showCurser: editable,
           isEditable: editable,
@@ -80,6 +74,8 @@ class _DigitTimeFormInputState extends BaseDigitFormInputState {
     await timeSelectionBloc.selectTime(
       context: context,
       controller: controller,
+      cancelText: widget.cancelText,
+      confirmText: widget.confirmText,
     );
   }
 
@@ -90,6 +86,8 @@ class _DigitTimeFormInputState extends BaseDigitFormInputState {
     await timeSelectionBloc.selectTime(
       context: context,
       controller: controller,
+      cancelText: widget.cancelText,
+      confirmText: widget.confirmText,
     );
   }
 

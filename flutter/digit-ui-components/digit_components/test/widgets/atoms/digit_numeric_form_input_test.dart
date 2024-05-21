@@ -12,7 +12,6 @@ void main() {
           home: Scaffold(
             body: DigitNumericFormInput(
               controller: TextEditingController(),
-              label: 'Numeric Input',
               initialValue: '0',
               step: 1,
             ),
@@ -48,7 +47,6 @@ void main() {
           home: Scaffold(
             body: DigitNumericFormInput(
               controller: controller,
-              label: 'Test Label',
               validations: [
                 Validator(ValidatorType.minValue, 2,
                     errorMessage: 'Value must be greater than or equal to 1'),
@@ -85,7 +83,6 @@ void main() {
           home: Scaffold(
             body: DigitNumericFormInput(
               controller: TextEditingController(),
-              label: 'Numeric Input',
               isDisabled: true,
             ),
           ),
@@ -104,7 +101,6 @@ void main() {
           home: Scaffold(
             body: DigitNumericFormInput(
               controller: TextEditingController(),
-              label: 'Numeric Input',
             ),
           ),
         ),
@@ -129,7 +125,6 @@ void main() {
             body: DigitNumericFormInput(
               controller: TextEditingController(),
               initialValue: '42',
-              label: 'Numeric Input',
             ),
           ),
         ),
@@ -149,7 +144,6 @@ void main() {
           home: Scaffold(
             body: DigitNumericFormInput(
               controller: TextEditingController(),
-              label: 'Numeric Input',
               charCount: true,
             ),
           ),
@@ -175,7 +169,6 @@ void main() {
           home: Scaffold(
             body: DigitNumericFormInput(
               controller: TextEditingController(),
-              label: 'Numeric Input',
             ),
           ),
         ),
@@ -201,7 +194,6 @@ void main() {
           home: Scaffold(
             body: DigitNumericFormInput(
               controller: TextEditingController(),
-              label: 'Numeric Input',
               onChange: (value) {
                 changedValue = value;
               },
@@ -228,7 +220,6 @@ void main() {
           home: Scaffold(
             body: DigitNumericFormInput(
               controller: TextEditingController(),
-              label: 'Numeric Input',
               readOnly: true,
               initialValue: '0',
             ),

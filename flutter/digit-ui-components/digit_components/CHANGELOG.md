@@ -25,3 +25,8 @@
 ## 0.0.1+3
 
 * dropdown overlay issues fixes
+
+## 0.0.1+4
+
+* fixed padding for text area
+* code refactors for text fields
