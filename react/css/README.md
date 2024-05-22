@@ -42,6 +42,7 @@ frontend/micro-ui/web/public/index.html
 # Changelog
 
 ```bash
+1.8.2-coreui.17 Updated RemoveableTag styles
 1.8.2-coreui.16 Updated numeric type to disable input and use only buttons
 1.8.2-coreui.15 Updated ErrorMessage styles
 1.8.2-coreui.14 updated dropdown checkbox css

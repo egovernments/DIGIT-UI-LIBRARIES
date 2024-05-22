@@ -287,7 +287,7 @@ module.exports = {
         spacer6:"1.5rem",
         spacer7:"1.75rem",
         spacer8:"2rem",
-        spacer9:"2.25ren",
+        spacer9:"2.25rem",
         spacer10:"2.5rem",
         spacer11:"2.75rem",
         spacer12:"3rem",
