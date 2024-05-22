@@ -288,10 +288,10 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
                         child: (_selectedOptions.isNotEmpty)
                             ? (widget.treeSelectionType ==
                                     TreeSelectionType.MultiSelect)
-                                ? Text(capitalizeFirstLetter('${_selectedOptions.length} Selected')!, style: currentTypography.bodyL.copyWith(
+                                ? Text(convertInToSentenceCase('${_selectedOptions.length} Selected')!, style: currentTypography.bodyL.copyWith(
                           color: widget.readOnly ? const DigitColors().light.textSecondary : const DigitColors().light.textPrimary,
                         ),)
-                                : Text(capitalizeFirstLetter(_selectedOptions.first.code.toString())!, style: currentTypography.bodyL.copyWith(
+                                : Text(convertInToSentenceCase(_selectedOptions.first.code.toString())!, style: currentTypography.bodyL.copyWith(
                           color: widget.readOnly ? const DigitColors().light.textSecondary : const DigitColors().light.textPrimary,
                         ),)
                             : const SizedBox(),
@@ -346,8 +346,8 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
                             fit: FlexFit.tight,
                             child: Text(
                               widget.errorMessage!.length > 256
-                                  ? '${capitalizeFirstLetter(widget.errorMessage!)?.substring(0, 256)}...'
-                                  : capitalizeFirstLetter(widget.errorMessage!)!,
+                                  ? '${convertInToSentenceCase(widget.errorMessage!)?.substring(0, 256)}...'
+                                  : convertInToSentenceCase(widget.errorMessage!)!,
                               style: currentTypography.bodyS.copyWith(
                                 color: const DigitColors().light.alertError,
                               ),
@@ -359,7 +359,7 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
                   : Expanded(
                       child: Text(
                         widget.helpText!.length > 256
-                            ? '${capitalizeFirstLetter(widget.helpText!)?.substring(0, 256)}...'
+                            ? '${convertInToSentenceCase(widget.helpText!)?.substring(0, 256)}...'
                             : widget.helpText!,
                         style: currentTypography.bodyS.copyWith(
                           color: const DigitColors().light.textSecondary,
@@ -428,7 +428,7 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
                 color: const DigitColors().light.paperSecondary,
               ),
               child: Text(
-                capitalizeFirstLetter(widget.clearAllText)!,
+                convertInToSentenceCase(widget.clearAllText)!,
                 style: currentTypography.bodyS.copyWith(
                   color: const DigitColors().light.primary1,
                   height: 1,

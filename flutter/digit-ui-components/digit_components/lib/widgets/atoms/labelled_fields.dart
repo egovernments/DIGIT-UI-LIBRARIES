@@ -55,7 +55,7 @@ class LabeledField extends StatelessWidget {
 
     /// Capitalize the first letter of the label if required
     final processedLabel = capitalizedFirstLetter
-        ? capitalizeFirstLetter(label)
+        ? convertInToSentenceCase(label)
         : label;
 
     bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);

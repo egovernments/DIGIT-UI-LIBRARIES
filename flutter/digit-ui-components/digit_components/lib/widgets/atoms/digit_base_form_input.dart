@@ -173,7 +173,6 @@ class BaseDigitFormInput extends StatefulWidget {
 }
 
 class BaseDigitFormInputState extends State<BaseDigitFormInput> {
-  String? _value;
   bool _hasError = false;
   late FocusNode myFocusNode;
   bool isVisible = false;
@@ -271,10 +270,9 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
     DigitTypography currentTypography = getTypography(context, false);
 
     /// Capitalize innerLabel, helpText, and errorMessage
-    String? capitalizedInnerLabel = capitalizeFirstLetter(widget.innerLabel);
-    String? capitalizedHelpText = capitalizeFirstLetter(widget.helpText);
-    String? capitalizedErrorMessage =
-        capitalizeFirstLetter(widget.errorMessage);
+    String? capitalizedInnerLabel = convertInToSentenceCase(widget.innerLabel);
+    String? capitalizedHelpText = convertInToSentenceCase(widget.helpText);
+    String? capitalizedErrorMessage = convertInToSentenceCase(widget.errorMessage);
 
     int? getValidatorValue(List<Validator>? validators, ValidatorType type) {
       for (var validator in validators!) {
@@ -292,7 +290,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
             : 64)
         : null;
 
-    double Width = AppView.isMobileView(MediaQuery.of(context).size)
+    double width = AppView.isMobileView(MediaQuery.of(context).size)
         ? MediaQuery.of(context).size.width
         : AppView.isTabletView(MediaQuery.of(context).size)
             ? 440
@@ -301,7 +299,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
         AppView.isMobileView(MediaQuery.of(context).size) ? 156 : 200;
 
     return Container(
-      width: Width,
+      width: width,
       constraints: BoxConstraints(
         minWidth: minWidth,
       ),
@@ -396,9 +394,6 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                             disabledBorder: BaseConstants.disabledBorder,
                           ),
                           onChanged: (value) {
-                            setState(() {
-                              _value = value;
-                            });
                             widget.onChange?.call(value);
                           },
                         ),
@@ -790,9 +785,6 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                         : null,
                   ),
                   onChanged: (value) {
-                    setState(() {
-                      _value = value;
-                    });
                     widget.onChange?.call(value);
                   },
                 ),
@@ -842,9 +834,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                               Flexible(
                                 fit: FlexFit.tight,
                                 child: Text(
-                                  _errorMessage!.length > 256
-                                      ? '${_errorMessage!.substring(0, 256)}...'
-                                      : _errorMessage!,
+                                  truncateWithEllipsis(256, capitalizedErrorMessage!),
                                   style: currentTypography.bodyS.copyWith(
                                     color: const DigitColors().light.alertError,
                                   ),
@@ -882,9 +872,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                                   Flexible(
                                     fit: FlexFit.tight,
                                     child: Text(
-                                      capitalizedErrorMessage!.length > 256
-                                          ? '${widget.errorMessage!.substring(0, 256)}...'
-                                          : widget.errorMessage!,
+                                      truncateWithEllipsis(256, capitalizedErrorMessage!),
                                       style: currentTypography.bodyS.copyWith(
                                         color: const DigitColors()
                                             .light
@@ -897,9 +885,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                             )
                           : Expanded(
                               child: Text(
-                                capitalizedHelpText!.length > 256
-                                    ? '${capitalizedHelpText!.substring(0, 256)}...'
-                                    : capitalizedHelpText!,
+                                truncateWithEllipsis(256, capitalizedHelpText!),
                                 style: currentTypography.bodyS.copyWith(
                                   color:
                                       const DigitColors().light.textSecondary,

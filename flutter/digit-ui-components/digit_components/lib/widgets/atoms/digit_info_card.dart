@@ -40,7 +40,7 @@ class InfoCard extends StatelessWidget {
         : MediaQuery.of(context).size.width * .27;
 
     String capitalizedHeading = capitalizedLetter ? capitalizeFirstLetterOfEveryWord(title)! : title;
-    String capitalizedDescription = capitalizedLetter ? capitalizeFirstLetter(description)! : description;
+    String capitalizedDescription = capitalizedLetter ? convertInToSentenceCase(description)! : description;
 
     switch (type) {
       case InfoType.success:

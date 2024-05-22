@@ -661,7 +661,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                                 ? width - 40
                                                 : width - 16,
                                         child: Text(
-                                          capitalizeFirstLetter(filteredItems[index].name)!,
+                                          convertInToSentenceCase(filteredItems[index].name)!,
                                           softWrap: true,
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
@@ -696,7 +696,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                               ? width - 40
                                               : width - 16,
                                       child: Text(
-                                        capitalizeFirstLetter(filteredItems[index].description!)!,
+                                        convertInToSentenceCase(filteredItems[index].description!)!,
                                         overflow: TextOverflow.ellipsis,
                                         maxLines: 3,
                                         softWrap: true,
@@ -731,7 +731,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
             child: Padding(
               padding: DropdownConstants.noItemAvailablePadding,
               child: Text(
-                capitalizeFirstLetter(widget.emptyItemText)!,
+                convertInToSentenceCase(widget.emptyItemText)!,
                 style: currentTypography.bodyS.copyWith(
                   color: const DigitColors().light.textDisabled,
                 ),
@@ -773,7 +773,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Text(capitalizeFirstLetter(currentType!)!,
+                                Text(convertInToSentenceCase(currentType!)!,
                                     style: currentTypography.headingS.copyWith(
                                       color: const DigitColors()
                                           .light
@@ -997,7 +997,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                                                 : width -
                                                                     16,
                                                         child: Text(
-                                                          capitalizeFirstLetter(typeItems[index].name)!,
+                                                          convertInToSentenceCase(typeItems[index].name)!,
                                                           maxLines: 1,
                                                           softWrap: true,
                                                           style: _itemMouseDownStates[
@@ -1038,7 +1038,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                                               : width -
                                                                   16,
                                                       child: Text(
-                                                        capitalizeFirstLetter(typeItems[index]
+                                                        convertInToSentenceCase(typeItems[index]
                                                             .description!)!,
                                                         maxLines: 3,
                                                         softWrap: true,
@@ -1096,7 +1096,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
             child: Padding(
               padding: DropdownConstants.noItemAvailablePadding,
               child: Text(
-                capitalizeFirstLetter(widget.emptyItemText)!,
+                convertInToSentenceCase(widget.emptyItemText)!,
                 style: currentTypography.bodyS
                     .copyWith(
                   color: const DigitColors().light.textDisabled,

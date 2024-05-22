@@ -483,7 +483,7 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
   Widget build(BuildContext context) {
     currentTypography = getTypography(context, false);
     String? capitalizedErrorMessage =
-        capitalizeFirstLetter(widget.errorMessage);
+        convertInToSentenceCase(widget.errorMessage);
 
     double minWidth = AppView.isMobileView(MediaQuery.of(context).size)
         ? 328

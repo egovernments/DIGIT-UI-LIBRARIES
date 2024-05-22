@@ -208,7 +208,7 @@ class _RadioListState extends State<RadioList> {
                 child: Padding(
                   padding:  EdgeInsets.only(top: isMobile ? 2.0: 0),
                   child: Text(
-                    capitalizeFirstLetter(button.name)!,
+                    convertInToSentenceCase(button.name)!,
                     maxLines: 5,
                     overflow: TextOverflow.ellipsis,
                     style: currentTypography.bodyL.copyWith(

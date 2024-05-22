@@ -71,7 +71,7 @@ class Toast {
                     maxWidth:  MediaQuery.of(context).size.width- 24 - kPadding * 3 - 24,
                   ),
                   child: Text(
-                    capitalizeFirstLetter(options.message)!,
+                    convertInToSentenceCase(options.message)!,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: currentTypography.captionS.copyWith(

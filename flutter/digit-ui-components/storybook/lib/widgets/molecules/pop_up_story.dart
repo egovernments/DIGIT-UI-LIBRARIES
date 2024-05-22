@@ -1,0 +1,152 @@
+import 'package:digit_ui_components/digit_components.dart';
+import 'package:digit_ui_components/widgets/atoms/pop_up_cart.dart';
+import 'package:digit_ui_components/widgets/molecules/pop_up.dart';
+import 'package:storybook_flutter/storybook_flutter.dart';
+import 'package:flutter/material.dart';
+
+List<Story> showPopUPStories() {
+  return [
+    Story(
+      name: 'Molecule/PopUp/default/simple',
+      builder: (context) => Popup(
+        title: 'HHfffffff',
+        subHeading: 'dsffffffff',
+        primaryActionText: 'Submit',
+        secondaryActionText: 'Cancel',
+        onCrossTap: () {
+          print('cross icon tap');
+        },
+        onPrimaryAction: () {
+          print('primary tap');
+        },
+        onSecondaryAction: () {
+          print('secondary tap');
+        },
+      ),
+    ),
+    Story(
+      name: 'Molecule/PopUp/default/icon&description',
+      builder: (context) =>  Popup(
+        title: 'HHfffffff',
+        subHeading: 'dsffffffff',
+        titleIcon: Icon(
+          Icons.error_outline,
+          size: 32,
+        ),
+        primaryActionText: 'Submit',
+        secondaryActionText: 'Cancel',
+        onCrossTap: () {
+          print('cross icon tap');
+        },
+        // onPrimaryAction: () {
+        //   print('primary tap');
+        // },
+        // onSecondaryAction: () {
+        //   print('secondary tap');
+        // },
+        description:
+            'sdfffffffffffffffffffffffffffffdsfffffffffffffdsfsdfsdddddddddddd',
+      ),
+    ),
+    Story(
+      name: 'Molecule/PopUp/default/with additional widgets',
+      builder: (context) =>  Popup(
+        title: 'HHfffffff',
+        subHeading: 'dsffffffff',
+        titleIcon: Icon(
+          Icons.error_outline,
+          size: 32,
+        ),
+        primaryActionText: 'Submit',
+        secondaryActionText: 'Cancel',
+        onCrossTap: () {
+          print('cross icon tap');
+        },
+        onPrimaryAction: () {
+          print('primary tap');
+        },
+        onSecondaryAction: () {
+          print('secondary tap');
+        },
+        additionalWidgets: [
+          InfoCard(
+              title: 'Info',
+              type: InfoType.info,
+              description: 'this is info card'),
+        ],
+      ),
+    ),
+    Story(
+      name: 'Molecule/PopUp/default/with description and additional widgets',
+      builder: (context) => Popup(
+        title: 'HHfffffff',
+        subHeading: 'dsffffffff',
+        titleIcon: Icon(
+          Icons.error_outline,
+          size: 32,
+        ),
+        primaryActionText: 'Submit',
+        secondaryActionText: 'Cancel',
+        onCrossTap: () {
+          print('cross icon tap');
+        },
+        onPrimaryAction: () {
+          print('primary tap');
+        },
+        onSecondaryAction: () {
+          print('secondary tap');
+        },
+        description:
+            'sdfffffffffffffffffffffffffffffdsfffffffffffffdsfsdfsdddddddddddd',
+        additionalWidgets: const [
+          InfoCard(
+              title: 'Info',
+              type: InfoType.info,
+              description: 'this is info card'),
+        ],
+      ),
+    ),
+    Story(
+      name: 'Molecule/PopUp/default/without Action',
+      builder: (context) => const Popup(
+        title: 'HHfffffff',
+        subHeading: 'dsffffffff',
+        titleIcon: Icon(
+          Icons.error_outline,
+          size: 32,
+        ),
+        description:
+            'sdfffffffffffffffffffffffffffffdsfffffffffffffdsfsdfsdddddddddddd',
+        additionalWidgets: [
+          InfoCard(
+              title: 'Info',
+              type: InfoType.info,
+              description: 'this is info card'),
+        ],
+      ),
+    ),
+    Story(
+      name: 'Molecule/PopUp/alert',
+      builder: (context) =>  const Popup(
+        title: 'Alert!',
+        subHeading: 'Please contact the administrator if you have fsdfsdf dsfs',
+        type: PopUpType.alert,
+      ),
+    ),
+    Story(
+      name: 'Molecule/PopUp/alert/show',
+      builder: (context) =>  ElevatedButton(
+        onPressed: () {
+          showPopup(
+            context: context,
+            title: "Simple Popup",
+            subHeading: "This is a subheading",
+            description: "This popup demonstrates a simple popup with a title and description.",
+            type: PopUpType.simple,
+          );
+        },
+        child: Text("Show Simple Popup"),
+      ),
+    ),
+  ];
+}

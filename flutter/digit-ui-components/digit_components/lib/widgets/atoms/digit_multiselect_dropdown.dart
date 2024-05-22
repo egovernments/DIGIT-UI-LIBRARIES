@@ -965,7 +965,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      capitalizeFirstLetter(type)!,
+                      convertInToSentenceCase(type)!,
                       style: currentTypography.headingS.copyWith(
                         color: const DigitColors().light.textSecondary,
                       ),
@@ -1147,7 +1147,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                 color: const DigitColors().light.paperSecondary,
               ),
               child: Text(
-                capitalizeFirstLetter(widget.clearAllText)!,
+                convertInToSentenceCase(widget.clearAllText)!,
                 style: currentTypography.bodyS.copyWith(
                   color: const DigitColors().light.primary1,
                 ),
