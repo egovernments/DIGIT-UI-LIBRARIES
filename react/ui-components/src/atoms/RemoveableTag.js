@@ -13,18 +13,15 @@ const RemoveableTag = ({
   isErrorTag,
   error,
 }) => {
-  const tagStyles =
-    extraStyles && extraStyles.tagStyles ? extraStyles.tagStyles : {};
-  const textStyles =
-    extraStyles && extraStyles.textStyles ? extraStyles.textStyles : {};
-  const closeIconStyles =
-    extraStyles && extraStyles.closeIconStyles
-      ? extraStyles.closeIconStyles
-      : {};
+  const tagStyles = extraStyles ? extraStyles?.tagStyles : {};
+  const textStyles = extraStyles ? extraStyles?.textStyles : {};
+  const closeIconStyles = extraStyles ? extraStyles?.closeIconStyles : {};
 
   return (
     <div
-      className={`digit-tag-error-container ${(!disabled && onTagClick) ? "cp" : ""}`}
+      className={`digit-tag-error-container ${
+        !disabled && onTagClick ? "cp" : ""
+      }`}
       onClick={disabled ? null : onTagClick}
     >
       <div
@@ -36,7 +33,10 @@ const RemoveableTag = ({
         <span className="digit-text" style={textStyles}>
           {text}
         </span>
-        <span onClick={disabled ? null : onClick} className={`close-icon ${disabled  ? "disabled" : ""}`}>
+        <span
+          onClick={disabled ? null : onClick}
+          className={`close-icon ${disabled ? "disabled" : ""}`}
+        >
           <SVG.Close fill="#FFFFFF" className="close" style={closeIconStyles} />
         </span>
       </div>
