@@ -42,7 +42,7 @@ frontend/micro-ui/web/public/index.html
 # Changelog
 
 ```bash
-1.8.2-coreui.16 Updated RemoveableTag styles
+1.8.2-coreui.17 Updated RemoveableTag styles
 1.8.2-coreui.15 Updated ErrorMessage styles
 1.8.2-coreui.14 updated dropdown checkbox css
 1.8.2-coreui.13 added spacers
