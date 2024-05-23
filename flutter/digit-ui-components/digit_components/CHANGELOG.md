@@ -30,3 +30,8 @@
 
 * fixed padding for text area
 * code refactors for text fields
+
+## 0.0.1+5
+
+* fixed dropdown setState being called after dispose
+* added util function to make text sentence case, caps case and truncate after fix value

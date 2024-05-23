@@ -85,7 +85,7 @@ class _DigitCheckboxState extends State<DigitCheckbox> {
 
     /// Capitalize the first letter of the label if required
     final processedLabel = widget.capitalizeFirstLetter
-        ? capitalizeFirstLetter(widget.label)
+        ? convertInToSentenceCase(widget.label)
         : widget.label;
 
     return IntrinsicWidth(

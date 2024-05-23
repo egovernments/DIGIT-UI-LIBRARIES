@@ -89,7 +89,7 @@ class Toast {
                       spacer6,
                 ),
                 child: Text(
-                  capitalizeFirstLetter(message)!,
+                  convertInToSentenceCase(message)!,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: currentTypography.captionS.copyWith(

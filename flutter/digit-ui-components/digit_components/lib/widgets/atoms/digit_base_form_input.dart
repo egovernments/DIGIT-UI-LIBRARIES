@@ -83,12 +83,14 @@ class BaseDigitFormInput extends StatefulWidget {
   final String? initialValue;
 
   /// Keyboard type for the input field.
-  final TextInputType keyboardType;
+  final TextInputType? keyboardType;
 
   /// Text alignment within the input field.
   final TextAlign textAlign;
   final bool isTextArea;
   final IconData? toggleSuffixIcon;
+
+  final FocusNode? focusNode;
 
   /// input formatters
   final List<TextInputFormatter>? inputFormatters;
@@ -139,6 +141,7 @@ class BaseDigitFormInput extends StatefulWidget {
     this.confirmText,
     this.textAreaScroll = TextAreaScroll.none,
     this.lastDate,
+    this.focusNode,
     this.onTap,
     this.isEditable = true,
     this.isTextArea = false,
@@ -164,6 +167,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
   late final TextEditingController _controller;
 
   String? _errorMessage;
+
   TextEditingController get controller => _controller;
 
   void onFocusChange() {
@@ -190,7 +194,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
   void initState() {
     super.initState();
 
-    myFocusNode = FocusNode();
+    myFocusNode = widget.focusNode ??  FocusNode();
 
     myFocusNode.addListener(onFocusChange);
     _controller = widget.controller ?? TextEditingController();
@@ -256,11 +260,9 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
     DigitTypography currentTypography = getTypography(context, false);
 
     /// Capitalize innerLabel, helpText, and errorMessage
-    String? capitalizedInnerLabel = capitalizeFirstLetter(widget.innerLabel);
-    String? capitalizedHelpText = capitalizeFirstLetter(widget.helpText);
-    String? capitalizedErrorMessage =
-        capitalizeFirstLetter(widget.errorMessage);
-
+    String? capitalizedInnerLabel = convertInToSentenceCase(widget.innerLabel);
+    String? capitalizedHelpText = convertInToSentenceCase(widget.helpText);
+    String? capitalizedErrorMessage = convertInToSentenceCase(widget.errorMessage);
     int? getValidatorValue(List<Validator>? validators, ValidatorType type) {
       for (var validator in validators!) {
         if (validator.type == type) {
@@ -277,12 +279,12 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
             : 64)
         : null;
 
-     width = AppView.isMobileView(MediaQuery.of(context).size)
+    width = AppView.isMobileView(MediaQuery.of(context).size)
         ? MediaQuery.of(context).size.width
         : AppView.isTabletView(MediaQuery.of(context).size)
             ? BaseConstants.tabInputMaxWidth
             : BaseConstants.desktopInputMaxWidth;
-     minWidth = AppView.isMobileView(MediaQuery.of(context).size)
+    minWidth = AppView.isMobileView(MediaQuery.of(context).size)
         ? BaseConstants.mobileInputMinWidth
         : BaseConstants.desktopInputMaxWidth;
 
@@ -384,8 +386,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                             disabledBorder: BaseConstants.disabledBorder,
                           ),
                           onChanged: (value) {
-                            setState(() {
-                            });
+                            setState(() {});
                             widget.onChange?.call(value);
                           },
                         ),
@@ -420,7 +421,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                     myFocusNode.unfocus();
                   },
                   inputFormatters: widget.inputFormatters,
-                  onTap: widget.isEditable || widget.readOnly ? null : onTap,
+                  onTap: onTap,
                   focusNode: myFocusNode,
                   obscureText: isVisible,
                   controller: _controller,
@@ -458,7 +459,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                       minHeight: BaseConstants.inputMinHeight,
                       minWidth: minWidth,
                     ),
-                    contentPadding: const EdgeInsets.all(spacer3),
+                    contentPadding: const EdgeInsets.only(left: spacer3, bottom: spacer3, right: spacer3),
                     hintText: capitalizedInnerLabel,
                     hintStyle: currentTypography.bodyL.copyWith(
                       color: const DigitColors().light.textDisabled,
@@ -772,8 +773,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                         : null,
                   ),
                   onChanged: (value) {
-                    setState(() {
-                    });
+                    setState(() {});
                     widget.onChange?.call(value);
                   },
                 ),

@@ -1,410 +1,162 @@
 import 'package:digit_ui_components/digit_components.dart';
-import 'package:digit_ui_components/utils/validators/validator.dart';
-import 'package:digit_ui_components/widgets/atoms/digit_date_form_input.dart';
-import 'package:digit_ui_components/widgets/atoms/digit_location_form_input.dart';
-import 'package:digit_ui_components/widgets/atoms/digit_numeric_form_input.dart';
-import 'package:digit_ui_components/widgets/atoms/digit_password_form_input.dart';
-import 'package:digit_ui_components/widgets/atoms/digit_search_form_input.dart';
-import 'package:digit_ui_components/widgets/atoms/digit_text_area_form_input.dart';
-import 'package:digit_ui_components/widgets/atoms/digit_text_form_input.dart';
-import 'package:digit_ui_components/widgets/atoms/digit_time_form_input.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
+import 'package:digit_ui_components/widgets/atoms/input_wrapper.dart';
 
 List<Story> inputFieldStories() {
   return [
     Story(
       name: 'Atom/Input Field/Text Field/default',
-      builder: (context) => DigitTextFormInput(
-        helpText: context.knobs.text(
-          label: 'help text',
-          initial: '',
-        ),
-        charCount: context.knobs.boolean(
-          label: 'char count',
-          initial: false,
-        ),
-        innerLabel: context.knobs.text(
-          label: 'inner label',
-          initial: '',
-        ),
-        info: context.knobs.boolean(
-          label: 'info',
-          initial: false,
-        ),
-        infoText: context.knobs.text(
-          label: 'infoText',
-          initial: 'this is info',
-        ),
-        isDisabled: context.knobs.boolean(
-          label: 'Disabled',
-          initial: false,
-        ),
-        readOnly: context.knobs.boolean(
-          label: 'Read Only',
-          initial: false,
-        ),
-        controller: TextEditingController(),
-        validations: [
-          Validator(ValidatorType.maxLength, 10,
-              errorMessage: 'Maximum length is 10.'),
-          Validator(ValidatorType.pattern, r'^[a-zA-Z0-9]+$',
-              errorMessage: 'Invalid format.'),
-        ],
+      builder: (context) => InputField(
+        wrapLabel: context.knobs.boolean(label: 'Wrap Label', initial: false),
+        type: InputType.text,
+        label: context.knobs.text(label: 'Label', initial: 'Label'),
+        helpText: context.knobs.text(label: 'Help Text', initial: 'help text'),
+        innerLabel: context.knobs.text(label: 'Inner Label', initial: 'innerlabel'),
+        isDisabled: context.knobs.boolean(label: 'Disable', initial: false),
+        readOnly: context.knobs.boolean(label: 'Read Only', initial: false),
       ),
     ),
     Story(
       name: 'Atom/Input Field/Text Field/prefix',
-      builder: (context) => DigitTextFormInput(
-        controller: TextEditingController(),
+      builder: (context) => InputField(
+        type: InputType.text,
+        label: context.knobs.text(label: 'Label', initial: 'Label'),
         prefixText: context.knobs.text(label: 'Prefix Text', initial: "####"),
-        helpText: context.knobs.text(
-          label: 'help text',
-          initial: '',
-        ),
-        charCount: context.knobs.boolean(
-          label: 'char count',
-          initial: false,
-        ),
-        innerLabel: context.knobs.text(
-          label: 'inner label',
-          initial: '',
-        ),
-        isDisabled: context.knobs.boolean(
-          label: 'Disabled',
-          initial: false,
-        ),
-        readOnly: context.knobs.boolean(
-          label: 'Read Only',
-          initial: false,
-        ),
+        infoText: context.knobs.text(label: 'Info Text', initial: 'info'),
+        isRequired: context.knobs.boolean(label: 'Required', initial: true),
+        helpText: context.knobs.text(label: 'Help Text', initial: 'help text'),
+        innerLabel: context.knobs.text(label: 'Inner Label', initial: 'innerlabel'),
+        isDisabled: context.knobs.boolean(label: 'Disable', initial: false),
+        readOnly: context.knobs.boolean(label: 'Read Only', initial: false),
       ),
     ),
     Story(
       name: 'Atom/Input Field/Text Field/suffix',
-      builder: (context) => DigitTextFormInput(
+      builder: (context) => InputField(
+        type: InputType.text,
+        label: context.knobs.text(label: 'Label', initial: 'Label'),
         controller: TextEditingController(),
         suffixText: context.knobs.text(label: 'Suffix Text', initial: "####"),
-        helpText: context.knobs.text(
-          label: 'help text',
-          initial: '',
-        ),
-        charCount: context.knobs.boolean(
-          label: 'char count',
-          initial: false,
-        ),
-        innerLabel: context.knobs.text(
-          label: 'inner label',
-          initial: '',
-        ),
-        isDisabled: context.knobs.boolean(
-          label: 'Disabled',
-          initial: false,
-        ),
-        readOnly: context.knobs.boolean(
-          label: 'Read Only',
-          initial: false,
-        ),
+        infoText: context.knobs.text(label: 'Info Text', initial: 'info'),
+        isRequired: context.knobs.boolean(label: 'Required', initial: true),
+        helpText: context.knobs.text(label: 'Help Text', initial: 'help text'),
+        innerLabel: context.knobs.text(label: 'Inner Label', initial: 'innerlabel'),
+        isDisabled: context.knobs.boolean(label: 'Disable', initial: false),
+        readOnly: context.knobs.boolean(label: 'Read Only', initial: false),
       ),
     ),
     Story(
       name: 'Atom/Input Field/Date Field',
-      builder: (context) => DigitDateFormInput(
-        helpText: context.knobs.text(
-          label: 'help text',
-          initial: '',
-        ),
-        charCount: context.knobs.boolean(
-          label: 'char count',
-          initial: false,
-        ),
-        innerLabel: context.knobs.text(
-          label: 'inner label',
-          initial: '',
-        ),
-        isDisabled: context.knobs.boolean(
-          label: 'Disabled',
-          initial: false,
-        ),
-        readOnly: context.knobs.boolean(
-          label: 'Read Only',
-          initial: false,
-        ),
+      builder: (context) => InputField(
+        type: InputType.date,
+        label: context.knobs.text(label: 'Label', initial: 'Label'),
+        infoText: context.knobs.text(label: 'Info Text', initial: 'info'),
+        isRequired: context.knobs.boolean(label: 'Required', initial: true),
+        helpText: context.knobs.text(label: 'Help Text', initial: 'help text'),
+        innerLabel: context.knobs.text(label: 'Inner Label', initial: 'innerlabel'),
+        isDisabled: context.knobs.boolean(label: 'Disable', initial: false),
+        readOnly: context.knobs.boolean(label: 'Read Only', initial: false),
         editable: context.knobs.boolean(label: 'Editable', initial: false),
-        controller: TextEditingController(),
       ),
     ),
     Story(
       name: 'Atom/Input Field/Time Field',
-      builder: (context) => DigitTimeFormInput(
-        helpText: context.knobs.text(
-          label: 'help text',
-          initial: '',
-        ),
-        charCount: context.knobs.boolean(
-          label: 'char count',
-          initial: false,
-        ),
-        innerLabel: context.knobs.text(
-          label: 'inner label',
-          initial: '',
-        ),
-        isDisabled: context.knobs.boolean(
-          label: 'Disabled',
-          initial: false,
-        ),
-        readOnly: context.knobs.boolean(
-          label: 'Read Only',
-          initial: false,
-        ),
-        controller: TextEditingController(),
+      builder: (context) => InputField(
+        type: InputType.time,
+        label: context.knobs.text(label: 'Label', initial: 'Label'),
+        infoText: context.knobs.text(label: 'Info Text', initial: 'info'),
+        isRequired: context.knobs.boolean(label: 'Required', initial: true),
+        helpText: context.knobs.text(label: 'Help Text', initial: 'help text'),
+        innerLabel: context.knobs.text(label: 'Inner Label', initial: 'innerlabel'),
+        isDisabled: context.knobs.boolean(label: 'Disable', initial: false),
+        readOnly: context.knobs.boolean(label: 'Read Only', initial: false),
         editable: context.knobs.boolean(label: 'Editable', initial: false),
       ),
     ),
     Story(
       name: 'Atom/Input Field/Text Area Field',
-      builder: (context) => DigitTextAreaFormInput(
-        helpText: context.knobs.text(
-          label: 'help text',
-          initial: '',
+      builder: (context) => InputField(
+        type: InputType.textArea,
+        label: context.knobs.text(label: 'Label', initial: 'Label'),
+        infoText: context.knobs.text(label: 'Info Text', initial: 'info'),
+        isRequired: context.knobs.boolean(label: 'Required', initial: true),
+        helpText: context.knobs.text(label: 'Help Text', initial: 'help text'),
+        innerLabel: context.knobs.text(label: 'Inner Label', initial: 'innerlabel'),
+        isDisabled: context.knobs.boolean(label: 'Disable', initial: false),
+        readOnly: context.knobs.boolean(label: 'Read Only', initial: false),
+        textAreaScroll: context.knobs.options(
+          label: 'Scroll Type',
+          initial: TextAreaScroll.smart,
+          options: const [
+            Option(
+              label: 'Smart',
+              value: TextAreaScroll.smart,
+            ),
+            Option(
+              label: 'Vertical',
+              value: TextAreaScroll.vertical,
+            ),
+            Option(
+              label: 'None',
+              value: TextAreaScroll.none,
+            ),
+          ],
         ),
-        charCount: context.knobs.boolean(
-          label: 'char count',
-          initial: false,
-        ),
-        innerLabel: context.knobs.text(
-          label: 'inner label',
-          initial: '',
-        ),
-        textAreaScroll: context.knobs.options(label: 'Scroll Type', initial: TextAreaScroll.smart, options: const [
-          Option(
-            label: 'Smart',
-            value: TextAreaScroll.smart,
-          ),
-          Option(
-            label: 'Vertical',
-            value: TextAreaScroll.vertical,
-          ),
-          Option(
-            label: 'None',
-            value: TextAreaScroll.none,
-          ),
-        ],),
-        isDisabled: context.knobs.boolean(
-          label: 'Disabled',
-          initial: false,
-        ),
-        readOnly: context.knobs.boolean(
-          label: 'Read Only',
-          initial: false,
-        ),
-        isRequired: context.knobs.boolean(
-          label: 'Required',
-          initial: false,
-        ),
-        controller: TextEditingController(),
-        validations: [
-          Validator(ValidatorType.maxLength, 100,
-              errorMessage: 'Maximum length is 100.'),
-          Validator(ValidatorType.pattern, r'^[a-zA-Z0-9]+$',
-              errorMessage: 'Invalid format.'),
-        ],
       ),
     ),
     Story(
       name: 'Atom/Input Field/Search Field',
-      builder: (context) => DigitSearchFormInput(
-        helpText: context.knobs.text(
-          label: 'help text',
-          initial: '',
-        ),
-        charCount: context.knobs.boolean(
-          label: 'char count',
-          initial: false,
-        ),
-        innerLabel: context.knobs.text(
-          label: 'inner label',
-          initial: '',
-        ),
-        isDisabled: context.knobs.boolean(
-          label: 'Disabled',
-          initial: false,
-        ),
-        readOnly: context.knobs.boolean(
-          label: 'Read Only',
-          initial: false,
-        ),
-        controller: TextEditingController(),
-        validations: [
-          Validator(ValidatorType.maxLength, 10,
-              errorMessage: 'Maximum length is 10.'),
-        ],
+      builder: (context) => InputField(
+        type: InputType.search,
+        label: context.knobs.text(label: 'Label', initial: 'Label'),
+        infoText: context.knobs.text(label: 'Info Text', initial: 'info'),
+        isRequired: context.knobs.boolean(label: 'Required', initial: true),
+        helpText: context.knobs.text(label: 'Help Text', initial: 'help text'),
+        innerLabel: context.knobs.text(label: 'Inner Label', initial: 'innerlabel'),
+        isDisabled: context.knobs.boolean(label: 'Disable', initial: false),
+        readOnly: context.knobs.boolean(label: 'Read Only', initial: false),
       ),
     ),
     Story(
       name: 'Atom/Input Field/Password Field',
-      builder: (context) => DigitPasswordFormInput(
-        helpText: context.knobs.text(
-          label: 'help text',
-          initial: '',
-        ),
-        charCount: context.knobs.boolean(
-          label: 'char count',
-          initial: false,
-        ),
-        innerLabel: context.knobs.text(
-          label: 'inner label',
-          initial: '',
-        ),
-        isDisabled: context.knobs.boolean(
-          label: 'Disabled',
-          initial: false,
-        ),
-        readOnly: context.knobs.boolean(
-          label: 'Read Only',
-          initial: false,
-        ),
-        controller: TextEditingController(),
-        validations: [
-          Validator(ValidatorType.maxLength, 10,
-              errorMessage: 'Maximum length is 10.'),
-          Validator(ValidatorType.pattern, r'^[a-zA-Z0-9]+$',
-              errorMessage: 'Invalid format.'),
-        ],
+      builder: (context) => InputField(
+        type: InputType.password,
+        label: context.knobs.text(label: 'Label', initial: 'Label'),
+        infoText: context.knobs.text(label: 'Info Text', initial: 'info'),
+        isRequired: context.knobs.boolean(label: 'Required', initial: true),
+        helpText: context.knobs.text(label: 'Help Text', initial: 'help text'),
+        innerLabel: context.knobs.text(label: 'Inner Label', initial: 'innerlabel'),
+        isDisabled: context.knobs.boolean(label: 'Disable', initial: false),
+        readOnly: context.knobs.boolean(label: 'Read Only', initial: false),
       ),
     ),
     Story(
       name: 'Atom/Input Field/Numeric Field',
-      builder: (context) => DigitNumericFormInput(
-        helpText: context.knobs.text(
-          label: 'help text',
-          initial: '',
-        ),
-        charCount: context.knobs.boolean(
-          label: 'char count',
-          initial: false,
-        ),
-        innerLabel: context.knobs.text(
-          label: 'inner label',
-          initial: '',
-        ),
+      builder: (context) => InputField(
+        type: InputType.numeric,
+        label: context.knobs.text(label: 'Label', initial: 'Label'),
+        infoText: context.knobs.text(label: 'Info Text', initial: 'info'),
+        isRequired: context.knobs.boolean(label: 'Required', initial: true),
+        helpText: context.knobs.text(label: 'Help Text', initial: 'help text'),
+        innerLabel: context.knobs.text(label: 'Inner Label', initial: 'innerlabel'),
+        isDisabled: context.knobs.boolean(label: 'Disable', initial: false),
+        readOnly: context.knobs.boolean(label: 'Read Only', initial: false),
         editable: context.knobs.boolean(label: 'Editable', initial: false),
-        initialValue: '0',
-        isDisabled: context.knobs.boolean(
-          label: 'Disabled',
-          initial: false,
-        ),
-        readOnly: context.knobs.boolean(
-          label: 'Read Only',
-          initial: false,
-        ),
-        isRequired: context.knobs.boolean(
-          label: 'Required',
-          initial: false,
-        ),
-        controller: TextEditingController(),
-        validations: [
-          Validator(ValidatorType.maxLength, 10,
-              errorMessage: 'Maximum length is 10.'),
-          Validator(ValidatorType.pattern, r'^[a-zA-Z0-9]+$',
-              errorMessage: 'Invalid format.'),
-        ],
       ),
     ),
     Story(
       name: 'Atom/Input Field/Location Field',
-      builder: (context) => DigitLocationFormInput(
-        label: context.knobs.text(
-          label: 'Title',
-          initial: 'title',
-        ),
-        helpText: context.knobs.text(
-          label: 'help text',
-          initial: '',
-        ),
-        charCount: context.knobs.boolean(
-          label: 'char count',
-          initial: false,
-        ),
-        innerLabel: context.knobs.text(
-          label: 'inner label',
-          initial: '',
-        ),
-        info: context.knobs.boolean(
-          label: 'info',
-          initial: false,
-        ),
-        infoText: context.knobs.text(
-          label: 'infoText',
-          initial: 'this is info',
-        ),
-        isDisabled: context.knobs.boolean(
-          label: 'Disabled',
-          initial: false,
-        ),
-        readOnly: context.knobs.boolean(
-          label: 'Read Only',
-          initial: false,
-        ),
-        isRequired: context.knobs.boolean(
-          label: 'Required',
-          initial: false,
-        ),
-        controller: TextEditingController(),
-        validations: [
-          Validator(ValidatorType.maxLength, 10,
-              errorMessage: 'Maximum length is 10.'),
-          Validator(ValidatorType.pattern, r'^[a-zA-Z0-9]+$',
-              errorMessage: 'Invalid format.'),
-        ],
-      ),
-    ),
-    Story(
-      name: 'Atom/Input Field/Password Field',
-      builder: (context) => DigitPasswordFormInput(
-        label: context.knobs.text(
-          label: 'Title',
-          initial: 'title',
-        ),
-        helpText: context.knobs.text(
-          label: 'help text',
-          initial: '',
-        ),
-        charCount: context.knobs.boolean(
-          label: 'char count',
-          initial: false,
-        ),
-        innerLabel: context.knobs.text(
-          label: 'inner label',
-          initial: '',
-        ),
-        info: context.knobs.boolean(
-          label: 'info',
-          initial: false,
-        ),
-        infoText: context.knobs.text(
-          label: 'infoText',
-          initial: 'this is info',
-        ),
-        isDisabled: context.knobs.boolean(
-          label: 'Disabled',
-          initial: false,
-        ),
-        readOnly: context.knobs.boolean(
-          label: 'Read Only',
-          initial: false,
-        ),
-        isRequired: context.knobs.boolean(
-          label: 'Required',
-          initial: false,
-        ),
-        controller: TextEditingController(),
-        validations: [
-          Validator(ValidatorType.maxLength, 10,
-              errorMessage: 'Maximum length is 10.'),
-          Validator(ValidatorType.pattern, r'^[a-zA-Z0-9]+$',
-              errorMessage: 'Invalid format.'),
-        ],
+      builder: (context) => InputField(
+        type: InputType.location,
+        label: context.knobs.text(label: 'Label', initial: 'Label'),
+        infoText: context.knobs.text(label: 'Info Text', initial: 'info'),
+        isRequired: context.knobs.boolean(label: 'Required', initial: true),
+        helpText: context.knobs.text(label: 'Help Text', initial: 'help text'),
+        innerLabel: context.knobs.text(label: 'Inner Label', initial: 'innerlabel'),
+        isDisabled: context.knobs.boolean(label: 'Disable', initial: false),
+        readOnly: context.knobs.boolean(label: 'Read Only', initial: false),
+        editable: context.knobs.boolean(label: 'Editable', initial: false),
       ),
     ),
   ];

@@ -104,13 +104,13 @@ class _ButtonState extends State<Button> {
         break;
       case ButtonSize.medium:
         buttonStyle = _currentTypography.headingM;
-        linkStyle = _currentTypography2.linkS;
+        linkStyle = _currentTypography2.linkM;
         buttonIconSize = ButtonConstants.mediumIconSize;
         linkIconSize = ButtonConstants.mediumLinkIconSize;
         break;
       case ButtonSize.large:
         buttonStyle = _currentTypography.headingL;
-        linkStyle = _currentTypography2.linkS;
+        linkStyle = _currentTypography2.linkL;
         buttonIconSize = ButtonConstants.largeIconSize;
         linkIconSize = ButtonConstants.largeLinkIconSize;
         break;
@@ -300,7 +300,7 @@ class _ButtonState extends State<Button> {
               ),
               SizedBox(
                   width:
-                  widget.type == ButtonType.link || widget.size == ButtonSize.small  || widget.size == ButtonSize.medium? spacer1 : spacer2),
+                  widget.type == ButtonType.link || widget.size == ButtonSize.small ? spacer1 : spacer2),
             ],
             Flexible(
               child: Text(
@@ -332,7 +332,7 @@ class _ButtonState extends State<Button> {
             if (widget.suffixIcon != null) ...[
               SizedBox(
                   width:
-                  widget.type == ButtonType.link || widget.size == ButtonSize.small || widget.size == ButtonSize.medium ? spacer1 : spacer2),
+                  widget.type == ButtonType.link || widget.size == ButtonSize.small ? spacer1 : spacer2),
               Icon(
                 widget.suffixIcon,
                 size: widget.type == ButtonType.link ? linkIconSize : widget.iconSize ?? buttonIconSize,

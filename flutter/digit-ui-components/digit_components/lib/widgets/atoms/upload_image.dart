@@ -1,13 +1,10 @@
 import 'dart:io';
 import 'package:digit_ui_components/digit_components.dart';
-import 'package:digit_ui_components/enum/app_enums.dart';
+import 'package:digit_ui_components/utils/utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:camera/camera.dart';
-import '../../constants/AppView.dart';
-import '../../constants/app_constants.dart';
-import '../../utils/utils.dart';
 import '../../utils/validators/file_validator.dart';
 import '../../utils/validators/image_validator.dart';
 import '../helper_widget/button_list.dart';
@@ -352,7 +349,7 @@ class _ImageUploaderState extends State<ImageUploader> {
     currentTypography = getTypography(context, false);
     isMobile = AppView.isMobileView(MediaQuery.of(context).size);
     isTab = AppView.isTabletView(MediaQuery.of(context).size);
-    capitalizedErrorMessage = capitalizeFirstLetter(widget.errorMessage);
+    capitalizedErrorMessage = convertInToSentenceCase(widget.errorMessage);
 
     return GestureDetector(
       onTap: () {

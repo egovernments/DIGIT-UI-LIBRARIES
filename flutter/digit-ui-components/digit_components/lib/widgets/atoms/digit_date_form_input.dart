@@ -41,6 +41,7 @@ class DigitDateFormInput extends BaseDigitFormInput {
     final String? errorMessage,
     final List<TextInputFormatter>? inputFormatters,
     final String? cancelText,
+    final TextInputType? keyboardType,
     final String? confirmText,
   }) : super(
           key: key,
@@ -61,7 +62,7 @@ class DigitDateFormInput extends BaseDigitFormInput {
           lastDate: lastDate,
           cancelText: cancelText,
           confirmText: confirmText,
-          keyboardType: TextInputType.datetime,
+          keyboardType: keyboardType ?? TextInputType.datetime,
           showCurser: editable,
           isEditable: editable,
           errorMessage: errorMessage,

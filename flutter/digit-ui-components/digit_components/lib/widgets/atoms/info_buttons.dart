@@ -1,7 +1,5 @@
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/material.dart';
-import '../../constants/app_constants.dart';
-import '../../enum/app_enums.dart';
 import '../../utils/utils.dart';
 
 class InfoButton extends StatefulWidget {

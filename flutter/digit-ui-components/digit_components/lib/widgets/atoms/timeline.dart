@@ -1,11 +1,7 @@
-import 'package:digit_ui_components/constants/app_constants.dart';
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../../constants/AppView.dart';
-import '../../enum/app_enums.dart';
-import '../../theme/theme.dart';
 import '../../utils/utils.dart';
 
 class Timeline extends StatefulWidget {

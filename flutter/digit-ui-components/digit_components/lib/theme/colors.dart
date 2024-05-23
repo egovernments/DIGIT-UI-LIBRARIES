@@ -22,7 +22,7 @@ class Light {
 
   /// Text
   Color get textPrimary => const Color(0xFF363636);
-  Color get textSecondary => const Color(0xFF7D7D7D);
+  Color get textSecondary => const Color(0xFF787878);
   Color get textDisabled => const Color(0xFFC5C5C5);
 
   /// Paper

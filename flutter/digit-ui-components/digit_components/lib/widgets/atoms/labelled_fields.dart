@@ -43,7 +43,7 @@ class LabeledField extends StatelessWidget {
 
     /// Capitalize the first letter of the label if required
     final processedLabel =
-        capitalizedFirstLetter ? capitalizeFirstLetter(label) : label;
+        capitalizedFirstLetter ? convertInToSentenceCase(label) : label;
 
     bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
     if (isMobile || !labelInline) {
@@ -52,7 +52,7 @@ class LabeledField extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
+            crossAxisAlignment: wrapLabelText ? CrossAxisAlignment.end : CrossAxisAlignment.center,
             children: [
               if (label != null)
                 Flexible(
@@ -95,9 +95,9 @@ class LabeledField extends StatelessWidget {
       );
     } else {
       return Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
             width: MediaQuery.of(context).size.width * 0.33,
@@ -105,12 +105,14 @@ class LabeledField extends StatelessWidget {
               maxWidth: MediaQuery.of(context).size.width * 0.33,
             ),
             child: Row(
+              crossAxisAlignment: wrapLabelText ? CrossAxisAlignment.end : CrossAxisAlignment.center,
               children: [
-                Expanded(
+                Flexible(
                   child: Text(
                     processedLabel!.length > 64
-                        ? '${processedLabel!.substring(0, 64)}...'
-                        : processedLabel!,
+                        ? '${processedLabel.substring(0, 64)}...'
+                        : processedLabel,
+                    maxLines: wrapLabelText ? 5 : 1,
                     style: currentTypography.bodyL.copyWith(
                       color: const DigitColors().light.textPrimary,
                       overflow: wrapLabelText

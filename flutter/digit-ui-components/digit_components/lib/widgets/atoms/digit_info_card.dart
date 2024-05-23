@@ -74,7 +74,7 @@ class InfoCard extends StatelessWidget {
     String capitalizedHeading =
         capitalizedLetter ? capitalizeFirstLetterOfEveryWord(title) : title;
     String capitalizedDescription =
-        capitalizedLetter ? capitalizeFirstLetter(description)! : description;
+        capitalizedLetter ? convertInToSentenceCase(description)! : description;
 
     /// Determine the icon and colors based on the info type
     switch (type) {

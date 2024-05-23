@@ -30,10 +30,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:visibility_detector/visibility_detector.dart';
-import '../../constants/AppView.dart';
-import '../../constants/app_constants.dart';
-import '../../enum/app_enums.dart';
-import '../../models/DropdownModels.dart';
 import '../../utils/utils.dart';
 
 class DigitDropdown<T> extends StatefulWidget {
@@ -42,6 +38,8 @@ class DigitDropdown<T> extends StatefulWidget {
   /// onChange is called when the selected option is changed
   /// It will pass back the value and the index of the option (can be different for different case).
   final void Function(DropdownItem)? onSelect;
+
+  final void Function()? onTap;
 
   /// list of DropdownItems
   final List<DropdownItem> items;
@@ -83,6 +81,7 @@ class DigitDropdown<T> extends StatefulWidget {
     required this.items,
     this.suffixIcon = Icons.arrow_drop_down,
     this.textIcon,
+    this.onTap,
     this.onSelect,
     this.isSearchable = true,
     this.selectionType = SelectionType.defaultSelect,
@@ -119,6 +118,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
   late DigitTypography currentTypography;
   late final TextEditingController _controller;
   bool _isVisible = true;
+  final GlobalKey _textFieldKey = GlobalKey();
 
   @override
   void initState() {
@@ -150,7 +150,6 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
 
   @override
   void dispose() {
-
     /// Check if _overlayEntry is not null before removing and disposing
     if (_overlayEntry != null) {
       _overlayEntry?.remove();
@@ -186,6 +185,9 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
   }
 
   void _onVisibilityChanged(VisibilityInfo info) {
+    if (!mounted) return;
+
+    //TODO: need to recheck as this is getting called after dispose of the dropdown-- do only when the dropdown is mounted
     setState(() {
       _isVisible = info.visibleFraction > 0;
 
@@ -200,9 +202,9 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
           _isOpen = false;
         }
       } else if (_isVisible && !_isOpen && _focusNode.hasFocus) {
-          _overlayEntry = _createOverlayEntry();
-          Overlay.of(context)!.insert(_overlayEntry!);
-          _isOpen = true;
+        _overlayEntry = _createOverlayEntry();
+        Overlay.of(context)!.insert(_overlayEntry!);
+        _isOpen = true;
       }
     });
   }
@@ -242,16 +244,23 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                 width: width,
                 height: Common.height,
                 child: TextField(
+                  key: _textFieldKey,
                   readOnly: !widget.isSearchable || widget.readOnly,
                   enabled: !widget.isDisabled,
                   onTap: widget.readOnly
                       ? null
                       : widget.isSearchable
                           ? () {
+                              if (widget.onTap != null) {
+                                widget.onTap!();
+                              }
                               _toggleDropdown();
                               FocusScope.of(context).requestFocus(_focusNode);
                             }
                           : () {
+                              if (widget.onTap != null) {
+                                widget.onTap!();
+                              }
                               _toggleDropdown();
                             },
                   showCursor:
@@ -298,7 +307,9 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                               ? const DigitColors().light.alertError
                               : _isOpen
                                   ? const DigitColors().light.primary1
-                                  : const DigitColors().light.genericInputBorder,
+                                  : const DigitColors()
+                                      .light
+                                      .genericInputBorder,
                           width: _isOpen || widget.errorMessage != null
                               ? Common.errorBorderWidth
                               : Common.defaultBorderWidth),
@@ -326,6 +337,9 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                       onTap: widget.readOnly
                           ? null
                           : () {
+                              if (widget.onTap != null) {
+                                widget.onTap!();
+                              }
                               _toggleDropdown();
                             },
                       child: Icon(
@@ -365,8 +379,9 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                       width: spacer4,
                                       child: Icon(
                                         Icons.info,
-                                        color:
-                                            const DigitColors().light.alertError,
+                                        color: const DigitColors()
+                                            .light
+                                            .alertError,
                                         size: BaseConstants.errorIconSize,
                                       ),
                                     ),
@@ -376,11 +391,13 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                 Flexible(
                                   fit: FlexFit.tight,
                                   child: Text(
-                                    widget.errorMessage!.length > 256
-                                        ? '${widget.errorMessage!.substring(0, 256)}...'
-                                        : widget.errorMessage!,
+                                    truncateWithEllipsis(
+                                        256,
+                                        convertInToSentenceCase(
+                                            widget.errorMessage)!),
                                     style: currentTypography.bodyS.copyWith(
-                                      color: const DigitColors().light.alertError,
+                                      color:
+                                          const DigitColors().light.alertError,
                                     ),
                                   ),
                                 ),
@@ -389,9 +406,8 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                           )
                         : Expanded(
                             child: Text(
-                              widget.helpText!.length > 256
-                                  ? '${widget.helpText!.substring(0, 256)}...'
-                                  : widget.helpText!,
+                              truncateWithEllipsis(256,
+                                  convertInToSentenceCase(widget.helpText)!),
                               style: currentTypography.bodyS.copyWith(
                                 color: const DigitColors().light.textSecondary,
                               ),
@@ -440,7 +456,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
   ///overlay for dropdown
   OverlayEntry _createOverlayEntry() {
     /// find the size and position of the current widget
-    RenderBox? renderBox = context?.findRenderObject() as RenderBox?;
+    RenderBox? renderBox = _textFieldKey.currentContext?.findRenderObject() as RenderBox?;
     if (renderBox == null) {
       /// Handle the case where renderBox is null (e.g., widget not yet laid out)
       return OverlayEntry(builder: (context) => const SizedBox.shrink());
@@ -514,7 +530,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
     return filteredItems.isNotEmpty
         ? Scrollbar(
             radius: const Radius.circular(Common.defaultCircularRadius),
-            thickness: spacer5/2,
+            thickness: spacer5 / 2,
             child: ListView.separated(
               separatorBuilder: (_, __) => const SizedBox(height: 0),
               shrinkWrap: true,
@@ -560,10 +576,10 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                       onTap: () {
                         setState(
                             () => _currentIndex = filteredItems[index].code);
-                        if(widget.onSelect!=null){
+                        _toggleDropdown();
+                        if (widget.onSelect != null) {
                           widget.onSelect!(filteredItems[index]);
                         }
-                        _toggleDropdown();
                       },
                       child: Container(
                         decoration: BoxDecoration(
@@ -710,7 +726,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                                 ? overlayWidth - 40
                                                 : overlayWidth - 16,
                                         child: Text(
-                                          capitalizeFirstLetter(
+                                          convertInToSentenceCase(
                                               filteredItems[index].name)!,
                                           softWrap: true,
                                           maxLines: 1,
@@ -757,8 +773,8 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                               ? overlayWidth - 40
                                               : overlayWidth - 16,
                                       child: Text(
-                                        capitalizeFirstLetter(
-                                            filteredItems[index].description!)!,
+                                        convertInToSentenceCase(
+                                            filteredItems[index].description)!,
                                         overflow: TextOverflow.ellipsis,
                                         maxLines: 10,
                                         softWrap: true,
@@ -794,7 +810,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
             child: Padding(
               padding: DropdownConstants.noItemAvailablePadding,
               child: Text(
-                capitalizeFirstLetter(widget.emptyItemText)!,
+                convertInToSentenceCase(widget.emptyItemText)!,
                 style: currentTypography.bodyS.copyWith(
                   color: const DigitColors().light.textDisabled,
                 ),
@@ -836,7 +852,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Text(capitalizeFirstLetter(currentType!)!,
+                                Text(convertInToSentenceCase(currentType)!,
                                     style: currentTypography.headingS.copyWith(
                                       color: const DigitColors()
                                           .light
@@ -883,10 +899,10 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                         setState(() {
                                           _nestedIndex = typeItems[index].code;
                                         });
-                                        if(widget.onSelect!=null){
+                                        _toggleDropdown();
+                                        if (widget.onSelect != null) {
                                           widget.onSelect!(typeItems[index]);
                                         }
-                                        _toggleDropdown();
                                       },
                                       child: Container(
                                         width:
@@ -1014,7 +1030,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                                       .profileImageUrl !=
                                                   null)
                                                 const SizedBox(
-                                                  width: spacer3/2,
+                                                  width: spacer3 / 2,
                                                 ),
                                               Column(
                                                 crossAxisAlignment:
@@ -1058,10 +1074,12 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                                             : filteredItems[index]
                                                                         .textIcon !=
                                                                     null
-                                                                ? overlayWidth - 40
-                                                                : overlayWidth - 16,
+                                                                ? overlayWidth -
+                                                                    40
+                                                                : overlayWidth -
+                                                                    16,
                                                         child: Text(
-                                                          capitalizeFirstLetter(
+                                                          convertInToSentenceCase(
                                                               typeItems[index]
                                                                   .name)!,
                                                           maxLines: 1,
@@ -1101,10 +1119,12 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                                           : filteredItems[index]
                                                                       .textIcon !=
                                                                   null
-                                                              ? overlayWidth - 40
-                                                              : overlayWidth - 16,
+                                                              ? overlayWidth -
+                                                                  40
+                                                              : overlayWidth -
+                                                                  16,
                                                       child: Text(
-                                                        capitalizeFirstLetter(
+                                                        convertInToSentenceCase(
                                                             typeItems[index]
                                                                 .description!)!,
                                                         maxLines: 10,
@@ -1166,7 +1186,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
             child: Padding(
               padding: DropdownConstants.noItemAvailablePadding,
               child: Text(
-                capitalizeFirstLetter(widget.emptyItemText)!,
+                convertInToSentenceCase(widget.emptyItemText)!,
                 style: currentTypography.bodyS.copyWith(
                   color: const DigitColors().light.textDisabled,
                 ),
@@ -1203,10 +1223,10 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
     if (_focusedIndex != -1) {
       DropdownItem selectedItem = filteredItems[_focusedIndex];
       setState(() => _currentIndex = selectedItem.code);
-      if(widget.onSelect!=null){
+      _toggleDropdown(close: true);
+      if (widget.onSelect != null) {
         widget.onSelect!(selectedItem);
       }
-      _toggleDropdown(close: true);
     }
   }
 
@@ -1279,8 +1299,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
       /// Check if the found item is not the default item
       if (selectedItem.name.isNotEmpty) {
         setState(() {
-          _controller.text =
-              '${selectedItem.type}: ${selectedItem.name}';
+          _controller.text = '${selectedItem.type}: ${selectedItem.name}';
         });
       }
     } else {

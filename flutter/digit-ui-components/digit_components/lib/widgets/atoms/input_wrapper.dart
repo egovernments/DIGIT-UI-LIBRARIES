@@ -32,7 +32,7 @@ class InputField extends StatelessWidget {
   final TooltipTriggerMode triggerMode;
   final bool preferToolTipBelow;
   final IconData? suffixIcon;
-  final TextInputType keyboardType;
+  final TextInputType? keyboardType;
   final void Function(String?)? onError;
   final List<Validator>? validations;
   final void Function(String)? onChange;
@@ -76,7 +76,7 @@ class InputField extends StatelessWidget {
     this.triggerMode = TooltipTriggerMode.tap,
     this.preferToolTipBelow = false,
     this.suffixIcon,
-    this.keyboardType = TextInputType.text,
+    this.keyboardType,
     this.onError,
     this.validations,
     this.onChange,
@@ -107,6 +107,7 @@ class InputField extends StatelessWidget {
           isDisabled: isDisabled,
           isRequired: isRequired,
           charCount: charCount,
+          keyboardType: keyboardType,
           innerLabel: innerLabel,
           helpText: helpText,
           suffixText: suffixText,
@@ -123,6 +124,7 @@ class InputField extends StatelessWidget {
           controller: controller,
           initialValue: initialValue,
           readOnly: readOnly,
+          keyboardType: keyboardType,
           isDisabled: isDisabled,
           isRequired: isRequired,
           charCount: charCount,
@@ -191,6 +193,7 @@ class InputField extends StatelessWidget {
           isRequired: isRequired,
           charCount: charCount,
           innerLabel: innerLabel,
+          keyboardType: keyboardType,
           helpText: helpText,
           suffixIcon: suffixIcon,
           onError: onError,
@@ -206,6 +209,7 @@ class InputField extends StatelessWidget {
           readOnly: readOnly,
           isDisabled: isDisabled,
           isRequired: isRequired,
+          keyboardType: keyboardType,
           charCount: charCount,
           innerLabel: innerLabel,
           helpText: helpText,
@@ -226,6 +230,7 @@ class InputField extends StatelessWidget {
           isRequired: isRequired,
           charCount: charCount,
           innerLabel: innerLabel,
+          keyboardType: keyboardType,
           helpText: helpText,
           suffixIcon: suffixIcon,
           onError: onError,
@@ -245,6 +250,7 @@ class InputField extends StatelessWidget {
           isDisabled: isDisabled,
           isRequired: isRequired,
           charCount: charCount,
+          keyboardType: keyboardType,
           innerLabel: innerLabel,
           helpText: helpText,
           onError: onError,
