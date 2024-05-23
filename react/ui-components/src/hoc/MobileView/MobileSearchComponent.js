@@ -79,7 +79,7 @@ const MobileSearchComponent = ({ uiConfig, modalType, header = "", screenType = 
         }
       })
     } else {
-      setShowToast({ warning: true, label: t("ES_COMMON_MIN_SEARCH_CRITERIA_MSG") })
+      setShowToast({ type : "warning", label: t("ES_COMMON_MIN_SEARCH_CRITERIA_MSG") })
       setTimeout(closeToast, 3000);
     }
   }
@@ -171,8 +171,7 @@ const renderHeader = () => {
           </div> 
         </form>
         { showToast && <Toast 
-          error={showToast.error}
-          warning={showToast.warning}
+          type={showToast.type}
           label={t(showToast.label)}
           isDleteBtn={true}
           onClose={closeToast} />

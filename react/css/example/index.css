@@ -1,5 +1,5 @@
 /*!
- * @egovernments/digit-ui-css - 1.8.2-coreui.13
+ * @egovernments/digit-ui-css - 1.8.2-coreui.18
  *
  * Copyright (c) 2024 Jagankumar <jagan.kumar@egov.org.in>
  * 
@@ -9311,24 +9311,24 @@ body {
     font-size: 1rem;
     line-height: 1.5rem; } }
 
-.typography.text-body-l, .digit-paragraph, .typography.text-body-s, .digit-date-picker .digit-employee-card-input, .digit-error-message, .digit-employee-card .digit-error-message, .digit-mobile-number-container .digit-citizen-card-input--front, .digit-mobile-number-container .digit-citizen-card-input, .digit-mobile-number-container .digit-employee-card-input-error, .digit-employeeCard-input, .digit-employeeCard-input--front, .digit-employeeCard-inputError, .digit-citizenCard-input, .digit-citizenCard-input--front, .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field.field-boolean .custom-checkbox .custom-checkbox-label, .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field.field-boolean .checkbox-wrap .custom-checkbox-emp .custom-checkbox-label, .checkbox-wrap .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field.field-boolean .custom-checkbox-emp .custom-checkbox-label {
+.typography.text-body-l, .digit-paragraph, .typography.text-body-s, .digit-date-picker .digit-employee-card-input, .digit-mobile-number-container .digit-citizen-card-input--front, .digit-mobile-number-container .digit-citizen-card-input, .digit-mobile-number-container .digit-employee-card-input-error, .digit-employeeCard-input, .digit-employeeCard-input--front, .digit-employeeCard-inputError, .digit-citizenCard-input, .digit-citizenCard-input--front, .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field.field-boolean .custom-checkbox .custom-checkbox-label, .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field.field-boolean .checkbox-wrap .custom-checkbox-emp .custom-checkbox-label, .checkbox-wrap .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field.field-boolean .custom-checkbox-emp .custom-checkbox-label {
   font-family: Roboto;
   font-style: italic;
   font-weight: 400;
   color: #363636; }
 
 @media screen and (min-width: 1024px) {
-  .typography.text-body-s, .digit-date-picker .digit-employee-card-input, .digit-error-message, .digit-employee-card .digit-error-message, .digit-mobile-number-container .digit-citizen-card-input--front, .digit-mobile-number-container .digit-citizen-card-input, .digit-mobile-number-container .digit-employee-card-input-error, .digit-employeeCard-input, .digit-employeeCard-input--front, .digit-employeeCard-inputError, .digit-citizenCard-input, .digit-citizenCard-input--front, .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field.field-boolean .custom-checkbox .custom-checkbox-label, .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field.field-boolean .checkbox-wrap .custom-checkbox-emp .custom-checkbox-label, .checkbox-wrap .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field.field-boolean .custom-checkbox-emp .custom-checkbox-label {
+  .typography.text-body-s, .digit-date-picker .digit-employee-card-input, .digit-mobile-number-container .digit-citizen-card-input--front, .digit-mobile-number-container .digit-citizen-card-input, .digit-mobile-number-container .digit-employee-card-input-error, .digit-employeeCard-input, .digit-employeeCard-input--front, .digit-employeeCard-inputError, .digit-citizenCard-input, .digit-citizenCard-input--front, .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field.field-boolean .custom-checkbox .custom-checkbox-label, .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field.field-boolean .checkbox-wrap .custom-checkbox-emp .custom-checkbox-label, .checkbox-wrap .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field.field-boolean .custom-checkbox-emp .custom-checkbox-label {
     font-size: 1rem;
     line-height: 1.5rem; } }
 
 @media screen and (min-width: 768px) {
-  .typography.text-body-s, .digit-date-picker .digit-employee-card-input, .digit-error-message, .digit-employee-card .digit-error-message, .digit-mobile-number-container .digit-citizen-card-input--front, .digit-mobile-number-container .digit-citizen-card-input, .digit-mobile-number-container .digit-employee-card-input-error, .digit-employeeCard-input, .digit-employeeCard-input--front, .digit-employeeCard-inputError, .digit-citizenCard-input, .digit-citizenCard-input--front, .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field.field-boolean .custom-checkbox .custom-checkbox-label, .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field.field-boolean .checkbox-wrap .custom-checkbox-emp .custom-checkbox-label, .checkbox-wrap .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field.field-boolean .custom-checkbox-emp .custom-checkbox-label {
+  .typography.text-body-s, .digit-date-picker .digit-employee-card-input, .digit-mobile-number-container .digit-citizen-card-input--front, .digit-mobile-number-container .digit-citizen-card-input, .digit-mobile-number-container .digit-employee-card-input-error, .digit-employeeCard-input, .digit-employeeCard-input--front, .digit-employeeCard-inputError, .digit-citizenCard-input, .digit-citizenCard-input--front, .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field.field-boolean .custom-checkbox .custom-checkbox-label, .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field.field-boolean .checkbox-wrap .custom-checkbox-emp .custom-checkbox-label, .checkbox-wrap .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field.field-boolean .custom-checkbox-emp .custom-checkbox-label {
     font-size: 1rem;
     line-height: 1.5rem; } }
 
 @media screen and (min-width: 400px) {
-  .typography.text-body-s, .digit-date-picker .digit-employee-card-input, .digit-error-message, .digit-employee-card .digit-error-message, .digit-mobile-number-container .digit-citizen-card-input--front, .digit-mobile-number-container .digit-citizen-card-input, .digit-mobile-number-container .digit-employee-card-input-error, .digit-employeeCard-input, .digit-employeeCard-input--front, .digit-employeeCard-inputError, .digit-citizenCard-input, .digit-citizenCard-input--front, .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field.field-boolean .custom-checkbox .custom-checkbox-label, .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field.field-boolean .checkbox-wrap .custom-checkbox-emp .custom-checkbox-label, .checkbox-wrap .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field.field-boolean .custom-checkbox-emp .custom-checkbox-label {
+  .typography.text-body-s, .digit-date-picker .digit-employee-card-input, .digit-mobile-number-container .digit-citizen-card-input--front, .digit-mobile-number-container .digit-citizen-card-input, .digit-mobile-number-container .digit-employee-card-input-error, .digit-employeeCard-input, .digit-employeeCard-input--front, .digit-employeeCard-inputError, .digit-citizenCard-input, .digit-citizenCard-input--front, .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field.field-boolean .custom-checkbox .custom-checkbox-label, .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field.field-boolean .checkbox-wrap .custom-checkbox-emp .custom-checkbox-label, .checkbox-wrap .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field.field-boolean .custom-checkbox-emp .custom-checkbox-label {
     font-size: .875rem;
     line-height: 1.0938rem; } }
 
@@ -9508,18 +9508,18 @@ body {
       font-size: 1.25rem; } }
 
 @media (max-aspect-ratio: 9 / 16) {
-  .typography.body-s, .digit-checkbox-container .label, .digit-multiselectdropdown-wrap .digit-category-selectAll .category-selectAll-label, .digit-multiselectdropdown-wrap .digit-multiselectdropodwn-menuitem p, .digit-radio-options-wrap label, .digit-dropdown-item .option-des-container .main-option, .digit-dropdown-item.unsuccessfulresults span, .digit-tag-container .digit-tag .digit-text, .digit-header-content.label .info-icon .infotext, .digit-field .digit-charcount, .digit-field .digit-description, .digit-field .digit-error .digit-error-message, .digit-option-label, .digit-stepper-container .digit-stepper-content .stepper-label, .timeline-date, .digit-uploader-wrap .digit-uploader-content-uploadpopup .drag-drop-text, .digit-uploader-wrap .digit-uploadpopup-label, .digit-uploader-wrap .digit-uploader-input, .digit-uploader-wrap .digit-upload-helptext {
+  .typography.body-s, .digit-checkbox-container .label, .digit-error-icon-message-wrap .digit-error-message, .digit-multiselectdropdown-wrap .digit-category-selectAll .category-selectAll-label, .digit-multiselectdropdown-wrap .digit-multiselectdropodwn-menuitem p, .digit-radio-options-wrap label, .digit-dropdown-item .option-des-container .main-option, .digit-dropdown-item.unsuccessfulresults span, .digit-tag-container .digit-tag .digit-text, .digit-header-content.label .info-icon .infotext, .digit-field .digit-charcount, .digit-field .digit-description, .digit-option-label, .digit-stepper-container .digit-stepper-content .stepper-label, .timeline-date, .digit-uploader-wrap .digit-uploader-content-uploadpopup .drag-drop-text, .digit-uploader-wrap .digit-uploadpopup-label, .digit-uploader-wrap .digit-uploader-input, .digit-uploader-wrap .digit-upload-helptext {
     font-size: .875rem; } }
 
 @media (min-aspect-ratio: 9 / 16) and (max-aspect-ratio: 3 / 4) {
-  .typography.body-s, .digit-checkbox-container .label, .digit-multiselectdropdown-wrap .digit-category-selectAll .category-selectAll-label, .digit-multiselectdropdown-wrap .digit-multiselectdropodwn-menuitem p, .digit-radio-options-wrap label, .digit-dropdown-item .option-des-container .main-option, .digit-dropdown-item.unsuccessfulresults span, .digit-tag-container .digit-tag .digit-text, .digit-header-content.label .info-icon .infotext, .digit-field .digit-charcount, .digit-field .digit-description, .digit-field .digit-error .digit-error-message, .digit-option-label, .digit-stepper-container .digit-stepper-content .stepper-label, .timeline-date, .digit-uploader-wrap .digit-uploader-content-uploadpopup .drag-drop-text, .digit-uploader-wrap .digit-uploadpopup-label, .digit-uploader-wrap .digit-uploader-input, .digit-uploader-wrap .digit-upload-helptext {
+  .typography.body-s, .digit-checkbox-container .label, .digit-error-icon-message-wrap .digit-error-message, .digit-multiselectdropdown-wrap .digit-category-selectAll .category-selectAll-label, .digit-multiselectdropdown-wrap .digit-multiselectdropodwn-menuitem p, .digit-radio-options-wrap label, .digit-dropdown-item .option-des-container .main-option, .digit-dropdown-item.unsuccessfulresults span, .digit-tag-container .digit-tag .digit-text, .digit-header-content.label .info-icon .infotext, .digit-field .digit-charcount, .digit-field .digit-description, .digit-option-label, .digit-stepper-container .digit-stepper-content .stepper-label, .timeline-date, .digit-uploader-wrap .digit-uploader-content-uploadpopup .drag-drop-text, .digit-uploader-wrap .digit-uploadpopup-label, .digit-uploader-wrap .digit-uploader-input, .digit-uploader-wrap .digit-upload-helptext {
     font-size: 1rem; } }
 
 @media (min-aspect-ratio: 3 / 4) {
-  .typography.body-s, .digit-checkbox-container .label, .digit-multiselectdropdown-wrap .digit-category-selectAll .category-selectAll-label, .digit-multiselectdropdown-wrap .digit-multiselectdropodwn-menuitem p, .digit-radio-options-wrap label, .digit-dropdown-item .option-des-container .main-option, .digit-dropdown-item.unsuccessfulresults span, .digit-tag-container .digit-tag .digit-text, .digit-header-content.label .info-icon .infotext, .digit-field .digit-charcount, .digit-field .digit-description, .digit-field .digit-error .digit-error-message, .digit-option-label, .digit-stepper-container .digit-stepper-content .stepper-label, .timeline-date, .digit-uploader-wrap .digit-uploader-content-uploadpopup .drag-drop-text, .digit-uploader-wrap .digit-uploadpopup-label, .digit-uploader-wrap .digit-uploader-input, .digit-uploader-wrap .digit-upload-helptext {
+  .typography.body-s, .digit-checkbox-container .label, .digit-error-icon-message-wrap .digit-error-message, .digit-multiselectdropdown-wrap .digit-category-selectAll .category-selectAll-label, .digit-multiselectdropdown-wrap .digit-multiselectdropodwn-menuitem p, .digit-radio-options-wrap label, .digit-dropdown-item .option-des-container .main-option, .digit-dropdown-item.unsuccessfulresults span, .digit-tag-container .digit-tag .digit-text, .digit-header-content.label .info-icon .infotext, .digit-field .digit-charcount, .digit-field .digit-description, .digit-option-label, .digit-stepper-container .digit-stepper-content .stepper-label, .timeline-date, .digit-uploader-wrap .digit-uploader-content-uploadpopup .drag-drop-text, .digit-uploader-wrap .digit-uploadpopup-label, .digit-uploader-wrap .digit-uploader-input, .digit-uploader-wrap .digit-upload-helptext {
     font-size: 1rem; } }
 
-.typography.body-s, .digit-checkbox-container .label, .digit-multiselectdropdown-wrap .digit-category-selectAll .category-selectAll-label, .digit-multiselectdropdown-wrap .digit-multiselectdropodwn-menuitem p, .digit-radio-options-wrap label, .digit-dropdown-item .option-des-container .main-option, .digit-dropdown-item.unsuccessfulresults span, .digit-tag-container .digit-tag .digit-text, .digit-header-content.label .info-icon .infotext, .digit-field .digit-charcount, .digit-field .digit-description, .digit-field .digit-error .digit-error-message, .digit-option-label, .digit-stepper-container .digit-stepper-content .stepper-label, .timeline-date, .digit-uploader-wrap .digit-uploader-content-uploadpopup .drag-drop-text, .digit-uploader-wrap .digit-uploadpopup-label, .digit-uploader-wrap .digit-uploader-input, .digit-uploader-wrap .digit-upload-helptext, .typography.body-xs, .digit-dropdown-item .option-des-container .option-description, .digit-toggle-btn-wrap .digit-toggle-label {
+.typography.body-s, .digit-checkbox-container .label, .digit-error-icon-message-wrap .digit-error-message, .digit-multiselectdropdown-wrap .digit-category-selectAll .category-selectAll-label, .digit-multiselectdropdown-wrap .digit-multiselectdropodwn-menuitem p, .digit-radio-options-wrap label, .digit-dropdown-item .option-des-container .main-option, .digit-dropdown-item.unsuccessfulresults span, .digit-tag-container .digit-tag .digit-text, .digit-header-content.label .info-icon .infotext, .digit-field .digit-charcount, .digit-field .digit-description, .digit-option-label, .digit-stepper-container .digit-stepper-content .stepper-label, .timeline-date, .digit-uploader-wrap .digit-uploader-content-uploadpopup .drag-drop-text, .digit-uploader-wrap .digit-uploadpopup-label, .digit-uploader-wrap .digit-uploader-input, .digit-uploader-wrap .digit-upload-helptext, .typography.body-xs, .digit-dropdown-item .option-des-container .option-description, .digit-toggle-btn-wrap .digit-toggle-label {
   font-family: Roboto;
   font-style: normal;
   font-weight: 400;
@@ -10741,7 +10741,7 @@ ol, ul {
     line-height: 20px;
     width: calc(100% - 62px);
     padding-right: 9px;
-    border: 1px solid #7d7d7d;
+    border: 1px solid #787878;
     color: #363636; }
 
 .digit-details-container {
@@ -10813,13 +10813,28 @@ ol, ul {
       padding: 8px;
       width: 100px; }
 
-.digit-error-message {
-  display: block;
-  margin-bottom: 16px; }
-
-.digit-employee-card .digit-error-message {
-  font-size: 12px;
-  margin-top: -21px; }
+.digit-error-icon-message-wrap {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  grid-gap: .25rem;
+  gap: .25rem; }
+  .digit-error-icon-message-wrap .digit-error-icon {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    width: 1rem;
+    height: 1.37rem; }
+  .digit-error-icon-message-wrap .digit-error-message {
+    width: 100%;
+    margin: 0;
+    color: #b91900; }
 
 .digit-home-footer.citizen {
   display: -webkit-box;
@@ -11128,7 +11143,7 @@ ol, ul {
   .digit-infobanner-wrap p {
     white-space: pre-line;
     font-weight: 400;
-    color: #7d7d7d;
+    color: #787878;
     font-style: normal;
     font-size: .875rem;
     line-height: 1.25rem;
@@ -11418,7 +11433,7 @@ ol, ul {
     line-height: 2.5rem;
     font-size: 16px;
     line-height: 20px;
-    border: 1px solid #7d7d7d;
+    border: 1px solid #787878;
     color: #363636; }
   .digit-mobile-number-container .digit-citizen-card-input--front {
     width: -webkit-fit-content !important;
@@ -11641,12 +11656,12 @@ ol, ul {
     .digit-multiselectdropdown-wrap .digit-category-selectAll .digit-multiselectdropodwn-custom-checkbox-selectAll {
       height: 1.25rem;
       width: 1.25rem;
-      border: .063rem solid #7d7d7d; }
+      border: .063rem solid #787878; }
       .digit-multiselectdropdown-wrap .digit-category-selectAll .digit-multiselectdropodwn-custom-checkbox-selectAll svg {
         opacity: 0;
         z-index: 10; }
     .digit-multiselectdropdown-wrap .digit-category-selectAll input:active ~ .digit-multiselectdropodwn-custom-checkbox-selectAll, .digit-multiselectdropdown-wrap .digit-category-selectAll .checkbox-wrap .input-emp:active ~ .digit-multiselectdropodwn-custom-checkbox-selectAll, .checkbox-wrap .digit-multiselectdropdown-wrap .digit-category-selectAll .input-emp:active ~ .digit-multiselectdropodwn-custom-checkbox-selectAll, .digit-multiselectdropdown-wrap .digit-category-selectAll .digit-checkbox-container .input-emp:active ~ .digit-multiselectdropodwn-custom-checkbox-selectAll, .digit-checkbox-container .digit-multiselectdropdown-wrap .digit-category-selectAll .input-emp:active ~ .digit-multiselectdropodwn-custom-checkbox-selectAll, .digit-multiselectdropdown-wrap .digit-category-selectAll input:checked ~ .digit-multiselectdropodwn-custom-checkbox-selectAll, .digit-multiselectdropdown-wrap .digit-category-selectAll .checkbox-wrap .input-emp:checked ~ .digit-multiselectdropodwn-custom-checkbox-selectAll, .checkbox-wrap .digit-multiselectdropdown-wrap .digit-category-selectAll .input-emp:checked ~ .digit-multiselectdropodwn-custom-checkbox-selectAll, .digit-multiselectdropdown-wrap .digit-category-selectAll .digit-checkbox-container .input-emp:checked ~ .digit-multiselectdropodwn-custom-checkbox-selectAll, .digit-checkbox-container .digit-multiselectdropdown-wrap .digit-category-selectAll .input-emp:checked ~ .digit-multiselectdropodwn-custom-checkbox-selectAll {
-      border: 1.25rem solid #c84c0e;
+      border: .125rem solid #c84c0e;
       background-color: #fafafa; }
     .digit-multiselectdropdown-wrap .digit-category-selectAll input:active ~ .digit-multiselectdropodwn-custom-checkbox-selectAll svg, .digit-multiselectdropdown-wrap .digit-category-selectAll .checkbox-wrap .input-emp:active ~ .digit-multiselectdropodwn-custom-checkbox-selectAll svg, .checkbox-wrap .digit-multiselectdropdown-wrap .digit-category-selectAll .input-emp:active ~ .digit-multiselectdropodwn-custom-checkbox-selectAll svg, .digit-multiselectdropdown-wrap .digit-category-selectAll .digit-checkbox-container .input-emp:active ~ .digit-multiselectdropodwn-custom-checkbox-selectAll svg, .digit-checkbox-container .digit-multiselectdropdown-wrap .digit-category-selectAll .input-emp:active ~ .digit-multiselectdropodwn-custom-checkbox-selectAll svg, .digit-multiselectdropdown-wrap .digit-category-selectAll input:checked ~ .digit-multiselectdropodwn-custom-checkbox-selectAll svg, .digit-multiselectdropdown-wrap .digit-category-selectAll .checkbox-wrap .input-emp:checked ~ .digit-multiselectdropodwn-custom-checkbox-selectAll svg, .checkbox-wrap .digit-multiselectdropdown-wrap .digit-category-selectAll .input-emp:checked ~ .digit-multiselectdropodwn-custom-checkbox-selectAll svg, .digit-multiselectdropdown-wrap .digit-category-selectAll .digit-checkbox-container .input-emp:checked ~ .digit-multiselectdropodwn-custom-checkbox-selectAll svg, .digit-checkbox-container .digit-multiselectdropdown-wrap .digit-category-selectAll .input-emp:checked ~ .digit-multiselectdropodwn-custom-checkbox-selectAll svg {
       opacity: 1;
@@ -11730,7 +11745,7 @@ ol, ul {
     .digit-multiselectdropdown-wrap .digit-multiselectdropodwn-menuitem .digit-multiselectdropodwn-custom-checkbox, .digit-multiselectdropdown-wrap .digit-multiselectdropodwn-menuitem .digit-multiselectdropodwn-custom-checkbox-selectAll {
       height: 1.25rem;
       width: 1.25rem;
-      border: .063rem solid #7d7d7d;
+      border: .063rem solid #787878;
       margin: .594rem .75rem .594rem .625rem; }
       .digit-multiselectdropdown-wrap .digit-multiselectdropodwn-menuitem .digit-multiselectdropodwn-custom-checkbox svg, .digit-multiselectdropdown-wrap .digit-multiselectdropodwn-menuitem .digit-multiselectdropodwn-custom-checkbox-selectAll svg {
         opacity: 0;
@@ -11773,12 +11788,12 @@ ol, ul {
         width: 100% !important;
         margin: 0; }
         .digit-multiselectdropdown-wrap .digit-multiselectdropodwn-menuitem.nestedtextmultiselect .option-des-container p {
-          color: #7d7d7d;
+          color: #787878;
           padding: 0;
           margin-bottom: 0;
           margin-top: 0; }
         .digit-multiselectdropdown-wrap .digit-multiselectdropodwn-menuitem.nestedtextmultiselect .option-des-container .option-description {
-          color: #7d7d7d;
+          color: #787878;
           font-family: Roboto;
           font-size: .75rem;
           font-style: normal;
@@ -12208,7 +12223,7 @@ ol, ul {
     --bg-opacity:1;
     background-color: #fff;
     background-color: rgba(255, 255, 255, var(--bg-opacity));
-    border: .063rem solid #7d7d7d; }
+    border: .063rem solid #787878; }
     .digit-dropdown-employee-select-wrap .digit-dropdown-select.digit-field-error {
       border: .063rem solid #b91900; }
     .digit-dropdown-employee-select-wrap .digit-dropdown-select.disabled {
@@ -12415,9 +12430,9 @@ ol, ul {
       overflow: hidden;
       text-overflow: ellipsis; }
       .digit-dropdown-item .option-des-container .main-option.nestedtextdropdown, .digit-dropdown-item .option-des-container .main-option.profilenestedtext {
-        color: #7d7d7d; }
+        color: #787878; }
     .digit-dropdown-item .option-des-container .option-description {
-      color: #7d7d7d; }
+      color: #787878; }
   .digit-dropdown-item:not(.nesteddropdown):not(.treedropdown):not(:active):nth-of-type(2n) {
     background: #fafafa; }
   .digit-dropdown-item.nesteddropdown {
@@ -12444,7 +12459,7 @@ ol, ul {
   .digit-dropdown-item.nestedtextdropdown {
     min-height: 4.75rem;
     padding: .5rem .635rem;
-    color: #7d7d7d !important; }
+    color: #787878 !important; }
     .digit-dropdown-item.nestedtextdropdown:hover {
       border: .063rem solid #c84c0e; }
     .digit-dropdown-item.nestedtextdropdown .option-des-container {
@@ -12462,7 +12477,7 @@ ol, ul {
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-    color: #7d7d7d !important; }
+    color: #787878 !important; }
     .digit-dropdown-item.profilenestedtext:active .option-des-container .main-option {
       color: #fff; }
   .digit-dropdown-item.unsuccessfulresults {
@@ -12503,7 +12518,7 @@ ol, ul {
     --bg-opacity:1;
     background-color: #fff;
     background-color: rgba(255, 255, 255, var(--bg-opacity));
-    border: .063rem solid #7d7d7d; }
+    border: .063rem solid #787878; }
     .digit-dropdown-select-wrap .digit-dropdown-select input[type=text], .digit-dropdown-select-wrap .digit-dropdown-select .checkbox-wrap .input-emp[type=text], .checkbox-wrap .digit-dropdown-select-wrap .digit-dropdown-select .input-emp[type=text], .digit-dropdown-select-wrap .digit-dropdown-select .digit-checkbox-container .input-emp[type=text], .digit-checkbox-container .digit-dropdown-select-wrap .digit-dropdown-select .input-emp[type=text] {
       position: absolute;
       z-index: 10;
@@ -12604,10 +12619,21 @@ ol, ul {
         background-color: #eee;
         background-color: rgba(238, 238, 238, var(--bg-opacity)); }
 
-.digit-tag-container {
+.digit-tag-error-container {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  max-width: 100%;
+  grid-gap: .25rem;
+  gap: .25rem; }
+
+.digit-tag-container, .digit-tag-error-container {
   display: -webkit-box;
   display: -ms-flexbox;
-  display: flex;
+  display: flex; }
+
+.digit-tag-container {
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   margin-bottom: 16px;
@@ -12623,9 +12649,8 @@ ol, ul {
       min-width: 12.5rem; } }
   @media (max-aspect-ratio: 9 / 16) {
     .digit-tag-container {
-      max-width: 20.5rem;
-      min-width: 9.75rem;
-      width: 100%; } }
+      width: 100%;
+      max-width: 100%; } }
   @media (min-aspect-ratio: 3 / 4) {
     .digit-tag-container {
       max-width: 37.5rem;
@@ -12638,6 +12663,8 @@ ol, ul {
     -ms-flex-align: center;
     align-items: center;
     height: 2.5rem;
+    width: 100%;
+    max-width: 100%;
     padding: .5rem;
     grid-gap: .5rem;
     gap: .5rem;
@@ -12647,31 +12674,55 @@ ol, ul {
     border: .063rem solid #d6d5d4; }
     .digit-tag-container .digit-tag .digit-text {
       overflow: hidden;
-      height: 1rem;
-      max-width: calc(100% - 1.5rem);
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      white-space: nowrap;
+      max-width: calc(100% - 1.75rem);
+      width: calc(100% - 1.75rem);
       text-overflow: clip;
       color: #363636;
-      line-height: 1.026rem; }
+      text-overflow: ellipsis; }
     .digit-tag-container .digit-tag .close-icon {
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: flex;
       -webkit-box-align: center;
       -ms-flex-align: center;
       align-items: center;
       width: 1.5rem;
       height: 1.5rem;
       cursor: pointer;
-      border: .063rem solid #7d7d7d;
+      -ms-flex-negative: 0;
+      flex-shrink: 0;
+      border: .063rem solid #787878;
       border-radius: .25rem;
-      background-color: #7d7d7d; }
+      background-color: #787878;
+      display: -webkit-box !important;
+      display: -ms-flexbox !important;
+      display: flex !important;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      justify-content: center; }
+      .digit-tag-container .digit-tag .close-icon.disabled {
+        pointer-events: none; }
+      .digit-tag-container .digit-tag .close-icon svg {
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -ms-flex-negative: 0;
+        flex-shrink: 0;
+        width: 1.5rem;
+        height: 1.5rem;
+        display: -webkit-box !important;
+        display: -ms-flexbox !important;
+        display: flex !important;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center; }
     .digit-tag-container .digit-tag.errortag {
       border: .063rem solid #b91900;
       background-color: #fff;
       -webkit-box-shadow: 0.125rem 0.125rem 0.25rem 0 rgba(212, 53, 28, 0.30196);
       box-shadow: 0.125rem 0.125rem 0.25rem 0 rgba(212, 53, 28, 0.30196); }
       .digit-tag-container .digit-tag.errortag .digit-text {
-        line-height: 1.172rem;
         color: #b91900; }
       .digit-tag-container .digit-tag.errortag .close-icon {
         border: .063rem solid #b91900;
@@ -12730,7 +12781,7 @@ ol, ul {
   font-style: normal;
   font-weight: 400;
   color: #363636;
-  border: .063rem solid #7d7d7d;
+  border: .063rem solid #787878;
   font-size: 1rem;
   line-height: 1.5rem;
   padding: 0.5rem 0.75rem 0.75rem !important;
@@ -12748,7 +12799,7 @@ ol, ul {
   .digit-card-textarea-field.noneditable, .digit-employee-card-textarea-field.noneditable {
     border: .063rem solid #505a5f;
     background: #eee;
-    color: #7d7d7d; }
+    color: #787878; }
   .digit-card-textarea-field.error, .digit-employee-card-textarea-field.error {
     border: .094rem solid #b91900; }
   .digit-card-textarea-field:hover, .digit-employee-card-textarea-field:hover {
@@ -12810,6 +12861,9 @@ textarea::-webkit-scrollbar-thumb {
   .digit-text-input-field.numeric .input-container:focus-within input, .digit-text-input-field.numeric .input-container:focus-within .checkbox-wrap .input-emp, .checkbox-wrap .digit-text-input-field.numeric .input-container:focus-within .input-emp, .digit-text-input-field.numeric .input-container:focus-within .digit-checkbox-container .input-emp, .digit-checkbox-container .digit-text-input-field.numeric .input-container:focus-within .input-emp {
     border-left-style: hidden;
     border-right-style: hidden; }
+  .digit-text-input-field.numeric.numeric-buttons-only input, .digit-text-input-field.numeric.numeric-buttons-only .checkbox-wrap .input-emp, .checkbox-wrap .digit-text-input-field.numeric.numeric-buttons-only .input-emp, .digit-text-input-field.numeric.numeric-buttons-only .digit-checkbox-container .input-emp, .digit-checkbox-container .digit-text-input-field.numeric.numeric-buttons-only .input-emp {
+    pointer-events: none !important;
+    cursor: not-allowed; }
   .digit-text-input-field.prefix .input-container[focus-within] input, .digit-text-input-field.prefix .input-container[focus-within] .checkbox-wrap .input-emp, .checkbox-wrap .digit-text-input-field.prefix .input-container[focus-within] .input-emp, .digit-text-input-field.prefix .input-container[focus-within] .digit-checkbox-container .input-emp, .digit-checkbox-container .digit-text-input-field.prefix .input-container[focus-within] .input-emp {
     border-left-style: hidden; }
   .digit-text-input-field.prefix .input-container:focus-within input, .digit-text-input-field.prefix .input-container:focus-within .checkbox-wrap .input-emp, .checkbox-wrap .digit-text-input-field.prefix .input-container:focus-within .input-emp, .digit-text-input-field.prefix .input-container:focus-within .digit-checkbox-container .input-emp, .digit-checkbox-container .digit-text-input-field.prefix .input-container:focus-within .input-emp {
@@ -12951,9 +13005,9 @@ textarea::-webkit-scrollbar-thumb {
   .digit-text-input-field.error .digit-numeric-button-prefix, .digit-text-input-field.error .digit-numeric-button-suffix, .digit-text-input-field.error .digit-prefix, .digit-text-input-field.error .digit-suffix, .digit-text-input-field.error input, .digit-text-input-field.error .checkbox-wrap .input-emp, .checkbox-wrap .digit-text-input-field.error .input-emp, .digit-text-input-field.error .digit-checkbox-container .input-emp, .digit-checkbox-container .digit-text-input-field.error .input-emp {
     border: .094rem solid #b91900; }
   .digit-text-input-field.error .digit-numeric-button-prefix, .digit-text-input-field.error .digit-prefix {
-    border-right: .063rem solid #7d7d7d; }
+    border-right: .063rem solid #787878; }
   .digit-text-input-field.error .digit-numeric-button-suffix, .digit-text-input-field.error .digit-suffix {
-    border-left: .063rem solid #7d7d7d; }
+    border-left: .063rem solid #787878; }
   .digit-text-input-field.error.numeric input, .digit-text-input-field.error.numeric .checkbox-wrap .input-emp, .checkbox-wrap .digit-text-input-field.error.numeric .input-emp, .digit-text-input-field.error.numeric .digit-checkbox-container .input-emp, .digit-checkbox-container .digit-text-input-field.error.numeric .input-emp {
     border-left-style: hidden;
     border-right-style: hidden; }
@@ -12975,7 +13029,7 @@ textarea::-webkit-scrollbar-thumb {
   font-size: 16px;
   line-height: 20px;
   padding-left: .75rem;
-  border: .063rem solid #7d7d7d;
+  border: .063rem solid #787878;
   color: #363636;
   line-height: 1.5rem; }
 
@@ -12997,7 +13051,7 @@ textarea::-webkit-scrollbar-thumb {
   padding-left: .75rem;
   font-family: Roboto;
   font-size: 1rem;
-  border: .063rem solid #7d7d7d;
+  border: .063rem solid #787878;
   color: #363636;
   line-height: 1.5rem; }
 
@@ -13067,7 +13121,7 @@ textarea::-webkit-scrollbar-thumb {
   padding-left: .75rem;
   font-family: Roboto;
   font-size: 1rem;
-  border: .063rem solid #7d7d7d;
+  border: .063rem solid #787878;
   color: #363636;
   line-height: 1.5rem; }
 
@@ -13137,30 +13191,30 @@ textarea::-webkit-scrollbar-thumb {
   border: .094rem solid #c84c0e; }
 
 .input-container[focus-within] .digit-numeric-button-prefix, .input-container[focus-within] .digit-prefix {
-  border-right: 0.063rem solid #7d7d7d !important; }
+  border-right: 0.063rem solid #787878 !important; }
 
 .input-container[focus-within] .digit-numeric-button-suffix, .input-container[focus-within] .digit-suffix {
-  border-left: 0.063rem solid #7d7d7d !important; }
+  border-left: 0.063rem solid #787878 !important; }
 
 .input-container:focus-within .digit-numeric-button-prefix:not([readonly]), .input-container:focus-within .digit-numeric-button-suffix:not([readonly]), .input-container:focus-within .digit-prefix:not([readonly]), .input-container:focus-within .digit-suffix:not([readonly]), .input-container:focus-within input:not([readonly]), .input-container:focus-within .checkbox-wrap .input-emp:not([readonly]), .checkbox-wrap .input-container:focus-within .input-emp:not([readonly]), .input-container:focus-within .digit-checkbox-container .input-emp:not([readonly]), .digit-checkbox-container .input-container:focus-within .input-emp:not([readonly]) {
   outline: none;
   border: .094rem solid #c84c0e; }
 
 .input-container:focus-within .digit-numeric-button-prefix, .input-container:focus-within .digit-prefix {
-  border-right: 0.063rem solid #7d7d7d !important; }
+  border-right: 0.063rem solid #787878 !important; }
 
 .input-container:focus-within .digit-numeric-button-suffix, .input-container:focus-within .digit-suffix {
-  border-left: 0.063rem solid #7d7d7d !important; }
+  border-left: 0.063rem solid #787878 !important; }
 
 .digit-numeric-button-prefix, .digit-numeric-button-suffix, .digit-prefix, .digit-suffix {
   font-weight: 700;
   text-align: center;
   font-family: Roboto;
   font-style: normal;
-  color: #7d7d7d;
+  color: #787878;
   font-size: 1.25rem;
   height: 2.5rem !important;
-  border: .063rem solid #7d7d7d;
+  border: .063rem solid #787878;
   line-height: 1.172rem;
   background: #eee;
   max-width: none !important;
@@ -13738,7 +13792,7 @@ video::-webkit-media-controls-panel {
     -webkit-box-align: baseline;
     -ms-flex-align: baseline;
     align-items: baseline;
-    color: #7d7d7d;
+    color: #787878;
     grid-gap: .5rem;
     gap: .5rem; }
     @media (min-aspect-ratio: 9 / 16) and (max-aspect-ratio: 3 / 4) {
@@ -13755,19 +13809,6 @@ video::-webkit-media-controls-panel {
     -webkit-box-pack: end;
     -ms-flex-pack: end;
     justify-content: flex-end; }
-  .digit-field .digit-error {
-    grid-gap: .25rem;
-    gap: .25rem; }
-    .digit-field .digit-error .digit-error-icon {
-      -webkit-box-align: center;
-      -ms-flex-align: center;
-      align-items: center;
-      width: 1rem;
-      height: 1.37rem; }
-    .digit-field .digit-error .digit-error-message {
-      width: 100%;
-      margin: 0;
-      color: #b91900; }
 
 .digit-toggle-toolbar {
   display: -webkit-box;
@@ -13933,7 +13974,7 @@ video::-webkit-media-controls-panel {
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
-    border: .063rem solid #7d7d7d; }
+    border: .063rem solid #787878; }
     .digit-tree-multiselect-option .digit-custom-checkbox svg, .digit-tree-multiselect-option .digit-checkbox-container .digit-custom-checkbox-emp svg, .digit-checkbox-container .digit-tree-multiselect-option .digit-custom-checkbox-emp svg, .digit-tree-select-option .digit-custom-checkbox svg, .digit-tree-select-option .digit-checkbox-container .digit-custom-checkbox-emp svg, .digit-checkbox-container .digit-tree-select-option .digit-custom-checkbox-emp svg {
       opacity: 0;
       z-index: 10; }
@@ -14409,7 +14450,7 @@ video::-webkit-media-controls-panel {
     gap: .5rem; }
     .digit-stepper-container .digit-stepper-content .stepper-label {
       text-align: center;
-      color: #7d7d7d;
+      color: #787878;
       letter-spacing: 0; }
       .digit-stepper-container .digit-stepper-content .stepper-label.completed {
         color: #363636; }
@@ -14432,7 +14473,6 @@ video::-webkit-media-controls-panel {
     -ms-flex-align: center;
     align-items: center; }
   .digit-stepper-container .stepper-circle {
-    text-align: center;
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
@@ -14442,8 +14482,7 @@ video::-webkit-media-controls-panel {
     background-color: #fff;
     border-radius: 50%;
     margin-top: .25rem;
-    border: .125rem solid #d6d5d4;
-    color: #787878; }
+    border: .125rem solid #d6d5d4; }
     @media (max-aspect-ratio: 9 / 16) {
       .digit-stepper-container .stepper-circle {
         width: 1.5rem;
@@ -14564,7 +14603,7 @@ video::-webkit-media-controls-panel {
 
 .timeline-date {
   text-align: left;
-  color: #7d7d7d; }
+  color: #787878; }
 
 .timeline-toggle-details {
   display: -webkit-box;
@@ -14792,7 +14831,7 @@ img {
   .digit-uploader-wrap .digit-uploader-input {
     height: 2.5rem;
     background-color: initial;
-    border: .063rem solid #7d7d7d;
+    border: .063rem solid #787878;
     padding: .5rem;
     color: #363636 !important; }
     .digit-uploader-wrap .digit-uploader-input:focus {
@@ -14857,7 +14896,7 @@ img {
   .digit-uploader-wrap .digit-upload-helptext {
     text-align: left;
     margin: 0;
-    color: #7d7d7d; }
+    color: #787878; }
   .digit-uploader-wrap .digit-uploaded-file-container {
     display: -webkit-box !important;
     display: -ms-flexbox !important;
@@ -14896,7 +14935,7 @@ img {
       grid-gap: .5rem;
       gap: .5rem; }
       .digit-uploader-wrap .digit-uploaded-file-container .uploaded-file-container-sub .uploaded-file-details {
-        color: #7d7d7d; }
+        color: #787878; }
       .digit-uploader-wrap .digit-uploaded-file-container .uploaded-file-container-sub svg {
         -ms-flex-negative: 0;
         flex-shrink: 0; }
@@ -15030,10 +15069,10 @@ img {
             outline-offset: 2px; }
         .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field .all-input-field-wrapper .form-control:-moz-read-only {
           background-color: #eee;
-          color: #7d7d7d; }
+          color: #787878; }
         .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field .all-input-field-wrapper .form-control:read-only {
           background-color: #eee;
-          color: #7d7d7d; }
+          color: #787878; }
         .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field .all-input-field-wrapper .form-control:focus {
           outline: 2px solid transparent;
           outline-offset: 2px;
@@ -15371,7 +15410,7 @@ button:hover {
   color: #363636; }
 
 .light-text-color-secondary, .digit-bread-crumb, .digit-checkpoint-done header p, .digit-checkpoint header p, .digit-checkpoint-comments-wrap p, .digit-card .digit-card-caption, .digit-card .digit-card-text, .digit-card .digit-card-label-desc, .digit-employee-card .digit-card-caption, .digit-employee-card .digit-card-text, .digit-employee-card .card-label-desc {
-  color: #7d7d7d; }
+  color: #787878; }
 
 .light-text-color-disabled, .employee-card-input:disabled, .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field .all-input-field-wrapper .form-control:disabled, .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field.field-boolean .checkbox label input:disabled[type=checkbox], .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field.field-boolean .checkbox label .checkbox-wrap .input-emp:disabled[type=checkbox], .checkbox-wrap .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field.field-boolean .checkbox label .input-emp:disabled[type=checkbox], .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field.field-boolean .checkbox label .digit-checkbox-container .input-emp:disabled[type=checkbox], .digit-checkbox-container .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field.field-boolean .checkbox label .input-emp:disabled[type=checkbox] {
   color: #c5c5c5; }
@@ -15402,7 +15441,7 @@ button:hover {
 .light-input-border, .digit-back-button, .digit-break-line, .digit-checkbox-container input, .digit-checkbox-container .input-emp, .digit-date-picker .digit-employee-card-input, .digit-field-container .component-in-front, .card-date-input, .text-input input:hover, .text-input .checkbox-wrap .input-emp:hover, .checkbox-wrap .text-input .input-emp:hover, .text-input .digit-checkbox-container .input-emp:hover, .digit-checkbox-container .text-input .input-emp:hover, .employee-card-input-error, .card-input-error, .employee-card-input, .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field .all-input-field-wrapper .form-control, .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field.field-boolean .checkbox label input[type=checkbox], .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field.field-boolean .checkbox label .checkbox-wrap .input-emp[type=checkbox], .checkbox-wrap .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field.field-boolean .checkbox label .input-emp[type=checkbox], .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field.field-boolean .checkbox label .digit-checkbox-container .input-emp[type=checkbox], .digit-checkbox-container .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field.field-boolean .checkbox label .input-emp[type=checkbox], .employee-card-input:disabled, .card-textarea, .employee-card-textarea, .citizen-card-input, .break-line, .digit-mobile-number-container .digit-employee-card-input-error, .digit-radio-options-wrap .digit-radio-btn-checkmark, .digit-dropdown-employee-select-wrap .digit-dropdown-select, .digit-dropdown-select-wrap .digit-dropdown-select, .digit-employeeCard-inputError, .digit-card-inputError, .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field.field-boolean .checkbox label input:checked, .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field.field-boolean .checkbox label .checkbox-wrap .input-emp:checked, .checkbox-wrap .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field.field-boolean .checkbox label .input-emp:checked, .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field.field-boolean .checkbox label .digit-checkbox-container .input-emp:checked, .digit-checkbox-container .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field.field-boolean .checkbox label .input-emp:checked, .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field.field-boolean .checkbox label input:hover, .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field.field-boolean .checkbox label .checkbox-wrap .input-emp:hover, .checkbox-wrap .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field.field-boolean .checkbox label .input-emp:hover, .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field.field-boolean .checkbox label .digit-checkbox-container .input-emp:hover, .digit-checkbox-container .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field.field-boolean .checkbox label .input-emp:hover {
   border-color: #505a5f; }
 
-.alert-error, .digit-error-message, .employee-card-input-error, .card-input-error, .digit-mobile-number-container .digit-employee-card-input-error, .digit-validation-error, .digit-card .digit-card-label-error, .digit-employee-card .card-label-error, .digit-card-label-error, .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field.field-error.has-error.has-danger .control-label {
+.alert-error, .employee-card-input-error, .card-input-error, .digit-mobile-number-container .digit-employee-card-input-error, .digit-validation-error, .digit-card .digit-card-label-error, .digit-employee-card .card-label-error, .digit-card-label-error, .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field.field-error.has-error.has-danger .control-label {
   color: #b91900; }
   .alert-error-bg {
     background-color: #fff5f4; }
@@ -15584,7 +15623,7 @@ h1, h2, h3, h4, h5, h6 {
 
 input[readonly], .checkbox-wrap .input-emp[readonly], .digit-checkbox-container .input-emp[readonly] {
   background-color: #eee;
-  color: #7d7d7d;
+  color: #787878;
   --border-opacity:1;
   border-color: #9e9e9e;
   border-color: rgba(158, 158, 158, var(--border-opacity)); }
