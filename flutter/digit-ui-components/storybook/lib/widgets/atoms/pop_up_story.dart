@@ -23,6 +23,7 @@ List<Story> popUpStories() {
         onSecondaryAction: () {
           print('secondary tap');
         },
+        inlineActions: context.knobs.boolean(label: 'Inline', initial: true),
       ),
     ),
     Story(
@@ -45,6 +46,7 @@ List<Story> popUpStories() {
         // onSecondaryAction: () {
         //   print('secondary tap');
         // },
+        inlineActions: context.knobs.boolean(label: 'Inline', initial: true),
         description:
         'sdfffffffffffffffffffffffffffffdsfffffffffffffdsfsdfsdddddddddddd',
       ),
@@ -69,6 +71,7 @@ List<Story> popUpStories() {
         onSecondaryAction: () {
           print('secondary tap');
         },
+        inlineActions: context.knobs.boolean(label: 'Inline', initial: true),
         additionalWidgets: [
           InfoCard(
               title: 'Info',
@@ -97,6 +100,7 @@ List<Story> popUpStories() {
         onSecondaryAction: () {
           print('secondary tap');
         },
+        inlineActions: context.knobs.boolean(label: 'Inline', initial: true),
         description:
         'sdfffffffffffffffffffffffffffffdsfffffffffffffdsfsdfsdddddddddddd',
         additionalWidgets: const [
@@ -127,11 +131,47 @@ List<Story> popUpStories() {
       ),
     ),
     Story(
-      name: 'Atom/PopUp/alert',
+      name: 'Atom/PopUp/alert/simple',
       builder: (context) =>  const Popup(
         title: 'Alert!',
         subHeading: 'Please contact the administrator if you have fsdfsdf dsfs',
         type: PopUpType.alert,
+      ),
+    ),
+    Story(
+      name: 'Atom/PopUp/alert/with additional widget',
+      builder: (context) =>  const Popup(
+        title: 'Alert!',
+        subHeading: 'Please contact the administrator if you have fsdfsdf dsfs',
+        type: PopUpType.alert,
+        additionalWidgets: [InfoCard(title: 'Error', type: InfoType.error, description: 'this is error')],
+      ),
+    ),
+    Story(
+      name: 'Atom/PopUp/alert/action',
+      builder: (context) =>   Popup(
+        title: 'Alert!',
+        subHeading: 'Please contact the administrator if you have fsdfsdf dsfs',
+        type: PopUpType.alert,
+        primaryActionText: 'Submit',
+        onPrimaryAction: (){},
+      ),
+    ),
+    Story(
+      name: 'Atom/PopUp/alert/inline action',
+      builder: (context) =>  Popup(
+        title: 'Alert!',
+        subHeading: 'Please contact the administrator if you have fsdfsdf dsfs',
+        type: PopUpType.alert,
+        inlineActions: true,
+        primaryActionText: 'Submit',
+        secondaryActionText: 'Cancel',
+        onPrimaryAction: () {
+          print('primary tap');
+        },
+        onSecondaryAction: () {
+          print('secondary tap');
+        },
       ),
     ),
   ];

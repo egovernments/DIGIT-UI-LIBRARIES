@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import '../../constants/AppView.dart';
 import '../../enum/app_enums.dart';
@@ -20,6 +19,7 @@ class Popup extends StatelessWidget {
   final void Function()? onCrossTap;
   final void Function()? onPrimaryAction;
   final void Function()? onSecondaryAction;
+  final bool inlineActions;
 
   const Popup({
     super.key,
@@ -35,11 +35,11 @@ class Popup extends StatelessWidget {
     this.onCrossTap,
     this.onPrimaryAction,
     this.onSecondaryAction,
+    this.inlineActions = false,
   });
 
-  Widget _buildSimplePopUp(DigitTypography currentTypography, double width) {
-
-    double currWidth = titleIcon!=null ? width-108 : width-68;
+  Widget _buildSimplePopUp(DigitTypography currentTypography, double width, bool isMobile, bool isTab) {
+    double currWidth = titleIcon != null ? width - 108 : width - 68;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -51,8 +51,7 @@ class Popup extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              padding:
-              const EdgeInsets.only(left: 24.0, right: 8.0, top: 24.0),
+              padding:  EdgeInsets.only(left: isMobile ? 16 : isTab ? 20 : 24, right: 8.0, top: isMobile ? 16 : isTab ? 20 : 24,),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -102,8 +101,8 @@ class Popup extends StatelessWidget {
                   onTap: onCrossTap,
                   child: Icon(
                     Icons.close,
-                    size: 28,
-                    color: const DigitColors().light.primary2,
+                    size: isMobile ? 24 : isTab ? 24 : 28,
+                    color: const DigitColors().light.textPrimary,
                   )),
             ),
           ],
@@ -114,7 +113,7 @@ class Popup extends StatelessWidget {
           ),
         if (description != null)
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0),
+            padding:  EdgeInsets.symmetric(horizontal: isMobile ? 16 : isTab ? 20 : 24,),
             child: Text(
               description!,
               style: currentTypography.bodyS.copyWith(
@@ -126,9 +125,9 @@ class Popup extends StatelessWidget {
     );
   }
 
-  Widget _buildAlertPopUp(DigitTypography currentTypography) {
+  Widget _buildAlertPopUp(DigitTypography currentTypography, bool isMobile, bool isTab) {
     return Container(
-      padding: const EdgeInsets.only(left: 24.0, right: 24.0, top: 24.0),
+      padding: EdgeInsets.only(left: isMobile ? 16 : isTab ? 20 : 24, right: isMobile ? 16 : isTab ? 20 : 24, top: isMobile ? 16 : isTab ? 20 : 24,),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
@@ -174,113 +173,95 @@ class Popup extends StatelessWidget {
     DigitTypography currentTypography = getTypography(context, false);
     bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
     bool isTab = AppView.isTabletView(MediaQuery.of(context).size);
-    double cardWidth = width ?? (isMobile
-        ? 328
-        : isTab
-        ? 500
-        : 620);
+    double cardWidth = width ??
+        (isMobile
+            ? 328
+            : isTab
+                ? 500
+                : 620);
 
-    return BackdropFilter(
-      filter: ImageFilter.blur(sigmaX: 7.0, sigmaY: 7.0),
-      child: Dialog.fullscreen(
-        backgroundColor: const DigitColors().overLayColor.withOpacity(.50),
-        child: Center(
-          child: Container(
-            width: cardWidth,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(4),
-              color: const DigitColors().light.paperPrimary,
-              boxShadow: [
-                BoxShadow(
-                  color: const Color(0xFF000000).withOpacity(.16),
-                  offset: const Offset(0, 1),
-                  spreadRadius: 0,
-                  blurRadius: 2,
-                ),
-              ],
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: type == PopUpType.alert
-                  ? CrossAxisAlignment.center
-                  : CrossAxisAlignment.start,
-              children: [
-                type == PopUpType.simple
-                    ? _buildSimplePopUp(currentTypography, cardWidth)
-                    : _buildAlertPopUp(currentTypography),
-                const SizedBox(
-                  height: 24,
-                ),
-                if (additionalWidgets != null)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 24),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: additionalWidgets!
-                          .map(
-                            (widgets) => Padding(
-                          padding: const EdgeInsets.only(
-                            bottom: 8,
-                          ),
-                          child: widgets,
-                        ),
-                      )
-                          .toList(),
-                    ),
-                  ),
-                if (additionalWidgets != null)
-                  const SizedBox(
-                    height: 24,
-                  ),
+    return Dialog.fullscreen(
+      backgroundColor: const DigitColors().transparent,
+      child: Center(
+        child: Container(
+          width: cardWidth,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(4),
+            color: const DigitColors().light.paperPrimary,
+            boxShadow: [
+              BoxShadow(
+                color: const Color(0xFF000000).withOpacity(.16),
+                offset: const Offset(0, 1),
+                spreadRadius: 0,
+                blurRadius: 2,
+              ),
+            ],
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: type == PopUpType.alert
+                ? CrossAxisAlignment.center
+                : CrossAxisAlignment.start,
+            children: [
+              type == PopUpType.simple
+                  ? _buildSimplePopUp(currentTypography, cardWidth, isMobile, isTab)
+                  : _buildAlertPopUp(currentTypography, isMobile, isTab),
+               SizedBox(
+                height: isMobile ? 16 : isTab ? 20 : 24,
+              ),
+              if (additionalWidgets != null)
                 Padding(
-                  padding: primaryActionText == null && secondaryActionText == null
-                      ? EdgeInsets.zero
-                      : const EdgeInsets.only(left: 24.0, right: 24.0, bottom: 24),
-                  child: isMobile
-                      ? Column(
+                  padding: EdgeInsets.symmetric(horizontal: isMobile ? 16 : isTab ? 20 : 24,),
+                  child: Column(
                     mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      if (primaryActionText != null)
-                        Button(
-                          mainAxisSize: MainAxisSize.max,
-                          label: primaryActionText!,
-                          size: ButtonSize.large,
-                          type: ButtonType.primary,
-                          onPressed: () {
-                            //_closeCamera();
-                          },
-                        ),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      if (secondaryActionText != null)
-                        Button(
-                          mainAxisSize: MainAxisSize.max,
-                          label: secondaryActionText!,
-                          size: ButtonSize.large,
-                          type: ButtonType.secondary,
-                          isDisabled: onSecondaryAction == null,
-                          onPressed: onSecondaryAction != null
-                              ? onSecondaryAction!
-                              : () {},
-                        ),
-                    ],
-                  )
-                      : Row(
-                    //mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      ButtonListTile(
-                        spacing: 24,
-                        buttons: [
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: additionalWidgets!
+                        .map(
+                          (widgets) => Padding(
+                            padding: const EdgeInsets.only(
+                              bottom: 8,
+                            ),
+                            child: widgets,
+                          ),
+                        )
+                        .toList(),
+                  ),
+                ),
+              if (additionalWidgets != null)
+                 SizedBox(
+                  height: isMobile ? 16 : isTab ? 20 : 24,
+                ),
+              Padding(
+                padding:
+                    primaryActionText == null && secondaryActionText == null
+                        ? EdgeInsets.zero
+                        :  EdgeInsets.only(
+                            left: isMobile ? 16 : isTab ? 20 : 24, right: isMobile ? 16 : isTab ? 20 : 24, bottom: isMobile ? 16 : isTab ? 20 : 24,),
+                child: !inlineActions
+                    ? Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          if (primaryActionText != null)
+                            Button(
+                              mainAxisSize: MainAxisSize.max,
+                              label: primaryActionText!,
+                              size: ButtonSize.large,
+                              type: ButtonType.primary,
+                              onPressed: () {
+                                //_closeCamera();
+                              },
+                            ),
+                          if (primaryActionText != null && secondaryActionText!=null)
+                          const SizedBox(
+                            height: 16,
+                          ),
                           if (secondaryActionText != null)
                             Button(
-                              label: secondaryActionText!,
                               mainAxisSize: MainAxisSize.max,
+                              label: secondaryActionText!,
                               size: ButtonSize.large,
                               type: ButtonType.secondary,
                               isDisabled: onSecondaryAction == null,
@@ -288,24 +269,77 @@ class Popup extends StatelessWidget {
                                   ? onSecondaryAction!
                                   : () {},
                             ),
-                          if (primaryActionText != null)
-                            Button(
-                              label: primaryActionText!,
-                              size: ButtonSize.large,
-                              mainAxisSize: MainAxisSize.max,
-                              type: ButtonType.primary,
-                              isDisabled: onPrimaryAction == null,
-                              onPressed: onPrimaryAction != null
-                                  ? onPrimaryAction!
-                                  : () {},
-                            ),
                         ],
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+                      )
+                    : type == PopUpType.alert
+                        ? Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              if (secondaryActionText != null)
+                                Expanded(
+                                  child: Button(
+                                    label: secondaryActionText!,
+                                    size: ButtonSize.large,
+                                    type: ButtonType.secondary,
+                                    isDisabled: onSecondaryAction == null,
+                                    onPressed: onSecondaryAction != null
+                                        ? onSecondaryAction!
+                                        : () {},
+                                  ),
+                                ),
+                              if (primaryActionText != null && secondaryActionText!=null)
+                                const SizedBox(
+                                  width: 16,
+                                ),
+                              if (primaryActionText != null)
+                                Expanded(
+                                  child: Button(
+                                    label: primaryActionText!,
+                                    size: ButtonSize.large,
+                                    type: ButtonType.primary,
+                                    isDisabled: onPrimaryAction == null,
+                                    onPressed: onPrimaryAction != null
+                                        ? onPrimaryAction!
+                                        : () {},
+                                  ),
+                                ),
+                            ],
+                          )
+                        : Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              ButtonListTile(
+                                spacing: 24,
+                                buttons: [
+                                  if (secondaryActionText != null)
+                                    Button(
+                                      label: secondaryActionText!,
+                                      mainAxisSize: MainAxisSize.max,
+                                      size: ButtonSize.large,
+                                      type: ButtonType.secondary,
+                                      isDisabled: onSecondaryAction == null,
+                                      onPressed: onSecondaryAction != null
+                                          ? onSecondaryAction!
+                                          : () {},
+                                    ),
+                                  if (primaryActionText != null)
+                                    Button(
+                                      label: primaryActionText!,
+                                      size: ButtonSize.large,
+                                      mainAxisSize: MainAxisSize.max,
+                                      type: ButtonType.primary,
+                                      isDisabled: onPrimaryAction == null,
+                                      onPressed: onPrimaryAction != null
+                                          ? onPrimaryAction!
+                                          : () {},
+                                    ),
+                                ],
+                              ),
+                            ],
+                          ),
+              ),
+            ],
           ),
         ),
       ),
