@@ -70,7 +70,7 @@ import StringManipulator from "./StringManipulator";
 import InfoButton from "./InfoButton";
 import Uploader  from "./Uploader";
 import UploadPopup from "./UploadPopup";
-import DocPreview from "./DocPreview";
+import UploadImage from "./UploadImage";
 import ErrorBoundary from "./ErrorBoundary";
 
 import {
@@ -279,7 +279,7 @@ export {
   InfoButton,
   Uploader,
   UploadPopup,
-  DocPreview,
+  UploadImage,
   InboxSearchLinks,
   SearchComponent,
   LinkLabel,
