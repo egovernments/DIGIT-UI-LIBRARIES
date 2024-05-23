@@ -70,7 +70,7 @@ const SearchComponent = ({ uiConfig, header = "", screenType = "search", fullCon
         }
       })
     } else {
-      setShowToast({ warning: true, label: t("ES_COMMON_MIN_SEARCH_CRITERIA_MSG") })
+      setShowToast({ type: "warning", label: t("ES_COMMON_MIN_SEARCH_CRITERIA_MSG") })
       setTimeout(closeToast, 3000);
     }
   }
@@ -151,8 +151,7 @@ const SearchComponent = ({ uiConfig, header = "", screenType = "search", fullCon
           </div>
         </form>
         {showToast && <Toast
-          error={showToast.error}
-          warning={showToast.warning}
+          type={showToast?.error ? "error" : (showToast?.type ? showToast?.type : "")}
           label={t(showToast.label)}
           isDleteBtn={true}
           onClose={closeToast} />

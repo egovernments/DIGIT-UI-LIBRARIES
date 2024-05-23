@@ -58,6 +58,7 @@ yarn storybook
 # Changelog
 
 ```bash
+0.0.1-beta.26 Updated Toast Usage
 0.0.1-beta.25 Updated RemoveableTag component to have error 
 0.0.1-beta.24 Updated numeric type to disable input and use only buttons and made date and time fields clickable
 0.0.1-beta.23 Updated ErrorMessage component to have new props named showIcon,truncateMessage and maxLength

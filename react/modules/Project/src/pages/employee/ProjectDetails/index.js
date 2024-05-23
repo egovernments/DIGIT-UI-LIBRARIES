@@ -306,7 +306,7 @@ const ProjectDetails = () => {
       {toast?.show && (
         <Toast
           label={toast?.label}
-          error={toast?.error}
+          type={toast?.error ? "error" : ""}
           isDleteBtn={true}
           onClose={handleToastClose}
         ></Toast>

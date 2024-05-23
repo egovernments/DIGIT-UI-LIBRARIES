@@ -265,7 +265,7 @@ const Table = ({
           <Button label={t(actionLabel)} onClick={handleSelection} />
         </ActionBar>
       )}
-      {toast?.show && <Toast label={toast?.label} error={toast?.error} isDleteBtn={true} onClose={handleToastClose}></Toast>}
+      {toast?.show && <Toast label={toast?.label} type={toast?.error ? "error" : ""} isDleteBtn={true} onClose={handleToastClose}></Toast>}
     </React.Fragment>
   );
 };

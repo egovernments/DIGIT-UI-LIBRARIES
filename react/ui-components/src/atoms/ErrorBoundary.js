@@ -23,7 +23,7 @@ class ErrorBoundary extends Component {
       // Render fallback UI
       return (
         <div>
-          {this?.state?.error?.toString() && <Toast error={true } label={this?.props?.moduleName+" : "+this?.state?.error?.toString()?.slice(0,100)}  />}
+          {this?.state?.error?.toString() && <Toast type={"error"} label={this?.props?.moduleName+" : "+this?.state?.error?.toString()?.slice(0,100)}  />}
           {this?.props?.children}
         </div>
       );

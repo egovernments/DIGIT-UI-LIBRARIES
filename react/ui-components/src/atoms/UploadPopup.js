@@ -98,7 +98,7 @@ const UploadPopup = ({
       onSubmit([...newFiles]);
     } catch (error) {
       // Handle the validation error, you can display a message or take appropriate actions.
-      setShowToast({ isError: true, label: error });
+      setShowToast({ type: "error", label: error });
     }
   };
 
@@ -199,7 +199,7 @@ const UploadPopup = ({
       {showToast && (
         <Toast
           label={showToast.label}
-          error={showToast?.isError}
+          type={showToast?.type}
           isDleteBtn={true}
           onClose={() => setShowToast(null)}
         ></Toast>

@@ -120,7 +120,7 @@ module.exports = {
         "primary-bg": "#FBEEE8",
         "primary-2": "#0B4B66",
         "text-primary": "#363636",
-        "text-secondary": "#7D7D7D",
+        "text-secondary": "#787878",
         "text-disabled": "#C5C5C5",
         "alert-error": "#B91900",
         "alert-errorbg": "#FFF5F4",
