@@ -112,7 +112,7 @@ const UploadPopup = ({
 
   useEffect(() => {
     onSubmit(files);
-  }, [files]);
+  }, [files,onSubmit]);
 
   const renderFileIcon = (fileType, fileErrors) => {
     switch (fileType) {

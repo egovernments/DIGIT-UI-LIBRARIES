@@ -37,35 +37,7 @@ const Uploader = (props) => {
       const acceptedFiles = [];
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
-        let isValid = true;
-        let error = "";
-        if (
-          props.validations &&
-          props.validations.maxSizeAllowedInMB &&
-          Math.round(file?.size / 1024 / 1024) >
-            props.validations.maxSizeAllowedInMB
-        ) {
-          isValid = false;
-          error = "File size exceeds the maximum allowed size";
-        } else if (
-          props.validations &&
-          props.validations.minSizeRequiredInMB &&
-          Math.round(file?.size / 1024 / 1024) <
-            props.validations.minSizeRequiredInMB
-        ) {
-          isValid = false;
-          error = "File size is below the minimum required size";
-        }
-
-        if (props.variant === "uploadImage") {
-          const acceptedImageTypes = ["image/*", ".png", ".jpeg", ".jpg"];
-          const fileType = file.type;
-          if (!acceptedImageTypes.includes(fileType)) {
-            isValid = false;
-            error = "File type is not accepted";
-          }
-        }
-
+        const { isValid, error } = validateFile(file, props);
         if (isValid) {
           acceptedFiles.push(file);
         } else {
@@ -84,15 +56,44 @@ const Uploader = (props) => {
     }
     const uploadResult = await props?.onUpload(uploadedFiles);
     if (uploadResult && uploadResult.length !== 0) {
-      uploadResult.forEach(({ file, error }) => {
+      for (const { file, error } of uploadResult) {
         const fileIndex = newErrors.findIndex((item) => item.file === file);
         if (fileIndex !== -1) {
           newErrors[fileIndex].error = error;
         } else {
           newErrors.push({ file, error });
         }
-      });
+      }
     }
+  };
+
+  const validateFile = (file, props) => {
+    let isValid = true;
+    let error = "";
+    const maxFileSize = props.validations?.maxSizeAllowedInMB;
+    const minFileSize = props.validations?.minSizeRequiredInMB;
+    const acceptedImageTypes = ["image/*", ".png", ".jpeg", ".jpg"];
+
+    if (maxFileSize && Math.round(file?.size / 1024 / 1024) > maxFileSize) {
+      isValid = false;
+      error = "File size exceeds the maximum allowed size";
+    } else if (
+      minFileSize &&
+      Math.round(file?.size / 1024 / 1024) < minFileSize
+    ) {
+      isValid = false;
+      error = "File size is below the minimum required size";
+    }
+
+    if (
+      props.variant === "uploadImage" &&
+      !acceptedImageTypes.includes(file.type)
+    ) {
+      isValid = false;
+      error = "File type is not accepted";
+    }
+
+    return { isValid, error };
   };
 
   const handleButtonClick = () => {
@@ -155,7 +156,7 @@ const Uploader = (props) => {
     if (uploadedFiles.length > 0) {
       uploadFiles();
     }
-  }, [uploadedFiles]);
+  }, [uploadedFiles, errors, props?.onUpload]);
 
   useEffect(() => {
     setButtonLabel(
@@ -218,13 +219,9 @@ const Uploader = (props) => {
   const { fileUrl, fileName = "Unknown File" } = Digit.Hooks.useQueryParams();
 
   const changeToBlobAndCreateUrl = (file) => {
-    if (file) {
-      const blob = new Blob([file], { type: file?.type });
-      const url = URL.createObjectURL(blob);
-      return url;
-    } else {
-      return null;
-    }
+    if (!file) return null;
+    const blob = new Blob([file], { type: file?.type });
+    return URL.createObjectURL(blob);
   };
 
   const documents = fileUrl
@@ -428,7 +425,9 @@ const Uploader = (props) => {
                         ) : (
                           getFileUploadIcon(file?.type, isError)
                         )}
-                        <div className="preview-file-name">{file?.name && !isError ? file?.name : ""}</div>
+                        <div className="preview-file-name">
+                          {file?.name && !isError ? file?.name : ""}
+                        </div>
                         <span
                           onClick={(e) => {
                             e.stopPropagation();

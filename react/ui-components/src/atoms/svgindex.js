@@ -3128,7 +3128,7 @@ const PngFile = ({ className = "", fill = "none", style = {} }) => (
   </svg>
 );
 
-const DocUpload = ({ className = "", fill, styles }) => (
+const DocUpload = ({ className = "", fill="none", styles }) => (
   <svg
     width="100"
     height="100"
@@ -3165,7 +3165,7 @@ const DocUpload = ({ className = "", fill, styles }) => (
   </svg>
 );
 
-const DocXlsxUpload = ({ className = "", fill, styles }) => (
+const DocXlsxUpload = ({ className = "", fill="none", styles }) => (
   <svg
     width="100"
     height="100"
@@ -3229,7 +3229,7 @@ const DocXlsxUpload = ({ className = "", fill, styles }) => (
   </svg>
 );
 
-const DocdocUpload = ({ className = "", fill, styles }) => (
+const DocdocUpload = ({ className = "", fill="none", styles }) => (
   <svg
     width="100"
     height="100"
@@ -3278,7 +3278,7 @@ const DocdocUpload = ({ className = "", fill, styles }) => (
   </svg>
 );
 
-const DocPdfUpload = ({ className = "", fill, styles }) => (
+const DocPdfUpload = ({ className = "", fill="none", styles }) => (
   <svg
     width="100"
     height="100"

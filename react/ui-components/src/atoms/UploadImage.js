@@ -119,7 +119,7 @@ const UploadImage = ({
 
   useEffect(() => {
     onSubmit(capturedImages);
-  }, [capturedImages]);
+  }, [capturedImages,onSubmit]);
 
   const videoConstraints = {
     facingMode: "user",
