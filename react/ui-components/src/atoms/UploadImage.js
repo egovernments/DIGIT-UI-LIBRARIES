@@ -34,15 +34,12 @@ const UploadImage = ({
     }
   };
   useEffect(() => {
-    window.addEventListener("resize", () => {
-      onResize();
-    });
+    window.addEventListener("resize", onResize);
+  
     return () => {
-      window.addEventListener("resize", () => {
-        onResize();
-      });
+      window.removeEventListener("resize", onResize);
     };
-  });
+  }, []);
 
   const selectfile = (e) => {
     handleChange(e);
@@ -145,7 +142,7 @@ const UploadImage = ({
       <div className="digit-img-container">
         {previews.map((preview, index) => {
           return (
-            <Fragment key={index}>
+            <Fragment key={`preview-${index}`}>
               <div
                 className={`preview-container ${
                   uploadedFilesCount > 1 ? " multiple" : ""

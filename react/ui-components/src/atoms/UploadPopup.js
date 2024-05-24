@@ -39,15 +39,12 @@ const UploadPopup = ({
     }
   };
   useEffect(() => {
-    window.addEventListener("resize", () => {
-      onResize();
-    });
+    window.addEventListener("resize", onResize);
+  
     return () => {
-      window.addEventListener("resize", () => {
-        onResize();
-      });
+      window.removeEventListener("resize", onResize);
     };
-  });
+  }, []);
 
   const dragDropJSX = (
     <div
@@ -105,8 +102,7 @@ const UploadPopup = ({
   };
 
   const handleChange = async (newFiles) => {
-    let newlyUploadedFiles;
-    newlyUploadedFiles = multiple ? [...files, ...newFiles] : [newFiles];
+    const newlyUploadedFiles = multiple ? [...files, ...newFiles] : [newFiles];
     setFiles(newlyUploadedFiles);
   };
 
