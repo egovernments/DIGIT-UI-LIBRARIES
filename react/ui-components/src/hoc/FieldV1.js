@@ -246,6 +246,7 @@ const FieldV1 = ({
               addCategorySelectAllCheck={populators?.addCategorySelectAllCheck}
               selectAllLabel={populators?.selectAllLabel}
               categorySelectAllLabel={populators?.categorySelectAllLabel}
+              restrictSelection={populators?.restrictSelection}
             />
           </div>
         );

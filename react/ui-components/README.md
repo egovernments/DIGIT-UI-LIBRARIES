@@ -58,6 +58,7 @@ yarn storybook
 # Changelog
 
 ```bash
+0.0.1-beta.28 Added restrictSelection prop in MultiSelectDropdown
 0.0.1-beta.27 Added uploader variants and its CSS
 0.0.1-beta.26 Updated Toast Usage
 0.0.1-beta.25 Updated RemoveableTag component to have error 
@@ -85,6 +86,21 @@ yarn storybook
 0.0.3 Added new components
 0.0.1 base version
 ```
+
+## [0.0.1-beta.28] - 2024-05-24
+
+### New Changes
+
+- Added restrictSelection prop in Multiselectdropdown. If this is sent as true, it restricts any option to get selected. 
+
+  - Usage:
+    ```jsx
+        <MultiSelectDropdown
+          restrictSelection={true}
+        />
+    ```
+
+
 
 ## [0.0.1-beta.22] - 2024-05-20
 

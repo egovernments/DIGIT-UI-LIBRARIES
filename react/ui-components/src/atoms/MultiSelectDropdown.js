@@ -25,6 +25,7 @@ const MultiSelectDropdown = ({
   addCategorySelectAllCheck = false,
   selectAllLabel = "",
   categorySelectAllLabel = "",
+  restrictSelection = false,
 }) => {
   const [active, setActive] = useState(false);
   const [searchQuery, setSearchQuery] = useState();
@@ -157,45 +158,49 @@ const MultiSelectDropdown = ({
   }
 
   function onSelectToAddToQueue(...props) {
-    if (variant === "treemultiselect") {
-      const currentoptions = props[0];
-      currentoptions?.forEach((option) => {
-        const isAlreadySelected = alreadyQueuedSelectedState.some(
-          (selectedOption) => selectedOption.code === option.code
-        );
-        if (!isAlreadySelected) {
-          dispatch({
-            type: "ADD_TO_SELECTED_EVENT_QUEUE",
-            payload: [null, option],
-          });
-        } else {
-          dispatch({
-            type: "REMOVE_FROM_SELECTED_EVENT_QUEUE",
-            payload: [null, option],
-          });
-          const parentOption = findParentOption(option, options);
-          if (parentOption) {
+    if (!restrictSelection) {
+      if (variant === "treemultiselect") {
+        const currentoptions = props[0];
+        currentoptions?.forEach((option) => {
+          const isAlreadySelected = alreadyQueuedSelectedState.some(
+            (selectedOption) => selectedOption.code === option.code
+          );
+          if (!isAlreadySelected) {
+            dispatch({
+              type: "ADD_TO_SELECTED_EVENT_QUEUE",
+              payload: [null, option],
+            });
+          } else {
             dispatch({
               type: "REMOVE_FROM_SELECTED_EVENT_QUEUE",
-              payload: [null, parentOption],
+              payload: [null, option],
             });
+            const parentOption = findParentOption(option, options);
+            if (parentOption) {
+              dispatch({
+                type: "REMOVE_FROM_SELECTED_EVENT_QUEUE",
+                payload: [null, parentOption],
+              });
+            }
           }
-        }
-      });
+        });
+      } else {
+        const isChecked = arguments[0].target.checked;
+        isChecked
+          ? dispatch({ type: "ADD_TO_SELECTED_EVENT_QUEUE", payload: arguments })
+          : dispatch({
+              type: "REMOVE_FROM_SELECTED_EVENT_QUEUE",
+              payload: arguments,
+            });
+      }
+      onSelect(
+        alreadyQueuedSelectedState?.map((e) => e.propsData),
+        getCategorySelectAllState(),
+        props
+      );
     } else {
-      const isChecked = arguments[0].target.checked;
-      isChecked
-        ? dispatch({ type: "ADD_TO_SELECTED_EVENT_QUEUE", payload: arguments })
-        : dispatch({
-            type: "REMOVE_FROM_SELECTED_EVENT_QUEUE",
-            payload: arguments,
-          });
+      onSelect();
     }
-    onSelect(
-      alreadyQueuedSelectedState?.map((e) => e.propsData),
-      getCategorySelectAllState(),
-      props
-    );
   }
 
   const IconRender = (iconReq, isActive, isSelected) => {
@@ -227,66 +232,72 @@ const MultiSelectDropdown = ({
   };
 
   const handleSelectAll = () => {
-    if (selectAllChecked) {
-      dispatch({ type: "REPLACE_COMPLETE_STATE", payload: [] });
-      setSelectAllChecked(false);
-    } else {
-      const payload =
-        variant === "nestedmultiselect"
-          ? flattenedOptions
-              .filter((option) => !option.options)
-              .map((option) => ({
+    if (!restrictSelection) {
+      if (selectAllChecked) {
+        dispatch({ type: "REPLACE_COMPLETE_STATE", payload: [] });
+        setSelectAllChecked(false);
+      } else {
+        const payload =
+          variant === "nestedmultiselect"
+            ? flattenedOptions
+                .filter((option) => !option.options)
+                .map((option) => ({
+                  code: option.code,
+                  propsData: [null, option],
+                }))
+            : options.map((option) => ({
                 code: option.code,
                 propsData: [null, option],
-              }))
-          : options.map((option) => ({
-              code: option.code,
-              propsData: [null, option],
-            }));
-      dispatch({
-        type: "REPLACE_COMPLETE_STATE",
-        payload: payload,
-      });
-      setSelectAllChecked(true);
+              }));
+        dispatch({
+          type: "REPLACE_COMPLETE_STATE",
+          payload: payload,
+        });
+        setSelectAllChecked(true);
+      }
+      onSelect(
+        alreadyQueuedSelectedState?.map((e) => e.propsData),
+        getCategorySelectAllState(),
+        props
+      );
+    } else {
+      onSelect();
     }
-    onSelect(
-      alreadyQueuedSelectedState?.map((e) => e.propsData),
-      getCategorySelectAllState(),
-      props
-    );
   };
 
   const handleCategorySelection = (parentOption) => {
-    const childoptions = parentOption.options;
-    if (!categorySelected[parentOption.code]) {
-      childoptions?.forEach((option) => {
-        const isAlreadySelected = alreadyQueuedSelectedState.some(
-          (selectedOption) => selectedOption.code === option.code
-        );
-        if (!isAlreadySelected) {
+    if (!restrictSelection) {
+      const childoptions = parentOption.options;
+      if (!categorySelected[parentOption.code]) {
+        childoptions?.forEach((option) => {
+          const isAlreadySelected = alreadyQueuedSelectedState.some((selectedOption) => selectedOption.code === option.code);
+          if (!isAlreadySelected) {
+            dispatch({
+              type: "ADD_TO_SELECTED_EVENT_QUEUE",
+              payload: [null, option],
+            });
+          }
+        });
+      } else {
+        childoptions?.forEach((option) => {
           dispatch({
-            type: "ADD_TO_SELECTED_EVENT_QUEUE",
+            type: "REMOVE_FROM_SELECTED_EVENT_QUEUE",
             payload: [null, option],
           });
-        }
-      });
-    } else {
-      childoptions?.forEach((option) => {
-        dispatch({
-          type: "REMOVE_FROM_SELECTED_EVENT_QUEUE",
-          payload: [null, option],
         });
-      });
+      }
+      setCategorySelected((prev) => ({
+        ...prev,
+        [parentOption.code]: !categorySelected[parentOption.code],
+      }));
+      onSelect(
+        alreadyQueuedSelectedState?.map((e) => e.propsData),
+        getCategorySelectAllState(),
+        props
+      );
+    } else {
+      onSelect();
     }
-    setCategorySelected((prev) => ({
-      ...prev,
-      [parentOption.code]: !categorySelected[parentOption.code],
-    }));
-    onSelect(
-      alreadyQueuedSelectedState?.map((e) => e.propsData),
-      getCategorySelectAllState(),
-      props
-    );
   };
 
   function getCategorySelectAllState() {
