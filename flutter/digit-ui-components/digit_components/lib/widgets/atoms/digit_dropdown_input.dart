@@ -186,8 +186,6 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
 
   void _onVisibilityChanged(VisibilityInfo info) {
     if (!mounted) return;
-
-    //TODO: need to recheck as this is getting called after dispose of the dropdown-- do only when the dropdown is mounted
     setState(() {
       _isVisible = info.visibleFraction > 0;
 

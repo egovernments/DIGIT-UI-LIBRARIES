@@ -46,16 +46,19 @@ class MyHomePage extends StatelessWidget {
                   print('Field valid: ${field.control.valid}');
                   print('Field errorText: ${field.errorText}');
 
-                  return BaseDigitFormInput(
+                  return DigitDropdown(
+                    items: const [
+                      DropdownItem(name: 'sdfffffff', code: '1')
+                    ],
+                   onSelect: (value){
+                      print(value);
+                   },
                    onTap : () {
                      print('ttttttttttttttttttttttttttttttt');
                       // Mark the control as touched when the field is tapped
                       field.control.markAsTouched();
                     },
                     errorMessage: field.errorText,
-                    onChange: (value) {
-                      field.didChange(value);
-                    },
                   );
                 },
               ),

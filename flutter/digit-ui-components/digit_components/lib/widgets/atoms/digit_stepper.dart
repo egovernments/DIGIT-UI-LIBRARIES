@@ -1,9 +1,5 @@
-import 'package:digit_ui_components/constants/app_constants.dart';
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/material.dart';
-import '../../constants/AppView.dart';
-import '../../theme/colors.dart';
-import '../../theme/typography.dart';
 
 class DigitStepper extends StatefulWidget {
   /// customizable and easy to manage steppers.
