@@ -58,6 +58,7 @@ yarn storybook
 # Changelog
 
 ```bash
+0.0.1-beta.27 Added uploader variants and its CSS
 0.0.1-beta.26 Updated Toast Usage
 0.0.1-beta.25 Updated RemoveableTag component to have error 
 0.0.1-beta.24 Updated numeric type to disable input and use only buttons and made date and time fields clickable

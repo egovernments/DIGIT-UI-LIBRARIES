@@ -70,7 +70,7 @@ import {
   InfoButton,
   Uploader,
   UploadPopup,
-  DocPreview,
+  UploadImage,
   ErrorBoundary
 } from "./atoms";
 
@@ -322,7 +322,7 @@ export {
   InfoButton,
   Uploader,
   UploadPopup,
-  DocPreview,
+  UploadImage,
   InboxSearchLinks,
   SearchComponent,
   InboxSearchComposer,
