@@ -2,8 +2,8 @@ import React from "react";
 import { SVG } from "./SVG";
 import PropTypes from "prop-types";
 import Animation from "./Animation";
-import successAnimation from '../animations/success.json';
-import errorAnimation from '../animations/error.json';
+import successAnimation from "../animations/success.json";
+import errorAnimation from "../animations/error.json";
 
 const Panels = (props) => {
   const IconRender = (iconReq, iconFill) => {
@@ -50,7 +50,13 @@ const Panels = (props) => {
               height={"56px"}
             ></SVG.CheckCircleOutline>
           ) : (
-            <Animation animationData={successAnimation} width={56} height={56} loop={true} autoplay={true}></Animation>
+            <Animation
+              animationData={successAnimation}
+              width={props?.animationProps?.width || 56}
+              height={props?.animationProps?.height || 56}
+              loop={props?.animationProps?.loop}
+              autoplay={props?.animationProps?.autoplay}
+            ></Animation>
           )
         ) : props?.customIcon ? (
           icon
@@ -61,7 +67,13 @@ const Panels = (props) => {
             height={"56px"}
           ></SVG.ErrorOutline>
         ) : (
-          <Animation animationData={errorAnimation} width={56} height={56} loop={true} autoplay={true}></Animation>
+          <Animation
+            animationData={errorAnimation}
+            width={props?.animationProps?.width || 56}
+            height={props?.animationProps?.height || 56}
+            loop={props?.animationProps?.loop}
+            autoplay={props?.animationProps?.autoplay}
+          ></Animation>
         )}
         <div className={`digit-panel-message`}>{props?.message}</div>
       </div>
