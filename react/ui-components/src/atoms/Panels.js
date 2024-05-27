@@ -54,8 +54,8 @@ const Panels = (props) => {
               animationData={successAnimation}
               width={props?.animationProps?.width || 56}
               height={props?.animationProps?.height || 56}
-              loop={props?.animationProps?.loop}
-              autoplay={props?.animationProps?.autoplay}
+              loop={props?.animationProps?.noLoop === true ? false : true}
+              autoplay={props?.animationProps?.noAutoplay === true ? false : true}
             ></Animation>
           )
         ) : props?.customIcon ? (
@@ -71,8 +71,8 @@ const Panels = (props) => {
             animationData={errorAnimation}
             width={props?.animationProps?.width || 56}
             height={props?.animationProps?.height || 56}
-            loop={props?.animationProps?.loop}
-            autoplay={props?.animationProps?.autoplay}
+            loop={props?.animationProps?.noLoop === true ? false : true}
+            autoplay={props?.animationProps?.noAutoplay === true ? false : true}
           ></Animation>
         )}
         <div className="digit-panel-message">{props?.message}</div>

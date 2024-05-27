@@ -56,8 +56,8 @@ const commonArgs = {
   showAsSvg:false,
   multipleResponses:[],
   animationProps:{
-    autoplay:true,
-    loop:true
+    noAutoplay:false,
+    noLoop :false
   }
 };
 
@@ -75,7 +75,7 @@ SuccessPanelWithAnimationProperties.args = {
   message: "Success Message!",
   animationProps:{
     ...commonArgs.animationProps,
-    loop :false,
+    noLoop :true,
     width:100,
     height:100
   }
@@ -110,7 +110,7 @@ ErrorPanelWithAnimationProperties.args = {
   type: "error",
   message: "Error Message!",
   animationProps:{
-    loop :false,
+    noLoop :true,
     width:100,
     height:100
   }

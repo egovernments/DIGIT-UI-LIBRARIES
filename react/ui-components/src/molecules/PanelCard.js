@@ -1,11 +1,22 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState, useRef } from "react";
 import PropTypes from "prop-types";
 import { Panels } from "../atoms";
 
 const PanelCard = (props) => {
-  const [isMobileView, setIsMobileView] = React.useState(
-    window.innerWidth <= 480
-  );
+  const [isOverflowing, setIsOverflowing] = useState(false);
+  const childrenWrapRef = useRef(null);
+
+  const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 480);
+
+  const checkOverflow = () => {
+    if (childrenWrapRef.current) {
+      const isOverflow =
+        childrenWrapRef.current.scrollHeight >
+        childrenWrapRef.current.clientHeight;
+      setIsOverflowing(isOverflow);
+    }
+  };
+
   const onResize = () => {
     if (window.innerWidth <= 480) {
       if (!isMobileView) {
@@ -16,17 +27,34 @@ const PanelCard = (props) => {
         setIsMobileView(false);
       }
     }
+    checkOverflow();
   };
+
   useEffect(() => {
-    window.addEventListener("resize", () => {
-      onResize();
-    });
+    const handleScroll = () => checkOverflow();
+    const childrenWrap = childrenWrapRef.current;
+
+    if (childrenWrap) {
+      childrenWrap.addEventListener("scroll", handleScroll);
+      checkOverflow();
+    }
+
     return () => {
-      window.addEventListener("resize", () => {
-        onResize();
-      });
+      if (childrenWrap) {
+        childrenWrap.removeEventListener("scroll", handleScroll);
+      }
     };
-  });
+  }, [props.children]);
+
+  useEffect(() => {
+    window.addEventListener("resize", onResize);
+
+    checkOverflow();
+
+    return () => {
+      window.removeEventListener("resize", onResize);
+    };
+  }, []);
 
   const allowedFooter = props?.footerChildren.slice(
     0,
@@ -50,14 +78,23 @@ const PanelCard = (props) => {
     <div
       className={`digit-panelcard-wrap ${
         props?.cardClassName ? props?.cardClassName : ""
-      }`}
+      } ${isOverflowing ? "with-shadow" : ""}`}
       style={props?.cardStyles}
     >
-      <Panels {...props}></Panels>
+      {
+        <div
+          className={`digit-panelcard-header ${
+            isOverflowing ? "with-shadow" : ""
+          }`}
+        >
+          <Panels {...props}></Panels>
+        </div>
+      }
       <div
+        ref={childrenWrapRef}
         className={`digit-panelcard-children-wrap ${
           props?.showChildrenInline ? "inline" : ""
-        }`}
+        } ${isOverflowing ? "with-shadow" : ""}`}
       >
         {props?.description && (
           <div className="digit-panelcard-description">
@@ -69,9 +106,9 @@ const PanelCard = (props) => {
       <div
         className={`digit-panelcard-footer ${
           props?.footerclassName ? props?.footerclassName : ""
-        }`}
+        } ${isOverflowing ? "with-shadow" : ""}`}
       >
-        {finalFooterArray}
+        <div className="digit-panelcard-footer-buttons">{finalFooterArray}</div>
       </div>
     </div>
   );
@@ -88,7 +125,6 @@ PanelCard.propTypes = {
   response: PropTypes.string,
   customIcon: PropTypes.string,
   iconFill: PropTypes.string,
-  panelStyles: PropTypes.object,
   multipleResponses: PropTypes.array,
 };
 

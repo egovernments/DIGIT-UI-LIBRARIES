@@ -47,9 +47,6 @@ export default {
     iconFill: {
       control: "text",
     },
-    panelStyles: {
-      control: { type: "object" },
-    },
     multipleResponses: {
       control: {
         type: "array",
@@ -60,6 +57,9 @@ export default {
       control: "text",
     },
     style: {
+      control: "object",
+    },
+    animationProps: {
       control: "object",
     },
   },
@@ -84,8 +84,11 @@ const commonArgs = {
   response: "949749795479",
   customIcon: "",
   iconFill: "",
-  panelStyles: {},
   multipleResponses: [],
+  animationProps:{
+    noLoop:false,
+    noAutoplay:false
+  }
 };
 
 const footerChildrenWithTwoButtons = [
@@ -163,6 +166,7 @@ const footerChildrenSix = [
 const children = [
   <InfoCard
     variant={"success"}
+    className={"panelcard-infocard"}
     text={"This is success"}
   />,
 ];
@@ -170,6 +174,7 @@ const children = [
 const errorchildren = [
     <InfoCard
       variant={"error"}
+      className={"panelcard-infocard"}
       text={"This is error"}
     />,
   ];
@@ -184,6 +189,49 @@ SuccessPanelCard.args = {
   type: "success",
 };
 
+export const SuccessPanelCardWithOneButton = Template.bind({});
+SuccessPanelCardWithOneButton.args = {
+  ...commonArgs,
+  children: children,
+  footerChildren: footerChildrenWithOneButton,
+  maxFooterButtonsAllowed: 5,
+  message: "Success Message!",
+  type: "success",
+};
+
+export const SuccessPanelCardWithMoreButtons = Template.bind({});
+SuccessPanelCardWithMoreButtons.args = {
+  ...commonArgs,
+  children: children,
+  footerChildren: footerChildrenSix,
+  maxFooterButtonsAllowed: 5,
+  message: "Success Message!",
+  type: "success",
+};
+
+export const SuccessPanelCardWithoutAnimation = Template.bind({});
+SuccessPanelCardWithoutAnimation.args = {
+  ...commonArgs,
+  children: children,
+  footerChildren: footerChildrenWithTwoButtons,
+  maxFooterButtonsAllowed: 5,
+  message: "Success Message!",
+  type: "success",
+  showAsSvg:true
+};
+
+export const SuccessPanelCardWithCustomStyles = Template.bind({});
+SuccessPanelCardWithCustomStyles.args = {
+  ...commonArgs,
+  children: children,
+  footerChildren: footerChildrenWithTwoButtons,
+  maxFooterButtonsAllowed: 5,
+  message: "Success Message!",
+  type: "success",
+  showAsSvg:true,
+  cardStyles: { width: "620px", height: "590px" },
+};
+
 export const ErrorPanelCard = Template.bind({});
 ErrorPanelCard.args = {
   ...commonArgs,
@@ -192,4 +240,47 @@ ErrorPanelCard.args = {
   maxFooterButtonsAllowed: 5,
   message: "Error Message!",
   type: "error",
+};
+
+export const ErrorPanelCardWithOneButton = Template.bind({});
+ErrorPanelCardWithOneButton.args = {
+  ...commonArgs,
+  children: errorchildren,
+  footerChildren: footerChildrenWithOneButton,
+  maxFooterButtonsAllowed: 5,
+  message: "Error Message!",
+  type: "error",
+};
+
+export const ErrorPanelCardWithMoreButtons = Template.bind({});
+ErrorPanelCardWithMoreButtons.args = {
+  ...commonArgs,
+  children: errorchildren,
+  footerChildren: footerChildrenSix,
+  maxFooterButtonsAllowed: 5,
+  message: "Error Message!",
+  type: "error",
+};
+
+export const ErrorPanelCardWithoutAnimation = Template.bind({});
+ErrorPanelCardWithoutAnimation.args = {
+  ...commonArgs,
+  children: errorchildren,
+  footerChildren: footerChildrenWithTwoButtons,
+  maxFooterButtonsAllowed: 5,
+  message: "Error Message!",
+  type: "error",
+  showAsSvg:true
+};
+
+export const ErrorPanelCardWithCustomStyles = Template.bind({});
+ErrorPanelCardWithCustomStyles.args = {
+  ...commonArgs,
+  children: children,
+  footerChildren: footerChildrenWithTwoButtons,
+  maxFooterButtonsAllowed: 5,
+  message: "Error Message!",
+  type: "error",
+  showAsSvg:true,
+  cardStyles: { width: "620px", height: "590px" },
 };
