@@ -1,0 +1,81 @@
+.digit-panelcard-wrap {
+    @apply w-full flex-col;
+    display: flex;
+    height: fit-content;
+    border-radius: theme(digitv2.spacers.spacer1);
+    box-shadow: theme(digitv2.spacers.spacer0) 0.063rem 0.125rem theme(digitv2.spacers.spacer0) #00000029;
+    background: theme(digitv2.lightTheme.paper-primary);
+
+    @media (min-width: 48rem) {
+        gap: theme(digitv2.spacers.spacer6);
+        padding: theme(digitv2.spacers.spacer6);
+    }
+
+    @media (min-width: 30.063rem) and (max-width: 47.938rem) {
+        gap: theme(digitv2.spacers.spacer5);
+        padding: theme(digitv2.spacers.spacer6)
+    }
+
+    @media (max-width: 30rem) {
+        gap: theme(digitv2.spacers.spacer4);
+        padding: theme(digitv2.spacers.spacer0) theme(digitv2.spacers.spacer0) theme(digitv2.spacers.spacer4) theme(digitv2.spacers.spacer0);
+    }
+
+    .digit-panelcard-children-wrap {
+        @apply flex-col overflow-y-auto;
+
+        display: flex;
+        flex: 1;
+
+        &.inline {
+            flex-direction: row;
+        }
+
+        @media (min-width: 30.063rem) and (max-width: 47.938rem) {
+            gap: theme(digitv2.spacers.spacer5);
+        }
+
+        @media (min-width: 48rem) {
+            gap: theme(digitv2.spacers.spacer6);
+        }
+
+        @media (max-width: 30rem) {
+            gap: theme(digitv2.spacers.spacer4);
+            padding: theme(digitv2.spacers.spacer0) theme(digitv2.spacers.spacer4) theme(digitv2.spacers.spacer0) theme(digitv2.spacers.spacer4);
+        }
+
+        .digit-panelcard-description {
+            @extend .typography.body-s;
+            color: theme(digitv2.lightTheme.generic-inputborder);
+        }
+
+    }
+
+
+    .digit-panelcard-footer {
+        display: flex;
+        gap: theme(digitv2.spacers.spacer4);
+        margin-left: auto;
+        flex-wrap: wrap;
+
+        @media (min-width: 30.063rem) and (max-width: 47.938rem) {
+            width: 100%;
+            margin-left: 0rem;
+
+            button {
+                flex: 1;
+            }
+        }
+
+        @media (max-width: 30rem) {
+            flex-direction: column;
+            margin: 0rem;
+
+            button {
+                width: 100%;
+            }
+        }
+
+    }
+
+}
