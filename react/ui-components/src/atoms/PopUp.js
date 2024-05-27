@@ -59,9 +59,9 @@ const PopUp = (props) => {
   }, []);
 
   const IconRender = (type, iconReq, iconFill) => {
-    let fill = iconFill || "#D4351C";
-    let width = type === "alert" ? "48px" : "32px";
-    let height = type === "alert" ? "48px" : "32px";
+    const fill = iconFill || "#D4351C";
+    const width = type === "alert" ? "48px" : "32px";
+    const height = type === "alert" ? "48px" : "32px";
 
     try {
       const components = require("@egovernments/digit-ui-svg-components");

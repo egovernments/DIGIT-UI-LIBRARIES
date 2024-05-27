@@ -7,7 +7,7 @@ import errorAnimation from "../animations/error.json";
 
 const Panels = (props) => {
   const IconRender = (iconReq, iconFill) => {
-    let fill = iconFill || "#FFFFFF";
+    const fill = iconFill || "#FFFFFF";
 
     try {
       const components = require("@egovernments/digit-ui-svg-components");
@@ -17,7 +17,7 @@ const Panels = (props) => {
           width: "56px",
           height: "56px",
           fill: fill,
-          className: `digit-panel-customIcon`,
+          className: "digit-panel-customIcon",
         });
         return svgElement;
       } else {
@@ -75,15 +75,15 @@ const Panels = (props) => {
             autoplay={props?.animationProps?.autoplay}
           ></Animation>
         )}
-        <div className={`digit-panel-message`}>{props?.message}</div>
+        <div className="digit-panel-message">{props?.message}</div>
       </div>
       <div className="digit-panel-info-wrapper">
-        <div className={`digit-panel-info`}>{props?.info}</div>
-        <div className={`digit-panel-response`}>{props?.response}</div>
+        <div className="digit-panel-info">{props?.info}</div>
+        <div className="digit-panel-response">{props?.response}</div>
         {props?.multipleResponses && (
           <div className="digit-panel-multiple-responses">
             {props?.multipleResponses.map((response) => (
-              <div className={`digit-panel-response`}>{response}</div>
+              <div className="digit-panel-response">{response}</div>
             ))}
           </div>
         )}
