@@ -71,7 +71,11 @@ import {
   Uploader,
   UploadPopup,
   UploadImage,
-  ErrorBoundary
+  ErrorBoundary,
+  TextBlock,
+  Panels,
+  Animation,
+
 } from "./atoms";
 
 import {
@@ -226,6 +230,7 @@ import {
   SearchField,
   SearchOnRadioButtons,
   TextInputCard,
+  PanelCard
 } from "./molecules";
 
 // import { initCoreLibraries } from "@egovernments/digit-ui-libraries-core";
@@ -311,6 +316,7 @@ export {
   SearchForm,
   SearchOnRadioButtons,
   TextInputCard,
+  PanelCard,
   Toggle,
   ToggleSwitch,
   TreeSelect,
@@ -323,6 +329,9 @@ export {
   Uploader,
   UploadPopup,
   UploadImage,
+  TextBlock,
+  Panels,
+  Animation,
   InboxSearchLinks,
   SearchComponent,
   InboxSearchComposer,

@@ -14,6 +14,7 @@ import FilterAction from "./FilterAction";
 import RenderFormFields from "./RenderFormFields";
 import DateRangeNew from "./DateRangeNew";
 import WorkflowStatusFilter from "./WorkflowStatusFilter";
+import PanelCard from "./PanelCard";
 
 export {
   ApiDropdown,
@@ -31,5 +32,6 @@ export {
   FilterAction,
   RenderFormFields,
   DateRangeNew,
-  WorkflowStatusFilter
+  WorkflowStatusFilter,
+  PanelCard
 };

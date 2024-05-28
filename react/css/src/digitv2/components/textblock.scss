@@ -1,0 +1,47 @@
+.digit-text-block-wrap {
+
+    @apply flex flex-col;
+
+    @media (min-width: 48rem) {
+        gap: theme(digitv2.spacers.spacer6);
+    }
+
+    @media (min-width: 30.063rem) and (max-width: 47.938rem) {
+        gap: theme(digitv2.spacers.spacer5);
+    }
+
+    @media (max-width: 30rem) {
+        gap: theme(digitv2.spacers.spacer4);
+    }
+
+
+    .digit-text-block-header-content {
+        .digit-text-block-caption {
+            @extend .typography.caption-s;
+            padding-bottom: theme(digitv2.spacers.spacer1);
+            color: theme(digitv2.lightTheme.text-secondary);
+        }
+
+        .digit-text-block-header {
+            @extend .typography.heading-xl;
+            padding-bottom: theme(digitv2.spacers.spacer2);
+            color: theme(digitv2.lightTheme.text-primary);
+            line-height: normal;
+        
+            @media (max-width: 30rem) {
+                padding-bottom: theme(digitv2.spacers.spacer1);
+            }
+        }
+
+        .digit-text-block-subheader {
+            @extend .typography.heading-m;
+            color: theme(digitv2.lightTheme.text-secondary);
+            line-height: normal;
+        }
+    }
+
+    .digit-text-block-body {
+        @extend .typography.body-s;
+        color: theme(digitv2.lightTheme.generic-inputborder);
+    }
+}

@@ -72,6 +72,9 @@ import Uploader  from "./Uploader";
 import UploadPopup from "./UploadPopup";
 import UploadImage from "./UploadImage";
 import ErrorBoundary from "./ErrorBoundary";
+import TextBlock from "./TextBlock";
+import Panels from "./Panels";
+import Animation from "./Animation";
 
 import {
   AnnouncementIcon,
@@ -280,6 +283,9 @@ export {
   Uploader,
   UploadPopup,
   UploadImage,
+  TextBlock,
+  Panels,
+  Animation,
   InboxSearchLinks,
   SearchComponent,
   LinkLabel,

@@ -1,0 +1,73 @@
+.digit-panel-wrapper {
+  @apply flex flex-col items-center;
+  gap: theme(digitv2.spacers.spacer6);
+
+  @media (min-width: 48rem) {
+    padding: theme(digitv2.spacers.spacer10);
+  }
+
+  @media (min-width: 30.063rem) and (max-width: 47.938rem) {
+    padding: theme(digitv2.spacers.spacer10);
+  }
+
+  @media (max-width: 30rem) {
+    padding: theme(digitv2.spacers.spacer8) theme(digitv2.spacers.spacer10);
+  }
+
+  &.success {
+    background-color: theme(digitv2.lightTheme.alert-success);
+  }
+
+  &.error {
+    background-color: theme(digitv2.lightTheme.alert-error);
+  }
+
+  .digit-panel-message-wrapper {
+    @apply items-center;
+    display: flex;
+    flex-direction: column !important;
+
+    @media (min-width: 48rem) {
+      gap: theme(digitv2.spacers.spacer6);
+    }
+
+    @media (min-width: 30.063rem) and (max-width: 47.938rem) {
+      gap: theme(digitv2.spacers.spacer5);
+    }
+
+    @media (max-width: 30rem) {
+      gap: theme(digitv2.spacers.spacer4);
+    }
+
+    .digit-panel-message {
+      @extend .typography.heading-xl;
+      @apply whitespace-pre-wrap break-words;
+      line-height: normal;
+      color: theme(digitv2.lightTheme.paper-primary);
+    }
+  }
+
+  .digit-panel-info-wrapper {
+    display: flex;
+    flex-direction: column !important;
+    align-items: center;
+    gap: theme(digitv2.spacers.spacer1);
+
+    .digit-panel-info {
+      @extend .typography.body-l;
+      color: theme(digitv2.lightTheme.paper-primary);
+    }
+
+    .digit-panel-multiple-responses {
+      display: flex;
+      flex-direction: column;
+      gap: theme(digitv2.spacers.spacer1);
+    }
+
+    .digit-panel-response {
+      @extend .typography.heading-m;
+      color: theme(digitv2.lightTheme.paper-primary);
+    }
+
+  }
+}

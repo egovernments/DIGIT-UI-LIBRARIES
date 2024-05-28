@@ -58,6 +58,7 @@ yarn storybook
 # Changelog
 
 ```bash
+0.0.1-beta.29 Added PopUp,Panels and Panel Cards
 0.0.1-beta.28 Added restrictSelection prop in MultiSelectDropdown
 0.0.1-beta.27 Added uploader variants and its CSS
 0.0.1-beta.26 Updated Toast Usage
