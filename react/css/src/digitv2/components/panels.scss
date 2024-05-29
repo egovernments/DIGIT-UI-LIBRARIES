@@ -41,7 +41,7 @@
 
     .digit-panel-message {
       @extend .typography.heading-xl;
-      @apply whitespace-pre-wrap break-words;
+      @apply whitespace-pre-wrap break-words text-center;
       line-height: normal;
       color: theme(digitv2.lightTheme.paper-primary);
     }
@@ -67,6 +67,7 @@
     .digit-panel-response {
       @extend .typography.heading-m;
       color: theme(digitv2.lightTheme.paper-primary);
+      line-height: normal;
     }
 
   }

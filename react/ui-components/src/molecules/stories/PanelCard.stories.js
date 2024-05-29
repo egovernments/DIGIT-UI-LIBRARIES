@@ -62,6 +62,9 @@ export default {
     animationProps: {
       control: "object",
     },
+    footerStyles: {
+      control: "object",
+    },
   },
 };
 
@@ -88,7 +91,8 @@ const commonArgs = {
   animationProps:{
     noLoop:false,
     noAutoplay:false
-  }
+  },
+  footerStyles:{}
 };
 
 const footerChildrenWithTwoButtons = [
@@ -232,6 +236,28 @@ SuccessPanelCardWithCustomStyles.args = {
   cardStyles: { width: "620px", height: "590px" },
 };
 
+export const SuccessPanelCardWithFooterStyles = Template.bind({});
+SuccessPanelCardWithFooterStyles.args = {
+  ...commonArgs,
+  children: children,
+  footerChildren: footerChildrenWithTwoButtons,
+  maxFooterButtonsAllowed: 5,
+  message: "Success Message!",
+  type: "success",
+  footerStyles:{
+    marginLeft:"unset"
+  }
+};
+
+export const SuccessPanelCardWithOutFooter = Template.bind({});
+SuccessPanelCardWithOutFooter.args = {
+  ...commonArgs,
+  children: children,
+  maxFooterButtonsAllowed: 5,
+  message: "Success Message!",
+  type: "success",
+};
+
 export const ErrorPanelCard = Template.bind({});
 ErrorPanelCard.args = {
   ...commonArgs,
@@ -283,4 +309,26 @@ ErrorPanelCardWithCustomStyles.args = {
   type: "error",
   showAsSvg:true,
   cardStyles: { width: "620px", height: "590px" },
+};
+
+export const ErrorPanelCardWithFooterStyles = Template.bind({});
+ErrorPanelCardWithFooterStyles.args = {
+  ...commonArgs,
+  children: errorchildren,
+  footerChildren: footerChildrenWithTwoButtons,
+  maxFooterButtonsAllowed: 5,
+  message: "Error Message!",
+  type: "error",
+  footerStyles:{
+    marginLeft:"unset"
+  }
+};
+
+export const ErrorPanelCardWithOutFooter = Template.bind({});
+ErrorPanelCardWithOutFooter.args = {
+  ...commonArgs,
+  children: errorchildren,
+  maxFooterButtonsAllowed: 5,
+  message: "Error Message!",
+  type: "error",
 };

@@ -56,10 +56,11 @@ const PanelCard = (props) => {
     };
   }, []);
 
-  const allowedFooter = props?.footerChildren.slice(
-    0,
-    props?.maxFooterButtonsAllowed || 5
-  );
+  const hasFooterChildren = props?.footerChildren?.length > 0;
+
+  const allowedFooter = hasFooterChildren
+    ? props?.footerChildren.slice(0, props?.maxFooterButtonsAllowed || 5)
+    : [];
 
   const sortedFooterButtons = [...allowedFooter].sort((a, b) => {
     const typeOrder = { primary: 3, secondary: 2, tertiary: 1 };
@@ -94,7 +95,7 @@ const PanelCard = (props) => {
         ref={childrenWrapRef}
         className={`digit-panelcard-children-wrap ${
           props?.showChildrenInline ? "inline" : ""
-        } ${isOverflowing ? "with-shadow" : ""}`}
+        } ${isOverflowing ? "with-shadow" : ""} ${!hasFooterChildren ? "without-footer" : ""}`}
       >
         {props?.description && (
           <div className="digit-panelcard-description">
@@ -103,13 +104,17 @@ const PanelCard = (props) => {
         )}
         {props?.children}
       </div>
-      <div
-        className={`digit-panelcard-footer ${
-          props?.footerclassName ? props?.footerclassName : ""
-        } ${isOverflowing ? "with-shadow" : ""}`}
-      >
-        <div className="digit-panelcard-footer-buttons">{finalFooterArray}</div>
-      </div>
+      {hasFooterChildren && (
+        <div
+          className={`digit-panelcard-footer ${
+            props?.footerclassName ? props?.footerclassName : ""
+          } ${isOverflowing ? "with-shadow" : ""}`}
+        >
+          <div className="digit-panelcard-footer-buttons" style={{...props?.footerStyles}} >
+            {finalFooterArray}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

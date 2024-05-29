@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { SVG } from "./SVG";
 import PropTypes from "prop-types";
 import Animation from "./Animation";
@@ -6,6 +6,30 @@ import successAnimation from "../animations/success.json";
 import errorAnimation from "../animations/error.json";
 
 const Panels = (props) => {
+
+  const useDeviceType = () => {
+    const [deviceType, setDeviceType] = useState("desktop");
+  
+    useEffect(() => {
+      const updateDeviceType = () => {
+        const width = window.innerWidth;
+        if (width <= 480) {
+          setDeviceType("mobile");
+        } else if (width > 481 && width <= 768) {
+          setDeviceType("tablet");
+        } else {
+          setDeviceType("desktop");
+        }
+      };
+  
+      updateDeviceType();
+      window.addEventListener("resize", updateDeviceType);
+      return () => window.removeEventListener("resize", updateDeviceType);
+    }, []);
+  
+    return deviceType;
+  };
+
   const IconRender = (iconReq, iconFill) => {
     const fill = iconFill || "#FFFFFF";
 
@@ -14,8 +38,8 @@ const Panels = (props) => {
       const DynamicIcon = components?.[iconReq];
       if (DynamicIcon) {
         const svgElement = DynamicIcon({
-          width: "56px",
-          height: "56px",
+          width: width,
+          height: height,
           fill: fill,
           className: "digit-panel-customIcon",
         });
@@ -31,6 +55,29 @@ const Panels = (props) => {
   };
 
   const icon = IconRender(props?.customIcon, props?.iconFill);
+  const deviceType = useDeviceType();
+
+  const getAnimationDimensions = () => {
+    if (props?.animationProps?.width && props?.animationProps?.height) {
+      return {
+        width: props.animationProps.width,
+        height: props.animationProps.height,
+      };
+    }
+
+    switch (deviceType) {
+      case "mobile":
+        return { width: 56, height: 56 };
+      case "tablet":
+        return { width: 64, height: 64 };
+      case "desktop":
+      default:
+        return { width: 74, height: 74 };
+    }
+  };
+
+  const { width, height } = getAnimationDimensions();
+
 
   return (
     <div
@@ -46,14 +93,14 @@ const Panels = (props) => {
           ) : props?.showAsSvg ? (
             <SVG.CheckCircleOutline
               fill={"#FFFFFF"}
-              width={"56px"}
-              height={"56px"}
+              width={width}
+              height={height}
             ></SVG.CheckCircleOutline>
           ) : (
             <Animation
               animationData={successAnimation}
-              width={props?.animationProps?.width || 56}
-              height={props?.animationProps?.height || 56}
+              width={width}
+              height={width}
               loop={props?.animationProps?.noLoop === true ? false : true}
               autoplay={props?.animationProps?.noAutoplay === true ? false : true}
             ></Animation>
@@ -63,14 +110,14 @@ const Panels = (props) => {
         ) : props?.showAsSvg ? (
           <SVG.ErrorOutline
             fill={"#FFFFFF"}
-            width={"56px"}
-            height={"56px"}
+            width={width}
+            height={height}
           ></SVG.ErrorOutline>
         ) : (
           <Animation
             animationData={errorAnimation}
-            width={props?.animationProps?.width || 56}
-            height={props?.animationProps?.height || 56}
+            width={width}
+            height={height}
             loop={props?.animationProps?.noLoop === true ? false : true}
             autoplay={props?.animationProps?.noAutoplay === true ? false : true}
           ></Animation>
