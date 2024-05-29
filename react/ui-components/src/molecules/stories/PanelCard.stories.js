@@ -89,7 +89,7 @@ const commonArgs = {
   iconFill: "",
   multipleResponses: [],
   animationProps:{
-    noLoop:false,
+    loop:false,
     noAutoplay:false
   },
   footerStyles:{}

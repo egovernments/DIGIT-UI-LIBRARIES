@@ -101,7 +101,7 @@ const Panels = (props) => {
               animationData={successAnimation}
               width={width}
               height={width}
-              loop={props?.animationProps?.noLoop === true ? false : true}
+              loop={props?.animationProps?.loop === true ? true : false}
               autoplay={props?.animationProps?.noAutoplay === true ? false : true}
             ></Animation>
           )
@@ -118,7 +118,7 @@ const Panels = (props) => {
             animationData={errorAnimation}
             width={width}
             height={height}
-            loop={props?.animationProps?.noLoop === true ? false : true}
+            loop={props?.animationProps?.loop === true ? true : false}
             autoplay={props?.animationProps?.noAutoplay === true ? false : true}
           ></Animation>
         )}
