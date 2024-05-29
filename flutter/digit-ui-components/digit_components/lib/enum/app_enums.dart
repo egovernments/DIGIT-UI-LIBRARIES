@@ -65,3 +65,9 @@ enum InfoType { info, success, error, warning }
 
 /// Enum to define different state for timeline
 enum TimelineStepState { completed, present, future }
+
+/// Enum representing different types of popup card - default and alert
+enum PopUpType {
+  simple,
+  alert,
+}

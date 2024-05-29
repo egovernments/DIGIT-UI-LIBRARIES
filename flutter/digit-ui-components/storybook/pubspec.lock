@@ -255,7 +255,7 @@ packages:
       path: "../digit_components"
       relative: true
     source: path
-    version: "0.0.1+4"
+    version: "0.0.1+5"
   dotted_border:
     dependency: transitive
     description:
