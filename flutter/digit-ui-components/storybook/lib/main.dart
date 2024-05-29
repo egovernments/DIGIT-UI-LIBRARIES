@@ -4,6 +4,7 @@ import 'package:digit_ui_components/widgets/atoms/stepper.dart';
 import 'package:flutter/material.dart';
 import 'package:inspector/inspector.dart';
 import 'package:storybook/widgets/atoms/action_card_story.dart';
+import 'package:storybook/widgets/atoms/button_list_story.dart';
 import 'package:storybook/widgets/atoms/buttons_story.dart';
 import 'package:storybook/widgets/atoms/checkbox_story.dart';
 import 'package:storybook/widgets/atoms/chip_stoty.dart';
@@ -67,6 +68,7 @@ class MyApp extends StatelessWidget {
               ...actionStories(),
               ...panelStories(),
               ...panelCardStories(),
+              ...buttonListStories(),
             ],
           ),
         ),

@@ -1,4 +1,6 @@
+import 'package:digit_ui_components/enum/app_enums.dart';
 import 'package:digit_ui_components/widgets/atoms/action_card.dart';
+import 'package:digit_ui_components/widgets/atoms/digit_button.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
 import 'package:flutter/material.dart';
 
@@ -8,13 +10,12 @@ List<Story> actionStories() {
       name: 'Atom/Action/1',
       builder: (context) =>  ActionCard(
         actions: [
-          ActionItem(
-            text: 'Assign as household head',
-            onTap: () {
-              // Define what should happen when the primary action is tapped
-              print('Primary Action 1 tapped');
-            },
-            icon: Icons.person,
+          Button(
+            size: ButtonSize.large,
+            type: ButtonType.secondary,
+            label: 'Assign as household head',
+            onPressed: () {},
+            prefixIcon: Icons.person,
           ),
         ],
       ),
@@ -23,205 +24,312 @@ List<Story> actionStories() {
       name: 'Atom/Action/2',
       builder: (context) =>  ActionCard(
         actions: [
-          ActionItem(
-            text: 'Assign as household head',
-            onTap: () {
+          Button(
+            size: ButtonSize.large,
+            type: ButtonType.secondary,
+            label: 'Assign as household head',
+            onPressed: () {
               // Define what should happen when the primary action is tapped
               print('Primary Action 1 tapped');
             },
-            icon: Icons.person,
+            prefixIcon: Icons.person,
           ),
-          ActionItem(
-            text: 'Edit Individual Details',
-            onTap: () {
-              // Define what should happen when the secondary action is tapped
-              print('Secondary Action 1 tapped');
+          Button(
+            size: ButtonSize.large,
+            type: ButtonType.secondary,
+            label: 'Edit Individual Details',
+            onPressed: () {
+              // Define what should happen when the primary action is tapped
+              print('Primary Action 1 tapped');
             },
-            icon: Icons.edit,
+            prefixIcon: Icons.edit,
           ),
-          ActionItem(
-            text: 'Delete Individual',
-            onTap: () {
-              // Define what should happen when the secondary action is tapped
-              print('Secondary Action 1 tapped');
+          Button(
+            size: ButtonSize.large,
+            type: ButtonType.secondary,
+            label: 'Delete Individual',
+            onPressed: () {
+              // Define what should happen when the primary action is tapped
+              print('Primary Action 1 tapped');
             },
-            icon: Icons.delete,
+            prefixIcon: Icons.delete,
           ),
           // Add more action items as needed
         ],
       ),
     ),
     Story(
-      name: 'Atom/Action/3',
+      name: 'Atom/Action/scroll',
       builder: (context) =>  ActionCard(
         actions: [
-          ActionItem(
-            text: 'Assign as household head',
-            onTap: () {
+          Button(
+            size: ButtonSize.large,
+            type: ButtonType.secondary,
+            label: 'Assign as household head',
+            onPressed: () {
               // Define what should happen when the primary action is tapped
               print('Primary Action 1 tapped');
             },
-            icon: Icons.person,
+            prefixIcon: Icons.person,
           ),
-          ActionItem(
-            text: 'Edit Individual Details',
-            onTap: () {
-              // Define what should happen when the secondary action is tapped
-              print('Secondary Action 1 tapped');
+          Button(
+            size: ButtonSize.large,
+            type: ButtonType.secondary,
+            label: 'Edit Individual Details',
+            onPressed: () {
+              // Define what should happen when the primary action is tapped
+              print('Primary Action 1 tapped');
             },
-            icon: Icons.edit,
+            prefixIcon: Icons.edit,
           ),
-          ActionItem(
-            text: 'Delete Individual',
-            onTap: () {
-              // Define what should happen when the secondary action is tapped
-              print('Secondary Action 1 tapped');
+          Button(
+            size: ButtonSize.large,
+            type: ButtonType.secondary,
+            label: 'Delete Individual',
+            onPressed: () {
+              // Define what should happen when the primary action is tapped
+              print('Primary Action 1 tapped');
             },
-            icon: Icons.delete,
+            prefixIcon: Icons.delete,
           ),
-          ActionItem(
-            text: 'Manage Individual',
-            onTap: () {
-              // Define what should happen when the secondary action is tapped
-              print('Secondary Action 1 tapped');
+          Button(
+            size: ButtonSize.large,
+            type: ButtonType.secondary,
+            label: 'Edit Individual Details',
+            onPressed: () {
+              // Define what should happen when the primary action is tapped
+              print('Primary Action 1 tapped');
             },
-            icon: Icons.person,
+            prefixIcon: Icons.edit,
           ),
-          ActionItem(
-            text: 'Register Individual',
-            onTap: () {
-              // Define what should happen when the secondary action is tapped
-              print('Secondary Action 1 tapped');
+          Button(
+            size: ButtonSize.large,
+            type: ButtonType.secondary,
+            label: 'Delete Individual',
+            onPressed: () {
+              // Define what should happen when the primary action is tapped
+              print('Primary Action 1 tapped');
             },
-            icon: Icons.person,
+            prefixIcon: Icons.delete,
+          ),
+          Button(
+            size: ButtonSize.large,
+            type: ButtonType.secondary,
+            label: 'Assign as household head',
+            onPressed: () {
+              // Define what should happen when the primary action is tapped
+              print('Primary Action 1 tapped');
+            },
+            prefixIcon: Icons.person,
+          ),
+          Button(
+            size: ButtonSize.large,
+            type: ButtonType.secondary,
+            label: 'Edit Individual Details',
+            onPressed: () {
+              // Define what should happen when the primary action is tapped
+              print('Primary Action 1 tapped');
+            },
+            prefixIcon: Icons.edit,
+          ),
+          Button(
+            size: ButtonSize.large,
+            type: ButtonType.secondary,
+            label: 'Delete Individual',
+            onPressed: () {
+              // Define what should happen when the primary action is tapped
+              print('Primary Action 1 tapped');
+            },
+            prefixIcon: Icons.delete,
+          ),
+          Button(
+            size: ButtonSize.large,
+            type: ButtonType.secondary,
+            label: 'Assign as household head',
+            onPressed: () {
+              // Define what should happen when the primary action is tapped
+              print('Primary Action 1 tapped');
+            },
+            prefixIcon: Icons.person,
+          ),
+          Button(
+            size: ButtonSize.large,
+            type: ButtonType.secondary,
+            label: 'Edit Individual Details',
+            onPressed: () {
+              // Define what should happen when the primary action is tapped
+              print('Primary Action 1 tapped');
+            },
+            prefixIcon: Icons.edit,
+          ),
+          Button(
+            size: ButtonSize.large,
+            type: ButtonType.secondary,
+            label: 'Delete Individual',
+            onPressed: () {
+              // Define what should happen when the primary action is tapped
+              print('Primary Action 1 tapped');
+            },
+            prefixIcon: Icons.delete,
           ),
         ],
       ),
     ),
     Story(
-      name: 'Atom/Action/4',
+      name: 'Atom/Action/custom width and height',
       builder: (context) =>  ActionCard(
-        isScrollable: true,
+        width: 900,
+        height: 900,
         actions: [
-          ActionItem(
-            text: 'Assign as household head',
-            onTap: () {
+          Button(
+            size: ButtonSize.large,
+            type: ButtonType.secondary,
+            label: 'Assign as household head',
+            onPressed: () {
               // Define what should happen when the primary action is tapped
               print('Primary Action 1 tapped');
             },
-            icon: Icons.person,
+            prefixIcon: Icons.person,
           ),
-          ActionItem(
-            text: 'Edit Individual Details',
-            onTap: () {
-              // Define what should happen when the secondary action is tapped
-              print('Secondary Action 1 tapped');
-            },
-            icon: Icons.edit,
-          ),
-          ActionItem(
-            text: 'Delete Individual',
-            onTap: () {
-              // Define what should happen when the secondary action is tapped
-              print('Secondary Action 1 tapped');
-            },
-            icon: Icons.delete,
-          ),
-          ActionItem(
-            text: 'Manage Individual',
-            onTap: () {
-              // Define what should happen when the secondary action is tapped
-              print('Secondary Action 1 tapped');
-            },
-            icon: Icons.person,
-          ),
-          ActionItem(
-            text: 'Register Individual',
-            onTap: () {
-              // Define what should happen when the secondary action is tapped
-              print('Secondary Action 1 tapped');
-            },
-            icon: Icons.person,
-          ),
-          ActionItem(
-            text: 'Assign as household head',
-            onTap: () {
+          Button(
+            size: ButtonSize.large,
+            type: ButtonType.secondary,
+            label: 'Edit Individual Details',
+            onPressed: () {
               // Define what should happen when the primary action is tapped
               print('Primary Action 1 tapped');
             },
-            icon: Icons.person,
+            prefixIcon: Icons.edit,
           ),
-          ActionItem(
-            text: 'Edit Individual Details',
-            onTap: () {
-              // Define what should happen when the secondary action is tapped
-              print('Secondary Action 1 tapped');
-            },
-            icon: Icons.edit,
-          ),
-          ActionItem(
-            text: 'Delete Individual',
-            onTap: () {
-              // Define what should happen when the secondary action is tapped
-              print('Secondary Action 1 tapped');
-            },
-            icon: Icons.delete,
-          ),
-          ActionItem(
-            text: 'Manage Individual',
-            onTap: () {
-              // Define what should happen when the secondary action is tapped
-              print('Secondary Action 1 tapped');
-            },
-            icon: Icons.person,
-          ),
-          ActionItem(
-            text: 'Register Individual',
-            onTap: () {
-              // Define what should happen when the secondary action is tapped
-              print('Secondary Action 1 tapped');
-            },
-            icon: Icons.person,
-          ),
-          ActionItem(
-            text: 'Assign as household head',
-            onTap: () {
+          Button(
+            size: ButtonSize.large,
+            type: ButtonType.secondary,
+            label: 'Delete Individual',
+            onPressed: () {
               // Define what should happen when the primary action is tapped
               print('Primary Action 1 tapped');
             },
-            icon: Icons.person,
+            prefixIcon: Icons.delete,
           ),
-          ActionItem(
-            text: 'Edit Individual Details',
-            onTap: () {
-              // Define what should happen when the secondary action is tapped
-              print('Secondary Action 1 tapped');
+          Button(
+            size: ButtonSize.large,
+            type: ButtonType.secondary,
+            label: 'Assign as household head',
+            onPressed: () {
+              // Define what should happen when the primary action is tapped
+              print('Primary Action 1 tapped');
             },
-            icon: Icons.edit,
+            prefixIcon: Icons.person,
           ),
-          ActionItem(
-            text: 'Delete Individual',
-            onTap: () {
-              // Define what should happen when the secondary action is tapped
-              print('Secondary Action 1 tapped');
+          Button(
+            size: ButtonSize.large,
+            type: ButtonType.secondary,
+            label: 'Edit Individual Details',
+            onPressed: () {
+              // Define what should happen when the primary action is tapped
+              print('Primary Action 1 tapped');
             },
-            icon: Icons.delete,
+            prefixIcon: Icons.edit,
           ),
-          ActionItem(
-            text: 'Manage Individual',
-            onTap: () {
-              // Define what should happen when the secondary action is tapped
-              print('Secondary Action 1 tapped');
+          Button(
+            size: ButtonSize.large,
+            type: ButtonType.secondary,
+            label: 'Delete Individual',
+            onPressed: () {
+              // Define what should happen when the primary action is tapped
+              print('Primary Action 1 tapped');
             },
-            icon: Icons.person,
+            prefixIcon: Icons.delete,
           ),
-          ActionItem(
-            text: 'Register Individual',
-            onTap: () {
-              // Define what should happen when the secondary action is tapped
-              print('Secondary Action 1 tapped');
+          Button(
+            size: ButtonSize.large,
+            type: ButtonType.secondary,
+            label: 'Assign as household head',
+            onPressed: () {
+              // Define what should happen when the primary action is tapped
+              print('Primary Action 1 tapped');
             },
-            icon: Icons.person,
+            prefixIcon: Icons.person,
+          ),
+          Button(
+            size: ButtonSize.large,
+            type: ButtonType.secondary,
+            label: 'Edit Individual Details',
+            onPressed: () {
+              // Define what should happen when the primary action is tapped
+              print('Primary Action 1 tapped');
+            },
+            prefixIcon: Icons.edit,
+          ),
+          Button(
+            size: ButtonSize.large,
+            type: ButtonType.secondary,
+            label: 'Delete Individual',
+            onPressed: () {
+              // Define what should happen when the primary action is tapped
+              print('Primary Action 1 tapped');
+            },
+            prefixIcon: Icons.delete,
+          ),
+          Button(
+            size: ButtonSize.large,
+            type: ButtonType.secondary,
+            label: 'Assign as household head',
+            onPressed: () {
+              // Define what should happen when the primary action is tapped
+              print('Primary Action 1 tapped');
+            },
+            prefixIcon: Icons.person,
+          ),
+          Button(
+            size: ButtonSize.large,
+            type: ButtonType.secondary,
+            label: 'Edit Individual Details',
+            onPressed: () {
+              // Define what should happen when the primary action is tapped
+              print('Primary Action 1 tapped');
+            },
+            prefixIcon: Icons.edit,
+          ),
+          Button(
+            size: ButtonSize.large,
+            type: ButtonType.secondary,
+            label: 'Delete Individual',
+            onPressed: () {
+              // Define what should happen when the primary action is tapped
+              print('Primary Action 1 tapped');
+            },
+            prefixIcon: Icons.delete,
+          ),
+          Button(
+            size: ButtonSize.large,
+            type: ButtonType.secondary,
+            label: 'Assign as household head',
+            onPressed: () {
+              // Define what should happen when the primary action is tapped
+              print('Primary Action 1 tapped');
+            },
+            prefixIcon: Icons.person,
+          ),
+          Button(
+            size: ButtonSize.large,
+            type: ButtonType.secondary,
+            label: 'Edit Individual Details',
+            onPressed: () {
+              // Define what should happen when the primary action is tapped
+              print('Primary Action 1 tapped');
+            },
+            prefixIcon: Icons.edit,
+          ),
+          Button(
+            size: ButtonSize.large,
+            type: ButtonType.secondary,
+            label: 'Delete Individual',
+            onPressed: () {
+              // Define what should happen when the primary action is tapped
+              print('Primary Action 1 tapped');
+            },
+            prefixIcon: Icons.delete,
           ),
         ],
       ),

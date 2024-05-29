@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../constants/AppView.dart';
-import '../../enum/app_enums.dart';
 import '../../theme/colors.dart';
 import '../../theme/typography.dart';
 import '../helper_widget/button_list.dart';
@@ -11,32 +10,30 @@ class Popup extends StatefulWidget {
   final String title;
   final PopUpType type;
   final double? width;
+  final double? height;
   final Icon? titleIcon;
   final String? subHeading;
   final String? description;
   final List<Widget>? additionalWidgets;
-  final String? primaryActionText;
-  final String? secondaryActionText;
+  final List<Button>? actions;
   final void Function()? onCrossTap;
-  final void Function()? onPrimaryAction;
-  final void Function()? onSecondaryAction;
-  final bool inlineActions;
+  final bool? inlineActions;
+  final MainAxisAlignment? actionAlignment;
 
   const Popup({
     super.key,
     required this.title,
     this.type = PopUpType.simple,
     this.width,
+    this.height,
     this.titleIcon,
     this.subHeading,
     this.description,
     this.additionalWidgets,
-    this.primaryActionText,
-    this.secondaryActionText,
+    this.actions,
     this.onCrossTap,
-    this.onPrimaryAction,
-    this.onSecondaryAction,
-    this.inlineActions = false,
+    this.inlineActions,
+    this.actionAlignment,
   });
 
   @override
@@ -259,7 +256,7 @@ class _PopupState extends State<Popup> {
             : 24
             : 0,
         bottom: !_isOverflowing &&
-            (widget.primaryActionText != null || widget.secondaryActionText != null)
+            (widget.actions != null)
             ? 0
             : isMobile
             ? 16
@@ -375,7 +372,7 @@ class _PopupState extends State<Popup> {
                       _buildContent(currentTypography, isMobile, isTab),
                                        ),
                    ),
-              if (widget.primaryActionText != null || widget.secondaryActionText != null)
+              if (widget.actions!=null)
                 Container(
                   padding: EdgeInsets.only(
                     left: isMobile
@@ -417,108 +414,11 @@ class _PopupState extends State<Popup> {
                     ]
                         : [],
                   ),
-                  child: !widget.inlineActions
-                      ? Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      if (widget.primaryActionText != null)
-                        Button(
-                          mainAxisSize: MainAxisSize.max,
-                          label: widget.primaryActionText!,
-                          size: ButtonSize.large,
-                          type: ButtonType.primary,
-                          isDisabled: widget.onPrimaryAction == null,
-                          onPressed: widget.onPrimaryAction != null
-                              ? widget.onPrimaryAction!
-                              : () {},
-                        ),
-                      if (widget.primaryActionText != null &&
-                          widget.secondaryActionText != null)
-                        const SizedBox(
-                          height: 16,
-                        ),
-                      if (widget.secondaryActionText != null)
-                        Button(
-                          mainAxisSize: MainAxisSize.max,
-                          label: widget.secondaryActionText!,
-                          size: ButtonSize.large,
-                          type: ButtonType.secondary,
-                          isDisabled: widget.onSecondaryAction == null,
-                          onPressed: widget.onSecondaryAction != null
-                              ? widget.onSecondaryAction!
-                              : () {},
-                        ),
-                    ],
+                  child: ButtonListTile(
+                    buttons: widget.actions!,
+                    isVertical: widget.inlineActions!=null ? !widget.inlineActions! : (isMobile ? true : false),
+                    alignment: widget.actionAlignment ?? (isMobile || isTab ? MainAxisAlignment.center : MainAxisAlignment.end),
                   )
-                      : widget.type == PopUpType.alert
-                      ? Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      if (widget.secondaryActionText != null)
-                        Expanded(
-                          child: Button(
-                            label: widget.secondaryActionText!,
-                            size: ButtonSize.large,
-                            type: ButtonType.secondary,
-                            isDisabled: widget.onSecondaryAction == null,
-                            onPressed: widget.onSecondaryAction != null
-                                ? widget.onSecondaryAction!
-                                : () {},
-                          ),
-                        ),
-                      if (widget.primaryActionText != null &&
-                          widget.secondaryActionText != null)
-                        const SizedBox(
-                          width: 16,
-                        ),
-                      if (widget.primaryActionText != null)
-                        Expanded(
-                          child: Button(
-                            label: widget.primaryActionText!,
-                            size: ButtonSize.large,
-                            type: ButtonType.primary,
-                            isDisabled: widget.onPrimaryAction == null,
-                            onPressed: widget.onPrimaryAction != null
-                                ? widget.onPrimaryAction!
-                                : () {},
-                          ),
-                        ),
-                    ],
-                  )
-                      : Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      ButtonListTile(
-                        spacing: 24,
-                        buttons: [
-                          if (widget.secondaryActionText != null)
-                            Button(
-                              label: widget.secondaryActionText!,
-                              mainAxisSize: MainAxisSize.max,
-                              size: ButtonSize.large,
-                              type: ButtonType.secondary,
-                              isDisabled: widget.onSecondaryAction == null,
-                              onPressed: widget.onSecondaryAction != null
-                                  ? widget.onSecondaryAction!
-                                  : () {},
-                            ),
-                          if (widget.primaryActionText != null)
-                            Button(
-                              label: widget.primaryActionText!,
-                              size: ButtonSize.large,
-                              mainAxisSize: MainAxisSize.max,
-                              type: ButtonType.primary,
-                              isDisabled: widget.onPrimaryAction == null,
-                              onPressed: widget.onPrimaryAction != null
-                                  ? widget.onPrimaryAction!
-                                  : () {},
-                            ),
-                        ],
-                      ),
-                    ],
-                  ),
                 ),
             ],
           ),

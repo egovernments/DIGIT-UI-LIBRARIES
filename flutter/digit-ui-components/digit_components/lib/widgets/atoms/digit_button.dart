@@ -250,9 +250,9 @@ class _ButtonState extends State<Button> {
                   isMouseDown = false;
                 });
               },
-        // hoverColor: const DigitColors().transparent,
-        // splashColor: const DigitColors().transparent,
-        // highlightColor: const DigitColors().transparent,
+         hoverColor: const DigitColors().transparent,
+         splashColor: const DigitColors().transparent,
+         highlightColor: const DigitColors().transparent,
         child: _buildButton(isHovered, isMouseDown, isFocused),
       );
     }

@@ -1,12 +1,9 @@
-import 'dart:js_interop';
-
 import 'package:digit_ui_components/constants/AppView.dart';
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/widgets/atoms/panels.dart';
 import 'package:digit_ui_components/widgets/helper_widget/button_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-
 import '../../enum/app_enums.dart';
 
 class PanelCard extends StatefulWidget {

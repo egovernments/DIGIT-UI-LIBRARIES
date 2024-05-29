@@ -1,47 +1,50 @@
 import 'package:flutter/material.dart';
 import '../../constants/AppView.dart';
-import '../../enum/app_enums.dart';
 import '../../theme/colors.dart';
-import '../../theme/typography.dart';
 import '../atoms/digit_button.dart';
-
-class ActionItem {
-  final String text;
-  final IconData? icon;
-  final void Function()? onTap;
-
-  ActionItem({
-    required this.text,
-    this.icon,
-    this.onTap,
-  });
-}
+import '../helper_widget/button_list.dart';
 
 class ActionCard extends StatelessWidget {
   final double? width;
-  final List<ActionItem> actions;
-  final bool isScrollable;
+  final double? height;
+  final List<Button> actions;
+  final double? spacing;
 
   const ActionCard({
     super.key,
     this.width,
+    this.height,
+    this.spacing,
     required this.actions,
-    this.isScrollable = false,
   });
 
   @override
   Widget build(BuildContext context) {
-    DigitTypography currentTypography = getTypography(context, false);
     bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
     bool isTab = AppView.isTabletView(MediaQuery.of(context).size);
-    double cardWidth = width ?? (isMobile ? 328 : (isTab ? 500 : 620));
+    double? cardWidth = width;
 
     return Dialog.fullscreen(
       backgroundColor: const DigitColors().transparent,
       child: Center(
         child: Container(
           width: cardWidth,
-          margin: EdgeInsets.symmetric(vertical: isMobile ? 64 : isTab ? 100 : 74),
+          height: height,
+          margin: EdgeInsets.symmetric(
+              vertical: height == null
+                  ? isMobile
+                      ? 64
+                      : isTab
+                          ? 100
+                          : 74
+                  : 0,
+              horizontal: width == null
+                  ? isMobile
+                      ? 16
+                      : isTab
+                          ? 98
+                          : 446
+                  : 0),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(4),
             color: const DigitColors().light.paperPrimary,
@@ -58,42 +61,34 @@ class ActionCard extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              if (isScrollable)
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: _buildActionButtons(),
-                  ),
-                )
-              else
-                _buildActionButtons(),
+              Flexible(
+                child: SingleChildScrollView(
+                    child: Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.all(isMobile
+                          ? 16
+                          : isTab
+                              ? 20
+                              : 24),
+                      child: ButtonListTile(
+                        buttons: actions,
+                        isVertical: true,
+                        spacing: spacing ??
+                            (isMobile
+                                ? 16
+                                : isTab
+                                    ? 20
+                                    : 24),
+                      ),
+                    ),
+                  ],
+                )),
+              ),
             ],
           ),
         ),
       ),
-    );
-  }
-
-  Widget _buildActionButtons() {
-    return Column(
-      children: actions.asMap().entries.map((action) {
-        return Padding(
-          padding: EdgeInsets.only(
-            left: 24,
-            right: 24,
-            top: 24,
-            bottom: action.key == actions.length - 1 ? 24 : 0,
-          ),
-          child: Button(
-            label: action.value.text,
-            size: ButtonSize.large,
-            mainAxisSize: MainAxisSize.max,
-            type: ButtonType.secondary,
-            prefixIcon: action.value.icon,
-            isDisabled: action.value.onTap == null,
-            onPressed: action.value.onTap != null ? action.value.onTap! : () {},
-          ),
-        );
-      }).toList(),
     );
   }
 }

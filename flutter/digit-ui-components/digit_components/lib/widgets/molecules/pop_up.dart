@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:digit_ui_components/widgets/atoms/action_card.dart';
 import 'package:flutter/material.dart';
 import '../../theme/colors.dart';
+import '../atoms/digit_button.dart';
 import '../atoms/pop_up_cart.dart';
 
 void showPopup({
@@ -12,12 +13,8 @@ void showPopup({
   String? subHeading,
   String? description,
   List<Widget>? additionalWidgets,
-  String? primaryActionText,
-  String? secondaryActionText,
+  List<Button>? actions,
   void Function()? onCrossTap,
-  void Function()? onPrimaryAction,
-  void Function()? onSecondaryAction,
-  final bool isScrollable = false,
 }) {
   showDialog(
     context: context,
@@ -32,15 +29,12 @@ void showPopup({
           subHeading: subHeading,
           description: description,
           additionalWidgets: additionalWidgets,
-          primaryActionText: primaryActionText,
-          secondaryActionText: secondaryActionText,
+          actions: actions,
           onCrossTap: () {
             if (Navigator.of(context).mounted) {
               Navigator.of(context).pop();
             }
           },
-          onPrimaryAction: onPrimaryAction,
-          onSecondaryAction: onSecondaryAction,
         ),
       );
     },
@@ -49,9 +43,10 @@ void showPopup({
 
 void showActionCard({
   required BuildContext context,
-  required List<ActionItem> actions,
+  required List<Button> actions,
   final double? width,
-  final bool isScrollable = false,
+  final double? height,
+  final double? spacing,
 }) {
   showDialog(
     context: context,
@@ -62,7 +57,8 @@ void showActionCard({
         child: ActionCard(
           actions: actions,
           width: width,
-          isScrollable: isScrollable,
+          height: height,
+          spacing: spacing,
         ),
       );
     },

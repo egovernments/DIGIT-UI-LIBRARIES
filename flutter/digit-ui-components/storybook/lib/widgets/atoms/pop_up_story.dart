@@ -1,4 +1,5 @@
 import 'package:digit_ui_components/digit_components.dart';
+import 'package:digit_ui_components/enum/app_enums.dart';
 import 'package:digit_ui_components/widgets/atoms/pop_up_cart.dart';
 import 'package:digit_ui_components/widgets/molecules/pop_up.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
@@ -18,7 +19,8 @@ List<Story> popUpStories() {
       builder: (context) => Popup(
         title: context.knobs.text(label: 'Title', initial: 'Title'),
         subHeading: context.knobs.text(label: 'SubTitle', initial: 'SubTitle'),
-        description: context.knobs.text(label: 'Description', initial: 'description'),
+        description:
+            context.knobs.text(label: 'Description', initial: 'description'),
       ),
     ),
     Story(
@@ -26,56 +28,62 @@ List<Story> popUpStories() {
       builder: (context) => Popup(
         title: context.knobs.text(label: 'Title', initial: 'Title'),
         subHeading: context.knobs.text(label: 'SubTitle', initial: 'SubTitle'),
-        description: context.knobs.text(label: 'Description', initial: 'description'),
-        primaryActionText: 'Submit',
-        secondaryActionText: 'Cancel',
+        description:
+            context.knobs.text(label: 'Description', initial: 'description'),
         onCrossTap: () {
           print('cross icon tap');
         },
-        onPrimaryAction: () {
-          print('primary tap');
-        },
-        onSecondaryAction: () {
-          print('secondary tap');
-        },
-        inlineActions: context.knobs.boolean(label: 'Inline', initial: true),
+        actions: [
+          Button(
+              label: 'Submit',
+              onPressed: () {},
+              type: ButtonType.primary,
+              size: ButtonSize.large),
+          Button(
+              label: 'Cancel',
+              onPressed: () {},
+              type: ButtonType.secondary,
+              size: ButtonSize.large),
+        ],
       ),
     ),
     Story(
       name: 'Atom/PopUp/default/icon&description&action ',
-      builder: (context) =>  Popup(
+      builder: (context) => Popup(
         title: 'HHfffffff',
         subHeading: 'dsffffffff',
         titleIcon: const Icon(
           Icons.error_outline,
           size: 32,
         ),
-        primaryActionText: 'Submit',
-        secondaryActionText: 'Cancel',
         onCrossTap: () {
           print('cross icon tap');
         },
-        // onPrimaryAction: () {
-        //   print('primary tap');
-        // },
-        // onSecondaryAction: () {
-        //   print('secondary tap');
-        // },
-        inlineActions: context.knobs.boolean(label: 'Inline', initial: true),
         description:
-        'sdfffffffffffffffffffffffffffffdsfffffffffffffdsfsdfsdddddddddddd',
+            'sdfffffffffffffffffffffffffffffdsfffffffffffffdsfsdfsdddddddddddd',
+        actions: [
+          Button(
+              label: 'Submit',
+              onPressed: () {},
+              type: ButtonType.primary,
+              size: ButtonSize.large),
+          Button(
+              label: 'Cancel',
+              onPressed: () {},
+              type: ButtonType.secondary,
+              size: ButtonSize.large),
+        ],
       ),
     ),
     Story(
       name: 'Atom/PopUp/default/with additional widgets',
-      builder: (context) =>  Popup(
+      builder: (context) => Popup(
         title: 'HHfffffff',
         subHeading: 'dsffffffff',
         titleIcon: const Icon(
           Icons.error_outline,
           size: 32,
         ),
-        inlineActions: context.knobs.boolean(label: 'Inline', initial: true),
         additionalWidgets: const [
           InfoCard(
               title: 'Info',
@@ -86,30 +94,33 @@ List<Story> popUpStories() {
     ),
     Story(
       name: 'Atom/PopUp/default/with additional widgets with action',
-      builder: (context) =>  Popup(
+      builder: (context) => Popup(
         title: 'HHfffffff',
         subHeading: 'dsffffffff',
         titleIcon: const Icon(
           Icons.error_outline,
           size: 32,
         ),
-        primaryActionText: 'Submit',
-        secondaryActionText: 'Cancel',
         onCrossTap: () {
           print('cross icon tap');
         },
-        onPrimaryAction: () {
-          print('primary tap');
-        },
-        onSecondaryAction: () {
-          print('secondary tap');
-        },
-        inlineActions: context.knobs.boolean(label: 'Inline', initial: true),
         additionalWidgets: const [
           InfoCard(
               title: 'Info',
               type: InfoType.info,
               description: 'this is info card'),
+        ],
+        actions: [
+          Button(
+              label: 'Submit',
+              onPressed: () {},
+              type: ButtonType.primary,
+              size: ButtonSize.large),
+          Button(
+              label: 'Cancel',
+              onPressed: () {},
+              type: ButtonType.secondary,
+              size: ButtonSize.large),
         ],
       ),
     ),
@@ -118,29 +129,27 @@ List<Story> popUpStories() {
       builder: (context) => Popup(
         title: 'HHfffffff',
         subHeading: 'dsffffffff',
-        titleIcon: Icon(
+        titleIcon: const Icon(
           Icons.error_outline,
           size: 32,
         ),
-        primaryActionText: 'Submit',
-        secondaryActionText: 'Cancel',
         onCrossTap: () {
           print('cross icon tap');
         },
-        onPrimaryAction: () {
-          print('primary tap');
-        },
-        onSecondaryAction: () {
-          print('secondary tap');
-        },
-        inlineActions: context.knobs.boolean(label: 'Inline', initial: true),
         description:
-        'sdfffffffffffffffffffffffffffffdsfffffffffffffdsfsdfsdddddddddddd',
+            'sdfffffffffffffffffffffffffffffdsfffffffffffffdsfsdfsdddddddddddd',
         additionalWidgets: const [
           InfoCard(
               title: 'Info',
               type: InfoType.info,
               description: 'this is info card'),
+        ],
+        actions: [
+          Button(
+              label: 'Submit',
+              onPressed: () {},
+              type: ButtonType.primary,
+              size: ButtonSize.large),
         ],
       ),
     ),
@@ -154,7 +163,7 @@ List<Story> popUpStories() {
           size: 32,
         ),
         description:
-        'sdfffffffffffffffffffffffffffffdsfffffffffffffdsfsdfsdddddddddddd',
+            'sdfffffffffffffffffffffffffffffdsfffffffffffffdsfsdfsdddddddddddd',
         additionalWidgets: [
           InfoCard(
               title: 'Info',
@@ -173,20 +182,11 @@ List<Story> popUpStories() {
           Icons.error_outline,
           size: 32,
         ),
-        primaryActionText: 'Submit',
-        secondaryActionText: 'Cancel',
         onCrossTap: () {
           print('cross icon tap');
         },
-        onPrimaryAction: () {
-          print('primary tap');
-        },
-        onSecondaryAction: () {
-          print('secondary tap');
-        },
-        inlineActions: context.knobs.boolean(label: 'Inline', initial: true),
         description:
-        'sdfffffffffffffffffffffffffffffdsfffffffffffffdsfsdfsdddddddddddd',
+            'sdfffffffffffffffffffffffffffffdsfffffffffffffdsfsdfsdddddddddddd',
         additionalWidgets: const [
           InfoCard(
               title: 'Info',
@@ -224,13 +224,24 @@ List<Story> popUpStories() {
               title: 'Info',
               type: InfoType.info,
               description: 'this is info card'),
-
+        ],
+        actions: [
+          Button(
+              label: 'Submit',
+              onPressed: () {},
+              type: ButtonType.primary,
+              size: ButtonSize.large),
+          Button(
+              label: 'Cancel',
+              onPressed: () {},
+              type: ButtonType.secondary,
+              size: ButtonSize.large),
         ],
       ),
     ),
     Story(
       name: 'Atom/PopUp/alert/simple',
-      builder: (context) =>  const Popup(
+      builder: (context) => const Popup(
         title: 'Alert!',
         subHeading: 'Please contact the administrator if you have fsdfsdf dsfs',
         type: PopUpType.alert,
@@ -238,66 +249,56 @@ List<Story> popUpStories() {
     ),
     Story(
       name: 'Atom/PopUp/alert/with additional widget',
-      builder: (context) =>  const Popup(
+      builder: (context) => const Popup(
         title: 'Alert!',
         subHeading: 'Please contact the administrator if you have fsdfsdf dsfs',
         type: PopUpType.alert,
-        additionalWidgets: [InfoCard(title: 'Error', type: InfoType.error, description: 'this is error')],
+        additionalWidgets: [
+          InfoCard(
+              title: 'Error',
+              type: InfoType.error,
+              description: 'this is error')
+        ],
       ),
     ),
     Story(
       name: 'Atom/PopUp/alert/action',
-      builder: (context) =>   Popup(
+      builder: (context) => Popup(
         title: 'Alert!',
         subHeading: 'Please contact the administrator if you have fsdfsdf dsfs',
         type: PopUpType.alert,
-        primaryActionText: 'Submit',
-        onPrimaryAction: (){},
       ),
     ),
     Story(
       name: 'Atom/PopUp/alert/inline action',
-      builder: (context) =>  Popup(
+      builder: (context) => Popup(
         title: 'Alert!',
         subHeading: 'Please contact the administrator if you have fsdfsdf dsfs',
         type: PopUpType.alert,
         inlineActions: true,
-        primaryActionText: 'Submit',
-        secondaryActionText: 'Cancel',
-        onPrimaryAction: () {
-          print('primary tap');
-        },
-        onSecondaryAction: () {
-          print('secondary tap');
-        },
       ),
     ),
     Story(
       name: 'Atom/PopUp/alert/with additional widget & action',
-      builder: (context) =>  Popup(
+      builder: (context) => Popup(
         title: 'Alert!',
         subHeading: 'Please contact the administrator if you have fsdfsdf dsfs',
         type: PopUpType.alert,
-        additionalWidgets: const [InfoCard(title: 'Error', type: InfoType.error, description: 'this is error')],
-        primaryActionText: 'Submit',
-        onPrimaryAction: (){},
+        additionalWidgets: const [
+          InfoCard(
+              title: 'Error',
+              type: InfoType.error,
+              description: 'this is error')
+        ],
       ),
     ),
     Story(
       name: 'Atom/PopUp/alert/scrollable',
-      builder: (context) =>  Popup(
+      builder: (context) => Popup(
         title: 'Alert!',
         subHeading: 'Please contact the administrator if you have fsdfsdf dsfs',
         type: PopUpType.alert,
         inlineActions: true,
-        primaryActionText: 'Submit',
-        secondaryActionText: 'Cancel',
-        onPrimaryAction: () {
-          print('primary tap');
-        },
-        onSecondaryAction: () {
-          print('secondary tap');
-        },
         additionalWidgets: const [
           InfoCard(
               title: 'Info',
@@ -335,7 +336,6 @@ List<Story> popUpStories() {
               title: 'Info',
               type: InfoType.info,
               description: 'this is info card'),
-
         ],
       ),
     ),
