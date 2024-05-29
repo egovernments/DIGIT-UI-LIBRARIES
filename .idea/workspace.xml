@@ -4,18 +4,16 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="527a2fe1-eac1-442a-a699-c8c48a8f093b" name="Changes" comment="added panel atom and panel card molecule">
-      <change afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/button_list_story.dart" afterDir="false" />
+    <list default="true" id="527a2fe1-eac1-442a-a699-c8c48a8f093b" name="Changes" comment="code refactoring">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/action_card.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/action_card.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/digit_button.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/digit_button.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/panels.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/panels.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/pop_up_cart.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/pop_up_cart.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/text_block.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/text_block.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/helper_widget/button_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/helper_widget/button_list.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/molecules/panel_card.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/molecules/panel_card.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/molecules/pop_up.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/molecules/pop_up.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/action_card_story.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/action_card_story.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/pop_up_story.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/pop_up_story.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/text_block_story.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/text_block_story.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/molecules/panel_card_story.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/molecules/panel_card_story.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/molecules/pop_up_story.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/molecules/pop_up_story.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -118,13 +116,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1704952952175</updated>
-    </task>
-    <task id="LOCAL-00191" summary="issue resolved">
-      <created>1710146781203</created>
-      <option name="number" value="00191" />
-      <option name="presentableId" value="LOCAL-00191" />
-      <option name="project" value="LOCAL" />
-      <updated>1710146781203</updated>
     </task>
     <task id="LOCAL-00192" summary="issue resolved">
       <created>1710147939421</created>
@@ -462,7 +453,14 @@
       <option name="project" value="LOCAL" />
       <updated>1716958501867</updated>
     </task>
-    <option name="localTasksCounter" value="240" />
+    <task id="LOCAL-00240" summary="code refactoring">
+      <created>1716970458521</created>
+      <option name="number" value="00240" />
+      <option name="presentableId" value="LOCAL-00240" />
+      <option name="project" value="LOCAL" />
+      <updated>1716970458521</updated>
+    </task>
+    <option name="localTasksCounter" value="241" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -477,7 +475,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="issues resolved" />
     <MESSAGE value="fixed button issues" />
     <MESSAGE value="fixed checkbox issues" />
     <MESSAGE value="fixed textArea issues" />
@@ -502,7 +499,8 @@
     <MESSAGE value="updated the changes for file uploader components" />
     <MESSAGE value="completed file uploader components" />
     <MESSAGE value="added panel atom and panel card molecule" />
-    <option name="LAST_COMMIT_MESSAGE" value="added panel atom and panel card molecule" />
+    <MESSAGE value="code refactoring" />
+    <option name="LAST_COMMIT_MESSAGE" value="code refactoring" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

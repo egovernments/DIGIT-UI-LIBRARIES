@@ -7,11 +7,11 @@ List<Story> textBlockStories() {
   return [
     Story(
       name: 'Atom/Text Block',
-      builder: (context) => const TextChunk(
-        caption: 'This is a caption',
-        heading: 'This is a headingsdfffffffffffffffffffffffffffffffffffffffffffffffff sdfkjllllllllllllllllllll sfldkjfkllllllllllllllllllllllllllll sdlkfjkllllllllllllsld fsddddddddddddddddklj sdklfjjjjjjjjjjj',
-        subheading: 'This is a subheading',
-        body: 'This is the body text. It contains the main content and can be of any length.',
+      builder: (context) => TextChunk(
+        caption: context.knobs.text(label: 'Caption', initial: 'This is a caption'),
+        heading: context.knobs.text(label: 'Heading', initial: 'This is a headings'),
+        subheading: context.knobs.text(label: 'Subheading', initial: 'This is a subheading'),
+        body: context.knobs.text(label: 'Body', initial: 'This is the body text. It contains the main content and can be of any length.'),
       ),
     ),
   ];

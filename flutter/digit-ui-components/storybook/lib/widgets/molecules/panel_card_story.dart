@@ -10,7 +10,7 @@ List<Story> panelCardStories() {
     Story(
       name: 'Molecule/Panel Card/Success/default',
       builder: (context) =>
-          const PanelCard(type: PanelType.success, title: 'Success Message'),
+           const PanelCard(type: PanelType.success, title: 'Success Message', animate: false,),
     ),
     Story(
       name: 'Molecule/Panel Card/Success/with description',
@@ -170,7 +170,7 @@ List<Story> panelCardStories() {
                 color: const DigitColors().light.paperPrimary),
           )
         ],
-        actionInline: context.knobs.boolean(label: 'Inline', initial: false),
+        inlineActions: context.knobs.boolean(label: 'Inline', initial: false),
         description:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
         actions: [
@@ -251,7 +251,7 @@ List<Story> panelCardStories() {
     Story(
       name: 'Molecule/Panel Card/Error/default',
       builder: (context) =>
-          const PanelCard(type: PanelType.error, title: 'Error Message'),
+           const PanelCard(type: PanelType.error, title: 'Error Message', animate: true, repeat: true,),
     ),
     Story(
       name: 'Molecule/Panel Card/Error/with description',

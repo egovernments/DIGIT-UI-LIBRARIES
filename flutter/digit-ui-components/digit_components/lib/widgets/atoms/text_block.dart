@@ -1,6 +1,5 @@
+import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/material.dart';
-
-import '../../theme/typography.dart';
 
 class TextChunk extends StatelessWidget {
   final String? caption;
@@ -24,33 +23,28 @@ class TextChunk extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if(caption!=null)
-        Text(
-          caption!,
-          style: currentTypography.captionL,
-        ),
-        if(caption!=null)
-        const SizedBox(height: 8),
-        if(heading!=null)
-        Text(
-          heading!,
-          maxLines: 5,
-          style: currentTypography.headingL
-        ),
-        if(heading!=null)
-        const SizedBox(height: 8),
-        if(subheading!=null)
-        Text(
-          subheading!,
-          style: currentTypography.headingS
-        ),
-        if(subheading!=null)
-        const SizedBox(height: 8),
-        if(body!=null)
-        Text(
-          body!,
-          style: currentTypography.bodyS
-        ),
+        if (caption != null)
+          Text(
+            caption!,
+            style: currentTypography.captionS
+                .copyWith(color: const DigitColors().light.textSecondary),
+          ),
+        if (caption != null) const SizedBox(height: 8),
+        if (heading != null)
+          Text(heading!,
+              maxLines: 5,
+              style: currentTypography.headingXl
+                  .copyWith(color: const DigitColors().light.textPrimary)),
+        if (heading != null) const SizedBox(height: 8),
+        if (subheading != null)
+          Text(subheading!,
+              style: currentTypography.headingM
+                  .copyWith(color: const DigitColors().light.textSecondary)),
+        if (subheading != null) const SizedBox(height: 8),
+        if (body != null)
+          Text(body!,
+              style: currentTypography.bodyS
+                  .copyWith(color: const DigitColors().light.textSecondary)),
       ],
     );
   }

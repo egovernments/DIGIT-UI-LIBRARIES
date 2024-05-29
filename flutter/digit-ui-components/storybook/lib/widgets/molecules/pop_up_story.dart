@@ -1,4 +1,5 @@
 import 'package:digit_ui_components/digit_components.dart';
+import 'package:digit_ui_components/enum/app_enums.dart';
 import 'package:digit_ui_components/widgets/atoms/action_card.dart';
 import 'package:digit_ui_components/widgets/atoms/pop_up_cart.dart';
 import 'package:digit_ui_components/widgets/molecules/pop_up.dart';
@@ -13,10 +14,33 @@ List<Story> showPopUPStories() {
         onPressed: () {
           showActionCard(
             context: context,
-            actions: [],
+            actions: [
+              Button(
+                size: ButtonSize.large,
+                type: ButtonType.secondary,
+                label: 'Assign as household head',
+                onPressed: () {},
+                prefixIcon: Icons.person,
+              ),
+              Button(
+                size: ButtonSize.large,
+                type: ButtonType.secondary,
+                label: 'Edit Individual Details',
+                onPressed: () {},
+                prefixIcon: Icons.edit,
+              ),
+              Button(
+                size: ButtonSize.large,
+                type: ButtonType.secondary,
+                label: 'Delete Individual',
+                onPressed: () {},
+                prefixIcon: Icons.delete,
+              ),
+              // Add more action items as needed
+            ],
           );
         },
-        child: Text("Show Simple Popup"),
+        child: const Text("Show Simple Popup"),
       ),
     ),
     Story(
@@ -31,7 +55,7 @@ List<Story> showPopUPStories() {
             type: PopUpType.simple,
           );
         },
-        child: Text("Show Simple Popup"),
+        child: const Text("Show Simple Popup"),
       ),
     ),
   ];

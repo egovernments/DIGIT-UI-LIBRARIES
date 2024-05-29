@@ -117,6 +117,15 @@ class ButtonListTile extends StatelessWidget {
     final List<Button> tertiaryButtons = buttons.where((button) => button.type == ButtonType.tertiary).toList();
     final List<Button> linkButtons = buttons.where((button) => button.type == ButtonType.link).toList();
 
+    if(isVertical){
+      return [
+        ...primaryButtons,
+        ...secondaryButtons,
+        ...tertiaryButtons,
+        ...linkButtons,
+      ];
+    }
+
     return [
       ...linkButtons,
       ...tertiaryButtons,

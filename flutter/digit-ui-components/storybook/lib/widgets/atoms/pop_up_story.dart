@@ -9,30 +9,26 @@ List<Story> popUpStories() {
   return [
     Story(
       name: 'Atom/PopUp/default/simple',
-      builder: (context) => Popup(
-        title: context.knobs.text(label: 'Title', initial: 'Title'),
-        subHeading: context.knobs.text(label: 'SubTitle', initial: 'SubTitle'),
+      builder: (context) => const Popup(
+        title: 'Title',
+        subHeading: 'SubTitle',
       ),
     ),
     Story(
       name: 'Atom/PopUp/default/description',
-      builder: (context) => Popup(
-        title: context.knobs.text(label: 'Title', initial: 'Title'),
-        subHeading: context.knobs.text(label: 'SubTitle', initial: 'SubTitle'),
-        description:
-            context.knobs.text(label: 'Description', initial: 'description'),
+      builder: (context) => const Popup(
+        title: 'Title',
+        subHeading: 'SubTitle',
+        description:'description',
       ),
     ),
     Story(
       name: 'Atom/PopUp/default/action',
       builder: (context) => Popup(
-        title: context.knobs.text(label: 'Title', initial: 'Title'),
-        subHeading: context.knobs.text(label: 'SubTitle', initial: 'SubTitle'),
-        description:
-            context.knobs.text(label: 'Description', initial: 'description'),
-        onCrossTap: () {
-          print('cross icon tap');
-        },
+        title: 'Title',
+        subHeading: 'SubTitle',
+        description:'description',
+        onCrossTap: () {},
         actions: [
           Button(
               label: 'Submit',
@@ -50,8 +46,9 @@ List<Story> popUpStories() {
     Story(
       name: 'Atom/PopUp/default/icon&description&action ',
       builder: (context) => Popup(
-        title: 'HHfffffff',
-        subHeading: 'dsffffffff',
+        title: 'Title',
+        subHeading: 'SubTitle',
+        description:'description',
         titleIcon: const Icon(
           Icons.error_outline,
           size: 32,
@@ -59,8 +56,6 @@ List<Story> popUpStories() {
         onCrossTap: () {
           print('cross icon tap');
         },
-        description:
-            'sdfffffffffffffffffffffffffffffdsfffffffffffffdsfsdfsdddddddddddd',
         actions: [
           Button(
               label: 'Submit',
@@ -77,14 +72,15 @@ List<Story> popUpStories() {
     ),
     Story(
       name: 'Atom/PopUp/default/with additional widgets',
-      builder: (context) => Popup(
-        title: 'HHfffffff',
-        subHeading: 'dsffffffff',
-        titleIcon: const Icon(
+      builder: (context) => const Popup(
+        title: 'Title',
+        subHeading: 'SubTitle',
+        description:'description',
+        titleIcon: Icon(
           Icons.error_outline,
           size: 32,
         ),
-        additionalWidgets: const [
+        additionalWidgets: [
           InfoCard(
               title: 'Info',
               type: InfoType.info,
@@ -95,8 +91,9 @@ List<Story> popUpStories() {
     Story(
       name: 'Atom/PopUp/default/with additional widgets with action',
       builder: (context) => Popup(
-        title: 'HHfffffff',
-        subHeading: 'dsffffffff',
+        title: 'Title',
+        subHeading: 'SubTitle',
+        description:'description',
         titleIcon: const Icon(
           Icons.error_outline,
           size: 32,
@@ -127,17 +124,14 @@ List<Story> popUpStories() {
     Story(
       name: 'Atom/PopUp/default/with description and additional widgets',
       builder: (context) => Popup(
-        title: 'HHfffffff',
-        subHeading: 'dsffffffff',
+        title: 'Title',
+        subHeading: 'SubTitle',
+        description:'description',
         titleIcon: const Icon(
           Icons.error_outline,
           size: 32,
         ),
-        onCrossTap: () {
-          print('cross icon tap');
-        },
-        description:
-            'sdfffffffffffffffffffffffffffffdsfffffffffffffdsfsdfsdddddddddddd',
+        onCrossTap: () {},
         additionalWidgets: const [
           InfoCard(
               title: 'Info',
@@ -156,14 +150,13 @@ List<Story> popUpStories() {
     Story(
       name: 'Atom/PopUp/default/without Action',
       builder: (context) => const Popup(
-        title: 'HHfffffff',
-        subHeading: 'dsffffffff',
+        title: 'Title',
+        subHeading: 'SubTitle',
+        description:'description',
         titleIcon: Icon(
           Icons.error_outline,
           size: 32,
         ),
-        description:
-            'sdfffffffffffffffffffffffffffffdsfffffffffffffdsfsdfsdddddddddddd',
         additionalWidgets: [
           InfoCard(
               title: 'Info',
@@ -175,18 +168,14 @@ List<Story> popUpStories() {
     Story(
       name: 'Atom/PopUp/default/scrollable',
       builder: (context) => Popup(
-        //isScrollable: true,
-        title: 'HHfffffff',
-        subHeading: 'dsffffffff',
+        title: 'Title',
+        subHeading: 'SubTitle',
+        description:'description',
         titleIcon: const Icon(
           Icons.error_outline,
           size: 32,
         ),
-        onCrossTap: () {
-          print('cross icon tap');
-        },
-        description:
-            'sdfffffffffffffffffffffffffffffdsfffffffffffffdsfsdfsdddddddddddd',
+        onCrossTap: () {},
         additionalWidgets: const [
           InfoCard(
               title: 'Info',
@@ -267,6 +256,13 @@ List<Story> popUpStories() {
         title: 'Alert!',
         subHeading: 'Please contact the administrator if you have fsdfsdf dsfs',
         type: PopUpType.alert,
+        actions: [
+          Button(
+              label: 'Submit',
+              onPressed: () {},
+              type: ButtonType.primary,
+              size: ButtonSize.large),
+        ],
       ),
     ),
     Story(
@@ -276,6 +272,18 @@ List<Story> popUpStories() {
         subHeading: 'Please contact the administrator if you have fsdfsdf dsfs',
         type: PopUpType.alert,
         inlineActions: true,
+        actions: [
+          Button(
+              label: 'Submit',
+              onPressed: () {},
+              type: ButtonType.primary,
+              size: ButtonSize.large),
+          Button(
+              label: 'Cancel',
+              onPressed: () {},
+              type: ButtonType.secondary,
+              size: ButtonSize.large),
+        ],
       ),
     ),
     Story(
@@ -290,6 +298,18 @@ List<Story> popUpStories() {
               type: InfoType.error,
               description: 'this is error')
         ],
+        actions: [
+          Button(
+              label: 'Submit',
+              onPressed: () {},
+              type: ButtonType.primary,
+              size: ButtonSize.large),
+          Button(
+              label: 'Cancel',
+              onPressed: () {},
+              type: ButtonType.secondary,
+              size: ButtonSize.large),
+        ],
       ),
     ),
     Story(
@@ -302,40 +322,52 @@ List<Story> popUpStories() {
         additionalWidgets: const [
           InfoCard(
               title: 'Info',
-              type: InfoType.info,
-              description: 'this is info card'),
+              type: InfoType.error,
+              description: 'this is error card'),
           InfoCard(
               title: 'Info',
-              type: InfoType.info,
-              description: 'this is info card'),
+              type: InfoType.error,
+              description: 'this is error card'),
           InfoCard(
               title: 'Info',
-              type: InfoType.info,
-              description: 'this is info card'),
+              type: InfoType.error,
+              description: 'this is error card'),
           InfoCard(
               title: 'Info',
-              type: InfoType.info,
-              description: 'this is info card'),
+              type: InfoType.error,
+              description: 'this is error card'),
           InfoCard(
               title: 'Info',
-              type: InfoType.info,
-              description: 'this is info card'),
+              type: InfoType.error,
+              description: 'this is error card'),
           InfoCard(
               title: 'Info',
-              type: InfoType.info,
-              description: 'this is info card'),
+              type: InfoType.error,
+              description: 'this is error card'),
           InfoCard(
               title: 'Info',
-              type: InfoType.info,
-              description: 'this is info card'),
+              type: InfoType.error,
+              description: 'this is error card'),
           InfoCard(
               title: 'Info',
-              type: InfoType.info,
-              description: 'this is info card'),
+              type: InfoType.error,
+              description: 'this is error card'),
           InfoCard(
               title: 'Info',
-              type: InfoType.info,
-              description: 'this is info card'),
+              type: InfoType.error,
+              description: 'this is error card'),
+        ],
+        actions: [
+          Button(
+              label: 'Submit',
+              onPressed: () {},
+              type: ButtonType.primary,
+              size: ButtonSize.large),
+          Button(
+              label: 'Cancel',
+              onPressed: () {},
+              type: ButtonType.secondary,
+              size: ButtonSize.large),
         ],
       ),
     ),

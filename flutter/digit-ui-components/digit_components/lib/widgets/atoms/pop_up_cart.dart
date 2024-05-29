@@ -18,6 +18,7 @@ class Popup extends StatefulWidget {
   final List<Button>? actions;
   final void Function()? onCrossTap;
   final bool? inlineActions;
+  final double? actionSpacing;
   final MainAxisAlignment? actionAlignment;
 
   const Popup({
@@ -33,6 +34,7 @@ class Popup extends StatefulWidget {
     this.actions,
     this.onCrossTap,
     this.inlineActions,
+    this.actionSpacing,
     this.actionAlignment,
   });
 
@@ -53,9 +55,7 @@ class _PopupState extends State<Popup> {
   }
 
 
-  Widget _buildSimplePopUp(DigitTypography currentTypography, double width,
-      bool isMobile, bool isTab) {
-    double currWidth = widget.titleIcon != null ? width - 108 : width - 68;
+  Widget _buildSimplePopUp(DigitTypography currentTypography, bool isMobile, bool isTab) {
 
     return Container(
       padding: EdgeInsets.only(
@@ -111,31 +111,28 @@ class _PopupState extends State<Popup> {
                       const SizedBox(
                         width: 8,
                       ),
-                    SizedBox(
-                      width: currWidth,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            widget.title,
-                            style: currentTypography.headingL.copyWith(
-                                color: const DigitColors().light.textPrimary),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          widget.title,
+                          style: currentTypography.headingL.copyWith(
+                              color: const DigitColors().light.textPrimary),
+                        ),
+                        if (widget.subHeading != null)
+                          const SizedBox(
+                            height: 8,
                           ),
-                          if (widget.subHeading != null)
-                            const SizedBox(
-                              height: 8,
+                        if (widget.subHeading != null)
+                          Text(
+                            widget.subHeading!,
+                            style: currentTypography.captionS.copyWith(
+                              color: const DigitColors().light.textSecondary,
                             ),
-                          if (widget.subHeading != null)
-                            Text(
-                              widget.subHeading!,
-                              style: currentTypography.captionS.copyWith(
-                                color: const DigitColors().light.textSecondary,
-                              ),
-                            )
-                        ],
-                      ),
+                          )
+                      ],
                     ),
                   ],
                 ),
@@ -168,10 +165,9 @@ class _PopupState extends State<Popup> {
     );
   }
 
-  Widget _buildAlertPopUp(DigitTypography currentTypography, double width,
-      bool isMobile, bool isTab) {
+  Widget _buildAlertPopUp(DigitTypography currentTypography, bool isMobile, bool isTab) {
+
     return Container(
-      width: width,
       padding: EdgeInsets.all(
         isMobile
             ? 16
@@ -322,24 +318,30 @@ class _PopupState extends State<Popup> {
     DigitTypography currentTypography = getTypography(context, false);
     bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
     bool isTab = AppView.isTabletView(MediaQuery.of(context).size);
-    double cardWidth = widget.width ??
-        (isMobile
-            ? 328
-            : isTab
-            ? 500
-            : 620);
+    final double? cardWidth = widget.width;
+    final double? cardHeight = widget.height;
 
     return Dialog.fullscreen(
       backgroundColor: const DigitColors().transparent,
       child: Center(
         child: Container(
           width: cardWidth,
+          height: cardHeight,
           margin: EdgeInsets.symmetric(
-              vertical: isMobile
+              vertical: cardHeight == null
+                  ? isMobile
                   ? 64
                   : isTab
                   ? 100
-                  : 74),
+                  : 74
+                  : 0,
+              horizontal: cardWidth == null
+                  ? isMobile
+                  ? 16
+                  : isTab
+                  ? 98
+                  : 446
+                  : 0),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(4),
             color: const DigitColors().light.paperPrimary,
@@ -361,9 +363,9 @@ class _PopupState extends State<Popup> {
             children: [
               widget.type == PopUpType.simple
                   ? _buildSimplePopUp(
-                  currentTypography, cardWidth, isMobile, isTab)
+                  currentTypography, isMobile, isTab)
                   : _buildAlertPopUp(
-                  currentTypography, cardWidth, isMobile, isTab),
+                  currentTypography, isMobile, isTab),
               if (widget.description != null || widget.additionalWidgets != null)
                    Flexible(
                      child: SingleChildScrollView(
@@ -417,7 +419,8 @@ class _PopupState extends State<Popup> {
                   child: ButtonListTile(
                     buttons: widget.actions!,
                     isVertical: widget.inlineActions!=null ? !widget.inlineActions! : (isMobile ? true : false),
-                    alignment: widget.actionAlignment ?? (isMobile || isTab ? MainAxisAlignment.center : MainAxisAlignment.end),
+                    alignment: widget.actionAlignment ?? ((isMobile || isTab) || widget.type== PopUpType.alert ? MainAxisAlignment.center : MainAxisAlignment.end),
+                    spacing: widget.actionSpacing ?? (isMobile ? 16 : isTab ? 20 : 24),
                   )
                 ),
             ],

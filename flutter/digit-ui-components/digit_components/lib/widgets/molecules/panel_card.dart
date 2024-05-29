@@ -4,7 +4,6 @@ import 'package:digit_ui_components/widgets/atoms/panels.dart';
 import 'package:digit_ui_components/widgets/helper_widget/button_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import '../../enum/app_enums.dart';
 
 class PanelCard extends StatefulWidget {
   final PanelType type;
@@ -13,7 +12,11 @@ class PanelCard extends StatefulWidget {
   final String? description;
   final List<Widget>? additionWidgets;
   final List<Button>? actions;
-  final bool actionInline;
+  final double? actionSpacing;
+  final bool? inlineActions;
+  final MainAxisAlignment? actionAlignment;
+  final bool? animate;
+  final bool? repeat;
 
   const PanelCard({
     Key? key,
@@ -23,7 +26,11 @@ class PanelCard extends StatefulWidget {
     this.description,
     this.additionWidgets,
     this.actions,
-    this.actionInline = true,
+    this.inlineActions,
+    this.actionSpacing,
+    this.actionAlignment,
+    this.animate,
+    this.repeat,
   }) : super(key: key);
 
   @override
@@ -156,9 +163,16 @@ class _PanelCardState extends State<PanelCard> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
-            padding: isMobile ?  EdgeInsets.only(bottom: widget.description!=null ? 16 : 0): EdgeInsets.all(
-              isTab ? 20 :24,
-            ),
+            padding: isMobile
+                ? EdgeInsets.only(
+                    bottom: widget.description != null ||
+                            widget.additionWidgets != null ||
+                            widget.actions != null
+                        ? 16
+                        : 0)
+                : EdgeInsets.all(
+                    isTab ? 20 : 24,
+                  ),
             decoration: BoxDecoration(
               color: const DigitColors().light.paperPrimary,
               borderRadius: const BorderRadius.only(
@@ -175,149 +189,77 @@ class _PanelCardState extends State<PanelCard> {
                   : [],
             ),
             child: Panel(
-                type: widget.type,
-                title: widget.title,
-                description: widget.additionalDetails),
+              type: widget.type,
+              title: widget.title,
+              description: widget.additionalDetails,
+              animate: widget.animate ?? true,
+              repeat: widget.repeat ?? false,
+            ),
           ),
           if (widget.description != null || widget.additionWidgets != null)
             _buildContent(currentTypography, isMobile, isTab),
           if (widget.actions != null)
             Container(
-              padding: EdgeInsets.only(
-                left: isMobile
-                    ? 16
-                    : isTab
-                        ? 20
-                        : 24,
-                right: isMobile
-                    ? 16
-                    : isTab
-                        ? 20
-                        : 24,
-                top: _isOverflowing ||
-                        (widget.additionWidgets != null ||
-                            widget.description != null)
-                    ? isMobile
-                        ? 16
-                        : isTab
-                            ? 20
-                            : 24
-                    : 0,
-                bottom: isMobile
-                    ? 16
-                    : isTab
-                        ? 20
-                        : 24,
-              ),
-              decoration: BoxDecoration(
-                color: const DigitColors().light.paperPrimary,
-                borderRadius: const BorderRadius.only(
-                    bottomLeft: Radius.circular(4),
-                    bottomRight: Radius.circular(4)),
-                boxShadow: _isOverflowing
-                    ? [
-                        BoxShadow(
-                          color: const Color(0xFF000000).withOpacity(.16),
-                          offset: const Offset(0, -1),
-                          spreadRadius: 0,
-                          blurRadius: 2,
-                        ),
-                      ]
-                    : [],
-              ),
-              child: widget.actionInline
-                  ? Row(
-                      mainAxisAlignment: isMobile
-                          ? MainAxisAlignment.center
-                          : MainAxisAlignment.end,
-                      children: _buildInlineActions(isMobile, isTab),
-                    )
-                  : Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: _buildStackedActions(isMobile, isTab),
-                    ),
-            ),
-        ],
-      ),
-    );
-  }
-
-  List<Widget> _buildInlineActions(bool isMobile, bool isTab) {
-    if (widget.actions == null) {
-      return [];
-    }
-
-    List<Button> primaryActions = widget.actions!
-        .where((button) => button.type == ButtonType.primary)
-        .toList();
-    List<Button> secondaryActions = widget.actions!
-        .where((button) => button.type != ButtonType.primary)
-        .toList();
-
-    return [
-      ButtonListTile(
-        spacing: isMobile ? 16 : isTab ? 20 : 24,
-          buttons: [
-        ...secondaryActions,
-        ...primaryActions,
-      ])
-    ];
-  }
-
-  List<Widget> _buildStackedActions(bool isMobile, bool isTab) {
-    if (widget.actions == null) {
-      return [];
-    }
-    List<Widget> primaryActions = [];
-    List<Widget> secondaryActions = [];
-     primaryActions = widget.actions!
-        .where((button) => button.type == ButtonType.primary)
-        .toList();
-    secondaryActions = widget.actions!
-        .where((button) => button.type != ButtonType.primary)
-        .toList();
-
-    return [
-      ...primaryActions
-        ..asMap()
-            .entries
-            .map(
-              (widgets) => Padding(
                 padding: EdgeInsets.only(
-                  bottom: widgets.key != primaryActions.length - 1
-                      ? (isMobile
+                  left: isMobile
+                      ? 16
+                      : isTab
+                          ? 20
+                          : 24,
+                  right: isMobile
+                      ? 16
+                      : isTab
+                          ? 20
+                          : 24,
+                  top: _isOverflowing ||
+                          (widget.additionWidgets != null ||
+                              widget.description != null)
+                      ? isMobile
                           ? 16
                           : isTab
                               ? 20
-                              : 24)
+                              : 24
                       : 0,
+                  bottom: isMobile
+                      ? 16
+                      : isTab
+                          ? 20
+                          : 24,
                 ),
-                child: widgets.value,
-              ),
-            )
-            .toList(),
-      if(secondaryActions.isNotEmpty && primaryActions.isNotEmpty)
-       SizedBox(
-        height: isMobile? 16 : isTab ? 20 : 24,
+                decoration: BoxDecoration(
+                  color: const DigitColors().light.paperPrimary,
+                  borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(4),
+                      bottomRight: Radius.circular(4)),
+                  boxShadow: _isOverflowing
+                      ? [
+                          BoxShadow(
+                            color: const Color(0xFF000000).withOpacity(.16),
+                            offset: const Offset(0, -1),
+                            spreadRadius: 0,
+                            blurRadius: 2,
+                          ),
+                        ]
+                      : [],
+                ),
+                child: ButtonListTile(
+                  buttons: widget.actions!,
+                  isVertical: widget.inlineActions != null
+                      ? !widget.inlineActions!
+                      : (isMobile ? true : false),
+                  alignment: widget.actionAlignment ??
+                      ((isMobile || isTab)
+                          ? MainAxisAlignment.center
+                          : MainAxisAlignment.end),
+                  spacing: widget.actionSpacing ??
+                      (isMobile
+                          ? 16
+                          : isTab
+                              ? 20
+                              : 24),
+                )),
+        ],
       ),
-      ...secondaryActions
-          .asMap()
-          .entries
-          .map(
-            (widgets) => Padding(
-              padding: EdgeInsets.only(
-                bottom: widgets.key != secondaryActions.length - 1
-                    ? (isMobile
-                        ? 16
-                        : isTab
-                            ? 20
-                            : 24)
-                    : 0,
-              ),
-              child: widgets.value,
-            ),
-          )
-          .toList(),
-    ];
+    );
   }
 }
