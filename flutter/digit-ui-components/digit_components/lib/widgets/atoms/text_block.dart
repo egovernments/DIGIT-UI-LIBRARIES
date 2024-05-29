@@ -34,7 +34,8 @@ class TextChunk extends StatelessWidget {
         if(heading!=null)
         Text(
           heading!,
-          style: currentTypography.headingXl
+          maxLines: 5,
+          style: currentTypography.headingL
         ),
         if(heading!=null)
         const SizedBox(height: 8),

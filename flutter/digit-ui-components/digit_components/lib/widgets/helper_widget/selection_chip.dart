@@ -1,7 +1,6 @@
+import 'package:digit_ui_components/constants/AppView.dart';
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/material.dart';
-import '../../constants/app_constants.dart';
-import '../../models/DropdownModels.dart';
 
 class SelectionChip<T> extends StatelessWidget {
   final String label;
@@ -20,6 +19,9 @@ class SelectionChip<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     /// Capitalize the first letter if required
+
+    bool isDesktop = AppView.isDesktopView(MediaQuery.of(context).size);
+
     String capitalizeFirstLetter(String text) {
       if (text.isNotEmpty && capitalizedFirstLetter) {
         return text.substring(0, 1).toUpperCase() + text.substring(1);
@@ -42,8 +44,10 @@ class SelectionChip<T> extends StatelessWidget {
               boxShadow: errorMessage != null
                   ? [
                       BoxShadow(
-                        color:
-                            const DigitColors().light.alertError.withOpacity(.30),
+                        color: const DigitColors()
+                            .light
+                            .alertError
+                            .withOpacity(.30),
                         offset: const Offset(0, 2),
                         spreadRadius: 0,
                         blurRadius: 4,
@@ -66,13 +70,15 @@ class SelectionChip<T> extends StatelessWidget {
                 Expanded(
                   child: Text(
                     capitalizeFirstLetter(label),
-                    style: errorMessage!=null ?currentTypography.headingS.copyWith(
-                      overflow: TextOverflow.ellipsis,
-                      color: const DigitColors().light.alertError,
-                    ) :currentTypography.bodyS.copyWith(
-                      overflow: TextOverflow.ellipsis,
-                      color: const DigitColors().light.textPrimary,
-                    ),
+                    style: errorMessage != null
+                        ? currentTypography.headingXS.copyWith(
+                            overflow: TextOverflow.ellipsis,
+                            color: const DigitColors().light.alertError,
+                          )
+                        : currentTypography.bodyXS.copyWith(
+                            overflow: TextOverflow.ellipsis,
+                            color: const DigitColors().light.textPrimary,
+                          ),
                   ),
                 ),
                 const SizedBox(
@@ -84,8 +90,8 @@ class SelectionChip<T> extends StatelessWidget {
                   splashColor: const DigitColors().transparent,
                   highlightColor: const DigitColors().transparent,
                   child: Container(
-                    width: 24,
-                    height: 24,
+                    width: isDesktop ? 24 : 20,
+                    height: isDesktop ? 24 : 20,
                     decoration: BoxDecoration(
                       color: errorMessage != null
                           ? const DigitColors().light.alertError
@@ -94,7 +100,7 @@ class SelectionChip<T> extends StatelessWidget {
                     ),
                     child: Icon(
                       Icons.close,
-                      size: 24,
+                      size: isDesktop ? 24 : 20,
                       color: const DigitColors().light.paperPrimary,
                     ),
                   ),
@@ -102,40 +108,42 @@ class SelectionChip<T> extends StatelessWidget {
               ],
             ),
           ),
-          if(errorMessage!=null)const SizedBox(height: 4,),
-          if(errorMessage!=null)Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Column(
-                children: [
-                  const SizedBox(height: 2,),
-                  Icon(
-                    Icons.info,
-                    color: const DigitColors()
-                        .light
-                        .alertError,
-                    size: 16,
-                  ),
-                ],
-              ),
-              const SizedBox(width: kPadding / 2),
-              Flexible(
-                fit: FlexFit.tight,
-                child: Text(
-                  errorMessage!.length > 256
-                      ? '${capitalizeFirstLetter(errorMessage!).substring(0, 256)}...'
-                      : capitalizeFirstLetter(errorMessage!),
-                  style: currentTypography.bodyS.copyWith(
-                    color: const DigitColors()
-                        .light
-                        .alertError,
+          if (errorMessage != null)
+            const SizedBox(
+              height: 4,
+            ),
+          if (errorMessage != null)
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Column(
+                  children: [
+                    const SizedBox(
+                      height: 2,
+                    ),
+                    Icon(
+                      Icons.info,
+                      color: const DigitColors().light.alertError,
+                      size: 16,
+                    ),
+                  ],
+                ),
+                const SizedBox(width: kPadding / 2),
+                Flexible(
+                  fit: FlexFit.tight,
+                  child: Text(
+                    errorMessage!.length > 256
+                        ? '${capitalizeFirstLetter(errorMessage!).substring(0, 256)}...'
+                        : capitalizeFirstLetter(errorMessage!),
+                    style: currentTypography.bodyS.copyWith(
+                      color: const DigitColors().light.alertError,
+                    ),
                   ),
                 ),
-              ),
-            ],
-          )
+              ],
+            )
         ],
       ),
     );

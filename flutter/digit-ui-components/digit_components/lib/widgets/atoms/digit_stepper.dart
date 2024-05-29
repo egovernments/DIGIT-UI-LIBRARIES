@@ -4,11 +4,6 @@ import '../../theme/colors.dart';
 import '../../theme/typography.dart';
 
 class DigitStepper extends StatefulWidget {
-  /// Another stepper is a package, which helps build
-  /// customizable and easy to manage steppers.
-  ///
-  /// The package and be used to build horizontal as well
-  /// as vertical steppers just by providing [Axis] in the [gap] parameter.
   const DigitStepper({
     Key? key,
     required this.stepperList,
@@ -32,10 +27,10 @@ class DigitStepper extends StatefulWidget {
   final bool inverted;
 
   @override
-  _AnotherStepperState createState() => _AnotherStepperState();
+  _DigitStepperState createState() => _DigitStepperState();
 }
 
-class _AnotherStepperState extends State<DigitStepper> {
+class _DigitStepperState extends State<DigitStepper> {
   late ScrollController _scrollController = ScrollController();
   double _lastScrollOffset = 0.0;
 

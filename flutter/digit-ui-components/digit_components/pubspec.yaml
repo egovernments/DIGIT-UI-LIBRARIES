@@ -31,7 +31,7 @@ dependencies:
   url_launcher: 6.2.6
   http: 1.2.0
   dotted_border: 2.1.0
-
+  lottie: 3.1.2
 
 
 
@@ -48,6 +48,7 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/svg/
+    - assets/animation_json/
   fonts:
     - family: Roboto
       fonts:

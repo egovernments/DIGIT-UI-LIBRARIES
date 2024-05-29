@@ -98,5 +98,133 @@ List<Story> actionStories() {
         ],
       ),
     ),
+    Story(
+      name: 'Atom/Action/4',
+      builder: (context) =>  ActionCard(
+        isScrollable: true,
+        actions: [
+          ActionItem(
+            text: 'Assign as household head',
+            onTap: () {
+              // Define what should happen when the primary action is tapped
+              print('Primary Action 1 tapped');
+            },
+            icon: Icons.person,
+          ),
+          ActionItem(
+            text: 'Edit Individual Details',
+            onTap: () {
+              // Define what should happen when the secondary action is tapped
+              print('Secondary Action 1 tapped');
+            },
+            icon: Icons.edit,
+          ),
+          ActionItem(
+            text: 'Delete Individual',
+            onTap: () {
+              // Define what should happen when the secondary action is tapped
+              print('Secondary Action 1 tapped');
+            },
+            icon: Icons.delete,
+          ),
+          ActionItem(
+            text: 'Manage Individual',
+            onTap: () {
+              // Define what should happen when the secondary action is tapped
+              print('Secondary Action 1 tapped');
+            },
+            icon: Icons.person,
+          ),
+          ActionItem(
+            text: 'Register Individual',
+            onTap: () {
+              // Define what should happen when the secondary action is tapped
+              print('Secondary Action 1 tapped');
+            },
+            icon: Icons.person,
+          ),
+          ActionItem(
+            text: 'Assign as household head',
+            onTap: () {
+              // Define what should happen when the primary action is tapped
+              print('Primary Action 1 tapped');
+            },
+            icon: Icons.person,
+          ),
+          ActionItem(
+            text: 'Edit Individual Details',
+            onTap: () {
+              // Define what should happen when the secondary action is tapped
+              print('Secondary Action 1 tapped');
+            },
+            icon: Icons.edit,
+          ),
+          ActionItem(
+            text: 'Delete Individual',
+            onTap: () {
+              // Define what should happen when the secondary action is tapped
+              print('Secondary Action 1 tapped');
+            },
+            icon: Icons.delete,
+          ),
+          ActionItem(
+            text: 'Manage Individual',
+            onTap: () {
+              // Define what should happen when the secondary action is tapped
+              print('Secondary Action 1 tapped');
+            },
+            icon: Icons.person,
+          ),
+          ActionItem(
+            text: 'Register Individual',
+            onTap: () {
+              // Define what should happen when the secondary action is tapped
+              print('Secondary Action 1 tapped');
+            },
+            icon: Icons.person,
+          ),
+          ActionItem(
+            text: 'Assign as household head',
+            onTap: () {
+              // Define what should happen when the primary action is tapped
+              print('Primary Action 1 tapped');
+            },
+            icon: Icons.person,
+          ),
+          ActionItem(
+            text: 'Edit Individual Details',
+            onTap: () {
+              // Define what should happen when the secondary action is tapped
+              print('Secondary Action 1 tapped');
+            },
+            icon: Icons.edit,
+          ),
+          ActionItem(
+            text: 'Delete Individual',
+            onTap: () {
+              // Define what should happen when the secondary action is tapped
+              print('Secondary Action 1 tapped');
+            },
+            icon: Icons.delete,
+          ),
+          ActionItem(
+            text: 'Manage Individual',
+            onTap: () {
+              // Define what should happen when the secondary action is tapped
+              print('Secondary Action 1 tapped');
+            },
+            icon: Icons.person,
+          ),
+          ActionItem(
+            text: 'Register Individual',
+            onTap: () {
+              // Define what should happen when the secondary action is tapped
+              print('Secondary Action 1 tapped');
+            },
+            icon: Icons.person,
+          ),
+        ],
+      ),
+    ),
   ];
 }

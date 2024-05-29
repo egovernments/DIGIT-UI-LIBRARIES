@@ -17,6 +17,7 @@ void showPopup({
   void Function()? onCrossTap,
   void Function()? onPrimaryAction,
   void Function()? onSecondaryAction,
+  final bool isScrollable = false,
 }) {
   showDialog(
     context: context,
@@ -50,6 +51,7 @@ void showActionCard({
   required BuildContext context,
   required List<ActionItem> actions,
   final double? width,
+  final bool isScrollable = false,
 }) {
   showDialog(
     context: context,
@@ -60,6 +62,7 @@ void showActionCard({
         child: ActionCard(
           actions: actions,
           width: width,
+          isScrollable: isScrollable,
         ),
       );
     },
