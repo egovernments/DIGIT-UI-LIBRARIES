@@ -140,7 +140,8 @@
       gap: theme(digitv2.spacers.spacer6);
       padding: theme(digitv2.spacers.spacer6) theme(digitv2.spacers.spacer6) theme(digitv2.spacers.spacer0) theme(digitv2.spacers.spacer6);
 
-      &.with-shadow {
+      &.with-shadow,
+      &.without-footer{
         padding: theme(digitv2.spacers.spacer6);
       }
 
@@ -150,7 +151,8 @@
       gap: theme(digitv2.spacers.spacer5);
       padding: theme(digitv2.spacers.spacer5) theme(digitv2.spacers.spacer5) theme(digitv2.spacers.spacer0) theme(digitv2.spacers.spacer5);
     
-      &.with-shadow{
+      &.with-shadow,
+      &.without-footer{
         padding: theme(digitv2.spacers.spacer5);
       }
     
@@ -160,7 +162,8 @@
       gap: theme(digitv2.spacers.spacer4);
       padding: theme(digitv2.spacers.spacer4) theme(digitv2.spacers.spacer4) theme(digitv2.spacers.spacer0) theme(digitv2.spacers.spacer4);
     
-      &.with-shadow{
+      &.with-shadow,
+      &.without-footer{
         padding: theme(digitv2.spacers.spacer4);
       }
     }
@@ -194,6 +197,7 @@
     margin-left: auto;
     display: flex;
     gap: theme(digitv2.spacers.spacer4);
+    @apply max-w-full flex-wrap;
 
     @media (min-width: 30.063rem) and (max-width: 47.938rem) {
       @apply w-full;

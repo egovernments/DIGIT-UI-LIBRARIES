@@ -34,7 +34,7 @@ const PopUp = (props) => {
   useEffect(() => {
     const handleScroll = () => checkOverflow();
     const childrenWrap = childrenWrapRef.current;
-    
+
     if (childrenWrap) {
       childrenWrap.addEventListener("scroll", handleScroll);
       checkOverflow();
@@ -46,7 +46,6 @@ const PopUp = (props) => {
       }
     };
   }, [props.children]);
-
 
   useEffect(() => {
     window.addEventListener("resize", onResize);
@@ -90,12 +89,13 @@ const PopUp = (props) => {
     props?.iconFill
   );
 
-  const allowedFooter = props?.footerChildren.slice(
-    0,
-    props?.maxFooterButtonsAllowed || 5
-  );
+  const hasFooterChildren = props?.footerChildren?.length > 0;
 
-  const sortedFooterButtons = [...allowedFooter].sort((a, b) => {
+  const allowedFooter = hasFooterChildren
+    ? props?.footerChildren?.slice(0, props?.maxFooterButtonsAllowed || 5)
+    : [];
+
+  const sortedFooterButtons = [...allowedFooter]?.sort((a, b) => {
     const typeOrder = { primary: 3, secondary: 2, tertiary: 1 };
     const getTypeOrder = (button) =>
       typeOrder[(button.props.variation || "").toLowerCase()];
@@ -116,7 +116,11 @@ const PopUp = (props) => {
       style={props?.style}
     >
       {props?.type === "alert" ? (
-        <div className={`digit-popup-alert-content ${isOverflowing ? "with-shadow" : ""}`}>
+        <div
+          className={`digit-popup-alert-content ${
+            isOverflowing ? "with-shadow" : ""
+          }`}
+        >
           {!props?.customIcon && (
             <SVG.Warning
               fill={props?.iconFill ? props?.iconFill : "#D4351C"}
@@ -201,22 +205,22 @@ const PopUp = (props) => {
         ref={childrenWrapRef}
         className={`digit-popup-children-wrap ${
           props?.showChildrenInline ? "inline" : ""
-        } ${isOverflowing ? "with-shadow" : ""}`}
+        } ${isOverflowing ? "with-shadow" : ""} ${!hasFooterChildren ? "without-footer" : ""}`}
       >
         {props?.description && (
           <div className="digit-popup-description">{props?.description}</div>
         )}
         {props?.children}
       </div>
-      <div
-        className={`digit-popup-footer ${
-          props?.footerclassName ? props?.footerclassName : ""
-        } ${isOverflowing ? "with-shadow" : ""}`}
-      >
-        <div className="digit-popup-footer-buttons">
-        {finalFooterArray}
-      </div>
-      </div>
+      {hasFooterChildren && (
+        <div
+          className={`digit-popup-footer ${
+            props?.footerclassName ? props?.footerclassName : ""
+          } ${isOverflowing ? "with-shadow" : ""}`}
+        >
+          <div className="digit-popup-footer-buttons" style={{...props?.footerStyles}}>{finalFooterArray}</div>
+        </div>
+      )}
     </div>
   );
 };

@@ -72,6 +72,9 @@ export default {
     maxFooterButtonsAllowed: {
       control: "text",
     },
+    footerStyles: {
+      control: "object",
+    },
   },
 };
 
@@ -100,6 +103,7 @@ const commonArgs = {
   subHeaderMaxLength: "",
   sortFooterButtons: true,
   maxFooterButtonsAllowed: 5,
+  footerStyles: {},
 };
 
 const footerChildrenWithTwoButtons = [
@@ -226,10 +230,10 @@ const moreChildren = [
     className={"popup-info-card"}
   />,
   <InfoCard
-  variant={"error"}
-  text={"This is an error"}
-  className={"popup-info-card"}
-/>
+    variant={"error"}
+    text={"This is an error"}
+    className={"popup-info-card"}
+  />,
 ];
 
 export const Default = Template.bind({});
@@ -287,7 +291,6 @@ DefaultWithCustomStylesAndLessChildren.args = {
   style: { width: "620px", height: "500px" },
 };
 
-
 export const DefaultWithCustomStylesAndMoreChildren = Template.bind({});
 DefaultWithCustomStylesAndMoreChildren.args = {
   ...commonArgs,
@@ -313,6 +316,34 @@ DefaultWithMoreFooterButtons.args = {
   showIcon: true,
   children: lessChildren,
   footerChildren: footerChildrenSix,
+};
+
+export const DefaultWithFooterStyles = Template.bind({});
+DefaultWithFooterStyles.args = {
+  ...commonArgs,
+  type: "default",
+  heading: "Heading",
+  subheading: "Subheading",
+  description:
+    "Please contact the administrator if you have forgotten your password.",
+  showIcon: true,
+  children: lessChildren,
+  footerChildren: footerChildrenWithTwoButtons,
+  footerStyles: {
+    marginLeft: "unset",
+  },
+};
+
+export const DefaultWithOutFooter = Template.bind({});
+DefaultWithOutFooter.args = {
+  ...commonArgs,
+  type: "default",
+  heading: "Heading",
+  subheading: "Subheading",
+  description:
+    "Please contact the administrator if you have forgotten your password.",
+  showIcon: true,
+  children: lessChildren,
 };
 
 export const Alert = Template.bind({});
@@ -359,7 +390,7 @@ AlertWithCustomStyles.args = {
   alertHeading: "Alert!",
   alertMessage:
     "Please contact the administrator if you have forgotten your password.",
-    style: { width: "620px", height: "500px" },
+  style: { width: "620px", height: "500px" },
 };
 
 export const AlertWithCustomStylesAndMoreChildren = Template.bind({});
@@ -371,5 +402,29 @@ AlertWithCustomStylesAndMoreChildren.args = {
   alertHeading: "Alert!",
   alertMessage:
     "Please contact the administrator if you have forgotten your password.",
-    style: { width: "620px", height: "500px" },
+  style: { width: "620px", height: "500px" },
+};
+
+export const AlertWithFooterStyles = Template.bind({});
+AlertWithFooterStyles.args = {
+  ...commonArgs,
+  type: "alert",
+  children: lessChildren,
+  footerChildren: footerChildrenWithTwoButtons,
+  alertHeading: "Alert!",
+  alertMessage:
+    "Please contact the administrator if you have forgotten your password.",
+  footerStyles: {
+    marginLeft: "unset",
+  },
+};
+
+export const AlertWithOutFooter = Template.bind({});
+AlertWithOutFooter.args = {
+  ...commonArgs,
+  type: "alert",
+  children: lessChildren,
+  alertHeading: "Alert!",
+  alertMessage:
+    "Please contact the administrator if you have forgotten your password.",
 };

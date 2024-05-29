@@ -42,6 +42,7 @@ frontend/micro-ui/web/public/index.html
 # Changelog
 
 ```bash
+1.8.2-coreui.21 Updated Panel, Popup styles
 1.8.2-coreui.20 Added Popup,Panel and Panel Card css
 1.8.2-coreui.19 Added Uploader Variants
 1.8.2-coreui.18 Updated Text-Secondary color typography
