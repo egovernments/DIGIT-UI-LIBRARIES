@@ -13,11 +13,11 @@ const Stepper = ({
   style,
   props,
   className,
-  isActive
+  activeSteps
 }) => {
   const { t } = useTranslation();
 
-  const firstInactiveIndex = isActive.indexOf(false);
+  // const firstInactiveIndex = isActive.indexOf(false);
 
 
   const [isMobileView, setIsMobileView] = useState(
@@ -46,8 +46,8 @@ const Stepper = ({
   });
 
   useEffect(() => {
-    // This useEffect will trigger a re-render when isActive changes
-  }, [isActive]);
+    // This useEffect will trigger a re-render when number of activeSteps changes
+  }, [activeSteps]);
 
 
   const getAction = (totalSteps, customSteps) => {
@@ -83,10 +83,10 @@ const Stepper = ({
           >
             <span
               className={`stepper-circle ${
-                ((index <= currentStep - 1) || (isActive[index] === true) ) && "active"
+                ((index <= currentStep - 1) || (index < activeSteps) ) && "active"
               }`}
             >
-              {((index < currentStep - 1) || (isActive[index] === true) ) ? (
+              {((index < currentStep - 1) || (index < activeSteps) ) ? (
                 <SVG.Check
                   width={isMobileView ? "18px" : "24px"}
                   height={isMobileView ? "18px" : "24px"}
@@ -98,7 +98,7 @@ const Stepper = ({
             </span>
             <span
               className={`stepper-label ${
-                ((index < currentStep - 1) || (isActive[index] === true)) && "completed"
+                ((index < currentStep - 1) || (index < activeSteps)) && "completed"
               } ${currentStep - 1 === index && "current"} ${direction ? direction : ""}`}
               style={{ ...props?.labelStyles }}
             >
@@ -110,7 +110,7 @@ const Stepper = ({
           {index < arr.length - 1 && (
             <span
               className={`stepper-connect ${
-                ((index < currentStep - 1) || (isActive[index] && index<firstInactiveIndex - 1 ) ) && "active"
+                ((index < currentStep - 1) || (index < activeSteps && index < activeSteps - 1 ) ) && "active"
               } ${direction ? direction : ""}`}
             ></span>
           )}
