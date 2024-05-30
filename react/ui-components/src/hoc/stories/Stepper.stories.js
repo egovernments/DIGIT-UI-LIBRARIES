@@ -23,6 +23,7 @@ export default {
     },
     style: { control: "object" },
     props: { control: "object" },
+    activeSteps: { action: "number" },
   },
 };
 
@@ -57,10 +58,18 @@ const commonArgs = {
   props: {
     labelStyles: {},
   },
+  activeSteps:""
 };
 
 //Default stepper
 export const Default = Template.bind({});
 Default.args = {
   ...commonArgs,
+};
+
+//Default stepper
+export const WithIsActive = Template.bind({});
+WithIsActive.args = {
+  ...commonArgs,
+  activeSteps:3
 };

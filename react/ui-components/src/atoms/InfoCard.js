@@ -3,7 +3,7 @@ import { SVG } from "./SVG";
 import StringManipulator from "./StringManipulator";
 import PropTypes from "prop-types";
 
-const InfoCard = ({ label, text, variant, style, textStyle, additionalElements, inline, className}) => {
+const InfoCard = ({ label, text, variant, style, textStyle, additionalElements, inline, className, headerClassName}) => {
   const getIconAndLabelByVariant = (variant) => {
     switch (variant) {
       case "warning":
@@ -26,7 +26,7 @@ const InfoCard = ({ label, text, variant, style, textStyle, additionalElements, 
     <div className={`digit-infobanner-wrap ${variant || "default"} ${className || ""}`} style={style}>
       <div height="24px">
         {icon}
-        <h2>{displayedLabel}</h2>
+        <h2 className={`digit-infobanner-header ${headerClassName || ""}`}>{displayedLabel}</h2>
       </div>
       {text && <p style={{ ...textStyle }}>{StringManipulator("TOSENTENCECASE", text)}</p>}
       {hasAdditionalElements && (

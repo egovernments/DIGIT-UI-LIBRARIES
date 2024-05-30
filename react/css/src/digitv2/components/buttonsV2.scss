@@ -236,6 +236,12 @@
       @extend .typography.button.small;
     }
   }
+
+  &:active{
+    h2{
+      font-weight: theme(digitv2.fontWeight.bold);
+    }
+  }
 }
 
 .digit-button-link {

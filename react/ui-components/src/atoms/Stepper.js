@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import PropTypes from "prop-types";
 import { useTranslation } from "react-i18next";
 import { SVG } from "./SVG";
@@ -12,11 +12,15 @@ const Stepper = ({
   direction,
   style,
   props,
-  className
+  className,
+  activeSteps
 }) => {
   const { t } = useTranslation();
 
-  const [isMobileView, setIsMobileView] = React.useState(
+  // const firstInactiveIndex = isActive.indexOf(false);
+
+
+  const [isMobileView, setIsMobileView] = useState(
     (window.innerWidth / window.innerHeight <= 9/16)
   );
   const onResize = () => {
@@ -30,7 +34,7 @@ const Stepper = ({
       }
     }
   };
-  React.useEffect(() => {
+  useEffect(() => {
     window.addEventListener("resize", () => {
       onResize();
     });
@@ -40,6 +44,11 @@ const Stepper = ({
       });
     };
   });
+
+  useEffect(() => {
+    // This useEffect will trigger a re-render when number of activeSteps changes
+  }, [activeSteps]);
+
 
   const getAction = (totalSteps, customSteps) => {
     if (customSteps && Object.keys(customSteps).length !== 0) {
@@ -74,10 +83,10 @@ const Stepper = ({
           >
             <span
               className={`stepper-circle ${
-                index <= currentStep - 1 && "active"
+                ((index <= currentStep - 1) || (index < activeSteps) ) && "active"
               }`}
             >
-              {index < currentStep - 1 ? (
+              {((index < currentStep - 1) || (index < activeSteps) ) ? (
                 <SVG.Check
                   width={isMobileView ? "18px" : "24px"}
                   height={isMobileView ? "18px" : "24px"}
@@ -89,7 +98,7 @@ const Stepper = ({
             </span>
             <span
               className={`stepper-label ${
-                index < currentStep - 1 && "completed"
+                ((index < currentStep - 1) || (index < activeSteps)) && "completed"
               } ${currentStep - 1 === index && "current"} ${direction ? direction : ""}`}
               style={{ ...props?.labelStyles }}
             >
@@ -101,7 +110,7 @@ const Stepper = ({
           {index < arr.length - 1 && (
             <span
               className={`stepper-connect ${
-                index < currentStep - 1 && "active"
+                ((index < currentStep - 1) || (index < activeSteps && index < activeSteps - 1 ) ) && "active"
               } ${direction ? direction : ""}`}
             ></span>
           )}

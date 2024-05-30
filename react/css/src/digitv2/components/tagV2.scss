@@ -35,9 +35,19 @@
     margin: theme(digitv2.spacers.spacer0);
     border: 0.063rem solid theme(digitv2.lightTheme.generic-divider);
 
+    @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+      /* Media query for tablets */
+      height: theme(digitv2.spacers.spacer9);
+    }
+  
+    @media (max-aspect-ratio: 9/16) {
+      /* Media query for mobile */
+      height: theme(digitv2.spacers.spacer9);
+    }
+  
 
     .digit-text {
-      @extend .typography.body-s;
+      @extend .typography.body-xs;
       @apply overflow-hidden items-center whitespace-no-wrap;
       max-width: calc(100% - (theme(digitv2.spacers.spacer7)));
       width: calc(100% - (theme(digitv2.spacers.spacer7)));
@@ -55,6 +65,18 @@
       display: flex !important;
       justify-content: center;
 
+      @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+        /* Media query for tablets */
+        height: theme(digitv2.spacers.spacer5);
+        width: theme(digitv2.spacers.spacer5);
+      }
+    
+      @media (max-aspect-ratio: 9/16) {
+        /* Media query for mobile */
+        height: theme(digitv2.spacers.spacer5);
+        width: theme(digitv2.spacers.spacer5);
+      }
+
       &.disabled{
         pointer-events: none;
       }
@@ -65,6 +87,18 @@
         height: theme(digitv2.spacers.spacer6);
         display: flex !important;
         justify-content: center;
+
+        @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+          /* Media query for tablets */
+          height: theme(digitv2.spacers.spacer5);
+          width: theme(digitv2.spacers.spacer5);
+        }
+      
+        @media (max-aspect-ratio: 9/16) {
+          /* Media query for mobile */
+          height: theme(digitv2.spacers.spacer5);
+          width: theme(digitv2.spacers.spacer5);
+        }
       }
     }
 
@@ -74,7 +108,7 @@
       box-shadow: 0.125rem 0.125rem theme(digitv2.spacers.spacer1) theme(digitv2.spacers.spacer0) #D4351C4D;
 
       .digit-text {
-        @extend .typography.heading-s;
+        @extend .typography.heading-xs;
         color: theme(digitv2.lightTheme.alert-error);
       }
 
