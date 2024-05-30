@@ -58,6 +58,7 @@ yarn storybook
 # Changelog
 
 ```bash
+0.0.1-beta.31 Added new prop named isActive in Stepper
 0.0.1-beta.30 Updated Panel Animation Styles
 0.0.1-beta.29 Added PopUp,Panels and Panel Cards
 0.0.1-beta.28 Added restrictSelection prop in MultiSelectDropdown

@@ -21,7 +21,7 @@
     }
   }
 
-  h2 {
+  .digit-infobanner-header {
     @apply w-full max-w-full overflow-hidden text-left;
     font-family: theme(digitv2.fontFamily.sans);
     font-weight: theme(digitv2.fontWeight.bold);
@@ -58,7 +58,7 @@
     border: 0.063rem solid theme(digitv2.lightTheme.alert-success);
     border-left-width: theme(digitv2.spacers.spacer1);
 
-    h2{
+    .digit-infobanner-header{
       color: theme(digitv2.lightTheme.alert-success);
     }
   }
@@ -68,7 +68,7 @@
     border: 0.063rem solid theme(digitv2.lightTheme.alert-warning);
     border-left-width: theme(digitv2.spacers.spacer1);
 
-    h2{
+    .digit-infobanner-header{
       color: theme(digitv2.lightTheme.alert-warning);
     }
   }
@@ -78,7 +78,7 @@
     border: 0.063rem solid theme(digitv2.lightTheme.alert-error);
     border-left-width: theme(digitv2.spacers.spacer1);
 
-    h2{
+    .digit-infobanner-header{
       color: theme(digitv2.lightTheme.alert-error);
     }
   }
@@ -112,6 +112,13 @@
   .additional-elements-inline {
     @apply flex flex-wrap items-start;
     gap: theme(digitv2.spacers.spacer2);
+
+    .individualElement{
+      h2{
+        margin: theme(digitv2.spacers.spacer0);
+        color: theme(digitv2.lightTheme.text-primary);
+      }
+    }
   }
 
   .additional-elements-column {
@@ -120,6 +127,11 @@
     
     .individualElement {
       @apply w-full max-w-full;
+
+      h2{
+        margin: theme(digitv2.spacers.spacer0);
+        color: theme(digitv2.lightTheme.text-primary);
+      }
 
     }
   }

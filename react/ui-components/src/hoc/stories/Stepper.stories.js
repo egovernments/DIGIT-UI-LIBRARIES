@@ -23,6 +23,12 @@ export default {
     },
     style: { control: "object" },
     props: { control: "object" },
+    isActive: {
+      control: {
+        type: "array",
+        separator: ",",
+      },
+    },
   },
 };
 
@@ -57,10 +63,18 @@ const commonArgs = {
   props: {
     labelStyles: {},
   },
+  isActive:[]
 };
 
 //Default stepper
 export const Default = Template.bind({});
 Default.args = {
   ...commonArgs,
+};
+
+//Default stepper
+export const WithIsActive = Template.bind({});
+WithIsActive.args = {
+  ...commonArgs,
+  isActive:[true,true,true,false,false]
 };
