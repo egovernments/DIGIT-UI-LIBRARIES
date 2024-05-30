@@ -109,3 +109,15 @@ class ToastConstant {
   Duration get toastDuration => const Duration(seconds: 5);
 }
 
+class PopUpCardConstant {
+  /// Margins
+  static const double verticalMarginMobile = 64.0;
+  static const double verticalMarginTab = 100.0;
+  static const double verticalMarginDesktop = 74.0;
+
+  static const double horizontalMarginMobile = 16.0;
+  static const double horizontalMarginTab = 98.0;
+  static const double horizontalMarginDesktop = 446.0;
+
+}
+

@@ -1,3 +1,21 @@
+/// A customizable popup dialog widget.
+
+/// Example use
+///``` Popup(
+///      title: 'Example Popup',
+///      type: PopUpType.simple,
+///      description: 'This is a simple example of a popup dialog.',
+///      actions: [
+///          Button(
+///              label: 'OK',
+///              onPressed: () {
+///                 Navigator.pop(context);
+///              },
+///          ),
+///      ],
+///  )```
+
+import 'package:digit_ui_components/constants/app_constants.dart';
 import 'package:flutter/material.dart';
 import '../../constants/AppView.dart';
 import '../../enum/app_enums.dart';
@@ -9,18 +27,43 @@ import 'digit_button.dart';
 import 'package:flutter/scheduler.dart';
 
 class Popup extends StatefulWidget {
+  /// The title of the popup.
   final String title;
+
+  /// The type of the popup. Defaults to PopUpType.simple.
   final PopUpType type;
+
+  /// The width of the popup. If null, it defaults to a responsive width based on the screen size.
   final double? width;
+
+  /// The height of the popup. If null, it defaults to a responsive height based on the screen size.
   final double? height;
+
+  /// The icon to be displayed next to the title.
   final Icon? titleIcon;
+
+  /// The subheading of the popup.
   final String? subHeading;
+
+  /// The description text of the popup.
   final String? description;
+
+  /// Additional widgets to be displayed in the popup.
   final List<Widget>? additionalWidgets;
+
+  /// The list of action buttons to be displayed in the popup.
   final List<Button>? actions;
+
+  /// Callback function when the close button is tapped.
   final void Function()? onCrossTap;
+
+  /// Whether to display action buttons inline or not.
   final bool? inlineActions;
+
+  /// The spacing between action buttons.
   final double? actionSpacing;
+
+  /// The alignment of action buttons.
   final MainAxisAlignment? actionAlignment;
 
   const Popup({
@@ -212,9 +255,6 @@ class _PopupState extends State<Popup> {
             style: currentTypography.headingL
                 .copyWith(color: const DigitColors().light.textPrimary),
           ),
-          const SizedBox(
-            width: spacer2,
-          ),
           if (widget.subHeading != null)
             const SizedBox(
               height: spacer2,
@@ -306,8 +346,10 @@ class _PopupState extends State<Popup> {
 
   @override
   Widget build(BuildContext context) {
+    /// Check if it's the first build to avoid rebuilding unnecessarily
     if (!firstBuild) {
       firstBuild = true;
+      /// Post frame callback to check if content is overflowing after rendering
       SchedulerBinding.instance.addPostFrameCallback((_) {
         setState(() {
           if (_scrollController.hasClients) {
@@ -317,6 +359,7 @@ class _PopupState extends State<Popup> {
       });
     }
 
+    /// Get current typography and screen size information
     DigitTypography currentTypography = getTypography(context, false);
     bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
     bool isTab = AppView.isTabletView(MediaQuery.of(context).size);
@@ -331,18 +374,10 @@ class _PopupState extends State<Popup> {
           height: cardHeight,
           margin: EdgeInsets.symmetric(
               vertical: cardHeight == null
-                  ? isMobile
-                      ? 64
-                      : isTab
-                          ? 100
-                          : 74
+                  ? isMobile ? PopUpCardConstant.verticalMarginMobile : isTab ? PopUpCardConstant.verticalMarginTab : PopUpCardConstant.verticalMarginDesktop
                   : 0,
               horizontal: cardWidth == null
-                  ? isMobile
-                      ? 16
-                      : isTab
-                          ? 98
-                          : 446
+                  ? isMobile ? PopUpCardConstant.horizontalMarginMobile : isTab ? PopUpCardConstant.horizontalMarginTab : PopUpCardConstant.horizontalMarginDesktop
                   : 0),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(spacer1),

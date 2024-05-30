@@ -8,7 +8,7 @@ List<Story> actionStories() {
   return [
     Story(
       name: 'Atom/Action/1',
-      builder: (context) =>  ActionCard(
+      builder: (context) => ActionCard(
         actions: [
           Button(
             size: ButtonSize.large,
@@ -22,7 +22,7 @@ List<Story> actionStories() {
     ),
     Story(
       name: 'Atom/Action/2',
-      builder: (context) =>  ActionCard(
+      builder: (context) => ActionCard(
         actions: [
           Button(
             size: ButtonSize.large,
@@ -51,7 +51,7 @@ List<Story> actionStories() {
     ),
     Story(
       name: 'Atom/Action/scroll',
-      builder: (context) =>  ActionCard(
+      builder: (context) => ActionCard(
         actions: [
           Button(
             size: ButtonSize.large,
@@ -73,6 +73,27 @@ List<Story> actionStories() {
             label: 'Delete Individual',
             onPressed: () {},
             prefixIcon: Icons.delete,
+          ),
+          Button(
+            size: ButtonSize.large,
+            type: ButtonType.secondary,
+            label: 'Edit Individual Details',
+            onPressed: () {},
+            prefixIcon: Icons.edit,
+          ),
+          Button(
+            size: ButtonSize.large,
+            type: ButtonType.secondary,
+            label: 'Delete Individual',
+            onPressed: () {},
+            prefixIcon: Icons.delete,
+          ),
+          Button(
+            size: ButtonSize.large,
+            type: ButtonType.secondary,
+            label: 'Assign as household head',
+            onPressed: () {},
+            prefixIcon: Icons.person,
           ),
           Button(
             size: ButtonSize.large,
@@ -135,7 +156,7 @@ List<Story> actionStories() {
     ),
     Story(
       name: 'Atom/Action/custom width and height',
-      builder: (context) =>  ActionCard(
+      builder: (context) => ActionCard(
         width: 900,
         height: 900,
         actions: [

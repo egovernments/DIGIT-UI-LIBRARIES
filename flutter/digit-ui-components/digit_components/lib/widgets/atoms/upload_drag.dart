@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:digit_ui_components/constants/AppView.dart';
 import 'package:digit_ui_components/utils/fileService/file_service.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/foundation.dart';
@@ -7,9 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'dart:io';
-import '../../constants/app_constants.dart';
-import '../../enum/app_enums.dart';
 import '../../utils/fileService/file_download.dart';
 import '../../utils/utils.dart';
 
@@ -49,35 +45,28 @@ class _FileUploadWidgetState extends State<FileUploadWidget2> {
 
   Widget _buildProgressBar() {
     String currentSvg;
-    IconData downloadIcon;
 
     switch (currentFileName.split('.').last.toLowerCase()) {
       case 'pdf':
         currentSvg = Common.pdfSvg;
-        downloadIcon = Icons.download;
         break;
       case 'jpg':
       case 'jpeg':
         currentSvg = Common.jpgSvg;
-        downloadIcon = Icons.download;
         break;
       case 'png':
         currentSvg = Common.pngSvg;
-        downloadIcon = Icons.download;
         break;
       case 'doc':
       case 'docx':
         currentSvg = Common.docSvg;
-        downloadIcon = Icons.download;
         break;
       case 'xlsx':
       case 'xls':
         currentSvg = Common.xlsxSvg;
-        downloadIcon = Icons.download;
         break;
       default:
         currentSvg = Common.fileSvg;
-        downloadIcon = Icons.replay;
         break;
     }
 

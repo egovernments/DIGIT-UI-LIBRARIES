@@ -20,5 +20,14 @@ List<Story> chipStories() {
           errorMessage: context.knobs.text(label: 'Error Message', initial: 'this is error'),
         )
     ),
+    Story(
+        name: 'Atom/Chip/onClick',
+        builder: (context) => SelectionChip(
+          label: context.knobs.text(label: 'chip label', initial: 'label'),
+          onItemDelete: () {},
+          errorMessage: context.knobs.text(label: 'Error Message', initial: 'this is error'),
+          onClick: (){},
+        )
+    ),
   ];
 }

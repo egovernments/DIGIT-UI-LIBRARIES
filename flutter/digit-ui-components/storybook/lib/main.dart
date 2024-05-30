@@ -2,12 +2,14 @@ import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/material.dart';
 import 'package:inspector/inspector.dart';
 import 'package:storybook/widgets/atoms/Info_card_stories.dart';
+import 'package:storybook/widgets/atoms/action_card_stories.dart';
 import 'package:storybook/widgets/atoms/button_stories.dart';
 import 'package:storybook/widgets/atoms/checkbox_stories.dart';
 import 'package:storybook/widgets/atoms/chip_stories.dart';
 import 'package:storybook/widgets/atoms/dropdown_stories.dart';
 import 'package:storybook/widgets/atoms/flie_upload_stories.dart';
 import 'package:storybook/widgets/atoms/input_field_stories.dart';
+import 'package:storybook/widgets/atoms/pop_up_card_stories.dart';
 import 'package:storybook/widgets/atoms/radio_list_stories.dart';
 import 'package:storybook/widgets/atoms/stepper_stories.dart';
 import 'package:storybook/widgets/atoms/timeline_stories.dart';
@@ -48,6 +50,8 @@ class MyApp extends StatelessWidget {
               ...dropdownStories(),
               ...stepperStories(),
               ...fileUploaderStories(),
+              ...actionStories(),
+              ...popUpStories(),
             ],
           ),
         ),
