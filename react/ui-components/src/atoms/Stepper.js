@@ -17,9 +17,6 @@ const Stepper = ({
 }) => {
   const { t } = useTranslation();
 
-  // const firstInactiveIndex = isActive.indexOf(false);
-
-
   const [isMobileView, setIsMobileView] = useState(
     (window.innerWidth / window.innerHeight <= 9/16)
   );

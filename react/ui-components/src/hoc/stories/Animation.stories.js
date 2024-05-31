@@ -16,33 +16,47 @@ export default {
     animationData: {
       control: { type: "object" },
     },
-    width:{
-        control:"number"
+    width: {
+      control: "number",
     },
-    height:{
-        control:"number"
-    }
+    height: {
+      control: "number",
+    },
   },
 };
 
-const Template = (args) => <div style={{background:"#00703C", width:"100%",height:"fit-content"}}> <Animation {...args} /> </div>;
+const Template = (args) => (
+  <div
+    style={{
+      background: "#00703C",
+      width: "100%",
+      height: "100px",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+    }}
+  >
+    {" "}
+    <Animation {...args} />{" "}
+  </div>
+);
 
 const commonArgs = {
-    animationData:{},
-    loop:true,
-    autoplay:true,
-    width:56,
-    height:56
+  animationData: {},
+  loop: true,
+  autoplay: true,
+  width: 74,
+  height: 74,
 };
 
 export const SuccessAnimation = Template.bind({});
 SuccessAnimation.args = {
   ...commonArgs,
-  animationData:successAnimation
+  animationData: successAnimation,
 };
 
 export const ErrorAnimation = Template.bind({});
 ErrorAnimation.args = {
   ...commonArgs,
-  animationData:errorAnimation
+  animationData: errorAnimation,
 };
