@@ -42,6 +42,7 @@ frontend/micro-ui/web/public/index.html
 # Changelog
 
 ```bash
+1.8.2-coreui.23 Updated Panel success animation styles
 1.8.2-coreui.22 Updated tag, stepper styles 
 1.8.2-coreui.21 Updated Panel, Popup styles
 1.8.2-coreui.20 Added Popup,Panel and Panel Card css
