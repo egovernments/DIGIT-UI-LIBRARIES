@@ -64,7 +64,17 @@ const Panels = (props) => {
         height: props.animationProps.height,
       };
     }
-
+    if(props?.type === "success" && !props?.showAsSvg){
+      switch (deviceType) {
+        case "mobile":
+          return { width: 80, height: 80 };
+        case "tablet":
+          return { width: 100, height: 100 };
+        case "desktop":
+        default:
+          return { width: 120, height: 120 };
+      }
+    }
     switch (deviceType) {
       case "mobile":
         return { width: 56, height: 56 };
@@ -83,10 +93,10 @@ const Panels = (props) => {
     <div
       className={`digit-panel-wrapper ${
         props?.className ? props?.className : ""
-      } ${props?.type ? props?.type : ""}`}
+      } ${props?.type ? props?.type : ""} ${props?.showAsSvg ? "with-svg" : ""}`}
       style={props?.style}
     >
-      <div className="digit-panel-message-wrapper">
+      <div className={`digit-panel-message-wrapper ${props?.type || ""} ${props?.showAsSvg ? "with-svg" : ""}`}>
         {props?.type === "success" ? (
           props?.customIcon ? (
             icon
