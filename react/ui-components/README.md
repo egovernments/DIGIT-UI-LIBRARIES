@@ -58,6 +58,7 @@ yarn storybook
 # Changelog
 
 ```bash
+0.0.2 Added new components and enhancements for old components
 0.0.1-beta.32 Updated Panel Success Animation
 0.0.1-beta.31 Added new prop named activeSteps in Stepper
 0.0.1-beta.30 Updated Panel Animation Styles
@@ -90,6 +91,31 @@ yarn storybook
 0.0.3 Added new components
 0.0.1 base version
 ```
+
+## [0.0.2] - 2024-06-03
+
+### New Changes
+
+- Added Error Message Component. 
+- Added Info Button Component. 
+- Added Panels Component. 
+- Added Popup Component With Two Variants defualt and alert. 
+- Added RemoveableTag Component. 
+- Added Stepper Component.
+- Added TextBlock Component.
+- Added Timeline Component.
+- Added Uploader Component With Three Varinats UploadFile,UploadPopup and UploadImage.
+- Added PanelCard Molecule.
+
+### Enhancements 
+
+- Updated Button Component Styles. 
+- Updated Dropdown Component Styles and Added SelectAll Option. 
+- Updated InfoCard Component Styles. 
+- Added Animation for Toast. 
+- Added new prop named type for Toast replacing the separate props for `info`, `warning`, and `error`. 
+- Updated Typography with lineHeight 
+- Updated Color Typography
 
 ## [0.0.1-beta.28] - 2024-05-24
 
