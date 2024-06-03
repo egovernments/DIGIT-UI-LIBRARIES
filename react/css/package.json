@@ -14,7 +14,7 @@
     "start": "gulp build",
     "build:prod": "NODE_ENV=production gulp build",
     "prepublish": "yarn build:prod",
-    "publish:scss": "npm publish --tag core-v0.1",
+    "publish:css-develop": "npm publish --tag core-v0.1",
     "publish:css": "npm publish --access public",
     "deploy": "gulp && cp -R svg example && cp -R img example && gh-pages -d example"
   },
