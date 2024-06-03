@@ -24,8 +24,8 @@ class SelectionChip<T> extends StatelessWidget {
 
     bool isDesktop = AppView.isDesktopView(MediaQuery.of(context).size);
 
-    final String capitalizedTitle = capitalizedFirstLetter ? convertInToSentenceCase(label)! : label;
-    final String? capitalizedErrorMessage = capitalizedFirstLetter ? convertInToSentenceCase(errorMessage)! : errorMessage;
+    final String capitalizedTitle = capitalizedFirstLetter ? (convertInToSentenceCase(label) ?? label) : label;
+    final String? capitalizedErrorMessage = capitalizedFirstLetter ? convertInToSentenceCase(errorMessage) : errorMessage;
 
     DigitTypography currentTypography = getTypography(context, false);
 

@@ -1,4 +1,3 @@
-import 'package:digit_ui_components/constants/AppView.dart';
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/widgets/helper_widget/button_list.dart';
 import 'package:flutter/material.dart';
@@ -53,29 +52,29 @@ class _PanelCardState extends State<PanelCard> {
     Widget list = Padding(
       padding: EdgeInsets.only(
         left: isMobile
-            ? 16
+            ? spacer4
             : isTab
-            ? 20
-            : 24,
+                ? spacer5
+                : spacer6,
         right: isMobile
-            ? 16
+            ? spacer4
             : isTab
-            ? 20
-            : 24,
+                ? spacer5
+                : spacer6,
         top: _isOverflowing
             ? (isMobile
-            ? 16
-            : isTab
-            ? 20
-            : 24)
+                ? spacer4
+                : isTab
+                    ? spacer5
+                    : spacer6)
             : 0,
         bottom: !_isOverflowing && (widget.actions != null)
             ? 0
             : isMobile
-            ? 16
-            : isTab
-            ? 20
-            : 24,
+                ? spacer4
+                : isTab
+                    ? spacer5
+                    : spacer6,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -90,10 +89,10 @@ class _PanelCardState extends State<PanelCard> {
           if (widget.description != null && widget.additionWidgets != null)
             SizedBox(
               height: isMobile
-                  ? 16
+                  ? spacer4
                   : isTab
-                  ? 20
-                  : 24,
+                      ? spacer5
+                      : spacer6,
             ),
           if (widget.additionWidgets != null)
             ...widget.additionWidgets!
@@ -101,18 +100,18 @@ class _PanelCardState extends State<PanelCard> {
                 .entries
                 .map(
                   (widgets) => Padding(
-                padding: EdgeInsets.only(
-                  bottom: widgets.key != widget.additionWidgets!.length - 1
-                      ? (isMobile
-                      ? 16
-                      : isTab
-                      ? 20
-                      : 24)
-                      : 0,
-                ),
-                child: widgets.value,
-              ),
-            )
+                    padding: EdgeInsets.only(
+                      bottom: widgets.key != widget.additionWidgets!.length - 1
+                          ? (isMobile
+                              ? spacer4
+                              : isTab
+                                  ? spacer5
+                                  : spacer6)
+                          : 0,
+                    ),
+                    child: widgets.value,
+                  ),
+                )
                 .toList(),
         ],
       ),
@@ -148,7 +147,7 @@ class _PanelCardState extends State<PanelCard> {
     return Container(
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(4),
+        borderRadius: BorderRadius.circular(spacer1),
         color: const DigitColors().light.paperPrimary,
         boxShadow: [
           BoxShadow(
@@ -165,27 +164,28 @@ class _PanelCardState extends State<PanelCard> {
           Container(
             padding: isMobile
                 ? EdgeInsets.only(
-                bottom: widget.description != null ||
-                    widget.additionWidgets != null ||
-                    widget.actions != null
-                    ? 16
-                    : 0)
+                    bottom: widget.description != null ||
+                            widget.additionWidgets != null ||
+                            widget.actions != null
+                        ? spacer4
+                        : 0)
                 : EdgeInsets.all(
-              isTab ? 20 : 24,
-            ),
+                    isTab ? spacer5 : spacer6,
+                  ),
             decoration: BoxDecoration(
               color: const DigitColors().light.paperPrimary,
               borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(4), topRight: Radius.circular(4)),
+                  topLeft: Radius.circular(spacer1),
+                  topRight: Radius.circular(spacer1)),
               boxShadow: _isOverflowing
                   ? [
-                BoxShadow(
-                  color: const Color(0xFF000000).withOpacity(.16),
-                  offset: const Offset(0, 1),
-                  spreadRadius: 0,
-                  blurRadius: 2,
-                ),
-              ]
+                      BoxShadow(
+                        color: const Color(0xFF000000).withOpacity(.16),
+                        offset: const Offset(0, 1),
+                        spreadRadius: 0,
+                        blurRadius: 2,
+                      ),
+                    ]
                   : [],
             ),
             child: Panel(
@@ -202,44 +202,44 @@ class _PanelCardState extends State<PanelCard> {
             Container(
                 padding: EdgeInsets.only(
                   left: isMobile
-                      ? 16
+                      ? spacer4
                       : isTab
-                      ? 20
-                      : 24,
+                          ? spacer5
+                          : spacer6,
                   right: isMobile
-                      ? 16
+                      ? spacer4
                       : isTab
-                      ? 20
-                      : 24,
+                          ? spacer5
+                          : spacer6,
                   top: _isOverflowing ||
-                      (widget.additionWidgets != null ||
-                          widget.description != null)
+                          (widget.additionWidgets != null ||
+                              widget.description != null)
                       ? isMobile
-                      ? 16
-                      : isTab
-                      ? 20
-                      : 24
+                          ? spacer4
+                          : isTab
+                              ? spacer5
+                              : spacer6
                       : 0,
                   bottom: isMobile
-                      ? 16
+                      ? spacer4
                       : isTab
-                      ? 20
-                      : 24,
+                          ? spacer5
+                          : spacer6,
                 ),
                 decoration: BoxDecoration(
                   color: const DigitColors().light.paperPrimary,
                   borderRadius: const BorderRadius.only(
-                      bottomLeft: Radius.circular(4),
-                      bottomRight: Radius.circular(4)),
+                      bottomLeft: Radius.circular(spacer1),
+                      bottomRight: Radius.circular(spacer1)),
                   boxShadow: _isOverflowing
                       ? [
-                    BoxShadow(
-                      color: const Color(0xFF000000).withOpacity(.16),
-                      offset: const Offset(0, -1),
-                      spreadRadius: 0,
-                      blurRadius: 2,
-                    ),
-                  ]
+                          BoxShadow(
+                            color: const Color(0xFF000000).withOpacity(.16),
+                            offset: const Offset(0, -1),
+                            spreadRadius: 0,
+                            blurRadius: 2,
+                          ),
+                        ]
                       : [],
                 ),
                 child: ButtonListTile(
@@ -253,10 +253,10 @@ class _PanelCardState extends State<PanelCard> {
                           : MainAxisAlignment.end),
                   spacing: widget.actionSpacing ??
                       (isMobile
-                          ? 16
+                          ? spacer4
                           : isTab
-                          ? 20
-                          : 24),
+                              ? spacer5
+                              : spacer6),
                 )),
         ],
       ),

@@ -2,9 +2,9 @@ import 'package:digit_ui_components/utils/validators/file_validator.dart';
 import 'package:digit_ui_components/widgets/atoms/upload_drag.dart';
 import 'package:digit_ui_components/widgets/atoms/upload_image.dart';
 import 'package:digit_ui_components/widgets/atoms/upload_popUp.dart';
-import 'package:flutter/src/widgets/basic.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/material.dart';
 import 'dart:io';
 
 List<Story> fileUploaderStories() {
@@ -79,7 +79,7 @@ List<Story> fileUploaderStories() {
       name: 'Atom/File Upload/Pop UP/Multiple Upload/default',
       builder: (context) => Center(
         child: FileUploadWidget(
-          allowMultipleImages: true,
+          allowMultiples: true,
           label: 'Upload', onFilesSelected: (List<PlatformFile> files) {
           Map<PlatformFile, String?> fileErrors = {};
 
@@ -92,7 +92,7 @@ List<Story> fileUploaderStories() {
     Story(
       name: 'Atom/File Upload/Pop UP/Multiple Upload/Field Error',
       builder: (context) => FileUploadWidget(
-        allowMultipleImages: true,
+        allowMultiples: true,
         label: 'Upload', onFilesSelected: (List<PlatformFile> files) {
         Map<PlatformFile, String?> fileErrors = {};
 
@@ -105,7 +105,7 @@ List<Story> fileUploaderStories() {
     Story(
       name: 'Atom/File Upload/Pop UP/Multiple Upload/File Error(only pdf)',
       builder: (context) => FileUploadWidget(
-        allowMultipleImages: true,
+        allowMultiples: true,
         label: 'Upload', onFilesSelected: (List<PlatformFile> files) {
         Map<PlatformFile, String?> fileErrors = {};
 
@@ -120,7 +120,7 @@ List<Story> fileUploaderStories() {
     Story(
       name: 'Atom/File Upload/Pop UP/Multiple Upload/File Validation Error(less than 50kb)',
       builder: (context) => FileUploadWidget(
-        allowMultipleImages: true,
+        allowMultiples: true,
         label: 'Upload', onFilesSelected: (List<PlatformFile> files) {
         Map<PlatformFile, String?> fileErrors = {};
 
@@ -149,7 +149,7 @@ List<Story> fileUploaderStories() {
       name: 'Atom/File Upload/Drag/Single file/default',
       builder: (context) => FileUploadWidget2(
         showPreview: true,
-        allowMultipleImages: false,
+        allowMultiples: false,
         label: 'Upload', onFilesSelected: (DroppedFile) {  },
       ),
     ),
@@ -157,7 +157,7 @@ List<Story> fileUploaderStories() {
       name: 'Atom/File Upload/Drag/Single file/field error',
       builder: (context) => FileUploadWidget2(
         showPreview: true,
-        allowMultipleImages: false,
+        allowMultiples: false,
         errorMessage: context.knobs.text(label: 'Error Message', initial: 'error'),
         label: 'Upload', onFilesSelected: (DroppedFile) {  },
       ),
@@ -166,7 +166,7 @@ List<Story> fileUploaderStories() {
       name: 'Atom/File Upload/Drag/Multiple files/default',
       builder: (context) => FileUploadWidget2(
         showPreview: true,
-        allowMultipleImages: true,
+        allowMultiples: true,
         label: 'Upload', onFilesSelected: (DroppedFile) {  },
       ),
     ),
@@ -174,7 +174,7 @@ List<Story> fileUploaderStories() {
       name: 'Atom/File Upload/Drag/Multiple files/field error',
       builder: (context) => FileUploadWidget2(
         showPreview: true,
-        allowMultipleImages: true,
+        allowMultiples: true,
         errorMessage: context.knobs.text(label: 'Error Message', initial: "error"),
         label: 'Upload', onFilesSelected: (DroppedFile) {  },
       ),
@@ -227,7 +227,7 @@ List<Story> fileUploaderStories() {
               // Handle the selected image file here
               // print('Image selected: ${imageFile.path}');
             },
-            allowMultipleImages: true,
+            allowMultiples: true,
           )
 
       ),
@@ -241,7 +241,7 @@ List<Story> fileUploaderStories() {
               // Handle the selected image file here
               // print('Image selected: ${imageFile.path}');
             },
-            allowMultipleImages: true,
+            allowMultiples: true,
           )
       ),
     ),
@@ -253,7 +253,7 @@ List<Story> fileUploaderStories() {
               // Handle the selected image file here
               // print('Image selected: ${imageFile.path}');
             },
-            allowMultipleImages: true,
+            allowMultiples: true,
             validators: [
               FileValidator(FileValidatorType.fileType, ['png'], errorMessage: 'Only png files are allowed'),
             ],

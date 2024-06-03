@@ -78,3 +78,15 @@ enum DividerType{
   medium,
   large,
 }
+
+/// Enum representing different types of panel(success and error)
+enum PanelType {
+  success,
+  error,
+}
+
+/// Enum representing different types of card(primary and secondary)
+enum CardType {
+  primary,
+  secondary,
+}

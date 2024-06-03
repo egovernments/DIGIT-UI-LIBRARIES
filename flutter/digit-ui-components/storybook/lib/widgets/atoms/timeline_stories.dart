@@ -8,7 +8,7 @@ List<Story> timeLineStories() {
   return [
     Story(
       name: 'Atom/Timeline/default',
-      builder: (context) =>  Timeline(
+      builder: (context) =>  DigitTimeline(
         currentStep: context.knobs.options(label: 'Current Step', initial: TimelineStepState.present, options: const [
           Option(
             label: 'Current',
@@ -29,7 +29,7 @@ List<Story> timeLineStories() {
     ),
     Story(
       name: 'Atom/Timeline/list of description',
-      builder: (context) => Timeline(
+      builder: (context) => DigitTimeline(
         currentStep: context.knobs.options(label: 'Current Step', initial: TimelineStepState.present, options: const [
           Option(
             label: 'Current',
@@ -50,7 +50,7 @@ List<Story> timeLineStories() {
     ),
     Story(
         name: 'Atom/Timeline/Additional widget',
-        builder: (context) => Timeline(
+        builder: (context) => DigitTimeline(
           label: 'Sample Timeline',
           description: const ['Description 1', 'Description 2'],
           currentStep: TimelineStepState.completed,

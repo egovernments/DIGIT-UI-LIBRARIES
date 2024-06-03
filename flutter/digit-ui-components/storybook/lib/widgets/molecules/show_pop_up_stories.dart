@@ -7,7 +7,7 @@ List<Story> showPopUPStories() {
   return [
     Story(
       name: 'Molecule/show/action',
-      builder: (context) =>  ElevatedButton(
+      builder: (context) => ElevatedButton(
         onPressed: () {
           showActionCard(
             context: context,
@@ -42,17 +42,32 @@ List<Story> showPopUPStories() {
     ),
     Story(
       name: 'Molecule/show/popUp',
-      builder: (context) =>  ElevatedButton(
+      builder: (context) => ElevatedButton(
         onPressed: () {
           showPopup(
             context: context,
             title: "Simple Popup",
             subHeading: "This is a subheading",
-            description: "This popup demonstrates a simple popup with a title and description.",
+            description:
+                "This popup demonstrates a simple popup with a title and description.",
             type: PopUpType.simple,
           );
         },
         child: const Text("Show Simple Popup"),
+      ),
+    ),
+    Story(
+      name: 'Molecule/show/alert',
+      builder: (context) => ElevatedButton(
+        onPressed: () {
+          showPopup(
+            context: context,
+            title: 'Alert!',
+            subHeading: 'Please contact the administrator if you have fsdfsdf dsfs',
+            type: PopUpType.alert,
+          );
+        },
+        child: const Text("Show alert Popup"),
       ),
     ),
   ];

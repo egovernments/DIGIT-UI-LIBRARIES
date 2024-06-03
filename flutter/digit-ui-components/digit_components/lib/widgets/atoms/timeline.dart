@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../utils/utils.dart';
 
-class Timeline extends StatefulWidget {
+class DigitTimeline extends StatefulWidget {
   final String label;
   final List<String> description;
   final TimelineStepState currentStep;
@@ -13,7 +13,7 @@ class Timeline extends StatefulWidget {
   final String hideDetailText;
   final bool capitalizedLetter;
 
-  const Timeline({
+  const DigitTimeline({
     Key? key,
     required this.currentStep,
     required this.label,
@@ -29,7 +29,7 @@ class Timeline extends StatefulWidget {
   _TimelineState createState() => _TimelineState();
 }
 
-class _TimelineState extends State<Timeline> {
+class _TimelineState extends State<DigitTimeline> {
   bool isExpanded = false;
 
   @override
@@ -267,8 +267,8 @@ class TimelineFileWidget extends StatelessWidget {
         }
       },
       child: SizedBox(
-        height: 100,
-        width: 100,
+        height: Base.imageSize,
+        width: Base.imageSize,
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,

@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:camera/camera.dart';
 import 'file_validator.dart';
 
-String? validateFile(
+String? validateImage(
     XFile xFile, List<FileValidator> validators, String? name) {
   final file = File(xFile.path);
   for (var validator in validators) {

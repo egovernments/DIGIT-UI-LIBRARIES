@@ -55,13 +55,20 @@ class _PanelState extends State<Panel> with SingleTickerProviderStateMixin {
     bool isTab = AppView.isTabletView(MediaQuery.of(context).size);
 
     return Container(
-      padding: widget.type == PanelType.success ? EdgeInsets.only(top: isTab || isMobile ? 22 : 18, left: 40, right: 40, bottom: 40) : EdgeInsets.all(isMobile ? 32 : 40),
+      padding: widget.type == PanelType.success
+          ? EdgeInsets.only(
+              top: isTab || isMobile ? 22 : 18,
+              left: spacer10,
+              right: spacer10,
+              bottom: spacer10)
+          : EdgeInsets.all(isMobile ? spacer8 : spacer10),
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
         color: _getBackgroundColor(),
         borderRadius: isMobile
             ? const BorderRadius.only(
-            topLeft: Radius.circular(spacer1), topRight: Radius.circular(spacer1))
+                topLeft: Radius.circular(spacer1),
+                topRight: Radius.circular(spacer1))
             : Base.radius,
       ),
       child: Column(
@@ -83,15 +90,43 @@ class _PanelState extends State<Panel> with SingleTickerProviderStateMixin {
                   _controller.forward();
                 }
               } else {
-                _controller.value = 1.0; /// Move to the last frame
+                _controller.value = 1.0;
+
+                /// Move to the last frame
               }
             },
-            width: widget.type == PanelType.success ? isMobile ? 80 : isTab ? 100 : 120 : isMobile ? 56 : isTab ? 64 : 74,
-            height: widget.type == PanelType.success ? isMobile ? 80 : isTab ? 100 : 120 : isMobile ? 56 : isTab ? 64 : 74,
+            width: widget.type == PanelType.success
+                ? isMobile
+                    ? BaseConstants.successAnimationM
+                    : isTab
+                        ? BaseConstants.successAnimationT
+                        : BaseConstants.successAnimationD
+                : isMobile
+                    ? BaseConstants.errorAnimationM
+                    : isTab
+                        ? BaseConstants.errorAnimationT
+                        : BaseConstants.errorAnimationD,
+            height: widget.type == PanelType.success
+                ? isMobile
+                    ? BaseConstants.successAnimationM
+                    : isTab
+                        ? BaseConstants.successAnimationT
+                        : BaseConstants.successAnimationD
+                : isMobile
+                    ? BaseConstants.errorAnimationM
+                    : isTab
+                        ? BaseConstants.errorAnimationT
+                        : BaseConstants.errorAnimationD,
             fit: BoxFit.fill,
           ),
           SizedBox(
-            height: isTab ? widget.type == PanelType.success ? 2: 20: widget.type == PanelType.success ? 0 : 24,
+            height: widget.type == PanelType.success
+                ? 0
+                : isMobile
+                    ? spacer4
+                    : isTab
+                        ? spacer5
+                        : spacer6,
           ),
           Text(
             widget.title,
@@ -102,27 +137,22 @@ class _PanelState extends State<Panel> with SingleTickerProviderStateMixin {
           ),
           if (widget.description != null)
             const SizedBox(
-              height: 24,
+              height: spacer6,
             ),
           if (widget.description != null)
             ...widget.description!
                 .asMap()
                 .entries
                 .map((widgets) => Padding(
-              padding: EdgeInsets.only(
-                  bottom: widgets.key != widget.description!.length - 1
-                      ? 4
-                      : 0),
-              child: widgets.value,
-            ))
+                      padding: EdgeInsets.only(
+                          bottom: widgets.key != widget.description!.length - 1
+                              ? spacer1
+                              : 0),
+                      child: widgets.value,
+                    ))
                 .toList(),
         ],
       ),
     );
   }
-}
-
-enum PanelType {
-  success,
-  error,
 }

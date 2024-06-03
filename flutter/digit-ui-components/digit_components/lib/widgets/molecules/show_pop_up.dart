@@ -7,30 +7,40 @@ import '../atoms/digit_button.dart';
 import '../atoms/pop_up_card.dart';
 
 void showPopup({
-  required BuildContext context,
-  required String title,
-  required PopUpType type,
-  Icon? titleIcon,
-  String? subHeading,
-  String? description,
-  List<Widget>? additionalWidgets,
-  List<Button>? actions,
-  void Function()? onCrossTap,
+   required final BuildContext context,
+  required final String title,
+  required final PopUpType type,
+  final double? width,
+  final double? height,
+  final Icon? titleIcon,
+  final String? subHeading,
+  final String? description,
+  final List<Widget>? additionalWidgets,
+  final List<Button>? actions,
+  final void Function()? onCrossTap,
+  final bool? inlineAction,
+  final MainAxisAlignment? actionAlignment,
+  final double? actionSpacing,
 }) {
   showDialog(
     context: context,
     barrierColor: const DigitColors().overLayColor.withOpacity(.70),
     builder: (BuildContext context) {
       return BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 7.0, sigmaY: 7.0),
+        filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
         child: Popup(
           title: title,
           type: type,
           titleIcon: titleIcon,
           subHeading: subHeading,
+          width: width,
+          height: height,
           description: description,
           additionalWidgets: additionalWidgets,
           actions: actions,
+          inlineActions: inlineAction,
+          actionAlignment: actionAlignment,
+          actionSpacing: actionSpacing,
           onCrossTap: () {
             if (Navigator.of(context).mounted) {
               Navigator.of(context).pop();
@@ -43,8 +53,8 @@ void showPopup({
 }
 
 void showActionCard({
-  required BuildContext context,
-  required List<Button> actions,
+  required final BuildContext context,
+  required final List<Button> actions,
   final double? width,
   final double? height,
   final double? spacing,

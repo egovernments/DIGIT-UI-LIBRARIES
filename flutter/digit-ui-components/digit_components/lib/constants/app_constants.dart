@@ -14,6 +14,7 @@ class Base{
   static const double errorBorderWidth = 1.5;
   static const double hoverBorderWidth = 0.5;
   static const BorderRadius radius = BorderRadius.zero;
+  static const double imageSize = 100;
   static const String textAreaSvg = 'assets/icons/svg/text_area_expand.svg';
   static const String profileSvg = 'assets/icons/svg/Profile.svg';
   static const String docSvg = 'assets/icons/svg/doc.svg';
@@ -37,6 +38,12 @@ class BaseConstants {
   static const double desktopInputMinWidth = 200.0;
   static const double tabInputMaxWidth = 440.0;
   static const double tabInputMinWidth = 200.0;
+  static const double successAnimationM = 80;
+  static const double successAnimationT = 100;
+  static const double successAnimationD = 120;
+  static const double errorAnimationM = 56;
+  static const double errorAnimationT = 64;
+  static const double errorAnimationD = 74;
 
   static final OutlineInputBorder focusedBorder = OutlineInputBorder(
     borderSide: BorderSide(

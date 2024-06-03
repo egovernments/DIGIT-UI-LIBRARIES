@@ -13,16 +13,20 @@ class FileUploadWidget2 extends StatefulWidget {
   final Function(List<DroppedFile>) onFilesSelected;
   final String label;
   final bool showPreview;
-  final bool allowMultipleImages;
+  final bool allowMultiples;
   final String? errorMessage;
+  final String downloadText;
+  final String reUploadText;
 
   const FileUploadWidget2({
     Key? key,
     required this.onFilesSelected,
     required this.label,
     this.showPreview = false,
-    this.allowMultipleImages = false,
+    this.allowMultiples = false,
     this.errorMessage,
+    this.downloadText = 'Download',
+    this.reUploadText = 'Re-Upload'
   }) : super(key: key);
 
   @override
@@ -201,7 +205,7 @@ class _FileUploadWidgetState extends State<FileUploadWidget2> {
                       alignment: WrapAlignment.start,
                       children: [
                         Button(
-                            label: 'Re-Upload',
+                            label: widget.reUploadText,
                             onPressed: () {
                               _reUploadFile(index);
                             },
@@ -212,7 +216,7 @@ class _FileUploadWidgetState extends State<FileUploadWidget2> {
                           width: spacer2,
                         ),
                         Button(
-                            label: 'Download',
+                            label: widget.downloadText,
                             onPressed: () {
                               _downloadFile(files[index]);
                             },
@@ -256,7 +260,7 @@ class _FileUploadWidgetState extends State<FileUploadWidget2> {
                       // mainAxisSize: MainAxisSize.min,
                       children: [
                         Button(
-                            label: 'Re-Upload',
+                            label: widget.reUploadText,
                             onPressed: () {
                               _reUploadFile(index);
                             },
@@ -267,7 +271,7 @@ class _FileUploadWidgetState extends State<FileUploadWidget2> {
                           width: spacer2,
                         ),
                         Button(
-                            label: 'Download',
+                            label: widget.downloadText,
                             onPressed: () {
                               _downloadFile(files[index]);
                             },
@@ -355,7 +359,7 @@ class _FileUploadWidgetState extends State<FileUploadWidget2> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          if (!(widget.allowMultipleImages == false &&
+          if (!(widget.allowMultiples == false &&
               (files.isNotEmpty || isUploading)))
             Stack(
               children: [
@@ -514,8 +518,6 @@ class _FileUploadWidgetState extends State<FileUploadWidget2> {
       currentFileName = event.name;
     });
 
-    // await Future.delayed(const Duration(seconds: 3));
-
     try {
       final name = event.name;
       final mime = await controller.getFileMIME(event);
@@ -536,7 +538,6 @@ class _FileUploadWidgetState extends State<FileUploadWidget2> {
       });
       widget.onFilesSelected(files);
     } catch (e) {
-      print('error');
       setState(() {
         isUploading = false;
         isError = true;

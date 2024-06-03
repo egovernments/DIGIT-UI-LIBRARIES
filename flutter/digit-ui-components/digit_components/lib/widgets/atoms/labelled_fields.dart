@@ -84,13 +84,13 @@ class LabeledField extends StatelessWidget {
                   triggerMode: tooltipTriggerMode,
                   child: const Icon(
                     Icons.info_outline,
-                    size: 16,
+                    size: spacer4,
                   ),
                 )
             ],
           ),
           const SizedBox(
-            height: 4,
+            height: spacer1,
           ),
           child,
         ],

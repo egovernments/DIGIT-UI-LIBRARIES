@@ -11,14 +11,14 @@ import '../helper_widget/button_list.dart';
 
 class ImageUploader extends StatefulWidget {
   final Function(List<File>) onImagesSelected;
-  final bool allowMultipleImages;
+  final bool allowMultiples;
   final String? errorMessage;
   final List<FileValidator>? validators;
 
   const ImageUploader(
       {super.key,
       required this.onImagesSelected,
-      this.allowMultipleImages = false,
+      this.allowMultiples = false,
       this.errorMessage,
       this.validators});
 
@@ -27,7 +27,7 @@ class ImageUploader extends StatefulWidget {
 }
 
 class _ImageUploaderState extends State<ImageUploader> {
-  late List<File> _imageFiles = []; // List to hold multiple images
+  late final List<File> _imageFiles = []; // List to hold multiple images
   late CameraController? _cameraController;
   late Future<void>? _initializeControllerFuture;
   late DigitTypography currentTypography;
@@ -279,7 +279,7 @@ class _ImageUploaderState extends State<ImageUploader> {
         if (pickedFile != null) {
           if (widget.validators != null) {
             String? validationError =
-                validateFile(pickedFile, widget.validators!, pickedFile.name);
+                validateImage(pickedFile, widget.validators!, pickedFile.name);
             if (validationError != null) {
               setState(() {
                 fileError = validationError;
@@ -289,7 +289,7 @@ class _ImageUploaderState extends State<ImageUploader> {
           }
           setState(() {
             fileError = ''; // Clear the error message
-            widget.allowMultipleImages
+            widget.allowMultiples
                 ? _imageFiles.add(File(pickedFile.path))
                 : _imageFiles.add(File(pickedFile.path));
           });
@@ -308,7 +308,7 @@ class _ImageUploaderState extends State<ImageUploader> {
       final XFile picture = await _cameraController!.takePicture();
       if (widget.validators != null) {
         String? validationError =
-            validateFile(picture, widget.validators!, picture.name);
+            validateImage(picture, widget.validators!, picture.name);
         if (validationError != null) {
           setState(() {
             fileError = validationError;
@@ -318,7 +318,7 @@ class _ImageUploaderState extends State<ImageUploader> {
       }
       setState(() {
         fileError = '';
-        widget.allowMultipleImages
+        widget.allowMultiples
             ? _imageFiles.add(File(picture.path))
             : _imageFiles.add(File(picture.path));
       });
@@ -506,7 +506,7 @@ class _ImageUploaderState extends State<ImageUploader> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (!(widget.allowMultipleImages == false && _imageFiles.isNotEmpty))
+          if (!(widget.allowMultiples == false && _imageFiles.isNotEmpty))
             Container(
               width: MediaQuery.of(context).size.width,
               height: 120,
@@ -577,7 +577,7 @@ class _ImageUploaderState extends State<ImageUploader> {
                 ),
               ],
             ),
-          if (!(widget.allowMultipleImages == false && _imageFiles.isNotEmpty))
+          if (!(widget.allowMultiples == false && _imageFiles.isNotEmpty))
             const SizedBox(
               height: spacer2,
             ),
@@ -599,13 +599,13 @@ class _ImageUploaderState extends State<ImageUploader> {
     return _imageFiles.isNotEmpty
         ? Stack(
             children: [
-              widget.allowMultipleImages
+              widget.allowMultiples
                   ? Container(
                       color: const DigitColors().light.genericDivider,
-                      width: 100,
-                      height: 100,
+                      width: Base.imageSize,
+                      height: Base.imageSize,
                       constraints: const BoxConstraints(
-                        minWidth: 100,
+                        minWidth: Base.imageSize,
                       ),
                       child: ClipRRect(
                         borderRadius: Base.radius,
@@ -615,14 +615,14 @@ class _ImageUploaderState extends State<ImageUploader> {
                             kIsWeb
                                 ? Image.network(
                                     _imageFiles[index].path,
-                                    width: 100,
-                                    height: 100,
+                                    width: Base.imageSize,
+                                    height: Base.imageSize,
                                     fit: BoxFit.cover,
                                   )
                                 : Image.file(
                                     _imageFiles[index],
-                                    width: 100,
-                                    height: 100,
+                                    width: Base.imageSize,
+                                    height: Base.imageSize,
                                     fit: BoxFit.cover,
                                   ),
                             Positioned(

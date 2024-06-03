@@ -7,6 +7,7 @@ class DigitCard extends StatelessWidget {
   final EdgeInsets? margin;
   final VoidCallback? onPressed;
   final CardType cardType;
+  final double? spacing;
   final bool inline;
 
   const DigitCard({
@@ -16,6 +17,7 @@ class DigitCard extends StatelessWidget {
     this.inline = false,
     this.margin,
     this.onPressed,
+    this.spacing,
     required this.cardType,
   });
 
@@ -30,10 +32,10 @@ class DigitCard extends StatelessWidget {
 
       margin: margin,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(4),
+        borderRadius: BorderRadius.circular(spacer1),
         border: cardType == CardType.secondary
             ? Border.all(
-          width: 1,
+          width: Base.defaultBorderWidth,
           color: const DigitColors().light.genericDivider,
         )
             : null,
@@ -52,7 +54,7 @@ class DigitCard extends StatelessWidget {
             : [],
       ),
       child: InkWell(
-        borderRadius: BorderRadius.circular(4),
+        borderRadius: BorderRadius.circular(spacer1),
         onTap: onPressed,
         child: Padding(
           padding: padding ??
@@ -75,7 +77,7 @@ class DigitCard extends StatelessWidget {
                   padding: EdgeInsets.only(
                     right: entry.key == children.length - 1
                         ? 0
-                        : 16,
+                        : spacing ?? (isMobile ?16 : isTab ? 20 : 24),
                   ),
                   child: entry.value,
                 ),
@@ -95,7 +97,7 @@ class DigitCard extends StatelessWidget {
                 padding: EdgeInsets.only(
                   bottom: entry.key == children.length - 1
                       ? 0
-                      : 16,
+                      : spacing ?? (isMobile ?16 : isTab ? 20 : 24),
                 ),
                 child: entry.value,
               ))
@@ -106,9 +108,4 @@ class DigitCard extends StatelessWidget {
       ),
     );
   }
-}
-
-enum CardType {
-  primary,
-  secondary,
 }
