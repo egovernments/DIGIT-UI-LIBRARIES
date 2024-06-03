@@ -15,6 +15,6 @@ jobs:
         with:
           node-version: 14
           registry-url: https://registry.npmjs.org/
-      - run: cd react/ && yarn && cd css/ && yarn build:prod && npm publish --tag corev0.1
+      - run: cd react/ && yarn && cd css/ && yarn build:prod && yarn publish:css
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
