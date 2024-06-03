@@ -1,6 +1,5 @@
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/enum/app_enums.dart';
-import 'package:digit_ui_components/widgets/atoms/action_card.dart';
 import 'package:digit_ui_components/widgets/atoms/pop_up_cart.dart';
 import 'package:digit_ui_components/widgets/molecules/pop_up.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';

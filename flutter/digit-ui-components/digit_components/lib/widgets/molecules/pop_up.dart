@@ -53,7 +53,7 @@ void showActionCard({
     barrierColor: const DigitColors().overLayColor.withOpacity(.70),
     builder: (BuildContext context) {
       return BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 7.0, sigmaY: 7.0),
+        filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
         child: ActionCard(
           actions: actions,
           width: width,

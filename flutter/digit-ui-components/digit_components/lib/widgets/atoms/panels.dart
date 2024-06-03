@@ -57,7 +57,7 @@ class _PanelState extends State<Panel> with SingleTickerProviderStateMixin {
     bool isTab = AppView.isTabletView(MediaQuery.of(context).size);
 
     return Container(
-      padding: const EdgeInsets.all(40),
+      padding: widget.type == PanelType.success ? EdgeInsets.only(top: isTab || isMobile ? 22 : 18, left: 40, right: 40, bottom: 40) : const EdgeInsets.all(40),
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
         color: _getBackgroundColor(),
@@ -88,12 +88,12 @@ class _PanelState extends State<Panel> with SingleTickerProviderStateMixin {
                 _controller.value = 1.0; /// Move to the last frame
               }
             },
-            width: isMobile ? 56 : isTab ? 64 : 74,
-            height: isMobile ? 56 : isTab ? 64 : 74,
+            width: widget.type == PanelType.success ? isMobile ? 80 : isTab ? 100 : 120 : isMobile ? 56 : isTab ? 64 : 74,
+            height: widget.type == PanelType.success ? isMobile ? 80 : isTab ? 100 : 120 : isMobile ? 56 : isTab ? 64 : 74,
             fit: BoxFit.fill,
           ),
-          const SizedBox(
-            height: 24,
+          SizedBox(
+            height: isTab ? widget.type == PanelType.success ? 2: 20: widget.type == PanelType.success ? 0 : 24,
           ),
           Text(
             widget.title,
