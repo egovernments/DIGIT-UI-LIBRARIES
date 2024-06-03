@@ -39,6 +39,7 @@ class DigitTextAreaFormInput extends BaseDigitFormInput {
     final String? errorMessage,
     final TextInputType? keyboardType,
     final List<TextInputFormatter>? inputFormatters,
+    final void Function()? onFocusLost,
   }) : super(
           key: key,
           controller: controller,
@@ -59,6 +60,7 @@ class DigitTextAreaFormInput extends BaseDigitFormInput {
           keyboardType: keyboardType,
           errorMessage: errorMessage,
           inputFormatters: inputFormatters,
+          onFocusLost: onFocusLost,
         );
 
   @override

@@ -40,6 +40,7 @@ class DigitTimeFormInput extends BaseDigitFormInput {
     final String? cancelText,
     final String? confirmText,
     final List<TextInputFormatter>? inputFormatters,
+    final void Function()? onFocusLost,
   }) : super(
           key: key,
           controller: controller,
@@ -61,6 +62,7 @@ class DigitTimeFormInput extends BaseDigitFormInput {
           isEditable: editable,
           errorMessage: errorMessage,
           inputFormatters: inputFormatters,
+          onFocusLost: onFocusLost,
         );
 
   @override

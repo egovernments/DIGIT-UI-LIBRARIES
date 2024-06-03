@@ -38,6 +38,7 @@ class DigitPasswordFormInput extends BaseDigitFormInput {
     final void Function(String)? onChange,
     final String? errorMessage,
     final List<TextInputFormatter>? inputFormatters,
+    final void Function()? onFocusLost,
   }) : super(
           key: key,
           controller: controller,
@@ -57,6 +58,7 @@ class DigitPasswordFormInput extends BaseDigitFormInput {
           toggleSuffixIcon: toggleSuffixIcon,
           errorMessage: errorMessage,
           inputFormatters: inputFormatters,
+          onFocusLost: onFocusLost,
         );
 
   @override

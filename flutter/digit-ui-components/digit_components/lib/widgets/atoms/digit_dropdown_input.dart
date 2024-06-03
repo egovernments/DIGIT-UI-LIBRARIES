@@ -41,6 +41,8 @@ class DigitDropdown<T> extends StatefulWidget {
 
   final void Function()? onTap;
 
+  final void Function(String)? onChange;
+
   /// list of DropdownItems
   final List<DropdownItem> items;
 
@@ -76,6 +78,10 @@ class DigitDropdown<T> extends StatefulWidget {
   /// custom helpText Props
   final String? helpText;
 
+  final void Function()? onFocusLost;
+
+  /// Custom function for focus lost
+
   const DigitDropdown({
     Key? key,
     required this.items,
@@ -93,6 +99,8 @@ class DigitDropdown<T> extends StatefulWidget {
     this.errorMessage,
     this.helpText,
     this.readOnly = false,
+    this.onChange,
+    this.onFocusLost,
   }) : super(key: key);
 
   @override
@@ -166,6 +174,11 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
 
   void _onFocusChange() {
     if (!_focusNode.hasFocus) {
+      /// If the focus is lost, call the focus lost function if it is there
+      if (widget.onFocusLost != null) {
+        widget.onFocusLost!();
+      }
+
       _selectDropdownOption();
       if (_isOpen && isMouseDown == false) {
         /// If no match found, clear the controller text
@@ -276,6 +289,9 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                           if (!listEquals(filteredItems, _lastFilteredItems)) {
                             _updateOverlay();
                             _lastFilteredItems = filteredItems;
+                          }
+                          if (widget.onChange != null) {
+                            widget.onChange!(input);
                           }
                         }
                       : null,
@@ -454,7 +470,8 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
   ///overlay for dropdown
   OverlayEntry _createOverlayEntry() {
     /// find the size and position of the current widget
-    RenderBox? renderBox = _textFieldKey.currentContext?.findRenderObject() as RenderBox?;
+    RenderBox? renderBox =
+        _textFieldKey.currentContext?.findRenderObject() as RenderBox?;
     if (renderBox == null) {
       /// Handle the case where renderBox is null (e.g., widget not yet laid out)
       return OverlayEntry(builder: (context) => const SizedBox.shrink());

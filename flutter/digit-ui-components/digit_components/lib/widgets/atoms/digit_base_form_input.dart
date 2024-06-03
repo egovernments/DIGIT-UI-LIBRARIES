@@ -109,6 +109,10 @@ class BaseDigitFormInput extends StatefulWidget {
   final String? errorMessage;
   final bool capitalizeFirstLetter;
 
+  final void Function()? onFocusLost;
+
+  /// Custom function for focus lost
+
   const BaseDigitFormInput({
     Key? key,
     this.controller,
@@ -150,6 +154,7 @@ class BaseDigitFormInput extends StatefulWidget {
     this.textAlign = TextAlign.start,
     this.errorMessage,
     this.capitalizeFirstLetter = true,
+    this.onFocusLost,
   }) : super(key: key);
 
   @override
@@ -172,7 +177,13 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
 
   void onFocusChange() {
     if (!myFocusNode.hasFocus) {
+      /// If the focus is lost, call the focus lost function if it is there
+      if (widget.onFocusLost != null) {
+        widget.onFocusLost!();
+      }
+
       /// If the focus is lost, perform validation
+
       setState(() {
         _isFocusOn = false;
         _errorMessage = customValidator.call(_controller.text);
@@ -252,6 +263,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
   void onTap() {
     /// default function to call on tap
     widget.onTap?.call();
+    print('hereeeeeeeeeeee');
   }
 
   @override

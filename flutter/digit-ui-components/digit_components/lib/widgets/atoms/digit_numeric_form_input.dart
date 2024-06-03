@@ -47,6 +47,7 @@ class DigitNumericFormInput extends BaseDigitFormInput {
     final int maxValue = 100,
     final List<TextInputFormatter>? inputFormatters,
     final String? errorMessage,
+    final void Function()? onFocusLost,
   }) : super(
           key: key,
           controller: controller,
@@ -71,6 +72,7 @@ class DigitNumericFormInput extends BaseDigitFormInput {
           isEditable: editable,
           errorMessage: errorMessage,
           inputFormatters: inputFormatters,
+          onFocusLost: onFocusLost,
         );
 
   @override

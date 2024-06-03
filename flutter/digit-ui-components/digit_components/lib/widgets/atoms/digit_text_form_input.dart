@@ -43,6 +43,7 @@ class DigitTextFormInput extends BaseDigitFormInput {
     final String? errorMessage,
     final List<TextInputFormatter>? inputFormatters,
     final void Function(String)? onSuffixTap,
+    final void Function()? onFocusLost,
   }) : super(
           key: key,
           controller: controller,
@@ -63,6 +64,7 @@ class DigitTextFormInput extends BaseDigitFormInput {
           inputFormatters: inputFormatters,
           suffixIcon: suffixIcon,
           onSuffixTap: onSuffixTap,
+          onFocusLost: onFocusLost,
         );
 
   @override
