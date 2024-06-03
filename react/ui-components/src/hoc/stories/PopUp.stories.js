@@ -12,6 +12,12 @@ export default {
       control: "text",
     },
     type: { control: "select", options: ["default", "alert"] },
+    overlayClassName: {
+      control: "text",
+    },
+    onOverlayClick: {
+      control: "function",
+    },
     headerclassName: {
       control: "text",
     },
@@ -83,6 +89,7 @@ const Template = (args) => <PopUp {...args} />;
 const commonArgs = {
   type: "default",
   className: "",
+  overlayClassName: "",
   headerclassName: "",
   footerclassName: "",
   style: {},
@@ -104,6 +111,9 @@ const commonArgs = {
   sortFooterButtons: true,
   maxFooterButtonsAllowed: 5,
   footerStyles: {},
+  onOverlayClick: () => {
+    console.log("Popup overlay is clicked");
+  },
 };
 
 const footerChildrenWithTwoButtons = [

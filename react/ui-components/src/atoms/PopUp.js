@@ -109,118 +109,134 @@ const PopUp = (props) => {
     : allowedFooter;
 
   return (
-    <div
-      className={`digit-popup-wrap ${
-        props?.className ? props?.className : ""
-      } ${props?.type ? props?.type : ""}`}
-      style={props?.style}
-    >
-      {props?.type === "alert" ? (
-        <div
-          className={`digit-popup-alert-content ${
-            isOverflowing ? "with-shadow" : ""
-          }`}
-        >
-          {!props?.customIcon && (
-            <SVG.Warning
-              fill={props?.iconFill ? props?.iconFill : "#D4351C"}
-              width={"48px"}
-              height={"48px"}
-              className="popup-alert-icon"
-            />
-          )}
-          {props?.customIcon && iconGenerated}
-          <div className="digit-popup-alert-heading">
-            {props?.alertHeading || "Alert!"}
-          </div>
-          <div className="digit-popup-alert-message">
-            {props?.alertMessage || "AlertMessage"}
-          </div>
-        </div>
-      ) : (
-        <>
+    <div className={`popup-overlay ${props?.overlayClassName || ""}`} onClick={() => props?.onOverlayClick()}>
+      <div
+        className={`digit-popup-wrap ${
+          props?.className ? props?.className : ""
+        } ${props?.type ? props?.type : ""}`}
+        style={props?.style}
+      >
+        {props?.type === "alert" ? (
           <div
-            className={`digit-popup-header ${
-              props?.headerclassName ? props?.headerclassName : ""
-            }  ${isOverflowing ? "with-shadow" : ""}`}
-            style={{ display: "flex" }}
+            className={`digit-popup-alert-content ${
+              isOverflowing ? "with-shadow" : ""
+            }`}
           >
-            <div className="header-close-container" style={{ display: "flex" }}>
-              <div
-                className="digit-popup-icon-header-container"
-                style={{ display: "flex" }}
-              >
-                {props?.showIcon && !props?.customIcon && (
-                  <SVG.ErrorOutline
-                    fill={props?.iconFill ? props?.iconFill : "#D4351C"}
-                    width={"32px"}
-                    height={"32px"}
-                    className="popup-error-icon"
-                  />
-                )}
-                {props?.showIcon && props?.customIcon && iconGenerated}
-                <div
-                  className="digit-popup-heading-subheading-wrap"
-                  style={{ display: "flex" }}
-                >
-                  {props?.heading && (
-                    <div className="digit-popup-heading">
-                      {StringManipulator(
-                        "TOSENTENCECASE",
-                        StringManipulator("TRUNCATESTRING", props?.heading, {
-                          maxLength: props?.headerMaxLength || 256,
-                        })
-                      )}
-                    </div>
-                  )}
-                  {props?.subheading && (
-                    <div className="digit-popup-subheading">
-                      {StringManipulator(
-                        "TOSENTENCECASE",
-                        StringManipulator("TRUNCATESTRING", props?.subheading, {
-                          maxLength: props?.subHeaderMaxLength || 256,
-                        })
-                      )}
-                    </div>
-                  )}
-                </div>
-              </div>
-              <span
-                className="digit-popup-close"
-                style={{ display: "flex" }}
-                onClick={() => props?.onClose()}
-              >
-                <SVG.Close
-                  fill={"#363636"}
-                  width={"24px"}
-                  height={"24px"}
-                  className="popup-close-svg"
-                />
-              </span>
+            {!props?.customIcon && (
+              <SVG.Warning
+                fill={props?.iconFill ? props?.iconFill : "#D4351C"}
+                width={"48px"}
+                height={"48px"}
+                className="popup-alert-icon"
+              />
+            )}
+            {props?.customIcon && iconGenerated}
+            <div className="digit-popup-alert-heading">
+              {props?.alertHeading || "Alert!"}
+            </div>
+            <div className="digit-popup-alert-message">
+              {props?.alertMessage || "AlertMessage"}
             </div>
           </div>
-        </>
-      )}
-      <div
-        ref={childrenWrapRef}
-        className={`digit-popup-children-wrap ${
-          props?.showChildrenInline ? "inline" : ""
-        } ${isOverflowing ? "with-shadow" : ""} ${!hasFooterChildren ? "without-footer" : ""}`}
-      >
-        {props?.description && (
-          <div className="digit-popup-description">{props?.description}</div>
+        ) : (
+          <>
+            <div
+              className={`digit-popup-header ${
+                props?.headerclassName ? props?.headerclassName : ""
+              }  ${isOverflowing ? "with-shadow" : ""}`}
+              style={{ display: "flex" }}
+            >
+              <div
+                className="header-close-container"
+                style={{ display: "flex" }}
+              >
+                <div
+                  className="digit-popup-icon-header-container"
+                  style={{ display: "flex" }}
+                >
+                  {props?.showIcon && !props?.customIcon && (
+                    <SVG.ErrorOutline
+                      fill={props?.iconFill ? props?.iconFill : "#D4351C"}
+                      width={"32px"}
+                      height={"32px"}
+                      className="popup-error-icon"
+                    />
+                  )}
+                  {props?.showIcon && props?.customIcon && iconGenerated}
+                  <div
+                    className="digit-popup-heading-subheading-wrap"
+                    style={{ display: "flex" }}
+                  >
+                    {props?.heading && (
+                      <div className="digit-popup-heading">
+                        {StringManipulator(
+                          "TOSENTENCECASE",
+                          StringManipulator("TRUNCATESTRING", props?.heading, {
+                            maxLength: props?.headerMaxLength || 256,
+                          })
+                        )}
+                      </div>
+                    )}
+                    {props?.subheading && (
+                      <div className="digit-popup-subheading">
+                        {StringManipulator(
+                          "TOSENTENCECASE",
+                          StringManipulator(
+                            "TRUNCATESTRING",
+                            props?.subheading,
+                            {
+                              maxLength: props?.subHeaderMaxLength || 256,
+                            }
+                          )
+                        )}
+                      </div>
+                    )}
+                  </div>
+                </div>
+                <span
+                  className="digit-popup-close"
+                  style={{ display: "flex" }}
+                  onClick={() => props?.onClose()}
+                >
+                  <SVG.Close
+                    fill={"#363636"}
+                    width={"24px"}
+                    height={"24px"}
+                    className="popup-close-svg"
+                  />
+                </span>
+              </div>
+            </div>
+          </>
         )}
-        {props?.children}
-      </div>
-      {hasFooterChildren && (
         <div
-          className={`digit-popup-footer ${
-            props?.footerclassName ? props?.footerclassName : ""
-          } ${isOverflowing ? "with-shadow" : ""}`}
+          ref={childrenWrapRef}
+          className={`digit-popup-children-wrap ${
+            props?.showChildrenInline ? "inline" : ""
+          } ${isOverflowing ? "with-shadow" : ""} ${
+            !hasFooterChildren ? "without-footer" : ""
+          }`}
         >
-          <div className="digit-popup-footer-buttons" style={{...props?.footerStyles}}>{finalFooterArray}</div>
+          {props?.description && (
+            <div className="digit-popup-description">{props?.description}</div>
+          )}
+          {props?.children}
         </div>
-      )}
+        {hasFooterChildren && (
+          <div
+            className={`digit-popup-footer ${
+              props?.footerclassName ? props?.footerclassName : ""
+            } ${isOverflowing ? "with-shadow" : ""}`}
+          >
+            <div
+              className="digit-popup-footer-buttons"
+              style={{ ...props?.footerStyles }}
+            >
+              {finalFooterArray}
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
@@ -235,6 +251,7 @@ PopUp.propTypes = {
   footerChildren: PropTypes.node,
   onClose: PropTypes.func,
   type: PropTypes.string,
+  onOverlayClick:PropTypes.func
 };
 
 export default PopUp;
