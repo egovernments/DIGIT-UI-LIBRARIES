@@ -266,11 +266,11 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
               /// Disable onTap if dropdown is disabled
               child: StatefulBuilder(builder: (context, setState) {
                 return Container(
-                  height: Common.height,
+                  height: Base.height,
                   width: width,
                   constraints: const BoxConstraints(
-                    minWidth: Common.mobileInputWidth,
-                    minHeight: Common.height,
+                    minWidth: Base.mobileInputWidth,
+                    minHeight: Base.height,
                   ),
                   padding: const EdgeInsets.symmetric(
                     horizontal: spacer2,
@@ -487,10 +487,10 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
   Decoration _getDisabledContainerDecoration() {
     return BoxDecoration(
       color: const DigitColors().transparent,
-      borderRadius: Common.radius,
+      borderRadius: Base.radius,
       border: Border.all(
         color: const DigitColors().light.textDisabled,
-        width: Common.defaultBorderWidth,
+        width: Base.defaultBorderWidth,
       ),
     );
   }
@@ -499,10 +499,10 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
   Decoration _getReadOnlyContainerDecoration() {
     return BoxDecoration(
       color: const DigitColors().light.genericBackground,
-      borderRadius: Common.radius,
+      borderRadius: Base.radius,
       border: Border.all(
         color: const DigitColors().light.genericInputBorder,
-        width: Common.defaultBorderWidth,
+        width: Base.defaultBorderWidth,
       ),
     );
   }
@@ -511,20 +511,20 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
   Decoration _getContainerDecoration() {
     return BoxDecoration(
       color: const DigitColors().light.paperPrimary,
-      borderRadius: Common.radius,
+      borderRadius: Base.radius,
       border: widget.errorMessage != null
           ? Border.all(
               color: const DigitColors().light.alertError,
-              width: Common.errorBorderWidth,
+              width: Base.errorBorderWidth,
             )
           : _selectionMode
               ? Border.all(
                   color: const DigitColors().light.primary1,
-                  width: Common.focusedBorderWidth,
+                  width: Base.focusedBorderWidth,
                 )
               : Border.all(
                   color: const DigitColors().light.textSecondary,
-                  width: Common.defaultBorderWidth,
+                  width: Base.defaultBorderWidth,
                 ),
     );
   }
@@ -594,7 +594,7 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
                   followerAnchor: Alignment.topLeft,
                   offset: Offset.zero,
                   child: Material(
-                    borderRadius: Common.radius,
+                    borderRadius: Base.radius,
                     shadowColor: null,
                     clipBehavior: Clip.none,
                     child: SingleChildScrollView(
@@ -633,7 +633,7 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
   Widget _buildOptions(List<dynamic> values, List<TreeNode> options,
       List<TreeNode> selectedOptions, StateSetter dropdownState) {
     return Scrollbar(
-      radius: const Radius.circular(Common.defaultCircularRadius),
+      radius: const Radius.circular(Base.defaultCircularRadius),
       thickness: 10,
       child: ConstrainedBox(
         constraints: BoxConstraints(

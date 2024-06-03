@@ -178,7 +178,7 @@ class _HorizontalStepperItemState extends State<HorizontalStepperItem> {
         children: [
           Container(
             constraints: const BoxConstraints(
-              minWidth: Common.height,
+              minWidth: Base.height,
             ),
             color: widget.index == 0
                 ? Colors.transparent
@@ -288,10 +288,10 @@ class StepperDot extends StatelessWidget {
                   color: const DigitColors().light.primary1,
                   border: Border.all(
                     color: const DigitColors().light.primary1,
-                    width: Common.defaultBorderWidth,
+                    width: Base.defaultBorderWidth,
                   ),
                   borderRadius: const BorderRadius.all(
-                    Radius.circular(Common.defaultCircularRadius),
+                    Radius.circular(Base.defaultCircularRadius),
                   ),
                   boxShadow: isHover
                       ? [
@@ -325,10 +325,10 @@ class StepperDot extends StatelessWidget {
                   color: const DigitColors().light.primary1,
                   border: Border.all(
                     color: const DigitColors().light.primary1,
-                    width: Common.defaultBorderWidth,
+                    width: Base.defaultBorderWidth,
                   ),
                   borderRadius: const BorderRadius.all(
-                    Radius.circular(Common.defaultCircularRadius),
+                    Radius.circular(Base.defaultCircularRadius),
                   ),
                   boxShadow: isHover
                       ? [
@@ -357,10 +357,10 @@ class StepperDot extends StatelessWidget {
                   color: const DigitColors().light.paperPrimary,
                   border: Border.all(
                     color: const DigitColors().light.textDisabled,
-                    width: Common.selectedBorderWidth,
+                    width: Base.selectedBorderWidth,
                   ),
                   borderRadius: const BorderRadius.all(
-                    Radius.circular(Common.defaultCircularRadius),
+                    Radius.circular(Base.defaultCircularRadius),
                   ),
                   boxShadow: isHover
                       ? [

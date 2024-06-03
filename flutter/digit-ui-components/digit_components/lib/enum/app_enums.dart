@@ -71,3 +71,10 @@ enum PopUpType {
   simple,
   alert,
 }
+
+/// Enum representing different type of divider( small, medium and large)
+enum DividerType{
+  small,
+  medium,
+  large,
+}

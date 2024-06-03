@@ -86,7 +86,7 @@ class _DropdownOptionState extends State<DropdownOption> {
               child: Container(
                 decoration: BoxDecoration(
                   border: Border.all(
-                    width: Common.hoverBorderWidth,
+                    width: Base.hoverBorderWidth,
                     color: _itemMouseDownStates[widget.option] == true ||
                             widget.isFocused == true ||
                             _itemHoverStates[widget.option] == true ||

@@ -63,13 +63,6 @@ class InfoCard extends StatelessWidget {
     Color containerColor = const DigitColors().light.alertInfoBg;
     DigitTypography currentTypography = getTypography(context, false);
 
-    /// Determine the minimum width of the card based on the device size
-    double minWidth = AppView.isMobileView(MediaQuery.of(context).size)
-        ? MediaQuery.of(context).size.width * .77
-        : AppView.isTabletView(MediaQuery.of(context).size)
-            ? MediaQuery.of(context).size.width * .48
-            : MediaQuery.of(context).size.width * .27;
-
     /// Capitalize the title and description if specified(by default always true)
     String capitalizedHeading =
         capitalizedLetter ? capitalizeFirstLetterOfEveryWord(title) : title;
@@ -102,18 +95,15 @@ class InfoCard extends StatelessWidget {
 
     return SingleChildScrollView(
       child: Container(
-        constraints: BoxConstraints(
-          minWidth: minWidth,
-        ),
         decoration: BoxDecoration(
-          borderRadius: Common.radius,
+          borderRadius: Base.radius,
           border: Border(
             right:
-                BorderSide(color: iconColor, width: Common.defaultBorderWidth),
+                BorderSide(color: iconColor, width: Base.defaultBorderWidth),
             left: BorderSide(color: iconColor, width: spacer1),
-            top: BorderSide(color: iconColor, width: Common.defaultBorderWidth),
+            top: BorderSide(color: iconColor, width: Base.defaultBorderWidth),
             bottom:
-                BorderSide(color: iconColor, width: Common.defaultBorderWidth),
+                BorderSide(color: iconColor, width: Base.defaultBorderWidth),
           ),
           color: containerColor,
         ),

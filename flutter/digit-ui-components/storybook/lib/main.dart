@@ -3,18 +3,24 @@ import 'package:flutter/material.dart';
 import 'package:inspector/inspector.dart';
 import 'package:storybook/widgets/atoms/Info_card_stories.dart';
 import 'package:storybook/widgets/atoms/action_card_stories.dart';
+import 'package:storybook/widgets/atoms/button_list_stories.dart';
 import 'package:storybook/widgets/atoms/button_stories.dart';
 import 'package:storybook/widgets/atoms/checkbox_stories.dart';
 import 'package:storybook/widgets/atoms/chip_stories.dart';
+import 'package:storybook/widgets/atoms/divider_stories.dart';
 import 'package:storybook/widgets/atoms/dropdown_stories.dart';
 import 'package:storybook/widgets/atoms/flie_upload_stories.dart';
 import 'package:storybook/widgets/atoms/input_field_stories.dart';
+import 'package:storybook/widgets/atoms/panel_stories.dart';
 import 'package:storybook/widgets/atoms/pop_up_card_stories.dart';
 import 'package:storybook/widgets/atoms/radio_list_stories.dart';
 import 'package:storybook/widgets/atoms/stepper_stories.dart';
 import 'package:storybook/widgets/atoms/timeline_stories.dart';
 import 'package:storybook/widgets/atoms/toast_stories.dart';
 import 'package:storybook/widgets/atoms/toggle_stories.dart';
+import 'package:storybook/widgets/molecules/card_stories.dart';
+import 'package:storybook/widgets/molecules/panel_card_stories.dart';
+import 'package:storybook/widgets/molecules/show_pop_up_stories.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
 
 void main() {
@@ -52,6 +58,12 @@ class MyApp extends StatelessWidget {
               ...fileUploaderStories(),
               ...actionStories(),
               ...popUpStories(),
+              ...panelStories(),
+              ...panelCardStories(),
+              ...cardStories(),
+              ...dividerStories(),
+              ...buttonListStories(),
+              ...showPopUPStories(),
             ],
           ),
         ),

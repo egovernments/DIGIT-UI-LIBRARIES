@@ -170,8 +170,8 @@ class _RadioListState extends State<RadioList> {
                           width: (widget.isDisabled &&
                                       widget.groupValue == button.code) ||
                                   widget.groupValue == button.code
-                              ? Common.selectedBorderWidth
-                              : Common.defaultBorderWidth,
+                              ? Base.selectedBorderWidth
+                              : Base.defaultBorderWidth,
                         ),
                         color: widget.isDisabled
                             ? const DigitColors().light.paperSecondary

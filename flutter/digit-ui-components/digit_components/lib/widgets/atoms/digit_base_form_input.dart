@@ -126,12 +126,12 @@ class BaseDigitFormInput extends StatefulWidget {
     this.onSuffixTap,
     this.minLine = 1,
     this.maxLine = 1,
-    this.height = Common.height,
+    this.height = Base.height,
     this.step = 1,
     this.minValue = 0,
     this.maxValue = 100,
     this.showCurser,
-    this.width = Common.mobileInputWidth,
+    this.width = Base.mobileInputWidth,
     this.onChange,
     this.keyboardType = TextInputType.text,
     this.validations,
@@ -194,7 +194,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
   void initState() {
     super.initState();
 
-    myFocusNode = widget.focusNode ??  FocusNode();
+    myFocusNode = widget.focusNode ?? FocusNode();
 
     myFocusNode.addListener(onFocusChange);
     _controller = widget.controller ?? TextEditingController();
@@ -262,7 +262,8 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
     /// Capitalize innerLabel, helpText, and errorMessage
     String? capitalizedInnerLabel = convertInToSentenceCase(widget.innerLabel);
     String? capitalizedHelpText = convertInToSentenceCase(widget.helpText);
-    String? capitalizedErrorMessage = convertInToSentenceCase(widget.errorMessage);
+    String? capitalizedErrorMessage =
+        convertInToSentenceCase(widget.errorMessage);
     int? getValidatorValue(List<Validator>? validators, ValidatorType type) {
       for (var validator in validators!) {
         if (validator.type == type) {
@@ -367,10 +368,10 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                                     ? const DigitColors().light.alertError
                                     : const DigitColors().light.textSecondary,
                                 width: _hasError
-                                    ? Common.errorBorderWidth
-                                    : Common.defaultBorderWidth,
+                                    ? Base.errorBorderWidth
+                                    : Base.defaultBorderWidth,
                               ),
-                              borderRadius: Common.radius,
+                              borderRadius: Base.radius,
                             ),
                             focusedBorder: widget.readOnly
                                 ? OutlineInputBorder(
@@ -378,9 +379,9 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                                       color: const DigitColors()
                                           .light
                                           .textSecondary,
-                                      width: Common.defaultBorderWidth,
+                                      width: Base.defaultBorderWidth,
                                     ),
-                                    borderRadius: Common.radius,
+                                    borderRadius: Base.radius,
                                   )
                                 : BaseConstants.focusedBorder,
                             disabledBorder: BaseConstants.disabledBorder,
@@ -406,7 +407,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                               });
                             },
                             child: SvgPicture.asset(
-                              Common.textAreaSvg,
+                              Base.textAreaSvg,
                               width: spacer2,
                               height: spacer2,
                             ),
@@ -459,7 +460,8 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                       minHeight: BaseConstants.inputMinHeight,
                       minWidth: minWidth,
                     ),
-                    contentPadding: const EdgeInsets.only(left: spacer3, bottom: spacer3, right: spacer3),
+                    contentPadding: const EdgeInsets.only(
+                        left: spacer3, bottom: spacer3, right: spacer3),
                     hintText: capitalizedInnerLabel,
                     hintStyle: currentTypography.bodyL.copyWith(
                       color: const DigitColors().light.textDisabled,
@@ -474,18 +476,18 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                             ? const DigitColors().light.alertError
                             : const DigitColors().light.textSecondary,
                         width: _hasError || widget.errorMessage != null
-                            ? Common.errorBorderWidth
-                            : Common.defaultBorderWidth,
+                            ? Base.errorBorderWidth
+                            : Base.defaultBorderWidth,
                       ),
-                      borderRadius: Common.radius,
+                      borderRadius: Base.radius,
                     ),
                     focusedBorder: widget.readOnly
                         ? OutlineInputBorder(
                             borderSide: BorderSide(
                               color: const DigitColors().light.textSecondary,
-                              width: Common.defaultBorderWidth,
+                              width: Base.defaultBorderWidth,
                             ),
-                            borderRadius: Common.radius,
+                            borderRadius: Base.radius,
                           )
                         : BaseConstants.focusedBorder,
                     disabledBorder: BaseConstants.disabledBorder,
@@ -549,7 +551,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                                             : const DigitColors()
                                                 .light
                                                 .genericInputBorder,
-                                        width: Common.defaultBorderWidth,
+                                        width: Base.defaultBorderWidth,
                                       ),
                                     ),
                                   ),
@@ -601,7 +603,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                                           : const DigitColors()
                                               .light
                                               .genericInputBorder,
-                                      width: Common.defaultBorderWidth,
+                                      width: Base.defaultBorderWidth,
                                     ),
                                   ),
                                 ),
@@ -690,7 +692,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                                             : const DigitColors()
                                                 .light
                                                 .genericInputBorder,
-                                        width: Common.defaultBorderWidth,
+                                        width: Base.defaultBorderWidth,
                                       ),
                                       top: BorderSide.none,
                                       bottom: BorderSide.none,
@@ -744,7 +746,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                                           : const DigitColors()
                                               .light
                                               .genericInputBorder,
-                                      width: Common.defaultBorderWidth,
+                                      width: Base.defaultBorderWidth,
                                     ),
                                     top: BorderSide.none,
                                     bottom: BorderSide.none,

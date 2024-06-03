@@ -349,6 +349,7 @@ class _PopupState extends State<Popup> {
     /// Check if it's the first build to avoid rebuilding unnecessarily
     if (!firstBuild) {
       firstBuild = true;
+
       /// Post frame callback to check if content is overflowing after rendering
       SchedulerBinding.instance.addPostFrameCallback((_) {
         setState(() {
@@ -374,10 +375,18 @@ class _PopupState extends State<Popup> {
           height: cardHeight,
           margin: EdgeInsets.symmetric(
               vertical: cardHeight == null
-                  ? isMobile ? PopUpCardConstant.verticalMarginMobile : isTab ? PopUpCardConstant.verticalMarginTab : PopUpCardConstant.verticalMarginDesktop
+                  ? isMobile
+                      ? PopUpCardConstant.verticalMarginMobile
+                      : isTab
+                          ? PopUpCardConstant.verticalMarginTab
+                          : PopUpCardConstant.verticalMarginDesktop
                   : 0,
               horizontal: cardWidth == null
-                  ? isMobile ? PopUpCardConstant.horizontalMarginMobile : isTab ? PopUpCardConstant.horizontalMarginTab : PopUpCardConstant.horizontalMarginDesktop
+                  ? isMobile
+                      ? PopUpCardConstant.horizontalMarginMobile
+                      : isTab
+                          ? PopUpCardConstant.horizontalMarginTab
+                          : PopUpCardConstant.horizontalMarginDesktop
                   : 0),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(spacer1),

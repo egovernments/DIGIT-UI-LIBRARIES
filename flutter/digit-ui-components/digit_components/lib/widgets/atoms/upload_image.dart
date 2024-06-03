@@ -608,7 +608,7 @@ class _ImageUploaderState extends State<ImageUploader> {
                         minWidth: 100,
                       ),
                       child: ClipRRect(
-                        borderRadius: Common.radius,
+                        borderRadius: Base.radius,
                         child: Stack(
                           fit: StackFit.expand,
                           children: [
@@ -657,7 +657,7 @@ class _ImageUploaderState extends State<ImageUploader> {
                   : AspectRatio(
                       aspectRatio: 3 / 2,
                       child: ClipRRect(
-                        borderRadius: Common.radius,
+                        borderRadius: Base.radius,
                         child: Stack(
                           fit: StackFit.expand,
                           children: [

@@ -48,25 +48,25 @@ class _FileUploadWidgetState extends State<FileUploadWidget2> {
 
     switch (currentFileName.split('.').last.toLowerCase()) {
       case 'pdf':
-        currentSvg = Common.pdfSvg;
+        currentSvg = Base.pdfSvg;
         break;
       case 'jpg':
       case 'jpeg':
-        currentSvg = Common.jpgSvg;
+        currentSvg = Base.jpgSvg;
         break;
       case 'png':
-        currentSvg = Common.pngSvg;
+        currentSvg = Base.pngSvg;
         break;
       case 'doc':
       case 'docx':
-        currentSvg = Common.docSvg;
+        currentSvg = Base.docSvg;
         break;
       case 'xlsx':
       case 'xls':
-        currentSvg = Common.xlsxSvg;
+        currentSvg = Base.xlsxSvg;
         break;
       default:
-        currentSvg = Common.fileSvg;
+        currentSvg = Base.fileSvg;
         break;
     }
 
@@ -75,7 +75,7 @@ class _FileUploadWidgetState extends State<FileUploadWidget2> {
       decoration: BoxDecoration(
         border: Border.all(
           color: const DigitColors().light.genericDivider,
-          width: Common.defaultBorderWidth,
+          width: Base.defaultBorderWidth,
         ),
         color: const DigitColors().light.paperSecondary,
       ),
@@ -131,24 +131,24 @@ class _FileUploadWidgetState extends State<FileUploadWidget2> {
 
     switch (fileType) {
       case 'pdf':
-        viewIcon = SvgPicture.asset(Common.pdfSvg);
+        viewIcon = SvgPicture.asset(Base.pdfSvg);
         break;
       case 'jpg':
-        viewIcon = SvgPicture.asset(Common.jpgSvg);
+        viewIcon = SvgPicture.asset(Base.jpgSvg);
         break;
       case 'png':
-        viewIcon = SvgPicture.asset(Common.pngSvg);
+        viewIcon = SvgPicture.asset(Base.pngSvg);
         break;
       case 'doc':
       case 'docx':
-        viewIcon = SvgPicture.asset(Common.docSvg);
+        viewIcon = SvgPicture.asset(Base.docSvg);
         break;
       case 'xlsx':
       case 'xls':
-        viewIcon = SvgPicture.asset(Common.xlsxSvg);
+        viewIcon = SvgPicture.asset(Base.xlsxSvg);
         break;
       default:
-        viewIcon = SvgPicture.asset(Common.fileSvg);
+        viewIcon = SvgPicture.asset(Base.fileSvg);
         break;
     }
 
@@ -161,7 +161,7 @@ class _FileUploadWidgetState extends State<FileUploadWidget2> {
           decoration: BoxDecoration(
             border: Border.all(
               color: const DigitColors().light.genericDivider,
-              width: Common.defaultBorderWidth,
+              width: Base.defaultBorderWidth,
             ),
           ),
           child: isMobile
@@ -298,7 +298,7 @@ class _FileUploadWidgetState extends State<FileUploadWidget2> {
               decoration: BoxDecoration(
                 border: Border.all(
                   color: const DigitColors().light.genericDivider,
-                  width: Common.defaultBorderWidth,
+                  width: Base.defaultBorderWidth,
                 ),
                 color: const DigitColors().light.genericBackground,
               ),
@@ -324,7 +324,6 @@ class _FileUploadWidgetState extends State<FileUploadWidget2> {
     final mime = await controller.getFileMIME(events.first);
     final bytes = await controller.getFileSize(events.first);
     final getData = await controller.getFileData(events.first);
-    final url = await controller.createFileUrl(events.first);
     final name = await controller.getFilename(events.first);
     if (events.isEmpty) return;
 

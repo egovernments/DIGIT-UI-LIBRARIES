@@ -1,7 +1,6 @@
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../../utils/utils.dart';
 
 class Timeline extends StatefulWidget {
@@ -151,7 +150,7 @@ class _TimelineState extends State<Timeline> {
             : widget.currentStep == TimelineStepState.present
                 ? const DigitColors().light.paperPrimary
                 : const DigitColors().light.textDisabled,
-        borderRadius: BorderRadius.circular(Common.defaultCircularRadius),
+        borderRadius: BorderRadius.circular(Base.defaultCircularRadius),
       ),
       child: widget.currentStep == TimelineStepState.completed
           ? Icon(
@@ -170,7 +169,7 @@ class _TimelineState extends State<Timeline> {
                     shape: BoxShape.circle,
                     border: Border.all(
                       color: const DigitColors().light.primary1,
-                      width: Common.selectedBorderWidth
+                      width: Base.selectedBorderWidth
                     ),
                     color: const DigitColors().light.paperPrimary,
                   ),
@@ -188,7 +187,7 @@ class _TimelineState extends State<Timeline> {
                   height: isMobile ? spacer6 : spacer8,
                   decoration: BoxDecoration(
                     color: const DigitColors().light.textDisabled,
-                    borderRadius: BorderRadius.circular(Common.defaultCircularRadius),
+                    borderRadius: BorderRadius.circular(Base.defaultCircularRadius),
                   ),
                 ),
     );
@@ -264,7 +263,7 @@ class TimelineFileWidget extends StatelessWidget {
       onTap: () {
         /// Check isPreview here before calling _viewDocument
         if (openFile) {
-          _viewDocument(file.url);
+          viewDocument(file.url);
         }
       },
       child: SizedBox(
@@ -288,26 +287,17 @@ class TimelineFileWidget extends StatelessWidget {
   Widget _buildFileIcon(String fileType) {
     switch (fileType) {
       case 'pdf':
-        return SvgPicture.asset(Common.pdfSvg);
+        return SvgPicture.asset(Base.pdfSvg);
       case 'jpg':
-        return SvgPicture.asset(Common.jpgSvg);
+        return SvgPicture.asset(Base.jpgSvg);
       case 'png':
-        return SvgPicture.asset(Common.pngSvg);
+        return SvgPicture.asset(Base.pngSvg);
       case 'doc':
-        return SvgPicture.asset(Common.docSvg);
+        return SvgPicture.asset(Base.docSvg);
       case 'xlsx':
-        return SvgPicture.asset(Common.xlsxSvg);
+        return SvgPicture.asset(Base.xlsxSvg);
       default:
         return Container();
-    }
-  }
-
-  void _viewDocument(String url) async {
-    Uri uri = Uri.parse(url);
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri);
-    } else {
-      throw 'Could not launch $url';
     }
   }
 }

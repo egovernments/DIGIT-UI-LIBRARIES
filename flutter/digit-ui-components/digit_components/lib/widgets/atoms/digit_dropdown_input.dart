@@ -240,7 +240,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
             children: [
               SizedBox(
                 width: width,
-                height: Common.height,
+                height: Base.height,
                 child: TextField(
                   key: _textFieldKey,
                   readOnly: !widget.isSearchable || widget.readOnly,
@@ -297,7 +297,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                       top: spacer2,
                     ),
                     border: const OutlineInputBorder(
-                      borderRadius: Common.radius,
+                      borderRadius: Base.radius,
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
@@ -309,23 +309,23 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                       .light
                                       .genericInputBorder,
                           width: _isOpen || widget.errorMessage != null
-                              ? Common.errorBorderWidth
-                              : Common.defaultBorderWidth),
-                      borderRadius: Common.radius,
+                              ? Base.errorBorderWidth
+                              : Base.defaultBorderWidth),
+                      borderRadius: Base.radius,
                     ),
                     focusedBorder: widget.readOnly
                         ? OutlineInputBorder(
                             borderSide: BorderSide(
                               color: const DigitColors().light.textSecondary,
-                              width: Common.defaultBorderWidth,
+                              width: Base.defaultBorderWidth,
                             ),
-                            borderRadius: Common.radius,
+                            borderRadius: Base.radius,
                           )
                         : OutlineInputBorder(
                             borderSide: BorderSide(
                                 color: const DigitColors().light.primary1,
-                                width: Common.focusedBorderWidth),
-                            borderRadius: Common.radius,
+                                width: Base.focusedBorderWidth),
+                            borderRadius: Base.radius,
                           ),
                     disabledBorder: BaseConstants.disabledBorder,
                     suffixIcon: InkWell(
@@ -484,7 +484,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                   showWhenUnlinked: false,
                   child: Material(
                     elevation: 0,
-                    borderRadius: Common.radius,
+                    borderRadius: Base.radius,
                     color: const DigitColors().light.paperPrimary,
                     clipBehavior: Clip.none,
                     child: ConstrainedBox(
@@ -527,7 +527,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
   Widget _buildListView(double overlayWidth) {
     return filteredItems.isNotEmpty
         ? Scrollbar(
-            radius: const Radius.circular(Common.defaultCircularRadius),
+            radius: const Radius.circular(Base.defaultCircularRadius),
             thickness: spacer5 / 2,
             child: ListView.separated(
               separatorBuilder: (_, __) => const SizedBox(height: 0),
@@ -582,7 +582,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                       child: Container(
                         decoration: BoxDecoration(
                           border: Border.all(
-                            width: Common.hoverBorderWidth,
+                            width: Base.hoverBorderWidth,
                             color: _itemMouseDownStates[
                                             filteredItems[index].code] ==
                                         true ||
@@ -825,7 +825,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
         .toSet();
     return filteredItems.isNotEmpty
         ? Scrollbar(
-            radius: const Radius.circular(Common.defaultCircularRadius),
+            radius: const Radius.circular(Base.defaultCircularRadius),
             thickness: 10,
             child: ListView.separated(
                 separatorBuilder: (_, __) => const SizedBox(height: 0),
@@ -907,7 +907,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                             MediaQuery.of(context).size.width,
                                         decoration: BoxDecoration(
                                           border: Border.all(
-                                            width: Common.hoverBorderWidth,
+                                            width: Base.hoverBorderWidth,
                                             color: _itemMouseDownStates[
                                                         typeItems[index]
                                                             .code] ==

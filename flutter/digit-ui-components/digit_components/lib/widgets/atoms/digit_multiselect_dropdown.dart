@@ -289,11 +289,11 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
               /// Disable onTap if dropdown is disabled
               child: StatefulBuilder(builder: (context, setState) {
                 return Container(
-                  height: Common.height,
+                  height: Base.height,
                   width: width,
                   constraints: BoxConstraints(
                     minWidth: minWidth,
-                    minHeight: Common.height,
+                    minHeight: Base.height,
                   ),
                   padding: const EdgeInsets.symmetric(
                     horizontal: spacer2,
@@ -558,10 +558,10 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
   Decoration _getDisabledContainerDecoration() {
     return BoxDecoration(
       color: const DigitColors().transparent,
-      borderRadius: Common.radius,
+      borderRadius: Base.radius,
       border: Border.all(
         color: const DigitColors().light.textDisabled,
-        width: Common.defaultBorderWidth,
+        width: Base.defaultBorderWidth,
       ),
     );
   }
@@ -570,10 +570,10 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
   Decoration _getReadOnlyContainerDecoration() {
     return BoxDecoration(
       color: const DigitColors().light.genericBackground,
-      borderRadius: Common.radius,
+      borderRadius: Base.radius,
       border: Border.all(
         color: const DigitColors().light.genericInputBorder,
-        width: Common.defaultBorderWidth,
+        width: Base.defaultBorderWidth,
       ),
     );
   }
@@ -582,20 +582,20 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
   Decoration _getContainerDecoration() {
     return BoxDecoration(
       color: const DigitColors().light.paperPrimary,
-      borderRadius: Common.radius,
+      borderRadius: Base.radius,
       border: widget.errorMessage != null
           ? Border.all(
               color: const DigitColors().light.alertError,
-              width: Common.errorBorderWidth,
+              width: Base.errorBorderWidth,
             )
           : _selectionMode
               ? Border.all(
                   color: const DigitColors().light.primary1,
-                  width: Common.focusedBorderWidth,
+                  width: Base.focusedBorderWidth,
                 )
               : Border.all(
                   color: const DigitColors().light.genericInputBorder,
-                  width: Common.defaultBorderWidth,
+                  width: Base.defaultBorderWidth,
                 ),
     );
   }
@@ -666,7 +666,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                   followerAnchor: Alignment.topLeft,
                   offset: Offset.zero,
                   child: Material(
-                    borderRadius: Common.radius,
+                    borderRadius: Base.radius,
                     shadowColor: null,
                     child: Container(
                       width: size.width,
@@ -715,7 +715,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
     // Determine if all are selected initially by comparing lengths
     bool isAllSelected = selectedOptions.length == options.length;
     return Scrollbar(
-      radius: const Radius.circular(Common.defaultCircularRadius),
+      radius: const Radius.circular(Base.defaultCircularRadius),
       thickness: 10,
       child: ConstrainedBox(
         constraints: BoxConstraints(
@@ -757,12 +757,12 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                 }
               },
               child: Container(
-                height: Common.height,
+                height: Base.height,
                 padding: const EdgeInsets.only(left: 10),
                 decoration: BoxDecoration(
                   border: Border.all(
                     color: const DigitColors().light.genericDivider,
-                    width: Common.defaultBorderWidth,
+                    width: Base.defaultBorderWidth,
                   ),
                   color: const DigitColors().light.paperSecondary,
                 ),
@@ -848,7 +848,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
     // Determine if all are selected initially by comparing lengths
     bool isAllSelected = selectedOptions.length == options.length;
     return Scrollbar(
-      radius: const Radius.circular(Common.defaultCircularRadius),
+      radius: const Radius.circular(Base.defaultCircularRadius),
       thickness: 10,
       child: ConstrainedBox(
         constraints: BoxConstraints(
@@ -892,12 +892,12 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                 }
               },
               child: Container(
-                height: Common.height,
+                height: Base.height,
                 padding: const EdgeInsets.only(left: 10),
                 decoration: BoxDecoration(
                   border: Border.all(
                     color: const DigitColors().light.genericDivider,
-                    width: Common.defaultBorderWidth,
+                    width: Base.defaultBorderWidth,
                   ),
                   color: const DigitColors().light.paperSecondary,
                 ),

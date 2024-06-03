@@ -35,6 +35,7 @@ class DigitCheckbox extends StatefulWidget {
 
   /// Padding around the DigitCheckbox widget.
   final EdgeInsetsGeometry padding;
+
   /// Custom color for the DigitCheckbox label.
   final Color? textColor;
 
@@ -100,13 +101,15 @@ class _DigitCheckboxState extends State<DigitCheckbox> {
             children: [
               Column(
                 children: [
-                  const SizedBox(height: spacer1/2,),
+                  const SizedBox(
+                    height: spacer1 / 2,
+                  ),
                   InkWell(
                     hoverColor: const DigitColors().transparent,
                     splashColor: const DigitColors().transparent,
                     highlightColor: const DigitColors().transparent,
                     focusColor: const DigitColors().transparent,
-                    onFocusChange: (value){
+                    onFocusChange: (value) {
                       setState(() {
                         isFocused = value;
                       });
@@ -119,13 +122,13 @@ class _DigitCheckboxState extends State<DigitCheckbox> {
                     onTap: widget.isDisabled
                         ? null
                         : () {
-                      if(mounted){
-                        setState(() {
-                          _currentState = !_currentState;
-                        });
-                        widget.onChanged(_currentState);
-                      }
-                    },
+                            if (mounted) {
+                              setState(() {
+                                _currentState = !_currentState;
+                              });
+                              widget.onChanged(_currentState);
+                            }
+                          },
                     child: SizedBox(
                       height: DigitCheckboxConstants.containerSize,
                       width: DigitCheckboxConstants.containerSize,
@@ -134,7 +137,9 @@ class _DigitCheckboxState extends State<DigitCheckbox> {
                             ? DigitCheckboxState.checked
                             : DigitCheckboxState.unchecked,
                         isDisabled: widget.isDisabled,
-                        color: isHovered || isFocused ? const DigitColors().light.primary1 :widget.iconColor,
+                        color: isHovered || isFocused
+                            ? const DigitColors().light.primary1
+                            : widget.iconColor,
                       ),
                     ),
                   ),
@@ -146,11 +151,11 @@ class _DigitCheckboxState extends State<DigitCheckbox> {
                   alignment: Alignment.topCenter,
                   child: Text(
                     processedLabel!,
-                    style: currentTypography.bodyL
-                        .copyWith(
-                      color: widget.textColor ?? (widget.isDisabled
-                          ? const DigitColors().light.textDisabled
-                          : const DigitColors().light.textPrimary),
+                    style: currentTypography.bodyL.copyWith(
+                      color: widget.textColor ??
+                          (widget.isDisabled
+                              ? const DigitColors().light.textDisabled
+                              : const DigitColors().light.textPrimary),
                     ),
                   ),
                 ),
@@ -161,6 +166,4 @@ class _DigitCheckboxState extends State<DigitCheckbox> {
       ),
     );
   }
-
-
 }

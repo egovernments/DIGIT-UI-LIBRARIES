@@ -1,4 +1,5 @@
 import 'package:digit_ui_components/models/DropdownModels.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 /// Utility function to capitalize the first letter of the first word
 /// and make all other letters lowercase in the entire message
@@ -66,5 +67,14 @@ String truncateWithEllipsis(int maxLength, String text) {
     return text;
   } else {
     return '${text.substring(0, maxLength)}...';
+  }
+}
+
+void viewDocument(String url) async {
+  Uri uri = Uri.parse(url);
+  if (await canLaunchUrl(uri)) {
+    await launchUrl(uri);
+  } else {
+    throw 'Could not launch $url';
   }
 }

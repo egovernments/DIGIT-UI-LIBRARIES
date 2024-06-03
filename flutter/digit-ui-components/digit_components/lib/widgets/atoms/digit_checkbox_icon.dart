@@ -41,9 +41,9 @@ class DigitCheckboxIcon extends StatelessWidget {
             border: Border.all(
               color: DigitCheckboxConstants.uncheckedBorderColor(
                   isDisabled: isDisabled, customColor: color),
-              width: Common.defaultBorderWidth,
+              width: Base.defaultBorderWidth,
             ),
-            borderRadius: Common.radius,
+            borderRadius: Base.radius,
           ),
         );
       case DigitCheckboxState.intermediate:
@@ -56,7 +56,7 @@ class DigitCheckboxIcon extends StatelessWidget {
                   isDisabled: isDisabled, customColor: color),
               width: DigitCheckboxConstants.borderWidth,
             ),
-            borderRadius: Common.radius,
+            borderRadius: Base.radius,
           ),
           child: Center(
             child: Icon(
@@ -77,7 +77,7 @@ class DigitCheckboxIcon extends StatelessWidget {
                   isDisabled: isDisabled, customColor: color),
               width: DigitCheckboxConstants.borderWidth,
             ),
-            borderRadius: Common.radius,
+            borderRadius: Base.radius,
           ),
           child: Center(
             child: Icon(

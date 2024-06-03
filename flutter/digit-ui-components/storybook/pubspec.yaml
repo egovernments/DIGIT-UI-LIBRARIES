@@ -30,6 +30,7 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/svg/
+    - assets/animated_json/
   fonts:
     - family: Roboto
       fonts:

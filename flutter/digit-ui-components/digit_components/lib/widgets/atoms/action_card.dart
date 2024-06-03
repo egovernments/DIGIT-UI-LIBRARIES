@@ -61,10 +61,18 @@ class ActionCard extends StatelessWidget {
           height: height,
           margin: EdgeInsets.symmetric(
               vertical: height == null
-                  ? isMobile ? PopUpCardConstant.verticalMarginMobile : isTab ? PopUpCardConstant.verticalMarginTab : PopUpCardConstant.verticalMarginDesktop
+                  ? isMobile
+                      ? PopUpCardConstant.verticalMarginMobile
+                      : isTab
+                          ? PopUpCardConstant.verticalMarginTab
+                          : PopUpCardConstant.verticalMarginDesktop
                   : 0,
               horizontal: cardWidth == null
-                  ? isMobile ? PopUpCardConstant.horizontalMarginMobile : isTab ? PopUpCardConstant.horizontalMarginTab : PopUpCardConstant.horizontalMarginDesktop
+                  ? isMobile
+                      ? PopUpCardConstant.horizontalMarginMobile
+                      : isTab
+                          ? PopUpCardConstant.horizontalMarginTab
+                          : PopUpCardConstant.horizontalMarginDesktop
                   : 0),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(spacer1),

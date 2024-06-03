@@ -231,7 +231,7 @@ class _InfoButtonState extends State<InfoButton> {
             color: widget.isDisabled
                 ? const DigitColors().light.textDisabled
                 : buttonColor,
-            width: Common.defaultBorderWidth,
+            width: Base.defaultBorderWidth,
           ),
           color: widget.isDisabled
               ? const DigitColors().light.textDisabled

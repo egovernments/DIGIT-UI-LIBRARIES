@@ -1,4 +1,3 @@
-import 'package:digit_ui_components/constants/app_constants.dart';
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/material.dart';
 
@@ -85,8 +84,8 @@ class _ToggleState extends State<Toggle> {
           },
           child: Container(
             height: spacer8,
-            width: widget.maxLabelWidth + spacer12+spacer1,
-            padding:const EdgeInsets.symmetric(horizontal: spacer3),
+            width: widget.maxLabelWidth + spacer12 + spacer1,
+            padding: const EdgeInsets.symmetric(horizontal: spacer3),
             constraints: const BoxConstraints(
               minWidth: spacer10,
               maxWidth: 200,
@@ -97,7 +96,7 @@ class _ToggleState extends State<Toggle> {
                 color: (isHovered || widget.isSelected || isMouseDown)
                     ? const DigitColors().light.primary1
                     : const DigitColors().light.genericDivider,
-                width: Common.defaultBorderWidth,
+                width: Base.defaultBorderWidth,
               ),
               color: widget.isSelected
                   ? const DigitColors().light.primary1
@@ -126,16 +125,16 @@ class _ToggleState extends State<Toggle> {
                     overflow: TextOverflow.ellipsis,
                     style: widget.isSelected
                         ? currentTypography.headingS.copyWith(
-                      height: 1.5,
-                      color: const DigitColors().light.paperPrimary,
-                      overflow: TextOverflow.ellipsis,
-                    )
+                            height: 1.5,
+                            color: const DigitColors().light.paperPrimary,
+                            overflow: TextOverflow.ellipsis,
+                          )
                         : currentTypography.bodyXS.copyWith(
-                      color: (isHovered || isMouseDown)
-                          ? const DigitColors().light.primary1
-                          : const DigitColors().light.textDisabled,
-                      overflow: TextOverflow.ellipsis,
-                    ),
+                            color: (isHovered || isMouseDown)
+                                ? const DigitColors().light.primary1
+                                : const DigitColors().light.textDisabled,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                   ),
                 ),
               ],

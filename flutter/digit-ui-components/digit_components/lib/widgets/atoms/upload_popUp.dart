@@ -216,7 +216,7 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
                       width: 1,
                     )),
                     child: ClipRRect(
-                      borderRadius: Common.radius,
+                      borderRadius: Base.radius,
                       child: Stack(
                         fit: StackFit.expand,
                         children: [
@@ -323,24 +323,24 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
     switch (fileType) {
       case 'pdf':
         viewIcon = SvgPicture.asset(
-          Common.pdfSvg,
+          Base.pdfSvg,
         );
         break;
       case 'doc':
       case 'docx':
         viewIcon = SvgPicture.asset(
-          Common.docSvg,
+          Base.docSvg,
         );
         break;
       case 'xlsx':
       case 'xls':
         viewIcon = SvgPicture.asset(
-          Common.xlsxSvg,
+          Base.xlsxSvg,
         );
         break;
       default:
         viewIcon = SvgPicture.asset(
-          Common.fileSvg,
+          Base.fileSvg,
         );
         break;
     }
@@ -375,7 +375,7 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
                       width: 1,
                     )),
                     child: ClipRRect(
-                      borderRadius: Common.radius,
+                      borderRadius: Base.radius,
                       child: Stack(
                         fit: StackFit.expand,
                         children: [
@@ -526,8 +526,8 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
                               : const DigitColors().light.textPrimary,
                       width:
                           widget.errorMessage != null || fileErrorMessage != ''
-                              ? Common.errorBorderWidth
-                              : Common.defaultBorderWidth,
+                              ? Base.errorBorderWidth
+                              : Base.defaultBorderWidth,
                     ),
                   ),
                   child: Padding(

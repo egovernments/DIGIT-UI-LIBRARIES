@@ -52,7 +52,9 @@ class LabeledField extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Row(
-            crossAxisAlignment: wrapLabelText ? CrossAxisAlignment.end : CrossAxisAlignment.center,
+            crossAxisAlignment: wrapLabelText
+                ? CrossAxisAlignment.end
+                : CrossAxisAlignment.center,
             children: [
               if (label != null)
                 Flexible(
@@ -74,8 +76,8 @@ class LabeledField extends StatelessWidget {
                     color: const DigitColors().light.alertError,
                   ),
                 ),
-              if (infoText !=null) const SizedBox(width: spacer1),
-              if (infoText !=null)
+              if (infoText != null) const SizedBox(width: spacer1),
+              if (infoText != null)
                 Tooltip(
                   message: infoText,
                   preferBelow: preferToolTipBelow,
@@ -105,7 +107,9 @@ class LabeledField extends StatelessWidget {
               maxWidth: MediaQuery.of(context).size.width * 0.33,
             ),
             child: Row(
-              crossAxisAlignment: wrapLabelText ? CrossAxisAlignment.end : CrossAxisAlignment.center,
+              crossAxisAlignment: wrapLabelText
+                  ? CrossAxisAlignment.end
+                  : CrossAxisAlignment.center,
               children: [
                 Flexible(
                   child: Text(
@@ -128,8 +132,8 @@ class LabeledField extends StatelessWidget {
                       color: const DigitColors().light.alertError,
                     ),
                   ),
-                if (infoText !=null) const SizedBox(width: spacer1),
-                if (infoText !=null)
+                if (infoText != null) const SizedBox(width: spacer1),
+                if (infoText != null)
                   Tooltip(
                     message: infoText,
                     preferBelow: preferToolTipBelow,

@@ -94,7 +94,6 @@ class _ButtonState extends State<Button> {
     _currentTypography = getTypography(context, true);
     _currentTypography2 = getTypography(context, false);
 
-
     switch (widget.size) {
       case ButtonSize.small:
         buttonStyle = _currentTypography.headingS;
@@ -128,7 +127,7 @@ class _ButtonState extends State<Button> {
         hoverColor: const DigitColors().transparent,
         splashColor: const DigitColors().transparent,
         focusColor: const DigitColors().transparent,
-        onFocusChange: (value){
+        onFocusChange: (value) {
           setState(() {
             isFocused = value;
           });
@@ -136,19 +135,19 @@ class _ButtonState extends State<Button> {
         onTapDown: widget.isDisabled
             ? null
             : (_) {
-          /// Handle mouse down state
-          setState(() {
-            isMouseDown = true;
-          });
-        },
+                /// Handle mouse down state
+                setState(() {
+                  isMouseDown = true;
+                });
+              },
         onTapUp: widget.isDisabled
             ? null
             : (_) {
-          /// Handle mouse up state
-          setState(() {
-            isMouseDown = false;
-          });
-        },
+                /// Handle mouse up state
+                setState(() {
+                  isMouseDown = false;
+                });
+              },
         onHover: (hover) {
           setState(() {
             isHovered = hover;
@@ -157,62 +156,62 @@ class _ButtonState extends State<Button> {
         onTap: widget.isDisabled
             ? null
             : () {
-          if (mounted) {
-            widget.onPressed();
-          }
-        },
+                if (mounted) {
+                  widget.onPressed();
+                }
+              },
         child: Container(
           height: widget.size == ButtonSize.large
               ? ButtonConstants.largeButtonSize
               : widget.size == ButtonSize.medium
-              ? ButtonConstants.mediumButtonSize
-              : ButtonConstants.smallButtonSize,
+                  ? ButtonConstants.mediumButtonSize
+                  : ButtonConstants.smallButtonSize,
           decoration: BoxDecoration(
             boxShadow: (isMouseDown)
                 ? [
-              BoxShadow(
-                color: widget.type == ButtonType.primary
-                    ? const DigitColors().light.textPrimary
-                    : const DigitColors().light.primary1,
-                offset: const Offset(0, 2),
-                spreadRadius: 0,
-                blurRadius: 0,
-              ),
-              BoxShadow(
-                color: widget.type == ButtonType.primary
-                    ? const DigitColors()
-                    .light
-                    .textPrimary
-                    .withOpacity(.25)
-                    : const DigitColors().light.primary1.withOpacity(.20),
-                offset: const Offset(0, 4),
-                spreadRadius: 0,
-                blurRadius: widget.type == ButtonType.primary ? 2.8 : 4,
-              ),
-            ]
+                    BoxShadow(
+                      color: widget.type == ButtonType.primary
+                          ? const DigitColors().light.textPrimary
+                          : const DigitColors().light.primary1,
+                      offset: const Offset(0, 2),
+                      spreadRadius: 0,
+                      blurRadius: 0,
+                    ),
+                    BoxShadow(
+                      color: widget.type == ButtonType.primary
+                          ? const DigitColors()
+                              .light
+                              .textPrimary
+                              .withOpacity(.25)
+                          : const DigitColors().light.primary1.withOpacity(.20),
+                      offset: const Offset(0, 4),
+                      spreadRadius: 0,
+                      blurRadius: widget.type == ButtonType.primary ? 2.8 : 4,
+                    ),
+                  ]
                 : isHovered || isFocused
-                ? [
-              BoxShadow(
-                color: widget.type == ButtonType.primary
-                    ? const DigitColors().light.textPrimary
-                    : const DigitColors().light.primary1,
-                offset: const Offset(0, 2),
-                spreadRadius: 0,
-                blurRadius: 0,
-              ),
-            ]
-                : [],
-            borderRadius: Common.radius,
+                    ? [
+                        BoxShadow(
+                          color: widget.type == ButtonType.primary
+                              ? const DigitColors().light.textPrimary
+                              : const DigitColors().light.primary1,
+                          offset: const Offset(0, 2),
+                          spreadRadius: 0,
+                          blurRadius: 0,
+                        ),
+                      ]
+                    : [],
+            borderRadius: Base.radius,
             border: Border.all(
               color: widget.isDisabled
                   ? const DigitColors().light.textDisabled
                   : const DigitColors().light.primary1,
-              width: Common.defaultBorderWidth,
+              width: Base.defaultBorderWidth,
             ),
             color: widget.type == ButtonType.primary
                 ? (widget.isDisabled
-                ? const DigitColors().light.textDisabled
-                : const DigitColors().light.primary1)
+                    ? const DigitColors().light.textDisabled
+                    : const DigitColors().light.primary1)
                 : const DigitColors().light.paperPrimary,
           ),
           child: _buildButton(isHovered, isMouseDown, isFocused),
@@ -224,7 +223,7 @@ class _ButtonState extends State<Button> {
         hoverColor: const DigitColors().transparent,
         splashColor: const DigitColors().transparent,
         focusColor: const DigitColors().transparent,
-        onFocusChange: (value){
+        onFocusChange: (value) {
           setState(() {
             isFocused = value;
           });
@@ -232,31 +231,31 @@ class _ButtonState extends State<Button> {
         onTap: widget.isDisabled
             ? null
             : () {
-          if (mounted) {
-            widget.onPressed();
-          }
-        },
+                if (mounted) {
+                  widget.onPressed();
+                }
+              },
         onHover: widget.isDisabled
             ? null
             : (hover) {
-          setState(() {
-            isHovered = hover;
-          });
-        },
+                setState(() {
+                  isHovered = hover;
+                });
+              },
         onTapDown: widget.isDisabled
             ? null
             : (_) {
-          setState(() {
-            isMouseDown = true;
-          });
-        },
+                setState(() {
+                  isMouseDown = true;
+                });
+              },
         onTapUp: widget.isDisabled
             ? null
             : (_) {
-          setState(() {
-            isMouseDown = false;
-          });
-        },
+                setState(() {
+                  isMouseDown = false;
+                });
+              },
         child: _buildButton(isHovered, isMouseDown, isFocused),
       );
     }
@@ -269,7 +268,7 @@ class _ButtonState extends State<Button> {
     /// Truncate label if it exceeds 64 characters &&  Capitalize the first letter of the label
     if (widget.type != ButtonType.link) {
       if (widget.label.length > 64) {
-        truncatedLabel = '${widget.label.substring(0, 64)}...';
+        truncatedLabel = truncateWithEllipsis(64, widget.label);
       }
 
       truncatedLabel = truncatedLabel.isEmpty || !widget.capitalizeLetters
@@ -277,30 +276,38 @@ class _ButtonState extends State<Button> {
           : capitalizeFirstLetterOfEveryWord(truncatedLabel);
     }
     return Container(
-      color: isFocused && widget.type==ButtonType.tertiary ? const DigitColors().light.primary1Bg:const DigitColors().transparent,
+      color: isFocused && widget.type == ButtonType.tertiary
+          ? const DigitColors().light.primary1Bg
+          : const DigitColors().transparent,
       child: Padding(
-        padding: widget.type == ButtonType.link ||
-            widget.type == ButtonType.tertiary
-            ? const EdgeInsets.all(spacer2)
-            : widget.contentPadding,
+        padding:
+            widget.type == ButtonType.link || widget.type == ButtonType.tertiary
+                ? const EdgeInsets.all(spacer2)
+                : widget.contentPadding,
         child: Row(
           mainAxisSize: widget.mainAxisSize ?? MainAxisSize.min,
-          mainAxisAlignment: widget.mainAxisAlignment ?? MainAxisAlignment.center,
-          crossAxisAlignment: widget.crossAxisAlignment ?? CrossAxisAlignment.center,
+          mainAxisAlignment:
+              widget.mainAxisAlignment ?? MainAxisAlignment.center,
+          crossAxisAlignment:
+              widget.crossAxisAlignment ?? CrossAxisAlignment.center,
           children: [
             if (widget.prefixIcon != null) ...[
               Icon(
                 widget.prefixIcon,
-                size: widget.type == ButtonType.link ? linkIconSize : widget.iconSize ?? buttonIconSize,
+                size: widget.type == ButtonType.link
+                    ? linkIconSize
+                    : widget.iconSize ?? buttonIconSize,
                 color: widget.type == ButtonType.primary
                     ? const DigitColors().light.paperPrimary
                     : (widget.isDisabled
-                    ? const DigitColors().light.textDisabled
-                    : const DigitColors().light.primary1),
+                        ? const DigitColors().light.textDisabled
+                        : const DigitColors().light.primary1),
               ),
               SizedBox(
-                  width:
-                  widget.type == ButtonType.link || widget.size == ButtonSize.small ? spacer1 : spacer2),
+                  width: widget.type == ButtonType.link ||
+                          widget.size == ButtonSize.small
+                      ? spacer1
+                      : spacer2),
             ],
             Flexible(
               child: Text(
@@ -308,39 +315,43 @@ class _ButtonState extends State<Button> {
                 textAlign: TextAlign.center,
                 style: widget.type == ButtonType.link
                     ? linkStyle.copyWith(
-                  color: widget.isDisabled
-                      ? const DigitColors().light.textDisabled
-                      : const DigitColors().light.primary1,
-                  decoration: TextDecoration.underline,
-                  decorationColor: widget.isDisabled
-                      ? const DigitColors().light.textDisabled
-                      : const DigitColors().light.primary1,
-                  decorationThickness: isHovered || isFocused ? 2 : 1,
-                )
+                        color: widget.isDisabled
+                            ? const DigitColors().light.textDisabled
+                            : const DigitColors().light.primary1,
+                        decoration: TextDecoration.underline,
+                        decorationColor: widget.isDisabled
+                            ? const DigitColors().light.textDisabled
+                            : const DigitColors().light.primary1,
+                        decorationThickness: isHovered || isFocused ? 2 : 1,
+                      )
                     : buttonStyle.copyWith(
-                  fontWeight:
-                  isMouseDown ? FontWeight.w700 : FontWeight.w500,
-                  color: widget.type == ButtonType.primary
-                      ? const DigitColors().light.paperPrimary
-                      :  widget.isDisabled
-                      ? const DigitColors().light.textDisabled
-                      : const DigitColors().light.primary1,
-                  overflow: TextOverflow.ellipsis,
-                ),
+                        fontWeight:
+                            isMouseDown ? FontWeight.w700 : FontWeight.w500,
+                        color: widget.type == ButtonType.primary
+                            ? const DigitColors().light.paperPrimary
+                            : widget.isDisabled
+                                ? const DigitColors().light.textDisabled
+                                : const DigitColors().light.primary1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
               ),
             ),
             if (widget.suffixIcon != null) ...[
               SizedBox(
-                  width:
-                  widget.type == ButtonType.link || widget.size == ButtonSize.small ? spacer1 : spacer2),
+                  width: widget.type == ButtonType.link ||
+                          widget.size == ButtonSize.small
+                      ? spacer1
+                      : spacer2),
               Icon(
                 widget.suffixIcon,
-                size: widget.type == ButtonType.link ? linkIconSize : widget.iconSize ?? buttonIconSize,
+                size: widget.type == ButtonType.link
+                    ? linkIconSize
+                    : widget.iconSize ?? buttonIconSize,
                 color: widget.type == ButtonType.primary
                     ? const DigitColors().light.paperPrimary
                     : (widget.isDisabled
-                    ? const DigitColors().light.textDisabled
-                    : const DigitColors().light.primary1),
+                        ? const DigitColors().light.textDisabled
+                        : const DigitColors().light.primary1),
               ),
             ],
           ],

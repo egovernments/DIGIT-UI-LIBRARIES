@@ -2,7 +2,7 @@ import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/material.dart';
 import '../theme/theme.dart';
 
-class Common{
+class Base{
   static const double height = 40;
   static const double mobileInputWidth = 328;
   static const double desktopInputWidth = 600;
@@ -22,6 +22,8 @@ class Common{
   static const String pngSvg = 'assets/icons/svg/png.svg';
   static const String xlsxSvg = 'assets/icons/svg/xlsx.svg';
   static const String fileSvg = 'assets/icons/svg/file.svg';
+  static const String errorJson = 'assets/animated_json/error.json';
+  static const String successJson = 'assets/animated_json/success.json';
 }
 
 class BaseConstants {
