@@ -55,68 +55,6 @@ yarn storybook
 ```
 
 
-# Changelog
-
-```bash
-0.0.2 Added new components and enhancements for old components
-0.0.1-beta.32 Updated Panel Success Animation
-0.0.1-beta.31 Added new prop named activeSteps in Stepper
-0.0.1-beta.30 Updated Panel Animation Styles
-0.0.1-beta.29 Added PopUp,Panels and Panel Cards
-0.0.1-beta.28 Added restrictSelection prop in MultiSelectDropdown
-0.0.1-beta.27 Added uploader variants and its CSS
-0.0.1-beta.26 Updated Toast Usage
-0.0.1-beta.25 Updated RemoveableTag component to have error 
-0.0.1-beta.24 Updated numeric type to disable input and use only buttons and made date and time fields clickable
-0.0.1-beta.23 Updated ErrorMessage component to have new props named showIcon,truncateMessage and maxLength
-0.0.1-beta.22 From this version of ui-components the Toast component will have a new prop named type, replacing the seperate props for  info,warning and error
-0.0.1-beta.21 Added categorySelectAllState in the nestedmultiselect variant of multiselectdropdown
-0.0.1-beta.20 updated multiselectdropdown categoryselectall functionality and added key navigation for dropdown options 
-0.0.1-beta.19 making CheckBox more customizable and adding custom color for Button
-0.0.1-beta.18 updated dropdown option labels
-0.0.1-beta.17 updated toast info varinat css and category option css 
-0.0.1-beta.16 added erroe boundary atom
-0.0.1-beta.15 added info varinat for toast
-0.0.1-beta.14 updated dropdown options label to use optionsKey
-0.0.1-beta.13 nested and tree dropdown varinat updated
-0.0.1-beta.12 enhancements of components
-0.0.1-beta.11 updated mobilenumber classname
-0.0.1-beta.10 updated header and textinput classnames
-0.0.1-beta.9 updated key to IS_STRING_MANIPULATED
-0.0.1-beta.8 Updated the string manipulation based on globalConfig flag isStringManipulated
-0.0.1-beta.7 updated classnames 
-0.0.1-beta.6 updated version
-0.0.1-beta.5 modified classnames
-0.0.1-beta.4 fixed some date issues 
-0.0.3 Added new components
-0.0.1 base version
-```
-
-## [0.0.2] - 2024-06-03
-
-### New Changes
-
-- Added Error Message Component. 
-- Added Info Button Component. 
-- Added Panels Component. 
-- Added Popup Component With Two Variants defualt and alert. 
-- Added RemoveableTag Component. 
-- Added Stepper Component.
-- Added TextBlock Component.
-- Added Timeline Component.
-- Added Uploader Component With Three Varinats UploadFile,UploadPopup and UploadImage.
-- Added PanelCard Molecule.
-
-### Enhancements 
-
-- Updated Button Component Styles. 
-- Updated Dropdown Component Styles and Added SelectAll Option. 
-- Updated InfoCard Component Styles. 
-- Added Animation for Toast. 
-- Added new prop named type for Toast replacing the separate props for `info`, `warning`, and `error`. 
-- Updated Typography with lineHeight 
-- Updated Color Typography
-
 ## [0.0.1-beta.28] - 2024-05-24
 
 ### New Changes
@@ -151,10 +89,38 @@ yarn storybook
         <Toast type="success" label={"Success Toast"} />
     ```
 
+## Changelog
 
-## Published from DIGIT Core
+### Summary for Version [0.0.2] - 2024-06-03
 
-Digit Core Repo (https://github.com/egovernments/Core-Platform/tree/digit-ui-core)
+#### New Changes
+
+- Added Error Message Component.
+- Added Info Button Component.
+- Added Panels Component.
+- Added Popup Component with two variants: `default` and `alert`.
+- Added RemoveableTag Component.
+- Added Stepper Component.
+- Added TextBlock Component.
+- Added Timeline Component.
+- Added Uploader Component with three variants: `UploadFile`, `UploadPopup`, and `UploadImage`.
+- Added PanelCard Molecule.
+
+#### Enhancements
+
+- Updated Button Component Styles.
+- Updated Dropdown Component Styles and added SelectAll Option.
+- Updated InfoCard Component Styles.
+- Added Animation for Toast.
+- Added new prop `type` for Toast, replacing the separate props for `info`, `warning`, and `error`.
+- Updated Typography with lineHeight.
+- Updated Color Typography.
+
+For a detailed changelog, see the [CHANGELOG.md](./CHANGELOG.md) file.
+
+## Published from DIGIT-UI-LIBRARIES
+
+DIGIT-UI-LIBRARIES Repo (https://github.com/egovernments/DIGIT-UI-LIBRARIES/tree/master)
 
 # Contributors
 

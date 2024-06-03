@@ -10,7 +10,7 @@ import {
 import { initProjectComponents } from "@egovernments/digit-ui-module-project";
 import { initSampleComponents } from "@egovernments/digit-ui-module-sample";
 
-import "@egovernments/digit-ui-css/example/index.css";
+import "@egovernments/digit-ui-components-css/example/index.css";
 
 window.contextPath = window?.globalConfigs?.getConfig("CONTEXT_PATH");
 

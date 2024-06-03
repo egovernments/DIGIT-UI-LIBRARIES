@@ -1,0 +1,50 @@
+# Changelog
+
+## [0.0.2] - 2024-06-03
+- New components and enhancements for old components
+
+### New Changes
+
+- Added Error Message Component. 
+- Added Info Button Component. 
+- Added Panels Component. 
+- Added Popup Component With Two Variants defualt and alert. 
+- Added RemoveableTag Component. 
+- Added Stepper Component.
+- Added TextBlock Component.
+- Added Timeline Component.
+- Added Uploader Component With Three Varinats UploadFile,UploadPopup and UploadImage.
+- Added PanelCard Molecule.
+
+### Enhancements 
+
+- Updated Button Component Styles. 
+- Updated Dropdown Component Styles and Added SelectAll Option. 
+- Updated InfoCard Component Styles. 
+- Added Animation for Toast. 
+- Added new prop named type for Toast replacing the separate props for `info`, `warning`, and `error`. 
+- Updated Typography with lineHeight 
+- Updated Color Typography
+
+## 0.0.1-beta
+- **13:** Fixed the login text styling issue
+- **1:** Styles for login dropdown and homepage dropdowns
+- **beta:** Added workbench related CSS and some new Digit v2 constants based on em
+- **1.5.41:** Added styles for login dropdown and homepage dropdowns
+- **1.5.40:** Alignment issue in edit and logout
+- **1.5.39:** Updated login SCSS and alignment issues
+- **1.5.37:** Updated the README content
+- **1.5.36:** Enhanced the form composer with header attribute
+- **1.5.35:** Fixed the card CSS issues
+- **1.5.34:** Fixed breadcrumb styling issue
+- **1.5.33:** Fixed some card related CSS issues due to v2 CSS
+- **1.5.32:** Newer CSS DIGITv2 added and corrected few existing issues
+- **1.5.31:** Corrected the CSS for inbox composers and default core UI
+- **1.5.30:** Updated the CSS for dynamic dropdown filter DSS
+- **1.5.29:** Layout issues fixed
+- **1.5.28:** Horizontal Bar chart alignment fixes
+- **1.5.27:** DSS UI alignment fixes for Horizontal Metric and bar chart
+- **1.5.26:** Added new CSS class for DSS enhancements
+- **1.5.25:** Added the CSS of inbox search composers
+- **1.5.24:** Added the README file
+- **1.5.23:** Base version

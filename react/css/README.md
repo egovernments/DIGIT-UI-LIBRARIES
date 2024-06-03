@@ -5,7 +5,7 @@
 ## Install
 
 ```bash
-npm install --save @egovernments/digit-ui-css
+npm install --save @egovernments/digit-ui-components-css
 ```
 
 ## Limitation
@@ -24,7 +24,7 @@ frontend/micro-ui/web/package.json
 ```
 
 ```json
-"@egovernments/digit-ui-css":"^1.5.0",
+"@egovernments/digit-ui-components-css":"0.0.2",
 ```
 
 then navigate to App.js
@@ -36,64 +36,45 @@ frontend/micro-ui/web/public/index.html
 ```jsx
 /** add this import **/
 
-  <link rel="stylesheet" href="https://unpkg.com/@egovernments/digit-ui-css@1.5.22/dist/index.css" />
+  <link rel="stylesheet" href="https://unpkg.com/@egovernments/digit-ui-components-css@0.0.2/dist/index.css" />
 
 ```
-# Changelog
+## Changelog
 
-```bash
-1.8.2-coreui.24 Added overlay for Popup
-1.8.2-coreui.23 Updated Panel success animation styles
-1.8.2-coreui.22 Updated tag, stepper styles 
-1.8.2-coreui.21 Updated Panel, Popup styles
-1.8.2-coreui.20 Added Popup,Panel and Panel Card css
-1.8.2-coreui.19 Added Uploader Variants
-1.8.2-coreui.18 Updated Text-Secondary color typography
-1.8.2-coreui.17 Updated RemoveableTag styles
-1.8.2-coreui.16 Updated numeric type to disable input and use only buttons
-1.8.2-coreui.15 Updated ErrorMessage styles
-1.8.2-coreui.14 updated dropdown checkbox css
-1.8.2-coreui.13 added spacers
-1.8.2-coreui.12 updated css for toast info and category option css 
-1.8.2-coreui.11 added info varinat for toast
-1.8.2-coreui.10 dropdown options card height updated
-1.8.2-coreui.9 enhancements of components
-1.8.2-coreui.8 updated css of loader
-1.8.2-coreui.7 updated header and textinput classnames 
-1.8.2-coreui.6 updated css with new classnames and updated tag styles 
-1.8.2-coreui.5 updated css version 
-1.8.2-coreui.4 updated classnames 
-1.8.2-coreui.3 styles for stepper and fixed date issue
-1.8.0-beta.13 fixed the login text styling issue
-1.8.0-beta.1 styles for login dropdown and homepage dropdowns
-1.8.0-beta added workbench related css and some new Digit v2 constants based on em
-1.7.0 urban 2.9
-1.6.0 urban 2.8
-1.5.41 added styles for login dropdown and homepage dropdowns
-1.5.40 aligment issue in edit and logout
-1.5.39 updated login scss and alignment issues
-1.5.37 updated the readme content
-1.5.36 enhanced the formcomposer with header attribute
-1.5.35 Fixed the card css issues
-1.5.34 Fixed breadcrumb styling issue
-1.5.33 fixed some card related css issues due to v2 css
-1.5.32 newer css DIGITv2 added and corrected few existing issues
-1.5.31 Corrected the CSS for inbox composers and default core ui
-1.5.30 Updated the css for dynamic drodown filter dss
-1.5.29 layout issues fixed
-1.5.28 Horizontal Bar chart alignment fixes
-1.5.27 DSS UI alignment fixes for Horizontal Metric and bar chart
-1.5.26 added new css class for dss enhancements
-1.5.25 added the css of inbox search composers
-1.5.24 added the readme file
-1.5.23 base version
-```
+### Summary for Version [0.0.2] - 2024-06-03
+
+#### New Changes
+
+- Added Error Message Component.
+- Added Info Button Component.
+- Added Panels Component.
+- Added Popup Component with two variants: `default` and `alert`.
+- Added RemoveableTag Component.
+- Added Stepper Component.
+- Added TextBlock Component.
+- Added Timeline Component.
+- Added Uploader Component with three variants: `UploadFile`, `UploadPopup`, and `UploadImage`.
+- Added PanelCard Molecule.
+
+#### Enhancements
+
+- Updated Button Component Styles.
+- Updated Dropdown Component Styles and added SelectAll Option.
+- Updated InfoCard Component Styles.
+- Added Animation for Toast.
+- Added new prop `type` for Toast, replacing the separate props for `info`, `warning`, and `error`.
+- Updated Typography with lineHeight.
+- Updated Color Typography.
+
+For a detailed changelog, see the [CHANGELOG.md](./CHANGELOG.md) file.
+
+## Published from DIGIT-UI-LIBRARIES
+
+DIGIT-UI-LIBRARIES Repo (https://github.com/egovernments/DIGIT-UI-LIBRARIES/tree/master)
+
 # Contributors
 
-[jagankumar-egov] [nipunarora-eGov] [Tulika-eGov] [Ramkrishna-egov] [nabeelmd-eGov] [anil-egov] [vamshikrishnakole-wtt-egov] 
-
-## Published from DIGIT Core 
-Digit Core Repo (https://github.com/egovernments/Digit-Core/tree/digit-ui-core)
+[jagankumar-egov] [nipunarora-eGov] [Tulika-eGov] [Ramkrishna-egov] [nabeelmd-eGov] [anil-egov] [swathi-egov]
 
 ## License
 
