@@ -1,6 +1,5 @@
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/material.dart';
-
 import '../../constants/AppView.dart';
 
 class LabelValuePair {
