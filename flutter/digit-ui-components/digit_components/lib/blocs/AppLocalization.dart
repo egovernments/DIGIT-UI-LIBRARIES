@@ -25,21 +25,20 @@ class ComponentLocalization {
   // Method to load localized strings
   Future<bool> load() async {
     _localizedStrings.clear();
-    // Iterate over localized strings and filter based on locale
-    for (var element in await localizedStrings) {
-      if (element.locale == '${locale.languageCode}_${locale.countryCode}') {
-        _localizedStrings.add(element);
-      }
-    }
+
+        _localizedStrings.add(localizedStrings);
+
 
     return true;
   }
 
   // Method to translate a given localized value
   String translate(String localizedValues) {
-    if (_localizedStrings.isEmpty) {
+    if (_localizedStrings.isEmpty && _localizedStrings == null) {
+      print('sdfjklllllllllllllllllllllllllllllll');
       return localizedValues;
     } else {
+      print('bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb');
       final index = _localizedStrings.indexWhere(
             (medium) => medium.code == localizedValues,
       );

@@ -1,3 +1,5 @@
+import 'package:digit_ui_components/blocs/AppLocalization.dart';
+import 'package:digit_ui_components/blocs/component_localization_delegate.dart';
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/utils/validators/validator.dart';
 import 'package:digit_ui_components/widgets/atoms/digit_stepper.dart';
@@ -5,6 +7,7 @@ import 'package:digit_ui_components/widgets/atoms/dropdown_wrapper.dart';
 import 'package:digit_ui_components/widgets/atoms/info_buttons.dart';
 import 'package:digit_ui_components/widgets/atoms/input_wrapper.dart';
 import 'package:digit_ui_components/widgets/atoms/timeline.dart';
+import 'package:digit_ui_components/widgets/atoms/upload_image.dart';
 import 'package:digit_ui_components/widgets/atoms/upload_popUp.dart';
 import 'package:digit_ui_components/widgets/molecules/digit_card.dart';
 import 'package:flutter/material.dart';
@@ -89,6 +92,8 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  //Future<dynamic> localizedStrings;
+
   /// This widget is the root of the application.
   @override
   Widget build(BuildContext context) {
@@ -99,8 +104,18 @@ class MyApp extends StatelessWidget {
         backgroundColor: DigitTheme.instance.colorScheme.secondary,
       )),
       home: const MyHomePage(title: 'Digit Components Page'),
+      localizationsDelegates: [
+        ComponentLocalization.getDelegate( getLocalizationString() , []),
+      ],
     );
   }
+}
+
+//Function to read the localizations from ISAR,
+getLocalizationString() async {
+  List<dynamic> localizationValues = [];
+
+  return localizationValues;
 }
 
 class MyHomePage extends StatefulWidget {
@@ -163,6 +178,14 @@ class MyHomePageState extends State<MyHomePage> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                ImageUploader(
+                  onImagesSelected: (List<File> imageFile) {
+                    // Handle the selected image file here
+                    // print('Image selected: ${imageFile.path}');
+                  },
+                  allowMultiples: true,
+                ),
+                SizedBox(height: 14,),
                 InputField(
                   type: InputType.text,
                   label: "Text Field",
