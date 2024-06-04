@@ -1,6 +1,6 @@
 # Changelog
 
-## [0.0.2-coreui.1] - 2024-06-04
+## [0.0.2-beta.1] - 2024-06-04
 ### Changed
 - Updated Popup Classname
 
