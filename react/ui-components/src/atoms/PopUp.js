@@ -6,6 +6,7 @@ import StringManipulator from "./StringManipulator";
 const PopUp = (props) => {
   const [isOverflowing, setIsOverflowing] = useState(false);
   const childrenWrapRef = useRef(null);
+  const overlayRef = useRef(null);
 
   const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 480);
 
@@ -56,6 +57,12 @@ const PopUp = (props) => {
       window.removeEventListener("resize", onResize);
     };
   }, []);
+
+  useEffect(() => {
+    if (overlayRef.current) {
+      overlayRef.current.focus();
+    }
+  }, [overlayRef]);
 
   const IconRender = (type, iconReq, iconFill) => {
     const fill = iconFill || "#D4351C";
@@ -108,8 +115,20 @@ const PopUp = (props) => {
       : sortedFooterButtons
     : allowedFooter;
 
+  const handleKeyDown = (event) => {
+    if (event.key === "Escape") {
+      props?.onClose();
+    }
+  };
+
   return (
-    <div className={`digit-popup-overlay ${props?.overlayClassName || ""}`} onClick={() => props?.onOverlayClick()}>
+    <div
+      className={`digit-popup-overlay ${props?.overlayClassName || ""}`}
+      onClick={() => props?.onOverlayClick()}
+      ref={overlayRef}
+      onKeyDown={handleKeyDown}
+      tabIndex={0}
+    >
       <div
         className={`digit-popup-wrapper ${
           props?.className ? props?.className : ""
@@ -251,7 +270,7 @@ PopUp.propTypes = {
   footerChildren: PropTypes.node,
   onClose: PropTypes.func,
   type: PropTypes.string,
-  onOverlayClick:PropTypes.func
+  onOverlayClick: PropTypes.func,
 };
 
 export default PopUp;
