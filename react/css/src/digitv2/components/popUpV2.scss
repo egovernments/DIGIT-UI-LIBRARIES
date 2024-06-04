@@ -1,4 +1,4 @@
-.popup-overlay {
+.digit-popup-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -12,7 +12,7 @@
   backdrop-filter: blur(2px); 
   -webkit-backdrop-filter: blur(2px); 
 
-  .digit-popup-wrap {
+  .digit-popup-wrapper {
     @apply w-full h-auto flex-col fixed;
     z-index: 10000;
     background-color: theme(digitv2.lightTheme.paper-primary);

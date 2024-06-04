@@ -109,9 +109,9 @@ const PopUp = (props) => {
     : allowedFooter;
 
   return (
-    <div className={`popup-overlay ${props?.overlayClassName || ""}`} onClick={() => props?.onOverlayClick()}>
+    <div className={`digit-popup-overlay ${props?.overlayClassName || ""}`} onClick={() => props?.onOverlayClick()}>
       <div
-        className={`digit-popup-wrap ${
+        className={`digit-popup-wrapper ${
           props?.className ? props?.className : ""
         } ${props?.type ? props?.type : ""}`}
         style={props?.style}
