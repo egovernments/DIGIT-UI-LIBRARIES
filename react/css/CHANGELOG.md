@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.0.2-coreui.1] - 2024-06-04
+### Changed
+- Updated Popup Classname
+
+
 ## [0.0.2] - 2024-06-03
 - New components and enhancements for old components
 
