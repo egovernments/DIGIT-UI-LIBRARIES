@@ -29,16 +29,16 @@ class SelectionChip<T> extends StatelessWidget {
 
     DigitTypography currentTypography = getTypography(context, false);
 
-    return InkWell(
-      onTap: onClick,
-      hoverColor: const DigitColors().transparent,
-      highlightColor: const DigitColors().transparent,
-      splashColor: const DigitColors().transparent,
-      child: IntrinsicWidth(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
+    return IntrinsicWidth(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          InkWell(
+            onTap: onClick,
+            hoverColor: const DigitColors().transparent,
+            highlightColor: const DigitColors().transparent,
+            splashColor: const DigitColors().transparent,
+            child: Container(
               padding: const EdgeInsets.symmetric(
                 horizontal: spacer2,
                 vertical: spacer2,
@@ -111,44 +111,44 @@ class SelectionChip<T> extends StatelessWidget {
                 ],
               ),
             ),
-            if (errorMessage != null)
-              const SizedBox(
-                height: spacer1,
-              ),
-            if (errorMessage != null)
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Column(
-                    children: [
-                      const SizedBox(
-                        height: spacer1/2,
-                      ),
-                      Icon(
-                        Icons.info,
-                        color: const DigitColors().light.alertError,
-                        size: spacer4,
-                      ),
-                    ],
-                  ),
-                  const SizedBox(width: spacer1),
-                  Flexible(
-                    fit: FlexFit.tight,
-                    child: Text(
-                      errorMessage!.length > 256
-                          ? truncateWithEllipsis(256, capitalizedErrorMessage!)
-                          : capitalizedErrorMessage!,
-                      style: currentTypography.bodyS.copyWith(
-                        color: const DigitColors().light.alertError,
-                      ),
+          ),
+          if (errorMessage != null)
+            const SizedBox(
+              height: spacer1,
+            ),
+          if (errorMessage != null)
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Column(
+                  children: [
+                    const SizedBox(
+                      height: spacer1/2,
+                    ),
+                    Icon(
+                      Icons.info,
+                      color: const DigitColors().light.alertError,
+                      size: spacer4,
+                    ),
+                  ],
+                ),
+                const SizedBox(width: spacer1),
+                Flexible(
+                  fit: FlexFit.tight,
+                  child: Text(
+                    errorMessage!.length > 256
+                        ? truncateWithEllipsis(256, capitalizedErrorMessage!)
+                        : capitalizedErrorMessage!,
+                    style: currentTypography.bodyS.copyWith(
+                      color: const DigitColors().light.alertError,
                     ),
                   ),
-                ],
-              )
-          ],
-        ),
+                ),
+              ],
+            )
+        ],
       ),
     );
   }
