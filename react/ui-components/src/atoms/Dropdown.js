@@ -113,6 +113,7 @@ const TextField = (props) => {
       placeholder={props.placeholder}
       autoComplete={"off"}
       style={props.style}
+      title={props.showToolTip?replaceDotWithColon(value):undefined}
     />
   );
 };
@@ -316,6 +317,9 @@ const Dropdown = (props) => {
             ) : (
               <span
                 className={`main-option ${props.variant ? props?.variant : ""}`}
+                title={props.showToolTip?props.t
+                  ? props.t(option[props?.optionKey])
+                  : option[props?.optionKey]:undefined}
               >
                 {props.t
                   ? props.t(option[props?.optionKey])
@@ -456,6 +460,7 @@ const Dropdown = (props) => {
             placeholder={props.placeholder}
             onBlur={props?.onBlur}
             inputRef={props.ref}
+            showToolTip={props.showToolTip}
           />
           {props.showSearchIcon ? null : (
             <SVG.ArrowDropDown
