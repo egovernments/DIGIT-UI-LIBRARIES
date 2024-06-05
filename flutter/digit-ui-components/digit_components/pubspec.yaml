@@ -42,6 +42,7 @@ dependencies:
   path_provider: ^2.0.11
   visibility_detector: 0.4.0+2
   lottie: 3.1.2
+  universal_html: 2.2.4
 
 
 dev_dependencies:

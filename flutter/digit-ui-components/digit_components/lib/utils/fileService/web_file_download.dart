@@ -1,6 +1,5 @@
 import 'dart:typed_data';
-import 'dart:html' as html;
-
+import 'package:universal_html/html.dart' as html;
 import 'package:digit_ui_components/widgets/atoms/upload_drag.dart';
 
 class WebFileDownloader {

@@ -1,4 +1,3 @@
-import 'dart:typed_data';
 import 'package:digit_ui_components/widgets/atoms/upload_drag.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'mobile_file_download.dart';

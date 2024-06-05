@@ -25,7 +25,7 @@ void showPopup({
   showDialog(
     context: context,
     barrierColor: const DigitColors().overLayColor.withOpacity(.70),
-    builder: (BuildContext context) {
+    builder: (BuildContext currentContext) {
       return BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
         child: Popup(
@@ -42,8 +42,8 @@ void showPopup({
           actionAlignment: actionAlignment,
           actionSpacing: actionSpacing,
           onCrossTap: () {
-            if (Navigator.of(context).mounted) {
-              Navigator.of(context).pop();
+            if (Navigator.of(currentContext).mounted) {
+              Navigator.of(currentContext).pop();
             }
           },
         ),

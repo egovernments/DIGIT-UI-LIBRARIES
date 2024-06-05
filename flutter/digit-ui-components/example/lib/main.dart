@@ -5,6 +5,7 @@ import 'package:digit_ui_components/widgets/atoms/dropdown_wrapper.dart';
 import 'package:digit_ui_components/widgets/atoms/info_buttons.dart';
 import 'package:digit_ui_components/widgets/atoms/input_wrapper.dart';
 import 'package:digit_ui_components/widgets/atoms/timeline.dart';
+import 'package:digit_ui_components/widgets/atoms/upload_image.dart';
 import 'package:digit_ui_components/widgets/atoms/upload_popUp.dart';
 import 'package:digit_ui_components/widgets/molecules/digit_card.dart';
 import 'package:flutter/material.dart';
@@ -163,6 +164,13 @@ class MyHomePageState extends State<MyHomePage> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                ImageUploader(
+                  onImagesSelected: (List<File> imageFile) {
+                    // Handle the selected image file here
+                    // print('Image selected: ${imageFile.path}');
+                  },
+                ),
+                const SizedBox(height: 16,),
                 InputField(
                   type: InputType.text,
                   label: "Text Field",

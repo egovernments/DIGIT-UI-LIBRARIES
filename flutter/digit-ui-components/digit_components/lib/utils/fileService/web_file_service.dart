@@ -1,5 +1,5 @@
 import 'dart:typed_data';
-import 'dart:html' as html;
+import 'package:universal_html/html.dart' as html;
 
 class WebFileWriter {
   Future<String> writeToTemporaryFile(Uint8List dataBytes, String fileName) async {
