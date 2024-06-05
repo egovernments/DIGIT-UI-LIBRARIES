@@ -14,11 +14,11 @@ class LabelValuePair {
   });
 }
 
-class LabelValueWidget extends StatelessWidget {
+class LabelValueList extends StatelessWidget {
   final List<LabelValuePair> items;
   final EdgeInsets? padding;
 
-  const LabelValueWidget({
+  const LabelValueList({
     Key? key,
     required this.items,
     this.padding,
@@ -44,27 +44,42 @@ class LabelValueWidget extends StatelessWidget {
       padding: padding ?? const EdgeInsets.symmetric(vertical: 8.0),
       child: item.isInline
           ? Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  item.label,
-                  style: currentTypography.headingS.copyWith(color: const DigitColors().light.textPrimary),
-                ),
-                SizedBox(width: 8),
-                Text(item.value, style: currentTypography.bodyS.copyWith(color: const DigitColors().light.textPrimary),),
-              ],
-            )
-          : Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  item.label,
-                  style: currentTypography.headingS.copyWith(color: const DigitColors().light.textPrimary),
-                ),
-                SizedBox(height: 8),
-                Text(item.value, style: currentTypography.bodyS.copyWith(color: const DigitColors().light.textPrimary),),
-              ],
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Label taking 30% width
+          Expanded(
+            flex: 3, // 30% width
+            child: Text(
+              item.label,
+              style: currentTypography.headingS.copyWith(color: const DigitColors().light.textPrimary),
             ),
+          ),
+          const SizedBox(width: 24), // Gap between label and value
+          // Value taking rest of the width
+          Expanded(
+            flex: 7, // Remaining 70% width
+            child: Text(
+              item.value,
+              style: currentTypography.bodyS.copyWith(color: const DigitColors().light.textPrimary),
+            ),
+          ),
+        ],
+      )
+          : Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            item.label,
+            style: currentTypography.headingS.copyWith(color: const DigitColors().light.textPrimary),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            item.value,
+            style: currentTypography.bodyS.copyWith(color: const DigitColors().light.textPrimary),
+          ),
+        ],
+      ),
     );
   }
+
 }

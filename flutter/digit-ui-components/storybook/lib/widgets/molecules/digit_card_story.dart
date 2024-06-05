@@ -1,11 +1,16 @@
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/enum/app_enums.dart';
 import 'package:digit_ui_components/models/DropdownModels.dart';
+import 'package:digit_ui_components/widgets/atoms/digit_divider.dart';
+import 'package:digit_ui_components/widgets/atoms/file_uploader.dart';
 import 'package:digit_ui_components/widgets/atoms/file_uploader2.dart';
+import 'package:digit_ui_components/widgets/atoms/list_view.dart';
+import 'package:digit_ui_components/widgets/atoms/text_block.dart';
 import 'package:digit_ui_components/widgets/helper_widget/selection_chip.dart';
 import 'package:digit_ui_components/widgets/molecules/digit_card.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:digit_ui_components/widgets/atoms/dropdown_wrapper.dart';
 
 List<Story> cardStories() {
@@ -20,7 +25,70 @@ List<Story> cardStories() {
               child: DigitTextFormInput(
                 controller: TextEditingController(),
               )),
-
+        ],
+      ),
+    ),
+    Story(
+      name: 'Molecule/Card/form Card',
+      builder: (context) => DigitCard(
+        cardType: CardType.primary,
+        children: [
+          const TextChunk(
+            heading: 'Heading',
+          ),
+          LabeledField(
+              label: 'Text Field',
+              child: DigitTextFormInput(
+                controller: TextEditingController(),
+              )),
+          const SizedBox(height: 8,),
+          const DigitDivider(),
+          const TextChunk(
+            subHeading: 'Add your start and end dates for cycles',
+          ),
+          FileUploadWidget2(
+            label: 'Upload', onFilesSelected: (file){},
+          ),
+        ],
+      ),
+    ),
+    Story(
+      name: 'Molecule/Card/View Card',
+      builder: (context) => DigitCard(
+        cardType: CardType.primary,
+        children: [
+          const TextChunk(
+            heading: 'Heading',
+          ),
+          const DigitDivider(),
+           TextChunk(
+             padding: const EdgeInsets.only(top: 8),
+            subHeading: 'Details', subHeadingStyle: TextStyle(fontSize: 24,
+            fontWeight: FontWeight.w700,
+            fontFamily: 'Roboto',
+            height: 1.14, color: const DigitColors().light.primary2),
+          ),
+          LabelValueList(
+            padding: const EdgeInsets.only(bottom: 8),
+            items: [
+            LabelValuePair(label: 'start date', value: '22/03/2025'),
+            LabelValuePair(label: 'start date', value: '22/03/2025'),
+            LabelValuePair(label: 'start date', value: '22/03/2025'),
+            LabelValuePair(label: 'start date', value: '22/03/2025'),
+            LabelValuePair(label: 'start date', value: '22/03/2025'),
+          ],
+          ),
+          const DigitDivider(),
+          TextChunk(
+            padding: const EdgeInsets.only(top: 8),
+            subHeading: 'Add your start and end dates for cycles', subHeadingStyle: TextStyle(fontSize: 24,
+              fontWeight: FontWeight.w700,
+              fontFamily: 'Roboto',
+              height: 1.14, color: const DigitColors().light.primary2),
+          ),
+          FileUploadWidget2(
+            label: 'Upload', onFilesSelected: (file){},
+          ),
         ],
       ),
     ),
@@ -232,13 +300,18 @@ List<Story> cardStories() {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text('Upload Target'),
-              Button(label: 'Download', onPressed: (){}, type: ButtonType.secondary, size: ButtonSize.medium)
+              Button(
+                  label: 'Download',
+                  onPressed: () {},
+                  type: ButtonType.secondary,
+                  size: ButtonSize.medium)
             ],
           ),
           FileUploadWidget2(
             showPreview: true,
             allowMultipleImages: false,
-            label: 'Upload', onFilesSelected: (DroppedFile) {  },
+            label: 'Upload',
+            onFilesSelected: (DroppedFile) {},
           ),
         ],
       ),

@@ -1,7 +1,6 @@
 import 'package:digit_ui_components/constants/AppView.dart';
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/material.dart';
-import '../../theme/digit_theme.dart';
 
 class DigitCard extends StatelessWidget {
   final List<Widget> children;
@@ -10,6 +9,9 @@ class DigitCard extends StatelessWidget {
   final VoidCallback? onPressed;
   final CardType cardType;
   final bool inline;
+  final double? width;
+  final double? height;
+  final double? spacing;
 
   const DigitCard({
     required this.children,
@@ -19,6 +21,9 @@ class DigitCard extends StatelessWidget {
     this.margin,
     this.onPressed,
     required this.cardType,
+    this.width,
+    this.height,
+    this.spacing,
   });
 
   @override
@@ -26,10 +31,8 @@ class DigitCard extends StatelessWidget {
     bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
     bool isTab = AppView.isTabletView(MediaQuery.of(context).size);
     return Container(
-      //width: MediaQuery.of(context).size.width,
-      // will take the max width of the content present inside this
-      // provide a max width for the card
-
+      width: width,
+      height: height,
       margin: margin,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4),
@@ -77,7 +80,7 @@ class DigitCard extends StatelessWidget {
                                     padding: EdgeInsets.only(
                     right: entry.key == children.length - 1
                         ? 0
-                        : 16,
+                        : spacing ?? 16,
                                     ),
                                     child: entry.value,
                                   ),
@@ -97,7 +100,7 @@ class DigitCard extends StatelessWidget {
                 padding: EdgeInsets.only(
                   bottom: entry.key == children.length - 1
                       ? 0
-                      : 16,
+                      : spacing ?? 16,
                 ),
                 child: entry.value,
               ))

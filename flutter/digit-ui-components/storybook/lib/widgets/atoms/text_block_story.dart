@@ -10,7 +10,7 @@ List<Story> textBlockStories() {
       builder: (context) => TextChunk(
         caption: context.knobs.text(label: 'Caption', initial: 'This is a caption'),
         heading: context.knobs.text(label: 'Heading', initial: 'This is a headings'),
-        subheading: context.knobs.text(label: 'Subheading', initial: 'This is a subheading'),
+        subHeading: context.knobs.text(label: 'Subheading', initial: 'This is a subheading'),
         body: context.knobs.text(label: 'Body', initial: 'This is the body text. It contains the main content and can be of any length.'),
       ),
     ),

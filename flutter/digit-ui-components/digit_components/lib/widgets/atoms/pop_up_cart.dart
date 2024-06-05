@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import '../../constants/AppView.dart';
 import '../../theme/colors.dart';
 import '../../theme/typography.dart';
@@ -196,11 +197,7 @@ class _PopupState extends State<Popup> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           widget.titleIcon ??
-              Icon(
-                Icons.warning,
-                size: 48,
-                color: const DigitColors().light.alertError,
-              ),
+              Lottie.asset('assets/animation_json/alert_2.json', repeat: false, width: 74, height: 74, fit: BoxFit.cover),
           const SizedBox(
             width: 8,
           ),
