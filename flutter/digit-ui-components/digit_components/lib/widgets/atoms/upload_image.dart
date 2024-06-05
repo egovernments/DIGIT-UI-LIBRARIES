@@ -8,10 +8,8 @@ import 'package:camera/camera.dart';
 import '../../utils/validators/file_validator.dart';
 import '../../utils/validators/image_validator.dart';
 import '../helper_widget/button_list.dart';
-import '../localized.dart';
-import '../../utils/i18_key_constants.dart' as i18;
 
-class ImageUploader extends LocalizedStatefulWidget {
+class ImageUploader extends StatefulWidget {
   final Function(List<File>) onImagesSelected;
   final bool allowMultiples;
   final String? errorMessage;
@@ -19,7 +17,6 @@ class ImageUploader extends LocalizedStatefulWidget {
 
   const ImageUploader(
       {super.key,
-        super.appLocalizations,
       required this.onImagesSelected,
       this.allowMultiples = false,
       this.errorMessage,
@@ -29,7 +26,7 @@ class ImageUploader extends LocalizedStatefulWidget {
   _ImageUploaderState createState() => _ImageUploaderState();
 }
 
-class _ImageUploaderState extends LocalizedState<ImageUploader> {
+class _ImageUploaderState extends State<ImageUploader> {
   late final List<File> _imageFiles = []; // List to hold multiple images
   late CameraController? _cameraController;
   late Future<void>? _initializeControllerFuture;
@@ -528,9 +525,7 @@ class _ImageUploaderState extends LocalizedState<ImageUploader> {
                     Icon(Icons.camera_enhance,
                         size: spacer10,
                         color: const DigitColors().light.primary1),
-                    Text(localizations.translate(
-                      const i18.Common().cameraUploaderText,
-                    ),
+                    Text('Click to add photo',
                         style: TextStyle(
                             color: const DigitColors().light.primary1)),
                   ],
