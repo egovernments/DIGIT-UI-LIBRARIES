@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="527a2fe1-eac1-442a-a699-c8c48a8f093b" name="Changes" comment="fix the error for web only files">
+    <list default="true" id="527a2fe1-eac1-442a-a699-c8c48a8f093b" name="Changes" comment="integrating pop to image upload">
       <change afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/assets/animation_json/alert_1.json" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/assets/animation_json/alert_2.json" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/assets/icons/svg/digit_logo_dark.svg" afterDir="false" />
@@ -59,22 +59,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Git.Branch.Popup.ShowAllRemotes": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
-    "cidr.known.project.marker": "true",
-    "com.google.services.firebase.aqiPopupShown": "true",
-    "dart.analysis.tool.window.visible": "false",
-    "io.flutter.reload.alreadyRun": "true",
-    "last_opened_file_path": "/home/admin1/DIGIT-OSS/DIGIT-UI-LIBRARIES/flutter/digit-ui-components/storybook/assets/icons/svg",
-    "settings.editor.selected.configurable": "dart.settings",
-    "show.migrate.to.gradle.popup": "false"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Git.Branch.Popup.ShowAllRemotes&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;com.google.services.firebase.aqiPopupShown&quot;: &quot;true&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/admin1/DIGIT-OSS/DIGIT-UI-LIBRARIES/flutter/digit-ui-components/storybook/assets/icons/svg&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;dart.settings&quot;,
+    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/flutter/digit-ui-components/storybook/assets/icons/svg" />
