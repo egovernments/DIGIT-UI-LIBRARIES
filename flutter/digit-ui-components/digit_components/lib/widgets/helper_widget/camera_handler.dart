@@ -4,21 +4,27 @@ import 'package:camera/camera.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
+import '../../constants/AppView.dart';
+
+typedef CameraHandlerCreatedCallback = void Function(CameraHandlerState);
+
 class CameraHandler extends StatefulWidget {
   final ImageSource source;
   final Function(File) onImageCaptured;
+  final CameraHandlerCreatedCallback? onCameraHandlerCreated;
 
   const CameraHandler({
     Key? key,
     required this.source,
     required this.onImageCaptured,
+    this.onCameraHandlerCreated,
   }) : super(key: key);
 
   @override
-  _CameraHandlerState createState() => _CameraHandlerState();
+  CameraHandlerState createState() => CameraHandlerState();
 }
 
-class _CameraHandlerState extends State<CameraHandler> {
+class CameraHandlerState extends State<CameraHandler> {
   CameraController? _cameraController;
   Future<void>? _initializeControllerFuture;
 
@@ -29,6 +35,10 @@ class _CameraHandlerState extends State<CameraHandler> {
       _initializeCamera();
     } else {
       _pickImageFromGallery();
+    }
+    // Notify parent about the created state
+    if (widget.onCameraHandlerCreated != null) {
+      widget.onCameraHandlerCreated!(this);
     }
   }
 
@@ -57,7 +67,13 @@ class _CameraHandlerState extends State<CameraHandler> {
     }
   }
 
-  Future<void> _handleImageCapture() async {
+  Future<void> captureImage() async {
+    if (_cameraController == null || !_cameraController!.value.isInitialized) {
+      if (kDebugMode) {
+        print('Error: Camera is not initialized');
+      }
+      return;
+    }
     try {
       final XFile picture = await _cameraController!.takePicture();
       widget.onImageCaptured(File(picture.path));
@@ -83,15 +99,22 @@ class _CameraHandlerState extends State<CameraHandler> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<void>(
-      future: _initializeControllerFuture,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
-          return CameraPreview(_cameraController!);
-        } else {
-          return const Center(child: CircularProgressIndicator());
-        }
-      },
+    bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
+    bool isTab = AppView.isTabletView(MediaQuery.of(context).size);
+
+    return SizedBox(
+      width: isTab ? 392 : 672,
+      height: isTab ? 350 : 285,
+      child: FutureBuilder<void>(
+        future: _initializeControllerFuture,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            return CameraPreview(_cameraController!);
+          } else {
+            return const Center(child: CircularProgressIndicator());
+          }
+        },
+      ),
     );
   }
 }

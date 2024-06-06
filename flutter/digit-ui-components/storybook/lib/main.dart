@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
               ...toggleGroupStories(),
               ...dropdownStories(),
               ...stepperStories(),
-              ///...fileUploaderStories(),
+              ...fileUploaderStories(),
               ...actionStories(),
               ...popUpStories(),
               ...panelStories(),

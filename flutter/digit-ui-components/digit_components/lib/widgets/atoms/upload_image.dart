@@ -5,10 +5,8 @@ import 'package:digit_ui_components/widgets/atoms/pop_up_card.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:camera/camera.dart';
 import '../../utils/validators/file_validator.dart';
 import '../../utils/validators/image_validator.dart';
-import '../helper_widget/button_list.dart';
 import '../helper_widget/camera_handler.dart';
 
 class ImageUploader extends StatefulWidget {
@@ -29,7 +27,7 @@ class ImageUploader extends StatefulWidget {
 }
 
 class _ImageUploaderState extends State<ImageUploader> {
-  late final List<File> _imageFiles = []; // List to hold multiple images
+  late final List<File> _imageFiles = [];
   late DigitTypography currentTypography;
   late bool isMobile;
   late bool isTab;
@@ -42,301 +40,58 @@ class _ImageUploaderState extends State<ImageUploader> {
         context: context,
         useSafeArea: false,
         builder: (BuildContext context) {
+          CameraHandlerState? cameraHandlerState;
           return Popup(
-              title: 'Camera',
-              type: PopUpType.simple,
-              width: isTab ? 440 : 720,
-              height: isTab ? 508 : 448,
-              actions: [
-                Button(
-                  mainAxisSize: MainAxisSize.max,
-                  prefixIcon: Icons.camera_enhance,
-                  label: 'Capture',
-                  size: ButtonSize.large,
-                  type: ButtonType.primary,
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                    _handleImageCapture();
-                  },
-                ),
-                Button(
-                  mainAxisSize: MainAxisSize.max,
-                  label: 'Cancel',
-                  size: ButtonSize.large,
-                  type: ButtonType.secondary,
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-              ],
-              additionalWidgets: [
-                CameraHandler(
-                    source: source,
-                    onImageCaptured: (image) {
-                      print(image.path);
-                    })
-              ]);
-          //   isMobile
-          //     ? Dialog.fullscreen(
-          //   backgroundColor:
-          //   const DigitColors().overLayColor.withOpacity(.70),
-          //   child: Container(
-          //     margin: const EdgeInsets.all(spacer4),
-          //     color: const DigitColors().light.paperPrimary,
-          //     child: Column(
-          //       mainAxisSize: MainAxisSize.min,
-          //       mainAxisAlignment: MainAxisAlignment.start,
-          //       crossAxisAlignment: CrossAxisAlignment.center,
-          //       children: [
-          //         Row(
-          //           mainAxisSize: MainAxisSize.max,
-          //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //           crossAxisAlignment: CrossAxisAlignment.start,
-          //           children: [
-          //             Container(
-          //               padding: const EdgeInsets.all(spacer6),
-          //               child: Text(
-          //                 'Camera',
-          //                 style: currentTypography.headingM.copyWith(
-          //                     color: const DigitColors()
-          //                         .light
-          //                         .textPrimary),
-          //               ),
-          //             ),
-          //             Padding(
-          //               padding: const EdgeInsets.only(
-          //                 top: spacer2,
-          //                 right: spacer2,
-          //               ),
-          //               child: InkWell(
-          //                   hoverColor: const DigitColors().transparent,
-          //                   highlightColor:
-          //                   const DigitColors().transparent,
-          //                   splashColor:
-          //                   const DigitColors().transparent,
-          //                   onTap: () {
-          //                     _closeCamera();
-          //                     Navigator.of(context).pop();
-          //                   },
-          //                   child: Icon(
-          //                     Icons.close,
-          //                     size: spacer8,
-          //                     color: const DigitColors().light.primary2,
-          //                   )),
-          //             ),
-          //           ],
-          //         ),
-          //         Expanded(
-          //           child: Padding(
-          //             padding: const EdgeInsets.symmetric(
-          //                 horizontal: spacer6),
-          //             child: FutureBuilder<void>(
-          //               future: _initializeControllerFuture,
-          //               builder: (context, snapshot) {
-          //                 if (snapshot.connectionState ==
-          //                     ConnectionState.done) {
-          //                   return CameraPreview(_cameraController!);
-          //                 } else {
-          //                   return const Center(
-          //                       child: CircularProgressIndicator());
-          //                 }
-          //               },
-          //             ),
-          //           ),
-          //         ),
-          //         Padding(
-          //           padding: const EdgeInsets.all(spacer6),
-          //           child: Column(
-          //             mainAxisAlignment: MainAxisAlignment.center,
-          //             children: [
-          //               Button(
-          //                 mainAxisSize: MainAxisSize.max,
-          //                 prefixIcon: Icons.camera_enhance,
-          //                 label: 'Capture',
-          //                 size: ButtonSize.large,
-          //                 type: ButtonType.primary,
-          //                 onPressed: () {
-          //                   Navigator.of(context).pop();
-          //                   _handleImageCapture();
-          //                 },
-          //               ),
-          //               const SizedBox(
-          //                 height: spacer4,
-          //               ),
-          //               Button(
-          //                 mainAxisSize: MainAxisSize.max,
-          //                 label: 'Cancel',
-          //                 size: ButtonSize.large,
-          //                 type: ButtonType.secondary,
-          //                 onPressed: () {
-          //                   Navigator.of(context).pop();
-          //                   _closeCamera();
-          //                 },
-          //               ),
-          //             ],
-          //           ),
-          //         ),
-          //       ],
-          //     ),
-          //   ),
-          // )
-          //     : AlertDialog(
-          //   shape: RoundedRectangleBorder(
-          //     borderRadius: BorderRadius.circular(spacer1),
-          //   ),
-          //   surfaceTintColor: const DigitColors().light.paperPrimary,
-          //   contentPadding: EdgeInsets.zero,
-          //   content: SizedBox(
-          //     width: isTab ? 440 : 720,
-          //     height: isTab ? 508 : 448,
-          //     child: Column(
-          //       mainAxisSize: MainAxisSize.min,
-          //       mainAxisAlignment: MainAxisAlignment.start,
-          //       crossAxisAlignment: CrossAxisAlignment.center,
-          //       children: [
-          //         Row(
-          //           mainAxisSize: MainAxisSize.max,
-          //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //           crossAxisAlignment: CrossAxisAlignment.start,
-          //           children: [
-          //             Container(
-          //               padding: const EdgeInsets.all(spacer6),
-          //               child: Text(
-          //                 'Camera',
-          //                 style: currentTypography.headingM.copyWith(
-          //                     color: const DigitColors()
-          //                         .light
-          //                         .textPrimary),
-          //               ),
-          //             ),
-          //             Padding(
-          //               padding: EdgeInsets.only(
-          //                 top: isTab ? spacer2 : spacer3,
-          //                 right: isTab ? spacer2 : spacer3,
-          //               ),
-          //               child: InkWell(
-          //                   hoverColor: const DigitColors().transparent,
-          //                   highlightColor:
-          //                   const DigitColors().transparent,
-          //                   splashColor:
-          //                   const DigitColors().transparent,
-          //                   onTap: () {
-          //                     _closeCamera();
-          //                     Navigator.of(context).pop();
-          //                   },
-          //                   child: Icon(
-          //                     Icons.close,
-          //                     size: spacer8,
-          //                     color: const DigitColors().light.primary2,
-          //                   )),
-          //             ),
-          //           ],
-          //         ),
-          //         SizedBox(
-          //           width: isTab ? 392 : 672,
-          //           height: isTab ? 346 : 285,
-          //           // padding: const EdgeInsets.symmetric(horizontal: 24),
-          //           child: FutureBuilder<void>(
-          //             future: _initializeControllerFuture,
-          //             builder: (context, snapshot) {
-          //               if (snapshot.connectionState ==
-          //                   ConnectionState.done) {
-          //                 return CameraPreview(_cameraController!);
-          //               } else {
-          //                 return const Center(
-          //                     child: CircularProgressIndicator());
-          //               }
-          //             },
-          //           ),
-          //         ),
-          //         Padding(
-          //           padding: const EdgeInsets.all(spacer6),
-          //           child: ButtonListTile(
-          //             buttons: [
-          //               Button(
-          //                 label: 'Cancel',
-          //                 mainAxisSize: MainAxisSize.max,
-          //                 size: ButtonSize.large,
-          //                 type: ButtonType.secondary,
-          //                 onPressed: () {
-          //                   Navigator.of(context).pop();
-          //                   _closeCamera();
-          //                 },
-          //               ),
-          //               Button(
-          //                 label: 'Capture',
-          //                 size: ButtonSize.large,
-          //                 mainAxisSize: MainAxisSize.max,
-          //                 prefixIcon: Icons.camera_enhance,
-          //                 type: ButtonType.primary,
-          //                 onPressed: () {
-          //                   Navigator.of(context).pop();
-          //                   _handleImageCapture();
-          //                 },
-          //               ),
-          //             ],
-          //           ),
-          //         ),
-          //       ],
-          //     ),
-          //   ),
-          // );
+            title: 'Camera',
+            type: PopUpType.simple,
+            width: isTab ? 440 : 720,
+            height: isTab ? 508 : 448,
+            actions: [
+              Button(
+                mainAxisSize: MainAxisSize.max,
+                prefixIcon: Icons.camera_enhance,
+                label: 'Capture',
+                size: ButtonSize.large,
+                type: ButtonType.primary,
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  cameraHandlerState?.captureImage(); // Trigger the capture
+                },
+              ),
+              Button(
+                mainAxisSize: MainAxisSize.max,
+                label: 'Cancel',
+                size: ButtonSize.large,
+                type: ButtonType.secondary,
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+            additionalWidgets: [
+              CameraHandler(
+                source: source,
+                onImageCaptured: (image) {
+                  _handleImageCapture(image);
+                },
+                onCameraHandlerCreated: (CameraHandlerState state) {
+                  cameraHandlerState = state; // Capture the state instance
+                },
+              ),
+            ],
+          );
         },
       );
-    } else {
-      ImagePicker().pickImage(source: source).then((pickedFile) {
-        if (pickedFile != null) {
-          if (widget.validators != null) {
-            String? validationError =
-                validateImage(pickedFile, widget.validators!, pickedFile.name);
-            if (validationError != null) {
-              setState(() {
-                fileError = validationError;
-              });
-              return;
-            }
-          }
-          setState(() {
-            fileError = ''; // Clear the error message
-            widget.allowMultiples
-                ? _imageFiles.add(File(pickedFile.path))
-                : _imageFiles.add(File(pickedFile.path));
-          });
-          widget.onImagesSelected(_imageFiles);
-        } else {
-          if (kDebugMode) {
-            print('No image selected.');
-          }
-        }
-      });
     }
   }
 
-  Future<void> _handleImageCapture() async {
-    // try {
-    //   final XFile picture = await _cameraController!.takePicture();
-    //   if (widget.validators != null) {
-    //     String? validationError =
-    //     validateImage(picture, widget.validators!, picture.name);
-    //     if (validationError != null) {
-    //       setState(() {
-    //         fileError = validationError;
-    //       });
-    //       return;
-    //     }
-    //   }
-    //   setState(() {
-    //     fileError = '';
-    //     widget.allowMultiples
-    //         ? _imageFiles.add(File(picture.path))
-    //         : _imageFiles.add(File(picture.path));
-    //   });
-    //   widget.onImagesSelected(_imageFiles);
-    // } catch (e) {
-    //   if (kDebugMode) {
-    //     print('Error taking picture: $e');
-    //   }
-    // }
+
+  Future<void> _handleImageCapture(File image) async {
+    setState(() {
+      widget.allowMultiples
+          ? _imageFiles.add(image)
+          : _imageFiles.add(image);
+    });
   }
 
   @override
@@ -361,72 +116,28 @@ class _ImageUploaderState extends State<ImageUploader> {
             ? showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  return AlertDialog(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(spacer1),
-                    ),
-                    contentPadding: EdgeInsets.zero,
-                    surfaceTintColor: const DigitColors().light.paperPrimary,
-                    content: SizedBox(
-                      height: isTab ? 228 : 240,
-                      width: isTab ? 440 : 600,
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                padding: const EdgeInsets.all(spacer6),
-                                child: Text(
-                                  'Choose an option to upload',
-                                  style: currentTypography.headingM.copyWith(
-                                      color: const DigitColors()
-                                          .light
-                                          .textPrimary),
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                  top: isTab ? spacer2 : spacer3,
-                                  right: isTab ? spacer2 : spacer3,
-                                ),
-                                child: InkWell(
-                                    hoverColor: const DigitColors().transparent,
-                                    highlightColor:
-                                        const DigitColors().transparent,
-                                    splashColor:
-                                        const DigitColors().transparent,
-                                    onTap: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: Icon(
-                                      Icons.close,
-                                      size: spacer8,
-                                      color: const DigitColors().light.primary2,
-                                    )),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[
-                              _buildInkWell(Icons.camera_enhance, "Camera", () {
-                                Navigator.of(context).pop();
-                                _getImage(ImageSource.camera);
-                              }, currentTypography),
-                              _buildInkWell(Icons.perm_media, "My Files", () {
-                                Navigator.of(context).pop();
-                                _getImage(ImageSource.gallery);
-                              }, currentTypography),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
+                  return Popup(
+                    title: 'Choose an option to upload',
+                    onCrossTap: () {
+                      //Navigator.of(context).pop();
+                    },
+                    height: isTab ? 228 : 240,
+                    width: isTab ? 440 : 600,
+                    additionalWidgets: [Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        _buildInkWell(Icons.camera_enhance, "Camera", () {
+                          Navigator.of(context).pop();
+                          _getImage(ImageSource.camera);
+                        }, currentTypography),
+                        _buildInkWell(Icons.perm_media, "My Files", () {
+                          Navigator.of(context).pop();
+                          _getImage(ImageSource.gallery);
+                        }, currentTypography),
+                      ],
+                    ),],
                   );
                 },
               )

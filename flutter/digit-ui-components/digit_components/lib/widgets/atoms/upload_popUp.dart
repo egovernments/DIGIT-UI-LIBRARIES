@@ -15,6 +15,7 @@ class FileUploadWidget extends StatefulWidget {
   final OnFilesSelectedCallback onFilesSelected;
   final String label;
   final bool showPreview;
+  final bool openFile;
   final bool allowMultiples;
   final String? errorMessage;
   final List<FileValidator>? validators;
@@ -29,6 +30,7 @@ class FileUploadWidget extends StatefulWidget {
     required this.label,
     this.showPreview = false,
     this.allowMultiples = false,
+    this.openFile = false,
     this.errorMessage,
     this.validators,
     this.allowedExtensions,
@@ -126,7 +128,8 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
   }
 
   void _openFile(Uint8List fileBytes, String fileName) async {
-    FileService();
+    final fileService = FileService();
+    final result = await fileService.writeToTemporaryFile(fileBytes, fileName);
   }
 
   Widget _buildFilePreview(int index, double width) {
@@ -156,14 +159,14 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
             Stack(
               children: [
                 InkWell(
-                  onTap: () {
+                  onTap: widget.openFile ? () {
                     _openFile(fileBytesList[index], fileNames[index]);
-                  },
-                  onHover: (hovering) {
+                  }: null,
+                  onHover: widget.openFile ? (hovering) {
                     setState(() {
                       showOverlay = hovering;
                     });
-                  },
+                  } : null,
                   child: Container(
                     width: widget.allowMultiples ? Base.imageSize : width,
                     height: Base.imageSize,
