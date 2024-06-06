@@ -197,7 +197,7 @@ class _PopupState extends State<Popup> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           widget.titleIcon ??
-              Lottie.asset('assets/animation_json/alert_2.json', repeat: false, width: 74, height: 74, fit: BoxFit.cover),
+              Lottie.asset('assets/animation_json/alert_1.json', repeat: true, width: 72, height: 72, fit: BoxFit.cover),
           const SizedBox(
             width: 8,
           ),

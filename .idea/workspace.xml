@@ -5,16 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="527a2fe1-eac1-442a-a699-c8c48a8f093b" name="Changes" comment="fixed issues related to upload pop up">
-      <change afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/assets/images/digit_logo_dark.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/assets/images/digit_logo_light.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/assets/images/digit_logo_dark.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/assets/images/digit_logo_light.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/constants/app_constants.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/constants/app_constants.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/helper_widget/header_dropdown.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/helper_widget/header_dropdown.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/helper_widget/simple_dropdown_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/helper_widget/simple_dropdown_list.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/molecules/header_molecule.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/molecules/header_molecule.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/molecules/header_molecule_story.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/molecules/header_molecule_story.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/assets/animation_json/alert_1.json" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/assets/animation_json/alert_1.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/pop_up_cart.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/pop_up_cart.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/assets/animation_json/alert_1.json" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/assets/animation_json/alert_1.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,13 +110,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1704952952175</updated>
-    </task>
-    <task id="LOCAL-00192" summary="issue resolved">
-      <created>1710147939421</created>
-      <option name="number" value="00192" />
-      <option name="presentableId" value="LOCAL-00192" />
-      <option name="project" value="LOCAL" />
-      <updated>1710147939422</updated>
     </task>
     <task id="LOCAL-00193" summary="updated readme file">
       <created>1710148614842</created>
@@ -460,7 +447,14 @@
       <option name="project" value="LOCAL" />
       <updated>1716970458521</updated>
     </task>
-    <option name="localTasksCounter" value="241" />
+    <task id="LOCAL-00241" summary="fixed issues related to upload pop up">
+      <created>1717673310668</created>
+      <option name="number" value="00241" />
+      <option name="presentableId" value="LOCAL-00241" />
+      <option name="project" value="LOCAL" />
+      <updated>1717673310669</updated>
+    </task>
+    <option name="localTasksCounter" value="242" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -475,7 +469,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fixed button issues" />
     <MESSAGE value="fixed checkbox issues" />
     <MESSAGE value="fixed textArea issues" />
     <MESSAGE value="fixed theme issues" />
@@ -500,7 +493,8 @@
     <MESSAGE value="completed file uploader components" />
     <MESSAGE value="added panel atom and panel card molecule" />
     <MESSAGE value="code refactoring" />
-    <option name="LAST_COMMIT_MESSAGE" value="code refactoring" />
+    <MESSAGE value="fixed issues related to upload pop up" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed issues related to upload pop up" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
