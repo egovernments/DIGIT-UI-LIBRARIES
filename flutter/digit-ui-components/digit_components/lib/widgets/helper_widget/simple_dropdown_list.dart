@@ -13,6 +13,7 @@ class DropdownListView extends StatefulWidget {
   final double width;
   final Function(DropdownItem) onSelect;
   final bool searchable;
+
   /// text to shown, when no options is available....... even while searching if no options matches
   final String emptyItemText;
 
@@ -65,22 +66,23 @@ class _DropdownListViewState extends State<DropdownListView> {
     return Column(
       children: [
         if(widget.searchable)
-        Padding(
-          padding:
-          const EdgeInsets.all(8),
-          child: DigitSearchFormInput(
-            controller: _searchController,
-            innerLabel: 'Search',
-            onChange: (value){
-              setState(() {
-                filteredItems = widget.items
-                    .where(
-                        (item) => item.name.toLowerCase().contains(value.toLowerCase()))
-                    .toList();
-              });
-            },
+          Padding(
+            padding:
+            const EdgeInsets.all(8),
+            child: DigitSearchFormInput(
+              controller: _searchController,
+              innerLabel: 'Search',
+              onChange: (value) {
+                setState(() {
+                  filteredItems = widget.items
+                      .where(
+                          (item) =>
+                          item.name.toLowerCase().contains(value.toLowerCase()))
+                      .toList();
+                });
+              },
+            ),
           ),
-        ),
         filteredItems.isNotEmpty ? RawKeyboardListener(
           focusNode: _focusNode,
           onKey: (RawKeyEvent event) {
@@ -88,7 +90,8 @@ class _DropdownListViewState extends State<DropdownListView> {
               if (event.logicalKey == LogicalKeyboardKey.arrowDown) {
                 setState(() {
                   _focusedIndex =
-                      (_focusedIndex + 1) % filteredItems.length; // Move focus down
+                      (_focusedIndex + 1) %
+                          filteredItems.length; // Move focus down
                   _isKeyboardFocused = true; // Set keyboard focus
                 });
               } else if (event.logicalKey == LogicalKeyboardKey.arrowUp) {
@@ -101,7 +104,8 @@ class _DropdownListViewState extends State<DropdownListView> {
                   _isKeyboardFocused = true; // Set keyboard focus
                 });
               } else if (event.logicalKey == LogicalKeyboardKey.enter) {
-                widget.onSelect(filteredItems[_focusedIndex]); // Select item on pressing Enter
+                widget.onSelect(
+                    filteredItems[_focusedIndex]); // Select item on pressing Enter
               }
             }
           },
@@ -142,7 +146,8 @@ class _DropdownListViewState extends State<DropdownListView> {
                       highlightColor: const DigitColors().transparent,
                       onHover: (hover) {
                         setState(() {
-                          _itemHoverStates[item.code] = hover&& !_isKeyboardFocused;
+                          _itemHoverStates[item.code] =
+                              hover && !_isKeyboardFocused;
                         });
                       },
                       onTap: () {
@@ -283,7 +288,8 @@ class _DropdownListViewState extends State<DropdownListView> {
                                             null
                                             ? item
                                             .description !=
-                                            null ? widget.width-80: widget.width - 53
+                                            null ? widget.width - 80 : widget
+                                            .width - 53
                                             : item.textIcon !=
                                             null
                                             ? widget.width - 40
@@ -293,20 +299,25 @@ class _DropdownListViewState extends State<DropdownListView> {
                                           softWrap: true,
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
-                                          style: _itemMouseDownStates[item.code] ==
+                                          style: _itemMouseDownStates[item
+                                              .code] ==
                                               true
-                                              ? currentTypography.headingS.copyWith(
+                                              ? currentTypography.headingS
+                                              .copyWith(
                                               color: const DigitColors()
                                                   .light
                                                   .paperPrimary)
                                               : item.description !=
                                               null
-                                              ? currentTypography.bodyL.copyWith(
+                                              ? currentTypography.bodyL
+                                              .copyWith(
                                               color: const DigitColors()
                                                   .light
                                                   .textSecondary)
-                                              : currentTypography.bodyS.copyWith(
-                                              color: const DigitColors().light.textPrimary),
+                                              : currentTypography.bodyS
+                                              .copyWith(
+                                              color: const DigitColors().light
+                                                  .textPrimary),
                                         ),
                                       )
                                     ],
@@ -318,17 +329,20 @@ class _DropdownListViewState extends State<DropdownListView> {
                                           null
                                           ? item
                                           .description !=
-                                          null ? widget.width-80 : widget.width - 53
+                                          null ? widget.width - 80 : widget
+                                          .width - 53
                                           : item.textIcon !=
                                           null
                                           ? widget.width - 40
                                           : widget.width - 16,
                                       child: Text(
-                                        convertInToSentenceCase(item.description!)!,
+                                        convertInToSentenceCase(
+                                            item.description!)!,
                                         overflow: TextOverflow.ellipsis,
                                         maxLines: 3,
                                         softWrap: true,
-                                        style: currentTypography.bodyXS.copyWith(
+                                        style: currentTypography.bodyXS
+                                            .copyWith(
                                           color: _itemMouseDownStates[
                                           item
                                               .code] ==
@@ -355,7 +369,7 @@ class _DropdownListViewState extends State<DropdownListView> {
             ),
           ),
         )
-        :Container(
+            : Container(
           color: const DigitColors().light.paperSecondary,
           child: Padding(
             padding: DropdownConstants.noItemAvailablePadding,

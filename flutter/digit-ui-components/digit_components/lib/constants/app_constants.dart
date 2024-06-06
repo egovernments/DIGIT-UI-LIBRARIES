@@ -22,8 +22,8 @@ class Common{
   static const String pngSvg = 'assets/icons/svg/png.svg';
   static const String xlsxSvg = 'assets/icons/svg/xlsx.svg';
   static const String fileSvg = 'assets/icons/svg/file.svg';
-  static const String digitLogoDarkSvg = 'assets/icons/svg/digit_logo_dark.svg';
-  static const String digitLogoLightSvg = 'assets/icons/svg/digit_logo_light.svg';
+  static const String digitLogoDarkSvg = 'assets/images/digit_logo_dark.png';
+  static const String digitLogoLightSvg = 'assets/images/digit_logo_light.png';
 }
 
 class BaseConstants {

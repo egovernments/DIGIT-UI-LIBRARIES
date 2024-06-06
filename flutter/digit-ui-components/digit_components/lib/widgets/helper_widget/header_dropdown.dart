@@ -1,14 +1,15 @@
 import 'package:digit_ui_components/digit_components.dart';
+import 'package:digit_ui_components/widgets/atoms/digit_header.dart';
 import 'package:digit_ui_components/widgets/helper_widget/simple_dropdown_list.dart';
 import 'package:flutter/material.dart';
 import '../../models/DropdownModels.dart';
-
 
 class HeaderDropdown extends StatefulWidget {
   final void Function(DropdownItem)? onChange;
   final List<DropdownItem> items;
   final IconData suffixIcon;
   final String title;
+  final HeaderType headerType;
   final bool searchable;
 
   const HeaderDropdown({
@@ -16,6 +17,7 @@ class HeaderDropdown extends StatefulWidget {
     required this.items,
     this.suffixIcon = Icons.arrow_drop_down,
     this.onChange,
+    this.headerType = HeaderType.light,
     required this.title,
     this.searchable = false,
   }) : super(key: key);
@@ -24,7 +26,8 @@ class HeaderDropdown extends StatefulWidget {
   _HeaderDropdownState createState() => _HeaderDropdownState();
 }
 
-class _HeaderDropdownState extends State<HeaderDropdown> with TickerProviderStateMixin {
+class _HeaderDropdownState extends State<HeaderDropdown>
+    with TickerProviderStateMixin {
   final LayerLink _layerLink = LayerLink();
   OverlayEntry? _overlayEntry;
   bool _isOpen = false;
@@ -71,9 +74,11 @@ class _HeaderDropdownState extends State<HeaderDropdown> with TickerProviderStat
     /// Calculate the right offset for the dropdown
 
     /// Create a TextPainter to measure the width of the text
-    TextSpan textSpan = TextSpan(text: currentTitle, style: currentTypography.bodyS.copyWith(
-      color: const DigitColors().light.textPrimary,
-    ));
+    TextSpan textSpan = TextSpan(
+        text: currentTitle,
+        style: currentTypography.bodyS.copyWith(
+          color: const DigitColors().light.textPrimary,
+        ));
     TextPainter textPainter = TextPainter(
       text: textSpan,
       textDirection: TextDirection.ltr,
@@ -82,8 +87,8 @@ class _HeaderDropdownState extends State<HeaderDropdown> with TickerProviderStat
     /// Calculate the width of the label based on the measured text width
     double labelWidth = textPainter.width;
 
-    double dropdownWidth = size.width < 150 ? 150 : size.width;
-    double rightOffset = (labelWidth+8+24) - dropdownWidth;
+    double dropdownWidth = size.width < 220 ? 220 : size.width;
+    double rightOffset = (labelWidth + 8 + 24) - dropdownWidth;
 
     return OverlayEntry(
       builder: (context) => GestureDetector(
@@ -97,30 +102,30 @@ class _HeaderDropdownState extends State<HeaderDropdown> with TickerProviderStat
               Positioned(
                 right: rightOffset,
                 top: 45,
-                width: size.width < 150 ? 150 : size.width,
+                width: size.width < 220 ? 220 : size.width,
                 child: CompositedTransformFollower(
                   link: _layerLink,
                   showWhenUnlinked: false,
-                  offset:  Offset(rightOffset, 45),
+                  offset: Offset(rightOffset, 45),
                   child: Material(
                     elevation: 4.0,
                     borderRadius: BorderRadius.circular(4.0),
                     child: SizedBox(
-                      width: size.width < 150 ? 150 : size.width,
+                      width: size.width < 220 ? 220 : size.width,
                       child: ConstrainedBox(
                         constraints: const BoxConstraints(
-                          // maxHeight: 200,
-                        ),
-                        child: DropdownListView( // Replace ListView with DropdownListView
+                            // maxHeight: 200,
+                            ),
+                        child: DropdownListView(
                           items: filteredItems,
                           searchable: widget.searchable,
-                          width: size.width < 150 ? 150 : size.width,
+                          width: size.width < 220 ? 220 : size.width,
                           onSelect: (item) {
                             setState(() {
                               currentTitle = item.name;
                             });
                             _toggleDropdown(close: true);
-                            if(widget.onChange!=null){
+                            if (widget.onChange != null) {
                               widget.onChange!(item);
                             }
                           },
@@ -139,7 +144,6 @@ class _HeaderDropdownState extends State<HeaderDropdown> with TickerProviderStat
 
   @override
   Widget build(BuildContext context) {
-
     /// typography based on screen
     currentTypography = getTypography(context, false);
 
@@ -152,14 +156,22 @@ class _HeaderDropdownState extends State<HeaderDropdown> with TickerProviderStat
         onTap: _toggleDropdown,
         child: Row(
           children: [
-            Text(
-              currentTitle,
-              style: currentTypography.bodyS.copyWith(
-                color: const DigitColors().light.textPrimary,
-              )
+            Text(currentTitle,
+                style: currentTypography.bodyS.copyWith(
+                  color: widget.headerType == HeaderType.light
+                      ? const DigitColors().light.textPrimary
+                      : const DigitColors().light.paperPrimary,
+                )),
+            const SizedBox(
+              width: 8,
             ),
-            const SizedBox(width: 8,),
-            Icon(widget.suffixIcon, size: 24, color: const DigitColors().light.textSecondary,),
+            Icon(
+              widget.suffixIcon,
+              size: 24,
+              color: widget.headerType == HeaderType.light
+                  ? const DigitColors().light.textSecondary
+                  : const DigitColors().light.paperPrimary,
+            ),
           ],
         ),
       ),

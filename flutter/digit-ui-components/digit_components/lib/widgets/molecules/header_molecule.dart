@@ -1,6 +1,5 @@
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import '../../constants/AppView.dart';
 import '../../constants/app_constants.dart';
 import '../atoms/digit_header.dart';
@@ -11,6 +10,10 @@ class CustomHeaderMolecule extends StatelessWidget {
   final List<Widget>? actions;
   final Widget? leadingWidget;
   final Widget? trailingWidget;
+  final bool leadingDigitLogo;
+  final bool trailingDigitLogo;
+  final bool actionRequired;
+  final void Function()? onMenuTap;
 
   const CustomHeaderMolecule({
     Key? key,
@@ -19,6 +22,10 @@ class CustomHeaderMolecule extends StatelessWidget {
     this.actions,
     this.leadingWidget,
     this.trailingWidget,
+    this.leadingDigitLogo = true,
+    this.trailingDigitLogo = false,
+    this.actionRequired = false,
+    this.onMenuTap,
   }) : super(key: key);
 
   @override
@@ -28,32 +35,39 @@ class CustomHeaderMolecule extends StatelessWidget {
 
     return Container(
       width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.symmetric(horizontal: isMobile ? 16 : isTab ? 24 : 40.0, vertical: 16.0),
+      height: isMobile ? 56 : 64,
+      padding: EdgeInsets.symmetric(
+          horizontal: isMobile
+              ? 16
+              : isTab
+                  ? 24
+                  : 40.0,
+          vertical: 16.0),
       decoration: BoxDecoration(
         color: type == HeaderType.light
             ? const DigitColors().light.paperPrimary
             : const DigitColors().light.primary2,
         boxShadow: type == HeaderType.light
             ? [
-          BoxShadow(
-            color: const Color(0xFF000000).withOpacity(.15),
-            offset: const Offset(0, 1),
-            spreadRadius: 0,
-            blurRadius: 2,
-          ),
-        ]
+                BoxShadow(
+                  color: const Color(0xFF000000).withOpacity(.15),
+                  offset: const Offset(0, 1),
+                  spreadRadius: 0,
+                  blurRadius: 2,
+                ),
+              ]
             : [],
       ),
       child: isMobile || isTab
-        ? _buildMobileTabHeader(context):
-        _buildDesktopHeader(context),
+          ? _buildMobileTabHeader(context)
+          : _buildDesktopHeader(context),
     );
   }
 
   Widget _buildMobileTabHeader(BuildContext context) {
-
     /// typography based on screen
     DigitTypography currentTypography = getTypography(context, false);
+    bool isTab = AppView.isTabletView(MediaQuery.of(context).size);
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -61,34 +75,95 @@ class CustomHeaderMolecule extends StatelessWidget {
       children: [
         Row(
           children: [
-            leadingWidget ?? Icon(Icons.menu, size: 24, color: type==HeaderType.dark ? const DigitColors().light.paperPrimary : const DigitColors().light.textPrimary,),
+            InkWell(
+              hoverColor: const DigitColors().transparent,
+              splashColor: const DigitColors().transparent,
+              highlightColor: const DigitColors().transparent,
+              onTap: onMenuTap,
+              child: leadingWidget ??
+                  Icon(
+                    Icons.menu,
+                    size: 24,
+                    color: type == HeaderType.dark
+                        ? const DigitColors().light.paperPrimary
+                        : const DigitColors().light.textPrimary,
+                  ),
+            ),
+            SizedBox(width:  isTab ? 20 : 16,),
+            if (leadingDigitLogo)
+              (type == HeaderType.dark
+                  ? Image.asset(
+                      Common.digitLogoDarkSvg,
+                      height: isTab ? 32 : 24,
+                      fit: BoxFit.fill,
+                    )
+                  : Image.asset(
+                      Common.digitLogoLightSvg,
+                      height: isTab ? 32 : 24,
+                      fit: BoxFit.fill,
+                    )),
+            const SizedBox(
+              width: 8,
+            ),
+            Container(
+              height: isTab ? 32 : 24,
+              width: 1,
+              color: type == HeaderType.dark
+                  ? const DigitColors().light.paperPrimary
+                  : const DigitColors().light.textPrimary,
+            ),
             if (title != null)
               const SizedBox(
-                width: 16,
+                width: 8,
               ),
             if (title != null)
               Text(
                 title!,
                 overflow: TextOverflow.ellipsis,
-                style: currentTypography.headingM
-                    .copyWith(color: type==HeaderType.dark ? const DigitColors().light.paperPrimary :const DigitColors().light.textPrimary),
+                style: currentTypography.headingS.copyWith(
+                    color: type == HeaderType.dark
+                        ? const DigitColors().light.paperPrimary
+                        : const DigitColors().light.textPrimary),
                 textAlign: TextAlign.center,
               ),
           ],
         ),
-        const SizedBox(width: 24,),
+         SizedBox(
+          width: isTab ? 20 : 16,
+        ),
+        if(actionRequired)
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           mainAxisSize: MainAxisSize.min,
           children: [
             if (actions != null)
-              ...actions!.expand((widget) => [
-                Padding(
-                  padding: const EdgeInsets.only(right: 24.0),
-                  child: widget,
+              ...actions!
+                  .asMap()
+                  .entries
+                  .map(
+                    (widgets) => Padding(
+                  padding: EdgeInsets.only(
+                    right: widgets.key != actions!.length - 1 ? isTab ? 20 : 16 : 0,
+                  ),
+                  child: widgets.value,
                 ),
-              ]),
-            trailingWidget ?? (type == HeaderType.light ? SvgPicture.asset(Common.digitLogoDarkSvg): SvgPicture.asset(Common.digitLogoLightSvg)),
+              )
+                  .toList(),
+            if (trailingWidget != null) trailingWidget!,
+            if (trailingDigitLogo)
+              (type == HeaderType.dark
+                  ? Image.asset(
+                      Common.digitLogoDarkSvg,
+                      // width: ,
+                      height: isTab ? 32 : 24,
+                      fit: BoxFit.fill,
+                    )
+                  : Image.asset(
+                      Common.digitLogoLightSvg,
+                      //width: 40,
+                      height: isTab ? 32 : 24,
+                      fit: BoxFit.fill,
+                    )),
           ],
         ),
       ],
@@ -96,7 +171,6 @@ class CustomHeaderMolecule extends StatelessWidget {
   }
 
   Widget _buildDesktopHeader(BuildContext context) {
-
     /// typography based on screen
     DigitTypography currentTypography = getTypography(context, false);
 
@@ -106,8 +180,22 @@ class CustomHeaderMolecule extends StatelessWidget {
       children: [
         Row(
           children: [
-            leadingWidget ?? (type == HeaderType.light ? SvgPicture.asset(Common.digitLogoDarkSvg): SvgPicture.asset(Common.digitLogoLightSvg)),
-            if (title != null)
+            if (leadingWidget != null) leadingWidget!,
+            if(leadingWidget!=null && leadingDigitLogo)
+              const SizedBox(width: 24,),
+            if (leadingDigitLogo)
+              (type == HeaderType.dark
+                  ? Image.asset(
+                      Common.digitLogoDarkSvg,
+                      height: 32,
+                      fit: BoxFit.fill,
+                    )
+                  : Image.asset(
+                      Common.digitLogoLightSvg,
+                      height: 32,
+                      fit: BoxFit.fill,
+                    )),
+            if (title != null && (leadingDigitLogo || leadingWidget != null))
               const SizedBox(
                 width: 16,
               ),
@@ -115,32 +203,57 @@ class CustomHeaderMolecule extends StatelessWidget {
               Text(
                 title!,
                 overflow: TextOverflow.ellipsis,
-                style: currentTypography.headingM
-                    .copyWith(color: const DigitColors().light.textPrimary),
+                style: currentTypography.headingM.copyWith(
+                    color: type == HeaderType.dark
+                        ? const DigitColors().light.paperPrimary
+                        : const DigitColors().light.textPrimary),
                 textAlign: TextAlign.center,
               ),
           ],
         ),
-        const SizedBox(width: 24,),
+        const SizedBox(
+          width: 24,
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           mainAxisSize: MainAxisSize.min,
           children: [
             if (actions != null)
-              ...actions!.expand((widget) => [
-                Padding(
-                  padding: const EdgeInsets.only(right: 24.0),
-                  child: widget,
-                ),
-              ]),
-            trailingWidget ?? (type == HeaderType.light ? SvgPicture.asset(Common.digitLogoDarkSvg): SvgPicture.asset(Common.digitLogoLightSvg)),
+              ...actions!
+                  .asMap()
+                  .entries
+                  .map(
+                    (widgets) => Padding(
+                      padding: EdgeInsets.only(
+                        right: widgets.key != actions!.length - 1 ? 24 : 0,
+                      ),
+                      child: widgets.value,
+                    ),
+                  )
+                  .toList(),
+            if (actions != null &&
+                (trailingDigitLogo || trailingWidget != null))
+              const SizedBox(
+                width: 24,
+              ),
+            if (trailingWidget != null) trailingWidget!,
+            if (trailingDigitLogo)
+              (type == HeaderType.dark
+                  ? Image.asset(
+                      Common.digitLogoDarkSvg,
+                      // width: ,
+                      height: 32,
+                      fit: BoxFit.fill,
+                    )
+                  : Image.asset(
+                      Common.digitLogoLightSvg,
+                      //width: 40,
+                      height: 32,
+                      fit: BoxFit.fill,
+                    )),
           ],
         ),
       ],
     );
   }
 }
-
-
-
-
