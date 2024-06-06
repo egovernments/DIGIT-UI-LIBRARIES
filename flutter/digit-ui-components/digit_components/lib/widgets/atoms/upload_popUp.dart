@@ -88,16 +88,18 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
             setState(() {
               fileBytesList.add(file.bytes!);
               fileNames.add(file.name!);
+              files.add(file);
             });
           } else {
             fileBytesList.clear();
             fileNames.clear();
+            files.clear();
             setState(() {
+              files.add(file);
               fileBytesList.add(file.bytes!);
               fileNames.add(file.name!);
             });
           }
-          files.add(file);
         }
       } else {
         //
@@ -107,24 +109,30 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
             setState(() {
               fileBytesList.add(file.bytes!);
               fileNames.add(file.name);
+              files.add(file);
             });
           } else {
             fileBytesList.clear();
+            files.clear();
             fileNames.clear();
             setState(() {
+              files.add(file);
               fileBytesList.add(file.bytes!);
               fileNames.add(file.name);
             });
           }
-          files.add(file);
         }
       }
 
+
+    }
+    if(files.isNotEmpty){
       /// Call onFilesSelected with the selected files
       setState(() {
-        fileErrors = widget.onFilesSelected(result.files);
+        fileErrors = widget.onFilesSelected(files);
       });
     }
+
   }
 
   void _openFile(Uint8List fileBytes, String fileName) async {
@@ -159,17 +167,21 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
             Stack(
               children: [
                 InkWell(
-                  onTap: widget.openFile ? () {
-                    _openFile(fileBytesList[index], fileNames[index]);
-                  }: null,
-                  onHover: widget.openFile ? (hovering) {
-                    setState(() {
-                      showOverlay = hovering;
-                    });
-                  } : null,
+                  onTap: widget.openFile
+                      ? () {
+                          _openFile(fileBytesList[index], fileNames[index]);
+                        }
+                      : null,
+                  onHover: widget.openFile
+                      ? (hovering) {
+                          setState(() {
+                            showOverlay = hovering;
+                          });
+                        }
+                      : null,
                   child: Container(
                     width: widget.allowMultiples ? Base.imageSize : width,
-                    height: Base.imageSize,
+                    height: widget.allowMultiples ? Base.imageSize : 150,
                     decoration: BoxDecoration(
                         border: Border.all(
                       color: fileErrors.containsKey(files[index])
@@ -212,11 +224,11 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
                     onTap: () {
                       _removeFile(index);
                     },
-                    onHover: (hovering) {
+                    onHover: widget.openFile ? (hovering) {
                       setState(() {
                         showOverlay = hovering;
                       });
-                    },
+                    }: null,
                     child: Container(
                       width: spacer6,
                       height: spacer6,
@@ -247,7 +259,7 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
                       Column(
                         children: [
                           const SizedBox(
-                            height: spacer1 / 2,
+                            height: 1.5,
                           ),
                           Icon(
                             Icons.info,
@@ -318,17 +330,21 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
             Stack(
               children: [
                 InkWell(
-                  onTap: () {
-                    _openFile(fileBytesList[index], fileNames[index]);
-                  },
-                  onHover: (hovering) {
-                    setState(() {
-                      showOverlay = hovering;
-                    });
-                  },
+                  onTap: widget.openFile
+                      ? () {
+                          _openFile(fileBytesList[index], fileNames[index]);
+                        }
+                      : null,
+                  onHover: widget.openFile
+                      ? (hovering) {
+                          setState(() {
+                            showOverlay = hovering;
+                          });
+                        }
+                      : null,
                   child: Container(
                     width: widget.allowMultiples ? Base.imageSize : width,
-                    height: Base.imageSize,
+                    height: widget.allowMultiples ? Base.imageSize : 150,
                     decoration: BoxDecoration(
                         border: Border.all(
                       color: fileErrors.containsKey(files[index])
@@ -373,11 +389,11 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
                     onTap: () {
                       _removeFile(index);
                     },
-                    onHover: (hovering) {
+                    onHover: widget.openFile ? (hovering) {
                       setState(() {
                         showOverlay = hovering;
                       });
-                    },
+                    } : null,
                     child: Container(
                       width: spacer6,
                       height: spacer6,
@@ -396,6 +412,9 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
                 ),
               ],
             ),
+            const SizedBox(
+              height: spacer1,
+            ),
             fileErrors.containsKey(files[index])
                 ? Row(
                     mainAxisSize: MainAxisSize.min,
@@ -405,7 +424,7 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
                       Column(
                         children: [
                           const SizedBox(
-                            height: 2,
+                            height: 1.5,
                           ),
                           Icon(
                             Icons.info,
@@ -451,8 +470,8 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
     double minWidth = AppView.isMobileView(MediaQuery.of(context).size)
         ? MediaQuery.of(context).size.width
         : AppView.isTabletView(MediaQuery.of(context).size)
-        ? BaseConstants.tabInputMaxWidth
-        : BaseConstants.desktopInputMaxWidth;
+            ? BaseConstants.tabInputMaxWidth
+            : BaseConstants.desktopInputMaxWidth;
 
     double minInputWidth = AppView.isMobileView(MediaQuery.of(context).size)
         ? 198
@@ -578,7 +597,10 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
               ? Wrap(
                   spacing: spacer2,
                   children: List.generate(fileNames.length, (index) {
-                    return _buildFilePreview(index, minWidth);
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 8.0),
+                      child: _buildFilePreview(index, minWidth),
+                    );
                   }),
                 )
               : Wrap(
@@ -588,6 +610,12 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
                       padding: const EdgeInsets.only(bottom: spacer2),
                       child: fileErrors.containsKey(files[index])
                           ? SelectionChip(
+                              onClick: widget.openFile
+                                  ? () {
+                                      _openFile(fileBytesList[index],
+                                          fileNames[index]);
+                                    }
+                                  : null,
                               errorMessage: fileErrors[files[index]],
                               label: fileNames[index],
                               onItemDelete: () {
@@ -599,6 +627,12 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
                             )
                           : SelectionChip(
                               label: fileNames[index],
+                        onClick: widget.openFile
+                            ? () {
+                          _openFile(fileBytesList[index],
+                              fileNames[index]);
+                        }
+                            : null,
                               onItemDelete: () {
                                 setState(() {
                                   fileNames.removeAt(index);
@@ -612,46 +646,6 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
         ],
       ),
     );
-  }
-}
-
-class FillProgressPainter extends CustomPainter {
-  final double progress;
-  final Color color;
-  final Color initialColor;
-
-  FillProgressPainter({
-    required this.progress,
-    required this.color,
-    required this.initialColor,
-  });
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final fillHeight = size.height * progress;
-    final fillPaint = Paint()
-      ..color = color
-      ..style = PaintingStyle.fill;
-
-    canvas.drawRect(
-      Rect.fromLTRB(0, size.height - fillHeight, size.width, size.height),
-      fillPaint,
-    );
-
-    final initialFillHeight = size.height * (1 - progress);
-    final initialFillPaint = Paint()
-      ..color = initialColor
-      ..style = PaintingStyle.fill;
-
-    canvas.drawRect(
-      Rect.fromLTRB(0, 0, size.width, initialFillHeight),
-      initialFillPaint,
-    );
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return true;
   }
 }
 

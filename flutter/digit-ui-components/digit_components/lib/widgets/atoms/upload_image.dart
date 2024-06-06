@@ -42,6 +42,9 @@ class _ImageUploaderState extends State<ImageUploader> {
         builder: (BuildContext context) {
           CameraHandlerState? cameraHandlerState;
           return Popup(
+            onCrossTap: (){
+              Navigator.of(context).pop();
+            },
             title: 'Camera',
             type: PopUpType.simple,
             width: isTab ? 440 : 720,
@@ -55,7 +58,7 @@ class _ImageUploaderState extends State<ImageUploader> {
                 type: ButtonType.primary,
                 onPressed: () {
                   Navigator.of(context).pop();
-                  cameraHandlerState?.captureImage(); // Trigger the capture
+                  cameraHandlerState?.captureImage(); /// Trigger the capture
                 },
               ),
               Button(
@@ -82,6 +85,32 @@ class _ImageUploaderState extends State<ImageUploader> {
           );
         },
       );
+    }else {
+      ImagePicker().pickImage(source: source).then((pickedFile) {
+        if (pickedFile != null) {
+          if (widget.validators != null) {
+            String? validationError =
+            validateImage(pickedFile, widget.validators!, pickedFile.name);
+            if (validationError != null) {
+              setState(() {
+                fileError = validationError;
+              });
+              return;
+            }
+          }
+          setState(() {
+            fileError = ''; // Clear the error message
+            widget.allowMultiples
+                ? _imageFiles.add(File(pickedFile.path))
+                : _imageFiles.add(File(pickedFile.path));
+          });
+          widget.onImagesSelected(_imageFiles);
+        } else {
+          if (kDebugMode) {
+            print('No image selected.');
+          }
+        }
+      });
     }
   }
 
@@ -119,7 +148,7 @@ class _ImageUploaderState extends State<ImageUploader> {
                   return Popup(
                     title: 'Choose an option to upload',
                     onCrossTap: () {
-                      //Navigator.of(context).pop();
+                      Navigator.of(context).pop();
                     },
                     height: isTab ? 228 : 240,
                     width: isTab ? 440 : 600,

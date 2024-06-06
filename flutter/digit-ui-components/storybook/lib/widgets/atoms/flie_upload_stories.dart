@@ -18,6 +18,7 @@ List<Story> fileUploaderStories() {
 
           return fileErrors;
         },
+          openFile: context.knobs.boolean(label: 'Open File', initial: false),
           showPreview: context.knobs.boolean(label: 'Show preview', initial: false),
         ),
       ),
@@ -30,6 +31,7 @@ List<Story> fileUploaderStories() {
 
         return fileErrors;
       },
+        openFile: context.knobs.boolean(label: 'Open File', initial: false),
         showPreview: context.knobs.boolean(label: 'Show preview', initial: false),
         errorMessage: context.knobs.text(label: 'Error Message', initial: 'error'),
       ),
@@ -42,6 +44,7 @@ List<Story> fileUploaderStories() {
 
         return fileErrors;
       },
+        openFile: context.knobs.boolean(label: 'Open File', initial: false),
         showPreview: context.knobs.boolean(label: 'Show preview', initial: false),
         validators: [
           FileValidator(FileValidatorType.fileType, ['pdf'], errorMessage: 'Only PDF files are allowed'),
@@ -65,13 +68,11 @@ List<Story> fileUploaderStories() {
           // Check if file size exceeds 50 KB
           if (fileSizeInKB > 50) {
             fileErrors[file] = 'File size exceeds 50 KB limit';
-          } else {
-            // If no error, set the error message as null
-            fileErrors[file] = null;
           }
         }
         return fileErrors;
       },
+        openFile: context.knobs.boolean(label: 'Open File', initial: false),
         showPreview: context.knobs.boolean(label: 'Show preview', initial: false),
       ),
     ),
@@ -85,6 +86,7 @@ List<Story> fileUploaderStories() {
 
           return fileErrors;
         },
+          openFile: context.knobs.boolean(label: 'Open File', initial: false),
           showPreview: context.knobs.boolean(label: 'Show preview', initial: false),
         ),
       ),
@@ -98,6 +100,7 @@ List<Story> fileUploaderStories() {
 
         return fileErrors;
       },
+        openFile: context.knobs.boolean(label: 'Open File', initial: false),
         showPreview: context.knobs.boolean(label: 'Show preview', initial: false),
         errorMessage: context.knobs.text(label: 'Error Message', initial: 'error'),
       ),
@@ -111,6 +114,7 @@ List<Story> fileUploaderStories() {
 
         return fileErrors;
       },
+        openFile: context.knobs.boolean(label: 'Open File', initial: false),
         showPreview: context.knobs.boolean(label: 'Show preview', initial: false),
         validators: [
           FileValidator(FileValidatorType.fileType, ['pdf'], errorMessage: 'Only PDF files are allowed'),
@@ -135,13 +139,11 @@ List<Story> fileUploaderStories() {
           // Check if file size exceeds 50 KB
           if (fileSizeInKB > 50) {
             fileErrors[file] = 'File size exceeds 50 KB limit';
-          } else {
-            // If no error, set the error message as null
-            fileErrors[file] = null;
           }
         }
         return fileErrors;
       },
+        openFile: context.knobs.boolean(label: 'Open File', initial: false),
         showPreview: context.knobs.boolean(label: 'Show preview', initial: false),
       ),
     ),

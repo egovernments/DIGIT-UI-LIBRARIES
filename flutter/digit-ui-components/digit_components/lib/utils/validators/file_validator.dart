@@ -37,7 +37,7 @@ String? validateFile(PlatformFile file, List<FileValidator> validators) {
     }
   }
 
-  // If the file passes all validations, return null
+  /// If the file passes all validations, return null
   return null;
 }
 
