@@ -113,19 +113,22 @@ class _HeaderDropdownState extends State<HeaderDropdown>
                     child: SizedBox(
                       width: size.width < 220 ? 220 : size.width,
                       child: ConstrainedBox(
-                        constraints: const BoxConstraints(
-                            // maxHeight: 200,
+                        constraints:  const BoxConstraints(
+                             maxHeight: 700,
                             ),
                         child: DropdownListView(
+                          isOpen: _isOpen,
                           items: filteredItems,
                           searchable: widget.searchable,
                           width: size.width < 220 ? 220 : size.width,
                           onSelect: (item) {
-                            setState(() {
-                              currentTitle = item.name;
-                            });
+                            if(item!=null){
+                              setState(() {
+                                currentTitle = item.name;
+                              });
+                            }
                             _toggleDropdown(close: true);
-                            if (widget.onChange != null) {
+                            if (widget.onChange != null && item!=null) {
                               widget.onChange!(item);
                             }
                           },

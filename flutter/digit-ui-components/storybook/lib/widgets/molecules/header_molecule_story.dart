@@ -31,28 +31,55 @@ List<Story> headerMoleculeStories() {
     ),
     Story(
       name: 'Molecule/Header/light/3',
-      builder: (context) => const CustomHeaderMolecule(
-        title: 'My Custom Header',
-        type: HeaderType.light,
-        actions: [
-          HeaderDropdown(
-            title: 'City',
-            headerType: HeaderType.light,
-            items: [
-              DropdownItem(code: '1', name: 'Option 1'),
-              DropdownItem(code: '2', name: 'Option 2'),
-              DropdownItem(code: '3', name: 'Option 3'),
-              DropdownItem(code: '4', name: 'Option 4'),
-            ],
-          ),
-          HeaderDropdown(
-            title: 'Language',
-            searchable: true,
-            headerType: HeaderType.light,
-            items: [
-              DropdownItem(code: '1', name: 'Hindi'),
-              DropdownItem(code: '2', name: 'English'),
-              DropdownItem(code: '3', name: 'French'),
+      builder: (context) => const Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          CustomHeaderMolecule(
+            title: 'My Custom Header',
+            type: HeaderType.light,
+            actions: [
+              HeaderDropdown(
+                title: 'City',
+                headerType: HeaderType.light,
+                items: [
+                  DropdownItem(code: '1', name: 'Option 1'),
+                  DropdownItem(code: '2', name: 'Option 2'),
+                  DropdownItem(code: '3', name: 'Option 3'),
+                  DropdownItem(code: '4', name: 'Option 4'),
+                ],
+              ),
+              HeaderDropdown(
+                title: 'Language',
+                searchable: true,
+                headerType: HeaderType.light,
+                items: [
+                  DropdownItem(code: '1', name: 'Hindi'),
+                  DropdownItem(code: '2', name: 'English'),
+                  DropdownItem(code: '3', name: 'French'),
+                  DropdownItem(code: '4', name: 'Hindi'),
+                  DropdownItem(code: '5', name: 'English'),
+                  DropdownItem(code: '6', name: 'French'),
+                  DropdownItem(code: '7', name: 'Hindi'),
+                  DropdownItem(code: '8', name: 'English'),
+                  DropdownItem(code: '9', name: 'French'),
+                  DropdownItem(code: '10', name: 'Hindi'),
+                  DropdownItem(code: '11', name: 'French'),
+                  DropdownItem(code: '12', name: 'English'),
+                  DropdownItem(code: '13', name: 'French'),
+                  DropdownItem(code: '14', name: 'Hindi'),
+                  DropdownItem(code: '15', name: 'English'),
+                  DropdownItem(code: '16', name: 'French'),
+                  DropdownItem(code: '17', name: 'Hindi'),
+                  DropdownItem(code: '18', name: 'English'),
+                  DropdownItem(code: '19', name: 'French'),
+                  DropdownItem(code: '20', name: 'Hindi'),
+                  DropdownItem(code: '21', name: 'English'),
+                  DropdownItem(code: '22', name: 'French'),
+                  DropdownItem(code: '23', name: 'Hindi'),
+                  DropdownItem(code: '24', name: 'English'),
+                  DropdownItem(code: '25', name: 'French'),
+                ],
+              ),
             ],
           ),
         ],

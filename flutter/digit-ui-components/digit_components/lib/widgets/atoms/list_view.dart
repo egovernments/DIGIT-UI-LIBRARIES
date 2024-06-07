@@ -48,7 +48,7 @@ class LabelValueList extends StatelessWidget {
         children: [
           // Label taking 30% width
           Expanded(
-            flex: 3, // 30% width
+            flex: 2, // 30% width
             child: Text(
               item.label,
               style: currentTypography.headingS.copyWith(color: const DigitColors().light.textPrimary),
@@ -57,7 +57,7 @@ class LabelValueList extends StatelessWidget {
           const SizedBox(width: 24), // Gap between label and value
           // Value taking rest of the width
           Expanded(
-            flex: 7, // Remaining 70% width
+            flex: 8, // Remaining 70% width
             child: Text(
               item.value,
               style: currentTypography.bodyS.copyWith(color: const DigitColors().light.textPrimary),

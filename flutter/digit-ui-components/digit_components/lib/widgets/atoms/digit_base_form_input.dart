@@ -76,6 +76,8 @@ class BaseDigitFormInput extends StatefulWidget {
   /// Preferred height of the input field.
   final double height;
 
+  final FocusNode? focusNode;
+
   /// Preferred width of the input field.
   final double width;
 
@@ -84,6 +86,9 @@ class BaseDigitFormInput extends StatefulWidget {
 
   /// Callback function triggered on input value change.
   final void Function(String)? onChange;
+
+  /// Callback function triggered on input value change.
+  final void Function(String)? onFieldSubmitted;
 
   /// Step value (used for specific input types like numbers).
   final int step;
@@ -166,6 +171,8 @@ class BaseDigitFormInput extends StatefulWidget {
     this.textAlign = TextAlign.start,
     this.errorMessage,
     this.capitalizeFirstLetter = true,
+    this.focusNode,
+    this.onFieldSubmitted,
   }) : super(key: key);
 
   @override
@@ -205,7 +212,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
   void initState() {
     super.initState();
 
-    myFocusNode = FocusNode();
+    myFocusNode = widget.focusNode ?? FocusNode();
 
     myFocusNode.addListener(onFocusChange);
 
@@ -272,7 +279,8 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
     /// Capitalize innerLabel, helpText, and errorMessage
     String? capitalizedInnerLabel = convertInToSentenceCase(widget.innerLabel);
     String? capitalizedHelpText = convertInToSentenceCase(widget.helpText);
-    String? capitalizedErrorMessage = convertInToSentenceCase(widget.errorMessage);
+    String? capitalizedErrorMessage =
+        convertInToSentenceCase(widget.errorMessage);
 
     int? getValidatorValue(List<Validator>? validators, ValidatorType type) {
       for (var validator in validators!) {
@@ -427,6 +435,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                     /// Remove focus when tapped outside the input field
                     myFocusNode.unfocus();
                   },
+                  onFieldSubmitted: widget.onFieldSubmitted,
                   inputFormatters: widget.inputFormatters,
                   onTap: widget.isEditable || widget.readOnly ? null : onTap,
                   focusNode: myFocusNode,
@@ -834,7 +843,8 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                               Flexible(
                                 fit: FlexFit.tight,
                                 child: Text(
-                                  truncateWithEllipsis(256, capitalizedErrorMessage!),
+                                  truncateWithEllipsis(
+                                      256, capitalizedErrorMessage!),
                                   style: currentTypography.bodyS.copyWith(
                                     color: const DigitColors().light.alertError,
                                   ),
@@ -872,7 +882,8 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                                   Flexible(
                                     fit: FlexFit.tight,
                                     child: Text(
-                                      truncateWithEllipsis(256, capitalizedErrorMessage!),
+                                      truncateWithEllipsis(
+                                          256, capitalizedErrorMessage!),
                                       style: currentTypography.bodyS.copyWith(
                                         color: const DigitColors()
                                             .light
