@@ -94,12 +94,12 @@ class CustomHeaderMolecule extends StatelessWidget {
               (type == HeaderType.dark
                   ? Image.asset(
                       Common.digitLogoDarkSvg,
-                      height: isTab ? 32 : 24,
+                      height: 24,
                       fit: BoxFit.fill,
                     )
                   : Image.asset(
                       Common.digitLogoLightSvg,
-                      height: isTab ? 32 : 24,
+                      height: 24,
                       fit: BoxFit.fill,
                     )),
             const SizedBox(
@@ -155,13 +155,13 @@ class CustomHeaderMolecule extends StatelessWidget {
                   ? Image.asset(
                       Common.digitLogoDarkSvg,
                       // width: ,
-                      height: isTab ? 32 : 24,
+                      height: 24,
                       fit: BoxFit.fill,
                     )
                   : Image.asset(
                       Common.digitLogoLightSvg,
                       //width: 40,
-                      height: isTab ? 32 : 24,
+                      height: 24,
                       fit: BoxFit.fill,
                     )),
           ],
@@ -187,12 +187,12 @@ class CustomHeaderMolecule extends StatelessWidget {
               (type == HeaderType.dark
                   ? Image.asset(
                       Common.digitLogoDarkSvg,
-                      height: 32,
+                      height: 24,
                       fit: BoxFit.fill,
                     )
                   : Image.asset(
                       Common.digitLogoLightSvg,
-                      height: 32,
+                      height: 24,
                       fit: BoxFit.fill,
                     )),
             if (title != null && (leadingDigitLogo || leadingWidget != null))
@@ -242,13 +242,13 @@ class CustomHeaderMolecule extends StatelessWidget {
                   ? Image.asset(
                       Common.digitLogoDarkSvg,
                       // width: ,
-                      height: 32,
+                      height: 24,
                       fit: BoxFit.fill,
                     )
                   : Image.asset(
                       Common.digitLogoLightSvg,
                       //width: 40,
-                      height: 32,
+                      height: 24,
                       fit: BoxFit.fill,
                     )),
           ],

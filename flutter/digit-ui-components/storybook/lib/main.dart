@@ -26,9 +26,11 @@ import 'package:storybook/widgets/atoms/text_block_story.dart';
 import 'package:storybook/widgets/atoms/timeline_story.dart';
 import 'package:storybook/widgets/atoms/toggle_group_story.dart';
 import 'package:storybook/widgets/molecules/digit_card_story.dart';
+import 'package:storybook/widgets/molecules/footer_molecule_story.dart';
 import 'package:storybook/widgets/molecules/header_molecule_story.dart';
 import 'package:storybook/widgets/molecules/panel_card_story.dart';
 import 'package:storybook/widgets/molecules/pop_up_story.dart';
+import 'package:storybook/widgets/molecules/side_nav_story.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
 
 void main() {
@@ -90,6 +92,8 @@ class MyApp extends StatelessWidget {
               ...headerMoleculeStories(),
               ...dividerStories(),
               ...listViewStories(),
+              ...footerMoleculeStories(),
+              ...sideNavStories(),
             ],
             
           ),

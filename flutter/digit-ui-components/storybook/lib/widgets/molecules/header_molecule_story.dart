@@ -1,19 +1,125 @@
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/models/DropdownModels.dart';
 import 'package:digit_ui_components/widgets/atoms/digit_header.dart';
-import 'package:digit_ui_components/widgets/helper_widget/header_dropdown.dart';
+import 'package:digit_ui_components/widgets/helper_widget/overlay_dropdown.dart';
 import 'package:digit_ui_components/widgets/molecules/header_molecule.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
 import 'package:flutter/material.dart';
 
 List<Story> headerMoleculeStories() {
+  String city = 'City';
+  String langauge = 'Language';
   return [
     Story(
       name: 'Molecule/Header/light/1',
-      builder: (context) => const CustomHeaderMolecule(
-        title: 'My Custom Header',
-        actions: [],
-        type: HeaderType.light,
+      builder: (context) => StatefulBuilder(
+          builder: (context, setState) {
+            return  Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                CustomHeaderMolecule(
+                  title: 'My Custom Header',
+                  type: HeaderType.light,
+                  trailingDigitLogo: true,
+                  leadingDigitLogo: false,
+                  actions: [
+                    OverlayDropdown(
+                      title: Row(
+                        children: [
+                          Text(city),
+                          const SizedBox(width: 8,),
+                          const Icon(Icons.arrow_drop_down),
+                        ],
+                      ),
+                      headerType: HeaderType.light,
+                      items: const [
+                        DropdownItem(code: '1', name: 'Option 1'),
+                        DropdownItem(code: '2', name: 'Option 2'),
+                        DropdownItem(code: '3', name: 'Option 3'),
+                        DropdownItem(code: '4', name: 'Option 4'),
+                      ],
+                      onChange: (item){
+                        setState((){
+                          city = item.name;
+                        });
+                      },
+                    ),
+                    OverlayDropdown(
+                      title: Row(
+                        children: [
+                          Text(langauge),
+                          const SizedBox(width: 8,),
+                          const Icon(Icons.arrow_drop_down),
+                        ],
+                      ),
+                      searchable: true,
+                      headerType: HeaderType.light,
+                      items: const [
+                        DropdownItem(code: '1', name: 'Hindi'),
+                        DropdownItem(code: '2', name: 'English'),
+                        DropdownItem(code: '3', name: 'French'),
+                        DropdownItem(code: '4', name: 'Hindi'),
+                        DropdownItem(code: '5', name: 'English'),
+                        DropdownItem(code: '6', name: 'French'),
+                        DropdownItem(code: '7', name: 'Hindi'),
+                        DropdownItem(code: '8', name: 'English'),
+                        DropdownItem(code: '9', name: 'French'),
+                        DropdownItem(code: '10', name: 'Hindi'),
+                        DropdownItem(code: '11', name: 'French'),
+                        DropdownItem(code: '12', name: 'English'),
+                        DropdownItem(code: '13', name: 'French'),
+                        DropdownItem(code: '14', name: 'Hindi'),
+                        DropdownItem(code: '15', name: 'English'),
+                        DropdownItem(code: '16', name: 'French'),
+                        DropdownItem(code: '17', name: 'Hindi'),
+                        DropdownItem(code: '18', name: 'English'),
+                        DropdownItem(code: '19', name: 'French'),
+                        DropdownItem(code: '20', name: 'Hindi'),
+                        DropdownItem(code: '21', name: 'English'),
+                        DropdownItem(code: '22', name: 'French'),
+                        DropdownItem(code: '23', name: 'Hindi'),
+                        DropdownItem(code: '24', name: 'English'),
+                        DropdownItem(code: '25', name: 'French'),
+                      ],
+                      onChange: (item){
+                        setState((){
+                          langauge = item.name;
+                        });
+                      },
+                    ),
+                    OverlayDropdown(
+                      title: Row(
+                        children: [
+                          Container(
+                            width: 40,
+                            height: 40,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(color: const DigitColors().light.primary2, width: 1.0),
+                              color: const DigitColors().light.primary2,
+                            ),
+                            child:  Center(
+                              child: Text(
+                                'R',
+                                style: TextStyle(fontWeight: FontWeight.w700,color: const DigitColors().light.paperPrimary),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 8,),
+                          const Icon(Icons.arrow_drop_down),
+                        ],
+                      ),
+                      headerType: HeaderType.light,
+                      items: const [
+                        DropdownItem(code: '1', name: 'login'),
+                        DropdownItem(code: '2', name: 'edit Profile'),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            );
+          }
       ),
     ),
     Story(
@@ -31,58 +137,10 @@ List<Story> headerMoleculeStories() {
     ),
     Story(
       name: 'Molecule/Header/light/3',
-      builder: (context) => const Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          CustomHeaderMolecule(
-            title: 'My Custom Header',
-            type: HeaderType.light,
-            actions: [
-              HeaderDropdown(
-                title: 'City',
-                headerType: HeaderType.light,
-                items: [
-                  DropdownItem(code: '1', name: 'Option 1'),
-                  DropdownItem(code: '2', name: 'Option 2'),
-                  DropdownItem(code: '3', name: 'Option 3'),
-                  DropdownItem(code: '4', name: 'Option 4'),
-                ],
-              ),
-              HeaderDropdown(
-                title: 'Language',
-                searchable: true,
-                headerType: HeaderType.light,
-                items: [
-                  DropdownItem(code: '1', name: 'Hindi'),
-                  DropdownItem(code: '2', name: 'English'),
-                  DropdownItem(code: '3', name: 'French'),
-                  DropdownItem(code: '4', name: 'Hindi'),
-                  DropdownItem(code: '5', name: 'English'),
-                  DropdownItem(code: '6', name: 'French'),
-                  DropdownItem(code: '7', name: 'Hindi'),
-                  DropdownItem(code: '8', name: 'English'),
-                  DropdownItem(code: '9', name: 'French'),
-                  DropdownItem(code: '10', name: 'Hindi'),
-                  DropdownItem(code: '11', name: 'French'),
-                  DropdownItem(code: '12', name: 'English'),
-                  DropdownItem(code: '13', name: 'French'),
-                  DropdownItem(code: '14', name: 'Hindi'),
-                  DropdownItem(code: '15', name: 'English'),
-                  DropdownItem(code: '16', name: 'French'),
-                  DropdownItem(code: '17', name: 'Hindi'),
-                  DropdownItem(code: '18', name: 'English'),
-                  DropdownItem(code: '19', name: 'French'),
-                  DropdownItem(code: '20', name: 'Hindi'),
-                  DropdownItem(code: '21', name: 'English'),
-                  DropdownItem(code: '22', name: 'French'),
-                  DropdownItem(code: '23', name: 'Hindi'),
-                  DropdownItem(code: '24', name: 'English'),
-                  DropdownItem(code: '25', name: 'French'),
-                ],
-              ),
-            ],
-          ),
-        ],
+      builder: (context) => const CustomHeaderMolecule(
+        title: 'My Custom Header',
+        actions: [],
+        type: HeaderType.light,
       ),
     ),
     Story(
@@ -93,8 +151,8 @@ List<Story> headerMoleculeStories() {
         leadingDigitLogo: false,
         leadingWidget: Icon(Icons.menu, size: 24,),
         trailingDigitLogo: false,
-        actions: [HeaderDropdown(
-          title: 'Language',
+        actions: [OverlayDropdown(
+          title: Text('Language'),
           searchable: true,
           headerType: HeaderType.light,
           items: [
@@ -107,14 +165,14 @@ List<Story> headerMoleculeStories() {
     ),
     Story(
       name: 'Molecule/Header/light/5',
-      builder: (context) => CustomHeaderMolecule(
+      builder: (context) =>  CustomHeaderMolecule(
         title: 'My Custom Header',
         type: HeaderType.light,
         leadingDigitLogo: false,
         trailingDigitLogo: true,
         actions: [
-          const HeaderDropdown(
-            title: 'City',
+          const OverlayDropdown(
+            title: Text('City'),
             headerType: HeaderType.light,
             items: [
               DropdownItem(code: '1', name: 'Option 1'),
@@ -123,8 +181,8 @@ List<Story> headerMoleculeStories() {
               DropdownItem(code: '4', name: 'Option 4'),
             ],
           ),
-          const HeaderDropdown(
-            title: 'Language',
+          const OverlayDropdown(
+            title: Text('Language'),
             searchable: true,
             headerType: HeaderType.light,
             items: [
@@ -138,13 +196,13 @@ List<Story> headerMoleculeStories() {
             height: 40,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              border: Border.all(color: const DigitColors().light.primary2, width: 1.0),
-              color: const DigitColors().light.primary2,
+              border: Border.all(color: DigitColors().light.primary2, width: 1.0),
+              color: DigitColors().light.primary2,
             ),
             child:  Center(
               child: Text(
                 'R',
-                style: TextStyle(fontWeight: FontWeight.w700,color: const DigitColors().light.paperPrimary),
+                style: TextStyle(fontWeight: FontWeight.w700,color: DigitColors().light.paperPrimary),
               ),
             ),
           )
@@ -179,8 +237,8 @@ List<Story> headerMoleculeStories() {
         title: 'My Custom Header',
         type: HeaderType.dark,
         actions: [
-          HeaderDropdown(
-            title: 'City',
+          OverlayDropdown(
+            title: Text('City'),
             headerType: HeaderType.dark,
             items: [
               DropdownItem(code: '1', name: 'Option 1'),
@@ -189,8 +247,8 @@ List<Story> headerMoleculeStories() {
               DropdownItem(code: '4', name: 'Option 4'),
             ],
           ),
-          HeaderDropdown(
-            title: 'Language',
+          OverlayDropdown(
+            title: Text('Language'),
             searchable: true,
             headerType: HeaderType.dark,
             items: [
@@ -210,8 +268,8 @@ List<Story> headerMoleculeStories() {
         leadingDigitLogo: false,
         leadingWidget: Icon(Icons.menu, size: 24, color: const DigitColors().light.paperPrimary,),
         trailingDigitLogo: false,
-        actions: const [HeaderDropdown(
-          title: 'Language',
+        actions: const [OverlayDropdown(
+          title: Text('Language'),
           searchable: true,
           headerType: HeaderType.dark,
           items: [
@@ -230,8 +288,8 @@ List<Story> headerMoleculeStories() {
         leadingDigitLogo: false,
         trailingDigitLogo: true,
         actions: [
-          const HeaderDropdown(
-            title: 'City',
+          const OverlayDropdown(
+            title: Text('City'),
             headerType: HeaderType.dark,
             items: [
               DropdownItem(code: '1', name: 'Option 1'),
@@ -240,8 +298,8 @@ List<Story> headerMoleculeStories() {
               DropdownItem(code: '4', name: 'Option 4'),
             ],
           ),
-          const HeaderDropdown(
-            title: 'Language',
+          const OverlayDropdown(
+            title: Text('Language'),
             searchable: true,
             headerType: HeaderType.dark,
             items: [

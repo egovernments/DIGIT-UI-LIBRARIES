@@ -123,28 +123,31 @@ class _DropdownListViewState extends State<DropdownListView> {
         children: [
           Visibility(
             visible: widget.searchable,
-            child: Padding(
-              padding: const EdgeInsets.all(8),
-              child: DigitSearchFormInput(
-                controller: _searchController,
-                focusNode: _searchFocusNode,
-                onChange: (value) {
-                  _focusedIndex = -1;
-                  setState(() {
-                    filteredItems = widget.items
-                        .where((item) => item.name
-                            .toLowerCase()
-                            .contains(value.toLowerCase()))
-                        .toList();
-                  });
-                },
-                onFieldSubmitted: (value) {
-                  if(_focusedIndex!=-1){
-                    widget.onSelect(filteredItems[_focusedIndex]);
-                  }else{
-                    widget.onSelect(null);
-                  }
-                },
+            child: Container(
+              color: const DigitColors().light.paperPrimary,
+              child: Padding(
+                padding: const EdgeInsets.all(8),
+                child: DigitSearchFormInput(
+                  controller: _searchController,
+                  focusNode: _searchFocusNode,
+                  onChange: (value) {
+                    _focusedIndex = -1;
+                    setState(() {
+                      filteredItems = widget.items
+                          .where((item) => item.name
+                              .toLowerCase()
+                              .contains(value.toLowerCase()))
+                          .toList();
+                    });
+                  },
+                  onFieldSubmitted: (value) {
+                    if(_focusedIndex!=-1){
+                      widget.onSelect(filteredItems[_focusedIndex]);
+                    }else{
+                      widget.onSelect(null);
+                    }
+                  },
+                ),
               ),
             ),
           ),
@@ -161,8 +164,8 @@ class _DropdownListViewState extends State<DropdownListView> {
                       builder: (context, setState) {
                         final DropdownItem item = filteredItems[index];
                         Color backgroundColor = index % 2 == 0
-                            ? const DigitColors().light.paperPrimary
-                            : const DigitColors().light.paperSecondary;
+                            ? const DigitColors().light.paperSecondary
+                            : const DigitColors().light.paperPrimary;
 
                         return InkWell(
                           onTapDown: (_) {
