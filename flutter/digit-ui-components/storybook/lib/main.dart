@@ -1,4 +1,5 @@
 import 'package:digit_ui_components/digit_components.dart';
+import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:inspector/inspector.dart';
 import 'package:storybook/widgets/atoms/Info_card_stories.dart';
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: DigitTheme.instance.mobileTheme.copyWith(
+      theme: DigitExtendedTheme.instance.mobileTheme.copyWith(
           appBarTheme: AppBarTheme(
             backgroundColor: DigitTheme.instance.colorScheme.secondary,
           )),
