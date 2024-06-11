@@ -237,7 +237,7 @@ import {
 import { initLibraries } from "@egovernments/digit-ui-libraries";
 
 initLibraries().then(() => {
-  console.log("DIGIT Contants enabled", window?.Digit);
+  console.info("DIGIT Contants enabled");
 });
 
 export {
