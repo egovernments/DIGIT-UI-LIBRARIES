@@ -1,6 +1,0 @@
-import { useQuery } from "react-query";
-import { search{{properCase serviceName}} } from "./services/search{{properCase serviceName}}";
-
-export const use{{properCase serviceName}}View = ({ t, {{camelCase serviceName}}Id, tenantId, config = {} }) => {
-  return useQuery(["{{properCase serviceName}} Details"], () => search{{properCase serviceName}}({ t, {{camelCase serviceName}}Id, tenantId }), config);
-};

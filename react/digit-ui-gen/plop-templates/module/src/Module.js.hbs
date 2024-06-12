@@ -1,14 +1,14 @@
-import { Loader} from "@egovernments/digit-ui-react-components";
+import { Loader } from "@egovernments/digit-ui-react-components";
 import React from "react";
 import { useRouteMatch } from "react-router-dom";
 import { default as EmployeeApp } from "./pages/employee";
 import {{properCase moduleName}}Card from "./components/{{properCase moduleName}}Card";
+import { overrideHooks, updateCustomConfigs } from "./utils";
 
-export const {{properCase moduleName}} = ({ stateCode, userType, tenants }) => {
- 
+export const {{properCase moduleName}}Module = ({ stateCode, userType, tenants }) => {
   const { path, url } = useRouteMatch();
   const tenantId = Digit.ULBService.getCurrentTenantId();
-  const moduleCode = ["sample", "common","workflow"];
+  const moduleCode = ["{{kebabCase moduleName}}", "common", "workflow"];
   const language = Digit.StoreData.getCurrentLanguage();
   const { isLoading, data: store } = Digit.Services.useStore({
     stateCode,
@@ -23,10 +23,13 @@ export const {{properCase moduleName}} = ({ stateCode, userType, tenants }) => {
 };
 
 const componentsToRegister = {
-  SampleModule,
-  SampleCard
+  {{properCase moduleName}}Module,
+  {{properCase moduleName}}Card,
 };
-export const initSampleComponents = () => {
+
+export const init{{properCase moduleName}}Components = () => {
+  overrideHooks();
+  updateCustomConfigs();
   Object.entries(componentsToRegister).forEach(([key, value]) => {
     Digit.ComponentRegistryService.setComponent(key, value);
   });

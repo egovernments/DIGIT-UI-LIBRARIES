@@ -1,24 +1,18 @@
-import { use{{properCase serviceName}}View } from "./use{{properCase serviceName}}View";
-import useEstimateDetailsScreen from "./useEstimateDetailsScreen";
+import { useIndividualView } from "./useIndividualView";
 import utils from "../utils";
-
-const sample = {
-  use{{properCase serviceName}}View
-};
-const estimates = {
-  useEstimateDetailsScreen
+const {{kebabCase moduleName}} = {
+  useIndividualView
 };
 
 const Hooks = {
-  sample,
-  estimates
+  {{kebabCase moduleName}}
 };
 
 const Utils = {
   browser: {
-    sample: () => {},
+    {{kebabCase moduleName}}: () => { },
   },
-  sample: {
+  {{kebabCase moduleName}}: {
     ...utils,
   },
 };

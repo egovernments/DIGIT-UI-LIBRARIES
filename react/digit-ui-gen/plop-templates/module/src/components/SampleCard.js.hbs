@@ -3,25 +3,34 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 const {{properCase moduleName}}Card = () => {
+ 
   const { t } = useTranslation();
 
   const propsForModuleCard = {
     Icon: <PropertyHouse />,
     moduleName: t("{{properCase moduleName}}"),
-    kpis: [],
+    kpis: [
+
+    ],
     links: [
+   
       {
-        label: t("Inbox"),
-        link: `/${window?.contextPath}/employee/{{kebabCase moduleName}}/inbox`,
+        label: t("{{properCase moduleName}}  Search"),
+        link: `/${window?.contextPath}/employee/{{kebabCase moduleName}}/{{kebabCase moduleName}}-individual`,
+
       },
       {
-        label: t("Create {{properCase serviceName}}"),
-        link: `/${window?.contextPath}/employee/{{kebabCase moduleName}}/{{kebabCase moduleName}}-create`,
+        label: t("{{properCase moduleName}}  Create"),
+        link: `/${window?.contextPath}/employee/{{kebabCase moduleName}}/{{kebabCase moduleName}}-individual`,
+
       },
+    
       {
-        label: t("Search {{properCase serviceName}}"),
-        link: `/${window?.contextPath}/employee/{{kebabCase moduleName}}/{{kebabCase moduleName}}-search`,
+        label: t("{{properCase moduleName}} Response"),
+        link: `/${window?.contextPath}/employee/{{kebabCase moduleName}}/{{kebabCase moduleName}}-response`,
+
       },
+      
     ],
   };
 
