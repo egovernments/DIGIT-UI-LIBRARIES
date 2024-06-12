@@ -1,0 +1,56 @@
+import { useQueryClient, useMutation } from "react-query";
+// import { CustomService } from "../services/elements/CustomService";
+
+//  const requestCriteria = [
+//       "/user/_search",             // API details
+//     {},                            //requestParam
+//     {data : {uuid:[Useruuid]}},    // requestBody
+//     {} ,                           // privacy value 
+//     {                              // other configs
+//       enabled: privacyState,
+//       cacheTime: 100,
+//       select: (data) => {
+//                                     // format data
+//         return  _.get(data, loadData?.jsonPath, value);
+//       },
+//     },
+//   ];
+  // const mutation = Digit.Hooks.useCustomAPIMutationHook(...requestCriteria);
+
+
+// while mutating use the following format 
+
+// mutation.mutate({
+//           params: {},
+//           body: { "payload": {
+//                    // custom data
+//                 } 
+//           }},
+//           {
+//             onError : ()=> { },
+//             onSuccess : ()=> { }
+//           });
+
+
+const useCustomAPIMutationHook = ({ url, params, body, config = {}, plainAccessRequest, changeQueryName = "Random" }) => {
+  const client = useQueryClient();
+
+  const { isLoading, data, isFetching, ...rest } = useMutation(
+    (data) => Digit.CustomService.getResponse({ url, params: { ...params, ...data?.params }, body: { ...body, ...data?.body }, plainAccessRequest }),
+    {
+      cacheTime: 0,
+      ...config,
+    }
+  );
+  return {
+    ...rest,
+    isLoading,
+    isFetching,
+    data,
+    revalidate: () => {
+      data && client.invalidateQueries({ queryKey: [url].filter((e) => e) });
+    },
+  };
+};
+
+export default useCustomAPIMutationHook;

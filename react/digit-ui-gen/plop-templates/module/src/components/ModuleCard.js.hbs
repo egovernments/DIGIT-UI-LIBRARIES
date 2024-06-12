@@ -1,0 +1,31 @@
+import { HRIcon, EmployeeModuleCard, AttendanceIcon, PropertyHouse } from "@egovernments/digit-ui-react-components";
+import React from "react";
+import { useTranslation } from "react-i18next";
+
+const {{properCase moduleName}}Card = () => {
+  const { t } = useTranslation();
+
+  const propsForModuleCard = {
+    Icon: <PropertyHouse />,
+    moduleName: t("{{properCase moduleName}}"),
+    kpis: [],
+    links: [
+      {
+        label: t("Inbox"),
+        link: `/${window?.contextPath}/employee/{{kebabCase moduleName}}/inbox`,
+      },
+      {
+        label: t("Create {{properCase serviceName}}"),
+        link: `/${window?.contextPath}/employee/{{kebabCase moduleName}}/{{kebabCase moduleName}}-create`,
+      },
+      {
+        label: t("Search {{properCase serviceName}}"),
+        link: `/${window?.contextPath}/employee/{{kebabCase moduleName}}/{{kebabCase moduleName}}-search`,
+      },
+    ],
+  };
+
+  return <EmployeeModuleCard {...propsForModuleCard} />;
+};
+
+export default {{properCase moduleName}}Card;

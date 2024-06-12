@@ -1,0 +1,36 @@
+#### `plop-templates/useCustomMDMSV2.js.hbs`
+
+```javascript
+export const useCustomMDMSV2 = ({ tenantId, schemaCode, select, changeQueryName = "Random", filters = {}, config = {} }) => {
+  const requestCriteria = {
+    url: "/mdms-v2/v2/_search",
+    body: {
+      tenantId,
+      MdmsCriteria: {
+        tenantId: Digit.ULBService.getCurrentTenantId(),
+        filters: filters,
+        schemaCode: schemaCode,
+        isActive: true,
+        limit: 100
+      },
+    },
+    config: {
+      select: select
+        ? select
+        : (response) => {
+            const { mdms } = response;
+            const options = mdms?.map((row) => {
+              return {
+                i18nKey: Digit.Utils.locale.getTransformedLocale(`${row?.schemaCode}_${row?.data?.code}`),
+                ...row.data,
+              };
+            });
+            return options;
+          },
+      ...config
+    },
+    changeQueryName,
+  };
+  const { isLoading, data } = Digit.Hooks.useCustomAPIHook(requestCriteria);
+  return { isLoading, data };
+};

@@ -1,0 +1,85 @@
+export const newConfig = [
+    {
+   head: "Create Individual",   
+    body: [
+        
+        { inline: true,
+        label: "Order Subject",
+        isMandatory: true,
+        key: "orderSubject",
+        type: "text",
+        disable: false,
+        populators: {
+          name: "orderSubject",
+          error: "Required",
+          validation: { pattern: /.+/ },
+        }
+    },
+      {
+        inline: true,
+        label: "Hearing Summary",
+        isMandatory: true,
+        key: "hearingSummary",
+        type: "textarea",
+        disable: false,
+        populators: {
+          name: "hearingSummary",
+          error: "Required",
+          validation: { pattern: /.+/ },
+        },
+      },
+      {
+        inline: true,
+        label: "Document Name",
+        isMandatory: false,
+        key: "documentName",
+        type: "text",
+        disable: false,
+        populators: {
+          name: "documentName",
+          error: "Required",
+          validation: { pattern: /.+/ },
+        },
+      },
+      {
+        inline: true,
+        label: "Submission Date",
+        isMandatory: false,
+        key: "submissionDate",
+        type: "date",
+        disable: false,
+        populators: {
+          name: "submissionDate",
+          error: "Required",
+          validation: { pattern: /^\d{2}\/\d{2}\/\d{4}$/ },
+        },
+      },
+      {
+        inline: true,
+        label: "Response Date",
+        isMandatory: false,
+        key: "responseDate",
+        type: "date",
+        disable: false,
+        populators: {
+          name: "responseDate",
+          error: "Required",
+          validation: { pattern: /^\d{2}\/\d{2}\/\d{4}$/ },
+        },
+      },
+      {
+        inline: true,
+        label: "Purpose of Hearing",
+        isMandatory: true,
+        key: "nextPurposeOfHearing",
+        type: "text",
+        disable: false,
+        populators: {
+          name: "nextPurposeOfHearing",
+          error: "Required",
+          validation: { pattern: /.+/ },
+        },
+      }
+     ],
+    }     
+]
