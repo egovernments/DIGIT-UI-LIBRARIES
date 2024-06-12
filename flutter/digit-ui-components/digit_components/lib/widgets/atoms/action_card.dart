@@ -24,68 +24,37 @@
 
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/material.dart';
+import '../../theme/action_card_theme.dart';
+import '../../theme/digit_extended_theme.dart';
 import '../helper_widget/button_list.dart';
 
 class ActionCard extends StatelessWidget {
-  /// The width of the dialog. If null, defaults to a responsive width based on screen size.
-  final double? width;
 
-  /// The height of the dialog. If null, defaults to a responsive height based on screen size.
-  final double? height;
+  final DigitActionCardTheme? extendedTheme;
 
   /// A list of action buttons to be displayed in the dialog.
   final List<Button> actions;
 
-  /// The spacing between the action buttons. If null, defaults to a responsive spacing based on screen size.
-  final double? spacing;
-
   const ActionCard({
     super.key,
-    this.width,
-    this.height,
-    this.spacing,
+    this.extendedTheme,
     required this.actions,
   });
 
   @override
   Widget build(BuildContext context) {
-    bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
-    bool isTab = AppView.isTabletView(MediaQuery.of(context).size);
-    double? cardWidth = width;
+
+    final theme = Theme.of(context);
+    final actionTheme = extendedTheme ?? theme.extension<DigitActionCardTheme>() ?? DigitActionCardTheme.defaultTheme(context);
 
     return Dialog.fullscreen(
       backgroundColor: const DigitColors().transparent,
       child: Center(
         child: Container(
-          width: cardWidth,
-          height: height,
-          margin: EdgeInsets.symmetric(
-              vertical: height == null
-                  ? isMobile
-                      ? PopUpCardConstant.verticalMarginMobile
-                      : isTab
-                          ? PopUpCardConstant.verticalMarginTab
-                          : PopUpCardConstant.verticalMarginDesktop
-                  : 0,
-              horizontal: cardWidth == null
-                  ? isMobile
-                      ? PopUpCardConstant.horizontalMarginMobile
-                      : isTab
-                          ? PopUpCardConstant.horizontalMarginTab
-                          : PopUpCardConstant.horizontalMarginDesktop
-                  : 0),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(spacer1),
-            color: const DigitColors().light.paperPrimary,
-            boxShadow: [
-              BoxShadow(
-                color: const Color(0xFF000000).withOpacity(.16),
-                offset: const Offset(0, 1),
-                spreadRadius: 0,
-                blurRadius: 2,
-              ),
-            ],
-          ),
+          width: actionTheme.width,
+          height: actionTheme.height,
+          padding: actionTheme.padding,
+          decoration: actionTheme.decoration,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -95,23 +64,11 @@ class ActionCard extends StatelessWidget {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      Padding(
-                        padding: EdgeInsets.all(isMobile
-                            ? spacer4
-                            : isTab
-                                ? spacer5
-                                : spacer6),
-                        child: ButtonListTile(
-                          /// A widget that displays the list of action buttons
-                          buttons: actions,
-                          isVertical: true,
-                          spacing: spacing ??
-                              (isMobile
-                                  ? spacer4
-                                  : isTab
-                                      ? spacer5
-                                      : spacer6),
-                        ),
+                      ButtonListTile(
+                        /// A widget that displays the list of action buttons
+                        buttons: actions,
+                        isVertical: true,
+                        spacing: actionTheme.spacing ?? 8,
                       ),
                     ],
                   ),

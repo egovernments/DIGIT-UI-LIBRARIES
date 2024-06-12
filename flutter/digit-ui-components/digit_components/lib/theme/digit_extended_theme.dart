@@ -1,6 +1,7 @@
 library digit_extended_theme;
 
 import 'package:digit_ui_components/digit_components.dart';
+import 'package:digit_ui_components/theme/action_card_theme.dart';
 import 'package:digit_ui_components/theme/digit_colors.dart';
 import 'package:digit_ui_components/theme/text_theme_extension.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,6 @@ class DigitExtendedTheme {
         displayBase: TextStyle(
           fontFamily: 'Roboto',
         ),
-
       );
 
   ButtonTypography get buttonTypography =>
@@ -31,7 +31,6 @@ class DigitExtendedTheme {
           fontFamily: 'Roboto',
         ),
       );
-
 
   DigitDesktopTypography get desktopTypography =>
       const DigitDesktopTypography(
@@ -55,26 +54,36 @@ class DigitExtendedTheme {
 
   const DigitExtendedTheme._internal();
 
-  ThemeData get mobileTheme {
-    const Border(top: BorderSide());
+  ThemeData getTheme(BuildContext context) {
+    DigitTypography typography;
+
+    if (AppView.isMobileView(MediaQuery.of(context).size)) {
+      typography = mobileTypography;
+    } else if (AppView.isTabletView(MediaQuery.of(context).size)) {
+      typography = tabTypography;
+    } else {
+      typography = desktopTypography;
+    }
+
     return ThemeData(
       extensions: [
         AppTextThemeExtension(
-            headingXl:mobileTypography.headingXl,
-            headingL:mobileTypography.headingL,
-            headingM:mobileTypography.headingM,
-            headingS:mobileTypography.headingS,
-            headingXS: mobileTypography.headingXS,
-            captionL: mobileTypography.captionL,
-            captionM: mobileTypography.captionM,
-            captionS: mobileTypography.captionS,
-            bodyL: mobileTypography.bodyL,
-            bodyS: mobileTypography.bodyS,
-            bodyXS: mobileTypography.bodyXS,
-            linkL: mobileTypography.linkL,
-            linkM: mobileTypography.linkM,
-            linkS: mobileTypography.linkS,
+          headingXl: typography.headingXl,
+          headingL: typography.headingL,
+          headingM: typography.headingM,
+          headingS: typography.headingS,
+          headingXS: typography.headingXS,
+          captionL: typography.captionL,
+          captionM: typography.captionM,
+          captionS: typography.captionS,
+          bodyL: typography.bodyL,
+          bodyS: typography.bodyS,
+          bodyXS: typography.bodyXS,
+          linkL: typography.linkL,
+          linkM: typography.linkM,
+          linkS: typography.linkS,
         ),
+         DigitActionCardTheme.defaultTheme(context),
       ],
       appBarTheme: const AppBarTheme(elevation: 0),
       textSelectionTheme: TextSelectionThemeData(
@@ -175,6 +184,10 @@ class DigitExtendedTheme {
       ),
     );
   }
-
-
 }
+
+// extension AppThemeExtension on ThemeData {
+//   /// Usage example: Theme.of(context).appColors;
+//   DigitActionCardTheme get appColors =>
+//       extension<DigitActionCardTheme>() ?? AppTheme._lightAppColors;
+// }

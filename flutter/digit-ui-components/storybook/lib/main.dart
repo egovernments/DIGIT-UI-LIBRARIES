@@ -35,10 +35,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: DigitExtendedTheme.instance.mobileTheme.copyWith(
-          appBarTheme: AppBarTheme(
-            backgroundColor: DigitTheme.instance.colorScheme.secondary,
-          )),
+      theme: DigitExtendedTheme.instance.getTheme(context).copyWith(
+        appBarTheme: AppBarTheme(
+          backgroundColor: DigitTheme.instance.colorScheme.secondary,
+        ),
+      ),
       home: Scaffold(
         body: Inspector(
           isEnabled: true,

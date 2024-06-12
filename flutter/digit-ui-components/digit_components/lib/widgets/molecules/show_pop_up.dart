@@ -67,9 +67,7 @@ void showActionCard({
         filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
         child: ActionCard(
           actions: actions,
-          width: width,
-          height: height,
-          spacing: spacing,
+
         ),
       );
     },
