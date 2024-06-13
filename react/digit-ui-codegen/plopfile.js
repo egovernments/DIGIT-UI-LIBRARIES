@@ -21,7 +21,7 @@ module.exports = function (plop) {
       },
       {
         type: 'add',
-        path: 'modules/{{kebabCase moduleName}}/src/configs/UICustomisations.js',
+        path: 'modules/{{kebabCase moduleName}}/src/configs/UICustomizations.js',
         templateFile: 'plop-templates/module/src/configs/UICustomizations.js.hbs',
       },
       {
