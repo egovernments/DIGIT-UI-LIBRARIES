@@ -1,4 +1,7 @@
+#!/usr/bin/env node
+
 module.exports = function (plop) {
+    // Example generator
   plop.setGenerator('module', {
     description: 'Generate a new module with service',
     prompts: [

@@ -5,7 +5,7 @@
 ## Install
 
 ```bash
-npm install --save @egovernments/digit-ui-module-{{kebabCase moduleName}}
+npm install --save @egovernments/digit-ui-codegen
 ```
 
 ## Limitation
