@@ -4,9 +4,10 @@ import { useHistory } from "react-router-dom";
 import { FormComposerV2, Header } from "@egovernments/digit-ui-react-components";
 import { configs } from "../../configs/{{properCase moduleName}}CreateConfig";
 
-
+const fieldStyle={ marginRight: 0 };
 
 const {{properCase moduleName}}Create = () => {
+  const defaultValue={};
   const tenantId = Digit.ULBService.getCurrentTenantId();
   const { t } = useTranslation();
   const history = useHistory();
@@ -44,12 +45,12 @@ const {{properCase moduleName}}Create = () => {
             ...config,
           };
         })}
-        defaultValues={{}}
+        defaultValues={defaultValue}
         onFormValueChange ={ (setValue, formData, formState, reset, setError, clearErrors, trigger, getValues) => {
           console.log(formData, "formData");
         }}
         onSubmit={(data,) => onSubmit(data, )}
-        fieldStyle={{ marginRight: 0 }}
+        fieldStyle={fieldStyle}
       />
        
     </div>

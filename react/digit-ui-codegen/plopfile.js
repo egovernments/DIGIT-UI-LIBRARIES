@@ -42,12 +42,22 @@ module.exports = function (plop) {
       {
         type: 'add',
         path: 'modules/{{kebabCase moduleName}}/src/hooks/services/search{{properCase serviceName}}.js',
-        templateFile: 'plop-templates/module/src/hooks/services/searchService.js.hbs',
+        templateFile: 'plop-templates/module/src/hooks/services/sampleService.js.hbs',
+      },
+      {
+        type: 'add',
+        path: 'modules/{{kebabCase moduleName}}/src/hooks/services/searchTestResultData.js',
+        templateFile: 'plop-templates/module/src/hooks/services/searchTestResultData.js.hbs',
       },
       {
         type: 'add',
         path: 'modules/{{kebabCase moduleName}}/src/hooks/index.js',
         templateFile: 'plop-templates/module/src/hooks/index.js.hbs',
+      },
+      {
+        type: 'add',
+        path: 'modules/{{kebabCase moduleName}}/src/hooks/useIndividualView.js',
+        templateFile: 'plop-templates/module/src/hooks/useIndividualView.js.hbs',
       },
       {
         type: 'add',
@@ -63,6 +73,20 @@ module.exports = function (plop) {
         type: 'add',
         path: 'modules/{{kebabCase moduleName}}/src/pages/employee/{{properCase serviceName}}Search.js',
         templateFile: 'plop-templates/module/src/pages/employee/SampleSearch.js.hbs',
+      },  {
+        type: 'add',
+        path: 'modules/{{kebabCase moduleName}}/src/pages/employee/{{properCase serviceName}}Response.js',
+        templateFile: 'plop-templates/module/src/pages/employee/SampleResponse.js.hbs',
+      },
+      {
+        type: 'add',
+        path: 'modules/{{kebabCase moduleName}}/src/utils/createUtils.js',
+        templateFile: 'plop-templates/module/src/utils/createUtils.js.hbs',
+      },
+      {
+        type: 'add',
+        path: 'modules/{{kebabCase moduleName}}/src/utils/index.js',
+        templateFile: 'plop-templates/module/src/utils/index.js.hbs',
       },
       {
         type: 'add',
@@ -73,6 +97,16 @@ module.exports = function (plop) {
         type: 'add',
         path: 'modules/{{kebabCase moduleName}}/src/components/{{properCase moduleName}}TestComponent.js',
         templateFile: 'plop-templates/module/src/components/SampleTestComponent.js.hbs',
+      },
+      {
+        type: 'add',
+        path: 'modules/{{kebabCase moduleName}}/README.md',
+        templateFile: 'plop-templates/module/README.md.hbs',
+      },
+      {
+        type: 'add',
+        path: 'modules/{{kebabCase moduleName}}/CHANGELOG.md',
+        templateFile: 'plop-templates/module/CHANGELOG.md.hbs',
       },
     ],
   });

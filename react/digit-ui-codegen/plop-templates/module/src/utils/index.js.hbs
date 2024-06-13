@@ -27,7 +27,6 @@ export const overrideHooks = () => {
       }
     });
   };
-  //init <modulename >component
   const setupHooks = (HookName, HookFunction, method, isHook = true) => {
     window.Digit = window.Digit || {};
     window.Digit[isHook ? "Hooks" : "Utils"] = window.Digit[isHook ? "Hooks" : "Utils"] || {};

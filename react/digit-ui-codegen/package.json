@@ -1,0 +1,21 @@
+{
+  "name": "@egovernments/digit-ui-codegen",
+  "version": "0.0.1",
+  "license": "MIT",
+  "author": "Jagankumar <jagan.kumar@egov.org.in>",
+  "main": "index.js",
+  "scripts": {
+    "plop": "plop"
+  },
+  "dependencies": {
+    "plop": "^2.7.6"
+  },
+  "keywords": [
+    "digit",
+    "egov",
+    "dpg",
+    "digit-ui",
+    "css",
+    "ui-code-gen"
+  ]
+}

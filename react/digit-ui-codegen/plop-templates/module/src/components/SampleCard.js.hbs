@@ -1,4 +1,4 @@
-import { HRIcon, EmployeeModuleCard, AttendanceIcon, PropertyHouse } from "@egovernments/digit-ui-react-components";
+import {  EmployeeModuleCard, PropertyHouse } from "@egovernments/digit-ui-react-components";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
@@ -16,12 +16,12 @@ const {{properCase moduleName}}Card = () => {
    
       {
         label: t("{{properCase moduleName}}  Search"),
-        link: `/${window?.contextPath}/employee/{{kebabCase moduleName}}/{{kebabCase moduleName}}-individual`,
+        link: `/${window?.contextPath}/employee/{{kebabCase moduleName}}/{{kebabCase moduleName}}-search`,
 
       },
       {
         label: t("{{properCase moduleName}}  Create"),
-        link: `/${window?.contextPath}/employee/{{kebabCase moduleName}}/{{kebabCase moduleName}}-individual`,
+        link: `/${window?.contextPath}/employee/{{kebabCase moduleName}}/{{kebabCase moduleName}}-create`,
 
       },
     

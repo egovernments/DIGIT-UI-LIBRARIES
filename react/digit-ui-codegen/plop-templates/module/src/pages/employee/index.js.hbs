@@ -5,7 +5,7 @@ import { Switch } from "react-router-dom";
 import Response from "./Response";
 import {{properCase moduleName}}Create from "./{{properCase moduleName}}Create";
 import {{properCase moduleName}}Search from "./{{properCase moduleName}}Search";
-
+const bredCrumbStyle={ maxWidth: "min-content" };
 const ProjectBreadCrumb = ({ location }) => {
   const { t } = useTranslation();
   const crumbs = [
@@ -20,7 +20,7 @@ const ProjectBreadCrumb = ({ location }) => {
       show: true,
     },
   ];
-  return <BreadCrumb crumbs={crumbs} spanStyle={{ maxWidth: "min-content" }} />;
+  return <BreadCrumb crumbs={crumbs} spanStyle={bredCrumbStyle} />;
 };
 
 const App = ({ path, stateCode, userType, tenants }) => {
