@@ -7,11 +7,6 @@ module.exports = function (plop) {
         name: 'moduleName',
         message: 'Module name?',
       },
-      {
-        type: 'input',
-        name: 'serviceName',
-        message: 'Service name?',
-      },
     ],
     actions: [
       {
@@ -41,7 +36,7 @@ module.exports = function (plop) {
       },
       {
         type: 'add',
-        path: 'modules/{{kebabCase moduleName}}/src/hooks/services/search{{properCase serviceName}}.js',
+        path: 'modules/{{kebabCase moduleName}}/src/hooks/services/search{{properCase moduleName}}.js',
         templateFile: 'plop-templates/module/src/hooks/services/sampleService.js.hbs',
       },
       {
@@ -66,16 +61,16 @@ module.exports = function (plop) {
       },
       {
         type: 'add',
-        path: 'modules/{{kebabCase moduleName}}/src/pages/employee/{{properCase serviceName}}Create.js',
+        path: 'modules/{{kebabCase moduleName}}/src/pages/employee/{{properCase moduleName}}Create.js',
         templateFile: 'plop-templates/module/src/pages/employee/SampleCreate.js.hbs',
       },
       {
         type: 'add',
-        path: 'modules/{{kebabCase moduleName}}/src/pages/employee/{{properCase serviceName}}Search.js',
+        path: 'modules/{{kebabCase moduleName}}/src/pages/employee/{{properCase moduleName}}Search.js',
         templateFile: 'plop-templates/module/src/pages/employee/SampleSearch.js.hbs',
       },  {
         type: 'add',
-        path: 'modules/{{kebabCase moduleName}}/src/pages/employee/{{properCase serviceName}}Response.js',
+        path: 'modules/{{kebabCase moduleName}}/src/pages/employee/{{properCase moduleName}}Response.js',
         templateFile: 'plop-templates/module/src/pages/employee/SampleResponse.js.hbs',
       },
       {
