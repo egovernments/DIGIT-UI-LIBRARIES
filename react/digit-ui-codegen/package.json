@@ -1,9 +1,12 @@
 {
   "name": "@egovernments/digit-ui-codegen",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "license": "MIT",
   "author": "Jagankumar <jagan.kumar@egov.org.in>",
-  "main": "index.js",
+  "main": "plopfile.js",
+  "bin": {
+    "digit-ui-codegen": "./plopfile.js"
+  },
   "scripts": {
     "plop": "plop"
   },
