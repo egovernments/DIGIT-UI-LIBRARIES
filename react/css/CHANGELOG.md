@@ -3,6 +3,12 @@
 ## [0.0.2-beta.2] - 2024-06-13
 ### Changed
 - Deleted Unused CSS 
+- Added preview overlay styles for uploadedfile and backLink styles
+
+
+## [0.0.2-beta.2] - 2024-06-13
+### Changed
+- Deleted Unused CSS 
 
 ## [0.0.2-beta.1] - 2024-06-04
 ### Changed
