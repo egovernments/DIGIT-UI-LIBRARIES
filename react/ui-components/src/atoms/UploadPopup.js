@@ -182,7 +182,7 @@ const UploadPopup = ({
             />
           )}
           <div
-            className="digit-upload-and-download-button"
+            className={`digit-upload-and-download-button ${fileErrors?.error && showErrorCard ? "error-card" : "" }`}
             style={{ display: "flex" }}
           >
             {showReUploadButton && (
@@ -218,8 +218,8 @@ const UploadPopup = ({
           >
             <SVG.Close
               fill={fileErrors ? "#FFFFFF" : "#0B4B66"}
-              width={"14px"}
-              height={"14px"}
+              width={"24px"}
+              height={"24px"}
               className="uploader-close"
             />
           </span>

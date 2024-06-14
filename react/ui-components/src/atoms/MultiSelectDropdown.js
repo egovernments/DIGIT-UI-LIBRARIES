@@ -1,7 +1,7 @@
 import React, { useEffect, useReducer, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import { useTranslation } from "react-i18next";
-import RemoveableTag from "./RemoveableTag";
+import Chip from "./Chip";
 import { SVG } from "./SVG";
 import Button from "./Button";
 import TreeSelect from "./TreeSelect";
@@ -666,7 +666,7 @@ const MultiSelectDropdown = ({
                 const translatedText = t(value.code);
                 const replacedText = replaceDotWithColon(translatedText);
                 return (
-                  <RemoveableTag
+                  <Chip
                     key={index}
                     text={
                       replacedText.length > 64

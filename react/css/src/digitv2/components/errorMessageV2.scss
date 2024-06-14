@@ -4,6 +4,8 @@
 .digit-error-icon-message-wrap {
   @apply flex w-full whitespace-pre-wrap break-words;
   gap: theme(digitv2.spacers.spacer1);
+  word-break: break-word;
+  cursor: default;
 
   .digit-error-icon{
       @apply flex items-center;

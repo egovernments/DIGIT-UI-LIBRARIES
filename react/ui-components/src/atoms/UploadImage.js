@@ -3,6 +3,12 @@ import { SVG } from "./SVG";
 import Webcam from "react-webcam";
 import Button from "./Button";
 import ErrorMessage from "./ErrorMessage";
+import {
+  DocUpload,
+  DocPdfUpload,
+  DocXlsxUpload,
+  DocdocUpload,
+} from "./svgindex";
 
 const UploadImage = ({
   multiple,
@@ -35,7 +41,6 @@ const UploadImage = ({
   };
   useEffect(() => {
     window.addEventListener("resize", onResize);
-  
     return () => {
       window.removeEventListener("resize", onResize);
     };
@@ -114,9 +119,51 @@ const UploadImage = ({
     onFileDelete(fileToRemove);
   };
 
+  const getFileUploadIcon = (fileType, isError) => {
+    switch (fileType) {
+      case "application/pdf":
+        return (
+          <DocPdfUpload
+            className={`digit-docupload-icon ${isError ? "error" : ""}`}
+            styles={isError ? { border: "1px solid #B91900" } : {}}
+            fill={isError ? "#B91900" : ""}
+          />
+        );
+      case "application/vnd.ms-excel":
+      case "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
+      case "application/excel":
+      case "application/x-excel":
+      case "application/x-msexcel":
+        return (
+          <DocXlsxUpload
+            className={`digit-docupload-icon ${isError ? "error" : ""}`}
+            styles={isError ? { border: "1px solid #B91900" } : {}}
+            fill={isError ? "#B91900" : ""}
+          />
+        );
+      case "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+      case "application/msword":
+        return (
+          <DocdocUpload
+            className={`digit-docupload-icon ${isError ? "error" : ""}`}
+            styles={isError ? { border: "1px solid #B91900" } : {}}
+            fill={isError ? "#B91900" : ""}
+          />
+        );
+      default:
+        return (
+          <DocUpload
+            className={`digit-docupload-icon ${isError ? "error" : ""}`}
+            styles={isError ? { border: "1px solid #B91900" } : {}}
+            fill={isError ? "#B91900" : ""}
+          />
+        );
+    }
+  };
+
   useEffect(() => {
     onSubmit(capturedImages);
-  }, [capturedImages,onSubmit]);
+  }, [capturedImages, onSubmit]);
 
   const videoConstraints = {
     facingMode: "user",
@@ -128,31 +175,42 @@ const UploadImage = ({
 
   return (
     <React.Fragment>
-      <div className="digit-image-uploader" onClick={toggleOpenUploadSlide}>
-        {
-          <SVG.CameraEnhance
-            fill="#C84C0E"
-            width={"40px"}
-            height={"40px"}
-            className="upload-image-camera"
-          />
-        }
-        <div className="upload-image-label">{"Click to add photo"}</div>
-      </div>
+      {!(uploadedFilesCount === 1 && !multiple) && (
+        <div className="digit-image-uploader" onClick={toggleOpenUploadSlide}>
+          {
+            <SVG.CameraEnhance
+              fill="#C84C0E"
+              width={"40px"}
+              height={"40px"}
+              className="upload-image-camera"
+            />
+          }
+          <div className="upload-image-label">{"Click to add photo"}</div>
+        </div>
+      )}
       <div className="digit-img-container">
         {previews.map((preview, index) => {
           return (
             <Fragment key={`preview-${index}`}>
               <div
-                className={`preview-container ${
+                className={`preview-container uploadImage ${!multiple ? "singleUpload" : ""} ${
                   uploadedFilesCount > 1 ? " multiple" : ""
                 } ${preview?.error ? "error" : ""}`}
-                onClick={() => {
-                  handleFileClick(index, preview?.file);
-                }}
               >
-                <img src={previews[index]?.preview} alt={`Preview ${index}`} />
-
+                <div
+                  onClick={() => {
+                    handleFileClick(index, preview?.file);
+                  }}
+                >
+                  {preview?.file?.type.startsWith("image/") ? (
+                    <img
+                      src={previews[index]?.preview}
+                      alt={`Preview ${index}`}
+                    />
+                  ) : (
+                    getFileUploadIcon(preview?.file?.type, true)
+                  )}
+                </div>
                 <span
                   onClick={(e) => {
                     e.stopPropagation();
@@ -299,6 +357,7 @@ const UploadImage = ({
                 ref={webRef}
                 width={"100%"}
                 height={"100%"}
+                style={{ objectFit: "cover" }}
               />
             </div>
             <div

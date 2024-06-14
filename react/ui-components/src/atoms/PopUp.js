@@ -2,6 +2,8 @@ import React, { useState, Fragment, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import { SVG } from "./SVG";
 import StringManipulator from "./StringManipulator";
+import warningOutlineAnimation from "../animations/warningOutline.json";
+import Animation from "./Animation";
 
 const PopUp = (props) => {
   const [isOverflowing, setIsOverflowing] = useState(false);
@@ -119,6 +121,14 @@ const PopUp = (props) => {
     if (event.key === "Escape") {
       props?.onClose();
     }
+    if (event.key === "Enter") {
+      const submitButton = props?.footerChildren?.find(
+        (child) => child.props.type?.toLowerCase() === "submit"
+      );
+      if (submitButton) {
+        submitButton.props.onClick();
+      }
+    }
   };
 
   return (
@@ -141,13 +151,22 @@ const PopUp = (props) => {
               isOverflowing ? "with-shadow" : ""
             }`}
           >
-            {!props?.customIcon && (
+            {!props?.customIcon && props?.showAlertAsSvg && (
               <SVG.Warning
                 fill={props?.iconFill ? props?.iconFill : "#D4351C"}
                 width={"48px"}
                 height={"48px"}
                 className="popup-alert-icon"
               />
+            )}
+            {!props?.customIcon && !props?.showAlertAsSvg && (
+              <Animation
+                animationData={warningOutlineAnimation}
+                width={"72px"}
+                height={"72px"}
+                loop={false}
+                autoplay={true}
+              ></Animation>
             )}
             {props?.customIcon && iconGenerated}
             <div className="digit-popup-alert-heading">
@@ -248,7 +267,7 @@ const PopUp = (props) => {
             } ${isOverflowing ? "with-shadow" : ""}`}
           >
             <div
-              className="digit-popup-footer-buttons"
+              className={`digit-popup-footer-buttons ${props?.equalWidthButtons ? "equal-buttons" : ""}`}
               style={{ ...props?.footerStyles }}
             >
               {finalFooterArray}

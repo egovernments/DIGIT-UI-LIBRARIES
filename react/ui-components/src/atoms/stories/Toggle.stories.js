@@ -1,21 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { CustomDropdown } from "../../molecules";
 import FieldV1 from "../../hoc/FieldV1";
+import CustomDropdown from "../../molecules";
 
 export default {
-  title: "Atoms/RadioButton",
+  title: "Atoms/Toggle",
   component: CustomDropdown,
   argTypes: {
     t: { control: false },
-    populators: { control: "object" },
+    config: { control: "object" },
     inputRef: { control: false },
     label: { control: "text" },
     onChange: { action: "onChange" },
     value: { control: "text" },
     errorStyle: { control: "object" },
     disabled: { control: "boolean" },
-    type: { control: "select", options: ["radio"] },
+    type: { control: "radio", options: ["toggle"] },
     additionalWrapperClass: { control: "text" },
     props: { control: "object" },
   },
@@ -26,7 +26,7 @@ const Template = (args) => {
   const [selectedOption, setSelectedOption] = useState(args.value);
 
   const handleSelectOption = (e, name) => {
-    const selectedValue = e.code;
+    const selectedValue = e;
     if (selectedValue !== undefined) {
       setSelectedOption(selectedValue);
       args.onChange(e, name);
@@ -42,55 +42,33 @@ const Template = (args) => {
 
 const t = (key) => key;
 
-const gendersOptions = [
-  { code: "MALE", name: "MALE" },
-  { code: "FEMALE", name: "FEMALE" },
-  { code: "TRANSGENDER", name: "TRANSGENDER" },
+const Options = [
+  { code: "Toggle1", name: "Toggle1" },
+  { code: "Toggle2", name: "Toggle2" },
+  { code: "Toggle3", name: "Toggle3" },
 ];
 
 const commonArgs = {
   t: t,
   populators: {
-    name: "gender",
+    name: "toggleOptions",
     optionsKey: "name",
-    options: gendersOptions,
+    options: Options,
   },
   inputRef: null,
-  label: "Enter Gender",
+  label: "",
+  value: "",
   errorStyle: null,
   disabled: false,
-  type: "radio",
+  type: "toggle",
   additionalWrapperClass: "",
   error: "",
   description: "",
 };
 
+
+//Default Toggle 
 export const Default = Template.bind({});
 Default.args = {
   ...commonArgs,
-};
-
-export const Disabled = Template.bind({});
-Disabled.args = {
-  ...commonArgs,
-  disabled: true,
-};
-Disabled.argTypes = {
-  disabled: { control: { disable: true } },
-};
-
-export const Filled = Template.bind({});
-Filled.args = {
-  ...commonArgs,
-  value: "MALE",
-};
-
-export const PreSelected = Template.bind({});
-PreSelected.args = {
-  ...commonArgs,
-  value: "MALE",
-  disabled: true,
-};
-PreSelected.argTypes = {
-  disabled: { control: { disable: true } },
 };

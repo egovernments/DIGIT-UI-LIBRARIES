@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState, Fragment } from "react";
 import PropTypes from "prop-types";
 import ButtonSelector from "./ButtonSelector";
 import { useTranslation } from "react-i18next";
-import RemoveableTag from "./RemoveableTag";
+import Chip from "./Chip";
 import ErrorMessage from "./ErrorMessage";
 
 const getRandomId = () => {
@@ -66,7 +66,7 @@ const UploadFile = (props) => {
             const fileDetailsData = file[1];
             return (
               <div className="digit-tag-container">
-                <RemoveableTag
+                <Chip
                   key={index}
                   text={file[0].length > 64 ? `${file[0].slice(0, 64)} ...` : file[0]}
                   onClick={(e) => props?.removeTargetedFile(fileDetailsData, e)}
