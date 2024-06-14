@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:inspector/inspector.dart';
 import 'package:storybook/widgets/atoms/Info_card_stories.dart';
 import 'package:storybook/widgets/atoms/action_card_stories.dart';
+import 'package:storybook/widgets/atoms/back_button_stories.dart';
+import 'package:storybook/widgets/atoms/bread_crumbs_stories.dart';
 import 'package:storybook/widgets/atoms/button_list_stories.dart';
 import 'package:storybook/widgets/atoms/button_stories.dart';
 import 'package:storybook/widgets/atoms/checkbox_stories.dart';
@@ -20,6 +22,8 @@ import 'package:storybook/widgets/atoms/timeline_stories.dart';
 import 'package:storybook/widgets/atoms/toast_stories.dart';
 import 'package:storybook/widgets/atoms/toggle_stories.dart';
 import 'package:storybook/widgets/molecules/card_stories.dart';
+import 'package:storybook/widgets/molecules/footer_stories.dart';
+import 'package:storybook/widgets/molecules/header_stories.dart';
 import 'package:storybook/widgets/molecules/panel_card_stories.dart';
 import 'package:storybook/widgets/molecules/show_pop_up_stories.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
@@ -66,6 +70,10 @@ class MyApp extends StatelessWidget {
               ...dividerStories(),
               ...buttonListStories(),
               ...showPopUPStories(),
+              ...footerMoleculeStories(),
+              ...headerMoleculeStories(),
+              ...breadCrumbStories(),
+              ...backNavigationButtonStories(),
             ],
           ),
         ),

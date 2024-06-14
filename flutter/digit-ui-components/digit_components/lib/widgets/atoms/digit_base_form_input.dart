@@ -49,6 +49,9 @@ class BaseDigitFormInput extends StatefulWidget {
   /// Callback function triggered onTap tap.
   final void Function()? onTap;
 
+  /// Callback function triggered on input value submit.
+  final void Function(String)? onFieldSubmitted;
+
   /// Minimum number of lines for the input field.
   final int minLine;
 
@@ -155,6 +158,7 @@ class BaseDigitFormInput extends StatefulWidget {
     this.errorMessage,
     this.capitalizeFirstLetter = true,
     this.onFocusLost,
+    this.onFieldSubmitted,
   }) : super(key: key);
 
   @override
@@ -433,6 +437,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                     /// Remove focus when tapped outside the input field
                     myFocusNode.unfocus();
                   },
+                  onFieldSubmitted: widget.onFieldSubmitted,
                   inputFormatters: widget.inputFormatters,
                   onTap: onTap,
                   focusNode: myFocusNode,

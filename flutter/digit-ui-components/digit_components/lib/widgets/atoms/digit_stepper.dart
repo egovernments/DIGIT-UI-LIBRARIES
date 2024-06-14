@@ -177,8 +177,8 @@ class _HorizontalStepperItemState extends State<HorizontalStepperItem> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            constraints: const BoxConstraints(
-              minWidth: Base.height,
+            constraints:  BoxConstraints(
+              minWidth: MediaQuery.of(context).size.width/(widget.totalLength*3),
             ),
             color: widget.index == 0
                 ? Colors.transparent
@@ -189,8 +189,8 @@ class _HorizontalStepperItemState extends State<HorizontalStepperItem> {
           ),
           dot,
           Container(
-            constraints: const BoxConstraints(
-              minWidth: spacer10,
+            constraints:  BoxConstraints(
+              minWidth: MediaQuery.of(context).size.width/(widget.totalLength*3),
             ),
             color: widget.index == widget.totalLength - 1
                 ? Colors.transparent

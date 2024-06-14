@@ -5,7 +5,7 @@ import 'package:storybook_flutter/storybook_flutter.dart';
 List<Story> stepperStories() {
   return [
     Story(
-      name: 'Atom/Stepper/horizontal',
+      name: 'Atom/Stepper/horizontal/1',
       builder: (context) => SizedBox(
         height: 500,
         width: MediaQuery.of(context).size.width,
@@ -84,6 +84,37 @@ List<Story> stepperStories() {
             const StepperData(
               title: 'title',
             ),
+          ],
+          stepperDirection: Axis.horizontal,
+          inverted: true,
+        ),
+      ),
+    ),
+    Story(
+      name: 'Atom/Stepper/horizontal/2',
+      builder: (context) => SizedBox(
+        height: 500,
+        width: MediaQuery.of(context).size.width,
+        child: DigitStepper(
+          activeIndex: context.knobs.sliderInt(label: 'active index', initial: 0,divisions: 20, max: 20),
+          stepperList:  [
+            StepperData(
+              title: 'title',
+              onStepTap: (){},
+            ),
+            const StepperData(
+              title: 'title',
+
+            ),
+            const StepperData(
+              title: 'title',
+
+            ),
+            const StepperData(
+              title: 'title',
+
+            ),
+
           ],
           stepperDirection: Axis.horizontal,
           inverted: true,
