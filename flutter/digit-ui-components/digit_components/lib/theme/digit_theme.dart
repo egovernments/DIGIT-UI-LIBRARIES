@@ -72,7 +72,7 @@ class DigitTheme {
       textButtonTheme: textButtonTheme,
       cardTheme: cardTheme,
       inputDecorationTheme: inputDecorationTheme,
-      dialogTheme: dialogTheme,
+      dialogTheme: dialogTheme.copyWith(),
       textSelectionTheme: TextSelectionThemeData(
         cursorColor: const DigitColors().light.primary1,
         selectionColor: const DigitColors().light.primary1Bg,

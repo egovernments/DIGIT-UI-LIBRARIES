@@ -19,7 +19,7 @@ List<Story> backNavigationButtonStories() {
         child: BackNavigationButton(
           handleBack: (){},
           backButtonText: 'Back',
-          backButtonIcon: Icons.arrow_circle_left_outlined,
+          // backButtonIcon: Icons.arrow_circle_left_outlined,
         ),
       ),
     ),
@@ -29,7 +29,7 @@ List<Story> backNavigationButtonStories() {
         child: BackNavigationButton(
           handleBack: (){},
           backButtonText: 'Back',
-          backButtonIcon: Icons.arrow_left,
+          // backButtonIcon: Icons.arrow_left,
         ),
       ),
     ),

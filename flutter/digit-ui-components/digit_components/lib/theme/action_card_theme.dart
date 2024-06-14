@@ -36,18 +36,9 @@ class DigitActionCardTheme extends ThemeExtension<DigitActionCardTheme> {
           ),
         ],
       ),
-      padding: EdgeInsets.all(isMobile
-          ? 16
-          : isTab
-          ? 20
-          : 24),
-
-      width: isMobile ? 328.0 : isTab ? 548.0 : 548.0,
-      spacing:isMobile
-          ? 16
-          : isTab
-          ? 20
-          : 24,
+      padding: EdgeInsets.all(isMobile ? 16 : isTab ? 20 : 24),
+      width: isMobile ? 328.0 : 548.0,
+      spacing: isMobile ? 16 : isTab ? 20 : 24,
     );
   }
 
@@ -61,15 +52,18 @@ class DigitActionCardTheme extends ThemeExtension<DigitActionCardTheme> {
     EdgeInsets? margin,
     EdgeInsets? padding,
   }) {
-    final defaultTheme = DigitActionCardTheme.defaultTheme(context!);
+    /// Ensure context is provided and get default theme if context is not null
+    final defaultTheme = context != null ? DigitActionCardTheme.defaultTheme(context) : null;
+
+
 
     return DigitActionCardTheme(
-      width: width ?? this.width ?? defaultTheme.width,
-      height: height ?? this.height ?? defaultTheme.height,
-      spacing: spacing ?? this.spacing ?? defaultTheme.spacing,
-      decoration: decoration ?? this.decoration ?? defaultTheme.decoration,
-      margin: margin ?? this.margin ?? defaultTheme.margin,
-      padding: padding ?? this.padding ?? defaultTheme.padding,
+      width: width ?? this.width ?? defaultTheme?.width,
+      height: height ?? this.height ?? defaultTheme?.height,
+      spacing: spacing ?? this.spacing ?? defaultTheme?.spacing,
+      decoration: decoration ?? this.decoration ?? defaultTheme?.decoration,
+      margin: margin ?? this.margin ?? defaultTheme?.margin,
+      padding: padding ?? this.padding ?? defaultTheme?.padding,
     );
   }
 

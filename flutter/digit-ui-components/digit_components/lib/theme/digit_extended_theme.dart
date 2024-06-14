@@ -6,14 +6,15 @@ import 'package:digit_ui_components/theme/digit_colors.dart';
 import 'package:digit_ui_components/theme/text_theme_extension.dart';
 import 'package:flutter/material.dart';
 
-class DigitExtendedTheme {
+import 'back_button_theme.dart';
+import 'color_theme_extension.dart';
 
+class DigitExtendedTheme {
   static const DigitExtendedTheme _instance = DigitExtendedTheme._internal();
 
   static DigitExtendedTheme get instance => _instance;
 
-  DigitTabTypography get tabTypography =>
-      const DigitTabTypography(
+  DigitTabTypography get tabTypography => const DigitTabTypography(
         normalBase: TextStyle(
           fontFamily: 'Roboto',
         ),
@@ -22,8 +23,7 @@ class DigitExtendedTheme {
         ),
       );
 
-  ButtonTypography get buttonTypography =>
-      const ButtonTypography(
+  ButtonTypography get buttonTypography => const ButtonTypography(
         normalBase: TextStyle(
           fontFamily: 'Roboto',
         ),
@@ -32,8 +32,7 @@ class DigitExtendedTheme {
         ),
       );
 
-  DigitDesktopTypography get desktopTypography =>
-      const DigitDesktopTypography(
+  DigitDesktopTypography get desktopTypography => const DigitDesktopTypography(
         normalBase: TextStyle(
           fontFamily: 'Roboto',
         ),
@@ -42,8 +41,7 @@ class DigitExtendedTheme {
         ),
       );
 
-  DigitMobileTypography get mobileTypography =>
-      const DigitMobileTypography(
+  DigitMobileTypography get mobileTypography => const DigitMobileTypography(
         normalBase: TextStyle(
           fontFamily: 'Roboto',
         ),
@@ -67,23 +65,14 @@ class DigitExtendedTheme {
 
     return ThemeData(
       extensions: [
-        AppTextThemeExtension(
-          headingXl: typography.headingXl,
-          headingL: typography.headingL,
-          headingM: typography.headingM,
-          headingS: typography.headingS,
-          headingXS: typography.headingXS,
-          captionL: typography.captionL,
-          captionM: typography.captionM,
-          captionS: typography.captionS,
-          bodyL: typography.bodyL,
-          bodyS: typography.bodyS,
-          bodyXS: typography.bodyXS,
-          linkL: typography.linkL,
-          linkM: typography.linkM,
-          linkS: typography.linkS,
-        ),
-         DigitActionCardTheme.defaultTheme(context),
+        const DigitColorsExtension(),
+
+        /// color extension
+        DigitTextThemeExtension.defaultTheme(context),
+
+        /// app text extension
+        DigitActionCardTheme.defaultTheme(context),
+
       ],
       appBarTheme: const AppBarTheme(elevation: 0),
       textSelectionTheme: TextSelectionThemeData(
@@ -110,42 +99,38 @@ class DigitExtendedTheme {
         backgroundColor: const DigitColors().light.paperPrimary,
         hourMinuteShape: RoundedRectangleBorder(
           borderRadius: const BorderRadius.all(Radius.circular(4)),
-          side: BorderSide(
-              color: const DigitColors().light.primary1, width: 1),
+          side: BorderSide(color: const DigitColors().light.primary1, width: 1),
         ),
-        dayPeriodBorderSide: BorderSide(
-            color: const DigitColors().light.primary1, width: 1),
+        dayPeriodBorderSide:
+            BorderSide(color: const DigitColors().light.primary1, width: 1),
         dayPeriodColor: MaterialStateColor.resolveWith(
-              (states) =>
-          states.contains(MaterialState.selected)
+          (states) => states.contains(MaterialState.selected)
               ? const DigitColors().light.primary1
               : const DigitColors().transparent,
         ),
         dayPeriodTextColor: MaterialStateColor.resolveWith((states) =>
-        states.contains(MaterialState.selected)
-            ? const DigitColors().light.paperPrimary
-            : const DigitColors().light.textPrimary),
+            states.contains(MaterialState.selected)
+                ? const DigitColors().light.paperPrimary
+                : const DigitColors().light.textPrimary),
         dayPeriodShape: RoundedRectangleBorder(
           borderRadius: const BorderRadius.all(Radius.circular(1)),
-          side: BorderSide(
-              color: const DigitColors().light.primary1, width: 1),
+          side: BorderSide(color: const DigitColors().light.primary1, width: 1),
         ),
         hourMinuteColor: MaterialStateColor.resolveWith(
-              (states) =>
-          states.contains(MaterialState.selected)
+          (states) => states.contains(MaterialState.selected)
               ? const DigitColors().light.primary1
               : const DigitColors().transparent,
         ),
         hourMinuteTextColor: MaterialStateColor.resolveWith((states) =>
-        states.contains(MaterialState.selected)
-            ? const DigitColors().light.paperPrimary
-            : const DigitColors().light.textPrimary),
+            states.contains(MaterialState.selected)
+                ? const DigitColors().light.paperPrimary
+                : const DigitColors().light.textPrimary),
         dialHandColor: const DigitColors().light.primary1,
         dialBackgroundColor: const DigitColors().light.primary1Bg,
         hourMinuteTextStyle:
-        const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         dayPeriodTextStyle:
-        const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+            const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
         helpTextStyle: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w700,
@@ -156,38 +141,43 @@ class DigitExtendedTheme {
           contentPadding: EdgeInsets.all(0),
         ),
         dialTextColor: MaterialStateColor.resolveWith(
-              (states) => const DigitColors().light.textPrimary,
+          (states) => const DigitColors().light.textPrimary,
         ),
         entryModeIconColor: const DigitColors().light.primary1,
         cancelButtonStyle: ButtonStyle(
           textStyle: MaterialStateProperty.resolveWith<TextStyle>(
-                  (Set<MaterialState> states) {
-                return TextStyle(
-                  fontFamily: 'Roboto',
-                  fontWeight: FontWeight.w500,
-                  fontSize: 19,
-                  color: const DigitColors().light.primary1,
-                );
-              }),
+              (Set<MaterialState> states) {
+            return TextStyle(
+              fontFamily: 'Roboto',
+              fontWeight: FontWeight.w500,
+              fontSize: 19,
+              color: const DigitColors().light.primary1,
+            );
+          }),
         ),
         confirmButtonStyle: ButtonStyle(
           textStyle: MaterialStateProperty.resolveWith<TextStyle>(
-                  (Set<MaterialState> states) {
-                return TextStyle(
-                  fontFamily: 'Roboto',
-                  fontWeight: FontWeight.w500,
-                  fontSize: 19,
-                  color: const DigitColors().light.primary1,
-                );
-              }),
+              (Set<MaterialState> states) {
+            return TextStyle(
+              fontFamily: 'Roboto',
+              fontWeight: FontWeight.w500,
+              fontSize: 19,
+              color: const DigitColors().light.primary1,
+            );
+          }),
         ),
       ),
     );
   }
 }
 
-// extension AppThemeExtension on ThemeData {
-//   /// Usage example: Theme.of(context).appColors;
-//   DigitActionCardTheme get appColors =>
-//       extension<DigitActionCardTheme>() ?? AppTheme._lightAppColors;
-// }
+extension AppThemeExtension on ThemeData {
+  /// Usage example: Theme.of(context).appColors;
+  DigitColorsExtension get digitColors =>
+      extension<DigitColorsExtension>() ?? const DigitColorsExtension();
+
+  BackNavigationButtonThemeData get backNavigationButtonTheme {
+    return extension<BackNavigationButtonThemeData>() ??
+        const BackNavigationButtonThemeData();
+  }
+}

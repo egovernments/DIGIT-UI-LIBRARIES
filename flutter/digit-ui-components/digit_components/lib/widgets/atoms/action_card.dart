@@ -53,7 +53,6 @@ class ActionCard extends StatelessWidget {
         child: Container(
           width: actionTheme.width,
           height: actionTheme.height,
-          padding: actionTheme.padding,
           decoration: actionTheme.decoration,
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -62,15 +61,18 @@ class ActionCard extends StatelessWidget {
               /// A scrollable container to accommodate the list of action buttons
               Flexible(
                 child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      ButtonListTile(
-                        /// A widget that displays the list of action buttons
-                        buttons: actions,
-                        isVertical: true,
-                        spacing: actionTheme.spacing ?? 8,
-                      ),
-                    ],
+                  child: Container(
+                    padding: actionTheme.padding,
+                    child: Column(
+                      children: [
+                        ButtonListTile(
+                          /// A widget that displays the list of action buttons
+                          buttons: actions,
+                          isVertical: true,
+                          spacing: actionTheme.spacing ?? 8,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

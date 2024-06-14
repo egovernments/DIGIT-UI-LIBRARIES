@@ -35,6 +35,7 @@ class Toast {
           ),
       isIgnoring: false,
       animation: StyledToastAnimation.slideFromBottom,
+      reverseAnimation: StyledToastAnimation.slideFromBottom,
       animDuration: animationDuration,
     );
   }
