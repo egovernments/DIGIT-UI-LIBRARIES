@@ -42,13 +42,13 @@ class _ImageUploaderState extends State<ImageUploader> {
         builder: (BuildContext context) {
           CameraHandlerState? cameraHandlerState;
           return Popup(
-            onCrossTap: (){
+            onCrossTap: () {
               Navigator.of(context).pop();
             },
             title: 'Camera',
             type: PopUpType.simple,
             width: isTab ? 440 : 720,
-            height: isTab ? 508 : 448,
+            // height: isTab ? 508 : 448,
             actions: [
               Button(
                 mainAxisSize: MainAxisSize.max,
@@ -58,7 +58,9 @@ class _ImageUploaderState extends State<ImageUploader> {
                 type: ButtonType.primary,
                 onPressed: () {
                   Navigator.of(context).pop();
-                  cameraHandlerState?.captureImage(); /// Trigger the capture
+                  cameraHandlerState?.captureImage();
+
+                  /// Trigger the capture
                 },
               ),
               Button(
@@ -85,12 +87,12 @@ class _ImageUploaderState extends State<ImageUploader> {
           );
         },
       );
-    }else {
+    } else {
       ImagePicker().pickImage(source: source).then((pickedFile) {
         if (pickedFile != null) {
           if (widget.validators != null) {
             String? validationError =
-            validateImage(pickedFile, widget.validators!, pickedFile.name);
+                validateImage(pickedFile, widget.validators!, pickedFile.name);
             if (validationError != null) {
               setState(() {
                 fileError = validationError;
@@ -114,12 +116,9 @@ class _ImageUploaderState extends State<ImageUploader> {
     }
   }
 
-
   Future<void> _handleImageCapture(File image) async {
     setState(() {
-      widget.allowMultiples
-          ? _imageFiles.add(image)
-          : _imageFiles.add(image);
+      widget.allowMultiples ? _imageFiles.add(image) : _imageFiles.add(image);
     });
   }
 
@@ -150,23 +149,25 @@ class _ImageUploaderState extends State<ImageUploader> {
                     onCrossTap: () {
                       Navigator.of(context).pop();
                     },
-                    height: isTab ? 228 : 240,
-                    width: isTab ? 440 : 600,
-                    additionalWidgets: [Row(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        _buildInkWell(Icons.camera_enhance, "Camera", () {
-                          Navigator.of(context).pop();
-                          _getImage(ImageSource.camera);
-                        }, currentTypography),
-                        _buildInkWell(Icons.perm_media, "My Files", () {
-                          Navigator.of(context).pop();
-                          _getImage(ImageSource.gallery);
-                        }, currentTypography),
-                      ],
-                    ),],
+                    // height: isTab ? 228 : 240,
+                     width: isTab ? 440 : 600,
+                    additionalWidgets: [
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          _buildInkWell(Icons.camera_enhance, "Camera", () {
+                            Navigator.of(context).pop();
+                            _getImage(ImageSource.camera);
+                          }, currentTypography),
+                          _buildInkWell(Icons.perm_media, "My Files", () {
+                            Navigator.of(context).pop();
+                            _getImage(ImageSource.gallery);
+                          }, currentTypography),
+                        ],
+                      ),
+                    ],
                   );
                 },
               )
