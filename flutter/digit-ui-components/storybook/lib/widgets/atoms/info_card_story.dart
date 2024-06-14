@@ -5,6 +5,7 @@ import 'package:digit_ui_components/widgets/atoms/digit_button.dart';
 import 'package:digit_ui_components/widgets/atoms/digit_checkbox.dart';
 import 'package:digit_ui_components/widgets/atoms/digit_info_card.dart';
 import 'package:digit_ui_components/widgets/atoms/digit_text_form_input.dart';
+import 'package:digit_ui_components/widgets/helper_widget/info_buttons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
 
@@ -70,12 +71,34 @@ List<Story> infoCardStories() {
               title: "Info Text",
               type: InfoType.error,
               description: 'This is the warning'),
-          Button(
-            label: 'button',
-            onPressed: () {},
-            type: ButtonType.secondary, size: ButtonSize.medium,
-          )
         ],
+      ),
+    ),
+    Story(
+      name: 'Atom/Info/Info Button',
+      builder: (context) => InfoButton(
+        size: ButtonSize.large,
+        onPressed: (){},
+        label: context.knobs.text(label: "Title", initial: 'Info Button'),
+        type: context.knobs
+            .options(label: "Type", initial: InfoButtonType.info, options: const [
+          Option(
+            label: 'Info',
+            value: InfoButtonType.info,
+          ),
+          Option(
+            label: 'Success',
+            value: InfoButtonType.success,
+          ),
+          Option(
+            label: 'error',
+            value: InfoButtonType.error,
+          ),
+          Option(
+            label: 'Warning',
+            value: InfoButtonType.warning,
+          ),
+        ]),
       ),
     ),
   ];

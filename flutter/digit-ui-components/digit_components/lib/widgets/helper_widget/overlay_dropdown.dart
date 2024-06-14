@@ -86,7 +86,7 @@ class _OverlayDropdownState extends State<OverlayDropdown>
             children: [
               Positioned(
                 //right: rightOffset,
-                top: widget.type == OverlayDropdownType.footer ? null : 16,
+                top: widget.type == OverlayDropdownType.footer ? null : 16.5,
                 bottom: widget.type == OverlayDropdownType.footer ? size.height: null,
                 width: dropdownWidth,
                 //left: rightOffset,
@@ -95,7 +95,7 @@ class _OverlayDropdownState extends State<OverlayDropdown>
                   showWhenUnlinked: false,
                   targetAnchor: Alignment.bottomRight,
                   followerAnchor: widget.type == OverlayDropdownType.footer ? Alignment.bottomRight : Alignment.topRight,
-                  offset: Offset(0, widget.type == OverlayDropdownType.footer ? -(size.height) : 16),
+                  offset: Offset(0, widget.type == OverlayDropdownType.footer ? -(size.height) : 16.5),
                   child: Material(
                     elevation: 0,
                     borderRadius: BorderRadius.circular(0),
@@ -156,7 +156,7 @@ class _OverlayDropdownState extends State<OverlayDropdown>
         children: [
           GestureDetector(
             onTap: _toggleDropdown,
-            child: widget.title,
+            child: SizedBox(height: 40, child: Center(child: widget.title)),
           ),
           Positioned.fill(
             child: InkWell(

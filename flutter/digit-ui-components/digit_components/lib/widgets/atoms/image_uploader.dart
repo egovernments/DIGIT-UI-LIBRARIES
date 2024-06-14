@@ -6,11 +6,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:camera/camera.dart';
-
 import '../../constants/AppView.dart';
 import '../../constants/app_constants.dart';
-import '../../theme/colors.dart';
-import '../../theme/typography.dart';
 import '../../utils/utils.dart';
 import '../../utils/validators/file_validator.dart';
 import '../helper_widget/button_list.dart';
@@ -246,36 +243,29 @@ class _ImageUploaderState extends State<ImageUploader> {
                             ),
                             Padding(
                               padding: const EdgeInsets.all(24),
-                              child: Row(
-                                // textDirection: TextDirection.rtl,
-                                mainAxisAlignment: isTab ? MainAxisAlignment.start : MainAxisAlignment.end,
-                                // mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  ButtonListTile(
-                                    spacing: 24,
-                                    buttons: [
-                                      Button(
-                                        label: 'Cancel',
-                                        mainAxisSize: MainAxisSize.max,
-                                        size: ButtonSize.large,
-                                        type: ButtonType.secondary,
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                          _closeCamera();
-                                        },
-                                      ),
-                                      Button(
-                                        label: 'Capture',
-                                        size: ButtonSize.large,
-                                        mainAxisSize: MainAxisSize.max,
-                                        prefixIcon: Icons.camera_enhance,
-                                        type: ButtonType.primary,
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                          _handleImageCapture();
-                                        },
-                                      ),
-                                    ],
+                              child: ButtonListTile(
+                                spacing: 24,
+                                buttons: [
+                                  Button(
+                                    label: 'Cancel',
+                                    mainAxisSize: MainAxisSize.max,
+                                    size: ButtonSize.large,
+                                    type: ButtonType.secondary,
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                      _closeCamera();
+                                    },
+                                  ),
+                                  Button(
+                                    label: 'Capture',
+                                    size: ButtonSize.large,
+                                    mainAxisSize: MainAxisSize.max,
+                                    prefixIcon: Icons.camera_enhance,
+                                    type: ButtonType.primary,
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                      _handleImageCapture();
+                                    },
                                   ),
                                 ],
                               ),

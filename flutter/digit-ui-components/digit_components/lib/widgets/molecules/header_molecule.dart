@@ -2,12 +2,14 @@ import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/material.dart';
 import '../../constants/AppView.dart';
 import '../../constants/app_constants.dart';
+import '../../models/DropdownModels.dart';
 import '../atoms/digit_header.dart';
+import '../helper_widget/overlay_dropdown.dart';
 
 class CustomHeaderMolecule extends StatelessWidget {
   final HeaderType type;
   final String? title;
-  final List<Widget>? actions;
+  final List<HeaderAction>? actions;
   final Widget? leadingWidget;
   final Widget? trailingWidget;
   final bool leadingDigitLogo;
@@ -145,7 +147,18 @@ class CustomHeaderMolecule extends StatelessWidget {
                   padding: EdgeInsets.only(
                     right: widgets.key != actions!.length - 1 ? isTab ? 20 : 16 : 0,
                   ),
-                  child: widgets.value,
+                  child: widgets.value.dropdownItems!=null ?
+                  OverlayDropdown(
+                    type: OverlayDropdownType.header,
+                    items: widgets.value.dropdownItems!,
+                    title: widgets.value.widget,
+                    onChange: (selectedItem) {
+                      if (widgets.value.onDropdownItemSelected != null) {
+                        widgets.value.onDropdownItemSelected!(selectedItem);
+                      }
+                    },
+                  ) :
+                  widgets.value.widget,
                 ),
               )
                   .toList(),
@@ -227,7 +240,18 @@ class CustomHeaderMolecule extends StatelessWidget {
                       padding: EdgeInsets.only(
                         right: widgets.key != actions!.length - 1 ? 24 : 0,
                       ),
-                      child: widgets.value,
+                      child: widgets.value.dropdownItems!=null ?
+                      OverlayDropdown(
+                        type: OverlayDropdownType.header,
+                        items: widgets.value.dropdownItems!,
+                        title: widgets.value.widget,
+                        onChange: (selectedItem) {
+                          if (widgets.value.onDropdownItemSelected != null) {
+                            widgets.value.onDropdownItemSelected!(selectedItem);
+                          }
+                        },
+                      ) :
+                      widgets.value.widget,
                     ),
                   )
                   .toList(),
@@ -256,4 +280,16 @@ class CustomHeaderMolecule extends StatelessWidget {
       ],
     );
   }
+}
+
+class HeaderAction {
+  final Widget widget;
+  final List<DropdownItem>? dropdownItems;
+  final void Function(DropdownItem)? onDropdownItemSelected;
+
+  HeaderAction({
+    required this.widget,
+    this.dropdownItems,
+    this.onDropdownItemSelected,
+  });
 }

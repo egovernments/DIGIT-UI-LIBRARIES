@@ -113,39 +113,6 @@ List<Story> dropdownStories() {
       ),
     ),
     Story(
-      name: 'Atom/Dropdown/Simple Dropdown/default/profile',
-      builder: (context) => Column(
-        children: [
-          const SizedBox(height: 300,),
-          DigitDropdown<int>(
-            isDisabled: context.knobs.boolean(
-              label: 'Disabled',
-              initial: false,
-            ),
-            onChange: (String value, String index) => {},
-            isSearchable: context.knobs
-                .boolean(label: 'Searchable', initial: false),
-            textEditingController: TextEditingController(),
-            items: [
-              'one',
-              'two',
-              'three',
-              'four',
-            ]
-                .asMap()
-                .entries
-                .map(
-                  (item) => DropdownItem(
-                name: item.value,
-                code: item.key.toString(),
-                profileImageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
-              ),
-            ).toList(),
-          ),
-        ],
-      ),
-    ),
-    Story(
       name: 'Atom/Dropdown/Simple Dropdown/nested/simple',
       builder: (context) => Column(
         children: [
@@ -245,6 +212,69 @@ List<Story> dropdownStories() {
                 name: 'six',
                 code: '5',
                 type: 'group A',
+                description: 'this is sample description',
+              ),
+            ],
+          ),
+        ],
+      ),
+    ),
+    Story(
+      name: 'Atom/Dropdown/Simple Dropdown/nested/nested text with icon',
+      builder: (context) => Column(
+        children: [
+          const SizedBox(height: 300,),
+          DigitDropdown<int>(
+            isDisabled: context.knobs.boolean(
+              label: 'Disabled',
+              initial: false,
+            ),
+            onChange: (String value, String type) => {},
+            textEditingController: TextEditingController(),
+            dropdownType: DropdownType.nestedSelect,
+            isSearchable: context.knobs
+                .boolean(label: 'Searchable', initial: false),
+            items: const [
+              DropdownItem(
+                name: 'one',
+                code: '1',
+                type: 'group B',
+                textIcon: Icons.article,
+                description: 'this is sample description',
+              ),
+              DropdownItem(
+                name: 'two',
+                code: '2',
+                type: 'group A',
+                textIcon: Icons.article,
+                description: 'this is sample description',
+              ),
+              DropdownItem(
+                name: 'three',
+                code: '3',
+                type: 'group B',
+                textIcon: Icons.article,
+                description: 'this is sample description',
+              ),
+              DropdownItem(
+                name: 'four',
+                code: '4',
+                type: 'group A',
+                textIcon: Icons.article,
+                description: 'this is sample description',
+              ),
+              DropdownItem(
+                name: 'five',
+                code: '4',
+                type: 'group B',
+                textIcon: Icons.article,
+                description: 'this is sample description',
+              ),
+              DropdownItem(
+                name: 'six',
+                code: '5',
+                type: 'group A',
+                textIcon: Icons.article,
                 description: 'this is sample description',
               ),
             ],

@@ -102,13 +102,13 @@ class _ButtonState extends State<Button> {
         break;
       case ButtonSize.medium:
         buttonStyle = _currentTypography.headingM;
-        linkStyle = _currentTypography2.linkS;
+        linkStyle = _currentTypography2.linkM;
         buttonIconSize = ButtonConstants.mediumIconSize;
         linkIconSize = ButtonConstants.mediumLinkIconSize;
         break;
       case ButtonSize.large:
         buttonStyle = _currentTypography.headingL;
-        linkStyle = _currentTypography2.linkS;
+        linkStyle = _currentTypography2.linkL;
         buttonIconSize = ButtonConstants.largeIconSize;
         linkIconSize = ButtonConstants.largeLinkIconSize;
         break;

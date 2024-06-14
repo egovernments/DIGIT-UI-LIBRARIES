@@ -1,10 +1,8 @@
-import 'package:digit_ui_components/blocs/AppLocalization.dart';
 import 'package:digit_ui_components/digit_components.dart';
-import 'package:digit_ui_components/widgets/atoms/digit_header.dart';
-import 'package:digit_ui_components/widgets/atoms/stepper.dart';
 import 'package:flutter/material.dart';
 import 'package:inspector/inspector.dart';
 import 'package:storybook/widgets/atoms/action_card_story.dart';
+import 'package:storybook/widgets/atoms/back_navigation_button_story.dart';
 import 'package:storybook/widgets/atoms/bread_crumbs_story.dart';
 import 'package:storybook/widgets/atoms/button_list_story.dart';
 import 'package:storybook/widgets/atoms/buttons_story.dart';
@@ -15,7 +13,6 @@ import 'package:storybook/widgets/atoms/digit_divider_story.dart';
 import 'package:storybook/widgets/atoms/dropdown_story.dart';
 import 'package:storybook/widgets/atoms/file_uploader_story.dart';
 import 'package:storybook/widgets/atoms/footer_story.dart';
-import 'package:storybook/widgets/atoms/header_story.dart';
 import 'package:storybook/widgets/atoms/info_card_story.dart';
 import 'package:storybook/widgets/atoms/input_field_story.dart';
 import 'package:storybook/widgets/atoms/list_view_story.dart';
@@ -54,14 +51,7 @@ class MyApp extends StatelessWidget {
             backgroundColor: DigitTheme.instance.colorScheme.secondary,
           )),
       home: Scaffold(
-        appBar: CustomHeader(
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.settings),
-              onPressed: () {},
-            ),
-          ],
-        ),
+
         body: Inspector(
           isEnabled: true,
           child: Storybook(
@@ -88,7 +78,6 @@ class MyApp extends StatelessWidget {
               ...panelStories(),
               ...panelCardStories(),
               ...buttonListStories(),
-              ...headerStories(),
               ...footerStories(),
               ...headerMoleculeStories(),
               ...dividerStories(),
@@ -96,6 +85,7 @@ class MyApp extends StatelessWidget {
               ...footerMoleculeStories(),
               ...sideNavStories(),
               ...breadCrumbStories(),
+              ...backNavigationButtonStories(),
             ],
             
           ),

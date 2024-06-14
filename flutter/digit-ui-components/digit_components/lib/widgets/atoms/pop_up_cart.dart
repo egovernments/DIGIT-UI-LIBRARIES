@@ -17,7 +17,7 @@ class Popup extends StatefulWidget {
   final String? description;
   final List<Widget>? additionalWidgets;
   final List<Button>? actions;
-  final void Function()? onCrossTap;
+  final VoidCallback? onCrossTap;
   final bool? inlineActions;
   final double? actionSpacing;
   final MainAxisAlignment? actionAlignment;
@@ -138,10 +138,11 @@ class _PopupState extends State<Popup> {
                   ],
                 ),
               ),
+              if(widget.onCrossTap != null)
               Padding(
-                padding: const EdgeInsets.only(
-                  top: 8,
-                  right: 8,
+                padding:  EdgeInsets.only(
+                  top: isMobile ? 8 : isTab ? 10 : 12,
+                  right: isMobile ? 8 : isTab ? 10 : 12,
                 ),
                 child: InkWell(
                   hoverColor: const DigitColors().transparent,
@@ -197,7 +198,7 @@ class _PopupState extends State<Popup> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           widget.titleIcon ??
-              Lottie.asset('assets/animation_json/alert_1.json', repeat: true, width: 72, height: 72, fit: BoxFit.cover),
+              Lottie.asset('assets/animation_json/alert_1.json', repeat: false, width: 72, height: 72, fit: BoxFit.cover),
           const SizedBox(
             width: 8,
           ),
