@@ -290,6 +290,7 @@ const FieldV1 = ({
       case "documentUpload":
         return (
           <UploadFileComposer
+            mdmsModuleName={config?.mdmsModuleName}
             module={config?.module}
             config={config}
             Controller={Controller} // TODO: NEED TO DISCUSS ON THIS
