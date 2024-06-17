@@ -97,15 +97,24 @@ List<Story> infoCardStories() {
               'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
           Image.network(
               'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
-          const InfoCard(
-              title: "Info Text",
-              type: InfoType.error,
-              description: 'This is the warning'),
-          Button(
-            label: 'button',
-            onPressed: () {},
-            type: ButtonType.secondary, size: ButtonSize.medium,
-          )
+        ],
+        inline: context.knobs.boolean(label: 'Inline Additional Widgets', initial: false),
+      ),
+    ),
+    Story(
+      name: 'Atom/Info/Additional widgets with buttons',
+      builder: (context) =>  InfoCard(
+        title: context.knobs.text(label: "Title", initial: 'Info'),
+        type: InfoType.info,
+        description: context.knobs.text(label: "Description", initial: 'Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect theservice to get completed in 24 hrs from the time of payment.'),
+        inline: context.knobs.boolean(label: 'Inline Additional Widgets', initial: false),
+        additionalWidgets: [
+          const Text("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's"),
+          Image.network(
+              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+          Image.network(
+              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+          InfoButton(label: 'Click To Know More', onPressed: (){}, type: InfoButtonType.info, size: ButtonSize.large)
         ],
       ),
     ),

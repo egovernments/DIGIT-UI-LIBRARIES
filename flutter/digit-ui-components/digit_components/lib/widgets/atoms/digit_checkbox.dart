@@ -48,6 +48,7 @@ class DigitCheckbox extends StatefulWidget {
   final MainAxisAlignment mainAxisAlignment;
   final CrossAxisAlignment crossAxisAlignment;
   final bool capitalizeFirstLetter;
+  final TextDirection textDirection;
 
   /// Creates a `DigitCheckbox` widget with the given parameters.
   const DigitCheckbox({
@@ -62,6 +63,7 @@ class DigitCheckbox extends StatefulWidget {
     this.mainAxisAlignment = MainAxisAlignment.start,
     this.crossAxisAlignment = CrossAxisAlignment.start,
     this.capitalizeFirstLetter = true,
+    this.textDirection = TextDirection.ltr,
   }) : super(key: key);
 
   @override
@@ -98,6 +100,7 @@ class _DigitCheckboxState extends State<DigitCheckbox> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
+            textDirection: widget.textDirection,
             children: [
               Column(
                 children: [

@@ -15,7 +15,7 @@ dependencies:
   digit_ui_components: 0.0.3-beta
   flutter_keyboard_visibility: ^5.4.0
   material_design_icons_flutter: ^7.0.7296
-  storybook_flutter: 0.14.0
+  storybook_flutter: ^0.14.1
   inspector: 2.1.0
   flutter_svg: ^2.0.10+1
 
