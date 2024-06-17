@@ -7,7 +7,7 @@
         flex-shrink: 0;
         width: theme(digitv2.spacers.spacer6);
         height: theme(digitv2.spacers.spacer6);
-
+        cursor: pointer;
 
         @media (max-width: 30rem) {
             width: theme(digitv2.spacers.spacer5);
@@ -20,12 +20,18 @@
         @extend .typography.body-l;
         color: theme(digitv2.lightTheme.primary-1);
         margin-top:0.063rem;
+        cursor: pointer;
     }
 
     &.disabled{
         pointer-events: none;
         .digit-back-link-label{
             color: theme(digitv2.lightTheme.text-disabled);
+            cursor: default;
+        }
+
+        .digit-back-link-icon{
+            cursor: default;
         }
     }
 }

@@ -11,14 +11,17 @@ const Timeline = ({
   additionalElements,
   inline,
   individualElementStyles,
+  showConnector,
+  className,
+  isLastStep
 }) => {
   const [showDetails, setShowDetails] = useState(false);
 
   const [isMobileView, setIsMobileView] = React.useState(
-    window.innerWidth <= 480
+    (window.innerWidth / window.innerHeight <= 9/16)
   );
   const onResize = () => {
-    if (window.innerWidth <= 480) {
+    if (window.innerWidth / window.innerHeight <= 9/16) {
       if (!isMobileView) {
         setIsMobileView(true);
       }
@@ -61,7 +64,7 @@ const Timeline = ({
       : "";
 
   return (
-    <div className="digit-timeline-item">
+    <div className={`digit-timeline-item ${className || ""}`}>
       <div className={`timeline-circle ${variant}`}>
         {variant === "completed" && (
           <div className="check-icon">
@@ -73,6 +76,7 @@ const Timeline = ({
           </div>
         )}
       </div>
+      {showConnector && !isLastStep && <div className={`connector-line ${variant || ""}`} />}
       <div className="timeline-content">
         <div className="timeline-info">
           <div className="timeline-label">

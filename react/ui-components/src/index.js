@@ -230,7 +230,8 @@ import {
   SearchField,
   SearchOnRadioButtons,
   TextInputCard,
-  PanelCard
+  PanelCard,
+  TimelineMolecule
 } from "./molecules";
 
 // import { initCoreLibraries } from "@egovernments/digit-ui-libraries-core";
@@ -317,6 +318,7 @@ export {
   SearchOnRadioButtons,
   TextInputCard,
   PanelCard,
+  TimelineMolecule,
   Toggle,
   ToggleSwitch,
   TreeSelect,

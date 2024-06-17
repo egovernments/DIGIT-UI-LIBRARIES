@@ -15,6 +15,7 @@ import RenderFormFields from "./RenderFormFields";
 import DateRangeNew from "./DateRangeNew";
 import WorkflowStatusFilter from "./WorkflowStatusFilter";
 import PanelCard from "./PanelCard";
+import TimelineMolecule from "./TimelineMolecule";
 
 export {
   ApiDropdown,
@@ -33,5 +34,6 @@ export {
   RenderFormFields,
   DateRangeNew,
   WorkflowStatusFilter,
-  PanelCard
+  PanelCard,
+  TimelineMolecule
 };

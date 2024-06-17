@@ -1,5 +1,5 @@
 .digit-timeline-item {
-  @apply flex items-start;
+  @apply flex items-start relative ;
   gap: theme(digitv2.spacers.spacer4);
 }
 
@@ -10,6 +10,29 @@
   @media (max-aspect-ratio: 9/16) {
     /* Media query for mobile */
     @apply w-6 h-6;
+  }
+}
+
+.connector-line {
+  @apply absolute bottom-0 border-solid border-border;
+  border-left-width: 0.125rem;
+  margin-left: 0.938rem;
+  top: theme(digitv2.spacers.spacer8);
+
+  &.completed,
+  &.inprogress{
+    border-color: theme(digitv2.lightTheme.primary-1);
+  }
+
+  &.inprogress{
+    border-style: dashed;
+  }
+
+  @media (max-aspect-ratio: 9/16) {
+    /* Media query for mobile */
+    margin-left: 0.688rem;
+    top: theme(digitv2.spacers.spacer6);
+    border-left-width: 0.063rem;
   }
 }
 
@@ -86,7 +109,7 @@ img {
 /* Circle Variants */
 .timeline-circle,
 .timeline-circle.upcoming {
-    background-color: theme(digitv2.lightTheme.text-disabled);
+  background-color: theme(digitv2.lightTheme.text-disabled);
 }
 
 .timeline-circle.inprogress {

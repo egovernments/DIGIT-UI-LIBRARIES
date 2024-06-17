@@ -28,7 +28,22 @@ export default {
   },
 };
 
-const Template = (args) => <InfoButton {...args} />;
+const commonStyles = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  color: "#363636",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  transform: "translate(-50%, -50%)",
+};
+
+const Template = (args) => (
+  <div style={commonStyles}>
+    <InfoButton {...args} />
+  </div>
+);
 
 const commonArgs = {
   label: "Button",
