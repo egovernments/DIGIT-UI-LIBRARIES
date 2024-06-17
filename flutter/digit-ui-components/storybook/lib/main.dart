@@ -29,6 +29,7 @@ import 'package:storybook/widgets/molecules/header_molecule_story.dart';
 import 'package:storybook/widgets/molecules/panel_card_story.dart';
 import 'package:storybook/widgets/molecules/pop_up_story.dart';
 import 'package:storybook/widgets/molecules/side_nav_story.dart';
+import 'package:storybook/widgets/molecules/timeline_molecule_story.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
 
 void main() {
@@ -86,6 +87,7 @@ class MyApp extends StatelessWidget {
               ...sideNavStories(),
               ...breadCrumbStories(),
               ...backNavigationButtonStories(),
+              ...timelineMoleculeStories(),
             ],
             
           ),

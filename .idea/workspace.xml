@@ -4,27 +4,12 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="527a2fe1-eac1-442a-a699-c8c48a8f093b" name="Changes" comment="added theme extension for action card">
-      <change afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/assets/icons/svg/digit_icon.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/back_navigation_button.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/assets/icons/svg/digit_icon.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/back_navigation_button_story.dart" afterDir="false" />
+    <list default="true" id="5bb58b39-823d-45cb-974c-495f770d85d6" name="Changes" comment="added action card and back button theme">
+      <change afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/molecules/timeline_molecule.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/molecules/timeline_molecule_story.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/constants/app_constants.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/constants/app_constants.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/digit_button.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/digit_button.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/digit_header.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/digit_header.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/image_uploader.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/image_uploader.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/pop_up_cart.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/pop_up_cart.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/helper_widget/overlay_dropdown.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/helper_widget/overlay_dropdown.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/molecules/digit_side_nav.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/molecules/digit_side_nav.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/molecules/header_molecule.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/molecules/header_molecule.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/digit_timeline.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/digit_components/lib/widgets/atoms/digit_timeline.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/dropdown_story.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/dropdown_story.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/header_story.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/header_story.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/info_card_story.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/info_card_story.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/input_field_story.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/atoms/input_field_story.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/molecules/header_molecule_story.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/molecules/header_molecule_story.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/molecules/side_nav_story.dart" beforeDir="false" afterPath="$PROJECT_DIR$/flutter/digit-ui-components/storybook/lib/widgets/molecules/side_nav_story.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
