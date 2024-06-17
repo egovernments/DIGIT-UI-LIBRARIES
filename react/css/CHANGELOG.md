@@ -2,7 +2,7 @@
 
 ## [0.0.2-beta.4] - 2024-06-17
 ### Added
-- Added Timeline Molecule releated css
+- Added Timeline Molecule related css
 
 ## [0.0.2-beta.3] - 2024-06-13
 ### Changed
