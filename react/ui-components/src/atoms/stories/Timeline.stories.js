@@ -7,6 +7,7 @@ export default {
   component: Timeline,
   argTypes: {
     label: { control: "text" },
+    className: { control: "text" },
     viewDetailsLabel: { control: "text" },
     hideDetailsLabel: { control: "text" },
     subElements: {
@@ -31,6 +32,9 @@ export default {
     individualElementStyles: {
       control: { type: "object" },
     },
+    showConnector:{
+      control:{type:"boolean"}
+    }
   },
 };
 
@@ -112,12 +116,22 @@ UpcomingDefault.args = {
 };
 
 // Upcoming Timeline
-export const Upcoming = Template.bind({});
-Upcoming.args = {
+export const UpcomingWithAdditionalElements = Template.bind({});
+UpcomingWithAdditionalElements.args = {
   label: "Upcoming",
   variant: "upcoming",
   subElements: subElements,
   additionalElements: additionalElements,
+};
+
+// Upcoming Timeline
+export const UpcomingWithConnector = Template.bind({});
+UpcomingWithConnector.args = {
+  label: "Upcoming",
+  variant: "upcoming",
+  subElements: subElements,
+  additionalElements: additionalElements,
+  showConnector:true
 };
 
 // InProgress Timeline Without AdditionalElements
@@ -129,13 +143,24 @@ InProgressDefault.args = {
 };
 
 // InProgress Timeline
-export const InProgress = Template.bind({});
-InProgress.args = {
+export const InProgressWithAdditionalElements = Template.bind({});
+InProgressWithAdditionalElements.args = {
   label: "Inprogress",
   subElements: subElements,
   variant: "inprogress",
   additionalElements: additionalElements,
 };
+
+// InProgress Timeline
+export const InProgressWithConnector = Template.bind({});
+InProgressWithConnector.args = {
+  label: "Inprogress",
+  subElements: subElements,
+  variant: "inprogress",
+  additionalElements: additionalElements,
+  showConnector:true
+};
+
 
 // Completed Timeline Without AdditionalElements
 export const CompletedDefault = Template.bind({});
@@ -146,10 +171,20 @@ CompletedDefault.args = {
 };
 
 // Completed Timeline
-export const Completed = Template.bind({});
-Completed.args = {
+export const CompletedWithAdditionalElements = Template.bind({});
+CompletedWithAdditionalElements.args = {
   label: "Completed",
   subElements: subElements,
   variant: "completed",
   additionalElements: additionalElements,
+};
+
+// Completed Timeline
+export const CompletedWithConnector = Template.bind({});
+CompletedWithConnector.args = {
+  label: "Completed",
+  subElements: subElements,
+  variant: "completed",
+  additionalElements: additionalElements,
+  showConnector:true
 };

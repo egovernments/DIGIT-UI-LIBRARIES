@@ -1,6 +1,10 @@
 # Changelog
 
-## [0.0.2-beta.2] - 2024-06-13
+## [0.0.2-beta.4] - 2024-06-17
+### Added
+- Added Timeline Molecule releated css
+
+## [0.0.2-beta.3] - 2024-06-13
 ### Changed
 - Deleted Unused CSS 
 - Added preview overlay styles for uploadedfile and backLink styles
