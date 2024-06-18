@@ -40,11 +40,6 @@ class TimelineMolecule extends StatelessWidget {
                 hideDetailText: hideDetailText,
                 capitalizedLetter: capitalizedLetter,
               ),
-              if (idx != sortedSteps.length - 1)
-                Container(
-                  width: 2,
-                  color: const DigitColors().light.primary1,
-                ),
             ],
           );
         }).toList(),
