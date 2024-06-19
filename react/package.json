@@ -20,7 +20,7 @@
     "start:dev": "run-p dev:**",
     "start:script": "./scripts/create.sh",
     "dev:css": "cd css && yarn start",
-    "publish:css": "cd css && yarn publish --access public",
+    "publish:css": "cd css && npm publish --access public",
     "dev:libraries": "cd libraries && yarn start",
     "dev:corecomponents": "cd ui-components && yarn start",
     "dev:example": "cd example && yarn start",
