@@ -20,13 +20,13 @@ export default {
       control: { type: "object" },
     },
     maxItems: {
-      control: { type: "object" },
+      control: { type: "number" },
     },
     itemsAfterCollapse: {
-      control: { type: "object" },
+      control: { type: "number" },
     },
     itemsBeforeCollapse: {
-      control: { type: "object" },
+      control: { type: "number" },
     },
     expandText:{
         control:{type:"text"}

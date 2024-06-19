@@ -24,7 +24,7 @@ const BreadCrumb = (props) => {
   }
 
   const handleCrumbClick = () => {
-    setExpanded(true);
+    setExpanded(!expanded);
   };
 
   return (
