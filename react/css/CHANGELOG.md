@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.0.2-beta.5] - 2024-06-19
+### Added
+- Added BreadCrumb css
+
 ## [0.0.2-beta.4] - 2024-06-17
 ### Added
 - Added Timeline Molecule related css

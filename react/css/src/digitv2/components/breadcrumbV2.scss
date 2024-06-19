@@ -1,0 +1,57 @@
+@import url("../index.scss");
+@import url("../typography.scss");
+
+.digit-bread-crumb {
+    display: flex;
+    gap: theme(digitv2.spacers.spacer2);
+    height: 1.375rem;
+    padding: unset;
+}
+
+.digit-bread-crumb--item {
+    display: flex;
+    gap: theme(digitv2.spacers.spacer2);
+
+
+    button {
+        outline: none;
+    }
+
+
+    .digit-bread-crumb-content {
+        @extend .typography.body-s;
+        display: flex !important;
+        gap: theme(digitv2.spacers.spacer1);
+        cursor: pointer;
+        text-decoration: none;
+
+        svg {
+            width: theme(digitv2.spacers.spacer5);
+            height: theme(digitv2.spacers.spacer5);
+        }
+
+        color: theme(digitv2.lightTheme.primary-1);
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    span {
+        cursor: pointer;
+    }
+
+    .digit-bread-crumb-content.current,
+    .digit-bread-crumb-seperator {
+        @extend .typography.body-s;
+        color: theme(digitv2.lightTheme.text-secondary);
+        text-decoration: none;
+        cursor: default;
+    }
+
+}
+
+ol,
+ul {
+    list-style: none;
+}
