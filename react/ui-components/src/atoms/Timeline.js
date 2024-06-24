@@ -13,7 +13,8 @@ const Timeline = ({
   individualElementStyles,
   showConnector,
   className,
-  isLastStep
+  isLastStep,
+  isNextActiveStep
 }) => {
   const [showDetails, setShowDetails] = useState(false);
 
@@ -76,7 +77,7 @@ const Timeline = ({
           </div>
         )}
       </div>
-      {showConnector && !isLastStep && <div className={`connector-line ${variant || ""}`} />}
+      {showConnector && !isLastStep && <div className={`connector-line ${variant || ""} ${isNextActiveStep ? "nextActiveStep": "" }`} />}
       <div className="timeline-content">
         <div className="timeline-info">
           <div className="timeline-label">
