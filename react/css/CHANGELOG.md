@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.0.2-beta.6] - 2024-06-24
+### Added
+- Added ViewMore button for timeline molecule
+
 ## [0.0.2-beta.5] - 2024-06-19
 ### Added
 - Added BreadCrumb css
