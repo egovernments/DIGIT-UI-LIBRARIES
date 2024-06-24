@@ -1,4 +1,4 @@
-import React, { Children, useState } from "react";
+import React, { Children, useState,useMemo } from "react";
 import { Timeline, Button, StringManipulator } from "../atoms";
 
 const sortTimelines = (children) => {
@@ -16,7 +16,7 @@ const sortTimelines = (children) => {
 };
 
 const TimelineMolecule = ({ children, initialVisibleCount, viewMoreLabel,viewLessLabel }) => {
-  const sortedChildren = sortTimelines(children);
+  const sortedChildren = useMemo(() => sortTimelines(children), [children]);
 
   const [visibleCount, setVisibleCount] = useState(initialVisibleCount);
   const [isExpanded, setIsExpanded] = useState(false);
