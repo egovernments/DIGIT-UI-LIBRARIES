@@ -76,6 +76,7 @@ const Button = (props) => {
       form={props.formId}
       onClick={props.onClick}
       disabled={props?.isDisabled || null}
+      title={props?.title || ""}
       style={props.style ? props.style : null}
     >
       <div

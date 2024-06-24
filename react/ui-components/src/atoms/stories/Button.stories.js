@@ -28,6 +28,9 @@ export default {
     isSuffix: {
       control: "boolean",
     },
+    title: {
+      control: "text",
+    },
   },
 };
 
@@ -57,6 +60,7 @@ const commonArgs = {
   variation: "",
   isSuffix: false,
   size: "",
+  title:""
 };
 
 // Button default
