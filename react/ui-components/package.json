@@ -1,6 +1,6 @@
 {
   "name": "@egovernments/digit-ui-components",
-  "version": "0.0.2-beta.6",
+  "version": "0.0.2-beta.7",
   "license": "MIT",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
@@ -51,7 +51,7 @@
     "dist"
   ],
   "dependencies": {
-    "@egovernments/digit-ui-components-css": "0.0.2-beta.5",
+    "@egovernments/digit-ui-components-css": "0.0.2-beta.6",
     "@egovernments/digit-ui-libraries": "1.8.1-beta.1",
     "@egovernments/digit-ui-svg-components": "1.0.4",
     "@googlemaps/js-api-loader": "1.13.10",

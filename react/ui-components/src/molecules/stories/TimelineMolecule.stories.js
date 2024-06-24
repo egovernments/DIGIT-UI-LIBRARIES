@@ -6,7 +6,10 @@ import Timeline from "../../atoms";
 export default {
   title: "Molecules/TimelineMolecule",
   component: TimelineMolecule,
-  argTypes: {},
+  argTypes: {
+    initialVisibleCount: { control: "number" },
+    viewMoreLabel: { control: "text" },
+  },
 };
 
 const subElements = [
@@ -76,22 +79,9 @@ const additionalElements = [
 export const Default = () => (
   <TimelineMolecule>
     <Timeline
-      label="Completed Timeline Step"
+      label="Upcoming Timeline Step2"
       subElements={subElements}
-      variant="completed"
-      showConnector={true}
-    />
-    <Timeline
-      label="Completed Timeline Step2"
-      subElements={subElements}
-      variant="completed"
-      showConnector={true}
-      isLastCompletedStep={true}
-    />
-    <Timeline
-      label="Inprogress Timeline Step"
-      subElements={subElements}
-      variant="inprogress"
+      variant="upcoming"
       showConnector={true}
     />
     <Timeline
@@ -101,9 +91,21 @@ export const Default = () => (
       showConnector={true}
     />
     <Timeline
-      label="Upcoming Timeline Step2"
+      label="Inprogress Timeline Step"
       subElements={subElements}
-      variant="upcoming"
+      variant="inprogress"
+      showConnector={true}
+    />
+    <Timeline
+      label="Completed Timeline Step2"
+      subElements={subElements}
+      variant="completed"
+      showConnector={true}
+    />
+    <Timeline
+      label="Completed Timeline Step"
+      subElements={subElements}
+      variant="completed"
       showConnector={true}
     />
   </TimelineMolecule>
@@ -112,24 +114,9 @@ export const Default = () => (
 export const WithAdditionalElements = () => (
   <TimelineMolecule>
     <Timeline
-      label="Completed Timeline Step"
+      label="Upcoming Timeline Step2"
       subElements={subElements}
-      variant="completed"
-      showConnector={true}
-      additionalElements={additionalElements}
-    />
-    <Timeline
-      label="Completed Timeline Step2"
-      subElements={subElements}
-      variant="completed"
-      showConnector={true}
-      isLastCompletedStep={true}
-      additionalElements={additionalElements}
-    />
-    <Timeline
-      label="Inprogress Timeline Step"
-      subElements={subElements}
-      variant="inprogress"
+      variant="upcoming"
       showConnector={true}
       additionalElements={additionalElements}
     />
@@ -141,11 +128,119 @@ export const WithAdditionalElements = () => (
       additionalElements={additionalElements}
     />
     <Timeline
+      label="Inprogress Timeline Step"
+      subElements={subElements}
+      variant="inprogress"
+      showConnector={true}
+      additionalElements={additionalElements}
+    />
+    <Timeline
+      label="Completed Timeline Step2"
+      subElements={subElements}
+      variant="completed"
+      showConnector={true}
+      additionalElements={additionalElements}
+    />
+    <Timeline
+      label="Completed Timeline Step"
+      subElements={subElements}
+      variant="completed"
+      showConnector={true}
+      additionalElements={additionalElements}
+    />
+  </TimelineMolecule>
+);
+
+export const WithVisbileCount = () => (
+  <TimelineMolecule initialVisibleCount={3}>
+        <Timeline
       label="Upcoming Timeline Step2"
       subElements={subElements}
       variant="upcoming"
       showConnector={true}
-      additionalElements={additionalElements}
+    />
+    <Timeline
+      label="Upcoming Timeline Step"
+      subElements={subElements}
+      variant="upcoming"
+      showConnector={true}
+    />
+    <Timeline
+      label="Upcoming Timeline Step2"
+      subElements={subElements}
+      variant="upcoming"
+      showConnector={true}
+    />
+    <Timeline
+      label="Upcoming Timeline Step"
+      subElements={subElements}
+      variant="upcoming"
+      showConnector={true}
+    />
+    <Timeline
+      label="Inprogress Timeline Step"
+      subElements={subElements}
+      variant="inprogress"
+      showConnector={true}
+    />
+    <Timeline
+      label="Completed Timeline Step2"
+      subElements={subElements}
+      variant="completed"
+      showConnector={true}
+    />
+    <Timeline
+      label="Completed Timeline Step"
+      subElements={subElements}
+      variant="completed"
+      showConnector={true}
+    />
+  </TimelineMolecule>
+);
+
+export const WithVisbileCountAndViewMoreLabel = () => (
+  <TimelineMolecule initialVisibleCount={3} viewMoreLabel={"Show More"} viewLessLabel={"Show Less"}>
+        <Timeline
+      label="Upcoming Timeline Step2"
+      subElements={subElements}
+      variant="upcoming"
+      showConnector={true}
+    />
+    <Timeline
+      label="Upcoming Timeline Step"
+      subElements={subElements}
+      variant="upcoming"
+      showConnector={true}
+    />
+    <Timeline
+      label="Upcoming Timeline Step2"
+      subElements={subElements}
+      variant="upcoming"
+      showConnector={true}
+    />
+    <Timeline
+      label="Upcoming Timeline Step"
+      subElements={subElements}
+      variant="upcoming"
+      showConnector={true}
+    />
+    <Timeline
+      label="Inprogress Timeline Step"
+      subElements={subElements}
+      variant="inprogress"
+      showConnector={true}
+    />
+    <Timeline
+      label="Completed Timeline Step2"
+      subElements={subElements}
+      variant="completed"
+      showConnector={true}
+    />
+    <Timeline
+      label="Completed Timeline Step"
+      subElements={subElements}
+      variant="completed"
+      showConnector={true}
     />
   </TimelineMolecule>
 );

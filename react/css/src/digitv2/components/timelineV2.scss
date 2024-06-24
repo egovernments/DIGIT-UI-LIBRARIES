@@ -20,12 +20,13 @@
   top: theme(digitv2.spacers.spacer8);
 
   &.completed,
-  &.inprogress{
+  &.inprogress,
+  &.nextActiveStep{
     border-color: theme(digitv2.lightTheme.primary-1);
   }
 
-  &.inprogress{
-    border-style: dashed;
+  &.nextActiveStep{
+    border-style: dotted;
   }
 
   @media (max-aspect-ratio: 9/16) {
@@ -147,4 +148,12 @@ img {
       height: 1.125rem;
     }
   }
+}
+
+.digit-timeline-molecule{
+  @apply max-h-full;
+}
+
+.view-more-container {
+  margin-top: theme(digitv2.spacers.spacer4);
 }
