@@ -209,6 +209,16 @@ UploadPopupWithValidationsWithErrorCard.args = {
   showReUploadButton: true,
 };
 
+export const UploadPopupWithError = Template.bind({});
+UploadPopupWithError.args = {
+  uploadedFiles: [],
+  variant: "uploadPopup",
+  showDownloadButton: true,
+  showReUploadButton: true,
+  multiple: false,
+  iserror:"Component level error!"
+};
+
 export const UploadImage = Template.bind({});
 UploadImage.args = {
   uploadedFiles: [],
