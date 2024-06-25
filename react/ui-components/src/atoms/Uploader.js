@@ -423,8 +423,8 @@ const Uploader = (props) => {
                     <Fragment key={index}>
                       <div
                         className={`preview-container ${
-                          uploadedFilesCount > 1 ? " multiple" : ""
-                        } ${isError ? "error" : ""}`}
+                          uploadedFilesCount > 1 ? " multiple" : "single"
+                        } ${file?.type.startsWith("image/") ? "imageFile" : ""} ${isError ? "error" : ""}`}
                       >
                         <div
                           onClick={() => {
@@ -441,7 +441,7 @@ const Uploader = (props) => {
                           )}
                         </div>
                         <div
-                          className={`overlay ${isError ? "error" : ""}`}
+                          className={`overlay ${isError ? "error" : ""} ${props?.multiple ? "multiple" : "single"}`}
                           onClick={() => {
                             handleFileClick(index, file);
                           }}

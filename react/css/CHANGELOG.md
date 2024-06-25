@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.0.2-beta.9] - 2024-06-25
+### Added
+- Updated Uploader preview styles
+
 ## [0.0.2-beta.6] - 2024-06-24
 ### Added
 - Added ViewMore button for timeline molecule

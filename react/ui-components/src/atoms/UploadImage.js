@@ -188,14 +188,20 @@ const UploadImage = ({
           <div className="upload-image-label">{"Click to add photo"}</div>
         </div>
       )}
-      <div className="digit-img-container">
+      <div
+        className={`digit-img-container ${"uploadImage"} ${
+          !multiple ? "singleUpload" : ""
+        }`}
+      >
         {previews.map((preview, index) => {
           return (
             <Fragment key={`preview-${index}`}>
               <div
-                className={`preview-container uploadImage ${!multiple ? "singleUpload" : ""} ${
-                  uploadedFilesCount > 1 ? " multiple" : ""
-                } ${preview?.error ? "error" : ""}`}
+                className={`preview-container uploadImage ${
+                  !multiple ? "singleUpload" : ""
+                } ${
+                  uploadedFilesCount > 1 ? " multiple" : "single"
+                } ${"imageFile"} ${preview?.error ? "error" : ""}`}
               >
                 <div
                   onClick={() => {

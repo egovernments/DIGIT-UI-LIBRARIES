@@ -82,6 +82,22 @@
   .digit-uploader-content {
     @apply flex w-full;
     gap: theme(digitv2.spacers.spacer3);
+
+    @media (min-width: 30.063rem) and (max-width: 47.938rem) {
+      max-width: 27.5rem;
+      min-width: 21rem;
+    }
+
+    @media (max-width: 30rem) {
+      max-width: 20.563rem;
+      min-width: 18rem;
+    }
+
+    @media (min-width: 48rem) {
+      max-width: 37.5rem;
+      min-width: 20.75rem;
+    }
+
   }
 
   label {
@@ -89,12 +105,13 @@
   }
 
   .digit-uploader-content-uploadpopup {
-    @apply flex flex-col w-full items-center justify-center max-w-full border-dashed;
+    @apply flex flex-col w-full items-center justify-center max-w-full;
     gap: theme(digitv2.spacers.spacer4);
     border: 0.063rem solid theme(digitv2.lightTheme.generic-divider);
     background: theme(digitv2.lightTheme.paper-secondary);
     padding: theme(digitv2.spacers.spacer4);
     height: 9rem;
+    border-style: dashed;
 
     @media (min-width: 30.063rem) and (max-width: 47.938rem) {
       min-width: 18.75rem;
@@ -125,7 +142,7 @@
     }
 
     &.error {
-      @apply border-dashed;
+      border-style: dashed !important;
       border: 0.094rem solid theme(digitv2.lightTheme.alert-error);
     }
   }
@@ -216,7 +233,6 @@
         }
       }
 
-
       .digit-docupload-icon{
         border: 0.063rem solid theme(digitv2.lightTheme.generic-divider);
 
@@ -247,6 +263,18 @@
           border: 0.063rem solid theme(digitv2.lightTheme.alert-error);
         }
       }
+
+      &.single.imageFile{
+        width: 100%;
+
+        img{
+          width: 100% !important;
+        }
+
+        .overlay{
+          width: 100% !important;
+        }
+      }
     }
 
     .preview-container.uploadImage.singleUpload {
@@ -260,16 +288,21 @@
       }
     }
 
-    @media (min-width: 30.063rem) and (max-width: 47.938rem) {
-      min-width: 20.75rem;
-    }
-
-    @media (max-width: 30rem) {
-      min-width: 18rem;
-    }
-
-    @media (min-width: 48rem) {
-      min-width: 20.75rem;
+    &:not(.uploadImage){
+      @media (min-width: 30.063rem) and (max-width: 47.938rem) {
+        max-width: 27.5rem;
+        min-width: 21rem;
+      }
+  
+      @media (max-width: 30rem) {
+        max-width: 20.563rem;
+        min-width: 18rem;
+      }
+  
+      @media (min-width: 48rem) {
+        max-width: 37.5rem;
+        min-width: 20.75rem;
+      }
     }
   }
 
