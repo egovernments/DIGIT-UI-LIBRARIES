@@ -1,9 +1,8 @@
-import 'package:digit_ui_components/constants/app_constants.dart';
+import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-import '../../constants/AppView.dart';
 import '../../enum/app_enums.dart';
-import '../../theme/theme.dart';
+import '../../theme/ComponentTheme/toast_theme_data.dart';
 import '../../utils/utils.dart';
 
 /// This class provides a static method to show custom toast notifications
@@ -24,43 +23,40 @@ class Toast {
     Duration? duration,
     Duration? animationDuration,
     StyledToastPosition? position,
+    DigitToastThemeData? digitToastThemeData,
   }) {
+    final theme = Theme.of(context);
+    final toastThemeData = digitToastThemeData ??
+        theme.extension<DigitToastThemeData>() ??
+        DigitToastThemeData.defaultTheme(context);
     showToastWidget(
-      _buildToastWidget(message, type, context),
+      _buildToastWidget(message, type, context, toastThemeData),
       context: context,
-      duration: duration ?? ToastConstant().toastDuration,
-      position: position ??
-          const StyledToastPosition(
-            align: Alignment.bottomCenter,
-          ),
+      duration: toastThemeData.animationDuration,
+      position: toastThemeData.toastPosition,
       isIgnoring: false,
-      animation: StyledToastAnimation.slideFromBottom,
-      reverseAnimation: StyledToastAnimation.slideFromBottom,
+      animation: toastThemeData.animation,
+      reverseAnimation: toastThemeData.reverseAnimation,
       animDuration: animationDuration,
     );
   }
 
-  static Widget _buildToastWidget(
-      String message, ToastType type, BuildContext context) {
-    DigitTypography currentTypography = getTypography(context, false);
-
-    double minWidth = AppView.isMobileView(MediaQuery.of(context).size)
-        ? MediaQuery.of(context).size.width
-        : AppView.isTabletView(MediaQuery.of(context).size)
-            ? ToastConstant.tabMinWidth
-            : ToastConstant.desktopMinWidth;
+  static Widget _buildToastWidget(String message, ToastType type,
+      BuildContext context, DigitToastThemeData toastThemeData) {
+    final theme = Theme.of(context);
 
     return Container(
       constraints: BoxConstraints(
-        minWidth: minWidth,
+        minWidth: toastThemeData.toastWidth,
       ),
       color: type == ToastType.success
-          ? const DigitColors().light.alertSuccess
+          ? toastThemeData.successColor
           : type == ToastType.error
-              ? const DigitColors().light.alertError
-              : const DigitColors().light.alertWarning,
-      padding:
-          const EdgeInsets.symmetric(vertical: spacer3, horizontal: spacer2),
+              ? toastThemeData.errorColor
+              : type == ToastType.warning
+                  ? toastThemeData.warningColor
+                  : toastThemeData.infoColor,
+      padding: toastThemeData.padding,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         mainAxisSize: MainAxisSize.min,
@@ -69,33 +65,27 @@ class Toast {
             mainAxisSize: MainAxisSize.min,
             children: [
               SizedBox(
-                height: spacer6,
-                width: spacer6,
-                child: Icon(
-                  type == ToastType.success
-                      ? Icons.check_circle
-                      : type == ToastType.error
-                          ? Icons.error
-                          : Icons.warning,
-                  color: const DigitColors().light.paperPrimary,
-                  size: spacer6,
-                ),
+                height: theme.spacerTheme.spacer6,
+                width: theme.spacerTheme.spacer6,
+                child: type == ToastType.success
+                    ? toastThemeData.successIcon
+                    : type == ToastType.error
+                        ? toastThemeData.errorIcon
+                        : type == ToastType.warning
+                            ? toastThemeData.warningIcon
+                            : toastThemeData.infoIcon,
               ),
-              const SizedBox(width: spacer2),
+              SizedBox(width: theme.spacerTheme.spacer2),
               Container(
                 constraints: BoxConstraints(
                   maxWidth: MediaQuery.of(context).size.width -
-                      spacer6 -
-                      spacer6 -
-                      spacer6,
+                      (theme.spacerTheme.spacer6) * 3,
                 ),
                 child: Text(
                   convertInToSentenceCase(message)!,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: currentTypography.captionS.copyWith(
-                    color: const DigitColors().light.paperPrimary,
-                  ),
+                  style: toastThemeData.textStyle,
                 ),
               ),
             ],
@@ -104,11 +94,7 @@ class Toast {
             onTap: () {
               ToastManager().dismissAll(showAnim: false);
             },
-            child: Icon(
-              Icons.close,
-              size: spacer6,
-              color: const DigitColors().light.paperPrimary,
-            ),
+            child: toastThemeData.cancelIcon,
           ),
         ],
       ),

@@ -52,6 +52,7 @@ enum ToastType {
   success,
   error,
   warning,
+  info,
 }
 
 /// dropdown type and subtype for dropdown wrapper

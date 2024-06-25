@@ -27,15 +27,9 @@
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import '../../constants/AppView.dart';
-import '../../constants/app_constants.dart';
-import '../../enum/app_enums.dart';
-import '../../models/DropdownModels.dart';
-import '../../models/TreeModel.dart';
 import '../../utils/utils.dart';
-import '../helper_widget/selection_chip.dart';
 import '../helper_widget/tree_node_widget.dart';
+import 'digit_chip.dart';
 
 typedef OnOptionSelected<T> = void Function(List<TreeNode> selectedOptions);
 
@@ -461,7 +455,7 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
 
   /// Build the selected item chip.
   Widget _buildChip(TreeNode item) {
-    return SelectionChip<T>(
+    return DigitChip(
       label: widget.valueMapper != null
           ? getAssociatedValue(item.code, widget.valueMapper!)
           : item.name,

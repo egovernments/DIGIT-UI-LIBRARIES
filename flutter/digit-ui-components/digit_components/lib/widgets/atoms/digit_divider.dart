@@ -1,35 +1,31 @@
 import 'package:digit_ui_components/digit_components.dart';
+import 'package:digit_ui_components/theme/ComponentTheme/divider_theme.dart';
+import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:flutter/material.dart';
 
 class DigitDivider extends StatelessWidget {
-  final double? thickness;
   final DividerType dividerType;
-  final Color? color;
-  final double indent;
-  final double endIndent;
-
-  /// Optional width parameter
-  final double? width;
+  final DigitDividerThemeData? dividerThemeData;
 
   const DigitDivider({
     Key? key,
-    this.thickness,
     this.dividerType = DividerType.medium,
-    this.color,
-    this.indent = 0.0,
-    this.endIndent = 0.0,
-    this.width,
+    this.dividerThemeData,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(left: indent, right: endIndent),
-      child: Container(
-        width: width, /// Use the provided width if available, otherwise take full width
-        height: thickness ?? (dividerType == DividerType.medium ? 2 : dividerType == DividerType.large ? 4 : 1),
-        color: color ?? const DigitColors().light.genericDivider,
-      ),
+
+
+    final theme = Theme.of(context);
+    final themeData = dividerThemeData ??
+        theme.extension<DigitDividerThemeData>() ?? const DigitDividerThemeData();
+
+    return Container(
+      padding: EdgeInsets.only(left: themeData.indent, right: themeData.endIndent),
+      width: themeData.width,
+      height: dividerType == DividerType.medium ? themeData.mediumDividerThickness : dividerType == DividerType.large ? themeData.largeDividerThickness : themeData.smallDividerThickness,
+      color: themeData.color ?? theme.colorTheme.generic.divider,
     );
   }
 }

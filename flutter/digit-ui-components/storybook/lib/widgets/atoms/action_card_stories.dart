@@ -1,8 +1,9 @@
 import 'package:digit_ui_components/enum/app_enums.dart';
-import 'package:digit_ui_components/theme/action_card_theme.dart';
+import 'package:digit_ui_components/theme/ComponentTheme/action_card_theme.dart';
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
+import 'package:digit_ui_components/theme/text_theme_extension.dart';
 import 'package:digit_ui_components/widgets/atoms/digit_button.dart';
-import 'package:digit_ui_components/widgets/atoms/action_card.dart';
+import 'package:digit_ui_components/widgets/atoms/digit_action_card.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
 import 'package:flutter/material.dart';
 
@@ -159,7 +160,7 @@ List<Story> actionStories() {
     Story(
       name: 'Atom/Action/custom width and height',
       builder: (context) => ActionCard(
-        extendedTheme: const DigitActionCardTheme().copyWith(
+        actionCardTheme: const DigitActionCardTheme().copyWith(
           context: context,
           width: 700,
           height: 600,

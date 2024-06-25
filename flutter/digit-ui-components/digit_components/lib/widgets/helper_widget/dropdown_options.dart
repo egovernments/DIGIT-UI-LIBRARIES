@@ -122,13 +122,13 @@ class _DropdownOptionState extends State<DropdownOption> {
                         children: [
                           widget.isSelected ||
                                   _itemMouseDownStates[widget.option] == true
-                              ? DigitCheckboxIcon(
-                                  size: spacer5,
+                              ? const DigitCheckboxIcon(
+                                 // size: spacer5,
                                   state: DigitCheckboxState.checked,
-                                  color: const DigitColors().light.paperPrimary,
+                                  //color: const DigitColors().light.paperPrimary,
                                 )
                               : const DigitCheckboxIcon(
-                                  size: spacer5,
+                                  //size: spacer5,
                                   state: DigitCheckboxState.unchecked),
                           const SizedBox(
                             width: spacer3,

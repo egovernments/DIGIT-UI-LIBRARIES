@@ -3,7 +3,7 @@ import 'dart:ui';
 class DigitColors {
   const DigitColors();
 
-  Light get light => Light();
+  Light get light => const Light();
 
   Color get transparent => const Color.fromRGBO(0, 0, 0, 0);
   Color get shadowColor => const Color.fromRGBO(244, 119, 56, 0.25);
@@ -13,7 +13,7 @@ class DigitColors {
 }
 
 class Light {
-
+  const Light();
 
   /// Primary
   Color get primary1 => const Color(0xFFC84C0E);

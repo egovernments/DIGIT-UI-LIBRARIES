@@ -1,4 +1,5 @@
 import 'package:digit_ui_components/enum/app_enums.dart';
+import 'package:digit_ui_components/theme/ComponentTheme/divider_theme.dart';
 import 'package:digit_ui_components/widgets/atoms/digit_divider.dart';
 import 'package:flutter/material.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
@@ -22,10 +23,13 @@ List<Story> dividerStories() {
     ),
     Story(
       name: 'Atom/Divider/custom',
-      builder: (context) => const DigitDivider(
-        thickness: 2.0,
-        color: Colors.red,
-        width: 100.0, // Custom width
+      builder: (context) =>  DigitDivider(
+        dividerThemeData: const DigitDividerThemeData().copyWith(
+          color: Colors.blue,
+          indent: 20,
+          endIndent: 30,
+          width: 400,
+        ),
       ),
     ),
   ];

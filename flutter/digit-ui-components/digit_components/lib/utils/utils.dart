@@ -4,7 +4,7 @@ import 'package:url_launcher/url_launcher.dart';
 /// Utility function to capitalize the first letter of the first word
 /// and make all other letters lowercase in the entire message
 String? convertInToSentenceCase(String? text) {
-  if (text == null) {
+  if (text == null  || text.isEmpty) {
     return text;
   }
 
@@ -36,6 +36,9 @@ String? convertInToSentenceCase(String? text) {
 
 /// Utility function to capitalize the first letter of every word
 String capitalizeFirstLetterOfEveryWord(String text) {
+  if (text.isEmpty) {
+    return text;
+  }
   List<String> words = text.split(' ');
   List<String> capitalizedWords = [];
 

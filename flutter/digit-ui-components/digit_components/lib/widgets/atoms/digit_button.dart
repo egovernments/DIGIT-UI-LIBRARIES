@@ -19,9 +19,11 @@
 /// ```
 
 import 'package:digit_ui_components/digit_components.dart';
+import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:flutter/material.dart';
 import '../../constants/app_constants.dart';
 import '../../enum/app_enums.dart';
+import '../../theme/ComponentTheme/button_theme.dart';
 import '../../utils/utils.dart';
 
 class Button extends StatefulWidget {
@@ -43,14 +45,10 @@ class Button extends StatefulWidget {
   /// Icon to be displayed after the label text. Can be null if no suffix icon is needed.
   final IconData? suffixIcon;
 
+  final DigitButtonThemeData? buttonThemeData;
+
   /// Indicates whether the button is in a disabled state. If true, the button is disabled and cannot be interacted with.
   final bool isDisabled;
-
-  /// Padding around the content of the button (label and icons).
-  final EdgeInsetsGeometry contentPadding;
-
-  /// Size of the icons (prefixIcon and suffixIcon) displayed on the button in logical pixels.
-  final double? iconSize;
   final bool capitalizeLetters;
   final MainAxisAlignment? mainAxisAlignment;
   final CrossAxisAlignment? crossAxisAlignment;
@@ -65,8 +63,7 @@ class Button extends StatefulWidget {
     this.prefixIcon,
     this.suffixIcon,
     this.isDisabled = false,
-    this.contentPadding = ButtonConstants.defaultContentPadding,
-    this.iconSize,
+    this.buttonThemeData,
     this.capitalizeLetters = true,
     this.mainAxisAlignment,
     this.crossAxisAlignment,
@@ -81,8 +78,6 @@ class _ButtonState extends State<Button> {
   bool isHovered = false;
   bool isMouseDown = false;
   bool isFocused = false;
-  late DigitTypography _currentTypography;
-  late DigitTypography _currentTypography2;
   late TextStyle buttonStyle;
   late TextStyle linkStyle;
   late double buttonIconSize;
@@ -90,43 +85,45 @@ class _ButtonState extends State<Button> {
 
   @override
   Widget build(BuildContext context) {
-    /// typography based on screen
-    _currentTypography = getTypography(context, true);
-    _currentTypography2 = getTypography(context, false);
+    final theme = Theme.of(context);
+    final DigitButtonThemeData buttonThemeData = widget.buttonThemeData ??
+        theme.extension<DigitButtonThemeData>() ??
+        DigitButtonThemeData.defaultTheme(context);
 
     switch (widget.size) {
       case ButtonSize.small:
-        buttonStyle = _currentTypography.headingS;
-        linkStyle = _currentTypography2.linkS;
-        buttonIconSize = ButtonConstants.smallIconSize;
-        linkIconSize = ButtonConstants.smallLinkIconSize;
+        buttonStyle = buttonThemeData.smallButtonTextStyle;
+        linkStyle = buttonThemeData.smallLinkTextStyle;
+        buttonIconSize = buttonThemeData.smallIconSize;
+        linkIconSize = buttonThemeData.smallLinkIconSize;
         break;
       case ButtonSize.medium:
-        buttonStyle = _currentTypography.headingM;
-        linkStyle = _currentTypography2.linkM;
-        buttonIconSize = ButtonConstants.mediumIconSize;
-        linkIconSize = ButtonConstants.mediumLinkIconSize;
+        buttonStyle = buttonThemeData.mediumButtonTextStyle;
+        linkStyle = buttonThemeData.mediumLinkTextStyle;
+        buttonIconSize = buttonThemeData.mediumIconSize;
+        linkIconSize = buttonThemeData.mediumLinkIconSize;
         break;
       case ButtonSize.large:
-        buttonStyle = _currentTypography.headingL;
-        linkStyle = _currentTypography2.linkL;
-        buttonIconSize = ButtonConstants.largeIconSize;
-        linkIconSize = ButtonConstants.largeLinkIconSize;
+        buttonStyle = buttonThemeData.largeButtonTextStyle;
+        linkStyle = buttonThemeData.largeLinkTextStyle;
+        buttonIconSize = buttonThemeData.largeIconSize;
+        linkIconSize = buttonThemeData.largeLinkIconSize;
         break;
     }
 
-    return _buildButtonWidget();
+    return _buildButtonWidget(context, buttonThemeData);
   }
 
   /// Build the button widget based on its type and state.
-  Widget _buildButtonWidget() {
+  Widget _buildButtonWidget(
+      BuildContext context, DigitButtonThemeData buttonThemeData) {
     if (widget.type == ButtonType.primary ||
         widget.type == ButtonType.secondary) {
       return InkWell(
-        highlightColor: const DigitColors().transparent,
-        hoverColor: const DigitColors().transparent,
-        splashColor: const DigitColors().transparent,
-        focusColor: const DigitColors().transparent,
+        highlightColor: buttonThemeData.hightlightColor,
+        hoverColor: buttonThemeData.hoverColor,
+        splashColor: buttonThemeData.splashColor,
+        focusColor: buttonThemeData.focusColor,
         onFocusChange: (value) {
           setState(() {
             isFocused = value;
@@ -162,67 +159,43 @@ class _ButtonState extends State<Button> {
               },
         child: Container(
           height: widget.size == ButtonSize.large
-              ? ButtonConstants.largeButtonSize
+              ? buttonThemeData.largeButtonHeight
               : widget.size == ButtonSize.medium
-                  ? ButtonConstants.mediumButtonSize
-                  : ButtonConstants.smallButtonSize,
+                  ? buttonThemeData.mediumButtonHeight
+                  : buttonThemeData.smallButtonHeight,
           decoration: BoxDecoration(
             boxShadow: (isMouseDown)
-                ? [
-                    BoxShadow(
-                      color: widget.type == ButtonType.primary
-                          ? const DigitColors().light.textPrimary
-                          : const DigitColors().light.primary1,
-                      offset: const Offset(0, 2),
-                      spreadRadius: 0,
-                      blurRadius: 0,
-                    ),
-                    BoxShadow(
-                      color: widget.type == ButtonType.primary
-                          ? const DigitColors()
-                              .light
-                              .textPrimary
-                              .withOpacity(.25)
-                          : const DigitColors().light.primary1.withOpacity(.20),
-                      offset: const Offset(0, 4),
-                      spreadRadius: 0,
-                      blurRadius: widget.type == ButtonType.primary ? 2.8 : 4,
-                    ),
-                  ]
+                ? widget.type == ButtonType.primary
+                    ? buttonThemeData.primaryButtonMouseDownBoxShadow
+                    : buttonThemeData.buttonMouseDownBoxShadow
                 : isHovered || isFocused
-                    ? [
-                        BoxShadow(
-                          color: widget.type == ButtonType.primary
-                              ? const DigitColors().light.textPrimary
-                              : const DigitColors().light.primary1,
-                          offset: const Offset(0, 2),
-                          spreadRadius: 0,
-                          blurRadius: 0,
-                        ),
-                      ]
+                    ? widget.type == ButtonType.primary
+                        ? buttonThemeData.primaryButtonHoverBoxShadow
+                        : buttonThemeData.buttonHoverBoxShadow
                     : [],
-            borderRadius: Base.radius,
+            borderRadius: buttonThemeData.radius,
             border: Border.all(
               color: widget.isDisabled
-                  ? const DigitColors().light.textDisabled
-                  : const DigitColors().light.primary1,
-              width: Base.defaultBorderWidth,
+                  ? buttonThemeData.disabledColor
+                  : buttonThemeData.buttonColor,
+              width: buttonThemeData.borderWidth,
             ),
             color: widget.type == ButtonType.primary
                 ? (widget.isDisabled
-                    ? const DigitColors().light.textDisabled
-                    : const DigitColors().light.primary1)
-                : const DigitColors().light.paperPrimary,
+                    ? buttonThemeData.disabledColor
+                    : buttonThemeData.buttonColor)
+                : buttonThemeData.primaryButtonColor,
           ),
-          child: _buildButton(isHovered, isMouseDown, isFocused),
+          child: _buildButton(
+              isHovered, isMouseDown, isFocused, buttonThemeData, context),
         ),
       );
     } else {
       return InkWell(
-        highlightColor: const DigitColors().transparent,
-        hoverColor: const DigitColors().transparent,
-        splashColor: const DigitColors().transparent,
-        focusColor: const DigitColors().transparent,
+        highlightColor: buttonThemeData.hightlightColor,
+        hoverColor: buttonThemeData.hoverColor,
+        splashColor: buttonThemeData.splashColor,
+        focusColor: buttonThemeData.focusColor,
         onFocusChange: (value) {
           setState(() {
             isFocused = value;
@@ -256,14 +229,17 @@ class _ButtonState extends State<Button> {
                   isMouseDown = false;
                 });
               },
-        child: _buildButton(isHovered, isMouseDown, isFocused),
+        child: _buildButton(
+            isHovered, isMouseDown, isFocused, buttonThemeData, context),
       );
     }
   }
 
   /// Build the content of the button, including label and icons.
-  Widget _buildButton(bool isHovered, bool isMouseDown, bool isFocused) {
+  Widget _buildButton(bool isHovered, bool isMouseDown, bool isFocused,
+      DigitButtonThemeData buttonThemeData, BuildContext context) {
     String truncatedLabel = widget.label;
+    final theme = Theme.of(context);
 
     /// Truncate label if it exceeds 64 characters &&  Capitalize the first letter of the label
     if (widget.type != ButtonType.link) {
@@ -277,13 +253,13 @@ class _ButtonState extends State<Button> {
     }
     return Container(
       color: isFocused && widget.type == ButtonType.tertiary
-          ? const DigitColors().light.primary1Bg
-          : const DigitColors().transparent,
+          ? theme.colorTheme.primary.primaryBg
+          : theme.colorTheme.generic.transparent,
       child: Padding(
         padding:
             widget.type == ButtonType.link || widget.type == ButtonType.tertiary
-                ? const EdgeInsets.all(spacer2)
-                : widget.contentPadding,
+                ? buttonThemeData.linkPadding
+                : buttonThemeData.padding,
         child: Row(
           mainAxisSize: widget.mainAxisSize ?? MainAxisSize.min,
           mainAxisAlignment:
@@ -296,18 +272,18 @@ class _ButtonState extends State<Button> {
                 widget.prefixIcon,
                 size: widget.type == ButtonType.link
                     ? linkIconSize
-                    : widget.iconSize ?? buttonIconSize,
+                    : buttonIconSize,
                 color: widget.type == ButtonType.primary
-                    ? const DigitColors().light.paperPrimary
+                    ? buttonThemeData.primaryButtonColor
                     : (widget.isDisabled
-                        ? const DigitColors().light.textDisabled
-                        : const DigitColors().light.primary1),
+                        ? buttonThemeData.disabledColor
+                        : buttonThemeData.buttonColor),
               ),
               SizedBox(
                   width: widget.type == ButtonType.link ||
                           widget.size == ButtonSize.small
-                      ? spacer1
-                      : spacer2),
+                      ? theme.spacerTheme.spacer1
+                      : theme.spacerTheme.spacer2),
             ],
             Flexible(
               child: Text(
@@ -316,22 +292,22 @@ class _ButtonState extends State<Button> {
                 style: widget.type == ButtonType.link
                     ? linkStyle.copyWith(
                         color: widget.isDisabled
-                            ? const DigitColors().light.textDisabled
-                            : const DigitColors().light.primary1,
+                            ? buttonThemeData.disabledColor
+                            : buttonThemeData.buttonColor,
                         decoration: TextDecoration.underline,
                         decorationColor: widget.isDisabled
-                            ? const DigitColors().light.textDisabled
-                            : const DigitColors().light.primary1,
+                            ? buttonThemeData.disabledColor
+                            : buttonThemeData.buttonColor,
                         decorationThickness: isHovered || isFocused ? 2 : 1,
                       )
                     : buttonStyle.copyWith(
                         fontWeight:
                             isMouseDown ? FontWeight.w700 : FontWeight.w500,
                         color: widget.type == ButtonType.primary
-                            ? const DigitColors().light.paperPrimary
-                            : widget.isDisabled
-                                ? const DigitColors().light.textDisabled
-                                : const DigitColors().light.primary1,
+                            ? buttonThemeData.primaryButtonColor
+                            : (widget.isDisabled
+                                ? buttonThemeData.disabledColor
+                                : buttonThemeData.buttonColor),
                         overflow: TextOverflow.ellipsis,
                       ),
               ),
@@ -340,18 +316,18 @@ class _ButtonState extends State<Button> {
               SizedBox(
                   width: widget.type == ButtonType.link ||
                           widget.size == ButtonSize.small
-                      ? spacer1
-                      : spacer2),
+                      ? theme.spacerTheme.spacer1
+                      : theme.spacerTheme.spacer2),
               Icon(
                 widget.suffixIcon,
                 size: widget.type == ButtonType.link
                     ? linkIconSize
-                    : widget.iconSize ?? buttonIconSize,
+                    : buttonIconSize,
                 color: widget.type == ButtonType.primary
-                    ? const DigitColors().light.paperPrimary
+                    ? buttonThemeData.primaryButtonColor
                     : (widget.isDisabled
-                        ? const DigitColors().light.textDisabled
-                        : const DigitColors().light.primary1),
+                        ? buttonThemeData.disabledColor
+                        : buttonThemeData.buttonColor),
               ),
             ],
           ],

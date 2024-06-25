@@ -35,7 +35,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../utils/utils.dart';
 import '../helper_widget/dropdown_options.dart';
-import '../helper_widget/selection_chip.dart';
+import 'digit_chip.dart';
 
 typedef OnOptionSelect<T> = void Function(List<DropdownItem> selectedOptions);
 
@@ -770,9 +770,11 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                   children: [
                     isAllSelected
                         ? const DigitCheckboxIcon(
-                            size: spacer5, state: DigitCheckboxState.checked)
+                           // size: spacer5,
+                        state: DigitCheckboxState.checked)
                         : const DigitCheckboxIcon(
-                            size: spacer5, state: DigitCheckboxState.unchecked),
+                          //  size: spacer5,
+                        state: DigitCheckboxState.unchecked),
                     const SizedBox(
                       width: 10,
                     ),
@@ -905,9 +907,11 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                   children: [
                     isAllSelected
                         ? const DigitCheckboxIcon(
-                            size: spacer5, state: DigitCheckboxState.checked)
+                            //size: spacer5,
+                        state: DigitCheckboxState.checked)
                         : const DigitCheckboxIcon(
-                            size: spacer5, state: DigitCheckboxState.unchecked),
+                            //size: spacer5,
+                        state: DigitCheckboxState.unchecked),
                     const SizedBox(
                       width: 10,
                     ),
@@ -1016,10 +1020,10 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                           ),
                           isGroupSelected
                               ? const DigitCheckboxIcon(
-                                  size: spacer5,
+                                  //size: spacer5,
                                   state: DigitCheckboxState.checked)
                               : const DigitCheckboxIcon(
-                                  size: spacer5,
+                                  //size: spacer5,
                                   state: DigitCheckboxState.unchecked),
                         ],
                       ),
@@ -1154,7 +1158,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
 
   /// Build the selected item chip.
   Widget _buildChip(DropdownItem item) {
-    return SelectionChip(
+    return DigitChip(
       label: widget.valueMapper != null
           ? getAssociatedValue(item.code, widget.valueMapper!)
           : widget.selectionType == SelectionType.nestedSelect

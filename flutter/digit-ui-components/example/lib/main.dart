@@ -1,5 +1,8 @@
 import 'package:digit_ui_components/digit_components.dart';
+import 'package:digit_ui_components/theme/ComponentTheme/checkbox_theme.dart';
+import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:digit_ui_components/utils/validators/validator.dart';
+import 'package:digit_ui_components/widgets/atoms/digit_bread_crumbs.dart';
 import 'package:digit_ui_components/widgets/atoms/digit_stepper.dart';
 import 'package:digit_ui_components/widgets/atoms/dropdown_wrapper.dart';
 import 'package:digit_ui_components/widgets/atoms/info_buttons.dart';
@@ -95,10 +98,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Digit UI Flutter',
-      theme: DigitTheme.instance.mobileTheme.copyWith(
-          appBarTheme: AppBarTheme(
-        backgroundColor: DigitTheme.instance.colorScheme.secondary,
-      )),
+      theme: DigitExtendedTheme.instance.getTheme(context).copyWith(
+      ),
       home: const MyHomePage(title: 'Digit Components Page'),
     );
   }
@@ -164,13 +165,23 @@ class MyHomePageState extends State<MyHomePage> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Breadcrumb(
+                  items: ['Home', 'Category', 'Product'],
+                  onTap: (index) {
+                    // Handle breadcrumb item tap
+                    print('Tapped on: ${index}');
+                  },
+                ),
+                SizedBox(height: 16,),
                 ImageUploader(
                   onImagesSelected: (List<File> imageFile) {
                     // Handle the selected image file here
                     // print('Image selected: ${imageFile.path}');
                   },
                 ),
-                const SizedBox(height: 16,),
+                const SizedBox(
+                  height: 16,
+                ),
                 InputField(
                   type: InputType.text,
                   label: "Text Field",
@@ -2044,11 +2055,12 @@ class MyHomePageState extends State<MyHomePage> {
                 LabeledField(
                   label: 'File Upload with single selected',
                   child: FileUploadWidget(
-                    label: 'Upload', onFilesSelected: (List<PlatformFile> files) {
-                    Map<PlatformFile, String?> fileErrors = {};
+                    label: 'Upload',
+                    onFilesSelected: (List<PlatformFile> files) {
+                      Map<PlatformFile, String?> fileErrors = {};
 
-                    return fileErrors;
-                  },
+                      return fileErrors;
+                    },
                     showPreview: false,
                   ),
                 ),
@@ -2056,10 +2068,11 @@ class MyHomePageState extends State<MyHomePage> {
                 LabeledField(
                   label: 'File Upload with single selected with preview',
                   child: FileUploadWidget(
-                    label: 'Upload', onFilesSelected: (List<PlatformFile> files) {
-                    Map<PlatformFile, String?> fileErrors = {};
-                    return fileErrors;
-                  },
+                    label: 'Upload',
+                    onFilesSelected: (List<PlatformFile> files) {
+                      Map<PlatformFile, String?> fileErrors = {};
+                      return fileErrors;
+                    },
                     showPreview: true,
                   ),
                 ),
@@ -2067,10 +2080,11 @@ class MyHomePageState extends State<MyHomePage> {
                 LabeledField(
                   label: 'File Upload with Multiple selected',
                   child: FileUploadWidget(
-                    label: 'Upload', onFilesSelected: (List<PlatformFile> files) {
-                    Map<PlatformFile, String?> fileErrors = {};
-                    return fileErrors;
-                  },
+                    label: 'Upload',
+                    onFilesSelected: (List<PlatformFile> files) {
+                      Map<PlatformFile, String?> fileErrors = {};
+                      return fileErrors;
+                    },
                     allowMultiples: true,
                     showPreview: false,
                   ),
@@ -2079,16 +2093,16 @@ class MyHomePageState extends State<MyHomePage> {
                 LabeledField(
                   label: 'File Upload with Multiple selected with preview',
                   child: FileUploadWidget(
-                    label: 'Upload', onFilesSelected: (List<PlatformFile> files) {
-                    Map<PlatformFile, String?> fileErrors = {};
-                    return fileErrors;
-                  },
+                    label: 'Upload',
+                    onFilesSelected: (List<PlatformFile> files) {
+                      Map<PlatformFile, String?> fileErrors = {};
+                      return fileErrors;
+                    },
                     allowMultiples: true,
                     showPreview: true,
                   ),
                 ),
                 const SizedBox(height: 8),
-
                 const SizedBox(height: 8),
                 const Divider(),
                 const SizedBox(
@@ -2137,7 +2151,6 @@ class MyHomePageState extends State<MyHomePage> {
                     }
                   },
                 ),
-
                 const SizedBox(
                   height: 8,
                 ),

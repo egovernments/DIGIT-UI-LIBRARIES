@@ -31,6 +31,8 @@ class RadioList extends StatefulWidget {
   /// Currently selected value in the radio button group
   String groupValue;
 
+  final String? errorMessage;
+
   /// Flag to indicate if the radio buttons are disabled
   final bool isDisabled;
 
@@ -51,6 +53,7 @@ class RadioList extends StatefulWidget {
     required this.onChanged,
     this.groupValue = '',
     this.isDisabled = false,
+    this.errorMessage,
     this.containerPadding = RadioConstant.defaultPadding,
     this.radioWidth = RadioConstant.radioWidth,
     this.radioHeight = RadioConstant.radioHeight,
@@ -82,24 +85,125 @@ class _RadioListState extends State<RadioList> {
   /// Build the widget layout
   @override
   Widget build(BuildContext context) {
+
+    String? capitalizedErrorMessage =
+    convertInToSentenceCase(widget.errorMessage);
+
     DigitTypography currentTypography = getTypography(context, false);
     isMobile = AppView.isMobileView(MediaQuery.of(context).size);
     if (!isMobile) {
-      return Wrap(
-        crossAxisAlignment: WrapCrossAlignment.start,
-        children: _buildRadioButtons(currentTypography),
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Wrap(
+            crossAxisAlignment: WrapCrossAlignment.start,
+            children: _buildRadioButtons(currentTypography),
+          ),
+          if(widget.errorMessage!=null)
+            const SizedBox(width: spacer1),
+          if(widget.errorMessage!=null)
+            Padding(
+              padding: const EdgeInsets.only(left: 8.0),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Column(
+                    children: [
+                      const SizedBox(
+                        height: spacer1 / 2,
+                      ),
+                      SizedBox(
+                        height: spacer4,
+                        width: spacer4,
+                        child: Icon(
+                          Icons.info,
+                          color: const DigitColors()
+                              .light
+                              .alertError,
+                          size: BaseConstants.errorIconSize,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(width: spacer1),
+                  Flexible(
+                    fit: FlexFit.tight,
+                    child: Text(truncateWithEllipsis(256, capitalizedErrorMessage!),
+                      style: currentTypography.bodyS.copyWith(
+                        color: const DigitColors()
+                            .light
+                            .alertError,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+        ],
       );
     }
 
     /// Default layout
     return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: _buildRadioButtons(currentTypography),
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: _buildRadioButtons(currentTypography),
+        ),
+        if(widget.errorMessage!=null)
+          const SizedBox(width: spacer1),
+        if(widget.errorMessage!=null)
+          Padding(
+            padding: const EdgeInsets.only(left: 8.0),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Column(
+                  children: [
+                    const SizedBox(
+                      height: spacer1 / 2,
+                    ),
+                    SizedBox(
+                      height: spacer4,
+                      width: spacer4,
+                      child: Icon(
+                        Icons.info,
+                        color: const DigitColors()
+                            .light
+                            .alertError,
+                        size: BaseConstants.errorIconSize,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(width: spacer1),
+                Flexible(
+                  fit: FlexFit.tight,
+                  child: Text(truncateWithEllipsis(256, capitalizedErrorMessage!),
+                    style: currentTypography.bodyS.copyWith(
+                      color: const DigitColors()
+                          .light
+                          .alertError,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+      ],
     );
   }
 
   List<Widget> _buildRadioButtons(DigitTypography currentTypography) {
+
     return widget.radioButtons.map(
       (button) {
         final index = widget.radioButtons.indexOf(button);

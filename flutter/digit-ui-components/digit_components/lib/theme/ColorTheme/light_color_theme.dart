@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 
-class DigitColorsExtension extends ThemeExtension<DigitColorsExtension> {
-
-  const DigitColorsExtension({
+class DigitColorTheme extends ThemeExtension<DigitColorTheme> {
+  const DigitColorTheme({
     this.alert = const Alert(),
     this.text = const Text(),
     this.paper = const Paper(),
     this.generic = const Generic(),
     this.primary = const Primary(),
   });
-
 
   final Alert alert;
   final Text text;
@@ -18,17 +16,14 @@ class DigitColorsExtension extends ThemeExtension<DigitColorsExtension> {
   final Primary primary;
 
   @override
-  DigitColorsExtension copyWith({
+  DigitColorTheme copyWith({
     Alert? alert,
     Text? text,
     Paper? paper,
     Generic? generic,
     Primary? primary,
   }) {
-
-
-
-    return DigitColorsExtension(
+    return DigitColorTheme(
       alert: alert ?? this.alert,
       text: text ?? this.text,
       paper: paper ?? this.paper,
@@ -38,12 +33,13 @@ class DigitColorsExtension extends ThemeExtension<DigitColorsExtension> {
   }
 
   @override
-  DigitColorsExtension lerp(covariant ThemeExtension<DigitColorsExtension>? other, double t) {
-    if (other is! DigitColorsExtension) {
+  DigitColorTheme lerp(
+      covariant ThemeExtension<DigitColorTheme>? other, double t) {
+    if (other is! DigitColorTheme) {
       return this;
     }
 
-    return DigitColorsExtension(
+    return DigitColorTheme(
       alert: Alert.lerp(alert, other.alert, t),
       text: Text.lerp(text, other.text, t),
       paper: Paper.lerp(paper, other.paper, t),
@@ -52,7 +48,6 @@ class DigitColorsExtension extends ThemeExtension<DigitColorsExtension> {
     );
   }
 }
-
 
 class Alert {
   const Alert({
@@ -111,10 +106,9 @@ class Alert {
   }
 }
 
-
 class Primary {
   const Primary({
-    this.primary1 = const Color(0xFF000000),
+    this.primary1 = const Color(0xFFC84C0E),
     this.primary2 = const Color(0xFF757575),
     this.primaryBg = const Color(0xFFBDBDBD),
   });
@@ -208,21 +202,25 @@ class Generic {
     this.background = const Color(0xFFFFFFFF),
     this.divider = const Color(0xFFBDBDBD),
     this.inputBorder = const Color(0xFFBDBDBD),
+    this.transparent = const Color(0x00000000),
   });
 
   final Color background;
   final Color divider;
   final Color inputBorder;
+  final Color transparent;
 
   Generic copyWith({
     Color? background,
     Color? divider,
     Color? inputBorder,
+    Color? transparent,
   }) {
     return Generic(
       background: background ?? this.background,
       divider: divider ?? this.divider,
       inputBorder: inputBorder ?? this.inputBorder,
+      transparent: transparent ?? this.transparent,
     );
   }
 
@@ -231,6 +229,7 @@ class Generic {
       background: Color.lerp(a.background, b.background, t)!,
       divider: Color.lerp(a.divider, b.divider, t)!,
       inputBorder: Color.lerp(a.inputBorder, b.inputBorder, t)!,
+      transparent: Color.lerp(a.transparent, b.transparent, t)!,
     );
   }
 }

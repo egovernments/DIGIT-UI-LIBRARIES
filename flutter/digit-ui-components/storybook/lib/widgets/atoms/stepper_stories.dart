@@ -13,7 +13,7 @@ List<Story> stepperStories() {
           activeIndex: context.knobs.sliderInt(label: 'active index', initial: 0,divisions: 20, max: 20),
           stepperList:  [
             StepperData(
-              title: 'title',
+              title: 'titlelllllllllllllllllllnjjjjjjjjjjjjjjjkjkjl',
               onStepTap: (){},
             ),
             const StepperData(
@@ -99,20 +99,20 @@ List<Story> stepperStories() {
           activeIndex: context.knobs.sliderInt(label: 'active index', initial: 0,divisions: 20, max: 20),
           stepperList:  [
             StepperData(
-              title: 'title',
+              title: 'vendor details',
               onStepTap: (){},
             ),
             const StepperData(
-              title: 'title',
-
+              title: 'contact details',
             ),
             const StepperData(
-              title: 'title',
-
+              title: 'service details',
             ),
             const StepperData(
-              title: 'title',
-
+              title: 'worker details',
+            ),
+            const StepperData(
+              title: 'Summary',
             ),
 
           ],

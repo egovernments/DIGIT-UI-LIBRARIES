@@ -44,5 +44,18 @@ List<Story> toastStories() {
         child: const Text("Show Toast"),
       ),
     ),
+    Story(
+      name: 'Atom/Animated Toast/Info',
+      builder: (context) => ElevatedButton(
+        onPressed: () {
+          Toast.showToast(
+            context,
+            message: 'This is a info toast!',
+            type: ToastType.info,
+          );
+        },
+        child: const Text("Show Toast"),
+      ),
+    ),
   ];
 }

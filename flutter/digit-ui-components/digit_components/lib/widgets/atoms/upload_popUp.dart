@@ -6,7 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import '../../utils/fileService/file_service.dart';
 import '../../utils/utils.dart';
 import '../../utils/validators/file_validator.dart';
-import '../helper_widget/selection_chip.dart';
+import 'digit_chip.dart';
 
 typedef OnFilesSelectedCallback = Map<PlatformFile, String?> Function(
     List<PlatformFile> files);
@@ -533,7 +533,7 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
                 width: spacer4,
               ),
               Button(
-                contentPadding: const EdgeInsets.symmetric(horizontal: spacer5),
+                //contentPadding: const EdgeInsets.symmetric(horizontal: spacer5),
                 label: !widget.allowMultiples && fileBytesList.isNotEmpty
                     ? widget.reUploadText
                     : widget.uploadText,
@@ -609,7 +609,7 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
                     return Padding(
                       padding: const EdgeInsets.only(bottom: spacer2),
                       child: fileErrors.containsKey(files[index])
-                          ? SelectionChip(
+                          ? DigitChip(
                               onClick: widget.openFile
                                   ? () {
                                       _openFile(fileBytesList[index],
@@ -625,7 +625,7 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
                                 });
                               },
                             )
-                          : SelectionChip(
+                          : DigitChip(
                               label: fileNames[index],
                         onClick: widget.openFile
                             ? () {

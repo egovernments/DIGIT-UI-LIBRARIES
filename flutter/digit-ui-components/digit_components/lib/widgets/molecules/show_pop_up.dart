@@ -1,5 +1,5 @@
 import 'dart:ui';
-import 'package:digit_ui_components/widgets/atoms/action_card.dart';
+import 'package:digit_ui_components/widgets/atoms/digit_action_card.dart';
 import 'package:flutter/material.dart';
 import '../../enum/app_enums.dart';
 import '../../theme/colors.dart';

@@ -1,4 +1,4 @@
-import 'package:digit_ui_components/widgets/atoms/back_button.dart';
+import 'package:digit_ui_components/widgets/atoms/digit_back_button.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
 import 'package:flutter/material.dart';
 

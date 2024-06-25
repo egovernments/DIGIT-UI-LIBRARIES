@@ -247,29 +247,29 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
                               });
                             },
                             child: _areAllChildrenSelected(widget.currentOption)
-                                ? DigitCheckboxIcon(
-                              size: spacer5,
+                                ? const DigitCheckboxIcon(
+                              //size: spacer5,
                               state: DigitCheckboxState.checked,
-                              color: _parentSelected(widget.currentOption,
-                                  widget.parentNode)
-                                  ? const DigitColors()
-                                  .light
-                                  .primary1
-                                  : _areAllChildrenSelected(
-                                  widget.currentOption)
-                                  ? const DigitColors()
-                                  .light
-                                  .paperPrimary
-                                  : const DigitColors()
-                                  .light
-                                  .paperPrimary,
+                              // color: _parentSelected(widget.currentOption,
+                              //     widget.parentNode)
+                              //     ? const DigitColors()
+                              //     .light
+                              //     .primary1
+                              //     : _areAllChildrenSelected(
+                              //     widget.currentOption)
+                              //     ? const DigitColors()
+                              //     .light
+                              //     .paperPrimary
+                              //     : const DigitColors()
+                              //     .light
+                              //     .paperPrimary,
                             )
                                 : _isAnyChildSelected(widget.currentOption)
                                 ? const DigitCheckboxIcon(
-                                size: spacer5,
+                                //size: spacer5,
                                 state: DigitCheckboxState.intermediate)
                                 : const DigitCheckboxIcon(
-                                size: spacer5,
+                                //size: spacer5,
                                 state: DigitCheckboxState.unchecked),
                           ),
                         if (widget.treeSelectionType ==

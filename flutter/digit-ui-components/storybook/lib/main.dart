@@ -1,4 +1,6 @@
 import 'package:digit_ui_components/digit_components.dart';
+import 'package:digit_ui_components/theme/ColorTheme/light_color_theme.dart';
+import 'package:digit_ui_components/theme/ComponentTheme/checkbox_theme.dart';
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:inspector/inspector.dart';
@@ -26,6 +28,7 @@ import 'package:storybook/widgets/molecules/footer_stories.dart';
 import 'package:storybook/widgets/molecules/header_stories.dart';
 import 'package:storybook/widgets/molecules/panel_card_stories.dart';
 import 'package:storybook/widgets/molecules/show_pop_up_stories.dart';
+import 'package:storybook/widgets/molecules/timeline_molecule_stories.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
 
 void main() {
@@ -40,14 +43,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: DigitExtendedTheme.instance.getTheme(context).copyWith(
-        appBarTheme: AppBarTheme(
-          backgroundColor: DigitTheme.instance.colorScheme.secondary,
-        ),
+
       ),
       home: Scaffold(
         body: Inspector(
           isEnabled: true,
           child: Storybook(
+
             initialStory: 'Screens/Scaffold',
             stories: [
               ...buttonStories(),
@@ -74,6 +76,8 @@ class MyApp extends StatelessWidget {
               ...headerMoleculeStories(),
               ...breadCrumbStories(),
               ...backNavigationButtonStories(),
+              ...timelineMoleculeStories(),
+              ///...customStepperStories(),
             ],
           ),
         ),

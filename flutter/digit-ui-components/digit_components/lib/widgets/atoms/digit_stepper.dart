@@ -152,21 +152,21 @@ class _HorizontalStepperItemState extends State<HorizontalStepperItem> {
     return [
       if (widget.item.title != null) ...[
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
+          //padding: const EdgeInsets.symmetric(horizontal: 10),
           constraints: const BoxConstraints(
-            maxWidth: 200,
+            maxWidth: 100,
           ),
           child: Text(
             widget.item.title!,
             textAlign: TextAlign.center,
+            maxLines: 3,
             overflow: TextOverflow.ellipsis,
             style: widget.index == widget.activeIndex || isHover
                 ? currentTypography.headingS.copyWith(
-                    height: 1.37,
                     color: const DigitColors().light.textPrimary,
                   )
                 : currentTypography.bodyS.copyWith(
-                    color: const DigitColors().light.textPrimary,
+                    color: widget.index<=widget.activeIndex ? const DigitColors().light.textPrimary : const DigitColors().light.textSecondary,
                   ),
           ),
         ),
@@ -439,7 +439,6 @@ class _VerticalStepperItemState extends State<VerticalStepperItem> {
             overflow: TextOverflow.ellipsis,
             style: widget.index == widget.activeIndex || isHover
                 ? currentTypography.headingS.copyWith(
-                    height: 1.37,
                     color: const DigitColors().light.textPrimary,
                   )
                 : currentTypography.bodyS.copyWith(

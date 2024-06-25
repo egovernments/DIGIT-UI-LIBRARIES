@@ -23,29 +23,29 @@
 /// )```
 
 import 'package:digit_ui_components/digit_components.dart';
+import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:flutter/material.dart';
-import '../../theme/action_card_theme.dart';
-import '../../theme/digit_extended_theme.dart';
+import '../../theme/ComponentTheme/action_card_theme.dart';
 import '../helper_widget/button_list.dart';
 
 class ActionCard extends StatelessWidget {
-
-  final DigitActionCardTheme? extendedTheme;
+  final DigitActionCardTheme? actionCardTheme;
 
   /// A list of action buttons to be displayed in the dialog.
   final List<Button> actions;
 
   const ActionCard({
     super.key,
-    this.extendedTheme,
+    this.actionCardTheme,
     required this.actions,
   });
 
   @override
   Widget build(BuildContext context) {
-
     final theme = Theme.of(context);
-    final actionTheme = extendedTheme ?? theme.extension<DigitActionCardTheme>() ?? DigitActionCardTheme.defaultTheme(context);
+    final actionTheme = actionCardTheme ??
+        theme.extension<DigitActionCardTheme>() ??
+        DigitActionCardTheme.defaultTheme(context);
 
     return Dialog.fullscreen(
       backgroundColor: const DigitColors().transparent,
@@ -69,7 +69,8 @@ class ActionCard extends StatelessWidget {
                           /// A widget that displays the list of action buttons
                           buttons: actions,
                           isVertical: true,
-                          spacing: actionTheme.spacing ?? 8,
+                          spacing:
+                              actionTheme.spacing ?? theme.spacerTheme.spacer2 ??0,
                         ),
                       ],
                     ),

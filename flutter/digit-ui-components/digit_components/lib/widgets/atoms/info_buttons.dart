@@ -1,4 +1,6 @@
 import 'package:digit_ui_components/digit_components.dart';
+import 'package:digit_ui_components/theme/ComponentTheme/button_theme.dart';
+import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:flutter/material.dart';
 import '../../utils/utils.dart';
 
@@ -24,15 +26,8 @@ class InfoButton extends StatefulWidget {
   /// Indicates whether the button is in a disabled state. If true, the button is disabled and cannot be interacted with.
   final bool isDisabled;
 
-  /// button width
-  final double width;
-
-  /// Padding around the content of the button (label and icons).
-  final EdgeInsetsGeometry contentPadding;
-
-  /// Size of the icons (prefixIcon and suffixIcon) displayed on the button in logical pixels.
-  final double? iconSize;
   final bool capitalizeLetters;
+  final DigitButtonThemeData? buttonThemeData;
 
   const InfoButton({
     Key? key,
@@ -43,10 +38,8 @@ class InfoButton extends StatefulWidget {
     this.prefixIcon,
     this.suffixIcon,
     this.isDisabled = false,
-    this.width = 400,
-    this.contentPadding = ButtonConstants.defaultContentPadding,
-    this.iconSize,
     this.capitalizeLetters = true,
+    this.buttonThemeData,
   }) : super(key: key);
 
   @override
@@ -56,19 +49,19 @@ class InfoButton extends StatefulWidget {
 class _InfoButtonState extends State<InfoButton> {
   bool isHovered = false;
   bool isMouseDown = false;
-  late DigitTypography _currentTypography;
   late TextStyle buttonStyle;
   late double buttonIconSize;
   late Color buttonColor;
 
   /// Build the content of the button, including label and icons.
-  Widget _buildButton(bool isHovered, bool isMouseDown) {
+  Widget _buildButton(bool isHovered, bool isMouseDown, BuildContext context, DigitButtonThemeData buttonThemeData) {
+    final theme = Theme.of(context);
     String truncatedLabel = widget.label;
 
     /// Truncate label if it exceeds 64 characters &&  Capitalize the letter of the label
 
     if (widget.label.length > 64) {
-      truncatedLabel = '${widget.label.substring(0, 64)}...';
+      truncatedLabel = truncateWithEllipsis(64, widget.label);
     }
 
     truncatedLabel = truncatedLabel.isEmpty || !widget.capitalizeLetters
@@ -76,7 +69,7 @@ class _InfoButtonState extends State<InfoButton> {
         : capitalizeFirstLetterOfEveryWord(truncatedLabel);
 
     return Padding(
-      padding: widget.contentPadding,
+      padding: buttonThemeData.padding,
       child: Row(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -85,13 +78,13 @@ class _InfoButtonState extends State<InfoButton> {
           if (widget.prefixIcon != null) ...[
             Icon(
               widget.prefixIcon,
-              size: widget.iconSize ?? buttonIconSize,
+              size: buttonIconSize,
               color: (widget.isDisabled
-                  ? const DigitColors().light.textDisabled
-                  : const DigitColors().light.paperPrimary),
+                  ? buttonThemeData.disabledColor
+                  : buttonThemeData.primaryButtonColor),
             ),
             SizedBox(
-                width: widget.size == ButtonSize.small ? spacer1 : spacer2),
+                width: widget.size == ButtonSize.small ? theme.spacerTheme.spacer1 : theme.spacerTheme.spacer2),
           ],
           Flexible(
             child: Text(
@@ -100,21 +93,21 @@ class _InfoButtonState extends State<InfoButton> {
               style: buttonStyle.copyWith(
                 fontWeight: isMouseDown ? FontWeight.w700 : FontWeight.w500,
                 color: (widget.isDisabled
-                    ? const DigitColors().light.textDisabled
-                    : const DigitColors().light.paperPrimary),
+                    ? buttonThemeData.disabledColor
+                    : buttonThemeData.primaryButtonColor),
                 overflow: TextOverflow.ellipsis,
               ),
             ),
           ),
           if (widget.suffixIcon != null) ...[
             SizedBox(
-                width: widget.size == ButtonSize.small ? spacer1 : spacer2),
+                width: widget.size == ButtonSize.small ? theme.spacerTheme.spacer1 : theme.spacerTheme.spacer2),
             Icon(
               widget.suffixIcon,
-              size: widget.iconSize ?? buttonIconSize,
+              size: buttonIconSize,
               color: (widget.isDisabled
-                  ? const DigitColors().light.textDisabled
-                  : const DigitColors().light.paperPrimary),
+                  ? buttonThemeData.disabledColor
+                  : buttonThemeData.primaryButtonColor),
             ),
           ],
         ],
@@ -124,44 +117,48 @@ class _InfoButtonState extends State<InfoButton> {
 
   @override
   Widget build(BuildContext context) {
-    /// typography based on screen
-    _currentTypography = getTypography(context, true);
+
+    final theme = Theme.of(context);
+    final DigitButtonThemeData buttonThemeData = widget.buttonThemeData ??
+        theme.extension<DigitButtonThemeData>() ??
+        DigitButtonThemeData.defaultTheme(context);
 
     switch (widget.size) {
       case ButtonSize.small:
-        buttonStyle = _currentTypography.headingS;
-        buttonIconSize = ButtonConstants.smallIconSize;
+        buttonStyle = buttonThemeData.smallButtonTextStyle;
+        buttonIconSize = buttonThemeData.smallIconSize;
         break;
       case ButtonSize.medium:
-        buttonStyle = _currentTypography.headingM;
-        buttonIconSize = ButtonConstants.mediumIconSize;
+        buttonStyle = buttonThemeData.mediumButtonTextStyle;
+        buttonIconSize = buttonThemeData.mediumIconSize;
         break;
       case ButtonSize.large:
-        buttonStyle = _currentTypography.headingL;
-        buttonIconSize = ButtonConstants.largeIconSize;
+        buttonStyle = buttonThemeData.largeButtonTextStyle;
+        buttonIconSize = buttonThemeData.largeIconSize;
         break;
     }
 
     switch (widget.type) {
       case InfoButtonType.info:
-        buttonColor = const DigitColors().light.alertInfo;
+        buttonColor = theme.colorTheme.alert.info;
         break;
       case InfoButtonType.warning:
-        buttonColor = const DigitColors().light.alertWarning;
+        buttonColor = theme.colorTheme.alert.warning;
         break;
       case InfoButtonType.error:
-        buttonColor = const DigitColors().light.alertError;
+        buttonColor = theme.colorTheme.alert.error;
         break;
       case InfoButtonType.success:
-        buttonColor = const DigitColors().light.alertSuccess;
+        buttonColor = theme.colorTheme.alert.success;
         break;
     }
 
-    return _buildButtonWidget();
+    return _buildButtonWidget(context, buttonThemeData);
   }
 
   /// Build the button widget based on its type and state.
-  Widget _buildButtonWidget() {
+  Widget _buildButtonWidget(BuildContext context, DigitButtonThemeData buttonThemeData) {
+    final theme = Theme.of(context);
     return InkWell(
       onTapDown: widget.isDisabled
           ? null
@@ -191,53 +188,33 @@ class _InfoButtonState extends State<InfoButton> {
           isHovered = hover;
         });
       },
-      splashColor: const DigitColors().transparent,
-      hoverColor: const DigitColors().transparent,
+      splashColor: buttonThemeData.splashColor,
+      hoverColor: buttonThemeData.hoverColor,
+      highlightColor: buttonThemeData.hightlightColor,
       child: Container(
         height: widget.size == ButtonSize.large
-            ? ButtonConstants.largeButtonSize
+            ? buttonThemeData.largeButtonHeight
             : widget.size == ButtonSize.medium
-            ? ButtonConstants.mediumButtonSize
-            : ButtonConstants.smallButtonSize,
+            ? buttonThemeData.mediumButtonHeight
+            : buttonThemeData.smallButtonHeight,
         decoration: BoxDecoration(
           boxShadow: (isMouseDown)
-              ? [
-                  BoxShadow(
-                    color: const DigitColors().light.textPrimary,
-                    offset: const Offset(0, 2),
-                    spreadRadius: 0,
-                    blurRadius: 0,
-                  ),
-                  BoxShadow(
-                    color:
-                        const DigitColors().light.textPrimary.withOpacity(.25),
-                    offset: const Offset(0, 4),
-                    spreadRadius: 0,
-                    blurRadius: 2.8,
-                  ),
-                ]
+              ? buttonThemeData.primaryButtonMouseDownBoxShadow
               : isHovered
-                  ? [
-                      BoxShadow(
-                        color: const DigitColors().light.textPrimary,
-                        offset: const Offset(0, 2),
-                        spreadRadius: 0,
-                        blurRadius: 0,
-                      ),
-                    ]
+                  ? buttonThemeData.primaryButtonHoverBoxShadow
                   : [],
-          borderRadius: BorderRadius.zero,
+          borderRadius: buttonThemeData.radius,
           border: Border.all(
             color: widget.isDisabled
-                ? const DigitColors().light.textDisabled
+                ? theme.colorTheme.text.disabled
                 : buttonColor,
-            width: Base.defaultBorderWidth,
+            width: buttonThemeData.borderWidth,
           ),
           color: widget.isDisabled
-              ? const DigitColors().light.textDisabled
+              ? theme.colorTheme.text.disabled
               : buttonColor,
         ),
-        child: _buildButton(isHovered, isMouseDown),
+        child: _buildButton(isHovered, isMouseDown, context, buttonThemeData),
       ),
     );
   }

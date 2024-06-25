@@ -16,10 +16,9 @@
 ///         ),
 
 import 'package:digit_ui_components/digit_components.dart';
+import 'package:digit_ui_components/theme/ComponentTheme/info_card_theme.dart';
+import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:flutter/material.dart';
-import '../../constants/AppView.dart';
-import '../../constants/app_constants.dart';
-import '../../enum/app_enums.dart';
 import '../../utils/utils.dart';
 
 class InfoCard extends StatelessWidget {
@@ -32,9 +31,6 @@ class InfoCard extends StatelessWidget {
   /// Type of information (info, success, error, warning)
   final InfoType type;
 
-  /// Optional icon to override the default one
-  final IconData? icon;
-
   /// Additional widgets to display below the description
   final List<Widget>? additionalWidgets;
 
@@ -44,24 +40,31 @@ class InfoCard extends StatelessWidget {
   /// Whether to capitalize the first letter of the title and description
   final bool capitalizedLetter;
 
+  final DigitInfoCardThemeData? infoCardThemeData;
+
   const InfoCard({
     super.key,
     required this.title,
     required this.type,
     required this.description,
-    this.icon,
     this.additionalWidgets,
     this.inline = false,
     this.capitalizedLetter = true,
+    this.infoCardThemeData,
   });
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final themeData = infoCardThemeData ??
+        theme.extension<DigitInfoCardThemeData>() ??
+        DigitInfoCardThemeData.defaultTheme(context);
+
     /// Define icon, icon color, and container color based on the type of information
     IconData selectedIcon;
     Color iconColor;
-    Color containerColor = const DigitColors().light.alertInfoBg;
-    DigitTypography currentTypography = getTypography(context, false);
+    Color containerColor;
+
 
     /// Capitalize the title and description if specified(by default always true)
     String capitalizedHeading =
@@ -72,43 +75,42 @@ class InfoCard extends StatelessWidget {
     /// Determine the icon and colors based on the info type
     switch (type) {
       case InfoType.success:
-        selectedIcon = Icons.check_circle;
-        iconColor = const DigitColors().light.alertSuccess;
-        containerColor = const DigitColors().light.alertSuccessBg;
+        selectedIcon = themeData.successIcon;
+        iconColor = themeData.successColor;
+        containerColor = themeData.successBackgroundColor;
         break;
       case InfoType.error:
-        selectedIcon = Icons.error;
-        iconColor = const DigitColors().light.alertError;
-        containerColor = const DigitColors().light.alertErrorBg;
+        selectedIcon = themeData.errorIcon;
+        iconColor = themeData.errorColor;
+        containerColor = themeData.errorBackgroundColor;
         break;
       case InfoType.warning:
-        selectedIcon = Icons.warning;
-        iconColor = const DigitColors().light.alertWarning;
-        containerColor = const DigitColors().light.alertWarningBg;
+        selectedIcon = themeData.warningIcon;
+        iconColor = themeData.warningColor;
+        containerColor = themeData.warningBackgroundColor;
         break;
       case InfoType.info:
       default:
-        selectedIcon = Icons.info;
-        iconColor = const DigitColors().light.alertInfo;
-        containerColor = const DigitColors().light.alertInfoBg;
+      selectedIcon = themeData.infoIcon;
+      iconColor = themeData.infoColor;
+      containerColor = themeData.infoBackgroundColor;
     }
 
     return SingleChildScrollView(
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: Base.radius,
+          borderRadius: themeData.borderRadius,
           border: Border(
-            right:
-                BorderSide(color: iconColor, width: Base.defaultBorderWidth),
-            left: BorderSide(color: iconColor, width: spacer1),
-            top: BorderSide(color: iconColor, width: Base.defaultBorderWidth),
+            right: BorderSide(color: iconColor, width: themeData.borderWidth),
+            left: BorderSide(color: iconColor, width: theme.spacerTheme.spacer1),
+            top: BorderSide(color: iconColor, width: themeData.borderWidth),
             bottom:
-                BorderSide(color: iconColor, width: Base.defaultBorderWidth),
+                BorderSide(color: iconColor, width: themeData.borderWidth),
           ),
           color: containerColor,
         ),
         child: Padding(
-          padding: const EdgeInsets.all(spacer4),
+          padding: themeData.contentPadding,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
@@ -118,10 +120,8 @@ class InfoCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Icon(
-                    icon ?? selectedIcon,
-
-                    /// Use provided icon or default based on type
-                    size: spacer6,
+                    selectedIcon,
+                    size: themeData.iconSize,
                     color: iconColor,
                   ),
                   const SizedBox(width: spacer2),
@@ -133,7 +133,7 @@ class InfoCard extends StatelessWidget {
                       ),
                       child: Text(
                         capitalizedHeading,
-                        style: currentTypography.headingS.copyWith(
+                        style: themeData.titleTextStyle.copyWith(
                           color: iconColor,
                         ),
                       ),
@@ -141,27 +141,26 @@ class InfoCard extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: spacer2),
-
+              SizedBox(height: theme.spacerTheme.spacer2),
               /// Description text
               Text(
                 capitalizedDescription,
-                style: currentTypography.bodyS.copyWith(
-                  color: const DigitColors().light.textSecondary,
+                style: themeData.descriptionTextStyle.copyWith(
+                  color: theme.colorTheme.text.secondary,
                 ),
               ),
 
               /// Additional widgets, if provided
-              if (additionalWidgets != null) const SizedBox(height: spacer4),
+              if (additionalWidgets != null)  SizedBox(height: theme.spacerTheme.spacer4),
               if (additionalWidgets != null)
                 if (inline)
 
                   /// Display additional widgets in a row
                   Wrap(
-                    spacing: spacer2,
+                    spacing: theme.spacerTheme.spacer2,
                     children: additionalWidgets!
                         .map((widget) => Padding(
-                              padding: const EdgeInsets.only(right: spacer2),
+                              padding: EdgeInsets.only(right: theme.spacerTheme.spacer2),
                               child: widget,
                             ))
                         .toList(),
@@ -173,7 +172,7 @@ class InfoCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: additionalWidgets!
                         .map((widget) => Padding(
-                              padding: const EdgeInsets.only(bottom: spacer2),
+                              padding: EdgeInsets.only(bottom: theme.spacerTheme.spacer2),
                               child: widget,
                             ))
                         .toList(),

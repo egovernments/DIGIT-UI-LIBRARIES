@@ -1,6 +1,8 @@
 import 'package:digit_ui_components/digit_components.dart';
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../utils/utils.dart';
 
 class DigitTimeline extends StatefulWidget {
@@ -12,6 +14,8 @@ class DigitTimeline extends StatefulWidget {
   final String viewDetailText;
   final String hideDetailText;
   final bool capitalizedLetter;
+  final bool isLastStep;
+  final bool isFirstFuture;
 
   const DigitTimeline({
     Key? key,
@@ -20,9 +24,11 @@ class DigitTimeline extends StatefulWidget {
     required this.description,
     this.additionalWidgets,
     this.additionalHideWidgets,
+    this.isLastStep = true,
     this.viewDetailText = 'View Details',
     this.hideDetailText = 'Hide Details',
     this.capitalizedLetter = true,
+    this.isFirstFuture = false,
   }) : super(key: key);
 
   @override
@@ -40,99 +46,93 @@ class _TimelineState extends State<DigitTimeline> {
         ? capitalizeFirstLetterOfEveryWord(widget.label)
         : widget.label;
 
-    return SizedBox(
-      width: double.infinity,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+    return IntrinsicHeight(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          Column(
             children: [
               _buildTimelineIcon(isMobile),
-              const SizedBox(width: spacer4),
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsets.only(top: isMobile ? 2.5 : 6.5),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        capitalizedLabel,
-                        style: currentTypography.headingS.copyWith(
-                          color: const DigitColors().light.textPrimary,
-                        ),
-                      ),
-                      SizedBox(
-                        height: isMobile ? spacer1 : spacer2,
-                      ),
-                      Column(
-                        // Change here
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: widget.description
-                            .map((desc) => Text(
-                                  // Change here
-                                  desc,
-                                  style: currentTypography.bodyS.copyWith(
-                                    color:
-                                        const DigitColors().light.textSecondary,
-                                  ),
-                                ))
-                            .toList(), // Change here
-                      ),
-                      const SizedBox(height: spacer1),
-                      Container(
-                        height: 1,
-                        color: const DigitColors().light.genericDivider,
-                      )
-                    ],
-                  ),
-                ),
-              ),
+              if (!widget.isLastStep) _buildConnectingLine(),
             ],
           ),
-          const SizedBox(height: spacer2),
-          Padding(
-            padding: EdgeInsets.only(left: isMobile ? spacer10 : spacer12),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                if (widget.additionalWidgets != null)
-                  Wrap(
-                    children: widget.additionalWidgets!
-                        .map(
-                          (widgets) => Padding(
-                            padding: const EdgeInsets.only(
-                              right: spacer2,
-                              bottom: spacer2,
-                            ),
-                            child: widgets is TimelineFiles ? widgets : widgets,
-                          ),
-                        )
+          const SizedBox(width: 16),
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.only(top: isMobile ? 2.5 : 6.5),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    capitalizedLabel,
+                    style: currentTypography.headingS.copyWith(
+                      color: const DigitColors().light.textPrimary,
+                    ),
+                  ),
+                  SizedBox(
+                    height: isMobile ? spacer1 : spacer2,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: widget.description
+                        .map((desc) => Text(
+                              desc,
+                              style: currentTypography.bodyS.copyWith(
+                                color: const DigitColors().light.textSecondary,
+                              ),
+                            ))
                         .toList(),
                   ),
-                if (!isExpanded && widget.additionalHideWidgets != null)
-                  _buildExpandButton(currentTypography),
-                if (isExpanded && widget.additionalHideWidgets != null)
-                  Wrap(
-                    children: widget.additionalHideWidgets!
-                        .map(
-                          (widgets) => Padding(
-                            padding: const EdgeInsets.only(
-                              right: spacer2,
-                              bottom: spacer2,
-                            ),
-                            child: widgets is TimelineFiles ? widgets : widgets,
-                          ),
-                        )
-                        .toList(),
+                  const SizedBox(height: 4),
+                  Container(
+                    height: 1,
+                    color: const DigitColors().light.genericDivider,
                   ),
-                if (isExpanded && widget.additionalHideWidgets != null)
-                  const SizedBox(
-                    height: spacer2,
-                  ),
-                if (isExpanded && widget.additionalHideWidgets != null)
-                  _buildExpandButton(currentTypography),
-              ],
+                  const SizedBox(height: 8),
+                  if (widget.additionalWidgets != null)
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Wrap(
+                          children: widget.additionalWidgets!
+                              .map(
+                                (widgets) => Padding(
+                                  padding: const EdgeInsets.only(
+                                    right: spacer2,
+                                    bottom: spacer2,
+                                  ),
+                                  child: widgets,
+                                ),
+                              )
+                              .toList(),
+                        ),
+                      ],
+                    ),
+                  if (!isExpanded && widget.additionalHideWidgets != null)
+                    _buildExpandButton(currentTypography),
+                  if (isExpanded && widget.additionalHideWidgets != null)
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Wrap(
+                          children: widget.additionalHideWidgets!
+                              .map(
+                                (widgets) => Padding(
+                                  padding: const EdgeInsets.only(
+                                    right: spacer2,
+                                    bottom: spacer2,
+                                  ),
+                                  child: widgets,
+                                ),
+                              )
+                              .toList(),
+                        ),
+                        const SizedBox(height: spacer2),
+                        _buildExpandButton(currentTypography),
+                      ],
+                    ),
+                ],
+              ),
             ),
           ),
         ],
@@ -140,42 +140,62 @@ class _TimelineState extends State<DigitTimeline> {
     );
   }
 
+  Widget _buildConnectingLine() {
+    return Expanded(
+      child: CustomPaint(
+        painter:  widget.isFirstFuture
+            ? DottedLinePainter(color: const DigitColors().light.primary1)
+            : null,
+        child: Container(
+          width: 2,
+          color: widget.isFirstFuture
+              ? Colors.transparent
+              : widget.currentStep == TimelineStepState.completed ||
+              widget.currentStep == TimelineStepState.present
+              ? const DigitColors().light.primary1
+              : const DigitColors().light.textDisabled,
+        ),
+      ),
+    );
+  }
+
+
   Widget _buildTimelineIcon(bool isMobile) {
     return Container(
-      width: isMobile ? spacer6 : spacer8,
-      height: isMobile ? spacer6 : spacer8,
+      width: isMobile ? 24 : 32,
+      height: isMobile ? 24 : 32,
       decoration: BoxDecoration(
         color: widget.currentStep == TimelineStepState.completed
             ? const DigitColors().light.primary1
             : widget.currentStep == TimelineStepState.present
                 ? const DigitColors().light.paperPrimary
                 : const DigitColors().light.textDisabled,
-        borderRadius: BorderRadius.circular(Base.defaultCircularRadius),
+        borderRadius: BorderRadius.circular(50),
       ),
       child: widget.currentStep == TimelineStepState.completed
           ? Icon(
               Icons.check,
               color: const DigitColors().light.paperPrimary,
-              size: isMobile ? spacer9/2 : spacer6,
+              size: isMobile ? 18 : 24,
             )
           : widget.currentStep == TimelineStepState.present
               ? Container(
                   padding: isMobile
                       ? const EdgeInsets.all(spacer1)
-                      : const EdgeInsets.all(spacer3/2),
-                  width: isMobile ? spacer6 : spacer8,
-                  height: isMobile ? spacer6 : spacer8,
+                      : const EdgeInsets.all(6),
+                  width: isMobile ? 24 : 32,
+                  height: isMobile ? 24 : 32,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     border: Border.all(
                       color: const DigitColors().light.primary1,
-                      width: Base.selectedBorderWidth
+                      width: 2.0,
                     ),
                     color: const DigitColors().light.paperPrimary,
                   ),
                   child: Container(
-                    height: isMobile ? spacer3 : spacer4,
-                    width: isMobile ? spacer3 : spacer4,
+                    height: isMobile ? 12 : 16,
+                    width: isMobile ? 12 : 16,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: const DigitColors().light.primary1,
@@ -183,11 +203,11 @@ class _TimelineState extends State<DigitTimeline> {
                   ),
                 )
               : Container(
-                  width: isMobile ? spacer6 : spacer8,
-                  height: isMobile ? spacer6 : spacer8,
+                  width: isMobile ? 24 : 32,
+                  height: isMobile ? 24 : 32,
                   decoration: BoxDecoration(
                     color: const DigitColors().light.textDisabled,
-                    borderRadius: BorderRadius.circular(Base.defaultCircularRadius),
+                    borderRadius: BorderRadius.circular(50),
                   ),
                 ),
     );
@@ -217,7 +237,7 @@ class _TimelineState extends State<DigitTimeline> {
           const SizedBox(width: spacer1),
           Icon(
             isExpanded ? Icons.arrow_drop_up : Icons.arrow_drop_down,
-            size: spacer6,
+            size: 24,
             color: const DigitColors().light.primary1,
           ),
         ],
@@ -261,14 +281,13 @@ class TimelineFileWidget extends StatelessWidget {
       hoverColor: const DigitColors().transparent,
       splashColor: const DigitColors().transparent,
       onTap: () {
-        /// Check isPreview here before calling _viewDocument
         if (openFile) {
-          viewDocument(file.url);
+          _viewDocument(file.url);
         }
       },
       child: SizedBox(
-        height: Base.imageSize,
-        width: Base.imageSize,
+        height: 100,
+        width: 100,
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -300,4 +319,38 @@ class TimelineFileWidget extends StatelessWidget {
         return Container();
     }
   }
+
+  void _viewDocument(String url) async {
+    Uri uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+}
+
+
+
+class DottedLinePainter extends CustomPainter {
+  final Color color;
+
+  DottedLinePainter({required this.color});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = color
+      ..strokeWidth = 2
+      ..style = PaintingStyle.stroke;
+
+    double dashWidth = 4, dashSpace = 3, startY = 0;
+    while (startY < size.height) {
+      canvas.drawLine(Offset(0, startY), Offset(0, startY + dashWidth), paint);
+      startY += dashWidth + dashSpace;
+    }
+  }
+
+  @override
+  bool shouldRepaint(DottedLinePainter oldDelegate) => false;
 }

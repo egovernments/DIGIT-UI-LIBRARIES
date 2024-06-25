@@ -1,6 +1,6 @@
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/enum/app_enums.dart';
-import 'package:digit_ui_components/widgets/atoms/bread_crumbs.dart';
+import 'package:digit_ui_components/widgets/atoms/digit_bread_crumbs.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
 import 'package:flutter/material.dart';
 

@@ -1,6 +1,8 @@
 import 'dart:ui';
+import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:flutter/material.dart';
-import 'colors.dart';
+
+import '../../constants/AppView.dart';
 
 class DigitActionCardTheme extends ThemeExtension<DigitActionCardTheme> {
   final double? width;
@@ -20,13 +22,15 @@ class DigitActionCardTheme extends ThemeExtension<DigitActionCardTheme> {
   });
 
   static DigitActionCardTheme defaultTheme(BuildContext context) {
-    final bool isMobile = MediaQuery.of(context).size.width < 600;
-    final bool isTab = MediaQuery.of(context).size.width >= 600 && MediaQuery.of(context).size.width < 1200;
+    final bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
+    final bool isTab = AppView.isTabletView(MediaQuery.of(context).size);
+
+    final theme = Theme.of(context);
 
     return DigitActionCardTheme(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4),
-        color: const DigitColors().light.paperPrimary,
+        color: theme.colorTheme.primary.primary1,
         boxShadow: [
           BoxShadow(
             color: const Color(0xFF000000).withOpacity(.16),

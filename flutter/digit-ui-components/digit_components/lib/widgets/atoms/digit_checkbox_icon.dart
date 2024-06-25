@@ -1,6 +1,8 @@
+import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:flutter/material.dart';
 import '../../constants/app_constants.dart';
 import '../../enum/app_enums.dart';
+import '../../theme/ComponentTheme/checkbox_theme.dart';
 
 /// `DigitCheckboxIcon` is a widget that represents the visual appearance of a DigitCheckbox.
 /// It supports three states: unchecked, intermediate, and checked. The appearance can be customized
@@ -12,35 +14,33 @@ class DigitCheckboxIcon extends StatelessWidget {
   /// Indicates whether the DigitCheckbox is disabled or not.
   final bool isDisabled;
 
-  /// Custom color for the DigitCheckbox. If not provided, default colors will be used based on the state and disabled status.
-  final Color? color;
-  final double size;
+  final DigitCheckboxThemeData? checkboxThemeData;
+
 
   /// Creates a `DigitCheckboxIcon` widget with the given parameters.
   const DigitCheckboxIcon({
     super.key,
     required this.state,
     this.isDisabled = false,
-    this.color,
-    this.size = DigitCheckboxConstants.containerSize,
+    this.checkboxThemeData,
   });
 
   @override
   Widget build(BuildContext context) {
-    return _buildDigitCheckbox();
-  }
 
-  /// Builds the DigitCheckbox widget based on its state.
-  Widget _buildDigitCheckbox() {
+    final theme = Theme.of(context);
+    final checkboxIconThemeData = checkboxThemeData ??
+        theme.extension<DigitCheckboxThemeData>() ??
+        DigitCheckboxThemeData.defaultTheme(context);
+
     switch (state) {
       case DigitCheckboxState.unchecked:
         return Container(
-          width: size,
-          height: size,
+          width: checkboxIconThemeData.iconSize,
+          height: checkboxIconThemeData.iconSize,
           decoration: BoxDecoration(
             border: Border.all(
-              color: DigitCheckboxConstants.uncheckedBorderColor(
-                  isDisabled: isDisabled, customColor: color),
+              color: isDisabled ? theme.colorTheme.text.disabled : theme.colorTheme.text.primary,
               width: Base.defaultBorderWidth,
             ),
             borderRadius: Base.radius,
@@ -48,12 +48,11 @@ class DigitCheckboxIcon extends StatelessWidget {
         );
       case DigitCheckboxState.intermediate:
         return Container(
-          width: size,
-          height: size,
+          width: checkboxIconThemeData.iconSize,
+          height: checkboxIconThemeData.iconSize,
           decoration: BoxDecoration(
             border: Border.all(
-              color: DigitCheckboxConstants.intermediateBorderColor(
-                  isDisabled: isDisabled, customColor: color),
+              color: isDisabled ? theme.colorTheme.text.disabled : theme.colorTheme.primary.primary1,
               width: DigitCheckboxConstants.borderWidth,
             ),
             borderRadius: Base.radius,
@@ -62,19 +61,17 @@ class DigitCheckboxIcon extends StatelessWidget {
             child: Icon(
               Icons.square,
               size: DigitCheckboxConstants.iconSize,
-              color: DigitCheckboxConstants.iconColor(
-                  isDisabled: isDisabled, customColor: color),
+              color: isDisabled ? theme.colorTheme.text.disabled : theme.colorTheme.primary.primary1,
             ),
           ),
         );
       case DigitCheckboxState.checked:
         return Container(
-          width: size,
-          height: size,
+          width: checkboxIconThemeData.iconSize,
+          height: checkboxIconThemeData.iconSize,
           decoration: BoxDecoration(
             border: Border.all(
-              color: DigitCheckboxConstants.checkedBorderColor(
-                  isDisabled: isDisabled, customColor: color),
+              color: isDisabled ? theme.colorTheme.text.disabled : theme.colorTheme.primary.primary1,
               width: DigitCheckboxConstants.borderWidth,
             ),
             borderRadius: Base.radius,
@@ -83,8 +80,7 @@ class DigitCheckboxIcon extends StatelessWidget {
             child: Icon(
               Icons.check,
               size: DigitCheckboxConstants.iconSize,
-              color: DigitCheckboxConstants.iconColor(
-                  isDisabled: isDisabled, customColor: color),
+              color: isDisabled ? theme.colorTheme.text.disabled : theme.colorTheme.primary.primary1,
             ),
           ),
         );
