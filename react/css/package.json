@@ -63,6 +63,7 @@
     "egov",
     "dpg",
     "digit-ui",
-    "css"
+    "css",
+    "digit-ui-components"
   ]
 }
