@@ -106,8 +106,8 @@ class ButtonListTile extends StatelessWidget {
     button.prefixIcon != null ? (button.size == ButtonSize.large ? 24 : button.size == ButtonSize.medium ? 20 : 14) : 0;
     final double suffixIconWidth =
     button.suffixIcon != null ? (button.size == ButtonSize.large ? 24 : button.size == ButtonSize.medium ? 20 : 14) : 0;
-    final double totalWidth = labelWidth + prefixIconWidth + suffixIconWidth ;
-        //+ button.contentPadding.horizontal;
+    final double totalWidth = labelWidth + prefixIconWidth + suffixIconWidth +48;
+
     return totalWidth;
   }
 
