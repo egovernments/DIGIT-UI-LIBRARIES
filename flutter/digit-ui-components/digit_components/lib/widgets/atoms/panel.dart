@@ -1,6 +1,22 @@
+/// A custom Panel widget that displays a title, an optional description, and an animation.
+/// The panel can be of type success or error, each having distinct background colors,
+/// animation sizes, and paddings. The appearance of the panel can be customized using
+/// the PanelThemeData theme extension.
+///
+/// Basic Use Case:
+/// ```
+/// Panel(
+///   type: PanelType.success,
+///   title: 'Success Panel',
+///   description: [Text('This is a success message')],
+/// )
+/// ```
+
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:digit_ui_components/digit_components.dart';
+import 'package:digit_ui_components/theme/digit_extended_theme.dart';
+import 'package:digit_ui_components/theme/ComponentTheme/panel_theme.dart';
 
 class Panel extends StatefulWidget {
   final PanelType type;
@@ -8,6 +24,7 @@ class Panel extends StatefulWidget {
   final List<Text>? description;
   final bool animate;
   final bool repeat;
+  final PanelThemeData? panelThemeData;
 
   const Panel({
     Key? key,
@@ -16,6 +33,7 @@ class Panel extends StatefulWidget {
     this.description,
     this.animate = true,
     this.repeat = false,
+    this.panelThemeData,
   }) : super(key: key);
 
   @override
@@ -37,39 +55,27 @@ class _PanelState extends State<Panel> with SingleTickerProviderStateMixin {
     super.dispose();
   }
 
-  Color _getBackgroundColor() {
-    switch (widget.type) {
-      case PanelType.success:
-        return const DigitColors().light.alertSuccess;
-      case PanelType.error:
-        return const DigitColors().light.alertError;
-      default:
-        return Colors.transparent;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    DigitTypography currentTypography = getTypography(context, false);
+    final theme = Theme.of(context);
+
+    final themeData = widget.panelThemeData ??
+        theme.extension<PanelThemeData>() ??
+        PanelThemeData.defaultTheme(context);
+
     bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
     bool isTab = AppView.isTabletView(MediaQuery.of(context).size);
 
     return Container(
       padding: widget.type == PanelType.success
-          ? EdgeInsets.only(
-              top: isTab || isMobile ? 22 : 18,
-              left: spacer10,
-              right: spacer10,
-              bottom: spacer10)
-          : EdgeInsets.all(isMobile ? spacer8 : spacer10),
-      width: MediaQuery.of(context).size.width,
+          ? themeData.successPadding
+          : themeData.errorPadding,
+      width: themeData.cardWidth,
       decoration: BoxDecoration(
-        color: _getBackgroundColor(),
-        borderRadius: isMobile
-            ? const BorderRadius.only(
-                topLeft: Radius.circular(spacer1),
-                topRight: Radius.circular(spacer1))
-            : Base.radius,
+        color: widget.type == PanelType.success
+            ? themeData.successBackgroundColor
+            : themeData.errorBackgroundColor,
+        borderRadius: themeData.radiusGeometry,
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -78,8 +84,8 @@ class _PanelState extends State<Panel> with SingleTickerProviderStateMixin {
         children: [
           Lottie.asset(
             widget.type == PanelType.success
-                ? Base.successJson
-                : Base.errorJson,
+                ? themeData.successJson
+                : themeData.errorJson,
             controller: _controller,
             onLoaded: (composition) {
               _controller.duration = composition.duration;
@@ -96,48 +102,30 @@ class _PanelState extends State<Panel> with SingleTickerProviderStateMixin {
               }
             },
             width: widget.type == PanelType.success
-                ? isMobile
-                    ? BaseConstants.successAnimationM
-                    : isTab
-                        ? BaseConstants.successAnimationT
-                        : BaseConstants.successAnimationD
-                : isMobile
-                    ? BaseConstants.errorAnimationM
-                    : isTab
-                        ? BaseConstants.errorAnimationT
-                        : BaseConstants.errorAnimationD,
+                ? themeData.successAnimationSize
+                : themeData.errorAnimationSize,
             height: widget.type == PanelType.success
-                ? isMobile
-                    ? BaseConstants.successAnimationM
-                    : isTab
-                        ? BaseConstants.successAnimationT
-                        : BaseConstants.successAnimationD
-                : isMobile
-                    ? BaseConstants.errorAnimationM
-                    : isTab
-                        ? BaseConstants.errorAnimationT
-                        : BaseConstants.errorAnimationD,
+                ? themeData.successAnimationSize
+                : themeData.errorAnimationSize,
             fit: BoxFit.fill,
           ),
           SizedBox(
             height: widget.type == PanelType.success
                 ? 0
                 : isMobile
-                    ? spacer4
+                    ? theme.spacerTheme.spacer4
                     : isTab
-                        ? spacer5
-                        : spacer6,
+                        ? theme.spacerTheme.spacer5
+                        : theme.spacerTheme.spacer6,
           ),
           Text(
             widget.title,
             textAlign: TextAlign.center,
-            style: currentTypography.headingXl.copyWith(
-              color: const DigitColors().light.paperPrimary,
-            ),
+            style: themeData.titleTextStyle,
           ),
           if (widget.description != null)
-            const SizedBox(
-              height: spacer6,
+            SizedBox(
+              height: theme.spacerTheme.spacer6,
             ),
           if (widget.description != null)
             ...widget.description!
@@ -146,7 +134,7 @@ class _PanelState extends State<Panel> with SingleTickerProviderStateMixin {
                 .map((widgets) => Padding(
                       padding: EdgeInsets.only(
                           bottom: widgets.key != widget.description!.length - 1
-                              ? spacer1
+                              ? theme.spacerTheme.spacer1
                               : 0),
                       child: widgets.value,
                     ))

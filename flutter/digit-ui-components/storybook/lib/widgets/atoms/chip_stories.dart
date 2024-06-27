@@ -21,9 +21,11 @@ List<Story> chipStories() {
     Story(
         name: 'Atom/Chip/With OnClick',
         builder: (context) => DigitChip(
-          label: context.knobs.text(label: 'Chip label', initial: 'Chip with click'),
+          label: context.knobs.text(label: 'Chip label', initial: 'Chip with click(see the log)'),
           onItemDelete: () {},
-          onClick: (){},
+          onClick: (){
+            context.logger.log('Chip clicked');
+          },
         )
     ),
   ];

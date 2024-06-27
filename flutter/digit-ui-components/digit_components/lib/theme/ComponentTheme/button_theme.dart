@@ -81,7 +81,7 @@ class DigitButtonThemeData extends ThemeExtension<DigitButtonThemeData> {
       largeLinkTextStyle: textTheme.linkL,
       smallLinkIconSize: 14.0,
       mediumLinkIconSize: 20.0,
-      largeLinkIconSize: 30.0,
+      largeLinkIconSize: 20.0,
       smallIconSize: 14.0,
       mediumIconSize: 20.0,
       largeIconSize: 24.0,

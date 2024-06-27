@@ -7,17 +7,16 @@ import 'package:storybook_flutter/storybook_flutter.dart';
 List<Story> panelCardStories() {
   return [
     Story(
-      name: 'Molecule/Panel Card/Success/default',
+      name: 'Molecule/Panel Card/Success/Default',
       builder: (context) =>
-      const PanelCard(type: PanelType.success, title: 'Success Message', animate: false,),
+       PanelCard(type: PanelType.success, title: context.knobs.text(label: 'Title', initial: 'Success Message'),),
     ),
     Story(
-      name: 'Molecule/Panel Card/Success/with description',
+      name: 'Molecule/Panel Card/Success/With Description',
       builder: (context) => PanelCard(
         type: PanelType.success,
         title: 'Success Message',
-        description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+        description: context.knobs.text(label: 'Description', initial: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'),
         additionalDetails: [
           Text(
             'Ref ID',
@@ -37,7 +36,7 @@ List<Story> panelCardStories() {
       ),
     ),
     Story(
-      name: 'Molecule/Panel Card/Success/with action',
+      name: 'Molecule/Panel Card/Success/With action',
       builder: (context) => PanelCard(
         type: PanelType.success,
         title: 'Success Message',
@@ -72,7 +71,7 @@ List<Story> panelCardStories() {
       ),
     ),
     Story(
-      name: 'Molecule/Panel Card/Success/with description and action',
+      name: 'Molecule/Panel Card/Success/With description and action',
       builder: (context) => PanelCard(
         type: PanelType.success,
         title: 'Success Message',
@@ -109,7 +108,7 @@ List<Story> panelCardStories() {
       ),
     ),
     Story(
-      name: 'Molecule/Panel Card/Success/with additional widgets',
+      name: 'Molecule/Panel Card/Success/With additional widgets',
       builder: (context) => PanelCard(
         type: PanelType.success,
         title: 'Success Message',
@@ -149,7 +148,7 @@ List<Story> panelCardStories() {
       ),
     ),
     Story(
-      name: 'Molecule/Panel Card/Success/label not inline',
+      name: 'Molecule/Panel Card/Success/Action not inline',
       builder: (context) => PanelCard(
         type: PanelType.success,
         title: 'Success Message',
@@ -191,7 +190,7 @@ List<Story> panelCardStories() {
       ),
     ),
     Story(
-      name: 'Molecule/Panel Card/Success/with scroll',
+      name: 'Molecule/Panel Card/Success/With scroll',
       builder: (context) => PanelCard(
         type: PanelType.success,
         title: 'Success Message',
@@ -248,12 +247,12 @@ List<Story> panelCardStories() {
       ),
     ),
     Story(
-      name: 'Molecule/Panel Card/Error/default',
+      name: 'Molecule/Panel Card/Error/Default',
       builder: (context) =>
       const PanelCard(type: PanelType.error, title: 'Error Message', animate: true, repeat: true,),
     ),
     Story(
-      name: 'Molecule/Panel Card/Error/with description',
+      name: 'Molecule/Panel Card/Error/With description',
       builder: (context) => PanelCard(
         type: PanelType.error,
         title: 'Error Message',
@@ -278,7 +277,7 @@ List<Story> panelCardStories() {
       ),
     ),
     Story(
-      name: 'Molecule/Panel Card/Error/with action',
+      name: 'Molecule/Panel Card/Error/With action',
       builder: (context) => PanelCard(
         type: PanelType.error,
         title: 'Error Message',
@@ -313,7 +312,7 @@ List<Story> panelCardStories() {
       ),
     ),
     Story(
-      name: 'Molecule/Panel Card/Error/with description and action',
+      name: 'Molecule/Panel Card/Error/With description and action',
       builder: (context) => PanelCard(
         type: PanelType.error,
         title: 'Error Message',
@@ -350,7 +349,7 @@ List<Story> panelCardStories() {
       ),
     ),
     Story(
-      name: 'Molecule/Panel Card/Error/with additional widgets',
+      name: 'Molecule/Panel Card/Error/With additional widgets',
       builder: (context) => PanelCard(
         type: PanelType.error,
         title: 'Error Message',
@@ -390,7 +389,7 @@ List<Story> panelCardStories() {
       ),
     ),
     Story(
-      name: 'Molecule/Panel Card/Error/with scroll',
+      name: 'Molecule/Panel Card/Error/With scroll',
       builder: (context) => PanelCard(
         type: PanelType.error,
         title: 'Error Message',

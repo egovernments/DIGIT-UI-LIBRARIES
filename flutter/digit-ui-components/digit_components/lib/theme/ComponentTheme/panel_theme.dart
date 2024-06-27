@@ -1,64 +1,94 @@
 import 'dart:ui';
-import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:flutter/material.dart';
+import '../../constants/AppView.dart';
+import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 
 class PanelThemeData extends ThemeExtension<PanelThemeData> {
   final TextStyle titleTextStyle;
-  final TextStyle? descriptionTextStyle;
   final Color successBackgroundColor;
   final Color errorBackgroundColor;
+  final BorderRadiusGeometry radiusGeometry;
   final double successAnimationSize;
   final double errorAnimationSize;
-  final BorderRadius borderRadius;
-  final EdgeInsetsGeometry padding;
+  final EdgeInsets successPadding;
+  final EdgeInsets errorPadding;
+  final double cardWidth;
+  final String successJson;
+  final String errorJson;
 
   const PanelThemeData({
     required this.titleTextStyle,
-    this.descriptionTextStyle,
     required this.successBackgroundColor,
     required this.errorBackgroundColor,
+    required this.radiusGeometry,
     required this.successAnimationSize,
     required this.errorAnimationSize,
-    required this.borderRadius,
-    required this.padding,
+    required this.successPadding,
+    required this.errorPadding,
+    required this.cardWidth,
+    required this.successJson,
+    required this.errorJson,
   });
 
   static PanelThemeData defaultTheme(BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.digitTextTheme(context);
+    bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
+    bool isTab = AppView.isTabletView(MediaQuery.of(context).size);
 
     return PanelThemeData(
-      titleTextStyle: textTheme.headingS.copyWith(color: Colors.white),
-      descriptionTextStyle: theme.textTheme.bodyText2!.copyWith(color: Colors.white70),
-      successBackgroundColor: Colors.green,
-      errorBackgroundColor: Colors.red,
-      successAnimationSize: 100.0,
-      errorAnimationSize: 100.0,
-      borderRadius: BorderRadius.circular(8.0),
-      padding: EdgeInsets.all(16.0),
+      titleTextStyle: textTheme.headingXl.copyWith(color: theme.colorTheme.paper.primary),
+      successBackgroundColor: theme.colorTheme.alert.success,
+      errorBackgroundColor: theme.colorTheme.alert.error,
+      radiusGeometry: isMobile
+          ?  BorderRadius.only(
+          topLeft: Radius.circular(theme.spacerTheme.spacer1),
+          topRight: Radius.circular(theme.spacerTheme.spacer1))
+          : BorderRadius.zero,
+      successAnimationSize: isMobile ? 80.0 : isTab ? 100.0 : 120.0,
+      errorAnimationSize: isMobile ? 56.0 : isTab ? 64.0 : 74.0,
+      successPadding: EdgeInsets.only(
+          top: isTab || isMobile ? 22 : 18,
+          left: theme.spacerTheme.spacer10,
+          right: theme.spacerTheme.spacer10,
+          bottom: theme.spacerTheme.spacer10,),
+      errorPadding: EdgeInsets.all(isMobile ? theme.spacerTheme.spacer8 : theme.spacerTheme.spacer10),
+      cardWidth: MediaQuery.of(context).size.width,
+      successJson: 'assets/animated_json/success.json',
+      errorJson: 'assets/animated_json/error.json',
     );
   }
 
   @override
   PanelThemeData copyWith({
+    BuildContext? context,
     TextStyle? titleTextStyle,
-    TextStyle? descriptionTextStyle,
     Color? successBackgroundColor,
     Color? errorBackgroundColor,
+    BorderRadiusGeometry? radiusGeometry,
     double? successAnimationSize,
     double? errorAnimationSize,
-    BorderRadius? borderRadius,
-    EdgeInsetsGeometry? padding,
+    EdgeInsets? successPadding,
+    EdgeInsets? errorPadding,
+    double? cardWidth,
+    String? successJson,
+    String? errorJson,
   }) {
+    /// Ensure context is provided and get default theme if context is not null
+    final defaultTheme = context != null ? PanelThemeData.defaultTheme(context) : null;
+
     return PanelThemeData(
-      titleTextStyle: titleTextStyle ?? this.titleTextStyle,
-      descriptionTextStyle: descriptionTextStyle ?? this.descriptionTextStyle,
-      successBackgroundColor: successBackgroundColor ?? this.successBackgroundColor,
-      errorBackgroundColor: errorBackgroundColor ?? this.errorBackgroundColor,
-      successAnimationSize: successAnimationSize ?? this.successAnimationSize,
-      errorAnimationSize: errorAnimationSize ?? this.errorAnimationSize,
-      borderRadius: borderRadius ?? this.borderRadius,
-      padding: padding ?? this.padding,
+      titleTextStyle: titleTextStyle ?? defaultTheme?.titleTextStyle ?? this.titleTextStyle,
+      successBackgroundColor: successBackgroundColor ?? defaultTheme?.successBackgroundColor ?? this.successBackgroundColor,
+      errorBackgroundColor: errorBackgroundColor ?? defaultTheme?.errorBackgroundColor ?? this.errorBackgroundColor,
+      radiusGeometry: radiusGeometry ?? defaultTheme?.radiusGeometry ?? this.radiusGeometry,
+      successAnimationSize: successAnimationSize ?? defaultTheme?.successAnimationSize ?? this.successAnimationSize,
+      errorAnimationSize: errorAnimationSize ?? defaultTheme?.errorAnimationSize ?? this.errorAnimationSize,
+      successPadding: successPadding ?? defaultTheme?.successPadding ?? this.successPadding,
+      errorPadding: errorPadding ?? defaultTheme?.errorPadding ?? this.errorPadding,
+      cardWidth: cardWidth ?? defaultTheme?.cardWidth ?? this.cardWidth,
+      successJson: successJson ?? defaultTheme?.successJson ?? this.successJson,
+      errorJson: errorJson ?? defaultTheme?.errorJson ?? this.errorJson,
     );
   }
 
@@ -68,13 +98,16 @@ class PanelThemeData extends ThemeExtension<PanelThemeData> {
 
     return PanelThemeData(
       titleTextStyle: TextStyle.lerp(titleTextStyle, other.titleTextStyle, t)!,
-      descriptionTextStyle: TextStyle.lerp(descriptionTextStyle, other.descriptionTextStyle, t),
       successBackgroundColor: Color.lerp(successBackgroundColor, other.successBackgroundColor, t)!,
       errorBackgroundColor: Color.lerp(errorBackgroundColor, other.errorBackgroundColor, t)!,
+      radiusGeometry: BorderRadiusGeometry.lerp(radiusGeometry, other.radiusGeometry, t)!,
       successAnimationSize: lerpDouble(successAnimationSize, other.successAnimationSize, t)!,
       errorAnimationSize: lerpDouble(errorAnimationSize, other.errorAnimationSize, t)!,
-      borderRadius: BorderRadius.lerp(borderRadius, other.borderRadius, t)!,
-      padding: EdgeInsetsGeometry.lerp(padding, other.padding, t)!,
+      successPadding: EdgeInsets.lerp(successPadding, other.successPadding, t)!,
+      errorPadding: EdgeInsets.lerp(errorPadding, other.errorPadding, t)!,
+      cardWidth: lerpDouble(cardWidth, other.cardWidth, t)!,
+      successJson: t< 0.5 ? successJson : other.successJson,
+      errorJson: t < 0.5 ? errorJson : other.errorJson,
     );
   }
 }

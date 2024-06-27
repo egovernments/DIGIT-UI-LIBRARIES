@@ -152,7 +152,9 @@ List<Story> fileUploaderStories() {
       builder: (context) => FileUploadWidget2(
         showPreview: true,
         allowMultiples: false,
-        label: 'Upload', onFilesSelected: (DroppedFile) {  },
+        label: 'Upload', onFilesSelected: (files) {
+          return {};
+      },
       ),
     ),
     Story(
@@ -161,7 +163,58 @@ List<Story> fileUploaderStories() {
         showPreview: true,
         allowMultiples: false,
         errorMessage: context.knobs.text(label: 'Error Message', initial: 'error'),
-        label: 'Upload', onFilesSelected: (DroppedFile) {  },
+        label: 'Upload', onFilesSelected: (files) {
+          return {};
+      },
+      ),
+    ),
+    Story(
+      name: 'Atom/File Upload/Drag/Single file/file error',
+      builder: (context) => FileUploadWidget2(
+        showPreview: context.knobs.boolean(label: 'Open File', initial: false),
+        allowMultiples: false,
+        label: 'Upload', onFilesSelected: (files) {
+        Map<DroppedFile, String?> fileErrors = {};
+        // Perform validation for each file
+        for (var file in files) {
+          // Get the file size in bytes
+          int fileSizeInBytes =file.bytes;
+
+          // Convert bytes to kilobytes
+          double fileSizeInKB = fileSizeInBytes / 1024;
+
+          // Check if file size exceeds 50 KB
+          if (fileSizeInKB > 50) {
+            fileErrors[file] = 'File size exceeds 50 KB limit';
+          }
+        }
+        return fileErrors;
+      },
+      ),
+    ),
+    Story(
+      name: 'Atom/File Upload/Drag/Single file/file error with error card',
+      builder: (context) => FileUploadWidget2(
+        showPreview: context.knobs.boolean(label: 'Open File', initial: false),
+        allowMultiples: false,
+        isErrorChip: true,
+        label: 'Upload', onFilesSelected: (files) {
+        Map<DroppedFile, String?> fileErrors = {};
+        // Perform validation for each file
+        for (var file in files) {
+          // Get the file size in bytes
+          int fileSizeInBytes =file.bytes;
+
+          // Convert bytes to kilobytes
+          double fileSizeInKB = fileSizeInBytes / 1024;
+
+          // Check if file size exceeds 50 KB
+          if (fileSizeInKB > 50) {
+            fileErrors[file] = 'File size exceeds 50 KB limit';
+          }
+        }
+        return fileErrors;
+      },
       ),
     ),
     Story(
@@ -169,7 +222,9 @@ List<Story> fileUploaderStories() {
       builder: (context) => FileUploadWidget2(
         showPreview: true,
         allowMultiples: true,
-        label: 'Upload', onFilesSelected: (DroppedFile) {  },
+        label: 'Upload', onFilesSelected: (files) {
+          return {};
+      },
       ),
     ),
     Story(
@@ -178,7 +233,58 @@ List<Story> fileUploaderStories() {
         showPreview: true,
         allowMultiples: true,
         errorMessage: context.knobs.text(label: 'Error Message', initial: "error"),
-        label: 'Upload', onFilesSelected: (DroppedFile) {  },
+        label: 'Upload', onFilesSelected: (files) {
+          return {};
+      },
+      ),
+    ),
+    Story(
+      name: 'Atom/File Upload/Drag/Multiple files/file error',
+      builder: (context) => FileUploadWidget2(
+        showPreview: context.knobs.boolean(label: 'Open File', initial: false),
+        allowMultiples: true,
+        label: 'Upload', onFilesSelected: (files) {
+        Map<DroppedFile, String?> fileErrors = {};
+        // Perform validation for each file
+        for (var file in files) {
+          // Get the file size in bytes
+          int fileSizeInBytes =file.bytes;
+
+          // Convert bytes to kilobytes
+          double fileSizeInKB = fileSizeInBytes / 1024;
+
+          // Check if file size exceeds 50 KB
+          if (fileSizeInKB > 50) {
+            fileErrors[file] = 'File size exceeds 50 KB limit';
+          }
+        }
+        return fileErrors;
+      },
+      ),
+    ),
+    Story(
+      name: 'Atom/File Upload/Drag/Multiple files/file error with error card',
+      builder: (context) => FileUploadWidget2(
+        showPreview: context.knobs.boolean(label: 'Open File', initial: false),
+        allowMultiples: true,
+        isErrorChip: true,
+        label: 'Upload', onFilesSelected: (files) {
+        Map<DroppedFile, String?> fileErrors = {};
+        // Perform validation for each file
+        for (var file in files) {
+          // Get the file size in bytes
+          int fileSizeInBytes =file.bytes;
+
+          // Convert bytes to kilobytes
+          double fileSizeInKB = fileSizeInBytes / 1024;
+
+          // Check if file size exceeds 50 KB
+          if (fileSizeInKB > 50) {
+            fileErrors[file] = 'File size exceeds 50 KB limit';
+          }
+        }
+        return fileErrors;
+      },
       ),
     ),
     Story(

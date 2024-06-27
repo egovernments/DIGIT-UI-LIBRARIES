@@ -53,12 +53,12 @@ class Alert {
   const Alert({
     this.error = const Color(0xFFB91900),
     this.success = const Color(0xFF00703C),
-    this.info = const Color(0xFF0097C3),
-    this.warning = const Color(0xFFFFA500),
-    this.errorBg = const Color(0xFFFEECEB),
-    this.successBg = const Color(0xFFE3F7ED),
-    this.infoBg = const Color(0xFFE1F4FB),
-    this.warningBg = const Color(0xFFFFF4E5),
+    this.info = const Color(0xFF0057BD),
+    this.warning = const Color(0xFFEA8D00),
+    this.errorBg = const Color(0xFFFFF5F4),
+    this.successBg = const Color(0xFFF1FFF8),
+    this.infoBg = const Color(0xFFDEEFFF),
+    this.warningBg = const Color(0xFFFFF9F0),
   });
 
   final Color error;
@@ -109,8 +109,8 @@ class Alert {
 class Primary {
   const Primary({
     this.primary1 = const Color(0xFFC84C0E),
-    this.primary2 = const Color(0xFF757575),
-    this.primaryBg = const Color(0xFFBDBDBD),
+    this.primary2 = const Color(0xFF0B4B66),
+    this.primaryBg = const Color(0xFFFBEEE8),
   });
 
   final Color primary1;
@@ -140,9 +140,9 @@ class Primary {
 
 class Text {
   const Text({
-    this.primary = const Color(0xFF000000),
-    this.secondary = const Color(0xFF757575),
-    this.disabled = const Color(0xFFBDBDBD),
+    this.primary = const Color(0xFF363636),
+    this.secondary = const Color(0xFF787878),
+    this.disabled = const Color(0xFFC5C5C5),
   });
 
   final Color primary;
@@ -173,7 +173,7 @@ class Text {
 class Paper {
   const Paper({
     this.primary = const Color(0xFFFFFFFF),
-    this.secondary = const Color(0xFFF5F5F5),
+    this.secondary = const Color(0xFFFAFAFA),
   });
 
   final Color primary;
@@ -199,9 +199,9 @@ class Paper {
 
 class Generic {
   const Generic({
-    this.background = const Color(0xFFFFFFFF),
-    this.divider = const Color(0xFFBDBDBD),
-    this.inputBorder = const Color(0xFFBDBDBD),
+    this.background = const Color(0xFFEEEEEE),
+    this.divider = const Color(0xFFD6D5D4),
+    this.inputBorder = const Color(0xFF505A5F),
     this.transparent = const Color(0x00000000),
   });
 

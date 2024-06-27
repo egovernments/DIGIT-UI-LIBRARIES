@@ -87,6 +87,7 @@ class _DigitCheckboxState extends State<DigitCheckbox> {
       textDirection: checkboxThemeData.labelTextDirection,
       children: [
         Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             InkWell(
               hoverColor: theme.colorTheme.generic.transparent,

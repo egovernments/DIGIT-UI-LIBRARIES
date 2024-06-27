@@ -19,7 +19,7 @@ List<Story> buttonStories() {
         ),
         size: context.knobs.options(
           label: 'Size of Button',
-          initial: ButtonSize.small,
+          initial: ButtonSize.large,
           options: const [
             Option(
               label: 'Small',
@@ -35,11 +35,28 @@ List<Story> buttonStories() {
             ),
           ],
         ),
-        suffixIcon: context.knobs.nullable.options(label: 'Suffix Icon', initial: Icons.arrow_forward),
-        prefixIcon: context.knobs.nullable.options(label: 'Prefix Icon', initial: Icons.arrow_forward),
+        suffixIcon: context.knobs.nullable.options(
+            enabled: false,
+            label: 'Suffix Icon',
+            initial: Icons.arrow_forward,
+            options: [
+              const Option(label: 'Arrow', value: Icons.arrow_forward),
+              const Option(label: 'Home', value: Icons.home),
+              const Option(label: 'Article', value: Icons.article),
+              const Option(label: 'Location', value: Icons.my_location)
+            ]),
+        prefixIcon: context.knobs.nullable.options(
+            label: 'Prefix Icon',
+            initial: Icons.arrow_back,
+            enabled: false,
+            options: [
+              const Option(label: 'Arrow', value: Icons.arrow_back),
+              const Option(label: 'Home', value: Icons.home),
+              const Option(label: 'Article', value: Icons.article),
+              const Option(label: 'Location', value: Icons.my_location)
+            ]),
       ),
     ),
-
     Story(
       name: 'Atom/Buttons/Secondary',
       builder: (context) => Button(
@@ -54,7 +71,7 @@ List<Story> buttonStories() {
         type: ButtonType.secondary,
         size: context.knobs.options(
           label: 'Size of Button',
-          initial: ButtonSize.small,
+          initial: ButtonSize.large,
           options: const [
             Option(
               label: 'Small',
@@ -70,8 +87,26 @@ List<Story> buttonStories() {
             ),
           ],
         ),
-        suffixIcon: context.knobs.nullable.options(label: 'Suffix Icon', initial: Icons.arrow_forward),
-        prefixIcon: context.knobs.nullable.options(label: 'Prefix Icon', initial: Icons.arrow_forward),
+        suffixIcon: context.knobs.nullable.options(
+            label: 'Suffix Icon',
+            initial: Icons.arrow_forward,
+            enabled: false,
+            options: [
+              const Option(label: 'Arrow', value: Icons.arrow_forward),
+              const Option(label: 'Home', value: Icons.home),
+              const Option(label: 'Article', value: Icons.article),
+              const Option(label: 'Location', value: Icons.my_location)
+            ]),
+        prefixIcon: context.knobs.nullable.options(
+            label: 'Prefix Icon',
+            initial: Icons.arrow_back,
+            enabled: false,
+            options: [
+              const Option(label: 'Arrow', value: Icons.arrow_back),
+              const Option(label: 'Home', value: Icons.home),
+              const Option(label: 'Article', value: Icons.article),
+              const Option(label: 'Location', value: Icons.my_location)
+            ]),
       ),
     ),
     Story(
@@ -88,7 +123,7 @@ List<Story> buttonStories() {
         type: ButtonType.tertiary,
         size: context.knobs.options(
           label: 'Size of Button',
-          initial: ButtonSize.small,
+          initial: ButtonSize.large,
           options: const [
             Option(
               label: 'Small',
@@ -104,8 +139,26 @@ List<Story> buttonStories() {
             ),
           ],
         ),
-        suffixIcon: context.knobs.nullable.options(label: 'Suffix Icon', initial: Icons.arrow_forward),
-        prefixIcon: context.knobs.nullable.options(label: 'Prefix Icon', initial: Icons.arrow_forward),
+        suffixIcon: context.knobs.nullable.options(
+            label: 'Suffix Icon',
+            initial: Icons.arrow_forward,
+            enabled: false,
+            options: [
+              const Option(label: 'Arrow', value: Icons.arrow_forward),
+              const Option(label: 'Home', value: Icons.home),
+              const Option(label: 'Article', value: Icons.article),
+              const Option(label: 'Location', value: Icons.my_location)
+            ]),
+        prefixIcon: context.knobs.nullable.options(
+            label: 'Prefix Icon',
+            initial: Icons.arrow_back,
+            enabled: false,
+            options: [
+              const Option(label: 'Arrow', value: Icons.arrow_back),
+              const Option(label: 'Home', value: Icons.home),
+              const Option(label: 'Article', value: Icons.article),
+              const Option(label: 'Location', value: Icons.my_location)
+            ]),
       ),
     ),
     Story(
@@ -122,7 +175,7 @@ List<Story> buttonStories() {
         type: ButtonType.link,
         size: context.knobs.options(
           label: 'Size of Button',
-          initial: ButtonSize.small,
+          initial: ButtonSize.large,
           options: const [
             Option(
               label: 'Small',
@@ -138,8 +191,26 @@ List<Story> buttonStories() {
             ),
           ],
         ),
-        suffixIcon: context.knobs.nullable.options(label: 'Suffix Icon', initial: Icons.arrow_forward),
-        prefixIcon: context.knobs.nullable.options(label: 'Prefix Icon', initial: Icons.arrow_forward),
+        suffixIcon: context.knobs.nullable.options(
+            label: 'Suffix Icon',
+            initial: Icons.arrow_forward,
+            enabled: false,
+            options: [
+              const Option(label: 'Arrow', value: Icons.arrow_forward),
+              const Option(label: 'Home', value: Icons.home),
+              const Option(label: 'Article', value: Icons.article),
+              const Option(label: 'Location', value: Icons.my_location)
+            ]),
+        prefixIcon: context.knobs.nullable.options(
+            label: 'Prefix Icon',
+            initial: Icons.arrow_back,
+            enabled: false,
+            options: [
+              const Option(label: 'Arrow', value: Icons.arrow_back),
+              const Option(label: 'Home', value: Icons.home),
+              const Option(label: 'Article', value: Icons.article),
+              const Option(label: 'Location', value: Icons.my_location)
+            ]),
       ),
     ),
   ];

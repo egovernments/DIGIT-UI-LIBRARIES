@@ -216,7 +216,9 @@ List<Story> cardStories() {
           FileUploadWidget2(
             showPreview: true,
             allowMultiples: false,
-            label: 'Upload', onFilesSelected: (DroppedFile) {  },
+            label: 'Upload', onFilesSelected: (file) {
+            return {};
+          },
           ),
         ],
       ),

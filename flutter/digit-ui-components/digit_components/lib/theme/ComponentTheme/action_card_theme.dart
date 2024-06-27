@@ -1,7 +1,6 @@
 import 'dart:ui';
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:flutter/material.dart';
-
 import '../../constants/AppView.dart';
 
 class DigitActionCardTheme extends ThemeExtension<DigitActionCardTheme> {

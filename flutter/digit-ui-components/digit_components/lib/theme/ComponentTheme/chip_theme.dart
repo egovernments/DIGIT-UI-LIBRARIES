@@ -49,7 +49,7 @@ class DigitChipThemeData extends ThemeExtension<DigitChipThemeData> {
         color: theme.colorTheme.text.primary,
         overflow: TextOverflow.ellipsis,
       ),
-      errorTextStyle: textTheme.bodyS.copyWith(
+      errorTextStyle: textTheme.headingS.copyWith(
         color: theme.colorTheme.alert.error,
       ),
       labelErrorTextStyle: textTheme.headingXS.copyWith(
