@@ -291,7 +291,12 @@ module.exports = {
         spacer10:"2.5rem",
         spacer11:"2.75rem",
         spacer12:"3rem",
-      }
+      },
+      divider: {
+        dividerS: "0.063rem solid #D6D5D4",
+        dividerM: "0.125rem solid #D6D5D4",
+        dividerL: "0.25rem solid #D6D5D4",
+      },
     },
   },
   variants: {},

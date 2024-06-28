@@ -89,9 +89,10 @@
   }
 
   .digit-radio-btn-wrap input:checked~.digit-radio-btn-checkmark:after {
-    @apply block h-3 w-3 rounded-full absolute;
+    @apply flex h-3 w-3 rounded-full absolute items-center;
+    left: 50%;
+    transform: translate(-50%);
     top: 25%;
-    left: 25%;
     background-color: theme(digitv2.lightTheme.primary-1);
   }
 
@@ -100,9 +101,10 @@
   }
 
   .preselected .digit-radio-btn-wrap input:checked~.digit-radio-btn-checkmark:after {
-    @apply block h-3 w-3 rounded-full absolute;
+    @apply flex h-3 w-3 rounded-full absolute items-center;
+    left: 50%;
+    transform: translate(-50%);
     top: 25%;
-    left: 25%;
     background-color: theme(digitv2.lightTheme.text-disabled);
   }
 }

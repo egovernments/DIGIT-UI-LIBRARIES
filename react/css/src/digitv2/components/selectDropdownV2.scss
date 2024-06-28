@@ -6,7 +6,7 @@
   }
   @media (max-aspect-ratio: 9/16) {
     /* Media query for mobile */
-    max-width: 20.5rem;
+    max-width: 100%;
     width: 100%;
   }
   @media (min-aspect-ratio: 3/4) {
@@ -265,7 +265,7 @@
   }
 }
 .digit-dropdown-select-wrap {
-  @apply mb-lg relative bg-white;
+  @apply relative bg-white w-full;
   @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
     /* Media query for tablets */
     max-width: 27.5rem;
@@ -347,7 +347,7 @@
   .digit-dropdown-options-card {
     width: 100% !important;
     box-shadow: theme(digitv2.spacers.spacer0) 0.063rem 0.275rem theme(digitv2.spacers.spacer0) #00000026;
-    @apply  z-20 bg-white overflow-y-auto overflow-x-hidden;
+    @apply  absolute z-20 bg-white overflow-y-auto overflow-x-hidden;
     max-height: 20vmax;
     p {
       @extend .light-text-color-primary;

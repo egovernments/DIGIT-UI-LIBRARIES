@@ -75,6 +75,9 @@ import ErrorBoundary from "./ErrorBoundary";
 import TextBlock from "./TextBlock";
 import Panels from "./Panels";
 import Animation from "./Animation";
+import ViewCardFieldPair from "./ViewCardFieldPair";
+import ButtonsGroup from "./ButtonsGroup";
+import Divider from "./Divider";
 
 import {
   AnnouncementIcon,
@@ -278,6 +281,9 @@ export {
   ButtonSelector,
   Stepper,
   Timeline,
+  ViewCardFieldPair,
+  Divider,
+  ButtonsGroup,
   StringManipulator,
   InfoButton,
   Uploader,

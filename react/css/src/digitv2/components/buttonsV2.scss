@@ -405,3 +405,22 @@
 .digit-submit-bar:focus {
   @apply outline-none !important;
 }
+
+.digit-buttons-group {
+  display: flex;
+  flex-direction: row;
+  height: fit-content;
+  gap:theme(digitv2.spacers.spacer4);
+
+  @media (max-width: 30rem) {
+    flex-direction: column;
+
+    button{
+      width: 100%;
+    }
+  }
+
+  button{
+    flex: 1;
+  }
+}

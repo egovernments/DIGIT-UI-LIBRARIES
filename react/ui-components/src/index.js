@@ -75,7 +75,9 @@ import {
   TextBlock,
   Panels,
   Animation,
-
+  ViewCardFieldPair,
+  Divider,
+  ButtonsGroup
 } from "./atoms";
 
 import {
@@ -333,6 +335,9 @@ export {
   UploadImage,
   TextBlock,
   Panels,
+  ViewCardFieldPair,
+  ButtonsGroup,
+  Divider,
   Animation,
   InboxSearchLinks,
   SearchComponent,

@@ -2,7 +2,7 @@
 @import url("../typography.scss");
 
 .digit-infobanner-wrap {
-  @apply m-sm p-md flex flex-col; 
+  @apply p-md flex flex-col; 
   top: theme(digitv2.spacers.spacer5);
   left: theme(digitv2.spacers.spacer5);
   gap: theme(digitv2.spacers.spacer2);
@@ -86,19 +86,16 @@
   @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4)  {
     /* Media query for tablets */
     max-width: 44.5rem;
-    min-width: 22.5rem;
   }
 
   @media (max-aspect-ratio: 9/16) {
     /* Media query for mobile */
     max-width: 21.5rem;
-    min-width: 15rem;
   }
 
   @media (min-aspect-ratio: 3/4) {
     /* Media query for desktop */
     max-width: 87rem;
-    min-width: 25rem;
   }
 
   &.inline {
