@@ -15,7 +15,7 @@ jobs:
         with:
           node-version: 14
           registry-url: https://registry.npmjs.org/
-      - working-directory: ./react/css/
-      - run: yarn build  && yarn publish:css-develop
+      - run: yarn build && yarn publish:css-develop
+        working-directory: ./react/css/
         env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
