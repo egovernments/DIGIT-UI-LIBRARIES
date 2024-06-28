@@ -16,14 +16,13 @@ const Card = ({
   // const classname = window?.Digit?.Hooks?.useRouteSubscription(pathname) || "";
   const info = window?.Digit?.UserService?.getUser()?.info || null;
   const userType = info?.type || null;
-  const isEmployee = className === "employee" || userType === "EMPLOYEE";
 
   return (
     <div
       className={`${
         props?.noCardStyle
           ? ""
-          : isEmployee
+          : userType === "EMPLOYEE"
           ? "digit-employee-card"
           : "digit-card-component"
       } ${type ? type : ""} ${variant ? variant : ""} ${
@@ -34,7 +33,7 @@ const Card = ({
       {...props}
       ref={ReactRef}
     >
-      {Children.map(children, (child) => child)}
+      {children}
     </div>
   );
 };
