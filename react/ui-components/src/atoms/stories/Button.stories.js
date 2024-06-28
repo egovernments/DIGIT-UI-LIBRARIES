@@ -60,7 +60,8 @@ const commonArgs = {
   variation: "",
   isSuffix: false,
   size: "",
-  title:""
+  title:"",
+  iconFill:""
 };
 
 // Button default

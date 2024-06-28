@@ -1,28 +1,47 @@
-import React from "react";
+import React, { Children } from "react";
 import PropTypes from "prop-types";
 import { useLocation } from "react-router-dom";
 
-const Card = ({ onClick, style = {}, children, className = "", ReactRef, ...props }) => {
-  const { pathname } = useLocation();
-  const classname = window?.Digit?.Hooks?.useRouteSubscription(pathname) || "";
+const Card = ({
+  type,
+  onClick,
+  style = {},
+  children,
+  className,
+  ReactRef,
+  variant,
+  ...props
+}) => {
+  // const { pathname } = useLocation();
+  // const classname = window?.Digit?.Hooks?.useRouteSubscription(pathname) || "";
   const info = window?.Digit?.UserService?.getUser()?.info || null;
   const userType = info?.type || null;
-  const isEmployee = classname === "employee" || userType === "EMPLOYEE";
+  const isEmployee = className === "employee" || userType === "EMPLOYEE";
 
   return (
     <div
-      className={`${props?.noCardStyle ? "" : isEmployee ? "digit-employee-card" : "digit-card"} ${className ? className : ""}`}
+      className={`${
+        props?.noCardStyle
+          ? ""
+          : isEmployee
+          ? "digit-employee-card"
+          : "digit-card-component"
+      } ${type ? type : ""} ${variant ? variant : ""} ${
+        className ? className : ""
+      }`}
       onClick={onClick}
       style={style}
       {...props}
       ref={ReactRef}
     >
-      {children}
+      {Children.map(children, (child) => child)}
     </div>
   );
 };
 
 Card.propTypes = {
+  type: PropTypes.string,
+  variant: PropTypes.string,
   onClick: PropTypes.func,
   style: PropTypes.object,
   className: PropTypes.string,

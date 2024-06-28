@@ -27,7 +27,7 @@ const commonArgs = {
   populators: {
     title: "Value",
     name: "checked",
-    isLabelFirst:false
+    isLabelFirst:false,
   },
   formData: {
     checked: true,
@@ -170,4 +170,20 @@ CheckedDisabled.args = {
     checked: true,
   },
   disabled: true,
+};
+
+export const FunctionalCheckbox = () => {
+  const [isChecked, setIsChecked] = React.useState(false);
+
+  const handleCheckboxChange = (event) => {
+    setIsChecked(event.target.checked);
+  };
+
+  return (
+    <CheckBox
+      label={"Label"}
+      checked={isChecked}
+      onChange={handleCheckboxChange}
+    ></CheckBox>
+  );
 };

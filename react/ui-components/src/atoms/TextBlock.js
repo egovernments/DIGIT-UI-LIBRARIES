@@ -12,23 +12,34 @@ const TextBlock = ({
   subHeaderClasName,
   body,
   bodyClasName,
+  style
 }) => {
   return (
-    <div className={`digit-text-block-wrap ${wrapperClassName}`}>
-      <div
-        className={`digit-text-block-header-content ${headerContentClassName}`}
-      >
-        <div className={`digit-text-block-caption ${captionClassName}`}>
-          {caption}
+    <div className={`digit-text-block-wrap ${wrapperClassName}`} style={style}>
+      {(caption || header || subHeader) && (
+        <div
+          className={`digit-text-block-header-content ${headerContentClassName}`}
+        >
+          {caption && (
+            <div className={`digit-text-block-caption ${captionClassName}`}>
+              {caption}
+            </div>
+          )}
+          {header && (
+            <div className={`digit-text-block-header ${headerClasName}`}>
+              {header}
+            </div>
+          )}
+          {subHeader && (
+            <div className={`digit-text-block-subheader ${subHeaderClasName}`}>
+              {subHeader}
+            </div>
+          )}
         </div>
-        <div className={`digit-text-block-header ${headerClasName}`}>
-          {header}
-        </div>
-        <div className={`digit-text-block-subheader ${subHeaderClasName}`}>
-          {subHeader}
-        </div>
-      </div>
-      <div className={`digit-text-block-body ${bodyClasName}`}>{body}</div>
+      )}
+      {body && (
+        <div className={`digit-text-block-body ${bodyClasName}`}>{body}</div>
+      )}
     </div>
   );
 };

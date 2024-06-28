@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 const LabelFieldPair = (props) => {
   return (
-    <div style={props?.style} className={`digit-label-field-pair ${props?.className ? props?.className : ""}`}>
+    <div style={props?.style} className={`digit-label-field-pair ${props?.className ? props?.className : ""} ${props?.vertical ? "vertical" : ""}`}>
       {props.children}
     </div>
   );
