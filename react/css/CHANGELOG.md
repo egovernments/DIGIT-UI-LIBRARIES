@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.0.2-beta.10] - 2024-06-28
+### Added
+- Updated styles
+
 ## [0.0.2-beta.9] - 2024-06-25
 ### Added
 - Updated Uploader preview styles
