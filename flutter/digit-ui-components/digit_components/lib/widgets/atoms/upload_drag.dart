@@ -29,7 +29,7 @@ class FileUploadWidget2 extends StatefulWidget {
       this.showPreview = false,
       this.allowMultiples = false,
       this.errorMessage,
-        this.isErrorChip = false,
+      this.isErrorChip = false,
       this.downloadText = 'Download',
       this.reUploadText = 'Re-Upload'})
       : super(key: key);
@@ -184,6 +184,7 @@ class _FileUploadWidgetState extends State<FileUploadWidget2> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
+                      width: MediaQuery.of(context).size.width / 2,
                       padding: const EdgeInsets.only(right: spacer7),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -201,13 +202,16 @@ class _FileUploadWidgetState extends State<FileUploadWidget2> {
                                 splashColor: const DigitColors().transparent,
                                 highlightColor: const DigitColors().transparent,
                                 onTap: () {
-                                  _openFile(files[index].data, files[index].name);
+                                  _openFile(
+                                      files[index].data, files[index].name);
                                 },
                                 child: Text(
                                   files[index].name,
+                                  maxLines: 3,
                                   overflow: TextOverflow.ellipsis,
                                   style: currentTypography.headingS.copyWith(
-                                    color: const DigitColors().light.textSecondary,
+                                    color:
+                                        const DigitColors().light.textSecondary,
                                   ),
                                 ),
                               ),
@@ -234,6 +238,7 @@ class _FileUploadWidgetState extends State<FileUploadWidget2> {
                                     const SizedBox(width: spacer1),
                                     Text(
                                       fileErrors[files[index]]!,
+                                      maxLines: 2,
                                       style: currentTypography.bodyS.copyWith(
                                           color: const DigitColors()
                                               .light
@@ -246,15 +251,19 @@ class _FileUploadWidgetState extends State<FileUploadWidget2> {
                         ],
                       ),
                     ),
-                    if(isFileError && widget.isErrorChip)
+                    if (isFileError && widget.isErrorChip)
+                      const SizedBox(
+                        height: 12,
+                      ),
+                    if (isFileError && widget.isErrorChip)
+                      InfoCard(
+                          title: 'Error',
+                          type: InfoType.error,
+                          description: fileErrors[files[index]]!),
                     const SizedBox(
                       height: 12,
                     ),
-                    if(isFileError && widget.isErrorChip)
-                      InfoCard(title:'Error', type: InfoType.error  , description: fileErrors[files[index]]!),
-                    const SizedBox(height: 12,),
                     Row(
-
                       children: [
                         Button(
                             label: widget.reUploadText,
@@ -280,174 +289,195 @@ class _FileUploadWidgetState extends State<FileUploadWidget2> {
                     )
                   ],
                 )
-              : (widget.isErrorChip && isFileError) ?
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      viewIcon,
-                      const SizedBox(
-                        width: spacer2,
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          InkWell(
-                            hoverColor: const DigitColors().transparent,
-                            splashColor: const DigitColors().transparent,
-                            highlightColor: const DigitColors().transparent,
-                            onTap: widget.showPreview
-                                ? () {
-                              _openFile(
-                                  files[index].data, files[index].name);
-                            }
-                                : null,
-                            child: Text(
-                              files[index].name,
-                              style: currentTypography.headingS.copyWith(
-                                color: isFileError
-                                    ? const DigitColors().light.alertError
-                                    : const DigitColors().light.textSecondary,
-                              ),
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 12,),
-                  if(isFileError)
-                  InfoCard(title:'Error', type: InfoType.error  , description: fileErrors[files[index]]!),
-                  const SizedBox(height: 12,),
-                  Row(
-                    // mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Button(
-                          label: widget.reUploadText,
-                          onPressed: () {
-                            _reUploadFile(index);
-                          },
-                          prefixIcon: Icons.file_upload,
-                          type: ButtonType.secondary,
-                          size: ButtonSize.medium),
-                      const SizedBox(
-                        width: spacer2,
-                      ),
-                      Button(
-                          label: widget.downloadText,
-                          onPressed: () {
-                            _downloadFile(files[index]);
-                          },
-                          // contentPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 2),
-                          prefixIcon: Icons.file_download,
-                          type: ButtonType.secondary,
-                          size: ButtonSize.medium),
-                    ],
-                  )
-                ],
-              )
-              : Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  viewIcon,
-                  const SizedBox(
-                    width: spacer2,
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      InkWell(
-                        hoverColor: const DigitColors().transparent,
-                        splashColor: const DigitColors().transparent,
-                        highlightColor: const DigitColors().transparent,
-                        onTap: widget.showPreview
-                            ? () {
-                          _openFile(
-                              files[index].data, files[index].name);
-                        }
-                            : null,
-                        child: Text(
-                          files[index].name,
-                          style: currentTypography.headingS.copyWith(
-                            color: isFileError
-                                ? const DigitColors().light.alertError
-                                : const DigitColors().light.textSecondary,
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                      if (isFileError)
+              : (widget.isErrorChip && isFileError)
+                  ? Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
                         Row(
-                          mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
                           children: [
+                            viewIcon,
+                            const SizedBox(
+                              width: spacer2,
+                            ),
                             Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const SizedBox(
-                                  height: 1.5,
-                                ),
-                                Icon(
-                                  Icons.info,
-                                  color: const DigitColors()
-                                      .light
-                                      .alertError,
-                                  size: spacer4,
+                                InkWell(
+                                  hoverColor: const DigitColors().transparent,
+                                  splashColor: const DigitColors().transparent,
+                                  highlightColor:
+                                      const DigitColors().transparent,
+                                  onTap: widget.showPreview
+                                      ? () {
+                                          _openFile(files[index].data,
+                                              files[index].name);
+                                        }
+                                      : null,
+                                  child: Text(
+                                    files[index].name,
+                                    style: currentTypography.headingS.copyWith(
+                                      color: isFileError
+                                          ? const DigitColors().light.alertError
+                                          : const DigitColors()
+                                              .light
+                                              .textSecondary,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
                                 ),
                               ],
                             ),
-                            const SizedBox(width: spacer1),
-                            Text(
-                              fileErrors[files[index]]!,
-                              style: currentTypography.bodyS.copyWith(
-                                  color: const DigitColors()
-                                      .light
-                                      .alertError),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 12,
+                        ),
+                        if (isFileError)
+                          InfoCard(
+                              title: 'Error',
+                              type: InfoType.error,
+                              description: fileErrors[files[index]]!),
+                        const SizedBox(
+                          height: 12,
+                        ),
+                        Row(
+                          // mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Button(
+                                label: widget.reUploadText,
+                                onPressed: () {
+                                  _reUploadFile(index);
+                                },
+                                prefixIcon: Icons.file_upload,
+                                type: ButtonType.secondary,
+                                size: ButtonSize.medium),
+                            const SizedBox(
+                              width: spacer2,
                             ),
+                            Button(
+                                label: widget.downloadText,
+                                onPressed: () {
+                                  _downloadFile(files[index]);
+                                },
+                                // contentPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 2),
+                                prefixIcon: Icons.file_download,
+                                type: ButtonType.secondary,
+                                size: ButtonSize.medium),
                           ],
                         )
-                    ],
-                  ),
-                ],
-              ),
-              Row(
-                // mainAxisSize: MainAxisSize.min,
-                children: [
-                  Button(
-                      label: widget.reUploadText,
-                      onPressed: () {
-                        _reUploadFile(index);
-                      },
-                      prefixIcon: Icons.file_upload,
-                      type: ButtonType.secondary,
-                      size: ButtonSize.medium),
-                  const SizedBox(
-                    width: spacer2,
-                  ),
-                  Button(
-                      label: widget.downloadText,
-                      onPressed: () {
-                        _downloadFile(files[index]);
-                      },
-                      // contentPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 2),
-                      prefixIcon: Icons.file_download,
-                      type: ButtonType.secondary,
-                      size: ButtonSize.medium),
-                ],
-              )
-            ],
-          ),
+                      ],
+                    )
+                  : Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            viewIcon,
+                            const SizedBox(
+                              width: spacer2,
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                InkWell(
+                                  hoverColor: const DigitColors().transparent,
+                                  splashColor:
+                                      const DigitColors().transparent,
+                                  highlightColor:
+                                      const DigitColors().transparent,
+                                  onTap: widget.showPreview
+                                      ? () {
+                                          _openFile(files[index].data,
+                                              files[index].name);
+                                        }
+                                      : null,
+                                  child: Text(
+                                    files[index].name,
+                                    maxLines: 3,
+                                    overflow: TextOverflow.ellipsis,
+                                    style:
+                                        currentTypography.headingS.copyWith(
+                                      color: isFileError
+                                          ? const DigitColors()
+                                              .light
+                                              .alertError
+                                          : const DigitColors()
+                                              .light
+                                              .textSecondary,
+                                    ),
+                                  ),
+                                ),
+                                if (isFileError)
+                                  Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Column(
+                                        children: [
+                                          const SizedBox(
+                                            height: 1.5,
+                                          ),
+                                          Icon(
+                                            Icons.info,
+                                            color: const DigitColors()
+                                                .light
+                                                .alertError,
+                                            size: spacer4,
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(width: spacer1),
+                                      Text(
+                                        fileErrors[files[index]]!,
+                                        style: currentTypography.bodyS
+                                            .copyWith(
+                                                color: const DigitColors()
+                                                    .light
+                                                    .alertError),
+                                      ),
+                                    ],
+                                  )
+                              ],
+                            ),
+                          ],
+                        ),
+                        Row(
+                          // mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Button(
+                                label: widget.reUploadText,
+                                onPressed: () {
+                                  _reUploadFile(index);
+                                },
+                                prefixIcon: Icons.file_upload,
+                                type: ButtonType.secondary,
+                                size: ButtonSize.medium),
+                            const SizedBox(
+                              width: spacer2,
+                            ),
+                            Button(
+                                label: widget.downloadText,
+                                onPressed: () {
+                                  _downloadFile(files[index]);
+                                },
+                                // contentPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 2),
+                                prefixIcon: Icons.file_download,
+                                type: ButtonType.secondary,
+                                size: ButtonSize.medium),
+                          ],
+                        )
+                      ],
+                    ),
         ),
         Positioned(
           top: 0,
@@ -550,7 +580,7 @@ class _FileUploadWidgetState extends State<FileUploadWidget2> {
                       this.controller = controller;
                     },
                     onDropMultiple: (events) {
-                      if(events==null) return;
+                      if (events == null) return;
                       if (widget.allowMultiples) {
                         for (var event in events) {
                           acceptFile(event);
@@ -641,11 +671,13 @@ class _FileUploadWidgetState extends State<FileUploadWidget2> {
                 ),
               ],
             ),
-          if (widget.errorMessage != null && (widget.allowMultiples==true || files.isEmpty))
+          if (widget.errorMessage != null &&
+              (widget.allowMultiples == true || files.isEmpty))
             const SizedBox(
               height: spacer1,
             ),
-          if (widget.errorMessage != null && (widget.allowMultiples==true || files.isEmpty))
+          if (widget.errorMessage != null &&
+              (widget.allowMultiples == true || files.isEmpty))
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,

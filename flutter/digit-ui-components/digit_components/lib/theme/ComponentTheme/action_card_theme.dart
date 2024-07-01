@@ -29,7 +29,7 @@ class DigitActionCardTheme extends ThemeExtension<DigitActionCardTheme> {
     return DigitActionCardTheme(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4),
-        color: theme.colorTheme.primary.primary1,
+        color: theme.colorTheme.paper.primary,
         boxShadow: [
           BoxShadow(
             color: const Color(0xFF000000).withOpacity(.16),

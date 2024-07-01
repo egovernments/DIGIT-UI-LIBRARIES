@@ -19,6 +19,7 @@ import 'package:digit_ui_components/constants/app_constants.dart';
 import 'package:flutter/material.dart';
 import '../../constants/AppView.dart';
 import '../../enum/app_enums.dart';
+import '../../theme/ComponentTheme/pop_up_card_theme.dart';
 import '../../theme/colors.dart';
 import '../../theme/spacers.dart';
 import '../../theme/typography.dart';
@@ -66,6 +67,8 @@ class Popup extends StatefulWidget {
   /// The alignment of action buttons.
   final MainAxisAlignment? actionAlignment;
 
+  final DigitPopupTheme? popupTheme;
+
   const Popup({
     super.key,
     required this.title,
@@ -81,6 +84,7 @@ class Popup extends StatefulWidget {
     this.inlineActions,
     this.actionSpacing,
     this.actionAlignment,
+    this.popupTheme,
   });
 
   @override
@@ -98,8 +102,11 @@ class _PopupState extends State<Popup> {
     super.dispose();
   }
 
-  Widget _buildSimplePopUp(
-      DigitTypography currentTypography, bool isMobile, bool isTab) {
+  Widget _buildSimplePopUp(BuildContext context,
+      DigitPopupTheme themeData, bool isMobile, bool isTab) {
+
+    final theme = Theme.of(context);
+
     return Container(
       padding: EdgeInsets.only(
         bottom: isMobile
@@ -162,8 +169,7 @@ class _PopupState extends State<Popup> {
                       children: [
                         Text(
                           widget.title,
-                          style: currentTypography.headingL.copyWith(
-                              color: const DigitColors().light.textPrimary),
+                          style: themeData.titleTextStyle,
                         ),
                         if (widget.subHeading != null)
                           const SizedBox(
@@ -172,9 +178,7 @@ class _PopupState extends State<Popup> {
                         if (widget.subHeading != null)
                           Text(
                             widget.subHeading!,
-                            style: currentTypography.captionS.copyWith(
-                              color: const DigitColors().light.textSecondary,
-                            ),
+                            style: themeData.subHeadingTextStyle,
                           )
                       ],
                     ),
@@ -209,9 +213,10 @@ class _PopupState extends State<Popup> {
     );
   }
 
-  Widget _buildAlertPopUp(
-      DigitTypography currentTypography, bool isMobile, bool isTab) {
+  Widget _buildAlertPopUp(BuildContext context,
+      DigitPopupTheme themeData, bool isMobile, bool isTab) {
     return Container(
+      width: themeData.width,
       padding: EdgeInsets.all(
         isMobile
             ? spacer4
@@ -252,8 +257,7 @@ class _PopupState extends State<Popup> {
           Text(
             widget.title,
             textAlign: TextAlign.center,
-            style: currentTypography.headingL
-                .copyWith(color: const DigitColors().light.textPrimary),
+            style: themeData.titleTextStyle,
           ),
           if (widget.subHeading != null)
             const SizedBox(
@@ -263,17 +267,15 @@ class _PopupState extends State<Popup> {
             Text(
               widget.subHeading!,
               textAlign: TextAlign.center,
-              style: currentTypography.captionS.copyWith(
-                color: const DigitColors().light.textSecondary,
-              ),
+              style: themeData.subHeadingTextStyle,
             ),
         ],
       ),
     );
   }
 
-  Widget _buildContent(
-      DigitTypography currentTypography, bool isMobile, bool isTab) {
+  Widget _buildContent(BuildContext context,
+      DigitPopupTheme themeData, bool isMobile, bool isTab) {
     return Padding(
       padding: EdgeInsets.only(
         left: isMobile
@@ -307,9 +309,7 @@ class _PopupState extends State<Popup> {
           if (widget.description != null)
             Text(
               widget.description!,
-              style: currentTypography.bodyS.copyWith(
-                color: const DigitColors().light.textPrimary,
-              ),
+              style: themeData.descriptionTextStyle,
             ),
           if (widget.description != null && widget.additionalWidgets != null)
             SizedBox(
@@ -360,46 +360,25 @@ class _PopupState extends State<Popup> {
       });
     }
 
+    final theme = Theme.of(context);
+    final themeData = widget.popupTheme ??
+        theme.extension<DigitPopupTheme>() ??
+        DigitPopupTheme.defaultTheme(context);
+
     /// Get current typography and screen size information
-    DigitTypography currentTypography = getTypography(context, false);
+    //DigitTypography currentTypography = getTypography(context, false);
     bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
     bool isTab = AppView.isTabletView(MediaQuery.of(context).size);
-    final double? cardWidth = widget.width;
-    final double? cardHeight = widget.height;
+    // final double? cardWidth = widget.width;
+    // final double? cardHeight = widget.height;
 
     return Dialog.fullscreen(
       backgroundColor: const DigitColors().transparent,
       child: Center(
         child: Container(
-          width: cardWidth,
-          height: cardHeight,
-          margin: EdgeInsets.symmetric(
-              vertical: cardHeight == null
-                  ? isMobile
-                      ? PopUpCardConstant.verticalMarginMobile
-                      : isTab
-                          ? PopUpCardConstant.verticalMarginTab
-                          : PopUpCardConstant.verticalMarginDesktop
-                  : 0,
-              horizontal: cardWidth == null
-                  ? isMobile
-                      ? PopUpCardConstant.horizontalMarginMobile
-                      : isTab
-                          ? PopUpCardConstant.horizontalMarginTab
-                          : PopUpCardConstant.horizontalMarginDesktop
-                  : 0),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(spacer1),
-            color: const DigitColors().light.paperPrimary,
-            boxShadow: [
-              BoxShadow(
-                color: const Color(0xFF000000).withOpacity(.16),
-                offset: const Offset(0, 1),
-                spreadRadius: 0,
-                blurRadius: 2,
-              ),
-            ],
-          ),
+          width: themeData.width,
+          height: themeData.height,
+          decoration: themeData.decoration,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -408,14 +387,14 @@ class _PopupState extends State<Popup> {
                 : CrossAxisAlignment.start,
             children: [
               widget.type == PopUpType.simple
-                  ? _buildSimplePopUp(currentTypography, isMobile, isTab)
-                  : _buildAlertPopUp(currentTypography, isMobile, isTab),
+                  ? _buildSimplePopUp(context, themeData, isMobile, isTab)
+                  : _buildAlertPopUp(context, themeData, isMobile, isTab),
               if (widget.description != null ||
                   widget.additionalWidgets != null)
                 Flexible(
                   child: SingleChildScrollView(
                     controller: _scrollController,
-                    child: _buildContent(currentTypography, isMobile, isTab),
+                    child: _buildContent(context, themeData, isMobile, isTab),
                   ),
                 ),
               if (widget.actions != null)

@@ -1,5 +1,7 @@
 import 'dart:io';
+import 'dart:ui';
 import 'package:digit_ui_components/digit_components.dart';
+import 'package:digit_ui_components/theme/ComponentTheme/pop_up_card_theme.dart';
 import 'package:digit_ui_components/utils/utils.dart';
 import 'package:digit_ui_components/widgets/atoms/pop_up_card.dart';
 import 'package:flutter/foundation.dart';
@@ -38,52 +40,58 @@ class _ImageUploaderState extends State<ImageUploader> {
     if (kIsWeb && source == ImageSource.camera) {
       showDialog(
         context: context,
+        barrierColor: const DigitColors().overLayColor.withOpacity(.70),
         useSafeArea: false,
         builder: (BuildContext context) {
           CameraHandlerState? cameraHandlerState;
-          return Popup(
-            onCrossTap: () {
-              Navigator.of(context).pop();
-            },
-            title: 'Camera',
-            type: PopUpType.simple,
-            width: isTab ? 440 : 720,
-            // height: isTab ? 508 : 448,
-            actions: [
-              Button(
-                mainAxisSize: MainAxisSize.max,
-                prefixIcon: Icons.camera_enhance,
-                label: 'Capture',
-                size: ButtonSize.large,
-                type: ButtonType.primary,
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  cameraHandlerState?.captureImage();
+          return BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
+            child: Popup(
+              popupTheme: const DigitPopupTheme().copyWith(
+                context: context,
+                width: isTab ? 440 : 720,
+              ),
+              onCrossTap: () {
+                Navigator.of(context).pop();
+              },
+              title: 'Camera',
+              type: PopUpType.simple,
+              actions: [
+                Button(
+                  mainAxisSize: MainAxisSize.max,
+                  prefixIcon: Icons.camera_enhance,
+                  label: 'Capture',
+                  size: ButtonSize.large,
+                  type: ButtonType.primary,
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    cameraHandlerState?.captureImage();
 
-                  /// Trigger the capture
-                },
-              ),
-              Button(
-                mainAxisSize: MainAxisSize.max,
-                label: 'Cancel',
-                size: ButtonSize.large,
-                type: ButtonType.secondary,
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-            additionalWidgets: [
-              CameraHandler(
-                source: source,
-                onImageCaptured: (image) {
-                  _handleImageCapture(image);
-                },
-                onCameraHandlerCreated: (CameraHandlerState state) {
-                  cameraHandlerState = state; // Capture the state instance
-                },
-              ),
-            ],
+                    /// Trigger the capture
+                  },
+                ),
+                Button(
+                  mainAxisSize: MainAxisSize.max,
+                  label: 'Cancel',
+                  size: ButtonSize.large,
+                  type: ButtonType.secondary,
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+              additionalWidgets: [
+                CameraHandler(
+                  source: source,
+                  onImageCaptured: (image) {
+                    _handleImageCapture(image);
+                  },
+                  onCameraHandlerCreated: (CameraHandlerState state) {
+                    cameraHandlerState = state; // Capture the state instance
+                  },
+                ),
+              ],
+            ),
           );
         },
       );
@@ -135,7 +143,10 @@ class _ImageUploaderState extends State<ImageUploader> {
     isTab = AppView.isTabletView(MediaQuery.of(context).size);
     capitalizedErrorMessage = convertInToSentenceCase(widget.errorMessage);
 
-    return GestureDetector(
+    return InkWell(
+      hoverColor: const DigitColors().transparent,
+      highlightColor: const DigitColors().transparent,
+      splashColor: const DigitColors().transparent,
       onTap: () {
         setState(() {
           fileError = '';
@@ -144,30 +155,36 @@ class _ImageUploaderState extends State<ImageUploader> {
             ? showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  return Popup(
-                    title: 'Choose an option to upload',
-                    onCrossTap: () {
-                      Navigator.of(context).pop();
-                    },
-                    // height: isTab ? 228 : 240,
-                     width: isTab ? 440 : 600,
-                    additionalWidgets: [
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          _buildInkWell(Icons.camera_enhance, "Camera", () {
-                            Navigator.of(context).pop();
-                            _getImage(ImageSource.camera);
-                          }, currentTypography),
-                          _buildInkWell(Icons.perm_media, "My Files", () {
-                            Navigator.of(context).pop();
-                            _getImage(ImageSource.gallery);
-                          }, currentTypography),
-                        ],
-                      ),
-                    ],
+                  return BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
+                    child: Popup(
+                      popupTheme: const DigitPopupTheme().copyWith(
+                        context: context,
+                        width: isTab ? 440 : 600,
+                        height: isTab ? 228 : 240,
+                      )   ,
+                      title: 'Choose an option to upload',
+                      onCrossTap: () {
+                        Navigator.of(context).pop();
+                      },
+                      additionalWidgets: [
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            _buildInkWell(Icons.camera_enhance, "Camera", () {
+                              Navigator.of(context).pop();
+                              _getImage(ImageSource.camera);
+                            }, currentTypography),
+                            _buildInkWell(Icons.perm_media, "My Files", () {
+                              Navigator.of(context).pop();
+                              _getImage(ImageSource.gallery);
+                            }, currentTypography),
+                          ],
+                        ),
+                      ],
+                    ),
                   );
                 },
               )
