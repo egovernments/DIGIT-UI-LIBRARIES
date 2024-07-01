@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 List<Story> timelineMoleculeStories() {
   return [
     Story(
-      name: 'Molecule/Timeline/1',
+      name: 'Molecule/Timeline Molecule/1',
       builder: (context) => TimelineMolecule(
         steps: [
           TimelineStep(
@@ -109,7 +109,7 @@ List<Story> timelineMoleculeStories() {
       ),
     ),
     Story(
-      name: 'Molecule/Timeline/2',
+      name: 'Molecule/Timeline Molecule/2',
       builder: (context) => TimelineMolecule(
         steps: [
           TimelineStep(
@@ -156,7 +156,7 @@ List<Story> timelineMoleculeStories() {
       ),
     ),
     Story(
-      name: 'Molecule/Timeline/3',
+      name: 'Molecule/Timeline Molecule/3',
       builder: (context) => TimelineMolecule(
         steps: [
           TimelineStep(
@@ -185,22 +185,22 @@ List<Story> timelineMoleculeStories() {
       ),
     ),
     Story(
-      name: 'Molecule/Timeline/4',
+      name: 'Molecule/Timeline Molecule/4',
       builder: (context) => TimelineMolecule(
         steps: [
           TimelineStep(
             label: 'Step 1',
-            description: ['Description for step 1'],
+            description: [],
             state: TimelineStepState.completed,
           ),
           TimelineStep(
             label: 'Step 2',
-            description: ['Description for step 2'],
+            description: [],
             state: TimelineStepState.present,
           ),
           TimelineStep(
             label: 'Step 3',
-            description: ['Description for step 3'],
+            description: [],
             state: TimelineStepState.future,
           ),
         ],

@@ -39,9 +39,9 @@ class DigitActionCardTheme extends ThemeExtension<DigitActionCardTheme> {
           ),
         ],
       ),
-      padding: EdgeInsets.all(isMobile ? 16 : isTab ? 20 : 24),
+      padding: EdgeInsets.all(theme.spacerTheme.spacer6),
       width: isMobile ? 328.0 : 548.0,
-      spacing: isMobile ? 16 : isTab ? 20 : 24,
+      spacing: 24,
     );
   }
 

@@ -49,7 +49,7 @@ class _ImageUploaderState extends State<ImageUploader> {
             child: Popup(
               popupTheme: const DigitPopupTheme().copyWith(
                 context: context,
-                width: isTab ? 440 : 720,
+                width: isMobile ? 360 : isTab ? 440 : 720,
               ),
               onCrossTap: () {
                 Navigator.of(context).pop();

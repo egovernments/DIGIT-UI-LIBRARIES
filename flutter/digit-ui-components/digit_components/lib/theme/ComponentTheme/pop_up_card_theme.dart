@@ -8,6 +8,7 @@ class DigitPopupTheme extends ThemeExtension<DigitPopupTheme> {
   final double? height;
   final Decoration? decoration;
   final EdgeInsets? padding;
+  final String? alertAnimation;
   final TextStyle? titleTextStyle;
   final TextStyle? subHeadingTextStyle;
   final TextStyle? descriptionTextStyle;
@@ -22,6 +23,7 @@ class DigitPopupTheme extends ThemeExtension<DigitPopupTheme> {
      this.subHeadingTextStyle,
      this.descriptionTextStyle,
      this.iconSize,
+    this.alertAnimation,
   });
 
   static DigitPopupTheme defaultTheme(BuildContext context) {
@@ -54,6 +56,7 @@ class DigitPopupTheme extends ThemeExtension<DigitPopupTheme> {
         color: theme.colorTheme.text.primary,
       ),
       iconSize: isMobile ? 24.0 : isTab ? 28.0 : 32.0,
+      alertAnimation: 'assets/animated_json/alert.json',
     );
   }
 
@@ -68,6 +71,7 @@ class DigitPopupTheme extends ThemeExtension<DigitPopupTheme> {
     TextStyle? subHeadingTextStyle,
     TextStyle? descriptionTextStyle,
     double? iconSize,
+    String? alertAnimation,
   }) {
     final defaultTheme = context != null ? DigitPopupTheme.defaultTheme(context) : null;
 
@@ -80,6 +84,7 @@ class DigitPopupTheme extends ThemeExtension<DigitPopupTheme> {
       subHeadingTextStyle: subHeadingTextStyle ?? defaultTheme?.subHeadingTextStyle ?? this.subHeadingTextStyle,
       descriptionTextStyle: descriptionTextStyle ?? defaultTheme?.descriptionTextStyle ?? this.descriptionTextStyle,
       iconSize: iconSize ?? defaultTheme?.iconSize ?? this.iconSize,
+      alertAnimation: alertAnimation ?? defaultTheme?.alertAnimation ?? this.alertAnimation,
     );
   }
 
@@ -96,6 +101,7 @@ class DigitPopupTheme extends ThemeExtension<DigitPopupTheme> {
       subHeadingTextStyle: TextStyle.lerp(subHeadingTextStyle, other.subHeadingTextStyle, t)!,
       descriptionTextStyle: TextStyle.lerp(descriptionTextStyle, other.descriptionTextStyle, t)!,
       iconSize: lerpDouble(iconSize, other.iconSize, t)!,
+      alertAnimation: t<0.5 ? alertAnimation : other.alertAnimation,
     );
   }
 }

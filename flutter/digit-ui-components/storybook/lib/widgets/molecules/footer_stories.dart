@@ -1,6 +1,5 @@
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/widgets/molecules/digit_footer.dart';
-
 import 'package:flutter/material.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
 
@@ -8,7 +7,7 @@ List<Story> footerMoleculeStories() {
   String label = 'Actions';
   return [
     Story(
-      name: 'Molecule/Footer/1',
+      name: 'Molecule/Footer/Variant 1',
       builder: (context) => DigitFooter(
         actionAlignment: MainAxisAlignment.spaceBetween,
         actions: [
@@ -38,7 +37,7 @@ List<Story> footerMoleculeStories() {
       ),
     ),
     Story(
-      name: 'Molecule/Footer/2',
+      name: 'Molecule/Footer/Variant 2',
       builder: (context) => StatefulBuilder(
           builder: (context, setState) {
             return DigitFooter(
@@ -69,7 +68,7 @@ List<Story> footerMoleculeStories() {
                       const DropdownItem(name: 'first', code: '1'),
                       const DropdownItem(name: 'second', code: '2'),
                       const DropdownItem(name: 'third', code: '3'),
-                      const DropdownItem(name: 'forth', code: '4'),
+                      const DropdownItem(name: 'fourth', code: '4'),
                     ],
                     onDropdownItemSelected: (item){
                       setState((){
@@ -83,7 +82,7 @@ List<Story> footerMoleculeStories() {
       ),
     ),
     Story(
-      name: 'Molecule/Footer/3',
+      name: 'Molecule/Footer/Variant 3',
       builder: (context) => DigitFooter(
         actionAlignment: MainAxisAlignment.end,
         actions: [
@@ -118,7 +117,7 @@ List<Story> footerMoleculeStories() {
       ),
     ),
     Story(
-      name: 'Molecule/Footer/4',
+      name: 'Molecule/Footer/Variant 4',
       builder: (context) => DigitFooter(
         actionAlignment: MainAxisAlignment.spaceBetween,
         actions: [
@@ -147,7 +146,7 @@ List<Story> footerMoleculeStories() {
                 const DropdownItem(name: 'first', code: '1'),
                 const DropdownItem(name: 'second', code: '2'),
                 const DropdownItem(name: 'third', code: '3'),
-                const DropdownItem(name: 'forth', code: '4'),
+                const DropdownItem(name: 'fourth', code: '4'),
               ]),
         ],
       ),

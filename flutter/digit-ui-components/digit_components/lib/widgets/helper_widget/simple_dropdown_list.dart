@@ -398,17 +398,21 @@ class _DropdownListViewState extends State<DropdownListView> {
             ),
           )
               : Container(
-            color: const DigitColors().light.paperSecondary,
-            child: Padding(
-              padding: DropdownConstants.noItemAvailablePadding,
-              child: Text(
-                convertInToSentenceCase(widget.emptyItemText)!,
-                style: currentTypography.bodyS.copyWith(
-                  color: const DigitColors().light.textDisabled,
+            color: const DigitColors().light.paperPrimary,
+                width: widget.width,
+                child: Container(
+                            color: const DigitColors().light.paperSecondary,
+                            child: Padding(
+                padding: DropdownConstants.noItemAvailablePadding,
+                child: Text(
+                  convertInToSentenceCase(widget.emptyItemText)!,
+                  style: currentTypography.bodyS.copyWith(
+                    color: const DigitColors().light.textDisabled,
+                  ),
                 ),
-              ),
-            ),
-          )
+                            ),
+                          ),
+              )
         ],
       ),
     );

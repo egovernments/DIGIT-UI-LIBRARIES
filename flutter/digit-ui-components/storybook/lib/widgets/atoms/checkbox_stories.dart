@@ -15,7 +15,7 @@ List<Story> checkboxStories() {
             child: DigitCheckbox(
               label: context.knobs.text(
                 label: 'Label',
-                initial: 'Checkbox Label',
+                initial: 'The HTML defaultChecked property is used to return the default value of the checked attribute. It has a boolean value that returns true if the checkbox is checked by default, otherwise returns false.',
               ),
               onChanged: (value) {},
               isDisabled: context.knobs.boolean(

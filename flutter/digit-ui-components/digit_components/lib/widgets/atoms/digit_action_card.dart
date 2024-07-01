@@ -70,7 +70,7 @@ class ActionCard extends StatelessWidget {
                           buttons: actions,
                           isVertical: true,
                           spacing:
-                              actionTheme.spacing ?? theme.spacerTheme.spacer2 ??0,
+                              actionTheme.spacing ?? theme.spacerTheme.spacer6,
                         ),
                       ],
                     ),

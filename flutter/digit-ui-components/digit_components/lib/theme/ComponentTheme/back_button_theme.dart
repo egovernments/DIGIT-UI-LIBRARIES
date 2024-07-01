@@ -28,7 +28,7 @@ class BackNavigationButtonThemeData extends ThemeExtension<BackNavigationButtonT
     final textTheme = theme.digitTextTheme(context);
 
     return BackNavigationButtonThemeData(
-      textColor: theme.colorTheme.primary.primary1,
+      textColor: theme.colorTheme.primary.primary2,
       disabledTextColor: theme.colorTheme.text.disabled,
       contentPadding: EdgeInsets.zero,
       textStyle: textTheme.bodyL,
@@ -38,7 +38,7 @@ class BackNavigationButtonThemeData extends ThemeExtension<BackNavigationButtonT
         child: Icon(
           Icons.double_arrow,
           size: isMobile ? theme.spacerTheme.spacer5 : theme.spacerTheme.spacer6,
-          color: theme.colorTheme.primary.primary1,
+          color: theme.colorTheme.primary.primary2,
         ),
       ),
       disabledBackButtonIcon: Transform.rotate(
@@ -55,6 +55,7 @@ class BackNavigationButtonThemeData extends ThemeExtension<BackNavigationButtonT
 
   @override
   BackNavigationButtonThemeData copyWith({
+    BuildContext? context,
     Color? textColor,
     Color? disabledTextColor,
     EdgeInsets? contentPadding,
@@ -63,13 +64,16 @@ class BackNavigationButtonThemeData extends ThemeExtension<BackNavigationButtonT
     TextStyle? textStyle,
 
   }) {
+    /// Ensure context is provided and get default theme if context is not null
+    final defaultTheme = context != null ? BackNavigationButtonThemeData.defaultTheme(context) : null;
+
     return BackNavigationButtonThemeData(
-      textColor: textColor ?? this.textColor,
-      disabledTextColor: disabledTextColor ?? this.disabledTextColor,
-      contentPadding: contentPadding ?? this.contentPadding,
-      backButtonIcon: backButtonIcon ?? this.backButtonIcon,
-      disabledBackButtonIcon: disabledBackButtonIcon ?? this.disabledBackButtonIcon,
-      textStyle: textStyle ?? this.textStyle,
+      textColor: textColor ?? defaultTheme?.textColor ?? this.textColor,
+      disabledTextColor: disabledTextColor ?? defaultTheme?.disabledTextColor ?? this.disabledTextColor,
+      contentPadding: contentPadding ?? defaultTheme?.contentPadding ?? this.contentPadding,
+      backButtonIcon: backButtonIcon ?? defaultTheme?.backButtonIcon ?? this.backButtonIcon,
+      disabledBackButtonIcon: disabledBackButtonIcon ?? defaultTheme?.disabledBackButtonIcon ?? this.disabledBackButtonIcon,
+      textStyle: textStyle ?? defaultTheme?.textStyle ?? this.textStyle,
     );
   }
 

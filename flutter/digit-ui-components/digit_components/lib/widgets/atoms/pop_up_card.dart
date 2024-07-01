@@ -103,9 +103,8 @@ class _PopupState extends State<Popup> {
     super.dispose();
   }
 
-  Widget _buildSimplePopUp(BuildContext context,
-      DigitPopupTheme themeData, bool isMobile, bool isTab) {
-
+  Widget _buildSimplePopUp(BuildContext context, DigitPopupTheme themeData,
+      bool isMobile, bool isTab) {
     final theme = Theme.of(context);
 
     return Container(
@@ -214,8 +213,8 @@ class _PopupState extends State<Popup> {
     );
   }
 
-  Widget _buildAlertPopUp(BuildContext context,
-      DigitPopupTheme themeData, bool isMobile, bool isTab) {
+  Widget _buildAlertPopUp(BuildContext context, DigitPopupTheme themeData,
+      bool isMobile, bool isTab) {
     return Container(
       width: themeData.width,
       padding: EdgeInsets.all(
@@ -247,7 +246,19 @@ class _PopupState extends State<Popup> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           widget.titleIcon ??
-              Lottie.asset('assets/animated_json/alert.json', repeat: false, width: isMobile ? 56.0 : isTab ? 64.0 : 72.0, height: isMobile ? 56.0 : isTab ? 64.0 : 72.0, fit: BoxFit.cover),
+              Lottie.asset('assets/animated_json/alert.json',
+                  repeat: false,
+                  width: isMobile
+                      ? 56.0
+                      : isTab
+                          ? 64.0
+                          : 72.0,
+                  height: isMobile
+                      ? 56.0
+                      : isTab
+                          ? 64.0
+                          : 72.0,
+                  fit: BoxFit.cover),
           const SizedBox(
             width: spacer2,
           ),
@@ -271,8 +282,8 @@ class _PopupState extends State<Popup> {
     );
   }
 
-  Widget _buildContent(BuildContext context,
-      DigitPopupTheme themeData, bool isMobile, bool isTab) {
+  Widget _buildContent(BuildContext context, DigitPopupTheme themeData,
+      bool isMobile, bool isTab) {
     return Padding(
       padding: EdgeInsets.only(
         left: isMobile

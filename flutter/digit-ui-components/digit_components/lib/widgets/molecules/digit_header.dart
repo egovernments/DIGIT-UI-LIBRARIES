@@ -8,8 +8,8 @@ class CustomHeaderMolecule extends StatelessWidget {
   final List<HeaderAction>? actions;
   final Widget? leadingWidget;
   final Widget? trailingWidget;
-  final bool leadingDigitLogo;
-  final bool trailingDigitLogo;
+  final bool? leadingDigitLogo;
+  final bool? trailingDigitLogo;
   final bool actionRequired;
   final void Function()? onMenuTap;
 
@@ -20,8 +20,8 @@ class CustomHeaderMolecule extends StatelessWidget {
     this.actions,
     this.leadingWidget,
     this.trailingWidget,
-    this.leadingDigitLogo = true,
-    this.trailingDigitLogo = false,
+    this.leadingDigitLogo,
+    this.trailingDigitLogo,
     this.actionRequired = false,
     this.onMenuTap,
   }) : super(key: key);
@@ -72,6 +72,7 @@ class CustomHeaderMolecule extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             InkWell(
               hoverColor: const DigitColors().transparent,
@@ -81,14 +82,14 @@ class CustomHeaderMolecule extends StatelessWidget {
               child: leadingWidget ??
                   Icon(
                     Icons.menu,
-                    size: 24,
+                    size: isTab ? 32 : 24,
                     color: type == HeaderType.dark
                         ? const DigitColors().light.paperPrimary
                         : const DigitColors().light.textPrimary,
                   ),
             ),
             SizedBox(width:  isTab ? 20 : 16,),
-            if (leadingDigitLogo)
+            if (leadingDigitLogo!=false)
               (type == HeaderType.dark
                   ? Image.asset(
                 Base.digitLogoDarkSvg,
@@ -100,9 +101,11 @@ class CustomHeaderMolecule extends StatelessWidget {
                 height: 24,
                 fit: BoxFit.fill,
               )),
+            if (leadingDigitLogo!=false)
             const SizedBox(
               width: 8,
             ),
+            if (leadingDigitLogo!=false)
             Container(
               height: isTab ? 32 : 24,
               width: 1,
@@ -110,7 +113,7 @@ class CustomHeaderMolecule extends StatelessWidget {
                   ? const DigitColors().light.paperPrimary
                   : const DigitColors().light.textPrimary,
             ),
-            if (title != null)
+            if (title != null && leadingDigitLogo!=false)
               const SizedBox(
                 width: 8,
               ),
@@ -127,7 +130,7 @@ class CustomHeaderMolecule extends StatelessWidget {
           ],
         ),
         SizedBox(
-          width: isTab ? 20 : 16,
+          width: isTab ? 24 : 16,
         ),
         if(actionRequired)
           Row(
@@ -141,7 +144,7 @@ class CustomHeaderMolecule extends StatelessWidget {
                     .map(
                       (widgets) => Padding(
                     padding: EdgeInsets.only(
-                      right: widgets.key != actions!.length - 1 ? isTab ? 20 : 16 : 0,
+                      right: widgets.key != actions!.length - 1 ? isTab ? 24 : 16 : 0,
                     ),
                     child: widgets.value.dropdownItems!=null ?
                     OverlayDropdown(
@@ -159,7 +162,7 @@ class CustomHeaderMolecule extends StatelessWidget {
                 )
                     .toList(),
               if (trailingWidget != null) trailingWidget!,
-              if (trailingDigitLogo)
+              if (trailingDigitLogo==true)
                 (type == HeaderType.dark
                     ? Image.asset(
                   Base.digitLogoDarkSvg,
@@ -190,9 +193,9 @@ class CustomHeaderMolecule extends StatelessWidget {
         Row(
           children: [
             if (leadingWidget != null) leadingWidget!,
-            if(leadingWidget!=null && leadingDigitLogo)
+            if(leadingWidget!=null && leadingDigitLogo==true)
               const SizedBox(width: 24,),
-            if (leadingDigitLogo)
+            if (leadingDigitLogo==true)
               (type == HeaderType.dark
                   ? Image.asset(
                 Base.digitLogoDarkSvg,
@@ -204,7 +207,7 @@ class CustomHeaderMolecule extends StatelessWidget {
                 height: 24,
                 fit: BoxFit.fill,
               )),
-            if (title != null && (leadingDigitLogo || leadingWidget != null))
+            if (title != null && (leadingDigitLogo==true || leadingWidget != null))
               const SizedBox(
                 width: 16,
               ),
@@ -221,7 +224,7 @@ class CustomHeaderMolecule extends StatelessWidget {
           ],
         ),
         const SizedBox(
-          width: 24,
+          width: 32,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -234,13 +237,14 @@ class CustomHeaderMolecule extends StatelessWidget {
                   .map(
                     (widgets) => Padding(
                   padding: EdgeInsets.only(
-                    right: widgets.key != actions!.length - 1 ? 24 : 0,
+                    right: widgets.key != actions!.length - 1 ? 32 : 0,
                   ),
                   child: widgets.value.dropdownItems!=null ?
                   OverlayDropdown(
                     type: OverlayDropdownType.header,
                     items: widgets.value.dropdownItems!,
                     title: widgets.value.widget,
+                    searchable: widgets.value.isSearchable,
                     onChange: (selectedItem) {
                       if (widgets.value.onDropdownItemSelected != null) {
                         widgets.value.onDropdownItemSelected!(selectedItem);
@@ -252,12 +256,12 @@ class CustomHeaderMolecule extends StatelessWidget {
               )
                   .toList(),
             if (actions != null &&
-                (trailingDigitLogo || trailingWidget != null))
+                (trailingDigitLogo!=false || trailingWidget != null))
               const SizedBox(
                 width: 24,
               ),
             if (trailingWidget != null) trailingWidget!,
-            if (trailingDigitLogo)
+            if (trailingDigitLogo!=false)
               (type == HeaderType.dark
                   ? Image.asset(
                 Base.digitLogoDarkSvg,
@@ -281,11 +285,13 @@ class CustomHeaderMolecule extends StatelessWidget {
 class HeaderAction {
   final Widget widget;
   final List<DropdownItem>? dropdownItems;
+  final bool isSearchable;
   final void Function(DropdownItem)? onDropdownItemSelected;
 
   HeaderAction({
     required this.widget,
     this.dropdownItems,
+    this.isSearchable = false,
     this.onDropdownItemSelected,
   });
 }
