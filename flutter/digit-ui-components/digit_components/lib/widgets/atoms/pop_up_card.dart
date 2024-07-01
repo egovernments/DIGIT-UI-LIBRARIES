@@ -17,6 +17,7 @@
 
 import 'package:digit_ui_components/constants/app_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import '../../constants/AppView.dart';
 import '../../enum/app_enums.dart';
 import '../../theme/ComponentTheme/pop_up_card_theme.dart';
@@ -246,11 +247,7 @@ class _PopupState extends State<Popup> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           widget.titleIcon ??
-              Icon(
-                Icons.warning,
-                size: spacer12,
-                color: const DigitColors().light.alertError,
-              ),
+              Lottie.asset('assets/animated_json/alert.json', repeat: false, width: isMobile ? 56.0 : isTab ? 64.0 : 72.0, height: isMobile ? 56.0 : isTab ? 64.0 : 72.0, fit: BoxFit.cover),
           const SizedBox(
             width: spacer2,
           ),
