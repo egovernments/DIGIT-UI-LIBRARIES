@@ -96,7 +96,10 @@ const TextField = (props) => {
       type="text"
       value={replaceDotWithColon(value)}
       onChange={inputChange}
-      onClick={props.onClick}
+      onClick={(e) => {
+        e.stopPropagation();
+        return props.onClick;
+      }}
       onFocus={broadcastToOpen}
       onBlur={(e) => {
         broadcastToClose();
@@ -152,6 +155,7 @@ const Dropdown = (props) => {
   }
 
   function handleClick(e) {
+    e.stopPropagation();
     if (!optionRef.current || !optionRef.current.contains(e.target)) {
       document.removeEventListener("mousedown", handleClick, false);
       setDropdownStatus(false);
@@ -381,12 +385,12 @@ const Dropdown = (props) => {
       {hasCustomSelector && (
         <div
           className={props.showArrow ? "cp flex-right column-gap-5" : "cp"}
-          onClick={dropdownSwitch}
+          onClick={(e) => dropdownSwitch(e)}
         >
           {props.customSelector}
           {props.showArrow && (
             <SVG.ArrowDropDown
-              onClick={dropdownSwitch}
+              onClick={(e) => dropdownSwitch(e)}
               className={props.disabled && "disabled"}
               fill="#505a5f"
             />
@@ -411,7 +415,7 @@ const Dropdown = (props) => {
           }
           onClick={
             props.variant === "treedropdown" || !props.isSearchable
-              ? dropdownSwitch
+              ? (e) => dropdownSwitch(e)
               : null
           }
         >
@@ -465,14 +469,14 @@ const Dropdown = (props) => {
           {props.showSearchIcon ? null : (
             <SVG.ArrowDropDown
               fill={props?.disabled ? "#D6D5D4" : "#505A5F"}
-              onClick={dropdownSwitch}
+              onClick={(e) => dropdownSwitch(e)}
               className="cp"
               disable={props.disabled}
             />
           )}
           {props.showSearchIcon ? (
             <SVG.Search
-              onClick={dropdownSwitch}
+              onClick={(e) => dropdownSwitch(e)}
               className="cp"
               disable={props.disabled}
             />
