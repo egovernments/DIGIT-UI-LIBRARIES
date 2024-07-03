@@ -144,6 +144,7 @@ const PopUp = (props) => {
           props?.className ? props?.className : ""
         } ${props?.type ? props?.type : ""}`}
         style={props?.style}
+        onClick={(e) => e.stopPropagation()}
       >
         {props?.type === "alert" ? (
           <div

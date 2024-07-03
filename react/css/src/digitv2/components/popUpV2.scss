@@ -234,6 +234,17 @@
           width: 100%;
         }
       }
+
+      &.equal-buttons{
+        width: 100%;
+
+        @media (min-width: 30.063rem) {
+
+          button {
+            flex: 1;
+          }
+        }
+      }
     }
 
 
