@@ -1,4 +1,5 @@
 import 'package:digit_ui_components/digit_components.dart';
+import 'package:digit_ui_components/theme/ComponentTheme/pop_up_card_theme.dart';
 import 'package:digit_ui_components/widgets/atoms/pop_up_card.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
 import 'package:flutter/material.dart';
@@ -160,8 +161,13 @@ List<Story> popUpStories() {
       ),
     ),
     Story(
-      name: 'Atom/PopUp/default/scrollable',
+      name: 'Atom/PopUp/default/custom Height and Width',
       builder: (context) => Popup(
+        popupTheme: const DigitPopupTheme().copyWith(
+          context: context,
+          width: 600,
+          height: 800,
+        ),
         title: 'Title',
         subHeading: 'SubTitle',
         description:'description',
@@ -224,10 +230,11 @@ List<Story> popUpStories() {
     ),
     Story(
       name: 'Atom/PopUp/alert/simple',
-      builder: (context) => const Popup(
+      builder: (context) => Popup(
         title: 'Alert!',
         subHeading: 'Please contact the administrator if you have fsdfsdf dsfs',
         type: PopUpType.alert,
+        actions: [Button(label: 'OK', onPressed: (){}, type: ButtonType.primary, size: ButtonSize.large)],
       ),
     ),
     Story(
@@ -307,8 +314,13 @@ List<Story> popUpStories() {
       ),
     ),
     Story(
-      name: 'Atom/PopUp/alert/scrollable',
+      name: 'Atom/PopUp/alert/Custom Width and Height',
       builder: (context) => Popup(
+        popupTheme: const DigitPopupTheme().copyWith(
+          context: context,
+          width: 600,
+          height: 800,
+        ),
         title: 'Alert!',
         subHeading: 'Please contact the administrator if you have fsdfsdf dsfs',
         type: PopUpType.alert,

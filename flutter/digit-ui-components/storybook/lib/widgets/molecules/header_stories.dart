@@ -1,4 +1,5 @@
 import 'package:digit_ui_components/digit_components.dart';
+import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:digit_ui_components/widgets/molecules/digit_header.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,7 @@ List<Story> headerMoleculeStories() {
           HeaderAction(
             widget: Row(
               children: [
-                Text(city),
+                Text(city, style: Theme.of(context).digitTextTheme(context).bodyS.copyWith(color: const DigitColors().light.textPrimary),),
                 const SizedBox(
                   width: 8,
                 ),
@@ -39,7 +40,7 @@ List<Story> headerMoleculeStories() {
           HeaderAction(
             widget: Row(
               children: [
-                const Text('Language'),
+                 Text('Language', style: Theme.of(context).digitTextTheme(context).bodyS.copyWith(color: const DigitColors().light.textPrimary)),
                 const SizedBox(
                   width: 8,
                 ),
@@ -140,7 +141,7 @@ List<Story> headerMoleculeStories() {
           HeaderAction(
             widget: Row(
               children: [
-                Text(city),
+                Text(city, style: Theme.of(context).digitTextTheme(context).bodyS.copyWith(color: const DigitColors().light.textPrimary)),
                 const SizedBox(
                   width: 8,
                 ),
@@ -172,9 +173,7 @@ List<Story> headerMoleculeStories() {
             widget: Row(
               children: [
                 Text(
-                  city,
-                  style:
-                      TextStyle(color: const DigitColors().light.paperPrimary),
+                  city, style: Theme.of(context).digitTextTheme(context).bodyS.copyWith(color: const DigitColors().light.paperPrimary)
                 ),
                 const SizedBox(
                   width: 8,
@@ -197,9 +196,7 @@ List<Story> headerMoleculeStories() {
             widget: Row(
               children: [
                 Text(
-                  'Language',
-                  style:
-                      TextStyle(color: const DigitColors().light.paperPrimary),
+                  'Language', style: Theme.of(context).digitTextTheme(context).bodyS.copyWith(color: const DigitColors().light.paperPrimary)
                 ),
                 const SizedBox(
                   width: 8,
@@ -296,9 +293,7 @@ List<Story> headerMoleculeStories() {
             widget: Row(
               children: [
                 Text(
-                  city,
-                  style:
-                      TextStyle(color: const DigitColors().light.paperPrimary),
+                  city, style: Theme.of(context).digitTextTheme(context).bodyS.copyWith(color: const DigitColors().light.paperPrimary)
                 ),
                 const SizedBox(
                   width: 8,
@@ -320,9 +315,7 @@ List<Story> headerMoleculeStories() {
             widget: Row(
               children: [
                 Text(
-                  'Language',
-                  style:
-                      TextStyle(color: const DigitColors().light.paperPrimary),
+                  'Language', style: Theme.of(context).digitTextTheme(context).bodyS.copyWith(color: const DigitColors().light.paperPrimary)
                 ),
                 const SizedBox(
                   width: 8,
@@ -359,9 +352,7 @@ List<Story> headerMoleculeStories() {
             widget: Row(
               children: [
                 Text(
-                  'Language',
-                  style:
-                      TextStyle(color: const DigitColors().light.paperPrimary),
+                  'Language', style: Theme.of(context).digitTextTheme(context).bodyS.copyWith(color: const DigitColors().light.paperPrimary)
                 ),
                 const SizedBox(
                   width: 8,

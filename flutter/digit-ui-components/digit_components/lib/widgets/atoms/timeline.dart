@@ -1,5 +1,4 @@
 import 'package:digit_ui_components/digit_components.dart';
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -42,6 +41,7 @@ class _TimelineState extends State<DigitTimeline> {
   Widget build(BuildContext context) {
     DigitTypography currentTypography = getTypography(context, false);
     bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
+    bool isTab = AppView.isTabletView(MediaQuery.of(context).size);
     String capitalizedLabel = widget.capitalizedLetter
         ? capitalizeFirstLetterOfEveryWord(widget.label)
         : widget.label;
@@ -131,6 +131,8 @@ class _TimelineState extends State<DigitTimeline> {
                         _buildExpandButton(currentTypography),
                       ],
                     ),
+                  if (!widget.isLastStep)
+                    SizedBox(height: isMobile ? spacer4 : isTab ? spacer5 : spacer6,)
                 ],
               ),
             ),
@@ -214,34 +216,21 @@ class _TimelineState extends State<DigitTimeline> {
   }
 
   Widget _buildExpandButton(DigitTypography currentTypography) {
-    return InkWell(
-      highlightColor: const DigitColors().transparent,
-      splashColor: const DigitColors().transparent,
-      hoverColor: const DigitColors().transparent,
-      onTap: () {
+    return Button(
+      type: ButtonType.link,
+      size: ButtonSize.medium,
+      onPressed: (){
         setState(() {
           isExpanded = !isExpanded;
         });
       },
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            isExpanded ? widget.hideDetailText : widget.viewDetailText,
-            style: currentTypography.bodyL.copyWith(
-              color: const DigitColors().light.primary1,
-              decoration: TextDecoration.underline,
-              decorationColor: const DigitColors().light.primary1,
-            ),
-          ),
-          const SizedBox(width: spacer1),
-          Icon(
-            isExpanded ? Icons.arrow_drop_up : Icons.arrow_drop_down,
-            size: 24,
-            color: const DigitColors().light.primary1,
-          ),
-        ],
-      ),
+      suffixIcon: isExpanded ? Icons.arrow_drop_up : Icons.arrow_drop_down,
+      label : isExpanded ? widget.hideDetailText : widget.viewDetailText,
+      // style: currentTypography.bodyL.copyWith(
+      //   color: const DigitColors().light.primary1,
+      //   decoration: TextDecoration.underline,
+      //   decorationColor: const DigitColors().light.primary1,
+      // ),
     );
   }
 }

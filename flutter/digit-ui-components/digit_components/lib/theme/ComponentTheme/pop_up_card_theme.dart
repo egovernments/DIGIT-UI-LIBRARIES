@@ -51,7 +51,7 @@ class DigitPopupTheme extends ThemeExtension<DigitPopupTheme> {
       titleTextStyle: textTheme.headingL.copyWith(
           color: theme.colorTheme.text.primary),
       subHeadingTextStyle: textTheme.captionS.copyWith(
-          color: theme.colorTheme.text.secondary),
+          color: theme.colorTheme.text.primary),
       descriptionTextStyle: textTheme.bodyS.copyWith(
         color: theme.colorTheme.text.primary,
       ),

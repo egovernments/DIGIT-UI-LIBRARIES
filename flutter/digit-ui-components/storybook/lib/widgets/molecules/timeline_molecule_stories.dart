@@ -1,4 +1,6 @@
 import 'package:digit_ui_components/enum/app_enums.dart';
+import 'package:digit_ui_components/widgets/atoms/digit_info_card.dart';
+import 'package:digit_ui_components/widgets/atoms/timeline.dart';
 import 'package:digit_ui_components/widgets/molecules/digit_timeline_molecule.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
 import 'package:flutter/material.dart';
@@ -6,102 +8,72 @@ import 'package:flutter/material.dart';
 List<Story> timelineMoleculeStories() {
   return [
     Story(
-      name: 'Molecule/Timeline Molecule/1',
+      name: 'Molecule/Timeline Molecule/Variant 1',
       builder: (context) => TimelineMolecule(
         steps: [
           TimelineStep(
-            label: 'Step 1',
+            label: 'Completed',
             description: [
-              'Description for step 1',
-              'Description for step 2',
-              'Description for step 3',
-              'Description for step 4',
-              'Description for step 5',
-              'Description for step 6',
-              'Description for step 7',
-              'Description for step 8',
-              'Description for step 9',
-              'Description for step 10'
+              '26 / 03 / 2024',
+              '11:00 PM',
+              '26 / 03 / 2024 11:00 PM',
+              '26 / 03 / 2024 11:00 PM Mon',
+              '+91 **********',
             ],
             state: TimelineStepState.completed,
           ),
           TimelineStep(
-            label: 'Step 2',
+            label: 'Present',
             description: [
-              'Description for step 1',
-              'Description for step 2',
-              'Description for step 3',
-              'Description for step 4',
-              'Description for step 5',
-              'Description for step 6',
-              'Description for step 7',
-              'Description for step 8',
-              'Description for step 9',
-              'Description for step 10'
+              '26 / 03 / 2024',
+              '11:00 PM',
+              '26 / 03 / 2024 11:00 PM',
+              '26 / 03 / 2024 11:00 PM Mon',
+              '+91 **********',
             ],
             state: TimelineStepState.present,
           ),
           TimelineStep(
-            label: 'Step 3',
+            label: 'Upcoming event 1',
             description: [
-              'Description for step 1',
-              'Description for step 2',
-              'Description for step 3',
-              'Description for step 4',
-              'Description for step 5',
-              'Description for step 6',
-              'Description for step 7',
-              'Description for step 8',
-              'Description for step 9',
-              'Description for step 10'
+              '26 / 03 / 2024',
+              '11:00 PM',
+              '26 / 03 / 2024 11:00 PM',
+              '26 / 03 / 2024 11:00 PM Mon',
+              '+91 **********',
             ],
             state: TimelineStepState.future,
           ),
           TimelineStep(
-            label: 'Step 4',
+            label: 'Upcoming event 2',
             description: [
-              'Description for step 1',
-              'Description for step 2',
-              'Description for step 3',
-              'Description for step 4',
-              'Description for step 5',
-              'Description for step 6',
-              'Description for step 7',
-              'Description for step 8',
-              'Description for step 9',
-              'Description for step 10'
+              '26 / 03 / 2024',
+              '11:00 PM',
+              '26 / 03 / 2024 11:00 PM',
+              '26 / 03 / 2024 11:00 PM Mon',
+              '+91 **********',
             ],
             state: TimelineStepState.future,
           ),
           TimelineStep(
-            label: 'Step 5',
+            label: 'Upcoming event 3',
             description: [
-              'Description for step 1',
-              'Description for step 2',
-              'Description for step 3',
-              'Description for step 4',
-              'Description for step 5',
-              'Description for step 6',
-              'Description for step 7',
-              'Description for step 8',
-              'Description for step 9',
-              'Description for step 10'
+              '26 / 03 / 2024',
+              '11:00 PM',
+              '26 / 03 / 2024 11:00 PM',
+              '26 / 03 / 2024 11:00 PM Mon',
+              '+91 **********',
             ],
             state: TimelineStepState.future,
           ),
           TimelineStep(
-            label: 'Step 6',
+            label: 'Upcoming event 4',
             description: [
-              'Description for step 1',
-              'Description for step 2',
-              'Description for step 3',
-              'Description for step 4',
-              'Description for step 5',
-              'Description for step 6',
-              'Description for step 7',
-              'Description for step 8',
-              'Description for step 9',
-              'Description for step 10'
+              '26 / 03 / 2024',
+              '11:00 PM',
+              '26 / 03 / 2024 11:00 PM',
+              '26 / 03 / 2024 11:00 PM Mon',
+              '+91 **********',
             ],
             state: TimelineStepState.future,
           ),
@@ -109,7 +81,7 @@ List<Story> timelineMoleculeStories() {
       ),
     ),
     Story(
-      name: 'Molecule/Timeline Molecule/2',
+      name: 'Molecule/Timeline Molecule/Variant 2',
       builder: (context) => TimelineMolecule(
         steps: [
           TimelineStep(
@@ -156,37 +128,102 @@ List<Story> timelineMoleculeStories() {
       ),
     ),
     Story(
-      name: 'Molecule/Timeline Molecule/3',
+      name: 'Molecule/Timeline Molecule/Variant 3',
       builder: (context) => TimelineMolecule(
         steps: [
           TimelineStep(
-              label: 'Step 1',
-              description: ['Description for step 1'],
-              state: TimelineStepState.completed,
-              additionalWidgets: [
-                const Text('Additional Widget 1'),
-                const Text('Additional Widget 2'),
-                const Text('Additional Widget 3'),
-                const Text('Additional Widget 4'),
-                const Text('Additional Widget 5'),
-                const Text('Additional Widget 6'),
-              ]),
+            label: 'Step 1',
+            description: ['Description for step 1'],
+            state: TimelineStepState.completed,
+            additionalWidgets: [
+              const Text('Additional Widget 1'),
+              const Text('Additional Widget 2'),
+              const Text('Additional Widget 3'),
+              const Text('Additional Widget 4'),
+              const Text('Additional Widget 5'),
+              const Text('Additional Widget 6'),
+            ],
+            additionalHideWidgets: [
+              TimelineFileWidget(
+                file: TimelineFiles(
+                  url: 'https://example.com/sample.docx',
+                  name: 'Sample',
+                  fileType: 'doc',
+                ),
+                openFile: true,
+              ),
+              Image.network(
+                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+              Image.network(
+                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+              Image.network(
+                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+              const InfoCard(
+                  title: "Info",
+                  type: InfoType.info,
+                  description: 'This step is mandatory')
+
+            ],
+          ),
           TimelineStep(
             label: 'Step 2',
             description: ['Description for step 2'],
             state: TimelineStepState.present,
+            additionalHideWidgets: [
+              TimelineFileWidget(
+                file: TimelineFiles(
+                  url: 'https://example.com/sample.docx',
+                  name: 'Sample',
+                  fileType: 'doc',
+                ),
+                openFile: true,
+              ),
+              Image.network(
+                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+              Image.network(
+                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+              Image.network(
+                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+              const InfoCard(
+                  title: "Info",
+                  type: InfoType.info,
+                  description: 'This step is mandatory')
+
+            ],
           ),
           TimelineStep(
             label: 'Step 3',
             description: ['Description for step 3'],
             state: TimelineStepState.future,
+            additionalHideWidgets: [
+              TimelineFileWidget(
+                file: TimelineFiles(
+                  url: 'https://example.com/sample.docx',
+                  name: 'Sample',
+                  fileType: 'doc',
+                ),
+                openFile: true,
+              ),
+              Image.network(
+                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+              Image.network(
+                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+              Image.network(
+                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+              const InfoCard(
+                  title: "Info",
+                  type: InfoType.info,
+                  description: 'This step is mandatory')
+
+            ],
           ),
         ],
       ),
     ),
     Story(
-      name: 'Molecule/Timeline Molecule/4',
+      name: 'Molecule/Timeline Molecule/Variant 4(With all steps shown)',
       builder: (context) => TimelineMolecule(
+        showAllSteps: true,
         steps: [
           TimelineStep(
             label: 'Step 1',
@@ -196,10 +233,40 @@ List<Story> timelineMoleculeStories() {
           TimelineStep(
             label: 'Step 2',
             description: [],
-            state: TimelineStepState.present,
+            state: TimelineStepState.completed,
           ),
           TimelineStep(
             label: 'Step 3',
+            description: [],
+            state: TimelineStepState.completed,
+          ),
+          TimelineStep(
+            label: 'Step 4',
+            description: [],
+            state: TimelineStepState.present,
+          ),
+          TimelineStep(
+            label: 'Step 5',
+            description: [],
+            state: TimelineStepState.future,
+          ),
+          TimelineStep(
+            label: 'Step 6',
+            description: [],
+            state: TimelineStepState.future,
+          ),
+          TimelineStep(
+            label: 'Step 7',
+            description: [],
+            state: TimelineStepState.future,
+          ),
+          TimelineStep(
+            label: 'Step 8',
+            description: [],
+            state: TimelineStepState.future,
+          ),
+          TimelineStep(
+            label: 'Step 9',
             description: [],
             state: TimelineStepState.future,
           ),

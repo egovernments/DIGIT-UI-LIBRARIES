@@ -1,4 +1,7 @@
 import 'package:digit_ui_components/digit_components.dart';
+import 'package:digit_ui_components/widgets/atoms/digit_divider.dart';
+import 'package:digit_ui_components/widgets/atoms/label_value_list.dart';
+import 'package:digit_ui_components/widgets/atoms/text_chunk.dart';
 import 'package:digit_ui_components/widgets/atoms/upload_drag.dart';
 import 'package:digit_ui_components/widgets/molecules/digit_card.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
@@ -128,58 +131,7 @@ List<Story> cardStories() {
                   .toList(),
             ),
           ),
-          LabeledField(
-            label: "MultiSelect Dropdown with nested Type",
-            child: Dropdown(
-              onOptionSelected: (List<DropdownItem> selectedOptions) {},
-              options: const [
-                DropdownItem(code: '1', name: 'first', type: "Type A"),
-                DropdownItem(code: '2', name: 'second', type: "Type A"),
-                DropdownItem(code: '3', name: 'third', type: "Type A"),
-                DropdownItem(code: '4', name: 'four', type: "Type B"),
-                DropdownItem(code: '5', name: 'five', type: "Type B"),
-              ],
-            ),
-          ),
-          LabeledField(
-            label: "MultiSelect Dropdown with nested Type",
-            child: Dropdown(
-              onOptionSelected: (List<DropdownItem> selectedOptions) {},
-              options: const [
-                DropdownItem(code: '1', name: 'first', type: "Type A"),
-                DropdownItem(code: '2', name: 'second', type: "Type A"),
-                DropdownItem(code: '3', name: 'third', type: "Type A"),
-                DropdownItem(code: '4', name: 'four', type: "Type B"),
-                DropdownItem(code: '5', name: 'five', type: "Type B"),
-              ],
-            ),
-          ),
-          LabeledField(
-            label: "MultiSelect Dropdown with nested Type",
-            child: Dropdown(
-              onOptionSelected: (List<DropdownItem> selectedOptions) {},
-              options: const [
-                DropdownItem(code: '1', name: 'first', type: "Type A"),
-                DropdownItem(code: '2', name: 'second', type: "Type A"),
-                DropdownItem(code: '3', name: 'third', type: "Type A"),
-                DropdownItem(code: '4', name: 'four', type: "Type B"),
-                DropdownItem(code: '5', name: 'five', type: "Type B"),
-              ],
-            ),
-          ),
-          LabeledField(
-            label: "MultiSelect Dropdown with nested Type",
-            child: Dropdown(
-              onOptionSelected: (List<DropdownItem> selectedOptions) {},
-              options: const [
-                DropdownItem(code: '1', name: 'first', type: "Type A"),
-                DropdownItem(code: '2', name: 'second', type: "Type A"),
-                DropdownItem(code: '3', name: 'third', type: "Type A"),
-                DropdownItem(code: '4', name: 'four', type: "Type B"),
-                DropdownItem(code: '5', name: 'five', type: "Type B"),
-              ],
-            ),
-          ),
+
           const InfoCard(
             title: 'Info',
             type: InfoType.info,
@@ -466,6 +418,74 @@ List<Story> cardStories() {
               )
             ],
           )
+        ],
+      ),
+    ),
+    Story(
+      name: 'Molecule/Card/form Card',
+      builder: (context) => DigitCard(
+        cardType: CardType.primary,
+        children: [
+          const TextChunk(
+            heading: 'Heading',
+          ),
+          LabeledField(
+              label: 'Text Field',
+              child: DigitTextFormInput(
+                controller: TextEditingController(),
+              )),
+          const SizedBox(height: 8,),
+          const DigitDivider(),
+          const TextChunk(
+            subHeading: 'Add your start and end dates for cycles',
+          ),
+          FileUploadWidget2(
+            label: 'Upload', onFilesSelected: (file){
+              return {};
+          },
+          ),
+        ],
+      ),
+    ),
+    Story(
+      name: 'Molecule/Card/View Card',
+      builder: (context) => DigitCard(
+        cardType: CardType.primary,
+        children: [
+          const TextChunk(
+            heading: 'Heading',
+          ),
+          const DigitDivider(),
+          TextChunk(
+            padding: const EdgeInsets.only(top: 8),
+            subHeading: 'Details', subHeadingStyle: TextStyle(fontSize: 24,
+              fontWeight: FontWeight.w700,
+              fontFamily: 'Roboto',
+              height: 1.14, color: const DigitColors().light.primary2),
+          ),
+          LabelValueList(
+            padding: const EdgeInsets.only(bottom: 8),
+            items: [
+              LabelValuePair(label: 'start date', value: '22/03/2025'),
+              LabelValuePair(label: 'start date', value: '22/03/2025'),
+              LabelValuePair(label: 'start date', value: '22/03/2025'),
+              LabelValuePair(label: 'start date', value: '22/03/2025'),
+              LabelValuePair(label: 'start date', value: '22/03/2025'),
+            ],
+          ),
+          const DigitDivider(),
+          TextChunk(
+            padding: const EdgeInsets.only(top: 8),
+            subHeading: 'Add your start and end dates for cycles', subHeadingStyle: TextStyle(fontSize: 24,
+              fontWeight: FontWeight.w700,
+              fontFamily: 'Roboto',
+              height: 1.14, color: const DigitColors().light.primary2),
+          ),
+          FileUploadWidget2(
+            label: 'Upload', onFilesSelected: (file){
+              return {};
+          },
+          ),
         ],
       ),
     ),
