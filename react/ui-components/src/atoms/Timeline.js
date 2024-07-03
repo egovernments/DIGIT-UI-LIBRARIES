@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { SVG } from "./SVG";
 import StringManipulator from "./StringManipulator";
+import Button from "./Button";
 
 const Timeline = ({
   label,
@@ -14,15 +15,16 @@ const Timeline = ({
   showConnector,
   className,
   isLastStep,
-  isNextActiveStep
+  isNextActiveStep,
+  showDefaultValueForDate,
 }) => {
   const [showDetails, setShowDetails] = useState(false);
 
   const [isMobileView, setIsMobileView] = React.useState(
-    (window.innerWidth / window.innerHeight <= 9/16)
+    window.innerWidth / window.innerHeight <= 9 / 16
   );
   const onResize = () => {
-    if (window.innerWidth / window.innerHeight <= 9/16) {
+    if (window.innerWidth / window.innerHeight <= 9 / 16) {
       if (!isMobileView) {
         setIsMobileView(true);
       }
@@ -45,11 +47,6 @@ const Timeline = ({
 
   const toggleDetails = () => {
     setShowDetails(!showDetails);
-  };
-
-  // Define details button style
-  const getDetailsButtonStyle = () => {
-    return showDetails ? "details-btn details-btn-open" : "details-btn";
   };
 
   const hasAdditionalElements =
@@ -77,15 +74,21 @@ const Timeline = ({
           </div>
         )}
       </div>
-      {showConnector && !isLastStep && <div className={`connector-line ${variant || ""} ${isNextActiveStep ? "nextActiveStep": "" }`} />}
-      <div className="timeline-content">
+      {showConnector && !isLastStep && (
+        <div
+          className={`connector-line ${variant || ""} ${
+            isNextActiveStep ? "nextActiveStep" : ""
+          }`}
+        />
+      )}
+      <div className={`timeline-content ${isLastStep ? "lastTimeline" : ""}`}>
         <div className="timeline-info">
           <div className="timeline-label">
             {label
               ? StringManipulator("CAPITALIZEFIRSTLETTER", label)
               : defaultLabel}
           </div>
-          {subElements && subElements.length > 0 ? (
+          {subElements && subElements.length > 0 && (
             <div className="timeline-subelements">
               {subElements.map((element, index) => (
                 <div className="timeline-date" key={index}>
@@ -93,7 +96,8 @@ const Timeline = ({
                 </div>
               ))}
             </div>
-          ) : (
+          )}
+          {showDefaultValueForDate && (
             <div className="timeline-date">{"date"}</div>
           )}
           <div className="timeline-divider"></div>
@@ -118,29 +122,26 @@ const Timeline = ({
           </div>
         )}
         {hasAdditionalElements && (
-          <div className="timeline-toggle-details" onClick={toggleDetails} >
-            <button className={getDetailsButtonStyle()}>
-              {showDetails
-                ? hideDetailsLabel
-                  ? StringManipulator("CAPITALIZEFIRSTLETTER", hideDetailsLabel)
-                  : "Hide Details"
-                : viewDetailsLabel
-                ? StringManipulator("CAPITALIZEFIRSTLETTER", viewDetailsLabel)
-                : "View Details"}
-            </button>
-            {showDetails ? (
-              <SVG.ArrowDropUp
-                width="24px"
-                height="24px"
-                fill="#C84C0E"
-              ></SVG.ArrowDropUp>
-            ) : (
-              <SVG.ArrowDropDown
-                width="24px"
-                height="24px"
-                fill="#C84C0E"
-              ></SVG.ArrowDropDown>
-            )}
+          <div className="timeline-toggle-details" onClick={toggleDetails}>
+            <Button
+              label={
+                showDetails
+                  ? hideDetailsLabel
+                    ? StringManipulator(
+                        "CAPITALIZEFIRSTLETTER",
+                        hideDetailsLabel
+                      )
+                    : "Hide Details"
+                  : viewDetailsLabel
+                  ? StringManipulator("CAPITALIZEFIRSTLETTER", viewDetailsLabel)
+                  : "View Details"
+              }
+              variation={"link"}
+              icon={showDetails ? "ArrowDropUp" : "ArrowDropDown"}
+              size={"medium"}
+              isSuffix={true}
+              style={{ paddingLeft: "unset" }}
+            ></Button>
           </div>
         )}
       </div>

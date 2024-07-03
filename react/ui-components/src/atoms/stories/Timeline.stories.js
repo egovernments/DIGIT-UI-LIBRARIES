@@ -34,6 +34,9 @@ export default {
     },
     showConnector:{
       control:{type:"boolean"}
+    },
+    showDefaultValueForDate:{
+      control:{type:"boolean"}
     }
   },
 };
@@ -106,6 +109,13 @@ const subElements = [
 
 const subElementWithDate = [ "26 / 03 / 2024" ];
 
+// Upcoming Timeline Without subElements
+export const Upcoming = Template.bind({});
+Upcoming.args = {
+  label: "Upcoming",
+  subElements: [],
+  variant: "upcoming"
+};
 
 // Upcoming Timeline Without AdditionalElements
 export const UpcomingDefault = Template.bind({});
@@ -132,6 +142,14 @@ UpcomingWithConnector.args = {
   subElements: subElements,
   additionalElements: additionalElements,
   showConnector:true
+};
+
+// InProgress Timeline Without subElements
+export const InProgress = Template.bind({});
+InProgress.args = {
+  label: "Inprogress",
+  subElements: [],
+  variant: "inprogress"
 };
 
 // InProgress Timeline Without AdditionalElements
@@ -161,6 +179,13 @@ InProgressWithConnector.args = {
   showConnector:true
 };
 
+// Completed Timeline Without subElements
+export const Completed = Template.bind({});
+Completed.args = {
+  label: "Completed",
+  subElements: [],
+  variant: "completed"
+};
 
 // Completed Timeline Without AdditionalElements
 export const CompletedDefault = Template.bind({});

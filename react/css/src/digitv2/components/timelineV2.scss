@@ -98,15 +98,6 @@ img {
   @apply max-w-full;
 }
 
-.details-btn {
-  @extend .typography.link;
-  @apply text-left;
-  background-color: transparent;
-  border: none;
-  color: theme(digitv2.lightTheme.primary-1);
-  padding: theme(digitv2.spacers.spacer0);
-}
-
 /* Circle Variants */
 .timeline-circle,
 .timeline-circle.upcoming {
@@ -152,8 +143,29 @@ img {
 
 .digit-timeline-molecule{
   @apply max-h-full;
+
+  .timeline-content:not(.lastTimeline){
+
+    @media (min-aspect-ratio: 3/4) {
+      /* Media query for desktop */
+      margin-bottom: theme(digitv2.spacers.spacer6);
+    }
+
+    @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+      /* Media query for tablets */
+      margin-bottom: theme(digitv2.spacers.spacer5);
+    }
+    @media (max-aspect-ratio: 9/16) {
+      /* Media query for mobile */
+      margin-bottom: theme(digitv2.spacers.spacer4);
+    }
+  }
 }
 
-.view-more-container {
+.view-more-past-container {
   margin-top: theme(digitv2.spacers.spacer4);
+}
+
+.view-more-future-container {
+  margin-bottom: theme(digitv2.spacers.spacer4);
 }
