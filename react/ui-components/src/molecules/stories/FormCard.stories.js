@@ -111,7 +111,7 @@ export const ExampleFormCard = () => {
   };
 
   return (
-    <Card type={"primary"}>
+    <Card type={"primary"} variant={"form"}>
       <TextBlock header={"Enter Details"}></TextBlock>
       <LabelFieldPair>
         <TextBlock style={textBlockStyle} body={"Name"}></TextBlock>
@@ -228,7 +228,7 @@ export const ExampleFormCard = () => {
 };
 
 export const SecondaryCardInsidePrimary = () => (
-  <Card type={"primary"}>
+  <Card type={"primary"} variant={"form"}>
     <div
       style={{
         maxWidth: "100%",
