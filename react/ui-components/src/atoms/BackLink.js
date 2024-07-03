@@ -41,21 +41,21 @@ const BackLink = ({
       <SVG.DoubleArrow
         width={isMobileView ? "1.25rem" : "1.5rem"}
         height={isMobileView ? "1.25rem" : "1.5rem"}
-        fill={iconFill ? iconFill : disabled ? "#C5C5C5": "#C84C0E"}
+        fill={iconFill ? iconFill : disabled ? "#C5C5C5": "#0B4B66"}
         style={{ transform: "rotate(180deg)" }}
       ></SVG.DoubleArrow>
     ) : variant === "secondary" ? (
       <SVG.ArrowCircleDown
         width={isMobileView ? "1.25rem" : "1.5rem"}
         height={isMobileView ? "1.25rem" : "1.5rem"}
-        fill={iconFill ? iconFill : disabled ? "#C5C5C5": "#C84C0E"}
+        fill={iconFill ? iconFill : disabled ? "#C5C5C5": "#0B4B66"}
         style={{ transform: "rotate(90deg)" }}
       ></SVG.ArrowCircleDown>
     ) : (
       <SVG.ArrowLeft
         width={isMobileView ? "1.25rem" : "1.5rem"}
         height={isMobileView ? "1.25rem" : "1.5rem"}
-        fill={iconFill ? iconFill : disabled ? "#C5C5C5": "#C84C0E"}
+        fill={iconFill ? iconFill : disabled ? "#C5C5C5": "#0B4B66"}
       ></SVG.ArrowLeft>
     );
   return (
