@@ -1,4 +1,4 @@
-import React, {useState } from "react";
+import React, { useState} from "react";
 import PropTypes from "prop-types";
 import TextInput from "./TextInput";
 
@@ -88,7 +88,11 @@ const Menu = (props) => {
 
 Menu.propTypes = {
   options: PropTypes.array,
-  onSelect: PropTypes.func,
+  showBottom: PropTypes.bool,
+  isSearchable: PropTypes.bool,
+  style: PropTypes.object,
+  optionsKey: PropTypes.string.isRequired,
+  onSelect: PropTypes.func.isRequired
 };
 
 Menu.defaultProps = {

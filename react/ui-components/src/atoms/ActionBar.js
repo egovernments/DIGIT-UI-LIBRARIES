@@ -20,7 +20,7 @@ const ActionBar = (props) => {
       onResize();
     });
     return () => {
-      window.addEventListener("resize", () => {
+      window.removeEventListener("resize", () => {
         onResize();
       });
     };
