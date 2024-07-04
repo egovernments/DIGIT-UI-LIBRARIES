@@ -1,6 +1,6 @@
 name: digit_ui_components
 description: Digit UI Design specification
-version: 0.0.2-beta
+version: 0.0.1+5
 homepage: https://github.com/egovernments/DIGIT-UI-LIBRARIES/tree/master/flutter/digit-ui-components
 
 environment:
@@ -9,6 +9,8 @@ environment:
 
 dependencies:
   flutter:
+    sdk: flutter
+  flutter_localizations:
     sdk: flutter
   flutter_bloc: ^8.1.1
   freezed_annotation: ^2.2.0
@@ -26,12 +28,21 @@ dependencies:
   reactive_flutter_typeahead: ^0.8.1
   flutter_typeahead: ^4.3.7
   overlay_builder: ^1.1.0
-  package_info_plus: ^4.1.0
-  easy_stepper: ^0.5.2+1
   intl: ^0.18.1
   geolocator: ^10.1.0
   collection: ^1.15.0
-
+  flutter_styled_toast: ^2.2.1
+  flutter_svg: ^2.0.10+1
+  url_launcher: 6.2.6
+  file_picker: ^8.0.0+1
+  flutter_dropzone: ^3.0.7
+  image_picker: ^1.0.8
+  dotted_border: ^2.1.0
+  camera: ^0.10.5+9
+  path_provider: ^2.0.11
+  visibility_detector: 0.4.0+2
+  lottie: 3.1.2
+  universal_html: 2.2.4
 
 
 dev_dependencies:
@@ -46,6 +57,7 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/svg/
+    - assets/animated_json/
   fonts:
     - family: Roboto
       fonts:
@@ -58,7 +70,3 @@ flutter:
     - family: Roboto Bold
       fonts:
         - asset: assets/fonts/Roboto/Roboto-Bold.ttf
-
-    - family: TextArea
-      fonts:
-        - asset: assets/fonts/TextArea.ttf

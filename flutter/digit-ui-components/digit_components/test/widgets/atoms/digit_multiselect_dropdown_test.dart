@@ -1,6 +1,4 @@
 import 'package:digit_ui_components/digit_components.dart';
-import 'package:digit_ui_components/enum/app_enums.dart';
-import 'package:digit_ui_components/models/DropdownModels.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -125,7 +123,7 @@ void main() {
               DropdownItem(name: 'Item 4', code: '4', type: 'Type B'),
               DropdownItem(name: 'Item 5', code: '5', type: 'Type B'),
             ],
-            selectionType: SelectionType.nestedMultiSelect,
+            selectionType: SelectionType.nestedSelect,
           ),
         ),
       ),

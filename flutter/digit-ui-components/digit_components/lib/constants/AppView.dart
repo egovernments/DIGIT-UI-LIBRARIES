@@ -1,20 +1,20 @@
-class AppSizes {
-  /// Define breakpoints for different views
-  static const double mobileViewWidth = 400.0;
-  static const double tabletViewWidth = 768.0;
-}
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class AppView {
-  /// Determine the current view based on the screen width
-  static bool isMobileView(double screenWidth) {
-    return screenWidth <= AppSizes.mobileViewWidth;
+  /// Determine the current view based on the screen aspect ratio
+  static bool isMobileView(Size screenSize) {
+    double aspectRatio = screenSize.aspectRatio;
+    return aspectRatio <= 9 / 16; /// Landscape or square aspect ratio
   }
 
-  static bool isTabletView(double screenWidth) {
-    return screenWidth > AppSizes.mobileViewWidth && screenWidth <= AppSizes.tabletViewWidth;
+  static bool isTabletView(Size screenSize) {
+    double aspectRatio = screenSize.aspectRatio;
+    return aspectRatio > 9 / 16 && aspectRatio <= 3 / 4; /// Portrait aspect ratio
   }
 
-  static bool isDesktopView(double screenWidth) {
-    return screenWidth >= AppSizes.tabletViewWidth;
+  static bool isDesktopView(Size screenSize) {
+    double aspectRatio = screenSize.aspectRatio;
+    return aspectRatio > 3 / 4; /// Landscape or square aspect ratio
   }
 }

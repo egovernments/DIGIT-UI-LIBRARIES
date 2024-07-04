@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 class DateSelectionBloc {
   Future<void> selectDate({
     required BuildContext context, DateTime? firstDate, DateTime? lastDate, DateTime? initialDate,
-    required TextEditingController controller,
+    required TextEditingController controller, String? cancelText, String? confirmText,
     DateFormat? dateFormat, /// Added parameter for custom date format
   }) async {
     DateTime? selectedDate = await showDatePicker(
@@ -12,6 +12,8 @@ class DateSelectionBloc {
       initialDate: initialDate ?? DateTime.now(),
       firstDate: firstDate ?? DateTime(2000),
       lastDate: lastDate ?? DateTime(2101),
+      cancelText: cancelText,
+      confirmText: confirmText,
     );
     if (selectedDate != null) {
       String formattedDate =

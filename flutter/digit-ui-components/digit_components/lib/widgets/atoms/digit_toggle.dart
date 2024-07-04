@@ -2,7 +2,6 @@ import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/material.dart';
 
 /// Toggle is a custom toggle button widget that provides visual feedback on hover and supports selection.
-
 class Toggle extends StatefulWidget {
   final void Function(bool isSelected) onChanged;
   final String label;
@@ -44,7 +43,7 @@ class _ToggleState extends State<Toggle> {
   @override
   Widget build(BuildContext context) {
     /// typography based on screen
-    DigitTypography currentTypography = getTypography(context);
+    DigitTypography currentTypography = getTypography(context, false);
 
     /// Capitalize the first letter of the label if required
     final processedLabel = capitalizeFirstLetterOfEveryWord(widget.label);
@@ -84,25 +83,23 @@ class _ToggleState extends State<Toggle> {
             }
           },
           child: Container(
-            height: 32,
-            width: widget.maxLabelWidth + 40,
-            padding: widget.isSelected
-                ? const EdgeInsets.all(2.0)
-                : const EdgeInsets.symmetric(horizontal: 2.0),
+            height: spacer8,
+            width: widget.maxLabelWidth + spacer12 + spacer1,
+            padding: const EdgeInsets.symmetric(horizontal: spacer3),
             constraints: const BoxConstraints(
-              minWidth: 40,
+              minWidth: spacer10,
               maxWidth: 200,
             ),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.zero,
               border: Border.all(
                 color: (isHovered || widget.isSelected || isMouseDown)
-                    ? const DigitColors().light.primaryOrange
+                    ? const DigitColors().light.primary1
                     : const DigitColors().light.genericDivider,
-                width: 1.0,
+                width: Base.defaultBorderWidth,
               ),
               color: widget.isSelected
-                  ? const DigitColors().light.primaryOrange
+                  ? const DigitColors().light.primary1
                   : const DigitColors().light.paperPrimary,
               boxShadow: [
                 BoxShadow(
@@ -129,14 +126,12 @@ class _ToggleState extends State<Toggle> {
                     style: widget.isSelected
                         ? currentTypography.headingS.copyWith(
                             height: 1.5,
-                            fontWeight: FontWeight.w700,
                             color: const DigitColors().light.paperPrimary,
                             overflow: TextOverflow.ellipsis,
                           )
                         : currentTypography.bodyXS.copyWith(
-                            height: 1.25,
                             color: (isHovered || isMouseDown)
-                                ? const DigitColors().light.primaryOrange
+                                ? const DigitColors().light.primary1
                                 : const DigitColors().light.textDisabled,
                             overflow: TextOverflow.ellipsis,
                           ),

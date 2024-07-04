@@ -1,28 +1,30 @@
-/*`Button` is a customizable button widget that supports various styles and states.
+///`Button` is a customizable button widget that supports various styles and states.
+/// This widget provides options for primary, secondary, tertiary, and link button types.
+///It handles hover effects, disabled state, and different icon placements.
+///button comes with different sizes also-- large, medium and small
 
- This widget provides options for primary, secondary, tertiary, and link button types.
- It handles hover effects, disabled state, and different icon placements.
-
-Example usage:
-```dart
- Button(
-   label: 'Click me',
-   onPressed: () {
-    // Handle button press
-   },
-   type: ButtonType.primary,
-   prefixIcon: Icons.star,
-   suffixIcon: Icons.arrow_forward,
-   isDisabled: false,
-   contentPadding: ButtonConstants.defaultContentPadding,
-   iconSize: ButtonConstants.defaultIconSize,
- )
- ```*/
+///Example usage:
+///```dart
+/// Button(
+///   label: 'Click me',
+///   onPressed: () {
+///    // Handle button press
+///   },
+///   size: ButtonSize.large
+///   type: ButtonType.primary,
+///   prefixIcon: Icons.star,
+///   suffixIcon: Icons.arrow_forward,
+///   isDisabled: false,
+/// )
+/// ```
 
 import 'package:digit_ui_components/digit_components.dart';
+import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:flutter/material.dart';
 import '../../constants/app_constants.dart';
 import '../../enum/app_enums.dart';
+import '../../theme/ComponentTheme/button_theme.dart';
+import '../../utils/utils.dart';
 
 class Button extends StatefulWidget {
   /// The text displayed on the button, representing the button's label or content.
@@ -34,35 +36,38 @@ class Button extends StatefulWidget {
   /// Specifies the type or style of the button (primary, secondary, tertiary, or link).
   final ButtonType type;
 
+  /// Specifies the size of the button (large, medium, small).
+  final ButtonSize size;
+
   /// Icon to be displayed before the label text. Can be null if no prefix icon is needed.
   final IconData? prefixIcon;
 
   /// Icon to be displayed after the label text. Can be null if no suffix icon is needed.
   final IconData? suffixIcon;
 
+  final DigitButtonThemeData? buttonThemeData;
+
   /// Indicates whether the button is in a disabled state. If true, the button is disabled and cannot be interacted with.
   final bool isDisabled;
-
-  /// button width
-  final double width;
-
-  /// Padding around the content of the button (label and icons).
-  final EdgeInsetsGeometry contentPadding;
-
-  /// Size of the icons (prefixIcon and suffixIcon) displayed on the button in logical pixels.
-  final double iconSize;
+  final bool capitalizeLetters;
+  final MainAxisAlignment? mainAxisAlignment;
+  final CrossAxisAlignment? crossAxisAlignment;
+  final MainAxisSize? mainAxisSize;
 
   const Button({
     Key? key,
     required this.label,
     required this.onPressed,
     required this.type,
+    required this.size,
     this.prefixIcon,
     this.suffixIcon,
     this.isDisabled = false,
-    this.width = 400,
-    this.contentPadding = ButtonConstants.defaultContentPadding,
-    this.iconSize = ButtonConstants.defaultIconSize,
+    this.buttonThemeData,
+    this.capitalizeLetters = true,
+    this.mainAxisAlignment,
+    this.crossAxisAlignment,
+    this.mainAxisSize,
   }) : super(key: key);
 
   @override
@@ -72,282 +77,261 @@ class Button extends StatefulWidget {
 class _ButtonState extends State<Button> {
   bool isHovered = false;
   bool isMouseDown = false;
-  late DigitTypography _currentTypography;
+  bool isFocused = false;
+  late TextStyle buttonStyle;
+  late TextStyle linkStyle;
+  late double buttonIconSize;
+  late double linkIconSize;
 
   @override
   Widget build(BuildContext context) {
-    /// typography based on screen
-    _currentTypography = getTypography(context);
+    final theme = Theme.of(context);
+    final DigitButtonThemeData buttonThemeData = widget.buttonThemeData ??
+        theme.extension<DigitButtonThemeData>() ??
+        DigitButtonThemeData.defaultTheme(context);
 
-    return widget.isDisabled
-        ? _buildButtonWidget()
+    switch (widget.size) {
+      case ButtonSize.small:
+        buttonStyle = buttonThemeData.smallButtonTextStyle;
+        linkStyle = buttonThemeData.smallLinkTextStyle;
+        buttonIconSize = buttonThemeData.smallIconSize;
+        linkIconSize = buttonThemeData.smallLinkIconSize;
+        break;
+      case ButtonSize.medium:
+        buttonStyle = buttonThemeData.mediumButtonTextStyle;
+        linkStyle = buttonThemeData.mediumLinkTextStyle;
+        buttonIconSize = buttonThemeData.mediumIconSize;
+        linkIconSize = buttonThemeData.mediumLinkIconSize;
+        break;
+      case ButtonSize.large:
+        buttonStyle = buttonThemeData.largeButtonTextStyle;
+        linkStyle = buttonThemeData.largeLinkTextStyle;
+        buttonIconSize = buttonThemeData.largeIconSize;
+        linkIconSize = buttonThemeData.largeLinkIconSize;
+        break;
+    }
 
-        /// If disabled, don't use MouseRegion
-        : MouseRegion(
-            onEnter: (_) {
-              setState(() {
-                isHovered = true;
-              });
-            },
-            onExit: (_) {
-              setState(() {
-                isHovered = false;
-              });
-            },
-            child: _buildButtonWidget(),
-          );
+    return _buildButtonWidget(context, buttonThemeData);
   }
 
   /// Build the button widget based on its type and state.
-  Widget _buildButtonWidget() {
+  Widget _buildButtonWidget(
+      BuildContext context, DigitButtonThemeData buttonThemeData) {
     if (widget.type == ButtonType.primary ||
         widget.type == ButtonType.secondary) {
-      if (widget.isDisabled) {
-        return Container(
-          width: widget.width,
-          constraints: const BoxConstraints(
-            minWidth: 32.0,
-            minHeight: 32.0,
-          ),
+      return InkWell(
+        highlightColor: buttonThemeData.hightlightColor,
+        hoverColor: buttonThemeData.hoverColor,
+        splashColor: buttonThemeData.splashColor,
+        focusColor: buttonThemeData.focusColor,
+        onFocusChange: (value) {
+          setState(() {
+            isFocused = value;
+          });
+        },
+        onTapDown: widget.isDisabled
+            ? null
+            : (_) {
+                /// Handle mouse down state
+                setState(() {
+                  isMouseDown = true;
+                });
+              },
+        onTapUp: widget.isDisabled
+            ? null
+            : (_) {
+                /// Handle mouse up state
+                setState(() {
+                  isMouseDown = false;
+                });
+              },
+        onHover: (hover) {
+          setState(() {
+            isHovered = hover;
+          });
+        },
+        onTap: widget.isDisabled
+            ? null
+            : () {
+                if (mounted) {
+                  widget.onPressed();
+                }
+              },
+        child: Container(
+          height: widget.size == ButtonSize.large
+              ? buttonThemeData.largeButtonHeight
+              : widget.size == ButtonSize.medium
+                  ? buttonThemeData.mediumButtonHeight
+                  : buttonThemeData.smallButtonHeight,
           decoration: BoxDecoration(
-            boxShadow: widget.type == ButtonType.primary && isHovered == false
-                    ? [
-                        BoxShadow(
-                          color:  const DigitColors().light.textPrimary.withOpacity(.5),
-                          offset: const Offset(0, 2),
-                          spreadRadius: 0,
-                          blurRadius: 0,
-                        ),
-                      ]
+            boxShadow: (isMouseDown)
+                ? widget.type == ButtonType.primary
+                    ? buttonThemeData.primaryButtonMouseDownBoxShadow
+                    : buttonThemeData.buttonMouseDownBoxShadow
+                : isHovered || isFocused
+                    ? widget.type == ButtonType.primary
+                        ? buttonThemeData.primaryButtonHoverBoxShadow
+                        : buttonThemeData.buttonHoverBoxShadow
                     : [],
-            borderRadius: BorderRadius.zero,
+            borderRadius: buttonThemeData.radius,
             border: Border.all(
               color: widget.isDisabled
-                  ? ButtonConstants.defaultDisabledColor
-                  : isMouseDown
-                      ? ButtonConstants.defaultPrimaryColor
-                      : isHovered
-                          ? const DigitColors().light.primaryOrange
-                          : ButtonConstants.defaultPrimaryColor,
-              width: isHovered
-                  ? widget.type == ButtonType.secondary
-                      ? ButtonConstants.defaultHoverWidth
-                      : ButtonConstants.defaultWidth
-                  : ButtonConstants.defaultWidth,
+                  ? buttonThemeData.disabledColor
+                  : buttonThemeData.buttonColor,
+              width: buttonThemeData.borderWidth,
             ),
             color: widget.type == ButtonType.primary
                 ? (widget.isDisabled
-                    ? ButtonConstants.defaultDisabledColor
-                    : isHovered
-                        ? isMouseDown
-                            ? const DigitColors().light.primaryOrange
-                            : const DigitColors().darkPrimaryOrange
-                        : const DigitColors().light.primaryOrange)
-                : const DigitColors().light.paperPrimary,
+                    ? buttonThemeData.disabledColor
+                    : buttonThemeData.buttonColor)
+                : buttonThemeData.primaryButtonColor,
           ),
-          child: _buildButton(),
-        );
-      } else {
-        return InkWell(
-          onTapDown: (_) {
-            /// Handle mouse down state
-            setState(() {
-              isMouseDown = true;
-            });
-          },
-          onTapUp: (_) {
-            /// Handle mouse up state
-            setState(() {
-              isMouseDown = false;
-            });
-          },
-          onTap: widget.isDisabled
-              ? null
-              : () {
-                  if (mounted) {
-                    widget.onPressed();
-                  }
-                },
-          splashColor: const DigitColors().transparent,
-          hoverColor: const DigitColors().transparent,
-          child: Container(
-            width: widget.width,
-            constraints: const BoxConstraints(
-              minWidth: 32.0,
-              minHeight: 32.0,
-            ),
-            decoration: BoxDecoration(
-              boxShadow: (isMouseDown)
-                  ? [
-                      BoxShadow(
-                        color: const DigitColors().light.primaryOrange,
-                        offset: const Offset(0, 0),
-                        spreadRadius: 0,
-                        blurRadius: 4.50,
-                      ),
-                    ]
-                  : widget.type == ButtonType.primary && isHovered == false
-                      ? [
-                          BoxShadow(
-                            color: const DigitColors().light.textPrimary,
-                            offset: const Offset(0, 2),
-                            spreadRadius: 0,
-                            blurRadius: 0,
-                          ),
-                        ]
-                      : [],
-              borderRadius: BorderRadius.zero,
-              border: Border.all(
-                color: widget.isDisabled
-                    ? ButtonConstants.defaultDisabledColor
-                    : isMouseDown
-                        ? ButtonConstants.defaultPrimaryColor
-                        : isHovered
-                            ? const DigitColors().light.primaryOrange
-                            : ButtonConstants.defaultPrimaryColor,
-                width: isHovered
-                    ? widget.type == ButtonType.secondary
-                        ? ButtonConstants.defaultHoverWidth
-                        : ButtonConstants.defaultWidth
-                    : ButtonConstants.defaultWidth,
-              ),
-              color: widget.type == ButtonType.primary
-                  ? (widget.isDisabled
-                      ? ButtonConstants.defaultDisabledColor
-                      : isHovered
-                          ? isMouseDown
-                              ? const DigitColors().light.primaryOrange
-                              : const DigitColors().darkPrimaryOrange
-                          : const DigitColors().light.primaryOrange)
-                  : const DigitColors().light.paperPrimary,
-            ),
-            child: _buildButton(),
-          ),
-        );
-      }
+          child: _buildButton(
+              isHovered, isMouseDown, isFocused, buttonThemeData, context),
+        ),
+      );
     } else {
-      if (widget.isDisabled) {
-        return _buildButton();
-      } else {
-        return InkWell(
-          onTap: widget.isDisabled
-              ? null
-              : () {
-                  if (mounted) {
-                    widget.onPressed();
-                  }
-                },
-          hoverColor: const DigitColors().transparent,
-          splashColor: const DigitColors().transparent,
-          highlightColor: const DigitColors().transparent,
-          child: IntrinsicWidth(
-            child: _buildButton(),
-          ),
-        );
-      }
+      return InkWell(
+        highlightColor: buttonThemeData.hightlightColor,
+        hoverColor: buttonThemeData.hoverColor,
+        splashColor: buttonThemeData.splashColor,
+        focusColor: buttonThemeData.focusColor,
+        onFocusChange: (value) {
+          setState(() {
+            isFocused = value;
+          });
+        },
+        onTap: widget.isDisabled
+            ? null
+            : () {
+                if (mounted) {
+                  widget.onPressed();
+                }
+              },
+        onHover: widget.isDisabled
+            ? null
+            : (hover) {
+                setState(() {
+                  isHovered = hover;
+                });
+              },
+        onTapDown: widget.isDisabled
+            ? null
+            : (_) {
+                setState(() {
+                  isMouseDown = true;
+                });
+              },
+        onTapUp: widget.isDisabled
+            ? null
+            : (_) {
+                setState(() {
+                  isMouseDown = false;
+                });
+              },
+        child: _buildButton(
+            isHovered, isMouseDown, isFocused, buttonThemeData, context),
+      );
     }
   }
 
   /// Build the content of the button, including label and icons.
-  Widget _buildButton() {
+  Widget _buildButton(bool isHovered, bool isMouseDown, bool isFocused,
+      DigitButtonThemeData buttonThemeData, BuildContext context) {
     String truncatedLabel = widget.label;
+    final theme = Theme.of(context);
 
     /// Truncate label if it exceeds 64 characters &&  Capitalize the first letter of the label
     if (widget.type != ButtonType.link) {
       if (widget.label.length > 64) {
-        truncatedLabel = '${widget.label.substring(0, 64)}...';
+        truncatedLabel = truncateWithEllipsis(64, widget.label);
       }
 
-      truncatedLabel = truncatedLabel.isEmpty
+      truncatedLabel = truncatedLabel.isEmpty || !widget.capitalizeLetters
           ? truncatedLabel
-          : truncatedLabel[0].toUpperCase() + truncatedLabel.substring(1);
+          : capitalizeFirstLetterOfEveryWord(truncatedLabel);
     }
-    return Padding(
-      padding:
-          widget.type == ButtonType.link || widget.type == ButtonType.tertiary
-              ? const EdgeInsets.only(left: kPadding, right: kPadding, bottom: kPadding)
-              : isHovered && widget.type == ButtonType.secondary
-                  ? const EdgeInsets.only(
-                      left: 24.0, top: 6.0, right: 24.0, bottom: 8.0)
-                  : widget.contentPadding,
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          if (widget.prefixIcon != null) ...[
-            Column(
-              children: [
-                if (widget.type == ButtonType.secondary ||
-                    widget.type == ButtonType.primary)
-                  const SizedBox(
-                    height: 3,
-                  ),
-                Icon(
-                  widget.prefixIcon,
-                  size: widget.type == ButtonType.link ? 20 : widget.iconSize,
-                  color: widget.type == ButtonType.primary
-                      ? ButtonConstants.defaultTextColor
-                      : (widget.isDisabled
-                          ? ButtonConstants.defaultDisabledColor
-                          : ButtonConstants.defaultPrimaryColor),
-                ),
-              ],
+    return Container(
+      color: isFocused && widget.type == ButtonType.tertiary
+          ? theme.colorTheme.primary.primaryBg
+          : theme.colorTheme.generic.transparent,
+      child: Padding(
+        padding:
+            widget.type == ButtonType.link || widget.type == ButtonType.tertiary
+                ? buttonThemeData.linkPadding
+                : buttonThemeData.padding,
+        child: Row(
+          mainAxisSize: widget.mainAxisSize ?? MainAxisSize.min,
+          mainAxisAlignment:
+              widget.mainAxisAlignment ?? MainAxisAlignment.center,
+          crossAxisAlignment:
+              widget.crossAxisAlignment ?? CrossAxisAlignment.center,
+          children: [
+            if (widget.prefixIcon != null) ...[
+              Icon(
+                widget.prefixIcon,
+                size: widget.type == ButtonType.link
+                    ? linkIconSize
+                    : buttonIconSize,
+                color: widget.type == ButtonType.primary
+                    ? buttonThemeData.primaryButtonColor
+                    : (widget.isDisabled
+                        ? buttonThemeData.disabledColor
+                        : buttonThemeData.buttonColor),
+              ),
+              SizedBox(
+                  width: widget.type == ButtonType.link ||
+                          widget.size == ButtonSize.small
+                      ? theme.spacerTheme.spacer1
+                      : theme.spacerTheme.spacer2),
+            ],
+            Flexible(
+              child: Text(
+                truncatedLabel,
+                textAlign: TextAlign.center,
+                style: widget.type == ButtonType.link
+                    ? linkStyle.copyWith(
+                        color: widget.isDisabled
+                            ? buttonThemeData.disabledColor
+                            : buttonThemeData.buttonColor,
+                        decoration: TextDecoration.underline,
+                        decorationColor: widget.isDisabled
+                            ? buttonThemeData.disabledColor
+                            : buttonThemeData.buttonColor,
+                        decorationThickness: isHovered || isFocused ? 2 : 1,
+                      )
+                    : buttonStyle.copyWith(
+                        fontWeight:
+                            isMouseDown ? FontWeight.w700 : FontWeight.w500,
+                        color: widget.type == ButtonType.primary
+                            ? buttonThemeData.primaryButtonColor
+                            : (widget.isDisabled
+                                ? buttonThemeData.disabledColor
+                                : buttonThemeData.buttonColor),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+              ),
             ),
-            SizedBox(
-                width:
-                    widget.type == ButtonType.link ? kPadding / 2 : kPadding),
+            if (widget.suffixIcon != null) ...[
+              SizedBox(
+                  width: widget.type == ButtonType.link ||
+                          widget.size == ButtonSize.small
+                      ? theme.spacerTheme.spacer1
+                      : theme.spacerTheme.spacer2),
+              Icon(
+                widget.suffixIcon,
+                size: widget.type == ButtonType.link
+                    ? linkIconSize
+                    : buttonIconSize,
+                color: widget.type == ButtonType.primary
+                    ? buttonThemeData.primaryButtonColor
+                    : (widget.isDisabled
+                        ? buttonThemeData.disabledColor
+                        : buttonThemeData.buttonColor),
+              ),
+            ],
           ],
-          Flexible(
-            child: Text(
-              truncatedLabel,
-              textAlign: TextAlign.center,
-              style: widget.type == ButtonType.link
-                  ? _currentTypography.link.copyWith(
-                      height: 1.172,
-                      color: widget.isDisabled
-                          ? ButtonConstants.defaultDisabledColor
-                          : ButtonConstants.defaultPrimaryColor,
-                      decoration: TextDecoration.underline,
-                      decorationColor: widget.isDisabled
-                          ? ButtonConstants.defaultDisabledColor
-                          : ButtonConstants.defaultPrimaryColor,
-                    )
-                  : _currentTypography.button.copyWith(
-                      height: 1.5,
-                      color: widget.type == ButtonType.primary
-                          ? ButtonConstants.defaultTextColor
-                          : (widget.isDisabled
-                              ? ButtonConstants.defaultDisabledColor
-                              : ButtonConstants.defaultPrimaryColor),
-                      overflow: TextOverflow.ellipsis,
-                    ),
-            ),
-          ),
-          if (widget.suffixIcon != null) ...[
-            SizedBox(
-                width:
-                    widget.type == ButtonType.link ? kPadding / 2 : kPadding),
-            Column(
-              children: [
-                if (widget.type == ButtonType.secondary ||
-                    widget.type == ButtonType.primary)
-                  const SizedBox(
-                    height: 3,
-                  ),
-                Icon(
-                  widget.suffixIcon,
-                  size: widget.type == ButtonType.link ? 20 : widget.iconSize,
-                  color: widget.type == ButtonType.primary
-                      ? ButtonConstants.defaultTextColor
-                      : (widget.isDisabled
-                          ? ButtonConstants.defaultDisabledColor
-                          : ButtonConstants.defaultPrimaryColor),
-                ),
-              ],
-            ),
-          ],
-        ],
+        ),
       ),
     );
   }

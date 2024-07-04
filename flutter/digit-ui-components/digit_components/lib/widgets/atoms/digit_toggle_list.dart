@@ -1,24 +1,23 @@
-/*
- ToggleList is a row of toggle buttons that allows selecting one item at a time.
+/// ToggleList is a row of toggle buttons that allows selecting one item at a time.
 
-  Example usage:
- ```dart
- ToggleList(
-  toggleButtons: [
-    ToggleButtonModel(name: 'Option 1', onSelected: () => print('Option 1 selected')),
-    ToggleButtonModel(name: 'Option 2', onSelected: () => print('Option 2 selected')),
-    // Add more ToggleButtonModel instances as needed
-  ],
-  onChanged: (selectedValues) {
-    // Handle the selected values if needed
-    print('Selected values: $selectedValues');
-  },
-  contentPadding: EdgeInsets.symmetric(horizontal: 16), // Optional content padding
-)
- ....*/
+///  Example usage:
+/// ```dart
+/// ToggleList(
+///  toggleButtons: [
+///    ToggleButtonModel(name: 'Option 1', onSelected: () => print('Option 1 selected')),
+///    ToggleButtonModel(name: 'Option 2', onSelected: () => print('Option 2 selected')),
+///    // Add more ToggleButtonModel instances as needed
+///  ],
+///  onChanged: (selectedValues) {
+/// Handle the selected values if needed
+///    print('Selected values: $selectedValues');
+///  },
+///  contentPadding: EdgeInsets.symmetric(horizontal: 16), // Optional content padding
+///)
 
 import 'dart:math';
 
+import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/material.dart';
 import '../../models/toggleButtonModel.dart';
 import '../../theme/digit_theme.dart';
@@ -64,9 +63,7 @@ class _ToggleListState extends State<ToggleList> {
     for (ToggleButtonModel button in widget.toggleButtons) {
       TextPainter textPainter = TextPainter(
         text: TextSpan(
-          text: button.name.length > 64
-              ? "${button.name.substring(0, 64)}..."
-              : button.name,
+          text: button.name,
           style: const TextStyle(),
         ),
         textDirection: TextDirection.ltr,
@@ -87,14 +84,14 @@ class _ToggleListState extends State<ToggleList> {
         (button) {
           final index = widget.toggleButtons.indexOf(button);
           return Padding(
-            padding: widget.contentPadding ??
-                const EdgeInsets.only(bottom: kPadding),
+            padding:
+                widget.contentPadding ?? const EdgeInsets.only(bottom: spacer2),
             child: Toggle(
               onChanged: (isSelected) {
                 setState(() {
                   if (isSelected) {
                     if (selectedIndex != index) {
-                      // Unselect the previously selected item
+                      /// Unselect the previously selected item
                       selectedIndex = index;
                       widget.onChanged(button);
                     }
@@ -104,9 +101,7 @@ class _ToggleListState extends State<ToggleList> {
                   }
                 });
               },
-              label: button.name.length > 64
-                  ? "${button.name.substring(0, 64)}..."
-                  : button.name,
+              label: button.name,
               isSelected: selectedIndex == index,
               maxLabelWidth: maxLabelWidth,
             ),

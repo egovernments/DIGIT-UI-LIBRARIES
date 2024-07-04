@@ -12,7 +12,6 @@ void main() {
           home: Scaffold(
             body: DigitNumericFormInput(
               controller: TextEditingController(),
-              label: 'Numeric Input',
               initialValue: '0',
               step: 1,
             ),
@@ -24,21 +23,21 @@ void main() {
       final numericInput = find.byType(DigitNumericFormInput);
 
       // Verify the initial value
-      expect((tester.widget(numericInput) as DigitNumericFormInput).controller.text, '0');
+      expect((tester.widget(numericInput) as DigitNumericFormInput).controller?.text, '0');
 
       // Tap on the suffix icon to increment value
       await tester.tap(find.byIcon(Icons.add));
       await tester.pump();
 
       // Verify that the value has been incremented
-      expect((tester.widget(numericInput) as DigitNumericFormInput).controller.text, '1');
+      expect((tester.widget(numericInput) as DigitNumericFormInput).controller?.text, '1');
 
       // Tap on the prefix icon to decrement value
       await tester.tap(find.byIcon(Icons.remove));
       await tester.pump();
 
       // Verify that the value has been decremented
-      expect((tester.widget(numericInput) as DigitNumericFormInput).controller.text, '0');
+      expect((tester.widget(numericInput) as DigitNumericFormInput).controller?.text, '0');
     });
 
     testWidgets('Numeric form input validates correctly', (WidgetTester tester) async {
@@ -48,7 +47,6 @@ void main() {
           home: Scaffold(
             body: DigitNumericFormInput(
               controller: controller,
-              label: 'Test Label',
               validations: [
                 Validator(ValidatorType.minValue, 2,
                     errorMessage: 'Value must be greater than or equal to 1'),
@@ -85,7 +83,6 @@ void main() {
           home: Scaffold(
             body: DigitNumericFormInput(
               controller: TextEditingController(),
-              label: 'Numeric Input',
               isDisabled: true,
             ),
           ),
@@ -104,7 +101,6 @@ void main() {
           home: Scaffold(
             body: DigitNumericFormInput(
               controller: TextEditingController(),
-              label: 'Numeric Input',
             ),
           ),
         ),
@@ -118,7 +114,7 @@ void main() {
       await tester.pump();
 
       // Verify that the value has been updated
-      expect((tester.widget(numericInput) as DigitNumericFormInput).controller.text, '42');
+      expect((tester.widget(numericInput) as DigitNumericFormInput).controller?.text, '42');
     });
 
     testWidgets('DigitNumericFormInput handles initial value', (WidgetTester tester) async {
@@ -129,7 +125,6 @@ void main() {
             body: DigitNumericFormInput(
               controller: TextEditingController(),
               initialValue: '42',
-              label: 'Numeric Input',
             ),
           ),
         ),
@@ -139,7 +134,7 @@ void main() {
       final numericInput = find.byType(DigitNumericFormInput);
 
       // Verify that the initial value is set correctly
-      expect((tester.widget(numericInput) as DigitNumericFormInput).controller.text, '42');
+      expect((tester.widget(numericInput) as DigitNumericFormInput).controller?.text, '42');
     });
 
     testWidgets('DigitNumericFormInput handles charCount', (WidgetTester tester) async {
@@ -149,7 +144,6 @@ void main() {
           home: Scaffold(
             body: DigitNumericFormInput(
               controller: TextEditingController(),
-              label: 'Numeric Input',
               charCount: true,
             ),
           ),
@@ -175,7 +169,6 @@ void main() {
           home: Scaffold(
             body: DigitNumericFormInput(
               controller: TextEditingController(),
-              label: 'Numeric Input',
             ),
           ),
         ),
@@ -189,7 +182,7 @@ void main() {
       await tester.pump();
 
       // Verify that the value has been updated
-      expect((tester.widget(numericInput) as DigitNumericFormInput).controller.text, '123');
+      expect((tester.widget(numericInput) as DigitNumericFormInput).controller?.text, '123');
     });
 
     testWidgets('DigitNumericFormInput handles onChanged callback', (WidgetTester tester) async {
@@ -201,7 +194,6 @@ void main() {
           home: Scaffold(
             body: DigitNumericFormInput(
               controller: TextEditingController(),
-              label: 'Numeric Input',
               onChange: (value) {
                 changedValue = value;
               },
@@ -228,7 +220,6 @@ void main() {
           home: Scaffold(
             body: DigitNumericFormInput(
               controller: TextEditingController(),
-              label: 'Numeric Input',
               readOnly: true,
               initialValue: '0',
             ),
@@ -244,7 +235,7 @@ void main() {
       await tester.pump();
 
       // Verify that the value has not changed
-      expect((tester.widget(numericInput) as DigitNumericFormInput).controller.text, '0');
+      expect((tester.widget(numericInput) as DigitNumericFormInput).controller?.text, '0');
     });
 
   });

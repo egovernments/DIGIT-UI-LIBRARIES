@@ -1,27 +1,25 @@
-/*
- `RadioList` is a widget for rendering a list of radio buttons.
- This widget provides options for radio buttons, handling hover effects, and a disabled state.
-
- Example usage:
- ```dart
- RadioList(
-   radioButtons: [
-     RadioButtonModel(code: 'option1', name: 'Option 1'),
-     RadioButtonModel(code: 'option2', name: 'Option 2'),
-   ],
-   onChanged: (selectedValue) {
-     // Handle radio button selection
-   },
-   groupValue: 'option1', // can be passed same to select value initially
-   isDisabled: false,
- )
- ....*/
+/// `RadioList` is a widget for rendering a list of radio buttons.
+/// This widget provides options for radio buttons, handling hover effects, and a disabled state.
+/// Example usage:
+/// ```dart
+/// RadioList(
+///   radioButtons: [
+///     RadioButtonModel(code: 'option1', name: 'Option 1'),
+///     RadioButtonModel(code: 'option2', name: 'Option 2'),
+///   ],
+///   onChanged: (selectedValue) {
+///     // Handle radio button selection
+///   },
+///   groupValue: 'option1', // can be passed same to select value initially
+///   isDisabled: false,
+/// )
 
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/material.dart';
 import '../../constants/AppView.dart';
 import '../../constants/app_constants.dart';
 import '../../models/RadioButtonModel.dart';
+import '../../utils/utils.dart';
 
 class RadioList extends StatefulWidget {
   /// List of RadioButtonModel objects representing the radio buttons
@@ -32,6 +30,8 @@ class RadioList extends StatefulWidget {
 
   /// Currently selected value in the radio button group
   String groupValue;
+
+  final String? errorMessage;
 
   /// Flag to indicate if the radio buttons are disabled
   final bool isDisabled;
@@ -53,6 +53,7 @@ class RadioList extends StatefulWidget {
     required this.onChanged,
     this.groupValue = '',
     this.isDisabled = false,
+    this.errorMessage,
     this.containerPadding = RadioConstant.defaultPadding,
     this.radioWidth = RadioConstant.radioWidth,
     this.radioHeight = RadioConstant.radioHeight,
@@ -84,44 +85,180 @@ class _RadioListState extends State<RadioList> {
   /// Build the widget layout
   @override
   Widget build(BuildContext context) {
-    DigitTypography currentTypography = getTypography(context);
-    isMobile = AppView.isMobileView(MediaQuery.of(context).size.width);
+
+    String? capitalizedErrorMessage =
+    convertInToSentenceCase(widget.errorMessage);
+
+    DigitTypography currentTypography = getTypography(context, false);
+    isMobile = AppView.isMobileView(MediaQuery.of(context).size);
     if (!isMobile) {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: _buildRadioButtons(currentTypography),
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Wrap(
+            crossAxisAlignment: WrapCrossAlignment.start,
+            children: _buildRadioButtons(currentTypography),
+          ),
+          if(widget.errorMessage!=null)
+            const SizedBox(width: spacer1),
+          if(widget.errorMessage!=null)
+            Padding(
+              padding: const EdgeInsets.only(left: 8.0),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Column(
+                    children: [
+                      const SizedBox(
+                        height: spacer1 / 2,
+                      ),
+                      SizedBox(
+                        height: spacer4,
+                        width: spacer4,
+                        child: Icon(
+                          Icons.info,
+                          color: const DigitColors()
+                              .light
+                              .alertError,
+                          size: BaseConstants.errorIconSize,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(width: spacer1),
+                  Flexible(
+                    fit: FlexFit.tight,
+                    child: Text(truncateWithEllipsis(256, capitalizedErrorMessage!),
+                      style: currentTypography.bodyS.copyWith(
+                        color: const DigitColors()
+                            .light
+                            .alertError,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+        ],
       );
     }
 
     /// Default layout
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: _buildRadioButtons(currentTypography),
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: _buildRadioButtons(currentTypography),
+        ),
+        if(widget.errorMessage!=null)
+          const SizedBox(width: spacer1),
+        if(widget.errorMessage!=null)
+          Padding(
+            padding: const EdgeInsets.only(left: 8.0),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Column(
+                  children: [
+                    const SizedBox(
+                      height: spacer1 / 2,
+                    ),
+                    SizedBox(
+                      height: spacer4,
+                      width: spacer4,
+                      child: Icon(
+                        Icons.info,
+                        color: const DigitColors()
+                            .light
+                            .alertError,
+                        size: BaseConstants.errorIconSize,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(width: spacer1),
+                Flexible(
+                  fit: FlexFit.tight,
+                  child: Text(truncateWithEllipsis(256, capitalizedErrorMessage!),
+                    style: currentTypography.bodyS.copyWith(
+                      color: const DigitColors()
+                          .light
+                          .alertError,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+      ],
     );
   }
 
-  /// Capitalize the first letter if required
-  String capitalizeFirstLetter(String text) {
-    if (text.isNotEmpty && widget.capitalizeFirstLetter) {
-      return text.substring(0, 1).toUpperCase() + text.substring(1);
-    }
-    return text;
-  }
-
   List<Widget> _buildRadioButtons(DigitTypography currentTypography) {
+
     return widget.radioButtons.map(
       (button) {
         final index = widget.radioButtons.indexOf(button);
         return Padding(
           padding: widget.containerPadding,
           child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              widget.isDisabled
-                  ? Container(
-                      padding: const EdgeInsets.all(kPadding / 2),
+              Column(
+                children: [
+                  SizedBox(
+                    height: isMobile ? 0 : spacer1 / 2,
+                  ),
+                  InkWell(
+                    hoverColor: const DigitColors().transparent,
+                    splashColor: const DigitColors().transparent,
+                    highlightColor: const DigitColors().transparent,
+                    onHover: widget.isDisabled
+                        ? null
+                        : (hover) {
+                            setState(() {
+                              isHoveredList[index] = hover;
+                            });
+                          },
+                    onTapDown: widget.isDisabled
+                        ? null
+                        : (_) {
+                            /// Handle mouse down state
+                            setState(() {
+                              isMouseDown[index] = true;
+                            });
+                          },
+                    onTapUp: widget.isDisabled
+                        ? null
+                        : (_) {
+                            /// Handle mouse up state
+                            setState(() {
+                              isMouseDown[index] = false;
+                            });
+                          },
+                    onTap: widget.isDisabled
+                        ? null
+                        : () {
+                            if (mounted) {
+                              setState(() {
+                                /// Update the selected value and call the onChanged callback
+                                widget.groupValue = button.code;
+                              });
+                              widget.onChanged!(button);
+                            }
+                          },
+                    child: Container(
+                      padding: const EdgeInsets.all(spacer1),
                       width: widget.radioWidth,
                       height: widget.radioHeight,
                       decoration: BoxDecoration(
@@ -132,23 +269,23 @@ class _RadioListState extends State<RadioList> {
                               : (widget.groupValue == button.code ||
                                       isHoveredList[index] ||
                                       isMouseDown[index])
-                                  ? const DigitColors().light.primaryOrange
+                                  ? const DigitColors().light.primary1
                                   : const DigitColors().light.textSecondary,
                           width: (widget.isDisabled &&
                                       widget.groupValue == button.code) ||
                                   widget.groupValue == button.code
-                              ? 2.0
-                              : 1.0,
+                              ? 2
+                              : Base.defaultBorderWidth,
                         ),
                         color: widget.isDisabled
                             ? const DigitColors().light.paperSecondary
                             : isMouseDown[index]
-                                ? const DigitColors().orangeBG
+                                ? const DigitColors().light.primary1Bg
                                 : const DigitColors().light.paperPrimary,
                         boxShadow: isMouseDown[index]
                             ? [
                                 BoxShadow(
-                                  color: const DigitColors().orangeBG,
+                                  color: const DigitColors().light.primary1Bg,
                                   spreadRadius: 3,
                                   blurRadius: 3,
                                   offset: const Offset(0, 0),
@@ -158,127 +295,39 @@ class _RadioListState extends State<RadioList> {
                       ),
                       child: widget.groupValue == button.code
                           ? Container(
-                              height: 12,
-                              width: 12,
+                              height: spacer3,
+                              width: spacer3,
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: widget.isDisabled
                                     ? const DigitColors().light.textDisabled
-                                    : const DigitColors().light.primaryOrange,
+                                    : const DigitColors().light.primary1,
                               ),
                             )
                           : null,
-                    )
-                  : InkWell(
-                      hoverColor: const DigitColors().transparent,
-                      splashColor: const DigitColors().transparent,
-                      highlightColor: const DigitColors().transparent,
-                      onHover: (hover) {
-                        setState(() {
-                          isHoveredList[index] = hover;
-                        });
-                      },
-                      onTapDown: (_) {
-                        /// Handle mouse down state
-                        setState(() {
-                          isMouseDown[index] = true;
-                        });
-                      },
-                      onTapUp: (_) {
-                        /// Handle mouse up state
-                        setState(() {
-                          isMouseDown[index] = false;
-                        });
-                      },
-                      onTap: widget.isDisabled
-                          ? null
-                          : () {
-                              if (mounted) {
-                                setState(() {
-                                  /// Update the selected value and call the onChanged callback
-                                  widget.groupValue = button.code;
-                                });
-                                widget.onChanged!(button);
-                              }
-                            },
-                      child: Container(
-                        padding: const EdgeInsets.all(kPadding / 2),
-                        width: widget.radioWidth,
-                        height: widget.radioHeight,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: widget.isDisabled
-                                ? const DigitColors().light.genericDivider
-                                : (widget.groupValue == button.code ||
-                                        isHoveredList[index] ||
-                                        isMouseDown[index])
-                                    ? const DigitColors().light.primaryOrange
-                                    : const DigitColors().light.textSecondary,
-                            width: (widget.isDisabled &&
-                                        widget.groupValue == button.code) ||
-                                    widget.groupValue == button.code
-                                ? 2.0
-                                : 1.0,
-                          ),
-                          color: widget.isDisabled
-                              ? const DigitColors().light.paperSecondary
-                              : isMouseDown[index]
-                                  ? const DigitColors().orangeBG
-                                  : const DigitColors().light.paperPrimary,
-                          boxShadow: isMouseDown[index]
-                              ? [
-                                  BoxShadow(
-                                    color: const DigitColors().orangeBG,
-                                    spreadRadius: 3,
-                                    blurRadius: 3,
-                                    offset: const Offset(0, 0),
-                                  ),
-                                ]
-                              : [],
-                        ),
-                        child: widget.groupValue == button.code
-                            ? Container(
-                                height: 12,
-                                width: 12,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: widget.isDisabled
-                                      ? const DigitColors().light.textDisabled
-                                      : const DigitColors().light.primaryOrange,
-                                ),
-                              )
-                            : null,
-                      ),
                     ),
-              const SizedBox(
-                width: kPadding,
+                  ),
+                ],
               ),
-              isMobile
-                  ? Expanded(
-                      child: Text(
-                        capitalizeFirstLetter(button.name),
-                        maxLines: 5,
-                        overflow: TextOverflow.ellipsis,
-                        style: currentTypography.bodyL.copyWith(
-                          height: 1.172,
-                          color: widget.isDisabled
-                              ? const DigitColors().light.textDisabled
-                              : const DigitColors().light.textPrimary,
-                        ),
-                      ),
-                    )
-                  : Text(
-                      capitalizeFirstLetter(button.name),
-                      maxLines: 5,
-                      overflow: TextOverflow.ellipsis,
-                      style: currentTypography.bodyL.copyWith(
-                        height: 1.172,
-                        color: widget.isDisabled
-                            ? const DigitColors().light.textDisabled
-                            : const DigitColors().light.textPrimary,
-                      ),
+              const SizedBox(
+                width: spacer2,
+              ),
+              Flexible(
+                fit: FlexFit.loose,
+                child: Padding(
+                  padding: EdgeInsets.only(top: isMobile ? spacer1 / 2 : 0),
+                  child: Text(
+                    convertInToSentenceCase(button.name)!,
+                    maxLines: 5,
+                    overflow: TextOverflow.ellipsis,
+                    style: currentTypography.bodyL.copyWith(
+                      color: widget.isDisabled
+                          ? const DigitColors().light.textDisabled
+                          : const DigitColors().light.textPrimary,
                     ),
+                  ),
+                ),
+              )
             ],
           ),
         );

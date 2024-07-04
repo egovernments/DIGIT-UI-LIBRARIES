@@ -1,16 +1,21 @@
-
-import 'package:digit_ui_components/enum/app_enums.dart';
-import 'package:digit_ui_components/models/DropdownModels.dart';
-import 'package:digit_ui_components/models/RadioButtonModel.dart';
-import 'package:digit_ui_components/models/TreeModel.dart';
 import 'package:digit_ui_components/digit_components.dart';
-import 'package:digit_ui_components/models/toggleButtonModel.dart';
+import 'package:digit_ui_components/theme/ComponentTheme/checkbox_theme.dart';
+import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:digit_ui_components/utils/validators/validator.dart';
+import 'package:digit_ui_components/widgets/atoms/digit_bread_crumbs.dart';
+import 'package:digit_ui_components/widgets/atoms/digit_stepper.dart';
 import 'package:digit_ui_components/widgets/atoms/dropdown_wrapper.dart';
+import 'package:digit_ui_components/widgets/atoms/info_buttons.dart';
 import 'package:digit_ui_components/widgets/atoms/input_wrapper.dart';
+import 'package:digit_ui_components/widgets/atoms/timeline.dart';
+import 'package:digit_ui_components/widgets/atoms/upload_image.dart';
+import 'package:digit_ui_components/widgets/atoms/upload_popUp.dart';
+import 'package:digit_ui_components/widgets/molecules/digit_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:url_strategy/url_strategy.dart';
+import 'package:file_picker/file_picker.dart';
+import 'dart:io';
 
 final List<TreeNode> Nodes = [
   TreeNode('A', 'A', [
@@ -77,6 +82,7 @@ final controller42 = TextEditingController();
 final TreeSelectController<int> _controller = TreeSelectController();
 final controller = MultiSelectController<int>();
 final controllerM1 = MultiSelectController<int>();
+int stepNumber = 0;
 
 void main() {
   /// Here we set the URL strategy for our web app.
@@ -92,10 +98,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Digit UI Flutter',
-      theme: DigitTheme.instance.mobileTheme.copyWith(
-          appBarTheme: AppBarTheme(
-        backgroundColor: DigitTheme.instance.colorScheme.secondary,
-      )),
+      theme: DigitExtendedTheme.instance.getTheme(context).copyWith(
+      ),
       home: const MyHomePage(title: 'Digit Components Page'),
     );
   }
@@ -161,12 +165,28 @@ class MyHomePageState extends State<MyHomePage> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Breadcrumb(
+                  items: ['Home', 'Category', 'Product'],
+                  onTap: (index) {
+                    // Handle breadcrumb item tap
+                    print('Tapped on: ${index}');
+                  },
+                ),
+                SizedBox(height: 16,),
+                ImageUploader(
+                  onImagesSelected: (List<File> imageFile) {
+                    // Handle the selected image file here
+                    // print('Image selected: ${imageFile.path}');
+                  },
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
                 InputField(
                   type: InputType.text,
                   label: "Text Field",
                   controller: controller1,
                   innerLabel: 'label',
-                  info: true,
                   infoText: 'this is infoText',
                   helpText: 'help text',
                   charCount: true,
@@ -199,7 +219,8 @@ class MyHomePageState extends State<MyHomePage> {
                           Validator(ValidatorType.maxLength, 10,
                               errorMessage: 'Maximum length is 10.'),
                           Validator(ValidatorType.pattern, r'^[a-zA-Z0-9]+$',
-                              errorMessage: 'long error message long error message long error message long error message long error message'),
+                              errorMessage:
+                                  'Long error message long error message long error message long error message long error message'),
                         ],
                       ),
                       InputField(
@@ -504,7 +525,6 @@ class MyHomePageState extends State<MyHomePage> {
                   innerLabel: 'innerlabel',
                   helpText: 'help text',
                   charCount: true,
-                  info: true,
                   infoText: 'this is infoText',
                 ),
                 const SizedBox(
@@ -594,7 +614,9 @@ class MyHomePageState extends State<MyHomePage> {
                         innerLabel: 'innerlabel',
                         helpText: 'help text',
                         initialValue: '0',
-                        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
                         editable: true,
                       ),
                       InputField(
@@ -784,9 +806,6 @@ class MyHomePageState extends State<MyHomePage> {
                 LabeledField(
                   label: 'Dropdown Variants',
                   child: Dropdown(
-                    dropdownType: Type.singleSelect,
-                    onChange: (String value, String index) => {},
-                    textEditingController: controller19,
                     items: [
                       'one',
                       'two',
@@ -821,13 +840,11 @@ class MyHomePageState extends State<MyHomePage> {
                   Column(
                     children: [
                       const SizedBox(height: 8),
-                      LabeledField(
+                      const LabeledField(
                         label: "Non Searchable Dropdown",
                         child: Dropdown(
-                          onChange: (String value, String index) => {},
-                          textEditingController: controller41,
                           isSearchable: false,
-                          items: const [
+                          items: [
                             DropdownItem(
                               name: 'first',
                               code: '1',
@@ -856,12 +873,10 @@ class MyHomePageState extends State<MyHomePage> {
                         ),
                       ),
                       const SizedBox(height: 8),
-                      LabeledField(
+                      const LabeledField(
                         label: "Dropdown with Profile",
                         child: Dropdown(
-                          onChange: (String value, String index) => {},
-                          textEditingController: controller30,
-                          items: const [
+                          items: [
                             DropdownItem(
                               name: 'first',
                               code: '1',
@@ -890,12 +905,10 @@ class MyHomePageState extends State<MyHomePage> {
                         ),
                       ),
                       const SizedBox(height: 8),
-                      LabeledField(
+                      const LabeledField(
                         label: "Dropdown with Profile And Description",
                         child: Dropdown(
-                          onChange: (String value, String index) => {},
-                          textEditingController: controller40,
-                          items: const [
+                          items: [
                             DropdownItem(
                               name: 'first',
                               code: '1',
@@ -931,8 +944,6 @@ class MyHomePageState extends State<MyHomePage> {
                       LabeledField(
                         label: "Dropdown with Description",
                         child: Dropdown(
-                          onChange: (String value, String index) => {},
-                          textEditingController: controller31,
                           items: [
                             'one',
                             'two',
@@ -955,8 +966,6 @@ class MyHomePageState extends State<MyHomePage> {
                       LabeledField(
                         label: "Dropdown with Icon",
                         child: Dropdown(
-                          onChange: (String value, String index) => {},
-                          textEditingController: controller32,
                           items: [
                             'One',
                             'two',
@@ -976,19 +985,16 @@ class MyHomePageState extends State<MyHomePage> {
                         ),
                       ),
                       const SizedBox(height: 8),
-                      LabeledField(
+                      const LabeledField(
                         label: "Dropdown with nested Type",
                         child: Dropdown(
-                          dropdownSubtype: DropdownSubtype.nested,
-                          onChange: (String value, String type) => {},
-                          textEditingController: controller33,
-
-                          selectedOption: const DropdownItem(
+                          dropdownSelectionType: SelectionType.nestedSelect,
+                          selectedOption: DropdownItem(
                             name: 'one',
                             code: '1',
                             type: 'group B',
                           ),
-                          items: const [
+                          items: [
                             DropdownItem(
                               name: 'one',
                               code: '1',
@@ -1022,13 +1028,11 @@ class MyHomePageState extends State<MyHomePage> {
                           ],
                         ),
                       ),
-                      LabeledField(
+                      const LabeledField(
                         label: "Dropdown with nested Type With Icons",
                         child: Dropdown(
-                          onChange: (String value, String type) => {},
-                          textEditingController: controller35,
-                          dropdownSubtype: DropdownSubtype.nested,
-                          items: const [
+                          dropdownSelectionType: SelectionType.nestedSelect,
+                          items: [
                             DropdownItem(
                               name: 'one',
                               code: '1',
@@ -1069,14 +1073,12 @@ class MyHomePageState extends State<MyHomePage> {
                         ),
                       ),
                       const SizedBox(height: 8),
-                      LabeledField(
+                      const LabeledField(
                         label:
                             "Dropdown with nested Type With Icons and description",
                         child: Dropdown(
-                          onChange: (String value, String type) => {},
-                          textEditingController: controller42,
-                          dropdownSubtype: DropdownSubtype.nested,
-                          items: const [
+                          dropdownSelectionType: SelectionType.nestedSelect,
+                          items: [
                             DropdownItem(
                               name: 'one',
                               code: '1',
@@ -1123,13 +1125,11 @@ class MyHomePageState extends State<MyHomePage> {
                         ),
                       ),
                       const SizedBox(height: 8),
-                      LabeledField(
+                      const LabeledField(
                         label: "Dropdown Disabled",
                         child: Dropdown(
-                          onChange: (String value, String type) => {},
-                          textEditingController: controller34,
                           isDisabled: true,
-                          items: const [
+                          items: [
                             DropdownItem(
                               name: 'one',
                               code: '1',
@@ -1169,7 +1169,7 @@ class MyHomePageState extends State<MyHomePage> {
                 LabeledField(
                   label: 'MultiSelect Dropdowns',
                   child: Dropdown(
-                    dropdownType: Type.multiSelect,
+                    dropdownType: DropdownType.multiSelect,
                     onOptionSelected: (List<DropdownItem> selectedOptions) {},
                     options: const [
                       DropdownItem(code: '1', name: 'first'),
@@ -1178,7 +1178,6 @@ class MyHomePageState extends State<MyHomePage> {
                       DropdownItem(code: '4', name: 'four'),
                       DropdownItem(code: '5', name: 'five'),
                     ],
-                    selectionType: SelectionType.multiSelect,
                   ),
                 ),
                 const SizedBox(
@@ -1201,7 +1200,7 @@ class MyHomePageState extends State<MyHomePage> {
                       LabeledField(
                         label: "MultiSelect Dropdown with value mapper",
                         child: Dropdown(
-                          dropdownType: Type.multiSelect,
+                          dropdownType: DropdownType.multiSelect,
                           onOptionSelected:
                               (List<DropdownItem> selectedOptions) {},
                           valueMapper: const [
@@ -1235,14 +1234,13 @@ class MyHomePageState extends State<MyHomePage> {
                               description: 'description',
                             ),
                           ],
-                          selectionType: SelectionType.multiSelect,
                         ),
                       ),
                       const SizedBox(height: 8),
                       LabeledField(
                         label: "MultiSelect Dropdown with Selected Option",
                         child: Dropdown(
-                          dropdownType: Type.multiSelect,
+                          dropdownType: DropdownType.multiSelect,
                           onOptionSelected:
                               (List<DropdownItem> selectedOptions) {},
                           selectedOptions: const [
@@ -1279,14 +1277,13 @@ class MyHomePageState extends State<MyHomePage> {
                               description: 'description',
                             ),
                           ],
-                          selectionType: SelectionType.multiSelect,
                         ),
                       ),
                       const SizedBox(height: 8),
                       LabeledField(
                         label: "MultiSelect Dropdown with Description",
                         child: Dropdown(
-                          dropdownType: Type.multiSelect,
+                          dropdownType: DropdownType.multiSelect,
                           onOptionSelected:
                               (List<DropdownItem> selectedOptions) {},
                           options: const [
@@ -1316,14 +1313,13 @@ class MyHomePageState extends State<MyHomePage> {
                               description: 'this is description',
                             ),
                           ],
-                          selectionType: SelectionType.multiSelect,
                         ),
                       ),
                       const SizedBox(height: 8),
                       LabeledField(
                         label: "MultiSelect Dropdown with Description and Icon",
                         child: Dropdown(
-                          dropdownType: Type.multiSelect,
+                          dropdownType: DropdownType.multiSelect,
                           onOptionSelected:
                               (List<DropdownItem> selectedOptions) {},
                           options: const [
@@ -1358,14 +1354,13 @@ class MyHomePageState extends State<MyHomePage> {
                               textIcon: Icons.article,
                             ),
                           ],
-                          selectionType: SelectionType.multiSelect,
                         ),
                       ),
                       const SizedBox(height: 8),
                       LabeledField(
                         label: "MultiSelect Dropdown with Icon",
                         child: Dropdown(
-                          dropdownType: Type.multiSelect,
+                          dropdownType: DropdownType.multiSelect,
                           onOptionSelected:
                               (List<DropdownItem> selectedOptions) {},
                           options: const [
@@ -1395,15 +1390,14 @@ class MyHomePageState extends State<MyHomePage> {
                               textIcon: Icons.article,
                             ),
                           ],
-                          selectionType: SelectionType.multiSelect,
                         ),
                       ),
                       const SizedBox(height: 8),
                       LabeledField(
                         label: "MultiSelect Dropdown with nested Type",
                         child: Dropdown(
-                          dropdownType: Type.multiSelect,
-                          dropdownSubtype: DropdownSubtype.nested,
+                          dropdownType: DropdownType.multiSelect,
+                          dropdownSelectionType: SelectionType.nestedSelect,
                           onOptionSelected:
                               (List<DropdownItem> selectedOptions) {},
                           options: const [
@@ -1418,15 +1412,14 @@ class MyHomePageState extends State<MyHomePage> {
                             DropdownItem(
                                 code: '5', name: 'five', type: "Type B"),
                           ],
-                          selectionType: SelectionType.nestedMultiSelect,
                         ),
                       ),
                       const SizedBox(height: 8),
                       LabeledField(
                         label: "MultiSelect Dropdown with nested Type and Icon",
                         child: Dropdown(
-                          dropdownType: Type.multiSelect,
-                          dropdownSubtype: DropdownSubtype.nested,
+                          dropdownType: DropdownType.multiSelect,
+                          dropdownSelectionType: SelectionType.nestedSelect,
                           onOptionSelected:
                               (List<DropdownItem> selectedOptions) {},
                           options: const [
@@ -1456,7 +1449,6 @@ class MyHomePageState extends State<MyHomePage> {
                                 type: "Type B",
                                 textIcon: Icons.article),
                           ],
-                          // selectionType: SelectionType.nestedMultiSelect,
                         ),
                       ),
                     ],
@@ -1471,7 +1463,7 @@ class MyHomePageState extends State<MyHomePage> {
                 LabeledField(
                   label: 'Tree Select Dropdowns',
                   child: Dropdown(
-                    dropdownSubtype: DropdownSubtype.tree,
+                    dropdownSelectionType: SelectionType.treeSelect,
                     onTreeOptionSelected: (List<TreeNode> selectedOptions) {
                       // print(selectedOptions);
                       for (TreeNode node in selectedOptions) {
@@ -1479,7 +1471,6 @@ class MyHomePageState extends State<MyHomePage> {
                       }
                     },
                     treeOptions: Nodes,
-                    treeSelectionType: TreeSelectionType.singleSelect,
                   ),
                 ),
                 const SizedBox(
@@ -1488,8 +1479,8 @@ class MyHomePageState extends State<MyHomePage> {
                 LabeledField(
                   label: 'Tree Multi Select Dropdowns',
                   child: Dropdown(
-                    dropdownSubtype: DropdownSubtype.tree,
-                    dropdownType: Type.multiSelect,
+                    dropdownType: DropdownType.multiSelect,
+                    dropdownSelectionType: SelectionType.treeSelect,
                     onTreeOptionSelected: (List<TreeNode> selectedOptions) {
                       // print(selectedOptions);
                       for (TreeNode node in selectedOptions) {
@@ -1508,7 +1499,6 @@ class MyHomePageState extends State<MyHomePage> {
                       ValueMapper(code: 'D: D2', name: "D: D2")
                     ],
                     treeOptions: Nodes,
-                    treeSelectionType: TreeSelectionType.singleSelect,
                   ),
                 ),
                 const SizedBox(
@@ -1612,10 +1602,66 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 8,
                 ),
-                Container(
-                  height: 45,
+                SizedBox(
+                  // height: 45,
+                  child: Column(
+                    children: [
+                      Center(
+                        child: InfoButton(
+                          size: ButtonSize.large,
+                          label: 'Primary Button',
+                          onPressed: () {},
+                          type: InfoButtonType.success,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Center(
+                        child: InfoButton(
+                          size: ButtonSize.large,
+                          label: 'Primary Button',
+                          onPressed: () {},
+                          type: InfoButtonType.error,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Center(
+                        child: InfoButton(
+                          size: ButtonSize.large,
+                          label: 'Primary Button',
+                          onPressed: () {},
+                          type: InfoButtonType.warning,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Center(
+                        child: InfoButton(
+                          size: ButtonSize.large,
+                          label: 'Primary Button',
+                          onPressed: () {},
+                          type: InfoButtonType.info,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                const Divider(),
+                const SizedBox(
+                  height: 8,
+                ),
+                SizedBox(
+                  // height: 45,
                   child: Center(
                     child: Button(
+                      size: ButtonSize.large,
                       label: 'Primary Button',
                       onPressed: () {},
                       type: ButtonType.primary,
@@ -1636,8 +1682,9 @@ class MyHomePageState extends State<MyHomePage> {
                       children: [
                         const SizedBox(height: 8),
                         SizedBox(
-                          height: 45,
+                          // height: 45,
                           child: Button(
+                            size: ButtonSize.large,
                             label: 'Primary Button With Prefix Icon',
                             onPressed: () {},
                             type: ButtonType.primary,
@@ -1646,8 +1693,9 @@ class MyHomePageState extends State<MyHomePage> {
                         ),
                         const SizedBox(height: 8),
                         SizedBox(
-                          height: 45,
+                          // height: 45,
                           child: Button(
+                            size: ButtonSize.medium,
                             label: 'Primary Button With Suffix Icon',
                             onPressed: () {},
                             type: ButtonType.primary,
@@ -1656,8 +1704,9 @@ class MyHomePageState extends State<MyHomePage> {
                         ),
                         const SizedBox(height: 8),
                         SizedBox(
-                          height: 45,
+                          // height: 45,
                           child: Button(
+                            size: ButtonSize.small,
                             label: 'Primary Button With Disabled State',
                             onPressed: () {},
                             type: ButtonType.primary,
@@ -1676,6 +1725,7 @@ class MyHomePageState extends State<MyHomePage> {
                   height: 45,
                   child: Center(
                     child: Button(
+                      size: ButtonSize.large,
                       label: 'secondary Button',
                       onPressed: () {},
                       type: ButtonType.secondary,
@@ -1696,8 +1746,9 @@ class MyHomePageState extends State<MyHomePage> {
                       children: [
                         const SizedBox(height: 8),
                         SizedBox(
-                          height: 45,
+                          // height: 45,
                           child: Button(
+                            size: ButtonSize.medium,
                             label: 'Secondary Button With Prefix Icon',
                             onPressed: () {},
                             type: ButtonType.secondary,
@@ -1706,8 +1757,9 @@ class MyHomePageState extends State<MyHomePage> {
                         ),
                         const SizedBox(height: 8),
                         SizedBox(
-                          height: 45,
+                          // height: 45,
                           child: Button(
+                            size: ButtonSize.small,
                             label: 'Secondary Button With Suffix Icon',
                             onPressed: () {},
                             type: ButtonType.secondary,
@@ -1716,8 +1768,9 @@ class MyHomePageState extends State<MyHomePage> {
                         ),
                         const SizedBox(height: 8),
                         SizedBox(
-                          height: 45,
+                          // height: 45,
                           child: Button(
+                            size: ButtonSize.small,
                             label: 'Secondary Button With Disabled State',
                             onPressed: () {},
                             type: ButtonType.secondary,
@@ -1734,6 +1787,7 @@ class MyHomePageState extends State<MyHomePage> {
                 ),
                 Center(
                   child: Button(
+                    size: ButtonSize.large,
                     label: 'tertiary Button',
                     onPressed: () {},
                     type: ButtonType.tertiary,
@@ -1748,30 +1802,35 @@ class MyHomePageState extends State<MyHomePage> {
                       });
                     }),
                 if (showAllVariantsOfTertiaryButton)
-                  Column(
-                    children: [
-                      const SizedBox(height: 8),
-                      Button(
-                        label: 'Tertiary Button With Prefix Icon',
-                        onPressed: () {},
-                        type: ButtonType.tertiary,
-                        prefixIcon: Icons.arrow_forward,
-                      ),
-                      const SizedBox(height: 8),
-                      Button(
-                        label: 'Tertiary Button With Suffix Icon',
-                        onPressed: () {},
-                        type: ButtonType.tertiary,
-                        suffixIcon: Icons.arrow_forward,
-                      ),
-                      const SizedBox(height: 8),
-                      Button(
-                        label: 'Tertiary Button With Disabled State',
-                        onPressed: () {},
-                        type: ButtonType.tertiary,
-                        isDisabled: true,
-                      ),
-                    ],
+                  Center(
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 8),
+                        Button(
+                          size: ButtonSize.medium,
+                          label: 'Tertiary Button With Prefix Icon',
+                          onPressed: () {},
+                          type: ButtonType.tertiary,
+                          prefixIcon: Icons.arrow_forward,
+                        ),
+                        const SizedBox(height: 8),
+                        Button(
+                          size: ButtonSize.small,
+                          label: 'Tertiary Button With Suffix Icon',
+                          onPressed: () {},
+                          type: ButtonType.tertiary,
+                          suffixIcon: Icons.arrow_forward,
+                        ),
+                        const SizedBox(height: 8),
+                        Button(
+                          size: ButtonSize.large,
+                          label: 'Tertiary Button With Disabled State',
+                          onPressed: () {},
+                          type: ButtonType.tertiary,
+                          isDisabled: true,
+                        ),
+                      ],
+                    ),
                   ),
                 const SizedBox(
                   height: 8,
@@ -1782,6 +1841,7 @@ class MyHomePageState extends State<MyHomePage> {
                 ),
                 Center(
                   child: Button(
+                    size: ButtonSize.large,
                     label: 'link',
                     onPressed: () {},
                     type: ButtonType.link,
@@ -1796,31 +1856,253 @@ class MyHomePageState extends State<MyHomePage> {
                       });
                     }),
                 if (showAllVariantsOfLink)
-                  Column(
-                    children: [
-                      const SizedBox(height: 8),
-                      Button(
-                        label: 'Link With Prefix Icon',
-                        onPressed: () {},
-                        type: ButtonType.link,
-                        prefixIcon: Icons.arrow_forward,
-                      ),
-                      const SizedBox(height: 8),
-                      Button(
-                        label: 'Link With Suffix Icon',
-                        onPressed: () {},
-                        type: ButtonType.link,
-                        suffixIcon: Icons.arrow_forward,
-                      ),
-                      const SizedBox(height: 8),
-                      Button(
-                        label: 'Link With Disabled State',
-                        onPressed: () {},
-                        type: ButtonType.link,
-                        isDisabled: true,
-                      ),
-                    ],
+                  Center(
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 8),
+                        Button(
+                          size: ButtonSize.small,
+                          label: 'Link With Prefix Icon',
+                          onPressed: () {},
+                          type: ButtonType.link,
+                          prefixIcon: Icons.arrow_forward,
+                        ),
+                        const SizedBox(height: 8),
+                        Button(
+                          size: ButtonSize.medium,
+                          label: 'Link With Suffix Icon',
+                          onPressed: () {},
+                          type: ButtonType.link,
+                          suffixIcon: Icons.arrow_forward,
+                        ),
+                        const SizedBox(height: 8),
+                        Button(
+                          size: ButtonSize.large,
+                          label: 'Link With Disabled State',
+                          onPressed: () {},
+                          type: ButtonType.link,
+                          isDisabled: true,
+                        ),
+                      ],
+                    ),
                   ),
+                const SizedBox(height: 8),
+                const Divider(),
+                const SizedBox(
+                  height: 8,
+                ),
+                Column(
+                  children: [
+                    Button(
+                        label: 'Click to increase steps',
+                        onPressed: () {
+                          setState(() {
+                            stepNumber += 1;
+                          });
+                        },
+                        type: ButtonType.primary,
+                        size: ButtonSize.large),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    Button(
+                        label: 'Click to decrease steps',
+                        onPressed: () {
+                          setState(() {
+                            if (stepNumber > 0) {
+                              stepNumber -= 1;
+                            }
+                          });
+                        },
+                        type: ButtonType.primary,
+                        size: ButtonSize.large),
+                    SizedBox(
+                      height: 500,
+                      width: MediaQuery.of(context).size.width,
+                      child: DigitStepper(
+                        activeIndex: stepNumber,
+                        stepperList: [
+                          StepperData(
+                            title: "Preparing",
+                            onStepTap: () {},
+                          ),
+                          const StepperData(
+                            title: "Preparing",
+                          ),
+                          const StepperData(
+                            title: "Preparing",
+                          ),
+                          const StepperData(
+                            title: "Preparing",
+                          ),
+                          const StepperData(
+                            title: "Preparing",
+                          ),
+                          const StepperData(
+                            title: "Preparing",
+                          ),
+                          const StepperData(
+                            title: "Preparing",
+                          ),
+                          const StepperData(
+                            title: "Preparing",
+                          ),
+                          const StepperData(
+                            title: "Preparing",
+                          ),
+                          const StepperData(
+                            title: "Preparing",
+                          ),
+                          const StepperData(
+                            title: "Preparing",
+                          ),
+                          const StepperData(
+                            title: "Preparing",
+                          ),
+                          const StepperData(
+                            title: "Preparing",
+                          ),
+                          const StepperData(
+                            title: "Preparing",
+                          ),
+                          const StepperData(
+                            title: "Preparing",
+                          ),
+                          const StepperData(
+                            title: "Preparing",
+                          ),
+                          const StepperData(
+                            title: "Preparing",
+                          ),
+                        ],
+                        stepperDirection: Axis.horizontal,
+                        inverted: true,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                const Divider(),
+                const SizedBox(
+                  height: 8,
+                ),
+                DigitCard(
+                  inline: true,
+                  cardType: CardType.primary,
+                  children: [
+                    LabeledField(
+                        labelInline: false,
+                        label: 'Text Field',
+                        child: DigitTextFormInput(
+                          controller: TextEditingController(),
+                        )),
+                    LabeledField(
+                      labelInline: false,
+                      label: "Dropdown",
+                      child: MultiSelectDropDown<int>(
+                        onOptionSelected:
+                            (List<DropdownItem> selectedOptions) {},
+                        options: const [
+                          DropdownItem(code: '1', name: 'one'),
+                          DropdownItem(code: '2', name: 'two'),
+                          DropdownItem(code: '3', name: 'three'),
+                          DropdownItem(code: '4', name: 'four'),
+                          DropdownItem(code: '5', name: 'five'),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 100,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const SizedBox(
+                            height: 32,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Button(
+                                  label: 'Clear All',
+                                  onPressed: () {},
+                                  type: ButtonType.tertiary,
+                                  size: ButtonSize.large),
+                              const SizedBox(
+                                width: 16,
+                              ),
+                              Flexible(
+                                child: Container(
+                                    width: 300,
+                                    child: Button(
+                                        mainAxisSize: MainAxisSize.max,
+                                        label: 'Submit',
+                                        onPressed: () {},
+                                        type: ButtonType.primary,
+                                        size: ButtonSize.large)),
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+                const SizedBox(height: 8),
+                LabeledField(
+                  label: 'File Upload with single selected',
+                  child: FileUploadWidget(
+                    label: 'Upload',
+                    onFilesSelected: (List<PlatformFile> files) {
+                      Map<PlatformFile, String?> fileErrors = {};
+
+                      return fileErrors;
+                    },
+                    showPreview: false,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                LabeledField(
+                  label: 'File Upload with single selected with preview',
+                  child: FileUploadWidget(
+                    label: 'Upload',
+                    onFilesSelected: (List<PlatformFile> files) {
+                      Map<PlatformFile, String?> fileErrors = {};
+                      return fileErrors;
+                    },
+                    showPreview: true,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                LabeledField(
+                  label: 'File Upload with Multiple selected',
+                  child: FileUploadWidget(
+                    label: 'Upload',
+                    onFilesSelected: (List<PlatformFile> files) {
+                      Map<PlatformFile, String?> fileErrors = {};
+                      return fileErrors;
+                    },
+                    allowMultiples: true,
+                    showPreview: false,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                LabeledField(
+                  label: 'File Upload with Multiple selected with preview',
+                  child: FileUploadWidget(
+                    label: 'Upload',
+                    onFilesSelected: (List<PlatformFile> files) {
+                      Map<PlatformFile, String?> fileErrors = {};
+                      return fileErrors;
+                    },
+                    allowMultiples: true,
+                    showPreview: true,
+                  ),
+                ),
+                const SizedBox(height: 8),
                 const SizedBox(height: 8),
                 const Divider(),
                 const SizedBox(
@@ -1831,9 +2113,11 @@ class MyHomePageState extends State<MyHomePage> {
                   value: false,
                   onChanged: (value) {
                     if (value) {
-                      Toast.show(context,
-                          options: ToastOptions(
-                              "Your success message", ToastType.success));
+                      Toast.showToast(
+                        context,
+                        message: 'This is a success toast!',
+                        type: ToastType.success,
+                      );
                     }
                   },
                 ),
@@ -1843,56 +2127,78 @@ class MyHomePageState extends State<MyHomePage> {
                   value: false,
                   onChanged: (value) {
                     if (value) {
-                      Toast.show(context,
-                          options: ToastOptions(
-                              "Your error message", ToastType.error));
+                      Toast.showToast(
+                        context,
+                        message: 'This is a error toast!',
+                        type: ToastType.error,
+                      );
                     }
                   },
                 ),
-               const SizedBox(height: 8,),
+                const SizedBox(
+                  height: 8,
+                ),
                 DigitCheckbox(
                   label: 'Click to see the warning toast',
                   value: false,
                   onChanged: (value) {
                     if (value) {
-                      Toast.show(context,
-                          options: ToastOptions(
-                              "Your warning message", ToastType.warning));
+                      Toast.showToast(
+                        context,
+                        message: 'This is a Warning toast!',
+                        type: ToastType.warning,
+                      );
                     }
                   },
                 ),
-
-                const SizedBox(height: 8,),
+                const SizedBox(
+                  height: 8,
+                ),
                 DigitCheckbox(
-                  label: 'Click to see the Success toast with long message',
+                  label: 'Click to see the warning toast with long message',
                   value: false,
                   onChanged: (value) {
                     if (value) {
-                      Toast.show(context,
-                          options: ToastOptions(
-                              "Message token created successfully and Users Are Unable to Login to the Professional after an Upgrade to Version it is working fine. Learn about token based authentication and how to easily implement JWT in your application", ToastType.success));
+                      Toast.showToast(
+                        context,
+                        message:
+                            'Message token created successfully and Users Are Unable to Login to the Professional after an Upgrade to Version it is working fine. Learn about token based authentication and how to easily implement JWT in your application',
+                        type: ToastType.warning,
+                      );
                     }
                   },
-                ),const SizedBox(height: 8,),
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
                 DigitCheckbox(
-                  label: 'Click to see the Success toast with long message',
+                  label: 'Click to see the error toast with long message',
                   value: false,
                   onChanged: (value) {
                     if (value) {
-                      Toast.show(context,
-                          options: ToastOptions(
-                              "Message token created successfully and Users Are Unable to Login to the Professional after an Upgrade to Version it is working fine. Learn about token based authentication and how to easily implement JWT in your application", ToastType.success));
+                      Toast.showToast(
+                        context,
+                        message:
+                            'Message token created successfully and Users Are Unable to Login to the Professional after an Upgrade to Version it is working fine. Learn about token based authentication and how to easily implement JWT in your application',
+                        type: ToastType.error,
+                      );
                     }
                   },
-                ),const SizedBox(height: 8,),
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
                 DigitCheckbox(
                   label: 'Click to see the Success toast with long message',
                   value: false,
                   onChanged: (value) {
                     if (value) {
-                      Toast.show(context,
-                          options: ToastOptions(
-                              "Message token created successfully and Users Are Unable to Login to the Professional after an Upgrade to Version it is working fine. Learn about token based authentication and how to easily implement JWT in your application", ToastType.success));
+                      Toast.showToast(
+                        context,
+                        message:
+                            'Message token created successfully and Users Are Unable to Login to the Professional after an Upgrade to Version it is working fine. Learn about token based authentication and how to easily implement JWT in your application",',
+                        type: ToastType.success,
+                      );
                     }
                   },
                 ),
@@ -1947,11 +2253,61 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 8,
                 ),
+                const DigitTimeline(
+                  currentStep: TimelineStepState.present,
+                  label: 'Current',
+                  description: ['18 / 02 / 2023'],
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                const DigitTimeline(
+                  currentStep: TimelineStepState.future,
+                  label: 'Future',
+                  description: ['18 / 02 / 2023'],
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                const DigitTimeline(
+                  currentStep: TimelineStepState.completed,
+                  label: 'Completed',
+                  description: ['18 / 02 / 2023'],
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                DigitTimeline(
+                  currentStep: TimelineStepState.completed,
+                  label: 'Completed',
+                  description: const [
+                    '18 / 02 / 2023',
+                    '11:10 AM',
+                    'processing'
+                  ],
+                  additionalHideWidgets: [
+                    Image.network(
+                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+                    Image.network(
+                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+                    Image.network(
+                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+                    const InfoCard(
+                        title: "Info Text",
+                        type: InfoType.error,
+                        description: 'This is the warning')
+                  ],
+                ),
+                const SizedBox(height: 8),
+                const Divider(),
+                const SizedBox(
+                  height: 8,
+                ),
                 const InfoCard(
                   title: 'Info',
                   type: InfoType.info,
                   description:
-                  'Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect theservice to get completed in 24 hrs from the time of payment.',
+                      'Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect theservice to get completed in 24 hrs from the time of payment.',
                 ),
                 const SizedBox(
                   height: 8,
@@ -1960,7 +2316,7 @@ class MyHomePageState extends State<MyHomePage> {
                   title: 'Success',
                   type: InfoType.success,
                   description:
-                  'Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect theservice to get completed in 24 hrs from the time of payment.',
+                      'Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect theservice to get completed in 24 hrs from the time of payment.',
                 ),
                 const SizedBox(
                   height: 8,
@@ -1969,7 +2325,7 @@ class MyHomePageState extends State<MyHomePage> {
                   title: 'Error',
                   type: InfoType.error,
                   description:
-                  'Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect theservice to get completed in 24 hrs from the time of payment.',
+                      'Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect theservice to get completed in 24 hrs from the time of payment.',
                 ),
                 const SizedBox(
                   height: 8,
@@ -1978,7 +2334,7 @@ class MyHomePageState extends State<MyHomePage> {
                   title: 'Warning',
                   type: InfoType.warning,
                   description:
-                  'Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect theservice to get completed in 24 hrs from the time of payment.',
+                      'Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect theservice to get completed in 24 hrs from the time of payment.',
                 ),
               ],
             ),
