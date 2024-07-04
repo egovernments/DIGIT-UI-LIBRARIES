@@ -31,6 +31,21 @@ export default {
     title: {
       control: "text",
     },
+    options: {
+      control: {
+        type: "array",
+        separator: ",",
+      },
+    },
+    isSearchable: {
+      control: "boolean",
+    },
+    showBottom: {
+      control: "boolean",
+    },
+    optionsKey: {
+      control: "text",
+    },
   },
 };
 
@@ -61,7 +76,10 @@ const commonArgs = {
   isSuffix: false,
   size: "",
   title:"",
-  iconFill:""
+  iconFill:"",
+  options:[],
+  optionsKey:"",
+  isSearchable:false
 };
 
 // Button default
@@ -233,4 +251,76 @@ LinkLabelWithMaxLength.args = {
   ...commonArgs,
   variation: "link",
   label: "qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopas",
+};
+
+export const ActionButtonOnBottom = Template.bind({});
+ActionButtonOnBottom.args = {
+  ...commonArgs,
+  label:"ActionButton",
+  variation: "primary",
+  type:"actionButton",
+  optionsKey:"name",
+  isSearchable:true,
+    options:[
+      { name: "Action A", code: "Actiona" },
+      { name: "Action B", code: "Actionb" },
+      { name: "Action C", code: "Actionc" },
+    ],
+  showBottom:true
+  
+};
+
+export const UnsearchableActionButtonOnBottom = Template.bind({});
+UnsearchableActionButtonOnBottom.args = {
+  ...commonArgs,
+  label:"ActionButton",
+  variation: "primary",
+  type:"actionButton",
+  optionsKey:"name",
+  isSearchable:false,
+    options:[
+      { name: "Action A", code: "Actiona" },
+      { name: "Action B", code: "Actionb" },
+      { name: "Action C", code: "Actionc" },
+    ],
+  showBottom:true
+  
+};
+
+export const ActionButtonOnTop = Template.bind({});
+ActionButtonOnTop.args = {
+  ...commonArgs,
+  label:"ActionButton",
+  variation: "primary",
+  type:"actionButton",
+  optionsKey:"name",
+  isSearchable:true,
+    options:[
+      { name: "Action A", code: "Actiona" },
+      { name: "Action B", code: "Actionb" },
+      { name: "Action C", code: "Actionc" },
+    ],
+  showBottom:false,
+  menuStyles:{
+    bottom:"40px"
+  }
+};
+
+export const UnsearchableActionButtonOnTop = Template.bind({});
+UnsearchableActionButtonOnTop.args = {
+  ...commonArgs,
+  label:"ActionButton",
+  variation: "primary",
+  type:"actionButton",
+  optionsKey:"name",
+  isSearchable:false,
+    options:[
+      { name: "Action A", code: "Actiona" },
+      { name: "Action B", code: "Actionb" },
+      { name: "Action C", code: "Actionc" },
+    ],
+  showBottom:false,
+  menuStyles:{
+    bottom:"40px"
+  }
 };
