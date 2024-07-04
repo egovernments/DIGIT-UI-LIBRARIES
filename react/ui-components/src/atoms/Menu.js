@@ -2,10 +2,15 @@ import React, { useState} from "react";
 import PropTypes from "prop-types";
 import TextInput from "./TextInput";
 
+const translateDummy = (text) => {
+  return text;
+};
+
 const Menu = (props) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [optionIndex, setOptionIndex] = useState(-1);
   const [isActive, setIsActive] = useState(-1);
+  const t = props.t || translateDummy;
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
@@ -79,7 +84,7 @@ const Menu = (props) => {
             </div>
           ))
         ) : (
-          <div className="header-dropdown-nooption">No Results Found</div>
+          <div className="header-dropdown-nooption">{t("No Results Found")}</div>
         )}
       </div>
     </div>

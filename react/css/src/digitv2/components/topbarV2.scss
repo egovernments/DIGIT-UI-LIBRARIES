@@ -2,9 +2,9 @@
     position: fixed;
     top: 0;
     width: 100%;
-    padding: 10px 24px;
+    padding: 0.625rem 1.5rem;
     background: white;
-    box-shadow: rgba(0, 0, 0, 0.24) 0 1px 4px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0 0.063rem 0.25rem;
     z-index: 9999999;
     @apply flex items-center;
   
@@ -12,14 +12,14 @@
       display: inline;
   
       &.city {
-        margin-right: 8px;
-        height: 48px;
-        width: 48px;
+        margin-right: 0.5rem;
+        height: 3rem;
+        width: 3rem;
       }
   
       &.state {
-        height: 20px;
-        max-height: 20px;
+        height: 1.25rem;
+        max-height: 1.25rem;
         width: auto;
       }
     }
@@ -31,7 +31,7 @@
   
     .right {
       float: right;
-      margin-top: 12px;
+      margin-top: 0.75rem;
       position: relative;
   
       svg {
@@ -40,7 +40,7 @@
   
       .user-img-txt {
         background: theme(colors.primary.main);
-        padding: 10px 15px;
+        padding: 0.625rem 0.938rem;
         border-radius: 50%;
         color: white;
         font-weight: 700;
@@ -60,36 +60,36 @@
     }
   
     .margin-top-6 {
-      margin-top: 6px;
+      margin-top: 0.375rem;
     }
   
     .margin-right-30 {
-      margin-right: 30px;
+      margin-right: 1.875rem;
     }
   
     .margin-top-10 {
-      margin-top: 10px;
+      margin-top: 0.625rem;
     }
   
     .icon {
       display: block;
       color: rgb(117, 117, 117);
       fill: rgb(117, 117, 117);
-      height: 21px;
-      width: 21px;
+      height: 1.313rem;
+      width: 1.313rem;
     }
   
     .column-gap-15 {
-      column-gap: 15px;
+      column-gap: 0.938rem;
     }
   
     .column-gap-5 {
-      column-gap: 5px;
+      column-gap: 0.313rem;
     }
   
     .select-wrap,
     .employee-select-wrap {
-      margin-bottom: 0px;
+      margin-bottom: 0rem;
   
       .profile-dropdown--item {
         span {
@@ -99,7 +99,7 @@
     }
   
     .digit-employee-select-wrap {
-      margin-bottom: 0px;
+      margin-bottom: 0rem;
     }
   
     .digit-topbar-container {
@@ -109,16 +109,16 @@
       width: 100%;
     }
   
-    @media screen and (min-width: 641px) {
+    @media screen and (min-width: 40.063rem) {
       .digit-hamburger-class {
         display: none !important;
       }
     }
   
-    @media screen and (max-width: 640px) {
+    @media screen and (max-width: 40rem) {
   
       .ulb {
-        font-size: 14px;
+        font-size: 0.875rem;
         display: inline-block;
       }
   
@@ -139,7 +139,7 @@
       display: none;
     }
   
-    @media (max-width: 780px) {
+    @media (max-width: 48.75rem) {
       .hamburger {
         display: none;
       }
@@ -148,8 +148,8 @@
   
   .citizen {
     .right {
-      margin-top: 5px;
-      margin-bottom: 5px;
+      margin-top: 0.313rem;
+      margin-bottom: 0.313rem;
     }
   
     .topbar-select-wrap {
@@ -164,8 +164,8 @@
   .profile-dropdown--item {
     display: flex;
     flex-direction: row;
-    padding: 10px;
-    column-gap: 10px;
+    padding: 0.625rem;
+    column-gap: 0.625rem;
     color: theme(colors.text.secondary);
   
     &:hover {
@@ -175,7 +175,7 @@
   
   .flex-right {
     @apply flex items-center justify-end;
-    min-width: 85px;
+    min-width: 5.313rem;
   }
   
   video::-webkit-media-controls-panel {
@@ -199,12 +199,12 @@
     padding: theme(digitv2.spacers.spacer4) theme(digitv2.spacers.spacer10) theme(digitv2.spacers.spacer4) theme(digitv2.spacers.spacer10);
   
     .margin-top-10 {
-      margin-top: 10px;
+      margin-top: 0.625rem;
     }
   
     .digit-dropdown-select-wrap ,
     .digit-dropdown-employee-select-wrap {
-      margin-bottom: 0px;
+      margin-bottom: 0rem;
   
       .digit-dropdown-item {
         span {
@@ -214,15 +214,15 @@
     }
   
     .digit-employee-select-wrap {
-      margin-bottom: 0px;
+      margin-bottom: 0rem;
     }
   
   
     .digit-dropdown-item {
       display: flex;
       flex-direction: row;
-      padding: 10px;
-      column-gap: 10px;
+      padding: 0.625rem;
+      column-gap: 0.625rem;
       color: theme(colors.text.secondary);
   
       &:hover {

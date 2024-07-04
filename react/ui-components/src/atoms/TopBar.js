@@ -1,6 +1,7 @@
 import React, { useEffect, useState, Fragment } from "react";
 import PropTypes from "prop-types";
 import Hamburger from "./Hamburger";
+import { IMAGES, LOCAL_IMAGES } from "../constants/images/images";
 
 const TopBar = ({
   img,
@@ -39,6 +40,12 @@ const TopBar = ({
     };
   });
 
+  const getImageUrl = (imageKey) => {
+    return IMAGES[imageKey] || LOCAL_IMAGES[imageKey];
+  };
+
+  const digitImg = img || (theme === "dark" ? getImageUrl('DIGIT_DARK') : getImageUrl('DIGIT_LIGHT'));
+
   if (isMobileView) {
     return (
       <div
@@ -56,12 +63,7 @@ const TopBar = ({
           <img
             className={`digit-header-img ${onImageClick ? "clickable" : ""}`}
             alt="Powered by DIGIT"
-            src={
-              img ||
-              (theme === "dark"
-                ? "https://egov-dev-assets.s3.ap-south-1.amazonaws.com/digit.png"
-                : "https://egov-uat-assets.s3.ap-south-1.amazonaws.com/hcm/mseva-white-logo.png")
-            }
+            src={img || digitImg}
             onClick={() => onImageClick()}
             width={"80px"}
             height={"19px"}
@@ -104,12 +106,7 @@ const TopBar = ({
           <img
             className={`digit-header-img ${onImageClick ? "clickable" : ""}`}
             alt="Powered by DIGIT"
-            src={
-              img ||
-              (theme === "dark"
-                ? "https://egov-dev-assets.s3.ap-south-1.amazonaws.com/digit.png"
-                : "https://egov-uat-assets.s3.ap-south-1.amazonaws.com/hcm/mseva-white-logo.png")
-            }
+            src={img || digitImg}
             onClick={() => onImageClick()}
             width={"80px"}
             height={"19px"}
@@ -131,12 +128,7 @@ const TopBar = ({
             <img
               className={`digit-header-img ${onImageClick ? "clickable" : ""}`}
               alt="Powered by DIGIT"
-              src={
-                img ||
-                (theme === "dark"
-                  ? "https://egov-dev-assets.s3.ap-south-1.amazonaws.com/digit.png"
-                  : "https://egov-uat-assets.s3.ap-south-1.amazonaws.com/hcm/mseva-white-logo.png")
-              }
+              src={img || digitImg}
               onClick={() => onImageClick()}
               width={"80px"}
               height={"19px"}
