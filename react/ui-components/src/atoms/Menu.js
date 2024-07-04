@@ -1,16 +1,13 @@
 import React, { useState} from "react";
 import PropTypes from "prop-types";
 import TextInput from "./TextInput";
-
-const translateDummy = (text) => {
-  return text;
-};
+import { useTranslation } from "react-i18next";
 
 const Menu = (props) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [optionIndex, setOptionIndex] = useState(-1);
   const [isActive, setIsActive] = useState(-1);
-  const t = props.t || translateDummy;
+  const { t } = useTranslation();
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
