@@ -190,11 +190,11 @@ List<Story> cardStories() {
           LabeledField(
             labelInline: false,
             label: "Dropdown",
-            child: MultiSelectDropDown<int>(
-              isDisabled:
-              context.knobs.boolean(label: 'disabled', initial: false),
-              onOptionSelected: (List<DropdownItem> selectedOptions) {},
-              options: const [
+            child: DigitDropdown<int>(
+              isDisabled: context.knobs
+                  .boolean(label: 'disabled', initial: false),
+              onChange: (value) {},
+              items: const [
                 DropdownItem(code: '1', name: 'one'),
                 DropdownItem(code: '2', name: 'two'),
                 DropdownItem(code: '3', name: 'three'),
@@ -275,16 +275,6 @@ List<Story> cardStories() {
             cardType: CardType.secondary,
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text('Resource 1'),
-                  Icon(
-                    Icons.delete,
-                    color: const DigitColors().light.primary1,
-                  )
-                ],
-              ),
-              Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -292,12 +282,11 @@ List<Story> cardStories() {
                     child: LabeledField(
                       labelInline: false,
                       label: "Dropdown",
-                      child: MultiSelectDropDown<int>(
+                      child: DigitDropdown<int>(
                         isDisabled: context.knobs
                             .boolean(label: 'disabled', initial: false),
-                        onOptionSelected:
-                            (List<DropdownItem> selectedOptions) {},
-                        options: const [
+                        onChange: (value) {},
+                        items: const [
                           DropdownItem(code: '1', name: 'one'),
                           DropdownItem(code: '2', name: 'two'),
                           DropdownItem(code: '3', name: 'three'),
@@ -322,16 +311,7 @@ List<Story> cardStories() {
           DigitCard(
             cardType: CardType.secondary,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text('Resource 1'),
-                  Icon(
-                    Icons.delete,
-                    color: const DigitColors().light.primary1,
-                  )
-                ],
-              ),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -340,12 +320,11 @@ List<Story> cardStories() {
                     child: LabeledField(
                       labelInline: false,
                       label: "Dropdown",
-                      child: MultiSelectDropDown<int>(
+                      child: DigitDropdown<int>(
                         isDisabled: context.knobs
                             .boolean(label: 'disabled', initial: false),
-                        onOptionSelected:
-                            (List<DropdownItem> selectedOptions) {},
-                        options: const [
+                        onChange: (value) {},
+                        items: const [
                           DropdownItem(code: '1', name: 'one'),
                           DropdownItem(code: '2', name: 'two'),
                           DropdownItem(code: '3', name: 'three'),
@@ -354,6 +333,9 @@ List<Story> cardStories() {
                         ],
                       ),
                     ),
+                  ),
+                  const SizedBox(
+                    width: 16,
                   ),
                   Flexible(
                     child: LabeledField(
@@ -372,28 +354,17 @@ List<Story> cardStories() {
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text('Resource 1'),
-                  Icon(
-                    Icons.delete,
-                    color: const DigitColors().light.primary1,
-                  )
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Flexible(
                     child: LabeledField(
                       labelInline: false,
                       label: "Dropdown",
-                      child: MultiSelectDropDown<int>(
+                      child: DigitDropdown<int>(
                         isDisabled: context.knobs
                             .boolean(label: 'disabled', initial: false),
-                        onOptionSelected:
-                            (List<DropdownItem> selectedOptions) {},
-                        options: const [
+                        onChange: (value) {},
+                        items: const [
                           DropdownItem(code: '1', name: 'one'),
                           DropdownItem(code: '2', name: 'two'),
                           DropdownItem(code: '3', name: 'three'),

@@ -161,7 +161,7 @@ class MyApp extends StatelessWidget {
               ...backNavigationButtonStories(),
               ...timelineMoleculeStories(),
               ///...customStepperStories(),
-             /// ...hamBurgerStories(),
+             ///...hamBurgerStories(),
               ///...tableStories(),
             ],
           ),

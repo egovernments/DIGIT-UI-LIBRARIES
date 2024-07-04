@@ -73,6 +73,7 @@ class CustomHeaderMolecule extends StatelessWidget {
       children: [
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
           children: [
             InkWell(
               hoverColor: const DigitColors().transparent,
@@ -118,14 +119,17 @@ class CustomHeaderMolecule extends StatelessWidget {
                 width: 8,
               ),
             if (title != null)
-              Text(
-                title!,
-                overflow: TextOverflow.ellipsis,
-                style: currentTypography.headingS.copyWith(
-                    color: type == HeaderType.dark
-                        ? const DigitColors().light.paperPrimary
-                        : const DigitColors().light.textPrimary),
-                textAlign: TextAlign.center,
+              Flexible(
+                fit: FlexFit.loose,
+                child: Text(
+                  title!,
+                  overflow: TextOverflow.ellipsis,
+                  style: currentTypography.headingS.copyWith(
+                      color: type == HeaderType.dark
+                          ? const DigitColors().light.paperPrimary
+                          : const DigitColors().light.textPrimary),
+                  textAlign: TextAlign.center,
+                ),
               ),
           ],
         ),

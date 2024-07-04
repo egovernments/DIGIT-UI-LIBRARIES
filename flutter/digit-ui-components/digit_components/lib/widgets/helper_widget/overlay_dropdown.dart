@@ -69,10 +69,15 @@ class _OverlayDropdownState extends State<OverlayDropdown>
   OverlayEntry _createOverlayEntry() {
     RenderBox renderBox = context.findRenderObject() as RenderBox;
     Size size = renderBox.size;
-
+    double screenWidth = MediaQuery.of(context).size.width;
     double dropdownWidth = size.width < 220 ? 220 : size.width;
     double widgetWidth = size.width; /// Get the width of the widget
     double rightOffset = widgetWidth - dropdownWidth;
+    // Adjust dropdownWidth to ensure it fits within the screen
+    double maxDropdownWidth = screenWidth - renderBox.localToGlobal(Offset.zero).dx - 16;
+    if (dropdownWidth > maxDropdownWidth) {
+      dropdownWidth = maxDropdownWidth;
+    }
 
     return OverlayEntry(
       builder: (context) => GestureDetector(
