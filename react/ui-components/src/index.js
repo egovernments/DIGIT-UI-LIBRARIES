@@ -77,7 +77,10 @@ import {
   Animation,
   ViewCardFieldPair,
   Divider,
-  ButtonsGroup
+  ButtonsGroup,
+  TopBar,
+  Hamburger,
+  Menu,
 } from "./atoms";
 
 import {
@@ -326,6 +329,9 @@ export {
   TreeSelect,
   SubmitBar,
   ButtonSelector,
+  TopBar,
+  Hamburger,
+  Menu,
   Stepper,
   Timeline,
   StringManipulator,

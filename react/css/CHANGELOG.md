@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.0.2-beta.11] - 2024-07-04
+### Added
+- Updated styles for actionbar,header and timeline molecule
+
 ## [0.0.2-beta.10] - 2024-06-28
 ### Added
 - Updated styles

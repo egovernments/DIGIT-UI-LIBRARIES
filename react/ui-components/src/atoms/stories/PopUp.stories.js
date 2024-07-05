@@ -80,6 +80,12 @@ export default {
     footerStyles: {
       control: "object",
     },
+    showAlertAsSvg: {
+      control: "boolean",
+    },
+    equalWidthButtons: {
+      control: "boolean",
+    },
   },
 };
 
@@ -145,6 +151,8 @@ const commonArgs = {
   sortFooterButtons: true,
   maxFooterButtonsAllowed: 5,
   footerStyles: {},
+  showAlertAsSvg:false,
+  equalWidthButtons:false
 };
 
 const footerChildrenWithTwoButtons = [
@@ -161,6 +169,25 @@ const footerChildrenWithTwoButtons = [
     variation={"primary"}
     label="Button"
     onClick={() => console.log("Clicked Button 2")}
+  />,
+];
+
+
+const FooterChild = [
+  <Button
+    type={"button"}
+    size={"large"}
+    variation={"primary"}
+    label="Cancel"
+    onClick={() => console.log("Clicked Button")}
+  />,
+  <Button
+    type={"submit"}
+    size={"large"}
+    variation={"primary"}
+    icon={"FileDownload"}
+    label="Download Template"
+    onClick={() => console.log("Clicked submit")}
   />,
 ];
 
@@ -263,6 +290,20 @@ WithIcon.args = {
   footerChildren: footerChildrenWithTwoButtons,
 };
 
+export const DefaultWithEqualWidthButtons = Template.bind({});
+DefaultWithEqualWidthButtons.args = {
+  ...commonArgs,
+  type: "default",
+  heading: "Heading",
+  subheading: "Subheading",
+  description:
+    "Please contact the administrator if you have forgotten your password.",
+  showIcon: true,
+  children: lessChildren,
+  footerChildren: FooterChild,
+  equalWidthButtons:true
+};
+
 export const DefaultWithSingleButton = Template.bind({});
 DefaultWithSingleButton.args = {
   ...commonArgs,
@@ -274,6 +315,20 @@ DefaultWithSingleButton.args = {
   showIcon: true,
   children: lessChildren,
   footerChildren: footerChildrenWithOneButton,
+};
+
+export const SingleButtonWithTotalWidth = Template.bind({});
+SingleButtonWithTotalWidth.args = {
+  ...commonArgs,
+  type: "default",
+  heading: "Heading",
+  subheading: "Subheading",
+  description:
+    "Please contact the administrator if you have forgotten your password.",
+  showIcon: true,
+  children: lessChildren,
+  footerChildren: footerChildrenWithOneButton,
+  equalWidthButtons:true
 };
 
 export const DefaultWithCustomIcon = Template.bind({});
@@ -441,4 +496,40 @@ AlertWithOutFooter.args = {
   alertHeading: "Alert!",
   alertMessage:
     "Please contact the administrator if you have forgotten your password.",
+};
+
+export const AlertAsSvg = Template.bind({});
+AlertAsSvg.args = {
+  ...commonArgs,
+  type: "alert",
+  children: lessChildren,
+  footerChildren: footerChildrenWithTwoButtons,
+  alertHeading: "Alert!",
+  alertMessage:
+    "Please contact the administrator if you have forgotten your password.",
+  showAlertAsSvg:true
+};
+
+export const AlertWithSingleButtonTotalWidth = Template.bind({});
+AlertWithSingleButtonTotalWidth.args = {
+  ...commonArgs,
+  type: "alert",
+  children: lessChildren,
+  footerChildren: footerChildrenWithOneButton,
+  alertHeading: "Alert!",
+  alertMessage:
+    "Please contact the administrator if you have forgotten your password.",
+    equalWidthButtons:true
+};
+
+export const AlertWithEqualButtonsWidth = Template.bind({});
+AlertWithEqualButtonsWidth.args = {
+  ...commonArgs,
+  type: "alert",
+  children: lessChildren,
+  footerChildren: footerChildrenWithTwoButtons,
+  alertHeading: "Alert!",
+  alertMessage:
+    "Please contact the administrator if you have forgotten your password.",
+    equalWidthButtons:true
 };

@@ -30,20 +30,29 @@ const commonArgs = {
   style: {},
 };
 
-export const DividerSmall = Template.bind({});
-DividerSmall.args = {
+export const Small = Template.bind({});
+Small.args = {
   ...commonArgs,
   variant:"small"
 };
 
-export const DividerMedium = Template.bind({});
-DividerMedium.args = {
+export const Medium = Template.bind({});
+Medium.args = {
   ...commonArgs,
   variant:"medium"
 };
 
-export const DividerLarge = Template.bind({});
-DividerLarge.args = {
+export const Large = Template.bind({});
+Large.args = {
   ...commonArgs,
   variant:"large"
+};
+
+export const Custom = Template.bind({});
+Custom.args = {
+  ...commonArgs,
+  variant:"large",
+  style:{
+    border:"10px solid #0B4B66"
+  }
 };

@@ -153,20 +153,20 @@ export const WithAdditionalElements = () => (
 
 export const WithVisbileCount = () => (
   <TimelineMolecule initialVisibleCount={3}>
-        <Timeline
-      label="Upcoming Timeline Step2"
-      subElements={subElements}
-      variant="upcoming"
-      showConnector={true}
-    />
     <Timeline
-      label="Upcoming Timeline Step"
+      label="Upcoming Timeline Step3"
       subElements={subElements}
       variant="upcoming"
       showConnector={true}
     />
     <Timeline
       label="Upcoming Timeline Step2"
+      subElements={subElements}
+      variant="upcoming"
+      showConnector={true}
+    />
+    <Timeline
+      label="Upcoming Timeline Step1"
       subElements={subElements}
       variant="upcoming"
       showConnector={true}
@@ -184,6 +184,12 @@ export const WithVisbileCount = () => (
       showConnector={true}
     />
     <Timeline
+      label="Completed Timeline Step3"
+      subElements={subElements}
+      variant="completed"
+      showConnector={true}
+    />
+    <Timeline
       label="Completed Timeline Step2"
       subElements={subElements}
       variant="completed"
@@ -198,9 +204,17 @@ export const WithVisbileCount = () => (
   </TimelineMolecule>
 );
 
-export const WithVisbileCountAndViewMoreLabel = () => (
-  <TimelineMolecule initialVisibleCount={3} viewMoreLabel={"Show More"} viewLessLabel={"Show Less"}>
-        <Timeline
+export const WithCustomValues = () => (
+  <TimelineMolecule
+    initialVisibleCount={3}
+    viewMoreLabelForFuture={"Show More Future Timelines"}
+    viewLessLabelForFuture={"Show Less Future Timelines"}
+    viewLessLabelForPast={"Show Less Past Timelines"}
+    viewMoreLabelForPast={"Show More Past Timelines "}
+    pastIcon={"ArrowDownward"}
+    FutureIcon={"ArrowDownward"}
+  >
+    <Timeline
       label="Upcoming Timeline Step2"
       subElements={subElements}
       variant="upcoming"

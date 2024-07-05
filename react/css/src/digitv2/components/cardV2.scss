@@ -389,10 +389,10 @@
     width: 100%;
     height: auto;
     background-color: #ffffff;
-    border-radius: 0.25rem;
+    border-radius: theme(digitv2.spacers.spacer1);
     box-shadow: 0rem 0.063rem 0.125rem 0rem #00000029;
     display: flex;
-    gap: 1rem;
+    gap: theme(digitv2.spacers.spacer4);
     flex-direction: column;
 
     &.secondary {
@@ -459,18 +459,21 @@
     }
 
     @media (min-width: 30.063rem) and (max-width: 47.938rem) {
-        padding: 1.25rem;
+        padding: theme(digitv2.spacers.spacer5);
     }
 
     @media (min-width: 48rem) {
-        padding: 1.5rem;
+        padding: theme(digitv2.spacers.spacer6);
     }
 
     @media (max-width: 30rem) {
-        padding: 1rem;
+        padding: theme(digitv2.spacers.spacer4);
     }
 
     &.action {
+        padding: theme(digitv2.spacers.spacer6);
+        gap: theme(digitv2.spacers.spacer6);
+
         button {
             width: 100%;
         }
@@ -480,6 +483,16 @@
 
         .digit-text-block-wrap .digit-text-block-header-content .digit-text-block-subheader{
             color: theme(digitv2.lightTheme.primary-2);
+        }
+    }
+
+    &.form{
+        .digit-label-field-pair  {
+            margin-bottom: unset;
+        }
+
+        .digit-radio-options-wrap {
+            margin-bottom: unset;
         }
     }
 }

@@ -2,7 +2,7 @@ import React, { useState, Fragment, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import { SVG } from "./SVG";
 import StringManipulator from "./StringManipulator";
-import warningOutlineAnimation from "../animations/warningOutline.json";
+import warningOutlineAnimation from "../constants/animations/warningOutline.json";
 import Animation from "./Animation";
 
 const PopUp = (props) => {
@@ -144,6 +144,7 @@ const PopUp = (props) => {
           props?.className ? props?.className : ""
         } ${props?.type ? props?.type : ""}`}
         style={props?.style}
+        onClick={(e) => e.stopPropagation()}
       >
         {props?.type === "alert" ? (
           <div

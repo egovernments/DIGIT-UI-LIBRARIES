@@ -1,12 +1,12 @@
 import React from "react";
 import { Animation } from "../../atoms";
-import successAnimation from "../../animations/success.json";
-import errorAnimation from "../../animations/error.json";
-import newSceneAnimation from "../../animations/newScene.json";
-import warningOutlineAnimation from "../../animations/warningOutline.json";
+import successAnimation from "../../constants/animations/success.json";
+import errorAnimation from "../../constants/animations/error.json";
+import newSceneAnimation from "../../constants/animations/newScene.json";
+import warningOutlineAnimation from "../../constants/animations/warningOutline.json";
 
 export default {
-  title: "Atoms/Animation",
+  title: "Animations",
   component: Animation,
   argTypes: {
     loop: {
