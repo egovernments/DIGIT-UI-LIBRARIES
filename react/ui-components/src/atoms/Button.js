@@ -9,10 +9,7 @@ const Button = (props) => {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (
-        actionRef?.current &&
-        !actionRef?.current.contains(event.target)
-      ) {
+      if (actionRef?.current && !actionRef?.current.contains(event.target)) {
         setDropdownStatus(false);
       }
     };
@@ -38,15 +35,27 @@ const Button = (props) => {
       ? "#C5C5C5"
       : "#C84C0E";
     const iconReq =
-      props?.type === "actionButton" && props?.showBottom && dropdownStatus && !props.icon
+      props?.type === "actionButton" &&
+      props?.showBottom &&
+      dropdownStatus &&
+      !props.icon
         ? "ArrowDropUp"
-        : props?.type === "actionButton" && props?.showBottom && !dropdownStatus && !props?.icon
+        : props?.type === "actionButton" &&
+          props?.showBottom &&
+          !dropdownStatus &&
+          !props?.icon
         ? "ArrowDropDown"
-        : props?.type === "actionButton" && !props?.showBottom && dropdownStatus && !props.icon
+        : props?.type === "actionButton" &&
+          !props?.showBottom &&
+          dropdownStatus &&
+          !props.icon
         ? "ArrowDropDown"
-        : props?.type === "actionButton" && !props?.showBottom && !dropdownStatus && !props?.icon
-        ? "ArrowDropUp" :
-        props?.icon;
+        : props?.type === "actionButton" &&
+          !props?.showBottom &&
+          !dropdownStatus &&
+          !props?.icon
+        ? "ArrowDropUp"
+        : props?.icon;
     let width, height;
 
     if (props.size === "large") {
@@ -102,43 +111,47 @@ const Button = (props) => {
     setDropdownStatus(!dropdownStatus);
   };
 
-  return (
-    <div ref={actionRef}>
-      <button
-        ref={props?.ref}
-        className={`digit-button-${
-          props?.variation ? props?.variation : "default"
-        } ${props?.size ? props?.size : "large"} ${
-          props?.className ? props?.className : ""
-        } ${props?.isDisabled ? "disabled" : ""}`}
-        type={props?.submit ? "submit" : props?.type || "button"}
-        form={props.formId}
-        onClick={
-          props?.type === "actionButton"
-            ? handleActionButtonClick
-            : props?.onClick
-        }
-        disabled={props?.isDisabled || null}
-        title={props?.title || ""}
-        style={props.style ? props.style : null}
+  const buttonElement = (
+    <button
+      ref={props?.ref}
+      className={`digit-button-${
+        props?.variation ? props?.variation : "default"
+      } ${props?.size ? props?.size : "large"} ${
+        props?.className ? props?.className : ""
+      } ${props?.isDisabled ? "disabled" : ""}`}
+      type={props?.submit ? "submit" : props?.type || "button"}
+      form={props.formId}
+      onClick={
+        props?.type === "actionButton"
+          ? handleActionButtonClick
+          : props?.onClick
+      }
+      disabled={props?.isDisabled || null}
+      title={props?.title || ""}
+      style={props.style ? props.style : null}
+    >
+      <div
+        className={`icon-label-container ${
+          props?.variation ? props?.variation : ""
+        } ${props?.size ? props?.size : ""}`}
       >
-        <div
-          className={`icon-label-container ${
-            props?.variation ? props?.variation : ""
-          } ${props?.size ? props?.size : ""}`}
-        >
-          {!props?.isSuffix && props?.icon && icon}
-          <h2 style={{ ...props?.textStyles }} className="digit-button-label">
-            {formattedLabel}
-          </h2>
-          {props?.isSuffix && props?.icon && icon}
-          {props?.type === "actionButton" &&
-            !props?.hideDefaultActionIcon &&
-            !props?.icon &&
-            icon}
-        </div>
-      </button>
-      {props?.type === "actionButton" && dropdownStatus && (
+        {!props?.isSuffix && props?.icon && icon}
+        <h2 style={{ ...props?.textStyles }} className="digit-button-label">
+          {formattedLabel}
+        </h2>
+        {props?.isSuffix && props?.icon && icon}
+        {props?.type === "actionButton" &&
+          !props?.hideDefaultActionIcon &&
+          !props?.icon &&
+          icon}
+      </div>
+    </button>
+  );
+
+  return props?.type === "actionButton" ? (
+    <div ref={actionRef}>
+      {buttonElement}
+      {dropdownStatus && (
         <div className="header-dropdown-container">
           <Menu
             options={props?.options}
@@ -153,6 +166,8 @@ const Button = (props) => {
         </div>
       )}
     </div>
+  ) : (
+    buttonElement
   );
 };
 
