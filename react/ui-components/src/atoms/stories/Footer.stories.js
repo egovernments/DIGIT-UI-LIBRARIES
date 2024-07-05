@@ -60,6 +60,7 @@ const footeractionFields = [
     size={"large"}
     variation={"primary"}
     label="Next"
+    isSuffix={true}
     icon={"ArrowForward"}
     onClick={() => console.log("Moving To next page")}
   />,
