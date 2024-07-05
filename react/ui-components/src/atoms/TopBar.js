@@ -1,7 +1,7 @@
 import React, { useEffect, useState, Fragment } from "react";
 import PropTypes from "prop-types";
 import Hamburger from "./Hamburger";
-import { IMAGES, LOCAL_IMAGES } from "../constants/images/images";
+import { IMAGES} from "../constants/images/images";
 
 const TopBar = ({
   img,
@@ -41,7 +41,7 @@ const TopBar = ({
   });
 
   const getImageUrl = (imageKey) => {
-    return IMAGES[imageKey] || LOCAL_IMAGES[imageKey];
+    return IMAGES[imageKey] ;
   };
 
   const digitImg = img || (theme === "dark" ? getImageUrl('DIGIT_DARK') : getImageUrl('DIGIT_LIGHT'));
