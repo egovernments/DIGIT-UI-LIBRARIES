@@ -70,7 +70,7 @@ const commonArgs = {
   label: "Button",
   className: "custom-class",
   style: {},
-  onClick: () => console.log("clicked"),
+  onClick: () => {console.log("clicked"); } ,
   isDisabled: false,
   variation: "",
   isSuffix: false,
@@ -266,8 +266,8 @@ ActionButtonOnBottom.args = {
       { name: "Action B", code: "Actionb" },
       { name: "Action C", code: "Actionc" },
     ],
-  showBottom:true
-  
+  showBottom:true,
+  onOptionSelect:(e)=>{console.log(e,"option selected")}
 };
 
 export const UnsearchableActionButtonOnBottom = Template.bind({});
@@ -283,7 +283,8 @@ UnsearchableActionButtonOnBottom.args = {
       { name: "Action B", code: "Actionb" },
       { name: "Action C", code: "Actionc" },
     ],
-  showBottom:true
+  showBottom:true,
+  onOptionSelect:(e)=>{console.log(e,"option selected")}
   
 };
 
@@ -303,7 +304,8 @@ ActionButtonOnTop.args = {
   showBottom:false,
   menuStyles:{
     bottom:"40px"
-  }
+  },
+  onOptionSelect:(e)=>{console.log(e,"option selected")}
 };
 
 export const UnsearchableActionButtonOnTop = Template.bind({});
@@ -322,5 +324,6 @@ UnsearchableActionButtonOnTop.args = {
   showBottom:false,
   menuStyles:{
     bottom:"40px"
-  }
+  },
+  onOptionSelect:(e)=>{console.log(e,"option selected")}
 };

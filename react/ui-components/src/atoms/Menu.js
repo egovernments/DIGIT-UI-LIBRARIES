@@ -74,7 +74,7 @@ const Menu = (props) => {
               className={`header-dropdown-option ${
                 index === isActive ? "activeIndex" : ""
               } ${index === optionIndex ? "keyChange" : ""}`}
-              onClick={() => onSelect(option)}
+              onClick={(e) => {e.stopPropagation(); onSelect(option);}}
             >
               {IconRender(option?.icon, index === isActive)}
               {option[props?.optionsKey]}
