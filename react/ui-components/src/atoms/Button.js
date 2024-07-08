@@ -107,7 +107,8 @@ const Button = (props) => {
           })
         );
 
-  const handleActionButtonClick = () => {
+  const handleActionButtonClick = (e) => {
+    e.stopPropagation();
     setDropdownStatus(!dropdownStatus);
   };
 
@@ -123,7 +124,7 @@ const Button = (props) => {
       form={props.formId}
       onClick={
         props?.type === "actionButton"
-          ? handleActionButtonClick
+          ? (e)=> handleActionButtonClick(e)
           : props?.onClick
       }
       disabled={props?.isDisabled || null}
