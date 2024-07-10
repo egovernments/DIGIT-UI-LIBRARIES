@@ -26,6 +26,10 @@
       @apply opacity-0;
     }
 
+    svg{
+      flex-shrink: 0;
+    }
+
     &:hover {
       @apply border-2 ;
       border-color: theme(digitv2.lightTheme.primary-1);

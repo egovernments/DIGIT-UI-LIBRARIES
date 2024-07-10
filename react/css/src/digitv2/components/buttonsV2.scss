@@ -165,7 +165,7 @@
   &.large{
     h2{
       @apply h-5;
-      margin-top: 0.125rem;
+      margin-top: theme(digitv2.spacers.spacer1);
     }
   }
 
@@ -405,3 +405,47 @@
 .digit-submit-bar:focus {
   @apply outline-none !important;
 }
+
+.digit-buttons-group {
+  display: flex;
+  flex-direction: row;
+  height: fit-content;
+  gap:theme(digitv2.spacers.spacer4);
+
+  @media (max-width: 30rem) {
+    flex-direction: column;
+
+    button{
+      width: 100%;
+    }
+  }
+
+  button{
+    flex: 1;
+  }
+}
+
+.header-dropdown-container {
+  position: relative; 
+
+  .header-dropdown-menu {
+    @apply absolute z-30;
+    bottom: theme(digitv2.spacers.spacer5);
+    right: 0;
+    max-height: unset;
+    margin-top: unset;
+  
+    &.showBottom{
+      bottom: unset;
+    }
+
+    @media (max-width: 30rem) {
+      width: 100% !important;
+    }
+
+    @media (max-width: 15.625rem) {
+      left:0 ;
+    }
+  }
+}
+

@@ -2,6 +2,8 @@ import PropTypes from "prop-types";
 import React, { useEffect, useRef, useState } from "react";
 import { SVG } from "./SVG";
 import TreeSelect from "./TreeSelect";
+import { ProfileIcon } from "./svgindex";
+import Menu from "./Menu";
 
 const TextField = (props) => {
   const [value, setValue] = useState(
@@ -113,6 +115,7 @@ const TextField = (props) => {
       placeholder={props.placeholder}
       autoComplete={"off"}
       style={props.style}
+      title={props.showToolTip ? replaceDotWithColon(value) : undefined}
     />
   );
 };
@@ -190,13 +193,13 @@ const Dropdown = (props) => {
             ?.indexOf(filterVal?.toUpperCase()) > -1
       )) ||
     [];
-    function selectOption(ind) {
-      const optionsToSelect =
+  function selectOption(ind) {
+    const optionsToSelect =
       props.variant === "nesteddropdown" || props.variant === "treedropdown"
         ? flattenedOptions
         : filteredOption;
-      onSelect(optionsToSelect[ind]);
-    }
+    onSelect(optionsToSelect[ind]);
+  }
 
   if (props.isBPAREG && selectedOption) {
     let isSelectedSameAsOptions =
@@ -240,8 +243,9 @@ const Dropdown = (props) => {
       });
     };
 
-    const parentOptionsWithChildren = options.filter(option => option.options && option.options.length > 0);
-
+    const parentOptionsWithChildren = options.filter(
+      (option) => option.options && option.options.length > 0
+    );
 
     parentOptionsWithChildren.forEach((option) => {
       if (option.options) {
@@ -294,13 +298,30 @@ const Dropdown = (props) => {
                   ? "2.935rem"
                   : ""
               }`,
-              backgroundImage: `url(${
-                option.profileIcon
-                  ? option.profileIcon
-                  : "https://s3-alpha-sig.figma.com/img/a353/e61a/922f0cbf41a57918ee98e5f003d2f9b8?Expires=1705881600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=MmtDrFFMEexXuRiv~LIjrdvTBGtlOb-TqT4e6-pigcyH9ssnhhovhQa564Cp-~t9e6ZPtG33snEpEtOfVcElP-7VqK9HLqGJ7kVD3ZkR4jxGGkzVKLe7ItVqZeI3XD2HAWB2L~JY4s42dnm6658WWst~o6Fh8U9WuTJqB1iaOZyrvTf6VA2F66jcPozoTPjJeYyH0b3kGcxcGZEbkK-AbXwGkUsOJIKGr4dDVS7Gy2hgTabSd0mRkg0HTgntaLW0Zj~gzkgRTTPPUZst98npoIXE8cVimurJ4-KjYYRetx5li4O4PRl4uagRADIsxFxziDmMNv~~5IxEN4C2~0W9ew__"
-              })`,
+              ...(option.profileIcon && {
+                backgroundImage: `url(${option.profileIcon})`,
+              }),
             }}
-          />
+          >
+            {!option?.profileIcon && (
+              <ProfileIcon
+                width={
+                  props?.variant === "profiledropdown"
+                    ? "2rem"
+                    : props?.variant === "profilenestedtext"
+                    ? "2.935rem"
+                    : ""
+                }
+                height={
+                  props?.variant === "profiledropdown"
+                    ? "2rem"
+                    : props?.variant === "profilenestedtext"
+                    ? "2.935rem"
+                    : ""
+                }
+              ></ProfileIcon>
+            )}
+          </div>
         ) : null}
         <div className="option-des-container">
           <div className="icon-option">
@@ -316,6 +337,13 @@ const Dropdown = (props) => {
             ) : (
               <span
                 className={`main-option ${props.variant ? props?.variant : ""}`}
+                title={
+                  props.showToolTip
+                    ? props.t
+                      ? props.t(option[props?.optionKey])
+                      : option[props?.optionKey]
+                    : undefined
+                }
               >
                 {props.t
                   ? props.t(option[props?.optionKey])
@@ -334,14 +362,15 @@ const Dropdown = (props) => {
   };
 
   const optionsToRender =
-  props.variant === "nesteddropdown" || props.variant === "treedropdown"
-    ? flattenedOptions
-    : filteredOption;
+    props.variant === "nesteddropdown" || props.variant === "treedropdown"
+      ? flattenedOptions
+      : filteredOption;
 
-  const parentOptionsWithChildren = filteredOption.filter(option => option.options && option.options.length > 0);
+  const parentOptionsWithChildren = filteredOption.filter(
+    (option) => option.options && option.options.length > 0
+  );
 
   const renderOptions = () => {
-
     return optionsToRender.map((option, index) => {
       if (option.options) {
         return (
@@ -369,27 +398,39 @@ const Dropdown = (props) => {
     <div
       className={`${
         user_type === "employee"
-          ? "digit-dropdown-employee-select-wrap"
+          ? "digit-dropdown-employee-select-wrap" 
           : "digit-dropdown-select-wrap"
       } ${props?.className ? props?.className : ""}`}
       style={props?.style || {}}
     >
-      {hasCustomSelector && (
+      {(hasCustomSelector || props?.profilePic) && (
         <div
-          className={props.showArrow ? "cp flex-right column-gap-5" : "cp"}
+          className={`header-dropdown-label ${props?.theme || ""}`}
           onClick={dropdownSwitch}
         >
-          {props.customSelector}
-          {props.showArrow && (
-            <SVG.ArrowDropDown
-              onClick={dropdownSwitch}
-              className={props.disabled && "disabled"}
-              fill="#505a5f"
-            />
+          {props?.profilePic && (
+            <span
+              className={`header-dropdown-profile ${props?.theme || ""} ${
+                typeof props?.profilePic === "string" ? "text" : ""
+              }`}
+            >
+              {typeof props?.profilePic === "string"
+                ? props?.profilePic?.[0]?.toUpperCase()
+                : props?.profilePic}
+            </span>
+          )}
+          {!props?.profilePic && props?.customSelector}
+          {props?.showArrow && (
+            <span className="header-dropdown-arrow">
+              <SVG.ArrowDropDown
+                fill={props?.theme === "dark" ? "#FFFFFF" : "#505A5F"}
+              />
+            </span>
           )}
         </div>
       )}
-      {!hasCustomSelector && (
+
+      {!hasCustomSelector && !props?.profilePic && (
         <div
           className={`${
             dropdownStatus
@@ -456,6 +497,7 @@ const Dropdown = (props) => {
             placeholder={props.placeholder}
             onBlur={props?.onBlur}
             inputRef={props.ref}
+            showToolTip={props.showToolTip}
           />
           {props.showSearchIcon ? null : (
             <SVG.ArrowDropDown
@@ -474,13 +516,23 @@ const Dropdown = (props) => {
           ) : null}
         </div>
       )}
-      {dropdownStatus ? (
+      {(hasCustomSelector || props?.profilePic) && dropdownStatus && (
+          <Menu
+            options={props?.option}
+            setDropdownStatus={setDropdownStatus}
+            dropdownStatus={dropdownStatus}
+            isSearchable={props?.isSearchable}
+            optionsKey={props?.optionKey}
+            onSelect={props?.onOptionSelect}
+            showBottom={props?.showBottom}
+            style={props?.menuStyles}
+          />
+      )}
+      {(!hasCustomSelector && !props?.profilePIc && dropdownStatus) ? (
         props.optionKey ? (
           <div
             id="jk-dropdown-unique"
-            className={`${
-              hasCustomSelector ? "margin-top-10 display: table" : ""
-            } digit-dropdown-options-card`}
+            className={`digit-dropdown-options-card`}
             style={{ ...props.optionCardStyles }}
             ref={optionRef}
           >

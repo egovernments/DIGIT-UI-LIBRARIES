@@ -1,5 +1,39 @@
 # Changelog
 
+## [0.0.2-beta.11] - 2024-07-04
+### Added
+- Updated styles for actionbar,header and timeline molecule
+
+## [0.0.2-beta.10] - 2024-06-28
+### Added
+- Updated styles
+
+## [0.0.2-beta.9] - 2024-06-25
+### Added
+- Updated Uploader preview styles
+
+## [0.0.2-beta.6] - 2024-06-24
+### Added
+- Added ViewMore button for timeline molecule
+
+## [0.0.2-beta.5] - 2024-06-19
+### Added
+- Added BreadCrumb css
+
+## [0.0.2-beta.4] - 2024-06-17
+### Added
+- Added Timeline Molecule related css
+
+## [0.0.2-beta.3] - 2024-06-13
+### Changed
+- Deleted Unused CSS 
+- Added preview overlay styles for uploadedfile and backLink styles
+
+
+## [0.0.2-beta.2] - 2024-06-13
+### Changed
+- Deleted Unused CSS 
+
 ## [0.0.2-beta.1] - 2024-06-04
 ### Changed
 - Updated Popup Classname

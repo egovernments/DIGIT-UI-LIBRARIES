@@ -1,6 +1,6 @@
 @import url("../index.scss");
 
-.digit-action-bar-wrap {
+/*.digit-action-bar-wrap {
   @extend .light-text-color-primary;
   @extend .light-paper-primary;
   box-shadow: rgba(0, 0, 0, 0.16) 0 -2px 8px;
@@ -41,7 +41,6 @@
     z-index: 999;
 
     @apply fixed bottom-0 bg-white py-sm pr-lg text-right;
-    /* @extend .light-background; */
 
     div {
       width: calc(100% - 16px);
@@ -60,7 +59,6 @@
 
         &:hover {
           @apply bg-grey-mid w-full;
-          /* @extend .light-background; */
         }
       }
     }
@@ -107,4 +105,103 @@
     align-items: center;
     margin-left: 10px;
   }
+}
+*/
+
+.digit-action-bar-wrap{
+  width: 100%;
+  max-width: 100%;
+  padding: theme(digitv2.spacers.spacer4) theme(digitv2.spacers.spacer8);
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: theme(digitv2.spacers.spacer0) -0.063rem 0.125rem theme(digitv2.spacers.spacer0) #00000029;
+  background-color: theme(digitv2.lightTheme.paper-primary);
+  height: 4.5rem;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+
+  @media (min-width: 48rem) {
+    gap: theme(digitv2.spacers.spacer6);
+  }
+
+  @media (min-width: 30.063rem) and (max-width: 47.938rem) {
+    gap: theme(digitv2.spacers.spacer5);
+  }
+
+  @media (max-width: 30rem) {
+    gap: theme(digitv2.spacers.spacer4);
+    box-shadow: theme(digitv2.spacers.spacer0) -0.063rem 0.125rem theme(digitv2.spacers.spacer0) #00000026;
+    height: 8rem;
+    padding: theme(digitv2.spacers.spacer4);
+  }
+
+  .digit-action-bar-fields{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    @media (min-width: 48rem) {
+      gap: theme(digitv2.spacers.spacer6);
+    }
+  
+    @media (min-width: 30.063rem) and (max-width: 47.938rem) {
+      gap: theme(digitv2.spacers.spacer5);
+    }
+  
+    @media (max-width: 30rem) {
+      gap: theme(digitv2.spacers.spacer4);
+      flex-direction: column;
+
+      .action-bar-individual-action-field{
+        button{
+          width: 100%;
+          max-width: 100%;
+        }
+      }
+    }
+
+    &.toRight{
+      margin-left: auto;
+    }
+
+    &.toLeft{
+      justify-content: unset;
+    }
+
+    .action-bar-individual-action-field{
+      button{
+        flex: 1;
+      }
+    }
+
+    &:not(.toRight){
+      width: 100%;
+    }
+  }
+
+  .digit-dropdown-select-wrap,
+  .digit-employee-dropdown-select-wrap{
+    margin-bottom: 0rem;
+  }
+
+  .header-dropdown-container {
+    position: relative; 
+  }
+
+  .header-dropdown-menu {
+    @apply absolute z-30;
+    bottom: theme(digitv2.spacers.spacer10);
+    right: 0;
+    max-height: unset;
+    margin-top: unset;
+
+    &.showBottom{
+      bottom: unset;
+    }
+  }
+
 }

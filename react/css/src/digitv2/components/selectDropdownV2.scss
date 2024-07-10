@@ -1,0 +1,365 @@
+.digit-dropdown-employee-select-wrap {
+  @apply w-full relative;
+  @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+    /* Media query for tablets */
+    max-width: 27.5rem;
+  }
+  @media (max-aspect-ratio: 9/16) {
+    /* Media query for mobile */
+    max-width: 100%;
+    width: 100%;
+  }
+  @media (min-aspect-ratio: 3/4) {
+    /* Media query for desktop */
+    max-width: 37.5rem;
+  }
+  .digit-dropdown-select {
+    @extend .light-input-border;
+    @apply relative block w-full h-10 bg-white;
+    border: 0.063rem solid theme(digitv2.lightTheme.text-secondary);
+    &.digit-field-error {
+      border: 0.063rem solid;
+      border-color: theme(digitv2.lightTheme.alert-error);
+    }
+    &.disabled {
+      pointer-events: none !important;
+      border: 0.063rem solid theme(digitv2.lightTheme.generic-divider) !important;
+      color: theme(digitv2.lightTheme.generic-divider) !important;
+    }
+    input[type="text"] {
+      @extend .typography.body-l;
+      @apply absolute z-10 h-full outline-none;
+      width:calc(100%- (theme(digitv2.spacers.spacer7)));
+      background-color: transparent;
+      padding-top:theme(digitv2.spacers.spacer2);     
+       padding-bottom: theme(digitv2.spacers.spacer2);
+      padding-left:theme(digitv2.spacers.spacer3);
+      color: theme(digitv2.lightTheme.text-primary);
+    }
+    p {
+      @extend .light-text-color-primary;
+      padding-top: 0.563rem;
+      @apply text-form-field text-text-primary float-left ml-sm;
+    }
+    img {
+      @apply float-right h-6 w-6 mt-sm mr-sm;
+    }
+    svg {
+      @apply absolute right-0 float-right h-6 w-6 mt-sm mr-sm mb-sm;
+    }
+  }
+  .digit-dropdown-select-active {
+    @apply relative block w-full h-10;
+    border: 0.063rem solid theme(digitv2.lightTheme.primary-1);
+    input[type="text"] {
+      @extend .typography.body-l;
+      @apply absolute z-10 h-full outline-none;
+      width:calc(100%- (theme(digitv2.spacers.spacer7)));
+      background-color: transparent;
+      font-size: theme(digitv2.spacers.spacer4);
+      padding-top: theme(digitv2.spacers.spacer2);
+      padding-bottom: theme(digitv2.spacers.spacer2);
+      padding-left: theme(digitv2.spacers.spacer3);
+      color: theme(digitv2.lightTheme.text-primary);
+    }
+    p {
+      @extend .light-text-color-primary;
+      @apply text-form-field text-text-primary float-left ml-sm;
+    }
+    p {
+      padding-top: 0.563rem;
+    }
+    img {
+      @apply float-right h-6 w-6 mt-sm mr-sm;
+    }
+    svg {
+      @apply absolute right-0 float-right h-6 w-6 mt-sm mr-sm mb-sm;
+    }
+  }
+  .digit-dropdown-options-card {
+    width: 100% !important;
+    box-shadow: theme(digitv2.spacers.spacer0) 0.063rem 0.275rem theme(digitv2.spacers.spacer0) #00000026;
+    max-height: 20vmax;
+    @apply absolute z-20 bg-white max-w-full overflow-y-auto overflow-x-hidden;
+    p {
+      @extend .light-text-color-primary;
+      padding-top: 0.875rem;
+      @apply w-full h-12 pl-sm text-text-primary text-form-field;
+      &:hover {
+        @extend .light-background;
+        @apply bg-grey-mid;
+      }
+    }
+  }
+  .digit-dropdown-select,
+  .digit-dropdown-select-active {
+    &.treedropdown,
+    &.notSearchable {
+      @apply cursor-pointer;
+    }
+  }
+}
+.digit-dropdown-options-card::-webkit-scrollbar {
+  width: theme(digitv2.spacers.spacer2);
+  background-color: theme(digitv2.lightTheme.generic-background);
+}
+.digit-dropdown-options-card::-webkit-scrollbar-track {
+  background-color: theme(digitv2.lightTheme.generic-background);
+  border-radius: 0.563rem;
+}
+.digit-dropdown-options-card::-webkit-scrollbar-thumb {
+  background-color: theme(digitv2.lightTheme.generic-divider);
+  border-radius: 0.563rem;
+}
+.digit-nested-category {
+  @apply flex items-center flex-shrink-0;
+  background: theme(digitv2.lightTheme.background);
+  height: 2.4375rem;
+  padding: theme(digitv2.spacers.spacer4) 0.625rem;
+  gap: 0.625rem;
+}
+.digit-nested-category:not(:first-child) {
+  margin-top: theme(digitv2.spacers.spacer4);
+}
+.digit-category-name {
+  @extend .typography.heading-s;
+  @apply flex items-center overflow-hidden whitespace-no-wrap;
+  color: theme(digitv2.lightTheme.text-primary);
+  gap: theme(digitv2.spacers.spacer1);
+}
+.digit-dropdown-item {
+  @apply flex flex-row;
+  padding: 0.625rem;
+  gap: 0.625rem;
+  min-height: 2.438rem;
+  color: theme(digitv2.lightTheme.text-primary) !important;
+  .profile-icon-container {
+    flex-shrink: 0;
+    border-radius: 4.5rem;
+    background-size: cover;
+    background-position: center;
+  }
+  .option-des-container {
+    @apply flex-col justify-center w-full max-w-full overflow-hidden box-border;
+    display: flex !important;
+    align-items: center;
+    min-height: 1.125rem;
+    .icon-option{
+      @apply w-full items-center;
+      display: flex !important;
+      gap:theme(digitv2.spacers.spacer1);
+      svg{
+        flex-shrink: 0;
+      }
+    }
+    .main-option {
+      @extend .typography.body-s;
+      @apply whitespace-no-wrap w-full max-w-full overflow-hidden;
+      text-overflow: ellipsis;
+      &.nestedtextdropdown,
+      &.profilenestedtext {
+        @extend .typography.body-l;
+        color: theme(digitv2.lightTheme.text-secondary);
+      }
+    }
+    .option-description {
+      @extend .typography.body-xs;
+      color: theme(digitv2.lightTheme.text-secondary);
+    }
+  }
+  &:not(.nesteddropdown, .treedropdown):not(:active):nth-of-type(even) {
+    background: theme(digitv2.lightTheme.paper-secondary);
+  }
+  &.nesteddropdown {
+    position: relative;
+    height: 2.4375rem;
+    &::before {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0.625rem;
+      right: 0.635rem;
+      border-bottom: 0.063rem solid theme(digitv2.lightTheme.generic-divider);
+    }
+    &:hover,
+    &:active {
+      &::before {
+        border-bottom: none;
+      }
+    }
+  }
+  &:hover,
+  &.keyChange{
+    background: theme(digitv2.lightTheme.primary-bg) !important;
+    border: 0.031rem solid theme(digitv2.lightTheme.primary-1);
+  }
+  &:active {
+    background: theme(digitv2.lightTheme.primary-1) !important;
+    span,
+    .option-description {
+      color: theme(digitv2.lightTheme.paper-primary);
+    }
+    .svg {
+      width: 6.25rem;
+    }
+    .option-des-container {
+      .main-option {
+        @extend .typography.heading-s;
+      }
+    }
+  }
+  &.nestedtextdropdown {
+    min-height: 4.75rem;
+    padding: theme(digitv2.spacers.spacer2) 0.635rem theme(digitv2.spacers.spacer2) 0.635rem;
+    color: theme(digitv2.lightTheme.text-secondary) !important;
+    &:hover {
+      border: 0.063rem solid theme(digitv2.lightTheme.primary-1);
+    }
+    .option-des-container {
+      padding-right: 0.125rem !important;
+    }
+    &:active {
+      .option-des-container {
+        .main-option {
+          @extend .typography.heading-s;
+          color: theme(digitv2.lightTheme.paper-primary);
+        }
+      }
+    }
+  }
+  &.profiledropdown {
+    min-height: theme(digitv2.spacers.spacer12);
+    padding: theme(digitv2.spacers.spacer2) 0.625rem;
+  }
+  &.profilenestedtext {
+    min-height: 4.75rem;
+    padding: theme(digitv2.spacers.spacer2) theme(digitv2.spacers.spacer4);
+    gap: theme(digitv2.spacers.spacer4);
+    align-items: center;
+    color: theme(digitv2.lightTheme.text-secondary) !important;
+    &:active {
+      .option-des-container {
+        .main-option {
+          @extend .typography.heading-s;
+          color: theme(digitv2.lightTheme.paper-primary);
+        }
+      }
+    }
+  }
+  &.unsuccessfulresults {
+    background-color: theme(digitv2.lightTheme.paper-secondary);
+    pointer-events: none;
+    span {
+      @extend .typography.body-s;
+      color: theme(digitv2.lightTheme.text-disabled);
+    }
+  }
+}
+.digit-dropdown-employee-select-wrap--elipses {
+  @apply overflow-hidden whitespace-no-wrap;
+  width:calc(100%- (theme(digitv2.spacers.spacer7)));
+  text-overflow: ellipsis;
+  &.treedropdown,
+  &.notSearchable {
+    @apply pointer-events-none;
+  }
+}
+.digit-dropdown-select-wrap {
+  @apply relative bg-white w-full;
+  @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+    /* Media query for tablets */
+    max-width: 27.5rem;
+  }
+  @media (max-aspect-ratio: 9/16) {
+    /* Media query for mobile */
+    max-width: 20.5rem;
+    width: 100%;
+  }
+  @media (min-aspect-ratio: 3/4) {
+    /* Media query for desktop */
+    max-width: 37.5rem;
+  }
+  .digit-dropdown-select {
+    @extend .light-input-border;
+    @apply relative block w-full h-10 bg-white;
+    border: 0.063rem solid theme(digitv2.lightTheme.text-secondary);
+    input[type="text"] {
+      @extend .typography.body-l;
+      @apply absolute z-10  h-full outline-none;
+      width:calc(100%- (theme(digitv2.spacers.spacer7)));
+      background-color: transparent;
+      padding-top: theme(digitv2.spacers.spacer2);
+      padding-bottom: theme(digitv2.spacers.spacer2);
+      padding-left: theme(digitv2.spacers.spacer3);
+      color: theme(digitv2.lightTheme.text-primary);
+    }
+    &.disabled {
+      pointer-events: none !important;
+      border: 0.063rem solid theme(digitv2.lightTheme.generic-divider) !important;
+      color: theme(digitv2.lightTheme.generic-divider) !important;
+    }
+    p {
+      @extend .light-text-color-primary;
+      padding-top: 0.563rem;
+      @apply text-form-field text-text-primary float-left ml-sm;
+    }
+    img {
+      @apply float-right h-6 w-6 mt-sm mr-sm;
+    }
+    svg {
+      @apply absolute right-0 float-right h-6 w-6 mt-sm mr-sm mb-sm;
+    }
+  }
+  .digit-dropdown-select-active {
+    @apply relative block w-full h-10;
+    border: 0.063rem solid theme(digitv2.lightTheme.primary-1);
+    input[type="text"] {
+      @extend .typography.body-l;
+      @apply absolute z-10  h-full outline-none;
+      width:calc(100%- (theme(digitv2.spacers.spacer7)));
+      background-color: transparent;
+      padding-top: theme(digitv2.spacers.spacer2);
+      padding-bottom: theme(digitv2.spacers.spacer2);
+      padding-left: theme(digitv2.spacers.spacer3);
+      color: theme(digitv2.lightTheme.text-primary);
+    }
+    p {
+      @extend .light-text-color-primary;
+      @apply text-form-field text-text-primary float-left ml-sm;
+    }
+    p {
+      padding-top: 0.563rem;
+    }
+    img {
+      @apply float-right h-6 w-6 mt-sm mr-sm;
+    }
+    svg {
+      @apply absolute right-0 float-right h-6 w-6 mt-sm mr-sm mb-sm;
+    }
+  }
+  .digit-dropdown-select,
+  .digit-dropdown-select-active {
+    &.treedropdown,
+    &.notSearchable {
+      @apply cursor-pointer;
+    }
+  }
+  .digit-dropdown-options-card {
+    width: 100% !important;
+    box-shadow: theme(digitv2.spacers.spacer0) 0.063rem 0.275rem theme(digitv2.spacers.spacer0) #00000026;
+    @apply  absolute z-20 bg-white overflow-y-auto overflow-x-hidden;
+    max-height: 20vmax;
+    p {
+      @extend .light-text-color-primary;
+      padding-top: 0.875rem;
+      @apply w-full h-12 pl-sm text-text-primary text-form-field;
+      &:hover {
+        @apply bg-grey-mid;
+      }
+    }
+  }
+}
+
+.cp{
+  cursor: pointer;
+}

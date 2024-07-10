@@ -2,7 +2,7 @@ import ActionBar from "./ActionBar";
 import ActionLinks from "./ActionLinks";
 import Amount from "./Amount";
 import AppContainer from "./AppContainer";
-import BackButton from "./BackButton";
+import BackLink from "./BackLink";
 import Banner from "./Banner";
 import BodyContainer from "./BodyContainer";
 import BreadCrumb from "./BreadCrumb";
@@ -44,7 +44,7 @@ import PopUp from "./PopUp";
 import { PrivateRoute } from "./PrivateRoute";
 import RadioButtons from "./RadioButtons";
 import Rating from "./Rating";
-import RemoveableTag from "./RemoveableTag";
+import Chip from "./Chip";
 import { SVG } from "./SVG";
 // import Table from "./Table";
 import Telephone from "./Telephone";
@@ -75,6 +75,12 @@ import ErrorBoundary from "./ErrorBoundary";
 import TextBlock from "./TextBlock";
 import Panels from "./Panels";
 import Animation from "./Animation";
+import ViewCardFieldPair from "./ViewCardFieldPair";
+import ButtonsGroup from "./ButtonsGroup";
+import Divider from "./Divider";
+import TopBar from "./TopBar";
+import Hamburger from "./Hamburger";
+import Menu from "./Menu";
 
 import {
   AnnouncementIcon,
@@ -220,7 +226,7 @@ export {
   ActionLinks,
   Amount,
   AppContainer,
-  BackButton,
+  BackLink,
   Banner,
   BodyContainer,
   BreadCrumb,
@@ -262,8 +268,11 @@ export {
   PrivateRoute,
   RadioButtons,
   Rating,
-  RemoveableTag,
+  Chip,
   SVG,
+  TopBar,
+  Hamburger,
+  Menu,
   // Table,
   Telephone,
   TextArea,
@@ -278,6 +287,9 @@ export {
   ButtonSelector,
   Stepper,
   Timeline,
+  ViewCardFieldPair,
+  Divider,
+  ButtonsGroup,
   StringManipulator,
   InfoButton,
   Uploader,

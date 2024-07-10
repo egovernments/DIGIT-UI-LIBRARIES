@@ -55,8 +55,8 @@
       }
   
       @media (min-width: 30.063rem) and (max-width: 47.938rem) {
-        top: 0.625rem;
-        right: 0.625rem;
+        top: theme(digitv2.spacers.spacer3);
+        right: theme(digitv2.spacers.spacer3);
       }
   
       @media (max-width: 30rem) {
@@ -104,11 +104,6 @@
             @extend .typography.caption-s;
           }
         }
-  
-        .digit-popup-description {
-          @extend .typography.body-l;
-          color: theme(digitv2.lightTheme.text-primary);
-        }
       }
   
       &.with-shadow {
@@ -145,9 +140,16 @@
     }
   
     .digit-popup-children-wrap {
+      @extend .typography.body-s;
       @apply overflow-hidden overflow-y-auto flex-col;
       display: flex;
       flex: 1;
+      color: theme(digitv2.lightTheme.text-primary);
+
+      .digit-popup-description {
+        @extend .typography.body-s;
+        color: theme(digitv2.lightTheme.text-primary);
+      }
   
       &.inline {
         flex-direction: row;
@@ -231,6 +233,26 @@
         button {
           width: 100%;
         }
+      }
+
+      &.equal-buttons{
+        width: 100%;
+
+        @media (min-width: 30.063rem) {
+
+          button {
+            flex: 1;
+          }
+        }
+      }
+    }
+
+
+    &.equal-buttons{
+      width: 100%;
+
+      button{
+        flex:1;
       }
     }
   

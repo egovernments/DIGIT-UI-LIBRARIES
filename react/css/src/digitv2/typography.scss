@@ -1,25 +1,6 @@
 @import url("../index.scss");
 
 .typography {
-  &.text-heading-xl {
-    font-family: theme(digitv2.fontFamily.rc);
-    font-style: theme(digitv2.fontStyle.normal);
-    font-weight: theme(digitv2.fontWeight.bold);
-    color: theme(digitv2.lightTheme.text-primary);
-    line-height: theme(digitv2.lineHeight.normal);
-
-    @media (min-width: theme(digitv2.screens.desktop)) {
-      font-size: theme(digitv2.fontSize.heading-xl.desktop);
-    }
-
-    @media (min-width: theme(digitv2.screens.tablet)) {
-      font-size: theme(digitv2.fontSize.heading-xl.tablet);
-    }
-
-    @media (min-width: theme(digitv2.screens.mobile)) {
-      font-size: theme(digitv2.fontSize.heading-xl.mobile);
-    }
-  }
 
   &.text-heading-l {
     font-family: theme(digitv2.fontFamily.sans);
@@ -261,7 +242,7 @@
 
 
   &.heading-xl {
-    font-family: theme(digitv2.fontFamily.sans);
+    font-family: theme(digitv2.fontFamily.rc);
     font-style: theme(digitv2.fontStyle.normal);
     font-weight: theme(digitv2.fontWeight.bold);
     line-height: theme(digitv2.lineHeight.lineheight1);

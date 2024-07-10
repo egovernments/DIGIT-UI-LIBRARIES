@@ -111,7 +111,7 @@ const TextInput = (props) => {
 
   const renderIcon = () => {
     const reqIcon = props?.type;
-    const iconFill = props?.disabled
+    const iconFill = props?.iconFill ? props?.iconFill : props?.disabled
       ? "#D6D5D4"
       : props?.nonEditable
       ? "#b1b4b6"

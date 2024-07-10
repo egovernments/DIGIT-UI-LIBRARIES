@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { SVG } from "./SVG";
 import PropTypes from "prop-types";
 import Animation from "./Animation";
-import successAnimation from "../animations/success.json";
-import errorAnimation from "../animations/error.json";
+import successAnimation from "../constants/animations/success.json";
+import errorAnimation from "../constants/animations/error.json";
 
 const Panels = (props) => {
 

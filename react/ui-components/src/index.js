@@ -3,7 +3,7 @@ import {
   ActionLinks,
   Amount,
   AppContainer,
-  BackButton,
+  BackLink,
   Banner,
   BodyContainer,
   BreadCrumb,
@@ -46,7 +46,7 @@ import {
   PrivateRoute,
   RadioButtons,
   Rating,
-  RemoveableTag,
+  Chip,
   SVG,
   // Table,
   Telephone,
@@ -75,7 +75,12 @@ import {
   TextBlock,
   Panels,
   Animation,
-
+  ViewCardFieldPair,
+  Divider,
+  ButtonsGroup,
+  TopBar,
+  Hamburger,
+  Menu,
 } from "./atoms";
 
 import {
@@ -230,14 +235,15 @@ import {
   SearchField,
   SearchOnRadioButtons,
   TextInputCard,
-  PanelCard
+  PanelCard,
+  TimelineMolecule
 } from "./molecules";
 
 // import { initCoreLibraries } from "@egovernments/digit-ui-libraries-core";
 import { initLibraries } from "@egovernments/digit-ui-libraries";
 
 initLibraries().then(() => {
-  console.log("DIGIT Contants enabled", window?.Digit);
+  console.info("DIGIT Contants enabled");
 });
 
 export {
@@ -245,7 +251,7 @@ export {
   ActionLinks,
   Amount,
   AppContainer,
-  BackButton,
+  BackLink,
   Banner,
   BodyContainer,
   BreadCrumb,
@@ -289,7 +295,7 @@ export {
   PrivateRoute,
   RadioButtons,
   Rating,
-  RemoveableTag,
+  Chip,
   SVG,
   // Table,
   Telephone,
@@ -317,11 +323,15 @@ export {
   SearchOnRadioButtons,
   TextInputCard,
   PanelCard,
+  TimelineMolecule,
   Toggle,
   ToggleSwitch,
   TreeSelect,
   SubmitBar,
   ButtonSelector,
+  TopBar,
+  Hamburger,
+  Menu,
   Stepper,
   Timeline,
   StringManipulator,
@@ -331,6 +341,9 @@ export {
   UploadImage,
   TextBlock,
   Panels,
+  ViewCardFieldPair,
+  ButtonsGroup,
+  Divider,
   Animation,
   InboxSearchLinks,
   SearchComponent,

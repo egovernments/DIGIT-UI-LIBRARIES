@@ -1,6 +1,6 @@
 {
   "name": "@egovernments/digit-ui-components-css",
-  "version": "0.0.2-beta.1",
+  "version": "0.0.2-beta.11",
   "license": "MIT",
   "main": "dist/index.css",
   "author": "Jagankumar <jagan.kumar@egov.org.in>",
@@ -12,6 +12,7 @@
   },
   "scripts": {
     "start": "gulp build",
+    "build": "NODE_ENV=production gulp build",
     "build:prod": "NODE_ENV=production gulp build",
     "prepublish": "yarn build:prod",
     "publish:css-develop": "npm publish --tag core-v0.1",
@@ -62,6 +63,7 @@
     "egov",
     "dpg",
     "digit-ui",
-    "css"
+    "css",
+    "digit-ui-components"
   ]
 }

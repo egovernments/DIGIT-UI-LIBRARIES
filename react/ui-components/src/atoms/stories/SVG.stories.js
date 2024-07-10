@@ -11,16 +11,25 @@ export default {
   },
   title: "SVG",
   component: SVG,
+  icon:""
 };
 
-const Template = (args) => <SVG.Accessibility {...args} />;
+const Template = (args) => {
+  const IconComponent = SVG[args.icon];
+  return (
+    <div>
+      {IconComponent ? <IconComponent {...args} /> : "Icon not found"}
+    </div>
+  );
+};
 
 export const Playground = Template.bind({});
 Playground.args = {
   className: "custom-class",
-  style: { border: "3px solid green" },
-  fill: "blue",
+  style: {},
+  fill: "#C84C0E",
   height: "50",
   width: "50",
-  onClick:()=>{}
+  onClick: () => {},
+  icon:"Accessibility"
 };
