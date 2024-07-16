@@ -185,7 +185,7 @@ const MobileSidebar = ({
               )}
             </div>
           </div>
-          <div className={`inner-level-child ${theme || ""}`}>
+          <div className={`inner-level-child ${theme || ""}`} key={currentIndex}>
             {item.children && isExpanded && (
               <div className="sidebar-children-msb">
                 {renderChildItems(item.children, currentIndex)}

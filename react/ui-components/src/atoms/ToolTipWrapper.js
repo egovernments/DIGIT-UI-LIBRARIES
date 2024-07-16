@@ -98,16 +98,7 @@ const TooltipWrapper = ({
       {...other}
     >
       {children}
-      {/* {open && (
-        <div
-          className={`tooltip-content tooltip-${placement}`}
-          style={tooltipStyle}
-        >
-          {arrow && <div className="tooltip-arrow" />}
-          {title}
-        </div>
-      )} */}
-            {(
+      {open && (
         <div
           className={`tooltip-content tooltip-${placement}`}
           style={tooltipStyle}
