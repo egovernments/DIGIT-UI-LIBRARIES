@@ -1,0 +1,96 @@
+.tooltip-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip-content{
+  position: absolute;
+  background-color: theme(digitv2.lightTheme.generic-inputborder);
+  color: theme(digitv2.lightTheme.paper-primary);
+  padding: theme(digitv2.spacers.spacer2);
+  border-radius: theme(digitv2.spacers.spacer1);
+  z-index: 1000;
+  pointer-events: none;
+  width: max-content;
+  transition: all 0.5s ease;
+
+  min-width: 4.125rem;
+  max-width: 14.563rem;
+
+  font-family: theme(digitv2.fontFamily.sans);
+  font-style: theme(digitv2.fontStyle.normal);
+  font-weight: theme(digitv2.fontWeight.regular);
+  line-height: theme(digitv2.lineHeight.lineheight2);
+
+  @media (max-aspect-ratio: 9/16) {
+    font-size: theme(digitv2.fontSize.body-s.mobile);
+  }
+
+  @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+    font-size: theme(digitv2.fontSize.body-s.tablet);
+  }
+
+  @media (min-aspect-ratio: 3/4) {
+    font-size: theme(digitv2.fontSize.body-s.desktop);
+  }
+}
+
+.tooltip-content.tooltip-left{
+  left: -10rem;
+}
+
+.tooltip-content.tooltip-right{
+  left: 10rem;
+}
+
+.tooltip-content.tooltip-top{
+  top: -3.75rem;
+}
+
+.tooltip-content.tooltip-bottom{
+  top: 3.75rem;
+}
+
+.tooltip-left:before{
+  content: "";
+  position: absolute;
+  top: 0;
+  right:-0.625rem;
+  border-left:0.625rem solid transparent;
+  border-right:0.625rem solid transparent;
+  border-top:0.625rem solid theme(digitv2.lightTheme.generic-inputborder);
+  border-bottom:0.625rem solid transparent;
+}
+
+.tooltip-right:before{
+  content: "";
+  position: absolute;
+  top: 0;
+  left:-0.625rem;
+  border-left:0.625rem solid transparent;
+  border-right:0.625rem solid transparent;
+  border-top:0.625rem solid theme(digitv2.lightTheme.generic-inputborder);
+  border-bottom:0.625rem solid transparent;
+}
+
+.tooltip-top:before{
+  content: "";
+  position: absolute;
+  bottom:-0.625rem;
+  right:0rem;
+  border-left:0.625rem solid transparent;
+  border-right:0.625rem solid theme(digitv2.lightTheme.generic-inputborder);
+  border-top:0.625rem solid transparent;
+  border-bottom:0.625rem solid transparent;
+}
+
+.tooltip-bottom:before{
+  content: "";
+  position: absolute;
+  top:-0.625rem;
+  left:0rem;
+  border-left:0.625rem solid theme(digitv2.lightTheme.generic-inputborder);
+  border-right:0.625rem solid transparent;
+  border-top:0.625rem solid transparent;
+  border-bottom:0.625rem solid transparent;
+}
