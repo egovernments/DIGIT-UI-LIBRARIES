@@ -75,6 +75,8 @@ class _DigitCheckboxState extends State<DigitCheckbox> {
         theme.extension<DigitCheckboxThemeData>() ??
         DigitCheckboxThemeData.defaultTheme(context);
 
+    bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
+
     /// Capitalize the first letter of the label if required
     final processedLabel = widget.capitalizeFirstLetter
         ? convertInToSentenceCase(widget.label)
@@ -87,8 +89,8 @@ class _DigitCheckboxState extends State<DigitCheckbox> {
       textDirection: checkboxThemeData.labelTextDirection,
       children: [
         Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            SizedBox(height: isMobile ? 0 : 2,),
             InkWell(
               hoverColor: theme.colorTheme.generic.transparent,
               splashColor: theme.colorTheme.generic.transparent,

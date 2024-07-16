@@ -1,21 +1,24 @@
+import 'package:digit_ui_components/widgets/atoms/table_container.dart';
 import 'package:flutter/material.dart';
 import '../atoms/table_body.dart';
-import '../atoms/table_container.dart';
-import '../atoms/table_footer.dart';
+import '../atoms/table_cell.dart';
 import '../atoms/table_header.dart';
+import '../atoms/table_footer.dart';
 
 class CustomTable extends StatefulWidget {
-  final List<String> headers;
-  final List<List<String>> rows;
-  final int rowsPerPage;
+  final List<TableColumn> columns;
+  final List<List<CustomColumn>> rows;
+  final List<int> rowsPerPageOptions;
+  final bool showRowsPerPage;
   final bool withColumnDividers;
   final bool withRowDividers;
 
   const CustomTable({
     Key? key,
-    required this.headers,
+    required this.columns,
     required this.rows,
-    this.rowsPerPage = 5,
+    this.rowsPerPageOptions = const [5, 10, 15, 20],
+    this.showRowsPerPage = true,
     this.withColumnDividers = false,
     this.withRowDividers = false,
   }) : super(key: key);
@@ -26,32 +29,101 @@ class CustomTable extends StatefulWidget {
 
 class _CustomTableState extends State<CustomTable> {
   int currentPage = 1;
+  int rowsPerPage = 5;
+  SortOrder? sortOrder;
+  int? sortedColumnIndex;
+  List<List<CustomColumn>> sortedRows = [];
+
+  @override
+  void initState() {
+    super.initState();
+    sortedRows = List.from(widget.rows); // Make a copy of the original rows
+    // Initialize the sorted column index and sort order
+    for (int i = 0; i < widget.columns.length; i++) {
+      if (widget.columns[i].isSortable) {
+        sortedColumnIndex = i;
+        sortOrder = SortOrder.ascending;
+        _sortRows();
+        break;
+      }
+    }
+  }
+
+  void _sortRows() {
+    if (sortedColumnIndex != null && sortOrder != null) {
+      sortedRows.sort((a, b) {
+        final columnA = a[sortedColumnIndex!].value;
+        final columnB = b[sortedColumnIndex!].value;
+
+        if (columnA is num && columnB is num) {
+          return sortOrder == SortOrder.ascending
+              ? columnA.compareTo(columnB)
+              : columnB.compareTo(columnA);
+        } else if (columnA is String && columnB is String) {
+          return sortOrder == SortOrder.ascending
+              ? columnA.compareTo(columnB)
+              : columnB.compareTo(columnA);
+        }
+        return 0;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    int totalPages = (widget.rows.length / widget.rowsPerPage).ceil();
-    int startIndex = (currentPage - 1) * widget.rowsPerPage;
-    int endIndex = startIndex + widget.rowsPerPage;
-    List<List<String>> paginatedRows = widget.rows.sublist(
+    int totalPages = (sortedRows.length / rowsPerPage).ceil();
+    int startIndex = (currentPage - 1) * rowsPerPage;
+    int endIndex = startIndex + rowsPerPage;
+    List<List<CustomColumn>> paginatedRows = sortedRows.sublist(
       startIndex,
-      endIndex > widget.rows.length ? widget.rows.length : endIndex,
+      endIndex > sortedRows.length ? sortedRows.length : endIndex,
     );
 
     return TableContainer(
       child: Column(
         children: [
           TableHeader(
-            headers: widget.headers,
+            columns: widget.columns,
+            sortedColumnIndex: sortedColumnIndex,
+            sortOrder: sortOrder,
+            onSort: (index, order) {
+              setState(() {
+                if (sortedColumnIndex == index) {
+                  // Toggle the sort order if the same column is clicked again
+                  sortOrder = sortOrder == SortOrder.ascending
+                      ? SortOrder.descending
+                      : SortOrder.ascending;
+                } else {
+                  // Sort by the new column in ascending order
+                  sortedColumnIndex = index;
+                  sortOrder = SortOrder.ascending;
+                }
+                _sortRows();
+                currentPage = 1; // Reset to the first page when sorting changes
+              });
+            },
             withColumnDividers: widget.withColumnDividers,
           ),
           TableBody(
             rows: paginatedRows,
-            withColumnDividers: widget.withColumnDividers,
             withRowDividers: widget.withRowDividers,
           ),
           TableFooter(
             currentPage: currentPage,
             totalPages: totalPages,
+            rowsPerPage: rowsPerPage,
+            rowsPerPageOptions: widget.rowsPerPageOptions,
+            onRowsPerPageChanged: (value) {
+              setState(() {
+                rowsPerPage = value;
+                currentPage = 1; // Reset to the first page when rows per page changes
+              });
+            },
+            onPageChanged: (page) {
+              setState(() {
+                currentPage = page;
+              });
+            },
             onNext: () {
               setState(() {
                 if (currentPage < totalPages) {
@@ -66,6 +138,12 @@ class _CustomTableState extends State<CustomTable> {
                 }
               });
             },
+            onPageSelected: (page) {
+              setState(() {
+                currentPage = page;
+              });
+            },
+            showRowsPerPage: widget.showRowsPerPage,
           ),
         ],
       ),

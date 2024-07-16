@@ -362,7 +362,7 @@ NestedMultiSelectDropdown.args = {
   type: "multiselectdropdown",
   populators: {
     ...commonArgs.populators,
-    name: "nestedmultiselectoptions",
+    name: "nestedSelectionOptions",
     options: nestedOptions,
     isDropdownWithChip: true,
   },
@@ -375,7 +375,7 @@ NestedMultiSelectDropdownWithSelectAllCheck.args = {
   type: "multiselectdropdown",
   populators: {
     ...commonArgs.populators,
-    name: "nestedmultiselectoptions",
+    name: "nestedSelectionOptions",
     options: nestedOptions,
     isDropdownWithChip: true,
     addSelectAllCheck:true,
@@ -390,7 +390,7 @@ NestedMultiSelectDropdownWithIcons.args = {
   type: "multiselectdropdown",
   populators: {
     ...commonArgs.populators,
-    name: "nestedmultiselectoptions",
+    name: "nestedSelectionOptions",
     options: nestedOptionsWithIcons,
     showIcon: true,
     isDropdownWithChip: true,

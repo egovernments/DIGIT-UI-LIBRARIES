@@ -14,7 +14,7 @@ class TableContainer extends StatelessWidget {
         child: SizedBox(
           width: MediaQuery.of(context).size.width,
          // height: 500,
-          //constraints: BoxConstraints(minWidth: MediaQuery.of(context).size.width),
+          //constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height),
           child: child,
         ),
       ),

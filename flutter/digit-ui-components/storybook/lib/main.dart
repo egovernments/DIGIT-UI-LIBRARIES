@@ -17,13 +17,17 @@ import 'package:storybook/widgets/atoms/divider_stories.dart';
 import 'package:storybook/widgets/atoms/dropdown_stories.dart';
 import 'package:storybook/widgets/atoms/flie_upload_stories.dart';
 import 'package:storybook/widgets/atoms/input_field_stories.dart';
+import 'package:storybook/widgets/atoms/list_view_stories.dart';
 import 'package:storybook/widgets/atoms/panel_stories.dart';
 import 'package:storybook/widgets/atoms/pop_up_card_stories.dart';
 import 'package:storybook/widgets/atoms/radio_list_stories.dart';
+import 'package:storybook/widgets/atoms/selection_card_stories.dart';
 import 'package:storybook/widgets/atoms/stepper_stories.dart';
 import 'package:storybook/widgets/atoms/timeline_stories.dart';
 import 'package:storybook/widgets/atoms/toast_stories.dart';
 import 'package:storybook/widgets/atoms/toggle_stories.dart';
+import 'package:storybook/widgets/atoms/tool_tip_stories.dart';
+import 'package:storybook/widgets/atoms/tooltip_2_stories.dart';
 import 'package:storybook/widgets/molecules/card_stories.dart';
 import 'package:storybook/widgets/molecules/digit_table_stories.dart';
 import 'package:storybook/widgets/molecules/footer_stories.dart';
@@ -31,6 +35,7 @@ import 'package:storybook/widgets/molecules/hamburger_stories.dart';
 import 'package:storybook/widgets/molecules/header_stories.dart';
 import 'package:storybook/widgets/molecules/panel_card_stories.dart';
 import 'package:storybook/widgets/molecules/show_pop_up_stories.dart';
+import 'package:storybook/widgets/molecules/side_nav_stories.dart';
 import 'package:storybook/widgets/molecules/timeline_molecule_stories.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
 
@@ -129,7 +134,39 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        drawer: const SideBar(),
+        drawer: SideBar(sidebarItems: [
+          SidebarItem(
+            title: 'Home',
+            icon: Icons.home,
+            onPressed: () {
+              Navigator.of(context).pop();
+              // Navigate to Home
+            },
+          ),
+          SidebarItem(
+            title: 'Language',
+            icon: Icons.language,
+            onPressed: () {
+              // Implement language change
+            },
+          ),
+          SidebarItem(
+            title: 'Profile',
+            icon: Icons.person,
+            onPressed: () {
+              Navigator.of(context).pop();
+              // Navigate to Profile
+            },
+          ),
+          SidebarItem(
+            title: 'View Downloaded Data',
+            icon: Icons.download,
+            onPressed: () {
+              Navigator.of(context).pop();
+              // Navigate to Downloaded Data
+            },
+          ),
+        ],),
         body: Inspector(
           isEnabled: true,
           child: Storybook(
@@ -161,8 +198,13 @@ class MyApp extends StatelessWidget {
               ...backNavigationButtonStories(),
               ...timelineMoleculeStories(),
               ///...customStepperStories(),
-             ///...hamBurgerStories(),
-              ///...tableStories(),
+             ...hamBurgerStories(),
+              ...tableStories(),
+              ...sideNavStories(),
+              ...toolTipStories(),
+              ...selectionCardStories(),
+              ...listViewStories(),
+              ...toolTip2Stories(),
             ],
           ),
         ),

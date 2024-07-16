@@ -27,6 +27,7 @@ class Base{
   static const String successJson = 'assets/animated_json/success.json';
   static const String digitLogoDarkSvg = 'assets/images/digit_logo_dark.png';
   static const String digitLogoLightSvg = 'assets/images/digit_logo_light.png';
+  static const String profileIconSvg = 'assets/icons/svg/profile_icon.svg';
 }
 
 class BaseConstants {

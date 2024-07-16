@@ -41,6 +41,9 @@ class DigitSearchFormInput extends BaseDigitFormInput {
     final void Function()? onFocusLost,
     final void Function(String)? onFieldSubmitted,
     final FocusNode? focusNode,
+    final OutlineInputBorder? focusBorder,
+    final OutlineInputBorder? enableBorder,
+    final Color? iconColor,
   }) : super(
           key: key,
           controller: controller,
@@ -60,8 +63,11 @@ class DigitSearchFormInput extends BaseDigitFormInput {
           errorMessage: errorMessage,
           inputFormatters: inputFormatters,
           onFocusLost: onFocusLost,
-    onFieldSubmitted: onFieldSubmitted,
-    focusNode: focusNode,
+          onFieldSubmitted: onFieldSubmitted,
+          focusNode: focusNode,
+          focusBorder: focusBorder,
+          enableBorder: enableBorder,
+          iconColor: iconColor,
         );
 
   @override

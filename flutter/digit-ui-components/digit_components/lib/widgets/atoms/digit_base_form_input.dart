@@ -112,6 +112,10 @@ class BaseDigitFormInput extends StatefulWidget {
   final String? errorMessage;
   final bool capitalizeFirstLetter;
 
+  final OutlineInputBorder? focusBorder;
+  final OutlineInputBorder? enableBorder;
+  final Color? iconColor;
+
   final void Function()? onFocusLost;
 
   /// Custom function for focus lost
@@ -159,6 +163,9 @@ class BaseDigitFormInput extends StatefulWidget {
     this.capitalizeFirstLetter = true,
     this.onFocusLost,
     this.onFieldSubmitted,
+    this.focusBorder,
+    this.enableBorder,
+    this.iconColor,
   }) : super(key: key);
 
   @override
@@ -487,7 +494,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                     fillColor: widget.readOnly
                         ? const DigitColors().light.genericBackground
                         : const DigitColors().transparent,
-                    enabledBorder: OutlineInputBorder(
+                    enabledBorder:  widget.enableBorder ?? OutlineInputBorder(
                       borderSide: BorderSide(
                         color: _hasError || widget.errorMessage != null
                             ? const DigitColors().light.alertError
@@ -498,7 +505,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                       ),
                       borderRadius: Base.radius,
                     ),
-                    focusedBorder: widget.readOnly
+                    focusedBorder:  widget.focusBorder ?? (widget.readOnly
                         ? OutlineInputBorder(
                             borderSide: BorderSide(
                               color: const DigitColors().light.textSecondary,
@@ -506,7 +513,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                             ),
                             borderRadius: Base.radius,
                           )
-                        : BaseConstants.focusedBorder,
+                        : BaseConstants.focusedBorder),
                     disabledBorder: BaseConstants.disabledBorder,
                     prefixIconConstraints: widget.prefixText != null
                         ? const BoxConstraints(
@@ -663,9 +670,9 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                                 ),
                               )
                             : null,
-                    suffixIconColor: widget.isDisabled
+                    suffixIconColor:  widget.iconColor ?? (widget.isDisabled
                         ? const DigitColors().light.textDisabled
-                        : const DigitColors().light.textSecondary,
+                        : const DigitColors().light.textSecondary),
                     prefixIcon: widget.prefixText != null
                         ? widget.prefixText == "-"
                             ? InkWell(
