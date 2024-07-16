@@ -3,6 +3,7 @@ import { SVG } from "./SVG";
 import StringManipulator from "./StringManipulator";
 import PropTypes from "prop-types";
 import { useTranslation } from "react-i18next";
+import { Colors} from "../constants/colors/colorconstants";
 
 const CheckBox = ({
   onChange,
@@ -24,6 +25,9 @@ const CheckBox = ({
   let styles = props?.styles;
 
   const sentenceCaseLabel = StringManipulator("TOSENTENCECASE", label);
+
+  const diabledIconColor = Colors.lightTheme.text.disabled;
+  const iconColor = Colors.lightTheme.primary[1];
 
   return (
     <div
@@ -63,7 +67,7 @@ const CheckBox = ({
             userType === "employee" ? "digit-custom-checkbox-emp" : ""
           } ${props?.inputIconClassname} `}
         >
-          <SVG.Check fill={props?.iconFill || (disabled ? "#C5C5C5" : "#C84C0E")} />
+          <SVG.Check fill={props?.iconFill || (disabled ? diabledIconColor : iconColor)} />
         </p>
       </div>
       {!isLabelFirst ? (

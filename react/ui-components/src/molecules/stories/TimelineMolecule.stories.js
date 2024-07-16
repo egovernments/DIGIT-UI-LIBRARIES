@@ -215,19 +215,19 @@ export const WithCustomValues = () => (
     FutureIcon={"ArrowDownward"}
   >
     <Timeline
-      label="Upcoming Timeline Step2"
-      subElements={subElements}
-      variant="upcoming"
-      showConnector={true}
-    />
-    <Timeline
-      label="Upcoming Timeline Step"
+      label="Upcoming Timeline Step3"
       subElements={subElements}
       variant="upcoming"
       showConnector={true}
     />
     <Timeline
       label="Upcoming Timeline Step2"
+      subElements={subElements}
+      variant="upcoming"
+      showConnector={true}
+    />
+    <Timeline
+      label="Upcoming Timeline Step1"
       subElements={subElements}
       variant="upcoming"
       showConnector={true}
@@ -242,6 +242,62 @@ export const WithCustomValues = () => (
       label="Inprogress Timeline Step"
       subElements={subElements}
       variant="inprogress"
+      showConnector={true}
+    />
+    <Timeline
+      label="Completed Timeline Step1"
+      subElements={subElements}
+      variant="completed"
+      showConnector={true}
+    />
+    <Timeline
+      label="Completed Timeline Step2"
+      subElements={subElements}
+      variant="completed"
+      showConnector={true}
+    />
+  </TimelineMolecule>
+);
+
+export const WithFutureLabelHidden = () => (
+  <TimelineMolecule
+    initialVisibleCount={2}
+    hideFutureLabel={true}
+  >
+    <Timeline
+      label="Upcoming Timeline Step3"
+      subElements={subElements}
+      variant="upcoming"
+      showConnector={true}
+    />
+    <Timeline
+      label="Upcoming Timeline Step2"
+      subElements={subElements}
+      variant="upcoming"
+      showConnector={true}
+    />
+    <Timeline
+      label="Upcoming Timeline Step1"
+      subElements={subElements}
+      variant="upcoming"
+      showConnector={true}
+    />
+    <Timeline
+      label="Upcoming Timeline Step"
+      subElements={subElements}
+      variant="upcoming"
+      showConnector={true}
+    />
+    <Timeline
+      label="Inprogress Timeline Step"
+      subElements={subElements}
+      variant="inprogress"
+      showConnector={true}
+    />
+    <Timeline
+      label="Completed Timeline Step3"
+      subElements={subElements}
+      variant="completed"
       showConnector={true}
     />
     <Timeline

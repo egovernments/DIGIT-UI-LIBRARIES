@@ -2,6 +2,8 @@ import React, { forwardRef, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { SVG } from "./SVG";
 import StringManipulator from "./StringManipulator";
+import { Colors} from "../constants/colors/colorconstants";
+
 
 const TextInput = (props) => {
   const user_type = window?.Digit?.SessionStorage.get("userType");
@@ -109,13 +111,16 @@ const TextInput = (props) => {
     }
   };
 
+  const disabledColor = Colors.lightTheme.generic.divider;
+  const iconColor = Colors.lightTheme.generic.inputBorder;
+
   const renderIcon = () => {
     const reqIcon = props?.type;
     const iconFill = props?.iconFill ? props?.iconFill : props?.disabled
-      ? "#D6D5D4"
+      ? disabledColor
       : props?.nonEditable
       ? "#b1b4b6"
-      : "#505A5F";
+      : iconColor;
     if (reqIcon) {
       if (reqIcon === "geolocation") {
         return (

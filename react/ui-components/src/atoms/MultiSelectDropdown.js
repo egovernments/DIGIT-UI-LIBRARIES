@@ -5,6 +5,7 @@ import Chip from "./Chip";
 import { SVG } from "./SVG";
 import Button from "./Button";
 import TreeSelect from "./TreeSelect";
+import { Colors} from "../constants/colors/colorconstants";
 
 const MultiSelectDropdown = ({
   options,
@@ -203,8 +204,14 @@ const MultiSelectDropdown = ({
     }
   }
 
+  const primaryColor = Colors.lightTheme.paper.primary;
+  const inputBorderColor = Colors.lightTheme.generic.inputBorder;
+  const primaryIconColor = Colors.lightTheme.primary[1];
+  const dividerColor = Colors.lightTheme.generic.divider;
+  const background = Colors.lightTheme.paper.secondary;
+
   const IconRender = (iconReq, isActive, isSelected) => {
-    const iconFill = isActive || isSelected ? "#FFFFFF" : "#505A5F";
+    const iconFill = isActive || isSelected ? primaryColor : inputBorderColor;
     try {
       const components = require("@egovernments/digit-ui-svg-components");
       const DynamicIcon = components?.[iconReq];
@@ -489,7 +496,7 @@ const MultiSelectDropdown = ({
           }`}
         />
         <div className="digit-multiselectdropodwn-custom-checkbox">
-          <SVG.Check width="20px" height="20px" fill={"#FFFFFF"} />
+          <SVG.Check width="20px" height="20px" fill={primaryColor} />
         </div>
         <div className="option-des-container">
           <div className="multiselectdropdown-icon-option">
@@ -532,7 +539,7 @@ const MultiSelectDropdown = ({
         onChange={handleSelectAll}
       />
       <div className={`digit-multiselectdropodwn-custom-checkbox-selectAll`}>
-        <SVG.Check width="20px" height="20px" fill={"#C84C0E"} />
+        <SVG.Check width="20px" height="20px" fill={primaryIconColor} />
       </div>
       <p className={`digit-label ${addSelectAllCheck ? "selectAll" : ""}`}>
         {selectAllLabel ? selectAllLabel : "Select All"}
@@ -582,7 +589,7 @@ const MultiSelectDropdown = ({
                     <div
                       className={`digit-multiselectdropodwn-custom-checkbox-selectAll`}
                     >
-                      <SVG.Check width="20px" height="20px" fill={"#C84C0E"} />
+                      <SVG.Check width="20px" height="20px" fill={primaryIconColor} />
                     </div>
                   </div>
                 )}
@@ -635,7 +642,7 @@ const MultiSelectDropdown = ({
                   : defaultLabel}
               </p>
             )}
-            <SVG.ArrowDropDown fill={disabled ? "#D6D5D4" : "#505A5F"} />
+            <SVG.ArrowDropDown fill={disabled ? dividerColor : inputBorderColor} />
           </div>
         </div>
         {active ? (
@@ -700,7 +707,7 @@ const MultiSelectDropdown = ({
                 alignItems: "center",
                 borderRadius: "0.25rem",
                 border: "1px solid #C84C0E",
-                background: "#FAFAFA",
+                background: background,
               }}
               textStyles={{
                 height: "auto",
@@ -708,7 +715,7 @@ const MultiSelectDropdown = ({
                 fontWeight: "400",
                 width: "100%",
                 lineHeight: "16px",
-                color: "#C84C0E",
+                color: primaryIconColor,
               }}
             />
           )}

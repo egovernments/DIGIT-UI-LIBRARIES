@@ -2,6 +2,7 @@ import React, { useState} from "react";
 import PropTypes from "prop-types";
 import TextInput from "./TextInput";
 import { useTranslation } from "react-i18next";
+import { Colors} from "../constants/colors/colorconstants";
 
 const Menu = (props) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -22,8 +23,11 @@ const Menu = (props) => {
     props.setDropdownStatus(false); 
   };
 
+  const secondaryIconColor = Colors.lightTheme.generic.inputBorder;
+  const primaryIconColor = Colors.lightTheme.paper.primary;
+
   const IconRender = (iconReq, isActive) => {
-    const iconFill = isActive ? "#FFFFFF" : "#505A5F";
+    const iconFill = isActive ? secondaryIconColor : primaryIconColor;
     try {
       const components = require("@egovernments/digit-ui-svg-components");
       const DynamicIcon = components?.[iconReq];

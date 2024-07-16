@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.0.2-beta.12] - 2024-07-16
+### Added
+- Added styles for sidebar and hamburger
+
 ## [0.0.2-beta.11] - 2024-07-04
 ### Added
 - Updated styles for actionbar,header and timeline molecule

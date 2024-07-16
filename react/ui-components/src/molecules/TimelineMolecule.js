@@ -23,7 +23,9 @@ const TimelineMolecule = ({
   viewLessLabelForPast,
   viewMoreLabelForPast,
   pastIcon,
-  FutureIcon
+  FutureIcon,
+  hideFutureLabel,
+  hidePastLabel
 }) => {
   const sortedChildren = useMemo(() => sortTimelines(children), [children]);
 
@@ -83,23 +85,19 @@ const TimelineMolecule = ({
     visibleChildren.unshift(...sortedChildren.slice(0, currentActiveStep - 1));
   }
 
-  if (isPastExpanded && visibleChildren.length - 2  < totalPastSteps) {
-    const pastStepsToAdd = sortedChildren.slice(
-      currentActiveStep + (initialVisibleCount - 2),
-      sortedChildren.length
-    );
-    visibleChildren = [
-      ...visibleChildren,
-      ...pastStepsToAdd.filter((step) => !visibleChildren.includes(step)),
-    ];
+
+  if (isPastExpanded) {
+    const pastStepsToAdd = sortedChildren.slice(currentActiveStep + 1);
+    visibleChildren.push(...pastStepsToAdd.filter((step) => !visibleChildren.includes(step)));
   }
+  
 
-
-  const hasFutureSteps = currentActiveStep > 0;
+  const 
+  hasFutureSteps = currentActiveStep > 0;
 
   return (
     <div className="digit-timeline-molecule">
-      {initialVisibleCount  && hasFutureSteps && (
+      {initialVisibleCount  && hasFutureSteps && !hideFutureLabel && (
         <div className="view-more-future-container">
           <Button
             isSuffix={true}
@@ -128,7 +126,7 @@ const TimelineMolecule = ({
           isNextActiveStep={nextStep === child}
         />
       ))}
-      {initialVisibleCount && (
+      {initialVisibleCount && !hidePastLabel && (
         <div className="view-more-past-container">
           <Button
             isSuffix={true}

@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { SVG } from "./SVG";
 import StringManipulator from "./StringManipulator";
+import { Colors} from "../constants/colors/colorconstants";
 
 const ErrorMessage = ({
   wrapperClassName = "",
@@ -14,6 +15,9 @@ const ErrorMessage = ({
   truncateMessage,
   maxLength,
 }) => {
+
+  const IconColor = Colors.lightTheme.alert.error;
+
   return (
     <div
       className={`digit-error-icon-message-wrap ${
@@ -23,7 +27,7 @@ const ErrorMessage = ({
     >
       {showIcon && (
         <div className="digit-error-icon" style={iconStyles}>
-          <SVG.Info width="1rem" height="1rem" fill="#B91900" />
+          <SVG.Info width="1rem" height="1rem" fill={IconColor} />
         </div>
       )}
       <div className={`digit-error-message ${className}`} style={style}>

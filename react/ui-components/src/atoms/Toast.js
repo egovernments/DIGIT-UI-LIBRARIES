@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { SVG } from "./SVG";
 import Button from "./Button";
 import StringManipulator from "./StringManipulator";
+import { Colors} from "../constants/colors/colorconstants";
 
 const Toast = (props) => {
 
@@ -57,6 +58,7 @@ const Toast = (props) => {
     : "";
 
   const sentenceCaseLabel = StringManipulator("TOSENTENCECASE", props.label);
+  const color = Colors.lightTheme.paper.primary;
 
   if (!isVisible) {
     return null;
@@ -73,12 +75,12 @@ const Toast = (props) => {
         >
           {!props?.isWarningButtons ? (
             <>
-              <SVG.Warning fill="#FFFFFF" />
+              <SVG.Warning fill={color} />
               <div className="toast-label" style={{ ...props.labelstyle }}>
                 {sentenceCaseLabel}
               </div>
               <SVG.Close
-                fill="#FFFFFF"
+                fill={color}
                 className="digit-toast-close-btn"
                 style={{ cursor: "pointer" }}
                 onClick={props.onClose ? props.onClose : handleClose}
@@ -86,13 +88,13 @@ const Toast = (props) => {
             </>
           ) : (
             <div className="digit-toast-sub-container">
-              <SVG.Error fill="#FFFFFF" />
+              <SVG.Error fill={color} />
               <div className="toast-label" style={{ ...props.labelstyle }}>
                 {sentenceCaseLabel}
               </div>
               {props.isDleteBtn ? (
                 <SVG.Close
-                  fill="#FFFFFF"
+                  fill={color}
                   className="digit-toast-close-btn"
                   style={{ cursor: "pointer" }}
                   onClick={props.onClose ? props.onClose : handleClose}
@@ -113,11 +115,11 @@ const Toast = (props) => {
 
   const icon =
     props?.type === "error" ? (
-      <SVG.Error fill="#FFFFFF" />
+      <SVG.Error fill={color} />
     ) : props?.type === "info" ? (
-      <SVG.Info fill="#FFFFFF" />
+      <SVG.Info fill={color} />
     ) : (
-      <SVG.CheckCircle fill="#FFFFFF" />
+      <SVG.CheckCircle fill={color} />
     );
     
   return (
@@ -132,7 +134,7 @@ const Toast = (props) => {
         {sentenceCaseLabel}
       </div>
       <SVG.Close
-        fill="#FFFFFF"
+        fill={color}
         className="digit-toast-close-btn"
         style={{ cursor: "pointer" }}
         onClick={props.onClose ? props.onClose : handleClose}
