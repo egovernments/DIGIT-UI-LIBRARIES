@@ -81,6 +81,9 @@ import Divider from "./Divider";
 import TopBar from "./TopBar";
 import Hamburger from "./Hamburger";
 import Menu from "./Menu";
+import Sidebar from "./Sidebar";
+import MobileSidebar from "./MobileSidebar";
+import TooltipWrapper from "./ToolTipWrapper";
 
 import {
   AnnouncementIcon,
@@ -227,6 +230,9 @@ export {
   Amount,
   AppContainer,
   BackLink,
+  Sidebar,
+  MobileSidebar,
+  TooltipWrapper,
   Banner,
   BodyContainer,
   BreadCrumb,
