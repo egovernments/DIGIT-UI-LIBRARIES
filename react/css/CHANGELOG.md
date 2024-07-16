@@ -1,6 +1,6 @@
 # Changelog
 
-## [0.0.2-beta.12] - 2024-07-16
+## [0.0.2-beta.13] - 2024-07-16
 ### Added
 - Added styles for sidebar and hamburger
 
