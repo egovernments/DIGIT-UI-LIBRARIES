@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import StringManipulator from "./StringManipulator";
 import Menu from "./Menu";
+import { Colors} from "../constants/colors/colorconstants";
 
 const Button = (props) => {
   const [dropdownStatus, setDropdownStatus] = useState(false);
@@ -25,15 +26,19 @@ const Button = (props) => {
     };
   }, [dropdownStatus]);
 
+  const diabledIconColor = Colors.lightTheme.text.disabled;
+  const iconColor = Colors.lightTheme.primary[1];
+  const primaryIconColor = Colors.lightTheme.paper.primary;
+
   //To render the icon
   const IconRender = () => {
     const iconFill = props.iconFill
       ? props.iconFill
       : props?.variation === "primary"
-      ? "#FFFFFF"
+      ? primaryIconColor
       : props?.isDisabled
-      ? "#C5C5C5"
-      : "#C84C0E";
+      ? diabledIconColor
+      : iconColor;
     const iconReq =
       props?.type === "actionButton" &&
       props?.showBottom &&

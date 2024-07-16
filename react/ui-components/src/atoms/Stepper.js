@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { useTranslation } from "react-i18next";
 import { SVG } from "./SVG";
 import StringManipulator from "./StringManipulator";
+import { Colors} from "../constants/colors/colorconstants";
 
 const Stepper = ({
   currentStep = 1,
@@ -46,6 +47,7 @@ const Stepper = ({
     // This useEffect will trigger a re-render when number of activeSteps changes
   }, [activeSteps]);
 
+  const Color = Colors.lightTheme.paper.primary;
 
   const getAction = (totalSteps, customSteps) => {
     if (customSteps && Object.keys(customSteps).length !== 0) {
@@ -87,7 +89,7 @@ const Stepper = ({
                 <SVG.Check
                   width={isMobileView ? "18px" : "24px"}
                   height={isMobileView ? "18px" : "24px"}
-                  fill="#ffffff"
+                  fill={Color}
                 />
               ) : (
                 index + 1

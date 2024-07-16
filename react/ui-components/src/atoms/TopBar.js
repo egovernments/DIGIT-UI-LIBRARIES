@@ -2,6 +2,7 @@ import React, { useEffect, useState, Fragment } from "react";
 import PropTypes from "prop-types";
 import Hamburger from "./Hamburger";
 import { IMAGES} from "../constants/images/images";
+import { Colors} from "../constants/colors/colorconstants";
 
 const TopBar = ({
   img,
@@ -45,6 +46,8 @@ const TopBar = ({
   };
 
   const digitImg = img || (theme === "dark" ? getImageUrl('DIGIT_DARK') : getImageUrl('DIGIT_LIGHT'));
+  const darkThemeColor = Colors.lightTheme.paper.primary;
+  const lightThemeColor = Colors.lightTheme.text.primary;
 
   if (isMobileView) {
     return (
@@ -57,7 +60,7 @@ const TopBar = ({
             onHamburgerClick ? "clickable" : ""
           }`}
           handleClick={onHamburgerClick}
-          color={theme === "dark" ? "#FFFFFF" : "#363636"}
+          color={theme === "dark" ? darkThemeColor : lightThemeColor}
         />
         <div className="digit-header-img-ulb-wrapper-mobileview">
           <img

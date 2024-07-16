@@ -4,8 +4,11 @@ import PropTypes from "prop-types";
 import Animation from "./Animation";
 import successAnimation from "../constants/animations/success.json";
 import errorAnimation from "../constants/animations/error.json";
+import { Colors} from "../constants/colors/colorconstants";
 
 const Panels = (props) => {
+
+  const primaryColor = Colors.lightTheme.paper.primary;
 
   const useDeviceType = () => {
     const [deviceType, setDeviceType] = useState("desktop");
@@ -31,7 +34,7 @@ const Panels = (props) => {
   };
 
   const IconRender = (iconReq, iconFill) => {
-    const fill = iconFill || "#FFFFFF";
+    const fill = iconFill || primaryColor;
 
     try {
       const components = require("@egovernments/digit-ui-svg-components");
@@ -102,7 +105,7 @@ const Panels = (props) => {
             icon
           ) : props?.showAsSvg ? (
             <SVG.CheckCircleOutline
-              fill={"#FFFFFF"}
+              fill={primaryColor}
               width={width}
               height={height}
             ></SVG.CheckCircleOutline>
@@ -119,7 +122,7 @@ const Panels = (props) => {
           icon
         ) : props?.showAsSvg ? (
           <SVG.ErrorOutline
-            fill={"#FFFFFF"}
+            fill={primaryColor}
             width={width}
             height={height}
           ></SVG.ErrorOutline>

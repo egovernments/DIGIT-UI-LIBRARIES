@@ -4,6 +4,7 @@ import { SVG } from "./SVG";
 import StringManipulator from "./StringManipulator";
 import warningOutlineAnimation from "../constants/animations/warningOutline.json";
 import Animation from "./Animation";
+import { Colors} from "../constants/colors/colorconstants";
 
 const PopUp = (props) => {
   const [isOverflowing, setIsOverflowing] = useState(false);
@@ -66,8 +67,10 @@ const PopUp = (props) => {
     }
   }, [overlayRef]);
 
+  const iconColor = Colors.lightTheme.alert.error;
+
   const IconRender = (type, iconReq, iconFill) => {
-    const fill = iconFill || "#D4351C";
+    const fill = iconFill || iconColor;
     const width = type === "alert" ? "48px" : "32px";
     const height = type === "alert" ? "48px" : "32px";
 
@@ -154,7 +157,7 @@ const PopUp = (props) => {
           >
             {!props?.customIcon && props?.showAlertAsSvg && (
               <SVG.Warning
-                fill={props?.iconFill ? props?.iconFill : "#D4351C"}
+                fill={props?.iconFill ? props?.iconFill : iconColor}
                 width={"48px"}
                 height={"48px"}
                 className="popup-alert-icon"
@@ -195,7 +198,7 @@ const PopUp = (props) => {
                 >
                   {props?.showIcon && !props?.customIcon && (
                     <SVG.ErrorOutline
-                      fill={props?.iconFill ? props?.iconFill : "#D4351C"}
+                      fill={props?.iconFill ? props?.iconFill : iconColor}
                       width={"32px"}
                       height={"32px"}
                       className="popup-error-icon"

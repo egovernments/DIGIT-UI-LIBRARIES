@@ -6,6 +6,7 @@ import { SVG } from "./SVG";
 import { PngFile, JpgFile, PdfFile, DocFile, XlsxFile } from "./svgindex";
 import ErrorMessage from "./ErrorMessage";
 import InfoCard from "./InfoCard";
+import { Colors} from "../constants/colors/colorconstants";
 
 const UploadPopup = ({
   onSubmit,
@@ -46,6 +47,13 @@ const UploadPopup = ({
     };
   }, []);
 
+  const errorColor = Colors.lightTheme.alert.error;
+  const primaryColor = Colors.lightTheme.paper.primary;
+  const inputBorderColor = Colors.lightTheme.generic.inputBorder;
+  const primaryTwo = Colors.lightTheme.primary[2];
+  const disabledColor = Colors.lightTheme.text.disabled;
+
+
   const dragDropJSX = (
     <div
       className={`digit-uploader-content-uploadpopup ${iserror ? "error" : ""}`}
@@ -54,7 +62,7 @@ const UploadPopup = ({
         <SVG.FileUpload
           width={isMobileView ? "48px" : "64px"}
           height={isMobileView ? "48px" : "64px"}
-          fill="#C5C5C5"
+          fill={disabledColor}
         ></SVG.FileUpload>
       }
       <p className="drag-drop-text" style={{ margin: "0px", display: "flex" }}>
@@ -132,7 +140,7 @@ const UploadPopup = ({
         return (
           <SVG.File
             className="icon"
-            fill={fileErrors ? "#B91900" : "#505a5f"}
+            fill={fileErrors ? errorColor : inputBorderColor}
           />
         );
     }
@@ -217,7 +225,7 @@ const UploadPopup = ({
             onClick={() => handleFileDelete(file)}
           >
             <SVG.Close
-              fill={fileErrors ? "#FFFFFF" : "#0B4B66"}
+              fill={fileErrors ? primaryColor : primaryTwo}
               width={"24px"}
               height={"24px"}
               className="uploader-close"

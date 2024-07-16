@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { SVG } from "./SVG";
 import StringManipulator from "./StringManipulator";
 import Button from "./Button";
+import { Colors} from "../constants/colors/colorconstants";
 
 const Timeline = ({
   label,
@@ -61,6 +62,8 @@ const Timeline = ({
       ? "Completed"
       : "";
 
+  const color = Colors.lightTheme.paper.primary;
+
   return (
     <div className={`digit-timeline-item ${className || ""}`}>
       <div className={`timeline-circle ${variant}`}>
@@ -69,7 +72,7 @@ const Timeline = ({
             <SVG.Check
               width={isMobileView ? "18px" : "24px"}
               height={isMobileView ? "18px" : "24px"}
-              fill="#ffffff"
+              fill={color}
             />
           </div>
         )}

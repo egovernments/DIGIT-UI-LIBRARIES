@@ -8,6 +8,7 @@ import { SVG } from "./SVG";
 import UploadPopup from "./UploadPopup";
 import UploadImage from "./UploadImage";
 import Button from "./Button";
+import { Colors} from "../constants/colors/colorconstants";
 import {
   DocUpload,
   DocPdfUpload,
@@ -247,6 +248,9 @@ const Uploader = (props) => {
     window.open(url, "_blank");
   };
 
+  const primaryColor = Colors.lightTheme.paper.primary;
+  const errorColor = Colors.lightTheme.alert.error;
+
   const getFileUploadIcon = (fileType, isError) => {
     switch (fileType) {
       case "application/pdf":
@@ -254,7 +258,7 @@ const Uploader = (props) => {
           <DocPdfUpload
             className={`digit-docupload-icon ${isError ? "error" : ""}`}
             styles={isError ? { border: "1px solid #B91900" } : {}}
-            fill={isError ? "#B91900" : ""}
+            fill={isError ? errorColor : ""}
           />
         );
       case "application/vnd.ms-excel":
@@ -266,7 +270,7 @@ const Uploader = (props) => {
           <DocXlsxUpload
             className={`digit-docupload-icon ${isError ? "error" : ""}`}
             styles={isError ? { border: "1px solid #B91900" } : {}}
-            fill={isError ? "#B91900" : ""}
+            fill={isError ? errorColor : ""}
           />
         );
       case "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
@@ -275,7 +279,7 @@ const Uploader = (props) => {
           <DocdocUpload
             className={`digit-docupload-icon ${isError ? "error" : ""}`}
             styles={isError ? { border: "1px solid #B91900" } : {}}
-            fill={isError ? "#B91900" : ""}
+            fill={isError ? errorColor : ""}
           />
         );
       default:
@@ -283,7 +287,7 @@ const Uploader = (props) => {
           <DocUpload
             className={`digit-docupload-icon ${isError ? "error" : ""}`}
             styles={isError ? { border: "1px solid #B91900" } : {}}
-            fill={isError ? "#B91900" : ""}
+            fill={isError ? errorColor : ""}
           />
         );
     }
@@ -458,7 +462,7 @@ const Uploader = (props) => {
                           }`}
                         >
                           <SVG.Close
-                            fill="#FFFFFF"
+                            fill={primaryColor}
                             width={"16px"}
                             height={"16px"}
                             className={`uploader-close ${

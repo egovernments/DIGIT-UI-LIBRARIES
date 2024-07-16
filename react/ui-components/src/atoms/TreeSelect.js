@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { SVG } from "./SVG";
 import { useTranslation } from "react-i18next";
+import { Colors} from "../constants/colors/colorconstants";
 
 const TreeSelectOption = ({ option, onSelect, isSelected, renderOptions, level = 0,optionsKey }) => {
   const [isExpanded, setExpanded] = useState(false);
@@ -16,6 +17,8 @@ const TreeSelectOption = ({ option, onSelect, isSelected, renderOptions, level =
     }
   };
 
+  const primaryFill = Colors.lightTheme.text.primary;
+
   return (
     <div style={{ marginLeft: `${level !== 0 ? 22 : 0}px`, borderLeft: "1px solid #D6D5D4" }}>
       <div
@@ -25,9 +28,9 @@ const TreeSelectOption = ({ option, onSelect, isSelected, renderOptions, level =
         {option.options && (
           <div className="digit-toggle-dropdown">
             {isExpanded ? (
-              <SVG.ArrowDropDown width="1.5rem" height="1.5rem" fill={"#0B0C0C"} />
+              <SVG.ArrowDropDown width="1.5rem" height="1.5rem" fill={primaryFill} />
             ) : (
-              <SVG.ArrowDropDown width="1.5rem" height="1.5rem" fill={"#0B0C0C"} style={{ transform: "rotate(-90deg)" }} />
+              <SVG.ArrowDropDown width="1.5rem" height="1.5rem" fill={primaryFill} style={{ transform: "rotate(-90deg)" }} />
             )}
           </div>
         )}
@@ -109,6 +112,9 @@ const TreeMultiSelect = ({ option, onSelect, isSelected, renderOptions, level = 
     }
   }, [allChildrenSelected, isSelected, isIntermediate, option, onSelect]);
 
+  const primaryFill = Colors.lightTheme.text.primary;
+  const primarySelectedColor = Colors.lightTheme.paper.primary;
+  const SelectedColor = Colors.lightTheme.primary[1];
 
   return (
     <div style={{ marginLeft: `${level !== 0 ? 22 : 0}px` }} className={`container ${level === 0 ? "outerlevel" : "innerlevel"}`}>
@@ -127,13 +133,13 @@ const TreeMultiSelect = ({ option, onSelect, isSelected, renderOptions, level = 
               <SVG.ArrowDropDown
                 width="1.5rem"
                 height="1.5rem"
-                fill={isParentSelected ? "#0B0C0C" : allChildrenSelected || isSelected(option) ? "#FFFFFF" : "#0B0C0C"}
+                fill={isParentSelected ? primaryFill : allChildrenSelected || isSelected(option) ? primarySelectedColor : primaryFill}
               />
             ) : (
               <SVG.ArrowDropDown
                 width="1.5rem"
                 height="1.5rem"
-                fill={isParentSelected ? "#0B0C0C" : allChildrenSelected || isSelected(option) ? "#FFFFFF" : "#0B0C0C"}
+                fill={isParentSelected ? primaryFill : allChildrenSelected || isSelected(option) ? primarySelectedColor : primaryFill}
                 style={{ transform: "rotate(-90deg)" }}
               />
             )}
@@ -155,7 +161,7 @@ const TreeMultiSelect = ({ option, onSelect, isSelected, renderOptions, level = 
           {isIntermediate() ? (
             <div className="intermediate-state"></div>
           ) : (
-            <SVG.Check fill={(allChildrenSelected || isSelected(option)) && !isParentSelected ? "#FFFFFF" : "#C84C0E"} />
+            <SVG.Check fill={(allChildrenSelected || isSelected(option)) && !isParentSelected ? primarySelectedColor : SelectedColor} />
           )}
         </div>
         <div className="digit-option-label">{t(option[optionsKey])}</div>

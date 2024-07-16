@@ -1,12 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
 import StringManipulator from "./StringManipulator";
+import { Colors} from "../constants/colors/colorconstants";
 
 const InfoButton = (props) => {
   
+  const primaryIconColor = Colors.lightTheme.paper.primary;
+
   //To render the icon
   const IconRender = () => {
-    const iconFill = "#FFFFFF"
+    const iconFill = primaryIconColor
     const iconReq = props?.icon;
     let width = "1.5rem";
     let height = "1.5rem";

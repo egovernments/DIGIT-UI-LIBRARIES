@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { SVG } from "./SVG";
 import ErrorMessage from "./ErrorMessage";
+import { Colors} from "../constants/colors/colorconstants";
 
 const Chip = ({
   className,
@@ -17,6 +18,7 @@ const Chip = ({
   const tagStyles = extraStyles ? extraStyles?.tagStyles : {};
   const textStyles = extraStyles ? extraStyles?.textStyles : {};
   const closeIconStyles = extraStyles ? extraStyles?.closeIconStyles : {};
+  const IconColor = Colors.lightTheme.paper.primary;
 
   return (
     <div
@@ -38,7 +40,7 @@ const Chip = ({
           onClick={disabled ? null : onClick}
           className={`close-icon ${disabled ? "disabled" : ""}`}
         >
-          <SVG.Close fill="#FFFFFF" className="close" style={closeIconStyles} />
+          <SVG.Close fill={IconColor} className="close" style={closeIconStyles} />
         </span>
       </div>
       <div className={`${onErrorClick ? "cp" : "nonclickable"}`} onClick={onErrorClick}>

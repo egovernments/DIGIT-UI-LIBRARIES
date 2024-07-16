@@ -3,6 +3,7 @@ import { SVG } from "./SVG";
 import Webcam from "react-webcam";
 import Button from "./Button";
 import ErrorMessage from "./ErrorMessage";
+import { Colors} from "../constants/colors/colorconstants";
 import {
   DocUpload,
   DocPdfUpload,
@@ -119,6 +120,8 @@ const UploadImage = ({
     onFileDelete(fileToRemove);
   };
 
+  const errorColor = Colors.lightTheme.alert.error;
+
   const getFileUploadIcon = (fileType, isError) => {
     switch (fileType) {
       case "application/pdf":
@@ -126,7 +129,7 @@ const UploadImage = ({
           <DocPdfUpload
             className={`digit-docupload-icon ${isError ? "error" : ""}`}
             styles={isError ? { border: "1px solid #B91900" } : {}}
-            fill={isError ? "#B91900" : ""}
+            fill={isError ? errorColor : ""}
           />
         );
       case "application/vnd.ms-excel":
@@ -138,7 +141,7 @@ const UploadImage = ({
           <DocXlsxUpload
             className={`digit-docupload-icon ${isError ? "error" : ""}`}
             styles={isError ? { border: "1px solid #B91900" } : {}}
-            fill={isError ? "#B91900" : ""}
+            fill={isError ? errorColor : ""}
           />
         );
       case "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
@@ -147,7 +150,7 @@ const UploadImage = ({
           <DocdocUpload
             className={`digit-docupload-icon ${isError ? "error" : ""}`}
             styles={isError ? { border: "1px solid #B91900" } : {}}
-            fill={isError ? "#B91900" : ""}
+            fill={isError ? errorColor : ""}
           />
         );
       default:
@@ -155,7 +158,7 @@ const UploadImage = ({
           <DocUpload
             className={`digit-docupload-icon ${isError ? "error" : ""}`}
             styles={isError ? { border: "1px solid #B91900" } : {}}
-            fill={isError ? "#B91900" : ""}
+            fill={isError ? errorColor : ""}
           />
         );
     }

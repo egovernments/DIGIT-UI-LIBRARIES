@@ -4,6 +4,7 @@ import { SVG } from "./SVG";
 import TreeSelect from "./TreeSelect";
 import { ProfileIcon } from "./svgindex";
 import Menu from "./Menu";
+import { Colors } from "../constants/colors/colorconstants";
 
 const TextField = (props) => {
   const [value, setValue] = useState(
@@ -208,8 +209,12 @@ const Dropdown = (props) => {
     if (!isSelectedSameAsOptions) setSelectedOption(null);
   }
 
+  const inputBorderColor = Colors.lightTheme.generic.inputBorder;
+  const dividerColor = Colors.lightTheme.generic.divider;
+  const primaryColor = Colors.lightTheme.paper.primary;
+
   const IconRender = (iconReq, isActive) => {
-    const iconFill = isActive ? "#FFFFFF" : "#505A5F";
+    const iconFill = isActive ? primaryColor : inputBorderColor;
     try {
       const components = require("@egovernments/digit-ui-svg-components");
       const DynamicIcon = components?.[iconReq];
@@ -382,7 +387,7 @@ const Dropdown = (props) => {
                     width="1.5rem"
                     height="1.5rem"
                     className="cp"
-                    fill="#505a5f"
+                    fill={inputBorderColor}
                   />
                 )}
               {t(option[props?.optionKey])}
@@ -398,7 +403,7 @@ const Dropdown = (props) => {
     <div
       className={`${
         user_type === "employee"
-          ? "digit-dropdown-employee-select-wrap" 
+          ? "digit-dropdown-employee-select-wrap"
           : "digit-dropdown-select-wrap"
       } ${props?.className ? props?.className : ""}`}
       style={props?.style || {}}
@@ -423,7 +428,11 @@ const Dropdown = (props) => {
           {props?.showArrow && (
             <span className="header-dropdown-arrow">
               <SVG.ArrowDropDown
-                fill={props?.theme === "dark" ? "#FFFFFF" : "#505A5F"}
+                fill={
+                  props?.theme === "dark"
+                    ? primaryColor
+                    : inputBorderColor
+                }
               />
             </span>
           )}
@@ -501,7 +510,7 @@ const Dropdown = (props) => {
           />
           {props.showSearchIcon ? null : (
             <SVG.ArrowDropDown
-              fill={props?.disabled ? "#D6D5D4" : "#505A5F"}
+              fill={props?.disabled ? dividerColor : inputBorderColor}
               onClick={dropdownSwitch}
               className="cp"
               disable={props.disabled}
@@ -517,18 +526,18 @@ const Dropdown = (props) => {
         </div>
       )}
       {(hasCustomSelector || props?.profilePic) && dropdownStatus && (
-          <Menu
-            options={props?.option}
-            setDropdownStatus={setDropdownStatus}
-            dropdownStatus={dropdownStatus}
-            isSearchable={props?.isSearchable}
-            optionsKey={props?.optionKey}
-            onSelect={props?.onOptionSelect}
-            showBottom={props?.showBottom}
-            style={props?.menuStyles}
-          />
+        <Menu
+          options={props?.option}
+          setDropdownStatus={setDropdownStatus}
+          dropdownStatus={dropdownStatus}
+          isSearchable={props?.isSearchable}
+          optionsKey={props?.optionKey}
+          onSelect={props?.onOptionSelect}
+          showBottom={props?.showBottom}
+          style={props?.menuStyles}
+        />
       )}
-      {(!hasCustomSelector && !props?.profilePIc && dropdownStatus) ? (
+      {!hasCustomSelector && !props?.profilePIc && dropdownStatus ? (
         props.optionKey ? (
           <div
             id="jk-dropdown-unique"
