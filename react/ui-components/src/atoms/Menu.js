@@ -81,7 +81,7 @@ const Menu = (props) => {
               onClick={(e) => {e.stopPropagation(); onSelect(option);}}
             >
               {IconRender(option?.icon, index === isActive)}
-              {t(option[props?.optionKey])}
+              {t(option[props?.optionsKey])}
             </div>
           ))
         ) : (
