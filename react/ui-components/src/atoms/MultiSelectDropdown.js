@@ -39,10 +39,17 @@ const MultiSelectDropdown = ({
   function reducer(state, action) {
     switch (action.type) {
       case "ADD_TO_SELECTED_EVENT_QUEUE":
-        return [
-          ...state,
-          { code: action.payload?.[1]?.code, propsData: action.payload },
-        ];
+        // return [
+        //   ...state,
+        //   { code: action.payload?.[1]?.code, propsData: action.payload },
+        // ];
+        const updatedState = [...state, { code: action.payload?.[1]?.code, propsData: action.payload }];
+          onSelect(
+            updatedState.map((e) => e.propsData),
+            getCategorySelectAllState(),
+            props
+          );
+          return updatedState;
       case "REMOVE_FROM_SELECTED_EVENT_QUEUE":
         const newState = state.filter(
           (e) => e?.code !== action.payload?.[1]?.code
