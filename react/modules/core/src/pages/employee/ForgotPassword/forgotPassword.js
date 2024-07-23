@@ -1,5 +1,5 @@
 import { FormComposer } from "@egovernments/digit-ui-react-components";
-import { BackButton, Dropdown, Loader,Toast } from "@egovernments/digit-ui-components";
+import { BackLink, Dropdown, Loader,Toast } from "@egovernments/digit-ui-components";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
@@ -98,7 +98,7 @@ const ForgotPassword = ({ config: propsConfig, t }) => {
   return (
     <Background>
       <div className="employeeBackbuttonAlign">
-        <BackButton variant="white" style={{ borderBottom: "none" }} />
+        <BackLink variant="white" style={{ borderBottom: "none" }} />
       </div>
       <FormComposer
         onSubmit={onForgotPassword}

@@ -3,7 +3,7 @@ import {
   Table,
 } from "@egovernments/digit-ui-react-components";
 import {
-  BackButton,
+  BackLink,
   Loader,
   SearchForm,
   Header
@@ -197,7 +197,7 @@ const SearchApplication = ({ tenantId, t, onSubmit, data, count }) => {
     <React.Fragment>
       <div style={{ marginRight: "-70px" }}>
         {" "}
-        <BackButton />{" "}
+        <BackLink />{" "}
       </div>
       <div style={{ marginTop: "30px", marginLeft: "30px" }}>
         {" "}
