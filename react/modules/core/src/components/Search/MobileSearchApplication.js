@@ -1,5 +1,5 @@
 import {
-  BackButton,
+  BackLink,
   DetailsCard,
   Header,
   Loader,
@@ -199,7 +199,7 @@ const MobileSearchApplication = ({
 
   return (
     <React.Fragment>
-      <BackButton />
+      <BackLink />
       <div
         className="sideContent"
         style={{ marginLeft: "70%", marginTop: "-12%" }}

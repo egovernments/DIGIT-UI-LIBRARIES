@@ -5,7 +5,7 @@ import {
   MobileNumber,
   TextInput,
   CardLabelError,
-  BackButton,
+  BackLink,
   Loader,
   Button,
   SubmitBar,
@@ -443,7 +443,7 @@ const UserProfile = ({ stateCode, userType, cityDetails }) => {
         style={{ margin: userType === "citizen" || isMobile ? "8px" : "24px" }}
       >
         {userType === "citizen" || isMobile ? (
-          <BackButton></BackButton>
+          <BackLink></BackLink>
         ) : (
           <BreadCrumb
             crumbs={[

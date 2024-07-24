@@ -1,5 +1,5 @@
 import {
-  BackButton,
+  BackLink,
   Header,
   Loader,
   CloseSvg,
@@ -75,7 +75,7 @@ const HowItWorks = ({ module }) => {
   return (
     <Fragment>
       <div className="how-it-works-page">
-        <BackButton></BackButton>
+        <BackLink></BackLink>
         <div className="how-it-works-page-header">
           <Header>
             {t(

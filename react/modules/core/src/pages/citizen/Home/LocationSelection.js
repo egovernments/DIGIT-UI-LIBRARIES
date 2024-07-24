@@ -1,4 +1,4 @@
-import { BackButton, CardHeader, CardLabelError, PageBasedInput, SearchOnRadioButtons } from "@egovernments/digit-ui-components";
+import { BackLink, CardHeader, CardLabelError, PageBasedInput, SearchOnRadioButtons } from "@egovernments/digit-ui-components";
 import React, { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory, useLocation } from "react-router-dom";
@@ -51,7 +51,7 @@ const LocationSelection = () => {
     <loader />
   ) : (
     <div className="selection-card-wrapper">
-      <BackButton />
+      <BackLink />
       <PageBasedInput texts={texts} onSubmit={onSubmit} className="location-selection-container">
         <CardHeader>{t("CS_COMMON_CHOOSE_LOCATION")}</CardHeader>
         <SearchOnRadioButtons {...RadioButtonProps} placeholder={t("COMMON_TABLE_SEARCH")} />

@@ -1,4 +1,4 @@
-import { BackButton, Header, Loader ,SearchIconSvg} from "@egovernments/digit-ui-components";
+import { BackLink, Header, Loader ,SearchIconSvg} from "@egovernments/digit-ui-components";
 import React, { Fragment } from "react";
 import { useTranslation } from "react-i18next";
 import FaqComponent from "./FaqComponent";
@@ -22,7 +22,7 @@ const FAQsSection = ({ module }) => {
   return (
     <Fragment>
       <div className="faq-page">
-        <BackButton style={{ marginLeft: "unset" }}></BackButton>
+        <BackLink style={{ marginLeft: "unset" }}></BackLink>
         <div style={{ marginBottom: "15px" }}>
           <Header styles={{ marginLeft: "0px", paddingTop: "10px", fontSize: "32px" }}>{t("FAQ_S")}</Header>
         </div>

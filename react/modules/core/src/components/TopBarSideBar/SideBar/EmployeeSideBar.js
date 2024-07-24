@@ -1,9 +1,10 @@
 import React, { useRef, useEffect, useState } from "react";
-import { Loader,SearchIcon } from "@egovernments/digit-ui-components";
+import { Loader, SearchIcon } from "@egovernments/digit-ui-components";
 import { useTranslation } from "react-i18next";
 import Sidebar from "./SideBar";
 
-const checkMatch = (path = "", searchCriteria = "") => path.toLowerCase().includes(searchCriteria.toLowerCase());
+const checkMatch = (path = "", searchCriteria = "") =>
+  path.toLowerCase().includes(searchCriteria.toLowerCase());
 
 const EmployeeSideBar = () => {
   const sidebarRef = useRef(null);
@@ -13,22 +14,25 @@ const EmployeeSideBar = () => {
   const [subNav, setSubNav] = useState(false);
 
   useEffect(() => {
-    if (isLoading) {
-      return <Loader />;
+    if (!isLoading && sidebarRef.current) {
+      sidebarRef.current.style.cursor = "pointer";
+      collapseNav();
     }
-    sidebarRef.current.style.cursor = "pointer";
-    collapseNav();
   }, [isLoading]);
 
   const expandNav = () => {
-    sidebarRef.current.style.width = "260px";
-    // sidebarRef.current.style.overflow = "auto";
-    setSubNav(true);
+    if (sidebarRef.current) {
+      sidebarRef.current.style.width = "260px";
+      setSubNav(true);
+    }
   };
+
   const collapseNav = () => {
-    sidebarRef.current.style.width = "60px";
-    sidebarRef.current.style.overflow = "hidden";
-    setSubNav(false);
+    if (sidebarRef.current) {
+      sidebarRef.current.style.width = "60px";
+      sidebarRef.current.style.overflow = "hidden";
+      setSubNav(false);
+    }
   };
 
   function mergeObjects(obj1, obj2) {
@@ -53,17 +57,16 @@ const EmployeeSideBar = () => {
     .filter((e) => e.url === "url")
     .forEach((item) => {
       let index = item?.path?.split(".")?.[0] || "";
-      if (search == "" && item.path !== "") {
+      if (search === "" && item.path !== "") {
         const keys = item.path.split(".");
         let hierarchicalMap = {};
 
         keys.reduce((acc, key, index) => {
           if (index === keys.length - 1) {
-            // If it's the last key, set the value to an empty object or whatever you need.
-            acc[key] = { item }; // You can set the value to any other value or object.
+            acc[key] = { item };
           } else {
             acc[key] = {};
-            return acc[key]; // Return the nested object for the next iteration.
+            return acc[key];
           }
         }, hierarchicalMap);
         mergeObjects(configEmployeeSideBar, hierarchicalMap);
@@ -76,11 +79,10 @@ const EmployeeSideBar = () => {
 
         keys.reduce((acc, key, index) => {
           if (index === keys.length - 1) {
-            // If it's the last key, set the value to an empty object or whatever you need.
-            acc[key] = { item }; // You can set the value to any other value or object.
+            acc[key] = { item };
           } else {
             acc[key] = {};
-            return acc[key]; // Return the nested object for the next iteration.
+            return acc[key];
           }
         }, hierarchicalMap);
         mergeObjects(configEmployeeSideBar, hierarchicalMap);
@@ -90,31 +92,15 @@ const EmployeeSideBar = () => {
   const splitKeyValue = (configEmployeeSideBar) => {
     const objectArray = Object.entries(configEmployeeSideBar);
 
-    // Sort the array based on the 'orderNumber' or the length of the object if 'orderNumber' is not present
-    // sort logic updated to sort the parent item by alphabetical
     objectArray.sort((a, b) => {
-      if (a[0] < b[0]) { return -1; }
-      if (a[0] > b[0]) { return 1; }
+      if (a[0] < b[0]) return -1;
+      if (a[0] > b[0]) return 1;
       return 0;
-      // const orderNumberA = a[1].item
-      //   ? a[1].item.orderNumber || Object.keys(configEmployeeSideBar).length + 1
-      //   : Object.keys(configEmployeeSideBar).length + 1;
-      // const orderNumberB = b[1].item
-      //   ? b[1].item.orderNumber || Object.keys(configEmployeeSideBar).length + 1
-      //   : Object.keys(configEmployeeSideBar).length + 1;
-      // return orderNumberA - orderNumberB;
     });
     const sortedObject = Object.fromEntries(objectArray);
     configEmployeeSideBar = sortedObject;
     return <Sidebar data={configEmployeeSideBar} />;
   };
-
-  if (isLoading) {
-    return <Loader />;
-  }
-  if (!configEmployeeSideBar) {
-    return "";
-  }
 
   const renderSearch = () => {
     return (
@@ -141,6 +127,14 @@ const EmployeeSideBar = () => {
       </div>
     );
   };
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  if (!configEmployeeSideBar) {
+    return null;
+  }
 
   return (
     <div className="sidebar" ref={sidebarRef} onMouseOver={expandNav} onMouseLeave={collapseNav}>

@@ -10,6 +10,7 @@ const TextToImg = (props) => (
     {props?.name?.[0]?.toUpperCase()}
   </span>
 );
+
 const TopBar = ({
   t,
   stateInfo,
@@ -27,21 +28,29 @@ const TopBar = ({
 }) => {
   const [profilePic, setProfilePic] = React.useState(null);
 
-  React.useEffect(async () => {
-    const tenant = Digit.ULBService.getCurrentTenantId();
-    const uuid = userDetails?.info?.uuid;
-    if (uuid) {
-      const usersResponse = await Digit.UserService.userSearch(tenant, { uuid: [uuid] }, {});
-      if (usersResponse && usersResponse.user && usersResponse.user.length) {
-        const userDetails = usersResponse.user[0];
-        const thumbs = userDetails?.photo?.split(",");
-        setProfilePic(thumbs?.at(0));
+  // Update useEffect to handle async function correctly
+  React.useEffect(() => {
+    const fetchProfilePic = async () => {
+      const tenant = Digit.ULBService.getCurrentTenantId();
+      const uuid = userDetails?.info?.uuid;
+      if (uuid) {
+        try {
+          const usersResponse = await Digit.UserService.userSearch(tenant, { uuid: [uuid] }, {});
+          if (usersResponse && usersResponse.user && usersResponse.user.length) {
+            const userDetails = usersResponse.user[0];
+            const thumbs = userDetails?.photo?.split(",");
+            setProfilePic(thumbs?.at(0));
+          }
+        } catch (error) {
+          console.error('Error fetching user profile picture:', error);
+        }
       }
-    }
-  }, [profilePic !== null, userDetails?.info?.uuid]);
+    };
+    
+    fetchProfilePic();
+  }, [userDetails?.info?.uuid]); // Correct dependency array
 
   const CitizenHomePageTenantId = Digit.ULBService.getCitizenCurrentTenant(true);
-
   let history = useHistory();
   const { pathname } = useLocation();
 
@@ -98,21 +107,24 @@ const TopBar = ({
       </div>
     );
   }
+
   const loggedin = userDetails?.access_token ? true : false;
+
   return (
     <div className="topbar">
-      <div className="digit-hamburger-class">{<Hamburger  handleClick={toggleSidebar} color="#9E9E9E" />}</div>
+      <div className="digit-hamburger-class">
+        <Hamburger handleClick={toggleSidebar} color="#9E9E9E" />
+      </div>
       <img className="city" src={loggedin ? cityDetails?.logoId : stateInfo?.statelogo} />
       <span className="digit-topbar-container">
-        {loggedin &&
-          (cityDetails?.city?.ulbGrade ? (
-            <p className="ulb">
-              {t(cityDetails?.i18nKey).toUpperCase()}{" "}
-              {t(`ULBGRADE_${cityDetails?.city?.ulbGrade.toUpperCase().replace(" ", "_").replace(".", "_")}`).toUpperCase()}
-            </p>
-          ) : (
-            <img className="state" src={logoUrl} />
-          ))}
+        {loggedin && (cityDetails?.city?.ulbGrade ? (
+          <p className="ulb">
+            {t(cityDetails?.i18nKey).toUpperCase()}{" "}
+            {t(`ULBGRADE_${cityDetails?.city?.ulbGrade.toUpperCase().replace(" ", "_").replace(".", "_")}`).toUpperCase()}
+          </p>
+        ) : (
+          <img className="state" src={logoUrl} />
+        ))}
         {!loggedin && (
           <p className="ulb">
             {t(`MYCITY_${stateInfo?.code?.toUpperCase()}_LABEL`)} {t(`MYCITY_STATECODE_LABEL`)}

@@ -1,4 +1,4 @@
-import { BackButton, CitizenHomeCard, CitizenInfoLabel } from "@egovernments/digit-ui-components";
+import { BackLink, CitizenHomeCard, CitizenInfoLabel } from "@egovernments/digit-ui-components";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Route, Switch, useHistory, useRouteMatch } from "react-router-dom";
@@ -99,7 +99,7 @@ const Home = ({
         <Route key={index} path={`${path}/${code.toLowerCase()}-home`}>
           <div className="moduleLinkHomePage">
             <img src={bannerImage || stateInfo?.bannerUrl} alt="noimagefound" />
-            <BackButton className="moduleLinkHomePageBackButton" />
+            <BackLink className="moduleLinkHomePageBackButton" />
             <h1>{t("MODULE_" + code.toUpperCase())}</h1>
             <div className="moduleLinkHomePageModuleLinks">
               {mdmsDataObj && (

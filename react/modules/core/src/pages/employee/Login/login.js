@@ -1,4 +1,4 @@
-import { BackButton, Loader, FormComposerV2 ,Toast} from "@egovernments/digit-ui-components";
+import { BackLink, Loader, FormComposerV2 ,Toast} from "@egovernments/digit-ui-components";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
@@ -111,7 +111,7 @@ const Login = ({ config: propsConfig, t, isDisabled }) => {
   ) : (
     <Background>
       <div className="employeeBackbuttonAlign">
-        <BackButton variant="white" style={{ borderBottom: "none" }} />
+        <BackLink variant="white" style={{ borderBottom: "none" }} />
       </div>
 
       <FormComposerV2
