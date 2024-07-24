@@ -84,10 +84,16 @@ const TextField = (props) => {
             ?.scrollBy?.(0, -45);
       }
       e.preventDefault();
-    } else if (e.key == "Enter") {
-      props.addProps.selectOption(props.addProps.currentIndex);
+    } 
+    else if (e.key === "Enter") {
+      if (props.addProps.length === 1) {
+          props.addProps.selectOption(0);
+      }
+       else {
+          props.addProps.selectOption(props.addProps.currentIndex);
+      }
       e.preventDefault();
-    }
+  }
   };
 
   return (
@@ -128,6 +134,7 @@ const translateDummy = (text) => {
 const Dropdown = (props) => {
   const user_type = Digit.SessionStorage.get("userType");
   const [dropdownStatus, setDropdownStatus] = useState(false);
+  const [menuStatus, setMenuStatus] = useState(false);
   const [selectedOption, setSelectedOption] = useState(
     props.selected ? props.selected : null
   );
@@ -136,6 +143,8 @@ const Dropdown = (props) => {
   const [forceSet, setforceSet] = useState(0);
   const [optionIndex, setOptionIndex] = useState(-1);
   const optionRef = useRef(null);
+  const menuRef = useRef(null); 
+  const selectorRef = useRef(null);
   const hasCustomSelector = props.customSelector ? true : false;
   const t = props.t || translateDummy;
 
@@ -151,6 +160,29 @@ const Dropdown = (props) => {
       }
       setDropdownStatus(!current);
       props?.onBlur?.();
+    }
+  }
+
+  function menuSwitch(){
+    if(!props.disabled){
+      var current = menuStatus;
+      if (!current) {
+        document.addEventListener("mousedown", handleClickOutside, false);
+      }
+      setMenuStatus(!current);
+      props?.onBlur?.();
+    }
+  }
+
+  function handleClickOutside(e) {
+    if (!menuRef.current || !menuRef.current.contains(e.target)) {
+      if(selectorRef?.current && selectorRef?.current.contains(e.target)){
+        return ;
+      }
+      else{
+        document.removeEventListener("mousedown", handleClickOutside, false);
+        setMenuStatus(false);
+      }
     }
   }
 
@@ -411,7 +443,8 @@ const Dropdown = (props) => {
       {(hasCustomSelector || props?.profilePic) && (
         <div
           className={`header-dropdown-label ${props?.theme || ""}`}
-          onClick={dropdownSwitch}
+          onClick={menuSwitch}
+          ref={selectorRef}
         >
           {props?.profilePic && (
             <span
@@ -428,11 +461,7 @@ const Dropdown = (props) => {
           {props?.showArrow && (
             <span className="header-dropdown-arrow">
               <SVG.ArrowDropDown
-                fill={
-                  props?.theme === "dark"
-                    ? primaryColor
-                    : inputBorderColor
-                }
+                fill={props?.theme === "dark" ? primaryColor : inputBorderColor}
               />
             </span>
           )}
@@ -525,17 +554,19 @@ const Dropdown = (props) => {
           ) : null}
         </div>
       )}
-      {(hasCustomSelector || props?.profilePic) && dropdownStatus && (
-        <Menu
-          options={props?.option}
-          setDropdownStatus={setDropdownStatus}
-          dropdownStatus={dropdownStatus}
-          isSearchable={props?.isSearchable}
-          optionsKey={props?.optionKey}
-          onSelect={props?.onOptionSelect}
-          showBottom={props?.showBottom}
-          style={props?.menuStyles}
-        />
+      {(hasCustomSelector || props?.profilePic) && menuStatus && (
+        <div className={"menu-div"} ref={menuRef}>
+          <Menu
+            options={props?.option}
+            setDropdownStatus={setMenuStatus}
+            dropdownStatus={menuStatus}
+            isSearchable={props?.isSearchable}
+            optionsKey={props?.optionKey}
+            onSelect={onSelect}
+            showBottom={props?.showBottom}
+            style={props?.menuStyles}
+          />
+        </div>
       )}
       {!hasCustomSelector && !props?.profilePIc && dropdownStatus ? (
         props.optionKey ? (

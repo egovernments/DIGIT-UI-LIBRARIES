@@ -23,11 +23,16 @@ const Menu = (props) => {
     props.setDropdownStatus(false); 
   };
 
+  const handleMouseDown = (index) => {
+    setOptionIndex(index); 
+  };
+
+
   const secondaryIconColor = Colors.lightTheme.generic.inputBorder;
   const primaryIconColor = Colors.lightTheme.paper.primary;
 
   const IconRender = (iconReq, isActive) => {
-    const iconFill = isActive ? secondaryIconColor : primaryIconColor;
+    const iconFill = isActive ? primaryIconColor : secondaryIconColor;
     try {
       const components = require("@egovernments/digit-ui-svg-components");
       const DynamicIcon = components?.[iconReq];
@@ -76,11 +81,12 @@ const Menu = (props) => {
             <div
               key={index}
               className={`header-dropdown-option ${
-                index === isActive ? "activeIndex" : ""
+                index === optionIndex ? "activeIndex" : ""
               } ${index === optionIndex ? "keyChange" : ""}`}
               onClick={(e) => {e.stopPropagation(); onSelect(option);}}
+              onMouseDown={() => handleMouseDown(index)}
             >
-              {IconRender(option?.icon, index === isActive)}
+              {IconRender(option?.icon, index === optionIndex)}
               {t(option[props?.optionsKey])}
             </div>
           ))
