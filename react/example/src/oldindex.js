@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from 'react-dom/client';
 import { initLibraries } from "@egovernments/digit-ui-libraries";
 
 import {
@@ -60,7 +60,9 @@ const initDigitUI = () => {
   const stateCode =
     window?.globalConfigs?.getConfig("STATE_LEVEL_TENANT_ID") || "pb";
   initTokens(stateCode);
-  ReactDOM.render(
+  const rootElement = document.getElementById('digit-root');
+  const root = ReactDOM.createRoot(document.getElementById('rootElement'));
+  root.render(
     <DigitUI
       stateCode={stateCode}
       enabledModules={enabledModules}
