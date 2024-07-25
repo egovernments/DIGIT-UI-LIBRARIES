@@ -60,8 +60,7 @@ const initDigitUI = () => {
   const stateCode =
     window?.globalConfigs?.getConfig("STATE_LEVEL_TENANT_ID") || "pb";
   initTokens(stateCode);
-  const rootElement = document.getElementById('digit-root');
-  const root = ReactDOM.createRoot(document.getElementById('rootElement'));
+  const root = ReactDOM.createRoot(document.getElementById('root'));
   root.render(
     <DigitUI
       stateCode={stateCode}

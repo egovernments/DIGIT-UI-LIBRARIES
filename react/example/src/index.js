@@ -1,8 +1,8 @@
 import React from 'react';
-
+import ReactDOM from 'react-dom/client';
 import { initLibraries } from "@egovernments/digit-ui-libraries";
 import App from './App';
-import ReactDOM from 'react-dom/client';
+
 
 initLibraries();
 
@@ -50,11 +50,11 @@ if (!user || !user.access_token || !user.info) {
   window.Digit.SessionStorage.set("Employee.tenantId", employeeTenantId);
   // end
 }
-const anotherRootElement = document.getElementById('another-root');
-const anotherRoot = ReactDOM.createRoot(document.getElementById('anotherRootElement'));
-anotherRoot.render(
-  <React.StrictMode>
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+ 
+    
     <App />
-  </React.StrictMode>,
-  
+    
 );
