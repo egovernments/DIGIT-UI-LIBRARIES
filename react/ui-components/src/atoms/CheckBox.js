@@ -18,6 +18,7 @@ const CheckBox = ({
   index,
   isLabelFirst,
   customLabelMarkup,
+  hideLabel,
   ...props
 }) => {
   const { t } = useTranslation();
@@ -35,7 +36,7 @@ const CheckBox = ({
         !isLabelFirst ? "checkboxFirst" : "labelFirst"
       } ${disabled ? "disabled" : " "} ${props?.mainClassName}`}
     >
-      {isLabelFirst ? (
+      {(isLabelFirst && !hideLabel) ? (
         <p className={`label ${props?.labelClassName} `} style={{ maxWidth: "100%", width: "auto" ,marginRight:"0rem"}} onClick={props?.onLabelClick}>
           {customLabelMarkup ? (
             <>
@@ -70,7 +71,7 @@ const CheckBox = ({
           <SVG.Check fill={props?.iconFill || (disabled ? diabledIconColor : iconColor)} />
         </p>
       </div>
-      {!isLabelFirst ? (
+      {(!isLabelFirst && !hideLabel) ? (
         <p className={`label ${props?.labelClassName} `} style={{ maxWidth: "100%", width: "100%",marginRight:"0rem" }} onClick={props?.onLabelClick}>
           {customLabelMarkup ? (
             <>
@@ -104,6 +105,7 @@ CheckBox.propTypes = {
    */
   ref: PropTypes.func,
   userType: PropTypes.string,
+  hideLabel:PropTypes.bool
 };
 
 CheckBox.defaultProps = {

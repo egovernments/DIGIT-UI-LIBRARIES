@@ -65,6 +65,10 @@
     /* Media query for mobile */
     padding-top: 0.164rem;
   }
+
+  &.upcoming{
+    color:theme(digitv2.lightTheme.text-secondary);
+  }
 }
 
 .timeline-date {
@@ -109,7 +113,7 @@ img {
   border: 0.125rem solid theme(digitv2.lightTheme.primary-1);
 }
 
-.timeline-circle.inprogress::after {
+.timeline-circle.inprogress:not(.error)::after {
   @apply absolute w-4 h-4;
   content: '';
   top: 50%;
@@ -124,9 +128,7 @@ img {
   }
 }
 
-.timeline-circle.completed {
-  background-color: theme(digitv2.lightTheme.primary-1);
-
+.timeline-circle{
   .check-icon {
     @apply w-6 h-6 absolute;
     top: 50%;
@@ -139,6 +141,10 @@ img {
       height: 1.125rem;
     }
   }
+}
+
+.timeline-circle.completed {
+  background-color: theme(digitv2.lightTheme.primary-1);
 }
 
 .digit-timeline-molecule{
@@ -168,4 +174,34 @@ img {
 
 .view-more-future-container {
   margin-bottom: theme(digitv2.spacers.spacer4);
+}
+
+.digit-timeline-item {
+  &.error{
+
+    .timeline-circle{
+      background-color: theme(digitv2.lightTheme.alert-error);
+    }
+
+    .timeline-content{
+      background-color: theme(digitv2.lightTheme.alert-errorbg);
+      border-radius: theme(digitv2.spacers.spacer1);
+      padding: theme(digitv2.spacers.spacer2) theme(digitv2.spacers.spacer3);
+
+
+      .timeline-info{
+        .timeline-label{
+          color: theme(digitv2.lightTheme.alert-error);
+          padding-top: 0rem;
+        }
+        .timeline-date{
+          color: theme(digitv2.lightTheme.alert-error);
+        }
+
+        .timeline-divider {
+          border: 0.063rem solid theme(digitv2.lightTheme.alert-error);
+        }
+      }
+    }
+  }
 }

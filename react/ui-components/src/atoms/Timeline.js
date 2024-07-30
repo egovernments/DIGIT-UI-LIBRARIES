@@ -18,6 +18,7 @@ const Timeline = ({
   isLastStep,
   isNextActiveStep,
   showDefaultValueForDate,
+  isError
 }) => {
   const [showDetails, setShowDetails] = useState(false);
 
@@ -54,6 +55,8 @@ const Timeline = ({
     additionalElements && additionalElements.length > 0;
 
   const defaultLabel =
+
+  isError ? "Failed!" :
     variant === "inprogress"
       ? "Inprogress"
       : variant === "upcoming"
@@ -65,14 +68,24 @@ const Timeline = ({
   const color = Colors.lightTheme.paper.primary;
 
   return (
-    <div className={`digit-timeline-item ${className || ""}`}>
-      <div className={`timeline-circle ${variant}`}>
-        {variant === "completed" && (
+    <div className={`digit-timeline-item ${className || ""} ${variant} ${isError ? "error" : ""}`}>
+      <div className={`timeline-circle ${variant} ${isError ? "error" : ""}`}>
+        {variant === "completed" && !isError &&  (
           <div className="check-icon">
             <SVG.Check
               width={isMobileView ? "18px" : "24px"}
               height={isMobileView ? "18px" : "24px"}
               fill={color}
+            />
+          </div>
+        )}
+                {isError &&  (
+          <div className="check-icon">
+            <SVG.Info
+              width={isMobileView ? "18px" : "24px"}
+              height={isMobileView ? "18px" : "24px"}
+              fill={color}
+              style={{ transform: "rotate(-180deg)" }}
             />
           </div>
         )}
@@ -86,7 +99,7 @@ const Timeline = ({
       )}
       <div className={`timeline-content ${isLastStep ? "lastTimeline" : ""}`}>
         <div className="timeline-info">
-          <div className="timeline-label">
+          <div className={`timeline-label ${variant}`}>
             {label
               ? StringManipulator("CAPITALIZEFIRSTLETTER", label)
               : defaultLabel}
@@ -101,7 +114,7 @@ const Timeline = ({
             </div>
           )}
           {showDefaultValueForDate && (
-            <div className="timeline-date">{"date"}</div>
+            <div className="timeline-date">{isError ? "Incomplete": "date"}</div>
           )}
           <div className="timeline-divider"></div>
         </div>

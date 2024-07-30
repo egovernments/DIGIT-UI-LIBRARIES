@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.2-beta.20] - 2024-07-30
+### New Changes
+- Added Error State for Timeline, SelectionCard Component
+
 ## [0.0.2-beta.18] - 2024-07-24
 ### New Changes
 - Fixed header dropdown selection

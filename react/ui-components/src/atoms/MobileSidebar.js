@@ -12,7 +12,8 @@ const MobileSidebar = ({
   profileNumber,
   theme,
   className,
-  styles
+  styles,
+  ref
 }) => {
   const [searchTerms, setSearchTerms] = useState({});
   const [selectedItem, setSelectedItem] = useState({});
@@ -89,16 +90,14 @@ const MobileSidebar = ({
               onClick={() => handleArrowClick(item, currentIndex, parentIndex)}
               tabIndex={0}
             >
-              {
+              {(item.selectedIcon || item.icon) && (
                 <span className="msb-icon">
                   {item.selectedIcon ? item.selectedIcon : item.icon}
                 </span>
-              }
+              )}
               {<span className="msb-item-label">{item.label}</span>}
               {item.children && (
-                <span
-                  className="msb-expand-icon"
-                >
+                <span className="msb-expand-icon">
                   {isExpanded ? (
                     <SVG.ArrowDropDown
                       fill={
@@ -202,6 +201,7 @@ const MobileSidebar = ({
     <div
       className={`msb-sidebar ${theme || ""} ${className || ""}`}
       style={styles}
+      ref={ref}
     >
       <div className="msb-profile">
         <ProfileIcon width={"62px"} height={"64px"} />

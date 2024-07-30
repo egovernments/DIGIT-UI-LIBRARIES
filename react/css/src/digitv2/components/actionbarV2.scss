@@ -144,26 +144,6 @@
     justify-content: space-between;
     flex-wrap: wrap;
 
-    @media (min-width: 48rem) {
-      gap: theme(digitv2.spacers.spacer6);
-    }
-  
-    @media (min-width: 30.063rem) and (max-width: 47.938rem) {
-      gap: theme(digitv2.spacers.spacer5);
-    }
-  
-    @media (max-width: 30rem) {
-      gap: theme(digitv2.spacers.spacer4);
-      flex-direction: column;
-
-      .action-bar-individual-action-field{
-        button{
-          width: 100%;
-          max-width: 100%;
-        }
-      }
-    }
-
     &.toRight{
       margin-left: auto;
     }
@@ -180,6 +160,27 @@
 
     &:not(.toRight){
       width: 100%;
+    }
+
+    @media (min-width: 48rem) {
+      gap: theme(digitv2.spacers.spacer6);
+    }
+  
+    @media (min-width: 30.063rem) and (max-width: 47.938rem) {
+      gap: theme(digitv2.spacers.spacer5);
+    }
+  
+    @media (max-width: 30rem) {
+      gap: theme(digitv2.spacers.spacer4);
+      flex-direction: column;
+      width: 100%;
+
+      .action-bar-individual-action-field{
+        button{
+          width: 100%;
+          max-width: 100%;
+        }
+      }
     }
   }
 
