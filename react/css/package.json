@@ -20,7 +20,7 @@
     "deploy": "gulp && cp -R svg example && cp -R img example && gh-pages -d example"
   },
   "browserslist": [
-    "> 3%",
+    "> 3%" ,
     "last 2 versions"
   ],
   "style": "./dist/index.css",
