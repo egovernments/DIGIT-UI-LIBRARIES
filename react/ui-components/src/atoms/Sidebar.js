@@ -77,7 +77,7 @@ const Sidebar = ({ items, theme, variant,transitionDuration,className,styles }) 
             <SVG.Search
               width={"24px"}
               height={"24px"}
-              fill={darkThemeColor}
+              fill={theme==="dark" ? darkThemeColor : lightThemeColor}
               className="search-icon"
             />
           </div>
@@ -106,7 +106,7 @@ const Sidebar = ({ items, theme, variant,transitionDuration,className,styles }) 
           >
             {(isTopLevel || hovered) && (
               <span className="icon">
-                {(isSelected) && item.selectedIcon
+                {(isSelected || isParentOfSelectedItem(currentIndex) ) && item.selectedIcon
                   ? item.selectedIcon
                   : item.icon}
               </span>

@@ -9,8 +9,8 @@
     display: flex;
     flex-direction: column;
     padding-top: 1.563rem;
-    padding-left:theme(digitv2.spacers.spacer3);
-    padding-right:theme(digitv2.spacers.spacer3);
+    padding-left: theme(digitv2.spacers.spacer3);
+    padding-right: theme(digitv2.spacers.spacer3);
 
     &.hovered {
         width: auto;
@@ -23,17 +23,17 @@
         height: 4.5rem;
         min-width: 15rem;
         width: auto;
-        padding:theme(digitv2.spacers.spacer4) !important;
+        padding: theme(digitv2.spacers.spacer4) !important;
 
         .sidebar-search {
-            height:theme(digitv2.spacers.spacer10) !important;
+            height: theme(digitv2.spacers.spacer10) !important;
             min-width: 13rem;
 
             .digit-text-input-customIcon {
-                height:theme(digitv2.spacers.spacer6);
-                width:theme(digitv2.spacers.spacer6);
-                top:theme(digitv2.spacers.spacer2);
-                right:theme(digitv2.spacers.spacer2);
+                height: theme(digitv2.spacers.spacer6);
+                width: theme(digitv2.spacers.spacer6);
+                top: theme(digitv2.spacers.spacer2);
+                right: theme(digitv2.spacers.spacer2);
             }
 
             .input-container {
@@ -106,7 +106,7 @@
 .sidebar-item {
     display: flex;
     align-items: center;
-    padding:theme(digitv2.spacers.spacer4);
+    padding: theme(digitv2.spacers.spacer4);
     color: theme(digitv2.lightTheme.paper-primary);
     text-decoration: none;
     transition: background-color 0.3s;
@@ -152,9 +152,9 @@
 }
 
 .icon {
-    margin-right:theme(digitv2.spacers.spacer3);
-    width:theme(digitv2.spacers.spacer6);
-    height:theme(digitv2.spacers.spacer6);
+    margin-right: theme(digitv2.spacers.spacer3);
+    width: theme(digitv2.spacers.spacer6);
+    height: theme(digitv2.spacers.spacer6);
 }
 
 .item-label {
@@ -184,8 +184,8 @@
 }
 
 .expand-icon {
-    width:theme(digitv2.spacers.spacer6);
-    height:theme(digitv2.spacers.spacer6);
+    width: theme(digitv2.spacers.spacer6);
+    height: theme(digitv2.spacers.spacer6);
     margin-left: auto !important;
 }
 
@@ -218,14 +218,14 @@
 .sidebar-item.selected::before,
 .sidebar-item:active::before,
 .sidebar-item:active:hover::before,
-.sidebar-item.selected:hover::before{
+.sidebar-item.selected:hover::before {
     content: '';
     position: absolute;
     top: 0.062rem;
     left: 0;
     bottom: 0.063rem;
-    width: theme(digitv2.spacers.spacer2); 
-    background: theme(digitv2.lightTheme.paper-primary); 
+    width: theme(digitv2.spacers.spacer2);
+    background: theme(digitv2.lightTheme.paper-primary);
     border-top-right-radius: theme(digitv2.spacers.spacer1);
     border-bottom-right-radius: theme(digitv2.spacers.spacer1);
 }
@@ -251,14 +251,14 @@
 .sidebar-item.light.secondary.selected::before,
 .sidebar-item.light.secondary:active::before,
 .sidebar-item.light.secondary:active:hover::before,
-.sidebar-item.light.secondary.selected:hover::before{
+.sidebar-item.light.secondary.selected:hover::before {
     content: '';
     position: absolute;
     top: 0.063rem;
     left: 0;
     bottom: 0.063rem;
-    width: theme(digitv2.spacers.spacer2); 
-    background:theme(digitv2.lightTheme.primary-1);
+    width: theme(digitv2.spacers.spacer2);
+    background: theme(digitv2.lightTheme.primary-1);
     border-top-right-radius: theme(digitv2.spacers.spacer1);
     border-bottom-right-radius: theme(digitv2.spacers.spacer1);
 }
@@ -268,26 +268,26 @@
 }
 
 .sidebar-children {
-    margin-left:theme(digitv2.spacers.spacer6);
+    margin-left: theme(digitv2.spacers.spacer6);
     border-left: 0.031rem solid theme(digitv2.lightTheme.text-disabled);
 }
 
 .sidebar-bottom {
     background-color: #FFFFFF33;
     z-index: 5;
-    padding:theme(digitv2.spacers.spacer4);
+    padding: theme(digitv2.spacers.spacer4);
     display: flex;
     flex-direction: column;
-    gap:theme(digitv2.spacers.spacer4);
+    gap: theme(digitv2.spacers.spacer4);
     padding-right: theme(digitv2.spacers.spacer0);
     padding-left: theme(digitv2.spacers.spacer0);
 
     .sidebar-bottom-item {
         display: flex;
         align-items: center;
-        gap:theme(digitv2.spacers.spacer2);
+        gap: theme(digitv2.spacers.spacer2);
         cursor: pointer;
-        height:theme(digitv2.spacers.spacer10);
+        height: theme(digitv2.spacers.spacer10);
 
         &:hover {
             background-color: #FFFFFF4D;
@@ -295,7 +295,7 @@
 
         svg {
             flex-shrink: 0;
-            margin-left:theme(digitv2.spacers.spacer6);
+            margin-left: theme(digitv2.spacers.spacer6);
         }
 
         .sidebar-bottom-item-text {
@@ -351,33 +351,33 @@
         padding-right: theme(digitv2.spacers.spacer0);
 
         .sidebar-search-container-collapsed {
-            padding-left:theme(digitv2.spacers.spacer3);
-            padding-right:theme(digitv2.spacers.spacer3);
+            padding-left: theme(digitv2.spacers.spacer3);
+            padding-right: theme(digitv2.spacers.spacer3);
         }
 
         .sidebar-items-container {
 
             display: flex !important;
             flex-direction: column;
-            gap:theme(digitv2.spacers.spacer6);
-            margin-top:theme(digitv2.spacers.spacer6);
+            gap: theme(digitv2.spacers.spacer6);
+            margin-top: theme(digitv2.spacers.spacer6);
 
             .item-child-wrapper {
                 width: 100%;
-                height:theme(digitv2.spacers.spacer10);
+                height: theme(digitv2.spacers.spacer10);
                 display: flex;
                 align-items: center;
                 justify-content: center;
 
                 .sidebar-item {
                     padding: theme(digitv2.spacers.spacer0);
-                    width:theme(digitv2.spacers.spacer6);
+                    width: theme(digitv2.spacers.spacer6);
                     height: 100%;
 
 
                     .icon {
-                        margin-right:theme(digitv2.spacers.spacer3);
-                        margin-left:theme(digitv2.spacers.spacer3);
+                        margin-right: theme(digitv2.spacers.spacer3);
+                        margin-left: theme(digitv2.spacers.spacer3);
                     }
 
                     &.parentLevel {
@@ -389,13 +389,65 @@
                 .sidebar-item.selected,
                 .sidebar-item.selectedAsParent {
                     background: theme(digitv2.lightTheme.primary-1);
-                    border-left: 0.25rem solid theme(digitv2.lightTheme.paper-primary);
                     display: flex;
                     align-items: center;
                     justify-content: center;
-
                 }
 
+                .sidebar-item.selected::before,
+                .sidebar-item:active::before,
+                .sidebar-item.selectedAsParent::before,
+                .sidebar-item:active:hover::before,
+                .sidebar-item.selected:hover::before {
+                    content: '';
+                    position: absolute;
+                    top: 0.062rem;
+                    left: 0;
+                    bottom: 0.063rem;
+                    width: theme(digitv2.spacers.spacer1);
+                    background: theme(digitv2.lightTheme.paper-primary);
+                    border-top-right-radius: theme(digitv2.spacers.spacer1);
+                    border-bottom-right-radius: theme(digitv2.spacers.spacer1);
+                }
+
+                .sidebar-item.secondary:active,
+                .sidebar-item.secondary.selected,
+                .sidebar-item.secondary:active:hover,
+                .sidebar-item.secondary.selected:hover ,
+                .sidebar-item.secondary.selectedAsParent,
+                .sidebar-item.secondary.selectedAsParent:hover{
+                    background: #FFFFFF4D;
+                }
+
+                .sidebar-item.light.secondary:active,
+                .sidebar-item.light.secondary.selected,
+                .sidebar-item.light.secondary:active:hover,
+                .sidebar-item.light.secondary.selected:hover,
+                .sidebar-item.light.secondary.selectedAsParent,
+                .sidebar-item.light.secondary.selectedAsParent:hover {
+                    background: #c84c0e1a;
+
+                    .item-label {
+                        color: theme(digitv2.lightTheme.primary-2);
+                    }
+                }
+
+                .sidebar-item.light.secondary.selected::before,
+                .sidebar-item.light.secondary:active::before,
+                .sidebar-item.light.secondary:active:hover::before,
+                .sidebar-item.light.secondary.selected:hover::before,
+                .sidebar-item.light.secondary.selectedAsParent::before,
+                .sidebar-item.light.secondary.selectedAsParent:hover::before{
+                    content: '';
+                    position: absolute;
+                    top: 0.063rem;
+                    left: 0;
+                    bottom: 0.063rem;
+                    width: theme(digitv2.spacers.spacer1);
+                    background: theme(digitv2.lightTheme.primary-1);
+                    border-top-right-radius: theme(digitv2.spacers.spacer1);
+                    border-bottom-right-radius: theme(digitv2.spacers.spacer1);
+                }
 
             }
         }
@@ -404,6 +456,6 @@
 
 .digit-sidebar-footer-img {
     width: 6.563rem;
-    height:theme(digitv2.spacers.spacer3);
+    height: theme(digitv2.spacers.spacer3);
     margin-left: 25%;
 }

@@ -84,6 +84,7 @@ import Menu from "./Menu";
 import Sidebar from "./Sidebar";
 import MobileSidebar from "./MobileSidebar";
 import TooltipWrapper from "./ToolTipWrapper";
+import SelectionCard from "./SelectionCard";
 
 import {
   AnnouncementIcon,
@@ -271,6 +272,7 @@ export {
   Paragraph,
   PlusMinusInput,
   PopUp,
+  SelectionCard,
   PrivateRoute,
   RadioButtons,
   Rating,

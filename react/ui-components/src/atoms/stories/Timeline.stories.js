@@ -213,3 +213,15 @@ CompletedWithConnector.args = {
   additionalElements: additionalElements,
   showConnector:true
 };
+
+
+// Error Timeline
+export const ErrorTimeline = Template.bind({});
+ErrorTimeline.args = {
+  label: "",
+  subElements: [],
+  variant: "completed",
+  isError:true,
+  showDefaultValueForDate	:true,
+  additionalElements: additionalElements,
+};

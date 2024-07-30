@@ -84,6 +84,7 @@ import {
   TopBar,
   Hamburger,
   Menu,
+  SelectionCard
 } from "./atoms";
 
 import {
@@ -263,6 +264,7 @@ export {
   BreadCrumb,
   BreakLine,
   Button,
+  SelectionCard,
   Card,
   CardBasedOptions,
   CardCaption,

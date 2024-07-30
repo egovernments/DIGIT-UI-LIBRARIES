@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.0.2-beta.15] - 2024-07-30
+### Added
+-  Added Error State for Timeline, SelectionCard Component
+
 ## [0.0.2-beta.13] - 2024-07-16
 ### Added
 - Added styles for sidebar and hamburger
