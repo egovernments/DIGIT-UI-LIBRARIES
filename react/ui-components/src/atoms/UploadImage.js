@@ -355,6 +355,7 @@ const UploadImage = ({
                 width={"32px"}
                 height={"32px"}
                 fill={"#0B4B66"}
+                className={"cp"}
               ></SVG.Close>
             </div>
             <div className="video-stream" style={{ height: "100%" }}>

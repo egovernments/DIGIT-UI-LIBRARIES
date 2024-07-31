@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.0.2-beta.19] - 2024-07-31
+### Added
+-  Added css change for SelectionCard
+
 ## [0.0.2-beta.15] - 2024-07-30
 ### Added
 -  Added Error State for Timeline, SelectionCard Component

@@ -13,6 +13,11 @@
     border-radius: theme(digitv2.spacers.spacer1);
     background-color: theme(digitv2.lightTheme.paper-secondary); 
     width: fit-content;
+
+    @media (max-width: 30rem) {
+      justify-content: center;
+    }
+
   }
   
   .selection-card.error {
