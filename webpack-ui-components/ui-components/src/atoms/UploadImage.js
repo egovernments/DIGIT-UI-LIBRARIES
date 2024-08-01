@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef, Fragment } from "react";
 import { SVG } from "./SVG";
-import Webcam from "react-webcam";
 import Button from "./Button";
 import ErrorMessage from "./ErrorMessage";
 import { Colors} from "../constants/colors/colorconstants";
@@ -359,7 +358,7 @@ const UploadImage = ({
               ></SVG.Close>
             </div>
             <div className="video-stream" style={{ height: "100%" }}>
-              <Webcam
+              {/* <Webcam
                 audio={false}
                 imageSmoothing={true}
                 videoConstraints={videoConstraints}
@@ -368,7 +367,8 @@ const UploadImage = ({
                 width={"100%"}
                 height={"100%"}
                 style={{ objectFit: "cover" }}
-              />
+              /> */}
+              Webcamp added later
             </div>
             <div
               style={{
