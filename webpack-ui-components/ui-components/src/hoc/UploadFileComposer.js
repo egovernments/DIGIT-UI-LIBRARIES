@@ -9,20 +9,21 @@ import Header from "../atoms/Header";
 import MultiUploadWrapper from "../molecules/MultiUploadWrapper";
 import TextInput from "../atoms/TextInput";
 import { getRegex } from "../utils/uploadFileComposerUtils";
-import useCustomMDMS from "./techHoc/useCustomMDMS";
+// import useCustomMDMS from "./techHoc/useCustomMDMS";
 
 const UploadFileComposer = ({ module, config, Controller, control, register, formData, errors, localePrefix, customClass, customErrorMsg,mdmsModuleName='works' }) => {
   const { t } = useTranslation();
 
   //fetch mdms config based on module name
   const tenant = Digit?.ULBService?.getStateId();
-  const { isLoading, data } = useCustomMDMS(tenant, mdmsModuleName, [
-    {
-      name: "DocumentConfig",
-      filter: `[?(@.module=='${module}')]`,
-    },
-  ]);
-
+  // const { isLoading, data } = useCustomMDMS(tenant, mdmsModuleName, [
+  //   {
+  //     name: "DocumentConfig",
+  //     filter: `[?(@.module=='${module}')]`,
+  //   },
+  // ]);
+  const data={};
+// to be revisitied
   const docConfig = data?.works?.DocumentConfig?.[0];
 
   return (
