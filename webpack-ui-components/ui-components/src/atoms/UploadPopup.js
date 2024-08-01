@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect, useRef } from "react";
-import { FileUploader } from "react-drag-drop-files";
+// import { FileUploader } from "react-drag-drop-files";
 import { useTranslation } from "react-i18next";
 import Button from "./Button";
 import { SVG } from "./SVG";
@@ -240,13 +240,16 @@ const UploadPopup = ({
     <React.Fragment>
       {((multiple === false && (!fileData || fileData?.length === 0)) ||
         multiple === true) && (
-        <FileUploader
-          multiple={multiple}
-          handleChange={handleChange}
-          name="file"
-          types={types}
-          children={dragDropJSX}
-        />
+          <div>
+            Uploader comp
+          </div>
+        // <FileUploader
+        //   multiple={multiple}
+        //   handleChange={handleChange}
+        //   name="file"
+        //   types={types}
+        //   children={dragDropJSX}
+        // />
       )}
       {fileData?.length > 0 && renderFileCards}
     </React.Fragment>
