@@ -1,6 +1,6 @@
 {
   "name": "@egovernments/digit-ui-components",
-  "version": "0.0.1-webpack.8",
+  "version": "0.0.1-webpack.9",
   "license": "MIT",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
@@ -36,7 +36,7 @@
   ],
   "dependencies": {
     "@babel/plugin-transform-react-jsx": "7.16.0",
-    "@egovernments/digit-ui-svg-components": "1.0.4",
+    "@egovernments/digit-ui-svg-components": "1.0.0-webpack.1",
     "@googlemaps/js-api-loader": "1.13.10",
     "autoprefixer": "^10.4.15",
     "date-fns": "3.6.0",
