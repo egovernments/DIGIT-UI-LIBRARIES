@@ -17,6 +17,7 @@ import CardLabelError from "./CardLabelError";
 import CardText from "./CardText";
 import CheckBox from "./CheckBox";
 import CitizenHomeCard from "./CitizenHomeCard";
+import TestComponent from "./TestComponent";
 import CitizenInfoLabel from "./CitizenInfoLabel";
 import CollapseAndExpandGroups from "./CollapseAndExpandGroups";
 import { ConnectingCheckPoints } from "./ConnectingCheckPoints";
@@ -444,4 +445,5 @@ export {
   ArrowLeftWhite,
   ArrowRightInbox,
   SearchIconSvg,
+  TestComponent
 };

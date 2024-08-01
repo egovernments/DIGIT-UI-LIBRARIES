@@ -85,7 +85,8 @@ import {
   TopBar,
   Hamburger,
   Menu,
-  SelectionCard
+  SelectionCard,
+  TestComponent
 } from "./atoms";
 
 import {
@@ -494,5 +495,6 @@ export {
   ArrowLeftWhite,
   ArrowRightInbox,
   SearchIconSvg,
-  ErrorBoundary
+  ErrorBoundary,
+  TestComponent
 };
