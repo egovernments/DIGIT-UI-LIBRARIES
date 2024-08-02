@@ -40,11 +40,18 @@ const Chip = ({
           onClick={disabled ? null : onClick}
           className={`close-icon ${disabled ? "disabled" : ""}`}
         >
-          <SVG.Close fill={IconColor} className="close" style={closeIconStyles} />
+          <SVG.Close
+            fill={IconColor}
+            className="close"
+            style={closeIconStyles}
+          />
         </span>
       </div>
-      <div className={`${onErrorClick ? "cp" : "nonclickable"}`} onClick={onErrorClick}>
-        {error && (
+      {error && (
+        <div
+          className={`${onErrorClick ? "cp" : "nonclickable"}`}
+          onClick={onErrorClick}
+        >
           <ErrorMessage
             message={error}
             truncateMessage={true}
@@ -53,8 +60,8 @@ const Chip = ({
             wrapperClassName="digit-tag-error"
             showIcon={true}
           />
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };
