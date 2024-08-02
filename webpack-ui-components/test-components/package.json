@@ -1,6 +1,6 @@
 {
   "name": "@egovernments/digit-ui-components",
-  "version": "0.0.1-webpack.118",
+  "version": "0.0.1-webpack.119",
   "license": "MIT",
   "main": "dist/main.js",
   "module": "dist/main.js",
@@ -34,6 +34,7 @@
     "dist"
   ],
   "dependencies": {
+    "@egovernments/digit-ui-svg-components": "1.0.0-webpack.5"
   },
   "peerDependencies": {
     "react": "18.3.1",
