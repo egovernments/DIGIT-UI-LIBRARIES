@@ -1,6 +1,6 @@
 {
   "name": "@egovernments/digit-ui-components",
-  "version": "0.0.1-webpack.119",
+  "version": "0.0.1-webpack.120",
   "license": "MIT",
   "main": "dist/main.js",
   "module": "dist/main.js",
@@ -34,7 +34,18 @@
     "dist"
   ],
   "dependencies": {
-    "@egovernments/digit-ui-svg-components": "1.0.0-webpack.5"
+    "@egovernments/digit-ui-svg-components": "1.0.0-webpack.5",
+    "autoprefixer": "^10.4.15",
+    "date-fns": "3.6.0",
+    "postcss-flexbugs-fixes": "^5.0.2",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-date-range": "2.0.1",
+    "react-hook-form": "7.52.1",
+    "react-i18next": "15.0.0",
+    "react-lottie": "1.2.4",
+    "react-responsive": "10.0.0",
+    "react-router-dom": "6.25.1"
   },
   "peerDependencies": {
     "react": "18.3.1",
