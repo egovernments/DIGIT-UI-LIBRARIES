@@ -47,15 +47,31 @@ const Tag = ({
     }
   };
 
-  const iconToShow = icon ? (
-    IconRender()
-  ) : type === "error" ? (
-    <SVG.Error fill={ErrorIconColor} width={"1rem"} height={"1rem"} />
-  ) : type === "warning" ? (
-    <SVG.Warning fill={WarningIconColor} width={"1rem"} height={"1rem"} />
-  ) : (
-    <SVG.CheckCircle fill={SuccessIconColor} width={"1rem"} height={"1rem"} />
-  );
+  let iconToShow;
+  if (icon) {
+    iconToShow = IconRender();
+  } else {
+    switch (type) {
+      case "error":
+        iconToShow = (
+          <SVG.Error fill={ErrorIconColor} width={"1rem"} height={"1rem"} />
+        );
+        break;
+      case "warning":
+        iconToShow = (
+          <SVG.Warning fill={WarningIconColor} width={"1rem"} height={"1rem"} />
+        );
+        break;
+      default:
+        iconToShow = (
+          <SVG.CheckCircle
+            fill={type==="success" ? SuccessIconColor : MonochromeIconColor}
+            width={"1rem"}
+            height={"1rem"}
+          />
+        );
+    }
+  }
 
   return (
     <div
@@ -81,6 +97,16 @@ Tag.propTypes = {
   style: PropTypes.object,
   stroke: PropTypes.bool,
   type: PropTypes.string,
+};
+
+Tag.defaultProps = {
+  className: "",
+  style: {},
+  type: "monochrome",
+  stroke: false,
+  showIcon: true,
+  labelStyle: {},
+  alignment: "center",
 };
 
 export default Tag;

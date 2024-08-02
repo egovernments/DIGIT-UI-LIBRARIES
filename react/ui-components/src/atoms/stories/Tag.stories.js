@@ -79,8 +79,8 @@ WithIconAndStroke.args = {
   showIcon:true
 };
 
-export const WithCustomIconAnsStyles = Template.bind({});
-WithCustomIconAnsStyles.args = {
+export const WithCustomIconAndStyles = Template.bind({});
+WithCustomIconAndStyles.args = {
   ...commonArgs,
   label:"Tag With custom icons & colors",
   stroke:true,
