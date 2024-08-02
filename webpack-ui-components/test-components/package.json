@@ -1,6 +1,6 @@
 {
   "name": "@egovernments/digit-ui-components",
-  "version": "0.0.1-webpack.111",
+  "version": "0.0.1-webpack.113",
   "license": "MIT",
   "main": "dist/main.js",
   "module": "dist/main.js",
@@ -31,8 +31,7 @@
   "files": [
     "dist"
   ],
-  "dependencies": {
-   
+  "peerDependencies": {
     "react": "18.3.1",
     "react-dom": "18.3.1"
   },
