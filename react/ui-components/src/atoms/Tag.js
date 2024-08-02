@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { SVG } from "./SVG";
 import { Colors } from "../constants/colors/colorconstants";
+import { iconRender } from "../utils/iconRender";
 
 const Tag = ({
   className,
@@ -14,42 +15,17 @@ const Tag = ({
   labelStyle,
   onClick,
   alignment,
+  iconClassName,
+  iconColor
 }) => {
   const MonochromeIconColor = Colors.lightTheme.primary[2];
   const SuccessIconColor = Colors.lightTheme.alert.success;
   const ErrorIconColor = Colors.lightTheme.alert.error;
   const WarningIconColor = Colors.lightTheme.alert.warning;
 
-  //To render the icon
-  const IconRender = () => {
-    const iconFill = MonochromeIconColor;
-    const iconReq = icon;
-    let width = "1rem";
-    let height = "1rem";
-    try {
-      const components = require("@egovernments/digit-ui-svg-components");
-      const DynamicIcon = components?.[iconReq];
-      if (DynamicIcon) {
-        const svgElement = DynamicIcon({
-          width: width,
-          height: height,
-          fill: iconFill,
-          className: `digit-tag-customIcon`,
-        });
-        return svgElement;
-      } else {
-        console.log("Icon not found");
-        return null;
-      }
-    } catch (error) {
-      console.error("Icon not found");
-      return null;
-    }
-  };
-
   let iconToShow;
   if (icon) {
-    iconToShow = IconRender();
+    iconToShow = iconRender(icon,iconColor || MonochromeIconColor, "1rem", "1rem", `digit-tag-customIcon ${iconClassName}`);;
   } else {
     switch (type) {
       case "error":
@@ -93,6 +69,8 @@ const Tag = ({
 
 Tag.propTypes = {
   className: PropTypes.string,
+  iconClassName:PropTypes.string,
+  iconColor:PropTypes.string,
   label: PropTypes.string.isRequired,
   style: PropTypes.object,
   stroke: PropTypes.bool,
@@ -107,6 +85,8 @@ Tag.defaultProps = {
   showIcon: true,
   labelStyle: {},
   alignment: "center",
+  iconColor:"",
+  iconClassName:""
 };
 
 export default Tag;

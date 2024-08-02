@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import ErrorMessage from "./ErrorMessage";
 import { useTranslation } from "react-i18next";
 import { Colors } from "../constants/colors/colorconstants";
+import { iconRender } from "../utils/iconRender";
 
 const SelectionCard = ({
   width,
@@ -40,25 +41,13 @@ const SelectionCard = ({
 
   const IconRender = (iconReq, isActive) => {
     const iconFill = isActive ? primaryIconColor : secondaryIconColor;
-    try {
-      const components = require("@egovernments/digit-ui-svg-components");
-      const DynamicIcon = components?.[iconReq];
-      if (DynamicIcon) {
-        const svgElement = DynamicIcon({
-          width: "1.5rem",
-          height: "1.5rem",
-          fill: iconFill,
-          className: "",
-        });
-        return svgElement;
-      } else {
-        console.log("Icon not found");
-        return null;
-      }
-    } catch (error) {
-      console.error("Icon not found");
-      return null;
-    }
+    return iconRender(
+      iconReq,
+      iconFill,
+      "1.5rem",
+      "1.5rem",
+      ""
+    );
   };
 
   const renderOption = (option) => {

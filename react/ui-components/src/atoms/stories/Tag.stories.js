@@ -8,6 +8,9 @@ export default {
     className: {
       control: "text",
     },
+    iconClassName:{
+      control: "text",
+    },
     label: {
       control: "text",
     },

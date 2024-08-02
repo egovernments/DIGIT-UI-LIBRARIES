@@ -5,6 +5,7 @@ import Animation from "./Animation";
 import successAnimation from "../constants/animations/success.json";
 import errorAnimation from "../constants/animations/error.json";
 import { Colors} from "../constants/colors/colorconstants";
+import { iconRender } from "../utils/iconRender";
 
 const Panels = (props) => {
 
@@ -35,26 +36,13 @@ const Panels = (props) => {
 
   const IconRender = (iconReq, iconFill) => {
     const fill = iconFill || primaryColor;
-
-    try {
-      const components = require("@egovernments/digit-ui-svg-components");
-      const DynamicIcon = components?.[iconReq];
-      if (DynamicIcon) {
-        const svgElement = DynamicIcon({
-          width: width,
-          height: height,
-          fill: fill,
-          className: "digit-panel-customIcon",
-        });
-        return svgElement;
-      } else {
-        console.error("Icon not found");
-        return null;
-      }
-    } catch (error) {
-      console.error("Icon not found");
-      return null;
-    }
+    return iconRender(
+      iconReq,
+      fill,
+      width,
+      height,
+      "digit-panel-customIcon"
+    );
   };
 
   const icon = IconRender(props?.customIcon, props?.iconFill);

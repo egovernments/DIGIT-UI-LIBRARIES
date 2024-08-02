@@ -6,6 +6,7 @@ import { SVG } from "./SVG";
 import Button from "./Button";
 import TreeSelect from "./TreeSelect";
 import { Colors} from "../constants/colors/colorconstants";
+import { iconRender } from "../utils/iconRender";
 
 const MultiSelectDropdown = ({
   options,
@@ -219,25 +220,13 @@ const MultiSelectDropdown = ({
 
   const IconRender = (iconReq, isActive, isSelected) => {
     const iconFill = isActive || isSelected ? primaryColor : inputBorderColor;
-    try {
-      const components = require("@egovernments/digit-ui-svg-components");
-      const DynamicIcon = components?.[iconReq];
-      if (DynamicIcon) {
-        const svgElement = DynamicIcon({
-          width: "1.25rem",
-          height: "1.25rem",
-          fill: iconFill,
-          className: "",
-        });
-        return svgElement;
-      } else {
-        console.log("Icon not Found");
-        return null;
-      }
-    } catch (error) {
-      console.error("Error in fetching icon");
-      return null;
-    }
+    return iconRender(
+      iconReq,
+      iconFill,
+      "1.25rem",
+      "1.25rem",
+      ""
+    );
   };
 
   const handleClearAll = () => {

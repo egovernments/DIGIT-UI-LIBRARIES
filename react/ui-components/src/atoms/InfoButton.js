@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import StringManipulator from "./StringManipulator";
 import { Colors} from "../constants/colors/colorconstants";
+import { iconRender } from "../utils/iconRender";
 
 const InfoButton = (props) => {
   
@@ -21,26 +22,13 @@ const InfoButton = (props) => {
         width = "0.875rem";
         height = "0.875rem";
     }
-    
-    try {
-      const components = require("@egovernments/digit-ui-svg-components");
-      const DynamicIcon = components?.[iconReq];
-      if (DynamicIcon) {
-        const svgElement = DynamicIcon({
-          width: width,
-          height: height,
-          fill: iconFill,
-          className: `digit-button-customIcon ${props?.size ? props?.size : ""} ${props?.variation ? props?.variation : ""} `
-        });
-        return svgElement;
-      } else {
-        console.log("Icon not found");
-        return null;
-      }
-    } catch (error) {
-      console.error("Icon not found");
-      return null;
-    }
+    return iconRender(
+      iconReq,
+      iconFill,
+      width,
+      height,
+      `digit-button-customIcon ${props?.size ? props?.size : ""} ${props?.variation ? props?.variation : ""} `
+    );
   };
 
   const icon = IconRender();
