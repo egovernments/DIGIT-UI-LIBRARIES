@@ -1,9 +1,9 @@
 {
   "name": "@egovernments/digit-ui-components",
-  "version": "0.0.1-webpack.9",
+  "version": "0.0.1-webpack.13",
   "license": "MIT",
-  "main": "dist/index.js",
-  "module": "dist/index.modern.js",
+  "main": "dist/main.js",
+  "module": "dist/main.js",
   "source": "src/index.js",
   "engines": {
     "node": ">=18"
@@ -12,7 +12,7 @@
   "author": "Jagankumar <jagan.kumar@egov.org.in>",
   "scripts": {
     "example": "cd example && npm run start",
-    "build": "webpack --config webpack.config.js",
+    "build": "webpack  --mode=production --node-env=production --config webpack.config.js",
     "prepare": "yarn build",
     "publish:components": "npm publish --tag core-webpack-v0.1",
     "predeploy": "cd example && yarn install && yarn run build",
@@ -22,7 +22,6 @@
     "@babel/core": "^7.23.3",
     "@babel/preset-env": "^7.23.3",
     "@babel/preset-react": "^7.23.3",
-    "babel-eslint": "10.1.0",
     "babel-loader": "^8.0.0",
     "cross-env": "7.0.3",
     "gh-pages": "2.2.0",
