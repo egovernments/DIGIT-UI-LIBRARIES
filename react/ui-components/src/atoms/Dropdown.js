@@ -5,6 +5,7 @@ import TreeSelect from "./TreeSelect";
 import { ProfileIcon } from "./svgindex";
 import Menu from "./Menu";
 import { Colors } from "../constants/colors/colorconstants";
+import { iconRender } from "../utils/iconRender";
 
 const TextField = (props) => {
   const [value, setValue] = useState(
@@ -247,25 +248,13 @@ const Dropdown = (props) => {
 
   const IconRender = (iconReq, isActive) => {
     const iconFill = isActive ? primaryColor : inputBorderColor;
-    try {
-      const components = require("@egovernments/digit-ui-svg-components");
-      const DynamicIcon = components?.[iconReq];
-      if (DynamicIcon) {
-        const svgElement = DynamicIcon({
-          width: "1.25rem",
-          height: "1.25rem",
-          fill: iconFill,
-          className: "",
-        });
-        return svgElement;
-      } else {
-        console.log("Icon not found");
-        return null;
-      }
-    } catch (error) {
-      console.error("Icon not found");
-      return null;
-    }
+    return iconRender(
+      iconReq,
+      iconFill,
+      "1.25rem",
+      "1.25rem",
+      ""
+    );
   };
 
   const flattenOptions = (options) => {

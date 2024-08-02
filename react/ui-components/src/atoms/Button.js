@@ -2,7 +2,8 @@ import React, { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import StringManipulator from "./StringManipulator";
 import Menu from "./Menu";
-import { Colors} from "../constants/colors/colorconstants";
+import { Colors } from "../constants/colors/colorconstants";
+import { iconRender } from "../utils/iconRender";
 
 const Button = (props) => {
   const [dropdownStatus, setDropdownStatus] = useState(false);
@@ -76,28 +77,15 @@ const Button = (props) => {
       width = "1.5rem";
       height = "1.5rem";
     }
-
-    try {
-      const components = require("@egovernments/digit-ui-svg-components");
-      const DynamicIcon = components?.[iconReq];
-      if (DynamicIcon) {
-        const svgElement = DynamicIcon({
-          width: width,
-          height: height,
-          fill: iconFill,
-          className: `digit-button-customIcon ${
-            props?.size ? props?.size : ""
-          } ${props?.variation ? props?.variation : ""} `,
-        });
-        return svgElement;
-      } else {
-        console.log("Icon not found");
-        return null;
-      }
-    } catch (error) {
-      console.error("Icon not found");
-      return null;
-    }
+    return iconRender(
+      iconReq,
+      iconFill,
+      width,
+      height,
+      `digit-button-customIcon ${props?.size ? props?.size : ""} ${
+        props?.variation ? props?.variation : ""
+      }`
+    );
   };
 
   const icon = IconRender();
@@ -129,7 +117,7 @@ const Button = (props) => {
       form={props.formId}
       onClick={
         props?.type === "actionButton"
-          ? (e)=> handleActionButtonClick(e)
+          ? (e) => handleActionButtonClick(e)
           : props?.onClick
       }
       disabled={props?.isDisabled || null}

@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.0.2-beta.20] - 2024-08-02
+### Added
+-  Added css for Tag Component
+
 ## [0.0.2-beta.19] - 2024-07-31
 ### Added
 -  Added css change for SelectionCard
