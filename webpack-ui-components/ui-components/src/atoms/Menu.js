@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import TextInput from "./TextInput";
 import { useTranslation } from "react-i18next";
 import { Colors} from "../constants/colors/colorconstants";
+import { iconRender } from "../utils/iconRender";
 
 const Menu = (props) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -33,25 +34,13 @@ const Menu = (props) => {
 
   const IconRender = (iconReq, isActive) => {
     const iconFill = isActive ? primaryIconColor : secondaryIconColor;
-    try {
-      const components = require("@egovernments/digit-ui-svg-components");
-      const DynamicIcon = components?.[iconReq];
-      if (DynamicIcon) {
-        const svgElement = DynamicIcon({
-          width: "1.25rem",
-          height: "1.25rem",
-          fill: iconFill,
-          className: "",
-        });
-        return svgElement;
-      } else {
-        console.log("Icon not found");
-        return null;
-      }
-    } catch (error) {
-      console.error("Icon not found");
-      return null;
-    }
+    return iconRender(
+      iconReq,
+      iconFill,
+      "1.25rem",
+      "1.25rem",
+      ""
+    );
   };
 
 

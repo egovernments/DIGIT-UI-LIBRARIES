@@ -5,6 +5,7 @@ import StringManipulator from "./StringManipulator";
 import warningOutlineAnimation from "../constants/animations/warningOutline.json";
 import Animation from "./Animation";
 import { Colors} from "../constants/colors/colorconstants";
+import { iconRender } from "../utils/iconRender";
 
 const PopUp = (props) => {
   const [isOverflowing, setIsOverflowing] = useState(false);
@@ -73,26 +74,13 @@ const PopUp = (props) => {
     const fill = iconFill || iconColor;
     const width = type === "alert" ? "48px" : "32px";
     const height = type === "alert" ? "48px" : "32px";
-
-    try {
-      const components = require("@egovernments/digit-ui-svg-components");
-      const DynamicIcon = components?.[iconReq];
-      if (DynamicIcon) {
-        const svgElement = DynamicIcon({
-          width: width,
-          height: height,
-          fill: fill,
-          className: `digit-popup-customIcon ${type ? type : ""}`,
-        });
-        return svgElement;
-      } else {
-        console.error("Icon not found");
-        return null;
-      }
-    } catch (error) {
-      console.error("Icon not found");
-      return null;
-    }
+    return iconRender(
+      iconReq,
+      fill,
+      width,
+      height,
+      `digit-popup-customIcon ${type ? type : ""}`
+    );
   };
 
   const iconGenerated = IconRender(

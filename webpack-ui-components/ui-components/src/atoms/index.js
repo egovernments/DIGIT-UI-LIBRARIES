@@ -86,6 +86,7 @@ import Sidebar from "./Sidebar";
 import MobileSidebar from "./MobileSidebar";
 import TooltipWrapper from "./ToolTipWrapper";
 import SelectionCard from "./SelectionCard";
+import Tag from "./Tag";
 
 import {
   AnnouncementIcon,
@@ -274,6 +275,7 @@ export {
   PlusMinusInput,
   PopUp,
   SelectionCard,
+  Tag,
   PrivateRoute,
   RadioButtons,
   Rating,
