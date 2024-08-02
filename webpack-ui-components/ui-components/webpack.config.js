@@ -1,23 +1,33 @@
 const path = require("path");
 
 module.exports = {
-  mode: "production", // Set to "development" for development mode
-  entry: "./src/index.js", // Entry point of your library
+  mode: "production",
+  entry: "./src/index.js",
   output: {
-    filename: "main.js", // Output file name
-    path: path.resolve(__dirname, "dist"), // Output directory
+    filename: "main.js",
+    path: path.resolve(__dirname, "dist"),
     library: {
       name: "@egovernments/digit-ui-components",
       type: "umd",
     },
+    globalObject: 'this', // Add this line to ensure compatibility in different environments
   },
   resolve: {
     extensions: [".js"],
   },
   externals: {
-    // Define any external dependencies here
-    'react': 'react',
-    'react-dom': 'react-dom',
+    react: {
+      commonjs: 'react',
+      commonjs2: 'react',
+      amd: 'react',
+      root: 'React',
+    },
+    'react-dom': {
+      commonjs: 'react-dom',
+      commonjs2: 'react-dom',
+      amd: 'react-dom',
+      root: 'ReactDOM',
+    },
     'react-i18next': 'react-i18next',
     'react-router-dom': 'react-router-dom'
   },
@@ -27,7 +37,7 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader", // Use Babel for JavaScript transpilation
+          loader: "babel-loader",
           options: {
             presets: ["@babel/preset-env", "@babel/preset-react"],
           },
