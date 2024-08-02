@@ -126,7 +126,7 @@ module.exports = {
         "alert-errorbg": "#FFF5F4",
         "alert-success": "#00703C",
         "alert-successbg": "#F1FFF8",
-        "alert-warning": "#EA8D00",
+        "alert-warning": "#9E5F00",
         "alert-warning-bg": "#FFF9F0",
         "alert-info": "#0057BD",
         "alert-infobg": "#DEEFFF",
