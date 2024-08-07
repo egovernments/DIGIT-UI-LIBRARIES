@@ -3,9 +3,9 @@ name: Node.js Publish UI Packages
 
 on:
   push:
-    branches: [ 'develop' ]
+    branches: [ 'develop-webpack' ]
     paths:
-      - 'react/ui-components/**'
+      - 'webpack/ui-components/**'
 
 jobs:
   build:
@@ -16,6 +16,6 @@ jobs:
         with:
           node-version: 14
           registry-url: https://registry.npmjs.org/
-      - run: cd react/ && yarn && cd ui-components/ && yarn build && npm publish --tag corev0.1
+      - run: cd webpack/ui-components/ && yarn build && npm publish --tag core-webpack-v0.1
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
