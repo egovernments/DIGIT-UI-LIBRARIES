@@ -7,7 +7,7 @@ import {
   BackLink,
   Sidebar,
   MobileSidebar,
-  TooltipWrapper,
+  Tooltip,
   Banner,
   BodyContainer,
   BreadCrumb,
@@ -243,7 +243,8 @@ import {
   SearchOnRadioButtons,
   TextInputCard,
   PanelCard,
-  TimelineMolecule
+  TimelineMolecule,
+  TooltipWrapper
 } from "./molecules";
 
 // import { initCoreLibraries } from "@egovernments/digit-ui-libraries-core";
@@ -261,7 +262,7 @@ export {
   BackLink,
   Sidebar,
   MobileSidebar,
-  TooltipWrapper,
+  Tooltip,
   Banner,
   BodyContainer,
   BreadCrumb,
@@ -498,5 +499,6 @@ export {
   SearchIconSvg,
   ErrorBoundary,
   TestComponent,
-  Tag
+  Tag,
+  TooltipWrapper
 };

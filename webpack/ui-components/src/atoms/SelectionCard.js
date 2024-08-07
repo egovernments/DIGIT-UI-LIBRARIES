@@ -60,13 +60,13 @@ const SelectionCard = ({
         style={{ width }}
         onClick={() => handleOptionClick(option)}
       >
-        {option.prefixIcon && (
+        {option?.prefixIcon && (
           <span className="selectioncardicon">
             {IconRender(option?.prefixIcon, isSelected)}
           </span>
         )}
         <span className="selectioncard-option-label">{option.name}</span>
-        {option.suffixIcon && (
+        {option?.suffixIcon && (
           <span className="selectioncardicon">
             {IconRender(option?.suffixIcon, isSelected)}
           </span>
@@ -78,7 +78,7 @@ const SelectionCard = ({
   return (
     <div className="selection-card-container">
       <div className={`selection-card ${errorMessage ? "error" : ""}`}>
-        {options.map(renderOption)}
+        {options?.map(renderOption)}
       </div>
       {errorMessage && (
         <ErrorMessage

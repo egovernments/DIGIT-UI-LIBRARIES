@@ -16,6 +16,7 @@ import DateRangeNew from "./DateRangeNew";
 import WorkflowStatusFilter from "./WorkflowStatusFilter";
 import PanelCard from "./PanelCard";
 import TimelineMolecule from "./TimelineMolecule";
+import TooltipWrapper from "./TooltipWrapper";
 
 export {
   ApiDropdown,
@@ -35,5 +36,6 @@ export {
   DateRangeNew,
   WorkflowStatusFilter,
   PanelCard,
-  TimelineMolecule
+  TimelineMolecule,
+  TooltipWrapper
 };
