@@ -113,12 +113,11 @@ const TooltipWrapper = ({
       onBlur={handleBlur}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
-      ref={tooltipRef}
+      tooltipRef={tooltipRef}
       {...props}
     >
       {children}
-      {
-    //   open && (
+      {open && (
         <Tooltip
           title={title}
           placement={placement}
@@ -126,8 +125,7 @@ const TooltipWrapper = ({
           style={{ ...style, ...tooltipStyle }}
           className={ClassName}
         />
-    //   )
-      }
+      )}
     </div>
   );
 };
@@ -145,10 +143,10 @@ TooltipWrapper.propTypes = {
     "top",
     "top-end",
     "top-start",
-    'left-end',
-    'left-start',
-    'right-end',
-    'right-start',
+    "left-end",
+    "left-start",
+    "right-end",
+    "right-start",
   ]),
   enterDelay: PropTypes.number,
   leaveDelay: PropTypes.number,

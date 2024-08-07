@@ -1,14 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Tooltip = ({ ref, title, placement, arrow, style, className }) => {
+const Tooltip = ({ tooltipRef, title, placement, arrow, style, className }) => {
   return (
     <div
       className={`tooltip-content tooltip-${placement} ${
         arrow ? "with-arrow" : ""
       } ${className || ""}`}
       style={style}
-      ref={ref}
+      ref={tooltipRef}
     >
       {title}
     </div>
