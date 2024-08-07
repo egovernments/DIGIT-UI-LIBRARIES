@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.0.2-beta.21] - 2024-08-07
+### Changed
+-  Updated css for Tooltip Component
+
 ## [0.0.2-beta.20] - 2024-08-02
 ### Added
 -  Added css for Tag Component

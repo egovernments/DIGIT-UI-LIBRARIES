@@ -1,11 +1,12 @@
-import React, { useState, useRef, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useRef, useEffect } from "react";
+import PropTypes from "prop-types";
+import Tooltip from "../atoms/Tooltip";
 
 const TooltipWrapper = ({
   children,
   arrow = false,
   title,
-  placement = 'bottom',
+  placement = "bottom",
   enterDelay = 100,
   leaveDelay = 0,
   followCursor = false,
@@ -16,7 +17,10 @@ const TooltipWrapper = ({
   disableTouchListener = false,
   onOpen,
   onClose,
-  ...other
+  style,
+  wrapperClassName,
+  ClassName,
+  ...props
 }) => {
   const [open, setOpen] = useState(openProp || false);
   const [tooltipStyle, setTooltipStyle] = useState({});
@@ -82,30 +86,45 @@ const TooltipWrapper = ({
   };
 
   useEffect(() => {
+    if (followCursor) {
+      const handleMouseMove = (event) => {
+        setTooltipStyle({
+          top: event.clientY,
+          left: event.clientX,
+        });
+      };
+      document.addEventListener("mousemove", handleMouseMove);
+      return () => {
+        document.removeEventListener("mousemove", handleMouseMove);
+      };
+    }
+  }, [followCursor]);
+
+  useEffect(() => {
     setOpen(openProp);
   }, [openProp]);
 
   return (
     <div
-      className="tooltip-wrapper"
+      className={`tooltip-wrapper ${wrapperClassName || ""}`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onFocus={handleFocus}
       onBlur={handleBlur}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
-      ref={tooltipRef}
-      {...other}
+      tooltipRef={tooltipRef}
+      {...props}
     >
       {children}
       {open && (
-        <div
-          className={`tooltip-content tooltip-${placement}`}
-          style={tooltipStyle}
-        >
-          {arrow && <div className="tooltip-arrow" />}
-          {title}
-        </div>
+        <Tooltip
+          title={title}
+          placement={placement}
+          arrow={arrow}
+          style={{ ...style, ...tooltipStyle }}
+          className={ClassName}
+        />
       )}
     </div>
   );
@@ -116,18 +135,18 @@ TooltipWrapper.propTypes = {
   arrow: PropTypes.bool,
   title: PropTypes.node.isRequired,
   placement: PropTypes.oneOf([
-    'bottom',
-    'bottom-end',
-    'bottom-start',
-    'left',
-    'left-end',
-    'left-start',
-    'right',
-    'right-end',
-    'right-start',
-    'top',
-    'top-end',
-    'top-start',
+    "bottom",
+    "bottom-end",
+    "bottom-start",
+    "left",
+    "right",
+    "top",
+    "top-end",
+    "top-start",
+    "left-end",
+    "left-start",
+    "right-end",
+    "right-start",
   ]),
   enterDelay: PropTypes.number,
   leaveDelay: PropTypes.number,
@@ -138,7 +157,12 @@ TooltipWrapper.propTypes = {
   disableInteractive: PropTypes.bool,
   disableTouchListener: PropTypes.bool,
   onOpen: PropTypes.func,
+  style: PropTypes.object,
   onClose: PropTypes.func,
+};
+
+TooltipWrapper.defaultProps = {
+  arrow: true,
 };
 
 export default TooltipWrapper;

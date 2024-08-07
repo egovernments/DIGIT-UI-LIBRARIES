@@ -6,7 +6,7 @@ import {
   BackLink,
   Sidebar,
   MobileSidebar,
-  TooltipWrapper,
+  Tooltip,
   Banner,
   BodyContainer,
   BreadCrumb,
@@ -241,6 +241,7 @@ import {
   SearchOnRadioButtons,
   TextInputCard,
   PanelCard,
+  TooltipWrapper,
   TimelineMolecule
 } from "./molecules";
 
@@ -259,7 +260,7 @@ export {
   BackLink,
   Sidebar,
   MobileSidebar,
-  TooltipWrapper,
+  Tooltip,
   Banner,
   BodyContainer,
   BreadCrumb,
@@ -334,6 +335,7 @@ export {
   TextInputCard,
   PanelCard,
   TimelineMolecule,
+  TooltipWrapper,
   Toggle,
   ToggleSwitch,
   TreeSelect,
