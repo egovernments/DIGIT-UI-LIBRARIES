@@ -78,7 +78,7 @@ const SelectionCard = ({
   return (
     <div className="selection-card-container">
       <div className={`selection-card ${errorMessage ? "error" : ""}`}>
-        {options.map(renderOption)}
+        {options?.map(renderOption)}
       </div>
       {errorMessage && (
         <ErrorMessage

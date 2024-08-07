@@ -83,9 +83,9 @@ import Hamburger from "./Hamburger";
 import Menu from "./Menu";
 import Sidebar from "./Sidebar";
 import MobileSidebar from "./MobileSidebar";
-import TooltipWrapper from "./ToolTipWrapper";
 import SelectionCard from "./SelectionCard";
 import Tag from "./Tag";
+import Tooltip from "./Tooltip";
 
 import {
   AnnouncementIcon,
@@ -234,7 +234,7 @@ export {
   BackLink,
   Sidebar,
   MobileSidebar,
-  TooltipWrapper,
+  Tooltip,
   Banner,
   BodyContainer,
   BreadCrumb,
