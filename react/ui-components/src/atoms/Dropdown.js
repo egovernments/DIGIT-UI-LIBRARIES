@@ -6,6 +6,7 @@ import { ProfileIcon } from "./svgindex";
 import Menu from "./Menu";
 import { Colors } from "../constants/colors/colorconstants";
 import { iconRender } from "../utils/iconRender";
+import { getUserType } from "../utils/digitUtils";
 
 const TextField = (props) => {
   const [value, setValue] = useState(
@@ -133,7 +134,7 @@ const translateDummy = (text) => {
 };
 
 const Dropdown = (props) => {
-  const user_type = Digit.SessionStorage.get("userType");
+  const user_type = getUserType();
   const [dropdownStatus, setDropdownStatus] = useState(false);
   const [menuStatus, setMenuStatus] = useState(false);
   const [selectedOption, setSelectedOption] = useState(

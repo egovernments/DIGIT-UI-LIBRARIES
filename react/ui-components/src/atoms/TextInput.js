@@ -3,10 +3,11 @@ import PropTypes from "prop-types";
 import { SVG } from "./SVG";
 import StringManipulator from "./StringManipulator";
 import { Colors} from "../constants/colors/colorconstants";
+import { getUserType } from "../utils/digitUtils";
 
 
 const TextInput = (props) => {
-  const user_type = window?.Digit?.SessionStorage.get("userType");
+  const user_type = getUserType();
   const [date, setDate] = useState(props?.type === "date" && props?.value);
   const [visibility, setVisibility] = useState(false);
   const [inputType, setInputType] = useState(props?.type || "text");
