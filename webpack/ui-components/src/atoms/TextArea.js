@@ -2,9 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import { SVG } from "./SVG";
 import StringManipulator from "./StringManipulator";
+import { getUserType } from "../utils/digitUtils";
 
 const TextArea = (props) => {
-  const user_type = window?.Digit?.SessionStorage.get("userType");
+  const user_type = getUserType();
 
   function textAreaAdjust(event) {
     const element = event.target;
