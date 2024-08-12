@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [0.0.2-beta.22] - 2024-08-07
 ### New Changes
+- Fixes on usgae of utils
+
+## [0.0.2-beta.22] - 2024-08-07
+### New Changes
 - Updated Tooltip Component
 
 ## [0.0.2-beta.21] - 2024-08-02
