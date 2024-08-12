@@ -68,6 +68,7 @@
     "digit",
     "core",
     "components",
-    "dpg"
+    "dpg",
+    "webpack"
   ]
 }
