@@ -15,6 +15,7 @@ import {
   DocXlsxUpload,
   DocdocUpload,
 } from "./svgindex";
+import { getUserType } from "../utils/digitUtils";
 
 const getRandomId = () => {
   return Math.floor((Math.random() || 1) * 139);
@@ -23,7 +24,7 @@ const getRandomId = () => {
 const Uploader = (props) => {
   const { t } = useTranslation();
   const inpRef = useRef();
-  const user_type = window?.Digit?.SessionStorage.get("userType");
+  const user_type = getUserType();
   const [buttonLabel, setButtonLabel] = useState("Upload");
   const [inputLabel, setInputLabel] = useState("");
   const [uploadedFilesCount, setUploadedFilesCount] = useState(0);

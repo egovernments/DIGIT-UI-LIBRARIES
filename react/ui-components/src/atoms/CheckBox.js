@@ -4,6 +4,7 @@ import StringManipulator from "./StringManipulator";
 import PropTypes from "prop-types";
 import { useTranslation } from "react-i18next";
 import { Colors} from "../constants/colors/colorconstants";
+import { getUserType } from "../utils/digitUtils";
 
 const CheckBox = ({
   onChange,
@@ -22,7 +23,7 @@ const CheckBox = ({
   ...props
 }) => {
   const { t } = useTranslation();
-  const userType = pageType || window?.Digit?.SessionStorage.get("userType");
+  const userType = pageType || getUserType();
   let styles = props?.styles;
 
   const sentenceCaseLabel = StringManipulator("TOSENTENCECASE", label);
