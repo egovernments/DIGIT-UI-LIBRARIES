@@ -16,6 +16,6 @@ jobs:
         with:
           node-version: 20
           registry-url: https://registry.npmjs.org/
-      - run: cd webpack/ui-components/ && yarn build && npm publish --tag core-webpack-v0.1
+      - run: cd webpack/ui-components/ && yarn && npm publish --tag core-webpack-v0.1
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
