@@ -98,6 +98,7 @@ class LabelValueList extends StatelessWidget {
                   child: Text(
                     item.value,
                     maxLines: maxLines,
+                    overflow: TextOverflow.ellipsis,
                     style: currentTypography.bodyS.copyWith(
                       color: const DigitColors().light.textPrimary,
                     ),
