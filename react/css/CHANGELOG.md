@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.0.2-beta.22] - 2024-08-16
+### Changed
+-  Added css for Switch Component
+
 ## [0.0.2-beta.21] - 2024-08-07
 ### Changed
 -  Updated css for Tooltip Component
