@@ -33,16 +33,16 @@ dependencies:
   collection: ^1.15.0
   flutter_styled_toast: ^2.2.1
   flutter_svg: ^2.0.10+1
-  url_launcher: 6.2.6
+  url_launcher: ^6.2.6
   file_picker: ^8.0.0+1
   flutter_dropzone: ^3.0.7
   image_picker: ^1.0.8
   dotted_border: ^2.1.0
   camera: ^0.10.5+9
   path_provider: ^2.0.11
-  visibility_detector: 0.4.0+2
-  lottie: 3.1.2
-  universal_html: 2.2.4
+  visibility_detector: ^0.4.0+2
+  lottie: ^3.1.2
+  universal_html: ^2.2.4
 
 
 dev_dependencies:
