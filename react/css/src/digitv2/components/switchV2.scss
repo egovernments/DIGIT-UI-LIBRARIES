@@ -17,6 +17,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
+  &:focus-within{
+    outline: none;
+  }
 }
 
 .digit-switch.checked {

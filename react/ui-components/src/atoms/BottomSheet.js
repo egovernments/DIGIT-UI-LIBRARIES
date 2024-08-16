@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from 'prop-types';
 
 const BottomSheet = ({
   children,
@@ -15,26 +16,16 @@ const BottomSheet = ({
     setState(initialState);
   }, [initialState]);
 
+  const stateTransitions = {
+    closed: 'fixed',
+    fixed: 'quarter',
+    quarter: 'intermediate',
+    intermediate: 'full',
+    full: 'closed',
+  };
+  
   const handleStateChange = () => {
-    switch (state) {
-      case "closed":
-        setState("fixed");
-        break;
-      case "fixed":
-        setState("quarter");
-        break;
-      case "quarter":
-        setState("intermediate");
-        break;
-      case "intermediate":
-        setState("full");
-        break;
-      case "full":
-        setState("closed");
-        break;
-      default:
-        setState("closed");
-    }
+    setState(stateTransitions[state] || 'closed');
   };
 
   return (
@@ -70,7 +61,7 @@ const BottomSheet = ({
       {enableActions && (
         <div
           className={`digit-bottom-sheet-actions ${
-            equalWidthButtons ? "euqalButtons" : ""
+            equalWidthButtons ? "equalButtons" : ""
           }`}
         >
           {actions}
@@ -81,3 +72,13 @@ const BottomSheet = ({
 };
 
 export default BottomSheet;
+
+BottomSheet.propTypes = {
+  children: PropTypes.node,
+  initialState: PropTypes.oneOf(['closed', 'fixed', 'quarter', 'intermediate', 'full']),
+  enableActions: PropTypes.bool,
+  actions: PropTypes.node,
+  equalWidthButtons: PropTypes.bool,
+  className: PropTypes.string,
+  style: PropTypes.object,
+};

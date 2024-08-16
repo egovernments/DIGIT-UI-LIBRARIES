@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from 'prop-types';
 
 const Switch = ({
   isLabelFirst = false,
@@ -34,6 +35,12 @@ const Switch = ({
           shapeOnOff ? "shape-onoff" : ""
         } ${disable ? "switch-disabled" : ""}`}
         onClick={handleToggle}
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            handleToggle();
+          }
+        }}
       >
         {shapeOnOff && isChecked && (
           <div className="digit-switch-shape-on"></div>
@@ -51,3 +58,14 @@ const Switch = ({
 };
 
 export default Switch;
+
+Switch.propTypes = {
+  isLabelFirst: PropTypes.bool,
+  label: PropTypes.string,
+  shapeOnOff: PropTypes.bool,
+  isCheckedInitially: PropTypes.bool,
+  onToggle: PropTypes.func,
+  className: PropTypes.string,
+  style: PropTypes.object,
+  disable: PropTypes.bool,
+};
