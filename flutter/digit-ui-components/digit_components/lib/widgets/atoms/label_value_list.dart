@@ -18,6 +18,8 @@ class LabelValueList extends StatelessWidget {
   final List<LabelValuePair> items;
   final EdgeInsets? padding;
   final String? heading;
+  final int labelFlex;
+  final int valueFlex;
   final bool withDivider;
 
   const LabelValueList({
@@ -25,6 +27,8 @@ class LabelValueList extends StatelessWidget {
     required this.items,
     this.padding,
     this.heading,
+    this.labelFlex = 2,
+    this.valueFlex = 8,
     this.withDivider = false, // Default to no divider
   }) : super(key: key);
 
@@ -77,7 +81,7 @@ class LabelValueList extends StatelessWidget {
               children: [
                 // Label taking 30% width
                 Expanded(
-                  flex: 2, // 30% width
+                  flex: labelFlex, // 30% width
                   child: Text(
                     item.label,
                     style: currentTypography.headingS.copyWith(
@@ -88,7 +92,7 @@ class LabelValueList extends StatelessWidget {
                 const SizedBox(width: 24), // Gap between label and value
                 // Value taking rest of the width
                 Expanded(
-                  flex: 8, // Remaining 70% width
+                  flex: valueFlex, // Remaining 70% width
                   child: Text(
                     item.value,
                     style: currentTypography.bodyS.copyWith(
