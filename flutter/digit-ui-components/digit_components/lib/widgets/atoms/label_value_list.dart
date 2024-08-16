@@ -20,6 +20,7 @@ class LabelValueList extends StatelessWidget {
   final String? heading;
   final int labelFlex;
   final int valueFlex;
+  final int? maxLines;
   final bool withDivider;
 
   const LabelValueList({
@@ -27,6 +28,7 @@ class LabelValueList extends StatelessWidget {
     required this.items,
     this.padding,
     this.heading,
+    this.maxLines,
     this.labelFlex = 2,
     this.valueFlex = 8,
     this.withDivider = false, // Default to no divider
@@ -95,6 +97,7 @@ class LabelValueList extends StatelessWidget {
                   flex: valueFlex, // Remaining 70% width
                   child: Text(
                     item.value,
+                    maxLines: maxLines,
                     style: currentTypography.bodyS.copyWith(
                       color: const DigitColors().light.textPrimary,
                     ),
