@@ -41,6 +41,7 @@ class DigitTextFormInput extends BaseDigitFormInput {
     final void Function(String)? onChange,
     final TextInputType? keyboardType,
     final String? errorMessage,
+    final FocusNode? focusNode,
     final List<TextInputFormatter>? inputFormatters,
     final void Function(String)? onSuffixTap,
     final void Function()? onFocusLost,
@@ -65,6 +66,7 @@ class DigitTextFormInput extends BaseDigitFormInput {
           suffixIcon: suffixIcon,
           onSuffixTap: onSuffixTap,
           onFocusLost: onFocusLost,
+          focusNode: focusNode,
         );
 
   @override

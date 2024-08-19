@@ -8,40 +8,42 @@ import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import '../../constants/AppView.dart';
 
 class DigitToastThemeData extends ThemeExtension<DigitToastThemeData> {
-  final TextStyle textStyle;
-  final Color successColor;
-  final Color errorColor;
-  final Color warningColor;
-  final Color infoColor;
-  final Icon successIcon;
-  final Icon errorIcon;
-  final Icon warningIcon;
-  final Icon infoIcon;
-  final Icon cancelIcon;
-  final double toastWidth;
-  final EdgeInsets padding;
-  final Duration animationDuration;
-  final StyledToastAnimation animation;
-  final StyledToastAnimation reverseAnimation;
-  final StyledToastPosition toastPosition;
+  final TextStyle? textStyle;
+  final Color? successColor;
+  final Color? errorColor;
+  final Color? warningColor;
+  final Color? infoColor;
+  final Icon? successIcon;
+  final Icon? errorIcon;
+  final Icon? warningIcon;
+  final Icon? infoIcon;
+  final Icon? cancelIcon;
+  final double? toastWidth;
+  final int? maxLine;
+  final EdgeInsets? padding;
+  final Duration? animationDuration;
+  final StyledToastAnimation? animation;
+  final StyledToastAnimation? reverseAnimation;
+  final StyledToastPosition? toastPosition;
 
   const DigitToastThemeData({
-    required this.textStyle,
-    required this.successColor,
-    required this.errorColor,
-    required this.warningColor,
-    required this.infoColor,
-   required this.successIcon,
-    required this.errorIcon,
-    required this.warningIcon,
-    required this.infoIcon,
-    required this.cancelIcon,
-    required this.toastWidth,
-    required this.padding,
-    required this.animationDuration,
-    required this.animation,
-    required this.reverseAnimation,
-    required this.toastPosition,
+    this.textStyle,
+    this.successColor,
+    this.errorColor,
+    this.warningColor,
+    this.infoColor,
+    this.successIcon,
+    this.errorIcon,
+    this.warningIcon,
+    this.infoIcon,
+    this.cancelIcon,
+    this.toastWidth,
+    this.padding,
+    this.maxLine,
+    this.animationDuration,
+    this.animation,
+    this.reverseAnimation,
+    this.toastPosition,
   });
 
   static DigitToastThemeData defaultTheme(BuildContext context) {
@@ -72,6 +74,7 @@ class DigitToastThemeData extends ThemeExtension<DigitToastThemeData> {
       infoIcon: Icon(Icons.info, color: theme.colorTheme.paper.primary, size: theme.spacerTheme.spacer6,),
       cancelIcon: Icon(Icons.close, color: theme.colorTheme.paper.primary, size: theme.spacerTheme.spacer6,),
       toastWidth: width,
+      maxLine: 1,
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
       animationDuration: const Duration(seconds: 5),
       animation: StyledToastAnimation.slideFromBottom,
@@ -95,6 +98,7 @@ class DigitToastThemeData extends ThemeExtension<DigitToastThemeData> {
     Icon? infoIcon,
     Icon? cancelIcon,
     double? toastWidth,
+    int? maxLine,
     EdgeInsets? padding,
     Duration? animationDuration,
     StyledToastAnimation? animation,
@@ -113,6 +117,7 @@ class DigitToastThemeData extends ThemeExtension<DigitToastThemeData> {
       infoIcon: infoIcon ?? this.infoIcon,
       cancelIcon: cancelIcon ?? this.cancelIcon,
       toastWidth: toastWidth ?? this.toastWidth,
+      maxLine: maxLine ?? this.maxLine,
       padding: padding ?? this.padding,
       animationDuration: animationDuration ?? this.animationDuration,
       animation: animation ?? this.animation,
@@ -126,19 +131,20 @@ class DigitToastThemeData extends ThemeExtension<DigitToastThemeData> {
     if (other is! DigitToastThemeData) return this;
 
     return DigitToastThemeData(
-      textStyle: TextStyle.lerp(textStyle, other.textStyle, t)!,
-      successColor: Color.lerp(successColor, other.successColor, t)!,
-      errorColor: Color.lerp(errorColor, other.errorColor, t)!,
-      warningColor: Color.lerp(warningColor, other.warningColor, t)!,
-      infoColor: Color.lerp(infoColor, other.infoColor, t)!,
+      textStyle: TextStyle.lerp(textStyle, other.textStyle, t),
+      successColor: Color.lerp(successColor, other.successColor, t),
+      errorColor: Color.lerp(errorColor, other.errorColor, t),
+      warningColor: Color.lerp(warningColor, other.warningColor, t),
+      infoColor: Color.lerp(infoColor, other.infoColor, t),
       successIcon: t<0.5 ? successIcon : other.successIcon,
       errorIcon: t<0.5 ? errorIcon : other.errorIcon,
       warningIcon: t<0.5 ? warningIcon : other.warningIcon,
       infoIcon: t<0.5 ? infoIcon : other.infoIcon,
       cancelIcon: t<0.5 ? cancelIcon : other.cancelIcon,
       toastWidth: t<0.5 ? toastWidth : other.toastWidth,
-      padding: EdgeInsets.lerp(padding, other.padding, t)!,
-      animationDuration: lerpDuration(animationDuration, other.animationDuration, t)!,
+      maxLine: t<0.5 ? maxLine : other.maxLine,
+      padding: EdgeInsets.lerp(padding, other.padding, t),
+      animationDuration: t<0.5 ? animationDuration : other.animationDuration,
       animation: t<0.5 ? animation : other.animation,
       reverseAnimation: t<0.5 ? reverseAnimation : other.reverseAnimation,
       toastPosition: t<0.5 ? toastPosition : other.toastPosition,

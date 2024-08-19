@@ -27,36 +27,36 @@ class Toast {
   }) {
     final theme = Theme.of(context);
     final toastThemeData = digitToastThemeData ??
-        theme.extension<DigitToastThemeData>() ??
-        DigitToastThemeData.defaultTheme(context);
+        theme.extension<DigitToastThemeData>();
+        final defaultThemeData = DigitToastThemeData.defaultTheme(context);
     showToastWidget(
-      _buildToastWidget(message, type, context, toastThemeData),
+      _buildToastWidget(message, type, context, toastThemeData, defaultThemeData),
       context: context,
-      duration: toastThemeData.animationDuration,
-      position: toastThemeData.toastPosition,
+      duration: toastThemeData?.animationDuration ?? defaultThemeData.animationDuration,
+      position: toastThemeData?.toastPosition ?? defaultThemeData.toastPosition,
       isIgnoring: false,
-      animation: toastThemeData.animation,
-      reverseAnimation: toastThemeData.reverseAnimation,
+      animation: toastThemeData?.animation ?? defaultThemeData.animation,
+      reverseAnimation: toastThemeData?.reverseAnimation ?? defaultThemeData.reverseAnimation,
       animDuration: animationDuration,
     );
   }
 
   static Widget _buildToastWidget(String message, ToastType type,
-      BuildContext context, DigitToastThemeData toastThemeData) {
+      BuildContext context, DigitToastThemeData? toastThemeData, DigitToastThemeData defaultThemeData) {
     final theme = Theme.of(context);
 
     return Container(
       constraints: BoxConstraints(
-        minWidth: toastThemeData.toastWidth,
+        minWidth: toastThemeData?.toastWidth ?? defaultThemeData.toastWidth!,
       ),
       color: type == ToastType.success
-          ? toastThemeData.successColor
+          ? toastThemeData?.successColor ?? defaultThemeData.successColor
           : type == ToastType.error
-              ? toastThemeData.errorColor
+              ? toastThemeData?.errorColor ?? defaultThemeData.errorColor
               : type == ToastType.warning
-                  ? toastThemeData.warningColor
-                  : toastThemeData.infoColor,
-      padding: toastThemeData.padding,
+                  ? toastThemeData?.warningColor ?? defaultThemeData.warningColor
+                  : toastThemeData?.infoColor ?? defaultThemeData.infoColor,
+      padding: toastThemeData?.padding ?? defaultThemeData.padding,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         mainAxisSize: MainAxisSize.min,
@@ -68,12 +68,12 @@ class Toast {
                 height: theme.spacerTheme.spacer6,
                 width: theme.spacerTheme.spacer6,
                 child: type == ToastType.success
-                    ? toastThemeData.successIcon
+                    ? toastThemeData?.successIcon ?? defaultThemeData.successIcon
                     : type == ToastType.error
-                        ? toastThemeData.errorIcon
+                        ? toastThemeData?.errorIcon ?? defaultThemeData.errorIcon
                         : type == ToastType.warning
-                            ? toastThemeData.warningIcon
-                            : toastThemeData.infoIcon,
+                            ? toastThemeData?.warningIcon ?? defaultThemeData.warningIcon
+                            : toastThemeData?.infoIcon ?? defaultThemeData.infoIcon,
               ),
               SizedBox(width: theme.spacerTheme.spacer2),
               Container(
@@ -83,9 +83,9 @@ class Toast {
                 ),
                 child: Text(
                   convertInToSentenceCase(message)!,
-                  maxLines: 1,
+                  maxLines: toastThemeData?.maxLine ?? defaultThemeData.maxLine,
                   overflow: TextOverflow.ellipsis,
-                  style: toastThemeData.textStyle,
+                  style: toastThemeData?.textStyle ?? defaultThemeData.textStyle,
                 ),
               ),
             ],
@@ -94,7 +94,7 @@ class Toast {
             onTap: () {
               ToastManager().dismissAll(showAnim: false);
             },
-            child: toastThemeData.cancelIcon,
+            child: toastThemeData?.cancelIcon ?? defaultThemeData.cancelIcon,
           ),
         ],
       ),
