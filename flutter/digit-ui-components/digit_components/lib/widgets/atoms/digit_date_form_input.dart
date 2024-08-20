@@ -44,6 +44,7 @@ class DigitDateFormInput extends BaseDigitFormInput {
     final TextInputType? keyboardType,
     final String? confirmText,
     final void Function()? onFocusLost,
+    final Color? iconColor,
   }) : super(
           key: key,
           controller: controller,
@@ -69,6 +70,7 @@ class DigitDateFormInput extends BaseDigitFormInput {
           errorMessage: errorMessage,
           inputFormatters: inputFormatters,
           onFocusLost: onFocusLost,
+          iconColor: iconColor,
         );
 
   @override

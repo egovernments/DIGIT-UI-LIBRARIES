@@ -39,6 +39,7 @@ class DigitLocationFormInput extends BaseDigitFormInput {
     final String? errorMessage,
     final List<TextInputFormatter>? inputFormatters,
     final void Function()? onFocusLost,
+    final Color? iconColor,
   }) : super(
           key: key,
           controller: controller,
@@ -59,6 +60,7 @@ class DigitLocationFormInput extends BaseDigitFormInput {
           errorMessage: errorMessage,
           inputFormatters: inputFormatters,
           onFocusLost: onFocusLost,
+          iconColor: iconColor,
         );
 
   @override
