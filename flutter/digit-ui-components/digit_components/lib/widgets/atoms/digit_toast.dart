@@ -58,10 +58,12 @@ class Toast {
                   : toastThemeData?.infoColor ?? defaultThemeData.infoColor,
       padding: toastThemeData?.padding ?? defaultThemeData.padding,
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         mainAxisSize: MainAxisSize.min,
         children: [
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
               SizedBox(
