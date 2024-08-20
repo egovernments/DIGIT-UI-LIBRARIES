@@ -1,5 +1,6 @@
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/theme/ComponentTheme/checkbox_theme.dart';
+import 'package:digit_ui_components/theme/ComponentTheme/toast_theme_data.dart';
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:digit_ui_components/utils/validators/validator.dart';
 import 'package:digit_ui_components/widgets/atoms/digit_bread_crumbs.dart';
@@ -8,6 +9,7 @@ import 'package:digit_ui_components/widgets/atoms/dropdown_wrapper.dart';
 import 'package:digit_ui_components/widgets/atoms/info_buttons.dart';
 import 'package:digit_ui_components/widgets/atoms/input_wrapper.dart';
 import 'package:digit_ui_components/widgets/atoms/timeline.dart';
+import 'package:digit_ui_components/widgets/atoms/tooltip_2.dart';
 import 'package:digit_ui_components/widgets/atoms/upload_image.dart';
 import 'package:digit_ui_components/widgets/atoms/upload_popUp.dart';
 import 'package:digit_ui_components/widgets/molecules/digit_card.dart';
@@ -161,9 +163,9 @@ class MyHomePageState extends State<MyHomePage> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Breadcrumb(
                   items: ['Home', 'Category', 'Product'],
@@ -171,6 +173,126 @@ class MyHomePageState extends State<MyHomePage> {
                     // Handle breadcrumb item tap
                     print('Tapped on: ${index}');
                   },
+                ),
+                SizedBox(height: 16,),
+                DigitTooltip(
+                  tooltipContent: const Text('Hello, Tooltip!', style: TextStyle(color: Colors.white),),
+                  tooltipPosition: TooltipPosition.topStart,
+                  child: Container(
+                    color: Colors.blue,
+                    padding: const EdgeInsets.all(16),
+                    child: const Text('Tap me(top start)'),
+                  ),
+                ),
+                SizedBox(height: 16,),
+                DigitTooltip(
+                  tooltipContent: const Text('Hello, Tooltip!', style: TextStyle(color: Colors.white),),
+                  tooltipPosition: TooltipPosition.topCenter,
+                  child: Container(
+                    color: Colors.blue,
+                    padding: const EdgeInsets.all(16),
+                    child: const Text('Tap me(top center)'),
+                  ),
+                ),
+                SizedBox(height: 16,),
+                DigitTooltip(
+                  tooltipContent: const Text('Hello, Tooltip!', style: TextStyle(color: Colors.white),),
+                  tooltipPosition: TooltipPosition.topEnd,
+                  child: Container(
+                    color: Colors.blue,
+                    padding: const EdgeInsets.all(16),
+                    child: const Text('Tap me(top end)'),
+                  ),
+                ),
+                SizedBox(height: 16,),
+                DigitTooltip(
+                  tooltipContent: const Text('Hello, Tooltip!', style: TextStyle(color: Colors.white),),
+                  tooltipPosition: TooltipPosition.bottomStart,
+                  child: Container(
+                    color: Colors.blue,
+                    padding: const EdgeInsets.all(16),
+                    child: const Text('Tap me(bottom start)'),
+                  ),
+                ),
+                SizedBox(height: 16,),
+                DigitTooltip(
+                  tooltipContent: const Text('Hello, Tooltip!', style: TextStyle(color: Colors.white),),
+                  tooltipPosition: TooltipPosition.bottomCenter,
+                  child: Container(
+                    color: Colors.blue,
+                    padding: const EdgeInsets.all(16),
+                    child: const Text('Tap me(bottom center)'),
+                  ),
+                ),
+                SizedBox(height: 16,),
+                DigitTooltip(
+                  tooltipContent: const Text('Hello, Tooltip!', style: TextStyle(color: Colors.white),),
+                  tooltipPosition: TooltipPosition.bottomEnd,
+                  child: Container(
+                    color: Colors.blue,
+                    padding: const EdgeInsets.all(16),
+                    child: const Text('Tap me(bottom end)'),
+                  ),
+                ),
+                SizedBox(height: 16,),
+                DigitTooltip(
+                  tooltipContent: const Text('Hello, Tooltip!', style: TextStyle(color: Colors.white),),
+                  tooltipPosition: TooltipPosition.leftStart,
+                  child: Container(
+                    color: Colors.blue,
+                    padding: const EdgeInsets.all(16),
+                    child: const Text('Tap me(left start)'),
+                  ),
+                ),
+                SizedBox(height: 16,),
+                DigitTooltip(
+                  tooltipContent: const Text('Hello, Tooltip!', style: TextStyle(color: Colors.white),),
+                  tooltipPosition: TooltipPosition.leftCenter,
+                  child: Container(
+                    color: Colors.blue,
+                    padding: const EdgeInsets.all(16),
+                    child: const Text('Tap me(left center)'),
+                  ),
+                ),
+                SizedBox(height: 16,),
+                DigitTooltip(
+                  tooltipContent: const Text('Hello, Tooltip!', style: TextStyle(color: Colors.white),),
+                  tooltipPosition: TooltipPosition.leftEnd,
+                  child: Container(
+                    color: Colors.blue,
+                    padding: const EdgeInsets.all(16),
+                    child: const Text('Tap me(left end)'),
+                  ),
+                ),
+                SizedBox(height: 16,),
+                DigitTooltip(
+                  tooltipContent: const Text('Hello, Tooltip!', style: TextStyle(color: Colors.white),),
+                  tooltipPosition: TooltipPosition.rightStart,
+                  child: Container(
+                    color: Colors.blue,
+                    padding: const EdgeInsets.all(16),
+                    child: const Text('Tap me(right start)'),
+                  ),
+                ),
+                SizedBox(height: 16,),
+                DigitTooltip(
+                  tooltipContent: const Text('Hello, Tooltip!', style: TextStyle(color: Colors.white),),
+                  tooltipPosition: TooltipPosition.rightCenter,
+                  child: Container(
+                    color: Colors.blue,
+                    padding: const EdgeInsets.all(16),
+                    child: const Text('Tap me(right center)'),
+                  ),
+                ),
+                SizedBox(height: 16,),
+                DigitTooltip(
+                  tooltipContent: const Text('Hello, Tooltip!', style: TextStyle(color: Colors.white),),
+                  tooltipPosition: TooltipPosition.rightEnd,
+                  child: Container(
+                    color: Colors.blue,
+                    padding: const EdgeInsets.all(16),
+                    child: const Text('Tap me(right end)'),
+                  ),
                 ),
                 SizedBox(height: 16,),
                 ImageUploader(
@@ -2115,7 +2237,8 @@ class MyHomePageState extends State<MyHomePage> {
                     if (value) {
                       Toast.showToast(
                         context,
-                        message: 'This is a success toast!',
+                        digitToastThemeData: const DigitToastThemeData().copyWith(maxLine: 4),
+                        message: 'This is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toast!',
                         type: ToastType.success,
                       );
                     }

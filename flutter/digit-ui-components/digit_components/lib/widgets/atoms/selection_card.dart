@@ -121,6 +121,7 @@ class _SelectionBoxState extends State<SelectionBox> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
+          width: MediaQuery.of(context).size.width,
           padding: const EdgeInsets.all(24),
           decoration: BoxDecoration(
             color: Theme.of(context).colorTheme.paper.secondary,

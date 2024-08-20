@@ -1,11 +1,14 @@
 import 'package:digit_ui_components/models/DropdownModels.dart';
+import 'package:digit_ui_components/models/privacy_policy_model.dart';
 import 'package:digit_ui_components/theme/colors.dart';
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
+import 'package:digit_ui_components/widgets/atoms/full_page_dialog.dart';
 import 'package:digit_ui_components/widgets/molecules/digit_header.dart';
 import 'package:digit_ui_components/widgets/molecules/hamburder.dart';
 import 'package:flutter/material.dart';
 import 'package:inspector/inspector.dart';
 import 'package:storybook/widgets/atoms/Info_card_stories.dart';
+import 'package:storybook/widgets/atoms/accordian_stories.dart';
 import 'package:storybook/widgets/atoms/action_card_stories.dart';
 import 'package:storybook/widgets/atoms/back_button_stories.dart';
 import 'package:storybook/widgets/atoms/bread_crumbs_stories.dart';
@@ -13,6 +16,8 @@ import 'package:storybook/widgets/atoms/button_list_stories.dart';
 import 'package:storybook/widgets/atoms/button_stories.dart';
 import 'package:storybook/widgets/atoms/checkbox_stories.dart';
 import 'package:storybook/widgets/atoms/chip_stories.dart';
+import 'package:storybook/widgets/atoms/digit_tab_stories.dart';
+import 'package:storybook/widgets/atoms/digit_tag_stories.dart';
 import 'package:storybook/widgets/atoms/divider_stories.dart';
 import 'package:storybook/widgets/atoms/dropdown_stories.dart';
 import 'package:storybook/widgets/atoms/flie_upload_stories.dart';
@@ -23,11 +28,13 @@ import 'package:storybook/widgets/atoms/pop_up_card_stories.dart';
 import 'package:storybook/widgets/atoms/radio_list_stories.dart';
 import 'package:storybook/widgets/atoms/selection_card_stories.dart';
 import 'package:storybook/widgets/atoms/stepper_stories.dart';
+import 'package:storybook/widgets/atoms/switch_stories.dart';
 import 'package:storybook/widgets/atoms/timeline_stories.dart';
 import 'package:storybook/widgets/atoms/toast_stories.dart';
 import 'package:storybook/widgets/atoms/toggle_stories.dart';
 import 'package:storybook/widgets/atoms/tool_tip_stories.dart';
 import 'package:storybook/widgets/atoms/tooltip_2_stories.dart';
+import 'package:storybook/widgets/molecules/bottom_sheet_stories.dart';
 import 'package:storybook/widgets/molecules/card_stories.dart';
 import 'package:storybook/widgets/molecules/digit_table_stories.dart';
 import 'package:storybook/widgets/molecules/footer_stories.dart';
@@ -50,12 +57,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: DigitExtendedTheme.instance.getTheme(context).copyWith(
-
-      ),
+      theme: DigitExtendedTheme.instance.getTheme(context).copyWith(),
       home: Scaffold(
         appBar: PreferredSize(
-            preferredSize: MediaQuery.of(context).size.width< 500 ? const Size.fromHeight(56): const Size.fromHeight(64), // here the desired height
+          preferredSize: MediaQuery.of(context).size.width < 500
+              ? const Size.fromHeight(56)
+              : const Size.fromHeight(64), // here the desired height
           child: Builder(
             builder: (context) => CustomHeaderMolecule(
               title: 'City Municipal Corporation',
@@ -134,39 +141,41 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        drawer: SideBar(sidebarItems: [
-          SidebarItem(
-            title: 'Home',
-            icon: Icons.home,
-            onPressed: () {
-              Navigator.of(context).pop();
-              // Navigate to Home
-            },
-          ),
-          SidebarItem(
-            title: 'Language',
-            icon: Icons.language,
-            onPressed: () {
-              // Implement language change
-            },
-          ),
-          SidebarItem(
-            title: 'Profile',
-            icon: Icons.person,
-            onPressed: () {
-              Navigator.of(context).pop();
-              // Navigate to Profile
-            },
-          ),
-          SidebarItem(
-            title: 'View Downloaded Data',
-            icon: Icons.download,
-            onPressed: () {
-              Navigator.of(context).pop();
-              // Navigate to Downloaded Data
-            },
-          ),
-        ],),
+        drawer: SideBar(
+          sidebarItems: [
+            SidebarItem(
+              title: 'Home',
+              icon: Icons.home,
+              onPressed: () {
+                Navigator.of(context).pop();
+                // Navigate to Home
+              },
+            ),
+            SidebarItem(
+              title: 'Language',
+              icon: Icons.language,
+              onPressed: () {
+                // Implement language change
+              },
+            ),
+            SidebarItem(
+              title: 'Profile',
+              icon: Icons.person,
+              onPressed: () {
+                Navigator.of(context).pop();
+                // Navigate to Profile
+              },
+            ),
+            SidebarItem(
+              title: 'View Downloaded Data',
+              icon: Icons.download,
+              onPressed: () {
+                Navigator.of(context).pop();
+                // Navigate to Downloaded Data
+              },
+            ),
+          ],
+        ),
         body: Inspector(
           isEnabled: true,
           child: Storybook(
@@ -197,14 +206,20 @@ class MyApp extends StatelessWidget {
               ...breadCrumbStories(),
               ...backNavigationButtonStories(),
               ...timelineMoleculeStories(),
+
               ///...customStepperStories(),
-             ...hamBurgerStories(),
+              ...hamBurgerStories(),
               ...tableStories(),
               ...sideNavStories(),
-              ...toolTipStories(),
+              //...toolTipStories(),
               ...selectionCardStories(),
               ...listViewStories(),
               ...toolTip2Stories(),
+              ...digitTagStories(),
+              ...switchStories(),
+              ...bottomSheetStories(),
+              ...accordionStories(),
+              ...tabStories(),
             ],
           ),
         ),

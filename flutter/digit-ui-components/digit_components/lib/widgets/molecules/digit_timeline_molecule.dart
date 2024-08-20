@@ -35,10 +35,6 @@ class _TimelineMoleculeState extends State<TimelineMolecule> {
     List<TimelineStep> stepsToShow = [];
     int firstFutureIndex = 0;
 
-    for(var step in sortedSteps) {
-      print(step.state);
-      print(step.label);
-    }
 
     if(widget.showAllSteps) {
       // Show all steps, including future steps in reverse order
@@ -82,14 +78,6 @@ class _TimelineMoleculeState extends State<TimelineMolecule> {
         if (lastPastIndex >= 0) stepsToShow.add(sortedSteps[lastPastIndex]);
       }
     }
-
-
-for(var step in stepsToShow) {
-  print(step.state);
-  print(step.label);
-  print(firstFutureIndex);
-
-}
 
     firstFutureIndex = stepsToShow.lastIndexWhere((step) => step.state == TimelineStepState.future);
 
