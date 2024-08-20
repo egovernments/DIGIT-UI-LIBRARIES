@@ -5,6 +5,7 @@ import 'package:digit_ui_components/widgets/molecules/digit_header.dart';
 import 'package:digit_ui_components/widgets/molecules/hamburder.dart';
 import 'package:flutter/material.dart';
 import 'package:inspector/inspector.dart';
+import 'package:storybook/plugins/code_view_plugin.dart';
 import 'package:storybook/widgets/atoms/Info_card_stories.dart';
 import 'package:storybook/widgets/atoms/accordian_stories.dart';
 import 'package:storybook/widgets/atoms/action_card_stories.dart';
@@ -176,6 +177,14 @@ class MyApp extends StatelessWidget {
         body: Inspector(
           isEnabled: true,
           child: Storybook(
+            plugins: [
+              CodeViewPlugin(
+                enableCodeView: true,
+                onShowCodeView: (isEnabled) {
+                  // Handle code view toggle state here if needed
+                },
+              ),
+            ],
             initialStory: 'Screens/Scaffold',
             stories: [
               ...buttonStories(),
