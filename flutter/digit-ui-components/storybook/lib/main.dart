@@ -1,8 +1,6 @@
 import 'package:digit_ui_components/models/DropdownModels.dart';
-import 'package:digit_ui_components/models/privacy_policy_model.dart';
 import 'package:digit_ui_components/theme/colors.dart';
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
-import 'package:digit_ui_components/widgets/atoms/full_page_dialog.dart';
 import 'package:digit_ui_components/widgets/molecules/digit_header.dart';
 import 'package:digit_ui_components/widgets/molecules/hamburder.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +30,6 @@ import 'package:storybook/widgets/atoms/switch_stories.dart';
 import 'package:storybook/widgets/atoms/timeline_stories.dart';
 import 'package:storybook/widgets/atoms/toast_stories.dart';
 import 'package:storybook/widgets/atoms/toggle_stories.dart';
-import 'package:storybook/widgets/atoms/tool_tip_stories.dart';
 import 'package:storybook/widgets/atoms/tooltip_2_stories.dart';
 import 'package:storybook/widgets/molecules/bottom_sheet_stories.dart';
 import 'package:storybook/widgets/molecules/card_stories.dart';

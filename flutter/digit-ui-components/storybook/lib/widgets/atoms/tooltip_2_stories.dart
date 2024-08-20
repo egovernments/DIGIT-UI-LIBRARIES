@@ -1,4 +1,5 @@
-import 'package:digit_ui_components/widgets/atoms/tool_tip.dart';
+import 'package:digit_ui_components/digit_components.dart';
+import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:digit_ui_components/widgets/atoms/tooltip_2.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
 import 'package:flutter/material.dart';
@@ -6,70 +7,45 @@ import 'package:flutter/material.dart';
 List<Story> toolTip2Stories() {
   return [
     Story(
-      name: 'Atom/Tool Tip2/top start',
-      builder: (context) => const DigitTooltip(
-        tooltipContent: Text('Hello, Tooltip!'),
-        tooltipPosition: ElTooltipPosition.topStart,
-        child: Icon(Icons.info),
-      ),
-    ),
-    Story(
-      name: 'Atom/Tool Tip2/top center',
-      builder: (context) => const DigitTooltip(
-        tooltipContent: Text('Hello, Tooltip!'),
-        tooltipPosition: ElTooltipPosition.topCenter,
-        child: Icon(Icons.info),
-      ),
-    ),
-    Story(
-      name: 'Atom/Tool Tip2/top end',
-      builder: (context) => const DigitTooltip(
-        tooltipContent: Text('Hello, Tooltip!'),
-        tooltipPosition: ElTooltipPosition.topEnd,
-        child: Icon(Icons.info),
-      ),
-    ),
-    Story(
-      name: 'Atom/Tool Tip/bottom start',
-      builder: (context) => CustomTooltip(
-        message: 'This is a custom tooltip',
-        position: TooltipPosition.bottomStart,
-        child: Container(
-          color: Colors.blue,
-          padding: EdgeInsets.all(16),
-          child: Text('Tap me'),
+      name: 'Atom/Tool Tip2/default',
+      builder: (context) => DigitTooltip(
+        tooltipContent: Text(
+          'Hello, Tooltip!',
+          style: Theme.of(context).digitTextTheme(context).bodyS.copyWith(color: Theme.of(context).colorTheme.paper.primary),
         ),
-      ),
-    ),
-    Story(
-      name: 'Atom/Tool Tip/bottom center',
-      builder: (context) => CustomTooltip(
-        message: 'This is a custom tooltip',
-        position: TooltipPosition.bottomCenter,
-        child: Container(
-          color: Colors.blue,
-          padding: EdgeInsets.all(16),
-          child: Text('Tap me'),
-        ),
-      ),
-    ),
-    Story(
-      name: 'Atom/Tool Tip/bottom end',
-      builder: (context) => CustomTooltip(
-        message: 'This is a custom tooltip',
-        position: TooltipPosition.bottomEnd,
-        child: Container(
-          color: Colors.blue,
-          padding: EdgeInsets.all(16),
-          child: Text('Tap me'),
-        ),
-      ),
-    ),
-    Story(
-      name: 'Atom/Tool Tip/left start',
-      builder: (context) => CustomTooltip(
-        message: 'This is a custom tooltip',
-        position: TooltipPosition.leftStart,
+        trigger: context.knobs.options(label: 'Trigger Mode', initial: TooltipTrigger.onHover, options: [
+          const Option(label: 'On Hover', value: TooltipTrigger.onHover),
+          const Option(label: 'On Tap', value: TooltipTrigger.onTap),
+          const Option(label: 'On Long Press', value: TooltipTrigger.onLongPress),
+        ]),
+        tooltipPosition: context.knobs.options(
+            label: 'Tooltip Position',
+            initial: TooltipPosition.topStart,
+            options: [
+              const Option(
+                  label: 'Top Start', value: TooltipPosition.topStart),
+              const Option(
+                  label: 'Top Center', value: TooltipPosition.topCenter),
+              const Option(label: 'Top End', value: TooltipPosition.topEnd),
+              const Option(
+                  label: 'Bottom Start', value: TooltipPosition.bottomStart),
+              const Option(
+                  label: 'Bottom Center',
+                  value: TooltipPosition.bottomCenter),
+              const Option(
+                  label: 'Bottom End', value: TooltipPosition.bottomEnd),
+              const Option(
+                  label: 'Left Start', value: TooltipPosition.leftStart),
+              const Option(
+                  label: 'Left Center', value: TooltipPosition.leftCenter),
+              const Option(label: 'Left End', value: TooltipPosition.leftEnd),
+              const Option(
+                  label: 'Right Start', value: TooltipPosition.rightStart),
+              const Option(
+                  label: 'Right Center', value: TooltipPosition.rightCenter),
+              const Option(
+                  label: 'Right End', value: TooltipPosition.rightEnd),
+            ]),
         child: Container(
           color: Colors.blue,
           padding: const EdgeInsets.all(16),
@@ -78,10 +54,45 @@ List<Story> toolTip2Stories() {
       ),
     ),
     Story(
-      name: 'Atom/Tool Tip/left center',
-      builder: (context) => CustomTooltip(
-        message: 'This is a custom tooltip',
-        position: TooltipPosition.leftCenter,
+      name: 'Atom/Tool Tip2/long text',
+      builder: (context) => DigitTooltip(
+        tooltipContent:  Text(
+          'Hello, Tooltip!Hello, Tooltip!Hello, Tooltip!Hello, Tooltip!Hello, Tooltip!Hello, Tooltip!Hello, Tooltip!Hello, Tooltip!Hello, Tooltip!Hello, Tooltip!Hello, Tooltip!Hello, Tooltip!Hello, Tooltip!Hello, Tooltip!Hello, Tooltip!Hello, Tooltip!Hello, Tooltip!Hello, Tooltip!Hello, Tooltip!Hello, Tooltip!',
+          style: Theme.of(context).digitTextTheme(context).bodyS.copyWith(color: Theme.of(context).colorTheme.paper.primary),
+        ),
+        trigger: context.knobs.options(label: 'Trigger Mode', initial: TooltipTrigger.onHover, options: [
+          const Option(label: 'On Hover', value: TooltipTrigger.onHover),
+          const Option(label: 'On Tap', value: TooltipTrigger.onTap),
+          const Option(label: 'On Long Press', value: TooltipTrigger.onLongPress),
+        ]),
+        tooltipPosition: context.knobs.options(
+            label: 'Tooltip Position',
+            initial: TooltipPosition.topStart,
+            options: [
+              const Option(
+                  label: 'Top Start', value: TooltipPosition.topStart),
+              const Option(
+                  label: 'Top Center', value: TooltipPosition.topCenter),
+              const Option(label: 'Top End', value: TooltipPosition.topEnd),
+              const Option(
+                  label: 'Bottom Start', value: TooltipPosition.bottomStart),
+              const Option(
+                  label: 'Bottom Center',
+                  value: TooltipPosition.bottomCenter),
+              const Option(
+                  label: 'Bottom End', value: TooltipPosition.bottomEnd),
+              const Option(
+                  label: 'Left Start', value: TooltipPosition.leftStart),
+              const Option(
+                  label: 'Left Center', value: TooltipPosition.leftCenter),
+              const Option(label: 'Left End', value: TooltipPosition.leftEnd),
+              const Option(
+                  label: 'Right Start', value: TooltipPosition.rightStart),
+              const Option(
+                  label: 'Right Center', value: TooltipPosition.rightCenter),
+              const Option(
+                  label: 'Right End', value: TooltipPosition.rightEnd),
+            ]),
         child: Container(
           color: Colors.blue,
           padding: const EdgeInsets.all(16),
@@ -90,50 +101,63 @@ List<Story> toolTip2Stories() {
       ),
     ),
     Story(
-      name: 'Atom/Tool Tip/left end',
-      builder: (context) => CustomTooltip(
-        message: 'This is a custom tooltip',
-        position: TooltipPosition.leftEnd,
+      name: 'Atom/Tool Tip2/widget',
+      builder: (context) => DigitTooltip(
+        tooltipContent: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Hello, Tooltip!',
+              style:Theme.of(context).digitTextTheme(context).headingS.copyWith(color: Theme.of(context).colorTheme.paper.primary),
+            ),
+            const SizedBox(height: 8,),
+            const InfoCard(title: 'Info', type: InfoType.info, description: 'Hello, Tooltip!'),
+            const SizedBox(height: 8,),
+            Text(
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ',
+              style: Theme.of(context).digitTextTheme(context).bodyS.copyWith(color: Theme.of(context).colorTheme.paper.primary),
+            ),
+          ],
+        ),
+        trigger: context.knobs.options(label: 'Trigger Mode', initial: TooltipTrigger.onHover, options: [
+          const Option(label: 'On Hover', value: TooltipTrigger.onHover),
+          const Option(label: 'On Tap', value: TooltipTrigger.onTap),
+          const Option(label: 'On Long Press', value: TooltipTrigger.onLongPress),
+        ]),
+        tooltipPosition: context.knobs.options(
+            label: 'Tooltip Position',
+            initial: TooltipPosition.topStart,
+            options: [
+              const Option(
+                  label: 'Top Start', value: TooltipPosition.topStart),
+              const Option(
+                  label: 'Top Center', value: TooltipPosition.topCenter),
+              const Option(label: 'Top End', value: TooltipPosition.topEnd),
+              const Option(
+                  label: 'Bottom Start', value: TooltipPosition.bottomStart),
+              const Option(
+                  label: 'Bottom Center',
+                  value: TooltipPosition.bottomCenter),
+              const Option(
+                  label: 'Bottom End', value: TooltipPosition.bottomEnd),
+              const Option(
+                  label: 'Left Start', value: TooltipPosition.leftStart),
+              const Option(
+                  label: 'Left Center', value: TooltipPosition.leftCenter),
+              const Option(label: 'Left End', value: TooltipPosition.leftEnd),
+              const Option(
+                  label: 'Right Start', value: TooltipPosition.rightStart),
+              const Option(
+                  label: 'Right Center', value: TooltipPosition.rightCenter),
+              const Option(
+                  label: 'Right End', value: TooltipPosition.rightEnd),
+            ]),
         child: Container(
           color: Colors.blue,
           padding: const EdgeInsets.all(16),
           child: const Text('Tap me'),
-        ), // Change to onTap or onLongPress as needed
-      ),
-    ),
-    Story(
-      name: 'Atom/Tool Tip/right start',
-      builder: (context) => CustomTooltip(
-        message: 'This is a custom tooltip',
-        position: TooltipPosition.rightStart,
-        child: Container(
-          color: Colors.blue,
-          padding: EdgeInsets.all(16),
-          child: Text('Tap me'),
-        ),
-      ),
-    ),
-    Story(
-      name: 'Atom/Tool Tip/right center',
-      builder: (context) => CustomTooltip(
-        message: 'This is a custom tooltip',
-        position: TooltipPosition.rightCenter,
-        child: Container(
-          color: Colors.blue,
-          padding: EdgeInsets.all(16),
-          child: Text('Tap me'),
-        ),
-      ),
-    ),
-    Story(
-      name: 'Atom/Tool Tip/right end',
-      builder: (context) => CustomTooltip(
-        message: 'This is a custom tooltip',
-        position: TooltipPosition.rightEnd,
-        child: Container(
-          color: Colors.blue,
-          padding: EdgeInsets.all(16),
-          child: Text('Tap me'),
         ),
       ),
     ),

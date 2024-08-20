@@ -1,5 +1,4 @@
 import 'package:digit_ui_components/widgets/atoms/selection_card.dart';
-import 'package:digit_ui_components/widgets/atoms/tool_tip.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
 import 'package:flutter/material.dart';
 

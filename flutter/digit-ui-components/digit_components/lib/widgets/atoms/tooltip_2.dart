@@ -1,163 +1,285 @@
+import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/material.dart';
 
-class DigitTooltip extends StatelessWidget {
+class DigitTooltip extends StatefulWidget {
   final Widget child;
   final Widget tooltipContent;
-  final ElTooltipPosition tooltipPosition;
+  final TooltipPosition tooltipPosition;
   final double distance;
-  final Radius radius;
+  final TooltipTrigger trigger;
 
-  const DigitTooltip({super.key,
+  const DigitTooltip({
+    Key? key,
     required this.child,
     required this.tooltipContent,
-    this.tooltipPosition = ElTooltipPosition.topCenter,
+    this.tooltipPosition = TooltipPosition.topCenter,
     this.distance = 8.0,
-    this.radius = Radius.zero,
-  });
+    this.trigger = TooltipTrigger.onHover,
+  }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final screenSize = ElementBox(
-          w: constraints.maxWidth,
-          h: constraints.maxHeight,
-          x: 0,
-          y: 0,
-        );
+  _DigitTooltipState createState() => _DigitTooltipState();
+}
 
-        return Stack(
-          children: [
-            Positioned(
-              child: child,
+class _DigitTooltipState extends State<DigitTooltip>
+    with WidgetsBindingObserver {
+  OverlayEntry? _overlayEntry;
+  OverlayEntry? _overlayEntryHidden;
+  GlobalKey<TooltipOverlayState>? _overlayKey;
+
+  final GlobalKey _widgetKey = GlobalKey();
+
+  final ElementBox _arrowBox = ElementBox(h: 8, w: 8);
+  ElementBox _overlayBox = ElementBox(h: 0.0, w: 0.0);
+
+  ElementBox get _screenSize => _getScreenSize();
+
+  ElementBox get _triggerBox => _getTriggerSize();
+
+
+  /// Automatically hide the overlay when the screen dimension changes
+  /// or when the user scrolls. This is done to avoid displacement.
+  @override
+  void didChangeMetrics() {
+    _hideOverlay();
+  }
+
+  /// Dispose the observer
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  /// Init state and trigger the hidden overlay to measure its size
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) => _loadHiddenOverlay(context));
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  /// Measures the hidden tooltip after it's loaded with _loadHiddenOverlay(_)
+  void _getHiddenOverlaySize(context) {
+    RenderBox box = _widgetKey.currentContext?.findRenderObject() as RenderBox;
+    if (mounted) {
+      setState(() {
+        _overlayBox = ElementBox(
+          w: box.size.width,
+          h: box.size.height,
+        );
+        _overlayEntryHidden?.remove();
+      });
+    }
+  }
+
+
+  /// Loads the tooltip without opacity to measure the rendered size
+  void _loadHiddenOverlay(_) {
+    OverlayState? overlayStateHidden = Overlay.of(context);
+    _overlayEntryHidden = OverlayEntry(
+      builder: (context) {
+        WidgetsBinding.instance
+            .addPostFrameCallback((_) => _getHiddenOverlaySize(context));
+        return Opacity(
+          opacity: 0,
+          child: Center(
+            child: Bubble(
+              key: _widgetKey,
+              triggerBox: _triggerBox,
+              padding: const EdgeInsets.all(10),
+              child: widget.tooltipContent,
             ),
-            Positioned(
-              child: TooltipOverlay(
-                content: tooltipContent,
-                position: tooltipPosition,
-                screenSize: screenSize,
-                distance: distance,
-                radius: radius,
-              ),
-            ),
-          ],
+          ),
         );
       },
     );
+
+    if (_overlayEntryHidden != null) {
+      overlayStateHidden.insert(_overlayEntryHidden!);
+    }
   }
+
+  /// Measures the size of the trigger widget
+  ElementBox _getTriggerSize() {
+    if (mounted) {
+      final renderBox = context.findRenderObject() as RenderBox;
+      final offset = renderBox.localToGlobal(Offset.zero);
+      return ElementBox(
+        w: renderBox.size.width,
+        h: renderBox.size.height,
+        x: offset.dx,
+        y: offset.dy,
+      );
+    }
+    _hideOverlay();
+    return ElementBox(w: 0, h: 0, x: 0, y: 0);
+  }
+
+  /// Measures the size of the screen to calculate possible overflow
+  ElementBox _getScreenSize() {
+    return ElementBox(
+      w: MediaQuery.of(context).size.width,
+      h: MediaQuery.of(context).size.height,
+    );
+  }
+
+  /// Hides or shows the tooltip
+  void _toggleOverlay(BuildContext context) =>
+      _overlayEntry != null ? _hideOverlay() : _showOverlay(context);
+
+  /// Loads the tooltip into view
+  Future<void> _showOverlay([BuildContext? context]) async {
+    context ??= this.context;
+    final overlayState = Overlay.of(context);
+
+    /// By calling [PositionManager.load()] we get returned the position
+    /// of the tooltip, the arrow and the trigger.
+    ToolTipElementsDisplay toolTipElementsDisplay = PositionManager(
+      arrowBox: _arrowBox,
+      overlayBox: _overlayBox,
+      triggerBox: _triggerBox,
+      screenSize: _screenSize,
+      distance: widget.distance,
+      radius: const Radius.circular(8),
+    ).load(preferredPosition: widget.tooltipPosition);
+
+    _overlayKey = GlobalKey<TooltipOverlayState>();
+
+    _overlayEntry = OverlayEntry(
+      builder: (context) => TooltipOverlay(
+        key: _overlayKey,
+        toolTipElementsDisplay: toolTipElementsDisplay,
+        content: widget.tooltipContent,
+        triggerBox: _triggerBox,
+        arrowBox: _arrowBox,
+      ),
+    );
+
+    if (_overlayEntry != null) {
+      overlayState.insert(_overlayEntry!);
+    }
+    Future.delayed(const Duration(seconds: 5), () {
+      _hideOverlay();
+    });
+    // Add timeout for the tooltip to disapear after a few seconds
+    // if (widget.timeout > Duration.zero) {
+    //   await Future.delayed(widget.timeout).whenComplete(_hideOverlay);
+    // }
+  }
+
+  /// Method to hide the tooltip
+  Future<void> _hideOverlay() async {
+    final state = _overlayKey?.currentState;
+    if (state != null) {
+      await state.hide();
+      _overlayKey = null;
+    }
+    if (_overlayEntry != null) {
+      _overlayEntry?.remove();
+      _overlayEntry = null;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onHover: widget.trigger == TooltipTrigger.onHover ? (value) {
+        if(value){
+          _toggleOverlay(context);
+        }
+      } : null,
+      onTap: widget.trigger == TooltipTrigger.onTap ? () => _toggleOverlay(context) : (){},
+      onLongPress: widget.trigger == TooltipTrigger.onLongPress ? () => _toggleOverlay(context) : (){},
+      child: widget.child,
+    );
+  }
+
 }
 
 class TooltipOverlay extends StatefulWidget {
   final Widget content;
-  final ElTooltipPosition position;
-  final ElementBox screenSize;
-  final double distance;
-  final Radius radius;
+  /// [triggerBox] Box that contains the trigger
+  final ElementBox triggerBox;
 
-  TooltipOverlay({
+  /// [arrowBox] Box that contains the arrow
+  final ElementBox arrowBox;
+  /// [toolTipElementsDisplay] Contains the position of the tooltip, the arrow and the trigger
+  final ToolTipElementsDisplay toolTipElementsDisplay;
+
+  const TooltipOverlay({
+    super.key,
     required this.content,
-    required this.position,
-    required this.screenSize,
-    required this.distance,
-    required this.radius,
+    required this.triggerBox,
+    required this.arrowBox,
+    required this.toolTipElementsDisplay,
   });
 
   @override
-  _TooltipOverlayState createState() => _TooltipOverlayState();
+  TooltipOverlayState createState() => TooltipOverlayState();
 }
 
-class _TooltipOverlayState extends State<TooltipOverlay> {
+class TooltipOverlayState extends State<TooltipOverlay> {
+  bool closing = false;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async => show());
+  }
+
+  Future<void> show() async {
+    setState(() {
+      closing = false;
+    });
+  }
+
+  Future<void> hide() async {
+    setState(() {
+      closing = true;
+    });
+  }
   @override
   Widget build(BuildContext context) {
-    RenderBox? renderBox = context.findRenderObject() as RenderBox?;
-    if (renderBox == null) {
-      return Container();
-    }
-
-    ElementBox triggerBox = ElementBox(
-      w: renderBox.size.width,
-      h: renderBox.size.height,
-      x: renderBox.localToGlobal(Offset.zero).dx,
-      y: renderBox.localToGlobal(Offset.zero).dy,
-    );
-
-    ElementBox arrowBox = ElementBox(
-      w: 10.0,
-      h: 5.0,
-      x: 0,
-      y: 0,
-    );
-
-    ElementBox overlayBox = ElementBox(
-      w: widget.screenSize.w / 2,
-      h: widget.screenSize.h / 3,
-      x: 0,
-      y: 0,
-    );
-
-    PositionManager positionManager = PositionManager(
-      arrowBox: arrowBox,
-      triggerBox: triggerBox,
-      overlayBox: overlayBox,
-      screenSize: widget.screenSize,
-      distance: widget.distance,
-      radius: widget.radius,
-    );
-
-    ToolTipElementsDisplay elementsDisplay =
-    positionManager.display(widget.position);
-
     return Stack(
       children: [
         Positioned(
-          left: elementsDisplay.bubble.x,
-          top: elementsDisplay.bubble.y,
-          child: Container(
-            width: elementsDisplay.bubble.w,
-            height: elementsDisplay.bubble.h,
-            decoration: BoxDecoration(
-              color: Colors.black,
-              borderRadius: elementsDisplay.radius,
-            ),
+          top: widget.toolTipElementsDisplay.bubble.y,
+          left: widget.toolTipElementsDisplay.bubble.x,
+          child: Bubble(
+            triggerBox: widget.triggerBox,
+            radius: widget.toolTipElementsDisplay.radius,
             child: widget.content,
           ),
         ),
-        Positioned(
-          left: elementsDisplay.arrow.x,
-          top: elementsDisplay.arrow.y,
-          child: CustomPaint(
-            size: Size(arrowBox.w, arrowBox.h),
-            painter: ArrowPainter(),
+          Positioned(
+            top: widget.toolTipElementsDisplay.arrow.y,
+            left: widget.toolTipElementsDisplay.arrow.x,
+            child: Arrow(
+              position: widget.toolTipElementsDisplay.position,
+              width: widget.arrowBox.w,
+              height: widget.arrowBox.h,
+            ),
           ),
-        ),
+        // if (widget.showChildAboveOverlay)
+        //   Positioned(
+        //     top: widget.triggerBox.y,
+        //     left: widget.triggerBox.x,
+        //     child: GestureDetector(
+        //       onTap: widget.hideOverlay,
+        //       child: widget.child,
+        //     ),
+        //   ),
       ],
     );
   }
 }
 
-class ArrowPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    Paint paint = Paint()
-      ..color = Colors.black
-      ..style = PaintingStyle.fill;
 
-    Path path = Path();
-    path.moveTo(0, size.height);
-    path.lineTo(size.width / 2, 0);
-    path.lineTo(size.width, size.height);
-    path.close();
+enum TooltipTrigger { onTap, onHover, onLongPress }
 
-    canvas.drawPath(path, paint);
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return false;
-  }
-}
-
-enum ElTooltipPosition {
+enum TooltipPosition {
   topStart,
   topCenter,
   topEnd,
@@ -172,7 +294,6 @@ enum ElTooltipPosition {
   rightEnd,
 }
 
-
 class ElementBox {
   final double w;
   final double h;
@@ -182,15 +303,15 @@ class ElementBox {
   ElementBox({
     required this.w,
     required this.h,
-    required this.x,
-    required this.y,
+    this.x = 0,
+    this.y = 0,
   });
 }
 
 class ToolTipElementsDisplay {
   final ElementBox arrow;
   final ElementBox bubble;
-  final ElTooltipPosition position;
+  final TooltipPosition position;
   final BorderRadius radius;
 
   ToolTipElementsDisplay({
@@ -200,6 +321,191 @@ class ToolTipElementsDisplay {
     required this.radius,
   });
 }
+
+/// Bubble serves as the tooltip container
+class Bubble extends StatefulWidget {
+  final EdgeInsetsGeometry padding;
+  final double maxWidth;
+  final ElementBox triggerBox;
+  final BorderRadiusGeometry? radius;
+  final Widget child;
+
+  const Bubble({
+    this.padding = const EdgeInsets.all(10.0),
+    this.radius = const BorderRadius.all(Radius.circular(8)),
+    required this.child,
+    required this.triggerBox,
+    this.maxWidth = 300.0,
+    super.key,
+  });
+
+  @override
+  State<Bubble> createState() => _BubbleState();
+}
+
+class _BubbleState extends State<Bubble> {
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.transparent,
+      child: Opacity(
+        opacity: 1.0,
+        child: Container(
+          constraints: BoxConstraints(maxWidth: widget.maxWidth),
+          decoration: BoxDecoration(
+            borderRadius: widget.radius,
+            color: const DigitColors().light.genericInputBorder,
+          ),
+          padding: widget.padding,
+          child: widget.child,
+        ),
+      ),
+    );
+  }
+}
+
+
+/// Loads the arrow from the paint code and applies the correct transformations
+/// color, rotation and mirroring
+class Arrow extends StatelessWidget {
+  final TooltipPosition position;
+  final double width;
+  final double height;
+  const Arrow({
+    required this.position,
+    this.width = 8,
+    this.height = 8,
+    super.key,
+  });
+
+
+  /// Applies the transformation to the triangle
+  Widget _getTriangle() {
+    double scaleX = 1;
+    double scaleY = 1;
+    bool isArrow = false;
+    int quarterTurns = 0;
+
+    switch (position) {
+      case TooltipPosition.topStart:
+        break;
+      case TooltipPosition.topCenter:
+        quarterTurns = 0;
+        isArrow = true;
+        break;
+      case TooltipPosition.topEnd:
+        scaleX = -1;
+        break;
+      case TooltipPosition.bottomStart:
+        scaleY = -1;
+        break;
+      case TooltipPosition.bottomCenter:
+        quarterTurns = 2;
+        isArrow = true;
+        break;
+      case TooltipPosition.bottomEnd:
+        scaleX = -1;
+        scaleY = -1;
+        break;
+      case TooltipPosition.leftStart:
+        scaleY = -1;
+        quarterTurns = 3;
+        break;
+      case TooltipPosition.leftCenter:
+        quarterTurns = 3;
+        isArrow = true;
+        break;
+      case TooltipPosition.leftEnd:
+        quarterTurns = 3;
+        break;
+      case TooltipPosition.rightStart:
+        quarterTurns = 1;
+        break;
+      case TooltipPosition.rightCenter:
+        quarterTurns = 1;
+        isArrow = true;
+        break;
+      case TooltipPosition.rightEnd:
+        quarterTurns = 1;
+        scaleY = -1;
+        break;
+    }
+
+    return Transform.scale(
+      scaleX: scaleX,
+      scaleY: scaleY,
+      child: RotatedBox(
+        quarterTurns: quarterTurns,
+        child: CustomPaint(
+          size: const Size(8, 8),
+          painter: isArrow ? Triangle(color: const DigitColors().light.genericInputBorder) : Corner(color: const DigitColors().light.genericInputBorder),
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return _getTriangle();
+  }
+}
+
+/// Design of the corner triangle that appears attached to the tooltip
+class Corner extends CustomPainter {
+  /// [color] of the arrow.
+  final Color color;
+
+  Corner({this.color = const Color(0xff000000)});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    Paint paint = Paint();
+    Path path = Path();
+    paint.color = color;
+
+    path.moveTo(0, size.height);
+    path.lineTo(size.width, 0);
+    path.lineTo(0, 0);
+    path.close();
+
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    return false;
+  }
+}
+
+/// Design of the triangle that appears attached to the tooltip
+/// Design of the triangle that appears attached to the tooltip
+class Triangle extends CustomPainter {
+  /// [color] of the arrow.
+  final Color color;
+
+  Triangle({this.color = const Color(0xff000000)});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    Paint paint = Paint();
+    paint.isAntiAlias = true;
+    paint.color = color;
+    Path path = Path();
+
+    path.moveTo(0, 0);
+    path.lineTo(size.width, 0);
+    path.lineTo(size.width / 2, size.height);
+    path.close();
+
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    return false;
+  }
+}
+
 
 
 /// Calculates the position of the tooltip and the arrow on the screen
@@ -236,18 +542,18 @@ class PositionManager {
   ToolTipElementsDisplay _topStart() {
     return ToolTipElementsDisplay(
       arrow: ElementBox(
-        w: arrowBox.w,
-        h: arrowBox.h,
-        x: (triggerBox.x + _half(triggerBox.w)).floorToDouble(),
-        y: (triggerBox.y - distance - arrowBox.h).floorToDouble(),
+        w: overlayBox.w,
+        h: overlayBox.h,
+        x: (triggerBox.x).ceilToDouble(),
+        y: (triggerBox.y - distance - arrowBox.h).ceilToDouble(),
       ),
       bubble: ElementBox(
         w: overlayBox.w,
         h: overlayBox.h,
-        x: triggerBox.x + _half(triggerBox.w),
-        y: triggerBox.y - overlayBox.h - distance - arrowBox.h,
+        x: triggerBox.x.ceilToDouble(),
+        y: (triggerBox.y - overlayBox.h - distance - arrowBox.h).ceilToDouble(),
       ),
-      position: ElTooltipPosition.topStart,
+      position: TooltipPosition.topStart,
       radius: BorderRadius.only(
         topLeft: radius,
         topRight: radius,
@@ -269,10 +575,10 @@ class PositionManager {
       bubble: ElementBox(
         w: overlayBox.w,
         h: overlayBox.h,
-        x: triggerBox.x + _half(triggerBox.w) - _half(overlayBox.w),
-        y: triggerBox.y - overlayBox.h - distance - arrowBox.h,
+        x: (triggerBox.x + _half(triggerBox.w) - _half(overlayBox.w)).floorToDouble(),
+        y: (triggerBox.y - overlayBox.h - distance - arrowBox.h).floorToDouble(),
       ),
-      position: ElTooltipPosition.topCenter,
+      position: TooltipPosition.topCenter,
       radius: BorderRadius.all(radius),
     );
   }
@@ -282,16 +588,16 @@ class PositionManager {
       arrow: ElementBox(
         w: arrowBox.w,
         h: arrowBox.h,
-        x: (triggerBox.x + _half(triggerBox.w) - arrowBox.w).floorToDouble(),
-        y: (triggerBox.y - distance - arrowBox.h).floorToDouble(),
+        x: (triggerBox.x + triggerBox.w - arrowBox.h),
+        y: (triggerBox.y - distance - arrowBox.h ),
       ),
       bubble: ElementBox(
         w: arrowBox.w,
         h: arrowBox.h,
-        x: triggerBox.x - overlayBox.w + _half(triggerBox.w),
-        y: triggerBox.y - overlayBox.h - distance - arrowBox.h,
+        x: (triggerBox.x - overlayBox.w +triggerBox.w),
+        y: (triggerBox.y - overlayBox.h - distance - arrowBox.h),
       ),
-      position: ElTooltipPosition.topEnd,
+      position: TooltipPosition.topEnd,
       radius: BorderRadius.only(
         topLeft: radius,
         topRight: radius,
@@ -306,16 +612,16 @@ class PositionManager {
       arrow: ElementBox(
         w: overlayBox.w,
         h: overlayBox.h,
-        x: (triggerBox.x + _half(triggerBox.w)).ceilToDouble(),
-        y: (triggerBox.y + triggerBox.h + distance).ceilToDouble(),
+        x: (triggerBox.x),
+        y: (triggerBox.y + triggerBox.h + distance),
       ),
       bubble: ElementBox(
         w: overlayBox.w,
         h: overlayBox.h,
-        x: triggerBox.x + _half(triggerBox.w),
-        y: triggerBox.y + triggerBox.h + distance + arrowBox.h,
+        x: triggerBox.x,
+        y: (triggerBox.y + triggerBox.h + distance +arrowBox.w),
       ),
-      position: ElTooltipPosition.bottomStart,
+      position: TooltipPosition.bottomStart,
       radius: BorderRadius.only(
         topLeft: Radius.zero,
         topRight: radius,
@@ -338,9 +644,9 @@ class PositionManager {
         w: overlayBox.w,
         h: overlayBox.h,
         x: triggerBox.x + _half(triggerBox.w) - _half(overlayBox.w),
-        y: triggerBox.y + triggerBox.h + distance + arrowBox.h,
+        y: triggerBox.y + triggerBox.h + distance + arrowBox.w,
       ),
-      position: ElTooltipPosition.bottomCenter,
+      position: TooltipPosition.bottomCenter,
       radius: BorderRadius.all(radius),
     );
   }
@@ -350,16 +656,16 @@ class PositionManager {
       arrow: ElementBox(
         w: overlayBox.w,
         h: overlayBox.h,
-        x: (triggerBox.x + _half(triggerBox.w) - arrowBox.w),
+        x: (triggerBox.x +triggerBox.w- arrowBox.h),
         y: (triggerBox.y + triggerBox.h + distance).ceilToDouble(),
       ),
       bubble: ElementBox(
         w: overlayBox.w,
         h: overlayBox.h,
-        x: triggerBox.x + _half(triggerBox.w) - overlayBox.w,
-        y: triggerBox.y + triggerBox.h + distance + arrowBox.h,
+        x: triggerBox.x + triggerBox.w - overlayBox.w,
+        y: triggerBox.y + triggerBox.h + distance + arrowBox.w,
       ),
-      position: ElTooltipPosition.bottomEnd,
+      position: TooltipPosition.bottomEnd,
       radius: BorderRadius.only(
         topLeft: radius,
         topRight: Radius.zero,
@@ -376,15 +682,15 @@ class PositionManager {
         h: overlayBox.h,
         x: (triggerBox.x - overlayBox.x - distance - arrowBox.h)
             .floorToDouble(),
-        y: triggerBox.y + _half(triggerBox.h),
+        y: triggerBox.y,
       ),
       bubble: ElementBox(
         w: overlayBox.w,
         h: overlayBox.h,
         x: triggerBox.x - overlayBox.x - overlayBox.w - distance - arrowBox.h,
-        y: triggerBox.y + _half(triggerBox.h),
+        y: triggerBox.y,
       ),
-      position: ElTooltipPosition.leftStart,
+      position: TooltipPosition.leftStart,
       radius: BorderRadius.only(
         topLeft: radius,
         topRight: Radius.zero,
@@ -410,7 +716,7 @@ class PositionManager {
         x: triggerBox.x - overlayBox.x - overlayBox.w - distance - arrowBox.h,
         y: triggerBox.y + _half(triggerBox.h) - _half(overlayBox.h),
       ),
-      position: ElTooltipPosition.leftCenter,
+      position: TooltipPosition.leftCenter,
       radius: BorderRadius.all(radius),
     );
   }
@@ -422,15 +728,15 @@ class PositionManager {
         h: overlayBox.h,
         x: (triggerBox.x - overlayBox.x - distance - arrowBox.h)
             .floorToDouble(),
-        y: (triggerBox.y + _half(triggerBox.h) - arrowBox.w).floorToDouble(),
+        y: (triggerBox.y +triggerBox.h - arrowBox.h).floorToDouble(),
       ),
       bubble: ElementBox(
         w: overlayBox.w,
         h: overlayBox.h,
-        x: triggerBox.x - overlayBox.x - overlayBox.w - distance - arrowBox.h,
-        y: triggerBox.y + _half(triggerBox.h) - overlayBox.h,
+        x: triggerBox.x - overlayBox.x - overlayBox.w - distance - arrowBox.w,
+        y: triggerBox.y +triggerBox.h - overlayBox.h,
       ),
-      position: ElTooltipPosition.leftEnd,
+      position: TooltipPosition.leftEnd,
       radius: BorderRadius.only(
         topLeft: radius,
         topRight: radius,
@@ -446,20 +752,20 @@ class PositionManager {
         w: overlayBox.w,
         h: overlayBox.h,
         x: (triggerBox.x + triggerBox.w + distance).floorToDouble(),
-        y: (triggerBox.y + _half(triggerBox.h)).floorToDouble(),
+        y: (triggerBox.y ).floorToDouble(),
       ),
       bubble: ElementBox(
         w: overlayBox.w,
         h: overlayBox.h,
-        x: (triggerBox.x + triggerBox.w + distance + arrowBox.h)
+        x: (triggerBox.x + triggerBox.w + distance + arrowBox.w)
             .floorToDouble(),
-        y: (triggerBox.y + _half(triggerBox.h)).floorToDouble(),
+        y: (triggerBox.y).floorToDouble(),
       ),
-      position: ElTooltipPosition.rightStart,
+      position: TooltipPosition.rightStart,
       radius: BorderRadius.only(
-        topLeft: radius,
+        topLeft: Radius.zero,
         topRight: radius,
-        bottomLeft: Radius.zero,
+        bottomLeft: radius,
         bottomRight: radius,
       ),
     );
@@ -477,12 +783,10 @@ class PositionManager {
       bubble: ElementBox(
         w: overlayBox.w,
         h: overlayBox.h,
-        x: (triggerBox.x + triggerBox.w + distance + arrowBox.h)
-            .floorToDouble(),
-        y: (triggerBox.y + _half(triggerBox.h) - _half(overlayBox.h))
-            .floorToDouble(),
+        x: (triggerBox.x + triggerBox.w + distance + arrowBox.w).floorToDouble(),
+        y: triggerBox.y + _half(triggerBox.h) - _half(overlayBox.h),
       ),
-      position: ElTooltipPosition.rightCenter,
+      position: TooltipPosition.rightCenter,
       radius: BorderRadius.all(radius),
     );
   }
@@ -493,56 +797,108 @@ class PositionManager {
         w: overlayBox.w,
         h: overlayBox.h,
         x: (triggerBox.x + triggerBox.w + distance).floorToDouble(),
-        y: (triggerBox.y + _half(triggerBox.h) - arrowBox.w).floorToDouble(),
+        y: triggerBox.y + triggerBox.h - arrowBox.h,
       ),
       bubble: ElementBox(
         w: overlayBox.w,
         h: overlayBox.h,
-        x: (triggerBox.x + triggerBox.w + distance + arrowBox.h)
-            .floorToDouble(),
-        y: (triggerBox.y + _half(triggerBox.h) - overlayBox.h).floorToDouble(),
+        x: (triggerBox.x + triggerBox.w + distance + arrowBox.w).floorToDouble(),
+        y: triggerBox.y +triggerBox.h - overlayBox.h,
       ),
-      position: ElTooltipPosition.rightEnd,
+      position: TooltipPosition.rightEnd,
       radius: BorderRadius.only(
         topLeft: radius,
         topRight: radius,
-        bottomLeft: radius,
-        bottomRight: Radius.zero,
+        bottomLeft: Radius.zero,
+        bottomRight: radius,
       ),
     );
   }
 
-  ToolTipElementsDisplay display(ElTooltipPosition position) {
-    switch (position) {
-      case ElTooltipPosition.topStart:
-        return _topStart();
-      case ElTooltipPosition.topCenter:
-        return _topCenter();
-      case ElTooltipPosition.topEnd:
-        return _topEnd();
-      case ElTooltipPosition.bottomStart:
-        return _bottomStart();
-      case ElTooltipPosition.bottomCenter:
-        return _bottomCenter();
-      case ElTooltipPosition.bottomEnd:
-        return _bottomEnd();
-      case ElTooltipPosition.leftStart:
-        return _leftStart();
-      case ElTooltipPosition.leftCenter:
-        return _leftCenter();
-      case ElTooltipPosition.leftEnd:
-        return _leftEnd();
-      case ElTooltipPosition.rightStart:
-        return _rightStart();
-      case ElTooltipPosition.rightCenter:
-        return _rightCenter();
-      case ElTooltipPosition.rightEnd:
-        return _rightEnd();
-    }
+  double _half(double size) {
+    return size * 0.5;
   }
 
-  double _half(double value) => value / 2;
+  bool _fitsScreen(ToolTipElementsDisplay el) {
+    if (el.bubble.x > 0 &&
+        el.bubble.x + el.bubble.w < screenSize.w &&
+        el.bubble.y > 0 &&
+        el.bubble.y + el.bubble.h < screenSize.h) {
+      return true;
+    }
+    return false;
+  }
+
+  /// Tests each possible position until it finds one that fits.
+  ToolTipElementsDisplay _firstAvailablePosition() {
+    List<ToolTipElementsDisplay Function()> positions = [
+      _topCenter,
+      _bottomCenter,
+      _leftCenter,
+      _rightCenter,
+      _topStart,
+      _topEnd,
+      _leftStart,
+      _rightStart,
+      _leftEnd,
+      _rightEnd,
+      _bottomStart,
+      _bottomEnd,
+    ];
+    for (var position in positions) {
+      if (_fitsScreen(position())) return position();
+    }
+    return _topCenter();
+  }
+
+  /// Load the calculated tooltip position
+  ToolTipElementsDisplay load({TooltipPosition? preferredPosition}) {
+    ToolTipElementsDisplay elementPosition;
+
+    switch (preferredPosition) {
+      case TooltipPosition.topStart:
+        elementPosition = _topStart();
+        break;
+      case TooltipPosition.topCenter:
+        elementPosition = _topCenter();
+        break;
+      case TooltipPosition.topEnd:
+        elementPosition = _topEnd();
+        break;
+      case TooltipPosition.bottomStart:
+        elementPosition = _bottomStart();
+        break;
+      case TooltipPosition.bottomCenter:
+        elementPosition = _bottomCenter();
+        break;
+      case TooltipPosition.bottomEnd:
+        elementPosition = _bottomEnd();
+        break;
+      case TooltipPosition.leftStart:
+        elementPosition = _leftStart();
+        break;
+      case TooltipPosition.leftCenter:
+        elementPosition = _leftCenter();
+        break;
+      case TooltipPosition.leftEnd:
+        elementPosition = _leftEnd();
+        break;
+      case TooltipPosition.rightStart:
+        elementPosition = _rightStart();
+        break;
+      case TooltipPosition.rightCenter:
+        elementPosition = _rightCenter();
+        break;
+      case TooltipPosition.rightEnd:
+        elementPosition = _rightEnd();
+        break;
+      default:
+        elementPosition = _topCenter();
+        break;
+    }
+
+    return _fitsScreen(elementPosition)
+        ? elementPosition
+        : _firstAvailablePosition();
+  }
 }
-
-
-
