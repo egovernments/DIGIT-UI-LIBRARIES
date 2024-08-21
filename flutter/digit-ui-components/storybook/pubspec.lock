@@ -17,6 +17,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.2.0"
+  any_syntax_highlighter:
+    dependency: "direct main"
+    description:
+      name: any_syntax_highlighter
+      sha256: "9afce8a45ae6eaf2a64ce6a93f0d4b3730cb9ff80506aefec30efb17f332a7f1"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.13"
   archive:
     dependency: transitive
     description:
@@ -784,10 +792,10 @@ packages:
     dependency: transitive
     description:
       name: lottie
-      sha256: "6a24ade5d3d918c306bb1c21a6b9a04aab0489d51a2582522eea820b4093b62b"
+      sha256: a93542cc2d60a7057255405f62252533f8e8956e7e06754955669fd32fb4b216
       url: "https://pub.dev"
     source: hosted
-    version: "3.1.2"
+    version: "2.7.0"
   matcher:
     dependency: transitive
     description:

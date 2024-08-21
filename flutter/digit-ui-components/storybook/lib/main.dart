@@ -6,6 +6,7 @@ import 'package:digit_ui_components/widgets/molecules/hamburder.dart';
 import 'package:flutter/material.dart';
 import 'package:inspector/inspector.dart';
 import 'package:storybook/plugins/code_view_plugin.dart';
+import 'package:storybook/plugins/code_view_wrapper.dart';
 import 'package:storybook/widgets/atoms/Info_card_stories.dart';
 import 'package:storybook/widgets/atoms/accordian_stories.dart';
 import 'package:storybook/widgets/atoms/action_card_stories.dart';
@@ -176,57 +177,59 @@ class MyApp extends StatelessWidget {
         ),
         body: Inspector(
           isEnabled: true,
-          child: Storybook(
-            plugins: [
-              CodeViewPlugin(
-                enableCodeView: true,
-                onShowCodeView: (isEnabled) {
-                  // Handle code view toggle state here if needed
-                },
-              ),
-            ],
-            initialStory: 'Screens/Scaffold',
-            stories: [
-              ...buttonStories(),
-              ...checkboxStories(),
-              ...chipStories(),
-              ...infoCardStories(),
-              ...panelStories(),
-              ...timeLineStories(),
-              ...inputFieldStories(),
-              ...radioListStories(),
-              ...toastStories(),
-              ...toggleGroupStories(),
-              ...dropdownStories(),
-              ...stepperStories(),
-              ...fileUploaderStories(),
-              ...actionStories(),
-              ...popUpStories(),
-              ...panelCardStories(),
-              ...cardStories(),
-              ...dividerStories(),
-              ...buttonListStories(),
-              ...showPopUPStories(),
-              ...footerMoleculeStories(),
-              ...headerMoleculeStories(),
-              ...breadCrumbStories(),
-              ...backNavigationButtonStories(),
-              ...timelineMoleculeStories(),
-
-              ///...customStepperStories(),
-              ...hamBurgerStories(),
-              ...tableStories(),
-              ...sideNavStories(),
-              //...toolTipStories(),
-              ...selectionCardStories(),
-              ...listViewStories(),
-              ...toolTip2Stories(),
-              ...digitTagStories(),
-              ...switchStories(),
-              ...bottomSheetStories(),
-              ...accordionStories(),
-              ...tabStories(),
-            ],
+          child: CodeViewWrapper(
+            child: Storybook(
+              plugins: [
+                CodeViewPlugin(
+                  enableCodeView: true,
+                  onShowCodeView: (isEnabled) {
+                    // Handle code view toggle state here if needed
+                  },
+                ),
+              ],
+              initialStory: 'Screens/Scaffold',
+              stories: [
+                ...buttonStories(),
+                ...checkboxStories(),
+                ...chipStories(),
+                ...infoCardStories(),
+                ...panelStories(),
+                ...timeLineStories(),
+                ...inputFieldStories(),
+                ...radioListStories(),
+                ...toastStories(),
+                ...toggleGroupStories(),
+                ...dropdownStories(),
+                ...stepperStories(),
+                ...fileUploaderStories(),
+                ...actionStories(),
+                ...popUpStories(),
+                ...panelCardStories(),
+                ...cardStories(),
+                ...dividerStories(),
+                ...buttonListStories(),
+                ...showPopUPStories(),
+                ...footerMoleculeStories(),
+                ...headerMoleculeStories(),
+                ...breadCrumbStories(),
+                ...backNavigationButtonStories(),
+                ...timelineMoleculeStories(),
+            
+                ///...customStepperStories(),
+                ...hamBurgerStories(),
+                ...tableStories(),
+                ...sideNavStories(),
+                //...toolTipStories(),
+                ...selectionCardStories(),
+                ...listViewStories(),
+                ...toolTip2Stories(),
+                ...digitTagStories(),
+                ...switchStories(),
+                ...bottomSheetStories(),
+                ...accordionStories(),
+                ...tabStories(),
+              ],
+            ),
           ),
         ),
       ),

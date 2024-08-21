@@ -17,18 +17,18 @@ import '../../utils/utils.dart';
 
 class Toast {
   static void showToast(
-    BuildContext context, {
-    required String message,
-    required ToastType type,
-    Duration? duration,
-    Duration? animationDuration,
-    StyledToastPosition? position,
-    DigitToastThemeData? digitToastThemeData,
-  }) {
+      BuildContext context, {
+        required String message,
+        required ToastType type,
+        Duration? duration,
+        Duration? animationDuration,
+        StyledToastPosition? position,
+        DigitToastThemeData? digitToastThemeData,
+      }) {
     final theme = Theme.of(context);
     final toastThemeData = digitToastThemeData ??
         theme.extension<DigitToastThemeData>();
-        final defaultThemeData = DigitToastThemeData.defaultTheme(context);
+    final defaultThemeData = DigitToastThemeData.defaultTheme(context);
     showToastWidget(
       _buildToastWidget(message, type, context, toastThemeData, defaultThemeData),
       context: context,
@@ -52,16 +52,18 @@ class Toast {
       color: type == ToastType.success
           ? toastThemeData?.successColor ?? defaultThemeData.successColor
           : type == ToastType.error
-              ? toastThemeData?.errorColor ?? defaultThemeData.errorColor
-              : type == ToastType.warning
-                  ? toastThemeData?.warningColor ?? defaultThemeData.warningColor
-                  : toastThemeData?.infoColor ?? defaultThemeData.infoColor,
+          ? toastThemeData?.errorColor ?? defaultThemeData.errorColor
+          : type == ToastType.warning
+          ? toastThemeData?.warningColor ?? defaultThemeData.warningColor
+          : toastThemeData?.infoColor ?? defaultThemeData.infoColor,
       padding: toastThemeData?.padding ?? defaultThemeData.padding,
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         mainAxisSize: MainAxisSize.min,
         children: [
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
               SizedBox(
@@ -70,10 +72,10 @@ class Toast {
                 child: type == ToastType.success
                     ? toastThemeData?.successIcon ?? defaultThemeData.successIcon
                     : type == ToastType.error
-                        ? toastThemeData?.errorIcon ?? defaultThemeData.errorIcon
-                        : type == ToastType.warning
-                            ? toastThemeData?.warningIcon ?? defaultThemeData.warningIcon
-                            : toastThemeData?.infoIcon ?? defaultThemeData.infoIcon,
+                    ? toastThemeData?.errorIcon ?? defaultThemeData.errorIcon
+                    : type == ToastType.warning
+                    ? toastThemeData?.warningIcon ?? defaultThemeData.warningIcon
+                    : toastThemeData?.infoIcon ?? defaultThemeData.infoIcon,
               ),
               SizedBox(width: theme.spacerTheme.spacer2),
               Container(

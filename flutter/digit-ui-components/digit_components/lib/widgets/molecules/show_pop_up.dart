@@ -17,7 +17,7 @@ void showPopup({
   final String? description,
   final List<Widget>? additionalWidgets,
   final List<Button>? actions,
-  final void Function()? onCrossTap,
+  final void Function(BuildContext)? onCrossTap,
   final bool? inlineAction,
   final MainAxisAlignment? actionAlignment,
   final double? actionSpacing,
@@ -41,7 +41,7 @@ void showPopup({
           inlineActions: inlineAction,
           actionAlignment: actionAlignment,
           actionSpacing: actionSpacing,
-          onCrossTap: () {
+          onCrossTap: (context) {
             if (Navigator.of(currentContext).mounted) {
               Navigator.of(currentContext).pop();
             }

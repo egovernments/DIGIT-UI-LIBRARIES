@@ -51,7 +51,7 @@ class _ImageUploaderState extends State<ImageUploader> {
                 context: context,
                 width: isMobile ? 360 : isTab ? 440 : 720,
               ),
-              onCrossTap: () {
+              onCrossTap: (context) {
                 Navigator.of(context).pop();
               },
               title: 'Camera',
@@ -164,7 +164,7 @@ class _ImageUploaderState extends State<ImageUploader> {
                         height: isTab ? 228 : 240,
                       )   ,
                       title: 'Choose an option to upload',
-                      onCrossTap: () {
+                      onCrossTap: (context) {
                         Navigator.of(context).pop();
                       },
                       additionalWidgets: [

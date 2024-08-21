@@ -57,7 +57,7 @@ class Popup extends StatefulWidget {
   final List<Button>? actions;
 
   /// Callback function when the close button is tapped.
-  final void Function()? onCrossTap;
+  final void Function(BuildContext)? onCrossTap;
 
   /// Whether to display action buttons inline or not.
   final bool? inlineActions;
@@ -194,7 +194,11 @@ class _PopupState extends State<Popup> {
                   hoverColor: const DigitColors().transparent,
                   highlightColor: const DigitColors().transparent,
                   splashColor: const DigitColors().transparent,
-                  onTap: widget.onCrossTap,
+                  onTap: (){
+                    if(widget.onCrossTap != null){
+                      widget.onCrossTap!(context);
+                    }
+                  },
                   child: Icon(
                     Icons.close,
                     size: isMobile

@@ -4,98 +4,197 @@ import 'package:digit_ui_components/widgets/atoms/pop_up_card.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
 import 'package:flutter/material.dart';
 
+import '../../plugins/code_view_wrapper.dart';
+
 List<Story> popUpStories() {
   return [
     Story(
       name: 'Atom/PopUp/default/simple',
-      builder: (context) => const Popup(
-        title: 'Title',
-        subHeading: 'SubTitle',
-      ),
+      builder: (context) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          CodeViewProvider.of(context)?.updateCodeString('''
+const Popup(
+  title: 'Title',
+  subHeading: 'SubTitle',
+)
+          ''');
+        });
+        return const Popup(
+          title: 'Title',
+          subHeading: 'SubTitle',
+        );
+      },
     ),
     Story(
       name: 'Atom/PopUp/default/description',
-      builder: (context) => const Popup(
-        title: 'Title',
-        subHeading: 'SubTitle',
-        description:'description',
-      ),
+      builder: (context) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          CodeViewProvider.of(context)?.updateCodeString('''
+const Popup(
+  title: 'Title',
+  subHeading: 'SubTitle',
+  description: 'description',
+)
+          ''');
+        });
+        return const Popup(
+          title: 'Title',
+          subHeading: 'SubTitle',
+          description: 'description',
+        );
+      },
     ),
     Story(
       name: 'Atom/PopUp/default/action',
-      builder: (context) => Popup(
-        title: 'Title',
-        subHeading: 'SubTitle',
-        description:'description',
-        onCrossTap: () {},
-        actions: [
-          Button(
+      builder: (context) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          CodeViewProvider.of(context)?.updateCodeString('''
+Popup(
+  title: 'Title',
+  subHeading: 'SubTitle',
+  description: 'description',
+  onCrossTap: (context) {},
+  actions: [
+    Button(
+      label: 'Submit',
+      onPressed: () {},
+      type: ButtonType.primary,
+      size: ButtonSize.large,
+    ),
+    Button(
+      label: 'Cancel',
+      onPressed: () {},
+      type: ButtonType.secondary,
+      size: ButtonSize.large,
+    ),
+  ],
+)
+          ''');
+        });
+        return Popup(
+          title: 'Title',
+          subHeading: 'SubTitle',
+          description: 'description',
+          onCrossTap: (context) {},
+          actions: [
+            Button(
               label: 'Submit',
               onPressed: () {},
               type: ButtonType.primary,
-              size: ButtonSize.large),
-          Button(
-              label: 'Cancel',
-              onPressed: () {},
-              type: ButtonType.secondary,
-              size: ButtonSize.large),
-        ],
-      ),
+              size: ButtonSize.large,
+            ),
+            Button(
+                label: 'Cancel',
+                onPressed: () {},
+                type: ButtonType.secondary,
+                size: ButtonSize.large),
+          ],
+        );
+      },
     ),
     Story(
-      name: 'Atom/PopUp/default/icon&description&action ',
-      builder: (context) => Popup(
-        title: 'Title',
-        subHeading: 'SubTitle',
-        description:'description',
-        titleIcon: const Icon(
-          Icons.error_outline,
-          size: 32,
-        ),
-        onCrossTap: () {},
-        actions: [
-          Button(
-              label: 'Submit',
-              onPressed: () {},
-              type: ButtonType.primary,
-              size: ButtonSize.large),
-          Button(
-              label: 'Cancel',
-              onPressed: () {},
-              type: ButtonType.secondary,
-              size: ButtonSize.large),
-        ],
-      ),
-    ),
+        name: 'Atom/PopUp/default/icon&description&action ',
+        builder: (context) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            CodeViewProvider.of(context)?.updateCodeString('''
+const Popup(
+  title: 'Title',
+          subHeading: 'SubTitle',
+          description: 'description',
+          titleIcon: const Icon(
+            Icons.error_outline,
+            size: 32,
+          ),
+          onCrossTap: (context) {},
+          actions: [
+            Button(
+                label: 'Submit',
+                onPressed: () {},
+                type: ButtonType.primary,
+                size: ButtonSize.large),
+            Button(
+                label: 'Cancel',
+                onPressed: () {},
+                type: ButtonType.secondary,
+                size: ButtonSize.large),
+          ],
+)
+          ''');
+          });
+          return Popup(
+            title: 'Title',
+            subHeading: 'SubTitle',
+            description: 'description',
+            titleIcon: const Icon(
+              Icons.error_outline,
+              size: 32,
+            ),
+            onCrossTap: (context) {},
+            actions: [
+              Button(
+                  label: 'Submit',
+                  onPressed: () {},
+                  type: ButtonType.primary,
+                  size: ButtonSize.large),
+              Button(
+                  label: 'Cancel',
+                  onPressed: () {},
+                  type: ButtonType.secondary,
+                  size: ButtonSize.large),
+            ],
+          );
+        }),
     Story(
-      name: 'Atom/PopUp/default/with additional widgets',
-      builder: (context) => const Popup(
-        title: 'Title',
-        subHeading: 'SubTitle',
-        description:'description',
-        titleIcon: Icon(
-          Icons.error_outline,
-          size: 32,
-        ),
-        additionalWidgets: [
-          InfoCard(
-              title: 'Info',
-              type: InfoType.info,
-              description: 'this is info card'),
-        ],
-      ),
-    ),
+        name: 'Atom/PopUp/default/with additional widgets',
+        builder: (context) {
+
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            CodeViewProvider.of(context)?.updateCodeString('''
+const Popup(
+  title: 'Title',
+            subHeading: 'SubTitle',
+            description: 'description',
+            titleIcon: Icon(
+              Icons.error_outline,
+              size: 32,
+            ),
+            additionalWidgets: [
+              InfoCard(
+                  title: 'Info',
+                  type: InfoType.info,
+                  description: 'this is info card'),
+            ],
+)
+          ''');
+          });
+
+          return const Popup(
+            title: 'Title',
+            subHeading: 'SubTitle',
+            description: 'description',
+            titleIcon: Icon(
+              Icons.error_outline,
+              size: 32,
+            ),
+            additionalWidgets: [
+              InfoCard(
+                  title: 'Info',
+                  type: InfoType.info,
+                  description: 'this is info card'),
+            ],
+          );
+        }),
     Story(
       name: 'Atom/PopUp/default/with additional widgets with action',
       builder: (context) => Popup(
         title: 'Title',
         subHeading: 'SubTitle',
-        description:'description',
+        description: 'description',
         titleIcon: const Icon(
           Icons.error_outline,
           size: 32,
         ),
-        onCrossTap: () {},
+        onCrossTap: (context) {},
         additionalWidgets: const [
           InfoCard(
               title: 'Info',
@@ -121,12 +220,12 @@ List<Story> popUpStories() {
       builder: (context) => Popup(
         title: 'Title',
         subHeading: 'SubTitle',
-        description:'description',
+        description: 'description',
         titleIcon: const Icon(
           Icons.error_outline,
           size: 32,
         ),
-        onCrossTap: () {},
+        onCrossTap: (context) {},
         additionalWidgets: const [
           InfoCard(
               title: 'Info',
@@ -147,7 +246,7 @@ List<Story> popUpStories() {
       builder: (context) => const Popup(
         title: 'Title',
         subHeading: 'SubTitle',
-        description:'description',
+        description: 'description',
         titleIcon: Icon(
           Icons.error_outline,
           size: 32,
@@ -170,12 +269,12 @@ List<Story> popUpStories() {
         ),
         title: 'Title',
         subHeading: 'SubTitle',
-        description:'description',
+        description: 'description',
         titleIcon: const Icon(
           Icons.error_outline,
           size: 32,
         ),
-        onCrossTap: () {},
+        onCrossTap: (context) {},
         additionalWidgets: const [
           InfoCard(
               title: 'Info',
@@ -234,7 +333,13 @@ List<Story> popUpStories() {
         title: 'Alert!',
         subHeading: 'Please contact the administrator if you have fsdfsdf dsfs',
         type: PopUpType.alert,
-        actions: [Button(label: 'OK', onPressed: (){}, type: ButtonType.primary, size: ButtonSize.large)],
+        actions: [
+          Button(
+              label: 'OK',
+              onPressed: () {},
+              type: ButtonType.primary,
+              size: ButtonSize.large)
+        ],
       ),
     ),
     Story(
@@ -379,3 +484,4 @@ List<Story> popUpStories() {
     ),
   ];
 }
+
