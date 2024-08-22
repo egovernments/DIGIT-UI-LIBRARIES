@@ -1,9 +1,9 @@
 import React from "react";
-import { HamburgerIcon } from "./svgindex";
+import { CustomSVG } from "./CustomSVG";
 
 const Hamburger = ({ handleClick, color ,className}) => (
   <div className={`digit-hamburger-span ${className || ""}`} onClick={handleClick}>
-    <HamburgerIcon className="digit-hamburger" color={color} />
+    <CustomSVG.HamburgerIcon className="digit-hamburger" color={color} />
   </div>
 );
 

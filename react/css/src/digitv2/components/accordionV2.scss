@@ -1,0 +1,105 @@
+  .digit-accordion-header {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    background-color: transparent;
+    gap: theme(digitv2.spacers.spacer5);
+
+    @media (max-aspect-ratio: 9/16) {
+      padding: theme(digitv2.spacers.spacer4);
+    }
+
+    @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+      padding: theme(digitv2.spacers.spacer5);
+    }
+
+    @media (min-aspect-ratio: 3/4) {
+      padding: theme(digitv2.spacers.spacer6);
+    }
+
+  }
+  
+  .digit-accordion-icon {
+    width: theme(digitv2.spacers.spacer6);
+    height: theme(digitv2.spacers.spacer6);
+    flex-shrink: 0;
+  }
+  
+  .digit-accordion-number {
+    @extend .typography.heading-s;
+    color: theme(digitv2.lightTheme.text-primary);
+    min-width: theme(digitv2.spacers.spacer6);
+    height: theme(digitv2.spacers.spacer6);
+    display: flex;
+    align-items: center;
+  }
+  
+  .digit-accordion-title {
+    @extend .typography.heading-s;
+    color: theme(digitv2.lightTheme.text-primary);
+    flex-grow: 1;
+  }
+  
+  .digit-accordion-toggle {
+    width: theme(digitv2.spacers.spacer8);
+    height: theme(digitv2.spacers.spacer8);
+    flex-shrink: 0;
+  }
+  
+  .digit-accordion-content {
+    background-color: transparent;
+    display: flex;
+    gap:0.625rem;
+    flex-direction: column;
+    @extend .typography.body-s;
+    font-family: theme(digitv2.fontFamily.sans);
+    font-style: theme(digitv2.fontStyle.normal);
+    font-weight: theme(digitv2.fontWeight.regular);
+    line-height: theme(digitv2.lineHeight.lineheight2);
+    @media (max-aspect-ratio: 9/16) {
+      /* Media query for mobile */
+      font-size: theme(digitv2.fontSize.body-s.mobile);
+      padding: theme(digitv2.spacers.spacer4);
+    }
+
+    @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+      /* Media query for tablets */
+      font-size: theme(digitv2.fontSize.body-s.tablet);
+      padding: theme(digitv2.spacers.spacer5);
+    }
+
+    @media (min-aspect-ratio: 3/4) {
+      /* Media query for desktop */
+      font-size: theme(digitv2.fontSize.body-s.desktop);
+      padding: theme(digitv2.spacers.spacer6);
+    }
+    color: theme(digitv2.lightTheme.text-primary);
+  }
+  
+
+  .digit-accordion-container {
+
+    &.border{
+      border: 0.063rem solid theme(digitv2.lightTheme.generic-divider);
+    }
+
+    &.borderRadius{
+      border-radius: theme(digitv2.spacers.spacer1);
+    }
+
+    &.divider{
+      .digit-accordion-content{
+        border-top: 1px solid theme(digitv2.lightTheme.generic-divider);
+      }
+    }
+
+    &.no-divider{
+      .digit-accordion-header{
+        padding-bottom: theme(digitv2.spacers.spacer0);
+      }
+    }
+
+    &.cardBg{
+      background-color: theme(digitv2.lightTheme.paper-secondary);
+    }
+  }

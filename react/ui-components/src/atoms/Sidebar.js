@@ -1,10 +1,21 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { SVG, TextInput } from "../atoms";
-import { IMAGES} from "../constants/images/images";
-import { Colors} from "../constants/colors/colorconstants";
+import { IMAGES } from "../constants/images/images";
+import { Colors } from "../constants/colors/colorconstants";
+import { iconRender } from "../utils/iconRender";
 
-const Sidebar = ({ items, theme, variant,transitionDuration,className,styles }) => {
+const Sidebar = ({
+  items,
+  theme,
+  variant,
+  transitionDuration,
+  className,
+  styles,
+  hideAccessbilityTools,
+  expandedWidth,
+  collapsedWidth,
+}) => {
   const [hovered, setHovered] = useState(false);
   const [search, setSearch] = useState("");
   const [selectedItem, setSelectedItem] = useState({});
@@ -33,6 +44,30 @@ const Sidebar = ({ items, theme, variant,transitionDuration,className,styles }) 
     return parentIndex && parentIndex.toString().startsWith(index);
   };
 
+  const IconRender = (
+    isSelected,
+    isParentOfSelectedItem,
+    iconReq,
+    iconFill,
+    width = "1.5rem",
+    height = "1.5rem"
+  ) => {
+    return iconRender(
+      iconReq,
+      iconFill ||
+        (theme === "dark" ||
+        (theme === "light" && variant === "primary" && isSelected && hovered) ||
+        (theme === "light" &&
+          variant === "primary" &&
+          (isSelected || isParentOfSelectedItem) &&
+          !hovered)
+          ? darkThemeColor
+          : lightThemeColor),
+      width,
+      height,
+      `digit-sidebar-item-icon`
+    );
+  };
 
   const filterItems = (items, query) => {
     if (!query) {
@@ -61,10 +96,14 @@ const Sidebar = ({ items, theme, variant,transitionDuration,className,styles }) 
     return (
       <>
         {hovered ? (
-          <div className={`sidebar-search-container ${theme || ""} ${variant || ""}`}>
+          <div
+            className={`digit-sidebar-search-container ${theme || ""} ${
+              variant || ""
+            }`}
+          >
             <TextInput
               type="search"
-              className="sidebar-search"
+              className="digit-sidebar-search"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search"
@@ -73,11 +112,15 @@ const Sidebar = ({ items, theme, variant,transitionDuration,className,styles }) 
             ></TextInput>
           </div>
         ) : (
-          <div className={`sidebar-search-container-collapsed ${theme || ""} ${variant || ""}`}>
+          <div
+            className={`digit-sidebar-search-container-collapsed ${
+              theme || ""
+            } ${variant || ""}`}
+          >
             <SVG.Search
               width={"24px"}
               height={"24px"}
-              fill={theme==="dark" ? darkThemeColor : lightThemeColor}
+              fill={theme === "dark" ? darkThemeColor : lightThemeColor}
               className="search-icon"
             />
           </div>
@@ -96,19 +139,34 @@ const Sidebar = ({ items, theme, variant,transitionDuration,className,styles }) 
       return (
         <div className={"item-child-wrapper"} key={currentIndex}>
           <div
-            className={`sidebar-item ${theme || ""} ${variant || ""} ${
+            className={`digit-sidebar-item ${theme || ""} ${variant || ""} ${
               selectedItem.item === item ? "selected" : ""
             } ${parentIndex === -1 ? "parentLevel" : ""} ${
               isParentOfSelectedItem(currentIndex) ? "selectedAsParent" : ""
-            }`}
+            } ${hovered ? "hovered" : "collapsed"}`}
             onClick={() => handleItemClick(item, currentIndex, parentIndex)}
             tabIndex={0}
           >
             {(isTopLevel || hovered) && (
               <span className="icon">
-                {(isSelected || isParentOfSelectedItem(currentIndex) ) && item.selectedIcon
-                  ? item.selectedIcon
-                  : item.icon}
+                {(isSelected || isParentOfSelectedItem(currentIndex)) &&
+                item?.selectedIcon
+                  ? IconRender(
+                      isSelected,
+                      isParentOfSelectedItem(currentIndex),
+                      item?.selectedIcon?.icon,
+                      item?.selectedIcon?.iconFill,
+                      item?.selectedIcon?.width,
+                      item?.selectedIcon?.height
+                    )
+                  : IconRender(
+                      isSelected,
+                      isParentOfSelectedItem(currentIndex),
+                      item?.icon?.icon,
+                      item?.icon?.iconFill,
+                      item?.icon?.width,
+                      item?.icon?.height
+                    )}
               </span>
             )}
             {hovered && <span className="item-label">{item.label}</span>}
@@ -121,18 +179,34 @@ const Sidebar = ({ items, theme, variant,transitionDuration,className,styles }) 
                 }}
               >
                 {isExpanded ? (
-                  <SVG.ArrowDropDown fill={theme==="dark" || (selectedItem.item===item && (theme==="light" && variant==="primary")) ? darkThemeColor : lightThemeColor}></SVG.ArrowDropDown>
+                  <SVG.ArrowDropDown
+                    fill={
+                      theme === "dark" ||
+                      (selectedItem.item === item &&
+                        theme === "light" &&
+                        variant === "primary")
+                        ? darkThemeColor
+                        : lightThemeColor
+                    }
+                  ></SVG.ArrowDropDown>
                 ) : (
                   <SVG.ArrowDropDown
                     style={{ transform: "rotate(-90deg)" }}
-                    fill={theme==="dark" || (selectedItem.item===item  && (theme==="light" && variant==="primary" )) ? darkThemeColor : lightThemeColor}
+                    fill={
+                      theme === "dark" ||
+                      (selectedItem.item === item &&
+                        theme === "light" &&
+                        variant === "primary")
+                        ? darkThemeColor
+                        : lightThemeColor
+                    }
                   ></SVG.ArrowDropDown>
                 )}
               </span>
             )}
           </div>
           {item.children && isExpanded && hovered && (
-            <div className="sidebar-children">
+            <div className="digit-sidebar-children">
               {renderItems(item.children, currentIndex)}
             </div>
           )}
@@ -143,42 +217,58 @@ const Sidebar = ({ items, theme, variant,transitionDuration,className,styles }) 
   const filteredItems = filterItems(items, search);
 
   const getImageUrl = (imageKey) => {
-    return IMAGES[imageKey] ;
+    return IMAGES[imageKey];
   };
 
-  const digitFooterImg = (theme === "dark" ? getImageUrl('DIGIT_FOOTER_DARK') : getImageUrl('DIGIT_FOOTER_LIGHT'));
+  const digitFooterImg =
+    theme === "dark"
+      ? getImageUrl("DIGIT_FOOTER_DARK")
+      : getImageUrl("DIGIT_FOOTER_LIGHT");
 
   return (
     <div
-      className={`sidebar ${hovered ? "hovered" : "collapsed"} ${theme || ""} ${variant || ""} ${className || ""}`}
+      className={`digit-sidebar ${hovered ? "hovered" : "collapsed"} ${
+        theme || ""
+      } ${variant || ""} ${className || ""}`}
       style={{
+        width:
+          hovered && expandedWidth
+            ? expandedWidth
+            : !hovered && collapsedWidth
+            ? collapsedWidth
+            : undefined,
         transition: `width ${transitionDuration}s`,
+        ...styles,
       }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
       {renderSearch()}
-      <div className={`sidebar-items-container ${theme || ""} ${variant || ""}`}>
+      <div
+        className={`digit-sidebar-items-container ${theme || ""} ${
+          variant || ""
+        }`}
+      >
         {renderItems(filteredItems)}
       </div>
-      {hovered && (
-        <div className={`sidebar-bottom ${theme || ""} ${variant || ""}`}>
+      {hovered && !hideAccessbilityTools && (
+        <div className={`digit-sidebar-bottom ${theme || ""} ${variant || ""}`}>
           <div>
-            <div className="sidebar-bottom-item">
+            <div className="digit-sidebar-bottom-item">
               <SVG.Help width={"16px"} height={"16px"} fill={primaryColor} />
-              <span className="sidebar-bottom-item-text">Help</span>
+              <span className="digit-sidebar-bottom-item-text">Help</span>
             </div>
-            <div className={`sidebar-bottom-item`}>
+            <div className={`digit-sidebar-bottom-item`}>
               <SVG.Settings
                 width={"16px"}
                 height={"16px"}
                 fill={primaryColor}
               />
-              <span className="sidebar-bottom-item-text">Settings</span>
+              <span className="digit-sidebar-bottom-item-text">Settings</span>
             </div>
-            <div className={`sidebar-bottom-item`}>
+            <div className={`digit-sidebar-bottom-item`}>
               <SVG.Logout width={"16px"} height={"16px"} fill={primaryColor} />
-              <span className="sidebar-bottom-item-text">Logout</span>
+              <span className="digit-sidebar-bottom-item-text">Logout</span>
             </div>
             <hr className={`divider`}></hr>
           </div>
@@ -205,7 +295,7 @@ Sidebar.propTypes = {
   items: PropTypes.arrayOf(
     PropTypes.shape({
       path: PropTypes.string,
-      icon: PropTypes.node.isRequired,
+      icon: PropTypes.object,
       label: PropTypes.string.isRequired,
       children: PropTypes.array,
     })
@@ -215,12 +305,15 @@ Sidebar.propTypes = {
   collapsedWidth: PropTypes.string,
   expandedWidth: PropTypes.string,
   transitionDuration: PropTypes.number,
+  styles: PropTypes.object,
+  hideAccessbilityTools: PropTypes.bool,
 };
 
 Sidebar.defaultProps = {
   theme: "dark",
-  variant:"primary",
+  variant: "primary",
   transitionDuration: 0.3,
+  styles: {},
 };
 
 export default Sidebar;

@@ -21,6 +21,10 @@
   &:focus-within{
     outline: none;
   }
+
+  &.switch-disabled{
+    background-color: theme(digitv2.lightTheme.text-disabled);
+  }
 }
 
 .digit-switch.checked {

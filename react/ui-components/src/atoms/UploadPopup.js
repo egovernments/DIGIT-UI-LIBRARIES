@@ -3,7 +3,7 @@ import { FileUploader } from "react-drag-drop-files";
 import { useTranslation } from "react-i18next";
 import Button from "./Button";
 import { SVG } from "./SVG";
-import { PngFile, JpgFile, PdfFile, DocFile, XlsxFile } from "./svgindex";
+import { CustomSVG } from "./CustomSVG";
 import ErrorMessage from "./ErrorMessage";
 import InfoCard from "./InfoCard";
 import { Colors} from "../constants/colors/colorconstants";
@@ -121,21 +121,21 @@ const UploadPopup = ({
   const renderFileIcon = (fileType, fileErrors) => {
     switch (fileType) {
       case "application/pdf":
-        return <PdfFile className="icon" />;
+        return <CustomSVG.PdfFile className="icon" />;
       case "image/png":
-        return <PngFile className="icon" />;
+        return <CustomSVG.PngFile className="icon" />;
       case "image/jpeg":
       case "image/pjpeg":
-        return <JpgFile className="icon" />;
+        return <CustomSVG.JpgFile className="icon" />;
       case "application/vnd.ms-excel":
       case "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
       case "application/excel":
       case "application/x-excel":
       case "application/x-msexcel":
-        return <XlsxFile className="icon" />;
+        return <CustomSVG.XlsxFile className="icon" />;
       case "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
       case "application/msword":
-        return <DocFile className="icon" />;
+        return <CustomSVG.DocFile className="icon" />;
       default:
         return (
           <SVG.File
