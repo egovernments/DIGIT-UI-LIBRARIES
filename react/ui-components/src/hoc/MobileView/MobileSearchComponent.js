@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { InboxContext } from "../InboxSearchComposerContext";
-import { FilterIcon, SearchIcon, CloseSvg, RefreshIcon } from "../../atoms/svgindex"
+import { CustomSVG } from "../../atoms/CustomSVG";
 import ActionBar from "../../atoms/ActionBar";
 import SubmitBar from "../../atoms/SubmitBar";
 import LinkLabel from "../../atoms/LinkLabel";
@@ -104,12 +104,12 @@ const renderHeader = () => {
       return (
         <div className="popup-label" style={{ display: "flex", paddingBottom: "20px" }}>
           <span className="header" style={{ display : "flex" }}>
-            <span className="icon" style ={{ marginRight: "12px", marginTop: "5px",  paddingBottom: "3px" }}><FilterIcon/></span>
+            <span className="icon" style ={{ marginRight: "12px", marginTop: "5px",  paddingBottom: "3px" }}><CustomSVG.FilterIcon/></span>
             <span style ={{ fontSize: "large" }}>{t("ES_COMMON_FILTER_BY")}:</span>
           </span>
-          <span className="clear-search" onClick={clearSearch}><RefreshIcon/></span>
+          <span className="clear-search" onClick={clearSearch}><CustomSVG.RefreshIcon/></span>
           <span onClick={onClose}>
-            <CloseSvg />
+            <CustomSVG.CloseSvg />
           </span>       
         </div>
       )
@@ -118,11 +118,11 @@ const renderHeader = () => {
       return (
         <div className="popup-label" style={{ display: "flex", paddingBottom: "20px" }}>
         <span className="header" style={{ display : "flex" }}>
-           <span className="icon" style ={{ marginRight: "12px", marginTop: "5px"}}><SearchIcon/></span>
+           <span className="icon" style ={{ marginRight: "12px", marginTop: "5px"}}><CustomSVG.SearchIcon/></span>
            <span style ={{ fontSize: "large" }}>{t("ES_COMMON_SEARCH_BY")}</span>
        </span>
         <span onClick={onClose}>
-           <CloseSvg />
+           <CustomSVG.CloseSvg />
         </span>        
      </div>
       )
@@ -131,11 +131,11 @@ const renderHeader = () => {
       return (
         <div className="popup-label" style={{ display: "flex", paddingBottom: "20px" }}>
            <span className="header" style={{ display : "flex" }}>
-              <span className="icon" style ={{ marginRight: "12px", marginTop: "5px"}}><SearchIcon/></span>
+              <span className="icon" style ={{ marginRight: "12px", marginTop: "5px"}}><CustomSVG.SearchIcon/></span>
               <span style ={{ fontSize: "large" }}>{t("ES_COMMON_SEARCH_BY")}</span>
           </span>
            <span onClick={onClose}>
-              <CloseSvg />
+              <CustomSVG.CloseSvg />
            </span>        
         </div>
       )

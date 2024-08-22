@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { SVG } from "./SVG";
-import { ProfileIcon } from "./svgindex";
+import { CustomSVG } from "./CustomSVG";
 import Button from "./Button";
 import TextInput from "./TextInput";
 import { Colors } from "../constants/colors/colorconstants";
@@ -204,7 +204,7 @@ const MobileSidebar = ({
       ref={ref}
     >
       <div className="msb-profile">
-        <ProfileIcon width={"62px"} height={"64px"} />
+        <CustomSVG.ProfileIcon width={"62px"} height={"64px"} />
         <div className="msb-profile-details">
           <div className={`msb-profile-name ${theme || ""}`}>{profileName}</div>
           <div className={`msb-profile-phone ${theme || ""}`}>

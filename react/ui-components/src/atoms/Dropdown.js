@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React, { useEffect, useRef, useState } from "react";
 import { SVG } from "./SVG";
 import TreeSelect from "./TreeSelect";
-import { ProfileIcon } from "./svgindex";
+import { CustomSVG } from "./CustomSVG";
 import Menu from "./Menu";
 import { Colors } from "../constants/colors/colorconstants";
 import { iconRender } from "../utils/iconRender";
@@ -331,7 +331,7 @@ const Dropdown = (props) => {
             }}
           >
             {!option?.profileIcon && (
-              <ProfileIcon
+              <CustomSVG.ProfileIcon
                 width={
                   props?.variant === "profiledropdown"
                     ? "2rem"
@@ -346,7 +346,7 @@ const Dropdown = (props) => {
                     ? "2.935rem"
                     : ""
                 }
-              ></ProfileIcon>
+              ></CustomSVG.ProfileIcon>
             )}
           </div>
         ) : null}
