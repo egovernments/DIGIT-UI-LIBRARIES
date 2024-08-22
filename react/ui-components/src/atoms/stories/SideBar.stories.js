@@ -13,6 +13,7 @@ export default {
     transitionDuration: { control: "number" },
     theme: { control: "select", options: ["dark", "light"] },
     variant: { control: "select", options: ["primary", "secondary"] },
+    hideAccessbilityTools: { control: "boolean" },
   },
 };
 
@@ -25,226 +26,306 @@ const Template = (args) => (
 const darkThemeitems = [
   {
     label: "Home",
-    icon: <SVG.Home fill={"#FFFFFF"} />,
+    icon: {
+      icon: "Home",
+    },
   },
   {
     label: "Module 1",
-    icon: <SVG.ChatBubble fill={"#FFFFFF"} />,
+    icon: {
+      icon: "ChatBubble",
+    },
     children: [
-      { path: "/", label: "SubModule 1", icon: <SVG.Work fill={"#FFFFFF"} /> },
+      {
+        path: "/",
+        label: "SubModule 1",
+        icon: {
+          icon: "Work",
+        },
+      },
       {
         path: "/",
         label: "SubModule 2",
-        icon: <SVG.Person fill={"#FFFFFF"} />,
+        icon: {
+          icon: "Person",
+        },
       },
     ],
   },
   {
     label: "Module 2",
-    icon: <SVG.CheckCircle fill={"#FFFFFF"} />,
+    icon: {
+      icon: "CheckCircle",
+    },
     children: [
       {
         path: "/",
         label: "SubModule 1",
-        icon: <SVG.Info fill={"#FFFFFF"} />,
+        icon: {
+          icon: "Info",
+        },
         children: [
           {
             path: "/",
             label: "InnerModule 1",
-            icon: <SVG.LabelImportant fill={"#FFFFFF"} />,
+            icon: {
+              icon: "LabelImportant",
+            },
           },
           {
             path: "/",
             label: "InnerModule 2",
-            icon: <SVG.Lock fill={"#FFFFFF"} />,
+            icon: {
+              icon: "Lock",
+            },
           },
         ],
       },
       {
         path: "/",
         label: "SubModule 2",
-        icon: <SVG.Accessibility fill={"#FFFFFF"} />,
+        icon: {
+          icon: "Accessibility",
+        },
       },
     ],
   },
   {
     label: "Module 3",
-    icon: <SVG.Delete fill={"#FFFFFF"} />,
+    icon: {
+      icon: "Delete",
+    },
   },
-  { label: "Module 4", icon: <SVG.DriveFileMove fill={"#FFFFFF"} /> },
-  { label: "Module 5", icon: <SVG.Label fill={"#FFFFFF"} /> },
-  { label: "Module 6", icon: <SVG.Lightbulb fill={"#FFFFFF"} /> },
+  {
+    label: "Module 4",
+    icon: {
+      icon: "DriveFileMove",
+    },
+  },
+  {
+    label: "Module 5",
+    icon: {
+      icon: "Label",
+    },
+  },
+  {
+    label: "Module 6",
+    icon: {
+      icon: "Lightbulb",
+    },
+  },
 ];
 
 const lightThemeprimaryitems = [
   {
     label: "Home",
-    icon: <SVG.Home fill={"#0B4B66"} />,
-    selectedIcon: <SVG.Home fill={"#ffffff"} />,
+    icon: {
+      icon: "Home",
+    },
   },
   {
     label: "Module 1",
-    icon: <SVG.ChatBubble fill={"#0B4B66"} />,
-    selectedIcon: <SVG.ChatBubble fill={"#ffffff"} />,
+    icon: {
+      icon: "ChatBubble",
+    },
     children: [
       {
         path: "/",
         label: "SubModule 1",
-        icon: <SVG.Work fill={"#0B4B66"} />,
-        selectedIcon: <SVG.Work fill={"#ffffff"} />,
+        icon: {
+          icon: "Work",
+        },
       },
       {
         path: "/",
         label: "SubModule 2",
-        icon: <SVG.Person fill={"#0B4B66"} />,
-        selectedIcon: <SVG.Person fill={"#ffffff"} />,
+        icon: {
+          icon: "Person",
+        },
       },
     ],
   },
   {
     label: "Module 2",
-    icon: <SVG.CheckCircle fill={"#0B4B66"} />,
-    selectedIcon: <SVG.CheckCircle fill={"#ffffff"} />,
+    icon: {
+      icon: "CheckCircle",
+    },
     children: [
       {
         path: "/",
         label: "SubModule 1",
-        icon: <SVG.Info fill={"#0B4B66"} />,
-        selectedIcon: <SVG.Info fill={"#ffffff"} />,
+        icon: {
+          icon: "Info",
+        },
         children: [
           {
             path: "/",
             label: "InnerModule 1",
-            icon: <SVG.LabelImportant fill={"#0B4B66"} />,
-            selectedIcon: <SVG.LabelImportant fill={"#ffffff"} />,
+            icon: {
+              icon: "LabelImportant",
+            },
           },
           {
             path: "/",
             label: "InnerModule 2",
-            icon: <SVG.Lock fill={"#0B4B66"} />,
-            selectedIcon: <SVG.Lock fill={"#ffffff"} />,
+            icon: {
+              icon: "Lock",
+            },
           },
         ],
       },
       {
         path: "/",
         label: "SubModule 2",
-        icon: <SVG.Accessibility fill={"#0B4B66"} />,
-        selectedIcon: <SVG.Accessibility fill={"#ffffff"} />,
+        icon: {
+          icon: "Accessibility",
+        },
       },
     ],
   },
   {
     label: "Module 3",
-    icon: <SVG.Delete fill={"#0B4B66"} />,
-    selectedIcon: <SVG.Delete fill={"#ffffff"} />,
+    icon: {
+      icon: "Delete",
+    },
   },
   {
     label: "Module 4",
-    icon: <SVG.DriveFileMove fill={"#0B4B66"} />,
-    selectedIcon: <SVG.DriveFileMove fill={"#ffffff"} />,
+    icon: {
+      icon: "DriveFileMove",
+    },
   },
   {
     label: "Module 5",
-    icon: <SVG.Label fill={"#0B4B66"} />,
-    selectedIcon: <SVG.Label fill={"#ffffff"} />,
+    icon: {
+      icon: "Label",
+    },
   },
   {
     label: "Module 6",
-    icon: <SVG.Lightbulb fill={"#0B4B66"} />,
-    selectedIcon: <SVG.Lightbulb fill={"#ffffff"} />,
+    icon: {
+      icon: "Lightbulb",
+    },
   },
 ];
 
 const lightThemesecondaryitems = [
   {
     label: "Home",
-    icon: <SVG.Home fill={"#0B4B66"} />,
+    icon: {
+      icon: "Home",
+    },
   },
   {
     label: "Module 1",
-    icon: <SVG.ChatBubble fill={"#0B4B66"} />,
+    icon: {
+      icon: "ChatBubble",
+    },
     children: [
       {
         path: "/",
         label: "SubModule 1",
-        icon: <SVG.Work fill={"#0B4B66"} />,
+        icon: {
+          icon: "Work",
+        },
       },
       {
         path: "/",
         label: "SubModule 2",
-        icon: <SVG.Person fill={"#0B4B66"} />,
+        icon: {
+          icon: "Person",
+        },
       },
     ],
   },
   {
     label: "Module 2",
-    icon: <SVG.CheckCircle fill={"#0B4B66"} />,
+    icon: {
+      icon: "CheckCircle",
+    },
     children: [
       {
         path: "/",
         label: "SubModule 1",
-        icon: <SVG.Info fill={"#0B4B66"} />,
+        icon: {
+          icon: "Info",
+        },
         children: [
           {
             path: "/",
             label: "InnerModule 1",
-            icon: <SVG.LabelImportant fill={"#0B4B66"} />,
+            icon: {
+              icon: "LabelImportant",
+            },
           },
           {
             path: "/",
             label: "InnerModule 2",
-            icon: <SVG.Lock fill={"#0B4B66"} />,
+            icon: {
+              icon: "Lock",
+            },
           },
         ],
       },
       {
         path: "/",
         label: "SubModule 2",
-        icon: <SVG.Accessibility fill={"#0B4B66"} />,
+        icon: {
+          icon: "Accessibility",
+        },
       },
     ],
   },
   {
     label: "Module 3",
-    icon: <SVG.Delete fill={"#0B4B66"} />,
+    icon: {
+      icon: "Delete",
+    },
   },
   {
     label: "Module 4",
-    icon: <SVG.DriveFileMove fill={"#0B4B66"} />,
+    icon: {
+      icon: "DriveFileMove",
+    },
   },
   {
     label: "Module 5",
-    icon: <SVG.Label fill={"#0B4B66"} />,
+    icon: {
+      icon: "Label",
+    },
   },
   {
     label: "Module 6",
-    icon: <SVG.Lightbulb fill={"#0B4B66"} />,
+    icon: {
+      icon: "Lightbulb",
+    },
   },
 ];
 
-
 const commonArgs = {
   items: darkThemeitems,
-  expandedWidth: "200px",
   transitionDuration: 0.3,
   theme: "dark",
 };
 
-// Default Sidebar
 export const DarkThemePrimarySideBar = Template.bind({});
 DarkThemePrimarySideBar.args = {
   ...commonArgs,
 };
 
-// Default Sidebar
 export const DarkThemeSecondarySideBar = Template.bind({});
 DarkThemeSecondarySideBar.args = {
   ...commonArgs,
   variant: "secondary",
 };
 
-// Default Sidebar
+export const DarkThemeSideBarWithHiddenAccessbilityTools = Template.bind({});
+DarkThemeSideBarWithHiddenAccessbilityTools.args = {
+  ...commonArgs,
+  variant: "primary",
+  hideAccessbilityTools: true,
+};
+
 export const LightThemePrimarySideBar = Template.bind({});
 LightThemePrimarySideBar.args = {
   ...commonArgs,
@@ -252,7 +333,6 @@ LightThemePrimarySideBar.args = {
   items: lightThemeprimaryitems,
 };
 
-// Default Sidebar
 export const LightThemeSecondarySideBar = Template.bind({});
 LightThemeSecondarySideBar.args = {
   ...commonArgs,
@@ -261,17 +341,16 @@ LightThemeSecondarySideBar.args = {
   items: lightThemesecondaryitems,
 };
 
-// Custom Sidebar with different widths
-// export const CustomWidth = Template.bind({});
-// CustomWidth.args = {
-//   ...commonArgs,
-//   collapsedWidth: "80px",
-//   expandedWidth: "250px",
-// };
+export const LightThemeSideBarWithHiddenAccessbilityTools = Template.bind({});
+LightThemeSideBarWithHiddenAccessbilityTools.args = {
+  ...commonArgs,
+  variant: "primary",
+  hideAccessbilityTools: true,
+};
 
-// // Custom Sidebar with a longer transition duration
-// export const LongTransition = Template.bind({});
-// LongTransition.args = {
-//   ...commonArgs,
-//   transitionDuration: 1.0,
-// };
+export const CustomCollapsedAndExpandedWidths = Template.bind({});
+CustomCollapsedAndExpandedWidths.args = {
+  ...commonArgs,
+  collapsedWidth: "80px",
+  expandedWidth: "250px",
+};
