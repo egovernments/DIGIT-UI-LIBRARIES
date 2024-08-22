@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.0.2-beta.23] - 2024-08-22
+### Changed
+-  Fixed some css of old component overriding issue
+
 ## [0.0.2-beta.22] - 2024-08-16
 ### Changed
 -  Added css for Switch Component
