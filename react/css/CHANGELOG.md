@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.0.2-beta.24] - 2024-08-22
+### Changed
+-  Added Accordion css and updated Sidebar css
+
 ## [0.0.2-beta.23] - 2024-08-22
 ### Changed
 -  Fixed some css of old component overriding issue
