@@ -6,8 +6,8 @@ List<Story> tabStories() {
   return [
     Story(
         name: 'Atom/Tab/Default',
-        builder: (context) => CustomTabBar(
-          tabs: ['Tab 1', 'Tab 2', 'Tab 3'],
+        builder: (context) => DigitTabBar(
+          tabs: const ['Tab 1', 'Tab 2', 'Tab 3'],
           initialIndex: 1, // Preselect the second tab
           onTabSelected: (index) {
             print('Selected Tab Index: $index');
