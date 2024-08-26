@@ -57,11 +57,10 @@ class CodeViewPlugin extends Plugin {
 
   static Widget _buildCodeViewOverlay(BuildContext context) {
     final codeViewProvider = CodeViewProvider.of(context);
-    return Positioned(
-      bottom: 100,
-      right: 400,
-      left: 400,
-      top: 100,
+    final codeString = codeViewProvider?.codeString ?? '';
+    final isEmptyCode = codeString.isEmpty;
+
+    return Center(
       child: GestureDetector(
         onTap: () {}, // Prevents taps inside the overlay from closing it
         child: Container(
@@ -72,13 +71,18 @@ class CodeViewPlugin extends Plugin {
               BoxShadow(
                 color: Colors.black.withOpacity(0.1),
                 blurRadius: 8,
-                offset: Offset(0, 4),
+                offset: const Offset(0, 4),
               ),
             ],
           ),
+          constraints: const BoxConstraints(
+            maxWidth: 800,
+            maxHeight: 500,
+            minWidth: 300,
+            minHeight: 100,
+          ),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
             children: [
               Container(
                 color: Theme.of(context).colorTheme.paper.secondary,
@@ -86,13 +90,13 @@ class CodeViewPlugin extends Plugin {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Story Code',
-                        style:
-                        Theme.of(context).digitTextTheme(context).headingM),
+                    Text(
+                      'Story Code',
+                      style: Theme.of(context).digitTextTheme(context).headingM,
+                    ),
                     ElevatedButton.icon(
                       onPressed: () {
-                        final data = codeViewProvider?.codeString ?? '';
-                        Clipboard.setData(ClipboardData(text: data));
+                        Clipboard.setData(ClipboardData(text: codeString));
                       },
                       icon: const Icon(Icons.copy),
                       label: const Text('Copy Code'),
@@ -106,14 +110,26 @@ class CodeViewPlugin extends Plugin {
                 ),
               ),
               const SizedBox(height: 8),
-              Expanded(
+              Flexible(
                 child: ScrollConfiguration(
                   behavior: const ScrollBehavior(),
                   child: SingleChildScrollView(
-                    child: AnySyntaxHighlighter(
-                      codeViewProvider?.codeString ?? '',
+                    child: isEmptyCode
+                        ? Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Text(
+                          'Code not found',
+                          style: Theme.of(context)
+                              .digitTextTheme(context)
+                              .headingM,
+                        ),
+                      ),
+                    )
+                        : AnySyntaxHighlighter(
+                      codeString,
                       fontSize: 16,
-                      padding: 16,
+                      padding: 0,
                       hasCopyButton: false,
                       isSelectableText: true,
                       reservedWordSets: const {'dart'},
@@ -164,7 +180,8 @@ class CodeViewPlugin extends Plugin {
                         fontFeatures: [FontFeature.slashedZero()],
                         fontFamily: 'RobotoMono',
                         letterSpacing: 0.5,
-                        decoration: BoxDecoration(color: Colors.transparent),
+                        decoration:
+                        BoxDecoration(color: Colors.transparent),
                       ),
                     ),
                   ),
@@ -181,3 +198,4 @@ class CodeViewPlugin extends Plugin {
 class CodeViewNotifier extends ValueNotifier<bool> {
   CodeViewNotifier({required bool showCodeView}) : super(showCodeView);
 }
+

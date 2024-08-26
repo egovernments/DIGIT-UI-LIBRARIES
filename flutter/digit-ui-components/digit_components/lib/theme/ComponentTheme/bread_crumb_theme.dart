@@ -5,14 +5,12 @@ class BreadcrumbThemeData extends ThemeExtension<BreadcrumbThemeData> {
   final TextStyle? activeTextStyle;
   final TextStyle? inactiveTextStyle;
   final TextStyle? separatorTextStyle;
-  final String separatorText;
   final EdgeInsets? itemPadding;
 
   const BreadcrumbThemeData({
     this.activeTextStyle,
     this.inactiveTextStyle,
     this.separatorTextStyle,
-    this.separatorText = '/',
     this.itemPadding,
   });
 
@@ -33,7 +31,7 @@ class BreadcrumbThemeData extends ThemeExtension<BreadcrumbThemeData> {
         color: theme.colorTheme.text.secondary,
         decoration: TextDecoration.none,
       ),
-      itemPadding: EdgeInsets.symmetric(horizontal: theme.spacerTheme.spacer1 ?? 0),
+      itemPadding: EdgeInsets.symmetric(horizontal: theme.spacerTheme.spacer2),
     );
   }
 
@@ -43,14 +41,12 @@ class BreadcrumbThemeData extends ThemeExtension<BreadcrumbThemeData> {
     TextStyle? inactiveTextStyle,
     TextStyle? separatorTextStyle,
     EdgeInsets? itemPadding,
-    String? separatorText
   }) {
     return BreadcrumbThemeData(
       activeTextStyle: activeTextStyle ?? this.activeTextStyle,
       inactiveTextStyle: inactiveTextStyle ?? this.inactiveTextStyle,
       separatorTextStyle: separatorTextStyle ?? this.separatorTextStyle,
       itemPadding: itemPadding ?? this.itemPadding,
-      separatorText: separatorText ?? this.separatorText
     );
   }
 
@@ -63,7 +59,6 @@ class BreadcrumbThemeData extends ThemeExtension<BreadcrumbThemeData> {
       inactiveTextStyle: TextStyle.lerp(inactiveTextStyle, other.inactiveTextStyle, t),
       separatorTextStyle: TextStyle.lerp(separatorTextStyle, other.separatorTextStyle, t),
       itemPadding: EdgeInsets.lerp(itemPadding, other.itemPadding, t),
-      separatorText: _lerpString(separatorText, other.separatorText, t),
     );
 
   }

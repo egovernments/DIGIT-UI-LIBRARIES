@@ -13,7 +13,7 @@ List<Story> buttonStories() {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           CodeViewProvider.of(context)?.updateCodeString('''
 Button(
-  label: Primary Button,
+  label: 'Primary Button',
   onPressed: () {},
   type: ButtonType.primary,
   isDisabled: false,
@@ -68,7 +68,7 @@ Button(
           WidgetsBinding.instance.addPostFrameCallback((_) {
             CodeViewProvider.of(context)?.updateCodeString('''
 Button(
-  label: Secondary Button,
+  label: 'Secondary Button',
   onPressed: () {},
   type: ButtonType.secondary,
   isDisabled: false,
@@ -133,7 +133,7 @@ Button(
           WidgetsBinding.instance.addPostFrameCallback((_) {
             CodeViewProvider.of(context)?.updateCodeString('''
 Button(
-  label: Tertiary Button,
+  label: 'Tertiary Button',
   onPressed: () {},
   type: ButtonType.tertiary,
   isDisabled: false,
@@ -198,7 +198,7 @@ Button(
           WidgetsBinding.instance.addPostFrameCallback((_) {
             CodeViewProvider.of(context)?.updateCodeString('''
 Button(
-  label: link,
+  label: 'link',
   onPressed: () {},
   type: ButtonType.link,
   isDisabled: false,
