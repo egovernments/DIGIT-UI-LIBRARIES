@@ -59,6 +59,7 @@ class _CustomTabBarState extends State<CustomTabBar> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.end,
       children: widget.tabs.asMap().entries.map((entry) {
         int index = entry.key;
         String tab = entry.value;
@@ -67,8 +68,8 @@ class _CustomTabBarState extends State<CustomTabBar> {
           onTap: () => _onTabTapped(index),
           child: Container(
             width: tabWidth,
-            height: 50,
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 40),
+            height: _selectedIndex == index ? 64 : 60,
+            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
             decoration: BoxDecoration(
               color: _selectedIndex == index
                   ? const DigitColors().light.paperPrimary
@@ -87,30 +88,34 @@ class _CustomTabBarState extends State<CustomTabBar> {
                   color: _selectedIndex == index
                       ? const DigitColors().light.primary1
                       : const DigitColors().light.genericInputBorder,
-                  width: 1,
+                  width: _selectedIndex == index ? 2 : 1,
                 ),
                 right: BorderSide(
                   color: _selectedIndex == index
                       ? const DigitColors().light.primary1
                       : const DigitColors().light.genericInputBorder,
-                  width: 1,
+                  width: _selectedIndex == index ? 2 : 1,
                 ),
                 top: BorderSide(
                   color: _selectedIndex == index
                       ? const DigitColors().light.primary1
                       : const DigitColors().light.genericInputBorder,
-                  width: 1,
+                  width: _selectedIndex == index ? 2 : 1,
                 ),
               ),
             ),
             alignment: Alignment.center,
             child: Text(
               tab,
-              style: textTheme.headingM.copyWith(
+              style: _selectedIndex == index ? textTheme.headingM.copyWith(
                 color: _selectedIndex == index
                     ? const DigitColors().light.primary1
                     : const DigitColors().light.textSecondary,
-              ),
+              ): textTheme.bodyL.copyWith(
+                color: _selectedIndex == index
+                    ? const DigitColors().light.primary1
+                    : const DigitColors().light.textSecondary,
+              )
             ),
           ),
         );

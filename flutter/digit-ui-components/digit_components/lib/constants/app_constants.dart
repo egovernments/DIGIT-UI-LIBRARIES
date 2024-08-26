@@ -110,7 +110,7 @@ class DropdownConstants {
 }
 
 class RadioConstant {
-  static const EdgeInsets defaultPadding = EdgeInsets.all(spacer2);
+  static const EdgeInsets defaultPadding = EdgeInsets.all(spacer4);
   static const double radioWidth = spacer6;
   static const double radioHeight = spacer6;
 }

@@ -21,7 +21,7 @@ CustomTabBar(
         });
 
         return CustomTabBar(
-          tabs: ['Tab 1', 'Tab 2', 'Tab 3'],
+          tabs: ['Tabdfsssssssssssssss 1', 'Tab 2', 'Tab 3'],
           initialIndex: 1, // Preselect the second tab
           onTabSelected: (index) {
             // Handle tab selection change
