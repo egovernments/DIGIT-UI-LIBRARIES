@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.2-beta.26] - 2024-08-27
+### New Changes
+- Changed Classname for Submitbar disabled
+
 ## [0.0.2-beta.25] - 2024-08-22
 ### New Changes
 - Updated Sidebar,SVGs,Added Spacers and Accordion
