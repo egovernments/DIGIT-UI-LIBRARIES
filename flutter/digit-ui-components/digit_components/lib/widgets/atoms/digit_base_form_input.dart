@@ -274,7 +274,6 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
   void onTap() {
     /// default function to call on tap
     widget.onTap?.call();
-    print('hereeeeeeeeeeee');
   }
 
   @override

@@ -66,7 +66,7 @@ class _TimelineState extends State<DigitTimeline> {
                   Text(
                     capitalizedLabel,
                     style: currentTypography.headingS.copyWith(
-                      color: const DigitColors().light.textPrimary,
+                      color: widget.currentStep == TimelineStepState.future ?  const DigitColors().light.textSecondary: const DigitColors().light.textPrimary,
                     ),
                   ),
                   SizedBox(

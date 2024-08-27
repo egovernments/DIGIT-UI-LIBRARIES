@@ -139,6 +139,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
         drawer: SideBar(
+          logOutButtonLabel: 'Log Out',
           sidebarItems: [
             SidebarItem(
               title: 'Home',

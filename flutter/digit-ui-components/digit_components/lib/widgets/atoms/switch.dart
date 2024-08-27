@@ -2,24 +2,22 @@ import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:flutter/material.dart';
 
+import '../../theme/ComponentTheme/switch_theme.dart';
+
 class CustomSwitch extends StatefulWidget {
   final bool value;
   final ValueChanged<bool> onChanged;
-  final double width;
-  final double height;
-  final double thumbInset;
-  final bool showSymbol; // New property to show/hide label
-  final String? label; // Optional label text
+  final bool showSymbol; // Option to show symbols/icons inside the switch
+  final String? label;
+  final DigitSwitchThemeData? themeData;
 
   const CustomSwitch({
     Key? key,
     required this.value,
     required this.onChanged,
-    this.width = 60.0,
-    this.height = 30.0,
-    this.thumbInset = 2.0,
-    this.showSymbol = false, // Default is to not show label
+    this.showSymbol = false,
     this.label,
+    this.themeData,
   }) : super(key: key);
 
   @override
@@ -65,57 +63,52 @@ class _CustomSwitchState extends State<CustomSwitch>
 
   @override
   Widget build(BuildContext context) {
-
     final theme = Theme.of(context);
-    final textTheme = theme.digitTextTheme(context);
+    final customSwitchTheme = theme.extension<DigitSwitchThemeData>() ?? widget.themeData;
+    final defaultSwitchTheme = DigitSwitchThemeData.defaultTheme(context);
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      textDirection: TextDirection.rtl,
       children: [
-        if ( widget.label != null) ...[
-          Flexible(
-            child: Text(widget.label!, style: textTheme.bodyS.copyWith(
-              color: theme.colorTheme.text.secondary,
-            )),
-          ),
-          const SizedBox(width: 8),
-        ],
-        GestureDetector(
+        InkWell(
+          hoverColor: theme.colorTheme.generic.transparent,
+          highlightColor: theme.colorTheme.generic.transparent,
+          splashColor: theme.colorTheme.generic.transparent,
           onTap: _toggleSwitch,
           child: AnimatedBuilder(
             animation: _animationController,
             builder: (context, child) {
               return Container(
-                width: 44,
-                height: 24,
+                width: customSwitchTheme?.trackWidth ?? defaultSwitchTheme.trackWidth,
+                height: customSwitchTheme?.trackHeight ?? defaultSwitchTheme.trackHeight,
+                padding: customSwitchTheme?.padding ?? defaultSwitchTheme.padding,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(widget.height / 2),
+                  borderRadius: BorderRadius.circular(16.0),
                   color: _animation.value > 0.5
-                      ? const DigitColors().light.primary1
-                      : const DigitColors().light.textDisabled,
+                      ? customSwitchTheme?.activeColor ?? defaultSwitchTheme.activeColor
+                      : customSwitchTheme?.inactiveColor ?? defaultSwitchTheme.inactiveColor,
                 ),
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
-                    // Rectangle on the left when active
+                    // Active symbol/icon
                     if (_animation.value > 0.5 && widget.showSymbol)
                       Positioned(
-                        left: 10,
+                        left: 8,
                         child: Container(
                           width: 2,
                           height: 8,
                           decoration: BoxDecoration(
                             shape: BoxShape.rectangle,
                             borderRadius: const BorderRadius.all(Radius.circular(1)),
-                            color: const DigitColors().light.paperPrimary,
+                            color: customSwitchTheme?.symbolColor ?? defaultSwitchTheme.symbolColor,
                           ),
                         ),
                       ),
-                    // Circle on the right when inactive
+                    // Inactive symbol/icon
                     if (_animation.value <= 0.5 && widget.showSymbol)
                       Positioned(
-                        right: 10,
+                        right: 6,
                         child: Container(
                           width: 8,
                           height: 8,
@@ -123,24 +116,21 @@ class _CustomSwitchState extends State<CustomSwitch>
                             shape: BoxShape.circle,
                             border: Border.all(
                               width: 1,
-                              color: const DigitColors().light.paperPrimary,
+                              color: customSwitchTheme?.symbolColor ?? defaultSwitchTheme.symbolColor!,
                             ),
-                            color: const DigitColors().light.textDisabled,
+                            color: customSwitchTheme?.symbolColor ?? defaultSwitchTheme.inactiveColor,
                           ),
                         ),
                       ),
-                    // Thumb (this remains as the moving part)
+                    // Thumb
                     Positioned(
-                      left:
-                          _animation.value * widget.width  + 2,
-                      top: 2,
-                      bottom: 2,
+                      left: _animation.value *( customSwitchTheme?.animationValue ?? defaultSwitchTheme.animationValue!),
                       child: Container(
-                        width: 18,
-                        height: 18,
+                        width: customSwitchTheme?.thumbSize ?? defaultSwitchTheme.thumbSize,
+                        height: customSwitchTheme?.thumbSize ?? defaultSwitchTheme.thumbSize,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: const DigitColors().light.paperPrimary,
+                          color: customSwitchTheme?.symbolColor ?? defaultSwitchTheme.symbolColor,
                           boxShadow: [
                             BoxShadow(
                               color: Colors.black.withOpacity(0.2),
@@ -157,9 +147,19 @@ class _CustomSwitchState extends State<CustomSwitch>
             },
           ),
         ),
+        if (widget.label != null) ...[
+          SizedBox(width: theme.spacerTheme.spacer2),
+          Flexible(
+            child: Text(
+              widget.label!,
+              style: customSwitchTheme?.labelTextStyle ?? defaultSwitchTheme.labelTextStyle,
+            ),
+          ),
+        ],
       ],
     );
   }
+
 
   void _toggleSwitch() {
     final newValue = !widget.value;
