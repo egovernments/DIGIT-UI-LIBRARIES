@@ -64,7 +64,18 @@
   overflow-y: scroll;
   display: flex;
   flex-direction: column;
-  gap: theme(digitv2.spacers.spacer4);
+
+  @media (max-aspect-ratio: 9/16) {
+    gap:theme(digitv2.spacers.spacer4);
+  }
+
+  @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+    gap:theme(digitv2.spacers.spacer5);
+  }
+
+  @media (min-aspect-ratio: 3/4) {
+    gap:theme(digitv2.spacers.spacer6);
+  }
 }
 
 

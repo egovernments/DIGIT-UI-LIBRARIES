@@ -16,7 +16,20 @@ export default {
 };
 
 
-const Template = (args) => <Toast {...args} />;
+const Template = (args) => (
+  <div
+    style={{
+      position:"absolute",
+      width: "100%",
+      height: "100%",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+    }}
+  >
+    <Toast {...args} />
+  </div>
+);
 
 const commonArgs = {
   populators: {
@@ -24,6 +37,7 @@ const commonArgs = {
   },
   label: "",
   type: "success",
+  style:{left:"25%"}
 };
 
 export const SuccessToast = Template.bind({});
