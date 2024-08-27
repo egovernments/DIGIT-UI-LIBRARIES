@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/material.dart';
 
@@ -11,6 +13,7 @@ class DigitStepper extends StatefulWidget {
     this.activeIndex = 0,
     this.stepperDirection = Axis.horizontal,
     this.inverted = false,
+    this.currentProgressedIndex,
   }) : super(key: key);
 
   /// Stepper [List] of type [StepperData] to inflate stepper with data
@@ -26,6 +29,8 @@ class DigitStepper extends StatefulWidget {
 
   /// Inverts the stepper with text that is being used
   final bool inverted;
+  final int? currentProgressedIndex;
+
 
   @override
   _AnotherStepperState createState() => _AnotherStepperState();
@@ -106,6 +111,7 @@ class _AnotherStepperState extends State<DigitStepper> {
         totalLength: widget.stepperList.length,
         activeIndex: widget.activeIndex,
         isInverted: widget.inverted,
+        currentProgressedIndex: widget.currentProgressedIndex,
       );
     } else {
       return VerticalStepperItem(
@@ -114,6 +120,7 @@ class _AnotherStepperState extends State<DigitStepper> {
         totalLength: widget.stepperList.length,
         activeIndex: widget.activeIndex,
         isInverted: widget.inverted,
+        currentProgressedIndex: widget.currentProgressedIndex,
       );
     }
   }
@@ -127,6 +134,7 @@ class HorizontalStepperItem extends StatefulWidget {
     required this.totalLength,
     required this.activeIndex,
     required this.isInverted,
+    this.currentProgressedIndex,
   }) : super(key: key);
 
   final StepperData item;
@@ -134,6 +142,7 @@ class HorizontalStepperItem extends StatefulWidget {
   final int totalLength;
   final int activeIndex;
   final bool isInverted;
+  final int? currentProgressedIndex;
 
   @override
   _HorizontalStepperItemState createState() => _HorizontalStepperItemState();
@@ -148,20 +157,22 @@ class _HorizontalStepperItemState extends State<HorizontalStepperItem> {
       index: widget.index,
       totalLength: widget.totalLength,
       activeIndex: widget.activeIndex,
+      currentProgressedIndex: widget.currentProgressedIndex,
     );
     return [
       if (widget.item.title != null) ...[
         Container(
           //padding: const EdgeInsets.symmetric(horizontal: 10),
-          constraints: const BoxConstraints(
-            maxWidth: 100,
+          constraints:  BoxConstraints(
+            minWidth: 20,
+            maxWidth: max(20, MediaQuery.of(context).size.width/(widget.totalLength)-20)
           ),
           child: Text(
             widget.item.title!,
             textAlign: TextAlign.center,
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
-            style: widget.index == widget.activeIndex || isHover
+            style: widget.index == widget.activeIndex || widget.index==widget.currentProgressedIndex || isHover
                 ? currentTypography.headingS.copyWith(
                     color: const DigitColors().light.textPrimary,
                   )
@@ -182,7 +193,7 @@ class _HorizontalStepperItemState extends State<HorizontalStepperItem> {
             ),
             color: widget.index == 0
                 ? Colors.transparent
-                : (widget.index <= widget.activeIndex
+                : (widget.index <= widget.activeIndex || (widget.currentProgressedIndex != null && widget.index <= widget.currentProgressedIndex!)
                     ? const DigitColors().light.primary1
                     : const DigitColors().light.textDisabled),
             height: widget.index <= widget.activeIndex ? spacer1 : spacer1 / 2,
@@ -194,7 +205,7 @@ class _HorizontalStepperItemState extends State<HorizontalStepperItem> {
             ),
             color: widget.index == widget.totalLength - 1
                 ? Colors.transparent
-                : (widget.index < widget.activeIndex
+                : (widget.index < widget.activeIndex || (widget.currentProgressedIndex != null && widget.index < widget.currentProgressedIndex!)
                     ? const DigitColors().light.primary1
                     : const DigitColors().light.textDisabled),
             height: widget.index < widget.activeIndex ? spacer1 : spacer1 / 2,
@@ -261,6 +272,7 @@ class StepperDot extends StatelessWidget {
     required this.totalLength,
     required this.activeIndex,
     this.isHover = false,
+    this.currentProgressedIndex,
   }) : super(key: key);
 
   /// Index at which the item is present
@@ -273,12 +285,18 @@ class StepperDot extends StatelessWidget {
   final int activeIndex;
 
   final bool isHover;
+  final int? currentProgressedIndex;
 
   @override
   Widget build(BuildContext context) {
     DigitTypography currentTypography = getTypography(context, false);
     bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
-    return index == activeIndex
+
+
+    bool isDone = currentProgressedIndex != null && index < currentProgressedIndex!;
+
+    bool currentlyProgressed = currentProgressedIndex != null && index == currentProgressedIndex!;
+    return index == activeIndex || currentlyProgressed
         ? Row(
             children: [
               Container(
@@ -317,7 +335,7 @@ class StepperDot extends StatelessWidget {
               ),
             ],
           )
-        : index < activeIndex
+        : index < activeIndex || isDone
             ? Container(
                 height: isMobile ? spacer6 : spacer8,
                 width: isMobile ? spacer6 : spacer8,
@@ -396,6 +414,7 @@ class VerticalStepperItem extends StatefulWidget {
     required this.totalLength,
     required this.activeIndex,
     required this.isInverted,
+    this.currentProgressedIndex,
   }) : super(key: key);
 
   /// Stepper item of type [StepperData] to inflate stepper with data
@@ -412,6 +431,7 @@ class VerticalStepperItem extends StatefulWidget {
 
   /// Inverts the stepper with text that is being used
   final bool isInverted;
+  final int? currentProgressedIndex;
 
   @override
   _VerticalStepperItemState createState() => _VerticalStepperItemState();
