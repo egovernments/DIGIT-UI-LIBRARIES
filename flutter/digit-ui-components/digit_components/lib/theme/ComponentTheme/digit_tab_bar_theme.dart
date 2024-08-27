@@ -13,6 +13,7 @@ class DigitTabBarThemeData extends ThemeExtension<DigitTabBarThemeData> {
   final double? tabHeight;
   final double? selectedTabHeight;
   final double? tabWidth;
+  final int? maxLine;
   final EdgeInsets? padding;
 
   const DigitTabBarThemeData({
@@ -25,6 +26,7 @@ class DigitTabBarThemeData extends ThemeExtension<DigitTabBarThemeData> {
     this.tabHeight,
     this.selectedTabHeight,
     this.tabWidth,
+    this.maxLine,
     this.padding,
   });
 
@@ -45,6 +47,7 @@ class DigitTabBarThemeData extends ThemeExtension<DigitTabBarThemeData> {
       ),
       selectedTabHeight: 64.0,
       tabHeight: 60.0,
+      maxLine: 1,
       padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
     );
   }
@@ -60,6 +63,7 @@ class DigitTabBarThemeData extends ThemeExtension<DigitTabBarThemeData> {
     double? tabHeight,
     double? selectedTabHeight,
     double? tabWidth,
+    int? maxLine,
     EdgeInsets? padding,
   }) {
     return DigitTabBarThemeData(
@@ -72,6 +76,7 @@ class DigitTabBarThemeData extends ThemeExtension<DigitTabBarThemeData> {
       tabHeight: tabHeight ?? this.tabHeight,
       selectedTabHeight: selectedTabHeight ?? this.selectedTabHeight,
       tabWidth: tabWidth ?? this.tabWidth,
+      maxLine: maxLine ?? this.maxLine,
       padding: padding ?? this.padding,
     );
   }
@@ -90,6 +95,7 @@ class DigitTabBarThemeData extends ThemeExtension<DigitTabBarThemeData> {
       tabHeight: lerpDouble(tabHeight, other.tabHeight, t),
       selectedTabHeight: lerpDouble(selectedTabHeight, other.selectedTabHeight, t),
       tabWidth: lerpDouble(tabWidth, other.tabWidth, t),
+      maxLine: t<0.5 ? maxLine : other.maxLine,
       padding: EdgeInsets.lerp(padding, other.padding, t),
     );
   }

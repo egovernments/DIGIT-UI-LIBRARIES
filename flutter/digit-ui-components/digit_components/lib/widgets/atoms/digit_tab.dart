@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:digit_ui_components/theme/ComponentTheme/digit_tab_bar_theme.dart';
 import 'package:digit_ui_components/theme/colors.dart';
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
@@ -61,6 +63,12 @@ class _DigitTabBarState extends State<DigitTabBar> {
         widget.tabBarThemeData ?? theme.extension<DigitTabBarThemeData>();
     final defaultTabBarTheme = DigitTabBarThemeData.defaultTheme(context);
     final double tabWidth = _calculateMaxTabWidth(context) + 48;
+    // Calculate maximum width for each tab based on screen width
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final int tabCount = widget.tabs.length;
+    final double maxTabWidth = screenWidth / tabCount;
+
+    final double tabCorrectWidth = min(tabWidth, maxTabWidth);
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -73,7 +81,10 @@ class _DigitTabBarState extends State<DigitTabBar> {
         return GestureDetector(
           onTap: () => _onTabTapped(index),
           child: Container(
-            width: tabBarTheme?.tabWidth ?? tabWidth,
+            constraints: BoxConstraints(
+              maxWidth: maxTabWidth, // Ensure tab width does not exceed maxTabWidth
+            ),
+            width: tabBarTheme?.tabWidth ?? tabCorrectWidth,
             height: _selectedIndex == index
                 ? tabBarTheme?.selectedTabHeight ??
                     defaultTabBarTheme.selectedTabHeight
@@ -115,6 +126,9 @@ class _DigitTabBarState extends State<DigitTabBar> {
             alignment: Alignment.center,
             child: Text(
               tab,
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
+              maxLines: tabBarTheme?.maxLine ?? defaultTabBarTheme.maxLine,
               style: _selectedIndex == index
                   ? tabBarTheme?.selectedTextStyle ??
                       defaultTabBarTheme.selectedTextStyle

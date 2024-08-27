@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:digit_ui_components/digit_components.dart';
+import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:digit_ui_components/widgets/atoms/digit_divider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -12,8 +13,11 @@ class SideNavBar extends StatefulWidget {
   final SideNavType type;
   final List<NavItem> navItems;
 
-  const SideNavBar(
-      {super.key, required this.navItems, this.type = SideNavType.dark});
+  const SideNavBar({
+    super.key,
+    required this.navItems,
+    this.type = SideNavType.dark,
+  });
 
   @override
   _SideNavBarState createState() => _SideNavBarState();
@@ -23,6 +27,20 @@ class _SideNavBarState extends State<SideNavBar> {
   bool isHovered = false;
   NavItem? selectedNavItem;
   Map<int, bool> isExpandedMap = {};
+  TextEditingController searchController = TextEditingController();
+  String searchQuery = "";
+
+  @override
+  void initState() {
+    super.initState();
+    searchController.addListener(_onSearchChanged);
+  }
+
+  void _onSearchChanged() {
+    setState(() {
+      searchQuery = searchController.text.toLowerCase();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,6 +84,7 @@ class _SideNavBarState extends State<SideNavBar> {
                 ? Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12.0),
               child: DigitSearchFormInput(
+                controller: searchController,
                 enableBorder: OutlineInputBorder(
                   borderSide: BorderSide(
                     color: widget.type == SideNavType.light
@@ -87,7 +106,6 @@ class _SideNavBarState extends State<SideNavBar> {
                 iconColor: widget.type == SideNavType.light
                     ? const DigitColors().light.textSecondary
                     : const DigitColors().light.paperPrimary,
-                controller: TextEditingController(),
               ),
             )
                 : Center(
@@ -116,6 +134,7 @@ class _SideNavBarState extends State<SideNavBar> {
                   isExpandedMap[index] = isExpanded;
                 });
               },
+              searchQuery: searchQuery,
             ),
             const Spacer(),
             if (isHovered) _buildBottomSection(),
@@ -133,7 +152,7 @@ class _SideNavBarState extends State<SideNavBar> {
           width: 1.0,
           color: widget.type == SideNavType.light
               ? const DigitColors().light.genericDivider
-              : const DigitColors().transparent,
+              : const DigitColors().light.paperPrimary.withOpacity(.20),
         ),
         color: widget.type == SideNavType.light
             ? const DigitColors().light.paperPrimary
@@ -144,54 +163,69 @@ class _SideNavBarState extends State<SideNavBar> {
         children: [
           Row(
             children: [
-              Icon(Icons.help_outline,
-                  color: widget.type == SideNavType.light
-                      ? const DigitColors().light.primary2
-                      : const DigitColors().light.paperPrimary,
-                  size: 24),
+              Icon(
+                Icons.help_outline,
+                color: widget.type == SideNavType.light
+                    ? const DigitColors().light.primary2
+                    : const DigitColors().light.paperPrimary,
+                size: 24,
+              ),
               ...[
                 const SizedBox(width: 10),
-                Text('Help',
-                    style: TextStyle(
-                        color: widget.type == SideNavType.light
-                            ? const DigitColors().light.primary2
-                            : const DigitColors().light.paperPrimary)),
+                Text(
+                  'Help',
+                  style: TextStyle(
+                    color: widget.type == SideNavType.light
+                        ? const DigitColors().light.primary2
+                        : const DigitColors().light.paperPrimary,
+                  ),
+                ),
               ],
             ],
           ),
           const SizedBox(height: 16),
           Row(
             children: [
-              Icon(Icons.settings_accessibility,
-                  color: widget.type == SideNavType.light
-                      ? const DigitColors().light.primary2
-                      : const DigitColors().light.paperPrimary,
-                  size: 24),
+              Icon(
+                Icons.settings_accessibility,
+                color: widget.type == SideNavType.light
+                    ? const DigitColors().light.primary2
+                    : const DigitColors().light.paperPrimary,
+                size: 24,
+              ),
               if (isHovered) ...[
                 const SizedBox(width: 10),
-                Text('Accessibility',
-                    style: TextStyle(
-                        color: widget.type == SideNavType.light
-                            ? const DigitColors().light.primary2
-                            : const DigitColors().light.paperPrimary)),
+                Text(
+                  'Accessibility',
+                  style: TextStyle(
+                    color: widget.type == SideNavType.light
+                        ? const DigitColors().light.primary2
+                        : const DigitColors().light.paperPrimary,
+                  ),
+                ),
               ],
             ],
           ),
           const SizedBox(height: 16),
           Row(
             children: [
-              Icon(Icons.logout,
-                  color: widget.type == SideNavType.light
-                      ? const DigitColors().light.primary2
-                      : const DigitColors().light.paperPrimary,
-                  size: 24),
+              Icon(
+                Icons.logout,
+                color: widget.type == SideNavType.light
+                    ? const DigitColors().light.primary2
+                    : const DigitColors().light.paperPrimary,
+                size: 24,
+              ),
               if (isHovered) ...[
                 const SizedBox(width: 10),
-                Text('Logout',
-                    style: TextStyle(
-                        color: widget.type == SideNavType.light
-                            ? const DigitColors().light.primary2
-                            : const DigitColors().light.paperPrimary)),
+                Text(
+                  'Logout',
+                  style: TextStyle(
+                    color: widget.type == SideNavType.light
+                        ? const DigitColors().light.primary2
+                        : const DigitColors().light.paperPrimary,
+                  ),
+                ),
               ],
             ],
           ),
@@ -199,7 +233,7 @@ class _SideNavBarState extends State<SideNavBar> {
           const DigitDivider(dividerType: DividerType.small),
           ...[
             const SizedBox(height: 16),
-            if(isHovered)
+            if (isHovered)
               Center(
                 child: Image.asset(
                   'assets/images/powered_by_digit.png',
@@ -207,13 +241,15 @@ class _SideNavBarState extends State<SideNavBar> {
                       ? const DigitColors().light.primary2
                       : const DigitColors().light.paperPrimary,
                   height: 12,
-                )),
+                ),
+              ),
           ],
         ],
       ),
     );
   }
 }
+
 
 class NavItemBuilder extends StatefulWidget {
   final bool isHovered;
@@ -223,6 +259,7 @@ class NavItemBuilder extends StatefulWidget {
   final ValueChanged<NavItem> onItemTapped;
   final Map<int, bool> isExpandedMap;
   final ExpansionChangedCallback onExpansionChanged;
+  final String searchQuery;
 
   const NavItemBuilder({
     Key? key,
@@ -233,6 +270,7 @@ class NavItemBuilder extends StatefulWidget {
     required this.onItemTapped,
     required this.isExpandedMap,
     required this.onExpansionChanged,
+    required this.searchQuery,
   }) : super(key: key);
 
   @override
@@ -244,13 +282,46 @@ class _NavItemBuilderState extends State<NavItemBuilder> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    final theme = Theme.of(context);
+    final filteredNavItems = _filterNavItems(widget.navItems);
+
+    return filteredNavItems.isNotEmpty ? Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        for (var i = 0; i < widget.navItems.length; i++)
-          _buildNavItem(widget.navItems[i], -1, i),
+        for (var i = 0; i < filteredNavItems.length; i++)
+          _buildNavItem(filteredNavItems[i], -1, i),
       ],
+    ) :  Center(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: Text(
+          'No items found',
+          style: theme.digitTextTheme(context).bodyL.copyWith(
+            color: theme.colorTheme.text.disabled,
+          ),
+        ),
+      ),
     );
+  }
+
+  List<NavItem> _filterNavItems(List<NavItem> items) {
+    final List<NavItem> filteredItems = [];
+
+    for (var item in items) {
+      if (_matchesSearch(item)) {
+        filteredItems.add(item);
+      } else if (item.children != null &&
+          item.children!.any((child) => _matchesSearch(child))) {
+        filteredItems.add(item);
+      }
+    }
+
+    return filteredItems;
+  }
+
+  bool _matchesSearch(NavItem item) {
+    final itemTitle = item.title.toLowerCase() ?? '';
+    return itemTitle.contains(widget.searchQuery);
   }
 
   Widget _buildNavItem(NavItem navItem, int parentIndex, int index) {

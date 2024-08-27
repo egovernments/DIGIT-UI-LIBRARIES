@@ -76,8 +76,10 @@ class SideBar extends Drawer {
               Column(
                 children: [
                   for (var action in footerActions!)
-                    ChildItemWidget(item: action),
-                  const DigitDivider(dividerType: DividerType.small),
+                    ...[
+                      const DigitDivider(dividerType: DividerType.small),
+                      ChildItemWidget(item: action)
+                    ],
                 ],
               ),
             // Logout button at the bottom
@@ -134,6 +136,7 @@ class ItemWidget extends StatefulWidget {
 class _ItemWidgetState extends State<ItemWidget> {
   bool _isExpanded = false;
   bool _isSelected = false;
+  final bool isHovering = false;
   SidebarItem? _selectedChild; // Track selected child
 
   @override
@@ -173,6 +176,8 @@ class _ItemWidgetState extends State<ItemWidget> {
     final theme = Theme.of(context);
     final textTheme = theme.digitTextTheme(context);
 
+
+
     Color backgroundColor  = _isSelected
         ? theme.colorTheme.primary.primaryBg
         : (widget.index % 2 == 0 || _isExpanded
@@ -186,13 +191,13 @@ class _ItemWidgetState extends State<ItemWidget> {
           onTap: _handleItemTap,
           onHover: (isHovering) {
             setState(() {
-
+              isHovering = isHovering;
             });
           },
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
             decoration: BoxDecoration(
-              color: backgroundColor,
+              color: isHovering ? theme.colorTheme.primary.primaryBg: backgroundColor,
               borderRadius: BorderRadius.zero,
             ),
             width: MediaQuery.of(context).size.width,
@@ -264,6 +269,11 @@ class _SideNavWithSearchState extends State<SideNavWithSearch> {
   @override
   void initState() {
     super.initState();
+    if (widget.isSearchEnabled) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        searchFocusNode.requestFocus();
+      });
+    }
     _searchController = TextEditingController();
     _filteredItems = widget.navItems;
 
@@ -304,11 +314,7 @@ class _SideNavWithSearchState extends State<SideNavWithSearch> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    if (widget.isSearchEnabled) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        searchFocusNode.requestFocus();
-      });
-    }
+
 
     return Column(
       children: [
@@ -335,6 +341,17 @@ class _SideNavWithSearchState extends State<SideNavWithSearch> {
               ),
             ),
           ),
+        if(_filteredItems.isEmpty)
+          Padding(
+              padding: const EdgeInsets.only(bottom: 16.0),
+              child: Text(
+                'No items found',
+                style: theme.digitTextTheme(context).bodyL.copyWith(
+                  color: theme.colorTheme.text.disabled,
+                ),
+              ),
+          ),
+        if(_filteredItems.isNotEmpty)
         ..._filteredItems.map((item) => ChildItemWidget(
           item: item,
           isSelected: item == widget.selectedItem, // Pass selection state to ChildItemWidget

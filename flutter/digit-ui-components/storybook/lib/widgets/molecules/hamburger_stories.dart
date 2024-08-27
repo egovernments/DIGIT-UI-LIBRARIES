@@ -119,7 +119,7 @@ List<Story> hamBurgerStories() {
       ),
     ),
     Story(
-      name: 'Molecule/HamBurger/2',
+      name: 'Molecule/HamBurger/footer action',
       builder: (context) => SideBar(
         logOutButtonLabel: 'Log Out',
         profile: const ProfileWidget(
@@ -130,6 +130,15 @@ List<Story> hamBurgerStories() {
                 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'), // Default image
           ),
         ),
+        footerActions: [
+          SidebarItem(
+            title: 'upgrade app',
+            icon: Icons.app_blocking,
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
         sidebarItems: [
           SidebarItem(
             title: 'Home',
