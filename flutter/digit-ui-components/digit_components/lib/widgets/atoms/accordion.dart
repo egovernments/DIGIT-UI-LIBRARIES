@@ -73,7 +73,7 @@ class _DigitAccordionState extends State<DigitAccordion>
     bool isExpanded = _expandedStates[index];
     return AnimatedContainer(
       duration: widget.animationDuration,
-      curve: Curves.easeInOut,
+      curve: Curves.easeOut,
       decoration: BoxDecoration(
         color: const DigitColors().light.paperSecondary,
         borderRadius: const BorderRadius.all(Radius.circular(4)),
@@ -118,7 +118,7 @@ class _DigitAccordionState extends State<DigitAccordion>
                   Expanded(child: item.header),
                   RotationTransition(
                     turns: _animationControllers[index].drive(
-                      Tween(begin: 0.0, end: -0.25),
+                      Tween(begin: 0.0, end: 0.25),
                     ),
                     child: const Icon(
                       Icons.chevron_right,

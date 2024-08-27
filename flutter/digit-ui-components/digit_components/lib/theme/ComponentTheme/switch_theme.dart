@@ -35,7 +35,7 @@ class CustomSwitchThemeData extends ThemeExtension<CustomSwitchThemeData> {
       inactiveColor: theme.colorTheme.text.disabled,
       symbolColor: theme.colorTheme.paper.primary,
       labelTextStyle: textTheme.bodyS.copyWith(
-        color: theme.colorTheme.text.secondary,
+        color: theme.colorTheme.text.primary,
       ),
       thumbSize: 18.0,
       trackHeight: 22.0,

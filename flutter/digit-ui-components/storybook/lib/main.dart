@@ -56,6 +56,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      themeMode: ThemeMode.dark,
       theme: DigitExtendedTheme.instance.getTheme(context).copyWith(),
       home: Scaffold(
         appBar: PreferredSize(
