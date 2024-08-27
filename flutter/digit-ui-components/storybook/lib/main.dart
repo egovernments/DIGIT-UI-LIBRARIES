@@ -2,7 +2,7 @@ import 'package:digit_ui_components/models/DropdownModels.dart';
 import 'package:digit_ui_components/theme/colors.dart';
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:digit_ui_components/widgets/molecules/digit_header.dart';
-import 'package:digit_ui_components/widgets/molecules/hamburder.dart';
+import 'package:digit_ui_components/widgets/molecules/hamburger.dart';
 import 'package:flutter/material.dart';
 import 'package:inspector/inspector.dart';
 import 'package:storybook/widgets/atoms/Info_card_stories.dart';

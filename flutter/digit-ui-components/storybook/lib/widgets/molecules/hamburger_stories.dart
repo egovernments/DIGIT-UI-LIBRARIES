@@ -1,6 +1,6 @@
 import 'package:digit_ui_components/models/DropdownModels.dart';
 import 'package:digit_ui_components/widgets/helper_widget/digit_profile.dart';
-import 'package:digit_ui_components/widgets/molecules/hamburder.dart';
+import 'package:digit_ui_components/widgets/molecules/hamburger.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
 import 'package:flutter/material.dart';
 
