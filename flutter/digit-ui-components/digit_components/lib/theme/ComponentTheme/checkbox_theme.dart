@@ -12,6 +12,7 @@ class DigitCheckboxThemeData extends ThemeExtension<DigitCheckboxThemeData> {
   final double? borderWidth;
   final double? focusBorderWidth;
   final double? borderRadius;
+  final Color? selectedIconColor;
   final EdgeInsetsGeometry? padding;
 
   const DigitCheckboxThemeData({
@@ -25,6 +26,7 @@ class DigitCheckboxThemeData extends ThemeExtension<DigitCheckboxThemeData> {
     this.borderRadius,
     this.borderWidth,
     this.focusBorderWidth,
+    this.selectedIconColor,
   });
 
   static DigitCheckboxThemeData defaultTheme(BuildContext context) {
@@ -40,6 +42,7 @@ class DigitCheckboxThemeData extends ThemeExtension<DigitCheckboxThemeData> {
         color: theme.colorTheme.text.disabled,
         decoration: TextDecoration.none,
       ),
+      selectedIconColor: theme.colorTheme.primary.primary1,
       iconColor: theme.colorTheme.text.primary,
       disabledIconColor: theme.colorTheme.text.disabled,
       padding: EdgeInsets.zero,
@@ -63,6 +66,7 @@ class DigitCheckboxThemeData extends ThemeExtension<DigitCheckboxThemeData> {
     double? iconSize,
     double? borderRadius,
     double? borderWidth,
+    Color? selectedIconColor,
     double? focusBorderWidth,
   }) {
 
@@ -77,6 +81,7 @@ class DigitCheckboxThemeData extends ThemeExtension<DigitCheckboxThemeData> {
       iconColor: iconColor ?? this.iconColor ?? defaultTheme?.iconColor,
       disabledIconColor: disabledIconColor ?? this.disabledIconColor  ?? defaultTheme?.disabledIconColor,
       padding: padding ?? this.padding ?? defaultTheme?.padding,
+      selectedIconColor: selectedIconColor ?? this.selectedIconColor ?? defaultTheme?.selectedIconColor,
       iconSize: iconSize ?? this.iconSize ?? defaultTheme?.iconSize,
       borderRadius: borderRadius ?? this.borderRadius ?? defaultTheme?.borderRadius,
       borderWidth: borderWidth ?? this.borderWidth ?? defaultTheme?.borderWidth,
@@ -96,6 +101,7 @@ class DigitCheckboxThemeData extends ThemeExtension<DigitCheckboxThemeData> {
       disabledIconColor: Color.lerp(disabledIconColor, other.disabledIconColor, t),
       padding: EdgeInsetsGeometry.lerp(padding, other.padding, t),
       iconSize: lerpDouble(iconSize, other.iconSize, t),
+      selectedIconColor: Color.lerp(selectedIconColor, other.selectedIconColor, t),
       borderRadius: lerpDouble(borderRadius, other.borderRadius, t),
       borderWidth: lerpDouble(borderWidth, other.borderWidth, t),
       focusBorderWidth: lerpDouble(focusBorderWidth, other.focusBorderWidth, t),

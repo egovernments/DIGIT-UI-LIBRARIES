@@ -72,8 +72,8 @@ class _DigitCheckboxState extends State<DigitCheckbox> {
     final theme = Theme.of(context);
 
     final checkboxThemeData = widget.checkboxThemeData ??
-        theme.extension<DigitCheckboxThemeData>() ??
-        DigitCheckboxThemeData.defaultTheme(context);
+        theme.extension<DigitCheckboxThemeData>();
+     final defaultThemeData =   DigitCheckboxThemeData.defaultTheme(context);
 
     bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
 
@@ -86,7 +86,7 @@ class _DigitCheckboxState extends State<DigitCheckbox> {
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
-      textDirection: checkboxThemeData.labelTextDirection,
+      textDirection: checkboxThemeData?.labelTextDirection ?? defaultThemeData.labelTextDirection,
       children: [
         Column(
           children: [
@@ -121,7 +121,7 @@ class _DigitCheckboxState extends State<DigitCheckbox> {
                     ? DigitCheckboxState.checked
                     : DigitCheckboxState.unchecked,
                 isDisabled: widget.isDisabled,
-                checkboxThemeData: widget.checkboxThemeData,
+                checkboxThemeData: widget.checkboxThemeData ?? defaultThemeData,
               ),
             ),
           ],
@@ -132,7 +132,7 @@ class _DigitCheckboxState extends State<DigitCheckbox> {
             alignment: Alignment.topLeft,
             child: Text(
               processedLabel!,
-              style: widget.isDisabled ? checkboxThemeData.disabledLabelTextStyle : checkboxThemeData.labelTextStyle,
+              style: widget.isDisabled ? checkboxThemeData?.disabledLabelTextStyle ?? defaultThemeData.disabledLabelTextStyle : checkboxThemeData?.labelTextStyle ?? defaultThemeData.labelTextStyle,
             ),
           ),
         ),

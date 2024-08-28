@@ -1,3 +1,5 @@
+import 'package:digit_ui_components/theme/ComponentTheme/checkbox_theme.dart';
+import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:flutter/material.dart';
 import '../../constants/app_constants.dart';
 import '../../enum/app_enums.dart';
@@ -47,6 +49,7 @@ class _DropdownOptionState extends State<DropdownOption> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     DigitTypography currentTypography = getTypography(context, false);
     return Column(
       children: [
@@ -122,13 +125,15 @@ class _DropdownOptionState extends State<DropdownOption> {
                         children: [
                           widget.isSelected ||
                                   _itemMouseDownStates[widget.option] == true
-                              ? const DigitCheckboxIcon(
+                              ?  DigitCheckboxIcon(
                                  // size: spacer5,
+                            checkboxThemeData: DigitCheckboxThemeData(iconSize: spacer5, selectedIconColor: theme.colorTheme.paper.primary),
                                   state: DigitCheckboxState.checked,
                                   //color: const DigitColors().light.paperPrimary,
                                 )
                               : const DigitCheckboxIcon(
                                   //size: spacer5,
+                              checkboxThemeData: DigitCheckboxThemeData(iconSize: spacer5,),
                                   state: DigitCheckboxState.unchecked),
                           const SizedBox(
                             width: spacer3,

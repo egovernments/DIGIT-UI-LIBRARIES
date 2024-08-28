@@ -30,6 +30,7 @@
 
 import 'package:collection/collection.dart';
 import 'package:digit_ui_components/digit_components.dart';
+import 'package:digit_ui_components/theme/ComponentTheme/checkbox_theme.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -769,11 +770,13 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                 child: Row(
                   children: [
                     isAllSelected
-                        ? const DigitCheckboxIcon(
+                        ?  const DigitCheckboxIcon(
                            // size: spacer5,
+                        checkboxThemeData: DigitCheckboxThemeData(iconSize: spacer5, ),
                         state: DigitCheckboxState.checked)
-                        : const DigitCheckboxIcon(
+                        :  const DigitCheckboxIcon(
                           //  size: spacer5,
+                        checkboxThemeData: DigitCheckboxThemeData(iconSize: spacer5,),
                         state: DigitCheckboxState.unchecked),
                     const SizedBox(
                       width: 10,

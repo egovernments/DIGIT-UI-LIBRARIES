@@ -30,17 +30,17 @@ class DigitCheckboxIcon extends StatelessWidget {
 
     final theme = Theme.of(context);
     final checkboxIconThemeData = checkboxThemeData ??
-        theme.extension<DigitCheckboxThemeData>() ??
-        DigitCheckboxThemeData.defaultTheme(context);
+        theme.extension<DigitCheckboxThemeData>();
+    final iconThemeData =    DigitCheckboxThemeData.defaultTheme(context);
 
     switch (state) {
       case DigitCheckboxState.unchecked:
         return Container(
-          width: checkboxIconThemeData.iconSize,
-          height: checkboxIconThemeData.iconSize,
+          width: checkboxIconThemeData?.iconSize ?? iconThemeData.iconSize,
+          height: checkboxIconThemeData?.iconSize ?? iconThemeData.iconSize,
           decoration: BoxDecoration(
             border: Border.all(
-              color: isDisabled ? theme.colorTheme.text.disabled : theme.colorTheme.text.primary,
+              color: isDisabled ? (checkboxIconThemeData?.disabledIconColor ?? iconThemeData.disabledIconColor!) : (checkboxIconThemeData?.iconColor ?? iconThemeData.iconColor!),
               width: Base.defaultBorderWidth,
             ),
             borderRadius: Base.radius,
@@ -48,11 +48,11 @@ class DigitCheckboxIcon extends StatelessWidget {
         );
       case DigitCheckboxState.intermediate:
         return Container(
-          width: checkboxIconThemeData.iconSize,
-          height: checkboxIconThemeData.iconSize,
+          width: checkboxIconThemeData?.iconSize ?? iconThemeData.iconSize,
+          height: checkboxIconThemeData?.iconSize ?? iconThemeData.iconSize,
           decoration: BoxDecoration(
             border: Border.all(
-              color: isDisabled ? theme.colorTheme.text.disabled : theme.colorTheme.primary.primary1,
+              color: isDisabled ? (checkboxIconThemeData?.disabledIconColor ?? iconThemeData.disabledIconColor!) : (checkboxIconThemeData?.selectedIconColor ?? iconThemeData.selectedIconColor!),
               width: DigitCheckboxConstants.borderWidth,
             ),
             borderRadius: Base.radius,
@@ -60,18 +60,18 @@ class DigitCheckboxIcon extends StatelessWidget {
           child: Center(
             child: Icon(
               Icons.square,
-              size: DigitCheckboxConstants.iconSize,
-              color: isDisabled ? theme.colorTheme.text.disabled : theme.colorTheme.primary.primary1,
+              size: theme.spacerTheme.spacer3,
+              color: isDisabled ? (checkboxIconThemeData?.disabledIconColor ?? iconThemeData.disabledIconColor!) : (checkboxIconThemeData?.selectedIconColor ?? iconThemeData.selectedIconColor!),
             ),
           ),
         );
       case DigitCheckboxState.checked:
         return Container(
-          width: checkboxIconThemeData.iconSize,
-          height: checkboxIconThemeData.iconSize,
+          width: checkboxIconThemeData?.iconSize ?? iconThemeData.iconSize,
+          height: checkboxIconThemeData?.iconSize ?? iconThemeData.iconSize,
           decoration: BoxDecoration(
             border: Border.all(
-              color: isDisabled ? theme.colorTheme.text.disabled : theme.colorTheme.primary.primary1,
+              color: isDisabled ? (checkboxIconThemeData?.disabledIconColor ?? iconThemeData.disabledIconColor!) : (checkboxIconThemeData?.selectedIconColor ?? iconThemeData.selectedIconColor!),
               width: DigitCheckboxConstants.borderWidth,
             ),
             borderRadius: Base.radius,
@@ -80,7 +80,7 @@ class DigitCheckboxIcon extends StatelessWidget {
             child: Icon(
               Icons.check,
               size: DigitCheckboxConstants.iconSize,
-              color: isDisabled ? theme.colorTheme.text.disabled : theme.colorTheme.primary.primary1,
+              color: isDisabled ? (checkboxIconThemeData?.disabledIconColor ?? iconThemeData.disabledIconColor!) : (checkboxIconThemeData?.selectedIconColor ?? iconThemeData.selectedIconColor!),
             ),
           ),
         );
