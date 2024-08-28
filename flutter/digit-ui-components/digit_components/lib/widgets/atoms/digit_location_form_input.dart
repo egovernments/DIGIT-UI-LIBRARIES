@@ -72,12 +72,12 @@ class _DigitLocationFormInputState extends BaseDigitFormInputState {
 
   @override
   void onSuffixIconClick({void Function()? customFunction}) async {
-    await locationBloc.getCurrentLocation(controller);
+    await locationBloc.getCurrentLocation(controller, widget.onChange);
   }
 
   @override
   void onTap() async {
-    await locationBloc.getCurrentLocation(controller);
+    await locationBloc.getCurrentLocation(controller, widget.onChange);
   }
 
   @override

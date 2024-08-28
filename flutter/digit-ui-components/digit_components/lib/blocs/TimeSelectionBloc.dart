@@ -7,6 +7,7 @@ class TimeSelectionBloc {
     required TextEditingController controller,
     String? cancelText,
     String? confirmText,
+    void Function(String)? onChange,
   }) async {
     /// Show a time picker and update the controller's value
     TimeOfDay? selectedTime = await showTimePicker(
@@ -23,6 +24,10 @@ class TimeSelectionBloc {
     );
     if (selectedTime != null) {
       controller.text = formatTime(selectedTime);
+    }
+
+    if (onChange != null) {
+      onChange(controller.text);
     }
   }
 }

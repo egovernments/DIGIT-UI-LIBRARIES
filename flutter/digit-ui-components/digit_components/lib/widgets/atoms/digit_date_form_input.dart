@@ -92,6 +92,7 @@ class _DigitDateFormInputState extends BaseDigitFormInputState {
       controller: controller,
       cancelText: widget.cancelText,
       confirmText: widget.confirmText,
+      onChange: widget.onChange,
     );
   }
 
@@ -104,6 +105,7 @@ class _DigitDateFormInputState extends BaseDigitFormInputState {
       initialDate: widget.initialDate,
       context: context,
       controller: controller,
+      onChange: widget.onChange,
     );
   }
 

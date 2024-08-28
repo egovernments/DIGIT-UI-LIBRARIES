@@ -79,6 +79,7 @@ class _DigitTimeFormInputState extends BaseDigitFormInputState {
       controller: controller,
       cancelText: widget.cancelText,
       confirmText: widget.confirmText,
+      onChange: widget.onChange,
     );
   }
 
@@ -91,6 +92,7 @@ class _DigitTimeFormInputState extends BaseDigitFormInputState {
       controller: controller,
       cancelText: widget.cancelText,
       confirmText: widget.confirmText,
+      onChange: widget.onChange,
     );
   }
 
