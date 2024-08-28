@@ -1,39 +1,29 @@
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/material.dart';
 
-class CustomAccordionItem {
-  final Widget header;
-  final Widget content;
-  final bool initiallyExpanded;
-
-  CustomAccordionItem({
-    required this.header,
-    required this.content,
-    this.initiallyExpanded = false,
-  });
-}
-
-class CustomAccordion extends StatefulWidget {
-  final List<CustomAccordionItem> items;
+class DigitAccordion extends StatefulWidget {
+  final List<DigitAccordionItem> items;
   final bool allowMultipleOpen;
   final Duration animationDuration;
   final Color headerBackgroundColor;
+  final Color contentBackgroundColor;
   final double headerElevation;
 
-  const CustomAccordion({
+  const DigitAccordion({
     Key? key,
     required this.items,
     this.allowMultipleOpen = false,
     this.animationDuration = const Duration(milliseconds: 300),
     this.headerBackgroundColor = Colors.white,
+    this.contentBackgroundColor = Colors.white,
     this.headerElevation = 0,
   }) : super(key: key);
 
   @override
-  _CustomAccordionState createState() => _CustomAccordionState();
+  _DigitAccordionState createState() => _DigitAccordionState();
 }
 
-class _CustomAccordionState extends State<CustomAccordion>
+class _DigitAccordionState extends State<DigitAccordion>
     with TickerProviderStateMixin {
   late List<bool> _expandedStates;
   late List<AnimationController> _animationControllers;
@@ -70,25 +60,33 @@ class _CustomAccordionState extends State<CustomAccordion>
     return Column(
       children: widget.items.asMap().entries.map((entry) {
         int index = entry.key;
-        CustomAccordionItem item = entry.value;
-        return Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: _buildAccordionItem(item, index),
+        DigitAccordionItem item = entry.value;
+        return Column(
+          children: [
+            _buildAccordionItem(item, index),
+            if (item.divider && index < widget.items.length - 1)
+              Divider(
+                color: const DigitColors().light.genericDivider,
+                height: 1,
+              ),
+          ],
         );
       }).toList(),
     );
   }
 
-  Widget _buildAccordionItem(CustomAccordionItem item, int index) {
+  Widget _buildAccordionItem(DigitAccordionItem item, int index) {
     bool isExpanded = _expandedStates[index];
     return AnimatedContainer(
       duration: widget.animationDuration,
-      curve: Curves.easeInOut,
+      curve: Curves.easeOut,
       decoration: BoxDecoration(
-        color: const DigitColors().light.paperSecondary,
+        color: widget.headerBackgroundColor,
         borderRadius: const BorderRadius.all(Radius.circular(4)),
-        border: Border.all(
-            color: const DigitColors().light.genericDivider, width: 1.0),
+        border: item.showBorder
+            ? Border.all(
+            color: const DigitColors().light.genericDivider, width: 1.0)
+            : null, // Conditional border based on showBorder
         boxShadow: [
           if (widget.headerElevation > 0)
             BoxShadow(
@@ -122,45 +120,54 @@ class _CustomAccordionState extends State<CustomAccordion>
             },
             child: Container(
               padding: const EdgeInsets.all(16),
+              color: widget.headerBackgroundColor,
               child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Expanded(child: item.header),
                   RotationTransition(
                     turns: _animationControllers[index].drive(
-                      Tween(begin: 0.0, end: -0.25),
+                      Tween(begin: 0.0, end: 0.25),
                     ),
                     child: const Icon(
                       Icons.chevron_right,
-                      size: 24,
+                      size: 32,
                     ),
                   ),
                 ],
               ),
             ),
           ),
-          ClipRect(
-            child: AnimatedSize(
-              duration: widget.animationDuration,
+          SizeTransition(
+            sizeFactor: CurvedAnimation(
+              parent: _animationControllers[index],
               curve: Curves.easeInOut,
-              child: Align(
-                alignment: Alignment.topLeft,
-                heightFactor: isExpanded ? 1.0 : 0.0,
-                child: AnimatedOpacity(
-                  opacity: isExpanded ? 1.0 : 0.0,
-                  duration: widget.animationDuration,
-                  curve: Curves.easeInOut,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 8.0, vertical: 4.0),
-                    child: item.content,
-                  ),
-                ),
-              ),
+            ),
+            child: Container(
+              color: widget.contentBackgroundColor,
+              padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+              child: item.content,
             ),
           ),
         ],
       ),
     );
   }
+}
+
+class DigitAccordionItem {
+  final Widget header;
+  final Widget content;
+  final bool divider;
+  final bool initiallyExpanded;
+  final bool showBorder;
+
+  DigitAccordionItem({
+    required this.header,
+    required this.content,
+    this.divider = false,
+    this.initiallyExpanded = false,
+    this.showBorder = true,
+  });
 }
