@@ -1,4 +1,4 @@
-import React, { useState,Fragment } from "react";
+import React, { useState,Fragment ,useRef,useEffect} from "react";
 import { useTranslation } from "react-i18next";
 import PropTypes from "prop-types";
 import { SVG } from "./SVG";
@@ -22,7 +22,6 @@ const MobileSidebar = ({
   profile,
   usermanuals,
   onSelect,
-  ref,
   onLogout
 }) => {
   const { t } = useTranslation();
@@ -31,8 +30,24 @@ const MobileSidebar = ({
   const [expandedItems, setExpandedItems] = useState({});
   const [openUserManuals, setOpenUserManuals] = useState(false);
   const [showHamburger,setShowHamburger] = useState(true);
+  const sidebarRef = useRef(null);
 
   const iconSize = Spacers.spacer6;
+
+    useEffect(() => {
+      const handleClickOutside = (event) => {
+        if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
+          setShowHamburger(false);
+        }
+      };
+
+      document.addEventListener("mousedown", handleClickOutside);
+
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, []);
+
   const handleItemClick = (item, index, parentIndex) => {
     setSelectedItem({ item: item, index: index, parentIndex: parentIndex });
     onSelect && onSelect({ item: item, index: index, parentIndex: parentIndex });
@@ -86,6 +101,9 @@ const MobileSidebar = ({
         ...prev,
         [index]: !prev[index],
       }));
+    }
+    else {
+      handleItemClick(item, index, parentIndex); 
     }
   };
 
@@ -247,7 +265,7 @@ const MobileSidebar = ({
     <div
       className={`digit-msb-sidebar ${theme || ""} ${className || ""}`}
       style={styles}
-      ref={ref}
+      ref={sidebarRef}
     >
       <div className="digit-msb-profile">
         {!profile && <CustomSVG.ProfileIcon width={"3.875rem"} height={"4rem"} />}
