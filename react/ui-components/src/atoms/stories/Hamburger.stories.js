@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import MobileSidebar from "../MobileSidebar"; 
-import { SVG } from "../SVG"; 
 
 
 export default {
