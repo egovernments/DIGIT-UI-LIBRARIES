@@ -68,7 +68,7 @@ class DigitLocationFormInput extends BaseDigitFormInput {
 }
 
 class _DigitLocationFormInputState extends BaseDigitFormInputState {
-  LocationBloc locationBloc = LocationBloc();
+  LocationFetchBloc locationBloc = LocationFetchBloc();
 
   @override
   void onSuffixIconClick({void Function()? customFunction}) async {

@@ -52,6 +52,8 @@ dev_dependencies:
   json_serializable: ^6.4.0
   bloc_test: ^9.1.0
   mockito: ^5.0.15
+  build_runner: ^2.1.0
+  freezed: ^2.0.0
 
 flutter:
   assets:

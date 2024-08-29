@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 
-class LocationBloc {
+class LocationFetchBloc {
   Future<void> getCurrentLocation(TextEditingController controller, void Function(String)? onChange) async {
     LocationPermission permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
