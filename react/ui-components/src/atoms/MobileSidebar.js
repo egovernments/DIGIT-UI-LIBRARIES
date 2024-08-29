@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,Fragment } from "react";
 import { useTranslation } from "react-i18next";
 import PropTypes from "prop-types";
 import { SVG } from "./SVG";
@@ -22,13 +22,15 @@ const MobileSidebar = ({
   profile,
   usermanuals,
   onSelect,
-  ref
+  ref,
+  onLogout
 }) => {
   const { t } = useTranslation();
   const [searchTerms, setSearchTerms] = useState({});
   const [selectedItem, setSelectedItem] = useState({});
   const [expandedItems, setExpandedItems] = useState({});
   const [openUserManuals, setOpenUserManuals] = useState(false);
+  const [showHamburger,setShowHamburger] = useState(true);
 
   const iconSize = Spacers.spacer6;
   const handleItemClick = (item, index, parentIndex) => {
@@ -42,6 +44,11 @@ const MobileSidebar = ({
       [index]: value,
     }));
   };
+
+  const onLogoutClick = () => {
+    setShowHamburger(false);
+    onLogout && onLogout();
+  }
 
   const filterItems = (items, searchTerm) => {
     return items.filter((item) => {
@@ -236,7 +243,7 @@ const MobileSidebar = ({
 
   const filteredItems = filterItems(items, searchTerms["root"] || "");
 
-  return (
+  return showHamburger ?  (
     <div
       className={`digit-msb-sidebar ${theme || ""} ${className || ""}`}
       style={styles}
@@ -290,10 +297,10 @@ const MobileSidebar = ({
         )
       }
       <div className={`digit-msb-sidebar-bottom ${theme || ""}`}>
-        <Button label={t("Logout")} icon={"Logout"} variation={"secondary"} />
+        <Button onClick={onLogoutClick} label={t("Logout")} icon={"Logout"} variation={"secondary"} />
       </div>
     </div>
-  );
+  ) :  null;
 };
 
 MobileSidebar.propTypes = {

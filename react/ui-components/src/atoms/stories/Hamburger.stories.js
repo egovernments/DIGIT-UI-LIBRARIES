@@ -17,7 +17,8 @@ export default {
     hideUserManuals:{control:"boolean"},
     userManualLabel:{control:"text"},
     profile:{control:"text"},
-    onSelect:{ action: "onChange" }
+    onSelect:{ action: "onChange" },
+    onLogout:{action:"onChange"}
   },
 };
 
@@ -164,6 +165,10 @@ const onSelect = (e) => {
   console.log(e,"event")
 }
 
+const onLogout = () => {
+  console.log("clicked on Logout")
+}
+
 const commonArgs = {
   items: darkThemeItems,
   transitionDuration: 0.3,
@@ -175,7 +180,8 @@ const commonArgs = {
   userManualLabel:"UserManual",
   profile:"",
   usermanuals:[],
-  onSelect:onSelect
+  onSelect:onSelect,
+  onLogout:onLogout
 };
 
 export const LightTheme = Template.bind({});
