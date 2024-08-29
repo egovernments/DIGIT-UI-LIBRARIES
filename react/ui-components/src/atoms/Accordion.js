@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { SVG } from "./SVG";
 import { Colors } from "../constants/colors/colorconstants";
 import { iconRender } from "../utils/iconRender";
 import { Spacers } from "../constants/spacers/spacers";
+import Divider from "./Divider";
 
 const Accordion = ({
   title,
@@ -20,17 +21,26 @@ const Accordion = ({
   hideCardBorder,
   hideDivider,
   hideCardBg,
-  hideBorderRadius
+  hideBorderRadius,
+  isClosed
 }) => {
   const [isOpen, setIsOpen] = useState(isOpenInitially);
 
   const iconColor = Colors.lightTheme.text.primary;
   const toggleiconSize = Spacers.spacer8;
   const iconSize = Spacers.spacer6;
+
   const handleToggle = () => {
     setIsOpen(!isOpen);
     onToggle && onToggle(!isOpen);
   };
+
+  useEffect(() => {
+    if (isClosed !== undefined && isClosed) {
+      setIsOpen(false);
+    }
+  }, [isClosed]);
+
 
   return (
     <div
@@ -62,25 +72,15 @@ const Accordion = ({
           </div>
         )}
         <div className="digit-accordion-title">{title}</div>
-        <div className="digit-accordion-toggle">
-          {isOpen ? (
+        <div className={`digit-accordion-toggle ${isOpen ? "animate-open" : "animate-close"}`}>
             <SVG.ChevronLeft
               fill={iconColor}
               width={toggleiconSize}
               height={toggleiconSize}
-              style={{ transform: "rotate(90deg)" }}
             ></SVG.ChevronLeft>
-          ) : (
-            <SVG.ChevronLeft
-              fill={iconColor}
-              width={toggleiconSize}
-              height={toggleiconSize}
-              style={{ transform: "rotate(-90deg)" }}
-            ></SVG.ChevronLeft>
-          )}
         </div>
       </div>
-      {isOpen && <div className="digit-accordion-content">{content}</div>}
+      {isOpen && !isClosed && <div className="digit-accordion-content">{content}</div>}
     </div>
   );
 };
@@ -101,6 +101,7 @@ Accordion.propTypes = {
   onToggle: PropTypes.func,
   customClassName: PropTypes.string,
   customStyles: PropTypes.object,
+  isClosed: PropTypes.bool,
 };
 
 Accordion.defaultProps = {
@@ -113,6 +114,65 @@ Accordion.defaultProps = {
   hideDivider: false,
   hideCardBg: false,
   hideBorderRadius: false,
+  isClosed:false
 };
 
-export default Accordion;
+const AccordionWrapper = ({
+  children,
+  allowMultipleOpen,
+  addDivider,
+  className,
+  styles
+}) => {
+  const [openIndex, setOpenIndex] = useState(
+    allowMultipleOpen ? [] : -1
+  );
+
+  const handleToggle = (index) => {
+    if (allowMultipleOpen) {
+      setOpenIndex((prevState) =>
+        prevState.includes(index)
+          ? prevState.filter((i) => i !== index)
+          : [...prevState, index]
+      );
+    } else {
+      setOpenIndex(index === openIndex ? -1 : index);
+    }
+  };
+
+  useEffect(() => {
+  },[openIndex]);
+
+  return (
+    <div className={`digit-accordion-wrapper ${className}`} style={styles}>
+      {React.Children.map(children, (child, index) => (
+        <React.Fragment key={index}>
+          {React.cloneElement(child, {
+           isClosed: allowMultipleOpen
+           ? openIndex.length >0 && !openIndex.includes(index)
+           : openIndex !== index,
+            onToggle: () => handleToggle(index)
+          })}
+          {addDivider && index < React.Children.count(children) - 1 && <Divider className="digit-accordion-divider"  variant={"small"}/>}
+        </React.Fragment>
+      ))}
+    </div>
+  );
+};
+
+AccordionWrapper.propTypes = {
+  children: PropTypes.node.isRequired,
+  allowMultipleOpen: PropTypes.bool,
+  addDivider: PropTypes.bool,
+  customClassName: PropTypes.string,
+  customStyles: PropTypes.object,
+};
+
+AccordionWrapper.defaultProps = {
+  allowMultipleOpen: false,
+  addDivider: true,
+  customClassName: "",
+  customStyles: {},
+};
+
+export {AccordionWrapper,Accordion};
