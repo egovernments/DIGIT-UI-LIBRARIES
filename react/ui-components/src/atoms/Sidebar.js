@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next";
 import { SVG, TextInput } from "../atoms";
 import { IMAGES } from "../constants/images/images";
 import { Colors } from "../constants/colors/colorconstants";
@@ -15,7 +16,10 @@ const Sidebar = ({
   hideAccessbilityTools,
   expandedWidth,
   collapsedWidth,
+  onSelect,
+  onBottomItemClick
 }) => {
+  const { t } = useTranslation();
   const [hovered, setHovered] = useState(false);
   const [search, setSearch] = useState("");
   const [selectedItem, setSelectedItem] = useState({});
@@ -37,6 +41,7 @@ const Sidebar = ({
 
   const handleItemClick = (item, index, parentIndex) => {
     setSelectedItem({ item: item, index: index, parentIndex: parentIndex });
+    onSelect && onSelect({ item: item, index: index, parentIndex: parentIndex });
   };
 
   const isParentOfSelectedItem = (index) => {
@@ -129,8 +134,8 @@ const Sidebar = ({
     );
   };
 
-  const renderItems = (items, parentIndex = -1) =>
-    items.map((item, index) => {
+  const renderItems = (items, parentIndex = -1) => 
+    items?.map((item, index) => {
       const currentIndex = parentIndex >= 0 ? `${parentIndex}-${index}` : index;
       const isExpanded = expandedItems[currentIndex];
       const isSelected = selectedItem.item === item;
@@ -249,26 +254,30 @@ const Sidebar = ({
           variant || ""
         }`}
       >
-        {renderItems(filteredItems)}
+        {filteredItems.length > 0 ? (
+          renderItems(filteredItems)
+        ) : (
+          <div className="digit-msb-no-results">{t("No Results Found")}</div>
+        )}
       </div>
       {hovered && !hideAccessbilityTools && (
         <div className={`digit-sidebar-bottom ${theme || ""} ${variant || ""}`}>
           <div>
-            <div className="digit-sidebar-bottom-item">
+            <div className="digit-sidebar-bottom-item" onClick={()=> onBottomItemClick && onBottomItemClick("Help")}>
               <SVG.Help width={"16px"} height={"16px"} fill={primaryColor} />
-              <span className="digit-sidebar-bottom-item-text">Help</span>
+              <span className="digit-sidebar-bottom-item-text">{t("Help")}</span>
             </div>
-            <div className={`digit-sidebar-bottom-item`}>
+            <div className={`digit-sidebar-bottom-item`} onClick={()=> onBottomItemClick && onBottomItemClick("Settings")}>
               <SVG.Settings
                 width={"16px"}
                 height={"16px"}
                 fill={primaryColor}
               />
-              <span className="digit-sidebar-bottom-item-text">Settings</span>
+              <span className="digit-sidebar-bottom-item-text">{t("Settings")}</span>
             </div>
-            <div className={`digit-sidebar-bottom-item`}>
+            <div className={`digit-sidebar-bottom-item`} onClick={()=>onBottomItemClick && onBottomItemClick("Logout")}>
               <SVG.Logout width={"16px"} height={"16px"} fill={primaryColor} />
-              <span className="digit-sidebar-bottom-item-text">Logout</span>
+              <span className="digit-sidebar-bottom-item-text">{t("Logout")}</span>
             </div>
             <hr className={`divider`}></hr>
           </div>

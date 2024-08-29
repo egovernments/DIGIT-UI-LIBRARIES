@@ -1,5 +1,6 @@
 import {
   Accordion,
+  AccordionWrapper,
   ActionBar,
   ActionLinks,
   Amount,
@@ -129,6 +130,7 @@ export {
   MobileSidebar,
   BottomSheet,
   Accordion,
+  AccordionWrapper,
   Switch,
   Tooltip,
   Banner,

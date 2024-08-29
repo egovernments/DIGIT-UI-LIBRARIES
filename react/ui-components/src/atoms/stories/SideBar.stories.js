@@ -14,6 +14,8 @@ export default {
     theme: { control: "select", options: ["dark", "light"] },
     variant: { control: "select", options: ["primary", "secondary"] },
     hideAccessbilityTools: { control: "boolean" },
+    onSelect:{ action: "onChange" },
+    onBottomItemClick:{action:"onChange"}
   },
 };
 
@@ -302,10 +304,19 @@ const lightThemesecondaryitems = [
   },
 ];
 
+const onSelect = (e)  =>{
+  console.log(e,"selected")
+}
+const onBottomItemClick =(e) => {
+  console.log(e,"onAccessibilityClick")
+}
+
 const commonArgs = {
   items: darkThemeitems,
   transitionDuration: 0.3,
   theme: "dark",
+  onSelect:onSelect,
+  onBottomItemClick:onBottomItemClick
 };
 
 export const DarkThemePrimarySideBar = Template.bind({});

@@ -1,4 +1,5 @@
-import Accordion from "./Accordion";
+import { Accordion } from "./Accordion";
+import {AccordionWrapper} from "./Accordion";
 import ActionBar from "./ActionBar";
 import ActionLinks from "./ActionLinks";
 import Amount from "./Amount";
@@ -104,6 +105,7 @@ export {
   BottomSheet,
   Switch,
   Accordion,
+  AccordionWrapper,
   Tooltip,
   Banner,
   BodyContainer,
