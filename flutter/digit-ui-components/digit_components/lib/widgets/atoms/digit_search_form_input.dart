@@ -44,6 +44,7 @@ class DigitSearchFormInput extends BaseDigitFormInput {
     final OutlineInputBorder? focusBorder,
     final OutlineInputBorder? enableBorder,
     final Color? iconColor,
+    final int? maxLength,
   }) : super(
           key: key,
           controller: controller,
@@ -68,6 +69,7 @@ class DigitSearchFormInput extends BaseDigitFormInput {
           focusBorder: focusBorder,
           enableBorder: enableBorder,
           iconColor: iconColor,
+          maxLength: maxLength,
         );
 
   @override

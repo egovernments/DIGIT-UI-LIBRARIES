@@ -23,6 +23,8 @@ class BaseDigitFormInput extends StatefulWidget {
   /// Indicates whether to show character count.
   final bool charCount;
 
+  final int? maxLength;
+
   /// Inner label (hint) for the input field.
   final String? innerLabel;
 
@@ -137,6 +139,7 @@ class BaseDigitFormInput extends StatefulWidget {
     this.onSuffixTap,
     this.minLine = 1,
     this.maxLine = 1,
+    this.maxLength,
     this.height = Base.height,
     this.step = 1,
     this.minValue = 0,
@@ -299,7 +302,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
         ? (widget.validations != null
             ? getValidatorValue(widget.validations, ValidatorType.maxLength) ??
                 64
-            : 64)
+            : widget.maxLength ?? 64)
         : null;
 
     width = AppView.isMobileView(MediaQuery.of(context).size)
