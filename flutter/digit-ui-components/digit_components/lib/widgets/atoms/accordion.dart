@@ -1,4 +1,5 @@
 import 'package:digit_ui_components/digit_components.dart';
+import 'package:digit_ui_components/widgets/atoms/digit_divider.dart';
 import 'package:flutter/material.dart';
 
 class DigitAccordion extends StatefulWidget {
@@ -8,6 +9,7 @@ class DigitAccordion extends StatefulWidget {
   final Color headerBackgroundColor;
   final Color contentBackgroundColor;
   final double headerElevation;
+  final bool divider;
 
   const DigitAccordion({
     Key? key,
@@ -17,6 +19,7 @@ class DigitAccordion extends StatefulWidget {
     this.headerBackgroundColor = Colors.white,
     this.contentBackgroundColor = Colors.white,
     this.headerElevation = 0,
+    this.divider = false,
   }) : super(key: key);
 
   @override
@@ -63,12 +66,20 @@ class _DigitAccordionState extends State<DigitAccordion>
         DigitAccordionItem item = entry.value;
         return Column(
           children: [
-            _buildAccordionItem(item, index),
-            if (item.divider && index < widget.items.length - 1)
-              Divider(
-                color: const DigitColors().light.genericDivider,
-                height: 1,
-              ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: _buildAccordionItem(item, index),
+            ),
+            if (widget.divider && index < widget.items.length - 1)
+              ...[
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Divider(
+                  color: const DigitColors().light.genericDivider,
+                  height: 1,
+                                ),
+                ),
+              ],
           ],
         );
       }).toList(),
@@ -139,10 +150,11 @@ class _DigitAccordionState extends State<DigitAccordion>
               ),
             ),
           ),
+          if(item.divider && isExpanded) ...[const DigitDivider(dividerType: DividerType.small,), const SizedBox(height: 8,)],
           SizeTransition(
             sizeFactor: CurvedAnimation(
               parent: _animationControllers[index],
-              curve: Curves.easeInOut,
+              curve: Curves.easeOut,
             ),
             child: Container(
               color: widget.contentBackgroundColor,
