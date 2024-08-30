@@ -22,7 +22,8 @@ const MobileSidebar = ({
   profile,
   usermanuals,
   onSelect,
-  onLogout
+  onLogout,
+  reopenOnLogout,
 }) => {
   const { t } = useTranslation();
   const [searchTerms, setSearchTerms] = useState({});
@@ -63,11 +64,12 @@ const MobileSidebar = ({
   const onLogoutClick = () => {
     setShowHamburger(false);
     onLogout && onLogout();
+    onLogout && reopenOnLogout && setShowHamburger(true);
   }
-
+  
   const filterItems = (items, searchTerm) => {
-    return items.filter((item) => {
-      if (item.label.toLowerCase().includes(searchTerm.toLowerCase())) {
+    return items?.filter((item) => {
+      if (item?.label?.toLowerCase().includes(searchTerm.toLowerCase())) {
         return true;
       }
       if (item.children) {
@@ -121,6 +123,17 @@ const MobileSidebar = ({
           },
         ];
 
+  const Icon = (icon,className) =>{
+    return (
+      iconRender(
+        icon,
+        theme === "light" ? lightThemeIconColor : darkThemeIconColor,
+        iconSize,
+        iconSize,
+        className
+      )
+    )
+  }
   const renderItems = (items, parentIndex = -1) => items?.map((item, index) => {
       const currentIndex = parentIndex >= 0 ? `${parentIndex}-${index}` : index;
       const isExpanded = expandedItems[currentIndex];
@@ -140,15 +153,8 @@ const MobileSidebar = ({
               onClick={() => handleArrowClick(item, currentIndex, parentIndex)}
               tabIndex={0}
             >
-              {item.icon &&
-                iconRender(
-                  item.icon,
-                  theme === "light" ? lightThemeIconColor : darkThemeIconColor,
-                  "1.5rem",
-                  "1.5rem",
-                  `digit-msb-icon`
-                )}
-              {<span className="digit-msb-item-label">{item.label}</span>}
+              {item.icon && Icon(item.icon,"digit-msb-icon")}
+              {<span className="digit-msb-item-label">{item?.label}</span>}
               {item.children && (
                 <span className="digit-msb-expand-icon">
                   {isExpanded ? (
@@ -196,6 +202,7 @@ const MobileSidebar = ({
     items?.map((item, index) => {
       const currentIndex = parentIndex >= 0 ? `${parentIndex}-${index}` : index;
       const isExpanded = expandedItems[currentIndex];
+      const icon = item.icon ? Icon(item.icon,"digit-icon-msb") : null;
       return (
         <>
           <div className={"digit-item-child-wrapper-msb"} key={currentIndex}>
@@ -206,15 +213,17 @@ const MobileSidebar = ({
               onClick={() => handleItemClick(item, currentIndex, parentIndex)}
               tabIndex={0}
             >
-              {item.icon &&
-                iconRender(
-                  item.icon,
-                  theme === "light" ? lightThemeIconColor : darkThemeIconColor,
-                  iconSize,
-                  iconSize,
-                  `digit-icon-msb`
-                )}
-              {<span className={`digit-item-label-msb ${!item.icon ? "withoutIcon" : ""}`}>{item.label}</span>}
+              {icon}
+              {/* {item.icon && Icon(item.icon, "digit-icon-msb")} */}
+              {
+                <span
+                  className={`digit-item-label-msb ${
+                    (!item.icon || !icon) ? "withoutIcon" : ""
+                  }`}
+                >
+                  {item?.label}
+                </span>
+              }
               {item.children && (
                 <span
                   className={`digit-expand-icon-msb ${"child-level"}`}
@@ -332,7 +341,8 @@ MobileSidebar.propTypes = {
   profileName: PropTypes.string,
   profileNumber: PropTypes.string,
   isSearchable:PropTypes.bool,
-  userManualLabel:PropTypes.string
+  userManualLabel:PropTypes.string,
+  reopenOnLogout:PropTypes.bool
 };
 
 export default MobileSidebar;

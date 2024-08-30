@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,Fragment } from "react";
 import PropTypes from "prop-types";
 import { useTranslation } from "react-i18next";
 import { SVG, TextInput } from "../atoms";
 import { IMAGES } from "../constants/images/images";
 import { Colors } from "../constants/colors/colorconstants";
 import { iconRender } from "../utils/iconRender";
+import { Spacers } from "../constants/spacers/spacers";
 
 const Sidebar = ({
   items,
@@ -29,6 +30,8 @@ const Sidebar = ({
   const lightThemeColor = Colors.lightTheme.primary[2];
 
   const primaryColor = theme === "dark" ? darkThemeColor : lightThemeColor;
+  const iconSize = Spacers.spacer6;
+  const bottomIconSize = Spacers.spacer4;
 
   const handleArrowClick = (item, index, parentIndex) => {
     if (item.children) {
@@ -54,8 +57,8 @@ const Sidebar = ({
     isParentOfSelectedItem,
     iconReq,
     iconFill,
-    width = "1.5rem",
-    height = "1.5rem"
+    width = iconSize,
+    height = iconSize
   ) => {
     return iconRender(
       iconReq,
@@ -264,19 +267,19 @@ const Sidebar = ({
         <div className={`digit-sidebar-bottom ${theme || ""} ${variant || ""}`}>
           <div>
             <div className="digit-sidebar-bottom-item" onClick={()=> onBottomItemClick && onBottomItemClick("Help")}>
-              <SVG.Help width={"16px"} height={"16px"} fill={primaryColor} />
+              <SVG.Help width={bottomIconSize} height={bottomIconSize} fill={primaryColor} />
               <span className="digit-sidebar-bottom-item-text">{t("Help")}</span>
             </div>
             <div className={`digit-sidebar-bottom-item`} onClick={()=> onBottomItemClick && onBottomItemClick("Settings")}>
               <SVG.Settings
-                width={"16px"}
-                height={"16px"}
+                width={bottomIconSize}
+                height={bottomIconSize}
                 fill={primaryColor}
               />
               <span className="digit-sidebar-bottom-item-text">{t("Settings")}</span>
             </div>
             <div className={`digit-sidebar-bottom-item`} onClick={()=>onBottomItemClick && onBottomItemClick("Logout")}>
-              <SVG.Logout width={"16px"} height={"16px"} fill={primaryColor} />
+              <SVG.Logout width={bottomIconSize} height={bottomIconSize} fill={primaryColor} />
               <span className="digit-sidebar-bottom-item-text">{t("Logout")}</span>
             </div>
             <hr className={`divider`}></hr>

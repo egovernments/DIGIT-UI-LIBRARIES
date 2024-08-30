@@ -17,7 +17,8 @@ export default {
     userManualLabel:{control:"text"},
     profile:{control:"text"},
     onSelect:{ action: "onChange" },
-    onLogout:{action:"onChange"}
+    onLogout:{action:"onChange"},
+    reopenOnLogout:{control:"boolean"}
   },
 };
 
@@ -180,7 +181,8 @@ const commonArgs = {
   profile:"",
   usermanuals:[],
   onSelect:onSelect,
-  onLogout:onLogout
+  onLogout:onLogout,
+  reopenOnLogout:false
 };
 
 export const LightTheme = Template.bind({});
