@@ -308,6 +308,7 @@ List<Story> dropdownStories() {
     Story(
       name: 'Atom/Dropdown/MultiSelect Dropdown/default/default',
       builder: (context) => MultiSelectDropDown<int>(
+        isSearchable: context.knobs.boolean(label: 'Searchable', initial: false),
         isDisabled: context.knobs
             .boolean(label: 'disabled', initial: false),
         onOptionSelected: (List<DropdownItem> selectedOptions) {},
@@ -323,6 +324,7 @@ List<Story> dropdownStories() {
     Story(
       name: 'Atom/Dropdown/MultiSelect Dropdown/default/nested text',
       builder: (context) => MultiSelectDropDown<int>(
+        isSearchable: context.knobs.boolean(label: 'Searchable', initial: false),
         isDisabled: context.knobs
             .boolean(label: 'disabled', initial: false),
         onOptionSelected: (List<DropdownItem> selectedOptions) {},
@@ -338,6 +340,7 @@ List<Story> dropdownStories() {
     Story(
       name: 'Atom/Dropdown/MultiSelect Dropdown/default/icon',
       builder: (context) => MultiSelectDropDown<int>(
+        isSearchable: context.knobs.boolean(label: 'Searchable', initial: false),
         isDisabled: context.knobs
             .boolean(label: 'disabled', initial: false),
         onOptionSelected: (List<DropdownItem> selectedOptions) {},
@@ -353,6 +356,7 @@ List<Story> dropdownStories() {
     Story(
       name: 'Atom/Dropdown/MultiSelect Dropdown/nested/default',
       builder: (context) => MultiSelectDropDown<int>(
+        isSearchable: context.knobs.boolean(label: 'Searchable', initial: false),
         isDisabled: context.knobs
             .boolean(label: 'disabled', initial: false),
         onOptionSelected: (List<DropdownItem> selectedOptions) {},
@@ -384,6 +388,7 @@ List<Story> dropdownStories() {
     Story(
       name: 'Atom/Dropdown/MultiSelect Dropdown/nested/nested text',
       builder: (context) => MultiSelectDropDown<int>(
+        isSearchable: context.knobs.boolean(label: 'Searchable', initial: false),
         isDisabled: context.knobs
             .boolean(label: 'disabled', initial: false),
         onOptionSelected: (List<DropdownItem> selectedOptions) {},
@@ -420,6 +425,7 @@ List<Story> dropdownStories() {
     Story(
       name: 'Atom/Dropdown/MultiSelect Dropdown/nested/icon',
       builder: (context) => MultiSelectDropDown<int>(
+        isSearchable: context.knobs.boolean(label: 'Searchable', initial: false),
         isDisabled: context.knobs
             .boolean(label: 'disabled', initial: false),
         onOptionSelected: (List<DropdownItem> selectedOptions) {},

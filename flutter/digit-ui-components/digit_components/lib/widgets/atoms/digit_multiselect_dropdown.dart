@@ -76,6 +76,8 @@ class MultiSelectDropDown<int> extends StatefulWidget {
   /// custom helpText Props
   final String? helpText;
 
+  final bool isSearchable;
+
   const MultiSelectDropDown({
     Key? key,
     required this.onOptionSelected,
@@ -91,6 +93,7 @@ class MultiSelectDropDown<int> extends StatefulWidget {
     this.helpText,
     this.errorMessage,
     this.readOnly = false,
+    this.isSearchable = false,
   }) : super(key: key);
 
   @override
@@ -105,11 +108,14 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
   /// Selected options list that is used to display the selected options.
   final List<DropdownItem> _selectedOptions = [];
 
+  late List<DropdownItem> _filteredOptions = [];
+
   /// The controller for the dropdown.
   OverlayState? _overlayState;
   OverlayEntry? _overlayEntry;
   bool _selectionMode = false;
   int _focusedIndex = -1;
+  final TextEditingController _searchController = TextEditingController();
   NestedFocusedIndex _focusedNestedIndex = NestedFocusedIndex(-1, -1);
 
   late final FocusNode _focusNode;
@@ -127,6 +133,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
       _initialize();
     });
     _focusNode = widget.focusNode ?? FocusNode();
+    _filteredOptions = widget.options;
     _controller = widget.controller ?? MultiSelectController<T>();
   }
 
@@ -168,7 +175,9 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
     if (_focusNode.hasFocus == false && _overlayEntry != null) {
       _overlayEntry?.remove();
       _focusedIndex = -1;
+      _searchController.text = '';
       _focusedNestedIndex = NestedFocusedIndex(-1, -1);
+      _filteredOptions = widget.options;
     }
 
     if (mounted) {
@@ -307,15 +316,23 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                   child: Row(
                     children: [
                       Expanded(
-                        child: (_selectedOptions.isNotEmpty)
+                        child:  widget.isSearchable ? FocusScope(
+                          child: TextField(
+                            decoration: null,
+                            controller: _searchController,
+                            onChanged: (value){
+                              _filterOptions(value);
+                            },
+                          ),
+                        ): (_selectedOptions.isNotEmpty)
                             ? Text(
-                                '${_selectedOptions.length} Selected',
-                                style: currentTypography.bodyL.copyWith(
-                                  color: widget.readOnly
-                                      ? const DigitColors().light.textSecondary
-                                      : const DigitColors().light.textPrimary,
-                                ),
-                              )
+                          '${_selectedOptions.length} Selected',
+                          style: currentTypography.bodyL.copyWith(
+                            color: widget.readOnly
+                                ? const DigitColors().light.textSecondary
+                                : const DigitColors().light.textPrimary,
+                          ),
+                        )
                             : const Text(''),
                       ),
                       Icon(
@@ -614,6 +631,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
     _focusNode.removeListener(_handleFocusChange);
     _focusNode.dispose();
     _controller?.removeListener(_handleControllerChange);
+    _searchController.dispose();
 
     if (widget.controller == null || widget.controller?.isDisposed == true) {
       _controller!.dispose();
@@ -645,7 +663,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
     final size = values[0] as Size;
 
     return OverlayEntry(builder: (context) {
-      List<DropdownItem> options = widget.options;
+      List<DropdownItem> options = _filteredOptions;
       List<DropdownItem> selectedOptions = [..._selectedOptions];
 
       return StatefulBuilder(builder: ((context, dropdownState) {
@@ -700,6 +718,20 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
         );
       }));
     });
+  }
+
+
+  void _filterOptions(String? value) {
+    if(value != null || value != '') {
+      setState(() {
+        _filteredOptions = _options
+            .where((item) => item.name
+            .toLowerCase()
+            .contains(value!.toLowerCase()))
+            .toList();
+      });
+    }
+    _updateOverlay();
   }
 
   /// update the overlay when overlay needs to build again
