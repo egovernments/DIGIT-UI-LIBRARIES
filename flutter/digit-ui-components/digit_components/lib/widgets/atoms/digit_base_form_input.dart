@@ -230,6 +230,21 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+  }
+
+  @override
+  void didUpdateWidget(BaseDigitFormInput oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    // If the initial value changes, update the controller's text
+    if (widget.initialValue != oldWidget.initialValue && widget.initialValue != _controller.text) {
+      _controller.text = widget.initialValue ?? '';
+    }
+  }
+
+  @override
   void dispose() {
     super.dispose();
     if (widget.controller == null) {
