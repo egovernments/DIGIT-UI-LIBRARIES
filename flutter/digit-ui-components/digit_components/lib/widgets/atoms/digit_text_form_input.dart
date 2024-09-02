@@ -45,6 +45,7 @@ class DigitTextFormInput extends BaseDigitFormInput {
     final List<TextInputFormatter>? inputFormatters,
     final void Function(String)? onSuffixTap,
     final void Function()? onFocusLost,
+    final EdgeInsetsGeometry? contentPadding,
     final int? maxLength,
   }) : super(
           key: key,
@@ -69,6 +70,7 @@ class DigitTextFormInput extends BaseDigitFormInput {
           onFocusLost: onFocusLost,
           focusNode: focusNode,
           maxLength: maxLength,
+    contentPadding: contentPadding,
         );
 
   @override

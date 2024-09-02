@@ -120,6 +120,8 @@ class BaseDigitFormInput extends StatefulWidget {
 
   final void Function()? onFocusLost;
 
+  final EdgeInsetsGeometry? contentPadding;
+
   /// Custom function for focus lost
 
   const BaseDigitFormInput({
@@ -169,6 +171,7 @@ class BaseDigitFormInput extends StatefulWidget {
     this.focusBorder,
     this.enableBorder,
     this.iconColor,
+    this.contentPadding,
   }) : super(key: key);
 
   @override
@@ -388,7 +391,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                           decoration: InputDecoration(
                             counterText: '',
                             hoverColor: const DigitColors().transparent,
-                            contentPadding: const EdgeInsets.only(
+                            contentPadding: widget.contentPadding ?? const EdgeInsets.only(
                               left: spacer3,
                               right: spacer1,
                               top: spacer1,
@@ -404,7 +407,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                                 : const DigitColors().transparent,
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: _hasError
+                                color: _hasError|| widget.errorMessage != null
                                     ? const DigitColors().light.alertError
                                     : const DigitColors().light.textSecondary,
                                 width: _hasError
@@ -501,8 +504,8 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                       minHeight: BaseConstants.inputMinHeight,
                       minWidth: minWidth,
                     ),
-                    contentPadding: const EdgeInsets.only(
-                        left: spacer3, bottom: spacer3, right: spacer3),
+                    contentPadding: widget.contentPadding ?? const EdgeInsets.only( top: spacer2,
+                        left: spacer3, bottom: spacer2, right: spacer3),
                     hintText: capitalizedInnerLabel,
                     hintStyle: currentTypography.bodyL.copyWith(
                       color: const DigitColors().light.textDisabled,
