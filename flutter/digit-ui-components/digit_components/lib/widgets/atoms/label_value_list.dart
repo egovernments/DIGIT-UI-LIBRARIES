@@ -5,11 +5,15 @@ import 'package:flutter/material.dart';
 class LabelValuePair {
   final String label;
   final String value;
+  final TextStyle? labelTextStyle;
+  final TextStyle? valueTextStyle;
   final bool isInline;
 
   LabelValuePair({
     required this.label,
     required this.value,
+    this.labelTextStyle,
+    this.valueTextStyle,
     this.isInline = true, // Default to inline layout
   });
 }
@@ -86,7 +90,7 @@ class LabelValueList extends StatelessWidget {
                   flex: labelFlex, // 30% width
                   child: Text(
                     item.label,
-                    style: currentTypography.headingS.copyWith(
+                    style: item.labelTextStyle ?? currentTypography.headingS.copyWith(
                       color: const DigitColors().light.textPrimary,
                     ),
                   ),
@@ -99,7 +103,7 @@ class LabelValueList extends StatelessWidget {
                     item.value,
                     maxLines: maxLines,
                     overflow: TextOverflow.ellipsis,
-                    style: currentTypography.bodyS.copyWith(
+                    style: item.valueTextStyle ?? currentTypography.bodyS.copyWith(
                       color: const DigitColors().light.textPrimary,
                     ),
                   ),
@@ -111,14 +115,14 @@ class LabelValueList extends StatelessWidget {
               children: [
                 Text(
                   item.label,
-                  style: currentTypography.headingS.copyWith(
+                  style: item.labelTextStyle ?? currentTypography.headingS.copyWith(
                     color: const DigitColors().light.textPrimary,
                   ),
                 ),
                 const SizedBox(height: 4),
                 Text(
                   item.value,
-                  style: currentTypography.bodyS.copyWith(
+                  style: item.valueTextStyle ?? currentTypography.bodyS.copyWith(
                     color: const DigitColors().light.textPrimary,
                   ),
                 ),
