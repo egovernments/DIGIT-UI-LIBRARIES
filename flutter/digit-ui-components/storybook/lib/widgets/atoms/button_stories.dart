@@ -1,4 +1,5 @@
 import 'package:digit_ui_components/enum/app_enums.dart';
+import 'package:digit_ui_components/theme/digit_theme_wrapper.dart';
 import 'package:digit_ui_components/widgets/atoms/digit_button.dart';
 import 'package:flutter/material.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
@@ -9,6 +10,9 @@ List<Story> buttonStories() {
   return [
     Story(
       name: 'Atom/Buttons/Primary',
+      wrapperBuilder: (context, child) => DigitThemeWrapper(
+        child: child ?? Container(),
+      ),
       builder: (context) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           CodeViewProvider.of(context)?.updateCodeString('''

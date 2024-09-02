@@ -2,12 +2,16 @@ import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/theme/ComponentTheme/checkbox_theme.dart';
 import 'package:digit_ui_components/theme/ComponentTheme/toast_theme_data.dart';
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
+import 'package:digit_ui_components/theme/digit_theme_wrapper.dart';
+import 'package:digit_ui_components/theme/theme_notifier.dart';
 import 'package:digit_ui_components/utils/validators/validator.dart';
 import 'package:digit_ui_components/widgets/atoms/digit_bread_crumbs.dart';
 import 'package:digit_ui_components/widgets/atoms/digit_stepper.dart';
+import 'package:digit_ui_components/widgets/atoms/digit_tab.dart';
 import 'package:digit_ui_components/widgets/atoms/dropdown_wrapper.dart';
 import 'package:digit_ui_components/widgets/atoms/info_buttons.dart';
 import 'package:digit_ui_components/widgets/atoms/input_wrapper.dart';
+import 'package:digit_ui_components/widgets/atoms/switch.dart';
 import 'package:digit_ui_components/widgets/atoms/timeline.dart';
 import 'package:digit_ui_components/widgets/atoms/tooltip_2.dart';
 import 'package:digit_ui_components/widgets/atoms/upload_image.dart';
@@ -17,6 +21,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:provider/provider.dart';
 import 'dart:io';
 
 final List<TreeNode> Nodes = [
@@ -98,11 +103,9 @@ class MyApp extends StatelessWidget {
   /// This widget is the root of the application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Digit UI Flutter',
-      theme: DigitExtendedTheme.instance.getTheme(context).copyWith(
-      ),
-      home: const MyHomePage(title: 'Digit Components Page'),
+    return const DigitThemeWrapper(
+      initialThemeMode: ThemeMode.dark,
+      child: MyHomePage(title: 'Digit Components Page'),
     );
   }
 }
@@ -146,6 +149,7 @@ class MyHomePageState extends State<MyHomePage> {
 
   bool showAllVariantsOfDropdown = false;
   bool showAllVariantsOfMultiSelectDropdown = false;
+  bool isSwitched = false;
 
   @override
   Widget build(BuildContext context) {
@@ -167,16 +171,39 @@ class MyHomePageState extends State<MyHomePage> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Breadcrumb(
-                  items: ['Home', 'Category', 'Product'],
-                  onTap: (index) {
-                    // Handle breadcrumb item tap
-                    print('Tapped on: ${index}');
+                CustomSwitch(
+                  value: isSwitched,
+                  label: 'Toggle to switch theme',
+                  onChanged: (value) {
+                    setState(() {
+                      isSwitched = value;
+                    });
+                    final themeNotifier = context.read<ThemeNotifier>();
+                    themeNotifier.setThemeMode(
+                      themeNotifier.themeMode == ThemeMode.light
+                          ? ThemeMode.dark
+                          : ThemeMode.light,
+                    );
                   },
                 ),
-                SizedBox(height: 16,),
+                const SizedBox(
+                  height: 32,
+                ),
+                CustomTabBar(
+                  tabs: ['Tabdfsssssssssssssss 1', 'Tab 2', 'Tab 3'],
+                  initialIndex: 1, // Preselect the second tab
+                  onTabSelected: (index) {
+                    // Handle tab selection change
+                  },
+                ),
+                SizedBox(
+                  height: 16,
+                ),
                 DigitTooltip(
-                  tooltipContent: const Text('Hello, Tooltip!', style: TextStyle(color: Colors.white),),
+                  tooltipContent: const Text(
+                    'Hello, Tooltip!',
+                    style: TextStyle(color: Colors.white),
+                  ),
                   tooltipPosition: TooltipPosition.topStart,
                   child: Container(
                     color: Colors.blue,
@@ -184,9 +211,14 @@ class MyHomePageState extends State<MyHomePage> {
                     child: const Text('Tap me(top start)'),
                   ),
                 ),
-                SizedBox(height: 16,),
+                SizedBox(
+                  height: 16,
+                ),
                 DigitTooltip(
-                  tooltipContent: const Text('Hello, Tooltip!', style: TextStyle(color: Colors.white),),
+                  tooltipContent: const Text(
+                    'Hello, Tooltip!',
+                    style: TextStyle(color: Colors.white),
+                  ),
                   tooltipPosition: TooltipPosition.topCenter,
                   child: Container(
                     color: Colors.blue,
@@ -194,9 +226,14 @@ class MyHomePageState extends State<MyHomePage> {
                     child: const Text('Tap me(top center)'),
                   ),
                 ),
-                SizedBox(height: 16,),
+                SizedBox(
+                  height: 16,
+                ),
                 DigitTooltip(
-                  tooltipContent: const Text('Hello, Tooltip!', style: TextStyle(color: Colors.white),),
+                  tooltipContent: const Text(
+                    'Hello, Tooltip!',
+                    style: TextStyle(color: Colors.white),
+                  ),
                   tooltipPosition: TooltipPosition.topEnd,
                   child: Container(
                     color: Colors.blue,
@@ -204,9 +241,14 @@ class MyHomePageState extends State<MyHomePage> {
                     child: const Text('Tap me(top end)'),
                   ),
                 ),
-                SizedBox(height: 16,),
+                SizedBox(
+                  height: 16,
+                ),
                 DigitTooltip(
-                  tooltipContent: const Text('Hello, Tooltip!', style: TextStyle(color: Colors.white),),
+                  tooltipContent: const Text(
+                    'Hello, Tooltip!',
+                    style: TextStyle(color: Colors.white),
+                  ),
                   tooltipPosition: TooltipPosition.bottomStart,
                   child: Container(
                     color: Colors.blue,
@@ -214,9 +256,14 @@ class MyHomePageState extends State<MyHomePage> {
                     child: const Text('Tap me(bottom start)'),
                   ),
                 ),
-                SizedBox(height: 16,),
+                SizedBox(
+                  height: 16,
+                ),
                 DigitTooltip(
-                  tooltipContent: const Text('Hello, Tooltip!', style: TextStyle(color: Colors.white),),
+                  tooltipContent: const Text(
+                    'Hello, Tooltip!',
+                    style: TextStyle(color: Colors.white),
+                  ),
                   tooltipPosition: TooltipPosition.bottomCenter,
                   child: Container(
                     color: Colors.blue,
@@ -224,9 +271,14 @@ class MyHomePageState extends State<MyHomePage> {
                     child: const Text('Tap me(bottom center)'),
                   ),
                 ),
-                SizedBox(height: 16,),
+                SizedBox(
+                  height: 16,
+                ),
                 DigitTooltip(
-                  tooltipContent: const Text('Hello, Tooltip!', style: TextStyle(color: Colors.white),),
+                  tooltipContent: const Text(
+                    'Hello, Tooltip!',
+                    style: TextStyle(color: Colors.white),
+                  ),
                   tooltipPosition: TooltipPosition.bottomEnd,
                   child: Container(
                     color: Colors.blue,
@@ -234,9 +286,14 @@ class MyHomePageState extends State<MyHomePage> {
                     child: const Text('Tap me(bottom end)'),
                   ),
                 ),
-                SizedBox(height: 16,),
+                SizedBox(
+                  height: 16,
+                ),
                 DigitTooltip(
-                  tooltipContent: const Text('Hello, Tooltip!', style: TextStyle(color: Colors.white),),
+                  tooltipContent: const Text(
+                    'Hello, Tooltip!',
+                    style: TextStyle(color: Colors.white),
+                  ),
                   tooltipPosition: TooltipPosition.leftStart,
                   child: Container(
                     color: Colors.blue,
@@ -244,9 +301,14 @@ class MyHomePageState extends State<MyHomePage> {
                     child: const Text('Tap me(left start)'),
                   ),
                 ),
-                SizedBox(height: 16,),
+                SizedBox(
+                  height: 16,
+                ),
                 DigitTooltip(
-                  tooltipContent: const Text('Hello, Tooltip!', style: TextStyle(color: Colors.white),),
+                  tooltipContent: const Text(
+                    'Hello, Tooltip!',
+                    style: TextStyle(color: Colors.white),
+                  ),
                   tooltipPosition: TooltipPosition.leftCenter,
                   child: Container(
                     color: Colors.blue,
@@ -254,9 +316,14 @@ class MyHomePageState extends State<MyHomePage> {
                     child: const Text('Tap me(left center)'),
                   ),
                 ),
-                SizedBox(height: 16,),
+                SizedBox(
+                  height: 16,
+                ),
                 DigitTooltip(
-                  tooltipContent: const Text('Hello, Tooltip!', style: TextStyle(color: Colors.white),),
+                  tooltipContent: const Text(
+                    'Hello, Tooltip!',
+                    style: TextStyle(color: Colors.white),
+                  ),
                   tooltipPosition: TooltipPosition.leftEnd,
                   child: Container(
                     color: Colors.blue,
@@ -264,9 +331,14 @@ class MyHomePageState extends State<MyHomePage> {
                     child: const Text('Tap me(left end)'),
                   ),
                 ),
-                SizedBox(height: 16,),
+                SizedBox(
+                  height: 16,
+                ),
                 DigitTooltip(
-                  tooltipContent: const Text('Hello, Tooltip!', style: TextStyle(color: Colors.white),),
+                  tooltipContent: const Text(
+                    'Hello, Tooltip!',
+                    style: TextStyle(color: Colors.white),
+                  ),
                   tooltipPosition: TooltipPosition.rightStart,
                   child: Container(
                     color: Colors.blue,
@@ -274,9 +346,14 @@ class MyHomePageState extends State<MyHomePage> {
                     child: const Text('Tap me(right start)'),
                   ),
                 ),
-                SizedBox(height: 16,),
+                SizedBox(
+                  height: 16,
+                ),
                 DigitTooltip(
-                  tooltipContent: const Text('Hello, Tooltip!', style: TextStyle(color: Colors.white),),
+                  tooltipContent: const Text(
+                    'Hello, Tooltip!',
+                    style: TextStyle(color: Colors.white),
+                  ),
                   tooltipPosition: TooltipPosition.rightCenter,
                   child: Container(
                     color: Colors.blue,
@@ -284,9 +361,14 @@ class MyHomePageState extends State<MyHomePage> {
                     child: const Text('Tap me(right center)'),
                   ),
                 ),
-                SizedBox(height: 16,),
+                SizedBox(
+                  height: 16,
+                ),
                 DigitTooltip(
-                  tooltipContent: const Text('Hello, Tooltip!', style: TextStyle(color: Colors.white),),
+                  tooltipContent: const Text(
+                    'Hello, Tooltip!',
+                    style: TextStyle(color: Colors.white),
+                  ),
                   tooltipPosition: TooltipPosition.rightEnd,
                   child: Container(
                     color: Colors.blue,
@@ -294,7 +376,9 @@ class MyHomePageState extends State<MyHomePage> {
                     child: const Text('Tap me(right end)'),
                   ),
                 ),
-                SizedBox(height: 16,),
+                SizedBox(
+                  height: 16,
+                ),
                 ImageUploader(
                   onImagesSelected: (List<File> imageFile) {
                     // Handle the selected image file here
@@ -2237,8 +2321,10 @@ class MyHomePageState extends State<MyHomePage> {
                     if (value) {
                       Toast.showToast(
                         context,
-                        digitToastThemeData: const DigitToastThemeData().copyWith(maxLine: 4),
-                        message: 'This is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toast!',
+                        digitToastThemeData:
+                            const DigitToastThemeData().copyWith(maxLine: 4),
+                        message:
+                            'This is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toast!',
                         type: ToastType.success,
                       );
                     }

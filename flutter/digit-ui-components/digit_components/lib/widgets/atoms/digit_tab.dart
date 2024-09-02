@@ -72,34 +72,34 @@ class _CustomTabBarState extends State<CustomTabBar> {
             padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
             decoration: BoxDecoration(
               color: _selectedIndex == index
-                  ? const DigitColors().light.paperPrimary
-                  : const DigitColors().light.genericBackground,
+                  ? theme.colorTheme.paper.primary
+                  : theme.colorTheme.generic.background,
               borderRadius: const BorderRadius.only(
                   topRight: Radius.circular(8),
                   topLeft: Radius.circular(8)),
               border: Border(
                 bottom: BorderSide(
                   color: _selectedIndex == index
-                      ? const DigitColors().light.primary1
-                      : const DigitColors().light.genericInputBorder,
+                      ? theme.colorTheme.primary.primary1
+                      : theme.colorTheme.generic.inputBorder,
                   width: _selectedIndex == index ? 4 : 1,
                 ),
                 left: BorderSide(
                   color: _selectedIndex == index
-                      ? const DigitColors().light.primary1
-                      : const DigitColors().light.genericInputBorder,
+                      ? theme.colorTheme.primary.primary1
+                      : theme.colorTheme.generic.inputBorder,
                   width: _selectedIndex == index ? 2 : 1,
                 ),
                 right: BorderSide(
                   color: _selectedIndex == index
-                      ? const DigitColors().light.primary1
-                      : const DigitColors().light.genericInputBorder,
+                      ? theme.colorTheme.primary.primary1
+                      : theme.colorTheme.generic.inputBorder,
                   width: _selectedIndex == index ? 2 : 1,
                 ),
                 top: BorderSide(
                   color: _selectedIndex == index
-                      ? const DigitColors().light.primary1
-                      : const DigitColors().light.genericInputBorder,
+                      ? theme.colorTheme.primary.primary1
+                      : theme.colorTheme.generic.inputBorder,
                   width: _selectedIndex == index ? 2 : 1,
                 ),
               ),
@@ -109,12 +109,12 @@ class _CustomTabBarState extends State<CustomTabBar> {
               tab,
               style: _selectedIndex == index ? textTheme.headingM.copyWith(
                 color: _selectedIndex == index
-                    ? const DigitColors().light.primary1
-                    : const DigitColors().light.textSecondary,
+                    ? theme.colorTheme.primary.primary1
+                    : theme.colorTheme.text.secondary,
               ): textTheme.bodyL.copyWith(
                 color: _selectedIndex == index
-                    ? const DigitColors().light.primary1
-                    : const DigitColors().light.textSecondary,
+                    ? theme.colorTheme.primary.primary1
+                    : theme.colorTheme.text.secondary,
               )
             ),
           ),
