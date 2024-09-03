@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:digit_ui_components/blocs/AppLocalization.dart';
 import 'package:digit_ui_components/models/DropdownModels.dart';
 import 'package:digit_ui_components/theme/colors.dart';
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
@@ -6,6 +9,8 @@ import 'package:digit_ui_components/theme/theme_notifier.dart';
 import 'package:digit_ui_components/widgets/molecules/digit_header.dart';
 import 'package:digit_ui_components/widgets/molecules/hamburder.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:inspector/inspector.dart';
 import 'package:storybook/plugins/code_view_plugin.dart';
 import 'package:storybook/plugins/code_view_wrapper.dart';
@@ -48,6 +53,8 @@ import 'package:storybook/widgets/molecules/side_nav_stories.dart';
 import 'package:storybook/widgets/molecules/timeline_molecule_stories.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
 
+import 'localization.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -59,187 +66,216 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  DigitThemeWrapper(
-      child: MaterialApp(
-        home: Scaffold(
-          appBar: PreferredSize(
-            preferredSize: MediaQuery.of(context).size.width < 500
-                ? const Size.fromHeight(56)
-                : const Size.fromHeight(64), // here the desired height
-            child: Builder(
-              builder: (context) => CustomHeaderMolecule(
-                title: 'City Municipal Corporation',
-                type: HeaderType.light,
-                leadingDigitLogo: false,
-                trailingDigitLogo: true,
-                onMenuTap: () {
-                  Scaffold.of(context).openDrawer();
-                },
-                actions: [
-                  HeaderAction(
-                    widget: Row(
-                      children: [
-                        const Text('City'),
-                        const SizedBox(
-                          width: 8,
-                        ),
-                        Icon(
-                          Icons.arrow_drop_down,
-                          color: const DigitColors().light.textPrimary,
-                        )
+      materialAppBuilder: (context, themeData, themeMode) {
+        return MaterialApp(
+          themeMode: themeMode,
+          theme: themeData,
+          locale: const Locale('en', 'US'),
+          supportedLocales: const [
+            Locale('en', 'US'),
+            Locale('pt', 'PT'),
+            Locale('fr', 'Fr'),
+          ],
+          localizationsDelegates: [
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+            ComponentLocalization.getDelegate(loadLocalizedStrings(), [
+              Language('French', 'fr_MZ'),
+              Language('Portuguese', 'pt_MZ'),
+              Language('English', 'en_MZ'),
+            ]),
+          ],
+          home: Scaffold(
+            appBar: PreferredSize(
+              preferredSize: MediaQuery.of(context).size.width < 500
+                  ? const Size.fromHeight(56)
+                  : const Size.fromHeight(64), // here the desired height
+              child: Builder(
+                builder: (context) => CustomHeaderMolecule(
+                  title: 'City Municipal Corporation',
+                  type: HeaderType.light,
+                  leadingDigitLogo: false,
+                  trailingDigitLogo: true,
+                  onMenuTap: () {
+                    Scaffold.of(context).openDrawer();
+                  },
+                  actions: [
+                    HeaderAction(
+                      widget: Row(
+                        children: [
+                          const Text('City'),
+                          const SizedBox(
+                            width: 8,
+                          ),
+                          Icon(
+                            Icons.arrow_drop_down,
+                            color: const DigitColors().light.textPrimary,
+                          )
+                        ],
+                      ),
+                      isSearchable: true,
+                      dropdownItems: const [
+                        DropdownItem(code: '1', name: 'Option 1'),
+                        DropdownItem(code: '2', name: 'Option 2'),
+                        DropdownItem(code: '3', name: 'Option 3'),
+                        DropdownItem(code: '4', name: 'Option 4'),
                       ],
                     ),
-                    isSearchable: true,
-                    dropdownItems: const [
-                      DropdownItem(code: '1', name: 'Option 1'),
-                      DropdownItem(code: '2', name: 'Option 2'),
-                      DropdownItem(code: '3', name: 'Option 3'),
-                      DropdownItem(code: '4', name: 'Option 4'),
-                    ],
-                  ),
-                  HeaderAction(
-                    widget: Row(
-                      children: [
-                        const Text('Language'),
-                        const SizedBox(
-                          width: 8,
-                        ),
-                        Icon(
-                          Icons.arrow_drop_down,
-                          color: const DigitColors().light.textPrimary,
-                        )
+                    HeaderAction(
+                      widget: Row(
+                        children: [
+                          const Text('Language'),
+                          const SizedBox(
+                            width: 8,
+                          ),
+                          Icon(
+                            Icons.arrow_drop_down,
+                            color: const DigitColors().light.textPrimary,
+                          )
+                        ],
+                      ),
+                      dropdownItems: const [
+                        DropdownItem(code: '1', name: 'Hindi'),
+                        DropdownItem(code: '2', name: 'English'),
+                        DropdownItem(code: '3', name: 'French'),
                       ],
                     ),
-                    dropdownItems: const [
-                      DropdownItem(code: '1', name: 'Hindi'),
-                      DropdownItem(code: '2', name: 'English'),
-                      DropdownItem(code: '3', name: 'French'),
-                    ],
-                  ),
-                  HeaderAction(
-                    widget: Container(
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                            color: DigitColors().light.primary2, width: 1.0),
-                        color: DigitColors().light.primary2,
-                      ),
-                      child: Center(
-                        child: Text(
-                          'R',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w700,
-                              color: DigitColors().light.paperPrimary),
+                    HeaderAction(
+                      widget: Container(
+                        width: 40,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                              color: DigitColors().light.primary2, width: 1.0),
+                          color: DigitColors().light.primary2,
+                        ),
+                        child: Center(
+                          child: Text(
+                            'R',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                color: DigitColors().light.paperPrimary),
+                          ),
                         ),
                       ),
+                      dropdownItems: const [
+                        DropdownItem(code: '1', name: 'Edit Profile'),
+                        DropdownItem(code: '2', name: 'Logout'),
+                      ],
                     ),
-                    dropdownItems: const [
-                      DropdownItem(code: '1', name: 'Edit Profile'),
-                      DropdownItem(code: '2', name: 'Logout'),
-                    ],
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-          drawer: SideBar(
-            sidebarItems: [
-              SidebarItem(
-                title: 'Home',
-                icon: Icons.home,
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  // Navigate to Home
-                },
-              ),
-              SidebarItem(
-                title: 'Language',
-                icon: Icons.language,
-                onPressed: () {
-                  // Implement language change
-                },
-              ),
-              SidebarItem(
-                title: 'Profile',
-                icon: Icons.person,
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  // Navigate to Profile
-                },
-              ),
-              SidebarItem(
-                title: 'View Downloaded Data',
-                icon: Icons.download,
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  // Navigate to Downloaded Data
-                },
-              ),
-            ],
-          ),
-          body: Inspector(
-            isEnabled: true,
-            child: CodeViewWrapper(
-              child: Storybook(
-                plugins: [
-                  CodeViewPlugin(
-                    enableCodeView: true,
-                    onShowCodeView: (isEnabled) {
-                      // Handle code view toggle state here if needed
-                    },
-                  ),
-                  ThemeSwitcherPlugin(
-                    enableThemeSwitch: true,
-                  )
-                ],
-                initialStory: 'Screens/Scaffold',
-                stories: [
-                  ...buttonStories(),
-                  ...checkboxStories(),
-                  ...chipStories(),
-                  ...infoCardStories(),
-                  ...panelStories(),
-                  ...timeLineStories(),
-                  ...inputFieldStories(),
-                  ...radioListStories(),
-                  ...toastStories(),
-                  ...toggleGroupStories(),
-                  ...dropdownStories(),
-                  ...stepperStories(),
-                  ...fileUploaderStories(),
-                  ...actionStories(),
-                  ...popUpStories(),
-                  ...panelCardStories(),
-                  ...cardStories(),
-                  ...dividerStories(),
-                  ...buttonListStories(),
-                  ...showPopUPStories(),
-                  ...footerMoleculeStories(),
-                  ...headerMoleculeStories(),
-                  ...breadCrumbStories(),
-                  ...backNavigationButtonStories(),
-                  ...timelineMoleculeStories(),
+            drawer: SideBar(
+              sidebarItems: [
+                SidebarItem(
+                  title: 'Home',
+                  icon: Icons.home,
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    // Navigate to Home
+                  },
+                ),
+                SidebarItem(
+                  title: 'Language',
+                  icon: Icons.language,
+                  onPressed: () {
+                    // Implement language change
+                  },
+                ),
+                SidebarItem(
+                  title: 'Profile',
+                  icon: Icons.person,
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    // Navigate to Profile
+                  },
+                ),
+                SidebarItem(
+                  title: 'View Downloaded Data',
+                  icon: Icons.download,
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    // Navigate to Downloaded Data
+                  },
+                ),
+              ],
+            ),
+            body: Inspector(
+              isEnabled: true,
+              child: CodeViewWrapper(
+                child: Storybook(
+                  plugins: [
+                    CodeViewPlugin(
+                      enableCodeView: true,
+                      onShowCodeView: (isEnabled) {
+                        // Handle code view toggle state here if needed
+                      },
+                    ),
+                    ThemeSwitcherPlugin(
+                      enableThemeSwitch: true,
+                    )
+                  ],
+                  initialStory: 'Screens/Scaffold',
+                  stories: [
+                    ...buttonStories(),
+                    ...checkboxStories(),
+                    ...chipStories(),
+                    ...infoCardStories(),
+                    ...panelStories(),
+                    ...timeLineStories(),
+                    ...inputFieldStories(),
+                    ...radioListStories(),
+                    ...toastStories(),
+                    ...toggleGroupStories(),
+                    ...dropdownStories(),
+                    ...stepperStories(),
+                    ...fileUploaderStories(),
+                    ...actionStories(),
+                    ...popUpStories(),
+                    ...panelCardStories(),
+                    ...cardStories(),
+                    ...dividerStories(),
+                    ...buttonListStories(),
+                    ...showPopUPStories(),
+                    ...footerMoleculeStories(),
+                    ...headerMoleculeStories(),
+                    ...breadCrumbStories(),
+                    ...backNavigationButtonStories(),
+                    ...timelineMoleculeStories(),
 
-                  ///...customStepperStories(),
-                  ...hamBurgerStories(),
-                  ...tableStories(),
-                  ...sideNavStories(),
-                  //...toolTipStories(),
-                  ...selectionCardStories(),
-                  ...listViewStories(),
-                  ...toolTip2Stories(),
-                  ...digitTagStories(),
-                  ...switchStories(),
-                  ...bottomSheetStories(),
-                  ...accordionStories(),
-                  ...tabStories(),
-                ],
+                    ///...customStepperStories(),
+                    ...hamBurgerStories(),
+                    ...tableStories(),
+                    ...sideNavStories(),
+                    //...toolTipStories(),
+                    ...selectionCardStories(),
+                    ...listViewStories(),
+                    ...toolTip2Stories(),
+                    ...digitTagStories(),
+                    ...switchStories(),
+                    ...bottomSheetStories(),
+                    ...accordionStories(),
+                    ...tabStories(),
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
+}
+
+Future<List> loadLocalizedStrings() async{
+  String jsonString = await rootBundle.loadString('assets/localized_data.json');
+  // Decode the JSON string
+  List<dynamic> jsonList = jsonDecode(jsonString);
+
+  // Convert the dynamic list to a list of LocalizedString objects
+  return jsonList.map((jsonItem) => Localization.fromJson(jsonItem)).toList();
 }

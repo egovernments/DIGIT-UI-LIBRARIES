@@ -3,13 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class DigitThemeWrapper extends StatelessWidget {
-  final Widget child;
+  final Widget? child;  // Made optional
   final ThemeMode initialThemeMode;
+  final Widget Function(BuildContext, ThemeData, ThemeMode)? materialAppBuilder;
 
   const DigitThemeWrapper({
     Key? key,
-    required this.child,
-    this.initialThemeMode = ThemeMode.system, // Default to system theme mode if not provided
+    this.child,  // No longer required
+    this.initialThemeMode = ThemeMode.system,
+    this.materialAppBuilder,
   }) : super(key: key);
 
   @override
@@ -30,9 +32,18 @@ class DigitThemeWrapper extends StatelessWidget {
       child: Builder(
         builder: (context) {
           final themeNotifier = Provider.of<ThemeNotifier>(context);
+          final themeData = themeNotifier.loadThemeData(context);
+
+          if (materialAppBuilder != null) {
+            return materialAppBuilder!(context, themeData, themeNotifier.themeMode);
+          }
+
+          // If materialAppBuilder is not provided, ensure child is not null
+          assert(child != null, 'Either child or materialAppBuilder must be provided.');
+
           return MaterialApp(
             themeMode: themeNotifier.themeMode,
-            theme: themeNotifier.loadThemeData(context),
+            theme: themeData,
             home: child,
           );
         },

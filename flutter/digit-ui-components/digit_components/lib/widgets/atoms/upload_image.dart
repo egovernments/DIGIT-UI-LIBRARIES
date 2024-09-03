@@ -4,14 +4,16 @@ import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/theme/ComponentTheme/pop_up_card_theme.dart';
 import 'package:digit_ui_components/utils/utils.dart';
 import 'package:digit_ui_components/widgets/atoms/pop_up_card.dart';
+import 'package:digit_ui_components/widgets/localized.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../utils/validators/file_validator.dart';
 import '../../utils/validators/image_validator.dart';
 import '../helper_widget/camera_handler.dart';
+import '../../utils/i18_key_constants.dart' as i18;
 
-class ImageUploader extends StatefulWidget {
+class ImageUploader extends LocalizedStatefulWidget {
   final Function(List<File>) onImagesSelected;
   final bool allowMultiples;
   final String? errorMessage;
@@ -28,7 +30,7 @@ class ImageUploader extends StatefulWidget {
   _ImageUploaderState createState() => _ImageUploaderState();
 }
 
-class _ImageUploaderState extends State<ImageUploader> {
+class _ImageUploaderState extends LocalizedState<ImageUploader> {
   late final List<File> _imageFiles = [];
   late DigitTypography currentTypography;
   late bool isMobile;
@@ -54,7 +56,7 @@ class _ImageUploaderState extends State<ImageUploader> {
               onCrossTap: (context) {
                 Navigator.of(context).pop();
               },
-              title: 'Camera',
+              title: localizations.translate(i18.common.camera),
               type: PopUpType.simple,
               actions: [
                 Button(
@@ -163,7 +165,7 @@ class _ImageUploaderState extends State<ImageUploader> {
                         width: isTab ? 440 : 600,
                         height: isTab ? 228 : 240,
                       )   ,
-                      title: 'Choose an option to upload',
+                      title: localizations.translate(i18.common.chooseOptionToUpload),
                       onCrossTap: (context) {
                         Navigator.of(context).pop();
                       },

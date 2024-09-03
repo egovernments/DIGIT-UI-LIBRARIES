@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+import 'package:digit_ui_components/blocs/AppLocalization.dart';
+import 'package:digit_ui_components/blocs/component_localization_delegate.dart';
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/theme/ComponentTheme/checkbox_theme.dart';
 import 'package:digit_ui_components/theme/ComponentTheme/toast_theme_data.dart';
@@ -19,10 +23,13 @@ import 'package:digit_ui_components/widgets/atoms/upload_popUp.dart';
 import 'package:digit_ui_components/widgets/molecules/digit_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:provider/provider.dart';
 import 'dart:io';
+
+import 'localization.dart';
 
 final List<TreeNode> Nodes = [
   TreeNode('A', 'A', [
@@ -103,11 +110,42 @@ class MyApp extends StatelessWidget {
   /// This widget is the root of the application.
   @override
   Widget build(BuildContext context) {
-    return const DigitThemeWrapper(
+    return DigitThemeWrapper(
       initialThemeMode: ThemeMode.dark,
-      child: MyHomePage(title: 'Digit Components Page'),
+      materialAppBuilder: (context, themeData, themeMode) {
+        return MaterialApp(
+          themeMode: themeMode,
+          theme: themeData,
+          locale: const Locale("en","MZ"),
+          supportedLocales: const [
+            Locale('en', 'US'),
+            Locale("en","MZ"),
+            Locale('fr', 'Fr'),
+          ],
+          localizationsDelegates: [
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+            ComponentLocalization.getDelegate(loadLocalizedStrings(), [
+              Language('French', 'fr_MZ'),
+              Language('Portuguese', 'pt_MZ'),
+              Language('English', 'en_MZ'),
+            ]),
+          ],
+          home: MyHomePage(title: 'Digit Components Page'),
+        );
+      },
     );
   }
+}
+
+Future<List> loadLocalizedStrings() async{
+  String jsonString = await rootBundle.loadString('lib/localization_data.json');
+  // Decode the JSON string
+  List<dynamic> jsonList = jsonDecode(jsonString);
+
+  // Convert the dynamic list to a list of LocalizedString objects
+  return jsonList.map((jsonItem) => Localization.fromJson(jsonItem)).toList();
 }
 
 class MyHomePage extends StatefulWidget {
@@ -120,8 +158,14 @@ class MyHomePage extends StatefulWidget {
 }
 
 class MyHomePageState extends State<MyHomePage> {
+  late Future<List> _localizationFuture;
+
   @override
   void initState() {
+    // Initialize the Future to load the localization strings
+    _localizationFuture = loadLocalizedStrings();
+    ComponentLocalizationDelegate delegate = ComponentLocalizationDelegate(_localizationFuture, [Language('English', 'en_MZ')]);
+    delegate.load(const Locale("en","MZ"));
     super.initState();
   }
 
@@ -153,6 +197,26 @@ class MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    return FutureBuilder<List>(
+      future: _localizationFuture,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          // While waiting for the localization data to load, show a loading indicator
+          return const Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          // If an error occurs while loading localization data, show an error message
+          return Center(child: Text('Error loading localization data'));
+        } else if (snapshot.hasData) {
+          // Once the localization data is loaded, build the UI
+          return _buildContent();
+        } else {
+          // Handle any other unexpected cases
+          return const Center(child: Text('Unexpected error occurred'));
+        }
+      },
+    );
+  }
+  Widget _buildContent() {
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -189,6 +253,13 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 32,
                 ),
+                ImageUploader(
+                  onImagesSelected: (List<File> imageFile) {
+                    // Handle the selected image file here
+                    // print('Image selected: ${imageFile.path}');
+                  },
+                ),
+                const SizedBox(height: 16,),
                 CustomTabBar(
                   tabs: ['Tabdfsssssssssssssss 1', 'Tab 2', 'Tab 3'],
                   initialIndex: 1, // Preselect the second tab
@@ -211,7 +282,7 @@ class MyHomePageState extends State<MyHomePage> {
                     child: const Text('Tap me(top start)'),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 16,
                 ),
                 DigitTooltip(
@@ -226,7 +297,7 @@ class MyHomePageState extends State<MyHomePage> {
                     child: const Text('Tap me(top center)'),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 16,
                 ),
                 DigitTooltip(
@@ -241,7 +312,7 @@ class MyHomePageState extends State<MyHomePage> {
                     child: const Text('Tap me(top end)'),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 16,
                 ),
                 DigitTooltip(
@@ -256,7 +327,7 @@ class MyHomePageState extends State<MyHomePage> {
                     child: const Text('Tap me(bottom start)'),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 16,
                 ),
                 DigitTooltip(
@@ -271,7 +342,7 @@ class MyHomePageState extends State<MyHomePage> {
                     child: const Text('Tap me(bottom center)'),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 16,
                 ),
                 DigitTooltip(
@@ -426,7 +497,7 @@ class MyHomePageState extends State<MyHomePage> {
                               errorMessage: 'Maximum length is 10.'),
                           Validator(ValidatorType.pattern, r'^[a-zA-Z0-9]+$',
                               errorMessage:
-                                  'Long error message long error message long error message long error message long error message'),
+                              'Long error message long error message long error message long error message long error message'),
                         ],
                       ),
                       InputField(
@@ -759,7 +830,7 @@ class MyHomePageState extends State<MyHomePage> {
                         validations: [
                           Validator(ValidatorType.minLength, 8,
                               errorMessage:
-                                  'Password must be at least 8 characters.'),
+                              'Password must be at least 8 characters.'),
                         ],
                       ),
                       InputField(
@@ -1022,10 +1093,10 @@ class MyHomePageState extends State<MyHomePage> {
                         .entries
                         .map(
                           (item) => DropdownItem(
-                            name: item.value,
-                            code: item.key.toString(),
-                          ),
-                        )
+                        name: item.value,
+                        code: item.key.toString(),
+                      ),
+                    )
                         .toList(),
                   ),
                 ),
@@ -1055,25 +1126,25 @@ class MyHomePageState extends State<MyHomePage> {
                               name: 'first',
                               code: '1',
                               profileImageUrl:
-                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
                             ),
                             DropdownItem(
                               name: 'second',
                               code: '2',
                               profileImageUrl:
-                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
                             ),
                             DropdownItem(
                               name: 'third',
                               code: '3',
                               profileImageUrl:
-                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
                             ),
                             DropdownItem(
                               name: 'fourth',
                               code: '4',
                               profileImageUrl:
-                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
                             ),
                           ],
                         ),
@@ -1087,25 +1158,25 @@ class MyHomePageState extends State<MyHomePage> {
                               name: 'first',
                               code: '1',
                               profileImageUrl:
-                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
                             ),
                             DropdownItem(
                               name: 'second',
                               code: '2',
                               profileImageUrl:
-                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
                             ),
                             DropdownItem(
                               name: 'third',
                               code: '3',
                               profileImageUrl:
-                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
                             ),
                             DropdownItem(
                               name: 'fourth',
                               code: '4',
                               profileImageUrl:
-                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
                             ),
                           ],
                         ),
@@ -1120,28 +1191,28 @@ class MyHomePageState extends State<MyHomePage> {
                               code: '1',
                               description: 'description for first one',
                               profileImageUrl:
-                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
                             ),
                             DropdownItem(
                               name: 'second',
                               code: '2',
                               description: 'description for second one',
                               profileImageUrl:
-                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
                             ),
                             DropdownItem(
                               name: 'third',
                               code: '3',
                               description: 'description for third one',
                               profileImageUrl:
-                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
                             ),
                             DropdownItem(
                               name: 'fourth',
                               code: '4',
                               description: 'description for fourth one',
                               profileImageUrl:
-                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
                             ),
                           ],
                         ),
@@ -1160,11 +1231,11 @@ class MyHomePageState extends State<MyHomePage> {
                               .entries
                               .map(
                                 (item) => DropdownItem(
-                                    name: item.value,
-                                    code: item.key.toString(),
-                                    description:
-                                        'This is just example description'),
-                              )
+                                name: item.value,
+                                code: item.key.toString(),
+                                description:
+                                'This is just example description'),
+                          )
                               .toList(),
                         ),
                       ),
@@ -1182,11 +1253,11 @@ class MyHomePageState extends State<MyHomePage> {
                               .entries
                               .map(
                                 (item) => DropdownItem(
-                                  name: item.value,
-                                  code: item.key.toString(),
-                                  textIcon: Icons.article,
-                                ),
-                              )
+                              name: item.value,
+                              code: item.key.toString(),
+                              textIcon: Icons.article,
+                            ),
+                          )
                               .toList(),
                         ),
                       ),
@@ -1281,7 +1352,7 @@ class MyHomePageState extends State<MyHomePage> {
                       const SizedBox(height: 8),
                       const LabeledField(
                         label:
-                            "Dropdown with nested Type With Icons and description",
+                        "Dropdown with nested Type With Icons and description",
                         child: Dropdown(
                           dropdownSelectionType: SelectionType.nestedSelect,
                           items: [
@@ -2322,9 +2393,9 @@ class MyHomePageState extends State<MyHomePage> {
                       Toast.showToast(
                         context,
                         digitToastThemeData:
-                            const DigitToastThemeData().copyWith(maxLine: 4),
+                        const DigitToastThemeData().copyWith(maxLine: 4),
                         message:
-                            'This is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toast!',
+                        'This is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toast!',
                         type: ToastType.success,
                       );
                     }
@@ -2371,7 +2442,7 @@ class MyHomePageState extends State<MyHomePage> {
                       Toast.showToast(
                         context,
                         message:
-                            'Message token created successfully and Users Are Unable to Login to the Professional after an Upgrade to Version it is working fine. Learn about token based authentication and how to easily implement JWT in your application',
+                        'Message token created successfully and Users Are Unable to Login to the Professional after an Upgrade to Version it is working fine. Learn about token based authentication and how to easily implement JWT in your application',
                         type: ToastType.warning,
                       );
                     }
@@ -2388,7 +2459,7 @@ class MyHomePageState extends State<MyHomePage> {
                       Toast.showToast(
                         context,
                         message:
-                            'Message token created successfully and Users Are Unable to Login to the Professional after an Upgrade to Version it is working fine. Learn about token based authentication and how to easily implement JWT in your application',
+                        'Message token created successfully and Users Are Unable to Login to the Professional after an Upgrade to Version it is working fine. Learn about token based authentication and how to easily implement JWT in your application',
                         type: ToastType.error,
                       );
                     }
@@ -2405,7 +2476,7 @@ class MyHomePageState extends State<MyHomePage> {
                       Toast.showToast(
                         context,
                         message:
-                            'Message token created successfully and Users Are Unable to Login to the Professional after an Upgrade to Version it is working fine. Learn about token based authentication and how to easily implement JWT in your application",',
+                        'Message token created successfully and Users Are Unable to Login to the Professional after an Upgrade to Version it is working fine. Learn about token based authentication and how to easily implement JWT in your application",',
                         type: ToastType.success,
                       );
                     }
@@ -2450,7 +2521,7 @@ class MyHomePageState extends State<MyHomePage> {
                       const SizedBox(height: 8),
                       DigitCheckbox(
                         label:
-                            'DigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled State',
+                        'DigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled State',
                         value: true,
                         isDisabled: true,
                         onChanged: (value) {},
@@ -2516,7 +2587,7 @@ class MyHomePageState extends State<MyHomePage> {
                   title: 'Info',
                   type: InfoType.info,
                   description:
-                      'Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect theservice to get completed in 24 hrs from the time of payment.',
+                  'Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect theservice to get completed in 24 hrs from the time of payment.',
                 ),
                 const SizedBox(
                   height: 8,
@@ -2525,7 +2596,7 @@ class MyHomePageState extends State<MyHomePage> {
                   title: 'Success',
                   type: InfoType.success,
                   description:
-                      'Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect theservice to get completed in 24 hrs from the time of payment.',
+                  'Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect theservice to get completed in 24 hrs from the time of payment.',
                 ),
                 const SizedBox(
                   height: 8,
@@ -2534,7 +2605,7 @@ class MyHomePageState extends State<MyHomePage> {
                   title: 'Error',
                   type: InfoType.error,
                   description:
-                      'Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect theservice to get completed in 24 hrs from the time of payment.',
+                  'Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect theservice to get completed in 24 hrs from the time of payment.',
                 ),
                 const SizedBox(
                   height: 8,
@@ -2543,7 +2614,7 @@ class MyHomePageState extends State<MyHomePage> {
                   title: 'Warning',
                   type: InfoType.warning,
                   description:
-                      'Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect theservice to get completed in 24 hrs from the time of payment.',
+                  'Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect theservice to get completed in 24 hrs from the time of payment.',
                 ),
               ],
             ),
@@ -2552,4 +2623,5 @@ class MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
+
 }

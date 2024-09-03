@@ -1,0 +1,26 @@
+[
+  {
+    "code": "CAMERA",
+    "locale": "en_MZ",
+    "message": "Camera",
+    "module": "core-common-component"
+  },
+  {
+    "code": "CHOOSE_OPTION_TO_UPLOAD",
+    "locale": "en_MZ",
+    "message": "Choose option to upload",
+    "module": "core-common-component"
+  },
+  {
+    "code": "ACKNOWLEDGEMENT_SUCCESS_DESCRIPTION_TEXT",
+    "locale": "en_MZ",
+    "message": "The data has been recorded successfully.",
+    "module": "hcm-acknowledgement"
+  },
+  {
+    "code": "ACKNOWLEDGEMENT_SUCCESS_LABEL_TEXT",
+    "locale": "en_MZ",
+    "message": "Data recorded successfully",
+    "module": "hcm-acknowledgement"
+  }
+]
