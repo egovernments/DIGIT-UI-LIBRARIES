@@ -38,12 +38,13 @@ const commonArgs = {
 
 const additionalElements = [
   <InfoCard
+    key="1"
     populators={{
       name: "infocard",
     }}
     variant="default"
     text={
-      "Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect theservice to get completed in 24 hrs from the time of payment."
+      "Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect the service to get completed in 24 hrs from the time of payment."
     }
     label={"Info"}
   />,
@@ -53,12 +54,13 @@ const additionalElements = [
     alt="Additional Element 2"
   />,
   <InfoCard
+    key="3"
     populators={{
       name: "infocard",
     }}
     variant="default"
     text={
-      "Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect theservice to get completed in 24 hrs from the time of payment."
+      "Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect the service to get completed in 24 hrs from the time of payment."
     }
     label={"Info"}
   />,
@@ -66,18 +68,26 @@ const additionalElements = [
 
 const actions = [
   <Button
-    label={"Button"}
+    key="1"
+    label={"Cancel"}
     size="large"
     variation={"secondary"}
     isDisabled={false}
-  ></Button>,
+  />,
   <Button
-    label={"Button"}
+    key="2"
+    label={"Submit"}
     size="large"
     variation={"primary"}
     isDisabled={false}
-  ></Button>,
+  />,
 ];
+
+export const WithoutInitialState = Template.bind({});
+WithoutInitialState.args = {
+  ...commonArgs,
+  children: additionalElements,
+};
 
 export const Closed = Template.bind({});
 Closed.args = {
@@ -159,8 +169,8 @@ FullWithActions.args = {
   actions: actions,
 };
 
-export const ClosedWithActionsEqalWidthButtons = Template.bind({});
-ClosedWithActionsEqalWidthButtons.args = {
+export const ClosedWithActionsEqualWidthButtons = Template.bind({});
+ClosedWithActionsEqualWidthButtons.args = {
   ...commonArgs,
   initialState: "closed",
   enableActions: true,
