@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.0.2-beta.29] - 2024-09-05
+### Changed
+- Added Accordion animation styles
+
 ## [0.0.2-beta.28] - 2024-09-04
 ### Changed
 - Added BottomSheet styles
