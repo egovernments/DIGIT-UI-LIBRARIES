@@ -16,7 +16,7 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
-
+  gap:0.625rem;
   min-width: 4.125rem;
   max-width: 14.563rem;
 
@@ -35,6 +35,17 @@
 
   @media (min-aspect-ratio: 3/4) {
     font-size: theme(digitv2.fontSize.body-s.desktop);
+  }
+
+
+  .tooltip-header{
+    @extend .typography.heading-s;
+    color: theme(digitv2.lightTheme.paper-primary);
+  }
+
+  .tooltip-description{
+    @extend .typography.body-xs;
+    color: theme(digitv2.lightTheme.paper-primary);
   }
 }
 

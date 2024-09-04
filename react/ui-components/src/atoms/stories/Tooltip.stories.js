@@ -1,12 +1,14 @@
 import React from "react";
 import Tooltip from "../Tooltip";
 import { Colors } from "../../constants/colors/colorconstants";
+import { IMAGES } from "../../constants/images/images";
 
 export default {
   title: "Atoms/Tooltip",
   component: Tooltip,
   argTypes: {
-    title: { control: "text" },
+    content: { control: "text" },
+    description: { control: "text" },
     placement: {
       control: "select",
       options: [
@@ -27,6 +29,7 @@ export default {
     arrow: { control: "boolean" },
     style: { control: "object" },
     className: { control: "text" },
+    header:{control:"text"}
   },
 };
 
@@ -51,16 +54,18 @@ const Template = (args) => (
 
 export const Basic = Template.bind({});
 Basic.args = {
-  title: "Tooltip",
+  content: "Tooltip",
   arrow: false,
   placement: "bottom",
   style: {},
   className: "",
+  header:"",
+  description:""
 };
 
 export const MaxLabel = Template.bind({});
 MaxLabel.args = {
-  title: "Tooltip Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ",
+  content: "Tooltip Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ",
   arrow: false,
   placement: "bottom",
   style: {},
@@ -69,7 +74,7 @@ MaxLabel.args = {
 
 export const WithArrow = Template.bind({});
 WithArrow.args = {
-  title: "Tooltip",
+  content: "Tooltip",
   arrow: true,
   placement: "bottom",
   style: {},
@@ -78,7 +83,7 @@ WithArrow.args = {
 
 export const MaxLabelWithArrow = Template.bind({});
 MaxLabelWithArrow.args = {
-  title: "Tooltip Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ",
+  content: "Tooltip Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ",
   arrow: true,
   placement: "bottom",
   style: {},
@@ -87,7 +92,7 @@ MaxLabelWithArrow.args = {
 
 export const CustomStyles = Template.bind({});
 CustomStyles.args = {
-  title: "Tooltip",
+  content: "Tooltip",
   arrow: false,
   placement: "bottom",
   style: {
@@ -99,29 +104,48 @@ CustomStyles.args = {
   className: "",
 };
 
+
+export const WithHeaderAndDescription = Template.bind({});
+WithHeaderAndDescription.args = {
+  content: "Tooltip",
+  arrow: false,
+  placement: "bottom",
+  style: {},
+  className: "",
+  header:"Header",
+  description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt "
+};
+
+const getImageUrl = (imageKey) => {
+  return IMAGES[imageKey];
+};
+
+const digitImg = getImageUrl("DIGIT_LIGHT");
+
 const htmlTooltip = (
     <React.Fragment>
-      <em>{"And here's"}</em> <b>{"some"}</b> <u>{"amazing content"}</u>.{" "}
-      {"It's very engaging. Right?"}{" "}
+      {"And here's some amazing content It's very engaging. Right?"}<hr></hr>
       <img
         alt="here is your logo"
-        src="https://cdn.prod.website-files.com/5c7d318eeaea1d6e1198d906/628d4fa7695fe641bef4c60a_CTA-Tooltip.png"
+        src={digitImg}
       ></img>
     </React.Fragment>
   );
 
   export const HtmlTooltip = Template.bind({});
   HtmlTooltip.args = {
-    title: htmlTooltip,
+    content: htmlTooltip,
     arrow: false,
     placement: "bottom",
     style: {},
     className: "",
+    header:"Header",
+    description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt "
   };
   
   export const HtmlTooltipWithArrow = Template.bind({});
   HtmlTooltipWithArrow.args = {
-    title: htmlTooltip,
+    content: htmlTooltip,
     arrow: true,
     placement: "bottom",
     style: {},

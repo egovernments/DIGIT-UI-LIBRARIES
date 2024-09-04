@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Tooltip = ({ tooltipRef, title, placement, arrow, style, className }) => {
+const Tooltip = ({ tooltipRef, content, placement, arrow, style, className,header ,description}) => {
   return (
     <div
       className={`tooltip-content tooltip-${placement} ${
@@ -10,13 +10,17 @@ const Tooltip = ({ tooltipRef, title, placement, arrow, style, className }) => {
       style={style}
       ref={tooltipRef}
     >
-      {title}
+      <div className={`tooltip-header`}>{header}</div>
+      <div className={`tooltip-data`}>{content}</div>
+      <div className={`tooltip-description`}>{description}</div>
     </div>
   );
 };
 
 Tooltip.propTypes = {
-  title: PropTypes.node.isRequired,
+  header:PropTypes.string,
+  content: PropTypes.node.isRequired,
+  description:PropTypes.string,
   placement: PropTypes.oneOf([
     "bottom",
     "bottom-end",

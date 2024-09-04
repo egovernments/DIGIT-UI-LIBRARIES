@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.0.2-beta.27] - 2024-09-04
+### Changed
+-  Updated Tooltip styles
+
 ## [0.0.2-beta.24] - 2024-08-22
 ### Changed
 -  Added Accordion css and updated Sidebar css
