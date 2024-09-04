@@ -1,9 +1,9 @@
 import React from "react";
-import { AccordionWrapper } from "../Accordion";
-import { Accordion } from "../Accordion";
+import { Accordion } from "../../atoms";
+import { AccordionWrapper } from "../../atoms";
 
 export default {
-  title: "Atoms/AccordionWrapper",
+  title: "Molecules/AccordionWrapper",
   component: AccordionWrapper,
   argTypes: {
     className: { control: "text" },
@@ -20,7 +20,7 @@ const children = [
     number={1}
     isOpenInitially={false}
     title={"Accordion 1"}
-    content={
+    children={
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry"
     }
   ></Accordion>,
@@ -28,7 +28,7 @@ const children = [
     number={2}
     isOpenInitially={false}
     title={"Accordion 2"}
-    content={
+    children={
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry"
     }
   ></Accordion>,
@@ -36,7 +36,7 @@ const children = [
     number={3}
     isOpenInitially={false}
     title={"Accordion 3"}
-    content={
+    children={
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry"
     }
   ></Accordion>,
@@ -44,7 +44,7 @@ const children = [
     number={4}
     isOpenInitially={false}
     title={"Accordion 4"}
-    content={
+    children={
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry"
     }
   ></Accordion>,
