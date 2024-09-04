@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import PropTypes from 'prop-types';
+import React, { useState, useRef, useEffect } from "react";
 
 const BottomSheet = ({
   children,
@@ -8,48 +7,108 @@ const BottomSheet = ({
   actions,
   equalWidthButtons,
   className,
-  style
+  style,
 }) => {
-  const [state, setState] = useState(initialState);
+  const [isDragging, setIsDragging] = useState(false);
+  const [currentSheetState, setCurrentSheetState] = useState(initialState);
+  const [height, setHeight] = useState(
+    enableActions && actions ? "fit-content" : "40px"
+  );
+  const sheetRef = useRef(null);
+
+  const handleDragStart = (e) => {
+    e.preventDefault();
+    setIsDragging(true);
+  };
+
+  const handleDragEnd = () => {
+    setIsDragging(false);
+  };
+
+  const handleDrag = (e) => {
+    if (isDragging) {
+      const defaultMInHeight = enableActions && actions ? 96 : 40;
+      const newHeight = Math.min(
+        Math.max(window.innerHeight - e.clientY, defaultMInHeight),
+        window.innerHeight
+      );
+      setHeight(newHeight + "px");
+      if (newHeight === window.innerHeight) {
+        setCurrentSheetState("full");
+        setHeight(window.innerHeight);
+      } else if (newHeight >= window.innerHeight * 0.75) {
+        setCurrentSheetState("intermediate");
+        setHeight(window.innerHeight * 0.75);
+      } else if (newHeight >= window.innerHeight * 0.5) {
+        setCurrentSheetState("quarter");
+        setHeight(window.innerHeight * 0.5);
+      } else if (newHeight >= window.innerHeight * 0.3) {
+        setCurrentSheetState("fixed");
+        setHeight(window.innerHeight * 0.3)
+      } else if (
+        (newHeight > 40 && !enableActions) ||
+        (newHeight > 96 && enableActions)
+      ) {
+        setCurrentSheetState("fixed");
+        setHeight(window.innerHeight * 0.3)
+      } else {
+        setCurrentSheetState("closed");
+      }
+    }
+  };
 
   useEffect(() => {
-    setState(initialState);
-  }, [initialState]);
+    window.addEventListener("mousemove", handleDrag);
+    window.addEventListener("mouseup", handleDragEnd);
+    return () => {
+      window.removeEventListener("mousemove", handleDrag);
+      window.removeEventListener("mouseup", handleDragEnd);
+    };
+  }, [isDragging]);
 
-  const stateTransitions = {
-    closed: 'fixed',
-    fixed: 'quarter',
-    quarter: 'intermediate',
-    intermediate: 'full',
-    full: 'closed',
+  const setHeightState = (state) => {
+    switch (state) {
+      case "fixed":
+        setHeight(`${window.innerHeight * 0.3}px`);
+        break;
+      case "quarter":
+        setHeight(`${window.innerHeight * 0.5}px`);
+        break;
+      case "intermediate":
+        setHeight(`${window.innerHeight * 0.75}px`);
+        break;
+      case "full":
+        setHeight(`${window.innerHeight}px`);
+        break;
+      default:
+        setHeight(enableActions && actions ? "fit-content" : "40px");
+    }
   };
-  
-  const handleStateChange = () => {
-    setState(stateTransitions[state] || 'closed');
-  };
+
+  useEffect(() => {
+    setHeightState(initialState);
+  }, [initialState]);
 
   return (
     <div
-      className={`digit-bottom-sheet ${state} ${
+      className={`digit-bottom-sheet ${currentSheetState} ${
         enableActions ? "actionsEnabled" : ""
       } ${className || ""}`}
-      style={style}
+      style={{ ...style, height }}
+      ref={sheetRef}
     >
-      {state !== "full" && (
+      <div
+        className={`digit-bottom-sheet-header ${currentSheetState} ${
+          enableActions ? "actionsEnabled" : ""
+        }`}
+      >
         <div
-          className={`digit-bottom-sheet-header ${state} ${
-            enableActions ? "actionsEnabled" : ""
-          }`}
-          onClick={handleStateChange}
-        >
-          <div
-            className={`digit-bottom-sheet-handle-indicator ${
-              enableActions ? "actionsEnabled" : ""
-            }`}
-          ></div>
-        </div>
-      )}
-      {state !== "closed" && (
+          className="digit-bottom-sheet-drag-cursor"
+          onMouseDown={handleDragStart}
+        />
+        <div className="digit-bottom-sheet-handle-indicator"></div>
+      </div>
+      {currentSheetState !== "closed" && (
         <div
           className={`digit-bottom-sheet-content ${
             enableActions ? "actionsEnabled" : ""
@@ -58,9 +117,9 @@ const BottomSheet = ({
           {children}
         </div>
       )}
-      {enableActions && (
+      {enableActions && actions && (
         <div
-          className={`digit-bottom-sheet-actions ${
+          className={`digit-bottom-sheet-actions ${currentSheetState} ${
             equalWidthButtons ? "equalButtons" : ""
           }`}
         >
@@ -72,13 +131,3 @@ const BottomSheet = ({
 };
 
 export default BottomSheet;
-
-BottomSheet.propTypes = {
-  children: PropTypes.node,
-  initialState: PropTypes.oneOf(['closed', 'fixed', 'quarter', 'intermediate', 'full']),
-  enableActions: PropTypes.bool,
-  actions: PropTypes.node,
-  equalWidthButtons: PropTypes.bool,
-  className: PropTypes.string,
-  style: PropTypes.object,
-};

@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.0.2-beta.28] - 2024-09-04
+### Changed
+- Added BottomSheet styles
+
 ## [0.0.2-beta.27] - 2024-09-04
 ### Changed
 -  Updated Tooltip styles
