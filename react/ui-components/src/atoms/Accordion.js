@@ -131,8 +131,8 @@ const AccordionWrapper = ({
   const handleToggle = (index) => {
     if (allowMultipleOpen) {
       setOpenIndex((prevState) =>
-        prevState.includes(index)
-          ? prevState.filter((i) => i !== index)
+        prevState?.includes(index)
+          ? prevState?.filter((i) => i !== index)
           : [...prevState, index]
       );
     } else {
