@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'component_localization_delegate.dart';
 
-// Class responsible for handling attendance localization
+// Class responsible for handling component localization
 class ComponentLocalization {
   final Locale locale;
   final Future<dynamic> localizedStrings;
@@ -32,21 +32,13 @@ class ComponentLocalization {
       }
     }
 
-    for(var element in _localizedStrings) {
-      print(element.code);
-      print(element.locale);
-      print(element.message);
-    }
-
     return true;
   }
 
   // Method to translate a given localized value
   String translate(String localizedValues) {
-    print(localizedValues);
-    print('localization');
+
     if (_localizedStrings.isEmpty) {
-      print('empty');
       return localizedValues;
     } else {
       final index = _localizedStrings.indexWhere(

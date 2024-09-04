@@ -28,6 +28,7 @@ class DigitExtendedTheme {
       ),
       datePickerTheme: _getDatePickerTheme(),
       timePickerTheme: _getTimePickerTheme(),
+
     );
   }
   ThemeData getDarkTheme() {

@@ -1,11 +1,17 @@
+import 'package:digit_ui_components/blocs/AppLocalization.dart';
+import 'package:digit_ui_components/theme/digit_theme_wrapper.dart';
 import 'package:digit_ui_components/utils/validators/file_validator.dart';
 import 'package:digit_ui_components/widgets/atoms/upload_drag.dart';
 import 'package:digit_ui_components/widgets/atoms/upload_image.dart';
 import 'package:digit_ui_components/widgets/atoms/upload_popUp.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
+
+import '../../localization.dart';
+import '../../main.dart';
 
 List<Story> fileUploaderStories() {
   return [
@@ -289,6 +295,34 @@ List<Story> fileUploaderStories() {
     ),
     Story(
       name: 'Atom/File Upload/Image/Single Upload/default',
+      wrapperBuilder: (context, child) {
+        return DigitThemeWrapper(
+          initialThemeMode: ThemeMode.light,
+          materialAppBuilder: (context, themeData, themeMode) {
+            return MaterialApp(
+              themeMode: themeMode,
+              theme: themeData,
+              locale: const Locale("en", "MZ"),
+              supportedLocales: const [
+                Locale('en', 'US'),
+                Locale("en", "MZ"),
+                Locale('fr', 'FR'),
+              ],
+              localizationsDelegates: [
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+                ComponentLocalization.getDelegate(loadLocalizedStrings(), [
+                  Language('French', 'fr_MZ'),
+                  Language('Portuguese', 'pt_MZ'),
+                  Language('English', 'en_MZ'),
+                ]),
+              ],
+              home: child,
+            );
+          },
+        );
+      },
       builder: (context) => Center(
           child: ImageUploader(
             onImagesSelected: (List<File> imageFile) {

@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:ui';
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/theme/ComponentTheme/pop_up_card_theme.dart';
+import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:digit_ui_components/utils/utils.dart';
 import 'package:digit_ui_components/widgets/atoms/pop_up_card.dart';
 import 'package:digit_ui_components/widgets/localized.dart';
@@ -209,7 +210,7 @@ class _ImageUploaderState extends LocalizedState<ImageUploader> {
                 },
               );
       },
-      child: _buildImageDisplay(),
+      child: _buildImageDisplay(context),
     );
   }
 
@@ -258,7 +259,9 @@ class _ImageUploaderState extends LocalizedState<ImageUploader> {
     );
   }
 
-  Widget _buildImageDisplay() {
+  Widget _buildImageDisplay(BuildContext context) {
+    final theme = Theme.of(context);
+    final textTheme = theme.digitTextTheme(context);
     if (fileError != '') {
       //_closeCamera();
     }
@@ -286,9 +289,11 @@ class _ImageUploaderState extends LocalizedState<ImageUploader> {
                     Icon(Icons.camera_enhance,
                         size: spacer10,
                         color: const DigitColors().light.primary1),
-                    Text('Click to add photo',
-                        style: TextStyle(
-                            color: const DigitColors().light.primary1)),
+                    Text(localizations.translate(i18.common.clickToAddPicture),
+                        style: textTheme.bodyXS.copyWith(
+                          color: theme.colorTheme.primary.primary1,
+                          decoration: TextDecoration.none,
+                        )),
                   ],
                 ),
               ),
