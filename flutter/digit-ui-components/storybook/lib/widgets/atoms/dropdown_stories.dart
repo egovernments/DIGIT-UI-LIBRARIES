@@ -307,19 +307,48 @@ List<Story> dropdownStories() {
     ),
     Story(
       name: 'Atom/Dropdown/MultiSelect Dropdown/default/default',
-      builder: (context) => MultiSelectDropDown<int>(
-        isSearchable: context.knobs.boolean(label: 'Searchable', initial: false),
-        isDisabled: context.knobs
-            .boolean(label: 'disabled', initial: false),
-        onOptionSelected: (List<DropdownItem> selectedOptions) {},
-        options: const [
-          DropdownItem(code: '1', name: 'one'),
-          DropdownItem(code: '2', name: 'two'),
-          DropdownItem(code: '3', name: 'three'),
-          DropdownItem(code: '4', name: 'four'),
-          DropdownItem(code: '5', name: 'five'),
-        ],
-      ),
+      builder: (context) {
+
+        return MultiSelectDropDown<int>(
+          showSelectAll: true,
+          isSearchable: context.knobs.boolean(
+              label: 'Searchable', initial: false),
+          isDisabled: context.knobs
+              .boolean(label: 'disabled', initial: false),
+          onOptionSelected: (List<DropdownItem> selectedOptions) {},
+          // selectedOptions: const [
+          //   DropdownItem(code: '1', name: 'one'),
+          //   DropdownItem(code: '2', name: 'two'),
+          // ],
+          options: const [
+            DropdownItem(code: '1', name: 'onesdffffffffffffffffffffffff'),
+            DropdownItem(code: '2', name: 'tonesdffffffffffffffffffffffffwo'),
+            DropdownItem(code: '3', name: 'thonesdffffffffffffffffffffffffree'),
+            DropdownItem(code: '4', name: 'fouonesdffffffffffffffffffffffffr'),
+            DropdownItem(code: '5', name: 'fivonesdffffffffffffffffffffffffe'),
+            DropdownItem(code: '12', name: 'ononesdffffffffffffffffffffffffe'),
+            DropdownItem(code: '24', name: 'twonesdffffffffffffffffffffffffo'),
+            DropdownItem(code: '333', name: 'thonesdffffffffffffffffffffffffree'),
+            DropdownItem(code: '433', name: 'fouonesdffffffffffffffffffffffffr'),
+            DropdownItem(code: '53', name: 'fiveonesdffffffffffffffffffffffff'),
+            DropdownItem(code: '132', name: 'oneonesdffffffffffffffffffffffff'),
+            DropdownItem(code: '2345', name: 'twonesdffffffffffffffffffffffffo'),
+            DropdownItem(code: '3453', name: 'thronesdffffffffffffffffffffffffee'),
+            DropdownItem(code: '45645', name: 'foonesdffffffffffffffffffffffffur'),
+            DropdownItem(code: '5564564', name: 'fionesdffffffffffffffffffffffffve'),
+            DropdownItem(code: '165745', name: 'ononesdffffffffffffffffffffffffe'),
+            DropdownItem(code: '25645', name: 'twonesdffffffffffffffffffffffffo'),
+            DropdownItem(code: '3345345', name: 'tonesdffffffffffffffffffffffffhree'),
+            DropdownItem(code: '434534', name: 'foonesdffffffffffffffffffffffffur'),
+            DropdownItem(code: '53453', name: 'fivonesdffffffffffffffffffffffffe'),
+            DropdownItem(code: '13534', name: 'ononesdffffffffffffffffffffffffe'),
+            DropdownItem(code: '223', name: 'twoonesdffffffffffffffffffffffff'),
+            DropdownItem(code: '332', name: 'thonesdffffffffffffffffffffffffree'),
+            DropdownItem(code: '42', name: 'fouonesdffffffffffffffffffffffffr'),
+            DropdownItem(code: '5987', name: 'fivonesdffffffffffffffffffffffffe'),
+          ],
+        );
+      }
     ),
     Story(
       name: 'Atom/Dropdown/MultiSelect Dropdown/default/nested text',

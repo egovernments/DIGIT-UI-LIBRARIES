@@ -9,6 +9,7 @@ import '../atoms/digit_checkbox_icon.dart';
 
 class DropdownOption extends StatefulWidget {
   final DropdownItem option;
+  final double width;
   final bool isSelected;
   final SelectionType selectionType;
   final Color backgroundColor;
@@ -21,6 +22,7 @@ class DropdownOption extends StatefulWidget {
   const DropdownOption({
     super.key,
     required this.option,
+    required this.width,
     required this.isSelected,
     required this.selectionType,
     required this.backgroundColor,
@@ -87,6 +89,7 @@ class _DropdownOptionState extends State<DropdownOption> {
                 widget.onOptionSelected?.call(widget.selectedOptions);
               },
               child: Container(
+                width: widget.width,
                 decoration: BoxDecoration(
                   border: Border.all(
                     width: Base.hoverBorderWidth,
@@ -116,12 +119,14 @@ class _DropdownOptionState extends State<DropdownOption> {
                           : DropdownConstants.defaultPadding
                       : DropdownConstants.nestedItemPadding,
                   child: Column(
+                    mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
+                        mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           widget.isSelected ||
                                   _itemMouseDownStates[widget.option] == true
@@ -138,45 +143,54 @@ class _DropdownOptionState extends State<DropdownOption> {
                           const SizedBox(
                             width: spacer3,
                           ),
-                          Row(
-                            children: [
-                              if (widget.option.textIcon != null)
-                                Icon(
-                                  widget.option.textIcon,
-                                  size: DropdownConstants.textIconSize,
-                                  color: widget.isSelected ||
-                                          _itemMouseDownStates[widget.option] ==
-                                              true
-                                      ? const DigitColors().light.paperPrimary
-                                      : const DigitColors().light.textSecondary,
-                                ),
-                              if (widget.option.textIcon != null)
-                                const SizedBox(
-                                  width: spacer1,
-                                ),
-                              Text(
-                                capitalizeFirstLetter(widget.option.name),
-                                style: widget.isSelected ||
-                                        _itemMouseDownStates[widget.option] ==
-                                            true
-                                    ? currentTypography.headingS.copyWith(
-                                        color: const DigitColors()
-                                            .light
-                                            .paperPrimary,
-                                      )
-                                    : widget.option.description != null
-                                        ? currentTypography.bodyL.copyWith(
+                          SizedBox(
+                            width: widget.width - spacer11,
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                if (widget.option.textIcon != null)
+                                  Icon(
+                                    widget.option.textIcon,
+                                    size: DropdownConstants.textIconSize,
+                                    color: widget.isSelected ||
+                                            _itemMouseDownStates[widget.option] ==
+                                                true
+                                        ? const DigitColors().light.paperPrimary
+                                        : const DigitColors().light.textSecondary,
+                                  ),
+                                if (widget.option.textIcon != null)
+                                  const SizedBox(
+                                    width: spacer1,
+                                  ),
+                                Flexible(
+                                  child: Text(
+                                    capitalizeFirstLetter(widget.option.name),
+                                    maxLines: 3,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: widget.isSelected ||
+                                            _itemMouseDownStates[widget.option] ==
+                                                true
+                                        ? currentTypography.headingS.copyWith(
                                             color: const DigitColors()
                                                 .light
-                                                .textSecondary,
+                                                .paperPrimary,
                                           )
-                                        : currentTypography.bodyS.copyWith(
-                                            color: const DigitColors()
-                                                .light
-                                                .textPrimary,
-                                          ),
-                              ),
-                            ],
+                                        : widget.option.description != null
+                                            ? currentTypography.bodyL.copyWith(
+                                                color: const DigitColors()
+                                                    .light
+                                                    .textSecondary,
+                                              )
+                                            : currentTypography.bodyS.copyWith(
+                                                color: const DigitColors()
+                                                    .light
+                                                    .textPrimary,
+                                              ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),
