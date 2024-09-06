@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState} from "react";
 import PropTypes from "prop-types";
 import ErrorMessage from "./ErrorMessage";
 import { useTranslation } from "react-i18next";
@@ -11,24 +11,32 @@ const SelectionCard = ({
   options,
   onSelectionChanged,
   allowMultipleSelection = true,
+  selected
 }) => {
   const { t } = useTranslation();
-  const [selectedOptions, setSelectedOptions] = useState([]);
+  const [selectedOptions, setSelectedOptions] = useState(selected || []);
 
   const handleOptionClick = (option) => {
     const updatedSelections = [...selectedOptions];
+    const isSelected = updatedSelections.some(
+      (selectedOption) => selectedOption.code === option.code
+    );
+
     if (allowMultipleSelection) {
-      if (updatedSelections.includes(option)) {
-        const index = updatedSelections.indexOf(option);
+      if (isSelected) {
+        // Remove the option if it's already selected
+        const index = updatedSelections.findIndex(
+          (selectedOption) => selectedOption.code === option.code
+        );
         updatedSelections.splice(index, 1);
       } else {
         updatedSelections.push(option);
       }
     } else {
-      if (updatedSelections.includes(option)) {
-        updatedSelections.length = 0;
+      if (isSelected) {
+        updatedSelections.length = 0; // Clear selection if already selected
       } else {
-        updatedSelections.length = 0;
+        updatedSelections.length = 0; // Clear all and select the current option
         updatedSelections.push(option);
       }
     }
@@ -51,8 +59,9 @@ const SelectionCard = ({
   };
 
   const renderOption = (option) => {
-    const isSelected = selectedOptions.includes(option);
-
+    const isSelected = selectedOptions.some(
+      (selectedOption) => selectedOption.code === option.code
+    );
     return (
       <div
         key={option.code}
