@@ -31,6 +31,7 @@ const Template = (args) => (
 const darkThemeItems = [
   {
     label: "City",
+    isSearchable:false,
     icon:"Home",
     children: [
       {
@@ -47,6 +48,7 @@ const darkThemeItems = [
   },
   {
     label: "Language",
+    isSearchable:false,
     children: [
       {
         path: "/",
@@ -62,6 +64,7 @@ const darkThemeItems = [
   },
   {
     label: "SideNav",
+    isSearchable:true,
     children: [
       {
         path: "/",
@@ -93,6 +96,7 @@ const lightThemeItems = [
   {
     label: "City",
     icon:"Home",
+    isSearchable:false,
     children: [
       {
         path: "/",
@@ -108,6 +112,7 @@ const lightThemeItems = [
   },
   {
     label: "Language",
+    isSearchable:false,
     children: [
       {
         path: "/",
@@ -123,6 +128,7 @@ const lightThemeItems = [
   },
   {
     label: "SideNav",
+    isSearchable:true,
     children: [
       {
         path: "/",

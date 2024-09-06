@@ -313,7 +313,7 @@ const onBottomItemClick =(e) => {
 
 const commonArgs = {
   items: darkThemeitems,
-  transitionDuration: 0.3,
+  transitionDuration: 0.5,
   theme: "dark",
   onSelect:onSelect,
   onBottomItemClick:onBottomItemClick

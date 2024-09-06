@@ -16,7 +16,6 @@ const MobileSidebar = ({
   theme,
   className,
   styles,
-  isSearchable,
   hideUserManuals,
   userManualLabel,
   profile,
@@ -72,9 +71,9 @@ const MobileSidebar = ({
       if (item?.label?.toLowerCase().includes(searchTerm.toLowerCase())) {
         return true;
       }
-      if (item.children) {
-        item.children = filterItems(item.children, searchTerm);
-        return item.children.length > 0;
+      if (item?.children) {
+        item.children = filterItems(item?.children, searchTerm);
+        return item?.children.length > 0;
       }
       return false;
     });
@@ -98,7 +97,7 @@ const MobileSidebar = ({
   );
 
   const handleArrowClick = (item, index, parentIndex) => {
-    if (item.children) {
+    if (item?.children) {
       setExpandedItems((prev) => ({
         ...prev,
         [index]: !prev[index],
@@ -153,9 +152,9 @@ const MobileSidebar = ({
               onClick={() => handleArrowClick(item, currentIndex, parentIndex)}
               tabIndex={0}
             >
-              {item.icon && Icon(item.icon,"digit-msb-icon")}
+              {item?.icon && Icon(item?.icon,"digit-msb-icon")}
               {<span className="digit-msb-item-label">{item?.label}</span>}
-              {item.children && (
+              {item?.children && (
                 <span className="digit-msb-expand-icon">
                   {isExpanded ? (
                     <SVG.ArrowDropDown
@@ -179,13 +178,13 @@ const MobileSidebar = ({
               )}
             </div>
           </div>
-          {item.children && isExpanded && (
+          {item?.children && isExpanded && (
             <div className="digit-msb-sidebar-children expanded">
-              {isSearchable && renderSearch(currentIndex)}
-              {filterItems(item.children, searchTerms[currentIndex] || "")
+              {item?.isSearchable && renderSearch(currentIndex)}
+              {filterItems(item?.children, searchTerms[currentIndex] || "")
                 .length > 0 ? (
                 renderChildItems(
-                  filterItems(item.children, searchTerms[currentIndex] || ""),
+                  filterItems(item?.children, searchTerms[currentIndex] || ""),
                   currentIndex,
                   false
                 )
@@ -202,7 +201,7 @@ const MobileSidebar = ({
     items?.map((item, index) => {
       const currentIndex = parentIndex >= 0 ? `${parentIndex}-${index}` : index;
       const isExpanded = expandedItems[currentIndex];
-      const icon = item.icon ? Icon(item.icon,"digit-icon-msb") : null;
+      const icon = item?.icon ? Icon(item?.icon,"digit-icon-msb") : null;
       return (
         <>
           <div className={"digit-item-child-wrapper-msb"} key={currentIndex}>
@@ -218,13 +217,13 @@ const MobileSidebar = ({
               {
                 <span
                   className={`digit-item-label-msb ${
-                    (!item.icon || !icon) ? "withoutIcon" : ""
+                    (!item?.icon || !icon) ? "withoutIcon" : ""
                   }`}
                 >
                   {item?.label}
                 </span>
               }
-              {item.children && (
+              {item?.children && (
                 <span
                   className={`digit-expand-icon-msb ${"child-level"}`}
                   onClick={(e) => {
@@ -258,9 +257,9 @@ const MobileSidebar = ({
             className={`digit-inner-level-child ${theme || ""}`}
             key={currentIndex}
           >
-            {item.children && isExpanded && (
+            {item?.children && isExpanded && (
               <div className="digit-sidebar-children-msb">
-                {renderChildItems(item.children, currentIndex)}
+                {renderChildItems(item?.children, currentIndex)}
               </div>
             )}
           </div>

@@ -219,6 +219,7 @@
 .digit-msb-no-results{
   @extend .typography.body-s;
   display: flex;
+  text-align: center;
   flex-direction: column;
   height: theme(digitv2.spacers.spacer12);
   padding: theme(digitv2.spacers.spacer3) theme(digitv2.spacers.spacer6);
