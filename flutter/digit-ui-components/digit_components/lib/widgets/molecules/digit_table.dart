@@ -12,6 +12,8 @@ class CustomTable extends StatefulWidget {
   final bool showRowsPerPage;
   final bool withColumnDividers;
   final bool withRowDividers;
+  final bool alternateRowColor;
+  final bool enableBorder;
 
   const CustomTable({
     Key? key,
@@ -19,8 +21,10 @@ class CustomTable extends StatefulWidget {
     required this.rows,
     this.rowsPerPageOptions = const [5, 10, 15, 20],
     this.showRowsPerPage = true,
-    this.withColumnDividers = false,
-    this.withRowDividers = false,
+    this.withColumnDividers = true,
+    this.withRowDividers = true,
+    this.alternateRowColor = false,
+    this.enableBorder = false,
   }) : super(key: key);
 
   @override
@@ -86,6 +90,7 @@ class _CustomTableState extends State<CustomTable> {
             columns: widget.columns,
             sortedColumnIndex: sortedColumnIndex,
             sortOrder: sortOrder,
+            enabledBorder: widget.enableBorder,
             onSort: (index, order) {
               setState(() {
                 if (sortedColumnIndex == index) {
@@ -106,7 +111,10 @@ class _CustomTableState extends State<CustomTable> {
           ),
           TableBody(
             rows: paginatedRows,
+            alternateRowColor: widget.alternateRowColor,
             withRowDividers: widget.withRowDividers,
+            enableBorder: widget.enableBorder,
+            withColumnDividers: widget.withColumnDividers,
           ),
           TableFooter(
             currentPage: currentPage,

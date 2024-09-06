@@ -30,6 +30,7 @@ class BackNavigationButton extends StatelessWidget {
         splashColor: theme.colorTheme.generic.transparent,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             if(backButtonTheme.backButtonIcon != null && backButtonTheme.disabledBackButtonIcon != null)
             handleBack!=null ? backButtonTheme.backButtonIcon! : backButtonTheme.disabledBackButtonIcon!,

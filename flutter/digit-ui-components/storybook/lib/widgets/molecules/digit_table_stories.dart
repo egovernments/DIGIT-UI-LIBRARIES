@@ -8,42 +8,36 @@ List<Story> tableStories() {
     Story(
       name: 'Molecule/Table/Variant 1',
       builder: (context) => CustomTable(
+        alternateRowColor: context.knobs.boolean(label: 'Alternate Row Color', initial: false),
+        withRowDividers: context.knobs.boolean(label: 'With Row Dividers', initial: true),
+        withColumnDividers:  context.knobs.boolean(label: 'With Column Dividers', initial: true),
+        enableBorder: context.knobs.boolean(label: 'Enable Border', initial: true),
         columns: [TableColumn(
-          header: 'Select',
+          header: 'Column A',
           //columnType: ColumnType.checkbox,
         ),
           TableColumn(
-            header: 'Description',
+            header: 'Column B',
             //columnType: ColumnType.text,
           ),
           TableColumn(
-            header: 'Action',
+            header: 'Column C',
             //columnType: ColumnType.numeric,
           ),],
         rows: List.generate(
           40,
           (index) => [
             CustomColumn(
-              columnType: ColumnType.checkbox,
-              value: index % 2 == 0,
-              // Example checkbox value: true for even rows, false for odd rows
-              label: 'Select',
-              onCheckboxChanged: (newValue) {
-                // Handle checkbox change
-                print('Checkbox changed: $newValue');
-              },
+              columnType: ColumnType.text,
+              label: 'Columnsdffffffffffffffffffffffff A',
             ),
             CustomColumn(
               columnType: ColumnType.text,
-              label: 'Data ${index + 1}', // Text data
+              label: 'Colusdffffffffffffffffffffffffmn B', // Text data
             ),
             CustomColumn(
-              columnType: ColumnType.button,
-              label: 'Button ${index + 1}', // Button label
-              onButtonPressed: () {
-                // Handle button press
-                print('Button ${index + 1} pressed');
-              },
+              columnType: ColumnType.text,
+              label: 'Colsdffffffffffffffffffffffffffumn C',
             ),
           ],
         ),

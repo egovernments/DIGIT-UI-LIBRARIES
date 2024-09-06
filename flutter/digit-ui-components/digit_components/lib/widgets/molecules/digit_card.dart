@@ -18,7 +18,7 @@ class DigitCard extends StatelessWidget {
     this.margin,
     this.onPressed,
     this.spacing,
-    required this.cardType,
+    this.cardType = CardType.primary,
   });
 
   @override

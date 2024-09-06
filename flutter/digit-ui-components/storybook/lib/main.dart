@@ -3,6 +3,7 @@ import 'package:digit_ui_components/theme/colors.dart';
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:digit_ui_components/widgets/molecules/digit_header.dart';
 import 'package:digit_ui_components/widgets/molecules/hamburger.dart';
+import 'package:digit_ui_components/widgets/molecules/landing_page_card.dart';
 import 'package:flutter/material.dart';
 import 'package:inspector/inspector.dart';
 import 'package:storybook/widgets/atoms/Info_card_stories.dart';
@@ -21,6 +22,7 @@ import 'package:storybook/widgets/atoms/dropdown_stories.dart';
 import 'package:storybook/widgets/atoms/flie_upload_stories.dart';
 import 'package:storybook/widgets/atoms/input_field_stories.dart';
 import 'package:storybook/widgets/atoms/list_view_stories.dart';
+import 'package:storybook/widgets/atoms/menu_card_stories.dart';
 import 'package:storybook/widgets/atoms/panel_stories.dart';
 import 'package:storybook/widgets/atoms/pop_up_card_stories.dart';
 import 'package:storybook/widgets/atoms/radio_list_stories.dart';
@@ -37,6 +39,7 @@ import 'package:storybook/widgets/molecules/digit_table_stories.dart';
 import 'package:storybook/widgets/molecules/footer_stories.dart';
 import 'package:storybook/widgets/molecules/hamburger_stories.dart';
 import 'package:storybook/widgets/molecules/header_stories.dart';
+import 'package:storybook/widgets/molecules/language_selection_card_stories.dart';
 import 'package:storybook/widgets/molecules/panel_card_stories.dart';
 import 'package:storybook/widgets/molecules/show_pop_up_stories.dart';
 import 'package:storybook/widgets/molecules/side_nav_stories.dart';
@@ -218,6 +221,38 @@ class MyApp extends StatelessWidget {
               ...bottomSheetStories(),
               ...accordionStories(),
               ...tabStories(),
+              ...menuCardStories(),
+              ...languageSelectionCardStories(),
+              Story(
+                name: 'Landing Page Card 1',
+                builder: (context) =>  MatrixListComponent(
+                  icon: Icons.supervisor_account,
+                  filledIcon: context.knobs.boolean(label: 'Filled Icon', initial: true),
+                  showIconOnRight: context.knobs.boolean(label: 'Show Icon On Right', initial: true),
+                  heading: 'Matrix Component',
+                  matrixList: [
+                    MatrixModel(title: '40', description: 'Description of Matrix 1'),
+                    MatrixModel(title: '40', description: 'Description of Matrix 2'),
+                  ],
+                  actions: [
+                    ActionItem(label: 'Action 1', icon: Icons.edit, onPressed: () {}),
+                    ActionItem(label: 'Action 2', onPressed: () {}),
+                  ],
+                ),
+              ),
+              Story(
+                name: 'Landing Page Card 2',
+                builder: (context) =>  MatrixListComponent(
+                  icon: Icons.supervisor_account,
+                  filledIcon: context.knobs.boolean(label: 'Filled Icon', initial: true),
+                  showIconOnRight: context.knobs.boolean(label: 'Show Icon On Right', initial: true),
+                  heading: 'Matrix Component',
+                  actions: [
+                    ActionItem(label: 'Action 1', icon: Icons.edit, onPressed: () {}),
+                    ActionItem(label: 'Action 2', onPressed: () {}),
+                  ],
+                ),
+              ),
             ],
           ),
         ),

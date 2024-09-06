@@ -321,7 +321,7 @@ List<Story> dropdownStories() {
           //   DropdownItem(code: '2', name: 'two'),
           // ],
           options: const [
-            DropdownItem(code: '1', name: 'onesdffffffffffffffffffffffff'),
+            DropdownItem(code: '1', name: 'onesdfffffffffffffffdsf;jlkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkfffffffff'),
             DropdownItem(code: '2', name: 'tonesdffffffffffffffffffffffffwo'),
             DropdownItem(code: '3', name: 'thonesdffffffffffffffffffffffffree'),
             DropdownItem(code: '4', name: 'fouonesdffffffffffffffffffffffffr'),

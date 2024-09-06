@@ -1,0 +1,151 @@
+import 'package:digit_ui_components/digit_components.dart';
+import 'package:digit_ui_components/theme/digit_extended_theme.dart';
+import 'package:digit_ui_components/widgets/atoms/digit_divider.dart';
+import 'package:digit_ui_components/widgets/molecules/digit_card.dart';
+import 'package:flutter/material.dart';
+
+class MatrixListComponent extends StatelessWidget {
+  final IconData? icon;
+  final String heading;
+  final List<MatrixModel>? matrixList;  // Matrix list is now optional
+  final List<ActionItem> actions;
+  final bool filledIcon;
+  final bool alignCenterMatrixList;
+  final bool showIconOnRight;
+
+  const MatrixListComponent({
+    Key? key,
+    this.icon,
+    required this.heading,
+    this.matrixList,
+    required this.actions,
+    this.filledIcon = false,
+    this.showIconOnRight = false,
+    this.alignCenterMatrixList = false,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final textTheme = theme.digitTextTheme(context);
+
+    return DigitCard(
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: showIconOnRight && icon != null
+                  ? MainAxisAlignment.spaceBetween
+                  : MainAxisAlignment.start,
+              children: [
+                if (!showIconOnRight && icon != null) _buildIcon(),
+                if (!showIconOnRight && icon != null) const SizedBox(width: 8),
+                Text(
+                  heading,
+                  style: textTheme.headingM.copyWith(
+                    color: theme.colorTheme.primary.primary2,
+                  ),
+                ),
+                if (showIconOnRight && icon != null) _buildIcon(),
+              ],
+            ),
+            const DigitDivider(dividerType: DividerType.small,),
+            const SizedBox(height: 16),
+            if (matrixList != null && matrixList!.isNotEmpty)
+              _buildMatrixList(context),
+            if (matrixList != null && matrixList!.isNotEmpty)
+              const SizedBox(height: 16,),
+            if (matrixList != null && matrixList!.isNotEmpty)const DigitDivider(dividerType: DividerType.small),
+            if (matrixList != null && matrixList!.isNotEmpty)
+            const SizedBox(height: 16),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children:
+              actions.map((action) => ActionButton(action: action)).toList(),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildIcon() {
+    return Container(
+      width: 56,
+      height: 56,
+      padding: const EdgeInsets.all(8),
+      decoration: BoxDecoration(
+        color: filledIcon
+            ? const DigitColors().light.primary1
+            : const DigitColors().light.paperPrimary,
+      ),
+      child: Icon(
+        icon,
+        color: filledIcon
+            ? const DigitColors().light.paperPrimary
+            : const DigitColors().light.primary1,
+        size: 40,
+      ),
+    );
+  }
+
+  Widget _buildMatrixList(BuildContext context) {
+    final theme = Theme.of(context);
+    final textTheme = theme.digitTextTheme(context);
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: matrixList!.map((matrix) {
+        return Column(
+          crossAxisAlignment: alignCenterMatrixList ? CrossAxisAlignment.center : CrossAxisAlignment.start,
+          children: [
+            Text(
+              matrix.title,
+              style: textTheme.headingM.copyWith(
+                color: theme.colorTheme.text.primary,
+              ),
+            ),
+            Text(
+              matrix.description,
+              style: textTheme.bodyXS.copyWith(
+                color: theme.colorTheme.text.secondary,
+              )
+            ),
+          ],
+        );
+      }).toList(),
+    );
+  }
+}
+
+class ActionItem {
+  final String label;
+  final IconData? icon;
+  final VoidCallback onPressed;
+
+  ActionItem({required this.label, this.icon, required this.onPressed});
+}
+
+class ActionButton extends StatelessWidget {
+  final ActionItem action;
+
+  const ActionButton({Key? key, required this.action}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Button(
+      label: action.label,
+      onPressed: action.onPressed,
+      type: ButtonType.tertiary,
+      size: ButtonSize.medium,
+      prefixIcon: action.icon,
+    );
+  }
+}
+
+class MatrixModel {
+  final String title;
+  final String description;
+
+  MatrixModel({required this.title, required this.description});
+}

@@ -23,6 +23,7 @@ class DigitExtendedTheme {
 
   ThemeData getTheme(BuildContext context) {
     return ThemeData(
+      colorScheme: colorScheme,
       appBarTheme: const AppBarTheme(elevation: 0),
       textSelectionTheme: TextSelectionThemeData(
         cursorColor: const DigitColors().light.primary1,
@@ -132,6 +133,26 @@ class DigitExtendedTheme {
     );
   }
 }
+
+ColorScheme get colorScheme => ColorScheme(
+  brightness: Brightness.light,
+  primary: const DigitColors().light.primary1,
+  onPrimary: const DigitColors().light.paperPrimary,
+  secondary: const DigitColors().light.primary2,
+  onSecondary: const DigitColors().light.paperPrimary,
+  error: const DigitColors().light.alertError,
+  onError: const DigitColors().light.paperPrimary,
+  background: const DigitColors().light.paperPrimary,
+  onBackground: const DigitColors().light.textPrimary,
+  surface: const DigitColors().light.paperSecondary,
+  onSurface: const DigitColors().light.textPrimary,
+  onSurfaceVariant: const DigitColors().light.alertSuccess,
+  inversePrimary: const DigitColors().light.alertSuccessBg,
+  outline: const DigitColors().light.genericDivider,
+  shadow: const DigitColors().light.textSecondary,
+  surfaceTint: const DigitColors().light.paperPrimary,
+  onTertiaryContainer: const DigitColors().light.alertInfoBg,
+);
 
 /// extension on theme data to access these theme directly
 /// Theme.of(context).colorTheme
