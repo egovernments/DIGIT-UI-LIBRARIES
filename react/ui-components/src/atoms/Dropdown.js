@@ -555,6 +555,7 @@ const Dropdown = (props) => {
             onSelect={onSelect}
             showBottom={props?.showBottom}
             style={props?.menuStyles}
+            className={props?.profilePic ? "underProfile" : ""}
           />
         </div>
       )}
