@@ -1,0 +1,92 @@
+.digit-menu-card {
+
+    display: flex;
+    flex-direction: column;
+    gap: theme(digitv2.spacers.spacer3);
+    justify-content: flex-start;
+    cursor: pointer;
+
+    .icon-menu-header {
+
+        display: flex !important;
+        align-items: center;
+        gap: theme(digitv2.spacers.spacer2);
+
+        .digit-menucard-icon {
+
+            @media (max-aspect-ratio: 9/16) {
+                /* Media query for mobile */
+                width: theme(digitv2.spacers.spacer6);
+                height: theme(digitv2.spacers.spacer6);
+            }
+
+            @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+                /* Media query for tablets */
+                width: theme(digitv2.spacers.spacer8);
+                height: theme(digitv2.spacers.spacer8);
+            }
+
+            @media (min-aspect-ratio: 3/4) {
+                /* Media query for desktop */
+                width: theme(digitv2.spacers.spacer10);
+                height: theme(digitv2.spacers.spacer10);
+            }
+        }
+
+        svg {
+            flex-shrink: 0;
+        }
+
+        .digit-menuacard-menuName {
+            @extend .typography.heading-m;
+            line-height: normal;
+            color: theme(digitv2.lightTheme.primary-2);
+        }
+    }
+
+    .digit-menucard-description {
+        @extend .typography.body-s;
+        font-family: theme(digitv2.fontFamily.sans);
+        font-style: theme(digitv2.fontStyle.normal);
+        font-weight: theme(digitv2.fontWeight.regular);
+        line-height: theme(digitv2.lineHeight.lineheight2);
+
+        @media (max-aspect-ratio: 9/16) {
+            /* Media query for mobile */
+            font-size: theme(digitv2.fontSize.body-s.mobile);
+        }
+
+        @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+            /* Media query for tablets */
+            font-size: theme(digitv2.fontSize.body-s.tablet);
+        }
+
+        @media (min-aspect-ratio: 3/4) {
+            /* Media query for desktop */
+            font-size: theme(digitv2.fontSize.body-s.desktop);
+        }
+
+        color: theme(digitv2.lightTheme.text-primary);
+    }
+}
+
+.digit-menu-card-wrapper{
+    display: flex !important;
+    flex-direction: column;
+
+    @media (max-aspect-ratio: 9/16) {
+        /* Media query for mobile */
+        gap: theme(digitv2.spacers.spacer4);
+    }
+
+    @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+        /* Media query for tablets */
+        gap: theme(digitv2.spacers.spacer5);
+    }
+
+    @media (min-aspect-ratio: 3/4) {
+        /* Media query for desktop */
+        gap: theme(digitv2.spacers.spacer6);
+    }
+
+}
