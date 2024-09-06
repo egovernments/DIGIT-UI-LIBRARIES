@@ -71,11 +71,15 @@
     box-shadow: theme(digitv2.spacers.spacer0) 0.063rem 0.275rem theme(digitv2.spacers.spacer0) #00000026;
     max-height: 80%;
     background-color: theme(digitv2.lightTheme.paper-primary);
-    margin-top: theme(digitv2.spacers.spacer5);
+    margin-top: theme(digitv2.spacers.spacer6);
     position: fixed;
     min-width: 14rem;
     max-width: 25rem;
     @apply z-30 overflow-y-auto overflow-x-hidden;
+
+    &.underProfile{
+      margin-top: theme(digitv2.spacers.spacer5);
+    }
   }
   
   .header-dropdown-search-container {

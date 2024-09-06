@@ -48,7 +48,7 @@ const Menu = (props) => {
     <div
       className={`header-dropdown-menu ${
         props?.footerdropdown ? "footer-dropdown" : ""
-      } ${props?.showBottom ? "showBottom" : ""}`}
+      } ${props?.showBottom ? "showBottom" : ""} ${props?.className || ""}`}
       ref={props?.ref}
       style={props?.style}
     >

@@ -245,7 +245,7 @@ const Sidebar = ({
             : !hovered && collapsedWidth
             ? collapsedWidth
             : undefined,
-        transition: `width ${transitionDuration}s`,
+        transition: `width ${transitionDuration || 0.5}s`,
         ...styles,
       }}
       onMouseEnter={() => setHovered(true)}
@@ -260,7 +260,7 @@ const Sidebar = ({
         {filteredItems.length > 0 ? (
           renderItems(filteredItems)
         ) : (
-          <div className="digit-msb-no-results">{t("No Results Found")}</div>
+          hovered && <div className="digit-msb-no-results">{t("No Results Found")}</div>
         )}
       </div>
       {hovered && !hideAccessbilityTools && (
