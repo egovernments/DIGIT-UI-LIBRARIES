@@ -110,7 +110,11 @@ import {
   TextInputCard,
   PanelCard,
   TooltipWrapper,
-  TimelineMolecule
+  TimelineMolecule,
+  LandingPageCard,
+  MenuCard,
+  LandingPageWrapper,
+  MenuCardWrapper
 } from "./molecules";
 
 // import { initCoreLibraries } from "@egovernments/digit-ui-libraries-core";
@@ -203,6 +207,10 @@ export {
   MultiUploadWrapper,
   SearchAction,
   SearchForm,
+  LandingPageCard,
+  MenuCard,
+  MenuCardWrapper,
+  LandingPageWrapper,
   SearchOnRadioButtons,
   TextInputCard,
   PanelCard,
