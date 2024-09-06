@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.0.2-beta.30] - 2024-09-06
+### Changed
+- Added LandingPageCard,MenuCard styles
+
 ## [0.0.2-beta.29] - 2024-09-05
 ### Changed
 - Added Accordion animation styles
