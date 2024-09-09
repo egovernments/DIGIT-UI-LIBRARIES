@@ -54,7 +54,7 @@ class DigitPopupTheme extends ThemeExtension<DigitPopupTheme> {
           color: theme.colorTheme.text.primary),
       subHeadingTextStyle: textTheme.captionS.copyWith(
           color: theme.colorTheme.text.primary),
-      descriptionTextStyle: textTheme.bodyS.copyWith(
+      descriptionTextStyle: textTheme.bodyL.copyWith(
         color: theme.colorTheme.text.primary,
       ),
       iconSize: isMobile ? 24.0 : isTab ? 28.0 : 32.0,

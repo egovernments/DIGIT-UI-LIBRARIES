@@ -165,11 +165,11 @@ class _PopupState extends State<Popup> {
                     SizedBox(
                       width: widget.onCrossTap != null
                           ? widget.titleIcon != null
-                              ? MediaQuery.of(context).size.width * .23
-                              : MediaQuery.of(context).size.width * .25
+                              ? isMobile ? MediaQuery.of(context).size.width * .58: MediaQuery.of(context).size.width * .23
+                              : isMobile ? MediaQuery.of(context).size.width * .70:MediaQuery.of(context).size.width * .25
                           : widget.titleIcon != null
-                              ? MediaQuery.of(context).size.width * .25
-                              : MediaQuery.of(context).size.width * .27,
+                              ? isMobile ? MediaQuery.of(context).size.width * .65:MediaQuery.of(context).size.width * .25
+                              : isMobile ? MediaQuery.of(context).size.width * .78:MediaQuery.of(context).size.width * .27,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
