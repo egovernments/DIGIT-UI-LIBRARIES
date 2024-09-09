@@ -16,6 +16,7 @@ import 'package:storybook/widgets/atoms/button_list_stories.dart';
 import 'package:storybook/widgets/atoms/button_stories.dart';
 import 'package:storybook/widgets/atoms/checkbox_stories.dart';
 import 'package:storybook/widgets/atoms/chip_stories.dart';
+import 'package:storybook/widgets/atoms/digit_search_bar_stories.dart';
 import 'package:storybook/widgets/atoms/digit_tab_stories.dart';
 import 'package:storybook/widgets/atoms/digit_tag_stories.dart';
 import 'package:storybook/widgets/atoms/divider_stories.dart';
@@ -208,7 +209,7 @@ class MyApp extends StatelessWidget {
               ...breadCrumbStories(),
               ...backNavigationButtonStories(),
               ...timelineMoleculeStories(),
-
+...searchBarStories(),
               ///...customStepperStories(),
               ...hamBurgerStories(),
               ...tableStories(),
