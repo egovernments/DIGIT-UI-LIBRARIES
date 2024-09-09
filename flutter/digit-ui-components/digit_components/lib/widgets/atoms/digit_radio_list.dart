@@ -36,6 +36,8 @@ class RadioList extends StatefulWidget {
   /// Flag to indicate if the radio buttons are disabled
   final bool isDisabled;
 
+  final bool readOnly;
+
   /// container padding
   final EdgeInsetsGeometry containerPadding;
 
@@ -54,6 +56,7 @@ class RadioList extends StatefulWidget {
     this.groupValue = '',
     this.isDisabled = false,
     this.errorMessage,
+    this.readOnly = false,
     this.containerPadding = RadioConstant.defaultPadding,
     this.radioWidth = RadioConstant.radioWidth,
     this.radioHeight = RadioConstant.radioHeight,
@@ -223,14 +226,14 @@ class _RadioListState extends State<RadioList> {
                     hoverColor: const DigitColors().transparent,
                     splashColor: const DigitColors().transparent,
                     highlightColor: const DigitColors().transparent,
-                    onHover: widget.isDisabled
+                    onHover: widget.isDisabled || widget.readOnly
                         ? null
                         : (hover) {
                             setState(() {
                               isHoveredList[index] = hover;
                             });
                           },
-                    onTapDown: widget.isDisabled
+                    onTapDown: widget.isDisabled|| widget.readOnly
                         ? null
                         : (_) {
                             /// Handle mouse down state
@@ -238,7 +241,7 @@ class _RadioListState extends State<RadioList> {
                               isMouseDown[index] = true;
                             });
                           },
-                    onTapUp: widget.isDisabled
+                    onTapUp: widget.isDisabled || widget.readOnly
                         ? null
                         : (_) {
                             /// Handle mouse up state
@@ -246,7 +249,7 @@ class _RadioListState extends State<RadioList> {
                               isMouseDown[index] = false;
                             });
                           },
-                    onTap: widget.isDisabled
+                    onTap: widget.isDisabled || widget.readOnly
                         ? null
                         : () {
                             if (mounted) {
@@ -264,20 +267,20 @@ class _RadioListState extends State<RadioList> {
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         border: Border.all(
-                          color: widget.isDisabled
+                          color: widget.isDisabled || widget.readOnly
                               ? const DigitColors().light.genericDivider
                               : (widget.groupValue == button.code ||
                                       isHoveredList[index] ||
                                       isMouseDown[index])
                                   ? const DigitColors().light.primary1
                                   : const DigitColors().light.textSecondary,
-                          width: (widget.isDisabled &&
+                          width: ((widget.isDisabled || widget.readOnly) &&
                                       widget.groupValue == button.code) ||
                                   widget.groupValue == button.code
                               ? 2
                               : Base.defaultBorderWidth,
                         ),
-                        color: widget.isDisabled
+                        color: widget.isDisabled || widget.readOnly
                             ? const DigitColors().light.paperSecondary
                             : isMouseDown[index]
                                 ? const DigitColors().light.primary1Bg
@@ -299,7 +302,7 @@ class _RadioListState extends State<RadioList> {
                               width: spacer3,
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                color: widget.isDisabled
+                                color: widget.isDisabled || widget.readOnly
                                     ? const DigitColors().light.textDisabled
                                     : const DigitColors().light.primary1,
                               ),

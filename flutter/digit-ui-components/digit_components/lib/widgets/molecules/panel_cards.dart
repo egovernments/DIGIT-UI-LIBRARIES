@@ -163,12 +163,7 @@ class _PanelCardState extends State<PanelCard> {
         children: [
           Container(
             padding: isMobile
-                ? EdgeInsets.only(
-                    bottom: widget.description != null ||
-                            widget.additionWidgets != null ||
-                            widget.actions != null
-                        ? spacer4
-                        : 0)
+                ? const EdgeInsets.all(spacer4)
                 : EdgeInsets.all(
                     isTab ? spacer5 : spacer6,
                   ),

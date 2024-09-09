@@ -20,6 +20,7 @@ List<Story> radioListStories() {
                 label: 'disabled',
                 initial: false,
               ),
+              readOnly: context.knobs.boolean(label: 'Read Only', initial: false),
               radioButtons: [
                 RadioButtonModel(
                     code: '',

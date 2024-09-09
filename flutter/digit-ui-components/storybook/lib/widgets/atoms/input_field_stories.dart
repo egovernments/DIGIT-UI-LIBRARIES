@@ -51,7 +51,7 @@ List<Story> inputFieldStories() {
       builder: (context) => InputField(
         type: InputType.date,
         onChange: (value){
-          print(value);
+          // print(value);
         },
         label: context.knobs.text(label: 'Label', initial: 'Label'),
         infoText: context.knobs.text(label: 'Info Text', initial: 'info'),
