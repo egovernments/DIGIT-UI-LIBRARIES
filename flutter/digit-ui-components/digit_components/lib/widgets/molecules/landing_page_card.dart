@@ -34,22 +34,26 @@ class MatrixListComponent extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: showIconOnRight && icon != null
-                  ? MainAxisAlignment.spaceBetween
-                  : MainAxisAlignment.start,
-              children: [
-                if (!showIconOnRight && icon != null) _buildIcon(),
-                if (!showIconOnRight && icon != null) const SizedBox(width: 8),
-                Text(
-                  heading,
-                  style: textTheme.headingM.copyWith(
-                    color: theme.colorTheme.primary.primary2,
+            SizedBox(
+              height: 56,
+              child: Row(
+                mainAxisAlignment: showIconOnRight && icon != null
+                    ? MainAxisAlignment.spaceBetween
+                    : MainAxisAlignment.start,
+                children: [
+                  if (!showIconOnRight && icon != null) _buildIcon(),
+                  if (!showIconOnRight && icon != null) const SizedBox(width: 8),
+                  Text(
+                    heading,
+                    style: textTheme.headingM.copyWith(
+                      color: theme.colorTheme.primary.primary2,
+                    ),
                   ),
-                ),
-                if (showIconOnRight && icon != null) _buildIcon(),
-              ],
+                  if (showIconOnRight && icon != null) _buildIcon(),
+                ],
+              ),
             ),
+            const SizedBox(height: 16),
             const DigitDivider(dividerType: DividerType.small,),
             const SizedBox(height: 16),
             if (matrixList != null && matrixList!.isNotEmpty)
@@ -61,9 +65,14 @@ class MatrixListComponent extends StatelessWidget {
             const SizedBox(height: 16),
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
-              children:
-              actions.map((action) => ActionButton(action: action)).toList(),
-            ),
+              children: [
+                for (var i = 0; i < actions.length; i++) ...[
+                  ActionButton(action: actions[i]),
+                  if (i < actions.length - 1) SizedBox(height: 16), // Add gap between items
+                ],
+              ],
+            )
+
           ],
         ),
       ],
@@ -133,12 +142,24 @@ class ActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Button(
-      label: action.label,
-      onPressed: action.onPressed,
-      type: ButtonType.tertiary,
-      size: ButtonSize.medium,
-      prefixIcon: action.icon,
+    final theme = Theme.of(context);
+    final textTheme = theme.digitButtonTextTheme;
+    return InkWell(
+      hoverColor: const DigitColors().transparent,
+      splashColor: const DigitColors().transparent,
+      highlightColor: const DigitColors().transparent,
+      onTap: action.onPressed,
+      child: Row(
+        children: [
+          if(action.icon != null)
+          Icon(action.icon, color: theme.colorTheme.primary.primary1, size: 20,),
+          if(action.icon != null)
+          const SizedBox(width: spacer2,),
+          Text(action.label, style: textTheme.buttonM.copyWith(
+            color: theme.colorTheme.primary.primary1,
+          ),)
+        ],
+      ),
     );
   }
 }

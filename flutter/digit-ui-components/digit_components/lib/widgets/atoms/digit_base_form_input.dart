@@ -319,7 +319,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
     int? maxLengthValue = widget.charCount
         ? (widget.validations != null
             ? getValidatorValue(widget.validations, ValidatorType.maxLength) ??
-                64
+                widget.maxLength ?? 64
             : widget.maxLength ?? 64)
         : null;
 

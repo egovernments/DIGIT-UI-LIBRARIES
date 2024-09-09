@@ -1,4 +1,5 @@
 import 'package:digit_ui_components/digit_components.dart';
+import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:flutter/material.dart';
 
 class DigitCard extends StatelessWidget {
@@ -23,6 +24,7 @@ class DigitCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
     bool isTab = AppView.isTabletView(MediaQuery.of(context).size);
     return Container(
@@ -30,7 +32,7 @@ class DigitCard extends StatelessWidget {
       // will take the max width of the content present inside this
       // provide a max width for the card
 
-      margin: margin,
+      margin: margin ?? EdgeInsets.all(theme.spacerTheme.spacer2),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(spacer1),
         border: cardType == CardType.secondary

@@ -4,6 +4,7 @@ import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:digit_ui_components/widgets/molecules/digit_header.dart';
 import 'package:digit_ui_components/widgets/molecules/hamburger.dart';
 import 'package:digit_ui_components/widgets/molecules/landing_page_card.dart';
+import 'package:digit_ui_components/widgets/molecules/landing_page_card_list.dart';
 import 'package:flutter/material.dart';
 import 'package:inspector/inspector.dart';
 import 'package:storybook/widgets/atoms/Info_card_stories.dart';
@@ -213,7 +214,7 @@ class MyApp extends StatelessWidget {
               ...tableStories(),
               ...sideNavStories(),
               //...toolTipStories(),
-              ...selectionCardStories(),
+              //...selectionCardStories(),
               ...listViewStories(),
               ...toolTip2Stories(),
               ...digitTagStories(),
@@ -253,6 +254,216 @@ class MyApp extends StatelessWidget {
                   ],
                 ),
               ),
+              Story(
+                name: 'Landing Page Card 3',
+                builder: (context) =>  MatrixListScrollComponent(
+                  matrixListComponents: [
+                    MatrixListComponent(
+                      heading: 'Card 1',
+                      matrixList: [
+                        MatrixModel(title: 'Title 1', description: 'Description 1'),
+                        MatrixModel(title: 'Title 2', description: 'Description 2'),
+                      ],
+                      actions: [
+                        ActionItem(label: 'Action 1', onPressed: () {}),
+                      ],
+                    ),
+                    MatrixListComponent(
+                      heading: 'Card 2',
+                      matrixList: [
+                        MatrixModel(title: 'Title 3', description: 'Description 3'),
+                        MatrixModel(title: 'Title 4', description: 'Description 4'),
+                      ],
+                      actions: [
+                        ActionItem(label: 'Action 2', onPressed: () {}),
+                      ],
+                    ),
+                    MatrixListComponent(
+                      heading: 'Card 2',
+                      matrixList: [
+                        MatrixModel(title: 'Title 3', description: 'Description 3'),
+                        MatrixModel(title: 'Title 4', description: 'Description 4'),
+                      ],
+                      actions: [
+                        ActionItem(label: 'Action 2', onPressed: () {}),
+                      ],
+                    ),
+                    MatrixListComponent(
+                      heading: 'Card 2',
+                      matrixList: [
+                        MatrixModel(title: 'Title 3', description: 'Description 3'),
+                        MatrixModel(title: 'Title 4', description: 'Description 4'),
+                      ],
+                      actions: [
+                        ActionItem(label: 'Action 2', onPressed: () {}),
+                      ],
+                    ),
+                    MatrixListComponent(
+                      heading: 'Card 2',
+                      matrixList: [
+                        MatrixModel(title: 'Title 3', description: 'Description 3'),
+                        MatrixModel(title: 'Title 4', description: 'Description 4'),
+                      ],
+                      actions: [
+                        ActionItem(label: 'Action 2', onPressed: () {}),
+                      ],
+                    ),
+                    MatrixListComponent(
+                      heading: 'Card 2',
+                      matrixList: [
+                        MatrixModel(title: 'Title 3', description: 'Description 3'),
+                        MatrixModel(title: 'Title 4', description: 'Description 4'),
+                      ],
+                      actions: [
+                        ActionItem(label: 'Action 2', onPressed: () {}),
+                      ],
+                    ),
+
+                    MatrixListComponent(
+                      heading: 'Card 2',
+                      matrixList: [
+                        MatrixModel(title: 'Title 3', description: 'Description 3'),
+                        MatrixModel(title: 'Title 4', description: 'Description 4'),
+                      ],
+                      actions: [
+                        ActionItem(label: 'Action 2', onPressed: () {}),
+                      ],
+                    ),
+                    MatrixListComponent(
+                      heading: 'Card 2',
+                      matrixList: [
+                        MatrixModel(title: 'Title 3', description: 'Description 3'),
+                        MatrixModel(title: 'Title 4', description: 'Description 4'),
+                      ],
+                      actions: [
+                        ActionItem(label: 'Action 2', onPressed: () {}),
+                      ],
+                    ),
+
+                    MatrixListComponent(
+                      heading: 'Card 2',
+                      matrixList: [
+                        MatrixModel(title: 'Title 3', description: 'Description 3'),
+                        MatrixModel(title: 'Title 4', description: 'Description 4'),
+                      ],
+                      actions: [
+                        ActionItem(label: 'Action 2', onPressed: () {}),
+                      ],
+                    ),
+                    // Add more MatrixListComponent instances as needed
+                  ],
+                )
+              ),
+              Story(
+                  name: 'Landing Page Card 4',
+                  builder: (context) =>  MatrixListScrollComponent(
+                    matrixListComponents: [
+                      MatrixListComponent(
+                        icon: Icons.supervisor_account,
+                        heading: 'Card 1',
+                        matrixList: [
+                          MatrixModel(title: 'Title 1', description: 'Description 1'),
+                          MatrixModel(title: 'Title 2', description: 'Description 2'),
+                        ],
+                        actions: [
+                          ActionItem(label: 'Action 1', onPressed: () {}),
+                        ],
+                      ),
+                      MatrixListComponent(
+                        icon: Icons.supervisor_account,
+                        heading: 'Card 2',
+                        matrixList: [
+                          MatrixModel(title: 'Title 3', description: 'Description 3'),
+                          MatrixModel(title: 'Title 4', description: 'Description 4'),
+                        ],
+                        actions: [
+                          ActionItem(label: 'Action 2', onPressed: () {}),
+                        ],
+                      ),
+                      MatrixListComponent(
+                        icon: Icons.supervisor_account,
+                        heading: 'Card 2',
+                        matrixList: [
+                          MatrixModel(title: 'Title 3', description: 'Description 3'),
+                          MatrixModel(title: 'Title 4', description: 'Description 4'),
+                        ],
+                        actions: [
+                          ActionItem(label: 'Action 2', onPressed: () {}),
+                        ],
+                      ),
+                      MatrixListComponent(
+                        heading: 'Card 4',
+                        icon: Icons.supervisor_account,
+                        matrixList: [
+                          MatrixModel(title: 'Title 3', description: 'Description 3'),
+                          MatrixModel(title: 'Title 4', description: 'Description 4'),
+                        ],
+                        actions: [
+                          ActionItem(label: 'Action 2', onPressed: () {}),
+                        ],
+                      ),
+                      MatrixListComponent(
+                        heading: 'Card 5',
+                        icon: Icons.supervisor_account,
+                        matrixList: [
+                          MatrixModel(title: 'Title 3', description: 'Description 3'),
+                          MatrixModel(title: 'Title 4', description: 'Description 4'),
+                        ],
+                        actions: [
+                          ActionItem(label: 'Action 2', onPressed: () {}),
+                        ],
+                      ),
+                      MatrixListComponent(
+                        heading: 'Card 6',
+                        icon: Icons.supervisor_account,
+                        matrixList: [
+                          MatrixModel(title: 'Title 3', description: 'Description 3'),
+                          MatrixModel(title: 'Title 4', description: 'Description 4'),
+                        ],
+                        actions: [
+                          ActionItem(label: 'Action 2', onPressed: () {}),
+                        ],
+                      ),
+
+                      MatrixListComponent(
+                        heading: 'Card 7',
+                        icon: Icons.supervisor_account,
+                        matrixList: [
+                          MatrixModel(title: 'Title 3', description: 'Description 3'),
+                          MatrixModel(title: 'Title 4', description: 'Description 4'),
+                        ],
+                        actions: [
+                          ActionItem(label: 'Action 2', onPressed: () {}),
+                        ],
+                      ),
+                      MatrixListComponent(
+                        heading: 'Card 8',
+                        icon: Icons.supervisor_account,
+                        matrixList: [
+                          MatrixModel(title: 'Title 3', description: 'Description 3'),
+                          MatrixModel(title: 'Title 4', description: 'Description 4'),
+                        ],
+                        actions: [
+                          ActionItem(label: 'Action 2', onPressed: () {}),
+                        ],
+                      ),
+
+                      MatrixListComponent(
+                        heading: 'Card 9',
+                        icon: Icons.supervisor_account,
+                        matrixList: [
+                          MatrixModel(title: 'Title 3', description: 'Description 3'),
+                          MatrixModel(title: 'Title 4', description: 'Description 4'),
+                        ],
+                        actions: [
+                          ActionItem(label: 'Action 2', onPressed: () {}),
+                        ],
+                      ),
+                      // Add more MatrixListComponent instances as needed
+                    ],
+                  )
+              ),
+
             ],
           ),
         ),

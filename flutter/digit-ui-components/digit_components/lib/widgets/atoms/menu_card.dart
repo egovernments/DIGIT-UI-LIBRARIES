@@ -1,4 +1,8 @@
+import 'package:digit_ui_components/theme/digit_extended_theme.dart';
+import 'package:digit_ui_components/widgets/molecules/digit_card.dart';
 import 'package:flutter/material.dart';
+
+import '../../constants/AppView.dart';
 
 class MenuCard extends StatelessWidget {
   final IconData icon;
@@ -17,46 +21,41 @@ class MenuCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final textTheme = theme.digitTextTheme(context);
+    bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
+    bool isTab = AppView.isTabletView(MediaQuery.of(context).size);
 
     return GestureDetector(
       onTap: onTap,
-      child: Card(
-        elevation: 4,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+      child: DigitCard(
+        spacing: 12,
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Icon(
                 icon,
-                size: 40,
-                color: theme.primaryColor,
+                size: isMobile ?24 : isTab ? 32 : 40,
+                color: theme.colorTheme.primary.primary1,
               ),
-              const SizedBox(width: 16),
+              const SizedBox(width: 8),
               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      heading,
-                      style: theme.textTheme.headline6?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      description,
-                      style: theme.textTheme.bodyText2,
-                    ),
-                  ],
+                child: Text(
+                  heading,
+                  style: textTheme.headingM.copyWith(
+                    color: theme.colorTheme.primary.primary2,
+                  )
                 ),
               ),
             ],
           ),
-        ),
+          Text(
+            description,
+            style: textTheme.bodyS.copyWith(
+              color: theme.colorTheme.text.primary,
+            ),
+          ),
+        ],
       ),
     );
   }

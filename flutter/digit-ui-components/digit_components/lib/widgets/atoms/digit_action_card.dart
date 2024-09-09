@@ -34,10 +34,14 @@ class ActionCard extends StatelessWidget {
   /// A list of action buttons to be displayed in the dialog.
   final List<Button> actions;
 
+  /// Callback when the user taps outside the container.
+  final VoidCallback? onOutsideTap;
+
   const ActionCard({
     super.key,
     this.actionCardTheme,
     required this.actions,
+    this.onOutsideTap,
   });
 
   @override
@@ -47,37 +51,40 @@ class ActionCard extends StatelessWidget {
         theme.extension<DigitActionCardTheme>() ??
         DigitActionCardTheme.defaultTheme(context);
 
-    return Dialog.fullscreen(
-      backgroundColor: const DigitColors().transparent,
-      child: Center(
-        child: Container(
-          width: actionTheme.width,
-          height: actionTheme.height,
-          decoration: actionTheme.decoration,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              /// A scrollable container to accommodate the list of action buttons
-              Flexible(
-                child: SingleChildScrollView(
-                  child: Container(
-                    padding: actionTheme.padding,
-                    child: Column(
-                      children: [
-                        ButtonListTile(
-                          /// A widget that displays the list of action buttons
-                          buttons: actions,
-                          isVertical: true,
-                          spacing:
-                              actionTheme.spacing ?? theme.spacerTheme.spacer6,
-                        ),
-                      ],
+    return GestureDetector(
+      onTap: onOutsideTap,
+      child: Dialog.fullscreen(
+        backgroundColor: const DigitColors().transparent,
+        child: Center(
+          child: Container(
+            width: actionTheme.width,
+            height: actionTheme.height,
+            decoration: actionTheme.decoration,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                /// A scrollable container to accommodate the list of action buttons
+                Flexible(
+                  child: SingleChildScrollView(
+                    child: Container(
+                      padding: actionTheme.padding,
+                      child: Column(
+                        children: [
+                          ButtonListTile(
+                            /// A widget that displays the list of action buttons
+                            buttons: actions,
+                            isVertical: true,
+                            spacing:
+                                actionTheme.spacing ?? theme.spacerTheme.spacer6,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

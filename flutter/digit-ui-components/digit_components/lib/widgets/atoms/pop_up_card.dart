@@ -185,6 +185,7 @@ class _PopupState extends State<Popup> {
                   ],
                 ),
               ),
+              if(widget.onCrossTap != null)
               Padding(
                 padding: const EdgeInsets.only(
                   top: spacer2,

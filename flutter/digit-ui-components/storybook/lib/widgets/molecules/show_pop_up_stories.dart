@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:digit_ui_components/digit_components.dart';
+import 'package:digit_ui_components/widgets/atoms/digit_action_card.dart';
 import 'package:digit_ui_components/widgets/atoms/pop_up_card.dart';
 import 'package:digit_ui_components/widgets/molecules/show_pop_up.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
@@ -14,7 +15,9 @@ List<Story> showPopUPStories() {
         onPressed: () {
           showPopup(
             context: context,
-            title: "Simple Popup",
+            onCrossTap: (){},
+
+            title: "Simple Popupsdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
             subHeading: "This is a subheading",
             description:
                 "This popup demonstrates a simple popup with a title and description.",
@@ -48,6 +51,42 @@ List<Story> showPopUPStories() {
         },
         child: const Text("Show alert Popup"),
       ),
+
+    ),
+    Story(
+      name: 'Molecule/Show Pop Up/action',
+      builder: (context) => ElevatedButton(
+        onPressed: () {
+          showDialog(
+            context: context,
+            barrierColor: const DigitColors().overLayColor.withOpacity(.70),
+            builder: (BuildContext currentContext) {
+              return BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
+                child: ActionCard(
+                  actions: [
+                    Button(label: 'Action 1', onPressed: (){
+                      Navigator.of(currentContext).pop();
+                    }, type: ButtonType.primary, size: ButtonSize.large),
+                    Button(label: 'Action 2', onPressed: (){
+                      Navigator.of(currentContext).pop();
+                    }, type: ButtonType.primary, size: ButtonSize.large),
+                    Button(label: 'Action 3', onPressed: (){
+                      Navigator.of(currentContext).pop();
+                    }, type: ButtonType.primary, size: ButtonSize.large),
+                  ],
+                  onOutsideTap: (){
+                    print("outside tap");
+                    Navigator.of(currentContext).pop();
+                  },
+                )
+              );
+            },
+          );
+        },
+        child: const Text("Show alert Popup"),
+      ),
+
     ),
   ];
 }
