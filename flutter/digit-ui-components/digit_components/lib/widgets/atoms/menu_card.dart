@@ -1,22 +1,28 @@
+import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:digit_ui_components/widgets/molecules/digit_card.dart';
 import 'package:flutter/material.dart';
 
-import '../../constants/AppView.dart';
-
-class MenuCard extends StatelessWidget {
+class MenuCard extends StatefulWidget {
   final IconData icon;
   final String heading;
-  final String description;
+  final String? description;
   final VoidCallback? onTap;
 
   const MenuCard({
     Key? key,
     required this.icon,
     required this.heading,
-    required this.description,
+    this.description,
     this.onTap,
   }) : super(key: key);
+
+  @override
+  _MenuCardState createState() => _MenuCardState();
+}
+
+class _MenuCardState extends State<MenuCard> {
+  bool isHovered = false;
 
   @override
   Widget build(BuildContext context) {
@@ -25,37 +31,54 @@ class MenuCard extends StatelessWidget {
     bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
     bool isTab = AppView.isTabletView(MediaQuery.of(context).size);
 
-    return GestureDetector(
-      onTap: onTap,
-      child: DigitCard(
-        spacing: 12,
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Icon(
-                icon,
-                size: isMobile ?24 : isTab ? 32 : 40,
-                color: theme.colorTheme.primary.primary1,
-              ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: Text(
-                  heading,
-                  style: textTheme.headingM.copyWith(
-                    color: theme.colorTheme.primary.primary2,
-                  )
+    return InkWell(
+      onHover: (hover) {
+        setState(() {
+          isHovered = hover;
+        });
+      },
+      onTap: widget.onTap,
+      child: Container(
+        decoration: widget.onTap != null && isHovered
+            ? BoxDecoration(
+          borderRadius: BorderRadius.circular(spacer1),
+          border: Border.all(
+            width: 1,
+            color: theme.colorTheme.primary.primary1,
+          ),)
+            : null,
+        child: DigitCard(
+          spacing: 12,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  widget.icon,
+                  size: isMobile ? 24 : isTab ? 32 : 40,
+                  color: theme.colorTheme.primary.primary1,
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    widget.heading,
+                    style: textTheme.headingM.copyWith(
+                      color: theme.colorTheme.primary.primary2,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            if (widget.description != null)
+              Text(
+                widget.description!,
+                style: textTheme.bodyS.copyWith(
+                  color: theme.colorTheme.text.primary,
                 ),
               ),
-            ],
-          ),
-          Text(
-            description,
-            style: textTheme.bodyS.copyWith(
-              color: theme.colorTheme.text.primary,
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

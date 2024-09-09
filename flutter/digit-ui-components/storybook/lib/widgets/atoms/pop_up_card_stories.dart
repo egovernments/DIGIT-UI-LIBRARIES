@@ -8,8 +8,8 @@ List<Story> popUpStories() {
   return [
     Story(
       name: 'Atom/PopUp/default/simple',
-      builder: (context) => const Popup(
-        title: 'Title',
+      builder: (context) =>  Popup(
+        title: context.knobs.text(label: 'Title', initial: 'Title'),
         subHeading: 'SubTitle',
       ),
     ),
@@ -24,7 +24,7 @@ List<Story> popUpStories() {
     Story(
       name: 'Atom/PopUp/default/action',
       builder: (context) => Popup(
-        title: 'Title',
+        title: context.knobs.text(label: 'Title', initial: 'Title'),
         subHeading: 'SubTitle',
         description:'description',
         onCrossTap: () {},

@@ -51,31 +51,31 @@ class LabeledField extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Row(
-            crossAxisAlignment: wrapLabelText
-                ? CrossAxisAlignment.end
-                : CrossAxisAlignment.center,
+          Wrap(
             children: [
-              if (label != null)
-                Flexible(
-                  child: Text(
-                    processedLabel!.length > 64
-                        ? '${processedLabel!.substring(0, 64)}...'
-                        : processedLabel!,
-                    maxLines: wrapLabelText ? 5 : 1,
-                    style: currentTypography.bodyL.copyWith(
-                      color: const DigitColors().light.textPrimary,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                ),
-              if (isRequired)
-                Text(
-                  ' *',
+              RichText(
+                text: TextSpan(
+                  text: processedLabel!.length > 64
+                      ? '${processedLabel!.substring(0, 64)}...'
+                      : processedLabel!,
                   style: currentTypography.bodyL.copyWith(
-                    color: const DigitColors().light.alertError,
+                    color: const DigitColors().light.textPrimary,
+                    overflow: TextOverflow.ellipsis,
                   ),
+                  children: isRequired
+                      ? [
+                    TextSpan(
+                      text: ' *',
+                      style: currentTypography.bodyL.copyWith(
+                        color: const DigitColors().light.alertError,
+                      ),
+                    ),
+                  ]
+                      : [],
                 ),
+                maxLines: wrapLabelText ? 5 : 1,
+                overflow: TextOverflow.ellipsis, // To handle overflow
+              ),
               if (infoText != null) const SizedBox(width: spacer1),
               if (infoText != null)
                 Tooltip(

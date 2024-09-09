@@ -179,7 +179,7 @@ class _SelectionBoxState<T> extends State<SelectionBox<T>> {
               color: theme.colorTheme.paper.secondary,
               borderRadius: BorderRadius.circular(spacer1),
               border: Border.all(
-                color: widget.errorMessage != null ?theme.colorTheme.alert.error: theme.colorTheme.generic.inputBorder,
+                color: widget.errorMessage != null ?theme.colorTheme.alert.error: theme.colorTheme.generic.divider,
                 width: 1,
               ),
             ),

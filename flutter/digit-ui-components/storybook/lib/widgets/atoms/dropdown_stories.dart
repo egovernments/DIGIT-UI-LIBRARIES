@@ -316,10 +316,10 @@ List<Story> dropdownStories() {
           isDisabled: context.knobs
               .boolean(label: 'disabled', initial: false),
           onOptionSelected: (List<DropdownItem> selectedOptions) {},
-          // selectedOptions: const [
-          //   DropdownItem(code: '1', name: 'one'),
-          //   DropdownItem(code: '2', name: 'two'),
-          // ],
+          selectedOptions: const [
+            DropdownItem(code: '2', name: 'tonesdffffffffffffffffffffffffwo'),
+            DropdownItem(code: '3', name: 'thonesdffffffffffffffffffffffffree'),
+          ],
           options: const [
             DropdownItem(code: '1', name: 'onesdfffffffffffffffdsf;jlkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkfffffffff'),
             DropdownItem(code: '2', name: 'tonesdffffffffffffffffffffffffwo'),

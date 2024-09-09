@@ -40,7 +40,7 @@ class DigitActionCardTheme extends ThemeExtension<DigitActionCardTheme> {
         ],
       ),
       padding: EdgeInsets.all(theme.spacerTheme.spacer6),
-      width: isMobile ? 328.0 : 548.0,
+      margin: isMobile ? const EdgeInsets.symmetric(horizontal: 16) : isTab ? const EdgeInsets.symmetric(horizontal: 100) : const EdgeInsets.symmetric(horizontal: 400),
       spacing: 24,
     );
   }

@@ -10,10 +10,10 @@ List<Story> languageSelectionCardStories() {
       name: 'Molecule/Language Selection Card/1',
       builder: (context) =>  DigitLanguageCard(
         digitRowCardItems: [
-          DigitRowCardModel(label: 'English', value: 'EN'),
+          DigitRowCardModel(label: 'English', value: 'EN', isSelected: true),
           DigitRowCardModel(label: 'Spanish', value: 'ES'),
           DigitRowCardModel(label: 'French', value: 'FR'),
-        ], // Step 1: Pass the language list
+        ],
         onLanguageChange: (DigitRowCardModel selectedLanguage) {
           // Handle language change
           print('Selected Language: ${selectedLanguage.label}');

@@ -51,12 +51,19 @@ class ActionCard extends StatelessWidget {
         theme.extension<DigitActionCardTheme>() ??
         DigitActionCardTheme.defaultTheme(context);
 
+    bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
+    bool isTab = AppView.isTabletView(MediaQuery.of(context).size);
+
     return GestureDetector(
       onTap: onOutsideTap,
       child: Dialog.fullscreen(
         backgroundColor: const DigitColors().transparent,
         child: Center(
           child: Container(
+            constraints: BoxConstraints(
+              maxHeight: isMobile ? MediaQuery.of(context).size.height*.80: isTab ?MediaQuery.of(context).size.height*.82 : MediaQuery.of(context).size.height*.85,
+            ),
+            margin: actionTheme.width == null ? actionTheme.margin : EdgeInsets.zero,
             width: actionTheme.width,
             height: actionTheme.height,
             decoration: actionTheme.decoration,

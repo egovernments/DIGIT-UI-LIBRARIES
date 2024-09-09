@@ -162,51 +162,60 @@ class _PopupState extends State<Popup> {
                       const SizedBox(
                         width: spacer2,
                       ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          widget.title,
-                          style: themeData.titleTextStyle,
-                        ),
-                        if (widget.subHeading != null)
-                          const SizedBox(
-                            height: spacer2,
-                          ),
-                        if (widget.subHeading != null)
+                    SizedBox(
+                      width: widget.onCrossTap != null
+                          ? widget.titleIcon != null
+                              ? MediaQuery.of(context).size.width * .23
+                              : MediaQuery.of(context).size.width * .25
+                          : widget.titleIcon != null
+                              ? MediaQuery.of(context).size.width * .25
+                              : MediaQuery.of(context).size.width * .27,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
                           Text(
-                            widget.subHeading!,
-                            style: themeData.subHeadingTextStyle,
-                          )
-                      ],
+                            widget.title,
+                            style: themeData.titleTextStyle,
+                          ),
+                          if (widget.subHeading != null)
+                            const SizedBox(
+                              height: spacer2,
+                            ),
+                          if (widget.subHeading != null)
+                            Text(
+                              widget.subHeading!,
+                              style: themeData.subHeadingTextStyle,
+                            )
+                        ],
+                      ),
                     ),
                   ],
                 ),
               ),
-              if(widget.onCrossTap != null)
-              Padding(
-                padding: const EdgeInsets.only(
-                  top: spacer2,
-                  right: spacer2,
-                ),
-                child: InkWell(
-                  hoverColor: const DigitColors().transparent,
-                  highlightColor: const DigitColors().transparent,
-                  splashColor: const DigitColors().transparent,
-                  onTap: widget.onCrossTap,
-                  child: Icon(
-                    Icons.close,
-                    size: isMobile
-                        ? spacer6
-                        : isTab
-                            ? spacer6
-                            : spacer7,
-                    color: const DigitColors().light.textPrimary,
+              if (widget.onCrossTap != null)
+                Padding(
+                  padding: const EdgeInsets.only(
+                    top: spacer2,
+                    right: spacer2,
+                  ),
+                  child: InkWell(
+                    hoverColor: const DigitColors().transparent,
+                    highlightColor: const DigitColors().transparent,
+                    splashColor: const DigitColors().transparent,
+                    onTap: widget.onCrossTap,
+                    child: Icon(
+                      Icons.close,
+                      size: isMobile
+                          ? spacer6
+                          : isTab
+                              ? spacer6
+                              : spacer7,
+                      color: const DigitColors().light.textPrimary,
+                    ),
                   ),
                 ),
-              ),
             ],
           ),
         ],
@@ -385,6 +394,14 @@ class _PopupState extends State<Popup> {
       backgroundColor: const DigitColors().transparent,
       child: Center(
         child: Container(
+          constraints: BoxConstraints(
+            maxHeight: isMobile
+                ? MediaQuery.of(context).size.height * .80
+                : isTab
+                    ? MediaQuery.of(context).size.height * .82
+                    : MediaQuery.of(context).size.height * .85,
+          ),
+          margin: themeData.width == null ? themeData.margin : EdgeInsets.zero,
           width: themeData.width,
           height: themeData.height,
           decoration: themeData.decoration,

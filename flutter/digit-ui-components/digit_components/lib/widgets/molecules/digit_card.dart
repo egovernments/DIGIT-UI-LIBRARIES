@@ -32,7 +32,7 @@ class DigitCard extends StatelessWidget {
       // will take the max width of the content present inside this
       // provide a max width for the card
 
-      margin: margin ?? EdgeInsets.all(theme.spacerTheme.spacer2),
+      margin: margin,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(spacer1),
         border: cardType == CardType.secondary

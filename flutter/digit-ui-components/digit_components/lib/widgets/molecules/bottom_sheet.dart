@@ -175,9 +175,9 @@ class _DigitBottomSheetState extends State<DigitBottomSheet>
                         ),
                       ),
                     Expanded(
-                      child: SingleChildScrollView(
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: SingleChildScrollView(
                           child: widget.content,
                         ),
                       ),
