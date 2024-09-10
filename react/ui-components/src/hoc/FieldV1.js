@@ -247,6 +247,7 @@ const FieldV1 = ({
               selectAllLabel={populators?.selectAllLabel}
               categorySelectAllLabel={populators?.categorySelectAllLabel}
               restrictSelection={populators?.restrictSelection}
+              isSearchable={populators?.isSearchable}
             />
           </div>
         );
