@@ -23,6 +23,7 @@ export default {
     style: { control: "object" },
     props: { control: "object" },
     activeSteps: { action: "number" },
+    hideDivider:{control:"boolean"}
   },
 };
 
@@ -57,7 +58,8 @@ const commonArgs = {
   props: {
     labelStyles: {},
   },
-  activeSteps:""
+  activeSteps:"",
+  hideDivider:false
 };
 
 //Default stepper
@@ -66,9 +68,24 @@ Default.args = {
   ...commonArgs,
 };
 
-//Default stepper
+//With Active Steps stepper
 export const WithIsActive = Template.bind({});
 WithIsActive.args = {
   ...commonArgs,
   activeSteps:3
+};
+
+//Vertical stepper
+export const VerticalStepperWithDivider = Template.bind({});
+VerticalStepperWithDivider.args = {
+  ...commonArgs,
+  direction:"vertical"
+};
+
+//Vertical stepper
+export const VerticalStepperWithoutDivider = Template.bind({});
+VerticalStepperWithoutDivider.args = {
+  ...commonArgs,
+  direction:"vertical",
+  hideDivider:true
 };

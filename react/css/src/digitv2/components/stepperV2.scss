@@ -10,6 +10,18 @@
     @apply relative flex-1;
     min-height: 4rem;
     z-index: 1;
+
+    @media (max-aspect-ratio: 9/16) {
+      min-width: 3.75rem;
+    }
+
+    @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+      min-width: 5rem;
+    }
+
+    @media (min-aspect-ratio: 3/4) {
+      min-width: 6.25rem;
+    }
   }
 
   .digit-stepper-content {
@@ -98,18 +110,30 @@
     height: 0.125rem;
 
     @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+      min-width: 6.313rem;
       max-width: 39.438rem;
     }
 
     @media (max-aspect-ratio: 9/16) {
+      min-width: 4.313rem;
       max-width: 16.875rem;
       top: 0.875rem;
     }
 
     @media (min-aspect-ratio: 3/4) {
+      min-width: 5.313rem;
       max-width: 82.688rem;
     }
 
+    &.lastbutone{
+      @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+        min-width: unset;
+      }
+  
+      @media (max-aspect-ratio: 9/16) {
+        min-width: unset;
+      }
+    }
     &.active {
       background-color: theme(digitv2.lightTheme.primary-1);
       border-color: theme(digitv2.lightTheme.primary-1);
@@ -128,6 +152,12 @@
       &.active {
         background-color: transparent;
         border-color: theme(digitv2.lightTheme.primary-1);
+      }
+      @media (max-aspect-ratio: 9/16) {
+        left: -2.75rem;
+      }
+      @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+        left: -3.5rem;
       }
     }
   }
@@ -148,8 +178,8 @@
 }
 
 .digit-stepper-container::-webkit-scrollbar {
-  width: theme(digitv2.spacers.spacer2);
-  height: theme(digitv2.spacers.spacer2);
+  width: theme(digitv2.spacers.spacer0);
+  height: theme(digitv2.spacers.spacer0);
   background-color: theme(digitv2.lightTheme.generic-background);
 }
 
@@ -161,4 +191,10 @@
 .digit-stepper-container::-webkit-scrollbar-thumb {
   background-color: theme(digitv2.lightTheme.generic-divider);
   border-radius: 0.563rem;
+}
+
+.stepper-vertical-divider{
+  position: absolute;
+  left: theme(digitv2.spacers.spacer10);
+  margin: theme(digitv2.spacers.spacer0);
 }
