@@ -40,6 +40,7 @@ class TableBody extends StatelessWidget {
           Expanded(
             flex: columnWidths.isNotEmpty ? 0 : 1,
             child: Container(
+              constraints: const BoxConstraints(minWidth: 200),
               decoration: BoxDecoration(
                 border: Border(
                   left: enableBorder && j==0

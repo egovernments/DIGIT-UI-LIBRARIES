@@ -84,7 +84,7 @@ class _ToggleState extends State<Toggle> {
           },
           child: Container(
             height: spacer8,
-            width: widget.maxLabelWidth + spacer12 + spacer1,
+            width: widget.maxLabelWidth,
             padding: const EdgeInsets.symmetric(horizontal: spacer3),
             constraints: const BoxConstraints(
               minWidth: spacer10,

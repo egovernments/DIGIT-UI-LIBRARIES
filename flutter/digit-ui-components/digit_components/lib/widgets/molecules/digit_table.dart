@@ -1,3 +1,4 @@
+import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/widgets/atoms/table_container.dart';
 import 'package:flutter/material.dart';
 import '../atoms/table_body.dart';
@@ -14,6 +15,7 @@ class CustomTable extends StatefulWidget {
   final bool withRowDividers;
   final bool alternateRowColor;
   final bool enableBorder;
+  final int frozenColumnsCount; // Add frozen columns count
 
   const CustomTable({
     Key? key,
@@ -25,11 +27,13 @@ class CustomTable extends StatefulWidget {
     this.withRowDividers = true,
     this.alternateRowColor = false,
     this.enableBorder = false,
+    this.frozenColumnsCount = 1, // Default 1 frozen column
   }) : super(key: key);
 
   @override
   _CustomTableState createState() => _CustomTableState();
 }
+
 
 class _CustomTableState extends State<CustomTable> {
   int currentPage = 1;
@@ -41,8 +45,7 @@ class _CustomTableState extends State<CustomTable> {
   @override
   void initState() {
     super.initState();
-    sortedRows = List.from(widget.rows); // Make a copy of the original rows
-    // Initialize the sorted column index and sort order
+    sortedRows = List.from(widget.rows);
     for (int i = 0; i < widget.columns.length; i++) {
       if (widget.columns[i].isSortable) {
         sortedColumnIndex = i;
@@ -83,78 +86,141 @@ class _CustomTableState extends State<CustomTable> {
       endIndex > sortedRows.length ? sortedRows.length : endIndex,
     );
 
-    return TableContainer(
-      child: Column(
-        children: [
-          TableHeader(
-            columns: widget.columns,
-            sortedColumnIndex: sortedColumnIndex,
-            sortOrder: sortOrder,
-            enabledBorder: widget.enableBorder,
-            onSort: (index, order) {
-              setState(() {
-                if (sortedColumnIndex == index) {
-                  // Toggle the sort order if the same column is clicked again
-                  sortOrder = sortOrder == SortOrder.ascending
-                      ? SortOrder.descending
-                      : SortOrder.ascending;
-                } else {
-                  // Sort by the new column in ascending order
-                  sortedColumnIndex = index;
-                  sortOrder = SortOrder.ascending;
-                }
-                _sortRows();
-                currentPage = 1; // Reset to the first page when sorting changes
-              });
-            },
-            withColumnDividers: widget.withColumnDividers,
-          ),
-          TableBody(
-            rows: paginatedRows,
-            alternateRowColor: widget.alternateRowColor,
-            withRowDividers: widget.withRowDividers,
-            enableBorder: widget.enableBorder,
-            withColumnDividers: widget.withColumnDividers,
-          ),
-          TableFooter(
-            currentPage: currentPage,
-            totalPages: totalPages,
-            rowsPerPage: rowsPerPage,
-            rowsPerPageOptions: widget.rowsPerPageOptions,
-            onRowsPerPageChanged: (value) {
-              setState(() {
-                rowsPerPage = value;
-                currentPage = 1; // Reset to the first page when rows per page changes
-              });
-            },
-            onPageChanged: (page) {
-              setState(() {
-                currentPage = page;
-              });
-            },
-            onNext: () {
-              setState(() {
-                if (currentPage < totalPages) {
-                  currentPage++;
-                }
-              });
-            },
-            onPrevious: () {
-              setState(() {
-                if (currentPage > 1) {
-                  currentPage--;
-                }
-              });
-            },
-            onPageSelected: (page) {
-              setState(() {
-                currentPage = page;
-              });
-            },
-            showRowsPerPage: widget.showRowsPerPage,
-          ),
-        ],
+    List<TableColumn> frozenColumns =
+    widget.columns.sublist(0, widget.frozenColumnsCount);
+    List<TableColumn> scrollableColumns =
+    widget.columns.sublist(widget.frozenColumnsCount);
+
+    List<List<CustomColumn>> frozenRows = paginatedRows
+        .map((row) => row.sublist(0, widget.frozenColumnsCount))
+        .toList();
+    List<List<CustomColumn>> scrollableRows = paginatedRows
+        .map((row) => row.sublist(widget.frozenColumnsCount))
+        .toList();
+
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            Row(
+              children: [
+                // Frozen columns section
+                SizedBox(
+                  width: MediaQuery.of(context).size.width*.4,
+                  child: Column(
+                    children: [
+                      TableHeader(
+                        columns: frozenColumns,
+                        sortedColumnIndex: sortedColumnIndex,
+                        sortOrder: sortOrder,
+                        enabledBorder: widget.enableBorder,
+                        onSort: (index, order) {
+                          setState(() {
+                            if (sortedColumnIndex == index) {
+                              sortOrder = sortOrder == SortOrder.ascending
+                                  ? SortOrder.descending
+                                  : SortOrder.ascending;
+                            } else {
+                              sortedColumnIndex = index;
+                              sortOrder = SortOrder.ascending;
+                            }
+                            _sortRows();
+                            currentPage = 1;
+                          });
+                        },
+                        withColumnDividers: widget.withColumnDividers,
+                      ),
+                      TableBody(
+                        rows: frozenRows,
+                        alternateRowColor: widget.alternateRowColor,
+                        withRowDividers: widget.withRowDividers,
+                        enableBorder: widget.enableBorder,
+                        withColumnDividers: widget.withColumnDividers,
+                      ),
+                    ],
+                  ),
+                ),
+                // Scrollable columns section
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        TableHeader(
+                          columns: scrollableColumns,
+                          sortedColumnIndex: sortedColumnIndex,
+                          sortOrder: sortOrder,
+                          enabledBorder: widget.enableBorder,
+                          onSort: (index, order) {
+                            setState(() {
+                              if (sortedColumnIndex == index) {
+                                sortOrder = sortOrder == SortOrder.ascending
+                                    ? SortOrder.descending
+                                    : SortOrder.ascending;
+                              } else {
+                                sortedColumnIndex = index;
+                                sortOrder = SortOrder.ascending;
+                              }
+                              _sortRows();
+                              currentPage = 1;
+                            });
+                          },
+                          withColumnDividers: widget.withColumnDividers,
+                        ),
+                        TableBody(
+                          rows: scrollableRows,
+                          alternateRowColor: widget.alternateRowColor,
+                          withRowDividers: widget.withRowDividers,
+                          enableBorder: widget.enableBorder,
+                          withColumnDividers: widget.withColumnDividers,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            TableFooter(
+              currentPage: currentPage,
+              totalPages: totalPages,
+              rowsPerPage: rowsPerPage,
+              rowsPerPageOptions: widget.rowsPerPageOptions,
+              onRowsPerPageChanged: (value) {
+                setState(() {
+                  rowsPerPage = value;
+                  currentPage = 1;
+                });
+              },
+              onPageChanged: (page) {
+                setState(() {
+                  currentPage = page;
+                });
+              },
+              onNext: () {
+                setState(() {
+                  if (currentPage < totalPages) {
+                    currentPage++;
+                  }
+                });
+              },
+              onPrevious: () {
+                setState(() {
+                  if (currentPage > 1) {
+                    currentPage--;
+                  }
+                });
+              },
+              onPageSelected: (page) {
+                setState(() {
+                  currentPage = page;
+                });
+              },
+              showRowsPerPage: widget.showRowsPerPage,
+            ),
+          ],
+        ),
       ),
     );
   }
 }
+

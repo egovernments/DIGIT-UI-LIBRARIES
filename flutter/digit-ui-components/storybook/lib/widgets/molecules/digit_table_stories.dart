@@ -29,15 +29,15 @@ List<Story> tableStories() {
           (index) => [
             CustomColumn(
               columnType: ColumnType.text,
-              label: 'Columnsdffffffffffffffffffffffff A',
+              label: 'Column A',
             ),
             CustomColumn(
               columnType: ColumnType.text,
-              label: 'Colusdffffffffffffffffffffffffmn B', // Text data
+              label: 'Column B', // Text data
             ),
             CustomColumn(
               columnType: ColumnType.text,
-              label: 'Colsdffffffffffffffffffffffffffumn C',
+              label: 'Column C',
             ),
           ],
         ),

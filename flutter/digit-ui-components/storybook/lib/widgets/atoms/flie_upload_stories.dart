@@ -18,6 +18,8 @@ List<Story> fileUploaderStories() {
 
           return fileErrors;
         },
+          onFileTap: (file) => print(file.name),
+          initialFiles: [PlatformFile(name: 'test.pdf', size: 0,), PlatformFile(name: 'test.png', size: 0,)],
           openFile: context.knobs.boolean(label: 'Open File', initial: false),
           showPreview: context.knobs.boolean(label: 'Show preview', initial: false),
         ),
@@ -81,6 +83,8 @@ List<Story> fileUploaderStories() {
       builder: (context) => Center(
         child: FileUploadWidget(
           allowMultiples: true,
+          onFileTap: (file) => print(file.name),
+          initialFiles: [PlatformFile(name: 'test.pdf', size: 0,), PlatformFile(name: 'test.png', size: 0,)],
           label: 'Upload', onFilesSelected: (List<PlatformFile> files) {
           Map<PlatformFile, String?> fileErrors = {};
 

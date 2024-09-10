@@ -22,7 +22,9 @@ class FileUploadWidget extends StatefulWidget {
   final List<String>? allowedExtensions;
   final String noFileSelectedText;
   final String uploadText;
+  final List<PlatformFile>? initialFiles;
   final String reUploadText;
+  final Function(PlatformFile)? onFileTap;
 
   const FileUploadWidget({
     super.key,
@@ -33,10 +35,12 @@ class FileUploadWidget extends StatefulWidget {
     this.openFile = false,
     this.errorMessage,
     this.validators,
+    this.initialFiles,
     this.allowedExtensions,
     this.noFileSelectedText = 'No File Selected',
     this.uploadText = 'Upload',
     this.reUploadText = 'Re-Upload',
+    this.onFileTap,
   });
 
   @override
@@ -56,6 +60,43 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
   @override
   void initState() {
     super.initState();
+    _initializeFiles();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+  }
+
+  @override
+  void didUpdateWidget(FileUploadWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // Check if the initialFiles have changed
+    if (widget.initialFiles != oldWidget.initialFiles) {
+      _initializeFiles();
+    }
+  }
+
+  // Initialize files with the ones provided by initialFiles
+  void _initializeFiles() {
+    files.clear();
+    fileNames.clear();
+    fileBytesList.clear();
+
+    if (widget.initialFiles != null && widget.initialFiles!.isNotEmpty) {
+      for (var platformFile in widget.initialFiles!) {
+        files.add(platformFile);
+        fileNames.add(platformFile.name);
+
+        // If file bytes are provided, use them; otherwise, add 0 bytes
+        if (platformFile.bytes != null) {
+          fileBytesList.add(platformFile.bytes!);
+        } else {
+          // Provide 0 bytes if the actual file bytes are missing
+          fileBytesList.add(Uint8List(0));
+        }
+      }
+    }
   }
 
   void _openFileExplorer() async {
@@ -157,6 +198,8 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
     bool showOverlay = false;
 
     return StatefulBuilder(builder: (context, setState) {
+      bool hasValidBytes = fileBytesList[index].isNotEmpty;
+
       return SizedBox(
         width: widget.allowMultiples ? Base.imageSize : width,
         child: Column(
@@ -167,7 +210,7 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
             Stack(
               children: [
                 InkWell(
-                  onTap: widget.openFile
+                  onTap: widget.onFileTap!= null ? () => widget.onFileTap!(files[index]) : widget.openFile
                       ? () {
                           _openFile(fileBytesList[index], fileNames[index]);
                         }
@@ -194,10 +237,16 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
                       child: Stack(
                         fit: StackFit.expand,
                         children: [
-                          Image.memory(
-                            fileBytesList[index],
-                            fit: BoxFit.cover,
-                          ),
+                      hasValidBytes
+                      ? Image.memory(
+                      fileBytesList[index],
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          // Fallback in case of error
+                          return _buildPlaceholderImage();
+                        },
+                      )
+                            : _buildPlaceholderImage(),
                           if (!showOverlay)
                             Container(
                               color: fileErrors.containsKey(files[index])
@@ -289,6 +338,19 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
     });
   }
 
+  Widget _buildPlaceholderImage() {
+    return Container(
+      color: const DigitColors().background.withOpacity(0.5),
+      child: Center(
+        child: Icon(
+          Icons.image_not_supported,
+          size: 40,
+          color: const DigitColors().light.genericDivider,
+        ),
+      ),
+    );
+  }
+
   Widget _buildFileWidget(int index, double width) {
     SvgPicture viewIcon;
     String fileType = fileNames[index].split('.').last.toLowerCase();
@@ -330,7 +392,7 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
             Stack(
               children: [
                 InkWell(
-                  onTap: widget.openFile
+                  onTap: widget.onFileTap!= null ? () => widget.onFileTap!(files[index]) :widget.openFile
                       ? () {
                           _openFile(fileBytesList[index], fileNames[index]);
                         }
@@ -610,7 +672,7 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
                       padding: const EdgeInsets.only(bottom: spacer2),
                       child: fileErrors.containsKey(files[index])
                           ? DigitChip(
-                              onClick: widget.openFile
+                              onClick: widget.onFileTap!= null ? () => widget.onFileTap!(files[index]) :widget.openFile
                                   ? () {
                                       _openFile(fileBytesList[index],
                                           fileNames[index]);
@@ -627,7 +689,7 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
                             )
                           : DigitChip(
                               label: fileNames[index],
-                        onClick: widget.openFile
+                        onClick: widget.onFileTap!= null ? () => widget.onFileTap!(files[index]) : widget.openFile
                             ? () {
                           _openFile(fileBytesList[index],
                               fileNames[index]);

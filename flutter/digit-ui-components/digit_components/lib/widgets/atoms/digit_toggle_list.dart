@@ -19,15 +19,13 @@ import 'dart:math';
 
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/material.dart';
-import '../../models/toggleButtonModel.dart';
-import '../../theme/digit_theme.dart';
-import 'digit_toggle.dart';
 
 class ToggleList extends StatefulWidget {
   final List<ToggleButtonModel> toggleButtons;
   final void Function(ToggleButtonModel) onChanged;
   final EdgeInsets? contentPadding;
   final int selectedIndex;
+  final double? toggleWidth;
   final MainAxisAlignment mainAxisAlignment;
   final CrossAxisAlignment crossAxisAlignment;
 
@@ -37,6 +35,7 @@ class ToggleList extends StatefulWidget {
     required this.onChanged,
     this.contentPadding,
     required this.selectedIndex,
+    this.toggleWidth,
     this.mainAxisAlignment = MainAxisAlignment.start,
     this.crossAxisAlignment = CrossAxisAlignment.center,
   }) : super(key: key);
@@ -76,7 +75,7 @@ class _ToggleListState extends State<ToggleList> {
 
   @override
   Widget build(BuildContext context) {
-    maxLabelWidth = _calculateMaxLabelWidth();
+    maxLabelWidth = _calculateMaxLabelWidth() + spacer12 +spacer1;
     return Row(
       mainAxisAlignment: widget.mainAxisAlignment,
       crossAxisAlignment: widget.crossAxisAlignment,
@@ -103,7 +102,7 @@ class _ToggleListState extends State<ToggleList> {
               },
               label: button.name,
               isSelected: selectedIndex == index,
-              maxLabelWidth: maxLabelWidth,
+              maxLabelWidth: widget.toggleWidth ?? maxLabelWidth,
             ),
           );
         },

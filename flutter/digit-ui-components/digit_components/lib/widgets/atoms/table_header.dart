@@ -47,6 +47,7 @@ class TableHeader extends StatelessWidget {
             }
                 : null,
             child: Container(
+              constraints: const BoxConstraints(minWidth: 200),
               padding: EdgeInsets.only(left: theme.spacerTheme.spacer4, top: theme.spacerTheme.spacer4, bottom: theme.spacerTheme.spacer4, right: withColumnDividers || enabledBorder ? theme.spacerTheme.spacer4 : 0),
               decoration: BoxDecoration(
                 color: const DigitColors().light.genericBackground,
