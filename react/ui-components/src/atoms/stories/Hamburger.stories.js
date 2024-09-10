@@ -18,7 +18,8 @@ export default {
     profile:{control:"text"},
     onSelect:{ action: "onChange" },
     onLogout:{action:"onChange"},
-    reopenOnLogout:{control:"boolean"}
+    reopenOnLogout:{control:"boolean"},
+    closeOnClickOutside:{control:"boolean"}
   },
 };
 
@@ -188,7 +189,8 @@ const commonArgs = {
   usermanuals:[],
   onSelect:onSelect,
   onLogout:onLogout,
-  reopenOnLogout:false
+  reopenOnLogout:false,
+  closeOnClickOutside:false
 };
 
 export const LightTheme = Template.bind({});
@@ -206,12 +208,12 @@ LightThemeWithProfile.args = {
   profile:"https://cdn1.iconfinder.com/data/icons/website-internet/48/website_-_male_user-512.png"
 };
 
-export const LightThemeWithoutSearch = Template.bind({});
-LightThemeWithoutSearch.args = {
+export const LightThemeWithCloseOnClickOutside = Template.bind({});
+LightThemeWithCloseOnClickOutside.args = {
   ...commonArgs,
   theme: "light",
   items: lightThemeItems,
-  isSearchable:false
+  closeOnClickOutside:true
 };
 
 export const LightThemeWithoutUserManuals = Template.bind({});
@@ -245,12 +247,12 @@ DarkThemeWithProfile.args = {
   profile:"https://cdn1.iconfinder.com/data/icons/website-internet/48/website_-_male_user-512.png"
 };
 
-export const DarkThemeWithoutSearch = Template.bind({});
-DarkThemeWithoutSearch.args = {
+export const DarkThemeWithCloseOnClickOutside = Template.bind({});
+DarkThemeWithCloseOnClickOutside.args = {
   ...commonArgs,
   theme: "dark",
   items: darkThemeItems,
-  isSearchable:false
+  closeOnClickOutside:true
 };
 
 export const DarkThemeWithoutUsermanuals = Template.bind({});
