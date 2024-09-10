@@ -52,6 +52,14 @@
     margin: theme(digitv2.spacers.spacer2) theme(digitv2.spacers.spacer0);
 }
 
+.digit-bottom-sheet-header{
+    &.full {
+        .digit-bottom-sheet-handle-indicator{
+            display: none;
+        }
+    }
+}
+
 .digit-bottom-sheet-content {
     padding: theme(digitv2.spacers.spacer4);
     overflow-y: scroll;

@@ -30,6 +30,9 @@ export default {
     iconFill: {
       control: "text",
     },
+    label:{
+      control:"text"
+    }
   },
 };
 
@@ -43,7 +46,8 @@ const commonArgs = {
   variant: "",
   hideIcon:false,
   hideLabel:false,
-  iconFill:""
+  iconFill:"",
+  label:"Back"
 };
 
 export const Primary = Template.bind({});

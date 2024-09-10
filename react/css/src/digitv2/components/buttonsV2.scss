@@ -4,8 +4,7 @@
   @apply flex max-w-full items-center;
   gap: theme(digitv2.spacers.spacer2);
 
-  &.small,
-  &.medium {
+  &.small{
     gap: theme(digitv2.spacers.spacer1);
   }
 

@@ -10,9 +10,9 @@ const Tooltip = ({ tooltipRef, content, placement, arrow, style, className,heade
       style={style}
       ref={tooltipRef}
     >
-      <div className={`tooltip-header`}>{header}</div>
-      <div className={`tooltip-data`}>{content}</div>
-      <div className={`tooltip-description`}>{description}</div>
+      {header && <div className={`tooltip-header`}>{header}</div>}
+      {content && <div className={`tooltip-data`}>{content}</div>}
+      {description && <div className={`tooltip-description`}>{description}</div>}
     </div>
   );
 };
