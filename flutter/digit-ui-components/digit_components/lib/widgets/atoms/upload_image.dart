@@ -15,13 +15,27 @@ class ImageUploader extends StatefulWidget {
   final Function(List<File>) onImagesSelected;
   final bool allowMultiples;
   final String? errorMessage;
+  final List<File>? initialImages;
+  final String? label;
+  final String? cameraTitle;
+  final String? galleryTitle;
+  final String? captureText;
+  final String? cancelText;
+  final String? chooseOptionLabel;
   final List<FileValidator>? validators;
 
   const ImageUploader(
       {super.key,
       required this.onImagesSelected,
       this.allowMultiples = false,
+        this.initialImages,
       this.errorMessage,
+        this.label,
+      this.cameraTitle,
+      this.galleryTitle,
+        this.captureText,
+        this.cancelText,
+        this.chooseOptionLabel,
       this.validators});
 
   @override
@@ -29,7 +43,7 @@ class ImageUploader extends StatefulWidget {
 }
 
 class _ImageUploaderState extends State<ImageUploader> {
-  late final List<File> _imageFiles = [];
+  late final List<File> _imageFiles;
   late DigitTypography currentTypography;
   late bool isMobile;
   late bool isTab;
@@ -54,13 +68,13 @@ class _ImageUploaderState extends State<ImageUploader> {
               onCrossTap: () {
                 Navigator.of(context).pop();
               },
-              title: 'Camera',
+              title: widget.cameraTitle ?? 'Camera',
               type: PopUpType.simple,
               actions: [
                 Button(
                   mainAxisSize: MainAxisSize.max,
                   prefixIcon: Icons.camera_enhance,
-                  label: 'Capture',
+                  label: widget.captureText ??'Capture',
                   size: ButtonSize.large,
                   type: ButtonType.primary,
                   onPressed: () {
@@ -72,7 +86,7 @@ class _ImageUploaderState extends State<ImageUploader> {
                 ),
                 Button(
                   mainAxisSize: MainAxisSize.max,
-                  label: 'Cancel',
+                  label: widget.cancelText ?? 'Cancel',
                   size: ButtonSize.large,
                   type: ButtonType.secondary,
                   onPressed: () {
@@ -131,6 +145,13 @@ class _ImageUploaderState extends State<ImageUploader> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    // Initialize _imageFiles with initialImages if provided
+    _imageFiles = widget.initialImages ?? [];
+  }
+
+  @override
   void dispose() {
     super.dispose();
   }
@@ -163,7 +184,7 @@ class _ImageUploaderState extends State<ImageUploader> {
                         width: isTab ? 440 : 600,
                         height: isTab ? 228 : 240,
                       )   ,
-                      title: 'Choose an option to upload',
+                      title: widget.chooseOptionLabel ?? 'Choose an option to upload',
                       onCrossTap: () {
                         Navigator.of(context).pop();
                       },
@@ -173,11 +194,11 @@ class _ImageUploaderState extends State<ImageUploader> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
-                            _buildInkWell(Icons.camera_enhance, "Camera", () {
+                            _buildInkWell(Icons.camera_enhance, widget.cameraTitle ?? "Camera", () {
                               Navigator.of(context).pop();
                               _getImage(ImageSource.camera);
                             }, currentTypography),
-                            _buildInkWell(Icons.perm_media, "My Files", () {
+                            _buildInkWell(Icons.perm_media, widget.galleryTitle ?? "My Files", () {
                               Navigator.of(context).pop();
                               _getImage(ImageSource.gallery);
                             }, currentTypography),
@@ -218,11 +239,11 @@ class _ImageUploaderState extends State<ImageUploader> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
-          _buildInkWell(Icons.camera_enhance, "Camera", () {
+          _buildInkWell(Icons.camera_enhance, widget.cameraTitle ?? "Camera", () {
             Navigator.of(context).pop();
             _getImage(ImageSource.camera);
           }, currentTypography),
-          _buildInkWell(Icons.perm_media, "My Files", () {
+          _buildInkWell(Icons.perm_media, widget.galleryTitle ?? "My Files", () {
             Navigator.of(context).pop();
             _getImage(ImageSource.gallery);
           }, currentTypography),
@@ -284,7 +305,7 @@ class _ImageUploaderState extends State<ImageUploader> {
                     Icon(Icons.camera_enhance,
                         size: spacer10,
                         color: const DigitColors().light.primary1),
-                    Text('Click to add photo',
+                    Text(widget.label ?? 'Click to add photo',
                         style: TextStyle(
                             color: const DigitColors().light.primary1)),
                   ],

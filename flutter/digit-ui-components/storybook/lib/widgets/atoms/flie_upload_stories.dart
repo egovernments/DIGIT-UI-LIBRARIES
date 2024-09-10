@@ -1,9 +1,14 @@
+import 'dart:typed_data';
+
 import 'package:digit_ui_components/utils/validators/file_validator.dart';
 import 'package:digit_ui_components/widgets/atoms/upload_drag.dart';
 import 'package:digit_ui_components/widgets/atoms/upload_image.dart';
 import 'package:digit_ui_components/widgets/atoms/upload_popUp.dart';
+import 'package:flutter/services.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:path_provider/path_provider.dart';
+
 import 'package:flutter/material.dart';
 import 'dart:io';
 
@@ -84,7 +89,7 @@ List<Story> fileUploaderStories() {
         child: FileUploadWidget(
           allowMultiples: true,
           onFileTap: (file) => print(file.name),
-          initialFiles: [PlatformFile(name: 'test.pdf', size: 0,), PlatformFile(name: 'test.png', size: 0,)],
+          //initialFiles: [PlatformFile(name: 'test.pdf', size: 0,), PlatformFile(name: 'test.png', size: 0,)],
           label: 'Upload', onFilesSelected: (List<PlatformFile> files) {
           Map<PlatformFile, String?> fileErrors = {};
 
@@ -304,6 +309,35 @@ List<Story> fileUploaderStories() {
       ),
     ),
     Story(
+      name: 'Atom/File Upload/Image/Single Upload/Initially Selected',
+      builder: (context) {
+        return FutureBuilder<File>(
+          future: _loadSampleImage(), // Call to load the sample image
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return Center(child: Text('Error loading image'));
+            } else if (snapshot.hasData) {
+              final File sampleImageFile = snapshot.data!;
+              return Center(
+                child: ImageUploader(
+                  onImagesSelected: (List<File> images) {
+                    // Handle the selected image file here
+                    // print('Image selected: ${images.first.path}');
+                  },
+                  initialImages: [sampleImageFile], // Pass the sample image here
+                  allowMultiples: false, // Example setting, adjust as needed
+                ),
+              );
+            } else {
+              return Center(child: Text('No image found'));
+            }
+          },
+        );
+      },
+    ),
+    Story(
       name: 'Atom/File Upload/Image/Single Upload/Field Error',
       builder: (context) => Center(
           child: ImageUploader(
@@ -373,4 +407,19 @@ List<Story> fileUploaderStories() {
       ),
     ),
   ];
+}
+
+// Function to load the sample image
+Future<File> _loadSampleImage() async {
+  // Load the image from assets and get the temporary directory
+  final ByteData data = await rootBundle.load('assets/images/digit_logo_dark.jpg');
+  final List<int> bytes = data.buffer.asUint8List();
+  final Directory tempDir = await getTemporaryDirectory();
+  final String tempPath = '${tempDir.path}/digit_logo_dark.jpg';
+  final File file = File(tempPath);
+
+  // Write the image to a file
+  await file.writeAsBytes(bytes);
+
+  return file;
 }
