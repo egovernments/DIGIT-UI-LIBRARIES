@@ -51,8 +51,7 @@
       pointer-events: none !important;
     }
 
-    &.disabled,
-    &.preselected {
+    &:not(.preselected):not(.has-preselected).disabled{
       label {
         color: theme(digitv2.lightTheme.text-disabled);
       }
@@ -80,6 +79,7 @@
     font-style: theme(digitv2.fontStyle.normal);
     font-weight: theme(digitv2.fontWeight.regular);
     line-height: theme(digitv2.lineHeight.lineheight2);
+    margin-top: 0.065rem;
 
     @media (max-aspect-ratio: 9/16) {
       /* Media query for mobile */

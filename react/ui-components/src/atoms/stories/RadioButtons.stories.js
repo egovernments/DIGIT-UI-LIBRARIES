@@ -56,7 +56,7 @@ const commonArgs = {
     options: gendersOptions,
   },
   inputRef: null,
-  label: "Enter Gender",
+  label: "Select Gender",
   errorStyle: null,
   disabled: false,
   type: "radio",
