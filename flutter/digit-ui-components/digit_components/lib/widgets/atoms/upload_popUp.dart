@@ -127,8 +127,8 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
         for (var file in result.files) {
           if (widget.allowMultiples) {
             setState(() {
-              fileBytesList.add(file.bytes!);
-              fileNames.add(file.name!);
+              fileBytesList.add(file.bytes ?? Uint8List(0));
+              fileNames.add(file.name);
               files.add(file);
             });
           } else {
@@ -137,8 +137,8 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
             files.clear();
             setState(() {
               files.add(file);
-              fileBytesList.add(file.bytes!);
-              fileNames.add(file.name!);
+              fileBytesList.add(file.bytes ?? Uint8List(0));
+              fileNames.add(file.name);
             });
           }
         }
@@ -148,7 +148,7 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
         for (var file in result.files) {
           if (widget.allowMultiples) {
             setState(() {
-              fileBytesList.add(file.bytes!);
+              fileBytesList.add(file.bytes ?? Uint8List(0));
               fileNames.add(file.name);
               files.add(file);
             });
@@ -158,7 +158,7 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
             fileNames.clear();
             setState(() {
               files.add(file);
-              fileBytesList.add(file.bytes!);
+              fileBytesList.add(file.bytes ?? Uint8List(0));
               fileNames.add(file.name);
             });
           }

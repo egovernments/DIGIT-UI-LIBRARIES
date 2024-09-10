@@ -38,9 +38,6 @@ List<Story> fileUploaderStories() {
 
         return fileErrors;
       },
-        openFile: context.knobs.boolean(label: 'Open File', initial: false),
-        showPreview: context.knobs.boolean(label: 'Show preview', initial: false),
-        errorMessage: context.knobs.text(label: 'Error Message', initial: 'error'),
       ),
     ),
     Story(
