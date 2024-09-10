@@ -124,7 +124,7 @@ class Dropdown extends StatelessWidget {
                 selectionType: dropdownSelectionType,
                 options: options,
                 readOnly: readOnly,
-                selectedOptions: selectedOptions,
+                initialOptions: selectedOptions,
                 onOptionSelected: onOptionSelected,
                 suffixIcon: suffixIcon,
                 focusNode: focusNode,

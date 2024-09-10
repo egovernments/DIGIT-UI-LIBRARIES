@@ -46,7 +46,7 @@ class MultiSelectDropDown<int> extends StatefulWidget {
 
   /// Options
   final List<DropdownItem> options;
-  final List<DropdownItem> selectedOptions;
+  final List<DropdownItem>? initialOptions;
   final OnOptionSelect<int>? onOptionSelected;
 
   final IconData? suffixIcon;
@@ -79,13 +79,14 @@ class MultiSelectDropDown<int> extends StatefulWidget {
 
   final bool isSearchable;
   final bool showSelectAll;
+  final String selectAllText;
 
   const MultiSelectDropDown({
     Key? key,
     required this.onOptionSelected,
     required this.options,
     this.selectionType = SelectionType.defaultSelect,
-    this.selectedOptions = const [],
+    this.initialOptions,
     this.suffixIcon = Icons.arrow_drop_down,
     this.focusNode,
     this.controller,
@@ -98,6 +99,7 @@ class MultiSelectDropDown<int> extends StatefulWidget {
     this.isSearchable = false,
     this.showSelectAll = false,
     this.emptyItemText = 'No Options available',
+    this.selectAllText = 'Select All',
   }) : super(key: key);
 
   @override
@@ -107,12 +109,12 @@ class MultiSelectDropDown<int> extends StatefulWidget {
 
 class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
   /// Options list that is used to display the options.
-  final List<DropdownItem> _options = [];
+  late List<DropdownItem> _options;
 
   /// Selected options list that is used to display the selected options.
-  final List<DropdownItem> _selectedOptions = [];
+  late List<DropdownItem> _selectedOptions;
 
-  late List<DropdownItem> _filteredOptions = [];
+  late List<DropdownItem> _filteredOptions;
 
   /// The controller for the dropdown.
   OverlayState? _overlayState;
@@ -137,10 +139,12 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
       _initialize();
-    });
-    _focusNode = widget.focusNode ?? FocusNode();
+
+    if(widget.initialOptions!=null){
+      _selectedOptions = (widget.initialOptions!);
+    }
+
     _filteredOptions = widget.options;
     // Initialize the ScrollController
     _scrollController = ScrollController();
@@ -148,8 +152,8 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
   }
 
   void _initialize() {
-    if (!mounted) return;
-    _options.addAll(_controller?.options.isNotEmpty == true
+    _focusNode = widget.focusNode ?? FocusNode();
+    _options = (_controller?.options.isNotEmpty == true
         ? _controller!.options
         : widget.options);
     _addOptions();
@@ -160,17 +164,16 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
   /// Adds the selected options to the options list.
   void _addOptions() {
     setState(() {
-      _selectedOptions.addAll(_controller?.selectedOptions.isNotEmpty == true
+      _selectedOptions = (_controller?.selectedOptions.isNotEmpty == true
           ? _controller!.selectedOptions
-          : widget.selectedOptions);
+          : widget.initialOptions ?? []);
     });
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+
       if (_controller != null && _controller?._isDisposed == false) {
         _controller!.setOptions(_options);
         _controller!.setSelectedOptions(_selectedOptions);
         _controller!.addListener(_handleControllerChange);
       }
-    });
   }
 
   /// Handles the focus change to show/hide the dropdown.
@@ -210,39 +213,32 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
   /// Handles the widget rebuild when the options are changed externally.
   @override
   void didUpdateWidget(covariant MultiSelectDropDown<T> oldWidget) {
-    if (widget.controller == null && oldWidget.controller != null) {
-      _controller = MultiSelectController<T>();
-    } else if (widget.controller != null && oldWidget.controller == null) {
-      _controller!.dispose();
-      _controller = null;
-    }
-
-    /// If the options are changed externally, then the options are updated.
-    if (listEquals(widget.options, oldWidget.options) == false) {
-      _options.clear();
-      _options.addAll(widget.options);
-
-      /// If the controller is not null, then the options are updated in the controller.
-      if (_controller != null) {
-        _controller!.setOptions(_options);
-      }
-    }
-
-    /// If the selected options are changed externally, then the selected options are updated.
-    if (listEquals(widget.selectedOptions, oldWidget.selectedOptions) ==
-        false) {
-      _selectedOptions.clear();
-      _selectedOptions.addAll(widget.options
-          .where((element) => widget.selectedOptions.contains(element)));
-
-      /// If the controller is not null, then the selected options are updated in the controller.
-      if (_controller != null) {
-        _controller!.setSelectedOptions(_selectedOptions);
-      }
-    }
-
     super.didUpdateWidget(oldWidget);
+
+    // Check if initialOptions or selectedOptions have changed
+    if (widget.initialOptions != oldWidget.initialOptions) {
+      setState(() {
+        _selectedOptions.clear();
+        _selectedOptions.addAll(widget.initialOptions ?? []);
+      });
+    }
+
+    // Ensure controller is updated with the new options
+    if (widget.controller != null && widget.controller != oldWidget.controller) {
+      _controller?.dispose();
+      _controller = widget.controller;
+      _controller!.setSelectedOptions(_selectedOptions);
+    }
+
+    // Rebuild overlay if options change
+    if (widget.options != oldWidget.options) {
+      setState(() {
+        _filteredOptions = widget.options;
+      });
+      _updateOverlay();
+    }
   }
+
 
   /// Calculate offset size for dropdown.
   List _calculateOffsetSize() {
@@ -861,7 +857,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                     width: 10,
                   ),
                   Text(
-                    'Select All',
+                    widget.selectAllText,
                     style: currentTypography.bodyL
                         .copyWith(color: const DigitColors().light.primary1),
                   ),
@@ -997,7 +993,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                     width: 10,
                   ),
                   Text(
-                    'Select All',
+                    widget.selectAllText,
                     style: currentTypography.bodyL
                         .copyWith(color: const DigitColors().light.primary1),
                   ),
@@ -1096,7 +1092,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                       child: Row(
                         children: [
                           Text(
-                            'Select All',
+                            widget.selectAllText,
                             style: currentTypography.bodyS.copyWith(
                                 color: const DigitColors().light.primary1),
                           ),
@@ -1182,7 +1178,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
       _controller!.clearAllSelection();
     } else {
       setState(() {
-        _selectedOptions.clear();
+        _selectedOptions = [];
       });
       widget.onOptionSelected?.call(_selectedOptions);
     }
@@ -1214,7 +1210,13 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
 
           /// Display "Clear All" only if there are selected options
           InkWell(
-            onTap: () => clear(),
+            onTap: (){
+              setState(() {
+                _selectedOptions = [];
+              });
+              widget.onOptionSelected?.call(_selectedOptions);
+              if (_focusNode.hasFocus) _focusNode.unfocus();
+            },
             hoverColor: const DigitColors().transparent,
             splashColor: const DigitColors().transparent,
             highlightColor: const DigitColors().transparent,
@@ -1251,14 +1253,10 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
               ? '${item.type}: ${item.name}'
               : item.name,
       onItemDelete: () {
-        if (_controller != null) {
-          _controller!.clearSelection(item);
-        } else {
           setState(() {
             _selectedOptions.remove(item);
           });
           widget.onOptionSelected?.call(_selectedOptions);
-        }
         if (_focusNode.hasFocus) _focusNode.unfocus();
       },
     );
@@ -1301,8 +1299,8 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
 /// This is just base class. The implementation of this class is in the MultiSelectController class.
 /// The implementation of this class is hidden from the user.
 class _MultiSelectController<T> {
-  final List<DropdownItem> _options = [];
-  final List<DropdownItem> _selectedOptions = [];
+  late List<DropdownItem> _options = [];
+  late List<DropdownItem> _selectedOptions = [];
   bool _isDropdownOpen = false;
 }
 
@@ -1325,15 +1323,16 @@ class MultiSelectController<T>
   /// Clear the selected options.
   /// [MultiSelectController] is used to clear the selected options.
   void clearAllSelection() {
-    value._selectedOptions.clear();
+    value._selectedOptions = [];
     notifyListeners();
   }
 
   /// clear specific selected option
   /// [MultiSelectController] is used to clear specific selected option.
   void clearSelection(DropdownItem option) {
+
     if (!value._selectedOptions.contains(option)) return;
-    value._selectedOptions.remove(option);
+    value._selectedOptions;
     notifyListeners();
   }
 
@@ -1344,8 +1343,7 @@ class MultiSelectController<T>
       throw Exception('Cannot select options that are not in the options list');
     }
 
-    value._selectedOptions.clear();
-    value._selectedOptions.addAll(options);
+    value._selectedOptions = options;
     notifyListeners();
   }
 
@@ -1356,15 +1354,15 @@ class MultiSelectController<T>
       throw Exception('Cannot select option that is not in the options list');
     }
 
-    value._selectedOptions.add(option);
+    value._selectedOptions = [...value._selectedOptions, option];
     notifyListeners();
   }
 
   /// set options
   /// [MultiSelectController] is used to set options.
   void setOptions(List<DropdownItem> options) {
-    value._options.clear();
-    value._options.addAll(options);
+    value._options = [];
+    value._options = options;
     notifyListeners();
   }
 
