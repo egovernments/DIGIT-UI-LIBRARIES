@@ -16,6 +16,7 @@ const LandingPageCard = ({
   hideDivider,
   metricAlignment,
   iconBg,
+  buttonSize,
   onMetricClick,
 }) => {
   const history = useHistory();
@@ -115,7 +116,7 @@ const LandingPageCard = ({
           label={label}
           icon={icon}
           type="button"
-          size={"medium"}
+          size={buttonSize || "medium"}
           onClick={() => handleLinkClick({ link, label, icon })}
           style={{ padding: "0px" }}
         />

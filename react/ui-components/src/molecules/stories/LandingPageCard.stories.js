@@ -15,6 +15,7 @@ export default {
     metricAlignment: { control: "select", options: ["left", "centre"] },
     iconBg: { control: "boolean" },
     onMetricClick: { control: "action" },
+    buttonSize:{ control: "select", options: ["large","medium", "small"] },
   },
 };
 
@@ -25,6 +26,7 @@ const commonArgs = {
   variation: "one",
   moduleName: "Dashboards",
   moduleAlignment: "right",
+  buttonSize:"medium",
   metrics: [
     {
       count: 40,
@@ -44,7 +46,7 @@ const commonArgs = {
       label: "Create User",
       link:
         "https://unified-dev.digit.org/storybook/?path=/story/atoms-backlink--primary",
-      icon: "Add",
+      icon: "Person",
     },
     {
       label: "Edit User",
