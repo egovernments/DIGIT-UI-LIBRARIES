@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { Card, StringManipulator } from "../atoms";
 import { iconRender } from "../utils/iconRender";
 import { Colors } from "../constants/colors/colorconstants";
+import { Spacers } from "../constants/spacers/spacers";
+import { useTranslation } from "react-i18next";
 
 const MenuCard = ({
   icon,
@@ -12,11 +14,13 @@ const MenuCard = ({
   description,
   onClick,
 }) => {
+  const { t } = useTranslation();
   const primaryIconColor = Colors.lightTheme.primary[1];
+  const iconSize = Spacers.spacer10;
 
   return (
     <Card
-      className={`digit-menu-card ${className}`}
+      className={`digit-menu-card ${className} ${onClick ? "clickable" : ""}`}
       style={styles}
       onClick={onClick}
     >
@@ -26,8 +30,8 @@ const MenuCard = ({
             {iconRender(
               icon,
               primaryIconColor,
-              "40px",
-              "40px",
+              iconSize,
+              iconSize,
               `digit-menucard-icon`
             )}
           </div>
@@ -36,7 +40,7 @@ const MenuCard = ({
           <div className="digit-menuacard-menuName">
             {StringManipulator(
               "TOSENTENCECASE",
-              StringManipulator("TRUNCATESTRING", menuName, {
+              StringManipulator("TRUNCATESTRING", t(menuName), {
                 maxLength: 64,
               })
             )}
@@ -47,7 +51,7 @@ const MenuCard = ({
         <div className="digit-menucard-description">
           {StringManipulator(
             "TOSENTENCECASE",
-            StringManipulator("TRUNCATESTRING", description, {
+            StringManipulator("TRUNCATESTRING", t(description), {
               maxLength: 256,
             })
           )}
