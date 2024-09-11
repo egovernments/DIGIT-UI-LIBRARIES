@@ -45,6 +45,9 @@ class Button extends StatefulWidget {
   /// Icon to be displayed after the label text. Can be null if no suffix icon is needed.
   final IconData? suffixIcon;
 
+  final Color? iconColor;
+  final Color? textColor;
+
   final DigitButtonThemeData? buttonThemeData;
 
   /// Indicates whether the button is in a disabled state. If true, the button is disabled and cannot be interacted with.
@@ -62,6 +65,8 @@ class Button extends StatefulWidget {
     required this.size,
     this.prefixIcon,
     this.suffixIcon,
+    this.iconColor,
+    this.textColor,
     this.isDisabled = false,
     this.buttonThemeData,
     this.capitalizeLetters = true,
@@ -273,11 +278,11 @@ class _ButtonState extends State<Button> {
                 size: widget.type == ButtonType.link
                     ? linkIconSize
                     : buttonIconSize,
-                color: widget.type == ButtonType.primary
+                color: widget.iconColor ?? (widget.type == ButtonType.primary
                     ? buttonThemeData.primaryButtonColor
                     : (widget.isDisabled
                         ? buttonThemeData.disabledColor
-                        : buttonThemeData.buttonColor),
+                        : buttonThemeData.buttonColor)),
               ),
               SizedBox(
                   width: widget.type == ButtonType.link ||
@@ -291,23 +296,23 @@ class _ButtonState extends State<Button> {
                 textAlign: TextAlign.center,
                 style: widget.type == ButtonType.link
                     ? linkStyle.copyWith(
-                        color: widget.isDisabled
+                        color: widget.textColor ??  (widget.isDisabled
                             ? buttonThemeData.disabledColor
-                            : buttonThemeData.buttonColor,
+                            : buttonThemeData.buttonColor),
                         decoration: TextDecoration.underline,
-                        decorationColor: widget.isDisabled
+                        decorationColor: widget.textColor ??  (widget.isDisabled
                             ? buttonThemeData.disabledColor
-                            : buttonThemeData.buttonColor,
+                            : buttonThemeData.buttonColor),
                         decorationThickness: isHovered || isFocused ? 2 : 1,
                       )
                     : buttonStyle.copyWith(
                         fontWeight:
                             isMouseDown ? FontWeight.w700 : FontWeight.w500,
-                        color: widget.type == ButtonType.primary
+                        color: widget.textColor ?? (widget.type == ButtonType.primary
                             ? buttonThemeData.primaryButtonColor
                             : (widget.isDisabled
                                 ? buttonThemeData.disabledColor
-                                : buttonThemeData.buttonColor),
+                                : buttonThemeData.buttonColor)),
                         overflow: TextOverflow.ellipsis,
                       ),
               ),
@@ -323,11 +328,11 @@ class _ButtonState extends State<Button> {
                 size: widget.type == ButtonType.link
                     ? linkIconSize
                     : buttonIconSize,
-                color: widget.type == ButtonType.primary
+                color: widget.iconColor ?? (widget.type == ButtonType.primary
                     ? buttonThemeData.primaryButtonColor
                     : (widget.isDisabled
                         ? buttonThemeData.disabledColor
-                        : buttonThemeData.buttonColor),
+                        : buttonThemeData.buttonColor)),
               ),
             ],
           ],
