@@ -36,7 +36,7 @@ const LandingPageCard = ({
       className={`digit-landing-page-card ${moduleAlignment || ""} ${className}`}
       style={styles}
     >
-      <div className={`icon-module-header ${moduleAlignment || ""}`}>
+      <div className={`icon-module-header ${moduleAlignment || ""} ${icon && iconBg ? "iconBg" : ""}`}>
         {icon && moduleAlignment === "right" && (
           <div
             className={`digit-landingpagecard-icon ${iconBg ? "iconBg" : ""}`}

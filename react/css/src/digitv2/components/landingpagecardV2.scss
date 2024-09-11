@@ -31,10 +31,16 @@
             align-items: center;
 
             &.iconBg {
-                background-color: theme(digitv2.lightTheme.primary-1);
+                background-color: theme(digitv2.lightTheme.primary-1);  
                 border-radius: 0.125rem;
             }
         }
+
+        &.right{
+            &.iconBg {
+            gap:theme(digitv2.spacers.spacer4);
+        }
+    }
 
         svg {
             flex-shrink: 0;

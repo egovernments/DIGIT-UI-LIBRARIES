@@ -16,7 +16,7 @@ const MenuCard = ({
 }) => {
   const { t } = useTranslation();
   const primaryIconColor = Colors.lightTheme.primary[1];
-  const iconSize = Spacers.spacer10;
+  const iconSize = Spacers.spacer8;
 
   return (
     <Card
