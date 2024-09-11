@@ -56,7 +56,7 @@ class _MenuCardState extends State<MenuCard> {
               children: [
                 Icon(
                   widget.icon,
-                  size: isMobile ? 24 : isTab ? 32 : 40,
+                  size: isMobile ? 24 : isTab ? 32 : 32,
                   color: theme.colorTheme.primary.primary1,
                 ),
                 const SizedBox(width: 8),
