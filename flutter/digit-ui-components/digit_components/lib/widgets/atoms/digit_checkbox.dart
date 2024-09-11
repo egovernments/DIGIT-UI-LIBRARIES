@@ -29,7 +29,7 @@ class DigitCheckbox extends StatefulWidget {
   final bool value;
 
   /// The label associated with the DigitCheckbox.
-  final String label;
+  final String? label;
 
   /// Callback function triggered when the DigitCheckbox value changes.
   final ValueChanged<bool> onChanged;
@@ -44,7 +44,7 @@ class DigitCheckbox extends StatefulWidget {
   /// Creates a `DigitCheckbox` widget with the given parameters.
   const DigitCheckbox({
     Key? key,
-    required this.label,
+    this.label,
     required this.onChanged,
     this.isDisabled = false,
     this.value = false,
@@ -68,12 +68,24 @@ class _DigitCheckboxState extends State<DigitCheckbox> {
   }
 
   @override
+  void didUpdateWidget(DigitCheckbox oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    // Check if the value has changed
+    if (widget.value != oldWidget.value) {
+      setState(() {
+        _currentState = widget.value;
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    final checkboxThemeData = widget.checkboxThemeData ??
-        theme.extension<DigitCheckboxThemeData>();
-     final defaultThemeData =   DigitCheckboxThemeData.defaultTheme(context);
+    final checkboxThemeData =
+        widget.checkboxThemeData ?? theme.extension<DigitCheckboxThemeData>();
+    final defaultThemeData = DigitCheckboxThemeData.defaultTheme(context);
 
     bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
 
@@ -86,11 +98,14 @@ class _DigitCheckboxState extends State<DigitCheckbox> {
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
-      textDirection: checkboxThemeData?.labelTextDirection ?? defaultThemeData.labelTextDirection,
+      textDirection: checkboxThemeData?.labelTextDirection ??
+          defaultThemeData.labelTextDirection,
       children: [
         Column(
           children: [
-            SizedBox(height: isMobile ? 0 : 2,),
+            SizedBox(
+              height: isMobile ? 0 : 2,
+            ),
             InkWell(
               hoverColor: theme.colorTheme.generic.transparent,
               splashColor: theme.colorTheme.generic.transparent,
@@ -126,16 +141,22 @@ class _DigitCheckboxState extends State<DigitCheckbox> {
             ),
           ],
         ),
-        const SizedBox(width: spacer4),
-        Expanded(
-          child: Align(
-            alignment: Alignment.topLeft,
-            child: Text(
-              processedLabel!,
-              style: widget.isDisabled ? checkboxThemeData?.disabledLabelTextStyle ?? defaultThemeData.disabledLabelTextStyle : checkboxThemeData?.labelTextStyle ?? defaultThemeData.labelTextStyle,
+        if (widget.label != null) ...[
+          const SizedBox(width: spacer4),
+          Expanded(
+            child: Align(
+              alignment: Alignment.topLeft,
+              child: Text(
+                processedLabel!,
+                style: widget.isDisabled
+                    ? checkboxThemeData?.disabledLabelTextStyle ??
+                        defaultThemeData.disabledLabelTextStyle
+                    : checkboxThemeData?.labelTextStyle ??
+                        defaultThemeData.labelTextStyle,
+              ),
             ),
           ),
-        ),
+        ]
       ],
     );
   }

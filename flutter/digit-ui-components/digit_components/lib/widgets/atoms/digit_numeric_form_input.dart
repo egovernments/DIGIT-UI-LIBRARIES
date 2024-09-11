@@ -95,7 +95,12 @@ class _DigitNumericFormInputState extends BaseDigitFormInputState {
         /// Remove the text selection
         controller.selection = const TextSelection.collapsed(offset: 0);
       }
+      if(widget.onChange != null){
+        widget.onChange!(currentValue.toString());
+      }
+
     });
+
   }
 
   @override
@@ -110,6 +115,9 @@ class _DigitNumericFormInputState extends BaseDigitFormInputState {
 
         /// Remove the text selection
         controller.selection = const TextSelection.collapsed(offset: 0);
+      }
+      if(widget.onChange != null){
+        widget.onChange!(currentValue.toString());
       }
     });
   }
