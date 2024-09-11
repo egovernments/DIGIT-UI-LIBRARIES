@@ -684,7 +684,9 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
                                 setState(() {
                                   fileNames.removeAt(index);
                                   fileBytesList.removeAt(index);
+                                  files.removeAt(index);
                                 });
+                                widget.onFilesSelected(files);
                               },
                             )
                           : DigitChip(
@@ -699,7 +701,9 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
                                 setState(() {
                                   fileNames.removeAt(index);
                                   fileBytesList.removeAt(index);
+                                  files.removeAt(index);
                                 });
+                                widget.onFilesSelected(files);
                               },
                             ),
                     );
