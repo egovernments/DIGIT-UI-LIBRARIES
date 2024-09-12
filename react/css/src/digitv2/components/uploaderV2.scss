@@ -45,7 +45,7 @@
 
   @media (max-width: 30rem) {
     height: 7.625rem;
-    animation: slideInFromBottom 0.5s ease-out forwards;
+    animation: slideInFromBottomUploader 0.5s ease-out forwards;
   }
 
 
@@ -622,7 +622,7 @@
 
 }
 
-@keyframes slideInFromBottom {
+@keyframes slideInFromBottomUploader {
   from {
     transform: translateY(100%);
   }
