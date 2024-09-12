@@ -3,7 +3,7 @@ import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:flutter/material.dart';
 
 class DigitComponentsUtils {
-  void hideDialog(BuildContext context) {
+  static void hideDialog(BuildContext context) {
     Navigator.of(
       context,
       rootNavigator: true,
@@ -12,7 +12,7 @@ class DigitComponentsUtils {
     );
   }
 
-  void showDialog(
+  static void showDialog(
       BuildContext context, String? label, DialogType dialogType) {
     DigitSyncDialog.show(
       context,
