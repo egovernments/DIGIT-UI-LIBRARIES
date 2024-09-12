@@ -8,7 +8,6 @@ import '../../constants/app_constants.dart';
 
 typedef ExpansionChangedCallback = void Function(int index, bool isExpanded);
 
-
 class SideNavBar extends StatefulWidget {
   final SideNavType type;
   final List<NavItem> navItems;
@@ -60,63 +59,83 @@ class _SideNavBarState extends State<SideNavBar> {
       onExit: (_) {
         setState(() {
           isHovered = false;
+          searchController.text = "";
+          searchQuery = "";
         });
+        _onSearchChanged();
       },
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
-        width: isHovered ? 240 : widget.type == SideNavType.dark ? 48 : 50,
+        width: isHovered
+            ? 240
+            : widget.type == SideNavType.dark
+                ? 48
+                : 50,
         padding: const EdgeInsets.only(top: 16),
         decoration: BoxDecoration(
           border: widget.type == SideNavType.light
               ? Border.all(
-            width: 1.0,
-            color: widget.type == SideNavType.light
-                ? const DigitColors().light.genericDivider
-                : const DigitColors().transparent,
-          )
+                  width: 1.0,
+                  color: widget.type == SideNavType.light
+                      ? const DigitColors().light.genericDivider
+                      : const DigitColors().transparent,
+                )
               : null,
           color: background,
         ),
         child: Column(
+          // mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             isHovered
                 ? Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12.0),
-              child: DigitSearchFormInput(
-                controller: searchController,
-                enableBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: widget.type == SideNavType.light
-                        ? const DigitColors().light.textDisabled
-                        : const DigitColors().light.paperPrimary,
-                    width: 1.0,
-                  ),
-                  borderRadius: Base.radius,
-                ),
-                focusBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: widget.type == SideNavType.light
-                        ? const DigitColors().light.primary1
-                        : const DigitColors().light.paperPrimary,
-                    width: 1.5,
-                  ),
-                  borderRadius: Base.radius,
-                ),
-                iconColor: widget.type == SideNavType.light
-                    ? const DigitColors().light.textSecondary
-                    : const DigitColors().light.paperPrimary,
-              ),
-            )
+                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                    child: DigitSearchFormInput(
+                      controller: searchController,
+                      textStyle: widget.type == SideNavType.light
+                          ? Theme.of(context)
+                              .digitTextTheme(context)
+                              .bodyL
+                              .copyWith(
+                                  color: const DigitColors().light.textPrimary)
+                          : Theme.of(context)
+                              .digitTextTheme(context)
+                              .bodyL
+                              .copyWith(
+                                  color:
+                                      const DigitColors().light.paperPrimary),
+                      enableBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: widget.type == SideNavType.light
+                              ? const DigitColors().light.textDisabled
+                              : const DigitColors().light.paperPrimary,
+                          width: 1.0,
+                        ),
+                        borderRadius: Base.radius,
+                      ),
+                      focusBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: widget.type == SideNavType.light
+                              ? const DigitColors().light.primary1
+                              : const DigitColors().light.paperPrimary,
+                          width: 1.5,
+                        ),
+                        borderRadius: Base.radius,
+                      ),
+                      iconColor: widget.type == SideNavType.light
+                          ? const DigitColors().light.textSecondary
+                          : const DigitColors().light.paperPrimary,
+                    ),
+                  )
                 : Center(
-              child: Icon(
-                Icons.search,
-                size: 24,
-                color: widget.type == SideNavType.light
-                    ? const DigitColors().light.primary2
-                    : const DigitColors().light.paperPrimary,
-              ),
-            ),
+                    child: Icon(
+                      Icons.search,
+                      size: 24,
+                      color: widget.type == SideNavType.light
+                          ? const DigitColors().light.primary2
+                          : const DigitColors().light.paperPrimary,
+                    ),
+                  ),
             SizedBox(height: isHovered ? 16 : 24),
             NavItemBuilder(
               navItems: widget.navItems,
@@ -136,7 +155,6 @@ class _SideNavBarState extends State<SideNavBar> {
               },
               searchQuery: searchQuery,
             ),
-            const Spacer(),
             if (isHovered) _buildBottomSection(),
           ],
         ),
@@ -145,111 +163,156 @@ class _SideNavBarState extends State<SideNavBar> {
   }
 
   Widget _buildBottomSection() {
-    return Container(
-      padding: const EdgeInsets.all(12.0),
-      decoration: BoxDecoration(
-        border: Border.all(
-          width: 1.0,
+    bool isAccessibilityHovered = false;
+    bool isLogoutHovered = false;
+    bool isHelpHovered = false;
+    return StatefulBuilder(builder: (context, setState) {
+      return Container(
+        padding: const EdgeInsets.only(top: 16),
+        decoration: BoxDecoration(
+          border: Border.all(
+            width: 1.0,
+            color: widget.type == SideNavType.light
+                ? const DigitColors().light.genericDivider
+                : const DigitColors().light.paperPrimary.withOpacity(.20),
+          ),
           color: widget.type == SideNavType.light
-              ? const DigitColors().light.genericDivider
+              ? const DigitColors().light.paperPrimary
               : const DigitColors().light.paperPrimary.withOpacity(.20),
         ),
-        color: widget.type == SideNavType.light
-            ? const DigitColors().light.paperPrimary
-            : const DigitColors().light.paperPrimary.withOpacity(.20),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Icon(
-                Icons.help_outline,
-                color: widget.type == SideNavType.light
-                    ? const DigitColors().light.primary2
-                    : const DigitColors().light.paperPrimary,
-                size: 24,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            MouseRegion(
+              onEnter: (_) => setState(() {
+                isHelpHovered = true;
+              }),
+              onExit: (_) => setState(() {
+                isHelpHovered = false;
+              }),
+              child: Container(
+                padding: const EdgeInsets.all(12.0),
+                color: isHelpHovered
+                    ? widget.type == SideNavType.light ? const DigitColors().light.primary1Bg: const DigitColors().light.paperPrimary.withOpacity(.2)
+                    : null,
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.help_outline,
+                      color: widget.type == SideNavType.light
+                          ? const DigitColors().light.primary2
+                          : const DigitColors().light.paperPrimary,
+                      size: 24,
+                    ),
+                    ...[
+                      const SizedBox(width: 10),
+                      Text(
+                        'Help',
+                        style: TextStyle(
+                          color: widget.type == SideNavType.light
+                              ? const DigitColors().light.primary2
+                              : const DigitColors().light.paperPrimary,
+                        ),
+                      ),
+                    ],
+                  ],
+                ),
               ),
-              ...[
-                const SizedBox(width: 10),
-                Text(
-                  'Help',
-                  style: TextStyle(
+            ),
+            MouseRegion(
+              onEnter: (_) => setState(() {
+                isAccessibilityHovered = true;
+              }),
+              onExit: (_) => setState(() {
+                isAccessibilityHovered = false;
+              }),
+              child: Container(
+                padding: const EdgeInsets.all(12.0),
+                color: isAccessibilityHovered
+                    ? widget.type == SideNavType.light ? const DigitColors().light.primary1Bg: const DigitColors().light.paperPrimary.withOpacity(.2)
+                    : null,
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.settings_accessibility,
+                      color: widget.type == SideNavType.light
+                          ? const DigitColors().light.primary2
+                          : const DigitColors().light.paperPrimary,
+                      size: 24,
+                    ),
+                    if (isHovered) ...[
+                      const SizedBox(width: 10),
+                      Text(
+                        'Accessibility',
+                        style: TextStyle(
+                          color: widget.type == SideNavType.light
+                              ? const DigitColors().light.primary2
+                              : const DigitColors().light.paperPrimary,
+                        ),
+                      ),
+                    ],
+                  ],
+                ),
+              ),
+            ),
+            MouseRegion(
+              onEnter: (_) => setState(() {
+                isLogoutHovered = true;
+              }),
+              onExit: (_) => setState(() {
+                isLogoutHovered = false;
+              }),
+              child: Container(
+                padding: const EdgeInsets.all(12.0),
+                color: isLogoutHovered
+                    ? widget.type == SideNavType.light ? const DigitColors().light.primary1Bg: const DigitColors().light.paperPrimary.withOpacity(.2)
+                    : null,
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.logout,
+                      color: widget.type == SideNavType.light
+                          ? const DigitColors().light.primary2
+                          : const DigitColors().light.paperPrimary,
+                      size: 24,
+                    ),
+                    if (isHovered) ...[
+                      const SizedBox(width: 10),
+                      Text(
+                        'Logout',
+                        style: TextStyle(
+                          color: widget.type == SideNavType.light
+                              ? const DigitColors().light.primary2
+                              : const DigitColors().light.paperPrimary,
+                        ),
+                      ),
+                    ],
+                  ],
+                ),
+              ),
+            ),
+            const DigitDivider(dividerType: DividerType.small),
+            ...[
+              const SizedBox(height: 16),
+              if (isHovered)
+                Center(
+                  child: Image.asset(
+                    'assets/images/powered_by_digit.png',
                     color: widget.type == SideNavType.light
                         ? const DigitColors().light.primary2
                         : const DigitColors().light.paperPrimary,
+                    height: 12,
                   ),
                 ),
-              ],
             ],
-          ),
-          const SizedBox(height: 16),
-          Row(
-            children: [
-              Icon(
-                Icons.settings_accessibility,
-                color: widget.type == SideNavType.light
-                    ? const DigitColors().light.primary2
-                    : const DigitColors().light.paperPrimary,
-                size: 24,
-              ),
-              if (isHovered) ...[
-                const SizedBox(width: 10),
-                Text(
-                  'Accessibility',
-                  style: TextStyle(
-                    color: widget.type == SideNavType.light
-                        ? const DigitColors().light.primary2
-                        : const DigitColors().light.paperPrimary,
-                  ),
-                ),
-              ],
-            ],
-          ),
-          const SizedBox(height: 16),
-          Row(
-            children: [
-              Icon(
-                Icons.logout,
-                color: widget.type == SideNavType.light
-                    ? const DigitColors().light.primary2
-                    : const DigitColors().light.paperPrimary,
-                size: 24,
-              ),
-              if (isHovered) ...[
-                const SizedBox(width: 10),
-                Text(
-                  'Logout',
-                  style: TextStyle(
-                    color: widget.type == SideNavType.light
-                        ? const DigitColors().light.primary2
-                        : const DigitColors().light.paperPrimary,
-                  ),
-                ),
-              ],
-            ],
-          ),
-          const SizedBox(height: 16),
-          const DigitDivider(dividerType: DividerType.small),
-          ...[
-            const SizedBox(height: 16),
-            if (isHovered)
-              Center(
-                child: Image.asset(
-                  'assets/images/powered_by_digit.png',
-                  color: widget.type == SideNavType.light
-                      ? const DigitColors().light.primary2
-                      : const DigitColors().light.paperPrimary,
-                  height: 12,
-                ),
-              ),
           ],
-        ],
-      ),
-    );
+        ),
+      );
+    });
   }
 }
-
 
 class NavItemBuilder extends StatefulWidget {
   final bool isHovered;
@@ -285,23 +348,33 @@ class _NavItemBuilderState extends State<NavItemBuilder> {
     final theme = Theme.of(context);
     final filteredNavItems = _filterNavItems(widget.navItems);
 
-    return filteredNavItems.isNotEmpty ? Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        for (var i = 0; i < filteredNavItems.length; i++)
-          _buildNavItem(filteredNavItems[i], -1, i),
-      ],
-    ) :  Center(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: Text(
-          'No items found',
-          style: theme.digitTextTheme(context).bodyL.copyWith(
-            color: theme.colorTheme.text.disabled,
-          ),
-        ),
-      ),
-    );
+    return filteredNavItems.isNotEmpty
+        ? Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  for (var i = 0; i < filteredNavItems.length; i++)
+                    _buildNavItem(filteredNavItems[i], -1, i),
+                ],
+              ),
+            ),
+
+          )
+        : Flexible(
+          child: Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Text(
+                  'No items found',
+                  style: theme.digitTextTheme(context).bodyS.copyWith(
+                        color: theme.colorTheme.text.disabled,
+                      ),
+                ),
+              ),
+            ),
+        );
   }
 
   List<NavItem> _filterNavItems(List<NavItem> items) {
@@ -328,6 +401,7 @@ class _NavItemBuilderState extends State<NavItemBuilder> {
     isHoveredMap.putIfAbsent(index, () => false);
 
     return Column(
+      mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         InkWell(
@@ -335,7 +409,7 @@ class _NavItemBuilderState extends State<NavItemBuilder> {
             setState(() {
               if (navItem.children != null) {
                 widget.isExpandedMap[index] =
-                !(widget.isExpandedMap[index] ?? false);
+                    !(widget.isExpandedMap[index] ?? false);
                 widget.onExpansionChanged(index, widget.isExpandedMap[index]!);
               } else {
                 widget.onItemTapped(navItem);
@@ -352,15 +426,18 @@ class _NavItemBuilderState extends State<NavItemBuilder> {
               right: widget.isHovered ? 24 : 12,
             ),
             color: (widget.selectedNavItem == navItem ||
-                isHoveredMap[index]! ||
-                (_isParentOfSelected(navItem, widget.navItems) && !widget.isHovered))
+                    isHoveredMap[index]! ||
+                    (_isParentOfSelected(navItem, widget.navItems) &&
+                        !widget.isHovered))
                 ? widget.type == SideNavType.light
-                ? const DigitColors().light.primary1Bg
-                : const DigitColors().light.paperPrimary.withOpacity(0.2)
+                    ? const DigitColors().light.primary1Bg
+                    : const DigitColors().light.paperPrimary.withOpacity(0.2)
                 : Colors.transparent,
             child: Row(
               children: [
-                if (widget.selectedNavItem == navItem || (_isParentOfSelected(navItem, widget.navItems) && !widget.isHovered))
+                if (widget.selectedNavItem == navItem ||
+                    (_isParentOfSelected(navItem, widget.navItems) &&
+                        !widget.isHovered))
                   Container(
                     width: 4,
                     height: 48,
@@ -373,23 +450,28 @@ class _NavItemBuilderState extends State<NavItemBuilder> {
                           : const DigitColors().light.paperPrimary,
                     ),
                   ),
-
                 Container(
                   padding: EdgeInsets.only(
                     left: widget.isHovered
                         ? widget.selectedNavItem == navItem
-                        ? 20
-                        : 24
-                        : widget.selectedNavItem == navItem || (_isParentOfSelected(navItem, widget.navItems) && !widget.isHovered)
-                        ? 8
-                        : 12,
-                    top: 12,
-                    bottom: 12,
+                            ? 20
+                            : 24
+                        : widget.selectedNavItem == navItem ||
+                                (_isParentOfSelected(
+                                        navItem, widget.navItems) &&
+                                    !widget.isHovered)
+                            ? 8
+                            : 12,
+                    top: widget.isHovered ? 16 : 8,
+                    bottom: widget.isHovered ? 16 : 8,
                   ),
                   child: Row(
                     children: [
                       Icon(
-                        widget.selectedNavItem == navItem || (_isParentOfSelected(navItem, widget.navItems) && !widget.isHovered)
+                        widget.selectedNavItem == navItem ||
+                                (_isParentOfSelected(
+                                        navItem, widget.navItems) &&
+                                    !widget.isHovered)
                             ? navItem.selectedIcon
                             : navItem.icon ?? Icons.folder,
                         color: widget.type == SideNavType.light
@@ -427,6 +509,10 @@ class _NavItemBuilderState extends State<NavItemBuilder> {
             ),
           ),
         ),
+
+        if(!widget.isHovered)
+          const SizedBox(height: 24,),
+
         /// Recursively build child NavItems if they exist and the parent is expanded
         if (navItem.children != null && widget.isHovered)
           Padding(
@@ -450,7 +536,8 @@ class _NavItemBuilderState extends State<NavItemBuilder> {
                 children: [
                   for (var i = 0; i < navItem.children!.length; i++)
                     if (widget.isExpandedMap[index] == true)
-                      _buildNavItem(navItem.children![i], index, index * 10 + i),
+                      _buildNavItem(
+                          navItem.children![i], index, index * 10 + i),
                 ],
               ),
             ),

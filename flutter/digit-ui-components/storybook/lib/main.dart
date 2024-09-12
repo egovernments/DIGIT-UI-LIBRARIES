@@ -212,7 +212,7 @@ class MyApp extends StatelessWidget {
 ...searchBarStories(),
               ///...customStepperStories(),
               ...hamBurgerStories(),
-              ...tableStories(),
+             // ...tableStories(),
               ...sideNavStories(),
               //...toolTipStories(),
               //...selectionCardStories(),
@@ -368,16 +368,10 @@ class MyApp extends StatelessWidget {
                         ],
                         actions: [
                           ActionItem(label: 'Action 1', onPressed: () {}),
-                        ],
-                      ),
-                      MatrixListComponent(
-                        icon: Icons.supervisor_account,
-                        heading: 'Card 2',
-                        matrixList: [
-                          MatrixModel(title: 'Title 3', description: 'Description 3'),
-                          MatrixModel(title: 'Title 4', description: 'Description 4'),
-                        ],
-                        actions: [
+                          ActionItem(label: 'Action 2', onPressed: () {}),
+                          ActionItem(label: 'Action 2', onPressed: () {}),
+                          ActionItem(label: 'Action 2', onPressed: () {}),
+                          ActionItem(label: 'Action 2', onPressed: () {}),
                           ActionItem(label: 'Action 2', onPressed: () {}),
                         ],
                       ),
@@ -389,6 +383,27 @@ class MyApp extends StatelessWidget {
                           MatrixModel(title: 'Title 4', description: 'Description 4'),
                         ],
                         actions: [
+                          ActionItem(label: 'Action 2', onPressed: () {}),
+                          ActionItem(label: 'Action 2', onPressed: () {}),
+                          ActionItem(label: 'Action 2', onPressed: () {}),
+                          ActionItem(label: 'Action 2', onPressed: () {}),
+                          ActionItem(label: 'Action 2', onPressed: () {}),
+                          ActionItem(label: 'Action 2', onPressed: () {}),
+                        ],
+                      ),
+                      MatrixListComponent(
+                        icon: Icons.supervisor_account,
+                        heading: 'Card 2',
+                        matrixList: [
+                          MatrixModel(title: 'Title 3', description: 'Description 3'),
+                          MatrixModel(title: 'Title 4', description: 'Description 4'),
+                        ],
+                        actions: [
+                          ActionItem(label: 'Action 2', onPressed: () {}),
+                          ActionItem(label: 'Action 2', onPressed: () {}),
+                          ActionItem(label: 'Action 2', onPressed: () {}),
+                          ActionItem(label: 'Action 2', onPressed: () {}),
+                          ActionItem(label: 'Action 2', onPressed: () {}),
                           ActionItem(label: 'Action 2', onPressed: () {}),
                         ],
                       ),
@@ -401,6 +416,11 @@ class MyApp extends StatelessWidget {
                         ],
                         actions: [
                           ActionItem(label: 'Action 2', onPressed: () {}),
+                          ActionItem(label: 'Action 2', onPressed: () {}),
+                          ActionItem(label: 'Action 2', onPressed: () {}),
+                          ActionItem(label: 'Action 2', onPressed: () {}),
+                          ActionItem(label: 'Action 2', onPressed: () {}),
+                          ActionItem(label: 'Action 2', onPressed: () {}),
                         ],
                       ),
                       MatrixListComponent(
@@ -412,6 +432,11 @@ class MyApp extends StatelessWidget {
                         ],
                         actions: [
                           ActionItem(label: 'Action 2', onPressed: () {}),
+                          ActionItem(label: 'Action 2', onPressed: () {}),
+                          ActionItem(label: 'Action 2', onPressed: () {}),
+                          ActionItem(label: 'Action 2', onPressed: () {}),
+                          ActionItem(label: 'Action 2', onPressed: () {}),
+                          ActionItem(label: 'Action 2', onPressed: () {}),
                         ],
                       ),
                       MatrixListComponent(
@@ -422,6 +447,11 @@ class MyApp extends StatelessWidget {
                           MatrixModel(title: 'Title 4', description: 'Description 4'),
                         ],
                         actions: [
+                          ActionItem(label: 'Action 2', onPressed: () {}),
+                          ActionItem(label: 'Action 2', onPressed: () {}),
+                          ActionItem(label: 'Action 2', onPressed: () {}),
+                          ActionItem(label: 'Action 2', onPressed: () {}),
+                          ActionItem(label: 'Action 2', onPressed: () {}),
                           ActionItem(label: 'Action 2', onPressed: () {}),
                         ],
                       ),
@@ -435,6 +465,11 @@ class MyApp extends StatelessWidget {
                         ],
                         actions: [
                           ActionItem(label: 'Action 2', onPressed: () {}),
+                          ActionItem(label: 'Action 2', onPressed: () {}),
+                          ActionItem(label: 'Action 2', onPressed: () {}),
+                          ActionItem(label: 'Action 2', onPressed: () {}),
+                          ActionItem(label: 'Action 2', onPressed: () {}),
+                          ActionItem(label: 'Action 2', onPressed: () {}),
                         ],
                       ),
                       MatrixListComponent(
@@ -445,6 +480,11 @@ class MyApp extends StatelessWidget {
                           MatrixModel(title: 'Title 4', description: 'Description 4'),
                         ],
                         actions: [
+                          ActionItem(label: 'Action 2', onPressed: () {}),
+                          ActionItem(label: 'Action 2', onPressed: () {}),
+                          ActionItem(label: 'Action 2', onPressed: () {}),
+                          ActionItem(label: 'Action 2', onPressed: () {}),
+                          ActionItem(label: 'Action 2', onPressed: () {}),
                           ActionItem(label: 'Action 2', onPressed: () {}),
                         ],
                       ),
@@ -457,6 +497,10 @@ class MyApp extends StatelessWidget {
                           MatrixModel(title: 'Title 4', description: 'Description 4'),
                         ],
                         actions: [
+                          ActionItem(label: 'Action 2', onPressed: () {}),
+                          ActionItem(label: 'Action 2', onPressed: () {}),
+                          ActionItem(label: 'Action 2', onPressed: () {}),
+                          ActionItem(label: 'Action 2', onPressed: () {}),
                           ActionItem(label: 'Action 2', onPressed: () {}),
                         ],
                       ),

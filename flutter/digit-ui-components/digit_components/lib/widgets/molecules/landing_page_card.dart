@@ -43,6 +43,7 @@ class MatrixListComponent extends StatelessWidget {
                 children: [
                   if (!showIconOnRight && icon != null) _buildIcon(),
                   if (!showIconOnRight && icon != null) const SizedBox(width: 8),
+                  if(!showIconOnRight && icon != null && filledIcon) const SizedBox(width: 8),
                   Text(
                     heading,
                     style: textTheme.headingM.copyWith(
@@ -85,6 +86,7 @@ class MatrixListComponent extends StatelessWidget {
       height: 56,
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(2),
         color: filledIcon
             ? const DigitColors().light.primary1
             : const DigitColors().light.paperPrimary,

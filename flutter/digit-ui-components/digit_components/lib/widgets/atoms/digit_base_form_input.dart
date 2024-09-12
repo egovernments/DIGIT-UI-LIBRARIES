@@ -37,6 +37,8 @@ class BaseDigitFormInput extends StatefulWidget {
   /// Icon to be displayed as a suffix in the input field.
   final String? suffixText;
 
+  final TextStyle? textStyle;
+
   /// Icon to be displayed as a prefix in the input field.
   final String? prefixText;
 
@@ -121,6 +123,7 @@ class BaseDigitFormInput extends StatefulWidget {
   final void Function()? onFocusLost;
 
   final EdgeInsetsGeometry? contentPadding;
+  final double? iconSize;
 
   /// Custom function for focus lost
 
@@ -138,6 +141,7 @@ class BaseDigitFormInput extends StatefulWidget {
     this.onError,
     this.suffixText,
     this.prefixText,
+    this.textStyle,
     this.onSuffixTap,
     this.minLine = 1,
     this.maxLine = 1,
@@ -172,6 +176,7 @@ class BaseDigitFormInput extends StatefulWidget {
     this.enableBorder,
     this.iconColor,
     this.contentPadding,
+    this.iconSize,
   }) : super(key: key);
 
   @override
@@ -484,7 +489,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                   showCursor: widget.readOnly
                       ? false
                       : widget.showCurser ?? widget.isEditable,
-                  style: isVisible
+                  style: widget.textStyle ?? (isVisible
                       ? currentTypography.bodyL.copyWith(
                           fontWeight: FontWeight.w900,
                           color: widget.readOnly
@@ -495,13 +500,13 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                           color: widget.readOnly
                               ? const DigitColors().light.textSecondary
                               : const DigitColors().light.textPrimary,
-                          decoration: TextDecoration.none),
+                          decoration: TextDecoration.none)),
                   decoration: InputDecoration(
                     counterText: '',
                     hoverColor: const DigitColors().transparent,
                     constraints: BoxConstraints(
-                      maxHeight: BaseConstants.inputMinHeight,
-                      minHeight: BaseConstants.inputMinHeight,
+                      maxHeight: widget.height ?? BaseConstants.inputMinHeight,
+                      minHeight: widget.height ?? BaseConstants.inputMinHeight,
                       minWidth: minWidth,
                     ),
                     contentPadding: widget.contentPadding ?? const EdgeInsets.only( top: spacer2,
@@ -685,7 +690,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                                     isVisible == true
                                         ? widget.toggleSuffixIcon
                                         : widget.suffixIcon,
-                                    size: BaseConstants.suffixIconSize,
+                                    size: widget.iconSize ?? BaseConstants.suffixIconSize,
                                   ),
                                 ),
                               )

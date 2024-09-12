@@ -212,7 +212,7 @@ class _ItemWidgetState extends State<ItemWidget> {
                         size: 24,
                         color: theme.colorTheme.primary.primary2,
                       ),
-                      const SizedBox(width: 12),
+                      const SizedBox(width: 8),
                     ],
                     Text(
                       widget.title,
@@ -313,15 +313,20 @@ class _SideNavWithSearchState extends State<SideNavWithSearch> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-
+    final textTheme = Theme.of(context).digitTextTheme(context);
 
 
     return Column(
       children: [
         if (widget.isSearchEnabled)
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.only(left: 24.0, right: 24, top: 16),
             child: DigitSearchFormInput(
+              height: 32,
+              textStyle: textTheme.bodyS.copyWith(
+                color: theme.colorTheme.text.primary,
+              ),
+              iconSize: 16,
               focusNode: searchFocusNode,
               controller: _searchController,
               enableBorder: OutlineInputBorder(
@@ -343,10 +348,10 @@ class _SideNavWithSearchState extends State<SideNavWithSearch> {
           ),
         if(_filteredItems.isEmpty)
           Padding(
-              padding: const EdgeInsets.only(bottom: 16.0),
+              padding: const EdgeInsets.only(bottom: 16.0, top: 16),
               child: Text(
                 'No items found',
-                style: theme.digitTextTheme(context).bodyL.copyWith(
+                style: theme.digitTextTheme(context).bodyS.copyWith(
                   color: theme.colorTheme.text.disabled,
                 ),
               ),
@@ -393,48 +398,50 @@ class ChildItemWidget extends StatelessWidget {
         }
         item.onPressed();
             },
-      child: Container(
-        height: 48,
-
-        decoration: BoxDecoration(
-          color: backgroundColor,
-          borderRadius: BorderRadius.zero,
-        ),
-        child: Row(
-          children: [
-            if (isSelected)
-              Container(
-                width: 8,
-                height: 48,
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.only(
-                      topRight: Radius.circular(4),
-                      bottomRight: Radius.circular(4)),
-                  color: const DigitColors().light.primary1,
+      child: Padding(
+        padding: EdgeInsets.only(left: isSelected ? 18 : 20.0),
+        child: Container(
+          height: 48,
+          decoration: BoxDecoration(
+            color: backgroundColor,
+            borderRadius: BorderRadius.zero,
+          ),
+          child: Row(
+            children: [
+              if (isSelected)
+                Container(
+                  width: 8,
+                  height: 48,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.only(
+                        topRight: Radius.circular(4),
+                        bottomRight: Radius.circular(4)),
+                    color: const DigitColors().light.primary1,
+                  ),
                 ),
-              ),
-            if (isSelected) const SizedBox(width: 18,),
-              Padding(
-                padding:  EdgeInsets.only(right: 24, top: 12, bottom: 12, left: isSelected ? 0 : 24),
-                child: Row(
-                  children: [
-                    if (item.icon != null)
-                    Icon(
-                      item.icon,
-                      color: theme.colorTheme.primary.primary2,
-                    ),
-                    if (item.icon != null)
-                    const SizedBox(width: 12),
-                    Text(
-                      item.title,
-                      style: textTheme.headingS.copyWith(
+              if (isSelected) const SizedBox(width: 18,),
+                Padding(
+                  padding:  EdgeInsets.only(right: 24, top: 12, bottom: 12, left: isSelected ? 0 : 24),
+                  child: Row(
+                    children: [
+                      if (item.icon != null)
+                      Icon(
+                        item.icon,
                         color: theme.colorTheme.primary.primary2,
                       ),
-                    ),
-                  ],
+                      if (item.icon != null)
+                      const SizedBox(width: 12),
+                      Text(
+                        item.title,
+                        style: textTheme.headingS.copyWith(
+                          color: theme.colorTheme.primary.primary2,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -16,6 +16,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import '../../constants/app_constants.dart';
 import '../../utils/validators/validator.dart';
 import 'digit_base_form_input.dart';
 
@@ -45,6 +46,9 @@ class DigitSearchFormInput extends BaseDigitFormInput {
     final OutlineInputBorder? enableBorder,
     final Color? iconColor,
     final int? maxLength,
+    final double? height,
+    final TextStyle? textStyle,
+    final double? iconSize,
   }) : super(
           key: key,
           controller: controller,
@@ -70,6 +74,9 @@ class DigitSearchFormInput extends BaseDigitFormInput {
           enableBorder: enableBorder,
           iconColor: iconColor,
           maxLength: maxLength,
+          height: height ?? Base.height,
+    textStyle: textStyle,
+    iconSize: iconSize,
         );
 
   @override

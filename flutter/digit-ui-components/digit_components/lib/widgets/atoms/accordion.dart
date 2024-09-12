@@ -93,7 +93,7 @@ class _DigitAccordionState extends State<DigitAccordion>
       curve: Curves.easeOut,
       decoration: BoxDecoration(
         color: widget.headerBackgroundColor,
-        borderRadius: const BorderRadius.all(Radius.circular(4)),
+        borderRadius: BorderRadius.circular(4),
         border: item.showBorder
             ? Border.all(
             color: const DigitColors().light.genericDivider, width: 1.0)
@@ -130,8 +130,19 @@ class _DigitAccordionState extends State<DigitAccordion>
               });
             },
             child: Container(
+              decoration: BoxDecoration(
+                color: widget.headerBackgroundColor,
+                borderRadius: BorderRadius.circular(4),
+                boxShadow: [
+                  if (widget.headerElevation > 0)
+                    BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: widget.headerElevation,
+                      offset: Offset(0, widget.headerElevation / 2),
+                    ),
+                ],
+              ),
               padding: const EdgeInsets.all(16),
-              color: widget.headerBackgroundColor,
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -143,7 +154,7 @@ class _DigitAccordionState extends State<DigitAccordion>
                     ),
                     child: const Icon(
                       Icons.chevron_right,
-                      size: 32,
+                      size: 24,
                     ),
                   ),
                 ],
@@ -157,7 +168,10 @@ class _DigitAccordionState extends State<DigitAccordion>
               curve: Curves.easeOut,
             ),
             child: Container(
-              color: widget.contentBackgroundColor,
+              decoration: BoxDecoration(
+                color: widget.contentBackgroundColor,
+                borderRadius: BorderRadius.circular(4),
+              ),
               padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
               child: item.content,
             ),

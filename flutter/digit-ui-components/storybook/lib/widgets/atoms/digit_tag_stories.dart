@@ -23,7 +23,7 @@ List<Story> digitTagStories() {
     ),
     Story(
       name: 'Atom/Tags/Onclick',
-      builder: (context) => Tag(label: context.knobs.text(label: 'Label', initial: 'Tag with Click'), type: TagType.monochrome, isStroke: context.knobs.boolean(label: 'Stroke', initial: false),),
+      builder: (context) => Tag(onClick: () {}, label: context.knobs.text(label: 'Label', initial: 'Tag with Click'), type: TagType.monochrome, isStroke: context.knobs.boolean(label: 'Stroke', initial: false),),
     ),
     Story(
       name: 'Atom/Tags/CustomIcon and TextStyle',

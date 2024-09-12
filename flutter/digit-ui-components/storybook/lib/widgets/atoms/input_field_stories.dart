@@ -138,6 +138,9 @@ List<Story> inputFieldStories() {
       name: 'Atom/Input Field/Numeric Field',
       builder: (context) => InputField(
         type: InputType.numeric,
+        onChange: (value){
+          print('valueee');
+        },
         label: context.knobs.text(label: 'Label', initial: 'Label'),
         infoText: context.knobs.text(label: 'Info Text', initial: 'info'),
         isRequired: context.knobs.boolean(label: 'Required', initial: true),
