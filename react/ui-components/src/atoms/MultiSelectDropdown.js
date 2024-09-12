@@ -428,7 +428,7 @@ const MultiSelectDropdown = ({
         )
       : options;
 
-  const parentOptionsWithChildren = filteredOptions.filter(
+  const parentOptionsWithChildren = filteredOptions?.filter(
     (option) => option.options && option.options.length > 0
   );
 

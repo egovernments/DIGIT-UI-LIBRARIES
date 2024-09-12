@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.0.2-beta.38] - 2024-09-10
+## [0.0.2-beta.98] - 2024-09-12
 ### New Changes
 - Added Tab Component and other changes
 
