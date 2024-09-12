@@ -93,7 +93,7 @@ class _DigitTabBarState extends State<DigitTabBar> {
             decoration: BoxDecoration(
               color: _selectedIndex == index
                   ? const DigitColors().light.paperPrimary
-                  : const DigitColors().light.genericBackground,
+                  : const DigitColors().light.paperSecondary,
               borderRadius: const BorderRadius.only(
                   topRight: Radius.circular(8), topLeft: Radius.circular(8)),
               border: Border(

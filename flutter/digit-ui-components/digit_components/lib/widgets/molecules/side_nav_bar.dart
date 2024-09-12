@@ -123,7 +123,7 @@ class _SideNavBarState extends State<SideNavBar> {
                         borderRadius: Base.radius,
                       ),
                       iconColor: widget.type == SideNavType.light
-                          ? const DigitColors().light.textSecondary
+                          ? const DigitColors().light.primary2
                           : const DigitColors().light.paperPrimary,
                     ),
                   )

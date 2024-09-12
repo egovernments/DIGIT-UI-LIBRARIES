@@ -39,14 +39,14 @@ class DigitTabBarThemeData extends ThemeExtension<DigitTabBarThemeData> {
       unselectedTabColor: theme.colorTheme.text.secondary,
       borderColor: theme.colorTheme.generic.inputBorder,
       selectedBorderColor: theme.colorTheme.primary.primary1,
-      selectedTextStyle: textTheme.headingM.copyWith(
+      selectedTextStyle: textTheme.headingS.copyWith(
         color: theme.colorTheme.primary.primary1,
       ),
-      unselectedTextStyle: textTheme.bodyL.copyWith(
+      unselectedTextStyle: textTheme.bodyS.copyWith(
         color: theme.colorTheme.text.secondary,
       ),
-      selectedTabHeight: 64.0,
-      tabHeight: 60.0,
+      selectedTabHeight: 56.0,
+      tabHeight: 52.0,
       maxLine: 1,
       padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
     );

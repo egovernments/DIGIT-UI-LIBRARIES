@@ -51,6 +51,7 @@ class LabeledField extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
+          if(label != null)
           Wrap(
             children: [
               RichText(
@@ -89,6 +90,7 @@ class LabeledField extends StatelessWidget {
                 )
             ],
           ),
+          if(label != null)
           const SizedBox(
             height: spacer1,
           ),
@@ -101,6 +103,7 @@ class LabeledField extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          if(label != null)
           Container(
             width: MediaQuery.of(context).size.width * 0.33,
             constraints: BoxConstraints(
@@ -147,6 +150,7 @@ class LabeledField extends StatelessWidget {
               ],
             ),
           ),
+          if(label != null)
           const SizedBox(
             width: spacer4,
           ),
