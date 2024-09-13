@@ -226,7 +226,6 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
 
     // Check if initialOptions or selectedOptions have changed
     if (widget.initialOptions != oldWidget.initialOptions) {
-      print('not equal initialOptions');
           _selectedOptions = widget.initialOptions ?? [];
     }
 
@@ -710,10 +709,6 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
 
       List<DropdownItem> options = _filteredOptions;
       List<DropdownItem> selectedOptions = _selectedOptions.isEmpty ? widget.initialOptions ?? [] : _selectedOptions;
-      print('selected options');
-      print(selectedOptions.length);
-      print('filtered options');
-      print(_selectedOptions.length);
 
       return StatefulBuilder(builder: ((context, dropdownState) {
         /// full screen GestureDetector to register when a user has clicked away from the dropdown

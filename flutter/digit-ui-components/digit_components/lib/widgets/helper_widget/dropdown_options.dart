@@ -53,7 +53,6 @@ class _DropdownOptionState extends State<DropdownOption> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.isSelected);
 
 
     final theme = Theme.of(context);
