@@ -202,12 +202,14 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
       _focusedNestedIndex = NestedFocusedIndex(-1, -1);
       _filteredOptions = widget.options;
     }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        setState(() {
+          _selectionMode = _focusNode.hasFocus == true;
+        });
+      }
+    });
 
-    if (mounted) {
-      setState(() {
-        _selectionMode = _focusNode.hasFocus == true;
-      });
-    }
 
     if (_controller != null) {
       _controller!.value._isDropdownOpen = _focusNode.hasFocus == true;
@@ -227,10 +229,10 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
 
     // Check if initialOptions or selectedOptions have changed
     if (widget.initialOptions != oldWidget.initialOptions) {
-      setState(() {
+      //setState(() {
         _selectedOptions.clear();
         _selectedOptions.addAll(widget.initialOptions ?? []);
-      });
+      //});
     }
 
     // Ensure controller is updated with the new options
@@ -242,10 +244,9 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
 
     // Rebuild overlay if options change
     if (widget.options != oldWidget.options) {
-      setState(() {
+     // setState(() {
         _filteredOptions = widget.options;
-      });
-      _updateOverlay();
+     // });
     }
   }
 
