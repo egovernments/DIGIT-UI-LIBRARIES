@@ -223,7 +223,7 @@ const Dropdown = (props) => {
     (props.option &&
       props.option?.filter(
         (option) =>
-          t(option[props.optionKey])
+          t(option[props?.optionKey])
             ?.toUpperCase()
             ?.indexOf(filterVal?.toUpperCase()) > -1
       )) ||
@@ -592,7 +592,7 @@ const Dropdown = (props) => {
                   key={"-1"}
                   onClick={() => {}}
                 >
-                  {<span> {"NO RESULTS FOUND"}</span>}
+                  {<span> {t("NO_RESULTS_FOUND")}</span>}
                 </div>
               )}
           </div>

@@ -1,8 +1,13 @@
 # Changelog
 
+
 ## [0.0.2-beta.32] - 2024-09-12
 ### Changed
 - Added Tab Styles and other changes
+
+## [0.0.2-beta.30] - 2024-09-12
+### fixes 
+- Css version fix 
 
 ## [0.0.2-beta.30] - 2024-09-06
 ### Changed

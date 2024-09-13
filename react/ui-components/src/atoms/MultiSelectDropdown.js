@@ -576,7 +576,7 @@ const MultiSelectDropdown = ({
           key={"-1"}
           onClick={() => {}}
         >
-          {<span> {"NO RESULTS FOUND"}</span>}
+          {<span> {t("NO_RESULTS_FOUND")}</span>}
         </div>
       );
     }
