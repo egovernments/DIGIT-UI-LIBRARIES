@@ -1290,8 +1290,12 @@ class MyHomePageState extends State<MyHomePage> {
                 ),
                 LabeledField(
                   label: 'MultiSelect Dropdowns',
-                  child: Dropdown(
-                    dropdownType: DropdownType.multiSelect,
+                  child: MultiSelectDropDown(
+                    isSearchable: true,
+                    initialOptions: const [
+                      DropdownItem(code: '1', name: 'one'),
+                      DropdownItem(code: '2', name: 'two'),
+                    ],
                     onOptionSelected: (List<DropdownItem> selectedOptions) {},
                     options: const [
                       DropdownItem(code: '1', name: 'one'),

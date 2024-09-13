@@ -134,6 +134,7 @@ class Dropdown extends StatelessWidget {
                 errorMessage: errorMessage,
                 helpText: helpText,
                 controller: controller,
+                isSearchable: isSearchable,
               );
       default:
         throw Exception('Unsupported dropdown type');

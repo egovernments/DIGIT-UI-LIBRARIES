@@ -332,6 +332,10 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             contentPadding: const EdgeInsets.only(bottom: spacer2),
+                            suffixIconConstraints: const BoxConstraints(
+                              maxHeight: spacer6,
+                              maxWidth: spacer6,
+                            ),
                             suffixIcon: Icon(
                               widget.suffixIcon,
                               color: widget.isDisabled
@@ -906,7 +910,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                           selectedOptions.add(option);
                         });
                         setState(() {
-                          _selectedOptions.add(option);
+                          _selectedOptions = selectedOptions;
                         });
                       }
 

@@ -1,7 +1,7 @@
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/widgets/atoms/digit_divider.dart';
 import 'package:digit_ui_components/widgets/atoms/label_value_list.dart';
-import 'package:digit_ui_components/widgets/atoms/text_chunk.dart';
+import 'package:digit_ui_components/widgets/atoms/text_block.dart';
 import 'package:digit_ui_components/widgets/atoms/upload_drag.dart';
 import 'package:digit_ui_components/widgets/molecules/digit_card.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
@@ -397,7 +397,7 @@ List<Story> cardStories() {
       builder: (context) => DigitCard(
         cardType: CardType.primary,
         children: [
-          const TextChunk(
+          const DigitTextBlock(
             heading: 'Heading',
           ),
           LabeledField(
@@ -407,7 +407,7 @@ List<Story> cardStories() {
               )),
           const SizedBox(height: 8,),
           const DigitDivider(),
-          const TextChunk(
+          const DigitTextBlock(
             subHeading: 'Add your start and end dates for cycles',
           ),
           FileUploadWidget2(
@@ -423,11 +423,11 @@ List<Story> cardStories() {
       builder: (context) => DigitCard(
         cardType: CardType.primary,
         children: [
-          const TextChunk(
+          const DigitTextBlock(
             heading: 'Heading',
           ),
           const DigitDivider(),
-          TextChunk(
+          DigitTextBlock(
             padding: const EdgeInsets.only(top: 8),
             subHeading: 'Details', subHeadingStyle: TextStyle(fontSize: 24,
               fontWeight: FontWeight.w700,
@@ -445,7 +445,7 @@ List<Story> cardStories() {
             ],
           ),
           const DigitDivider(),
-          TextChunk(
+          DigitTextBlock(
             padding: const EdgeInsets.only(top: 8),
             subHeading: 'Add your start and end dates for cycles', subHeadingStyle: TextStyle(fontSize: 24,
               fontWeight: FontWeight.w700,
