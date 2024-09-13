@@ -112,7 +112,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
   late List<DropdownItem> _options;
 
   /// Selected options list that is used to display the selected options.
-  late List<DropdownItem> _selectedOptions;
+   List<DropdownItem> _selectedOptions = [];
 
   late List<DropdownItem> _filteredOptions;
 
@@ -139,11 +139,16 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
   @override
   void initState() {
     super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       _initialize();
+    });
 
     if(widget.initialOptions!=null){
       _selectedOptions = (widget.initialOptions!);
     }
+
+    _focusNode = widget.focusNode ?? FocusNode();
 
     _filteredOptions = widget.options;
     // Initialize the ScrollController
@@ -152,11 +157,12 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
   }
 
   void _initialize() {
-    _focusNode = widget.focusNode ?? FocusNode();
+    if (!mounted) return;
     _options = (_controller?.options.isNotEmpty == true
         ? _controller!.options
         : widget.options);
     _addOptions();
+
     _overlayState ??= Overlay.of(context);
     _focusNode.addListener(_handleFocusChange);
   }
@@ -169,11 +175,14 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
           : widget.initialOptions ?? []);
     });
 
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       if (_controller != null && _controller?._isDisposed == false) {
         _controller!.setOptions(_options);
         _controller!.setSelectedOptions(_selectedOptions);
         _controller!.addListener(_handleControllerChange);
       }
+    });
+
   }
 
   /// Handles the focus change to show/hide the dropdown.
@@ -903,7 +912,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                           selectedOptions.remove(option);
                         });
                         setState(() {
-                          _selectedOptions.remove(option);
+                          _selectedOptions = selectedOptions;
                         });
                       } else {
                         dropdownState(() {
@@ -915,9 +924,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                       }
 
                       if (_controller != null) {
-                        _controller!.value._selectedOptions.clear();
-                        _controller!.value._selectedOptions
-                            .addAll(_selectedOptions);
+                        _controller!.value._selectedOptions = _selectedOptions;
                       }
                       widget.onOptionSelected?.call(_selectedOptions);
                     },
