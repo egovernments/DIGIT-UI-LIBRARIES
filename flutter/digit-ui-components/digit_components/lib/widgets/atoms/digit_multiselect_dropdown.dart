@@ -226,12 +226,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
 
     // Check if initialOptions or selectedOptions have changed
     if (widget.initialOptions != oldWidget.initialOptions) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        setState(() {
           _selectedOptions = widget.initialOptions ?? [];
-        });
-      });
-
     }
 
     // Ensure controller is updated with the new options
