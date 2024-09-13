@@ -907,7 +907,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                     width: width,
                     option: option,
                     isFocused: isFocused,
-                    isSelected: selectedOptions.contains(option),
+                    isSelected: isSelected,
                     backgroundColor: backgroundColor,
                     selectedOptions: selectedOptions,
                     onOptionSelected: (List<DropdownItem> selectedOptions) {
