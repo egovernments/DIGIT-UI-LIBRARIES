@@ -41,6 +41,8 @@ class _DropdownOptionState extends State<DropdownOption> {
   final Map<DropdownItem, bool> _itemMouseDownStates = {};
   final Map<DropdownItem, bool> _itemHoverStates = {};
 
+
+
   /// Capitalize the first letter if required
   String capitalizeFirstLetter(String text) {
     if (text.isNotEmpty) {
@@ -51,6 +53,7 @@ class _DropdownOptionState extends State<DropdownOption> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.isSelected);
     final theme = Theme.of(context);
     DigitTypography currentTypography = getTypography(context, false);
     return Column(
