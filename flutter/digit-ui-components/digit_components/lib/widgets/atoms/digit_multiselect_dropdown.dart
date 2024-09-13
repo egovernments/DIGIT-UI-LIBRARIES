@@ -97,7 +97,7 @@ class MultiSelectDropDown<int> extends StatefulWidget {
     this.errorMessage,
     this.readOnly = false,
     this.isSearchable = false,
-    this.showSelectAll = true,
+    this.showSelectAll = false,
     this.emptyItemText = 'No Options available',
     this.selectAllText = 'Select All',
   }) : super(key: key);
