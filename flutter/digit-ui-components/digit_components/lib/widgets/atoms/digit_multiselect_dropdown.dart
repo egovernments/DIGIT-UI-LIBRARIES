@@ -144,9 +144,6 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
       _initialize();
     });
 
-    if(widget.initialOptions!=null){
-      _selectedOptions = (widget.initialOptions!);
-    }
 
     _focusNode = widget.focusNode ?? FocusNode();
     _searchFocusNode = FocusNode();
@@ -717,6 +714,10 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
 
       List<DropdownItem> options = _filteredOptions;
       List<DropdownItem> selectedOptions = _selectedOptions;
+      print('selected options');
+      print(selectedOptions.length);
+      print('filtered options');
+      print(_selectedOptions.length);
 
       return StatefulBuilder(builder: ((context, dropdownState) {
         /// full screen GestureDetector to register when a user has clicked away from the dropdown
