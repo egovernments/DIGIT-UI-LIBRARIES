@@ -122,7 +122,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
   bool _selectionMode = false;
   int _focusedIndex = -1;
   final TextEditingController _searchController = TextEditingController();
-  final FocusNode _searchFocusNode = FocusNode();
+  late final FocusNode _searchFocusNode;
   NestedFocusedIndex _focusedNestedIndex = NestedFocusedIndex(-1, -1);
 
   // Declare the ScrollController
@@ -149,6 +149,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
     }
 
     _focusNode = widget.focusNode ?? FocusNode();
+    _searchFocusNode = FocusNode();
 
     _filteredOptions = widget.options;
     // Initialize the ScrollController
