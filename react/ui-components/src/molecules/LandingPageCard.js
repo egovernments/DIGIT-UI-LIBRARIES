@@ -16,6 +16,7 @@ const LandingPageCard = ({
   hideDivider,
   metricAlignment,
   iconBg,
+  buttonSize,
   onMetricClick,
 }) => {
   const history = useHistory();
@@ -35,7 +36,7 @@ const LandingPageCard = ({
       className={`digit-landing-page-card ${moduleAlignment || ""} ${className}`}
       style={styles}
     >
-      <div className={`icon-module-header ${moduleAlignment || ""}`}>
+      <div className={`icon-module-header ${moduleAlignment || ""} ${icon && iconBg ? "iconBg" : ""}`}>
         {icon && moduleAlignment === "right" && (
           <div
             className={`digit-landingpagecard-icon ${iconBg ? "iconBg" : ""}`}
@@ -115,7 +116,7 @@ const LandingPageCard = ({
           label={label}
           icon={icon}
           type="button"
-          size={"medium"}
+          size={buttonSize || "medium"}
           onClick={() => handleLinkClick({ link, label, icon })}
           style={{ padding: "0px" }}
         />

@@ -38,6 +38,7 @@
 @import url("./components/actionbarV2.scss");
 @import url("./components/headerdropdownV2.scss");
 @import url("./components/topbarV2.scss");
+@import url("./components/tabV2.scss");
 @import url("./components/sidebarV2.scss");
 @import url("./components/mobilesidebarV2.scss");
 @import url("./components/tooltipwrapperV2.scss");
@@ -176,5 +177,66 @@
 
   &-item-5 {
     color: theme(digitv2.chart.chart-5);
+  }
+}
+
+.color-constants-story{
+
+  &.primary-1{
+    background-color: theme(digitv2.lightTheme.primary-1);
+  }
+  &.primary-bg{
+    background-color: theme(digitv2.lightTheme.primary-bg);
+  }
+  &.primary-2{
+    background-color: theme(digitv2.lightTheme.primary-2);
+  }
+  &.text-primary{
+    background-color: theme(digitv2.lightTheme.text-primary);
+  }
+  &.text-secondary{
+    background-color: theme(digitv2.lightTheme.text-secondary);
+  }
+  &.text-disabled{
+    background-color: theme(digitv2.lightTheme.text-disabled);
+  }
+  &.alert-error{
+    background-color: theme(digitv2.lightTheme.alert-error);
+  }
+  &.alert-errorbg{
+    background-color: theme(digitv2.lightTheme.alert-errorbg);
+  }
+  &.alert-success{
+    background-color: theme(digitv2.lightTheme.alert-success);
+  }
+  &.alert-successbg{
+    background-color: theme(digitv2.lightTheme.alert-successbg);
+  }
+  &.alert-info{
+    background-color: theme(digitv2.lightTheme.alert-info);
+  }
+  &.alert-infobg{
+    background-color: theme(digitv2.lightTheme.alert-infobg);
+  }
+  &.alert-warning{
+    background-color: theme(digitv2.lightTheme.alert-warning);
+  }
+  &.alert-warningbg{
+    background-color: theme(digitv2.lightTheme.alert-warning-bg);
+  }
+  &.generic-background{
+    background-color: theme(digitv2.lightTheme.generic-background);
+  }
+  &.generic-divider{
+    background-color: theme(digitv2.lightTheme.generic-divider);
+  }
+  &.generic-inputborder{
+    background-color: theme(digitv2.lightTheme.generic-inputborder);
+  }
+  &.paper-primary{
+    background-color: theme(digitv2.lightTheme.paper-primary);
+  }
+  &.paper-secondary{
+    background-color: theme(digitv2.lightTheme.paper-secondary);
   }
 }

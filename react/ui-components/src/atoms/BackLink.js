@@ -12,7 +12,8 @@ const BackLink = ({
   hideIcon,
   hideLabel,
   disabled,
-  iconFill
+  iconFill,
+  label
 }) => {
   const { t } = useTranslation();
 
@@ -71,7 +72,7 @@ const BackLink = ({
       {!hideIcon && <div className={`digit-back-link-icon`}>{icon}</div>}
       {!hideLabel && (
         <div className={`digit-back-link-label`}>
-          {t("CS_COMMON_BACK")}
+          {label || t("CS_COMMON_BACK")}
         </div>
       )}
     </div>

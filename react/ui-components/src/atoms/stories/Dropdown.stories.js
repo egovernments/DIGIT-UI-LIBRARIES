@@ -15,6 +15,7 @@ export default {
     value: { control: "text" },
     errorStyle: { control: "object" },
     disabled: { control: "boolean" },
+    isSearchable: { control: "boolean" },
     additionalWrapperClass: { control: "text" },
     props: { control: "object" },
     type: { control: "select", options: ["dropdown", "multiselectdropdown"] },
@@ -235,7 +236,7 @@ const commonArgs = {
     addSelectAllCheck:false,
     addCategorySelectAllCheck:false,
     selectAllLabel: "",
-    categorySelectAllLabel:""
+    categorySelectAllLabel:"",
   },
   error: "",
   inputRef: null,

@@ -23,6 +23,7 @@ const MobileSidebar = ({
   onSelect,
   onLogout,
   reopenOnLogout,
+  closeOnClickOutside
 }) => {
   const { t } = useTranslation();
   const [searchTerms, setSearchTerms] = useState({});
@@ -35,6 +36,9 @@ const MobileSidebar = ({
   const iconSize = Spacers.spacer6;
 
     useEffect(() => {
+
+      if (!closeOnClickOutside) return; 
+
       const handleClickOutside = (event) => {
         if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
           setShowHamburger(false);
@@ -46,7 +50,7 @@ const MobileSidebar = ({
       return () => {
         document.removeEventListener("mousedown", handleClickOutside);
       };
-    }, []);
+    }, [closeOnClickOutside]);
 
   const handleItemClick = (item, index, parentIndex) => {
     setSelectedItem({ item: item, index: index, parentIndex: parentIndex });

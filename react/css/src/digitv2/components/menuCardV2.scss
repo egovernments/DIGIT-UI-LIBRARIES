@@ -6,6 +6,11 @@
     justify-content: flex-start;
     cursor: pointer;
 
+    &.clickable:hover{
+        border: 0.063rem solid theme(digitv2.lightTheme.primary-1);
+        box-shadow: 0.063rem theme(digitv2.spacers.spacer1) theme(digitv2.spacers.spacer1) theme(digitv2.spacers.spacer0) #00000029;
+    }
+
     .icon-menu-header {
 
         display: flex !important;

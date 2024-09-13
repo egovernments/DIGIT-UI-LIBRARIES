@@ -30,6 +30,7 @@ import Footer from "./Footer";
 import Header from "./Header";
 import HeaderBar from "./HeaderBar";
 import HorizontalNav from "./HorizontalNav";
+import Tab from "./Tab";
 import InfoCard from "./InfoCard";
 import InputTextAmount from "./InputTextAmount";
 import KeyNote from "./KeyNote";
@@ -132,6 +133,7 @@ export {
   Header,
   HeaderBar,
   HorizontalNav,
+  Tab,
   InfoCard,
   InputTextAmount,
   KeyNote,

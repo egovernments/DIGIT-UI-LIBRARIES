@@ -31,7 +31,7 @@ Example1.args = {
           { count: 50, label: "New Registrations", link: "#" },
         ]}
         links={[
-          { label: "Add User", link: "#", icon: "Add" },
+          { label: "Add User", link: "#", icon: "Person" },
           { label: "Edit User", link: "#", icon: "Edit" },
         ]}
       />

@@ -124,7 +124,7 @@ Accordion.defaultProps = {
 
 const AccordionWrapper = ({
   children,
-  allowMultipleOpen,
+  allowMultipleOpen = true,
   addDivider,
   className,
   styles,

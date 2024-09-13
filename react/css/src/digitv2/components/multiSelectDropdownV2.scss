@@ -38,6 +38,23 @@
       }
     }
   }
+
+  .digit-multiselectdropdown-master-active{
+    &.serachable{
+      input[type="text"]{
+        opacity: 1;
+        width: calc(100%-24px);
+      }
+
+      .digit-multiselectdropdown-label {
+        svg {
+          z-index: 1;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
   .digit-multiselectdropdown-master {
     &.disabled {
       pointer-events: none !important;
@@ -153,7 +170,7 @@
         }
       }
     }
-    &.nestedmultiselect {
+    &.nestedmultiselect:not(.unsuccessfulresults){
       position: relative;
       &:not(.selectAll)::before {
         content: "";
@@ -334,6 +351,33 @@
         color: theme(digitv2.lightTheme.primary-1);
       }
     }
+    &.unsuccessfulresults {
+      background-color: theme(digitv2.lightTheme.paper-secondary);
+      pointer-events: none;
+      span {
+        @extend .typography.body-s;
+        font-family: theme(digitv2.fontFamily.sans);
+        font-style: theme(digitv2.fontStyle.normal);
+        font-weight: theme(digitv2.fontWeight.regular);
+        line-height: theme(digitv2.lineHeight.lineheight2);
+    
+        @media (max-aspect-ratio: 9/16) {
+          /* Media query for mobile */
+          font-size: theme(digitv2.fontSize.body-s.mobile);
+        }
+    
+        @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+          /* Media query for tablets */
+          font-size: theme(digitv2.fontSize.body-s.tablet);
+        }
+    
+        @media (min-aspect-ratio: 3/4) {
+          /* Media query for desktop */
+          font-size: theme(digitv2.fontSize.body-s.desktop);
+        }
+        color: theme(digitv2.lightTheme.text-disabled);
+      }
+    }
   }
   .digit-cursorPointer {
     @apply cursor-pointer;
@@ -343,11 +387,14 @@
     .digit-multiselectdropdown-label {
       p {
         white-space: pre;
-        margin: auto;
-        margin-left: theme(digitv2.spacers.spacer0);
-        padding-left: 1%;
-        font-size: theme(digitv2.spacers.spacer4);
-        line-height: theme(digitv2.spacers.spacer6);
+          margin: auto;
+          margin-left: theme(digitv2.spacers.spacer0);
+          padding-left: 1%;
+          font-size: theme(digitv2.spacers.spacer4);
+          line-height: theme(digitv2.spacers.spacer6);
+          font-family: theme(digitv2.fontFamily.sans);
+          font-weight: theme(digitv2.fontWeight.regular);
+          text-align: left;
       }
     }
   }
