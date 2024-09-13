@@ -230,8 +230,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
     // Check if initialOptions or selectedOptions have changed
     if (widget.initialOptions != oldWidget.initialOptions) {
       //setState(() {
-        _selectedOptions.clear();
-        _selectedOptions.addAll(widget.initialOptions ?? []);
+        _selectedOptions = widget.initialOptions ?? [];
       //});
     }
 
