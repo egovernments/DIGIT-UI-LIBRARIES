@@ -1,213 +1,92 @@
-// import 'package:digit_ui_components/widgets/atoms/selection_card.dart';
-// import 'package:storybook_flutter/storybook_flutter.dart';
-// import 'package:flutter/material.dart';
-//
-// List<Story> selectionCardStories() {
-//   return [
-//     Story(
-//       name: 'Atom/Selection Card/Default',
-//       builder: (context) => SelectionBox<String>(
-//         valueMapper: (item) => 'first',
-//         options: [
-//           'String'
-//         ],
-//         onSelectionChanged: (selectedOptions) {
-//           print('Selected options: ${selectedOptions.map((e) => e.name).toList()}');
-//         },
-//       ),
-//     ),
-//     Story(
-//       name: 'Atom/Selection Card/With prefix icon',
-//       builder: (context) => SelectionBox(
-//         options: [
-//           SelectionOption(name: 'Option 1sdfffffffffffffffff', code: '001', prefixIcon: Icons.add, ),
-//           SelectionOption(name: 'Option 2sdffffffffffff', code: '002', prefixIcon: Icons.add,),
-//           SelectionOption(name: 'Option 3sdffffffffffffff', code: '003', prefixIcon: Icons.add,),
-//           SelectionOption(name: 'Option 4sdfffffffffffffffff', code: '004'),
-//         ],
-//         onSelectionChanged: (selectedOptions) {
-//           print('Selected options: ${selectedOptions.map((e) => e.name).toList()}');
-//         },
-//       ),
-//     ),
-//     Story(
-//       name: 'Atom/Selection Card/With suffix icon',
-//       builder: (context) => SelectionBox(
-//         options: [
-//           SelectionOption(name: 'Option 1sdfffffffffffffffff', code: '001', suffixIcon: Icons.add, ),
-//           SelectionOption(name: 'Option 2sdffffffffffff', code: '002', suffixIcon: Icons.add,),
-//           SelectionOption(name: 'Option 3sdffffffffffffff', code: '003', suffixIcon: Icons.add,),
-//           SelectionOption(name: 'Option 4sdfffffffffffffffff', code: '004'),
-//         ],
-//         onSelectionChanged: (selectedOptions) {
-//           print('Selected options: ${selectedOptions.map((e) => e.name).toList()}');
-//         },
-//       ),
-//     ),
-//     Story(
-//       name: 'Atom/Selection Card/With long label',
-//       builder: (context) => SelectionBox(
-//         options: [
-//           SelectionOption(name: 'Option 1sdfffffffffffffffff1sdfffffffffffffffff1sdfffffffffffffffff', code: '001', suffixIcon: Icons.add, ),
-//           SelectionOption(name: 'Option 2sdffffffffffff1sdfffffffffffffffff1sdfffffffffffffffff1sdfffffffffffffffff', code: '002', suffixIcon: Icons.add,),
-//           SelectionOption(name: 'Option 3sdffffffffffffff1sdfffffffffffffffff1sdfffffffffffffffff1sdfffffffffffffffff1sdfffffffffffffffff1sdfffffffffffffffff1sdfffffffffffffffff1sdfffffffffffffffff4sdfffffffffffffffff4sdfffffffffffffffff', code: '003', suffixIcon: Icons.add,),
-//           SelectionOption(name: 'Option 4sdfffffffffffffffff', code: '004'),
-//         ],
-//         onSelectionChanged: (selectedOptions) {
-//           print('Selected options: ${selectedOptions.map((e) => e.name).toList()}');
-//         },
-//       ),
-//     ),
-//     Story(
-//       name: 'Atom/Selection Card/With defined width',
-//       builder: (context) => SelectionBox(
-//         width: 200,
-//         options: [
-//           SelectionOption(name: 'Option 1sdfffffffffffffffff1sdfffffffffffffffff1sdfffffffffffffffff', code: '001', suffixIcon: Icons.add, ),
-//           SelectionOption(name: 'Option 2sdffffffffffff1sdfffffffffffffffff1sdfffffffffffffffff1sdfffffffffffffffff', code: '002', suffixIcon: Icons.add,),
-//           SelectionOption(name: 'Option 3sdffffffffffffff1sdfffffffffffffffff1sdfffffffffffffffff1sdfffffffffffffffff1sdfffffffffffffffff1sdfffffffffffffffff1sdfffffffffffffffff1sdfffffffffffffffff4sdfffffffffffffffff4sdfffffffffffffffff', code: '003', suffixIcon: Icons.add,),
-//           SelectionOption(name: 'Option 4sdfffffffffffffffff', code: '004'),
-//         ],
-//         onSelectionChanged: (selectedOptions) {
-//           print('Selected options: ${selectedOptions.map((e) => e.name).toList()}');
-//         },
-//       ),
-//     ),
-//     Story(
-//       name: 'Atom/Selection Card/With error Message',
-//       builder: (context) => SelectionBox(
-//         width: 200,
-//         options: [
-//           SelectionOption(name: 'Option 1sdfffffffffffffffff1sdfffffffffffffffff1sdfffffffffffffffff', code: '001', suffixIcon: Icons.add, ),
-//           SelectionOption(name: 'Option 2sdffffffffffff1sdfffffffffffffffff1sdfffffffffffffffff1sdfffffffffffffffff', code: '002', suffixIcon: Icons.add,),
-//           SelectionOption(name: 'Option 3sdffffffffffffff1sdfffffffffffffffff1sdfffffffffffffffff1sdfffffffffffffffff1sdfffffffffffffffff1sdfffffffffffffffff1sdfffffffffffffffff1sdfffffffffffffffff4sdfffffffffffffffff4sdfffffffffffffffff', code: '003', suffixIcon: Icons.add,),
-//           SelectionOption(name: 'Option 4sdfffffffffffffffff', code: '004'),
-//         ],
-//         onSelectionChanged: (selectedOptions) {
-//           print('Selected options: ${selectedOptions.map((e) => e.name).toList()}');
-//         },
-//         errorMessage: 'Selection is required',
-//       ),
-//     ),
-//     Story(
-//       name: 'Atom/Selection Card/Hcm Figma',
-//       builder: (context) => Container(
-//         width: 360,
-//         margin: const EdgeInsets.all(16),
-//         child: Column(
-//           children: [
-//             SelectionBox(
-//               options: [
-//                 SelectionOption(name: 'Incompatible', code: '001',),
-//                 SelectionOption(name: 'Refused', code: '002',),
-//                 SelectionOption(name: 'Sick', code: '003',),
-//                 SelectionOption(name: 'Funeral', code: '004'),
-//               ],
-//               onSelectionChanged: (selectedOptions) {
-//                 print('Selected options: ${selectedOptions.map((e) => e.name).toList()}');
-//               },
-//             ),
-//             const SizedBox(height: 8,),
-//             SelectionBox(
-//               options: [
-//                 SelectionOption(name: 'Sumishield', code: '001',),
-//                 SelectionOption(name: 'Fludora', code: '002',),
-//                 SelectionOption(name: 'Delt', code: '003',),
-//                 SelectionOption(name: 'Acetellic', code: '004'),
-//                 SelectionOption(name: 'Dot', code: '005',),
-//                 SelectionOption(name: 'Bendiocarb', code: '006'),
-//               ],
-//               onSelectionChanged: (selectedOptions) {
-//                 print('Selected options: ${selectedOptions.map((e) => e.name).toList()}');
-//               },
-//             ),
-//             const SizedBox(height: 8,),
-//             SelectionBox(
-//               options: [
-//                 SelectionOption(name: 'Cement', code: '001',),
-//                 SelectionOption(name: 'Reeds', code: '002',),
-//                 SelectionOption(name: 'Clay', code: '003',),
-//                 SelectionOption(name: 'Metal / Glass', code: '004'),
-//               ],
-//               onSelectionChanged: (selectedOptions) {
-//                 print('Selected options: ${selectedOptions.map((e) => e.name).toList()}');
-//               },
-//             ),
-//             const SizedBox(height: 8,),
-//             SelectionBox(
-//               options: [
-//                 SelectionOption(name: 'Yes', code: '001',),
-//                 SelectionOption(name: 'No', code: '002',),
-//               ],
-//               onSelectionChanged: (selectedOptions) {
-//                 print('Selected options: ${selectedOptions.map((e) => e.name).toList()}');
-//               },
-//             ),
-//           ],
-//         ),
-//       ),
-//     ),
-//     Story(
-//       name: 'Atom/Selection Card/Hcm Figma without multiple selection',
-//       builder: (context) => Container(
-//         width: 360,
-//         margin: const EdgeInsets.all(16),
-//         child: Column(
-//           children: [
-//             SelectionBox(
-//               allowMultipleSelection: false,
-//               options: [
-//                 SelectionOption(name: 'Incompatible', code: '001',),
-//                 SelectionOption(name: 'Refused', code: '002',),
-//                 SelectionOption(name: 'Sick', code: '003',),
-//                 SelectionOption(name: 'Funeral', code: '004'),
-//               ],
-//               onSelectionChanged: (selectedOptions) {
-//                 print('Selected options: ${selectedOptions.map((e) => e.name).toList()}');
-//               },
-//             ),
-//             const SizedBox(height: 8,),
-//             SelectionBox(
-//               allowMultipleSelection: false,
-//               options: [
-//                 SelectionOption(name: 'Sumishield', code: '001',),
-//                 SelectionOption(name: 'Fludora', code: '002',),
-//                 SelectionOption(name: 'Delt', code: '003',),
-//                 SelectionOption(name: 'Acetellic', code: '004'),
-//                 SelectionOption(name: 'Dot', code: '005',),
-//                 SelectionOption(name: 'Bendiocarb', code: '006'),
-//               ],
-//               onSelectionChanged: (selectedOptions) {
-//                 print('Selected options: ${selectedOptions.map((e) => e.name).toList()}');
-//               },
-//             ),
-//             const SizedBox(height: 8,),
-//             SelectionBox(
-//               allowMultipleSelection: false,
-//               options: [
-//                 SelectionOption(name: 'Cement', code: '001',),
-//                 SelectionOption(name: 'Reeds', code: '002',),
-//                 SelectionOption(name: 'Clay', code: '003',),
-//                 SelectionOption(name: 'Metal / Glass', code: '004'),
-//               ],
-//               onSelectionChanged: (selectedOptions) {
-//                 print('Selected options: ${selectedOptions.map((e) => e.name).toList()}');
-//               },
-//             ),
-//             const SizedBox(height: 8,),
-//             SelectionBox(
-//               allowMultipleSelection: false,
-//               options: [
-//                 SelectionOption(name: 'Yes', code: '001',),
-//                 SelectionOption(name: 'No', code: '002',),
-//               ],
-//               onSelectionChanged: (selectedOptions) {
-//                 print('Selected options: ${selectedOptions.map((e) => e.name).toList()}');
-//               },
-//             ),
-//           ],
-//         ),
-//       ),
-//     ),
-//   ];
-// }
+import 'package:digit_ui_components/widgets/atoms/selection_card.dart';
+import 'package:storybook_flutter/storybook_flutter.dart';
+import 'package:flutter/material.dart';
+
+List<Story> selectionCardStories() {
+  return [
+    Story(
+      name: 'Atom/Selection Box/Default (Multiple Selection)',
+      builder: (context) => SelectionCard<String>(
+        valueMapper: (item) => item,
+        options: ['Option 1', 'Option 2', 'Option 3'],
+        onSelectionChanged: (selectedOptions) {
+          debugPrint('Selected Options: $selectedOptions');
+        },
+      ),
+    ),
+    Story(
+      name: 'Atom/Selection Box/Single Selection',
+      builder: (context) => SelectionCard<String>(
+        valueMapper: (item) => item,
+        options: ['Option A', 'Option B', 'Option C'],
+        allowMultipleSelection: false,
+        onSelectionChanged: (selectedOptions) {
+          debugPrint('Selected Option: $selectedOptions');
+        },
+      ),
+    ),
+    Story(
+      name: 'Atom/Selection Box/With Initial Selection',
+      builder: (context) => SelectionCard<String>(
+        valueMapper: (item) => item,
+        options: ['Apple', 'Banana', 'Cherry'],
+        initialSelection: ['Apple'],
+        onSelectionChanged: (selectedOptions) {
+          debugPrint('Selected Options: $selectedOptions');
+        },
+      ),
+    ),
+    Story(
+      name: 'Atom/Selection Box/With Error Message',
+      builder: (context) => SelectionCard<String>(
+        valueMapper: (item) => item,
+        options: ['Red', 'Blue', 'Green'],
+        onSelectionChanged: (selectedOptions) {
+          debugPrint('Selected Options: $selectedOptions');
+        },
+        errorMessage: 'Please select at least one option',
+      ),
+    ),
+    Story(
+      name: 'Atom/Selection Box/With Custom Width',
+      builder: (context) => SelectionCard<String>(
+        valueMapper: (item) => item,
+        options: ['Small', 'Medium', 'Large'],
+        width: 200.0,
+        onSelectionChanged: (selectedOptions) {
+          debugPrint('Selected Options: $selectedOptions');
+        },
+      ),
+    ),
+    Story(
+      name: 'Atom/Selection Box/Equal Width Options',
+      builder: (context) => SelectionCard<String>(
+        valueMapper: (item) => item,
+        options: const ['Short', 'Longer Option', 'Mid-Length'],
+        equalWidthOptions: true,
+        onSelectionChanged: (selectedOptions) {
+          debugPrint('Selected Options: $selectedOptions');
+        },
+      ),
+    ),
+    Story(
+      name: 'Atom/Selection Box/With Icon',
+      builder: (context) => SelectionCard<String>(
+        valueMapper: (item) => item,
+        options: const ['Option 1', 'Option 2', 'Option 3'],
+        onSelectionChanged: (selectedOptions) {
+          debugPrint('Selected Options: $selectedOptions');
+        },
+        prefixIconBuilder: (value) {
+          if (value == 'Option 1') {
+            return Icons.star;
+          } else if (value == 'Option 2') {
+            return Icons.favorite;
+          }
+          return Icons.circle;
+        },
+      ),
+    ),
+
+  ];
+}

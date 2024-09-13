@@ -2,7 +2,7 @@ import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:flutter/material.dart';
 
-class SelectionBox<T> extends StatefulWidget {
+class SelectionCard<T> extends StatefulWidget {
   final double? width;
   final String? errorMessage;
   final List<T> options;
@@ -13,8 +13,10 @@ class SelectionBox<T> extends StatefulWidget {
   final String Function(T) valueMapper;
   final bool isRequired;
   final bool equalWidthOptions;
+  final IconData Function(T)? prefixIconBuilder;
+  final IconData Function(T)? suffixIconBuilder;
 
-  const SelectionBox({
+  const SelectionCard({
     Key? key,
     this.width,
     this.title,
@@ -26,13 +28,15 @@ class SelectionBox<T> extends StatefulWidget {
     required this.valueMapper,
     this.isRequired = false,
     this.equalWidthOptions = false,
+    this.prefixIconBuilder,
+    this.suffixIconBuilder,
   }) : super(key: key);
 
   @override
-  _SelectionBoxState<T> createState() => _SelectionBoxState<T>();
+  _SelectionCardState<T> createState() => _SelectionCardState<T>();
 }
 
-class _SelectionBoxState<T> extends State<SelectionBox<T>> {
+class _SelectionCardState<T> extends State<SelectionCard<T>> {
   final List<T> _selectedOptions = [];
   double? _maxOptionWidth;
 
@@ -56,7 +60,7 @@ class _SelectionBoxState<T> extends State<SelectionBox<T>> {
     }
   }
   @override
-  void didUpdateWidget(covariant SelectionBox<T> oldWidget) {
+  void didUpdateWidget(covariant SelectionCard<T> oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.initialSelection != oldWidget.initialSelection) {
       setState(() {
@@ -116,6 +120,7 @@ class _SelectionBoxState<T> extends State<SelectionBox<T>> {
   Widget _buildOption(T option) {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
+    bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
     final isSelected = _selectedOptions.contains(option);
 
     return GestureDetector(
@@ -138,6 +143,19 @@ class _SelectionBoxState<T> extends State<SelectionBox<T>> {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            if (widget.prefixIconBuilder != null)
+              ...[Padding(
+                padding: const EdgeInsets.only(right: spacer2),
+                child: Icon(
+                  widget.prefixIconBuilder!(option),
+                  color: isSelected
+                      ? theme.colorTheme.paper.primary
+                      : theme.colorTheme.text.primary,
+                  size: isMobile ? spacer4 : spacer6,
+                ),
+              ),
+              const SizedBox(width: spacer2),
+              ],
             Flexible(
               child: Text(
                 widget.valueMapper(option),
@@ -153,6 +171,19 @@ class _SelectionBoxState<T> extends State<SelectionBox<T>> {
                 ),
               ),
             ),
+            if (widget.suffixIconBuilder != null)
+              ...[
+                const SizedBox(width: spacer2),
+                Padding(
+                padding: const EdgeInsets.only(left: spacer2),
+                child: Icon(
+                  widget.suffixIconBuilder!(option),
+                  color: isSelected
+                      ? theme.colorTheme.paper.primary
+                      : theme.colorTheme.text.primary,
+                  size: isMobile ? spacer4 : spacer6,
+                ),
+              ),]
           ],
         ),
       ),
@@ -164,6 +195,8 @@ class _SelectionBoxState<T> extends State<SelectionBox<T>> {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
 
+    bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
@@ -173,8 +206,8 @@ class _SelectionBoxState<T> extends State<SelectionBox<T>> {
           label: widget.title,
           isRequired: widget.isRequired,
           child: Container(
-            width: MediaQuery.of(context).size.width,
-            padding: const EdgeInsets.all(spacer4),
+            width: isMobile ? MediaQuery.of(context).size.width : null,
+            padding: EdgeInsets.all(isMobile ? spacer4 : spacer6),
             decoration: BoxDecoration(
               color: theme.colorTheme.paper.secondary,
               borderRadius: BorderRadius.circular(spacer1),
@@ -198,11 +231,30 @@ class _SelectionBoxState<T> extends State<SelectionBox<T>> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Column(
+                children: [
+                  const SizedBox(
+                    height: spacer1 / 2,
+                  ),
+                  SizedBox(
+                    height: spacer4,
+                    width: spacer4,
+                    child: Icon(
+                      Icons.info,
+                      color: const DigitColors()
+                          .light
+                          .alertError,
+                      size: BaseConstants.errorIconSize,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(width: spacer1),
               Flexible(
                 fit: FlexFit.tight,
                 child: Text(
                   widget.errorMessage!,
-                  style: textTheme.bodySmall?.copyWith(
+                  style: textTheme.bodyLarge?.copyWith(
                     color: theme.colorTheme.alert.error,
                   ),
                 ),
