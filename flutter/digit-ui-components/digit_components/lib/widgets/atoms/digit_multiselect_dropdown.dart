@@ -229,9 +229,12 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
 
     // Check if initialOptions or selectedOptions have changed
     if (widget.initialOptions != oldWidget.initialOptions) {
-      //setState(() {
-        _selectedOptions = widget.initialOptions ?? [];
-      //});
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        setState(() {
+          _selectedOptions = widget.initialOptions ?? [];
+        });
+      });
+
     }
 
     // Ensure controller is updated with the new options
@@ -243,8 +246,13 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
 
     // Rebuild overlay if options change
     if (widget.options != oldWidget.options) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        setState(() {
+          _filteredOptions = widget.options;
+        });
+      });
      // setState(() {
-        _filteredOptions = widget.options;
+
      // });
     }
   }
