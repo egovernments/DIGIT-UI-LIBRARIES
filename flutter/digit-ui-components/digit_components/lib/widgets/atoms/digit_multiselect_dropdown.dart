@@ -716,7 +716,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
           : BaseConstants.desktopInputMaxWidth;
 
       List<DropdownItem> options = _filteredOptions;
-      List<DropdownItem> selectedOptions = [..._selectedOptions];
+      List<DropdownItem> selectedOptions = _selectedOptions;
 
       return StatefulBuilder(builder: ((context, dropdownState) {
         /// full screen GestureDetector to register when a user has clicked away from the dropdown
