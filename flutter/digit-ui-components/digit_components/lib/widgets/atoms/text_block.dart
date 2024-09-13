@@ -42,29 +42,30 @@ class DigitTextBlock extends StatelessWidget {
 
   List<Widget> _buildTextBlocks(BuildContext context) {
     final theme = Theme.of(context);
+    final textTheme = theme.digitTextTheme(context);
     final List<Widget> blocks = [];
 
     blocks.addAll(_conditionalRender(
       caption,
-      captionStyle ?? theme.textTheme.labelSmall?.copyWith(color: theme.colorTheme.text.secondary),
+      captionStyle ?? textTheme.captionS.copyWith(color: theme.colorTheme.text.secondary),
       addSpacing: caption != null && (heading != null || subHeading != null || description != null),
     ));
 
     blocks.addAll(_conditionalRender(
       heading,
-      headingStyle ?? theme.textTheme.displayMedium?.copyWith(color: theme.colorTheme.text.primary),
+      headingStyle ?? textTheme.headingXl.copyWith(color: theme.colorTheme.text.primary),
       addSpacing: heading != null && (subHeading != null || description != null),
     ));
 
     blocks.addAll(_conditionalRender(
       subHeading,
-      subHeadingStyle ?? theme.textTheme.headlineMedium?.copyWith(color: theme.colorTheme.text.secondary),
+      subHeadingStyle ?? textTheme.headingM.copyWith(color: theme.colorTheme.text.secondary),
       addSpacing: subHeading != null && description != null,
     ));
 
     blocks.addAll(_conditionalRender(
       description,
-      descriptionStyle ?? theme.textTheme.bodyLarge?.copyWith(color: theme.colorTheme.text.secondary),
+      descriptionStyle ?? textTheme.bodyS.copyWith(color: theme.colorTheme.text.secondary),
     ));
 
     return blocks;

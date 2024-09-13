@@ -5,7 +5,7 @@ import 'package:storybook_flutter/storybook_flutter.dart';
 List<Story> textBlockStories() {
   return [
     Story(
-      name: 'TextBlock/Default',
+      name: 'Atom/TextBlock/Default',
       builder: (context) => Center(
         child: DigitTextBlock(
           caption: context.knobs.nullable.text(label: 'Caption', initial: 'Caption Text'),
@@ -16,7 +16,7 @@ List<Story> textBlockStories() {
       ),
     ),
     Story(
-      name: 'TextBlock/Custom Styles',
+      name: 'Atom/TextBlock/Custom Styles',
       builder: (context) => const Center(
         child: DigitTextBlock(
           caption: 'Custom Caption',
