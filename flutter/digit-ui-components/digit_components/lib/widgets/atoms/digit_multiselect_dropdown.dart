@@ -97,7 +97,7 @@ class MultiSelectDropDown<int> extends StatefulWidget {
     this.errorMessage,
     this.readOnly = false,
     this.isSearchable = false,
-    this.showSelectAll = false,
+    this.showSelectAll = true,
     this.emptyItemText = 'No Options available',
     this.selectAllText = 'Select All',
   }) : super(key: key);
@@ -832,17 +832,15 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
               setState(() {
                 /// Reflect this change in the local widget state as well
                 if (isAllSelected) {
-                  _selectedOptions.clear();
-                  _selectedOptions.addAll(options);
+                  _selectedOptions = options;
                 } else {
-                  _selectedOptions.clear();
+                  _selectedOptions = [];
                 }
               });
 
               /// Synchronize controller's state if needed
               if (_controller != null) {
-                _controller!.value._selectedOptions.clear();
-                _controller!.value._selectedOptions.addAll(_selectedOptions);
+                _controller!.value._selectedOptions = _selectedOptions;
               }
             },
             child: Container(
