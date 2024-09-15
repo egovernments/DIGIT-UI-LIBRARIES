@@ -2,7 +2,7 @@
 
 .digit-radio-options-wrap {
   @apply leading-10 flex justify-between flex-wrap;
-  margin-bottom: 0.5rem;
+  margin-bottom: theme(digitv2.spacers.spacer2);
 
   @media (max-aspect-ratio: 9/16) {
     @apply flex-col;
@@ -32,7 +32,7 @@
 
   .radio-option-container {
     @apply inline-flex;
-    gap: 0.5rem;
+    gap: theme(digitv2.spacers.spacer2);
     align-items: self-start;
 
     &.disabled {
@@ -51,8 +51,7 @@
       pointer-events: none !important;
     }
 
-    &.disabled,
-    &.preselected {
+    &:not(.preselected):not(.has-preselected).disabled{
       label {
         color: theme(digitv2.lightTheme.text-disabled);
       }
@@ -66,7 +65,7 @@
 
   .digit-radio-btn {
     @apply opacity-0 absolute cursor-pointer h-6 w-6;
-    margin: 0rem;
+    margin: theme(digitv2.spacers.spacer0);
   }
 
   .digit-radio-btn-checkmark {
@@ -76,6 +75,26 @@
 
   label {
     @extend .typography.body-s;
+    font-family: theme(digitv2.fontFamily.sans);
+    font-style: theme(digitv2.fontStyle.normal);
+    font-weight: theme(digitv2.fontWeight.regular);
+    line-height: theme(digitv2.lineHeight.lineheight2);
+    margin-top: 0.065rem;
+
+    @media (max-aspect-ratio: 9/16) {
+      /* Media query for mobile */
+      font-size: theme(digitv2.fontSize.body-s.mobile);
+    }
+
+    @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+      /* Media query for tablets */
+      font-size: theme(digitv2.fontSize.body-s.tablet);
+    }
+
+    @media (min-aspect-ratio: 3/4) {
+      /* Media query for desktop */
+      font-size: theme(digitv2.fontSize.body-s.desktop);
+    }
     color: theme(digitv2.lightTheme.text-primary);
     overflow-wrap: anywhere;
   }
@@ -89,9 +108,10 @@
   }
 
   .digit-radio-btn-wrap input:checked~.digit-radio-btn-checkmark:after {
-    @apply block h-3 w-3 rounded-full absolute;
+    @apply flex h-3 w-3 rounded-full absolute items-center;
+    left: 50%;
+    transform: translate(-50%);
     top: 25%;
-    left: 25%;
     background-color: theme(digitv2.lightTheme.primary-1);
   }
 
@@ -100,9 +120,10 @@
   }
 
   .preselected .digit-radio-btn-wrap input:checked~.digit-radio-btn-checkmark:after {
-    @apply block h-3 w-3 rounded-full absolute;
+    @apply flex h-3 w-3 rounded-full absolute items-center;
+    left: 50%;
+    transform: translate(-50%);
     top: 25%;
-    left: 25%;
     background-color: theme(digitv2.lightTheme.text-disabled);
   }
 }

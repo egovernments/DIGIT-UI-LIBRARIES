@@ -1,6 +1,6 @@
 import { useGlobalFilter, usePagination, useRowSelect, useSortBy, useTable } from "react-table";
 import React, { useEffect, useState, useRef, forwardRef } from "react";
-import { ArrowBack, ArrowForward, ArrowToFirst, ArrowToLast, SortDown, SortUp, DoubleTickIcon } from "../atoms/svgindex"
+import { CustomSVG } from "./CustomSVG";
 import CheckBox from "./CheckBox";
 import ActionBar from "./ActionBar";
 import Toast from "./Toast";
@@ -172,7 +172,7 @@ const Table = ({
                     }
                   >
                     {column.render("Header")}
-                    <span>{column.isSorted ? column.isSortedDesc ? <SortDown /> : <SortUp /> : ""}</span>
+                    <span>{column.isSorted ? column.isSortedDesc ? <CustomSVG.SortDown /> : <CustomSVG.SortUp /> : ""}</span>
                   </th>
                 ))}
               </tr>
@@ -243,13 +243,13 @@ const Table = ({
             </span>{" "}
           </span>
           {/* to go to first and last page we need to do a manual pagination , it can be updated later*/}
-          {!manualPagination && pageIndex != 0 && <ArrowToFirst onClick={() => gotoPage(0)} className={"cp"} />}
-          {canPreviousPage && manualPagination && onFirstPage && <ArrowToFirst onClick={() => manualPagination && onFirstPage()} className={"cp"} />}
-          {canPreviousPage && <ArrowBack onClick={() => (manualPagination ? onPrevPage() : previousPage())} className={"cp"} />}
-          {canNextPage && <ArrowForward onClick={() => (manualPagination ? onNextPage() : nextPage())} className={"cp"} />}
-          {!manualPagination && pageIndex != pageCount - 1 && <ArrowToLast onClick={() => gotoPage(pageCount - 1)} className={"cp"} />}
+          {!manualPagination && pageIndex != 0 && <CustomSVG.ArrowToFirst onClick={() => gotoPage(0)} className={"cp"} />}
+          {canPreviousPage && manualPagination && onFirstPage && <CustomSVG.ArrowToFirst onClick={() => manualPagination && onFirstPage()} className={"cp"} />}
+          {canPreviousPage && <CustomSVG.ArrowBack onClick={() => (manualPagination ? onPrevPage() : previousPage())} className={"cp"} />}
+          {canNextPage && <CustomSVG.ArrowForward onClick={() => (manualPagination ? onNextPage() : nextPage())} className={"cp"} />}
+          {!manualPagination && pageIndex != pageCount - 1 && <CustomSVG.ArrowToLast onClick={() => gotoPage(pageCount - 1)} className={"cp"} />}
           {rows.length == pageSizeLimit && canNextPage && manualPagination && onLastPage && (
-            <ArrowToLast onClick={() => manualPagination && onLastPage()} className={"cp"} />
+            <CustomSVG.ArrowToLast onClick={() => manualPagination && onLastPage()} className={"cp"} />
           )}
           {/* to go to first and last page we need to do a manual pagination , it can be updated later*/}
         </div>
@@ -257,7 +257,7 @@ const Table = ({
       {Object.keys(selectedRowIds)?.length > 0 && (
         <ActionBar className="actionBarWrapper">
           <span style={{ display: "flex" }}>
-            <DoubleTickIcon style={{ marginRight: "8px" }} />
+            <CustomSVG.DoubleTickIcon style={{ marginRight: "8px" }} />
             <p className="search-instruction-header" style={{ marginBottom: 0 }}>{`${Object.keys(selectedRowIds)?.length} ${t(
               "COMMON_SELECTED"
             )}`}</p>
@@ -265,7 +265,7 @@ const Table = ({
           <Button label={t(actionLabel)} onClick={handleSelection} />
         </ActionBar>
       )}
-      {toast?.show && <Toast label={toast?.label} error={toast?.error} isDleteBtn={true} onClose={handleToastClose}></Toast>}
+      {toast?.show && <Toast label={toast?.label} type={toast?.error ? "error" : ""} isDleteBtn={true} onClose={handleToastClose}></Toast>}
     </React.Fragment>
   );
 };

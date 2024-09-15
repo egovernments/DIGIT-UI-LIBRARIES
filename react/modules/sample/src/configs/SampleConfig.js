@@ -446,6 +446,15 @@ export const newConfig = [
       },
       {
         inline: true,
+        label: "disableTextField",
+        isMandatory: false,
+        description: "",
+        type: "numeric",
+        disable: false,
+        populators: { name: "numeric-disableTextField", error: "Error!", disableTextField:true},
+      },
+      {
+        inline: true,
         label: "With Innerlabel",
         isMandatory: false,
         description: "",

@@ -265,7 +265,7 @@ export const FormComposer = (props) => {
                     ? { ...wrapperStyles, ...field?.populators?.customStyle }
                     : { border: "none", background: "white", ...field?.populators?.customStyle }
                 }
-                className={props?.labelfielddirectionvertical ? "vertical" : ""}
+                vertical={props?.labelfielddirectionvertical}
               >
                 {fieldSelector(field.type, field.populators, field.isMandatory, field?.disable, field?.component, field, sectionFormCategory)}
 
@@ -415,7 +415,7 @@ export const FormComposer = (props) => {
           {props.onSkip && props.showSkip && <ActionLinks style={props?.skipStyle} label={t(`CS_SKIP_CONTINUE`)} onClick={props.onSkip} />}
         </ActionBar>
       )}
-      {showErrorToast && <Toast error={true} label={t("ES_COMMON_PLEASE_ENTER_ALL_MANDATORY_FIELDS")} isDleteBtn={true} onClose={closeToast} />}
+      {showErrorToast && <Toast type={"error"} label={t("ES_COMMON_PLEASE_ENTER_ALL_MANDATORY_FIELDS")} isDleteBtn={true} onClose={closeToast} />}
     </form>
   );
 };

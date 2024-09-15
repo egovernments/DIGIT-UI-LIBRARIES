@@ -4,11 +4,11 @@
 .digit-card-inputError {
   @apply block w-full h-10 outline-none bg-white text-text-primary;
   font-style: theme(digitv2.fontStyle.normal);
-  padding-left: 0.75rem;
+  padding-left:theme(digitv2.spacers.spacer3);
   font-family: theme(digitv2.fontFamily.sans);
-  font-size: 1rem;
+  font-size: theme(digitv2.spacers.spacer4);
   color: theme(digitv2.lightTheme.text-primary);
-  line-height: 1.5rem;
+  line-height: theme(digitv2.spacers.spacer6);
   border: 0.094rem solid theme(digitv2.lightTheme.alert-error);
 }
 
@@ -33,6 +33,13 @@
         border-right-style: hidden;
       }
     }
+
+    &.numeric-buttons-only{
+      input{
+        pointer-events: none !important;
+        cursor: not-allowed;
+      }
+    }
   }
 
   &.prefix {
@@ -54,9 +61,9 @@
   &.password {
     input {
       font-family: theme(digitv2.fontFamily.sans);
-      font-size: 1rem;
+      font-size: theme(digitv2.spacers.spacer4);
       font-weight: 900;
-      line-height: 1.5rem;
+      line-height: theme(digitv2.spacers.spacer6);
     }
   }
 
@@ -94,7 +101,7 @@
   input[type="date"]:disabled::-webkit-calendar-picker-indicator,
   input[type="time"]:disabled::-webkit-calendar-picker-indicator {
     @apply absolute cursor-pointer w-6 h-6;
-    right: 0.75rem;
+    right: theme(digitv2.spacers.spacer3);
   }
 
   input[type="date"]:disabled::-webkit-calendar-picker-indicator,
@@ -119,8 +126,8 @@
     color: theme(digitv2.lightTheme.text-disabled);
     font-family: theme(digitv2.fontFamily.sans);
     font-weight: theme(digitv2.fontWeight.regular);
-    font-size: 1rem;
-    line-height: 1.5rem;
+    font-size: theme(digitv2.spacers.spacer4);
+    line-height: theme(digitv2.spacers.spacer6);
   }
 
   &.noneditable {
@@ -202,20 +209,20 @@
 
 .digit-card-input-field {
   @apply outline-none mt-sm block w-full h-10 bg-white text-form-field;
-  padding-left: 0.75rem;
+  padding-left: theme(digitv2.spacers.spacer3);
   border: 0.063rem solid theme(digitv2.lightTheme.text-secondary);
   color: theme(digitv2.lightTheme.text-primary);
-  line-height: 1.5rem;
+  line-height: theme(digitv2.spacers.spacer6);
 }
 
 .digit-card-inputError {
   @apply block w-full h-10 outline-none bg-white text-form-field text-text-primary;
   font-style: theme(digitv2.fontStyle.normal);
-  padding-left: 0.75rem;
+  padding-left: theme(digitv2.spacers.spacer3);
   font-family: theme(digitv2.fontFamily.sans);
-  font-size: 1rem;
+  font-size: theme(digitv2.spacers.spacer4);
   color: theme(digitv2.lightTheme.text-primary);
-  line-height: 1.5rem;
+  line-height: theme(digitv2.spacers.spacer6);
   border: 0.094rem solid theme(digitv2.lightTheme.alert-error);
 }
 
@@ -223,12 +230,12 @@
   @extend .typography.text-body-s;
   @apply outline-none block w-full h-10 bg-white text-form-field;
   font-style: theme(digitv2.fontStyle.normal);
-  padding-left: 0.75rem;
+  padding-left: theme(digitv2.spacers.spacer3);
   font-family: theme(digitv2.fontFamily.sans);
-  font-size: 1rem;
+  font-size: theme(digitv2.spacers.spacer4);
   border: 0.063rem solid theme(digitv2.lightTheme.text-secondary);
   color: theme(digitv2.lightTheme.text-primary);
-  line-height: 1.5rem;
+  line-height: theme(digitv2.spacers.spacer6);
 }
 
 .digit-employeeCard-input:disabled {
@@ -249,11 +256,11 @@
   @extend .typography.text-body-s;
   @apply block w-full h-10 outline-none bg-white text-form-field text-text-primary;
   font-style: theme(digitv2.fontStyle.normal);
-  padding-left: 0.75rem;
+  padding-left: theme(digitv2.spacers.spacer3);
   font-family: theme(digitv2.fontFamily.sans);
-  font-size: 1rem;
+  font-size: theme(digitv2.spacers.spacer4);
   color: theme(digitv2.lightTheme.text-primary);
-  line-height: 1.5rem;
+  line-height: theme(digitv2.spacers.spacer6);
   border: 0.094rem solid theme(digitv2.lightTheme.alert-error);
 }
 
@@ -266,7 +273,7 @@
   }
 
   span {
-    margin-top: 1rem;
+    margin-top: theme(digitv2.spacers.spacer4);
     margin-left: 10%;
     margin-right: 10%;
   }
@@ -307,12 +314,12 @@
   @extend .typography.text-body-s;
   @apply outline-none block w-full h-10 bg-white;
   font-style: theme(digitv2.fontStyle.normal);
-  padding-left: 0.75rem;
+  padding-left: theme(digitv2.spacers.spacer3);
   font-family: theme(digitv2.fontFamily.sans);
-  font-size: 1rem;
+  font-size: theme(digitv2.spacers.spacer4);
   border: 0.063rem solid theme(digitv2.lightTheme.text-secondary);
   color: theme(digitv2.lightTheme.text-primary);
-  line-height: 1.5rem;
+  line-height: theme(digitv2.spacers.spacer6);
 }
 
 .digit-citizenCard-input--front {
@@ -329,11 +336,11 @@
   @extend .light-input-border;
   @apply block w-full h-10 outline-none bg-white text-form-field text-text-primary;
   font-style: theme(digitv2.fontStyle.normal);
-  padding-left: 0.75rem;
+  padding-left: theme(digitv2.spacers.spacer3);
   font-family: theme(digitv2.fontFamily.sans);
-  font-size: 1rem;
+  font-size: theme(digitv2.spacers.spacer4);
   color: theme(digitv2.lightTheme.text-primary);
-  line-height: 1.5rem;
+  line-height:theme(digitv2.spacers.spacer6);
   border: 0.094rem solid theme(digitv2.lightTheme.alert-error);
 }
 
@@ -341,11 +348,11 @@
   @extend .light-input-border;
   @apply block w-full h-10 outline-none bg-white text-form-field text-text-primary;
   font-family: theme(digitv2.fontFamily.sans);
-  padding-left: 0.75rem;
+  padding-left: theme(digitv2.spacers.spacer3);
   font-family: theme(digitv2.fontFamily.sans);
-  font-size: 1rem;
+  font-size: theme(digitv2.spacers.spacer4);
   color: theme(digitv2.lightTheme.text-primary);
-  line-height: 1.5rem;
+  line-height: theme(digitv2.spacers.spacer6);
   border: 0.094rem solid theme(digitv2.lightTheme.alert-error);
 }
 
@@ -362,7 +369,7 @@
   &.passwordToText,
   &.withIcon {
     input {
-      padding-right: 2.5rem;
+      padding-right: theme(digitv2.spacers.spacer10);
     }
   }
 
@@ -373,7 +380,7 @@
 
   @media (max-aspect-ratio: 9/16) {
     /* Media query for mobile */
-    max-width: 20.5rem;
+    max-width: 100%;
     width: 100%;
   }
 
@@ -414,8 +421,8 @@
   font-family: theme(digitv2.fontFamily.sans);
   font-style: theme(digitv2.fontStyle.normal);
   color: theme(digitv2.lightTheme.text-secondary);
-  font-size: 1.25rem;
-  height: 2.5rem !important;
+  font-size: theme(digitv2.spacers.spacer5);
+  height: theme(digitv2.spacers.spacer10) !important;
   border: 0.063rem solid theme(digitv2.lightTheme.text-secondary);
   line-height: 1.172rem;
   background: theme(colors.grey.mid);
@@ -425,8 +432,8 @@
 
 .digit-numeric-button-prefix,
 .digit-numeric-button-suffix {
-  width: 2.5rem !important;
-  font-size: 1.5rem;
+  width: theme(digitv2.spacers.spacer10) !important;
+  font-size: theme(digitv2.spacers.spacer6);
 }
 
 .digit-prefix,
@@ -446,8 +453,8 @@
 
 .digit-text-input-customIcon {
   @apply absolute w-6 h-6 cursor-pointer;
-  top: 0.5rem;
-  right: 0.75rem;
+  top: theme(digitv2.spacers.spacer2);
+  right: theme(digitv2.spacers.spacer3);
 
   &.nonEditable,
   &.disabled {

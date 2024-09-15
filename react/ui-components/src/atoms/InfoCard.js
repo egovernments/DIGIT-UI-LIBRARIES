@@ -2,18 +2,26 @@ import React from "react";
 import { SVG } from "./SVG";
 import StringManipulator from "./StringManipulator";
 import PropTypes from "prop-types";
+import { Colors} from "../constants/colors/colorconstants";
 
-const InfoCard = ({ label, text, variant, style, textStyle, additionalElements, inline }) => {
+const InfoCard = ({ label, text, variant, style, textStyle, additionalElements, inline, className, headerWrapperClassName,headerClassName}) => {
+
+  const warningIconColor = Colors.lightTheme.alert.warning;
+  const errorIconColor = Colors.lightTheme.alert.error;
+  const successIconColor = Colors.lightTheme.alert.success;
+  const infoIconColor = Colors.lightTheme.alert.info;
+
+
   const getIconAndLabelByVariant = (variant) => {
     switch (variant) {
       case "warning":
-        return { icon: <SVG.Warning fill={"#EA8D00"} />, defaultLabel: "Warning" };
+        return { icon: <SVG.Warning fill={warningIconColor} />, defaultLabel: "Warning" };
       case "success":
-        return { icon: <SVG.CheckCircle fill={"#00703C"} />, defaultLabel: "Success" };
+        return { icon: <SVG.CheckCircle fill={successIconColor} />, defaultLabel: "Success" };
       case "error":
-        return { icon: <SVG.Error fill={"#B91900"} />, defaultLabel: "Error" };
+        return { icon: <SVG.Error fill={errorIconColor} />, defaultLabel: "Error" };
       default:
-        return { icon: <SVG.Info fill={"#0057BD"} />, defaultLabel: "Info" };
+        return { icon: <SVG.Info fill={infoIconColor} />, defaultLabel: "Info" };
     }
   };
   const { icon, defaultLabel } = getIconAndLabelByVariant(variant);
@@ -23,10 +31,10 @@ const InfoCard = ({ label, text, variant, style, textStyle, additionalElements, 
   const displayedLabel = StringManipulator("TOTITLECASE", label) || defaultLabel;
 
   return (
-    <div className={`digit-infobanner-wrap ${variant ? variant : "default"}`} style={style}>
-      <div height="24px">
+    <div className={`digit-infobanner-wrap ${variant || "default"} ${className || ""}`} style={style}>
+      <div className={`digit-infobanner-header-wrap ${variant || "default"} ${headerWrapperClassName || ""}`} height="24px">
         {icon}
-        <h2>{displayedLabel}</h2>
+        <h2 className={`digit-infobanner-header ${headerClassName || ""}`}>{displayedLabel}</h2>
       </div>
       {text && <p style={{ ...textStyle }}>{StringManipulator("TOSENTENCECASE", text)}</p>}
       {hasAdditionalElements && (

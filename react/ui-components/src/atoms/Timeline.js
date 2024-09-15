@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { SVG } from "./SVG";
 import StringManipulator from "./StringManipulator";
+import Button from "./Button";
+import { Colors} from "../constants/colors/colorconstants";
 
 const Timeline = ({
   label,
@@ -11,14 +13,20 @@ const Timeline = ({
   additionalElements,
   inline,
   individualElementStyles,
+  showConnector,
+  className,
+  isLastStep,
+  isNextActiveStep,
+  showDefaultValueForDate,
+  isError
 }) => {
   const [showDetails, setShowDetails] = useState(false);
 
   const [isMobileView, setIsMobileView] = React.useState(
-    window.innerWidth <= 480
+    window.innerWidth / window.innerHeight <= 9 / 16
   );
   const onResize = () => {
-    if (window.innerWidth <= 480) {
+    if (window.innerWidth / window.innerHeight <= 9 / 16) {
       if (!isMobileView) {
         setIsMobileView(true);
       }
@@ -43,15 +51,12 @@ const Timeline = ({
     setShowDetails(!showDetails);
   };
 
-  // Define details button style
-  const getDetailsButtonStyle = () => {
-    return showDetails ? "details-btn details-btn-open" : "details-btn";
-  };
-
   const hasAdditionalElements =
     additionalElements && additionalElements.length > 0;
 
   const defaultLabel =
+
+  isError ? "Failed!" :
     variant === "inprogress"
       ? "Inprogress"
       : variant === "upcoming"
@@ -60,27 +65,46 @@ const Timeline = ({
       ? "Completed"
       : "";
 
+  const color = Colors.lightTheme.paper.primary;
+
   return (
-    <div className="digit-timeline-item">
-      <div className={`timeline-circle ${variant}`}>
-        {variant === "completed" && (
+    <div className={`digit-timeline-item ${className || ""} ${variant} ${isError ? "error" : ""}`}>
+      <div className={`timeline-circle ${variant} ${isError ? "error" : ""}`}>
+        {variant === "completed" && !isError &&  (
           <div className="check-icon">
             <SVG.Check
               width={isMobileView ? "18px" : "24px"}
               height={isMobileView ? "18px" : "24px"}
-              fill="#ffffff"
+              fill={color}
+            />
+          </div>
+        )}
+                {isError &&  (
+          <div className="check-icon">
+            <SVG.Info
+              width={isMobileView ? "18px" : "24px"}
+              height={isMobileView ? "18px" : "24px"}
+              fill={color}
+              style={{ transform: "rotate(-180deg)" }}
             />
           </div>
         )}
       </div>
-      <div className="timeline-content">
+      {showConnector && !isLastStep && (
+        <div
+          className={`connector-line ${variant || ""} ${
+            isNextActiveStep ? "nextActiveStep" : ""
+          }`}
+        />
+      )}
+      <div className={`timeline-content ${isLastStep ? "lastTimeline" : ""}`}>
         <div className="timeline-info">
-          <div className="timeline-label">
+          <div className={`timeline-label ${variant}`}>
             {label
               ? StringManipulator("CAPITALIZEFIRSTLETTER", label)
               : defaultLabel}
           </div>
-          {subElements && subElements.length > 0 ? (
+          {subElements && subElements.length > 0 && (
             <div className="timeline-subelements">
               {subElements.map((element, index) => (
                 <div className="timeline-date" key={index}>
@@ -88,8 +112,9 @@ const Timeline = ({
                 </div>
               ))}
             </div>
-          ) : (
-            <div className="timeline-date">{"date"}</div>
+          )}
+          {showDefaultValueForDate && (
+            <div className="timeline-date">{isError ? "Incomplete": "date"}</div>
           )}
           <div className="timeline-divider"></div>
         </div>
@@ -113,29 +138,26 @@ const Timeline = ({
           </div>
         )}
         {hasAdditionalElements && (
-          <div className="timeline-toggle-details" onClick={toggleDetails} >
-            <button className={getDetailsButtonStyle()}>
-              {showDetails
-                ? hideDetailsLabel
-                  ? StringManipulator("CAPITALIZEFIRSTLETTER", hideDetailsLabel)
-                  : "Hide Details"
-                : viewDetailsLabel
-                ? StringManipulator("CAPITALIZEFIRSTLETTER", viewDetailsLabel)
-                : "View Details"}
-            </button>
-            {showDetails ? (
-              <SVG.ArrowDropUp
-                width="24px"
-                height="24px"
-                fill="#C84C0E"
-              ></SVG.ArrowDropUp>
-            ) : (
-              <SVG.ArrowDropDown
-                width="24px"
-                height="24px"
-                fill="#C84C0E"
-              ></SVG.ArrowDropDown>
-            )}
+          <div className="timeline-toggle-details" onClick={toggleDetails}>
+            <Button
+              label={
+                showDetails
+                  ? hideDetailsLabel
+                    ? StringManipulator(
+                        "CAPITALIZEFIRSTLETTER",
+                        hideDetailsLabel
+                      )
+                    : "Hide Details"
+                  : viewDetailsLabel
+                  ? StringManipulator("CAPITALIZEFIRSTLETTER", viewDetailsLabel)
+                  : "View Details"
+              }
+              variation={"link"}
+              icon={showDetails ? "ArrowDropUp" : "ArrowDropDown"}
+              size={"medium"}
+              isSuffix={true}
+              style={{ paddingLeft: "unset" }}
+            ></Button>
           </div>
         )}
       </div>

@@ -1,0 +1,12 @@
+.digit-divider {
+    border: theme(digitv2.divider.dividerS);
+    width: 100%;
+
+    &.medium {
+        border: theme(digitv2.divider.dividerM);
+    }
+
+    &.large {
+        border: theme(digitv2.divider.dividerL);
+    }
+}

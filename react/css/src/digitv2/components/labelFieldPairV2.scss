@@ -3,40 +3,49 @@
 
 
    @media (min-aspect-ratio: 9/16) {
-    @apply items-start;
+     @apply items-start;
+   }
+
+   @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+     gap: theme(digitv2.spacers.spacer5);
    }
 
    @media (max-aspect-ratio: 9/16) {
-    @apply flex-col items-start;
+     @apply flex-col items-start;
+     gap: theme(digitv2.spacers.spacer4);
    }
 
-   &.vertical{
-    @apply flex-col items-start;
+   @media (min-aspect-ratio: 3/4) {
+     gap: theme(digitv2.spacers.spacer6);
+   }
+
+   &.vertical {
+     @apply flex-col items-start;
+     gap: theme(digitv2.spacers.spacer2);
    }
 
    & .label,
    & header {
-     margin-right: 1.5rem;
      width: 33%;
 
      @media (max-aspect-ratio: 9/16) {
-      @apply w-full;
-    }
+       @apply w-full;
+     }
    }
 
    & .digit-field {
      width: 60%;
 
      @media (max-aspect-ratio: 9/16) {
-      width: 100%;
-    }
+       width: 100%;
+     }
    }
  }
 
-@screen dt {
+ @screen dt {
    .digit-employee-card {
      .digit-label-field-pair {
-       @apply mb-lg flex ;
+       @apply mb-lg flex;
 
        h2 {
          width: 30%;

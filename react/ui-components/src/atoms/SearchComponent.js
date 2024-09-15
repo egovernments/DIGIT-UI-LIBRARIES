@@ -7,7 +7,7 @@ import Header from "../atoms/Header";
 import LinkLabel from "../atoms/LinkLabel";
 import SubmitBar from "../atoms/SubmitBar";
 import Toast from "../atoms/Toast";
-import { FilterIcon, RefreshIcon } from "../atoms/svgindex";
+import { CustomSVG } from "./CustomSVG";
 
 const SearchComponent = ({ uiConfig, header = "", screenType = "search", fullConfig, data }) => {
   const { t } = useTranslation();
@@ -70,7 +70,7 @@ const SearchComponent = ({ uiConfig, header = "", screenType = "search", fullCon
         }
       })
     } else {
-      setShowToast({ warning: true, label: t("ES_COMMON_MIN_SEARCH_CRITERIA_MSG") })
+      setShowToast({ type: "warning", label: t("ES_COMMON_MIN_SEARCH_CRITERIA_MSG") })
       setTimeout(closeToast, 3000);
     }
   }
@@ -105,9 +105,9 @@ const SearchComponent = ({ uiConfig, header = "", screenType = "search", fullCon
       case "filter": {
         return (
           <div className="filter-header-wrapper">
-            <div className="icon-filter"><FilterIcon></FilterIcon></div>
+            <div className="icon-filter"><CustomSVG.FilterIcon></CustomSVG.FilterIcon></div>
             <div className="label">{t(header)}</div>
-            <div className="icon-refresh" onClick={handleFilterRefresh}><RefreshIcon></RefreshIcon></div>
+            <div className="icon-refresh" onClick={handleFilterRefresh}><CustomSVG.RefreshIcon></CustomSVG.RefreshIcon></div>
           </div>
         )
       }
@@ -151,8 +151,7 @@ const SearchComponent = ({ uiConfig, header = "", screenType = "search", fullCon
           </div>
         </form>
         {showToast && <Toast
-          error={showToast.error}
-          warning={showToast.warning}
+          type={showToast?.error ? "error" : (showToast?.type ? showToast?.type : "")}
           label={t(showToast.label)}
           isDleteBtn={true}
           onClose={closeToast} />

@@ -1,0 +1,41 @@
+@import url("../index.scss");
+@import url("../typography.scss");
+
+.digit-error-icon-message-wrap {
+  @apply flex w-full whitespace-pre-wrap break-words;
+  gap: theme(digitv2.spacers.spacer1);
+  word-break: break-word;
+  cursor: default;
+
+  .digit-error-icon {
+    @apply flex items-center;
+    width: theme(digitv2.spacers.spacer4);
+    height: theme(digitv2.lineHeight.lineheight2);
+  }
+
+  .digit-error-message {
+    @apply w-full;
+    font-family: theme(digitv2.fontFamily.sans);
+    font-style: theme(digitv2.fontStyle.normal);
+    font-weight: theme(digitv2.fontWeight.regular);
+    line-height: theme(digitv2.lineHeight.lineheight2);
+
+    @media (max-aspect-ratio: 9/16) {
+      /* Media query for mobile */
+      font-size: theme(digitv2.fontSize.body-s.mobile);
+    }
+
+    @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+      /* Media query for tablets */
+      font-size: theme(digitv2.fontSize.body-s.tablet);
+    }
+
+    @media (min-aspect-ratio: 3/4) {
+      /* Media query for desktop */
+      font-size: theme(digitv2.fontSize.body-s.desktop);
+    }
+
+    margin: theme(digitv2.spacers.spacer0);
+    color: theme(digitv2.lightTheme.alert-error)
+  }
+}

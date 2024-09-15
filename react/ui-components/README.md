@@ -55,31 +55,73 @@ yarn storybook
 ```
 
 
-# Changelog
+## [0.0.1-beta.28] - 2024-05-24
 
-```bash
-0.0.1-beta.18 updated dropdown option labels
-0.0.1-beta.17 updated toast info varinat css and category option css 
-0.0.1-beta.16 added erroe boundary atom
-0.0.1-beta.15 added info varinat for toast
-0.0.1-beta.14 updated dropdown options label to use optionsKey
-0.0.1-beta.13 nested and tree dropdown varinat updated
-0.0.1-beta.12 enhancements of components
-0.0.1-beta.11 updated mobilenumber classname
-0.0.1-beta.10 updated header and textinput classnames
-0.0.1-beta.9 updated key to IS_STRING_MANIPULATED
-0.0.1-beta.8 Updated the string manipulation based on globalConfig flag isStringManipulated
-0.0.1-beta.7 updated classnames 
-0.0.1-beta.6 updated version
-0.0.1-beta.5 modified classnames
-0.0.1-beta.4 fixed some date issues 
-0.0.3 Added new components
-0.0.1 base version
-```
+### New Changes
 
-## Published from DIGIT Core
+- Added restrictSelection prop in Multiselectdropdown. If this is sent as true, it restricts any option to get selected. 
 
-Digit Core Repo (https://github.com/egovernments/Core-Platform/tree/digit-ui-core)
+  - Usage:
+    ```jsx
+        <MultiSelectDropdown
+          restrictSelection={true}
+        />
+    ```
+
+
+
+
+## [0.0.1-beta.22] - 2024-05-20
+
+### Breaking Changes
+
+- Toast Component: From this version of `ui-components`, the `Toast` component has a new prop named `type`, replacing the separate props for `info`, `warning`, and `error`.
+  - Old Usage:
+    ```jsx
+        <Toast info={true} label={"Info Toast"} />
+        <Toast warning="warning" label={"Warning Toast"}/>
+        <Toast error={true} label={"Error Toast"}/>
+    ```
+  - New Usage:
+    ```jsx
+        <Toast type="info" label={"Info Toast"} />
+        <Toast type="warning" label={"Warning Toast"} />
+        <Toast type="error" label={"Error Toast"} />
+        <Toast type="success" label={"Success Toast"} />
+    ```
+
+## Changelog
+
+### Summary for Version [0.0.2] - 2024-06-03
+
+#### New Changes
+
+- Added Error Message Component.
+- Added Info Button Component.
+- Added Panels Component.
+- Added Popup Component with two variants: `default` and `alert`.
+- Added RemoveableTag Component.
+- Added Stepper Component.
+- Added TextBlock Component.
+- Added Timeline Component.
+- Added Uploader Component with three variants: `UploadFile`, `UploadPopup`, and `UploadImage`.
+- Added PanelCard Molecule.
+
+#### Enhancements
+
+- Updated Button Component Styles.
+- Updated Dropdown Component Styles and added SelectAll Option.
+- Updated InfoCard Component Styles.
+- Added Animation for Toast.
+- Added new prop `type` for Toast, replacing the separate props for `info`, `warning`, and `error`.
+- Updated Typography with lineHeight.
+- Updated Color Typography.
+
+For a detailed changelog, see the [CHANGELOG.md](./CHANGELOG.md) file.
+
+## Published from DIGIT-UI-LIBRARIES
+
+DIGIT-UI-LIBRARIES Repo (https://github.com/egovernments/DIGIT-UI-LIBRARIES/tree/master)
 
 # Contributors
 

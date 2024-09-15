@@ -11,12 +11,12 @@ import TextInput from "../atoms/TextInput";
 import { getRegex } from "../utils/uploadFileComposerUtils";
 import useCustomMDMS from "./techHoc/useCustomMDMS";
 
-const UploadFileComposer = ({ module, config, Controller, control, register, formData, errors, localePrefix, customClass, customErrorMsg }) => {
+const UploadFileComposer = ({ module, config, Controller, control, register, formData, errors, localePrefix, customClass, customErrorMsg,mdmsModuleName='works' }) => {
   const { t } = useTranslation();
 
   //fetch mdms config based on module name
   const tenant = Digit?.ULBService?.getStateId();
-  const { isLoading, data } = useCustomMDMS(tenant, "works", [
+  const { isLoading, data } = useCustomMDMS(tenant, mdmsModuleName, [
     {
       name: "DocumentConfig",
       filter: `[?(@.module=='${module}')]`,

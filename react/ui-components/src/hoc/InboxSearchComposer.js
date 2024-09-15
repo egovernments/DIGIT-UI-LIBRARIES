@@ -124,7 +124,7 @@ const InboxSearchComposer = ({ configs, headerLabel, additionalConfig, onFormVal
 
   useEffect(() => {
     if (error) {
-      setShowToast({ label: error?.message, isError: true });
+      setShowToast({ label: error?.message, type: "error" });
       closeToast();
     }
   }, [error]);
@@ -308,7 +308,7 @@ const InboxSearchComposer = ({ configs, headerLabel, additionalConfig, onFormVal
         </div>
         <div className="additional-sections-parent">{/* One can use this Parent to add additional sub parents to render more sections */}</div>
       </div>
-      {showToast && <Toast label={showToast.label} error={showToast?.isError} isDleteBtn={true} onClose={() => setShowToast(null)}></Toast>}
+      {showToast && <Toast label={showToast.label} type={showToast?.type} isDleteBtn={true} onClose={() => setShowToast(null)}></Toast>}
     </InboxContext.Provider>
   );
 };

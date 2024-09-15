@@ -1,9 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import TextInput from "./TextInput";
+import { getUserType } from "../utils/digitUtils";
 
 const MobileNumber = (props) => {
-  const user_type = window?.Digit?.SessionStorage.get("userType");
+  const user_type = getUserType();
 
   const onChange = (e) => {
     let val = e.target.value;

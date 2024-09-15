@@ -2,9 +2,12 @@ import React, { forwardRef, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { SVG } from "./SVG";
 import StringManipulator from "./StringManipulator";
+import { Colors} from "../constants/colors/colorconstants";
+import { getUserType } from "../utils/digitUtils";
+
 
 const TextInput = (props) => {
-  const user_type = window?.Digit?.SessionStorage.get("userType");
+  const user_type = getUserType();
   const [date, setDate] = useState(props?.type === "date" && props?.value);
   const [visibility, setVisibility] = useState(false);
   const [inputType, setInputType] = useState(props?.type || "text");
@@ -109,13 +112,16 @@ const TextInput = (props) => {
     }
   };
 
+  const disabledColor = Colors.lightTheme.generic.divider;
+  const iconColor = Colors.lightTheme.generic.inputBorder;
+
   const renderIcon = () => {
     const reqIcon = props?.type;
-    const iconFill = props?.disabled
-      ? "#D6D5D4"
+    const iconFill = props?.iconFill ? props?.iconFill : props?.disabled
+      ? disabledColor
       : props?.nonEditable
       ? "#b1b4b6"
-      : "#505A5F";
+      : iconColor;
     if (reqIcon) {
       if (reqIcon === "geolocation") {
         return (
@@ -192,29 +198,6 @@ const TextInput = (props) => {
 
   const icon = renderIcon();
 
-  const openPicker = () => {
-    document.addEventListener("DOMContentLoaded", function () {
-      const dateInput = document.querySelector('input[type="date"]');
-      const timeInput = document.querySelector('input[type="time"]');
-
-      const handleClick = (event) => {
-        try {
-          event.target.showPicker();
-        } catch (error) {
-          window.alert(error);
-        }
-      };
-
-      if (dateInput) {
-        dateInput.addEventListener("click", handleClick);
-      }
-
-      if (timeInput) {
-        timeInput.addEventListener("click", handleClick);
-      }
-    });
-  };
-
   const inputClassNameForMandatory = `${
     user_type ? "digit-employeeCard-inputError" : "digit-card-inputError"
   } ${props.disabled ? "disabled" : ""} ${props.customClass || ""} ${
@@ -247,7 +230,7 @@ const TextInput = (props) => {
           props.disabled ? "disabled" : ""
         }  ${props.nonEditable ? "noneditable" : ""} ${
           props.error ? "error" : ""
-        } ${defaultType ? defaultType : ""} ${
+        } ${defaultType ? defaultType : ""} ${props?.populators?.disableTextField ? "numeric-buttons-only" : ""} ${
           props?.populators?.prefix ? "prefix" : ""
         } ${props?.populators?.suffix ? "suffix" : ""} `}
         style={props?.textInputStyle ? { ...props.textInputStyle } : {}}
@@ -315,11 +298,15 @@ const TextInput = (props) => {
               nonEditable={props.nonEditable}
               config={props.config}
               populators={props.populators}
-              onclick={
-                props.type === "date" || props.type === "time"
-                  ? openPicker()
-                  : null
-              }
+              onClick={(event) => {
+                if (props.type === "date" || (props.type === "time")) {
+                  try {
+                    event.target.showPicker();
+                  } catch (error) {
+                    console.error("Error opening picker:", error);
+                  }
+                }
+              }}
             />
             {renderSuffix()}
             {props.signature && props.signatureImg}
@@ -403,11 +390,15 @@ const TextInput = (props) => {
               nonEditable={props.nonEditable}
               config={props.config}
               populators={props.populators}
-              onClick={
-                props.type === "date" || props.type === "time"
-                  ? openPicker()
-                  : null
-              }
+              onClick={(event) => {
+                if (props.type === "date" || (props.type === "time")) {
+                  try {
+                    event.target.showPicker();
+                  } catch (error) {
+                    console.error("Error opening picker:", error);
+                  }
+                }
+              }}
             />
             {renderSuffix()}
             {props.signature && props.signatureImg}

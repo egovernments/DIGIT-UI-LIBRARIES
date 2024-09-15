@@ -6,8 +6,7 @@
         @extend .typography.body-l;
         @apply flex ;
         color: theme(digitv2.lightTheme.text-primary);
-        gap: 0.25rem;
-
+        gap: theme(digitv2.spacers.spacer1);
 
         &.wraplabel {
             @media (min-aspect-ratio: 9/16){
@@ -18,7 +17,7 @@
 
         .label-container {
             @apply flex items-center w-full;
-            gap: 0.25rem;
+            gap: theme(digitv2.spacers.spacer1);
 
             &.wraplabel{
                 @media (min-aspect-ratio: 9/16) {
@@ -36,11 +35,30 @@
         .info-icon .infotext {
             @extend .typography.body-s;
             @apply absolute text-center;
+            font-family: theme(digitv2.fontFamily.sans);
+            font-style: theme(digitv2.fontStyle.normal);
+            font-weight: theme(digitv2.fontWeight.regular);
+            line-height: theme(digitv2.lineHeight.lineheight2);
+        
+            @media (max-aspect-ratio: 9/16) {
+              /* Media query for mobile */
+              font-size: theme(digitv2.fontSize.body-s.mobile);
+            }
+        
+            @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+              /* Media query for tablets */
+              font-size: theme(digitv2.fontSize.body-s.tablet);
+            }
+        
+            @media (min-aspect-ratio: 3/4) {
+              /* Media query for desktop */
+              font-size: theme(digitv2.fontSize.body-s.desktop);
+            }
             visibility: hidden;
             width: 7.5rem;
             background-color: #555555;
             color: theme(digitv2.lightTheme.paper-primary);
-            padding: 0.5rem 0;
+            padding: theme(digitv2.spacers.spacer2) theme(digitv2.spacers.spacer0);
             z-index: 1;
             bottom: 100%;
             left: 50%;
@@ -68,14 +86,33 @@
 .digit-field {
 
     @apply flex flex-col w-full;
-    gap: 0.25rem;
+    gap: theme(digitv2.spacers.spacer1);
 
     .digit-description,
     .digit-charcount {
         @extend .typography.body-s;
         @apply flex justify-between items-baseline;
         color: theme(digitv2.lightTheme.text-secondary);
-        gap: 0.5rem;
+        gap: theme(digitv2.spacers.spacer2);
+        font-family: theme(digitv2.fontFamily.sans);
+        font-style: theme(digitv2.fontStyle.normal);
+        font-weight: theme(digitv2.fontWeight.regular);
+        line-height: theme(digitv2.lineHeight.lineheight2);
+    
+        @media (max-aspect-ratio: 9/16) {
+          /* Media query for mobile */
+          font-size: theme(digitv2.fontSize.body-s.mobile);
+        }
+    
+        @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+          /* Media query for tablets */
+          font-size: theme(digitv2.fontSize.body-s.tablet);
+        }
+    
+        @media (min-aspect-ratio: 3/4) {
+          /* Media query for desktop */
+          font-size: theme(digitv2.fontSize.body-s.desktop);
+        }
 
 
         @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4)  {
@@ -83,7 +120,7 @@
         }
 
         @media (max-aspect-ratio: 9/16) {
-            max-width: 20.5rem;
+            max-width: 100%;
             width: 100%;
         }
 
@@ -94,23 +131,5 @@
 
     .digit-charcount {
         @apply justify-end;
-    }
-
-    .digit-error {
-        @apply flex;
-        gap: 0.25rem;
-
-        .digit-error-icon{
-            @apply items-center;
-            display: flex;
-            width:1rem;
-            height:1.37rem;
-        }
-        .digit-error-message {
-            @extend .typography.body-s;
-            @apply  w-full;
-            margin: 0rem;
-            color: theme(digitv2.lightTheme.alert-error)
-        }
     }
 }
