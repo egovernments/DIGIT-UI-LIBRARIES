@@ -2,17 +2,17 @@ import 'package:digit_ui_components/theme/ComponentTheme/bread_crumb_theme.dart'
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:flutter/material.dart';
 
-class Breadcrumb extends StatefulWidget {
-  final List<BreadcrumbItem> crumbs;
+class DigitBreadCrumb extends StatefulWidget {
+  final List<DigitBreadCrumbItem> crumbs;
   final int? maxItems;
   final int? itemsBeforeCollapse;
   final int? itemsAfterCollapse;
   final String? expandText;
   final Widget? customSeparator;
-  final BreadcrumbThemeData? themeData;
-  final void Function(BreadcrumbItem)? onClick;
+  final DigitBreadCrumbThemeData? themeData;
+  final void Function(DigitBreadCrumbItem)? onClick;
 
-  const Breadcrumb({
+  const DigitBreadCrumb({
     Key? key,
     required this.crumbs,
     this.maxItems,
@@ -25,12 +25,12 @@ class Breadcrumb extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _BreadcrumbState createState() => _BreadcrumbState();
+  _DigitBreadCrumbState createState() => _DigitBreadCrumbState();
 }
 
-class _BreadcrumbState extends State<Breadcrumb> {
+class _DigitBreadCrumbState extends State<DigitBreadCrumb> {
   bool expanded = false;
-  late List<BreadcrumbItem> crumbsToDisplay;
+  late List<DigitBreadCrumbItem> crumbsToDisplay;
   final Set<int> hoveredIndexes = {};
 
   @override
@@ -49,7 +49,7 @@ class _BreadcrumbState extends State<Breadcrumb> {
           (widget.itemsAfterCollapse ?? widget.maxItems! ~/ 2));
       crumbsToDisplay = [
         ...startCrumbs,
-        BreadcrumbItem(content: widget.expandText ?? '...', show: true),
+        DigitBreadCrumbItem(content: widget.expandText ?? '...', show: true),
         ...endCrumbs,
       ];
     } else {
@@ -71,9 +71,9 @@ class _BreadcrumbState extends State<Breadcrumb> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final breadCrumbTheme = widget.themeData ??
-        theme.extension<BreadcrumbThemeData>();
-    final defaultTheme = BreadcrumbThemeData.defaultTheme(context);
+    final DigitBreadCrumbTheme = widget.themeData ??
+        theme.extension<DigitBreadCrumbThemeData>();
+    final defaultTheme = DigitBreadCrumbThemeData.defaultTheme(context);
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -108,9 +108,9 @@ class _BreadcrumbState extends State<Breadcrumb> {
                   Text(
                     crumb.content,
                     style: (isLast
-                        ? breadCrumbTheme?.inactiveTextStyle ??
+                        ? DigitBreadCrumbTheme?.inactiveTextStyle ??
                         defaultTheme.inactiveTextStyle
-                        : breadCrumbTheme?.activeTextStyle ??
+                        : DigitBreadCrumbTheme?.activeTextStyle ??
                         defaultTheme.activeTextStyle)
                         ?.copyWith(
                       decoration: isHovered && !isLast
@@ -125,11 +125,11 @@ class _BreadcrumbState extends State<Breadcrumb> {
             if (!isLast)
               Container(
                 padding:
-                breadCrumbTheme?.itemPadding ?? defaultTheme.itemPadding,
+                DigitBreadCrumbTheme?.itemPadding ?? defaultTheme.itemPadding,
                 child: widget.customSeparator ??
                     Text(
                       '/',
-                      style: breadCrumbTheme?.separatorTextStyle ??
+                      style: DigitBreadCrumbTheme?.separatorTextStyle ??
                           defaultTheme.separatorTextStyle,
                     ),
               ),
@@ -140,12 +140,12 @@ class _BreadcrumbState extends State<Breadcrumb> {
   }
 }
 
-class BreadcrumbItem {
+class DigitBreadCrumbItem {
   final String content;
   final bool show;
   final IconData? icon;
 
-  BreadcrumbItem({
+  DigitBreadCrumbItem({
     required this.content,
     this.show = true,
     this.icon,

@@ -44,7 +44,7 @@ void main() {
                     Validator(ValidatorType.pattern, r'^[a-zA-Z0-9]+$', errorMessage: 'Invalid format.'),
                   ],
                 ),
-                // Use a FlatButton to simulate taps
+                // Use a FlatDigitButton to simulate taps
                 ElevatedButton(
                   onPressed: () {
                     // This is where you can put any logic you want
@@ -62,7 +62,7 @@ void main() {
       await tester.enterText(find.byType(DigitTextFormInput), '@@');
       await tester.pump();
 
-      // Tap on the FlatButton to simulate focus loss
+      // Tap on the FlatDigitButton to simulate focus loss
       await tester.tap(find.text('Tap me'));
 
 

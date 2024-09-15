@@ -6,9 +6,9 @@
 ///           type: InfoType.success,
 ///           description: 'This is a success message.',
 ///           additionalWidgets: [
-///             ElevatedButton(
+///             ElevatedDigitButton(
 ///               onPressed: () {
-///                 // Handle button tap
+///                 // Handle DigitButton tap
 ///               },
 ///               child: Text('OK'),
 ///             ),
@@ -68,9 +68,9 @@ class InfoCard extends StatelessWidget {
 
     /// Capitalize the title and description if specified(by default always true)
     String capitalizedHeading =
-        capitalizedLetter ? capitalizeFirstLetterOfEveryWord(title) : title;
+    capitalizedLetter ? capitalizeFirstLetterOfEveryWord(title) : title;
     String capitalizedDescription =
-        capitalizedLetter ? convertInToSentenceCase(description)! : description;
+    capitalizedLetter ? convertInToSentenceCase(description)! : description;
 
     /// Determine the icon and colors based on the info type
     switch (type) {
@@ -91,9 +91,9 @@ class InfoCard extends StatelessWidget {
         break;
       case InfoType.info:
       default:
-      selectedIcon = themeData.infoIcon;
-      iconColor = themeData.infoColor;
-      containerColor = themeData.infoBackgroundColor;
+        selectedIcon = themeData.infoIcon;
+        iconColor = themeData.infoColor;
+        containerColor = themeData.infoBackgroundColor;
     }
 
     return SingleChildScrollView(
@@ -105,7 +105,7 @@ class InfoCard extends StatelessWidget {
             left: BorderSide(color: iconColor, width: theme.spacerTheme.spacer1),
             top: BorderSide(color: iconColor, width: themeData.borderWidth),
             bottom:
-                BorderSide(color: iconColor, width: themeData.borderWidth),
+            BorderSide(color: iconColor, width: themeData.borderWidth),
           ),
           color: containerColor,
         ),
@@ -155,26 +155,26 @@ class InfoCard extends StatelessWidget {
               if (additionalWidgets != null)
                 if (inline)
 
-                  /// Display additional widgets in a row
+                /// Display additional widgets in a row
                   Wrap(
                     spacing: theme.spacerTheme.spacer2,
                     children: additionalWidgets!
                         .map((widget) => Padding(
-                              padding: EdgeInsets.only(right: theme.spacerTheme.spacer2),
-                              child: widget,
-                            ))
+                      padding: EdgeInsets.only(right: theme.spacerTheme.spacer2),
+                      child: widget,
+                    ))
                         .toList(),
                   )
                 else
 
-                  /// Display additional widgets in a column
+                /// Display additional widgets in a column
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: additionalWidgets!
                         .map((widget) => Padding(
-                              padding: EdgeInsets.only(bottom: theme.spacerTheme.spacer2),
-                              child: widget,
-                            ))
+                      padding: EdgeInsets.only(bottom: theme.spacerTheme.spacer2),
+                      child: widget,
+                    ))
                         .toList(),
                   ),
             ],

@@ -1,10 +1,5 @@
-import 'dart:ui';
-
 import 'package:digit_ui_components/enum/app_enums.dart';
-import 'package:digit_ui_components/widgets/atoms/digit_button.dart';
-import 'package:digit_ui_components/widgets/atoms/digit_checkbox.dart';
 import 'package:digit_ui_components/widgets/atoms/digit_info_card.dart';
-import 'package:digit_ui_components/widgets/atoms/digit_text_form_input.dart';
 import 'package:digit_ui_components/widgets/atoms/info_buttons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
@@ -47,31 +42,31 @@ InfoCard(
       },
     ),
     Story(
-      name: 'Atom/Info/Info Buttons',
+      name: 'Atom/Info/Info DigitButtons',
       builder: (context) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           CodeViewProvider.of(context)?.updateCodeString('''
 InfoButton(
-  size: ButtonSize.large,
-  label: 'Primary Button',
+  size: DigitButtonSize.large,
+  label: 'Primary DigitButton',
   onPressed: () {},
-  type: InfoButtonType.warning,
+  type: InfoDigitButtonType.warning,
 )
           ''');
         });
 
         return InfoButton(
-          size: ButtonSize.large,
-          label: 'Primary Button',
+          size: DigitButtonSize.large,
+          label: 'Primary DigitButton',
           onPressed: () {},
           type: context.knobs.options(
             label: 'Type',
-            initial: InfoButtonType.warning,
+            initial: InfoDigitButtonType.warning,
             options: const [
-              Option(label: 'Warning', value: InfoButtonType.warning),
-              Option(label: 'Info', value: InfoButtonType.info),
-              Option(label: 'Error', value: InfoButtonType.error),
-              Option(label: 'Success', value: InfoButtonType.success),
+              Option(label: 'Warning', value: InfoDigitButtonType.warning),
+              Option(label: 'Info', value: InfoDigitButtonType.info),
+              Option(label: 'Error', value: InfoDigitButtonType.error),
+              Option(label: 'Success', value: InfoDigitButtonType.success),
             ],
           ),
         );
@@ -127,7 +122,7 @@ InfoCard(
       },
     ),
     Story(
-      name: 'Atom/Info/Additional widgets with buttons',
+      name: 'Atom/Info/Additional widgets with DigitButtons',
       builder: (context) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           CodeViewProvider.of(context)?.updateCodeString('''
@@ -140,11 +135,11 @@ InfoCard(
     const Text("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's"),
     Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
     Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
-    InfoButton(
+    InfoDigitButton(
       label: 'Click To Know More',
       onPressed: () {},
-      type: InfoButtonType.info,
-      size: ButtonSize.large,
+      type: InfoDigitButtonType.info,
+      size: DigitButtonSize.large,
     ),
   ],
 )
@@ -171,8 +166,8 @@ InfoCard(
             InfoButton(
               label: 'Click To Know More',
               onPressed: () {},
-              type: InfoButtonType.info,
-              size: ButtonSize.large,
+              type: InfoDigitButtonType.info,
+              size: DigitButtonSize.large,
             ),
           ],
         );

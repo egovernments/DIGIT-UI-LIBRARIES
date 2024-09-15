@@ -16,6 +16,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import '../../constants/app_constants.dart';
 import '../../utils/validators/validator.dart';
 import 'digit_base_form_input.dart';
 
@@ -44,31 +45,39 @@ class DigitSearchFormInput extends BaseDigitFormInput {
     final OutlineInputBorder? focusBorder,
     final OutlineInputBorder? enableBorder,
     final Color? iconColor,
+    final int? maxLength,
+    final double? height,
+    final TextStyle? textStyle,
+    final double? iconSize,
   }) : super(
-          key: key,
-          controller: controller,
-          readOnly: readOnly,
-          initialValue: initialValue,
-          isRequired: isRequired,
-          isDisabled: isDisabled,
-          charCount: charCount,
-          innerLabel: innerLabel,
-          helpText: helpText,
-          suffixIcon: suffixIcon ?? Icons.search,
-          onError: onError,
-          onSuffixTap: onSuffixTap,
-          validations: validations,
-          onChange: onChange,
-          keyboardType: keyboardType,
-          errorMessage: errorMessage,
-          inputFormatters: inputFormatters,
-          onFocusLost: onFocusLost,
-          onFieldSubmitted: onFieldSubmitted,
-          focusNode: focusNode,
-          focusBorder: focusBorder,
-          enableBorder: enableBorder,
-          iconColor: iconColor,
-        );
+    key: key,
+    controller: controller,
+    readOnly: readOnly,
+    initialValue: initialValue,
+    isRequired: isRequired,
+    isDisabled: isDisabled,
+    charCount: charCount,
+    innerLabel: innerLabel,
+    helpText: helpText,
+    suffixIcon: suffixIcon ?? Icons.search,
+    onError: onError,
+    onSuffixTap: onSuffixTap,
+    validations: validations,
+    onChange: onChange,
+    keyboardType: keyboardType,
+    errorMessage: errorMessage,
+    inputFormatters: inputFormatters,
+    onFocusLost: onFocusLost,
+    onFieldSubmitted: onFieldSubmitted,
+    focusNode: focusNode,
+    focusBorder: focusBorder,
+    enableBorder: enableBorder,
+    iconColor: iconColor,
+    maxLength: maxLength,
+    height: height ?? Base.height,
+    textStyle: textStyle,
+    iconSize: iconSize,
+  );
 
   @override
   _DigitSearchFormInputState createState() => _DigitSearchFormInputState();

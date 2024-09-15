@@ -9,7 +9,8 @@ class CustomSwitch extends StatefulWidget {
   final ValueChanged<bool> onChanged;
   final bool showSymbol; // Option to show symbols/icons inside the switch
   final String? label;
-  final CustomSwitchThemeData? themeData;
+  final MainAxisAlignment mainAxisAlignment;
+  final DigitSwitchThemeData? themeData;
 
   const CustomSwitch({
     Key? key,
@@ -18,6 +19,7 @@ class CustomSwitch extends StatefulWidget {
     this.showSymbol = false,
     this.label,
     this.themeData,
+    this.mainAxisAlignment = MainAxisAlignment.center,
   }) : super(key: key);
 
   @override
@@ -64,11 +66,11 @@ class _CustomSwitchState extends State<CustomSwitch>
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final customSwitchTheme = theme.extension<CustomSwitchThemeData>() ?? widget.themeData;
-    final defaultSwitchTheme = CustomSwitchThemeData.defaultTheme(context);
+    final customSwitchTheme = theme.extension<DigitSwitchThemeData>() ?? widget.themeData;
+    final defaultSwitchTheme = DigitSwitchThemeData.defaultTheme(context);
 
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: widget.mainAxisAlignment,
       children: [
         InkWell(
           hoverColor: theme.colorTheme.generic.transparent,
@@ -148,7 +150,7 @@ class _CustomSwitchState extends State<CustomSwitch>
           ),
         ),
         if (widget.label != null) ...[
-           SizedBox(width: theme.spacerTheme.spacer2),
+          SizedBox(width: theme.spacerTheme.spacer2),
           Flexible(
             child: Text(
               widget.label!,

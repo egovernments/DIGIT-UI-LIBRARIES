@@ -13,8 +13,6 @@ class TableContainer extends StatelessWidget {
         scrollDirection: Axis.vertical,
         child: SizedBox(
           width: MediaQuery.of(context).size.width,
-         // height: 500,
-          //constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height),
           child: child,
         ),
       ),

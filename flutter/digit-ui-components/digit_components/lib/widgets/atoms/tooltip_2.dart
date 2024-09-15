@@ -253,15 +253,15 @@ class TooltipOverlayState extends State<TooltipOverlay> {
             child: widget.content,
           ),
         ),
-          Positioned(
-            top: widget.toolTipElementsDisplay.arrow.y,
-            left: widget.toolTipElementsDisplay.arrow.x,
-            child: Arrow(
-              position: widget.toolTipElementsDisplay.position,
-              width: widget.arrowBox.w,
-              height: widget.arrowBox.h,
-            ),
+        Positioned(
+          top: widget.toolTipElementsDisplay.arrow.y,
+          left: widget.toolTipElementsDisplay.arrow.x,
+          child: Arrow(
+            position: widget.toolTipElementsDisplay.position,
+            width: widget.arrowBox.w,
+            height: widget.arrowBox.h,
           ),
+        ),
         // if (widget.showChildAboveOverlay)
         //   Positioned(
         //     top: widget.triggerBox.y,
@@ -524,7 +524,7 @@ class PositionManager {
   /// [screenSize] width and height of the current screen.
   final ElementBox screenSize;
 
-  /// [distance] between the tooltip and the trigger button.
+  /// [distance] between the tooltip and the trigger DigitButton.
   final double distance;
 
   /// [radius] border radius amount of the tooltip.

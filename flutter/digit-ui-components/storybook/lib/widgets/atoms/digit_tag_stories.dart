@@ -99,6 +99,7 @@ Tag(
           CodeViewProvider.of(context)?.updateCodeString('''
 Tag(
   label: Tag with click,
+  onClick: (){},
   type: TagType.monochrome,
   isStroke:false,
 )
@@ -106,6 +107,7 @@ Tag(
         });
 
         return Tag(
+          onClick: (){},
           label: context.knobs.text(label: 'Label', initial: 'Tag with Click'),
           type: TagType.monochrome,
           isStroke: context.knobs.boolean(label: 'Stroke', initial: false),

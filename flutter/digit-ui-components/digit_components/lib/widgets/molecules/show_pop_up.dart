@@ -7,7 +7,7 @@ import '../atoms/digit_button.dart';
 import '../atoms/pop_up_card.dart';
 
 void showPopup({
-   required final BuildContext context,
+  required final BuildContext context,
   required final String title,
   required final PopUpType type,
   final double? width,
@@ -16,8 +16,8 @@ void showPopup({
   final String? subHeading,
   final String? description,
   final List<Widget>? additionalWidgets,
-  final List<Button>? actions,
-  final void Function(BuildContext)? onCrossTap,
+  final List<DigitButton>? actions,
+  final void Function()? onCrossTap,
   final bool? inlineAction,
   final MainAxisAlignment? actionAlignment,
   final double? actionSpacing,
@@ -41,7 +41,7 @@ void showPopup({
           inlineActions: inlineAction,
           actionAlignment: actionAlignment,
           actionSpacing: actionSpacing,
-          onCrossTap: (context) {
+          onCrossTap: () {
             if (Navigator.of(currentContext).mounted) {
               Navigator.of(currentContext).pop();
             }
@@ -52,9 +52,9 @@ void showPopup({
   );
 }
 
-void showActionCard({
+void showDigitActionCard({
   required final BuildContext context,
-  required final List<Button> actions,
+  required final List<DigitButton> actions,
   final double? width,
   final double? height,
   final double? spacing,
@@ -65,7 +65,7 @@ void showActionCard({
     builder: (BuildContext context) {
       return BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
-        child: ActionCard(
+        child: DigitActionCard(
           actions: actions,
 
         ),

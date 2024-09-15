@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../theme/ComponentTheme/digit_tag_theme.dart';
 
-class Tag extends StatelessWidget {
+class Tag extends StatefulWidget {
   final String label;
   final TagType type;
   final bool isIcon;
@@ -27,9 +27,16 @@ class Tag extends StatelessWidget {
   });
 
   @override
+  _TagState createState() => _TagState();
+}
+
+class _TagState extends State<Tag> {
+  bool isHovered = false;
+
+  @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final tagThemeData = themeData ?? theme.extension<TagThemeData>();
+    final tagThemeData = widget.themeData ?? theme.extension<TagThemeData>();
 
     final defaultTagThemeData = TagThemeData.defaultTheme(context);
 
@@ -37,7 +44,7 @@ class Tag extends StatelessWidget {
     Color textColor;
     Icon? icon;
 
-    switch (type) {
+    switch (widget.type) {
       case TagType.success:
         backgroundColor = tagThemeData?.successBackgroundColor ??
             defaultTagThemeData.successBackgroundColor!;
@@ -66,54 +73,61 @@ class Tag extends StatelessWidget {
         break;
     }
 
-    return Container(
-      padding: tagThemeData?.padding ?? defaultTagThemeData.padding,
-      width: tagThemeData?.tagWidth,
-      decoration: BoxDecoration(
-        color: backgroundColor,
-        borderRadius:
-            tagThemeData?.borderRadius ?? defaultTagThemeData.borderRadius,
-        border: isStroke
-            ? Border.all(
-                color: textColor,
-                width: tagThemeData?.borderWidth ??
-                    defaultTagThemeData.borderWidth!)
-            : null,
-        boxShadow: onClick!=null
-            ? [
-                BoxShadow(
-                    color: textColor.withOpacity(.15),
-                    offset: const Offset(0, 1),
-                    spreadRadius: 1,
-                    blurRadius: 3),
-                BoxShadow(
-                    color: textColor.withOpacity(.30),
-                    offset: const Offset(0, 1),
-                    blurRadius: 2)
-              ]
-            : null,
-      ),
-      child: InkWell(
-        hoverColor: theme.colorTheme.generic.transparent,
-        splashColor: theme.colorTheme.generic.transparent,
-        highlightColor: theme.colorTheme.generic.transparent,
-        onTap: onClick,
+    return InkWell(
+      hoverColor: theme.colorTheme.generic.transparent,
+      splashColor: theme.colorTheme.generic.transparent,
+      highlightColor: theme.colorTheme.generic.transparent,
+      onTap: widget.onClick,
+      onHover: widget.onClick != null ? (bool isHovering) {
+        setState(() {
+          isHovered = isHovering;
+        });
+      }: null,
+      child: Container(
+        padding: tagThemeData?.padding ?? defaultTagThemeData.padding,
+        width: tagThemeData?.tagWidth,
+        decoration: BoxDecoration(
+          color: backgroundColor,
+          borderRadius: tagThemeData?.borderRadius ??
+              defaultTagThemeData.borderRadius,
+          border: widget.isStroke
+              ? Border.all(
+              color: textColor,
+              width: tagThemeData?.borderWidth ??
+                  defaultTagThemeData.borderWidth!)
+              : null,
+          boxShadow: widget.onClick != null && isHovered
+              ? [
+            BoxShadow(
+                color: textColor.withOpacity(.15),
+                offset: const Offset(0, 1),
+                spreadRadius: 1,
+                blurRadius: 3),
+            BoxShadow(
+                color: textColor.withOpacity(.30),
+                offset: const Offset(0, 1),
+                blurRadius: 2)
+          ]
+              : null,
+        ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (isIcon && !(type == TagType.monochrome)) ...[
-              customIcon ?? icon!,
-              SizedBox(width: theme.spacerTheme.spacer2),
+            if (widget.isIcon && !(widget.type == TagType.monochrome)) ...[
+              widget.customIcon ?? icon!,
+              SizedBox(width: theme.spacerTheme.spacer3),
             ],
             Flexible(
               child: Text(
-                label,
+                widget.label,
                 overflow: TextOverflow.ellipsis,
-                maxLines: themeData?.maxLine ?? defaultTagThemeData.maxLine,
-                style: customTextStyle ??
+                maxLines: widget.themeData?.maxLine ??
+                    defaultTagThemeData.maxLine,
+                style: widget.customTextStyle ??
                     tagThemeData?.textStyle?.copyWith(color: textColor) ??
-                    defaultTagThemeData.textStyle!.copyWith(color: textColor),
+                    defaultTagThemeData.textStyle!
+                        .copyWith(color: textColor),
               ),
             ),
           ],

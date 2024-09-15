@@ -57,7 +57,7 @@ abstract class DigitTypography {
   TextStyle get link => textTheme.bodyLarge!.copyWith(
     decoration:TextDecoration.underline,
   );
-  TextStyle get button => textTheme.labelLarge!.copyWith(
+  TextStyle get DigitButton => textTheme.labelLarge!.copyWith(
     fontFamily: 'Roboto',
     fontWeight: FontWeight.w500,
     fontSize: 19,
@@ -250,7 +250,7 @@ class DigitTabTypography extends DigitTypography {
     );
   }
   @override
-  TextStyle get button {
+  TextStyle get DigitButton {
     return textTheme.labelLarge!.copyWith(
       fontFamily: 'Roboto',
       fontWeight: FontWeight.w500,
@@ -358,7 +358,7 @@ class DigitDesktopTypography extends DigitTypography {
     );
   }
   @override
-  TextStyle get button {
+  TextStyle get DigitButton {
     return textTheme.labelLarge!.copyWith(
       fontFamily: 'Roboto',
       fontWeight: FontWeight.w500,
@@ -369,10 +369,10 @@ class DigitDesktopTypography extends DigitTypography {
 }
 
 
-/// Button-specific typography class
-class ButtonTypography extends DigitTypography{
+/// DigitButton-specific typography class
+class DigitButtonTypography extends DigitTypography{
 
-  const ButtonTypography({
+  const DigitButtonTypography({
     required TextStyle normalBase,
     required TextStyle displayBase,
     Color? normal,
@@ -416,16 +416,13 @@ class ButtonTypography extends DigitTypography{
   }
 
   /// Heading styles
-  TextStyle get buttonLarge => textTheme.headlineLarge!;
-  TextStyle get buttonMedium => textTheme.headlineMedium!;
-  TextStyle get buttonSmall => textTheme.headlineSmall!;
+  TextStyle get DigitButtonLarge => textTheme.headlineLarge!;
+  TextStyle get DigitButtonMedium => textTheme.headlineMedium!;
+  TextStyle get DigitButtonSmall => textTheme.headlineSmall!;
 }
 
-DigitTypography getTypography(BuildContext context, isButtonTypography) {
+DigitTypography getTypography(BuildContext context, isDigitButtonTypography) {
 
-  if(isButtonTypography){
-    return DigitTheme.instance.buttonTypography;
-  }
 
   if (AppView.isDesktopView(MediaQuery.of(context).size)) {
     /// Desktop

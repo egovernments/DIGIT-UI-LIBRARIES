@@ -1,4 +1,6 @@
+
 import 'package:digit_ui_components/digit_components.dart';
+import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:flutter/material.dart';
 
 class DigitCard extends StatelessWidget {
@@ -18,11 +20,12 @@ class DigitCard extends StatelessWidget {
     this.margin,
     this.onPressed,
     this.spacing,
-    required this.cardType,
+    this.cardType = CardType.primary,
   });
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
     bool isTab = AppView.isTabletView(MediaQuery.of(context).size);
     return Container(

@@ -38,9 +38,9 @@ List<Story> showPopUPStories() {
                   title: 'Alert!',
                   subHeading: 'Please contact the administrator if you have any query.',
                   type: PopUpType.alert,
-                  actions: [Button(label: 'OK', onPressed: (){
+                  actions: [DigitButton(label: 'OK', onPressed: (){
                     Navigator.of(currentContext).pop();
-                  }, type: ButtonType.primary, size: ButtonSize.large)],
+                  }, type: DigitButtonType.primary, size: DigitButtonSize.large)],
                 ),
               );
             },

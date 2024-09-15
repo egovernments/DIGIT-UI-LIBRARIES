@@ -57,16 +57,16 @@ List<Story> panelCardStories() {
           )
         ],
         actions: [
-          Button(
+          DigitButton(
               label: 'Cancel',
               onPressed: () {},
-              type: ButtonType.secondary,
-              size: ButtonSize.large),
-          Button(
+              type: DigitButtonType.secondary,
+              size: DigitButtonSize.large),
+          DigitButton(
               label: 'Submit',
               onPressed: () {},
-              type: ButtonType.primary,
-              size: ButtonSize.large)
+              type: DigitButtonType.primary,
+              size: DigitButtonSize.large)
         ],
       ),
     ),
@@ -94,16 +94,16 @@ List<Story> panelCardStories() {
         description:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
         actions: [
-          Button(
+          DigitButton(
               label: 'Cancel',
               onPressed: () {},
-              type: ButtonType.secondary,
-              size: ButtonSize.large),
-          Button(
+              type: DigitButtonType.secondary,
+              size: DigitButtonSize.large),
+          DigitButton(
               label: 'Submit',
               onPressed: () {},
-              type: ButtonType.primary,
-              size: ButtonSize.large)
+              type: DigitButtonType.primary,
+              size: DigitButtonSize.large)
         ],
       ),
     ),
@@ -131,16 +131,16 @@ List<Story> panelCardStories() {
         description:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
         actions: [
-          Button(
+          DigitButton(
               label: 'Cancel',
               onPressed: () {},
-              type: ButtonType.secondary,
-              size: ButtonSize.large),
-          Button(
+              type: DigitButtonType.secondary,
+              size: DigitButtonSize.large),
+          DigitButton(
               label: 'Submit',
               onPressed: () {},
-              type: ButtonType.primary,
-              size: ButtonSize.large)
+              type: DigitButtonType.primary,
+              size: DigitButtonSize.large)
         ],
         additionWidgets: const [
           InfoCard(title: 'Success', type: InfoType.success, description: 'The edge of the RenderFlex that is overflowing has been marked in the rendering with a yellow and black striped pattern.')
@@ -172,18 +172,18 @@ List<Story> panelCardStories() {
         description:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
         actions: [
-          Button(
+          DigitButton(
             label: 'Cancel',
             onPressed: () {},
-            type: ButtonType.secondary,
-            size: ButtonSize.large,
+            type: DigitButtonType.secondary,
+            size: DigitButtonSize.large,
             mainAxisSize: MainAxisSize.max,
           ),
-          Button(
+          DigitButton(
             label: 'Submit',
             onPressed: () {},
-            type: ButtonType.primary,
-            size: ButtonSize.large,
+            type: DigitButtonType.primary,
+            size: DigitButtonSize.large,
             mainAxisSize: MainAxisSize.max,
           )
         ],
@@ -213,16 +213,16 @@ List<Story> panelCardStories() {
         description:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
         actions: [
-          Button(
+          DigitButton(
               label: 'Cancel',
               onPressed: () {},
-              type: ButtonType.secondary,
-              size: ButtonSize.large),
-          Button(
+              type: DigitButtonType.secondary,
+              size: DigitButtonSize.large),
+          DigitButton(
               label: 'Submit',
               onPressed: () {},
-              type: ButtonType.primary,
-              size: ButtonSize.large)
+              type: DigitButtonType.primary,
+              size: DigitButtonSize.large)
         ],
         additionWidgets: const [
           InfoCard(title: 'Success', type: InfoType.success, description: 'The edge of the RenderFlex that is overflowing has been marked in the rendering with a yellow and black striped pattern.'),
@@ -298,16 +298,16 @@ List<Story> panelCardStories() {
           )
         ],
         actions: [
-          Button(
+          DigitButton(
               label: 'Cancel',
               onPressed: () {},
-              type: ButtonType.secondary,
-              size: ButtonSize.large),
-          Button(
+              type: DigitButtonType.secondary,
+              size: DigitButtonSize.large),
+          DigitButton(
               label: 'Submit',
               onPressed: () {},
-              type: ButtonType.primary,
-              size: ButtonSize.large)
+              type: DigitButtonType.primary,
+              size: DigitButtonSize.large)
         ],
       ),
     ),
@@ -335,16 +335,16 @@ List<Story> panelCardStories() {
         description:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
         actions: [
-          Button(
+          DigitButton(
               label: 'Cancel',
               onPressed: () {},
-              type: ButtonType.secondary,
-              size: ButtonSize.large),
-          Button(
+              type: DigitButtonType.secondary,
+              size: DigitButtonSize.large),
+          DigitButton(
               label: 'Submit',
               onPressed: () {},
-              type: ButtonType.primary,
-              size: ButtonSize.large)
+              type: DigitButtonType.primary,
+              size: DigitButtonSize.large)
         ],
       ),
     ),
@@ -372,16 +372,16 @@ List<Story> panelCardStories() {
         description:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
         actions: [
-          Button(
+          DigitButton(
               label: 'Cancel',
               onPressed: () {},
-              type: ButtonType.secondary,
-              size: ButtonSize.large),
-          Button(
+              type: DigitButtonType.secondary,
+              size: DigitButtonSize.large),
+          DigitButton(
               label: 'Submit',
               onPressed: () {},
-              type: ButtonType.primary,
-              size: ButtonSize.large)
+              type: DigitButtonType.primary,
+              size: DigitButtonSize.large)
         ],
         additionWidgets: const [
           InfoCard(title: 'Error', type: InfoType.error, description: 'The edge of the RenderFlex that is overflowing has been marked in the rendering with a yellow and black striped pattern.')
@@ -412,16 +412,16 @@ List<Story> panelCardStories() {
         description:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
         actions: [
-          Button(
+          DigitButton(
               label: 'Cancel',
               onPressed: () {},
-              type: ButtonType.secondary,
-              size: ButtonSize.large),
-          Button(
+              type: DigitButtonType.secondary,
+              size: DigitButtonSize.large),
+          DigitButton(
               label: 'Submit',
               onPressed: () {},
-              type: ButtonType.primary,
-              size: ButtonSize.large)
+              type: DigitButtonType.primary,
+              size: DigitButtonSize.large)
         ],
         additionWidgets: const [
           InfoCard(title: 'Error', type: InfoType.error, description: 'The edge of the RenderFlex that is overflowing has been marked in the rendering with a yellow and black striped pattern.'),

@@ -64,12 +64,12 @@ class BaseConstants {
 }
 
 
-class ButtonConstants {
-  static const EdgeInsets defaultButtonPadding = EdgeInsets.all(spacer1);
+class DigitButtonConstants {
+  static const EdgeInsets defaultDigitButtonPadding = EdgeInsets.all(spacer1);
   static const EdgeInsets defaultContentPadding = EdgeInsets.symmetric(horizontal: spacer6, vertical: 0);
-  static const double largeButtonSize = 40.0;
-  static const double mediumButtonSize = 32.0;
-  static const double smallButtonSize = 24.0;
+  static const double largeDigitButtonSize = 40.0;
+  static const double mediumDigitButtonSize = 32.0;
+  static const double smallDigitButtonSize = 24.0;
   static const double largeIconSize = 24.0;
   static const double mediumIconSize = 20.0;
   static const double smallIconSize = 14.0;

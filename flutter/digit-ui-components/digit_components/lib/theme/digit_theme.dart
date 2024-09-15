@@ -3,6 +3,7 @@ library digit_theme;
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/theme/colors.dart';
 import 'package:digit_ui_components/theme/typography.dart';
+import 'package:digit_ui_components/theme/typography.dart';
 import 'package:flutter/material.dart';
 
 class DigitTheme {
@@ -13,17 +14,6 @@ class DigitTheme {
   DigitColors get colors => const DigitColors();
 
   DigitTabTypography get tabTypography => DigitTabTypography(
-    normalBase: const TextStyle(
-      fontFamily: 'Roboto',
-    ),
-    displayBase: const TextStyle(
-      fontFamily: 'Roboto',
-    ),
-    light: colors.light.textSecondary,
-    normal: colors.light.textPrimary,
-  );
-
-  ButtonTypography get buttonTypography => ButtonTypography(
     normalBase: const TextStyle(
       fontFamily: 'Roboto',
     ),
@@ -67,9 +57,9 @@ class DigitTheme {
       scaffoldBackgroundColor: colorScheme.background,
       textTheme: mobileTypography.textTheme,
       appBarTheme: const AppBarTheme(elevation: 0),
-      elevatedButtonTheme: elevatedButtonTheme,
-      outlinedButtonTheme: outlinedButtonTheme,
-      textButtonTheme: textButtonTheme,
+      elevatedButtonTheme: elevatedDigitButtonTheme,
+      outlinedButtonTheme: outlinedDigitButtonTheme,
+      textButtonTheme: textDigitButtonTheme,
       cardTheme: cardTheme,
       inputDecorationTheme: inputDecorationTheme,
       dialogTheme: dialogTheme.copyWith(),
@@ -190,7 +180,7 @@ class DigitTheme {
     onTertiaryContainer: colors.light.alertInfoBg,
   );
 
-  EdgeInsets get buttonPadding => const EdgeInsets.symmetric(
+  EdgeInsets get DigitButtonPadding => const EdgeInsets.symmetric(
     vertical: spacer2,
     horizontal: spacer4,
   );
@@ -203,14 +193,14 @@ class DigitTheme {
 
   Duration get toastDuration => const Duration(seconds: 2);
 
-  OutlinedBorder get buttonBorder => const RoundedRectangleBorder(
+  OutlinedBorder get DigitButtonBorder => const RoundedRectangleBorder(
     borderRadius: BorderRadius.all(Radius.zero),
   );
 
-  ElevatedButtonThemeData get elevatedButtonTheme => ElevatedButtonThemeData(
+  ElevatedButtonThemeData get elevatedDigitButtonTheme => ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
-      shape: buttonBorder,
-      padding: buttonPadding,
+      shape: DigitButtonBorder,
+      padding: DigitButtonPadding,
       backgroundColor: colorScheme.primary,
       foregroundColor: const DigitColors().light.primary1,
       disabledBackgroundColor: colorScheme.secondary.withOpacity(
@@ -221,18 +211,18 @@ class DigitTheme {
     ),
   );
 
-  OutlinedButtonThemeData get outlinedButtonTheme => OutlinedButtonThemeData(
+  OutlinedButtonThemeData get outlinedDigitButtonTheme => OutlinedButtonThemeData(
     style: OutlinedButton.styleFrom(
       foregroundColor: const DigitColors().light.primary1,
       side: BorderSide(color: colorScheme.secondary),
-      padding: buttonPadding,
+      padding: DigitButtonPadding,
     ),
   );
 
-  TextButtonThemeData get textButtonTheme => TextButtonThemeData(
+  TextButtonThemeData get textDigitButtonTheme => TextButtonThemeData(
     style: TextButton.styleFrom(
-      shape: buttonBorder,
-      padding: buttonPadding,
+      shape: DigitButtonBorder,
+      padding: DigitButtonPadding,
       textStyle:  TextStyle(fontFamily: 'Roboto',
         fontWeight: FontWeight.w500,
         fontSize: 19,

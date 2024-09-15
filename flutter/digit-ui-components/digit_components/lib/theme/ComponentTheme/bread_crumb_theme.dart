@@ -1,24 +1,24 @@
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:flutter/material.dart';
 
-class BreadcrumbThemeData extends ThemeExtension<BreadcrumbThemeData> {
+class DigitBreadCrumbThemeData extends ThemeExtension<DigitBreadCrumbThemeData> {
   final TextStyle? activeTextStyle;
   final TextStyle? inactiveTextStyle;
   final TextStyle? separatorTextStyle;
   final EdgeInsets? itemPadding;
 
-  const BreadcrumbThemeData({
+  const DigitBreadCrumbThemeData({
     this.activeTextStyle,
     this.inactiveTextStyle,
     this.separatorTextStyle,
     this.itemPadding,
   });
 
-  static BreadcrumbThemeData defaultTheme(BuildContext context) {
+  static DigitBreadCrumbThemeData defaultTheme(BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.digitTextTheme(context);
 
-    return BreadcrumbThemeData(
+    return DigitBreadCrumbThemeData(
       activeTextStyle: textTheme.bodyS.copyWith(
         color: theme.colorTheme.primary.primary1,
         decoration: TextDecoration.none,
@@ -36,13 +36,13 @@ class BreadcrumbThemeData extends ThemeExtension<BreadcrumbThemeData> {
   }
 
   @override
-  BreadcrumbThemeData copyWith({
+  DigitBreadCrumbThemeData copyWith({
     TextStyle? activeTextStyle,
     TextStyle? inactiveTextStyle,
     TextStyle? separatorTextStyle,
     EdgeInsets? itemPadding,
   }) {
-    return BreadcrumbThemeData(
+    return DigitBreadCrumbThemeData(
       activeTextStyle: activeTextStyle ?? this.activeTextStyle,
       inactiveTextStyle: inactiveTextStyle ?? this.inactiveTextStyle,
       separatorTextStyle: separatorTextStyle ?? this.separatorTextStyle,
@@ -51,10 +51,10 @@ class BreadcrumbThemeData extends ThemeExtension<BreadcrumbThemeData> {
   }
 
   @override
-  BreadcrumbThemeData lerp(covariant ThemeExtension<BreadcrumbThemeData>? other, double t) {
-    if (other is! BreadcrumbThemeData) return this;
+  DigitBreadCrumbThemeData lerp(covariant ThemeExtension<DigitBreadCrumbThemeData>? other, double t) {
+    if (other is! DigitBreadCrumbThemeData) return this;
 
-    return BreadcrumbThemeData(
+    return DigitBreadCrumbThemeData(
       activeTextStyle: TextStyle.lerp(activeTextStyle, other.activeTextStyle, t),
       inactiveTextStyle: TextStyle.lerp(inactiveTextStyle, other.inactiveTextStyle, t),
       separatorTextStyle: TextStyle.lerp(separatorTextStyle, other.separatorTextStyle, t),

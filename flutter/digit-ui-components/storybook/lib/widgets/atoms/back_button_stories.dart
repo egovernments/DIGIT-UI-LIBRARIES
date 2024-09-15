@@ -6,24 +6,24 @@ import 'package:flutter/material.dart';
 
 import '../../plugins/code_view_wrapper.dart';
 
-List<Story> backNavigationButtonStories() {
+List<Story> digitBackButtonStories() {
   return [
     Story(
       name: 'Atom/Back Navigation Button/Variant 1',
       builder: (context) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           CodeViewProvider.of(context)?.updateCodeString('''
-BackNavigationButton(
+DigitBackButton(
   handleBack: () {},
-  backButtonText: 'Back',
+  backDigitButtonText: 'Back',
 )
           ''');
         });
 
         return Center(
-          child: BackNavigationButton(
+          child: DigitBackButton(
             handleBack: () {},
-            backButtonText: 'Back',
+            backDigitButtonText: 'Back',
           ),
         );
       },
@@ -33,10 +33,10 @@ BackNavigationButton(
       builder: (context) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           CodeViewProvider.of(context)?.updateCodeString('''
-BackNavigationButton(
-  backNavigationButtonThemeData: BackNavigationButtonThemeData().copyWith(
+DigitBackButton(
+  digitBackButtonThemeData: DigitBackButtonThemeData().copyWith(
     context: context,
-    backButtonIcon: Icon(
+    backDigitButtonIcon: Icon(
       Icons.arrow_circle_left_outlined,
       size: MediaQuery.of(context).size.width < 500
           ? Theme.of(context).spacerTheme.spacer5
@@ -45,17 +45,17 @@ BackNavigationButton(
     ),
   ),
   handleBack: () {},
-  backButtonText: 'Back',
+  backDigitButtonText: 'Back',
 )
           ''');
         });
 
         return Center(
-          child: BackNavigationButton(
-            backNavigationButtonThemeData:
-            const BackNavigationButtonThemeData().copyWith(
+          child: DigitBackButton(
+            digitBackButtonThemeData:
+            const DigitBackButtonThemeData().copyWith(
               context: context,
-              backButtonIcon: Icon(
+              backDigitButtonIcon: Icon(
                 Icons.arrow_circle_left_outlined,
                 size: MediaQuery.of(context).size.width < 500
                     ? Theme.of(context).spacerTheme.spacer5
@@ -64,21 +64,21 @@ BackNavigationButton(
               ),
             ),
             handleBack: () {},
-            backButtonText: 'Back',
+            backDigitButtonText: 'Back',
           ),
         );
       },
     ),
     Story(
-      name: 'Atom/Back Navigation Button/Variant 3',
+      name: 'Atom/Back Navigation DigitButton/Variant 3',
       builder: (context) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           CodeViewProvider.of(context)?.updateCodeString('''
-BackNavigationButton(
+DigitBackButton(
   handleBack: () {},
-  backNavigationButtonThemeData: BackNavigationButtonThemeData().copyWith(
+  digitBackButtonThemeData: DigitBackButtonThemeData().copyWith(
     context: context,
-    backButtonIcon: Icon(
+    backDigitButtonIcon: Icon(
       Icons.arrow_left,
       size: MediaQuery.of(context).size.width < 500
           ? Theme.of(context).spacerTheme.spacer5
@@ -86,18 +86,18 @@ BackNavigationButton(
       color: Theme.of(context).colorTheme.primary.primary2,
     ),
   ),
-  backButtonText: 'Back',
+  backDigitButtonText: 'Back',
 )
           ''');
         });
 
         return Center(
-          child: BackNavigationButton(
+          child: DigitBackButton(
             handleBack: () {},
-            backNavigationButtonThemeData:
-            const BackNavigationButtonThemeData().copyWith(
+            digitBackButtonThemeData:
+            const DigitBackButtonThemeData().copyWith(
               context: context,
-              backButtonIcon: Icon(
+              backDigitButtonIcon: Icon(
                 Icons.arrow_left,
                 size: MediaQuery.of(context).size.width < 500
                     ? Theme.of(context).spacerTheme.spacer5
@@ -105,22 +105,22 @@ BackNavigationButton(
                 color: Theme.of(context).colorTheme.primary.primary2,
               ),
             ),
-            backButtonText: 'Back',
+            backDigitButtonText: 'Back',
           ),
         );
       },
     ),
     Story(
-      name: 'Atom/Back Navigation Button/Disabled',
+      name: 'Atom/Back Navigation DigitButton/Disabled',
       builder: (context) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           CodeViewProvider.of(context)?.updateCodeString('''
-BackNavigationButton()
+DigitBackDigitButton()
           ''');
         });
 
         return const Center(
-          child: BackNavigationButton(),
+          child: DigitBackButton(),
         );
       },
     ),

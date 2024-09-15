@@ -233,8 +233,8 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
     double width = AppView.isMobileView(MediaQuery.of(context).size)
         ? MediaQuery.of(context).size.width
         : AppView.isTabletView(MediaQuery.of(context).size)
-            ? BaseConstants.tabInputMaxWidth
-            : BaseConstants.desktopInputMaxWidth;
+        ? BaseConstants.tabInputMaxWidth
+        : BaseConstants.desktopInputMaxWidth;
     double minWidth = AppView.isMobileView(MediaQuery.of(context).size)
         ? BaseConstants.mobileInputMinWidth
         : BaseConstants.desktopInputMaxWidth;
@@ -255,7 +255,7 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
               highlightColor: const DigitColors().transparent,
               hoverColor: const DigitColors().transparent,
               onTap:
-                  !widget.isDisabled && !widget.readOnly ? _toggleFocus : null,
+              !widget.isDisabled && !widget.readOnly ? _toggleFocus : null,
 
               /// Disable onTap if dropdown is disabled
               child: StatefulBuilder(builder: (context, setState) {
@@ -272,41 +272,41 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
                   decoration: widget.isDisabled
                       ? _getDisabledContainerDecoration()
                       : widget.readOnly
-                          ? _getReadOnlyContainerDecoration()
-                          : _getContainerDecoration(),
+                      ? _getReadOnlyContainerDecoration()
+                      : _getContainerDecoration(),
                   child: Row(
                     children: [
                       Expanded(
                         child: (_selectedOptions.isNotEmpty)
                             ? (widget.treeSelectionType ==
-                                    DropdownType.multiSelect)
-                                ? Text(
-                                    convertInToSentenceCase(
-                                        '${_selectedOptions.length} Selected')!,
-                                    style: currentTypography.bodyL.copyWith(
-                                      color: widget.readOnly
-                                          ? const DigitColors()
-                                              .light
-                                              .textSecondary
-                                          : const DigitColors()
-                                              .light
-                                              .textPrimary,
-                                    ),
-                                  )
-                                : Text(
-                                    convertInToSentenceCase(_selectedOptions
-                                        .first.code
-                                        .toString())!,
-                                    style: currentTypography.bodyL.copyWith(
-                                      color: widget.readOnly
-                                          ? const DigitColors()
-                                              .light
-                                              .textSecondary
-                                          : const DigitColors()
-                                              .light
-                                              .textPrimary,
-                                    ),
-                                  )
+                            DropdownType.multiSelect)
+                            ? Text(
+                          convertInToSentenceCase(
+                              '${_selectedOptions.length} Selected')!,
+                          style: currentTypography.bodyL.copyWith(
+                            color: widget.readOnly
+                                ? const DigitColors()
+                                .light
+                                .textSecondary
+                                : const DigitColors()
+                                .light
+                                .textPrimary,
+                          ),
+                        )
+                            : Text(
+                          convertInToSentenceCase(_selectedOptions
+                              .first.code
+                              .toString())!,
+                          style: currentTypography.bodyL.copyWith(
+                            color: widget.readOnly
+                                ? const DigitColors()
+                                .light
+                                .textSecondary
+                                : const DigitColors()
+                                .light
+                                .textPrimary,
+                          ),
+                        )
                             : const SizedBox(),
                       ),
                       Icon(
@@ -333,53 +333,53 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
             children: [
               widget.errorMessage != null
                   ? Expanded(
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Column(
-                            children: [
-                              const SizedBox(
-                                height: spacer1 / 2,
-                              ),
-                              SizedBox(
-                                height: spacer4,
-                                width: spacer4,
-                                child: Icon(
-                                  Icons.info,
-                                  color: const DigitColors().light.alertError,
-                                  size: BaseConstants.errorIconSize,
-                                ),
-                              ),
-                            ],
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Column(
+                      children: [
+                        const SizedBox(
+                          height: spacer1 / 2,
+                        ),
+                        SizedBox(
+                          height: spacer4,
+                          width: spacer4,
+                          child: Icon(
+                            Icons.info,
+                            color: const DigitColors().light.alertError,
+                            size: BaseConstants.errorIconSize,
                           ),
-                          const SizedBox(width: spacer1),
-                          Flexible(
-                            fit: FlexFit.tight,
-                            child: Text(
-                              widget.errorMessage!.length > 256
-                                  ? '${convertInToSentenceCase(widget.errorMessage!)?.substring(0, 256)}...'
-                                  : convertInToSentenceCase(
-                                      widget.errorMessage!)!,
-                              style: currentTypography.bodyS.copyWith(
-                                color: const DigitColors().light.alertError,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
-                  : Expanded(
+                        ),
+                      ],
+                    ),
+                    const SizedBox(width: spacer1),
+                    Flexible(
+                      fit: FlexFit.tight,
                       child: Text(
-                        widget.helpText!.length > 256
-                            ? '${convertInToSentenceCase(widget.helpText!)?.substring(0, 256)}...'
-                            : widget.helpText!,
+                        widget.errorMessage!.length > 256
+                            ? '${convertInToSentenceCase(widget.errorMessage!)?.substring(0, 256)}...'
+                            : convertInToSentenceCase(
+                            widget.errorMessage!)!,
                         style: currentTypography.bodyS.copyWith(
-                          color: const DigitColors().light.textSecondary,
+                          color: const DigitColors().light.alertError,
                         ),
                       ),
                     ),
+                  ],
+                ),
+              )
+                  : Expanded(
+                child: Text(
+                  widget.helpText!.length > 256
+                      ? '${convertInToSentenceCase(widget.helpText!)?.substring(0, 256)}...'
+                      : widget.helpText!,
+                  style: currentTypography.bodyS.copyWith(
+                    color: const DigitColors().light.textSecondary,
+                  ),
+                ),
+              ),
             ],
           ),
         const SizedBox(
@@ -423,7 +423,7 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
         }),
         if (_selectedOptions.isNotEmpty && !widget.readOnly)
 
-          /// Display "Clear All" only if there are selected options
+        /// Display "Clear All" only if there are selected options
           InkWell(
             onTap: () => clear(),
             hoverColor: const DigitColors().transparent,
@@ -508,18 +508,18 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
       borderRadius: Base.radius,
       border: widget.errorMessage != null
           ? Border.all(
-              color: const DigitColors().light.alertError,
-              width: Base.errorBorderWidth,
-            )
+        color: const DigitColors().light.alertError,
+        width: Base.errorBorderWidth,
+      )
           : _selectionMode
-              ? Border.all(
-                  color: const DigitColors().light.primary1,
-                  width: Base.focusedBorderWidth,
-                )
-              : Border.all(
-                  color: const DigitColors().light.textSecondary,
-                  width: Base.defaultBorderWidth,
-                ),
+          ? Border.all(
+        color: const DigitColors().light.primary1,
+        width: Base.focusedBorderWidth,
+      )
+          : Border.all(
+        color: const DigitColors().light.textSecondary,
+        width: Base.defaultBorderWidth,
+      ),
     );
   }
 
@@ -560,7 +560,7 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
 
   /// Create the overlay entry for the dropdown.
   OverlayEntry _buildOverlayEntry() {
-    /// Calculate the offset and the size of the dropdown button
+    /// Calculate the offset and the size of the dropdown DigitButton
     final values = _calculateOffsetSize();
 
     /// Get the size from the first item in the values list
@@ -641,7 +641,7 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
           itemBuilder: (context, index) {
             final option = options[index];
             bool isSelected =
-                selectedOptions.any((item) => item.name == option.name);
+            selectedOptions.any((item) => item.name == option.name);
             Color backgroundColor = index % 2 == 0
                 ? const DigitColors().light.paperPrimary
                 : const DigitColors().light.paperSecondary;
@@ -659,12 +659,12 @@ class _TreeSelectDropDownState<T> extends State<TreeSelectDropDown<T>> {
   }
 
   Widget _buildOption(
-    TreeNode option,
-    bool isSelected,
-    StateSetter dropdownState,
-    Color backgroundColor,
-    List<TreeNode> selectedOptions,
-  ) {
+      TreeNode option,
+      bool isSelected,
+      StateSetter dropdownState,
+      Color backgroundColor,
+      List<TreeNode> selectedOptions,
+      ) {
     return TreeNodeWidget(
       currentOption: option,
       option: option,
@@ -793,7 +793,7 @@ class TreeSelectController<T> extends ValueNotifier<_TreeSelectController<T>> {
       return;
     }
     value._selectedOptions.removeWhere(
-        (item) => item.code == option.code && item.name == option.name);
+            (item) => item.code == option.code && item.name == option.name);
     notifyListeners();
   }
 

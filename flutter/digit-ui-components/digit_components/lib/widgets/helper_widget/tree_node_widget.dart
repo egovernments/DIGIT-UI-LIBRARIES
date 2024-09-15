@@ -1,7 +1,9 @@
 import 'dart:math';
+import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:flutter/material.dart';
 import '../../enum/app_enums.dart';
 import '../../models/TreeModel.dart';
+import '../../theme/ComponentTheme/checkbox_theme.dart';
 import '../../theme/theme.dart';
 import '../atoms/digit_checkbox_icon.dart';
 
@@ -116,6 +118,7 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     DigitTypography currentTypography = getTypography(context, false);
     return StatefulBuilder(builder: (context, setState) {
       return Column(
@@ -247,8 +250,17 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
                               });
                             },
                             child: _areAllChildrenSelected(widget.currentOption)
-                                ? const DigitCheckboxIcon(
-                              //size: spacer5,
+                                ?  DigitCheckboxIcon(
+                              //size: spacer5
+                              checkboxThemeData: DigitCheckboxThemeData(iconSize: spacer5,
+                                selectedIconColor: _parentSelected(widget.currentOption,
+                                    widget.parentNode)
+                                    ? theme.colorTheme.primary.primary1
+                                    : _areAllChildrenSelected(
+                                    widget.currentOption)
+                                    ? theme.colorTheme.paper.primary
+                                    : theme.colorTheme.paper.primary,
+                              ),
                               state: DigitCheckboxState.checked,
                               // color: _parentSelected(widget.currentOption,
                               //     widget.parentNode)
@@ -266,10 +278,12 @@ class _TreeNodeWidgetState extends State<TreeNodeWidget> {
                             )
                                 : _isAnyChildSelected(widget.currentOption)
                                 ? const DigitCheckboxIcon(
-                                //size: spacer5,
+                              //size: spacer5,
+                                checkboxThemeData: DigitCheckboxThemeData(iconSize: spacer5,),
                                 state: DigitCheckboxState.intermediate)
                                 : const DigitCheckboxIcon(
-                                //size: spacer5,
+                              //size: spacer5,
+                                checkboxThemeData: DigitCheckboxThemeData(iconSize: spacer5,),
                                 state: DigitCheckboxState.unchecked),
                           ),
                         if (widget.treeSelectionType ==

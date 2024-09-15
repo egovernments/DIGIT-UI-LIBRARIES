@@ -10,7 +10,7 @@ List<Story> tabStories() {
       builder: (context) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           CodeViewProvider.of(context)?.updateCodeString('''
-CustomTabBar(
+DigitTabBar(
   tabs: ['Tab 1', 'Tab 2', 'Tab 3'],
   initialIndex: 1, // Preselect the second tab
   onTabSelected: (index) {
@@ -20,9 +20,9 @@ CustomTabBar(
           ''');
         });
 
-        return CustomTabBar(
-          tabs: ['Tabdfsssssssssssssss 1', 'Tab 2', 'Tab 3'],
-          initialIndex: 1, // Preselect the second tab
+        return DigitTabBar(
+          tabs:  [context.knobs.text(label: 'Tab 1', initial: 'Tab 1'), context.knobs.text(label: 'Tab 2', initial: 'Tab 2'), context.knobs.text(label: 'Tab 3', initial: 'Tab 3')],
+          initialIndex: 1,
           onTabSelected: (index) {
             // Handle tab selection change
           },

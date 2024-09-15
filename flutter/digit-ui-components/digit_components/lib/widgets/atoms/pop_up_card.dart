@@ -6,7 +6,7 @@
 ///      type: PopUpType.simple,
 ///      description: 'This is a simple example of a popup dialog.',
 ///      actions: [
-///          Button(
+///          DigitButton(
 ///              label: 'OK',
 ///              onPressed: () {
 ///                 Navigator.pop(context);
@@ -24,9 +24,10 @@ import '../../theme/ComponentTheme/pop_up_card_theme.dart';
 import '../../theme/colors.dart';
 import '../../theme/spacers.dart';
 import '../../theme/typography.dart';
+import 'package:flutter/scheduler.dart';
+
 import '../helper_widget/button_list.dart';
 import 'digit_button.dart';
-import 'package:flutter/scheduler.dart';
 
 class Popup extends StatefulWidget {
   /// The title of the popup.
@@ -53,19 +54,19 @@ class Popup extends StatefulWidget {
   /// Additional widgets to be displayed in the popup.
   final List<Widget>? additionalWidgets;
 
-  /// The list of action buttons to be displayed in the popup.
-  final List<Button>? actions;
+  /// The list of action DigitButtons to be displayed in the popup.
+  final List<DigitButton>? actions;
 
-  /// Callback function when the close button is tapped.
-  final void Function(BuildContext)? onCrossTap;
+  /// Callback function when the close DigitButton is tapped.
+  final void Function()? onCrossTap;
 
-  /// Whether to display action buttons inline or not.
+  /// Whether to display action DigitButtons inline or not.
   final bool? inlineActions;
 
-  /// The spacing between action buttons.
+  /// The spacing between action DigitButtons.
   final double? actionSpacing;
 
-  /// The alignment of action buttons.
+  /// The alignment of action DigitButtons.
   final MainAxisAlignment? actionAlignment;
 
   final DigitPopupTheme? popupTheme;
@@ -112,8 +113,8 @@ class _PopupState extends State<Popup> {
         bottom: isMobile
             ? spacer4
             : isTab
-                ? spacer5
-                : spacer6,
+            ? spacer5
+            : spacer6,
       ),
       decoration: BoxDecoration(
         color: const DigitColors().light.paperPrimary,
@@ -122,13 +123,13 @@ class _PopupState extends State<Popup> {
             topRight: Radius.circular(spacer1)),
         boxShadow: _isOverflowing
             ? [
-                BoxShadow(
-                  color: const Color(0xFF000000).withOpacity(.16),
-                  offset: const Offset(0, 1),
-                  spreadRadius: 0,
-                  blurRadius: 2,
-                ),
-              ]
+          BoxShadow(
+            color: const Color(0xFF000000).withOpacity(.16),
+            offset: const Offset(0, 1),
+            spreadRadius: 0,
+            blurRadius: 2,
+          ),
+        ]
             : [],
       ),
       child: Column(
@@ -145,14 +146,14 @@ class _PopupState extends State<Popup> {
                   left: isMobile
                       ? spacer4
                       : isTab
-                          ? spacer5
-                          : spacer6,
+                      ? spacer5
+                      : spacer6,
                   right: spacer2,
                   top: isMobile
                       ? spacer4
                       : isTab
-                          ? spacer5
-                          : spacer6,
+                      ? spacer5
+                      : spacer6,
                 ),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -162,54 +163,60 @@ class _PopupState extends State<Popup> {
                       const SizedBox(
                         width: spacer2,
                       ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          widget.title,
-                          style: themeData.titleTextStyle,
-                        ),
-                        if (widget.subHeading != null)
-                          const SizedBox(
-                            height: spacer2,
-                          ),
-                        if (widget.subHeading != null)
+                    SizedBox(
+                      width: widget.onCrossTap != null
+                          ? widget.titleIcon != null
+                          ? isMobile ? MediaQuery.of(context).size.width * .58: MediaQuery.of(context).size.width * .23
+                          : isMobile ? MediaQuery.of(context).size.width * .70:MediaQuery.of(context).size.width * .25
+                          : widget.titleIcon != null
+                          ? isMobile ? MediaQuery.of(context).size.width * .65:MediaQuery.of(context).size.width * .25
+                          : isMobile ? MediaQuery.of(context).size.width * .78:MediaQuery.of(context).size.width * .27,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
                           Text(
-                            widget.subHeading!,
-                            style: themeData.subHeadingTextStyle,
-                          )
-                      ],
+                            widget.title,
+                            style: themeData.titleTextStyle,
+                          ),
+                          if (widget.subHeading != null)
+                            const SizedBox(
+                              height: spacer2,
+                            ),
+                          if (widget.subHeading != null)
+                            Text(
+                              widget.subHeading!,
+                              style: themeData.subHeadingTextStyle,
+                            )
+                        ],
+                      ),
                     ),
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  top: spacer2,
-                  right: spacer2,
-                ),
-                child: InkWell(
-                  hoverColor: const DigitColors().transparent,
-                  highlightColor: const DigitColors().transparent,
-                  splashColor: const DigitColors().transparent,
-                  onTap: (){
-                    if(widget.onCrossTap != null){
-                      widget.onCrossTap!(context);
-                    }
-                  },
-                  child: Icon(
-                    Icons.close,
-                    size: isMobile
-                        ? spacer6
-                        : isTab
-                            ? spacer6
-                            : spacer7,
-                    color: const DigitColors().light.textPrimary,
+              if (widget.onCrossTap != null)
+                Padding(
+                  padding: const EdgeInsets.only(
+                    top: spacer2,
+                    right: spacer2,
+                  ),
+                  child: InkWell(
+                    hoverColor: const DigitColors().transparent,
+                    highlightColor: const DigitColors().transparent,
+                    splashColor: const DigitColors().transparent,
+                    onTap: widget.onCrossTap,
+                    child: Icon(
+                      Icons.close,
+                      size: isMobile
+                          ? spacer6
+                          : isTab
+                          ? spacer6
+                          : spacer7,
+                      color: const DigitColors().light.textPrimary,
+                    ),
                   ),
                 ),
-              ),
             ],
           ),
         ],
@@ -225,8 +232,8 @@ class _PopupState extends State<Popup> {
         isMobile
             ? spacer4
             : isTab
-                ? spacer5
-                : spacer6,
+            ? spacer5
+            : spacer6,
       ),
       decoration: BoxDecoration(
         color: const DigitColors().light.paperPrimary,
@@ -235,13 +242,13 @@ class _PopupState extends State<Popup> {
             topRight: Radius.circular(spacer1)),
         boxShadow: _isOverflowing
             ? [
-                BoxShadow(
-                  color: const Color(0xFF000000).withOpacity(.16),
-                  offset: const Offset(0, 1),
-                  spreadRadius: 0,
-                  blurRadius: 2,
-                ),
-              ]
+          BoxShadow(
+            color: const Color(0xFF000000).withOpacity(.16),
+            offset: const Offset(0, 1),
+            spreadRadius: 0,
+            blurRadius: 2,
+          ),
+        ]
             : [],
       ),
       child: Column(
@@ -255,13 +262,13 @@ class _PopupState extends State<Popup> {
                   width: isMobile
                       ? 56.0
                       : isTab
-                          ? 64.0
-                          : 72.0,
+                      ? 64.0
+                      : 72.0,
                   height: isMobile
                       ? 56.0
                       : isTab
-                          ? 64.0
-                          : 72.0,
+                      ? 64.0
+                      : 72.0,
                   fit: BoxFit.cover),
           const SizedBox(
             width: spacer2,
@@ -293,27 +300,27 @@ class _PopupState extends State<Popup> {
         left: isMobile
             ? spacer4
             : isTab
-                ? spacer5
-                : spacer6,
+            ? spacer5
+            : spacer6,
         right: isMobile
             ? spacer4
             : isTab
-                ? spacer5
-                : spacer6,
+            ? spacer5
+            : spacer6,
         top: _isOverflowing
             ? isMobile
-                ? spacer4
-                : isTab
-                    ? spacer5
-                    : spacer6
+            ? spacer4
+            : isTab
+            ? spacer5
+            : spacer6
             : 0,
         bottom: !_isOverflowing && (widget.actions != null)
             ? 0
             : isMobile
-                ? spacer4
-                : isTab
-                    ? spacer5
-                    : spacer6,
+            ? spacer4
+            : isTab
+            ? spacer5
+            : spacer6,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -328,8 +335,8 @@ class _PopupState extends State<Popup> {
               height: isMobile
                   ? spacer4
                   : isTab
-                      ? spacer5
-                      : spacer6,
+                  ? spacer5
+                  : spacer6,
             ),
           if (widget.additionalWidgets != null)
             ...widget.additionalWidgets!
@@ -337,19 +344,19 @@ class _PopupState extends State<Popup> {
                 .entries
                 .map(
                   (widgets) => Padding(
-                    padding: EdgeInsets.only(
-                      bottom:
-                          widgets.key != widget.additionalWidgets!.length - 1
-                              ? isMobile
-                                  ? spacer4
-                                  : isTab
-                                      ? spacer5
-                                      : spacer6
-                              : 0,
-                    ),
-                    child: widgets.value,
-                  ),
-                )
+                padding: EdgeInsets.only(
+                  bottom:
+                  widgets.key != widget.additionalWidgets!.length - 1
+                      ? isMobile
+                      ? spacer4
+                      : isTab
+                      ? spacer5
+                      : spacer6
+                      : 0,
+                ),
+                child: widgets.value,
+              ),
+            )
                 .toList(),
         ],
       ),
@@ -388,6 +395,14 @@ class _PopupState extends State<Popup> {
       backgroundColor: const DigitColors().transparent,
       child: Center(
         child: Container(
+          constraints: BoxConstraints(
+            maxHeight: isMobile
+                ? MediaQuery.of(context).size.height * .80
+                : isTab
+                ? MediaQuery.of(context).size.height * .82
+                : MediaQuery.of(context).size.height * .85,
+          ),
+          margin: themeData.width == null ? themeData.margin : EdgeInsets.zero,
           width: themeData.width,
           height: themeData.height,
           decoration: themeData.decoration,
@@ -415,27 +430,27 @@ class _PopupState extends State<Popup> {
                     left: isMobile
                         ? spacer4
                         : isTab
-                            ? spacer5
-                            : spacer6,
+                        ? spacer5
+                        : spacer6,
                     right: isMobile
                         ? spacer4
                         : isTab
-                            ? spacer5
-                            : spacer6,
+                        ? spacer5
+                        : spacer6,
                     top: _isOverflowing ||
-                            (widget.additionalWidgets != null ||
-                                widget.description != null)
+                        (widget.additionalWidgets != null ||
+                            widget.description != null)
                         ? isMobile
-                            ? spacer4
-                            : isTab
-                                ? spacer5
-                                : spacer6
+                        ? spacer4
+                        : isTab
+                        ? spacer5
+                        : spacer6
                         : 0,
                     bottom: isMobile
                         ? spacer4
                         : isTab
-                            ? spacer5
-                            : spacer6,
+                        ? spacer5
+                        : spacer6,
                   ),
                   decoration: BoxDecoration(
                     color: const DigitColors().light.paperPrimary,
@@ -444,16 +459,16 @@ class _PopupState extends State<Popup> {
                         bottomRight: Radius.circular(spacer1)),
                     boxShadow: _isOverflowing
                         ? [
-                            BoxShadow(
-                              color: const Color(0xFF000000).withOpacity(.16),
-                              offset: const Offset(0, -1),
-                              spreadRadius: 0,
-                              blurRadius: 2,
-                            ),
-                          ]
+                      BoxShadow(
+                        color: const Color(0xFF000000).withOpacity(.16),
+                        offset: const Offset(0, -1),
+                        spreadRadius: 0,
+                        blurRadius: 2,
+                      ),
+                    ]
                         : [],
                   ),
-                  child: ButtonListTile(
+                  child: DigitButtonListTile(
                     buttons: widget.actions!,
                     isVertical: widget.inlineActions != null
                         ? !widget.inlineActions!
@@ -466,8 +481,8 @@ class _PopupState extends State<Popup> {
                         (isMobile
                             ? spacer4
                             : isTab
-                                ? spacer5
-                                : spacer6),
+                            ? spacer5
+                            : spacer6),
                   ),
                 ),
             ],

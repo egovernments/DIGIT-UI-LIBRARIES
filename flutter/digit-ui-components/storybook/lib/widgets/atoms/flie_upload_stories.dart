@@ -1,4 +1,4 @@
-import 'package:digit_ui_components/blocs/AppLocalization.dart';
+import 'package:digit_ui_components/services/AppLocalization.dart';
 import 'package:digit_ui_components/theme/digit_theme_wrapper.dart';
 import 'package:digit_ui_components/utils/validators/file_validator.dart';
 import 'package:digit_ui_components/widgets/atoms/upload_drag.dart';

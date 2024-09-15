@@ -15,7 +15,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../../blocs/TimeSelectionBloc.dart';
+import '../../services/TimeSelectionBloc.dart';
 import '../../utils/validators/validator.dart';
 import 'digit_base_form_input.dart';
 
@@ -42,28 +42,28 @@ class DigitTimeFormInput extends BaseDigitFormInput {
     final List<TextInputFormatter>? inputFormatters,
     final void Function()? onFocusLost,
   }) : super(
-          key: key,
-          controller: controller,
-          readOnly: readOnly,
-          isRequired: isRequired,
-          isDisabled: isDisabled,
-          charCount: charCount,
-          innerLabel: innerLabel,
-          helpText: helpText,
-          suffixIcon: suffixIcon ?? Icons.access_time,
-          onError: onError,
-          initialValue: initialValue,
-          validations: validations,
-          onChange: onChange,
-          cancelText: cancelText,
-          confirmText: confirmText,
-          keyboardType: keyboardType ?? TextInputType.datetime,
-          showCurser: editable,
-          isEditable: editable,
-          errorMessage: errorMessage,
-          inputFormatters: inputFormatters,
-          onFocusLost: onFocusLost,
-        );
+    key: key,
+    controller: controller,
+    readOnly: readOnly,
+    isRequired: isRequired,
+    isDisabled: isDisabled,
+    charCount: charCount,
+    innerLabel: innerLabel,
+    helpText: helpText,
+    suffixIcon: suffixIcon ?? Icons.access_time,
+    onError: onError,
+    initialValue: initialValue,
+    validations: validations,
+    onChange: onChange,
+    cancelText: cancelText,
+    confirmText: confirmText,
+    keyboardType: keyboardType ?? TextInputType.datetime,
+    showCurser: editable,
+    isEditable: editable,
+    errorMessage: errorMessage,
+    inputFormatters: inputFormatters,
+    onFocusLost: onFocusLost,
+  );
 
   @override
   _DigitTimeFormInputState createState() => _DigitTimeFormInputState();
@@ -79,6 +79,7 @@ class _DigitTimeFormInputState extends BaseDigitFormInputState {
       controller: controller,
       cancelText: widget.cancelText,
       confirmText: widget.confirmText,
+      onChange: widget.onChange,
     );
   }
 
@@ -91,6 +92,7 @@ class _DigitTimeFormInputState extends BaseDigitFormInputState {
       controller: controller,
       cancelText: widget.cancelText,
       confirmText: widget.confirmText,
+      onChange: widget.onChange,
     );
   }
 

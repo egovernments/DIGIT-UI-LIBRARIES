@@ -113,10 +113,10 @@ class _PanelState extends State<Panel> with SingleTickerProviderStateMixin {
             height: widget.type == PanelType.success
                 ? 0
                 : isMobile
-                    ? theme.spacerTheme.spacer4
-                    : isTab
-                        ? theme.spacerTheme.spacer5
-                        : theme.spacerTheme.spacer6,
+                ? theme.spacerTheme.spacer4
+                : isTab
+                ? theme.spacerTheme.spacer5
+                : theme.spacerTheme.spacer6,
           ),
           Text(
             widget.title,
@@ -132,12 +132,12 @@ class _PanelState extends State<Panel> with SingleTickerProviderStateMixin {
                 .asMap()
                 .entries
                 .map((widgets) => Padding(
-                      padding: EdgeInsets.only(
-                          bottom: widgets.key != widget.description!.length - 1
-                              ? theme.spacerTheme.spacer1
-                              : 0),
-                      child: widgets.value,
-                    ))
+              padding: EdgeInsets.only(
+                  bottom: widgets.key != widget.description!.length - 1
+                      ? theme.spacerTheme.spacer1
+                      : 0),
+              child: widgets.value,
+            ))
                 .toList(),
         ],
       ),

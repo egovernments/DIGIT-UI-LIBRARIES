@@ -154,7 +154,7 @@ List<Story> toolTipStories() {
     //     tooltipContent: Text('top start tooltip!'),
     //     position: TooltipPosition.,
     //     trigger: TooltipTrigger.onHover,
-    //     child: ElevatedButton(
+    //     child: ElevatedDigitButton(
     //       onPressed: () {},
     //       child: Text('Hover me'),
     //     ), // Change to onTap or onLongPress as needed
@@ -166,7 +166,7 @@ List<Story> toolTipStories() {
     //     tooltipContent: Text('This is a custom tooltip!'),
     //     position: TooltipPosition.bottom,
     //     trigger: TooltipTrigger.onHover,
-    //     child: ElevatedButton(
+    //     child: ElevatedDigitButton(
     //       onPressed: () {},
     //       child: Text('Hover me'),
     //     ), // Change to onTap or onLongPress as needed
@@ -178,7 +178,7 @@ List<Story> toolTipStories() {
     //     tooltipContent: Text('This is a custom tooltip!'),
     //     position: TooltipPosition.bottomRight,
     //     trigger: TooltipTrigger.onHover,
-    //     child: ElevatedButton(
+    //     child: ElevatedDigitButton(
     //       onPressed: () {},
     //       child: Text('Hover me'),
     //     ), // Change to onTap or onLongPress as needed
@@ -190,7 +190,7 @@ List<Story> toolTipStories() {
     //     tooltipContent: Text('This is a custom tooltip!'),
     //     position: TooltipPosition.leftTop,
     //     trigger: TooltipTrigger.onHover,
-    //     child: ElevatedButton(
+    //     child: ElevatedDigitButton(
     //       onPressed: () {},
     //       child: Text('Hover me'),
     //     ), // Change to onTap or onLongPress as needed
@@ -202,7 +202,7 @@ List<Story> toolTipStories() {
     //     tooltipContent: Text('This is a custom tooltip!'),
     //     position: TooltipPosition.left,
     //     trigger: TooltipTrigger.onHover,
-    //     child: ElevatedButton(
+    //     child: ElevatedDigitButton(
     //       onPressed: () {},
     //       child: Text('Hover me'),
     //     ), // Change to onTap or onLongPress as needed
@@ -214,7 +214,7 @@ List<Story> toolTipStories() {
     //     tooltipContent: Text('This is a custom tooltip!'),
     //     position: TooltipPosition.leftBottom,
     //     trigger: TooltipTrigger.onHover,
-    //     child: ElevatedButton(
+    //     child: ElevatedDigitButton(
     //       onPressed: () {},
     //       child: Text('Hover me'),
     //     ), // Change to onTap or onLongPress as needed
@@ -226,7 +226,7 @@ List<Story> toolTipStories() {
     //     tooltipContent: Text('This is a custom tooltip!'),
     //     position: TooltipPosition.rightTop,
     //     trigger: TooltipTrigger.onHover,
-    //     child: ElevatedButton(
+    //     child: ElevatedDigitButton(
     //       onPressed: () {},
     //       child: Text('Hover me'),
     //     ), // Change to onTap or onLongPress as needed
@@ -238,7 +238,7 @@ List<Story> toolTipStories() {
     //     tooltipContent: Text('This is a custom tooltip!'),
     //     position: TooltipPosition.right,
     //     trigger: TooltipTrigger.onHover,
-    //     child: ElevatedButton(
+    //     child: ElevatedDigitButton(
     //       onPressed: () {},
     //       child: Text('Hover me'),
     //     ), // Change to onTap or onLongPress as needed
@@ -250,7 +250,7 @@ List<Story> toolTipStories() {
     //     tooltipContent: Text('This is a custom tooltip!'),
     //     position: TooltipPosition.rightBottom,
     //     trigger: TooltipTrigger.onHover,
-    //     child: ElevatedButton(
+    //     child: ElevatedDigitButton(
     //       onPressed: () {},
     //       child: Text('Hover me'),
     //     ), // Change to onTap or onLongPress as needed

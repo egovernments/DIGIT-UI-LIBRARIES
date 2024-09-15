@@ -1,7 +1,7 @@
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/material.dart';
 
-/// Toggle is a custom toggle button widget that provides visual feedback on hover and supports selection.
+/// Toggle is a custom toggle DigitButton widget that provides visual feedback on hover and supports selection.
 class Toggle extends StatefulWidget {
   final void Function(bool isSelected) onChanged;
   final String label;
@@ -84,7 +84,7 @@ class _ToggleState extends State<Toggle> {
           },
           child: Container(
             height: spacer8,
-            width: widget.maxLabelWidth + spacer12 + spacer1,
+            width: widget.maxLabelWidth,
             padding: const EdgeInsets.symmetric(horizontal: spacer3),
             constraints: const BoxConstraints(
               minWidth: spacer10,
@@ -125,16 +125,16 @@ class _ToggleState extends State<Toggle> {
                     overflow: TextOverflow.ellipsis,
                     style: widget.isSelected
                         ? currentTypography.headingS.copyWith(
-                            height: 1.5,
-                            color: const DigitColors().light.paperPrimary,
-                            overflow: TextOverflow.ellipsis,
-                          )
+                      height: 1.5,
+                      color: const DigitColors().light.paperPrimary,
+                      overflow: TextOverflow.ellipsis,
+                    )
                         : currentTypography.bodyXS.copyWith(
-                            color: (isHovered || isMouseDown)
-                                ? const DigitColors().light.primary1
-                                : const DigitColors().light.textDisabled,
-                            overflow: TextOverflow.ellipsis,
-                          ),
+                      color: (isHovered || isMouseDown)
+                          ? const DigitColors().light.primary1
+                          : const DigitColors().light.textDisabled,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                 ),
               ],

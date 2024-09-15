@@ -2,27 +2,14 @@ import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/widgets/molecules/bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
-import '../../plugins/code_view_wrapper.dart';
 
 List<Story> bottomSheetStories() {
   return [
     Story(
       name: 'Molecule/Bottom Sheet/default',
       builder: (context) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          CodeViewProvider.of(context)?.updateCodeString('''
-CustomBottomSheet(
-  content: Column(
-    children: [
-      Text('This is a default bottom sheet'),
-      // Add more content here
-    ],
-  ),
-)
-          ''');
-        });
 
-        return const CustomBottomSheet(
+        return const DigitBottomSheet(
           content: Column(
             children: [
               Text('This is a default bottom sheet'),
@@ -34,24 +21,8 @@ CustomBottomSheet(
     Story(
       name: 'Molecule/Bottom Sheet/with action',
       builder: (context) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          CodeViewProvider.of(context)?.updateCodeString('''
-CustomBottomSheet(
-  content: Column(
-    children: [
-      Text('Content with Actions'),
-      // Add more content here
-    ],
-  ),
-  primaryActionLabel: 'Submit',
-  onPrimaryAction: (context) {
-    // Handle primary action
-  },
-)
-          ''');
-        });
 
-        return CustomBottomSheet(
+        return DigitBottomSheet(
           content: const Column(
             children: [
               Text('Content with Actions'),
@@ -68,17 +39,8 @@ CustomBottomSheet(
     Story(
       name: 'Molecule/Bottom Sheet/with Drag Disabled',
       builder: (context) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          CodeViewProvider.of(context)?.updateCodeString('''
-CustomBottomSheet(
-  content: Text('Drag Disabled Content'),
-  initialHeightPercentage: 50,
-  disableDrag: true,
-)
-          ''');
-        });
 
-        return const CustomBottomSheet(
+        return const DigitBottomSheet(
           content: Text('Drag Disabled Content'),
           initialHeightPercentage: 50,
           disableDrag: true,
@@ -88,20 +50,8 @@ CustomBottomSheet(
     Story(
       name: 'Molecule/Bottom Sheet/with Login Form',
       builder: (context) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          CodeViewProvider.of(context)?.updateCodeString('''
-CustomBottomSheet(
-  content: LoginForm(),
-  initialHeightPercentage: 30,
-  primaryActionLabel: 'Submit',
-  onPrimaryAction: (context) {
-    // Handle login
-  },
-)
-          ''');
-        });
 
-        return CustomBottomSheet(
+        return DigitBottomSheet(
           content: LoginForm(),
           initialHeightPercentage: 30,
           primaryActionLabel: 'Submit',
@@ -114,24 +64,8 @@ CustomBottomSheet(
     Story(
       name: 'Molecule/Bottom Sheet/with Feedback Form',
       builder: (context) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          CodeViewProvider.of(context)?.updateCodeString('''
-CustomBottomSheet(
-  content: FeedbackForm(),
-  initialHeightPercentage: 30,
-  primaryActionLabel: 'Submit',
-  secondaryActionLabel: 'Clear',
-  onPrimaryAction: (context) {
-    // Handle feedback submission
-  },
-  onSecondaryAction: (context) {
-    // Handle feedback cancellation
-  },
-)
-          ''');
-        });
 
-        return CustomBottomSheet(
+        return DigitBottomSheet(
           content: FeedbackForm(),
           primaryActionLabel: 'Submit',
           secondaryActionLabel: 'Clear',
@@ -148,19 +82,8 @@ CustomBottomSheet(
     Story(
       name: 'Molecule/Bottom Sheet/with 30% height and Contact Form',
       builder: (context) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          CodeViewProvider.of(context)?.updateCodeString('''
-CustomBottomSheet(
-  content: ContactForm(),
-  initialHeightPercentage: 30,
-  onPrimaryAction: (context) {
-    // Handle contact form submission
-  },
-)
-          ''');
-        });
 
-        return CustomBottomSheet(
+        return DigitBottomSheet(
           content: ContactForm(),
           initialHeightPercentage: 30,
           onPrimaryAction: (context) {
@@ -172,16 +95,8 @@ CustomBottomSheet(
     Story(
       name: 'Molecule/Bottom Sheet/with Scrolling Content and Survey',
       builder: (context) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          CodeViewProvider.of(context)?.updateCodeString('''
-CustomBottomSheet(
-  content: SurveyForm(),
-  initialHeightPercentage: 50,
-)
-          ''');
-        });
 
-        return CustomBottomSheet(
+        return DigitBottomSheet(
           content: SurveyForm(),
           initialHeightPercentage: 50,
         );
@@ -190,20 +105,8 @@ CustomBottomSheet(
     Story(
       name: 'Molecule/Bottom Sheet/with Fixed Height and Registration Form',
       builder: (context) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          CodeViewProvider.of(context)?.updateCodeString('''
-CustomBottomSheet(
-  content: RegistrationForm(),
-  fixedHeight: 400,
-  primaryActionLabel: 'Submit',
-  onPrimaryAction: (context) {
-    // Handle registration
-  },
-)
-          ''');
-        });
 
-        return CustomBottomSheet(
+        return DigitBottomSheet(
           content: const RegistrationForm(),
           fixedHeight: 400,
           primaryActionLabel: 'Submit',
@@ -266,7 +169,7 @@ class SurveyForm extends StatelessWidget {
     return Column(
       children: List.generate(
         10,
-        (index) => CheckboxListTile(
+            (index) => CheckboxListTile(
           title: Text('Survey Question $index'),
           value: false,
           onChanged: (bool? value) {},

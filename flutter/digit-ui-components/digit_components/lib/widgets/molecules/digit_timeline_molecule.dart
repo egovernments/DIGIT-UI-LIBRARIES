@@ -1,5 +1,6 @@
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/material.dart';
+import '../atoms/digit_button.dart';
 import '../atoms/timeline.dart';
 
 class TimelineMolecule extends StatefulWidget {
@@ -87,10 +88,10 @@ class _TimelineMoleculeState extends State<TimelineMolecule> {
         mainAxisSize: MainAxisSize.min,
         children: [
           if (!widget.showAllSteps && sortedSteps.where((step) => step.state == TimelineStepState.future).length > 1)
-            Button(
+            DigitButton(
               label: showMoreFuture ? 'View Less Future' : 'View More Future',
-              type: ButtonType.link,
-              size: ButtonSize.medium,
+              type: DigitButtonType.link,
+              size: DigitButtonSize.medium,
               suffixIcon: showMoreFuture ? Icons.arrow_drop_down : Icons.arrow_drop_up,
               onPressed: () {
                 setState(() {
@@ -121,10 +122,10 @@ class _TimelineMoleculeState extends State<TimelineMolecule> {
             }).toList(),
           ),
           if (!widget.showAllSteps && sortedSteps.where((step) => step.state == TimelineStepState.completed).length > 1)
-            Button(
+            DigitButton(
               label: showMorePast ? 'View Less Past' : 'View More Past',
-              type: ButtonType.link,
-              size: ButtonSize.medium,
+              type: DigitButtonType.link,
+              size: DigitButtonSize.medium,
               suffixIcon: showMorePast ? Icons.arrow_drop_up : Icons.arrow_drop_down,
               onPressed: () {
                 setState(() {

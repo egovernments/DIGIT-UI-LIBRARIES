@@ -1,9 +1,6 @@
-import 'package:digit_ui_components/models/RadioButtonModel.dart';
 import 'package:digit_ui_components/models/toggleButtonModel.dart';
-import 'package:digit_ui_components/widgets/atoms/digit_checkbox.dart';
-import 'package:digit_ui_components/widgets/atoms/digit_radio_list.dart';
 import 'package:digit_ui_components/widgets/atoms/digit_toggle_list.dart';
-import 'package:flutter/src/widgets/basic.dart';
+import 'package:flutter/material.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
 
 List<Story> toggleGroupStories() {
@@ -13,7 +10,7 @@ List<Story> toggleGroupStories() {
       builder: (context) => ToggleList(
         mainAxisAlignment: MainAxisAlignment.center,
         selectedIndex: 0,
-        toggleButtons: [
+        toggleDigitButtons: [
           ToggleButtonModel(
               name: context.knobs.text(
                   label: 'Toggle1', initial: 'toggle1'),

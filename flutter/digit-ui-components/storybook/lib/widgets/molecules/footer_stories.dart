@@ -12,24 +12,24 @@ List<Story> footerMoleculeStories() {
         actionAlignment: MainAxisAlignment.spaceBetween,
         actions: [
           FooterAction(
-            button: Button(
+            buttons: DigitButton(
               label: 'back',
               onPressed: () {
                 print('heeeeeeeeee');
               },
-              type: ButtonType.secondary,
-              size: ButtonSize.large,
+              type: DigitButtonType.secondary,
+              size: DigitButtonSize.large,
               prefixIcon: Icons.arrow_back,
             ),
           ),
           FooterAction(
-            button: Button(
+            buttons: DigitButton(
               label: 'Actions   ',
               onPressed: () {
                 print('neeeeeeeeeexxxxxxtttttttttt');
               },
-              type: ButtonType.primary,
-              size: ButtonSize.large,
+              type: DigitButtonType.primary,
+              size: DigitButtonSize.large,
               suffixIcon: Icons.arrow_forward,
             ),
           ),
@@ -44,24 +44,24 @@ List<Story> footerMoleculeStories() {
               actionAlignment: MainAxisAlignment.spaceBetween,
               actions: [
                 FooterAction(
-                  button: Button(
+                  buttons: DigitButton(
                     label: 'back',
                     onPressed: () {
                       print('heeeeeeeeee');
                     },
-                    type: ButtonType.secondary,
-                    size: ButtonSize.large,
+                    type: DigitButtonType.secondary,
+                    size: DigitButtonSize.large,
                     prefixIcon: Icons.arrow_back,
                   ),
                 ),
                 FooterAction(
-                    button: Button(
+                    buttons: DigitButton(
                       label: label,
                       onPressed: () {
                         print('neeeeeeeeeexxxxxxtttttttttt');
                       },
-                      type: ButtonType.primary,
-                      size: ButtonSize.large,
+                      type: DigitButtonType.primary,
+                      size: DigitButtonSize.large,
                       suffixIcon: Icons.arrow_drop_up,
                     ),
                     dropdownItems: [
@@ -87,24 +87,24 @@ List<Story> footerMoleculeStories() {
         actionAlignment: MainAxisAlignment.end,
         actions: [
           FooterAction(
-            button: Button(
+            buttons: DigitButton(
               label: 'back',
               onPressed: () {
                 print('heeeeeeeeee');
               },
-              type: ButtonType.secondary,
-              size: ButtonSize.large,
+              type: DigitButtonType.secondary,
+              size: DigitButtonSize.large,
               prefixIcon: Icons.arrow_back,
             ),
           ),
           FooterAction(
-              button: Button(
+              buttons: DigitButton(
                 label: 'Actions   ',
                 onPressed: () {
                   print('neeeeeeeeeexxxxxxtttttttttt');
                 },
-                type: ButtonType.primary,
-                size: ButtonSize.large,
+                type: DigitButtonType.primary,
+                size: DigitButtonSize.large,
                 suffixIcon: Icons.arrow_drop_up,
               ),
               dropdownItems: [
@@ -122,24 +122,24 @@ List<Story> footerMoleculeStories() {
         actionAlignment: MainAxisAlignment.spaceBetween,
         actions: [
           FooterAction(
-            button: Button(
+            buttons: DigitButton(
               label: 'back',
               onPressed: () {
                 print('heeeeeeeeee');
               },
-              type: ButtonType.secondary,
-              size: ButtonSize.large,
+              type: DigitButtonType.secondary,
+              size: DigitButtonSize.large,
               prefixIcon: Icons.arrow_back,
             ),
           ),
           FooterAction(
-              button: Button(
+              buttons: DigitButton(
                 label: 'Actions   ',
                 onPressed: () {
                   print('neeeeeeeeeexxxxxxtttttttttt');
                 },
-                type: ButtonType.primary,
-                size: ButtonSize.large,
+                type: DigitButtonType.primary,
+                size: DigitButtonSize.large,
                 suffixIcon: Icons.arrow_drop_up,
               ),
               dropdownItems: [
@@ -151,44 +151,5 @@ List<Story> footerMoleculeStories() {
         ],
       ),
     ),
-    // Story(
-    //   name: 'Atom/Footer/2',
-    //   builder: (context) => CustomFooter(
-    //     actions: [
-    //       Button(
-    //           label: 'go to hcm campaign',
-    //           onPressed: () {},
-    //           type: ButtonType.primary,
-    //           size: ButtonSize.large),
-    //       Button(
-    //         label: 'go back to home',
-    //         onPressed: () {},
-    //         type: ButtonType.secondary,
-    //         size: ButtonSize.large,
-    //         prefixIcon: Icons.arrow_back,
-    //       ),
-    //     ],
-    //   ),
-    // ),
-    // Story(
-    //   name: 'Atom/Footer/3',
-    //   builder: (context) => CustomFooter(
-    //     actionAlignment: MainAxisAlignment.spaceBetween,
-    //     actions: [
-    //       Button(
-    //           label: 'Go to home',
-    //           onPressed: () {},
-    //           type: ButtonType.primary,
-    //           size: ButtonSize.large),
-    //       Button(
-    //         label: 'Back',
-    //         onPressed: () {},
-    //         type: ButtonType.secondary,
-    //         size: ButtonSize.large,
-    //         prefixIcon: Icons.arrow_back,
-    //       ),
-    //     ],
-    //   ),
-    // ),
   ];
 }

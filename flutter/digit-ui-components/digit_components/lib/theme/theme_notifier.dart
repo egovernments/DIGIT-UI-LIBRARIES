@@ -16,7 +16,6 @@ class ThemeNotifier extends ChangeNotifier {
 
   ThemeData loadThemeData(BuildContext context) {
     if (_themeMode == ThemeMode.dark) {
-      print('Dark Theme');
       return DigitExtendedTheme.instance.getDarkTheme();
     } else if (_themeMode == ThemeMode.light) {
       return DigitExtendedTheme.instance.getLightTheme();

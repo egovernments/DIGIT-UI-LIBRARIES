@@ -1,20 +1,20 @@
-/// Enum representing the possible types of the button.
-enum ButtonType {
+/// Enum representing the possible types of the DigitButton.
+enum DigitButtonType {
   primary,
   secondary,
   tertiary,
   link,
 }
 
-/// Enum representing the possible sizes of the button.
-enum ButtonSize {
+/// Enum representing the possible sizes of the DigitButton.
+enum DigitButtonSize {
   large,
   medium,
   small,
 }
 
-/// Enum representing the possible type of info buttons
-enum InfoButtonType {
+/// Enum representing the possible type of info DigitButtons
+enum InfoDigitButtonType {
   error,
   info,
   success,

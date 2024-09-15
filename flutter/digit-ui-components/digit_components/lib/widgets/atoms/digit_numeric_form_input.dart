@@ -50,32 +50,32 @@ class DigitNumericFormInput extends BaseDigitFormInput {
     final String? errorMessage,
     final void Function()? onFocusLost,
   }) : super(
-          key: key,
-          controller: controller,
-          readOnly: readOnly,
-          isDisabled: isDisabled,
-          isRequired: isRequired,
-          charCount: charCount,
-          innerLabel: innerLabel,
-          helpText: helpText,
-          suffixText: suffixText,
-          prefixText: prefixText,
-          onError: onError,
-          focusNode: focusNode,
-          keyboardType: keyboardType ?? TextInputType.number,
-          textAlign: textAlign,
-          initialValue: initialValue,
-          validations: validations,
-          onChange: onChange,
-          step: step,
-          maxValue: maxValue,
-          minValue: minValue,
-          showCurser: editable,
-          isEditable: editable,
-          errorMessage: errorMessage,
-          inputFormatters: inputFormatters,
-          onFocusLost: onFocusLost,
-        );
+    key: key,
+    controller: controller,
+    readOnly: readOnly,
+    isDisabled: isDisabled,
+    isRequired: isRequired,
+    charCount: charCount,
+    innerLabel: innerLabel,
+    helpText: helpText,
+    suffixText: suffixText,
+    prefixText: prefixText,
+    onError: onError,
+    focusNode: focusNode,
+    keyboardType: keyboardType ?? TextInputType.number,
+    textAlign: textAlign,
+    initialValue: initialValue,
+    validations: validations,
+    onChange: onChange,
+    step: step,
+    maxValue: maxValue,
+    minValue: minValue,
+    showCurser: editable,
+    isEditable: editable,
+    errorMessage: errorMessage,
+    inputFormatters: inputFormatters,
+    onFocusLost: onFocusLost,
+  );
 
   @override
   _DigitNumericFormInputState createState() => _DigitNumericFormInputState();
@@ -95,7 +95,12 @@ class _DigitNumericFormInputState extends BaseDigitFormInputState {
         /// Remove the text selection
         controller.selection = const TextSelection.collapsed(offset: 0);
       }
+      if(widget.onChange != null){
+        widget.onChange!(controller.text);
+      }
+
     });
+
   }
 
   @override
@@ -110,6 +115,9 @@ class _DigitNumericFormInputState extends BaseDigitFormInputState {
 
         /// Remove the text selection
         controller.selection = const TextSelection.collapsed(offset: 0);
+      }
+      if(widget.onChange != null){
+        widget.onChange!(controller.text);
       }
     });
   }

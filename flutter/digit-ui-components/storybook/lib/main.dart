@@ -1,21 +1,14 @@
 import 'dart:convert';
-
-import 'package:digit_ui_components/blocs/AppLocalization.dart';
-import 'package:digit_ui_components/blocs/component_localization_delegate.dart';
 import 'package:digit_ui_components/models/DropdownModels.dart';
+import 'package:digit_ui_components/services/component_localization_delegate.dart';
 import 'package:digit_ui_components/theme/colors.dart';
-import 'package:digit_ui_components/theme/digit_extended_theme.dart';
-import 'package:digit_ui_components/theme/digit_theme_wrapper.dart';
-import 'package:digit_ui_components/theme/theme_notifier.dart';
 import 'package:digit_ui_components/widgets/molecules/digit_header.dart';
-import 'package:digit_ui_components/widgets/molecules/hamburder.dart';
+import 'package:digit_ui_components/widgets/molecules/hamburger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:inspector/inspector.dart';
 import 'package:storybook/plugins/code_view_plugin.dart';
 import 'package:storybook/plugins/code_view_wrapper.dart';
-import 'package:storybook/plugins/theme_switch_plugin.dart';
 import 'package:storybook/widgets/atoms/Info_card_stories.dart';
 import 'package:storybook/widgets/atoms/accordian_stories.dart';
 import 'package:storybook/widgets/atoms/action_card_stories.dart';
@@ -25,19 +18,23 @@ import 'package:storybook/widgets/atoms/button_list_stories.dart';
 import 'package:storybook/widgets/atoms/button_stories.dart';
 import 'package:storybook/widgets/atoms/checkbox_stories.dart';
 import 'package:storybook/widgets/atoms/chip_stories.dart';
+import 'package:storybook/widgets/atoms/digit_search_bar_stories.dart';
 import 'package:storybook/widgets/atoms/digit_tab_stories.dart';
 import 'package:storybook/widgets/atoms/digit_tag_stories.dart';
 import 'package:storybook/widgets/atoms/divider_stories.dart';
 import 'package:storybook/widgets/atoms/dropdown_stories.dart';
 import 'package:storybook/widgets/atoms/flie_upload_stories.dart';
+import 'package:storybook/widgets/atoms/group_menu_card_stories.dart';
 import 'package:storybook/widgets/atoms/input_field_stories.dart';
 import 'package:storybook/widgets/atoms/list_view_stories.dart';
+import 'package:storybook/widgets/atoms/menu_card_stories.dart';
 import 'package:storybook/widgets/atoms/panel_stories.dart';
 import 'package:storybook/widgets/atoms/pop_up_card_stories.dart';
 import 'package:storybook/widgets/atoms/radio_list_stories.dart';
 import 'package:storybook/widgets/atoms/selection_card_stories.dart';
 import 'package:storybook/widgets/atoms/stepper_stories.dart';
 import 'package:storybook/widgets/atoms/switch_stories.dart';
+import 'package:storybook/widgets/atoms/text_block_stories.dart';
 import 'package:storybook/widgets/atoms/timeline_stories.dart';
 import 'package:storybook/widgets/atoms/toast_stories.dart';
 import 'package:storybook/widgets/atoms/toggle_stories.dart';
@@ -48,36 +45,13 @@ import 'package:storybook/widgets/molecules/digit_table_stories.dart';
 import 'package:storybook/widgets/molecules/footer_stories.dart';
 import 'package:storybook/widgets/molecules/hamburger_stories.dart';
 import 'package:storybook/widgets/molecules/header_stories.dart';
+import 'package:storybook/widgets/molecules/landing_page_card_stories.dart';
 import 'package:storybook/widgets/molecules/panel_card_stories.dart';
 import 'package:storybook/widgets/molecules/show_pop_up_stories.dart';
 import 'package:storybook/widgets/molecules/side_nav_stories.dart';
 import 'package:storybook/widgets/molecules/timeline_molecule_stories.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
-
-import 'dart:convert';
-import 'package:digit_ui_components/blocs/AppLocalization.dart';
-import 'package:digit_ui_components/models/DropdownModels.dart';
-import 'package:digit_ui_components/theme/colors.dart';
-import 'package:digit_ui_components/theme/digit_extended_theme.dart';
-import 'package:digit_ui_components/theme/digit_theme_wrapper.dart';
-import 'package:digit_ui_components/theme/theme_notifier.dart';
-import 'package:digit_ui_components/widgets/molecules/digit_header.dart';
-import 'package:digit_ui_components/widgets/molecules/hamburder.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:inspector/inspector.dart';
-import 'package:storybook/plugins/code_view_plugin.dart';
-import 'package:storybook/plugins/code_view_wrapper.dart';
-import 'package:storybook/plugins/theme_switch_plugin.dart';
-import 'package:storybook_flutter/storybook_flutter.dart';
-
 import 'localization.dart';
-
-import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter/services.dart';
-import 'dart:convert';
 
 void main() {
   runApp(const MyApp());
@@ -214,6 +188,7 @@ class MyHomePageState extends State<MyHomePage> {
         ),
       ),
       drawer: SideBar(
+        logOutDigitButtonLabel: 'logout',
         sidebarItems: [
           SidebarItem(
             title: 'Home',
@@ -262,42 +237,49 @@ class MyHomePageState extends State<MyHomePage> {
             ],
             initialStory: 'Screens/Scaffold',
             stories: [
-              ...buttonStories(),
+              ...accordionStories(),
+              ...actionStories(),
+              ...digitBackButtonStories(),
+              ...DigitBreadCrumbStories(),
+              ...DigitButtonStories(),
+              ...digitButtonListStories(),
               ...checkboxStories(),
               ...chipStories(),
-              ...infoCardStories(),
-              ...panelStories(),
-              ...timeLineStories(),
+              ...dividerStories(),
+              ...dropdownStories(),
+              ...fileUploaderStories(),
               ...inputFieldStories(),
+              ...infoCardStories(),
+              ...listViewStories(),
+              ...menuCardStories(),
+              ...groupMenuCardStories(),
+              ...panelStories(),
+              ...popUpStories(),
               ...radioListStories(),
+              ...selectionCardStories(),
+              ...switchStories(),
+              ...stepperStories(),
+              ...searchBarStories(),
+              ...timeLineStories(),
               ...toastStories(),
               ...toggleGroupStories(),
-              ...dropdownStories(),
-              ...stepperStories(),
-              ...fileUploaderStories(),
-              ...actionStories(),
-              ...popUpStories(),
-              ...panelCardStories(),
-              ...cardStories(),
-              ...dividerStories(),
-              ...buttonListStories(),
-              ...showPopUPStories(),
-              ...footerMoleculeStories(),
-              ...headerMoleculeStories(),
-              ...breadCrumbStories(),
-              ...backNavigationButtonStories(),
-              ...timelineMoleculeStories(),
-              ...hamBurgerStories(),
-              ...tableStories(),
-              ...sideNavStories(),
-              ...selectionCardStories(),
-              ...listViewStories(),
               ...toolTip2Stories(),
               ...digitTagStories(),
-              ...switchStories(),
-              ...bottomSheetStories(),
-              ...accordionStories(),
               ...tabStories(),
+              ...textBlockStories(),
+
+              /// molecules stories...
+              ...bottomSheetStories(),
+              ...cardStories(),
+              ...footerMoleculeStories(),
+              ...headerMoleculeStories(),
+              ...hamBurgerStories(),
+              ...languageSelectionCardStories(),
+              ...panelCardStories(),
+              ...showPopUPStories(),
+              ...sideNavStories(),
+              ...tableStories(),
+              ...timelineMoleculeStories(),
             ],
           ),
         ),
@@ -313,7 +295,7 @@ class MyHomePageState extends State<MyHomePage> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
         } else if (snapshot.hasError) {
-          return Center(child: Text('Error loading localization data'));
+          return const Center(child: Text('Error loading localization data'));
         } else if (snapshot.hasData) {
           return _buildContent();
         } else {

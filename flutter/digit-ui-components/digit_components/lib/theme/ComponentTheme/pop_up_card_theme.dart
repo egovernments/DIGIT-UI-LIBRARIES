@@ -13,17 +13,19 @@ class DigitPopupTheme extends ThemeExtension<DigitPopupTheme> {
   final TextStyle? subHeadingTextStyle;
   final TextStyle? descriptionTextStyle;
   final double? iconSize;
+  final EdgeInsets? margin;
 
   const DigitPopupTheme({
-     this.width,
+    this.width,
     this.height,
-     this.decoration,
-     this.padding,
-     this.titleTextStyle,
-     this.subHeadingTextStyle,
-     this.descriptionTextStyle,
-     this.iconSize,
+    this.decoration,
+    this.padding,
+    this.titleTextStyle,
+    this.subHeadingTextStyle,
+    this.descriptionTextStyle,
+    this.iconSize,
     this.alertAnimation,
+    this.margin,
   });
 
   static DigitPopupTheme defaultTheme(BuildContext context) {
@@ -46,13 +48,13 @@ class DigitPopupTheme extends ThemeExtension<DigitPopupTheme> {
           ),
         ],
       ),
+      margin: isMobile ? const EdgeInsets.symmetric(horizontal: 16) : isTab ? const EdgeInsets.symmetric(horizontal: 100) : const EdgeInsets.symmetric(horizontal: 400),
       padding: EdgeInsets.all(isMobile ? 16 : isTab ? 20 : 24),
-      width: isMobile ? 328.0 : isTab ? 500 : 620.0,
       titleTextStyle: textTheme.headingL.copyWith(
           color: theme.colorTheme.text.primary),
       subHeadingTextStyle: textTheme.captionS.copyWith(
           color: theme.colorTheme.text.primary),
-      descriptionTextStyle: textTheme.bodyS.copyWith(
+      descriptionTextStyle: textTheme.bodyL.copyWith(
         color: theme.colorTheme.text.primary,
       ),
       iconSize: isMobile ? 24.0 : isTab ? 28.0 : 32.0,
@@ -72,6 +74,7 @@ class DigitPopupTheme extends ThemeExtension<DigitPopupTheme> {
     TextStyle? descriptionTextStyle,
     double? iconSize,
     String? alertAnimation,
+    EdgeInsets? margin,
   }) {
     final defaultTheme = context != null ? DigitPopupTheme.defaultTheme(context) : null;
 
@@ -85,6 +88,7 @@ class DigitPopupTheme extends ThemeExtension<DigitPopupTheme> {
       descriptionTextStyle: descriptionTextStyle ?? defaultTheme?.descriptionTextStyle ?? this.descriptionTextStyle,
       iconSize: iconSize ?? defaultTheme?.iconSize ?? this.iconSize,
       alertAnimation: alertAnimation ?? defaultTheme?.alertAnimation ?? this.alertAnimation,
+      margin: margin ?? defaultTheme?.margin ?? this.margin,
     );
   }
 
@@ -93,15 +97,16 @@ class DigitPopupTheme extends ThemeExtension<DigitPopupTheme> {
     if (other is! DigitPopupTheme) return this;
 
     return DigitPopupTheme(
-      width: lerpDouble(width, other.width, t)!,
+      width: lerpDouble(width, other.width, t),
       height: lerpDouble(height, other.height, t),
-      decoration: Decoration.lerp(decoration, other.decoration, t)!,
-      padding: EdgeInsets.lerp(padding, other.padding, t)!,
-      titleTextStyle: TextStyle.lerp(titleTextStyle, other.titleTextStyle, t)!,
-      subHeadingTextStyle: TextStyle.lerp(subHeadingTextStyle, other.subHeadingTextStyle, t)!,
-      descriptionTextStyle: TextStyle.lerp(descriptionTextStyle, other.descriptionTextStyle, t)!,
-      iconSize: lerpDouble(iconSize, other.iconSize, t)!,
+      decoration: Decoration.lerp(decoration, other.decoration, t),
+      padding: EdgeInsets.lerp(padding, other.padding, t),
+      titleTextStyle: TextStyle.lerp(titleTextStyle, other.titleTextStyle, t),
+      subHeadingTextStyle: TextStyle.lerp(subHeadingTextStyle, other.subHeadingTextStyle, t),
+      descriptionTextStyle: TextStyle.lerp(descriptionTextStyle, other.descriptionTextStyle, t),
+      iconSize: lerpDouble(iconSize, other.iconSize, t),
       alertAnimation: t<0.5 ? alertAnimation : other.alertAnimation,
+      margin: EdgeInsets.lerp(margin, other.margin, t),
     );
   }
 }

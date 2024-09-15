@@ -1,9 +1,7 @@
 import 'dart:convert';
-
-import 'package:digit_ui_components/blocs/AppLocalization.dart';
-import 'package:digit_ui_components/blocs/component_localization_delegate.dart';
 import 'package:digit_ui_components/digit_components.dart';
-import 'package:digit_ui_components/theme/ComponentTheme/checkbox_theme.dart';
+import 'package:digit_ui_components/services/AppLocalization.dart';
+import 'package:digit_ui_components/services/component_localization_delegate.dart';
 import 'package:digit_ui_components/theme/ComponentTheme/toast_theme_data.dart';
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:digit_ui_components/theme/digit_theme_wrapper.dart';
@@ -13,7 +11,7 @@ import 'package:digit_ui_components/widgets/atoms/digit_bread_crumbs.dart';
 import 'package:digit_ui_components/widgets/atoms/digit_stepper.dart';
 import 'package:digit_ui_components/widgets/atoms/digit_tab.dart';
 import 'package:digit_ui_components/widgets/atoms/dropdown_wrapper.dart';
-import 'package:digit_ui_components/widgets/atoms/info_buttons.dart';
+import 'package:digit_ui_components/widgets/atoms/info_DigitButtons.dart';
 import 'package:digit_ui_components/widgets/atoms/input_wrapper.dart';
 import 'package:digit_ui_components/widgets/atoms/switch.dart';
 import 'package:digit_ui_components/widgets/atoms/timeline.dart';
@@ -183,10 +181,10 @@ class MyHomePageState extends State<MyHomePage> {
   late String searchResultValue;
   bool showAllVariantsOfRadio = false;
 
-  // button variants
-  bool showAllVariantsPrimaryButton = false;
-  bool showAllVariantsOfSecondaryButton = false;
-  bool showAllVariantsOfTertiaryButton = false;
+  // DigitButton variants
+  bool showAllVariantsPrimaryDigitButton = false;
+  bool showAllVariantsOfSecondaryDigitButton = false;
+  bool showAllVariantsOfTertiaryDigitButton = false;
   bool showAllVariantsOfLink = false;
 
   bool showAllVariantsOfDigitCheckbox = false;
@@ -260,8 +258,8 @@ class MyHomePageState extends State<MyHomePage> {
                   },
                 ),
                 const SizedBox(height: 16,),
-                CustomTabBar(
-                  tabs: ['Tabdfsssssssssssssss 1', 'Tab 2', 'Tab 3'],
+                DigitTabBar(
+                  tabs: const ['Tab 1', 'Tab 2', 'Tab 3'],
                   initialIndex: 1, // Preselect the second tab
                   onTabSelected: (index) {
                     // Handle tab selection change
@@ -1787,21 +1785,21 @@ class MyHomePageState extends State<MyHomePage> {
                 ),
                 RadioList(
                   onChanged: (value) {},
-                  radioButtons: [
-                    RadioButtonModel(
+                  radioDigitButtons: [
+                    RadioDigitButtonModel(
                       code: '1',
                       name: 'One',
                     ),
-                    RadioButtonModel(code: '2', name: 'Two'),
-                    RadioButtonModel(code: '3', name: 'Three'),
-                    // Add more radio buttons as needed
+                    RadioDigitButtonModel(code: '2', name: 'Two'),
+                    RadioDigitButtonModel(code: '3', name: 'Three'),
+                    // Add more radio DigitButtons as needed
                   ],
                 ),
                 const SizedBox(
                   height: 8,
                 ),
                 DigitCheckbox(
-                  label: "Show All The Variants Of Radio Buttons",
+                  label: "Show All The Variants Of Radio DigitButtons",
                   onChanged: (value) {
                     setState(() {
                       showAllVariantsOfRadio = value;
@@ -1816,40 +1814,40 @@ class MyHomePageState extends State<MyHomePage> {
                       ),
                       RadioList(
                         onChanged: (value) {},
-                        radioButtons: [
-                          RadioButtonModel(
+                        radioDigitButtons: [
+                          RadioDigitButtonModel(
                             code: '',
                             name: 'One',
                           ),
-                          RadioButtonModel(code: '2', name: 'Two'),
-                          RadioButtonModel(code: '3', name: 'Three'),
-                          // Add more radio buttons as needed
+                          RadioDigitButtonModel(code: '2', name: 'Two'),
+                          RadioDigitButtonModel(code: '3', name: 'Three'),
+                          // Add more radio DigitButtons as needed
                         ],
                       ),
                       RadioList(
                         onChanged: (value) {},
                         isDisabled: true,
-                        radioButtons: [
-                          RadioButtonModel(
+                        radioDigitButtons: [
+                          RadioDigitButtonModel(
                             code: '',
                             name: 'One',
                           ),
-                          RadioButtonModel(code: '2', name: 'Two'),
-                          RadioButtonModel(code: '3', name: 'Three'),
-                          // Add more radio buttons as needed
+                          RadioDigitButtonModel(code: '2', name: 'Two'),
+                          RadioDigitButtonModel(code: '3', name: 'Three'),
+                          // Add more radio DigitButtons as needed
                         ],
                       ),
                       RadioList(
                         onChanged: (value) {},
                         isDisabled: true,
-                        radioButtons: [
-                          RadioButtonModel(
+                        radioDigitButtons: [
+                          RadioDigitButtonModel(
                             code: '1',
                             name: 'One',
                           ),
-                          RadioButtonModel(code: '2', name: 'Two'),
-                          RadioButtonModel(code: '3', name: 'Three'),
-                          // Add more radio buttons as needed
+                          RadioDigitButtonModel(code: '2', name: 'Two'),
+                          RadioDigitButtonModel(code: '3', name: 'Three'),
+                          // Add more radio DigitButtons as needed
                         ],
                       ),
                     ],
@@ -1864,10 +1862,10 @@ class MyHomePageState extends State<MyHomePage> {
                 ToggleList(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  toggleButtons: [
-                    ToggleButtonModel(name: 'Toggle 1', code: 'key1'),
-                    ToggleButtonModel(name: 'Toggle 2', code: 'key2'),
-                    ToggleButtonModel(name: 'Toggle 3', code: 'key3'),
+                  toggleDigitButtons: [
+                    ToggleDigitButtonModel(name: 'Toggle 1', code: 'key1'),
+                    ToggleDigitButtonModel(name: 'Toggle 2', code: 'key2'),
+                    ToggleDigitButtonModel(name: 'Toggle 3', code: 'key3'),
                   ],
                   selectedIndex: 1,
                   onChanged: (selectedValues) {},
@@ -1884,44 +1882,44 @@ class MyHomePageState extends State<MyHomePage> {
                   child: Column(
                     children: [
                       Center(
-                        child: InfoButton(
-                          size: ButtonSize.large,
-                          label: 'Primary Button',
+                        child: InfoDigitButton(
+                          size: DigitButtonSize.large,
+                          label: 'Primary DigitButton',
                           onPressed: () {},
-                          type: InfoButtonType.success,
+                          type: InfoDigitButtonType.success,
                         ),
                       ),
                       const SizedBox(
                         height: 8,
                       ),
                       Center(
-                        child: InfoButton(
-                          size: ButtonSize.large,
-                          label: 'Primary Button',
+                        child: InfoDigitButton(
+                          size: DigitButtonSize.large,
+                          label: 'Primary DigitButton',
                           onPressed: () {},
-                          type: InfoButtonType.error,
+                          type: InfoDigitButtonType.error,
                         ),
                       ),
                       const SizedBox(
                         height: 8,
                       ),
                       Center(
-                        child: InfoButton(
-                          size: ButtonSize.large,
-                          label: 'Primary Button',
+                        child: InfoDigitButton(
+                          size: DigitButtonSize.large,
+                          label: 'Primary DigitButton',
                           onPressed: () {},
-                          type: InfoButtonType.warning,
+                          type: InfoDigitButtonType.warning,
                         ),
                       ),
                       const SizedBox(
                         height: 8,
                       ),
                       Center(
-                        child: InfoButton(
-                          size: ButtonSize.large,
-                          label: 'Primary Button',
+                        child: InfoDigitButton(
+                          size: DigitButtonSize.large,
+                          label: 'Primary DigitButton',
                           onPressed: () {},
-                          type: InfoButtonType.info,
+                          type: InfoDigitButtonType.info,
                         ),
                       ),
                     ],
@@ -1937,56 +1935,56 @@ class MyHomePageState extends State<MyHomePage> {
                 SizedBox(
                   // height: 45,
                   child: Center(
-                    child: Button(
-                      size: ButtonSize.large,
-                      label: 'Primary Button',
+                    child: DigitButton(
+                      size: DigitButtonSize.large,
+                      label: 'Primary DigitButton',
                       onPressed: () {},
-                      type: ButtonType.primary,
+                      type: DigitButtonType.primary,
                     ),
                   ),
                 ),
                 const SizedBox(height: 8),
                 DigitCheckbox(
-                    label: 'Show All Variants Of Primary Button',
+                    label: 'Show All Variants Of Primary DigitButton',
                     onChanged: (value) {
                       setState(() {
-                        showAllVariantsPrimaryButton = value;
+                        showAllVariantsPrimaryDigitButton = value;
                       });
                     }),
-                if (showAllVariantsPrimaryButton)
+                if (showAllVariantsPrimaryDigitButton)
                   Center(
                     child: Column(
                       children: [
                         const SizedBox(height: 8),
                         SizedBox(
                           // height: 45,
-                          child: Button(
-                            size: ButtonSize.large,
-                            label: 'Primary Button With Prefix Icon',
+                          child: DigitButton(
+                            size: DigitButtonSize.large,
+                            label: 'Primary DigitButton With Prefix Icon',
                             onPressed: () {},
-                            type: ButtonType.primary,
+                            type: DigitButtonType.primary,
                             prefixIcon: Icons.arrow_forward,
                           ),
                         ),
                         const SizedBox(height: 8),
                         SizedBox(
                           // height: 45,
-                          child: Button(
-                            size: ButtonSize.medium,
-                            label: 'Primary Button With Suffix Icon',
+                          child: DigitButton(
+                            size: DigitButtonSize.medium,
+                            label: 'Primary DigitButton With Suffix Icon',
                             onPressed: () {},
-                            type: ButtonType.primary,
+                            type: DigitButtonType.primary,
                             suffixIcon: Icons.arrow_forward,
                           ),
                         ),
                         const SizedBox(height: 8),
                         SizedBox(
                           // height: 45,
-                          child: Button(
-                            size: ButtonSize.small,
-                            label: 'Primary Button With Disabled State',
+                          child: DigitButton(
+                            size: DigitButtonSize.small,
+                            label: 'Primary DigitButton With Disabled State',
                             onPressed: () {},
-                            type: ButtonType.primary,
+                            type: DigitButtonType.primary,
                             isDisabled: true,
                           ),
                         ),
@@ -2001,56 +1999,56 @@ class MyHomePageState extends State<MyHomePage> {
                 SizedBox(
                   height: 45,
                   child: Center(
-                    child: Button(
-                      size: ButtonSize.large,
-                      label: 'secondary Button',
+                    child: DigitButton(
+                      size: DigitButtonSize.large,
+                      label: 'secondary DigitButton',
                       onPressed: () {},
-                      type: ButtonType.secondary,
+                      type: DigitButtonType.secondary,
                     ),
                   ),
                 ),
                 const SizedBox(height: 8),
                 DigitCheckbox(
-                    label: 'Show All Variants Of Secondary Button',
+                    label: 'Show All Variants Of Secondary DigitButton',
                     onChanged: (value) {
                       setState(() {
-                        showAllVariantsOfSecondaryButton = value;
+                        showAllVariantsOfSecondaryDigitButton = value;
                       });
                     }),
-                if (showAllVariantsOfSecondaryButton)
+                if (showAllVariantsOfSecondaryDigitButton)
                   Center(
                     child: Column(
                       children: [
                         const SizedBox(height: 8),
                         SizedBox(
                           // height: 45,
-                          child: Button(
-                            size: ButtonSize.medium,
-                            label: 'Secondary Button With Prefix Icon',
+                          child: DigitButton(
+                            size: DigitButtonSize.medium,
+                            label: 'Secondary DigitButton With Prefix Icon',
                             onPressed: () {},
-                            type: ButtonType.secondary,
+                            type: DigitButtonType.secondary,
                             prefixIcon: Icons.arrow_forward,
                           ),
                         ),
                         const SizedBox(height: 8),
                         SizedBox(
                           // height: 45,
-                          child: Button(
-                            size: ButtonSize.small,
-                            label: 'Secondary Button With Suffix Icon',
+                          child: DigitButton(
+                            size: DigitButtonSize.small,
+                            label: 'Secondary DigitButton With Suffix Icon',
                             onPressed: () {},
-                            type: ButtonType.secondary,
+                            type: DigitButtonType.secondary,
                             suffixIcon: Icons.arrow_forward,
                           ),
                         ),
                         const SizedBox(height: 8),
                         SizedBox(
                           // height: 45,
-                          child: Button(
-                            size: ButtonSize.small,
-                            label: 'Secondary Button With Disabled State',
+                          child: DigitButton(
+                            size: DigitButtonSize.small,
+                            label: 'Secondary DigitButton With Disabled State',
                             onPressed: () {},
-                            type: ButtonType.secondary,
+                            type: DigitButtonType.secondary,
                             isDisabled: true,
                           ),
                         ),
@@ -2063,47 +2061,47 @@ class MyHomePageState extends State<MyHomePage> {
                   height: 8,
                 ),
                 Center(
-                  child: Button(
-                    size: ButtonSize.large,
-                    label: 'tertiary Button',
+                  child: DigitButton(
+                    size: DigitButtonSize.large,
+                    label: 'tertiary DigitButton',
                     onPressed: () {},
-                    type: ButtonType.tertiary,
+                    type: DigitButtonType.tertiary,
                   ),
                 ),
                 const SizedBox(height: 8),
                 DigitCheckbox(
-                    label: 'Show All Variants Of Tertiary Button',
+                    label: 'Show All Variants Of Tertiary DigitButton',
                     onChanged: (value) {
                       setState(() {
-                        showAllVariantsOfTertiaryButton = value;
+                        showAllVariantsOfTertiaryDigitButton = value;
                       });
                     }),
-                if (showAllVariantsOfTertiaryButton)
+                if (showAllVariantsOfTertiaryDigitButton)
                   Center(
                     child: Column(
                       children: [
                         const SizedBox(height: 8),
-                        Button(
-                          size: ButtonSize.medium,
-                          label: 'Tertiary Button With Prefix Icon',
+                        DigitButton(
+                          size: DigitButtonSize.medium,
+                          label: 'Tertiary DigitButton With Prefix Icon',
                           onPressed: () {},
-                          type: ButtonType.tertiary,
+                          type: DigitButtonType.tertiary,
                           prefixIcon: Icons.arrow_forward,
                         ),
                         const SizedBox(height: 8),
-                        Button(
-                          size: ButtonSize.small,
-                          label: 'Tertiary Button With Suffix Icon',
+                        DigitButton(
+                          size: DigitButtonSize.small,
+                          label: 'Tertiary DigitButton With Suffix Icon',
                           onPressed: () {},
-                          type: ButtonType.tertiary,
+                          type: DigitButtonType.tertiary,
                           suffixIcon: Icons.arrow_forward,
                         ),
                         const SizedBox(height: 8),
-                        Button(
-                          size: ButtonSize.large,
-                          label: 'Tertiary Button With Disabled State',
+                        DigitButton(
+                          size: DigitButtonSize.large,
+                          label: 'Tertiary DigitButton With Disabled State',
                           onPressed: () {},
-                          type: ButtonType.tertiary,
+                          type: DigitButtonType.tertiary,
                           isDisabled: true,
                         ),
                       ],
@@ -2117,11 +2115,11 @@ class MyHomePageState extends State<MyHomePage> {
                   height: 8,
                 ),
                 Center(
-                  child: Button(
-                    size: ButtonSize.large,
+                  child: DigitButton(
+                    size: DigitButtonSize.large,
                     label: 'link',
                     onPressed: () {},
-                    type: ButtonType.link,
+                    type: DigitButtonType.link,
                   ),
                 ),
                 const SizedBox(height: 8),
@@ -2137,27 +2135,27 @@ class MyHomePageState extends State<MyHomePage> {
                     child: Column(
                       children: [
                         const SizedBox(height: 8),
-                        Button(
-                          size: ButtonSize.small,
+                        DigitButton(
+                          size: DigitButtonSize.small,
                           label: 'Link With Prefix Icon',
                           onPressed: () {},
-                          type: ButtonType.link,
+                          type: DigitButtonType.link,
                           prefixIcon: Icons.arrow_forward,
                         ),
                         const SizedBox(height: 8),
-                        Button(
-                          size: ButtonSize.medium,
+                        DigitButton(
+                          size: DigitButtonSize.medium,
                           label: 'Link With Suffix Icon',
                           onPressed: () {},
-                          type: ButtonType.link,
+                          type: DigitButtonType.link,
                           suffixIcon: Icons.arrow_forward,
                         ),
                         const SizedBox(height: 8),
-                        Button(
-                          size: ButtonSize.large,
+                        DigitButton(
+                          size: DigitButtonSize.large,
                           label: 'Link With Disabled State',
                           onPressed: () {},
-                          type: ButtonType.link,
+                          type: DigitButtonType.link,
                           isDisabled: true,
                         ),
                       ],
@@ -2170,19 +2168,19 @@ class MyHomePageState extends State<MyHomePage> {
                 ),
                 Column(
                   children: [
-                    Button(
+                    DigitButton(
                         label: 'Click to increase steps',
                         onPressed: () {
                           setState(() {
                             stepNumber += 1;
                           });
                         },
-                        type: ButtonType.primary,
-                        size: ButtonSize.large),
+                        type: DigitButtonType.primary,
+                        size: DigitButtonSize.large),
                     const SizedBox(
                       height: 8,
                     ),
-                    Button(
+                    DigitButton(
                         label: 'Click to decrease steps',
                         onPressed: () {
                           setState(() {
@@ -2191,8 +2189,8 @@ class MyHomePageState extends State<MyHomePage> {
                             }
                           });
                         },
-                        type: ButtonType.primary,
-                        size: ButtonSize.large),
+                        type: DigitButtonType.primary,
+                        size: DigitButtonSize.large),
                     SizedBox(
                       height: 500,
                       width: MediaQuery.of(context).size.width,
@@ -2303,23 +2301,23 @@ class MyHomePageState extends State<MyHomePage> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Button(
+                              DigitButton(
                                   label: 'Clear All',
                                   onPressed: () {},
-                                  type: ButtonType.tertiary,
-                                  size: ButtonSize.large),
+                                  type: DigitButtonType.tertiary,
+                                  size: DigitButtonSize.large),
                               const SizedBox(
                                 width: 16,
                               ),
                               Flexible(
                                 child: Container(
                                     width: 300,
-                                    child: Button(
+                                    child: DigitButton(
                                         mainAxisSize: MainAxisSize.max,
                                         label: 'Submit',
                                         onPressed: () {},
-                                        type: ButtonType.primary,
-                                        size: ButtonSize.large)),
+                                        type: DigitButtonType.primary,
+                                        size: DigitButtonSize.large)),
                               )
                             ],
                           ),

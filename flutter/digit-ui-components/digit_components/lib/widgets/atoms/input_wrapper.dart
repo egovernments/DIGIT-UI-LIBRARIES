@@ -182,7 +182,7 @@ class InputField extends StatelessWidget {
           onChange: onChange,
           errorMessage: errorMessage,
           inputFormatters:
-              inputFormatters ?? [FilteringTextInputFormatter.digitsOnly],
+          inputFormatters ?? [FilteringTextInputFormatter.digitsOnly],
         );
       case InputType.password:
         return DigitPasswordFormInput(

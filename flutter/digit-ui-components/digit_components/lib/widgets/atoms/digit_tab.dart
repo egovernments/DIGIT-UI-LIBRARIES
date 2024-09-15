@@ -1,24 +1,29 @@
+import 'dart:math';
+
+import 'package:digit_ui_components/theme/ComponentTheme/digit_tab_bar_theme.dart';
 import 'package:digit_ui_components/theme/colors.dart';
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:flutter/material.dart';
 
-class CustomTabBar extends StatefulWidget {
+class DigitTabBar extends StatefulWidget {
   final List<String> tabs;
   final int initialIndex;
   final ValueChanged<int> onTabSelected;
+  final DigitTabBarThemeData? tabBarThemeData;
 
-  const CustomTabBar({
+  const DigitTabBar({
     Key? key,
     required this.tabs,
     this.initialIndex = 0,
     required this.onTabSelected,
+    this.tabBarThemeData,
   }) : super(key: key);
 
   @override
-  _CustomTabBarState createState() => _CustomTabBarState();
+  _DigitTabBarState createState() => _DigitTabBarState();
 }
 
-class _CustomTabBarState extends State<CustomTabBar> {
+class _DigitTabBarState extends State<DigitTabBar> {
   late int _selectedIndex;
 
   @override
@@ -40,7 +45,7 @@ class _CustomTabBarState extends State<CustomTabBar> {
       return textPainter.size.width;
     }).reduce((a, b) => a > b ? a : b);
 
-    return maxWidth + 40; // Add padding to account for horizontal padding
+    return maxWidth + 40;
   }
 
   void _onTabTapped(int index) {
@@ -54,7 +59,16 @@ class _CustomTabBarState extends State<CustomTabBar> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.digitTextTheme(context);
-    final double tabWidth = _calculateMaxTabWidth(context)+ 80;
+    final tabBarTheme =
+        widget.tabBarThemeData ?? theme.extension<DigitTabBarThemeData>();
+    final defaultTabBarTheme = DigitTabBarThemeData.defaultTheme(context);
+    final double tabWidth = _calculateMaxTabWidth(context) + 48;
+    // Calculate maximum width for each tab based on screen width
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final int tabCount = widget.tabs.length;
+    final double maxTabWidth = screenWidth / tabCount;
+
+    final double tabCorrectWidth = min(tabWidth, maxTabWidth);
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -67,39 +81,44 @@ class _CustomTabBarState extends State<CustomTabBar> {
         return GestureDetector(
           onTap: () => _onTabTapped(index),
           child: Container(
-            width: tabWidth,
-            height: _selectedIndex == index ? 64 : 60,
-            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+            constraints: BoxConstraints(
+              maxWidth: maxTabWidth, // Ensure tab width does not exceed maxTabWidth
+            ),
+            width: tabBarTheme?.tabWidth ?? tabCorrectWidth,
+            height: _selectedIndex == index
+                ? tabBarTheme?.selectedTabHeight ??
+                defaultTabBarTheme.selectedTabHeight
+                : tabBarTheme?.tabHeight ?? defaultTabBarTheme.tabHeight,
+            padding: tabBarTheme?.padding ?? defaultTabBarTheme.padding,
             decoration: BoxDecoration(
               color: _selectedIndex == index
-                  ? theme.colorTheme.paper.primary
-                  : theme.colorTheme.generic.background,
+                  ? const DigitColors().light.paperPrimary
+                  : const DigitColors().light.paperSecondary,
               borderRadius: const BorderRadius.only(
-                  topRight: Radius.circular(8),
-                  topLeft: Radius.circular(8)),
+                  topRight: Radius.circular(8), topLeft: Radius.circular(8)),
               border: Border(
                 bottom: BorderSide(
                   color: _selectedIndex == index
-                      ? theme.colorTheme.primary.primary1
-                      : theme.colorTheme.generic.inputBorder,
+                      ? const DigitColors().light.primary1
+                      : const DigitColors().light.genericInputBorder,
                   width: _selectedIndex == index ? 4 : 1,
                 ),
                 left: BorderSide(
                   color: _selectedIndex == index
-                      ? theme.colorTheme.primary.primary1
-                      : theme.colorTheme.generic.inputBorder,
+                      ? const DigitColors().light.primary1
+                      : const DigitColors().light.genericInputBorder,
                   width: _selectedIndex == index ? 2 : 1,
                 ),
                 right: BorderSide(
                   color: _selectedIndex == index
-                      ? theme.colorTheme.primary.primary1
-                      : theme.colorTheme.generic.inputBorder,
+                      ? const DigitColors().light.primary1
+                      : const DigitColors().light.genericInputBorder,
                   width: _selectedIndex == index ? 2 : 1,
                 ),
                 top: BorderSide(
                   color: _selectedIndex == index
-                      ? theme.colorTheme.primary.primary1
-                      : theme.colorTheme.generic.inputBorder,
+                      ? const DigitColors().light.primary1
+                      : const DigitColors().light.genericInputBorder,
                   width: _selectedIndex == index ? 2 : 1,
                 ),
               ),
@@ -107,15 +126,14 @@ class _CustomTabBarState extends State<CustomTabBar> {
             alignment: Alignment.center,
             child: Text(
               tab,
-              style: _selectedIndex == index ? textTheme.headingM.copyWith(
-                color: _selectedIndex == index
-                    ? theme.colorTheme.primary.primary1
-                    : theme.colorTheme.text.secondary,
-              ): textTheme.bodyL.copyWith(
-                color: _selectedIndex == index
-                    ? theme.colorTheme.primary.primary1
-                    : theme.colorTheme.text.secondary,
-              )
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
+              maxLines: tabBarTheme?.maxLine ?? defaultTabBarTheme.maxLine,
+              style: _selectedIndex == index
+                  ? tabBarTheme?.selectedTextStyle ??
+                  defaultTabBarTheme.selectedTextStyle
+                  : tabBarTheme?.unselectedTextStyle ??
+                  defaultTabBarTheme.unselectedTextStyle,
             ),
           ),
         );

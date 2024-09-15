@@ -9,7 +9,7 @@ class ScrollableContent extends StatelessWidget {
   final MainAxisAlignment mainAxisAlignment;
   final CrossAxisAlignment crossAxisAlignment;
   final List<Widget> children;
-  final bool enableFixedButton;
+  final bool enableFixedDigitButton;
   final Color? backgroundColor;
 
   const ScrollableContent(
@@ -23,13 +23,13 @@ class ScrollableContent extends StatelessWidget {
         this.children = const <Widget>[],
         this.slivers = const [],
         this.backgroundColor,
-        this.enableFixedButton = false});
+        this.enableFixedDigitButton = false});
 
   @override
   Widget build(BuildContext context) {
     Widget? bottomNavigationBar;
 
-    if (enableFixedButton) {
+    if (enableFixedDigitButton) {
       bottomNavigationBar = footer!;
     }
     return Scaffold(
@@ -52,7 +52,7 @@ class ScrollableContent extends StatelessWidget {
                       children: children,
                     ),
                   ),
-                  if (footer != null && !enableFixedButton) ...[
+                  if (footer != null && !enableFixedDigitButton) ...[
                     const SizedBox(height: 16),
                     footer!,
                   ],

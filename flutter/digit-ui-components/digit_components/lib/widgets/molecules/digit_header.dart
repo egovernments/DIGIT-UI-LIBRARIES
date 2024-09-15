@@ -1,3 +1,4 @@
+
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/material.dart';
 import '../helper_widget/overlay_dropdown.dart';
@@ -103,17 +104,17 @@ class CustomHeaderMolecule extends StatelessWidget {
                 fit: BoxFit.fill,
               )),
             if (leadingDigitLogo!=false)
-            const SizedBox(
-              width: 8,
-            ),
+              const SizedBox(
+                width: 8,
+              ),
             if (leadingDigitLogo!=false)
-            Container(
-              height: isTab ? 32 : 24,
-              width: 1,
-              color: type == HeaderType.dark
-                  ? const DigitColors().light.paperPrimary
-                  : const DigitColors().light.textPrimary,
-            ),
+              Container(
+                height: isTab ? 32 : 24,
+                width: 1,
+                color: type == HeaderType.dark
+                    ? const DigitColors().light.paperPrimary
+                    : const DigitColors().light.textPrimary,
+              ),
             if (title != null && leadingDigitLogo!=false)
               const SizedBox(
                 width: 8,

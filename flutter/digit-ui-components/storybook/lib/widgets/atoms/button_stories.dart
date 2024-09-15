@@ -6,7 +6,7 @@ import 'package:storybook_flutter/storybook_flutter.dart';
 
 import '../../plugins/code_view_wrapper.dart';
 
-List<Story> buttonStories() {
+List<Story> DigitButtonStories() {
   return [
     Story(
       name: 'Atom/Buttons/Primary',
@@ -16,31 +16,31 @@ List<Story> buttonStories() {
       builder: (context) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           CodeViewProvider.of(context)?.updateCodeString('''
-Button(
-  label: 'Primary Button',
+DigitButton(
+  label: 'Primary DigitButton',
   onPressed: () {},
-  type: ButtonType.primary,
+  type: DigitButtonType.primary,
   isDisabled: false,
-  size: ButtonSize.large,
+  size: DigitButtonSize.large,
 )
           ''');
         });
 
-        return Button(
-          label: context.knobs.text(label: 'Label', initial: 'Primary Button'),
+        return DigitButton(
+          label: context.knobs.text(label: 'Label', initial: 'Primary DigitButton'),
           onPressed: () {},
-          type: ButtonType.primary,
+          type: DigitButtonType.primary,
           isDisabled: context.knobs.boolean(
             label: 'disable',
             initial: false,
           ),
           size: context.knobs.options(
-            label: 'Size of Button',
-            initial: ButtonSize.large,
+            label: 'Size of DigitButton',
+            initial: DigitButtonSize.large,
             options: const [
-              Option(label: 'Small', value: ButtonSize.small),
-              Option(label: 'Medium', value: ButtonSize.medium),
-              Option(label: 'Large', value: ButtonSize.large),
+              Option(label: 'Small', value: DigitButtonSize.small),
+              Option(label: 'Medium', value: DigitButtonSize.medium),
+              Option(label: 'Large', value: DigitButtonSize.large),
             ],
           ),
           suffixIcon: context.knobs.nullable.options(
@@ -71,41 +71,41 @@ Button(
         builder: (context) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             CodeViewProvider.of(context)?.updateCodeString('''
-Button(
-  label: 'Secondary Button',
+DigitButton(
+  label: 'Secondary DigitButton',
   onPressed: () {},
-  type: ButtonType.secondary,
+  type: DigitButtonType.secondary,
   isDisabled: false,
-  size: ButtonSize.large,
+  size: DigitButtonSize.large,
 )
           ''');
           });
-          return Button(
+          return DigitButton(
             label:
-                context.knobs.text(label: 'Label', initial: 'Secondary Button'),
+                context.knobs.text(label: 'Label', initial: 'Secondary DigitButton'),
             onPressed: () {
-              // Add your secondary button logic here
+              // Add your secondary DigitButton logic here
             },
             isDisabled: context.knobs.boolean(
               label: 'disable',
               initial: false,
             ),
-            type: ButtonType.secondary,
+            type: DigitButtonType.secondary,
             size: context.knobs.options(
-              label: 'Size of Button',
-              initial: ButtonSize.large,
+              label: 'Size of DigitButton',
+              initial: DigitButtonSize.large,
               options: const [
                 Option(
                   label: 'Small',
-                  value: ButtonSize.small,
+                  value: DigitButtonSize.small,
                 ),
                 Option(
                   label: 'Medium',
-                  value: ButtonSize.medium,
+                  value: DigitButtonSize.medium,
                 ),
                 Option(
                   label: 'Large',
-                  value: ButtonSize.large,
+                  value: DigitButtonSize.large,
                 ),
               ],
             ),
@@ -136,41 +136,41 @@ Button(
         builder: (context) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             CodeViewProvider.of(context)?.updateCodeString('''
-Button(
-  label: 'Tertiary Button',
+DigitButton(
+  label: 'Tertiary DigitButton',
   onPressed: () {},
-  type: ButtonType.tertiary,
+  type: DigitButtonType.tertiary,
   isDisabled: false,
-  size: ButtonSize.large,
+  size: DigitButtonSize.large,
 )
           ''');
           });
-          return Button(
+          return DigitButton(
             label:
-                context.knobs.text(label: 'Label', initial: 'Tertiary Button'),
+                context.knobs.text(label: 'Label', initial: 'Tertiary DigitButton'),
             onPressed: () {
-              // Add your secondary button logic here
+              // Add your secondary DigitButton logic here
             },
             isDisabled: context.knobs.boolean(
               label: 'disable',
               initial: false,
             ),
-            type: ButtonType.tertiary,
+            type: DigitButtonType.tertiary,
             size: context.knobs.options(
-              label: 'Size of Button',
-              initial: ButtonSize.large,
+              label: 'Size of DigitButton',
+              initial: DigitButtonSize.large,
               options: const [
                 Option(
                   label: 'Small',
-                  value: ButtonSize.small,
+                  value: DigitButtonSize.small,
                 ),
                 Option(
                   label: 'Medium',
-                  value: ButtonSize.medium,
+                  value: DigitButtonSize.medium,
                 ),
                 Option(
                   label: 'Large',
-                  value: ButtonSize.large,
+                  value: DigitButtonSize.large,
                 ),
               ],
             ),
@@ -201,40 +201,40 @@ Button(
         builder: (context) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             CodeViewProvider.of(context)?.updateCodeString('''
-Button(
+DigitButton(
   label: 'link',
   onPressed: () {},
-  type: ButtonType.link,
+  type: DigitButtonType.link,
   isDisabled: false,
-  size: ButtonSize.large,
+  size: DigitButtonSize.large,
 )
           ''');
           });
-          return Button(
+          return DigitButton(
             label: context.knobs.text(label: 'Label', initial: 'link'),
             onPressed: () {
-              // Add your secondary button logic here
+              // Add your secondary DigitButton logic here
             },
             isDisabled: context.knobs.boolean(
               label: 'disable',
               initial: false,
             ),
-            type: ButtonType.link,
+            type: DigitButtonType.link,
             size: context.knobs.options(
-              label: 'Size of Button',
-              initial: ButtonSize.large,
+              label: 'Size of DigitButton',
+              initial: DigitButtonSize.large,
               options: const [
                 Option(
                   label: 'Small',
-                  value: ButtonSize.small,
+                  value: DigitButtonSize.small,
                 ),
                 Option(
                   label: 'Medium',
-                  value: ButtonSize.medium,
+                  value: DigitButtonSize.medium,
                 ),
                 Option(
                   label: 'Large',
-                  value: ButtonSize.large,
+                  value: DigitButtonSize.large,
                 ),
               ],
             ),

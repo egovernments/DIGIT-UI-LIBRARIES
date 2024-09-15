@@ -1,6 +1,6 @@
 import 'package:digit_ui_components/digit_components.dart';
+import 'package:digit_ui_components/widgets/atoms/digit_divider.dart';
 import 'package:flutter/material.dart';
-
 import '../../models/accordionModel.dart';
 
 class DigitAccordion extends StatefulWidget {
@@ -8,7 +8,9 @@ class DigitAccordion extends StatefulWidget {
   final bool allowMultipleOpen;
   final Duration animationDuration;
   final Color headerBackgroundColor;
+  final Color contentBackgroundColor;
   final double headerElevation;
+  final bool divider;
 
   const DigitAccordion({
     Key? key,
@@ -16,7 +18,9 @@ class DigitAccordion extends StatefulWidget {
     this.allowMultipleOpen = false,
     this.animationDuration = const Duration(milliseconds: 300),
     this.headerBackgroundColor = Colors.white,
+    this.contentBackgroundColor = Colors.white,
     this.headerElevation = 0,
+    this.divider = false,
   }) : super(key: key);
 
   @override
@@ -61,9 +65,23 @@ class _DigitAccordionState extends State<DigitAccordion>
       children: widget.items.asMap().entries.map((entry) {
         int index = entry.key;
         DigitAccordionItem item = entry.value;
-        return Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: _buildAccordionItem(item, index),
+        return Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: _buildAccordionItem(item, index),
+            ),
+            if (widget.divider && index < widget.items.length - 1)
+              ...[
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Divider(
+                    color: const DigitColors().light.genericDivider,
+                    height: 1,
+                  ),
+                ),
+              ],
+          ],
         );
       }).toList(),
     );
@@ -75,10 +93,12 @@ class _DigitAccordionState extends State<DigitAccordion>
       duration: widget.animationDuration,
       curve: Curves.easeOut,
       decoration: BoxDecoration(
-        color: const DigitColors().light.paperSecondary,
-        borderRadius: const BorderRadius.all(Radius.circular(4)),
-        border: Border.all(
-            color: const DigitColors().light.genericDivider, width: 1.0),
+        color: widget.headerBackgroundColor,
+        borderRadius: BorderRadius.circular(4),
+        border: item.showBorder
+            ? Border.all(
+            color: const DigitColors().light.genericDivider, width: 1.0)
+            : null, // Conditional border based on showBorder
         boxShadow: [
           if (widget.headerElevation > 0)
             BoxShadow(
@@ -111,8 +131,21 @@ class _DigitAccordionState extends State<DigitAccordion>
               });
             },
             child: Container(
+              decoration: BoxDecoration(
+                color: widget.headerBackgroundColor,
+                borderRadius: BorderRadius.circular(4),
+                boxShadow: [
+                  if (widget.headerElevation > 0)
+                    BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: widget.headerElevation,
+                      offset: Offset(0, widget.headerElevation / 2),
+                    ),
+                ],
+              ),
               padding: const EdgeInsets.all(16),
               child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Expanded(child: item.header),
@@ -129,14 +162,18 @@ class _DigitAccordionState extends State<DigitAccordion>
               ),
             ),
           ),
+          if(item.divider && isExpanded) ...[const DigitDivider(dividerType: DividerType.small,), const SizedBox(height: 8,)],
           SizeTransition(
             sizeFactor: CurvedAnimation(
               parent: _animationControllers[index],
-              curve: Curves.easeInOut,
+              curve: Curves.easeOut,
             ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: 8.0, vertical: 4.0),
+            child: Container(
+              decoration: BoxDecoration(
+                color: widget.contentBackgroundColor,
+                borderRadius: BorderRadius.circular(4),
+              ),
+              padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
               child: item.content,
             ),
           ),

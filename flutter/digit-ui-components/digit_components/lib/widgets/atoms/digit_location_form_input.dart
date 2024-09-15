@@ -15,7 +15,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../../blocs/LocationBloc.dart';
+import '../../services/location_fetch_bloc.dart';
 import '../../utils/validators/validator.dart';
 import 'digit_base_form_input.dart';
 
@@ -41,43 +41,43 @@ class DigitLocationFormInput extends BaseDigitFormInput {
     final void Function()? onFocusLost,
     final Color? iconColor,
   }) : super(
-          key: key,
-          controller: controller,
-          readOnly: readOnly,
-          isDisabled: isDisabled,
-          isRequired: isRequired,
-          charCount: charCount,
-          innerLabel: innerLabel,
-          helpText: helpText,
-          suffixIcon: suffixIcon ?? Icons.my_location,
-          onError: onError,
-          initialValue: initialValue,
-          validations: validations,
-          keyboardType: keyboardType ?? TextInputType.number,
-          onChange: onChange,
-          showCurser: editable,
-          isEditable: editable,
-          errorMessage: errorMessage,
-          inputFormatters: inputFormatters,
-          onFocusLost: onFocusLost,
-          iconColor: iconColor,
-        );
+    key: key,
+    controller: controller,
+    readOnly: readOnly,
+    isDisabled: isDisabled,
+    isRequired: isRequired,
+    charCount: charCount,
+    innerLabel: innerLabel,
+    helpText: helpText,
+    suffixIcon: suffixIcon ?? Icons.my_location,
+    onError: onError,
+    initialValue: initialValue,
+    validations: validations,
+    keyboardType: keyboardType ?? TextInputType.number,
+    onChange: onChange,
+    showCurser: editable,
+    isEditable: editable,
+    errorMessage: errorMessage,
+    inputFormatters: inputFormatters,
+    onFocusLost: onFocusLost,
+    iconColor: iconColor,
+  );
 
   @override
   _DigitLocationFormInputState createState() => _DigitLocationFormInputState();
 }
 
 class _DigitLocationFormInputState extends BaseDigitFormInputState {
-  LocationBloc locationBloc = LocationBloc();
+  LocationFetchBloc locationBloc = LocationFetchBloc();
 
   @override
   void onSuffixIconClick({void Function()? customFunction}) async {
-    await locationBloc.getCurrentLocation(controller);
+    await locationBloc.getCurrentLocation(controller, widget.onChange);
   }
 
   @override
   void onTap() async {
-    await locationBloc.getCurrentLocation(controller);
+    await locationBloc.getCurrentLocation(controller, widget.onChange);
   }
 
   @override

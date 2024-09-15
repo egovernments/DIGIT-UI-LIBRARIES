@@ -15,7 +15,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../../blocs/DateSelection.dart';
+import '../../services/DateSelection.dart';
 import '../../utils/validators/validator.dart';
 import 'digit_base_form_input.dart';
 
@@ -46,32 +46,32 @@ class DigitDateFormInput extends BaseDigitFormInput {
     final void Function()? onFocusLost,
     final Color? iconColor,
   }) : super(
-          key: key,
-          controller: controller,
-          readOnly: readOnly,
-          isRequired: isRequired,
-          isDisabled: isDisabled,
-          charCount: charCount,
-          innerLabel: innerLabel,
-          helpText: helpText,
-          onError: onError,
-          suffixIcon: suffixIcon ?? Icons.date_range,
-          initialValue: initialValue,
-          validations: validations,
-          onChange: onChange,
-          initialDate: initialDate,
-          firstDate: firstDate,
-          lastDate: lastDate,
-          cancelText: cancelText,
-          confirmText: confirmText,
-          keyboardType: keyboardType ?? TextInputType.datetime,
-          showCurser: editable,
-          isEditable: editable,
-          errorMessage: errorMessage,
-          inputFormatters: inputFormatters,
-          onFocusLost: onFocusLost,
-          iconColor: iconColor,
-        );
+    key: key,
+    controller: controller,
+    readOnly: readOnly,
+    isRequired: isRequired,
+    isDisabled: isDisabled,
+    charCount: charCount,
+    innerLabel: innerLabel,
+    helpText: helpText,
+    onError: onError,
+    suffixIcon: suffixIcon ?? Icons.date_range,
+    initialValue: initialValue,
+    validations: validations,
+    onChange: onChange,
+    initialDate: initialDate,
+    firstDate: firstDate,
+    lastDate: lastDate,
+    cancelText: cancelText,
+    confirmText: confirmText,
+    keyboardType: keyboardType ?? TextInputType.datetime,
+    showCurser: editable,
+    isEditable: editable,
+    errorMessage: errorMessage,
+    inputFormatters: inputFormatters,
+    onFocusLost: onFocusLost,
+    iconColor: iconColor,
+  );
 
   @override
   _DigitDateFormInputState createState() => _DigitDateFormInputState();
@@ -92,6 +92,7 @@ class _DigitDateFormInputState extends BaseDigitFormInputState {
       controller: controller,
       cancelText: widget.cancelText,
       confirmText: widget.confirmText,
+      onChange: widget.onChange,
     );
   }
 
@@ -104,6 +105,7 @@ class _DigitDateFormInputState extends BaseDigitFormInputState {
       initialDate: widget.initialDate,
       context: context,
       controller: controller,
+      onChange: widget.onChange,
     );
   }
 

@@ -20,7 +20,7 @@ List<Story> radioListStories() {
                 label: 'disabled',
                 initial: false,
               ),
-              radioButtons: [
+              radioDigitButtons: [
                 RadioButtonModel(
                     code: '',
                     name: context.knobs
@@ -55,7 +55,7 @@ List<Story> radioListStories() {
                 initial: false,
               ),
               errorMessage: context.knobs.text(label: 'Error Message', initial: "Please select an option"),
-              radioButtons: [
+              radioDigitButtons: [
                 RadioButtonModel(
                     code: '',
                     name: context.knobs

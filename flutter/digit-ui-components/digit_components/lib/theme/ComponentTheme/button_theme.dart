@@ -3,9 +3,9 @@ import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:flutter/material.dart';
 
 class DigitButtonThemeData extends ThemeExtension<DigitButtonThemeData> {
-  final TextStyle smallButtonTextStyle;
-  final TextStyle mediumButtonTextStyle;
-  final TextStyle largeButtonTextStyle;
+  final TextStyle smallDigitButtonTextStyle;
+  final TextStyle mediumDigitButtonTextStyle;
+  final TextStyle largeDigitButtonTextStyle;
   final TextStyle smallLinkTextStyle;
   final TextStyle mediumLinkTextStyle;
   final TextStyle largeLinkTextStyle;
@@ -15,9 +15,9 @@ class DigitButtonThemeData extends ThemeExtension<DigitButtonThemeData> {
   final double smallLinkIconSize;
   final double mediumLinkIconSize;
   final double largeLinkIconSize;
-  final double smallButtonHeight;
-  final double mediumButtonHeight;
-  final double largeButtonHeight;
+  final double smallDigitButtonHeight;
+  final double mediumDigitButtonHeight;
+  final double largeDigitButtonHeight;
   final double borderWidth;
   final BorderRadius radius;
   final EdgeInsets padding;
@@ -27,17 +27,17 @@ class DigitButtonThemeData extends ThemeExtension<DigitButtonThemeData> {
   final Color focusColor;
   final Color hoverColor;
   final Color disabledColor;
-  final Color primaryButtonColor;
-  final Color buttonColor;
-  final List<BoxShadow> buttonMouseDownBoxShadow;
-  final List<BoxShadow> buttonHoverBoxShadow;
-  final List<BoxShadow> primaryButtonMouseDownBoxShadow;
-  final List<BoxShadow> primaryButtonHoverBoxShadow;
+  final Color primaryDigitButtonColor;
+  final Color DigitButtonColor;
+  final List<BoxShadow> DigitButtonMouseDownBoxShadow;
+  final List<BoxShadow> DigitButtonHoverBoxShadow;
+  final List<BoxShadow> primaryDigitButtonMouseDownBoxShadow;
+  final List<BoxShadow> primaryDigitButtonHoverBoxShadow;
 
   const DigitButtonThemeData({
-    required this.smallButtonTextStyle,
-    required this.mediumButtonTextStyle,
-    required this.largeButtonTextStyle,
+    required this.smallDigitButtonTextStyle,
+    required this.mediumDigitButtonTextStyle,
+    required this.largeDigitButtonTextStyle,
     required this.smallLinkTextStyle,
     required this.mediumLinkTextStyle,
     required this.largeLinkTextStyle,
@@ -47,9 +47,9 @@ class DigitButtonThemeData extends ThemeExtension<DigitButtonThemeData> {
     required this.smallLinkIconSize,
     required this.mediumLinkIconSize,
     required this.largeLinkIconSize,
-    required this.smallButtonHeight,
-    required this.mediumButtonHeight,
-    required this.largeButtonHeight,
+    required this.smallDigitButtonHeight,
+    required this.mediumDigitButtonHeight,
+    required this.largeDigitButtonHeight,
     required this.borderWidth,
     required this.radius,
     required this.padding,
@@ -58,24 +58,24 @@ class DigitButtonThemeData extends ThemeExtension<DigitButtonThemeData> {
     required this.focusColor,
     required this.hightlightColor,
     required this.splashColor,
-    required this.buttonColor,
+    required this.DigitButtonColor,
     required this.disabledColor,
-    required this.primaryButtonColor,
-    required this.buttonHoverBoxShadow,
-    required this.buttonMouseDownBoxShadow,
-    required this.primaryButtonHoverBoxShadow,
-    required this.primaryButtonMouseDownBoxShadow,
+    required this.primaryDigitButtonColor,
+    required this.DigitButtonHoverBoxShadow,
+    required this.DigitButtonMouseDownBoxShadow,
+    required this.primaryDigitButtonHoverBoxShadow,
+    required this.primaryDigitButtonMouseDownBoxShadow,
   });
 
   static defaultTheme(BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.digitTextTheme(context);
-    final buttonTheme = theme.digitButtonTextTheme;
+    final DigitButtonTheme = theme.digitButtonTextTheme;
 
     return DigitButtonThemeData(
-      smallButtonTextStyle: buttonTheme.buttonS,
-      mediumButtonTextStyle: buttonTheme.buttonM,
-      largeButtonTextStyle: buttonTheme.buttonL,
+      smallDigitButtonTextStyle: DigitButtonTheme.buttonS,
+      mediumDigitButtonTextStyle: DigitButtonTheme.buttonM,
+      largeDigitButtonTextStyle: DigitButtonTheme.buttonL,
       smallLinkTextStyle: textTheme.linkS,
       mediumLinkTextStyle: textTheme.linkM,
       largeLinkTextStyle: textTheme.linkL,
@@ -85,9 +85,9 @@ class DigitButtonThemeData extends ThemeExtension<DigitButtonThemeData> {
       smallIconSize: 14.0,
       mediumIconSize: 20.0,
       largeIconSize: 24.0,
-      smallButtonHeight: 24.0,
-      mediumButtonHeight: 32.0,
-      largeButtonHeight: 40.0,
+      smallDigitButtonHeight: 24.0,
+      mediumDigitButtonHeight: 32.0,
+      largeDigitButtonHeight: 40.0,
       borderWidth: 1.0,
       radius: BorderRadius.zero,
       padding: EdgeInsets.symmetric(
@@ -97,10 +97,10 @@ class DigitButtonThemeData extends ThemeExtension<DigitButtonThemeData> {
       focusColor: theme.colorTheme.generic.transparent,
       hightlightColor: theme.colorTheme.generic.transparent,
       splashColor: theme.colorTheme.generic.transparent,
-      buttonColor: theme.colorTheme.primary.primary1,
+      DigitButtonColor: theme.colorTheme.primary.primary1,
       disabledColor: theme.colorTheme.text.disabled,
-      primaryButtonColor: theme.colorTheme.paper.primary,
-      buttonHoverBoxShadow: [
+      primaryDigitButtonColor: theme.colorTheme.paper.primary,
+      DigitButtonHoverBoxShadow: [
         BoxShadow(
           color: theme.colorTheme.primary.primary1,
           offset: const Offset(0, 2),
@@ -108,7 +108,7 @@ class DigitButtonThemeData extends ThemeExtension<DigitButtonThemeData> {
           blurRadius: 0,
         ),
       ],
-      buttonMouseDownBoxShadow: [
+      DigitButtonMouseDownBoxShadow: [
         BoxShadow(
           color: theme.colorTheme.primary.primary1,
           offset: const Offset(0, 2),
@@ -122,7 +122,7 @@ class DigitButtonThemeData extends ThemeExtension<DigitButtonThemeData> {
           blurRadius: 4,
         ),
       ],
-      primaryButtonHoverBoxShadow: [
+      primaryDigitButtonHoverBoxShadow: [
         BoxShadow(
           color:  theme.colorTheme.text.primary,
           offset: const Offset(0, 2),
@@ -130,7 +130,7 @@ class DigitButtonThemeData extends ThemeExtension<DigitButtonThemeData> {
           blurRadius: 0,
         ),
       ],
-      primaryButtonMouseDownBoxShadow: [
+      primaryDigitButtonMouseDownBoxShadow: [
         BoxShadow(
           color: theme.colorTheme.text.primary,
           offset: const Offset(0, 2),
@@ -150,9 +150,9 @@ class DigitButtonThemeData extends ThemeExtension<DigitButtonThemeData> {
   @override
   DigitButtonThemeData copyWith({
     BuildContext? context,
-    TextStyle? smallButtonTextStyle,
-    TextStyle? mediumButtonTextStyle,
-    TextStyle? largeButtonTextStyle,
+    TextStyle? smallDigitButtonTextStyle,
+    TextStyle? mediumDigitButtonTextStyle,
+    TextStyle? largeDigitButtonTextStyle,
     TextStyle? smallLinkTextStyle,
     TextStyle? mediumLinkTextStyle,
     TextStyle? largeLinkTextStyle,
@@ -162,9 +162,9 @@ class DigitButtonThemeData extends ThemeExtension<DigitButtonThemeData> {
     double? smallIconSize,
     double? mediumIconSize,
     double? largeIconSize,
-    double? smallButtonHeight,
-    double? mediumButtonHeight,
-    double? largeButtonHeight,
+    double? smallDigitButtonHeight,
+    double? mediumDigitButtonHeight,
+    double? largeDigitButtonHeight,
     double? borderWidth,
     BorderRadius? radius,
     EdgeInsets? padding,
@@ -173,28 +173,28 @@ class DigitButtonThemeData extends ThemeExtension<DigitButtonThemeData> {
     Color? focusColor,
     Color? hightlightColor,
     Color? splashColor,
-    Color? buttonColor,
+    Color? DigitButtonColor,
     Color? disabledColor,
-    Color? primaryButtonColor,
-    List<BoxShadow>? buttonHoverBoxShadow,
-    List<BoxShadow>? buttonMouseDownBoxShadow,
-    List<BoxShadow>? primaryButtonHoverBoxShadow,
-    List<BoxShadow>? primaryButtonMouseDownBoxShadow,
+    Color? primaryDigitButtonColor,
+    List<BoxShadow>? DigitButtonHoverBoxShadow,
+    List<BoxShadow>? DigitButtonMouseDownBoxShadow,
+    List<BoxShadow>? primaryDigitButtonHoverBoxShadow,
+    List<BoxShadow>? primaryDigitButtonMouseDownBoxShadow,
   }) {
     /// Ensure context is provided and get default theme if context is not null
     final defaultTheme =
         context != null ? DigitButtonThemeData.defaultTheme(context) : null;
 
     return DigitButtonThemeData(
-      smallButtonTextStyle: smallButtonTextStyle ??
-          defaultTheme?.smallButtonTextStyle ??
-          this.smallButtonTextStyle,
-      mediumButtonTextStyle: mediumButtonTextStyle ??
-          defaultTheme?.mediumButtonTextStyle ??
-          this.mediumButtonTextStyle,
-      largeButtonTextStyle: largeButtonTextStyle ??
-          defaultTheme?.largeButtonTextStyle ??
-          this.largeButtonTextStyle,
+      smallDigitButtonTextStyle: smallDigitButtonTextStyle ??
+          defaultTheme?.smallDigitButtonTextStyle ??
+          this.smallDigitButtonTextStyle,
+      mediumDigitButtonTextStyle: mediumDigitButtonTextStyle ??
+          defaultTheme?.mediumDigitButtonTextStyle ??
+          this.mediumDigitButtonTextStyle,
+      largeDigitButtonTextStyle: largeDigitButtonTextStyle ??
+          defaultTheme?.largeDigitButtonTextStyle ??
+          this.largeDigitButtonTextStyle,
       smallLinkTextStyle: smallLinkTextStyle ??
           defaultTheme?.smallLinkTextStyle ??
           this.smallLinkTextStyle,
@@ -219,15 +219,15 @@ class DigitButtonThemeData extends ThemeExtension<DigitButtonThemeData> {
       largeLinkIconSize: largeLinkIconSize ??
           defaultTheme?.largeLinkIconSize ??
           this.largeLinkIconSize,
-      smallButtonHeight: smallButtonHeight ??
-          defaultTheme?.smallButtonHeight ??
-          this.smallButtonHeight,
-      mediumButtonHeight: mediumButtonHeight ??
-          defaultTheme?.mediumButtonHeight ??
-          this.mediumButtonHeight,
-      largeButtonHeight: largeButtonHeight ??
-          defaultTheme?.largeButtonHeight ??
-          this.largeButtonHeight,
+      smallDigitButtonHeight: smallDigitButtonHeight ??
+          defaultTheme?.smallDigitButtonHeight ??
+          this.smallDigitButtonHeight,
+      mediumDigitButtonHeight: mediumDigitButtonHeight ??
+          defaultTheme?.mediumDigitButtonHeight ??
+          this.mediumDigitButtonHeight,
+      largeDigitButtonHeight: largeDigitButtonHeight ??
+          defaultTheme?.largeDigitButtonHeight ??
+          this.largeDigitButtonHeight,
       borderWidth: borderWidth ?? defaultTheme?.borderWidth ?? this.borderWidth,
       radius: radius ?? defaultTheme?.radius ?? this.radius,
       padding: padding ?? defaultTheme?.padding ?? this.padding,
@@ -238,24 +238,24 @@ class DigitButtonThemeData extends ThemeExtension<DigitButtonThemeData> {
           defaultTheme?.hightlightColor ??
           this.hightlightColor,
       splashColor: splashColor ?? defaultTheme?.splashColor ?? this.splashColor,
-      buttonColor: buttonColor ?? defaultTheme?.buttonColor ?? this.buttonColor,
+      DigitButtonColor: DigitButtonColor ?? defaultTheme?.DigitButtonColor ?? this.DigitButtonColor,
       disabledColor:
           disabledColor ?? defaultTheme?.disabledColor ?? this.disabledColor,
-      primaryButtonColor: primaryButtonColor ??
-          defaultTheme?.primaryButtonColor ??
-          this.primaryButtonColor,
-      buttonHoverBoxShadow: buttonHoverBoxShadow ??
-          defaultTheme?.buttonHoverBoxShadow ??
-          this.buttonHoverBoxShadow,
-      buttonMouseDownBoxShadow: buttonMouseDownBoxShadow ??
-          defaultTheme?.buttonMouseDownBoxShadow ??
-          this.buttonMouseDownBoxShadow,
-      primaryButtonHoverBoxShadow: primaryButtonHoverBoxShadow ??
-          defaultTheme?.primaryButtonHoverBoxShadow ??
-          this.primaryButtonHoverBoxShadow,
-      primaryButtonMouseDownBoxShadow: primaryButtonMouseDownBoxShadow ??
-          defaultTheme?.primaryButtonMouseDownBoxShadow ??
-          this.primaryButtonMouseDownBoxShadow,
+      primaryDigitButtonColor: primaryDigitButtonColor ??
+          defaultTheme?.primaryDigitButtonColor ??
+          this.primaryDigitButtonColor,
+      DigitButtonHoverBoxShadow: DigitButtonHoverBoxShadow ??
+          defaultTheme?.DigitButtonHoverBoxShadow ??
+          this.DigitButtonHoverBoxShadow,
+      DigitButtonMouseDownBoxShadow: DigitButtonMouseDownBoxShadow ??
+          defaultTheme?.DigitButtonMouseDownBoxShadow ??
+          this.DigitButtonMouseDownBoxShadow,
+      primaryDigitButtonHoverBoxShadow: primaryDigitButtonHoverBoxShadow ??
+          defaultTheme?.primaryDigitButtonHoverBoxShadow ??
+          this.primaryDigitButtonHoverBoxShadow,
+      primaryDigitButtonMouseDownBoxShadow: primaryDigitButtonMouseDownBoxShadow ??
+          defaultTheme?.primaryDigitButtonMouseDownBoxShadow ??
+          this.primaryDigitButtonMouseDownBoxShadow,
     );
   }
 
@@ -265,12 +265,12 @@ class DigitButtonThemeData extends ThemeExtension<DigitButtonThemeData> {
     if (other is! DigitButtonThemeData) return this;
 
     return DigitButtonThemeData(
-      smallButtonTextStyle:
-          TextStyle.lerp(smallButtonTextStyle, other.smallButtonTextStyle, t)!,
-      mediumButtonTextStyle: TextStyle.lerp(
-          mediumButtonTextStyle, other.mediumButtonTextStyle, t)!,
-      largeButtonTextStyle:
-          TextStyle.lerp(largeButtonTextStyle, other.largeButtonTextStyle, t)!,
+      smallDigitButtonTextStyle:
+          TextStyle.lerp(smallDigitButtonTextStyle, other.smallDigitButtonTextStyle, t)!,
+      mediumDigitButtonTextStyle: TextStyle.lerp(
+          mediumDigitButtonTextStyle, other.mediumDigitButtonTextStyle, t)!,
+      largeDigitButtonTextStyle:
+          TextStyle.lerp(largeDigitButtonTextStyle, other.largeDigitButtonTextStyle, t)!,
       smallLinkTextStyle:
           TextStyle.lerp(smallLinkTextStyle, other.smallLinkTextStyle, t)!,
       mediumLinkTextStyle:
@@ -286,12 +286,12 @@ class DigitButtonThemeData extends ThemeExtension<DigitButtonThemeData> {
           lerpDouble(mediumLinkIconSize, other.mediumLinkIconSize, t)!,
       largeLinkIconSize:
           lerpDouble(largeLinkIconSize, other.largeLinkIconSize, t)!,
-      smallButtonHeight:
-          lerpDouble(smallButtonHeight, other.smallButtonHeight, t)!,
-      mediumButtonHeight:
-          lerpDouble(mediumButtonHeight, other.mediumButtonHeight, t)!,
-      largeButtonHeight:
-          lerpDouble(largeButtonHeight, other.largeButtonHeight, t)!,
+      smallDigitButtonHeight:
+          lerpDouble(smallDigitButtonHeight, other.smallDigitButtonHeight, t)!,
+      mediumDigitButtonHeight:
+          lerpDouble(mediumDigitButtonHeight, other.mediumDigitButtonHeight, t)!,
+      largeDigitButtonHeight:
+          lerpDouble(largeDigitButtonHeight, other.largeDigitButtonHeight, t)!,
       borderWidth: lerpDouble(borderWidth, other.borderWidth, t)!,
       radius: BorderRadius.lerp(radius, other.radius, t)!,
       padding: EdgeInsets.lerp(padding, other.padding, t)!,
@@ -300,20 +300,20 @@ class DigitButtonThemeData extends ThemeExtension<DigitButtonThemeData> {
       focusColor: Color.lerp(focusColor, other.focusColor, t)!,
       hightlightColor: Color.lerp(hightlightColor, other.hightlightColor, t)!,
       splashColor: Color.lerp(splashColor, other.splashColor, t)!,
-      buttonColor: Color.lerp(buttonColor, other.buttonColor, t)!,
+      DigitButtonColor: Color.lerp(DigitButtonColor, other.DigitButtonColor, t)!,
       disabledColor: Color.lerp(disabledColor, other.disabledColor, t)!,
-      primaryButtonColor:
-          Color.lerp(primaryButtonColor, other.primaryButtonColor, t)!,
-      buttonHoverBoxShadow:
-          t < 0.5 ? buttonHoverBoxShadow : other.buttonHoverBoxShadow,
-      buttonMouseDownBoxShadow:
-          t < 0.5 ? buttonMouseDownBoxShadow : other.buttonMouseDownBoxShadow,
-      primaryButtonHoverBoxShadow: t < 0.5
-          ? primaryButtonHoverBoxShadow
-          : other.primaryButtonHoverBoxShadow,
-      primaryButtonMouseDownBoxShadow: t < 0.5
-          ? primaryButtonMouseDownBoxShadow
-          : other.primaryButtonMouseDownBoxShadow,
+      primaryDigitButtonColor:
+          Color.lerp(primaryDigitButtonColor, other.primaryDigitButtonColor, t)!,
+      DigitButtonHoverBoxShadow:
+          t < 0.5 ? DigitButtonHoverBoxShadow : other.DigitButtonHoverBoxShadow,
+      DigitButtonMouseDownBoxShadow:
+          t < 0.5 ? DigitButtonMouseDownBoxShadow : other.DigitButtonMouseDownBoxShadow,
+      primaryDigitButtonHoverBoxShadow: t < 0.5
+          ? primaryDigitButtonHoverBoxShadow
+          : other.primaryDigitButtonHoverBoxShadow,
+      primaryDigitButtonMouseDownBoxShadow: t < 0.5
+          ? primaryDigitButtonMouseDownBoxShadow
+          : other.primaryDigitButtonMouseDownBoxShadow,
     );
   }
 }

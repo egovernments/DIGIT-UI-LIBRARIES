@@ -1,8 +1,10 @@
 import 'package:digit_ui_components/digit_components.dart';
-import 'package:digit_ui_components/widgets/helper_widget/button_list.dart';
 import 'package:flutter/material.dart';
 
-class CustomBottomSheet extends StatefulWidget {
+import '../atoms/digit_button.dart';
+import '../helper_widget/button_list.dart';
+
+class DigitBottomSheet extends StatefulWidget {
   final double? initialHeightPercentage;
   final double? fixedHeight;
   final bool disableDrag;
@@ -12,7 +14,7 @@ class CustomBottomSheet extends StatefulWidget {
   final void Function(BuildContext context)? onPrimaryAction;
   final void Function(BuildContext context)? onSecondaryAction;
 
-  const CustomBottomSheet({
+  const DigitBottomSheet({
     Key? key,
     required this.content,
     this.initialHeightPercentage,
@@ -25,10 +27,10 @@ class CustomBottomSheet extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _CustomBottomSheetState createState() => _CustomBottomSheetState();
+  _DigitBottomSheetState createState() => _DigitBottomSheetState();
 }
 
-class _CustomBottomSheetState extends State<CustomBottomSheet>
+class _DigitBottomSheetState extends State<DigitBottomSheet>
     with TickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _heightAnimation;
@@ -175,9 +177,9 @@ class _CustomBottomSheetState extends State<CustomBottomSheet>
                         ),
                       ),
                     Expanded(
-                      child: SingleChildScrollView(
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: SingleChildScrollView(
                           child: widget.content,
                         ),
                       ),
@@ -185,27 +187,27 @@ class _CustomBottomSheetState extends State<CustomBottomSheet>
                     if (isAction)
                       Padding(
                         padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 16.0),
-                        child: ButtonListTile(
+                        child: DigitButtonListTile(
                           spacing: 24,
                           buttons: [
                             if(widget.onPrimaryAction != null)
-                            Button(
-                              label: widget.primaryActionLabel ?? '',
-                              onPressed: () {
-                                widget.onPrimaryAction?.call(context);
-                              },
-                              type: ButtonType.primary,
-                              size: ButtonSize.large,
-                            ),
+                              DigitButton(
+                                label: widget.primaryActionLabel ?? '',
+                                onPressed: () {
+                                  widget.onPrimaryAction?.call(context);
+                                },
+                                type: DigitButtonType.primary,
+                                size: DigitButtonSize.large,
+                              ),
                             if(widget.onSecondaryAction != null)
-                            Button(
-                              label: widget.secondaryActionLabel ?? '',
-                              onPressed: () {
-                                widget.onSecondaryAction?.call(context);
-                              },
-                              type: ButtonType.secondary,
-                              size: ButtonSize.large,
-                            ),
+                              DigitButton(
+                                label: widget.secondaryActionLabel ?? '',
+                                onPressed: () {
+                                  widget.onSecondaryAction?.call(context);
+                                },
+                                type: DigitButtonType.secondary,
+                                size: DigitButtonSize.large,
+                              ),
                           ],
                         ),
                       ),

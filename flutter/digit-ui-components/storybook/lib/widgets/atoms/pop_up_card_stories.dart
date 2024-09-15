@@ -4,197 +4,98 @@ import 'package:digit_ui_components/widgets/atoms/pop_up_card.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
 import 'package:flutter/material.dart';
 
-import '../../plugins/code_view_wrapper.dart';
-
 List<Story> popUpStories() {
   return [
     Story(
       name: 'Atom/PopUp/default/simple',
-      builder: (context) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          CodeViewProvider.of(context)?.updateCodeString('''
-const Popup(
-  title: 'Title',
-  subHeading: 'SubTitle',
-)
-          ''');
-        });
-        return const Popup(
-          title: 'Title',
-          subHeading: 'SubTitle',
-        );
-      },
+      builder: (context) =>  Popup(
+        title: context.knobs.text(label: 'Title', initial: 'Title'),
+        subHeading: 'SubTitle',
+      ),
     ),
     Story(
       name: 'Atom/PopUp/default/description',
-      builder: (context) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          CodeViewProvider.of(context)?.updateCodeString('''
-const Popup(
-  title: 'Title',
-  subHeading: 'SubTitle',
-  description: 'description',
-)
-          ''');
-        });
-        return const Popup(
-          title: 'Title',
-          subHeading: 'SubTitle',
-          description: 'description',
-        );
-      },
+      builder: (context) => const Popup(
+        title: 'Title',
+        subHeading: 'SubTitle',
+        description:'description',
+      ),
     ),
     Story(
       name: 'Atom/PopUp/default/action',
-      builder: (context) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          CodeViewProvider.of(context)?.updateCodeString('''
-Popup(
-  title: 'Title',
-  subHeading: 'SubTitle',
-  description: 'description',
-  onCrossTap: (context) {},
-  actions: [
-    Button(
-      label: 'Submit',
-      onPressed: () {},
-      type: ButtonType.primary,
-      size: ButtonSize.large,
-    ),
-    Button(
-      label: 'Cancel',
-      onPressed: () {},
-      type: ButtonType.secondary,
-      size: ButtonSize.large,
-    ),
-  ],
-)
-          ''');
-        });
-        return Popup(
-          title: 'Title',
-          subHeading: 'SubTitle',
-          description: 'description',
-          onCrossTap: (context) {},
-          actions: [
-            Button(
+      builder: (context) => Popup(
+        title: context.knobs.text(label: 'Title', initial: 'Title'),
+        subHeading: 'SubTitle',
+        description:'description',
+        onCrossTap: () {},
+        actions: [
+          DigitButton(
               label: 'Submit',
               onPressed: () {},
-              type: ButtonType.primary,
-              size: ButtonSize.large,
-            ),
-            Button(
-                label: 'Cancel',
-                onPressed: () {},
-                type: ButtonType.secondary,
-                size: ButtonSize.large),
-          ],
-        );
-      },
+              type: DigitButtonType.primary,
+              size: DigitButtonSize.large),
+          DigitButton(
+              label: 'Cancel',
+              onPressed: () {},
+              type: DigitButtonType.secondary,
+              size: DigitButtonSize.large),
+        ],
+      ),
     ),
     Story(
-        name: 'Atom/PopUp/default/icon&description&action ',
-        builder: (context) {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            CodeViewProvider.of(context)?.updateCodeString('''
-const Popup(
-  title: 'Title',
-          subHeading: 'SubTitle',
-          description: 'description',
-          titleIcon: const Icon(
-            Icons.error_outline,
-            size: 32,
-          ),
-          onCrossTap: (context) {},
-          actions: [
-            Button(
-                label: 'Submit',
-                onPressed: () {},
-                type: ButtonType.primary,
-                size: ButtonSize.large),
-            Button(
-                label: 'Cancel',
-                onPressed: () {},
-                type: ButtonType.secondary,
-                size: ButtonSize.large),
-          ],
-)
-          ''');
-          });
-          return Popup(
-            title: 'Title',
-            subHeading: 'SubTitle',
-            description: 'description',
-            titleIcon: const Icon(
-              Icons.error_outline,
-              size: 32,
-            ),
-            onCrossTap: (context) {},
-            actions: [
-              Button(
-                  label: 'Submit',
-                  onPressed: () {},
-                  type: ButtonType.primary,
-                  size: ButtonSize.large),
-              Button(
-                  label: 'Cancel',
-                  onPressed: () {},
-                  type: ButtonType.secondary,
-                  size: ButtonSize.large),
-            ],
-          );
-        }),
+      name: 'Atom/PopUp/default/icon&description&action ',
+      builder: (context) => Popup(
+        title: 'Title',
+        subHeading: 'SubTitle',
+        description:'description',
+        titleIcon: const Icon(
+          Icons.error_outline,
+          size: 32,
+        ),
+        onCrossTap: () {},
+        actions: [
+          DigitButton(
+              label: 'Submit',
+              onPressed: () {},
+              type: DigitButtonType.primary,
+              size: DigitButtonSize.large),
+          DigitButton(
+              label: 'Cancel',
+              onPressed: () {},
+              type: DigitButtonType.secondary,
+              size: DigitButtonSize.large),
+        ],
+      ),
+    ),
     Story(
-        name: 'Atom/PopUp/default/with additional widgets',
-        builder: (context) {
-
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            CodeViewProvider.of(context)?.updateCodeString('''
-const Popup(
-  title: 'Title',
-            subHeading: 'SubTitle',
-            description: 'description',
-            titleIcon: Icon(
-              Icons.error_outline,
-              size: 32,
-            ),
-            additionalWidgets: [
-              InfoCard(
-                  title: 'Info',
-                  type: InfoType.info,
-                  description: 'this is info card'),
-            ],
-)
-          ''');
-          });
-
-          return const Popup(
-            title: 'Title',
-            subHeading: 'SubTitle',
-            description: 'description',
-            titleIcon: Icon(
-              Icons.error_outline,
-              size: 32,
-            ),
-            additionalWidgets: [
-              InfoCard(
-                  title: 'Info',
-                  type: InfoType.info,
-                  description: 'this is info card'),
-            ],
-          );
-        }),
+      name: 'Atom/PopUp/default/with additional widgets',
+      builder: (context) => const Popup(
+        title: 'Title',
+        subHeading: 'SubTitle',
+        description:'description',
+        titleIcon: Icon(
+          Icons.error_outline,
+          size: 32,
+        ),
+        additionalWidgets: [
+          InfoCard(
+              title: 'Info',
+              type: InfoType.info,
+              description: 'this is info card'),
+        ],
+      ),
+    ),
     Story(
       name: 'Atom/PopUp/default/with additional widgets with action',
       builder: (context) => Popup(
         title: 'Title',
         subHeading: 'SubTitle',
-        description: 'description',
+        description:'description',
         titleIcon: const Icon(
           Icons.error_outline,
           size: 32,
         ),
-        onCrossTap: (context) {},
+        onCrossTap: () {},
         additionalWidgets: const [
           InfoCard(
               title: 'Info',
@@ -202,16 +103,16 @@ const Popup(
               description: 'this is info card'),
         ],
         actions: [
-          Button(
+          DigitButton(
               label: 'Submit',
               onPressed: () {},
-              type: ButtonType.primary,
-              size: ButtonSize.large),
-          Button(
+              type: DigitButtonType.primary,
+              size: DigitButtonSize.large),
+          DigitButton(
               label: 'Cancel',
               onPressed: () {},
-              type: ButtonType.secondary,
-              size: ButtonSize.large),
+              type: DigitButtonType.secondary,
+              size: DigitButtonSize.large),
         ],
       ),
     ),
@@ -220,12 +121,12 @@ const Popup(
       builder: (context) => Popup(
         title: 'Title',
         subHeading: 'SubTitle',
-        description: 'description',
+        description:'description',
         titleIcon: const Icon(
           Icons.error_outline,
           size: 32,
         ),
-        onCrossTap: (context) {},
+        onCrossTap: () {},
         additionalWidgets: const [
           InfoCard(
               title: 'Info',
@@ -233,11 +134,11 @@ const Popup(
               description: 'this is info card'),
         ],
         actions: [
-          Button(
+          DigitButton(
               label: 'Submit',
               onPressed: () {},
-              type: ButtonType.primary,
-              size: ButtonSize.large),
+              type: DigitButtonType.primary,
+              size: DigitButtonSize.large),
         ],
       ),
     ),
@@ -246,7 +147,7 @@ const Popup(
       builder: (context) => const Popup(
         title: 'Title',
         subHeading: 'SubTitle',
-        description: 'description',
+        description:'description',
         titleIcon: Icon(
           Icons.error_outline,
           size: 32,
@@ -269,12 +170,12 @@ const Popup(
         ),
         title: 'Title',
         subHeading: 'SubTitle',
-        description: 'description',
+        description:'description',
         titleIcon: const Icon(
           Icons.error_outline,
           size: 32,
         ),
-        onCrossTap: (context) {},
+        onCrossTap: () {},
         additionalWidgets: const [
           InfoCard(
               title: 'Info',
@@ -314,16 +215,16 @@ const Popup(
               description: 'this is info card'),
         ],
         actions: [
-          Button(
+          DigitButton(
               label: 'Submit',
               onPressed: () {},
-              type: ButtonType.primary,
-              size: ButtonSize.large),
-          Button(
+              type: DigitButtonType.primary,
+              size: DigitButtonSize.large),
+          DigitButton(
               label: 'Cancel',
               onPressed: () {},
-              type: ButtonType.secondary,
-              size: ButtonSize.large),
+              type: DigitButtonType.secondary,
+              size: DigitButtonSize.large),
         ],
       ),
     ),
@@ -333,13 +234,7 @@ const Popup(
         title: 'Alert!',
         subHeading: 'Please contact the administrator if you have fsdfsdf dsfs',
         type: PopUpType.alert,
-        actions: [
-          Button(
-              label: 'OK',
-              onPressed: () {},
-              type: ButtonType.primary,
-              size: ButtonSize.large)
-        ],
+        actions: [DigitButton(label: 'OK', onPressed: (){}, type: DigitButtonType.primary, size: DigitButtonSize.large)],
       ),
     ),
     Story(
@@ -363,11 +258,11 @@ const Popup(
         subHeading: 'Please contact the administrator if you have fsdfsdf dsfs',
         type: PopUpType.alert,
         actions: [
-          Button(
+          DigitButton(
               label: 'Submit',
               onPressed: () {},
-              type: ButtonType.primary,
-              size: ButtonSize.large),
+              type: DigitButtonType.primary,
+              size: DigitButtonSize.large),
         ],
       ),
     ),
@@ -379,16 +274,16 @@ const Popup(
         type: PopUpType.alert,
         inlineActions: true,
         actions: [
-          Button(
+          DigitButton(
               label: 'Submit',
               onPressed: () {},
-              type: ButtonType.primary,
-              size: ButtonSize.large),
-          Button(
+              type: DigitButtonType.primary,
+              size: DigitButtonSize.large),
+          DigitButton(
               label: 'Cancel',
               onPressed: () {},
-              type: ButtonType.secondary,
-              size: ButtonSize.large),
+              type: DigitButtonType.secondary,
+              size: DigitButtonSize.large),
         ],
       ),
     ),
@@ -405,16 +300,16 @@ const Popup(
               description: 'this is error')
         ],
         actions: [
-          Button(
+          DigitButton(
               label: 'Submit',
               onPressed: () {},
-              type: ButtonType.primary,
-              size: ButtonSize.large),
-          Button(
+              type: DigitButtonType.primary,
+              size: DigitButtonSize.large),
+          DigitButton(
               label: 'Cancel',
               onPressed: () {},
-              type: ButtonType.secondary,
-              size: ButtonSize.large),
+              type: DigitButtonType.secondary,
+              size: DigitButtonSize.large),
         ],
       ),
     ),
@@ -469,19 +364,18 @@ const Popup(
               description: 'this is error card'),
         ],
         actions: [
-          Button(
+          DigitButton(
               label: 'Submit',
               onPressed: () {},
-              type: ButtonType.primary,
-              size: ButtonSize.large),
-          Button(
+              type: DigitButtonType.primary,
+              size: DigitButtonSize.large),
+          DigitButton(
               label: 'Cancel',
               onPressed: () {},
-              type: ButtonType.secondary,
-              size: ButtonSize.large),
+              type: DigitButtonType.secondary,
+              size: DigitButtonSize.large),
         ],
       ),
     ),
   ];
 }
-

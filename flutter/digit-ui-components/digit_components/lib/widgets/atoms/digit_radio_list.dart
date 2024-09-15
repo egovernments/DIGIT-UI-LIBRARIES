@@ -1,14 +1,14 @@
-/// `RadioList` is a widget for rendering a list of radio buttons.
-/// This widget provides options for radio buttons, handling hover effects, and a disabled state.
+/// `RadioList` is a widget for rendering a list of radio DigitButtons.
+/// This widget provides options for radio DigitButtons, handling hover effects, and a disabled state.
 /// Example usage:
 /// ```dart
 /// RadioList(
-///   radioButtons: [
-///     RadioButtonModel(code: 'option1', name: 'Option 1'),
-///     RadioButtonModel(code: 'option2', name: 'Option 2'),
+///   radioDigitButtons: [
+///     RadioDigitButtonModel(code: 'option1', name: 'Option 1'),
+///     RadioDigitButtonModel(code: 'option2', name: 'Option 2'),
 ///   ],
 ///   onChanged: (selectedValue) {
-///     // Handle radio button selection
+///     // Handle radio DigitButton selection
 ///   },
 ///   groupValue: 'option1', // can be passed same to select value initially
 ///   isDisabled: false,
@@ -22,38 +22,41 @@ import '../../models/RadioButtonModel.dart';
 import '../../utils/utils.dart';
 
 class RadioList extends StatefulWidget {
-  /// List of RadioButtonModel objects representing the radio buttons
-  final List<RadioButtonModel> radioButtons;
+  /// List of RadioDigitButtonModel objects representing the radio DigitButtons
+  final List<RadioButtonModel> radioDigitButtons;
 
-  /// Callback function to be called when a radio button is selected
+  /// Callback function to be called when a radio DigitButton is selected
   final void Function(RadioButtonModel) onChanged;
 
-  /// Currently selected value in the radio button group
+  /// Currently selected value in the radio DigitButton group
   String groupValue;
 
   final String? errorMessage;
 
-  /// Flag to indicate if the radio buttons are disabled
+  /// Flag to indicate if the radio DigitButtons are disabled
   final bool isDisabled;
+
+  final bool readOnly;
 
   /// container padding
   final EdgeInsetsGeometry containerPadding;
 
-  /// radio button width
+  /// radio DigitButton width
   final double radioWidth;
 
-  /// radio button height
+  /// radio DigitButton height
   final double radioHeight;
   final bool capitalizeFirstLetter;
 
   /// Constructor for the RadioList widget
   RadioList({
     Key? key,
-    required this.radioButtons,
+    required this.radioDigitButtons,
     required this.onChanged,
     this.groupValue = '',
     this.isDisabled = false,
     this.errorMessage,
+    this.readOnly = false,
     this.containerPadding = RadioConstant.defaultPadding,
     this.radioWidth = RadioConstant.radioWidth,
     this.radioHeight = RadioConstant.radioHeight,
@@ -67,7 +70,7 @@ class RadioList extends StatefulWidget {
 
 /// State class for the RadioList widget
 class _RadioListState extends State<RadioList> {
-  /// List to track whether each radio button is being hovered over
+  /// List to track whether each radio DigitButton is being hovered over
   late List<bool> isHoveredList;
   late List<bool> isMouseDown;
   late bool isMobile;
@@ -78,8 +81,8 @@ class _RadioListState extends State<RadioList> {
     super.initState();
 
     /// Initialize the hover list with false values
-    isHoveredList = List.generate(widget.radioButtons.length, (index) => false);
-    isMouseDown = List.generate(widget.radioButtons.length, (index) => false);
+    isHoveredList = List.generate(widget.radioDigitButtons.length, (index) => false);
+    isMouseDown = List.generate(widget.radioDigitButtons.length, (index) => false);
   }
 
   /// Build the widget layout
@@ -98,7 +101,7 @@ class _RadioListState extends State<RadioList> {
         children: [
           Wrap(
             crossAxisAlignment: WrapCrossAlignment.start,
-            children: _buildRadioButtons(currentTypography),
+            children: _buildRadioDigitButtons(currentTypography),
           ),
           if(widget.errorMessage!=null)
             const SizedBox(width: spacer1),
@@ -154,7 +157,7 @@ class _RadioListState extends State<RadioList> {
         Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: _buildRadioButtons(currentTypography),
+          children: _buildRadioDigitButtons(currentTypography),
         ),
         if(widget.errorMessage!=null)
           const SizedBox(width: spacer1),
@@ -202,11 +205,11 @@ class _RadioListState extends State<RadioList> {
     );
   }
 
-  List<Widget> _buildRadioButtons(DigitTypography currentTypography) {
+  List<Widget> _buildRadioDigitButtons(DigitTypography currentTypography) {
 
-    return widget.radioButtons.map(
-      (button) {
-        final index = widget.radioButtons.indexOf(button);
+    return widget.radioDigitButtons.map(
+          (DigitButton) {
+        final index = widget.radioDigitButtons.indexOf(DigitButton);
         return Padding(
           padding: widget.containerPadding,
           child: Row(
@@ -223,40 +226,40 @@ class _RadioListState extends State<RadioList> {
                     hoverColor: const DigitColors().transparent,
                     splashColor: const DigitColors().transparent,
                     highlightColor: const DigitColors().transparent,
-                    onHover: widget.isDisabled
+                    onHover: widget.isDisabled || widget.readOnly
                         ? null
                         : (hover) {
-                            setState(() {
-                              isHoveredList[index] = hover;
-                            });
-                          },
-                    onTapDown: widget.isDisabled
+                      setState(() {
+                        isHoveredList[index] = hover;
+                      });
+                    },
+                    onTapDown: widget.isDisabled|| widget.readOnly
                         ? null
                         : (_) {
-                            /// Handle mouse down state
-                            setState(() {
-                              isMouseDown[index] = true;
-                            });
-                          },
-                    onTapUp: widget.isDisabled
+                      /// Handle mouse down state
+                      setState(() {
+                        isMouseDown[index] = true;
+                      });
+                    },
+                    onTapUp: widget.isDisabled || widget.readOnly
                         ? null
                         : (_) {
-                            /// Handle mouse up state
-                            setState(() {
-                              isMouseDown[index] = false;
-                            });
-                          },
-                    onTap: widget.isDisabled
+                      /// Handle mouse up state
+                      setState(() {
+                        isMouseDown[index] = false;
+                      });
+                    },
+                    onTap: widget.isDisabled || widget.readOnly
                         ? null
                         : () {
-                            if (mounted) {
-                              setState(() {
-                                /// Update the selected value and call the onChanged callback
-                                widget.groupValue = button.code;
-                              });
-                              widget.onChanged!(button);
-                            }
-                          },
+                      if (mounted) {
+                        setState(() {
+                          /// Update the selected value and call the onChanged callback
+                          widget.groupValue = DigitButton.code;
+                        });
+                        widget.onChanged!(DigitButton);
+                      }
+                    },
                     child: Container(
                       padding: const EdgeInsets.all(spacer1),
                       width: widget.radioWidth,
@@ -264,46 +267,46 @@ class _RadioListState extends State<RadioList> {
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         border: Border.all(
-                          color: widget.isDisabled
+                          color: widget.isDisabled || widget.readOnly
                               ? const DigitColors().light.genericDivider
-                              : (widget.groupValue == button.code ||
-                                      isHoveredList[index] ||
-                                      isMouseDown[index])
-                                  ? const DigitColors().light.primary1
-                                  : const DigitColors().light.textSecondary,
-                          width: (widget.isDisabled &&
-                                      widget.groupValue == button.code) ||
-                                  widget.groupValue == button.code
+                              : (widget.groupValue == DigitButton.code ||
+                              isHoveredList[index] ||
+                              isMouseDown[index])
+                              ? const DigitColors().light.primary1
+                              : const DigitColors().light.textSecondary,
+                          width: ((widget.isDisabled || widget.readOnly) &&
+                              widget.groupValue == DigitButton.code) ||
+                              widget.groupValue == DigitButton.code
                               ? 2
                               : Base.defaultBorderWidth,
                         ),
-                        color: widget.isDisabled
+                        color: widget.isDisabled || widget.readOnly
                             ? const DigitColors().light.paperSecondary
                             : isMouseDown[index]
-                                ? const DigitColors().light.primary1Bg
-                                : const DigitColors().light.paperPrimary,
+                            ? const DigitColors().light.primary1Bg
+                            : const DigitColors().light.paperPrimary,
                         boxShadow: isMouseDown[index]
                             ? [
-                                BoxShadow(
-                                  color: const DigitColors().light.primary1Bg,
-                                  spreadRadius: 3,
-                                  blurRadius: 3,
-                                  offset: const Offset(0, 0),
-                                ),
-                              ]
+                          BoxShadow(
+                            color: const DigitColors().light.primary1Bg,
+                            spreadRadius: 3,
+                            blurRadius: 3,
+                            offset: const Offset(0, 0),
+                          ),
+                        ]
                             : [],
                       ),
-                      child: widget.groupValue == button.code
+                      child: widget.groupValue == DigitButton.code
                           ? Container(
-                              height: spacer3,
-                              width: spacer3,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: widget.isDisabled
-                                    ? const DigitColors().light.textDisabled
-                                    : const DigitColors().light.primary1,
-                              ),
-                            )
+                        height: spacer3,
+                        width: spacer3,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: widget.isDisabled || widget.readOnly
+                              ? const DigitColors().light.textDisabled
+                              : const DigitColors().light.primary1,
+                        ),
+                      )
                           : null,
                     ),
                   ),
@@ -317,7 +320,7 @@ class _RadioListState extends State<RadioList> {
                 child: Padding(
                   padding: EdgeInsets.only(top: isMobile ? spacer1 / 2 : 0),
                   child: Text(
-                    convertInToSentenceCase(button.name)!,
+                    convertInToSentenceCase(DigitButton.name)!,
                     maxLines: 5,
                     overflow: TextOverflow.ellipsis,
                     style: currentTypography.bodyL.copyWith(

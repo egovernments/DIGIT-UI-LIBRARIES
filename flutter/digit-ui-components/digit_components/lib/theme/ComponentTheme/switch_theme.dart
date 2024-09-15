@@ -1,9 +1,10 @@
+
 import 'dart:ui';
 
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:flutter/material.dart';
 
-class CustomSwitchThemeData extends ThemeExtension<CustomSwitchThemeData> {
+class DigitSwitchThemeData extends ThemeExtension<DigitSwitchThemeData> {
   final Color? activeColor;
   final Color? inactiveColor;
   final Color? symbolColor;
@@ -14,7 +15,7 @@ class CustomSwitchThemeData extends ThemeExtension<CustomSwitchThemeData> {
   final EdgeInsets? padding;
   final int? animationValue;
 
-  const CustomSwitchThemeData({
+  const DigitSwitchThemeData({
     this.activeColor,
     this.inactiveColor,
     this.symbolColor,
@@ -26,11 +27,11 @@ class CustomSwitchThemeData extends ThemeExtension<CustomSwitchThemeData> {
     this.animationValue,
   });
 
-  static CustomSwitchThemeData defaultTheme(BuildContext context) {
+  static DigitSwitchThemeData defaultTheme(BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.digitTextTheme(context);
 
-    return CustomSwitchThemeData(
+    return DigitSwitchThemeData(
       activeColor: theme.colorTheme.primary.primary1,
       inactiveColor: theme.colorTheme.text.disabled,
       symbolColor: theme.colorTheme.paper.primary,
@@ -46,7 +47,7 @@ class CustomSwitchThemeData extends ThemeExtension<CustomSwitchThemeData> {
   }
 
   @override
-  CustomSwitchThemeData copyWith({
+  DigitSwitchThemeData copyWith({
     Color? activeColor,
     Color? inactiveColor,
     Color? symbolColor,
@@ -57,7 +58,7 @@ class CustomSwitchThemeData extends ThemeExtension<CustomSwitchThemeData> {
     EdgeInsets? padding,
     int? animationValue,
   }) {
-    return CustomSwitchThemeData(
+    return DigitSwitchThemeData(
       activeColor: activeColor ?? this.activeColor,
       inactiveColor: inactiveColor ?? this.inactiveColor,
       symbolColor: symbolColor ?? this.symbolColor,
@@ -71,10 +72,10 @@ class CustomSwitchThemeData extends ThemeExtension<CustomSwitchThemeData> {
   }
 
   @override
-  CustomSwitchThemeData lerp(covariant ThemeExtension<CustomSwitchThemeData>? other, double t) {
-    if (other is! CustomSwitchThemeData) return this;
+  DigitSwitchThemeData lerp(covariant ThemeExtension<DigitSwitchThemeData>? other, double t) {
+    if (other is! DigitSwitchThemeData) return this;
 
-    return CustomSwitchThemeData(
+    return DigitSwitchThemeData(
       activeColor: Color.lerp(activeColor, other.activeColor, t),
       inactiveColor: Color.lerp(inactiveColor, other.inactiveColor, t),
       symbolColor: Color.lerp(symbolColor, other.symbolColor, t),

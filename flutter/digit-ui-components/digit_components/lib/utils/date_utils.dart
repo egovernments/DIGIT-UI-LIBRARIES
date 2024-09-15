@@ -125,9 +125,9 @@ class DigitDateUtils {
 
   // Function to get the number of years or months between a provided date and the current date.
   static getYearsAndMonthsFromDateTime(
-    DateTime dateTime, [
-    bool getMonths = false,
-  ]) {
+      DateTime dateTime, [
+        bool getMonths = false,
+      ]) {
     int days = DateTime.now().difference(dateTime).inDays;
     int years = days ~/ 365;
     int months = (days - (years * 365)) ~/ 30;

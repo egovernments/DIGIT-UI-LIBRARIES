@@ -1,7 +1,6 @@
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/material.dart';
-import '../../constants/AppView.dart';
-import '../../models/DropdownModels.dart';
+import '../atoms/digit_button.dart';
 import '../helper_widget/overlay_dropdown.dart';
 
 class DigitFooter extends StatefulWidget {
@@ -62,13 +61,13 @@ class _DigitFooterState extends State<DigitFooter> {
     final bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
     final bool isTab = AppView.isTabletView(MediaQuery.of(context).size);
 
-    // Sort actions to have primary buttons at the top
+    // Sort actions to have primary DigitButtons at the top
     sortedActions.sort((a, b) {
-      if (a.button.type == ButtonType.primary &&
-          b.button.type != ButtonType.primary) {
+      if (a.buttons.type == DigitButtonType.primary &&
+          b.buttons.type != DigitButtonType.primary) {
         return -1;
-      } else if (a.button.type != ButtonType.primary &&
-          b.button.type == ButtonType.primary) {
+      } else if (a.buttons.type != DigitButtonType.primary &&
+          b.buttons.type == DigitButtonType.primary) {
         return 1;
       } else {
         return 0;
@@ -83,13 +82,13 @@ class _DigitFooterState extends State<DigitFooter> {
             ? OverlayDropdown(
                 type: OverlayDropdownType.footer,
                 items: sortedActions[i].dropdownItems!,
-                title: Button(
-                  label: sortedActions[i].button.label,
-                  size: sortedActions[i].button.size,
-                  type: sortedActions[i].button.type,
-                  onPressed: sortedActions[i].button.onPressed,
-                  prefixIcon: sortedActions[i].button.prefixIcon,
-                  suffixIcon: sortedActions[i].button.suffixIcon,
+                title: DigitButton(
+                  label: sortedActions[i].buttons.label,
+                  size: sortedActions[i].buttons.size,
+                  type: sortedActions[i].buttons.type,
+                  onPressed: sortedActions[i].buttons.onPressed,
+                  prefixIcon: sortedActions[i].buttons.prefixIcon,
+                  suffixIcon: sortedActions[i].buttons.suffixIcon,
                   mainAxisSize: MainAxisSize.max,
                 ),
                 onChange: (selectedItem) {
@@ -98,12 +97,18 @@ class _DigitFooterState extends State<DigitFooter> {
                   }
                 },
               )
-            : sortedActions[i].button,
+            : sortedActions[i].buttons,
       );
 
       // Add a gap of 16 pixels between items
       if (i < sortedActions.length - 1) {
-        actionWidgets.add(SizedBox(height: widget.actionSpacing ?? (isMobile ? 16.0 : isTab ? 20 : 24)));
+        actionWidgets.add(SizedBox(
+            height: widget.actionSpacing ??
+                (isMobile
+                    ? 16.0
+                    : isTab
+                        ? 20
+                        : 24)));
       }
     }
 
@@ -127,19 +132,25 @@ class _DigitFooterState extends State<DigitFooter> {
             ? OverlayDropdown(
                 type: OverlayDropdownType.footer,
                 items: widget.actions[i].dropdownItems!,
-                title: widget.actions[i].button,
+                title: widget.actions[i].buttons,
                 onChange: (selectedItem) {
                   if (widget.actions[i].onDropdownItemSelected != null) {
                     widget.actions[i].onDropdownItemSelected!(selectedItem);
                   }
                 },
               )
-            : widget.actions[i].button,
+            : widget.actions[i].buttons,
       );
 
       // Add a gap of 16 pixels between items
       if (i < widget.actions.length - 1) {
-        actionWidgets.add(SizedBox(width: widget.actionSpacing ?? (isMobile ? 16.0 : isTab ? 20 : 24)));
+        actionWidgets.add(SizedBox(
+            width: widget.actionSpacing ??
+                (isMobile
+                    ? 16.0
+                    : isTab
+                        ? 20
+                        : 24)));
       }
     }
 
@@ -152,12 +163,12 @@ class _DigitFooterState extends State<DigitFooter> {
 }
 
 class FooterAction {
-  final Button button;
+  final DigitButton buttons;
   final List<DropdownItem>? dropdownItems;
   final void Function(DropdownItem)? onDropdownItemSelected;
 
   FooterAction({
-    required this.button,
+    required this.buttons,
     this.dropdownItems,
     this.onDropdownItemSelected,
   });

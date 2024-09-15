@@ -11,12 +11,12 @@ class ReactiveWrapperField<T> extends ReactiveFormField<T, T> {
     Map<String, ValidationMessageFunction>? validationMessages,
     ShowErrorsFunction? showErrors,
   }) : super(
-          key: key,
-          formControlName: formControlName,
-          validationMessages: validationMessages,
-          showErrors: showErrors,
-          builder: (field) {
-            return builder(field);
-          },
-        );
+    key: key,
+    formControlName: formControlName,
+    validationMessages: validationMessages,
+    showErrors: showErrors,
+    builder: (field) {
+      return builder(field);
+    },
+  );
 }

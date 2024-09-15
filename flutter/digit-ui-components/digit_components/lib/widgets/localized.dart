@@ -1,5 +1,6 @@
-import 'package:digit_ui_components/blocs/AppLocalization.dart';
 import 'package:flutter/material.dart';
+
+import '../services/AppLocalization.dart';
 
 abstract class LocalizedStatefulWidget extends StatefulWidget {
   final ComponentLocalization? appLocalizations;

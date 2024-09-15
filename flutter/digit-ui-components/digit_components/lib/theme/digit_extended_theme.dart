@@ -2,13 +2,13 @@ library digit_theme;
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/theme/ColorTheme/dark_color_theme.dart';
 import 'package:digit_ui_components/theme/ColorTheme/light_color_theme.dart';
-import 'package:digit_ui_components/theme/TextTheme/button_text_theme.dart';
 import 'package:digit_ui_components/theme/TextTheme/desktop_text_theme.dart';
 import 'package:digit_ui_components/theme/TextTheme/mobile_text_theme.dart';
 import 'package:digit_ui_components/theme/TextTheme/tab_text_theme.dart';
 import 'package:flutter/material.dart';
 import 'ColorTheme/color_theme.dart';
 import 'SpacerTheme/spacer_theme.dart';
+import 'TextTheme/button_text_theme.dart';
 import 'TextTheme/digit_text_theme.dart';
 
 class DigitExtendedTheme {

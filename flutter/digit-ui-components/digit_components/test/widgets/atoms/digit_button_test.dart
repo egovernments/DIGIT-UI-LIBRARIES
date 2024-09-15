@@ -4,75 +4,75 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  testWidgets('Button renders correctly and handles tap', (WidgetTester tester) async {
-    // Primary button
-    await _testButton(tester, ButtonType.primary);
+  testWidgets('DigitButton renders correctly and handles tap', (WidgetTester tester) async {
+    // Primary DigitButton
+    await _testDigitButton(tester, DigitButtonType.primary);
 
-    // Secondary button
-    await _testButton(tester, ButtonType.secondary);
+    // Secondary DigitButton
+    await _testDigitButton(tester, DigitButtonType.secondary);
 
-    // Tertiary button
-    await _testButton(tester, ButtonType.tertiary);
+    // Tertiary DigitButton
+    await _testDigitButton(tester, DigitButtonType.tertiary);
 
-    // Link button
-    await _testButton(tester, ButtonType.link);
+    // Link DigitButton
+    await _testDigitButton(tester, DigitButtonType.link);
   });
 
-  testWidgets('Button is disabled and handles tap', (WidgetTester tester) async {
-    // Primary button disabled
-    await _testDisabledButton(tester, ButtonType.primary);
+  testWidgets('DigitButton is disabled and handles tap', (WidgetTester tester) async {
+    // Primary DigitButton disabled
+    await _testDisabledDigitButton(tester, DigitButtonType.primary);
 
-    // Secondary button disabled
-    await _testDisabledButton(tester, ButtonType.secondary);
+    // Secondary DigitButton disabled
+    await _testDisabledDigitButton(tester, DigitButtonType.secondary);
 
-    // Tertiary button disabled
-    await _testDisabledButton(tester, ButtonType.tertiary);
+    // Tertiary DigitButton disabled
+    await _testDisabledDigitButton(tester, DigitButtonType.tertiary);
 
-    // Link button disabled
-    await _testDisabledButton(tester, ButtonType.link);
+    // Link DigitButton disabled
+    await _testDisabledDigitButton(tester, DigitButtonType.link);
   });
 }
 
-Future<void> _testButton(WidgetTester tester, ButtonType buttonType) async {
+Future<void> _testDigitButton(WidgetTester tester, DigitButtonType DigitButtonType) async {
   bool onPressedCalled = false;
 
   await tester.pumpWidget(
     MaterialApp(
       home: Scaffold(
-        body: Button(
-          size: ButtonSize.large,
+        body: DigitButton(
+          size: DigitButtonSize.large,
           label: 'Click me',
           onPressed: () {
             onPressedCalled = true;
           },
-          type: buttonType,
+          type: DigitButtonType,
         ),
       ),
     ),
   );
 
   expect(find.text('Click me'), findsOneWidget);
-  expect(tester.widget<Button>(find.byType(Button)).isDisabled, false);
+  expect(tester.widget<DigitButton>(find.byType(DigitButton)).isDisabled, false);
 
-  await tester.tap(find.byType(Button));
+  await tester.tap(find.byType(DigitButton));
   await tester.pump();
 
   expect(onPressedCalled, true);
 }
 
-Future<void> _testDisabledButton(WidgetTester tester, ButtonType buttonType) async {
+Future<void> _testDisabledDigitButton(WidgetTester tester, DigitButtonType DigitButtonType) async {
   bool onPressedCalled = false;
 
   await tester.pumpWidget(
     MaterialApp(
       home: Scaffold(
-        body: Button(
-          size: ButtonSize.large,
+        body: DigitButton(
+          size: DigitButtonSize.large,
           label: 'Click me',
           onPressed: () {
             onPressedCalled = true;
           },
-          type: buttonType,
+          type: DigitButtonType,
           isDisabled: true,
         ),
       ),
@@ -80,9 +80,9 @@ Future<void> _testDisabledButton(WidgetTester tester, ButtonType buttonType) asy
   );
 
   expect(find.text('Click me'), findsOneWidget);
-  expect(tester.widget<Button>(find.byType(Button)).isDisabled, true);
+  expect(tester.widget<DigitButton>(find.byType(DigitButton)).isDisabled, true);
 
-  await tester.tap(find.byType(Button));
+  await tester.tap(find.byType(DigitButton));
   await tester.pump();
 
   expect(onPressedCalled, false);

@@ -1,14 +1,24 @@
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/theme/ComponentTheme/checkbox_theme.dart';
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
+import 'package:digit_ui_components/widgets/atoms/switch.dart';
 import 'package:flutter/material.dart';
 
+import 'digit_button.dart';
+import 'digit_tag.dart';
+
 class CustomTableCell extends StatelessWidget {
-  final CustomColumn column;
+  final DigitTableData cellData;
+  final ColumnType type;
+  final dynamic value;
+  final void Function(bool)? areAllRowsSelected;
 
   const CustomTableCell({
     Key? key,
-    required this.column,
+    required this.cellData,
+    this.type = ColumnType.text,
+    this.value,
+    this.areAllRowsSelected,
   }) : super(key: key);
 
   @override
@@ -17,45 +27,108 @@ class CustomTableCell extends StatelessWidget {
   }
 
   Widget _buildCellContent(BuildContext context) {
-    switch (column.columnType) {
+    final theme = Theme.of(context);
+    final textTheme = theme.digitTextTheme(context);
+
+    switch (type) {
       case ColumnType.checkbox:
-        return DigitCheckbox(
-          label: column.label,
-          onChanged: (value){},
-          checkboxThemeData: const DigitCheckboxThemeData().copyWith(
-            context: context,
-            iconSize: 20,
+        return Container(
+          constraints: const BoxConstraints(
+            maxWidth: 100,
+            minWidth: 40,
+          ),
+          child: DigitCheckbox(
+            value: value ?? false,
+            onChanged: (value) {
+              if (areAllRowsSelected != null) {
+                areAllRowsSelected!(value);
+              }
+            },
+            checkboxThemeData: const DigitCheckboxThemeData().copyWith(
+              context: context,
+              iconSize: 20,
+            ),
           ),
         );
+
       case ColumnType.textField:
-        return DigitTextFormInput(
-          initialValue: column.value.toString(),
-        );
-      case ColumnType.dropDown:
-        return const DigitDropdown(
-          items: [
-            DropdownItem(name: 'text1', code: '1'),
-            DropdownItem(name: 'text2', code: '2')
-          ],
-        );
-      case ColumnType.button:
-        return Button(
-          size: ButtonSize.medium,
-          type: ButtonType.secondary,
-          onPressed: column.onButtonPressed ?? () {},
-          label: column.label.isNotEmpty ? column.label : 'Button',
-        );
-      case ColumnType.numeric:
-        return Align(
-          alignment: Alignment.bottomRight,
-          child: Text(
-            column.value.toString(),
-            style: const TextStyle(fontFamily: 'RobotoMono'),
+        return Container(
+          constraints: const BoxConstraints(
+            maxWidth: 168,
+          ),
+          child: const DigitTextFormInput(
+            //initialValue: cellData.value,
           ),
         );
+
+      case ColumnType.dropDown:
+        return Container(
+          constraints: const BoxConstraints(
+            maxWidth: 168,
+          ),
+          child: const DigitDropdown(
+            items: [
+              DropdownItem(name: 'text1', code: '1'),
+              DropdownItem(name: 'text2', code: '2')
+            ],
+          ),
+        );
+
+      case ColumnType.DigitButton:
+        return DigitButton(
+          mainAxisSize: MainAxisSize.min,
+          size: DigitButtonSize.medium,
+          type: DigitButtonType.secondary,
+          onPressed: () {
+            if (cellData.callBack != null) {
+              cellData.callBack!(cellData);
+            }
+          },
+          label: cellData.label.isNotEmpty ? cellData.label : 'DigitButton',
+        );
+
+      case ColumnType.numeric:
+        return Container(
+          constraints: const BoxConstraints(
+            maxWidth: 100,
+            minWidth: 40,
+          ),
+          child: Align(
+            alignment: Alignment.topRight,
+            child: Text(
+              cellData.label,
+              style: const TextStyle(fontFamily: 'RobotoMono'),
+            ),
+          ),
+        );
+
+      case ColumnType.description:
+        return Text(
+          cellData.label,
+          style: textTheme.bodyS.copyWith(color: theme.colorTheme.text.primary),
+        );
+
+      case ColumnType.tags:
+        return Tag(
+          label: cellData.label,
+        );
+
+      case ColumnType.switchs:
+        return CustomSwitch(
+            mainAxisAlignment: MainAxisAlignment.start,
+            label: cellData.label,
+            value: cellData.value ?? false, onChanged: (value) {
+          if(cellData.callBack != null) {
+            cellData.callBack!(cellData);
+          }
+        });
       case ColumnType.text:
       default:
-        return Text(column.label);
+        return cellData.widget ?? Text(
+          cellData.label,
+          maxLines: 1,
+          style: textTheme.bodyS.copyWith(color: theme.colorTheme.text.primary),
+        );
     }
   }
 }
@@ -69,34 +142,76 @@ enum ColumnType {
   text,
   checkbox,
   textField,
-  button,
+  DigitButton,
   numeric,
+  description,
   dropDown,
+  switchs,
+  tags,
 }
 
-class TableColumn {
+class DigitTableColumn {
   final String header;
+  final String? description;
+  final ColumnType type;
+  final String cellValue;
   final bool isSortable;
+  bool? value;
+  final bool isFrozen;
+  final bool showCheckbox;
+  final void Function(bool)? onCheckboxChanged;
 
-  TableColumn({
+  DigitTableColumn({
     required this.header,
+    this.description,
+    this.type = ColumnType.text,
+    required this.cellValue,
     this.isSortable = false,
+    this.value,
+    this.isFrozen = false,
+    this.showCheckbox = false,
+    this.onCheckboxChanged,
   });
+}
+
+class DigitTableRow {
+  final List<DigitTableData> tableRow;
+
+  DigitTableRow({
+    required this.tableRow,
+  });
+}
+
+class DigitTableData {
+  final String label;
+  final TextStyle? style;
+  late final dynamic value;
+  final String cellKey;
+  ValueChanged<DigitTableData>? callBack;
+  final Widget? widget;
+
+  DigitTableData(
+      this.label, {
+        this.style,
+        this.value,
+        this.callBack,
+        required this.cellKey,
+        this.widget,
+      });
 }
 
 class CustomColumn {
   final ColumnType columnType;
   final dynamic value;
   final String label;
-  final VoidCallback? onButtonPressed;
+  final VoidCallback? onDigitButtonPressed;
   final ValueChanged<bool>? onCheckboxChanged;
 
   CustomColumn({
     required this.columnType,
     this.value,
     required this.label,
-    this.onButtonPressed,
+    this.onDigitButtonPressed,
     this.onCheckboxChanged,
   });
 }
-

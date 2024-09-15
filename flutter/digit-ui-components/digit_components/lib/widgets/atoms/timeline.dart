@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../utils/utils.dart';
+import 'digit_button.dart';
 
 class DigitTimeline extends StatefulWidget {
   final String label;
@@ -66,7 +67,7 @@ class _TimelineState extends State<DigitTimeline> {
                   Text(
                     capitalizedLabel,
                     style: currentTypography.headingS.copyWith(
-                      color: const DigitColors().light.textPrimary,
+                      color: widget.currentStep == TimelineStepState.future ?  const DigitColors().light.textSecondary: const DigitColors().light.textPrimary,
                     ),
                   ),
                   SizedBox(
@@ -76,11 +77,11 @@ class _TimelineState extends State<DigitTimeline> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: widget.description
                         .map((desc) => Text(
-                              desc,
-                              style: currentTypography.bodyS.copyWith(
-                                color: const DigitColors().light.textSecondary,
-                              ),
-                            ))
+                      desc,
+                      style: currentTypography.bodyS.copyWith(
+                        color: const DigitColors().light.textSecondary,
+                      ),
+                    ))
                         .toList(),
                   ),
                   const SizedBox(height: 4),
@@ -97,19 +98,19 @@ class _TimelineState extends State<DigitTimeline> {
                           children: widget.additionalWidgets!
                               .map(
                                 (widgets) => Padding(
-                                  padding: const EdgeInsets.only(
-                                    right: spacer2,
-                                    bottom: spacer2,
-                                  ),
-                                  child: widgets,
-                                ),
-                              )
+                              padding: const EdgeInsets.only(
+                                right: spacer2,
+                                bottom: spacer2,
+                              ),
+                              child: widgets,
+                            ),
+                          )
                               .toList(),
                         ),
                       ],
                     ),
                   if (!isExpanded && widget.additionalHideWidgets != null)
-                    _buildExpandButton(currentTypography),
+                    _buildExpandDigitButton(currentTypography),
                   if (isExpanded && widget.additionalHideWidgets != null)
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -118,17 +119,17 @@ class _TimelineState extends State<DigitTimeline> {
                           children: widget.additionalHideWidgets!
                               .map(
                                 (widgets) => Padding(
-                                  padding: const EdgeInsets.only(
-                                    right: spacer2,
-                                    bottom: spacer2,
-                                  ),
-                                  child: widgets,
-                                ),
-                              )
+                              padding: const EdgeInsets.only(
+                                right: spacer2,
+                                bottom: spacer2,
+                              ),
+                              child: widgets,
+                            ),
+                          )
                               .toList(),
                         ),
                         const SizedBox(height: spacer2),
-                        _buildExpandButton(currentTypography),
+                        _buildExpandDigitButton(currentTypography),
                       ],
                     ),
                   if (!widget.isLastStep)
@@ -170,55 +171,55 @@ class _TimelineState extends State<DigitTimeline> {
         color: widget.currentStep == TimelineStepState.completed
             ? const DigitColors().light.primary1
             : widget.currentStep == TimelineStepState.present
-                ? const DigitColors().light.paperPrimary
-                : const DigitColors().light.textDisabled,
+            ? const DigitColors().light.paperPrimary
+            : const DigitColors().light.textDisabled,
         borderRadius: BorderRadius.circular(50),
       ),
       child: widget.currentStep == TimelineStepState.completed
           ? Icon(
-              Icons.check,
-              color: const DigitColors().light.paperPrimary,
-              size: isMobile ? 18 : 24,
-            )
+        Icons.check,
+        color: const DigitColors().light.paperPrimary,
+        size: isMobile ? 18 : 24,
+      )
           : widget.currentStep == TimelineStepState.present
-              ? Container(
-                  padding: isMobile
-                      ? const EdgeInsets.all(spacer1)
-                      : const EdgeInsets.all(6),
-                  width: isMobile ? 24 : 32,
-                  height: isMobile ? 24 : 32,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: const DigitColors().light.primary1,
-                      width: 2.0,
-                    ),
-                    color: const DigitColors().light.paperPrimary,
-                  ),
-                  child: Container(
-                    height: isMobile ? 12 : 16,
-                    width: isMobile ? 12 : 16,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: const DigitColors().light.primary1,
-                    ),
-                  ),
-                )
-              : Container(
-                  width: isMobile ? 24 : 32,
-                  height: isMobile ? 24 : 32,
-                  decoration: BoxDecoration(
-                    color: const DigitColors().light.textDisabled,
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                ),
+          ? Container(
+        padding: isMobile
+            ? const EdgeInsets.all(spacer1)
+            : const EdgeInsets.all(6),
+        width: isMobile ? 24 : 32,
+        height: isMobile ? 24 : 32,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          border: Border.all(
+            color: const DigitColors().light.primary1,
+            width: 2.0,
+          ),
+          color: const DigitColors().light.paperPrimary,
+        ),
+        child: Container(
+          height: isMobile ? 12 : 16,
+          width: isMobile ? 12 : 16,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: const DigitColors().light.primary1,
+          ),
+        ),
+      )
+          : Container(
+        width: isMobile ? 24 : 32,
+        height: isMobile ? 24 : 32,
+        decoration: BoxDecoration(
+          color: const DigitColors().light.textDisabled,
+          borderRadius: BorderRadius.circular(50),
+        ),
+      ),
     );
   }
 
-  Widget _buildExpandButton(DigitTypography currentTypography) {
-    return Button(
-      type: ButtonType.link,
-      size: ButtonSize.medium,
+  Widget _buildExpandDigitButton(DigitTypography currentTypography) {
+    return DigitButton(
+      type: DigitButtonType.link,
+      size: DigitButtonSize.medium,
       onPressed: (){
         setState(() {
           isExpanded = !isExpanded;
@@ -226,11 +227,6 @@ class _TimelineState extends State<DigitTimeline> {
       },
       suffixIcon: isExpanded ? Icons.arrow_drop_up : Icons.arrow_drop_down,
       label : isExpanded ? widget.hideDetailText : widget.viewDetailText,
-      // style: currentTypography.bodyL.copyWith(
-      //   color: const DigitColors().light.primary1,
-      //   decoration: TextDecoration.underline,
-      //   decorationColor: const DigitColors().light.primary1,
-      // ),
     );
   }
 }

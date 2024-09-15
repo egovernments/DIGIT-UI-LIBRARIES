@@ -242,4 +242,3 @@ class _ArrowPainter extends CustomPainter {
     return false;
   }
 }
-
