@@ -140,7 +140,9 @@ List<Story> inputFieldStories() {
         type: InputType.numeric,
         onChange: (value){
           print('valueee');
+          print(value);
         },
+        initialValue: '3',
         label: context.knobs.text(label: 'Label', initial: 'Label'),
         infoText: context.knobs.text(label: 'Info Text', initial: 'info'),
         isRequired: context.knobs.boolean(label: 'Required', initial: true),

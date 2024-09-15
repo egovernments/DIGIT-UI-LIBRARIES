@@ -69,7 +69,7 @@ class TableHeader extends StatelessWidget {
             }
                 : null,
             child: Container(
-              constraints: const BoxConstraints(minWidth: 200),
+              constraints: BoxConstraints(minWidth: (column.type == ColumnType.numeric || column.type == ColumnType.checkbox) ? 40 : 200, maxWidth: (column.type == ColumnType.numeric || column.type == ColumnType.checkbox) ? 100 : 200),
               padding: EdgeInsets.only(left: theme.spacerTheme.spacer4, top: theme.spacerTheme.spacer4, bottom: theme.spacerTheme.spacer4, right: withColumnDividers || enabledBorder ? theme.spacerTheme.spacer4 : 0),
               decoration: BoxDecoration(
                 color: const DigitColors().light.genericBackground,
@@ -84,14 +84,14 @@ class TableHeader extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: const DigitColors().light.genericBackground,
                   border: Border(
-                    right: withColumnDividers || enabledBorder ? BorderSide.none
+                    right: (withColumnDividers || enabledBorder) || isLastColumn ? BorderSide.none
                         : BorderSide(color: theme.colorTheme.text.secondary),
                   ),
                 ),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: column.type == ColumnType.numeric ? MainAxisAlignment.end : MainAxisAlignment.start,
                   children: [
-                    if (column.type == ColumnType.checkbox)
+                    if (column.type == ColumnType.checkbox && column.showCheckbox)
                       headerCheckboxIndeterminate ?  InkWell(
                         onTap: (){
                           if(column.onCheckboxChanged != null){
@@ -121,13 +121,24 @@ class TableHeader extends StatelessWidget {
                           column.value = value;
                         },
                       ),
-                    if (column.type == ColumnType.checkbox)
+                    if (column.type == ColumnType.checkbox && column.showCheckbox)
                       const SizedBox(width: 8),
-                    Text(
-                      column.header,
-                      style: textTheme.headingS.copyWith(
-                        color: theme.colorTheme.text.primary,
-                      ),
+                    Column(
+                      children: [
+                        Text(
+                          column.header,
+                          style: textTheme.headingS.copyWith(
+                            color: theme.colorTheme.primary.primary2,
+                          ),
+                        ),
+                        if(column.description != null)
+                          Text(
+                            column.description!,
+                            style: textTheme.bodyS.copyWith(
+                              color: theme.colorTheme.text.secondary,
+                            ),
+                          ),
+                      ],
                     ),
                     const SizedBox(width: 8),
                     if (column.isSortable)

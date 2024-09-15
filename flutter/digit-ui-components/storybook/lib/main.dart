@@ -22,6 +22,7 @@ import 'package:storybook/widgets/atoms/digit_tag_stories.dart';
 import 'package:storybook/widgets/atoms/divider_stories.dart';
 import 'package:storybook/widgets/atoms/dropdown_stories.dart';
 import 'package:storybook/widgets/atoms/flie_upload_stories.dart';
+import 'package:storybook/widgets/atoms/group_menu_card_stories.dart';
 import 'package:storybook/widgets/atoms/input_field_stories.dart';
 import 'package:storybook/widgets/atoms/list_view_stories.dart';
 import 'package:storybook/widgets/atoms/menu_card_stories.dart';
@@ -212,6 +213,7 @@ class MyApp extends StatelessWidget {
               ...timelineMoleculeStories(),
               ...searchBarStories(),
               ...textBlockStories(),
+              ...groupMenuCardStories(),
 
               ///...customStepperStories(),
               ...hamBurgerStories(),

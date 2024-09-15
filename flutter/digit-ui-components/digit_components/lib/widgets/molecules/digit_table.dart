@@ -18,6 +18,11 @@ class CustomTable extends StatefulWidget {
   final bool enableBorder;
   final bool stickyHeader;
   final int frozenColumnsCount;
+  final Widget? customRow;
+  final bool isCustomRowFixed;
+  // Callback for selected row indices
+  final void Function(int)? onSelectedRowsChanged;
+
 
   const CustomTable({
     Key? key,
@@ -31,6 +36,9 @@ class CustomTable extends StatefulWidget {
     this.enableBorder = false,
     this.stickyHeader = false,
     this.frozenColumnsCount = 0,
+    this.customRow,
+    this.isCustomRowFixed = false,
+    this.onSelectedRowsChanged,
   }) : super(key: key);
 
   @override
@@ -136,14 +144,14 @@ class _CustomTableState extends State<CustomTable> {
     List<DigitTableColumn> frozenColumns = _getFrozenColumns();
 
     // Define frozen column width (adjust as necessary)
-    double frozenWidth = frozenColumns.fold(0, (sum, column) => sum + 200); // Assuming each frozen column is 100px wide
+    double frozenWidth = frozenColumns.fold(0, (sum, column) => sum + 202); // Assuming each frozen column is 100px wide
 
     return Positioned(
       top: 0,
       left: scrollOffset,
       child: Container(
         decoration: BoxDecoration(
-          boxShadow: [BoxShadow(color: theme.colorTheme.text.disabled, spreadRadius: 0, blurRadius: 1, offset: Offset(1, 0))],
+          boxShadow: [BoxShadow(color: theme.colorTheme.text.disabled, spreadRadius: 0, blurRadius: 1, offset: const Offset(1, 0))],
         ),
         width: frozenWidth,
         child: Column(
@@ -196,6 +204,11 @@ class _CustomTableState extends State<CustomTable> {
                   }
                   _updateHeaderCheckbox();
                 });
+                print('sdfjsldkfjsdlkf');
+                // Trigger the callback if it's provided
+                if (widget.onSelectedRowsChanged != null) {
+                  widget.onSelectedRowsChanged!(_selectedRowIndices.length);
+                }
               },
             ),
           ],
@@ -216,6 +229,7 @@ class _CustomTableState extends State<CustomTable> {
   }
 
   void _updateHeaderCheckbox() {
+    print('updating');
     final selectedCount = _selectedRowIndices.length;
     final totalRows = sortedRows.length;
 
@@ -249,89 +263,121 @@ class _CustomTableState extends State<CustomTable> {
         SingleChildScrollView(
           controller: _scrollController,
           scrollDirection: Axis.horizontal,
-          child: SizedBox(
-           // width: MediaQuery.of(context).size.width,
-            child: Column(
-              children: [
-                if (!widget.stickyHeader)
-                  TableHeader(
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: SizedBox(
+             // width: MediaQuery.of(context).size.width,
+              child: Column(
+                children: [
+                  if (!widget.stickyHeader)
+                    TableHeader(
+                      columns: widget.columns,
+                      sortedColumnIndex: sortedColumnIndex,
+                      sortOrder: sortOrder,
+                      enabledBorder: widget.enableBorder,
+                      onSort: (index, order) {
+                        setState(() {
+                          if (sortedColumnIndex == index) {
+                            sortOrder = sortOrder == SortOrder.ascending
+                                ? SortOrder.descending
+                                : SortOrder.ascending;
+                          } else {
+                            sortedColumnIndex = index;
+                            sortOrder = SortOrder.ascending;
+                          }
+                          _sortRows();
+                          currentPage = 1;
+                        });
+                      },
+                      withColumnDividers: widget.withColumnDividers,
+                      headerCheckboxValue: _headerCheckboxValue,
+                      headerCheckboxIndeterminate: _headerCheckboxIndeterminate, // Pass down
+                      onHeaderCheckboxChanged: _onHeaderCheckboxChanged,
+                    ),
+                  TableBody(
+                    rows: paginatedRows,
                     columns: widget.columns,
-                    sortedColumnIndex: sortedColumnIndex,
-                    sortOrder: sortOrder,
-                    enabledBorder: widget.enableBorder,
-                    onSort: (index, order) {
-                      setState(() {
-                        if (sortedColumnIndex == index) {
-                          sortOrder = sortOrder == SortOrder.ascending
-                              ? SortOrder.descending
-                              : SortOrder.ascending;
-                        } else {
-                          sortedColumnIndex = index;
-                          sortOrder = SortOrder.ascending;
-                        }
-                        _sortRows();
-                        currentPage = 1;
-                      });
-                    },
+                    alternateRowColor: widget.alternateRowColor,
+                    withRowDividers: widget.withRowDividers,
+                    enableBorder: widget.enableBorder,
                     withColumnDividers: widget.withColumnDividers,
                     headerCheckboxValue: _headerCheckboxValue,
-                    headerCheckboxIndeterminate: _headerCheckboxIndeterminate, // Pass down
-                    onHeaderCheckboxChanged: _onHeaderCheckboxChanged,
-                  ),
-                TableBody(
-                  rows: paginatedRows,
-                  columns: widget.columns,
-                  alternateRowColor: widget.alternateRowColor,
-                  withRowDividers: widget.withRowDividers,
-                  enableBorder: widget.enableBorder,
-                  withColumnDividers: widget.withColumnDividers,
-                  headerCheckboxValue: _headerCheckboxValue,
-                  onRowCheckboxChanged: (rowIndex, isSelected) {
-                    setState(() {
-                      if (isSelected) {
-                        _selectedRowIndices.add(rowIndex);
-                      } else {
-                        _selectedRowIndices.remove(rowIndex);
+                    onRowCheckboxChanged: (rowIndex, isSelected) {
+                      setState(() {
+                        if (isSelected) {
+                          _selectedRowIndices.add(rowIndex);
+                        } else {
+                          _selectedRowIndices.remove(rowIndex);
+                        }
+                        _updateHeaderCheckbox();
+                      });
+                      if (widget.onSelectedRowsChanged != null) {
+                        widget.onSelectedRowsChanged!(_selectedRowIndices.length);
                       }
-                      _updateHeaderCheckbox();
-                    });
-                  },
-                ),
-              ],
+                    },
+                  ),
+                  if (widget.customRow != null && !widget.isCustomRowFixed)
+                    Container(
+                         height: 60,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: const DigitColors().light.genericDivider,
+                          ),
+                          color: const DigitColors().light.paperPrimary,
+                        ),
+                        child: widget.customRow!),
+                ],
+              ),
             ),
           ),
         ),
         _buildFrozenColumns(_scrollOffset, context),
-        // if (widget.stickyHeader)
-        //   Positioned(
-        //     top: 0,
-        //     left: 0,
-        //     right: 0,
-        //     child: TableHeader(
-        //       columns: widget.columns,
-        //       sortedColumnIndex: sortedColumnIndex,
-        //       sortOrder: sortOrder,
-        //       enabledBorder: widget.enableBorder,
-        //       onSort: (index, order) {
-        //         setState(() {
-        //           if (sortedColumnIndex == index) {
-        //             sortOrder = sortOrder == SortOrder.ascending
-        //                 ? SortOrder.descending
-        //                 : SortOrder.ascending;
-        //           } else {
-        //             sortedColumnIndex = index;
-        //             sortOrder = SortOrder.ascending;
-        //           }
-        //           _sortRows();
-        //           currentPage = 1;
-        //         });
-        //       },
-        //       withColumnDividers: widget.withColumnDividers,
-        //       headerCheckboxValue: _headerCheckboxValue,
-        //       headerCheckboxIndeterminate: _headerCheckboxIndeterminate, // Pass down
-        //       onHeaderCheckboxChanged: _onHeaderCheckboxChanged,
-        //     ),
-        //   ),
+        if (widget.customRow != null && widget.isCustomRowFixed)
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Container(
+              height: 60,
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: const DigitColors().light.genericDivider,
+                  ),
+                  color: const DigitColors().light.paperPrimary,
+                ),
+                child: widget.customRow!),
+          ),
+        if (widget.stickyHeader)
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: TableHeader(
+              columns: widget.columns,
+              sortedColumnIndex: sortedColumnIndex,
+              sortOrder: sortOrder,
+              enabledBorder: widget.enableBorder,
+              onSort: (index, order) {
+                setState(() {
+                  if (sortedColumnIndex == index) {
+                    sortOrder = sortOrder == SortOrder.ascending
+                        ? SortOrder.descending
+                        : SortOrder.ascending;
+                  } else {
+                    sortedColumnIndex = index;
+                    sortOrder = SortOrder.ascending;
+                  }
+                  _sortRows();
+                  currentPage = 1;
+                });
+              },
+              withColumnDividers: widget.withColumnDividers,
+              headerCheckboxValue: _headerCheckboxValue,
+              headerCheckboxIndeterminate: _headerCheckboxIndeterminate, // Pass down
+              onHeaderCheckboxChanged: _onHeaderCheckboxChanged,
+            ),
+          ),
       ],
     );
   }

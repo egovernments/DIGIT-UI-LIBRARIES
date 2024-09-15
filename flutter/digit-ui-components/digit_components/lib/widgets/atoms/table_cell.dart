@@ -31,16 +31,22 @@ class CustomTableCell extends StatelessWidget {
 
     switch (type) {
       case ColumnType.checkbox:
-        return DigitCheckbox(
-          value: value ?? false,
-          onChanged: (value) {
-            if (areAllRowsSelected != null) {
-              areAllRowsSelected!(value);
-            }
-          },
-          checkboxThemeData: const DigitCheckboxThemeData().copyWith(
-            context: context,
-            iconSize: 20,
+        return Container(
+          constraints: const BoxConstraints(
+            maxWidth: 100,
+            minWidth: 40,
+          ),
+          child: DigitCheckbox(
+            value: value ?? false,
+            onChanged: (value) {
+              if (areAllRowsSelected != null) {
+                areAllRowsSelected!(value);
+              }
+            },
+            checkboxThemeData: const DigitCheckboxThemeData().copyWith(
+              context: context,
+              iconSize: 20,
+            ),
           ),
         );
 
@@ -81,11 +87,17 @@ class CustomTableCell extends StatelessWidget {
         );
 
       case ColumnType.numeric:
-        return Align(
-          alignment: Alignment.topRight,
-          child: Text(
-            cellData.label,
-            style: const TextStyle(fontFamily: 'RobotoMono'),
+        return Container(
+          constraints: const BoxConstraints(
+            maxWidth: 100,
+            minWidth: 40,
+          ),
+          child: Align(
+            alignment: Alignment.topRight,
+            child: Text(
+              cellData.label,
+              style: const TextStyle(fontFamily: 'RobotoMono'),
+            ),
           ),
         );
 
@@ -95,22 +107,23 @@ class CustomTableCell extends StatelessWidget {
           style: textTheme.bodyS.copyWith(color: theme.colorTheme.text.primary),
         );
 
-      // case ColumnType.tags:
-      //   return Tag(
-      //     label: cellData.label,
-      //   );
+      case ColumnType.tags:
+        return Tag(
+          label: cellData.label,
+        );
 
-      // case ColumnType.switchs:
-      //   return CustomSwitch(
-      //       value: cellData.value ?? false, onChanged: (value) {
-      //     cellData.value = value;
-      //         if(cellData.callBack != null) {
-      //           cellData.callBack!(cellData);
-      //         }
-      //       });
+      case ColumnType.switchs:
+        return CustomSwitch(
+          mainAxisAlignment: MainAxisAlignment.start,
+          label: cellData.label,
+            value: cellData.value ?? false, onChanged: (value) {
+              if(cellData.callBack != null) {
+                cellData.callBack!(cellData);
+              }
+            });
       case ColumnType.text:
       default:
-        return Text(
+        return cellData.widget ?? Text(
           cellData.label,
           maxLines: 1,
           style: textTheme.bodyS.copyWith(color: theme.colorTheme.text.primary),
@@ -132,26 +145,30 @@ enum ColumnType {
   numeric,
   description,
   dropDown,
-  // switchs,
-  // tags,
+   switchs,
+   tags,
 }
 
 class DigitTableColumn {
   final String header;
+  final String? description;
   final ColumnType type;
   final String cellValue;
   final bool isSortable;
   bool? value;
   final bool isFrozen;
+  final bool showCheckbox;
   final void Function(bool)? onCheckboxChanged;
 
   DigitTableColumn({
     required this.header,
+    this.description,
     this.type = ColumnType.text,
     required this.cellValue,
     this.isSortable = false,
     this.value,
     this.isFrozen = false,
+    this.showCheckbox = false,
     this.onCheckboxChanged,
   });
 }

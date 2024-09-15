@@ -6,7 +6,7 @@ import 'package:storybook_flutter/storybook_flutter.dart';
 List<Story> menuCardStories() {
   return [
     Story(
-      name: 'Atom/Menu Card/1',
+      name: 'Atom/Menu Card/Variant First/1',
       builder: (context) =>  MenuCard(
         icon: Icons.home,
         heading: context.knobs.text(label: 'Heading', initial: 'Home'),
@@ -16,7 +16,7 @@ List<Story> menuCardStories() {
       ),
     ),
     Story(
-      name: 'Atom/Menu Card/2',
+      name: 'Atom/Menu Card/Variant First/2',
       builder: (context) =>  MenuCard(
         icon: Icons.settings,
         heading: context.knobs.text(label: 'Heading', initial: 'Settings'),
@@ -27,7 +27,7 @@ List<Story> menuCardStories() {
       ),
     ),
     Story(
-      name: 'Atom/Menu Card/3',
+      name: 'Atom/Menu Card/Variant First/3',
       builder: (context) =>  MenuCard(
         icon: Icons.settings,
         heading: context.knobs.text(label: 'Heading', initial: 'Settings'),

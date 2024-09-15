@@ -42,7 +42,6 @@ class _TableBodyState extends State<TableBody> {
     final theme = Theme.of(context);
     List<Widget> rowWidgets = [];
 
-    print(widget.headerCheckboxValue);
 
     for (int i = 0; i < widget.rows.length; i++) {
       // Determine row color based on even or odd row and hover state
@@ -59,20 +58,13 @@ class _TableBodyState extends State<TableBody> {
         dynamic value = widget.headerCheckboxValue;
         cells.add(
           Container(
-            constraints: const BoxConstraints(minWidth: 200),
+            constraints: BoxConstraints(minWidth: (type == ColumnType.numeric || type == ColumnType.checkbox) ? 40 : 100, maxWidth: (type == ColumnType.numeric || type == ColumnType.checkbox) ? 100 : 200),
             decoration: BoxDecoration(
-              // border: Border(
-              //   left: widget.enableBorder && j == 0
-              //       ? BorderSide(color: theme.colorTheme.generic.divider)
-              //       : BorderSide.none,
-              //   right: (widget.withColumnDividers && j != widget.rows[i].tableRow.length - 1 || (widget.enableBorder && j == widget.rows[i].tableRow.length - 1))
-              //       ? BorderSide(color: theme.colorTheme.generic.divider)
-              //       : BorderSide.none,
-              //   bottom: widget.withRowDividers || (widget.enableBorder && i == widget.rows.length - 1) ?
-              //   BorderSide(color: widget.withRowDividers && i != widget.rows.length - 1 ? theme.colorTheme.generic.divider : theme.colorTheme.generic.divider)
-              //       : BorderSide.none,
-              //
-              // ),
+              border: Border(
+                right: (widget.withColumnDividers && j != widget.rows[i].tableRow.length - 1)
+                    ? BorderSide(color: theme.colorTheme.generic.divider)
+                    : BorderSide.none,
+              ),
             ),
             child: Padding(
               padding: const EdgeInsets.all(16),
@@ -99,6 +91,12 @@ class _TableBodyState extends State<TableBody> {
                 bottom: widget.withRowDividers || (widget.enableBorder && i == widget.rows.length - 1) ?
                 BorderSide(color: widget.withRowDividers && i != widget.rows.length - 1 ? theme.colorTheme.generic.divider : theme.colorTheme.generic.divider)
                     : BorderSide.none,
+                left: widget.enableBorder ?
+                BorderSide(color: theme.colorTheme.generic.divider)
+                    : BorderSide.none,
+                right: widget.enableBorder ?
+                BorderSide(color: theme.colorTheme.generic.divider)
+                    : BorderSide.none,
 
               ),
             ),
@@ -106,17 +104,19 @@ class _TableBodyState extends State<TableBody> {
             child: Column(
               children: [
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: cells,
                 ),
-                if (widget.withRowDividers || (widget.enableBorder && i == widget.rows.length - 1))
-                  DigitDivider(
-                    dividerType: DividerType.small,
-                    dividerThemeData: DigitDividerThemeData(
-                        color: widget.enableBorder && i == widget.rows.length - 1
-                            ? theme.colorTheme.text.secondary
-                            : theme.colorTheme.generic.divider
-                    ),
-                  ), // Add row divider if enabled and not the last row
+                // if (widget.withRowDividers || (widget.enableBorder && i == widget.rows.length - 1))
+                //   DigitDivider(
+                //     dividerType: DividerType.small,
+                //     dividerThemeData: DigitDividerThemeData(
+                //         color: widget.enableBorder && i == widget.rows.length - 1
+                //             ? theme.colorTheme.generic.divider
+                //             : theme.colorTheme.generic.divider
+                //     ),
+                //   ), // Add row divider if enabled and not the last row
               ],
             ),
           ),
