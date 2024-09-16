@@ -2,12 +2,13 @@ import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:digit_ui_components/widgets/atoms/table_container.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import '../atoms/table_body.dart';
 import '../atoms/table_cell.dart';
 import '../atoms/table_header.dart';
 import '../atoms/table_footer.dart';
 
-class CustomTable extends StatefulWidget {
+class DigitTable extends StatefulWidget {
   final List<DigitTableColumn> columns;
   final List<DigitTableRow> rows;
   final List<int> rowsPerPageOptions;
@@ -24,7 +25,7 @@ class CustomTable extends StatefulWidget {
   final void Function(int)? onSelectedRowsChanged;
 
 
-  const CustomTable({
+  const DigitTable({
     Key? key,
     required this.columns,
     required this.rows,
@@ -42,10 +43,10 @@ class CustomTable extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _CustomTableState createState() => _CustomTableState();
+  _DigitTableState createState() => _DigitTableState();
 }
 
-class _CustomTableState extends State<CustomTable> {
+class _DigitTableState extends State<DigitTable> {
   int currentPage = 1;
   int rowsPerPage = 5;
   SortOrder? sortOrder;
@@ -60,7 +61,11 @@ class _CustomTableState extends State<CustomTable> {
   bool _headerCheckboxIndeterminate = false; // Added for intermediate state
   late Set<int> _selectedRowIndices;
   final ScrollController _scrollController = ScrollController();
+  final ScrollController _verticalScrollController = ScrollController();
   double _scrollOffset = 0.0;
+  bool _isOverflowing = false;
+  bool _isOverflowingVertical = false;
+  bool firstBuild = false;
 
 
   @override
@@ -86,33 +91,16 @@ class _CustomTableState extends State<CustomTable> {
   @override
   void dispose() {
     _scrollController.dispose();
+    _verticalScrollController.dispose();
     super.dispose();
   }
 
   void _onScroll() {
     double scrollOffset = _scrollController.offset;
-
     // Check if the frozen columns are hidden
     setState(() {
-      _isFrozenColumnsHidden = scrollOffset > _getFrozenWidth();
+      _isFrozenColumnsHidden = _getColumnsToFreeze(scrollOffset).isEmpty;
     });
-  }
-
-  double _getFrozenWidth() {
-    List<DigitTableColumn> frozenColumns = _getFrozenColumns();
-    return frozenColumns.fold(0, (sum, column) => sum + 200);
-  }
-
-  void _measureHeaderWidths() {
-    columnWidths.clear();
-    for (var key in headerKeys) {
-      final context = key.currentContext;
-      if (context != null) {
-        final renderBox = context.findRenderObject() as RenderBox;
-        columnWidths.add(renderBox.size.width);
-      }
-    }
-    setState(() {});
   }
 
   void _sortRows() {
@@ -136,16 +124,20 @@ class _CustomTableState extends State<CustomTable> {
 
     final theme = Theme.of(context);
 
-    // Only build frozen columns when they are hidden (out of viewport)
-    if (!_isFrozenColumnsHidden) {
-      return SizedBox(); // Return an empty widget if the columns are visible
+    // If frozen columns should not be hidden, return an empty widget
+    if (_isFrozenColumnsHidden) {
+      return SizedBox(); // No frozen columns are hidden
     }
 
-    List<DigitTableColumn> frozenColumns = _getFrozenColumns();
+    // Get all the columns
+    List<DigitTableColumn> allColumns = widget.columns;
 
-    // Define frozen column width (adjust as necessary)
-    double frozenWidth = frozenColumns.fold(0, (sum, column) => sum + 202); // Assuming each frozen column is 100px wide
+    // Find the columns that need to be frozen based on scroll offset
+    List<DigitTableColumn> frozenColumns = _getColumnsToFreeze(scrollOffset);
+    print(frozenColumns.length);
 
+    // Define frozen column width based on the columns to be frozen
+    double frozenWidth = frozenColumns.fold(0, (sum, column) => sum + _getColumnWidth(column));
     return Positioned(
       top: 0,
       left: scrollOffset,
@@ -182,7 +174,7 @@ class _CustomTableState extends State<CustomTable> {
             ),
             TableBody(
               rows: sortedRows.map((row) {
-                // Filter cells for the current row that match the frozen columns
+                /// Filter cells for the current row that match the frozen columns
                 List<DigitTableData> filteredCells = row.tableRow.where((cell) {
                   return frozenColumns.any((column) => column.cellValue == cell.cellKey);
                 }).toList();
@@ -204,8 +196,6 @@ class _CustomTableState extends State<CustomTable> {
                   }
                   _updateHeaderCheckbox();
                 });
-                print('sdfjsldkfjsdlkf');
-                // Trigger the callback if it's provided
                 if (widget.onSelectedRowsChanged != null) {
                   widget.onSelectedRowsChanged!(_selectedRowIndices.length);
                 }
@@ -215,6 +205,32 @@ class _CustomTableState extends State<CustomTable> {
         ),
       ),
     );
+  }
+
+  /// Get the list of columns that need to be frozen based on the scroll offset
+  List<DigitTableColumn> _getColumnsToFreeze(double scrollOffset) {
+    List<DigitTableColumn> frozenColumns = [];
+
+    // Loop through all columns and freeze those that have scrolled out of view
+    double cumulativeWidth = 0;
+    for (int i = 0; i < widget.columns.length; i++) {
+      DigitTableColumn column = widget.columns[i];
+      double columnWidth = _getColumnWidth(column);
+
+      // If the cumulative width of the columns is less than the scroll offset,
+      // it means the column has scrolled out of view and should be frozen
+      if ( scrollOffset >cumulativeWidth || widget.columns[i].isFrozen) {
+        frozenColumns.add(column);
+      }
+      cumulativeWidth += columnWidth;
+    }
+    return frozenColumns;
+  }
+
+  /// Helper to get the width of a column
+  double _getColumnWidth(DigitTableColumn column) {
+    // Assuming each column has a fixed width or use dynamic width calculation
+    return column.width ?? 202.0; // Replace 200 with actual column width logic if necessary
   }
 
   void _onHeaderCheckboxChanged(bool? newValue) {
@@ -229,7 +245,6 @@ class _CustomTableState extends State<CustomTable> {
   }
 
   void _updateHeaderCheckbox() {
-    print('updating');
     final selectedCount = _selectedRowIndices.length;
     final totalRows = sortedRows.length;
 
@@ -258,75 +273,95 @@ class _CustomTableState extends State<CustomTable> {
     // Update header checkbox based on selected rows
     _updateHeaderCheckbox();
 
+    if (!firstBuild) {
+      firstBuild = true;
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        setState(() {
+          if (_scrollController.hasClients) {
+            _isOverflowing = (_scrollController.position.maxScrollExtent > 0);
+          }
+          if (_verticalScrollController.hasClients) {
+            _isOverflowingVertical = (_scrollController.position.maxScrollExtent > 0);
+          }
+        });
+      });
+    }
+
     return Stack(
       children: [
-        SingleChildScrollView(
+        Scrollbar(
           controller: _scrollController,
-          scrollDirection: Axis.horizontal,
+          thumbVisibility: _isOverflowing,
           child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: SizedBox(
-              // width: MediaQuery.of(context).size.width,
-              child: Column(
-                children: [
-                  if (!widget.stickyHeader)
-                    TableHeader(
+            padding: _isOverflowing ? const EdgeInsets.only(bottom: 12) : EdgeInsets.zero,
+            controller: _scrollController,
+            scrollDirection: Axis.horizontal,
+            child: SingleChildScrollView(
+              controller: _verticalScrollController,
+              scrollDirection: Axis.vertical,
+              child: SizedBox(
+                // width: MediaQuery.of(context).size.width,
+                child: Column(
+                  children: [
+                    if (!widget.stickyHeader)
+                      TableHeader(
+                        columns: widget.columns,
+                        sortedColumnIndex: sortedColumnIndex,
+                        sortOrder: sortOrder,
+                        enabledBorder: widget.enableBorder,
+                        onSort: (index, order) {
+                          setState(() {
+                            if (sortedColumnIndex == index) {
+                              sortOrder = sortOrder == SortOrder.ascending
+                                  ? SortOrder.descending
+                                  : SortOrder.ascending;
+                            } else {
+                              sortedColumnIndex = index;
+                              sortOrder = SortOrder.ascending;
+                            }
+                            _sortRows();
+                            currentPage = 1;
+                          });
+                        },
+                        withColumnDividers: widget.withColumnDividers,
+                        headerCheckboxValue: _headerCheckboxValue,
+                        headerCheckboxIndeterminate: _headerCheckboxIndeterminate, // Pass down
+                        onHeaderCheckboxChanged: _onHeaderCheckboxChanged,
+                      ),
+                    TableBody(
+                      rows: paginatedRows,
                       columns: widget.columns,
-                      sortedColumnIndex: sortedColumnIndex,
-                      sortOrder: sortOrder,
-                      enabledBorder: widget.enableBorder,
-                      onSort: (index, order) {
-                        setState(() {
-                          if (sortedColumnIndex == index) {
-                            sortOrder = sortOrder == SortOrder.ascending
-                                ? SortOrder.descending
-                                : SortOrder.ascending;
-                          } else {
-                            sortedColumnIndex = index;
-                            sortOrder = SortOrder.ascending;
-                          }
-                          _sortRows();
-                          currentPage = 1;
-                        });
-                      },
+                      alternateRowColor: widget.alternateRowColor,
+                      withRowDividers: widget.withRowDividers,
+                      enableBorder: widget.enableBorder,
                       withColumnDividers: widget.withColumnDividers,
                       headerCheckboxValue: _headerCheckboxValue,
-                      headerCheckboxIndeterminate: _headerCheckboxIndeterminate, // Pass down
-                      onHeaderCheckboxChanged: _onHeaderCheckboxChanged,
-                    ),
-                  TableBody(
-                    rows: paginatedRows,
-                    columns: widget.columns,
-                    alternateRowColor: widget.alternateRowColor,
-                    withRowDividers: widget.withRowDividers,
-                    enableBorder: widget.enableBorder,
-                    withColumnDividers: widget.withColumnDividers,
-                    headerCheckboxValue: _headerCheckboxValue,
-                    onRowCheckboxChanged: (rowIndex, isSelected) {
-                      setState(() {
-                        if (isSelected) {
-                          _selectedRowIndices.add(rowIndex);
-                        } else {
-                          _selectedRowIndices.remove(rowIndex);
+                      onRowCheckboxChanged: (rowIndex, isSelected) {
+                        setState(() {
+                          if (isSelected) {
+                            _selectedRowIndices.add(rowIndex);
+                          } else {
+                            _selectedRowIndices.remove(rowIndex);
+                          }
+                          _updateHeaderCheckbox();
+                        });
+                        if (widget.onSelectedRowsChanged != null) {
+                          widget.onSelectedRowsChanged!(_selectedRowIndices.length);
                         }
-                        _updateHeaderCheckbox();
-                      });
-                      if (widget.onSelectedRowsChanged != null) {
-                        widget.onSelectedRowsChanged!(_selectedRowIndices.length);
-                      }
-                    },
-                  ),
-                  if (widget.customRow != null && !widget.isCustomRowFixed)
-                    Container(
-                        height: 60,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: const DigitColors().light.genericDivider,
+                      },
+                    ),
+                    if (widget.customRow != null && !widget.isCustomRowFixed)
+                      Container(
+                          height: 60,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: const DigitColors().light.genericDivider,
+                            ),
+                            color: const DigitColors().light.paperPrimary,
                           ),
-                          color: const DigitColors().light.paperPrimary,
-                        ),
-                        child: widget.customRow!),
-                ],
+                          child: widget.customRow!),
+                  ],
+                ),
               ),
             ),
           ),
@@ -378,6 +413,7 @@ class _CustomTableState extends State<CustomTable> {
               onHeaderCheckboxChanged: _onHeaderCheckboxChanged,
             ),
           ),
+
       ],
     );
   }

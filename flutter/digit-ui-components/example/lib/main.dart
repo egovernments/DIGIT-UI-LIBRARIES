@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'package:digit_ui_components/digit_components.dart';
+import 'package:digit_ui_components/models/RadioButtonModel.dart';
+import 'package:digit_ui_components/models/toggleButtonModel.dart';
 import 'package:digit_ui_components/services/AppLocalization.dart';
 import 'package:digit_ui_components/services/component_localization_delegate.dart';
 import 'package:digit_ui_components/theme/ComponentTheme/toast_theme_data.dart';
@@ -11,7 +13,7 @@ import 'package:digit_ui_components/widgets/atoms/digit_bread_crumbs.dart';
 import 'package:digit_ui_components/widgets/atoms/digit_stepper.dart';
 import 'package:digit_ui_components/widgets/atoms/digit_tab.dart';
 import 'package:digit_ui_components/widgets/atoms/dropdown_wrapper.dart';
-import 'package:digit_ui_components/widgets/atoms/info_DigitButtons.dart';
+import 'package:digit_ui_components/widgets/atoms/info_buttons.dart';
 import 'package:digit_ui_components/widgets/atoms/input_wrapper.dart';
 import 'package:digit_ui_components/widgets/atoms/switch.dart';
 import 'package:digit_ui_components/widgets/atoms/timeline.dart';
@@ -203,7 +205,7 @@ class MyHomePageState extends State<MyHomePage> {
           return const Center(child: CircularProgressIndicator());
         } else if (snapshot.hasError) {
           // If an error occurs while loading localization data, show an error message
-          return Center(child: Text('Error loading localization data'));
+          return const Center(child: Text('Error loading localization data'));
         } else if (snapshot.hasData) {
           // Once the localization data is loaded, build the UI
           return _buildContent();
@@ -265,7 +267,7 @@ class MyHomePageState extends State<MyHomePage> {
                     // Handle tab selection change
                   },
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 16,
                 ),
                 DigitTooltip(
@@ -355,7 +357,7 @@ class MyHomePageState extends State<MyHomePage> {
                     child: const Text('Tap me(bottom end)'),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 16,
                 ),
                 DigitTooltip(
@@ -370,7 +372,7 @@ class MyHomePageState extends State<MyHomePage> {
                     child: const Text('Tap me(left start)'),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 16,
                 ),
                 DigitTooltip(
@@ -1786,12 +1788,12 @@ class MyHomePageState extends State<MyHomePage> {
                 RadioList(
                   onChanged: (value) {},
                   radioDigitButtons: [
-                    RadioDigitButtonModel(
+                    RadioButtonModel(
                       code: '1',
                       name: 'One',
                     ),
-                    RadioDigitButtonModel(code: '2', name: 'Two'),
-                    RadioDigitButtonModel(code: '3', name: 'Three'),
+                    RadioButtonModel(code: '2', name: 'Two'),
+                    RadioButtonModel(code: '3', name: 'Three'),
                     // Add more radio DigitButtons as needed
                   ],
                 ),
@@ -1815,12 +1817,12 @@ class MyHomePageState extends State<MyHomePage> {
                       RadioList(
                         onChanged: (value) {},
                         radioDigitButtons: [
-                          RadioDigitButtonModel(
+                          RadioButtonModel(
                             code: '',
                             name: 'One',
                           ),
-                          RadioDigitButtonModel(code: '2', name: 'Two'),
-                          RadioDigitButtonModel(code: '3', name: 'Three'),
+                          RadioButtonModel(code: '2', name: 'Two'),
+                          RadioButtonModel(code: '3', name: 'Three'),
                           // Add more radio DigitButtons as needed
                         ],
                       ),
@@ -1828,12 +1830,12 @@ class MyHomePageState extends State<MyHomePage> {
                         onChanged: (value) {},
                         isDisabled: true,
                         radioDigitButtons: [
-                          RadioDigitButtonModel(
+                          RadioButtonModel(
                             code: '',
                             name: 'One',
                           ),
-                          RadioDigitButtonModel(code: '2', name: 'Two'),
-                          RadioDigitButtonModel(code: '3', name: 'Three'),
+                          RadioButtonModel(code: '2', name: 'Two'),
+                          RadioButtonModel(code: '3', name: 'Three'),
                           // Add more radio DigitButtons as needed
                         ],
                       ),
@@ -1841,12 +1843,12 @@ class MyHomePageState extends State<MyHomePage> {
                         onChanged: (value) {},
                         isDisabled: true,
                         radioDigitButtons: [
-                          RadioDigitButtonModel(
+                          RadioButtonModel(
                             code: '1',
                             name: 'One',
                           ),
-                          RadioDigitButtonModel(code: '2', name: 'Two'),
-                          RadioDigitButtonModel(code: '3', name: 'Three'),
+                          RadioButtonModel(code: '2', name: 'Two'),
+                          RadioButtonModel(code: '3', name: 'Three'),
                           // Add more radio DigitButtons as needed
                         ],
                       ),
@@ -1863,9 +1865,9 @@ class MyHomePageState extends State<MyHomePage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   toggleDigitButtons: [
-                    ToggleDigitButtonModel(name: 'Toggle 1', code: 'key1'),
-                    ToggleDigitButtonModel(name: 'Toggle 2', code: 'key2'),
-                    ToggleDigitButtonModel(name: 'Toggle 3', code: 'key3'),
+                    ToggleButtonModel(name: 'Toggle 1', code: 'key1'),
+                    ToggleButtonModel(name: 'Toggle 2', code: 'key2'),
+                    ToggleButtonModel(name: 'Toggle 3', code: 'key3'),
                   ],
                   selectedIndex: 1,
                   onChanged: (selectedValues) {},
@@ -1882,7 +1884,7 @@ class MyHomePageState extends State<MyHomePage> {
                   child: Column(
                     children: [
                       Center(
-                        child: InfoDigitButton(
+                        child: InfoButton(
                           size: DigitButtonSize.large,
                           label: 'Primary DigitButton',
                           onPressed: () {},
@@ -1893,7 +1895,7 @@ class MyHomePageState extends State<MyHomePage> {
                         height: 8,
                       ),
                       Center(
-                        child: InfoDigitButton(
+                        child: InfoButton(
                           size: DigitButtonSize.large,
                           label: 'Primary DigitButton',
                           onPressed: () {},
@@ -1904,7 +1906,7 @@ class MyHomePageState extends State<MyHomePage> {
                         height: 8,
                       ),
                       Center(
-                        child: InfoDigitButton(
+                        child: InfoButton(
                           size: DigitButtonSize.large,
                           label: 'Primary DigitButton',
                           onPressed: () {},
@@ -1915,7 +1917,7 @@ class MyHomePageState extends State<MyHomePage> {
                         height: 8,
                       ),
                       Center(
-                        child: InfoDigitButton(
+                        child: InfoButton(
                           size: DigitButtonSize.large,
                           label: 'Primary DigitButton',
                           onPressed: () {},

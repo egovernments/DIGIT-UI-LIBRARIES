@@ -70,7 +70,7 @@ class _TableBodyState extends State<TableBody> {
               padding: const EdgeInsets.all(16),
               child: Align(
                 alignment: Alignment.topLeft,
-                child: CustomTableCell(cellData: widget.rows[i].tableRow[j], type: type, value: value, areAllRowsSelected:(value){
+                child: DigitTableCell(cellData: widget.rows[i].tableRow[j], type: type, value: value, areAllRowsSelected:(value){
                   widget.onRowCheckboxChanged(i, value);
                 },),
               ),

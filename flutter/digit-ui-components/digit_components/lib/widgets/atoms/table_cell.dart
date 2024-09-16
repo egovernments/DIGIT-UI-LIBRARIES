@@ -7,13 +7,13 @@ import 'package:flutter/material.dart';
 import 'digit_button.dart';
 import 'digit_tag.dart';
 
-class CustomTableCell extends StatelessWidget {
+class DigitTableCell extends StatelessWidget {
   final DigitTableData cellData;
   final ColumnType type;
   final dynamic value;
   final void Function(bool)? areAllRowsSelected;
 
-  const CustomTableCell({
+  const DigitTableCell({
     Key? key,
     required this.cellData,
     this.type = ColumnType.text,
@@ -156,6 +156,7 @@ class DigitTableColumn {
   final ColumnType type;
   final String cellValue;
   final bool isSortable;
+  final double? width;
   bool? value;
   final bool isFrozen;
   final bool showCheckbox;
@@ -168,6 +169,7 @@ class DigitTableColumn {
     required this.cellValue,
     this.isSortable = false,
     this.value,
+    this.width,
     this.isFrozen = false,
     this.showCheckbox = false,
     this.onCheckboxChanged,

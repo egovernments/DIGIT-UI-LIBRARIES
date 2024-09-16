@@ -7,7 +7,7 @@ import '../atoms/table_cell.dart';
 import '../atoms/table_footer.dart';
 import 'digit_table.dart';
 
-class CustomTableWrapper extends StatefulWidget {
+class DigitTableWrapper extends StatefulWidget {
   final List<DigitTableColumn> columns;
   final List<DigitTableRow> rows;
   final List<int> rowsPerPageOptions;
@@ -22,7 +22,7 @@ class CustomTableWrapper extends StatefulWidget {
   final bool isCustomRowFixed;
   final String? tableHeader;
 
-  const CustomTableWrapper({
+  const DigitTableWrapper({
     Key? key,
     required this.columns,
     required this.rows,
@@ -40,10 +40,10 @@ class CustomTableWrapper extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _CustomTableWrapperState createState() => _CustomTableWrapperState();
+  _DigitTableWrapperState createState() => _DigitTableWrapperState();
 }
 
-class _CustomTableWrapperState extends State<CustomTableWrapper> {
+class _DigitTableWrapperState extends State<DigitTableWrapper> {
   int currentPage = 1;
   int rowsPerPage = 5;
   int selectedRowsCount = 0;
@@ -114,7 +114,7 @@ class _CustomTableWrapperState extends State<CustomTableWrapper> {
               DigitButton(label: 'action', onPressed: (){}, type: DigitButtonType.secondary, size: DigitButtonSize.medium)
             ],
           ),
-        CustomTable(
+        DigitTable(
           columns: widget.columns,
           rows: widget.rows,
           rowsPerPageOptions: widget.rowsPerPageOptions,
