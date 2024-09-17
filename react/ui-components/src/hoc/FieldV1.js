@@ -225,6 +225,7 @@ const FieldV1 = ({
             <MultiSelectDropdown
               options={populators?.options}
               optionsKey={populators?.optionsKey}
+              chipsKey={populators?.chipsKey}
               props={props}
               isPropsNeeded={true}
               onSelect={(e) => {

@@ -222,6 +222,35 @@ const treeDropdownOptions = [
   },
 ];
 
+//mock options data for chipskey
+const optionsForChipsKey = [
+  { code: "OPTION1CHIP", name: "OPTION1" },
+  { code: "OPTION2CHIP", name: "OPTION2" },
+  { code: "OPTION3CHIP", name: "OPTION3" },
+];
+
+//nested options for chips key
+const nestedOptionsForChipKey = [
+  {
+    name: "Category A",
+    options: [
+      { code: "Category A.Option A", name: "Option A Chipkey" },
+      { code: "Category A.Option B", name: "Option B Chipkey" },
+      { code: "Category A.Option C", name: "Option C Chipkey " },
+    ],
+    code: "Category A",
+  },
+  {
+    name: "Category B",
+    options: [
+      { code: "Category B.Option A", name: "Option A Chipkey" },
+      { code: "Category B.Option 2", name: "Option 2 Chipkey" },
+      { code: "Category B.Option 3", name: "Option 3 Chipkey" },
+    ],
+    code: "Category B",
+  },
+];
+
 const commonArgs = {
   t,
   populators: {
@@ -237,6 +266,7 @@ const commonArgs = {
     addCategorySelectAllCheck:false,
     selectAllLabel: "",
     categorySelectAllLabel:"",
+    chipsKey:""
   },
   error: "",
   inputRef: null,
@@ -311,6 +341,19 @@ MultiSelectDropdownWithIcons.args = {
     isDropdownWithChip: true,
   },
 };
+
+export const MultiSelectDropdownWithChipsKey = Template.bind({});
+MultiSelectDropdownWithChipsKey.args = {
+  ...commonArgs,
+  type: "multiselectdropdown",
+  populators: {
+    ...commonArgs.populators,
+    options:optionsForChipsKey,
+    isDropdownWithChip: true,
+    chipsKey:"code"
+  },
+};
+
 
 export const MultiSelectDropdownDisabled = Template.bind({});
 MultiSelectDropdownDisabled.args = {
@@ -395,6 +438,20 @@ NestedMultiSelectDropdownWithIcons.args = {
     options: nestedOptionsWithIcons,
     showIcon: true,
     isDropdownWithChip: true,
+  },
+  variant: "nestedmultiselect",
+};
+
+export const NestedMultiSelectDropdownWithChipskey = Template.bind({});
+NestedMultiSelectDropdownWithChipskey.args = {
+  ...commonArgs,
+  type: "multiselectdropdown",
+  populators: {
+    ...commonArgs.populators,
+    name: "nestedmultiselectoptions",
+    options: nestedOptionsForChipKey,
+    isDropdownWithChip: true,
+    chipsKey:"name"
   },
   variant: "nestedmultiselect",
 };
