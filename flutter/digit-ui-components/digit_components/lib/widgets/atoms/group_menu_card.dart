@@ -60,7 +60,7 @@ class _GroupMenuState extends State<GroupMenu> {
       }
     }
     setState(() {
-      _maxCardHeight = maxHeight;
+      _maxCardHeight = maxHeight - 32;
     });
   }
 
@@ -71,11 +71,10 @@ class _GroupMenuState extends State<GroupMenu> {
     return GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: widget.crossAxisCount,
-        childAspectRatio: .8, // Aspect ratio is kept as 1 to ensure card width equals height
+        childAspectRatio: .8,
         crossAxisSpacing: 16,
         mainAxisSpacing: 16,
       ),
-      padding: const EdgeInsets.all(16),
       itemCount: widget.items.length,
       itemBuilder: (context, index) {
         final item = widget.items[index];
@@ -118,7 +117,6 @@ class GroupMenuCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.digitTextTheme(context);
-
     return DigitCard(
       onPressed: onTap,
       children: [
@@ -126,6 +124,7 @@ class GroupMenuCard extends StatelessWidget {
           width: double.infinity, // Ensures the card takes up the full width available
           height: fixedHeight, // Use the fixed height for consistency
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
