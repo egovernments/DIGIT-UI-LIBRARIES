@@ -1281,7 +1281,9 @@ List<Story> tableStories() {
                 callBack: (data) {
                   print(data);
                 },
-                widget: DigitButton(type: DigitButtonType.link, label: 'DigitButton', size: DigitButtonSize.large, onPressed: () {},)
+                widget: DigitButton(type: DigitButtonType.link, label: 'DigitButton', size: DigitButtonSize.large, onPressed: () {
+                  print('button pressed');
+                },)
             ),
             DigitTableData(
                 'active',

@@ -1,4 +1,5 @@
 import 'package:digit_ui_components/digit_components.dart';
+import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:digit_ui_components/widgets/atoms/digit_divider.dart';
 import 'package:flutter/material.dart';
 import '../../models/accordionModel.dart';
@@ -7,8 +8,8 @@ class DigitAccordion extends StatefulWidget {
   final List<DigitAccordionItem> items;
   final bool allowMultipleOpen;
   final Duration animationDuration;
-  final Color headerBackgroundColor;
-  final Color contentBackgroundColor;
+  final Color? headerBackgroundColor;
+  final Color? contentBackgroundColor;
   final double headerElevation;
   final bool divider;
 
@@ -17,8 +18,8 @@ class DigitAccordion extends StatefulWidget {
     required this.items,
     this.allowMultipleOpen = false,
     this.animationDuration = const Duration(milliseconds: 300),
-    this.headerBackgroundColor = Colors.white,
-    this.contentBackgroundColor = Colors.white,
+    this.headerBackgroundColor,
+    this.contentBackgroundColor,
     this.headerElevation = 0,
     this.divider = false,
   }) : super(key: key);
@@ -68,13 +69,13 @@ class _DigitAccordionState extends State<DigitAccordion>
         return Column(
           children: [
             Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: _buildAccordionItem(item, index),
+              padding: const EdgeInsets.all(12),
+              child: _buildAccordionItem(item, index, context),
             ),
             if (widget.divider && index < widget.items.length - 1)
               ...[
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Divider(
                     color: const DigitColors().light.genericDivider,
                     height: 1,
@@ -87,13 +88,15 @@ class _DigitAccordionState extends State<DigitAccordion>
     );
   }
 
-  Widget _buildAccordionItem(DigitAccordionItem item, int index) {
+  Widget _buildAccordionItem(DigitAccordionItem item, int index, BuildContext context) {
+    final theme = Theme.of(context);
+
     bool isExpanded = _expandedStates[index];
     return AnimatedContainer(
       duration: widget.animationDuration,
       curve: Curves.easeOut,
       decoration: BoxDecoration(
-        color: widget.headerBackgroundColor,
+        color: widget.headerBackgroundColor ?? theme.colorTheme.paper.primary,
         borderRadius: BorderRadius.circular(4),
         border: item.showBorder
             ? Border.all(
@@ -132,18 +135,10 @@ class _DigitAccordionState extends State<DigitAccordion>
             },
             child: Container(
               decoration: BoxDecoration(
-                color: widget.headerBackgroundColor,
+                color: widget.headerBackgroundColor ?? theme.colorTheme.paper.primary,
                 borderRadius: BorderRadius.circular(4),
-                boxShadow: [
-                  if (widget.headerElevation > 0)
-                    BoxShadow(
-                      color: Colors.black26,
-                      blurRadius: widget.headerElevation,
-                      offset: Offset(0, widget.headerElevation / 2),
-                    ),
-                ],
               ),
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 20),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -170,7 +165,7 @@ class _DigitAccordionState extends State<DigitAccordion>
             ),
             child: Container(
               decoration: BoxDecoration(
-                color: widget.contentBackgroundColor,
+                color: widget.contentBackgroundColor ?? theme.colorTheme.paper.primary,
                 borderRadius: BorderRadius.circular(4),
               ),
               padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),

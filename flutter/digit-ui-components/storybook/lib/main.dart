@@ -27,6 +27,7 @@ import 'package:storybook/widgets/atoms/flie_upload_stories.dart';
 import 'package:storybook/widgets/atoms/group_menu_card_stories.dart';
 import 'package:storybook/widgets/atoms/input_field_stories.dart';
 import 'package:storybook/widgets/atoms/list_view_stories.dart';
+import 'package:storybook/widgets/atoms/matrix_card_stories.dart';
 import 'package:storybook/widgets/atoms/menu_card_stories.dart';
 import 'package:storybook/widgets/atoms/panel_stories.dart';
 import 'package:storybook/widgets/atoms/pop_up_card_stories.dart';
@@ -251,6 +252,7 @@ class MyHomePageState extends State<MyHomePage> {
               ...inputFieldStories(),
               ...infoCardStories(),
               ...listViewStories(),
+              ...matrixCardStories(),
               ...menuCardStories(),
               ...groupMenuCardStories(),
               ...panelStories(),
