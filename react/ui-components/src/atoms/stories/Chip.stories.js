@@ -27,6 +27,9 @@ export default {
     isErrorTag: {
       control: "boolean",
     },
+    hideClose: {
+      control: "boolean",
+    },
     error: {
       control: "text",
     },
@@ -48,12 +51,20 @@ const commonArgs = {
   disabled: false,
   isErrorTag: false,
   error: "",
+  hideClose:false
 };
 
 export const Default = Template.bind({});
 Default.args = {
   ...commonArgs,
   text: "Chips",
+};
+
+export const HideClose = Template.bind({});
+HideClose.args = {
+  ...commonArgs,
+  text: "Chips",
+  hideClose:true
 };
 
 export const ErrorTag = Template.bind({});

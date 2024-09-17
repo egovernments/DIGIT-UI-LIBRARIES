@@ -139,6 +139,12 @@
   }
 }
 
+.digit-tag{
+  &.noClose{
+    display: inline;
+  }
+}
+
 .cp{
   cursor: pointer;
 }
