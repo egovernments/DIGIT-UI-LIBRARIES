@@ -146,7 +146,7 @@ class _TableBodyState extends State<TableBody> {
       // Add row with cells and alternating background color to rowWidgets list
       rowWidgets.add(
         InkWell(
-          onHover: widget.enableSelection ? null : (hover) {
+          onHover: widget.enableSelection ?(hover) {
             setState(() {
               if (hover) {
                 _hoveredRows.add(i);
@@ -154,8 +154,8 @@ class _TableBodyState extends State<TableBody> {
                 _hoveredRows.remove(i);
               }
             });
-          },
-          onTap:widget.enableSelection ? null : () {
+          } : null,
+          onTap:widget.enableSelection ? () {
             setState(() {
               if (_selectedRows.contains(i)) {
                 _selectedRows.remove(i);
@@ -163,7 +163,7 @@ class _TableBodyState extends State<TableBody> {
                 _selectedRows.add(i);
               }
             });
-          },
+          }: null,
           child: Container(
             decoration: BoxDecoration(
               color: rowColor,

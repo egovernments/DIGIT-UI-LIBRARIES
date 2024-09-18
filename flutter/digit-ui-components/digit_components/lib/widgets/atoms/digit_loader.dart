@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/material.dart';
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 
@@ -37,7 +38,7 @@ class DigitLoaders {
                     strokeWidth: loaderSize ?? 4.0,
                   ),
                   if (label != null) ...[
-                    const SizedBox(height: 10),
+                    const SizedBox(height: spacer3),
                     Text(
                       label,
                       style: textStyle ?? textTheme.headingS,
@@ -80,8 +81,8 @@ class DigitLoaders {
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
               child: Container(
-                color: backgroundColor?.withOpacity(0.2) ??
-                    theme.colorTheme.text.primary.withOpacity(.2),
+                color: backgroundColor?.withOpacity(0.7) ??
+                    theme.colorTheme.text.primary.withOpacity(.7),
                 child: SimpleDialog(
                   elevation: 0.0,
                   backgroundColor: Colors.transparent,
@@ -96,7 +97,7 @@ class DigitLoaders {
                             strokeWidth: loaderSize ?? 4.0,
                           ),
                           if (label != null) ...[
-                            const SizedBox(height: 10),
+                            const SizedBox(height: spacer3),
                             Text(label,
                                 style: textStyle ??
                                     textTheme.headingS.copyWith(
