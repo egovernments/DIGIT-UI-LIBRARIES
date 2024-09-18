@@ -88,6 +88,44 @@ List<Story> selectionCardStories() {
         },
       ),
     ),
+    Story(
+      name: 'Atom/Selection Box/With Icon After Selection',
+      builder: (context) {
+
+        List<String> selectedOptions = [];
+        // Define a stateful widget for managing the selected option
+        return StatefulBuilder(
+          builder: (context, setState) {
+
+            return SelectionCard<String>(
+              valueMapper: (item) => item,
+              options: const ['Option 1', 'Option 2', 'Option 3'],
+              //initialSelection: selectedOptions,
+              onSelectionChanged: (newSelectedOptions) {
+                setState(() {
+                  // Replace the list with the newly selected options
+                  selectedOptions = List.from(newSelectedOptions);
+                });
+                // Optional: print the selected options for debugging
+                print('Selected Options: $selectedOptions');
+              },
+              prefixIconBuilder: (value) {
+                // Show icons only if the option is selected
+                if (selectedOptions.contains(value)) {
+                  if (value == 'Option 1') {
+                    return Icons.star;
+                  } else if (value == 'Option 2') {
+                    return Icons.favorite;
+                  }
+                  return Icons.circle;
+                }
+                return null; // Return null if no icon should be shown
+              },
+            );
+          },
+        );
+      },
+    )
 
   ];
 }

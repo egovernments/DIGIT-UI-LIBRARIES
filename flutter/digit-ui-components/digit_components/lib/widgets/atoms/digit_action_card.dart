@@ -22,6 +22,8 @@
 ///   ],
 /// )```
 
+import 'dart:ui';
+
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:flutter/material.dart';
@@ -59,38 +61,41 @@ class DigitActionCard extends StatelessWidget {
       child: Dialog.fullscreen(
         backgroundColor: const DigitColors().transparent,
         child: Center(
-          child: Container(
-            constraints: BoxConstraints(
-              maxHeight: isMobile ? MediaQuery.of(context).size.height*.80: isTab ?MediaQuery.of(context).size.height*.82 : MediaQuery.of(context).size.height*.85,
-            ),
-            margin: actionTheme.width == null ? actionTheme.margin : EdgeInsets.zero,
-            width: actionTheme.width,
-            height: actionTheme.height,
-            decoration: actionTheme.decoration,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                /// A scrollable container to accommodate the list of action DigitButtons
-                Flexible(
-                  child: SingleChildScrollView(
-                    child: Container(
-                      padding: actionTheme.padding,
-                      child: Column(
-                        children: [
-                          DigitButtonListTile(
-                            /// A widget that displays the list of action DigitButtons
-                            buttons: actions,
-                            isVertical: true,
-                            spacing:
-                            actionTheme.spacing ?? theme.spacerTheme.spacer6,
-                          ),
-                        ],
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
+            child: Container(
+              constraints: BoxConstraints(
+                maxHeight: isMobile ? MediaQuery.of(context).size.height*.80: isTab ?MediaQuery.of(context).size.height*.82 : MediaQuery.of(context).size.height*.85,
+              ),
+              margin: actionTheme.width == null ? actionTheme.margin : EdgeInsets.zero,
+              width: actionTheme.width,
+              height: actionTheme.height,
+              decoration: actionTheme.decoration,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  /// A scrollable container to accommodate the list of action DigitButtons
+                  Flexible(
+                    child: SingleChildScrollView(
+                      child: Container(
+                        padding: actionTheme.padding,
+                        child: Column(
+                          children: [
+                            DigitButtonListTile(
+                              /// A widget that displays the list of action DigitButtons
+                              buttons: actions,
+                              isVertical: true,
+                              spacing:
+                              actionTheme.spacing ?? theme.spacerTheme.spacer6,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

@@ -13,8 +13,8 @@ class SelectionCard<T> extends StatefulWidget {
   final String Function(T) valueMapper;
   final bool isRequired;
   final bool equalWidthOptions;
-  final IconData Function(T)? prefixIconBuilder;
-  final IconData Function(T)? suffixIconBuilder;
+  final IconData? Function(T)? prefixIconBuilder;
+  final IconData? Function(T)? suffixIconBuilder;
 
   const SelectionCard({
     Key? key,
@@ -68,6 +68,12 @@ class _SelectionCardState<T> extends State<SelectionCard<T>> {
         _selectedOptions.addAll(widget.initialSelection ?? []);
       });
     }
+    // Check if prefixIconBuilder or suffixIconBuilder has changed
+    if (widget.prefixIconBuilder != oldWidget.prefixIconBuilder ||
+        widget.suffixIconBuilder != oldWidget.suffixIconBuilder) {
+
+    }
+
   }
 
   void _calculateMaxOptionWidth() {
@@ -118,6 +124,8 @@ class _SelectionCardState<T> extends State<SelectionCard<T>> {
   }
 
   Widget _buildOption(T option) {
+    print(option);
+    print(widget.prefixIconBuilder!(option));
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
     bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
@@ -143,7 +151,7 @@ class _SelectionCardState<T> extends State<SelectionCard<T>> {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (widget.prefixIconBuilder != null)
+            if (widget.prefixIconBuilder != null && widget.prefixIconBuilder!(option) != null)
               ...[Padding(
                 padding: const EdgeInsets.only(right: spacer2),
                 child: Icon(
@@ -171,7 +179,7 @@ class _SelectionCardState<T> extends State<SelectionCard<T>> {
                 ),
               ),
             ),
-            if (widget.suffixIconBuilder != null)
+            if (widget.suffixIconBuilder != null && widget.suffixIconBuilder!(option) != null)
               ...[
                 const SizedBox(width: spacer2),
                 Padding(

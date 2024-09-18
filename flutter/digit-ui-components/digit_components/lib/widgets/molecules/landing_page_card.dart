@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 class MatrixListComponent extends StatelessWidget {
   final IconData? icon;
   final String heading;
-  final List<MatrixModel>? matrixList;  // Matrix list is now optional
+  final List<MatrixModel>? matrixList; // Matrix list is now optional
   final List<ActionItem> actions;
   final bool filledIcon;
   final Widget? centerWidget;
@@ -39,45 +39,69 @@ class MatrixListComponent extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-              height: 56,
               child: Row(
                 mainAxisAlignment: showIconOnRight && icon != null
                     ? MainAxisAlignment.spaceBetween
                     : MainAxisAlignment.start,
                 children: [
                   if (!showIconOnRight && icon != null) _buildIcon(context),
-                  if (!showIconOnRight && icon != null) const SizedBox(width: 8),
-                  if(!showIconOnRight && icon != null && filledIcon) const SizedBox(width: 8),
-                  Text(
-                    heading,
-                    style: textTheme.headingM.copyWith(
-                      color: theme.colorTheme.primary.primary2,
+                  if (!showIconOnRight && icon != null)
+                    const SizedBox(width: 8),
+                  if (!showIconOnRight && icon != null && filledIcon)
+                    const SizedBox(width: 8),
+                  Flexible(
+                    child: Text(
+                      heading,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: textTheme.headingM.copyWith(
+                        color: theme.colorTheme.primary.primary2,
+                      ),
                     ),
                   ),
+                  if (showIconOnRight && icon != null)
+                    const SizedBox(width: 8),
                   if (showIconOnRight && icon != null) _buildIcon(context),
                 ],
               ),
             ),
             const SizedBox(height: 16),
-            const DigitDivider(dividerType: DividerType.small,),
+            const DigitDivider(
+              dividerType: DividerType.small,
+            ),
             const SizedBox(height: 16),
             if (matrixList != null && matrixList!.isNotEmpty)
               _buildMatrixList(context),
             if (matrixList != null && matrixList!.isNotEmpty)
-              const SizedBox(height: 16,),
-            if (matrixList != null && matrixList!.isNotEmpty)const DigitDivider(dividerType: DividerType.small),
+              const SizedBox(
+                height: 16,
+              ),
+            if (matrixList != null && matrixList!.isNotEmpty)
+              const DigitDivider(dividerType: DividerType.small),
             if (matrixList != null && matrixList!.isNotEmpty)
               const SizedBox(height: 16),
+            if (centerWidget != null) ...[
+              centerWidget!,
+              const SizedBox(height: 16),
+              const DigitDivider(dividerType: DividerType.small),
+              const SizedBox(height: 16),
+            ],
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 for (var i = 0; i < actions.length; i++) ...[
                   ActionDigitButton(action: actions[i]),
-                  if (i < actions.length - 1) SizedBox(height: 16), // Add gap between items
+                  if (i < actions.length - 1) const SizedBox(height: 16),
+                  // Add gap between items
                 ],
               ],
-            )
-
+            ),
+            if (additionalWidget != null) ...[
+              const SizedBox(height: 16),
+              const DigitDivider(dividerType: DividerType.small),
+              const SizedBox(height: 16),
+              additionalWidget!,
+            ],
           ],
         ),
       ],
@@ -100,7 +124,11 @@ class MatrixListComponent extends StatelessWidget {
         color: filledIcon
             ? const DigitColors().light.paperPrimary
             : const DigitColors().light.primary1,
-        size: isMobile ? 28 : isTab ? 32 : 40,
+        size: isMobile
+            ? 28
+            : isTab
+                ? 32
+                : 40,
       ),
     );
   }
@@ -112,7 +140,9 @@ class MatrixListComponent extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: matrixList!.map((matrix) {
         return Column(
-          crossAxisAlignment: alignCenterMatrixList ? CrossAxisAlignment.center : CrossAxisAlignment.start,
+          crossAxisAlignment: alignCenterMatrixList
+              ? CrossAxisAlignment.center
+              : CrossAxisAlignment.start,
           children: [
             Text(
               matrix.title,
@@ -120,12 +150,10 @@ class MatrixListComponent extends StatelessWidget {
                 color: theme.colorTheme.text.primary,
               ),
             ),
-            Text(
-                matrix.description,
+            Text(matrix.description,
                 style: textTheme.bodyXS.copyWith(
                   color: theme.colorTheme.text.secondary,
-                )
-            ),
+                )),
           ],
         );
       }).toList(),
@@ -157,13 +185,22 @@ class ActionDigitButton extends StatelessWidget {
       onTap: action.onPressed,
       child: Row(
         children: [
-          if(action.icon != null)
-            Icon(action.icon, color: theme.colorTheme.primary.primary1, size: 20,),
-          if(action.icon != null)
-            const SizedBox(width: spacer2,),
-          Text(action.label, style: textTheme.buttonM.copyWith(
-            color: theme.colorTheme.primary.primary1,
-          ),)
+          if (action.icon != null)
+            Icon(
+              action.icon,
+              color: theme.colorTheme.primary.primary1,
+              size: 20,
+            ),
+          if (action.icon != null)
+            const SizedBox(
+              width: spacer2,
+            ),
+          Text(
+            action.label,
+            style: textTheme.buttonM.copyWith(
+              color: theme.colorTheme.primary.primary1,
+            ),
+          )
         ],
       ),
     );

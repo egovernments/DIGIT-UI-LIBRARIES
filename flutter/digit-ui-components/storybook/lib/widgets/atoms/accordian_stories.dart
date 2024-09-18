@@ -17,16 +17,136 @@ List<Story> accordionStories() {
           items: [
             DigitAccordionItem(
               header: Text('Panel 1', style: textTheme.headingS),
-              content: Text('This is the content of panel 1', style: textTheme.bodyS.copyWith(color: theme.colorTheme.text.primary)),
+              content: Text('This is the content of panel 1',
+                  style: textTheme.bodyS
+                      .copyWith(color: theme.colorTheme.text.primary)),
               initiallyExpanded: false,
             ),
             DigitAccordionItem(
               header: Text('Panel 2', style: textTheme.headingS),
-              content: Text('This is the content of panel 2', style: textTheme.bodyS.copyWith(color: theme.colorTheme.text.primary)),
+              content: Text('This is the content of panel 2',
+                  style: textTheme.bodyS
+                      .copyWith(color: theme.colorTheme.text.primary)),
             ),
             DigitAccordionItem(
               header: Text('Panel 3', style: textTheme.headingS),
-              content: Text('This is the content of panel 3', style: textTheme.bodyS.copyWith(color: theme.colorTheme.text.primary)),
+              content: Text('This is the content of panel 3',
+                  style: textTheme.bodyS
+                      .copyWith(color: theme.colorTheme.text.primary)),
+            ),
+          ],
+          allowMultipleOpen: false,
+          headerElevation: 0,
+          animationDuration: const Duration(milliseconds: 200),
+        );
+      },
+    ),
+    Story(
+      name: 'Atom/Accordion/With Icons',
+      builder: (context) {
+        final theme = Theme.of(context);
+        final textTheme = theme.digitTextTheme(context);
+        return DigitAccordion(
+          items: [
+            DigitAccordionItem(
+              header: Row(
+                children: [
+                  const Icon(Icons.account_circle),
+                  const SizedBox(
+                    width: 4,
+                  ),
+                  Text('Panel 1', style: textTheme.headingS),
+                ],
+              ),
+              content: Text('This is the content of panel 1',
+                  style: textTheme.bodyS
+                      .copyWith(color: theme.colorTheme.text.primary)),
+              initiallyExpanded: false,
+            ),
+            DigitAccordionItem(
+              header: Row(
+                children: [
+                  const Icon(Icons.account_circle),
+                  const SizedBox(
+                    width: 4,
+                  ),
+                  Text('Panel 2', style: textTheme.headingS),
+                ],
+              ),
+              content: Text('This is the content of panel 2',
+                  style: textTheme.bodyS
+                      .copyWith(color: theme.colorTheme.text.primary)),
+            ),
+            DigitAccordionItem(
+              header: Row(
+                children: [
+                  const Icon(Icons.account_circle),
+                  const SizedBox(
+                    width: 4,
+                  ),
+                  Text('Panel 3', style: textTheme.headingS),
+                ],
+              ),
+              content: Text('This is the content of panel 3',
+                  style: textTheme.bodyS
+                      .copyWith(color: theme.colorTheme.text.primary)),
+            ),
+          ],
+          allowMultipleOpen: false,
+          headerElevation: 0,
+          animationDuration: const Duration(milliseconds: 200),
+        );
+      },
+    ),
+    Story(
+      name: 'Atom/Accordion/With Numbers',
+      builder: (context) {
+        final theme = Theme.of(context);
+        final textTheme = theme.digitTextTheme(context);
+        return DigitAccordion(
+          items: [
+            DigitAccordionItem(
+              header: Row(
+                children: [
+                  Text('1.', style: textTheme.headingS),
+                  const SizedBox(
+                    width: 4,
+                  ),
+                  Text('Panel 1', style: textTheme.headingS),
+                ],
+              ),
+              content: Text('This is the content of panel 1',
+                  style: textTheme.bodyS
+                      .copyWith(color: theme.colorTheme.text.primary)),
+              initiallyExpanded: false,
+            ),
+            DigitAccordionItem(
+              header: Row(
+                children: [
+                  Text('2.', style: textTheme.headingS),
+                  const SizedBox(
+                    width: 4,
+                  ),
+                  Text('Panel 2', style: textTheme.headingS),
+                ],
+              ),
+              content: Text('This is the content of panel 2',
+                  style: textTheme.bodyS
+                      .copyWith(color: theme.colorTheme.text.primary)),
+            ),
+            DigitAccordionItem(
+              header: Row(
+                children: [
+                  Text('3.', style: textTheme.headingS),
+                  const SizedBox(
+                    width: 4,
+                  ),
+                  Text('Panel 3', style: textTheme.headingS),
+                ],
+              ),
+              content: Text('This is the content of panel 3',
+                  style: textTheme.bodyS
+                      .copyWith(color: theme.colorTheme.text.primary)),
             ),
           ],
           allowMultipleOpen: false,
@@ -44,18 +164,24 @@ List<Story> accordionStories() {
           items: [
             DigitAccordionItem(
               header: Text('Panel 1', style: textTheme.headingS),
-              content: Text('This is the content of panel 1', style: textTheme.bodyS.copyWith(color: theme.colorTheme.text.primary)),
+              content: Text('This is the content of panel 1',
+                  style: textTheme.bodyS
+                      .copyWith(color: theme.colorTheme.text.primary)),
               initiallyExpanded: false,
               showBorder: false,
             ),
             DigitAccordionItem(
               header: Text('Panel 2', style: textTheme.headingS),
-              content: Text('This is the content of panel 2', style: textTheme.bodyS.copyWith(color: theme.colorTheme.text.primary)),
+              content: Text('This is the content of panel 2',
+                  style: textTheme.bodyS
+                      .copyWith(color: theme.colorTheme.text.primary)),
               showBorder: false,
             ),
             DigitAccordionItem(
               header: Text('Panel 3', style: textTheme.headingS),
-              content: Text('This is the content of panel 3', style: textTheme.bodyS.copyWith(color: theme.colorTheme.text.primary)),
+              content: Text('This is the content of panel 3',
+                  style: textTheme.bodyS
+                      .copyWith(color: theme.colorTheme.text.primary)),
               showBorder: false,
             ),
           ],
@@ -72,23 +198,29 @@ List<Story> accordionStories() {
         final textTheme = theme.digitTextTheme(context);
         return DigitCard(
           cardType: CardType.primary,
-          children:[
+          children: [
             DigitAccordion(
               items: [
                 DigitAccordionItem(
                   header: Text('Panel 1', style: textTheme.headingS),
-                  content: Text('This is the content of panel 1', style: textTheme.bodyS.copyWith(color: theme.colorTheme.text.primary)),
+                  content: Text('This is the content of panel 1',
+                      style: textTheme.bodyS
+                          .copyWith(color: theme.colorTheme.text.primary)),
                   initiallyExpanded: false,
                   showBorder: false,
                 ),
                 DigitAccordionItem(
                   header: Text('Panel 2', style: textTheme.headingS),
-                  content: Text('This is the content of panel 2', style: textTheme.bodyS.copyWith(color: theme.colorTheme.text.primary)),
+                  content: Text('This is the content of panel 2',
+                      style: textTheme.bodyS
+                          .copyWith(color: theme.colorTheme.text.primary)),
                   showBorder: false,
                 ),
                 DigitAccordionItem(
                   header: Text('Panel 3', style: textTheme.headingS),
-                  content: Text('This is the content of panel 3', style: textTheme.bodyS.copyWith(color: theme.colorTheme.text.primary)),
+                  content: Text('This is the content of panel 3',
+                      style: textTheme.bodyS
+                          .copyWith(color: theme.colorTheme.text.primary)),
                   showBorder: false,
                 ),
               ],
@@ -110,20 +242,26 @@ List<Story> accordionStories() {
           items: [
             DigitAccordionItem(
               header: Text('Panel 1', style: textTheme.headingS),
-              content: Text('This is the content of panel 1', style: textTheme.bodyS.copyWith(color: theme.colorTheme.text.primary)),
+              content: Text('This is the content of panel 1',
+                  style: textTheme.bodyS
+                      .copyWith(color: theme.colorTheme.text.primary)),
               initiallyExpanded: false,
               showBorder: false,
               divider: true,
             ),
             DigitAccordionItem(
               header: Text('Panel 2', style: textTheme.headingS),
-              content: Text('This is the content of panel 2', style: textTheme.bodyS.copyWith(color: theme.colorTheme.text.primary)),
+              content: Text('This is the content of panel 2',
+                  style: textTheme.bodyS
+                      .copyWith(color: theme.colorTheme.text.primary)),
               showBorder: false,
               divider: true,
             ),
             DigitAccordionItem(
               header: Text('Panel 3', style: textTheme.headingS),
-              content: Text('This is the content of panel 3', style: textTheme.bodyS.copyWith(color: theme.colorTheme.text.primary)),
+              content: Text('This is the content of panel 3',
+                  style: textTheme.bodyS
+                      .copyWith(color: theme.colorTheme.text.primary)),
               showBorder: false,
               divider: true,
             ),
@@ -143,16 +281,19 @@ List<Story> accordionStories() {
           items: [
             DigitAccordionItem(
               header: Text('Panel 1', style: textTheme.headingS),
-              content: Text('This is the content of panel 1', style: textTheme.bodyS),
+              content: Text('This is the content of panel 1',
+                  style: textTheme.bodyS),
               initiallyExpanded: true,
             ),
             DigitAccordionItem(
               header: Text('Panel 2', style: textTheme.headingS),
-              content: Text('This is the content of panel 2', style: textTheme.bodyS),
+              content: Text('This is the content of panel 2',
+                  style: textTheme.bodyS),
             ),
             DigitAccordionItem(
               header: Text('Panel 3', style: textTheme.headingS),
-              content: Text('This is the content of panel 3', style: textTheme.bodyS),
+              content: Text('This is the content of panel 3',
+                  style: textTheme.bodyS),
             ),
           ],
           allowMultipleOpen: false,
@@ -171,16 +312,19 @@ List<Story> accordionStories() {
           items: [
             DigitAccordionItem(
               header: Text('Panel 1', style: textTheme.headingS),
-              content: Text('This is the content of panel 1', style: textTheme.bodyS),
+              content: Text('This is the content of panel 1',
+                  style: textTheme.bodyS),
               initiallyExpanded: true,
             ),
             DigitAccordionItem(
               header: Text('Panel 2', style: textTheme.headingS),
-              content: Text('This is the content of panel 2', style: textTheme.bodyS),
+              content: Text('This is the content of panel 2',
+                  style: textTheme.bodyS),
             ),
             DigitAccordionItem(
               header: Text('Panel 3', style: textTheme.headingS),
-              content: Text('This is the content of panel 3', style: textTheme.bodyS),
+              content: Text('This is the content of panel 3',
+                  style: textTheme.bodyS),
             ),
           ],
           headerElevation: 0,
@@ -198,19 +342,75 @@ List<Story> accordionStories() {
           items: [
             DigitAccordionItem(
               header: Text('Panel 1', style: textTheme.headingS),
-              content: Text('This is the content of panel 1', style: textTheme.bodyS),
+              content: Text('This is the content of panel 1',
+                  style: textTheme.bodyS),
               initiallyExpanded: true,
             ),
             DigitAccordionItem(
               header: Text('Panel 2', style: textTheme.headingS),
-              content: Text('This is the content of panel 2', style: textTheme.bodyS),
+              content: Text('This is the content of panel 2',
+                  style: textTheme.bodyS),
             ),
             DigitAccordionItem(
               header: Text('Panel 3', style: textTheme.headingS),
-              content: Text('This is the content of panel 3', style: textTheme.bodyS),
+              content: Text('This is the content of panel 3',
+                  style: textTheme.bodyS),
             ),
           ],
           headerElevation: 8,
+          animationDuration: const Duration(milliseconds: 200),
+        );
+      },
+    ),
+    Story(
+      name: 'Atom/Accordion/nested accordion',
+      builder: (context) {
+        final theme = Theme.of(context);
+        final textTheme = theme.digitTextTheme(context);
+        return DigitAccordion(
+          items: [
+            DigitAccordionItem(
+              header: Text('Panel 1', style: textTheme.headingS),
+              content: DigitAccordion(
+                items: [
+                  DigitAccordionItem(
+                    header: Text('Panel 1.1', style: textTheme.headingS),
+                    content: DigitAccordion(
+                      items: [
+                        DigitAccordionItem(
+                          header: Text('Panel 1.1', style: textTheme.headingS),
+                          content: Text('This is the content of panel 1.1.1',
+                              style: textTheme.bodyS.copyWith(
+                                  color: theme.colorTheme.text.primary)),
+                        ),
+                      ],
+                    ),
+                  ),
+                  DigitAccordionItem(
+                    header: Text('Panel 1.2', style: textTheme.headingS),
+                    content: Text('This is the content of panel 1.2',
+                        style: textTheme.bodyS
+                            .copyWith(color: theme.colorTheme.text.primary)),
+                  ),
+                ],
+              ),
+              initiallyExpanded: false,
+            ),
+            DigitAccordionItem(
+              header: Text('Panel 2', style: textTheme.headingS),
+              content: Text('This is the content of panel 2',
+                  style: textTheme.bodyS
+                      .copyWith(color: theme.colorTheme.text.primary)),
+            ),
+            DigitAccordionItem(
+              header: Text('Panel 3', style: textTheme.headingS),
+              content: Text('This is the content of panel 3',
+                  style: textTheme.bodyS
+                      .copyWith(color: theme.colorTheme.text.primary)),
+            ),
+          ],
+          allowMultipleOpen: false,
+          headerElevation: 0,
           animationDuration: const Duration(milliseconds: 200),
         );
       },

@@ -67,7 +67,6 @@ void showDigitActionCard({
         filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
         child: DigitActionCard(
           actions: actions,
-
         ),
       );
     },

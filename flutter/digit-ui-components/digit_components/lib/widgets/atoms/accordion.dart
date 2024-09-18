@@ -168,7 +168,7 @@ class _DigitAccordionState extends State<DigitAccordion>
                 color: widget.contentBackgroundColor ?? theme.colorTheme.paper.primary,
                 borderRadius: BorderRadius.circular(4),
               ),
-              padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+              padding: const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 16.0, top: 8),
               child: item.content,
             ),
           ),
