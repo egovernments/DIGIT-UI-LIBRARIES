@@ -1,57 +1,69 @@
+import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
+import 'package:digit_ui_components/widgets/atoms/digit_divider.dart';
 import 'package:digit_ui_components/widgets/molecules/digit_card.dart';
 import 'package:flutter/material.dart';
 
-// Custom Matrix Layout Widget
 class MatrixList extends StatelessWidget {
   final List<Matrix> matrices;
-  final int itemsPerRow;
-  final bool isProgress;
+  final int itemsPerGroup;
   final bool showVerticalDivider;
-  final double verticalDividerWidth; // Width of the vertical divider
-  final double verticalDividerHeight; // Height of the vertical divider
+  final bool showGroupDivider; // New: for group divider
+  final double verticalDividerWidth;
+  final double verticalDividerHeight;
+  final double groupDividerHeight; // New: for group divider height
+  final Axis direction;
 
   const MatrixList({
     super.key,
     required this.matrices,
-    this.itemsPerRow = 2,
-    this.isProgress = false,
+    this.itemsPerGroup = 2,
     this.showVerticalDivider = true,
+    this.showGroupDivider = true,
     this.verticalDividerWidth = 1.0,
     this.verticalDividerHeight = 50.0,
+    this.groupDividerHeight = 24.0,
+    this.direction = Axis.horizontal,
   });
 
   @override
   Widget build(BuildContext context) {
+    return direction == Axis.horizontal
+        ? _buildHorizontalGroup(context)
+        : _buildVerticalGroup(context);
+  }
+
+  // Method for building horizontal groups (rows)
+  Widget _buildHorizontalGroup(BuildContext context) {
+    final theme = Theme.of(context);
     final rows = <Widget>[];
-    for (int i = 0; i < matrices.length; i += itemsPerRow) {
+    for (int i = 0; i < matrices.length; i += itemsPerGroup) {
       final rowItems = matrices.sublist(
         i,
-        i + itemsPerRow > matrices.length ? matrices.length : i + itemsPerRow,
+        i + itemsPerGroup > matrices.length ? matrices.length : i + itemsPerGroup,
       );
 
       List<Widget> rowWidgets = [];
       for (int j = 0; j < rowItems.length; j++) {
-        // Add MatrixCard widget
         rowWidgets.add(
           Expanded(
             child: Padding(
               padding: EdgeInsets.only(
-                right: (j != rowItems.length - 1  && showVerticalDivider) ? 24 : 0.0,
-                left: (j != 0 && showVerticalDivider) ? 24 : 0.0,
+                right: (j != rowItems.length - 1 || showVerticalDivider) ? 24 : 0.0,
+                left: (j != 0 || showVerticalDivider) ? 24 : 0.0,
               ),
-              child: MatrixCard(matrix: rowItems[j], isProgress: isProgress,),
+              child: MatrixCard(matrix: rowItems[j]),
             ),
           ),
         );
 
-        // Add VerticalDivider if needed and not the last item
+        // Add Vertical Divider if needed and not the last item
         if (showVerticalDivider && j < rowItems.length - 1) {
           rowWidgets.add(
             Container(
-              width: verticalDividerWidth,
+              width: 1,
               height: 100,
-              color: Colors.grey, // Adjust color as needed
+              color: theme.colorTheme.generic.divider, // Adjust color as needed
             ),
           );
         }
@@ -59,17 +71,86 @@ class MatrixList extends StatelessWidget {
 
       rows.add(
         Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: rowWidgets,
         ),
       );
+
+      // Add group divider between rows if enabled
+      if (showGroupDivider && i + itemsPerGroup < matrices.length) {
+        rows.add(
+          const DigitDivider(dividerType: DividerType.small),
+        );
+      }
     }
 
     return DigitCard(
       children: rows.map((row) {
         return Container(
-          margin: EdgeInsets.only(bottom: verticalDividerWidth), // Adjust margin to match verticalDividerWidth
+          margin: EdgeInsets.only(bottom: verticalDividerWidth), // Adjust margin
           child: row,
+        );
+      }).toList(),
+    );
+  }
+
+  // Method for building vertical groups (columns)
+  Widget _buildVerticalGroup(BuildContext context) {
+    final theme = Theme.of(context);
+    final columns = <Widget>[];
+    for (int i = 0; i < matrices.length; i += itemsPerGroup) {
+      final columnItems = matrices.sublist(
+        i,
+        i + itemsPerGroup > matrices.length ? matrices.length : i + itemsPerGroup,
+      );
+
+      List<Widget> columnWidgets = [];
+      for (int j = 0; j < columnItems.length; j++) {
+        columnWidgets.add(
+          Padding(
+            padding: EdgeInsets.only(
+              bottom: (j != columnItems.length - 1 && showVerticalDivider) ? 24 : 0.0,
+              top: (j != 0 && showVerticalDivider) ? 24 : 0.0,
+            ),
+            child: MatrixCard(matrix: columnItems[j]),
+          ),
+        );
+
+        // Add Horizontal Divider if needed and not the last item
+        if (showVerticalDivider && j < columnItems.length - 1) {
+          columnWidgets.add(
+            const DigitDivider(dividerType: DividerType.small),
+          );
+        }
+      }
+
+      columns.add(
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: columnWidgets,
+        ),
+      );
+
+      // Add group divider between columns if enabled
+      if (showGroupDivider && i + itemsPerGroup < matrices.length) {
+        columns.add(
+          Container(
+            width: verticalDividerWidth,
+            height: 300,
+            color: theme.colorTheme.generic.divider, // Adjust color as needed
+          ),
+        );
+      }
+    }
+
+    return DigitCard(
+      inline: true,
+      children: columns.map((column) {
+        return Container(
+          margin: EdgeInsets.only(right: verticalDividerWidth), // Adjust margin
+          child: column,
         );
       }).toList(),
     );
@@ -78,16 +159,14 @@ class MatrixList extends StatelessWidget {
 
 class MatrixCard extends StatelessWidget {
   final Matrix matrix;
-  final bool isProgress;
 
-  MatrixCard({required this.matrix, this.isProgress = false});
+  const MatrixCard({super.key, required this.matrix});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.digitTextTheme(context);
     Color textColor;
-    String statusText;
 
     switch (matrix.type) {
       case MatrixType.progress:
@@ -105,29 +184,21 @@ class MatrixCard extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        if(!isProgress)
         Text(
           matrix.value,
           style: textTheme.headingM.copyWith(
             color: theme.colorTheme.text.primary,
-          )
+          ),
         ),
-        if(!isProgress)
-        SizedBox(height: 16),
+        const SizedBox(height: 16),
         Text(
           matrix.description,
           style: textTheme.bodyS.copyWith(
             color: theme.colorTheme.text.secondary,
-          )
+          ),
         ),
-        SizedBox(height: 16),
-        isProgress
-            ? ProgressIndicatorContainer(
-          prefixLabel: matrix.description,
-          suffixLabel: matrix.statusText,
-          value: double.parse(matrix.value),
-          valueColor: AlwaysStoppedAnimation<Color>(textColor),
-        ) : Row(
+        const SizedBox(height: 16),
+        Row(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -136,17 +207,17 @@ class MatrixCard extends StatelessWidget {
               matrix.type == MatrixType.progress
                   ? Icons.arrow_upward
                   : matrix.type == MatrixType.noProgress
-                      ? Icons.info
-                      : Icons.arrow_downward,
+                  ? Icons.info
+                  : Icons.arrow_downward,
               color: textColor,
               size: 24,
             ),
-            SizedBox(width: 8),
+            const SizedBox(width: 8),
             Text(
               matrix.statusText ?? '',
               style: textTheme.bodyS.copyWith(
                 color: textColor,
-              )
+              ),
             ),
           ],
         ),
@@ -173,67 +244,4 @@ enum MatrixType {
   progress,
   noProgress,
   decrease,
-}
-
-
-class ProgressIndicatorContainer extends StatelessWidget {
-  final String? prefixLabel;
-  final String? suffixLabel;
-  final double value;
-  final Animation<Color?>? valueColor;
-
-  const ProgressIndicatorContainer({
-    super.key,
-     this.prefixLabel,
-     this.suffixLabel,
-    required this.value,
-    this.valueColor,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.all(18),
-          child: Column(
-            children: [
-              LinearProgressIndicator(
-                valueColor: valueColor ??
-                    AlwaysStoppedAnimation<Color>(
-                      theme.colorScheme.onSurfaceVariant,
-                    ),
-                value: value,
-                minHeight: 7.0,
-              ),
-              if(prefixLabel != null || suffixLabel != null)
-              Padding(
-                padding: const EdgeInsets.only(top: 12),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    if(prefixLabel != null)
-                    Text(
-                      prefixLabel!,
-                      style: theme.textTheme.bodyMedium,
-                      textAlign: TextAlign.center,
-                    ),
-                    if(suffixLabel != null)
-                    Text(
-                      suffixLabel!,
-                      style: theme.textTheme.bodyMedium,
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
 }

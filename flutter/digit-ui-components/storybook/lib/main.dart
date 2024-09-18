@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'package:digit_ui_components/models/DropdownModels.dart';
 import 'package:digit_ui_components/services/component_localization_delegate.dart';
 import 'package:digit_ui_components/theme/colors.dart';
+import 'package:digit_ui_components/utils/date_utils.dart';
+import 'package:digit_ui_components/widgets/atoms/digit_dob_picker.dart';
 import 'package:digit_ui_components/widgets/molecules/digit_header.dart';
 import 'package:digit_ui_components/widgets/molecules/hamburger.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +31,7 @@ import 'package:storybook/widgets/atoms/input_field_stories.dart';
 import 'package:storybook/widgets/atoms/list_view_stories.dart';
 import 'package:storybook/widgets/atoms/matrix_card_stories.dart';
 import 'package:storybook/widgets/atoms/menu_card_stories.dart';
+import 'package:storybook/widgets/atoms/otp_input_stories.dart';
 import 'package:storybook/widgets/atoms/panel_stories.dart';
 import 'package:storybook/widgets/atoms/pop_up_card_stories.dart';
 import 'package:storybook/widgets/atoms/radio_list_stories.dart';
@@ -42,11 +45,13 @@ import 'package:storybook/widgets/atoms/toggle_stories.dart';
 import 'package:storybook/widgets/atoms/tooltip_2_stories.dart';
 import 'package:storybook/widgets/molecules/bottom_sheet_stories.dart';
 import 'package:storybook/widgets/molecules/card_stories.dart';
+import 'package:storybook/widgets/molecules/digit_slider_stories.dart';
 import 'package:storybook/widgets/molecules/digit_table_stories.dart';
 import 'package:storybook/widgets/molecules/footer_stories.dart';
 import 'package:storybook/widgets/molecules/hamburger_stories.dart';
 import 'package:storybook/widgets/molecules/header_stories.dart';
 import 'package:storybook/widgets/molecules/landing_page_card_stories.dart';
+import 'package:storybook/widgets/molecules/language_selection_card_stories.dart';
 import 'package:storybook/widgets/molecules/panel_card_stories.dart';
 import 'package:storybook/widgets/molecules/show_pop_up_stories.dart';
 import 'package:storybook/widgets/molecules/side_nav_stories.dart';
@@ -254,6 +259,7 @@ class MyHomePageState extends State<MyHomePage> {
               ...listViewStories(),
               ...matrixCardStories(),
               ...menuCardStories(),
+              ...otpInputStories(),
               ...groupMenuCardStories(),
               ...panelStories(),
               ...popUpStories(),
@@ -276,12 +282,141 @@ class MyHomePageState extends State<MyHomePage> {
               ...footerMoleculeStories(),
               ...headerMoleculeStories(),
               ...hamBurgerStories(),
+              ...landingPageCardStories(),
               ...languageSelectionCardStories(),
               ...panelCardStories(),
               ...showPopUPStories(),
               ...sideNavStories(),
+              ...sliderStories(),
               ...tableStories(),
               ...timelineMoleculeStories(),
+              Story(
+                name: 'DOB',
+                builder: (context) => DigitDobPicker(
+                  datePickerFormControl: 'sdlkfjsdlkf',
+                  datePickerLabel: 'date of birth',
+                  ageFieldLabel: 'Age',
+                  yearsHintLabel: 'years',
+                  monthsHintLabel: 'months',
+                  separatorLabel: '(or)',
+                  yearsAndMonthsErrMsg: 'error',
+                  initialDate: DateTime(DateTime.now().year - 150, DateTime.now().month, DateTime.now().day),
+                  onChangeOfFormControl: (formControl) {
+                    // // Handle changes to the control's value here
+                    // final value = formControl.value;
+                    // if (value == null) {
+                    //   formControl.setErrors({'': true});
+                    // } else {
+                    //   DigitDOBAge age = DigitDateUtils.calculateAge(value);
+                    //   if ((age.years == 0 && age.months == 0) ||
+                    //       age.months > 11 ||
+                    //       (age.years >= 150 && age.months >= 0)) {
+                    //     formControl.setErrors({'': true});
+                    //   } else {
+                    //     formControl.removeError('');
+                    //   }
+                    // }
+                  },
+                  cancelText:'cancel',
+                  confirmText: 'ok',
+                ),
+              ),
+              Story(
+                name: 'DOB/age error',
+                builder: (context) => DigitDobPicker(
+                  datePickerFormControl: 'sdlkfjsdlkf',
+                  datePickerLabel: 'date of birth',
+                  ageFieldLabel: 'Age',
+                  yearsHintLabel: 'years',
+                  monthsHintLabel: 'months',
+                  separatorLabel: '(or)',
+                  yearsAndMonthsErrMsg: 'error',
+                  initialDate: DateTime(DateTime.now().year - 150, DateTime.now().month, DateTime.now().day),
+                  onChangeOfFormControl: (date) {
+                    // Handle changes to the control's value here
+                    final value = date;
+                    if (value == null) {
+                      //formControl.setErrors({'': true});
+                    } else {
+                      DigitDOBAge age = DigitDateUtils.calculateAge(value);
+                      if ((age.years == 0 && age.months == 0) ||
+                          age.months > 11 ||
+                          (age.years >= 150 && age.months >= 0)) {
+                        //formControl.setErrors({'': true});
+                      } else {
+                        //formControl.removeError('');
+                      }
+                    }
+                  },
+                  ageErrorMessage: 'age error',
+                  cancelText:'cancel',
+                  confirmText: 'ok',
+                ),
+              ),
+              Story(
+                name: 'DOB/month error',
+                builder: (context) => DigitDobPicker(
+                  datePickerFormControl: 'sdlkfjsdlkf',
+                  datePickerLabel: 'date of birth',
+                  ageFieldLabel: 'Age',
+                  yearsHintLabel: 'years',
+                  monthsHintLabel: 'months',
+                  monthErrorMessage: 'month error',
+                  separatorLabel: '(or)',
+                  yearsAndMonthsErrMsg: 'error',
+                  initialDate: DateTime(DateTime.now().year - 150, DateTime.now().month, DateTime.now().day),
+                  onChangeOfFormControl: (formControl) {
+                    // Handle changes to the control's value here
+                    // final value = formControl.value;
+                    // if (value == null) {
+                    //   formControl.setErrors({'': true});
+                    // } else {
+                    //   DigitDOBAge age = DigitDateUtils.calculateAge(value);
+                    //   if ((age.years == 0 && age.months == 0) ||
+                    //       age.months > 11 ||
+                    //       (age.years >= 150 && age.months >= 0)) {
+                    //     formControl.setErrors({'': true});
+                    //   } else {
+                    //     formControl.removeError('');
+                    //   }
+                    // }
+                  },
+                  cancelText:'cancel',
+                  confirmText: 'ok',
+                ),
+              ),
+              Story(
+                name: 'DOB/field error',
+                builder: (context) => DigitDobPicker(
+                  datePickerFormControl: 'sdlkfjsdlkf',
+                  datePickerLabel: 'date of birth',
+                  ageFieldLabel: 'Age',
+                  yearsHintLabel: 'years',
+                  monthsHintLabel: 'months',
+                  errorMessage: 'Field level error message',
+                  separatorLabel: '(or)',
+                  yearsAndMonthsErrMsg: 'error',
+                  initialDate: DateTime(DateTime.now().year - 150, DateTime.now().month, DateTime.now().day),
+                  onChangeOfFormControl: (formControl) {
+                    // Handle changes to the control's value here
+                    // final value = formControl.value;
+                    // if (value == null) {
+                    //   formControl.setErrors({'': true});
+                    // } else {
+                    //   DigitDOBAge age = DigitDateUtils.calculateAge(value);
+                    //   if ((age.years == 0 && age.months == 0) ||
+                    //       age.months > 11 ||
+                    //       (age.years >= 150 && age.months >= 0)) {
+                    //     formControl.setErrors({'': true});
+                    //   } else {
+                    //     formControl.removeError('');
+                    //   }
+                    // }
+                  },
+                  cancelText:'cancel',
+                  confirmText: 'ok',
+                ),
+              ),
             ],
           ),
         ),

@@ -122,6 +122,27 @@ List<Story> stepperStories() {
       ),
     ),
     Story(
+      name: 'Atom/Stepper/horizontal/3',
+      builder: (context) => DigitStepper(
+        activeIndex: context.knobs.sliderInt(label: 'active index', initial: 0,divisions: 20, max: 20),
+        stepperList:  [
+          StepperData(
+            title: 'cycle 1',
+            onStepTap: (){},
+          ),
+          const StepperData(
+            title: 'cycle 2',
+          ),
+          const StepperData(
+            title: 'cycle 3',
+          ),
+
+        ],
+        stepperDirection: Axis.horizontal,
+        inverted: true,
+      ),
+    ),
+    Story(
       name: 'Atom/Stepper/vertical',
       builder: (context) => SizedBox(
         height: 600,

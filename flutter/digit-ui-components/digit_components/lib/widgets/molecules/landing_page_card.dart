@@ -10,6 +10,8 @@ class MatrixListComponent extends StatelessWidget {
   final List<MatrixModel>? matrixList;  // Matrix list is now optional
   final List<ActionItem> actions;
   final bool filledIcon;
+  final Widget? centerWidget;
+  final Widget? additionalWidget;
   final bool alignCenterMatrixList;
   final bool showIconOnRight;
 
@@ -19,6 +21,8 @@ class MatrixListComponent extends StatelessWidget {
     required this.heading,
     this.matrixList,
     required this.actions,
+    this.centerWidget,
+    this.additionalWidget,
     this.filledIcon = false,
     this.showIconOnRight = false,
     this.alignCenterMatrixList = false,
@@ -41,7 +45,7 @@ class MatrixListComponent extends StatelessWidget {
                     ? MainAxisAlignment.spaceBetween
                     : MainAxisAlignment.start,
                 children: [
-                  if (!showIconOnRight && icon != null) _buildIcon(),
+                  if (!showIconOnRight && icon != null) _buildIcon(context),
                   if (!showIconOnRight && icon != null) const SizedBox(width: 8),
                   if(!showIconOnRight && icon != null && filledIcon) const SizedBox(width: 8),
                   Text(
@@ -50,7 +54,7 @@ class MatrixListComponent extends StatelessWidget {
                       color: theme.colorTheme.primary.primary2,
                     ),
                   ),
-                  if (showIconOnRight && icon != null) _buildIcon(),
+                  if (showIconOnRight && icon != null) _buildIcon(context),
                 ],
               ),
             ),
@@ -80,10 +84,10 @@ class MatrixListComponent extends StatelessWidget {
     );
   }
 
-  Widget _buildIcon() {
+  Widget _buildIcon(BuildContext context) {
+    bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
+    bool isTab = AppView.isTabletView(MediaQuery.of(context).size);
     return Container(
-      width: 56,
-      height: 56,
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(2),
@@ -96,7 +100,7 @@ class MatrixListComponent extends StatelessWidget {
         color: filledIcon
             ? const DigitColors().light.paperPrimary
             : const DigitColors().light.primary1,
-        size: 40,
+        size: isMobile ? 28 : isTab ? 32 : 40,
       ),
     );
   }

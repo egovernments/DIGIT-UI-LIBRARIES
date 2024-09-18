@@ -110,11 +110,13 @@ class LabeledField extends StatelessWidget {
                 maxWidth: MediaQuery.of(context).size.width * 0.33,
               ),
               child: Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: wrapLabelText
                     ? CrossAxisAlignment.end
-                    : CrossAxisAlignment.center,
+                    : CrossAxisAlignment.start,
                 children: [
-                  Flexible(
+                  Expanded(
                     child: Text(
                       processedLabel!.length > 64
                           ? '${processedLabel.substring(0, 64)}...'

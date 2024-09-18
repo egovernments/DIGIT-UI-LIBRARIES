@@ -7,8 +7,9 @@ import 'package:storybook_flutter/storybook_flutter.dart';
 List<Story> matrixCardStories() {
   return [
     Story(
-      name: 'Atom/Matrix Card/Variant First/1',
+      name: 'Atom/Matrix Card/Vertical',
       builder: (context) =>  MatrixList(
+        direction: Axis.vertical,
         matrices: [
           Matrix(value: 'Value 1', description: 'Description 1', type: MatrixType.progress, statusText: 'Active'),
           Matrix(value: 'Value 2', description: 'Description 2', type: MatrixType.noProgress, statusText: 'Inactive'),
@@ -19,9 +20,22 @@ List<Story> matrixCardStories() {
       ),
     ),
     Story(
-      name: 'Atom/Matrix Card/Variant First/2',
+      name: 'Atom/Matrix Card/Horizontal',
       builder: (context) =>  MatrixList(
-        itemsPerRow: 3,
+        direction: Axis.horizontal,
+        matrices: [
+          Matrix(value: 'Value 1', description: 'Description 1', type: MatrixType.progress, statusText: 'Active'),
+          Matrix(value: 'Value 2', description: 'Description 2', type: MatrixType.noProgress, statusText: 'Inactive'),
+          Matrix(value: 'Value 3', description: 'Description 3', type: MatrixType.decrease, statusText: 'Closed'),
+          Matrix(value: 'Value 4', description: 'Description 4', type: MatrixType.progress, statusText: 'Active'),
+          // Add more Matrix items here
+        ],
+      ),
+    ),
+    Story(
+      name: 'Atom/Matrix Card/No Vertical Divider',
+      builder: (context) =>  MatrixList(
+        itemsPerGroup: 3,
         showVerticalDivider: false,
         matrices: [
           Matrix(value: 'Value 1', description: 'Description 1', type: MatrixType.progress, statusText: 'Active'),
@@ -32,28 +46,7 @@ List<Story> matrixCardStories() {
           Matrix(value: 'Value 2', description: 'Description 2', type: MatrixType.noProgress, statusText: 'Inactive'),
           Matrix(value: 'Value 3', description: 'Description 3', type: MatrixType.decrease, statusText: 'Closed'),
           Matrix(value: 'Value 4', description: 'Description 4', type: MatrixType.progress, statusText: 'Active'),
-        ],
-      ),
-    ),
-    Story(
-      name: 'Atom/Matrix Card/Variant Second/1',
-      builder: (context) =>  MatrixList(
-        isProgress: true,
-        matrices: [
-          Matrix(value: '1', description: '', type: MatrixType.progress, statusText: '10'),
-        ],
-      ),
-    ),
-    Story(
-      name: 'Atom/Matrix Card/Variant Second/2',
-      builder: (context) =>  MatrixList(
-        isProgress: true,
-        matrices: [
-          Matrix(value: '1', description: '1', type: MatrixType.progress, statusText: '10'),
-          Matrix(value: '1', description: '1', type: MatrixType.progress, statusText: '10'),
-          Matrix(value: '1', description: '1', type: MatrixType.progress, statusText: '10'),
-          Matrix(value: '1', description: '1', type: MatrixType.progress, statusText: '10'),
-          Matrix(value: '1', description: '1', type: MatrixType.progress, statusText: '10'),
+          Matrix(value: 'Value 4', description: 'Description 4', type: MatrixType.progress, statusText: 'Active'),
         ],
       ),
     ),

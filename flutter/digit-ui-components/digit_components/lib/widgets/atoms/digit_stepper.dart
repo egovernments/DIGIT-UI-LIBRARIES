@@ -31,7 +31,6 @@ class DigitStepper extends StatefulWidget {
   final bool inverted;
   final int? currentProgressedIndex;
 
-
   @override
   _AnotherStepperState createState() => _AnotherStepperState();
 }
@@ -88,7 +87,6 @@ class _AnotherStepperState extends State<DigitStepper> {
           : CrossAxisAlignment.end;
     }
     return SizedBox(
-      height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
       child: ListView.builder(
         controller: _scrollController,
@@ -162,52 +160,66 @@ class _HorizontalStepperItemState extends State<HorizontalStepperItem> {
     return [
       if (widget.item.title != null) ...[
         Container(
-          //padding: const EdgeInsets.symmetric(horizontal: 10),
-          constraints:  BoxConstraints(
+         // margin: const EdgeInsets.only(left: 20),
+          constraints: BoxConstraints(
               minWidth: 20,
-              maxWidth: max(20, MediaQuery.of(context).size.width/(widget.totalLength)-20)
-          ),
+              maxWidth: max(
+                  20,
+                  MediaQuery.of(context).size.width / (widget.totalLength) -
+                      20)),
           child: Text(
             widget.item.title!,
             textAlign: TextAlign.center,
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
-            style: widget.index == widget.activeIndex || widget.index==widget.currentProgressedIndex || isHover
+            style: widget.index == widget.activeIndex ||
+                    widget.index == widget.currentProgressedIndex ||
+                    isHover
                 ? currentTypography.headingS.copyWith(
-              color: const DigitColors().light.textPrimary,
-            )
+                    color: const DigitColors().light.textPrimary,
+                  )
                 : currentTypography.bodyS.copyWith(
-              color: widget.index<=widget.activeIndex ? const DigitColors().light.textPrimary : const DigitColors().light.textSecondary,
-            ),
+                    color: widget.index <= widget.activeIndex
+                        ? const DigitColors().light.textPrimary
+                        : const DigitColors().light.textSecondary,
+                  ),
           ),
         ),
         const SizedBox(height: spacer2),
       ],
       Row(
         mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: widget.index ==0 ? MainAxisAlignment.start : MainAxisAlignment.center,
         children: [
           Container(
-            constraints:  BoxConstraints(
-              minWidth: MediaQuery.of(context).size.width/(widget.totalLength*3),
+            constraints: BoxConstraints(
+              // minWidth:
+              //     MediaQuery.of(context).size.width / (widget.totalLength * 3),
+              maxWidth: max(MediaQuery.of(context).size.width / (widget.totalLength * 3), (MediaQuery.of(context).size.width / (widget.totalLength)) - (widget.totalLength*24)),
             ),
             color: widget.index == 0
                 ? Colors.transparent
-                : (widget.index <= widget.activeIndex || (widget.currentProgressedIndex != null && widget.index <= widget.currentProgressedIndex!)
-                ? const DigitColors().light.primary1
-                : const DigitColors().light.textDisabled),
+                : (widget.index <= widget.activeIndex ||
+                        (widget.currentProgressedIndex != null &&
+                            widget.index <= widget.currentProgressedIndex!)
+                    ? const DigitColors().light.primary1
+                    : const DigitColors().light.textDisabled),
             height: widget.index <= widget.activeIndex ? spacer1 : spacer1 / 2,
           ),
           dot,
           Container(
-            constraints:  BoxConstraints(
-              minWidth: MediaQuery.of(context).size.width/(widget.totalLength*3),
+            constraints: BoxConstraints(
+              // minWidth:
+              //     MediaQuery.of(context).size.width / (widget.totalLength * 3),
+              maxWidth: max(MediaQuery.of(context).size.width / (widget.totalLength * 3), (MediaQuery.of(context).size.width / (widget.totalLength)) - (widget.totalLength*24)),
             ),
             color: widget.index == widget.totalLength - 1
                 ? Colors.transparent
-                : (widget.index < widget.activeIndex || (widget.currentProgressedIndex != null && widget.index < widget.currentProgressedIndex!)
-                ? const DigitColors().light.primary1
-                : const DigitColors().light.textDisabled),
+                : (widget.index < widget.activeIndex ||
+                        (widget.currentProgressedIndex != null &&
+                            widget.index < widget.currentProgressedIndex!)
+                    ? const DigitColors().light.primary1
+                    : const DigitColors().light.textDisabled),
             height: widget.index < widget.activeIndex ? spacer1 : spacer1 / 2,
           ),
         ],
@@ -240,6 +252,7 @@ class _HorizontalStepperItemState extends State<HorizontalStepperItem> {
             onTap: widget.item.onStepTap,
             child: Column(
               mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: widget.isInverted
                   ? MainAxisAlignment.start
                   : MainAxisAlignment.end,
@@ -292,116 +305,117 @@ class StepperDot extends StatelessWidget {
     DigitTypography currentTypography = getTypography(context, false);
     bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
 
+    bool isDone =
+        currentProgressedIndex != null && index < currentProgressedIndex!;
 
-    bool isDone = currentProgressedIndex != null && index < currentProgressedIndex!;
-
-    bool currentlyProgressed = currentProgressedIndex != null && index == currentProgressedIndex!;
+    bool currentlyProgressed =
+        currentProgressedIndex != null && index == currentProgressedIndex!;
     return index == activeIndex || currentlyProgressed
         ? Row(
-      children: [
-        Container(
-          height: isMobile ? spacer6 : spacer8,
-          width: isMobile ? spacer6 : spacer8,
-          decoration: BoxDecoration(
-            color: const DigitColors().light.primary1,
-            border: Border.all(
-              color: const DigitColors().light.primary1,
-              width: Base.defaultBorderWidth,
-            ),
-            borderRadius: const BorderRadius.all(
-              Radius.circular(Base.defaultCircularRadius),
-            ),
-            boxShadow: isHover
-                ? [
-              BoxShadow(
-                color: const DigitColors()
-                    .light
-                    .primary1
-                    .withOpacity(.12),
-                offset: const Offset(0, 0),
-                spreadRadius: 4,
-                blurRadius: 0,
+            children: [
+              Container(
+                height: isMobile ? spacer6 : spacer8,
+                width: isMobile ? spacer6 : spacer8,
+                decoration: BoxDecoration(
+                  color: const DigitColors().light.primary1,
+                  border: Border.all(
+                    color: const DigitColors().light.primary1,
+                    width: Base.defaultBorderWidth,
+                  ),
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(Base.defaultCircularRadius),
+                  ),
+                  boxShadow: isHover
+                      ? [
+                          BoxShadow(
+                            color: const DigitColors()
+                                .light
+                                .primary1
+                                .withOpacity(.12),
+                            offset: const Offset(0, 0),
+                            spreadRadius: 4,
+                            blurRadius: 0,
+                          ),
+                        ]
+                      : [],
+                ),
+                child: Center(
+                  child: Text(
+                    '${index + 1}',
+                    style: currentTypography.headingS.copyWith(
+                        color: const DigitColors().light.paperPrimary),
+                  ),
+                ),
               ),
-            ]
-                : [],
-          ),
-          child: Center(
-            child: Text(
-              '${index + 1}',
-              style: currentTypography.headingS.copyWith(
-                  color: const DigitColors().light.paperPrimary),
-            ),
-          ),
-        ),
-      ],
-    )
+            ],
+          )
         : index < activeIndex || isDone
-        ? Container(
-      height: isMobile ? spacer6 : spacer8,
-      width: isMobile ? spacer6 : spacer8,
-      decoration: BoxDecoration(
-        color: const DigitColors().light.primary1,
-        border: Border.all(
-          color: const DigitColors().light.primary1,
-          width: Base.defaultBorderWidth,
-        ),
-        borderRadius: const BorderRadius.all(
-          Radius.circular(Base.defaultCircularRadius),
-        ),
-        boxShadow: isHover
-            ? [
-          BoxShadow(
-            color: const DigitColors()
-                .light
-                .primary1
-                .withOpacity(.12),
-            offset: const Offset(0, 0),
-            spreadRadius: 4,
-            blurRadius: 0,
-          ),
-        ]
-            : [],
-      ),
-      child: Icon(
-        Icons.check,
-        size: isMobile ? spacer9 / 2 : spacer6,
-        color: const DigitColors().light.paperPrimary,
-      ),
-    )
-        : Container(
-      height: isMobile ? spacer6 : spacer8,
-      width: isMobile ? spacer6 : spacer8,
-      decoration: BoxDecoration(
-        color: const DigitColors().light.paperPrimary,
-        border: Border.all(
-          color: const DigitColors().light.textDisabled,
-          width: Base.selectedBorderWidth,
-        ),
-        borderRadius: const BorderRadius.all(
-          Radius.circular(Base.defaultCircularRadius),
-        ),
-        boxShadow: isHover
-            ? [
-          BoxShadow(
-            color: const DigitColors()
-                .light
-                .primary1
-                .withOpacity(.12),
-            offset: const Offset(0, 0),
-            spreadRadius: 4,
-            blurRadius: 0,
-          ),
-        ]
-            : [],
-      ),
-      child: Center(
-        child: Text(
-          '${index + 1}',
-          style: currentTypography.bodyS.copyWith(
-              color: const DigitColors().light.textSecondary),
-        ),
-      ),
-    );
+            ? Container(
+                height: isMobile ? spacer6 : spacer8,
+                width: isMobile ? spacer6 : spacer8,
+                decoration: BoxDecoration(
+                  color: const DigitColors().light.primary1,
+                  border: Border.all(
+                    color: const DigitColors().light.primary1,
+                    width: Base.defaultBorderWidth,
+                  ),
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(Base.defaultCircularRadius),
+                  ),
+                  boxShadow: isHover
+                      ? [
+                          BoxShadow(
+                            color: const DigitColors()
+                                .light
+                                .primary1
+                                .withOpacity(.12),
+                            offset: const Offset(0, 0),
+                            spreadRadius: 4,
+                            blurRadius: 0,
+                          ),
+                        ]
+                      : [],
+                ),
+                child: Icon(
+                  Icons.check,
+                  size: isMobile ? spacer9 / 2 : spacer6,
+                  color: const DigitColors().light.paperPrimary,
+                ),
+              )
+            : Container(
+                height: isMobile ? spacer6 : spacer8,
+                width: isMobile ? spacer6 : spacer8,
+                decoration: BoxDecoration(
+                  color: const DigitColors().light.paperPrimary,
+                  border: Border.all(
+                    color: const DigitColors().light.textDisabled,
+                    width: Base.selectedBorderWidth,
+                  ),
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(Base.defaultCircularRadius),
+                  ),
+                  boxShadow: isHover
+                      ? [
+                          BoxShadow(
+                            color: const DigitColors()
+                                .light
+                                .primary1
+                                .withOpacity(.12),
+                            offset: const Offset(0, 0),
+                            spreadRadius: 4,
+                            blurRadius: 0,
+                          ),
+                        ]
+                      : [],
+                ),
+                child: Center(
+                  child: Text(
+                    '${index + 1}',
+                    style: currentTypography.bodyS.copyWith(
+                        color: const DigitColors().light.textSecondary),
+                  ),
+                ),
+              );
   }
 }
 
@@ -459,13 +473,13 @@ class _VerticalStepperItemState extends State<VerticalStepperItem> {
             overflow: TextOverflow.ellipsis,
             style: widget.index == widget.activeIndex || isHover
                 ? currentTypography.headingS.copyWith(
-              color: const DigitColors().light.textPrimary,
-            )
+                    color: const DigitColors().light.textPrimary,
+                  )
                 : currentTypography.bodyS.copyWith(
-              color: widget.index < widget.activeIndex
-                  ? const DigitColors().light.textPrimary
-                  : const DigitColors().light.textSecondary,
-            ),
+                    color: widget.index < widget.activeIndex
+                        ? const DigitColors().light.textPrimary
+                        : const DigitColors().light.textSecondary,
+                  ),
           ),
         ),
         const SizedBox(width: spacer2),
@@ -481,8 +495,8 @@ class _VerticalStepperItemState extends State<VerticalStepperItem> {
             color: widget.index == 0
                 ? Colors.transparent
                 : (widget.index <= widget.activeIndex
-                ? const DigitColors().light.primary1
-                : const DigitColors().light.textDisabled),
+                    ? const DigitColors().light.primary1
+                    : const DigitColors().light.textDisabled),
             width: widget.index <= widget.activeIndex ? spacer1 : spacer1 / 2,
           ),
           dot,
@@ -493,8 +507,8 @@ class _VerticalStepperItemState extends State<VerticalStepperItem> {
             color: widget.index == widget.totalLength - 1
                 ? Colors.transparent
                 : (widget.index < widget.activeIndex
-                ? const DigitColors().light.primary1
-                : const DigitColors().light.textDisabled),
+                    ? const DigitColors().light.primary1
+                    : const DigitColors().light.textDisabled),
             width: widget.index < widget.activeIndex ? spacer1 : spacer1 / 2,
           ),
         ],

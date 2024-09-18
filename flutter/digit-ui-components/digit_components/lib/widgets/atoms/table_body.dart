@@ -8,7 +8,6 @@ import '../atoms/table_cell.dart';
 class TableBody extends StatefulWidget {
   final List<DigitTableRow> rows;
   final List<DigitTableColumn> columns;
-  final List<TableColumnWidth> columnWidths; // Added to manage column widths
   final bool withRowDividers;
   final bool alternateRowColor;
   final bool enableBorder;
@@ -20,7 +19,6 @@ class TableBody extends StatefulWidget {
     Key? key,
     required this.rows,
     required this.columns,
-    this.columnWidths = const [], // Added default empty list for column widths
     this.withRowDividers = false,
     this.alternateRowColor = false,
     this.enableBorder = false,
@@ -108,15 +106,6 @@ class _TableBodyState extends State<TableBody> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: cells,
                 ),
-                // if (widget.withRowDividers || (widget.enableBorder && i == widget.rows.length - 1))
-                //   DigitDivider(
-                //     dividerType: DividerType.small,
-                //     dividerThemeData: DigitDividerThemeData(
-                //         color: widget.enableBorder && i == widget.rows.length - 1
-                //             ? theme.colorTheme.generic.divider
-                //             : theme.colorTheme.generic.divider
-                //     ),
-                //   ), // Add row divider if enabled and not the last row
               ],
             ),
           ),

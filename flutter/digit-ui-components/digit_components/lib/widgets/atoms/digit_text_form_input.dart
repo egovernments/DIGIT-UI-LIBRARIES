@@ -47,6 +47,8 @@ class DigitTextFormInput extends BaseDigitFormInput {
     final void Function()? onFocusLost,
     final EdgeInsetsGeometry? contentPadding,
     final int? maxLength,
+    final TextStyle? suffixTextStyle,
+    final TextStyle? prefixTextStyle,
   }) : super(
     key: key,
     controller: controller,
@@ -71,6 +73,8 @@ class DigitTextFormInput extends BaseDigitFormInput {
     focusNode: focusNode,
     maxLength: maxLength,
     contentPadding: contentPadding,
+    suffixTextStyle: suffixTextStyle,
+    prefixTextStyle: prefixTextStyle,
   );
 
   @override
