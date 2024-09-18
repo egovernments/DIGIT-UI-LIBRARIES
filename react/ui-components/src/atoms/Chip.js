@@ -13,6 +13,7 @@ const Chip = ({
   disabled = false,
   isErrorTag,
   error,
+  hideClose,
   onErrorClick,
 }) => {
   const tagStyles = extraStyles ? extraStyles?.tagStyles : {};
@@ -28,7 +29,7 @@ const Chip = ({
       onClick={disabled ? null : onTagClick}
     >
       <div
-        className={`digit-tag ${isErrorTag ? "errortag" : ""} ${
+        className={`digit-tag ${isErrorTag ? "errortag" : ""} ${hideClose ? "noClose" : ""} ${
           className ? className : ""
         }`}
         style={tagStyles}
@@ -36,9 +37,10 @@ const Chip = ({
         <span className="digit-text" style={textStyles}>
           {text}
         </span>
-        <span
+        {
+          !hideClose &&         <span
           onClick={disabled ? null : onClick}
-          className={`close-icon ${disabled ? "disabled" : ""}`}
+          className={`close-icon ${disabled ? "disabled" : ""} ${hideClose ? "hideClose" : ""}`}
         >
           <SVG.Close
             fill={IconColor}
@@ -46,6 +48,7 @@ const Chip = ({
             style={closeIconStyles}
           />
         </span>
+        }
       </div>
       {error && (
         <div
@@ -78,6 +81,7 @@ Chip.propTypes = {
   disabled: PropTypes.bool,
   isErrorTag: PropTypes.bool,
   error: PropTypes.string,
+  hideClose:PropTypes.bool
 };
 
 export default Chip;

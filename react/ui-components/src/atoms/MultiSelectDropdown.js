@@ -28,7 +28,8 @@ const MultiSelectDropdown = ({
   selectAllLabel = "",
   categorySelectAllLabel = "",
   restrictSelection = false,
-  isSearchable=false
+  isSearchable=false,
+  chipsKey
 }) => {
   const [active, setActive] = useState(false);
   const [searchQuery, setSearchQuery] = useState();
@@ -609,7 +610,7 @@ const MultiSelectDropdown = ({
                     <input
                       type="checkbox"
                       checked={
-                        selectAllChecked || categorySelected[option.code]
+                        selectAllChecked || categorySelected[option?.code]
                       }
                     />
                     <div
@@ -702,9 +703,11 @@ const MultiSelectDropdown = ({
                   <Chip
                     key={index}
                     text={
-                      replacedText?.length > 64
-                        ? `${replacedText?.slice(0, 64)}...`
-                        : replacedText
+                      !chipsKey
+                        ? replacedText?.length > 64
+                          ? `${replacedText?.slice(0, 64)}...`
+                          : replacedText
+                        : value?.propsData[1]?.[chipsKey]
                     }
                     onClick={
                       variant === "treemultiselect"
