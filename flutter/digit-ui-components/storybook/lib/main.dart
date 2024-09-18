@@ -309,7 +309,7 @@ class MyHomePageState extends State<MyHomePage> {
                     // if (value == null) {
                     //   formControl.setErrors({'': true});
                     // } else {
-                    //   DigitDOBAge age = DigitDateUtils.calculateAge(value);
+                    //   DigitDOBAgeConvertor age = DigitDateUtils.calculateAge(value);
                     //   if ((age.years == 0 && age.months == 0) ||
                     //       age.months > 11 ||
                     //       (age.years >= 150 && age.months >= 0)) {
@@ -340,7 +340,7 @@ class MyHomePageState extends State<MyHomePage> {
                     if (value == null) {
                       //formControl.setErrors({'': true});
                     } else {
-                      DigitDOBAge age = DigitDateUtils.calculateAge(value);
+                      DigitDOBAgeConvertor age = DigitDateUtils.calculateAge(value);
                       if ((age.years == 0 && age.months == 0) ||
                           age.months > 11 ||
                           (age.years >= 150 && age.months >= 0)) {
@@ -373,7 +373,7 @@ class MyHomePageState extends State<MyHomePage> {
                     // if (value == null) {
                     //   formControl.setErrors({'': true});
                     // } else {
-                    //   DigitDOBAge age = DigitDateUtils.calculateAge(value);
+                    //   DigitDOBAgeConvertor age = DigitDateUtils.calculateAge(value);
                     //   if ((age.years == 0 && age.months == 0) ||
                     //       age.months > 11 ||
                     //       (age.years >= 150 && age.months >= 0)) {
@@ -405,7 +405,7 @@ class MyHomePageState extends State<MyHomePage> {
                     // if (value == null) {
                     //   formControl.setErrors({'': true});
                     // } else {
-                    //   DigitDOBAge age = DigitDateUtils.calculateAge(value);
+                    //   DigitDOBAgeConvertor age = DigitDateUtils.calculateAge(value);
                     //   if ((age.years == 0 && age.months == 0) ||
                     //       age.months > 11 ||
                     //       (age.years >= 150 && age.months >= 0)) {
