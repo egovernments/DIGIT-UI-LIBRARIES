@@ -129,44 +129,44 @@ class _DigitTableWrapperState extends State<DigitTableWrapper> {
           isCustomRowFixed: widget.isCustomRowFixed,
           onSelectedRowsChanged: _onRowSelected,
         ),
-        TableFooter(
-          currentPage: currentPage,
-          totalPages: 1, // todo
-          rowsPerPage: rowsPerPage,
-          rowsPerPageOptions: widget.rowsPerPageOptions,
-          onRowsPerPageChanged: (value) {
-            setState(() {
-              rowsPerPage = value;
-              currentPage =
-              1; // Reset to the first page when rows per page changes
-            });
-          },
-          onPageChanged: (page) {
-            setState(() {
-              currentPage = page;
-            });
-          },
-          onNext: () {
-            setState(() {
-              if (currentPage < totalPages) {
-                currentPage++;
-              }
-            });
-          },
-          onPrevious: () {
-            setState(() {
-              if (currentPage > 1) {
-                currentPage--;
-              }
-            });
-          },
-          onPageSelected: (page) {
-            setState(() {
-              currentPage = page;
-            });
-          },
-          showRowsPerPage: widget.showRowsPerPage,
-        ),
+        // TableFooter(
+        //   currentPage: currentPage,
+        //   totalPages: 1, // todo
+        //   rowsPerPage: rowsPerPage,
+        //   rowsPerPageOptions: widget.rowsPerPageOptions,
+        //   onRowsPerPageChanged: (value) {
+        //     setState(() {
+        //       rowsPerPage = value;
+        //       currentPage =
+        //       1; // Reset to the first page when rows per page changes
+        //     });
+        //   },
+        //   onPageChanged: (page) {
+        //     setState(() {
+        //       currentPage = page;
+        //     });
+        //   },
+        //   onNext: () {
+        //     setState(() {
+        //       if (currentPage < totalPages) {
+        //         currentPage++;
+        //       }
+        //     });
+        //   },
+        //   onPrevious: () {
+        //     setState(() {
+        //       if (currentPage > 1) {
+        //         currentPage--;
+        //       }
+        //     });
+        //   },
+        //   onPageSelected: (page) {
+        //     setState(() {
+        //       currentPage = page;
+        //     });
+        //   },
+        //   showRowsPerPage: widget.showRowsPerPage,
+        // ),
       ],
     );
   }

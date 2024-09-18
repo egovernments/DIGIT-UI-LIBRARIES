@@ -70,7 +70,7 @@ DigitBackButton(
       },
     ),
     Story(
-      name: 'Atom/Back Navigation DigitButton/Variant 3',
+      name: 'Atom/Back Navigation Button/Variant 3',
       builder: (context) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           CodeViewProvider.of(context)?.updateCodeString('''
@@ -111,7 +111,7 @@ DigitBackButton(
       },
     ),
     Story(
-      name: 'Atom/Back Navigation DigitButton/Disabled',
+      name: 'Atom/Back Navigation Button/Disabled',
       builder: (context) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           CodeViewProvider.of(context)?.updateCodeString('''

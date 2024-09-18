@@ -11,16 +11,20 @@ import '../atoms/table_footer.dart';
 class DigitTable extends StatefulWidget {
   final List<DigitTableColumn> columns;
   final List<DigitTableRow> rows;
+  final List<int> selectedRows;
+  final List<int> highlightedRows;
   final List<int> rowsPerPageOptions;
   final bool showRowsPerPage;
   final bool withColumnDividers;
   final bool withRowDividers;
+  final bool showPagination;
   final bool alternateRowColor;
   final bool enableBorder;
   final bool stickyHeader;
   final int frozenColumnsCount;
   final Widget? customRow;
   final bool isCustomRowFixed;
+  final bool showSelectedState;
   // Callback for selected row indices
   final void Function(int)? onSelectedRowsChanged;
 
@@ -29,8 +33,12 @@ class DigitTable extends StatefulWidget {
     Key? key,
     required this.columns,
     required this.rows,
+    this.selectedRows = const [],
+    this.highlightedRows = const [],
     this.rowsPerPageOptions = const [5, 10, 15, 20],
     this.showRowsPerPage = true,
+    this.showPagination = true,
+    this.showSelectedState = false,
     this.withColumnDividers = true,
     this.withRowDividers = true,
     this.alternateRowColor = false,
@@ -59,7 +67,8 @@ class _DigitTableState extends State<DigitTable> {
   // Checkbox state management
   bool _headerCheckboxValue = false;
   bool _headerCheckboxIndeterminate = false; // Added for intermediate state
-  late Set<int> _selectedRowIndices;
+  late Set<int> _selectedRowIndices = Set<int>();
+  late Set<int> _highlightedRowIndices = Set<int>();
   final ScrollController _scrollController = ScrollController();
   final ScrollController _verticalScrollController = ScrollController();
   double _scrollOffset = 0.0;
@@ -74,6 +83,14 @@ class _DigitTableState extends State<DigitTable> {
     sortedRows = widget.rows;
     _selectedRowIndices = Set<int>();
 
+    if(widget.selectedRows.isNotEmpty) {
+      _selectedRowIndices = widget.selectedRows.toSet();
+    }
+
+    if(widget.highlightedRows.isNotEmpty) {
+      _highlightedRowIndices = widget.highlightedRows.toSet();
+    }
+
     // Listen to scroll events
     _scrollController.addListener(_onScroll);
 
@@ -85,6 +102,25 @@ class _DigitTableState extends State<DigitTable> {
         _sortRows();
         break;
       }
+    }
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+  }
+
+  @override
+  void didUpdateWidget(DigitTable oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+
+    if (widget.selectedRows != oldWidget.selectedRows) {
+      _selectedRowIndices.addAll(widget.selectedRows);
+    }
+
+    if (widget.highlightedRows != oldWidget.highlightedRows) {
+      _highlightedRowIndices.addAll(widget.highlightedRows);
     }
   }
 
@@ -173,6 +209,10 @@ class _DigitTableState extends State<DigitTable> {
               onHeaderCheckboxChanged: _onHeaderCheckboxChanged,
             ),
             TableBody(
+              enableSelection: widget.showSelectedState,
+              highlightedRows: _highlightedRowIndices,
+              selectedRows: _selectedRowIndices,
+              hasFooter: widget.showPagination,
               rows: sortedRows.map((row) {
                 /// Filter cells for the current row that match the frozen columns
                 List<DigitTableData> filteredCells = row.tableRow.where((cell) {
@@ -260,8 +300,24 @@ class _DigitTableState extends State<DigitTable> {
     }
   }
 
+  // Method to count how many checkbox or numeric columns exist
+  int _countSpecialColumns() {
+    int count = 0;
+    for (var column in widget.columns) {
+      if (column.type == ColumnType.checkbox || column.type == ColumnType.numeric) {
+        count++;
+      }
+    }
+    return count;
+  }
+
   @override
   Widget build(BuildContext context) {
+    // Get the count of checkbox and numeric columns
+    int specialColumnCount = _countSpecialColumns();
+
+    int normalColumns = widget.columns.length - specialColumnCount;
+
     int totalPages = (sortedRows.length / rowsPerPage).ceil();
     int startIndex = (currentPage - 1) * rowsPerPage;
     int endIndex = startIndex + rowsPerPage;
@@ -297,71 +353,115 @@ class _DigitTableState extends State<DigitTable> {
             controller: _scrollController,
             scrollDirection: Axis.horizontal,
             child: SingleChildScrollView(
-              controller: _verticalScrollController,
               scrollDirection: Axis.vertical,
-              child: SizedBox(
-                // width: MediaQuery.of(context).size.width,
-                child: Column(
-                  children: [
-                    if (!widget.stickyHeader)
-                      TableHeader(
-                        columns: widget.columns,
-                        sortedColumnIndex: sortedColumnIndex,
-                        sortOrder: sortOrder,
-                        enabledBorder: widget.enableBorder,
-                        onSort: (index, order) {
-                          setState(() {
-                            if (sortedColumnIndex == index) {
-                              sortOrder = sortOrder == SortOrder.ascending
-                                  ? SortOrder.descending
-                                  : SortOrder.ascending;
-                            } else {
-                              sortedColumnIndex = index;
-                              sortOrder = SortOrder.ascending;
-                            }
-                            _sortRows();
-                            currentPage = 1;
-                          });
-                        },
-                        withColumnDividers: widget.withColumnDividers,
-                        headerCheckboxValue: _headerCheckboxValue,
-                        headerCheckboxIndeterminate: _headerCheckboxIndeterminate, // Pass down
-                        onHeaderCheckboxChanged: _onHeaderCheckboxChanged,
-                      ),
-                    TableBody(
-                      rows: paginatedRows,
+              controller: _verticalScrollController,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                // mainAxisAlignment: MainAxisAlignment.start,
+                // crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (!widget.stickyHeader)
+                    TableHeader(
                       columns: widget.columns,
-                      alternateRowColor: widget.alternateRowColor,
-                      withRowDividers: widget.withRowDividers,
-                      enableBorder: widget.enableBorder,
+                      sortedColumnIndex: sortedColumnIndex,
+                      sortOrder: sortOrder,
+                      enabledBorder: widget.enableBorder,
+                      onSort: (index, order) {
+                        setState(() {
+                          if (sortedColumnIndex == index) {
+                            sortOrder = sortOrder == SortOrder.ascending
+                                ? SortOrder.descending
+                                : SortOrder.ascending;
+                          } else {
+                            sortedColumnIndex = index;
+                            sortOrder = SortOrder.ascending;
+                          }
+                          _sortRows();
+                          currentPage = 1;
+                        });
+                      },
                       withColumnDividers: widget.withColumnDividers,
                       headerCheckboxValue: _headerCheckboxValue,
-                      onRowCheckboxChanged: (rowIndex, isSelected) {
-                        setState(() {
-                          if (isSelected) {
-                            _selectedRowIndices.add(rowIndex);
-                          } else {
-                            _selectedRowIndices.remove(rowIndex);
-                          }
-                          _updateHeaderCheckbox();
-                        });
-                        if (widget.onSelectedRowsChanged != null) {
-                          widget.onSelectedRowsChanged!(_selectedRowIndices.length);
-                        }
-                      },
+                      headerCheckboxIndeterminate: _headerCheckboxIndeterminate, // Pass down
+                      onHeaderCheckboxChanged: _onHeaderCheckboxChanged,
                     ),
-                    if (widget.customRow != null && !widget.isCustomRowFixed)
-                      Container(
-                          height: 60,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: const DigitColors().light.genericDivider,
-                            ),
-                            color: const DigitColors().light.paperPrimary,
+                  TableBody(
+                    enableSelection: widget.showSelectedState,
+                    highlightedRows: _highlightedRowIndices,
+                    selectedRows: _selectedRowIndices,
+                    hasFooter: widget.showPagination,
+                    rows: widget.showPagination ? paginatedRows: sortedRows,
+                    columns: widget.columns,
+                    alternateRowColor: widget.alternateRowColor,
+                    withRowDividers: widget.withRowDividers,
+                    enableBorder: widget.enableBorder,
+                    withColumnDividers: widget.withColumnDividers,
+                    headerCheckboxValue: _headerCheckboxValue,
+                    onRowCheckboxChanged: (rowIndex, isSelected) {
+                      setState(() {
+                        if (isSelected) {
+                          _selectedRowIndices.add(rowIndex);
+                        } else {
+                          _selectedRowIndices.remove(rowIndex);
+                        }
+                        _updateHeaderCheckbox();
+                      });
+                      if (widget.onSelectedRowsChanged != null) {
+                        widget.onSelectedRowsChanged!(_selectedRowIndices.length);
+                      }
+                    },
+                  ),
+                  if (widget.customRow != null && !widget.isCustomRowFixed)
+                    Container(
+                        height: 60,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: const DigitColors().light.genericDivider,
                           ),
-                          child: widget.customRow!),
-                  ],
-                ),
+                          color: const DigitColors().light.paperPrimary,
+                        ),
+                        child: widget.customRow!),
+                  if(widget.showPagination)
+                  TableFooter(
+                    width: normalColumns * 200 + specialColumnCount * 100+2,
+                    currentPage: currentPage,
+                    totalPages: totalPages,
+                    rowsPerPage: rowsPerPage,
+                    rowsPerPageOptions: widget.rowsPerPageOptions,
+                    onRowsPerPageChanged: (value) {
+                      setState(() {
+                        rowsPerPage = value;
+                        currentPage =
+                        1; // Reset to the first page when rows per page changes
+                      });
+                    },
+                    onPageChanged: (page) {
+                      setState(() {
+                        currentPage = page;
+                      });
+                    },
+                    onNext: () {
+                      setState(() {
+                        if (currentPage < totalPages) {
+                          currentPage++;
+                        }
+                      });
+                    },
+                    onPrevious: () {
+                      setState(() {
+                        if (currentPage > 1) {
+                          currentPage--;
+                        }
+                      });
+                    },
+                    onPageSelected: (page) {
+                      setState(() {
+                        currentPage = page;
+                      });
+                    },
+                    showRowsPerPage: widget.showRowsPerPage,
+                  ),
+                ],
               ),
             ),
           ),
