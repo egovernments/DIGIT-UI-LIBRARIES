@@ -127,7 +127,7 @@ class DigitTableCell extends StatelessWidget {
         return cellData.widget ?? Text(
           cellData.label,
           maxLines: 1,
-          style: textTheme.bodyS.copyWith(color: theme.colorTheme.text.primary),
+          style: cellData.style ?? textTheme.bodyS.copyWith(color: theme.colorTheme.text.primary),
         );
     }
   }

@@ -122,6 +122,11 @@ class _DigitTableState extends State<DigitTable> {
     if (widget.highlightedRows != oldWidget.highlightedRows) {
       _highlightedRowIndices.addAll(widget.highlightedRows);
     }
+
+    if(widget.rows != oldWidget.rows) {
+      sortedRows = widget.rows;
+    }
+
   }
 
   @override
@@ -170,7 +175,6 @@ class _DigitTableState extends State<DigitTable> {
 
     // Find the columns that need to be frozen based on scroll offset
     List<DigitTableColumn> frozenColumns = _getColumnsToFreeze(scrollOffset);
-    print(frozenColumns.length);
 
     // Define frozen column width based on the columns to be frozen
     double frozenWidth = frozenColumns.fold(0, (sum, column) => sum + _getColumnWidth(column));
