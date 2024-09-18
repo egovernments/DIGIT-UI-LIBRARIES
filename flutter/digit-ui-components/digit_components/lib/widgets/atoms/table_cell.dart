@@ -4,15 +4,16 @@ import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:digit_ui_components/widgets/atoms/switch.dart';
 import 'package:flutter/material.dart';
 
+import 'digit_button.dart';
 import 'digit_tag.dart';
 
-class CustomTableCell extends StatelessWidget {
+class DigitTableCell extends StatelessWidget {
   final DigitTableData cellData;
   final ColumnType type;
   final dynamic value;
   final void Function(bool)? areAllRowsSelected;
 
-  const CustomTableCell({
+  const DigitTableCell({
     Key? key,
     required this.cellData,
     this.type = ColumnType.text,
@@ -56,8 +57,8 @@ class CustomTableCell extends StatelessWidget {
             maxWidth: 168,
           ),
           child: const DigitTextFormInput(
-              //initialValue: cellData.value,
-              ),
+            //initialValue: cellData.value,
+          ),
         );
 
       case ColumnType.dropDown:
@@ -73,7 +74,7 @@ class CustomTableCell extends StatelessWidget {
           ),
         );
 
-      case ColumnType.button:
+      case ColumnType.DigitButton:
         return Button(
           mainAxisSize: MainAxisSize.min,
           size: ButtonSize.medium,
@@ -83,7 +84,7 @@ class CustomTableCell extends StatelessWidget {
               cellData.callBack!(cellData);
             }
           },
-          label: cellData.label.isNotEmpty ? cellData.label : 'Button',
+          label: cellData.label.isNotEmpty ? cellData.label : 'DigitButton',
         );
 
       case ColumnType.numeric:
@@ -114,13 +115,13 @@ class CustomTableCell extends StatelessWidget {
 
       case ColumnType.switchs:
         return CustomSwitch(
-          mainAxisAlignment: MainAxisAlignment.start,
-          label: cellData.label,
+            mainAxisAlignment: MainAxisAlignment.start,
+            label: cellData.label,
             value: cellData.value ?? false, onChanged: (value) {
-              if(cellData.callBack != null) {
-                cellData.callBack!(cellData);
-              }
-            });
+          if(cellData.callBack != null) {
+            cellData.callBack!(cellData);
+          }
+        });
       case ColumnType.text:
       default:
         return cellData.widget ?? Text(
@@ -141,12 +142,12 @@ enum ColumnType {
   text,
   checkbox,
   textField,
-  button,
+  DigitButton,
   numeric,
   description,
   dropDown,
-   switchs,
-   tags,
+  switchs,
+  tags,
 }
 
 class DigitTableColumn {
@@ -155,6 +156,7 @@ class DigitTableColumn {
   final ColumnType type;
   final String cellValue;
   final bool isSortable;
+  final double? width;
   bool? value;
   final bool isFrozen;
   final bool showCheckbox;
@@ -167,6 +169,7 @@ class DigitTableColumn {
     required this.cellValue,
     this.isSortable = false,
     this.value,
+    this.width,
     this.isFrozen = false,
     this.showCheckbox = false,
     this.onCheckboxChanged,
@@ -190,27 +193,27 @@ class DigitTableData {
   final Widget? widget;
 
   DigitTableData(
-    this.label, {
-    this.style,
-    this.value,
-    this.callBack,
-    required this.cellKey,
-    this.widget,
-  });
+      this.label, {
+        this.style,
+        this.value,
+        this.callBack,
+        required this.cellKey,
+        this.widget,
+      });
 }
 
 class CustomColumn {
   final ColumnType columnType;
   final dynamic value;
   final String label;
-  final VoidCallback? onButtonPressed;
+  final VoidCallback? onDigitButtonPressed;
   final ValueChanged<bool>? onCheckboxChanged;
 
   CustomColumn({
     required this.columnType,
     this.value,
     required this.label,
-    this.onButtonPressed,
+    this.onDigitButtonPressed,
     this.onCheckboxChanged,
   });
 }

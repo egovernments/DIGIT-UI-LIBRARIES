@@ -1,6 +1,5 @@
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
-import 'package:digit_ui_components/widgets/atoms/digit_button.dart';
 import 'package:digit_ui_components/widgets/atoms/table_cell.dart';
 import 'package:digit_ui_components/widgets/molecules/digit_table.dart';
 import 'package:digit_ui_components/widgets/molecules/table_container_molecule.dart';
@@ -10,18 +9,18 @@ import 'package:flutter/material.dart';
 List<Story> tableStories() {
   return [
     Story(
-      name: 'Molecule/Table/Variant 1',
-      builder: (context) => CustomTable(
+      name: 'Molecule/Table/Simple Table',
+      builder: (context) => DigitTable(
         stickyHeader:
-            context.knobs.boolean(label: 'Sticky Header', initial: false),
+        context.knobs.boolean(label: 'Sticky Header', initial: false),
         alternateRowColor:
-            context.knobs.boolean(label: 'Alternate Row Color', initial: false),
+        context.knobs.boolean(label: 'Alternate Row Color', initial: false),
         withRowDividers:
-            context.knobs.boolean(label: 'With Row Dividers', initial: true),
-        withColumnDividers:
-            context.knobs.boolean(label: 'With Column Dividers', initial: true),
+        context.knobs.boolean(label: 'With Row Dividers', initial: true),
+        withColumnDividers: context.knobs
+            .boolean(label: 'With Column Dividers', initial: false),
         enableBorder:
-            context.knobs.boolean(label: 'Enable Border', initial: true),
+        context.knobs.boolean(label: 'Enable Border', initial: false),
         columns: [
           DigitTableColumn(
             cellValue: 'first',
@@ -32,7 +31,6 @@ List<Story> tableStories() {
           DigitTableColumn(
             header: 'Column B',
             cellValue: 'second',
-            isFrozen: true,
             type: ColumnType.text,
             //columnType: ColumnType.text,
           ),
@@ -192,7 +190,7 @@ List<Story> tableStories() {
               callBack: (data) {
                 print(data);
               },
-  ),
+            ),
           ]),
           DigitTableRow(tableRow: [
             DigitTableData(
@@ -235,14 +233,341 @@ List<Story> tableStories() {
               cellKey: 'six',
               callBack: (data) {
                 print(data);
-              },  ),
+              },
+            ),
           ])
         ],
       ),
     ),
     Story(
-      name: 'Molecule/Table/Variant 2',
-      builder: (context) => CustomTable(
+      name: 'Molecule/Table/Simple Table with first row highlighted',
+      builder: (context) => DigitTable(
+        stickyHeader:
+        context.knobs.boolean(label: 'Sticky Header', initial: false),
+        alternateRowColor:
+        context.knobs.boolean(label: 'Alternate Row Color', initial: false),
+        withRowDividers:
+        context.knobs.boolean(label: 'With Row Dividers', initial: true),
+        withColumnDividers: context.knobs
+            .boolean(label: 'With Column Dividers', initial: false),
+        enableBorder:
+        context.knobs.boolean(label: 'Enable Border', initial: false),
+        highlightedRows: const [0],
+        columns: [
+          DigitTableColumn(
+            cellValue: 'first',
+            header: 'Column A',
+            type: ColumnType.text,
+            //columnType: ColumnType.checkbox,
+          ),
+          DigitTableColumn(
+            header: 'Column B',
+            cellValue: 'second',
+            type: ColumnType.text,
+            //columnType: ColumnType.text,
+          ),
+          DigitTableColumn(
+            cellValue: 'third',
+            header: 'Column C',
+            type: ColumnType.text,
+            //columnType: ColumnType.numeric,
+          ),
+          DigitTableColumn(
+            cellValue: 'forth',
+            header: 'Column D',
+            type: ColumnType.text,
+            //columnType: ColumnType.numeric,
+          ),
+          DigitTableColumn(
+            cellValue: 'fifth',
+            header: 'Column E',
+            type: ColumnType.text,
+            //columnType: ColumnType.numeric,
+          ),
+          DigitTableColumn(
+            cellValue: 'six',
+            header: 'Column F',
+            type: ColumnType.text,
+            //columnType: ColumnType.numeric,
+          ),
+        ],
+        rows: [
+          DigitTableRow(tableRow: [
+            DigitTableData(
+              'Row 1',
+              cellKey: 'first',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 1',
+              cellKey: 'second',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 1',
+              cellKey: 'third',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 1',
+              cellKey: 'forth',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 1',
+              cellKey: 'fifth',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 1',
+              cellKey: 'six',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+          ]),
+          DigitTableRow(tableRow: [
+            DigitTableData(
+              'Row 2',
+              cellKey: 'first',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 2',
+              cellKey: 'second',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 2',
+              cellKey: 'third',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 2',
+              cellKey: 'forth',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 2',
+              cellKey: 'fifth',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 2',
+              cellKey: 'six',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+          ]),
+          DigitTableRow(tableRow: [
+            DigitTableData(
+              'Row 3',
+              cellKey: 'first',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 3',
+              cellKey: 'second',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 3',
+              cellKey: 'third',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 3',
+              cellKey: 'forth',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 3',
+              cellKey: 'fifth',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 3',
+              cellKey: 'six',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+          ]),
+          DigitTableRow(tableRow: [
+            DigitTableData(
+              'Row 4',
+              cellKey: 'first',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 4',
+              cellKey: 'second',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 4',
+              cellKey: 'third',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 4',
+              cellKey: 'forth',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 4',
+              cellKey: 'fifth',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 4',
+              cellKey: 'six',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+          ])
+        ],
+      ),
+    ),
+    Story(
+      name: 'Molecule/Table/Simple Table with large list',
+      builder: (context) => DigitTable(
+        showPagination: context.knobs.boolean(label: 'Show Pagination', initial: true),
+        stickyHeader:
+        context.knobs.boolean(label: 'Sticky Header', initial: false),
+        alternateRowColor:
+        context.knobs.boolean(label: 'Alternate Row Color', initial: false),
+        withRowDividers:
+        context.knobs.boolean(label: 'With Row Dividers', initial: true),
+        withColumnDividers: context.knobs
+            .boolean(label: 'With Column Dividers', initial: false),
+        enableBorder:
+        context.knobs.boolean(label: 'Enable Border', initial: false),
+        columns: [
+          DigitTableColumn(
+            cellValue: 'first',
+            header: 'Column A',
+            type: ColumnType.text,
+          ),
+          DigitTableColumn(
+            header: 'Column B',
+            cellValue: 'second',
+            type: ColumnType.text,
+          ),
+          DigitTableColumn(
+            cellValue: 'third',
+            header: 'Column C',
+            type: ColumnType.text,
+          ),
+          DigitTableColumn(
+            cellValue: 'forth',
+            header: 'Column D',
+            type: ColumnType.text,
+          ),
+          DigitTableColumn(
+            cellValue: 'fifth',
+            header: 'Column E',
+            type: ColumnType.text,
+          ),
+          DigitTableColumn(
+            cellValue: 'six',
+            header: 'Column F',
+            type: ColumnType.text,
+          ),
+        ],
+        rows: List.generate(100, (index) {
+          return DigitTableRow(tableRow: [
+            DigitTableData(
+              'Row ${index + 1} A',
+              cellKey: 'first',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row ${index + 1} B',
+              cellKey: 'second',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row ${index + 1} C',
+              cellKey: 'third',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row ${index + 1} D',
+              cellKey: 'forth',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row ${index + 1} E',
+              cellKey: 'fifth',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row ${index + 1} F',
+              cellKey: 'six',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+          ]);
+        }),
+      ),
+    ),
+    Story(
+      name: 'Molecule/Table/Simple Table with initial frozen column',
+      builder: (context) => DigitTable(
         stickyHeader:
         context.knobs.boolean(label: 'Sticky Header', initial: false),
         alternateRowColor:
@@ -251,6 +576,238 @@ List<Story> tableStories() {
         context.knobs.boolean(label: 'With Row Dividers', initial: true),
         withColumnDividers:
         context.knobs.boolean(label: 'With Column Dividers', initial: true),
+        enableBorder:
+        context.knobs.boolean(label: 'Enable Border', initial: true),
+        columns: [
+          DigitTableColumn(
+            cellValue: 'first',
+            header: 'Column A',
+            isFrozen: true,
+            type: ColumnType.text,
+            //columnType: ColumnType.checkbox,
+          ),
+          DigitTableColumn(
+            header: 'Column B',
+            cellValue: 'second',
+            type: ColumnType.text,
+            //columnType: ColumnType.text,
+          ),
+          DigitTableColumn(
+            cellValue: 'third',
+            header: 'Column C',
+            type: ColumnType.text,
+            //columnType: ColumnType.numeric,
+          ),
+          DigitTableColumn(
+            cellValue: 'forth',
+            header: 'Column D',
+            type: ColumnType.text,
+            //columnType: ColumnType.numeric,
+          ),
+          DigitTableColumn(
+            cellValue: 'fifth',
+            header: 'Column E',
+            type: ColumnType.text,
+            //columnType: ColumnType.numeric,
+          ),
+          DigitTableColumn(
+            cellValue: 'six',
+            header: 'Column F',
+            type: ColumnType.text,
+            //columnType: ColumnType.numeric,
+          ),
+        ],
+        rows: [
+          DigitTableRow(tableRow: [
+            DigitTableData(
+              'Row 1',
+              cellKey: 'first',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 1',
+              cellKey: 'second',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 1',
+              cellKey: 'third',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 1',
+              cellKey: 'forth',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 1',
+              cellKey: 'fifth',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 1',
+              cellKey: 'six',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+          ]),
+          DigitTableRow(tableRow: [
+            DigitTableData(
+              'Row 2',
+              cellKey: 'first',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 2',
+              cellKey: 'second',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 2',
+              cellKey: 'third',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 2',
+              cellKey: 'forth',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 2',
+              cellKey: 'fifth',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 2',
+              cellKey: 'six',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+          ]),
+          DigitTableRow(tableRow: [
+            DigitTableData(
+              'Row 3',
+              cellKey: 'first',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 3',
+              cellKey: 'second',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 3',
+              cellKey: 'third',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 3',
+              cellKey: 'forth',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 3',
+              cellKey: 'fifth',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 3',
+              cellKey: 'six',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+          ]),
+          DigitTableRow(tableRow: [
+            DigitTableData(
+              'Row 4',
+              cellKey: 'first',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 4',
+              cellKey: 'second',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 4',
+              cellKey: 'third',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 4',
+              cellKey: 'forth',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 4',
+              cellKey: 'fifth',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 4',
+              cellKey: 'six',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+          ])
+        ],
+      ),
+    ),
+    Story(
+      name: 'Molecule/Table/Variant 2',
+      builder: (context) => DigitTable(
+        stickyHeader:
+        context.knobs.boolean(label: 'Sticky Header', initial: false),
+        alternateRowColor:
+        context.knobs.boolean(label: 'Alternate Row Color', initial: false),
+        withRowDividers:
+        context.knobs.boolean(label: 'With Row Dividers', initial: true),
+        withColumnDividers: context.knobs
+            .boolean(label: 'With Column Dividers', initial: false),
         enableBorder:
         context.knobs.boolean(label: 'Enable Border', initial: true),
         columns: [
@@ -275,7 +832,7 @@ List<Story> tableStories() {
           DigitTableColumn(
             cellValue: 'forth',
             header: 'Column D',
-            type: ColumnType.button,
+            type: ColumnType.DigitButton,
             //columnType: ColumnType.numeric,
           ),
           DigitTableColumn(
@@ -465,22 +1022,23 @@ List<Story> tableStories() {
               cellKey: 'six',
               callBack: (data) {
                 print(data);
-              },  ),
+              },
+            ),
           ])
         ],
       ),
     ),
     Story(
       name: 'Molecule/Table/figma1',
-      builder: (context) => CustomTable(
+      builder: (context) => DigitTable(
         stickyHeader:
         context.knobs.boolean(label: 'Sticky Header', initial: false),
         alternateRowColor:
         context.knobs.boolean(label: 'Alternate Row Color', initial: false),
         withRowDividers:
         context.knobs.boolean(label: 'With Row Dividers', initial: true),
-        withColumnDividers:
-        context.knobs.boolean(label: 'With Column Dividers', initial: false),
+        withColumnDividers: context.knobs
+            .boolean(label: 'With Column Dividers', initial: false),
         enableBorder:
         context.knobs.boolean(label: 'Enable Border', initial: true),
         columns: [
@@ -601,15 +1159,15 @@ List<Story> tableStories() {
     ),
     Story(
       name: 'Molecule/Table/figma2',
-      builder: (context) => CustomTable(
+      builder: (context) => DigitTable(
         stickyHeader:
         context.knobs.boolean(label: 'Sticky Header', initial: false),
         alternateRowColor:
         context.knobs.boolean(label: 'Alternate Row Color', initial: false),
         withRowDividers:
         context.knobs.boolean(label: 'With Row Dividers', initial: true),
-        withColumnDividers:
-        context.knobs.boolean(label: 'With Column Dividers', initial: false),
+        withColumnDividers: context.knobs
+            .boolean(label: 'With Column Dividers', initial: false),
         enableBorder:
         context.knobs.boolean(label: 'Enable Border', initial: true),
         columns: [
@@ -678,19 +1236,13 @@ List<Story> tableStories() {
                 print(data);
               },
             ),
-            DigitTableData(
-              '',
-              cellKey: 'third',
-              callBack: (data) {
-                print(data);
-              },
-              widget: const Row(
-                children: [
+            DigitTableData('', cellKey: 'third', callBack: (data) {
+              print(data);
+            },
+                widget: const Row(children: [
                   Icon(Icons.account_circle),
                   Text('Lorem Ipsum'),
-                ]
-              )
-            ),
+                ])),
             DigitTableData(
               'Lorem Ipsum s simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
               cellKey: 'forth',
@@ -698,24 +1250,15 @@ List<Story> tableStories() {
                 print(data);
               },
             ),
-            DigitTableData(
-              'label',
-              cellKey: 'fifth',
-              callBack: (data) {
-                print(data);
-              },
-              widget: const DigitTextFormInput(
-                suffixText: '₹',
-              )
-            ),
-            DigitTableData(
-              '',
-              cellKey: 'six',
-              callBack: (data) {
-                print(data);
-              },
-              widget: const DigitDateFormInput()
-            ),
+            DigitTableData('label', cellKey: 'fifth', callBack: (data) {
+              print(data);
+            },
+                widget: const DigitTextFormInput(
+                  suffixText: '₹',
+                )),
+            DigitTableData('', cellKey: 'six', callBack: (data) {
+              print(data);
+            }, widget: const DigitDateFormInput()),
             DigitTableData(
               'switch',
               cellKey: 'seven',
@@ -730,22 +1273,24 @@ List<Story> tableStories() {
                 print(data);
               },
             ),
-            DigitTableData(
-              'Button',
-              cellKey: 'nine',
-              callBack: (data) {
-                print(data);
-              },
-              widget: Button(type: ButtonType.link, label: 'Button', size: ButtonSize.large, onPressed: () {},)
-            ),
-            DigitTableData(
-              'active',
-              cellKey: 'ten',
-              callBack: (data) {
-                print(data);
-              },
-                widget: Button(type: ButtonType.primary, label: 'Button', size: ButtonSize.large, onPressed: () {},)
-            ),
+            DigitTableData('DigitButton', cellKey: 'nine', callBack: (data) {
+              print(data);
+            },
+                widget: Button(
+                  type: ButtonType.link,
+                  label: 'DigitButton',
+                  size: ButtonSize.large,
+                  onPressed: () {},
+                )),
+            DigitTableData('active', cellKey: 'ten', callBack: (data) {
+              print(data);
+            },
+                widget: Button(
+                  type: ButtonType.primary,
+                  label: 'DigitButton',
+                  size: ButtonSize.large,
+                  onPressed: () {},
+                )),
           ]),
           DigitTableRow(tableRow: [
             DigitTableData(
@@ -762,19 +1307,18 @@ List<Story> tableStories() {
                 print(data);
               },
             ),
-            DigitTableData(
-                '',
-                cellKey: 'third',
-                callBack: (data) {
-                  print(data);
-                },
-                widget: const Row(
-                    children: [
-                      Icon(Icons.account_circle),
-                      Text('Lorem Ipsum'),
-                    ]
-                )
-            ),
+            DigitTableData('', cellKey: 'third', callBack: (data) {
+              print(data);
+            },
+                widget: InkWell(
+                  onTap: (){
+                    print('tapped');
+                  },
+                  child: const Row(children: [
+                    Icon(Icons.account_circle),
+                    Text('Lorem Ipsum'),
+                  ]),
+                )),
             DigitTableData(
               'Lorem Ipsum s simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
               cellKey: 'forth',
@@ -782,24 +1326,15 @@ List<Story> tableStories() {
                 print(data);
               },
             ),
-            DigitTableData(
-                'label',
-                cellKey: 'fifth',
-                callBack: (data) {
-                  print(data);
-                },
+            DigitTableData('label', cellKey: 'fifth', callBack: (data) {
+              print(data);
+            },
                 widget: const DigitTextFormInput(
                   suffixText: '₹',
-                )
-            ),
-            DigitTableData(
-                '',
-                cellKey: 'six',
-                callBack: (data) {
-                  print(data);
-                },
-                widget: const DigitDateFormInput()
-            ),
+                )),
+            DigitTableData('', cellKey: 'six', callBack: (data) {
+              print(data);
+            }, widget: const DigitDateFormInput()),
             DigitTableData(
               'switch',
               cellKey: 'seven',
@@ -814,22 +1349,26 @@ List<Story> tableStories() {
                 print(data);
               },
             ),
-            DigitTableData(
-                'Button',
-                cellKey: 'nine',
-                callBack: (data) {
-                  print(data);
-                },
-                widget: Button(type: ButtonType.link, label: 'Button', size: ButtonSize.large, onPressed: () {},)
-            ),
-            DigitTableData(
-                'active',
-                cellKey: 'ten',
-                callBack: (data) {
-                  print(data);
-                },
-                widget: Button(type: ButtonType.primary, label: 'Button', size: ButtonSize.large, onPressed: () {},)
-            ),
+            DigitTableData('DigitButton', cellKey: 'nine', callBack: (data) {
+              print(data);
+            },
+                widget: Button(
+                  type: ButtonType.link,
+                  label: 'DigitButton',
+                  size: ButtonSize.large,
+                  onPressed: () {
+                    print('button pressed');
+                  },
+                )),
+            DigitTableData('active', cellKey: 'ten', callBack: (data) {
+              print(data);
+            },
+                widget: Button(
+                  type: ButtonType.primary,
+                  label: 'DigitButton',
+                  size: ButtonSize.large,
+                  onPressed: () {},
+                )),
           ]),
           DigitTableRow(tableRow: [
             DigitTableData(
@@ -846,19 +1385,13 @@ List<Story> tableStories() {
                 print(data);
               },
             ),
-            DigitTableData(
-                '',
-                cellKey: 'third',
-                callBack: (data) {
-                  print(data);
-                },
-                widget: const Row(
-                    children: [
-                      Icon(Icons.account_circle),
-                      Text('Lorem Ipsum'),
-                    ]
-                )
-            ),
+            DigitTableData('', cellKey: 'third', callBack: (data) {
+              print(data);
+            },
+                widget: const Row(children: [
+                  Icon(Icons.account_circle),
+                  Text('Lorem Ipsum'),
+                ])),
             DigitTableData(
               'Lorem Ipsum s simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
               cellKey: 'forth',
@@ -866,24 +1399,15 @@ List<Story> tableStories() {
                 print(data);
               },
             ),
-            DigitTableData(
-                'label',
-                cellKey: 'fifth',
-                callBack: (data) {
-                  print(data);
-                },
+            DigitTableData('label', cellKey: 'fifth', callBack: (data) {
+              print(data);
+            },
                 widget: const DigitTextFormInput(
                   suffixText: '₹',
-                )
-            ),
-            DigitTableData(
-                '',
-                cellKey: 'six',
-                callBack: (data) {
-                  print(data);
-                },
-                widget: const DigitDateFormInput()
-            ),
+                )),
+            DigitTableData('', cellKey: 'six', callBack: (data) {
+              print(data);
+            }, widget: const DigitDateFormInput()),
             DigitTableData(
               'switch',
               cellKey: 'seven',
@@ -898,22 +1422,24 @@ List<Story> tableStories() {
                 print(data);
               },
             ),
-            DigitTableData(
-                'Button',
-                cellKey: 'nine',
-                callBack: (data) {
-                  print(data);
-                },
-                widget: Button(type: ButtonType.link, label: 'Button', size: ButtonSize.large, onPressed: () {},)
-            ),
-            DigitTableData(
-                'active',
-                cellKey: 'ten',
-                callBack: (data) {
-                  print(data);
-                },
-                widget: Button(type: ButtonType.primary, label: 'Button', size: ButtonSize.large, onPressed: () {},)
-            ),
+            DigitTableData('DigitButton', cellKey: 'nine', callBack: (data) {
+              print(data);
+            },
+                widget: Button(
+                  type: ButtonType.link,
+                  label: 'DigitButton',
+                  size: ButtonSize.large,
+                  onPressed: () {},
+                )),
+            DigitTableData('active', cellKey: 'ten', callBack: (data) {
+              print(data);
+            },
+                widget: Button(
+                  type: ButtonType.primary,
+                  label: 'DigitButton',
+                  size: ButtonSize.large,
+                  onPressed: () {},
+                )),
           ]),
           DigitTableRow(tableRow: [
             DigitTableData(
@@ -930,19 +1456,13 @@ List<Story> tableStories() {
                 print(data);
               },
             ),
-            DigitTableData(
-                '',
-                cellKey: 'third',
-                callBack: (data) {
-                  print(data);
-                },
-                widget: const Row(
-                    children: [
-                      Icon(Icons.account_circle),
-                      Text('Lorem Ipsum'),
-                    ]
-                )
-            ),
+            DigitTableData('', cellKey: 'third', callBack: (data) {
+              print(data);
+            },
+                widget: const Row(children: [
+                  Icon(Icons.account_circle),
+                  Text('Lorem Ipsum'),
+                ])),
             DigitTableData(
               'Lorem Ipsum s simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
               cellKey: 'forth',
@@ -950,24 +1470,15 @@ List<Story> tableStories() {
                 print(data);
               },
             ),
-            DigitTableData(
-                'label',
-                cellKey: 'fifth',
-                callBack: (data) {
-                  print(data);
-                },
+            DigitTableData('label', cellKey: 'fifth', callBack: (data) {
+              print(data);
+            },
                 widget: const DigitTextFormInput(
                   suffixText: '₹',
-                )
-            ),
-            DigitTableData(
-                '',
-                cellKey: 'six',
-                callBack: (data) {
-                  print(data);
-                },
-                widget: const DigitDateFormInput()
-            ),
+                )),
+            DigitTableData('', cellKey: 'six', callBack: (data) {
+              print(data);
+            }, widget: const DigitDateFormInput()),
             DigitTableData(
               'switch',
               cellKey: 'seven',
@@ -982,22 +1493,24 @@ List<Story> tableStories() {
                 print(data);
               },
             ),
-            DigitTableData(
-                'Button',
-                cellKey: 'nine',
-                callBack: (data) {
-                  print(data);
-                },
-                widget: Button(type: ButtonType.link, label: 'Button', size: ButtonSize.large, onPressed: () {},)
-            ),
-            DigitTableData(
-                'active',
-                cellKey: 'ten',
-                callBack: (data) {
-                  print(data);
-                },
-                widget: Button(type: ButtonType.primary, label: 'Button', size: ButtonSize.large, onPressed: () {},)
-            ),
+            DigitTableData('DigitButton', cellKey: 'nine', callBack: (data) {
+              print(data);
+            },
+                widget: Button(
+                  type: ButtonType.link,
+                  label: 'DigitButton',
+                  size: ButtonSize.large,
+                  onPressed: () {},
+                )),
+            DigitTableData('active', cellKey: 'ten', callBack: (data) {
+              print(data);
+            },
+                widget: Button(
+                  type: ButtonType.primary,
+                  label: 'DigitButton',
+                  size: ButtonSize.large,
+                  onPressed: () {},
+                )),
           ]),
           DigitTableRow(tableRow: [
             DigitTableData(
@@ -1014,19 +1527,13 @@ List<Story> tableStories() {
                 print(data);
               },
             ),
-            DigitTableData(
-                '',
-                cellKey: 'third',
-                callBack: (data) {
-                  print(data);
-                },
-                widget: const Row(
-                    children: [
-                      Icon(Icons.account_circle),
-                      Text('Lorem Ipsum'),
-                    ]
-                )
-            ),
+            DigitTableData('', cellKey: 'third', callBack: (data) {
+              print(data);
+            },
+                widget: const Row(children: [
+                  Icon(Icons.account_circle),
+                  Text('Lorem Ipsum'),
+                ])),
             DigitTableData(
               'Lorem Ipsum s simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
               cellKey: 'forth',
@@ -1034,24 +1541,15 @@ List<Story> tableStories() {
                 print(data);
               },
             ),
-            DigitTableData(
-                'label',
-                cellKey: 'fifth',
-                callBack: (data) {
-                  print(data);
-                },
+            DigitTableData('label', cellKey: 'fifth', callBack: (data) {
+              print(data);
+            },
                 widget: const DigitTextFormInput(
                   suffixText: '₹',
-                )
-            ),
-            DigitTableData(
-                '',
-                cellKey: 'six',
-                callBack: (data) {
-                  print(data);
-                },
-                widget: const DigitDateFormInput()
-            ),
+                )),
+            DigitTableData('', cellKey: 'six', callBack: (data) {
+              print(data);
+            }, widget: const DigitDateFormInput()),
             DigitTableData(
               'switch',
               cellKey: 'seven',
@@ -1066,41 +1564,49 @@ List<Story> tableStories() {
                 print(data);
               },
             ),
-            DigitTableData(
-                'Button',
-                cellKey: 'nine',
-                callBack: (data) {
-                  print(data);
-                },
-                widget: Button(type: ButtonType.link, label: 'Button', size: ButtonSize.large, onPressed: () {},)
-            ),
-            DigitTableData(
-                'active',
-                cellKey: 'ten',
-                callBack: (data) {
-                  print(data);
-                },
-                widget: Button(type: ButtonType.primary, label: 'Button', size: ButtonSize.large, onPressed: () {},)
-            ),
+            DigitTableData('DigitButton', cellKey: 'nine', callBack: (data) {
+              print(data);
+            },
+                widget: Button(
+                  type: ButtonType.link,
+                  label: 'DigitButton',
+                  size: ButtonSize.large,
+                  onPressed: () {},
+                )),
+            DigitTableData('active', cellKey: 'ten', callBack: (data) {
+              print(data);
+            },
+                widget: Button(
+                  type: ButtonType.primary,
+                  label: 'DigitButton',
+                  size: ButtonSize.large,
+                  onPressed: () {},
+                )),
           ]),
         ],
       ),
     ),
     Story(
       name: 'Molecule/Table/figma3',
-      builder: (context) => CustomTable(
+      builder: (context) => DigitTable(
         isCustomRowFixed: true,
-        customRow:  Row(
+        customRow: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           mainAxisSize: MainAxisSize.max,
           children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text('total count', style: Theme.of(context).digitTextTheme(context).headingS,),
+              child: Text(
+                'total count',
+                style: Theme.of(context).digitTextTheme(context).headingS,
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text('400', style: Theme.of(context).digitTextTheme(context).headingS,),
+              child: Text(
+                '400',
+                style: Theme.of(context).digitTextTheme(context).headingS,
+              ),
             ),
           ],
         ),
@@ -1110,8 +1616,8 @@ List<Story> tableStories() {
         context.knobs.boolean(label: 'Alternate Row Color', initial: false),
         withRowDividers:
         context.knobs.boolean(label: 'With Row Dividers', initial: true),
-        withColumnDividers:
-        context.knobs.boolean(label: 'With Column Dividers', initial: false),
+        withColumnDividers: context.knobs
+            .boolean(label: 'With Column Dividers', initial: false),
         enableBorder:
         context.knobs.boolean(label: 'Enable Border', initial: true),
         columns: [
@@ -1180,19 +1686,13 @@ List<Story> tableStories() {
                 print(data);
               },
             ),
-            DigitTableData(
-                '',
-                cellKey: 'third',
-                callBack: (data) {
-                  print(data);
-                },
-                widget: const Row(
-                    children: [
-                      Icon(Icons.account_circle),
-                      Text('Lorem Ipsum'),
-                    ]
-                )
-            ),
+            DigitTableData('', cellKey: 'third', callBack: (data) {
+              print(data);
+            },
+                widget: const Row(children: [
+                  Icon(Icons.account_circle),
+                  Text('Lorem Ipsum'),
+                ])),
             DigitTableData(
               'Lorem Ipsum s simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
               cellKey: 'forth',
@@ -1200,24 +1700,15 @@ List<Story> tableStories() {
                 print(data);
               },
             ),
-            DigitTableData(
-                'label',
-                cellKey: 'fifth',
-                callBack: (data) {
-                  print(data);
-                },
+            DigitTableData('label', cellKey: 'fifth', callBack: (data) {
+              print(data);
+            },
                 widget: const DigitTextFormInput(
                   suffixText: '₹',
-                )
-            ),
-            DigitTableData(
-                '',
-                cellKey: 'six',
-                callBack: (data) {
-                  print(data);
-                },
-                widget: const DigitDateFormInput()
-            ),
+                )),
+            DigitTableData('', cellKey: 'six', callBack: (data) {
+              print(data);
+            }, widget: const DigitDateFormInput()),
             DigitTableData(
               'switch',
               cellKey: 'seven',
@@ -1232,22 +1723,24 @@ List<Story> tableStories() {
                 print(data);
               },
             ),
-            DigitTableData(
-                'Button',
-                cellKey: 'nine',
-                callBack: (data) {
-                  print(data);
-                },
-                widget: Button(type: ButtonType.link, label: 'Button', size: ButtonSize.large, onPressed: () {},)
-            ),
-            DigitTableData(
-                'active',
-                cellKey: 'ten',
-                callBack: (data) {
-                  print(data);
-                },
-                widget: Button(type: ButtonType.primary, label: 'Button', size: ButtonSize.large, onPressed: () {},)
-            ),
+            DigitTableData('DigitButton', cellKey: 'nine', callBack: (data) {
+              print(data);
+            },
+                widget: Button(
+                  type: ButtonType.link,
+                  label: 'DigitButton',
+                  size: ButtonSize.large,
+                  onPressed: () {},
+                )),
+            DigitTableData('active', cellKey: 'ten', callBack: (data) {
+              print(data);
+            },
+                widget: Button(
+                  type: ButtonType.primary,
+                  label: 'DigitButton',
+                  size: ButtonSize.large,
+                  onPressed: () {},
+                )),
           ]),
           DigitTableRow(tableRow: [
             DigitTableData(
@@ -1264,19 +1757,13 @@ List<Story> tableStories() {
                 print(data);
               },
             ),
-            DigitTableData(
-                '',
-                cellKey: 'third',
-                callBack: (data) {
-                  print(data);
-                },
-                widget: const Row(
-                    children: [
-                      Icon(Icons.account_circle),
-                      Text('Lorem Ipsum'),
-                    ]
-                )
-            ),
+            DigitTableData('', cellKey: 'third', callBack: (data) {
+              print(data);
+            },
+                widget: const Row(children: [
+                  Icon(Icons.account_circle),
+                  Text('Lorem Ipsum'),
+                ])),
             DigitTableData(
               'Lorem Ipsum s simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
               cellKey: 'forth',
@@ -1284,24 +1771,15 @@ List<Story> tableStories() {
                 print(data);
               },
             ),
-            DigitTableData(
-                'label',
-                cellKey: 'fifth',
-                callBack: (data) {
-                  print(data);
-                },
+            DigitTableData('label', cellKey: 'fifth', callBack: (data) {
+              print(data);
+            },
                 widget: const DigitTextFormInput(
                   suffixText: '₹',
-                )
-            ),
-            DigitTableData(
-                '',
-                cellKey: 'six',
-                callBack: (data) {
-                  print(data);
-                },
-                widget: const DigitDateFormInput()
-            ),
+                )),
+            DigitTableData('', cellKey: 'six', callBack: (data) {
+              print(data);
+            }, widget: const DigitDateFormInput()),
             DigitTableData(
               'switch',
               cellKey: 'seven',
@@ -1316,22 +1794,24 @@ List<Story> tableStories() {
                 print(data);
               },
             ),
-            DigitTableData(
-                'Button',
-                cellKey: 'nine',
-                callBack: (data) {
-                  print(data);
-                },
-                widget: Button(type: ButtonType.link, label: 'Button', size: ButtonSize.large, onPressed: () {},)
-            ),
-            DigitTableData(
-                'active',
-                cellKey: 'ten',
-                callBack: (data) {
-                  print(data);
-                },
-                widget: Button(type: ButtonType.primary, label: 'Button', size: ButtonSize.large, onPressed: () {},)
-            ),
+            DigitTableData('DigitButton', cellKey: 'nine', callBack: (data) {
+              print(data);
+            },
+                widget: Button(
+                  type: ButtonType.link,
+                  label: 'DigitButton',
+                  size: ButtonSize.large,
+                  onPressed: () {},
+                )),
+            DigitTableData('active', cellKey: 'ten', callBack: (data) {
+              print(data);
+            },
+                widget: Button(
+                  type: ButtonType.primary,
+                  label: 'DigitButton',
+                  size: ButtonSize.large,
+                  onPressed: () {},
+                )),
           ]),
           DigitTableRow(tableRow: [
             DigitTableData(
@@ -1348,19 +1828,13 @@ List<Story> tableStories() {
                 print(data);
               },
             ),
-            DigitTableData(
-                '',
-                cellKey: 'third',
-                callBack: (data) {
-                  print(data);
-                },
-                widget: const Row(
-                    children: [
-                      Icon(Icons.account_circle),
-                      Text('Lorem Ipsum'),
-                    ]
-                )
-            ),
+            DigitTableData('', cellKey: 'third', callBack: (data) {
+              print(data);
+            },
+                widget: const Row(children: [
+                  Icon(Icons.account_circle),
+                  Text('Lorem Ipsum'),
+                ])),
             DigitTableData(
               'Lorem Ipsum s simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
               cellKey: 'forth',
@@ -1368,24 +1842,15 @@ List<Story> tableStories() {
                 print(data);
               },
             ),
-            DigitTableData(
-                'label',
-                cellKey: 'fifth',
-                callBack: (data) {
-                  print(data);
-                },
+            DigitTableData('label', cellKey: 'fifth', callBack: (data) {
+              print(data);
+            },
                 widget: const DigitTextFormInput(
                   suffixText: '₹',
-                )
-            ),
-            DigitTableData(
-                '',
-                cellKey: 'six',
-                callBack: (data) {
-                  print(data);
-                },
-                widget: const DigitDateFormInput()
-            ),
+                )),
+            DigitTableData('', cellKey: 'six', callBack: (data) {
+              print(data);
+            }, widget: const DigitDateFormInput()),
             DigitTableData(
               'switch',
               cellKey: 'seven',
@@ -1400,29 +1865,31 @@ List<Story> tableStories() {
                 print(data);
               },
             ),
-            DigitTableData(
-                'Button',
-                cellKey: 'nine',
-                callBack: (data) {
-                  print(data);
-                },
-                widget: Button(type: ButtonType.link, label: 'Button', size: ButtonSize.large, onPressed: () {},)
-            ),
-            DigitTableData(
-                'active',
-                cellKey: 'ten',
-                callBack: (data) {
-                  print(data);
-                },
-                widget: Button(type: ButtonType.primary, label: 'Button', size: ButtonSize.large, onPressed: () {},)
-            ),
+            DigitTableData('DigitButton', cellKey: 'nine', callBack: (data) {
+              print(data);
+            },
+                widget: Button(
+                  type: ButtonType.link,
+                  label: 'DigitButton',
+                  size: ButtonSize.large,
+                  onPressed: () {},
+                )),
+            DigitTableData('active', cellKey: 'ten', callBack: (data) {
+              print(data);
+            },
+                widget: Button(
+                  type: ButtonType.primary,
+                  label: 'DigitButton',
+                  size: ButtonSize.large,
+                  onPressed: () {},
+                )),
           ]),
         ],
       ),
     ),
     Story(
       name: 'Molecule/Table/wrapper card',
-      builder: (context) => CustomTableWrapper(
+      builder: (context) => DigitTableWrapper(
         tableHeader: 'Table Header',
         stickyHeader:
         context.knobs.boolean(label: 'Sticky Header', initial: false),
@@ -1438,13 +1905,13 @@ List<Story> tableStories() {
           DigitTableColumn(
             cellValue: 'first',
             header: 'Column A',
+            isFrozen: true,
             type: ColumnType.text,
             //columnType: ColumnType.checkbox,
           ),
           DigitTableColumn(
             header: 'Column B',
             cellValue: 'second',
-            isFrozen: true,
             type: ColumnType.text,
             //columnType: ColumnType.text,
           ),
@@ -1647,14 +2114,15 @@ List<Story> tableStories() {
               cellKey: 'six',
               callBack: (data) {
                 print(data);
-              },  ),
+              },
+            ),
           ])
         ],
       ),
     ),
     Story(
       name: 'Molecule/Table/wrapper card 2',
-      builder: (context) => CustomTableWrapper(
+      builder: (context) => DigitTableWrapper(
         tableHeader: 'Table Header',
         stickyHeader:
         context.knobs.boolean(label: 'Sticky Header', initial: false),
@@ -1879,7 +2347,8 @@ List<Story> tableStories() {
               cellKey: 'six',
               callBack: (data) {
                 print(data);
-              },  ),
+              },
+            ),
           ])
         ],
       ),

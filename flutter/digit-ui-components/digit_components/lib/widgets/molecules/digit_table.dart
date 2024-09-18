@@ -2,34 +2,43 @@ import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:digit_ui_components/widgets/atoms/table_container.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import '../atoms/table_body.dart';
 import '../atoms/table_cell.dart';
 import '../atoms/table_header.dart';
 import '../atoms/table_footer.dart';
 
-class CustomTable extends StatefulWidget {
+class DigitTable extends StatefulWidget {
   final List<DigitTableColumn> columns;
   final List<DigitTableRow> rows;
+  final List<int> selectedRows;
+  final List<int> highlightedRows;
   final List<int> rowsPerPageOptions;
   final bool showRowsPerPage;
   final bool withColumnDividers;
   final bool withRowDividers;
+  final bool showPagination;
   final bool alternateRowColor;
   final bool enableBorder;
   final bool stickyHeader;
   final int frozenColumnsCount;
   final Widget? customRow;
   final bool isCustomRowFixed;
+  final bool showSelectedState;
   // Callback for selected row indices
   final void Function(int)? onSelectedRowsChanged;
 
 
-  const CustomTable({
+  const DigitTable({
     Key? key,
     required this.columns,
     required this.rows,
+    this.selectedRows = const [],
+    this.highlightedRows = const [],
     this.rowsPerPageOptions = const [5, 10, 15, 20],
     this.showRowsPerPage = true,
+    this.showPagination = true,
+    this.showSelectedState = false,
     this.withColumnDividers = true,
     this.withRowDividers = true,
     this.alternateRowColor = false,
@@ -42,10 +51,10 @@ class CustomTable extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _CustomTableState createState() => _CustomTableState();
+  _DigitTableState createState() => _DigitTableState();
 }
 
-class _CustomTableState extends State<CustomTable> {
+class _DigitTableState extends State<DigitTable> {
   int currentPage = 1;
   int rowsPerPage = 5;
   SortOrder? sortOrder;
@@ -58,9 +67,14 @@ class _CustomTableState extends State<CustomTable> {
   // Checkbox state management
   bool _headerCheckboxValue = false;
   bool _headerCheckboxIndeterminate = false; // Added for intermediate state
-  late Set<int> _selectedRowIndices;
+  late Set<int> _selectedRowIndices = Set<int>();
+  late Set<int> _highlightedRowIndices = Set<int>();
   final ScrollController _scrollController = ScrollController();
+  final ScrollController _verticalScrollController = ScrollController();
   double _scrollOffset = 0.0;
+  bool _isOverflowing = false;
+  bool _isOverflowingVertical = false;
+  bool firstBuild = false;
 
 
   @override
@@ -68,6 +82,14 @@ class _CustomTableState extends State<CustomTable> {
     super.initState();
     sortedRows = widget.rows;
     _selectedRowIndices = Set<int>();
+
+    if(widget.selectedRows.isNotEmpty) {
+      _selectedRowIndices = widget.selectedRows.toSet();
+    }
+
+    if(widget.highlightedRows.isNotEmpty) {
+      _highlightedRowIndices = widget.highlightedRows.toSet();
+    }
 
     // Listen to scroll events
     _scrollController.addListener(_onScroll);
@@ -84,35 +106,37 @@ class _CustomTableState extends State<CustomTable> {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+  }
+
+  @override
+  void didUpdateWidget(DigitTable oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+
+    if (widget.selectedRows != oldWidget.selectedRows) {
+      _selectedRowIndices.addAll(widget.selectedRows);
+    }
+
+    if (widget.highlightedRows != oldWidget.highlightedRows) {
+      _highlightedRowIndices.addAll(widget.highlightedRows);
+    }
+  }
+
+  @override
   void dispose() {
     _scrollController.dispose();
+    _verticalScrollController.dispose();
     super.dispose();
   }
 
   void _onScroll() {
     double scrollOffset = _scrollController.offset;
-
     // Check if the frozen columns are hidden
     setState(() {
-      _isFrozenColumnsHidden = scrollOffset > _getFrozenWidth();
+      _isFrozenColumnsHidden = _getColumnsToFreeze(scrollOffset).isEmpty;
     });
-  }
-
-  double _getFrozenWidth() {
-    List<DigitTableColumn> frozenColumns = _getFrozenColumns();
-    return frozenColumns.fold(0, (sum, column) => sum + 200);
-  }
-
-  void _measureHeaderWidths() {
-    columnWidths.clear();
-    for (var key in headerKeys) {
-      final context = key.currentContext;
-      if (context != null) {
-        final renderBox = context.findRenderObject() as RenderBox;
-        columnWidths.add(renderBox.size.width);
-      }
-    }
-    setState(() {});
   }
 
   void _sortRows() {
@@ -136,16 +160,20 @@ class _CustomTableState extends State<CustomTable> {
 
     final theme = Theme.of(context);
 
-    // Only build frozen columns when they are hidden (out of viewport)
-    if (!_isFrozenColumnsHidden) {
-      return SizedBox(); // Return an empty widget if the columns are visible
+    // If frozen columns should not be hidden, return an empty widget
+    if (_isFrozenColumnsHidden) {
+      return SizedBox(); // No frozen columns are hidden
     }
 
-    List<DigitTableColumn> frozenColumns = _getFrozenColumns();
+    // Get all the columns
+    List<DigitTableColumn> allColumns = widget.columns;
 
-    // Define frozen column width (adjust as necessary)
-    double frozenWidth = frozenColumns.fold(0, (sum, column) => sum + 202); // Assuming each frozen column is 100px wide
+    // Find the columns that need to be frozen based on scroll offset
+    List<DigitTableColumn> frozenColumns = _getColumnsToFreeze(scrollOffset);
+    print(frozenColumns.length);
 
+    // Define frozen column width based on the columns to be frozen
+    double frozenWidth = frozenColumns.fold(0, (sum, column) => sum + _getColumnWidth(column));
     return Positioned(
       top: 0,
       left: scrollOffset,
@@ -181,8 +209,12 @@ class _CustomTableState extends State<CustomTable> {
               onHeaderCheckboxChanged: _onHeaderCheckboxChanged,
             ),
             TableBody(
+              enableSelection: widget.showSelectedState,
+              highlightedRows: _highlightedRowIndices,
+              selectedRows: _selectedRowIndices,
+              hasFooter: widget.showPagination,
               rows: sortedRows.map((row) {
-                // Filter cells for the current row that match the frozen columns
+                /// Filter cells for the current row that match the frozen columns
                 List<DigitTableData> filteredCells = row.tableRow.where((cell) {
                   return frozenColumns.any((column) => column.cellValue == cell.cellKey);
                 }).toList();
@@ -204,8 +236,6 @@ class _CustomTableState extends State<CustomTable> {
                   }
                   _updateHeaderCheckbox();
                 });
-                print('sdfjsldkfjsdlkf');
-                // Trigger the callback if it's provided
                 if (widget.onSelectedRowsChanged != null) {
                   widget.onSelectedRowsChanged!(_selectedRowIndices.length);
                 }
@@ -215,6 +245,32 @@ class _CustomTableState extends State<CustomTable> {
         ),
       ),
     );
+  }
+
+  /// Get the list of columns that need to be frozen based on the scroll offset
+  List<DigitTableColumn> _getColumnsToFreeze(double scrollOffset) {
+    List<DigitTableColumn> frozenColumns = [];
+
+    // Loop through all columns and freeze those that have scrolled out of view
+    double cumulativeWidth = 0;
+    for (int i = 0; i < widget.columns.length; i++) {
+      DigitTableColumn column = widget.columns[i];
+      double columnWidth = _getColumnWidth(column);
+
+      // If the cumulative width of the columns is less than the scroll offset,
+      // it means the column has scrolled out of view and should be frozen
+      if ( scrollOffset >cumulativeWidth || widget.columns[i].isFrozen) {
+        frozenColumns.add(column);
+      }
+      cumulativeWidth += columnWidth;
+    }
+    return frozenColumns;
+  }
+
+  /// Helper to get the width of a column
+  double _getColumnWidth(DigitTableColumn column) {
+    // Assuming each column has a fixed width or use dynamic width calculation
+    return column.width ?? 202.0; // Replace 200 with actual column width logic if necessary
   }
 
   void _onHeaderCheckboxChanged(bool? newValue) {
@@ -229,7 +285,6 @@ class _CustomTableState extends State<CustomTable> {
   }
 
   void _updateHeaderCheckbox() {
-    print('updating');
     final selectedCount = _selectedRowIndices.length;
     final totalRows = sortedRows.length;
 
@@ -245,8 +300,24 @@ class _CustomTableState extends State<CustomTable> {
     }
   }
 
+  // Method to count how many checkbox or numeric columns exist
+  int _countSpecialColumns() {
+    int count = 0;
+    for (var column in widget.columns) {
+      if (column.type == ColumnType.checkbox || column.type == ColumnType.numeric) {
+        count++;
+      }
+    }
+    return count;
+  }
+
   @override
   Widget build(BuildContext context) {
+    // Get the count of checkbox and numeric columns
+    int specialColumnCount = _countSpecialColumns();
+
+    int normalColumns = widget.columns.length - specialColumnCount;
+
     int totalPages = (sortedRows.length / rowsPerPage).ceil();
     int startIndex = (currentPage - 1) * rowsPerPage;
     int endIndex = startIndex + rowsPerPage;
@@ -258,16 +329,36 @@ class _CustomTableState extends State<CustomTable> {
     // Update header checkbox based on selected rows
     _updateHeaderCheckbox();
 
+    if (!firstBuild) {
+      firstBuild = true;
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        setState(() {
+          if (_scrollController.hasClients) {
+            _isOverflowing = (_scrollController.position.maxScrollExtent > 0);
+          }
+          if (_verticalScrollController.hasClients) {
+            _isOverflowingVertical = (_scrollController.position.maxScrollExtent > 0);
+          }
+        });
+      });
+    }
+
     return Stack(
       children: [
-        SingleChildScrollView(
+        Scrollbar(
           controller: _scrollController,
-          scrollDirection: Axis.horizontal,
+          thumbVisibility: _isOverflowing,
           child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: SizedBox(
-             // width: MediaQuery.of(context).size.width,
+            padding: _isOverflowing ? const EdgeInsets.only(bottom: 12) : EdgeInsets.zero,
+            controller: _scrollController,
+            scrollDirection: Axis.horizontal,
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              controller: _verticalScrollController,
               child: Column(
+                mainAxisSize: MainAxisSize.min,
+                // mainAxisAlignment: MainAxisAlignment.start,
+                // crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   if (!widget.stickyHeader)
                     TableHeader(
@@ -295,7 +386,11 @@ class _CustomTableState extends State<CustomTable> {
                       onHeaderCheckboxChanged: _onHeaderCheckboxChanged,
                     ),
                   TableBody(
-                    rows: paginatedRows,
+                    enableSelection: widget.showSelectedState,
+                    highlightedRows: _highlightedRowIndices,
+                    selectedRows: _selectedRowIndices,
+                    hasFooter: widget.showPagination,
+                    rows: widget.showPagination ? paginatedRows: sortedRows,
                     columns: widget.columns,
                     alternateRowColor: widget.alternateRowColor,
                     withRowDividers: widget.withRowDividers,
@@ -318,7 +413,7 @@ class _CustomTableState extends State<CustomTable> {
                   ),
                   if (widget.customRow != null && !widget.isCustomRowFixed)
                     Container(
-                         height: 60,
+                        height: 60,
                         decoration: BoxDecoration(
                           border: Border.all(
                             color: const DigitColors().light.genericDivider,
@@ -326,6 +421,46 @@ class _CustomTableState extends State<CustomTable> {
                           color: const DigitColors().light.paperPrimary,
                         ),
                         child: widget.customRow!),
+                  if(widget.showPagination)
+                    TableFooter(
+                      width: normalColumns * 200 + specialColumnCount * 100+2,
+                      currentPage: currentPage,
+                      totalPages: totalPages,
+                      rowsPerPage: rowsPerPage,
+                      rowsPerPageOptions: widget.rowsPerPageOptions,
+                      onRowsPerPageChanged: (value) {
+                        setState(() {
+                          rowsPerPage = value;
+                          currentPage =
+                          1; // Reset to the first page when rows per page changes
+                        });
+                      },
+                      onPageChanged: (page) {
+                        setState(() {
+                          currentPage = page;
+                        });
+                      },
+                      onNext: () {
+                        setState(() {
+                          if (currentPage < totalPages) {
+                            currentPage++;
+                          }
+                        });
+                      },
+                      onPrevious: () {
+                        setState(() {
+                          if (currentPage > 1) {
+                            currentPage--;
+                          }
+                        });
+                      },
+                      onPageSelected: (page) {
+                        setState(() {
+                          currentPage = page;
+                        });
+                      },
+                      showRowsPerPage: widget.showRowsPerPage,
+                    ),
                 ],
               ),
             ),
@@ -338,7 +473,7 @@ class _CustomTableState extends State<CustomTable> {
             left: 0,
             right: 0,
             child: Container(
-              height: 60,
+                height: 60,
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
                   border: Border.all(
@@ -378,6 +513,7 @@ class _CustomTableState extends State<CustomTable> {
               onHeaderCheckboxChanged: _onHeaderCheckboxChanged,
             ),
           ),
+
       ],
     );
   }

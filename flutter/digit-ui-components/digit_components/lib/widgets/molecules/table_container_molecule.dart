@@ -2,11 +2,12 @@ import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:digit_ui_components/widgets/molecules/digit_card.dart';
 import 'package:flutter/material.dart';
+import '../atoms/digit_button.dart';
 import '../atoms/table_cell.dart';
 import '../atoms/table_footer.dart';
 import 'digit_table.dart';
 
-class CustomTableWrapper extends StatefulWidget {
+class DigitTableWrapper extends StatefulWidget {
   final List<DigitTableColumn> columns;
   final List<DigitTableRow> rows;
   final List<int> rowsPerPageOptions;
@@ -21,7 +22,7 @@ class CustomTableWrapper extends StatefulWidget {
   final bool isCustomRowFixed;
   final String? tableHeader;
 
-  const CustomTableWrapper({
+  const DigitTableWrapper({
     Key? key,
     required this.columns,
     required this.rows,
@@ -39,10 +40,10 @@ class CustomTableWrapper extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _CustomTableWrapperState createState() => _CustomTableWrapperState();
+  _DigitTableWrapperState createState() => _DigitTableWrapperState();
 }
 
-class _CustomTableWrapperState extends State<CustomTableWrapper> {
+class _DigitTableWrapperState extends State<DigitTableWrapper> {
   int currentPage = 1;
   int rowsPerPage = 5;
   int selectedRowsCount = 0;
@@ -90,7 +91,7 @@ class _CustomTableWrapperState extends State<CustomTableWrapper> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(widget.tableHeader ?? "", style: textTheme.headingM.copyWith(color: theme.colorTheme.text.primary),),
-             Row(
+            Row(
               children: [
                 Text('filter', style: textTheme.bodyL.copyWith(color: theme.colorTheme.text.primary),),
                 const SizedBox(width: 8,),
@@ -113,7 +114,7 @@ class _CustomTableWrapperState extends State<CustomTableWrapper> {
               Button(label: 'action', onPressed: (){}, type: ButtonType.secondary, size: ButtonSize.medium)
             ],
           ),
-        CustomTable(
+        DigitTable(
           columns: widget.columns,
           rows: widget.rows,
           rowsPerPageOptions: widget.rowsPerPageOptions,
@@ -128,44 +129,44 @@ class _CustomTableWrapperState extends State<CustomTableWrapper> {
           isCustomRowFixed: widget.isCustomRowFixed,
           onSelectedRowsChanged: _onRowSelected,
         ),
-        TableFooter(
-          currentPage: currentPage,
-          totalPages: 1, // todo
-          rowsPerPage: rowsPerPage,
-          rowsPerPageOptions: widget.rowsPerPageOptions,
-          onRowsPerPageChanged: (value) {
-            setState(() {
-              rowsPerPage = value;
-              currentPage =
-                  1; // Reset to the first page when rows per page changes
-            });
-          },
-          onPageChanged: (page) {
-            setState(() {
-              currentPage = page;
-            });
-          },
-          onNext: () {
-            setState(() {
-              if (currentPage < totalPages) {
-                currentPage++;
-              }
-            });
-          },
-          onPrevious: () {
-            setState(() {
-              if (currentPage > 1) {
-                currentPage--;
-              }
-            });
-          },
-          onPageSelected: (page) {
-            setState(() {
-              currentPage = page;
-            });
-          },
-          showRowsPerPage: widget.showRowsPerPage,
-        ),
+        // TableFooter(
+        //   currentPage: currentPage,
+        //   totalPages: 1, // todo
+        //   rowsPerPage: rowsPerPage,
+        //   rowsPerPageOptions: widget.rowsPerPageOptions,
+        //   onRowsPerPageChanged: (value) {
+        //     setState(() {
+        //       rowsPerPage = value;
+        //       currentPage =
+        //       1; // Reset to the first page when rows per page changes
+        //     });
+        //   },
+        //   onPageChanged: (page) {
+        //     setState(() {
+        //       currentPage = page;
+        //     });
+        //   },
+        //   onNext: () {
+        //     setState(() {
+        //       if (currentPage < totalPages) {
+        //         currentPage++;
+        //       }
+        //     });
+        //   },
+        //   onPrevious: () {
+        //     setState(() {
+        //       if (currentPage > 1) {
+        //         currentPage--;
+        //       }
+        //     });
+        //   },
+        //   onPageSelected: (page) {
+        //     setState(() {
+        //       currentPage = page;
+        //     });
+        //   },
+        //   showRowsPerPage: widget.showRowsPerPage,
+        // ),
       ],
     );
   }

@@ -34,7 +34,14 @@ class TableHeader extends StatelessWidget {
     final theme = Theme.of(context);
     final textTheme = theme.digitTextTheme(context);
 
+    // Check if any column has a description
+    bool hasDescription = columns.any((column) => column.description != null);
+
+    /// Set height based on whether any column has a description
+    double headerHeight = hasDescription ? 70.0 : 52.0;
+
     return Container(
+      height: headerHeight,
       decoration: BoxDecoration(
         color: const DigitColors().light.genericBackground,
         border: Border(

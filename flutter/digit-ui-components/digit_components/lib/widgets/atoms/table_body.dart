@@ -7,20 +7,26 @@ import '../atoms/table_cell.dart';
 
 class TableBody extends StatefulWidget {
   final List<DigitTableRow> rows;
+  final bool hasFooter;
+  final Set<int> ?selectedRows;
+  final Set<int>? highlightedRows;
   final List<DigitTableColumn> columns;
-  final List<TableColumnWidth> columnWidths; // Added to manage column widths
   final bool withRowDividers;
   final bool alternateRowColor;
   final bool enableBorder;
   final bool withColumnDividers;
+  final bool enableSelection;
   final bool headerCheckboxValue;
   final void Function(int, bool) onRowCheckboxChanged;
 
   const TableBody({
     Key? key,
     required this.rows,
+    this.hasFooter = false,
+    this.selectedRows,
+    this.enableSelection = false,
+    this.highlightedRows,
     required this.columns,
-    this.columnWidths = const [], // Added default empty list for column widths
     this.withRowDividers = false,
     this.alternateRowColor = false,
     this.enableBorder = false,
@@ -32,20 +38,70 @@ class TableBody extends StatefulWidget {
   @override
   _TableBodyState createState() => _TableBodyState();
 }
-
 class _TableBodyState extends State<TableBody> {
   final Set<int> _hoveredRows = {};
+  final Set<int> _selectedRows = {};
+  final Set<int> _highlightedRows = {};
 
+  // Method to count how many checkbox or numeric columns exist
+  int _countSpecialColumns() {
+    int count = 0;
+    for (var column in widget.columns) {
+      if (column.type == ColumnType.checkbox || column.type == ColumnType.numeric) {
+        count++;
+      }
+    }
+    return count;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.selectedRows != null) {
+      _selectedRows.addAll(widget.selectedRows!);
+    }
+    if (widget.highlightedRows != null) {
+      _highlightedRows.addAll(widget.highlightedRows!);
+    }
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+  }
+
+  @override
+  void didUpdateWidget(TableBody oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+
+    if (widget.selectedRows != oldWidget.selectedRows) {
+      _selectedRows.addAll(widget.selectedRows!);
+    }
+
+    if (widget.highlightedRows != oldWidget.highlightedRows) {
+      _highlightedRows.addAll(widget.highlightedRows!);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     List<Widget> rowWidgets = [];
 
+    // Check if any column has a description
+    bool hasDescription = widget.columns.any((column) => column.description != null);
+
+    double headerHeight = hasDescription ? 70.0 : 52.0;
+    double footerHeight = widget.hasFooter ? 64.0 : 0.0;
+
+    // Get the count of checkbox and numeric columns
+    int specialColumnCount = _countSpecialColumns();
+    int normalColumns = widget.columns.length - specialColumnCount;
 
     for (int i = 0; i < widget.rows.length; i++) {
-      // Determine row color based on even or odd row and hover state
-      Color rowColor = _hoveredRows.contains(i)
+      // Determine row color based on hover state
+      Color rowColor = _hoveredRows.contains(i) || _selectedRows.contains(i) || _highlightedRows.contains(i)
           ? theme.colorTheme.primary.primaryBg // Hover color
           : i % 2 != 0 && widget.alternateRowColor
           ? theme.colorTheme.paper.secondary
@@ -58,7 +114,10 @@ class _TableBodyState extends State<TableBody> {
         dynamic value = widget.headerCheckboxValue;
         cells.add(
           Container(
-            constraints: BoxConstraints(minWidth: (type == ColumnType.numeric || type == ColumnType.checkbox) ? 40 : 100, maxWidth: (type == ColumnType.numeric || type == ColumnType.checkbox) ? 100 : 200),
+            constraints: BoxConstraints(
+              minWidth: (type == ColumnType.numeric || type == ColumnType.checkbox) ? 40 : 100,
+              maxWidth: (type == ColumnType.numeric || type == ColumnType.checkbox) ? 100 : 200,
+            ),
             decoration: BoxDecoration(
               border: Border(
                 right: (widget.withColumnDividers && j != widget.rows[i].tableRow.length - 1)
@@ -70,9 +129,14 @@ class _TableBodyState extends State<TableBody> {
               padding: const EdgeInsets.all(16),
               child: Align(
                 alignment: Alignment.topLeft,
-                child: CustomTableCell(cellData: widget.rows[i].tableRow[j], type: type, value: value, areAllRowsSelected:(value){
-                  widget.onRowCheckboxChanged(i, value);
-                },),
+                child: DigitTableCell(
+                  cellData: widget.rows[i].tableRow[j],
+                  type: type,
+                  value: value,
+                  areAllRowsSelected: (value) {
+                    widget.onRowCheckboxChanged(i, value);
+                  },
+                ),
               ),
             ),
           ),
@@ -81,42 +145,59 @@ class _TableBodyState extends State<TableBody> {
 
       // Add row with cells and alternating background color to rowWidgets list
       rowWidgets.add(
-        MouseRegion(
-          onEnter: (_) => setState(() => _hoveredRows.add(i)),
-          onExit: (_) => setState(() => _hoveredRows.remove(i)),
+        InkWell(
+          onHover: widget.enableSelection ? null : (hover) {
+            setState(() {
+              if (hover) {
+                _hoveredRows.add(i);
+              } else {
+                _hoveredRows.remove(i);
+              }
+            });
+          },
+          onTap:widget.enableSelection ? null : () {
+            setState(() {
+              if (_selectedRows.contains(i)) {
+                _selectedRows.remove(i);
+              } else {
+                _selectedRows.add(i);
+              }
+            });
+          },
           child: Container(
             decoration: BoxDecoration(
               color: rowColor,
               border: Border(
-                bottom: widget.withRowDividers || (widget.enableBorder && i == widget.rows.length - 1) ?
-                BorderSide(color: widget.withRowDividers && i != widget.rows.length - 1 ? theme.colorTheme.generic.divider : theme.colorTheme.generic.divider)
+                bottom: widget.withRowDividers || (widget.enableBorder && i == widget.rows.length - 1)
+                    ? BorderSide(color: theme.colorTheme.generic.divider)
                     : BorderSide.none,
-                left: widget.enableBorder ?
-                BorderSide(color: theme.colorTheme.generic.divider)
+                left: widget.enableBorder
+                    ? BorderSide(color: theme.colorTheme.generic.divider)
                     : BorderSide.none,
-                right: widget.enableBorder ?
-                BorderSide(color: theme.colorTheme.generic.divider)
+                right: widget.enableBorder
+                    ? BorderSide(color: theme.colorTheme.generic.divider)
                     : BorderSide.none,
-
               ),
             ),
-             // Apply the row color here
-            child: Column(
+            child: Row(
               children: [
+                if(_selectedRows.contains(i))
+                  Container(
+                    width: 4,
+                    height: 48,
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.only(
+                          topRight: Radius.circular(4),
+                          bottomRight: Radius.circular(4)),
+                      color: theme.colorTheme.primary.primary1,
+                    ),
+                  ),
                 Row(
+                  mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: cells,
                 ),
-                // if (widget.withRowDividers || (widget.enableBorder && i == widget.rows.length - 1))
-                //   DigitDivider(
-                //     dividerType: DividerType.small,
-                //     dividerThemeData: DigitDividerThemeData(
-                //         color: widget.enableBorder && i == widget.rows.length - 1
-                //             ? theme.colorTheme.generic.divider
-                //             : theme.colorTheme.generic.divider
-                //     ),
-                //   ), // Add row divider if enabled and not the last row
               ],
             ),
           ),
@@ -124,8 +205,16 @@ class _TableBodyState extends State<TableBody> {
       );
     }
 
-    return Column(
-      children: rowWidgets,
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        maxWidth: normalColumns * 200 + specialColumnCount * 100 + 2,
+        maxHeight: MediaQuery.of(context).size.height - headerHeight - footerHeight,
+      ),
+      child: ListView.builder(
+        shrinkWrap: true,
+        itemCount: rowWidgets.length,
+        itemBuilder: (context, index) => rowWidgets[index],
+      ),
     );
   }
 }
