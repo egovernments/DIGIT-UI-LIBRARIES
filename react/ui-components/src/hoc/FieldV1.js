@@ -132,7 +132,7 @@ const FieldV1 = ({
           <TextInput
             type={type}
             value={value}
-            name={populators.name}
+            name={populators?.name}
             onChange={onChange}
             error={error}
             disabled={disabled}
@@ -143,7 +143,7 @@ const FieldV1 = ({
             populators={populators}
             inputRef={ref}
             step={config?.step}
-            errorStyle={errors?.[populators.name]}
+            errorStyle={errors?.[populators?.name]}
             max={populators?.validation?.max}
             min={populators?.validation?.min}
             maxlength={populators?.validation?.maxlength}
@@ -159,7 +159,7 @@ const FieldV1 = ({
             <TextArea
               type={type}
               value={value}
-              name={populators.name}
+              name={populators?.name}
               onChange={onChange}
               error={error}
               disabled={disabled}
@@ -169,7 +169,7 @@ const FieldV1 = ({
               required={required}
               populators={populators}
               inputRef={ref}
-              errorStyle={errors?.[populators.name]}
+              errorStyle={errors?.[populators?.name]}
               maxlength={populators?.validation?.maxlength}
               minlength={populators?.validation?.minlength}
             />
@@ -191,11 +191,11 @@ const FieldV1 = ({
             onChange={onChange}
             config={populators}
             disabled={disabled}
-            errorStyle={errors?.[populators.name]}
+            errorStyle={errors?.[populators?.name]}
             variant={
               variant
                 ? variant
-                : errors?.[populators.name]
+                : errors?.[populators?.name]
                 ? "digit-field-error"
                 : ""
             }
@@ -209,7 +209,7 @@ const FieldV1 = ({
                 onChange(e.target.checked);
               }}
               value={value}
-              checked={formData?.[populators.name]}
+              checked={formData?.[populators?.name]}
               label={t(`${populators?.title}`)}
               styles={populators?.styles}
               style={populators?.labelStyles}
@@ -260,7 +260,7 @@ const FieldV1 = ({
               onChange={onChange}
               value={value}
               disable={disabled}
-              errorStyle={errors?.[populators.name]}
+              errorStyle={errors?.[populators?.name]}
             />
           </div>
         );
@@ -306,7 +306,7 @@ const FieldV1 = ({
             variant={
               variant
                 ? variant
-                : errors?.[populators.name]
+                : errors?.[populators?.name]
                 ? "digit-field-error"
                 : ""
             }
@@ -317,12 +317,12 @@ const FieldV1 = ({
       case "amount":
         return (
           <InputTextAmount
-            value={formData?.[populators.name]}
+            value={formData?.[populators?.name]}
             type={"text"}
-            name={populators.name}
+            name={populators?.name}
             onChange={onChange}
             inputRef={ref}
-            errorStyle={errors?.[populators.name]}
+            errorStyle={errors?.[populators?.name]}
             max={populators?.validation?.max}
             min={populators?.validation?.min}
             disable={disabled}
@@ -336,7 +336,7 @@ const FieldV1 = ({
             variant={
               variant
                 ? variant
-                : errors?.[populators.name]
+                : errors?.[populators?.name]
                 ? "digit-field-error"
                 : ""
             }

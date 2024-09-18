@@ -554,14 +554,16 @@ const Phone = ({ className, fillcolor, style }) => (
   </svg>
 );
 
-const FilterSvg = ({ className }) => (
+const FilterSvg = ({ className,fill,style ,width,height,onClick}) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    fill="#f47738"
-    width="24"
-    height="24"
+    fill={fill || "#f47738"}
+    width={width || "24"}
+    height={height || "24"}
     viewBox="0 0 24 24"
     className={className}
+    style={style}
+    onClick={onClick}
   >
     <path d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z" />
   </svg>
@@ -667,28 +669,30 @@ const CalendarIcon = (props) => (
   </svg>
 );
 
-const SortDown = (style) => (
+const SortDown = (style,width,height,fill,onClick) => (
   <svg
-    style={{ display: "inline-block", height: "16px", ...style }}
+    style={{ display: "inline-block" ,...style }}
     xmlns="http://www.w3.org/2000/svg"
     enableBackground="new 0 0 24 24"
-    height="24"
+    height={height || "24"}
     viewBox="0 0 24 24"
-    width="24"
+    width={width || "24"}
+    onClick={onClick}
   >
     <rect fill="none" height="24" width="24" />
     <path d="M19,15l-1.41-1.41L13,18.17V2H11v16.17l-4.59-4.59L5,15l7,7L19,15z" />
   </svg>
 );
 
-const SortUp = (style) => (
+const SortUp = (style,width,height,fill,onClick) => (
   <svg
-    style={{ display: "inline-block", height: "16px", ...style }}
+    style={{ display: "inline-block", ...style }}
     xmlns="http://www.w3.org/2000/svg"
     enableBackground="new 0 0 24 24"
-    height="24"
+    height={height || "24"}
     viewBox="0 0 24 24"
-    width="24"
+    width={width || "24"}
+    onClick={onClick}
   >
     <rect fill="none" height="24" width="24" />
     <path d="M5,9l1.41,1.41L11,5.83V22H13V5.83l4.59,4.59L19,9l-7-7L5,9z" />
