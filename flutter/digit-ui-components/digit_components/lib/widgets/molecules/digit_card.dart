@@ -8,6 +8,7 @@ class DigitCard extends StatelessWidget {
   final EdgeInsets? margin;
   final VoidCallback? onPressed;
   final CardType cardType;
+  final Color? borderColor;
   final double? spacing;
   final bool inline;
 
@@ -18,6 +19,7 @@ class DigitCard extends StatelessWidget {
     this.inline = false,
     this.margin,
     this.onPressed,
+    this.borderColor,
     this.spacing,
     this.cardType = CardType.primary,
   });
@@ -38,7 +40,7 @@ class DigitCard extends StatelessWidget {
         border: cardType == CardType.secondary
             ? Border.all(
           width: Base.defaultBorderWidth,
-          color: const DigitColors().light.genericDivider,
+          color: borderColor ?? const DigitColors().light.genericDivider,
         )
             : null,
         color: cardType == CardType.secondary

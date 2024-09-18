@@ -88,7 +88,6 @@ class _AnotherStepperState extends State<DigitStepper> {
           : CrossAxisAlignment.end;
     }
     return SizedBox(
-      height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
       child: ListView.builder(
         controller: _scrollController,
