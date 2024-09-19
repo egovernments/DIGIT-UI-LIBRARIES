@@ -26,15 +26,16 @@ class DigitTable extends StatefulWidget {
   final bool isCustomRowFixed;
   final bool showSelectedState;
   final ScrollPhysics? scrollPhysics;
+  final ScrollPhysics? scrollPhysicsForPagination;
   final double? tableHeight;
   // Callback for selected row indices
   final void Function(int)? onSelectedRowsChanged;
-
 
   const DigitTable({
     Key? key,
     required this.columns,
     required this.rows,
+    this.scrollPhysicsForPagination,
     this.selectedRows = const [],
     this.highlightedRows = const [],
     this.rowsPerPageOptions = const [5, 10, 15, 20],
@@ -396,7 +397,7 @@ class _DigitTableState extends State<DigitTable> {
                       onHeaderCheckboxChanged: _onHeaderCheckboxChanged,
                     ),
                   TableBody(
-                    scrollPhysics: widget.scrollPhysics,
+                    scrollPhysics: widget.scrollPhysicsForPagination,
                     enableSelection: widget.showSelectedState,
                     highlightedRows: _highlightedRowIndices,
                     selectedRows: _selectedRowIndices,
