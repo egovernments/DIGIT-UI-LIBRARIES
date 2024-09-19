@@ -3,7 +3,7 @@
 .digit-header-content {
 
     &.label {
-        @extend .typography.body-l;
+        @extend .typography.label;
         @apply flex ;
         color: theme(digitv2.lightTheme.text-primary);
         gap: theme(digitv2.spacers.spacer1);

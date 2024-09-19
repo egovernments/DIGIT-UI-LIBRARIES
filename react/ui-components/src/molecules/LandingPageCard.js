@@ -18,6 +18,8 @@ const LandingPageCard = ({
   iconBg,
   buttonSize,
   onMetricClick,
+  centreChildren,
+  endChildren
 }) => {
   const history = useHistory();
 
@@ -33,10 +35,16 @@ const LandingPageCard = ({
 
   return (
     <Card
-      className={`digit-landing-page-card ${moduleAlignment || ""} ${className}`}
+      className={`digit-landing-page-card ${
+        moduleAlignment || ""
+      } ${className}`}
       style={styles}
     >
-      <div className={`icon-module-header ${moduleAlignment || ""} ${icon && iconBg ? "iconBg" : ""}`}>
+      <div
+        className={`icon-module-header ${moduleAlignment || ""} ${
+          icon && iconBg ? "iconBg" : ""
+        }`}
+      >
         {icon && moduleAlignment === "right" && (
           <div
             className={`digit-landingpagecard-icon ${iconBg ? "iconBg" : ""}`}
@@ -106,8 +114,18 @@ const LandingPageCard = ({
       {!hideDivider &&
         metrics &&
         metrics.length > 0 &&
+        ((links && links.length > 0) ||
+          (centreChildren && centreChildren.length > 0)) && (
+          <Divider className="digit-landingpage-divider" variant={"small"} />
+        )}
+      {centreChildren && centreChildren.length > 0 && (
+        <div className={"landingpagecard-section"}>{centreChildren}</div>
+      )}
+      {!hideDivider &&
         links &&
-        links.length > 0 && (
+        links.length > 0 &&
+        centreChildren &&
+        centreChildren.length > 0 && (
           <Divider className="digit-landingpage-divider" variant={"small"} />
         )}
       {links.map(({ label, link, icon }, index) => (
@@ -121,6 +139,16 @@ const LandingPageCard = ({
           style={{ padding: "0px" }}
         />
       ))}
+      {!hideDivider &&
+        endChildren &&
+        endChildren.length > 0 &&
+        links &&
+        links.length > 0 && (
+          <Divider className="digit-landingpage-divider" variant={"small"} />
+        )}
+      {endChildren && endChildren.length > 0 && (
+        <div className={"landingpagecard-section"}>{endChildren}</div>
+      )}
     </Card>
   );
 };

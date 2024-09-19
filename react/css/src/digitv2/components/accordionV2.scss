@@ -1,9 +1,9 @@
 .digit-accordion-title {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     cursor: pointer;
     background-color: transparent;
-    gap: theme(digitv2.spacers.spacer5);
+    gap: theme(digitv2.spacers.spacer3);
 
     @media (max-aspect-ratio: 9/16) {
         padding: theme(digitv2.spacers.spacer4);
@@ -31,11 +31,13 @@
     height: theme(digitv2.spacers.spacer6);
     display: flex;
     align-items: center;
+    justify-content: center
 }
 
 .digit-accordion-header-title {
     @extend .typography.heading-s;
     color: theme(digitv2.lightTheme.text-primary);
+    margin-top: 0.18rem;
     flex-grow: 1;
 }
 
@@ -96,7 +98,7 @@
         border-radius: theme(digitv2.spacers.spacer1);
     }
 
-    &.divider {
+    &.withDivider {
         .digit-accordion-content {
             border-top: 1px solid theme(digitv2.lightTheme.generic-divider);
         }
@@ -131,6 +133,13 @@
     to {
         transform: rotate(-180deg);
     }
+}
+
+.digit-accordion-toggle{
+    display: flex;
+    align-items: center;
+    width: theme(digitv2.spacers.spacer6);
+    height: theme(digitv2.spacers.spacer6);
 }
 
 .digit-accordion-toggle.animate-open svg {

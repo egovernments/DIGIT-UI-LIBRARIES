@@ -125,29 +125,22 @@ CentreMetricAlignment.args = {
   metricAlignment: "centre",
 };
 
-export const WithoutIcon = Template.bind({});
-WithoutIcon.args = {
-  ...commonArgs,
-  icon:""
-};
-
-export const WithoutMetrics = Template.bind({});
-WithoutMetrics.args = {
-  ...commonArgs,
-  metrics: [],
-};
-
-export const WithoutLinks = Template.bind({});
-WithoutLinks.args = {
-  ...commonArgs,
-  links: [],
-};
-
 export const LongText = Template.bind({});
 LongText.args = {
   ...commonArgs,
   moduleName:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
   metrics:longmetriclabel
+};
+
+export const WithChildren = Template.bind({});
+WithChildren.args = {
+  ...commonArgs,
+  centreChildren:[
+    <div>{"Here you can add any text content between metrics and links"}</div>
+  ],
+  endChildren:[
+    <div>{"Here you can add any text content below links"}</div>
+  ],
 };
 
 export const WithCustomStyles = Template.bind({});
@@ -159,4 +152,69 @@ WithCustomStyles.args = {
     borderRadius: "8px",
     border: "2px solid black",
   },
+};
+
+export const WithoutIcon = Template.bind({});
+WithoutIcon.args = {
+  ...commonArgs,
+  icon:""
+};
+
+export const WithOnlyModuleName = Template.bind({});
+WithOnlyModuleName.args = {
+  ...commonArgs,
+  links:[],
+  metrics:[],
+  centreChildren:[],
+  hideDivider:true
+};
+
+export const WithModuleAndMetrics = Template.bind({});
+WithModuleAndMetrics.args = {
+  ...commonArgs,
+  links:[],
+  centreChildren:[]
+};
+
+export const WithModuleAndLinks = Template.bind({});
+WithModuleAndLinks.args = {
+  ...commonArgs,
+  metrics: [],
+};
+
+export const WithModuleAndChildren = Template.bind({});
+WithModuleAndChildren.args = {
+  ...commonArgs,
+  metrics:[],
+  links:[],
+  centreChildren:[
+    <div>{"Here you can add any text content"}</div>
+  ]
+};
+
+export const WithModuleAndChildrenAndMetrics = Template.bind({});
+WithModuleAndChildrenAndMetrics.args = {
+  ...commonArgs,
+  links:[],
+  centreChildren:[
+    <div>{"Here you can add any text content"}</div>
+  ]
+};
+
+export const WithModuleAndChildrenAndLinks = Template.bind({});
+WithModuleAndChildrenAndLinks.args = {
+  ...commonArgs,
+  metrics:[],
+  centreChildren:[
+    <div>{"Here you can add any text content"}</div>
+  ]
+};
+
+export const WithModuleAndEndChildrenAndLinks = Template.bind({});
+WithModuleAndEndChildrenAndLinks.args = {
+  ...commonArgs,
+  metrics:[],
+  endChildren:[
+    <div>{"Here you can add any text content"}</div>
+  ]
 };
