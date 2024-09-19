@@ -91,6 +91,13 @@ class _DigitAccordionState extends State<DigitAccordion>
   Widget _buildAccordionItem(DigitAccordionItem item, int index, BuildContext context) {
     final theme = Theme.of(context);
 
+    bool isMobile = AppView.isMobileView(MediaQuery
+        .of(context)
+        .size);
+    bool isTab = AppView.isTabletView(MediaQuery
+        .of(context)
+        .size);
+
     bool isExpanded = _expandedStates[index];
     return AnimatedContainer(
       duration: widget.animationDuration,
@@ -138,18 +145,26 @@ class _DigitAccordionState extends State<DigitAccordion>
                 color: widget.headerBackgroundColor ?? theme.colorTheme.paper.primary,
                 borderRadius: BorderRadius.circular(4),
               ),
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 20),
+              padding: EdgeInsets.symmetric(horizontal: isMobile ? 16 : isTab ? 20 : 24, vertical: 20),
               child: Row(
+                mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Expanded(child: item.header),
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const SizedBox(height: 4,),
+                      item.header,
+                    ],
+                  ),
+                  const SizedBox(width: 16,),
                   RotationTransition(
                     turns: _animationControllers[index].drive(
                       Tween(begin: 0.0, end: 0.25),
                     ),
                     child: const Icon(
-                      Icons.chevron_right,
+                      Icons.arrow_forward_ios,
                       size: 24,
                     ),
                   ),
@@ -168,7 +183,7 @@ class _DigitAccordionState extends State<DigitAccordion>
                 color: widget.contentBackgroundColor ?? theme.colorTheme.paper.primary,
                 borderRadius: BorderRadius.circular(4),
               ),
-              padding: const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 16.0, top: 8),
+              padding: EdgeInsets.only(left: isMobile ? 8.0 : isTab ? 16 : 20, right: isMobile ? 8.0 : isTab ? 16 : 20, bottom: 16.0, top: 8),
               child: item.content,
             ),
           ),

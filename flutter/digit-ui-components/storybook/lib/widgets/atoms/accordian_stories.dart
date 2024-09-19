@@ -1,3 +1,4 @@
+import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/enum/app_enums.dart';
 import 'package:digit_ui_components/models/accordionModel.dart';
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
@@ -53,7 +54,7 @@ List<Story> accordionStories() {
                 children: [
                   const Icon(Icons.account_circle),
                   const SizedBox(
-                    width: 4,
+                    width: spacer3,
                   ),
                   Text('Panel 1', style: textTheme.headingS),
                 ],
@@ -68,7 +69,7 @@ List<Story> accordionStories() {
                 children: [
                   const Icon(Icons.account_circle),
                   const SizedBox(
-                    width: 4,
+                    width: spacer3,
                   ),
                   Text('Panel 2', style: textTheme.headingS),
                 ],
@@ -82,7 +83,7 @@ List<Story> accordionStories() {
                 children: [
                   const Icon(Icons.account_circle),
                   const SizedBox(
-                    width: 4,
+                    width: spacer3,
                   ),
                   Text('Panel 3', style: textTheme.headingS),
                 ],
@@ -110,7 +111,7 @@ List<Story> accordionStories() {
                 children: [
                   Text('1.', style: textTheme.headingS),
                   const SizedBox(
-                    width: 4,
+                    width: spacer3,
                   ),
                   Text('Panel 1', style: textTheme.headingS),
                 ],
@@ -125,7 +126,7 @@ List<Story> accordionStories() {
                 children: [
                   Text('2.', style: textTheme.headingS),
                   const SizedBox(
-                    width: 4,
+                    width: spacer3,
                   ),
                   Text('Panel 2', style: textTheme.headingS),
                 ],
@@ -139,7 +140,7 @@ List<Story> accordionStories() {
                 children: [
                   Text('3.', style: textTheme.headingS),
                   const SizedBox(
-                    width: 4,
+                    width: spacer3,
                   ),
                   Text('Panel 3', style: textTheme.headingS),
                 ],

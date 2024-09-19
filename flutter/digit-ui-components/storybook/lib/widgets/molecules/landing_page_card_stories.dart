@@ -27,7 +27,7 @@ List<Story> landingPageCardStories() {
         ],
         actions: [
           ActionItem(label: 'Action 1', icon: Icons.edit, onPressed: () {}),
-          ActionItem(label: 'Action 2', onPressed: () {}),
+          ActionItem(label: 'Action 2',icon: Icons.edit, onPressed: () {}),
         ],
       ),
     ),
@@ -43,7 +43,7 @@ List<Story> landingPageCardStories() {
         heading: 'Matrix Component',
         actions: [
           ActionItem(label: 'Action 1', icon: Icons.edit, onPressed: () {}),
-          ActionItem(label: 'Action 2', onPressed: () {}),
+          ActionItem(label: 'Action 2', icon: Icons.edit,onPressed: () {}),
         ],
       ),
     ),
@@ -68,7 +68,7 @@ List<Story> landingPageCardStories() {
         heading: 'Matrix Component',
         actions: [
           ActionItem(label: 'Action 1', icon: Icons.edit, onPressed: () {}),
-          ActionItem(label: 'Action 2', onPressed: () {}),
+          ActionItem(label: 'Action 2', icon: Icons.edit,onPressed: () {}),
         ],
       ),
     ),
@@ -98,7 +98,7 @@ List<Story> landingPageCardStories() {
         heading: 'Matrix Component',
         actions: [
           ActionItem(label: 'Action 1', icon: Icons.edit, onPressed: () {}),
-          ActionItem(label: 'Action 2', onPressed: () {}),
+          ActionItem(label: 'Action 2',icon: Icons.edit, onPressed: () {}),
         ],
       ),
     ),

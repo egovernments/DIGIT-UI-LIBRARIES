@@ -68,11 +68,6 @@ class _SelectionCardState<T> extends State<SelectionCard<T>> {
         _selectedOptions.addAll(widget.initialSelection ?? []);
       });
     }
-    // Check if prefixIconBuilder or suffixIconBuilder has changed
-    if (widget.prefixIconBuilder != oldWidget.prefixIconBuilder ||
-        widget.suffixIconBuilder != oldWidget.suffixIconBuilder) {
-
-    }
 
   }
 
@@ -124,8 +119,7 @@ class _SelectionCardState<T> extends State<SelectionCard<T>> {
   }
 
   Widget _buildOption(T option) {
-    print(option);
-    print(widget.prefixIconBuilder!(option));
+
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
     bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
@@ -152,15 +146,12 @@ class _SelectionCardState<T> extends State<SelectionCard<T>> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             if (widget.prefixIconBuilder != null && widget.prefixIconBuilder!(option) != null)
-              ...[Padding(
-                padding: const EdgeInsets.only(right: spacer2),
-                child: Icon(
-                  widget.prefixIconBuilder!(option),
-                  color: isSelected
-                      ? theme.colorTheme.paper.primary
-                      : theme.colorTheme.text.primary,
-                  size: isMobile ? spacer4 : spacer6,
-                ),
+              ...[Icon(
+                widget.prefixIconBuilder!(option),
+                color: isSelected
+                    ? theme.colorTheme.paper.primary
+                    : theme.colorTheme.text.primary,
+                size: isMobile ? spacer4 : spacer6,
               ),
                 const SizedBox(width: spacer2),
               ],
@@ -182,15 +173,12 @@ class _SelectionCardState<T> extends State<SelectionCard<T>> {
             if (widget.suffixIconBuilder != null && widget.suffixIconBuilder!(option) != null)
               ...[
                 const SizedBox(width: spacer2),
-                Padding(
-                  padding: const EdgeInsets.only(left: spacer2),
-                  child: Icon(
-                    widget.suffixIconBuilder!(option),
-                    color: isSelected
-                        ? theme.colorTheme.paper.primary
-                        : theme.colorTheme.text.primary,
-                    size: isMobile ? spacer4 : spacer6,
-                  ),
+                Icon(
+                  widget.suffixIconBuilder!(option),
+                  color: isSelected
+                      ? theme.colorTheme.paper.primary
+                      : theme.colorTheme.text.primary,
+                  size: isMobile ? spacer4 : spacer6,
                 ),]
           ],
         ),

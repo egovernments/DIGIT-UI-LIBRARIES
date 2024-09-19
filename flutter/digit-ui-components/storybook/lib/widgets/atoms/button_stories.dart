@@ -10,9 +10,6 @@ List<Story> DigitButtonStories() {
   return [
     Story(
       name: 'Atom/Buttons/Primary',
-      wrapperBuilder: (context, child) => DigitThemeWrapper(
-        child: child ?? Container(),
-      ),
       builder: (context) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           CodeViewProvider.of(context)?.updateCodeString('''

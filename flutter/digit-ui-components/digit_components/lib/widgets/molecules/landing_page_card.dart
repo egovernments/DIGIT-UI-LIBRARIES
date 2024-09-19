@@ -52,7 +52,7 @@ class MatrixListComponent extends StatelessWidget {
                   Flexible(
                     child: Text(
                       heading,
-                      maxLines: 2,
+                      maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: textTheme.headingM.copyWith(
                         color: theme.colorTheme.primary.primary2,
@@ -109,8 +109,12 @@ class MatrixListComponent extends StatelessWidget {
   }
 
   Widget _buildIcon(BuildContext context) {
-    bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
-    bool isTab = AppView.isTabletView(MediaQuery.of(context).size);
+    bool isMobile = AppView.isMobileView(MediaQuery
+        .of(context)
+        .size);
+    bool isTab = AppView.isTabletView(MediaQuery
+        .of(context)
+        .size);
     return Container(
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
@@ -127,8 +131,8 @@ class MatrixListComponent extends StatelessWidget {
         size: isMobile
             ? 28
             : isTab
-                ? 32
-                : 40,
+            ? 32
+            : 40,
       ),
     );
   }
@@ -136,32 +140,53 @@ class MatrixListComponent extends StatelessWidget {
   Widget _buildMatrixList(BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.digitTextTheme(context);
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: matrixList!.map((matrix) {
-        return Column(
-          crossAxisAlignment: alignCenterMatrixList
-              ? CrossAxisAlignment.center
-              : CrossAxisAlignment.start,
-          children: [
-            Text(
-              matrix.title,
-              style: textTheme.headingM.copyWith(
-                color: theme.colorTheme.text.primary,
-              ),
+      children: matrixList!.asMap().entries.map((entry) {
+        int index = entry.key;
+        var matrix = entry.value;
+
+        return Flexible( // Use Flexible or Expanded to ensure the text fits the available space
+          child: Padding(
+            padding: EdgeInsets.only(right: index == matrixList!.length - 1 ? 0 : 16.0),
+            child: Column(
+              crossAxisAlignment: alignCenterMatrixList
+                  ? CrossAxisAlignment.center
+                  : CrossAxisAlignment.start,
+              children: [
+                Text(
+                  matrix.title,
+                  maxLines: 2,
+                  // Limit to a specific number of lines
+                  overflow: TextOverflow.ellipsis,
+                  // Add ellipsis to handle long text
+                  style: textTheme.headingM.copyWith(
+                    color: theme.colorTheme.text.primary,
+                  ),
+                ),
+
+                Text(
+                  matrix.description,
+                  maxLines: 3,
+                  // Limit to a specific number of lines
+                  overflow: TextOverflow.ellipsis,
+                  // Add ellipsis to handle long text
+                  style: textTheme.bodyXS.copyWith(
+                    color: theme.colorTheme.text.secondary,
+                  ),
+                ),
+
+              ],
             ),
-            Text(matrix.description,
-                style: textTheme.bodyXS.copyWith(
-                  color: theme.colorTheme.text.secondary,
-                )),
-          ],
+          ),
         );
       }).toList(),
     );
   }
 }
 
-class ActionItem {
+  class ActionItem {
   final String label;
   final IconData? icon;
   final VoidCallback onPressed;

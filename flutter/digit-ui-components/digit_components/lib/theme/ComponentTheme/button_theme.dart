@@ -92,7 +92,7 @@ class DigitButtonThemeData extends ThemeExtension<DigitButtonThemeData> {
       radius: BorderRadius.zero,
       padding: EdgeInsets.symmetric(
           horizontal: theme.spacerTheme.spacer6, vertical: 0),
-      linkPadding: EdgeInsets.all(theme.spacerTheme.spacer2),
+      linkPadding: const EdgeInsets.all(0),
       hoverColor: theme.colorTheme.generic.transparent,
       focusColor: theme.colorTheme.generic.transparent,
       hightlightColor: theme.colorTheme.generic.transparent,

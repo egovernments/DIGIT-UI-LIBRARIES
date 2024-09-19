@@ -84,7 +84,7 @@ List<Story> selectionCardStories() {
           } else if (value == 'Option 2') {
             return Icons.favorite;
           }
-          return Icons.circle;
+          return Icons.thumb_down;
         },
       ),
     ),
@@ -117,7 +117,7 @@ List<Story> selectionCardStories() {
                   } else if (value == 'Option 2') {
                     return Icons.favorite;
                   }
-                  return Icons.circle;
+                  return Icons.thumb_down;
                 }
                 return null; // Return null if no icon should be shown
               },

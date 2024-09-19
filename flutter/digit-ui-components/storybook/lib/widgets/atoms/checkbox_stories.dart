@@ -31,6 +31,10 @@ DigitCheckbox(
                       'The HTML defaultChecked property is used to return the default value of the checked attribute. It has a boolean value that returns true if the checkbox is checked by default, otherwise returns false.',
                 ),
                 onChanged: (value) {},
+                readOnly: context.knobs.boolean(
+                  label: 'Read Only',
+                  initial: false,
+                ),
                 isDisabled: context.knobs.boolean(
                   label: 'Disabled',
                   initial: false,
@@ -66,6 +70,10 @@ DigitCheckbox(
                 checkboxThemeData: const DigitCheckboxThemeData().copyWith(
                   context: context,
                   labelTextDirection: TextDirection.rtl,
+                ),
+                readOnly: context.knobs.boolean(
+                  label: 'Read Only',
+                  initial: false,
                 ),
                 label: context.knobs.text(
                   label: 'Label',
