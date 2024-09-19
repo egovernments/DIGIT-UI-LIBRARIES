@@ -25,6 +25,7 @@ class DigitTable extends StatefulWidget {
   final Widget? customRow;
   final bool isCustomRowFixed;
   final bool showSelectedState;
+  final ScrollPhysics? scrollPhysics;
   final double? tableHeight;
   // Callback for selected row indices
   final void Function(int)? onSelectedRowsChanged;
@@ -48,6 +49,7 @@ class DigitTable extends StatefulWidget {
     this.frozenColumnsCount = 0,
     this.customRow,
     this.tableHeight,
+    this.scrollPhysics,
     this.isCustomRowFixed = false,
     this.onSelectedRowsChanged,
   }) : super(key: key);
@@ -360,6 +362,7 @@ class _DigitTableState extends State<DigitTable> {
             controller: _scrollController,
             scrollDirection: Axis.horizontal,
             child: SingleChildScrollView(
+              physics: widget.scrollPhysics,
               scrollDirection: Axis.vertical,
               controller: _verticalScrollController,
               child: Column(
@@ -393,6 +396,7 @@ class _DigitTableState extends State<DigitTable> {
                       onHeaderCheckboxChanged: _onHeaderCheckboxChanged,
                     ),
                   TableBody(
+                    scrollPhysics: widget.scrollPhysics,
                     enableSelection: widget.showSelectedState,
                     highlightedRows: _highlightedRowIndices,
                     selectedRows: _selectedRowIndices,

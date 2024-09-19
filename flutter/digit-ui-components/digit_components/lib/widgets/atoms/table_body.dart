@@ -18,6 +18,7 @@ class TableBody extends StatefulWidget {
   final bool enableSelection;
   final bool headerCheckboxValue;
   final double? tableHeight;
+  final ScrollPhysics? scrollPhysics;
   final void Function(int, bool) onRowCheckboxChanged;
 
   const TableBody({
@@ -34,6 +35,7 @@ class TableBody extends StatefulWidget {
     this.tableHeight,
     this.withColumnDividers = false,
     this.headerCheckboxValue = false,
+    this.scrollPhysics,
     required this.onRowCheckboxChanged,
   }) : super(key: key);
 
@@ -213,6 +215,7 @@ class _TableBodyState extends State<TableBody> {
         maxHeight: (widget.tableHeight ?? MediaQuery.of(context).size.height )- headerHeight - footerHeight,
       ),
       child: ListView.builder(
+        physics: widget.scrollPhysics,
         shrinkWrap: true,
         itemCount: rowWidgets.length,
         itemBuilder: (context, index) => rowWidgets[index],
