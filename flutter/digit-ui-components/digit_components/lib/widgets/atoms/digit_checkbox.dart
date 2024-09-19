@@ -1,3 +1,4 @@
+
 /// `DigitCheckbox` is a DigitCheckbox component with a label and optional icon customization.
 
 /// This widget allows the user to toggle between checked and unchecked states. It supports
@@ -37,6 +38,9 @@ class DigitCheckbox extends StatefulWidget {
   /// Indicates whether the DigitCheckbox is disabled or not.
   final bool isDisabled;
 
+  /// Indicates whether the DigitCheckbox is disabled or not.
+  final bool readOnly;
+
   final bool capitalizeFirstLetter;
 
   final DigitCheckboxThemeData? checkboxThemeData;
@@ -46,6 +50,7 @@ class DigitCheckbox extends StatefulWidget {
     Key? key,
     this.label,
     required this.onChanged,
+    this.readOnly = false,
     this.isDisabled = false,
     this.value = false,
     this.capitalizeFirstLetter = true,
@@ -121,21 +126,21 @@ class _DigitCheckboxState extends State<DigitCheckbox> {
                   isHovered = hover;
                 });
               },
-              onTap: widget.isDisabled
+              onTap: widget.isDisabled || widget.readOnly
                   ? null
                   : () {
-                      if (mounted) {
-                        setState(() {
-                          _currentState = !_currentState;
-                        });
-                        widget.onChanged(_currentState);
-                      }
-                    },
+                if (mounted) {
+                  setState(() {
+                    _currentState = !_currentState;
+                  });
+                  widget.onChanged(_currentState);
+                }
+              },
               child: DigitCheckboxIcon(
                 state: _currentState
                     ? DigitCheckboxState.checked
                     : DigitCheckboxState.unchecked,
-                isDisabled: widget.isDisabled,
+                isDisabled: widget.isDisabled || widget.readOnly,
                 checkboxThemeData: widget.checkboxThemeData ?? defaultThemeData,
               ),
             ),
@@ -150,9 +155,9 @@ class _DigitCheckboxState extends State<DigitCheckbox> {
                 processedLabel!,
                 style: widget.isDisabled
                     ? checkboxThemeData?.disabledLabelTextStyle ??
-                        defaultThemeData.disabledLabelTextStyle
+                    defaultThemeData.disabledLabelTextStyle
                     : checkboxThemeData?.labelTextStyle ??
-                        defaultThemeData.labelTextStyle,
+                    defaultThemeData.labelTextStyle,
               ),
             ),
           ),
