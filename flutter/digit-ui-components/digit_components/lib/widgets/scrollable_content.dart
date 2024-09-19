@@ -5,6 +5,7 @@ class ScrollableContent extends StatelessWidget {
   final Widget? footer;
   final List<Widget> slivers;
   final bool? primary;
+  final ScrollPhysics? scrollPhysics;
   final ScrollController? controller;
   final MainAxisAlignment mainAxisAlignment;
   final CrossAxisAlignment crossAxisAlignment;
@@ -18,6 +19,7 @@ class ScrollableContent extends StatelessWidget {
         this.header,
         this.primary,
         this.controller,
+        this.scrollPhysics,
         this.mainAxisAlignment = MainAxisAlignment.start,
         this.crossAxisAlignment = CrossAxisAlignment.start,
         this.children = const <Widget>[],
@@ -35,6 +37,7 @@ class ScrollableContent extends StatelessWidget {
     return Scaffold(
       backgroundColor: backgroundColor,
       body: CustomScrollView(
+        physics: scrollPhysics,
         controller: controller,
         primary: primary,
         slivers: [
