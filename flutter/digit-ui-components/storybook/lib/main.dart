@@ -235,7 +235,7 @@ class MyHomePageState extends State<MyHomePage> {
         child: CodeViewWrapper(
           child: Storybook(
             plugins: [
-              ThemeModePlugin(),
+              //ThemeModePlugin(),
               CodeViewPlugin(
                 enableCodeView: true,
                 onShowCodeView: (isEnabled) {
