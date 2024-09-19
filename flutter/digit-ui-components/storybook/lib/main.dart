@@ -16,6 +16,7 @@ import 'package:storybook/widgets/atoms/button_list_stories.dart';
 import 'package:storybook/widgets/atoms/button_stories.dart';
 import 'package:storybook/widgets/atoms/checkbox_stories.dart';
 import 'package:storybook/widgets/atoms/chip_stories.dart';
+import 'package:storybook/widgets/atoms/digit_otp_input_stories.dart';
 import 'package:storybook/widgets/atoms/digit_search_bar_stories.dart';
 import 'package:storybook/widgets/atoms/digit_tab_stories.dart';
 import 'package:storybook/widgets/atoms/digit_tag_stories.dart';
@@ -203,6 +204,7 @@ class MyApp extends StatelessWidget {
               ...popUpStories(),
               ...panelCardStories(),
               ...cardStories(),
+              ...otpInputStories(),
               ...dividerStories(),
               ...buttonListStories(),
               ...showPopUPStories(),
