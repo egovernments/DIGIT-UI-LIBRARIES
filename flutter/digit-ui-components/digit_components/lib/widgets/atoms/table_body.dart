@@ -17,6 +17,7 @@ class TableBody extends StatefulWidget {
   final bool withColumnDividers;
   final bool enableSelection;
   final bool headerCheckboxValue;
+  final double? tableHeight;
   final void Function(int, bool) onRowCheckboxChanged;
 
   const TableBody({
@@ -30,6 +31,7 @@ class TableBody extends StatefulWidget {
     this.withRowDividers = false,
     this.alternateRowColor = false,
     this.enableBorder = false,
+    this.tableHeight,
     this.withColumnDividers = false,
     this.headerCheckboxValue = false,
     required this.onRowCheckboxChanged,
@@ -208,7 +210,7 @@ class _TableBodyState extends State<TableBody> {
     return ConstrainedBox(
       constraints: BoxConstraints(
         maxWidth: normalColumns * 200 + specialColumnCount * 100 + 2,
-        maxHeight: MediaQuery.of(context).size.height - headerHeight - footerHeight,
+        maxHeight: (widget.tableHeight ?? MediaQuery.of(context).size.height )- headerHeight - footerHeight,
       ),
       child: ListView.builder(
         shrinkWrap: true,

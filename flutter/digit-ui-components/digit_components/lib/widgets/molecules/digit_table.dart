@@ -25,6 +25,7 @@ class DigitTable extends StatefulWidget {
   final Widget? customRow;
   final bool isCustomRowFixed;
   final bool showSelectedState;
+  final double? tableHeight;
   // Callback for selected row indices
   final void Function(int)? onSelectedRowsChanged;
 
@@ -46,6 +47,7 @@ class DigitTable extends StatefulWidget {
     this.stickyHeader = false,
     this.frozenColumnsCount = 0,
     this.customRow,
+    this.tableHeight,
     this.isCustomRowFixed = false,
     this.onSelectedRowsChanged,
   }) : super(key: key);
@@ -213,6 +215,7 @@ class _DigitTableState extends State<DigitTable> {
               onHeaderCheckboxChanged: _onHeaderCheckboxChanged,
             ),
             TableBody(
+              tableHeight: widget.tableHeight,
               enableSelection: widget.showSelectedState,
               highlightedRows: _highlightedRowIndices,
               selectedRows: _selectedRowIndices,
