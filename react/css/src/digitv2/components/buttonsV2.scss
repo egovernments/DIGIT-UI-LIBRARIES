@@ -188,8 +188,8 @@
   @apply text-center cursor-pointer outline-none flex max-w-full items-center justify-center h-10;
   background: none;
   width: fit-content;
-  padding-left:  theme(digitv2.spacers.spacer2);
-  padding-right: theme(digitv2.spacers.spacer2);
+  padding-left:  theme(digitv2.spacers.spacer0);
+  padding-right: theme(digitv2.spacers.spacer0);
   gap:  theme(digitv2.spacers.spacer2);
   min-width: 6.5625rem;
 
@@ -247,8 +247,8 @@
   background: none;
   width: fit-content;
   height: fit-content;
-  padding-left:  theme(digitv2.spacers.spacer2);
-  padding-right: theme(digitv2.spacers.spacer2);
+  padding-left:  theme(digitv2.spacers.spacer0);
+  padding-right: theme(digitv2.spacers.spacer0);
   gap: theme(digitv2.spacers.spacer2);
   min-width: 4.875rem;
 

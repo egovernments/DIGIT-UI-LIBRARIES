@@ -291,6 +291,7 @@ module.exports = {
         spacer10:"2.5rem",
         spacer11:"2.75rem",
         spacer12:"3rem",
+        spacer13:"3.5rem"
       },
       divider: {
         dividerS: "0.063rem solid #D6D5D4",

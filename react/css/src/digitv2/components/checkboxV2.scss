@@ -84,14 +84,12 @@
     @apply text-left;
     word-break: break-word;
     letter-spacing: theme(digitv2.spacers.spacer0);
-    color: theme(digitv2.lightTheme.text-primary);
+    color: theme(digitv2.lightTheme.text-primary) !important;
+    display: flex;
+    align-items: center;
   }
 
   &.disabled {
-    .label {
-      color: theme(digitv2.lightTheme.text-disabled);
-    }
-
     .digit-custom-checkbox {
       border: 0.063rem solid theme(digitv2.lightTheme.text-disabled);
     }
