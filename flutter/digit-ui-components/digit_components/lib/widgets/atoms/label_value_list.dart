@@ -1,4 +1,5 @@
 import 'package:digit_ui_components/digit_components.dart';
+import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:digit_ui_components/widgets/atoms/digit_divider.dart';
 import 'package:flutter/material.dart';
 
@@ -35,40 +36,38 @@ class LabelValueList extends StatelessWidget {
     this.maxLines,
     this.labelFlex = 2,
     this.valueFlex = 8,
-    this.withDivider = false, // Default to no divider
+    this.withDivider = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    /// typography based on screen
-    DigitTypography currentTypography = getTypography(context, false);
-    bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
-    bool isTab = AppView.isTabletView(MediaQuery.of(context).size);
-    bool isDesktop = AppView.isDesktopView(MediaQuery.of(context).size);
+
+   final theme = Theme.of(context);
+   final textTheme = theme.digitTextTheme(context);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (heading != null)
           Padding(
-            padding: padding ?? const EdgeInsets.symmetric(vertical: 8.0),
+            padding: padding ?? const EdgeInsets.symmetric(vertical: spacer2),
             child: Text(
               heading!,
-              style: currentTypography.headingL.copyWith(
-                color: const DigitColors().light.textPrimary,
+              style: textTheme.headingL.copyWith(
+                color: theme.colorTheme.text.primary,
               ),
             ),
           ),
-        ..._buildItemsWithDividers(items, currentTypography),
+        ..._buildItemsWithDividers(items, context),
       ],
     );
   }
 
   List<Widget> _buildItemsWithDividers(
-      List<LabelValuePair> items, DigitTypography currentTypography) {
+      List<LabelValuePair> items, BuildContext context) {
     List<Widget> itemList = [];
     for (int i = 0; i < items.length; i++) {
-      itemList.add(_buildItem(items[i], currentTypography));
+      itemList.add(_buildItem(items[i], context));
       if (i < items.length - 1 && withDivider) {
         itemList.add(
           const DigitDivider(),
@@ -78,33 +77,34 @@ class LabelValueList extends StatelessWidget {
     return itemList;
   }
 
-  Widget _buildItem(LabelValuePair item, DigitTypography currentTypography) {
+  Widget _buildItem(LabelValuePair item, BuildContext context) {
+    final theme = Theme.of(context);
+    final textTheme = theme.digitTextTheme(context);
+
     return Padding(
-      padding: padding ?? const EdgeInsets.symmetric(vertical: 8.0),
+      padding: padding ?? const EdgeInsets.symmetric(vertical: spacer2),
       child: item.isInline
           ? Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Label taking 30% width
           Expanded(
-            flex: labelFlex, // 30% width
+            flex: labelFlex,
             child: Text(
               item.label,
-              style: item.labelTextStyle ?? currentTypography.headingS.copyWith(
-                color: const DigitColors().light.textPrimary,
+              style: item.labelTextStyle ?? textTheme.headingS.copyWith(
+                color: theme.colorTheme.text.primary,
               ),
             ),
           ),
-          const SizedBox(width: 24), // Gap between label and value
-          // Value taking rest of the width
+          const SizedBox(width: spacer6),
           Expanded(
-            flex: valueFlex, // Remaining 70% width
+            flex: valueFlex,
             child: Text(
               item.value,
               maxLines: maxLines,
               overflow: TextOverflow.ellipsis,
-              style: item.valueTextStyle ?? currentTypography.bodyS.copyWith(
-                color: const DigitColors().light.textPrimary,
+              style: item.valueTextStyle ?? textTheme.bodyS.copyWith(
+                color: theme.colorTheme.text.primary,
               ),
             ),
           ),
@@ -115,15 +115,15 @@ class LabelValueList extends StatelessWidget {
         children: [
           Text(
             item.label,
-            style: item.labelTextStyle ?? currentTypography.headingS.copyWith(
-              color: const DigitColors().light.textPrimary,
+            style: item.labelTextStyle ?? textTheme.headingS.copyWith(
+              color: theme.colorTheme.text.primary,
             ),
           ),
-          const SizedBox(height: 4),
+          const SizedBox(height: spacer1),
           Text(
             item.value,
-            style: item.valueTextStyle ?? currentTypography.bodyS.copyWith(
-              color: const DigitColors().light.textPrimary,
+            style: item.valueTextStyle ?? textTheme.bodyS.copyWith(
+              color: theme.colorTheme.text.primary,
             ),
           ),
         ],

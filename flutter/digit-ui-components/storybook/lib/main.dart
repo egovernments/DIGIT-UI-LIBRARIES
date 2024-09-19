@@ -235,6 +235,7 @@ class MyHomePageState extends State<MyHomePage> {
         child: CodeViewWrapper(
           child: Storybook(
             plugins: [
+              ThemeModePlugin(),
               CodeViewPlugin(
                 enableCodeView: true,
                 onShowCodeView: (isEnabled) {
@@ -289,7 +290,7 @@ class MyHomePageState extends State<MyHomePage> {
               ...panelCardStories(),
               ...showPopUPStories(),
               ...sideNavStories(),
-             // ...sliderStories(),
+              //...sliderStories(),
               ...tableStories(),
               ...timelineMoleculeStories(),
               // Story(

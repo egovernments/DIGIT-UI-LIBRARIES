@@ -183,7 +183,7 @@ class _DigitAccordionState extends State<DigitAccordion>
                 color: widget.contentBackgroundColor ?? theme.colorTheme.paper.primary,
                 borderRadius: BorderRadius.circular(4),
               ),
-              padding: EdgeInsets.only(left: isMobile ? 8.0 : isTab ? 16 : 20, right: isMobile ? 8.0 : isTab ? 16 : 20, bottom: 16.0, top: 8),
+              padding: EdgeInsets.only(left: isMobile ? 16 : isTab ? 20 : 24, right: isMobile ? 16 : isTab ? 20 : 24, bottom: 16.0, top: 8),
               child: item.content,
             ),
           ),

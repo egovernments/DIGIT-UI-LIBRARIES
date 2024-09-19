@@ -30,11 +30,9 @@ class DigitCard extends StatelessWidget {
     final theme = Theme.of(context);
     bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
     bool isTab = AppView.isTabletView(MediaQuery.of(context).size);
-    return Container(
-      //width: MediaQuery.of(context).size.width,
-      // will take the max width of the content present inside this
-      // provide a max width for the card
 
+    return Container(
+      // will take the max width of the content present inside this
       margin: margin,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(spacer1),
@@ -45,8 +43,8 @@ class DigitCard extends StatelessWidget {
         )
             : null,
         color: cardType == CardType.secondary
-            ? const DigitColors().light.paperSecondary
-            : const DigitColors().light.paperPrimary,
+            ? theme.colorTheme.paper.secondary
+            : theme.colorTheme.paper.primary,
         boxShadow: cardType == CardType.primary
             ? [
           BoxShadow(

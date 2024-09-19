@@ -157,10 +157,8 @@ class MatrixListComponent extends StatelessWidget {
               children: [
                 Text(
                   matrix.title,
-                  maxLines: 2,
-                  // Limit to a specific number of lines
+                  maxLines: 10,
                   overflow: TextOverflow.ellipsis,
-                  // Add ellipsis to handle long text
                   style: textTheme.headingM.copyWith(
                     color: theme.colorTheme.text.primary,
                   ),
@@ -168,10 +166,8 @@ class MatrixListComponent extends StatelessWidget {
 
                 Text(
                   matrix.description,
-                  maxLines: 3,
-                  // Limit to a specific number of lines
+                  maxLines: 10,
                   overflow: TextOverflow.ellipsis,
-                  // Add ellipsis to handle long text
                   style: textTheme.bodyXS.copyWith(
                     color: theme.colorTheme.text.secondary,
                   ),

@@ -83,45 +83,49 @@ class _DigitButtonState extends State<DigitButton> {
   bool isHovered = false;
   bool isMouseDown = false;
   bool isFocused = false;
-  late TextStyle DigitButtonStyle;
+  late TextStyle buttonStyle;
   late TextStyle linkStyle;
-  late double DigitButtonIconSize;
+  late double buttonIconSize;
   late double linkIconSize;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final DigitButtonThemeData digitButtonThemeData = widget.digitButtonThemeData ??
-        theme.extension<DigitButtonThemeData>() ??
+    final DigitButtonThemeData? digitButtonThemeData = widget.digitButtonThemeData ??
+        theme.extension<DigitButtonThemeData>();
+    final DigitButtonThemeData digitButtonThemeDataDefault =
         DigitButtonThemeData.defaultTheme(context);
 
     switch (widget.size) {
       case DigitButtonSize.small:
-        DigitButtonStyle = digitButtonThemeData.smallDigitButtonTextStyle;
-        linkStyle = digitButtonThemeData.smallLinkTextStyle;
-        DigitButtonIconSize = digitButtonThemeData.smallIconSize;
-        linkIconSize = digitButtonThemeData.smallLinkIconSize;
+        buttonStyle = digitButtonThemeData?.smallDigitButtonTextStyle ?? digitButtonThemeDataDefault.smallDigitButtonTextStyle!;
+        linkStyle = digitButtonThemeData?.smallLinkTextStyle ?? digitButtonThemeDataDefault.smallLinkTextStyle!;
+        buttonIconSize = digitButtonThemeData?.smallIconSize ?? digitButtonThemeDataDefault.smallIconSize!;
+        linkIconSize = digitButtonThemeData?.smallLinkIconSize ?? digitButtonThemeDataDefault.smallLinkIconSize!;
         break;
       case DigitButtonSize.medium:
-        DigitButtonStyle = digitButtonThemeData.mediumDigitButtonTextStyle;
-        linkStyle = digitButtonThemeData.mediumLinkTextStyle;
-        DigitButtonIconSize = digitButtonThemeData.mediumIconSize;
-        linkIconSize = digitButtonThemeData.mediumLinkIconSize;
+        buttonStyle = digitButtonThemeData?.mediumDigitButtonTextStyle ?? digitButtonThemeDataDefault.mediumDigitButtonTextStyle!;
+        linkStyle = digitButtonThemeData?.mediumLinkTextStyle ?? digitButtonThemeDataDefault.mediumLinkTextStyle!;
+        buttonIconSize = digitButtonThemeData?.mediumIconSize ?? digitButtonThemeDataDefault.mediumIconSize!;
+        linkIconSize = digitButtonThemeData?.mediumLinkIconSize ?? digitButtonThemeDataDefault.mediumLinkIconSize!;
         break;
       case DigitButtonSize.large:
-        DigitButtonStyle = digitButtonThemeData.largeDigitButtonTextStyle;
-        linkStyle = digitButtonThemeData.largeLinkTextStyle;
-        DigitButtonIconSize = digitButtonThemeData.largeIconSize;
-        linkIconSize = digitButtonThemeData.largeLinkIconSize;
+        buttonStyle = digitButtonThemeData?.largeDigitButtonTextStyle ?? digitButtonThemeDataDefault.largeDigitButtonTextStyle!;
+        linkStyle = digitButtonThemeData?.largeLinkTextStyle ?? digitButtonThemeDataDefault.largeLinkTextStyle!;
+        buttonIconSize = digitButtonThemeData?.largeIconSize ?? digitButtonThemeDataDefault.largeIconSize!;
+        linkIconSize = digitButtonThemeData?.largeLinkIconSize ?? digitButtonThemeDataDefault.largeLinkIconSize!;
         break;
     }
 
-    return _buildDigitButtonWidget(context, digitButtonThemeData);
+    return _buildDigitButtonWidget(context, digitButtonThemeData ?? digitButtonThemeDataDefault);
   }
 
   /// Build the DigitButton widget based on its type and state.
   Widget _buildDigitButtonWidget(
       BuildContext context, DigitButtonThemeData digitButtonThemeData) {
+    final DigitButtonThemeData digitButtonThemeDataDefault =
+    DigitButtonThemeData.defaultTheme(context);
+
     if (widget.type == DigitButtonType.primary ||
         widget.type == DigitButtonType.secondary) {
       return InkWell(
@@ -181,9 +185,9 @@ class _DigitButtonState extends State<DigitButton> {
             borderRadius: digitButtonThemeData.radius,
             border: Border.all(
               color: widget.isDisabled
-                  ? digitButtonThemeData.disabledColor
-                  : digitButtonThemeData.DigitButtonColor,
-              width: digitButtonThemeData.borderWidth,
+                  ? digitButtonThemeData.disabledColor ?? digitButtonThemeDataDefault.disabledColor!
+                  : digitButtonThemeData.DigitButtonColor ?? digitButtonThemeDataDefault.DigitButtonColor!,
+              width: digitButtonThemeData.borderWidth ?? digitButtonThemeDataDefault.borderWidth!,
             ),
             color: widget.type == DigitButtonType.primary
                 ? (widget.isDisabled
@@ -246,6 +250,9 @@ class _DigitButtonState extends State<DigitButton> {
     String truncatedLabel = widget.label;
     final theme = Theme.of(context);
 
+    final DigitButtonThemeData digitButtonThemeDataDefault =
+    DigitButtonThemeData.defaultTheme(context);
+
     /// Truncate label if it exceeds 64 characters &&  Capitalize the first letter of the label
     if (widget.type != DigitButtonType.link) {
       if (widget.label.length > 64) {
@@ -263,8 +270,8 @@ class _DigitButtonState extends State<DigitButton> {
       child: Padding(
         padding:
         widget.type == DigitButtonType.link || widget.type == DigitButtonType.tertiary
-            ? digitButtonThemeData.linkPadding
-            : digitButtonThemeData.padding,
+            ? digitButtonThemeData.linkPadding ?? digitButtonThemeDataDefault.linkPadding!
+            : digitButtonThemeData.padding ?? digitButtonThemeDataDefault.padding!,
         child: Row(
           mainAxisSize: widget.mainAxisSize ?? MainAxisSize.min,
           mainAxisAlignment:
@@ -277,7 +284,7 @@ class _DigitButtonState extends State<DigitButton> {
                 widget.prefixIcon,
                 size: widget.type == DigitButtonType.link
                     ? linkIconSize
-                    : DigitButtonIconSize,
+                    : buttonIconSize,
                 color: widget.iconColor ?? (widget.type == DigitButtonType.primary
                     ? digitButtonThemeData.primaryDigitButtonColor
                     : (widget.isDisabled
@@ -305,7 +312,7 @@ class _DigitButtonState extends State<DigitButton> {
                       : digitButtonThemeData.DigitButtonColor),
                   decorationThickness: isHovered || isFocused ? 2 : 1,
                 )
-                    : DigitButtonStyle.copyWith(
+                    : buttonStyle.copyWith(
                   fontWeight:
                   isMouseDown ? FontWeight.w700 : FontWeight.w500,
                   color: widget.textColor ?? (widget.type == DigitButtonType.primary
@@ -327,7 +334,7 @@ class _DigitButtonState extends State<DigitButton> {
                 widget.suffixIcon,
                 size: widget.type == DigitButtonType.link
                     ? linkIconSize
-                    : DigitButtonIconSize,
+                    : buttonIconSize,
                 color: widget.iconColor ?? (widget.type == DigitButtonType.primary
                     ? digitButtonThemeData.primaryDigitButtonColor
                     : (widget.isDisabled

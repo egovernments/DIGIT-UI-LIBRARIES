@@ -3,68 +3,68 @@ import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:flutter/material.dart';
 
 class DigitButtonThemeData extends ThemeExtension<DigitButtonThemeData> {
-  final TextStyle smallDigitButtonTextStyle;
-  final TextStyle mediumDigitButtonTextStyle;
-  final TextStyle largeDigitButtonTextStyle;
-  final TextStyle smallLinkTextStyle;
-  final TextStyle mediumLinkTextStyle;
-  final TextStyle largeLinkTextStyle;
-  final double smallIconSize;
-  final double mediumIconSize;
-  final double largeIconSize;
-  final double smallLinkIconSize;
-  final double mediumLinkIconSize;
-  final double largeLinkIconSize;
-  final double smallDigitButtonHeight;
-  final double mediumDigitButtonHeight;
-  final double largeDigitButtonHeight;
-  final double borderWidth;
-  final BorderRadius radius;
-  final EdgeInsets padding;
-  final EdgeInsets linkPadding;
-  final Color hightlightColor;
-  final Color splashColor;
-  final Color focusColor;
-  final Color hoverColor;
-  final Color disabledColor;
-  final Color primaryDigitButtonColor;
-  final Color DigitButtonColor;
-  final List<BoxShadow> DigitButtonMouseDownBoxShadow;
-  final List<BoxShadow> DigitButtonHoverBoxShadow;
-  final List<BoxShadow> primaryDigitButtonMouseDownBoxShadow;
-  final List<BoxShadow> primaryDigitButtonHoverBoxShadow;
+  final TextStyle? smallDigitButtonTextStyle;
+  final TextStyle? mediumDigitButtonTextStyle;
+  final TextStyle? largeDigitButtonTextStyle;
+  final TextStyle? smallLinkTextStyle;
+  final TextStyle? mediumLinkTextStyle;
+  final TextStyle? largeLinkTextStyle;
+  final double? smallIconSize;
+  final double? mediumIconSize;
+  final double? largeIconSize;
+  final double? smallLinkIconSize;
+  final double? mediumLinkIconSize;
+  final double? largeLinkIconSize;
+  final double? smallDigitButtonHeight;
+  final double? mediumDigitButtonHeight;
+  final double? largeDigitButtonHeight;
+  final double? borderWidth;
+  final BorderRadius? radius;
+  final EdgeInsets? padding;
+  final EdgeInsets? linkPadding;
+  final Color? hightlightColor;
+  final Color? splashColor;
+  final Color? focusColor;
+  final Color? hoverColor;
+  final Color? disabledColor;
+  final Color? primaryDigitButtonColor;
+  final Color? DigitButtonColor;
+  final List<BoxShadow>? DigitButtonMouseDownBoxShadow;
+  final List<BoxShadow>? DigitButtonHoverBoxShadow;
+  final List<BoxShadow>? primaryDigitButtonMouseDownBoxShadow;
+  final List<BoxShadow>? primaryDigitButtonHoverBoxShadow;
 
   const DigitButtonThemeData({
-    required this.smallDigitButtonTextStyle,
-    required this.mediumDigitButtonTextStyle,
-    required this.largeDigitButtonTextStyle,
-    required this.smallLinkTextStyle,
-    required this.mediumLinkTextStyle,
-    required this.largeLinkTextStyle,
-    required this.smallIconSize,
-    required this.mediumIconSize,
-    required this.largeIconSize,
-    required this.smallLinkIconSize,
-    required this.mediumLinkIconSize,
-    required this.largeLinkIconSize,
-    required this.smallDigitButtonHeight,
-    required this.mediumDigitButtonHeight,
-    required this.largeDigitButtonHeight,
-    required this.borderWidth,
-    required this.radius,
-    required this.padding,
-    required this.linkPadding,
-    required this.hoverColor,
-    required this.focusColor,
-    required this.hightlightColor,
-    required this.splashColor,
-    required this.DigitButtonColor,
-    required this.disabledColor,
-    required this.primaryDigitButtonColor,
-    required this.DigitButtonHoverBoxShadow,
-    required this.DigitButtonMouseDownBoxShadow,
-    required this.primaryDigitButtonHoverBoxShadow,
-    required this.primaryDigitButtonMouseDownBoxShadow,
+     this.smallDigitButtonTextStyle,
+     this.mediumDigitButtonTextStyle,
+     this.largeDigitButtonTextStyle,
+     this.smallLinkTextStyle,
+     this.mediumLinkTextStyle,
+     this.largeLinkTextStyle,
+     this.smallIconSize,
+     this.mediumIconSize,
+     this.largeIconSize,
+     this.smallLinkIconSize,
+     this.mediumLinkIconSize,
+     this.largeLinkIconSize,
+     this.smallDigitButtonHeight,
+     this.mediumDigitButtonHeight,
+     this.largeDigitButtonHeight,
+     this.borderWidth,
+     this.radius,
+     this.padding,
+     this.linkPadding,
+     this.hoverColor,
+     this.focusColor,
+     this.hightlightColor,
+     this.splashColor,
+     this.DigitButtonColor,
+     this.disabledColor,
+     this.primaryDigitButtonColor,
+     this.DigitButtonHoverBoxShadow,
+     this.DigitButtonMouseDownBoxShadow,
+     this.primaryDigitButtonHoverBoxShadow,
+     this.primaryDigitButtonMouseDownBoxShadow,
   });
 
   static defaultTheme(BuildContext context) {
@@ -266,44 +266,44 @@ class DigitButtonThemeData extends ThemeExtension<DigitButtonThemeData> {
 
     return DigitButtonThemeData(
       smallDigitButtonTextStyle:
-          TextStyle.lerp(smallDigitButtonTextStyle, other.smallDigitButtonTextStyle, t)!,
+          TextStyle.lerp(smallDigitButtonTextStyle, other.smallDigitButtonTextStyle, t),
       mediumDigitButtonTextStyle: TextStyle.lerp(
-          mediumDigitButtonTextStyle, other.mediumDigitButtonTextStyle, t)!,
+          mediumDigitButtonTextStyle, other.mediumDigitButtonTextStyle, t),
       largeDigitButtonTextStyle:
-          TextStyle.lerp(largeDigitButtonTextStyle, other.largeDigitButtonTextStyle, t)!,
+          TextStyle.lerp(largeDigitButtonTextStyle, other.largeDigitButtonTextStyle, t),
       smallLinkTextStyle:
-          TextStyle.lerp(smallLinkTextStyle, other.smallLinkTextStyle, t)!,
+          TextStyle.lerp(smallLinkTextStyle, other.smallLinkTextStyle, t),
       mediumLinkTextStyle:
-          TextStyle.lerp(mediumLinkTextStyle, other.mediumLinkTextStyle, t)!,
+          TextStyle.lerp(mediumLinkTextStyle, other.mediumLinkTextStyle, t),
       largeLinkTextStyle:
-          TextStyle.lerp(largeLinkTextStyle, other.largeLinkTextStyle, t)!,
-      smallIconSize: lerpDouble(smallIconSize, other.smallIconSize, t)!,
-      mediumIconSize: lerpDouble(mediumIconSize, other.mediumIconSize, t)!,
-      largeIconSize: lerpDouble(largeIconSize, other.largeIconSize, t)!,
+          TextStyle.lerp(largeLinkTextStyle, other.largeLinkTextStyle, t),
+      smallIconSize: lerpDouble(smallIconSize, other.smallIconSize, t),
+      mediumIconSize: lerpDouble(mediumIconSize, other.mediumIconSize, t),
+      largeIconSize: lerpDouble(largeIconSize, other.largeIconSize, t),
       smallLinkIconSize:
-          lerpDouble(smallLinkIconSize, other.smallLinkIconSize, t)!,
+          lerpDouble(smallLinkIconSize, other.smallLinkIconSize, t),
       mediumLinkIconSize:
-          lerpDouble(mediumLinkIconSize, other.mediumLinkIconSize, t)!,
+          lerpDouble(mediumLinkIconSize, other.mediumLinkIconSize, t),
       largeLinkIconSize:
-          lerpDouble(largeLinkIconSize, other.largeLinkIconSize, t)!,
+          lerpDouble(largeLinkIconSize, other.largeLinkIconSize, t),
       smallDigitButtonHeight:
-          lerpDouble(smallDigitButtonHeight, other.smallDigitButtonHeight, t)!,
+          lerpDouble(smallDigitButtonHeight, other.smallDigitButtonHeight, t),
       mediumDigitButtonHeight:
-          lerpDouble(mediumDigitButtonHeight, other.mediumDigitButtonHeight, t)!,
+          lerpDouble(mediumDigitButtonHeight, other.mediumDigitButtonHeight, t),
       largeDigitButtonHeight:
-          lerpDouble(largeDigitButtonHeight, other.largeDigitButtonHeight, t)!,
-      borderWidth: lerpDouble(borderWidth, other.borderWidth, t)!,
-      radius: BorderRadius.lerp(radius, other.radius, t)!,
-      padding: EdgeInsets.lerp(padding, other.padding, t)!,
-      linkPadding: EdgeInsets.lerp(linkPadding, other.linkPadding, t)!,
-      hoverColor: Color.lerp(hoverColor, other.hoverColor, t)!,
-      focusColor: Color.lerp(focusColor, other.focusColor, t)!,
-      hightlightColor: Color.lerp(hightlightColor, other.hightlightColor, t)!,
-      splashColor: Color.lerp(splashColor, other.splashColor, t)!,
-      DigitButtonColor: Color.lerp(DigitButtonColor, other.DigitButtonColor, t)!,
-      disabledColor: Color.lerp(disabledColor, other.disabledColor, t)!,
+          lerpDouble(largeDigitButtonHeight, other.largeDigitButtonHeight, t),
+      borderWidth: lerpDouble(borderWidth, other.borderWidth, t),
+      radius: BorderRadius.lerp(radius, other.radius, t),
+      padding: EdgeInsets.lerp(padding, other.padding, t),
+      linkPadding: EdgeInsets.lerp(linkPadding, other.linkPadding, t),
+      hoverColor: Color.lerp(hoverColor, other.hoverColor, t),
+      focusColor: Color.lerp(focusColor, other.focusColor, t),
+      hightlightColor: Color.lerp(hightlightColor, other.hightlightColor, t),
+      splashColor: Color.lerp(splashColor, other.splashColor, t),
+      DigitButtonColor: Color.lerp(DigitButtonColor, other.DigitButtonColor, t),
+      disabledColor: Color.lerp(disabledColor, other.disabledColor, t),
       primaryDigitButtonColor:
-          Color.lerp(primaryDigitButtonColor, other.primaryDigitButtonColor, t)!,
+          Color.lerp(primaryDigitButtonColor, other.primaryDigitButtonColor, t),
       DigitButtonHoverBoxShadow:
           t < 0.5 ? DigitButtonHoverBoxShadow : other.DigitButtonHoverBoxShadow,
       DigitButtonMouseDownBoxShadow:

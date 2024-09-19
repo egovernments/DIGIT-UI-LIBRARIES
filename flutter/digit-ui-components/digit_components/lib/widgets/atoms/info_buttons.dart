@@ -58,6 +58,8 @@ class _InfoDigitButtonState extends State<InfoButton> {
     final theme = Theme.of(context);
     String truncatedLabel = widget.label;
 
+    final DigitButtonThemeData digitButtonThemeDataDefault = DigitButtonThemeData.defaultTheme(context);
+
     /// Truncate label if it exceeds 64 characters &&  Capitalize the letter of the label
 
     if (widget.label.length > 64) {
@@ -69,7 +71,7 @@ class _InfoDigitButtonState extends State<InfoButton> {
         : capitalizeFirstLetterOfEveryWord(truncatedLabel);
 
     return Padding(
-      padding: digitButtonThemeData.padding,
+      padding: digitButtonThemeData.padding ?? digitButtonThemeDataDefault.padding!,
       child: Row(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -119,22 +121,22 @@ class _InfoDigitButtonState extends State<InfoButton> {
   Widget build(BuildContext context) {
 
     final theme = Theme.of(context);
-    final DigitButtonThemeData digitButtonThemeData = widget.digitButtonThemeData ??
-        theme.extension<DigitButtonThemeData>() ??
-        DigitButtonThemeData.defaultTheme(context);
+    final DigitButtonThemeData? digitButtonThemeData = widget.digitButtonThemeData ??
+        theme.extension<DigitButtonThemeData>();
+    final DigitButtonThemeData digitButtonThemeDataDefault = DigitButtonThemeData.defaultTheme(context);
 
     switch (widget.size) {
       case DigitButtonSize.small:
-        DigitButtonStyle = digitButtonThemeData.smallDigitButtonTextStyle;
-        DigitButtonIconSize = digitButtonThemeData.smallIconSize;
+        DigitButtonStyle = digitButtonThemeData?.smallDigitButtonTextStyle ?? digitButtonThemeDataDefault.smallDigitButtonTextStyle!;
+        DigitButtonIconSize = digitButtonThemeData?.smallIconSize ?? digitButtonThemeDataDefault.smallIconSize!;
         break;
       case DigitButtonSize.medium:
-        DigitButtonStyle = digitButtonThemeData.mediumDigitButtonTextStyle;
-        DigitButtonIconSize = digitButtonThemeData.mediumIconSize;
+        DigitButtonStyle = digitButtonThemeData?.mediumDigitButtonTextStyle ?? digitButtonThemeDataDefault.mediumDigitButtonTextStyle!;
+        DigitButtonIconSize = digitButtonThemeData?.mediumIconSize ?? digitButtonThemeDataDefault.mediumIconSize!;
         break;
       case DigitButtonSize.large:
-        DigitButtonStyle = digitButtonThemeData.largeDigitButtonTextStyle;
-        DigitButtonIconSize = digitButtonThemeData.largeIconSize;
+        DigitButtonStyle = digitButtonThemeData?.largeDigitButtonTextStyle ?? digitButtonThemeDataDefault.largeDigitButtonTextStyle!;
+        DigitButtonIconSize = digitButtonThemeData?.largeIconSize ?? digitButtonThemeDataDefault.largeIconSize!;
         break;
     }
 
@@ -153,12 +155,14 @@ class _InfoDigitButtonState extends State<InfoButton> {
         break;
     }
 
-    return _buildDigitButtonWidget(context, digitButtonThemeData);
+    return _buildDigitButtonWidget(context, digitButtonThemeData ?? digitButtonThemeDataDefault);
   }
 
   /// Build the DigitButton widget based on its type and state.
   Widget _buildDigitButtonWidget(BuildContext context, DigitButtonThemeData digitButtonThemeData) {
     final theme = Theme.of(context);
+    final DigitButtonThemeData digitButtonThemeDataDefault = DigitButtonThemeData.defaultTheme(context);
+
     return InkWell(
       onTapDown: widget.isDisabled
           ? null
@@ -208,7 +212,7 @@ class _InfoDigitButtonState extends State<InfoButton> {
             color: widget.isDisabled
                 ? theme.colorTheme.text.disabled
                 : DigitButtonColor,
-            width: digitButtonThemeData.borderWidth,
+            width: digitButtonThemeData.borderWidth ?? digitButtonThemeDataDefault.borderWidth!,
           ),
           color: widget.isDisabled
               ? theme.colorTheme.text.disabled
