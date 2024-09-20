@@ -92,33 +92,29 @@ List<Story> stepperStories() {
     ),
     Story(
       name: 'Atom/Stepper/horizontal/2',
-      builder: (context) => SizedBox(
-        height: 500,
-        width: MediaQuery.of(context).size.width,
-        child: DigitStepper(
-          activeIndex: context.knobs.sliderInt(label: 'active index', initial: 0,divisions: 20, max: 20),
-          stepperList:  [
-            StepperData(
-              title: 'vendor details',
-              onStepTap: (){},
-            ),
-            const StepperData(
-              title: 'contact details',
-            ),
-            const StepperData(
-              title: 'service details',
-            ),
-            const StepperData(
-              title: 'worker details',
-            ),
-            const StepperData(
-              title: 'Summary',
-            ),
+      builder: (context) => DigitStepper(
+        activeIndex: context.knobs.sliderInt(label: 'active index', initial: 0,divisions: 20, max: 20),
+        stepperList:  [
+          StepperData(
+            title: 'vendor details',
+            onStepTap: (){},
+          ),
+          const StepperData(
+            title: 'contact details',
+          ),
+          const StepperData(
+            title: 'service details',
+          ),
+          const StepperData(
+            title: 'worker details',
+          ),
+          const StepperData(
+            title: 'Summary',
+          ),
 
-          ],
-          stepperDirection: Axis.horizontal,
-          inverted: true,
-        ),
+        ],
+        stepperDirection: Axis.horizontal,
+        inverted: true,
       ),
     ),
     Story(
