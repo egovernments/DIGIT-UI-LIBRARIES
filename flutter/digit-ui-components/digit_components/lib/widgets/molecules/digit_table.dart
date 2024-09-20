@@ -28,6 +28,7 @@ class DigitTable extends StatefulWidget {
   final ScrollPhysics? scrollPhysics;
   final ScrollPhysics? scrollPhysicsForPagination;
   final double? tableHeight;
+  final double? tableWidth;
   // Callback for selected row indices
   final void Function(int)? onSelectedRowsChanged;
 
@@ -50,6 +51,7 @@ class DigitTable extends StatefulWidget {
     this.frozenColumnsCount = 0,
     this.customRow,
     this.tableHeight,
+    this.tableWidth,
     this.scrollPhysics,
     this.isCustomRowFixed = false,
     this.onSelectedRowsChanged,
@@ -172,7 +174,7 @@ class _DigitTableState extends State<DigitTable> {
 
     // If frozen columns should not be hidden, return an empty widget
     if (_isFrozenColumnsHidden) {
-      return SizedBox(); // No frozen columns are hidden
+      return const SizedBox(); // No frozen columns are hidden
     }
 
     // Get all the columns
@@ -353,180 +355,185 @@ class _DigitTableState extends State<DigitTable> {
       });
     }
 
-    return Stack(
-      children: [
-        Scrollbar(
-          controller: _scrollController,
-          thumbVisibility: _isOverflowing,
-          child: SingleChildScrollView(
-            padding: _isOverflowing ? const EdgeInsets.only(bottom: 12) : EdgeInsets.zero,
+    return SizedBox(
+      height: widget.tableHeight,
+      width: widget.tableWidth,
+      child: Stack(
+        children: [
+          Scrollbar(
             controller: _scrollController,
-            scrollDirection: Axis.horizontal,
+            thumbVisibility: _isOverflowing,
             child: SingleChildScrollView(
-              physics: widget.scrollPhysics,
-              scrollDirection: Axis.vertical,
-              controller: _verticalScrollController,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                // mainAxisAlignment: MainAxisAlignment.start,
-                // crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  if (!widget.stickyHeader)
-                    TableHeader(
+              padding: _isOverflowing ? const EdgeInsets.only(bottom: 12) : EdgeInsets.zero,
+              controller: _scrollController,
+              scrollDirection: Axis.horizontal,
+              child: SingleChildScrollView(
+                physics: widget.scrollPhysics,
+                scrollDirection: Axis.vertical,
+                controller: _verticalScrollController,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  // mainAxisAlignment: MainAxisAlignment.start,
+                  // crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    if (!widget.stickyHeader)
+                      TableHeader(
+                        columns: widget.columns,
+                        sortedColumnIndex: sortedColumnIndex,
+                        sortOrder: sortOrder,
+                        enabledBorder: widget.enableBorder,
+                        onSort: (index, order) {
+                          setState(() {
+                            if (sortedColumnIndex == index) {
+                              sortOrder = sortOrder == SortOrder.ascending
+                                  ? SortOrder.descending
+                                  : SortOrder.ascending;
+                            } else {
+                              sortedColumnIndex = index;
+                              sortOrder = SortOrder.ascending;
+                            }
+                            _sortRows();
+                            currentPage = 1;
+                          });
+                        },
+                        withColumnDividers: widget.withColumnDividers,
+                        headerCheckboxValue: _headerCheckboxValue,
+                        headerCheckboxIndeterminate: _headerCheckboxIndeterminate, // Pass down
+                        onHeaderCheckboxChanged: _onHeaderCheckboxChanged,
+                      ),
+                    TableBody(
+                      tableHeight: widget.tableHeight,
+                      scrollPhysics: widget.scrollPhysicsForPagination,
+                      enableSelection: widget.showSelectedState,
+                      highlightedRows: _highlightedRowIndices,
+                      selectedRows: _selectedRowIndices,
+                      hasFooter: widget.showPagination,
+                      rows: widget.showPagination ? paginatedRows: sortedRows,
                       columns: widget.columns,
-                      sortedColumnIndex: sortedColumnIndex,
-                      sortOrder: sortOrder,
-                      enabledBorder: widget.enableBorder,
-                      onSort: (index, order) {
-                        setState(() {
-                          if (sortedColumnIndex == index) {
-                            sortOrder = sortOrder == SortOrder.ascending
-                                ? SortOrder.descending
-                                : SortOrder.ascending;
-                          } else {
-                            sortedColumnIndex = index;
-                            sortOrder = SortOrder.ascending;
-                          }
-                          _sortRows();
-                          currentPage = 1;
-                        });
-                      },
+                      alternateRowColor: widget.alternateRowColor,
+                      withRowDividers: widget.withRowDividers,
+                      enableBorder: widget.enableBorder,
                       withColumnDividers: widget.withColumnDividers,
                       headerCheckboxValue: _headerCheckboxValue,
-                      headerCheckboxIndeterminate: _headerCheckboxIndeterminate, // Pass down
-                      onHeaderCheckboxChanged: _onHeaderCheckboxChanged,
-                    ),
-                  TableBody(
-                    scrollPhysics: widget.scrollPhysicsForPagination,
-                    enableSelection: widget.showSelectedState,
-                    highlightedRows: _highlightedRowIndices,
-                    selectedRows: _selectedRowIndices,
-                    hasFooter: widget.showPagination,
-                    rows: widget.showPagination ? paginatedRows: sortedRows,
-                    columns: widget.columns,
-                    alternateRowColor: widget.alternateRowColor,
-                    withRowDividers: widget.withRowDividers,
-                    enableBorder: widget.enableBorder,
-                    withColumnDividers: widget.withColumnDividers,
-                    headerCheckboxValue: _headerCheckboxValue,
-                    onRowCheckboxChanged: (rowIndex, isSelected) {
-                      setState(() {
-                        if (isSelected) {
-                          _selectedRowIndices.add(rowIndex);
-                        } else {
-                          _selectedRowIndices.remove(rowIndex);
+                      onRowCheckboxChanged: (rowIndex, isSelected) {
+                        setState(() {
+                          if (isSelected) {
+                            _selectedRowIndices.add(rowIndex);
+                          } else {
+                            _selectedRowIndices.remove(rowIndex);
+                          }
+                          _updateHeaderCheckbox();
+                        });
+                        if (widget.onSelectedRowsChanged != null) {
+                          widget.onSelectedRowsChanged!(_selectedRowIndices.length);
                         }
-                        _updateHeaderCheckbox();
-                      });
-                      if (widget.onSelectedRowsChanged != null) {
-                        widget.onSelectedRowsChanged!(_selectedRowIndices.length);
-                      }
-                    },
-                  ),
-                  if (widget.customRow != null && !widget.isCustomRowFixed)
-                    Container(
-                        height: 60,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: const DigitColors().light.genericDivider,
-                          ),
-                          color: const DigitColors().light.paperPrimary,
-                        ),
-                        child: widget.customRow!),
-                  if(widget.showPagination)
-                    TableFooter(
-                      width: normalColumns * 200 + specialColumnCount * 100+2,
-                      currentPage: currentPage,
-                      totalPages: totalPages,
-                      rowsPerPage: rowsPerPage,
-                      rowsPerPageOptions: widget.rowsPerPageOptions,
-                      onRowsPerPageChanged: (value) {
-                        setState(() {
-                          rowsPerPage = value;
-                          currentPage =
-                          1; // Reset to the first page when rows per page changes
-                        });
                       },
-                      onPageChanged: (page) {
-                        setState(() {
-                          currentPage = page;
-                        });
-                      },
-                      onNext: () {
-                        setState(() {
-                          if (currentPage < totalPages) {
-                            currentPage++;
-                          }
-                        });
-                      },
-                      onPrevious: () {
-                        setState(() {
-                          if (currentPage > 1) {
-                            currentPage--;
-                          }
-                        });
-                      },
-                      onPageSelected: (page) {
-                        setState(() {
-                          currentPage = page;
-                        });
-                      },
-                      showRowsPerPage: widget.showRowsPerPage,
                     ),
-                ],
+                    if (widget.customRow != null && !widget.isCustomRowFixed)
+                      Container(
+                          height: 60,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: const DigitColors().light.genericDivider,
+                            ),
+                            color: const DigitColors().light.paperPrimary,
+                          ),
+                          child: widget.customRow!),
+                    if(widget.showPagination)
+                      TableFooter(
+                        width: normalColumns * 200 + specialColumnCount * 100+2,
+                        currentPage: currentPage,
+                        totalPages: totalPages,
+                        rowsPerPage: rowsPerPage,
+                        rowsPerPageOptions: widget.rowsPerPageOptions,
+                        onRowsPerPageChanged: (value) {
+                          setState(() {
+                            rowsPerPage = value;
+                            currentPage =
+                            1; // Reset to the first page when rows per page changes
+                          });
+                        },
+                        onPageChanged: (page) {
+                          setState(() {
+                            currentPage = page;
+                          });
+                        },
+                        onNext: () {
+                          setState(() {
+                            if (currentPage < totalPages) {
+                              currentPage++;
+                            }
+                          });
+                        },
+                        onPrevious: () {
+                          setState(() {
+                            if (currentPage > 1) {
+                              currentPage--;
+                            }
+                          });
+                        },
+                        onPageSelected: (page) {
+                          setState(() {
+                            currentPage = page;
+                          });
+                        },
+                        showRowsPerPage: widget.showRowsPerPage,
+                      ),
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-        _buildFrozenColumns(_scrollOffset, context),
-        if (widget.customRow != null && widget.isCustomRowFixed)
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: Container(
-                height: 60,
-                width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: const DigitColors().light.genericDivider,
+          _buildFrozenColumns(_scrollOffset, context),
+          if (widget.customRow != null && widget.isCustomRowFixed)
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Container(
+                  height: 60,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: const DigitColors().light.genericDivider,
+                    ),
+                    color: const DigitColors().light.paperPrimary,
                   ),
-                  color: const DigitColors().light.paperPrimary,
-                ),
-                child: widget.customRow!),
-          ),
-        if (widget.stickyHeader)
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            child: TableHeader(
-              columns: widget.columns,
-              sortedColumnIndex: sortedColumnIndex,
-              sortOrder: sortOrder,
-              enabledBorder: widget.enableBorder,
-              onSort: (index, order) {
-                setState(() {
-                  if (sortedColumnIndex == index) {
-                    sortOrder = sortOrder == SortOrder.ascending
-                        ? SortOrder.descending
-                        : SortOrder.ascending;
-                  } else {
-                    sortedColumnIndex = index;
-                    sortOrder = SortOrder.ascending;
-                  }
-                  _sortRows();
-                  currentPage = 1;
-                });
-              },
-              withColumnDividers: widget.withColumnDividers,
-              headerCheckboxValue: _headerCheckboxValue,
-              headerCheckboxIndeterminate: _headerCheckboxIndeterminate, // Pass down
-              onHeaderCheckboxChanged: _onHeaderCheckboxChanged,
+                  child: widget.customRow!),
             ),
-          ),
+          if (widget.stickyHeader)
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              child: TableHeader(
+                columns: widget.columns,
+                sortedColumnIndex: sortedColumnIndex,
+                sortOrder: sortOrder,
+                enabledBorder: widget.enableBorder,
+                onSort: (index, order) {
+                  setState(() {
+                    if (sortedColumnIndex == index) {
+                      sortOrder = sortOrder == SortOrder.ascending
+                          ? SortOrder.descending
+                          : SortOrder.ascending;
+                    } else {
+                      sortedColumnIndex = index;
+                      sortOrder = SortOrder.ascending;
+                    }
+                    _sortRows();
+                    currentPage = 1;
+                  });
+                },
+                withColumnDividers: widget.withColumnDividers,
+                headerCheckboxValue: _headerCheckboxValue,
+                headerCheckboxIndeterminate: _headerCheckboxIndeterminate, // Pass down
+                onHeaderCheckboxChanged: _onHeaderCheckboxChanged,
+              ),
+            ),
 
-      ],
+        ],
+      ),
     );
   }
 }

@@ -473,96 +473,102 @@ List<Story> tableStories() {
     ),
     Story(
       name: 'Molecule/Table/Simple Table with large list',
-      builder: (context) => DigitTable(
-        showPagination: context.knobs.boolean(label: 'Show Pagination', initial: true),
-        stickyHeader:
-        context.knobs.boolean(label: 'Sticky Header', initial: false),
-        alternateRowColor:
-        context.knobs.boolean(label: 'Alternate Row Color', initial: false),
-        withRowDividers:
-        context.knobs.boolean(label: 'With Row Dividers', initial: true),
-        withColumnDividers: context.knobs
-            .boolean(label: 'With Column Dividers', initial: false),
-        enableBorder:
-        context.knobs.boolean(label: 'Enable Border', initial: false),
-        columns: [
-          DigitTableColumn(
-            cellValue: 'first',
-            header: 'Column A',
-            type: ColumnType.text,
-          ),
-          DigitTableColumn(
-            header: 'Column B',
-            cellValue: 'second',
-            type: ColumnType.text,
-          ),
-          DigitTableColumn(
-            cellValue: 'third',
-            header: 'Column C',
-            type: ColumnType.text,
-          ),
-          DigitTableColumn(
-            cellValue: 'forth',
-            header: 'Column D',
-            type: ColumnType.text,
-          ),
-          DigitTableColumn(
-            cellValue: 'fifth',
-            header: 'Column E',
-            type: ColumnType.text,
-          ),
-          DigitTableColumn(
-            cellValue: 'six',
-            header: 'Column F',
-            type: ColumnType.text,
+      builder: (context) => ScrollableContent(
+        children: [
+          DigitTable(
+            tableHeight: 400,
+            tableWidth: 500,
+            showPagination: context.knobs.boolean(label: 'Show Pagination', initial: false),
+            stickyHeader:
+            context.knobs.boolean(label: 'Sticky Header', initial: false),
+            alternateRowColor:
+            context.knobs.boolean(label: 'Alternate Row Color', initial: false),
+            withRowDividers:
+            context.knobs.boolean(label: 'With Row Dividers', initial: true),
+            withColumnDividers: context.knobs
+                .boolean(label: 'With Column Dividers', initial: false),
+            enableBorder:
+            context.knobs.boolean(label: 'Enable Border', initial: false),
+            columns: [
+              DigitTableColumn(
+                cellValue: 'first',
+                header: 'Column A',
+                type: ColumnType.text,
+              ),
+              DigitTableColumn(
+                header: 'Column B',
+                cellValue: 'second',
+                type: ColumnType.text,
+              ),
+              DigitTableColumn(
+                cellValue: 'third',
+                header: 'Column C',
+                type: ColumnType.text,
+              ),
+              DigitTableColumn(
+                cellValue: 'forth',
+                header: 'Column D',
+                type: ColumnType.text,
+              ),
+              DigitTableColumn(
+                cellValue: 'fifth',
+                header: 'Column E',
+                type: ColumnType.text,
+              ),
+              DigitTableColumn(
+                cellValue: 'six',
+                header: 'Column F',
+                type: ColumnType.text,
+              ),
+            ],
+            rows: List.generate(100, (index) {
+              return DigitTableRow(tableRow: [
+                DigitTableData(
+                  'Row ${index + 1} A',
+                  cellKey: 'first',
+                  callBack: (data) {
+                    print(data);
+                  },
+                ),
+                DigitTableData(
+                  'Row ${index + 1} B',
+                  cellKey: 'second',
+                  callBack: (data) {
+                    print(data);
+                  },
+                ),
+                DigitTableData(
+                  'Row ${index + 1} C',
+                  cellKey: 'third',
+                  callBack: (data) {
+                    print(data);
+                  },
+                ),
+                DigitTableData(
+                  'Row ${index + 1} D',
+                  cellKey: 'forth',
+                  callBack: (data) {
+                    print(data);
+                  },
+                ),
+                DigitTableData(
+                  'Row ${index + 1} E',
+                  cellKey: 'fifth',
+                  callBack: (data) {
+                    print(data);
+                  },
+                ),
+                DigitTableData(
+                  'Row ${index + 1} F',
+                  cellKey: 'six',
+                  callBack: (data) {
+                    print(data);
+                  },
+                ),
+              ]);
+            }),
           ),
         ],
-        rows: List.generate(100, (index) {
-          return DigitTableRow(tableRow: [
-            DigitTableData(
-              'Row ${index + 1} A',
-              cellKey: 'first',
-              callBack: (data) {
-                print(data);
-              },
-            ),
-            DigitTableData(
-              'Row ${index + 1} B',
-              cellKey: 'second',
-              callBack: (data) {
-                print(data);
-              },
-            ),
-            DigitTableData(
-              'Row ${index + 1} C',
-              cellKey: 'third',
-              callBack: (data) {
-                print(data);
-              },
-            ),
-            DigitTableData(
-              'Row ${index + 1} D',
-              cellKey: 'forth',
-              callBack: (data) {
-                print(data);
-              },
-            ),
-            DigitTableData(
-              'Row ${index + 1} E',
-              cellKey: 'fifth',
-              callBack: (data) {
-                print(data);
-              },
-            ),
-            DigitTableData(
-              'Row ${index + 1} F',
-              cellKey: 'six',
-              callBack: (data) {
-                print(data);
-              },
-            ),
-          ]);
-        }),
       ),
     ),
     Story(
