@@ -62,9 +62,4 @@ class DigitBreadCrumbThemeData extends ThemeExtension<DigitBreadCrumbThemeData> 
     );
 
   }
-  String _lerpString(String a, String b, double t) {
-    /// Interpolate between two strings `a` and `b` based on `t`
-    /// For simplicity, you can directly return one of the strings if `t` is 0 or 1
-    return t < 0.5 ? a : b;
-  }
 }

@@ -22,7 +22,6 @@ import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/theme/ComponentTheme/checkbox_theme.dart';
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:flutter/material.dart';
-import '../../theme/ComponentTheme/chip_theme.dart';
 import '../../utils/utils.dart';
 
 class DigitCheckbox extends StatefulWidget {

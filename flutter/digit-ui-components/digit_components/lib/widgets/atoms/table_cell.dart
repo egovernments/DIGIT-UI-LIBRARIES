@@ -66,11 +66,8 @@ class DigitTableCell extends StatelessWidget {
           constraints: const BoxConstraints(
             maxWidth: 168,
           ),
-          child: const DigitDropdown(
-            items: [
-              DropdownItem(name: 'text1', code: '1'),
-              DropdownItem(name: 'text2', code: '2')
-            ],
+          child: DigitDropdown(
+            items: cellData.items ?? [],
           ),
         );
 
@@ -97,7 +94,7 @@ class DigitTableCell extends StatelessWidget {
             alignment: Alignment.topRight,
             child: Text(
               cellData.label,
-              style: const TextStyle(fontFamily: 'RobotoMono'),
+              style: textTheme.bodyS.copyWith(color: theme.colorTheme.text.primary),
             ),
           ),
         );
@@ -189,6 +186,7 @@ class DigitTableData {
   final TextStyle? style;
   late final dynamic value;
   final String cellKey;
+  final List<DropdownItem>? items;
   ValueChanged<DigitTableData>? callBack;
   final Widget? widget;
 
@@ -197,6 +195,7 @@ class DigitTableData {
         this.style,
         this.value,
         this.callBack,
+        this.items,
         required this.cellKey,
         this.widget,
       });

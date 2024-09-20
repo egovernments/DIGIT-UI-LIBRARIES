@@ -46,6 +46,7 @@ class DigitNumericFormInput extends BaseDigitFormInput {
     final FocusNode? focusNode,
     final int minValue = 0,
     final int maxValue = 100,
+    final double suffixPrefixWidth = 100,
     final List<TextInputFormatter>? inputFormatters,
     final String? errorMessage,
     final void Function()? onFocusLost,
@@ -75,6 +76,7 @@ class DigitNumericFormInput extends BaseDigitFormInput {
     errorMessage: errorMessage,
     inputFormatters: inputFormatters,
     onFocusLost: onFocusLost,
+    suffixPrefixWidth: suffixPrefixWidth,
   );
 
   @override
@@ -95,12 +97,10 @@ class _DigitNumericFormInputState extends BaseDigitFormInputState {
         /// Remove the text selection
         controller.selection = const TextSelection.collapsed(offset: 0);
       }
-      if(widget.onChange != null){
+      if (widget.onChange != null) {
         widget.onChange!(controller.text);
       }
-
     });
-
   }
 
   @override
@@ -116,7 +116,7 @@ class _DigitNumericFormInputState extends BaseDigitFormInputState {
         /// Remove the text selection
         controller.selection = const TextSelection.collapsed(offset: 0);
       }
-      if(widget.onChange != null){
+      if (widget.onChange != null) {
         widget.onChange!(controller.text);
       }
     });

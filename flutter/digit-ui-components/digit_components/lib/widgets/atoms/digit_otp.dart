@@ -119,6 +119,11 @@ class DigitOTPInputState extends State<DigitOTPInput> {
 
   @override
   void dispose() {
+    for (var focusNode in _focusNodes) {
+         focusNode?.removeListener(() => handleFocusChange);
+         focusNode?.dispose();
+     }
+
     for (var controller in _textControllers) {
       controller?.dispose();
     }

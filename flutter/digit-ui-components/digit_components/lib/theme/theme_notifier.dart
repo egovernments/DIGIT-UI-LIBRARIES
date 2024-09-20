@@ -15,19 +15,17 @@ class ThemeNotifier extends ChangeNotifier {
   }
 
   ThemeData loadThemeData(BuildContext context) {
-    if (_themeMode == ThemeMode.dark) {
-      return DigitExtendedTheme.instance.getDarkTheme();
-    } else if (_themeMode == ThemeMode.light) {
-      return DigitExtendedTheme.instance.getLightTheme();
-    } else {
-      /// Follow system settings or fallback to light theme
-      final brightness = MediaQuery.of(context).platformBrightness;
-      if (brightness == Brightness.dark) {
-        return DigitExtendedTheme.instance.getDarkTheme(
-        );
-      } else {
+    switch (_themeMode) {
+      case ThemeMode.dark:
+        return DigitExtendedTheme.instance.getDarkTheme();
+      case ThemeMode.light:
         return DigitExtendedTheme.instance.getLightTheme();
-      }
+      default:
+      /// Follow system settings or fallback to light theme
+        final brightness = MediaQuery.of(context).platformBrightness;
+        return brightness == Brightness.dark
+            ? DigitExtendedTheme.instance.getDarkTheme()
+            : DigitExtendedTheme.instance.getLightTheme();
     }
   }
 }
