@@ -1,3 +1,4 @@
+import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/widgets/molecules/digit_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
@@ -8,18 +9,34 @@ List<Story> sliderStories() {
     Story(
       name: 'Basic Toggle Slider',
       builder: (context) => RightSideSlider(
-        expandedContent: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        expandedContentAlignment: MainAxisAlignment.spaceBetween,
+        footer: Column(
           children: [
-            Text("Expanded Content"),
-            ElevatedButton(
-              onPressed: () {
-                print("Action triggered!");
-              },
-              child: Text("Trigger Action"),
-            ),
+            DigitButton(label: 'Action', onPressed: (){}, type: DigitButtonType.secondary, size: DigitButtonSize.large, mainAxisSize: MainAxisSize.max,)
           ],
         ),
+        sections: [
+          Section(
+            content: [
+              Text('Item 1.1'),
+              Text('Item 1.2'),
+              Text('Item 1.3'),
+            ],
+          ),
+          Section(
+            content: [
+              Text('Item 2.1'),
+              Text('Item 2.2'),
+            ],
+          ),
+          Section(
+            content: [
+              Text('Item 3.1'),
+              Text('Item 3.2'),
+              Text('Item 3.3'),
+            ],
+          ),
+        ],
       ),
     ),
     Story(
@@ -34,18 +51,13 @@ List<Story> sliderStories() {
             ],
           ),
         ),
-        footer: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              Text('Footer Content',
-                  style: TextStyle(fontSize: 16, color: Colors.grey)),
-            ],
-          ),
+        footer: Column(
+          children: [
+            DigitButton(label: 'Action', onPressed: (){}, type: DigitButtonType.secondary, size: DigitButtonSize.large, mainAxisSize: MainAxisSize.max,)
+          ],
         ),
         sections: [
           Section(
-            title: 'Section 1',
             content: [
               Text('Item 1.1'),
               Text('Item 1.2'),
@@ -53,14 +65,12 @@ List<Story> sliderStories() {
             ],
           ),
           Section(
-            title: 'Section 2',
             content: [
               Text('Item 2.1'),
               Text('Item 2.2'),
             ],
           ),
           Section(
-            title: 'Section 3',
             content: [
               Text('Item 3.1'),
               Text('Item 3.2'),
@@ -68,18 +78,6 @@ List<Story> sliderStories() {
             ],
           ),
         ],
-        expandedContent: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text("Expanded Content"),
-            ElevatedButton(
-              onPressed: () {
-                print("Action triggered!");
-              },
-              child: Text("Trigger Action"),
-            ),
-          ],
-        ),
       ),
     ),
 
@@ -89,11 +87,6 @@ List<Story> sliderStories() {
       builder: (context) => ExternalButtonSliderExample(),
     ),
 
-    // Button to Close the Slider
-    Story(
-      name: 'Close Button Slider Example',
-      builder: (context) => CloseButtonSliderExample(),
-    ),
 
     // Combined Open and Close Buttons
     Story(
@@ -128,6 +121,7 @@ class _ExternalButtonSliderExampleState
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisSize: MainAxisSize.max,
       children: [
         ElevatedButton(
           onPressed: openSlider,
@@ -135,60 +129,54 @@ class _ExternalButtonSliderExampleState
         ),
         RightSideSlider(
           key: _sliderKey,
-          expandedContent: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text("Expanded Content"),
-              ElevatedButton(
-                onPressed: () {
-                  print("Action triggered!");
-                },
-                child: Text("Trigger Action"),
-              ),
-            ],
+          height: 600,
+          header: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Text('Header Content',
+                    style:
+                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              ],
+            ),
           ),
+          footer: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Text('Footer Content',
+                    style: TextStyle(fontSize: 16, color: Colors.grey)),
+              ],
+            ),
+          ),
+          sections: [
+            Section(
+              content: [
+                Text('Item 1.1'),
+                Text('Item 1.2'),
+                Text('Item 1.3'),
+              ],
+            ),
+            Section(
+              content: [
+                Text('Item 2.1'),
+                Text('Item 2.2'),
+              ],
+            ),
+            Section(
+              content: [
+                Text('Item 3.1'),
+                Text('Item 3.2'),
+                Text('Item 3.3'),
+              ],
+            ),
+          ],
         ),
       ],
     );
   }
 }
 
-// Close Button Slider Example
-class CloseButtonSliderExample extends StatefulWidget {
-  @override
-  _CloseButtonSliderExampleState createState() =>
-      _CloseButtonSliderExampleState();
-}
-
-class _CloseButtonSliderExampleState extends State<CloseButtonSliderExample> {
-  final GlobalKey<RightSideSliderState> _sliderKey =
-      GlobalKey<RightSideSliderState>();
-
-  void closeSlider() {
-    _sliderKey.currentState?.closeSlider();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        RightSideSlider(
-          key: _sliderKey,
-          expandedContent: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text("Expanded Content"),
-              ElevatedButton(
-                onPressed: closeSlider,
-                child: Text("Close Slider"),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-}
 
 // Combined Slider Example
 class CombinedSliderExample extends StatefulWidget {
@@ -210,30 +198,62 @@ class _CombinedSliderExampleState extends State<CombinedSliderExample> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Row(
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        ElevatedButton(
-          onPressed: openSlider,
-          child: Text("Open Slider"),
-        ),
-        ElevatedButton(
-          onPressed: closeSlider,
-          child: Text("Close Slider"),
+        InkWell(
+          onTap: (){
+            _sliderKey.currentState?.toggleSlider();
+          },
+          child: const Icon(Icons.menu),
         ),
         RightSideSlider(
+          skipCollapsedState: true,
+          height: 800,
           key: _sliderKey,
-          expandedContent: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text("Expanded Content"),
-              ElevatedButton(
-                onPressed: () {
-                  print("Action triggered!");
-                },
-                child: Text("Trigger Action"),
-              ),
-            ],
+          header: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Text('Header Content',
+                    style:
+                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              ],
+            ),
           ),
+          footer: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Text('Footer Content',
+                    style: TextStyle(fontSize: 16, color: Colors.grey)),
+              ],
+            ),
+          ),
+          sections: [
+            Section(
+              content: [
+                Text('Item 1.1'),
+                Text('Item 1.2'),
+                Text('Item 1.3'),
+              ],
+            ),
+            Section(
+              content: [
+                Text('Item 2.1'),
+                Text('Item 2.2'),
+              ],
+            ),
+            Section(
+              content: [
+                Text('Item 3.1'),
+                Text('Item 3.2'),
+                Text('Item 3.3'),
+              ],
+            ),
+          ],
         ),
       ],
     );
@@ -275,18 +295,47 @@ class _DynamicContentSliderExampleState
         ),
         RightSideSlider(
           key: _sliderKey,
-          expandedContent: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(_content),
-              ElevatedButton(
-                onPressed: () {
-                  print("Action triggered!");
-                },
-                child: Text("Trigger Action"),
-              ),
-            ],
+          header: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Text('Header Content',
+                    style:
+                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              ],
+            ),
           ),
+          footer: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Text('Footer Content',
+                    style: TextStyle(fontSize: 16, color: Colors.grey)),
+              ],
+            ),
+          ),
+          sections: [
+            Section(
+              content: [
+                Text('Item 1.1'),
+                Text('Item 1.2'),
+                Text('Item 1.3'),
+              ],
+            ),
+            Section(
+              content: [
+                Text('Item 2.1'),
+                Text('Item 2.2'),
+              ],
+            ),
+            Section(
+              content: [
+                Text('Item 3.1'),
+                Text('Item 3.2'),
+                Text('Item 3.3'),
+              ],
+            ),
+          ],
         ),
       ],
     );

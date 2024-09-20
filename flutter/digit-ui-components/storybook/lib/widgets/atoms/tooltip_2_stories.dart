@@ -7,7 +7,11 @@ import 'package:flutter/material.dart';
 List<Story> toolTip2Stories() {
   return [
     Story(
-      name: 'Atom/Tool Tip2/default',
+      name: 'Atom/Tool Tip/Simple',
+      builder: (context) => Bubble(description:  'Hello Tooltip', triggerBox: ElementBox(w: 0, h: 0, x: 0, y: 0)),
+    ),
+    Story(
+      name: 'Atom/Tool Tip/With Arrow',
       builder: (context) => DigitTooltip(
         tooltipContent: Text(
           'Hello, Tooltip!',
@@ -54,7 +58,7 @@ List<Story> toolTip2Stories() {
       ),
     ),
     Story(
-      name: 'Atom/Tool Tip2/long text',
+      name: 'Atom/Tool Tip/long text',
       builder: (context) => DigitTooltip(
         tooltipContent:  Text(
           'Hello, Tooltip!Hello, Tooltip!Hello, Tooltip!Hello, Tooltip!Hello, Tooltip!Hello, Tooltip!Hello, Tooltip!Hello, Tooltip!Hello, Tooltip!Hello, Tooltip!Hello, Tooltip!Hello, Tooltip!Hello, Tooltip!Hello, Tooltip!Hello, Tooltip!Hello, Tooltip!Hello, Tooltip!Hello, Tooltip!Hello, Tooltip!Hello, Tooltip!',
@@ -101,7 +105,7 @@ List<Story> toolTip2Stories() {
       ),
     ),
     Story(
-      name: 'Atom/Tool Tip2/widget',
+      name: 'Atom/Tool Tip/widget',
       builder: (context) => DigitTooltip(
         tooltipContent: Column(
           mainAxisSize: MainAxisSize.min,

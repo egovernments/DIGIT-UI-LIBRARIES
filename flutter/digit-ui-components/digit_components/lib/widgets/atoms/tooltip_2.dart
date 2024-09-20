@@ -1,20 +1,27 @@
 import 'package:digit_ui_components/digit_components.dart';
+import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:flutter/material.dart';
 
 class DigitTooltip extends StatefulWidget {
   final Widget child;
-  final Widget tooltipContent;
+  final String? contentHeading;
+  final String? contentDescription;
+  final Widget? tooltipContent;
   final TooltipPosition tooltipPosition;
   final double distance;
   final TooltipTrigger trigger;
+  final Duration timeout;
 
   const DigitTooltip({
     Key? key,
     required this.child,
-    required this.tooltipContent,
+    this.tooltipContent,
+    this.contentHeading,
+    this.contentDescription,
     this.tooltipPosition = TooltipPosition.topCenter,
     this.distance = 8.0,
     this.trigger = TooltipTrigger.onHover,
+    this.timeout = Duration.zero,
   }) : super(key: key);
 
   @override
@@ -88,8 +95,9 @@ class _DigitTooltipState extends State<DigitTooltip>
             child: Bubble(
               key: _widgetKey,
               triggerBox: _triggerBox,
-              padding: const EdgeInsets.all(10),
-              child: widget.tooltipContent,
+              heading: widget.contentHeading,
+              description: widget.contentDescription,
+              content: widget.tooltipContent,
             ),
           ),
         );
@@ -151,7 +159,9 @@ class _DigitTooltipState extends State<DigitTooltip>
       builder: (context) => TooltipOverlay(
         key: _overlayKey,
         toolTipElementsDisplay: toolTipElementsDisplay,
-        content: widget.tooltipContent,
+        contentHeading: widget.contentHeading,
+        contentDescription: widget.contentDescription,
+        tooltipContent: widget.tooltipContent,
         triggerBox: _triggerBox,
         arrowBox: _arrowBox,
       ),
@@ -160,13 +170,12 @@ class _DigitTooltipState extends State<DigitTooltip>
     if (_overlayEntry != null) {
       overlayState.insert(_overlayEntry!);
     }
-    Future.delayed(const Duration(seconds: 5), () {
-      _hideOverlay();
-    });
-    // Add timeout for the tooltip to disapear after a few seconds
-    // if (widget.timeout > Duration.zero) {
-    //   await Future.delayed(widget.timeout).whenComplete(_hideOverlay);
-    // }
+
+    //Add timeout for the tooltip to disapear after a few seconds
+
+    if (widget.timeout > Duration.zero) {
+      await Future.delayed(widget.timeout).whenComplete(_hideOverlay);
+    }
   }
 
   /// Method to hide the tooltip
@@ -199,7 +208,9 @@ class _DigitTooltipState extends State<DigitTooltip>
 }
 
 class TooltipOverlay extends StatefulWidget {
-  final Widget content;
+  final String? contentHeading;
+  final String? contentDescription;
+  final Widget? tooltipContent;
   /// [triggerBox] Box that contains the trigger
   final ElementBox triggerBox;
 
@@ -210,7 +221,9 @@ class TooltipOverlay extends StatefulWidget {
 
   const TooltipOverlay({
     super.key,
-    required this.content,
+    this.tooltipContent,
+    this.contentHeading,
+    this.contentDescription,
     required this.triggerBox,
     required this.arrowBox,
     required this.toolTipElementsDisplay,
@@ -250,7 +263,9 @@ class TooltipOverlayState extends State<TooltipOverlay> {
           child: Bubble(
             triggerBox: widget.triggerBox,
             radius: widget.toolTipElementsDisplay.radius,
-            child: widget.content,
+            heading: widget.contentHeading,
+            description: widget.contentDescription,
+            content: widget.tooltipContent,
           ),
         ),
         Positioned(
@@ -328,12 +343,16 @@ class Bubble extends StatefulWidget {
   final double maxWidth;
   final ElementBox triggerBox;
   final BorderRadiusGeometry? radius;
-  final Widget child;
+  final String? heading;
+  final String? description;
+  final Widget? content;
 
   const Bubble({
-    this.padding = const EdgeInsets.all(10.0),
-    this.radius = const BorderRadius.all(Radius.circular(8)),
-    required this.child,
+    this.padding = const EdgeInsets.all(spacer2),
+    this.radius = const BorderRadius.all(Radius.circular(spacer1)),
+    this.description,
+    this.content,
+    this.heading,
     required this.triggerBox,
     this.maxWidth = 300.0,
     super.key,
@@ -346,6 +365,8 @@ class Bubble extends StatefulWidget {
 class _BubbleState extends State<Bubble> {
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final textTheme = theme.digitTextTheme(context);
     return Material(
       color: Colors.transparent,
       child: Opacity(
@@ -354,10 +375,30 @@ class _BubbleState extends State<Bubble> {
           constraints: BoxConstraints(maxWidth: widget.maxWidth),
           decoration: BoxDecoration(
             borderRadius: widget.radius,
-            color: const DigitColors().light.genericInputBorder,
+            color: theme.colorTheme.generic.inputBorder,
           ),
           padding: widget.padding,
-          child: widget.child,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (widget.heading != null)
+                Text(
+                  widget.heading!,
+                  style: textTheme.headingS.copyWith(
+                    color: theme.colorTheme.paper.primary,
+                  ),
+                ),
+              if (widget.description != null)
+                Text(
+                  widget.description!,
+                  style: textTheme.bodyS.copyWith(
+                    color: theme.colorTheme.paper.primary,
+                  ),
+                ),
+              if (widget.content != null)
+                widget.content!,
+            ]
+          ),
         ),
       ),
     );
@@ -589,7 +630,7 @@ class PositionManager {
         w: arrowBox.w,
         h: arrowBox.h,
         x: (triggerBox.x + triggerBox.w - arrowBox.h),
-        y: (triggerBox.y - distance - arrowBox.h ),
+        y: (triggerBox.y - distance - arrowBox.h ).floorToDouble(),
       ),
       bubble: ElementBox(
         w: arrowBox.w,
@@ -619,7 +660,7 @@ class PositionManager {
         w: overlayBox.w,
         h: overlayBox.h,
         x: triggerBox.x,
-        y: (triggerBox.y + triggerBox.h + distance +arrowBox.w),
+        y: (triggerBox.y + triggerBox.h + distance +arrowBox.w).floorToDouble(),
       ),
       position: TooltipPosition.bottomStart,
       radius: BorderRadius.only(
@@ -726,9 +767,8 @@ class PositionManager {
       arrow: ElementBox(
         w: overlayBox.w,
         h: overlayBox.h,
-        x: (triggerBox.x - overlayBox.x - distance - arrowBox.h)
-            .floorToDouble(),
-        y: (triggerBox.y +triggerBox.h - arrowBox.h).floorToDouble(),
+        x: (triggerBox.x - overlayBox.x - distance - arrowBox.h).floorToDouble(),
+        y: (triggerBox.y +triggerBox.h - arrowBox.h),
       ),
       bubble: ElementBox(
         w: overlayBox.w,
