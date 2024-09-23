@@ -1620,10 +1620,10 @@ WithAddCheckboxAndSelectionState.args = {
   actionButtonLabel: "",
 };
 
-export const WithAddChecboxAndSelectionStateAndInitialSelectedRows = Template.bind(
+export const WithAddCheckboxAndSelectionStateAndInitialSelectedRows = Template.bind(
   {}
 );
-WithAddChecboxAndSelectionStateAndInitialSelectedRows.args = {
+WithAddCheckboxAndSelectionStateAndInitialSelectedRows.args = {
   headerData: headerData,
   onSelectedRowsChange: (e) => {
     console.log("These are the selected rows", e);
@@ -1646,10 +1646,10 @@ WithAddChecboxAndSelectionStateAndInitialSelectedRows.args = {
   actionButtonLabel: "",
 };
 
-export const WithAddChecboxAndSelectionStateAndInitialSelectedRowsWithActions = Template.bind(
+export const WithAddCheckboxAndSelectionStateAndInitialSelectedRowsWithActions = Template.bind(
   {}
 );
-WithAddChecboxAndSelectionStateAndInitialSelectedRowsWithActions.args = {
+WithAddCheckboxAndSelectionStateAndInitialSelectedRowsWithActions.args = {
   headerData: headerData,
   onSelectedRowsChange: (e) => {
     console.log("These are the selected rows", e);
@@ -1672,10 +1672,10 @@ WithAddChecboxAndSelectionStateAndInitialSelectedRowsWithActions.args = {
   actionButtonLabel: "",
 };
 
-export const WithAddChecboxAndSelectionStateAndCustomActions = Template.bind(
+export const WithAddCheckboxAndSelectionStateAndCustomActions = Template.bind(
   {}
 );
-WithAddChecboxAndSelectionStateAndCustomActions.args = {
+WithAddCheckboxAndSelectionStateAndCustomActions.args = {
   headerData: headerData,
   onSelectedRowsChange: (e) => {
     console.log("These are the selected rows", e);

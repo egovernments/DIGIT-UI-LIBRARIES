@@ -164,10 +164,15 @@ TableCell.propTypes = {
   className: PropTypes.string,
   style: PropTypes.object,
   children: PropTypes.node,
-  isHeader:PropTypes.bool,
-  isFooter:PropTypes.bool,
-  colSpan:PropTypes.number,
-  columnType:PropTypes.string
+  isHeader: PropTypes.bool,
+  isFooter: PropTypes.bool,
+  colSpan: PropTypes.number,
+  columnType: PropTypes.string,
+  cellData: PropTypes.any,
+  cellref: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+  ]),
 };
 
 TableCell.defaultProps = {
