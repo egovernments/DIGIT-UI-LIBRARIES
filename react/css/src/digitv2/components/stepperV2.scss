@@ -110,18 +110,18 @@
     height: 0.125rem;
 
     @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
-      min-width: 6.313rem;
+      /*min-width: 6.313rem;*/
       max-width: 39.438rem;
     }
 
     @media (max-aspect-ratio: 9/16) {
-      min-width: 4.313rem;
+      /*min-width: 4.313rem;*/
       max-width: 16.875rem;
       top: 0.875rem;
     }
 
     @media (min-aspect-ratio: 3/4) {
-      min-width: 5.313rem;
+      /*min-width: 5.313rem;*/
       max-width: 82.688rem;
     }
 

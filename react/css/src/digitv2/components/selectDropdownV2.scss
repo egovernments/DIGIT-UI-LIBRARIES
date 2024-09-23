@@ -56,7 +56,6 @@
       @apply absolute z-10 h-full outline-none;
       width:calc(100%- (theme(digitv2.spacers.spacer7)));
       background-color: transparent;
-      font-size: theme(digitv2.spacers.spacer4);
       padding-top: theme(digitv2.spacers.spacer2);
       padding-bottom: theme(digitv2.spacers.spacer2);
       padding-left: theme(digitv2.spacers.spacer3);
@@ -294,6 +293,7 @@
   }
 }
 .digit-dropdown-employee-select-wrap--elipses {
+  @extend .typography.body-l;
   @apply overflow-hidden whitespace-no-wrap;
   width:calc(100%- (theme(digitv2.spacers.spacer7)));
   text-overflow: ellipsis;

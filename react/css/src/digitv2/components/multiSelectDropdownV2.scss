@@ -27,6 +27,7 @@
       @extend .typography.body-l;
       @apply absolute top-0 left-0 p-sm min-h-full min-w-full opacity-0;
       letter-spacing: theme(digitv2.spacers.spacer0);
+      padding-left: 1%;
       &:focus {
         @apply outline-none;
       }
@@ -386,14 +387,10 @@
   .digit-multiselectdropdown-master-active {
     .digit-multiselectdropdown-label {
       p {
+        @extend .typography.body-l;
         white-space: pre;
           margin: auto;
           margin-left: theme(digitv2.spacers.spacer0);
-          padding-left: 1%;
-          font-size: theme(digitv2.spacers.spacer4);
-          line-height: theme(digitv2.spacers.spacer6);
-          font-family: theme(digitv2.fontFamily.sans);
-          font-weight: theme(digitv2.fontWeight.regular);
           text-align: left;
       }
     }

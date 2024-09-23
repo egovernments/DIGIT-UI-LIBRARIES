@@ -5,6 +5,7 @@ import { Colors } from "../constants/colors/colorconstants";
 import { iconRender } from "../utils/iconRender";
 import { Spacers } from "../constants/spacers/spacers";
 import Divider from "./Divider";
+import StringManipulator from "./StringManipulator";
 
 const Accordion = ({
   title,
@@ -27,7 +28,7 @@ const Accordion = ({
   const [isOpen, setIsOpen] = useState(isOpenInitially);
 
   const iconColor = Colors.lightTheme.text.primary;
-  const toggleiconSize = Spacers.spacer8;
+  const toggleiconSize = Spacers.spacer6;
   const iconSize = Spacers.spacer6;
 
   const toggleAccordion = () => {
@@ -47,7 +48,7 @@ const Accordion = ({
         !hideCardBorder ? "border" : ""
       } ${!hideBorderRadius ? "borderRadius" : ""} ${
         !hideCardBg ? "cardBg" : ""
-      } ${!hideDivider && isOpen ? "divider" : ""} ${
+      } ${!hideDivider && isOpen ? "withDivider" : ""} ${
         hideDivider && isOpen ? "no-divider" : ""
       }`}
       style={customStyles}
@@ -70,17 +71,17 @@ const Accordion = ({
             {"."}
           </div>
         )}
-        <div className="digit-accordion-header-title">{title}</div>
+        <div className="digit-accordion-header-title">{StringManipulator("TOSENTENCECASE", title)}</div>
         <div
           className={`digit-accordion-toggle ${
             isOpen ? "animate-open" : "animate-close"
           }`}
         >
-          <SVG.ChevronLeft
+          <SVG.ArrowBackIos
             fill={iconColor}
             width={toggleiconSize}
             height={toggleiconSize}
-          ></SVG.ChevronLeft>
+          ></SVG.ArrowBackIos>
         </div>
       </div>
       <div className={`digit-accordion-content ${isOpen ? "open" : ""}`}>
@@ -173,7 +174,7 @@ AccordionWrapper.propTypes = {
 };
 
 AccordionWrapper.defaultProps = {
-  allowMultipleOpen: false,
+  allowMultipleOpen: true,
   addDivider: true,
   customClassName: "",
   customStyles: {},
