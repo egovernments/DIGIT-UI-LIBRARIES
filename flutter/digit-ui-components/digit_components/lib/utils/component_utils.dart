@@ -88,7 +88,7 @@ class DigitSyncDialogContent extends StatelessWidget {
       backgroundColor: const DigitColors().transparent,
       child: Center(
         child: Container(
-          padding: const EdgeInsets.all(spacer4),
+          padding: const EdgeInsets.all(spacer6),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(4),
               color: theme.colorTheme.paper.primary,
@@ -109,7 +109,7 @@ class DigitSyncDialogContent extends StatelessWidget {
               Icon(icon, size: 32, color: color),
               if(label != null)
                 ...[ const SizedBox(height: spacer4),
-                  Text(label!, style: labelStyle?.copyWith(color: color)),]
+                  Text(label!, style: labelStyle.copyWith(color: color)),]
             ],
           )
         ),

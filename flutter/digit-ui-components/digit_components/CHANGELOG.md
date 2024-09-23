@@ -1,3 +1,9 @@
+## 0.0.1+7
+* updated color and typography library
+* added location fetch bloc
+* added utils for date and time conversion
+* added utils function to show or hide dialog easily
+
 ## 0.0.1+6
 * enhanced multiselect dropdown to make it searchable
 * updated color and typography library
