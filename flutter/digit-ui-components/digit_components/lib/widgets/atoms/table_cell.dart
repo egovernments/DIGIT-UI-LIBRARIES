@@ -4,6 +4,7 @@ import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:digit_ui_components/widgets/atoms/switch.dart';
 import 'package:flutter/material.dart';
 
+import '../molecules/digit_table.dart';
 import 'digit_button.dart';
 import 'digit_tag.dart';
 
@@ -175,9 +176,13 @@ class DigitTableColumn {
 
 class DigitTableRow {
   final List<DigitTableData> tableRow;
+  final DigitTable? nestedTable; // Add nested table
+  final bool isExpandable; // Add a flag to indicate whether the row is expandable
 
   DigitTableRow({
     required this.tableRow,
+    this.nestedTable,
+    this.isExpandable = false,
   });
 }
 
