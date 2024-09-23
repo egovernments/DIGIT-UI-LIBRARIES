@@ -355,7 +355,7 @@ class _FileUploadWidgetState extends State<FileUploadWidget2> {
                 ],
               ),
               const SizedBox(
-                height: 12,
+                height: spacer4,
               ),
               if (isFileError)
                 InfoCard(
@@ -363,7 +363,7 @@ class _FileUploadWidgetState extends State<FileUploadWidget2> {
                     type: InfoType.error,
                     description: fileErrors[files[index]]!),
               const SizedBox(
-                height: 12,
+                height: spacer4,
               ),
               Row(
                 // mainAxisSize: MainAxisSize.min,
@@ -378,7 +378,7 @@ class _FileUploadWidgetState extends State<FileUploadWidget2> {
                       type: DigitButtonType.secondary,
                       size: DigitButtonSize.medium),
                   const SizedBox(
-                    width: spacer2,
+                    width: spacer4,
                   ),
                   DigitButton(
                       label: widget.downloadText,
@@ -494,7 +494,7 @@ class _FileUploadWidgetState extends State<FileUploadWidget2> {
                     // mainAxisSize: MainAxisSize.min,
                     children: [
                       SizedBox(
-                        width: MediaQuery.of(context).size.width*.13,
+                        width: MediaQuery.of(context).size.width*.10,
                         child: DigitButton(
                             label: widget.reUploadText,
                             onPressed: () {
@@ -509,7 +509,7 @@ class _FileUploadWidgetState extends State<FileUploadWidget2> {
                         width: spacer4,
                       ),
                       SizedBox(
-                        width: MediaQuery.of(context).size.width*.13,
+                        width: MediaQuery.of(context).size.width*.10,
                         child: DigitButton(
                             mainAxisSize: MainAxisSize.min,
                             label: widget.downloadText,

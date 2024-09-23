@@ -593,7 +593,7 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
                 ),
               ),
               const SizedBox(
-                width: spacer4,
+                width: spacer3,
               ),
               DigitButton(
                 //contentPadding: const EdgeInsets.symmetric(horizontal: spacer5),
@@ -655,22 +655,22 @@ class _FileUploadWidgetState extends State<FileUploadWidget>
                 ),
               ],
             ),
-          const SizedBox(height: spacer2),
+          const SizedBox(height: spacer3),
           widget.showPreview
               ? Wrap(
-            spacing: spacer2,
+            spacing: spacer3,
             children: List.generate(fileNames.length, (index) {
               return Padding(
-                padding: const EdgeInsets.only(bottom: 8.0),
+                padding: const EdgeInsets.only(bottom: spacer3),
                 child: _buildFilePreview(index, minWidth),
               );
             }),
           )
               : Wrap(
-            spacing: spacer2,
+            spacing: spacer3,
             children: List.generate(fileNames.length, (index) {
               return Padding(
-                padding: const EdgeInsets.only(bottom: spacer2),
+                padding: const EdgeInsets.only(bottom: spacer3),
                 child: fileErrors.containsKey(files[index])
                     ? DigitChip(
                   onClick: widget.onFileTap!= null ? () => widget.onFileTap!(files[index]) :widget.openFile
