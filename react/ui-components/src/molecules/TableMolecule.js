@@ -273,7 +273,7 @@ const TableMolecule = ({
                         {(header.type === "serialno" ||
                           header.type === "numeric" ||
                           header.type === "description" ||
-                          header.type === "text") && (
+                          header.type === "text") && isTableSortable && (
                           <span
                             className="sort-icon"
                             onClick={() => handleSort(index)}
@@ -282,27 +282,27 @@ const TableMolecule = ({
                               sortOrder === "ascending" ? (
                                 <CustomSVG.SortDown
                                   fill={"#363636"}
-                                  width={"24px"}
-                                  height={"24px"}
+                                  width={"16px"}
+                                  height={"16px"}
                                 />
                               ) : (
                                 <CustomSVG.SortUp
                                   fill={"#363636"}
-                                  width={"24px"}
-                                  height={"24px"}
+                                  width={"16px"}
+                                  height={"16px"}
                                 />
                               )
                             ) : sortOrder === "ascending" ? (
                               <CustomSVG.SortDown
                                 fill={"#363636"}
-                                width={"24px"}
-                                height={"24px"}
+                                width={"16px"}
+                                height={"16px"}
                               />
                             ) : (
                               <CustomSVG.SortUp
                                 fill={"#363636"}
-                                width={"24px"}
-                                height={"24px"}
+                                width={"16px"}
+                                height={"16px"}
                               />
                             )}
                           </span>
@@ -353,7 +353,7 @@ const TableMolecule = ({
                         {(header.type === "serialno" ||
                           header.type === "numeric" ||
                           header.type === "description" ||
-                          header.type === "text") && (
+                          header.type === "text") && isTableSortable && (
                           <span
                             className="sort-icon"
                             onClick={() => handleSort(index)}

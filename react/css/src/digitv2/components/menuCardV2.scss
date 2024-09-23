@@ -44,6 +44,25 @@
 
         .digit-menuacard-menuName {
             @extend .typography.heading-m;
+            font-family: theme(digitv2.fontFamily.sans);
+            font-style: theme(digitv2.fontStyle.normal);
+            font-weight: theme(digitv2.fontWeight.bold);
+            line-height: theme(digitv2.lineHeight.lineheight1);
+        
+            @media (max-aspect-ratio: 9/16) {
+              /* Media query for mobile */
+              font-size: theme(digitv2.fontSize.heading-m.mobile);
+            }
+        
+            @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+              /* Media query for tablets */
+              font-size: theme(digitv2.fontSize.heading-m.tablet);
+            }
+        
+            @media (min-aspect-ratio: 3/4) {
+              /* Media query for desktop */
+              font-size: theme(digitv2.fontSize.heading-m.desktop);
+            }
             line-height: normal;
             color: theme(digitv2.lightTheme.primary-2);
         }
