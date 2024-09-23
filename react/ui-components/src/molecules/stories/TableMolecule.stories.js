@@ -26,7 +26,7 @@ export default {
     onSelectedRowsChange: { control: "onchange" },
     addStickyFooter: { control: "boolean" },
     showSelectedState: { control: "boolean" },
-    tableTile: { control: "text" },
+    tableTitle: { control: "text" },
     tableDescription: { control: "text" },
     stickyFooterContent: { control: "object" },
     onRowClick: { control: "onchange" },
@@ -34,7 +34,7 @@ export default {
     actionButtonLabel: { control: "text" },
     actions: { control: "array" },
     headerStyles:{control:"object"},
-    footerStyles:{controle:"object"},
+    footerStyles:{control:"object"},
     bodyStyles:{control:"object"},
     tableStyles:{control:"object"},
     className:{control:"text"},
@@ -1199,7 +1199,7 @@ const commonArgs = {
   onSelectedRowsChange: ()=>{},
   addStickyFooter: false,
   showSelectedState: false,
-  tableTile: "",
+  tableTitle: "",
   tableDescription: "",
   stickyFooterContent: {},
   onRowClick:()=>{},
@@ -1251,7 +1251,7 @@ WithBorder.args = {
   onSelectedRowsChange: (e) => {
     console.log("These are the selected rows", e);
   },
-  tableTile: "",
+  tableTitle: "",
   tableDescription: "",
   showSelectedState: false,
   rows: rows,
@@ -1278,7 +1278,7 @@ WithHeaderDivider.args = {
   onRowClick: (row, index) => {
     console.log(row, index, "this row is clicked");
   },
-  tableTile: "",
+  tableTitle: "",
   tableDescription: "",
   showSelectedState: false,
   rows: rows,
@@ -1303,7 +1303,7 @@ WithOnlyColumnDivider.args = {
   onSelectedRowsChange: (e) => {
     console.log("These are the selected rows", e);
   },
-  tableTile: "",
+  tableTitle: "",
   tableDescription: "",
   showSelectedState: false,
   rows: rows,
@@ -1329,7 +1329,7 @@ WithColumnDividerAndHeaderDivider.args = {
   onSelectedRowsChange: (e) => {
     console.log("These are the selected rows", e);
   },
-  tableTile: "",
+  tableTitle: "",
   tableDescription: "",
   showSelectedState: false,
   rows: rows,
@@ -1355,7 +1355,7 @@ WithRowDivider.args = {
   onSelectedRowsChange: (e) => {
     console.log("These are the selected rows", e);
   },
-  tableTile: "",
+  tableTitle: "",
   tableDescription: "",
   showSelectedState: false,
   rows: rows,
@@ -1382,7 +1382,7 @@ WithAlternateBg.args = {
   onSelectedRowsChange: (e) => {
     console.log("These are the selected rows", e);
   },
-  tableTile: "",
+  tableTitle: "",
   tableDescription: "",
   showSelectedState: false,
   rows: rows,
@@ -1407,7 +1407,7 @@ WithAll.args = {
   onSelectedRowsChange: (e) => {
     console.log("These are the selected rows", e);
   },
-  tableTile: "",
+  tableTitle: "",
   tableDescription: "",
   showSelectedState: false,
   rows: rows,
@@ -1438,7 +1438,7 @@ WithStickyHeader.args = {
   onRowClick: (row, index) => {
     console.log(row, index, "this row is clicked");
   },
-  tableTile: "",
+  tableTitle: "",
   tableDescription: "",
   showSelectedState: false,
   rows: rows,
@@ -1461,7 +1461,7 @@ WithStickyFooter.args = {
   onSelectedRowsChange: (e) => {
     console.log("These are the selected rows", e);
   },
-  tableTile: "",
+  tableTitle: "",
   tableDescription: "",
   showSelectedState: false,
   rows: rows,
@@ -1484,7 +1484,7 @@ WithStickyFooterAndHeader.args = {
   onSelectedRowsChange: (e) => {
     console.log("These are the selected rows", e);
   },
-  tableTile: "",
+  tableTitle: "",
   tableDescription: "",
   showSelectedState: false,
   rows: rows,
@@ -1507,7 +1507,7 @@ WithFrozenColumns.args = {
   onSelectedRowsChange: (e) => {
     console.log("These are the selected rows", e);
   },
-  tableTile: "",
+  tableTitle: "",
   tableDescription: "",
   showSelectedState: false,
   rows: rows,
@@ -1533,7 +1533,7 @@ WithTitle.args = {
   onSelectedRowsChange: (e) => {
     console.log("These are the selected rows", e);
   },
-  tableTile: "Table Title",
+  tableTitle: "Table Title",
   tableDescription: "",
   showSelectedState: false,
   rows: rows,
@@ -1556,7 +1556,7 @@ WithTableDescription.args = {
   onSelectedRowsChange: (e) => {
     console.log("These are the selected rows", e);
   },
-  tableTile: "Table Title",
+  tableTitle: "Table Title",
   tableDescription: "Table Description",
   showSelectedState: false,
   rows: rows,
@@ -1573,13 +1573,13 @@ WithTableDescription.args = {
   hideFooter: false,
 };
 
-export const WithAddChecbox = Template.bind({});
-WithAddChecbox.args = {
+export const WithAddCheckbox = Template.bind({});
+WithAddCheckbox.args = {
   headerData: headerData,
   onSelectedRowsChange: (e) => {
     console.log("These are the selected rows", e);
   },
-  tableTile: "",
+  tableTitle: "",
   tableDescription: "",
   showSelectedState: false,
   rows: rows,
@@ -1596,13 +1596,13 @@ WithAddChecbox.args = {
   hideFooter: false,
 };
 
-export const WithAddChecboxAndSelectionState = Template.bind({});
-WithAddChecboxAndSelectionState.args = {
+export const WithAddCheckboxAndSelectionState = Template.bind({});
+WithAddCheckboxAndSelectionState.args = {
   headerData: headerData,
   onSelectedRowsChange: (e) => {
     console.log("These are the selected rows", e);
   },
-  tableTile: "",
+  tableTitle: "",
   tableDescription: "",
   showSelectedState: true,
   rows: rows,
@@ -1628,7 +1628,7 @@ WithAddChecboxAndSelectionStateAndInitialSelectedRows.args = {
   onSelectedRowsChange: (e) => {
     console.log("These are the selected rows", e);
   },
-  tableTile: "",
+  tableTitle: "",
   tableDescription: "",
   showSelectedState: true,
   rows: rows,
@@ -1654,7 +1654,7 @@ WithAddChecboxAndSelectionStateAndInitialSelectedRowsWithActions.args = {
   onSelectedRowsChange: (e) => {
     console.log("These are the selected rows", e);
   },
-  tableTile: "Table Title",
+  tableTitle: "Table Title",
   tableDescription: "Description",
   showSelectedState: true,
   rows: rows,
@@ -1680,7 +1680,7 @@ WithAddChecboxAndSelectionStateAndCustomActions.args = {
   onSelectedRowsChange: (e) => {
     console.log("These are the selected rows", e);
   },
-  tableTile: "Table Title",
+  tableTitle: "Table Title",
   tableDescription: "Description",
   showSelectedState: true,
   rows: rows,
@@ -1705,7 +1705,7 @@ WithoutFooter.args = {
   onSelectedRowsChange: (e) => {
     console.log("These are the selected rows", e);
   },
-  tableTile: "",
+  tableTitle: "",
   tableDescription: "",
   showSelectedState: false,
   rows: rows,
@@ -1728,7 +1728,7 @@ WithDefaultRowsPerPage.args = {
   onSelectedRowsChange: (e) => {
     console.log("These are the selected rows", e);
   },
-  tableTile: "",
+  tableTitle: "",
   tableDescription: "",
   showSelectedState: false,
   rows: rows,
@@ -1749,7 +1749,7 @@ WithCustomRowsPerPage.args = {
   onSelectedRowsChange: (e) => {
     console.log("These are the selected rows", e);
   },
-  tableTile: "",
+  tableTitle: "",
   tableDescription: "",
   showSelectedState: false,
   rows: rows,
@@ -1772,7 +1772,7 @@ WithCustomFooterContent.args = {
   onSelectedRowsChange: (e) => {
     console.log("These are the selected rows", e);
   },
-  tableTile: "",
+  tableTitle: "",
   tableDescription: "",
   showSelectedState: false,
   rows: rows,
@@ -1795,7 +1795,7 @@ WithStickyFooterContent.args = {
   onSelectedRowsChange: (e) => {
     console.log("These are the selected rows", e);
   },
-  tableTile: "",
+  tableTitle: "",
   tableDescription: "",
   showSelectedState: false,
   rows: rows,
@@ -1821,7 +1821,7 @@ WithScrollableStickyFooterContent.args = {
   onSelectedRowsChange: (e) => {
     console.log("These are the selected rows", e);
   },
-  tableTile: "",
+  tableTitle: "",
   tableDescription: "",
   showSelectedState: false,
   rows: rows,
@@ -1878,7 +1878,7 @@ WithOnRowClick.args = {
   onRowClick: (row, index) => {
     console.log(row, index, "this row is clicked");
   },
-  tableTile: "",
+  tableTitle: "",
   tableDescription: "",
   showSelectedState: false,
   rows: rows,
@@ -1902,7 +1902,7 @@ WithFilter.args = {
   onSelectedRowsChange: (e) => {
     console.log("These are the selected rows", e);
   },
-  tableTile: "",
+  tableTitle: "",
   tableDescription: "",
   showSelectedState: false,
   rows: rows,
@@ -1930,7 +1930,7 @@ WithCustomStyles.args = {
   onRowClick: (row, index) => {
     console.log(row, index, "this row is clicked");
   },
-  tableTile: "",
+  tableTitle: "",
   tableDescription: "",
   showSelectedState: false,
   rows: samplerows,

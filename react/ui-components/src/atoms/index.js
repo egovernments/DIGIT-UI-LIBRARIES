@@ -93,11 +93,11 @@ import BottomSheet from "./BottomSheet";
 import Switch from "./Switch";
 import { CustomSVG } from "./CustomSVG";
 import TableMain from "./TableMain";
-import { TableBody } from "./TableBody";
-import { TableCell } from "./TableCell";
-import { TableFooter } from "./TableFooter";
-import { TableHeader } from "./TableHeader";
-import { TableRow } from "./TableRow";
+import TableBody from "./TableBody";
+import TableCell from "./TableCell";
+import TableFooter from "./TableFooter";
+import TableHeader from "./TableHeader";
+import TableRow from "./TableRow";
 import SlideOverMenu from "./SlideOverMenu";
 
 export {
@@ -146,7 +146,7 @@ export {
   KeyNote,
   LabelFieldPair,
   Loader,
-  LoaderScreen
+  LoaderScreen,
   MobileNumber,
   MultiSelectDropdown,
   NoResultsFound,

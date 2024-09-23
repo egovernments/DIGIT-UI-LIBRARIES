@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import PropTypes from "prop-types";
 import Switch from "./Switch";
 import CheckBox from "./CheckBox";
 import StringManipulator from "./StringManipulator";
@@ -8,7 +9,7 @@ import TextInput from "./TextInput";
 import Dropdown from "./Dropdown";
 import MultiSelectDropdown from "./MultiSelectDropdown";
 
-export const TableCell = ({
+const TableCell = ({
   isHeader,
   isFooter,
   colSpan,
@@ -28,20 +29,22 @@ export const TableCell = ({
         return cellData;
       case "text":
       case "description":
-        const defaultmaxChars = columnType === "text" ? 64 : 256;
-        if (typeof(cellData) === "object"){
-          return (
-            <div>
-              {StringManipulator(
-                "TOSENTENCECASE",
-                StringManipulator("TRUNCATESTRING", cellData?.label, {
-                  maxLength: cellData?.maxLength || defaultmaxChars,
-                })
-              )}
-            </div>
-          );
+        {
+          const defaultmaxChars = columnType === "text" ? 64 : 256;
+          if (typeof(cellData) === "object"){
+            return (
+              <div>
+                {StringManipulator(
+                  "TOSENTENCECASE",
+                  StringManipulator("TRUNCATESTRING", cellData?.label, {
+                    maxLength: cellData?.maxLength || defaultmaxChars,
+                  })
+                )}
+              </div>
+            );
+          }
+          return cellData;
         }
-        return cellData;
       case "tag":
         return (
           <Tag
@@ -155,3 +158,22 @@ export const TableCell = ({
     </td>
   );
 };
+
+
+TableCell.propTypes = {
+  className: PropTypes.string,
+  style: PropTypes.object,
+  children: PropTypes.node,
+  isHeader:PropTypes.bool,
+  isFooter:PropTypes.bool,
+  colSpan:PropTypes.number,
+  columnType:PropTypes.string
+};
+
+TableCell.defaultProps = {
+  className: "",
+  style: {},
+  children: []
+};
+
+export default TableCell;

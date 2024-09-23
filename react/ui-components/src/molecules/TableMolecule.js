@@ -7,11 +7,11 @@ import React, {
 } from "react";
 import { useTranslation } from "react-i18next";
 import TableMain from "../atoms/TableMain";
-import { TableHeader } from "../atoms/TableHeader";
-import { TableFooter } from "../atoms/TableFooter";
-import { TableBody } from "../atoms/TableBody";
-import { TableCell } from "../atoms/TableCell";
-import { TableRow } from "../atoms/TableRow";
+import TableHeader from "../atoms/TableHeader";
+import TableFooter from "../atoms/TableFooter";
+import TableBody from "../atoms/TableBody";
+import TableCell from "../atoms/TableCell";
+import TableRow from "../atoms/TableRow";
 import CheckBox from "../atoms/CheckBox";
 import Card from "../atoms/Card";
 import { SVG } from "../atoms";
@@ -39,7 +39,7 @@ const TableMolecule = ({
   isStickyFooter,
   addStickyFooter,
   stickyFooterContent,
-  tableTile,
+  tableTitle,
   tableDescription,
   showSelectedState,
   onRowClick,
@@ -111,11 +111,14 @@ const TableMolecule = ({
   }, [rows]);
 
   useEffect(() => {
-    if (sortedColumnIndex !== null && sortOrder) {
+    if (!sortOrder) return;
+    const sortRows = (columnIndex) => {
       const newSortedRows = [...rows];
       newSortedRows.sort((a, b) => {
-        const columnA = a[sortedColumnIndex];
-        const columnB = b[sortedColumnIndex];
+        const columnA = a[columnIndex];
+        const columnB = b[columnIndex];
+  
+        // Sorting based on data type
         if (typeof columnA === "number" && typeof columnB === "number") {
           return sortOrder === "ascending"
             ? columnA - columnB
@@ -129,58 +132,23 @@ const TableMolecule = ({
             ? columnA.localeCompare(columnB)
             : columnB.localeCompare(columnA);
         }
-        return 0;
+        return 0; // Default case if types don't match
       });
       setSortedRows(newSortedRows);
-    }
-    if (sortedColumnIndex === null && sortOrder) {
-      const firstSortableColumnIndex = headerData?.findIndex(
-        (header) =>
-          header.type === "serialno" ||
-          header.type === "numeric" ||
-          header.type === "description" ||
-          header.type === "text"
+    };
+
+    if (sortedColumnIndex !== null) {
+      sortRows(sortedColumnIndex);
+    } else {
+      const firstSortableColumnIndex = headerData?.findIndex((header) =>
+        ["serialno", "numeric", "description", "text"].includes(header.type)
       );
-
-      // If a sortable column is found, sort rows based on that column
       if (firstSortableColumnIndex !== -1) {
-        const newSortedRows = [...rows];
-        newSortedRows.sort((a, b) => {
-          const columnA = a[firstSortableColumnIndex];
-          const columnB = b[firstSortableColumnIndex];
-
-          if (typeof columnA === "number" && typeof columnB === "number") {
-            return sortOrder === "ascending"
-              ? columnA - columnB
-              : columnB - columnA;
-          } else if (
-            typeof columnA === "object" &&
-            typeof columnB === "object"
-          ) {
-            return sortOrder === "ascending"
-              ? columnA?.label.localeCompare(columnB?.label)
-              : columnB?.label.localeCompare(columnA?.label);
-          } else if (
-            typeof columnA === "string" &&
-            typeof columnB === "string"
-          ) {
-            return sortOrder === "ascending"
-              ? columnA.localeCompare(columnB)
-              : columnB.localeCompare(columnA);
-          }
-          return 0;
-        });
-        setSortedRows(newSortedRows);
+        sortRows(firstSortableColumnIndex);
       }
     }
-  }, [
-    sortedColumnIndex,
-    sortOrder,
-    rows,
-    currentPage,
-    rowsPerPage,
-    headerData,
-  ]);
+  }, [sortedColumnIndex, sortOrder, rows, headerData]);
+  
 
   const currentRows = isTableSortable
     ? sortedRows?.slice(indexOfFirstRow, indexOfLastRow)
@@ -285,9 +253,9 @@ const TableMolecule = ({
                         ? "withColumnDivider"
                         : ""
                     } ${withHeaderDivider ? "withHeaderDivider" : ""}`}
-                    cellref={(el) =>
-                      (frozenColumnsRefsForHeaders.current[index] = el)
-                    }
+                    cellref={(el) => {
+                      frozenColumnsRefsForHeaders.current[index] = el;
+                    }}
                     style={headerStyles}
                   >
                     <div className="header-des-wrap">
@@ -609,12 +577,12 @@ const TableMolecule = ({
   };
 
   // Table Card
-  return tableTile || tableDescription || showSelectedState || addFilter ? (
+  return tableTitle || tableDescription || showSelectedState || addFilter ? (
     <Card className={"digit-table-card"}>
-      {(tableDescription || tableTile || addFilter) && (
+      {(tableDescription || tableTitle || addFilter) && (
         <div className="table-header-wrapper">
           <div className="header-filter-wrapper">
-            {tableTile && <div className="table-header">{tableTile}</div>}
+            {tableTitle && <div className="table-header">{tableTitle}</div>}
             {addFilter && (
               <CustomSVG.FilterSvg
                 fill={"#363636"}

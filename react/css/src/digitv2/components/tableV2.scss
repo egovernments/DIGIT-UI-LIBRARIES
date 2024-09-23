@@ -320,7 +320,7 @@ tfoot td {
 
 
 .pagination button {
-    border: 0.063 solid #ddd;
+    border: 0.063 solid theme(digitv2.lightTheme.generic-divider);
     cursor: pointer;
     width: theme(digitv2.spacers.spacer6);
     height: theme(digitv2.spacers.spacer6);

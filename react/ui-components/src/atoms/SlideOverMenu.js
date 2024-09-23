@@ -157,6 +157,10 @@ SlideOverMenu.propTypes = {
   isOverlay: PropTypes.bool,
   isDraggable: PropTypes.bool,
   sections: PropTypes.arrayOf(PropTypes.node),
+  hideArrow: PropTypes.bool,
+  hideScrollIcon: PropTypes.bool,
+  defaultOpenWidth: PropTypes.number,
+  defaultClosedWidth: PropTypes.number,
 };
 
 export default SlideOverMenu;
