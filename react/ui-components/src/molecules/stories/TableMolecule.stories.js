@@ -9,40 +9,26 @@ export default {
   argTypes: {
     headerData: { control: "array" },
     rows: { control: "array" },
-    footerContent: { control: "text" },
-    initialRowsPerPage: { control: "number" },
+    pagination: { control: "object" },
+    styles:{control:"object"},
+    tableDetails:{
+      control:"object"
+    },
+    sorting:{
+      control:"object"
+    },
+    selection:{
+      control:"object"
+    },
+    footeProps:{control:"object"},
     frozenColumns: { control: "number" },
-    withRowDivider: { control: "boolean" },
-    withBorder: { control: "boolean" },
-    withAlternateBg: { control: "boolean" },
-    withHeaderDivider: { control: "boolean" },
-    withColumnDivider: { control: "boolean" },
     isStickyHeader: { control: "boolean" },
-    isStickyFooter: { control: "boolean" },
-    rowsPerPageOptions: { control: "array" },
-    addCheckbox: { control: "boolean" },
-    checkboxLabel: { control: "text" },
-    initialSelectedRows: { control: "array" },
-    onSelectedRowsChange: { control: "onchange" },
-    addStickyFooter: { control: "boolean" },
-    showSelectedState: { control: "boolean" },
-    tableTitle: { control: "text" },
-    tableDescription: { control: "text" },
-    stickyFooterContent: { control: "object" },
+    className:{control:"text"},
+    onFilter:{control:"onchange"},
+    addFilter:{control:"boolean"},
     onRowClick: { control: "onchange" },
-    hideFooter: { control: "boolean" },
     actionButtonLabel: { control: "text" },
     actions: { control: "array" },
-    headerStyles:{control:"object"},
-    footerStyles:{control:"object"},
-    bodyStyles:{control:"object"},
-    tableStyles:{control:"object"},
-    className:{control:"text"},
-    addFilter:{control:"boolean"},
-    onFilter:{control:"onchange"},
-    scrollableStickyFooterContent:{control:"boolean"},
-    isTableSortable:{control:"boolean"},
-    initialSortOrder:{control:"text"}
   },
 };
 
@@ -51,21 +37,6 @@ const Template = (args) => <TableMolecule {...args} />;
 const headerData = [
   { label: "S.No", type: "serialno" },
   { label: "Text", type: "text"},
-  { label: "Numeric", type: "numeric" },
-  { label: "Description", type: "description" },
-  { label: "Tag", type: "tag" },
-  { label: "Switch", type: "switch" },
-  { label: "Button", type: "button" },
-  { label: "Checkbox", type: "checkbox" },
-  { label: "TextInput", type: "textinput" },
-  { label: "Dropdown", type: "dropdown" },
-  { label: "Multiselectdropdown", type: "multiselectdropdown" },
-  { label: "Custom", type: "custom" },
-];
-
-const headerDataWithSort = [
-  { label: "S.No", type: "serialno"},
-  { label: "Text", type: "text" },
   { label: "Numeric", type: "numeric" },
   { label: "Description", type: "description" },
   { label: "Tag", type: "tag" },
@@ -1182,441 +1153,669 @@ const actions = [
 const commonArgs = {
   headerData: [],
   rows: [],
-  footerContent:"",
-  initialRowsPerPage: 5,
+  styles:{
+    withBorder: false,
+    withAlternateBg: false,
+    withHeaderDivider: true,
+    withColumnDivider: false,
+    withRowDivider: true,
+    extraStyles: {},
+  },
+  pagination:{
+    initialRowsPerPage:5,
+    rowsPerPageOptions:[5,10,15,20]
+  },
+  tableDetails:{
+    tableTitle: "",
+    tableDescription: "",
+  },
+  sorting:{
+    isTableSortable:false,
+    initialSortOrder:""
+  },
+  selection: {
+    addCheckbox: false,
+    checkboxLabel: '',
+    initialSelectedRows: [],
+    onSelectedRowsChange: () => {},
+    showSelectedState: false,
+  },
+  footerProps: {
+    footerContent: null,
+    hideFooter: false,
+    stickyFooterContent: null,
+    scrollableStickyFooterContent: true,
+    isStickyFooter: false,
+    addStickyFooter: false,
+  },
   frozenColumns: 0,
-  withRowDivider: false,
-  withBorder:false,
-  withAlternateBg: false,
-  withHeaderDivider: false,
-  withColumnDivider: false,
   isStickyHeader: false,
-  isStickyFooter: false,
-  rowsPerPageOptions:[5,10,15,20],
-  addCheckbox: false,
-  checkboxLabel: "",
-  initialSelectedRows: [],
-  onSelectedRowsChange: ()=>{},
-  addStickyFooter: false,
-  showSelectedState: false,
-  tableTitle: "",
-  tableDescription: "",
-  stickyFooterContent: {},
   onRowClick:()=>{},
-  hideFooter: false,
   actionButtonLabel: "",
   actions:[],
-  headerStyles:{},
-  footerStyles:{},
-  bodyStyles:{},
-  tableStyles:{},
   className:"",
   addFilter:false,
   onFilter:()=>{},
-  scrollableStickyFooterContent:false
 }
 
 export const Default = Template.bind({});
 Default.args = {
   ...commonArgs,
   headerData: headerData,
-  onSelectedRowsChange: (e) => {
-    console.log("These are the selected rows", e);
+  rows:rows,
+  pagination:{
+    initialRowsPerPage: 2,
+    rowsPerPageOptions: [2, 4, 6, 8, 10],
   },
-  rows: rows,
-  initialRowsPerPage: 2,
-  rowsPerPageOptions: [2, 4, 6, 8, 10],
+  styles:{
+    withAlternateBg: false,
+    withColumnDivider: false,
+    extraStyles: {},
+    withHeaderDivider:true,
+    withRowDivider:true,
+    withBorder:true,
+  },
+  selection: {
+    addCheckbox: false,
+    checkboxLabel: '',
+    initialSelectedRows: [],
+    onSelectedRowsChange: (e) => {
+      console.log("These are the selected rows", e);
+    },
+    showSelectedState: false,
+  },
   onRowClick:undefined,
-  withHeaderDivider:true,
-  withRowDivider:true,
-  withBorder:true
 };
 
 export const HeadersWithDescription = Template.bind({});
 HeadersWithDescription.args = {
   ...commonArgs,
   headerData: headerDataWithDescription,
-  onSelectedRowsChange: (e) => {
-    console.log("These are the selected rows", e);
+  rows:rows,
+  pagination:{
+    initialRowsPerPage: 2,
+    rowsPerPageOptions: [2, 4, 6, 8, 10],
   },
-  rows: rows,
-  initialRowsPerPage: 2,
-  rowsPerPageOptions: [2, 4, 6, 8, 10],
+  styles:{
+    withAlternateBg: false,
+    withColumnDivider: false,
+    extraStyles: {},
+    withHeaderDivider:true,
+    withRowDivider:true,
+    withBorder:true,
+  },
+  selection: {
+    addCheckbox: false,
+    checkboxLabel: '',
+    initialSelectedRows: [],
+    onSelectedRowsChange: (e) => {
+      console.log("These are the selected rows", e);
+    },
+    showSelectedState: false,
+  },
   onRowClick:undefined
 };
 
 export const WithBorder = Template.bind({});
 WithBorder.args = {
   headerData: headerData,
-  onSelectedRowsChange: (e) => {
-    console.log("These are the selected rows", e);
-  },
-  tableTitle: "",
-  tableDescription: "",
-  showSelectedState: false,
   rows: rows,
-  footerContent: "Footer Content",
-  stickyFooterContent: "Sticky Footer Content",
-  initialRowsPerPage: 2,
+  pagination:{
+    initialRowsPerPage: 2,
+    rowsPerPageOptions: [2, 4, 6, 8, 10],
+  },
+  styles:{
+    withAlternateBg: false,
+    withColumnDivider: false,
+    extraStyles: {},
+    withHeaderDivider:false,
+    withRowDivider:false,
+    withBorder:true,
+  },
+  selection: {
+    addCheckbox: false,
+    checkboxLabel: '',
+    initialSelectedRows: [],
+    onSelectedRowsChange: (e) => {
+      console.log("These are the selected rows", e);
+    },
+    showSelectedState: false,
+  },
+  footerProps: {
+    footerContent: "Footer Content",
+    hideFooter: false,
+    stickyFooterContent: "Sticky Footer Content",
+    scrollableStickyFooterContent: true,
+    isStickyFooter: false,
+    addStickyFooter: false,
+  },
   frozenColumns: 0,
-  rowsPerPageOptions: [2, 4, 6, 8, 10],
   isStickyHeader: false,
-  addCheckbox: false,
-  checkboxLabel: "Select All",
-  isStickyFooter: false,
-  initialSelectedRows: [],
-  hideFooter: false,
-  withBorder: true,
 };
 
 export const WithHeaderDivider = Template.bind({});
 WithHeaderDivider.args = {
   headerData: headerData,
-  onSelectedRowsChange: (e) => {
-    console.log("These are the selected rows", e);
+  rows:rows,
+  pagination:{
+    initialRowsPerPage: 2,
+    rowsPerPageOptions: [2, 4, 6, 8, 10],
+  },
+  styles:{
+    withAlternateBg: false,
+    withColumnDivider: false,
+    extraStyles: {},
+    withHeaderDivider:true,
+    withRowDivider:false,
+    withBorder:true,
+  },
+  selection: {
+    addCheckbox: false,
+    checkboxLabel: '',
+    initialSelectedRows: [],
+    onSelectedRowsChange: (e) => {
+      console.log("These are the selected rows", e);
+    },
+    showSelectedState: false,
   },
   onRowClick: (row, index) => {
     console.log(row, index, "this row is clicked");
   },
-  tableTitle: "",
-  tableDescription: "",
-  showSelectedState: false,
-  rows: rows,
-  footerContent: "Footer Content",
-  stickyFooterContent: "Sticky Footer Content",
-  initialRowsPerPage: 2,
+  footerProps: {
+    footerContent: "Footer Content",
+    hideFooter: false,
+    stickyFooterContent: "Sticky Footer Content",
+    scrollableStickyFooterContent: true,
+    isStickyFooter: false,
+    addStickyFooter: false,
+  },
   frozenColumns: 0,
-  rowsPerPageOptions: [2, 4, 6, 8, 10],
   isStickyHeader: false,
-  addCheckbox: false,
-  checkboxLabel: "Select All",
-  isStickyFooter: false,
-  initialSelectedRows: [],
-  hideFooter: false,
-  withBorder: true,
-  withHeaderDivider: true,
 };
 
 export const WithOnlyColumnDivider = Template.bind({});
 WithOnlyColumnDivider.args = {
   headerData: headerData,
-  onSelectedRowsChange: (e) => {
-    console.log("These are the selected rows", e);
+  rows:rows,
+  pagination:{
+    initialRowsPerPage: 2,
+    rowsPerPageOptions: [2, 4, 6, 8, 10],
   },
-  tableTitle: "",
-  tableDescription: "",
-  showSelectedState: false,
-  rows: rows,
-  footerContent: "Footer Content",
-  stickyFooterContent: "Sticky Footer Content",
-  initialRowsPerPage: 2,
+  styles:{
+    withAlternateBg: false,
+    withColumnDivider: true,
+    extraStyles: {},
+    withHeaderDivider:false,
+    withRowDivider:false,
+    withBorder:true,
+  },
+  selection: {
+    addCheckbox: false,
+    checkboxLabel: 'Select All',
+    initialSelectedRows: [],
+    onSelectedRowsChange: (e) => {
+      console.log("These are the selected rows", e);
+    },
+    showSelectedState: false,
+  },
+  footerProps: {
+    footerContent: "Footer Content",
+    hideFooter: false,
+    stickyFooterContent: "Sticky Footer Content",
+    scrollableStickyFooterContent: true,
+    isStickyFooter: false,
+    addStickyFooter: false,
+  },
   frozenColumns: 0,
-  rowsPerPageOptions: [2, 4, 6, 8, 10],
   isStickyHeader: false,
-  addCheckbox: false,
-  checkboxLabel: "Select All",
-  isStickyFooter: false,
-  initialSelectedRows: [],
-  hideFooter: false,
-  withBorder: true,
-  withHeaderDivider: false,
-  withColumnDivider: true,
 };
 
 export const WithColumnDividerAndHeaderDivider = Template.bind({});
 WithColumnDividerAndHeaderDivider.args = {
   headerData: headerData,
-  onSelectedRowsChange: (e) => {
-    console.log("These are the selected rows", e);
+  rows:rows,
+  pagination:{
+    initialRowsPerPage: 2,
+    rowsPerPageOptions: [2, 4, 6, 8, 10],
   },
-  tableTitle: "",
-  tableDescription: "",
-  showSelectedState: false,
-  rows: rows,
-  footerContent: "Footer Content",
-  stickyFooterContent: "Sticky Footer Content",
-  initialRowsPerPage: 2,
+  styles:{
+    withAlternateBg: false,
+    withColumnDivider: true,
+    extraStyles: {},
+    withHeaderDivider:true,
+    withRowDivider:false,
+    withBorder:true,
+  },
+  selection: {
+    addCheckbox: false,
+    checkboxLabel: '',
+    initialSelectedRows: [],
+    onSelectedRowsChange: (e) => {
+      console.log("These are the selected rows", e);
+    },
+    showSelectedState: false,
+  },
+  footerProps: {
+    footerContent: "Footer Content",
+    hideFooter: false,
+    stickyFooterContent: "Sticky Footer Content",
+    scrollableStickyFooterContent: true,
+    isStickyFooter: false,
+    addStickyFooter: false,
+  },
   frozenColumns: 0,
-  rowsPerPageOptions: [2, 4, 6, 8, 10],
   isStickyHeader: false,
-  addCheckbox: false,
-  checkboxLabel: "Select All",
-  isStickyFooter: false,
-  initialSelectedRows: [],
-  hideFooter: false,
-  withBorder: true,
-  withHeaderDivider: true,
-  withColumnDivider: true,
 };
 
 export const WithRowDivider = Template.bind({});
 WithRowDivider.args = {
   headerData: headerData,
-  onSelectedRowsChange: (e) => {
-    console.log("These are the selected rows", e);
+  rows:rows,
+  pagination:{
+    initialRowsPerPage: 2,
+    rowsPerPageOptions: [2, 4, 6, 8, 10],
   },
-  tableTitle: "",
-  tableDescription: "",
-  showSelectedState: false,
-  rows: rows,
-  footerContent: "Footer Content",
-  stickyFooterContent: "Sticky Footer Content",
-  initialRowsPerPage: 2,
+  styles:{
+    withAlternateBg: false,
+    withColumnDivider: false,
+    extraStyles: {},
+    withHeaderDivider:false,
+    withRowDivider:true,
+    withBorder:true,
+  },
+  selection: {
+    addCheckbox: false,
+    checkboxLabel: '',
+    initialSelectedRows: [],
+    onSelectedRowsChange: (e) => {
+      console.log("These are the selected rows", e);
+    },
+    showSelectedState: false,
+  },
+  footerProps: {
+    footerContent: "Footer Content",
+    hideFooter: false,
+    stickyFooterContent: "Sticky Footer Content",
+    scrollableStickyFooterContent: true,
+    isStickyFooter: false,
+    addStickyFooter: false,
+  },
   frozenColumns: 0,
-  rowsPerPageOptions: [2, 4, 6, 8, 10],
   isStickyHeader: false,
-  addCheckbox: false,
-  checkboxLabel: "Select All",
-  isStickyFooter: false,
-  initialSelectedRows: [],
-  hideFooter: false,
-  withBorder: true,
-  withHeaderDivider: false,
-  withColumnDivider: false,
-  withRowDivider: true,
 };
 
 export const WithAlternateBg = Template.bind({});
 WithAlternateBg.args = {
   headerData: headerData,
-  onSelectedRowsChange: (e) => {
-    console.log("These are the selected rows", e);
+  rows:rows,
+  pagination:{
+    initialRowsPerPage: 2,
+    rowsPerPageOptions: [2, 4, 6, 8, 10],
   },
-  tableTitle: "",
-  tableDescription: "",
-  showSelectedState: false,
-  rows: rows,
-  footerContent: "Footer Content",
-  stickyFooterContent: "Sticky Footer Content",
-  initialRowsPerPage: 2,
+  styles:{
+    withAlternateBg: true,
+    withColumnDivider: false,
+    extraStyles: {},
+    withHeaderDivider:false,
+    withRowDivider:false,
+    withBorder:true,
+  },
+  selection: {
+    addCheckbox: false,
+    checkboxLabel: '',
+    initialSelectedRows: [],
+    onSelectedRowsChange: (e) => {
+      console.log("These are the selected rows", e);
+    },
+    showSelectedState: false,
+  },
+  footerProps: {
+    footerContent: "Footer Content",
+    hideFooter: false,
+    stickyFooterContent: "Sticky Footer Content",
+    scrollableStickyFooterContent: true,
+    isStickyFooter: false,
+    addStickyFooter: false,
+  },
   frozenColumns: 0,
-  rowsPerPageOptions: [2, 4, 6, 8, 10],
   isStickyHeader: false,
-  addCheckbox: false,
-  checkboxLabel: "Select All",
-  isStickyFooter: false,
-  initialSelectedRows: [],
-  hideFooter: false,
-  withAlternateBg:true,
-  withBorder: true,
 };
 
 export const WithAll = Template.bind({});
 WithAll.args = {
   headerData: headerData,
-  onSelectedRowsChange: (e) => {
-    console.log("These are the selected rows", e);
+  rows:rows,
+  pagination:{
+    initialRowsPerPage: 2,
+    rowsPerPageOptions: [2, 4, 6, 8, 10],
   },
-  tableTitle: "",
-  tableDescription: "",
-  showSelectedState: false,
-  rows: rows,
-  footerContent: "Footer Content",
-  stickyFooterContent: "Sticky Footer Content",
-  initialRowsPerPage: 2,
+  styles:{
+    extraStyles: {},
+    withBorder:true,
+    withHeaderDivider: true,
+    withColumnDivider: true,
+    withRowDivider: true,
+    withAlternateBg:true
+  },
+  selection: {
+    addCheckbox: false,
+    checkboxLabel: '',
+    initialSelectedRows: [],
+    onSelectedRowsChange: (e) => {
+      console.log("These are the selected rows", e);
+    },
+    showSelectedState: false,
+  },
+  footerProps: {
+    footerContent: "Footer Content",
+    hideFooter: false,
+    stickyFooterContent: "Sticky Footer Content",
+    scrollableStickyFooterContent: true,
+    isStickyFooter: false,
+    addStickyFooter: false,
+  },
   frozenColumns: 0,
-  rowsPerPageOptions: [2, 4, 6, 8, 10],
   isStickyHeader: false,
-  addCheckbox: false,
-  checkboxLabel: "Select All",
-  isStickyFooter: false,
-  initialSelectedRows: [],
-  hideFooter: false,
-  withBorder: true,
-  withHeaderDivider: true,
-  withColumnDivider: true,
-  withRowDivider: true,
-  withAlternateBg:true
 };
 
 export const WithStickyHeader = Template.bind({});
 WithStickyHeader.args = {
   headerData: headerData,
-  onSelectedRowsChange: (e) => {
-    console.log("These are the selected rows", e);
+  rows:rows,
+  pagination:{
+    initialRowsPerPage: 2,
+    rowsPerPageOptions: [2, 4, 6, 8, 10],
+  },
+  styles:{
+    withAlternateBg: false,
+    withColumnDivider: false,
+    extraStyles: {},
+    withHeaderDivider:true,
+    withRowDivider:true,
+    withBorder:true,
+  },
+  selection: {
+    addCheckbox: false,
+    checkboxLabel: '',
+    initialSelectedRows: [],
+    onSelectedRowsChange: (e) => {
+      console.log("These are the selected rows", e);
+    },
+    showSelectedState: false,
+  },
+  footerProps: {
+    footerContent: "Footer Content",
+    hideFooter: false,
+    stickyFooterContent: "Sticky Footer Content",
+    scrollableStickyFooterContent: true,
+    isStickyFooter: false,
+    addStickyFooter: false,
   },
   onRowClick: (row, index) => {
     console.log(row, index, "this row is clicked");
   },
-  tableTitle: "",
-  tableDescription: "",
-  showSelectedState: false,
-  rows: rows,
-  footerContent: "Footer Content",
-  stickyFooterContent: "Sticky Footer Content",
-  initialRowsPerPage: 2,
   frozenColumns: 0,
-  rowsPerPageOptions: [2, 4, 6, 8, 10],
   isStickyHeader: true,
-  addCheckbox: false,
-  checkboxLabel: "Select All",
-  isStickyFooter: false,
-  initialSelectedRows: [],
-  hideFooter: false,
 };
 
 export const WithStickyFooter = Template.bind({});
 WithStickyFooter.args = {
   headerData: headerData,
-  onSelectedRowsChange: (e) => {
-    console.log("These are the selected rows", e);
+  rows:rows,
+  pagination:{
+    initialRowsPerPage: 2,
+    rowsPerPageOptions: [2, 4, 6, 8, 10],
   },
-  tableTitle: "",
-  tableDescription: "",
-  showSelectedState: false,
-  rows: rows,
-  footerContent: "Footer Content",
-  stickyFooterContent: "Sticky Footer Content",
-  initialRowsPerPage: 2,
+  styles:{
+    withAlternateBg: false,
+    withColumnDivider: false,
+    extraStyles: {},
+    withHeaderDivider:true,
+    withRowDivider:true,
+    withBorder:true,
+  },
+  selection: {
+    addCheckbox: false,
+    checkboxLabel: '',
+    initialSelectedRows: [],
+    onSelectedRowsChange: (e) => {
+      console.log("These are the selected rows", e);
+    },
+    showSelectedState: false,
+  },
+  footerProps: {
+    footerContent: "Footer Content",
+    hideFooter: false,
+    stickyFooterContent: "Sticky Footer Content",
+    scrollableStickyFooterContent: true,
+    isStickyFooter: true,
+    addStickyFooter: false,
+  },
   frozenColumns: 0,
-  rowsPerPageOptions: [2, 4, 6, 8, 10],
   isStickyHeader: false,
-  addCheckbox: false,
-  checkboxLabel: "Select All",
-  isStickyFooter: true,
-  initialSelectedRows: [],
-  hideFooter: false,
 };
 
 export const WithStickyFooterAndHeader = Template.bind({});
 WithStickyFooterAndHeader.args = {
   headerData: headerData,
-  onSelectedRowsChange: (e) => {
-    console.log("These are the selected rows", e);
+  rows:rows,
+  pagination:{
+    initialRowsPerPage: 2,
+    rowsPerPageOptions: [2, 4, 6, 8, 10],
   },
-  tableTitle: "",
-  tableDescription: "",
-  showSelectedState: false,
-  rows: rows,
-  footerContent: "Footer Content",
-  stickyFooterContent: "Sticky Footer Content",
-  initialRowsPerPage: 2,
+  styles:{
+    withAlternateBg: false,
+    withColumnDivider: false,
+    extraStyles: {},
+    withHeaderDivider:true,
+    withRowDivider:true,
+    withBorder:true,
+  },
+  selection: {
+    addCheckbox: false,
+    checkboxLabel: '',
+    initialSelectedRows: [],
+    onSelectedRowsChange: (e) => {
+      console.log("These are the selected rows", e);
+    },
+    showSelectedState: false,
+  },
+  footerProps: {
+    footerContent: "Footer Content",
+    hideFooter: false,
+    stickyFooterContent: "Sticky Footer Content",
+    scrollableStickyFooterContent: true,
+    isStickyFooter: true,
+    addStickyFooter: false,
+  },
   frozenColumns: 0,
-  rowsPerPageOptions: [2, 4, 6, 8, 10],
   isStickyHeader: true,
-  addCheckbox: false,
-  checkboxLabel: "Select All",
-  isStickyFooter: true,
-  initialSelectedRows: [],
-  hideFooter: false,
 };
 
 export const WithFrozenColumns = Template.bind({});
 WithFrozenColumns.args = {
+  ...commonArgs,
   headerData: headerData,
-  onSelectedRowsChange: (e) => {
-    console.log("These are the selected rows", e);
+  rows:rows,
+  pagination:{
+    initialRowsPerPage: 2,
+    rowsPerPageOptions: [2, 4, 6, 8, 10],
   },
-  tableTitle: "",
-  tableDescription: "",
-  showSelectedState: false,
-  rows: rows,
-  footerContent: "Footer Content",
-  stickyFooterContent: "Sticky Footer Content",
-  initialRowsPerPage: 2,
-  frozenColumns: 2,
-  rowsPerPageOptions: [2, 4, 6, 8, 10],
-  isStickyHeader: false,
-  addCheckbox: false,
-  checkboxLabel: "Select All",
-  isStickyFooter: false,
-  initialSelectedRows: [],
-  hideFooter: false,
-  withBorder: true,
-  withHeaderDivider: false,
-  withColumnDivider: true,
+  styles:{
+    withAlternateBg: false,
+    withColumnDivider: true,
+    extraStyles: {},
+    withHeaderDivider:false,
+    withRowDivider:true,
+    withBorder:true,
+  },
+  selection: {
+    addCheckbox: false,
+    checkboxLabel: '',
+    initialSelectedRows: [],
+    onSelectedRowsChange: (e) => {
+      console.log("These are the selected rows", e);
+    },
+    showSelectedState: false,
+  },
+  onRowClick:undefined,
+  frozenColumns:2
 };
 
 export const WithTitle = Template.bind({});
 WithTitle.args = {
   headerData: headerData,
-  onSelectedRowsChange: (e) => {
-    console.log("These are the selected rows", e);
+  rows:rows,
+  pagination:{
+    initialRowsPerPage: 2,
+    rowsPerPageOptions: [2, 4, 6, 8, 10],
   },
-  tableTitle: "Table Title",
-  tableDescription: "",
-  showSelectedState: false,
-  rows: rows,
-  footerContent: "Footer Content",
-  stickyFooterContent: "Sticky Footer Content",
-  initialRowsPerPage: 2,
+  styles:{
+    withAlternateBg: false,
+    withColumnDivider: false,
+    extraStyles: {},
+    withHeaderDivider:true,
+    withRowDivider:true,
+    withBorder:true,
+  },
+  tableDetails:{
+    tableTitle: "Table Title",
+    tableDescription: "",
+  },
+  selection: {
+    addCheckbox: false,
+    checkboxLabel: '',
+    initialSelectedRows: [],
+    onSelectedRowsChange: (e) => {
+      console.log("These are the selected rows", e);
+    },
+    showSelectedState: false,
+  },
+  footerProps: {
+    footerContent: "Footer Content",
+    hideFooter: false,
+    stickyFooterContent: "Sticky Footer Content",
+    scrollableStickyFooterContent: true,
+    isStickyFooter: false,
+    addStickyFooter: false,
+  },
   frozenColumns: 0,
-  rowsPerPageOptions: [2, 4, 6, 8, 10],
   isStickyHeader: false,
-  addCheckbox: false,
-  checkboxLabel: "Select All",
-  isStickyFooter: false,
-  initialSelectedRows: [],
-  hideFooter: false,
 };
 
 export const WithTableDescription = Template.bind({});
 WithTableDescription.args = {
   headerData: headerData,
-  onSelectedRowsChange: (e) => {
-    console.log("These are the selected rows", e);
+  rows:rows,
+  pagination:{
+    initialRowsPerPage: 2,
+    rowsPerPageOptions: [2, 4, 6, 8, 10],
   },
-  tableTitle: "Table Title",
-  tableDescription: "Table Description",
-  showSelectedState: false,
-  rows: rows,
-  footerContent: "Footer Content",
-  stickyFooterContent: "Sticky Footer Content",
-  initialRowsPerPage: 2,
+  styles:{
+    withAlternateBg: false,
+    withColumnDivider: false,
+    extraStyles: {},
+    withHeaderDivider:true,
+    withRowDivider:true,
+    withBorder:true,
+  },
+  tableDetails:{
+    tableTitle: "Table Title",
+    tableDescription: "Table Description",
+  },
+  selection: {
+    addCheckbox: false,
+    checkboxLabel: '',
+    initialSelectedRows: [],
+    onSelectedRowsChange: (e) => {
+      console.log("These are the selected rows", e);
+    },
+    showSelectedState: false,
+  },
+  footerProps: {
+    footerContent: "Footer Content",
+    hideFooter: false,
+    stickyFooterContent: "Sticky Footer Content",
+    scrollableStickyFooterContent: true,
+    isStickyFooter: false,
+    addStickyFooter: false,
+  },
   frozenColumns: 0,
-  rowsPerPageOptions: [2, 4, 6, 8, 10],
   isStickyHeader: false,
-  addCheckbox: false,
-  checkboxLabel: "Select All",
-  isStickyFooter: false,
-  initialSelectedRows: [],
-  hideFooter: false,
 };
 
 export const WithAddCheckbox = Template.bind({});
 WithAddCheckbox.args = {
   headerData: headerData,
-  onSelectedRowsChange: (e) => {
-    console.log("These are the selected rows", e);
+  rows:rows,
+  pagination:{
+    initialRowsPerPage: 2,
+    rowsPerPageOptions: [2, 4, 6, 8, 10],
   },
-  tableTitle: "",
-  tableDescription: "",
-  showSelectedState: false,
-  rows: rows,
-  footerContent: "Footer Content",
-  stickyFooterContent: "Sticky Footer Content",
-  initialRowsPerPage: 2,
+  styles:{
+    withAlternateBg: false,
+    withColumnDivider: false,
+    extraStyles: {},
+    withHeaderDivider:true,
+    withRowDivider:true,
+    withBorder:true,
+  },
+  selection: {
+    addCheckbox: true,
+    checkboxLabel: 'Select All',
+    initialSelectedRows: [],
+    onSelectedRowsChange: (e) => {
+      console.log("These are the selected rows", e);
+    },
+    showSelectedState: false,
+  },
+  footerProps: {
+    footerContent: "Footer Content",
+    hideFooter: false,
+    stickyFooterContent: "Sticky Footer Content",
+    scrollableStickyFooterContent: true,
+    isStickyFooter: false,
+    addStickyFooter: false,
+  },
   frozenColumns: 0,
-  rowsPerPageOptions: [2, 4, 6, 8, 10],
   isStickyHeader: false,
-  addCheckbox: true,
-  checkboxLabel: "Select All",
-  isStickyFooter: false,
-  initialSelectedRows: [],
-  hideFooter: false,
 };
 
 export const WithAddCheckboxAndSelectionState = Template.bind({});
 WithAddCheckboxAndSelectionState.args = {
   headerData: headerData,
-  onSelectedRowsChange: (e) => {
-    console.log("These are the selected rows", e);
+  rows:rows,
+  pagination:{
+    initialRowsPerPage: 2,
+    rowsPerPageOptions: [2, 4, 6, 8, 10],
   },
-  tableTitle: "",
-  tableDescription: "",
-  showSelectedState: true,
-  rows: rows,
-  footerContent: "Footer Content",
-  stickyFooterContent: "Sticky Footer Content",
-  initialRowsPerPage: 2,
+  styles:{
+    withAlternateBg: false,
+    withColumnDivider: false,
+    extraStyles: {},
+    withHeaderDivider:true,
+    withRowDivider:true,
+    withBorder:true,
+  },
+  selection: {
+    addCheckbox: true,
+    checkboxLabel: 'Select All',
+    initialSelectedRows: [],
+    onSelectedRowsChange: (e) => {
+      console.log("These are the selected rows", e);
+    },
+    showSelectedState: true,
+  },
+  footerProps: {
+    footerContent: "Footer Content",
+    hideFooter: false,
+    stickyFooterContent: "Sticky Footer Content",
+    scrollableStickyFooterContent: true,
+    isStickyFooter: false,
+    addStickyFooter: false,
+  },
   frozenColumns: 0,
-  rowsPerPageOptions: [2, 4, 6, 8, 10],
   isStickyHeader: false,
-  addCheckbox: true,
-  checkboxLabel: "Select All",
-  isStickyFooter: false,
-  initialSelectedRows: [],
-  hideFooter: false,
   actionButtonLabel: "",
 };
 
@@ -1625,24 +1824,38 @@ export const WithAddCheckboxAndSelectionStateAndInitialSelectedRows = Template.b
 );
 WithAddCheckboxAndSelectionStateAndInitialSelectedRows.args = {
   headerData: headerData,
-  onSelectedRowsChange: (e) => {
-    console.log("These are the selected rows", e);
+  rows:rows,
+  pagination:{
+    initialRowsPerPage: 2,
+    rowsPerPageOptions: [2, 4, 6, 8, 10],
   },
-  tableTitle: "",
-  tableDescription: "",
-  showSelectedState: true,
-  rows: rows,
-  footerContent: "Footer Content",
-  stickyFooterContent: "Sticky Footer Content",
-  initialRowsPerPage: 2,
+  styles:{
+    withAlternateBg: false,
+    withColumnDivider: false,
+    extraStyles: {},
+    withHeaderDivider:true,
+    withRowDivider:true,
+    withBorder:true,
+  },
+  selection: {
+    addCheckbox: true,
+    checkboxLabel: 'Select All',
+    initialSelectedRows: [0,1],
+    onSelectedRowsChange: (e) => {
+      console.log("These are the selected rows", e);
+    },
+    showSelectedState: true,
+  },
+  footerProps: {
+    footerContent: "Footer Content",
+    hideFooter: false,
+    stickyFooterContent: "Sticky Footer Content",
+    scrollableStickyFooterContent: true,
+    isStickyFooter: false,
+    addStickyFooter: false,
+  },
   frozenColumns: 0,
-  rowsPerPageOptions: [2, 4, 6, 8, 10],
   isStickyHeader: false,
-  addCheckbox: true,
-  checkboxLabel: "Select All",
-  isStickyFooter: false,
-  initialSelectedRows: [0, 1],
-  hideFooter: false,
   actionButtonLabel: "",
 };
 
@@ -1651,24 +1864,42 @@ export const WithAddCheckboxAndSelectionStateAndInitialSelectedRowsWithActions =
 );
 WithAddCheckboxAndSelectionStateAndInitialSelectedRowsWithActions.args = {
   headerData: headerData,
-  onSelectedRowsChange: (e) => {
-    console.log("These are the selected rows", e);
+  rows:rows,
+  pagination:{
+    initialRowsPerPage: 2,
+    rowsPerPageOptions: [2, 4, 6, 8, 10],
   },
-  tableTitle: "Table Title",
-  tableDescription: "Description",
-  showSelectedState: true,
-  rows: rows,
-  footerContent: "Footer Content",
-  stickyFooterContent: "Sticky Footer Content",
-  initialRowsPerPage: 2,
+  styles:{
+    withAlternateBg: false,
+    withColumnDivider: false,
+    extraStyles: {},
+    withHeaderDivider:true,
+    withRowDivider:true,
+    withBorder:true,
+  },
+  tableDetails:{
+    tableTitle: "Table Title",
+    tableDescription: "Description",
+  },
+  selection: {
+    addCheckbox: true,
+    checkboxLabel: 'Select All',
+    initialSelectedRows: [0,1],
+    onSelectedRowsChange: (e) => {
+      console.log("These are the selected rows", e);
+    },
+    showSelectedState: true,
+  },
+  footerProps: {
+    footerContent: "Footer Content",
+    hideFooter: false,
+    stickyFooterContent: "Sticky Footer Content",
+    scrollableStickyFooterContent: true,
+    isStickyFooter: false,
+    addStickyFooter: false,
+  },
   frozenColumns: 0,
-  rowsPerPageOptions: [2, 4, 6, 8, 10],
   isStickyHeader: false,
-  addCheckbox: true,
-  checkboxLabel: "Select All",
-  isStickyFooter: false,
-  initialSelectedRows: [0, 1],
-  hideFooter: false,
   actionButtonLabel: "",
 };
 
@@ -1677,286 +1908,358 @@ export const WithAddCheckboxAndSelectionStateAndCustomActions = Template.bind(
 );
 WithAddCheckboxAndSelectionStateAndCustomActions.args = {
   headerData: headerData,
-  onSelectedRowsChange: (e) => {
-    console.log("These are the selected rows", e);
+  rows:rows,
+  pagination:{
+    initialRowsPerPage: 2,
+    rowsPerPageOptions: [2, 4, 6, 8, 10],
   },
-  tableTitle: "Table Title",
-  tableDescription: "Description",
-  showSelectedState: true,
-  rows: rows,
-  footerContent: "Footer Content",
-  stickyFooterContent: "Sticky Footer Content",
-  initialRowsPerPage: 2,
+  styles:{
+    withAlternateBg: false,
+    withColumnDivider: false,
+    extraStyles: {},
+    withHeaderDivider:true,
+    withRowDivider:true,
+    withBorder:true,
+  },
+  tableDetails:{
+    tableTitle: "Table Title",
+    tableDescription: "Description",
+  },
+  selection: {
+    addCheckbox: true,
+    checkboxLabel: 'Select All',
+    initialSelectedRows: [],
+    onSelectedRowsChange: (e) => {
+      console.log("These are the selected rows", e);
+    },
+    showSelectedState: true,
+  },
+  footerProps: {
+    footerContent: "Footer Content",
+    hideFooter: false,
+    stickyFooterContent: "Sticky Footer Content",
+    scrollableStickyFooterContent: true,
+    isStickyFooter: false,
+    addStickyFooter: false,
+  },
   frozenColumns: 0,
-  rowsPerPageOptions: [2, 4, 6, 8, 10],
   isStickyHeader: false,
-  addCheckbox: true,
-  checkboxLabel: "Select All",
-  isStickyFooter: false,
-  initialSelectedRows: [],
-  hideFooter: false,
   actionButtonLabel: "",
-  actions: actions,
+  actions:actions
 };
 
 export const WithoutFooter = Template.bind({});
 WithoutFooter.args = {
   headerData: headerData,
-  onSelectedRowsChange: (e) => {
-    console.log("These are the selected rows", e);
+  rows:rows,
+  pagination:{
+    initialRowsPerPage: 2,
+    rowsPerPageOptions: [2, 4, 6, 8, 10],
   },
-  tableTitle: "",
-  tableDescription: "",
-  showSelectedState: false,
-  rows: rows,
-  footerContent: "Footer Content",
-  stickyFooterContent: "Sticky Footer Content",
-  initialRowsPerPage: 2,
+
+  selection: {
+    addCheckbox: false,
+    checkboxLabel: 'Select All',
+    initialSelectedRows: [],
+    onSelectedRowsChange: (e) => {
+      console.log("These are the selected rows", e);
+    },
+    showSelectedState: false,
+  },
+  footerProps: {
+    footerContent: "Footer Content",
+    hideFooter: true,
+    stickyFooterContent: "Sticky Footer Content",
+    scrollableStickyFooterContent: true,
+    isStickyFooter: false,
+    addStickyFooter: false,
+  },
   frozenColumns: 0,
-  rowsPerPageOptions: [2, 4, 6, 8, 10],
   isStickyHeader: false,
-  addCheckbox: false,
-  checkboxLabel: "Select All",
-  isStickyFooter: false,
-  initialSelectedRows: [],
-  hideFooter: true,
 };
 
 export const WithDefaultRowsPerPage = Template.bind({});
 WithDefaultRowsPerPage.args = {
   headerData: headerData,
-  onSelectedRowsChange: (e) => {
-    console.log("These are the selected rows", e);
+  selection: {
+    addCheckbox: false,
+    checkboxLabel: 'Select All',
+    initialSelectedRows: [],
+    onSelectedRowsChange: (e) => {
+      console.log("These are the selected rows", e);
+    },
+    showSelectedState: false,
   },
-  tableTitle: "",
-  tableDescription: "",
-  showSelectedState: false,
+  footerProps: {
+    footerContent: "Footer Content",
+    hideFooter: false,
+    stickyFooterContent: "Sticky Footer Content",
+    scrollableStickyFooterContent: true,
+    isStickyFooter: false,
+    addStickyFooter: false,
+  },
   rows: rows,
-  footerContent: "Footer Content",
-  stickyFooterContent: "Sticky Footer Content",
   frozenColumns: 0,
   isStickyHeader: false,
-  addCheckbox: false,
-  checkboxLabel: "Select All",
-  isStickyFooter: false,
-  initialSelectedRows: [],
-  hideFooter: false,
 };
 
 export const WithCustomRowsPerPage = Template.bind({});
 WithCustomRowsPerPage.args = {
   headerData: headerData,
-  onSelectedRowsChange: (e) => {
-    console.log("These are the selected rows", e);
+  rows:rows,
+  pagination:{
+    initialRowsPerPage: 2,
+    rowsPerPageOptions: [2, 4, 6, 8, 10],
   },
-  tableTitle: "",
-  tableDescription: "",
-  showSelectedState: false,
-  rows: rows,
-  footerContent: "",
-  stickyFooterContent: "Sticky Footer Content",
-  initialRowsPerPage: 2,
+  selection: {
+    addCheckbox: false,
+    checkboxLabel: 'Select All',
+    initialSelectedRows: [],
+    onSelectedRowsChange: (e) => {
+      console.log("These are the selected rows", e);
+    },
+    showSelectedState: false,
+  },
+  footerProps: {
+    footerContent: null,
+    hideFooter: false,
+    stickyFooterContent: "Sticky Footer Content",
+    scrollableStickyFooterContent: true,
+    isStickyFooter: false,
+    addStickyFooter: false,
+  },
   frozenColumns: 0,
-  rowsPerPageOptions: [2, 4, 6, 8, 10],
   isStickyHeader: false,
-  addCheckbox: false,
-  checkboxLabel: "Select All",
-  isStickyFooter: false,
-  initialSelectedRows: [],
-  hideFooter: false,
 };
 
 export const WithCustomFooterContent = Template.bind({});
 WithCustomFooterContent.args = {
   headerData: headerData,
-  onSelectedRowsChange: (e) => {
-    console.log("These are the selected rows", e);
+  rows:rows,
+  pagination:{
+    initialRowsPerPage: 2,
+    rowsPerPageOptions: [2, 4, 6, 8, 10],
   },
-  tableTitle: "",
-  tableDescription: "",
-  showSelectedState: false,
-  rows: rows,
-  footerContent: <div>{"Here you can add any content"}</div>,
-  stickyFooterContent: "Sticky Footer Content",
-  initialRowsPerPage: 2,
+  selection: {
+    addCheckbox: false,
+    checkboxLabel: 'Select All',
+    initialSelectedRows: [],
+    onSelectedRowsChange: (e) => {
+      console.log("These are the selected rows", e);
+    },
+    showSelectedState: false,
+  },
+  footerProps: {
+    footerContent: <div>{"Here you can add any content"}</div>,
+    hideFooter: false,
+    stickyFooterContent: "Sticky Footer Content",
+    scrollableStickyFooterContent: true,
+    isStickyFooter: false,
+    addStickyFooter: false,
+  },
   frozenColumns: 0,
-  rowsPerPageOptions: [2, 4, 6, 8, 10],
   isStickyHeader: false,
-  addCheckbox: false,
-  checkboxLabel: "Select All",
-  isStickyFooter: false,
-  initialSelectedRows: [],
-  hideFooter: false,
 };
 
 export const WithStickyFooterContent = Template.bind({});
 WithStickyFooterContent.args = {
   headerData: headerData,
-  onSelectedRowsChange: (e) => {
-    console.log("These are the selected rows", e);
+  rows:rows,
+  pagination:{
+    initialRowsPerPage: 2,
+    rowsPerPageOptions: [2, 4, 6, 8, 10],
   },
-  tableTitle: "",
-  tableDescription: "",
-  showSelectedState: false,
-  rows: rows,
-  footerContent: "Footer Content",
-  stickyFooterContent: "Sticky Footer Content",
-  initialRowsPerPage: 2,
-  frozenColumns: 0,
-  rowsPerPageOptions: [2, 4, 6, 8, 10],
-  isStickyHeader: false,
-  addCheckbox: false,
-  checkboxLabel: "Select All",
-  isStickyFooter: true,
-  initialSelectedRows: [],
-  hideFooter: false,
-  addStickyFooter: true,
-  scrollableStickyFooterContent:false
+  selection: {
+    addCheckbox: false,
+    checkboxLabel: 'Select All',
+    initialSelectedRows: [],
+    onSelectedRowsChange: (e) => {
+      console.log("These are the selected rows", e);
+    },
+    showSelectedState: false,
+  },
+  footerProps: {
+    footerContent: "Footer Content",
+    hideFooter: false,
+    stickyFooterContent: "Sticky Footer Content",
+    scrollableStickyFooterContent: false,
+    isStickyFooter: true,
+    addStickyFooter: true,
+  },
 };
 
 
 export const WithScrollableStickyFooterContent = Template.bind({});
 WithScrollableStickyFooterContent.args = {
   headerData: headerData,
-  onSelectedRowsChange: (e) => {
-    console.log("These are the selected rows", e);
+  rows:rows,
+  pagination:{
+    initialRowsPerPage: 2,
+    rowsPerPageOptions: [2, 4, 6, 8, 10],
   },
-  tableTitle: "",
-  tableDescription: "",
-  showSelectedState: false,
-  rows: rows,
-  footerContent: "Footer Content",
-  stickyFooterContent: 
-  <tr> 
-  <td>GrandTotal</td>
-  <td >₹34,000.00</td>
-  <td>₹34,000.00</td>
-  <td >₹34,000.00</td>
-  <td >₹34,000.00</td>
-  <td >₹34,000.00</td>
-  <td >₹34,000.00</td>
-  <td >₹34,000.00</td>
-  <td >₹34,000.00</td>
-  <td >₹34,000.00</td>
-  <td >₹34,000.00</td>
-  <td >₹34,000.00</td>
-  <td >₹34,000.00</td>
-  <td >₹34,000.00</td>
-  <td >₹34,000.00</td>
-  <td >₹34,000.00</td>
-  <td >₹34,000.00</td>
-  <td >₹34,000.00</td>
-  <td >₹34,000.00</td>
-  <td >₹34,000.00</td>
-  <td >₹34,000.00</td>
-  <td >₹34,000.00</td>
-  <td >₹34,000.00</td>
-  <td >₹34,000.00</td>
-  <td >₹34,000.00</td>
-  <td >₹34,000.00</td>
-  <td >₹34,000.00</td>
-  </tr>,
-  initialRowsPerPage: 2,
+  selection: {
+    addCheckbox: false,
+    checkboxLabel: 'Select All',
+    initialSelectedRows: [],
+    onSelectedRowsChange: (e) => {
+      console.log("These are the selected rows", e);
+    },
+    showSelectedState: false,
+  },
+  footerProps: {
+    footerContent: "Footer Content",
+    hideFooter: false,
+    stickyFooterContent: 
+    <tr> 
+    <td>GrandTotal</td>
+    <td >₹34,000.00</td>
+    <td>₹34,000.00</td>
+    <td >₹34,000.00</td>
+    <td >₹34,000.00</td>
+    <td >₹34,000.00</td>
+    <td >₹34,000.00</td>
+    <td >₹34,000.00</td>
+    <td >₹34,000.00</td>
+    <td >₹34,000.00</td>
+    <td >₹34,000.00</td>
+    <td >₹34,000.00</td>
+    <td >₹34,000.00</td>
+    <td >₹34,000.00</td>
+    <td >₹34,000.00</td>
+    <td >₹34,000.00</td>
+    <td >₹34,000.00</td>
+    <td >₹34,000.00</td>
+    <td >₹34,000.00</td>
+    <td >₹34,000.00</td>
+    <td >₹34,000.00</td>
+    <td >₹34,000.00</td>
+    <td >₹34,000.00</td>
+    <td >₹34,000.00</td>
+    <td >₹34,000.00</td>
+    <td >₹34,000.00</td>
+    <td >₹34,000.00</td>
+    </tr>,
+    scrollableStickyFooterContent: true,
+    isStickyFooter: true,
+    addStickyFooter: true,
+  },
   frozenColumns: 0,
-  rowsPerPageOptions: [2, 4, 6, 8, 10],
   isStickyHeader: false,
-  addCheckbox: false,
-  checkboxLabel: "Select All",
-  isStickyFooter: true,
-  initialSelectedRows: [],
-  hideFooter: false,
-  addStickyFooter: true,
-  scrollableStickyFooterContent:true
 };
 
 export const WithOnRowClick = Template.bind({});
 WithOnRowClick.args = {
   headerData: headerData,
-  onSelectedRowsChange: (e) => {
-    console.log("These are the selected rows", e);
+  rows:rows,
+  pagination:{
+    initialRowsPerPage: 2,
+    rowsPerPageOptions: [2, 4, 6, 8, 10],
+  },
+  selection: {
+    addCheckbox: false,
+    checkboxLabel: 'Select All',
+    initialSelectedRows: [],
+    onSelectedRowsChange: (e) => {
+      console.log("These are the selected rows", e);
+    },
+    showSelectedState: false,
+  },
+  footerProps: {
+    footerContent: "Footer Content",
+    hideFooter: false,
+    stickyFooterContent: "Sticky Footer Content",
+    scrollableStickyFooterContent: false,
+    isStickyFooter: false,
+    addStickyFooter: true,
   },
   onRowClick: (row, index) => {
     console.log(row, index, "this row is clicked");
   },
-  tableTitle: "",
-  tableDescription: "",
-  showSelectedState: false,
-  rows: rows,
-  footerContent: "Footer Content",
-  stickyFooterContent: "Sticky Footer Content",
-  initialRowsPerPage: 2,
   frozenColumns: 0,
-  rowsPerPageOptions: [2, 4, 6, 8, 10],
   isStickyHeader: false,
-  addCheckbox: false,
-  checkboxLabel: "Select All",
-  isStickyFooter: false,
-  initialSelectedRows: [],
-  hideFooter: false,
-  addStickyFooter: true,
 };
 
 export const WithFilter = Template.bind({});
 WithFilter.args = {
   headerData: headerData,
-  onSelectedRowsChange: (e) => {
-    console.log("These are the selected rows", e);
+  rows:rows,
+  pagination:{
+    initialRowsPerPage: 2,
+    rowsPerPageOptions: [2, 4, 6, 8, 10],
   },
-  tableTitle: "",
-  tableDescription: "",
-  showSelectedState: false,
-  rows: rows,
-  footerContent: "",
-  stickyFooterContent: "Sticky Footer Content",
-  initialRowsPerPage: 2,
+  selection: {
+    addCheckbox: false,
+    checkboxLabel: 'Select All',
+    initialSelectedRows: [],
+    onSelectedRowsChange: (e) => {
+      console.log("These are the selected rows", e);
+    },
+    showSelectedState: false,
+  },
+  footerProps: {
+    footerContent: null,
+    hideFooter: false,
+    stickyFooterContent: "Sticky Footer Content",
+    scrollableStickyFooterContent: false,
+    isStickyFooter: false,
+    addStickyFooter: true,
+  },
   frozenColumns: 0,
-  rowsPerPageOptions: [2, 4, 6, 8, 10],
   isStickyHeader: false,
-  addCheckbox: false,
-  checkboxLabel: "Select All",
-  isStickyFooter: false,
-  initialSelectedRows: [],
-  hideFooter: false,
   onFilter:(e)=>{console.log(e,"filter clicked")},
   addFilter:true
 };
 
 export const WithCustomStyles = Template.bind({});
 WithCustomStyles.args = {
-  onSelectedRowsChange: (e) => {
-    console.log("These are the selected rows", e);
-  },
   headerData:headerDataForCustomStyles,
+  pagination:{
+    initialRowsPerPage: 2,
+    rowsPerPageOptions: [2, 4, 6, 8, 10],
+  },
+  selection: {
+    addCheckbox: false,
+    checkboxLabel: 'Select All',
+    initialSelectedRows: [],
+    onSelectedRowsChange: (e) => {
+      console.log("These are the selected rows", e);
+    },
+    showSelectedState: false,
+  },
+  styles:{
+    withAlternateBg: false,
+    withHeaderDivider:true,
+    withBorder:true,
+    withColumnDivider: false,
+    extraStyles:{
+      headerStyles:{
+        backgroundColor:"#0B4B66",
+        color:"#FFFFFF"
+      },
+      bodyStyles:{
+        backgroundColor:"#FFFFFF",
+        color:"#0B4B66"
+      },
+      footerStyles:{
+        color:"#363636"
+      }
+    },
+    withRowDivider:true,
+  },
   onRowClick: (row, index) => {
     console.log(row, index, "this row is clicked");
   },
-  tableTitle: "",
-  tableDescription: "",
-  showSelectedState: false,
+  footerProps: {
+    footerContent: "Footer Content",
+    hideFooter: false,
+    stickyFooterContent: "Sticky Footer Content",
+    scrollableStickyFooterContent: false,
+    isStickyFooter: false,
+    addStickyFooter: true,
+  },
   rows: samplerows,
-  footerContent: "Footer Content",
-  stickyFooterContent: "Sticky Footer Content",
-  initialRowsPerPage: 2,
   frozenColumns: 0,
-  rowsPerPageOptions: [2, 4, 6, 8, 10],
   isStickyHeader: false,
-  addCheckbox: false,
-  checkboxLabel: "Select All",
-  isStickyFooter: false,
-  initialSelectedRows: [],
-  hideFooter: false,
-  addStickyFooter: true,
-  headerStyles:{
-    backgroundColor:"#0B4B66",
-    color:"#FFFFFF"
-  },
-  bodyStyles:{
-    backgroundColor:"#FFFFFF",
-    color:"#0B4B66"
-  },
-  footerStyles:{
-    color:"#363636"
-  }
 };
 
 
@@ -1964,28 +2267,48 @@ export const WithAscendingAsInitialSortOrder = Template.bind({});
 WithAscendingAsInitialSortOrder.args = {
   ...commonArgs,
   headerData: headerData,
-  onSelectedRowsChange: (e) => {
-    console.log("These are the selected rows", e);
+  rows:rows,
+  pagination:{
+    initialRowsPerPage: 2,
+    rowsPerPageOptions: [2, 4, 6, 8, 10],
   },
-  rows: rows,
-  initialRowsPerPage: 2,
-  rowsPerPageOptions: [2, 4, 6, 8, 10],
+  sorting:{
+    initialSortOrder: "ascending",
+    isTableSortable:true,
+  },
+  selection: {
+    addCheckbox: false,
+    checkboxLabel: 'Select All',
+    initialSelectedRows: [],
+    onSelectedRowsChange: (e) => {
+      console.log("These are the selected rows", e);
+    },
+    showSelectedState: false,
+  },
   onRowClick:undefined,
-  initialSortOrder: "ascending",
-  isTableSortable:true,
 };
 
 export const WithDescendingAsInitialSortOrder = Template.bind({});
 WithDescendingAsInitialSortOrder.args = {
   ...commonArgs,
   headerData: headerData,
-  onSelectedRowsChange: (e) => {
-    console.log("These are the selected rows", e);
+  rows:rows,
+  pagination:{
+    initialRowsPerPage: 2,
+    rowsPerPageOptions: [2, 4, 6, 8, 10],
   },
-  rows: rows,
-  initialRowsPerPage: 2,
-  rowsPerPageOptions: [2, 4, 6, 8, 10],
+  selection: {
+    addCheckbox: false,
+    checkboxLabel: 'Select All',
+    initialSelectedRows: [],
+    onSelectedRowsChange: (e) => {
+      console.log("These are the selected rows", e);
+    },
+    showSelectedState: false,
+  },
+  sorting:{
+    initialSortOrder: "descending",
+    isTableSortable:true,
+  },
   onRowClick:undefined,
-  initialSortOrder: "descending",
-  isTableSortable:true,
 };

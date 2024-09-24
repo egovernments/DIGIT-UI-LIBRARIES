@@ -6,6 +6,7 @@ import React, {
   Fragment,
 } from "react";
 import { useTranslation } from "react-i18next";
+import PropTypes from "prop-types";
 import TableMain from "../atoms/TableMain";
 import TableHeader from "../atoms/TableHeader";
 import TableFooter from "../atoms/TableFooter";
@@ -22,49 +23,65 @@ import Button from "../atoms/Button";
 const TableMolecule = ({
   headerData,
   rows,
-  footerContent,
-  initialRowsPerPage = 5,
-  frozenColumns = 0,
-  withBorder,
-  withAlternateBg,
-  withHeaderDivider,
-  withColumnDivider,
-  withRowDivider,
-  rowsPerPageOptions = [5, 10, 15, 20],
-  isStickyHeader = false,
-  addCheckbox = false,
-  checkboxLabel,
-  initialSelectedRows = [],
-  onSelectedRowsChange,
-  isStickyFooter,
-  addStickyFooter,
-  stickyFooterContent,
-  tableTitle,
-  tableDescription,
-  showSelectedState,
-  onRowClick,
-  hideFooter,
-  actionButtonLabel,
-  actions,
-  headerStyles,
-  footerStyles,
-  bodyStyles,
+  pagination = {
+    initialRowsPerPage: 5,
+    rowsPerPageOptions: [5, 10, 15, 20],
+  },
+  styles = {
+    withBorder: false,
+    withAlternateBg: false,
+    withHeaderDivider: true,
+    withColumnDivider: false,
+    withRowDivider: true,
+    extraStyles: {},
+  },
+  tableDetails = {
+    tableTitle: "",
+    tableDescription: "",
+  },
+  sorting = {
+    isTableSortable: true,
+    initialSortOrder: "ascending",
+  },
+  selection = {
+    addCheckbox: false,
+    checkboxLabel: "",
+    initialSelectedRows: [],
+    onSelectedRowsChange: () => {},
+    showSelectedState: false,
+  },
+  footerProps = {
+    scrollableStickyFooterContent: true,
+    footerContent: null,
+    hideFooter: false,
+    stickyFooterContent: null,
+    isStickyFooter: false,
+    addStickyFooter: false,
+  },
   className,
-  tableStyles,
   onFilter,
   addFilter,
-  scrollableStickyFooterContent,
-  isTableSortable,
-  initialSortOrder,
+  onRowClick,
+  frozenColumns = 0,
+  isStickyHeader = false,
+  actionButtonLabel,
+  actions,
 }) => {
   const { t } = useTranslation();
+  console.log(actions,"actions")
   const [currentPage, setCurrentPage] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState(initialRowsPerPage);
-  const [selectedRows, setSelectedRows] = useState(initialSelectedRows);
+  const [rowsPerPage, setRowsPerPage] = useState(
+    pagination?.initialRowsPerPage
+  );
+  const [selectedRows, setSelectedRows] = useState(
+    selection?.initialSelectedRows
+  );
   const frozenColumnsRefsForHeaders = useRef([]);
   const frozenColumnsRefsForRows = useRef({});
   const [selectedRowsDetails, setSelectedRowsDetails] = useState([]);
-  const [sortOrder, setSortOrder] = useState(initialSortOrder || "ascending");
+  const [sortOrder, setSortOrder] = useState(
+    sorting?.initialSortOrder || "ascending"
+  );
   const [sortedColumnIndex, setSortedColumnIndex] = useState(null);
   const [sortedRows, setSortedRows] = useState([]);
 
@@ -117,7 +134,7 @@ const TableMolecule = ({
       newSortedRows.sort((a, b) => {
         const columnA = a[columnIndex];
         const columnB = b[columnIndex];
-  
+
         // Sorting based on data type
         if (typeof columnA === "number" && typeof columnB === "number") {
           return sortOrder === "ascending"
@@ -148,9 +165,8 @@ const TableMolecule = ({
       }
     }
   }, [sortedColumnIndex, sortOrder, rows, headerData]);
-  
 
-  const currentRows = isTableSortable
+  const currentRows = sorting?.isTableSortable
     ? sortedRows?.slice(indexOfFirstRow, indexOfLastRow)
     : rows?.slice(indexOfFirstRow, indexOfLastRow);
 
@@ -208,36 +224,45 @@ const TableMolecule = ({
     return (
       <div className={"digit-table-footer-wrapper"}>
         <div
-          className={`digit-table-container ${withBorder ? "withBorder" : ""}`}
+          className={`digit-table-container ${
+            styles?.withBorder ? "withBorder" : ""
+          }`}
         >
-          <TableMain className={className} style={tableStyles}>
+          <TableMain
+            className={className}
+            style={styles?.extraStyles?.tableStyles}
+          >
             {/* Dynamic Table Header */}
             <TableHeader
               className={`${isStickyHeader ? "sticky-header" : ""} ${
                 hasDescription ? "hasDes" : ""
               }`}
-              style={headerStyles}
+              style={styles?.extraStyles?.headerStyles}
             >
               <TableRow>
-                {addCheckbox && (
+                {selection?.addCheckbox && (
                   <TableCell
                     isHeader={true}
                     className={`fixed-columns ${
-                      withBorder ? "withBorder" : ""
+                      styles?.withBorder ? "withBorder" : ""
                     } ${
-                      withColumnDivider && !withHeaderDivider
+                      styles?.withColumnDivider && !styles?.withHeaderDivider
                         ? "withColumnDivider"
                         : ""
-                    } ${withHeaderDivider ? "withHeaderDivider" : ""}`}
-                    style={headerStyles}
+                    } ${styles?.withHeaderDivider ? "withHeaderDivider" : ""}`}
+                    style={styles?.extraStyles?.headerStyles}
                   >
                     <CheckBox
                       checked={allRowsSelected}
                       onChange={onSelectAllRows}
-                      label={checkboxLabel}
+                      label={selection?.checkboxLabel}
                       hideLabel={
-                        checkboxLabel && checkboxLabel !== "" ? false : true
+                        selection?.checkboxLabel &&
+                        selection?.checkboxLabel !== ""
+                          ? false
+                          : true
                       }
+                      isIntermediate={selectedRows && selectedRows?.length>0 && selectedRows.length !== rows?.length}
                       mainClassName={"table-checkbox"}
                     />
                   </TableCell>
@@ -247,16 +272,16 @@ const TableMolecule = ({
                     key={index}
                     isHeader={true}
                     className={`fixed-columns ${
-                      withBorder ? "withBorder" : ""
+                      styles?.withBorder ? "withBorder" : ""
                     } ${
-                      withColumnDivider && !withHeaderDivider
+                      styles?.withColumnDivider && !styles?.withHeaderDivider
                         ? "withColumnDivider"
                         : ""
-                    } ${withHeaderDivider ? "withHeaderDivider" : ""}`}
+                    } ${styles?.withHeaderDivider ? "withHeaderDivider" : ""}`}
                     cellref={(el) => {
                       frozenColumnsRefsForHeaders.current[index] = el;
                     }}
-                    style={headerStyles}
+                    style={styles?.extraStyles?.headerStyles}
                   >
                     <div className="header-des-wrap">
                       <div className="column-header">
@@ -273,13 +298,27 @@ const TableMolecule = ({
                         {(header.type === "serialno" ||
                           header.type === "numeric" ||
                           header.type === "description" ||
-                          header.type === "text") && isTableSortable && (
-                          <span
-                            className="sort-icon"
-                            onClick={() => handleSort(index)}
-                          >
-                            {sortedColumnIndex === index ? (
-                              sortOrder === "ascending" ? (
+                          header.type === "text") &&
+                          sorting?.isTableSortable && (
+                            <span
+                              className="sort-icon"
+                              onClick={() => handleSort(index)}
+                            >
+                              {sortedColumnIndex === index ? (
+                                sortOrder === "ascending" ? (
+                                  <CustomSVG.SortDown
+                                    fill={"#363636"}
+                                    width={"16px"}
+                                    height={"16px"}
+                                  />
+                                ) : (
+                                  <CustomSVG.SortUp
+                                    fill={"#363636"}
+                                    width={"16px"}
+                                    height={"16px"}
+                                  />
+                                )
+                              ) : sortOrder === "ascending" ? (
                                 <CustomSVG.SortDown
                                   fill={"#363636"}
                                   width={"16px"}
@@ -291,22 +330,9 @@ const TableMolecule = ({
                                   width={"16px"}
                                   height={"16px"}
                                 />
-                              )
-                            ) : sortOrder === "ascending" ? (
-                              <CustomSVG.SortDown
-                                fill={"#363636"}
-                                width={"16px"}
-                                height={"16px"}
-                              />
-                            ) : (
-                              <CustomSVG.SortUp
-                                fill={"#363636"}
-                                width={"16px"}
-                                height={"16px"}
-                              />
-                            )}
-                          </span>
-                        )}
+                              )}
+                            </span>
+                          )}
                       </div>
                       {header.description && (
                         <div className="column-description">
@@ -330,13 +356,13 @@ const TableMolecule = ({
                     key={index}
                     isHeader={true}
                     className={`scrollable-columns ${
-                      withBorder ? "withBorder" : ""
+                      styles?.withBorder ? "withBorder" : ""
                     } ${
-                      withColumnDivider && !withHeaderDivider
+                      styles?.withColumnDivider && !styles?.withHeaderDivider
                         ? "withColumnDivider"
                         : ""
-                    } ${withHeaderDivider ? "withHeaderDivider" : ""}`}
-                    style={headerStyles}
+                    } ${styles?.withHeaderDivider ? "withHeaderDivider" : ""}`}
+                    style={styles?.extraStyles?.headerStyles}
                   >
                     <div className="header-des-wrap">
                       <div className="column-header">
@@ -353,13 +379,27 @@ const TableMolecule = ({
                         {(header.type === "serialno" ||
                           header.type === "numeric" ||
                           header.type === "description" ||
-                          header.type === "text") && isTableSortable && (
-                          <span
-                            className="sort-icon"
-                            onClick={() => handleSort(index)}
-                          >
-                            {sortedColumnIndex === index ? (
-                              sortOrder === "ascending" ? (
+                          header.type === "text") &&
+                          sorting?.isTableSortable && (
+                            <span
+                              className="sort-icon"
+                              onClick={() => handleSort(index)}
+                            >
+                              {sortedColumnIndex === index ? (
+                                sortOrder === "ascending" ? (
+                                  <CustomSVG.SortDown
+                                    fill={"#363636"}
+                                    width={"16px"}
+                                    height={"16px"}
+                                  />
+                                ) : (
+                                  <CustomSVG.SortUp
+                                    fill={"#363636"}
+                                    width={"16px"}
+                                    height={"16px"}
+                                  />
+                                )
+                              ) : sortOrder === "ascending" ? (
                                 <CustomSVG.SortDown
                                   fill={"#363636"}
                                   width={"16px"}
@@ -371,22 +411,9 @@ const TableMolecule = ({
                                   width={"16px"}
                                   height={"16px"}
                                 />
-                              )
-                            ) : sortOrder === "ascending" ? (
-                              <CustomSVG.SortDown
-                                fill={"#363636"}
-                                width={"16px"}
-                                height={"16px"}
-                              />
-                            ) : (
-                              <CustomSVG.SortUp
-                                fill={"#363636"}
-                                width={"16px"}
-                                height={"16px"}
-                              />
-                            )}
-                          </span>
-                        )}
+                              )}
+                            </span>
+                          )}
                       </div>
                       {header.description && (
                         <div className="column-description">
@@ -409,23 +436,27 @@ const TableMolecule = ({
             </TableHeader>
 
             {/* Dynamic Table Body with Pagination */}
-            <TableBody style={bodyStyles}>
+            <TableBody style={styles?.extraStyles?.bodyStyles}>
               {currentRows?.map((row, rowIndex) => (
                 <TableRow
                   key={rowIndex}
-                  className={`${withAlternateBg ? "withAlternateBg" : ""} ${
-                    onRowClick ? "addHover" : ""
-                  } ${selectedRows?.includes(rowIndex) ? "selected" : ""}`}
+                  className={`${
+                    styles?.withAlternateBg ? "withAlternateBg" : ""
+                  } ${onRowClick ? "addHover" : ""} ${
+                    selectedRows?.includes(rowIndex) ? "selected" : ""
+                  }`}
                   onClick={
                     onRowClick ? () => onRowClick(row, rowIndex) : undefined
                   }
                 >
-                  {addCheckbox && (
+                  {selection?.addCheckbox && (
                     <TableCell
                       isHeader={false}
                       className={`fixed-columns ${
-                        withRowDivider ? "withRowDivider" : ""
-                      } ${withColumnDivider ? "withColumnDivider" : ""}`}
+                        styles?.withRowDivider ? "withRowDivider" : ""
+                      } ${
+                        styles?.withColumnDivider ? "withColumnDivider" : ""
+                      }`}
                       columnType={"custom"}
                       cellData={
                         <CheckBox
@@ -439,7 +470,7 @@ const TableMolecule = ({
                           mainClassName={"table-checkbox"}
                         />
                       }
-                      style={bodyStyles}
+                      style={styles?.extraStyles?.bodyStyles}
                     ></TableCell>
                   )}
                   {row?.slice(0, frozenColumns)?.map((cell, cellIndex) => (
@@ -448,8 +479,10 @@ const TableMolecule = ({
                       isHeader={false}
                       isFooter={false}
                       className={`fixed-columns  ${
-                        withRowDivider ? "withRowDivider" : ""
-                      } ${withColumnDivider ? "withColumnDivider" : ""}`}
+                        styles?.withRowDivider ? "withRowDivider" : ""
+                      } ${
+                        styles?.withColumnDivider ? "withColumnDivider" : ""
+                      }`}
                       cellData={cell}
                       columnType={
                         headerData && headerData.length > 0
@@ -464,7 +497,7 @@ const TableMolecule = ({
                           cellIndex
                         ] = el;
                       }}
-                      style={bodyStyles}
+                      style={styles?.extraStyles?.bodyStyles}
                     ></TableCell>
                   ))}
                   {row?.slice(frozenColumns)?.map((cell, cellIndex) => (
@@ -473,8 +506,10 @@ const TableMolecule = ({
                       isHeader={false}
                       isFooter={false}
                       className={`scrollable-columns  ${
-                        withRowDivider ? "withRowDivider" : ""
-                      } ${withColumnDivider ? "withColumnDivider" : ""}`}
+                        styles?.withRowDivider ? "withRowDivider" : ""
+                      } ${
+                        styles?.withColumnDivider ? "withColumnDivider" : ""
+                      }`}
                       cellData={cell}
                       columnType={headerData[cellIndex + frozenColumns]?.type}
                     ></TableCell>
@@ -485,29 +520,30 @@ const TableMolecule = ({
             {/* Dynamic Table Footer with Pagination */}
           </TableMain>
         </div>
-        {!hideFooter && (
+        {!footerProps?.hideFooter && (
           <TableFooter
             className={`digit-table-footer ${
-              isStickyFooter || (addStickyFooter && stickyFooterContent)
+              footerProps?.isStickyFooter ||
+              (footerProps?.addStickyFooter && footerProps?.stickyFooterContent)
                 ? "sticky-footer"
                 : ""
             } `}
           >
-            {addStickyFooter && stickyFooterContent && (
+            {footerProps?.addStickyFooter && footerProps?.stickyFooterContent && (
               <TableRow
                 className={`sticky-footer-content ${
-                  scrollableStickyFooterContent ? "scrollable" : ""
+                  footerProps?.scrollableStickyFooterContent ? "scrollable" : ""
                 }`}
               >
                 <TableCell
                   isHeader={false}
                   isFooter={true}
                   className={`sticker-footer-td ${
-                    withBorder ? "withBorder" : ""
+                    styles?.withBorder ? "withBorder" : ""
                   }`}
-                  style={footerStyles}
+                  style={styles?.extraStyles?.footerStyles}
                 >
-                  {stickyFooterContent}
+                  {footerProps?.stickyFooterContent}
                 </TableCell>
               </TableRow>
             )}
@@ -515,11 +551,11 @@ const TableMolecule = ({
               <TableCell
                 isHeader={false}
                 isFooter={true}
-                className={`${withBorder ? "withBorder" : ""}`}
-                style={footerStyles}
+                className={`${styles?.withBorder ? "withBorder" : ""}`}
+                style={styles?.extraStyles?.footerStyles}
               >
                 <div className="footer-content">
-                  {footerContent}
+                  {footerProps?.footerContent}
                   <div className={"footer-pagination-container"}>
                     <div className="rows-per-page">
                       <label htmlFor="rowsPerPage">
@@ -532,7 +568,7 @@ const TableMolecule = ({
                         value={rowsPerPage}
                         onChange={handleRowsPerPageChange}
                       >
-                        {rowsPerPageOptions.map((option) => (
+                        {pagination?.rowsPerPageOptions.map((option) => (
                           <option key={option} value={option}>
                             {option}
                           </option>
@@ -577,12 +613,19 @@ const TableMolecule = ({
   };
 
   // Table Card
-  return tableTitle || tableDescription || showSelectedState || addFilter ? (
+  return tableDetails?.tableTitle ||
+    tableDetails?.tableDescription ||
+    selection?.showSelectedState ||
+    addFilter ? (
     <Card className={"digit-table-card"}>
-      {(tableDescription || tableTitle || addFilter) && (
+      {(tableDetails?.tableDescription ||
+        tableDetails?.tableTitle ||
+        addFilter) && (
         <div className="table-header-wrapper">
           <div className="header-filter-wrapper">
-            {tableTitle && <div className="table-header">{tableTitle}</div>}
+            {tableDetails?.tableTitle && (
+              <div className="table-header">{tableDetails?.tableTitle}</div>
+            )}
             {addFilter && (
               <CustomSVG.FilterSvg
                 fill={"#363636"}
@@ -593,12 +636,14 @@ const TableMolecule = ({
               />
             )}
           </div>
-          {tableDescription && (
-            <div className="table-description">{tableDescription}</div>
+          {tableDetails?.tableDescription && (
+            <div className="table-description">
+              {tableDetails?.tableDescription}
+            </div>
           )}
         </div>
       )}
-      {showSelectedState && selectedRows.length > 0 && (
+      {selection?.showSelectedState && selectedRows.length > 0 && (
         <div className="selection-state-wrapper">
           <div className="svg-state-wrapper">
             <SVG.DoneAll
@@ -617,7 +662,9 @@ const TableMolecule = ({
               variation="secondary"
               label={actionButtonLabel || t("TakeAction")}
               type="button"
-              onClick={() => onSelectedRowsChange(selectedRowsDetails)}
+              onClick={() =>
+                selection?.onSelectedRowsChange(selectedRowsDetails)
+              }
               size={"large"}
             />
           )}
@@ -631,8 +678,82 @@ const TableMolecule = ({
 };
 
 TableMolecule.propTypes = {
+  headerData: PropTypes.array.isRequired,
+  rows: PropTypes.array.isRequired,
+  pagination: PropTypes.shape({
+    initialRowsPerPage: PropTypes.number,
+    rowsPerPageOptions: PropTypes.arrayOf(PropTypes.number),
+  }),
+  styles: PropTypes.shape({
+    withBorder: PropTypes.bool,
+    withAlternateBg: PropTypes.bool,
+    withHeaderDivider: PropTypes.bool,
+    withColumnDivider: PropTypes.bool,
+    withRowDivider: PropTypes.bool,
+    extraStyles: PropTypes.object,
+  }),
+  tableDetails: PropTypes.shape({
+    tableTitle: PropTypes.string,
+    tableDescription: PropTypes.string,
+  }),
+  sorting: PropTypes.shape({
+    isTableSortable: PropTypes.bool,
+    initialSortOrder: PropTypes.string,
+  }),
+  selection: PropTypes.shape({
+    addCheckbox: PropTypes.bool,
+    checkboxLabel: PropTypes.string,
+    initialSelectedRows: PropTypes.array,
+    onSelectedRowsChange: PropTypes.func,
+    showSelectedState: PropTypes.bool,
+  }),
+  footerProps: PropTypes.shape({
+    stickyFooterContent: null,
+    footerContent: null,
+    hideFooter: PropTypes.bool,
+    scrollableStickyFooterContent: PropTypes.bool,
+    isStickyFooter: PropTypes.bool,
+    addStickyFooter: PropTypes.bool,
+  }),
 };
 
-TableMolecule.defaultProps = {};
+TableMolecule.defaultProps = {
+  pagination: {
+    initialRowsPerPage: 5,
+    rowsPerPageOptions: [5, 10, 15, 20],
+  },
+  styles: {
+    withBorder: false,
+    withAlternateBg: false,
+    withHeaderDivider: true,
+    withColumnDivider: false,
+    withRowDivider: true,
+    extraStyles: {},
+  },
+  tableDetails: {
+    tableTitle: "",
+    tableDescription: "",
+  },
+  sorting: {
+    isTableSortable: true,
+    initialSortOrder: "ascending",
+  },
+  selection: {
+    addCheckbox: false,
+    checkboxLabel: "",
+    initialSelectedRows: [],
+    onSelectedRowsChange: () => {},
+    showSelectedState: false,
+  },
+  footerProps: {
+    footerContent: null,
+    hideFooter: false,
+    stickyFooterContent: null,
+    scrollableStickyFooterContent: true,
+    isStickyFooter: false,
+    addStickyFooter: false,
+  },
+  actions:[]
+};
 
 export default TableMolecule;
