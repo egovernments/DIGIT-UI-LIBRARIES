@@ -141,6 +141,13 @@ const lightThemeItems = [
             path: "/",
             label: "InnerModule 1",
             icon: "Lock",
+            children:[
+              {
+                path: "/",
+                label: "SubChildModule 1",
+                icon: "Lock",
+              },
+            ]
           },
           {
             path: "/",
