@@ -20,6 +20,7 @@ const CheckBox = ({
   isLabelFirst,
   customLabelMarkup,
   hideLabel,
+  isIntermediate,
   ...props
 }) => {
   const { t } = useTranslation();
@@ -67,9 +68,13 @@ const CheckBox = ({
         <p
           className={`digit-custom-checkbox ${
             userType === "employee" ? "digit-custom-checkbox-emp" : ""
-          } ${props?.inputIconClassname} `}
+          } ${isIntermediate ? "intermediate" : ""} ${props?.inputIconClassname} `}
         >
-          <SVG.Check fill={props?.iconFill || (disabled ? diabledIconColor : iconColor)} />
+          {isIntermediate && !checked ? (
+            <span className={`intermediate-square ${disabled ? "squaredisabled" : ""}`} />
+          ) : (
+            <SVG.Check fill={props?.iconFill || (disabled ? diabledIconColor : iconColor)} />
+          )}
         </p>
       </div>
       {(!isLabelFirst && !hideLabel) ? (
@@ -106,7 +111,8 @@ CheckBox.propTypes = {
    */
   ref: PropTypes.func,
   userType: PropTypes.string,
-  hideLabel:PropTypes.bool
+  hideLabel:PropTypes.bool,
+  isIntermediate: PropTypes.bool,
 };
 
 CheckBox.defaultProps = {
@@ -118,6 +124,7 @@ CheckBox.defaultProps = {
   ref: "ww",
   // pageType: "EMPLOYEE",
   index: 0,
+  isIntermediate: false,
 };
 
 export default CheckBox;
