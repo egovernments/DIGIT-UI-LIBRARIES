@@ -1,5 +1,5 @@
 .digit-label-otp-wrapper {
-  display: flex;
+  display: flex !important;
   align-items: center;
   flex-direction: column;
   gap: theme(digitv2.spacers.spacer4);
@@ -16,9 +16,9 @@
   }
 
   .otp-input-container {
-    display: flex;
     justify-content: center;
     gap: theme(digitv2.spacers.spacer3);
+    display: flex !important;
   }
 
 
@@ -27,7 +27,7 @@
     align-items: center;
     justify-content: center;
     gap:theme(digitv2.spacers.spacer2);
-    flex-direction: column;
+    flex-direction: column !important;
 
     .digit-error-icon-message-wrap {
       width: fit-content;
