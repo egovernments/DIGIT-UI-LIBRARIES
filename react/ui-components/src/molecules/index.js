@@ -22,6 +22,7 @@ import LandingPageWrapper from "./LandingPageWrapper";
 import MenuCard from "./MenuCard";
 import MenuCardWrapper from "./MenuCardWrapper";
 import TableMolecule from "./TableMolecule";
+import MetricCard from "./MetricCard";
 
 export {
   ApiDropdown,
@@ -48,4 +49,5 @@ export {
   LandingPageWrapper,
   MenuCardWrapper,
   TableMolecule,
+  MetricCard
 };
