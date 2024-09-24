@@ -87,52 +87,22 @@ class FlexibleDigitCard extends StatelessWidget {
                   ? const EdgeInsets.all(spacer5)
                   : const EdgeInsets.all(spacer6)),
           child: layoutType == LayoutType.horizontal
-              ? Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // First column
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: firstColumnChildren
-                      .asMap()
-                      .entries
-                      .map((entry) => Padding(
-                    padding: EdgeInsets.only(
-                      bottom: entry.key ==
-                          firstColumnChildren.length - 1
-                          ? 0
-                          : spacing ??
-                          (isMobile
-                              ? 16
-                              : isTab
-                              ? 20
-                              : 24),
-                    ),
-                    child: entry.value,
-                  ))
-                      .toList(),
-                ),
-              ),
-              if (showDivider && columnCount == 2) // Optional divider between columns
-                VerticalDivider(
-                  width: 24,
-                  thickness: 1,
-                  color: const DigitColors().light.genericDivider,
-                ),
-              if (columnCount == 2)
+              ? IntrinsicHeight( // Ensures all children have the same height
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch, // Stretches children to take full height
+              children: [
+                // First column
                 Expanded(
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: secondColumnChildren
+                    children: firstColumnChildren
                         .asMap()
                         .entries
                         .map((entry) => Padding(
                       padding: EdgeInsets.only(
                         bottom: entry.key ==
-                            secondColumnChildren.length - 1
+                            firstColumnChildren.length - 1
                             ? 0
                             : spacing ??
                             (isMobile
@@ -141,12 +111,54 @@ class FlexibleDigitCard extends StatelessWidget {
                                 ? 20
                                 : 24),
                       ),
-                      child: entry.value,
+                      child: entry.key == 0 // Ensure first child has fixed height
+                          ? SizedBox(
+                        height: 48, // Define the same height for the first child in each column
+                        child: entry.value,
+                      )
+                          : entry.value,
                     ))
                         .toList(),
                   ),
                 ),
-            ],
+                if (showDivider && columnCount == 2) // Optional divider between columns
+                  VerticalDivider(
+                    width: 48,
+                    thickness: 1,
+                    color: const DigitColors().light.genericDivider,
+                  ),
+                if (columnCount == 2)
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: secondColumnChildren
+                          .asMap()
+                          .entries
+                          .map((entry) => Padding(
+                        padding: EdgeInsets.only(
+                          bottom: entry.key ==
+                              secondColumnChildren.length - 1
+                              ? 0
+                              : spacing ??
+                              (isMobile
+                                  ? 16
+                                  : isTab
+                                  ? 20
+                                  : 24),
+                        ),
+                        child: entry.key == 0 // Ensure first child has fixed height
+                            ? SizedBox(
+                          height: 48, // Define the same height for the first child
+                          child: entry.value,
+                        )
+                            : entry.value,
+                      ))
+                          .toList(),
+                    ),
+                  ),
+              ],
+            ),
           )
               : Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -155,9 +167,15 @@ class FlexibleDigitCard extends StatelessWidget {
                 .entries
                 .map((entry) => Padding(
               padding: EdgeInsets.only(
-                bottom: entry.key == firstColumnChildren.length - 1
+                bottom: entry.key ==
+                    firstColumnChildren.length - 1
                     ? 0
-                    : spacing ?? (isMobile ? 16 : isTab ? 20 : 24),
+                    : spacing ??
+                    (isMobile
+                        ? 16
+                        : isTab
+                        ? 20
+                        : 24),
               ),
               child: entry.value,
             ))

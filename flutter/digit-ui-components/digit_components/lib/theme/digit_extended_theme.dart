@@ -20,6 +20,9 @@ class DigitExtendedTheme {
 
   ThemeData getLightTheme() {
     return ThemeData.light().copyWith(
+      textTheme: ThemeData.light().textTheme.apply(
+        fontFamily: 'Roboto',  // Apply the Roboto font to the entire text theme
+      ),
       appBarTheme: const AppBarTheme(elevation: 0),
       textSelectionTheme: TextSelectionThemeData(
         cursorColor: const DigitColors().light.primary1,
@@ -33,6 +36,9 @@ class DigitExtendedTheme {
   }
   ThemeData getDarkTheme() {
     return ThemeData.dark().copyWith(
+      textTheme: ThemeData.light().textTheme.apply(
+        fontFamily: 'Roboto',  // Apply the Roboto font to the entire text theme
+      ),
       appBarTheme: const AppBarTheme(elevation: 0),
       textSelectionTheme: TextSelectionThemeData(
         cursorColor: const DigitColors().light.primary1,

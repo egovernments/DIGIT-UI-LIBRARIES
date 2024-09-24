@@ -295,34 +295,6 @@ List<Story> fileUploaderStories() {
     ),
     Story(
       name: 'Atom/File Upload/Image/Single Upload/default',
-      wrapperBuilder: (context, child) {
-        return DigitThemeWrapper(
-          initialThemeMode: ThemeMode.light,
-          materialAppBuilder: (context, themeData, themeMode) {
-            return MaterialApp(
-              themeMode: themeMode,
-              theme: themeData,
-              locale: const Locale("en", "MZ"),
-              supportedLocales: const [
-                Locale('en', 'US'),
-                Locale("en", "MZ"),
-                Locale('fr', 'FR'),
-              ],
-              localizationsDelegates: [
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-                GlobalCupertinoLocalizations.delegate,
-                ComponentLocalization.getDelegate(loadLocalizedStrings(), [
-                  Language('French', 'fr_MZ'),
-                  Language('Portuguese', 'pt_MZ'),
-                  Language('English', 'en_MZ'),
-                ]),
-              ],
-              home: child,
-            );
-          },
-        );
-      },
       builder: (context) => Center(
           child: ImageUploader(
             onImagesSelected: (List<File> imageFile) {

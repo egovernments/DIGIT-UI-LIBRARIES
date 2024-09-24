@@ -48,6 +48,7 @@ class DigitButtonListTile extends StatelessWidget {
         }).toList();
 
         return Row(
+          mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: alignment,
           children: _addSpacing(adjustedDigitButtons, isVertical),
         );

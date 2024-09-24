@@ -50,113 +50,116 @@ class _SideNavBarState extends State<SideNavBar> {
         ? const DigitColors().light.primary2
         : const DigitColors().light.paperPrimary;
 
-    return MouseRegion(
-      onEnter: (_) {
-        setState(() {
-          isHovered = true;
-        });
-      },
-      onExit: (_) {
-        setState(() {
-          isHovered = false;
-          searchController.text = "";
-          searchQuery = "";
-        });
-        _onSearchChanged();
-      },
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 300),
-        width: isHovered
-            ? 240
-            : widget.type == SideNavType.dark
-            ? 48
-            : 50,
-        padding: const EdgeInsets.only(top: 16),
-        decoration: BoxDecoration(
-          border: widget.type == SideNavType.light
-              ? Border.all(
-            width: 1.0,
-            color: widget.type == SideNavType.light
-                ? const DigitColors().light.genericDivider
-                : const DigitColors().transparent,
-          )
-              : null,
-          color: background,
-        ),
-        child: Column(
-          // mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            isHovered
-                ? Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12.0),
-              child: DigitSearchFormInput(
-                controller: searchController,
-                textStyle: widget.type == SideNavType.light
-                    ? Theme.of(context)
-                    .digitTextTheme(context)
-                    .bodyL
-                    .copyWith(
-                    color: const DigitColors().light.textPrimary)
-                    : Theme.of(context)
-                    .digitTextTheme(context)
-                    .bodyL
-                    .copyWith(
-                    color:
-                    const DigitColors().light.paperPrimary),
-                enableBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: widget.type == SideNavType.light
-                        ? const DigitColors().light.textDisabled
-                        : const DigitColors().light.paperPrimary,
-                    width: 1.0,
-                  ),
-                  borderRadius: Base.radius,
-                ),
-                focusBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: widget.type == SideNavType.light
-                        ? const DigitColors().light.primary1
-                        : const DigitColors().light.paperPrimary,
-                    width: 1.5,
-                  ),
-                  borderRadius: Base.radius,
-                ),
-                iconColor: widget.type == SideNavType.light
-                    ? const DigitColors().light.primary2
-                    : const DigitColors().light.paperPrimary,
-              ),
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: MouseRegion(
+        onEnter: (_) {
+          setState(() {
+            isHovered = true;
+          });
+        },
+        onExit: (_) {
+          setState(() {
+            isHovered = false;
+            searchController.text = "";
+            searchQuery = "";
+          });
+          _onSearchChanged();
+        },
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 300),
+          width: isHovered
+              ? 240
+              : widget.type == SideNavType.dark
+              ? 48
+              : 50,
+          padding: const EdgeInsets.only(top: 16),
+          decoration: BoxDecoration(
+            border: widget.type == SideNavType.light
+                ? Border.all(
+              width: 1.0,
+              color: widget.type == SideNavType.light
+                  ? const DigitColors().light.genericDivider
+                  : const DigitColors().transparent,
             )
-                : Center(
-              child: Icon(
-                Icons.search,
-                size: 24,
-                color: widget.type == SideNavType.light
-                    ? const DigitColors().light.primary2
-                    : const DigitColors().light.paperPrimary,
+                : null,
+            color: background,
+          ),
+          child: Column(
+            // mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              isHovered
+                  ? Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                child: DigitSearchFormInput(
+                  controller: searchController,
+                  textStyle: widget.type == SideNavType.light
+                      ? Theme.of(context)
+                      .digitTextTheme(context)
+                      .bodyL
+                      .copyWith(
+                      color: const DigitColors().light.textPrimary)
+                      : Theme.of(context)
+                      .digitTextTheme(context)
+                      .bodyL
+                      .copyWith(
+                      color:
+                      const DigitColors().light.paperPrimary),
+                  enableBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: widget.type == SideNavType.light
+                          ? const DigitColors().light.textDisabled
+                          : const DigitColors().light.paperPrimary,
+                      width: 1.0,
+                    ),
+                    borderRadius: Base.radius,
+                  ),
+                  focusBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: widget.type == SideNavType.light
+                          ? const DigitColors().light.primary1
+                          : const DigitColors().light.paperPrimary,
+                      width: 1.5,
+                    ),
+                    borderRadius: Base.radius,
+                  ),
+                  iconColor: widget.type == SideNavType.light
+                      ? const DigitColors().light.primary2
+                      : const DigitColors().light.paperPrimary,
+                ),
+              )
+                  : Center(
+                child: Icon(
+                  Icons.search,
+                  size: 24,
+                  color: widget.type == SideNavType.light
+                      ? const DigitColors().light.primary2
+                      : const DigitColors().light.paperPrimary,
+                ),
               ),
-            ),
-            SizedBox(height: isHovered ? 16 : 24),
-            NavItemBuilder(
-              navItems: widget.navItems,
-              isHovered: isHovered,
-              type: widget.type,
-              selectedNavItem: selectedNavItem,
-              onItemTapped: (navItem) {
-                setState(() {
-                  selectedNavItem = navItem;
-                });
-              },
-              isExpandedMap: isExpandedMap,
-              onExpansionChanged: (index, isExpanded) {
-                setState(() {
-                  isExpandedMap[index] = isExpanded;
-                });
-              },
-              searchQuery: searchQuery,
-            ),
-            if (isHovered) _buildBottomSection(),
-          ],
+              SizedBox(height: isHovered ? 16 : 24),
+              NavItemBuilder(
+                navItems: widget.navItems,
+                isHovered: isHovered,
+                type: widget.type,
+                selectedNavItem: selectedNavItem,
+                onItemTapped: (navItem) {
+                  setState(() {
+                    selectedNavItem = navItem;
+                  });
+                },
+                isExpandedMap: isExpandedMap,
+                onExpansionChanged: (index, isExpanded) {
+                  setState(() {
+                    isExpandedMap[index] = isExpanded;
+                  });
+                },
+                searchQuery: searchQuery,
+              ),
+              if (isHovered) _buildBottomSection(),
+            ],
+          ),
         ),
       ),
     );

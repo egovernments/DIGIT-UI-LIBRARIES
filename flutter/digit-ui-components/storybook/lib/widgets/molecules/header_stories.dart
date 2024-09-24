@@ -164,7 +164,7 @@ List<Story> headerMoleculeStories() {
     Story(
       name: 'Molecule/Header/dark/Variant 1',
       builder: (context) => CustomHeaderMolecule(
-        title: 'City Municipal Corporation',
+        title: 'Digit UI Library',
         type: HeaderType.dark,
         leadingDigitLogo: false,
         trailingDigitLogo: true,

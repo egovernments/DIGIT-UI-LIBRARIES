@@ -138,7 +138,7 @@ class MatrixList extends StatelessWidget {
         columns.add(
           Container(
             width: verticalDividerWidth,
-            height: 300,
+            height: 260 ,
             color: theme.colorTheme.generic.divider, // Adjust color as needed
           ),
         );
@@ -187,17 +187,17 @@ class MatrixCard extends StatelessWidget {
         Text(
           matrix.value,
           style: textTheme.headingM.copyWith(
-            color: theme.colorTheme.text.primary,
+            color: theme.colorTheme.primary.primary2,
           ),
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: spacer1),
         Text(
           matrix.description,
           style: textTheme.bodyS.copyWith(
             color: theme.colorTheme.text.secondary,
           ),
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: spacer1),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
@@ -210,9 +210,9 @@ class MatrixCard extends StatelessWidget {
                   ? Icons.info
                   : Icons.arrow_downward,
               color: textColor,
-              size: 24,
+              size: 16,
             ),
-            const SizedBox(width: 8),
+            const SizedBox(width: spacer1),
             Text(
               matrix.statusText ?? '',
               style: textTheme.bodyS.copyWith(

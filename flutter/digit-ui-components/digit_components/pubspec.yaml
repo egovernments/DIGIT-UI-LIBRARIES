@@ -58,18 +58,16 @@ dev_dependencies:
 flutter:
   assets:
     - assets/images/
-    - assets/fonts/Roboto/
     - assets/icons/svg/
     - assets/animated_json/
+
   fonts:
     - family: Roboto
       fonts:
         - asset: assets/fonts/Roboto/Roboto-Regular.ttf
-
-    - family: Roboto Italic
+    - family: Roboto Condensed
       fonts:
-        - asset: assets/fonts/Roboto/Roboto-Italic.ttf
+        - asset: assets/fonts/Roboto/RobotoCondensed-Regular.ttf
 
-    - family: Roboto Bold
-      fonts:
-        - asset: assets/fonts/Roboto/Roboto-Bold.ttf
+  uses-material-design: true
+

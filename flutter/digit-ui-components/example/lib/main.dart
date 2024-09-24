@@ -16,6 +16,7 @@ import 'package:digit_ui_components/widgets/atoms/dropdown_wrapper.dart';
 import 'package:digit_ui_components/widgets/atoms/info_buttons.dart';
 import 'package:digit_ui_components/widgets/atoms/input_wrapper.dart';
 import 'package:digit_ui_components/widgets/atoms/switch.dart';
+import 'package:digit_ui_components/widgets/atoms/text_block.dart';
 import 'package:digit_ui_components/widgets/atoms/timeline.dart';
 import 'package:digit_ui_components/widgets/atoms/tooltip_2.dart';
 import 'package:digit_ui_components/widgets/atoms/upload_image.dart';
@@ -235,6 +236,12 @@ class MyHomePageState extends State<MyHomePage> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                const DigitTextBlock(
+                  caption: 'Caption Text',
+                  heading: 'Heading Text',
+                  subHeading: 'Sub Heading Text',
+                  description: 'This is the description of the TextBlock component.',
+                ),
                 CustomSwitch(
                   value: isSwitched,
                   label: 'Toggle to switch theme',

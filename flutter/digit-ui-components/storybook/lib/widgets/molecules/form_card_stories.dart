@@ -9,34 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:digit_ui_components/widgets/molecules/form_card.dart';
 import 'package:digit_ui_components/widgets/atoms/dropdown_wrapper.dart';
 
-List<Story> cardStories() {
+List<Story> formCardStories() {
   return [
-    Story(
-      name: 'Molecule/form Card/1',
-      builder: (context) => DigitCard(
-        cardType: CardType.primary,
-        children: [
-          const DigitTextBlock(
-            heading: 'Heading',
-          ),
-          LabeledField(
-              label: 'Text Field',
-              child: DigitTextFormInput(
-                controller: TextEditingController(),
-              )),
-          const SizedBox(height: 8,),
-          const DigitDivider(),
-          const DigitTextBlock(
-            subHeading: 'Add your start and end dates for cycles',
-          ),
-          FileUploadWidget2(
-            label: 'Upload', onFilesSelected: (file){
-            return {};
-          },
-          ),
-        ],
-      ),
-    ),
     Story(
       name: 'Molecule/form Card/2',
       builder: (context) => FlexibleDigitCard(
@@ -44,18 +18,106 @@ List<Story> cardStories() {
         columnCount: 2,
         showDivider: true,
         children: [
-          const DigitTextBlock(
-            heading: 'Heading',
-          ),
           LabeledField(
               label: 'Text Field',
               child: DigitTextFormInput(
                 controller: TextEditingController(),
               )),
-          const SizedBox(height: 8,),
-          const DigitDivider(),
-          const DigitTextBlock(
-            subHeading: 'Add your start and end dates for cycles',
+          LabeledField(
+              label: 'Numeric Field',
+              child: DigitNumericFormInput(
+                controller: TextEditingController(),
+              )),
+          LabeledField(
+              label: 'Search Field',
+              child: DigitSearchFormInput(
+                controller: TextEditingController(),
+              )),
+          LabeledField(
+              label: 'Location Field',
+              child: DigitLocationFormInput(
+                controller: TextEditingController(),
+              )),
+          LabeledField(
+            label: "Dropdown with Description",
+            child: DigitDropdown(
+              onSelect: (item) => {},
+              items: [
+                'one',
+                'two',
+                'three',
+                'four',
+              ]
+                  .asMap()
+                  .entries
+                  .map(
+                    (item) => DropdownItem(
+                    name: item.value,
+                    code: item.key.toString(),
+                    description: 'This is just example description'),
+              )
+                  .toList(),
+            ),
+          ),
+          LabeledField(
+            label: "Dropdown with Description",
+            child: DigitDropdown(
+              items: [
+                'one',
+                'two',
+                'three',
+                'four',
+              ]
+                  .asMap()
+                  .entries
+                  .map(
+                    (item) => DropdownItem(
+                    name: item.value,
+                    code: item.key.toString(),
+                    description: 'This is just example description'),
+              )
+                  .toList(),
+            ),
+          ),
+          LabeledField(
+            label: "Dropdown with Description",
+            child: DigitDropdown(
+              items: [
+                'one',
+                'two',
+                'three',
+                'four',
+              ]
+                  .asMap()
+                  .entries
+                  .map(
+                    (item) => DropdownItem(
+                    name: item.value,
+                    code: item.key.toString(),
+                    description: 'This is just example description'),
+              )
+                  .toList(),
+            ),
+          ),
+          LabeledField(
+            label: "Dropdown with Description",
+            child: DigitDropdown(
+              items: [
+                'one',
+                'two',
+                'three',
+                'four',
+              ]
+                  .asMap()
+                  .entries
+                  .map(
+                    (item) => DropdownItem(
+                    name: item.value,
+                    code: item.key.toString(),
+                    description: 'This is just example description'),
+              )
+                  .toList(),
+            ),
           ),
           FileUploadWidget2(
             label: 'Upload', onFilesSelected: (file){
@@ -72,18 +134,107 @@ List<Story> cardStories() {
           columnCount: 2,
           showDivider: true,
           children: [
-            const DigitTextBlock(
-              heading: 'Heading',
-            ),
             LabeledField(
                 label: 'Text Field',
                 child: DigitTextFormInput(
                   controller: TextEditingController(),
                 )),
-            const SizedBox(height: 8,),
-            const DigitDivider(),
-            const DigitTextBlock(
-              subHeading: 'Add your start and end dates for cycles',
+            LabeledField(
+                label: 'Numeric Field',
+                child: DigitNumericFormInput(
+                  controller: TextEditingController(),
+                )),
+            LabeledField(
+                label: 'Search Field',
+                child: DigitSearchFormInput(
+                  controller: TextEditingController(),
+                )),
+            LabeledField(
+                label: 'Location Field',
+                child: DigitLocationFormInput(
+                  controller: TextEditingController(),
+                )),
+            DigitCheckbox(label: 'Click to know more', onChanged: (value) {}),
+            LabeledField(
+              label: "Dropdown with Description",
+              child: DigitDropdown(
+                onSelect: (item) => {},
+                items: [
+                  'one',
+                  'two',
+                  'three',
+                  'four',
+                ]
+                    .asMap()
+                    .entries
+                    .map(
+                      (item) => DropdownItem(
+                      name: item.value,
+                      code: item.key.toString(),
+                      description: 'This is just example description'),
+                )
+                    .toList(),
+              ),
+            ),
+            LabeledField(
+              label: "Dropdown with Description",
+              child: DigitDropdown(
+                items: [
+                  'one',
+                  'two',
+                  'three',
+                  'four',
+                ]
+                    .asMap()
+                    .entries
+                    .map(
+                      (item) => DropdownItem(
+                      name: item.value,
+                      code: item.key.toString(),
+                      description: 'This is just example description'),
+                )
+                    .toList(),
+              ),
+            ),
+            LabeledField(
+              label: "Dropdown with Description",
+              child: DigitDropdown(
+                items: [
+                  'one',
+                  'two',
+                  'three',
+                  'four',
+                ]
+                    .asMap()
+                    .entries
+                    .map(
+                      (item) => DropdownItem(
+                      name: item.value,
+                      code: item.key.toString(),
+                      description: 'This is just example description'),
+                )
+                    .toList(),
+              ),
+            ),
+            LabeledField(
+              label: "Dropdown with Description",
+              child: DigitDropdown(
+                items: [
+                  'one',
+                  'two',
+                  'three',
+                  'four',
+                ]
+                    .asMap()
+                    .entries
+                    .map(
+                      (item) => DropdownItem(
+                      name: item.value,
+                      code: item.key.toString(),
+                      description: 'This is just example description'),
+                )
+                    .toList(),
+              ),
             ),
             FileUploadWidget2(
               label: 'Upload', onFilesSelected: (file){

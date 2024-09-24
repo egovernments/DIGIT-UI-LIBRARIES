@@ -15,6 +15,7 @@ class DigitTextTheme extends ThemeExtension<DigitTextTheme> {
   final TextStyle linkL;
   final TextStyle linkM;
   final TextStyle linkS;
+  final TextStyle label;
 
   const DigitTextTheme({
     required this.headingXl,
@@ -31,6 +32,12 @@ class DigitTextTheme extends ThemeExtension<DigitTextTheme> {
     required this.linkL,
     required this.linkM,
     required this.linkS,
+    this.label = const TextStyle(
+      fontSize: 16,
+      fontFamily: 'Roboto',
+      fontWeight: FontWeight.w400,
+      height: 1.37,
+    )
   });
 
   @override

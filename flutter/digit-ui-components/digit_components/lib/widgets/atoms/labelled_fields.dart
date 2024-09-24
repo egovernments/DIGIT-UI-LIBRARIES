@@ -1,4 +1,5 @@
 import 'package:digit_ui_components/digit_components.dart';
+import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:flutter/material.dart';
 import '../../utils/utils.dart';
 
@@ -38,8 +39,8 @@ class LabeledField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    /// typography based on screen
-    DigitTypography currentTypography = getTypography(context, false);
+    final theme = Theme.of(context);
+    final textTheme = theme.digitTextTheme(context);
 
     /// Capitalize the first letter of the label if required
     final processedLabel =
@@ -59,16 +60,16 @@ class LabeledField extends StatelessWidget {
                     text: processedLabel!.length > 64
                         ? '${processedLabel!.substring(0, 64)}...'
                         : processedLabel!,
-                    style: currentTypography.bodyL.copyWith(
-                      color: const DigitColors().light.textPrimary,
+                    style: textTheme.label.copyWith(
+                      color: theme.colorTheme.text.primary,
                       overflow: TextOverflow.ellipsis,
                     ),
                     children: isRequired
                         ? [
                       TextSpan(
                         text: ' *',
-                        style: currentTypography.bodyL.copyWith(
-                          color: const DigitColors().light.alertError,
+                        style: textTheme.label.copyWith(
+                          color: theme.colorTheme.alert.error,
                         ),
                       ),
                     ]
@@ -116,25 +117,23 @@ class LabeledField extends StatelessWidget {
                     ? CrossAxisAlignment.end
                     : CrossAxisAlignment.start,
                 children: [
-                  Expanded(
-                    child: Text(
-                      processedLabel!.length > 64
-                          ? '${processedLabel.substring(0, 64)}...'
-                          : processedLabel,
-                      maxLines: wrapLabelText ? 5 : 1,
-                      style: currentTypography.bodyL.copyWith(
-                        color: const DigitColors().light.textPrimary,
-                        overflow: wrapLabelText
-                            ? TextOverflow.visible
-                            : TextOverflow.ellipsis,
-                      ),
+                  Text(
+                    processedLabel!.length > 64
+                        ? '${processedLabel.substring(0, 64)}...'
+                        : processedLabel,
+                    maxLines: wrapLabelText ? 5 : 1,
+                    style: textTheme.label.copyWith(
+                      color: theme.colorTheme.text.primary,
+                      overflow: wrapLabelText
+                          ? TextOverflow.visible
+                          : TextOverflow.ellipsis,
                     ),
                   ),
                   if (isRequired)
                     Text(
                       ' *',
-                      style: currentTypography.bodyL.copyWith(
-                        color: const DigitColors().light.alertError,
+                      style: textTheme.label.copyWith(
+                        color: theme.colorTheme.alert.error,
                       ),
                     ),
                   if (infoText != null) const SizedBox(width: spacer1),
@@ -146,7 +145,7 @@ class LabeledField extends StatelessWidget {
                       child: Icon(
                         Icons.info_outline,
                         size: spacer5,
-                        color: const DigitColors().light.textSecondary,
+                        color: theme.colorTheme.text.secondary,
                       ),
                     ),
                 ],

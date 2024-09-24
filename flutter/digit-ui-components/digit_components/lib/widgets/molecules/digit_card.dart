@@ -12,6 +12,7 @@ class DigitCard extends StatelessWidget {
   final double? spacing;
   final Color? borderColor;
   final bool inline;
+  final ScrollPhysics? scrollPhysics;
 
   const DigitCard({
     required this.children,
@@ -23,6 +24,7 @@ class DigitCard extends StatelessWidget {
     this.spacing,
     this.borderColor,
     this.cardType = CardType.primary,
+    this.scrollPhysics,
   });
 
   @override
@@ -39,7 +41,7 @@ class DigitCard extends StatelessWidget {
         border: cardType == CardType.secondary
             ? Border.all(
           width: Base.defaultBorderWidth,
-          color: borderColor ?? const DigitColors().light.genericDivider,
+          color: borderColor ?? theme.colorTheme.generic.divider,
         )
             : null,
         color: cardType == CardType.secondary
@@ -48,7 +50,7 @@ class DigitCard extends StatelessWidget {
         boxShadow: cardType == CardType.primary
             ? [
           BoxShadow(
-            color: const Color(0xFF000000).withOpacity(.16),
+            color: theme.colorTheme.text.primary.withOpacity(.16),
             offset: const Offset(0, 1),
             spreadRadius: 0,
             blurRadius: 2,
@@ -67,6 +69,7 @@ class DigitCard extends StatelessWidget {
                   ? const EdgeInsets.all(spacer5)
                   : const EdgeInsets.all(spacer6)),
           child: SingleChildScrollView(
+            physics: scrollPhysics,
             child: inline && !isMobile
                 ? Row(
               mainAxisAlignment: MainAxisAlignment.start,

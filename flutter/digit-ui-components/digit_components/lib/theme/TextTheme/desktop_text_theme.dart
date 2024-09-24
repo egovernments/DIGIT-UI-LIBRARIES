@@ -7,7 +7,7 @@ class DigitDesktopTextThemeExtension extends DigitTextTheme {
           headingXl: const TextStyle(
             fontSize: 40,
             fontWeight: FontWeight.w700,
-            fontFamily: 'Roboto',
+            fontFamily: 'Roboto Condensed',
             height: 1.14,
           ),
           headingL: const TextStyle(

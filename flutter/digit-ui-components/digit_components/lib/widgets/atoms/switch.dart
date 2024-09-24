@@ -70,6 +70,7 @@ class _CustomSwitchState extends State<CustomSwitch>
     final defaultSwitchTheme = DigitSwitchThemeData.defaultTheme(context);
 
     return Row(
+      mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: widget.mainAxisAlignment,
       children: [
         InkWell(
