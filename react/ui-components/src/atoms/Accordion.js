@@ -93,7 +93,6 @@ const Accordion = ({
 
 Accordion.propTypes = {
   title: PropTypes.string.isRequired,
-  content: PropTypes.node.isRequired,
   icon: PropTypes.string,
   iconFill: PropTypes.string,
   iconWidth: PropTypes.string,
