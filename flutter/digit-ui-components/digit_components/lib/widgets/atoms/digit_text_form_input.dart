@@ -49,6 +49,7 @@ class DigitTextFormInput extends BaseDigitFormInput {
     final int? maxLength,
     final TextStyle? suffixTextStyle,
     final TextStyle? prefixTextStyle,
+    final bool? obscureText,
   }) : super(
     key: key,
     controller: controller,
@@ -75,6 +76,7 @@ class DigitTextFormInput extends BaseDigitFormInput {
     contentPadding: contentPadding,
     suffixTextStyle: suffixTextStyle,
     prefixTextStyle: prefixTextStyle,
+    obscureText: obscureText,
   );
 
   @override

@@ -99,6 +99,8 @@ class BaseDigitFormInput extends StatefulWidget {
 
   final FocusNode? focusNode;
 
+  final bool? obscureText;
+
   final TextStyle? suffixTextStyle;
 
   /// input formatters
@@ -185,6 +187,7 @@ class BaseDigitFormInput extends StatefulWidget {
     this.iconColor,
     this.contentPadding,
     this.iconSize,
+    this.obscureText,
   }) : super(key: key);
 
   @override
@@ -484,7 +487,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                   inputFormatters: widget.inputFormatters,
                   onTap: widget.readOnly ? null : onTap,
                   focusNode: myFocusNode,
-                  obscureText: isVisible,
+                  obscureText: widget.obscureText ?? isVisible,
                   controller: _controller,
                   readOnly:
                       (widget.readOnly || !widget.isEditable) ? true : false,
@@ -591,17 +594,18 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                                       const BoxConstraints(minWidth: 38),
                                   padding: const EdgeInsets.symmetric(
                                     horizontal: spacer3 / 2,
-                                    vertical: spacer1 / 2,
+                                    vertical: spacer1/2 ,
                                   ),
+
                                   height: (_isFocusOn || _hasError) &&
                                           !widget.readOnly
-                                      ? 37
+                                      ? 37.5
                                       : 38,
                                   margin: EdgeInsets.only(
                                     left: spacer2,
                                     right: (_isFocusOn || _hasError) &&
                                             !widget.readOnly
-                                        ? 1.5
+                                        ? 1.25
                                         : 1,
                                   ),
                                   decoration: BoxDecoration(
@@ -613,7 +617,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                                       top: BorderSide.none,
                                       bottom: BorderSide.none,
                                       left: BorderSide(
-                                        color: widget.isDisabled
+                                        color:  widget.isDisabled
                                             ? const DigitColors()
                                                 .light
                                                 .genericDivider
@@ -624,19 +628,21 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                                       ),
                                     ),
                                   ),
-                                  child: Text(
-                                    widget.suffixText!,
-                                    textAlign: TextAlign.center,
-                                    style: widget.suffixTextStyle ??
-                                        currentTypography.headingL.copyWith(
-                                          color: widget.isDisabled
-                                              ? const DigitColors()
-                                                  .light
-                                                  .textDisabled
-                                              : const DigitColors()
-                                                  .light
-                                                  .textSecondary,
-                                        ),
+                                  child: Center(
+                                    child: Text(
+                                      widget.suffixText!,
+                                      textAlign: TextAlign.center,
+                                      style: widget.suffixTextStyle ??
+                                          currentTypography.headingM.copyWith(
+                                            color: widget.isDisabled
+                                                ? const DigitColors()
+                                                    .light
+                                                    .textDisabled
+                                                : const DigitColors()
+                                                    .light
+                                                    .textSecondary,
+                                          ),
+                                    ),
                                   ),
                                 ),
                               )
@@ -772,19 +778,21 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                                       left: BorderSide.none,
                                     ),
                                   ),
-                                  child: Text(
-                                    widget.prefixText!,
-                                    textAlign: TextAlign.center,
-                                    style: widget.prefixTextStyle ??
-                                        currentTypography.headingL.copyWith(
-                                          color: widget.isDisabled
-                                              ? const DigitColors()
-                                                  .light
-                                                  .textDisabled
-                                              : const DigitColors()
-                                                  .light
-                                                  .textSecondary,
-                                        ),
+                                  child: Center(
+                                    child: Text(
+                                      widget.prefixText!,
+                                      textAlign: TextAlign.center,
+                                      style: widget.prefixTextStyle ??
+                                          currentTypography.headingM.copyWith(
+                                            color: widget.isDisabled
+                                                ? const DigitColors()
+                                                    .light
+                                                    .textDisabled
+                                                : const DigitColors()
+                                                    .light
+                                                    .textSecondary,
+                                          ),
+                                    ),
                                   ),
                                 ),
                               )
