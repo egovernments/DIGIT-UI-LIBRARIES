@@ -55,6 +55,7 @@ class _AnotherStepperState extends State<DigitStepper> {
 
   @override
   void didUpdateWidget(covariant DigitStepper oldWidget) {
+    super.didUpdateWidget(oldWidget);
     _scrollToActiveIndex();
   }
 

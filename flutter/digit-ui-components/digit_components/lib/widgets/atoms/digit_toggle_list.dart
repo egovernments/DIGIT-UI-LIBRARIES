@@ -28,6 +28,7 @@ class ToggleList extends StatefulWidget {
   final double? toggleWidth;
   final MainAxisAlignment mainAxisAlignment;
   final CrossAxisAlignment crossAxisAlignment;
+  final bool capitalizeFirstLetter;
 
   const ToggleList({
     Key? key,
@@ -38,6 +39,7 @@ class ToggleList extends StatefulWidget {
     this.toggleWidth,
     this.mainAxisAlignment = MainAxisAlignment.start,
     this.crossAxisAlignment = CrossAxisAlignment.center,
+    this.capitalizeFirstLetter = true,
   }) : super(key: key);
 
   @override
@@ -103,6 +105,7 @@ class _ToggleListState extends State<ToggleList> {
               label: button.name,
               isSelected: selectedIndex == index,
               maxLabelWidth: widget.toggleWidth ?? maxLabelWidth,
+              capitalizeFirstLetter: widget.capitalizeFirstLetter,
             ),
           );
         },

@@ -7,6 +7,7 @@ class Toggle extends StatefulWidget {
   final String label;
   bool isSelected;
   final double maxLabelWidth;
+  final bool capitalizeFirstLetter;
 
   Toggle({
     Key? key,
@@ -14,6 +15,7 @@ class Toggle extends StatefulWidget {
     required this.label,
     this.isSelected = false,
     required this.maxLabelWidth,
+    this.capitalizeFirstLetter = true,
   }) : super(key: key);
 
   @override
@@ -46,7 +48,7 @@ class _ToggleState extends State<Toggle> {
     DigitTypography currentTypography = getTypography(context, false);
 
     /// Capitalize the first letter of the label if required
-    final processedLabel = capitalizeFirstLetterOfEveryWord(widget.label);
+    final processedLabel = widget.capitalizeFirstLetter ? capitalizeFirstLetterOfEveryWord(widget.label) : widget.label;
 
     return Align(
       alignment: Alignment.centerLeft,

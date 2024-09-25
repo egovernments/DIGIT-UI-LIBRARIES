@@ -1,4 +1,5 @@
 import 'package:digit_ui_components/digit_components.dart';
+import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:flutter/material.dart';
 import '../../utils/utils.dart';
 
@@ -38,8 +39,9 @@ class LabeledField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    /// typography based on screen
-    DigitTypography currentTypography = getTypography(context, false);
+
+    final theme = Theme.of(context);
+    final textTheme = theme.digitTextTheme(context);
 
     /// Capitalize the first letter of the label if required
     final processedLabel =
@@ -59,7 +61,7 @@ class LabeledField extends StatelessWidget {
                   text: processedLabel!.length > 64
                       ? '${processedLabel!.substring(0, 64)}...'
                       : processedLabel!,
-                  style: currentTypography.bodyL.copyWith(
+                  style: textTheme.label.copyWith(
                     color: const DigitColors().light.textPrimary,
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -67,7 +69,7 @@ class LabeledField extends StatelessWidget {
                       ? [
                     TextSpan(
                       text: ' *',
-                      style: currentTypography.bodyL.copyWith(
+                      style: textTheme.label.copyWith(
                         color: const DigitColors().light.alertError,
                       ),
                     ),
@@ -120,7 +122,7 @@ class LabeledField extends StatelessWidget {
                         ? '${processedLabel.substring(0, 64)}...'
                         : processedLabel,
                     maxLines: wrapLabelText ? 5 : 1,
-                    style: currentTypography.bodyL.copyWith(
+                    style: textTheme.label.copyWith(
                       color: const DigitColors().light.textPrimary,
                       overflow: wrapLabelText
                           ? TextOverflow.visible
@@ -131,7 +133,7 @@ class LabeledField extends StatelessWidget {
                 if (isRequired)
                   Text(
                     ' *',
-                    style: currentTypography.bodyL.copyWith(
+                    style: textTheme.label.copyWith(
                       color: const DigitColors().light.alertError,
                     ),
                   ),
