@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/theme/ComponentTheme/divider_theme.dart';
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
@@ -17,7 +19,11 @@ class TableBody extends StatefulWidget {
   final bool withColumnDividers;
   final bool enableSelection;
   final bool headerCheckboxValue;
+  final double? tableHeight;
+  final ScrollPhysics? scrollPhysics;
   final void Function(int, bool) onRowCheckboxChanged;
+  final bool expandOnRowClick; // New: Whether clicking the entire row expands it or just the arrow icon
+  final bool showExpandIconOnHover; // New: Whether to show the expand icon on hover
 
   const TableBody({
     Key? key,
@@ -30,9 +36,13 @@ class TableBody extends StatefulWidget {
     this.withRowDividers = false,
     this.alternateRowColor = false,
     this.enableBorder = false,
+    this.tableHeight,
     this.withColumnDividers = false,
     this.headerCheckboxValue = false,
+    this.scrollPhysics,
     required this.onRowCheckboxChanged,
+    this.expandOnRowClick = true,
+    this.showExpandIconOnHover = false,
   }) : super(key: key);
 
   @override
@@ -42,6 +52,7 @@ class _TableBodyState extends State<TableBody> {
   final Set<int> _hoveredRows = {};
   final Set<int> _selectedRows = {};
   final Set<int> _highlightedRows = {};
+  final Set<int> _expandedRows = {}; // New set to track expanded rows
 
   // Method to count how many checkbox or numeric columns exist
   int _countSpecialColumns() {
@@ -73,12 +84,9 @@ class _TableBodyState extends State<TableBody> {
   @override
   void didUpdateWidget(TableBody oldWidget) {
     super.didUpdateWidget(oldWidget);
-
-
     if (widget.selectedRows != oldWidget.selectedRows) {
       _selectedRows.addAll(widget.selectedRows!);
     }
-
     if (widget.highlightedRows != oldWidget.highlightedRows) {
       _highlightedRows.addAll(widget.highlightedRows!);
     }
@@ -143,10 +151,11 @@ class _TableBodyState extends State<TableBody> {
         );
       }
 
-      // Add row with cells and alternating background color to rowWidgets list
+      // Add the row with its cells
       rowWidgets.add(
         InkWell(
-          onHover: widget.enableSelection ?(hover) {
+          onHover: widget.enableSelection
+              ? (hover) {
             setState(() {
               if (hover) {
                 _hoveredRows.add(i);
@@ -154,8 +163,17 @@ class _TableBodyState extends State<TableBody> {
                 _hoveredRows.remove(i);
               }
             });
-          } : null,
-          onTap:widget.enableSelection ? () {
+          }
+              : null,
+          onTap: widget.rows[i].nestedTable != null ? () {
+            setState(() {
+              if (_expandedRows.contains(i)) {
+                _expandedRows.remove(i); // Collapse row
+              } else {
+                _expandedRows.add(i); // Expand row
+              }
+            });
+          } : widget.enableSelection ? (){
             setState(() {
               if (_selectedRows.contains(i)) {
                 _selectedRows.remove(i);
@@ -163,7 +181,7 @@ class _TableBodyState extends State<TableBody> {
                 _selectedRows.add(i);
               }
             });
-          }: null,
+          } : null,
           child: Container(
             decoration: BoxDecoration(
               color: rowColor,
@@ -179,38 +197,89 @@ class _TableBodyState extends State<TableBody> {
                     : BorderSide.none,
               ),
             ),
-            child: Row(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                if(_selectedRows.contains(i))
-                  Container(
-                    width: 4,
-                    height: 48,
-                    decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.only(
-                          topRight: Radius.circular(4),
-                          bottomRight: Radius.circular(4)),
-                      color: theme.colorTheme.primary.primary1,
-                    ),
-                  ),
                 Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: cells,
+                  children: [
+                    Stack(
+                      children: [
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: cells,
+                        ),
+                        if(widget.showExpandIconOnHover && widget.rows[i].nestedTable != null && _hoveredRows.contains(i))
+                          InkWell(
+                            onTap: () {
+                              setState(() {
+                                if (_expandedRows.contains(i)) {
+                                  _expandedRows.remove(i);
+                                } else {
+                                  _expandedRows.add(i);
+                                }
+                              });
+                            },
+                            child: Icon(
+                              _expandedRows.contains(i)
+                                  ? Icons.keyboard_arrow_up
+                                  : Icons.keyboard_arrow_down,
+                              color: theme.colorTheme.primary.primary1,
+                            ),
+                          ),
+                        if (_selectedRows.contains(i) &&
+                            !widget.showExpandIconOnHover &&
+                            widget.rows[i].nestedTable == null)
+                          Positioned(
+                            left: 0,
+                            top: 0,
+                            bottom: 0,
+                            child: Container(
+                              width: 4,
+                              decoration: BoxDecoration(
+                                borderRadius: const BorderRadius.only(
+                                  topRight: Radius.circular(4),
+                                  bottomRight: Radius.circular(4),
+                                ),
+                                color: theme.colorTheme.primary.primary1,  // Line color
+                              ),
+                            ),
+                          ),
+                      ],
+                    ),
+
+                  ],
                 ),
+                if (_expandedRows.contains(i) && widget.rows[i].nestedTable != null)
+                  Container(
+                    padding: const EdgeInsets.only(left: 16, right: 16, bottom: 12),
+                    child: widget.rows[i].nestedTable!, // Add the nested table widget
+                  ),
               ],
             ),
           ),
         ),
       );
+
+      // // Conditionally add the nested table if the row is expanded
+      // if (_expandedRows.contains(i) && widget.rows[i].nestedTable != null) {
+      //   rowWidgets.add(
+      //     Padding(
+      //       padding: const EdgeInsets.only(left: 16, right: 16, bottom: 8),
+      //       child: widget.rows[i].nestedTable!, // Add the nested table widget
+      //     ),
+      //   );
+      // }
     }
 
     return ConstrainedBox(
       constraints: BoxConstraints(
         maxWidth: normalColumns * 200 + specialColumnCount * 100 + 2,
-        maxHeight: MediaQuery.of(context).size.height - headerHeight - footerHeight,
+        maxHeight: (widget.tableHeight ?? MediaQuery.of(context).size.height) - headerHeight - footerHeight,
       ),
       child: ListView.builder(
+        physics: widget.scrollPhysics,
         shrinkWrap: true,
         itemCount: rowWidgets.length,
         itemBuilder: (context, index) => rowWidgets[index],

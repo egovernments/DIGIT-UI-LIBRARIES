@@ -29,6 +29,17 @@ class TableHeader extends StatelessWidget {
     this.onHeaderCheckboxChanged
   }) : super(key: key);
 
+  // Method to count how many checkbox or numeric columns exist
+  int _countSpecialColumns() {
+    int count = 0;
+    for (var column in columns) {
+      if (column.type == ColumnType.checkbox || column.type == ColumnType.numeric) {
+        count++;
+      }
+    }
+    return count;
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -40,7 +51,12 @@ class TableHeader extends StatelessWidget {
     /// Set height based on whether any column has a description
     double headerHeight = hasDescription ? 70.0 : 52.0;
 
+    // Get the count of checkbox and numeric columns
+    int specialColumnCount = _countSpecialColumns();
+    int normalColumns = columns.length - specialColumnCount;
+
     return Container(
+      width: normalColumns * 200 + specialColumnCount * 100 + 2,
       height: headerHeight,
       decoration: BoxDecoration(
         color: const DigitColors().light.genericBackground,
@@ -87,11 +103,11 @@ class TableHeader extends StatelessWidget {
                 ),
               ),
               child: Container(
-                padding: EdgeInsets.only(right: withColumnDividers || enabledBorder ? 0 : theme.spacerTheme.spacer4),
+                padding: EdgeInsets.only(right: withColumnDividers ? 0 : theme.spacerTheme.spacer4),
                 decoration: BoxDecoration(
                   color: const DigitColors().light.genericBackground,
                   border: Border(
-                    right: (withColumnDividers || enabledBorder) || isLastColumn ? BorderSide.none
+                    right: (withColumnDividers) || isLastColumn ? BorderSide.none
                         : BorderSide(color: theme.colorTheme.text.secondary),
                   ),
                 ),

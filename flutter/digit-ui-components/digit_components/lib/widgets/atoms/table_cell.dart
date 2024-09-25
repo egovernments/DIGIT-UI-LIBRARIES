@@ -176,8 +176,8 @@ class DigitTableColumn {
 
 class DigitTableRow {
   final List<DigitTableData> tableRow;
-  final DigitTable? nestedTable; // Add nested table
-  final bool isExpandable; // Add a flag to indicate whether the row is expandable
+  final DigitTable? nestedTable;
+  final bool isExpandable;
 
   DigitTableRow({
     required this.tableRow,

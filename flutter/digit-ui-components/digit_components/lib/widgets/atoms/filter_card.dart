@@ -198,25 +198,29 @@ class _FilterCardWidgetState extends State<FilterCardWidget> {
 
     return widget.layoutType == FilterCardLayout.horizontal
         ? DigitCard(
+            padding: EdgeInsets.zero,
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   if (widget.title != null)
-                    Row(
-                      children: [
-                        if (widget.titleIcon != null)
-                          Icon(widget.titleIcon,
-                              size: isMobile ? spacer6 : spacer8,
-                              color: theme.colorTheme.primary.primary1),
-                        if (widget.titleIcon != null) const SizedBox(width: 8),
-                        Text(
-                          widget.title!,
-                          style: textTheme.headingM.copyWith(
-                            color: theme.colorTheme.text.primary,
+                    Padding(
+                      padding: EdgeInsets.only(left: isMobile ? spacer4 : isTab ? spacer5 : spacer6, top: isMobile ? spacer4 : isTab ? spacer5 : spacer6),
+                      child: Row(
+                        children: [
+                          if (widget.titleIcon != null)
+                            Icon(widget.titleIcon,
+                                size: isMobile ? spacer6 : spacer8,
+                                color: theme.colorTheme.primary.primary1),
+                          if (widget.titleIcon != null) const SizedBox(width: 8),
+                          Text(
+                            widget.title!,
+                            style: textTheme.headingM.copyWith(
+                              color: theme.colorTheme.text.primary,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   if (widget.onCrossTap != null)
                     Padding(
@@ -242,79 +246,116 @@ class _FilterCardWidgetState extends State<FilterCardWidget> {
                     ),
                 ],
               ),
-              LayoutBuilder(
-                builder: (context, constraints) {
-                  final double availableWidth = constraints.maxWidth;
-                  double usedWidth = 0.0;
-                  List<Widget> rowItems = [];
-                  List<List<Widget>> rows = [];
-                  bool buttonsAddedToRow = false;
+              Padding(
+                padding: EdgeInsets.only(left: isMobile ? spacer4 : isTab ? spacer5 : spacer6, right: isMobile ? spacer4 : isTab ? spacer5 : spacer6, bottom: isMobile ? spacer4 : isTab ? spacer5 : spacer6),
+                child: LayoutBuilder(
+                  builder: (context, constraints) {
+                    final double availableWidth = constraints.maxWidth;
+                    double usedWidth = 0.0;
+                    List<Widget> rowItems = [];
+                    List<List<Widget>> rows = [];
+                    bool buttonsAddedToRow = false;
 
-                  for (var widget in widget.contentList) {
-                    const double widgetWidth = 224.0;
-                    const double spacing = 24.0;
+                    // Assuming LabelledField is the type you're checking against
+                    bool hasLabelledField = widget.contentList.any((widget) => widget is LabeledField);
 
-                    if (usedWidth + widgetWidth <= availableWidth) {
-                      rowItems.add(Expanded(
-                        child: Container(
-                          padding: const EdgeInsets.only(right: spacing),
-                          width: widgetWidth,
-                          child: widget,
-                        ),
-                      ));
-                      usedWidth += widgetWidth + spacing;
-                    } else {
-                      rows.add(rowItems);
-                      rowItems = [
-                        Expanded(
-                          child: Container(
-                            padding: const EdgeInsets.only(right: spacing),
-                            width: widgetWidth,
-                            child: widget,
-                          ),
-                        )
-                      ];
-                      usedWidth = widgetWidth + spacing;
+                    // Calculate the maximum width of widgets in each row
+                    double maxWidgetWidth = 324.0;
+                    for (var widget in widget.contentList) {
+                      // Assuming widget width is fixed to 224 or any other dynamic logic
+                      const double widgetWidth = 300.0;
+                      maxWidgetWidth = widgetWidth > maxWidgetWidth
+                          ? widgetWidth
+                          : maxWidgetWidth;
                     }
-                  }
 
-                  if (rowItems.isNotEmpty &&
-                      widget.layoutType == FilterCardLayout.horizontal) {
-                    rows.add(rowItems);
-                  }
+                    const double spacing = 24.0;
+                    for (var i = 0; i < widget.contentList.length; i++) {
+                      var widget1 = widget.contentList[i];
+                      if (usedWidth + maxWidgetWidth <= availableWidth) {
+                        rowItems.add(
+                          Expanded(
+                            child: Container(
+                               // Apply top padding if true
+                              padding: EdgeInsets.only(top: (hasLabelledField && widget1 is! LabeledField) ? 26 : 0,),
+                              width: maxWidgetWidth,
+                              child: widget1,
+                            ),
+                          ),
+                        );
+                        rowItems.add(const SizedBox(
+                          width: spacing,
+                        ));
+                        usedWidth += maxWidgetWidth + spacing;
+                      } else {
+                        rowItems.removeLast();
+                        if (rows.isNotEmpty) {
+                          rows.add([
+                            const SizedBox(
+                              height: spacing,
+                            )
+                          ]);
+                        }
+                        rows.add(rowItems);
+                        rowItems = [
+                          Expanded(
+                            child: Container(
+                              //padding: EdgeInsets.only(top: (hasLabelledField && widget1 is! LabeledField) ? 26 : 0,),
+                              width: maxWidgetWidth,
+                              child: widget1,
+                            ),
+                          )
+                        ];
+                        usedWidth = maxWidgetWidth + spacing;
+                      }
+                    }
 
-                  const double buttonWidth = 300;
-                  if (widget.layoutType == FilterCardLayout.horizontal &&
-                      usedWidth + buttonWidth <= availableWidth) {
-                    rows.last.add(const Spacer());
-                    rows.last.add(buttonWidgets);
-                    buttonsAddedToRow = true;
-                  }
+                    if (rowItems.isNotEmpty &&
+                        widget.layoutType == FilterCardLayout.horizontal) {
+                      if (rows.isNotEmpty) {
+                        rows.add([
+                          const SizedBox(
+                            height: spacing,
+                          )
+                        ]);
+                      }
+                      rows.add(rowItems);
+                    }
 
-                  return Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      ...rows.map(
-                        (row) => Row(
-                          mainAxisAlignment:
-                              widget.layoutType == FilterCardLayout.horizontal
-                                  ? MainAxisAlignment.start
-                                  : MainAxisAlignment.center,
-                          children: row,
-                        ),
-                      ),
-                      if (!buttonsAddedToRow)
-                        Align(
-                          alignment: Alignment.bottomRight,
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 16.0),
-                            child: buttonWidgets,
+                    const double buttonWidth = 300;
+                    if (widget.layoutType == FilterCardLayout.horizontal &&
+                        usedWidth + buttonWidth <= availableWidth) {
+                      rows.last.add(const Spacer());
+                      rows.last.add(buttonWidgets);
+                      buttonsAddedToRow = true;
+                    }
+
+                    return Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        ...rows.map(
+                          (row) => Row(
+                            mainAxisAlignment:
+                                widget.layoutType == FilterCardLayout.horizontal
+                                    ? MainAxisAlignment.start
+                                    : MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: row,
                           ),
                         ),
-                    ],
-                  );
-                },
+                        if (!buttonsAddedToRow)
+                          Align(
+                            alignment: Alignment.bottomRight,
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 0),// todo need to update
+                              child: buttonWidgets,
+                            ),
+                          ),
+                      ],
+                    );
+                  },
+                ),
               ),
             ],
           )
@@ -480,92 +521,93 @@ class _FilterCardWidgetState extends State<FilterCardWidget> {
               ),
             ),
           ),
-          if(widget.primaryActionLabel != null || widget.secondaryActionLabel != null)
-          Container(
-            padding: EdgeInsets.only(
-              left: isMobile
-                  ? spacer4
-                  : isTab
-                      ? spacer5
-                      : spacer6,
-              right: isMobile
-                  ? spacer4
-                  : isTab
-                      ? spacer5
-                      : spacer6,
-              top: isMobile
-                  ? spacer4
-                  : isTab
-                      ? spacer5
-                      : spacer6,
-              bottom: isMobile
-                  ? spacer4
-                  : isTab
-                      ? spacer5
-                      : spacer6,
-            ),
-            decoration: BoxDecoration(
-              color: const DigitColors().light.paperPrimary,
-              borderRadius: const BorderRadius.only(
-                  bottomLeft: Radius.circular(spacer1),
-                  bottomRight: Radius.circular(spacer1)),
-              boxShadow: _isOverflowing
-                  ? [
-                      BoxShadow(
-                        color: const Color(0xFF000000).withOpacity(.16),
-                        offset: const Offset(0, -1),
-                        spreadRadius: 0,
-                        blurRadius: 2,
-                      ),
-                    ]
-                  : [],
-            ),
-            width: isTab ? 480 : 648,
-            child: Row(
-              mainAxisAlignment: widget.primaryActionLabel == null ||
-                      widget.secondaryActionLabel == null
-                  ? MainAxisAlignment.end
-                  : MainAxisAlignment.spaceBetween,
-              children: [
-                if (widget.secondaryActionLabel != null &&
-                    widget.onSecondaryPressed != null)
-                  Flexible(
-                    child: SizedBox(
-                      width: isTab ? 210 : 288,
-                      child: DigitButton(
-                        mainAxisSize: MainAxisSize.max,
-                        label: widget.secondaryActionLabel!,
-                        onPressed: widget.onSecondaryPressed!,
-                        type: DigitButtonType.tertiary,
-                        size: DigitButtonSize.large,
-                      ),
-                    ),
-                  ),
-                if (widget.primaryActionLabel != null &&
-                    widget.secondaryActionLabel != null)
-                  SizedBox(
-                      width: isTab
-                          ? spacer5
-                          : isMobile
-                              ? spacer4
-                              : spacer6),
-                if (widget.primaryActionLabel != null &&
-                    widget.onPrimaryPressed != null)
-                  Flexible(
-                    child: SizedBox(
-                      width: isTab ? 210 : 288,
-                      child: DigitButton(
-                        mainAxisSize: MainAxisSize.max,
-                        label: widget.primaryActionLabel!,
-                        onPressed: widget.onPrimaryPressed!,
-                        type: DigitButtonType.primary,
-                        size: DigitButtonSize.large,
+          if (widget.primaryActionLabel != null ||
+              widget.secondaryActionLabel != null)
+            Container(
+              padding: EdgeInsets.only(
+                left: isMobile
+                    ? spacer4
+                    : isTab
+                        ? spacer5
+                        : spacer6,
+                right: isMobile
+                    ? spacer4
+                    : isTab
+                        ? spacer5
+                        : spacer6,
+                top: isMobile
+                    ? spacer4
+                    : isTab
+                        ? spacer5
+                        : spacer6,
+                bottom: isMobile
+                    ? spacer4
+                    : isTab
+                        ? spacer5
+                        : spacer6,
+              ),
+              decoration: BoxDecoration(
+                color: const DigitColors().light.paperPrimary,
+                borderRadius: const BorderRadius.only(
+                    bottomLeft: Radius.circular(spacer1),
+                    bottomRight: Radius.circular(spacer1)),
+                boxShadow: _isOverflowing
+                    ? [
+                        BoxShadow(
+                          color: const Color(0xFF000000).withOpacity(.16),
+                          offset: const Offset(0, -1),
+                          spreadRadius: 0,
+                          blurRadius: 2,
+                        ),
+                      ]
+                    : [],
+              ),
+              width: isTab ? 480 : 648,
+              child: Row(
+                mainAxisAlignment: widget.primaryActionLabel == null ||
+                        widget.secondaryActionLabel == null
+                    ? MainAxisAlignment.end
+                    : MainAxisAlignment.spaceBetween,
+                children: [
+                  if (widget.secondaryActionLabel != null &&
+                      widget.onSecondaryPressed != null)
+                    Flexible(
+                      child: SizedBox(
+                        width: isTab ? 210 : 288,
+                        child: DigitButton(
+                          mainAxisSize: MainAxisSize.max,
+                          label: widget.secondaryActionLabel!,
+                          onPressed: widget.onSecondaryPressed!,
+                          type: DigitButtonType.tertiary,
+                          size: DigitButtonSize.large,
+                        ),
                       ),
                     ),
-                  ),
-              ],
+                  if (widget.primaryActionLabel != null &&
+                      widget.secondaryActionLabel != null)
+                    SizedBox(
+                        width: isTab
+                            ? spacer5
+                            : isMobile
+                                ? spacer4
+                                : spacer6),
+                  if (widget.primaryActionLabel != null &&
+                      widget.onPrimaryPressed != null)
+                    Flexible(
+                      child: SizedBox(
+                        width: isTab ? 210 : 288,
+                        child: DigitButton(
+                          mainAxisSize: MainAxisSize.max,
+                          label: widget.primaryActionLabel!,
+                          onPressed: widget.onPrimaryPressed!,
+                          type: DigitButtonType.primary,
+                          size: DigitButtonSize.large,
+                        ),
+                      ),
+                    ),
+                ],
+              ),
             ),
-          ),
         ],
       ),
     );
