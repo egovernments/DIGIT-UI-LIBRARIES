@@ -142,8 +142,8 @@ const TableMolecule = ({
             : columnB - columnA;
         } else if (typeof columnA === "object" && typeof columnB === "object") {
           return sortOrder === "ascending"
-            ? columnA?.label.localeCompare(columnB?.label)
-            : columnB?.label.localeCompare(columnA?.label);
+            ? columnA?.label?.localeCompare(columnB?.label)
+            : columnB?.label?.localeCompare(columnA?.label);
         } else if (typeof columnA === "string" && typeof columnB === "string") {
           return sortOrder === "ascending"
             ? columnA.localeCompare(columnB)
@@ -489,6 +489,11 @@ const TableMolecule = ({
                           ? headerData[cellIndex]?.type
                           : "custom"
                       }
+                      accessor={
+                        headerData && headerData.length > 0
+                          ? headerData[cellIndex]?.accessor
+                          : null
+                      }
                       cellref={(el) => {
                         if (!frozenColumnsRefsForRows.current[rowIndex]) {
                           frozenColumnsRefsForRows.current[rowIndex] = [];
@@ -512,6 +517,11 @@ const TableMolecule = ({
                       }`}
                       cellData={cell}
                       columnType={headerData[cellIndex + frozenColumns]?.type}
+                      accessor={
+                        headerData && headerData.length > 0
+                          ? headerData[cellIndex + frozenColumns]?.accessor
+                          : null
+                      }
                     ></TableCell>
                   ))}
                 </TableRow>

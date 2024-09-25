@@ -18,15 +18,21 @@ const TableCell = ({
   cellData,
   children,
   style,
-  cellref
+  cellref,
+  accessor
 }) => {
+
+
+  const getValueFromAccessor = (cellData, accessor) => {
+    return accessor ? accessor.split('?.').reduce((acc, key) => (acc ? acc[key] : undefined), cellData) : cellData;
+  };
 
   const renderTableCell = () => {
     switch (columnType) {
       case "serialno":
-        return cellData;
+        return accessor ? getValueFromAccessor(cellData,accessor) : cellData;
       case "numeric":
-        return cellData;
+        return accessor ? getValueFromAccessor(cellData,accessor) : cellData;
       case "text":
       case "description":
         {
@@ -36,7 +42,7 @@ const TableCell = ({
               <div>
                 {StringManipulator(
                   "TOSENTENCECASE",
-                  StringManipulator("TRUNCATESTRING", cellData?.label, {
+                  StringManipulator("TRUNCATESTRING", accessor ? getValueFromAccessor(cellData,accessor) : cellData?.label, {
                     maxLength: cellData?.maxLength || defaultmaxChars,
                   })
                 )}
@@ -132,7 +138,7 @@ const TableCell = ({
         return <MultiSelectDropdown {...cellData}></MultiSelectDropdown>;
       case "custom":
       default:
-        return cellData;
+        return accessor ? getValueFromAccessor(cellData,accessor) : cellData;
     }
   };
 
@@ -168,6 +174,7 @@ TableCell.propTypes = {
   isFooter: PropTypes.bool,
   colSpan: PropTypes.number,
   columnType: PropTypes.string,
+  accessor: PropTypes.string,
   cellData: PropTypes.any,
   cellref: PropTypes.oneOfType([
     PropTypes.func,

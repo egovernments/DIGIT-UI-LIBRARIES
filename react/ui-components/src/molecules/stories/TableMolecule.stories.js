@@ -97,6 +97,71 @@ const samplerows = [
   [10, "Row10", "Description10", "Example10", 455666],
 ];
 
+const headerDataWithAccessors = [
+  { label: "S.No", type: "serialno",accessor:"data?.sno"},
+  { label: "Text", type: "text",accessor:"data?.text"},
+  { label: "Numeric", type: "numeric",accessor:"data?.numeric"},
+  { label: "Description", type: "description",accessor:"data?.description"},
+];
+
+const rowsWithAccessor = [
+  [
+    {
+      data:{
+        sno:1
+      }
+    },
+    {
+      data:{
+        text:"Label"
+      },
+      label:
+        "BLorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanp",
+      maxLength: 64,
+    },
+    {
+      data:{
+        numeric:20000
+      },
+    },
+    {
+      data:{
+        description:"description"
+      },
+      label:
+        "BLorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quisppp",
+      maxLength: 256,
+    },
+  ],
+  [
+    {
+      data:{
+        sno:2
+      }
+    },
+    {
+      data:{
+        text:"Label2"
+      },
+      label:
+        "BLorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanp",
+      maxLength: 64,
+    },
+    {
+      data:{
+        numeric:20000
+      },
+    },
+    {
+      data:{
+        description:"description2"
+      },
+      label:
+        "BLorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quisppp",
+      maxLength: 256,
+    },
+  ],
+]
 const rows = [
   [
     1,
@@ -2311,4 +2376,36 @@ WithDescendingAsInitialSortOrder.args = {
     isTableSortable:true,
   },
   onRowClick:undefined,
+};
+
+export const WithAccessor = Template.bind({});
+WithAccessor.args = {
+  ...commonArgs,
+  sorting: {
+    isTableSortable: false,
+  },
+  headerData: headerDataWithAccessors,
+  rows: rowsWithAccessor,
+  pagination: {
+    initialRowsPerPage: 2,
+    rowsPerPageOptions: [2, 4, 6, 8, 10],
+  },
+  styles: {
+    withAlternateBg: false,
+    withColumnDivider: false,
+    extraStyles: {},
+    withHeaderDivider: true,
+    withRowDivider: true,
+    withBorder: true,
+  },
+  selection: {
+    addCheckbox: false,
+    checkboxLabel: "",
+    initialSelectedRows: [],
+    onSelectedRowsChange: (e) => {
+      console.log("These are the selected rows", e);
+    },
+    showSelectedState: false,
+  },
+  onRowClick: undefined,
 };
