@@ -85,6 +85,7 @@ class BaseDigitFormInput extends StatefulWidget {
 
   /// Determines whether the cursor should be visible in the input field.
   final bool? showCurser;
+  final bool? obscureText;
 
   /// Initial value for the input field.
   final String? initialValue;
@@ -185,6 +186,7 @@ class BaseDigitFormInput extends StatefulWidget {
     this.iconColor,
     this.contentPadding,
     this.iconSize,
+    this.obscureText,
   }) : super(key: key);
 
   @override
@@ -486,7 +488,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                   inputFormatters: widget.inputFormatters,
                   onTap: widget.readOnly ? null : onTap,
                   focusNode: myFocusNode,
-                  obscureText: isVisible,
+                  obscureText: widget.obscureText ?? isVisible,
                   controller: _controller,
                   readOnly:
                       (widget.readOnly || !widget.isEditable) ? true : false,

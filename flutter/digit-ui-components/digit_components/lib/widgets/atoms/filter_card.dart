@@ -201,6 +201,7 @@ class _FilterCardWidgetState extends State<FilterCardWidget> {
             padding: EdgeInsets.zero,
             children: [
               Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   if (widget.title != null)
@@ -407,6 +408,7 @@ class _FilterCardWidgetState extends State<FilterCardWidget> {
             ),
             width: isTab ? 480 : 648,
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               mainAxisSize: MainAxisSize.max,
               children: [

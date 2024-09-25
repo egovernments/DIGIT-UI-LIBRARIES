@@ -10,27 +10,30 @@ List<Story> sliderStories() {
       name: 'Basic Toggle Slider',
       builder: (context) => RightSideSlider(
         expandedContentAlignment: MainAxisAlignment.spaceBetween,
-        footer: Column(
+        expandedFooter: Column(
           children: [
             DigitButton(label: 'Action', onPressed: (){}, type: DigitButtonType.secondary, size: DigitButtonSize.large, mainAxisSize: MainAxisSize.max,)
           ],
         ),
         sections: [
           Section(
-            content: [
+            collapsedContent: [const Icon(Icons.first_page)],
+            expandedContent: [
               Text('Item 1.1'),
               Text('Item 1.2'),
               Text('Item 1.3'),
             ],
           ),
           Section(
-            content: [
+            collapsedContent: [const Icon(Icons.first_page)],
+            expandedContent: [
               Text('Item 2.1'),
               Text('Item 2.2'),
             ],
           ),
           Section(
-            content: [
+            collapsedContent: [const Icon(Icons.first_page)],
+            expandedContent: [
               Text('Item 3.1'),
               Text('Item 3.2'),
               Text('Item 3.3'),
@@ -42,36 +45,92 @@ List<Story> sliderStories() {
     Story(
       name: 'Basic Toggle Slider with different content',
       builder: (context) => RightSideSlider(
-        header: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              Text('Header Content',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        expandedHeader: Row(
+          children: [
+            Text('Settings',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          ],
+        ),
+        expandedFooter: Column(
+          children: [
+            DigitButton(
+              label: 'Save Changes',
+              mainAxisSize: MainAxisSize.max,
+              onPressed: () {},
+              type: DigitButtonType.primary,
+              size: DigitButtonSize.large,
+            ),
+            const SizedBox(height: 16,),
+            DigitButton(
+              label: 'Cancel',
+              mainAxisSize: MainAxisSize.max,
+              onPressed: () {},
+              type: DigitButtonType.secondary,
+              size: DigitButtonSize.large,
+            ),
+          ],
+        ),
+        sections: [
+          Section(
+            collapsedContent: [
+              const Icon(Icons.security),
+              Text('Security Settings',
+                  style: TextStyle(fontWeight: FontWeight.bold)),
+            ],
+            expandedContent: [
+              Text('Two-Factor Authentication: Enabled'),
+              Text('Password Last Changed: 2 months ago'),
             ],
           ),
+          Section(
+            collapsedContent: [
+              const Icon(Icons.privacy_tip),
+              Text('Privacy Settings',
+                  style: TextStyle(fontWeight: FontWeight.bold)),
+            ],
+            expandedContent: [
+              Text('Public Profile: Disabled'),
+              Text('Ad Preferences: Personalized'),
+            ],
+          ),
+        ],
+      ),
+    ),
+
+    Story(
+      name: 'Basic Toggle Slider with different content and cross button',
+      builder: (context) => RightSideSlider(
+        onCrossTap: (){},
+        expandedHeader: Row(
+          children: [
+            Text('Header Content',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          ],
         ),
-        footer: Column(
+        expandedFooter: Column(
           children: [
             DigitButton(label: 'Action', onPressed: (){}, type: DigitButtonType.secondary, size: DigitButtonSize.large, mainAxisSize: MainAxisSize.max,)
           ],
         ),
         sections: [
           Section(
-            content: [
+            collapsedContent: [const Icon(Icons.first_page)],
+            expandedContent: [
               Text('Item 1.1'),
               Text('Item 1.2'),
               Text('Item 1.3'),
             ],
           ),
           Section(
-            content: [
+            collapsedContent: [const Icon(Icons.first_page)],
+            expandedContent: [
               Text('Item 2.1'),
               Text('Item 2.2'),
             ],
           ),
           Section(
-            content: [
+            collapsedContent: [const Icon(Icons.first_page)],
+            expandedContent: [
               Text('Item 3.1'),
               Text('Item 3.2'),
               Text('Item 3.3'),
@@ -80,7 +139,6 @@ List<Story> sliderStories() {
         ],
       ),
     ),
-
     // External Button to Open the Slider
     Story(
       name: 'External Button to Open Slider',
@@ -130,7 +188,7 @@ class _ExternalButtonSliderExampleState
         RightSideSlider(
           key: _sliderKey,
           height: 600,
-          header: Padding(
+          expandedHeader: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
               children: [
@@ -140,7 +198,7 @@ class _ExternalButtonSliderExampleState
               ],
             ),
           ),
-          footer: Padding(
+          expandedFooter: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
               children: [
@@ -151,20 +209,23 @@ class _ExternalButtonSliderExampleState
           ),
           sections: [
             Section(
-              content: [
+              collapsedContent: [const Icon(Icons.first_page)],
+              expandedContent: [
                 Text('Item 1.1'),
                 Text('Item 1.2'),
                 Text('Item 1.3'),
               ],
             ),
             Section(
-              content: [
+              collapsedContent: [const Icon(Icons.first_page)],
+              expandedContent: [
                 Text('Item 2.1'),
                 Text('Item 2.2'),
               ],
             ),
             Section(
-              content: [
+              collapsedContent: [const Icon(Icons.first_page)],
+              expandedContent: [
                 Text('Item 3.1'),
                 Text('Item 3.2'),
                 Text('Item 3.3'),
@@ -213,7 +274,7 @@ class _CombinedSliderExampleState extends State<CombinedSliderExample> {
           skipCollapsedState: true,
           height: 800,
           key: _sliderKey,
-          header: Padding(
+          expandedHeader: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
               children: [
@@ -223,7 +284,7 @@ class _CombinedSliderExampleState extends State<CombinedSliderExample> {
               ],
             ),
           ),
-          footer: Padding(
+          expandedFooter: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
               children: [
@@ -234,20 +295,23 @@ class _CombinedSliderExampleState extends State<CombinedSliderExample> {
           ),
           sections: [
             Section(
-              content: [
+              collapsedContent: [const Icon(Icons.first_page)],
+              expandedContent: [
                 Text('Item 1.1'),
                 Text('Item 1.2'),
                 Text('Item 1.3'),
               ],
             ),
             Section(
-              content: [
+              collapsedContent: [const Icon(Icons.first_page)],
+              expandedContent: [
                 Text('Item 2.1'),
                 Text('Item 2.2'),
               ],
             ),
             Section(
-              content: [
+              collapsedContent: [const Icon(Icons.first_page)],
+              expandedContent: [
                 Text('Item 3.1'),
                 Text('Item 3.2'),
                 Text('Item 3.3'),
@@ -295,7 +359,7 @@ class _DynamicContentSliderExampleState
         ),
         RightSideSlider(
           key: _sliderKey,
-          header: Padding(
+          expandedHeader: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
               children: [
@@ -305,7 +369,7 @@ class _DynamicContentSliderExampleState
               ],
             ),
           ),
-          footer: Padding(
+          expandedFooter: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
               children: [
@@ -316,20 +380,23 @@ class _DynamicContentSliderExampleState
           ),
           sections: [
             Section(
-              content: [
+              collapsedContent: [const Icon(Icons.first_page)],
+              expandedContent: [
                 Text('Item 1.1'),
                 Text('Item 1.2'),
                 Text('Item 1.3'),
               ],
             ),
             Section(
-              content: [
+              collapsedContent: [const Icon(Icons.first_page)],
+              expandedContent: [
                 Text('Item 2.1'),
                 Text('Item 2.2'),
               ],
             ),
             Section(
-              content: [
+              collapsedContent: [const Icon(Icons.first_page)],
+              expandedContent: [
                 Text('Item 3.1'),
                 Text('Item 3.2'),
                 Text('Item 3.3'),
