@@ -209,7 +209,7 @@ IntermediateDisabled.args = {
   ...commonArgs,
   populators: {
     ...commonArgs.populators,
-    title: "",
+    title: "Value",
     isIntermediate:true
   },
   formData: {

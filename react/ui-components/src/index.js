@@ -124,7 +124,8 @@ import {
   LandingPageWrapper,
   MenuCardWrapper,
   TableMolecule,
-  MetricCard
+  MetricCard,
+  FormCard
 } from "./molecules";
 
 // import { initCoreLibraries } from "@egovernments/digit-ui-libraries-core";
@@ -221,6 +222,7 @@ export {
   SearchForm,
   LandingPageCard,
   MetricCard,
+  FormCard,
   TableMolecule,
   MenuCard,
   MenuCardWrapper,

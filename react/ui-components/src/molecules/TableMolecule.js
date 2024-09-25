@@ -68,7 +68,6 @@ const TableMolecule = ({
   actions,
 }) => {
   const { t } = useTranslation();
-  console.log(actions,"actions")
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(
     pagination?.initialRowsPerPage

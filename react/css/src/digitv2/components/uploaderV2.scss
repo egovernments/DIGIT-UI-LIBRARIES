@@ -72,6 +72,10 @@
     gap:theme(digitv2.spacers.spacer1);
   }
 
+  &.inline{
+    flex-direction: row;
+  }
+  
   .digit-upload-label {
     @extend .typography.label;
     @apply text-left;
