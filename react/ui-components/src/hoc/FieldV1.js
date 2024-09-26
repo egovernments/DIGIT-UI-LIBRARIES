@@ -210,6 +210,7 @@ const FieldV1 = ({
               }}
               value={value}
               checked={formData?.[populators?.name]}
+              isIntermediate={populators?.isIntermediate}
               label={t(`${populators?.title}`)}
               styles={populators?.styles}
               style={populators?.labelStyles}

@@ -489,7 +489,7 @@ const Uploader = (props) => {
 
   return (
     <Fragment>
-      <div className={`digit-uploader-wrap ${props?.iserror ? "error" : ""}`}>
+      <div className={`digit-uploader-wrap ${props?.inline ? "inline" : ""} ${props?.iserror ? "error" : ""}`}>
         {showLabel && <p className="digit-upload-label">{t(props?.label)}</p>}
         {renderVariant()}
         {props?.iserror && (

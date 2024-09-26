@@ -15,6 +15,7 @@ export default {
     props: { control: "object" },
     populators: { control: "object" },
     formData: { control: "object" },
+    isIntermediate:{control:"boolean"}
   },
 };
 
@@ -28,6 +29,7 @@ const commonArgs = {
     title: "Value",
     name: "checked",
     isLabelFirst:false,
+    isIntermediate:false
   },
   formData: {
     checked: true,
@@ -168,6 +170,51 @@ CheckedDisabled.args = {
   formData: {
     ...commonArgs.formData,
     checked: true,
+  },
+  disabled: true,
+};
+
+//checkbox intermediate
+export const Intermediate = Template.bind({});
+Intermediate.args = {
+  ...commonArgs,
+  populators: {
+    ...commonArgs.populators,
+    title: "",
+    isIntermediate:true
+  },
+  formData: {
+    ...commonArgs.formData,
+    checked: false,
+  },
+};
+
+export const IntermediateLabelled = Template.bind({});
+IntermediateLabelled.args = {
+  ...commonArgs,
+  populators: {
+    ...commonArgs.populators,
+    title: "Value",
+    isIntermediate:true
+  },
+  formData: {
+    ...commonArgs.formData,
+    checked: false,
+  },
+};
+
+//checkbox intermediate
+export const IntermediateDisabled = Template.bind({});
+IntermediateDisabled.args = {
+  ...commonArgs,
+  populators: {
+    ...commonArgs.populators,
+    title: "Value",
+    isIntermediate:true
+  },
+  formData: {
+    ...commonArgs.formData,
+    checked: false,
   },
   disabled: true,
 };

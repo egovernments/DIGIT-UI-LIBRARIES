@@ -117,7 +117,7 @@ const OTPInput = ({
     >
       <div className={`digit-otp-label`}>{label}</div>
       <div className={`otp-error-wrapper`}>
-      <div className="otp-input-container">
+      <div className="otp-input-container" style={{display:"flex"}}>
         {otp.map((data, index) => (
           <input
             key={index}

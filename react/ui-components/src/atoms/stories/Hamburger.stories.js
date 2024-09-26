@@ -19,7 +19,8 @@ export default {
     onSelect:{ action: "onChange" },
     onLogout:{action:"onChange"},
     reopenOnLogout:{control:"boolean"},
-    closeOnClickOutside:{control:"boolean"}
+    closeOnClickOutside:{control:"boolean"},
+    onOutsideClick:{action:"onChange"}
   },
 };
 
@@ -140,6 +141,13 @@ const lightThemeItems = [
             path: "/",
             label: "InnerModule 1",
             icon: "Lock",
+            children:[
+              {
+                path: "/",
+                label: "SubChildModule 1",
+                icon: "Lock",
+              },
+            ]
           },
           {
             path: "/",
@@ -216,6 +224,15 @@ LightThemeWithCloseOnClickOutside.args = {
   closeOnClickOutside:true
 };
 
+export const LightThemeWithOnOutsideClickLogic = Template.bind({});
+LightThemeWithOnOutsideClickLogic.args = {
+  ...commonArgs,
+  theme: "light",
+  items: lightThemeItems,
+  closeOnClickOutside:false,
+  onOutsideClick:(e)=>{console.log(e)}
+};
+
 export const LightThemeWithoutUserManuals = Template.bind({});
 LightThemeWithoutUserManuals.args = {
   ...commonArgs,
@@ -253,6 +270,15 @@ DarkThemeWithCloseOnClickOutside.args = {
   theme: "dark",
   items: darkThemeItems,
   closeOnClickOutside:true
+};
+
+export const DarkThemeWithOnOutsideClickLogic = Template.bind({});
+DarkThemeWithOnOutsideClickLogic.args = {
+  ...commonArgs,
+  theme: "dark",
+  items: darkThemeItems,
+  closeOnClickOutside:false,
+  onOutsideClick:(e)=>{console.log(e)}
 };
 
 export const DarkThemeWithoutUsermanuals = Template.bind({});
