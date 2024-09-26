@@ -77,6 +77,7 @@ MetricCard.propTypes = {
   className: PropTypes.string,
   styles: PropTypes.object,
   layout: PropTypes.string,
+  statusmessage: PropTypes.string,
 };
 
 MetricCard.defaultProps = {

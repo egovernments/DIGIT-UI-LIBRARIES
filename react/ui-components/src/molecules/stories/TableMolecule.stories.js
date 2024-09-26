@@ -20,7 +20,7 @@ export default {
     selection:{
       control:"object"
     },
-    footeProps:{control:"object"},
+    footerProps:{control:"object"},
     frozenColumns: { control: "number" },
     isStickyHeader: { control: "boolean" },
     className:{control:"text"},

@@ -135,7 +135,7 @@ export const SimpleLayout = () => {
       variant={"form"}
       headerData={headerData}
       footerData={FooterChild1}
-      equalButtons={true}
+      equalWidthButtons={true}
     >
       <LabelFieldPair>
         <TextBlock style={textBlockStyle} body={"Name"}></TextBlock>
@@ -326,7 +326,7 @@ export const WithLayout = () => {
       layout={"2*2"}
       headerData={headerData}
       footerData={FooterChild}
-      equalButtons={true}
+      equalWidthButtons={true}
       withDivider={true}
     >
       <LabelFieldPair>

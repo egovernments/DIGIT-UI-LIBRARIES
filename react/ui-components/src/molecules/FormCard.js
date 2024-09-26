@@ -10,13 +10,18 @@ const FormCard = ({
   className,
   layout,
   headerData,
-  euqalWidthButtons,
+  equalWidthButtons,
   withDivider,
   footerData,
   ...props
 }) => {
   // Parse the layout prop to determine rows and columns
-  const [rows, columns] = layout ? layout.split("*").map(Number) : "1*1";
+  const [rows, columns] = layout
+  ? layout.split("*").map(num => {
+      const parsed = Number(num);
+      return isNaN(parsed) || parsed <= 0 ? 1 : parsed;
+    })
+  : [1, 1];
 
   // Create grid template strings dynamically
   const gridTemplateColumns = `repeat(${columns}, 1fr)`;
@@ -60,15 +65,13 @@ const FormCard = ({
         }`}
         style={gridStyles}
       >
-        {/* {children} */}
         {childrenWithDividers}
       </div>
       {footerData && (
         <div className={`digit-form-card-footer`}>
-          {/* {footerData} */}
           <div
             className={`digit-form-card-buttons ${
-              props?.equalButtons ? "equal-buttons" : ""
+              equalWidthButtons ? "equal-buttons" : ""
             }`}
           >
             {footerData}
@@ -84,5 +87,10 @@ FormCard.propTypes = {
   style: PropTypes.object,
   className: PropTypes.string,
   children: PropTypes.node,
+  layout: PropTypes.string,
+  headerData: PropTypes.node,
+  equalWidthButtons: PropTypes.bool,
+  withDivider: PropTypes.bool,
+  footerData: PropTypes.node,
 };
 export default FormCard;

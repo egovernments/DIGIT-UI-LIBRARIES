@@ -717,8 +717,8 @@ TableMolecule.propTypes = {
     showSelectedState: PropTypes.bool,
   }),
   footerProps: PropTypes.shape({
-    stickyFooterContent: null,
-    footerContent: null,
+    stickyFooterContent: PropTypes.node,
+    footerContent: PropTypes.node,
     hideFooter: PropTypes.bool,
     scrollableStickyFooterContent: PropTypes.bool,
     isStickyFooter: PropTypes.bool,

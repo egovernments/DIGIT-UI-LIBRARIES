@@ -25,19 +25,19 @@
         @media (max-aspect-ratio: 9/16) {
             /* Media query for mobile */
             top: theme(digitv2.spacers.spacer4);
-            height: calc(100%-2rem);
+            height: calc(100% - 2rem);
         }
     
         @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
             /* Media query for tablets */
             top: theme(digitv2.spacers.spacer5);
-            height: calc(100%-2.5rem);
+            height: calc(100% - 2.5rem);
         }
     
         @media (min-aspect-ratio: 3/4) {
             /* Media query for desktop */
             top: theme(digitv2.spacers.spacer6);
-            height: calc(100%-3rem);
+            height: calc(100% - 3rem);
         }
         border: 0.063rem solid theme(digitv2.lightTheme.generic-divider);
         z-index: 1;
