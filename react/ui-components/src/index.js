@@ -48,6 +48,7 @@ import {
   MultiSelectDropdown,
   NoResultsFound,
   OTPInput,
+  SlideOverMenu,
   Paragraph,
   PlusMinusInput,
   PopUp,
@@ -91,7 +92,13 @@ import {
   Menu,
   SelectionCard,
   Tag,
-  CustomSVG
+  CustomSVG,
+  TableMain,
+  TableHeader,
+  TableFooter,
+  TableBody,
+  TableRow,
+  TableCell
 } from "./atoms";
 
 import { FieldComposer, FieldController, Fields, FormComposerV2, Modal, UploadFileComposer, FieldV1, InboxSearchComposer, ResultsTable } from "./hoc";
@@ -115,7 +122,10 @@ import {
   LandingPageCard,
   MenuCard,
   LandingPageWrapper,
-  MenuCardWrapper
+  MenuCardWrapper,
+  TableMolecule,
+  MetricCard,
+  FormCard
 } from "./molecules";
 
 // import { initCoreLibraries } from "@egovernments/digit-ui-libraries-core";
@@ -178,6 +188,7 @@ export {
   MultiSelectDropdown,
   NoResultsFound,
   OTPInput,
+  SlideOverMenu,
   Paragraph,
   PlusMinusInput,
   PopUp,
@@ -210,6 +221,9 @@ export {
   SearchAction,
   SearchForm,
   LandingPageCard,
+  MetricCard,
+  FormCard,
+  TableMolecule,
   MenuCard,
   MenuCardWrapper,
   LandingPageWrapper,
@@ -247,5 +261,11 @@ export {
   RoundedLabel,
   //Icons
   CustomSVG,
-  ErrorBoundary
+  ErrorBoundary,
+  TableMain,
+  TableHeader,
+  TableFooter,
+  TableBody,
+  TableRow,
+  TableCell
 };

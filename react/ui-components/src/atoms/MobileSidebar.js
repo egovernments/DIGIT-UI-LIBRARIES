@@ -23,7 +23,8 @@ const MobileSidebar = ({
   onSelect,
   onLogout,
   reopenOnLogout,
-  closeOnClickOutside
+  closeOnClickOutside,
+  onOutsideClick
 }) => {
   const { t } = useTranslation();
   const [searchTerms, setSearchTerms] = useState({});
@@ -36,21 +37,26 @@ const MobileSidebar = ({
   const iconSize = Spacers.spacer6;
 
     useEffect(() => {
-
-      if (!closeOnClickOutside) return; 
-
+      if (!closeOnClickOutside && !onOutsideClick) return;
+    
       const handleClickOutside = (event) => {
         if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
-          setShowHamburger(false);
+          if (onOutsideClick) {
+            onOutsideClick(event);
+          }
+          if (closeOnClickOutside) {
+            setShowHamburger(false); 
+          }
         }
       };
-
+    
       document.addEventListener("mousedown", handleClickOutside);
-
+    
       return () => {
         document.removeEventListener("mousedown", handleClickOutside);
       };
-    }, [closeOnClickOutside]);
+    }, [closeOnClickOutside, onOutsideClick]);
+    
 
   const handleItemClick = (item, index, parentIndex) => {
     setSelectedItem({ item: item, index: index, parentIndex: parentIndex });

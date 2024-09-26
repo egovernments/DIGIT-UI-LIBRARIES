@@ -20,7 +20,8 @@ const BreadCrumb = (props) => {
   }, [props.crumbs, props.maxItems, expanded,props.itemsBeforeCollapse,props.itemsAfterCollapse,props?.expandText]);
 
   function isLast(index) {
-    return index === crumbsToDisplay.length - 1;
+    let validcrumb = props.crumbs?.filter((ob) => ob?.show === true)
+    return validcrumb?.findIndex((ob) => ob?.path === props?.crumbs?.[index]?.path) === validcrumb?.length - 1;
   }
 
   const handleCrumbClick = () => {

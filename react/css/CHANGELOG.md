@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.0.2-beta.36] - 2024-09-23
+### Changed
+- Added Table css
+
 ## [0.0.2-beta.35] - 2024-09-19
 ### Changed
 - Added OTPInput css

@@ -72,6 +72,10 @@
     gap:theme(digitv2.spacers.spacer1);
   }
 
+  &.inline{
+    flex-direction: row;
+  }
+  
   .digit-upload-label {
     @extend .typography.label;
     @apply text-left;
@@ -428,6 +432,25 @@
 
       .uploaded-file-details {
         @extend .typography.heading-s;
+        font-family: theme(digitv2.fontFamily.sans);
+        font-style: theme(digitv2.fontStyle.normal);
+        font-weight: theme(digitv2.fontWeight.bold);
+        line-height: theme(digitv2.lineHeight.lineheight1);
+    
+        @media (max-aspect-ratio: 9/16) {
+          /* Media query for mobile */
+          font-size: theme(digitv2.fontSize.heading-s.mobile);
+        }
+    
+        @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+          /* Media query for tablets */
+          font-size: theme(digitv2.fontSize.heading-s.tablet);
+        }
+    
+        @media (min-aspect-ratio: 3/4) {
+          /* Media query for desktop */
+          font-size: theme(digitv2.fontSize.heading-s.desktop);
+        }
         color: theme(digitv2.lightTheme.text-secondary);
       }
 
@@ -596,6 +619,25 @@
 
   .capture-heading {
     @extend .typography.heading-m;
+    font-family: theme(digitv2.fontFamily.sans);
+    font-style: theme(digitv2.fontStyle.normal);
+    font-weight: theme(digitv2.fontWeight.bold);
+    line-height: theme(digitv2.lineHeight.lineheight1);
+
+    @media (max-aspect-ratio: 9/16) {
+      /* Media query for mobile */
+      font-size: theme(digitv2.fontSize.heading-m.mobile);
+    }
+
+    @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+      /* Media query for tablets */
+      font-size: theme(digitv2.fontSize.heading-m.tablet);
+    }
+
+    @media (min-aspect-ratio: 3/4) {
+      /* Media query for desktop */
+      font-size: theme(digitv2.fontSize.heading-m.desktop);
+    }
     @apply items-center;
     color: #000000;
     display: flex;
@@ -630,4 +672,27 @@
   to {
     transform: translateY(0);
   }
+}
+
+
+.digit-upload-file-composer-wrapper{
+  display: flex;
+  flex-direction: column;
+
+  @media (min-width: 30.063rem) and (max-width: 47.938rem) {
+   gap:theme(digitv2.spacers.spacer5);
+  }
+
+  @media (max-width: 30rem) {
+    gap:theme(digitv2.spacers.spacer4);
+  }
+
+  @media (min-width: 48rem) {
+    gap:theme(digitv2.spacers.spacer6);
+  }
+
+  .upload-filecomposer-header{
+    color: theme(digitv2.lightTheme.text-primary) !important;
+  }
+
 }

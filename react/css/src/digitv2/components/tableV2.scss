@@ -1,0 +1,697 @@
+.digit-table-footer-wrapper{
+    display: flex;
+    flex-direction: column;
+}
+
+.digit-table-container {
+    overflow: auto;
+    width: 100%;
+    position: relative;
+    max-height: 100vh;
+    max-width: 100%;
+
+    &.withBorder {
+        border-radius: theme(digitv2.spacers.spacer1) theme(digitv2.spacers.spacer1) theme(digitv2.spacers.spacer0) theme(digitv2.spacers.spacer0);
+        border: 0.063rem solid theme(digitv2.lightTheme.generic-divider);
+    }
+
+    .digit-cursorPointer {
+        width: 100%;
+    }
+}
+
+.fixed-columns {
+    position: sticky;
+    overflow: hidden;
+    left: 0;
+    z-index: 2;
+    position: -webkit-sticky;
+    position: sticky;
+}
+
+.scrollable-columns {
+    flex: 1;
+    /*overflow-x: auto;*/
+    white-space: normal;
+    z-index: 1;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    overflow-x: auto;
+}
+
+th {
+    @extend .typography.heading-s;
+    font-family: theme(digitv2.fontFamily.sans);
+    font-style: theme(digitv2.fontStyle.normal);
+    font-weight: theme(digitv2.fontWeight.bold);
+    line-height: theme(digitv2.lineHeight.lineheight1);
+
+    @media (max-aspect-ratio: 9/16) {
+      /* Media query for mobile */
+      font-size: theme(digitv2.fontSize.heading-s.mobile);
+    }
+
+    @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+      /* Media query for tablets */
+      font-size: theme(digitv2.fontSize.heading-s.tablet);
+    }
+
+    @media (min-aspect-ratio: 3/4) {
+      /* Media query for desktop */
+      font-size: theme(digitv2.fontSize.heading-s.desktop);
+    }
+    color: theme(digitv2.lightTheme.primary-2);
+    background-color: theme(digitv2.lightTheme.generic-background);
+    padding: theme(digitv2.spacers.spacer4);
+    min-width: 9.375rem;    
+    word-wrap: break-word;
+    white-space: normal;
+    text-align: left;
+    width: fit-content;
+
+    &.withBorder {
+        border-bottom: 0.063rem solid theme(digitv2.lightTheme.generic-divider);
+    }
+
+    &.withColumnDivider {
+        border-right: 0.063rem solid theme(digitv2.lightTheme.generic-divider);
+    }
+
+    &.scrollable-columns.withHeaderDivider {
+        position: relative;
+
+        &::after {
+            content: "";
+            position: absolute;
+            top: theme(digitv2.spacers.spacer4);
+            right: 0;
+            bottom: theme(digitv2.spacers.spacer4);
+            width: 0.063rem;
+            background-color: theme(digitv2.lightTheme.text-secondary);
+        }
+    }
+}
+
+thead th.withHeaderDivider:last-child::after {
+    display: none;
+}
+
+.sticky-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.hasDes{
+    th{
+        vertical-align: top;
+    }
+}
+td {
+    padding: theme(digitv2.spacers.spacer4);
+    word-wrap: break-word;
+    white-space: normal;
+    @extend .typography.body-s;
+    color: theme(digitv2.lightTheme.text-primary);
+    font-family: theme(digitv2.fontFamily.sans);
+    font-style: theme(digitv2.fontStyle.normal);
+    font-weight: theme(digitv2.fontWeight.regular);
+    line-height: theme(digitv2.lineHeight.lineheight2);
+    text-align: left;
+    vertical-align: top;
+    width: fit-content;
+    background-color: theme(digitv2.lightTheme.paper-primary);
+
+    &.numeric,
+    &.serialno{
+        text-align: right;
+    }
+
+    @media (max-aspect-ratio: 9/16) {
+        /* Media query for mobile */
+        font-size: theme(digitv2.fontSize.body-s.mobile);
+    }
+
+    @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+        /* Media query for tablets */
+        font-size: theme(digitv2.fontSize.body-s.tablet);
+    }
+
+    @media (min-aspect-ratio: 3/4) {
+        /* Media query for desktop */
+        font-size: theme(digitv2.fontSize.body-s.desktop);
+    }
+
+    &.withRowDivider {
+        border-bottom: 0.063rem solid theme(digitv2.lightTheme.generic-divider);
+    }
+
+    &.withColumnDivider {
+        border-right: 0.063rem solid theme(digitv2.lightTheme.generic-divider);
+    }
+
+    &.text,
+    &.textinput,
+    &.description,
+    &.multiselectdropdown,
+    &.dropdown,
+    &.custom,
+    &.checkbox,
+    &.tag,
+    &.switch{
+        @media (max-aspect-ratio: 9/16) {
+            /* Media query for mobile */
+            min-width: 9.375rem
+        }
+
+        @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+            /* Media query for tablets */
+            min-width: 12.5rem;
+        }
+
+        @media (min-aspect-ratio: 3/4) {
+            /* Media query for desktop */
+            min-width: 12.5rem;
+        }
+    }
+    &.serialno,
+    &.numeric {
+        @media (max-aspect-ratio: 9/16) {
+            /* Media query for mobile */
+            min-width: theme(digitv2.spacers.spacer10);
+        }
+
+        @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+            /* Media query for tablets */
+            min-width: theme(digitv2.spacers.spacer10);;
+        }
+
+        @media (min-aspect-ratio: 3/4) {
+            /* Media query for desktop */
+            min-width: theme(digitv2.spacers.spacer10);;
+        }
+    }
+    &.button {
+        @media (max-aspect-ratio: 9/16) {
+            /* Media query for mobile */
+            min-width: 9.375rem
+        }
+
+        @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+            /* Media query for tablets */
+            min-width: 9.375rem;
+        }
+
+        @media (min-aspect-ratio: 3/4) {
+            /* Media query for desktop */
+            min-width: 9.375rem;
+        }
+    }
+}
+
+tbody tr:last-child {
+    td {
+        border-bottom: none;
+    }
+}
+
+tbody tr:nth-child(even).withAlternateBg td{
+    background-color: theme(digitv2.lightTheme.paper-secondary);
+}
+
+tbody tr.addHover{
+    cursor: pointer;
+}
+
+tbody tr.selected{
+    td{
+        background-color: theme(digitv2.lightTheme.primary-bg) !important;
+    }
+
+    td:first-child::before{
+        content: '';
+        position: absolute;
+        top: 0.062rem;
+        left: 0;
+        bottom: 0.063rem;
+        width: theme(digitv2.spacers.spacer1);
+        background: theme(digitv2.lightTheme.primary-1);
+        border-top-right-radius: theme(digitv2.spacers.spacer1);
+        border-bottom-right-radius: theme(digitv2.spacers.spacer1);
+    }
+}
+
+tbody tr.addHover:hover td{
+    background-color: theme(digitv2.lightTheme.primary-bg) !important;
+}
+
+
+tfoot td {
+    @extend .typography.heading-s;
+    font-family: theme(digitv2.fontFamily.sans);
+    font-style: theme(digitv2.fontStyle.normal);
+    font-weight: theme(digitv2.fontWeight.bold);
+    line-height: theme(digitv2.lineHeight.lineheight1);
+
+    @media (max-aspect-ratio: 9/16) {
+      /* Media query for mobile */
+      font-size: theme(digitv2.fontSize.heading-s.mobile);
+    }
+
+    @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+      /* Media query for tablets */
+      font-size: theme(digitv2.fontSize.heading-s.tablet);
+    }
+
+    @media (min-aspect-ratio: 3/4) {
+      /* Media query for desktop */
+      font-size: theme(digitv2.fontSize.heading-s.desktop);
+    }
+    color: theme(digitv2.lightTheme.text-primary);
+    background-color: theme(digitv2.lightTheme.generic-background);
+    padding: theme(digitv2.spacers.spacer4);
+    text-align: center;
+    width: 100%;
+
+    &.withBorder {
+        border: 0.063rem solid theme(digitv2.lightTheme.generic-divider);
+        border-top:none;
+    }
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-pagination-container {
+    display: flex;
+    align-items: center;
+    gap: theme(digitv2.spacers.spacer2);
+    margin-left: auto;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: theme(digitv2.spacers.spacer2);
+}
+
+.pagination-dropdown{
+    padding: theme(digitv2.spacers.spacer1);
+    outline: none;
+    min-width: 4rem;
+    @extend .typography.body-s;
+    color: theme(digitv2.lightTheme.text-primary);
+    font-family: theme(digitv2.fontFamily.sans);
+    font-style: theme(digitv2.fontStyle.normal);
+    font-weight: theme(digitv2.fontWeight.regular);
+    line-height: theme(digitv2.lineHeight.lineheight2);
+
+    @media (max-aspect-ratio: 9/16) {
+        /* Media query for mobile */
+        font-size: theme(digitv2.fontSize.body-s.mobile);
+    }
+
+    @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+        /* Media query for tablets */
+        font-size: theme(digitv2.fontSize.body-s.tablet);
+    }
+
+    @media (min-aspect-ratio: 3/4) {
+        /* Media query for desktop */
+        font-size: theme(digitv2.fontSize.body-s.desktop);
+    }
+
+    option{
+        width: 100%;
+        text-align: center;
+        @extend .typography.body-s;
+        color: theme(digitv2.lightTheme.text-primary);
+        font-family: theme(digitv2.fontFamily.sans);
+        font-style: theme(digitv2.fontStyle.normal);
+        font-weight: theme(digitv2.fontWeight.regular);
+        line-height: theme(digitv2.lineHeight.lineheight2);
+    
+        @media (max-aspect-ratio: 9/16) {
+            /* Media query for mobile */
+            font-size: theme(digitv2.fontSize.body-s.mobile);
+        }
+    
+        @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+            /* Media query for tablets */
+            font-size: theme(digitv2.fontSize.body-s.tablet);
+        }
+    
+        @media (min-aspect-ratio: 3/4) {
+            /* Media query for desktop */
+            font-size: theme(digitv2.fontSize.body-s.desktop);
+        }
+    }
+}
+
+
+.pagination button {
+    border: 0.063 solid theme(digitv2.lightTheme.generic-divider);
+    cursor: pointer;
+    width: theme(digitv2.spacers.spacer6);
+    height: theme(digitv2.spacers.spacer6);
+}
+
+.pagination button:disabled {
+    cursor: not-allowed;
+}
+
+.pagination span {
+    font-weight: normal;
+    margin: 0 10px;
+}
+
+tr th:last-child {
+    &.withColumnDivider {
+        border-right: none;
+    }
+}
+
+tr td:last-child {
+    &.withColumnDivider {
+        border-right: none;
+    }
+}
+
+.sticky-footer-content {
+    position: sticky;
+    display: flex;
+    z-index: 10;
+
+    &.scrollable{
+        overflow-x: auto;
+    }
+
+    td {
+        text-align: right;
+        background-color: theme(digitv2.lightTheme.paper-secondary);
+        color: theme(digitv2.lightTheme.primary-2);
+        overflow-x: auto;
+    }
+}
+
+.sort-icon{
+    width: theme(digitv2.spacers.spacer4);
+    height: theme(digitv2.spacers.spacer4);
+    cursor: pointer;
+}
+.footer-pagination-content{
+    display: flex;
+}
+
+.digit-table-footer{
+    max-width: 100%;
+    overflow-x: hidden !important;
+    width: 100%;
+    flex: 1;
+}
+.sticky-footer {
+    position: sticky;
+    bottom: 0;
+    z-index: 10;
+}
+
+.digit-table-card {
+
+    .digit-text-block-wrap .digit-text-block-header-content .digit-text-block-subheader.table-header {
+        color: theme(digitv2.lightTheme.text-primary)
+    }
+}
+
+.selected-state {
+    @extend .typography.body-s;
+    color: theme(digitv2.lightTheme.text-primary);
+    font-family: theme(digitv2.fontFamily.sans);
+    font-style: theme(digitv2.fontStyle.normal);
+    font-weight: theme(digitv2.fontWeight.regular);
+    line-height: theme(digitv2.lineHeight.lineheight2);
+    text-align: left;
+    vertical-align: top;
+
+    @media (max-aspect-ratio: 9/16) {
+        /* Media query for mobile */
+        font-size: theme(digitv2.fontSize.body-s.mobile);
+    }
+
+    @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+        /* Media query for tablets */
+        font-size: theme(digitv2.fontSize.body-s.tablet);
+    }
+
+    @media (min-aspect-ratio: 3/4) {
+        /* Media query for desktop */
+        font-size: theme(digitv2.fontSize.body-s.desktop);
+    }
+}
+
+.header-des-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: theme(digitv2.spacers.spacer1);
+
+    .column-header{
+        @extend .typography.heading-s;
+        font-family: theme(digitv2.fontFamily.sans);
+        font-style: theme(digitv2.fontStyle.normal);
+        font-weight: theme(digitv2.fontWeight.bold);
+        line-height: theme(digitv2.lineHeight.lineheight1);
+    
+        @media (max-aspect-ratio: 9/16) {
+          /* Media query for mobile */
+          font-size: theme(digitv2.fontSize.heading-s.mobile);
+        }
+    
+        @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+          /* Media query for tablets */
+          font-size: theme(digitv2.fontSize.heading-s.tablet);
+        }
+    
+        @media (min-aspect-ratio: 3/4) {
+          /* Media query for desktop */
+          font-size: theme(digitv2.fontSize.heading-s.desktop);
+        }
+        white-space: nowrap;
+        display: flex;
+        align-items: center;
+        gap:theme(digitv2.spacers.spacer1);
+    }
+
+    .column-description {
+        color: theme(digitv2.lightTheme.text-secondary);
+        white-space: nowrap;
+        @extend .typography.body-s;
+        font-family: theme(digitv2.fontFamily.sans);
+        font-style: theme(digitv2.fontStyle.normal);
+        font-weight: theme(digitv2.fontWeight.regular);
+        line-height: theme(digitv2.lineHeight.lineheight2);
+
+        @media (max-aspect-ratio: 9/16) {
+            /* Media query for mobile */
+            font-size: theme(digitv2.fontSize.body-s.mobile);
+        }
+
+        @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+            /* Media query for tablets */
+            font-size: theme(digitv2.fontSize.body-s.tablet);
+        }
+
+        @media (min-aspect-ratio: 3/4) {
+            /* Media query for desktop */
+            font-size: theme(digitv2.fontSize.body-s.desktop);
+        }
+    }
+}
+
+.table-header-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: theme(digitv2.spacers.spacer2);
+
+    .header-filter-wrapper{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        svg{
+            flex-shrink: 0;
+            margin-left:auto;
+            cursor: pointer;
+        }
+
+        .table-header {
+            @extend .typography.heading-m;
+            font-family: theme(digitv2.fontFamily.sans);
+            font-style: theme(digitv2.fontStyle.normal);
+            font-weight: theme(digitv2.fontWeight.bold);
+            line-height: theme(digitv2.lineHeight.lineheight1);
+        
+            @media (max-aspect-ratio: 9/16) {
+              /* Media query for mobile */
+              font-size: theme(digitv2.fontSize.heading-m.mobile);
+            }
+        
+            @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+              /* Media query for tablets */
+              font-size: theme(digitv2.fontSize.heading-m.tablet);
+            }
+        
+            @media (min-aspect-ratio: 3/4) {
+              /* Media query for desktop */
+              font-size: theme(digitv2.fontSize.heading-m.desktop);
+            }
+            color: theme(digitv2.lightTheme.text-primary);
+            line-height: normal;
+        }
+
+
+    }
+
+    .table-description {
+        @extend .typography.body-s;
+        font-family: theme(digitv2.fontFamily.sans);
+        font-style: theme(digitv2.fontStyle.normal);
+        font-weight: theme(digitv2.fontWeight.regular);
+        line-height: theme(digitv2.lineHeight.lineheight2);
+
+        @media (max-aspect-ratio: 9/16) {
+            /* Media query for mobile */
+            font-size: theme(digitv2.fontSize.body-s.mobile);
+        }
+
+        @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+            /* Media query for tablets */
+            font-size: theme(digitv2.fontSize.body-s.tablet);
+        }
+
+        @media (min-aspect-ratio: 3/4) {
+            /* Media query for desktop */
+            font-size: theme(digitv2.fontSize.body-s.desktop);
+        }
+
+        color: theme(digitv2.lightTheme.generic-inputborder);
+    }
+}
+
+.sticker-footer-td::-webkit-scrollbar {
+    height: 0.5rem;
+    background-color: theme(digitv2.lightTheme.generic-background);
+}
+
+.sticker-footer-td::-webkit-scrollbar-track {
+    background-color: theme(digitv2.lightTheme.generic-background);
+    border-radius: 0.563rem;
+}
+
+.sticker-footer-td::-webkit-scrollbar-thumb {
+    background-color: theme(digitv2.lightTheme.generic-divider);
+    border-radius: 0.563rem;
+}
+
+.digit-table-container::-webkit-scrollbar {
+    height: 0.5rem;
+    background-color: theme(digitv2.lightTheme.generic-background);
+}
+
+.digit-table-container::-webkit-scrollbar-track {
+    background-color: theme(digitv2.lightTheme.generic-background);
+    border-radius: 0.563rem;
+}
+
+.digit-table-container::-webkit-scrollbar-thumb {
+    background-color: theme(digitv2.lightTheme.generic-divider);
+    border-radius: 0.563rem;
+}
+
+.digit-table-container::-webkit-scrollbar:vertical {
+    width: 0rem;
+    background-color: transparent;
+}
+
+.digit-table-container::-webkit-scrollbar-track:vertical {
+    background-color: transparent;
+    border-radius: 0.563rem;
+}
+
+.digit-table-container::-webkit-scrollbar-thumb:vertical {
+    background-color: transparent;
+    border-radius: 0.563rem;
+}
+
+.table-checkbox {
+    margin: theme(digitv2.spacers.spacer0);
+
+    input {
+        margin: theme(digitv2.spacers.spacer0);
+    }
+
+    p {
+        margin: theme(digitv2.spacers.spacer0);
+    }
+}
+
+
+.selection-state-wrapper{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: theme(digitv2.spacers.spacer2);
+
+    .svg-state-wrapper{
+    
+        display: flex;
+        align-items: center;
+        gap: theme(digitv2.spacers.spacer2);
+
+        svg{
+            flex-shrink: 0
+        }
+
+        .selected-state{
+            @extend .typography.heading-s;
+            font-family: theme(digitv2.fontFamily.sans);
+            font-style: theme(digitv2.fontStyle.normal);
+            font-weight: theme(digitv2.fontWeight.bold);
+            line-height: theme(digitv2.lineHeight.lineheight1);
+        
+            @media (max-aspect-ratio: 9/16) {
+              /* Media query for mobile */
+              font-size: theme(digitv2.fontSize.heading-s.mobile);
+            }
+        
+            @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+              /* Media query for tablets */
+              font-size: theme(digitv2.fontSize.heading-s.tablet);
+            }
+        
+            @media (min-aspect-ratio: 3/4) {
+              /* Media query for desktop */
+              font-size: theme(digitv2.fontSize.heading-s.desktop);
+            }
+            color: theme(digitv2.lightTheme.primary-2);
+        }
+    }
+
+
+}
+
+.digit-table-container{
+    .digit-table-footer {
+        position: sticky; 
+        bottom: 0; 
+        width: 100%;
+        z-index: 10;
+      }
+}

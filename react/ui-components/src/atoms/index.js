@@ -92,6 +92,13 @@ import Tooltip from "./Tooltip";
 import BottomSheet from "./BottomSheet";
 import Switch from "./Switch";
 import { CustomSVG } from "./CustomSVG";
+import TableMain from "./TableMain";
+import TableBody from "./TableBody";
+import TableCell from "./TableCell";
+import TableFooter from "./TableFooter";
+import TableHeader from "./TableHeader";
+import TableRow from "./TableRow";
+import SlideOverMenu from "./SlideOverMenu";
 
 export {
   ErrorBoundary,
@@ -144,6 +151,7 @@ export {
   MultiSelectDropdown,
   NoResultsFound,
   OTPInput,
+  SlideOverMenu,
   Paragraph,
   PlusMinusInput,
   PopUp,
@@ -187,5 +195,11 @@ export {
   LinkLabel,
   RoundedLabel,
   //Icons
-  CustomSVG
+  CustomSVG,
+  TableMain,
+  TableHeader,
+  TableFooter,
+  TableBody,
+  TableRow,
+  TableCell
 };

@@ -207,7 +207,7 @@
   transition: height 0.3s ease;
 
   .digit-inner-level-child {
-    margin-left: 3.5rem;
+    margin-left: 2.25rem;
     border-left: 0.063rem solid theme(digitv2.lightTheme.generic-divider);
 
     &.dark {
@@ -414,7 +414,7 @@
   margin-right: theme(digitv2.spacers.spacer3);
   width: theme(digitv2.spacers.spacer6);
   height: theme(digitv2.spacers.spacer6);
-  margin-left: theme(digitv2.spacers.spacer7);
+  margin-left: theme(digitv2.spacers.spacer6);
 }
 
 .digit-item-label-msb {
