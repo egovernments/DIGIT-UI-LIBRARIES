@@ -13,6 +13,7 @@ class TableHeader extends StatelessWidget {
   final SortOrder? sortOrder;
   final bool enabledBorder;
   final bool headerCheckboxValue;
+  final bool withRowDividers;
   final bool headerCheckboxIndeterminate;
   final void Function(bool? value)? onHeaderCheckboxChanged; // New
 
@@ -23,6 +24,7 @@ class TableHeader extends StatelessWidget {
     this.onSort,
     this.sortedColumnIndex,
     this.sortOrder,
+    this.withRowDividers= true,
     this.enabledBorder = false,
     this.headerCheckboxValue = false,
     this.headerCheckboxIndeterminate = false,
@@ -68,7 +70,7 @@ class TableHeader extends StatelessWidget {
               ? BorderSide(color: theme.colorTheme.generic.divider)
               : BorderSide.none,
           top: enabledBorder ? BorderSide(color: theme.colorTheme.generic.divider) : BorderSide.none, // Top border for all columns
-          bottom: enabledBorder ? BorderSide(color: theme.colorTheme.generic.divider) : BorderSide.none, // Bottom border for all columns
+          bottom: enabledBorder || withRowDividers ? BorderSide(color: theme.colorTheme.generic.divider) : BorderSide.none, // Bottom border for all columns
         ),
       ),
       child: Row(
@@ -93,7 +95,7 @@ class TableHeader extends StatelessWidget {
                 : null,
             child: Container(
               constraints: BoxConstraints(minWidth: (column.type == ColumnType.numeric || column.type == ColumnType.checkbox) ? 40 : 200, maxWidth: (column.type == ColumnType.numeric || column.type == ColumnType.checkbox) ? 100 : 200),
-              padding: EdgeInsets.only(left: theme.spacerTheme.spacer4, top: theme.spacerTheme.spacer4, bottom: theme.spacerTheme.spacer4, right: withColumnDividers || enabledBorder ? theme.spacerTheme.spacer4 : 0),
+              padding: EdgeInsets.only(left: theme.spacerTheme.spacer4, top: theme.spacerTheme.spacer4, bottom: theme.spacerTheme.spacer4, right: !withColumnDividers || enabledBorder ? theme.spacerTheme.spacer4 : 0),
               decoration: BoxDecoration(
                 color: const DigitColors().light.genericBackground,
                 border: Border(

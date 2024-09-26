@@ -251,8 +251,6 @@ List<Story> tableStories() {
             context.knobs.boolean(label: 'Alternate Row Color', initial: false),
         withRowDividers:
             context.knobs.boolean(label: 'With Row Dividers', initial: true),
-        withColumnDividers: context.knobs
-            .boolean(label: 'With Column Dividers', initial: false),
         enableBorder:
             context.knobs.boolean(label: 'Enable Border', initial: false),
         columns: [
@@ -587,6 +585,7 @@ List<Story> tableStories() {
       name: 'Molecule/Table/Simple Table with no selection',
       builder: (context) => DigitTable(
         showSelectedState: false,
+        showPagination: false,
         stickyHeader:
             context.knobs.boolean(label: 'Sticky Header', initial: false),
         alternateRowColor:
@@ -818,6 +817,7 @@ List<Story> tableStories() {
     Story(
       name: 'Molecule/Table/Simple Table with first row highlighted',
       builder: (context) => DigitTable(
+        showPagination: false,
         stickyHeader:
             context.knobs.boolean(label: 'Sticky Header', initial: false),
         alternateRowColor:
@@ -1147,6 +1147,7 @@ List<Story> tableStories() {
     Story(
       name: 'Molecule/Table/Simple Table with initial frozen column',
       builder: (context) => DigitTable(
+        stickyFooter: true,
         stickyHeader:
             context.knobs.boolean(label: 'Sticky Header', initial: false),
         alternateRowColor:
@@ -1157,6 +1158,7 @@ List<Story> tableStories() {
             context.knobs.boolean(label: 'With Column Dividers', initial: true),
         enableBorder:
             context.knobs.boolean(label: 'Enable Border', initial: true),
+        showPagination: false,
         columns: [
           DigitTableColumn(
             cellValue: 'first',
@@ -1213,7 +1215,7 @@ List<Story> tableStories() {
               },
             ),
             DigitTableData(
-              'Row ${index + 1} C',
+              'Row ${index + 1} Cdfsdfjlkksdkffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffweirewiouuuuuuuuuuu',
               cellKey: 'third',
               callBack: (data) {
                 print(data);
@@ -1225,6 +1227,10 @@ List<Story> tableStories() {
               callBack: (data) {
                 print(data);
               },
+              widget: Container(
+                height: 100,
+                child: Text('row ${index + 1} D'),
+              )
             ),
             DigitTableData(
               'Row ${index + 1} E',

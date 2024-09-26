@@ -20,6 +20,7 @@ class DigitExtendedTheme {
 
   ThemeData getLightTheme() {
     return ThemeData.light().copyWith(
+      colorScheme: colorScheme,
       textTheme: ThemeData.light().textTheme.apply(
         fontFamily: 'Roboto',  // Apply the Roboto font to the entire text theme
       ),
@@ -49,6 +50,26 @@ class DigitExtendedTheme {
       timePickerTheme: _getTimePickerTheme(),
     );
   }
+
+  ColorScheme get colorScheme => ColorScheme(
+    brightness: Brightness.light,
+    primary: const DigitColors().light.primary1,
+    onPrimary: const DigitColors().light.paperPrimary,
+    secondary: const DigitColors().light.primary2,
+    onSecondary: const DigitColors().light.paperPrimary,
+    error: const DigitColors().light.alertError,
+    onError: const DigitColors().light.paperPrimary,
+    background: const DigitColors().light.paperPrimary,
+    onBackground: const DigitColors().light.textPrimary,
+    surface: const DigitColors().light.paperSecondary,
+    onSurface: const DigitColors().light.textPrimary,
+    onSurfaceVariant: const DigitColors().light.alertSuccess,
+    inversePrimary: const DigitColors().light.alertSuccessBg,
+    outline: const DigitColors().light.genericDivider,
+    shadow: const DigitColors().light.textSecondary,
+    surfaceTint: const DigitColors().light.paperPrimary,
+    onTertiaryContainer: const DigitColors().light.alertInfoBg,
+  );
 
   DatePickerThemeData _getDatePickerTheme() {
     return DatePickerThemeData(

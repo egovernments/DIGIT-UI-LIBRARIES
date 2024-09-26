@@ -71,6 +71,9 @@ class Popup extends StatefulWidget {
 
   final DigitPopupTheme? popupTheme;
 
+  /// Callback when the user taps outside the container.
+  final VoidCallback? onOutsideTap;
+
   const Popup({
     super.key,
     required this.title,
@@ -87,6 +90,7 @@ class Popup extends StatefulWidget {
     this.actionSpacing,
     this.actionAlignment,
     this.popupTheme,
+    this.onOutsideTap,
   });
 
   @override
@@ -391,101 +395,104 @@ class _PopupState extends State<Popup> {
     // final double? cardWidth = widget.width;
     // final double? cardHeight = widget.height;
 
-    return Dialog.fullscreen(
-      backgroundColor: const DigitColors().transparent,
-      child: Center(
-        child: Container(
-          constraints: BoxConstraints(
-            maxHeight: isMobile
-                ? MediaQuery.of(context).size.height * .80
-                : isTab
-                ? MediaQuery.of(context).size.height * .82
-                : MediaQuery.of(context).size.height * .85,
-          ),
-          margin: themeData.width == null ? themeData.margin : EdgeInsets.zero,
-          width: themeData.width,
-          height: themeData.height,
-          decoration: themeData.decoration,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: widget.type == PopUpType.alert
-                ? CrossAxisAlignment.center
-                : CrossAxisAlignment.start,
-            children: [
-              widget.type == PopUpType.simple
-                  ? _buildSimplePopUp(context, themeData, isMobile, isTab)
-                  : _buildAlertPopUp(context, themeData, isMobile, isTab),
-              if (widget.description != null ||
-                  widget.additionalWidgets != null)
-                Flexible(
-                  child: SingleChildScrollView(
-                    controller: _scrollController,
-                    child: _buildContent(context, themeData, isMobile, isTab),
+    return GestureDetector(
+      onTap: widget.onOutsideTap,
+      child: Dialog.fullscreen(
+        backgroundColor: const DigitColors().transparent,
+        child: Center(
+          child: Container(
+            constraints: BoxConstraints(
+              maxHeight: isMobile
+                  ? MediaQuery.of(context).size.height * .80
+                  : isTab
+                  ? MediaQuery.of(context).size.height * .82
+                  : MediaQuery.of(context).size.height * .85,
+            ),
+            margin: themeData.width == null ? themeData.margin : EdgeInsets.zero,
+            width: themeData.width,
+            height: themeData.height,
+            decoration: themeData.decoration,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: widget.type == PopUpType.alert
+                  ? CrossAxisAlignment.center
+                  : CrossAxisAlignment.start,
+              children: [
+                widget.type == PopUpType.simple
+                    ? _buildSimplePopUp(context, themeData, isMobile, isTab)
+                    : _buildAlertPopUp(context, themeData, isMobile, isTab),
+                if (widget.description != null ||
+                    widget.additionalWidgets != null)
+                  Flexible(
+                    child: SingleChildScrollView(
+                      controller: _scrollController,
+                      child: _buildContent(context, themeData, isMobile, isTab),
+                    ),
                   ),
-                ),
-              if (widget.actions != null)
-                Container(
-                  padding: EdgeInsets.only(
-                    left: isMobile
-                        ? spacer4
-                        : isTab
-                        ? spacer5
-                        : spacer6,
-                    right: isMobile
-                        ? spacer4
-                        : isTab
-                        ? spacer5
-                        : spacer6,
-                    top: _isOverflowing ||
-                        (widget.additionalWidgets != null ||
-                            widget.description != null)
-                        ? isMobile
-                        ? spacer4
-                        : isTab
-                        ? spacer5
-                        : spacer6
-                        : 0,
-                    bottom: isMobile
-                        ? spacer4
-                        : isTab
-                        ? spacer5
-                        : spacer6,
+                if (widget.actions != null)
+                  Container(
+                    padding: EdgeInsets.only(
+                      left: isMobile
+                          ? spacer4
+                          : isTab
+                          ? spacer5
+                          : spacer6,
+                      right: isMobile
+                          ? spacer4
+                          : isTab
+                          ? spacer5
+                          : spacer6,
+                      top: _isOverflowing ||
+                          (widget.additionalWidgets != null ||
+                              widget.description != null)
+                          ? isMobile
+                          ? spacer4
+                          : isTab
+                          ? spacer5
+                          : spacer6
+                          : 0,
+                      bottom: isMobile
+                          ? spacer4
+                          : isTab
+                          ? spacer5
+                          : spacer6,
+                    ),
+                    decoration: BoxDecoration(
+                      color: const DigitColors().light.paperPrimary,
+                      borderRadius: const BorderRadius.only(
+                          bottomLeft: Radius.circular(spacer1),
+                          bottomRight: Radius.circular(spacer1)),
+                      boxShadow: _isOverflowing
+                          ? [
+                        BoxShadow(
+                          color: const Color(0xFF000000).withOpacity(.16),
+                          offset: const Offset(0, -1),
+                          spreadRadius: 0,
+                          blurRadius: 2,
+                        ),
+                      ]
+                          : [],
+                    ),
+                    child: DigitButtonListTile(
+                      buttons: widget.actions!,
+                      isVertical: widget.inlineActions != null
+                          ? !widget.inlineActions!
+                          : (isMobile ? true : false),
+                      alignment: widget.actionAlignment ??
+                          ((isMobile || isTab) || widget.type == PopUpType.alert
+                              ? MainAxisAlignment.center
+                              : MainAxisAlignment.end),
+                      spacing: widget.actionSpacing ??
+                          (isMobile
+                              ? spacer4
+                              : isTab
+                              ? spacer5
+                              : spacer6),
+                    ),
                   ),
-                  decoration: BoxDecoration(
-                    color: const DigitColors().light.paperPrimary,
-                    borderRadius: const BorderRadius.only(
-                        bottomLeft: Radius.circular(spacer1),
-                        bottomRight: Radius.circular(spacer1)),
-                    boxShadow: _isOverflowing
-                        ? [
-                      BoxShadow(
-                        color: const Color(0xFF000000).withOpacity(.16),
-                        offset: const Offset(0, -1),
-                        spreadRadius: 0,
-                        blurRadius: 2,
-                      ),
-                    ]
-                        : [],
-                  ),
-                  child: DigitButtonListTile(
-                    buttons: widget.actions!,
-                    isVertical: widget.inlineActions != null
-                        ? !widget.inlineActions!
-                        : (isMobile ? true : false),
-                    alignment: widget.actionAlignment ??
-                        ((isMobile || isTab) || widget.type == PopUpType.alert
-                            ? MainAxisAlignment.center
-                            : MainAxisAlignment.end),
-                    spacing: widget.actionSpacing ??
-                        (isMobile
-                            ? spacer4
-                            : isTab
-                            ? spacer5
-                            : spacer6),
-                  ),
-                ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

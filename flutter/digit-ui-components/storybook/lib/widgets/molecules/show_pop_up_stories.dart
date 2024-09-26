@@ -12,13 +12,29 @@ List<Story> showPopUPStories() {
       name: 'Molecule/Show Pop Up/Default',
       builder: (context) => ElevatedButton(
         onPressed: () {
-          showPopup(
+          showCustomPopup(
             context: context,
-            title: "Simple Popup",
-            subHeading: "This is a subheading",
-            description:
-                "This popup demonstrates a simple popup with a title and description.",
-            type: PopUpType.simple,
+            builder: (popupContext) => Popup(
+              title: "Simple Popup",
+              onOutsideTap: () {
+                Navigator.of(popupContext).pop();
+              },
+              subHeading: "This is a subheading",
+              description:
+                  "This popup demonstrates a simple popup with a title and description.",
+              type: PopUpType.simple,
+              actions: [
+                DigitButton(
+                  label: 'Submit',
+                  onPressed: () {
+                    Navigator.of(popupContext)
+                        .pop(); // Use popupContext to close the popup
+                  },
+                  type: DigitButtonType.primary,
+                  size: DigitButtonSize.large,
+                ),
+              ],
+            ),
           );
         },
         child: const Text("Show Simple Popup"),
@@ -28,25 +44,29 @@ List<Story> showPopUPStories() {
       name: 'Molecule/Show Pop Up/Alert',
       builder: (context) => ElevatedButton(
         onPressed: () {
-          showDialog(
+          showCustomPopup(
             context: context,
-            barrierColor: const DigitColors().overLayColor.withOpacity(.70),
-            builder: (BuildContext currentContext) {
-              return BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
-                child: Popup(
-                  title: 'Alert!',
-                  subHeading: 'Please contact the administrator if you have any query.',
-                  type: PopUpType.alert,
-                  actions: [DigitButton(label: 'OK', onPressed: (){
-                    Navigator.of(currentContext).pop();
-                  }, type: DigitButtonType.primary, size: DigitButtonSize.large)],
-                ),
-              );
-            },
+            builder: (popupContext) => Popup(
+              title: 'Alert!',
+              onOutsideTap: () {
+                Navigator.of(popupContext).pop();
+              },
+              subHeading:
+                  'Please contact the administrator if you have any query.',
+              type: PopUpType.alert,
+              actions: [
+                DigitButton(
+                    label: 'OK',
+                    onPressed: () {
+                      Navigator.of(popupContext).pop();
+                    },
+                    type: DigitButtonType.primary,
+                    size: DigitButtonSize.large)
+              ],
+            ),
           );
         },
-        child: const Text("Show alert Popup"),
+        child: const Text("Show Simple Popup"),
       ),
     ),
   ];

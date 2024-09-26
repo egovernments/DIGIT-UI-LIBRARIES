@@ -48,10 +48,9 @@ List<Story> inputFieldStories() {
     ),
     Story(
       name: 'Atom/Input Field/Date Field',
-      builder: (context) => InputField(
-        type: InputType.date,
-        label: context.knobs.text(label: 'Label', initial: 'Label'),
-        infoText: context.knobs.text(label: 'Info Text', initial: 'info'),
+      builder: (context) => DigitDateFormInput(
+        dateSelectionType: context.knobs.options(label: 'Date Selection', initial: DateSelectionType.single, options: [const Option(label: 'Date Range', value: DateSelectionType.range),
+        const Option(label: 'Single Date', value: DateSelectionType.single)]),
         isRequired: context.knobs.boolean(label: 'Required', initial: true),
         helpText: context.knobs.text(label: 'Help Text', initial: 'help text'),
         innerLabel: context.knobs.text(label: 'Inner Label', initial: 'innerlabel'),

@@ -143,6 +143,10 @@ class DigitOTPInputState extends State<DigitOTPInput> {
             _moveFocus(-1);
           } else if (event.logicalKey == LogicalKeyboardKey.arrowRight) {
             _moveFocus(1);
+          }else if (event.logicalKey == LogicalKeyboardKey.backspace) {
+            if (_textControllers[_focusedIndex]!.text.isEmpty && _focusedIndex > 0) {
+              _focusNodes[_focusedIndex - 1]?.requestFocus();
+            }
           }
         }
       },
@@ -233,7 +237,8 @@ class DigitOTPInputState extends State<DigitOTPInput> {
     final isLast = index == widget.length - 1;
 
     return Container(
-      width: widget.fieldWidth,
+      width: 50,
+      height: 50,
       margin: EdgeInsets.only(
         right: isLast ? 0 : 8,
       ),
@@ -276,7 +281,7 @@ class DigitOTPInputState extends State<DigitOTPInput> {
           });
 
           if (str.length > 1) {
-            _handlePaste(str);
+            _handlePaste(str, index);
             return;
           }
 
@@ -335,43 +340,55 @@ class DigitOTPInputState extends State<DigitOTPInput> {
     return currentPin;
   }
 
-  void _handlePaste(String str) {
+  void _handlePaste(String str, int index) {
+    // Ensure the pasted string doesn't exceed the maximum length
     if (str.length > widget.length) {
       str = str.substring(0, widget.length);
     }
 
-    int firstEmptyIndex = _pin.indexWhere((value) => value.isEmpty);
-
-    if (firstEmptyIndex == -1) return;
-
-    int remainingFields = widget.length - firstEmptyIndex;
-
-    if (str.length > remainingFields) {
-      str = str.substring(0, remainingFields);
+    // Start replacing from the specified index
+    for (int i = index; i < widget.length; i++) {
+      if (i < index + str.length) {
+        // If within the range of the pasted string, replace the current value
+        String digit = str[i - index];
+        _textControllers[i]!.text = digit;
+        _pin[i] = digit;
+      } else {
+        // If past the pasted string length, clear the remaining fields
+        _textControllers[i]!.text = '';
+        _pin[i] = '';
+      }
     }
 
-    for (int i = 0; i < str.length; i++) {
-      String digit = str[i];
-      _textControllers[firstEmptyIndex + i]!.text = digit;
-      _pin[firstEmptyIndex + i] = digit;
-    }
-
-    int lastFilledIndex = firstEmptyIndex + str.length - 1;
-
-    if (lastFilledIndex < widget.length - 1) {
-      FocusScope.of(context).requestFocus(_focusNodes[lastFilledIndex + 1]);
+    // Move focus to the next empty field or unfocus if all are filled
+    int nextIndex = index + str.length < widget.length ? index + str.length-1 : widget.length - 1;
+    if (nextIndex < widget.length && _pin[nextIndex] != '') {
+      // Move focus to the next empty field
+      for (int i = nextIndex; i < widget.length; i++) {
+        if (_pin[i] == '') {
+          FocusScope.of(context).requestFocus(_focusNodes[i]);
+          return;
+        }
+      }
+      // If no empty fields left, focus last one
+      FocusScope.of(context).requestFocus(_focusNodes[widget.length-1]);
     } else {
-      FocusScope.of(context).unfocus();
+      FocusScope.of(context).requestFocus(_focusNodes[widget.length-1]);
     }
 
+    // Get the current PIN
     String currentPin = _getCurrentPin();
 
+    // Trigger completion callback if the PIN is fully filled
     if (!_pin.contains('') && currentPin.length == widget.length) {
       widget.onCompleted?.call(currentPin);
     }
 
+    // Trigger change callback
     widget.onChanged?.call(currentPin);
   }
+
+
 
   void _moveFocus(int direction) {
     int newIndex = _focusedIndex + direction;

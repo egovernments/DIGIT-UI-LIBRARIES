@@ -183,7 +183,7 @@ class MyHomePageState extends State<MyHomePage> {
                       'R',
                       style: TextStyle(
                           fontWeight: FontWeight.w700,
-                          color: DigitColors().light.paperPrimary),
+                          color: const DigitColors().light.paperPrimary),
                     ),
                   ),
                 ),

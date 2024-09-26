@@ -1,8 +1,11 @@
+import 'dart:math';
+
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:digit_ui_components/widgets/atoms/table_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:horizontal_data_table/scroll/linked_scroll_controller/linked_scroll_controller.dart';
 import '../atoms/table_body.dart';
 import '../atoms/table_cell.dart';
 import '../atoms/table_header.dart';
@@ -32,8 +35,8 @@ class DigitTable extends StatefulWidget {
   final double? tableWidth;
   // Callback for selected row indices
   final void Function(int)? onSelectedRowsChanged;
-  final bool expandOnRowClick; // New: Whether clicking the entire row expands it or just the arrow icon
-  final bool showExpandIconOnHover; // New: Whether to show the expand icon on hover
+  final bool expandOnRowClick;
+  final bool showExpandIconOnHover;
 
   const DigitTable({
     Key? key,
@@ -76,6 +79,9 @@ class _DigitTableState extends State<DigitTable> {
   List<double> columnWidths = [];
   final List<GlobalKey> headerKeys = [];
   bool _isFrozenColumnsHidden = false;
+  List<double> rowHeights = [];
+  List<GlobalKey> frozenKeys = [];
+  List<GlobalKey> nonFrozenKeys = [];
 
   // Checkbox state management
   bool _headerCheckboxValue = false;
@@ -89,12 +95,31 @@ class _DigitTableState extends State<DigitTable> {
   bool _isOverflowingVertical = false;
   bool firstBuild = false;
 
+  late final LinkedScrollControllerGroup _linkedScrollGroup;
+  late final ScrollController _nonFrozenScrollController;
+  late final ScrollController _frozenScrollController;
+
 
   @override
   void initState() {
     super.initState();
     sortedRows = widget.rows;
     _selectedRowIndices = Set<int>();
+
+    // Initialize keys for each row
+
+    frozenKeys = List.generate(widget.rows.length, (_) => GlobalKey());
+
+    nonFrozenKeys = List.generate(widget.rows.length, (_) => GlobalKey());
+
+    // Initialize row heights to zero
+    rowHeights = List.filled(widget.rows.length, 0.0);
+
+    // Initialize linked scroll controllers
+    _linkedScrollGroup = LinkedScrollControllerGroup();
+    _nonFrozenScrollController = _linkedScrollGroup.addAndGet();
+    _frozenScrollController = _linkedScrollGroup.addAndGet();
+
 
     if(widget.selectedRows.isNotEmpty) {
       _selectedRowIndices = widget.selectedRows.toSet();
@@ -116,6 +141,29 @@ class _DigitTableState extends State<DigitTable> {
         break;
       }
     }
+    _updateRowHeights();
+  }
+
+  // Method to update row heights after rendering
+  void _updateRowHeights() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // Iterate through all rows to find the maximum height
+      for (int index = 0; index < frozenKeys.length; index++) {
+        final RenderBox? frozenBox = frozenKeys[index].currentContext?.findRenderObject() as RenderBox?;
+        final RenderBox? nonFrozenBox = nonFrozenKeys[index].currentContext?.findRenderObject() as RenderBox?;
+
+        double frozenHeight = frozenBox?.size.height ?? 0;
+        double nonFrozenHeight = nonFrozenBox?.size.height ?? 0;
+
+        // Calculate the maximum height for the current row
+        double maxHeight = max(frozenHeight, nonFrozenHeight);
+
+        // Update the rowHeights list with the maximum height found
+        setState(() {
+          rowHeights[index] = maxHeight;
+        });
+      }
+    });
   }
 
   @override
@@ -144,6 +192,8 @@ class _DigitTableState extends State<DigitTable> {
 
   @override
   void dispose() {
+    _nonFrozenScrollController.dispose();
+    _frozenScrollController.dispose();
     _scrollController.dispose();
     _verticalScrollController.dispose();
     super.dispose();
@@ -183,6 +233,8 @@ class _DigitTableState extends State<DigitTable> {
       return const SizedBox(); // No frozen columns are hidden
     }
 
+
+    _updateRowHeights();
     // Get all the columns
     List<DigitTableColumn> allColumns = widget.columns;
 
@@ -194,6 +246,7 @@ class _DigitTableState extends State<DigitTable> {
     return Positioned(
       top: 0,
       left: scrollOffset,
+      bottom: widget.stickyFooter ? 64 : 0,
       child: Container(
         decoration: BoxDecoration(
           boxShadow: [BoxShadow(color: theme.colorTheme.text.disabled, spreadRadius: 0, blurRadius: 1, offset: const Offset(1, 0))],
@@ -202,6 +255,7 @@ class _DigitTableState extends State<DigitTable> {
         child: Column(
           children: [
             TableHeader(
+              withRowDividers: widget.withRowDividers,
               columns: frozenColumns,
               sortedColumnIndex: sortedColumnIndex,
               sortOrder: sortOrder,
@@ -226,6 +280,10 @@ class _DigitTableState extends State<DigitTable> {
               onHeaderCheckboxChanged: _onHeaderCheckboxChanged,
             ),
             TableBody(
+              keys: frozenKeys,
+              rowHeights: rowHeights,
+              isFrozen: true,
+              controller: _frozenScrollController,
               tableHeight: widget.tableHeight,
               enableSelection: widget.showSelectedState,
               highlightedRows: _highlightedRowIndices,
@@ -374,122 +432,118 @@ class _DigitTableState extends State<DigitTable> {
                 padding: _isOverflowing ? const EdgeInsets.only(bottom: 12) : EdgeInsets.zero,
                 controller: _scrollController,
                 scrollDirection: Axis.horizontal,
-                child: SingleChildScrollView(
-                  physics: widget.scrollPhysics,
-                  scrollDirection: Axis.vertical,
-                  controller: _verticalScrollController,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    // mainAxisAlignment: MainAxisAlignment.start,
-                    // crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      if (!widget.stickyHeader)
-                        TableHeader(
-                          columns: widget.columns,
-                          sortedColumnIndex: sortedColumnIndex,
-                          sortOrder: sortOrder,
-                          enabledBorder: widget.enableBorder,
-                          onSort: (index, order) {
-                            setState(() {
-                              if (sortedColumnIndex == index) {
-                                sortOrder = sortOrder == SortOrder.ascending
-                                    ? SortOrder.descending
-                                    : SortOrder.ascending;
-                              } else {
-                                sortedColumnIndex = index;
-                                sortOrder = SortOrder.ascending;
-                              }
-                              _sortRows();
-                              currentPage = 1;
-                            });
-                          },
-                          withColumnDividers: widget.withColumnDividers,
-                          headerCheckboxValue: _headerCheckboxValue,
-                          headerCheckboxIndeterminate: _headerCheckboxIndeterminate, // Pass down
-                          onHeaderCheckboxChanged: _onHeaderCheckboxChanged,
-                        ),
-                      TableBody(
-                        tableHeight: widget.tableHeight,
-                        scrollPhysics: widget.scrollPhysicsForPagination,
-                        enableSelection: widget.showSelectedState,
-                        highlightedRows: _highlightedRowIndices,
-                        selectedRows: _selectedRowIndices,
-                        hasFooter: widget.showPagination,
-                        rows: widget.showPagination ? paginatedRows: sortedRows,
-                        columns: widget.columns,
-                        alternateRowColor: widget.alternateRowColor,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    if (!widget.stickyHeader)
+                      TableHeader(
                         withRowDividers: widget.withRowDividers,
-                        enableBorder: widget.enableBorder,
+                        columns: widget.columns,
+                        sortedColumnIndex: sortedColumnIndex,
+                        sortOrder: sortOrder,
+                        enabledBorder: widget.enableBorder,
+                        onSort: (index, order) {
+                          setState(() {
+                            if (sortedColumnIndex == index) {
+                              sortOrder = sortOrder == SortOrder.ascending
+                                  ? SortOrder.descending
+                                  : SortOrder.ascending;
+                            } else {
+                              sortedColumnIndex = index;
+                              sortOrder = SortOrder.ascending;
+                            }
+                            _sortRows();
+                            currentPage = 1;
+                          });
+                        },
                         withColumnDividers: widget.withColumnDividers,
                         headerCheckboxValue: _headerCheckboxValue,
-                        onRowCheckboxChanged: (rowIndex, isSelected) {
-                          setState(() {
-                            if (isSelected) {
-                              _selectedRowIndices.add(rowIndex);
-                            } else {
-                              _selectedRowIndices.remove(rowIndex);
-                            }
-                            _updateHeaderCheckbox();
-                          });
-                          if (widget.onSelectedRowsChanged != null) {
-                            widget.onSelectedRowsChanged!(_selectedRowIndices.length);
-                          }
-                        },
-                        expandOnRowClick: widget.expandOnRowClick,
-                        showExpandIconOnHover: widget.showExpandIconOnHover,
+                        headerCheckboxIndeterminate: _headerCheckboxIndeterminate, // Pass down
+                        onHeaderCheckboxChanged: _onHeaderCheckboxChanged,
                       ),
-                      if (widget.customRow != null && !widget.isCustomRowFixed)
-                        Container(
-                            height: 60,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                color: const DigitColors().light.genericDivider,
-                              ),
-                              color: const DigitColors().light.paperPrimary,
+                    TableBody(
+                      keys: nonFrozenKeys,
+                      controller: _nonFrozenScrollController,
+                      tableHeight: widget.tableHeight,
+                      scrollPhysics: widget.scrollPhysicsForPagination,
+                      enableSelection: widget.showSelectedState,
+                      highlightedRows: _highlightedRowIndices,
+                      selectedRows: _selectedRowIndices,
+                      hasFooter: widget.showPagination,
+                      rows: widget.showPagination ? paginatedRows: sortedRows,
+                      columns: widget.columns,
+                      alternateRowColor: widget.alternateRowColor,
+                      withRowDividers: widget.withRowDividers,
+                      enableBorder: widget.enableBorder,
+                      withColumnDividers: widget.withColumnDividers,
+                      headerCheckboxValue: _headerCheckboxValue,
+                      onRowCheckboxChanged: (rowIndex, isSelected) {
+                        setState(() {
+                          if (isSelected) {
+                            _selectedRowIndices.add(rowIndex);
+                          } else {
+                            _selectedRowIndices.remove(rowIndex);
+                          }
+                          _updateHeaderCheckbox();
+                        });
+                        if (widget.onSelectedRowsChanged != null) {
+                          widget.onSelectedRowsChanged!(_selectedRowIndices.length);
+                        }
+                      },
+                      expandOnRowClick: widget.expandOnRowClick,
+                      showExpandIconOnHover: widget.showExpandIconOnHover,
+                    ),
+                    if (widget.customRow != null && !widget.isCustomRowFixed)
+                      Container(
+                          height: 60,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: const DigitColors().light.genericDivider,
                             ),
-                            child: widget.customRow!),
-                      if(widget.showPagination && !widget.stickyFooter)
-                        TableFooter(
-                          width: normalColumns * 200 + specialColumnCount * 100+2,
-                          currentPage: currentPage,
-                          totalPages: totalPages,
-                          rowsPerPage: rowsPerPage,
-                          rowsPerPageOptions: widget.rowsPerPageOptions,
-                          onRowsPerPageChanged: (value) {
-                            setState(() {
-                              rowsPerPage = value;
-                              currentPage =
-                              1; // Reset to the first page when rows per page changes
-                            });
-                          },
-                          onPageChanged: (page) {
-                            setState(() {
-                              currentPage = page;
-                            });
-                          },
-                          onNext: () {
-                            setState(() {
-                              if (currentPage < totalPages) {
-                                currentPage++;
-                              }
-                            });
-                          },
-                          onPrevious: () {
-                            setState(() {
-                              if (currentPage > 1) {
-                                currentPage--;
-                              }
-                            });
-                          },
-                          onPageSelected: (page) {
-                            setState(() {
-                              currentPage = page;
-                            });
-                          },
-                          showRowsPerPage: widget.showRowsPerPage,
-                        ),
-                    ],
-                  ),
+                            color: const DigitColors().light.paperPrimary,
+                          ),
+                          child: widget.customRow!),
+                    if(widget.showPagination && !widget.stickyFooter)
+                      TableFooter(
+                        width: normalColumns * 200 + specialColumnCount * 100+2,
+                        currentPage: currentPage,
+                        totalPages: totalPages,
+                        rowsPerPage: rowsPerPage,
+                        rowsPerPageOptions: widget.rowsPerPageOptions,
+                        onRowsPerPageChanged: (value) {
+                          setState(() {
+                            rowsPerPage = value;
+                            currentPage =
+                            1; // Reset to the first page when rows per page changes
+                          });
+                        },
+                        onPageChanged: (page) {
+                          setState(() {
+                            currentPage = page;
+                          });
+                        },
+                        onNext: () {
+                          setState(() {
+                            if (currentPage < totalPages) {
+                              currentPage++;
+                            }
+                          });
+                        },
+                        onPrevious: () {
+                          setState(() {
+                            if (currentPage > 1) {
+                              currentPage--;
+                            }
+                          });
+                        },
+                        onPageSelected: (page) {
+                          setState(() {
+                            currentPage = page;
+                          });
+                        },
+                        showRowsPerPage: widget.showRowsPerPage,
+                      ),
+                  ],
                 ),
               ),
             ),
@@ -510,12 +564,13 @@ class _DigitTableState extends State<DigitTable> {
                   ),
                   child: widget.customRow!),
             ),
-          if (widget.stickyHeader)
+          if ( widget.stickyHeader)
             Positioned(
               top: 0,
               left: 0,
               right: 0,
               child: TableHeader(
+                withRowDividers: widget.withRowDividers,
                 columns: widget.columns,
                 sortedColumnIndex: sortedColumnIndex,
                 sortOrder: sortOrder,
@@ -541,7 +596,7 @@ class _DigitTableState extends State<DigitTable> {
               ),
             ),
           _buildFrozenColumns(_scrollOffset, context, widget.showPagination ? paginatedRows: sortedRows,),
-          if (widget.stickyFooter)
+          if (widget.showPagination &&widget.stickyFooter)
             Positioned(
               bottom: 0,
               left: 0,
