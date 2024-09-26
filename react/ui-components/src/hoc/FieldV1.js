@@ -380,7 +380,7 @@ const FieldV1 = ({
                   height="1.1875rem"
                   fill="#505A5F"
                 />
-                <span class="infotext">{infoMessage}</span>
+                <span class="infotext">{t(infoMessage)}</span>
               </div>
             ) : null}
           </div>
