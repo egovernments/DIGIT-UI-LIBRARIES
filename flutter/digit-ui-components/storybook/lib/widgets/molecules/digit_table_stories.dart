@@ -11,6 +11,819 @@ List<Story> tableStories() {
     Story(
       name: 'Molecule/Table/Simple Table',
       builder: (context) => DigitTable(
+        showPagination: false,
+        stickyHeader:
+        context.knobs.boolean(label: 'Sticky Header', initial: false),
+        alternateRowColor:
+        context.knobs.boolean(label: 'Alternate Row Color', initial: false),
+        withRowDividers:
+        context.knobs.boolean(label: 'With Row Dividers', initial: true),
+        withColumnDividers: context.knobs
+            .boolean(label: 'With Column Dividers', initial: false),
+        enableBorder:
+        context.knobs.boolean(label: 'Enable Border', initial: false),
+        columns: [
+          DigitTableColumn(
+            cellValue: 'first',
+            header: 'Column A',
+            type: ColumnType.text,
+            //columnType: ColumnType.checkbox,
+          ),
+          DigitTableColumn(
+            header: 'Column B',
+            cellValue: 'second',
+            type: ColumnType.text,
+            //columnType: ColumnType.text,
+          ),
+          DigitTableColumn(
+            cellValue: 'third',
+            header: 'Column C',
+            type: ColumnType.text,
+            //columnType: ColumnType.numeric,
+          ),
+          DigitTableColumn(
+            cellValue: 'forth',
+            header: 'Column D',
+            type: ColumnType.text,
+            //columnType: ColumnType.numeric,
+          ),
+          DigitTableColumn(
+            cellValue: 'fifth',
+            header: 'Column E',
+            type: ColumnType.text,
+            //columnType: ColumnType.numeric,
+          ),
+          DigitTableColumn(
+            cellValue: 'six',
+            header: 'Column F',
+            type: ColumnType.text,
+            //columnType: ColumnType.numeric,
+          ),
+        ],
+        rows: [
+          DigitTableRow(tableRow: [
+            DigitTableData(
+              'Row 1',
+              cellKey: 'first',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 1',
+              cellKey: 'second',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 1',
+              cellKey: 'third',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 1',
+              cellKey: 'forth',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 1',
+              cellKey: 'fifth',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 1',
+              cellKey: 'six',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+          ]),
+          DigitTableRow(tableRow: [
+            DigitTableData(
+              'Row 2',
+              cellKey: 'first',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 2',
+              cellKey: 'second',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 2',
+              cellKey: 'third',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 2',
+              cellKey: 'forth',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 2',
+              cellKey: 'fifth',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 2',
+              cellKey: 'six',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+          ]),
+          DigitTableRow(tableRow: [
+            DigitTableData(
+              'Row 3',
+              cellKey: 'first',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 3',
+              cellKey: 'second',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 3',
+              cellKey: 'third',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 3',
+              cellKey: 'forth',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 3',
+              cellKey: 'fifth',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 3',
+              cellKey: 'six',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+          ]),
+          DigitTableRow(tableRow: [
+            DigitTableData(
+              'Row 4',
+              cellKey: 'first',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 4',
+              cellKey: 'second',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 4',
+              cellKey: 'third',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 4',
+              cellKey: 'forth',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 4',
+              cellKey: 'fifth',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 4',
+              cellKey: 'six',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+          ])
+        ],
+      ),
+    ),
+    Story(
+      name: 'Molecule/Table/Nested Table',
+      builder: (context) => DigitTable(
+        showExpandIconOnHover: context.knobs.boolean(label: 'Expand Icon', initial: true),
+        showPagination: false,
+        stickyHeader:
+        context.knobs.boolean(label: 'Sticky Header', initial: false),
+        alternateRowColor:
+        context.knobs.boolean(label: 'Alternate Row Color', initial: false),
+        withRowDividers:
+        context.knobs.boolean(label: 'With Row Dividers', initial: true),
+        enableBorder:
+        context.knobs.boolean(label: 'Enable Border', initial: false),
+        columns: [
+          DigitTableColumn(
+            cellValue: 'first',
+            header: 'Column A',
+            type: ColumnType.text,
+          ),
+          DigitTableColumn(
+            header: 'Column B',
+            cellValue: 'second',
+            type: ColumnType.text,
+          ),
+          DigitTableColumn(
+            cellValue: 'third',
+            header: 'Column C',
+            type: ColumnType.text,
+          ),
+          DigitTableColumn(
+            cellValue: 'forth',
+            header: 'Column D',
+            type: ColumnType.text,
+          ),
+        ],
+        rows: [
+          DigitTableRow(
+            tableRow: [
+              DigitTableData(
+                'Main Row 1',
+                cellKey: 'first',
+                callBack: (data) {
+                  print(data);
+                },
+              ),
+              DigitTableData(
+                'Main Row 1',
+                cellKey: 'second',
+                callBack: (data) {
+                  print(data);
+                },
+              ),
+              DigitTableData(
+                'Main Row 1',
+                cellKey: 'third',
+                callBack: (data) {
+                  print(data);
+                },
+              ),
+              DigitTableData(
+                'Main Row 1',
+                cellKey: 'forth',
+                callBack: (data) {
+                  print(data);
+                },
+              ),
+            ],
+            nestedTable: DigitTable(
+              showPagination: false,
+              enableBorder:true,
+              columns: [
+                DigitTableColumn(
+                  cellValue: 'first',
+                  header: 'Column A',
+                  type: ColumnType.text,
+                  //columnType: ColumnType.checkbox,
+                ),
+                DigitTableColumn(
+                  header: 'Column B',
+                  cellValue: 'second',
+                  type: ColumnType.text,
+                  //columnType: ColumnType.text,
+                ),
+                DigitTableColumn(
+                  cellValue: 'third',
+                  header: 'Column C',
+                  type: ColumnType.text,
+                  //columnType: ColumnType.numeric,
+                ),
+              ],
+              rows: [
+                DigitTableRow(tableRow: [
+                  DigitTableData(
+                    'Row 1',
+                    cellKey: 'first',
+                    callBack: (data) {
+                      print(data);
+                    },
+                  ),
+                  DigitTableData(
+                    'Row 1',
+                    cellKey: 'second',
+                    callBack: (data) {
+                      print(data);
+                    },
+                  ),
+                  DigitTableData(
+                    'Row 1',
+                    cellKey: 'third',
+                    callBack: (data) {
+                      print(data);
+                    },
+                  ),
+                ]),
+                DigitTableRow(tableRow: [
+                  DigitTableData(
+                    'Row 2',
+                    cellKey: 'first',
+                    callBack: (data) {
+                      print(data);
+                    },
+                  ),
+                  DigitTableData(
+                    'Row 2',
+                    cellKey: 'second',
+                    callBack: (data) {
+                      print(data);
+                    },
+                  ),
+                  DigitTableData(
+                    'Row 2',
+                    cellKey: 'third',
+                    callBack: (data) {
+                      print(data);
+                    },
+                  ),
+                ]),
+                DigitTableRow(tableRow: [
+                  DigitTableData(
+                    'Row 3',
+                    cellKey: 'first',
+                    callBack: (data) {
+                      print(data);
+                    },
+                  ),
+                  DigitTableData(
+                    'Row 3',
+                    cellKey: 'second',
+                    callBack: (data) {
+                      print(data);
+                    },
+                  ),
+                  DigitTableData(
+                    'Row 3',
+                    cellKey: 'third',
+                    callBack: (data) {
+                      print(data);
+                    },
+                  ),
+                ]),
+                DigitTableRow(tableRow: [
+                  DigitTableData(
+                    'Row 4',
+                    cellKey: 'first',
+                    callBack: (data) {
+                      print(data);
+                    },
+                  ),
+                  DigitTableData(
+                    'Row 4',
+                    cellKey: 'second',
+                    callBack: (data) {
+                      print(data);
+                    },
+                  ),
+                  DigitTableData(
+                    'Row 4',
+                    cellKey: 'third',
+                    callBack: (data) {
+                      print(data);
+                    },
+                  ),
+                ])
+              ],
+            ),
+          ),
+          DigitTableRow(
+            tableRow: [
+              DigitTableData(
+                'Main Row 2',
+                cellKey: 'first',
+                callBack: (data) {
+                  print(data);
+                },
+              ),
+              DigitTableData(
+                'Main Row 2',
+                cellKey: 'second',
+                callBack: (data) {
+                  print(data);
+                },
+              ),
+              DigitTableData(
+                'Main Row 2',
+                cellKey: 'third',
+                callBack: (data) {
+                  print(data);
+                },
+              ),
+              DigitTableData(
+                'Main Row 2',
+                cellKey: 'forth',
+                callBack: (data) {
+                  print(data);
+                },
+              ),
+            ],
+            nestedTable: DigitTable(
+              stickyHeader: false,
+              showPagination: false,
+              enableBorder:true,
+              columns: [
+                DigitTableColumn(
+                  cellValue: 'first',
+                  header: 'Column A',
+                  type: ColumnType.text,
+                  //columnType: ColumnType.checkbox,
+                ),
+                DigitTableColumn(
+                  header: 'Column B',
+                  cellValue: 'second',
+                  type: ColumnType.text,
+                  //columnType: ColumnType.text,
+                ),
+                DigitTableColumn(
+                  cellValue: 'third',
+                  header: 'Column C',
+                  type: ColumnType.text,
+                  //columnType: ColumnType.numeric,
+                ),
+              ],
+              rows: [
+                DigitTableRow(tableRow: [
+                  DigitTableData(
+                    'Row 1',
+                    cellKey: 'first',
+                    callBack: (data) {
+                      print(data);
+                    },
+                  ),
+                  DigitTableData(
+                    'Row 1',
+                    cellKey: 'second',
+                    callBack: (data) {
+                      print(data);
+                    },
+                  ),
+                  DigitTableData(
+                    'Row 1',
+                    cellKey: 'third',
+                    callBack: (data) {
+                      print(data);
+                    },
+                  ),
+                ]),
+                DigitTableRow(tableRow: [
+                  DigitTableData(
+                    'Row 2',
+                    cellKey: 'first',
+                    callBack: (data) {
+                      print(data);
+                    },
+                  ),
+                  DigitTableData(
+                    'Row 2',
+                    cellKey: 'second',
+                    callBack: (data) {
+                      print(data);
+                    },
+                  ),
+                  DigitTableData(
+                    'Row 2',
+                    cellKey: 'third',
+                    callBack: (data) {
+                      print(data);
+                    },
+                  ),
+
+                ]),
+                DigitTableRow(tableRow: [
+                  DigitTableData(
+                    'Row 3',
+                    cellKey: 'first',
+                    callBack: (data) {
+                      print(data);
+                    },
+                  ),
+                  DigitTableData(
+                    'Row 3',
+                    cellKey: 'second',
+                    callBack: (data) {
+                      print(data);
+                    },
+                  ),
+                  DigitTableData(
+                    'Row 3',
+                    cellKey: 'third',
+                    callBack: (data) {
+                      print(data);
+                    },
+                  ),
+                ]),
+                DigitTableRow(tableRow: [
+                  DigitTableData(
+                    'Row 4',
+                    cellKey: 'first',
+                    callBack: (data) {
+                      print(data);
+                    },
+                  ),
+                  DigitTableData(
+                    'Row 4',
+                    cellKey: 'second',
+                    callBack: (data) {
+                      print(data);
+                    },
+                  ),
+                  DigitTableData(
+                    'Row 4',
+                    cellKey: 'third',
+                    callBack: (data) {
+                      print(data);
+                    },
+                  ),
+                ])
+              ],
+            ),
+          ),
+        ],
+      ),
+    ),
+    Story(
+      name: 'Molecule/Table/Simple Table with long header and description',
+      builder: (context) => DigitTable(
+        showPagination: false,
+        stickyHeader:
+        context.knobs.boolean(label: 'Sticky Header', initial: false),
+        alternateRowColor:
+        context.knobs.boolean(label: 'Alternate Row Color', initial: false),
+        withRowDividers:
+        context.knobs.boolean(label: 'With Row Dividers', initial: true),
+        withColumnDividers: context.knobs
+            .boolean(label: 'With Column Dividers', initial: false),
+        enableBorder:
+        context.knobs.boolean(label: 'Enable Border', initial: false),
+        columns: [
+          DigitTableColumn(
+            cellValue: 'first',
+            header: 'Column A long header',
+            type: ColumnType.text,
+            description: 'Description for column A',
+            //columnType: ColumnType.checkbox,
+          ),
+          DigitTableColumn(
+            header: 'Column B long header',
+            cellValue: 'second',
+            type: ColumnType.text,
+            description: 'Description for column B',
+            //columnType: ColumnType.text,
+          ),
+          DigitTableColumn(
+            cellValue: 'third',
+            header: 'Column C long header',
+            type: ColumnType.text,
+            description: 'Description for column C',
+            //columnType: ColumnType.numeric,
+          ),
+          DigitTableColumn(
+            cellValue: 'forth',
+            header: 'Column D long header',
+            type: ColumnType.text,
+            description: 'Description for column D',
+            //columnType: ColumnType.numeric,
+          ),
+          DigitTableColumn(
+            cellValue: 'fifth',
+            header: 'Column E long header',
+            type: ColumnType.text,
+            description: 'Description for column E',
+            //columnType: ColumnType.numeric,
+          ),
+          DigitTableColumn(
+            cellValue: 'six',
+            header: 'Column F long header',
+            type: ColumnType.text,
+            description: 'Description for column F',
+            //columnType: ColumnType.numeric,
+          ),
+        ],
+        rows: [
+          DigitTableRow(tableRow: [
+            DigitTableData(
+              'Row 1',
+              cellKey: 'first',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 1',
+              cellKey: 'second',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 1',
+              cellKey: 'third',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 1',
+              cellKey: 'forth',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 1',
+              cellKey: 'fifth',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 1',
+              cellKey: 'six',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+          ]),
+          DigitTableRow(tableRow: [
+            DigitTableData(
+              'Row 2',
+              cellKey: 'first',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 2',
+              cellKey: 'second',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 2',
+              cellKey: 'third',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 2',
+              cellKey: 'forth',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 2',
+              cellKey: 'fifth',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 2',
+              cellKey: 'six',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+          ]),
+          DigitTableRow(tableRow: [
+            DigitTableData(
+              'Row 3',
+              cellKey: 'first',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 3',
+              cellKey: 'second',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 3',
+              cellKey: 'third',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 3',
+              cellKey: 'forth',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 3',
+              cellKey: 'fifth',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 3',
+              cellKey: 'six',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+          ]),
+          DigitTableRow(tableRow: [
+            DigitTableData(
+              'Row 4',
+              cellKey: 'first',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 4',
+              cellKey: 'second',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 4',
+              cellKey: 'third',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 4',
+              cellKey: 'forth',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 4',
+              cellKey: 'fifth',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 4',
+              cellKey: 'six',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+          ])
+        ],
+      ),
+    ),
+    Story(
+      name: 'Molecule/Table/Simple Table with no selection',
+      builder: (context) => DigitTable(
+        showSelectedState: false,
+        showPagination: false,
         stickyHeader:
         context.knobs.boolean(label: 'Sticky Header', initial: false),
         alternateRowColor:
@@ -242,6 +1055,7 @@ List<Story> tableStories() {
     Story(
       name: 'Molecule/Table/Simple Table with first row highlighted',
       builder: (context) => DigitTable(
+        showPagination: false,
         stickyHeader:
         context.knobs.boolean(label: 'Sticky Header', initial: false),
         alternateRowColor:
@@ -473,117 +1287,202 @@ List<Story> tableStories() {
     ),
     Story(
       name: 'Molecule/Table/Simple Table with large list',
-      builder: (context) => ScrollableContent(
-        children: [
-          DigitTable(
-            tableHeight: 400,
-            tableWidth: 500,
-            showPagination: context.knobs.boolean(label: 'Show Pagination', initial: false),
-            stickyHeader:
-            context.knobs.boolean(label: 'Sticky Header', initial: false),
-            alternateRowColor:
-            context.knobs.boolean(label: 'Alternate Row Color', initial: false),
-            withRowDividers:
-            context.knobs.boolean(label: 'With Row Dividers', initial: true),
-            withColumnDividers: context.knobs
-                .boolean(label: 'With Column Dividers', initial: false),
-            enableBorder:
-            context.knobs.boolean(label: 'Enable Border', initial: false),
-            columns: [
-              DigitTableColumn(
-                cellValue: 'first',
-                header: 'Column A',
-                type: ColumnType.text,
-              ),
-              DigitTableColumn(
-                header: 'Column B',
-                cellValue: 'second',
-                type: ColumnType.text,
-              ),
-              DigitTableColumn(
-                cellValue: 'third',
-                header: 'Column C',
-                type: ColumnType.text,
-              ),
-              DigitTableColumn(
-                cellValue: 'forth',
-                header: 'Column D',
-                type: ColumnType.text,
-              ),
-              DigitTableColumn(
-                cellValue: 'fifth',
-                header: 'Column E',
-                type: ColumnType.text,
-              ),
-              DigitTableColumn(
-                cellValue: 'six',
-                header: 'Column F',
-                type: ColumnType.text,
-              ),
-            ],
-            rows: List.generate(100, (index) {
-              return DigitTableRow(tableRow: [
-                DigitTableData(
-                  'Row ${index + 1} A',
-                  cellKey: 'first',
-                  callBack: (data) {
-                    print(data);
-                  },
-                ),
-                DigitTableData(
-                  'Row ${index + 1} B',
-                  cellKey: 'second',
-                  callBack: (data) {
-                    print(data);
-                  },
-                ),
-                DigitTableData(
-                  'Row ${index + 1} C',
-                  cellKey: 'third',
-                  callBack: (data) {
-                    print(data);
-                  },
-                ),
-                DigitTableData(
-                  'Row ${index + 1} D',
-                  cellKey: 'forth',
-                  callBack: (data) {
-                    print(data);
-                  },
-                ),
-                DigitTableData(
-                  'Row ${index + 1} E',
-                  cellKey: 'fifth',
-                  callBack: (data) {
-                    print(data);
-                  },
-                ),
-                DigitTableData(
-                  'Row ${index + 1} F',
-                  cellKey: 'six',
-                  callBack: (data) {
-                    print(data);
-                  },
-                ),
-              ]);
-            }),
+      builder: (context) => DigitTable(
+        showPagination:
+        context.knobs.boolean(label: 'Show Pagination', initial: true),
+        alternateRowColor:
+        context.knobs.boolean(label: 'Alternate Row Color', initial: false),
+        withRowDividers:
+        context.knobs.boolean(label: 'With Row Dividers', initial: true),
+        withColumnDividers: context.knobs
+            .boolean(label: 'With Column Dividers', initial: false),
+        enableBorder:
+        context.knobs.boolean(label: 'Enable Border', initial: false),
+        columns: [
+          DigitTableColumn(
+            cellValue: 'first',
+            header: 'Column A',
+            type: ColumnType.text,
+          ),
+          DigitTableColumn(
+            header: 'Column B',
+            cellValue: 'second',
+            type: ColumnType.text,
+          ),
+          DigitTableColumn(
+            cellValue: 'third',
+            header: 'Column C',
+            type: ColumnType.text,
+          ),
+          DigitTableColumn(
+            cellValue: 'forth',
+            header: 'Column D',
+            type: ColumnType.text,
+          ),
+          DigitTableColumn(
+            cellValue: 'fifth',
+            header: 'Column E',
+            type: ColumnType.text,
+          ),
+          DigitTableColumn(
+            cellValue: 'six',
+            header: 'Column F',
+            type: ColumnType.text,
           ),
         ],
+        rows: List.generate(100, (index) {
+          return DigitTableRow(tableRow: [
+            DigitTableData(
+              'Row ${index + 1} A',
+              cellKey: 'first',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row ${index + 1} B',
+              cellKey: 'second',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row ${index + 1} C',
+              cellKey: 'third',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row ${index + 1} D',
+              cellKey: 'forth',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row ${index + 1} E',
+              cellKey: 'fifth',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row ${index + 1} F',
+              cellKey: 'six',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+          ]);
+        }),
+      ),
+    ),
+    Story(
+      name: 'Molecule/Table/Simple Table with large list with sorting',
+      builder: (context) => DigitTable(
+        showPagination:
+        context.knobs.boolean(label: 'Show Pagination', initial: true),
+        alternateRowColor:
+        context.knobs.boolean(label: 'Alternate Row Color', initial: false),
+        withRowDividers:
+        context.knobs.boolean(label: 'With Row Dividers', initial: true),
+        withColumnDividers: context.knobs
+            .boolean(label: 'With Column Dividers', initial: false),
+        enableBorder:
+        context.knobs.boolean(label: 'Enable Border', initial: false),
+        columns: [
+          DigitTableColumn(
+            cellValue: 'first',
+            header: 'Column A',
+            type: ColumnType.text,
+          ),
+          DigitTableColumn(
+            header: 'Column B',
+            cellValue: 'second',
+            isSortable: true,
+            type: ColumnType.text,
+          ),
+          DigitTableColumn(
+            cellValue: 'third',
+            header: 'Column C',
+            type: ColumnType.text,
+          ),
+          DigitTableColumn(
+            cellValue: 'forth',
+            header: 'Column D',
+            type: ColumnType.text,
+          ),
+          DigitTableColumn(
+            cellValue: 'fifth',
+            header: 'Column E',
+            type: ColumnType.text,
+          ),
+          DigitTableColumn(
+            cellValue: 'six',
+            header: 'Column F',
+            type: ColumnType.text,
+          ),
+        ],
+        rows: List.generate(100, (index) {
+          return DigitTableRow(tableRow: [
+            DigitTableData(
+              '${index+1}',
+              cellKey: 'first',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row ${index + 1} B',
+              cellKey: 'second',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row ${index + 1} C',
+              cellKey: 'third',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row ${index + 1} D',
+              cellKey: 'forth',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row ${index + 1} E',
+              cellKey: 'fifth',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row ${index + 1} F',
+              cellKey: 'six',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+          ]);
+        }),
       ),
     ),
     Story(
       name: 'Molecule/Table/Simple Table with initial frozen column',
       builder: (context) => DigitTable(
-        stickyHeader:
-        context.knobs.boolean(label: 'Sticky Header', initial: false),
+        showSelectedState: false,
         alternateRowColor:
         context.knobs.boolean(label: 'Alternate Row Color', initial: false),
         withRowDividers:
         context.knobs.boolean(label: 'With Row Dividers', initial: true),
-        withColumnDividers:
-        context.knobs.boolean(label: 'With Column Dividers', initial: true),
         enableBorder:
         context.knobs.boolean(label: 'Enable Border', initial: true),
+        showPagination: true,
         columns: [
           DigitTableColumn(
             cellValue: 'first',
@@ -623,184 +1522,53 @@ List<Story> tableStories() {
             //columnType: ColumnType.numeric,
           ),
         ],
-        rows: [
-          DigitTableRow(tableRow: [
+        showRowsPerPage: false,
+        rows: List.generate(5, (index) {
+          return DigitTableRow(tableRow: [
             DigitTableData(
-              'Row 1',
+              'Row ${index + 1} A',
               cellKey: 'first',
               callBack: (data) {
                 print(data);
               },
             ),
             DigitTableData(
-              'Row 1',
+              'Row ${index + 1} B',
               cellKey: 'second',
               callBack: (data) {
                 print(data);
               },
             ),
             DigitTableData(
-              'Row 1',
+              'Row ${index + 1} C',
               cellKey: 'third',
               callBack: (data) {
                 print(data);
               },
             ),
             DigitTableData(
-              'Row 1',
+              'Row ${index + 1} D',
               cellKey: 'forth',
               callBack: (data) {
                 print(data);
               },
             ),
             DigitTableData(
-              'Row 1',
+              'Row ${index + 1} E',
               cellKey: 'fifth',
               callBack: (data) {
                 print(data);
               },
             ),
             DigitTableData(
-              'Row 1',
+              'Row ${index + 1} F',
               cellKey: 'six',
               callBack: (data) {
                 print(data);
               },
             ),
-          ]),
-          DigitTableRow(tableRow: [
-            DigitTableData(
-              'Row 2',
-              cellKey: 'first',
-              callBack: (data) {
-                print(data);
-              },
-            ),
-            DigitTableData(
-              'Row 2',
-              cellKey: 'second',
-              callBack: (data) {
-                print(data);
-              },
-            ),
-            DigitTableData(
-              'Row 2',
-              cellKey: 'third',
-              callBack: (data) {
-                print(data);
-              },
-            ),
-            DigitTableData(
-              'Row 2',
-              cellKey: 'forth',
-              callBack: (data) {
-                print(data);
-              },
-            ),
-            DigitTableData(
-              'Row 2',
-              cellKey: 'fifth',
-              callBack: (data) {
-                print(data);
-              },
-            ),
-            DigitTableData(
-              'Row 2',
-              cellKey: 'six',
-              callBack: (data) {
-                print(data);
-              },
-            ),
-          ]),
-          DigitTableRow(tableRow: [
-            DigitTableData(
-              'Row 3',
-              cellKey: 'first',
-              callBack: (data) {
-                print(data);
-              },
-            ),
-            DigitTableData(
-              'Row 3',
-              cellKey: 'second',
-              callBack: (data) {
-                print(data);
-              },
-            ),
-            DigitTableData(
-              'Row 3',
-              cellKey: 'third',
-              callBack: (data) {
-                print(data);
-              },
-            ),
-            DigitTableData(
-              'Row 3',
-              cellKey: 'forth',
-              callBack: (data) {
-                print(data);
-              },
-            ),
-            DigitTableData(
-              'Row 3',
-              cellKey: 'fifth',
-              callBack: (data) {
-                print(data);
-              },
-            ),
-            DigitTableData(
-              'Row 3',
-              cellKey: 'six',
-              callBack: (data) {
-                print(data);
-              },
-            ),
-          ]),
-          DigitTableRow(tableRow: [
-            DigitTableData(
-              'Row 4',
-              cellKey: 'first',
-              callBack: (data) {
-                print(data);
-              },
-            ),
-            DigitTableData(
-              'Row 4',
-              cellKey: 'second',
-              callBack: (data) {
-                print(data);
-              },
-            ),
-            DigitTableData(
-              'Row 4',
-              cellKey: 'third',
-              callBack: (data) {
-                print(data);
-              },
-            ),
-            DigitTableData(
-              'Row 4',
-              cellKey: 'forth',
-              callBack: (data) {
-                print(data);
-              },
-            ),
-            DigitTableData(
-              'Row 4',
-              cellKey: 'fifth',
-              callBack: (data) {
-                print(data);
-              },
-            ),
-            DigitTableData(
-              'Row 4',
-              cellKey: 'six',
-              callBack: (data) {
-                print(data);
-              },
-            ),
-          ])
-        ],
+          ]);
+        }),
       ),
     ),
     Story(
@@ -838,7 +1606,7 @@ List<Story> tableStories() {
           DigitTableColumn(
             cellValue: 'forth',
             header: 'Column D',
-            type: ColumnType.DigitButton,
+            type: ColumnType.button,
             //columnType: ColumnType.numeric,
           ),
           DigitTableColumn(
@@ -1037,6 +1805,7 @@ List<Story> tableStories() {
     Story(
       name: 'Molecule/Table/figma1',
       builder: (context) => DigitTable(
+        showPagination: false,
         stickyHeader:
         context.knobs.boolean(label: 'Sticky Header', initial: false),
         alternateRowColor:
@@ -1166,14 +1935,10 @@ List<Story> tableStories() {
     Story(
       name: 'Molecule/Table/figma2',
       builder: (context) => DigitTable(
-        stickyHeader:
-        context.knobs.boolean(label: 'Sticky Header', initial: false),
         alternateRowColor:
         context.knobs.boolean(label: 'Alternate Row Color', initial: false),
         withRowDividers:
         context.knobs.boolean(label: 'With Row Dividers', initial: true),
-        withColumnDividers: context.knobs
-            .boolean(label: 'With Column Dividers', initial: false),
         enableBorder:
         context.knobs.boolean(label: 'Enable Border', initial: true),
         columns: [
@@ -1317,7 +2082,7 @@ List<Story> tableStories() {
               print(data);
             },
                 widget: InkWell(
-                  onTap: (){
+                  onTap: () {
                     print('tapped');
                   },
                   child: const Row(children: [
@@ -1616,14 +2381,10 @@ List<Story> tableStories() {
             ),
           ],
         ),
-        stickyHeader:
-        context.knobs.boolean(label: 'Sticky Header', initial: false),
         alternateRowColor:
         context.knobs.boolean(label: 'Alternate Row Color', initial: false),
         withRowDividers:
         context.knobs.boolean(label: 'With Row Dividers', initial: true),
-        withColumnDividers: context.knobs
-            .boolean(label: 'With Column Dividers', initial: false),
         enableBorder:
         context.knobs.boolean(label: 'Enable Border', initial: true),
         columns: [
@@ -1911,7 +2672,6 @@ List<Story> tableStories() {
           DigitTableColumn(
             cellValue: 'first',
             header: 'Column A',
-            isFrozen: true,
             type: ColumnType.text,
             //columnType: ColumnType.checkbox,
           ),

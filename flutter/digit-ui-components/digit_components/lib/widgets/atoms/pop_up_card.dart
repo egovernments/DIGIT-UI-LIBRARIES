@@ -1,3 +1,4 @@
+
 /// A customizable popup dialog widget.
 
 /// Example use
@@ -6,7 +7,7 @@
 ///      type: PopUpType.simple,
 ///      description: 'This is a simple example of a popup dialog.',
 ///      actions: [
-///          Button(
+///          DigitButton(
 ///              label: 'OK',
 ///              onPressed: () {
 ///                 Navigator.pop(context);
@@ -24,9 +25,10 @@ import '../../theme/ComponentTheme/pop_up_card_theme.dart';
 import '../../theme/colors.dart';
 import '../../theme/spacers.dart';
 import '../../theme/typography.dart';
+import 'package:flutter/scheduler.dart';
+
 import '../helper_widget/button_list.dart';
 import 'digit_button.dart';
-import 'package:flutter/scheduler.dart';
 
 class Popup extends StatefulWidget {
   /// The title of the popup.
@@ -53,22 +55,25 @@ class Popup extends StatefulWidget {
   /// Additional widgets to be displayed in the popup.
   final List<Widget>? additionalWidgets;
 
-  /// The list of action buttons to be displayed in the popup.
+  /// The list of action DigitButtons to be displayed in the popup.
   final List<Button>? actions;
 
-  /// Callback function when the close button is tapped.
+  /// Callback function when the close DigitButton is tapped.
   final void Function()? onCrossTap;
 
-  /// Whether to display action buttons inline or not.
+  /// Whether to display action DigitButtons inline or not.
   final bool? inlineActions;
 
-  /// The spacing between action buttons.
+  /// The spacing between action DigitButtons.
   final double? actionSpacing;
 
-  /// The alignment of action buttons.
+  /// The alignment of action DigitButtons.
   final MainAxisAlignment? actionAlignment;
 
   final DigitPopupTheme? popupTheme;
+
+  /// Callback when the user taps outside the container.
+  final VoidCallback? onOutsideTap;
 
   const Popup({
     super.key,
@@ -86,6 +91,7 @@ class Popup extends StatefulWidget {
     this.actionSpacing,
     this.actionAlignment,
     this.popupTheme,
+    this.onOutsideTap,
   });
 
   @override
@@ -112,8 +118,8 @@ class _PopupState extends State<Popup> {
         bottom: isMobile
             ? spacer4
             : isTab
-                ? spacer5
-                : spacer6,
+            ? spacer5
+            : spacer6,
       ),
       decoration: BoxDecoration(
         color: const DigitColors().light.paperPrimary,
@@ -122,13 +128,13 @@ class _PopupState extends State<Popup> {
             topRight: Radius.circular(spacer1)),
         boxShadow: _isOverflowing
             ? [
-                BoxShadow(
-                  color: const Color(0xFF000000).withOpacity(.16),
-                  offset: const Offset(0, 1),
-                  spreadRadius: 0,
-                  blurRadius: 2,
-                ),
-              ]
+          BoxShadow(
+            color: const Color(0xFF000000).withOpacity(.16),
+            offset: const Offset(0, 1),
+            spreadRadius: 0,
+            blurRadius: 2,
+          ),
+        ]
             : [],
       ),
       child: Column(
@@ -145,14 +151,14 @@ class _PopupState extends State<Popup> {
                   left: isMobile
                       ? spacer4
                       : isTab
-                          ? spacer5
-                          : spacer6,
+                      ? spacer5
+                      : spacer6,
                   right: spacer2,
                   top: isMobile
                       ? spacer4
                       : isTab
-                          ? spacer5
-                          : spacer6,
+                      ? spacer5
+                      : spacer6,
                 ),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -165,11 +171,11 @@ class _PopupState extends State<Popup> {
                     SizedBox(
                       width: widget.onCrossTap != null
                           ? widget.titleIcon != null
-                              ? isMobile ? MediaQuery.of(context).size.width * .58: MediaQuery.of(context).size.width * .23
-                              : isMobile ? MediaQuery.of(context).size.width * .70:MediaQuery.of(context).size.width * .25
+                          ? isMobile ? MediaQuery.of(context).size.width * .58: MediaQuery.of(context).size.width * .23
+                          : isMobile ? MediaQuery.of(context).size.width * .70:MediaQuery.of(context).size.width * .25
                           : widget.titleIcon != null
-                              ? isMobile ? MediaQuery.of(context).size.width * .65:MediaQuery.of(context).size.width * .25
-                              : isMobile ? MediaQuery.of(context).size.width * .78:MediaQuery.of(context).size.width * .27,
+                          ? isMobile ? MediaQuery.of(context).size.width * .65:MediaQuery.of(context).size.width * .25
+                          : isMobile ? MediaQuery.of(context).size.width * .78:MediaQuery.of(context).size.width * .27,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
@@ -210,8 +216,8 @@ class _PopupState extends State<Popup> {
                       size: isMobile
                           ? spacer6
                           : isTab
-                              ? spacer6
-                              : spacer7,
+                          ? spacer6
+                          : spacer7,
                       color: const DigitColors().light.textPrimary,
                     ),
                   ),
@@ -231,8 +237,8 @@ class _PopupState extends State<Popup> {
         isMobile
             ? spacer4
             : isTab
-                ? spacer5
-                : spacer6,
+            ? spacer5
+            : spacer6,
       ),
       decoration: BoxDecoration(
         color: const DigitColors().light.paperPrimary,
@@ -241,13 +247,13 @@ class _PopupState extends State<Popup> {
             topRight: Radius.circular(spacer1)),
         boxShadow: _isOverflowing
             ? [
-                BoxShadow(
-                  color: const Color(0xFF000000).withOpacity(.16),
-                  offset: const Offset(0, 1),
-                  spreadRadius: 0,
-                  blurRadius: 2,
-                ),
-              ]
+          BoxShadow(
+            color: const Color(0xFF000000).withOpacity(.16),
+            offset: const Offset(0, 1),
+            spreadRadius: 0,
+            blurRadius: 2,
+          ),
+        ]
             : [],
       ),
       child: Column(
@@ -261,13 +267,13 @@ class _PopupState extends State<Popup> {
                   width: isMobile
                       ? 56.0
                       : isTab
-                          ? 64.0
-                          : 72.0,
+                      ? 64.0
+                      : 72.0,
                   height: isMobile
                       ? 56.0
                       : isTab
-                          ? 64.0
-                          : 72.0,
+                      ? 64.0
+                      : 72.0,
                   fit: BoxFit.cover),
           const SizedBox(
             width: spacer2,
@@ -299,27 +305,27 @@ class _PopupState extends State<Popup> {
         left: isMobile
             ? spacer4
             : isTab
-                ? spacer5
-                : spacer6,
+            ? spacer5
+            : spacer6,
         right: isMobile
             ? spacer4
             : isTab
-                ? spacer5
-                : spacer6,
+            ? spacer5
+            : spacer6,
         top: _isOverflowing
             ? isMobile
-                ? spacer4
-                : isTab
-                    ? spacer5
-                    : spacer6
+            ? spacer4
+            : isTab
+            ? spacer5
+            : spacer6
             : 0,
         bottom: !_isOverflowing && (widget.actions != null)
             ? 0
             : isMobile
-                ? spacer4
-                : isTab
-                    ? spacer5
-                    : spacer6,
+            ? spacer4
+            : isTab
+            ? spacer5
+            : spacer6,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -334,8 +340,8 @@ class _PopupState extends State<Popup> {
               height: isMobile
                   ? spacer4
                   : isTab
-                      ? spacer5
-                      : spacer6,
+                  ? spacer5
+                  : spacer6,
             ),
           if (widget.additionalWidgets != null)
             ...widget.additionalWidgets!
@@ -343,19 +349,19 @@ class _PopupState extends State<Popup> {
                 .entries
                 .map(
                   (widgets) => Padding(
-                    padding: EdgeInsets.only(
-                      bottom:
-                          widgets.key != widget.additionalWidgets!.length - 1
-                              ? isMobile
-                                  ? spacer4
-                                  : isTab
-                                      ? spacer5
-                                      : spacer6
-                              : 0,
-                    ),
-                    child: widgets.value,
-                  ),
-                )
+                padding: EdgeInsets.only(
+                  bottom:
+                  widgets.key != widget.additionalWidgets!.length - 1
+                      ? isMobile
+                      ? spacer4
+                      : isTab
+                      ? spacer5
+                      : spacer6
+                      : 0,
+                ),
+                child: widgets.value,
+              ),
+            )
                 .toList(),
         ],
       ),
@@ -390,101 +396,104 @@ class _PopupState extends State<Popup> {
     // final double? cardWidth = widget.width;
     // final double? cardHeight = widget.height;
 
-    return Dialog.fullscreen(
-      backgroundColor: const DigitColors().transparent,
-      child: Center(
-        child: Container(
-          constraints: BoxConstraints(
-            maxHeight: isMobile
-                ? MediaQuery.of(context).size.height * .80
-                : isTab
-                    ? MediaQuery.of(context).size.height * .82
-                    : MediaQuery.of(context).size.height * .85,
-          ),
-          margin: themeData.width == null ? themeData.margin : EdgeInsets.zero,
-          width: themeData.width,
-          height: themeData.height,
-          decoration: themeData.decoration,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: widget.type == PopUpType.alert
-                ? CrossAxisAlignment.center
-                : CrossAxisAlignment.start,
-            children: [
-              widget.type == PopUpType.simple
-                  ? _buildSimplePopUp(context, themeData, isMobile, isTab)
-                  : _buildAlertPopUp(context, themeData, isMobile, isTab),
-              if (widget.description != null ||
-                  widget.additionalWidgets != null)
-                Flexible(
-                  child: SingleChildScrollView(
-                    controller: _scrollController,
-                    child: _buildContent(context, themeData, isMobile, isTab),
+    return GestureDetector(
+      onTap: widget.onOutsideTap,
+      child: Dialog.fullscreen(
+        backgroundColor: const DigitColors().transparent,
+        child: Center(
+          child: Container(
+            constraints: BoxConstraints(
+              maxHeight: isMobile
+                  ? MediaQuery.of(context).size.height * .80
+                  : isTab
+                  ? MediaQuery.of(context).size.height * .82
+                  : MediaQuery.of(context).size.height * .85,
+            ),
+            margin: themeData.width == null ? themeData.margin : EdgeInsets.zero,
+            width: themeData.width,
+            height: themeData.height,
+            decoration: themeData.decoration,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: widget.type == PopUpType.alert
+                  ? CrossAxisAlignment.center
+                  : CrossAxisAlignment.start,
+              children: [
+                widget.type == PopUpType.simple
+                    ? _buildSimplePopUp(context, themeData, isMobile, isTab)
+                    : _buildAlertPopUp(context, themeData, isMobile, isTab),
+                if (widget.description != null ||
+                    widget.additionalWidgets != null)
+                  Flexible(
+                    child: SingleChildScrollView(
+                      controller: _scrollController,
+                      child: _buildContent(context, themeData, isMobile, isTab),
+                    ),
                   ),
-                ),
-              if (widget.actions != null)
-                Container(
-                  padding: EdgeInsets.only(
-                    left: isMobile
-                        ? spacer4
-                        : isTab
-                            ? spacer5
-                            : spacer6,
-                    right: isMobile
-                        ? spacer4
-                        : isTab
-                            ? spacer5
-                            : spacer6,
-                    top: _isOverflowing ||
-                            (widget.additionalWidgets != null ||
-                                widget.description != null)
-                        ? isMobile
-                            ? spacer4
-                            : isTab
-                                ? spacer5
-                                : spacer6
-                        : 0,
-                    bottom: isMobile
-                        ? spacer4
-                        : isTab
-                            ? spacer5
-                            : spacer6,
+                if (widget.actions != null)
+                  Container(
+                    padding: EdgeInsets.only(
+                      left: isMobile
+                          ? spacer4
+                          : isTab
+                          ? spacer5
+                          : spacer6,
+                      right: isMobile
+                          ? spacer4
+                          : isTab
+                          ? spacer5
+                          : spacer6,
+                      top: _isOverflowing ||
+                          (widget.additionalWidgets != null ||
+                              widget.description != null)
+                          ? isMobile
+                          ? spacer4
+                          : isTab
+                          ? spacer5
+                          : spacer6
+                          : 0,
+                      bottom: isMobile
+                          ? spacer4
+                          : isTab
+                          ? spacer5
+                          : spacer6,
+                    ),
+                    decoration: BoxDecoration(
+                      color: const DigitColors().light.paperPrimary,
+                      borderRadius: const BorderRadius.only(
+                          bottomLeft: Radius.circular(spacer1),
+                          bottomRight: Radius.circular(spacer1)),
+                      boxShadow: _isOverflowing
+                          ? [
+                        BoxShadow(
+                          color: const Color(0xFF000000).withOpacity(.16),
+                          offset: const Offset(0, -1),
+                          spreadRadius: 0,
+                          blurRadius: 2,
+                        ),
+                      ]
+                          : [],
+                    ),
+                    child: ButtonListTile(
+                      buttons: widget.actions!,
+                      isVertical: widget.inlineActions != null
+                          ? !widget.inlineActions!
+                          : (isMobile ? true : false),
+                      alignment: widget.actionAlignment ??
+                          ((isMobile || isTab) || widget.type == PopUpType.alert
+                              ? MainAxisAlignment.center
+                              : MainAxisAlignment.end),
+                      spacing: widget.actionSpacing ??
+                          (isMobile
+                              ? spacer4
+                              : isTab
+                              ? spacer5
+                              : spacer6),
+                    ),
                   ),
-                  decoration: BoxDecoration(
-                    color: const DigitColors().light.paperPrimary,
-                    borderRadius: const BorderRadius.only(
-                        bottomLeft: Radius.circular(spacer1),
-                        bottomRight: Radius.circular(spacer1)),
-                    boxShadow: _isOverflowing
-                        ? [
-                            BoxShadow(
-                              color: const Color(0xFF000000).withOpacity(.16),
-                              offset: const Offset(0, -1),
-                              spreadRadius: 0,
-                              blurRadius: 2,
-                            ),
-                          ]
-                        : [],
-                  ),
-                  child: ButtonListTile(
-                    buttons: widget.actions!,
-                    isVertical: widget.inlineActions != null
-                        ? !widget.inlineActions!
-                        : (isMobile ? true : false),
-                    alignment: widget.actionAlignment ??
-                        ((isMobile || isTab) || widget.type == PopUpType.alert
-                            ? MainAxisAlignment.center
-                            : MainAxisAlignment.end),
-                    spacing: widget.actionSpacing ??
-                        (isMobile
-                            ? spacer4
-                            : isTab
-                                ? spacer5
-                                : spacer6),
-                  ),
-                ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

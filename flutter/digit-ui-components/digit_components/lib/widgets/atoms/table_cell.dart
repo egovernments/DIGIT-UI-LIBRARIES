@@ -4,6 +4,7 @@ import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:digit_ui_components/widgets/atoms/switch.dart';
 import 'package:flutter/material.dart';
 
+import '../molecules/digit_table.dart';
 import 'digit_button.dart';
 import 'digit_tag.dart';
 
@@ -66,15 +67,12 @@ class DigitTableCell extends StatelessWidget {
           constraints: const BoxConstraints(
             maxWidth: 168,
           ),
-          child: const DigitDropdown(
-            items: [
-              DropdownItem(name: 'text1', code: '1'),
-              DropdownItem(name: 'text2', code: '2')
-            ],
+          child: DigitDropdown(
+            items: cellData.items ?? [],
           ),
         );
 
-      case ColumnType.DigitButton:
+      case ColumnType.button:
         return Button(
           mainAxisSize: MainAxisSize.min,
           size: ButtonSize.medium,
@@ -97,7 +95,7 @@ class DigitTableCell extends StatelessWidget {
             alignment: Alignment.topRight,
             child: Text(
               cellData.label,
-              style: const TextStyle(fontFamily: 'RobotoMono'),
+              style: textTheme.bodyS.copyWith(color: theme.colorTheme.text.primary),
             ),
           ),
         );
@@ -127,7 +125,7 @@ class DigitTableCell extends StatelessWidget {
         return cellData.widget ?? Text(
           cellData.label,
           maxLines: 1,
-          style: cellData.style ?? textTheme.bodyS.copyWith(color: theme.colorTheme.text.primary),
+          style: textTheme.bodyS.copyWith(color: theme.colorTheme.text.primary),
         );
     }
   }
@@ -142,7 +140,7 @@ enum ColumnType {
   text,
   checkbox,
   textField,
-  DigitButton,
+  button,
   numeric,
   description,
   dropDown,
@@ -178,9 +176,13 @@ class DigitTableColumn {
 
 class DigitTableRow {
   final List<DigitTableData> tableRow;
+  final DigitTable? nestedTable;
+  final bool isExpandable;
 
   DigitTableRow({
     required this.tableRow,
+    this.nestedTable,
+    this.isExpandable = false,
   });
 }
 
@@ -189,6 +191,7 @@ class DigitTableData {
   final TextStyle? style;
   late final dynamic value;
   final String cellKey;
+  final List<DropdownItem>? items;
   ValueChanged<DigitTableData>? callBack;
   final Widget? widget;
 
@@ -197,6 +200,7 @@ class DigitTableData {
         this.style,
         this.value,
         this.callBack,
+        this.items,
         required this.cellKey,
         this.widget,
       });

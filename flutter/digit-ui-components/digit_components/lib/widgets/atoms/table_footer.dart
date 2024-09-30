@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:digit_ui_components/digit_components.dart';
+import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:flutter/material.dart';
 
 class TableFooter extends StatelessWidget {
@@ -17,6 +18,7 @@ class TableFooter extends StatelessWidget {
   final ValueChanged<int> onPageSelected;
   final bool showRowsPerPage;
   final double width;
+  final bool enableBorder;
 
   const TableFooter({
     Key? key,
@@ -33,16 +35,33 @@ class TableFooter extends StatelessWidget {
     required this.onPageSelected,
     required this.width,
     this.showRowsPerPage = true,
+    this.enableBorder = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final textTheme = theme.digitTextTheme(context);
+
     return Container(
       constraints: BoxConstraints(
         maxWidth: MediaQuery.of(context).size.width,
       ),
+      decoration: BoxDecoration(
+        color: theme.colorTheme.paper.secondary,
+        border: Border(
+          bottom: enableBorder
+              ? BorderSide(color: theme.colorTheme.generic.divider)
+              : BorderSide.none,
+          left: enableBorder
+              ? BorderSide(color: theme.colorTheme.generic.divider)
+              : BorderSide.none,
+          right: enableBorder
+              ? BorderSide(color: theme.colorTheme.generic.divider)
+              : BorderSide.none,
+        ),
+      ),
       width: min(width, MediaQuery.of(context).size.width),
-      color: const DigitColors().light.paperSecondary,
       padding: const EdgeInsets.all(8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
