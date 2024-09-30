@@ -51,19 +51,6 @@ class _DigitTableWrapperState extends State<DigitTableWrapper> {
   int? sortedColumnIndex;
   List<DigitTableRow> sortedRows = [];
 
-  void _onRowsPerPageChanged(int newRowsPerPage) {
-    setState(() {
-      rowsPerPage = newRowsPerPage;
-      currentPage = 1; // Reset to the first page
-    });
-  }
-
-  void _onPageChanged(int newPage) {
-    setState(() {
-      currentPage = newPage;
-    });
-  }
-
   // Update selected row count when a row is selected/deselected
   void _onRowSelected(int count) {
     setState(() {
@@ -75,30 +62,29 @@ class _DigitTableWrapperState extends State<DigitTableWrapper> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.digitTextTheme(context);
-    int totalPages = (sortedRows.length / rowsPerPage).ceil();
-    int startIndex = (currentPage - 1) * rowsPerPage;
-    int endIndex = startIndex + rowsPerPage;
-    List<DigitTableRow> paginatedRows = sortedRows.sublist(
-      startIndex,
-      endIndex > sortedRows.length ? sortedRows.length : endIndex,
-    );
 
 
 
     return DigitCard(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(widget.tableHeader ?? "", style: textTheme.headingM.copyWith(color: theme.colorTheme.text.primary),),
-            Row(
-              children: [
-                Text('filter', style: textTheme.bodyL.copyWith(color: theme.colorTheme.text.primary),),
-                const SizedBox(width: 8,),
-                Icon(Icons.filter_list, color: theme.colorTheme.text.primary,)
-              ],
-            )
-          ],
+        SizedBox(
+          width: double.infinity,
+          child: Row(
+            //mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(widget.tableHeader ?? "", style: textTheme.headingM.copyWith(color: theme.colorTheme.text.primary),),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text('filter', style: textTheme.bodyL.copyWith(color: theme.colorTheme.text.primary),),
+                  const SizedBox(width: 8,),
+                  Icon(Icons.filter_list, color: theme.colorTheme.text.primary,)
+                ],
+              )
+            ],
+          ),
         ),
         if(selectedRowsCount > 0)
           Row(
@@ -129,44 +115,6 @@ class _DigitTableWrapperState extends State<DigitTableWrapper> {
           isCustomRowFixed: widget.isCustomRowFixed,
           onSelectedRowsChanged: _onRowSelected,
         ),
-        // TableFooter(
-        //   currentPage: currentPage,
-        //   totalPages: 1, // todo
-        //   rowsPerPage: rowsPerPage,
-        //   rowsPerPageOptions: widget.rowsPerPageOptions,
-        //   onRowsPerPageChanged: (value) {
-        //     setState(() {
-        //       rowsPerPage = value;
-        //       currentPage =
-        //       1; // Reset to the first page when rows per page changes
-        //     });
-        //   },
-        //   onPageChanged: (page) {
-        //     setState(() {
-        //       currentPage = page;
-        //     });
-        //   },
-        //   onNext: () {
-        //     setState(() {
-        //       if (currentPage < totalPages) {
-        //         currentPage++;
-        //       }
-        //     });
-        //   },
-        //   onPrevious: () {
-        //     setState(() {
-        //       if (currentPage > 1) {
-        //         currentPage--;
-        //       }
-        //     });
-        //   },
-        //   onPageSelected: (page) {
-        //     setState(() {
-        //       currentPage = page;
-        //     });
-        //   },
-        //   showRowsPerPage: widget.showRowsPerPage,
-        // ),
       ],
     );
   }

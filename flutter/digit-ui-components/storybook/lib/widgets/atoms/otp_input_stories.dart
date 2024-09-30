@@ -13,8 +13,6 @@ List<Story> otpInputStories() {
           length: 6,
           autoFocus: true,
           width: MediaQuery.of(context).size.width,
-          fieldWidth: 50,
-          outlineBorderRadius: 15,
           onChanged: (pin) {
             print("Changed: " + pin);
           },
@@ -29,8 +27,6 @@ List<Story> otpInputStories() {
           length: 4,
           autoFocus: true,
           width: MediaQuery.of(context).size.width,
-          fieldWidth: 45,
-          outlineBorderRadius: 15,
           onChanged: (pin) {
             print("Changed: " + pin);
           },
@@ -45,7 +41,6 @@ List<Story> otpInputStories() {
           length: 4,
           autoFocus: false,
           width: MediaQuery.of(context).size.width,
-          fieldWidth: 45,
           onChanged: (pin) {
             print("Changed: " + pin);
           },
@@ -61,7 +56,6 @@ List<Story> otpInputStories() {
           hasError: true,
           autoFocus: true,
           width: MediaQuery.of(context).size.width,
-          fieldWidth: 45,
           outlineBorderRadius: 15,
           onChanged: (pin) {
             print("Changed: " + pin);
@@ -79,8 +73,6 @@ List<Story> otpInputStories() {
           errorMessage: 'Invalid otp',
           autoFocus: true,
           width: MediaQuery.of(context).size.width,
-          fieldWidth: 45,
-          outlineBorderRadius: 15,
           onChanged: (pin) {
             print("Changed: " + pin);
           },
@@ -97,8 +89,6 @@ List<Story> otpInputStories() {
           autoFocus: true,
           obscureText: true,
           width: MediaQuery.of(context).size.width,
-          fieldWidth: 45,
-          outlineBorderRadius: 15,
           onChanged: (pin) {
             print("Changed: " + pin);
           },

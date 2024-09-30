@@ -131,16 +131,6 @@ class _DigitTableState extends State<DigitTable> {
 
     // Listen to scroll events
     _scrollController.addListener(_onScroll);
-
-    headerKeys.addAll(List.generate(widget.columns.length, (_) => GlobalKey()));
-    for (int i = 0; i < widget.columns.length; i++) {
-      if (widget.columns[i].isSortable) {
-        sortedColumnIndex = i;
-        sortOrder = SortOrder.ascending;
-        _sortRows();
-        break;
-      }
-    }
     _updateRowHeights();
   }
 
@@ -213,6 +203,24 @@ class _DigitTableState extends State<DigitTable> {
         final columnA = a.tableRow[sortedColumnIndex!].label;
         final columnB = b.tableRow[sortedColumnIndex!].label;
 
+        // Function to extract the numeric part of a string, if it exists
+        int extractNumber(String str) {
+          // Use a regular expression to find a number in the string
+          final match = RegExp(r'\d+').firstMatch(str);
+          return match != null ? int.parse(match.group(0)!) : -1; // return -1 if no number
+        }
+
+        final numA = extractNumber(columnA);
+        final numB = extractNumber(columnB);
+
+        // If both contain numbers, compare the numbers
+        if (numA != -1 && numB != -1) {
+          return sortOrder == SortOrder.ascending
+              ? numA.compareTo(numB)
+              : numB.compareTo(numA);
+        }
+
+        // Fallback to lexicographical comparison for strings
         return sortOrder == SortOrder.ascending
             ? columnA.compareTo(columnB)
             : columnB.compareTo(columnA);
@@ -220,11 +228,13 @@ class _DigitTableState extends State<DigitTable> {
     }
   }
 
+
+
   List<DigitTableColumn> _getFrozenColumns() {
     return widget.columns.where((column) => column.isFrozen).toList();
   }
 
-  Widget _buildFrozenColumns(double scrollOffset, BuildContext context, List<DigitTableRow> row) {
+  Widget _buildFrozenColumns(double scrollOffset, BuildContext context, List<DigitTableRow> row, bool isOverflowing) {
 
     final theme = Theme.of(context);
 
@@ -248,7 +258,9 @@ class _DigitTableState extends State<DigitTable> {
       left: scrollOffset,
       bottom: widget.stickyFooter ? 64 : 0,
       child: Container(
+        margin: _isOverflowing ? const EdgeInsets.only(bottom: 12) : EdgeInsets.zero,
         decoration: BoxDecoration(
+          color: theme.colorTheme.generic.transparent,
           boxShadow: [BoxShadow(color: theme.colorTheme.text.disabled, spreadRadius: 0, blurRadius: 1, offset: const Offset(1, 0))],
         ),
         width: frozenWidth,
@@ -425,127 +437,142 @@ class _DigitTableState extends State<DigitTable> {
         children: [
           Padding(
             padding: EdgeInsets.only(top: widget.stickyHeader ? 52 : 0, bottom: widget.stickyFooter ? 64 : 0),
-            child: Scrollbar(
-              controller: _scrollController,
-              thumbVisibility: _isOverflowing,
-              child: SingleChildScrollView(
-                padding: _isOverflowing ? const EdgeInsets.only(bottom: 12) : EdgeInsets.zero,
-                controller: _scrollController,
-                scrollDirection: Axis.horizontal,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Stack(
                   children: [
-                    if (!widget.stickyHeader)
-                      TableHeader(
-                        withRowDividers: widget.withRowDividers,
-                        columns: widget.columns,
-                        sortedColumnIndex: sortedColumnIndex,
-                        sortOrder: sortOrder,
-                        enabledBorder: widget.enableBorder,
-                        onSort: (index, order) {
-                          setState(() {
-                            if (sortedColumnIndex == index) {
-                              sortOrder = sortOrder == SortOrder.ascending
-                                  ? SortOrder.descending
-                                  : SortOrder.ascending;
-                            } else {
-                              sortedColumnIndex = index;
-                              sortOrder = SortOrder.ascending;
-                            }
-                            _sortRows();
-                            currentPage = 1;
-                          });
-                        },
-                        withColumnDividers: widget.withColumnDividers,
-                        headerCheckboxValue: _headerCheckboxValue,
-                        headerCheckboxIndeterminate: _headerCheckboxIndeterminate, // Pass down
-                        onHeaderCheckboxChanged: _onHeaderCheckboxChanged,
-                      ),
-                    TableBody(
-                      keys: nonFrozenKeys,
-                      controller: _nonFrozenScrollController,
-                      tableHeight: widget.tableHeight,
-                      scrollPhysics: widget.scrollPhysicsForPagination,
-                      enableSelection: widget.showSelectedState,
-                      highlightedRows: _highlightedRowIndices,
-                      selectedRows: _selectedRowIndices,
-                      hasFooter: widget.showPagination,
-                      rows: widget.showPagination ? paginatedRows: sortedRows,
-                      columns: widget.columns,
-                      alternateRowColor: widget.alternateRowColor,
-                      withRowDividers: widget.withRowDividers,
-                      enableBorder: widget.enableBorder,
-                      withColumnDividers: widget.withColumnDividers,
-                      headerCheckboxValue: _headerCheckboxValue,
-                      onRowCheckboxChanged: (rowIndex, isSelected) {
-                        setState(() {
-                          if (isSelected) {
-                            _selectedRowIndices.add(rowIndex);
-                          } else {
-                            _selectedRowIndices.remove(rowIndex);
-                          }
-                          _updateHeaderCheckbox();
-                        });
-                        if (widget.onSelectedRowsChanged != null) {
-                          widget.onSelectedRowsChanged!(_selectedRowIndices.length);
-                        }
-                      },
-                      expandOnRowClick: widget.expandOnRowClick,
-                      showExpandIconOnHover: widget.showExpandIconOnHover,
-                    ),
-                    if (widget.customRow != null && !widget.isCustomRowFixed)
-                      Container(
-                          height: 60,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: const DigitColors().light.genericDivider,
-                            ),
-                            color: const DigitColors().light.paperPrimary,
+                    Scrollbar(
+                      controller: _scrollController,
+                      thumbVisibility: _isOverflowing,
+                      child: SingleChildScrollView(
+                        padding: _isOverflowing ? const EdgeInsets.only(bottom: 12) : EdgeInsets.zero,
+                        controller: _scrollController,
+                        scrollDirection: Axis.horizontal,
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.vertical,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              if (!widget.stickyHeader)
+                                TableHeader(
+                                  withRowDividers: widget.withRowDividers,
+                                  columns: widget.columns,
+                                  sortedColumnIndex: sortedColumnIndex,
+                                  sortOrder: sortOrder,
+                                  enabledBorder: widget.enableBorder,
+                                  onSort: (index, order) {
+                                    setState(() {
+                                      if (sortedColumnIndex == index) {
+                                        sortOrder = sortOrder == SortOrder.ascending
+                                            ? SortOrder.descending
+                                            : SortOrder.ascending;
+                                      } else {
+                                        sortedColumnIndex = index;
+                                        sortOrder = SortOrder.ascending;
+                                      }
+                                      _sortRows();
+                                      currentPage = 1;
+                                    });
+                                  },
+                                  withColumnDividers: widget.withColumnDividers,
+                                  headerCheckboxValue: _headerCheckboxValue,
+                                  headerCheckboxIndeterminate: _headerCheckboxIndeterminate, // Pass down
+                                  onHeaderCheckboxChanged: _onHeaderCheckboxChanged,
+                                ),
+                              TableBody(
+                                keys: nonFrozenKeys,
+                                controller: _nonFrozenScrollController,
+                                tableHeight: widget.tableHeight,
+                                scrollPhysics: widget.scrollPhysicsForPagination,
+                                enableSelection: widget.showSelectedState,
+                                highlightedRows: _highlightedRowIndices,
+                                selectedRows: _selectedRowIndices,
+                                hasFooter: widget.showPagination,
+                                rows: widget.showPagination ? paginatedRows: sortedRows,
+                                columns: widget.columns,
+                                alternateRowColor: widget.alternateRowColor,
+                                withRowDividers: widget.withRowDividers,
+                                enableBorder: widget.enableBorder,
+                                withColumnDividers: widget.withColumnDividers,
+                                headerCheckboxValue: _headerCheckboxValue,
+                                onRowCheckboxChanged: (rowIndex, isSelected) {
+                                  setState(() {
+                                    if (isSelected) {
+                                      _selectedRowIndices.add(rowIndex);
+                                    } else {
+                                      _selectedRowIndices.remove(rowIndex);
+                                    }
+                                    _updateHeaderCheckbox();
+                                  });
+                                  if (widget.onSelectedRowsChanged != null) {
+                                    widget.onSelectedRowsChanged!(_selectedRowIndices.length);
+                                  }
+                                },
+                                expandOnRowClick: widget.expandOnRowClick,
+                                showExpandIconOnHover: widget.showExpandIconOnHover,
+                              ),
+                            ],
                           ),
-                          child: widget.customRow!),
-                    if(widget.showPagination && !widget.stickyFooter)
-                      TableFooter(
-                        width: normalColumns * 200 + specialColumnCount * 100+2,
-                        currentPage: currentPage,
-                        totalPages: totalPages,
-                        rowsPerPage: rowsPerPage,
-                        rowsPerPageOptions: widget.rowsPerPageOptions,
-                        onRowsPerPageChanged: (value) {
-                          setState(() {
-                            rowsPerPage = value;
-                            currentPage =
-                            1; // Reset to the first page when rows per page changes
-                          });
-                        },
-                        onPageChanged: (page) {
-                          setState(() {
-                            currentPage = page;
-                          });
-                        },
-                        onNext: () {
-                          setState(() {
-                            if (currentPage < totalPages) {
-                              currentPage++;
-                            }
-                          });
-                        },
-                        onPrevious: () {
-                          setState(() {
-                            if (currentPage > 1) {
-                              currentPage--;
-                            }
-                          });
-                        },
-                        onPageSelected: (page) {
-                          setState(() {
-                            currentPage = page;
-                          });
-                        },
-                        showRowsPerPage: widget.showRowsPerPage,
+                        ),
                       ),
+                    ),
+                    _buildFrozenColumns(_scrollOffset, context, widget.showPagination ? paginatedRows: sortedRows, _isOverflowing),
                   ],
                 ),
-              ),
+                if (widget.customRow != null && !widget.isCustomRowFixed)
+                  Container(
+                      height: 60,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: const DigitColors().light.genericDivider,
+                        ),
+                        color: const DigitColors().light.paperPrimary,
+                      ),
+                      child: widget.customRow!),
+                if(widget.showPagination && !widget.stickyFooter)
+                  TableFooter(
+                    enableBorder: widget.enableBorder,
+                    width: normalColumns * 200 + specialColumnCount * 100+2,
+                    currentPage: currentPage,
+                    totalPages: totalPages,
+                    rowsPerPage: rowsPerPage,
+                    rowsPerPageOptions: widget.rowsPerPageOptions,
+                    onRowsPerPageChanged: (value) {
+                      setState(() {
+                        rowsPerPage = value;
+                        currentPage =
+                        1; // Reset to the first page when rows per page changes
+                      });
+                    },
+                    onPageChanged: (page) {
+                      setState(() {
+                        currentPage = page;
+                      });
+                    },
+                    onNext: () {
+                      setState(() {
+                        if (currentPage < totalPages) {
+                          currentPage++;
+                        }
+                      });
+                    },
+                    onPrevious: () {
+                      setState(() {
+                        if (currentPage > 1) {
+                          currentPage--;
+                        }
+                      });
+                    },
+                    onPageSelected: (page) {
+                      setState(() {
+                        currentPage = page;
+                      });
+                    },
+                    showRowsPerPage: widget.showRowsPerPage,
+                  ),
+              ],
             ),
           ),
           if (widget.customRow != null && widget.isCustomRowFixed)
@@ -595,13 +622,13 @@ class _DigitTableState extends State<DigitTable> {
                 onHeaderCheckboxChanged: _onHeaderCheckboxChanged,
               ),
             ),
-          _buildFrozenColumns(_scrollOffset, context, widget.showPagination ? paginatedRows: sortedRows,),
-          if (widget.showPagination &&widget.stickyFooter)
+          if (widget.showPagination && widget.stickyFooter)
             Positioned(
               bottom: 0,
               left: 0,
               right: 0,
               child: TableFooter(
+                enableBorder: widget.enableBorder,
                 width: normalColumns * 200 + specialColumnCount * 100+2,
                 currentPage: currentPage,
                 totalPages: totalPages,

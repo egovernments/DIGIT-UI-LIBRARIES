@@ -196,7 +196,7 @@ class _FilterCardWidgetState extends State<FilterCardWidget> {
       ],
     );
 
-    return widget.layoutType == FilterCardLayout.horizontal
+    return widget.layoutType == FilterCardLayout.horizontal && !isMobile
         ? DigitCard(
             padding: EdgeInsets.zero,
             children: [
@@ -287,7 +287,7 @@ class _FilterCardWidgetState extends State<FilterCardWidget> {
                         rowItems.add(const SizedBox(
                           width: spacing,
                         ));
-                        usedWidth += maxWidgetWidth + spacing;
+                        usedWidth += maxWidgetWidth ;
                       } else {
                         rowItems.removeLast();
                         if (rows.isNotEmpty) {
@@ -301,13 +301,14 @@ class _FilterCardWidgetState extends State<FilterCardWidget> {
                         rowItems = [
                           Expanded(
                             child: Container(
+                              padding: const EdgeInsets.only(right: 24),
                               //padding: EdgeInsets.only(top: (hasLabelledField && widget1 is! LabeledField) ? 26 : 0,),
                               width: maxWidgetWidth,
                               child: widget1,
                             ),
                           )
                         ];
-                        usedWidth = maxWidgetWidth + spacing;
+                        usedWidth = maxWidgetWidth;
                       }
                     }
 

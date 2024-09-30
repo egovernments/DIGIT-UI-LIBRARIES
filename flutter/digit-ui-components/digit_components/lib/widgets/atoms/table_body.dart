@@ -1,9 +1,4 @@
-import 'dart:math';
-
-import 'package:digit_ui_components/digit_components.dart';
-import 'package:digit_ui_components/theme/ComponentTheme/divider_theme.dart';
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
-import 'package:digit_ui_components/widgets/atoms/digit_divider.dart';
 import 'package:flutter/material.dart';
 import '../atoms/table_cell.dart';
 
@@ -82,10 +77,10 @@ class _TableBodyState extends State<TableBody> {
   @override
   void didUpdateWidget(TableBody oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (widget.selectedRows != oldWidget.selectedRows) {
+    if (widget.selectedRows != null && widget.selectedRows != oldWidget.selectedRows) {
       _selectedRows.addAll(widget.selectedRows!);
     }
-    if (widget.highlightedRows != oldWidget.highlightedRows) {
+    if (widget.highlightedRows != null && widget.highlightedRows != oldWidget.highlightedRows) {
       _highlightedRows.addAll(widget.highlightedRows!);
     }
   }
@@ -136,7 +131,7 @@ class _TableBodyState extends State<TableBody> {
     return ConstrainedBox(
       constraints: BoxConstraints(
         maxWidth: normalColumns * 200 + specialColumnCount * 100 + 2,
-        maxHeight: (widget.tableHeight ?? MediaQuery.of(context).size.height) - headerHeight - footerHeight,
+        maxHeight: (widget.tableHeight ?? MediaQuery.of(context).size.height) - 2*headerHeight - (footerHeight==0 ? 64 : 2*footerHeight),
       ),
       child: ListView.builder(
         physics: widget.scrollPhysics,
@@ -182,6 +177,16 @@ class _TableBodyState extends State<TableBody> {
                 type: type,
                 value: value,
                 areAllRowsSelected: (value) {
+                  if(value) {
+                    setState(() {
+                      _selectedRows.add(rowIndex);
+                    });
+                  }else{
+                    setState(() {
+                      _selectedRows.remove(rowIndex);
+                    });
+                  }
+
                   widget.onRowCheckboxChanged(rowIndex, value);
                 },
               ),
@@ -236,6 +241,9 @@ class _TableBodyState extends State<TableBody> {
                 Stack(
                   children: [
                     Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: cells,
                     ),
                     if(widget.showExpandIconOnHover && widget.rows[rowIndex].nestedTable != null && _hoveredRows.contains(rowIndex))

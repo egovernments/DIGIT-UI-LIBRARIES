@@ -143,8 +143,13 @@ class DigitOTPInputState extends State<DigitOTPInput> {
             _moveFocus(-1);
           } else if (event.logicalKey == LogicalKeyboardKey.arrowRight) {
             _moveFocus(1);
-          }else if (event.logicalKey == LogicalKeyboardKey.backspace) {
-            if (_textControllers[_focusedIndex]!.text.isEmpty && _focusedIndex > 0) {
+          }
+          else if (event.logicalKey == LogicalKeyboardKey.backspace ) {
+            if (_focusedIndex > 0) {
+              if(_textControllers[_focusedIndex]!.text.isNotEmpty){
+                _textControllers[_focusedIndex]!.text = '';
+                _pin[_focusedIndex] = '';
+              }
               _focusNodes[_focusedIndex - 1]?.requestFocus();
             }
           }
@@ -257,6 +262,7 @@ class DigitOTPInputState extends State<DigitOTPInput> {
         decoration: InputDecoration(
           isDense: widget.isDense,
           counterText: "",
+          constraints: const BoxConstraints(maxWidth: 50, maxHeight: 50),
           contentPadding: widget.contentPadding,
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.zero,
@@ -276,40 +282,41 @@ class DigitOTPInputState extends State<DigitOTPInput> {
           ),
         ),
         onChanged: (String str) {
-          setState(() {
-            _hasError = false;
-          });
 
-          if (str.length > 1) {
-            _handlePaste(str, index);
-            return;
-          }
-
-          if (_pin[index].isEmpty) {
             setState(() {
-              _pin[index] = str;
+              _hasError = false;
             });
-          }
 
-          if (str.isNotEmpty && _pin[index].length == 1 && !isLast) {
-            _focusNodes[index]!.unfocus();
-          }
-
-          if (str.isEmpty) {
-            if (index > 0) {
-              _focusNodes[index]!.unfocus();
-              _focusNodes[index - 1]!.requestFocus();
+            if (str.length > 1) {
+              _handlePaste(str, index);
+              return;
             }
-          } else if (index + 1 < widget.length) {
-            FocusScope.of(context).requestFocus(_focusNodes[index + 1]);
-          }
 
-          String currentPin = _getCurrentPin();
-          if (!_pin.contains('') && currentPin.length == widget.length) {
-            widget.onCompleted?.call(currentPin);
-          }
-          widget.onChanged?.call(currentPin);
-        },
+            if (_pin[index].isEmpty) {
+              setState(() {
+                _pin[index] = str;
+              });
+            }
+
+            if (str.isNotEmpty && _pin[index].length == 1 && !isLast) {
+              _focusNodes[index]!.unfocus();
+            }
+
+            if (str.isEmpty) {
+              if (index > 0) {
+                // _focusNodes[index]!.unfocus();
+                // _focusNodes[index - 1]!.requestFocus();
+              }
+            } else if (index + 1 < widget.length) {
+              FocusScope.of(context).requestFocus(_focusNodes[index + 1]);
+            }
+
+            String currentPin = _getCurrentPin();
+            if (!_pin.contains('') && currentPin.length == widget.length) {
+              widget.onCompleted?.call(currentPin);
+            }
+            widget.onChanged?.call(currentPin);
+          },
       ),
     );
   }

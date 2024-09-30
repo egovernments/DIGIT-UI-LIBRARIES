@@ -253,12 +253,11 @@ List<Story> filterCardStories() {
                     controller: TextEditingController(),
                   )),
               LabeledField(
-                label: 'Search Field',
-                labelInline: false,
-                child: DigitSearchFormInput(
-                  controller: TextEditingController(),
-                ),
-              ),
+                  label: 'Text Field',
+                  labelInline: false,
+                  child: DigitTextFormInput(
+                    controller: TextEditingController(),
+                  )),
               LabeledField(
                   label: 'Text Field',
                   labelInline: false,
@@ -266,90 +265,11 @@ List<Story> filterCardStories() {
                     controller: TextEditingController(),
                   )),
               LabeledField(
-                label: 'Search Field',
-                labelInline: false,
-                child: DigitSearchFormInput(
-                  controller: TextEditingController(),
-                ),
-              ),
-              LabeledField(
                   label: 'Text Field',
                   labelInline: false,
                   child: DigitTextFormInput(
                     controller: TextEditingController(),
                   )),
-              LabeledField(
-                label: 'Search Field',
-                labelInline: false,
-                child: DigitSearchFormInput(
-                  controller: TextEditingController(),
-                ),
-              ),
-              LabeledField(
-                  label: 'Text Field',
-                  labelInline: false,
-                  child: DigitTextFormInput(
-                    controller: TextEditingController(),
-                  )),
-              LabeledField(
-                label: 'Search Field',
-                labelInline: false,
-                child: DigitSearchFormInput(
-                  controller: TextEditingController(),
-                ),
-              ),
-              LabeledField(
-                  label: 'Text Field',
-                  labelInline: false,
-                  child: DigitTextFormInput(
-                    controller: TextEditingController(),
-                  )),
-              LabeledField(
-                label: 'Search Field',
-                labelInline: false,
-                child: DigitSearchFormInput(
-                  controller: TextEditingController(),
-                ),
-              ),
-              LabeledField(
-                  label: 'Text Field',
-                  labelInline: false,
-                  child: DigitTextFormInput(
-                    controller: TextEditingController(),
-                  )),
-              LabeledField(
-                label: 'Search Field',
-                labelInline: false,
-                child: DigitSearchFormInput(
-                  controller: TextEditingController(),
-                ),
-              ),
-              LabeledField(
-                  label: 'Text Field',
-                  labelInline: false,
-                  child: DigitTextFormInput(
-                    controller: TextEditingController(),
-                  )),
-              LabeledField(
-                label: 'Search Field',
-                labelInline: false,
-                child: DigitSearchFormInput(
-                  controller: TextEditingController(),
-                ),
-              ),
-              LabeledField(
-                  label: 'Text Field',
-                  labelInline: false,
-                  child: DigitTextFormInput(
-                    controller: TextEditingController(),
-                  )),
-              LabeledField(
-                label: 'Search Field',
-                labelInline: false,
-                child: DigitSearchFormInput(
-                  controller: TextEditingController(),
-                ),
-              ),
             ],
             primaryActionLabel: 'Apply Filters',
             onPrimaryPressed: () {
