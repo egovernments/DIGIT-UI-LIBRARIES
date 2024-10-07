@@ -17,7 +17,7 @@ import 'package:storybook_flutter/storybook_flutter.dart';
 List<Story> filterCardStories() {
   return [
     Story(
-      name: 'filter Card/Horizontal/1',
+      name: 'Atom/filter Card/Horizontal/1',
       builder: (context) => FilterCard.buildFilterCard(
         context: context,
         title: 'Filter Options',
@@ -48,7 +48,7 @@ List<Story> filterCardStories() {
       ),
     ),
     Story(
-      name: 'filter Card/Horizontal/2',
+      name: 'Atom/filter Card/Horizontal/2',
       builder: (context) => FilterCard.buildFilterCard(
         context: context,
         title: 'Filter Options',
@@ -81,7 +81,7 @@ List<Story> filterCardStories() {
       ),
     ),
     Story(
-      name: 'filter Card/Horizontal/3',
+      name: 'Atom/filter Card/Horizontal/3',
       builder: (context) => FilterCard.buildFilterCard(
         context: context,
         title: 'Filter Options',
@@ -100,7 +100,7 @@ List<Story> filterCardStories() {
             ),
           ),
           CustomSwitch(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             value: false,
             onChanged: (value) {
               // setState(() {
@@ -109,7 +109,7 @@ List<Story> filterCardStories() {
             },
           ),
           RadioList(
-              containerPadding: const EdgeInsets.only(right: 8),
+              containerPadding: const EdgeInsets.only(right: 16, bottom: 16),
               radioDigitButtons: [
                 RadioButtonModel(
                     code:'1',
@@ -137,7 +137,7 @@ List<Story> filterCardStories() {
       ),
     ),
     Story(
-      name: 'filter Card/Horizontal/4',
+      name: 'Atom/filter Card/Horizontal/4',
       builder: (context) => FilterCard.buildFilterCard(
         context: context,
         contentList: [
@@ -158,7 +158,7 @@ List<Story> filterCardStories() {
             ),
           ),
           CustomSwitch(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             value: false,
             onChanged: (value) {
               // setState(() {
@@ -167,7 +167,7 @@ List<Story> filterCardStories() {
             },
           ),
           RadioList(
-              containerPadding: const EdgeInsets.only(right: 8),
+              containerPadding: const EdgeInsets.only(right: 16, bottom: 16),
               radioDigitButtons: [
                 RadioButtonModel(
                     code:'1',
@@ -187,7 +187,7 @@ List<Story> filterCardStories() {
       ),
     ),
     Story(
-      name: 'filter Card/Horizontal/5',
+      name: 'Atom/filter Card/Horizontal/5',
       builder: (context) => ElevatedButton(
         onPressed: () {
           FilterCard.showFilterOverlay(
@@ -238,7 +238,7 @@ List<Story> filterCardStories() {
       ),
     ),
     Story(
-      name: 'filter Card/Horizontal/6',
+      name: 'Atom/filter Card/Horizontal/6',
       builder: (context) => ElevatedButton(
         onPressed: () {
           FilterCard.showFilterOverlay(
@@ -290,7 +290,7 @@ List<Story> filterCardStories() {
 
 
     Story(
-      name: 'filter Card/Vertical/1',
+      name: 'Atom/filter Card/Vertical/1',
       builder: (context) => FilterCard.buildFilterCard(
         context: context,
         title: 'Filter Options',
@@ -321,7 +321,7 @@ List<Story> filterCardStories() {
       ),
     ),
     Story(
-      name: 'filter Card/Vertical/2',
+      name: 'Atom/filter Card/Vertical/2',
       builder: (context) => FilterCard.buildFilterCard(
         context: context,
         title: 'Filter Options',
@@ -354,7 +354,7 @@ List<Story> filterCardStories() {
       ),
     ),
     Story(
-      name: 'filter Card/Vertical/3',
+      name: 'Atom/filter Card/Vertical/3',
       builder: (context) => FilterCard.buildFilterCard(
         context: context,
         title: 'Filter Options',
@@ -410,7 +410,7 @@ List<Story> filterCardStories() {
       ),
     ),
     Story(
-      name: 'filter Card/Vertical/4',
+      name: 'Atom/filter Card/Vertical/4',
       builder: (context) => FilterCard.buildFilterCard(
         context: context,
         contentList: [
@@ -460,7 +460,7 @@ List<Story> filterCardStories() {
       ),
     ),
     Story(
-      name: 'filter Card/Vertical/5',
+      name: 'Atom/filter Card/Vertical/5',
       builder: (context) => ElevatedButton(
         onPressed: () {
           FilterCard.showFilterOverlay(
@@ -511,7 +511,7 @@ List<Story> filterCardStories() {
       ),
     ),
     Story(
-      name: 'filter Card/Vertical/6',
+      name: 'Atom/filter Card/Vertical/6',
       builder: (context) => ElevatedButton(
         onPressed: () {
           FilterCard.showFilterOverlay(

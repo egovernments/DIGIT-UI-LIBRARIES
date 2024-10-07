@@ -56,7 +56,6 @@ List<Story> otpInputStories() {
           hasError: true,
           autoFocus: true,
           width: MediaQuery.of(context).size.width,
-          outlineBorderRadius: 15,
           onChanged: (pin) {
             print("Changed: " + pin);
           },
@@ -104,8 +103,6 @@ List<Story> otpInputStories() {
           autoFocus: true,
           label: 'Enter OTP',
           width: MediaQuery.of(context).size.width,
-          fieldWidth: 45,
-          outlineBorderRadius: 15,
           onChanged: (pin) {
             print("Changed: " + pin);
           },

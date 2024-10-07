@@ -243,7 +243,8 @@ List<Story> tableStories() {
     Story(
       name: 'Molecule/Table/Nested Table',
       builder: (context) => DigitTable(
-        showExpandIconOnHover: context.knobs.boolean(label: 'Expand Icon', initial: true),
+        showExpandIconOnHover:
+            context.knobs.boolean(label: 'Expand Icon', initial: true),
         showPagination: false,
         stickyHeader:
             context.knobs.boolean(label: 'Sticky Header', initial: false),
@@ -309,7 +310,7 @@ List<Story> tableStories() {
             ],
             nestedTable: DigitTable(
               showPagination: false,
-              enableBorder:true,
+              enableBorder: true,
               columns: [
                 DigitTableColumn(
                   cellValue: 'first',
@@ -460,7 +461,7 @@ List<Story> tableStories() {
             nestedTable: DigitTable(
               stickyHeader: false,
               showPagination: false,
-              enableBorder:true,
+              enableBorder: true,
               columns: [
                 DigitTableColumn(
                   cellValue: 'first',
@@ -527,7 +528,6 @@ List<Story> tableStories() {
                       print(data);
                     },
                   ),
-
                 ]),
                 DigitTableRow(tableRow: [
                   DigitTableData(
@@ -586,15 +586,15 @@ List<Story> tableStories() {
       builder: (context) => DigitTable(
         showPagination: false,
         stickyHeader:
-        context.knobs.boolean(label: 'Sticky Header', initial: false),
+            context.knobs.boolean(label: 'Sticky Header', initial: false),
         alternateRowColor:
-        context.knobs.boolean(label: 'Alternate Row Color', initial: false),
+            context.knobs.boolean(label: 'Alternate Row Color', initial: false),
         withRowDividers:
-        context.knobs.boolean(label: 'With Row Dividers', initial: true),
+            context.knobs.boolean(label: 'With Row Dividers', initial: true),
         withColumnDividers: context.knobs
             .boolean(label: 'With Column Dividers', initial: false),
         enableBorder:
-        context.knobs.boolean(label: 'Enable Border', initial: false),
+            context.knobs.boolean(label: 'Enable Border', initial: false),
         columns: [
           DigitTableColumn(
             cellValue: 'first',
@@ -1382,15 +1382,15 @@ List<Story> tableStories() {
       name: 'Molecule/Table/Simple Table with large list with sorting',
       builder: (context) => DigitTable(
         showPagination:
-        context.knobs.boolean(label: 'Show Pagination', initial: true),
+            context.knobs.boolean(label: 'Show Pagination', initial: true),
         alternateRowColor:
-        context.knobs.boolean(label: 'Alternate Row Color', initial: false),
+            context.knobs.boolean(label: 'Alternate Row Color', initial: false),
         withRowDividers:
-        context.knobs.boolean(label: 'With Row Dividers', initial: true),
+            context.knobs.boolean(label: 'With Row Dividers', initial: true),
         withColumnDividers: context.knobs
             .boolean(label: 'With Column Dividers', initial: false),
         enableBorder:
-        context.knobs.boolean(label: 'Enable Border', initial: false),
+            context.knobs.boolean(label: 'Enable Border', initial: false),
         columns: [
           DigitTableColumn(
             cellValue: 'first',
@@ -1427,7 +1427,7 @@ List<Story> tableStories() {
         rows: List.generate(100, (index) {
           return DigitTableRow(tableRow: [
             DigitTableData(
-              '${index+1}',
+              '${index + 1}',
               cellKey: 'first',
               callBack: (data) {
                 print(data);
@@ -2658,8 +2658,6 @@ List<Story> tableStories() {
       name: 'Molecule/Table/wrapper card',
       builder: (context) => DigitTableWrapper(
         tableHeader: 'Table Header',
-        stickyHeader:
-            context.knobs.boolean(label: 'Sticky Header', initial: false),
         alternateRowColor:
             context.knobs.boolean(label: 'Alternate Row Color', initial: false),
         withRowDividers:
@@ -2702,6 +2700,30 @@ List<Story> tableStories() {
           DigitTableColumn(
             cellValue: 'six',
             header: 'Column F',
+            type: ColumnType.text,
+            //columnType: ColumnType.numeric,
+          ),
+          DigitTableColumn(
+            cellValue: 'seven',
+            header: 'Column G',
+            type: ColumnType.text,
+            //columnType: ColumnType.numeric,
+          ),
+          DigitTableColumn(
+            cellValue: 'eight',
+            header: 'Column H',
+            type: ColumnType.text,
+            //columnType: ColumnType.numeric,
+          ),
+          DigitTableColumn(
+            cellValue: 'nine',
+            header: 'Column I',
+            type: ColumnType.text,
+            //columnType: ColumnType.numeric,
+          ),
+          DigitTableColumn(
+            cellValue: 'ten',
+            header: 'Column J',
             type: ColumnType.text,
             //columnType: ColumnType.numeric,
           ),
@@ -2750,6 +2772,34 @@ List<Story> tableStories() {
                 print(data);
               },
             ),
+            DigitTableData(
+              'Row 1',
+              cellKey: 'seven',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 1',
+              cellKey: 'eight',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 1',
+              cellKey: 'nine',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 1',
+              cellKey: 'ten',
+              callBack: (data) {
+                print(data);
+              },
+            ),
           ]),
           DigitTableRow(tableRow: [
             DigitTableData(
@@ -2794,6 +2844,34 @@ List<Story> tableStories() {
                 print(data);
               },
             ),
+            DigitTableData(
+              'Row 2',
+              cellKey: 'seven',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 2',
+              cellKey: 'eight',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 2',
+              cellKey: 'nine',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 2',
+              cellKey: 'ten',
+              callBack: (data) {
+                print(data);
+              },
+            ),
           ]),
           DigitTableRow(tableRow: [
             DigitTableData(
@@ -2838,6 +2916,34 @@ List<Story> tableStories() {
                 print(data);
               },
             ),
+            DigitTableData(
+              'Row 3',
+              cellKey: 'seven',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 3',
+              cellKey: 'eight',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 3',
+              cellKey: 'nine',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 3',
+              cellKey: 'ten',
+              callBack: (data) {
+                print(data);
+              },
+            )
           ]),
           DigitTableRow(tableRow: [
             DigitTableData(
@@ -2882,6 +2988,34 @@ List<Story> tableStories() {
                 print(data);
               },
             ),
+            DigitTableData(
+              'Row 4',
+              cellKey: 'seven',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 4',
+              cellKey: 'eight',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 4',
+              cellKey: 'nine',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 4',
+              cellKey: 'ten',
+              callBack: (data) {
+                print(data);
+              },
+            )
           ])
         ],
       ),
@@ -2890,8 +3024,6 @@ List<Story> tableStories() {
       name: 'Molecule/Table/wrapper card 2',
       builder: (context) => DigitTableWrapper(
         tableHeader: 'Table Header',
-        stickyHeader:
-            context.knobs.boolean(label: 'Sticky Header', initial: false),
         alternateRowColor:
             context.knobs.boolean(label: 'Alternate Row Color', initial: false),
         withRowDividers:
@@ -2938,6 +3070,30 @@ List<Story> tableStories() {
             type: ColumnType.text,
             //columnType: ColumnType.numeric,
           ),
+          DigitTableColumn(
+            cellValue: 'seven',
+            header: 'G',
+            type: ColumnType.text,
+            //columnType: ColumnType.numeric,
+          ),
+          DigitTableColumn(
+            cellValue: 'eight',
+            header: 'H',
+            type: ColumnType.text,
+            //columnType: ColumnType.numeric,
+          ),
+          DigitTableColumn(
+            cellValue: 'nine',
+            header: 'I',
+            type: ColumnType.text,
+            //columnType: ColumnType.numeric,
+          ),
+          DigitTableColumn(
+            cellValue: 'ten',
+            header: 'J',
+            type: ColumnType.text,
+            //columnType: ColumnType.numeric,
+          ),
         ],
         rows: [
           DigitTableRow(tableRow: [
@@ -2983,6 +3139,34 @@ List<Story> tableStories() {
                 print(data);
               },
             ),
+            DigitTableData(
+              'Row 1',
+              cellKey: 'seven',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 1',
+              cellKey: 'eight',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 1',
+              cellKey: 'nine',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 1',
+              cellKey: 'ten',
+              callBack: (data) {
+                print(data);
+              },
+            ),
           ]),
           DigitTableRow(tableRow: [
             DigitTableData(
@@ -3027,6 +3211,34 @@ List<Story> tableStories() {
                 print(data);
               },
             ),
+            DigitTableData(
+              'Row 2',
+              cellKey: 'seven',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 2',
+              cellKey: 'eight',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 2',
+              cellKey: 'nine',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 2',
+              cellKey: 'ten',
+              callBack: (data) {
+                print(data);
+              },
+            ),
           ]),
           DigitTableRow(tableRow: [
             DigitTableData(
@@ -3071,6 +3283,34 @@ List<Story> tableStories() {
                 print(data);
               },
             ),
+            DigitTableData(
+              'Row 3',
+              cellKey: 'seven',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 3',
+              cellKey: 'eight',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 3',
+              cellKey: 'nine',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 3',
+              cellKey: 'ten',
+              callBack: (data) {
+                print(data);
+              },
+            ),
           ]),
           DigitTableRow(tableRow: [
             DigitTableData(
@@ -3115,6 +3355,34 @@ List<Story> tableStories() {
                 print(data);
               },
             ),
+            DigitTableData(
+              'Row 4',
+              cellKey: 'seven',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 4',
+              cellKey: 'eight',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 4',
+              cellKey: 'nine',
+              callBack: (data) {
+                print(data);
+              },
+            ),
+            DigitTableData(
+              'Row 4',
+              cellKey: 'ten',
+              callBack: (data) {
+                print(data);
+              },
+            )
           ])
         ],
       ),

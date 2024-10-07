@@ -19,26 +19,31 @@ List<Story> formCardStories() {
         showDivider: true,
         children: [
           LabeledField(
+            labelInline: false,
               label: 'Text Field',
               child: DigitTextFormInput(
                 controller: TextEditingController(),
               )),
           LabeledField(
+              labelInline: false,
               label: 'Numeric Field',
               child: DigitNumericFormInput(
                 controller: TextEditingController(),
               )),
           LabeledField(
+              labelInline: false,
               label: 'Search Field',
               child: DigitSearchFormInput(
                 controller: TextEditingController(),
               )),
           LabeledField(
+              labelInline: false,
               label: 'Location Field',
               child: DigitLocationFormInput(
                 controller: TextEditingController(),
               )),
           LabeledField(
+            labelInline: false,
             label: "Dropdown with Description",
             child: DigitDropdown(
               onSelect: (item) => {},
@@ -60,6 +65,7 @@ List<Story> formCardStories() {
             ),
           ),
           LabeledField(
+            labelInline: false,
             label: "Dropdown with Description",
             child: DigitDropdown(
               items: [
@@ -80,6 +86,7 @@ List<Story> formCardStories() {
             ),
           ),
           LabeledField(
+            labelInline: false,
             label: "Dropdown with Description",
             child: DigitDropdown(
               items: [
@@ -100,6 +107,7 @@ List<Story> formCardStories() {
             ),
           ),
           LabeledField(
+            labelInline: false,
             label: "Dropdown with Description",
             child: DigitDropdown(
               items: [

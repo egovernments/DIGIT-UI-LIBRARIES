@@ -4,7 +4,8 @@ import 'package:digit_ui_components/widgets/atoms/digit_divider.dart';
 import 'package:digit_ui_components/widgets/molecules/digit_card.dart';
 import 'package:flutter/material.dart';
 
-class RightSideSlider extends StatefulWidget {
+class SlideOverMenu extends StatefulWidget {
+  final bool isLeft; // Determines if the slider is on the left or right
   final Widget? collapsedHeader; // Header for the collapsed state
   final Widget? expandedHeader; // Header for the expanded state
   final Widget? collapsedFooter; // Footer for the collapsed state
@@ -22,8 +23,10 @@ class RightSideSlider extends StatefulWidget {
       skipCollapsedState; // If true, skip the collapsed state and directly open
   final VoidCallback? onCrossTap;
 
-  const RightSideSlider({
+  const SlideOverMenu({
     super.key,
+    this.isLeft =
+        false, // Default is right side, set this to true for left side
     this.collapsedHeader,
     this.expandedHeader,
     this.collapsedFooter,
@@ -40,10 +43,10 @@ class RightSideSlider extends StatefulWidget {
   });
 
   @override
-  RightSideSliderState createState() => RightSideSliderState();
+  SlideOverMenuState createState() => SlideOverMenuState();
 }
 
-class RightSideSliderState extends State<RightSideSlider> {
+class SlideOverMenuState extends State<SlideOverMenu> {
   bool isExpanded = false;
 
   @override
@@ -63,7 +66,6 @@ class RightSideSliderState extends State<RightSideSlider> {
       setState(() {
         isExpanded = true;
       });
-      // Call the external toggle function if provided
       widget.onToggle?.call();
     }
   }
@@ -73,7 +75,6 @@ class RightSideSliderState extends State<RightSideSlider> {
       setState(() {
         isExpanded = false;
       });
-      // Call the external toggle function if provided
       widget.onToggle?.call();
     }
   }
@@ -88,21 +89,34 @@ class RightSideSliderState extends State<RightSideSlider> {
     return widget.skipCollapsedState && !isExpanded
         ? Container()
         : Align(
-            alignment: Alignment.centerRight,
+            alignment: widget.isLeft
+                ? Alignment.centerLeft
+                : Alignment.centerRight, // Choose side based on `isLeft`
             child: GestureDetector(
               onTap: toggleSlider,
               child: AnimatedContainer(
                 height: widget.height,
                 decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(8.0),
-                    bottomLeft: Radius.circular(8.0),
+                  borderRadius: BorderRadius.only(
+                    topRight: widget.isLeft
+                        ? const Radius.circular(spacer2)
+                        : Radius.zero, // Adjust border for left
+                    bottomRight: widget.isLeft
+                        ? const Radius.circular(spacer2)
+                        : Radius.zero,
+                    topLeft: widget.isLeft
+                        ? Radius.zero
+                        : const Radius.circular(
+                            spacer2), // Adjust border for right
+                    bottomLeft: widget.isLeft
+                        ? Radius.zero
+                        : const Radius.circular(spacer2),
                   ),
                   color: theme.colorTheme.paper.primary,
-                  boxShadow: const [
+                  boxShadow: [
                     BoxShadow(
-                      color: Colors.black12,
-                      offset: Offset(-1, 0),
+                      color: theme.colorTheme.text.primary.withOpacity(.16),
+                      offset: const Offset(1, 0), // Adjust shadow offset
                       blurRadius: 4.0,
                       spreadRadius: 0.0,
                     ),
@@ -114,9 +128,10 @@ class RightSideSliderState extends State<RightSideSlider> {
                     isExpanded ? widget.expandedWidth : widget.collapsedWidth,
                 child: Stack(
                   children: [
-                    if (isExpanded || widget.skipCollapsedState) ...[
+                    ...[
                       Positioned.fill(
                         child: ScrollableContent(
+                          backgroundColor: theme.colorTheme.paper.primary,
                           header: widget.expandedHeader != null
                               ? Container(
                                   decoration: BoxDecoration(
@@ -200,16 +215,14 @@ class RightSideSliderState extends State<RightSideSlider> {
                           footer: widget.expandedFooter != null
                               ? DigitCard(children: [
                                   isExpanded
-                                      ? widget.collapsedFooter == null
-                                          ? widget.expandedFooter!
-                                          : widget.collapsedFooter!
-                                      : widget.expandedFooter!
+                                      ? widget.expandedFooter!
+                                      : widget.collapsedFooter ?? Container(),
                                 ])
                               : null,
                           children: [
                             if (widget.sections != null)
                               Column(
-                                mainAxisSize: MainAxisSize.min,
+                                mainAxisSize: MainAxisSize.max,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
@@ -220,10 +233,6 @@ class RightSideSliderState extends State<RightSideSlider> {
                                       section: widget.sections![i],
                                       isExpanded: isExpanded,
                                     ),
-                                    if (i != widget.sections!.length - 1)
-                                      const DigitDivider(
-                                        dividerType: DividerType.small,
-                                      ),
                                   ],
                                 ],
                               ),
@@ -235,9 +244,13 @@ class RightSideSliderState extends State<RightSideSlider> {
                     // Icon for expanding/collapsing
                     if (!widget.skipCollapsedState)
                       Align(
-                        alignment: Alignment.centerLeft,
+                        alignment: widget.isLeft
+                            ? Alignment.centerRight
+                            : Alignment.centerLeft, // Adjust icon alignment
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 4.0),
+                          padding: EdgeInsets.only(
+                              right: widget.isLeft ? 4.0 : 0,
+                              left: widget.isLeft ? 0 : 4.0),
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(4),
@@ -248,9 +261,13 @@ class RightSideSliderState extends State<RightSideSlider> {
                             ),
                             padding: const EdgeInsets.symmetric(vertical: 10),
                             child: Icon(
-                              isExpanded
-                                  ? Icons.chevron_right
-                                  : Icons.chevron_left,
+                              widget.isLeft
+                                  ? (isExpanded
+                                      ? Icons.chevron_left
+                                      : Icons.chevron_right)
+                                  : isExpanded
+                                      ? Icons.chevron_right
+                                      : Icons.chevron_left,
                               color: Colors.black,
                             ),
                           ),
@@ -265,11 +282,11 @@ class RightSideSliderState extends State<RightSideSlider> {
 }
 
 class Section {
-  final List<Widget> collapsedContent; // Collapsed state content
+  final List<Widget>? collapsedContent; // Collapsed state content
   final List<Widget> expandedContent; // Expanded state content
 
   Section({
-    required this.collapsedContent,
+    this.collapsedContent,
     required this.expandedContent,
   });
 }
@@ -286,14 +303,32 @@ class SectionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children:
-            isExpanded ? section.expandedContent : section.collapsedContent,
-      ),
-    );
+    // Check if the section has content for the current state (collapsed/expanded)
+    bool hasContent = isExpanded
+        ? section.expandedContent.isNotEmpty
+        : section.collapsedContent != null &&
+            section.collapsedContent!.isNotEmpty;
+
+    return hasContent
+        ? Column(
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // Wrap content in padding
+              Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: isExpanded
+                      ? section.expandedContent
+                      : section.collapsedContent ?? [],
+                ),
+              ),
+              const DigitDivider(
+                dividerType: DividerType.small,
+              ),
+            ],
+          )
+        : Container(); // If there's no content, show nothing
   }
 }

@@ -11,6 +11,7 @@ class DigitDividerThemeData extends ThemeExtension<DigitDividerThemeData> {
   final double indent;
   final double endIndent;
   final double? width;
+  final double? height;
 
   const DigitDividerThemeData({
     this.smallDividerThickness = 1,
@@ -20,6 +21,7 @@ class DigitDividerThemeData extends ThemeExtension<DigitDividerThemeData> {
     this.indent = 0.0,
     this.endIndent = 0.0,
     this.width,
+    this.height,
   });
 
 
@@ -32,6 +34,7 @@ class DigitDividerThemeData extends ThemeExtension<DigitDividerThemeData> {
     double? indent,
     double? endIndent,
     double? width,
+    double? height,
   }) {
     return DigitDividerThemeData(
       smallDividerThickness: smallDividerThickness ?? this.smallDividerThickness,
@@ -41,6 +44,7 @@ class DigitDividerThemeData extends ThemeExtension<DigitDividerThemeData> {
       indent: indent ?? this.indent,
       endIndent: endIndent ?? this.endIndent,
       width: width ?? this.width,
+      height: height ?? this.height,
     );
   }
 
@@ -56,6 +60,7 @@ class DigitDividerThemeData extends ThemeExtension<DigitDividerThemeData> {
       indent: lerpDouble(indent, other.indent, t) ?? 0.0,
       endIndent: lerpDouble(endIndent, other.endIndent, t) ?? 0.0,
       width: lerpDouble(width, other.width, t),
+      height: lerpDouble(height, other.height, t),
     );
   }
 }

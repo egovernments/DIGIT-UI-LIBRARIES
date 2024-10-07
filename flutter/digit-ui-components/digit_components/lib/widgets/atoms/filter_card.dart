@@ -197,172 +197,180 @@ class _FilterCardWidgetState extends State<FilterCardWidget> {
     );
 
     return widget.layoutType == FilterCardLayout.horizontal && !isMobile
-        ? DigitCard(
-            padding: EdgeInsets.zero,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  if (widget.title != null)
-                    Padding(
-                      padding: EdgeInsets.only(left: isMobile ? spacer4 : isTab ? spacer5 : spacer6, top: isMobile ? spacer4 : isTab ? spacer5 : spacer6),
-                      child: Row(
-                        children: [
-                          if (widget.titleIcon != null)
-                            Icon(widget.titleIcon,
-                                size: isMobile ? spacer6 : spacer8,
-                                color: theme.colorTheme.primary.primary1),
-                          if (widget.titleIcon != null) const SizedBox(width: 8),
-                          Text(
-                            widget.title!,
-                            style: textTheme.headingM.copyWith(
-                              color: theme.colorTheme.text.primary,
-                            ),
-                          ),
-                        ],
+        ? _buildHorizontalLayout(context, buttonWidgets)
+        : _buildVerticalLayout(context, buttonWidgets);
+  }
+
+  Widget _buildHorizontalLayout(BuildContext context, Widget buttonWidgets) {
+    final theme = Theme.of(context);
+    final textTheme = theme.digitTextTheme(context);
+
+    return DigitCard(
+      padding: EdgeInsets.zero,
+      children: [
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            if (widget.title != null)
+              Padding(
+                padding: EdgeInsets.only(left: isMobile ? spacer4 : isTab ? spacer5 : spacer6, top: isMobile ? spacer4 : isTab ? spacer5 : spacer6),
+                child: Row(
+                  children: [
+                    if (widget.titleIcon != null)
+                      Icon(widget.titleIcon,
+                          size: isMobile ? spacer6 : spacer8,
+                          color: theme.colorTheme.primary.primary1),
+                    if (widget.titleIcon != null) const SizedBox(width: 8),
+                    Text(
+                      widget.title!,
+                      style: textTheme.headingM.copyWith(
+                        color: theme.colorTheme.primary.primary2,
                       ),
                     ),
-                  if (widget.onCrossTap != null)
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        top: spacer2,
-                        right: spacer2,
+                  ],
+                ),
+              ),
+            if (widget.onCrossTap != null)
+              Padding(
+                padding: const EdgeInsets.only(
+                  top: spacer2,
+                  right: spacer2,
+                ),
+                child: InkWell(
+                  hoverColor: const DigitColors().transparent,
+                  highlightColor: const DigitColors().transparent,
+                  splashColor: const DigitColors().transparent,
+                  onTap: widget.onCrossTap!,
+                  child: Icon(
+                    Icons.close,
+                    size: isMobile
+                        ? spacer6
+                        : isTab
+                        ? spacer6
+                        : spacer7,
+                    color: const DigitColors().light.textPrimary,
+                  ),
+                ),
+              ),
+          ],
+        ),
+        Padding(
+          padding: EdgeInsets.only(left: isMobile ? spacer4 : isTab ? spacer5 : spacer6, right: isMobile ? spacer4 : isTab ? spacer5 : spacer6, bottom: isMobile ? spacer4 : isTab ? spacer5 : spacer6),
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              final double availableWidth = constraints.maxWidth;
+              double usedWidth = 0.0;
+              List<Widget> rowItems = [];
+              List<List<Widget>> rows = [];
+              bool buttonsAddedToRow = false;
+
+              // Assuming LabelledField is the type you're checking against
+              bool hasLabelledField = widget.contentList.any((widget) => widget is LabeledField);
+
+              // Calculate the maximum width of widgets in each row
+              double maxWidgetWidth = 324.0;
+              for (var widget in widget.contentList) {
+                // Assuming widget width is fixed to 224 or any other dynamic logic
+                const double widgetWidth = 300.0;
+                maxWidgetWidth = widgetWidth > maxWidgetWidth
+                    ? widgetWidth
+                    : maxWidgetWidth;
+              }
+
+              const double spacing = 24.0;
+              for (var i = 0; i < widget.contentList.length; i++) {
+                var widget1 = widget.contentList[i];
+                if (usedWidth + maxWidgetWidth <= availableWidth) {
+
+                  rowItems.add(
+                    Expanded(
+                      child: Container(
+                        // Apply top padding if true
+                        padding: EdgeInsets.only(top: (hasLabelledField && widget1 is! LabeledField) ? 26 : 0,),
+                        width: maxWidgetWidth,
+                        child: widget1,
                       ),
-                      child: InkWell(
-                        hoverColor: const DigitColors().transparent,
-                        highlightColor: const DigitColors().transparent,
-                        splashColor: const DigitColors().transparent,
-                        onTap: widget.onCrossTap!,
-                        child: Icon(
-                          Icons.close,
-                          size: isMobile
-                              ? spacer6
-                              : isTab
-                                  ? spacer6
-                                  : spacer7,
-                          color: const DigitColors().light.textPrimary,
-                        ),
+                    ),
+                  );
+                  rowItems.add(const SizedBox(
+                    width: spacing,
+                  ));
+                  usedWidth += maxWidgetWidth ;
+                } else {
+                  if (rowItems.isNotEmpty) {
+                    rowItems.removeLast(); // Ensure rowItems is not empty before removing the last item
+                  }
+
+                  if (rows.isNotEmpty) {
+                    rows.add([const SizedBox(height: spacing)]);
+                  }
+                  rows.add(rowItems);
+                  rowItems = [
+                    Expanded(
+                      child: Container(
+                        padding: const EdgeInsets.only(right: 24),
+                        //padding: EdgeInsets.only(top: (hasLabelledField && widget1 is! LabeledField) ? 26 : 0,),
+                        width: maxWidgetWidth,
+                        child: widget1,
+                      ),
+                    )
+                  ];
+                  usedWidth = maxWidgetWidth;
+                }
+              }
+
+              if (rowItems.isNotEmpty &&
+                  widget.layoutType == FilterCardLayout.horizontal) {
+                if (rows.isNotEmpty) {
+                  rows.add([
+                    const SizedBox(
+                      height: spacing,
+                    )
+                  ]);
+                }
+                rows.add(rowItems);
+              }
+
+              const double buttonWidth = 300;
+              if (widget.layoutType == FilterCardLayout.horizontal &&
+                  usedWidth + buttonWidth <= availableWidth) {
+                rows.last.add(const Spacer());
+                rows.last.add(buttonWidgets);
+                buttonsAddedToRow = true;
+              }
+
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  ...rows.map(
+                        (row) => Row(
+                      mainAxisAlignment:
+                      widget.layoutType == FilterCardLayout.horizontal
+                          ? MainAxisAlignment.start
+                          : MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: row,
+                    ),
+                  ),
+                  if (!buttonsAddedToRow)
+                    Align(
+                      alignment: Alignment.bottomRight,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 0),// todo need to update
+                        child: buttonWidgets,
                       ),
                     ),
                 ],
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: isMobile ? spacer4 : isTab ? spacer5 : spacer6, right: isMobile ? spacer4 : isTab ? spacer5 : spacer6, bottom: isMobile ? spacer4 : isTab ? spacer5 : spacer6),
-                child: LayoutBuilder(
-                  builder: (context, constraints) {
-                    final double availableWidth = constraints.maxWidth;
-                    double usedWidth = 0.0;
-                    List<Widget> rowItems = [];
-                    List<List<Widget>> rows = [];
-                    bool buttonsAddedToRow = false;
-
-                    // Assuming LabelledField is the type you're checking against
-                    bool hasLabelledField = widget.contentList.any((widget) => widget is LabeledField);
-
-                    // Calculate the maximum width of widgets in each row
-                    double maxWidgetWidth = 324.0;
-                    for (var widget in widget.contentList) {
-                      // Assuming widget width is fixed to 224 or any other dynamic logic
-                      const double widgetWidth = 300.0;
-                      maxWidgetWidth = widgetWidth > maxWidgetWidth
-                          ? widgetWidth
-                          : maxWidgetWidth;
-                    }
-
-                    const double spacing = 24.0;
-                    for (var i = 0; i < widget.contentList.length; i++) {
-                      var widget1 = widget.contentList[i];
-                      if (usedWidth + maxWidgetWidth <= availableWidth) {
-                        rowItems.add(
-                          Expanded(
-                            child: Container(
-                               // Apply top padding if true
-                              padding: EdgeInsets.only(top: (hasLabelledField && widget1 is! LabeledField) ? 26 : 0,),
-                              width: maxWidgetWidth,
-                              child: widget1,
-                            ),
-                          ),
-                        );
-                        rowItems.add(const SizedBox(
-                          width: spacing,
-                        ));
-                        usedWidth += maxWidgetWidth ;
-                      } else {
-                        rowItems.removeLast();
-                        if (rows.isNotEmpty) {
-                          rows.add([
-                            const SizedBox(
-                              height: spacing,
-                            )
-                          ]);
-                        }
-                        rows.add(rowItems);
-                        rowItems = [
-                          Expanded(
-                            child: Container(
-                              padding: const EdgeInsets.only(right: 24),
-                              //padding: EdgeInsets.only(top: (hasLabelledField && widget1 is! LabeledField) ? 26 : 0,),
-                              width: maxWidgetWidth,
-                              child: widget1,
-                            ),
-                          )
-                        ];
-                        usedWidth = maxWidgetWidth;
-                      }
-                    }
-
-                    if (rowItems.isNotEmpty &&
-                        widget.layoutType == FilterCardLayout.horizontal) {
-                      if (rows.isNotEmpty) {
-                        rows.add([
-                          const SizedBox(
-                            height: spacing,
-                          )
-                        ]);
-                      }
-                      rows.add(rowItems);
-                    }
-
-                    const double buttonWidth = 300;
-                    if (widget.layoutType == FilterCardLayout.horizontal &&
-                        usedWidth + buttonWidth <= availableWidth) {
-                      rows.last.add(const Spacer());
-                      rows.last.add(buttonWidgets);
-                      buttonsAddedToRow = true;
-                    }
-
-                    return Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        ...rows.map(
-                          (row) => Row(
-                            mainAxisAlignment:
-                                widget.layoutType == FilterCardLayout.horizontal
-                                    ? MainAxisAlignment.start
-                                    : MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: row,
-                          ),
-                        ),
-                        if (!buttonsAddedToRow)
-                          Align(
-                            alignment: Alignment.bottomRight,
-                            child: Padding(
-                              padding: const EdgeInsets.only(top: 0),// todo need to update
-                              child: buttonWidgets,
-                            ),
-                          ),
-                      ],
-                    );
-                  },
-                ),
-              ),
-            ],
-          )
-        : _buildVerticalLayout(context, buttonWidgets);
+              );
+            },
+          ),
+        ),
+      ],
+    );
   }
+
 
   Widget _buildVerticalLayout(BuildContext context, Widget buttonWidgets) {
     final theme = Theme.of(context);
@@ -440,7 +448,7 @@ class _FilterCardWidgetState extends State<FilterCardWidget> {
                         Text(
                           widget.title!,
                           style: textTheme.headingM.copyWith(
-                            color: theme.colorTheme.text.primary,
+                            color: theme.colorTheme.primary.primary2,
                           ),
                         ),
                       ],

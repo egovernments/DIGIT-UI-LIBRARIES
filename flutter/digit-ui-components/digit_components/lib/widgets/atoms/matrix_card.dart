@@ -1,4 +1,5 @@
 import 'package:digit_ui_components/digit_components.dart';
+import 'package:digit_ui_components/theme/ComponentTheme/divider_theme.dart';
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:digit_ui_components/widgets/atoms/digit_divider.dart';
 import 'package:digit_ui_components/widgets/molecules/digit_card.dart';
@@ -8,10 +9,10 @@ class MatrixList extends StatelessWidget {
   final List<Matrix> matrices;
   final int itemsPerGroup;
   final bool showVerticalDivider;
-  final bool showGroupDivider; // New: for group divider
+  final bool showGroupDivider;
   final double verticalDividerWidth;
   final double verticalDividerHeight;
-  final double groupDividerHeight; // New: for group divider height
+  final double groupDividerHeight;
   final Axis direction;
 
   const MatrixList({
@@ -60,11 +61,13 @@ class MatrixList extends StatelessWidget {
         // Add Vertical Divider if needed and not the last item
         if (showVerticalDivider && j < rowItems.length - 1) {
           rowWidgets.add(
-            Container(
-              width: 1,
-              height: 100,
-              color: theme.colorTheme.generic.divider, // Adjust color as needed
-            ),
+            const DigitDivider(
+              dividerThemeData: DigitDividerThemeData(
+                height: 100,
+              ),
+              dividerType: DividerType.small,
+              dividerOrientation: DividerOrientation.vertical,
+            )
           );
         }
       }
@@ -136,11 +139,13 @@ class MatrixList extends StatelessWidget {
       // Add group divider between columns if enabled
       if (showGroupDivider && i + itemsPerGroup < matrices.length) {
         columns.add(
-          Container(
-            width: verticalDividerWidth,
-            height: 260 ,
-            color: theme.colorTheme.generic.divider, // Adjust color as needed
-          ),
+            const DigitDivider(
+              dividerThemeData: DigitDividerThemeData(
+                height: 206,
+              ),
+              dividerType: DividerType.small,
+              dividerOrientation: DividerOrientation.vertical,
+            )
         );
       }
     }

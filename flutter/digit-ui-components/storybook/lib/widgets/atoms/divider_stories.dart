@@ -18,7 +18,11 @@ DigitDivider(
           ''');
         });
 
-        return const DigitDivider(
+        return DigitDivider(
+          dividerOrientation: context.knobs.options(label: 'Orientation', initial: DividerOrientation.horizontal, options: [
+            const Option(label: 'Horizontal', value: DividerOrientation.horizontal),
+            const Option(label: 'Vertical', value: DividerOrientation.vertical),
+          ]),
           dividerType: DividerType.small,
         );
       },
@@ -32,7 +36,12 @@ DigitDivider()
           ''');
         });
 
-        return const DigitDivider();
+        return DigitDivider(
+          dividerOrientation: context.knobs.options(label: 'Orientation', initial: DividerOrientation.horizontal, options: [
+            const Option(label: 'Horizontal', value: DividerOrientation.horizontal),
+            const Option(label: 'Vertical', value: DividerOrientation.vertical),
+          ]),
+        );
       },
     ),
     Story(
@@ -46,7 +55,11 @@ DigitDivider(
           ''');
         });
 
-        return const DigitDivider(
+        return DigitDivider(
+          dividerOrientation: context.knobs.options(label: 'Orientation', initial: DividerOrientation.horizontal, options: [
+            const Option(label: 'Horizontal', value: DividerOrientation.horizontal),
+            const Option(label: 'Vertical', value: DividerOrientation.vertical),
+          ]),
           dividerType: DividerType.large,
         );
       },
@@ -68,6 +81,10 @@ DigitDivider(
         });
 
         return DigitDivider(
+          dividerOrientation: context.knobs.options(label: 'Orientation', initial: DividerOrientation.horizontal, options: [
+            const Option(label: 'Horizontal', value: DividerOrientation.horizontal),
+            const Option(label: 'Vertical', value: DividerOrientation.vertical),
+          ]),
           dividerThemeData: const DigitDividerThemeData().copyWith(
             color: Colors.blue,
             indent: 20,

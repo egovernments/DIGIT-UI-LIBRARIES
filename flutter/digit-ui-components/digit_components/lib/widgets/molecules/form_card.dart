@@ -58,22 +58,22 @@ class FlexibleDigitCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(spacer1),
         border: cardType == CardType.secondary
             ? Border.all(
-          width: Base.defaultBorderWidth,
-          color: borderColor ?? const DigitColors().light.genericDivider,
-        )
+                width: Base.defaultBorderWidth,
+                color: borderColor ?? const DigitColors().light.genericDivider,
+              )
             : null,
         color: cardType == CardType.secondary
             ? theme.colorTheme.paper.secondary
             : theme.colorTheme.paper.primary,
         boxShadow: cardType == CardType.primary
             ? [
-          BoxShadow(
-            color: const Color(0xFF000000).withOpacity(.16),
-            offset: const Offset(0, 1),
-            spreadRadius: 0,
-            blurRadius: 2,
-          ),
-        ]
+                BoxShadow(
+                  color: const Color(0xFF000000).withOpacity(.16),
+                  offset: const Offset(0, 1),
+                  spreadRadius: 0,
+                  blurRadius: 2,
+                ),
+              ]
             : [],
       ),
       child: InkWell(
@@ -84,103 +84,96 @@ class FlexibleDigitCard extends StatelessWidget {
               (isMobile
                   ? const EdgeInsets.all(spacer4)
                   : isTab
-                  ? const EdgeInsets.all(spacer5)
-                  : const EdgeInsets.all(spacer6)),
+                      ? const EdgeInsets.all(spacer5)
+                      : const EdgeInsets.all(spacer6)),
           child: layoutType == LayoutType.horizontal
-              ? IntrinsicHeight( // Ensures all children have the same height
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch, // Stretches children to take full height
-              children: [
-                // First column
-                Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: firstColumnChildren
-                        .asMap()
-                        .entries
-                        .map((entry) => Padding(
-                      padding: EdgeInsets.only(
-                        bottom: entry.key ==
-                            firstColumnChildren.length - 1
-                            ? 0
-                            : spacing ??
-                            (isMobile
-                                ? 16
-                                : isTab
-                                ? 20
-                                : 24),
-                      ),
-                      child: entry.key == 0 // Ensure first child has fixed height
-                          ? SizedBox(
-                        height: 48, // Define the same height for the first child in each column
-                        child: entry.value,
-                      )
-                          : entry.value,
-                    ))
-                        .toList(),
-                  ),
-                ),
-                if (showDivider && columnCount == 2) // Optional divider between columns
-                  VerticalDivider(
-                    width: 48,
-                    thickness: 1,
-                    color: const DigitColors().light.genericDivider,
-                  ),
-                if (columnCount == 2)
-                  Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: secondColumnChildren
-                          .asMap()
-                          .entries
-                          .map((entry) => Padding(
-                        padding: EdgeInsets.only(
-                          bottom: entry.key ==
-                              secondColumnChildren.length - 1
-                              ? 0
-                              : spacing ??
-                              (isMobile
-                                  ? 16
-                                  : isTab
-                                  ? 20
-                                  : 24),
+              ? IntrinsicHeight(
+                  // Ensures all children have the same height
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    // Stretches children to take full height
+                    children: [
+                      // First column
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: firstColumnChildren
+                              .asMap()
+                              .entries
+                              .map((entry) => Padding(
+                                    padding: EdgeInsets.only(
+                                      bottom: entry.key ==
+                                              firstColumnChildren.length - 1
+                                          ? 0
+                                          : spacing ??
+                                              (isMobile
+                                                  ? 16
+                                                  : isTab
+                                                      ? 20
+                                                      : 24),
+                                    ),
+                                    child:entry.value,
+                                  ))
+                              .toList(),
                         ),
-                        child: entry.key == 0 // Ensure first child has fixed height
-                            ? SizedBox(
-                          height: 48, // Define the same height for the first child
-                          child: entry.value,
-                        )
-                            : entry.value,
-                      ))
-                          .toList(),
-                    ),
+                      ),
+                      if (showDivider &&
+                          columnCount == 2) // Optional divider between columns
+                        VerticalDivider(
+                          width: 48,
+                          thickness: 1,
+                          color: const DigitColors().light.genericDivider,
+                        ),
+                      if (columnCount == 2)
+                        Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: secondColumnChildren
+                                .asMap()
+                                .entries
+                                .map((entry) => Padding(
+                                      padding: EdgeInsets.only(
+                                        bottom: entry.key ==
+                                                secondColumnChildren.length - 1
+                                            ? 0
+                                            : spacing ??
+                                                (isMobile
+                                                    ? 16
+                                                    : isTab
+                                                        ? 20
+                                                        : 24),
+                                      ),
+                                      child: entry.value,
+                                    ))
+                                .toList(),
+                          ),
+                        ),
+                    ],
                   ),
-              ],
-            ),
-          )
+                )
               : Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: firstColumnChildren
-                .asMap()
-                .entries
-                .map((entry) => Padding(
-              padding: EdgeInsets.only(
-                bottom: entry.key ==
-                    firstColumnChildren.length - 1
-                    ? 0
-                    : spacing ??
-                    (isMobile
-                        ? 16
-                        : isTab
-                        ? 20
-                        : 24),
-              ),
-              child: entry.value,
-            ))
-                .toList(),
-          ),
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: firstColumnChildren
+                      .asMap()
+                      .entries
+                      .map((entry) => Padding(
+                            padding: EdgeInsets.only(
+                              bottom:
+                                  entry.key == firstColumnChildren.length - 1
+                                      ? 0
+                                      : spacing ??
+                                          (isMobile
+                                              ? 16
+                                              : isTab
+                                                  ? 20
+                                                  : 24),
+                            ),
+                            child: entry.value,
+                          ))
+                      .toList(),
+                ),
         ),
       ),
     );

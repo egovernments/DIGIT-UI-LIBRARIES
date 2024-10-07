@@ -31,12 +31,6 @@ class DigitOTPInput extends StatefulWidget {
 
   final TextCapitalization textCapitalization;
 
-  /// The style to use for the text being edited.
-  final TextStyle? style;
-
-  /// The style to use for the text being edited.
-  final double outlineBorderRadius;
-
 
   /// Obscure Text if data is sensitive
   final bool obscureText;
@@ -73,8 +67,6 @@ class DigitOTPInput extends StatefulWidget {
     this.spaceBetween = 0,
     this.hasError = false,
     this.keyboardType = TextInputType.number,
-    this.style,
-    this.outlineBorderRadius = 10,
     this.label,
     this.textCapitalization = TextCapitalization.none,
     this.obscureText = false,
@@ -98,6 +90,7 @@ class DigitOTPInputState extends State<DigitOTPInput> {
   late List<TextEditingController?> _textControllers;
   late List<String> _pin;
   int _focusedIndex = 0; // Track the currently focused index
+  late List<FocusNode> _keyboardFocusNodes;
 
   @override
   void initState() {
@@ -110,10 +103,9 @@ class DigitOTPInputState extends State<DigitOTPInput> {
     if (widget.controller != null) {
       widget.controller!.setOtpTextFieldState(this);
     }
-
+    _keyboardFocusNodes = List.generate(widget.length, (_) => FocusNode());
     _focusNodes = List<FocusNode?>.filled(widget.length, null, growable: false);
     _textControllers = List<TextEditingController?>.filled(widget.length, null, growable: false);
-
     _pin = List.generate(widget.length, (int i) => '');
   }
 
@@ -123,6 +115,10 @@ class DigitOTPInputState extends State<DigitOTPInput> {
          focusNode?.removeListener(() => handleFocusChange);
          focusNode?.dispose();
      }
+
+    for (var focusNode in _keyboardFocusNodes) {
+      focusNode.dispose();
+    }
 
     for (var controller in _textControllers) {
       controller?.dispose();
@@ -135,90 +131,69 @@ class DigitOTPInputState extends State<DigitOTPInput> {
     final theme = Theme.of(context);
     final textTheme = theme.digitTextTheme(context);
 
-    return RawKeyboardListener(
-      focusNode: FocusNode(),
-      onKey: (event) {
-        if (event is RawKeyDownEvent) {
-          if (event.logicalKey == LogicalKeyboardKey.arrowLeft) {
-            _moveFocus(-1);
-          } else if (event.logicalKey == LogicalKeyboardKey.arrowRight) {
-            _moveFocus(1);
-          }
-          else if (event.logicalKey == LogicalKeyboardKey.backspace ) {
-            if (_focusedIndex > 0) {
-              if(_textControllers[_focusedIndex]!.text.isNotEmpty){
-                _textControllers[_focusedIndex]!.text = '';
-                _pin[_focusedIndex] = '';
-              }
-              _focusNodes[_focusedIndex - 1]?.requestFocus();
-            }
-          }
-        }
-      },
-      child: SizedBox(
-        width: widget.width,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if(widget.label != null)
-              ...[
-              Text(
-                widget.label!,
-                style: textTheme.bodyL.copyWith(
-                  color: theme.colorTheme.text.primary,
-                ),
-                textAlign: TextAlign.center,
+    return SizedBox(
+      width: widget.width,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if(widget.label != null)
+            ...[
+            Text(
+              widget.label!,
+              style: textTheme.bodyL.copyWith(
+                color: theme.colorTheme.text.primary,
               ),
-                const SizedBox(height: 16,),
-              ],
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: List.generate(widget.length, (index) {
-                return _buildTextField(context, index);
-              }),
+              textAlign: TextAlign.center,
             ),
-            if(widget.errorMessage != null && _hasError)
-              ...[
-                const SizedBox(height: 8),
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const SizedBox(
-                          height: spacer1 / 2,
-                        ),
-                        SizedBox(
-                          height: spacer4,
-                          width: spacer4,
-                          child: Icon(
-                            Icons.info,
-                            color: theme.colorTheme.alert.error,
-                            size: spacer4,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(width: spacer1),
-                    Text(
-                      widget.errorMessage!,
-                      style: textTheme.bodyL.copyWith(
-                        color: theme.colorTheme.alert.error,
+              const SizedBox(height: 16,),
+            ],
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: List.generate(widget.length, (index) {
+              return _buildTextField(context, index);
+            }),
+          ),
+          if(widget.errorMessage != null && _hasError)
+            ...[
+              const SizedBox(height: 8),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const SizedBox(
+                        height: spacer1 / 2,
                       ),
+                      SizedBox(
+                        height: spacer4,
+                        width: spacer4,
+                        child: Icon(
+                          Icons.info,
+                          color: theme.colorTheme.alert.error,
+                          size: spacer4,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(width: spacer1),
+                  Text(
+                    widget.errorMessage!,
+                    style: textTheme.bodyL.copyWith(
+                      color: theme.colorTheme.alert.error,
                     ),
-                  ],
-                ),
-              ]
-          ],
-        ),
+                  ),
+                ],
+              ),
+            ]
+        ],
       ),
     );
   }
@@ -247,79 +222,135 @@ class DigitOTPInputState extends State<DigitOTPInput> {
       margin: EdgeInsets.only(
         right: isLast ? 0 : 8,
       ),
-      child: TextField(
-        controller: _textControllers[index],
-        maxLength: _textControllers[index]!= null && _textControllers[index]!.text.isEmpty ? null : 1,
-        keyboardType: widget.keyboardType,
-        cursorColor: widget.cursorColor,
-        textCapitalization: widget.textCapitalization,
-        textAlign: TextAlign.center,
-        style: widget.style ?? textTheme.headingM.copyWith(color: theme.colorTheme.text.primary),
-        inputFormatters: widget.inputFormatter,
-        autofocus: index == 0 && widget.autoFocus,
-        focusNode: _focusNodes[index],
-        obscureText: widget.obscureText,
-        decoration: InputDecoration(
-          isDense: widget.isDense,
-          counterText: "",
-          constraints: const BoxConstraints(maxWidth: 50, maxHeight: 50),
-          contentPadding: widget.contentPadding,
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.zero,
-            borderSide: BorderSide(
-              color: _hasError
-                  ? theme.colorTheme.alert.error
-                  : theme.colorTheme.generic.inputBorder,
-              width: _hasError ? 1.5 : 1,
-            ),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.zero,
-            borderSide: BorderSide(
-              color: theme.colorTheme.primary.primary1,
-              width: 1.5,
-            ),
-          ),
-        ),
-        onChanged: (String str) {
+      child: RawKeyboardListener(
+        focusNode: _keyboardFocusNodes[index],
+        onKey: (event) {
+          if (event is RawKeyDownEvent) {
+            if (event.logicalKey == LogicalKeyboardKey.arrowLeft) {
+              _moveFocus(-1);
+            } else if (event.logicalKey == LogicalKeyboardKey.arrowRight) {
+              _moveFocus(1);
+            } else if (event.logicalKey == LogicalKeyboardKey.backspace ||
+                event.logicalKey == LogicalKeyboardKey.delete ) {
+              if (_focusedIndex > 0) {
 
+                // Check if the currently focused TextField is empty
+                if (_textControllers[_focusedIndex]!.text.isEmpty) {
+                  _focusNodes[_focusedIndex - 1]?.requestFocus();
+                }
+              }
+            }
+          }
+        },
+        child: TextField(
+          controller: _textControllers[index],
+          maxLength: _textControllers[index]!= null && _textControllers[index]!.text.isEmpty ? null : 1,
+          keyboardType: widget.keyboardType,
+          cursorColor: widget.cursorColor,
+          textCapitalization: widget.textCapitalization,
+          textAlign: TextAlign.center,
+          style: textTheme.headingM.copyWith(color: theme.colorTheme.text.primary),
+          inputFormatters: widget.inputFormatter,
+          autofocus: index == 0 && widget.autoFocus,
+          focusNode: _focusNodes[index],
+          obscureText: widget.obscureText,
+          decoration: InputDecoration(
+            isDense: widget.isDense,
+            counterText: "",
+            constraints: const BoxConstraints(maxWidth: 50, maxHeight: 50),
+            contentPadding: widget.contentPadding,
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.zero,
+              borderSide: BorderSide(
+                color: _hasError
+                    ? theme.colorTheme.alert.error
+                    : theme.colorTheme.generic.inputBorder,
+                width: _hasError ? 1.5 : 1,
+              ),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.zero,
+              borderSide: BorderSide(
+                color: theme.colorTheme.primary.primary1,
+                width: 1.5,
+              ),
+            ),
+          ),
+          onChanged: (String str) {
             setState(() {
               _hasError = false;
             });
 
             if (str.length > 1) {
-              _handlePaste(str, index);
+              _handlePaste(str, _findFirstEmptyIndex());
               return;
             }
 
-            if (_pin[index].isEmpty) {
-              setState(() {
-                _pin[index] = str;
-              });
-            }
-
-            if (str.isNotEmpty && _pin[index].length == 1 && !isLast) {
-              _focusNodes[index]!.unfocus();
-            }
-
-            if (str.isEmpty) {
-              if (index > 0) {
-                // _focusNodes[index]!.unfocus();
-                // _focusNodes[index - 1]!.requestFocus();
+            // Check if the current index is empty (cleared)
+            if (str.isEmpty && _pin[index].isNotEmpty) {
+              // Shift all digits after the current index to the left
+              for (int i = index; i < widget.length - 1; i++) {
+                _pin[i] = _pin[i + 1]; // Shift the next digit to the current position
+                _textControllers[i]?.text = _pin[i]; // Update the text controller
               }
-            } else if (index + 1 < widget.length) {
-              FocusScope.of(context).requestFocus(_focusNodes[index + 1]);
+
+              // Clear the last field
+              _pin[widget.length - 1] = '';
+              _textControllers[widget.length - 1]?.clear();
+
+              // Move the focus to the current position or previous if needed
+              if (index > 0) {
+                _focusNodes[index]?.unfocus();
+                _focusNodes[index - 1]?.requestFocus();
+                _textControllers[index - 1]?.selection = const TextSelection.collapsed(offset: 0);
+              }
+            } else {
+              int idx = _findFirstEmptyIndex();
+
+              if (idx == widget.length) {
+                return; // All fields are filled
+              }
+                setState(() {
+                  _textControllers[index]!.text = '';
+                  _textControllers[idx]!.text = str;
+                  _pin[idx] = str;
+                });
+
+              if (str.isEmpty) {
+                if (index > 0) {
+                  _focusNodes[index]!.unfocus();
+                  _focusNodes[index - 1]!.requestFocus();
+                }
+              } else if (idx + 1 < widget.length) {
+                FocusScope.of(context).requestFocus(_focusNodes[idx + 1]);
+              }
             }
 
+            // Recalculate the current pin
             String currentPin = _getCurrentPin();
+
+            // Call the appropriate callbacks
             if (!_pin.contains('') && currentPin.length == widget.length) {
               widget.onCompleted?.call(currentPin);
             }
+
             widget.onChanged?.call(currentPin);
           },
+
+        ),
       ),
     );
   }
+
+  int _findFirstEmptyIndex() {
+    for (int i = 0; i < _pin.length; i++) {
+      if (_pin[i].isEmpty) {
+        return i;
+      }
+    }
+    return _pin.length; // Return length if all fields are filled
+  }
+
 
   @override
   void didUpdateWidget(covariant DigitOTPInput oldWidget) {

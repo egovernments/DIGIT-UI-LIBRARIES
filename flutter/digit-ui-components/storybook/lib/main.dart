@@ -2,8 +2,6 @@ import 'dart:convert';
 import 'package:digit_ui_components/models/DropdownModels.dart';
 import 'package:digit_ui_components/services/component_localization_delegate.dart';
 import 'package:digit_ui_components/theme/colors.dart';
-import 'package:digit_ui_components/utils/date_utils.dart';
-import 'package:digit_ui_components/widgets/atoms/digit_dob_picker.dart';
 import 'package:digit_ui_components/widgets/molecules/digit_header.dart';
 import 'package:digit_ui_components/widgets/molecules/hamburger.dart';
 import 'package:flutter/material.dart';
@@ -258,7 +256,7 @@ class MyHomePageState extends State<MyHomePage> {
               ...dividerStories(),
               ...dropdownStories(),
               ...fileUploaderStories(),
-            ///  ...filterCardStories(),
+              ...filterCardStories(),
               ...inputFieldStories(),
               ...infoCardStories(),
               ...listViewStories(),
@@ -403,6 +401,39 @@ class MyHomePageState extends State<MyHomePage> {
               //     yearsHintLabel: 'years',
               //     monthsHintLabel: 'months',
               //     errorMessage: 'Field level error message',
+              //     separatorLabel: '(or)',
+              //     yearsAndMonthsErrMsg: 'error',
+              //     initialDate: DateTime(DateTime.now().year - 150, DateTime.now().month, DateTime.now().day),
+              //     onChangeOfFormControl: (formControl) {
+              //       // Handle changes to the control's value here
+              //       // final value = formControl.value;
+              //       // if (value == null) {
+              //       //   formControl.setErrors({'': true});
+              //       // } else {
+              //       //   DigitDOBAgeConvertor age = DigitDateUtils.calculateAge(value);
+              //       //   if ((age.years == 0 && age.months == 0) ||
+              //       //       age.months > 11 ||
+              //       //       (age.years >= 150 && age.months >= 0)) {
+              //       //     formControl.setErrors({'': true});
+              //       //   } else {
+              //       //     formControl.removeError('');
+              //       //   }
+              //       // }
+              //     },
+              //     cancelText:'cancel',
+              //     confirmText: 'ok',
+              //   ),
+              // ),
+
+              // Story(
+              //   name: 'DOB/month error',
+              //   builder: (context) => DigitDobPicker(
+              //     datePickerFormControl: 'sdlkfjsdlkf',
+              //     datePickerLabel: 'date of birth',
+              //     ageFieldLabel: 'Age',
+              //     yearsHintLabel: 'years',
+              //     monthsHintLabel: 'months',
+              //     monthErrorMessage: 'month error',
               //     separatorLabel: '(or)',
               //     yearsAndMonthsErrMsg: 'error',
               //     initialDate: DateTime(DateTime.now().year - 150, DateTime.now().month, DateTime.now().day),

@@ -80,6 +80,12 @@ enum DividerType{
   large,
 }
 
+/// Enum representing different orientations of divider
+enum DividerOrientation {
+  horizontal,
+  vertical,
+}
+
 /// Enum representing different types of panel(success and error)
 enum PanelType {
   success,
