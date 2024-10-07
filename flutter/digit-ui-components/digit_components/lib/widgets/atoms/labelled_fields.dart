@@ -47,12 +47,13 @@ class LabeledField extends StatelessWidget {
     capitalizedFirstLetter ? convertInToSentenceCase(label) : label;
 
     bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
+
     if (isMobile || !labelInline) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          if(label != null)
+          if (label != null)
             Wrap(
               children: [
                 RichText(
@@ -76,7 +77,7 @@ class LabeledField extends StatelessWidget {
                         : [],
                   ),
                   maxLines: wrapLabelText ? 5 : 1,
-                  overflow: TextOverflow.ellipsis, // To handle overflow
+                  overflow: TextOverflow.ellipsis,
                 ),
                 if (infoText != null) const SizedBox(width: spacer1),
                 if (infoText != null)
@@ -88,10 +89,10 @@ class LabeledField extends StatelessWidget {
                       Icons.info_outline,
                       size: spacer4,
                     ),
-                  )
+                  ),
               ],
             ),
-          if(label != null)
+          if (label != null)
             const SizedBox(
               height: spacer1,
             ),
@@ -101,32 +102,29 @@ class LabeledField extends StatelessWidget {
     } else {
       return Row(
         crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.max,
         children: [
-          if(label != null)
-            Container(
-              width: MediaQuery.of(context).size.width * 0.33,
-              constraints: BoxConstraints(
-                maxWidth: MediaQuery.of(context).size.width * 0.33,
-              ),
+          if (label != null)
+            Flexible(
+            flex: 3,
               child: Row(
-                mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: wrapLabelText
                     ? CrossAxisAlignment.end
                     : CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    processedLabel!.length > 64
-                        ? '${processedLabel.substring(0, 64)}...'
-                        : processedLabel,
-                    maxLines: wrapLabelText ? 5 : 1,
-                    style: textTheme.label.copyWith(
-                      color: theme.colorTheme.text.primary,
-                      overflow: wrapLabelText
-                          ? TextOverflow.visible
-                          : TextOverflow.ellipsis,
+                  Flexible(
+                    child: Text(
+                      processedLabel!.length > 64
+                          ? '${processedLabel.substring(0, 64)}...'
+                          : processedLabel,
+                      maxLines: wrapLabelText ? 5 : 1,
+                      style: textTheme.label.copyWith(
+                        color: theme.colorTheme.text.primary,
+                        overflow: wrapLabelText
+                            ? TextOverflow.visible
+                            : TextOverflow.ellipsis,
+                      ),
                     ),
                   ),
                   if (isRequired)
@@ -151,11 +149,12 @@ class LabeledField extends StatelessWidget {
                 ],
               ),
             ),
-          if(label != null)
+          if (label != null)
             const SizedBox(
               width: spacer4,
             ),
           Flexible(
+            flex: 7, // Use flex to allocate remaining space for the child
             child: child,
           ),
         ],

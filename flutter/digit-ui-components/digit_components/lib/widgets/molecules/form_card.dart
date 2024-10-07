@@ -1,5 +1,6 @@
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
+import 'package:digit_ui_components/widgets/atoms/digit_divider.dart';
 import 'package:flutter/material.dart';
 
 enum LayoutType { horizontal, vertical }
@@ -68,7 +69,7 @@ class FlexibleDigitCard extends StatelessWidget {
         boxShadow: cardType == CardType.primary
             ? [
                 BoxShadow(
-                  color: const Color(0xFF000000).withOpacity(.16),
+                  color: theme.colorTheme.text.primary.withOpacity(.16),
                   offset: const Offset(0, 1),
                   spreadRadius: 0,
                   blurRadius: 2,
@@ -88,10 +89,8 @@ class FlexibleDigitCard extends StatelessWidget {
                       : const EdgeInsets.all(spacer6)),
           child: layoutType == LayoutType.horizontal
               ? IntrinsicHeight(
-                  // Ensures all children have the same height
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
-                    // Stretches children to take full height
                     children: [
                       // First column
                       Expanded(
@@ -113,17 +112,21 @@ class FlexibleDigitCard extends StatelessWidget {
                                                       ? 20
                                                       : 24),
                                     ),
-                                    child:entry.value,
+                                    child: entry.value,
                                   ))
                               .toList(),
                         ),
                       ),
-                      if (showDivider &&
-                          columnCount == 2) // Optional divider between columns
-                        VerticalDivider(
-                          width: 48,
-                          thickness: 1,
-                          color: const DigitColors().light.genericDivider,
+                      if (showDivider && columnCount == 2)
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: isMobile
+                              ? 16
+                              : isTab
+                              ? 20
+                              : 24),
+                          child: const DigitDivider(
+                            dividerOrientation: DividerOrientation.vertical,
+                          ),
                         ),
                       if (columnCount == 2)
                         Expanded(
@@ -154,6 +157,7 @@ class FlexibleDigitCard extends StatelessWidget {
                   ),
                 )
               : Column(
+                  mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: firstColumnChildren
                       .asMap()

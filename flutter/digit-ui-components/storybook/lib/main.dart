@@ -57,6 +57,7 @@ import 'package:storybook/widgets/molecules/panel_card_stories.dart';
 import 'package:storybook/widgets/molecules/show_pop_up_stories.dart';
 import 'package:storybook/widgets/molecules/side_nav_stories.dart';
 import 'package:storybook/widgets/molecules/timeline_molecule_stories.dart';
+import 'package:storybook/widgets/molecules/view_card_stories.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
 import 'localization.dart';
 
@@ -295,6 +296,7 @@ class MyHomePageState extends State<MyHomePage> {
               ...sliderStories(),
               ...tableStories(),
               ...timelineMoleculeStories(),
+              ...viewCardStories(),
               // Story(
               //   name: 'DOB',
               //   builder: (context) => DigitDobPicker(

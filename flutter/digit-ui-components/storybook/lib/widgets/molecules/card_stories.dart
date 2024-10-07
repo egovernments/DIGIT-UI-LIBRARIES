@@ -296,6 +296,9 @@ List<Story> cardStories() {
                       ),
                     ),
                   ),
+                  const SizedBox(
+                    width: 40,
+                  ),
                   Flexible(
                     child: LabeledField(
                         label: 'Numeric Field',
@@ -311,7 +314,6 @@ List<Story> cardStories() {
           DigitCard(
             cardType: CardType.secondary,
             children: [
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -335,7 +337,7 @@ List<Story> cardStories() {
                     ),
                   ),
                   const SizedBox(
-                    width: 16,
+                    width: 40,
                   ),
                   Flexible(
                     child: LabeledField(
@@ -353,7 +355,7 @@ List<Story> cardStories() {
             cardType: CardType.secondary,
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Flexible(
@@ -375,7 +377,7 @@ List<Story> cardStories() {
                     ),
                   ),
                   const SizedBox(
-                    width: 16,
+                    width: 40,
                   ),
                   Flexible(
                     child: LabeledField(
@@ -388,74 +390,6 @@ List<Story> cardStories() {
                 ],
               )
             ],
-          )
-        ],
-      ),
-    ),
-    Story(
-      name: 'Molecule/Card/form Card',
-      builder: (context) => DigitCard(
-        cardType: CardType.primary,
-        children: [
-          const DigitTextBlock(
-            heading: 'Heading',
-          ),
-          LabeledField(
-              label: 'Text Field',
-              child: DigitTextFormInput(
-                controller: TextEditingController(),
-              )),
-          const SizedBox(height: 8,),
-          const DigitDivider(),
-          const DigitTextBlock(
-            subHeading: 'Add your start and end dates for cycles',
-          ),
-          FileUploadWidget2(
-            label: 'Upload', onFilesSelected: (file){
-            return {};
-          },
-          ),
-        ],
-      ),
-    ),
-    Story(
-      name: 'Molecule/Card/View Card',
-      builder: (context) => DigitCard(
-        cardType: CardType.primary,
-        children: [
-          const DigitTextBlock(
-            heading: 'Heading',
-          ),
-          const DigitDivider(),
-          DigitTextBlock(
-            padding: const EdgeInsets.only(top: 8),
-            subHeading: 'Details', subHeadingStyle: TextStyle(fontSize: 24,
-              fontWeight: FontWeight.w700,
-              fontFamily: 'Roboto',
-              height: 1.14, color: const DigitColors().light.primary2),
-          ),
-          LabelValueList(
-            padding: const EdgeInsets.only(bottom: 8),
-            items: [
-              LabelValuePair(label: 'start date', value: '22/03/2025'),
-              LabelValuePair(label: 'start date', value: '22/03/2025'),
-              LabelValuePair(label: 'start date', value: '22/03/2025'),
-              LabelValuePair(label: 'start date', value: '22/03/2025'),
-              LabelValuePair(label: 'start date', value: '22/03/2025'),
-            ],
-          ),
-          const DigitDivider(),
-          DigitTextBlock(
-            padding: const EdgeInsets.only(top: 8),
-            subHeading: 'Add your start and end dates for cycles', subHeadingStyle: TextStyle(fontSize: 24,
-              fontWeight: FontWeight.w700,
-              fontFamily: 'Roboto',
-              height: 1.14, color: const DigitColors().light.primary2),
-          ),
-          FileUploadWidget2(
-            label: 'Upload', onFilesSelected: (file){
-            return {};
-          },
           ),
         ],
       ),
