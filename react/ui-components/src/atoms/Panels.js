@@ -151,6 +151,7 @@ Panels.propTypes = {
   iconFill: PropTypes.string,
   style: PropTypes.object,
   multipleResponses: PropTypes.array,
+  showAsSvg:PropTypes.bool
 };
 
 Panels.defaultProps = {

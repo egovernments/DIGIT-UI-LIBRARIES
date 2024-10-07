@@ -9,11 +9,9 @@ export default {
 
 const Template = (args) => <LandingPageWrapper {...args} />;
 
-export const Example1 = Template.bind({});
-
-Example1.args = {
-  children: (
-    <>
+export const Example1 = () => {
+  return (
+    <LandingPageWrapper>
       <LandingPageCard
         icon="SupervisorAccount"
         moduleName="Dashboard"
@@ -43,15 +41,13 @@ Example1.args = {
           { label: "View Notifications", link: "#", icon: "Notifications" },
         ]}
       />
-    </>
-  ),
+    </LandingPageWrapper>
+  );
 };
 
-export const Example2 = Template.bind({});
-
-Example2.args = {
-  children: (
-    <>
+export const Example2 = () => {
+  return (
+    <LandingPageWrapper>
       <LandingPageCard
         icon="SupervisorAccount"
         moduleAlignment={"left"}
@@ -87,6 +83,6 @@ Example2.args = {
           { label: "View Notifications", link: "#", icon: "Notifications" },
         ]}
       />
-    </>
-  ),
+    </LandingPageWrapper>
+  );
 };

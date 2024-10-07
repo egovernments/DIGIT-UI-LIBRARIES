@@ -10,7 +10,7 @@ export default {
     metrics: { control: "array" },
     links: { control: "array" },
     className: { control: "text" },
-    styles: { control: "object" },
+    style: { control: "object" },
     moduleAlignment: { control: "select", options: ["left", "right"] },
     metricAlignment: { control: "select", options: ["left", "centre"] },
     iconBg: { control: "boolean" },
@@ -69,7 +69,7 @@ const commonArgs = {
   ],
   className: "",
   metricAlignment: "left",
-  styles: {},
+  style: {},
   iconBg: false,
   onMetricClick: (metric, count) => {
     console.log(metric, count);
@@ -146,7 +146,7 @@ WithChildren.args = {
 export const WithCustomStyles = Template.bind({});
 WithCustomStyles.args = {
   ...commonArgs,
-  styles: {
+  style: {
     backgroundColor: "#fafafa",
     padding: "20px",
     borderRadius: "8px",

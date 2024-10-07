@@ -11,7 +11,7 @@ const LandingPageCard = ({
   metrics = [],
   links = [],
   className,
-  styles,
+  style,
   moduleAlignment,
   hideDivider,
   metricAlignment,
@@ -38,7 +38,7 @@ const LandingPageCard = ({
       className={`digit-landing-page-card ${
         moduleAlignment || ""
       } ${className}`}
-      style={styles}
+      style={style}
     >
       <div
         className={`icon-module-header ${moduleAlignment || ""} ${
@@ -173,7 +173,7 @@ LandingPageCard.propTypes = {
     })
   ),
   className: PropTypes.string,
-  styles: PropTypes.object,
+  style: PropTypes.object,
   hideDivider: PropTypes.bool,
   iconBg: PropTypes.bool,
   onMetricClick: PropTypes.func,
@@ -183,7 +183,7 @@ LandingPageCard.defaultProps = {
   metris: [],
   links: [],
   className: "",
-  styles: {},
+  style: {},
   moduleAlignment: "right",
   metricAlignment: "left",
   moduleName: "",

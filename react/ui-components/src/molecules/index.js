@@ -24,6 +24,8 @@ import MenuCardWrapper from "./MenuCardWrapper";
 import TableMolecule from "./TableMolecule";
 import MetricCard from "./MetricCard";
 import FormCard from "./FormCard";
+import FilterCard from "./FilterCard";
+import ViewCard from "./ViewCard";
 
 export {
   ApiDropdown,
@@ -51,5 +53,7 @@ export {
   MenuCardWrapper,
   TableMolecule,
   MetricCard,
-  FormCard
+  FormCard,
+  FilterCard,
+  ViewCard
 };

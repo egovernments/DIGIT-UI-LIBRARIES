@@ -99,6 +99,7 @@ import TableFooter from "./TableFooter";
 import TableHeader from "./TableHeader";
 import TableRow from "./TableRow";
 import SlideOverMenu from "./SlideOverMenu";
+import NestedTable from "./NestedTable";
 
 export {
   ErrorBoundary,
@@ -201,5 +202,6 @@ export {
   TableFooter,
   TableBody,
   TableRow,
-  TableCell
+  TableCell,
+  NestedTable
 };

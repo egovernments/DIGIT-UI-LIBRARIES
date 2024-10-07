@@ -12,7 +12,6 @@ const SlideOverMenu = ({
   children,
   header,
   footer,
-  onClose = false,
   bgActive = false,
   isOverlay = false,
   isDraggable = false,
@@ -21,6 +20,12 @@ const SlideOverMenu = ({
   sections = [],
   defaultOpenWidth,
   defaultClosedWidth,
+  addClose,
+  closedContents,
+  closedSections,
+  closedHeader,
+  closedFooter,
+  transitionDuration
 }) => {
   const [isOpen, setIsOpen] = useState(true);
   const sliderRef = useRef(null);
@@ -32,7 +37,7 @@ const SlideOverMenu = ({
 
   const toggleSlider = () => {
     if (type === "static") return;
-    if (onClose && isOpen) {
+    if (isOpen) {
       setIsOpen(false);
       setSliderWidth(defaultClosedWidth || 64);
       return;
@@ -41,6 +46,10 @@ const SlideOverMenu = ({
     if (!isOpen) {
       setSliderWidth(defaultOpenWidth);
     }
+  };
+
+  const handleClose = () => {
+    setIsOpen(false);
   };
 
   const handleMouseDown = (e) => {
@@ -83,12 +92,17 @@ const SlideOverMenu = ({
       {!bgActive && <div className="slider-bg-active" />}
       <div
         ref={sliderRef}
-        className={`digit-slider-container ${position} ${
+        className={`digit-slider-container ${type} ${position} ${
           isOpen ? "open" : "closed"
         } ${className} ${isOverlay ? "overlay" : ""}`}
         style={{
           ...styles,
-          width: isOpen ? sliderWidth : defaultClosedWidth || 64,
+          transition: `width ${transitionDuration || 0.5}s`,
+          width: isOpen
+            ? sliderWidth
+            : type === "dynamic"
+            ? defaultClosedWidth || 64
+            : 0,
         }}
       >
         {type === "dynamic" && (
@@ -120,11 +134,48 @@ const SlideOverMenu = ({
             )}
           </div>
         )}
-        <div className="slider-content">
-          {header && <div className="slider-header">{header}</div>}
-          <div className="slider-body">
-            {sections && sections?.length > 0
-              ? sections?.map((section, index) => (
+        <div className={`slider-content`}>
+          {header && isOpen && (
+            <div className="slider-header">
+              {addClose && isOpen && (
+                <div className="close-icon" onClick={handleClose}>
+                  <SVG.Close
+                    width={"1.5rem"}
+                    height={"1.5rem"}
+                    fill={iconColor}
+                  />
+                </div>
+              )}
+              {header}
+            </div>
+          )}
+          {
+            closedHeader && !isOpen && (
+              <div className="slider-header">
+              {closedHeader}
+            </div>
+            )
+          }
+          <div
+            className={`slider-body ${
+              sections && sections.length > 0 ? "with-sections" : ""
+            }`}
+          >
+            {isOpen
+              ? sections && sections?.length > 0
+                ? sections?.map((section, index) => (
+                    <div className="section-divider-wrapper">
+                      <div key={index} className="slider-section">
+                        {section}
+                      </div>
+                      {index < sections.length - 1 && (
+                        <div className="section-divider"></div>
+                      )}
+                    </div>
+                  ))
+                : children
+              : sections && sections?.length > 0
+              ? closedSections?.map((section, index) => (
                   <div className="section-divider-wrapper">
                     <div key={index} className="slider-section">
                       {section}
@@ -134,10 +185,11 @@ const SlideOverMenu = ({
                     )}
                   </div>
                 ))
-              : children}
+              : closedContents}
           </div>
 
-          {footer && <div className="slider-footer">{footer}</div>}
+          {footer && isOpen && <div className="slider-footer">{footer}</div>}
+          {closedFooter && !isOpen && <div className="slider-footer">{closedFooter}</div>}
         </div>
       </div>
     </>

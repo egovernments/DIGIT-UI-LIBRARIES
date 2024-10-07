@@ -1215,6 +1215,152 @@ const actions = [
   </div>,
 ];
 
+const rowsWithNestedTable = [
+  [
+    {
+      data:{
+        sno:1
+      }
+    },
+    {
+      data:{
+        text:"Label"
+      },
+      label:
+        "BLorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanp",
+      maxLength: 64,
+    },
+    {
+      data:{
+        numeric:20000
+      },
+    },
+    {
+      data:{
+        description:"description"
+      },
+      label:
+        "BLorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quisppp",
+      maxLength: 256,
+    },
+    {
+      nestedData:{
+        headerData:headerDataForCustomStyles,
+        rows:samplerows,
+        tableDetails:{
+          tableTitle: "Nested Table Title",
+          tableDescription: "Nested Table Description",
+          addClose:true
+        },
+      }
+    }
+  ],
+  [
+    {
+      data:{
+        sno:2
+      }
+    },
+    {
+      data:{
+        text:"Label2"
+      },
+      label:
+        "BLorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanp",
+      maxLength: 64,
+    },
+    {
+      data:{
+        numeric:20000
+      },
+    },
+    {
+      data:{
+        description:"description2"
+      },
+      label:
+        "BLorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quisppp",
+      maxLength: 256,
+    },
+    {
+      nestedData:{
+        headerData:headerDataForCustomStyles,
+        rows:samplerows,
+        tableDetails:{
+          tableTitle: "Nested Table Title",
+          tableDescription: "Nested Table Description",
+          addClose:true
+        },
+      }
+    }
+  ],
+]
+
+const singlerowWithNestedTable = [
+  [
+    {
+      data:{
+        sno:1
+      }
+    },
+    {
+      data:{
+        text:"Label"
+      },
+      label:
+        "BLorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanp",
+      maxLength: 64,
+    },
+    {
+      data:{
+        numeric:20000
+      },
+    },
+    {
+      data:{
+        description:"description"
+      },
+      label:
+        "BLorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quisppp",
+      maxLength: 256,
+    },
+  ],
+  [
+    {
+      data:{
+        sno:2
+      }
+    },
+    {
+      data:{
+        text:"Label2"
+      },
+      label:
+        "BLorem ipsum dolor sit amet, consectetuer adipiscing elit. Aeneanp",
+      maxLength: 64,
+    },
+    {
+      data:{
+        numeric:20000
+      },
+    },
+    {
+      data:{
+        description:"description2"
+      },
+      label:
+        "BLorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quisppp",
+      maxLength: 256,
+    },
+    {
+      nestedData:{
+        headerData:headerDataForCustomStyles,
+        rows:samplerows
+      }
+    }
+  ],
+]
+
 const commonArgs = {
   headerData: [],
   rows: [],
@@ -1383,9 +1529,7 @@ WithHeaderDivider.args = {
     },
     showSelectedState: false,
   },
-  onRowClick: (row, index) => {
-    console.log(row, index, "this row is clicked");
-  },
+  onRowClick: undefined,
   footerProps: {
     footerContent: "Footer Content",
     hideFooter: false,
@@ -1616,9 +1760,7 @@ WithStickyHeader.args = {
     isStickyFooter: false,
     addStickyFooter: false,
   },
-  onRowClick: (row, index) => {
-    console.log(row, index, "this row is clicked");
-  },
+  onRowClick: undefined,
   frozenColumns: 0,
   isStickyHeader: true,
 };
@@ -2408,4 +2550,70 @@ WithAccessor.args = {
     showSelectedState: false,
   },
   onRowClick: undefined,
+};
+
+
+export const WithNestedTable = Template.bind({});
+WithNestedTable.args = {
+  ...commonArgs,
+  sorting: {
+    isTableSortable: false,
+  },
+  headerData: headerDataWithAccessors,
+  rows: rowsWithNestedTable,
+  pagination: {
+    initialRowsPerPage: 2,
+    rowsPerPageOptions: [2, 4, 6, 8, 10],
+  },
+  styles: {
+    withAlternateBg: false,
+    withColumnDivider: false,
+    extraStyles: {},
+    withHeaderDivider: true,
+    withRowDivider: true,
+    withBorder: true,
+  },
+  selection: {
+    addCheckbox: false,
+    checkboxLabel: "",
+    initialSelectedRows: [],
+    onSelectedRowsChange: (e) => {
+      console.log("These are the selected rows", e);
+    },
+    showSelectedState: false,
+  },
+  onRowClick: undefined
+};
+
+
+export const WithOnlyOneRowNestedTable = Template.bind({});
+WithOnlyOneRowNestedTable.args = {
+  ...commonArgs,
+  sorting: {
+    isTableSortable: false,
+  },
+  headerData: headerDataWithAccessors,
+  rows: singlerowWithNestedTable,
+  pagination: {
+    initialRowsPerPage: 2,
+    rowsPerPageOptions: [2, 4, 6, 8, 10],
+  },
+  styles: {
+    withAlternateBg: false,
+    withColumnDivider: false,
+    extraStyles: {},
+    withHeaderDivider: true,
+    withRowDivider: true,
+    withBorder: true,
+  },
+  selection: {
+    addCheckbox: false,
+    checkboxLabel: "",
+    initialSelectedRows: [],
+    onSelectedRowsChange: (e) => {
+      console.log("These are the selected rows", e);
+    },
+    showSelectedState: false,
+  },
+  onRowClick: undefined
 };

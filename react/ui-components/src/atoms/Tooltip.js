@@ -1,18 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Tooltip = ({ tooltipRef, content, placement, arrow, style, className,header ,description}) => {
+const Tooltip = ({ tooltipRef, content, placement, arrow, style, className,header ,description,theme}) => {
   return (
     <div
       className={`tooltip-content tooltip-${placement} ${
         arrow ? "with-arrow" : ""
-      } ${className || ""}`}
+      } ${theme || ""} ${className || ""}`}
       style={style}
       ref={tooltipRef}
     >
-      {header && <div className={`tooltip-header`}>{header}</div>}
-      {content && <div className={`tooltip-data`}>{content}</div>}
-      {description && <div className={`tooltip-description`}>{description}</div>}
+      {header && <div className={`tooltip-header ${theme || ""}`}>{header}</div>}
+      {content && <div className={`tooltip-data ${theme || ""}`}>{content}</div>}
+      {description && <div className={`tooltip-description ${theme || ""}`}>{description}</div>}
     </div>
   );
 };
@@ -36,6 +36,7 @@ Tooltip.propTypes = {
     "right-start",
   ]),
   arrow: PropTypes.bool,
+  theme: PropTypes.string,
   style: PropTypes.object,
   className: PropTypes.string,
 };
@@ -43,6 +44,7 @@ Tooltip.propTypes = {
 Tooltip.defaultProps = {
   arrow: true,
   placement: "bottom",
+  theme:"dark"
 };
 
 export default Tooltip;

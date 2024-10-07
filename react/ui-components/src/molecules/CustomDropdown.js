@@ -50,6 +50,7 @@ const CustomDropdown = ({ t, config, inputRef, label, onChange, value, errorStyl
             errorStyle={errorStyle}
             additionalWrapperClass={additionalWrapperClass}
             innerStyles={config?.innerStyles}
+            alignVertical={config?.alignVertical}
           />
         );
       case "dropdown":
