@@ -19,6 +19,7 @@ import { SVG } from "../atoms";
 import { CustomSVG } from "../atoms";
 import { StringManipulator } from "../atoms";
 import Button from "../atoms/Button";
+import NestedTable from "../atoms/NestedTable";
 
 const TableMolecule = ({
   headerData,
@@ -69,6 +70,7 @@ const TableMolecule = ({
 }) => {
   const { t } = useTranslation();
   const [currentPage, setCurrentPage] = useState(1);
+  const [expandedRows, setExpandedRows] = useState([]);
   const [rowsPerPage, setRowsPerPage] = useState(
     pagination?.initialRowsPerPage
   );
@@ -83,6 +85,8 @@ const TableMolecule = ({
   );
   const [sortedColumnIndex, setSortedColumnIndex] = useState(null);
   const [sortedRows, setSortedRows] = useState([]);
+  const [tableData, setTableData] = useState([]);
+
 
   // Pagination Logic
   const indexOfLastRow = currentPage * rowsPerPage;
@@ -121,6 +125,31 @@ const TableMolecule = ({
     setCurrentPage(1);
     // Reset to first page when changing rows per page
   };
+
+  const toggleRowExpansion = (rowIndex) => {
+    setExpandedRows((prev) =>
+      prev.includes(rowIndex)
+        ? prev.filter((index) => index !== rowIndex)
+        : [...prev, rowIndex]
+    );
+  };
+
+  const updateTableData = (rowIndex, columnIndex, value) => {
+    setTableData((prevData) => {
+      const updatedData = [...prevData];
+      // Find the row by rowIndex
+      let row = updatedData.find(row => row.rowIndex === rowIndex);
+      if (!row) {
+        // If row doesn't exist, create a new row with this rowIndex
+        row = { rowIndex, values: {} };
+        updatedData.push(row);
+      }
+      // Update the column value in the row
+      row.values[columnIndex] = value;
+      return updatedData;
+    });
+  };
+  
 
   useEffect(() => {
     setSortedRows([...rows]);
@@ -261,7 +290,11 @@ const TableMolecule = ({
                           ? false
                           : true
                       }
-                      isIntermediate={selectedRows && selectedRows?.length>0 && selectedRows.length !== rows?.length}
+                      isIntermediate={
+                        selectedRows &&
+                        selectedRows?.length > 0 &&
+                        selectedRows.length !== rows?.length
+                      }
                       mainClassName={"table-checkbox"}
                     />
                   </TableCell>
@@ -437,93 +470,146 @@ const TableMolecule = ({
             {/* Dynamic Table Body with Pagination */}
             <TableBody style={styles?.extraStyles?.bodyStyles}>
               {currentRows?.map((row, rowIndex) => (
-                <TableRow
-                  key={rowIndex}
-                  className={`${
-                    styles?.withAlternateBg ? "withAlternateBg" : ""
-                  } ${onRowClick ? "addHover" : ""} ${
-                    selectedRows?.includes(rowIndex) ? "selected" : ""
-                  }`}
-                  onClick={
-                    onRowClick ? () => onRowClick(row, rowIndex) : undefined
-                  }
-                >
-                  {selection?.addCheckbox && (
-                    <TableCell
-                      isHeader={false}
-                      className={`fixed-columns ${
-                        styles?.withRowDivider ? "withRowDivider" : ""
-                      } ${
-                        styles?.withColumnDivider ? "withColumnDivider" : ""
-                      }`}
-                      columnType={"custom"}
-                      cellData={
-                        <CheckBox
-                          checked={selectedRows.includes(
-                            rowIndex + indexOfFirstRow
-                          )}
-                          onChange={() =>
-                            onSelectRow(rowIndex + indexOfFirstRow)
-                          }
-                          hideLabel={true}
-                          mainClassName={"table-checkbox"}
-                        />
-                      }
-                      style={styles?.extraStyles?.bodyStyles}
-                    ></TableCell>
-                  )}
-                  {row?.slice(0, frozenColumns)?.map((cell, cellIndex) => (
-                    <TableCell
-                      key={cellIndex}
-                      isHeader={false}
-                      isFooter={false}
-                      className={`fixed-columns  ${
-                        styles?.withRowDivider ? "withRowDivider" : ""
-                      } ${
-                        styles?.withColumnDivider ? "withColumnDivider" : ""
-                      }`}
-                      cellData={cell}
-                      columnType={
-                        headerData && headerData.length > 0
-                          ? headerData[cellIndex]?.type
-                          : "custom"
-                      }
-                      accessor={
-                        headerData && headerData.length > 0
-                          ? headerData[cellIndex]?.accessor
-                          : null
-                      }
-                      cellref={(el) => {
-                        if (!frozenColumnsRefsForRows.current[rowIndex]) {
-                          frozenColumnsRefsForRows.current[rowIndex] = [];
+                <React.Fragment key={rowIndex}>
+                  <TableRow
+                    key={rowIndex}
+                    className={`${
+                      styles?.withAlternateBg ? "withAlternateBg" : ""
+                    } ${
+                      onRowClick || row?.[headerData?.length]?.nestedData
+                        ? "addHover"
+                        : ""
+                    } ${selectedRows?.includes(rowIndex) ? "selected" : ""}`}
+                    onClick={() => {
+                      if (row?.[headerData?.length]?.nestedData)
+                        toggleRowExpansion(rowIndex);
+                      if (onRowClick) onRowClick(row, rowIndex);
+                    }}
+                  >
+                    {selection?.addCheckbox && (
+                      <TableCell
+                        isHeader={false}
+                        className={`fixed-columns ${
+                          styles?.withRowDivider &&
+                          !expandedRows.includes(rowIndex)
+                            ? "withRowDivider"
+                            : ""
+                        } ${
+                          styles?.withColumnDivider ? "withColumnDivider" : ""
+                        }`}
+                        columnType={"custom"}
+                        cellData={
+                          <CheckBox
+                            checked={selectedRows.includes(
+                              rowIndex + indexOfFirstRow
+                            )}
+                            onChange={() =>
+                              onSelectRow(rowIndex + indexOfFirstRow)
+                            }
+                            hideLabel={true}
+                            mainClassName={"table-checkbox"}
+                          />
                         }
-                        frozenColumnsRefsForRows.current[rowIndex][
-                          cellIndex
-                        ] = el;
-                      }}
-                      style={styles?.extraStyles?.bodyStyles}
-                    ></TableCell>
-                  ))}
-                  {row?.slice(frozenColumns)?.map((cell, cellIndex) => (
-                    <TableCell
-                      key={cellIndex + frozenColumns}
-                      isHeader={false}
-                      isFooter={false}
-                      className={`scrollable-columns  ${
-                        styles?.withRowDivider ? "withRowDivider" : ""
-                      } ${
-                        styles?.withColumnDivider ? "withColumnDivider" : ""
-                      }`}
-                      cellData={cell}
-                      columnType={headerData[cellIndex + frozenColumns]?.type}
-                      accessor={
-                        headerData && headerData.length > 0
-                          ? headerData[cellIndex + frozenColumns]?.accessor
-                          : null
-                      }
-                    ></TableCell>
-                  ))}
-                </TableRow>
+                        style={styles?.extraStyles?.bodyStyles}
+                      ></TableCell>
+                    )}
+                    {row?.slice(0, frozenColumns)?.map((cell, cellIndex) => (
+                      <TableCell
+                        key={cellIndex}
+                        isHeader={false}
+                        isFooter={false}
+                        className={`fixed-columns  ${
+                          styles?.withRowDivider &&
+                          !expandedRows.includes(rowIndex)
+                            ? "withRowDivider"
+                            : ""
+                        } ${
+                          styles?.withColumnDivider ? "withColumnDivider" : ""
+                        } ${onRowClick ? "addHover" : ""}`}
+                        cellData={cell}
+                        columnType={
+                          headerData && headerData.length > 0
+                            ? headerData[cellIndex]?.type
+                            : "custom"
+                        }
+                        accessor={
+                          headerData && headerData.length > 0
+                            ? headerData[cellIndex]?.accessor
+                            : null
+                        }
+                        cellref={(el) => {
+                          if (!frozenColumnsRefsForRows.current[rowIndex]) {
+                            frozenColumnsRefsForRows.current[rowIndex] = [];
+                          }
+                          frozenColumnsRefsForRows.current[rowIndex][
+                            cellIndex
+                          ] = el;
+                        }}
+                        style={styles?.extraStyles?.bodyStyles}
+                        updateTableData={updateTableData}
+                        tableData={tableData}
+                        rowIndex={rowIndex}
+                        cellIndex={cellIndex}
+                      ></TableCell>
+                    ))}
+                    {row
+                      ?.slice(frozenColumns, headerData.length)
+                      ?.map((cell, cellIndex) => (
+                        <TableCell
+                          key={cellIndex + frozenColumns}
+                          isHeader={false}
+                          isFooter={false}
+                          className={`scrollable-columns  ${
+                            styles?.withRowDivider &&
+                            !expandedRows.includes(rowIndex)
+                              ? "withRowDivider"
+                              : ""
+                          } ${
+                            styles?.withColumnDivider ? "withColumnDivider" : ""
+                          }`}
+                          cellData={cell}
+                          columnType={
+                            headerData[cellIndex + frozenColumns]?.type
+                          }
+                          accessor={
+                            headerData && headerData.length > 0
+                              ? headerData[cellIndex + frozenColumns]?.accessor
+                              : null
+                          }
+                          updateTableData={updateTableData}
+                          tableData={tableData}
+                          rowIndex={rowIndex}
+                          cellIndex={cellIndex}
+                        ></TableCell>
+                      ))}
+                  </TableRow>
+                  {expandedRows.includes(rowIndex) && (
+                    <TableRow
+                      className={`${
+                        styles?.withAlternateBg ? "withAlternateBg" : ""
+                      } ${onRowClick ? "addHover" : ""} ${
+                        selectedRows?.includes(rowIndex) ? "selected" : ""
+                      } nestedRow`}
+                    >
+                      <TableCell
+                        className={`scrollable-columns  ${
+                          styles?.withRowDivider ? "withRowDivider" : ""
+                        } ${
+                          styles?.withColumnDivider ? "withColumnDivider" : ""
+                        }`}
+                        colSpan={headerData?.length}
+                        columnType={"custom"}
+                        cellData={
+                          <NestedTable
+                            nestedData={row}
+                            toggleRowExpansion={toggleRowExpansion}
+                            rowIndex={rowIndex}
+                          />
+                        }
+                      ></TableCell>
+                    </TableRow>
+                  )}
+                </React.Fragment>
               ))}
             </TableBody>
             {/* Dynamic Table Footer with Pagination */}
@@ -762,7 +848,7 @@ TableMolecule.defaultProps = {
     isStickyFooter: false,
     addStickyFooter: false,
   },
-  actions:[]
+  actions: [],
 };
 
 export default TableMolecule;

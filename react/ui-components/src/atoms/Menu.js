@@ -16,7 +16,7 @@ const Menu = (props) => {
   };
 
   const searchFilteredOptions = props?.options.filter((option) =>
-    option[props?.optionsKey].toLowerCase().includes(searchTerm.toLowerCase())
+    option[props?.optionsKey]?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const onSelect = (val) => {

@@ -6,9 +6,8 @@
   z-index: 1000;
   overflow: hidden;
   border: 0.063rem solid theme(digitv2.lightTheme.generic-divider);
-  background: #FAFAFA;
+  background: theme(digitv2.lightTheme.paper-secondary);
   box-shadow: -0.125rem -0.25rem 0.356rem 0rem #00000026;
-
 }
 
 .digit-slider-container.left {
@@ -56,7 +55,7 @@
   border-radius: 50%;
   z-index: 1001;
   display: flex;
-  gap:theme(digitv2.spacers.spacer1);
+  gap: theme(digitv2.spacers.spacer1);
   align-items: center;
 
   .scroll-bar {
@@ -64,15 +63,16 @@
     width: theme(digitv2.spacers.spacer2);
     border-radius: 0.563rem;
     background-color: #D9D9D9;
-
   }
 
   .slider-handler-svg {
-    background: #FFFFFF;
+    background: theme(digitv2.lightTheme.paper-primary);
     box-shadow: 0rem 0.063rem 0.125rem 0rem #00000029;
     width: theme(digitv2.spacers.spacer8);
-    height:theme(digitv2.spacers.spacer8);
-
+    height: 3.25rem;
+    display: flex !important;
+    align-items: center;
+    border: 0.063rem solid theme(digitv2.lightTheme.generic-divider);
   }
 
   &.dynamic {
@@ -105,6 +105,15 @@
   flex-shrink: 0;
   padding: theme(digitv2.spacers.spacer4);
   border-bottom: 0.063rem solid #d6d5d4;
+
+  .close-icon {
+    cursor: pointer;
+    position: absolute;
+    top: theme(digitv2.spacers.spacer2);
+    right: theme(digitv2.spacers.spacer2);
+    width: theme(digitv2.spacers.spacer8);
+    height: theme(digitv2.spacers.spacer8);
+  }
 }
 
 .slider-section {
@@ -165,6 +174,14 @@
     font-style: theme(digitv2.fontStyle.normal);
     font-weight: theme(digitv2.fontWeight.regular);
     line-height: theme(digitv2.lineHeight.lineheight2);
+  }
+
+  &.with-sections {
+    padding: theme(digitv2.spacers.spacer0);
+
+    .slider-section {
+      padding: theme(digitv2.spacers.spacer4);
+    }
   }
 }
 

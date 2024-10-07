@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import Switch from "./Switch";
 import CheckBox from "./CheckBox";
@@ -19,38 +19,49 @@ const TableCell = ({
   children,
   style,
   cellref,
-  accessor
+  accessor,
+  updateTableData,
+  tableData,
+  rowIndex,
+  cellIndex,
 }) => {
-
-
   const getValueFromAccessor = (cellData, accessor) => {
-    return accessor ? accessor.split('?.').reduce((acc, key) => (acc ? acc[key] : undefined), cellData) : cellData;
+    return accessor
+      ? accessor
+          .split("?.")
+          .reduce((acc, key) => (acc ? acc[key] : undefined), cellData)
+      : cellData;
   };
 
   const renderTableCell = () => {
     switch (columnType) {
       case "serialno":
-        return accessor ? getValueFromAccessor(cellData,accessor) : cellData;
+        return accessor ? getValueFromAccessor(cellData, accessor) : cellData;
       case "numeric":
-        return accessor ? getValueFromAccessor(cellData,accessor) : cellData;
+        return accessor ? getValueFromAccessor(cellData, accessor) : cellData;
       case "text":
-      case "description":
-        {
-          const defaultmaxChars = columnType === "text" ? 64 : 256;
-          if (typeof(cellData) === "object"){
-            return (
-              <div>
-                {StringManipulator(
-                  "TOSENTENCECASE",
-                  StringManipulator("TRUNCATESTRING", accessor ? getValueFromAccessor(cellData,accessor) : cellData?.label, {
+      case "description": {
+        const defaultmaxChars = columnType === "text" ? 64 : 256;
+        if (typeof cellData === "object") {
+          return (
+            <div>
+              {StringManipulator(
+                "TOSENTENCECASE",
+                StringManipulator(
+                  "TRUNCATESTRING",
+                  accessor
+                    ? getValueFromAccessor(cellData, accessor)
+                    : cellData?.label,
+                  {
                     maxLength: cellData?.maxLength || defaultmaxChars,
-                  })
-                )}
-              </div>
-            );
-          }
-          return cellData;
+                  }
+                )
+              )}
+            </div>
+          );
         }
+        return cellData;
+      }
       case "tag":
         return (
           <Tag
@@ -79,18 +90,28 @@ const TableCell = ({
             disable={cellData?.disable}
             className={cellData?.className}
             isCheckedInitially={cellData?.isCheckedInitially}
-            onToggle={cellData?.onToggle}
+            onToggle={(event) => {
+              updateTableData(rowIndex, cellIndex, event);
+              if (cellData?.onToggle) {
+                cellData.onToggle(event);
+              }
+            }}
           />
         );
       case "checkbox":
         return (
           <CheckBox
-            onChange={cellData?.onChange}
+            onChange={(event) => {
+              updateTableData(rowIndex, cellIndex, event?.target?.checked);
+              if (cellData?.onChange) {
+                cellData.onChange(event?.target?.checked);
+              }
+            }}
             label={cellData?.label}
             value={cellData?.value}
             disabled={cellData?.disabled}
             ref={cellData?.ref}
-            checked={cellData?.checked}
+            checked={tableData?.[rowIndex]?.values?.[cellIndex] || false}
             inputRef={cellData?.inputRef}
             pageType={cellData?.pageType}
             style={cellData?.style}
@@ -131,14 +152,44 @@ const TableCell = ({
           />
         );
       case "textinput":
-        return <TextInput {...cellData}></TextInput>;
+        return (
+          <TextInput
+            {...cellData}
+            onChange={(event) => {
+              updateTableData(rowIndex, cellIndex, event?.target?.value);
+              if (cellData?.onChange) {
+                cellData.onChange(event?.target?.value);
+              }
+            }}
+          ></TextInput>
+        );
       case "dropdown":
-        return <Dropdown {...cellData}></Dropdown>;
+        return (
+          <Dropdown
+            {...cellData}
+            select={(newValue) => {
+              updateTableData(rowIndex, cellIndex, newValue);
+              if (cellData?.select) {
+                cellData.select(newValue);
+              }
+            }}
+          ></Dropdown>
+        );
       case "multiselectdropdown":
-        return <MultiSelectDropdown {...cellData}></MultiSelectDropdown>;
+        return (
+          <MultiSelectDropdown
+            {...cellData}
+            onSelect={(newValue) => {
+              updateTableData(rowIndex, cellIndex, newValue);
+              if (cellData?.onSelect) {
+                cellData.onSelect(newValue);
+              }
+            }}
+          ></MultiSelectDropdown>
+        );
       case "custom":
       default:
-        return accessor ? getValueFromAccessor(cellData,accessor) : cellData;
+        return accessor ? getValueFromAccessor(cellData, accessor) : cellData;
     }
   };
 

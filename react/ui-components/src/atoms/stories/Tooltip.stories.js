@@ -29,7 +29,14 @@ export default {
     arrow: { control: "boolean" },
     style: { control: "object" },
     className: { control: "text" },
-    header:{control:"text"}
+    header: { control: "text" },
+    theme: {
+      control: "select",
+      options: [
+        "dark",
+        "light",
+      ],
+    },
   },
 };
 
@@ -52,28 +59,29 @@ const Template = (args) => (
   </div>
 );
 
-export const Basic = Template.bind({});
-Basic.args = {
+export const DarkThemeBasic = Template.bind({});
+DarkThemeBasic.args = {
   content: "Tooltip",
   arrow: false,
   placement: "bottom",
   style: {},
   className: "",
-  header:"",
-  description:""
+  header: "",
+  description: "",
 };
 
-export const MaxLabel = Template.bind({});
-MaxLabel.args = {
-  content: "Tooltip Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ",
+export const DarkThemeMaxLabel = Template.bind({});
+DarkThemeMaxLabel.args = {
+  content:
+    "Tooltip Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ",
   arrow: false,
   placement: "bottom",
   style: {},
   className: "",
 };
 
-export const WithArrow = Template.bind({});
-WithArrow.args = {
+export const DarkThemeWithArrow = Template.bind({});
+DarkThemeWithArrow.args = {
   content: "Tooltip",
   arrow: true,
   placement: "bottom",
@@ -81,17 +89,18 @@ WithArrow.args = {
   className: "",
 };
 
-export const MaxLabelWithArrow = Template.bind({});
-MaxLabelWithArrow.args = {
-  content: "Tooltip Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ",
+export const DarkThemeMaxLabelWithArrow = Template.bind({});
+DarkThemeMaxLabelWithArrow.args = {
+  content:
+    "Tooltip Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ",
   arrow: true,
   placement: "bottom",
   style: {},
   className: "",
 };
 
-export const CustomStyles = Template.bind({});
-CustomStyles.args = {
+export const DarkThemeCustomStyles = Template.bind({});
+DarkThemeCustomStyles.args = {
   content: "Tooltip",
   arrow: false,
   placement: "bottom",
@@ -104,50 +113,154 @@ CustomStyles.args = {
   className: "",
 };
 
-
-export const WithHeaderAndDescription = Template.bind({});
-WithHeaderAndDescription.args = {
+export const DarkThemeWithHeaderAndDescription = Template.bind({});
+DarkThemeWithHeaderAndDescription.args = {
   content: "Tooltip",
   arrow: false,
   placement: "bottom",
   style: {},
   className: "",
-  header:"Header",
-  description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt "
+  header: "Header",
+  description:
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ",
 };
 
 const getImageUrl = (imageKey) => {
   return IMAGES[imageKey];
 };
 
-const digitImg = getImageUrl("DIGIT_LIGHT");
+const digitdarkthemeImg = getImageUrl("DIGIT_DARK");
 
-const htmlTooltip = (
-    <React.Fragment>
-      {"And here's some amazing content It's very engaging. Right?"}<hr></hr>
-      <img
-        alt="here is your logo"
-        src={digitImg}
-      ></img>
-    </React.Fragment>
-  );
+const htmlTooltipForDarktheme = (
+  <React.Fragment>
+    {"And here's some amazing content It's very engaging. Right?"}
+    <hr></hr>
+    <img alt="here is your logo" src={digitdarkthemeImg}></img>
+  </React.Fragment>
+);
 
-  export const HtmlTooltip = Template.bind({});
-  HtmlTooltip.args = {
-    content: htmlTooltip,
-    arrow: false,
-    placement: "bottom",
-    style: {},
-    className: "",
-    header:"Header",
-    description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt "
-  };
-  
-  export const HtmlTooltipWithArrow = Template.bind({});
-  HtmlTooltipWithArrow.args = {
-    content: htmlTooltip,
-    arrow: true,
-    placement: "bottom",
-    style: {},
-    className: "",
-  };
+export const DarkThemeHtmlTooltip = Template.bind({});
+DarkThemeHtmlTooltip.args = {
+  content: htmlTooltipForDarktheme,
+  arrow: false,
+  placement: "bottom",
+  style: {},
+  className: "",
+  header: "Header",
+  description:
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ",
+};
+
+export const DarkThemeHtmlTooltipWithArrow = Template.bind({});
+DarkThemeHtmlTooltipWithArrow.args = {
+  content: htmlTooltipForDarktheme,
+  arrow: true,
+  placement: "bottom",
+  style: {},
+  className: "",
+};
+
+export const LightThemeBasic = Template.bind({});
+LightThemeBasic.args = {
+  content: "Tooltip",
+  arrow: false,
+  placement: "bottom",
+  style: {},
+  className: "",
+  header: "",
+  description: "",
+  theme: "light",
+};
+
+export const LightThemeMaxLabel = Template.bind({});
+LightThemeMaxLabel.args = {
+  content:
+    "Tooltip Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ",
+  arrow: false,
+  placement: "bottom",
+  style: {},
+  className: "",
+  theme: "light",
+};
+
+export const LightThemeWithArrow = Template.bind({});
+LightThemeWithArrow.args = {
+  content: "Tooltip",
+  arrow: true,
+  placement: "bottom",
+  style: {},
+  className: "",
+  theme: "light",
+};
+
+export const LightThemeMaxLabelWithArrow = Template.bind({});
+LightThemeMaxLabelWithArrow.args = {
+  content:
+    "Tooltip Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ",
+  arrow: true,
+  placement: "bottom",
+  style: {},
+  className: "",
+  theme: "light",
+};
+
+export const LightThemeCustomStyles = Template.bind({});
+LightThemeCustomStyles.args = {
+  content: "Tooltip",
+  arrow: false,
+  placement: "bottom",
+  style: {
+    backgroundColor: "#FFFFFF",
+    border: "3px solid black",
+    width: "200px",
+    textAlign: "center",
+  },
+  className: "",
+  theme: "light",
+};
+
+export const LightThemeWithHeaderAndDescription = Template.bind({});
+LightThemeWithHeaderAndDescription.args = {
+  content: "Tooltip",
+  arrow: false,
+  placement: "bottom",
+  style: {},
+  className: "",
+  header: "Header",
+  theme: "light",
+  description:
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ",
+};
+
+const digitlightthemeImg = getImageUrl("DIGIT_LIGHT");
+
+const htmlTooltipForLighttheme = (
+  <React.Fragment>
+    {"And here's some amazing content It's very engaging. Right?"}
+    <hr></hr>
+    <img alt="here is your logo" src={digitlightthemeImg}></img>
+  </React.Fragment>
+);
+
+export const LightThemeHtmlTooltip = Template.bind({});
+LightThemeHtmlTooltip.args = {
+  content: htmlTooltipForLighttheme,
+  arrow: false,
+  placement: "bottom",
+  style: {},
+  className: "",
+  header: "Header",
+  theme: "light",
+  description:
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ",
+};
+
+export const LightThemeHtmlTooltipWithArrow = Template.bind({});
+LightThemeHtmlTooltipWithArrow.args = {
+  content: htmlTooltipForLighttheme,
+  arrow: true,
+  placement: "bottom",
+  style: {},
+  className: "",
+  theme: "light",
+};

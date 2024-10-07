@@ -17,7 +17,7 @@ const RadioButtons = (props) => {
   );
 
   return (
-    <div style={props?.style} className={`digit-radio-options-wrap ${props?.additionalWrapperClass ? props?.additionalWrapperClass : ""}`}>
+    <div style={props?.style} className={`digit-radio-options-wrap ${props?.alignVertical ? "vertical" : ""} ${props?.additionalWrapperClass ? props?.additionalWrapperClass : ""}`}>
       {props?.options?.map((option, ind) => {
         if (props?.optionsKey && !props?.isDependent) {
           return (

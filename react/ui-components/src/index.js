@@ -98,7 +98,8 @@ import {
   TableFooter,
   TableBody,
   TableRow,
-  TableCell
+  TableCell,
+  NestedTable
 } from "./atoms";
 
 import { FieldComposer, FieldController, Fields, FormComposerV2, Modal, UploadFileComposer, FieldV1, InboxSearchComposer, ResultsTable } from "./hoc";
@@ -125,7 +126,9 @@ import {
   MenuCardWrapper,
   TableMolecule,
   MetricCard,
-  FormCard
+  FormCard,
+  FilterCard,
+  ViewCard
 } from "./molecules";
 
 // import { initCoreLibraries } from "@egovernments/digit-ui-libraries-core";
@@ -223,6 +226,8 @@ export {
   LandingPageCard,
   MetricCard,
   FormCard,
+  FilterCard,
+  ViewCard,
   TableMolecule,
   MenuCard,
   MenuCardWrapper,
@@ -267,5 +272,6 @@ export {
   TableFooter,
   TableBody,
   TableRow,
-  TableCell
+  TableCell,
+  NestedTable
 };

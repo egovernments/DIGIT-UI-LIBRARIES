@@ -1,7 +1,6 @@
-import React, { Children } from "react";
+import React, { Children ,useState,useEffect} from "react";
 import PropTypes from "prop-types";
 import { useLocation } from "react-router-dom";
-import { Card, StringManipulator, Divider, CustomSVG } from "../atoms";
 
 const FormCard = ({
   type,
@@ -15,6 +14,33 @@ const FormCard = ({
   footerData,
   ...props
 }) => {
+
+  const [isMobileView, setIsMobileView] = useState(
+    (window.innerWidth / window.innerHeight <= 9/16)
+  );
+  const onResize = () => {
+    if (window.innerWidth / window.innerHeight <= 9/16) {
+      if (!isMobileView) {
+        setIsMobileView(true);
+      }
+    } else {
+      if (isMobileView) {
+        setIsMobileView(false);
+      }
+    }
+  };
+  useEffect(() => {
+    window.addEventListener("resize", () => {
+      onResize();
+    });
+    return () => {
+      window.addEventListener("resize", () => {
+        onResize();
+      });
+    };
+  });
+
+
   // Parse the layout prop to determine rows and columns
   const [rows, columns] = layout
   ? layout.split("*").map(num => {
@@ -62,10 +88,10 @@ const FormCard = ({
           !footerData || footerData.length <= 0 || footerData === undefined
             ? "withoutFooter"
             : ""
-        }`}
-        style={gridStyles}
+        } ${withDivider ? "with-divider" : ""}`}
+        style={isMobileView ? {...style} : gridStyles}
       >
-        {childrenWithDividers}
+        {!isMobileView ? childrenWithDividers : children}
       </div>
       {footerData && (
         <div className={`digit-form-card-footer`}>
