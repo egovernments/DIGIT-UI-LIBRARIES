@@ -2,7 +2,7 @@ import React from "react";
 import { Colors } from "../../constants/colors/colorconstants";
 
 export default {
-  title: "ColorLibrary",
+  title: "Foundations/ColorLibrary",
   argTypes: {
     color: {
       control: {
@@ -57,9 +57,14 @@ const hexCodes = {
 
 
 const Template = (args) => {
+
+  const capitalizedColorName = args?.color?.replace(/\b\w/g, (char) =>
+    char.toUpperCase()
+  );
+
   return (
     <div>
-      <div style={{...args?.style,top:"25%",border:"none"}} className={`typography body-l`}>{`${args?.color} : ${hexCodes[args?.color]}`}</div>
+      <div style={{...args?.style,top:"25%",border:"none"}} className={`typography body-l`}>{`${capitalizedColorName} : ${hexCodes[args?.color]}`}</div>
       <button className={`color-constants-story ${args?.color}`} style={args?.style}></button>
     </div>
   );

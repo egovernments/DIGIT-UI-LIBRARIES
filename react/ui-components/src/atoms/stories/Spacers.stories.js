@@ -2,7 +2,7 @@ import React from "react";
 import { Spacers } from "../../constants/spacers/spacers";
 
 export default {
-  title: "Spacers",
+  title: "Foundations/Spacers",
   argTypes: {
     spacer: {
       control: {

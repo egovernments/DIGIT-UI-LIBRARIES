@@ -1,7 +1,7 @@
 import React from "react";
 
 export default {
-  title: "Typography",
+  title: "Foundations/Typography",
   argTypes: {
     typoName: {
       control: {
@@ -52,6 +52,7 @@ const style = {
   alignItems: "center",
   justifyContent: "center",
   transform: "translate(-50%, -50%)",
+  lineHeight:"normal"
 };
 
 export const Playground = Template.bind({});
@@ -61,42 +62,42 @@ Playground.args = {
 };
 
 export const HeadingXL = () => (
-  <div style={style} className={`typography heading-xl`}>Heading XL</div>
+  <div style={style} className={`typography heading-xl`}>Lorem ipsum dolor sit amet, consectetur adipiscing</div>
 );
 
 export const HeadingL = () => (
-  <div style={style} className="typography heading-l">Heading L</div>
+  <div style={style} className="typography heading-l">Lorem ipsum dolor sit amet, consectetur adipiscing</div>
 );
 
 export const HeadingM = () => (
-  <div style={style} className="typography heading-m">Heading M</div>
+  <div style={style} className="typography heading-m">Lorem ipsum dolor sit amet, consectetur adipiscing</div>
 );
 
 export const HeadingS = () => (
-  <div style={style} className="typography heading-s">Heading S</div>
+  <div style={style} className="typography heading-s">Lorem ipsum dolor sit amet, consectetur adipiscing</div>
 );
 
 export const HeadingXS = () => (
-  <div style={style} className="typography heading-xs">Heading XS</div>
+  <div style={style} className="typography heading-xs">Lorem ipsum dolor sit amet, consectetur adipiscing</div>
 );
 
 export const CaptionL = () => (
-  <div style={style} className="typography caption-l">Caption L</div>
+  <div style={style} className="typography caption-l">Lorem ipsum dolor sit amet, consectetur adipiscing</div>
 );
 
 export const CaptionM = () => (
-  <div style={style} className="typography caption-m">Caption M</div>
+  <div style={style} className="typography caption-m">Lorem ipsum dolor sit amet, consectetur adipiscing</div>
 );
 
 export const CaptionS = () => (
-  <div style={style} className="typography caption-s">Caption S</div>
+  <div style={style} className="typography caption-s">Lorem ipsum dolor sit amet, consectetur adipiscing</div>
 );
 
-export const BodyL = () => <div style={style} className="typography body-l">Body L</div>;
+export const BodyL = () => <div style={style} className="typography body-l">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore </div>;
 
-export const BodyS = () => <div style={style} className="typography body-s">Body S</div>;
+export const BodyS = () => <div style={style} className="typography body-s">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore </div>;
 
-export const BodyXS = () => <div style={style} className="typography body-xs">Body XS</div>;
+export const BodyXS = () => <div style={style} className="typography body-xs">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore </div>;
 
 export const Label = () => <div style={style} className="typography label">Label</div>;
 

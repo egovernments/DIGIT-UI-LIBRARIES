@@ -6,7 +6,7 @@ import newSceneAnimation from "../../constants/animations/newScene.json";
 import warningOutlineAnimation from "../../constants/animations/warningOutline.json";
 
 export default {
-  title: "Animations",
+  title: "Foundations/Animations",
   component: Animation,
   argTypes: {
     loop: {
