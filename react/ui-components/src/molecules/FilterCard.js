@@ -87,9 +87,12 @@ const FilterCard = ({
   const handleOverlayClick = () => {
     setIsClosing(true);
     setTimeout(() => {
-      onOverlayClick();
+      if(onOverlayClick){
+        onOverlayClick();
+      }
     }, 300);
   };
+
 
   const renderButtons = () =>
     isMobileView || layoutType === "vertical" ? (

@@ -9,15 +9,27 @@ export default {
       control: { type: "check" },
     },
   },
-  title: "SVG",
+  title: "Foundations/Iconography",
   component: SVG,
   icon:""
 };
 
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  transform: "translate(-50%, -50%)"
+};
+
+
 const Template = (args) => {
   const IconComponent = SVG[args.icon];
   return (
-    <div>
+    <div style={style}>
       {IconComponent ? <IconComponent {...args} /> : "Icon not found"}
     </div>
   );

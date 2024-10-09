@@ -6,6 +6,7 @@ import TableCell from "./TableCell";
 import TableRow from "./TableRow";
 import Card from "./Card";
 import { SVG } from "./SVG";
+import PropTypes from 'prop-types';
 
 const NestedTable = ({ nestedData, toggleRowExpansion, rowIndex }) => {
   const lastNestedData = nestedData[nestedData.length - 1];
@@ -94,5 +95,12 @@ const NestedTable = ({ nestedData, toggleRowExpansion, rowIndex }) => {
     renderNestedTable()
   );
 };
+
+
+NestedTable.propTypes = {
+  nestedData: PropTypes.arrayOf(PropTypes.object).isRequired,
+  toggleRowExpansion: PropTypes.func.isRequired,
+  rowIndex: PropTypes.number.isRequired,
+  };
 
 export default NestedTable;

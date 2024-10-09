@@ -149,11 +149,11 @@ export const PrimaryCardWithTextBlock = () => (
       caption="Caption"
       captionClassName=""
       header="Header"
-      headerClasName=""
+      headerClassName=""
       subHeader="Sub Header"
-      subHeaderClasName=""
+      subHeaderClassName=""
       body="Body"
-      bodyClasName=""
+      bodyClassName=""
     ></TextBlock>
   </Card>
 );

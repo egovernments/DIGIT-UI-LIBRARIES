@@ -83,8 +83,8 @@ const horizontalChildren = [
   </LabelFieldPair>
 ];
 
-export const VeritcalDefault = Template.bind({});
-VeritcalDefault.args = {
+export const VerticalDefault = Template.bind({});
+VerticalDefault.args = {
   title: "Filter",
   addClose: false,
   children: children,
@@ -122,8 +122,8 @@ VerticalWithoutHeaderAndFooter.args = {
   hideIcon: true,
 };
 
-export const VeritcalWithCustomStyles = Template.bind({});
-VeritcalWithCustomStyles.args = {
+export const VerticalWithCustomStyles = Template.bind({});
+VerticalWithCustomStyles.args = {
   title: "Filter",
   addClose: true,
   children: children,

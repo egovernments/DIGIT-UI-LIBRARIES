@@ -56,7 +56,7 @@ export const ExampleCard = () => (
         padding: "0px",
       }}
     >
-      <TextBlock header="Heading" headerClasName=""></TextBlock>
+      <TextBlock header="Heading" headerClassName=""></TextBlock>
       <Card
         type={"primary"}
         style={{
@@ -67,7 +67,7 @@ export const ExampleCard = () => (
           padding: "0px",
         }}
       >
-        <TextBlock subHeader="Details" subHeaderClasName=""></TextBlock>
+        <TextBlock subHeader="Details" subHeaderClassName=""></TextBlock>
         <ViewCardFieldPair
           label={"Start Date"}
           value={"12 August 2023"}
@@ -92,7 +92,7 @@ export const ExampleCard = () => (
     >
       <TextBlock
         subHeader="Add your start and end dates for cycles"
-        subHeaderClasName=""
+        subHeaderClassName=""
       ></TextBlock>
       <Card type={"secondary"}>
         <div
@@ -110,7 +110,7 @@ export const ExampleCard = () => (
               flexGrow: 1,
             }}
           >
-            <TextBlock body="Attribute" bodyClasName=""></TextBlock>
+            <TextBlock body="Attribute" bodyClassName=""></TextBlock>
             <TextInput type="text"></TextInput>
           </div>
           <div
@@ -118,7 +118,7 @@ export const ExampleCard = () => (
               flexGrow: 1,
             }}
           >
-            <TextBlock body="Operator" bodyClasName=""></TextBlock>
+            <TextBlock body="Operator" bodyClassName=""></TextBlock>
             <TextInput type="text"></TextInput>
           </div>
           <div
@@ -126,7 +126,7 @@ export const ExampleCard = () => (
               flexGrow: 1,
             }}
           >
-            <TextBlock body="Value" bodyClasName=""></TextBlock>
+            <TextBlock body="Value" bodyClassName=""></TextBlock>
             <TextInput type="text"></TextInput>
           </div>
           <Button
@@ -165,7 +165,7 @@ export const ExampleCard = () => (
     >
       <TextBlock
         subHeader="Add your start and end dates for cycles"
-        subHeaderClasName=""
+        subHeaderClassName=""
       ></TextBlock>
       <LabelFieldPair
         style={{
@@ -177,7 +177,7 @@ export const ExampleCard = () => (
       >
         <TextBlock
           body="Field 1"
-          bodyClasName=""
+          bodyClassName=""
           style={{ width: "100%" }}
         ></TextBlock>
         <TextInput type="text" placeholder={"Value"}></TextInput>
@@ -192,7 +192,7 @@ export const ExampleCard = () => (
       >
         <TextBlock
           body="Field 2"
-          bodyClasName=""
+          bodyClassName=""
           style={{ width: "100%" }}
         ></TextBlock>
         <TextInput type="text" placeholder={"Value"}></TextInput>
@@ -207,7 +207,7 @@ export const ExampleCard = () => (
       >
         <TextBlock
           body="Field 3"
-          bodyClasName=""
+          bodyClassName=""
           style={{ width: "100%" }}
         ></TextBlock>
         <TextInput type="text" placeholder={"Value"}></TextInput>

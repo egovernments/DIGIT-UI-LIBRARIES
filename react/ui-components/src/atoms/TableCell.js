@@ -231,6 +231,10 @@ TableCell.propTypes = {
     PropTypes.func,
     PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
   ]),
+  updateTableData: PropTypes.func,
+  tableData: PropTypes.array,
+  rowIndex: PropTypes.number,
+  cellIndex: PropTypes.number,
 };
 
 TableCell.defaultProps = {
