@@ -2,7 +2,8 @@
 import 'package:digit_ui_components/widgets/atoms/group_menu_card.dart';
 import 'package:flutter/material.dart';
 import 'package:digit_ui_components/widgets/atoms/text_block.dart';
-import 'package:storybook_flutter/storybook_flutter.dart';
+import 'package:storybook_toolkit/storybook_toolkit.dart';
+
 
 List<Story> groupMenuCardStories() {
   return [
@@ -40,37 +41,37 @@ List<Story> groupMenuCardStories() {
         crossAxisCount: 2,
         items: [
           MenuCardItem(
-            centerWidget: Text('80%', style: Theme.of(context).textTheme.headline6),
+            centerWidget: Text('80%', style: Theme.of(context).textTheme.headlineLarge),
             label: 'Home',
             description: 'Navigate to home screen',
           ),
           MenuCardItem(
-            centerWidget: Text('80%', style: Theme.of(context).textTheme.headline6),
+            centerWidget: Text('80%', style: Theme.of(context).textTheme.headlineLarge),
             label: 'Settings',
             description: 'Modify your preferences',
           ),
           MenuCardItem(
-            centerWidget: Text('80%', style: Theme.of(context).textTheme.headline6),
+            centerWidget: Text('80%', style: Theme.of(context).textTheme.headlineLarge),
             label: 'Profile',
             description: 'View your profile',
           ),
           MenuCardItem(
-            centerWidget: Text('80%', style: Theme.of(context).textTheme.headline6),
+            centerWidget: Text('80%', style: Theme.of(context).textTheme.headlineLarge),
             label: 'Notifications',
             description: 'Check recent alerts',
           ),
           MenuCardItem(
-            centerWidget: Text('80%', style: Theme.of(context).textTheme.headline6),
+            centerWidget: Text('80%', style: Theme.of(context).textTheme.headlineLarge),
             label: 'Profile',
             description: 'View your profile',
           ),
           MenuCardItem(
-            centerWidget: Text('80%', style: Theme.of(context).textTheme.headline6),
+            centerWidget: Text('80%', style: Theme.of(context).textTheme.headlineLarge),
             label: 'Notifications',
             description: 'Check recent alerts',
           ),
           MenuCardItem(
-            centerWidget: Text('80%', style: Theme.of(context).textTheme.headline6),
+            centerWidget: Text('80%', style: Theme.of(context).textTheme.headlineLarge),
             label: 'Profile',
             description: 'View your profile',
           ),

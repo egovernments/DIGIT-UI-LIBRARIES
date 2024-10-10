@@ -1,0 +1,44 @@
+import 'dart:html';
+import 'dart:ui_web';
+import 'package:flutter/material.dart';
+
+class IframeWidget extends StatelessWidget {
+  final String url; // This is the full URL
+  final double width;
+  final double height;
+
+  const IframeWidget({
+    Key? key,
+    required this.url,
+    this.width = 800,
+    this.height = 600,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    // final String corsProxy = 'http://localhost:8080/'; // Use HTTPS
+    // // Extract only the path from the URL for the proxied URL
+    //
+    // final String proxiedUrl = corsProxy + url;// Concatenate with the proxy
+
+    // Register the viewType for the HTML iframe element
+    final String viewType = 'iframeElement-$url';
+    platformViewRegistry.registerViewFactory(
+      viewType,
+          (int viewId) => IFrameElement()
+        ..src = url
+        ..style.border = 'none'
+        ..width = width.toString()
+        ..height = height.toString(),
+    );
+
+    return Center(
+      child: SizedBox(
+        width: width,
+        height: height,
+        child: HtmlElementView(viewType: viewType),
+      ),
+    );
+  }
+}
+

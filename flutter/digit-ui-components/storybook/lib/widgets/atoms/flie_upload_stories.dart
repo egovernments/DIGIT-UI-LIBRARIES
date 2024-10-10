@@ -2,7 +2,7 @@ import 'package:digit_ui_components/utils/validators/file_validator.dart';
 import 'package:digit_ui_components/widgets/atoms/upload_drag.dart';
 import 'package:digit_ui_components/widgets/atoms/upload_image.dart';
 import 'package:digit_ui_components/widgets/atoms/upload_popUp.dart';
-import 'package:storybook_flutter/storybook_flutter.dart';
+import 'package:storybook_toolkit/storybook_toolkit.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';

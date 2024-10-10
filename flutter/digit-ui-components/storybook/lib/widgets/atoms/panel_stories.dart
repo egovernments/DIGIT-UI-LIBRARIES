@@ -2,7 +2,8 @@ import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:digit_ui_components/widgets/atoms/panel.dart';
 import 'package:flutter/material.dart';
-import 'package:storybook_flutter/storybook_flutter.dart';
+import 'package:storybook_toolkit/storybook_toolkit.dart';
+
 
 import '../../plugins/code_view_wrapper.dart';
 
@@ -11,14 +12,6 @@ List<Story> panelStories() {
     Story(
       name: 'Atom/Panel/Success/Default',
       builder: (context) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          CodeViewProvider.of(context)?.updateCodeString('''
-Panel(
-  type: PanelType.success,
-  title: 'Success Message',
-)
-          ''');
-        });
 
         return Panel(
           type: PanelType.success,
@@ -29,15 +22,6 @@ Panel(
     Story(
       name: 'Atom/Panel/Success/With description',
       builder: (context) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          CodeViewProvider.of(context)?.updateCodeString('''
-Panel(
-  type: PanelType.success,
-  title: 'Success Message',
-  description: 'description',
-)
-          ''');
-        });
 
         final descriptionString = context.knobs.text(
           label: 'Description (comma-separated)',
@@ -71,15 +55,6 @@ Panel(
     Story(
       name: 'Atom/Panel/Success/Without animation',
       builder: (context) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          CodeViewProvider.of(context)?.updateCodeString('''
-Panel(
-  type: PanelType.success,
-  animate: false,
-  title: 'Success Message',
-)
-          ''');
-        });
 
         return Panel(
           type: PanelType.success,
@@ -91,15 +66,6 @@ Panel(
     Story(
       name: 'Atom/Panel/Success/Animation repeat',
       builder: (context) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          CodeViewProvider.of(context)?.updateCodeString('''
-Panel(
-  type: PanelType.success,
-  repeat: true,
-  title: 'Success Message',
-)
-          ''');
-        });
 
         return Panel(
           type: PanelType.success,
@@ -111,14 +77,6 @@ Panel(
     Story(
       name: 'Atom/Panel/Error/Default',
       builder: (context) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          CodeViewProvider.of(context)?.updateCodeString('''
-Panel(
-  type: PanelType.error,
-  title: 'Error Message',
-)
-          ''');
-        });
 
         return Panel(
           type: PanelType.error,
@@ -129,15 +87,6 @@ Panel(
     Story(
       name: 'Atom/Panel/Error/With description',
       builder: (context) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          CodeViewProvider.of(context)?.updateCodeString('''
-Panel(
-  type: PanelType.error,
-  title: 'Error Message',
-  description: 'description',
-)
-          ''');
-        });
 
         final descriptionString = context.knobs.text(
           label: 'Description (comma-separated)',
@@ -171,15 +120,6 @@ Panel(
     Story(
       name: 'Atom/Panel/Error/Without animation',
       builder: (context) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          CodeViewProvider.of(context)?.updateCodeString('''
-Panel(
-  type: PanelType.error,
-  animate: false,
-  title: 'Error Message',
-)
-          ''');
-        });
 
         return Panel(
           type: PanelType.error,
@@ -191,15 +131,6 @@ Panel(
     Story(
       name: 'Atom/Panel/Error/Animation repeat',
       builder: (context) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          CodeViewProvider.of(context)?.updateCodeString('''
-Panel(
-  type: PanelType.error,
-  repeat: true,
-  title: 'Error Message',
-)
-          ''');
-        });
 
         return Panel(
           type: PanelType.error,

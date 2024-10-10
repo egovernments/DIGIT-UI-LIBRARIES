@@ -2,7 +2,8 @@ import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/widgets/atoms/digit_divider.dart';
 import 'package:digit_ui_components/widgets/atoms/text_block.dart';
 import 'package:digit_ui_components/widgets/atoms/upload_drag.dart';
-import 'package:storybook_flutter/storybook_flutter.dart';
+import 'package:storybook_toolkit/storybook_toolkit.dart';
+
 import 'package:flutter/material.dart';
 import 'package:digit_ui_components/widgets/molecules/form_card.dart';
 

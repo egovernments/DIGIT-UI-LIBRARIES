@@ -11,6 +11,7 @@ class DigitAccordion extends StatefulWidget {
   final Color? headerBackgroundColor;
   final Color? contentBackgroundColor;
   final double headerElevation;
+  final EdgeInsets? padding;
   final bool divider;
 
   const DigitAccordion({
@@ -21,6 +22,7 @@ class DigitAccordion extends StatefulWidget {
     this.headerBackgroundColor,
     this.contentBackgroundColor,
     this.headerElevation = 0,
+    this.padding,
     this.divider = false,
   }) : super(key: key);
 
@@ -69,7 +71,7 @@ class _DigitAccordionState extends State<DigitAccordion>
         return Column(
           children: [
             Padding(
-              padding: const EdgeInsets.all(12),
+              padding: widget.padding ?? const EdgeInsets.all(12),
               child: _buildAccordionItem(item, index, context),
             ),
             if (widget.divider && index < widget.items.length - 1)

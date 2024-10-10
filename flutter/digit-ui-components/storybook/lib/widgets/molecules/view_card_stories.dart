@@ -6,7 +6,7 @@ import 'package:digit_ui_components/widgets/atoms/text_block.dart';
 import 'package:digit_ui_components/widgets/atoms/timeline.dart';
 import 'package:digit_ui_components/widgets/atoms/upload_drag.dart';
 import 'package:digit_ui_components/widgets/molecules/digit_card.dart';
-import 'package:storybook_flutter/storybook_flutter.dart';
+import 'package:storybook_toolkit/storybook_toolkit.dart';
 import 'package:flutter/material.dart';
 import 'package:digit_ui_components/widgets/molecules/form_card.dart';
 import 'package:digit_ui_components/widgets/atoms/dropdown_wrapper.dart';

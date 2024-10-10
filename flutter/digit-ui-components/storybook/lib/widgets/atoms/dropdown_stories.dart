@@ -5,7 +5,7 @@ import 'package:digit_ui_components/widgets/atoms/digit_dropdown_input.dart';
 import 'package:digit_ui_components/widgets/atoms/digit_multiselect_dropdown.dart';
 import 'package:digit_ui_components/widgets/atoms/digit_tree_select_dropdown.dart';
 import 'package:flutter/material.dart';
-import 'package:storybook_flutter/storybook_flutter.dart';
+import 'package:storybook_toolkit/storybook_toolkit.dart';
 
 List<Story> dropdownStories() {
   return [

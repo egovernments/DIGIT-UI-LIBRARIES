@@ -1,6 +1,8 @@
 dependency_overrides:
   digit_ui_components:
+    path: ../digit_components
+
+  storybook_toolkit:
     git:
-      url: https://github.com/egovernments/DIGIT-UI-LIBRARIES
-      ref: flutter_component_0.0.2
-      path: ./flutter/digit-ui-components/digit_components
+      url: https://github.com/StorybookToolkit/storybook_toolkit
+      ref: master

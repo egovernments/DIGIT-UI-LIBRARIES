@@ -1,7 +1,8 @@
 import 'package:digit_ui_components/theme/ComponentTheme/switch_theme.dart';
 import 'package:digit_ui_components/widgets/atoms/switch.dart';
 import 'package:flutter/material.dart';
-import 'package:storybook_flutter/storybook_flutter.dart';
+import 'package:storybook_toolkit/storybook_toolkit.dart';
+
 
 List<Story> switchStories() {
   return [

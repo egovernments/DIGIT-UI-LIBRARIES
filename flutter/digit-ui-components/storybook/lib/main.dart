@@ -1,14 +1,9 @@
 import 'dart:convert';
-import 'package:digit_ui_components/models/DropdownModels.dart';
+import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/services/component_localization_delegate.dart';
-import 'package:digit_ui_components/theme/colors.dart';
-import 'package:digit_ui_components/widgets/molecules/digit_header.dart';
-import 'package:digit_ui_components/widgets/molecules/hamburger.dart';
+import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:inspector/inspector.dart';
-import 'package:storybook/plugins/code_view_plugin.dart';
-import 'package:storybook/plugins/code_view_wrapper.dart';
 import 'package:storybook/widgets/atoms/Info_card_stories.dart';
 import 'package:storybook/widgets/atoms/accordian_stories.dart';
 import 'package:storybook/widgets/atoms/action_card_stories.dart';
@@ -43,6 +38,13 @@ import 'package:storybook/widgets/atoms/timeline_stories.dart';
 import 'package:storybook/widgets/atoms/toast_stories.dart';
 import 'package:storybook/widgets/atoms/toggle_stories.dart';
 import 'package:storybook/widgets/atoms/tooltip_2_stories.dart';
+import 'package:storybook/widgets/foundations/animations_stories.dart';
+import 'package:storybook/widgets/foundations/colors_stories.dart';
+import 'package:storybook/widgets/foundations/icons_stories.dart';
+import 'package:storybook/widgets/foundations/spacers_stories.dart';
+import 'package:storybook/widgets/foundations/typography_stories.dart';
+import 'package:storybook/widgets/introduction/introduction_story.dart';
+import 'package:storybook/widgets/molecules/accordion_list_stories.dart';
 import 'package:storybook/widgets/molecules/bottom_sheet_stories.dart';
 import 'package:storybook/widgets/molecules/card_stories.dart';
 import 'package:storybook/widgets/molecules/digit_slider_stories.dart';
@@ -58,7 +60,9 @@ import 'package:storybook/widgets/molecules/show_pop_up_stories.dart';
 import 'package:storybook/widgets/molecules/side_nav_stories.dart';
 import 'package:storybook/widgets/molecules/timeline_molecule_stories.dart';
 import 'package:storybook/widgets/molecules/view_card_stories.dart';
-import 'package:storybook_flutter/storybook_flutter.dart';
+import 'package:storybook/widgets/showcase_stories/show_case_widget_stories2.dart';
+import 'package:storybook/widgets/showcase_stories/showcase_stories.dart';
+import 'package:storybook_toolkit/storybook_toolkit.dart';
 import 'localization.dart';
 
 void main() {
@@ -71,7 +75,8 @@ class MyApp extends StatelessWidget {
   /// This widget is the root of the application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
+      theme: DigitTheme.instance.mobileTheme, ///todo: need to check as theme is not being loaded correctly in storybook
       home: MyHomePage(title: 'Digit Components Page'),
     );
   }
@@ -113,355 +118,83 @@ class MyHomePageState extends State<MyHomePage> {
   Widget _buildContent() {
     // Your widget tree goes here
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: MediaQuery.of(context).size.width < 500
-            ? const Size.fromHeight(56)
-            : const Size.fromHeight(64), // here the desired height
-        child: Builder(
-          builder: (context) => CustomHeaderMolecule(
-            title: 'Digit UI Library',
-            type: HeaderType.light,
-            leadingDigitLogo: false,
-            trailingDigitLogo: true,
-            onMenuTap: () {
-              Scaffold.of(context).openDrawer();
-            },
-            actions: [
-              HeaderAction(
-                widget: Row(
-                  children: [
-                    const Text('City'),
-                    const SizedBox(
-                      width: 8,
-                    ),
-                    Icon(
-                      Icons.arrow_drop_down,
-                      color: const DigitColors().light.textPrimary,
-                    )
-                  ],
+      body: Storybook(
+        canvasColor: Theme.of(context).colorTheme.paper.primary,
+        logoWidget: Container(
+          padding: EdgeInsets.only(left: 24, top: 16),
+            child: Row(
+              children: [
+                Image.asset(
+                  'assets/images/Group 1079.png',
+                  color: Theme.of(context).colorTheme.primary.primary1,
+                  //height: 16,
                 ),
-                isSearchable: true,
-                dropdownItems: const [
-                  DropdownItem(code: '1', name: 'Option 1'),
-                  DropdownItem(code: '2', name: 'Option 2'),
-                  DropdownItem(code: '3', name: 'Option 3'),
-                  DropdownItem(code: '4', name: 'Option 4'),
-                ],
-              ),
-              HeaderAction(
-                widget: Row(
-                  children: [
-                    const Text('Language'),
-                    const SizedBox(
-                      width: 8,
-                    ),
-                    Icon(
-                      Icons.arrow_drop_down,
-                      color: const DigitColors().light.textPrimary,
-                    )
-                  ],
-                ),
-                dropdownItems: const [
-                  DropdownItem(code: '1', name: 'Hindi'),
-                  DropdownItem(code: '2', name: 'English'),
-                  DropdownItem(code: '3', name: 'French'),
-                ],
-              ),
-              HeaderAction(
-                widget: Container(
-                  width: 40,
-                  height: 40,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                        color: DigitColors().light.primary2, width: 1.0),
-                    color: DigitColors().light.primary2,
-                  ),
-                  child: Center(
-                    child: Text(
-                      'R',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          color: const DigitColors().light.paperPrimary),
-                    ),
-                  ),
-                ),
-                dropdownItems: const [
-                  DropdownItem(code: '1', name: 'Edit Profile'),
-                  DropdownItem(code: '2', name: 'Logout'),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-      drawer: SideBar(
-        logOutDigitButtonLabel: 'logout',
-        sidebarItems: [
-          SidebarItem(
-            title: 'Home',
-            icon: Icons.home,
-            onPressed: () {
-              Navigator.of(context).pop();
-              // Navigate to Home
-            },
-          ),
-          SidebarItem(
-            title: 'Language',
-            icon: Icons.language,
-            onPressed: () {
-              // Implement language change
-            },
-          ),
-          SidebarItem(
-            title: 'Profile',
-            icon: Icons.person,
-            onPressed: () {
-              Navigator.of(context).pop();
-              // Navigate to Profile
-            },
-          ),
-          SidebarItem(
-            title: 'View Downloaded Data',
-            icon: Icons.download,
-            onPressed: () {
-              Navigator.of(context).pop();
-              // Navigate to Downloaded Data
-            },
-          ),
+
+              ],
+            )),
+        initialStory: 'Introduction/doc',
+        stories: [
+          ...introStories(),
+          ...animationStories(),
+          ...colorStories(),
+          ...materialIconStories(),
+          ...spacerStories(),
+          ...typographyStories(),
+          ...accordionStories(),
+          ...actionStories(),
+          ...digitBackButtonStories(),
+          ...DigitBreadCrumbStories(),
+          ...DigitButtonStories(),
+          ...digitButtonListStories(),
+          ...checkboxStories(),
+          ...chipStories(),
+          ...dividerStories(),
+          ...dropdownStories(),
+          ...fileUploaderStories(),
+          ...filterCardStories(),
+          ...inputFieldStories(),
+          ...infoCardStories(),
+          ...listViewStories(),
+          ...loaderStories(),
+          ...matrixCardStories(),
+          ...menuCardStories(),
+          ...otpInputStories(),
+          ...groupMenuCardStories(),
+          ...panelStories(),
+          ...popUpStories(),
+          ...radioListStories(),
+          ...selectionCardStories(),
+          ...switchStories(),
+          ...stepperStories(),
+          ...searchBarStories(),
+          ...timeLineStories(),
+          ...toastStories(),
+          ...toggleGroupStories(),
+          ...toolTip2Stories(),
+          ...digitTagStories(),
+          ...tabStories(),
+          ...textBlockStories(),
+
+          /// molecules stories...
+          ...accordionListStories(),
+          ...bottomSheetStories(),
+          ...cardStories(),
+          ...formCardStories(),
+          ...footerMoleculeStories(),
+          ...headerMoleculeStories(),
+          ...hamBurgerStories(),
+          ...landingPageCardStories(),
+          ...languageSelectionCardStories(),
+          ...panelCardStories(),
+          ...showPopUPStories(),
+          ...sideNavStories(),
+          ...sliderStories(),
+          ...tableStories(),
+          ...timelineMoleculeStories(),
+          ...viewCardStories(),
+          ...showcaseStories(),
+          ...showcaseStories2(),
         ],
-      ),
-      body: Inspector(
-        isEnabled: true,
-        child: CodeViewWrapper(
-          child: Storybook(
-            plugins: [
-              ThemeModePlugin(),
-              CodeViewPlugin(
-                enableCodeView: true,
-                onShowCodeView: (isEnabled) {
-                  // Handle code view toggle state here if needed
-                },
-              ),
-            ],
-            initialStory: 'Screens/Scaffold',
-            stories: [
-              ...accordionStories(),
-              ...actionStories(),
-              ...digitBackButtonStories(),
-              ...DigitBreadCrumbStories(),
-              ...DigitButtonStories(),
-              ...digitButtonListStories(),
-              ...checkboxStories(),
-              ...chipStories(),
-              ...dividerStories(),
-              ...dropdownStories(),
-              ...fileUploaderStories(),
-              ...filterCardStories(),
-              ...inputFieldStories(),
-              ...infoCardStories(),
-              ...listViewStories(),
-              ...loaderStories(),
-              ...matrixCardStories(),
-              ...menuCardStories(),
-              ...otpInputStories(),
-              ...groupMenuCardStories(),
-              ...panelStories(),
-              ...popUpStories(),
-              ...radioListStories(),
-              ...selectionCardStories(),
-              ...switchStories(),
-              ...stepperStories(),
-              ...searchBarStories(),
-              ...timeLineStories(),
-              ...toastStories(),
-              ...toggleGroupStories(),
-              ...toolTip2Stories(),
-              ...digitTagStories(),
-              ...tabStories(),
-              ...textBlockStories(),
-
-              /// molecules stories...
-              ...bottomSheetStories(),
-              ...cardStories(),
-              ...formCardStories(),
-              ...footerMoleculeStories(),
-              ...headerMoleculeStories(),
-              ...hamBurgerStories(),
-              ...landingPageCardStories(),
-              ...languageSelectionCardStories(),
-              ...panelCardStories(),
-              ...showPopUPStories(),
-              ...sideNavStories(),
-              ...sliderStories(),
-              ...tableStories(),
-              ...timelineMoleculeStories(),
-              ...viewCardStories(),
-              // Story(
-              //   name: 'DOB',
-              //   builder: (context) => DigitDobPicker(
-              //     datePickerFormControl: 'sdlkfjsdlkf',
-              //     datePickerLabel: 'date of birth',
-              //     ageFieldLabel: 'Age',
-              //     yearsHintLabel: 'years',
-              //     monthsHintLabel: 'months',
-              //     separatorLabel: '(or)',
-              //     yearsAndMonthsErrMsg: 'error',
-              //     initialDate: DateTime(DateTime.now().year - 150, DateTime.now().month, DateTime.now().day),
-              //     onChangeOfFormControl: (formControl) {
-              //       // // Handle changes to the control's value here
-              //       // final value = formControl.value;
-              //       // if (value == null) {
-              //       //   formControl.setErrors({'': true});
-              //       // } else {
-              //       //   DigitDOBAgeConvertor age = DigitDateUtils.calculateAge(value);
-              //       //   if ((age.years == 0 && age.months == 0) ||
-              //       //       age.months > 11 ||
-              //       //       (age.years >= 150 && age.months >= 0)) {
-              //       //     formControl.setErrors({'': true});
-              //       //   } else {
-              //       //     formControl.removeError('');
-              //       //   }
-              //       // }
-              //     },
-              //     cancelText:'cancel',
-              //     confirmText: 'ok',
-              //   ),
-              // ),
-              // Story(
-              //   name: 'DOB/age error',
-              //   builder: (context) => DigitDobPicker(
-              //     datePickerFormControl: 'sdlkfjsdlkf',
-              //     datePickerLabel: 'date of birth',
-              //     ageFieldLabel: 'Age',
-              //     yearsHintLabel: 'years',
-              //     monthsHintLabel: 'months',
-              //     separatorLabel: '(or)',
-              //     yearsAndMonthsErrMsg: 'error',
-              //     initialDate: DateTime(DateTime.now().year - 150, DateTime.now().month, DateTime.now().day),
-              //     onChangeOfFormControl: (date) {
-              //       // Handle changes to the control's value here
-              //       final value = date;
-              //       if (value == null) {
-              //         //formControl.setErrors({'': true});
-              //       } else {
-              //         DigitDOBAgeConvertor age = DigitDateUtils.calculateAge(value);
-              //         if ((age.years == 0 && age.months == 0) ||
-              //             age.months > 11 ||
-              //             (age.years >= 150 && age.months >= 0)) {
-              //           //formControl.setErrors({'': true});
-              //         } else {
-              //           //formControl.removeError('');
-              //         }
-              //       }
-              //     },
-              //     ageErrorMessage: 'age error',
-              //     cancelText:'cancel',
-              //     confirmText: 'ok',
-              //   ),
-              // ),
-              // Story(
-              //   name: 'DOB/month error',
-              //   builder: (context) => DigitDobPicker(
-              //     datePickerFormControl: 'sdlkfjsdlkf',
-              //     datePickerLabel: 'date of birth',
-              //     ageFieldLabel: 'Age',
-              //     yearsHintLabel: 'years',
-              //     monthsHintLabel: 'months',
-              //     monthErrorMessage: 'month error',
-              //     separatorLabel: '(or)',
-              //     yearsAndMonthsErrMsg: 'error',
-              //     initialDate: DateTime(DateTime.now().year - 150, DateTime.now().month, DateTime.now().day),
-              //     onChangeOfFormControl: (formControl) {
-              //       // Handle changes to the control's value here
-              //       // final value = formControl.value;
-              //       // if (value == null) {
-              //       //   formControl.setErrors({'': true});
-              //       // } else {
-              //       //   DigitDOBAgeConvertor age = DigitDateUtils.calculateAge(value);
-              //       //   if ((age.years == 0 && age.months == 0) ||
-              //       //       age.months > 11 ||
-              //       //       (age.years >= 150 && age.months >= 0)) {
-              //       //     formControl.setErrors({'': true});
-              //       //   } else {
-              //       //     formControl.removeError('');
-              //       //   }
-              //       // }
-              //     },
-              //     cancelText:'cancel',
-              //     confirmText: 'ok',
-              //   ),
-              // ),
-              // Story(
-              //
-              //   name: 'DOB/field error',
-              //   description: 'sdkfljjjjjjjjjjjjjjjjjjjjjjjjjjj',
-              //   builder: (context) => DigitDobPicker(
-              //     datePickerFormControl: 'sdlkfjsdlkf',
-              //     datePickerLabel: 'date of birth',
-              //     ageFieldLabel: 'Age',
-              //     yearsHintLabel: 'years',
-              //     monthsHintLabel: 'months',
-              //     errorMessage: 'Field level error message',
-              //     separatorLabel: '(or)',
-              //     yearsAndMonthsErrMsg: 'error',
-              //     initialDate: DateTime(DateTime.now().year - 150, DateTime.now().month, DateTime.now().day),
-              //     onChangeOfFormControl: (formControl) {
-              //       // Handle changes to the control's value here
-              //       // final value = formControl.value;
-              //       // if (value == null) {
-              //       //   formControl.setErrors({'': true});
-              //       // } else {
-              //       //   DigitDOBAgeConvertor age = DigitDateUtils.calculateAge(value);
-              //       //   if ((age.years == 0 && age.months == 0) ||
-              //       //       age.months > 11 ||
-              //       //       (age.years >= 150 && age.months >= 0)) {
-              //       //     formControl.setErrors({'': true});
-              //       //   } else {
-              //       //     formControl.removeError('');
-              //       //   }
-              //       // }
-              //     },
-              //     cancelText:'cancel',
-              //     confirmText: 'ok',
-              //   ),
-              // ),
-
-              // Story(
-              //   name: 'DOB/month error',
-              //   builder: (context) => DigitDobPicker(
-              //     datePickerFormControl: 'sdlkfjsdlkf',
-              //     datePickerLabel: 'date of birth',
-              //     ageFieldLabel: 'Age',
-              //     yearsHintLabel: 'years',
-              //     monthsHintLabel: 'months',
-              //     monthErrorMessage: 'month error',
-              //     separatorLabel: '(or)',
-              //     yearsAndMonthsErrMsg: 'error',
-              //     initialDate: DateTime(DateTime.now().year - 150, DateTime.now().month, DateTime.now().day),
-              //     onChangeOfFormControl: (formControl) {
-              //       // Handle changes to the control's value here
-              //       // final value = formControl.value;
-              //       // if (value == null) {
-              //       //   formControl.setErrors({'': true});
-              //       // } else {
-              //       //   DigitDOBAgeConvertor age = DigitDateUtils.calculateAge(value);
-              //       //   if ((age.years == 0 && age.months == 0) ||
-              //       //       age.months > 11 ||
-              //       //       (age.years >= 150 && age.months >= 0)) {
-              //       //     formControl.setErrors({'': true});
-              //       //   } else {
-              //       //     formControl.removeError('');
-              //       //   }
-              //       // }
-              //     },
-              //     cancelText:'cancel',
-              //     confirmText: 'ok',
-              //   ),
-              // ),
-            ],
-          ),
-        ),
       ),
     );
   }

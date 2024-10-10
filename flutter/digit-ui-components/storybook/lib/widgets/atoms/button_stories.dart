@@ -2,7 +2,7 @@ import 'package:digit_ui_components/enum/app_enums.dart';
 import 'package:digit_ui_components/theme/digit_theme_wrapper.dart';
 import 'package:digit_ui_components/widgets/atoms/digit_button.dart';
 import 'package:flutter/material.dart';
-import 'package:storybook_flutter/storybook_flutter.dart';
+import 'package:storybook_toolkit/storybook_toolkit.dart';
 
 import '../../plugins/code_view_wrapper.dart';
 
@@ -11,17 +11,6 @@ List<Story> DigitButtonStories() {
     Story(
       name: 'Atom/Buttons/Primary',
       builder: (context) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          CodeViewProvider.of(context)?.updateCodeString('''
-DigitButton(
-  label: 'Primary DigitButton',
-  onPressed: () {},
-  type: DigitButtonType.primary,
-  isDisabled: false,
-  size: DigitButtonSize.large,
-)
-          ''');
-        });
 
         return DigitButton(
           label: context.knobs.text(label: 'Label', initial: 'Primary DigitButton'),
@@ -66,17 +55,7 @@ DigitButton(
     Story(
         name: 'Atom/Buttons/Secondary',
         builder: (context) {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            CodeViewProvider.of(context)?.updateCodeString('''
-DigitButton(
-  label: 'Secondary DigitButton',
-  onPressed: () {},
-  type: DigitButtonType.secondary,
-  isDisabled: false,
-  size: DigitButtonSize.large,
-)
-          ''');
-          });
+
           return DigitButton(
             label:
                 context.knobs.text(label: 'Label', initial: 'Secondary DigitButton'),
@@ -131,17 +110,7 @@ DigitButton(
     Story(
         name: 'Atom/Buttons/Tertiary',
         builder: (context) {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            CodeViewProvider.of(context)?.updateCodeString('''
-DigitButton(
-  label: 'Tertiary DigitButton',
-  onPressed: () {},
-  type: DigitButtonType.tertiary,
-  isDisabled: false,
-  size: DigitButtonSize.large,
-)
-          ''');
-          });
+
           return DigitButton(
             label:
                 context.knobs.text(label: 'Label', initial: 'Tertiary DigitButton'),
@@ -196,17 +165,7 @@ DigitButton(
     Story(
         name: 'Atom/Buttons/Link',
         builder: (context) {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            CodeViewProvider.of(context)?.updateCodeString('''
-DigitButton(
-  label: 'link',
-  onPressed: () {},
-  type: DigitButtonType.link,
-  isDisabled: false,
-  size: DigitButtonSize.large,
-)
-          ''');
-          });
+
           return DigitButton(
             label: context.knobs.text(label: 'Label', initial: 'link'),
             onPressed: () {

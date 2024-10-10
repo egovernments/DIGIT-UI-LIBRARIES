@@ -1,7 +1,8 @@
 import 'package:digit_ui_components/models/toggleButtonModel.dart';
 import 'package:digit_ui_components/widgets/atoms/digit_toggle_list.dart';
 import 'package:flutter/material.dart';
-import 'package:storybook_flutter/storybook_flutter.dart';
+import 'package:storybook_toolkit/storybook_toolkit.dart';
+
 
 List<Story> toggleGroupStories() {
   return [

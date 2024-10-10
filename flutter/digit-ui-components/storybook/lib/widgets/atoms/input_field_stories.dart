@@ -1,6 +1,7 @@
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:storybook_flutter/storybook_flutter.dart';
+import 'package:storybook_toolkit/storybook_toolkit.dart';
+
 import 'package:digit_ui_components/widgets/atoms/input_wrapper.dart';
 
 List<Story> inputFieldStories() {

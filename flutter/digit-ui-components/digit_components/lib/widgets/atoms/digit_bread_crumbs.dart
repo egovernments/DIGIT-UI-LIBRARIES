@@ -1,3 +1,4 @@
+import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/theme/ComponentTheme/bread_crumb_theme.dart';
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:flutter/material.dart';
@@ -104,7 +105,8 @@ class _DigitBreadCrumbState extends State<DigitBreadCrumb> {
                   : null,
               child: Row(
                 children: [
-                  if (crumb.icon != null) Icon(crumb.icon, size: theme.spacerTheme.spacer4, color: isLast ? theme.colorTheme.text.secondary: theme.colorTheme.primary.primary1,),
+                  if (crumb.icon != null) Icon(crumb.icon, size: theme.spacerTheme.spacer5, color: isLast ? theme.colorTheme.text.secondary: theme.colorTheme.primary.primary1,),
+                  if (crumb.icon != null) const SizedBox(width: spacer1,),
                   Text(
                     crumb.content,
                     style: (isLast

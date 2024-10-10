@@ -3,7 +3,8 @@ import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:digit_ui_components/widgets/atoms/table_cell.dart';
 import 'package:digit_ui_components/widgets/molecules/digit_table.dart';
 import 'package:digit_ui_components/widgets/molecules/table_container.dart';
-import 'package:storybook_flutter/storybook_flutter.dart';
+import 'package:storybook_toolkit/storybook_toolkit.dart';
+
 import 'package:flutter/material.dart';
 
 List<Story> tableStories() {

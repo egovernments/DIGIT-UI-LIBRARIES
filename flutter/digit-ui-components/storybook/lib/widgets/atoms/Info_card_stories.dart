@@ -2,7 +2,8 @@ import 'package:digit_ui_components/enum/app_enums.dart';
 import 'package:digit_ui_components/widgets/atoms/digit_info_card.dart';
 import 'package:digit_ui_components/widgets/atoms/info_buttons.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:storybook_flutter/storybook_flutter.dart';
+import 'package:storybook_toolkit/storybook_toolkit.dart';
+
 
 import '../../plugins/code_view_wrapper.dart';
 
@@ -11,15 +12,6 @@ List<Story> infoCardStories() {
     Story(
       name: 'Atom/Info/Info',
       builder: (context) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          CodeViewProvider.of(context)?.updateCodeString('''
-InfoCard(
-  title: Info Card,
-  type: InfoType.info,
-  description: Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect the service to get completed in 24 hrs from the time of payment.,
-)
-          ''');
-        });
 
         return InfoCard(
           title: context.knobs.text(label: "Title", initial: 'Info'),
@@ -44,16 +36,6 @@ InfoCard(
     Story(
       name: 'Atom/Info/Info DigitButtons',
       builder: (context) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          CodeViewProvider.of(context)?.updateCodeString('''
-InfoButton(
-  size: DigitButtonSize.large,
-  label: 'Primary DigitButton',
-  onPressed: () {},
-  type: InfoDigitButtonType.warning,
-)
-          ''');
-        });
 
         return InfoButton(
           size: DigitButtonSize.large,
@@ -75,21 +57,6 @@ InfoButton(
     Story(
       name: 'Atom/Info/Additional widgets',
       builder: (context) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          CodeViewProvider.of(context)?.updateCodeString('''
-InfoCard(
-  title: Info Card,
-  type: InfoType.info,
-  description: Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect the service to get completed in 24 hrs from the time of payment.,
-  additionalWidgets: [
-    const Text("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's"),
-    Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
-    Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
-  ],
-  inline: false,
-)
-          ''');
-        });
 
         return InfoCard(
           title: context.knobs.text(label: "Title", initial: 'Info'),
@@ -124,27 +91,6 @@ InfoCard(
     Story(
       name: 'Atom/Info/Additional widgets with DigitButtons',
       builder: (context) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          CodeViewProvider.of(context)?.updateCodeString('''
-InfoCard(
-  title: Info Card,
-  type: InfoType.info,
-  description: Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect the service to get completed in 24 hrs from the time of payment.,
-  inline: false,
-  additionalWidgets: [
-    const Text("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's"),
-    Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
-    Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
-    InfoDigitButton(
-      label: 'Click To Know More',
-      onPressed: () {},
-      type: InfoDigitButtonType.info,
-      size: DigitButtonSize.large,
-    ),
-  ],
-)
-          ''');
-        });
 
         return InfoCard(
           title: context.knobs.text(label: "Title", initial: 'Info'),

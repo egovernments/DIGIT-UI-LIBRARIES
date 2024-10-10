@@ -36,6 +36,7 @@ class DigitCheckbox extends StatefulWidget {
 
   /// Indicates whether the DigitCheckbox is disabled or not.
   final bool isDisabled;
+  final bool alignRight;
 
   /// Indicates whether the DigitCheckbox is disabled or not.
   final bool readOnly;
@@ -52,6 +53,7 @@ class DigitCheckbox extends StatefulWidget {
     this.readOnly = false,
     this.isDisabled = false,
     this.value = false,
+    this.alignRight = false,
     this.capitalizeFirstLetter = true,
     this.checkboxThemeData,
   }) : super(key: key);
@@ -99,10 +101,8 @@ class _DigitCheckboxState extends State<DigitCheckbox> {
         : widget.label;
 
     return Row(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
-      textDirection: checkboxThemeData?.labelTextDirection ??
+      textDirection: widget.alignRight ? TextDirection.rtl : checkboxThemeData?.labelTextDirection ??
           defaultThemeData.labelTextDirection,
       children: [
         Column(
@@ -148,16 +148,13 @@ class _DigitCheckboxState extends State<DigitCheckbox> {
         if (widget.label != null) ...[
           const SizedBox(width: spacer4),
           Expanded(
-            child: Align(
-              alignment: Alignment.topLeft,
-              child: Text(
-                processedLabel!,
-                style: widget.isDisabled
-                    ? checkboxThemeData?.disabledLabelTextStyle ??
-                    defaultThemeData.disabledLabelTextStyle
-                    : checkboxThemeData?.labelTextStyle ??
-                    defaultThemeData.labelTextStyle,
-              ),
+            child: Text(
+              processedLabel!,
+              style: widget.isDisabled
+                  ? checkboxThemeData?.disabledLabelTextStyle ??
+                  defaultThemeData.disabledLabelTextStyle
+                  : checkboxThemeData?.labelTextStyle ??
+                  defaultThemeData.labelTextStyle,
             ),
           ),
         ]
