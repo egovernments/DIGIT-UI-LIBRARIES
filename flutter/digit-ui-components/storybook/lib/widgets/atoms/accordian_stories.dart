@@ -14,7 +14,7 @@ List<Story> accordionStories() {
       name: 'Atom/Accordion/Documentation',
       builder: (context) {
         return IframeWidget(
-          url: 'http://egov-digit.gitbook.io/docs-templates-repo/ui-component-name-2',
+          url: 'https://egov-digit.gitbook.io/docs-templates-repo/ui-component-name-2',
         );
       },
     ),
