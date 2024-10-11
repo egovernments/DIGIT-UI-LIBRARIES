@@ -54,7 +54,7 @@ const MultiSelectDropdown = ({
         //   );
         //   return updatedState;
       case "REMOVE_FROM_SELECTED_EVENT_QUEUE":
-        const newState = state.filter(
+        const newState = state?.filter(
           (e) => e?.code !== action.payload?.[1]?.code
         );
         onSelect(
@@ -125,7 +125,7 @@ const MultiSelectDropdown = ({
   useEffect(() => {
     const allOptionsSelected =
       variant === "nestedmultiselect"
-        ? checkSelection(flattenedOptions.filter((option) => !option.options))
+        ? checkSelection(flattenedOptions?.filter((option) => !option.options))
         : checkSelection(options);
 
     setSelectAllChecked(allOptionsSelected);
@@ -313,8 +313,8 @@ const MultiSelectDropdown = ({
     if (variant === "nestedmultiselect") {
       const categorySelectAllState = {};
       options
-        .filter((option) => option.options)
-        .forEach((category) => {
+        ?.filter((option) => option.options)
+        ?.forEach((category) => {
           categorySelectAllState[category.code] = {
             isSelectAllChecked: categorySelected[category.code] || false,
           };

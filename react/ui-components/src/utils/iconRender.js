@@ -1,10 +1,13 @@
 import { CustomSVG } from "../atoms/CustomSVG";
+import * as MaterialIcons from '@mui/icons-material';
 
 export const iconRender = (iconReq, iconFill, width, height, className) => {
   try {
     const components = require("@egovernments/digit-ui-svg-components");
     const DynamicIcon = components?.[iconReq];
     const svgIcon = CustomSVG?.[iconReq];
+    const MaterialIcon = MaterialIcons[iconReq];
+
     if (DynamicIcon) {
       const svgElement = DynamicIcon({
         width: width,
@@ -21,7 +24,11 @@ export const iconRender = (iconReq, iconFill, width, height, className) => {
         className: className,
       });
       return svgElement;
-    } else {
+    }else if (MaterialIcon) {
+      // Render Material-UI icon
+      return <MaterialIcon color={iconFill} className={className} />;
+    }
+    else {
       console.error("Icon not found");
       return null;
     }

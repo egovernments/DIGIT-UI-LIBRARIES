@@ -40,8 +40,8 @@ const Template = (args) => (
   </Router>
 );
 
-export const Default = Template.bind({});
-Default.args = {
+export const Basic = Template.bind({});
+Basic.args = {
   crumbs: [
     {
       content: "Home",
@@ -61,54 +61,8 @@ Default.args = {
   ],
 };
 
-export const WithIcons = Template.bind({});
-WithIcons.args = {
-  crumbs: [
-    {
-      path: "/home",
-      content: "Home",
-      show: true,
-      icon: <SVG.Home fill={"#C84C0E"} />,
-    },
-    {
-      path: "/previous",
-      content: "Previous",
-      show: true,
-      icon: <SVG.Person fill={"#C84C0E"} />,
-    },
-    {
-      path: "/current",
-      content: "Current",
-      show: true,
-      icon: <SVG.Edit fill={"#787878"} />,
-    },
-  ],
-};
-
-export const WithCustomSeperator = Template.bind({});
-WithCustomSeperator.args = {
-  crumbs: [
-    {
-      content: "Home",
-      show: true,
-      path: "/home",
-    },
-    {
-      content: "Previous",
-      show: true,
-      path: "/previous",
-    },
-    {
-      content: "Current",
-      show: true,
-      path: "/current",
-    },
-  ],
-  customSeperator: <SVG.ArrowForward fill={"#C84C0E"} />,
-};
-
-export const CollapsedBreadCrumbs = Template.bind({});
-CollapsedBreadCrumbs.args = {
+export const Collapsed = Template.bind({});
+Collapsed.args = {
   crumbs: [
     {
       content: "Home",
@@ -139,8 +93,8 @@ CollapsedBreadCrumbs.args = {
   maxItems: 3,
 };
 
-export const CollapsedBreadCrumbsWithCustomValues = Template.bind({});
-CollapsedBreadCrumbsWithCustomValues.args = {
+export const CollapsedWithCustomValues = Template.bind({});
+CollapsedWithCustomValues.args = {
   crumbs: [
     {
       content: "Home",
@@ -173,8 +127,8 @@ CollapsedBreadCrumbsWithCustomValues.args = {
   itemsAfterCollapse: 2,
 };
 
-export const CollapsedBreadCrumbsWithExpandText = Template.bind({});
-CollapsedBreadCrumbsWithExpandText.args = {
+export const CollapsedWithExpandText = Template.bind({});
+CollapsedWithExpandText.args = {
   crumbs: [
     {
       content: "Home",
@@ -205,3 +159,51 @@ CollapsedBreadCrumbsWithExpandText.args = {
   maxItems: 3,
   expandText: "{click here to expand}",
 };
+
+export const WithIcons = Template.bind({});
+WithIcons.args = {
+  crumbs: [
+    {
+      path: "/home",
+      content: "Home",
+      show: true,
+      icon: <SVG.Home fill={"#C84C0E"} />,
+    },
+    {
+      path: "/previous",
+      content: "Previous",
+      show: true,
+      icon: <SVG.Person fill={"#C84C0E"} />,
+    },
+    {
+      path: "/current",
+      content: "Current",
+      show: true,
+      icon: <SVG.Edit fill={"#787878"} />,
+    },
+  ],
+};
+
+export const WithCustomSeparators = Template.bind({});
+WithCustomSeparators.args = {
+  crumbs: [
+    {
+      content: "Home",
+      show: true,
+      path: "/home",
+    },
+    {
+      content: "Previous",
+      show: true,
+      path: "/previous",
+    },
+    {
+      content: "Current",
+      show: true,
+      path: "/current",
+    },
+  ],
+  customSeperator: <SVG.ArrowForward fill={"#C84C0E"} />,
+};
+
+

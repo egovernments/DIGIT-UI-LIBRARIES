@@ -10,18 +10,22 @@ const BreadCrumb = (props) => {
     if (props?.maxItems && props?.crumbs.length > props?.maxItems && !expanded) {
       const startCrumbs = props.crumbs.slice(0, props?.itemsBeforeCollapse || Math.ceil(props.maxItems / 2));
       const endCrumbs = props.crumbs.slice(
-        props.crumbs.length - (props?.itemsAfterCollapse || Math.floor(props.maxItems / 2))
+        -1 * (props?.itemsAfterCollapse || Math.floor(props.maxItems / 2)) 
       );
-      let updatedCrumbs = startCrumbs.concat([{ show: true, content: props?.expandText || "..." }], endCrumbs);
+      
+      let updatedCrumbs = startCrumbs.concat(
+        [{ show: true, content: props?.expandText || "..." }],
+        endCrumbs
+      );
       setCrumbsToDisplay(updatedCrumbs);
-    } else {
+    }else {
       setCrumbsToDisplay([...props.crumbs]);
     }
   }, [props.crumbs, props.maxItems, expanded,props.itemsBeforeCollapse,props.itemsAfterCollapse,props?.expandText]);
 
   function isLast(index) {
-    let validcrumb = props.crumbs?.filter((ob) => ob?.show === true)
-    return validcrumb?.findIndex((ob) => ob?.path === props?.crumbs?.[index]?.path) === validcrumb?.length - 1;
+    let validcrumb = crumbsToDisplay?.filter((ob) => ob?.show === true)
+    return validcrumb?.findIndex((ob) => ob?.path === crumbsToDisplay?.[index]?.path) === validcrumb?.length - 1;
   }
 
   const handleCrumbClick = () => {

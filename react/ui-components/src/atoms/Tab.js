@@ -19,6 +19,7 @@ const Tab = ({
   navStyles = {},
   itemStyle = {},
   onTabClick,
+  configDisplayKey
 }) => {
   const { t } = useTranslation();
   const primaryColor = Colors.lightTheme.primary[1];
@@ -33,14 +34,18 @@ const Tab = ({
     onTabClick && onTabClick(item);
   };
 
-  useEffect(() => {
+  const calculateMaxWidth = () => {
     // Calculate the maximum width of all tab items
     const widths = itemRefs.current.map(
       (ref) => ref?.getBoundingClientRect().width || 0
     );
     const maxItemWidth = Math.max(...widths);
     setMaxWidth(maxItemWidth);
-  }, [configNavItems]);
+  };
+
+ useEffect(() => {
+    calculateMaxWidth();
+  }, [configNavItems, activeLink]);
 
   return (
     <div className={navClassName} style={navStyles}>
@@ -60,8 +65,8 @@ const Tab = ({
                 style={
                   maxWidth
                     ? {
-                        ...itemStyle,
                         width: `${maxWidth}px`,
+                        ...itemStyle,
                       }
                     : { ...itemStyle }
                 }
@@ -82,7 +87,7 @@ const Tab = ({
                 <div className="digit-tab-label">
                   {StringManipulator(
                     "CAPITALIZEFIRSTLETTER",
-                    t(item?.[configItemKey])
+                    configDisplayKey ? t(item?.[configDisplayKey]) : t(item?.[configItemKey])
                   )}
                 </div>
               </span>

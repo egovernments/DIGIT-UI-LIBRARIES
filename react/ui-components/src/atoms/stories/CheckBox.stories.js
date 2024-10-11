@@ -42,8 +42,8 @@ const commonArgs = {
 };
 
 //Default checkbox
-export const Default = Template.bind({});
-Default.args = {
+export const Unchecked = Template.bind({});
+Unchecked.args = {
   ...commonArgs,
   populators: {
     ...commonArgs.populators,
@@ -56,8 +56,8 @@ Default.args = {
 };
 
 //checkbox with label
-export const DefaultLabelled = Template.bind({});
-DefaultLabelled.args = {
+export const UncheckedLabelled = Template.bind({});
+UncheckedLabelled.args = {
   ...commonArgs,
   populators: {
     ...commonArgs.populators,
@@ -70,8 +70,8 @@ DefaultLabelled.args = {
 };
 
 //checkbox with paragrah as a label
-export const Labelled = Template.bind({});
-Labelled.args = {
+export const UncheckedLongLabelled = Template.bind({});
+UncheckedLongLabelled.args = {
   ...commonArgs,
   populators: {
     ...commonArgs.populators,
@@ -86,8 +86,8 @@ Labelled.args = {
 
 
 //checkbox with label before
-export const DefaultLabelFirst = Template.bind({});
-DefaultLabelFirst.args = {
+export const UncheckedLabelFirst = Template.bind({});
+UncheckedLabelFirst.args = {
   ...commonArgs,
   populators: {
     ...commonArgs.populators,
@@ -101,8 +101,8 @@ DefaultLabelFirst.args = {
 };
 
 //checkbox with label before
-export const LabelFirst = Template.bind({});
-LabelFirst.args = {
+export const UncheckedLongLabelFirst = Template.bind({});
+UncheckedLongLabelFirst.args = {
   ...commonArgs,
   populators: {
     ...commonArgs.populators,
@@ -117,8 +117,8 @@ LabelFirst.args = {
 };
 
 //checkbox disabled
-export const DefaultDisabled = Template.bind({});
-DefaultDisabled.args = {
+export const UncheckedDisabled = Template.bind({});
+UncheckedDisabled.args = {
   ...commonArgs,
   populators: {
     ...commonArgs.populators,
