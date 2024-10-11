@@ -1,3 +1,4 @@
+import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:storybook_toolkit/storybook_toolkit.dart';
@@ -59,26 +60,37 @@ class _LottieAnimationStoryState extends State<LottieAnimationStory>
       ),
     ) ?? 200.0;
 
-    return Lottie.asset(
-      repeat: repeat,
-      animate: animate,
-      widget.animationAsset,
-      controller: _controller,
-      onLoaded: (composition) {
-        _controller.duration = composition.duration;
-        if (animate) {
-          if (repeat) {
-            _controller.repeat();
-          } else {
-            _controller.forward();
-          }
-        } else {
-          _controller.value = 1.0; // Move to the last frame
-        }
-      },
-      width: width, // Use the width from the text input
-      height: height, // Use the height from the text input
-      fit: BoxFit.fill,
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 24),
+      width: MediaQuery.of(context).size.width,
+      color: Theme.of(context).colorTheme.text.primary,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Lottie.asset(
+            repeat: repeat,
+            animate: animate,
+            widget.animationAsset,
+            controller: _controller,
+            onLoaded: (composition) {
+              _controller.duration = composition.duration;
+              if (animate == true) {
+                if (repeat == true) {
+                  _controller.repeat();
+                } else {
+                  _controller.forward();
+                }
+              } else {
+                _controller.value = 1.0;
+                /// Move to the last frame
+              }
+            },
+            width: width, // Use the width from the text input
+            height: height, // Use the height from the text input
+            fit: BoxFit.fill,
+          ),
+        ],
+      ),
     );
   }
 }

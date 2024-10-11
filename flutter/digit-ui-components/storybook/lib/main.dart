@@ -41,6 +41,7 @@ import 'package:storybook/widgets/atoms/tooltip_2_stories.dart';
 import 'package:storybook/widgets/foundations/animations_stories.dart';
 import 'package:storybook/widgets/foundations/colors_stories.dart';
 import 'package:storybook/widgets/foundations/icons_stories.dart';
+import 'package:storybook/widgets/foundations/illustrations_stories.dart';
 import 'package:storybook/widgets/foundations/spacers_stories.dart';
 import 'package:storybook/widgets/foundations/typography_stories.dart';
 import 'package:storybook/widgets/introduction/introduction_story.dart';
@@ -129,7 +130,6 @@ class MyHomePageState extends State<MyHomePage> {
                   color: Theme.of(context).colorTheme.primary.primary1,
                   //height: 16,
                 ),
-
               ],
             )),
         initialStory: 'Introduction/doc',
@@ -137,6 +137,7 @@ class MyHomePageState extends State<MyHomePage> {
           ...introStories(),
           ...animationStories(),
           ...colorStories(),
+          ...illustrationStories(),
           ...materialIconStories(),
           ...spacerStories(),
           ...typographyStories(),
@@ -192,8 +193,8 @@ class MyHomePageState extends State<MyHomePage> {
           ...tableStories(),
           ...timelineMoleculeStories(),
           ...viewCardStories(),
-          ...showcaseStories(),
-          ...showcaseStories2(),
+         // ...showcaseStories(),
+         // ...showcaseStories2(),
         ],
       ),
     );

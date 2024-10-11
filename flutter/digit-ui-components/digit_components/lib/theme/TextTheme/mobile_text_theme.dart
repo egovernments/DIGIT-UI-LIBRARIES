@@ -75,18 +75,21 @@ class DigitMobileTextThemeExtension extends DigitTextTheme {
             fontWeight: FontWeight.w400,
             fontFamily: 'Roboto',
             height: 1.37,
+            decoration: TextDecoration.underline,
           ),
           linkM: const TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w400,
             fontFamily: 'Roboto',
             height: 1.37,
+            decoration: TextDecoration.underline,
           ),
           linkS: const TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.w400,
             fontFamily: 'Roboto',
             height: 1.37,
+            decoration: TextDecoration.underline,
           ),
         );
 }

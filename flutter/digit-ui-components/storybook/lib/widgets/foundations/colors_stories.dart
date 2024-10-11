@@ -1,3 +1,5 @@
+import 'dart:js_interop';
+
 import 'package:digit_ui_components/theme/ColorTheme/color_theme.dart';
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:flutter/material.dart';
@@ -41,20 +43,21 @@ List<Story> colorStories() {
 
 // Helper function to create sections with a heading
 Widget _buildCategorySection(BuildContext context, String heading, Widget child) {
+  final theme = Theme.of(context);
   return Container(
     margin: const EdgeInsets.only(top: 16.0),
     padding: const EdgeInsets.all(12.0),
     decoration: BoxDecoration(
-      color: Colors.grey.shade100,
+      color: theme.colorTheme.paper.secondary,
       borderRadius: BorderRadius.circular(8.0),
-      border: Border.all(color: Colors.grey.shade300),
+      border: Border.all(color: theme.colorTheme.generic.divider, width: 1.0),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           heading,
-          style: Theme.of(context).digitTextTheme(context).headingM.copyWith(fontWeight: FontWeight.bold),
+          style: theme.digitTextTheme(context).headingM.copyWith(color: theme.colorTheme.text.primary),
         ),
         const SizedBox(height: 16),
         child,
@@ -121,20 +124,21 @@ Widget _buildAlertColors(BuildContext context, Alert alert) {
 
 // Helper function to wrap alert color group in a container
 Widget _buildAlertGroupContainer(BuildContext context, String title, Widget child) {
+  final theme = Theme.of(context);
   return Container(
     margin: const EdgeInsets.only(top: 16.0),
     padding: const EdgeInsets.all(12.0),
     decoration: BoxDecoration(
-      color: Colors.white,
+      color: theme.colorTheme.paper.primary,
       borderRadius: BorderRadius.circular(8.0),
-      border: Border.all(color: Colors.grey.shade300),
+      border: Border.all(color: theme.colorTheme.generic.divider, width: 1.0),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           title,
-          style: Theme.of(context).digitTextTheme(context).headingS.copyWith(fontWeight: FontWeight.bold),
+          style: Theme.of(context).digitTextTheme(context).headingS.copyWith(color: theme.colorTheme.text.primary),
         ),
         const SizedBox(height: 12),
         child,
@@ -148,8 +152,8 @@ Widget _buildGroupedColorSwatches(BuildContext context, Color primary, Color bac
   return Column(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
-      _buildColorRow(context, name, _buildColorSwatch('', primary)),
-      _buildColorRow(context, name2, _buildColorSwatch('Primary Text', background)),
+      _buildColorRow(context, name, _buildColorSwatch(context,'', primary)),
+      _buildColorRow(context, name2, _buildColorSwatch(context,'Primary Text', background)),
     ],
   );
 }
@@ -159,9 +163,9 @@ Widget _buildTextColors(BuildContext context, Dtext text) {
   return Column(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
-      _buildColorRow(context, 'theme.colorTheme.text.primary', _buildColorSwatch('Primary Text', text.primary)),
-      _buildColorRow(context, 'theme.colorTheme.text.secondary', _buildColorSwatch('Secondary Text', text.secondary)),
-      _buildColorRow(context, 'theme.colorTheme.text.disabled', _buildColorSwatch('Disabled Text', text.disabled)),
+      _buildColorRow(context, 'theme.colorTheme.text.primary', _buildColorSwatch(context,'Primary Text', text.primary)),
+      _buildColorRow(context, 'theme.colorTheme.text.secondary', _buildColorSwatch(context,'Secondary Text', text.secondary)),
+      _buildColorRow(context, 'theme.colorTheme.text.disabled', _buildColorSwatch(context,'Disabled Text', text.disabled)),
     ],
   );
 }
@@ -171,9 +175,9 @@ Widget _buildPrimaryColors(BuildContext context, Primary primary) {
   return Column(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
-      _buildColorRow(context, 'theme.colorTheme.primary.primary1', _buildColorSwatch('Primary 1', primary.primary1)),
-      _buildColorRow(context, 'theme.colorTheme.primary.primary2', _buildColorSwatch('Primary 2', primary.primary2)),
-      _buildColorRow(context, 'theme.colorTheme.primary.primaryBg', _buildColorSwatch('Primary Background', primary.primaryBg)),
+      _buildColorRow(context, 'theme.colorTheme.primary.primary1', _buildColorSwatch(context, 'Primary 1', primary.primary1)),
+      _buildColorRow(context, 'theme.colorTheme.primary.primary2', _buildColorSwatch(context, 'Primary 2', primary.primary2)),
+      _buildColorRow(context, 'theme.colorTheme.primary.primaryBg', _buildColorSwatch(context, 'Primary Background', primary.primaryBg)),
     ],
   );
 }
@@ -183,8 +187,8 @@ Widget _buildPaperColors(BuildContext context, Paper paper) {
   return Column(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
-      _buildColorRow(context, 'theme.colorTheme.paper.primary', _buildColorSwatch('Primary Paper', paper.primary)),
-      _buildColorRow(context, 'theme.colorTheme.paper.secondary', _buildColorSwatch('Secondary Paper', paper.secondary)),
+      _buildColorRow(context, 'theme.colorTheme.paper.primary', _buildColorSwatch(context, 'Primary Paper', paper.primary)),
+      _buildColorRow(context, 'theme.colorTheme.paper.secondary', _buildColorSwatch(context, 'Secondary Paper', paper.secondary)),
     ],
   );
 }
@@ -194,16 +198,17 @@ Widget _buildGenericColors(BuildContext context, Generic generic) {
   return Column(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
-      _buildColorRow(context, 'theme.colorTheme.generic.background', _buildColorSwatch('Background', generic.background)),
-      _buildColorRow(context, 'theme.colorTheme.generic.divider', _buildColorSwatch('Divider', generic.divider)),
-      _buildColorRow(context, 'theme.colorTheme.generic.inputBorder', _buildColorSwatch('Input Border', generic.inputBorder)),
-      _buildColorRow(context, 'theme.colorTheme.generic.transparent', _buildColorSwatch('Transparent', generic.transparent)),
+      _buildColorRow(context, 'theme.colorTheme.generic.background', _buildColorSwatch(context, 'Background', generic.background)),
+      _buildColorRow(context, 'theme.colorTheme.generic.divider', _buildColorSwatch(context, 'Divider', generic.divider)),
+      _buildColorRow(context, 'theme.colorTheme.generic.inputBorder', _buildColorSwatch(context,'Input Border', generic.inputBorder)),
+      _buildColorRow(context, 'theme.colorTheme.generic.transparent', _buildColorSwatch(context, 'Transparent', generic.transparent)),
     ],
   );
 }
 
 // Helper function to build color swatches with selectable hex codes
-Widget _buildColorSwatch(String name, Color color, ) {
+Widget _buildColorSwatch(BuildContext context, String name, Color color, ) {
+  final theme = Theme.of(context);
   return Column(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
@@ -213,16 +218,13 @@ Widget _buildColorSwatch(String name, Color color, ) {
         decoration: BoxDecoration(
           color: color,
           borderRadius: BorderRadius.circular(4),
-          border: Border.all(
-            color: Colors.grey.shade300,
-            width: 1.0,
-          ),
+          border: Border.all(color: theme.colorTheme.generic.inputBorder, width: 1),
         ),
       ),
-      const SizedBox(height: 12),
+      const SizedBox(height: 4),
       SelectableText(
         '#${color.value.toRadixString(16).padLeft(8, '0').toUpperCase()}',
-        style: const TextStyle(fontSize: 12, color: Colors.grey),
+        style: theme.digitTextTheme(context).bodyXS.copyWith(color: theme.colorTheme.text.secondary),
         textAlign: TextAlign.center,
       ),
     ],

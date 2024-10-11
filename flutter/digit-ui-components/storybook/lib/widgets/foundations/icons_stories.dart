@@ -12,67 +12,160 @@ class MaterialIconsStory extends StatelessWidget {
     // Using knobs from context to get the selected color
     final selectedColor = context.knobs.options(
       label: 'Select Color',
-      initial: colorTheme.primary.primary1,
+      initial: colorTheme.primary.primary2,
       options: _buildColorOptions(colorTheme),
     );
 
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: GridView.count(
-          crossAxisCount: 4, // Adjust the number of columns as needed
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(), // Disable scrolling for inner GridView
-          children: _buildIconWidgets(selectedColor),
+    return Center(
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.all(24.0),
+        child: Column(
+          children: [
+            // Top description
+            Padding(
+              padding: const EdgeInsets.only(bottom: 16.0),
+              child: Text(
+                'Explore Material Icons to enhance your app interface. '
+                    'Click on any icon to see how to implement it in your code, '
+                    'and feel free to customize the color to fit your design!',
+                style: Theme.of(context).digitTextTheme(context).bodyS.copyWith(
+                  color: Theme.of(context).colorTheme.text.primary,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            // Icons grid
+            Wrap(
+              spacing: 24.0, // Spacing between icons horizontally
+              runSpacing: 24.0, // Spacing between icons vertically
+              children: _buildIconWidgets(selectedColor, context),
+            ),
+          ],
         ),
       ),
     );
   }
 
-  List<Widget> _buildIconWidgets(Color selectedColor) {
+  List<Widget> _buildIconWidgets(Color selectedColor, BuildContext context) {
     // Predefined list of Material Icons
     final icons = [
-      Icons.access_alarm,
-      Icons.add,
-      Icons.alarm,
-      Icons.search,
-      Icons.favorite,
-      Icons.home,
-      // Add more icons as needed
-      Icons.settings,
-      Icons.camera,
-      Icons.call,
-      Icons.check,
-      Icons.cloud,
-      Icons.edit,
-      Icons.mail,
-      Icons.notifications,
-      Icons.person,
-      Icons.star,
-      Icons.share,
-      // Continue adding all desired Material Icons
+      {'name': 'add', 'icon': Icons.add},
+      {'name': 'auto_delete', 'icon': Icons.auto_delete},
+      {'name': 'call', 'icon': Icons.call},
+      {'name': 'camera', 'icon': Icons.camera},
+      {'name': 'check', 'icon': Icons.check},
+      {'name': 'check_circle', 'icon': Icons.check_circle},
+      {'name': 'close', 'icon': Icons.close},
+      {'name': 'edit', 'icon': Icons.edit},
+      {'name': 'event', 'icon': Icons.event},
+      {'name': 'file_download', 'icon': Icons.file_download},
+      {'name': 'filter_alt', 'icon': Icons.filter_alt},
+      {'name': 'forum', 'icon': Icons.forum},
+      {'name': 'home', 'icon': Icons.home},
+      {'name': 'info_outline', 'icon': Icons.info_outline},
+      {'name': 'mail', 'icon': Icons.mail},
+      {'name': 'near_me', 'icon': Icons.near_me},
+      {'name': 'notifications', 'icon': Icons.notifications},
+      {'name': 'person', 'icon': Icons.person},
+      {'name': 'refresh', 'icon': Icons.refresh},
+      {'name': 'search', 'icon': Icons.search},
+      {'name': 'sentiment_satisfied_alt', 'icon': Icons.sentiment_satisfied_alt},
+      {'name': 'settings', 'icon': Icons.settings},
+      {'name': 'share', 'icon': Icons.share}, // Duplicate share, only one kept
+      {'name': 'star', 'icon': Icons.star},
+      {'name': 'text_snippet', 'icon': Icons.text_snippet},
+      {'name': 'thumb_up', 'icon': Icons.thumb_up},
+      {'name': 'toc', 'icon': Icons.toc},
+      {'name': 'view_carousel', 'icon': Icons.view_carousel},
     ];
 
     return icons.map((iconData) {
-      final iconName = iconData.toString().split(' ').last; // Get the icon name
+      final iconName = iconData['name'] as String; // Access the name of the icon
+      final icon = iconData['icon'] as IconData; // Access the icon itself
 
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            iconData,
-            size: 48.0, // Default size, you can add size knob if needed
-            color: selectedColor,
+      return InkWell(
+        onTap: () => _showIconDialog(context, iconName, selectedColor), // Show dialog on tap
+        child: Container(
+          width: 200, // Set fixed width for each icon container
+          height: 200,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(4),
+            color: Theme.of(context).colorTheme.paper.secondary, // Correct color scheme
+            border: Border.all(color: Theme.of(context).colorTheme.generic.inputBorder, width: 1),
           ),
-          const SizedBox(height: 8),
-          Text(iconName.replaceAll('Icons.', ''), style: TextStyle(fontSize: 12)),
-        ],
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                icon, // Use the actual icon here
+                size: 48.0, // Default size for icons
+                color: selectedColor, // You can define this color or keep the default
+              ),
+              const SizedBox(height: 16),
+              Text(
+                iconName, // Display the name of the icon
+                style: Theme.of(context).digitTextTheme(context).bodyS.copyWith(color: Theme.of(context).colorTheme.text.primary),
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+        ),
       );
     }).toList();
   }
 
+  void _showIconDialog(BuildContext context, String iconName, Color color) {
+    String codeSnippet = '''
+Icon(
+  Icons.$iconName,
+  size: 48.0, // Set the size for the icon
+  color: $color, 
+)''';
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return
+          AlertDialog(
+          backgroundColor: Theme.of(context).colorTheme.paper.primary,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(4.0))),
+          title: Text(iconName),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: [
+                Text('Usage Example:'),
+                SizedBox(height: 8),
+                // Display the code snippet
+                Container(
+                  padding: const EdgeInsets.all(8.0),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey),
+                    borderRadius: BorderRadius.circular(4),
+                    color: Colors.grey[100], // Light grey background for the code snippet
+                  ),
+                  child: SelectableText(
+                    codeSnippet,  // Make it selectable for copying
+                    style: TextStyle(fontFamily: 'monospace'), // Monospace font for code
+                  ),
+                ),
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(
+              child: Text('Close'),
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   List<Option> _buildColorOptions(DigitColorTheme colorTheme) {
-    // Define your color library options here
     return [
       Option(label: 'Primary1', value: colorTheme.primary.primary1),
       Option(label: 'Primary2', value: colorTheme.primary.primary2),
