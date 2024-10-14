@@ -3548,5 +3548,5 @@ export const CustomSVG = {
     DocXlsxUpload,
     DocPdfUpload,
     DocdocUpload,
-    AddIconNew
+    AddIconNew,
 };
