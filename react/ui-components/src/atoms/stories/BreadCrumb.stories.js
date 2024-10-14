@@ -203,7 +203,7 @@ WithCustomSeparators.args = {
       path: "/current",
     },
   ],
-  customSeperator: <SVG.ArrowForward fill={"#C84C0E"} />,
+  customSeparator: <SVG.ArrowForward fill={"#C84C0E"} />,
 };
 
 

@@ -80,7 +80,7 @@ const BreadCrumb = (props) => {
               )}
               {!isLast(ci) && (
                 <div className="digit-bread-crumb-seperator">
-                  {props?.customSeperator ? props?.customSeperator : "/"}
+                  {props?.customSeparator ? props?.customSeparator : "/"}
                 </div>
               )}
             </li>
@@ -96,7 +96,7 @@ BreadCrumb.propTypes = {
   className: PropTypes.string,
   style: PropTypes.object,
   spanStyle: PropTypes.object,
-  customSeperator: PropTypes.element,
+  customSeparator: PropTypes.element,
   maxItems:PropTypes.number,
   itemsAfterCollapse:PropTypes.number,
   itemsBeforeCollapse:PropTypes.number,

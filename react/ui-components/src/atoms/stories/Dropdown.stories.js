@@ -46,9 +46,9 @@ const t = (key) => key;
 
 //mock options data
 const gendersOptions = [
-  { code: "MALE", name: "MALE" },
-  { code: "FEMALE", name: "FEMALE" },
-  { code: "TRANSGENDER", name: "TRANSGENDER" },
+  { code: "Option1", name: "Option1" },
+  { code: "Option2", name: "Option2" },
+  { code: "Option3", name: "Option3" },
 ];
 //options with icons
 const OptionsWithIcons = [
@@ -224,9 +224,9 @@ const treeDropdownOptions = [
 
 //mock options data for chipskey
 const optionsForChipsKey = [
-  { code: "OPTION1CHIP", name: "OPTION1" },
-  { code: "OPTION2CHIP", name: "OPTION2" },
-  { code: "OPTION3CHIP", name: "OPTION3" },
+  { code: "Option1chip", name: "Option1" },
+  { code: "Option2chip", name: "Option2" },
+  { code: "Option3chip", name: "Option3" },
 ];
 
 //nested options for chips key
@@ -270,7 +270,7 @@ const commonArgs = {
   },
   error: "",
   inputRef: null,
-  label: "Enter Gender",
+  label: "Select Option",
   onChange: (e, name) => console.log("Selected value:", e, "Name:", name),
   errorStyle: null,
   disabled: false,

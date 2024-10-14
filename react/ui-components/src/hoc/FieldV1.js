@@ -349,7 +349,7 @@ const FieldV1 = ({
   };
 
   return (
-    <>
+    <div className="label-field-wrapper">
       {!withoutLabel && (
         <Header
           className={`label ${disabled ? "disabled" : ""} ${
@@ -407,7 +407,7 @@ const FieldV1 = ({
           {renderCharCount()}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

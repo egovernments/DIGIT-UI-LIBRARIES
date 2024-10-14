@@ -1,5 +1,4 @@
 import React from "react";
-import * as MaterialIcons from "@mui/icons-material";
 import { SVG } from "../SVG";
 import { CustomSVG } from "../CustomSVG";
 import { iconRender } from "../../utils/iconRender";
@@ -22,7 +21,7 @@ const style = {
 
 const Template = (args) => {
   const IconComponent =
-    SVG[args.icon] || MaterialIcons[args.icon] || CustomSVG[args.icon];
+    SVG[args.icon] || CustomSVG[args.icon];
 
   return (
     <div style={style}>

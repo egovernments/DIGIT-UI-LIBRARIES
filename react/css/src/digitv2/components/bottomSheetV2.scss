@@ -24,7 +24,6 @@
 
 .digit-bottom-sheet-header {
     display: flex;
-    align-items: center;
     justify-content: center;
     height: theme(digitv2.spacers.spacer10);
 
@@ -89,6 +88,14 @@
     justify-content: flex-end;
 
     &.equalButtons {
+        justify-content: flex-start;
+
+        button {
+            flex: 1;
+        }
+    }
+
+    @media (max-aspect-ratio: 9/16) {
         justify-content: flex-start;
 
         button {

@@ -52,6 +52,7 @@ const SpacersDisplay = () => {
       </div>
       {spacerKeys.map((spacerKey) => (
         <div
+          key={spacerKey}
           className="typography caption-s"
           style={{
             gap: "8px",
@@ -68,7 +69,19 @@ const SpacersDisplay = () => {
               justifyContent: "space-between",
             }}
           >
-            <div>{`${toTitleCase(spacerKey)}`}</div>
+            <div
+              style={{
+                gap: "4px",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <div>{`${toTitleCase(spacerKey)}`}</div>
+              <div
+                className="typography body-xs"
+                style={{ color: "#787878" }}
+              >{`${`digitv2.spacers.${spacerKey}`}`}</div>
+            </div>
             <div>{`${SpacersMain?.[spacerKey]}`}</div>
           </div>
           <div

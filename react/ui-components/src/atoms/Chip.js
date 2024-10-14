@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { SVG } from "./SVG";
 import ErrorMessage from "./ErrorMessage";
 import { Colors} from "../constants/colors/colorconstants";
+import { iconRender } from "../utils/iconRender";
 
 const Chip = ({
   className,
@@ -15,11 +16,23 @@ const Chip = ({
   error,
   hideClose,
   onErrorClick,
+  iconReq
 }) => {
   const tagStyles = extraStyles ? extraStyles?.tagStyles : {};
   const textStyles = extraStyles ? extraStyles?.textStyles : {};
   const closeIconStyles = extraStyles ? extraStyles?.closeIconStyles : {};
   const IconColor = Colors.lightTheme.paper.primary;
+
+  const IconRender = (iconReq,isErrorTag) => {
+    const iconFill = isErrorTag ? "#B91900" : "#787878";
+    return iconRender(
+      iconReq,
+      iconFill,
+      "1.25rem",
+      "1.25rem",
+      ""
+    );
+  };
 
   return (
     <div
@@ -29,11 +42,12 @@ const Chip = ({
       onClick={disabled ? null : onTagClick}
     >
       <div
-        className={`digit-tag ${isErrorTag ? "errortag" : ""} ${hideClose ? "noClose" : ""} ${
+        className={`digit-tag ${isErrorTag ? "errortag" : ""} ${hideClose ? "noClose" : ""} ${!iconReq ? "noIcon" : ""} ${
           className ? className : ""
         }`}
         style={tagStyles}
       >
+        {iconReq && IconRender(iconReq,isErrorTag)}
         <span className="digit-text" style={textStyles}>
           {text}
         </span>
@@ -83,5 +97,11 @@ Chip.propTypes = {
   error: PropTypes.string,
   hideClose:PropTypes.bool
 };
+
+
+Chip.defaultProps = {
+  hideClose:true
+};
+
 
 export default Chip;

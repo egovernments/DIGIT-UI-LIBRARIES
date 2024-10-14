@@ -26,10 +26,12 @@ import MetricCard from "./MetricCard";
 import FormCard from "./FormCard";
 import FilterCard from "./FilterCard";
 import ViewCard from "./ViewCard";
+import BottomSheet from "./BottomSheet";
 
 export {
   ApiDropdown,
   CustomDropdown,
+  BottomSheet,
   DetailsCard,
   FormStep,
   InputCard,

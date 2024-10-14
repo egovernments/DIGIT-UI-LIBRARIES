@@ -65,11 +65,7 @@
     "react-drag-drop-files": "2.3.10",
     "@cyntler/react-doc-viewer": "1.10.3",
     "react-webcam":"7.2.0",
-    "react-lottie":"1.2.4",
-    "@mui/material": "^5.0.0",
-    "@mui/icons-material": "^5.0.0",
-    "@emotion/react": "^11.0.0",
-    "@emotion/styled": "^11.0.0"  
+    "react-lottie":"1.2.4"
   },
   "browserslist": {
     "production": [

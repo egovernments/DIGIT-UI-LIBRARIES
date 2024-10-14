@@ -82,13 +82,6 @@ const commonArgs = {
   isSearchable:false
 };
 
-// Button default
-export const Default = Template.bind({});
-Default.args = {
-  ...commonArgs,
-  variation: "",
-};
-
 // Button with primary variantion
 export const Primary = Template.bind({});
 Primary.args = {
@@ -127,6 +120,81 @@ PrimaryLabelWithMaxLength.args = {
   ...commonArgs,
   variation: "primary",
   label: "qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopas",
+};
+
+export const ActionButtonOnBottom = Template.bind({});
+ActionButtonOnBottom.args = {
+  ...commonArgs,
+  label:"ActionButton",
+  variation: "primary",
+  type:"actionButton",
+  optionsKey:"name",
+  isSearchable:true,
+    options:[
+      { name: "Action A", code: "Actiona" },
+      { name: "Action B", code: "Actionb" },
+      { name: "Action C", code: "Actionc" },
+    ],
+  showBottom:true,
+  onOptionSelect:(e)=>{console.log(e,"option selected")}
+};
+
+export const UnsearchableActionButtonOnBottom = Template.bind({});
+UnsearchableActionButtonOnBottom.args = {
+  ...commonArgs,
+  label:"ActionButton",
+  variation: "primary",
+  type:"actionButton",
+  optionsKey:"name",
+  isSearchable:false,
+    options:[
+      { name: "Action A", code: "Actiona" },
+      { name: "Action B", code: "Actionb" },
+      { name: "Action C", code: "Actionc" },
+    ],
+  showBottom:true,
+  onOptionSelect:(e)=>{console.log(e,"option selected")}
+  
+};
+
+export const ActionButtonOnTop = Template.bind({});
+ActionButtonOnTop.args = {
+  ...commonArgs,
+  label:"ActionButton",
+  variation: "primary",
+  type:"actionButton",
+  optionsKey:"name",
+  isSearchable:true,
+    options:[
+      { name: "Action A", code: "Actiona" },
+      { name: "Action B", code: "Actionb" },
+      { name: "Action C", code: "Actionc" },
+    ],
+  showBottom:false,
+  menuStyles:{
+    bottom:"40px"
+  },
+  onOptionSelect:(e)=>{console.log(e,"option selected")}
+};
+
+export const UnsearchableActionButtonOnTop = Template.bind({});
+UnsearchableActionButtonOnTop.args = {
+  ...commonArgs,
+  label:"ActionButton",
+  variation: "primary",
+  type:"actionButton",
+  optionsKey:"name",
+  isSearchable:false,
+    options:[
+      { name: "Action A", code: "Actiona" },
+      { name: "Action B", code: "Actionb" },
+      { name: "Action C", code: "Actionc" },
+    ],
+  showBottom:false,
+  menuStyles:{
+    bottom:"40px"
+  },
+  onOptionSelect:(e)=>{console.log(e,"option selected")}
 };
 
 // Button with secondary variantion
@@ -251,79 +319,4 @@ LinkLabelWithMaxLength.args = {
   ...commonArgs,
   variation: "link",
   label: "qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopas",
-};
-
-export const ActionButtonOnBottom = Template.bind({});
-ActionButtonOnBottom.args = {
-  ...commonArgs,
-  label:"ActionButton",
-  variation: "primary",
-  type:"actionButton",
-  optionsKey:"name",
-  isSearchable:true,
-    options:[
-      { name: "Action A", code: "Actiona" },
-      { name: "Action B", code: "Actionb" },
-      { name: "Action C", code: "Actionc" },
-    ],
-  showBottom:true,
-  onOptionSelect:(e)=>{console.log(e,"option selected")}
-};
-
-export const UnsearchableActionButtonOnBottom = Template.bind({});
-UnsearchableActionButtonOnBottom.args = {
-  ...commonArgs,
-  label:"ActionButton",
-  variation: "primary",
-  type:"actionButton",
-  optionsKey:"name",
-  isSearchable:false,
-    options:[
-      { name: "Action A", code: "Actiona" },
-      { name: "Action B", code: "Actionb" },
-      { name: "Action C", code: "Actionc" },
-    ],
-  showBottom:true,
-  onOptionSelect:(e)=>{console.log(e,"option selected")}
-  
-};
-
-export const ActionButtonOnTop = Template.bind({});
-ActionButtonOnTop.args = {
-  ...commonArgs,
-  label:"ActionButton",
-  variation: "primary",
-  type:"actionButton",
-  optionsKey:"name",
-  isSearchable:true,
-    options:[
-      { name: "Action A", code: "Actiona" },
-      { name: "Action B", code: "Actionb" },
-      { name: "Action C", code: "Actionc" },
-    ],
-  showBottom:false,
-  menuStyles:{
-    bottom:"40px"
-  },
-  onOptionSelect:(e)=>{console.log(e,"option selected")}
-};
-
-export const UnsearchableActionButtonOnTop = Template.bind({});
-UnsearchableActionButtonOnTop.args = {
-  ...commonArgs,
-  label:"ActionButton",
-  variation: "primary",
-  type:"actionButton",
-  optionsKey:"name",
-  isSearchable:false,
-    options:[
-      { name: "Action A", code: "Actiona" },
-      { name: "Action B", code: "Actionb" },
-      { name: "Action C", code: "Actionc" },
-    ],
-  showBottom:false,
-  menuStyles:{
-    bottom:"40px"
-  },
-  onOptionSelect:(e)=>{console.log(e,"option selected")}
 };

@@ -7,6 +7,7 @@ import Menu from "./Menu";
 import { Colors } from "../constants/colors/colorconstants";
 import { iconRender } from "../utils/iconRender";
 import { getUserType } from "../utils/digitUtils";
+import StringManipulator from "./StringManipulator";
 
 const TextField = (props) => {
   const [value, setValue] = useState(
@@ -372,16 +373,16 @@ const Dropdown = (props) => {
                     : undefined
                 }
               >
-                {props.t
+                {StringManipulator("TOSENTENCECASE", props.t
                   ? props.t(option[props?.optionKey])
-                  : option[props?.optionKey]}
+                  : option[props?.optionKey])}
               </span>
             )}
           </div>
           {(props.variant === "nestedtextdropdown" ||
             props.variant === "profilenestedtext") &&
             option.description && (
-              <div className="option-description">{option.description}</div>
+              <div className="option-description">{StringManipulator("TOSENTENCECASE", option.description)}</div>
             )}
         </div>
       </div>
@@ -412,7 +413,7 @@ const Dropdown = (props) => {
                     fill={inputBorderColor}
                   />
                 )}
-              {t(option[props?.optionKey])}
+              {StringManipulator("TOSENTENCECASE",t(option[props?.optionKey]))}
             </div>
           </div>
         );

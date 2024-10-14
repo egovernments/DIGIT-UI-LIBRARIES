@@ -144,6 +144,9 @@
     @apply bg-white;
     box-shadow: theme(digitv2.spacers.spacer0) -0.125rem theme(digitv2.spacers.spacer0) theme(digitv2.spacers.spacer0) theme(digitv2.lightTheme.primary-1) inset, theme(digitv2.spacers.spacer0) theme(digitv2.spacers.spacer1) theme(digitv2.spacers.spacer1) theme(digitv2.spacers.spacer0) #C84C0E33;
 
+    h2 {
+      font-weight: theme(digitv2.fontWeight.bold);
+    }
   }
 
   h2 {
