@@ -89,7 +89,6 @@ import MobileSidebar from "./MobileSidebar";
 import SelectionCard from "./SelectionCard";
 import Tag from "./Tag";
 import Tooltip from "./Tooltip";
-import BottomSheet from "./BottomSheet";
 import Switch from "./Switch";
 import { CustomSVG } from "./CustomSVG";
 import TableMain from "./TableMain";
@@ -111,7 +110,6 @@ export {
   BackLink,
   Sidebar,
   MobileSidebar,
-  BottomSheet,
   Switch,
   Accordion,
   AccordionWrapper,

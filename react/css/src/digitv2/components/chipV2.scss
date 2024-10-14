@@ -46,6 +46,10 @@
     }
   
 
+    svg{
+      flex-shrink: 0;
+    }
+
     .digit-text {
       @extend .typography.body-xs;
       @apply overflow-hidden items-center whitespace-no-wrap;
@@ -141,7 +145,13 @@
 
 .digit-tag{
   &.noClose{
-    display: inline;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &.noIcon{
+      display: unset;
+    }
   }
 }
 

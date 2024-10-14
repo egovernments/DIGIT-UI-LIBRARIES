@@ -139,13 +139,13 @@
       pointer-events: none !important;
       border: 0.063rem solid theme(digitv2.lightTheme.generic-inputborder);
       background: theme(digitv2.lightTheme.generic-background);
-      color: theme(digitv2.lightTheme.text-disabled);
+      color: theme(digitv2.lightTheme.text-secondary);
     }
 
     input {
       border: 0.063rem solid theme(digitv2.lightTheme.generic-inputborder);
       background: theme(digitv2.lightTheme.generic-background);
-      color: theme(digitv2.lightTheme.text-disabled);
+      color: theme(digitv2.lightTheme.text-secondary);
     }
 
     .digit-numeric-button-prefix,

@@ -27,7 +27,33 @@
       color: theme(digitv2.lightTheme.generic-divider) !important;
     }
     input[type="text"] {
-      @extend .typography.body-l;
+      @extend .typography.body-s;
+      @media (max-aspect-ratio: 9/16) {
+        /* Media query for mobile */
+        font-size: theme(digitv2.fontSize.body-s.mobile);
+        font-family: theme(digitv2.fontFamily.sans);
+        font-style: theme(digitv2.fontStyle.normal);
+        font-weight: theme(digitv2.fontWeight.regular);
+        line-height: theme(digitv2.lineHeight.lineheight2);
+      }
+  
+      @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+        /* Media query for tablets */
+        font-size: theme(digitv2.fontSize.body-s.tablet);
+        font-family: theme(digitv2.fontFamily.sans);
+        font-style: theme(digitv2.fontStyle.normal);
+        font-weight: theme(digitv2.fontWeight.regular);
+        line-height: theme(digitv2.lineHeight.lineheight2);
+      }
+  
+      @media (min-aspect-ratio: 3/4) {
+        /* Media query for desktop */
+        font-size: theme(digitv2.fontSize.body-s.desktop);
+        font-family: theme(digitv2.fontFamily.sans);
+        font-style: theme(digitv2.fontStyle.normal);
+        font-weight: theme(digitv2.fontWeight.regular);
+        line-height: theme(digitv2.lineHeight.lineheight2);
+      }
       @apply absolute z-10 h-full outline-none;
       width:calc(100%- (theme(digitv2.spacers.spacer7)));
       background-color: transparent;
@@ -52,7 +78,33 @@
     @apply relative block w-full h-10 bg-white;
     border: 0.063rem solid theme(digitv2.lightTheme.primary-1);
     input[type="text"] {
-      @extend .typography.body-l;
+      @extend .typography.body-s;
+      @media (max-aspect-ratio: 9/16) {
+        /* Media query for mobile */
+        font-size: theme(digitv2.fontSize.body-s.mobile);
+        font-family: theme(digitv2.fontFamily.sans);
+        font-style: theme(digitv2.fontStyle.normal);
+        font-weight: theme(digitv2.fontWeight.regular);
+        line-height: theme(digitv2.lineHeight.lineheight2);
+      }
+  
+      @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+        /* Media query for tablets */
+        font-size: theme(digitv2.fontSize.body-s.tablet);
+        font-family: theme(digitv2.fontFamily.sans);
+        font-style: theme(digitv2.fontStyle.normal);
+        font-weight: theme(digitv2.fontWeight.regular);
+        line-height: theme(digitv2.lineHeight.lineheight2);
+      }
+  
+      @media (min-aspect-ratio: 3/4) {
+        /* Media query for desktop */
+        font-size: theme(digitv2.fontSize.body-s.desktop);
+        font-family: theme(digitv2.fontFamily.sans);
+        font-style: theme(digitv2.fontStyle.normal);
+        font-weight: theme(digitv2.fontWeight.regular);
+        line-height: theme(digitv2.lineHeight.lineheight2);
+      }
       @apply absolute z-10 h-full outline-none;
       width:calc(100%- (theme(digitv2.spacers.spacer7)));
       background-color: transparent;
@@ -369,7 +421,33 @@
   }
 }
 .digit-dropdown-employee-select-wrap--elipses {
-  @extend .typography.body-l;
+  @extend .typography.body-s;
+  @media (max-aspect-ratio: 9/16) {
+    /* Media query for mobile */
+    font-size: theme(digitv2.fontSize.body-s.mobile);
+    font-family: theme(digitv2.fontFamily.sans);
+    font-style: theme(digitv2.fontStyle.normal);
+    font-weight: theme(digitv2.fontWeight.regular);
+    line-height: theme(digitv2.lineHeight.lineheight2);
+  }
+
+  @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+    /* Media query for tablets */
+    font-size: theme(digitv2.fontSize.body-s.tablet);
+    font-family: theme(digitv2.fontFamily.sans);
+    font-style: theme(digitv2.fontStyle.normal);
+    font-weight: theme(digitv2.fontWeight.regular);
+    line-height: theme(digitv2.lineHeight.lineheight2);
+  }
+
+  @media (min-aspect-ratio: 3/4) {
+    /* Media query for desktop */
+    font-size: theme(digitv2.fontSize.body-s.desktop);
+    font-family: theme(digitv2.fontFamily.sans);
+    font-style: theme(digitv2.fontStyle.normal);
+    font-weight: theme(digitv2.fontWeight.regular);
+    line-height: theme(digitv2.lineHeight.lineheight2);
+  }
   @apply overflow-hidden whitespace-no-wrap;
   width:calc(100%- (theme(digitv2.spacers.spacer7)));
   text-overflow: ellipsis;
@@ -398,7 +476,33 @@
     @apply relative block w-full h-10 bg-white;
     border: 0.063rem solid theme(digitv2.lightTheme.text-secondary);
     input[type="text"] {
-      @extend .typography.body-l;
+      @extend .typography.body-s;
+      @media (max-aspect-ratio: 9/16) {
+        /* Media query for mobile */
+        font-size: theme(digitv2.fontSize.body-s.mobile);
+        font-family: theme(digitv2.fontFamily.sans);
+        font-style: theme(digitv2.fontStyle.normal);
+        font-weight: theme(digitv2.fontWeight.regular);
+        line-height: theme(digitv2.lineHeight.lineheight2);
+      }
+  
+      @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+        /* Media query for tablets */
+        font-size: theme(digitv2.fontSize.body-s.tablet);
+        font-family: theme(digitv2.fontFamily.sans);
+        font-style: theme(digitv2.fontStyle.normal);
+        font-weight: theme(digitv2.fontWeight.regular);
+        line-height: theme(digitv2.lineHeight.lineheight2);
+      }
+  
+      @media (min-aspect-ratio: 3/4) {
+        /* Media query for desktop */
+        font-size: theme(digitv2.fontSize.body-s.desktop);
+        font-family: theme(digitv2.fontFamily.sans);
+        font-style: theme(digitv2.fontStyle.normal);
+        font-weight: theme(digitv2.fontWeight.regular);
+        line-height: theme(digitv2.lineHeight.lineheight2);
+      }
       @apply absolute z-10  h-full outline-none;
       width:calc(100%- (theme(digitv2.spacers.spacer7)));
       background-color: transparent;
@@ -428,7 +532,33 @@
     @apply relative block w-full h-10;
     border: 0.063rem solid theme(digitv2.lightTheme.primary-1);
     input[type="text"] {
-      @extend .typography.body-l;
+      @extend .typography.body-s;
+      @media (max-aspect-ratio: 9/16) {
+        /* Media query for mobile */
+        font-size: theme(digitv2.fontSize.body-s.mobile);
+        font-family: theme(digitv2.fontFamily.sans);
+        font-style: theme(digitv2.fontStyle.normal);
+        font-weight: theme(digitv2.fontWeight.regular);
+        line-height: theme(digitv2.lineHeight.lineheight2);
+      }
+  
+      @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+        /* Media query for tablets */
+        font-size: theme(digitv2.fontSize.body-s.tablet);
+        font-family: theme(digitv2.fontFamily.sans);
+        font-style: theme(digitv2.fontStyle.normal);
+        font-weight: theme(digitv2.fontWeight.regular);
+        line-height: theme(digitv2.lineHeight.lineheight2);
+      }
+  
+      @media (min-aspect-ratio: 3/4) {
+        /* Media query for desktop */
+        font-size: theme(digitv2.fontSize.body-s.desktop);
+        font-family: theme(digitv2.fontFamily.sans);
+        font-style: theme(digitv2.fontStyle.normal);
+        font-weight: theme(digitv2.fontWeight.regular);
+        line-height: theme(digitv2.lineHeight.lineheight2);
+      }
       @apply absolute z-10  h-full outline-none;
       width:calc(100%- (theme(digitv2.spacers.spacer7)));
       background-color: transparent;
