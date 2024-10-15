@@ -15,6 +15,7 @@
 /// )
 
 import 'package:digit_ui_components/digit_components.dart';
+import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:flutter/material.dart';
 import '../../constants/AppView.dart';
 import '../../constants/app_constants.dart';
@@ -47,6 +48,7 @@ class RadioList extends StatefulWidget {
   /// radio DigitButton height
   final double radioHeight;
   final bool capitalizeFirstLetter;
+  final TextDirection? textDirection;
 
   /// Constructor for the RadioList widget
   RadioList({
@@ -61,6 +63,7 @@ class RadioList extends StatefulWidget {
     this.radioWidth = RadioConstant.radioWidth,
     this.radioHeight = RadioConstant.radioHeight,
     this.capitalizeFirstLetter = true,
+    this.textDirection = TextDirection.ltr,
   }) : super(key: key);
 
   /// Create the state for the widget
@@ -88,11 +91,12 @@ class _RadioListState extends State<RadioList> {
   /// Build the widget layout
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final textTheme = theme.digitTextTheme(context);
 
     String? capitalizedErrorMessage =
     convertInToSentenceCase(widget.errorMessage);
 
-    DigitTypography currentTypography = getTypography(context, false);
     isMobile = AppView.isMobileView(MediaQuery.of(context).size);
     if (!isMobile) {
       return Column(
@@ -101,7 +105,7 @@ class _RadioListState extends State<RadioList> {
         children: [
           Wrap(
             crossAxisAlignment: WrapCrossAlignment.start,
-            children: _buildRadioDigitButtons(currentTypography),
+            children: _buildRadioDigitButtons(context),
           ),
           if(widget.errorMessage!=null)
             const SizedBox(width: spacer1),
@@ -123,9 +127,7 @@ class _RadioListState extends State<RadioList> {
                         width: spacer4,
                         child: Icon(
                           Icons.info,
-                          color: const DigitColors()
-                              .light
-                              .alertError,
+                          color: theme.colorTheme.alert.error,
                           size: BaseConstants.errorIconSize,
                         ),
                       ),
@@ -135,10 +137,8 @@ class _RadioListState extends State<RadioList> {
                   Flexible(
                     fit: FlexFit.tight,
                     child: Text(truncateWithEllipsis(256, capitalizedErrorMessage!),
-                      style: currentTypography.bodyS.copyWith(
-                        color: const DigitColors()
-                            .light
-                            .alertError,
+                      style: textTheme.bodyS.copyWith(
+                        color: theme.colorTheme.alert.error,
                       ),
                     ),
                   ),
@@ -157,7 +157,7 @@ class _RadioListState extends State<RadioList> {
         Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: _buildRadioDigitButtons(currentTypography),
+          children: _buildRadioDigitButtons(context),
         ),
         if(widget.errorMessage!=null)
           const SizedBox(width: spacer1),
@@ -179,9 +179,7 @@ class _RadioListState extends State<RadioList> {
                       width: spacer4,
                       child: Icon(
                         Icons.info,
-                        color: const DigitColors()
-                            .light
-                            .alertError,
+                        color: theme.colorTheme.alert.error,
                         size: BaseConstants.errorIconSize,
                       ),
                     ),
@@ -191,10 +189,8 @@ class _RadioListState extends State<RadioList> {
                 Flexible(
                   fit: FlexFit.tight,
                   child: Text(truncateWithEllipsis(256, capitalizedErrorMessage!),
-                    style: currentTypography.bodyS.copyWith(
-                      color: const DigitColors()
-                          .light
-                          .alertError,
+                    style: textTheme.bodyS.copyWith(
+                      color: theme.colorTheme.alert.error,
                     ),
                   ),
                 ),
@@ -205,7 +201,10 @@ class _RadioListState extends State<RadioList> {
     );
   }
 
-  List<Widget> _buildRadioDigitButtons(DigitTypography currentTypography) {
+  List<Widget> _buildRadioDigitButtons(BuildContext context) {
+
+    final theme = Theme.of(context);
+    final textTheme = theme.digitTextTheme(context);
 
     return widget.radioDigitButtons.map(
           (DigitButton) {
@@ -213,6 +212,7 @@ class _RadioListState extends State<RadioList> {
         return Padding(
           padding: widget.containerPadding,
           child: Row(
+            textDirection: widget.textDirection,
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -268,12 +268,12 @@ class _RadioListState extends State<RadioList> {
                         shape: BoxShape.circle,
                         border: Border.all(
                           color: widget.isDisabled || widget.readOnly
-                              ? const DigitColors().light.genericDivider
+                              ? theme.colorTheme.generic.divider
                               : (widget.groupValue == DigitButton.code ||
                               isHoveredList[index] ||
                               isMouseDown[index])
-                              ? const DigitColors().light.primary1
-                              : const DigitColors().light.textSecondary,
+                              ? theme.colorTheme.primary.primary1
+                              : theme.colorTheme.text.secondary,
                           width: ((widget.isDisabled || widget.readOnly) &&
                               widget.groupValue == DigitButton.code) ||
                               widget.groupValue == DigitButton.code
@@ -281,14 +281,14 @@ class _RadioListState extends State<RadioList> {
                               : Base.defaultBorderWidth,
                         ),
                         color: widget.isDisabled || widget.readOnly
-                            ? const DigitColors().light.paperSecondary
+                            ? theme.colorTheme.paper.secondary
                             : isMouseDown[index]
-                            ? const DigitColors().light.primary1Bg
-                            : const DigitColors().light.paperPrimary,
+                            ? theme.colorTheme.primary.primaryBg
+                            : theme.colorTheme.paper.primary,
                         boxShadow: isMouseDown[index]
                             ? [
                           BoxShadow(
-                            color: const DigitColors().light.primary1Bg,
+                            color: theme.colorTheme.primary.primaryBg,
                             spreadRadius: 3,
                             blurRadius: 3,
                             offset: const Offset(0, 0),
@@ -303,8 +303,8 @@ class _RadioListState extends State<RadioList> {
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           color: widget.isDisabled || widget.readOnly
-                              ? const DigitColors().light.textDisabled
-                              : const DigitColors().light.primary1,
+                              ? theme.colorTheme.text.disabled
+                              : theme.colorTheme.primary.primary1,
                         ),
                       )
                           : null,
@@ -323,10 +323,10 @@ class _RadioListState extends State<RadioList> {
                     convertInToSentenceCase(DigitButton.name)!,
                     maxLines: 5,
                     overflow: TextOverflow.ellipsis,
-                    style: currentTypography.bodyL.copyWith(
+                    style: textTheme.bodyL.copyWith(
                       color: widget.isDisabled
-                          ? const DigitColors().light.textDisabled
-                          : const DigitColors().light.textPrimary,
+                          ? theme.colorTheme.text.disabled
+                          : theme.colorTheme.text.primary,
                     ),
                   ),
                 ),

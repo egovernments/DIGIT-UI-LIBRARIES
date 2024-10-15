@@ -20,21 +20,21 @@ List<Story> panelStories() {
       name: 'Atom/Panel/Success/Basic',
       builder: (context) {
         final animateKnob = context.knobs.boolean(label: 'Animation', initial: true);
-        final repeatKnob = context.knobs.boolean(label: 'Repeat', initial: false);
 
-        return Panel(
-              type: PanelType.success,
-              title: context.knobs.text(label: 'Title', initial: 'Success Message'),
-              animate: animateKnob,
-              repeat: repeatKnob,
-            );
+        return Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: Panel(
+                type: PanelType.success,
+                title: context.knobs.text(label: 'Title', initial: 'Success Message'),
+                animate: animateKnob,
+              ),
+        );
       },
     ),
     Story(
       name: 'Atom/Panel/Success/With description',
       builder: (context) {
         final animateKnob = context.knobs.boolean(label: 'Animation', initial: true);
-        final repeatKnob = context.knobs.boolean(label: 'Repeat', initial: false);
 
         final descriptionString = context.knobs.text(
           label: 'Description (comma-separated)',
@@ -44,23 +44,25 @@ List<Story> panelStories() {
         final descriptionList =
         descriptionString.split(',').map((s) => s.trim()).toList();
 
-        return Panel(
-              type: PanelType.success,
-              title: context.knobs.text(label: 'Title', initial: 'Success Message'),
-              description: descriptionList.map((text) {
-                return Text(
-                  text,
-                  style: Theme.of(context)
-                      .digitTextTheme(context)
-                      .bodyS
-                      .copyWith(
-                    color: Theme.of(context).colorTheme.paper.primary,
-                  ),
-                );
-              }).toList(),
-              animate: animateKnob,
-              repeat: repeatKnob,
-            );
+        return Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: Panel(
+                type: PanelType.success,
+                title: context.knobs.text(label: 'Title', initial: 'Success Message'),
+                description: descriptionList.map((text) {
+                  return Text(
+                    text,
+                    style: Theme.of(context)
+                        .digitTextTheme(context)
+                        .bodyS
+                        .copyWith(
+                      color: Theme.of(context).colorTheme.paper.primary,
+                    ),
+                  );
+                }).toList(),
+                animate: animateKnob,
+              ),
+        );
 
       },
     ),
@@ -68,14 +70,15 @@ List<Story> panelStories() {
       name: 'Atom/Panel/Error/Basic',
       builder: (context) {
         final animateKnob = context.knobs.boolean(label: 'Animation', initial: true);
-        final repeatKnob = context.knobs.boolean(label: 'Repeat', initial: false);
 
-        return Panel(
-              type: PanelType.error,
-              title: context.knobs.text(label: 'Title', initial: 'Error Message'),
-              animate: animateKnob,
-              repeat: repeatKnob,
-            );
+        return Padding(
+          padding: const EdgeInsets.all(24),
+          child: Panel(
+                type: PanelType.error,
+                title: context.knobs.text(label: 'Title', initial: 'Error Message'),
+                animate: animateKnob,
+              ),
+        );
 
       },
     ),
@@ -83,7 +86,6 @@ List<Story> panelStories() {
       name: 'Atom/Panel/Error/With description',
       builder: (context) {
         final animateKnob = context.knobs.boolean(label: 'Animation', initial: true);
-        final repeatKnob = context.knobs.boolean(label: 'Repeat', initial: false);
 
         final descriptionString = context.knobs.text(
           label: 'Description (comma-separated)',
@@ -93,23 +95,25 @@ List<Story> panelStories() {
         final descriptionList =
         descriptionString.split(',').map((s) => s.trim()).toList();
 
-        return Panel(
-              type: PanelType.error,
-              title: context.knobs.text(label: 'Title', initial: 'Error Message'),
-              description: descriptionList.map((text) {
-                return Text(
-                  text,
-                  style: Theme.of(context)
-                      .digitTextTheme(context)
-                      .bodyS
-                      .copyWith(
-                    color: Theme.of(context).colorTheme.paper.primary,
-                  ),
-                );
-              }).toList(),
-              animate: animateKnob,
-              repeat: repeatKnob,
-            );
+        return Padding(
+          padding: const EdgeInsets.all(24),
+          child: Panel(
+                type: PanelType.error,
+                title: context.knobs.text(label: 'Title', initial: 'Error Message'),
+                description: descriptionList.map((text) {
+                  return Text(
+                    text,
+                    style: Theme.of(context)
+                        .digitTextTheme(context)
+                        .bodyS
+                        .copyWith(
+                      color: Theme.of(context).colorTheme.paper.primary,
+                    ),
+                  );
+                }).toList(),
+                animate: animateKnob,
+              ),
+        );
       },
     ),
   ];
