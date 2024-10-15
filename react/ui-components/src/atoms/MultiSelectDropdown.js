@@ -28,7 +28,8 @@ const MultiSelectDropdown = ({
   selectAllLabel = "",
   categorySelectAllLabel = "",
   restrictSelection = false,
-  isSearchable=false
+  isSearchable=false,
+  chipsKey
 }) => {
   const [active, setActive] = useState(false);
   const [searchQuery, setSearchQuery] = useState();
@@ -53,7 +54,7 @@ const MultiSelectDropdown = ({
         //   );
         //   return updatedState;
       case "REMOVE_FROM_SELECTED_EVENT_QUEUE":
-        const newState = state.filter(
+        const newState = state?.filter(
           (e) => e?.code !== action.payload?.[1]?.code
         );
         onSelect(
@@ -124,7 +125,7 @@ const MultiSelectDropdown = ({
   useEffect(() => {
     const allOptionsSelected =
       variant === "nestedmultiselect"
-        ? checkSelection(flattenedOptions.filter((option) => !option.options))
+        ? checkSelection(flattenedOptions?.filter((option) => !option.options))
         : checkSelection(options);
 
     setSelectAllChecked(allOptionsSelected);
@@ -312,8 +313,8 @@ const MultiSelectDropdown = ({
     if (variant === "nestedmultiselect") {
       const categorySelectAllState = {};
       options
-        .filter((option) => option.options)
-        .forEach((category) => {
+        ?.filter((option) => option.options)
+        ?.forEach((category) => {
           categorySelectAllState[category.code] = {
             isSelectAllChecked: categorySelected[category.code] || false,
           };
@@ -609,7 +610,7 @@ const MultiSelectDropdown = ({
                     <input
                       type="checkbox"
                       checked={
-                        selectAllChecked || categorySelected[option.code]
+                        selectAllChecked || categorySelected[option?.code]
                       }
                     />
                     <div
@@ -702,9 +703,11 @@ const MultiSelectDropdown = ({
                   <Chip
                     key={index}
                     text={
-                      replacedText?.length > 64
-                        ? `${replacedText?.slice(0, 64)}...`
-                        : replacedText
+                      !chipsKey
+                        ? replacedText?.length > 64
+                          ? `${replacedText?.slice(0, 64)}...`
+                          : replacedText
+                        : value?.propsData[1]?.[chipsKey]
                     }
                     onClick={
                       variant === "treemultiselect"

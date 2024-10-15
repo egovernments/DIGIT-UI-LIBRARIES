@@ -28,9 +28,9 @@ export default {
     itemsBeforeCollapse: {
       control: { type: "number" },
     },
-    expandText:{
-        control:{type:"text"}
-    }
+    expandText: {
+      control: { type: "text" },
+    },
   },
 };
 
@@ -40,41 +40,143 @@ const Template = (args) => (
   </Router>
 );
 
-export const Default = Template.bind({});
-Default.args = {
+export const Basic = Template.bind({});
+Basic.args = {
   crumbs: [
     {
       content: "Home",
       show: true,
+      path: "/home",
     },
     {
       content: "Previous",
       show: true,
+      path: "/previous",
     },
     {
       content: "Current",
       show: true,
+      path: "/current",
     },
   ],
+};
+
+export const Collapsed = Template.bind({});
+Collapsed.args = {
+  crumbs: [
+    {
+      content: "Home",
+      show: true,
+      path: "/home",
+    },
+    {
+      content: "Previous1",
+      show: true,
+      path: "/previous1",
+    },
+    {
+      content: "Previous2",
+      show: true,
+      path: "/previous2",
+    },
+    {
+      content: "Previous3",
+      show: true,
+      path: "/previous3",
+    },
+    {
+      content: "Current",
+      show: true,
+      path: "/current",
+    },
+  ],
+  maxItems: 3,
+};
+
+export const CollapsedWithCustomValues = Template.bind({});
+CollapsedWithCustomValues.args = {
+  crumbs: [
+    {
+      content: "Home",
+      show: true,
+      path: "/home",
+    },
+    {
+      content: "Previous1",
+      show: true,
+      path: "/previous1",
+    },
+    {
+      content: "Previous2",
+      show: true,
+      path: "/previous2",
+    },
+    {
+      content: "Previous3",
+      show: true,
+      path: "/previous3",
+    },
+    {
+      content: "Current",
+      show: true,
+      path: "/current",
+    },
+  ],
+  maxItems: 3,
+  itemsBeforeCollapse: 1,
+  itemsAfterCollapse: 2,
+};
+
+export const CollapsedWithExpandText = Template.bind({});
+CollapsedWithExpandText.args = {
+  crumbs: [
+    {
+      content: "Home",
+      show: true,
+      path: "/home",
+    },
+    {
+      content: "Previous1",
+      show: true,
+      path: "/previous1",
+    },
+    {
+      content: "Previous2",
+      show: true,
+      path: "/previous2",
+    },
+    {
+      content: "Previous3",
+      show: true,
+      path: "/previous3",
+    },
+    {
+      content: "Current",
+      show: true,
+      path: "/current",
+    },
+  ],
+  maxItems: 3,
+  expandText: "{click here to expand}",
 };
 
 export const WithIcons = Template.bind({});
 WithIcons.args = {
   crumbs: [
     {
-      path: "",
+      path: "/home",
       content: "Home",
       show: true,
       icon: <SVG.Home fill={"#C84C0E"} />,
     },
     {
-      path: "",
+      path: "/previous",
       content: "Previous",
       show: true,
       icon: <SVG.Person fill={"#C84C0E"} />,
     },
     {
-      path: "",
+      path: "/current",
       content: "Current",
       show: true,
       icon: <SVG.Edit fill={"#787878"} />,
@@ -82,105 +184,26 @@ WithIcons.args = {
   ],
 };
 
-export const WithCustomSeperator = Template.bind({});
-WithCustomSeperator.args = {
+export const WithCustomSeparators = Template.bind({});
+WithCustomSeparators.args = {
   crumbs: [
     {
       content: "Home",
       show: true,
+      path: "/home",
     },
     {
       content: "Previous",
       show: true,
+      path: "/previous",
     },
     {
       content: "Current",
       show: true,
+      path: "/current",
     },
   ],
-  customSeperator: <SVG.ArrowForward fill={"#C84C0E"} />,
+  customSeparator: <SVG.ArrowForward fill={"#C84C0E"} />,
 };
 
-export const CollapsedBreadCrumbs = Template.bind({});
-CollapsedBreadCrumbs.args = {
-  crumbs: [
-    {
-      content: "Home",
-      show: true,
-    },
-    {
-      content: "Previous1",
-      show: true,
-    },
-    {
-      content: "Previous2",
-      show: true,
-    },
-    {
-      content: "Previous3",
-      show: true,
-    },
-    {
-      content: "Current",
-      show: true,
-    },
-  ],
-  maxItems: 3,
-};
 
-export const CollapsedBreadCrumbsWithCustomValues = Template.bind({});
-CollapsedBreadCrumbsWithCustomValues.args = {
-  crumbs: [
-    {
-      content: "Home",
-      show: true,
-    },
-    {
-      content: "Previous1",
-      show: true,
-    },
-    {
-      content: "Previous2",
-      show: true,
-    },
-    {
-      content: "Previous3",
-      show: true,
-    },
-    {
-      content: "Current",
-      show: true,
-    },
-  ],
-  maxItems: 3,
-  itemsBeforeCollapse:1,
-  itemsAfterCollapse:2
-};
-
-export const CollapsedBreadCrumbsWithExpandText = Template.bind({});
-CollapsedBreadCrumbsWithExpandText.args = {
-  crumbs: [
-    {
-      content: "Home",
-      show: true,
-    },
-    {
-      content: "Previous1",
-      show: true,
-    },
-    {
-      content: "Previous2",
-      show: true,
-    },
-    {
-      content: "Previous3",
-      show: true,
-    },
-    {
-      content: "Current",
-      show: true,
-    },
-  ],
-  maxItems: 3,
-  expandText:"{click here to expand}"
-};

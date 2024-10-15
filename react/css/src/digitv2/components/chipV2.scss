@@ -46,6 +46,10 @@
     }
   
 
+    svg{
+      flex-shrink: 0;
+    }
+
     .digit-text {
       @extend .typography.body-xs;
       @apply overflow-hidden items-center whitespace-no-wrap;
@@ -135,6 +139,18 @@
         border: 0.063rem solid theme(digitv2.lightTheme.alert-error);
         background-color: theme(digitv2.lightTheme.alert-error);
       }
+    }
+  }
+}
+
+.digit-tag{
+  &.noClose{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &.noIcon{
+      display: unset;
     }
   }
 }

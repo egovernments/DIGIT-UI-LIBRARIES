@@ -50,20 +50,20 @@ const commonArgs = {
   label:"Back"
 };
 
-export const Primary = Template.bind({});
-Primary.args = {
+export const Backlink1 = Template.bind({});
+Backlink1.args = {
   ...commonArgs,
   variant: "primary",
 };
 
-export const Secondary = Template.bind({});
-Secondary.args = {
+export const Backlink2 = Template.bind({});
+Backlink2.args = {
   ...commonArgs,
   variant: "secondary",
 };
 
-export const Teritiary = Template.bind({});
-Teritiary.args = {
+export const Backlink3 = Template.bind({});
+Backlink3.args = {
   ...commonArgs,
   variant: "teritiary",
 };

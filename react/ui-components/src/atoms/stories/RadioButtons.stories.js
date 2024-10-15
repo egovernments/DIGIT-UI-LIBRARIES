@@ -94,3 +94,12 @@ PreSelected.args = {
 PreSelected.argTypes = {
   disabled: { control: { disable: true } },
 };
+
+export const AlignVertical = Template.bind({});
+AlignVertical.args = {
+  ...commonArgs,
+  populators:{
+    ...commonArgs.populators,
+    alignVertical:true
+  }
+};

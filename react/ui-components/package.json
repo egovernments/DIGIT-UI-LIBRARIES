@@ -1,6 +1,6 @@
 {
   "name": "@egovernments/digit-ui-components",
-  "version": "0.0.2-beta.39",
+  "version": "0.0.2-beta.47",
   "license": "MIT",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
@@ -34,6 +34,7 @@
     "@storybook/node-logger": "6.4.20",
     "@storybook/preset-create-react-app": "3.2.0",
     "@storybook/react": "6.4.20",
+    "@storybook/blocks":"8.3.5",
     "babel-eslint": "10.1.0",
     "cross-env": "7.0.3",
     "gh-pages": "2.2.0",
@@ -51,9 +52,9 @@
     "dist"
   ],
   "dependencies": {
-    "@egovernments/digit-ui-components-css": "0.0.2-beta.33",
+    "@egovernments/digit-ui-components-css": "0.0.2-beta.38",
     "@egovernments/digit-ui-libraries": "1.8.1-beta.1",
-    "@egovernments/digit-ui-svg-components": "1.0.11",
+    "@egovernments/digit-ui-svg-components": "1.0.12",
     "@googlemaps/js-api-loader": "1.13.10",
     "autoprefixer": "^10.4.15",
     "postcss-flexbugs-fixes": "^5.0.2",

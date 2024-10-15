@@ -132,7 +132,7 @@ const FieldV1 = ({
           <TextInput
             type={type}
             value={value}
-            name={populators.name}
+            name={populators?.name}
             onChange={onChange}
             error={error}
             disabled={disabled}
@@ -143,7 +143,7 @@ const FieldV1 = ({
             populators={populators}
             inputRef={ref}
             step={config?.step}
-            errorStyle={errors?.[populators.name]}
+            errorStyle={errors?.[populators?.name]}
             max={populators?.validation?.max}
             min={populators?.validation?.min}
             maxlength={populators?.validation?.maxlength}
@@ -159,7 +159,7 @@ const FieldV1 = ({
             <TextArea
               type={type}
               value={value}
-              name={populators.name}
+              name={populators?.name}
               onChange={onChange}
               error={error}
               disabled={disabled}
@@ -169,7 +169,7 @@ const FieldV1 = ({
               required={required}
               populators={populators}
               inputRef={ref}
-              errorStyle={errors?.[populators.name]}
+              errorStyle={errors?.[populators?.name]}
               maxlength={populators?.validation?.maxlength}
               minlength={populators?.validation?.minlength}
             />
@@ -191,11 +191,11 @@ const FieldV1 = ({
             onChange={onChange}
             config={populators}
             disabled={disabled}
-            errorStyle={errors?.[populators.name]}
+            errorStyle={errors?.[populators?.name]}
             variant={
               variant
                 ? variant
-                : errors?.[populators.name]
+                : errors?.[populators?.name]
                 ? "digit-field-error"
                 : ""
             }
@@ -209,7 +209,8 @@ const FieldV1 = ({
                 onChange(e.target.checked);
               }}
               value={value}
-              checked={formData?.[populators.name]}
+              checked={formData?.[populators?.name]}
+              isIntermediate={populators?.isIntermediate}
               label={t(`${populators?.title}`)}
               styles={populators?.styles}
               style={populators?.labelStyles}
@@ -225,6 +226,7 @@ const FieldV1 = ({
             <MultiSelectDropdown
               options={populators?.options}
               optionsKey={populators?.optionsKey}
+              chipsKey={populators?.chipsKey}
               props={props}
               isPropsNeeded={true}
               onSelect={(e) => {
@@ -259,7 +261,7 @@ const FieldV1 = ({
               onChange={onChange}
               value={value}
               disable={disabled}
-              errorStyle={errors?.[populators.name]}
+              errorStyle={errors?.[populators?.name]}
             />
           </div>
         );
@@ -305,7 +307,7 @@ const FieldV1 = ({
             variant={
               variant
                 ? variant
-                : errors?.[populators.name]
+                : errors?.[populators?.name]
                 ? "digit-field-error"
                 : ""
             }
@@ -316,12 +318,12 @@ const FieldV1 = ({
       case "amount":
         return (
           <InputTextAmount
-            value={formData?.[populators.name]}
+            value={formData?.[populators?.name]}
             type={"text"}
-            name={populators.name}
+            name={populators?.name}
             onChange={onChange}
             inputRef={ref}
-            errorStyle={errors?.[populators.name]}
+            errorStyle={errors?.[populators?.name]}
             max={populators?.validation?.max}
             min={populators?.validation?.min}
             disable={disabled}
@@ -335,7 +337,7 @@ const FieldV1 = ({
             variant={
               variant
                 ? variant
-                : errors?.[populators.name]
+                : errors?.[populators?.name]
                 ? "digit-field-error"
                 : ""
             }
@@ -347,7 +349,7 @@ const FieldV1 = ({
   };
 
   return (
-    <>
+    <div className="label-field-wrapper">
       {!withoutLabel && (
         <Header
           className={`label ${disabled ? "disabled" : ""} ${
@@ -379,7 +381,7 @@ const FieldV1 = ({
                   height="1.1875rem"
                   fill="#505A5F"
                 />
-                <span class="infotext">{infoMessage}</span>
+                <span class="infotext">{t(infoMessage)}</span>
               </div>
             ) : null}
           </div>
@@ -405,7 +407,7 @@ const FieldV1 = ({
           {renderCharCount()}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

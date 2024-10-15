@@ -210,7 +210,7 @@ const TextInput = (props) => {
     props.errorStyle ? "digit-employeeCard-inputError" : ""
   } ${props.nonEditable ? "noneditable" : ""} ${
     props.type === "numeric" ? "numeric" : ""
-  }`;
+  } ${props.customClass || ""}`;
 
   const defaultType =
     props.type === "password" && inputType === "text"

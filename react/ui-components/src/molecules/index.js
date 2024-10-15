@@ -21,10 +21,17 @@ import LandingPageCard from "./LandingPageCard";
 import LandingPageWrapper from "./LandingPageWrapper";
 import MenuCard from "./MenuCard";
 import MenuCardWrapper from "./MenuCardWrapper";
+import TableMolecule from "./TableMolecule";
+import MetricCard from "./MetricCard";
+import FormCard from "./FormCard";
+import FilterCard from "./FilterCard";
+import ViewCard from "./ViewCard";
+import BottomSheet from "./BottomSheet";
 
 export {
   ApiDropdown,
   CustomDropdown,
+  BottomSheet,
   DetailsCard,
   FormStep,
   InputCard,
@@ -45,5 +52,10 @@ export {
   LandingPageCard,
   MenuCard,
   LandingPageWrapper,
-  MenuCardWrapper
+  MenuCardWrapper,
+  TableMolecule,
+  MetricCard,
+  FormCard,
+  FilterCard,
+  ViewCard
 };

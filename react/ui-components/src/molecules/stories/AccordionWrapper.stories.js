@@ -53,7 +53,7 @@ const children = [
 const commonArgs = {
   className: "",
   style: {},
-  allowMultipleOpen: false,
+  allowMultipleOpen: true,
   addDivider: true,
 };
 
@@ -70,11 +70,11 @@ WithoutDivider.args = {
   addDivider: false,
 };
 
-export const WithMultipleOpen = Template.bind({});
-WithMultipleOpen.args = {
+export const WithOnlySingleOpen = Template.bind({});
+WithOnlySingleOpen.args = {
   ...commonArgs,
   children: children,
-  allowMultipleOpen:true
+  allowMultipleOpen:false
 };
 
 export const CustomStyles = Template.bind({});

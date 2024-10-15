@@ -4,6 +4,26 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.2-beta.46] - 2024-10-11
+### New Changes
+- Added MaterialUI Icons,Updated Colors and Spacers Stories
+
+## [0.0.2-beta.44] - 2024-10-07
+### New Changes
+- Added NestedTable, FilterCard and FormCards
+
+## [0.0.2-beta.42] - 2024-09-23
+### New Changes
+- Added Table Molecule 
+
+## [0.0.2-beta.41] - 2024-09-19
+### New Changes
+- Added OTPInput 
+
+## [0.0.2-beta.40] - 2024-09-18
+### New Changes
+- Added ChipsKey for Multiselectdropdown and configuration for close icon in chips
+
 ## [0.0.2-beta.39] - 2024-09-12
 ### New Changes
 - Added Tab Component and other changes

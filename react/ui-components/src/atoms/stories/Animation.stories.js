@@ -2,11 +2,11 @@ import React from "react";
 import { Animation } from "../../atoms";
 import successAnimation from "../../constants/animations/success.json";
 import errorAnimation from "../../constants/animations/error.json";
-import newSceneAnimation from "../../constants/animations/newScene.json";
-import warningOutlineAnimation from "../../constants/animations/warningOutline.json";
+import warning2Animation from "../../constants/animations/warningOutline2.json";
+import warningAnimation from "../../constants/animations/warningOutline.json";
 
 export default {
-  title: "Animations",
+  title: "Foundations/Animations",
   component: Animation,
   argTypes: {
     loop: {
@@ -30,7 +30,7 @@ export default {
 const Template = (args) => (
   <div
     style={{
-      background: "black",
+      background: "#D6D5D4",
       width: "100%",
       height: "300px",
       display: "flex",
@@ -51,26 +51,26 @@ const commonArgs = {
   height: 74,
 };
 
-export const SuccessAnimation = Template.bind({});
-SuccessAnimation.args = {
+export const Success = Template.bind({});
+Success.args = {
   ...commonArgs,
   animationData: successAnimation,
 };
 
-export const ErrorAnimation = Template.bind({});
-ErrorAnimation.args = {
+export const Error = Template.bind({});
+Error.args = {
   ...commonArgs,
   animationData: errorAnimation,
 };
 
-export const NewSceneAnimation = Template.bind({});
-NewSceneAnimation.args = {
+export const Warning = Template.bind({});
+Warning.args = {
   ...commonArgs,
-  animationData: newSceneAnimation,
+  animationData: warningAnimation,
 };
 
-export const WarningOutlineAnimation = Template.bind({});
-WarningOutlineAnimation.args = {
+export const Warning2 = Template.bind({});
+Warning2.args = {
   ...commonArgs,
-  animationData: warningOutlineAnimation,
+  animationData: warning2Animation,
 };

@@ -8,7 +8,6 @@ import {
   BackLink,
   Sidebar,
   MobileSidebar,
-  BottomSheet,
   Switch,
   Tooltip,
   Banner,
@@ -48,6 +47,7 @@ import {
   MultiSelectDropdown,
   NoResultsFound,
   OTPInput,
+  SlideOverMenu,
   Paragraph,
   PlusMinusInput,
   PopUp,
@@ -91,7 +91,14 @@ import {
   Menu,
   SelectionCard,
   Tag,
-  CustomSVG
+  CustomSVG,
+  TableMain,
+  TableHeader,
+  TableFooter,
+  TableBody,
+  TableRow,
+  TableCell,
+  NestedTable
 } from "./atoms";
 
 import { FieldComposer, FieldController, Fields, FormComposerV2, Modal, UploadFileComposer, FieldV1, InboxSearchComposer, ResultsTable } from "./hoc";
@@ -99,6 +106,7 @@ import { FieldComposer, FieldController, Fields, FormComposerV2, Modal, UploadFi
 import {
   ApiDropdown,
   CustomDropdown,
+  BottomSheet,
   DetailsCard,
   FormStep,
   InputCard,
@@ -115,7 +123,12 @@ import {
   LandingPageCard,
   MenuCard,
   LandingPageWrapper,
-  MenuCardWrapper
+  MenuCardWrapper,
+  TableMolecule,
+  MetricCard,
+  FormCard,
+  FilterCard,
+  ViewCard
 } from "./molecules";
 
 // import { initCoreLibraries } from "@egovernments/digit-ui-libraries-core";
@@ -133,7 +146,6 @@ export {
   BackLink,
   Sidebar,
   MobileSidebar,
-  BottomSheet,
   Accordion,
   AccordionWrapper,
   Switch,
@@ -178,6 +190,7 @@ export {
   MultiSelectDropdown,
   NoResultsFound,
   OTPInput,
+  SlideOverMenu,
   Paragraph,
   PlusMinusInput,
   PopUp,
@@ -202,6 +215,7 @@ export {
   UploadFileComposer,
   ApiDropdown,
   CustomDropdown,
+  BottomSheet,
   DetailsCard,
   FormStep,
   InputCard,
@@ -210,6 +224,11 @@ export {
   SearchAction,
   SearchForm,
   LandingPageCard,
+  MetricCard,
+  FormCard,
+  FilterCard,
+  ViewCard,
+  TableMolecule,
   MenuCard,
   MenuCardWrapper,
   LandingPageWrapper,
@@ -247,5 +266,12 @@ export {
   RoundedLabel,
   //Icons
   CustomSVG,
-  ErrorBoundary
+  ErrorBoundary,
+  TableMain,
+  TableHeader,
+  TableFooter,
+  TableBody,
+  TableRow,
+  TableCell,
+  NestedTable
 };

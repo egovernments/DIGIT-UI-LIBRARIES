@@ -1,33 +1,72 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState ,useLayoutEffect} from "react";
 import PropTypes from "prop-types";
 
 const LandingPageWrapper = ({ children, className, styles }) => {
   const wrapperRef = useRef(null);
-  const [maxWidth, setMaxWidth] = useState(0);
-  const [maxHeight, setMaxHeight] = useState(0);
+  const [isMobileView, setIsMobileView] = useState(
+    window.innerWidth / window.innerHeight <= 9 / 16
+  );
 
-  useEffect(() => {
-    if (wrapperRef.current) {
-      // Get all child card elements
-      const cardElements = Array.from(wrapperRef.current.children);
-
-      // Calculate the maximum width of the cards
-      const maxCardWidth = Math.max(
-        ...cardElements.map((child) => child.getBoundingClientRect().width)
-      );
-
-      // Calculate the maximum height of the cards
-      const maxCardHeight = Math.max(
-        ...cardElements.map((child) => child.getBoundingClientRect().height)
-      );
-
-      // Set the maximum width to the state
-      setMaxWidth(maxCardWidth);
-
-      // Set the maximum height to the state
-      setMaxHeight(maxCardHeight);
+  const onResize = () => {
+    if (window.innerWidth / window.innerHeight <= 9 / 16) {
+      if (!isMobileView) {
+        setIsMobileView(true);
+      }
+    } else {
+      if (isMobileView) {
+        setIsMobileView(false);
+      }
     }
-  }, [children]); // Recalculate when children change
+  };
+
+  useLayoutEffect(() => {
+    const updateCardDimensions = () => {
+      const cards = Array.from(wrapperRef.current.children);
+      if (isMobileView) {
+        // In mobile view, set all cards to 100% width
+        cards.forEach(card => {
+          card.style.width = "100%";
+          card.style.height = "auto"; // Adjust height accordingly
+        });
+      } else {
+        let maxWidth = 0;
+        let maxHeight = 0;
+
+        // Calculating the maximum width and height
+        cards.forEach(card => {
+          const cardWidth = card.offsetWidth;
+          const cardHeight = card.offsetHeight;
+          if (cardWidth > maxWidth) {
+            maxWidth = cardWidth;
+          }
+          if (cardHeight > maxHeight) {
+            maxHeight = cardHeight;
+          }
+        });
+
+        // Applying the maximum width and height for all cards
+        cards.forEach(card => {
+          card.style.width = `${maxWidth}px`;
+          card.style.height = `${maxHeight}px`;
+        });
+      }
+    };
+
+    // Initial call to set card dimensions
+    updateCardDimensions();
+
+    // Set up resize and load listeners
+    window.addEventListener("resize", onResize);
+    window.addEventListener("resize", updateCardDimensions);
+    window.addEventListener("load", updateCardDimensions);
+
+    // Cleanup listeners on unmount
+    return () => {
+      window.removeEventListener("resize", onResize);
+      window.removeEventListener("resize", updateCardDimensions);
+      window.removeEventListener("load", updateCardDimensions);
+    };
+  }, [isMobileView, children]);
 
   return (
     <div
@@ -35,15 +74,7 @@ const LandingPageWrapper = ({ children, className, styles }) => {
       style={styles}
       ref={wrapperRef}
     >
-      {React.Children.map(children, (child) =>
-        React.cloneElement(child, {
-          style: {
-            ...child.props.style,
-            width: `${maxWidth}px`,
-            height: `${maxHeight}px`,
-          },
-        })
-      )}
+      {children}
     </div>
   );
 };

@@ -27,9 +27,15 @@ export default {
     isErrorTag: {
       control: "boolean",
     },
+    hideClose: {
+      control: "boolean",
+    },
     error: {
       control: "text",
     },
+    iconReq:{
+      control:"text"
+    }
   },
 };
 
@@ -40,7 +46,7 @@ const Template = (args) => (
 );
 
 const commonArgs = {
-  text: "Button",
+  text: "Chip",
   className: "",
   extraStyles: {},
   onClick: () => console.log("Close icon is clicked"),
@@ -48,32 +54,35 @@ const commonArgs = {
   disabled: false,
   isErrorTag: false,
   error: "",
+  hideClose:true,
+  iconReq:""
 };
 
-export const Default = Template.bind({});
-Default.args = {
+export const Basic = Template.bind({});
+Basic.args = {
   ...commonArgs,
-  text: "Chips",
 };
 
-export const ErrorTag = Template.bind({});
-ErrorTag.args = {
+export const WithClose = Template.bind({});
+WithClose.args = {
   ...commonArgs,
-  text: "ErrorChips",
-  isErrorTag:true
+  text: "Chip",
+  hideClose:false
 };
 
-export const ErrorTagWithError = Template.bind({});
-ErrorTagWithError.args = {
+export const WithIcon = Template.bind({});
+WithIcon.args = {
   ...commonArgs,
-  text: "ErrorChipsWithError",
+  text: "Chip",
+  iconReq:"Edit"
+};
+
+export const Error = Template.bind({});
+Error.args = {
+  ...commonArgs,
+  text: "ErrorChipWithError",
   isErrorTag:true,
-  error:"ErrorMessage"
-};
-
-export const DisabledTag = Template.bind({});
-DisabledTag.args = {
-  ...commonArgs,
-  text: "DisabledChips",
-  disabled:true
+  error:"ErrorMessage",
+  iconReq:"Edit",
+  hideClose:false
 };

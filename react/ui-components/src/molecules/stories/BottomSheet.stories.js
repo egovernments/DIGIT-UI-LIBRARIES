@@ -1,10 +1,10 @@
 import React from "react";
 import BottomSheet from "../BottomSheet";
-import InfoCard from "../InfoCard";
-import Button from "../Button";
+import {Button} from "../../atoms";
+import { IMAGES } from "../../constants/images/images";
 
 export default {
-  title: "Atoms/BottomSheet",
+  title: "Molecules/BottomSheet",
   component: BottomSheet,
   argTypes: {
     initialState: {
@@ -36,58 +36,27 @@ const commonArgs = {
   equalWidthButtons: false,
 };
 
+const getImageUrl = (imageKey) => {
+  return IMAGES[imageKey];
+};
+
+const digitImg = getImageUrl("DIGIT_LIGHT");
+
 const additionalElements = [
-  <InfoCard
-    key="1"
-    populators={{
-      name: "infocard",
-    }}
-    variant="default"
-    text={
-      "Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect the service to get completed in 24 hrs from the time of payment."
-    }
-    label={"Info"}
-  />,
-  <img
-    key="2"
-    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s"
-    alt="Additional Element 2"
-  />,
-  <InfoCard
-    key="3"
-    populators={{
-      name: "infocard",
-    }}
-    variant="default"
-    text={
-      "Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect the service to get completed in 24 hrs from the time of payment."
-    }
-    label={"Info"}
-  />,
+  <div key="1" className="typography heading-l" style={{color:"#363636"}}>BottomSheet</div>,
+  <div key="1" className="typography body-xs" style={{color:"#363636"}}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</div>,
+  <img key="2" alt="Powered by DIGIT" src={digitImg} />,
 ];
 
 const actions = [
   <Button
-    key="1"
-    label={"Cancel"}
-    size="large"
-    variation={"secondary"}
-    isDisabled={false}
-  />,
-  <Button
     key="2"
-    label={"Submit"}
+    label={"Action 1"}
     size="large"
     variation={"primary"}
     isDisabled={false}
   />,
 ];
-
-export const WithoutInitialState = Template.bind({});
-WithoutInitialState.args = {
-  ...commonArgs,
-  children: additionalElements,
-};
 
 export const Closed = Template.bind({});
 Closed.args = {

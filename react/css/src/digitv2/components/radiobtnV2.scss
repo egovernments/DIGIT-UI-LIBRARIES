@@ -12,6 +12,10 @@
     @apply block mb-md;
   }
 
+  &.vertical{
+    flex-direction: column
+  }
+
   .digit-radio-btn-wrap {
     @apply block float-left relative;
 

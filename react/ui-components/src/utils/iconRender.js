@@ -5,6 +5,7 @@ export const iconRender = (iconReq, iconFill, width, height, className) => {
     const components = require("@egovernments/digit-ui-svg-components");
     const DynamicIcon = components?.[iconReq];
     const svgIcon = CustomSVG?.[iconReq];
+
     if (DynamicIcon) {
       const svgElement = DynamicIcon({
         width: width,
