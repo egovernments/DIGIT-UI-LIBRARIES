@@ -5,10 +5,10 @@ import 'package:storybook_toolkit/storybook_toolkit.dart';
 
 import '../../iframe/iframe_widget.dart';
 
-List<Story> DigitButtonStories() {
+List<Story> buttonStories() {
   return [
     Story(
-      name: 'Atom/Button/Documentation',
+      name: 'Atom/Buttons/Documentation',
       builder: (context) {
         return IframeWidget(
           url: 'https://egov-digit.gitbook.io/docs-templates-repo/ui-component-name-2',
@@ -19,16 +19,30 @@ List<Story> DigitButtonStories() {
       name: 'Atom/Buttons/Primary',
       builder: (context) {
 
+        // Create an option knob for disabled states
+        final fieldState = context.knobs.options<String>(
+          label: 'State',
+          initial: 'Default', // Ensure an initial value is set
+          options: [
+            Option(label: 'Default', value: 'default'),
+            Option(label: 'Disabled', value: 'disabled'),
+          ],
+        );
+
+        // Set the values for isDisabled based on the selected option
+        bool isDisabled = false;
+
+        if (fieldState == 'disabled') {
+          isDisabled = true;
+        }
+
         return DigitButton(
-          label: context.knobs.text(label: 'Label', initial: 'Primary DigitButton'),
+          label: context.knobs.text(label: 'Label', initial: 'Primary Button'),
           onPressed: () {},
           type: DigitButtonType.primary,
-          isDisabled: context.knobs.boolean(
-            label: 'disable',
-            initial: false,
-          ),
+          isDisabled: isDisabled,
           size: context.knobs.options(
-            label: 'Size of DigitButton',
+            label: 'Size of button',
             initial: DigitButtonSize.large,
             options: const [
               Option(label: 'Small', value: DigitButtonSize.small),
@@ -63,19 +77,34 @@ List<Story> DigitButtonStories() {
         name: 'Atom/Buttons/Secondary',
         builder: (context) {
 
+          // Create an option knob for disabled states
+          final fieldState = context.knobs.options<String>(
+            label: 'State',
+            initial: 'Default', // Ensure an initial value is set
+            options: [
+              Option(label: 'Default', value: 'default'),
+              Option(label: 'Disabled', value: 'disabled'),
+            ],
+          );
+
+          // Set the values for isDisabled based on the selected option
+          bool isDisabled = false;
+
+          if (fieldState == 'disabled') {
+            isDisabled = true;
+          }
+
+
           return DigitButton(
             label:
-                context.knobs.text(label: 'Label', initial: 'Secondary DigitButton'),
+                context.knobs.text(label: 'Label', initial: 'Secondary Button'),
             onPressed: () {
               // Add your secondary DigitButton logic here
             },
-            isDisabled: context.knobs.boolean(
-              label: 'disable',
-              initial: false,
-            ),
+            isDisabled: isDisabled,
             type: DigitButtonType.secondary,
             size: context.knobs.options(
-              label: 'Size of DigitButton',
+              label: 'Size of button',
               initial: DigitButtonSize.large,
               options: const [
                 Option(
@@ -118,16 +147,31 @@ List<Story> DigitButtonStories() {
         name: 'Atom/Buttons/Tertiary',
         builder: (context) {
 
+          // Create an option knob for disabled states
+          final fieldState = context.knobs.options<String>(
+            label: 'State',
+            initial: 'Default', // Ensure an initial value is set
+            options: [
+              Option(label: 'Default', value: 'default'),
+              Option(label: 'Disabled', value: 'disabled'),
+            ],
+          );
+
+          // Set the values for isDisabled based on the selected option
+          bool isDisabled = false;
+
+          if (fieldState == 'disabled') {
+            isDisabled = true;
+          }
+
+
           return DigitButton(
             label:
-                context.knobs.text(label: 'Label', initial: 'Tertiary DigitButton'),
+                context.knobs.text(label: 'Label', initial: 'Tertiary Button'),
             onPressed: () {
               // Add your secondary DigitButton logic here
             },
-            isDisabled: context.knobs.boolean(
-              label: 'disable',
-              initial: false,
-            ),
+            isDisabled: isDisabled,
             type: DigitButtonType.tertiary,
             size: context.knobs.options(
               label: 'Size of DigitButton',
@@ -173,15 +217,30 @@ List<Story> DigitButtonStories() {
         name: 'Atom/Buttons/Link',
         builder: (context) {
 
+          // Create an option knob for disabled states
+          final fieldState = context.knobs.options<String>(
+            label: 'State',
+            initial: 'Default', // Ensure an initial value is set
+            options: [
+              Option(label: 'Default', value: 'default'),
+              Option(label: 'Disabled', value: 'disabled'),
+            ],
+          );
+
+          // Set the values for isDisabled based on the selected option
+          bool isDisabled = false;
+
+          if (fieldState == 'disabled') {
+            isDisabled = true;
+          }
+
+
           return DigitButton(
             label: context.knobs.text(label: 'Label', initial: 'link'),
             onPressed: () {
               // Add your secondary DigitButton logic here
             },
-            isDisabled: context.knobs.boolean(
-              label: 'disable',
-              initial: false,
-            ),
+            isDisabled: isDisabled,
             type: DigitButtonType.link,
             size: context.knobs.options(
               label: 'Size of DigitButton',

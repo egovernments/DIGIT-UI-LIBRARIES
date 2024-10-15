@@ -1,128 +1,394 @@
 import 'package:digit_ui_components/enum/app_enums.dart';
+import 'package:digit_ui_components/theme/ComponentTheme/info_card_theme.dart';
 import 'package:digit_ui_components/widgets/atoms/digit_info_card.dart';
 import 'package:digit_ui_components/widgets/atoms/info_buttons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:storybook_toolkit/storybook_toolkit.dart';
 import '../../iframe/iframe_widget.dart';
 
-
 List<Story> infoCardStories() {
   return [
     Story(
-      name: 'Atom/Info/Documentation',
+      name: 'Atom/Alert Card/Documentation',
       builder: (context) {
         return IframeWidget(
-          url: 'https://egov-digit.gitbook.io/docs-templates-repo/ui-component-name-2',
+          url:
+              'https://egov-digit.gitbook.io/docs-templates-repo/ui-component-name-2',
         );
       },
     ),
     Story(
-      name: 'Atom/Info/Info',
+      name: 'Atom/Alert Card/Info',
       builder: (context) {
+        // First knob for controlling the visibility of the additional widget
+        bool showAdditionalWidget = context.knobs.boolean(
+          label: "Show Additional Widget",
+          initial: false,
+        );
 
-        return InfoCard(
-          title: context.knobs.text(label: "Title", initial: 'Info'),
-          type: context.knobs.options(
-            label: "Type",
-            initial: InfoType.info,
+        // Second knob for controlling the visibility of the info button
+        bool showInfoButton = context.knobs.boolean(
+          label: "Action",
+          initial: false,
+        );
+
+        // Conditionally define the 'inline' option knob based on the value of 'showAdditionalWidget'
+        bool? showInlineWidget;
+        if (showAdditionalWidget) {
+          showInlineWidget = context.knobs.options(
+            label: "Widget Alignment",
             options: const [
-              Option(label: 'Info', value: InfoType.info),
-              Option(label: 'Success', value: InfoType.success),
-              Option(label: 'Error', value: InfoType.error),
-              Option(label: 'Warning', value: InfoType.warning),
+              Option(label: "Vertical", value: true),
+              Option(label: "Horizontal", value: false),
             ],
-          ),
-          description: context.knobs.text(
-            label: "Description",
-            initial:
-                'Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect the service to get completed in 24 hrs from the time of payment.',
-          ),
-        );
-      },
-    ),
-    Story(
-      name: 'Atom/Info/Info DigitButtons',
-      builder: (context) {
+            initial: false,
+          );
+        }
 
-        return InfoButton(
-          size: DigitButtonSize.large,
-          label: 'Primary DigitButton',
-          onPressed: () {},
-          type: context.knobs.options(
-            label: 'Type',
-            initial: InfoDigitButtonType.warning,
-            options: const [
-              Option(label: 'Warning', value: InfoDigitButtonType.warning),
-              Option(label: 'Info', value: InfoDigitButtonType.info),
-              Option(label: 'Error', value: InfoDigitButtonType.error),
-              Option(label: 'Success', value: InfoDigitButtonType.success),
-            ],
-          ),
-        );
-      },
-    ),
-    Story(
-      name: 'Atom/Info/Additional widgets',
-      builder: (context) {
-
-        return InfoCard(
-          title: context.knobs.text(label: "Title", initial: 'Info'),
-          type: context.knobs.options(
-            label: "Type",
-            initial: InfoType.info,
-            options: const [
-              Option(label: 'Info', value: InfoType.info),
-              Option(label: 'Success', value: InfoType.success),
-              Option(label: 'Error', value: InfoType.error),
-              Option(label: 'Warning', value: InfoType.warning),
-            ],
-          ),
-          description: context.knobs.text(
-            label: "Description",
-            initial:
-                'Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect the service to get completed in 24 hrs from the time of payment.',
-          ),
-          additionalWidgets: [
-            const Text(
-                "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's"),
-            Image.network(
-                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
-            Image.network(
-                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
-          ],
-          inline: context.knobs
-              .boolean(label: 'Inline Additional Widgets', initial: false),
-        );
-      },
-    ),
-    Story(
-      name: 'Atom/Info/Additional widgets with DigitButtons',
-      builder: (context) {
-
-        return InfoCard(
-          title: context.knobs.text(label: "Title", initial: 'Info'),
-          type: InfoType.info,
-          description: context.knobs.text(
-            label: "Description",
-            initial:
-                'Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect the service to get completed in 24 hrs from the time of payment.',
-          ),
-          inline: context.knobs
-              .boolean(label: 'Inline Additional Widgets', initial: false),
-          additionalWidgets: [
-            const Text(
-                "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's"),
-            Image.network(
-                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
-            Image.network(
-                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
-            InfoButton(
-              label: 'Click To Know More',
-              onPressed: () {},
-              type: InfoDigitButtonType.info,
-              size: DigitButtonSize.large,
+        return Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: InfoCard(
+            title: context.knobs.text(label: "Title", initial: 'Info'),
+            type: InfoType.info,
+            description: context.knobs.text(
+              label: "Description",
+              initial:
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi cursus eget ex in congue. Nullam finibus at urna et posuere.',
             ),
-          ],
+            inline: showInlineWidget ?? false,
+            additionalWidgets: [
+              if (showAdditionalWidget)
+                Image.network(
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+              if (showAdditionalWidget)
+              Image.network(
+                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+              if (showAdditionalWidget)
+                Image.network(
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+              if (showAdditionalWidget)
+                Image.network(
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+              if (showAdditionalWidget)
+                Image.network(
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+
+
+              if (showInfoButton)
+                Column(
+                  children: [
+                    if(showInfoButton && showInlineWidget==true)
+                    SizedBox(height: 16,),
+                    InfoButton(
+                      size: DigitButtonSize.large,
+                      label: 'Action Button',
+                      onPressed: () {},
+                      type: InfoDigitButtonType.info,
+                    ),
+                  ],
+                ),
+            ],
+          ),
+        );
+      },
+    ),
+    Story(
+      name: 'Atom/Alert Card/Error',
+      builder: (context) {
+        // First knob for controlling the visibility of the additional widget
+        bool showAdditionalWidget = context.knobs.boolean(
+          label: "Show Additional Widget",
+          initial: false,
+        );
+
+        // Second knob for controlling the visibility of the info button
+        bool showInfoButton = context.knobs.boolean(
+          label: "Action",
+          initial: false,
+        );
+
+        // Conditionally define the 'inline' option knob based on the value of 'showAdditionalWidget'
+        bool? showInlineWidget;
+        if (showAdditionalWidget) {
+          showInlineWidget = context.knobs.options(
+            label: "Widget Alignment",
+            options: const [
+              Option(label: "Vertical", value: true),
+              Option(label: "Horizontal", value: false),
+            ],
+            initial: false,
+          );
+        }
+
+        return Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: InfoCard(
+            title: context.knobs.text(label: "Title", initial: 'Error'),
+            type: InfoType.error,
+            description: context.knobs.text(
+              label: "Description",
+              initial:
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi cursus eget ex in congue. Nullam finibus at urna et posuere.',
+            ),
+            inline: showInlineWidget ?? false,
+            additionalWidgets: [
+              if (showAdditionalWidget)
+                Image.network(
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+              if (showAdditionalWidget)
+                Image.network(
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+              if (showAdditionalWidget)
+                Image.network(
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+              if (showAdditionalWidget)
+                Image.network(
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+              if (showAdditionalWidget)
+                Image.network(
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+
+
+              if (showInfoButton)
+                Column(
+                  children: [
+                    if(showInfoButton && showInlineWidget==true)
+                      SizedBox(height: 16,),
+                    InfoButton(
+                      size: DigitButtonSize.large,
+                      label: 'Action Button',
+                      onPressed: () {},
+                      type: InfoDigitButtonType.error,
+                    ),
+                  ],
+                ),
+            ],
+          ),
+        );
+      },
+    ),
+    Story(
+      name: 'Atom/Alert Card/Success',
+      builder: (context) {
+        // First knob for controlling the visibility of the additional widget
+        bool showAdditionalWidget = context.knobs.boolean(
+          label: "Show Additional Widget",
+          initial: false,
+        );
+
+        // Second knob for controlling the visibility of the info button
+        bool showInfoButton = context.knobs.boolean(
+          label: "Action",
+          initial: false,
+        );
+
+        // Conditionally define the 'inline' option knob based on the value of 'showAdditionalWidget'
+        bool? showInlineWidget;
+        if (showAdditionalWidget) {
+          showInlineWidget = context.knobs.options(
+            label: "Widget Alignment",
+            options: const [
+              Option(label: "Vertical", value: true),
+              Option(label: "Horizontal", value: false),
+            ],
+            initial: false,
+          );
+        }
+
+        return Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: InfoCard(
+            title: context.knobs.text(label: "Title", initial: 'Info'),
+            type: InfoType.success,
+            description: context.knobs.text(
+              label: "Description",
+              initial:
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi cursus eget ex in congue. Nullam finibus at urna et posuere.',
+            ),
+            inline: showInlineWidget ?? false,
+            additionalWidgets: [
+              if (showAdditionalWidget)
+                Image.network(
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+              if (showAdditionalWidget)
+                Image.network(
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+              if (showAdditionalWidget)
+                Image.network(
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+              if (showAdditionalWidget)
+                Image.network(
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+              if (showAdditionalWidget)
+                Image.network(
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+
+
+              if (showInfoButton)
+                Column(
+                  children: [
+                    if(showInfoButton && showInlineWidget==true)
+                      SizedBox(height: 16,),
+                    InfoButton(
+                      size: DigitButtonSize.large,
+                      label: 'Action Button',
+                      onPressed: () {},
+                      type: InfoDigitButtonType.success,
+                    ),
+                  ],
+                ),
+            ],
+          ),
+        );
+      },
+    ),
+    Story(
+      name: 'Atom/Alert Card/Warning',
+      builder: (context) {
+        // First knob for controlling the visibility of the additional widget
+        bool showAdditionalWidget = context.knobs.boolean(
+          label: "Show Additional Widget",
+          initial: false,
+        );
+
+        // Second knob for controlling the visibility of the info button
+        bool showInfoButton = context.knobs.boolean(
+          label: "Action",
+          initial: false,
+        );
+
+        // Conditionally define the 'inline' option knob based on the value of 'showAdditionalWidget'
+        bool? showInlineWidget;
+        if (showAdditionalWidget) {
+          showInlineWidget = context.knobs.options(
+            label: "Widget Alignment",
+            options: const [
+              Option(label: "Vertical", value: true),
+              Option(label: "Horizontal", value: false),
+            ],
+            initial: false,
+          );
+        }
+
+        return Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: InfoCard(
+            title: context.knobs.text(label: "Title", initial: 'Info'),
+            type: InfoType.warning,
+            description: context.knobs.text(
+              label: "Description",
+              initial:
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi cursus eget ex in congue. Nullam finibus at urna et posuere.',
+            ),
+            inline: showInlineWidget ?? false,
+            additionalWidgets: [
+              if (showAdditionalWidget)
+                Image.network(
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+              if (showAdditionalWidget)
+                Image.network(
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+              if (showAdditionalWidget)
+                Image.network(
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+              if (showAdditionalWidget)
+                Image.network(
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+              if (showAdditionalWidget)
+                Image.network(
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+
+
+              if (showInfoButton)
+                Column(
+                  children: [
+                    if(showInfoButton && showInlineWidget==true)
+                      SizedBox(height: 16,),
+                    InfoButton(
+                      size: DigitButtonSize.large,
+                      label: 'Action Button',
+                      onPressed: () {},
+                      type: InfoDigitButtonType.warning,
+                    ),
+                  ],
+                ),
+            ],
+          ),
+        );
+      },
+    ),
+    Story(
+      name: 'Atom/Alert Card/Custom',
+      builder: (context) {
+        // First knob for controlling the visibility of the additional widget
+        bool showAdditionalWidget = context.knobs.boolean(
+          label: "Show Additional Widget",
+          initial: false,
+        );
+
+        // Second knob for controlling the visibility of the info button
+        bool showInfoButton = context.knobs.boolean(
+          label: "Action",
+          initial: false,
+        );
+
+        // Conditionally define the 'inline' option knob based on the value of 'showAdditionalWidget'
+        bool? showInlineWidget;
+        if (showAdditionalWidget) {
+          showInlineWidget = context.knobs.options(
+            label: "Widget Alignment",
+            options: const [
+              Option(label: "Vertical", value: true),
+              Option(label: "Horizontal", value: false),
+            ],
+            initial: false,
+          );
+        }
+
+        return Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: InfoCard(
+            title: context.knobs.text(label: "Title", initial: 'Info'),
+            type: InfoType.info,
+            description: context.knobs.text(
+              label: "Description",
+              initial:
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi cursus eget ex in congue. Nullam finibus at urna et posuere.',
+            ),
+            inline: showInlineWidget ?? false,
+            additionalWidgets: [
+              if (showAdditionalWidget)
+                Image.network(
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+              if (showAdditionalWidget)
+                Image.network(
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+              if (showAdditionalWidget)
+                Image.network(
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+              if (showAdditionalWidget)
+                Image.network(
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+              if (showAdditionalWidget)
+                Image.network(
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+
+
+              if (showInfoButton)
+                Column(
+                  children: [
+                    if(showInfoButton && showInlineWidget==true)
+                      SizedBox(height: 16,),
+                    InfoButton(
+                      size: DigitButtonSize.large,
+                      label: 'Primary DigitButton',
+                      onPressed: () {},
+                      type: InfoDigitButtonType.info,
+                    ),
+                  ],
+                ),
+            ],
+          ),
         );
       },
     ),

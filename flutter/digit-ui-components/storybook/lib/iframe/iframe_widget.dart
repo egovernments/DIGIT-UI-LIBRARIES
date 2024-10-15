@@ -33,30 +33,44 @@ class IframeWidget extends StatelessWidget {
             '''
               (function() {
                 try {
-                  // Find the tab list element
+                  // Find the main content element
+                  var mainContent = document.querySelector('.flex-1.relative.py-8.lg\\:px-12.break-anywhere.page-api-block\\:xl\\:max-2xl\\:pr-0.page-api-block\\:max-w-\\[1654px\\].page-api-block\\:mx-auto');
+                  
+                  if (mainContent) {
+                    // Remove all other elements from the body except the main content
+                    var allChildren = Array.from(document.body.children);
+                    
+                    allChildren.forEach(function(child) {
+                      if (child !== mainContent) {
+                        child.parentNode.removeChild(child);
+                      }
+                    });
+                    
+                    console.log('Main content displayed, all other content removed.');
+                  } else {
+                    console.log('Main content not found, showing default content.');
+                  }
+
+                  // Tab switching logic
                   var tabList = document.querySelector('.group\\/tabs');
                   
                   if (tabList) {
-                    // Find all buttons inside the tab list
                     var buttons = tabList.querySelectorAll('button');
                     
-                    // If there are at least two buttons, switch the active class to the second button
                     if (buttons.length > 1) {
                       var firstButton = buttons[0];
                       var secondButton = buttons[1];
                       
-                      // Remove active class from the first button
                       if (firstButton.classList.contains('active-tab')) {
                         firstButton.classList.remove('active-tab');
                       }
                       
-                      // Add active class to the second button
                       if (!secondButton.classList.contains('active-tab')) {
                         secondButton.classList.add('active-tab');
                       }
                       
-                      // Optionally, trigger a click event on the second tab to ensure content loads
-                      secondButton.click();
+                      secondButton.click();  // Trigger content load for the second tab
+                      console.log('Switched to second tab.');
                     } else {
                       console.log('Fallback: Only one button or no buttons found.');
                     }
@@ -64,7 +78,7 @@ class IframeWidget extends StatelessWidget {
                     console.log('Fallback: Tab list not found. Showing default content.');
                   }
                 } catch (error) {
-                  console.error('Error occurred while switching tabs:', error);
+                  console.error('Error occurred while processing the iframe content:', error);
                 }
               })();
             ''',
