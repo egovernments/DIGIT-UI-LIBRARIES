@@ -63,7 +63,7 @@
     "code": "RE_UPLOAD",
     "locale": "en_MZ",
     "message": "Re-Upload",
-    "module": "core-common-component",
+    "module": "core-common-component"
   },
   {
     "code": "DRAG_DROP_FILE",
