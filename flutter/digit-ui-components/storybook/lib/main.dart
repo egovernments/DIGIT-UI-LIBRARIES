@@ -76,6 +76,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      themeMode: ThemeMode.light,
       theme: DigitExtendedTheme.instance.getLightTheme(),
       darkTheme: DigitExtendedTheme.instance.getDarkTheme(),
       locale: Locale("en", "MZ"),
@@ -133,7 +134,6 @@ class MyHomePageState extends State<MyHomePage> {
               currentLocale: Locale("en", "MZ"), // Set the initial locale correctly
               supportedLocales: {
                 "English": Locale.fromSubtags(languageCode: 'en', countryCode: 'MZ'),
-                "English (French)": Locale.fromSubtags(languageCode: 'en', countryCode: 'FR'),
               },
               delegates: [
                 DefaultMaterialLocalizations.delegate,
@@ -169,9 +169,10 @@ class MyHomePageState extends State<MyHomePage> {
           ...typographyStories(),
           ...accordionStories(),
           ...actionStories(),
+          ...infoCardStories(),
           ...digitBackButtonStories(),
           ...DigitBreadCrumbStories(),
-          ...DigitButtonStories(),
+          ...buttonStories(),
           ...digitButtonListStories(),
           ...checkboxStories(),
           ...chipStories(),
@@ -179,7 +180,6 @@ class MyHomePageState extends State<MyHomePage> {
           ...dropdownStories(),
           ...fileUploaderStories(),
           ...inputFieldStories(),
-          ...infoCardStories(),
           ...listViewStories(),
           ...loaderStories(),
           ...matrixCardStories(),

@@ -77,7 +77,7 @@
     "message": "Browse in my files",
     "module": "core-common-component"
   },
-  {"code": "PRIVACY_HEADER","message":" Privacy Policy for Admin Console","module":"digit-privacy-policy","locale":"en_MZ"},
+  {"code": "PRIVACY_HEADER","message":" Privacy Policy","module":"digit-privacy-policy","locale":"en_MZ"},
   {"code": "PRIVACY_HEADER_1_SUB_1","message":"Introduction","module":"digit-privacy-policy","locale":"en_MZ"},
   {"code": "DIGIT_TABLE_OF_CONTENTS","message":"Table of Contents","module":"digit-privacy-policy","locale":"en_MZ"},
   {"code": "PRIVACY_HEADER_1_SUB_1_DESC_1","message":"This is the Privacy Policy for Admin Console","module":"digit-privacy-policy","locale":"en_MZ"},
