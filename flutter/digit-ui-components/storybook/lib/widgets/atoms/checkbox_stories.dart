@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:digit_ui_components/theme/ComponentTheme/checkbox_theme.dart';
 import 'package:digit_ui_components/widgets/atoms/digit_checkbox.dart';
 import 'package:storybook_toolkit/storybook_toolkit.dart';
-import '../../plugins/code_view_wrapper.dart';
+import '../../iframe/iframe_widget.dart';
 
 List<Story> checkboxStories() {
   return [
+    Story(
+      name: 'Atom/Checkbox/Documentation',
+      builder: (context) {
+        return IframeWidget(
+          url: 'https://egov-digit.gitbook.io/docs-templates-repo/ui-component-name-2',
+        );
+      },
+    ),
     Story(
       name: 'Atom/Checkbox/Unchecked',
       builder: (context) {

@@ -1,4 +1,5 @@
 import 'package:digit_ui_components/digit_components.dart';
+import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -317,8 +318,8 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
 
   @override
   Widget build(BuildContext context) {
-    /// typography based on screen
-    DigitTypography currentTypography = getTypography(context, false);
+    final theme = Theme.of(context);
+    final textTheme = theme.digitTextTheme(context);
 
     /// Capitalize innerLabel, helpText, and errorMessage
     String? capitalizedInnerLabel = convertInToSentenceCase(widget.innerLabel);
@@ -400,12 +401,11 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                           maxLength: maxLengthValue,
                           showCursor:
                               widget.readOnly ? false : widget.showCurser,
-                          style: DigitTheme
-                              .instance.mobileTheme.textTheme.bodyLarge
-                              ?.copyWith(
+                          style: textTheme.bodyS
+                              .copyWith(
                             color: widget.readOnly
-                                ? const DigitColors().light.textSecondary
-                                : const DigitColors().light.textPrimary,
+                                ? theme.colorTheme.text.secondary
+                                : theme.colorTheme.text.primary,
                           ),
                           decoration: InputDecoration(
                             counterText: '',
@@ -418,18 +418,18 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                                   bottom: spacer2,
                                 ),
                             hintText: capitalizedInnerLabel,
-                            hintStyle: currentTypography.bodyL.copyWith(
-                              color: const DigitColors().light.textDisabled,
+                            hintStyle: textTheme.bodyS.copyWith(
+                              color: theme.colorTheme.text.disabled,
                             ),
                             filled: true,
                             fillColor: widget.readOnly
-                                ? const DigitColors().light.genericBackground
-                                : const DigitColors().transparent,
+                                ? theme.colorTheme.generic.background
+                                : theme.colorTheme.generic.transparent,
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: _hasError || widget.errorMessage != null
-                                    ? const DigitColors().light.alertError
-                                    : const DigitColors().light.textSecondary,
+                                    ?theme.colorTheme.alert.error
+                                    : theme.colorTheme.generic.inputBorder,
                                 width: _hasError
                                     ? Base.errorBorderWidth
                                     : Base.defaultBorderWidth,
@@ -439,9 +439,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                             focusedBorder: widget.readOnly
                                 ? OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: const DigitColors()
-                                          .light
-                                          .textSecondary,
+                                      color: theme.colorTheme.generic.inputBorder,
                                       width: Base.defaultBorderWidth,
                                     ),
                                     borderRadius: Base.radius,
@@ -506,23 +504,23 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                       : widget.showCurser ?? widget.isEditable,
                   style: widget.textStyle ??
                       (isVisible
-                          ? currentTypography.bodyL.copyWith(
+                          ? textTheme.bodyS.copyWith(
                               fontWeight: FontWeight.w900,
                               color: widget.readOnly
-                                  ? const DigitColors().light.textSecondary
-                                  : const DigitColors().light.textPrimary,
+                                  ? theme.colorTheme.text.secondary
+                                  : theme.colorTheme.text.primary,
                               decoration: TextDecoration.none)
-                          : currentTypography.bodyL.copyWith(
+                          : textTheme.bodyS.copyWith(
                               color: widget.readOnly
-                                  ? const DigitColors().light.textSecondary
-                                  : const DigitColors().light.textPrimary,
+                                  ? theme.colorTheme.text.secondary
+                                  : theme.colorTheme.text.primary,
                               decoration: TextDecoration.none)),
                   decoration: InputDecoration(
                     counterText: '',
                     hoverColor: const DigitColors().transparent,
                     constraints: BoxConstraints(
-                      maxHeight: widget.height ?? BaseConstants.inputMinHeight,
-                      minHeight: widget.height ?? BaseConstants.inputMinHeight,
+                      maxHeight: widget.height,
+                      minHeight: widget.height,
                       minWidth: minWidth,
                     ),
                     contentPadding: widget.contentPadding ??
@@ -532,19 +530,19 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                             bottom: spacer2,
                             right: spacer3),
                     hintText: capitalizedInnerLabel,
-                    hintStyle: currentTypography.bodyL.copyWith(
-                      color: const DigitColors().light.textDisabled,
+                    hintStyle: textTheme.bodyS.copyWith(
+                      color: theme.colorTheme.text.disabled,
                     ),
                     filled: true,
                     fillColor: widget.readOnly
-                        ? const DigitColors().light.genericBackground
-                        : const DigitColors().transparent,
+                        ? theme.colorTheme.generic.background
+                        : theme.colorTheme.generic.transparent,
                     enabledBorder: widget.enableBorder ??
                         OutlineInputBorder(
                           borderSide: BorderSide(
                             color: _hasError || widget.errorMessage != null
-                                ? const DigitColors().light.alertError
-                                : const DigitColors().light.textSecondary,
+                                ? theme.colorTheme.alert.error
+                                : theme.colorTheme.generic.inputBorder,
                             width: _hasError || widget.errorMessage != null
                                 ? Base.errorBorderWidth
                                 : Base.defaultBorderWidth,
@@ -555,8 +553,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                         (widget.readOnly
                             ? OutlineInputBorder(
                                 borderSide: BorderSide(
-                                  color:
-                                      const DigitColors().light.textSecondary,
+                                  color: theme.colorTheme.generic.inputBorder,
                                   width: Base.defaultBorderWidth,
                                 ),
                                 borderRadius: Base.radius,
@@ -580,9 +577,9 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                     suffixIcon: widget.suffixText != null
                         ? widget.suffixText == "+"
                             ? InkWell(
-                                hoverColor: const DigitColors().transparent,
-                                splashColor: const DigitColors().transparent,
-                                highlightColor: const DigitColors().transparent,
+                                hoverColor: theme.colorTheme.generic.transparent,
+                                splashColor: theme.colorTheme.generic.transparent,
+                                highlightColor: theme.colorTheme.generic.transparent,
                                 onTap: widget.readOnly
                                     ? null
                                     : () {
@@ -609,21 +606,15 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                                         : 1,
                                   ),
                                   decoration: BoxDecoration(
-                                    color: const DigitColors()
-                                        .light
-                                        .genericBackground,
+                                    color: theme.colorTheme.generic.background,
                                     border: Border(
                                       right: BorderSide.none,
                                       top: BorderSide.none,
                                       bottom: BorderSide.none,
                                       left: BorderSide(
                                         color: widget.isDisabled
-                                            ? const DigitColors()
-                                                .light
-                                                .genericDivider
-                                            : const DigitColors()
-                                                .light
-                                                .genericInputBorder,
+                                            ? theme.colorTheme.generic.divider
+                                            : theme.colorTheme.generic.inputBorder,
                                         width: Base.defaultBorderWidth,
                                       ),
                                     ),
@@ -632,14 +623,10 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                                     widget.suffixText!,
                                     textAlign: TextAlign.center,
                                     style: widget.suffixTextStyle ??
-                                        currentTypography.headingL.copyWith(
+                                        textTheme.headingL.copyWith(
                                           color: widget.isDisabled
-                                              ? const DigitColors()
-                                                  .light
-                                                  .textDisabled
-                                              : const DigitColors()
-                                                  .light
-                                                  .textSecondary,
+                                              ? theme.colorTheme.text.disabled
+                                              : theme.colorTheme.text.secondary,
                                         ),
                                   ),
                                 ),
@@ -662,21 +649,15 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                                       : 1,
                                 ),
                                 decoration: BoxDecoration(
-                                  color: const DigitColors()
-                                      .light
-                                      .genericBackground,
+                                  color: theme.colorTheme.generic.background,
                                   border: Border(
                                     right: BorderSide.none,
                                     top: BorderSide.none,
                                     bottom: BorderSide.none,
                                     left: BorderSide(
                                       color: widget.isDisabled
-                                          ? const DigitColors()
-                                              .light
-                                              .genericDivider
-                                          : const DigitColors()
-                                              .light
-                                              .genericInputBorder,
+                                          ? theme.colorTheme.generic.divider
+                                          : theme.colorTheme.generic.inputBorder,
                                       width: Base.defaultBorderWidth,
                                     ),
                                   ),
@@ -687,14 +668,10 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                                       widget.suffixText!,
                                       textAlign: TextAlign.center,
                                       style: widget.suffixTextStyle ??
-                                          currentTypography.headingM.copyWith(
+                                          textTheme.headingM.copyWith(
                                             color: widget.isDisabled
-                                                ? const DigitColors()
-                                                    .light
-                                                    .textDisabled
-                                                : const DigitColors()
-                                                    .light
-                                                    .textSecondary,
+                                                ? theme.colorTheme.text.disabled
+                                                : theme.colorTheme.text.secondary,
                                           ),
                                     ),
                                   ),
@@ -702,9 +679,9 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                               )
                         : widget.suffixIcon != null
                             ? InkWell(
-                                hoverColor: const DigitColors().transparent,
-                                splashColor: const DigitColors().transparent,
-                                highlightColor: const DigitColors().transparent,
+                                hoverColor: theme.colorTheme.generic.transparent,
+                                splashColor: theme.colorTheme.generic.transparent,
+                                highlightColor: theme.colorTheme.generic.transparent,
                                 onTap:
                                     widget.readOnly ? null : onSuffixIconClick,
                                 child: Padding(
@@ -723,14 +700,14 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                             : null,
                     suffixIconColor: widget.iconColor ??
                         (widget.isDisabled
-                            ? const DigitColors().light.textDisabled
-                            : const DigitColors().light.textSecondary),
+                            ? theme.colorTheme.text.disabled
+                            : theme.colorTheme.text.secondary),
                     prefixIcon: widget.prefixText != null
                         ? widget.prefixText == "-"
                             ? InkWell(
-                                hoverColor: const DigitColors().transparent,
-                                splashColor: const DigitColors().transparent,
-                                highlightColor: const DigitColors().transparent,
+                      hoverColor: theme.colorTheme.generic.transparent,
+                      splashColor: theme.colorTheme.generic.transparent,
+                      highlightColor: theme.colorTheme.generic.transparent,
                                 onTap: widget.readOnly
                                     ? null
                                     : () {
@@ -757,18 +734,12 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                                         : 1,
                                   ),
                                   decoration: BoxDecoration(
-                                    color: const DigitColors()
-                                        .light
-                                        .genericBackground,
+                                    color: theme.colorTheme.generic.background,
                                     border: Border(
                                       right: BorderSide(
                                         color: widget.isDisabled
-                                            ? const DigitColors()
-                                                .light
-                                                .genericDivider
-                                            : const DigitColors()
-                                                .light
-                                                .genericInputBorder,
+                                            ? theme.colorTheme.generic.divider
+                                            : theme.colorTheme.generic.inputBorder,
                                         width: Base.defaultBorderWidth,
                                       ),
                                       top: BorderSide.none,
@@ -780,14 +751,10 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                                     widget.prefixText!,
                                     textAlign: TextAlign.center,
                                     style: widget.prefixTextStyle ??
-                                        currentTypography.headingL.copyWith(
+                                        textTheme.headingL.copyWith(
                                           color: widget.isDisabled
-                                              ? const DigitColors()
-                                                  .light
-                                                  .textDisabled
-                                              : const DigitColors()
-                                                  .light
-                                                  .textSecondary,
+                                              ? theme.colorTheme.text.disabled
+                                              : theme.colorTheme.text.secondary,
                                         ),
                                   ),
                                 ),
@@ -818,12 +785,8 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                                   border: Border(
                                     right: BorderSide(
                                       color: widget.isDisabled
-                                          ? const DigitColors()
-                                              .light
-                                              .genericDivider
-                                          : const DigitColors()
-                                              .light
-                                              .genericInputBorder,
+                                          ? theme.colorTheme.generic.divider
+                                          : theme.colorTheme.generic.inputBorder,
                                       width: Base.defaultBorderWidth,
                                     ),
                                     top: BorderSide.none,
@@ -837,14 +800,10 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                                       widget.prefixText!,
                                       textAlign: TextAlign.center,
                                       style: widget.prefixTextStyle ??
-                                          currentTypography.headingM.copyWith(
+                                          textTheme.headingM.copyWith(
                                             color: widget.isDisabled
-                                                ? const DigitColors()
-                                                    .light
-                                                    .textDisabled
-                                                : const DigitColors()
-                                                    .light
-                                                    .textSecondary,
+                                                ? theme.colorTheme.text.disabled
+                                                : theme.colorTheme.text.secondary,
                                           ),
                                     ),
                                   ),
@@ -892,8 +851,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                                     width: spacer4,
                                     child: Icon(
                                       Icons.info,
-                                      color:
-                                          const DigitColors().light.alertError,
+                                      color:theme.colorTheme.alert.error,
                                       size: BaseConstants.errorIconSize,
                                     ),
                                   ),
@@ -906,8 +864,8 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                                   _errorMessage!.length > 256
                                       ? '${_errorMessage!.substring(0, 256)}...'
                                       : _errorMessage!,
-                                  style: currentTypography.bodyS.copyWith(
-                                    color: const DigitColors().light.alertError,
+                                  style: textTheme.bodyS.copyWith(
+                                    color: theme.colorTheme.alert.error,
                                   ),
                                 ),
                               ),
@@ -931,9 +889,7 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                                         width: spacer4,
                                         child: Icon(
                                           Icons.info,
-                                          color: const DigitColors()
-                                              .light
-                                              .alertError,
+                                          color: theme.colorTheme.alert.error,
                                           size: BaseConstants.errorIconSize,
                                         ),
                                       ),
@@ -946,10 +902,8 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                                       capitalizedErrorMessage!.length > 256
                                           ? '${widget.errorMessage!.substring(0, 256)}...'
                                           : widget.errorMessage!,
-                                      style: currentTypography.bodyS.copyWith(
-                                        color: const DigitColors()
-                                            .light
-                                            .alertError,
+                                      style: textTheme.bodyS.copyWith(
+                                        color: theme.colorTheme.alert.error,
                                       ),
                                     ),
                                   ),
@@ -961,9 +915,8 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                                 capitalizedHelpText!.length > 256
                                     ? '${capitalizedHelpText!.substring(0, 256)}...'
                                     : capitalizedHelpText!,
-                                style: currentTypography.bodyS.copyWith(
-                                  color:
-                                      const DigitColors().light.textSecondary,
+                                style: textTheme.bodyS.copyWith(
+                                  color: theme.colorTheme.text.secondary
                                 ),
                               ),
                             ),
@@ -981,8 +934,8 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                 if (widget.charCount == true)
                   Text(
                     '${_controller.text.length}/$maxLengthValue',
-                    style: currentTypography.bodyS.copyWith(
-                      color: const DigitColors().light.textSecondary,
+                    style: textTheme.bodyS.copyWith(
+                      color: theme.colorTheme.text.secondary
                     ),
                   ),
               ],

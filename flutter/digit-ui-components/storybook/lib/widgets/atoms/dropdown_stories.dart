@@ -7,8 +7,18 @@ import 'package:digit_ui_components/widgets/atoms/digit_tree_select_dropdown.dar
 import 'package:flutter/material.dart';
 import 'package:storybook_toolkit/storybook_toolkit.dart';
 
+import '../../iframe/iframe_widget.dart';
+
 List<Story> dropdownStories() {
   return [
+    Story(
+      name: 'Atom/Dropdown/Documentation',
+      builder: (context) {
+        return IframeWidget(
+          url: 'https://egov-digit.gitbook.io/docs-templates-repo/ui-component-name-2',
+        );
+      },
+    ),
     Story(
       name: 'Atom/Dropdown/Simple Dropdown/default/default',
       builder: (context) => Column(
@@ -308,6 +318,7 @@ List<Story> dropdownStories() {
     Story(
       name: 'Atom/Dropdown/MultiSelect Dropdown/default/default',
       builder: (context) => MultiSelectDropDown<int>(
+      //  isSearchable: true,
         isDisabled: context.knobs
             .boolean(label: 'disabled', initial: false),
         onOptionSelected: (List<DropdownItem> selectedOptions) {},

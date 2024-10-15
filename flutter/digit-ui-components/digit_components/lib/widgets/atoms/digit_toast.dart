@@ -29,8 +29,9 @@ class Toast {
     final toastThemeData = digitToastThemeData ??
         theme.extension<DigitToastThemeData>();
     final defaultThemeData = DigitToastThemeData.defaultTheme(context);
+
     showToastWidget(
-      _buildToastWidget(message, type, context, toastThemeData, defaultThemeData),
+      buildToastWidget(message, type, context, toastThemeData,),
       context: context,
       duration: toastThemeData?.animationDuration ?? defaultThemeData.animationDuration,
       position: toastThemeData?.toastPosition ?? defaultThemeData.toastPosition,
@@ -41,9 +42,11 @@ class Toast {
     );
   }
 
-  static Widget _buildToastWidget(String message, ToastType type,
-      BuildContext context, DigitToastThemeData? toastThemeData, DigitToastThemeData defaultThemeData) {
+  static Widget buildToastWidget(String message, ToastType type,
+      BuildContext context, DigitToastThemeData? toastThemeData) {
     final theme = Theme.of(context);
+    final defaultThemeData = DigitToastThemeData.defaultTheme(context);
+
 
     return Container(
       constraints: BoxConstraints(

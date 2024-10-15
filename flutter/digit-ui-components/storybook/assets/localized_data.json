@@ -17,6 +17,66 @@
     "message": "Click to add photo",
     "module": "core-common-component"
   },
+  {
+    "code": "VIEW_LESS_FUTURE",
+    "locale": "en_MZ",
+    "message": "View less future",
+    "module": "core-common-component"
+  },
+  {
+    "code": "VIEW_MORE_FUTURE",
+    "locale": "en_MZ",
+    "message": "View more future",
+    "module": "core-common-component"
+  },
+  {
+    "code": "VIEW_LESS_PAST",
+    "locale": "en_MZ",
+    "message": "View less past",
+    "module": "core-common-component"
+  },
+  {
+    "code": "VIEW_MORE_PAST",
+    "locale": "en_MZ",
+    "message": "View more past",
+    "module": "core-common-component"
+  },
+  {
+    "code": "VIEW_DETAILS",
+    "locale": "en_MZ",
+    "message": "View details",
+    "module": "core-common-component"
+  },
+  {
+    "code": "HIDE_DETAILS",
+    "locale": "en_MZ",
+    "message": "Hide details",
+    "module": "core-common-component"
+  },
+  {
+    "code": "DOWNLOAD",
+    "locale": "en_MZ",
+    "message": "Download",
+    "module": "core-common-component"
+  },
+  {
+    "code": "RE_UPLOAD",
+    "locale": "en_MZ",
+    "message": "Re-Upload",
+    "module": "core-common-component",
+  },
+  {
+    "code": "DRAG_DROP_FILE",
+    "locale": "en_MZ",
+    "message": "Drag and drop your file or ",
+    "module": "core-common-component"
+  },
+  {
+    "code": "BROWSE_FILE",
+    "locale": "en_MZ",
+    "message": "Browse in my files",
+    "module": "core-common-component"
+  },
   {"code": "PRIVACY_HEADER","message":" Privacy Policy for Admin Console","module":"digit-privacy-policy","locale":"en_MZ"},
   {"code": "PRIVACY_HEADER_1_SUB_1","message":"Introduction","module":"digit-privacy-policy","locale":"en_MZ"},
   {"code": "DIGIT_TABLE_OF_CONTENTS","message":"Table of Contents","module":"digit-privacy-policy","locale":"en_MZ"},

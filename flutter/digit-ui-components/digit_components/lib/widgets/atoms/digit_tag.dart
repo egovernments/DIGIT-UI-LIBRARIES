@@ -114,7 +114,7 @@ class _TagState extends State<Tag> {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (widget.isIcon && !(widget.type == TagType.monochrome)) ...[
+            if (widget.isIcon && !(widget.type == TagType.monochrome && widget.customIcon == null)) ...[
               widget.customIcon ?? icon!,
               SizedBox(width: theme.spacerTheme.spacer3),
             ],

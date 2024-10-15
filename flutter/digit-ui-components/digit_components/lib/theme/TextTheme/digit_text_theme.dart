@@ -56,6 +56,7 @@ class DigitTextTheme extends ThemeExtension<DigitTextTheme> {
     TextStyle? linkL,
     TextStyle? linkM,
     TextStyle? linkS,
+    TextStyle? label,
   }) {
     return DigitTextTheme(
       headingXl: headingXl ?? this.headingXl,
@@ -72,6 +73,7 @@ class DigitTextTheme extends ThemeExtension<DigitTextTheme> {
       linkL: linkL ?? this.linkL,
       linkM: linkM ?? this.linkM,
       linkS: linkS ?? this.linkS,
+      label: label ?? this.label,
     );
   }
 
@@ -95,6 +97,7 @@ class DigitTextTheme extends ThemeExtension<DigitTextTheme> {
       linkL: TextStyle.lerp(linkL, other.linkL, t)!,
       linkM: TextStyle.lerp(linkM, other.linkM, t)!,
       linkS: TextStyle.lerp(linkS, other.linkS, t)!,
+      label: TextStyle.lerp(label, other.label, t)!,
     );
   }
 }

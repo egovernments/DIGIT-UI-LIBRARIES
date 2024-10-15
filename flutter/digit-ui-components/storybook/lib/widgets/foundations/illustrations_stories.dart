@@ -153,11 +153,14 @@ class IllustrationStory extends StatelessWidget {
             onPressed: () {
               _downloadImage(imageAsset, 'png');
             },
+            mainAxisSize: MainAxisSize.max,
             type: DigitButtonType.secondary,
             size: DigitButtonSize.large,
           ),
 
-          DigitButton(label: 'Download as SVG', onPressed: () {
+          DigitButton(label: 'Download as SVG',
+              mainAxisSize: MainAxisSize.max,
+              onPressed: () {
             _downloadImage(imageAsset, 'svg');
           }, type: DigitButtonType.secondary, size: DigitButtonSize.large),
         ],

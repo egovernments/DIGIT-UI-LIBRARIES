@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:digit_ui_components/widgets/atoms/digit_chip.dart';
 import 'package:storybook_toolkit/storybook_toolkit.dart';
-import '../../plugins/code_view_wrapper.dart';
+import '../../iframe/iframe_widget.dart';
 
 List<Story> chipStories() {
   return [
+    Story(
+      name: 'Atom/Chip/Documentation',
+      builder: (context) {
+        return IframeWidget(
+          url: 'https://egov-digit.gitbook.io/docs-templates-repo/ui-component-name-2',
+        );
+      },
+    ),
     Story(
       name: 'Atom/Chip/Basic',
       builder: (context) {

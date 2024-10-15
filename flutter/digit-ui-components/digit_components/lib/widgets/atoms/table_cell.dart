@@ -112,7 +112,7 @@ class DigitTableCell extends StatelessWidget {
         );
 
       case ColumnType.switchs:
-        return CustomSwitch(
+        return DigitSwitch(
             mainAxisAlignment: MainAxisAlignment.start,
             label: cellData.label,
             value: cellData.value ?? false, onChanged: (value) {

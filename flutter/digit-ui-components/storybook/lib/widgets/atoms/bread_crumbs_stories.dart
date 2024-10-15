@@ -3,10 +3,18 @@ import 'package:digit_ui_components/widgets/atoms/digit_bread_crumbs.dart';
 import 'package:storybook_toolkit/storybook_toolkit.dart';
 import 'package:flutter/material.dart';
 
-import '../../plugins/code_view_wrapper.dart';
+import '../../iframe/iframe_widget.dart';
 
 List<Story> DigitBreadCrumbStories() {
   return [
+    Story(
+      name: 'Atom/Breadcrumbs/Documentation',
+      builder: (context) {
+        return IframeWidget(
+          url: 'https://egov-digit.gitbook.io/docs-templates-repo/ui-component-name-2',
+        );
+      },
+    ),
     Story(
       name: 'Atom/Breadcrumbs/Default',
       builder: (context){

@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:digit_ui_components/digit_components.dart';
+import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:flutter/material.dart';
 import '../atoms/digit_button.dart';
 import 'digit_card.dart';
@@ -27,10 +28,10 @@ class DigitLanguageCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return DigitCard(
       padding: const EdgeInsets.symmetric(
-        vertical: 16,
-        horizontal: 16,
+        vertical: spacer4,
+        horizontal: spacer4,
       ),
-      margin: const EdgeInsets.all(8),
+      margin: const EdgeInsets.all(spacer2),
       children: [
         Column(
           mainAxisSize: MainAxisSize.min,
@@ -38,13 +39,13 @@ class DigitLanguageCard extends StatelessWidget {
           children: [
             appLogo ?? const SizedBox.shrink(),
             DigitRowCard(
-              spacing: 20,
+              spacing: spacer2,
               alignment: WrapAlignment.spaceBetween,
               onChanged: onLanguageChange,
               rowItems: digitRowCardItems,
               width: rowItemWidth,
             ),
-            const SizedBox(height: 16,),
+            const SizedBox(height: spacer4,),
             DigitButton(
               mainAxisSize: MainAxisSize.max,
               label: languageSubmitLabel,
@@ -82,7 +83,7 @@ class DigitRowCard extends StatefulWidget {
     Key? key,
     required this.rowItems,
     this.onChanged,
-    this.spacing = 16.0,
+    this.spacing = spacer4,
     this.alignment = WrapAlignment.start,
     this.width,
   }) : super(key: key);
@@ -100,8 +101,9 @@ class _DigitRowCardState extends State<DigitRowCard> {
     _calculateMaxLabelWidth();
   }
 
-  // Function to calculate the width of the largest label
+  // Function to calculate the width of the largest label based on the text theme of the current screen
   void _calculateMaxLabelWidth() {
+    final textTheme = Theme.of(context).digitTextTheme(context);
     final TextPainter textPainter = TextPainter(
       textDirection: TextDirection.ltr,
     );
@@ -110,16 +112,14 @@ class _DigitRowCardState extends State<DigitRowCard> {
     for (var item in widget.rowItems) {
       textPainter.text = TextSpan(
         text: item.label,
-        style: const TextStyle(
-          fontSize: 16,
-        ),
+        style: textTheme.bodyS, // Get the font size and style from the current theme
       );
       textPainter.layout();
-      maxWidth = maxWidth > textPainter.width ? maxWidth : textPainter.width;
+      maxWidth = max(maxWidth, textPainter.width);
     }
 
-    // Add padding to the width of the largest label
-    maxLabelWidth = maxWidth + 40; // 16 padding on each side
+    // Add padding to the width of the largest label dynamically
+    maxLabelWidth = maxWidth + spacer8; // Adjust padding as needed
   }
 
   void _onItemTap(DigitRowCardModel item) {
@@ -135,35 +135,37 @@ class _DigitRowCardState extends State<DigitRowCard> {
     }
   }
 
-  Widget _buildItem(DigitRowCardModel item, double itemWidth) {
+  Widget _buildItem(DigitRowCardModel item, double itemWidth, BuildContext context) {
+    final theme = Theme.of(context);
+    final textTheme = theme.digitTextTheme(context);
+
     return GestureDetector(
       onTap: () => _onItemTap(item),
       child: Container(
         width: max(itemWidth, maxLabelWidth), // Use the calculated width
         decoration: BoxDecoration(
           color: item.isSelected
-              ? const DigitColors().light.primary1
-              : const DigitColors().light.paperSecondary,
+              ? theme.colorTheme.primary.primary1
+              : theme.colorTheme.paper.secondary,
           border: Border.all(
             color: item.isSelected
-                ? const DigitColors().light.primary1
-                : const DigitColors().light.genericInputBorder,
+                ? theme.colorTheme.primary.primary1
+                : theme.colorTheme.generic.inputBorder,
             width: 1.0,
           ),
         ),
-        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+        padding: const EdgeInsets.symmetric(vertical: spacer2, horizontal: spacer4),
         child: Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               item.label,
-              style: TextStyle(
-                fontSize: 16,
+              style: textTheme.bodyS.copyWith(
                 fontWeight: item.isSelected ? FontWeight.bold : FontWeight.normal,
                 color: item.isSelected
-                    ? const DigitColors().light.paperPrimary
-                    : const DigitColors().light.textPrimary,
+                    ? theme.colorTheme.paper.primary
+                    : theme.colorTheme.text.primary,
               ),
             ),
           ],
@@ -174,7 +176,7 @@ class _DigitRowCardState extends State<DigitRowCard> {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width - 48;
+    final screenWidth = MediaQuery.of(context).size.width - spacer12;
     final totalSpacing = (widget.rowItems.length - 1) * widget.spacing;
     final availableWidth = screenWidth - totalSpacing;
     final itemWidth = availableWidth / widget.rowItems.length;
@@ -183,7 +185,7 @@ class _DigitRowCardState extends State<DigitRowCard> {
       spacing: widget.spacing,
       runSpacing: widget.spacing,
       alignment: widget.alignment,
-      children: widget.rowItems.map((item) => _buildItem(item, widget.width ?? itemWidth)).toList(),
+      children: widget.rowItems.map((item) => _buildItem(item, widget.width ?? itemWidth, context)).toList(),
     );
   }
 }

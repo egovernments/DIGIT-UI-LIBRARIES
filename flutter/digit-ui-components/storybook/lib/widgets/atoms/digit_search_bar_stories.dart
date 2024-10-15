@@ -1,18 +1,24 @@
-import 'package:digit_ui_components/enum/app_enums.dart';
-import 'package:digit_ui_components/theme/digit_extended_theme.dart';
-import 'package:digit_ui_components/widgets/atoms/accordion.dart';
 import 'package:digit_ui_components/widgets/atoms/digit_search_bar.dart';
-import 'package:digit_ui_components/widgets/molecules/digit_card.dart';
 import 'package:flutter/material.dart';
 import 'package:storybook_toolkit/storybook_toolkit.dart';
+
+import '../../iframe/iframe_widget.dart';
 
 List<Story> searchBarStories() {
   return [
     Story(
-      name: 'Atom/Search Bar/default',
+      name: 'Atom/Search Bar/Documentation',
+      builder: (context) {
+        return IframeWidget(
+          url: 'https://egov-digit.gitbook.io/docs-templates-repo/ui-component-name-2',
+        );
+      },
+    ),
+    Story(
+      name: 'Atom/Search Bar/Basic',
       builder: (context) {
         final theme = Theme.of(context);
-        final textTheme = theme.digitTextTheme(context);
+
         return DigitSearchBar(
           controller: TextEditingController(),
           hintText: 'sdfsdjfsdlkfjsdfksjd',

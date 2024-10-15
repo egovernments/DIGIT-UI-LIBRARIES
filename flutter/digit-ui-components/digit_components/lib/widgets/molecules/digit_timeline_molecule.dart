@@ -1,12 +1,13 @@
 import 'package:digit_ui_components/digit_components.dart';
+import 'package:digit_ui_components/widgets/localized.dart';
 import 'package:flutter/material.dart';
-import '../atoms/digit_button.dart';
+import '../../utils/i18_key_constants.dart' as i18;
 import '../atoms/timeline.dart';
 
-class TimelineMolecule extends StatefulWidget {
+class TimelineMolecule extends LocalizedStatefulWidget {
   final List<TimelineStep> steps;
-  final String viewDetailText;
-  final String hideDetailText;
+  final String? viewDetailText;
+  final String? hideDetailText;
   final bool capitalizedLetter;
   final int initialStepCount;
   final bool showAllSteps; // New prop to show all steps initially
@@ -14,8 +15,8 @@ class TimelineMolecule extends StatefulWidget {
   const TimelineMolecule({
     Key? key,
     required this.steps,
-    this.viewDetailText = 'View Details',
-    this.hideDetailText = 'Hide Details',
+    this.viewDetailText,
+    this.hideDetailText,
     this.capitalizedLetter = true,
     this.initialStepCount = 3, // Number of steps to show initially
     this.showAllSteps = false,
@@ -25,7 +26,7 @@ class TimelineMolecule extends StatefulWidget {
   _TimelineMoleculeState createState() => _TimelineMoleculeState();
 }
 
-class _TimelineMoleculeState extends State<TimelineMolecule> {
+class _TimelineMoleculeState extends LocalizedState<TimelineMolecule> {
   bool showMoreFuture = false;
   bool showMorePast = false;
 
@@ -89,7 +90,11 @@ class _TimelineMoleculeState extends State<TimelineMolecule> {
         children: [
           if (!widget.showAllSteps && sortedSteps.where((step) => step.state == TimelineStepState.future).length > 1)
             DigitButton(
-              label: showMoreFuture ? 'View Less Future' : 'View More Future',
+              label: showMoreFuture ?  localizations.translate(
+            i18.common.viewLessFuture
+          ): localizations.translate(
+            i18.common.viewMoreFuture
+          ),
               type: DigitButtonType.link,
               size: DigitButtonSize.medium,
               suffixIcon: showMoreFuture ? Icons.arrow_drop_down : Icons.arrow_drop_up,
@@ -113,8 +118,12 @@ class _TimelineMoleculeState extends State<TimelineMolecule> {
                     description: step.description,
                     additionalWidgets: step.additionalWidgets,
                     additionalHideWidgets: step.additionalHideWidgets,
-                    viewDetailText: widget.viewDetailText,
-                    hideDetailText: widget.hideDetailText,
+                    viewDetailText: widget.viewDetailText ?? localizations.translate(
+                      i18.common.viewDetails,
+                    ),
+                    hideDetailText: widget.hideDetailText ?? localizations.translate(
+                      i18.common.hideDetails,
+                    ),
                     capitalizedLetter: widget.capitalizedLetter,
                   ),
                 ],
@@ -123,7 +132,11 @@ class _TimelineMoleculeState extends State<TimelineMolecule> {
           ),
           if (!widget.showAllSteps && sortedSteps.where((step) => step.state == TimelineStepState.completed).length > 1)
             DigitButton(
-              label: showMorePast ? 'View Less Past' : 'View More Past',
+              label: showMorePast ? localizations.translate(
+    i18.common.viewLessPast,
+    ) : localizations.translate(
+    i18.common.viewMorePast,
+    ),
               type: DigitButtonType.link,
               size: DigitButtonSize.medium,
               suffixIcon: showMorePast ? Icons.arrow_drop_up : Icons.arrow_drop_down,

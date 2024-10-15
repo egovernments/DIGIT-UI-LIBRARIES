@@ -4,139 +4,112 @@ import 'package:digit_ui_components/widgets/atoms/panel.dart';
 import 'package:flutter/material.dart';
 import 'package:storybook_toolkit/storybook_toolkit.dart';
 
-
-import '../../plugins/code_view_wrapper.dart';
+import '../../iframe/iframe_widget.dart';
 
 List<Story> panelStories() {
   return [
     Story(
-      name: 'Atom/Panel/Success/Default',
+      name: 'Atom/Panel/Documentation',
       builder: (context) {
+        return IframeWidget(
+          url: 'https://egov-digit.gitbook.io/docs-templates-repo/ui-component-name-2',
+        );
+      },
+    ),
+    Story(
+      name: 'Atom/Panel/Success/Basic',
+      builder: (context) {
+        final animateKnob = context.knobs.boolean(label: 'Animation', initial: true);
+        final repeatKnob = context.knobs.boolean(label: 'Repeat', initial: false);
 
         return Panel(
-          type: PanelType.success,
-          title: context.knobs.text(label: 'Title', initial: 'Success Message'),
-        );
+              type: PanelType.success,
+              title: context.knobs.text(label: 'Title', initial: 'Success Message'),
+              animate: animateKnob,
+              repeat: repeatKnob,
+            );
       },
     ),
     Story(
       name: 'Atom/Panel/Success/With description',
       builder: (context) {
+        final animateKnob = context.knobs.boolean(label: 'Animation', initial: true);
+        final repeatKnob = context.knobs.boolean(label: 'Repeat', initial: false);
 
         final descriptionString = context.knobs.text(
           label: 'Description (comma-separated)',
-          initial: 'Ref ID, 949749795479',
+          initial: 'Description1, Description2, Description3',
         );
 
         final descriptionList =
-            descriptionString.split(',').map((s) => s.trim()).toList();
+        descriptionString.split(',').map((s) => s.trim()).toList();
 
         return Panel(
-          type: PanelType.success,
-          title: context.knobs.text(label: 'Title', initial: 'Success Message'),
-          description: descriptionList.map((text) {
-            final isTitle = text == 'Ref ID';
-            return Text(
-              text,
-              style: isTitle
-                  ? Theme.of(context)
+              type: PanelType.success,
+              title: context.knobs.text(label: 'Title', initial: 'Success Message'),
+              description: descriptionList.map((text) {
+                return Text(
+                  text,
+                  style: Theme.of(context)
                       .digitTextTheme(context)
                       .bodyS
-                      .copyWith(color: const DigitColors().light.paperPrimary)
-                  : Theme.of(context)
-                      .digitTextTheme(context)
-                      .headingS
-                      .copyWith(color: const DigitColors().light.paperPrimary),
+                      .copyWith(
+                    color: Theme.of(context).colorTheme.paper.primary,
+                  ),
+                );
+              }).toList(),
+              animate: animateKnob,
+              repeat: repeatKnob,
             );
-          }).toList(),
-        );
+
       },
     ),
     Story(
-      name: 'Atom/Panel/Success/Without animation',
+      name: 'Atom/Panel/Error/Basic',
       builder: (context) {
+        final animateKnob = context.knobs.boolean(label: 'Animation', initial: true);
+        final repeatKnob = context.knobs.boolean(label: 'Repeat', initial: false);
 
         return Panel(
-          type: PanelType.success,
-          animate: false,
-          title: context.knobs.text(label: 'Title', initial: 'Success Message'),
-        );
-      },
-    ),
-    Story(
-      name: 'Atom/Panel/Success/Animation repeat',
-      builder: (context) {
+              type: PanelType.error,
+              title: context.knobs.text(label: 'Title', initial: 'Error Message'),
+              animate: animateKnob,
+              repeat: repeatKnob,
+            );
 
-        return Panel(
-          type: PanelType.success,
-          repeat: true,
-          title: context.knobs.text(label: 'Title', initial: 'Success Message'),
-        );
-      },
-    ),
-    Story(
-      name: 'Atom/Panel/Error/Default',
-      builder: (context) {
-
-        return Panel(
-          type: PanelType.error,
-          title: context.knobs.text(label: 'Title', initial: 'Error Message'),
-        );
       },
     ),
     Story(
       name: 'Atom/Panel/Error/With description',
       builder: (context) {
+        final animateKnob = context.knobs.boolean(label: 'Animation', initial: true);
+        final repeatKnob = context.knobs.boolean(label: 'Repeat', initial: false);
 
         final descriptionString = context.knobs.text(
           label: 'Description (comma-separated)',
-          initial: 'Ref ID, 949749795479',
+          initial: 'Description1, Description2, Description3',
         );
 
         final descriptionList =
-            descriptionString.split(',').map((s) => s.trim()).toList();
+        descriptionString.split(',').map((s) => s.trim()).toList();
 
         return Panel(
-          type: PanelType.error,
-          title: context.knobs.text(label: 'Title', initial: 'Error Message'),
-          description: descriptionList.map((text) {
-            final isTitle = text == 'Ref ID';
-            return Text(
-              text,
-              style: isTitle
-                  ? Theme.of(context)
+              type: PanelType.error,
+              title: context.knobs.text(label: 'Title', initial: 'Error Message'),
+              description: descriptionList.map((text) {
+                return Text(
+                  text,
+                  style: Theme.of(context)
                       .digitTextTheme(context)
                       .bodyS
-                      .copyWith(color: const DigitColors().light.paperPrimary)
-                  : Theme.of(context)
-                      .digitTextTheme(context)
-                      .headingS
-                      .copyWith(color: const DigitColors().light.paperPrimary),
+                      .copyWith(
+                    color: Theme.of(context).colorTheme.paper.primary,
+                  ),
+                );
+              }).toList(),
+              animate: animateKnob,
+              repeat: repeatKnob,
             );
-          }).toList(),
-        );
-      },
-    ),
-    Story(
-      name: 'Atom/Panel/Error/Without animation',
-      builder: (context) {
-
-        return Panel(
-          type: PanelType.error,
-          animate: false,
-          title: context.knobs.text(label: 'Title', initial: 'Error Message'),
-        );
-      },
-    ),
-    Story(
-      name: 'Atom/Panel/Error/Animation repeat',
-      builder: (context) {
-
-        return Panel(
-          type: PanelType.error,
-          repeat: true,
-          title: context.knobs.text(label: 'Title', initial: 'Error Message'),
-        );
       },
     ),
   ];

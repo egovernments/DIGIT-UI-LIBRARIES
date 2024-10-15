@@ -1,13 +1,20 @@
 import 'package:digit_ui_components/enum/app_enums.dart';
-import 'package:digit_ui_components/theme/digit_theme_wrapper.dart';
 import 'package:digit_ui_components/widgets/atoms/digit_button.dart';
 import 'package:flutter/material.dart';
 import 'package:storybook_toolkit/storybook_toolkit.dart';
 
-import '../../plugins/code_view_wrapper.dart';
+import '../../iframe/iframe_widget.dart';
 
 List<Story> DigitButtonStories() {
   return [
+    Story(
+      name: 'Atom/Button/Documentation',
+      builder: (context) {
+        return IframeWidget(
+          url: 'https://egov-digit.gitbook.io/docs-templates-repo/ui-component-name-2',
+        );
+      },
+    ),
     Story(
       name: 'Atom/Buttons/Primary',
       builder: (context) {

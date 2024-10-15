@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/services/component_localization_delegate.dart';
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +18,7 @@ import 'package:storybook/widgets/atoms/digit_tab_stories.dart';
 import 'package:storybook/widgets/atoms/digit_tag_stories.dart';
 import 'package:storybook/widgets/atoms/divider_stories.dart';
 import 'package:storybook/widgets/atoms/dropdown_stories.dart';
-import 'package:storybook/widgets/atoms/filter_card_stories.dart';
+import 'package:storybook/widgets/molecules/filter_card_stories.dart';
 import 'package:storybook/widgets/atoms/flie_upload_stories.dart';
 import 'package:storybook/widgets/atoms/group_menu_card_stories.dart';
 import 'package:storybook/widgets/atoms/input_field_stories.dart';
@@ -77,7 +76,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: DigitTheme.instance.mobileTheme, ///todo: need to check as theme is not being loaded correctly in storybook
+      theme: DigitExtendedTheme.instance.getLightTheme(),
+      darkTheme: DigitExtendedTheme.instance.getDarkTheme(),
+      locale: Locale("en", "MZ"),
+      supportedLocales: const [
+        Locale('en', 'MZ'),
+      ],
       home: MyHomePage(title: 'Digit Components Page'),
     );
   }
@@ -120,6 +124,28 @@ class MyHomePageState extends State<MyHomePage> {
     // Your widget tree goes here
     return Scaffold(
       body: Storybook(
+        plugins: initializePlugins(
+          enableCodeView: false,
+          enableDirectionality: false,
+          enableTimeDilation: false,
+          enableTextSizer: true,
+          localizationData: LocalizationData(
+              currentLocale: Locale("en", "MZ"), // Set the initial locale correctly
+              supportedLocales: {
+                "English": Locale.fromSubtags(languageCode: 'en', countryCode: 'MZ'),
+                "English (French)": Locale.fromSubtags(languageCode: 'en', countryCode: 'FR'),
+              },
+              delegates: [
+                DefaultMaterialLocalizations.delegate,
+                DefaultWidgetsLocalizations.delegate,
+                ComponentLocalizationDelegate(
+                  _localizationFuture,
+                  [Language('English', 'en_MZ'), Language('English (French)', 'en_FR', )],
+                ),
+              ]
+          )
+
+        ),
         canvasColor: Theme.of(context).colorTheme.paper.primary,
         logoWidget: Container(
           padding: EdgeInsets.only(left: 24, top: 16),
@@ -127,8 +153,8 @@ class MyHomePageState extends State<MyHomePage> {
               children: [
                 Image.asset(
                   'assets/images/Group 1079.png',
-                  color: Theme.of(context).colorTheme.primary.primary1,
-                  //height: 16,
+                //  color: Theme.of(context).colorTheme.primary.primary1,
+                  height: 40,
                 ),
               ],
             )),
@@ -152,7 +178,6 @@ class MyHomePageState extends State<MyHomePage> {
           ...dividerStories(),
           ...dropdownStories(),
           ...fileUploaderStories(),
-          ...filterCardStories(),
           ...inputFieldStories(),
           ...infoCardStories(),
           ...listViewStories(),
@@ -180,6 +205,7 @@ class MyHomePageState extends State<MyHomePage> {
           ...accordionListStories(),
           ...bottomSheetStories(),
           ...cardStories(),
+          ...filterCardStories(),
           ...formCardStories(),
           ...footerMoleculeStories(),
           ...headerMoleculeStories(),

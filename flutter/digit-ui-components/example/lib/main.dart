@@ -242,7 +242,7 @@ class MyHomePageState extends State<MyHomePage> {
                   subHeading: 'Sub Heading Text',
                   description: 'This is the description of the TextBlock component.',
                 ),
-                CustomSwitch(
+                DigitSwitch(
                   value: isSwitched,
                   label: 'Toggle to switch theme',
                   onChanged: (value) {

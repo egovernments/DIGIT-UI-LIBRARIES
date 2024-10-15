@@ -23,7 +23,7 @@ class FilterCard {
     bool barrierDismissible = true,
     FilterCardLayout layoutType =
         FilterCardLayout.horizontal, // Pass the layout type here
-    VoidCallback? onCrossTap,
+    Function(BuildContext context)? onCrossTap,
   }) async {
     return showGeneralDialog<void>(
       context: context,
@@ -79,7 +79,7 @@ class FilterCard {
     VoidCallback? onPrimaryPressed,
     VoidCallback? onSecondaryPressed,
     FilterCardLayout layoutType = FilterCardLayout.horizontal,
-    VoidCallback? onCrossTap,
+    Function(BuildContext context)? onCrossTap,
   }) {
     return FilterCardWidget(
       titleIcon: titleIcon,
@@ -104,7 +104,7 @@ class FilterCardWidget extends StatefulWidget {
   final VoidCallback? onPrimaryPressed;
   final VoidCallback? onSecondaryPressed;
   final FilterCardLayout layoutType;
-  final VoidCallback? onCrossTap;
+  final Function(BuildContext context)? onCrossTap;
 
   const FilterCardWidget({
     Key? key,
@@ -241,7 +241,11 @@ class _FilterCardWidgetState extends State<FilterCardWidget> {
                   hoverColor: const DigitColors().transparent,
                   highlightColor: const DigitColors().transparent,
                   splashColor: const DigitColors().transparent,
-                  onTap: widget.onCrossTap!,
+                  onTap: (){
+                    if(widget.onCrossTap != null){
+                      widget.onCrossTap!(context);
+                    }
+                  },
                   child: Icon(
                     Icons.close,
                     size: isMobile
@@ -464,7 +468,11 @@ class _FilterCardWidgetState extends State<FilterCardWidget> {
                       hoverColor: const DigitColors().transparent,
                       highlightColor: const DigitColors().transparent,
                       splashColor: const DigitColors().transparent,
-                      onTap: widget.onCrossTap!,
+                      onTap: (){
+                        if(widget.onCrossTap != null){
+                          widget.onCrossTap!(context);
+                        }
+                      },
                       child: Icon(
                         Icons.close,
                         size: isMobile

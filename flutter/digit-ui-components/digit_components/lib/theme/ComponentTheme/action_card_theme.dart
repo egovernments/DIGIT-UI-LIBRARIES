@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:flutter/material.dart';
 import '../../constants/AppView.dart';
@@ -28,11 +29,11 @@ class DigitDigitActionCardTheme extends ThemeExtension<DigitDigitActionCardTheme
 
     return DigitDigitActionCardTheme(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(4),
+        borderRadius: BorderRadius.circular(spacer1),
         color: theme.colorTheme.paper.primary,
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF000000).withOpacity(.16),
+            color: theme.colorTheme.text.primary.withOpacity(.16),
             offset: const Offset(0, 1),
             spreadRadius: 0,
             blurRadius: 2,
@@ -40,8 +41,8 @@ class DigitDigitActionCardTheme extends ThemeExtension<DigitDigitActionCardTheme
         ],
       ),
       padding: EdgeInsets.all(theme.spacerTheme.spacer6),
-      margin: isMobile ? const EdgeInsets.symmetric(horizontal: 16) : isTab ? const EdgeInsets.symmetric(horizontal: 100) : const EdgeInsets.symmetric(horizontal: 400),
-      spacing: 24,
+      margin: isMobile ? const EdgeInsets.symmetric(horizontal: spacer4) : isTab ? const EdgeInsets.symmetric(horizontal: 100) : const EdgeInsets.symmetric(horizontal: 400),
+      spacing: spacer6,
     );
   }
 

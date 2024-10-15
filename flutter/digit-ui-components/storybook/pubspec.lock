@@ -467,7 +467,7 @@ packages:
     source: hosted
     version: "5.2.1"
   flutter_styled_toast:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: flutter_styled_toast
       sha256: e667f13a665820eb0fa8506547e47eacbcddf1948d6d3036cfd3b089bd4b0516

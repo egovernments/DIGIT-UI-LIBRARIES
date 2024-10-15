@@ -4,29 +4,33 @@ import 'package:flutter/material.dart';
 
 import '../../theme/ComponentTheme/switch_theme.dart';
 
-class CustomSwitch extends StatefulWidget {
+class DigitSwitch extends StatefulWidget {
   final bool value;
   final ValueChanged<bool> onChanged;
   final bool showSymbol; // Option to show symbols/icons inside the switch
   final String? label;
   final MainAxisAlignment mainAxisAlignment;
   final DigitSwitchThemeData? themeData;
+  final bool disabled;
+  final bool readonly;
 
-  const CustomSwitch({
+  const DigitSwitch({
     Key? key,
     required this.value,
     required this.onChanged,
     this.showSymbol = false,
     this.label,
     this.themeData,
+    this.disabled = false,
+    this.readonly = false,
     this.mainAxisAlignment = MainAxisAlignment.center,
   }) : super(key: key);
 
   @override
-  _CustomSwitchState createState() => _CustomSwitchState();
+  _DigitSwitchState createState() => _DigitSwitchState();
 }
 
-class _CustomSwitchState extends State<CustomSwitch>
+class _DigitSwitchState extends State<DigitSwitch>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _animation;
@@ -48,7 +52,7 @@ class _CustomSwitchState extends State<CustomSwitch>
   }
 
   @override
-  void didUpdateWidget(CustomSwitch oldWidget) {
+  void didUpdateWidget(DigitSwitch oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.value) {
       _animationController.forward();
@@ -66,7 +70,7 @@ class _CustomSwitchState extends State<CustomSwitch>
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final customSwitchTheme = theme.extension<DigitSwitchThemeData>() ?? widget.themeData;
+    final DigitSwitchTheme = theme.extension<DigitSwitchThemeData>() ?? widget.themeData;
     final defaultSwitchTheme = DigitSwitchThemeData.defaultTheme(context);
 
     return Row(
@@ -77,19 +81,19 @@ class _CustomSwitchState extends State<CustomSwitch>
           hoverColor: theme.colorTheme.generic.transparent,
           highlightColor: theme.colorTheme.generic.transparent,
           splashColor: theme.colorTheme.generic.transparent,
-          onTap: _toggleSwitch,
+          onTap: widget.readonly || widget.disabled ? null : _toggleSwitch,
           child: AnimatedBuilder(
             animation: _animationController,
             builder: (context, child) {
               return Container(
-                width: customSwitchTheme?.trackWidth ?? defaultSwitchTheme.trackWidth,
-                height: customSwitchTheme?.trackHeight ?? defaultSwitchTheme.trackHeight,
-                padding: customSwitchTheme?.padding ?? defaultSwitchTheme.padding,
+                width: DigitSwitchTheme?.trackWidth ?? defaultSwitchTheme.trackWidth,
+                height: DigitSwitchTheme?.trackHeight ?? defaultSwitchTheme.trackHeight,
+                padding: DigitSwitchTheme?.padding ?? defaultSwitchTheme.padding,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16.0),
-                  color: _animation.value > 0.5
-                      ? customSwitchTheme?.activeColor ?? defaultSwitchTheme.activeColor
-                      : customSwitchTheme?.inactiveColor ?? defaultSwitchTheme.inactiveColor,
+                  borderRadius: BorderRadius.circular(spacer4),
+                  color: widget.readonly || widget.disabled ? theme.colorTheme.text.disabled : _animation.value > 0.5
+                      ? DigitSwitchTheme?.activeColor ?? defaultSwitchTheme.activeColor
+                      : DigitSwitchTheme?.inactiveColor ?? defaultSwitchTheme.inactiveColor,
                 ),
                 child: Stack(
                   alignment: Alignment.center,
@@ -104,7 +108,7 @@ class _CustomSwitchState extends State<CustomSwitch>
                           decoration: BoxDecoration(
                             shape: BoxShape.rectangle,
                             borderRadius: const BorderRadius.all(Radius.circular(1)),
-                            color: customSwitchTheme?.symbolColor ?? defaultSwitchTheme.symbolColor,
+                            color: DigitSwitchTheme?.symbolColor ?? defaultSwitchTheme.symbolColor,
                           ),
                         ),
                       ),
@@ -119,21 +123,21 @@ class _CustomSwitchState extends State<CustomSwitch>
                             shape: BoxShape.circle,
                             border: Border.all(
                               width: 1,
-                              color: customSwitchTheme?.symbolColor ?? defaultSwitchTheme.symbolColor!,
+                              color: DigitSwitchTheme?.symbolColor ?? defaultSwitchTheme.symbolColor!,
                             ),
-                            color: customSwitchTheme?.symbolColor ?? defaultSwitchTheme.inactiveColor,
+                            color: DigitSwitchTheme?.symbolColor ?? defaultSwitchTheme.inactiveColor,
                           ),
                         ),
                       ),
                     // Thumb
                     Positioned(
-                      left: _animation.value *( customSwitchTheme?.animationValue ?? defaultSwitchTheme.animationValue!),
+                      left: _animation.value *( DigitSwitchTheme?.animationValue ?? defaultSwitchTheme.animationValue!),
                       child: Container(
-                        width: customSwitchTheme?.thumbSize ?? defaultSwitchTheme.thumbSize,
-                        height: customSwitchTheme?.thumbSize ?? defaultSwitchTheme.thumbSize,
+                        width: DigitSwitchTheme?.thumbSize ?? defaultSwitchTheme.thumbSize,
+                        height: DigitSwitchTheme?.thumbSize ?? defaultSwitchTheme.thumbSize,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: customSwitchTheme?.symbolColor ?? defaultSwitchTheme.symbolColor,
+                          color: DigitSwitchTheme?.symbolColor ?? defaultSwitchTheme.symbolColor,
                           boxShadow: [
                             BoxShadow(
                               color: Colors.black.withOpacity(0.2),
@@ -155,7 +159,9 @@ class _CustomSwitchState extends State<CustomSwitch>
           Flexible(
             child: Text(
               widget.label!,
-              style: customSwitchTheme?.labelTextStyle ?? defaultSwitchTheme.labelTextStyle,
+              style: widget.disabled ? theme.digitTextTheme(context).bodyS.copyWith(
+                color: theme.colorTheme.text.disabled,
+              ) : DigitSwitchTheme?.labelTextStyle ?? defaultSwitchTheme.labelTextStyle,
             ),
           ),
         ],

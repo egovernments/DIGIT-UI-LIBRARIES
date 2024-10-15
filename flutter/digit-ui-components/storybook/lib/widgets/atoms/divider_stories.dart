@@ -3,10 +3,20 @@ import 'package:digit_ui_components/enum/app_enums.dart';
 import 'package:digit_ui_components/theme/ComponentTheme/divider_theme.dart';
 import 'package:digit_ui_components/widgets/atoms/digit_divider.dart';
 import 'package:storybook_toolkit/storybook_toolkit.dart';
-import '../../plugins/code_view_wrapper.dart';
+
+import '../../iframe/iframe_widget.dart';
+
 
 List<Story> dividerStories() {
   return [
+    Story(
+      name: 'Atom/Divider/Documentation',
+      builder: (context) {
+        return IframeWidget(
+          url: 'https://egov-digit.gitbook.io/docs-templates-repo/ui-component-name-2',
+        );
+      },
+    ),
     Story(
       name: 'Atom/Divider/small',
       builder: (context) {

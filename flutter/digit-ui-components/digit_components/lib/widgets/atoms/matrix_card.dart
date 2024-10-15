@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 class MatrixList extends StatelessWidget {
   final List<Matrix> matrices;
   final int itemsPerGroup;
-  final bool showVerticalDivider;
+  final bool showItemDivider;
   final bool showGroupDivider;
   final double verticalDividerWidth;
   final double verticalDividerHeight;
@@ -19,7 +19,7 @@ class MatrixList extends StatelessWidget {
     super.key,
     required this.matrices,
     this.itemsPerGroup = 2,
-    this.showVerticalDivider = true,
+    this.showItemDivider = true,
     this.showGroupDivider = true,
     this.verticalDividerWidth = 1.0,
     this.verticalDividerHeight = 50.0,
@@ -50,8 +50,8 @@ class MatrixList extends StatelessWidget {
           Expanded(
             child: Padding(
               padding: EdgeInsets.only(
-                right: (j != rowItems.length - 1 || showVerticalDivider) ? 24 : 0.0,
-                left: (j != 0 || showVerticalDivider) ? 24 : 0.0,
+                right: (j != rowItems.length - 1 || showItemDivider) ? 24 : 0.0,
+                left: (j != 0 || showItemDivider) ? 24 : 0.0,
               ),
               child: MatrixCard(matrix: rowItems[j]),
             ),
@@ -59,7 +59,7 @@ class MatrixList extends StatelessWidget {
         );
 
         // Add Vertical Divider if needed and not the last item
-        if (showVerticalDivider && j < rowItems.length - 1) {
+        if (showItemDivider && j < rowItems.length - 1) {
           rowWidgets.add(
             const DigitDivider(
               dividerThemeData: DigitDividerThemeData(
@@ -114,15 +114,15 @@ class MatrixList extends StatelessWidget {
         columnWidgets.add(
           Padding(
             padding: EdgeInsets.only(
-              bottom: (j != columnItems.length - 1 && showVerticalDivider) ? 24 : 0.0,
-              top: (j != 0 && showVerticalDivider) ? 24 : 0.0,
+              bottom: (j != columnItems.length - 1 && showItemDivider) ? 24 : 0.0,
+              top: (j != 0 && showItemDivider) ? 24 : 0.0,
             ),
             child: MatrixCard(matrix: columnItems[j]),
           ),
         );
 
         // Add Horizontal Divider if needed and not the last item
-        if (showVerticalDivider && j < columnItems.length - 1) {
+        if (showItemDivider && j < columnItems.length - 1) {
           columnWidgets.add(
             const DigitDivider(dividerType: DividerType.small),
           );

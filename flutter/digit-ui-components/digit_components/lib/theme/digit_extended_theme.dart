@@ -20,15 +20,22 @@ class DigitExtendedTheme {
 
   ThemeData getLightTheme() {
     return ThemeData.light().copyWith(
-      colorScheme: colorScheme,
-      textTheme: ThemeData.light().textTheme.apply(
-        fontFamily: 'Roboto',  // Apply the Roboto font to the entire text theme
-      ),
+      scaffoldBackgroundColor: const DigitColors().light.genericBackground,
       appBarTheme: const AppBarTheme(elevation: 0),
+      elevatedButtonTheme: elevatedButtonTheme,
+      outlinedButtonTheme: outlinedButtonTheme,
+      textButtonTheme: textButtonTheme,
+      cardTheme: cardTheme,
+      inputDecorationTheme: inputDecorationTheme,
+      dialogTheme: dialogTheme.copyWith(),
       textSelectionTheme: TextSelectionThemeData(
         cursorColor: const DigitColors().light.primary1,
         selectionColor: const DigitColors().light.primary1Bg,
         selectionHandleColor: const DigitColors().transparent,
+      ),
+      colorScheme: colorScheme,
+      textTheme: ThemeData.light().textTheme.apply(
+        fontFamily: 'Roboto',  // Apply the Roboto font to the entire text theme
       ),
       datePickerTheme: _getDatePickerTheme(),
       timePickerTheme: _getTimePickerTheme(),
@@ -59,10 +66,8 @@ class DigitExtendedTheme {
     onSecondary: const DigitColors().light.paperPrimary,
     error: const DigitColors().light.alertError,
     onError: const DigitColors().light.paperPrimary,
-    background: const DigitColors().light.paperPrimary,
-    onBackground: const DigitColors().light.textPrimary,
-    surface: const DigitColors().light.paperSecondary,
-    onSurface: const DigitColors().light.textPrimary,
+    surface: const DigitColors().light.paperPrimary,
+    onSurface: const DigitColors().light.paperPrimary,
     onSurfaceVariant: const DigitColors().light.alertSuccess,
     inversePrimary: const DigitColors().light.alertSuccessBg,
     outline: const DigitColors().light.genericDivider,
@@ -98,13 +103,13 @@ class DigitExtendedTheme {
       ),
       dayPeriodBorderSide:
       BorderSide(color: const DigitColors().light.primary1, width: 1),
-      dayPeriodColor: MaterialStateColor.resolveWith(
-            (states) => states.contains(MaterialState.selected)
+      dayPeriodColor: WidgetStateColor.resolveWith(
+            (states) => states.contains(WidgetState.selected)
             ? const DigitColors().light.primary1
             : const DigitColors().transparent,
       ),
-      dayPeriodTextColor: MaterialStateColor.resolveWith(
-            (states) => states.contains(MaterialState.selected)
+      dayPeriodTextColor: WidgetStateColor.resolveWith(
+            (states) => states.contains(WidgetState.selected)
             ? const DigitColors().light.paperPrimary
             : const DigitColors().light.textPrimary,
       ),
@@ -112,13 +117,13 @@ class DigitExtendedTheme {
         borderRadius: const BorderRadius.all(Radius.circular(1)),
         side: BorderSide(color: const DigitColors().light.primary1, width: 1),
       ),
-      hourMinuteColor: MaterialStateColor.resolveWith(
-            (states) => states.contains(MaterialState.selected)
+      hourMinuteColor: WidgetStateColor.resolveWith(
+            (states) => states.contains(WidgetState.selected)
             ? const DigitColors().light.primary1
             : const DigitColors().transparent,
       ),
-      hourMinuteTextColor: MaterialStateColor.resolveWith(
-            (states) => states.contains(MaterialState.selected)
+      hourMinuteTextColor: WidgetStateColor.resolveWith(
+            (states) => states.contains(WidgetState.selected)
             ? const DigitColors().light.paperPrimary
             : const DigitColors().light.textPrimary,
       ),
@@ -138,13 +143,13 @@ class DigitExtendedTheme {
         border: InputBorder.none,
         contentPadding: EdgeInsets.all(0),
       ),
-      dialTextColor: MaterialStateColor.resolveWith(
+      dialTextColor: WidgetStateColor.resolveWith(
             (states) => const DigitColors().light.textPrimary,
       ),
       entryModeIconColor: const DigitColors().light.primary1,
       cancelButtonStyle: ButtonStyle(
-        textStyle: MaterialStateProperty.resolveWith<TextStyle>(
-              (Set<MaterialState> states) {
+        textStyle: WidgetStateProperty.resolveWith<TextStyle>(
+              (Set<WidgetState> states) {
             return TextStyle(
               fontFamily: 'Roboto',
               fontWeight: FontWeight.w500,
@@ -155,8 +160,8 @@ class DigitExtendedTheme {
         ),
       ),
       confirmButtonStyle: ButtonStyle(
-        textStyle: MaterialStateProperty.resolveWith<TextStyle>(
-              (Set<MaterialState> states) {
+        textStyle: WidgetStateProperty.resolveWith<TextStyle>(
+              (Set<WidgetState> states) {
             return TextStyle(
               fontFamily: 'Roboto',
               fontWeight: FontWeight.w500,
@@ -168,6 +173,141 @@ class DigitExtendedTheme {
       ),
     );
   }
+
+  EdgeInsets get buttonPadding => const EdgeInsets.symmetric(
+    vertical: spacer2,
+    horizontal: spacer4,
+  );
+
+  EdgeInsets get containerMargin => const EdgeInsets.all(spacer2);
+
+  EdgeInsets get verticalMargin => const EdgeInsets.symmetric(
+    vertical: spacer2,
+  );
+
+  Duration get toastDuration => const Duration(seconds: 2);
+
+  OutlinedBorder get buttonBorder => const RoundedRectangleBorder(
+    borderRadius: BorderRadius.all(Radius.zero),
+  );
+
+  ElevatedButtonThemeData get elevatedButtonTheme => ElevatedButtonThemeData(
+    style: ElevatedButton.styleFrom(
+      shape: buttonBorder,
+      padding: buttonPadding,
+      backgroundColor: colorScheme.primary,
+      foregroundColor: const DigitColors().light.primary1,
+      disabledBackgroundColor: colorScheme.secondary.withOpacity(
+        0.5,
+      ),
+      disabledForegroundColor: colorScheme.onSecondary,
+      elevation: 0,
+    ),
+  );
+
+  OutlinedButtonThemeData get outlinedButtonTheme => OutlinedButtonThemeData(
+    style: OutlinedButton.styleFrom(
+      foregroundColor: const DigitColors().light.primary1,
+      side: BorderSide(color: colorScheme.secondary),
+      padding: buttonPadding,
+    ),
+  );
+
+  TextButtonThemeData get textButtonTheme => TextButtonThemeData(
+    style: TextButton.styleFrom(
+      shape: buttonBorder,
+      padding: buttonPadding,
+      textStyle:  TextStyle(fontFamily: 'Roboto',
+        fontWeight: FontWeight.w500,
+        fontSize: 19,
+        color: const DigitColors().light.primary1,),
+      foregroundColor: const DigitColors().light.primary1,
+    ),
+  );
+
+  CardTheme get cardTheme => const CardTheme(
+    margin: EdgeInsets.fromLTRB(spacer2, spacer4, spacer2, 0),
+    elevation: 1,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(
+        Radius.circular(4),
+      ),
+    ),
+  );
+
+  InputDecorationTheme get inputDecorationTheme => InputDecorationTheme(
+    enabledBorder: OutlineInputBorder(
+      borderRadius: const BorderRadius.all(
+        Radius.circular(
+          0,
+        ),
+      ),
+      borderSide: BorderSide(
+        color: const DigitColors().light.textSecondary,
+      ),
+    ),
+    focusedBorder: OutlineInputBorder(
+      borderRadius: const BorderRadius.all(
+        Radius.circular(
+          0,
+        ),
+      ),
+      borderSide: BorderSide(
+        color: const DigitColors().light.primary1,
+        width: 2,
+      ),
+    ),
+    disabledBorder: OutlineInputBorder(
+      borderRadius: const BorderRadius.all(
+        Radius.circular(
+          0,
+        ),
+      ),
+      borderSide: BorderSide(color: const DigitColors().light.textDisabled, width: 1),
+    ),
+    contentPadding: const EdgeInsets.all(12),
+    floatingLabelBehavior: FloatingLabelBehavior.never,
+    errorBorder: OutlineInputBorder(
+      borderRadius: const BorderRadius.all(
+        Radius.circular(
+          0,
+        ),
+      ),
+      borderSide: BorderSide(
+        color: const DigitColors().light.alertError,
+      ),
+    ),
+    focusedErrorBorder: OutlineInputBorder(
+      borderRadius: const BorderRadius.all(
+        Radius.circular(
+          0,
+        ),
+      ),
+      borderSide: BorderSide(color: const DigitColors().light.alertError, width: 2),
+    ),
+  );
+
+  DialogTheme get dialogTheme => const DialogTheme(
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(
+        Radius.circular(
+          4,
+        ),
+      ),
+    ),
+    actionsPadding: EdgeInsets.all(spacer2),
+  );
+
+  BorderSide get tableCellBorder => BorderSide(
+    color: colorScheme.outline,
+    width: 0.5,
+  );
+
+  BorderSide get tableCellStrongBorder => BorderSide(
+    color: colorScheme.outline,
+    width: 2,
+  );
+
 }
 
 /// extension on theme data to access these theme directly

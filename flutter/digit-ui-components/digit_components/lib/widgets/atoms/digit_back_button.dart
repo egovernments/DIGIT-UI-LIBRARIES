@@ -5,13 +5,13 @@ import '../../theme/ComponentTheme/back_button_theme.dart';
 
 class DigitBackButton extends StatelessWidget {
   final VoidCallback? handleBack;
-  final String backDigitButtonText;
+  final String label;
   final DigitBackButtonThemeData? digitBackButtonThemeData;
 
   const DigitBackButton({
     super.key,
     this.handleBack,
-    this.backDigitButtonText = 'Back',
+    required this.label,
     this.digitBackButtonThemeData,
   });
 
@@ -39,7 +39,7 @@ class DigitBackButton extends StatelessWidget {
               width: theme.spacerTheme.spacer1,
             ),
             Text(
-              backDigitButtonText,
+              label,
               style: backDigitButtonTheme.textStyle?.copyWith(
                 color: handleBack == null
                     ? backDigitButtonTheme.disabledTextColor

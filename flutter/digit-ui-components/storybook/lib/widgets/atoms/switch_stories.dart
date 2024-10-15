@@ -3,57 +3,41 @@ import 'package:digit_ui_components/widgets/atoms/switch.dart';
 import 'package:flutter/material.dart';
 import 'package:storybook_toolkit/storybook_toolkit.dart';
 
+import '../../iframe/iframe_widget.dart';
 
 List<Story> switchStories() {
   return [
     Story(
-      name: 'Atom/Switch/default(Inactive)',
+      name: 'Atom/Switch/Documentation',
       builder: (context) {
-
-        bool isSwitched = false;
-        return StatefulBuilder(
-          builder: (context, setState) {
-            return CustomSwitch(
-              value: isSwitched,
-              onChanged: (value) {
-                setState(() {
-                  isSwitched = value;
-                });
-              },
-            );
-          },
+        return IframeWidget(
+          url: 'https://egov-digit.gitbook.io/docs-templates-repo/ui-component-name-2',
         );
       },
     ),
     Story(
-      name: 'Atom/Switch/default(Active)',
+      name: 'Atom/Switch/Basic',
       builder: (context) {
-
-        bool isSwitched = true;
-        return StatefulBuilder(
-          builder: (context, setState) {
-            return CustomSwitch(
-              value: isSwitched,
-              onChanged: (value) {
-                setState(() {
-                  isSwitched = value;
-                });
-              },
-            );
-          },
-        );
-      },
-    ),
-    Story(
-      name: 'Atom/Switch/With label(Inactive)',
-      builder: (context) {
-
         bool isSwitched = false;
+
+        // Create an option knob for read-only and disabled states
+        final fieldState = context.knobs.options<String>(
+          label: 'Field State',
+          initial: 'Default', // Ensure an initial value is set
+          options: [
+            Option(label: 'Default', value: 'default'),
+            Option(label: 'Non Editable', value: 'readOnly'),
+            Option(label: 'Disabled', value: 'disabled'),
+          ],
+        );
+
         return StatefulBuilder(
           builder: (context, setState) {
-            return CustomSwitch(
-              value: isSwitched,
+            return DigitSwitch(
+              value: context.knobs.boolean(label: 'value', initial: false),
               label: context.knobs.text(label: 'Switch label', initial: 'Label'),
+              readonly: fieldState == 'readOnly',
+              disabled: fieldState == 'disabled',
               onChanged: (value) {
                 setState(() {
                   isSwitched = value;
@@ -65,15 +49,29 @@ List<Story> switchStories() {
       },
     ),
     Story(
-      name: 'Atom/Switch/With label(Active)',
+      name: 'Atom/Switch/with symbol',
       builder: (context) {
+        bool isSwitched = false;
 
-        bool isSwitched = true;
+        // Create an option knob for read-only and disabled states
+        final fieldState = context.knobs.options<String>(
+          label: 'Field State',
+          initial: 'Default',
+          options: [
+            Option(label: 'Default', value: 'default'),
+            Option(label: 'Non Editable', value: 'readOnly'),
+            Option(label: 'Disabled', value: 'disabled'),
+          ],
+        );
+
         return StatefulBuilder(
           builder: (context, setState) {
-            return CustomSwitch(
-              value: isSwitched,
+            return DigitSwitch(
+              value: context.knobs.boolean(label: 'value', initial: false),
+              showSymbol: true,
               label: context.knobs.text(label: 'Switch label', initial: 'Label'),
+              readonly: fieldState == 'readOnly',
+              disabled: fieldState == 'disabled',
               onChanged: (value) {
                 setState(() {
                   isSwitched = value;
@@ -85,55 +83,35 @@ List<Story> switchStories() {
       },
     ),
     Story(
-      name: 'Atom/Switch/with symbol(Inactive)',
+      name: 'Atom/Switch/Custom',
       builder: (context) {
-
         bool isSwitched = false;
-        return StatefulBuilder(
-          builder: (context, setState) {
-            return CustomSwitch(
-              value: isSwitched,
-              showSymbol: true,
-              onChanged: (value) {
-                setState(() {
-                  isSwitched = value;
-                });
-              },
-            );
-          },
-        );
-      },
-    ),
-    Story(
-      name: 'Atom/Switch/with symbol(Active)',
-      builder: (context) {
 
-        bool isSwitched = true;
-        return StatefulBuilder(
-          builder: (context, setState) {
-            return CustomSwitch(
-              value: isSwitched,
-              showSymbol: true,
-              onChanged: (value) {
-                setState(() {
-                  isSwitched = value;
-                });
-              },
-            );
-          },
+        // Create an option knob for read-only and disabled states
+        final fieldState = context.knobs.options<String>(
+          label: 'Field State',
+          initial: 'Default',
+          options: [
+            Option(label: 'Default', value: 'default'),
+            Option(label: 'Non Editable', value: 'readOnly'),
+            Option(label: 'Disabled', value: 'disabled'),
+          ],
         );
-      },
-    ),
-    Story(
-      name: 'Atom/Switch/with custom height width and color',
-      builder: (context) {
 
-        bool isSwitched = false;
         return StatefulBuilder(
           builder: (context, setState) {
-            return CustomSwitch(
-              value: isSwitched,
-              themeData: const DigitSwitchThemeData().copyWith(activeColor: Colors.red, trackWidth: 50, trackHeight: 24, symbolColor: Colors.blue, animationValue: 27),
+            return DigitSwitch(
+              value: context.knobs.boolean(label: 'value', initial: false),
+              label: context.knobs.text(label: 'Switch label', initial: 'Label'),
+              themeData: const DigitSwitchThemeData().copyWith(
+                activeColor: Colors.red,
+                trackWidth: 50,
+                trackHeight: 24,
+                symbolColor: Colors.blue,
+                animationValue: 27,
+              ),
+              readonly: fieldState == 'readOnly',
+              disabled: fieldState == 'disabled',
               onChanged: (value) {
                 setState(() {
                   isSwitched = value;

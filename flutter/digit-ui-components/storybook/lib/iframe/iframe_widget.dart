@@ -10,16 +10,12 @@ class IframeWidget extends StatelessWidget {
   const IframeWidget({
     Key? key,
     required this.url,
-    this.width = 800,
-    this.height = 600,
+    this.width = 1220,
+    this.height = 800,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // final String corsProxy = 'http://localhost:8080/'; // Use HTTPS
-    // // Extract only the path from the URL for the proxied URL
-    //
-    // final String proxiedUrl = corsProxy + url;// Concatenate with the proxy
 
     // Register the viewType for the HTML iframe element
     final String viewType = 'iframeElement-$url';
@@ -28,14 +24,11 @@ class IframeWidget extends StatelessWidget {
           (int viewId) => IFrameElement()
         ..src = url
         ..style.border = 'none'
-        ..width = width.toString()
-        ..height = height.toString(),
     );
 
     return Center(
-      child: SizedBox(
-        width: width,
-        height: height,
+      child: Container(
+        padding: EdgeInsets.all(40),
         child: HtmlElementView(viewType: viewType),
       ),
     );

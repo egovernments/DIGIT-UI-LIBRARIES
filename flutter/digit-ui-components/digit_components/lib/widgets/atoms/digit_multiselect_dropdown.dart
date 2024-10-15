@@ -144,7 +144,6 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
       _initialize();
     });
 
-
     _focusNode = widget.focusNode ?? FocusNode();
     _searchFocusNode = FocusNode();
 
@@ -180,19 +179,24 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
         _controller!.addListener(_handleControllerChange);
       }
     });
-
   }
 
   /// Handles the focus change to show/hide the dropdown.
   _handleFocusChange() {
-    if ((_focusNode.hasFocus || (_searchFocusNode.hasFocus && widget.isSearchable)) && mounted) {
+    print('sdjflksdfjskdfjsdds');
+    print(_focusNode.hasFocus);
+    if ((_focusNode.hasFocus ||
+            (_searchFocusNode.hasFocus && widget.isSearchable)) &&
+        mounted) {
       _overlayEntry = _buildOverlayEntry();
       Overlay.of(context).insert(_overlayEntry!);
       _focusedIndex = -1;
       _focusedNestedIndex = NestedFocusedIndex(-1, -1);
     }
 
-    if ((_focusNode.hasFocus == false || (_searchFocusNode.hasFocus==false && widget.isSearchable)) && _overlayEntry != null) {
+    if ((_focusNode.hasFocus == false ||
+            (_searchFocusNode.hasFocus == false && widget.isSearchable)) &&
+        _overlayEntry != null) {
       _overlayEntry?.remove();
       _focusedIndex = -1;
       _searchController.text = '';
@@ -207,12 +211,10 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
       }
     });
 
-
     if (_controller != null) {
       _controller!.value._isDropdownOpen = _focusNode.hasFocus == true;
     }
   }
-
 
   @override
   void didChangeDependencies() {
@@ -230,7 +232,8 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
     }
 
     // Ensure controller is updated with the new options
-    if (widget.controller != null && widget.controller != oldWidget.controller) {
+    if (widget.controller != null &&
+        widget.controller != oldWidget.controller) {
       _controller?.dispose();
       _controller = widget.controller;
       _controller!.setSelectedOptions(_selectedOptions);
@@ -248,7 +251,6 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
       // });
     }
   }
-
 
   /// Calculate offset size for dropdown.
   List _calculateOffsetSize() {
@@ -270,8 +272,8 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
     double width = AppView.isMobileView(MediaQuery.of(context).size)
         ? MediaQuery.of(context).size.width
         : AppView.isTabletView(MediaQuery.of(context).size)
-        ? BaseConstants.tabInputMaxWidth
-        : BaseConstants.desktopInputMaxWidth;
+            ? BaseConstants.tabInputMaxWidth
+            : BaseConstants.desktopInputMaxWidth;
     double minWidth = AppView.isMobileView(MediaQuery.of(context).size)
         ? BaseConstants.mobileInputMinWidth
         : BaseConstants.desktopInputMaxWidth;
@@ -282,9 +284,9 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
         CompositedTransformTarget(
           link: _layerLink,
           child: Focus(
-            onKey: (FocusNode focusNode, RawKeyEvent event) {
+            onKeyEvent: (FocusNode focusNode, KeyEvent event) {
               /// Check for arrow up and arrow down key events
-              if (event is RawKeyDownEvent) {
+              if (event is KeyDownEvent) {
                 if (event.logicalKey == LogicalKeyboardKey.arrowUp) {
                   widget.selectionType == SelectionType.nestedSelect
                       ? _navigateNestedDropdown(-1)
@@ -316,7 +318,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
               highlightColor: const DigitColors().transparent,
               hoverColor: const DigitColors().transparent,
               onTap:
-              !widget.isDisabled && !widget.readOnly ? _toggleFocus : null,
+                  !widget.isDisabled && !widget.readOnly ? _toggleFocus : null,
 
               /// Disable onTap if dropdown is disabled
               child: Container(
@@ -332,45 +334,50 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                 decoration: widget.isDisabled
                     ? _getDisabledContainerDecoration()
                     : widget.readOnly
-                    ? _getReadOnlyContainerDecoration()
-                    : _getContainerDecoration(),
+                        ? _getReadOnlyContainerDecoration()
+                        : _getContainerDecoration(),
                 child: Row(
                   children: [
                     Expanded(
-                      child:  widget.isSearchable ? FocusScope(
-                        child: TextField(
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            contentPadding: const EdgeInsets.only(bottom: spacer2),
-                            suffixIconConstraints: const BoxConstraints(
-                              maxHeight: spacer6,
-                              maxWidth: spacer6,
-                            ),
-                            suffixIcon: Icon(
-                              widget.suffixIcon,
-                              color: widget.isDisabled
-                                  ? const DigitColors().light.genericDivider
-                                  : const DigitColors().light.textSecondary,
-                            ),
-                          ),
-                          focusNode: widget.isSearchable ? _searchFocusNode : null,
-                          controller: _searchController,
-                          onChanged: (value){
-                            _filterOptions(value);
-                          },
-                        ),
-                      ): (_selectedOptions.isNotEmpty)
-                          ? Text(
-                        '${_selectedOptions.length} Selected',
-                        style: currentTypography.bodyL.copyWith(
-                          color: widget.readOnly
-                              ? const DigitColors().light.textSecondary
-                              : const DigitColors().light.textPrimary,
-                        ),
-                      )
-                          : const Text(''),
+                      child:
+                          //widget.isSearchable
+                          //     ? FocusScope(
+                          //   child: TextField(
+                          //     decoration: InputDecoration(
+                          //       border: InputBorder.none,
+                          //       contentPadding: const EdgeInsets.only(bottom: spacer2),
+                          //       suffixIconConstraints: const BoxConstraints(
+                          //         maxHeight: spacer6,
+                          //         maxWidth: spacer6,
+                          //       ),
+                          //       suffixIcon: Icon(
+                          //         widget.suffixIcon,
+                          //         color: widget.isDisabled
+                          //             ? const DigitColors().light.genericDivider
+                          //             : const DigitColors().light.textSecondary,
+                          //       ),
+                          //     ),
+                          //     focusNode: widget.isSearchable ? _searchFocusNode : null,
+                          //     controller: _searchController,
+                          //     onChanged: (value){
+                          //       _filterOptions(value);
+                          //     },
+                          //   ),
+                          // ):
+                          (_selectedOptions.isNotEmpty)
+                              ? Text(
+                                  '${_selectedOptions.length} Selected',
+                                  style: currentTypography.bodyL.copyWith(
+                                    color: widget.readOnly
+                                        ? const DigitColors()
+                                            .light
+                                            .textSecondary
+                                        : const DigitColors().light.textPrimary,
+                                  ),
+                                )
+                              : const Text(''),
                     ),
-                    if(!widget.isSearchable)
+                    if (!widget.isSearchable)
                       Icon(
                         widget.suffixIcon,
                         color: widget.isDisabled
@@ -394,52 +401,52 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
             children: [
               widget.errorMessage != null
                   ? Expanded(
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Column(
-                      children: [
-                        const SizedBox(
-                          height: spacer1 / 2,
-                        ),
-                        SizedBox(
-                          height: spacer4,
-                          width: spacer4,
-                          child: Icon(
-                            Icons.info,
-                            color: const DigitColors().light.alertError,
-                            size: BaseConstants.errorIconSize,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Column(
+                            children: [
+                              const SizedBox(
+                                height: spacer1 / 2,
+                              ),
+                              SizedBox(
+                                height: spacer4,
+                                width: spacer4,
+                                child: Icon(
+                                  Icons.info,
+                                  color: const DigitColors().light.alertError,
+                                  size: BaseConstants.errorIconSize,
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(width: spacer1),
-                    Flexible(
-                      fit: FlexFit.tight,
+                          const SizedBox(width: spacer1),
+                          Flexible(
+                            fit: FlexFit.tight,
+                            child: Text(
+                              widget.errorMessage!.length > 256
+                                  ? '${widget.errorMessage!.substring(0, 256)}...'
+                                  : widget.errorMessage!,
+                              style: currentTypography.bodyS.copyWith(
+                                color: const DigitColors().light.alertError,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  : Expanded(
                       child: Text(
-                        widget.errorMessage!.length > 256
-                            ? '${widget.errorMessage!.substring(0, 256)}...'
-                            : widget.errorMessage!,
+                        widget.helpText!.length > 256
+                            ? '${widget.helpText!.substring(0, 256)}...'
+                            : widget.helpText!,
                         style: currentTypography.bodyS.copyWith(
-                          color: const DigitColors().light.alertError,
+                          color: const DigitColors().light.textSecondary,
                         ),
                       ),
                     ),
-                  ],
-                ),
-              )
-                  : Expanded(
-                child: Text(
-                  widget.helpText!.length > 256
-                      ? '${widget.helpText!.substring(0, 256)}...'
-                      : widget.helpText!,
-                  style: currentTypography.bodyS.copyWith(
-                    color: const DigitColors().light.textSecondary,
-                  ),
-                ),
-              ),
             ],
           ),
         const SizedBox(
@@ -638,18 +645,18 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
       borderRadius: Base.radius,
       border: widget.errorMessage != null
           ? Border.all(
-        color: const DigitColors().light.alertError,
-        width: Base.errorBorderWidth,
-      )
+              color: const DigitColors().light.alertError,
+              width: Base.errorBorderWidth,
+            )
           : _selectionMode
-          ? Border.all(
-        color: const DigitColors().light.primary1,
-        width: Base.focusedBorderWidth,
-      )
-          : Border.all(
-        color: const DigitColors().light.genericInputBorder,
-        width: Base.defaultBorderWidth,
-      ),
+              ? Border.all(
+                  color: const DigitColors().light.primary1,
+                  width: Base.focusedBorderWidth,
+                )
+              : Border.all(
+                  color: const DigitColors().light.genericInputBorder,
+                  width: Base.defaultBorderWidth,
+                ),
     );
   }
 
@@ -680,6 +687,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
 
   /// Handle the focus change on tap outside of the dropdown.
   void _onOutSideTap() {
+    print('sdjfklsdfjskdfjsdkf');
     _focusNode.unfocus();
   }
 
@@ -694,7 +702,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
 
   /// Create the overlay entry for the dropdown.
   OverlayEntry _buildOverlayEntry() {
-    /// Calculate the offset and the size of the dropdown DigitButton
+    /// Calculate the offset and the size of the dropdown button
     final values = _calculateOffsetSize();
 
     /// Get the size from the first item in the values list
@@ -704,11 +712,13 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
       double width = AppView.isMobileView(MediaQuery.of(context).size)
           ? MediaQuery.of(context).size.width
           : AppView.isTabletView(MediaQuery.of(context).size)
-          ? BaseConstants.tabInputMaxWidth
-          : BaseConstants.desktopInputMaxWidth;
+              ? BaseConstants.tabInputMaxWidth
+              : BaseConstants.desktopInputMaxWidth;
 
       List<DropdownItem> options = _filteredOptions;
-      List<DropdownItem> selectedOptions = _selectedOptions.isEmpty ? widget.initialOptions ?? [] : _selectedOptions;
+      List<DropdownItem> selectedOptions = _selectedOptions.isEmpty
+          ? widget.initialOptions ?? []
+          : _selectedOptions;
 
       return StatefulBuilder(builder: ((context, dropdownState) {
         /// full screen GestureDetector to register when a user has clicked away from the dropdown
@@ -733,9 +743,9 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                     shadowColor: null,
                     child: Container(
                       width: size.width,
-                      decoration:  BoxDecoration(
+                      decoration: BoxDecoration(
                         boxShadow: [
-                          if(_filteredOptions.isNotEmpty)
+                          if (_filteredOptions.isNotEmpty)
                             const BoxShadow(
                               offset: Offset(0, 1),
                               blurRadius: 4.4,
@@ -746,12 +756,15 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                       ),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
-                        children: [ _filteredOptions.isEmpty ? _buildEmptyContainer(width) :
-                        widget.selectionType == SelectionType.nestedSelect
-                            ? _buildNestedItems(width, values, options,
-                            selectedOptions, dropdownState)
-                            : _buildFlatOptions(width, values, options,
-                            selectedOptions, dropdownState),
+                        children: [
+                          _filteredOptions.isEmpty
+                              ? _buildEmptyContainer(width)
+                              : widget.selectionType ==
+                                      SelectionType.nestedSelect
+                                  ? _buildNestedItems(width, values, options,
+                                      selectedOptions, dropdownState)
+                                  : _buildFlatOptions(width, values, options,
+                                      selectedOptions, dropdownState),
                         ],
                       ),
                     ),
@@ -781,14 +794,12 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
     );
   }
 
-
   void _filterOptions(String? value) {
-    if(value != null || value != '') {
+    if (value != null || value != '') {
       setState(() {
         _filteredOptions = _options
-            .where((item) => item.name
-            .toLowerCase()
-            .contains(value!.toLowerCase()))
+            .where((item) =>
+                item.name.toLowerCase().contains(value!.toLowerCase()))
             .toList();
       });
     }
@@ -804,16 +815,19 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
     }
   }
 
-  Widget _buildFlatOptions(double width, List<dynamic> values, List<DropdownItem> options,
-      List<DropdownItem> selectedOptions, StateSetter dropdownState) {
+  Widget _buildFlatOptions(
+      double width,
+      List<dynamic> values,
+      List<DropdownItem> options,
+      List<DropdownItem> selectedOptions,
+      StateSetter dropdownState) {
     // Determine if all are selected initially by comparing lengths
     bool isAllSelected = selectedOptions.length == options.length;
-
 
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        if(widget.showSelectAll)
+        if (widget.showSelectAll)
           InkWell(
             onTap: () {
               /// Toggle the selection state
@@ -857,14 +871,18 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
               child: Row(
                 children: [
                   isAllSelected
-                      ?  const DigitCheckboxIcon(
-                    // size: spacer5,
-                      checkboxThemeData: DigitCheckboxThemeData(iconSize: spacer5, ),
-                      state: DigitCheckboxState.checked)
-                      :  const DigitCheckboxIcon(
-                    //  size: spacer5,
-                      checkboxThemeData: DigitCheckboxThemeData(iconSize: spacer5,),
-                      state: DigitCheckboxState.unchecked),
+                      ? const DigitCheckboxIcon(
+                          // size: spacer5,
+                          checkboxThemeData: DigitCheckboxThemeData(
+                            iconSize: spacer5,
+                          ),
+                          state: DigitCheckboxState.checked)
+                      : const DigitCheckboxIcon(
+                          //  size: spacer5,
+                          checkboxThemeData: DigitCheckboxThemeData(
+                            iconSize: spacer5,
+                          ),
+                          state: DigitCheckboxState.unchecked),
                   const SizedBox(
                     width: 10,
                   ),
@@ -879,7 +897,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
           ),
         ConstrainedBox(
           constraints: BoxConstraints(
-            maxHeight: widget.showSelectAll ? values[1] - 81 : values[1]-30,
+            maxHeight: widget.showSelectAll ? values[1] - 81 : values[1] - 30,
           ),
           child: ListView.separated(
             separatorBuilder: (_, __) => const SizedBox(height: 0),
@@ -891,7 +909,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
             itemBuilder: (context, index) {
               final option = options[index];
               bool isSelected = selectedOptions.any((item) =>
-              item.code == option.code && item.name == option.name);
+                  item.code == option.code && item.name == option.name);
               Color backgroundColor = index % 2 == 0
                   ? const DigitColors().light.paperPrimary
                   : const DigitColors().light.paperSecondary;
@@ -906,6 +924,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                     backgroundColor: backgroundColor,
                     selectedOptions: selectedOptions,
                     onOptionSelected: (List<DropdownItem> selectedOptions) {
+                      print('option selected');
                       if (isSelected) {
                         dropdownState(() {
                           selectedOptions.remove(option);
@@ -938,14 +957,18 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
     );
   }
 
-  Widget _buildNestedItems(double width, List<dynamic> values, List<DropdownItem> options,
-      List<DropdownItem> selectedOptions, StateSetter dropdownState) {
+  Widget _buildNestedItems(
+      double width,
+      List<dynamic> values,
+      List<DropdownItem> options,
+      List<DropdownItem> selectedOptions,
+      StateSetter dropdownState) {
     // Determine if all are selected initially by comparing lengths
     bool isAllSelected = selectedOptions.length == options.length;
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        if(widget.showSelectAll)
+        if (widget.showSelectAll)
           InkWell(
             onTap: () {
               /// Toggle the selection state
@@ -994,11 +1017,11 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                 children: [
                   isAllSelected
                       ? const DigitCheckboxIcon(
-                    //size: spacer5,
-                      state: DigitCheckboxState.checked)
+                          //size: spacer5,
+                          state: DigitCheckboxState.checked)
                       : const DigitCheckboxIcon(
-                    //size: spacer5,
-                      state: DigitCheckboxState.unchecked),
+                          //size: spacer5,
+                          state: DigitCheckboxState.unchecked),
                   const SizedBox(
                     width: 10,
                   ),
@@ -1015,15 +1038,19 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
           constraints: BoxConstraints(
             maxHeight: widget.showSelectAll ? values[1] - 81 : values[1] - 30,
           ),
-          child: _buildNestedOptions(width,
-              values, options, selectedOptions, dropdownState),
+          child: _buildNestedOptions(
+              width, values, options, selectedOptions, dropdownState),
         ),
       ],
     );
   }
 
-  Widget _buildNestedOptions(double width, List<dynamic> values, List<DropdownItem> options,
-      List<DropdownItem> selectedOptions, StateSetter dropdownState) {
+  Widget _buildNestedOptions(
+      double width,
+      List<dynamic> values,
+      List<DropdownItem> options,
+      List<DropdownItem> selectedOptions,
+      StateSetter dropdownState) {
     /// Group options by type
     final groupedOptions = groupBy(options, (option) => option.type);
 
@@ -1037,7 +1064,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
 
         /// Determine if all are selected by checking if all options from the group are selected
         bool isGroupSelected =
-        typeOptions.every((opt) => selectedOptions.contains(opt));
+            typeOptions.every((opt) => selectedOptions.contains(opt));
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
@@ -1056,7 +1083,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                         color: const DigitColors().light.textSecondary,
                       ),
                     ),
-                    if(widget.showSelectAll)
+                    if (widget.showSelectAll)
                       InkWell(
                         onTap: () {
                           /// Toggle the selection state
@@ -1069,11 +1096,11 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                             if (isGroupSelected) {
                               /// Remove any manually selected options from this group
                               selectedOptions.removeWhere(
-                                      (opt) => typeOptions.contains(opt));
+                                  (opt) => typeOptions.contains(opt));
                               selectedOptions.addAll(typeOptions);
                             } else {
                               selectedOptions.removeWhere(
-                                      (opt) => typeOptions.contains(opt));
+                                  (opt) => typeOptions.contains(opt));
                             }
                           });
 
@@ -1083,12 +1110,12 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                             if (isGroupSelected) {
                               /// Remove any manually selected options from this group
                               _selectedOptions.removeWhere(
-                                      (opt) => typeOptions.contains(opt));
+                                  (opt) => typeOptions.contains(opt));
 
                               _selectedOptions.addAll(typeOptions);
                             } else {
                               _selectedOptions.removeWhere(
-                                      (opt) => typeOptions.contains(opt));
+                                  (opt) => typeOptions.contains(opt));
                             }
                           });
 
@@ -1111,11 +1138,11 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                             ),
                             isGroupSelected
                                 ? const DigitCheckboxIcon(
-                              //size: spacer5,
-                                state: DigitCheckboxState.checked)
+                                    //size: spacer5,
+                                    state: DigitCheckboxState.checked)
                                 : const DigitCheckboxIcon(
-                              //size: spacer5,
-                                state: DigitCheckboxState.unchecked),
+                                    //size: spacer5,
+                                    state: DigitCheckboxState.unchecked),
                           ],
                         ),
                       ),
@@ -1127,7 +1154,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
               final option = entry.value;
 
               bool isSelected = selectedOptions.any((item) =>
-              item.code == option.code && item.name == option.name);
+                  item.code == option.code && item.name == option.name);
               Color backgroundColor = const DigitColors().light.paperPrimary;
 
               bool isFocused = groupIndex == _focusedNestedIndex.group &&
@@ -1218,9 +1245,9 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
         }),
         if (_selectedOptions.isNotEmpty && !widget.readOnly)
 
-        /// Display "Clear All" only if there are selected options
+          /// Display "Clear All" only if there are selected options
           InkWell(
-            onTap: (){
+            onTap: () {
               setState(() {
                 _selectedOptions = [];
               });
@@ -1260,8 +1287,8 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
       label: widget.valueMapper != null
           ? getAssociatedValue(item.code, widget.valueMapper!)
           : widget.selectionType == SelectionType.nestedSelect
-          ? '${item.type}: ${item.name}'
-          : item.name,
+              ? '${item.type}: ${item.name}'
+              : item.name,
       onItemDelete: () {
         setState(() {
           _selectedOptions.remove(item);
@@ -1340,7 +1367,6 @@ class MultiSelectController<T>
   /// clear specific selected option
   /// [MultiSelectController] is used to clear specific selected option.
   void clearSelection(DropdownItem option) {
-
     if (!value._selectedOptions.contains(option)) return;
     value._selectedOptions;
     notifyListeners();

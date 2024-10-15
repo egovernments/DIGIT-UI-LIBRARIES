@@ -1,13 +1,21 @@
-
 import 'package:digit_ui_components/widgets/atoms/selection_card.dart';
 import 'package:storybook_toolkit/storybook_toolkit.dart';
-
 import 'package:flutter/material.dart';
+
+import '../../iframe/iframe_widget.dart';
 
 List<Story> selectionCardStories() {
   return [
     Story(
-      name: 'Atom/Selection Box/Default (Multiple Selection)',
+      name: 'Atom/Selection Tags/Documentation',
+      builder: (context) {
+        return IframeWidget(
+          url: 'https://egov-digit.gitbook.io/docs-templates-repo/ui-component-name-2',
+        );
+      },
+    ),
+    Story(
+      name: 'Atom/Selection Tags/Default (Multiple Selection)',
       builder: (context) => SelectionCard<String>(
         valueMapper: (item) => item,
         options: ['Option 1', 'Option 2', 'Option 3'],
@@ -17,7 +25,7 @@ List<Story> selectionCardStories() {
       ),
     ),
     Story(
-      name: 'Atom/Selection Box/Single Selection',
+      name: 'Atom/Selection Tags/Single Selection',
       builder: (context) => SelectionCard<String>(
         valueMapper: (item) => item,
         options: ['Option A', 'Option B', 'Option C'],
@@ -28,7 +36,7 @@ List<Story> selectionCardStories() {
       ),
     ),
     Story(
-      name: 'Atom/Selection Box/With Initial Selection',
+      name: 'Atom/Selection Tags/With Initial Selection',
       builder: (context) => SelectionCard<String>(
         valueMapper: (item) => item,
         options: ['Apple', 'Banana', 'Cherry'],
@@ -39,7 +47,7 @@ List<Story> selectionCardStories() {
       ),
     ),
     Story(
-      name: 'Atom/Selection Box/With Error Message',
+      name: 'Atom/Selection Tags/With Error Message',
       builder: (context) => SelectionCard<String>(
         valueMapper: (item) => item,
         options: ['Red', 'Blue', 'Green'],
@@ -50,7 +58,7 @@ List<Story> selectionCardStories() {
       ),
     ),
     Story(
-      name: 'Atom/Selection Box/With Custom Width',
+      name: 'Atom/Selection Tags/With Custom Width',
       builder: (context) => SelectionCard<String>(
         valueMapper: (item) => item,
         options: ['Small', 'Medium', 'Large'],
@@ -61,7 +69,7 @@ List<Story> selectionCardStories() {
       ),
     ),
     Story(
-      name: 'Atom/Selection Box/Equal Width Options',
+      name: 'Atom/Selection Tags/Equal Width Options',
       builder: (context) => SelectionCard<String>(
         valueMapper: (item) => item,
         options: const ['Short', 'Longer Option', 'Mid-Length'],
@@ -72,7 +80,7 @@ List<Story> selectionCardStories() {
       ),
     ),
     Story(
-      name: 'Atom/Selection Box/With Icon',
+      name: 'Atom/Selection Tags/With Icon',
       builder: (context) => SelectionCard<String>(
         valueMapper: (item) => item,
         options: const ['Option 1', 'Option 2', 'Option 3'],
@@ -90,7 +98,7 @@ List<Story> selectionCardStories() {
       ),
     ),
     Story(
-      name: 'Atom/Selection Box/With Icon After Selection',
+      name: 'Atom/Selection Tags/With Icon After Selection',
       builder: (context) {
 
         List<String> selectedOptions = [];

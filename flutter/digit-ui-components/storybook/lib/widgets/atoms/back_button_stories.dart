@@ -3,11 +3,19 @@ import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:digit_ui_components/widgets/atoms/digit_back_button.dart';
 import 'package:storybook_toolkit/storybook_toolkit.dart';
 import 'package:flutter/material.dart';
+import '../../iframe/iframe_widget.dart';
 
-import '../../plugins/code_view_wrapper.dart';
 
 List<Story> digitBackButtonStories() {
   return [
+    Story(
+      name: 'Atom/Back Link/Documentation',
+      builder: (context) {
+        return IframeWidget(
+          url: 'https://egov-digit.gitbook.io/docs-templates-repo/ui-component-name-2',
+        );
+      },
+    ),
     Story(
       name: 'Atom/Back Link/Double arrow',
       builder: (context) {
@@ -15,7 +23,7 @@ List<Story> digitBackButtonStories() {
         return Center(
           child: DigitBackButton(
             handleBack: () {},
-            backDigitButtonText: context.knobs.text(label: 'Label', initial: 'Back'),
+            label: context.knobs.text(label: 'Label', initial: 'Back'),
           ),
         );
       },
@@ -37,7 +45,7 @@ List<Story> digitBackButtonStories() {
               ),
             ),
             handleBack: () {},
-            backDigitButtonText: context.knobs.text(label: 'Label', initial: 'Back'),
+            label: context.knobs.text(label: 'Label', initial: 'Back'),
           ),
         );
       },
@@ -60,7 +68,7 @@ List<Story> digitBackButtonStories() {
                 color: Theme.of(context).colorTheme.primary.primary2,
               ),
             ),
-            backDigitButtonText: context.knobs.text(label: 'Label', initial: 'Back'),
+            label: context.knobs.text(label: 'Label', initial: 'Back'),
           ),
         );
       },
@@ -68,8 +76,8 @@ List<Story> digitBackButtonStories() {
     Story(
       name: 'Atom/Back Link/Disabled',
       builder: (context) {
-        return const Center(
-          child: DigitBackButton(),
+        return  Center(
+          child: DigitBackButton(label:  context.knobs.text(label: 'Label', initial: 'Back'),),
         );
       },
     ),
