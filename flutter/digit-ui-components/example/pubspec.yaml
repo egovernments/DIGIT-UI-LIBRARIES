@@ -9,11 +9,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   cupertino_icons: ^1.0.2
   digit_ui_components: 0.0.2-beta
   collection: ^1.16.0
   reactive_forms: ^14.1.0
-  flutter_keyboard_visibility: ^5.4.0
   material_design_icons_flutter: ^7.0.7296
   expandable: ^5.0.1
   geolocator: ^10.1.0
@@ -34,9 +35,10 @@ dev_dependencies:
 flutter:
   assets:
     - assets/icons/svg/
+    - lib/localization_data.json
 
   fonts:
-    - family: Roboto
+    - family: Roboto Regular
       fonts:
         - asset: assets/fonts/Roboto/Roboto-Regular.ttf
 
@@ -47,9 +49,5 @@ flutter:
     - family: Roboto Bold
       fonts:
         - asset: assets/fonts/Roboto/Roboto-Bold.ttf
-
-    - family: TextArea
-      fonts:
-        - asset: assets/fonts/TextArea.ttf
 
   uses-material-design: true

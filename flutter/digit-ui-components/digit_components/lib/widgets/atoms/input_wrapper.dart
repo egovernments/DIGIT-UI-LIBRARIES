@@ -1,20 +1,7 @@
-
-import 'dart:html';
-
 import 'package:digit_ui_components/digit_components.dart';
-import 'package:digit_ui_components/enum/app_enums.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import '../../utils/validators/validator.dart';
-import 'digit_date_form_input.dart';
-import 'digit_location_form_input.dart';
-import 'digit_numeric_form_input.dart';
-import 'digit_password_form_input.dart';
-import 'digit_search_form_input.dart';
-import 'digit_text_area_form_input.dart';
-import 'digit_time_form_input.dart';
-
 
 enum InputType {
   text,
@@ -28,11 +15,10 @@ enum InputType {
 }
 
 class InputField extends StatelessWidget {
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final InputType type;
-  final String label;
+  final String? label;
   final String? infoText;
-  final bool? info;
   final String? initialValue;
   final bool readOnly;
   final bool isDisabled;
@@ -46,7 +32,7 @@ class InputField extends StatelessWidget {
   final TooltipTriggerMode triggerMode;
   final bool preferToolTipBelow;
   final IconData? suffixIcon;
-  final TextInputType keyboardType;
+  final TextInputType? keyboardType;
   final void Function(String?)? onError;
   final List<Validator>? validations;
   final void Function(String)? onChange;
@@ -54,6 +40,8 @@ class InputField extends StatelessWidget {
   final List<TextInputFormatter>? inputFormatters;
   final TextAreaScroll textAreaScroll;
   final void Function(String)? onSuffixTap;
+  final String? cancelText;
+  final String? confirmText;
 
   /// specifically for date component
   final DateTime? initialDate;
@@ -69,13 +57,14 @@ class InputField extends StatelessWidget {
   /// Maximum allowed value (used for specific input types like numeric).
   final int maxValue;
 
+  final bool wrapLabel;
+
   const InputField({
     Key? key,
-    required this.controller,
+    this.controller,
     required this.type,
-    required this.label,
+    this.label,
     this.infoText,
-    this.info,
     this.initialValue,
     this.readOnly = false,
     this.isDisabled = false,
@@ -87,7 +76,7 @@ class InputField extends StatelessWidget {
     this.triggerMode = TooltipTriggerMode.tap,
     this.preferToolTipBelow = false,
     this.suffixIcon,
-    this.keyboardType = TextInputType.text,
+    this.keyboardType,
     this.onError,
     this.validations,
     this.onChange,
@@ -103,26 +92,24 @@ class InputField extends StatelessWidget {
     this.step = 1,
     this.minValue = 0,
     this.maxValue = 100,
+    this.wrapLabel = false,
+    this.confirmText,
+    this.cancelText,
   }) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildChildWidget(BuildContext context) {
     switch (type) {
       case InputType.text:
         return DigitTextFormInput(
           controller: controller,
-          label: label,
-          infoText: infoText,
-          info: info,
           initialValue: initialValue,
           readOnly: readOnly,
           isDisabled: isDisabled,
           isRequired: isRequired,
           charCount: charCount,
+          keyboardType: keyboardType,
           innerLabel: innerLabel,
           helpText: helpText,
-          triggerMode: triggerMode,
-          preferToolTipBelow: preferToolTipBelow,
           suffixText: suffixText,
           prefixText: prefixText,
           onError: onError,
@@ -135,19 +122,15 @@ class InputField extends StatelessWidget {
       case InputType.date:
         return DigitDateFormInput(
           controller: controller,
-          label: label,
-          infoText: infoText,
-          info: info,
           initialValue: initialValue,
           readOnly: readOnly,
+          keyboardType: keyboardType,
           isDisabled: isDisabled,
           isRequired: isRequired,
           charCount: charCount,
           editable: editable,
           innerLabel: innerLabel,
           helpText: helpText,
-          triggerMode: triggerMode,
-          preferToolTipBelow: preferToolTipBelow,
           suffixIcon: suffixIcon,
           onError: onError,
           validations: validations,
@@ -157,13 +140,12 @@ class InputField extends StatelessWidget {
           firstDate: firstDate,
           lastDate: lastDate,
           initialDate: initialDate,
+          confirmText: confirmText,
+          cancelText: cancelText,
         );
       case InputType.location:
         return DigitLocationFormInput(
           controller: controller,
-          label: label,
-          infoText: infoText,
-          info: info,
           initialValue: initialValue,
           readOnly: readOnly,
           isDisabled: isDisabled,
@@ -172,8 +154,6 @@ class InputField extends StatelessWidget {
           editable: editable,
           innerLabel: innerLabel,
           helpText: helpText,
-          triggerMode: triggerMode,
-          preferToolTipBelow: preferToolTipBelow,
           suffixIcon: suffixIcon,
           keyboardType: keyboardType,
           onError: onError,
@@ -185,9 +165,6 @@ class InputField extends StatelessWidget {
       case InputType.numeric:
         return DigitNumericFormInput(
           controller: controller,
-          label: label,
-          infoText: infoText,
-          info: info,
           step: step,
           maxValue: maxValue,
           minValue: minValue,
@@ -199,30 +176,25 @@ class InputField extends StatelessWidget {
           editable: editable,
           innerLabel: innerLabel,
           helpText: helpText,
-          triggerMode: triggerMode,
-          preferToolTipBelow: preferToolTipBelow,
           keyboardType: keyboardType,
           onError: onError,
           validations: validations,
           onChange: onChange,
           errorMessage: errorMessage,
-          inputFormatters: inputFormatters ?? [FilteringTextInputFormatter.digitsOnly],
+          inputFormatters:
+          inputFormatters ?? [FilteringTextInputFormatter.digitsOnly],
         );
       case InputType.password:
         return DigitPasswordFormInput(
           controller: controller,
-          label: label,
-          infoText: infoText,
-          info: info,
           initialValue: initialValue,
           readOnly: readOnly,
           isDisabled: isDisabled,
           isRequired: isRequired,
           charCount: charCount,
           innerLabel: innerLabel,
+          keyboardType: keyboardType,
           helpText: helpText,
-          triggerMode: triggerMode,
-          preferToolTipBelow: preferToolTipBelow,
           suffixIcon: suffixIcon,
           onError: onError,
           validations: validations,
@@ -233,18 +205,14 @@ class InputField extends StatelessWidget {
       case InputType.search:
         return DigitSearchFormInput(
           controller: controller,
-          label: label,
-          infoText: infoText,
-          info: info,
           initialValue: initialValue,
           readOnly: readOnly,
           isDisabled: isDisabled,
           isRequired: isRequired,
+          keyboardType: keyboardType,
           charCount: charCount,
           innerLabel: innerLabel,
           helpText: helpText,
-          triggerMode: triggerMode,
-          preferToolTipBelow: preferToolTipBelow,
           suffixIcon: suffixIcon,
           onError: onError,
           validations: validations,
@@ -256,18 +224,14 @@ class InputField extends StatelessWidget {
       case InputType.time:
         return DigitTimeFormInput(
           controller: controller,
-          label: label,
-          infoText: infoText,
-          info: info,
           initialValue: initialValue,
           readOnly: readOnly,
           isDisabled: isDisabled,
           isRequired: isRequired,
           charCount: charCount,
           innerLabel: innerLabel,
+          keyboardType: keyboardType,
           helpText: helpText,
-          triggerMode: triggerMode,
-          preferToolTipBelow: preferToolTipBelow,
           suffixIcon: suffixIcon,
           onError: onError,
           validations: validations,
@@ -275,22 +239,20 @@ class InputField extends StatelessWidget {
           errorMessage: errorMessage,
           inputFormatters: inputFormatters,
           editable: editable,
+          cancelText: cancelText,
+          confirmText: confirmText,
         );
       case InputType.textArea:
         return DigitTextAreaFormInput(
           controller: controller,
-          label: label,
-          infoText: infoText,
-          info: info,
           initialValue: initialValue,
           readOnly: readOnly,
           isDisabled: isDisabled,
           isRequired: isRequired,
           charCount: charCount,
+          keyboardType: keyboardType,
           innerLabel: innerLabel,
           helpText: helpText,
-          triggerMode: triggerMode,
-          preferToolTipBelow: preferToolTipBelow,
           onError: onError,
           validations: validations,
           onChange: onChange,
@@ -301,5 +263,17 @@ class InputField extends StatelessWidget {
       default:
         throw Exception('Invalid InputType');
     }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return LabeledField(
+      label: label,
+      infoText: infoText,
+      isRequired: isRequired,
+      wrapLabelText: wrapLabel,
+      tooltipTriggerMode: triggerMode,
+      child: _buildChildWidget(context),
+    );
   }
 }

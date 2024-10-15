@@ -134,9 +134,6 @@ void main() {
           home: Scaffold(
             body: DigitDateFormInput(
               controller: controller,
-              label: 'Test Label',
-              info: true,
-              infoText: 'Info Tooltip',
             ),
           ),
         ),
