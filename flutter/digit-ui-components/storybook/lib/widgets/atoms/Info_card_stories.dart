@@ -58,27 +58,19 @@ List<Story> infoCardStories() {
             inline: showInlineWidget ?? false,
             additionalWidgets: [
               if (showAdditionalWidget)
-                Image.network(
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
-              if (showAdditionalWidget)
-              Image.network(
-                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
-              if (showAdditionalWidget)
-                Image.network(
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
-              if (showAdditionalWidget)
-                Image.network(
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
-              if (showAdditionalWidget)
-                Image.network(
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
-
-
+                ...List.generate(
+                  5,
+                      (_) => Image.network(
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s',
+                  ),
+                ),
               if (showInfoButton)
                 Column(
                   children: [
-                    if(showInfoButton && showInlineWidget==true)
-                    SizedBox(height: 16,),
+                    if (showInfoButton && showInlineWidget == true)
+                      SizedBox(
+                        height: 16,
+                      ),
                     InfoButton(
                       size: DigitButtonSize.large,
                       label: 'Action Button',
@@ -128,32 +120,24 @@ List<Story> infoCardStories() {
             description: context.knobs.text(
               label: "Description",
               initial:
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi cursus eget ex in congue. Nullam finibus at urna et posuere.',
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi cursus eget ex in congue. Nullam finibus at urna et posuere.',
             ),
             inline: showInlineWidget ?? false,
             additionalWidgets: [
               if (showAdditionalWidget)
-                Image.network(
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
-              if (showAdditionalWidget)
-                Image.network(
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
-              if (showAdditionalWidget)
-                Image.network(
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
-              if (showAdditionalWidget)
-                Image.network(
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
-              if (showAdditionalWidget)
-                Image.network(
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
-
-
+                ...List.generate(
+                  5,
+                      (_) => Image.network(
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s',
+                  ),
+                ),
               if (showInfoButton)
                 Column(
                   children: [
-                    if(showInfoButton && showInlineWidget==true)
-                      SizedBox(height: 16,),
+                    if (showInfoButton && showInlineWidget == true)
+                      SizedBox(
+                        height: 16,
+                      ),
                     InfoButton(
                       size: DigitButtonSize.large,
                       label: 'Action Button',
@@ -198,37 +182,29 @@ List<Story> infoCardStories() {
         return Padding(
           padding: const EdgeInsets.all(24.0),
           child: InfoCard(
-            title: context.knobs.text(label: "Title", initial: 'Info'),
+            title: context.knobs.text(label: "Title", initial: 'Success'),
             type: InfoType.success,
             description: context.knobs.text(
               label: "Description",
               initial:
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi cursus eget ex in congue. Nullam finibus at urna et posuere.',
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi cursus eget ex in congue. Nullam finibus at urna et posuere.',
             ),
             inline: showInlineWidget ?? false,
             additionalWidgets: [
               if (showAdditionalWidget)
-                Image.network(
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
-              if (showAdditionalWidget)
-                Image.network(
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
-              if (showAdditionalWidget)
-                Image.network(
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
-              if (showAdditionalWidget)
-                Image.network(
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
-              if (showAdditionalWidget)
-                Image.network(
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
-
-
+                ...List.generate(
+                  5,
+                      (_) => Image.network(
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s',
+                  ),
+                ),
               if (showInfoButton)
                 Column(
                   children: [
-                    if(showInfoButton && showInlineWidget==true)
-                      SizedBox(height: 16,),
+                    if (showInfoButton && showInlineWidget == true)
+                      SizedBox(
+                        height: 16,
+                      ),
                     InfoButton(
                       size: DigitButtonSize.large,
                       label: 'Action Button',
@@ -273,37 +249,29 @@ List<Story> infoCardStories() {
         return Padding(
           padding: const EdgeInsets.all(24.0),
           child: InfoCard(
-            title: context.knobs.text(label: "Title", initial: 'Info'),
+            title: context.knobs.text(label: "Title", initial: 'Warning'),
             type: InfoType.warning,
             description: context.knobs.text(
               label: "Description",
               initial:
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi cursus eget ex in congue. Nullam finibus at urna et posuere.',
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi cursus eget ex in congue. Nullam finibus at urna et posuere.',
             ),
             inline: showInlineWidget ?? false,
             additionalWidgets: [
               if (showAdditionalWidget)
-                Image.network(
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
-              if (showAdditionalWidget)
-                Image.network(
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
-              if (showAdditionalWidget)
-                Image.network(
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
-              if (showAdditionalWidget)
-                Image.network(
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
-              if (showAdditionalWidget)
-                Image.network(
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
-
-
+                ...List.generate(
+                  5,
+                  (_) => Image.network(
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s',
+                  ),
+                ),
               if (showInfoButton)
                 Column(
                   children: [
-                    if(showInfoButton && showInlineWidget==true)
-                      SizedBox(height: 16,),
+                    if (showInfoButton && showInlineWidget == true)
+                      SizedBox(
+                        height: 16,
+                      ),
                     InfoButton(
                       size: DigitButtonSize.large,
                       label: 'Action Button',
@@ -353,32 +321,24 @@ List<Story> infoCardStories() {
             description: context.knobs.text(
               label: "Description",
               initial:
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi cursus eget ex in congue. Nullam finibus at urna et posuere.',
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi cursus eget ex in congue. Nullam finibus at urna et posuere.',
             ),
             inline: showInlineWidget ?? false,
             additionalWidgets: [
               if (showAdditionalWidget)
-                Image.network(
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
-              if (showAdditionalWidget)
-                Image.network(
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
-              if (showAdditionalWidget)
-                Image.network(
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
-              if (showAdditionalWidget)
-                Image.network(
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
-              if (showAdditionalWidget)
-                Image.network(
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
-
-
+                ...List.generate(
+                  5,
+                      (_) => Image.network(
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s',
+                  ),
+                ),
               if (showInfoButton)
                 Column(
                   children: [
-                    if(showInfoButton && showInlineWidget==true)
-                      SizedBox(height: 16,),
+                    if (showInfoButton && showInlineWidget == true)
+                      SizedBox(
+                        height: 16,
+                      ),
                     InfoButton(
                       size: DigitButtonSize.large,
                       label: 'Primary DigitButton',
