@@ -15,6 +15,7 @@ class SelectionCard<T> extends StatefulWidget {
   final bool equalWidthOptions;
   final IconData? Function(T)? prefixIconBuilder;
   final IconData? Function(T)? suffixIconBuilder;
+  final bool showParentContainer;
 
   const SelectionCard({
     Key? key,
@@ -30,6 +31,7 @@ class SelectionCard<T> extends StatefulWidget {
     this.equalWidthOptions = false,
     this.prefixIconBuilder,
     this.suffixIconBuilder,
+    this.showParentContainer = false,
   }) : super(key: key);
 
   @override
@@ -46,17 +48,13 @@ class _SelectionCardState<T> extends State<SelectionCard<T>> {
     if (widget.initialSelection != null) {
       _selectedOptions.addAll(widget.initialSelection!);
     }
-
-    if (widget.equalWidthOptions) {
-      _calculateMaxOptionWidth();
-    }
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (widget.equalWidthOptions) {
-      _calculateMaxOptionWidth();
+      _calculateMaxOptionWidth(context);
     }
   }
   @override
@@ -71,19 +69,14 @@ class _SelectionCardState<T> extends State<SelectionCard<T>> {
 
   }
 
-  void _calculateMaxOptionWidth() {
+  void _calculateMaxOptionWidth(BuildContext context) {
     double maxWidth = 0;
 
     for (var option in widget.options) {
       final textPainter = TextPainter(
         text: TextSpan(
             text: widget.valueMapper(option),
-            style: TextStyle(
-              fontFamily: 'Roboto',
-              fontSize: 16,
-              fontWeight: FontWeight.w400,
-              color: const DigitColors().light.textPrimary,
-            )
+            style: Theme.of(context).digitTextTheme(context).bodyL,
         ),
         textDirection: TextDirection.ltr,
       );
@@ -193,7 +186,13 @@ class _SelectionCardState<T> extends State<SelectionCard<T>> {
 
     bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
 
-    return Column(
+
+    if (widget.equalWidthOptions) {
+      _calculateMaxOptionWidth(context);
+    }
+
+
+    return widget.showParentContainer ? Column(
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -220,7 +219,58 @@ class _SelectionCardState<T> extends State<SelectionCard<T>> {
             ),
           ),
         ),
+        if(widget.errorMessage != null)
         const SizedBox(height: spacer1),
+        if (widget.errorMessage != null)
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Column(
+                children: [
+                  const SizedBox(
+                    height: spacer1 / 2,
+                  ),
+                  SizedBox(
+                    height: spacer4,
+                    width: spacer4,
+                    child: Icon(
+                      Icons.info,
+                      color: const DigitColors()
+                          .light
+                          .alertError,
+                      size: BaseConstants.errorIconSize,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(width: spacer1),
+              Flexible(
+                fit: FlexFit.tight,
+                child: Text(
+                  widget.errorMessage!,
+                  style: textTheme.bodyLarge?.copyWith(
+                    color: theme.colorTheme.alert.error,
+                  ),
+                ),
+              ),
+            ],
+          ),
+      ],
+    ) : Column(
+      mainAxisSize: MainAxisSize.max,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Wrap(
+          alignment: WrapAlignment.center,
+          spacing: spacer6,
+          runSpacing: spacer6,
+          children: widget.options.map(_buildOption).toList(),
+        ),
+        if(widget.errorMessage != null)
+          const SizedBox(height: spacer1),
         if (widget.errorMessage != null)
           Row(
             mainAxisSize: MainAxisSize.min,

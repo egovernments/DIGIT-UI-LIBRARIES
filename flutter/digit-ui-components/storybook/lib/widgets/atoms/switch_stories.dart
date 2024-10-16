@@ -38,40 +38,7 @@ List<Story> switchStories() {
               label: context.knobs.text(label: 'Switch label', initial: 'Label'),
               readonly: fieldState == 'readOnly',
               disabled: fieldState == 'disabled',
-              onChanged: (value) {
-                setState(() {
-                  isSwitched = value;
-                });
-              },
-            );
-          },
-        );
-      },
-    ),
-    Story(
-      name: 'Atom/Switch/with symbol',
-      builder: (context) {
-        bool isSwitched = false;
-
-        // Create an option knob for read-only and disabled states
-        final fieldState = context.knobs.options<String>(
-          label: 'Field State',
-          initial: 'Default',
-          options: [
-            Option(label: 'Default', value: 'default'),
-            Option(label: 'Non Editable', value: 'readOnly'),
-            Option(label: 'Disabled', value: 'disabled'),
-          ],
-        );
-
-        return StatefulBuilder(
-          builder: (context, setState) {
-            return DigitSwitch(
-              value: context.knobs.boolean(label: 'value', initial: false),
-              showSymbol: true,
-              label: context.knobs.text(label: 'Switch label', initial: 'Label'),
-              readonly: fieldState == 'readOnly',
-              disabled: fieldState == 'disabled',
+              showSymbol: context.knobs.boolean(label: 'Show Symbol', initial: false),
               onChanged: (value) {
                 setState(() {
                   isSwitched = value;

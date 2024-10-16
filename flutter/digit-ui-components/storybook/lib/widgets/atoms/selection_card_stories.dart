@@ -15,126 +15,142 @@ List<Story> selectionCardStories() {
       },
     ),
     Story(
-      name: 'Atom/Selection Tags/Default (Multiple Selection)',
-      builder: (context) => SelectionCard<String>(
-        valueMapper: (item) => item,
-        options: ['Option 1', 'Option 2', 'Option 3'],
-        onSelectionChanged: (selectedOptions) {
-          debugPrint('Selected Options: $selectedOptions');
-        },
-      ),
-    ),
-    Story(
-      name: 'Atom/Selection Tags/Single Selection',
-      builder: (context) => SelectionCard<String>(
-        valueMapper: (item) => item,
-        options: ['Option A', 'Option B', 'Option C'],
-        allowMultipleSelection: false,
-        onSelectionChanged: (selectedOptions) {
-          debugPrint('Selected Option: $selectedOptions');
-        },
-      ),
-    ),
-    Story(
-      name: 'Atom/Selection Tags/With Initial Selection',
-      builder: (context) => SelectionCard<String>(
-        valueMapper: (item) => item,
-        options: ['Apple', 'Banana', 'Cherry'],
-        initialSelection: ['Apple'],
-        onSelectionChanged: (selectedOptions) {
-          debugPrint('Selected Options: $selectedOptions');
-        },
-      ),
-    ),
-    Story(
-      name: 'Atom/Selection Tags/With Error Message',
-      builder: (context) => SelectionCard<String>(
-        valueMapper: (item) => item,
-        options: ['Red', 'Blue', 'Green'],
-        onSelectionChanged: (selectedOptions) {
-          debugPrint('Selected Options: $selectedOptions');
-        },
-        errorMessage: 'Please select at least one option',
-      ),
-    ),
-    Story(
-      name: 'Atom/Selection Tags/With Custom Width',
-      builder: (context) => SelectionCard<String>(
-        valueMapper: (item) => item,
-        options: ['Small', 'Medium', 'Large'],
-        width: 200.0,
-        onSelectionChanged: (selectedOptions) {
-          debugPrint('Selected Options: $selectedOptions');
-        },
-      ),
-    ),
-    Story(
-      name: 'Atom/Selection Tags/Equal Width Options',
-      builder: (context) => SelectionCard<String>(
-        valueMapper: (item) => item,
-        options: const ['Short', 'Longer Option', 'Mid-Length'],
-        equalWidthOptions: true,
-        onSelectionChanged: (selectedOptions) {
-          debugPrint('Selected Options: $selectedOptions');
-        },
-      ),
-    ),
-    Story(
-      name: 'Atom/Selection Tags/With Icon',
-      builder: (context) => SelectionCard<String>(
-        valueMapper: (item) => item,
-        options: const ['Option 1', 'Option 2', 'Option 3'],
-        onSelectionChanged: (selectedOptions) {
-          debugPrint('Selected Options: $selectedOptions');
-        },
-        prefixIconBuilder: (value) {
-          if (value == 'Option 1') {
-            return Icons.star;
-          } else if (value == 'Option 2') {
-            return Icons.favorite;
-          }
-          return Icons.thumb_down;
-        },
-      ),
-    ),
-    Story(
-      name: 'Atom/Selection Tags/With Icon After Selection',
+      name: 'Atom/Selection Tags/Single Select',
       builder: (context) {
+        final bool withParentContainer = context.knobs.boolean(label: 'With Parent Container', initial: false);
+
+        // Create an option knob for icons
+        final iconState = context.knobs.nullable.options<String>(
+          label: 'Icon',
+          initial: 'icon', // Ensure an initial value is set
+          options: [
+            Option(label: 'Icon', value: 'icon'),
+            Option(label: 'Icon After Selection', value: 'iconAfterSelection'),
+          ],
+          enabled: false,
+        );
+
+        final errorMessage = context.knobs.text(
+          label: 'Error Message',
+          initial: '',
+        );
 
         List<String> selectedOptions = [];
-        // Define a stateful widget for managing the selected option
-        return StatefulBuilder(
-          builder: (context, setState) {
 
-            return SelectionCard<String>(
-              valueMapper: (item) => item,
-              options: const ['Option 1', 'Option 2', 'Option 3'],
-              //initialSelection: selectedOptions,
-              onSelectionChanged: (newSelectedOptions) {
-                setState(() {
-                  // Replace the list with the newly selected options
-                  selectedOptions = List.from(newSelectedOptions);
-                });
-                // Optional: print the selected options for debugging
-                print('Selected Options: $selectedOptions');
-              },
-              prefixIconBuilder: (value) {
-                // Show icons only if the option is selected
-                if (selectedOptions.contains(value)) {
-                  if (value == 'Option 1') {
-                    return Icons.star;
-                  } else if (value == 'Option 2') {
-                    return Icons.favorite;
+        return Align(
+          alignment: Alignment.centerLeft,
+          child: StatefulBuilder(
+            builder: (context, setState) {
+              return SelectionCard<String>(
+                showParentContainer: withParentContainer,
+                valueMapper: (item) => item,
+                options: ['Start', 'Middle', 'End',],
+                onSelectionChanged: (newSelectedOptions) {
+                  setState(() {
+                    selectedOptions = List.from(newSelectedOptions);
+                  });
+                },
+                equalWidthOptions: context.knobs.boolean(label: 'Equal Width Options', initial: false),
+                prefixIconBuilder: iconState!=null
+                    ? (value) {
+                  if (iconState == 'iconAfterSelection') {
+                    // Show icons only after selection
+                    if (selectedOptions.contains(value)) {
+                      if (value == 'Start') {
+                        return Icons.star;
+                      } else if (value == 'Middle') {
+                        return Icons.favorite;
+                      }
+                      return Icons.thumb_down;
+                    }
+                    return null; // No icon if not selected
+                  } else {
+                    // Always show icons for each option
+                    if (value == 'Start') {
+                      return Icons.star;
+                    } else if (value == 'Middle') {
+                      return Icons.favorite;
+                    }
+                    return Icons.thumb_down;
                   }
-                  return Icons.thumb_down;
                 }
-                return null; // Return null if no icon should be shown
-              },
-            );
-          },
+                    : null,
+                errorMessage: errorMessage.isNotEmpty ? errorMessage : null,
+              );
+            }
+          ),
         );
-      },
-    )
+      }
+    ),
+    Story(
+        name: 'Atom/Selection Tags/Multiselect',
+        builder: (context) {
+          final bool withParentContainer = context.knobs.boolean(label: 'With Parent Container', initial: false);
+
+          // Create an option knob for icons
+          final iconState = context.knobs.nullable.options<String>(
+            label: 'Icon',
+            initial: 'icon', // Ensure an initial value is set
+            options: [
+              Option(label: 'Icon', value: 'icon'),
+              Option(label: 'Icon After Selection', value: 'iconAfterSelection'),
+            ],
+            enabled: false,
+          );
+          final errorMessage = context.knobs.text(
+            label: 'Error Message',
+            initial: '',
+          );
+
+          List<String> selectedOptions = [];
+
+          return Align(
+            alignment: Alignment.centerLeft,
+            child: StatefulBuilder(
+                builder: (context, setState) {
+                  return SelectionCard<String>(
+                    showParentContainer: withParentContainer,
+                    valueMapper: (item) => item,
+                    options: ['Start', 'Middle', 'End',],
+                    initialSelection: [],
+                    equalWidthOptions: context.knobs.boolean(label: 'Equal Width Options', initial: false),
+                    onSelectionChanged: (newSelectedOptions) {
+                      setState(() {
+                        selectedOptions = List.from(newSelectedOptions);
+                      });
+                    },
+                    allowMultipleSelection: true,
+                    prefixIconBuilder: iconState!=null
+                        ? (value) {
+                      if (iconState == 'iconAfterSelection') {
+                        // Show icons only after selection
+                        if (selectedOptions.contains(value)) {
+                          if (value == 'Start') {
+                            return Icons.star;
+                          } else if (value == 'Middle') {
+                            return Icons.favorite;
+                          }
+                          return Icons.thumb_down;
+                        }
+                        return null; // No icon if not selected
+                      } else {
+                        // Always show icons for each option
+                        if (value == 'Start') {
+                          return Icons.star;
+                        } else if (value == 'Middle') {
+                          return Icons.favorite;
+                        }
+                        return Icons.thumb_down;
+                      }
+                    }
+                        : null,
+                    errorMessage: errorMessage.isNotEmpty ? errorMessage : null,
+                  );
+                }
+            ),
+          );
+        }
+    ),
 
   ];
 }

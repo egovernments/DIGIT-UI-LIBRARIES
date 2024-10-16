@@ -58,10 +58,7 @@ List<Story> inputFieldStories() {
                 context.knobs.text(label: 'Inner Label', initial: 'innerlabel'),
             isDisabled: isDisabled,
             readOnly: isReadOnly,
-            errorMessage: context.knobs.nullable.text(
-                label: 'Error Message',
-                initial: 'Error Message',
-                enabled: false),
+            errorMessage: errorMessage.isNotEmpty ? errorMessage : null,
           );
         }),
     Story(

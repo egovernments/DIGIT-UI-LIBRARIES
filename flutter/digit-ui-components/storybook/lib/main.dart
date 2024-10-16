@@ -55,6 +55,7 @@ import 'package:storybook/widgets/molecules/hamburger_stories.dart';
 import 'package:storybook/widgets/molecules/header_stories.dart';
 import 'package:storybook/widgets/molecules/landing_page_card_stories.dart';
 import 'package:storybook/widgets/molecules/language_selection_card_stories.dart';
+import 'package:storybook/widgets/molecules/list_view_summary_stories.dart';
 import 'package:storybook/widgets/molecules/panel_card_stories.dart';
 import 'package:storybook/widgets/molecules/show_pop_up_stories.dart';
 import 'package:storybook/widgets/molecules/side_nav_stories.dart';
@@ -205,6 +206,7 @@ class MyHomePageState extends State<MyHomePage> {
           ...accordionListStories(),
           ...bottomSheetStories(),
           ...cardStories(),
+          ...listViewSummaryStories(),
           ...filterCardStories(),
           ...formCardStories(),
           ...footerMoleculeStories(),
