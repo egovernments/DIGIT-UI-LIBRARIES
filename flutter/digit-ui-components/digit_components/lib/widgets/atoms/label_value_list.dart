@@ -1,131 +1,118 @@
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
-import 'package:digit_ui_components/widgets/atoms/digit_divider.dart';
 import 'package:flutter/material.dart';
 
-class LabelValuePair {
+class LabelValueItem extends StatelessWidget {
   final String label;
-  final String value;
+  final dynamic value;
   final TextStyle? labelTextStyle;
   final TextStyle? valueTextStyle;
   final bool isInline;
+  final int labelFlex;
+  final int valueFlex;
+  final int? maxLines;
+  final EdgeInsets? padding;
 
-  LabelValuePair({
+  const LabelValueItem({
+    Key? key,
     required this.label,
     required this.value,
     this.labelTextStyle,
     this.valueTextStyle,
     this.isInline = true, // Default to inline layout
-  });
-}
-
-class LabelValueList extends StatelessWidget {
-  final List<LabelValuePair> items;
-  final EdgeInsets? padding;
-  final String? heading;
-  final int labelFlex;
-  final int valueFlex;
-  final int? maxLines;
-  final bool withDivider;
-
-  const LabelValueList({
-    Key? key,
-    required this.items,
-    this.padding,
-    this.heading,
-    this.maxLines,
     this.labelFlex = 2,
     this.valueFlex = 8,
-    this.withDivider = false,
+    this.maxLines,
+    this.padding,
   }) : super(key: key);
+
+  Widget _buildValue(dynamic value, BuildContext context) {
+    final theme = Theme.of(context);
+    final textTheme = theme.digitTextTheme(context);
+
+    if (value is String) {
+      return Text(
+        value,
+        maxLines: maxLines,
+        overflow: TextOverflow.ellipsis,
+        style: valueTextStyle ?? textTheme.bodyS.copyWith(
+          color: theme.colorTheme.text.primary,
+        ),
+      );
+    } else if (value is List<String>) {
+      // If the value is a list of strings, wrap each string in a Text widget and use Wrap for multi-line support.
+      return Wrap(
+        spacing: 8.0, // Gap between each item
+        runSpacing: 8.0, // Gap between lines
+        children: value
+            .map((str) => Text(
+          str,
+          maxLines: maxLines,
+          overflow: TextOverflow.ellipsis,
+          style: valueTextStyle ?? textTheme.bodyS.copyWith(
+            color: theme.colorTheme.text.primary,
+          ),
+        ))
+            .toList(),
+      );
+    } else if (value is Widget) {
+      // If the value is a single widget, return it directly.
+      return value;
+    } else if (value is List<Widget>) {
+      // If the value is a list of widgets, wrap them in a Wrap for multi-line support.
+      return Wrap(
+        spacing: 8.0, // Gap between each widget
+        runSpacing: 8.0, // Gap between rows of widgets
+        children: value,
+      );
+    } else {
+      return Container(); // Return an empty container if no valid type is provided.
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-
-   final theme = Theme.of(context);
-   final textTheme = theme.digitTextTheme(context);
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        if (heading != null)
-          Padding(
-            padding: padding ?? const EdgeInsets.symmetric(vertical: spacer2),
-            child: Text(
-              heading!,
-              style: textTheme.headingL.copyWith(
-                color: theme.colorTheme.text.primary,
-              ),
-            ),
-          ),
-        ..._buildItemsWithDividers(items, context),
-      ],
-    );
-  }
-
-  List<Widget> _buildItemsWithDividers(
-      List<LabelValuePair> items, BuildContext context) {
-    List<Widget> itemList = [];
-    for (int i = 0; i < items.length; i++) {
-      itemList.add(_buildItem(items[i], context));
-      if (i < items.length - 1 && withDivider) {
-        itemList.add(
-          const DigitDivider(),
-        );
-      }
-    }
-    return itemList;
-  }
-
-  Widget _buildItem(LabelValuePair item, BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.digitTextTheme(context);
 
     return Padding(
-      padding: padding ?? const EdgeInsets.symmetric(vertical: spacer2),
-      child: item.isInline
+      padding: padding ?? const EdgeInsets.symmetric(vertical: 8.0),
+      child: isInline
           ? Row(
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Expanded(
             flex: labelFlex,
             child: Text(
-              item.label,
-              style: item.labelTextStyle ?? textTheme.headingS.copyWith(
-                color: theme.colorTheme.text.primary,
-              ),
+              label,
+              style: labelTextStyle ??
+                  textTheme.headingS.copyWith(
+                    color: theme.colorTheme.text.primary,
+                  ),
             ),
           ),
-          const SizedBox(width: spacer6),
+          const SizedBox(width: spacer6), // Optional spacing between label and value
           Expanded(
             flex: valueFlex,
-            child: Text(
-              item.value,
-              maxLines: maxLines,
-              overflow: TextOverflow.ellipsis,
-              style: item.valueTextStyle ?? textTheme.bodyS.copyWith(
-                color: theme.colorTheme.text.primary,
-              ),
-            ),
+            child: _buildValue(value, context),
           ),
         ],
       )
           : Column(
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            item.label,
-            style: item.labelTextStyle ?? textTheme.headingS.copyWith(
-              color: theme.colorTheme.text.primary,
-            ),
+            label,
+            style: labelTextStyle ??
+                textTheme.headingS.copyWith(
+                  color: theme.colorTheme.text.primary,
+                ),
           ),
-          const SizedBox(height: spacer1),
-          Text(
-            item.value,
-            style: item.valueTextStyle ?? textTheme.bodyS.copyWith(
-              color: theme.colorTheme.text.primary,
-            ),
-          ),
+          const SizedBox(height: 8),
+          _buildValue(value, context),
         ],
       ),
     );

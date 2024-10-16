@@ -137,7 +137,7 @@ class _DigitSwitchState extends State<DigitSwitch>
                         height: DigitSwitchTheme?.thumbSize ?? defaultSwitchTheme.thumbSize,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: DigitSwitchTheme?.symbolColor ?? defaultSwitchTheme.symbolColor,
+                          color: widget.readonly || widget.disabled ? theme.colorTheme.generic.divider : DigitSwitchTheme?.symbolColor ?? defaultSwitchTheme.symbolColor,
                           boxShadow: [
                             BoxShadow(
                               color: Colors.black.withOpacity(0.2),

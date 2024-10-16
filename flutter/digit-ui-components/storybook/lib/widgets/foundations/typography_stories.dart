@@ -145,7 +145,7 @@ List<Story> typographyStories() {
         );
 
         final textTheme = _getTextThemeForScreenType(context, screenType);
-        final fontSize = textTheme.headingS.fontSize; // Dynamically get the font size
+        final fontSize = textTheme.headingXS.fontSize; // Dynamically get the font size
 
         return _buildTypographyStory(
           title: 'Heading XS / ${fontSize?.toInt()}pts', // Use the dynamic font size

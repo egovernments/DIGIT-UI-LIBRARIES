@@ -4,12 +4,10 @@ import 'package:digit_ui_components/widgets/atoms/digit_divider.dart';
 import 'package:digit_ui_components/widgets/atoms/label_value_list.dart';
 import 'package:digit_ui_components/widgets/atoms/text_block.dart';
 import 'package:digit_ui_components/widgets/atoms/timeline.dart';
-import 'package:digit_ui_components/widgets/atoms/upload_drag.dart';
-import 'package:digit_ui_components/widgets/molecules/digit_card.dart';
+import 'package:digit_ui_components/widgets/molecules/label_value_summary.dart';
 import 'package:storybook_toolkit/storybook_toolkit.dart';
 import 'package:flutter/material.dart';
 import 'package:digit_ui_components/widgets/molecules/form_card.dart';
-import 'package:digit_ui_components/widgets/atoms/dropdown_wrapper.dart';
 
 List<Story> viewCardStories() {
   return [
@@ -528,13 +526,13 @@ List<Story> viewCardStories() {
             const DigitTextBlock(
               heading: 'Heading',
             ),
-            LabelValueList(
+            LabelValueSummary(
               items: [
-                LabelValuePair(label: 'start date', value: '22/03/2025'),
-                LabelValuePair(label: 'start date', value: '22/03/2025'),
-                LabelValuePair(label: 'start date', value: '22/03/2025'),
-                LabelValuePair(label: 'start date', value: '22/03/2025'),
-                LabelValuePair(label: 'start date', value: '22/03/2025'),
+                LabelValueItem(label: 'start date', value: '22/03/2025'),
+                LabelValueItem(label: 'start date', value: '22/03/2025'),
+                LabelValueItem(label: 'start date', value: '22/03/2025'),
+                LabelValueItem(label: 'start date', value: '22/03/2025'),
+                LabelValueItem(label: 'start date', value: '22/03/2025'),
               ],
             ),
             const DigitDivider(),
