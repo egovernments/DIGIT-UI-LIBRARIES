@@ -42,7 +42,7 @@ const Chip = ({
       onClick={disabled ? null : onTagClick}
     >
       <div
-        className={`digit-tag ${isErrorTag ? "errortag" : ""} ${hideClose ? "noClose" : ""} ${!iconReq ? "noIcon" : ""} ${
+        className={`digit-tag ${isErrorTag ? "errortag" : ""} ${hideClose ? "noClose" : ""} ${!iconReq ? "noIcon" : ""} ${onTagClick || onClick ? "clickable" : ""} ${
           className ? className : ""
         }`}
         style={tagStyles}

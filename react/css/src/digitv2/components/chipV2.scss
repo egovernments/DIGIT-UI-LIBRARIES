@@ -46,6 +46,10 @@
     }
   
 
+    &.clickable:hover{
+      box-shadow: 0.125rem 0.125rem 0.25rem 0rem #36363633;
+    }
+
     svg{
       flex-shrink: 0;
     }

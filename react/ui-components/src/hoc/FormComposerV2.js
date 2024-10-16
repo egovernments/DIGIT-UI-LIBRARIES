@@ -344,8 +344,8 @@ export const FormComposer = (props) => {
   const renderFormFields = (props, section, index, array, sectionFormCategory) => (
     <React.Fragment key={index}>
       {!props.childrenAtTheBottom && props.children}
-      {props.heading && <Header style={{ ...props.headingStyle }}> {props.heading} </Header>}
-      {props.description && <Header> {props.description} </Header>}
+      {props.heading && <Header styles={{ ...props.headingStyle }}> {props.heading} </Header>}
+      {props.description && <Header styles={{ ...props.descriptionStyles }}> {props.description} </Header>}
       {props.text && <p>{props.text}</p>}
       {formFields(section, index, array, sectionFormCategory)}
       {props.childrenAtTheBottom && props.children}
