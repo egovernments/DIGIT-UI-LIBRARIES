@@ -7,7 +7,7 @@ import Dropdown from "../atoms/Dropdown";
 import Toggle from "../atoms/Toggle";
 import { createFunction } from "./techMolecules/createFunction";
 
-const CustomDropdown = ({ t, config, inputRef, label, onChange, value, errorStyle, disabled, type, additionalWrapperClass = "",variant }) => {
+const CustomDropdown = ({ t, config, inputRef, label, onChange, value, errorStyle, disabled, type, additionalWrapperClass = "",variant,mdmsv2}) => {
   const master = { name: config?.mdmsConfig?.masterName };
   if (config?.mdmsConfig?.filter) {
     master["filter"] = config?.mdmsConfig?.filter;
@@ -15,15 +15,15 @@ const CustomDropdown = ({ t, config, inputRef, label, onChange, value, errorStyl
 
   const { isLoading, data } = window?.Digit?.Hooks.useCustomMDMS(Digit?.ULBService?.getStateId(), config?.mdmsConfig?.moduleName, [master], {
     select: config?.mdmsConfig?.select
-      ? createFunction(config?.mdmsConfig?.select)
-      : (data) => {
+    ? createFunction(config?.mdmsConfig?.select)
+    : (data) => {
         const optionsData = _.get(data, `${config?.mdmsConfig?.moduleName}.${config?.mdmsConfig?.masterName}`, []);
         return optionsData
           .filter((opt) => (opt?.hasOwnProperty("active") ? opt.active : true))
           .map((opt) => ({ ...opt, name: `${config?.mdmsConfig?.localePrefix}_${Digit.Utils.locale.getTransformedLocale(opt.code)}` }));
       },
-    enabled: config?.mdmsConfig ? true : false,
-  });
+    enabled: (config?.mdmsConfig || config?.mdmsv2) ? true : false,
+  },mdmsv2);
 
   if (isLoading) {
     return <Loader />;
