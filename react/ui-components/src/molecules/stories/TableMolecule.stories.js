@@ -1374,7 +1374,11 @@ const commonArgs = {
   },
   pagination:{
     initialRowsPerPage:5,
-    rowsPerPageOptions:[5,10,15,20]
+    rowsPerPageOptions:[5,10,15,20],
+    manualPagination:false,
+    onNextPage:()=>{},
+    onPrevPage:()=>{},
+    onPageSizeChange:()=>{}
   },
   tableDetails:{
     tableTitle: "",
@@ -1382,7 +1386,8 @@ const commonArgs = {
   },
   sorting:{
     isTableSortable:false,
-    initialSortOrder:""
+    initialSortOrder:"",
+    customSortFunction:()=>{}
   },
   selection: {
     addCheckbox: false,
@@ -2616,4 +2621,71 @@ WithOnlyOneRowNestedTable.args = {
     showSelectedState: false,
   },
   onRowClick: undefined
+};
+
+export const ManualPagination = Template.bind({});
+ManualPagination.args = {
+  ...commonArgs,
+  headerData: headerData,
+  rows:rows,
+  pagination:{
+    initialRowsPerPage: 2,
+    rowsPerPageOptions: [2, 4, 6, 8, 10],
+    manualPagination: true,
+    onPageSizeChange:(event)=> { console.log(event)},
+    onNextPage:()=>{console.log("onNextPage")},
+    onPrevPage:()=>{console.log("onPrevPage")}
+  },
+  styles:{
+    withAlternateBg: false,
+    withColumnDivider: false,
+    extraStyles: {},
+    withHeaderDivider:true,
+    withRowDivider:true,
+    withBorder:true,
+  },
+  selection: {
+    addCheckbox: false,
+    checkboxLabel: '',
+    initialSelectedRows: [],
+    onSelectedRowsChange: (e) => {
+      console.log("These are the selected rows", e);
+    },
+    showSelectedState: false,
+  },
+  onRowClick:undefined,
+};
+
+const myCustomSort = (rows, columnIndex) => {
+  const middleIndex = Math.floor(rows.length / 2); 
+  const firstHalfReversed = [...rows.slice(0, middleIndex)].reverse(); 
+  const secondHalf = rows.slice(middleIndex); 
+  return [...firstHalfReversed, ...secondHalf];
+};
+
+
+export const WithCustomSortOrder = Template.bind({});
+WithCustomSortOrder.args = {
+  ...commonArgs,
+  headerData: headerData,
+  rows:rows,
+  pagination:{
+    initialRowsPerPage: 2,
+    rowsPerPageOptions: [2, 4, 6, 8, 10],
+  },
+  selection: {
+    addCheckbox: false,
+    checkboxLabel: 'Select All',
+    initialSelectedRows: [],
+    onSelectedRowsChange: (e) => {
+      console.log("These are the selected rows", e);
+    },
+    showSelectedState: false,
+  },
+  sorting:{
+    initialSortOrder: "custom",
+    isTableSortable:true,
+    customSortFunction:myCustomSort
+  },
+  onRowClick:undefined,
 };

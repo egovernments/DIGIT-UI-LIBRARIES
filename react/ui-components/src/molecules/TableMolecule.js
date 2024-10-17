@@ -27,6 +27,11 @@ const TableMolecule = ({
   pagination = {
     initialRowsPerPage: 5,
     rowsPerPageOptions: [5, 10, 15, 20],
+    manualPagination : false,
+    onPageSizeChange : () => {},
+    onNextPage : () => {},
+    onPrevPage : () => {},
+    currentPage : 1
   },
   styles = {
     withBorder: false,
@@ -43,6 +48,7 @@ const TableMolecule = ({
   sorting = {
     isTableSortable: true,
     initialSortOrder: "ascending",
+    customSortFunction:()=>{}
   },
   selection = {
     addCheckbox: false,
@@ -69,7 +75,7 @@ const TableMolecule = ({
   actions,
 }) => {
   const { t } = useTranslation();
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(pagination?.currentPage || 1);
   const [expandedRows, setExpandedRows] = useState([]);
   const [rowsPerPage, setRowsPerPage] = useState(
     pagination?.initialRowsPerPage
@@ -159,6 +165,10 @@ const TableMolecule = ({
     if (!sortOrder) return;
     const sortRows = (columnIndex) => {
       const newSortedRows = [...rows];
+      if (sortOrder === "custom") {
+        setSortedRows(sorting?.customSortFunction(newSortedRows,columnIndex));
+        return;
+      }
       newSortedRows.sort((a, b) => {
         const columnA = a[columnIndex];
         const columnB = b[columnIndex];
@@ -192,7 +202,7 @@ const TableMolecule = ({
         sortRows(firstSortableColumnIndex);
       }
     }
-  }, [sortedColumnIndex, sortOrder, rows, headerData]);
+  }, [sortedColumnIndex, sortOrder, rows, headerData,sorting]);
 
   const currentRows = sorting?.isTableSortable
     ? sortedRows?.slice(indexOfFirstRow, indexOfLastRow)
@@ -661,7 +671,7 @@ const TableMolecule = ({
                         className="pagination-dropdown"
                         id="rowsPerPage"
                         value={rowsPerPage}
-                        onChange={handleRowsPerPageChange}
+                        onChange={pagination?.manualPagination ? pagination?.onPageSizeChange : handleRowsPerPageChange}
                       >
                         {pagination?.rowsPerPageOptions.map((option) => (
                           <option key={option} value={option}>
@@ -679,7 +689,7 @@ const TableMolecule = ({
                     </div>
                     <div className="pagination">
                       <button
-                        onClick={() => handlePageChange(currentPage - 1)}
+                        onClick={pagination?.manualPagination ? () => pagination?.onPrevPage() : () => handlePageChange(currentPage - 1)}
                         disabled={currentPage === 1}
                       >
                         <SVG.ChevronLeft
@@ -687,7 +697,7 @@ const TableMolecule = ({
                         ></SVG.ChevronLeft>
                       </button>
                       <button
-                        onClick={() => handlePageChange(currentPage + 1)}
+                        onClick={pagination?.manualPagination ? () => pagination?.onNextPage() : () => handlePageChange(currentPage + 1)}
                         disabled={currentPage === totalPages}
                       >
                         <SVG.ChevronRight
@@ -778,6 +788,10 @@ TableMolecule.propTypes = {
   pagination: PropTypes.shape({
     initialRowsPerPage: PropTypes.number,
     rowsPerPageOptions: PropTypes.arrayOf(PropTypes.number),
+    manualPagination: PropTypes.bool,
+    onPageSizeChange : PropTypes.func,
+    onNextPage : PropTypes.func,
+    onPrevPage : PropTypes.func 
   }),
   styles: PropTypes.shape({
     withBorder: PropTypes.bool,
@@ -816,6 +830,10 @@ TableMolecule.defaultProps = {
   pagination: {
     initialRowsPerPage: 5,
     rowsPerPageOptions: [5, 10, 15, 20],
+    manualPagination:false,
+    onPageSizeChange: () => {},
+    onNextPage: () => {},
+    onPrevPage: () => {}
   },
   styles: {
     withBorder: false,
