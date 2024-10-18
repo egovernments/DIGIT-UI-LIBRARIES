@@ -8,104 +8,78 @@ import 'package:storybook_toolkit/storybook_toolkit.dart';
 List<Story> timeLineStories() {
   return [
     Story(
-      name: 'Atom/Timeline/default',
-      builder: (context) =>  DigitTimeline(
-        currentStep: context.knobs.options(label: 'Current Step', initial: TimelineStepState.present, options: const [
-          Option(
-            label: 'Current',
-            value: TimelineStepState.present,
-          ),
-          Option(
-            label: 'Completed',
-            value: TimelineStepState.completed,
-          ),
-          Option(
-            label: 'Future',
-            value: TimelineStepState.future,
-          ),
-        ]),
-        label: context.knobs.text(label: "label", initial: 'current state'),
-        description: const ['18 / 02 / 2023'],
-      ),
-    ),
-    Story(
-      name: 'Atom/Timeline/list of description',
-      builder: (context) => DigitTimeline(
-        currentStep: context.knobs.options(label: 'Current Step', initial: TimelineStepState.present, options: const [
-          Option(
-            label: 'Current',
-            value: TimelineStepState.present,
-          ),
-          Option(
-            label: 'Completed',
-            value: TimelineStepState.completed,
-          ),
-          Option(
-            label: 'Future',
-            value: TimelineStepState.future,
-          ),
-        ]),
-        label: context.knobs.text(label: "label", initial: 'current step'),
-        description: const ['18 / 02 / 2023', '18 / 02 / 2023 11:00', '18 / 02 / 2023 11:00 PM Mon'],
-      ),
-    ),
-    Story(
-        name: 'Atom/Timeline/Additional widget',
-        builder: (context) => DigitTimeline(
-          label: 'Sample Timeline',
-          description: const ['Description 1', 'Description 2'],
-          currentStep: TimelineStepState.completed,
+      name: 'Atom/Timeline/Ongoing',
+      builder: (context) {
+
+        bool showAdditionalWidget = context.knobs.boolean(
+          label: "Show Additional Widget",
+          initial: false,
+        );
+
+
+        bool showAdditionalCollapsibleWidget = context.knobs.boolean(
+          label: "Show Additional Collapsible Widget",
+          initial: false,
+        );
+
+        return DigitTimeline(
+          currentStep: TimelineStepState.present,
+          label: context.knobs.text(label: "label", initial: 'Ongoing state'),
+          description: const ['18 / 02 / 2023'],
           additionalWidgets: [
-            TimelineFileWidget(
-              file: TimelineFiles(
-                url: 'https://example.com/sample.pdf',
-                name: 'Document',
-                fileType: 'pdf',
-              ),
-              openFile: true,
-            ),
-            TimelineFileWidget(
-              file: TimelineFiles(
-                url: 'https://static.remove.bg/sample-gallery/graphics/bird-thumbnail.jpg',
-                name: 'Image',
-                fileType: 'jpg',
-              ),
-              openFile: true,
-            ),
-            TimelineFileWidget(
-              file: TimelineFiles(
-                url: 'https://example.com/sample.png',
-                name: 'Sample',
-                fileType: 'png',
-              ),
-              openFile: true,
-            ),
-            TimelineFileWidget(
-              file: TimelineFiles(
-                url: 'https://example.com/sample.xlsx',
-                name: 'Sample',
-                fileType: 'xlsx',
-              ),
-              openFile: true,
-            ),
-            TimelineFileWidget(
-              file: TimelineFiles(
-                url: 'https://example.com/sample.doc',
-                name: 'Sample',
-                fileType: 'doc',
-              ),
-              openFile: true,
-            ),
+            if(showAdditionalWidget)
+              ...[
+                TimelineFileWidget(
+                  file: TimelineFiles(
+                    url: 'https://example.com/sample.pdf',
+                    name: 'Document',
+                    fileType: 'pdf',
+                  ),
+                  openFile: true,
+                ),
+                TimelineFileWidget(
+                  file: TimelineFiles(
+                    url: 'https://static.remove.bg/sample-gallery/graphics/bird-thumbnail.jpg',
+                    name: 'Image',
+                    fileType: 'jpg',
+                  ),
+                  openFile: true,
+                ),
+                TimelineFileWidget(
+                  file: TimelineFiles(
+                    url: 'https://example.com/sample.png',
+                    name: 'Sample',
+                    fileType: 'png',
+                  ),
+                  openFile: true,
+                ),
+                TimelineFileWidget(
+                  file: TimelineFiles(
+                    url: 'https://example.com/sample.xlsx',
+                    name: 'Sample',
+                    fileType: 'xlsx',
+                  ),
+                  openFile: true,
+                ),
+                TimelineFileWidget(
+                  file: TimelineFiles(
+                    url: 'https://example.com/sample.doc',
+                    name: 'Sample',
+                    fileType: 'doc',
+                  ),
+                  openFile: true,
+                ),
+              ]
           ],
-          additionalHideWidgets: [
-            TimelineFileWidget(
-              file: TimelineFiles(
-                url: 'https://example.com/sample.docx',
-                name: 'Sample',
-                fileType: 'doc',
-              ),
-              openFile: true,
+          additionalHideWidgets: showAdditionalCollapsibleWidget ? [
+          TimelineFileWidget(
+            file: TimelineFiles(
+              url: 'https://example.com/sample.docx',
+              name: 'Sample',
+              fileType: 'doc',
             ),
+            openFile: true,
+          ),
             Image.network(
                 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
             Image.network(
@@ -116,9 +90,270 @@ List<Story> timeLineStories() {
                 title: "Info Text",
                 type: InfoType.error,
                 description: 'This is the warning')
+            ] : null,
+        );
+      }
+    ),
+    Story(
+      name: 'Atom/Timeline/Completed',
+      builder: (context) {
 
+        bool showAdditionalWidget = context.knobs.boolean(
+          label: "Show Additional Widget",
+          initial: false,
+        );
+
+
+        bool showAdditionalCollapsibleWidget = context.knobs.boolean(
+          label: "Show Additional Collapsible Widget",
+          initial: false,
+        );
+
+        return DigitTimeline(
+          currentStep: TimelineStepState.completed,
+          label: context.knobs.text(label: "label", initial: 'Completed state'),
+          description: const ['18 / 02 / 2023'],
+          additionalWidgets: [
+            if(showAdditionalWidget)
+              ...[
+                TimelineFileWidget(
+                  file: TimelineFiles(
+                    url: 'https://example.com/sample.pdf',
+                    name: 'Document',
+                    fileType: 'pdf',
+                  ),
+                  openFile: true,
+                ),
+                TimelineFileWidget(
+                  file: TimelineFiles(
+                    url: 'https://static.remove.bg/sample-gallery/graphics/bird-thumbnail.jpg',
+                    name: 'Image',
+                    fileType: 'jpg',
+                  ),
+                  openFile: true,
+                ),
+                TimelineFileWidget(
+                  file: TimelineFiles(
+                    url: 'https://example.com/sample.png',
+                    name: 'Sample',
+                    fileType: 'png',
+                  ),
+                  openFile: true,
+                ),
+                TimelineFileWidget(
+                  file: TimelineFiles(
+                    url: 'https://example.com/sample.xlsx',
+                    name: 'Sample',
+                    fileType: 'xlsx',
+                  ),
+                  openFile: true,
+                ),
+                TimelineFileWidget(
+                  file: TimelineFiles(
+                    url: 'https://example.com/sample.doc',
+                    name: 'Sample',
+                    fileType: 'doc',
+                  ),
+                  openFile: true,
+                ),
+              ]
           ],
-        )
+          additionalHideWidgets: showAdditionalCollapsibleWidget ? [
+          TimelineFileWidget(
+            file: TimelineFiles(
+              url: 'https://example.com/sample.docx',
+              name: 'Sample',
+              fileType: 'doc',
+            ),
+            openFile: true,
+          ),
+            Image.network(
+                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+            Image.network(
+                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+            Image.network(
+                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+            const InfoCard(
+                title: "Info Text",
+                type: InfoType.error,
+                description: 'This is the warning')
+            ] : null,
+        );
+      }
+    ),
+    Story(
+      name: 'Atom/Timeline/Upcoming',
+      builder: (context) {
+
+        bool showAdditionalWidget = context.knobs.boolean(
+          label: "Show Additional Widget",
+          initial: false,
+        );
+
+
+        bool showAdditionalCollapsibleWidget = context.knobs.boolean(
+          label: "Show Additional Collapsible Widget",
+          initial: false,
+        );
+
+        return DigitTimeline(
+          currentStep: TimelineStepState.future,
+          label: context.knobs.text(label: "label", initial: 'Upcoming state'),
+          description: const ['18 / 02 / 2023'],
+          additionalWidgets: [
+            if(showAdditionalWidget)
+              ...[
+                TimelineFileWidget(
+                  file: TimelineFiles(
+                    url: 'https://example.com/sample.pdf',
+                    name: 'Document',
+                    fileType: 'pdf',
+                  ),
+                  openFile: true,
+                ),
+                TimelineFileWidget(
+                  file: TimelineFiles(
+                    url: 'https://static.remove.bg/sample-gallery/graphics/bird-thumbnail.jpg',
+                    name: 'Image',
+                    fileType: 'jpg',
+                  ),
+                  openFile: true,
+                ),
+                TimelineFileWidget(
+                  file: TimelineFiles(
+                    url: 'https://example.com/sample.png',
+                    name: 'Sample',
+                    fileType: 'png',
+                  ),
+                  openFile: true,
+                ),
+                TimelineFileWidget(
+                  file: TimelineFiles(
+                    url: 'https://example.com/sample.xlsx',
+                    name: 'Sample',
+                    fileType: 'xlsx',
+                  ),
+                  openFile: true,
+                ),
+                TimelineFileWidget(
+                  file: TimelineFiles(
+                    url: 'https://example.com/sample.doc',
+                    name: 'Sample',
+                    fileType: 'doc',
+                  ),
+                  openFile: true,
+                ),
+              ]
+          ],
+          additionalHideWidgets: showAdditionalCollapsibleWidget ? [
+                TimelineFileWidget(
+                  file: TimelineFiles(
+                    url: 'https://example.com/sample.docx',
+                    name: 'Sample',
+                    fileType: 'doc',
+                  ),
+                  openFile: true,
+                ),
+                Image.network(
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+                Image.network(
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+                Image.network(
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+                const InfoCard(
+                    title: "Info Text",
+                    type: InfoType.error,
+                    description: 'This is the warning')
+              ] : null
+        );
+      }
+    ),
+    Story(
+        name: 'Atom/Timeline/Failed',
+        builder: (context) {
+
+          bool showAdditionalWidget = context.knobs.boolean(
+            label: "Show Additional Widget",
+            initial: false,
+          );
+
+
+          bool showAdditionalCollapsibleWidget = context.knobs.boolean(
+            label: "Show Additional Collapsible Widget",
+            initial: false,
+          );
+
+          return DigitTimeline(
+              currentStep: TimelineStepState.failed,
+              label: context.knobs.text(label: "label", initial: 'Failed state'),
+              description: const ['18 / 02 / 2023'],
+              additionalWidgets: [
+                if(showAdditionalWidget)
+                  ...[
+                    TimelineFileWidget(
+                      file: TimelineFiles(
+                        url: 'https://example.com/sample.pdf',
+                        name: 'Document',
+                        fileType: 'pdf',
+                      ),
+                      openFile: true,
+                    ),
+                    TimelineFileWidget(
+                      file: TimelineFiles(
+                        url: 'https://static.remove.bg/sample-gallery/graphics/bird-thumbnail.jpg',
+                        name: 'Image',
+                        fileType: 'jpg',
+                      ),
+                      openFile: true,
+                    ),
+                    TimelineFileWidget(
+                      file: TimelineFiles(
+                        url: 'https://example.com/sample.png',
+                        name: 'Sample',
+                        fileType: 'png',
+                      ),
+                      openFile: true,
+                    ),
+                    TimelineFileWidget(
+                      file: TimelineFiles(
+                        url: 'https://example.com/sample.xlsx',
+                        name: 'Sample',
+                        fileType: 'xlsx',
+                      ),
+                      openFile: true,
+                    ),
+                    TimelineFileWidget(
+                      file: TimelineFiles(
+                        url: 'https://example.com/sample.doc',
+                        name: 'Sample',
+                        fileType: 'doc',
+                      ),
+                      openFile: true,
+                    ),
+                  ]
+              ],
+              additionalHideWidgets: showAdditionalCollapsibleWidget ? [
+                TimelineFileWidget(
+                  file: TimelineFiles(
+                    url: 'https://example.com/sample.docx',
+                    name: 'Sample',
+                    fileType: 'doc',
+                  ),
+                  openFile: true,
+                ),
+                Image.network(
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+                Image.network(
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+                Image.network(
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+                const InfoCard(
+                    title: "Info Text",
+                    type: InfoType.error,
+                    description: 'This is the warning')
+              ] : null
+          );
+        }
     ),
   ];
 }

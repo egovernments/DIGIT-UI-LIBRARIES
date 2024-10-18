@@ -1,18 +1,20 @@
 import 'package:digit_ui_components/digit_components.dart';
+import 'package:digit_ui_components/theme/digit_extended_theme.dart';
+import 'package:digit_ui_components/widgets/localized.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../utils/utils.dart';
-import 'digit_button.dart';
+import '../../utils/i18_key_constants.dart' as i18;
 
-class DigitTimeline extends StatefulWidget {
+class DigitTimeline extends LocalizedStatefulWidget {
   final String label;
   final List<String> description;
   final TimelineStepState currentStep;
   final List<Widget>? additionalWidgets;
   final List<Widget>? additionalHideWidgets;
-  final String viewDetailText;
-  final String hideDetailText;
+  final String? viewDetailText;
+  final String? hideDetailText;
   final bool capitalizedLetter;
   final bool isLastStep;
   final bool isFirstFuture;
@@ -25,8 +27,8 @@ class DigitTimeline extends StatefulWidget {
     this.additionalWidgets,
     this.additionalHideWidgets,
     this.isLastStep = true,
-    this.viewDetailText = 'View Details',
-    this.hideDetailText = 'Hide Details',
+    this.viewDetailText,
+    this.hideDetailText,
     this.capitalizedLetter = true,
     this.isFirstFuture = false,
   }) : super(key: key);
@@ -35,110 +37,126 @@ class DigitTimeline extends StatefulWidget {
   _TimelineState createState() => _TimelineState();
 }
 
-class _TimelineState extends State<DigitTimeline> {
+class _TimelineState extends LocalizedState<DigitTimeline> {
   bool isExpanded = false;
 
   @override
   Widget build(BuildContext context) {
-    DigitTypography currentTypography = getTypography(context, false);
+    final theme = Theme.of(context);
+    final textTheme = theme.digitTextTheme(context);
+
     bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
     bool isTab = AppView.isTabletView(MediaQuery.of(context).size);
     String capitalizedLabel = widget.capitalizedLetter
         ? capitalizeFirstLetterOfEveryWord(widget.label)
         : widget.label;
 
-    return IntrinsicHeight(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Column(
-            children: [
-              _buildTimelineIcon(isMobile),
-              if (!widget.isLastStep) _buildConnectingLine(),
-            ],
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.only(top: isMobile ? 2.5 : 6.5),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    capitalizedLabel,
-                    style: currentTypography.headingS.copyWith(
-                      color: widget.currentStep == TimelineStepState.future ?  const DigitColors().light.textSecondary: const DigitColors().light.textPrimary,
-                    ),
-                  ),
-                  SizedBox(
-                    height: isMobile ? spacer1 : spacer2,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: widget.description
-                        .map((desc) => Text(
-                      desc,
-                      style: currentTypography.bodyS.copyWith(
-                        color: const DigitColors().light.textSecondary,
+    return Container(
+      color: widget.currentStep == TimelineStepState.failed
+          ? theme.colorTheme.alert.errorBg
+          : theme.colorTheme.paper.primary,
+
+      child: IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Column(
+              children: [
+                _buildTimelineIcon(isMobile, context),
+                if (!widget.isLastStep) _buildConnectingLine(),
+              ],
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.only(top: isMobile ? 2.5 : 6.5),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      capitalizedLabel,
+                      style: textTheme.headingS.copyWith(
+                        color: widget.currentStep == TimelineStepState.future
+                            ? theme.colorTheme.text.secondary
+                            : widget.currentStep == TimelineStepState.failed ? theme.colorTheme.alert.error : theme.colorTheme.text.primary
                       ),
-                    ))
-                        .toList(),
-                  ),
-                  const SizedBox(height: 4),
-                  Container(
-                    height: 1,
-                    color: const DigitColors().light.genericDivider,
-                  ),
-                  const SizedBox(height: 8),
-                  if (widget.additionalWidgets != null)
+                    ),
+                    SizedBox(
+                      height: isMobile ? spacer1 : spacer2,
+                    ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Wrap(
-                          children: widget.additionalWidgets!
-                              .map(
-                                (widgets) => Padding(
-                              padding: const EdgeInsets.only(
-                                right: spacer2,
-                                bottom: spacer2,
-                              ),
-                              child: widgets,
-                            ),
-                          )
-                              .toList(),
-                        ),
-                      ],
+                      children: widget.description
+                          .map((desc) => Text(
+                                desc,
+                                style: textTheme.bodyS.copyWith(
+                                  color: widget.currentStep == TimelineStepState.failed ? theme.colorTheme.alert.error : theme.colorTheme.text.secondary,
+                                ),
+                              ))
+                          .toList(),
                     ),
-                  if (!isExpanded && widget.additionalHideWidgets != null)
-                    _buildExpandDigitButton(currentTypography),
-                  if (isExpanded && widget.additionalHideWidgets != null)
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Wrap(
-                          children: widget.additionalHideWidgets!
-                              .map(
-                                (widgets) => Padding(
-                              padding: const EdgeInsets.only(
-                                right: spacer2,
-                                bottom: spacer2,
-                              ),
-                              child: widgets,
-                            ),
-                          )
-                              .toList(),
-                        ),
-                        const SizedBox(height: spacer2),
-                        _buildExpandDigitButton(currentTypography),
-                      ],
+                    const SizedBox(height: spacer1),
+                    Container(
+                      height: 1,
+                      color: widget.currentStep == TimelineStepState.failed ? theme.colorTheme.alert.error : theme.colorTheme.generic.divider,
                     ),
-                  if (!widget.isLastStep)
-                    SizedBox(height: isMobile ? spacer4 : isTab ? spacer5 : spacer6,)
-                ],
+                    const SizedBox(height: spacer2),
+                    if (widget.additionalWidgets != null)
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Wrap(
+                            children: widget.additionalWidgets!
+                                .map(
+                                  (widgets) => Padding(
+                                    padding: const EdgeInsets.only(
+                                      right: spacer2,
+                                      bottom: spacer2,
+                                    ),
+                                    child: widgets,
+                                  ),
+                                )
+                                .toList(),
+                          ),
+                        ],
+                      ),
+                    if (!isExpanded && widget.additionalHideWidgets != null)
+                      _buildExpandDigitButton(context),
+                    if (isExpanded && widget.additionalHideWidgets != null)
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Wrap(
+                            children: widget.additionalHideWidgets!
+                                .map(
+                                  (widgets) => Padding(
+                                    padding: const EdgeInsets.only(
+                                      right: spacer2,
+                                      bottom: spacer2,
+                                    ),
+                                    child: widgets,
+                                  ),
+                                )
+                                .toList(),
+                          ),
+                          const SizedBox(height: spacer2),
+                          _buildExpandDigitButton(context),
+                        ],
+                      ),
+                    if (!widget.isLastStep)
+                      SizedBox(
+                        height: isMobile
+                            ? spacer4
+                            : isTab
+                                ? spacer5
+                                : spacer6,
+                      )
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -146,7 +164,7 @@ class _TimelineState extends State<DigitTimeline> {
   Widget _buildConnectingLine() {
     return Expanded(
       child: CustomPaint(
-        painter:  widget.isFirstFuture
+        painter: widget.isFirstFuture
             ? DottedLinePainter(color: const DigitColors().light.primary1)
             : null,
         child: Container(
@@ -154,79 +172,124 @@ class _TimelineState extends State<DigitTimeline> {
           color: widget.isFirstFuture
               ? Colors.transparent
               : widget.currentStep == TimelineStepState.completed ||
-              widget.currentStep == TimelineStepState.present
-              ? const DigitColors().light.primary1
-              : const DigitColors().light.textDisabled,
+                      widget.currentStep == TimelineStepState.present
+                  ? const DigitColors().light.primary1
+                  : const DigitColors().light.textDisabled,
         ),
       ),
     );
   }
 
+  Widget _buildTimelineIcon(bool isMobile, BuildContext context) {
+    final theme = Theme.of(context);
 
-  Widget _buildTimelineIcon(bool isMobile) {
-    return Container(
-      width: isMobile ? 24 : 32,
-      height: isMobile ? 24 : 32,
-      decoration: BoxDecoration(
-        color: widget.currentStep == TimelineStepState.completed
-            ? const DigitColors().light.primary1
-            : widget.currentStep == TimelineStepState.present
-            ? const DigitColors().light.paperPrimary
-            : const DigitColors().light.textDisabled,
-        borderRadius: BorderRadius.circular(50),
-      ),
-      child: widget.currentStep == TimelineStepState.completed
-          ? Icon(
-        Icons.check,
-        color: const DigitColors().light.paperPrimary,
-        size: isMobile ? 18 : 24,
-      )
-          : widget.currentStep == TimelineStepState.present
-          ? Container(
-        padding: isMobile
-            ? const EdgeInsets.all(spacer1)
-            : const EdgeInsets.all(6),
-        width: isMobile ? 24 : 32,
-        height: isMobile ? 24 : 32,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          border: Border.all(
-            color: const DigitColors().light.primary1,
-            width: 2.0,
-          ),
-          color: const DigitColors().light.paperPrimary,
-        ),
-        child: Container(
-          height: isMobile ? 12 : 16,
-          width: isMobile ? 12 : 16,
+    double size = isMobile ? spacer6 : spacer8;
+    double innerSize = isMobile ? spacer6 : spacer8;
+    double paddingSize = isMobile ? spacer1 : 6;
+    double smallCircleSize = isMobile ? spacer3 : spacer4;
+
+    Color iconColor = widget.currentStep == TimelineStepState.completed
+        ? theme.colorTheme.primary.primary1
+        : widget.currentStep == TimelineStepState.failed
+            ? theme.colorTheme.paper.primary
+            : theme.colorTheme.text.disabled;
+
+    Color backgroundColor = widget.currentStep == TimelineStepState.completed
+        ? theme.colorTheme.primary.primary1
+        : widget.currentStep == TimelineStepState.present
+            ? theme.colorTheme.paper.primary
+            : widget.currentStep == TimelineStepState.future
+                ? theme.colorTheme.text.disabled
+                : theme.colorTheme.alert.error;
+
+    Widget content;
+
+    switch (widget.currentStep) {
+      case TimelineStepState.completed:
+        content = Icon(
+          Icons.check,
+          color: theme.colorTheme.paper.primary,
+          size: isMobile ? 18 : 24,
+        );
+        break;
+      case TimelineStepState.present:
+        content = Container(
+          padding: EdgeInsets.all(paddingSize),
+          width: innerSize,
+          height: innerSize,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: const DigitColors().light.primary1,
+            border: Border.all(
+              color: theme.colorTheme.primary.primary1,
+              width: 2.0,
+            ),
+            color: backgroundColor,
           ),
-        ),
-      )
-          : Container(
-        width: isMobile ? 24 : 32,
-        height: isMobile ? 24 : 32,
-        decoration: BoxDecoration(
-          color: const DigitColors().light.textDisabled,
-          borderRadius: BorderRadius.circular(50),
-        ),
+          child: Container(
+            height: smallCircleSize,
+            width: smallCircleSize,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: theme.colorTheme.primary.primary1,
+            ),
+          ),
+        );
+        break;
+      case TimelineStepState.future:
+        content = Container(
+          width: innerSize,
+          height: innerSize,
+          decoration: BoxDecoration(
+            color: iconColor,
+            borderRadius: BorderRadius.circular(50),
+          ),
+        );
+        break;
+      default:
+        content = Container(
+          width: innerSize,
+          height: innerSize,
+          decoration: BoxDecoration(
+            color: backgroundColor,
+            borderRadius: BorderRadius.circular(50),
+          ),
+          child: Icon(
+            Icons.error,
+            color: iconColor,
+            size: isMobile ? 18 : 24,
+          ),
+        );
+    }
+
+    return Container(
+      width: size,
+      height: size,
+      decoration: BoxDecoration(
+        color: backgroundColor,
+        borderRadius: BorderRadius.circular(50),
       ),
+      child: content,
     );
   }
 
-  Widget _buildExpandDigitButton(DigitTypography currentTypography) {
+  Widget _buildExpandDigitButton(BuildContext context) {
+    final theme = Theme.of(context);
+    final textTheme = theme.digitTextTheme(context);
+
     return DigitButton(
       type: DigitButtonType.link,
       size: DigitButtonSize.medium,
-      onPressed: (){
+      onPressed: () {
         setState(() {
           isExpanded = !isExpanded;
         });
       },
       suffixIcon: isExpanded ? Icons.arrow_drop_up : Icons.arrow_drop_down,
-      label : isExpanded ? widget.hideDetailText : widget.viewDetailText,
+      label: isExpanded
+          ? widget.hideDetailText ??
+              localizations.translate(i18.common.hideDetails)
+          : widget.viewDetailText ??
+              localizations.translate(i18.common.viewDetails),
     );
   }
 }
@@ -314,8 +377,6 @@ class TimelineFileWidget extends StatelessWidget {
     }
   }
 }
-
-
 
 class DottedLinePainter extends CustomPainter {
   final Color color;
