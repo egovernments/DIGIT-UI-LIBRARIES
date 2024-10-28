@@ -333,7 +333,7 @@ const MobileSidebar = ({
         )
       }
       <div className={`digit-msb-sidebar-bottom ${theme || ""}`}>
-        <Button onClick={onLogoutClick} label={t("Logout")} icon={"Logout"} variation={"secondary"} />
+        <Button onClick={onLogoutClick} label={t("Logout")} icon={"Logout"} variation={"secondary"} size={"medium"} />
       </div>
     </div>
   ) :  null;

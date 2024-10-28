@@ -23,6 +23,11 @@ const BreadCrumb = (props) => {
     }
   }, [props.crumbs, props.maxItems, expanded,props.itemsBeforeCollapse,props.itemsAfterCollapse,props?.expandText]);
 
+  function handleRedirect(path) {
+    const host = window.location.origin; // Dynamically get the base URL
+    window.location.href = `${host}${path}`;
+  }
+
   function isLast(index) {
     let validcrumb = crumbsToDisplay?.filter((ob) => ob?.show === true)
     return validcrumb?.findIndex((ob) => ob?.path === crumbsToDisplay?.[index]?.path) === validcrumb?.length - 1;
@@ -69,6 +74,13 @@ const BreadCrumb = (props) => {
                   {crumb?.icon && crumb.icon}
                   {crumb.content}
                 </span>
+              ) : crumb?.externalPath ? (
+                <Link 
+                className="digit-bread-crumb-content"
+                onClick={() => handleRedirect(crumb?.path)}>
+                  {crumb?.icon && crumb.icon}
+                  {crumb.content}
+                </Link>
               ) : (
                 <Link
                   to={{ pathname: crumb.path, state: { count: crumb?.count } }}

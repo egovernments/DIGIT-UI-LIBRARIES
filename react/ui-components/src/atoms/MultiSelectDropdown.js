@@ -709,6 +709,7 @@ const MultiSelectDropdown = ({
                           : replacedText
                         : value?.propsData[1]?.[chipsKey]
                     }
+                    hideClose={false}
                     onClick={
                       variant === "treemultiselect"
                         ? () => onSelectToAddToQueue([value])
