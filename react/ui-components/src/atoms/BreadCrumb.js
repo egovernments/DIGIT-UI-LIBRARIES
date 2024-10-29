@@ -32,10 +32,11 @@ const BreadCrumb = (props) => {
     // Filter crumbs to only include those that are displayed
     let validCrumbs = crumbsToDisplay?.filter((crumb) => crumb?.show === true);
     // Check if the current crumb is the last one in the validCrumbs list
-    return validCrumbs?.findIndex((crumb) =>
-      crumb?.internalLink === crumbsToDisplay[index]?.internalLink ||
-      crumb?.externalLink === crumbsToDisplay[index]?.externalLink
-    ) === validCrumbs?.length - 1;
+    return validCrumbs?.findIndex((ob) => {
+      const linkToCheck = ob?.externalLink || ob?.internalLink; // Use externalLink if it exists, else internalLink
+      const currentLink = crumbsToDisplay?.[index]?.externalLink || crumbsToDisplay?.[index]?.internalLink;
+      return linkToCheck === currentLink;
+    }) === validCrumbs?.length - 1;
   }
 
   const handleCrumbClick = () => {
