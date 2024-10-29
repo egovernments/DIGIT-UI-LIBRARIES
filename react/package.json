@@ -46,7 +46,8 @@
     "**/@babel/core": "7.14.0",
     "**/@babel/preset-env": "7.14.0",
     "**/@babel/plugin-transform-modules-commonjs": "7.14.0",
-    "**/polished": "4.2.2"
+    "**/polished": "4.2.2",
+    "**/styled-components": "5.0.0"
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "7.21.0",
