@@ -46,17 +46,17 @@ Basic.args = {
     {
       content: "Home",
       show: true,
-      path: "/home",
+      internalLink: "/home",
     },
     {
       content: "Previous",
       show: true,
-      path: "/previous",
+      internalLink: "/previous",
     },
     {
       content: "Current",
       show: true,
-      path: "/current",
+      internalLink: "/current",
     },
   ],
 };
@@ -67,27 +67,27 @@ Collapsed.args = {
     {
       content: "Home",
       show: true,
-      path: "/home",
+      internalLink: "/home",
     },
     {
       content: "Previous1",
       show: true,
-      path: "/previous1",
+      internalLink: "/previous1",
     },
     {
       content: "Previous2",
       show: true,
-      path: "/previous2",
+      internalLink: "/previous2",
     },
     {
       content: "Previous3",
       show: true,
-      path: "/previous3",
+      internalLink: "/previous3",
     },
     {
       content: "Current",
       show: true,
-      path: "/current",
+      internalLink: "/current",
     },
   ],
   maxItems: 3,
@@ -99,27 +99,27 @@ CollapsedWithCustomValues.args = {
     {
       content: "Home",
       show: true,
-      path: "/home",
+      internalLink: "/home",
     },
     {
       content: "Previous1",
       show: true,
-      path: "/previous1",
+      internalLink: "/previous1",
     },
     {
       content: "Previous2",
       show: true,
-      path: "/previous2",
+      internalLink: "/previous2",
     },
     {
       content: "Previous3",
       show: true,
-      path: "/previous3",
+      internalLink: "/previous3",
     },
     {
       content: "Current",
       show: true,
-      path: "/current",
+      internalLink: "/current",
     },
   ],
   maxItems: 3,
@@ -133,27 +133,27 @@ CollapsedWithExpandText.args = {
     {
       content: "Home",
       show: true,
-      path: "/home",
+      internalLink: "/home",
     },
     {
       content: "Previous1",
       show: true,
-      path: "/previous1",
+      internalLink: "/previous1",
     },
     {
       content: "Previous2",
       show: true,
-      path: "/previous2",
+      internalLink: "/previous2",
     },
     {
       content: "Previous3",
       show: true,
-      path: "/previous3",
+      internalLink: "/previous3",
     },
     {
       content: "Current",
       show: true,
-      path: "/current",
+      internalLink: "/current",
     },
   ],
   maxItems: 3,
@@ -164,19 +164,19 @@ export const WithIcons = Template.bind({});
 WithIcons.args = {
   crumbs: [
     {
-      path: "/home",
+      internalLink: "/home",
       content: "Home",
       show: true,
       icon: <SVG.Home fill={"#C84C0E"} />,
     },
     {
-      path: "/previous",
+      internalLink: "/previous",
       content: "Previous",
       show: true,
       icon: <SVG.Person fill={"#C84C0E"} />,
     },
     {
-      path: "/current",
+      internalLink: "/current",
       content: "Current",
       show: true,
       icon: <SVG.Edit fill={"#787878"} />,
@@ -190,17 +190,17 @@ WithCustomSeparators.args = {
     {
       content: "Home",
       show: true,
-      path: "/home",
+      internalLink: "/home",
     },
     {
       content: "Previous",
       show: true,
-      path: "/previous",
+      internalLink: "/previous",
     },
     {
       content: "Current",
       show: true,
-      path: "/current",
+      internalLink: "/current",
     },
   ],
   customSeparator: <SVG.ArrowForward fill={"#C84C0E"} />,

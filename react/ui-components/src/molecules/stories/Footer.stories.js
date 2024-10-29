@@ -3,7 +3,7 @@ import { Button } from "../../atoms";
 import { ActionBar } from "../../atoms";
 
 export default {
-  title: "Atoms/Footer",
+  title: "Molecules/Footer",
   component: ActionBar,
   argTypes: {
     className: {

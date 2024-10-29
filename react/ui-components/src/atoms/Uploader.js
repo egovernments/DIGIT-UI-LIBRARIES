@@ -397,6 +397,7 @@ const Uploader = (props) => {
                   return (
                     <Chip
                       key={index}
+                      hideClose={false}
                       text={file?.name}
                       onClick={(e) => {
                         e.stopPropagation();

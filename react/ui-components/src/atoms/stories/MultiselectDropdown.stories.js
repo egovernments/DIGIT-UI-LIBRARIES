@@ -4,7 +4,7 @@ import FieldV1 from "../../hoc/FieldV1";
 import { CustomDropdown } from "../../molecules";
 
 export default {
-  title: "Atoms/DropDown/Simple",
+  title: "Atoms/DropDown/MultiSelect",
   component: CustomDropdown,
   argTypes: {
     t: { control: false },
@@ -22,11 +22,9 @@ export default {
     variant: {
       control: "select",
       options: [
-        "nesteddropdown",
-        "treedropdown",
-        "nestedtextdropdown",
-        "profiledropdown",
-        "profilenestedtext",
+        "nestedmultiselect",
+        "treemultiselect",
+        "nestedtextmultiselect",
       ],
     },
   },
@@ -52,24 +50,6 @@ const OptionsWithIcons = [
   { code: "Option1", name: "Option1", icon: "Article" },
   { code: "Option2", name: "Option2", icon: "Article" },
   { code: "Option3", name: "Option3", icon: "Article" },
-];
-//options with profileIcon
-const OptionsWithProfile = [
-  {
-    code: "Option1",
-    name: "Option1",
-    profileIcon: "https://www.freeiconspng.com/uploads/am-a-19-year-old-multimedia-artist-student-from-manila--21.png",
-  },
-  {
-    code: "Option2",
-    name: "Option2",
-    profileIcon: "https://www.freeiconspng.com/uploads/am-a-19-year-old-multimedia-artist-student-from-manila--21.png",
-  },
-  {
-    code: "Option3",
-    name: "Option3",
-    profileIcon: "https://www.freeiconspng.com/uploads/am-a-19-year-old-multimedia-artist-student-from-manila--21.png",
-  },
 ];
 //options with description
 const OptionsWithNestedText = [
@@ -110,27 +90,7 @@ const NestedTextOptionWithIcons = [
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
   },
 ];
-//options with description and profileIcon 
-const NestedTextProfileOptions = [
-  {
-    code: "Option1",
-    name: "Option1",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
-    profileIcon: "https://www.freeiconspng.com/uploads/am-a-19-year-old-multimedia-artist-student-from-manila--21.png",
-  },
-  {
-    code: "Option2",
-    name: "Option2",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
-    profileIcon: "https://www.freeiconspng.com/uploads/am-a-19-year-old-multimedia-artist-student-from-manila--21.png",
-  },
-  {
-    code: "Option3",
-    name: "Option3",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
-    profileIcon: "https://www.freeiconspng.com/uploads/am-a-19-year-old-multimedia-artist-student-from-manila--21.png",
-  },
-];
+
 //nested options
 const nestedOptions = [
   {
@@ -219,6 +179,35 @@ const treeDropdownOptions = [
   },
 ];
 
+//mock options data for chipskey
+const optionsForChipsKey = [
+  { code: "Option1chip", name: "Option1" },
+  { code: "Option2chip", name: "Option2" },
+  { code: "Option3chip", name: "Option3" },
+];
+
+//nested options for chips key
+const nestedOptionsForChipKey = [
+  {
+    name: "Category A",
+    options: [
+      { code: "Category A.Option A", name: "Option A Chipkey" },
+      { code: "Category A.Option B", name: "Option B Chipkey" },
+      { code: "Category A.Option C", name: "Option C Chipkey " },
+    ],
+    code: "Category A",
+  },
+  {
+    name: "Category B",
+    options: [
+      { code: "Category B.Option A", name: "Option A Chipkey" },
+      { code: "Category B.Option 2", name: "Option 2 Chipkey" },
+      { code: "Category B.Option 3", name: "Option 3 Chipkey" },
+    ],
+    code: "Category B",
+  },
+];
+
 const commonArgs = {
   t,
   populators: {
@@ -254,147 +243,162 @@ const commonArgs = {
 export const Basic = Template.bind({});
 Basic.args = {
   ...commonArgs,
-  type: "dropdown",
+  type: "multiselectdropdown",
+  populators: {
+    ...commonArgs.populators,
+    isDropdownWithChip: true,
+  },
+};
+
+export const BasicWithSelectAllCheck = Template.bind({});
+BasicWithSelectAllCheck.args = {
+  ...commonArgs,
+  type: "multiselectdropdown",
+  populators: {
+    ...commonArgs.populators,
+    isDropdownWithChip: true,
+    addSelectAllCheck:true,
+  },
 };
 
 export const BasicWithIcons = Template.bind({});
 BasicWithIcons.args = {
   ...commonArgs,
-  type: "dropdown",
+  type: "multiselectdropdown",
   populators: {
     ...commonArgs.populators,
     name: "iconoptions",
     options: OptionsWithIcons,
     showIcon: true,
+    isDropdownWithChip: true,
   },
 };
 
-export const BasicDisabled = Template.bind({});
-BasicDisabled.args = {
+export const BasicWithChipsKey = Template.bind({});
+BasicWithChipsKey.args = {
   ...commonArgs,
-  type: "dropdown",
+  type: "multiselectdropdown",
+  populators: {
+    ...commonArgs.populators,
+    options:optionsForChipsKey,
+    isDropdownWithChip: true,
+    chipsKey:"code"
+  },
+};
+
+export const Disabled = Template.bind({});
+Disabled.args = {
+  ...commonArgs,
+  type: "multiselectdropdown",
   disabled: true,
 };
 
 export const Categorical = Template.bind({});
 Categorical.args = {
   ...commonArgs,
-  type: "dropdown",
+  type: "multiselectdropdown",
   populators: {
     ...commonArgs.populators,
-    name: "nestedoptions",
+    name: "nestedmultiselectoptions",
     options: nestedOptions,
+    isDropdownWithChip: true,
   },
-  variant: "nesteddropdown",
+  variant: "nestedmultiselect",
+};
+
+export const CategoricalWithSelectAllCheck = Template.bind({});
+CategoricalWithSelectAllCheck.args = {
+  ...commonArgs,
+  type: "multiselectdropdown",
+  populators: {
+    ...commonArgs.populators,
+    name: "nestedmultiselectoptions",
+    options: nestedOptions,
+    isDropdownWithChip: true,
+    addSelectAllCheck:true,
+    addCategorySelectAllCheck:true
+  },
+  variant: "nestedmultiselect",
 };
 
 export const CategoricalWithIcons = Template.bind({});
 CategoricalWithIcons.args = {
   ...commonArgs,
-  type: "dropdown",
+  type: "multiselectdropdown",
   populators: {
     ...commonArgs.populators,
-    name: "nestedoptions",
+    name: "nestedmultiselectoptions",
     options: nestedOptionsWithIcons,
     showIcon: true,
+    isDropdownWithChip: true,
   },
-  variant: "nesteddropdown",
+  variant: "nestedmultiselect",
 };
 
-export const CategoricalDisabled = Template.bind({});
-CategoricalDisabled.args = {
+export const CategoricalWithChipskey = Template.bind({});
+CategoricalWithChipskey.args = {
   ...commonArgs,
-  type: "dropdown",
+  type: "multiselectdropdown",
   populators: {
     ...commonArgs.populators,
-    name: "nestedoptions",
-    options: nestedOptions,
+    name: "nestedmultiselectoptions",
+    options: nestedOptionsForChipKey,
+    isDropdownWithChip: true,
+    chipsKey:"name"
   },
-  variant: "nesteddropdown",
-  disabled: true,
+  variant: "nestedmultiselect",
 };
 
 export const NestedText = Template.bind({});
 NestedText.args = {
   ...commonArgs,
-  type: "dropdown",
+  type: "multiselectdropdown",
   populators: {
     ...commonArgs.populators,
-    name: "nestedtextoptions",
+    name: "nestedtextltiselect",
     options: OptionsWithNestedText,
+    isDropdownWithChip: true,
   },
-  variant: "nestedtextdropdown",
+  variant: "nestedtextmultiselect",
 };
 
-export const NestedTextWithIcon = Template.bind({});
-NestedTextWithIcon.args = {
+export const NestedTextWithSelectAllCheck = Template.bind({});
+NestedTextWithSelectAllCheck.args = {
   ...commonArgs,
-  type: "dropdown",
+  type: "multiselectdropdown",
   populators: {
     ...commonArgs.populators,
-    name: "nestedtextoptions",
+    name: "nestedtextltiselect",
+    options: OptionsWithNestedText,
+    isDropdownWithChip: true,
+    addSelectAllCheck:true
+  },
+  variant: "nestedtextmultiselect",
+};
+
+export const NestedTextWithIcons = Template.bind({});
+NestedTextWithIcons.args = {
+  ...commonArgs,
+  type: "multiselectdropdown",
+  populators: {
+    ...commonArgs.populators,
+    name: "nestedtextltiselect",
     options: NestedTextOptionWithIcons,
+    isDropdownWithChip: true,
     showIcon: true,
   },
-  variant: "nestedtextdropdown",
+  variant: "nestedtextmultiselect",
 };
 
-export const Profile = Template.bind({});
-Profile.args = {
+export const TreeMultiselect = Template.bind({});
+TreeMultiselect.args = {
   ...commonArgs,
-  type: "dropdown",
-  populators: {
-    ...commonArgs.populators,
-    name: "profiledropdown",
-    options: gendersOptions,
-  },
-  variant: "profiledropdown",
-};
-
-export const ProfileWithCustomIcon = Template.bind({});
-ProfileWithCustomIcon.args = {
-  ...commonArgs,
-  type: "dropdown",
-  populators: {
-    ...commonArgs.populators,
-    name: "profiledropdown",
-    options: OptionsWithProfile,
-  },
-  variant: "profiledropdown",
-};
-
-export const ProfileWithNestedText = Template.bind({});
-ProfileWithNestedText.args = {
-  ...commonArgs,
-  type: "dropdown",
-  populators: {
-    ...commonArgs.populators,
-    name: "profiledropdown",
-    options: OptionsWithNestedText,
-  },
-  variant: "profilenestedtext",
-};
-
-export const ProfileWithNestedTextWithCustomIcon = Template.bind({});
-ProfileWithNestedTextWithCustomIcon.args = {
-  ...commonArgs,
-  type: "dropdown",
-  populators: {
-    ...commonArgs.populators,
-    name: "profiledropdown",
-    options: NestedTextProfileOptions,
-  },
-  variant: "profilenestedtext",
-};
-
-export const TreeDropdown = Template.bind({});
-TreeDropdown.args = {
-  ...commonArgs,
-  type: "dropdown",
+  type: "multiselectdropdown",
   populators: {
     ...commonArgs.populators,
     name: "treeoptions",
     options: treeDropdownOptions,
+    isDropdownWithChip: true,
   },
-  variant: "treedropdown",
+  variant: "treemultiselect",
 };
