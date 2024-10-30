@@ -37,7 +37,7 @@ class _TimelineMoleculeState extends LocalizedState<TimelineMolecule> {
     List<TimelineStep> stepsToShow = [];
     int firstFutureIndex = 0;
 
-    if (widget.showAllSteps) {
+    if (widget.showAllSteps || (showMoreFuture && showMorePast)) {
       // Show all steps, including future steps in reverse order
       List<TimelineStep> futureSteps = sortedSteps
           .where((step) => step.state == TimelineStepState.future)
@@ -46,7 +46,7 @@ class _TimelineMoleculeState extends LocalizedState<TimelineMolecule> {
       stepsToShow.addAll(
           sortedSteps.where((step) => step.state == TimelineStepState.present));
       stepsToShow.addAll(sortedSteps
-          .where((step) => step.state == TimelineStepState.completed));
+          .where((step) => step.state == TimelineStepState.completed).toList().reversed);
 
       firstFutureIndex = sortedSteps
           .lastIndexWhere((step) => step.state == TimelineStepState.future);
