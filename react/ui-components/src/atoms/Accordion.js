@@ -23,7 +23,8 @@ const Accordion = ({
   hideDivider,
   hideCardBg,
   hideBorderRadius,
-  isClosed
+  isClosed,
+  isChild
 }) => {
   const [isOpen, setIsOpen] = useState(isOpenInitially);
 
@@ -50,6 +51,8 @@ const Accordion = ({
         !hideCardBg ? "cardBg" : ""
       } ${!hideDivider && isOpen ? "withDivider" : ""} ${
         hideDivider && isOpen ? "no-divider" : ""
+      } ${
+        isChild ? "nested" : ""
       }`}
       style={customStyles}
     >

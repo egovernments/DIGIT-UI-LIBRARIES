@@ -1,6 +1,5 @@
 import React from "react";
 import {Accordion} from "../Accordion";
-import { IMAGES } from "../../constants/images/images";
 
 export default {
   title: "Atoms/Accordion",
@@ -23,27 +22,8 @@ export default {
 
 const Template = (args) => <Accordion {...args} />;
 
-const getImageUrl = (imageKey) => {
-  return IMAGES[imageKey];
-};
-
-const digitImg = getImageUrl("DIGIT_LIGHT");
-
-export const Default = Template.bind({});
-Default.args = {
-  title:
-    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",
-  children:
-    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
-  isOpenInitially: false,
-  hideCardBorder: false,
-  hideDivider: false,
-  hideCardBg: false,
-  hideBorderRadius: false,
-};
-
-export const WithOnlyCardBg = Template.bind({});
-WithOnlyCardBg.args = {
+export const Basic = Template.bind({});
+Basic.args = {
   title:
     "Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",
   children:
@@ -55,8 +35,8 @@ WithOnlyCardBg.args = {
   hideBorderRadius: true,
 };
 
-export const WithOnlyCardBorder = Template.bind({});
-WithOnlyCardBorder.args = {
+export const WithStroke = Template.bind({});
+WithStroke.args = {
   title:
     "Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",
   children:
@@ -64,25 +44,12 @@ WithOnlyCardBorder.args = {
   isOpenInitially: false,
   hideCardBorder: false,
   hideDivider: true,
-  hideCardBg: true,
-  hideBorderRadius: true,
-};
-
-export const WithOnlyBorderRadius = Template.bind({});
-WithOnlyBorderRadius.args = {
-  title:
-    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",
-  children:
-    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
-  isOpenInitially: false,
-  hideCardBorder: false,
-  hideDivider: true,
-  hideCardBg: true,
+  hideCardBg: false,
   hideBorderRadius: false,
 };
 
-export const WithOnlyDivider = Template.bind({});
-WithOnlyDivider.args = {
+export const WithDivider = Template.bind({});
+WithDivider.args = {
   title:
     "Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",
   children:
@@ -94,17 +61,17 @@ WithOnlyDivider.args = {
   hideBorderRadius: true,
 };
 
-export const WithHidden = Template.bind({});
-WithHidden.args = {
+export const WithStrokeAndDivider = Template.bind({});
+WithStrokeAndDivider.args = {
   title:
     "Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",
   children:
     "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
   isOpenInitially: false,
-  hideCardBorder: true,
-  hideDivider: true,
-  hideCardBg: true,
-  hideBorderRadius: true,
+  hideCardBorder: false,
+  hideDivider: false,
+  hideCardBg: false,
+  hideBorderRadius: false,
 };
 
 export const WithIcon = Template.bind({});
@@ -131,74 +98,6 @@ WithNumber.args = {
   hideBorderRadius: false,
 };
 
-export const WithIconAndNumber = Template.bind({});
-WithIconAndNumber.args = {
-  title: "Accordion with Icon and Number",
-  children: "This accordion has both an icon and a number.",
-  icon: "AccountCircle",
-  number: 2,
-  isOpenInitially: false,
-  hideCardBorder: false,
-  hideDivider: false,
-  hideCardBg: false,
-  hideBorderRadius: false,
-};
-
-export const InitiallyOpen = Template.bind({});
-InitiallyOpen.args = {
-  title: "Initially Open Accordion",
-  children: "This accordion is open by default.",
-  isOpenInitially: true,
-  hideCardBorder: false,
-  hideDivider: false,
-  hideCardBg: false,
-  hideBorderRadius: false,
-};
-
-export const CustomStyledAccordion = Template.bind({});
-CustomStyledAccordion.args = {
-  title: "Custom Styled Accordion",
-  children: "This accordion has custom styles.",
-  customClassName: "custom-accordion",
-  customStyles: {
-    borderColor: "#C84C0E",
-    backgroundColor: "#FFFFFF",
-  },
-  hideCardBorder: false,
-  hideDivider: false,
-  hideCardBg: false,
-  hideBorderRadius: false,
-};
-
-export const onToggleCallBack = Template.bind({});
-onToggleCallBack.args = {
-  title: "Accordion with Toggle Callback",
-  children: "This accordion triggers a callback when toggled.",
-  isOpenInitially: false,
-  onToggle: (isOpen) =>
-    console.log("Accordion is now", isOpen ? "Open" : "Closed"),
-  hideCardBorder: false,
-  hideDivider: false,
-  hideCardBg: false,
-  hideBorderRadius: false,
-};
-
-export const Content = Template.bind({});
-Content.args = {
-  isOpenInitially: false,
-  hideCardBorder: false,
-  hideDivider: false,
-  hideCardBg: false,
-  hideBorderRadius: false,
-  title: (
-    <React.Fragment>
-      <em>{"And here's"}</em> <b>{"some"}</b> <u>{"amazing content"}</u>.{" "}
-      {"Toggle the Accordion"}{" "}
-    </React.Fragment>
-  ),
-  children: <img alt="Powered by DIGIT" src={digitImg} />,
-};
-
 export const NestedAccordion = Template.bind({});
 NestedAccordion.args = {
   isOpenInitially: false,
@@ -213,6 +112,22 @@ NestedAccordion.args = {
       children={
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."
       }
+      isChild={true}
     ></Accordion>
   ),
+};
+
+export const Custom = Template.bind({});
+Custom.args = {
+  title: "Custom Styled Accordion",
+  children: "This accordion has custom styles.",
+  customClassName: "custom-accordion",
+  customStyles: {
+    borderColor: "#C84C0E",
+    backgroundColor: "#FFFFFF",
+  },
+  hideCardBorder: false,
+  hideDivider: false,
+  hideCardBg: false,
+  hideBorderRadius: false,
 };

@@ -79,7 +79,7 @@ import TextBlock from "./TextBlock";
 import Panels from "./Panels";
 import Animation from "./Animation";
 import ViewCardFieldPair from "./ViewCardFieldPair";
-import ButtonsGroup from "./ButtonsGroup";
+import ButtonGroup from "./ButtonGroup";
 import Divider from "./Divider";
 import TopBar from "./TopBar";
 import Hamburger from "./Hamburger";
@@ -180,7 +180,7 @@ export {
   Timeline,
   ViewCardFieldPair,
   Divider,
-  ButtonsGroup,
+  ButtonGroup,
   StringManipulator,
   InfoButton,
   Uploader,

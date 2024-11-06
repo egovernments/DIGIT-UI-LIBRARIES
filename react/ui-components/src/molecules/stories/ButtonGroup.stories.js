@@ -1,15 +1,15 @@
 import React from "react";
 import { Button } from "../../atoms";
-import {ButtonsGroup} from "../../atoms";
+import {ButtonGroup} from "../../atoms";
 
 export default {
-  title: "Atoms/ButtonsGroup",
-  component: ButtonsGroup,
+  title: "Molecules/ButtonGroup",
+  component: ButtonGroup,
   argTypes: {
   },
 };
 
-const Template = (args) => <ButtonsGroup {...args} />;
+const Template = (args) => <ButtonGroup {...args} />;
 
 const buttons = [
     <Button type={"button"} size={"large"} variation={"primary"} label="ButtonPrimary" onClick={() => console.log("Clicked Button 1")} />,
