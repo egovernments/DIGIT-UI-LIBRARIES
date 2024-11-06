@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Button from "./Button";
 
-const ButtonsGroup = ({ buttonsArray ,sortButtons}) => {
+const ButtonGroup = ({ buttonsArray ,sortButtons}) => {
   const [isMobileView, setIsMobileView] = React.useState(
     window.innerWidth <= 480
   );
@@ -32,13 +32,13 @@ const ButtonsGroup = ({ buttonsArray ,sortButtons}) => {
     ...buttonsArray.map((button) => button.props.label.length * 14.9)
   );
 
-  const updatedButtonsArray = buttonsArray.map((button) => {
+  const updatedButtonsArray = buttonsArray && buttonsArray.length > 1 ? buttonsArray.map((button) => {
     const buttonProps = {
       ...button.props,
       style: { ...(button.props.style || {}), width: `${maxWidth}px` },
     };
     return <Button key={buttonProps.key} {...buttonProps} />;
-  });
+  }) : buttonsArray;
 
   const resultArray = isMobileView ? buttonsArray : updatedButtonsArray;
 
@@ -63,10 +63,10 @@ const ButtonsGroup = ({ buttonsArray ,sortButtons}) => {
   );
 };
 
-ButtonsGroup.propTypes = {
+ButtonGroup.propTypes = {
   buttonsArray: PropTypes.arrayOf(PropTypes.element).isRequired,
   sortButtons:PropTypes.bool
 };
 
-export default ButtonsGroup;
+export default ButtonGroup;
 

@@ -5,7 +5,7 @@ import TextArea from "../../atoms/TextArea";
 import MultiSelectDropdown from "../../atoms/MultiSelectDropdown";
 import Dropdown from "../../atoms/Dropdown";
 import TextInput from "../../atoms/TextInput";
-import ButtonsGroup from "../../atoms/ButtonsGroup";
+import ButtonGroup from "../../atoms/ButtonGroup";
 import CardLabel from "../../atoms/CardLabel";
 import { TextBlock } from "../../atoms";
 import { Card } from "../../atoms";
@@ -174,6 +174,6 @@ export const PrimarySearchCard = () => (
         }}
       />
     </div>
-    <ButtonsGroup buttonsArray={buttons}></ButtonsGroup>
+    <ButtonGroup buttonsArray={buttons}></ButtonGroup>
   </Card>
 );

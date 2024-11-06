@@ -64,6 +64,7 @@
     overflow-y: scroll;
     display: flex;
     flex-direction: column;
+    height: 100%;
 
     @media (max-aspect-ratio: 9/16) {
         gap: theme(digitv2.spacers.spacer4);

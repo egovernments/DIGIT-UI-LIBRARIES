@@ -137,7 +137,7 @@
     }
 
     &.withDivider {
-        .digit-accordion-content {
+        .digit-accordion-content.open{
             border-top: 1px solid theme(digitv2.lightTheme.generic-divider);
         }
     }
@@ -149,7 +149,11 @@
     }
 
     &.cardBg {
-        background-color: theme(digitv2.lightTheme.paper-secondary);
+        background-color: theme(digitv2.lightTheme.paper-primary);
+
+        &.nested {
+            background-color: theme(digitv2.lightTheme.paper-secondary);
+        }
     }
 }
 

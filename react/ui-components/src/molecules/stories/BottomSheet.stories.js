@@ -58,43 +58,15 @@ const actions = [
   />,
 ];
 
-export const Closed = Template.bind({});
-Closed.args = {
+export const Basic = Template.bind({});
+Basic.args = {
   ...commonArgs,
   initialState: "closed",
   children: additionalElements,
 };
 
-export const Fixed = Template.bind({});
-Fixed.args = {
-  ...commonArgs,
-  initialState: "fixed",
-  children: additionalElements,
-};
-
-export const Quarter = Template.bind({});
-Quarter.args = {
-  ...commonArgs,
-  initialState: "quarter",
-  children: additionalElements,
-};
-
-export const Intermediate = Template.bind({});
-Intermediate.args = {
-  ...commonArgs,
-  initialState: "intermediate",
-  children: additionalElements,
-};
-
-export const Full = Template.bind({});
-Full.args = {
-  ...commonArgs,
-  initialState: "full",
-  children: additionalElements,
-};
-
-export const ClosedWithActions = Template.bind({});
-ClosedWithActions.args = {
+export const WithActions = Template.bind({});
+WithActions.args = {
   ...commonArgs,
   initialState: "closed",
   enableActions: true,
@@ -102,44 +74,8 @@ ClosedWithActions.args = {
   actions: actions,
 };
 
-export const FixedWithActions = Template.bind({});
-FixedWithActions.args = {
-  ...commonArgs,
-  initialState: "fixed",
-  enableActions: true,
-  children: additionalElements,
-  actions: actions,
-};
-
-export const QuarterWithActions = Template.bind({});
-QuarterWithActions.args = {
-  ...commonArgs,
-  initialState: "quarter",
-  enableActions: true,
-  children: additionalElements,
-  actions: actions,
-};
-
-export const IntermediateWithActions = Template.bind({});
-IntermediateWithActions.args = {
-  ...commonArgs,
-  initialState: "intermediate",
-  enableActions: true,
-  children: additionalElements,
-  actions: actions,
-};
-
-export const FullWithActions = Template.bind({});
-FullWithActions.args = {
-  ...commonArgs,
-  initialState: "full",
-  enableActions: true,
-  children: additionalElements,
-  actions: actions,
-};
-
-export const ClosedWithActionsEqualWidthButtons = Template.bind({});
-ClosedWithActionsEqualWidthButtons.args = {
+export const Custom = Template.bind({});
+Custom.args = {
   ...commonArgs,
   initialState: "closed",
   enableActions: true,

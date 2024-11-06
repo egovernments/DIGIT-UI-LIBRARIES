@@ -1,0 +1,153 @@
+import React from "react";
+import FieldV1 from "../../hoc/FieldV1";
+import CheckBox from "../CheckBox";
+
+export default {
+  title: "Atoms/CheckBox/Intermediate",
+  component: CheckBox,
+  argTypes: {
+    config: { control: "object" },
+    inputRef: { control: false },
+    onChange: { action: "onChange" },
+    errorStyle: { control: "object" },
+    disabled: { control: "boolean" },
+    type: { control: "text" },
+    props: { control: "object" },
+    populators: { control: "object" },
+    formData: { control: "object" },
+    isIntermediate:{control:"boolean"}
+  },
+};
+
+const Template = (args) => <FieldV1 {...args} />;
+
+const t = (key) => key;
+
+const commonArgs = {
+  t: t,
+  populators: {
+    title: "Value",
+    name: "checked",
+    isLabelFirst:false,
+    isIntermediate:false
+  },
+  formData: {
+    checked: true,
+  },
+  inputRef: null,
+  onChange: () => {},
+  errorStyle: null,
+  disabled: false,
+  type: "checkbox",
+};
+
+//checkbox intermediate
+export const Basic = Template.bind({});
+Basic.args = {
+  ...commonArgs,
+  populators: {
+    ...commonArgs.populators,
+    title: "",
+    isIntermediate:true
+  },
+  formData: {
+    ...commonArgs.formData,
+    checked: false,
+  },
+};
+
+export const Labelled = Template.bind({});
+Labelled.args = {
+  ...commonArgs,
+  populators: {
+    ...commonArgs.populators,
+    title: "Value",
+    isIntermediate:true
+  },
+  formData: {
+    ...commonArgs.formData,
+    checked: false,
+  },
+};
+
+//checkbox with paragrah as a label
+export const LongLabelled = Template.bind({});
+LongLabelled.args = {
+  ...commonArgs,
+  populators: {
+    ...commonArgs.populators,
+    isIntermediate:true,
+    title:
+      "In the quiet glow of dawn, the city stirred to life. A gentle breeze carried whispers of possibility through the streets, as if the day itself held secrets waiting to unfold. Birds painted ribbons of melody across the sky, joining the symphony of a waking world. The first rays of sunlight tiptoed over the horizon, casting a warm, golden hue on the buildings and trees below. In this tranquil moment, the promise of a new day hung in the air, inviting everyone to embrace the journey ahead.",
+  },
+  formData: {
+    ...commonArgs.formData,
+    checked: false,
+  },
+};
+
+
+//checkbox with label before
+export const LabelFirst = Template.bind({});
+LabelFirst.args = {
+  ...commonArgs,
+  populators: {
+    ...commonArgs.populators,
+    title: "Value",
+    isLabelFirst:true,
+    isIntermediate:true
+  },
+  formData: {
+    ...commonArgs.formData,
+    checked: false,
+  },
+};
+
+//checkbox with label before
+export const LongLabelFirst = Template.bind({});
+LongLabelFirst.args = {
+  ...commonArgs,
+  populators: {
+    ...commonArgs.populators,
+    isLabelFirst:true,
+    isIntermediate:true,
+    title:
+      "In the quiet glow of dawn, the city stirred to life. A gentle breeze carried whispers of possibility through the streets, as if the day itself held secrets waiting to unfold. Birds painted ribbons of melody across the sky, joining the symphony of a waking world. The first rays of sunlight tiptoed over the horizon, casting a warm, golden hue on the buildings and trees below. In this tranquil moment, the promise of a new day hung in the air, inviting everyone to embrace the journey ahead.",
+  },
+  formData: {
+    ...commonArgs.formData,
+    checked: false,
+  },
+};
+
+//checkbox intermediate
+export const Disabled = Template.bind({});
+Disabled.args = {
+  ...commonArgs,
+  populators: {
+    ...commonArgs.populators,
+    title: "Value",
+    isIntermediate:true
+  },
+  formData: {
+    ...commonArgs.formData,
+    checked: false,
+  },
+  disabled: true,
+};
+
+export const FunctionalCheckbox = () => {
+  const [isChecked, setIsChecked] = React.useState(false);
+
+  const handleCheckboxChange = (event) => {
+    setIsChecked(event.target.checked);
+  };
+
+  return (
+    <CheckBox
+      label={"Label"}
+      checked={isChecked}
+      onChange={handleCheckboxChange}
+    ></CheckBox>
+  );
+};
