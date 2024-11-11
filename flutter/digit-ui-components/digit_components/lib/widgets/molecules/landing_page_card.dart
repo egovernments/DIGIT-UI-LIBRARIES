@@ -8,7 +8,7 @@ class MatrixListComponent extends StatelessWidget {
   final IconData? icon;
   final String heading;
   final List<MatrixModel>? matrixList; // Matrix list is now optional
-  final List<ActionItem> actions;
+  final List<ActionItem>? actions;
   final bool filledIcon;
   final Widget? centerWidget;
   final Widget? additionalWidget;
@@ -20,7 +20,7 @@ class MatrixListComponent extends StatelessWidget {
     this.icon,
     required this.heading,
     this.matrixList,
-    required this.actions,
+    this.actions,
     this.centerWidget,
     this.additionalWidget,
     this.filledIcon = false,
@@ -46,9 +46,9 @@ class MatrixListComponent extends StatelessWidget {
                 children: [
                   if (!showIconOnRight && icon != null) _buildIcon(context),
                   if (!showIconOnRight && icon != null)
-                    const SizedBox(width: 8),
+                    const SizedBox(width: spacer2),
                   if (!showIconOnRight && icon != null && filledIcon)
-                    const SizedBox(width: 8),
+                    const SizedBox(width: spacer2),
                   Flexible(
                     child: Text(
                       heading,
@@ -60,46 +60,46 @@ class MatrixListComponent extends StatelessWidget {
                     ),
                   ),
                   if (showIconOnRight && icon != null)
-                    const SizedBox(width: 8),
+                    const SizedBox(width: spacer2),
                   if (showIconOnRight && icon != null) _buildIcon(context),
                 ],
               ),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: spacer4),
             const DigitDivider(
               dividerType: DividerType.small,
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: spacer4),
             if (matrixList != null && matrixList!.isNotEmpty)
               _buildMatrixList(context),
             if (matrixList != null && matrixList!.isNotEmpty)
               const SizedBox(
-                height: 16,
+                height: spacer4,
               ),
             if (matrixList != null && matrixList!.isNotEmpty)
               const DigitDivider(dividerType: DividerType.small),
             if (matrixList != null && matrixList!.isNotEmpty)
-              const SizedBox(height: 16),
+              const SizedBox(height: spacer4),
             if (centerWidget != null) ...[
               centerWidget!,
-              const SizedBox(height: 16),
+              const SizedBox(height: spacer4),
               const DigitDivider(dividerType: DividerType.small),
-              const SizedBox(height: 16),
+              const SizedBox(height: spacer4),
             ],
+            if(actions != null && actions!.isNotEmpty)
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                for (var i = 0; i < actions.length; i++) ...[
-                  ActionDigitButton(action: actions[i]),
-                  if (i < actions.length - 1) const SizedBox(height: 16),
-                  // Add gap between items
+                for (var i = 0; i < actions!.length; i++) ...[
+                  ActionDigitButton(action: actions![i]),
+                  if (i < actions!.length - 1) const SizedBox(height: spacer4),
                 ],
               ],
             ),
             if (additionalWidget != null) ...[
-              const SizedBox(height: 16),
+              const SizedBox(height: spacer4),
               const DigitDivider(dividerType: DividerType.small),
-              const SizedBox(height: 16),
+              const SizedBox(height: spacer4),
               additionalWidget!,
             ],
           ],
@@ -109,25 +109,28 @@ class MatrixListComponent extends StatelessWidget {
   }
 
   Widget _buildIcon(BuildContext context) {
+    final theme = Theme.of(context);
+
     bool isMobile = AppView.isMobileView(MediaQuery
         .of(context)
         .size);
     bool isTab = AppView.isTabletView(MediaQuery
         .of(context)
         .size);
+
     return Container(
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.all(spacer2),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(2),
         color: filledIcon
-            ? const DigitColors().light.primary1
-            : const DigitColors().light.paperPrimary,
+            ? theme.colorTheme.primary.primary1
+            : theme.colorTheme.paper.primary,
       ),
       child: Icon(
         icon,
         color: filledIcon
-            ? const DigitColors().light.paperPrimary
-            : const DigitColors().light.primary1,
+            ? theme.colorTheme.paper.primary
+            : theme.colorTheme.primary.primary1,
         size: isMobile
             ? 28
             : isTab
@@ -147,7 +150,7 @@ class MatrixListComponent extends StatelessWidget {
         int index = entry.key;
         var matrix = entry.value;
 
-        return Flexible( // Use Flexible or Expanded to ensure the text fits the available space
+        return Flexible(
           child: Padding(
             padding: EdgeInsets.only(right: index == matrixList!.length - 1 ? 0 : 16.0),
             child: Column(
@@ -158,6 +161,7 @@ class MatrixListComponent extends StatelessWidget {
                 Text(
                   matrix.title,
                   maxLines: 10,
+                  textAlign: alignCenterMatrixList ? TextAlign.center : TextAlign.start,
                   overflow: TextOverflow.ellipsis,
                   style: textTheme.headingM.copyWith(
                     color: theme.colorTheme.text.primary,
@@ -167,6 +171,7 @@ class MatrixListComponent extends StatelessWidget {
                 Text(
                   matrix.description,
                   maxLines: 10,
+                  textAlign: alignCenterMatrixList ? TextAlign.center : TextAlign.start,
                   overflow: TextOverflow.ellipsis,
                   style: textTheme.bodyXS.copyWith(
                     color: theme.colorTheme.text.secondary,
@@ -210,7 +215,7 @@ class ActionDigitButton extends StatelessWidget {
             Icon(
               action.icon,
               color: theme.colorTheme.primary.primary1,
-              size: 20,
+              size: spacer5,
             ),
           if (action.icon != null)
             const SizedBox(

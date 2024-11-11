@@ -1,7 +1,6 @@
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import '../atoms/digit_button.dart';
 import '../atoms/panel.dart';
 import '../helper_widget/button_list.dart';
 

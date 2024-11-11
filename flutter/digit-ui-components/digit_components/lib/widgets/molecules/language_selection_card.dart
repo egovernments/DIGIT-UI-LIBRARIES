@@ -31,15 +31,15 @@ class DigitLanguageCard extends StatelessWidget {
         vertical: spacer4,
         horizontal: spacer4,
       ),
-      margin: const EdgeInsets.all(spacer2),
       children: [
         Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             appLogo ?? const SizedBox.shrink(),
+            if(appLogo != null) const SizedBox(height: spacer4,),
             DigitRowCard(
-              spacing: spacer2,
+              spacing: spacer4,
               alignment: WrapAlignment.spaceBetween,
               onChanged: onLanguageChange,
               rowItems: digitRowCardItems,
@@ -98,7 +98,6 @@ class _DigitRowCardState extends State<DigitRowCard> {
   @override
   void initState() {
     super.initState();
-    _calculateMaxLabelWidth();
   }
 
   // Function to calculate the width of the largest label based on the text theme of the current screen
@@ -139,7 +138,8 @@ class _DigitRowCardState extends State<DigitRowCard> {
     final theme = Theme.of(context);
     final textTheme = theme.digitTextTheme(context);
 
-    return GestureDetector(
+
+    return InkWell(
       onTap: () => _onItemTap(item),
       child: Container(
         width: max(itemWidth, maxLabelWidth), // Use the calculated width
@@ -180,6 +180,7 @@ class _DigitRowCardState extends State<DigitRowCard> {
     final totalSpacing = (widget.rowItems.length - 1) * widget.spacing;
     final availableWidth = screenWidth - totalSpacing;
     final itemWidth = availableWidth / widget.rowItems.length;
+    _calculateMaxLabelWidth();
 
     return Wrap(
       spacing: widget.spacing,
