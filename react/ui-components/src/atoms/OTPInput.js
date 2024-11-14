@@ -45,6 +45,7 @@ const OTPInput = ({
   };
 
   const handlePaste = (e) => {
+    e.preventDefault();
     const pastedData = e.clipboardData.getData("text").slice(0, length);
     const newOtp = [...otp];
     let pasteIndex = 0;
@@ -52,13 +53,11 @@ const OTPInput = ({
       const char = pastedData[pasteIndex];
 
       if (
-        (type === "numeric" && !isNaN(char)) ||
+        (type === "numeric" && !isNaN(char) && char !== " ") ||
         (type === "alphanumeric" && /^[a-zA-Z0-9]*$/.test(char))
       ) {
-        if (newOtp[i] === "") {
-          newOtp[i] = char;
-          pasteIndex++;
-        }
+        newOtp[i] = char;
+        pasteIndex++;
       }
     }
 
@@ -69,16 +68,22 @@ const OTPInput = ({
       setError(callbackError || null);
     }
 
-    const lastFilledIndex = newOtp.findIndex((char) => char === "");
-    if (lastFilledIndex !== -1) {
-      inputRefs.current[lastFilledIndex].focus();
-    }
+    // Focusing on the next input after the last pasted character
+    const nextIndex = pasteIndex < length ? pasteIndex : length - 1;
+    inputRefs.current[nextIndex].focus();
   };
 
   const handleKeyDown = (e, index) => {
     if (e.key === "Backspace") {
+      e.preventDefault();
       const newOtp = [...otp];
-      newOtp[index] = "";
+
+      // Remove the current value and shift all subsequent values to the left
+      for (let i = index; i < newOtp.length - 1; i++) {
+        newOtp[i] = newOtp[i + 1];
+      }
+      newOtp[newOtp.length - 1] = "";
+
       setOtp(newOtp);
       onChange(newOtp.join(""));
       if (index > 0) {
