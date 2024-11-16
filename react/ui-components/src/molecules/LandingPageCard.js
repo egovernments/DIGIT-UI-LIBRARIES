@@ -28,7 +28,7 @@ const LandingPageCard = ({
   };
 
   const handleLinkClick = ({ link, label, icon }) => {
-    history?.push(link);
+    link?.includes(`${window?.contextPath}/`) ? history?.push(link) : window.location.href = link;
   };
   const primaryIconColor = Colors.lightTheme.primary[1];
   const secondaryIconColor = Colors.lightTheme.paper.primary;
