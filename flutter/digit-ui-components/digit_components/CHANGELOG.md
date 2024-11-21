@@ -1,3 +1,9 @@
+## 0.0.2-dev
+* Breaking changes
+* Fixed existing issues
+* Added new component and molecules
+* Upgraded Flutter version to 3.22.2
+
 ## 0.0.1+7
 * updated color and typography library
 * added location fetch bloc
