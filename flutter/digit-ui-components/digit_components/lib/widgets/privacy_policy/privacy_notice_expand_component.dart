@@ -4,12 +4,11 @@ import 'package:flutter/material.dart';
 import '../../models/privacy_notice/privacy_notice_model.dart';
 import '../localized.dart';
 
-class ExpandableSection extends LocalizedStatefulWidget {
+class ExpandableSection extends StatefulWidget {
   final ContentNoticeModel content;
 
   const ExpandableSection({
     super.key,
-    super.appLocalizations,
     required this.content,
   });
 
@@ -17,7 +16,7 @@ class ExpandableSection extends LocalizedStatefulWidget {
   ExpandableSectionState createState() => ExpandableSectionState();
 }
 
-class ExpandableSectionState extends LocalizedState<ExpandableSection> {
+class ExpandableSectionState extends State<ExpandableSection> {
   bool _isExpanded = false;
 
   @override
@@ -53,7 +52,7 @@ class ExpandableSectionState extends LocalizedState<ExpandableSection> {
                   if (widget.content.header != null)
                     Flexible(
                       child: Text(
-                        localizations.translate(widget.content.header!),
+                        widget.content.header ?? 'content header',
                         maxLines: 3,
                         style: Theme.of(context)
                             .textTheme
@@ -92,13 +91,12 @@ class ExpandableSectionState extends LocalizedState<ExpandableSection> {
   }
 }
 
-class DescriptionWidget extends LocalizedStatefulWidget {
+class DescriptionWidget extends StatefulWidget {
   final DescriptionNoticeModel description;
   final int? stepNumber;
 
   const DescriptionWidget({
     super.key,
-    super.appLocalizations,
     required this.description,
     this.stepNumber,
   });
@@ -107,7 +105,7 @@ class DescriptionWidget extends LocalizedStatefulWidget {
   DescriptionWidgetState createState() => DescriptionWidgetState();
 }
 
-class DescriptionWidgetState extends LocalizedState<DescriptionWidget> {
+class DescriptionWidgetState extends State<DescriptionWidget> {
   @override
   Widget build(BuildContext context) {
     final descriptionText = widget.description.text ?? '';
@@ -155,7 +153,7 @@ class DescriptionWidgetState extends LocalizedState<DescriptionWidget> {
           ),
           children: [
             TextSpan(
-              text: localizations.translate(descriptionText),
+              text: descriptionText,
               style: TextStyle(
                 fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
               ),
@@ -180,7 +178,7 @@ class DescriptionWidgetState extends LocalizedState<DescriptionWidget> {
           Expanded(
             child: RichText(
               text: TextSpan(
-                text: localizations.translate(descriptionText),
+                text: descriptionText,
                 style: TextStyle(
                   fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
                 ),
@@ -192,7 +190,7 @@ class DescriptionWidgetState extends LocalizedState<DescriptionWidget> {
       );
     } else {
       return Text(
-        localizations.translate(descriptionText),
+        descriptionText,
         textAlign: TextAlign.justify,
         style: TextStyle(
           fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
@@ -202,13 +200,12 @@ class DescriptionWidgetState extends LocalizedState<DescriptionWidget> {
   }
 }
 
-class SubDescriptionWidget extends LocalizedStatefulWidget {
+class SubDescriptionWidget extends StatefulWidget {
   final SubDescriptionNoticeModel subDescription;
   final int? stepNumber;
 
   const SubDescriptionWidget({
     super.key,
-    super.appLocalizations,
     required this.subDescription,
     this.stepNumber,
   });
@@ -217,7 +214,7 @@ class SubDescriptionWidget extends LocalizedStatefulWidget {
   SubDescriptionWidgetState createState() => SubDescriptionWidgetState();
 }
 
-class SubDescriptionWidgetState extends LocalizedState<SubDescriptionWidget> {
+class SubDescriptionWidgetState extends State<SubDescriptionWidget> {
   @override
   Widget build(BuildContext context) {
     final subDescriptionText = widget.subDescription.text ?? '';
@@ -244,7 +241,7 @@ class SubDescriptionWidgetState extends LocalizedState<SubDescriptionWidget> {
       String subDescriptionType, bool isBold, int? stepNumber) {
     if (subDescriptionType == 'step') {
       return Text(
-        '$stepNumber. ${localizations.translate(subDescriptionText)}',
+        '$stepNumber. $subDescriptionText',
         textAlign: TextAlign.justify,
         style: TextStyle(
           fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
@@ -265,7 +262,7 @@ class SubDescriptionWidgetState extends LocalizedState<SubDescriptionWidget> {
           const SizedBox(width: spacer2),
           Expanded(
             child: Text(
-              localizations.translate(subDescriptionText),
+              subDescriptionText,
               textAlign: TextAlign.justify,
               style: TextStyle(
                 fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
@@ -276,7 +273,7 @@ class SubDescriptionWidgetState extends LocalizedState<SubDescriptionWidget> {
       );
     } else {
       return Text(
-        localizations.translate(subDescriptionText),
+        subDescriptionText,
         textAlign: TextAlign.justify,
         style: TextStyle(
           fontWeight: isBold ? FontWeight.bold : FontWeight.normal,

@@ -7,30 +7,33 @@ import '../localized.dart';
 import 'privacy_notice_dialog.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
-class PrivacyComponent extends LocalizedStatefulWidget {
+class PrivacyComponent extends StatefulWidget {
   final String formControlName;
   final String text;
   final String linkText;
   final PrivacyNoticeModel? privacyPolicy;
   final String? trailingText;
   final String validationMessage;
+  final String acceptText;
+  final String declineText;
 
   const PrivacyComponent({
     super.key,
-    super.appLocalizations,
     required this.formControlName,
     required this.text,
     required this.linkText,
     this.trailingText,
     this.privacyPolicy,
     required this.validationMessage,
+    required this.acceptText,
+    required this.declineText
   });
 
   @override
   State<PrivacyComponent> createState() => _PrivacyComponentState();
 }
 
-class _PrivacyComponentState extends LocalizedState<PrivacyComponent> {
+class _PrivacyComponentState extends State<PrivacyComponent> {
   late ValueNotifier<bool> checkboxStateNotifier;
 
   @override
@@ -130,6 +133,8 @@ class _PrivacyComponentState extends LocalizedState<PrivacyComponent> {
                                           checkboxStateNotifier.value = false;
                                           field.didChange(false);
                                         },
+                                        acceptText: widget.acceptText,
+                                        declineText: widget.declineText,
                                       );
                                     },
                                   );
