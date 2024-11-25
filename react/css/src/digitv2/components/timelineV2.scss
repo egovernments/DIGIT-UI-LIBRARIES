@@ -153,6 +153,10 @@
   .timeline-individual-element {
     @apply w-full max-w-full;
 
+    &.hidden{
+      display: none;
+    }
+
   }
 }
 
