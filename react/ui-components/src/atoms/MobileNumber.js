@@ -28,6 +28,7 @@ const MobileNumber = (props) => {
             onChange={onChange}
             inputRef={props.inputRef}
             value={props.value}
+            id={props?.id}
             className={props.className}
             style={{ ...props.style }}
             maxLength={props.maxLength}

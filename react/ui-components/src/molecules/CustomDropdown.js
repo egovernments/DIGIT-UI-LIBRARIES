@@ -7,7 +7,7 @@ import Dropdown from "../atoms/Dropdown";
 import Toggle from "../atoms/Toggle";
 import { createFunction } from "./techMolecules/createFunction";
 
-const CustomDropdown = ({ t, config, inputRef, label, onChange, value, errorStyle, disabled, type, additionalWrapperClass = "",variant,mdmsv2}) => {
+const CustomDropdown = ({ t, config, inputRef, label, onChange,id, value, errorStyle, disabled, type, additionalWrapperClass = "",variant,mdmsv2}) => {
   const master = { name: config?.mdmsConfig?.masterName };
   if (config?.mdmsConfig?.filter) {
     master["filter"] = config?.mdmsConfig?.filter;
@@ -43,6 +43,7 @@ const CustomDropdown = ({ t, config, inputRef, label, onChange, value, errorStyl
             onSelect={(e) => {
               onChange(e, config.name);
             }}
+            id={id}
             disabled={disabled}
             selectedOption={value}
             defaultValue={value}
@@ -64,6 +65,7 @@ const CustomDropdown = ({ t, config, inputRef, label, onChange, value, errorStyl
             key={config.name}
             optionKey={config?.optionsKey}
             value={value}
+            id={id}
             select={(e) => {
               onChange(e, config.name);
             }}
@@ -86,6 +88,7 @@ const CustomDropdown = ({ t, config, inputRef, label, onChange, value, errorStyl
             key={config.name}
             optionsKey={config?.optionsKey}
             value={value}
+            id={id}
             onSelect={(e) => {
               onChange(e, config.name);
             }}

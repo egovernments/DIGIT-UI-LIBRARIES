@@ -59,6 +59,7 @@ const FieldV1 = ({
   const customValidation = config?.populators?.validation?.customValidation;
   const customRules = customValidation ? { validate: customValidation } : {};
   const customProps = config?.customProps;
+  const fieldId=Digit?.Utils.getFieldIdName?.(label)||"NA";
 
   const [currentCharCount, setCurrentCharCount] = useState(0);
 
@@ -151,6 +152,7 @@ const FieldV1 = ({
             customIcon={populators?.customIcon}
             customClass={populators?.customClass}
             onIconSelection={populators?.onIconSelection}
+            id={fieldId}
           />
         );
       case "textarea":
@@ -172,6 +174,7 @@ const FieldV1 = ({
               errorStyle={errors?.[populators?.name]}
               maxlength={populators?.validation?.maxlength}
               minlength={populators?.validation?.minlength}
+              id={fieldId}
             />
           </div>
         );
@@ -191,6 +194,7 @@ const FieldV1 = ({
             onChange={onChange}
             config={populators}
             disabled={disabled}
+            id={fieldId}
             errorStyle={errors?.[populators?.name]}
             variant={
               variant
@@ -217,6 +221,7 @@ const FieldV1 = ({
               customLabelMarkup={populators?.customLabelMarkup}
               disabled={disabled}
               isLabelFirst={populators?.isLabelFirst}
+              id={fieldId}
             />
           </div>
         );
@@ -228,6 +233,7 @@ const FieldV1 = ({
               optionsKey={populators?.optionsKey}
               chipsKey={populators?.chipsKey}
               props={props}
+              id={fieldId}
               isPropsNeeded={true}
               onSelect={(e) => {
                 onChange(
@@ -261,6 +267,7 @@ const FieldV1 = ({
               onChange={onChange}
               value={value}
               disable={disabled}
+              id={fieldId}
               errorStyle={errors?.[populators?.name]}
             />
           </div>
@@ -274,6 +281,7 @@ const FieldV1 = ({
             onSelect={controllerProps?.setValue}
             config={config}
             data={formData}
+            id={fieldId}
             formData={formData}
             register={controllerProps?.register}
             errors={errors}
@@ -300,6 +308,7 @@ const FieldV1 = ({
             register={controllerProps?.register}
             formData={formData}
             errors={errors}
+            id={fieldId}
             control={controllerProps?.control}
             customClass={config?.customClass}
             customErrorMsg={config?.error}
@@ -323,6 +332,7 @@ const FieldV1 = ({
             name={populators?.name}
             onChange={onChange}
             inputRef={ref}
+            id={fieldId}
             errorStyle={errors?.[populators?.name]}
             max={populators?.validation?.max}
             min={populators?.validation?.min}
@@ -348,6 +358,8 @@ const FieldV1 = ({
     }
   };
 
+
+
   return (
     <div className="label-field-wrapper">
       {!withoutLabel && (
@@ -361,7 +373,8 @@ const FieldV1 = ({
               populators?.wrapLabel ? "wraplabel" : ""
             }`}
           >
-            <div
+            <label
+              for={fieldId}
               className={`label-styles ${
                 populators?.wrapLabel ? "wraplabel" : ""
               }`}
@@ -372,7 +385,7 @@ const FieldV1 = ({
                   maxLength: 64,
                 })
               )}
-            </div>
+            </label>
             <div style={{ color: "#B91900" }}>{required ? " * " : null}</div>
             {infoMessage ? (
               <div className="info-icon">

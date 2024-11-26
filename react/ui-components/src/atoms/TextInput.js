@@ -184,11 +184,11 @@ const TextInput = (props) => {
             });
             return svgElement;
           } else {
-            console.log("Icon not found");
+            console.warn("Icon not found");
             return null;
           }
         } catch (error) {
-          console.error("Icon not found");
+          console.warn("Icon not found");
           return null;
         }
       }
@@ -245,7 +245,7 @@ const TextInput = (props) => {
                   : defaultType || "text"
               }
               name={props.name}
-              id={props.id}
+              id={props?.id}
               className={inputClassNameForMandatory}
               placeholder={StringManipulator(
                 "TOSENTENCECASE",

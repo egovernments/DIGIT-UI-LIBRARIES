@@ -31,11 +31,12 @@ const RadioButtons = (props) => {
                   onChange={() => selectOption(option)}
                   disabled={props?.disabled}
                   name={props?.name}
+                  id={props?.id}
                   ref={props?.inputRef}
                 />
                 <span className="digit-radio-btn-checkmark"></span>
               </span>
-              <label style={props?.inputStyle}>
+              <label style={props?.inputStyle} for={props?.id}>
                 {StringManipulator(
                   "TOSENTENCECASE",
                   t(option[props?.optionsKey])
@@ -55,11 +56,12 @@ const RadioButtons = (props) => {
                   onChange={() => selectOption(option)}
                   disabled={props?.disabled}
                   name={props?.name}
+                  id={props?.id}
                   ref={props?.inputRef}
                 />
                 <span className="digit-radio-btn-checkmark"></span>
               </span>
-              <label style={props?.inputStyle}>
+              <label style={props?.inputStyle} for={props?.id}>
                 {StringManipulator("TOSENTENCECASE",t(
                   props?.labelKey
                     ? `${props?.labelKey}_${option?.code}`
@@ -75,6 +77,7 @@ const RadioButtons = (props) => {
                 <input
                   className="digit-radio-btn"
                   type="radio"
+                  id={props?.id}
                   value={option}
                   checked={selected === option ? 1 : 0}
                   onChange={() => selectOption(option)}
@@ -85,7 +88,7 @@ const RadioButtons = (props) => {
                 <span className="digit-radio-btn-checkmark"></span>
               </span>
 
-              <label style={props?.inputStyle}>
+              <label style={props?.inputStyle} for={props?.id}>
                 {StringManipulator("TOSENTENCECASE", t(option))}
               </label>
             </div>
