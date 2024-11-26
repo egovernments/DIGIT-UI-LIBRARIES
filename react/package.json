@@ -79,7 +79,7 @@
   "dependencies": {
     "@babel/plugin-syntax-jsx": "^7.24.1",
     "@babel/preset-react": "^7.24.1",
-    "@egovernments/digit-ui-libraries": "1.8.5",
+     "@egovernments/digit-ui-libraries": "1.8.1-beta.1",
     "@egovernments/digit-ui-components-css":"0.0.2-beta.42",
     "@egovernments/digit-ui-module-core": "1.8.1-beta.6",
     "@egovernments/digit-ui-module-project": "0.3.4",
