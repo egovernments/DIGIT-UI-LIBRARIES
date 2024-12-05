@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:digit_ui_components/blocs/component_localization_delegate.dart';
 import 'package:digit_ui_components/models/DropdownModels.dart';
 import 'package:digit_ui_components/theme/colors.dart';
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
@@ -6,6 +9,7 @@ import 'package:digit_ui_components/widgets/molecules/hamburger.dart';
 import 'package:digit_ui_components/widgets/molecules/landing_page_card.dart';
 import 'package:digit_ui_components/widgets/molecules/landing_page_card_list.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:inspector/inspector.dart';
 import 'package:storybook/widgets/atoms/Info_card_stories.dart';
 import 'package:storybook/widgets/atoms/accordian_stories.dart';
@@ -49,7 +53,10 @@ import 'package:storybook/widgets/molecules/panel_card_stories.dart';
 import 'package:storybook/widgets/molecules/show_pop_up_stories.dart';
 import 'package:storybook/widgets/molecules/side_nav_stories.dart';
 import 'package:storybook/widgets/molecules/timeline_molecule_stories.dart';
+import 'package:storybook/widgets/privacy_policy/privacy_policy_story.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
+
+import 'localization.dart';
 
 void main() {
   runApp(const MyApp());
@@ -61,8 +68,27 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+
+    Future<List> loadLocalizedStrings() async {
+      String jsonString = await rootBundle.loadString('/localized_data.json');
+      // Decode the JSON string
+      List<dynamic> jsonList = jsonDecode(jsonString);
+
+      // Convert the dynamic list to a list of LocalizedString objects
+      return jsonList.map((jsonItem) => Localization.fromJson(jsonItem)).toList();
+    }
+
     return MaterialApp(
       theme: DigitExtendedTheme.instance.getTheme(context).copyWith(),
+      locale: Locale("en", "MZ"),
+      localizationsDelegates: [
+        DefaultMaterialLocalizations.delegate,
+        DefaultWidgetsLocalizations.delegate,
+        ComponentLocalizationDelegate(
+          loadLocalizedStrings(),
+          [Language('English', 'en_MZ'), Language('English (French)', 'en_FR', )],
+        ),
+      ],
       home: Scaffold(
         appBar: PreferredSize(
           preferredSize: MediaQuery.of(context).size.width < 500
@@ -232,6 +258,7 @@ class MyApp extends StatelessWidget {
               ...tabStories(),
               ...menuCardStories(),
               ...languageSelectionCardStories(),
+              ...privacyComponentStories(),
               Story(
                 name: 'Landing Page Card 1',
                 builder: (context) => MatrixListComponent(

@@ -18,6 +18,7 @@ dependencies:
   storybook_flutter: ^0.14.1
   inspector: 2.1.0
   flutter_svg: ^2.0.10+1
+  reactive_forms: ^14.1.0
 
 
 dev_dependencies:
