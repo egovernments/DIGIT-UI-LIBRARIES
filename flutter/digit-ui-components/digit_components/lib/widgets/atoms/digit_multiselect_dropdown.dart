@@ -183,8 +183,6 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
 
   /// Handles the focus change to show/hide the dropdown.
   _handleFocusChange() {
-    print('sdjflksdfjskdfjsdds');
-    print(_focusNode.hasFocus);
     if ((_focusNode.hasFocus ||
             (_searchFocusNode.hasFocus && widget.isSearchable)) &&
         mounted) {
@@ -687,7 +685,6 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
 
   /// Handle the focus change on tap outside of the dropdown.
   void _onOutSideTap() {
-    print('sdjfklsdfjskdfjsdkf');
     _focusNode.unfocus();
   }
 
@@ -924,7 +921,6 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                     backgroundColor: backgroundColor,
                     selectedOptions: selectedOptions,
                     onOptionSelected: (List<DropdownItem> selectedOptions) {
-                      print('option selected');
                       if (isSelected) {
                         dropdownState(() {
                           selectedOptions.remove(option);
