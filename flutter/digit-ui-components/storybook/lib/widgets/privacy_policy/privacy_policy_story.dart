@@ -1,5 +1,6 @@
 import 'package:digit_ui_components/models/privacy_notice/privacy_notice_model.dart';
 import 'package:digit_ui_components/widgets/privacy_notice/privacy_component.dart';
+import 'package:flutter/src/widgets/basic.dart';
 import 'package:storybook_toolkit/storybook_toolkit.dart';
 import 'package:reactive_forms/reactive_forms.dart'; // Import reactive forms
 import '../../iframe/iframe_widget.dart';
@@ -415,12 +416,18 @@ List<Story> privacyComponentStories() {
 
         return ReactiveForm(
           formGroup: form,
-          child: PrivacyComponent(
-            privacyPolicy: privacyPolicyModel,
-            formControlName: 'privacyCheck', // Pass the form control name
-            text: 'this is privacy policy',
-            linkText: 'click here to know more',
-            validationMessage: 'Please accept the privacy policy',
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              PrivacyComponent(
+                privacyPolicy: privacyPolicyModel,
+                formControlName: 'privacyCheck',
+                text: 'This is privacy policy ',
+                linkText: 'click here to know more',
+                validationMessage: 'Please accept the privacy policy',
+              ),
+            ],
           ),
         );
       },
