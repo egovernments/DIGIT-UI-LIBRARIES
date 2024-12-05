@@ -1,3 +1,17 @@
+## 0.0.2-dev.2
+* updated reactive form version
+* fixed privacy policy header alignment issue
+
+## 0.0.2-dev.1
+* updated reactive form version
+* added privacy policy component
+
+## 0.0.2-dev
+* Breaking changes
+* Fixed existing issues
+* Added new component and molecules
+* Upgraded Flutter version to 3.22.2
+
 ## 0.0.1+7
 * updated color and typography library
 * added location fetch bloc

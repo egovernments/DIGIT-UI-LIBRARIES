@@ -44,20 +44,24 @@ class FullPageDialogState extends LocalizedState<FullPageDialog> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.only(top: spacer6, left: 0),
-                            child: Text(
-                              localizations.translate(widget.privacyPolicy.header ?? ''),
-                              maxLines: 3,
-                              style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                                color: theme.colorTheme.text.primary,
+                          Container(
+                            width: MediaQuery.of(context).size.width * 0.8,
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: spacer6, left: 0),
+                              child: Text(
+                                localizations.translate(widget.privacyPolicy.header ?? ''),
+                                maxLines: 3,
+                                style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                                  color: theme.colorTheme.text.primary,
+                                ),
                               ),
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.zero,
+                            padding: const EdgeInsets.only(top: spacer2),
                             child: InkWell(
                               onTap: () {
                                 Navigator.of(context).pop();
