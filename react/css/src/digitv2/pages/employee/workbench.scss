@@ -2,7 +2,7 @@
 
 .bread-crumb.workbench-bredcrumb{
 a{
-  color: theme(digitv2.lightTheme.primary-orange);
+  color: theme(digitv2.lightTheme.primary-1);
 }
 }
 .workbench{
@@ -142,7 +142,7 @@ a{
                 }
 
                 .digit__control--is-focused {
-                  border-color: theme(digitv2.lightTheme.primary-orange) !important;
+                  border-color: theme(digitv2.lightTheme.primary-1) !important;
                   box-shadow: none;
                   box-sizing: unset;
                   @apply outline-none;
@@ -158,10 +158,10 @@ a{
                 }
 
                 .digit__control:focus {
-                  border-color: theme(digitv2.lightTheme.primary-orange);
+                  border-color: theme(digitv2.lightTheme.primary-1);
 
                   .digit__value-container:focus {
-                    border-color: theme(digitv2.lightTheme.primary-orange);
+                    border-color: theme(digitv2.lightTheme.primary-1);
 
                   }
                 }
@@ -169,7 +169,7 @@ a{
 
               &.form-select:focus {
                 @apply outline-none;
-                border-color: theme(digitv2.lightTheme.primary-orange);
+                border-color: theme(digitv2.lightTheme.primary-1);
 
               }
             }
@@ -182,7 +182,7 @@ a{
             .form-control:focus {
 
               @apply outline-none;
-              border-color: theme(digitv2.lightTheme.primary-orange);
+              border-color: theme(digitv2.lightTheme.primary-1);
             }
 
             textarea.form-control {
@@ -236,7 +236,7 @@ a{
                 }
          
                 input[type="checkbox"]#digit_root_active {
-                  accent-color: theme(digitv2.lightTheme.primary-orange);
+                  accent-color: theme(digitv2.lightTheme.primary-1);
                 }
 
                 input:checked,
@@ -573,11 +573,11 @@ a{
     text-decoration: none;
     .browse-text {
       text-decoration: none;
-      color: #F47738; 
+      color: theme(digitv2.lightTheme.primary-1); 
       transition: color 0.3s;
     }
     .browse-text:hover {
-        color: #F47738; 
+        color: theme(digitv2.lightTheme.primary-1);
         text-decoration: underline; 
         cursor: pointer;
     }

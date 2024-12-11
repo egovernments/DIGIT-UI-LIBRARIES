@@ -1,5 +1,53 @@
 # Changelog
 
+## [0.0.2-beta.36] - 2024-09-23
+### Changed
+- Added Table css
+
+## [0.0.2-beta.35] - 2024-09-19
+### Changed
+- Added OTPInput css
+
+## [0.0.2-beta.34] - 2024-09-18
+### Changed
+- Added Configuration for close icon in chip
+
+## [0.0.2-beta.33] - 2024-09-13
+### Changed
+- Added Tab Styles and other changes
+
+## [0.0.2-beta.30] - 2024-09-12
+### fixes 
+- Css version fix 
+
+## [0.0.2-beta.30] - 2024-09-06
+### Changed
+- Added LandingPageCard,MenuCard styles
+
+## [0.0.2-beta.29] - 2024-09-05
+### Changed
+- Added Accordion animation styles
+
+## [0.0.2-beta.28] - 2024-09-04
+### Changed
+- Added BottomSheet styles
+
+## [0.0.2-beta.27] - 2024-09-04
+### Changed
+-  Updated Tooltip styles
+
+## [0.0.2-beta.24] - 2024-08-22
+### Changed
+-  Added Accordion css and updated Sidebar css
+
+## [0.0.2-beta.23] - 2024-08-22
+### Changed
+-  Fixed some css of old component overriding issue
+
+## [0.0.2-beta.22] - 2024-08-16
+### Changed
+-  Added css for Switch Component
+
 ## [0.0.2-beta.21] - 2024-08-07
 ### Changed
 -  Updated css for Tooltip Component

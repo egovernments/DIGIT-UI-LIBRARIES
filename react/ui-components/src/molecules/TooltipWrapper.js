@@ -5,7 +5,7 @@ import Tooltip from "../atoms/Tooltip";
 const TooltipWrapper = ({
   children,
   arrow = false,
-  title,
+  content,
   placement = "bottom",
   enterDelay = 100,
   leaveDelay = 0,
@@ -20,6 +20,8 @@ const TooltipWrapper = ({
   style,
   wrapperClassName,
   ClassName,
+  header,
+  description,
   ...props
 }) => {
   const [open, setOpen] = useState(openProp || false);
@@ -119,11 +121,13 @@ const TooltipWrapper = ({
       {children}
       {open && (
         <Tooltip
-          title={title}
+          content={content}
           placement={placement}
           arrow={arrow}
           style={{ ...style, ...tooltipStyle }}
           className={ClassName}
+          header={header}
+          description={description}
         />
       )}
     </div>

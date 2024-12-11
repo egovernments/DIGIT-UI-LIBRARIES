@@ -1,0 +1,99 @@
+.digit-label-otp-wrapper {
+  display: flex !important;
+  align-items: center;
+  flex-direction: column;
+  gap: theme(digitv2.spacers.spacer4);
+  justify-content: flex-start;
+
+  &.inline {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .digit-otp-label {
+    @extend .typography.body-l;
+    color: theme(digitv2.lightTheme.text-primary);
+  }
+
+  .otp-input-container {
+    justify-content: center;
+    gap: theme(digitv2.spacers.spacer3);
+    display: flex !important;
+  }
+
+
+  .otp-error-wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap:theme(digitv2.spacers.spacer2);
+    flex-direction: column !important;
+
+    .digit-error-icon-message-wrap {
+      width: fit-content;
+    }
+  }
+
+  .otp-input {
+    @extend .typography.heading-m;
+    width: 3.125rem;
+    height: 3.125rem;
+    text-align: center;
+    color: theme(digitv2.lightTheme.text-primary);
+    border: 0.063rem solid theme(digitv2.lightTheme.input-border);
+    outline: none;
+    transition: border-color 0.3s ease-in-out;
+    font-family: theme(digitv2.fontFamily.sans);
+    font-style: theme(digitv2.fontStyle.normal);
+    font-weight: theme(digitv2.fontWeight.bold);
+    line-height: theme(digitv2.lineHeight.lineheight1);
+
+    &.error {
+      border: 0.063rem solid theme(digitv2.lightTheme.alert-error);
+    }
+
+    @media (max-aspect-ratio: 9/16) {
+      /* Media query for mobile */
+      font-size: theme(digitv2.fontSize.heading-m.mobile);
+    }
+
+    @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+      /* Media query for tablets */
+      font-size: theme(digitv2.fontSize.heading-m.tablet);
+    }
+
+    @media (min-aspect-ratio: 3/4) {
+      /* Media query for desktop */
+      font-size: theme(digitv2.fontSize.heading-m.desktop);
+    }
+  }
+
+  .otp-input:focus {
+    border-color: theme(digitv2.lightTheme.primary-1);
+  }
+
+  .otp-input::placeholder {
+    @extend .typography.heading-m;
+    color: theme(digitv2.lightTheme.text-disabled);
+    font-family: theme(digitv2.fontFamily.sans);
+    font-style: theme(digitv2.fontStyle.normal);
+    font-weight: theme(digitv2.fontWeight.bold);
+    line-height: theme(digitv2.lineHeight.lineheight1);
+
+    @media (max-aspect-ratio: 9/16) {
+      /* Media query for mobile */
+      font-size: theme(digitv2.fontSize.heading-m.mobile);
+    }
+
+    @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+      /* Media query for tablets */
+      font-size: theme(digitv2.fontSize.heading-m.tablet);
+    }
+
+    @media (min-aspect-ratio: 3/4) {
+      /* Media query for desktop */
+      font-size: theme(digitv2.fontSize.heading-m.desktop);
+    }
+  }
+
+}

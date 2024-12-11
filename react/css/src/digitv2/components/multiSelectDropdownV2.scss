@@ -24,9 +24,36 @@
     @apply relative h-10 w-full bg-white;
     border: 0.063rem solid theme(digitv2.lightTheme.generic-inputborder);
     input[type="text"] {
-      @extend .typography.body-l;
+      @extend .typography.body-s;
+      @media (max-aspect-ratio: 9/16) {
+        /* Media query for mobile */
+        font-size: theme(digitv2.fontSize.body-s.mobile);
+        font-family: theme(digitv2.fontFamily.sans);
+        font-style: theme(digitv2.fontStyle.normal);
+        font-weight: theme(digitv2.fontWeight.regular);
+        line-height: theme(digitv2.lineHeight.lineheight2);
+      }
+  
+      @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+        /* Media query for tablets */
+        font-size: theme(digitv2.fontSize.body-s.tablet);
+        font-family: theme(digitv2.fontFamily.sans);
+        font-style: theme(digitv2.fontStyle.normal);
+        font-weight: theme(digitv2.fontWeight.regular);
+        line-height: theme(digitv2.lineHeight.lineheight2);
+      }
+  
+      @media (min-aspect-ratio: 3/4) {
+        /* Media query for desktop */
+        font-size: theme(digitv2.fontSize.body-s.desktop);
+        font-family: theme(digitv2.fontFamily.sans);
+        font-style: theme(digitv2.fontStyle.normal);
+        font-weight: theme(digitv2.fontWeight.regular);
+        line-height: theme(digitv2.lineHeight.lineheight2);
+      }
       @apply absolute top-0 left-0 p-sm min-h-full min-w-full opacity-0;
       letter-spacing: theme(digitv2.spacers.spacer0);
+      padding-left: 1%;
       &:focus {
         @apply outline-none;
       }
@@ -38,6 +65,23 @@
       }
     }
   }
+
+  .digit-multiselectdropdown-master-active{
+    &.serachable{
+      input[type="text"]{
+        opacity: 1;
+        width: calc(100%-24px);
+      }
+
+      .digit-multiselectdropdown-label {
+        svg {
+          z-index: 1;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
   .digit-multiselectdropdown-master {
     &.disabled {
       pointer-events: none !important;
@@ -83,6 +127,25 @@
   }
   .digit-category-name {
     @extend .typography.heading-s;
+    font-family: theme(digitv2.fontFamily.sans);
+    font-style: theme(digitv2.fontStyle.normal);
+    font-weight: theme(digitv2.fontWeight.bold);
+    line-height: theme(digitv2.lineHeight.lineheight1);
+
+    @media (max-aspect-ratio: 9/16) {
+      /* Media query for mobile */
+      font-size: theme(digitv2.fontSize.heading-s.mobile);
+    }
+
+    @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+      /* Media query for tablets */
+      font-size: theme(digitv2.fontSize.heading-s.tablet);
+    }
+
+    @media (min-aspect-ratio: 3/4) {
+      /* Media query for desktop */
+      font-size: theme(digitv2.fontSize.heading-s.desktop);
+    }
     color: theme(digitv2.lightTheme.text-primary);
   }
   .digit-category-selectAll {
@@ -92,6 +155,25 @@
     align-items: center;
     .category-selectAll-label {
       @extend .typography.body-s;
+      font-family: theme(digitv2.fontFamily.sans);
+      font-style: theme(digitv2.fontStyle.normal);
+      font-weight: theme(digitv2.fontWeight.regular);
+      line-height: theme(digitv2.lineHeight.lineheight2);
+  
+      @media (max-aspect-ratio: 9/16) {
+        /* Media query for mobile */
+        font-size: theme(digitv2.fontSize.body-s.mobile);
+      }
+  
+      @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+        /* Media query for tablets */
+        font-size: theme(digitv2.fontSize.body-s.tablet);
+      }
+  
+      @media (min-aspect-ratio: 3/4) {
+        /* Media query for desktop */
+        font-size: theme(digitv2.fontSize.body-s.desktop);
+      }
       text-align: left;
       color: theme(digitv2.lightTheme.primary-1);
     }
@@ -134,7 +216,7 @@
         }
       }
     }
-    &.nestedmultiselect {
+    &.nestedmultiselect:not(.unsuccessfulresults){
       position: relative;
       &:not(.selectAll)::before {
         content: "";
@@ -165,6 +247,25 @@
       border: 0.031rem solid theme(digitv2.lightTheme.primary-1);
       p {
         @extend .typography.heading-s;
+        font-family: theme(digitv2.fontFamily.sans);
+        font-style: theme(digitv2.fontStyle.normal);
+        font-weight: theme(digitv2.fontWeight.bold);
+        line-height: theme(digitv2.lineHeight.lineheight1);
+    
+        @media (max-aspect-ratio: 9/16) {
+          /* Media query for mobile */
+          font-size: theme(digitv2.fontSize.heading-s.mobile);
+        }
+    
+        @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+          /* Media query for tablets */
+          font-size: theme(digitv2.fontSize.heading-s.tablet);
+        }
+    
+        @media (min-aspect-ratio: 3/4) {
+          /* Media query for desktop */
+          font-size: theme(digitv2.fontSize.heading-s.desktop);
+        }
         color: theme(digitv2.lightTheme.paper-primary);
       }
       .digit-label {
@@ -181,6 +282,25 @@
     p {
       @extend .typography.body-s;
       @apply w-full overflow-hidden whitespace-no-wrap max-w-full;
+      font-family: theme(digitv2.fontFamily.sans);
+      font-style: theme(digitv2.fontStyle.normal);
+      font-weight: theme(digitv2.fontWeight.regular);
+      line-height: theme(digitv2.lineHeight.lineheight2);
+  
+      @media (max-aspect-ratio: 9/16) {
+        /* Media query for mobile */
+        font-size: theme(digitv2.fontSize.body-s.mobile);
+      }
+  
+      @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+        /* Media query for tablets */
+        font-size: theme(digitv2.fontSize.body-s.tablet);
+      }
+  
+      @media (min-aspect-ratio: 3/4) {
+        /* Media query for desktop */
+        font-size: theme(digitv2.fontSize.body-s.desktop);
+      }
       color: theme(digitv2.lightTheme.text-primary);
       margin: theme(digitv2.spacers.spacer0);
       text-overflow: ellipsis;
@@ -189,6 +309,25 @@
       background: theme(digitv2.lightTheme.primary-1);
       p {
         @extend .typography.heading-s;
+        font-family: theme(digitv2.fontFamily.sans);
+        font-style: theme(digitv2.fontStyle.normal);
+        font-weight: theme(digitv2.fontWeight.bold);
+        line-height: theme(digitv2.lineHeight.lineheight1);
+    
+        @media (max-aspect-ratio: 9/16) {
+          /* Media query for mobile */
+          font-size: theme(digitv2.fontSize.heading-s.mobile);
+        }
+    
+        @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+          /* Media query for tablets */
+          font-size: theme(digitv2.fontSize.heading-s.tablet);
+        }
+    
+        @media (min-aspect-ratio: 3/4) {
+          /* Media query for desktop */
+          font-size: theme(digitv2.fontSize.heading-s.desktop);
+        }
         color: theme(digitv2.lightTheme.paper-primary);
       }
       .digit-label {
@@ -272,6 +411,25 @@
         .option-des-container {
           p {
             @extend .typography.heading-s;
+            font-family: theme(digitv2.fontFamily.sans);
+            font-style: theme(digitv2.fontStyle.normal);
+            font-weight: theme(digitv2.fontWeight.bold);
+            line-height: theme(digitv2.lineHeight.lineheight1);
+        
+            @media (max-aspect-ratio: 9/16) {
+              /* Media query for mobile */
+              font-size: theme(digitv2.fontSize.heading-s.mobile);
+            }
+        
+            @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+              /* Media query for tablets */
+              font-size: theme(digitv2.fontSize.heading-s.tablet);
+            }
+        
+            @media (min-aspect-ratio: 3/4) {
+              /* Media query for desktop */
+              font-size: theme(digitv2.fontSize.heading-s.desktop);
+            }
           }
         }
         .digit-multiselectdropodwn-custom-checkbox {
@@ -296,6 +454,33 @@
         color: theme(digitv2.lightTheme.primary-1);
       }
     }
+    &.unsuccessfulresults {
+      background-color: theme(digitv2.lightTheme.paper-secondary);
+      pointer-events: none;
+      span {
+        @extend .typography.body-s;
+        font-family: theme(digitv2.fontFamily.sans);
+        font-style: theme(digitv2.fontStyle.normal);
+        font-weight: theme(digitv2.fontWeight.regular);
+        line-height: theme(digitv2.lineHeight.lineheight2);
+    
+        @media (max-aspect-ratio: 9/16) {
+          /* Media query for mobile */
+          font-size: theme(digitv2.fontSize.body-s.mobile);
+        }
+    
+        @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+          /* Media query for tablets */
+          font-size: theme(digitv2.fontSize.body-s.tablet);
+        }
+    
+        @media (min-aspect-ratio: 3/4) {
+          /* Media query for desktop */
+          font-size: theme(digitv2.fontSize.body-s.desktop);
+        }
+        color: theme(digitv2.lightTheme.text-disabled);
+      }
+    }
   }
   .digit-cursorPointer {
     @apply cursor-pointer;
@@ -304,12 +489,37 @@
   .digit-multiselectdropdown-master-active {
     .digit-multiselectdropdown-label {
       p {
+        @extend .typography.body-s;
+        @media (max-aspect-ratio: 9/16) {
+          /* Media query for mobile */
+          font-size: theme(digitv2.fontSize.body-s.mobile);
+          font-family: theme(digitv2.fontFamily.sans);
+          font-style: theme(digitv2.fontStyle.normal);
+          font-weight: theme(digitv2.fontWeight.regular);
+          line-height: theme(digitv2.lineHeight.lineheight2);
+        }
+    
+        @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+          /* Media query for tablets */
+          font-size: theme(digitv2.fontSize.body-s.tablet);
+          font-family: theme(digitv2.fontFamily.sans);
+          font-style: theme(digitv2.fontStyle.normal);
+          font-weight: theme(digitv2.fontWeight.regular);
+          line-height: theme(digitv2.lineHeight.lineheight2);
+        }
+    
+        @media (min-aspect-ratio: 3/4) {
+          /* Media query for desktop */
+          font-size: theme(digitv2.fontSize.body-s.desktop);
+          font-family: theme(digitv2.fontFamily.sans);
+          font-style: theme(digitv2.fontStyle.normal);
+          font-weight: theme(digitv2.fontWeight.regular);
+          line-height: theme(digitv2.lineHeight.lineheight2);
+        }
         white-space: pre;
-        margin: auto;
-        margin-left: theme(digitv2.spacers.spacer0);
-        padding-left: 1%;
-        font-size: theme(digitv2.spacers.spacer4);
-        line-height: theme(digitv2.spacers.spacer6);
+          margin: auto;
+          margin-left: theme(digitv2.spacers.spacer0);
+          text-align: left;
       }
     }
   }

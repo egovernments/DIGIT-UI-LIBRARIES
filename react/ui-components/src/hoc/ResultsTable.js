@@ -7,7 +7,7 @@ import _ from "lodash";
 import { InboxContext } from './InboxSearchComposerContext';
 import { Loader } from '../atoms/Loader';
 import NoResultsFound from '../atoms/NoResultsFound';
-import { InfoIcon,EditIcon } from "../atoms/svgindex";
+import { CustomSVG } from '../atoms/CustomSVG';
 
 
 const ResultsTable = ({ tableContainerClass, config,data,isLoading,isFetching,fullConfig,revalidate,additionalConfig }) => {
@@ -50,7 +50,7 @@ const ResultsTable = ({ tableContainerClass, config,data,isLoading,isFetching,fu
                     Header: t(column?.label) || t("ES_COMMON_NA"),
                     accessor:column.jsonPath,
                     Cell: ({ value, col, row }) => {
-                        return <div className='cursorPointer' style={{marginLeft:"1rem"}} onClick={()=>additionalConfig?.resultsTable?.onClickSvg(row)}> <EditIcon /></div>
+                        return <div className='cursorPointer' style={{marginLeft:"1rem"}} onClick={()=>additionalConfig?.resultsTable?.onClickSvg(row)}> <CustomSVG.EditIcon /></div>
                     }
                 }
             }
@@ -173,7 +173,7 @@ const ResultsTable = ({ tableContainerClass, config,data,isLoading,isFetching,fu
             {
                 config?.showTableInstruction && ( 
                 <div className='table-instruction-wrapper'>
-                    <InfoIcon /><p className='table-instruction-header'>{t(config?.showTableInstruction)}</p>
+                    <CustomSVG.InfoIcon /><p className='table-instruction-header'>{t(config?.showTableInstruction)}</p>
                 </div> )
             }
             {searchResult?.length > 0 && <Table

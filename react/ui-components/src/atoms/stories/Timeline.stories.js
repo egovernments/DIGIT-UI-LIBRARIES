@@ -37,6 +37,9 @@ export default {
     },
     showDefaultValueForDate:{
       control:{type:"boolean"}
+    },
+    initialVisibleAdditionalElementsCount:{
+      control:{type:"number"}
     }
   },
 };

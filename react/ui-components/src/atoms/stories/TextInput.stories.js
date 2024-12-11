@@ -18,6 +18,7 @@ export default {
           "search",
           "textarea",
           "number",
+          "mobileNumber"
         ],
       },
     },

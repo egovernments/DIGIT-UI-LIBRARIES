@@ -18,6 +18,12 @@ export default {
     onSelectionChanged: {
       action: 'selectionChanged',
     },
+    selected:{
+      control: {
+        type: "array",
+        separator: ",",
+      },
+    },
     allowMultipleSelection: {
       control: 'boolean',
     },
@@ -29,6 +35,7 @@ const Template = (args) => <SelectionCard {...args} />;
 const commonArgs = {
   width: "",
   errorMessage: '',
+  selected:[],
   options: [
     { name: 'Option 1', code: 'option1', prefixIcon:  "", suffixIcon: '' },
     { name: 'Option 2', code: 'option2', prefixIcon: '', suffixIcon: "" },
@@ -84,6 +91,14 @@ export const SingleSelection = Template.bind({});
 SingleSelection.args = {
   ...commonArgs,
   allowMultipleSelection: false,
+};
+
+export const WithInitialSelection = Template.bind({});
+WithInitialSelection.args = {
+  ...commonArgs,
+  selected:[
+    { name: 'Option 1', code: 'option1', prefixIcon:  "", suffixIcon: '' }
+  ]
 };
 
 export const WithError = Template.bind({});

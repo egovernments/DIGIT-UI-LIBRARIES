@@ -1,19 +1,17 @@
-/*
- `DigitPasswordFormInput` is a customizable formfield widget that extends the baseforminput.
-
- Example usage:
- ```dart
- DigitPasswordFormInput(
- controller: _textController,
- label: 'Username',
- innerLabel: 'Please enter a valid password',
- charCount: true,
- helpText: 'This is a simple example of DigitPasswordFormInput',
- onChange: (value) {
- print(value);
- },
- ),
- ....*/
+///`DigitPasswordFormInput` is a customizable formfield widget that extends the baseforminput.
+///
+/// Example usage:
+/// ```dart
+/// DigitPasswordFormInput(
+/// controller: _textController,
+/// label: 'Username',
+/// innerLabel: 'Please enter a valid password',
+/// charCount: true,
+/// helpText: 'This is a simple example of DigitPasswordFormInput',
+/// onChange: (value) {
+/// print(value);
+/// },
+/// ),
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -23,51 +21,47 @@ import 'digit_base_form_input.dart';
 class DigitPasswordFormInput extends BaseDigitFormInput {
   const DigitPasswordFormInput({
     Key? key,
-    required TextEditingController controller,
-    String? label,
-    String? infoText,
-    bool? info,
-    String? initialValue,
-    bool readOnly = false,
-    bool isDisabled = false,
-    bool isRequired = false,
-    bool charCount = false,
-    String? innerLabel,
-    String? helpText,
-    TooltipTriggerMode triggerMode = TooltipTriggerMode.tap,
-    bool preferToolTipBelow = false,
-    IconData? suffixIcon,
-    IconData toggleSuffixIcon = Icons.visibility,
-    void Function(String?)? onError,
-    void Function(String)? onSuffixTap,
+    final TextEditingController? controller,
+    final String? initialValue,
+    final bool readOnly = false,
+    final bool isDisabled = false,
+    final bool isRequired = false,
+    final bool charCount = false,
+    final String? innerLabel,
+    final String? helpText,
+    final IconData? suffixIcon,
+    final IconData toggleSuffixIcon = Icons.visibility,
+    final void Function(String?)? onError,
+    final void Function(String)? onSuffixTap,
     final List<Validator>? validations,
+    final TextInputType? keyboardType,
     final void Function(String)? onChange,
     final String? errorMessage,
     final List<TextInputFormatter>? inputFormatters,
+    final void Function()? onFocusLost,
+    final int? maxLength,
   }) : super(
-          key: key,
-          controller: controller,
-          label: label,
-          info: info,
-          infoText: infoText,
-          readOnly: readOnly,
-          isRequired: isRequired,
-          isDisabled: isDisabled,
-          charCount: charCount,
-          innerLabel: innerLabel,
-          helpText: helpText,
-          triggerMode: triggerMode,
-          preferToolTipBelow: preferToolTipBelow,
-          suffixIcon: suffixIcon ?? Icons.visibility_off,
-          onError: onError,
-          onSuffixTap: onSuffixTap,
-          initialValue: initialValue,
-          validations: validations,
-          onChange: onChange,
-          toggleSuffixIcon: toggleSuffixIcon,
-          errorMessage: errorMessage,
-          inputFormatters: inputFormatters,
-        );
+    key: key,
+    controller: controller,
+    readOnly: readOnly,
+    isRequired: isRequired,
+    isDisabled: isDisabled,
+    charCount: charCount,
+    innerLabel: innerLabel,
+    helpText: helpText,
+    suffixIcon: suffixIcon ?? Icons.visibility_off,
+    onError: onError,
+    onSuffixTap: onSuffixTap,
+    initialValue: initialValue,
+    validations: validations,
+    onChange: onChange,
+    keyboardType: keyboardType,
+    toggleSuffixIcon: toggleSuffixIcon,
+    errorMessage: errorMessage,
+    inputFormatters: inputFormatters,
+    onFocusLost: onFocusLost,
+    maxLength: maxLength,
+  );
 
   @override
   _DigitPasswordFormInputState createState() => _DigitPasswordFormInputState();

@@ -1,81 +1,126 @@
+import 'package:digit_ui_components/digit_components.dart';
+import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:flutter/material.dart';
-
-import '../../constants/AppView.dart';
-import '../../theme/colors.dart';
-import '../../theme/digit_theme.dart';
-import '../../theme/typography.dart';
+import '../../utils/utils.dart';
 
 class LabeledField extends StatelessWidget {
   final Widget child;
   final String? label;
   final bool isRequired;
-  final IconData? icon;
-  final String? tooltipMessage;
   final TextStyle? labelStyle;
   final EdgeInsets? padding;
   final bool preferToolTipBelow;
-  final bool? info;
   final String? infoText;
-  final TooltipTriggerMode triggerMode;
   final TooltipTriggerMode tooltipTriggerMode;
   final TextStyle? textStyle;
   final bool wrapLabelText;
   final MainAxisAlignment mainAxisAlignment;
   final CrossAxisAlignment crossAxisAlignment;
-  final bool capitalizeFirstLetter;
+  final bool capitalizedFirstLetter;
+  final bool labelInline;
 
   const LabeledField({
     super.key,
     required this.child,
     this.label,
-    this.icon,
-    this.tooltipMessage,
     this.labelStyle,
     this.padding,
     this.isRequired = false,
-    this.info,
     this.infoText,
     this.preferToolTipBelow = false,
     this.tooltipTriggerMode = TooltipTriggerMode.tap,
     this.textStyle,
-    this.triggerMode = TooltipTriggerMode.tap,
     this.wrapLabelText = true,
     this.mainAxisAlignment = MainAxisAlignment.start,
     this.crossAxisAlignment = CrossAxisAlignment.start,
-    this.capitalizeFirstLetter = true,
+    this.capitalizedFirstLetter = true,
+    this.labelInline = true,
   });
 
   @override
   Widget build(BuildContext context) {
-    /// typography based on screen
-    DigitTypography currentTypography = getTypography(context);
+    final theme = Theme.of(context);
+    final textTheme = theme.digitTextTheme(context);
 
     /// Capitalize the first letter of the label if required
-    final processedLabel = capitalizeFirstLetter
-        ? label?.replaceRange(0, 1, label![0].toUpperCase())
-        : label;
+    final processedLabel =
+    capitalizedFirstLetter ? convertInToSentenceCase(label) : label;
 
-    bool isMobile = AppView.isMobileView(MediaQuery.of(context).size.width);
-    if (!isMobile) {
-      return Padding(
-        padding: padding ?? const EdgeInsets.only(top: kPadding),
-        child: Row(
-          crossAxisAlignment: crossAxisAlignment,
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: mainAxisAlignment,
-          children: [
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.33,
+    bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
+
+    if (isMobile || !labelInline) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (label != null)
+            Wrap(
+              children: [
+                RichText(
+                  text: TextSpan(
+                    text: processedLabel!.length > 64
+                        ? '${processedLabel!.substring(0, 64)}...'
+                        : processedLabel!,
+                    style: textTheme.label.copyWith(
+                      color: theme.colorTheme.text.primary,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    children: isRequired
+                        ? [
+                      TextSpan(
+                        text: ' *',
+                        style: textTheme.label.copyWith(
+                          color: theme.colorTheme.alert.error,
+                        ),
+                      ),
+                    ]
+                        : [],
+                  ),
+                  maxLines: wrapLabelText ? 5 : 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                if (infoText != null) const SizedBox(width: spacer1),
+                if (infoText != null)
+                  Tooltip(
+                    message: infoText,
+                    preferBelow: preferToolTipBelow,
+                    triggerMode: tooltipTriggerMode,
+                    child: const Icon(
+                      Icons.info_outline,
+                      size: spacer4,
+                    ),
+                  ),
+              ],
+            ),
+          if (label != null)
+            const SizedBox(
+              height: spacer1,
+            ),
+          child,
+        ],
+      );
+    } else {
+      return Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          if (label != null)
+            Flexible(
+            flex: 3,
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: wrapLabelText
+                    ? CrossAxisAlignment.end
+                    : CrossAxisAlignment.start,
                 children: [
                   Flexible(
                     child: Text(
                       processedLabel!.length > 64
-                          ? '${processedLabel!.substring(0, 64)}...'
-                          : processedLabel!,
-                      style: currentTypography.bodyL.copyWith(
-                        height: 1.172,
-                        color: const DigitColors().light.textPrimary,
+                          ? '${processedLabel.substring(0, 64)}...'
+                          : processedLabel,
+                      maxLines: wrapLabelText ? 5 : 1,
+                      style: textTheme.label.copyWith(
+                        color: theme.colorTheme.text.primary,
                         overflow: wrapLabelText
                             ? TextOverflow.visible
                             : TextOverflow.ellipsis,
@@ -85,79 +130,34 @@ class LabeledField extends StatelessWidget {
                   if (isRequired)
                     Text(
                       ' *',
-                      style: currentTypography.bodyL.copyWith(
-                        color: const DigitColors().light.alertError,
+                      style: textTheme.label.copyWith(
+                        color: theme.colorTheme.alert.error,
                       ),
                     ),
-                  if (info == true) const SizedBox(width: kPadding / 2),
-                  if (info == true)
+                  if (infoText != null) const SizedBox(width: spacer1),
+                  if (infoText != null)
                     Tooltip(
                       message: infoText,
                       preferBelow: preferToolTipBelow,
-                      triggerMode: triggerMode,
+                      triggerMode: tooltipTriggerMode,
                       child: Icon(
                         Icons.info_outline,
-                        size: 19,
-                        color: const DigitColors().light.textSecondary,
+                        size: spacer5,
+                        color: theme.colorTheme.text.secondary,
                       ),
-                    )
+                    ),
                 ],
               ),
             ),
+          if (label != null)
             const SizedBox(
-              width: 16,
+              width: spacer4,
             ),
-            Flexible(child: child),
-          ],
-        ),
-      );
-    } else {
-      return Padding(
-        padding: padding ?? const EdgeInsets.only(top: kPadding),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
-              children: [
-                if (label != null)
-                  Flexible(
-                    child: Text(
-                      processedLabel!.length > 64
-                          ? '${processedLabel!.substring(0, 64)}...'
-                          : processedLabel!,
-                      style: currentTypography.bodyL.copyWith(
-                        color: const DigitColors().light.textPrimary,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                  ),
-                if (isRequired)
-                  Text(
-                    ' *',
-                    style: currentTypography.bodyL.copyWith(
-                      color: const DigitColors().light.alertError,
-                    ),
-                  ),
-                if (info == true) const SizedBox(width: kPadding / 2),
-                if (info == true)
-                  Tooltip(
-                    message: infoText,
-                    preferBelow: preferToolTipBelow,
-                    triggerMode: triggerMode,
-                    child: const Icon(
-                      Icons.info_outline,
-                      size: 16,
-                    ),
-                  )
-              ],
-            ),
-            const SizedBox(
-              height: 4,
-            ),
-            child,
-          ],
-        ),
+          Flexible(
+            flex: 7, // Use flex to allocate remaining space for the child
+            child: child,
+          ),
+        ],
       );
     }
   }
