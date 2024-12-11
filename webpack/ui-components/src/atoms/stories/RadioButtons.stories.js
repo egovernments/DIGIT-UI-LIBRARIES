@@ -56,7 +56,7 @@ const commonArgs = {
     options: gendersOptions,
   },
   inputRef: null,
-  label: "Enter Gender",
+  label: "Select Gender",
   errorStyle: null,
   disabled: false,
   type: "radio",
@@ -93,4 +93,13 @@ PreSelected.args = {
 };
 PreSelected.argTypes = {
   disabled: { control: { disable: true } },
+};
+
+export const AlignVertical = Template.bind({});
+AlignVertical.args = {
+  ...commonArgs,
+  populators:{
+    ...commonArgs.populators,
+    alignVertical:true
+  }
 };
