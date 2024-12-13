@@ -2,7 +2,7 @@ import React from "react";
 import Uploader from "../Uploader";
 
 export default {
-  title: "Atoms/Uploader",
+  title: "Atoms/Uploader/UploadFile",
   component: Uploader,
   argTypes: {
     uploadedFiles: {
@@ -171,52 +171,6 @@ UploadFileWithError.args = {
   uploadedFiles: [],
   variant: "uploadFile",
   iserror: "Component Level Error!",
-};
-
-export const UploadPopup = Template.bind({});
-UploadPopup.args = {
-  uploadedFiles: [],
-  variant: "uploadPopup",
-  showDownloadButton: true,
-  showReUploadButton: true,
-  multiple: false,
-};
-
-export const UploadPopupWithValidations = Template.bind({});
-UploadPopupWithValidations.args = {
-  uploadedFiles: [],
-  variant: "uploadPopup",
-  multiple: true,
-  validations: {
-    maxSizeAllowedInMB: 5,
-    minSizeRequiredInMB: 1,
-  },
-  showDownloadButton: true,
-  showReUploadButton: true,
-};
-
-export const UploadPopupWithValidationsWithErrorCard = Template.bind({});
-UploadPopupWithValidationsWithErrorCard.args = {
-  uploadedFiles: [],
-  variant: "uploadPopup",
-  multiple: true,
-  validations: {
-    maxSizeAllowedInMB: 5,
-    minSizeRequiredInMB: 1,
-  },
-  showErrorCard: true,
-  showDownloadButton: true,
-  showReUploadButton: true,
-};
-
-export const UploadPopupWithError = Template.bind({});
-UploadPopupWithError.args = {
-  uploadedFiles: [],
-  variant: "uploadPopup",
-  showDownloadButton: true,
-  showReUploadButton: true,
-  multiple: false,
-  iserror:"Component level error!"
 };
 
 export const UploadImage = Template.bind({});

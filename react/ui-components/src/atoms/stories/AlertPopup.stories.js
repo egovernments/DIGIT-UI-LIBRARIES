@@ -4,7 +4,7 @@ import Button from "../Button";
 import InfoCard from "../InfoCard";
 
 export default {
-  title: "Atoms/PopUp",
+  title: "Atoms/PopUp/Alert",
   component: PopUp,
   argTypes: {
     className: {
@@ -151,8 +151,8 @@ const commonArgs = {
   sortFooterButtons: true,
   maxFooterButtonsAllowed: 5,
   footerStyles: {},
-  showAlertAsSvg:false,
-  equalWidthButtons:false
+  showAlertAsSvg: false,
+  equalWidthButtons: false,
 };
 
 const footerChildrenWithTwoButtons = [
@@ -172,25 +172,6 @@ const footerChildrenWithTwoButtons = [
   />,
 ];
 
-
-const FooterChild = [
-  <Button
-    type={"button"}
-    size={"large"}
-    variation={"primary"}
-    label="Cancel"
-    onClick={() => console.log("Clicked Button")}
-  />,
-  <Button
-    type={"submit"}
-    size={"large"}
-    variation={"primary"}
-    icon={"FileDownload"}
-    label="Download Template"
-    onClick={() => console.log("Clicked submit")}
-  />,
-];
-
 const footerChildrenWithOneButton = [
   <Button
     type={"button"}
@@ -198,51 +179,6 @@ const footerChildrenWithOneButton = [
     variation={"primary"}
     label="OK"
     onClick={() => console.log("Clicked Button")}
-  />,
-];
-
-const footerChildrenSix = [
-  <Button
-    type={"button"}
-    size={"large"}
-    variation={"secondary"}
-    label="Button"
-    onClick={() => console.log("Clicked Button 1")}
-  />,
-  <Button
-    type={"button"}
-    size={"large"}
-    variation={"primary"}
-    label="Button"
-    onClick={() => console.log("Clicked Button 2")}
-  />,
-  <Button
-    type={"button"}
-    size={"large"}
-    variation={"secondary"}
-    label="Button"
-    onClick={() => console.log("Clicked Button 1")}
-  />,
-  <Button
-    type={"button"}
-    size={"large"}
-    variation={"primary"}
-    label="Button"
-    onClick={() => console.log("Clicked Button 2")}
-  />,
-  <Button
-    type={"button"}
-    size={"large"}
-    variation={"secondary"}
-    label="Button"
-    onClick={() => console.log("Clicked Button 1")}
-  />,
-  <Button
-    type={"button"}
-    size={"large"}
-    variation={"primary"}
-    label="Button"
-    onClick={() => console.log("Clicked Button 2")}
   />,
 ];
 
@@ -264,157 +200,6 @@ const moreChildren = [
   <InfoCard text={"This is an infocard"} className={"popup-info-card"} />,
 ];
 
-export const Default = Template.bind({});
-Default.args = {
-  ...commonArgs,
-  type: "default",
-  heading: "Heading",
-  subheading: "Subheading",
-  description:
-    "Please contact the administrator if you have forgotten your password.",
-  showIcon: false,
-  children: lessChildren,
-  footerChildren: footerChildrenWithTwoButtons,
-};
-
-export const WithIcon = Template.bind({});
-WithIcon.args = {
-  ...commonArgs,
-  type: "default",
-  heading: "Heading",
-  subheading: "Subheading",
-  description:
-    "Please contact the administrator if you have forgotten your password.",
-  showIcon: true,
-  children: lessChildren,
-  footerChildren: footerChildrenWithTwoButtons,
-};
-
-export const DefaultWithEqualWidthButtons = Template.bind({});
-DefaultWithEqualWidthButtons.args = {
-  ...commonArgs,
-  type: "default",
-  heading: "Heading",
-  subheading: "Subheading",
-  description:
-    "Please contact the administrator if you have forgotten your password.",
-  showIcon: true,
-  children: lessChildren,
-  footerChildren: FooterChild,
-  equalWidthButtons:true
-};
-
-export const DefaultWithSingleButton = Template.bind({});
-DefaultWithSingleButton.args = {
-  ...commonArgs,
-  type: "default",
-  heading: "Heading",
-  subheading: "Subheading",
-  description:
-    "Please contact the administrator if you have forgotten your password.",
-  showIcon: true,
-  children: lessChildren,
-  footerChildren: footerChildrenWithOneButton,
-};
-
-export const SingleButtonWithTotalWidth = Template.bind({});
-SingleButtonWithTotalWidth.args = {
-  ...commonArgs,
-  type: "default",
-  heading: "Heading",
-  subheading: "Subheading",
-  description:
-    "Please contact the administrator if you have forgotten your password.",
-  showIcon: true,
-  children: lessChildren,
-  footerChildren: footerChildrenWithOneButton,
-  equalWidthButtons:true
-};
-
-export const DefaultWithCustomIcon = Template.bind({});
-DefaultWithCustomIcon.args = {
-  ...commonArgs,
-  type: "default",
-  heading: "Heading",
-  subheading: "Subheading",
-  description:
-    "Please contact the administrator if you have forgotten your password.",
-  showIcon: true,
-  children: lessChildren,
-  footerChildren: footerChildrenWithTwoButtons,
-  customIcon: "CheckCircle",
-  iconFill: "green",
-};
-
-export const DefaultWithCustomStylesAndLessChildren = Template.bind({});
-DefaultWithCustomStylesAndLessChildren.args = {
-  ...commonArgs,
-  type: "default",
-  heading: "Heading",
-  subheading: "Subheading",
-  description:
-    "Please contact the administrator if you have forgotten your password.",
-  showIcon: true,
-  children: lessChildren,
-  footerChildren: footerChildrenWithTwoButtons,
-  style: { width: "620px", height: "500px" },
-};
-
-export const DefaultWithCustomStylesAndMoreChildren = Template.bind({});
-DefaultWithCustomStylesAndMoreChildren.args = {
-  ...commonArgs,
-  type: "default",
-  heading: "Heading",
-  subheading: "Subheading",
-  description:
-    "Please contact the administrator if you have forgotten your password.",
-  showIcon: true,
-  children: moreChildren,
-  footerChildren: footerChildrenWithTwoButtons,
-  style: { width: "620px", height: "500px" },
-};
-
-export const DefaultWithMoreFooterButtons = Template.bind({});
-DefaultWithMoreFooterButtons.args = {
-  ...commonArgs,
-  type: "default",
-  heading: "Heading",
-  subheading: "Subheading",
-  description:
-    "Please contact the administrator if you have forgotten your password.",
-  showIcon: true,
-  children: lessChildren,
-  footerChildren: footerChildrenSix,
-};
-
-export const DefaultWithFooterStyles = Template.bind({});
-DefaultWithFooterStyles.args = {
-  ...commonArgs,
-  type: "default",
-  heading: "Heading",
-  subheading: "Subheading",
-  description:
-    "Please contact the administrator if you have forgotten your password.",
-  showIcon: true,
-  children: lessChildren,
-  footerChildren: footerChildrenWithTwoButtons,
-  footerStyles: {
-    marginLeft: "unset",
-  },
-};
-
-export const DefaultWithOutFooter = Template.bind({});
-DefaultWithOutFooter.args = {
-  ...commonArgs,
-  type: "default",
-  heading: "Heading",
-  subheading: "Subheading",
-  description:
-    "Please contact the administrator if you have forgotten your password.",
-  showIcon: true,
-  children: lessChildren,
-};
-
 export const Alert = Template.bind({});
 Alert.args = {
   ...commonArgs,
@@ -426,8 +211,8 @@ Alert.args = {
     "Please contact the administrator if you have forgotten your password.",
 };
 
-export const AlertWithSingleButton = Template.bind({});
-AlertWithSingleButton.args = {
+export const WithSingleButton = Template.bind({});
+WithSingleButton.args = {
   ...commonArgs,
   type: "alert",
   children: lessChildren,
@@ -437,8 +222,8 @@ AlertWithSingleButton.args = {
     "Please contact the administrator if you have forgotten your password.",
 };
 
-export const AlertWithCustomIcon = Template.bind({});
-AlertWithCustomIcon.args = {
+export const WithCustomIcon = Template.bind({});
+WithCustomIcon.args = {
   ...commonArgs,
   type: "alert",
   children: lessChildren,
@@ -450,8 +235,8 @@ AlertWithCustomIcon.args = {
   iconFill: "green",
 };
 
-export const AlertWithCustomStyles = Template.bind({});
-AlertWithCustomStyles.args = {
+export const WithCustomStyles = Template.bind({});
+WithCustomStyles.args = {
   ...commonArgs,
   type: "alert",
   children: lessChildren,
@@ -462,8 +247,8 @@ AlertWithCustomStyles.args = {
   style: { width: "620px", height: "500px" },
 };
 
-export const AlertWithCustomStylesAndMoreChildren = Template.bind({});
-AlertWithCustomStylesAndMoreChildren.args = {
+export const WithCustomStylesAndMoreChildren = Template.bind({});
+WithCustomStylesAndMoreChildren.args = {
   ...commonArgs,
   type: "alert",
   children: moreChildren,
@@ -474,8 +259,8 @@ AlertWithCustomStylesAndMoreChildren.args = {
   style: { width: "620px", height: "500px" },
 };
 
-export const AlertWithFooterStyles = Template.bind({});
-AlertWithFooterStyles.args = {
+export const WithFooterStyles = Template.bind({});
+WithFooterStyles.args = {
   ...commonArgs,
   type: "alert",
   children: lessChildren,
@@ -488,8 +273,8 @@ AlertWithFooterStyles.args = {
   },
 };
 
-export const AlertWithOutFooter = Template.bind({});
-AlertWithOutFooter.args = {
+export const WithOutFooter = Template.bind({});
+WithOutFooter.args = {
   ...commonArgs,
   type: "alert",
   children: lessChildren,
@@ -498,8 +283,8 @@ AlertWithOutFooter.args = {
     "Please contact the administrator if you have forgotten your password.",
 };
 
-export const AlertAsSvg = Template.bind({});
-AlertAsSvg.args = {
+export const AsSvg = Template.bind({});
+AsSvg.args = {
   ...commonArgs,
   type: "alert",
   children: lessChildren,
@@ -507,11 +292,11 @@ AlertAsSvg.args = {
   alertHeading: "Alert!",
   alertMessage:
     "Please contact the administrator if you have forgotten your password.",
-  showAlertAsSvg:true
+  showAlertAsSvg: true,
 };
 
-export const AlertWithSingleButtonTotalWidth = Template.bind({});
-AlertWithSingleButtonTotalWidth.args = {
+export const WithSingleButtonTotalWidth = Template.bind({});
+WithSingleButtonTotalWidth.args = {
   ...commonArgs,
   type: "alert",
   children: lessChildren,
@@ -519,11 +304,11 @@ AlertWithSingleButtonTotalWidth.args = {
   alertHeading: "Alert!",
   alertMessage:
     "Please contact the administrator if you have forgotten your password.",
-    equalWidthButtons:true
+  equalWidthButtons: true,
 };
 
-export const AlertWithEqualButtonsWidth = Template.bind({});
-AlertWithEqualButtonsWidth.args = {
+export const WithEqualButtonsWidth = Template.bind({});
+WithEqualButtonsWidth.args = {
   ...commonArgs,
   type: "alert",
   children: lessChildren,
@@ -531,5 +316,5 @@ AlertWithEqualButtonsWidth.args = {
   alertHeading: "Alert!",
   alertMessage:
     "Please contact the administrator if you have forgotten your password.",
-    equalWidthButtons:true
+  equalWidthButtons: true,
 };

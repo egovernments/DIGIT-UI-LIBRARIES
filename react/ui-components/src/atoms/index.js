@@ -99,6 +99,7 @@ import TableHeader from "./TableHeader";
 import TableRow from "./TableRow";
 import SlideOverMenu from "./SlideOverMenu";
 import NestedTable from "./NestedTable";
+import LoaderComponent from "./LoaderComponent";
 
 export {
   ErrorBoundary,
@@ -139,6 +140,7 @@ export {
   Header,
   HeaderBar,
   HorizontalNav,
+  LoaderComponent,
   Tab,
   InfoCard,
   InputTextAmount,

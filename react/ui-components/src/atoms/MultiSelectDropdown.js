@@ -88,6 +88,7 @@ const MultiSelectDropdown = ({
 
   useEffect(() => {
     if (!active) {
+      setSearchQuery("");
       onSelect(
         alreadyQueuedSelectedState?.map((e) => e.propsData),
         getCategorySelectAllState(),

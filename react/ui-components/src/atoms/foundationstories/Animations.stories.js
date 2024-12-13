@@ -4,6 +4,9 @@ import successAnimation from "../../constants/animations/success.json";
 import errorAnimation from "../../constants/animations/error.json";
 import warning2Animation from "../../constants/animations/warningOutline2.json";
 import warningAnimation from "../../constants/animations/warningOutline.json";
+import theLoaderPrimary from '../../constants/animations/theLoaderPrimary.json';
+import theLoaderPrimary2 from '../../constants/animations/theLoaderPrimary2.json';
+import theLoaderWhite from '../../constants/animations/theLoaderWhite.json';
 
 export default {
   title: "Foundations/Animations",
@@ -73,4 +76,22 @@ export const Warning2 = Template.bind({});
 Warning2.args = {
   ...commonArgs,
   animationData: warning2Animation,
+};
+
+export const LoaderPrimary = Template.bind({});
+LoaderPrimary.args = {
+  ...commonArgs,
+  animationData: theLoaderPrimary,
+};
+
+export const LoaderPrimary2 = Template.bind({});
+LoaderPrimary2.args = {
+  ...commonArgs,
+  animationData: theLoaderPrimary2,
+};
+
+export const LoaderWhite = Template.bind({});
+LoaderWhite.args = {
+  ...commonArgs,
+  animationData: theLoaderWhite,
 };
