@@ -41,7 +41,7 @@ const buttons = [
       width="100%"
       height="830"
       style={{ border: "none" }}
-      title="Accordion Documentation"
+      title="ButtonGroup Documentation"
     />
   );
 
