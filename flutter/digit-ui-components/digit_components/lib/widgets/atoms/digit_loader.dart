@@ -3,19 +3,20 @@ import 'dart:ui';
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/material.dart';
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
+import 'package:lottie/lottie.dart';
 
 class DigitLoaders {
-  // Circular Loader with customizable options
-  static Widget circularLoader({
+
+  // Full Page Loader Dialog with Lottie Animation
+  static Widget showFullPageLoader({
     required BuildContext context,
     String? label,
-    Color? loaderColor,
-    Color? textColor,
-    double? loaderSize,
+    String? animationPath,
+    Color? backgroundColor,
     TextStyle? textStyle,
-    bool fullPageOverlay = true,
+    double? size,
     bool barrierDismissible = false,
-  }) {
+  })  {
     final theme = Theme.of(context);
     final textTheme = theme.digitTextTheme(context);
 
@@ -23,8 +24,8 @@ class DigitLoaders {
       onPopInvoked: null,
       canPop: barrierDismissible,
       child: SizedBox(
-        height: fullPageOverlay ? MediaQuery.of(context).size.height : null,
-        width: fullPageOverlay ? MediaQuery.of(context).size.width : null,
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
         child: SimpleDialog(
           elevation: 0.0,
           backgroundColor: Colors.transparent,
@@ -33,15 +34,19 @@ class DigitLoaders {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  CircularProgressIndicator(
-                    color: loaderColor ?? theme.colorTheme.primary.primary1,
-                    strokeWidth: loaderSize ?? 4.0,
+                  Lottie.asset(
+                    animationPath ?? Base.fullPageLoaderAnimation,
+                    width: size ?? spacer5*5,
+                    height: size ?? spacer5*5,
+
                   ),
                   if (label != null) ...[
-                    const SizedBox(height: spacer3),
+                    const SizedBox(height: spacer1),
                     Text(
                       label,
-                      style: textStyle ?? textTheme.headingS,
+                      style: textStyle ?? textTheme.headingS.copyWith(
+                          color: theme.colorTheme.primary.primary2
+                      ),
                     ),
                   ]
                 ],
@@ -53,15 +58,14 @@ class DigitLoaders {
     );
   }
 
-  // Full Page Loader Dialog with customization
-  static Future<void> showLoadingDialog({
+  // Overlay Loader with Lottie Animation
+  static Future<void> overlayLoader({
     required BuildContext context,
     String? label,
-    Color? loaderColor,
+    String? animationPath,
     Color? backgroundColor,
-    Color? textColor,
-    double? loaderSize,
     TextStyle? textStyle,
+    double? size,
     bool barrierDismissible = false,
   }) async {
     final theme = Theme.of(context);
@@ -70,45 +74,31 @@ class DigitLoaders {
     return showDialog<void>(
       context: context,
       barrierDismissible: barrierDismissible,
-      // Prevent dismissing the dialog by tapping outside
       builder: (BuildContext context) {
-        return PopScope(
-          onPopInvoked: null,
-          canPop: barrierDismissible,
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
-            child: SizedBox(
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
-              child: Container(
-                color: backgroundColor?.withOpacity(0.7) ??
-                    theme.colorTheme.text.primary.withOpacity(.7),
-                child: SimpleDialog(
-                  elevation: 0.0,
-                  backgroundColor: Colors.transparent,
-                  children: <Widget>[
-                    Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          CircularProgressIndicator(
-                            color: loaderColor ??
-                                Theme.of(context).colorTheme.primary.primary1,
-                            strokeWidth: loaderSize ?? 4.0,
-                          ),
-                          if (label != null) ...[
-                            const SizedBox(height: spacer3),
-                            Text(label,
-                                style: textStyle ??
-                                    textTheme.headingS.copyWith(
-                                      color: theme.colorTheme.paper.primary,
-                                    )),
-                          ],
-                        ],
+        return BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
+          child: Container(
+            color: backgroundColor?.withOpacity(0.7) ??
+                theme.colorTheme.text.primary.withOpacity(.7),
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Lottie.asset(
+                    animationPath ?? Base.overlayLoaderAnimation,
+                    width: size ?? spacer5*5,
+                    height: size ?? spacer5*5,
+                  ),
+                  if (label != null) ...[
+                    const SizedBox(height: spacer1),
+                    Text(
+                      label,
+                      style: textStyle ?? textTheme.headingS.copyWith(
+                        color: theme.colorTheme.paper.primary
                       ),
                     ),
                   ],
-                ),
+                ],
               ),
             ),
           ),
@@ -117,13 +107,24 @@ class DigitLoaders {
     );
   }
 
+  static Widget inlineLoader({
+    String? animationPath,
+    double? size,
+  }) {
+    return Lottie.asset(
+      animationPath ?? Base.inlineLoaderAnimation,
+      width: size ?? spacer12,
+      height: size ?? spacer12,
+    );
+  }
+
   // Function to hide the loader dialog
-  static void hideLoadingDialog(BuildContext context) {
+  static void hideLoaderDialog(BuildContext context) {
     Navigator.of(
       context,
       rootNavigator: true,
     ).popUntil(
-      (route) => route is! PopupRoute,
+          (route) => route is! PopupRoute,
     );
   }
 }

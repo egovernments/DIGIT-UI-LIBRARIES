@@ -29,6 +29,10 @@ class Base {
   static const String digitLogoDarkSvg = 'assets/images/digit_logo_dark.png';
   static const String digitLogoLightSvg = 'assets/images/digit_logo_light.png';
   static const String profileIconSvg = 'assets/icons/svg/profile_icon.svg';
+  // Lottie animation paths for different loader categories
+  static const String fullPageLoaderAnimation = 'assets/animated_json/page_loader.json';
+  static const String overlayLoaderAnimation = 'assets/animated_json/overlay_loader.json';
+  static const String inlineLoaderAnimation = 'assets/animated_json/inline_loader.json';
 }
 
 class BaseConstants {

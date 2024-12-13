@@ -15,17 +15,12 @@ List<Story> loaderStories() {
     ),
     Story(
       name: 'Atom/Loader/Basic Loader',
-      builder: (context) =>  DigitLoaders.circularLoader(
-        context: context,
-        fullPageOverlay: false,
-        label: context.knobs.text(label: 'Loader label', initial: 'Loading...'),
-      ),
+      builder: (context) =>  DigitLoaders.inlineLoader(),
     ),
     Story(
       name: 'Atom/Loader/Page Loader',
-      builder: (context) =>  DigitLoaders.circularLoader(
+      builder: (context) =>  DigitLoaders.showFullPageLoader(
         context: context,
-        fullPageOverlay: true,
         label: context.knobs.text(label: 'Loader label', initial: 'Loading...'),
       ),
     ),
@@ -33,13 +28,14 @@ List<Story> loaderStories() {
       name: 'Atom/Loader/Overlay Loader',
       builder: (context) =>  ElevatedButton(
         onPressed: () {
-          DigitLoaders.showLoadingDialog(
+          DigitLoaders.overlayLoader(
+            // size: 100,
             context: context,
             label: "Loading Content...",
             barrierDismissible: false,
           );
-           Future.delayed(const Duration(seconds: 2), (){
-             DigitLoaders.hideLoadingDialog(context);
+           Future.delayed(const Duration(seconds: 5), (){
+             DigitLoaders.hideLoaderDialog(context);
            });
         },
         child: const Text("Show Overlay Loader"),
