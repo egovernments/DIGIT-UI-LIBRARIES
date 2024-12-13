@@ -6,6 +6,7 @@ import '../../utils/utils.dart';
 class LabeledField extends StatelessWidget {
   final Widget child;
   final String? label;
+  final String? description;
   final bool isRequired;
   final TextStyle? labelStyle;
   final EdgeInsets? padding;
@@ -24,6 +25,7 @@ class LabeledField extends StatelessWidget {
     super.key,
     required this.child,
     this.label,
+    this.description,
     this.labelStyle,
     this.padding,
     this.isRequired = false,
@@ -98,6 +100,8 @@ class LabeledField extends StatelessWidget {
             const SizedBox(
               height: spacer1,
             ),
+          if(description != null)
+            Text(description!, style: textTheme.bodyS,),
           child,
         ],
       );
