@@ -99,7 +99,8 @@ import {
   TableRow,
   TableCell,
   NestedTable,
-  LoaderComponent
+  LoaderComponent,
+  Iframe
 } from "./atoms";
 
 import { FieldComposer, FieldController, Fields, FormComposerV2, Modal, UploadFileComposer, FieldV1, InboxSearchComposer, ResultsTable } from "./hoc";
@@ -148,6 +149,7 @@ export {
   Sidebar,
   MobileSidebar,
   Accordion,
+  Iframe,
   AccordionWrapper,
   Switch,
   Tooltip,

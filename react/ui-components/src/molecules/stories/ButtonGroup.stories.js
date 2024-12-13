@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from "../../atoms";
 import {ButtonGroup} from "../../atoms";
+import {Iframe} from "../../atoms";
 
 export default {
   title: "Molecules/ButtonGroup",
@@ -35,14 +36,11 @@ const buttons = [
   ];
 
   export const Documentation = () => (
-    <iframe
-      //Todo:Update the url
-      src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-core-react-components/input-field"
-      width="100%"
-      height="830"
-      style={{ border: "none" }}
-      title="ButtonGroup Documentation"
-    />
+    <Iframe
+    //Todo:Update the url
+    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-core-react-components/input-field"
+    title="ButtonGroup Documentation"
+  />
   );
 
   Documentation.storyName = "Docs";

@@ -1,7 +1,7 @@
 import React from "react";
 import LoaderComponent from "../LoaderComponent";
 import theLoaderPrimary from "../../constants/animations/theLoaderPrimary.json";
-
+import Iframe from "../Iframe";
 
 export default {
   title: "Atoms/Loader",
@@ -26,25 +26,19 @@ export default {
   },
 };
 
-
-const Template = (args) => (
-    <LoaderComponent {...args} />
-);
+const Template = (args) => <LoaderComponent {...args} />;
 
 const commonArgs = {
   className: "",
   style: {},
-  variant:"Basic",
-  animationStyles:{}
+  variant: "Basic",
+  animationStyles: {},
 };
 
 export const Documentation = () => (
-  <iframe
+  <Iframe
     //Todo:Update the url
-    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-core-react-components/input-field" 
-    width="100%"
-    height="830"
-    style={{ border: "none" }}
+    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-core-react-components/input-field"
     title="Loader Documentation"
   />
 );
@@ -73,16 +67,16 @@ export const Custom = Template.bind({});
 Custom.args = {
   ...commonArgs,
   variant: "Basic",
-  style:{
-    width:"100%",
-    height:"300px",
-    alignItems:"center"
+  style: {
+    width: "100%",
+    height: "300px",
+    alignItems: "center",
   },
-  loaderText:"This page is loading",
-  animationStyles:{
-    width:"50px",
-    height:"50px",
-    animationData:theLoaderPrimary
+  loaderText: "This page is loading",
+  animationStyles: {
+    width: "50px",
+    height: "50px",
+    animationData: theLoaderPrimary,
   },
-  className:"custom-loader-example"
+  className: "custom-loader-example",
 };

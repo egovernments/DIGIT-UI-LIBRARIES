@@ -1,5 +1,6 @@
 import React from "react";
 import Tooltip from "../Tooltip";
+import Iframe from "../Iframe";
 
 export default {
   title: "Atoms/Tooltip",
@@ -30,21 +31,15 @@ export default {
     header: { control: "text" },
     theme: {
       control: "select",
-      options: [
-        "dark",
-        "light",
-      ],
+      options: ["dark", "light"],
     },
   },
 };
 
 export const Documentation = () => (
-  <iframe
+  <Iframe
     //Todo:Update the url
-    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-core-react-components/input-field" 
-    width="100%"
-    height="830"
-    style={{ border: "none" }}
+    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-core-react-components/input-field"
     title="Tooltip Documentation"
   />
 );

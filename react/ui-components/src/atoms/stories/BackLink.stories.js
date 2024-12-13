@@ -1,5 +1,6 @@
 import React from "react";
 import BackLink from "../BackLink";
+import Iframe from "../Iframe";
 
 export default {
   title: "Atoms/BackLink",
@@ -21,18 +22,18 @@ export default {
     disabled: {
       control: "boolean",
     },
-    hideLabel:{
-        control:"boolean"
+    hideLabel: {
+      control: "boolean",
     },
-    hideIcon:{
-        control:"boolean"
+    hideIcon: {
+      control: "boolean",
     },
     iconFill: {
       control: "text",
     },
-    label:{
-      control:"text"
-    }
+    label: {
+      control: "text",
+    },
   },
 };
 
@@ -44,19 +45,16 @@ const commonArgs = {
   onClick: () => console.log("clicked"),
   disabled: false,
   variant: "",
-  hideIcon:false,
-  hideLabel:false,
-  iconFill:"",
-  label:"Back"
+  hideIcon: false,
+  hideLabel: false,
+  iconFill: "",
+  label: "Back",
 };
 
 export const Documentation = () => (
-  <iframe
+  <Iframe
     //Todo:Update the url
-    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-core-react-components/input-field" 
-    width="100%"
-    height="830"
-    style={{ border: "none" }}
+    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-core-react-components/input-field"
     title="BackLink Documentation"
   />
 );
@@ -85,5 +83,5 @@ export const Disabled = Template.bind({});
 Disabled.args = {
   ...commonArgs,
   variant: "primary",
-  disabled:true
+  disabled: true,
 };

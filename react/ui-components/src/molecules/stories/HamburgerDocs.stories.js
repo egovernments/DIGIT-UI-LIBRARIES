@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import MobileSidebar from "../../atoms/MobileSidebar";
-
+import {Iframe} from "../../atoms";
 
 export default {
   title: "Molecules/Hamburger",
@@ -25,14 +25,11 @@ export default {
 };
 
 export const Documentation = () => (
-    <iframe
-      //Todo:Update the url
-      src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-core-react-components/input-field"
-      width="100%"
-      height="830"
-      style={{ border: "none" }}
-      title="Hamburger Documentation"
-    />
+  <Iframe
+    //Todo:Update the url
+    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-core-react-components/input-field"
+    title="Hamburger Documentation"
+  />
   );
 
   Documentation.storyName = "Docs";

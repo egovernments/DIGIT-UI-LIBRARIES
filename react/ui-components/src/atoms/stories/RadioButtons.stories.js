@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { CustomDropdown } from "../../molecules";
 import FieldV1 from "../../hoc/FieldV1";
+import Iframe from "../Iframe";
 
 export default {
   title: "Atoms/RadioButton",
@@ -66,18 +67,14 @@ const commonArgs = {
 };
 
 export const Documentation = () => (
-  <iframe
+  <Iframe
     //Todo:Update the url
     src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-core-react-components/input-field"
-    width="100%"
-    height="830"
-    style={{ border: "none" }}
     title="RadioButton Documentation"
   />
 );
 
 Documentation.storyName = "Docs";
-
 
 export const Default = Template.bind({});
 Default.args = {
@@ -112,8 +109,8 @@ PreSelected.argTypes = {
 export const AlignVertical = Template.bind({});
 AlignVertical.args = {
   ...commonArgs,
-  populators:{
+  populators: {
     ...commonArgs.populators,
-    alignVertical:true
-  }
+    alignVertical: true,
+  },
 };

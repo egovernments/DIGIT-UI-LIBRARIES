@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import OTPInput from "../OTPInput";
+import Iframe from "../Iframe";
 
 export default {
   title: "Atoms/OTPInput",
@@ -26,16 +27,16 @@ const Template = (args) => {
   const handleOtpChange = (value) => {
     setOtp(value);
     if (value.length === args.length) {
-      const isValid = value.includes(1); 
+      const isValid = value.includes(1);
       if (isValid) {
         console.log("OTP is correct");
-        return null; 
+        return null;
       } else {
         console.log("Invalid OTP");
         return "Invalid OTP";
       }
     }
-    return null; 
+    return null;
   };
 
   return <OTPInput {...args} onChange={handleOtpChange} />;
@@ -49,12 +50,9 @@ const commonArgs = {
 };
 
 export const Documentation = () => (
-  <iframe
+  <Iframe
     //Todo:Update the url
-    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-core-react-components/input-field" 
-    width="100%"
-    height="830"
-    style={{ border: "none" }}
+    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-core-react-components/input-field"
     title="OTPInput Documentation"
   />
 );

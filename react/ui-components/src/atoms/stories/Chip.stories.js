@@ -1,6 +1,7 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
 import Chip from "../Chip";
+import Iframe from "../Iframe";
 
 export default {
   title: "Atoms/Chip",
@@ -33,9 +34,9 @@ export default {
     error: {
       control: "text",
     },
-    iconReq:{
-      control:"text"
-    }
+    iconReq: {
+      control: "text",
+    },
   },
 };
 
@@ -54,17 +55,14 @@ const commonArgs = {
   disabled: false,
   isErrorTag: false,
   error: "",
-  hideClose:true,
-  iconReq:""
+  hideClose: true,
+  iconReq: "",
 };
 
 export const Documentation = () => (
-  <iframe
+  <Iframe
     //Todo:Update the url
-    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-core-react-components/input-field" 
-    width="100%"
-    height="830"
-    style={{ border: "none" }}
+    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-core-react-components/input-field"
     title="Chip Documentation"
   />
 );
@@ -80,22 +78,22 @@ export const WithClose = Template.bind({});
 WithClose.args = {
   ...commonArgs,
   text: "Chip",
-  hideClose:false
+  hideClose: false,
 };
 
 export const WithIcon = Template.bind({});
 WithIcon.args = {
   ...commonArgs,
   text: "Chip",
-  iconReq:"Edit"
+  iconReq: "Edit",
 };
 
 export const Error = Template.bind({});
 Error.args = {
   ...commonArgs,
   text: "ErrorChipWithError",
-  isErrorTag:true,
-  error:"ErrorMessage",
-  iconReq:"Edit",
-  hideClose:false
+  isErrorTag: true,
+  error: "ErrorMessage",
+  iconReq: "Edit",
+  hideClose: false,
 };

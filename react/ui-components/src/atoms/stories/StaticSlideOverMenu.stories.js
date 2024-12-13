@@ -39,7 +39,7 @@ const Template = (args) => <SlideOverMenu {...args} />;
 const commonArgs = {
   className: "",
   styles: {},
-  type: "dynamic",
+  type: "static",
   position: "right",
   children: [],
   header: [],

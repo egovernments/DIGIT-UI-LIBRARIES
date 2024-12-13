@@ -1,5 +1,6 @@
 import React from "react";
 import Switch from "../Switch";
+import Iframe from "../Iframe";
 
 export default {
   title: "Atoms/Switch",
@@ -10,27 +11,23 @@ export default {
     shapeOnOff: { control: "boolean" },
     isCheckedInitially: { control: "boolean" },
     onToggle: { action: "onToggle" },
-    className:{control:"text"},
-    style:{control:"object"},
-    disable:{control:"boolean"}
+    className: { control: "text" },
+    style: { control: "object" },
+    disable: { control: "boolean" },
   },
 };
 
 const Template = (args) => <Switch {...args} />;
 
 export const Documentation = () => (
-  <iframe
+  <Iframe
     //Todo:Update the url
-    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-core-react-components/input-field" 
-    width="100%"
-    height="830"
-    style={{ border: "none" }}
+    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-core-react-components/input-field"
     title="Switch Documentation"
   />
 );
 
 Documentation.storyName = "Docs";
-
 
 export const Default = Template.bind({});
 Default.args = {
@@ -102,7 +99,7 @@ Disabled.args = {
   isLabelFirst: false,
   shapeOnOff: false,
   isCheckedInitially: false,
-  disable:true
+  disable: true,
 };
 
 export const onToggleLogic = Template.bind({});
@@ -111,5 +108,7 @@ onToggleLogic.args = {
   isLabelFirst: false,
   shapeOnOff: false,
   isCheckedInitially: false,
-  onToggle:(e)=>{console.log(e,"event")}
+  onToggle: (e) => {
+    console.log(e, "event");
+  },
 };

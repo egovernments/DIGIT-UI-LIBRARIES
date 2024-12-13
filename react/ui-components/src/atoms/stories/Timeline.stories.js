@@ -1,6 +1,7 @@
 import React from "react";
 import Timeline from "../Timeline";
 import Button from "../Button";
+import Iframe from "../Iframe";
 
 export default {
   title: "Atoms/Timeline",
@@ -32,15 +33,15 @@ export default {
     individualElementStyles: {
       control: { type: "object" },
     },
-    showConnector:{
-      control:{type:"boolean"}
+    showConnector: {
+      control: { type: "boolean" },
     },
-    showDefaultValueForDate:{
-      control:{type:"boolean"}
+    showDefaultValueForDate: {
+      control: { type: "boolean" },
     },
-    initialVisibleAdditionalElementsCount:{
-      control:{type:"number"}
-    }
+    initialVisibleAdditionalElementsCount: {
+      control: { type: "number" },
+    },
   },
 };
 
@@ -99,7 +100,7 @@ const additionalElements = [
     type="button"
     icon="MyLocation"
     isSuffix={true}
-  />
+  />,
 ];
 
 const subElements = [
@@ -107,18 +108,15 @@ const subElements = [
   "11:00 PM",
   "26 / 03 / 2024 11:00 PM",
   "26 / 03 / 2024 11:00 PM Mon",
-  "+91 **********"
+  "+91 **********",
 ];
 
-const subElementWithDate = [ "26 / 03 / 2024" ];
+const subElementWithDate = ["26 / 03 / 2024"];
 
 export const Documentation = () => (
-  <iframe
+  <Iframe
     //Todo:Update the url
-    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-core-react-components/input-field" 
-    width="100%"
-    height="830"
-    style={{ border: "none" }}
+    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-core-react-components/input-field"
     title="Timeline Documentation"
   />
 );
@@ -130,7 +128,7 @@ export const Upcoming = Template.bind({});
 Upcoming.args = {
   label: "Upcoming",
   subElements: [],
-  variant: "upcoming"
+  variant: "upcoming",
 };
 
 // Upcoming Timeline Without AdditionalElements
@@ -138,7 +136,7 @@ export const UpcomingDefault = Template.bind({});
 UpcomingDefault.args = {
   label: "Upcoming",
   subElements: subElementWithDate,
-  variant: "upcoming"
+  variant: "upcoming",
 };
 
 // Upcoming Timeline
@@ -157,7 +155,7 @@ UpcomingWithConnector.args = {
   variant: "upcoming",
   subElements: subElements,
   additionalElements: additionalElements,
-  showConnector:true
+  showConnector: true,
 };
 
 // InProgress Timeline Without subElements
@@ -165,7 +163,7 @@ export const InProgress = Template.bind({});
 InProgress.args = {
   label: "Inprogress",
   subElements: [],
-  variant: "inprogress"
+  variant: "inprogress",
 };
 
 // InProgress Timeline Without AdditionalElements
@@ -173,7 +171,7 @@ export const InProgressDefault = Template.bind({});
 InProgressDefault.args = {
   label: "Inprogress",
   subElements: subElementWithDate,
-  variant: "inprogress"
+  variant: "inprogress",
 };
 
 // InProgress Timeline
@@ -192,7 +190,7 @@ InProgressWithConnector.args = {
   subElements: subElements,
   variant: "inprogress",
   additionalElements: additionalElements,
-  showConnector:true
+  showConnector: true,
 };
 
 // Completed Timeline Without subElements
@@ -200,7 +198,7 @@ export const Completed = Template.bind({});
 Completed.args = {
   label: "Completed",
   subElements: [],
-  variant: "completed"
+  variant: "completed",
 };
 
 // Completed Timeline Without AdditionalElements
@@ -208,7 +206,7 @@ export const CompletedDefault = Template.bind({});
 CompletedDefault.args = {
   label: "Completed",
   subElements: subElementWithDate,
-  variant: "completed"
+  variant: "completed",
 };
 
 // Completed Timeline
@@ -227,9 +225,8 @@ CompletedWithConnector.args = {
   subElements: subElements,
   variant: "completed",
   additionalElements: additionalElements,
-  showConnector:true
+  showConnector: true,
 };
-
 
 // Error Timeline
 export const ErrorTimeline = Template.bind({});
@@ -237,7 +234,7 @@ ErrorTimeline.args = {
   label: "",
   subElements: [],
   variant: "completed",
-  isError:true,
-  showDefaultValueForDate	:true,
+  isError: true,
+  showDefaultValueForDate: true,
   additionalElements: additionalElements,
 };

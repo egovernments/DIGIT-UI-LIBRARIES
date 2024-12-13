@@ -1,5 +1,6 @@
 import React from "react";
-import {Accordion} from "../Accordion";
+import { Accordion } from "../Accordion";
+import Iframe from "../Iframe";
 
 export default {
   title: "Atoms/Accordion",
@@ -22,14 +23,10 @@ export default {
 
 const Template = (args) => <Accordion {...args} />;
 
-
 export const Documentation = () => (
-  <iframe
+  <Iframe
     //Todo:Update the url
-    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-core-react-components/input-field" 
-    width="100%"
-    height="830"
-    style={{ border: "none" }}
+    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-core-react-components/input-field"
     title="Accordion Documentation"
   />
 );
@@ -121,11 +118,9 @@ NestedAccordion.args = {
   hideBorderRadius: false,
   title: "Main Accordion",
   children: (
-    <Accordion
-      title="Nested Accordion"
-      isChild={true}
-    >
-      This is a nested accordion demonstrating component composition. The isChild prop ensures proper styling and behavior.
+    <Accordion title="Nested Accordion" isChild={true}>
+      This is a nested accordion demonstrating component composition. The
+      isChild prop ensures proper styling and behavior.
     </Accordion>
   ),
 };

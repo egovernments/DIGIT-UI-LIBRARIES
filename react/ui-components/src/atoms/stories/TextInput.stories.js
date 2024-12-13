@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import FieldV1 from "../../hoc/FieldV1";
+import Iframe from "../Iframe";
 
 export default {
   title: "Atoms/TextInput",
@@ -18,7 +19,7 @@ export default {
           "search",
           "textarea",
           "number",
-          "mobileNumber"
+          "mobileNumber",
         ],
       },
     },
@@ -52,8 +53,9 @@ const Template = (args) => {
     }
   };
 
-
-  return <FieldV1 {...args} value={value} onChange={handleInputChange} type={type} />;
+  return (
+    <FieldV1 {...args} value={value} onChange={handleInputChange} type={type} />
+  );
 };
 
 const commonArgs = {
@@ -73,7 +75,7 @@ const commonArgs = {
       console.log("Icon Clicked");
     },
     resizeSmart: false,
-    disableTextField:false
+    disableTextField: false,
   },
   error: "",
   label: "",
@@ -88,18 +90,14 @@ const commonArgs = {
 };
 
 export const Documentation = () => (
-  <iframe
+  <Iframe
     //Todo:Update the url
-    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-core-react-components/input-field" 
-    width="100%"
-    height="830"
-    style={{ border: "none" }}
+    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-core-react-components/input-field"
     title="TextInput Documentation"
   />
 );
 
 Documentation.storyName = "Docs";
-
 
 export const Default = Template.bind({});
 Default.args = {

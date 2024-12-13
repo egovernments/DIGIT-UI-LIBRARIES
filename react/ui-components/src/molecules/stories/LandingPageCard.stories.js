@@ -1,5 +1,6 @@
 import React from "react";
 import LandingPageCard from "../../molecules/LandingPageCard";
+import {Iframe} from "../../atoms";
 
 export default {
   title: "Molecules/LandingPageCard",
@@ -92,12 +93,9 @@ const longmetriclabel = [
 ]
 
 export const Documentation = () => (
-  <iframe
+  <Iframe
     //Todo:Update the url
     src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-core-react-components/input-field"
-    width="100%"
-    height="830"
-    style={{ border: "none" }}
     title="LandingPageCard Documentation"
   />
 );

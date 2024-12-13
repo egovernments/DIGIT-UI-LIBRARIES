@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import PopUp from "../PopUp";
+import Iframe from "../Iframe";
 
 export default {
   title: "Atoms/PopUp",
@@ -85,26 +86,19 @@ export default {
       control: "boolean",
     },
   },
-  parameters:{
-    options:{
-      storySort:{
-        order:[
-          "Docs",
-          "Basic",
-          "Alert"
-        ]
-      }
-    }
-  }
+  parameters: {
+    options: {
+      storySort: {
+        order: ["Docs", "Basic", "Alert"],
+      },
+    },
+  },
 };
 
 export const Documentation = () => (
-  <iframe
+  <Iframe
     //Todo:Update the url
     src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-core-react-components/input-field"
-    width="100%"
-    height="830"
-    style={{ border: "none" }}
     title="Popup Documentation"
   />
 );
