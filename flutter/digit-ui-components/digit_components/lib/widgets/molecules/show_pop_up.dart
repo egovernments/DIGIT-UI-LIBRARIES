@@ -6,7 +6,7 @@ import '../../theme/colors.dart';
 import '../atoms/digit_button.dart';
 import '../atoms/pop_up_card.dart';
 
-Future<void> showCustomPopup({
+Future<dynamic> showCustomPopup({
   required BuildContext context,
   required Widget Function(BuildContext) builder,  // Pass builder instead of child
   bool barrierDismissible = true,
@@ -14,7 +14,7 @@ Future<void> showCustomPopup({
   Curve curve = Curves.easeInOut,
 }) async
 {
-  return showGeneralDialog<void>(
+  return showGeneralDialog<dynamic>(
     context: context,
     barrierDismissible: barrierDismissible,
     barrierLabel: '',
