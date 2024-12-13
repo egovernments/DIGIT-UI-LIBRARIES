@@ -18,6 +18,7 @@ class LabeledField extends StatelessWidget {
   final CrossAxisAlignment crossAxisAlignment;
   final bool capitalizedFirstLetter;
   final bool labelInline;
+  final bool charCondition;
 
   const LabeledField({
     super.key,
@@ -35,6 +36,7 @@ class LabeledField extends StatelessWidget {
     this.crossAxisAlignment = CrossAxisAlignment.start,
     this.capitalizedFirstLetter = true,
     this.labelInline = true,
+    this.charCondition = false,
   });
 
   @override
@@ -58,9 +60,9 @@ class LabeledField extends StatelessWidget {
               children: [
                 RichText(
                   text: TextSpan(
-                    text: processedLabel!.length > 64
-                        ? '${processedLabel!.substring(0, 64)}...'
-                        : processedLabel!,
+                    text: charCondition ? processedLabel : processedLabel!.length > 64
+                        ? '${processedLabel.substring(0, 64)}...'
+                        : processedLabel,
                     style: textTheme.label.copyWith(
                       color: theme.colorTheme.text.primary,
                       overflow: TextOverflow.ellipsis,
