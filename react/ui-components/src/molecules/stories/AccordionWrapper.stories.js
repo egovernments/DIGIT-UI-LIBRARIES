@@ -1,6 +1,7 @@
 import React from "react";
 import { Accordion } from "../../atoms";
 import { AccordionWrapper } from "../../atoms";
+import {Iframe} from "../../atoms";
 
 export default {
   title: "Molecules/AccordionWrapper",
@@ -57,6 +58,16 @@ const commonArgs = {
   addDivider: true,
 };
 
+export const Documentation = () => (
+  <Iframe
+    //Todo:Update the url
+    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-core-react-components/input-field"
+    title="AccordionWrapper Documentation"
+  />
+);
+
+Documentation.storyName = "Docs";
+
 export const Default = Template.bind({});
 Default.args = {
   ...commonArgs,
@@ -74,7 +85,7 @@ export const WithOnlySingleOpen = Template.bind({});
 WithOnlySingleOpen.args = {
   ...commonArgs,
   children: children,
-  allowMultipleOpen:false
+  allowMultipleOpen: false,
 };
 
 export const CustomStyles = Template.bind({});

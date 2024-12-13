@@ -1,6 +1,7 @@
 import React, { Children } from "react";
 import ErrorMessage from "../ErrorMessage";
 import { truncate } from "lodash";
+import Iframe from "../Iframe";
 
 export default {
   title: "Atoms/ErrorMessage",
@@ -30,9 +31,9 @@ export default {
     truncateMessage: {
       control: "boolean",
     },
-    maxLength:{
-      control:"text"
-    }
+    maxLength: {
+      control: "text",
+    },
   },
 };
 
@@ -46,9 +47,19 @@ const commonArgs = {
   message: "",
   className: "",
   style: {},
-  truncateMessage:false,
-  maxLength:""
+  truncateMessage: false,
+  maxLength: "",
 };
+
+export const Documentation = () => (
+  <Iframe
+    //Todo:Update the url
+    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-core-react-components/input-field"
+    title="ErrorMessage Documentation"
+  />
+);
+
+Documentation.storyName = "Docs";
 
 // Default ErrorMessage
 export const Default = Template.bind({});
@@ -71,6 +82,6 @@ WithTruncateMessage.args = {
   ...commonArgs,
   message: "Error with truncateMessage as true",
   showIcon: true,
-  truncateMessage:true,
-  maxLength:10
+  truncateMessage: true,
+  maxLength: 10,
 };

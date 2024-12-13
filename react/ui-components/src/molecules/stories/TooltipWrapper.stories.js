@@ -3,6 +3,7 @@ import { Colors } from "../../constants/colors/colorconstants";
 import { Button } from "../../atoms";
 import TooltipWrapper from "../TooltipWrapper";
 import { IMAGES } from "../../constants/images/images";
+import {Iframe} from "../../atoms";
 
 export default {
   title: "Molecules/TooltipWrapper",
@@ -61,6 +62,17 @@ const Template = (args) => (
     <TooltipWrapper {...args} />
   </div>
 );
+
+export const Documentation = () => (
+  <Iframe
+    //Todo:Update the url
+    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-core-react-components/input-field"
+    title="TooltipWrapper Documentation"
+  />
+);
+
+Documentation.storyName = "Docs";
+
 
 export const Basic = Template.bind({});
 Basic.args = {

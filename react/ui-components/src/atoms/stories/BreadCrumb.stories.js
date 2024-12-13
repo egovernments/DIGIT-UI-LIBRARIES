@@ -2,6 +2,7 @@ import React from "react";
 import BreadCrumb from "../BreadCrumb";
 import { BrowserRouter as Router } from "react-router-dom";
 import { SVG } from "../SVG";
+import Iframe from "../Iframe";
 
 export default {
   title: "Atoms/BreadCrumb",
@@ -39,6 +40,16 @@ const Template = (args) => (
     <BreadCrumb {...args} />
   </Router>
 );
+
+export const Documentation = () => (
+  <Iframe
+    //Todo:Update the url
+    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-core-react-components/input-field"
+    title="Breadcrumb Documentation"
+  />
+);
+
+Documentation.storyName = "Docs";
 
 export const Basic = Template.bind({});
 Basic.args = {
@@ -205,5 +216,3 @@ WithCustomSeparators.args = {
   ],
   customSeparator: <SVG.ArrowForward fill={"#C84C0E"} />,
 };
-
-

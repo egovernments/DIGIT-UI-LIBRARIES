@@ -2,6 +2,7 @@ import React from "react";
 import BottomSheet from "../BottomSheet";
 import {Button} from "../../atoms";
 import { IMAGES } from "../../constants/images/images";
+import { Iframe } from "../../atoms";
 
 export default {
   title: "Molecules/BottomSheet",
@@ -57,6 +58,16 @@ const actions = [
     isDisabled={false}
   />,
 ];
+
+export const Documentation = () => (
+  <Iframe
+    //Todo:Update the url
+    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-core-react-components/input-field"
+    title="BottomSheet Documentation"
+  />
+);
+
+Documentation.storyName = "Docs";
 
 export const Basic = Template.bind({});
 Basic.args = {

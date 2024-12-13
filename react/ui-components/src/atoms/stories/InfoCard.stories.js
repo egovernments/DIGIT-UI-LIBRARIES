@@ -2,6 +2,7 @@ import React from "react";
 import InfoCard from "../InfoCard";
 import TextArea from "../TextArea";
 import InfoButton from "../InfoButton";
+import Iframe from "../Iframe";
 
 export default {
   title: "Atoms/InfoCard",
@@ -85,6 +86,16 @@ const additionalElements = [
     populators={{ resizeSmart: true }}
   ></TextArea>,
 ];
+
+export const Documentation = () => (
+  <Iframe
+    //Todo:Update the url
+    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-core-react-components/input-field"
+    title="InfoCard Documentation"
+  />
+);
+
+Documentation.storyName = "Docs";
 
 // Info default
 export const Info = Template.bind({});

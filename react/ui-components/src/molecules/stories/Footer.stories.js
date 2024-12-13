@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from "../../atoms";
 import { ActionBar } from "../../atoms";
+import {Iframe} from "../../atoms";
 
 export default {
   title: "Molecules/Footer",
@@ -113,6 +114,17 @@ const footeractionFieldsWithUnSearchableDropdown = [
     onOptionSelect={(option)=>{console.log(option)}}
   ></Button>,
 ];
+
+export const Documentation = () => (
+  <Iframe
+    //Todo:Update the url
+    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-core-react-components/input-field"
+    title="Footer Documentation"
+  />
+);
+
+Documentation.storyName = "Docs";
+
 
 export const Default = Template.bind({});
 Default.args = {
