@@ -4,14 +4,14 @@ import 'package:digit_ui_components/widgets/molecules/digit_card.dart';
 import 'package:flutter/material.dart';
 
 class MenuCard extends StatefulWidget {
-  final IconData icon;
+  final IconData? icon;
   final String heading;
   final String? description;
   final VoidCallback? onTap;
 
   const MenuCard({
     Key? key,
-    required this.icon,
+    this.icon,
     required this.heading,
     this.description,
     this.onTap,
@@ -54,11 +54,12 @@ class _MenuCardState extends State<MenuCard> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(
-                  widget.icon,
-                  size: isMobile ? 24 : isTab ? 32 : 32,
-                  color: theme.colorTheme.primary.primary1,
-                ),
+                if(widget.icon!=null)
+                  Icon(
+                    widget.icon,
+                    size: isMobile ? 24 : isTab ? 32 : 32,
+                    color: theme.colorTheme.primary.primary1,
+                  ),
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
