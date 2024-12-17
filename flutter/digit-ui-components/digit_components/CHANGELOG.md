@@ -1,3 +1,9 @@
+## 0.0.2-dev.3
+* upgraded all the package dependency to latest version
+* added description prop for labelled field
+* updated menu cards
+
+
 ## 0.0.2-dev.2
 * updated reactive form version
 * fixed privacy policy header alignment issue
