@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import LandingPageCard from "../LandingPageCard";
 import LandingPageWrapper from "../LandingPageWrapper";
+import {Iframe} from "../../atoms";
 
 export default {
   title: "MoleculeGroup/LandingPageWrapper",
@@ -8,6 +9,17 @@ export default {
 };
 
 const Template = (args) => <LandingPageWrapper {...args} />;
+
+export const Documentation = () => (
+  <Iframe
+    //Todo:Update the url
+    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-core-react-components/input-field"
+    title="LandingPageWrapper Documentation"
+  />
+);
+
+Documentation.storyName = "Docs";
+
 
 export const Example1 = () => {
   return (

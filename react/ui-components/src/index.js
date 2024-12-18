@@ -98,7 +98,9 @@ import {
   TableBody,
   TableRow,
   TableCell,
-  NestedTable
+  NestedTable,
+  LoaderComponent,
+  Iframe
 } from "./atoms";
 
 import { FieldComposer, FieldController, Fields, FormComposerV2, Modal, UploadFileComposer, FieldV1, InboxSearchComposer, ResultsTable } from "./hoc";
@@ -147,6 +149,7 @@ export {
   Sidebar,
   MobileSidebar,
   Accordion,
+  Iframe,
   AccordionWrapper,
   Switch,
   Tooltip,
@@ -178,6 +181,7 @@ export {
   Header,
   HeaderBar,
   HorizontalNav,
+  LoaderComponent,
   Tab,
   InfoCard,
   InputTextAmount,

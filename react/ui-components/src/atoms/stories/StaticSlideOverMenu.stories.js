@@ -4,7 +4,7 @@ import Button from "../Button";
 import { SVG } from "../SVG";
 
 export default {
-  title: "Atoms/SlideOverMenu",
+  title: "Atoms/SlideOverMenu/Static",
   component: SlideOverMenu,
   argTypes: {
     className: { control: "text" },
@@ -39,7 +39,7 @@ const Template = (args) => <SlideOverMenu {...args} />;
 const commonArgs = {
   className: "",
   styles: {},
-  type: "dynamic",
+  type: "static",
   position: "right",
   children: [],
   header: [],
@@ -845,10 +845,6 @@ const footer = [
   />,
 ];
 
-const closedFooter = [
-<SVG.Edit></SVG.Edit>
-];
-
 const closedHeader = [
   <div
   style={{
@@ -870,8 +866,8 @@ const closedHeader = [
 </div>
 ]
 
-export const StaticRight = Template.bind({});
-StaticRight.args = {
+export const Right = Template.bind({});
+Right.args = {
   ...commonArgs,
   type: "static",
   position: "right",
@@ -880,8 +876,8 @@ StaticRight.args = {
   footer: footer,
 };
 
-export const StaticRightWithoutBgActive = Template.bind({});
-StaticRightWithoutBgActive.args = {
+export const RightWithoutBgActive = Template.bind({});
+RightWithoutBgActive.args = {
   ...commonArgs,
   type: "static",
   position: "right",
@@ -891,8 +887,8 @@ StaticRightWithoutBgActive.args = {
   bgActive: false,
 };
 
-export const StaticRightWithSections = Template.bind({});
-StaticRightWithSections.args = {
+export const RightWithSections = Template.bind({});
+RightWithSections.args = {
   ...commonArgs,
   type: "static",
   position: "right",
@@ -901,8 +897,8 @@ StaticRightWithSections.args = {
   sections: sections,
 };
 
-export const StaticRightWithSectionsAndWithoutBgActive = Template.bind({});
-StaticRightWithSectionsAndWithoutBgActive.args = {
+export const RightWithSectionsAndWithoutBgActive = Template.bind({});
+RightWithSectionsAndWithoutBgActive.args = {
   ...commonArgs,
   type: "static",
   position: "right",
@@ -912,8 +908,8 @@ StaticRightWithSectionsAndWithoutBgActive.args = {
   bgActive: false,
 };
 
-export const StaticRightWithClose = Template.bind({});
-StaticRightWithClose.args = {
+export const RightWithClose = Template.bind({});
+RightWithClose.args = {
   ...commonArgs,
   type: "static",
   position: "right",
@@ -924,8 +920,8 @@ StaticRightWithClose.args = {
   closedContents:closedContents
 };
 
-export const StaticRightWithSectionsAndClose = Template.bind({});
-StaticRightWithSectionsAndClose.args = {
+export const RightWithSectionsAndClose = Template.bind({});
+RightWithSectionsAndClose.args = {
   ...commonArgs,
   type: "static",
   position: "right",
@@ -937,8 +933,8 @@ StaticRightWithSectionsAndClose.args = {
   closedHeader:closedHeader
 };
 
-export const StaticRightWithCustomWidth = Template.bind({});
-StaticRightWithCustomWidth.args = {
+export const RightWithCustomWidth = Template.bind({});
+RightWithCustomWidth.args = {
   ...commonArgs,
   type: "static",
   position: "right",
@@ -948,8 +944,8 @@ StaticRightWithCustomWidth.args = {
   defaultOpenWidth: 600,
 };
 
-export const StaticLeft = Template.bind({});
-StaticLeft.args = {
+export const Left = Template.bind({});
+Left.args = {
   ...commonArgs,
   type: "static",
   position: "left",
@@ -958,8 +954,8 @@ StaticLeft.args = {
   footer: footer,
 };
 
-export const StaticLeftWithoutBgActive = Template.bind({});
-StaticLeftWithoutBgActive.args = {
+export const LeftWithoutBgActive = Template.bind({});
+LeftWithoutBgActive.args = {
   ...commonArgs,
   type: "static",
   position: "left",
@@ -979,8 +975,8 @@ StaticLeftWithSections.args = {
   sections: sections,
 };
 
-export const StaticLeftWithSectionsWithoutBgActive = Template.bind({});
-StaticLeftWithSectionsWithoutBgActive.args = {
+export const LeftWithSectionsWithoutBgActive = Template.bind({});
+LeftWithSectionsWithoutBgActive.args = {
   ...commonArgs,
   type: "static",
   position: "left",
@@ -990,8 +986,8 @@ StaticLeftWithSectionsWithoutBgActive.args = {
   bgActive: false,
 };
 
-export const StaticLeftWithClose = Template.bind({});
-StaticLeftWithClose.args = {
+export const LeftWithClose = Template.bind({});
+LeftWithClose.args = {
   ...commonArgs,
   type: "static",
   position: "left",
@@ -1003,8 +999,8 @@ StaticLeftWithClose.args = {
   closedHeader:closedHeader
 };
 
-export const StaticLeftWithSectionsAndClose = Template.bind({});
-StaticLeftWithSectionsAndClose.args = {
+export const LeftWithSectionsAndClose = Template.bind({});
+LeftWithSectionsAndClose.args = {
   ...commonArgs,
   type: "static",
   position: "left",
@@ -1016,8 +1012,8 @@ StaticLeftWithSectionsAndClose.args = {
   closedHeader:closedHeader
 };
 
-export const StaticLeftWithCustomWidth = Template.bind({});
-StaticLeftWithCustomWidth.args = {
+export const LeftWithCustomWidth = Template.bind({});
+LeftWithCustomWidth.args = {
   ...commonArgs,
   type: "static",
   position: "left",
@@ -1025,227 +1021,4 @@ StaticLeftWithCustomWidth.args = {
   header: header,
   footer: footer,
   defaultOpenWidth: 600,
-};
-
-export const DynamicRight = Template.bind({});
-DynamicRight.args = {
-  ...commonArgs,
-  type: "dynamic",
-  position: "right",
-  children: children,
-  header: header,
-  footer: footer,
-  closedContents:closedContents,
-  closedHeader:closedHeader,
-  closedFooter:closedFooter
-};
-
-export const DynamicRightWithoutBgActive = Template.bind({});
-DynamicRightWithoutBgActive.args = {
-  ...commonArgs,
-  type: "dynamic",
-  position: "right",
-  children: children,
-  header: header,
-  footer: footer,
-  bgActive: false,
-  closedContents:closedContents,
-  closedHeader:closedHeader,
-  closedFooter:closedFooter
-};
-
-export const DynamicRightWithSections = Template.bind({});
-DynamicRightWithSections.args = {
-  ...commonArgs,
-  type: "dynamic",
-  position: "right",
-  header: header,
-  footer: footer,
-  sections: sections,
-  closedContents:closedContents,
-  closedSections:closedSections,
-  closedHeader:closedHeader,
-  closedFooter:closedFooter
-};
-
-export const DynamicRightWithSectionsAndWithoutBgActive = Template.bind({});
-DynamicRightWithSectionsAndWithoutBgActive.args = {
-  ...commonArgs,
-  type: "dynamic",
-  position: "right",
-  header: header,
-  footer: footer,
-  sections: sections,
-  bgActive: false,
-  closedSections:closedSections,
-  closedHeader:closedHeader,
-  closedFooter:closedFooter
-};
-
-export const DynamicRightWithDragging = Template.bind({});
-DynamicRightWithDragging.args = {
-  ...commonArgs,
-  type: "dynamic",
-  position: "right",
-  children: children,
-  header: header,
-  footer: footer,
-  isDraggable: true,
-  closedContents:closedContents,
-  closedHeader:closedHeader,
-  closedFooter:closedFooter
-};
-
-export const DynamicRightWithClose = Template.bind({});
-DynamicRightWithClose.args = {
-  ...commonArgs,
-  type: "dynamic",
-  position: "right",
-  children: children,
-  header: header,
-  footer: footer,
-  addClose:true,
-  closedContents:closedContents,
-  closedHeader:closedHeader,
-  closedFooter:closedFooter
-};
-
-export const DynamicRightWithSectionsAndClose = Template.bind({});
-DynamicRightWithSectionsAndClose.args = {
-  ...commonArgs,
-  type: "dynamic",
-  position: "right",
-  header: header,
-  footer: footer,
-  sections: sections,
-  closedSections:closedSections,
-  addClose:true,
-  closedHeader:closedHeader,
-  closedFooter:closedFooter
-};
-
-export const DynamicRightWithCustomWidths = Template.bind({});
-DynamicRightWithCustomWidths.args = {
-  ...commonArgs,
-  type: "dynamic",
-  position: "right",
-  children: children,
-  header: header,
-  footer: footer,
-  defaultClosedWidth: 100,
-  defaultOpenWidth: 600,
-  closedSections:closedSections,
-  closedContents:closedContents,
-  closedHeader:closedHeader,
-  closedFooter:closedFooter
-};
-
-export const DynamicLeft = Template.bind({});
-DynamicLeft.args = {
-  ...commonArgs,
-  type: "dynamic",
-  position: "left",
-  children: children,
-  header: header,
-  footer: footer,
-  closedContents:closedContents,
-  closedHeader:closedHeader,
-  closedFooter:closedFooter
-};
-
-export const DynamicLeftWithoutBgActive = Template.bind({});
-DynamicLeftWithoutBgActive.args = {
-  ...commonArgs,
-  type: "dynamic",
-  position: "left",
-  children: children,
-  header: header,
-  footer: footer,
-  bgActive: false,
-  closedContents:closedContents,
-  closedHeader:closedHeader,
-  closedFooter:closedFooter
-};
-
-export const DynamicLeftWithSections = Template.bind({});
-DynamicLeftWithSections.args = {
-  ...commonArgs,
-  type: "dynamic",
-  position: "left",
-  header: header,
-  footer: footer,
-  sections: sections,
-  closedContents:closedContents,
-  closedHeader:closedHeader,
-  closedSections:closedSections,
-  closedFooter:closedFooter
-};
-
-export const DynamicLeftWithSectionsAndWithoutBgACtive = Template.bind({});
-DynamicLeftWithSectionsAndWithoutBgACtive.args = {
-  ...commonArgs,
-  type: "dynamic",
-  position: "left",
-  header: header,
-  footer: footer,
-  sections: sections,
-  bgActive: false,
-  closedHeader:closedHeader,
-  closedSections:closedSections,
-  closedFooter:closedFooter
-};
-
-export const DynamicLeftWithDragging = Template.bind({});
-DynamicLeftWithDragging.args = {
-  ...commonArgs,
-  type: "dynamic",
-  position: "left",
-  children: children,
-  header: header,
-  footer: footer,
-  isDraggable: true,
-  closedHeader:closedHeader,
-  closedFooter:closedFooter
-};
-
-export const DynamicLeftWithClose = Template.bind({});
-DynamicLeftWithClose.args = {
-  ...commonArgs,
-  type: "dynamic",
-  position: "left",
-  children: children,
-  header: header,
-  footer: footer,
-  addClose:true,
-  closedContents:closedContents,
-  closedHeader:closedHeader,
-  closedFooter:closedFooter
-};
-
-export const DynamicLeftWithSectionsAndClose = Template.bind({});
-DynamicLeftWithSectionsAndClose.args = {
-  ...commonArgs,
-  type: "dynamic",
-  position: "left",
-  header: header,
-  footer: footer,
-  sections: sections,
-  addClose:true,
-  closedSections:closedSections,
-  closedHeader:closedHeader,
-  closedFooter:closedFooter
-};
-
-export const DynamicLeftWithCustomWidths = Template.bind({});
-DynamicLeftWithCustomWidths.args = {
-  ...commonArgs,
-  type: "dynamic",
-  position: "left",
-  children: children,
-  header: header,
-  footer: footer,
-  defaultClosedWidth: 100,
-  defaultOpenWidth: 600,
-  closedHeader:closedHeader,
-  closedFooter:closedFooter
 };

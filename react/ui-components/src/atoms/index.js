@@ -99,6 +99,8 @@ import TableHeader from "./TableHeader";
 import TableRow from "./TableRow";
 import SlideOverMenu from "./SlideOverMenu";
 import NestedTable from "./NestedTable";
+import LoaderComponent from "./LoaderComponent";
+import Iframe from "./Iframe";
 
 export {
   ErrorBoundary,
@@ -112,6 +114,7 @@ export {
   MobileSidebar,
   Switch,
   Accordion,
+  Iframe,
   AccordionWrapper,
   Tooltip,
   Banner,
@@ -139,6 +142,7 @@ export {
   Header,
   HeaderBar,
   HorizontalNav,
+  LoaderComponent,
   Tab,
   InfoCard,
   InputTextAmount,

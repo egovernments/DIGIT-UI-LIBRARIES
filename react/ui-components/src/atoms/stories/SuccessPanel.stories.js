@@ -2,7 +2,7 @@ import React from "react";
 import Panels from "../Panels";
 
 export default {
-  title: "Atoms/Panels",
+  title: "Atoms/Panels/Success",
   component: Panels,
   argTypes: {
     type: { control: "select", options: ["success", "error"] },
@@ -61,15 +61,15 @@ const commonArgs = {
   }
 };
 
-export const SuccessPanel = Template.bind({});
-SuccessPanel.args = {
+export const Basic = Template.bind({});
+Basic.args = {
   ...commonArgs,
   type: "success",
   message: "Success Message!",
 };
 
-export const SuccessPanelWithAnimationProperties = Template.bind({});
-SuccessPanelWithAnimationProperties.args = {
+export const WithAnimationProperties = Template.bind({});
+WithAnimationProperties.args = {
   ...commonArgs,
   type: "success",
   message: "Success Message!",
@@ -81,54 +81,18 @@ SuccessPanelWithAnimationProperties.args = {
   }
 };
 
-export const SuccessPanelWithoutAnimation = Template.bind({});
-SuccessPanelWithoutAnimation.args = {
+export const WithoutAnimation = Template.bind({});
+WithoutAnimation.args = {
   ...commonArgs,
   type: "success",
   message: "Success Message!",
   showAsSvg:true
 };
 
-export const SuccessPanelWithMultipleResponses = Template.bind({});
-SuccessPanelWithMultipleResponses.args = {
+export const WithMultipleResponses = Template.bind({});
+WithMultipleResponses.args = {
   ...commonArgs,
   type: "success",
-  message: "Success Message!",
-  multipleResponses:["949749795469","949749795579","949749795499"]
-};
-
-export const ErrorPanel = Template.bind({});
-ErrorPanel.args = {
-  ...commonArgs,
-  type: "error",
-  message: "Error Message!",
-};
-
-export const ErrorPanelWithAnimationProperties = Template.bind({});
-ErrorPanelWithAnimationProperties.args = {
-  ...commonArgs,
-  type: "error",
-  message: "Error Message!",
-  animationProps:{
-    loop :true,
-    width:100,
-    height:100
-  }
-};
-
-
-export const ErrorPanelWithoutAnimation = Template.bind({});
-ErrorPanelWithoutAnimation.args = {
-  ...commonArgs,
-  type: "error",
-  message: "Error Message!",
-  showAsSvg:true
-};
-
-export const ErrorPanelWithMultipleResponses = Template.bind({});
-ErrorPanelWithMultipleResponses.args = {
-  ...commonArgs,
-  type: "error",
   message: "Success Message!",
   multipleResponses:["949749795469","949749795579","949749795499"]
 };

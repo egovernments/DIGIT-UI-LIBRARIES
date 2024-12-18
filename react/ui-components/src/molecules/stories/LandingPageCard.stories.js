@@ -1,5 +1,6 @@
 import React from "react";
 import LandingPageCard from "../../molecules/LandingPageCard";
+import {Iframe} from "../../atoms";
 
 export default {
   title: "Molecules/LandingPageCard",
@@ -90,6 +91,18 @@ const longmetriclabel = [
       "https://unified-dev.digit.org/storybook/?path=/story/atoms-backlink--primary",
   },
 ]
+
+export const Documentation = () => (
+  <Iframe
+    //Todo:Update the url
+    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-core-react-components/input-field"
+    title="LandingPageCard Documentation"
+  />
+);
+
+Documentation.storyName = "Docs";
+
+
 export const RightModuleAlignment = Template.bind({});
 RightModuleAlignment.args = {
   ...commonArgs,

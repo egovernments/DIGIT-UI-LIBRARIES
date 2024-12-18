@@ -1,6 +1,7 @@
 import React,{Fragment} from "react";
 import MenuCardWrapper from "../MenuCardWrapper";
 import MenuCard from "../MenuCard";
+import {Iframe} from "../../atoms";
 
 export default {
   title: "MoleculeGroup/MenuCardWrapper",
@@ -8,6 +9,17 @@ export default {
 };
 
 const Template = (args) => <MenuCardWrapper {...args} />;
+
+export const Documentation = () => (
+  <Iframe
+    //Todo:Update the url
+    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-core-react-components/input-field"
+    title="MenuCardWrapper Documentation"
+  />
+);
+
+Documentation.storyName = "Docs";
+
 
 // Default story showing a group of MenuCards
 export const GroupOfMenuCards = Template.bind({});

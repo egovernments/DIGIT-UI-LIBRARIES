@@ -1,10 +1,9 @@
 import React, { Children } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
-import { SVG } from "../SVG";
-import Sidebar from "../Sidebar";
+import { Sidebar } from "../../atoms";
 
 export default {
-  title: "Atoms/Sidebar",
+  title: "Molecules/Sidebar/Light",
   component: Sidebar,
   argTypes: {
     items: { control: "object" },
@@ -24,99 +23,6 @@ const Template = (args) => (
     <Sidebar {...args} />
   </Router>
 );
-
-const darkThemeitems = [
-  {
-    label: "Home",
-    icon: {
-      icon: "Home",
-    },
-  },
-  {
-    label: "Module 1",
-    icon: {
-      icon: "ChatBubble",
-    },
-    children: [
-      {
-        path: "/",
-        label: "SubModule 1",
-        icon: {
-          icon: "Work",
-        },
-      },
-      {
-        path: "/",
-        label: "SubModule 2",
-        icon: {
-          icon: "Person",
-        },
-      },
-    ],
-  },
-  {
-    label: "Module 2",
-    icon: {
-      icon: "CheckCircle",
-    },
-    children: [
-      {
-        path: "/",
-        label: "SubModule 1",
-        icon: {
-          icon: "Info",
-        },
-        children: [
-          {
-            path: "/",
-            label: "InnerModule 1",
-            icon: {
-              icon: "LabelImportant",
-            },
-          },
-          {
-            path: "/",
-            label: "InnerModule 2",
-            icon: {
-              icon: "Lock",
-            },
-          },
-        ],
-      },
-      {
-        path: "/",
-        label: "SubModule 2",
-        icon: {
-          icon: "Accessibility",
-        },
-      },
-    ],
-  },
-  {
-    label: "Module 3",
-    icon: {
-      icon: "Delete",
-    },
-  },
-  {
-    label: "Module 4",
-    icon: {
-      icon: "DriveFileMove",
-    },
-  },
-  {
-    label: "Module 5",
-    icon: {
-      icon: "Label",
-    },
-  },
-  {
-    label: "Module 6",
-    icon: {
-      icon: "Lightbulb",
-    },
-  },
-];
 
 const lightThemeprimaryitems = [
   {
@@ -312,56 +218,32 @@ const onBottomItemClick =(e) => {
 }
 
 const commonArgs = {
-  items: darkThemeitems,
+  items: lightThemeprimaryitems,
   transitionDuration: 0.5,
-  theme: "dark",
+  theme: "light",
   onSelect:onSelect,
   onBottomItemClick:onBottomItemClick
 };
 
-export const DarkThemePrimarySideBar = Template.bind({});
-DarkThemePrimarySideBar.args = {
-  ...commonArgs,
-};
-
-export const DarkThemeSecondarySideBar = Template.bind({});
-DarkThemeSecondarySideBar.args = {
-  ...commonArgs,
-  variant: "secondary",
-};
-
-export const DarkThemeSideBarWithHiddenAccessbilityTools = Template.bind({});
-DarkThemeSideBarWithHiddenAccessbilityTools.args = {
-  ...commonArgs,
-  variant: "primary",
-  hideAccessbilityTools: true,
-};
-
-export const LightThemePrimarySideBar = Template.bind({});
-LightThemePrimarySideBar.args = {
+export const Primary = Template.bind({});
+Primary.args = {
   ...commonArgs,
   theme: "light",
   items: lightThemeprimaryitems,
 };
 
-export const LightThemeSecondarySideBar = Template.bind({});
-LightThemeSecondarySideBar.args = {
+export const Secondary = Template.bind({});
+Secondary.args = {
   ...commonArgs,
   theme: "light",
   variant: "secondary",
   items: lightThemesecondaryitems,
 };
 
-export const LightThemeSideBarWithHiddenAccessbilityTools = Template.bind({});
-LightThemeSideBarWithHiddenAccessbilityTools.args = {
+export const WithHiddenAccessbilityTools = Template.bind({});
+WithHiddenAccessbilityTools.args = {
   ...commonArgs,
   variant: "primary",
   hideAccessbilityTools: true,
 };
 
-export const CustomCollapsedAndExpandedWidths = Template.bind({});
-CustomCollapsedAndExpandedWidths.args = {
-  ...commonArgs,
-  collapsedWidth: "80px",
-  expandedWidth: "250px",
-};
