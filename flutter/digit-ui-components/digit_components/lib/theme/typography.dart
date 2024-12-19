@@ -46,12 +46,18 @@ abstract class DigitTypography {
   TextStyle get bodyS => textTheme.bodyMedium!;
   TextStyle get bodyXS => textTheme.bodySmall!;
 
+
+  /// link
+  TextStyle get linkL => textTheme.bodyLarge!;
+  TextStyle get linkM => textTheme.bodyMedium!;
+  TextStyle get linkS => textTheme.bodySmall!;
+
   /// Miscellaneous styles
   TextStyle get label => textTheme.bodyLarge!;
   TextStyle get link => textTheme.bodyLarge!.copyWith(
     decoration:TextDecoration.underline,
   );
-  TextStyle get button => textTheme.labelLarge!.copyWith(
+  TextStyle get DigitButton => textTheme.labelLarge!.copyWith(
     fontFamily: 'Roboto',
     fontWeight: FontWeight.w500,
     fontSize: 19,
@@ -78,57 +84,68 @@ class DigitMobileTypography extends DigitTypography {
       displayMedium: _big.copyWith(
         fontSize: 32,
         fontWeight: FontWeight.w700,
-        fontFamily: 'Roboto Condensed Bold',
+        fontFamily: 'Roboto',
+        height: 1.14,
       ),
       headlineLarge: _normal.copyWith(
         fontSize: 24,
         fontWeight: FontWeight.w700,
-        fontFamily: 'Roboto-bold',
+        fontFamily: 'Roboto',
+        height: 1.14,
       ),
       headlineMedium: _normal.copyWith(
         fontSize: 20,
         fontWeight: FontWeight.w700,
-        fontFamily: 'Roboto-bold',
+        fontFamily: 'Roboto',
+        height: 1.14,
       ),
       headlineSmall: _normal.copyWith(
         fontSize: 16,
         fontWeight: FontWeight.w700,
-        fontFamily: 'Roboto-bold',
+        fontFamily: 'Roboto',
+        height: 1.14,
       ),
       displaySmall: _normal.copyWith(
         fontSize: 12,
         fontWeight: FontWeight.w700,
-        fontFamily: 'Roboto-bold',
+        fontFamily: 'Roboto',
+        height: 1.14,
       ),
       bodyLarge: _normal.copyWith(
         fontSize: 16,
         fontWeight: FontWeight.w400,
         fontFamily: 'Roboto',
+        height: 1.37,
       ),
       bodyMedium: _normal.copyWith(
         fontSize: 14,
         fontWeight: FontWeight.w400,
         fontFamily: 'Roboto',
+        height: 1.37,
       ),
       bodySmall: _normal.copyWith(
         fontSize: 12,
         fontWeight: FontWeight.w400,
         fontFamily: 'Roboto',
+        height: 1.37,
       ),
       labelLarge: _normal.copyWith(
         fontSize: 24,
         fontWeight: FontWeight.w500,
-        fontFamily: 'Roboto Italic',
+        fontFamily: 'Roboto',
+        height: 1.14,
       ),
       labelMedium: _light.copyWith(
         fontSize: 20,
         fontWeight: FontWeight.w500,
-        fontFamily: 'Roboto Italic',
+        fontFamily: 'Roboto',
+        height: 1.14,
       ),
       labelSmall: _normal.copyWith(
         fontSize: 16,
         fontWeight: FontWeight.w500,
-        fontFamily: 'Roboto Italic',
+        fontFamily: 'Roboto',
+        height: 1.14,
       ),
     );
   }
@@ -154,57 +171,68 @@ class DigitTabTypography extends DigitTypography {
       displayMedium: _big.copyWith(
         fontSize: 36,
         fontWeight: FontWeight.w700,
-        fontFamily: 'Roboto Condensed Bold',
+        fontFamily: 'Roboto',
+        height: 1.14,
       ),
       headlineLarge: _normal.copyWith(
         fontSize: 28,
         fontWeight: FontWeight.w700,
-        fontFamily: 'Roboto-bold',
+        fontFamily: 'Roboto',
+        height: 1.14,
       ),
       headlineMedium: _normal.copyWith(
         fontSize: 22,
         fontWeight: FontWeight.w700,
-        fontFamily: 'Roboto-bold',
+        fontFamily: 'Roboto',
+        height: 1.14,
       ),
       headlineSmall: _normal.copyWith(
         fontSize: 16,
         fontWeight: FontWeight.w700,
-        fontFamily: 'Roboto-bold',
+        fontFamily: 'Roboto',
+        height: 1.14,
       ),
       displaySmall: _normal.copyWith(
-        fontSize: 12,
+        fontSize: 14,
         fontWeight: FontWeight.w700,
-        fontFamily: 'Roboto-bold',
+        fontFamily: 'Roboto',
+        height: 1.14,
       ),
       bodyLarge: _normal.copyWith(
         fontSize: 20,
         fontWeight: FontWeight.w400,
         fontFamily: 'Roboto',
+        height: 1.37,
       ),
       bodyMedium: _normal.copyWith(
         fontSize: 16,
         fontWeight: FontWeight.w400,
         fontFamily: 'Roboto',
+        height: 1.37,
       ),
       bodySmall: _normal.copyWith(
         fontSize: 14,
         fontWeight: FontWeight.w400,
         fontFamily: 'Roboto',
+        height: 1.37,
       ),
       labelLarge: _normal.copyWith(
         fontSize: 28,
         fontWeight: FontWeight.w500,
-        fontFamily: 'Roboto Italic',
+        fontFamily: 'Roboto',
+        height: 1.14,
       ),
       labelMedium: _light.copyWith(
         fontSize: 24,
         fontWeight: FontWeight.w500,
-        fontFamily: 'Roboto Italic',
+        fontFamily: 'Roboto',
+        height: 1.14,
       ),
       labelSmall: _normal.copyWith(
         fontSize: 20,
         fontWeight: FontWeight.w500,
-        fontFamily: 'Roboto Italic',
+        fontFamily: 'Roboto',
+        height: 1.14,
       ),
     );
   }
@@ -222,7 +250,7 @@ class DigitTabTypography extends DigitTypography {
     );
   }
   @override
-  TextStyle get button {
+  TextStyle get DigitButton {
     return textTheme.labelLarge!.copyWith(
       fontFamily: 'Roboto',
       fontWeight: FontWeight.w500,
@@ -251,57 +279,68 @@ class DigitDesktopTypography extends DigitTypography {
       displayMedium: _big.copyWith(
         fontSize: 40,
         fontWeight: FontWeight.w700,
-        fontFamily: 'Roboto Condensed Bold',
+        fontFamily: 'Roboto',
+        height: 1.14,
       ),
       headlineLarge: _normal.copyWith(
         fontSize: 32,
         fontWeight: FontWeight.w700,
-        fontFamily: 'Robot-bold',
+        fontFamily: 'Roboto',
+        height: 1.14,
       ),
       headlineMedium: _normal.copyWith(
         fontSize: 24,
         fontWeight: FontWeight.w700,
-        fontFamily: 'Robot-bold',
+        fontFamily: 'Roboto',
+        height: 1.14,
       ),
       headlineSmall: _normal.copyWith(
         fontSize: 16,
         fontWeight: FontWeight.w700,
-        fontFamily: 'Robot-bold',
+        fontFamily: 'Roboto',
+        height: 1.14,
       ),
       displaySmall: _normal.copyWith(
-        fontSize: 12,
+        fontSize: 14,
         fontWeight: FontWeight.w700,
-        fontFamily: 'Robot-bold',
+        fontFamily: 'Roboto',
+        height: 1.14,
       ),
       bodyLarge: _normal.copyWith(
         fontSize: 20,
         fontWeight: FontWeight.w400,
         fontFamily: 'Roboto',
+        height: 1.37,
       ),
       bodyMedium: _normal.copyWith(
         fontSize: 16,
         fontWeight: FontWeight.w400,
         fontFamily: 'Roboto',
+        height: 1.37,
       ),
       bodySmall: _normal.copyWith(
         fontSize: 14,
         fontWeight: FontWeight.w400,
         fontFamily: 'Roboto',
+        height: 1.37,
       ),
       labelLarge: _normal.copyWith(
         fontSize: 28,
         fontWeight: FontWeight.w500,
-        fontFamily: 'Roboto Italic',
+        fontFamily: 'Roboto',
+        height: 1.14,
       ),
       labelMedium: _light.copyWith(
         fontSize: 24,
         fontWeight: FontWeight.w500,
-        fontFamily: 'Roboto Italic',
+        fontFamily: 'Roboto',
+        height: 1.14,
       ),
       labelSmall: _normal.copyWith(
         fontSize: 20,
         fontWeight: FontWeight.w500,
-        fontFamily: 'Roboto Italic',
+        fontFamily: 'Roboto',
+        height: 1.14,
       ),
     );
   }
@@ -319,7 +358,7 @@ class DigitDesktopTypography extends DigitTypography {
     );
   }
   @override
-  TextStyle get button {
+  TextStyle get DigitButton {
     return textTheme.labelLarge!.copyWith(
       fontFamily: 'Roboto',
       fontWeight: FontWeight.w500,
@@ -329,12 +368,66 @@ class DigitDesktopTypography extends DigitTypography {
 
 }
 
-DigitTypography getTypography(BuildContext context) {
 
-  if (AppView.isDesktopView(MediaQuery.of(context).size.width)) {
+/// DigitButton-specific typography class
+class DigitButtonTypography extends DigitTypography{
+
+  const DigitButtonTypography({
+    required TextStyle normalBase,
+    required TextStyle displayBase,
+    Color? normal,
+    Color? light,
+  }) : super(
+    normal: normal,
+    light: light,
+    displayBase: displayBase,
+    normalBase: normalBase,
+  );
+
+  TextStyle get _normal =>
+      _normalBase.copyWith(color: _textColorNormal, fontFamily: 'Roboto');
+  TextStyle get _light =>
+      _normalBase.copyWith(color: _textColorLight, fontFamily: 'Roboto');
+  TextStyle get _big =>
+      _displayBase.copyWith(color: _textColorNormal, fontFamily: 'Roboto');
+  @override
+  TextTheme get textTheme {
+    return TextTheme(
+
+      headlineLarge: _normal.copyWith(
+        fontSize: 20,
+        fontWeight: FontWeight.w500,
+        fontFamily: 'Roboto-bold',
+        height: 1.14,
+      ),
+      headlineMedium: _normal.copyWith(
+        fontSize: 16,
+        fontWeight: FontWeight.w500,
+        fontFamily: 'Roboto-bold',
+        height: 1.14,
+      ),
+      headlineSmall: _normal.copyWith(
+        fontSize: 14,
+        fontWeight: FontWeight.w500,
+        fontFamily: 'Roboto-bold',
+        height: 1.14,
+      ),
+    );
+  }
+
+  /// Heading styles
+  TextStyle get DigitButtonLarge => textTheme.headlineLarge!;
+  TextStyle get DigitButtonMedium => textTheme.headlineMedium!;
+  TextStyle get DigitButtonSmall => textTheme.headlineSmall!;
+}
+
+DigitTypography getTypography(BuildContext context, isDigitButtonTypography) {
+
+
+  if (AppView.isDesktopView(MediaQuery.of(context).size)) {
     /// Desktop
     return DigitTheme.instance.desktopTypography;
-  } else if (AppView.isTabletView(MediaQuery.of(context).size.width)) {
+  } else if (AppView.isTabletView(MediaQuery.of(context).size)) {
     /// Tablet
     return DigitTheme.instance.tabTypography;
   } else {

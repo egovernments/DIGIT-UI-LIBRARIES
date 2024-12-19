@@ -15,6 +15,7 @@ import {
   DocXlsxUpload,
   DocdocUpload,
 } from "./svgindex";
+import { CustomSVG } from "./CustomSVG";
 import { getUserType } from "../utils/digitUtils";
 
 const getRandomId = () => {
@@ -256,7 +257,7 @@ const Uploader = (props) => {
     switch (fileType) {
       case "application/pdf":
         return (
-          <DocPdfUpload
+          <CustomSVG.DocPdfUpload
             className={`digit-docupload-icon ${isError ? "error" : ""}`}
             styles={isError ? { border: "1px solid #B91900" } : {}}
             fill={isError ? errorColor : ""}
@@ -268,7 +269,7 @@ const Uploader = (props) => {
       case "application/x-excel":
       case "application/x-msexcel":
         return (
-          <DocXlsxUpload
+          <CustomSVG.DocXlsxUpload
             className={`digit-docupload-icon ${isError ? "error" : ""}`}
             styles={isError ? { border: "1px solid #B91900" } : {}}
             fill={isError ? errorColor : ""}
@@ -277,7 +278,7 @@ const Uploader = (props) => {
       case "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
       case "application/msword":
         return (
-          <DocdocUpload
+          <CustomSVG.DocdocUpload
             className={`digit-docupload-icon ${isError ? "error" : ""}`}
             styles={isError ? { border: "1px solid #B91900" } : {}}
             fill={isError ? errorColor : ""}
@@ -285,7 +286,7 @@ const Uploader = (props) => {
         );
       default:
         return (
-          <DocUpload
+          <CustomSVG.DocUpload
             className={`digit-docupload-icon ${isError ? "error" : ""}`}
             styles={isError ? { border: "1px solid #B91900" } : {}}
             fill={isError ? errorColor : ""}
@@ -402,6 +403,7 @@ const Uploader = (props) => {
                   return (
                     <Chip
                       key={index}
+                      hideClose={false}
                       text={file?.name}
                       onClick={(e) => {
                         e.stopPropagation();
@@ -494,7 +496,7 @@ const Uploader = (props) => {
 
   return (
     <Fragment>
-      <div className={`digit-uploader-wrap ${props?.iserror ? "error" : ""}`}>
+      <div className={`digit-uploader-wrap ${props?.inline ? "inline" : ""} ${props?.iserror ? "error" : ""}`}>
         {showLabel && <p className="digit-upload-label">{t(props?.label)}</p>}
         {renderVariant()}
         {props?.iserror && (

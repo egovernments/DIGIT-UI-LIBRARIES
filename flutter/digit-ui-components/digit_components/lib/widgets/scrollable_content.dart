@@ -1,4 +1,3 @@
-import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/material.dart';
 
 class ScrollableContent extends StatelessWidget {
@@ -10,48 +9,60 @@ class ScrollableContent extends StatelessWidget {
   final MainAxisAlignment mainAxisAlignment;
   final CrossAxisAlignment crossAxisAlignment;
   final List<Widget> children;
+  final bool enableFixedDigitButton;
+  final Color? backgroundColor;
 
-  const ScrollableContent({
-    super.key,
-    this.footer,
-    this.header,
-    this.primary,
-    this.controller,
-    this.mainAxisAlignment = MainAxisAlignment.start,
-    this.crossAxisAlignment = CrossAxisAlignment.start,
-    this.children = const <Widget>[],
-    this.slivers = const [],
-  });
+  const ScrollableContent(
+      {super.key,
+        this.footer,
+        this.header,
+        this.primary,
+        this.controller,
+        this.mainAxisAlignment = MainAxisAlignment.start,
+        this.crossAxisAlignment = CrossAxisAlignment.start,
+        this.children = const <Widget>[],
+        this.slivers = const [],
+        this.backgroundColor,
+        this.enableFixedDigitButton = false});
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      controller: controller,
-      primary: primary,
-      slivers: [
-        if (header != null) SliverToBoxAdapter(child: header),
-        ...slivers,
-        SliverFillRemaining(
-          hasScrollBody: false,
-          child: Center(
-            child: Column(
-              crossAxisAlignment: crossAxisAlignment,
-              children: [
-                Expanded(
-                  child: Column(
-                    mainAxisAlignment: mainAxisAlignment,
-                    children: children,
+    Widget? bottomNavigationBar;
+
+    if (enableFixedDigitButton) {
+      bottomNavigationBar = footer!;
+    }
+    return Scaffold(
+      backgroundColor: backgroundColor,
+      body: CustomScrollView(
+        controller: controller,
+        primary: primary,
+        slivers: [
+          if (header != null) SliverToBoxAdapter(child: header),
+          ...slivers,
+          SliverFillRemaining(
+            hasScrollBody: false,
+            child: Center(
+              child: Column(
+                crossAxisAlignment: crossAxisAlignment,
+                children: [
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: mainAxisAlignment,
+                      children: children,
+                    ),
                   ),
-                ),
-                if (footer != null) ...[
-                  const SizedBox(height: kPadding*2),
-                  footer!,
+                  if (footer != null && !enableFixedDigitButton) ...[
+                    const SizedBox(height: 16),
+                    footer!,
+                  ],
                 ],
-              ],
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
+      bottomNavigationBar: bottomNavigationBar,
     );
   }
 }

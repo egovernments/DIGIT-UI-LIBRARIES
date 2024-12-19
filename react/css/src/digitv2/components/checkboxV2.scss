@@ -26,13 +26,17 @@
       @apply opacity-0;
     }
 
-    svg{
+    svg {
       flex-shrink: 0;
     }
 
     &:hover {
-      @apply border-2 ;
+      @apply border-2;
       border-color: theme(digitv2.lightTheme.primary-1);
+    }
+
+    &.intermediate {
+      border: 0.125rem solid theme(digitv2.lightTheme.primary-1);
     }
   }
 
@@ -43,6 +47,10 @@
   input:hover~.digit-custom-checkbox {
     @apply border-2;
     border-color: theme(digitv2.lightTheme.primary-1);
+  }
+
+  input:hover~.digit-custom-checkbox.intermediate{
+    border: 0.125rem solid theme(digitv2.lightTheme.primary-1);
   }
 
   input:checked~.digit-custom-checkbox {
@@ -60,25 +68,61 @@
     height: theme(digitv2.spacers.spacer4);
   }
 
+  .intermediate-square {
+    width: theme(digitv2.spacers.spacer4);
+    height: theme(digitv2.spacers.spacer4);
+    background-color: theme(digitv2.lightTheme.primary-1);
+    display: block;
+  }
+
   .label {
     @extend .typography.body-s;
+    font-family: theme(digitv2.fontFamily.sans);
+    font-style: theme(digitv2.fontStyle.normal);
+    font-weight: theme(digitv2.fontWeight.regular);
+    line-height: theme(digitv2.lineHeight.lineheight2);
+
+    @media (max-aspect-ratio: 9/16) {
+      /* Media query for mobile */
+      font-size: theme(digitv2.fontSize.body-s.mobile);
+    }
+
+    @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+      /* Media query for tablets */
+      font-size: theme(digitv2.fontSize.body-s.tablet);
+    }
+
+    @media (min-aspect-ratio: 3/4) {
+      /* Media query for desktop */
+      font-size: theme(digitv2.fontSize.body-s.desktop);
+    }
+
     @apply text-left;
     word-break: break-word;
     letter-spacing: theme(digitv2.spacers.spacer0);
-    color: theme(digitv2.lightTheme.text-primary);
+    color: theme(digitv2.lightTheme.text-primary) !important;
+    display: flex;
+    align-items: center;
   }
 
   &.disabled {
-    .label {
-      color: theme(digitv2.lightTheme.text-disabled);
-    }
-
     .digit-custom-checkbox {
       border: 0.063rem solid theme(digitv2.lightTheme.text-disabled);
     }
 
     input:checked~.digit-custom-checkbox {
       border: 0.125rem solid theme(digitv2.lightTheme.text-disabled);
+    }
+
+    .digit-custom-checkbox.intermediate{
+      border: 0.125rem solid theme(digitv2.lightTheme.text-disabled);
+    }
+
+    .intermediate-square {
+      width: theme(digitv2.spacers.spacer4);
+      height: theme(digitv2.spacers.spacer4);
+      background-color: theme(digitv2.lightTheme.text-disabled);
+      display: block;
     }
   }
 }

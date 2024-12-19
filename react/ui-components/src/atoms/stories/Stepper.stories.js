@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Stepper from "../Stepper";
+import Iframe from "../Iframe";
 
 export default {
   title: "Atoms/Stepper",
@@ -23,6 +24,7 @@ export default {
     style: { control: "object" },
     props: { control: "object" },
     activeSteps: { action: "number" },
+    hideDivider: { control: "boolean" },
   },
 };
 
@@ -57,8 +59,19 @@ const commonArgs = {
   props: {
     labelStyles: {},
   },
-  activeSteps:""
+  activeSteps: "",
+  hideDivider: false,
 };
+
+export const Documentation = () => (
+  <Iframe
+    //Todo:Update the url
+    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-core-react-components/input-field"
+    title="Stepper Documentation"
+  />
+);
+
+Documentation.storyName = "Docs";
 
 //Default stepper
 export const Default = Template.bind({});
@@ -66,9 +79,24 @@ Default.args = {
   ...commonArgs,
 };
 
-//Default stepper
+//With Active Steps stepper
 export const WithIsActive = Template.bind({});
 WithIsActive.args = {
   ...commonArgs,
-  activeSteps:3
+  activeSteps: 3,
+};
+
+//Vertical stepper
+export const VerticalStepperWithDivider = Template.bind({});
+VerticalStepperWithDivider.args = {
+  ...commonArgs,
+  direction: "vertical",
+};
+
+//Vertical stepper
+export const VerticalStepperWithoutDivider = Template.bind({});
+VerticalStepperWithoutDivider.args = {
+  ...commonArgs,
+  direction: "vertical",
+  hideDivider: true,
 };

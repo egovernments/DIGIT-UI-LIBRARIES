@@ -4,6 +4,100 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+
+## [0.0.2-beta.56] - 2024-11-16
+### New Changes
+- Added id for every field use with digit-ui-libraries with v1.8.5 for proper integartion
+
+## [0.0.2-beta.54] - 2024-11-16
+### New Changes
+- Fixed Navigation redirection for landing page card if it is an external url.
+
+
+## [0.0.2-beta.51] - 2024-11-06
+### New Changes
+- ButtonsGroup has been renamed as ButtonGroup
+
+## [0.0.2-beta.50] - 2024-10-29
+### New Changes
+- Updated Breadcrumb crumb.path property to crumb.internalLink or crumb.externalLink
+
+## [0.0.2-beta.46] - 2024-10-11
+### New Changes
+- Added MaterialUI Icons,Updated Colors and Spacers Stories
+
+## [0.0.2-beta.44] - 2024-10-07
+### New Changes
+- Added NestedTable, FilterCard and FormCards
+
+## [0.0.2-beta.42] - 2024-09-23
+### New Changes
+- Added Table Molecule 
+
+## [0.0.2-beta.41] - 2024-09-19
+### New Changes
+- Added OTPInput 
+
+## [0.0.2-beta.40] - 2024-09-18
+### New Changes
+- Added ChipsKey for Multiselectdropdown and configuration for close icon in chips
+
+## [0.0.2-beta.39] - 2024-09-12
+### New Changes
+- Added Tab Component and other changes
+
+## [0.0.2-beta.38] - 2024-09-12
+### fixes
+- Css version fix 
+
+## [0.0.2-beta.37] - 2024-09-06
+### New Changes
+- Css version fix 
+
+## [0.0.2-beta.36] - 2024-09-06
+### New Changes
+- Updated SelectionCard Component 
+
+## [0.0.2-beta.35] - 2024-09-06
+### New Changes
+- Added LandingPageCard,MenuCard Molecules
+
+## [0.0.2-beta.34] - 2024-09-05
+### New Changes
+- Updated Accordion with animation
+
+## [0.0.2-beta.33] - 2024-09-04
+### New Changes
+- Added BottomSheet Draggable Functionality
+
+## [0.0.2-beta.32] - 2024-09-04
+### New Changes
+- Updated Tooltip with header and description
+
+## [0.0.2-beta.28] - 2024-08-29
+### New Changes
+- Updated Sidebar and added AccordionWrapper
+
+## [0.0.2-beta.27] - 2024-08-27
+### New Changes
+- Fixed MobileSidebar issue 
+
+## [0.0.2-beta.26] - 2024-08-27
+### New Changes
+- Changed Classname for Submitbar disabled
+
+## [0.0.2-beta.25] - 2024-08-22
+### New Changes
+- Updated Sidebar,SVGs,Added Spacers and Accordion
+
+## [0.0.2-beta.24] - 2024-08-16
+### New Changes
+- Added Switch Component
+
+## [0.0.2-beta.22] - 2024-08-07
+### New Changes
+- Fixes on usgae of utils
+
 ## [0.0.2-beta.22] - 2024-08-07
 ### New Changes
 - Updated Tooltip Component

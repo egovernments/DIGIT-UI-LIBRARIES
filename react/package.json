@@ -46,7 +46,9 @@
     "**/@babel/core": "7.14.0",
     "**/@babel/preset-env": "7.14.0",
     "**/@babel/plugin-transform-modules-commonjs": "7.14.0",
-    "**/polished": "4.2.2"
+    "**/polished": "4.2.2",
+    "**/webpack": "4.44.2",
+    "**/styled-components": "5.0.0"
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "7.21.0",
@@ -79,13 +81,13 @@
     "@babel/plugin-syntax-jsx": "^7.24.1",
     "@babel/preset-react": "^7.24.1",
     "@egovernments/digit-ui-libraries": "1.8.2-beta.1",
-    "@egovernments/digit-ui-components-css":"0.0.2-beta.21",
+    "@egovernments/digit-ui-components-css":"0.0.2-beta.43",
     "@egovernments/digit-ui-module-core": "1.8.1-beta.6",
     "@egovernments/digit-ui-module-project": "0.3.4",
     "@egovernments/digit-ui-module-sample": "0.0.1",
     "@egovernments/digit-ui-react-components": "1.7.10",
-    "@egovernments/digit-ui-svg-components": "1.0.4",
-    "@egovernments/digit-ui-components": "0.0.2-beta.22",
+    "@egovernments/digit-ui-svg-components": "1.0.14",
+    "@egovernments/digit-ui-components": "0.0.2-beta.58",
     "babel-loader": "8.1.0",
     "clean-webpack-plugin": "4.0.0",
     "css-loader": "5.2.6",

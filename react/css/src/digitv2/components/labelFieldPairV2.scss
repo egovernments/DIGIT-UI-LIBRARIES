@@ -19,9 +19,26 @@
      gap: theme(digitv2.spacers.spacer6);
    }
 
+   .digit-text-block-wrap {
+     margin-top: 0.565rem;
+   }
+
+   .digit-radio-options-wrap {
+     margin-top: 0.565rem;
+   }
+
    &.vertical {
      @apply flex-col items-start;
      gap: theme(digitv2.spacers.spacer2);
+
+     .digit-text-block-wrap {
+       margin-top: theme(digitv2.spacers.spacer0);
+     }
+
+     .digit-radio-options-wrap {
+       margin-top: theme(digitv2.spacers.spacer0);
+     }
+
    }
 
    & .label,

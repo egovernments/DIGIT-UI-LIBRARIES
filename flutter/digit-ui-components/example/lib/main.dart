@@ -1,16 +1,36 @@
-
-import 'package:digit_ui_components/enum/app_enums.dart';
-import 'package:digit_ui_components/models/DropdownModels.dart';
-import 'package:digit_ui_components/models/RadioButtonModel.dart';
-import 'package:digit_ui_components/models/TreeModel.dart';
+import 'dart:convert';
 import 'package:digit_ui_components/digit_components.dart';
+import 'package:digit_ui_components/models/RadioButtonModel.dart';
 import 'package:digit_ui_components/models/toggleButtonModel.dart';
+import 'package:digit_ui_components/services/AppLocalization.dart';
+import 'package:digit_ui_components/services/component_localization_delegate.dart';
+import 'package:digit_ui_components/theme/ComponentTheme/toast_theme_data.dart';
+import 'package:digit_ui_components/theme/digit_extended_theme.dart';
+import 'package:digit_ui_components/theme/digit_theme_wrapper.dart';
+import 'package:digit_ui_components/theme/theme_notifier.dart';
 import 'package:digit_ui_components/utils/validators/validator.dart';
+import 'package:digit_ui_components/widgets/atoms/digit_bread_crumbs.dart';
+import 'package:digit_ui_components/widgets/atoms/digit_stepper.dart';
+import 'package:digit_ui_components/widgets/atoms/digit_tab.dart';
 import 'package:digit_ui_components/widgets/atoms/dropdown_wrapper.dart';
+import 'package:digit_ui_components/widgets/atoms/info_buttons.dart';
 import 'package:digit_ui_components/widgets/atoms/input_wrapper.dart';
+import 'package:digit_ui_components/widgets/atoms/switch.dart';
+import 'package:digit_ui_components/widgets/atoms/text_block.dart';
+import 'package:digit_ui_components/widgets/atoms/timeline.dart';
+import 'package:digit_ui_components/widgets/atoms/tooltip_2.dart';
+import 'package:digit_ui_components/widgets/atoms/upload_image.dart';
+import 'package:digit_ui_components/widgets/atoms/upload_popUp.dart';
+import 'package:digit_ui_components/widgets/molecules/digit_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:url_strategy/url_strategy.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:provider/provider.dart';
+import 'dart:io';
+
+import 'localization.dart';
 
 final List<TreeNode> Nodes = [
   TreeNode('A', 'A', [
@@ -77,6 +97,7 @@ final controller42 = TextEditingController();
 final TreeSelectController<int> _controller = TreeSelectController();
 final controller = MultiSelectController<int>();
 final controllerM1 = MultiSelectController<int>();
+int stepNumber = 0;
 
 void main() {
   /// Here we set the URL strategy for our web app.
@@ -90,15 +111,42 @@ class MyApp extends StatelessWidget {
   /// This widget is the root of the application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Digit UI Flutter',
-      theme: DigitTheme.instance.mobileTheme.copyWith(
-          appBarTheme: AppBarTheme(
-        backgroundColor: DigitTheme.instance.colorScheme.secondary,
-      )),
-      home: const MyHomePage(title: 'Digit Components Page'),
+    return DigitThemeWrapper(
+      initialThemeMode: ThemeMode.dark,
+      materialAppBuilder: (context, themeData, themeMode) {
+        return MaterialApp(
+          themeMode: themeMode,
+          theme: themeData,
+          locale: const Locale("en","MZ"),
+          supportedLocales: const [
+            Locale('en', 'US'),
+            Locale("en","MZ"),
+            Locale('fr', 'Fr'),
+          ],
+          localizationsDelegates: [
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+            ComponentLocalization.getDelegate(loadLocalizedStrings(), [
+              Language('French', 'fr_MZ'),
+              Language('Portuguese', 'pt_MZ'),
+              Language('English', 'en_MZ'),
+            ]),
+          ],
+          home: MyHomePage(title: 'Digit Components Page'),
+        );
+      },
     );
   }
+}
+
+Future<List> loadLocalizedStrings() async{
+  String jsonString = await rootBundle.loadString('lib/localization_data.json');
+  // Decode the JSON string
+  List<dynamic> jsonList = jsonDecode(jsonString);
+
+  // Convert the dynamic list to a list of LocalizedString objects
+  return jsonList.map((jsonItem) => Localization.fromJson(jsonItem)).toList();
 }
 
 class MyHomePage extends StatefulWidget {
@@ -111,8 +159,14 @@ class MyHomePage extends StatefulWidget {
 }
 
 class MyHomePageState extends State<MyHomePage> {
+  late Future<List> _localizationFuture;
+
   @override
   void initState() {
+    // Initialize the Future to load the localization strings
+    _localizationFuture = loadLocalizedStrings();
+    ComponentLocalizationDelegate delegate = ComponentLocalizationDelegate(_localizationFuture, [Language('English', 'en_MZ')]);
+    delegate.load(const Locale("en","MZ"));
     super.initState();
   }
 
@@ -130,19 +184,40 @@ class MyHomePageState extends State<MyHomePage> {
   late String searchResultValue;
   bool showAllVariantsOfRadio = false;
 
-  // button variants
-  bool showAllVariantsPrimaryButton = false;
-  bool showAllVariantsOfSecondaryButton = false;
-  bool showAllVariantsOfTertiaryButton = false;
+  // DigitButton variants
+  bool showAllVariantsPrimaryDigitButton = false;
+  bool showAllVariantsOfSecondaryDigitButton = false;
+  bool showAllVariantsOfTertiaryDigitButton = false;
   bool showAllVariantsOfLink = false;
 
   bool showAllVariantsOfDigitCheckbox = false;
 
   bool showAllVariantsOfDropdown = false;
   bool showAllVariantsOfMultiSelectDropdown = false;
+  bool isSwitched = false;
 
   @override
   Widget build(BuildContext context) {
+    return FutureBuilder<List>(
+      future: _localizationFuture,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          // While waiting for the localization data to load, show a loading indicator
+          return const Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          // If an error occurs while loading localization data, show an error message
+          return const Center(child: Text('Error loading localization data'));
+        } else if (snapshot.hasData) {
+          // Once the localization data is loaded, build the UI
+          return _buildContent();
+        } else {
+          // Handle any other unexpected cases
+          return const Center(child: Text('Unexpected error occurred'));
+        }
+      },
+    );
+  }
+  Widget _buildContent() {
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -157,16 +232,245 @@ class MyHomePageState extends State<MyHomePage> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                const DigitTextBlock(
+                  caption: 'Caption Text',
+                  heading: 'Heading Text',
+                  subHeading: 'Sub Heading Text',
+                  description: 'This is the description of the TextBlock component.',
+                ),
+                DigitSwitch(
+                  value: isSwitched,
+                  label: 'Toggle to switch theme',
+                  onChanged: (value) {
+                    setState(() {
+                      isSwitched = value;
+                    });
+                    final themeNotifier = context.read<ThemeNotifier>();
+                    themeNotifier.setThemeMode(
+                      themeNotifier.themeMode == ThemeMode.light
+                          ? ThemeMode.dark
+                          : ThemeMode.light,
+                    );
+                  },
+                ),
+                const SizedBox(
+                  height: 32,
+                ),
+                ImageUploader(
+                  onImagesSelected: (List<File> imageFile) {
+                    // Handle the selected image file here
+                    // print('Image selected: ${imageFile.path}');
+                  },
+                ),
+                const SizedBox(height: 16,),
+                DigitTabBar(
+                  tabs: const ['Tab 1', 'Tab 2', 'Tab 3'],
+                  initialIndex: 1, // Preselect the second tab
+                  onTabSelected: (index) {
+                    // Handle tab selection change
+                  },
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                DigitTooltip(
+                  tooltipContent: const Text(
+                    'Hello, Tooltip!',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  tooltipPosition: TooltipPosition.topStart,
+                  child: Container(
+                    color: Colors.blue,
+                    padding: const EdgeInsets.all(16),
+                    child: const Text('Tap me(top start)'),
+                  ),
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                DigitTooltip(
+                  tooltipContent: const Text(
+                    'Hello, Tooltip!',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  tooltipPosition: TooltipPosition.topCenter,
+                  child: Container(
+                    color: Colors.blue,
+                    padding: const EdgeInsets.all(16),
+                    child: const Text('Tap me(top center)'),
+                  ),
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                DigitTooltip(
+                  tooltipContent: const Text(
+                    'Hello, Tooltip!',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  tooltipPosition: TooltipPosition.topEnd,
+                  child: Container(
+                    color: Colors.blue,
+                    padding: const EdgeInsets.all(16),
+                    child: const Text('Tap me(top end)'),
+                  ),
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                DigitTooltip(
+                  tooltipContent: const Text(
+                    'Hello, Tooltip!',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  tooltipPosition: TooltipPosition.bottomStart,
+                  child: Container(
+                    color: Colors.blue,
+                    padding: const EdgeInsets.all(16),
+                    child: const Text('Tap me(bottom start)'),
+                  ),
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                DigitTooltip(
+                  tooltipContent: const Text(
+                    'Hello, Tooltip!',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  tooltipPosition: TooltipPosition.bottomCenter,
+                  child: Container(
+                    color: Colors.blue,
+                    padding: const EdgeInsets.all(16),
+                    child: const Text('Tap me(bottom center)'),
+                  ),
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                DigitTooltip(
+                  tooltipContent: const Text(
+                    'Hello, Tooltip!',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  tooltipPosition: TooltipPosition.bottomEnd,
+                  child: Container(
+                    color: Colors.blue,
+                    padding: const EdgeInsets.all(16),
+                    child: const Text('Tap me(bottom end)'),
+                  ),
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                DigitTooltip(
+                  tooltipContent: const Text(
+                    'Hello, Tooltip!',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  tooltipPosition: TooltipPosition.leftStart,
+                  child: Container(
+                    color: Colors.blue,
+                    padding: const EdgeInsets.all(16),
+                    child: const Text('Tap me(left start)'),
+                  ),
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                DigitTooltip(
+                  tooltipContent: const Text(
+                    'Hello, Tooltip!',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  tooltipPosition: TooltipPosition.leftCenter,
+                  child: Container(
+                    color: Colors.blue,
+                    padding: const EdgeInsets.all(16),
+                    child: const Text('Tap me(left center)'),
+                  ),
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                DigitTooltip(
+                  tooltipContent: const Text(
+                    'Hello, Tooltip!',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  tooltipPosition: TooltipPosition.leftEnd,
+                  child: Container(
+                    color: Colors.blue,
+                    padding: const EdgeInsets.all(16),
+                    child: const Text('Tap me(left end)'),
+                  ),
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                DigitTooltip(
+                  tooltipContent: const Text(
+                    'Hello, Tooltip!',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  tooltipPosition: TooltipPosition.rightStart,
+                  child: Container(
+                    color: Colors.blue,
+                    padding: const EdgeInsets.all(16),
+                    child: const Text('Tap me(right start)'),
+                  ),
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                DigitTooltip(
+                  tooltipContent: const Text(
+                    'Hello, Tooltip!',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  tooltipPosition: TooltipPosition.rightCenter,
+                  child: Container(
+                    color: Colors.blue,
+                    padding: const EdgeInsets.all(16),
+                    child: const Text('Tap me(right center)'),
+                  ),
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                DigitTooltip(
+                  tooltipContent: const Text(
+                    'Hello, Tooltip!',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  tooltipPosition: TooltipPosition.rightEnd,
+                  child: Container(
+                    color: Colors.blue,
+                    padding: const EdgeInsets.all(16),
+                    child: const Text('Tap me(right end)'),
+                  ),
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                ImageUploader(
+                  onImagesSelected: (List<File> imageFile) {
+                    // Handle the selected image file here
+                    // print('Image selected: ${imageFile.path}');
+                  },
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
                 InputField(
                   type: InputType.text,
                   label: "Text Field",
                   controller: controller1,
                   innerLabel: 'label',
-                  info: true,
                   infoText: 'this is infoText',
                   helpText: 'help text',
                   charCount: true,
@@ -199,7 +503,8 @@ class MyHomePageState extends State<MyHomePage> {
                           Validator(ValidatorType.maxLength, 10,
                               errorMessage: 'Maximum length is 10.'),
                           Validator(ValidatorType.pattern, r'^[a-zA-Z0-9]+$',
-                              errorMessage: 'long error message long error message long error message long error message long error message'),
+                              errorMessage:
+                              'Long error message long error message long error message long error message long error message'),
                         ],
                       ),
                       InputField(
@@ -504,7 +809,6 @@ class MyHomePageState extends State<MyHomePage> {
                   innerLabel: 'innerlabel',
                   helpText: 'help text',
                   charCount: true,
-                  info: true,
                   infoText: 'this is infoText',
                 ),
                 const SizedBox(
@@ -533,7 +837,7 @@ class MyHomePageState extends State<MyHomePage> {
                         validations: [
                           Validator(ValidatorType.minLength, 8,
                               errorMessage:
-                                  'Password must be at least 8 characters.'),
+                              'Password must be at least 8 characters.'),
                         ],
                       ),
                       InputField(
@@ -594,7 +898,9 @@ class MyHomePageState extends State<MyHomePage> {
                         innerLabel: 'innerlabel',
                         helpText: 'help text',
                         initialValue: '0',
-                        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
                         editable: true,
                       ),
                       InputField(
@@ -784,9 +1090,6 @@ class MyHomePageState extends State<MyHomePage> {
                 LabeledField(
                   label: 'Dropdown Variants',
                   child: Dropdown(
-                    dropdownType: Type.singleSelect,
-                    onChange: (String value, String index) => {},
-                    textEditingController: controller19,
                     items: [
                       'one',
                       'two',
@@ -797,10 +1100,10 @@ class MyHomePageState extends State<MyHomePage> {
                         .entries
                         .map(
                           (item) => DropdownItem(
-                            name: item.value,
-                            code: item.key.toString(),
-                          ),
-                        )
+                        name: item.value,
+                        code: item.key.toString(),
+                      ),
+                    )
                         .toList(),
                   ),
                 ),
@@ -821,108 +1124,102 @@ class MyHomePageState extends State<MyHomePage> {
                   Column(
                     children: [
                       const SizedBox(height: 8),
-                      LabeledField(
+                      const LabeledField(
                         label: "Non Searchable Dropdown",
                         child: Dropdown(
-                          onChange: (String value, String index) => {},
-                          textEditingController: controller41,
                           isSearchable: false,
-                          items: const [
+                          items: [
                             DropdownItem(
                               name: 'first',
                               code: '1',
                               profileImageUrl:
-                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
                             ),
                             DropdownItem(
                               name: 'second',
                               code: '2',
                               profileImageUrl:
-                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
                             ),
                             DropdownItem(
                               name: 'third',
                               code: '3',
                               profileImageUrl:
-                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
                             ),
                             DropdownItem(
                               name: 'fourth',
                               code: '4',
                               profileImageUrl:
-                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
                             ),
                           ],
                         ),
                       ),
                       const SizedBox(height: 8),
-                      LabeledField(
+                      const LabeledField(
                         label: "Dropdown with Profile",
                         child: Dropdown(
-                          onChange: (String value, String index) => {},
-                          textEditingController: controller30,
-                          items: const [
+                          items: [
                             DropdownItem(
                               name: 'first',
                               code: '1',
                               profileImageUrl:
-                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
                             ),
                             DropdownItem(
                               name: 'second',
                               code: '2',
                               profileImageUrl:
-                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
                             ),
                             DropdownItem(
                               name: 'third',
                               code: '3',
                               profileImageUrl:
-                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
                             ),
                             DropdownItem(
                               name: 'fourth',
                               code: '4',
                               profileImageUrl:
-                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
                             ),
                           ],
                         ),
                       ),
                       const SizedBox(height: 8),
-                      LabeledField(
+                      const LabeledField(
                         label: "Dropdown with Profile And Description",
                         child: Dropdown(
-                          onChange: (String value, String index) => {},
-                          textEditingController: controller40,
-                          items: const [
+                          items: [
                             DropdownItem(
                               name: 'first',
                               code: '1',
                               description: 'description for first one',
                               profileImageUrl:
-                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
                             ),
                             DropdownItem(
                               name: 'second',
                               code: '2',
                               description: 'description for second one',
                               profileImageUrl:
-                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
                             ),
                             DropdownItem(
                               name: 'third',
                               code: '3',
                               description: 'description for third one',
                               profileImageUrl:
-                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
                             ),
                             DropdownItem(
                               name: 'fourth',
                               code: '4',
                               description: 'description for fourth one',
                               profileImageUrl:
-                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
                             ),
                           ],
                         ),
@@ -931,8 +1228,6 @@ class MyHomePageState extends State<MyHomePage> {
                       LabeledField(
                         label: "Dropdown with Description",
                         child: Dropdown(
-                          onChange: (String value, String index) => {},
-                          textEditingController: controller31,
                           items: [
                             'one',
                             'two',
@@ -943,11 +1238,11 @@ class MyHomePageState extends State<MyHomePage> {
                               .entries
                               .map(
                                 (item) => DropdownItem(
-                                    name: item.value,
-                                    code: item.key.toString(),
-                                    description:
-                                        'This is just example description'),
-                              )
+                                name: item.value,
+                                code: item.key.toString(),
+                                description:
+                                'This is just example description'),
+                          )
                               .toList(),
                         ),
                       ),
@@ -955,8 +1250,6 @@ class MyHomePageState extends State<MyHomePage> {
                       LabeledField(
                         label: "Dropdown with Icon",
                         child: Dropdown(
-                          onChange: (String value, String index) => {},
-                          textEditingController: controller32,
                           items: [
                             'One',
                             'two',
@@ -967,28 +1260,25 @@ class MyHomePageState extends State<MyHomePage> {
                               .entries
                               .map(
                                 (item) => DropdownItem(
-                                  name: item.value,
-                                  code: item.key.toString(),
-                                  textIcon: Icons.article,
-                                ),
-                              )
+                              name: item.value,
+                              code: item.key.toString(),
+                              textIcon: Icons.article,
+                            ),
+                          )
                               .toList(),
                         ),
                       ),
                       const SizedBox(height: 8),
-                      LabeledField(
+                      const LabeledField(
                         label: "Dropdown with nested Type",
                         child: Dropdown(
-                          dropdownSubtype: DropdownSubtype.nested,
-                          onChange: (String value, String type) => {},
-                          textEditingController: controller33,
-
-                          selectedOption: const DropdownItem(
+                          dropdownSelectionType: SelectionType.nestedSelect,
+                          selectedOption: DropdownItem(
                             name: 'one',
                             code: '1',
                             type: 'group B',
                           ),
-                          items: const [
+                          items: [
                             DropdownItem(
                               name: 'one',
                               code: '1',
@@ -1022,13 +1312,11 @@ class MyHomePageState extends State<MyHomePage> {
                           ],
                         ),
                       ),
-                      LabeledField(
+                      const LabeledField(
                         label: "Dropdown with nested Type With Icons",
                         child: Dropdown(
-                          onChange: (String value, String type) => {},
-                          textEditingController: controller35,
-                          dropdownSubtype: DropdownSubtype.nested,
-                          items: const [
+                          dropdownSelectionType: SelectionType.nestedSelect,
+                          items: [
                             DropdownItem(
                               name: 'one',
                               code: '1',
@@ -1069,14 +1357,12 @@ class MyHomePageState extends State<MyHomePage> {
                         ),
                       ),
                       const SizedBox(height: 8),
-                      LabeledField(
+                      const LabeledField(
                         label:
-                            "Dropdown with nested Type With Icons and description",
+                        "Dropdown with nested Type With Icons and description",
                         child: Dropdown(
-                          onChange: (String value, String type) => {},
-                          textEditingController: controller42,
-                          dropdownSubtype: DropdownSubtype.nested,
-                          items: const [
+                          dropdownSelectionType: SelectionType.nestedSelect,
+                          items: [
                             DropdownItem(
                               name: 'one',
                               code: '1',
@@ -1123,13 +1409,11 @@ class MyHomePageState extends State<MyHomePage> {
                         ),
                       ),
                       const SizedBox(height: 8),
-                      LabeledField(
+                      const LabeledField(
                         label: "Dropdown Disabled",
                         child: Dropdown(
-                          onChange: (String value, String type) => {},
-                          textEditingController: controller34,
                           isDisabled: true,
-                          items: const [
+                          items: [
                             DropdownItem(
                               name: 'one',
                               code: '1',
@@ -1169,7 +1453,7 @@ class MyHomePageState extends State<MyHomePage> {
                 LabeledField(
                   label: 'MultiSelect Dropdowns',
                   child: Dropdown(
-                    dropdownType: Type.multiSelect,
+                    dropdownType: DropdownType.multiSelect,
                     onOptionSelected: (List<DropdownItem> selectedOptions) {},
                     options: const [
                       DropdownItem(code: '1', name: 'first'),
@@ -1178,7 +1462,6 @@ class MyHomePageState extends State<MyHomePage> {
                       DropdownItem(code: '4', name: 'four'),
                       DropdownItem(code: '5', name: 'five'),
                     ],
-                    selectionType: SelectionType.multiSelect,
                   ),
                 ),
                 const SizedBox(
@@ -1201,7 +1484,7 @@ class MyHomePageState extends State<MyHomePage> {
                       LabeledField(
                         label: "MultiSelect Dropdown with value mapper",
                         child: Dropdown(
-                          dropdownType: Type.multiSelect,
+                          dropdownType: DropdownType.multiSelect,
                           onOptionSelected:
                               (List<DropdownItem> selectedOptions) {},
                           valueMapper: const [
@@ -1235,14 +1518,13 @@ class MyHomePageState extends State<MyHomePage> {
                               description: 'description',
                             ),
                           ],
-                          selectionType: SelectionType.multiSelect,
                         ),
                       ),
                       const SizedBox(height: 8),
                       LabeledField(
                         label: "MultiSelect Dropdown with Selected Option",
                         child: Dropdown(
-                          dropdownType: Type.multiSelect,
+                          dropdownType: DropdownType.multiSelect,
                           onOptionSelected:
                               (List<DropdownItem> selectedOptions) {},
                           selectedOptions: const [
@@ -1279,14 +1561,13 @@ class MyHomePageState extends State<MyHomePage> {
                               description: 'description',
                             ),
                           ],
-                          selectionType: SelectionType.multiSelect,
                         ),
                       ),
                       const SizedBox(height: 8),
                       LabeledField(
                         label: "MultiSelect Dropdown with Description",
                         child: Dropdown(
-                          dropdownType: Type.multiSelect,
+                          dropdownType: DropdownType.multiSelect,
                           onOptionSelected:
                               (List<DropdownItem> selectedOptions) {},
                           options: const [
@@ -1316,14 +1597,13 @@ class MyHomePageState extends State<MyHomePage> {
                               description: 'this is description',
                             ),
                           ],
-                          selectionType: SelectionType.multiSelect,
                         ),
                       ),
                       const SizedBox(height: 8),
                       LabeledField(
                         label: "MultiSelect Dropdown with Description and Icon",
                         child: Dropdown(
-                          dropdownType: Type.multiSelect,
+                          dropdownType: DropdownType.multiSelect,
                           onOptionSelected:
                               (List<DropdownItem> selectedOptions) {},
                           options: const [
@@ -1358,14 +1638,13 @@ class MyHomePageState extends State<MyHomePage> {
                               textIcon: Icons.article,
                             ),
                           ],
-                          selectionType: SelectionType.multiSelect,
                         ),
                       ),
                       const SizedBox(height: 8),
                       LabeledField(
                         label: "MultiSelect Dropdown with Icon",
                         child: Dropdown(
-                          dropdownType: Type.multiSelect,
+                          dropdownType: DropdownType.multiSelect,
                           onOptionSelected:
                               (List<DropdownItem> selectedOptions) {},
                           options: const [
@@ -1395,15 +1674,14 @@ class MyHomePageState extends State<MyHomePage> {
                               textIcon: Icons.article,
                             ),
                           ],
-                          selectionType: SelectionType.multiSelect,
                         ),
                       ),
                       const SizedBox(height: 8),
                       LabeledField(
                         label: "MultiSelect Dropdown with nested Type",
                         child: Dropdown(
-                          dropdownType: Type.multiSelect,
-                          dropdownSubtype: DropdownSubtype.nested,
+                          dropdownType: DropdownType.multiSelect,
+                          dropdownSelectionType: SelectionType.nestedSelect,
                           onOptionSelected:
                               (List<DropdownItem> selectedOptions) {},
                           options: const [
@@ -1418,15 +1696,14 @@ class MyHomePageState extends State<MyHomePage> {
                             DropdownItem(
                                 code: '5', name: 'five', type: "Type B"),
                           ],
-                          selectionType: SelectionType.nestedMultiSelect,
                         ),
                       ),
                       const SizedBox(height: 8),
                       LabeledField(
                         label: "MultiSelect Dropdown with nested Type and Icon",
                         child: Dropdown(
-                          dropdownType: Type.multiSelect,
-                          dropdownSubtype: DropdownSubtype.nested,
+                          dropdownType: DropdownType.multiSelect,
+                          dropdownSelectionType: SelectionType.nestedSelect,
                           onOptionSelected:
                               (List<DropdownItem> selectedOptions) {},
                           options: const [
@@ -1456,7 +1733,6 @@ class MyHomePageState extends State<MyHomePage> {
                                 type: "Type B",
                                 textIcon: Icons.article),
                           ],
-                          // selectionType: SelectionType.nestedMultiSelect,
                         ),
                       ),
                     ],
@@ -1471,7 +1747,7 @@ class MyHomePageState extends State<MyHomePage> {
                 LabeledField(
                   label: 'Tree Select Dropdowns',
                   child: Dropdown(
-                    dropdownSubtype: DropdownSubtype.tree,
+                    dropdownSelectionType: SelectionType.treeSelect,
                     onTreeOptionSelected: (List<TreeNode> selectedOptions) {
                       // print(selectedOptions);
                       for (TreeNode node in selectedOptions) {
@@ -1479,7 +1755,6 @@ class MyHomePageState extends State<MyHomePage> {
                       }
                     },
                     treeOptions: Nodes,
-                    treeSelectionType: TreeSelectionType.singleSelect,
                   ),
                 ),
                 const SizedBox(
@@ -1488,8 +1763,8 @@ class MyHomePageState extends State<MyHomePage> {
                 LabeledField(
                   label: 'Tree Multi Select Dropdowns',
                   child: Dropdown(
-                    dropdownSubtype: DropdownSubtype.tree,
-                    dropdownType: Type.multiSelect,
+                    dropdownType: DropdownType.multiSelect,
+                    dropdownSelectionType: SelectionType.treeSelect,
                     onTreeOptionSelected: (List<TreeNode> selectedOptions) {
                       // print(selectedOptions);
                       for (TreeNode node in selectedOptions) {
@@ -1508,7 +1783,6 @@ class MyHomePageState extends State<MyHomePage> {
                       ValueMapper(code: 'D: D2', name: "D: D2")
                     ],
                     treeOptions: Nodes,
-                    treeSelectionType: TreeSelectionType.singleSelect,
                   ),
                 ),
                 const SizedBox(
@@ -1520,21 +1794,21 @@ class MyHomePageState extends State<MyHomePage> {
                 ),
                 RadioList(
                   onChanged: (value) {},
-                  radioButtons: [
+                  radioDigitButtons: [
                     RadioButtonModel(
                       code: '1',
                       name: 'One',
                     ),
                     RadioButtonModel(code: '2', name: 'Two'),
                     RadioButtonModel(code: '3', name: 'Three'),
-                    // Add more radio buttons as needed
+                    // Add more radio DigitButtons as needed
                   ],
                 ),
                 const SizedBox(
                   height: 8,
                 ),
                 DigitCheckbox(
-                  label: "Show All The Variants Of Radio Buttons",
+                  label: "Show All The Variants Of Radio DigitButtons",
                   onChanged: (value) {
                     setState(() {
                       showAllVariantsOfRadio = value;
@@ -1549,40 +1823,40 @@ class MyHomePageState extends State<MyHomePage> {
                       ),
                       RadioList(
                         onChanged: (value) {},
-                        radioButtons: [
+                        radioDigitButtons: [
                           RadioButtonModel(
                             code: '',
                             name: 'One',
                           ),
                           RadioButtonModel(code: '2', name: 'Two'),
                           RadioButtonModel(code: '3', name: 'Three'),
-                          // Add more radio buttons as needed
+                          // Add more radio DigitButtons as needed
                         ],
                       ),
                       RadioList(
                         onChanged: (value) {},
                         isDisabled: true,
-                        radioButtons: [
+                        radioDigitButtons: [
                           RadioButtonModel(
                             code: '',
                             name: 'One',
                           ),
                           RadioButtonModel(code: '2', name: 'Two'),
                           RadioButtonModel(code: '3', name: 'Three'),
-                          // Add more radio buttons as needed
+                          // Add more radio DigitButtons as needed
                         ],
                       ),
                       RadioList(
                         onChanged: (value) {},
                         isDisabled: true,
-                        radioButtons: [
+                        radioDigitButtons: [
                           RadioButtonModel(
                             code: '1',
                             name: 'One',
                           ),
                           RadioButtonModel(code: '2', name: 'Two'),
                           RadioButtonModel(code: '3', name: 'Three'),
-                          // Add more radio buttons as needed
+                          // Add more radio DigitButtons as needed
                         ],
                       ),
                     ],
@@ -1597,7 +1871,7 @@ class MyHomePageState extends State<MyHomePage> {
                 ToggleList(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  toggleButtons: [
+                  toggleDigitButtons: [
                     ToggleButtonModel(name: 'Toggle 1', code: 'key1'),
                     ToggleButtonModel(name: 'Toggle 2', code: 'key2'),
                     ToggleButtonModel(name: 'Toggle 3', code: 'key3'),
@@ -1612,55 +1886,114 @@ class MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 8,
                 ),
-                Container(
-                  height: 45,
+                SizedBox(
+                  // height: 45,
+                  child: Column(
+                    children: [
+                      Center(
+                        child: InfoButton(
+                          size: DigitButtonSize.large,
+                          label: 'Primary DigitButton',
+                          onPressed: () {},
+                          type: InfoDigitButtonType.success,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Center(
+                        child: InfoButton(
+                          size: DigitButtonSize.large,
+                          label: 'Primary DigitButton',
+                          onPressed: () {},
+                          type: InfoDigitButtonType.error,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Center(
+                        child: InfoButton(
+                          size: DigitButtonSize.large,
+                          label: 'Primary DigitButton',
+                          onPressed: () {},
+                          type: InfoDigitButtonType.warning,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Center(
+                        child: InfoButton(
+                          size: DigitButtonSize.large,
+                          label: 'Primary DigitButton',
+                          onPressed: () {},
+                          type: InfoDigitButtonType.info,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                const Divider(),
+                const SizedBox(
+                  height: 8,
+                ),
+                SizedBox(
+                  // height: 45,
                   child: Center(
-                    child: Button(
-                      label: 'Primary Button',
+                    child: DigitButton(
+                      size: DigitButtonSize.large,
+                      label: 'Primary DigitButton',
                       onPressed: () {},
-                      type: ButtonType.primary,
+                      type: DigitButtonType.primary,
                     ),
                   ),
                 ),
                 const SizedBox(height: 8),
                 DigitCheckbox(
-                    label: 'Show All Variants Of Primary Button',
+                    label: 'Show All Variants Of Primary DigitButton',
                     onChanged: (value) {
                       setState(() {
-                        showAllVariantsPrimaryButton = value;
+                        showAllVariantsPrimaryDigitButton = value;
                       });
                     }),
-                if (showAllVariantsPrimaryButton)
+                if (showAllVariantsPrimaryDigitButton)
                   Center(
                     child: Column(
                       children: [
                         const SizedBox(height: 8),
                         SizedBox(
-                          height: 45,
-                          child: Button(
-                            label: 'Primary Button With Prefix Icon',
+                          // height: 45,
+                          child: DigitButton(
+                            size: DigitButtonSize.large,
+                            label: 'Primary DigitButton With Prefix Icon',
                             onPressed: () {},
-                            type: ButtonType.primary,
+                            type: DigitButtonType.primary,
                             prefixIcon: Icons.arrow_forward,
                           ),
                         ),
                         const SizedBox(height: 8),
                         SizedBox(
-                          height: 45,
-                          child: Button(
-                            label: 'Primary Button With Suffix Icon',
+                          // height: 45,
+                          child: DigitButton(
+                            size: DigitButtonSize.medium,
+                            label: 'Primary DigitButton With Suffix Icon',
                             onPressed: () {},
-                            type: ButtonType.primary,
+                            type: DigitButtonType.primary,
                             suffixIcon: Icons.arrow_forward,
                           ),
                         ),
                         const SizedBox(height: 8),
                         SizedBox(
-                          height: 45,
-                          child: Button(
-                            label: 'Primary Button With Disabled State',
+                          // height: 45,
+                          child: DigitButton(
+                            size: DigitButtonSize.small,
+                            label: 'Primary DigitButton With Disabled State',
                             onPressed: () {},
-                            type: ButtonType.primary,
+                            type: DigitButtonType.primary,
                             isDisabled: true,
                           ),
                         ),
@@ -1675,52 +2008,56 @@ class MyHomePageState extends State<MyHomePage> {
                 SizedBox(
                   height: 45,
                   child: Center(
-                    child: Button(
-                      label: 'secondary Button',
+                    child: DigitButton(
+                      size: DigitButtonSize.large,
+                      label: 'secondary DigitButton',
                       onPressed: () {},
-                      type: ButtonType.secondary,
+                      type: DigitButtonType.secondary,
                     ),
                   ),
                 ),
                 const SizedBox(height: 8),
                 DigitCheckbox(
-                    label: 'Show All Variants Of Secondary Button',
+                    label: 'Show All Variants Of Secondary DigitButton',
                     onChanged: (value) {
                       setState(() {
-                        showAllVariantsOfSecondaryButton = value;
+                        showAllVariantsOfSecondaryDigitButton = value;
                       });
                     }),
-                if (showAllVariantsOfSecondaryButton)
+                if (showAllVariantsOfSecondaryDigitButton)
                   Center(
                     child: Column(
                       children: [
                         const SizedBox(height: 8),
                         SizedBox(
-                          height: 45,
-                          child: Button(
-                            label: 'Secondary Button With Prefix Icon',
+                          // height: 45,
+                          child: DigitButton(
+                            size: DigitButtonSize.medium,
+                            label: 'Secondary DigitButton With Prefix Icon',
                             onPressed: () {},
-                            type: ButtonType.secondary,
+                            type: DigitButtonType.secondary,
                             prefixIcon: Icons.arrow_forward,
                           ),
                         ),
                         const SizedBox(height: 8),
                         SizedBox(
-                          height: 45,
-                          child: Button(
-                            label: 'Secondary Button With Suffix Icon',
+                          // height: 45,
+                          child: DigitButton(
+                            size: DigitButtonSize.small,
+                            label: 'Secondary DigitButton With Suffix Icon',
                             onPressed: () {},
-                            type: ButtonType.secondary,
+                            type: DigitButtonType.secondary,
                             suffixIcon: Icons.arrow_forward,
                           ),
                         ),
                         const SizedBox(height: 8),
                         SizedBox(
-                          height: 45,
-                          child: Button(
-                            label: 'Secondary Button With Disabled State',
+                          // height: 45,
+                          child: DigitButton(
+                            size: DigitButtonSize.small,
+                            label: 'Secondary DigitButton With Disabled State',
                             onPressed: () {},
-                            type: ButtonType.secondary,
+                            type: DigitButtonType.secondary,
                             isDisabled: true,
                           ),
                         ),
@@ -1733,45 +2070,51 @@ class MyHomePageState extends State<MyHomePage> {
                   height: 8,
                 ),
                 Center(
-                  child: Button(
-                    label: 'tertiary Button',
+                  child: DigitButton(
+                    size: DigitButtonSize.large,
+                    label: 'tertiary DigitButton',
                     onPressed: () {},
-                    type: ButtonType.tertiary,
+                    type: DigitButtonType.tertiary,
                   ),
                 ),
                 const SizedBox(height: 8),
                 DigitCheckbox(
-                    label: 'Show All Variants Of Tertiary Button',
+                    label: 'Show All Variants Of Tertiary DigitButton',
                     onChanged: (value) {
                       setState(() {
-                        showAllVariantsOfTertiaryButton = value;
+                        showAllVariantsOfTertiaryDigitButton = value;
                       });
                     }),
-                if (showAllVariantsOfTertiaryButton)
-                  Column(
-                    children: [
-                      const SizedBox(height: 8),
-                      Button(
-                        label: 'Tertiary Button With Prefix Icon',
-                        onPressed: () {},
-                        type: ButtonType.tertiary,
-                        prefixIcon: Icons.arrow_forward,
-                      ),
-                      const SizedBox(height: 8),
-                      Button(
-                        label: 'Tertiary Button With Suffix Icon',
-                        onPressed: () {},
-                        type: ButtonType.tertiary,
-                        suffixIcon: Icons.arrow_forward,
-                      ),
-                      const SizedBox(height: 8),
-                      Button(
-                        label: 'Tertiary Button With Disabled State',
-                        onPressed: () {},
-                        type: ButtonType.tertiary,
-                        isDisabled: true,
-                      ),
-                    ],
+                if (showAllVariantsOfTertiaryDigitButton)
+                  Center(
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 8),
+                        DigitButton(
+                          size: DigitButtonSize.medium,
+                          label: 'Tertiary DigitButton With Prefix Icon',
+                          onPressed: () {},
+                          type: DigitButtonType.tertiary,
+                          prefixIcon: Icons.arrow_forward,
+                        ),
+                        const SizedBox(height: 8),
+                        DigitButton(
+                          size: DigitButtonSize.small,
+                          label: 'Tertiary DigitButton With Suffix Icon',
+                          onPressed: () {},
+                          type: DigitButtonType.tertiary,
+                          suffixIcon: Icons.arrow_forward,
+                        ),
+                        const SizedBox(height: 8),
+                        DigitButton(
+                          size: DigitButtonSize.large,
+                          label: 'Tertiary DigitButton With Disabled State',
+                          onPressed: () {},
+                          type: DigitButtonType.tertiary,
+                          isDisabled: true,
+                        ),
+                      ],
+                    ),
                   ),
                 const SizedBox(
                   height: 8,
@@ -1781,10 +2124,11 @@ class MyHomePageState extends State<MyHomePage> {
                   height: 8,
                 ),
                 Center(
-                  child: Button(
+                  child: DigitButton(
+                    size: DigitButtonSize.large,
                     label: 'link',
                     onPressed: () {},
-                    type: ButtonType.link,
+                    type: DigitButtonType.link,
                   ),
                 ),
                 const SizedBox(height: 8),
@@ -1796,31 +2140,253 @@ class MyHomePageState extends State<MyHomePage> {
                       });
                     }),
                 if (showAllVariantsOfLink)
-                  Column(
-                    children: [
-                      const SizedBox(height: 8),
-                      Button(
-                        label: 'Link With Prefix Icon',
-                        onPressed: () {},
-                        type: ButtonType.link,
-                        prefixIcon: Icons.arrow_forward,
-                      ),
-                      const SizedBox(height: 8),
-                      Button(
-                        label: 'Link With Suffix Icon',
-                        onPressed: () {},
-                        type: ButtonType.link,
-                        suffixIcon: Icons.arrow_forward,
-                      ),
-                      const SizedBox(height: 8),
-                      Button(
-                        label: 'Link With Disabled State',
-                        onPressed: () {},
-                        type: ButtonType.link,
-                        isDisabled: true,
-                      ),
-                    ],
+                  Center(
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 8),
+                        DigitButton(
+                          size: DigitButtonSize.small,
+                          label: 'Link With Prefix Icon',
+                          onPressed: () {},
+                          type: DigitButtonType.link,
+                          prefixIcon: Icons.arrow_forward,
+                        ),
+                        const SizedBox(height: 8),
+                        DigitButton(
+                          size: DigitButtonSize.medium,
+                          label: 'Link With Suffix Icon',
+                          onPressed: () {},
+                          type: DigitButtonType.link,
+                          suffixIcon: Icons.arrow_forward,
+                        ),
+                        const SizedBox(height: 8),
+                        DigitButton(
+                          size: DigitButtonSize.large,
+                          label: 'Link With Disabled State',
+                          onPressed: () {},
+                          type: DigitButtonType.link,
+                          isDisabled: true,
+                        ),
+                      ],
+                    ),
                   ),
+                const SizedBox(height: 8),
+                const Divider(),
+                const SizedBox(
+                  height: 8,
+                ),
+                Column(
+                  children: [
+                    DigitButton(
+                        label: 'Click to increase steps',
+                        onPressed: () {
+                          setState(() {
+                            stepNumber += 1;
+                          });
+                        },
+                        type: DigitButtonType.primary,
+                        size: DigitButtonSize.large),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    DigitButton(
+                        label: 'Click to decrease steps',
+                        onPressed: () {
+                          setState(() {
+                            if (stepNumber > 0) {
+                              stepNumber -= 1;
+                            }
+                          });
+                        },
+                        type: DigitButtonType.primary,
+                        size: DigitButtonSize.large),
+                    SizedBox(
+                      height: 500,
+                      width: MediaQuery.of(context).size.width,
+                      child: DigitStepper(
+                        activeIndex: stepNumber,
+                        stepperList: [
+                          StepperData(
+                            title: "Preparing",
+                            onStepTap: () {},
+                          ),
+                          const StepperData(
+                            title: "Preparing",
+                          ),
+                          const StepperData(
+                            title: "Preparing",
+                          ),
+                          const StepperData(
+                            title: "Preparing",
+                          ),
+                          const StepperData(
+                            title: "Preparing",
+                          ),
+                          const StepperData(
+                            title: "Preparing",
+                          ),
+                          const StepperData(
+                            title: "Preparing",
+                          ),
+                          const StepperData(
+                            title: "Preparing",
+                          ),
+                          const StepperData(
+                            title: "Preparing",
+                          ),
+                          const StepperData(
+                            title: "Preparing",
+                          ),
+                          const StepperData(
+                            title: "Preparing",
+                          ),
+                          const StepperData(
+                            title: "Preparing",
+                          ),
+                          const StepperData(
+                            title: "Preparing",
+                          ),
+                          const StepperData(
+                            title: "Preparing",
+                          ),
+                          const StepperData(
+                            title: "Preparing",
+                          ),
+                          const StepperData(
+                            title: "Preparing",
+                          ),
+                          const StepperData(
+                            title: "Preparing",
+                          ),
+                        ],
+                        stepperDirection: Axis.horizontal,
+                        inverted: true,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                const Divider(),
+                const SizedBox(
+                  height: 8,
+                ),
+                DigitCard(
+                  inline: true,
+                  cardType: CardType.primary,
+                  children: [
+                    LabeledField(
+                        labelInline: false,
+                        label: 'Text Field',
+                        child: DigitTextFormInput(
+                          controller: TextEditingController(),
+                        )),
+                    LabeledField(
+                      labelInline: false,
+                      label: "Dropdown",
+                      child: MultiSelectDropDown<int>(
+                        onOptionSelected:
+                            (List<DropdownItem> selectedOptions) {},
+                        options: const [
+                          DropdownItem(code: '1', name: 'one'),
+                          DropdownItem(code: '2', name: 'two'),
+                          DropdownItem(code: '3', name: 'three'),
+                          DropdownItem(code: '4', name: 'four'),
+                          DropdownItem(code: '5', name: 'five'),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 100,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const SizedBox(
+                            height: 32,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              DigitButton(
+                                  label: 'Clear All',
+                                  onPressed: () {},
+                                  type: DigitButtonType.tertiary,
+                                  size: DigitButtonSize.large),
+                              const SizedBox(
+                                width: 16,
+                              ),
+                              Flexible(
+                                child: Container(
+                                    width: 300,
+                                    child: DigitButton(
+                                        mainAxisSize: MainAxisSize.max,
+                                        label: 'Submit',
+                                        onPressed: () {},
+                                        type: DigitButtonType.primary,
+                                        size: DigitButtonSize.large)),
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+                const SizedBox(height: 8),
+                LabeledField(
+                  label: 'File Upload with single selected',
+                  child: FileUploadWidget(
+                    label: 'Upload',
+                    onFilesSelected: (List<PlatformFile> files) {
+                      Map<PlatformFile, String?> fileErrors = {};
+
+                      return fileErrors;
+                    },
+                    showPreview: false,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                LabeledField(
+                  label: 'File Upload with single selected with preview',
+                  child: FileUploadWidget(
+                    label: 'Upload',
+                    onFilesSelected: (List<PlatformFile> files) {
+                      Map<PlatformFile, String?> fileErrors = {};
+                      return fileErrors;
+                    },
+                    showPreview: true,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                LabeledField(
+                  label: 'File Upload with Multiple selected',
+                  child: FileUploadWidget(
+                    label: 'Upload',
+                    onFilesSelected: (List<PlatformFile> files) {
+                      Map<PlatformFile, String?> fileErrors = {};
+                      return fileErrors;
+                    },
+                    allowMultiples: true,
+                    showPreview: false,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                LabeledField(
+                  label: 'File Upload with Multiple selected with preview',
+                  child: FileUploadWidget(
+                    label: 'Upload',
+                    onFilesSelected: (List<PlatformFile> files) {
+                      Map<PlatformFile, String?> fileErrors = {};
+                      return fileErrors;
+                    },
+                    allowMultiples: true,
+                    showPreview: true,
+                  ),
+                ),
+                const SizedBox(height: 8),
                 const SizedBox(height: 8),
                 const Divider(),
                 const SizedBox(
@@ -1831,9 +2397,14 @@ class MyHomePageState extends State<MyHomePage> {
                   value: false,
                   onChanged: (value) {
                     if (value) {
-                      Toast.show(context,
-                          options: ToastOptions(
-                              "Your success message", ToastType.success));
+                      Toast.showToast(
+                        context,
+                        digitToastThemeData:
+                        const DigitToastThemeData().copyWith(maxLine: 4),
+                        message:
+                        'This is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toastThis is a success toast!',
+                        type: ToastType.success,
+                      );
                     }
                   },
                 ),
@@ -1843,56 +2414,78 @@ class MyHomePageState extends State<MyHomePage> {
                   value: false,
                   onChanged: (value) {
                     if (value) {
-                      Toast.show(context,
-                          options: ToastOptions(
-                              "Your error message", ToastType.error));
+                      Toast.showToast(
+                        context,
+                        message: 'This is a error toast!',
+                        type: ToastType.error,
+                      );
                     }
                   },
                 ),
-               const SizedBox(height: 8,),
+                const SizedBox(
+                  height: 8,
+                ),
                 DigitCheckbox(
                   label: 'Click to see the warning toast',
                   value: false,
                   onChanged: (value) {
                     if (value) {
-                      Toast.show(context,
-                          options: ToastOptions(
-                              "Your warning message", ToastType.warning));
+                      Toast.showToast(
+                        context,
+                        message: 'This is a Warning toast!',
+                        type: ToastType.warning,
+                      );
                     }
                   },
                 ),
-
-                const SizedBox(height: 8,),
+                const SizedBox(
+                  height: 8,
+                ),
                 DigitCheckbox(
-                  label: 'Click to see the Success toast with long message',
+                  label: 'Click to see the warning toast with long message',
                   value: false,
                   onChanged: (value) {
                     if (value) {
-                      Toast.show(context,
-                          options: ToastOptions(
-                              "Message token created successfully and Users Are Unable to Login to the Professional after an Upgrade to Version it is working fine. Learn about token based authentication and how to easily implement JWT in your application", ToastType.success));
+                      Toast.showToast(
+                        context,
+                        message:
+                        'Message token created successfully and Users Are Unable to Login to the Professional after an Upgrade to Version it is working fine. Learn about token based authentication and how to easily implement JWT in your application',
+                        type: ToastType.warning,
+                      );
                     }
                   },
-                ),const SizedBox(height: 8,),
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
                 DigitCheckbox(
-                  label: 'Click to see the Success toast with long message',
+                  label: 'Click to see the error toast with long message',
                   value: false,
                   onChanged: (value) {
                     if (value) {
-                      Toast.show(context,
-                          options: ToastOptions(
-                              "Message token created successfully and Users Are Unable to Login to the Professional after an Upgrade to Version it is working fine. Learn about token based authentication and how to easily implement JWT in your application", ToastType.success));
+                      Toast.showToast(
+                        context,
+                        message:
+                        'Message token created successfully and Users Are Unable to Login to the Professional after an Upgrade to Version it is working fine. Learn about token based authentication and how to easily implement JWT in your application',
+                        type: ToastType.error,
+                      );
                     }
                   },
-                ),const SizedBox(height: 8,),
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
                 DigitCheckbox(
                   label: 'Click to see the Success toast with long message',
                   value: false,
                   onChanged: (value) {
                     if (value) {
-                      Toast.show(context,
-                          options: ToastOptions(
-                              "Message token created successfully and Users Are Unable to Login to the Professional after an Upgrade to Version it is working fine. Learn about token based authentication and how to easily implement JWT in your application", ToastType.success));
+                      Toast.showToast(
+                        context,
+                        message:
+                        'Message token created successfully and Users Are Unable to Login to the Professional after an Upgrade to Version it is working fine. Learn about token based authentication and how to easily implement JWT in your application",',
+                        type: ToastType.success,
+                      );
                     }
                   },
                 ),
@@ -1935,13 +2528,63 @@ class MyHomePageState extends State<MyHomePage> {
                       const SizedBox(height: 8),
                       DigitCheckbox(
                         label:
-                            'DigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled State',
+                        'DigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled StateDigitCheckbox With Checked and Disabled State',
                         value: true,
                         isDisabled: true,
                         onChanged: (value) {},
                       ),
                     ],
                   ),
+                const SizedBox(height: 8),
+                const Divider(),
+                const SizedBox(
+                  height: 8,
+                ),
+                const DigitTimeline(
+                  currentStep: TimelineStepState.present,
+                  label: 'Current',
+                  description: ['18 / 02 / 2023'],
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                const DigitTimeline(
+                  currentStep: TimelineStepState.future,
+                  label: 'Future',
+                  description: ['18 / 02 / 2023'],
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                const DigitTimeline(
+                  currentStep: TimelineStepState.completed,
+                  label: 'Completed',
+                  description: ['18 / 02 / 2023'],
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                DigitTimeline(
+                  currentStep: TimelineStepState.completed,
+                  label: 'Completed',
+                  description: const [
+                    '18 / 02 / 2023',
+                    '11:10 AM',
+                    'processing'
+                  ],
+                  additionalHideWidgets: [
+                    Image.network(
+                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+                    Image.network(
+                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+                    Image.network(
+                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s'),
+                    const InfoCard(
+                        title: "Info Text",
+                        type: InfoType.error,
+                        description: 'This is the warning')
+                  ],
+                ),
                 const SizedBox(height: 8),
                 const Divider(),
                 const SizedBox(
@@ -1987,4 +2630,5 @@ class MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
+
 }

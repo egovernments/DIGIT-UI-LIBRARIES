@@ -1,5 +1,6 @@
 import React from "react";
 import Tag from "../Tag";
+import Iframe from "../Iframe";
 
 export default {
   title: "Atoms/Tag",
@@ -8,7 +9,7 @@ export default {
     className: {
       control: "text",
     },
-    iconClassName:{
+    iconClassName: {
       control: "text",
     },
     label: {
@@ -40,20 +41,28 @@ export default {
   },
 };
 
-const Template = (args) => (
-    <Tag {...args} />
-);
+const Template = (args) => <Tag {...args} />;
 
 const commonArgs = {
   label: "Tag",
   className: "",
-  style: {},  
+  style: {},
   stroke: false,
-  type:"success",
-  icon:"",
-  showIcon:false,
-  labelStyle:{}
+  type: "success",
+  icon: "",
+  showIcon: false,
+  labelStyle: {},
 };
+
+export const Documentation = () => (
+  <Iframe
+    //Todo:Update the url
+    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-core-react-components/input-field"
+    title="Tag Documentation"
+  />
+);
+
+Documentation.storyName = "Docs";
 
 export const Default = Template.bind({});
 Default.args = {
@@ -63,58 +72,60 @@ Default.args = {
 export const WithIcon = Template.bind({});
 WithIcon.args = {
   ...commonArgs,
-  label:"Tag With Icon",
-  showIcon:true,
+  label: "Tag With Icon",
+  showIcon: true,
 };
 
 export const WithStroke = Template.bind({});
 WithStroke.args = {
   ...commonArgs,
-  label:"Tag With Stroke",
-  stroke:true
+  label: "Tag With Stroke",
+  stroke: true,
 };
 
 export const WithIconAndStroke = Template.bind({});
 WithIconAndStroke.args = {
   ...commonArgs,
-  label:"Tag With icon & stroke",
-  stroke:true,
-  showIcon:true
+  label: "Tag With icon & stroke",
+  stroke: true,
+  showIcon: true,
 };
 
 export const WithCustomIconAndStyles = Template.bind({});
 WithCustomIconAndStyles.args = {
   ...commonArgs,
-  label:"Tag With custom icons & colors",
-  stroke:true,
-  showIcon:true,
-  icon:"MyLocation",
-  style:{
-    backgroundColor:"#FCF2E4",
+  label: "Tag With custom icons & colors",
+  stroke: true,
+  showIcon: true,
+  icon: "MyLocation",
+  style: {
+    backgroundColor: "#FCF2E4",
   },
-  labelStyle:{
-    color:"#0B4B66"
-  }
+  labelStyle: {
+    color: "#0B4B66",
+  },
 };
 
 export const WithOnClick = Template.bind({});
 WithOnClick.args = {
   ...commonArgs,
-  label:"Tag With OnClick Function",
-  onClick:()=>{console.log("clicked")}
+  label: "Tag With OnClick Function",
+  onClick: () => {
+    console.log("clicked");
+  },
 };
 
 export const WithAlignment = Template.bind({});
 WithAlignment.args = {
   ...commonArgs,
-  label:"Tag With custom icons & colors",
-  stroke:true,
-  showIcon:true,
-  icon:"MyLocation",
-  style:{
-    width:"600px",
+  label: "Tag With custom icons & colors",
+  stroke: true,
+  showIcon: true,
+  icon: "MyLocation",
+  style: {
+    width: "600px",
   },
-  labelStyle:{
-    color:"#0B4B66"
-  }
+  labelStyle: {
+    color: "#0B4B66",
+  },
 };

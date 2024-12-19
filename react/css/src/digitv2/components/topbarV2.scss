@@ -195,7 +195,7 @@
     z-index: 9999999;
     display: flex;
     background-color: theme(digitv2.lightTheme.paper-primary);
-    height: 4rem;
+    height: 4.5rem;
     padding: theme(digitv2.spacers.spacer4) theme(digitv2.spacers.spacer10) theme(digitv2.spacers.spacer4) theme(digitv2.spacers.spacer10);
   
     .margin-top-10 {
@@ -277,6 +277,25 @@
   
       .digit-topbar-ulb {
         @extend .typography.heading-s;
+        font-family: theme(digitv2.fontFamily.sans);
+        font-style: theme(digitv2.fontStyle.normal);
+        font-weight: theme(digitv2.fontWeight.bold);
+        line-height: theme(digitv2.lineHeight.lineheight1);
+    
+        @media (max-aspect-ratio: 9/16) {
+          /* Media query for mobile */
+          font-size: theme(digitv2.fontSize.heading-s.mobile);
+        }
+    
+        @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+          /* Media query for tablets */
+          font-size: theme(digitv2.fontSize.heading-s.tablet);
+        }
+    
+        @media (min-aspect-ratio: 3/4) {
+          /* Media query for desktop */
+          font-size: theme(digitv2.fontSize.heading-s.desktop);
+        }
         @apply whitespace-no-wrap overflow-hidden;
         color: theme(digitv2.lightTheme.text-primary);
         text-overflow: ellipsis;
@@ -376,6 +395,25 @@
       .digit-topbar-ulb-mobileview {
         @apply overflow-hidden whitespace-no-wrap;
         @extend .typography.body-s;
+        font-family: theme(digitv2.fontFamily.sans);
+        font-style: theme(digitv2.fontStyle.normal);
+        font-weight: theme(digitv2.fontWeight.regular);
+        line-height: theme(digitv2.lineHeight.lineheight2);
+    
+        @media (max-aspect-ratio: 9/16) {
+          /* Media query for mobile */
+          font-size: theme(digitv2.fontSize.body-s.mobile);
+        }
+    
+        @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+          /* Media query for tablets */
+          font-size: theme(digitv2.fontSize.body-s.tablet);
+        }
+    
+        @media (min-aspect-ratio: 3/4) {
+          /* Media query for desktop */
+          font-size: theme(digitv2.fontSize.body-s.desktop);
+        }
         text-overflow: ellipsis;
         color: theme(digitv2.lightTheme.text-primary);
   

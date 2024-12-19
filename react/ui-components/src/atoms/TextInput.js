@@ -184,11 +184,11 @@ const TextInput = (props) => {
             });
             return svgElement;
           } else {
-            console.log("Icon not found");
+            console.warn("Icon not found");
             return null;
           }
         } catch (error) {
-          console.error("Icon not found");
+          console.warn("Icon not found");
           return null;
         }
       }
@@ -210,7 +210,7 @@ const TextInput = (props) => {
     props.errorStyle ? "digit-employeeCard-inputError" : ""
   } ${props.nonEditable ? "noneditable" : ""} ${
     props.type === "numeric" ? "numeric" : ""
-  }`;
+  } ${props.customClass || ""}`;
 
   const defaultType =
     props.type === "password" && inputType === "text"
@@ -245,7 +245,7 @@ const TextInput = (props) => {
                   : defaultType || "text"
               }
               name={props.name}
-              id={props.id}
+              id={props?.id}
               className={inputClassNameForMandatory}
               placeholder={StringManipulator(
                 "TOSENTENCECASE",

@@ -1,152 +1,180 @@
-import 'package:flutter/material.dart';
+/// InfoCard is a component used to display information with an icon and a description.
+/// It can be used to show different types of information such as success, error, warning, or general info.
+/// The card can optionally include additional widgets below the description.
+/// InfoCard(
+///           title: 'Welcome',
+///           type: InfoType.success,
+///           description: 'This is a success message.',
+///           additionalWidgets: [
+///             ElevatedDigitButton(
+///               onPressed: () {
+///                 // Handle DigitButton tap
+///               },
+///               child: Text('OK'),
+///             ),
+///           ],
+///         ),
 
-import '../../constants/AppView.dart';
-import '../../theme/colors.dart';
-import '../../theme/digit_theme.dart';
-import '../../theme/typography.dart';
+import 'package:digit_ui_components/digit_components.dart';
+import 'package:digit_ui_components/theme/ComponentTheme/info_card_theme.dart';
+import 'package:digit_ui_components/theme/digit_extended_theme.dart';
+import 'package:flutter/material.dart';
+import '../../utils/utils.dart';
 
 class InfoCard extends StatelessWidget {
+  /// Title of the card
   final String title;
-  final String description;
-  final InfoType type;
-  final IconData? icon;
 
-  /// List of additional widgets
+  /// Description text
+  final String description;
+
+  /// Type of information (info, success, error, warning)
+  final InfoType type;
+
+  /// Additional widgets to display below the description
   final List<Widget>? additionalWidgets;
 
-  /// Whether to display additional widgets inline or one below the other
+  /// Whether to display additional widgets in a row or column
   final bool inline;
 
-  const InfoCard({super.key,
+  /// Whether to capitalize the first letter of the title and description
+  final bool capitalizedLetter;
+
+  final DigitInfoCardThemeData? infoCardThemeData;
+
+  const InfoCard({
+    super.key,
     required this.title,
     required this.type,
     required this.description,
-    this.icon,
     this.additionalWidgets,
     this.inline = false,
+    this.capitalizedLetter = true,
+    this.infoCardThemeData,
   });
-
-  /// Capitalize the first letter if required
-  String capitalizeFirstLetter(String text) {
-    if (text.isNotEmpty) {
-      return text.substring(0, 1).toUpperCase() + text.substring(1);
-    }
-    return text;
-  }
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final themeData = infoCardThemeData ??
+        theme.extension<DigitInfoCardThemeData>() ??
+        DigitInfoCardThemeData.defaultTheme(context);
+
+    /// Define icon, icon color, and container color based on the type of information
     IconData selectedIcon;
     Color iconColor;
-    Color containerColor = const DigitColors().light.alertInfoBg;
-    DigitTypography currentTypography = getTypography(context);
-    double minWidth = AppView.isMobileView(MediaQuery.of(context).size.width)
-        ? 240
-        : AppView.isTabletView(MediaQuery.of(context).size.width)
-            ? 360
-            : 400;
+    Color containerColor;
 
-    String capitalizedHeading = capitalizeFirstLetter(title);
-    String capitalizedDescription = capitalizeFirstLetter(description);
 
-    /// Choose icon and color based on InfoType
+    /// Capitalize the title and description if specified(by default always true)
+    String capitalizedHeading =
+    capitalizedLetter ? capitalizeFirstLetterOfEveryWord(title) : title;
+    String capitalizedDescription =
+    capitalizedLetter ? convertInToSentenceCase(description)! : description;
+
+    /// Determine the icon and colors based on the info type
     switch (type) {
       case InfoType.success:
-        selectedIcon = Icons.check_circle;
-        iconColor = const DigitColors().light.alertSuccess;
-        containerColor = const DigitColors().light.alertSuccessBg;
+        selectedIcon = themeData.successIcon;
+        iconColor = themeData.successColor;
+        containerColor = themeData.successBackgroundColor;
         break;
       case InfoType.error:
-        selectedIcon = Icons.error;
-        iconColor = const DigitColors().light.alertError;
-        containerColor = const DigitColors().light.alertErrorBg;
+        selectedIcon = themeData.errorIcon;
+        iconColor = themeData.errorColor;
+        containerColor = themeData.errorBackgroundColor;
         break;
       case InfoType.warning:
-        selectedIcon = Icons.warning;
-        iconColor = const DigitColors().light.alertWarning;
-        containerColor = const DigitColors().light.alertWarningBg;
+        selectedIcon = themeData.warningIcon;
+        iconColor = themeData.warningColor;
+        containerColor = themeData.warningBackgroundColor;
         break;
       case InfoType.info:
       default:
-        selectedIcon = Icons.info;
-        iconColor = const DigitColors().light.alertInfo;
-        containerColor = const DigitColors().light.alertInfoBg;
+        selectedIcon = themeData.infoIcon;
+        iconColor = themeData.infoColor;
+        containerColor = themeData.infoBackgroundColor;
     }
 
     return SingleChildScrollView(
       child: Container(
-        constraints: BoxConstraints(
-          minWidth: minWidth,
-        ),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(4),
+          borderRadius: themeData.borderRadius,
+          border: Border(
+            right: BorderSide(color: iconColor, width: themeData.borderWidth),
+            left: BorderSide(color: iconColor, width: theme.spacerTheme.spacer1),
+            top: BorderSide(color: iconColor, width: themeData.borderWidth),
+            bottom:
+            BorderSide(color: iconColor, width: themeData.borderWidth),
+          ),
           color: containerColor,
         ),
         child: Padding(
-          padding: const EdgeInsets.all(kPadding * 2),
+          padding: themeData.contentPadding,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
             children: [
               Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Icon(
-                    icon ?? selectedIcon,
-                    size: 24,
+                    selectedIcon,
+                    size: themeData.iconSize,
                     color: iconColor,
                   ),
-                  const SizedBox(width: kPadding),
+                  const SizedBox(width: spacer2),
                   Expanded(
-                    child: Text(
-                      capitalizedHeading,
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
-                      style: currentTypography.headingS.copyWith(
-                        color: const DigitColors().light.textPrimary,
-                        height: 1.172,
+                    child: Container(
+                      alignment: Alignment.topLeft,
+                      padding: const EdgeInsets.only(
+                        top: spacer3 / 4,
+                      ),
+                      child: Text(
+                        capitalizedHeading,
+                        style: themeData.titleTextStyle.copyWith(
+                          color: iconColor,
+                        ),
                       ),
                     ),
                   ),
                 ],
               ),
-              const SizedBox(height: kPadding),
+              SizedBox(height: theme.spacerTheme.spacer2),
+              /// Description text
               Text(
                 capitalizedDescription,
-                maxLines: 100,
-                overflow: TextOverflow.ellipsis,
-                style: currentTypography.bodyS.copyWith(
-                  color: const DigitColors().light.textSecondary,
-                  height: 1.094,
+                style: themeData.descriptionTextStyle.copyWith(
+                  color: theme.colorTheme.text.secondary,
                 ),
               ),
-              if (additionalWidgets != null)
-              const SizedBox(
-                height: kPadding * 2,
-              ),
 
-              /// Display additional widgets based on the 'inline' prop
+              /// Additional widgets, if provided
+              if (additionalWidgets != null)  SizedBox(height: theme.spacerTheme.spacer4),
               if (additionalWidgets != null)
                 if (inline)
+
+                /// Display additional widgets in a row
                   Wrap(
-                    spacing: kPadding,
+                    spacing: theme.spacerTheme.spacer2,
                     children: additionalWidgets!
-                        .map(
-                          (widget) => Padding(
-                            padding: const EdgeInsets.only(right: kPadding),
-                            child: widget,
-                          ),
-                        )
+                        .map((widget) => Padding(
+                      padding: EdgeInsets.only(right: theme.spacerTheme.spacer2),
+                      child: widget,
+                    ))
                         .toList(),
                   )
                 else
+
+                /// Display additional widgets in a column
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: additionalWidgets!
-                        .map(
-                          (widget) => Padding(
-                            padding: const EdgeInsets.only(right: kPadding),
-                            child: widget,
-                          ),
-                        )
+                        .map((widget) => Padding(
+                      padding: EdgeInsets.only(bottom: theme.spacerTheme.spacer2),
+                      child: widget,
+                    ))
                         .toList(),
                   ),
             ],
@@ -155,11 +183,4 @@ class InfoCard extends StatelessWidget {
       ),
     );
   }
-}
-
-enum InfoType {
-  info,
-  success,
-  error,
-  warning,
 }

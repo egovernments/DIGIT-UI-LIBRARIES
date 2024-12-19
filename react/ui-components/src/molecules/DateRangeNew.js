@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useMemo, useRef, useState } from "react";
-import { Calender } from "../atoms/svgindex";
+import { CustomSVG } from "../atoms/CustomSVG";
 import { DateRange, createStaticRanges } from "react-date-range";
 import { format, addMonths, addHours, startOfToday, endOfToday, endOfYesterday, addMinutes, addSeconds, isEqual, subYears, startOfYesterday, startOfWeek, endOfWeek, startOfYear, endOfYear, startOfMonth, endOfMonth, startOfQuarter, endOfQuarter } from "date-fns";
 
@@ -137,7 +137,7 @@ const DateRangeNew = ({ values, onFilterChange, t, labelClass, label, customStyl
             <div className="employee-select-wrap" ref={wrapperRef}>
                 <div className="select">
                     <input className="employee-select-wrap--elipses" type="text" value={values?.title ? `${values?.title}` : ""} readOnly />
-                    <Calender className="cursorPointer" onClick={() => setIsModalOpen((prevState) => !prevState)} />
+                    <CustomSVG.Calender className="cursorPointer" onClick={() => setIsModalOpen((prevState) => !prevState)} />
                 </div>
                 {isModalOpen && (
                     <div className="options-card" style={{ overflow: "visible", width: "unset"}}>

@@ -1,6 +1,7 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
 import Chip from "../Chip";
+import Iframe from "../Iframe";
 
 export default {
   title: "Atoms/Chip",
@@ -27,7 +28,13 @@ export default {
     isErrorTag: {
       control: "boolean",
     },
+    hideClose: {
+      control: "boolean",
+    },
     error: {
+      control: "text",
+    },
+    iconReq: {
       control: "text",
     },
   },
@@ -40,7 +47,7 @@ const Template = (args) => (
 );
 
 const commonArgs = {
-  text: "Button",
+  text: "Chip",
   className: "",
   extraStyles: {},
   onClick: () => console.log("Close icon is clicked"),
@@ -48,32 +55,45 @@ const commonArgs = {
   disabled: false,
   isErrorTag: false,
   error: "",
+  hideClose: true,
+  iconReq: "",
 };
 
-export const Default = Template.bind({});
-Default.args = {
+export const Documentation = () => (
+  <Iframe
+    //Todo:Update the url
+    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-core-react-components/input-field"
+    title="Chip Documentation"
+  />
+);
+
+Documentation.storyName = "Docs";
+
+export const Basic = Template.bind({});
+Basic.args = {
   ...commonArgs,
-  text: "Chips",
 };
 
-export const ErrorTag = Template.bind({});
-ErrorTag.args = {
+export const WithClose = Template.bind({});
+WithClose.args = {
   ...commonArgs,
-  text: "ErrorChips",
-  isErrorTag:true
+  text: "Chip",
+  hideClose: false,
 };
 
-export const ErrorTagWithError = Template.bind({});
-ErrorTagWithError.args = {
+export const WithIcon = Template.bind({});
+WithIcon.args = {
   ...commonArgs,
-  text: "ErrorChipsWithError",
-  isErrorTag:true,
-  error:"ErrorMessage"
+  text: "Chip",
+  iconReq: "Edit",
 };
 
-export const DisabledTag = Template.bind({});
-DisabledTag.args = {
+export const Error = Template.bind({});
+Error.args = {
   ...commonArgs,
-  text: "DisabledChips",
-  disabled:true
+  text: "ErrorChipWithError",
+  isErrorTag: true,
+  error: "ErrorMessage",
+  iconReq: "Edit",
+  hideClose: false,
 };

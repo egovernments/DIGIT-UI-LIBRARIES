@@ -1,5 +1,6 @@
 import React from "react";
 import Divider from "../Divider";
+import Iframe from "../Iframe";
 
 export default {
   title: "Atoms/Divider",
@@ -12,47 +13,57 @@ export default {
       control: { type: "object" },
     },
     variant: {
-        control: "select",
-        options: ["small", "medium", "large"],
-      },
+      control: "select",
+      options: ["small", "medium", "large"],
+    },
   },
 };
 
 const Template = (args) => (
   <div>
     <Divider {...args}></Divider>
-</div>
+  </div>
 );
 
 const commonArgs = {
-    variant:"",
+  variant: "",
   className: "",
   style: {},
 };
 
+export const Documentation = () => (
+  <Iframe
+    //Todo:Update the url
+    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-core-react-components/input-field"
+    title="Divider Documentation"
+  />
+);
+
+Documentation.storyName = "Docs";
+
 export const Small = Template.bind({});
 Small.args = {
   ...commonArgs,
-  variant:"small"
+  variant: "small",
 };
 
 export const Medium = Template.bind({});
 Medium.args = {
   ...commonArgs,
-  variant:"medium"
+  variant: "medium",
 };
 
 export const Large = Template.bind({});
 Large.args = {
   ...commonArgs,
-  variant:"large"
+  variant: "large",
 };
 
 export const Custom = Template.bind({});
 Custom.args = {
   ...commonArgs,
-  variant:"large",
-  style:{
-    border:"10px solid #0B4B66"
-  }
+  variant: "large",
+  style: {
+    border: "10px solid #0B4B66",
+  },
 };
