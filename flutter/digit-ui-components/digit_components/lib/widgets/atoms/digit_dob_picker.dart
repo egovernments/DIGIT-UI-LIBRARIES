@@ -62,6 +62,7 @@ class _DigitDobPickerState extends State<DigitDobPicker> {
     super.initState();
     if(widget.initialValue != null) {
       selectedDate = DigitDateUtils.getFormattedDateToDateTime(widget.initialValue.toString());
+      _setAgeFromDate(selectedDate); /// updated all the controller value also
     }
   }
 
@@ -73,6 +74,15 @@ class _DigitDobPickerState extends State<DigitDobPicker> {
     final now = DateTime.now();
     int years = now.year - date.year;
     int months = now.month - date.month;
+    int days = now.day - date.day;
+
+    // If days are negative, adjust months and days
+    if (days < 0) {
+      months--;
+      days += DateTime(now.year, now.month, 0).day;
+    }
+
+    // If months are negative, adjust years and months
     if (months < 0) {
       years--;
       months += 12;
