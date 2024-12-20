@@ -3,7 +3,6 @@ import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:digit_ui_components/widgets/atoms/digit_divider.dart';
 import 'package:flutter/material.dart';
-import '../atoms/digit_button.dart';
 import '../helper_widget/digit_profile.dart';
 
 
@@ -11,6 +10,7 @@ class SideBar extends Drawer {
   final List<SidebarItem> sidebarItems;
   final List<SidebarItem>? footerActions;
   final ProfileWidget? profile;
+  final SidebarType type;
   final String logOutDigitButtonLabel;
   final VoidCallback? onLogOut;
 
@@ -19,6 +19,7 @@ class SideBar extends Drawer {
     required this.sidebarItems,
     required this.logOutDigitButtonLabel,
     this.profile,
+    this.type = SidebarType.light,
     this.footerActions,
     this.onLogOut,
   }) : super(key: key);
@@ -34,7 +35,7 @@ class SideBar extends Drawer {
         borderRadius: BorderRadius.zero,
       ),
       child: Container(
-        color: theme.colorTheme.paper.primary,
+        color: type==SidebarType.dark ? theme.colorTheme.primary.primary2 : theme.colorTheme.paper.primary,
         child: Column(
           children: [
             // Top content with profile and sidebar items
@@ -54,6 +55,7 @@ class SideBar extends Drawer {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 ItemWidget(
+                                  type: type,
                                   title: sidebarItems[i].title,
                                   icon: sidebarItems[i].icon,
                                   onPressed: sidebarItems[i].onPressed,
@@ -79,7 +81,7 @@ class SideBar extends Drawer {
                   for (var action in footerActions!)
                     ...[
                       const DigitDivider(dividerType: DividerType.small),
-                      ChildItemWidget(item: action)
+                      ChildItemWidget(item: action, type: type,)
                     ],
                 ],
               ),
@@ -92,7 +94,7 @@ class SideBar extends Drawer {
                   color: theme.colorTheme.generic.divider,
                   width: 1,
                 ),
-                color: theme.colorTheme.paper.primary,
+                color: type == SidebarType.dark ? theme.colorTheme.primary.primary2 : theme.colorTheme.paper.primary,
               ),
               child: DigitButton(
                 size: DigitButtonSize.medium,
@@ -117,6 +119,7 @@ class ItemWidget extends StatefulWidget {
   final bool initiallySelected;
   final Function() onPressed;
   final int index;
+  final SidebarType type;
   final List<SidebarItem>? children;
 
   const ItemWidget({
@@ -127,6 +130,7 @@ class ItemWidget extends StatefulWidget {
     this.initiallySelected = false,
     required this.onPressed,
     required this.index,
+    this.type = SidebarType.light,
     this.children,
   }) : super(key: key);
 
@@ -182,8 +186,8 @@ class _ItemWidgetState extends State<ItemWidget> {
     Color backgroundColor  = _isSelected
         ? theme.colorTheme.primary.primaryBg
         : (widget.index % 2 == 0 || _isExpanded
-        ? theme.colorTheme.paper.secondary
-        : theme.colorTheme.paper.primary);
+        ? widget.type ==SidebarType.dark ? theme.colorTheme.primary.primary2 :theme.colorTheme.paper.secondary
+        : widget.type ==SidebarType.dark ? theme.colorTheme.primary.primary2 : theme.colorTheme.paper.primary);
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -211,14 +215,14 @@ class _ItemWidgetState extends State<ItemWidget> {
                       Icon(
                         widget.icon,
                         size: 24,
-                        color: theme.colorTheme.primary.primary2,
+                        color: widget.type == SidebarType.dark ? theme.colorTheme.paper.primary : theme.colorTheme.primary.primary2,
                       ),
                       const SizedBox(width: 8),
                     ],
                     Text(
                       widget.title,
                       style: textTheme.headingS.copyWith(
-                        color: theme.colorTheme.primary.primary2,
+                        color: widget.type == SidebarType.dark ? theme.colorTheme.paper.primary : theme.colorTheme.primary.primary2,
                       ),
                     ),
                   ],
@@ -226,7 +230,7 @@ class _ItemWidgetState extends State<ItemWidget> {
                 if (widget.children != null)
                   Icon(
                     _isExpanded ? Icons.arrow_drop_down : Icons.arrow_right,
-                    color: theme.colorTheme.primary.primary2,
+                    color: widget.type == SidebarType.dark ? theme.colorTheme.paper.primary :  theme.colorTheme.primary.primary2,
                   ),
               ],
             ),
@@ -234,6 +238,7 @@ class _ItemWidgetState extends State<ItemWidget> {
         ),
         if (_isExpanded && widget.children != null)
           SideNavWithSearch(
+            type: widget.type,
             navItems: widget.children!,
             isSearchEnabled: widget.isSearchEnabled,
             onChildSelected: _handleChildSelected, // Pass callback to children
@@ -249,6 +254,7 @@ class SideNavWithSearch extends StatefulWidget {
   final bool isSearchEnabled;
   final ValueChanged<SidebarItem>? onChildSelected; // Callback to notify parent
   final SidebarItem? selectedItem; // Track selected item
+  final SidebarType type;
 
   const SideNavWithSearch({
     Key? key,
@@ -256,6 +262,7 @@ class SideNavWithSearch extends StatefulWidget {
     this.isSearchEnabled = true,
     this.onChildSelected,
     this.selectedItem,
+    this.type = SidebarType.light,
   }) : super(key: key);
 
   @override
@@ -325,22 +332,22 @@ class _SideNavWithSearchState extends State<SideNavWithSearch> {
             child: DigitSearchFormInput(
               height: 32,
               textStyle: textTheme.bodyS.copyWith(
-                color: theme.colorTheme.text.primary,
+                color: widget.type ==SidebarType.dark ? theme.colorTheme.paper.primary :theme.colorTheme.text.primary,
               ),
               iconSize: 16,
               focusNode: searchFocusNode,
               controller: _searchController,
               enableBorder: OutlineInputBorder(
                 borderSide: BorderSide(
-                  color: theme.colorTheme.generic.divider,
+                  color:  widget.type ==SidebarType.dark ? theme.colorTheme.paper.primary :theme.colorTheme.generic.divider,
                   width: 1.0,
                 ),
                 borderRadius: BorderRadius.zero,
               ),
-              iconColor: theme.colorTheme.primary.primary2,
+              iconColor: widget.type ==SidebarType.dark ? theme.colorTheme.paper.primary : theme.colorTheme.primary.primary2,
               focusBorder: OutlineInputBorder(
                 borderSide: BorderSide(
-                  color: theme.colorTheme.primary.primary2,
+                  color:  widget.type ==SidebarType.dark ? theme.colorTheme.paper.primary :theme.colorTheme.primary.primary2,
                   width: 1.5,
                 ),
                 borderRadius: BorderRadius.zero,
@@ -359,6 +366,7 @@ class _SideNavWithSearchState extends State<SideNavWithSearch> {
           ),
         if(_filteredItems.isNotEmpty)
           ..._filteredItems.map((item) => ChildItemWidget(
+            type: widget.type,
             item: item,
             isSelected: item == widget.selectedItem, // Pass selection state to ChildItemWidget
             onChildSelected: _handleChildSelected, // Pass callback to ChildItemWidget
@@ -373,12 +381,14 @@ class _SideNavWithSearchState extends State<SideNavWithSearch> {
 
 class ChildItemWidget extends StatelessWidget {
   final SidebarItem item;
+  final SidebarType type;
   final bool isSelected; // Track selection state
   final ValueChanged<SidebarItem>? onChildSelected; // Callback to notify parent
 
   const ChildItemWidget({
     Key? key,
     required this.item,
+    this.type = SidebarType.light,
     this.isSelected = false,
     this.onChildSelected,
   }) : super(key: key);
@@ -389,8 +399,8 @@ class ChildItemWidget extends StatelessWidget {
     final textTheme = theme.digitTextTheme(context);
 
     final backgroundColor = isSelected
-        ? theme.colorTheme.primary.primaryBg
-        : theme.colorTheme.paper.primary;
+        ? type ==SidebarType.dark ? theme.colorTheme.primary.primary1  : theme.colorTheme.primary.primaryBg
+        : type ==SidebarType.dark ? theme.colorTheme.primary.primary2 : theme.colorTheme.paper.primary;
 
     return InkWell(
       onTap: () {
@@ -417,7 +427,7 @@ class ChildItemWidget extends StatelessWidget {
                     borderRadius: const BorderRadius.only(
                         topRight: Radius.circular(4),
                         bottomRight: Radius.circular(4)),
-                    color: const DigitColors().light.primary1,
+                    color:  type ==SidebarType.dark ? theme.colorTheme.paper.primary :const DigitColors().light.primary1,
                   ),
                 ),
               if (isSelected) const SizedBox(width: 18,),
@@ -428,14 +438,14 @@ class ChildItemWidget extends StatelessWidget {
                     if (item.icon != null)
                       Icon(
                         item.icon,
-                        color: theme.colorTheme.primary.primary2,
+                        color:  type ==SidebarType.dark ? theme.colorTheme.paper.primary :theme.colorTheme.primary.primary2,
                       ),
                     if (item.icon != null)
                       const SizedBox(width: 12),
                     Text(
                       item.title,
                       style: textTheme.headingS.copyWith(
-                        color: theme.colorTheme.primary.primary2,
+                        color: type ==SidebarType.dark ? theme.colorTheme.paper.primary :theme.colorTheme.primary.primary2,
                       ),
                     ),
                   ],
@@ -468,4 +478,9 @@ class SidebarItem {
     this.isSearchEnabled = true,
     this.children,
   });
+}
+
+enum SidebarType {
+  dark,
+  light
 }

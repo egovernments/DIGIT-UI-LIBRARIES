@@ -60,7 +60,6 @@ import 'package:storybook/widgets/molecules/panel_card_stories.dart';
 import 'package:storybook/widgets/molecules/show_pop_up_stories.dart';
 import 'package:storybook/widgets/molecules/side_nav_stories.dart';
 import 'package:storybook/widgets/molecules/timeline_molecule_stories.dart';
-import 'package:storybook/widgets/molecules/view_card_stories.dart';
 import 'package:storybook/widgets/privacy_policy/privacy_policy_story.dart';
 import 'package:storybook/widgets/showcase_stories/show_case_widget_stories2.dart';
 import 'package:storybook/widgets/showcase_stories/showcase_stories.dart';
@@ -197,7 +196,7 @@ class MyHomePageState extends State<MyHomePage> {
           ...otpInputStories(),
           ...groupMenuCardStories(),
           ...panelStories(),
-          ...popUpStories(),
+          // ...popUpStories(),
           ...radioListStories(),
           ...selectionCardStories(),
           ...switchStories(),
@@ -229,7 +228,6 @@ class MyHomePageState extends State<MyHomePage> {
           ...sliderStories(),
           ...tableStories(),
           ...timelineMoleculeStories(),
-          ...viewCardStories(),
          ...privacyComponentStories()
          // ...showcaseStories(),
          // ...showcaseStories2(),

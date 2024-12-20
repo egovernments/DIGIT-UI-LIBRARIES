@@ -8,37 +8,81 @@ List<Story> sliderStories() {
   return [
     // Basic Toggle Use Case
     Story(
-      name: 'Molecule/Side Menu Slider/default right',
-      builder: (context) => SlideOverMenu(
-        expandedContentAlignment: MainAxisAlignment.spaceBetween,
-        expandedFooter: Column(
-          children: [
-            DigitButton(label: 'Action', onPressed: (){}, type: DigitButtonType.secondary, size: DigitButtonSize.large, mainAxisSize: MainAxisSize.max,)
+      name: 'Molecule/Side Menu Slider/Basic',
+      builder: (context){
+        final bool isLeft = context.knobs.options(label: 'Alignment', initial: false, options: [
+          Option(label: 'Left', value: true),
+          Option(label: 'Right', value: false),
+        ]);
+
+        return SlideOverMenu(
+          isLeft: isLeft,
+          skipCollapsedState: true,
+          expandedContentAlignment: MainAxisAlignment.spaceBetween,
+          expandedFooter: Column(
+            children: [
+              DigitButton(label: 'Action', onPressed: (){}, type: DigitButtonType.secondary, size: DigitButtonSize.large, mainAxisSize: MainAxisSize.max,)
+            ],
+          ),
+          sections: [
+            Section(
+              expandedContent: [
+                Text('Item 1.1'),
+                Text('Item 1.2'),
+                Text('Item 1.3'),
+              ],
+            ),
+            Section(
+              expandedContent: [
+                Text('Item 2.1'),
+                Text('Item 2.2'),
+              ],
+            ),
+            Section(
+              expandedContent: [
+                Text('Item 3.1'),
+                Text('Item 3.2'),
+                Text('Item 3.3'),
+              ],
+            ),
           ],
-        ),
-        sections: [
-          Section(
-            expandedContent: [
-              Text('Item 1.1'),
-              Text('Item 1.2'),
-              Text('Item 1.3'),
+        );
+      }
+    ),
+    Story(
+      name: 'Molecule/Side Menu Slider/Collapsible',
+      builder: (context){
+        return SlideOverMenu(
+          expandedContentAlignment: MainAxisAlignment.spaceBetween,
+          expandedFooter: Column(
+            children: [
+              DigitButton(label: 'Action', onPressed: (){}, type: DigitButtonType.secondary, size: DigitButtonSize.large, mainAxisSize: MainAxisSize.max,)
             ],
           ),
-          Section(
-            expandedContent: [
-              Text('Item 2.1'),
-              Text('Item 2.2'),
-            ],
-          ),
-          Section(
-            expandedContent: [
-              Text('Item 3.1'),
-              Text('Item 3.2'),
-              Text('Item 3.3'),
-            ],
-          ),
-        ],
-      ),
+          sections: [
+            Section(
+              expandedContent: [
+                Text('Item 1.1'),
+                Text('Item 1.2'),
+                Text('Item 1.3'),
+              ],
+            ),
+            Section(
+              expandedContent: [
+                Text('Item 2.1'),
+                Text('Item 2.2'),
+              ],
+            ),
+            Section(
+              expandedContent: [
+                Text('Item 3.1'),
+                Text('Item 3.2'),
+                Text('Item 3.3'),
+              ],
+            ),
+          ],
+        );
+      }
     ),
     Story(
       name: 'Molecule/Side Menu Slider/left',

@@ -21,8 +21,8 @@ List<Story> matrixCardStories() {
       name: 'Molecule/Metric Card/Vertically Stacked',
       builder: (context) =>  MatrixList(
         direction: Axis.vertical,
-        showItemDivider: context.knobs.boolean(label: 'Show Item Divider', initial: true),
-        showGroupDivider: context.knobs.boolean(label: 'Show Group Divider', initial: true),
+        showItemDivider: context.knobs.boolean(label: 'Show Horizontal Divider', initial: true),
+        showGroupDivider: context.knobs.boolean(label: 'Show Vertical Divider', initial: true),
         matrices: [
           Matrix(value: '10', description: 'Description 1', type: MatrixType.progress, statusText: 'Active'),
           Matrix(value: '20', description: 'Description 2', type: MatrixType.noProgress, statusText: 'Inactive'),
@@ -35,6 +35,8 @@ List<Story> matrixCardStories() {
     Story(
       name: 'Molecule/Metric Card/Horizontally Stacked',
       builder: (context) =>  MatrixList(
+        showItemDivider: context.knobs.boolean(label: 'Show Vertical Divider', initial: true),
+        showGroupDivider: context.knobs.boolean(label: 'Show Horizontal Divider', initial: true),
         direction: Axis.horizontal,
         matrices: [
           Matrix(value: '10', description: 'Description 1', type: MatrixType.progress, statusText: 'Active'),

@@ -69,6 +69,7 @@ class CustomHeaderMolecule extends StatelessWidget {
     bool isTab = AppView.isTabletView(MediaQuery.of(context).size);
 
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -192,6 +193,7 @@ class CustomHeaderMolecule extends StatelessWidget {
     DigitTypography currentTypography = getTypography(context, false);
 
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       mainAxisSize: MainAxisSize.min,
       children: [
