@@ -5,6 +5,8 @@ dependency_overrides:
       ref: develop
       path: ./flutter/digit-ui-components/digit_components
 
+  google_fonts: ^6.2.0
+
   storybook_toolkit:
     git:
       url: https://github.com/StorybookToolkit/storybook_toolkit
