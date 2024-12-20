@@ -3,14 +3,24 @@ import 'package:digit_ui_components/widgets/molecules/digit_footer.dart';
 import 'package:flutter/material.dart';
 import 'package:storybook_toolkit/storybook_toolkit.dart';
 
+import '../../iframe/iframe_widget.dart';
+
 
 List<Story> footerMoleculeStories() {
   String label = 'Actions';
   return [
     Story(
-      name: 'Molecule/Footer/Variant 1',
+      name: 'Molecule/Footer/Documentation',
+      builder: (context) {
+        return IframeWidget(
+          url: 'https://egov-digit.gitbook.io/docs-templates-repo/ui-component-name-2',
+        );
+      },
+    ),
+    Story(
+      name: 'Molecule/Footer/Basic',
       builder: (context) => DigitFooter(
-        actionAlignment: MainAxisAlignment.spaceBetween,
+        actionAlignment: MainAxisAlignment.end,
         actions: [
           FooterAction(
             buttons: DigitButton(
@@ -18,7 +28,12 @@ List<Story> footerMoleculeStories() {
               onPressed: () {
                 print('heeeeeeeeee');
               },
-              type: DigitButtonType.secondary,
+              type: context.knobs.options(label: 'First Button Type', initial: DigitButtonType.secondary, options: [
+                Option(label: 'Primary', value: DigitButtonType.primary),
+                Option(label: 'Secondary', value: DigitButtonType.secondary),
+                Option(label: 'Tertiary', value: DigitButtonType.tertiary),
+                Option(label: 'Link', value: DigitButtonType.link)
+              ]),
               size: DigitButtonSize.large,
               prefixIcon: Icons.arrow_back,
             ),
@@ -29,61 +44,27 @@ List<Story> footerMoleculeStories() {
               onPressed: () {
                 print('neeeeeeeeeexxxxxxtttttttttt');
               },
-              type: DigitButtonType.primary,
+              type: context.knobs.options(label: 'Second Button Type', initial: DigitButtonType.primary, options: [
+                Option(label: 'Primary', value: DigitButtonType.primary),
+                Option(label: 'Secondary', value: DigitButtonType.secondary),
+                Option(label: 'Tertiary', value: DigitButtonType.tertiary),
+                Option(label: 'Link', value: DigitButtonType.link)
+              ]),
               size: DigitButtonSize.large,
               suffixIcon: Icons.arrow_forward,
             ),
           ),
         ],
+        footerContent: context.knobs.boolean(label: 'Show Extra Content', initial: false)
+            ? Text(
+              'This is extra content for the footer',
+              style: TextStyle(color: Colors.grey, fontSize: 12),
+            )
+            : null,
       ),
     ),
     Story(
-      name: 'Molecule/Footer/Variant 2',
-      builder: (context) => StatefulBuilder(
-          builder: (context, setState) {
-            return DigitFooter(
-              actionAlignment: MainAxisAlignment.spaceBetween,
-              actions: [
-                FooterAction(
-                  buttons: DigitButton(
-                    label: 'back',
-                    onPressed: () {
-                      print('heeeeeeeeee');
-                    },
-                    type: DigitButtonType.secondary,
-                    size: DigitButtonSize.large,
-                    prefixIcon: Icons.arrow_back,
-                  ),
-                ),
-                FooterAction(
-                    buttons: DigitButton(
-                      label: label,
-                      onPressed: () {
-                        print('neeeeeeeeeexxxxxxtttttttttt');
-                      },
-                      type: DigitButtonType.primary,
-                      size: DigitButtonSize.large,
-                      suffixIcon: Icons.arrow_drop_up,
-                    ),
-                    dropdownItems: [
-                      const DropdownItem(name: 'first', code: '1'),
-                      const DropdownItem(name: 'second', code: '2'),
-                      const DropdownItem(name: 'third', code: '3'),
-                      const DropdownItem(name: 'fourth', code: '4'),
-                    ],
-                    onDropdownItemSelected: (item){
-                      setState((){
-                        label = item.name;
-                      });
-                    }
-                ),
-              ],
-            );
-          }
-      ),
-    ),
-    Story(
-      name: 'Molecule/Footer/Variant 3',
+      name: 'Molecule/Footer/Action',
       builder: (context) => DigitFooter(
         actionAlignment: MainAxisAlignment.end,
         actions: [
@@ -93,63 +74,43 @@ List<Story> footerMoleculeStories() {
               onPressed: () {
                 print('heeeeeeeeee');
               },
-              type: DigitButtonType.secondary,
+              type: context.knobs.options(label: 'First Button Type', initial: DigitButtonType.secondary, options: [
+                Option(label: 'Primary', value: DigitButtonType.primary),
+                Option(label: 'Secondary', value: DigitButtonType.secondary),
+                Option(label: 'Tertiary', value: DigitButtonType.tertiary),
+                Option(label: 'Link', value: DigitButtonType.link)
+              ]),
               size: DigitButtonSize.large,
               prefixIcon: Icons.arrow_back,
             ),
           ),
-          FooterAction(
-              buttons: DigitButton(
-                label: 'Actions   ',
-                onPressed: () {
-                  print('neeeeeeeeeexxxxxxtttttttttt');
-                },
-                type: DigitButtonType.primary,
-                size: DigitButtonSize.large,
-                suffixIcon: Icons.arrow_drop_up,
-              ),
-              dropdownItems: [
-                const DropdownItem(name: 'first', code: '1'),
-                const DropdownItem(name: 'second', code: '2'),
-                // const DropdownItem(name: 'third', code: '3'),
-                // const DropdownItem(name: 'forth', code: '4'),
-              ]),
-        ],
-      ),
-    ),
-    Story(
-      name: 'Molecule/Footer/Variant 4',
-      builder: (context) => DigitFooter(
-        actionAlignment: MainAxisAlignment.spaceBetween,
-        actions: [
           FooterAction(
             buttons: DigitButton(
-              label: 'back',
+              label: 'Actions   ',
               onPressed: () {
-                print('heeeeeeeeee');
+                print('neeeeeeeeeexxxxxxtttttttttt');
               },
-              type: DigitButtonType.secondary,
-              size: DigitButtonSize.large,
-              prefixIcon: Icons.arrow_back,
-            ),
-          ),
-          FooterAction(
-              buttons: DigitButton(
-                label: 'Actions   ',
-                onPressed: () {
-                  print('neeeeeeeeeexxxxxxtttttttttt');
-                },
-                type: DigitButtonType.primary,
-                size: DigitButtonSize.large,
-                suffixIcon: Icons.arrow_drop_up,
-              ),
-              dropdownItems: [
-                const DropdownItem(name: 'first', code: '1'),
-                const DropdownItem(name: 'second', code: '2'),
-                const DropdownItem(name: 'third', code: '3'),
-                const DropdownItem(name: 'fourth', code: '4'),
+              type: context.knobs.options(label: 'Second Button Type', initial: DigitButtonType.primary, options: [
+                Option(label: 'Primary', value: DigitButtonType.primary),
+                Option(label: 'Secondary', value: DigitButtonType.secondary),
+                Option(label: 'Tertiary', value: DigitButtonType.tertiary),
+                Option(label: 'Link', value: DigitButtonType.link)
               ]),
+              size: DigitButtonSize.large,
+              suffixIcon: Icons.arrow_drop_up,
+            ),
+            dropdownItems: [
+              const DropdownItem(name: 'first', code: '1'),
+              const DropdownItem(name: 'second', code: '2'),
+            ],
+          ),
         ],
+        footerContent: context.knobs.boolean(label: 'Show Extra Content', initial: false)
+            ? Text(
+              'This is extra content for the footer',
+              style: TextStyle(color: Colors.grey, fontSize: 12),
+            )
+            : null,
       ),
     ),
   ];

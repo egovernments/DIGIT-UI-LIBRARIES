@@ -51,18 +51,24 @@ class SlideOverMenuState extends State<SlideOverMenu> {
 
   @override
   void initState() {
+    if(widget.skipCollapsedState){
+      isExpanded = true;
+    }
     super.initState();
   }
 
   void toggleSlider() {
-    setState(() {
-      isExpanded = !isExpanded;
-    });
-    widget.onToggle?.call();
+    if(!widget.skipCollapsedState){
+      setState(() {
+        isExpanded = !isExpanded;
+      });
+      widget.onToggle?.call();
+    }
+
   }
 
   void openSlider() {
-    if (!isExpanded) {
+    if (!isExpanded && !widget.skipCollapsedState) {
       setState(() {
         isExpanded = true;
       });
@@ -71,7 +77,7 @@ class SlideOverMenuState extends State<SlideOverMenu> {
   }
 
   void closeSlider() {
-    if (isExpanded) {
+    if (isExpanded && !widget.skipCollapsedState) {
       setState(() {
         isExpanded = false;
       });
@@ -86,9 +92,7 @@ class SlideOverMenuState extends State<SlideOverMenu> {
     bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
     bool isTab = AppView.isTabletView(MediaQuery.of(context).size);
 
-    return widget.skipCollapsedState && !isExpanded
-        ? Container()
-        : Align(
+    return  Align(
             alignment: widget.isLeft
                 ? Alignment.centerLeft
                 : Alignment.centerRight, // Choose side based on `isLeft`

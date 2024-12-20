@@ -11,11 +11,15 @@ typedef ExpansionChangedCallback = void Function(int index, bool isExpanded);
 class SideNavBar extends StatefulWidget {
   final SideNavType type;
   final List<NavItem> navItems;
+  final bool enableSearch;
+  final bool bottomActions;
 
   const SideNavBar({
     super.key,
     required this.navItems,
     this.type = SideNavType.dark,
+    this.enableSearch = true,
+    this.bottomActions= true,
   });
 
   @override
@@ -89,6 +93,7 @@ class _SideNavBarState extends State<SideNavBar> {
             // mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              if(widget.enableSearch)
               isHovered
                   ? Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12.0),
@@ -138,6 +143,7 @@ class _SideNavBarState extends State<SideNavBar> {
                       : const DigitColors().light.paperPrimary,
                 ),
               ),
+              if(widget.enableSearch)
               SizedBox(height: isHovered ? 16 : 24),
               NavItemBuilder(
                 navItems: widget.navItems,
@@ -157,7 +163,7 @@ class _SideNavBarState extends State<SideNavBar> {
                 },
                 searchQuery: searchQuery,
               ),
-              if (isHovered) _buildBottomSection(),
+              if (isHovered && widget.bottomActions) _buildBottomSection(),
             ],
           ),
         ),
@@ -171,7 +177,7 @@ class _SideNavBarState extends State<SideNavBar> {
     bool isHelpHovered = false;
     return StatefulBuilder(builder: (context, setState) {
       return Container(
-        padding: const EdgeInsets.only(top: 16),
+        padding: const EdgeInsets.only(top: 16,bottom: 16),
         decoration: BoxDecoration(
           border: Border.all(
             width: 1.0,
