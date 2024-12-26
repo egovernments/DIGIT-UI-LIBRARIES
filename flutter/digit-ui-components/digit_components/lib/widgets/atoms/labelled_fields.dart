@@ -6,6 +6,7 @@ import '../../utils/utils.dart';
 class LabeledField extends StatelessWidget {
   final Widget child;
   final String? label;
+  final String? description;
   final bool isRequired;
   final TextStyle? labelStyle;
   final EdgeInsets? padding;
@@ -18,11 +19,13 @@ class LabeledField extends StatelessWidget {
   final CrossAxisAlignment crossAxisAlignment;
   final bool capitalizedFirstLetter;
   final bool labelInline;
+  final bool charCondition;
 
   const LabeledField({
     super.key,
     required this.child,
     this.label,
+    this.description,
     this.labelStyle,
     this.padding,
     this.isRequired = false,
@@ -35,6 +38,7 @@ class LabeledField extends StatelessWidget {
     this.crossAxisAlignment = CrossAxisAlignment.start,
     this.capitalizedFirstLetter = true,
     this.labelInline = true,
+    this.charCondition = false,
   });
 
   @override
@@ -58,9 +62,9 @@ class LabeledField extends StatelessWidget {
               children: [
                 RichText(
                   text: TextSpan(
-                    text: processedLabel!.length > 64
-                        ? '${processedLabel!.substring(0, 64)}...'
-                        : processedLabel!,
+                    text: charCondition ? processedLabel : processedLabel!.length > 64
+                        ? '${processedLabel.substring(0, 64)}...'
+                        : processedLabel,
                     style: textTheme.label.copyWith(
                       color: theme.colorTheme.text.primary,
                       overflow: TextOverflow.ellipsis,
@@ -96,6 +100,8 @@ class LabeledField extends StatelessWidget {
             const SizedBox(
               height: spacer1,
             ),
+          if(description != null)
+            Text(description!, style: textTheme.bodyS,),
           child,
         ],
       );

@@ -1,6 +1,7 @@
 
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
+import 'package:digit_ui_components/widgets/molecules/hamburger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../constants/app_constants.dart';
@@ -10,11 +11,13 @@ class ProfileWidget extends StatelessWidget {
   final Widget? leading;
   final String? description;
   final VoidCallback? onPressed;
+  final SidebarType type;
 
   const ProfileWidget({
     super.key,
     required this.title,
     this.leading,
+    this.type = SidebarType.light,
     this.description,
     this.onPressed,
   });
@@ -31,7 +34,7 @@ class ProfileWidget extends StatelessWidget {
       onTap: onPressed,
       child: Container(
         padding: const EdgeInsets.all(24),
-        color: const DigitColors().light.paperPrimary,
+        color: type == SidebarType.dark ? theme.colorTheme.primary.primary2 : theme.colorTheme.paper.primary,
         width: MediaQuery.of(context).size.width,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -48,7 +51,7 @@ class ProfileWidget extends StatelessWidget {
             Text(
               title,
               style: textTheme.headingS.copyWith(
-                color: theme.colorTheme.text.primary,
+                color: type == SidebarType.dark ? theme.colorTheme.paper.primary :theme.colorTheme.text.primary,
               ),
             ),
             if (description != null) ...[
@@ -58,7 +61,7 @@ class ProfileWidget extends StatelessWidget {
               Text(
                 description!,
                 style: textTheme.bodyS.copyWith(
-                  color: theme.colorTheme.text.secondary,
+                  color: type == SidebarType.dark ? theme.colorTheme.paper.secondary :theme.colorTheme.text.secondary,
                 ),
               ),
             ]

@@ -50,6 +50,7 @@ class LabelValueSummary extends StatelessWidget {
           if (action != null) ...[
             const SizedBox(height: spacer4),
             DigitButtonListTile(
+              spacing: 24,
               alignment: !withCard && !isMobile ? MainAxisAlignment.center : MainAxisAlignment.end,
                 buttons: action!),
           ],

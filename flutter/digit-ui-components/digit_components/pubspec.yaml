@@ -1,6 +1,6 @@
 name: digit_ui_components
 description: Digit UI Design specification
-version: 0.0.1+7
+version: 0.0.2-dev.4
 homepage: https://github.com/egovernments/DIGIT-UI-LIBRARIES/tree/master/flutter/digit-ui-components
 
 environment:
@@ -41,6 +41,7 @@ dependencies:
   visibility_detector: ^0.4.0+2
   lottie: ^3.1.0
   universal_html: ^2.2.4
+  provider: ^6.1.2
 
 
 dev_dependencies:

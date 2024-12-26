@@ -86,7 +86,7 @@ class DigitDateUtils {
           : DateFormat('dd/MM/yyyy');
       DateTime inputDate = inputFormat.parse(date);
 
-      return inputDate;
+      return DateTime(inputDate.year, inputDate.month, inputDate.day);
     } on Exception catch (e) {
       if (kDebugMode) {
         print(e);
