@@ -1,5 +1,5 @@
 import React from "react";
-import { InfoCard } from "../../atoms";
+import { AlertCard } from "../../atoms";
 import { Button } from "../../atoms";
 import PanelCard from "../PanelCard";
 
@@ -168,7 +168,7 @@ const footerChildrenSix = [
 ];
 
 const children = [
-  <InfoCard
+  <AlertCard
     variant={"success"}
     className={"panelcard-infocard"}
     text={"This is success"}

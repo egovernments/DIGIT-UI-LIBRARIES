@@ -13,7 +13,7 @@
 @import url("./components/fieldV1.scss");
 @import url("./components/FormComposerV2.scss");
 @import url("./components/infobuttonV2.scss");
-@import url("./components/infoCardV2.scss"); 
+@import url("./components/alertCardV2.scss"); 
 @import url("./components/labelFieldPairV2.scss");
 @import url("./components/mobileNumberV2.scss");
 @import url("./components/multiSelectDropdownV2.scss");
@@ -25,7 +25,7 @@
 @import url("./components/selectDropdownV2.scss");
 @import url("./components/stepperV2.scss");
 @import url("./components/switchV2.scss");
-@import url("./components/selectionCardV2.scss");
+@import url("./components/selectionTagV2.scss");
 @import url("./components/textareaV2.scss");
 @import url("./components/textblockV2.scss");
 @import url("./components/textInputV2.scss");
@@ -33,21 +33,21 @@
 @import url("./components/toastV2.scss");
 @import url("./components/toggleV2.scss");
 @import url("./components/treeSelectV2.scss");
-@import url("./components/uploaderV2.scss");
+@import url("./components/fileUploadV2.scss");
 @import url("./components/viewCardFieldPairV2.scss");
-@import url("./components/actionbarV2.scss");
+@import url("./components/footerV2.scss");
 @import url("./components/headerdropdownV2.scss");
 @import url("./components/topbarV2.scss");
 @import url("./components/tabV2.scss");
-@import url("./components/sidebarV2.scss");
-@import url("./components/mobilesidebarV2.scss");
+@import url("./components/sidenavV2.scss");
+@import url("./components/mobilesidenavV2.scss");
 @import url("./components/tooltipwrapperV2.scss");
 @import url("./components/tagV2.scss");
 @import url("./components/landingpagecardV2.scss");
 @import url("./components/menuCardV2.scss");
 @import url("./components/otpInputV2.scss");
 @import url("./components/tableV2.scss");
-@import url("./components/slideOverMenuV2.scss");
+@import url("./components/sidePanelV2.scss");
 @import url("./components/metricCardV2.scss");
 @import url("./components/formCardV2.scss");
 @import url("./components/filterCardV2.scss");
@@ -321,5 +321,11 @@
       font-weight: theme(digitv2.fontWeight.regular);
       line-height: theme(digitv2.lineHeight.lineheight2);
     }
+  }
+}
+
+.sb-main-padded{
+  &.sb-show-main{
+    background-color: theme(digitv2.lightTheme.paper-primary);
   }
 }

@@ -1,7 +1,7 @@
 import React, {useEffect, useRef} from "react";
 import { useTranslation } from "react-i18next";
 import { Menu } from "@egovernments/digit-ui-react-components";
-import { SubmitBar, ActionBar } from "@egovernments/digit-ui-components";
+import { SubmitBar, Footer } from "@egovernments/digit-ui-components";
 
 function ApplicationDetailsActionBar({ workflowDetails, displayMenu, onActionSelect, setDisplayMenu, businessService, forcedActionPrefix,ActionBarStyle={},MenuStyle={}, saveAttendanceState }) {
   const { t } = useTranslation();
@@ -48,7 +48,7 @@ function ApplicationDetailsActionBar({ workflowDetails, displayMenu, onActionSel
   return (
     <React.Fragment>
       {!workflowDetails?.isLoading && isMenuBotton && !isSingleButton && (
-        <ActionBar style={{...ActionBarStyle}}>
+        <Footer style={{...ActionBarStyle}}>
           {displayMenu && (workflowDetails?.data?.actionState?.nextActions || workflowDetails?.data?.nextActions) ? (
             <Menu
               localeKeyPrefix={forcedActionPrefix || `WORKS_${businessService?.toUpperCase()}`}
@@ -60,10 +60,10 @@ function ApplicationDetailsActionBar({ workflowDetails, displayMenu, onActionSel
             />
           ) : null}
           <SubmitBar ref={menuRef} label={t("WORKS_ACTIONS")} onSubmit={() => setDisplayMenu(!displayMenu)} />
-        </ActionBar>
+        </Footer>
       )}
       {!workflowDetails?.isLoading && !isMenuBotton && isSingleButton && (
-        <ActionBar style={{...ActionBarStyle}}>
+        <Footer style={{...ActionBarStyle}}>
           <button
               style={{ color: "#FFFFFF", fontSize: "18px" }}
               className={"submit-bar"}
@@ -72,7 +72,7 @@ function ApplicationDetailsActionBar({ workflowDetails, displayMenu, onActionSel
               onClick={(e) => { onActionSelect(actions?.[0] || {})}}>
               {t(`${forcedActionPrefix || `WF_EMPLOYEE_${businessService?.toUpperCase()}`}_${actions?.[0]?.action}`)}
             </button>
-        </ActionBar>
+        </Footer>
       )}
     </React.Fragment>
   );

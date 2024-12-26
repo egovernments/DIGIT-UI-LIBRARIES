@@ -207,7 +207,7 @@ export const Header = Template.bind({});
 Header.args = {
   ...commonArgs,
   theme: "dark",
-  ulb: "City Municipal Corporation",
+  ulb: "Logo Placeholder",
   language: "English",
   onImageClick: () => {
     console.log("image is clicked");
@@ -223,7 +223,7 @@ Header.args = {
 export const HeaderWithImageOnLeft = Template.bind({});
 HeaderWithImageOnLeft.args = {
   ...commonArgs,
-  ulb: "City Municipal Corporation",
+  ulb: "Logo Placeholder",
   language: "English",
   onImageClick: () => {
     console.log("image is clicked");
@@ -241,7 +241,7 @@ HeaderWithImageOnLeft.args = {
 export const WithActionFields = Template.bind({});
 WithActionFields.args = {
   ...commonArgs,
-  ulb: "City Municipal Corporation",
+  ulb: "Logo Placeholder",
   language: "English",
   onImageClick: () => {
     console.log("image is clicked");
@@ -259,7 +259,7 @@ WithActionFields.args = {
 export const ActionFieldsWithProfileAsImg = Template.bind({});
 ActionFieldsWithProfileAsImg.args = {
   ...commonArgs,
-  ulb: "City Municipal Corporation",
+  ulb: "Logo Placeholder",
   language: "English",
   onImageClick: () => {
     console.log("image is clicked");
@@ -277,7 +277,7 @@ ActionFieldsWithProfileAsImg.args = {
 export const WithActionFieldsWithProfileAsSvg = Template.bind({});
 WithActionFieldsWithProfileAsSvg.args = {
   ...commonArgs,
-  ulb: "City Municipal Corporation",
+  ulb: "Logo Placeholder",
   language: "English",
   onImageClick: () => {
     console.log("image is clicked");
@@ -295,7 +295,7 @@ WithActionFieldsWithProfileAsSvg.args = {
 export const WithDropdownMoreOptions = Template.bind({});
 WithDropdownMoreOptions.args = {
   ...commonArgs,
-  ulb: "City Municipal Corporation",
+  ulb: "Logo Placeholder",
   language: "English",
   onImageClick: () => {
     console.log("image is clicked");
@@ -313,7 +313,7 @@ WithDropdownMoreOptions.args = {
 export const WithActionFieldsAndImageOnLeft = Template.bind({});
 WithActionFieldsAndImageOnLeft.args = {
   ...commonArgs,
-  ulb: "City Municipal Corporation",
+  ulb: "Logo Placeholder",
   language: "English",
   onImageClick: () => {
     console.log("image is clicked");

@@ -34,9 +34,11 @@ const LoaderComponent = ({
       style={style || {}}
     >
       {renderLoader()}
-      <div className={`digit-loader-text ${className || ""}`}>{`${t(
-        loaderText || "Loading"
-      )}...`}</div>
+      {loaderText && (
+        <div className={`digit-loader-text ${className || ""}`}>
+          {`${t(loaderText)}...`}
+        </div>
+      )}
     </div>
   );
 };

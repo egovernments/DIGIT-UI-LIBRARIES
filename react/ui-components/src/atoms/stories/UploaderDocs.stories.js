@@ -1,10 +1,10 @@
 import React from "react";
-import Uploader from "../Uploader";
+import FileUpload from "../FileUpload";
 import Iframe from "../Iframe";
 
 export default {
-  title: "Atoms/Uploader",
-  component: Uploader,
+  title: "Atoms/FileUpload",
+  component: FileUpload,
   argTypes: {
     uploadedFiles: {
       control: {
@@ -14,7 +14,7 @@ export default {
     variant: {
       control: {
         type: "select",
-        options: ["uploadFile", "uploadPopup", "uploadImage"],
+        options: ["uploadField", "uploadWidget", "uploadImage"],
       },
     },
     showLabel: {
@@ -93,7 +93,7 @@ export const Documentation = () => (
   <Iframe
     //Todo:Update the url
     src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-core-react-components/input-field"
-    title="Uploader Documentation"
+    title="FileUpload Documentation"
   />
 );
 

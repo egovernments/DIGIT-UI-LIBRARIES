@@ -1,69 +1,101 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { CustomDropdown } from "../../molecules";
-import FieldV1 from "../../hoc/FieldV1";
 import Iframe from "../Iframe";
+import RadioButtons from "../RadioButtons";
 
 export default {
   title: "Atoms/RadioButton",
-  component: CustomDropdown,
+  component: RadioButtons,
   argTypes: {
-    t: { control: false },
-    populators: { control: "object" },
-    inputRef: { control: false },
-    label: { control: "text" },
-    onChange: { action: "onChange" },
-    value: { control: "text" },
-    errorStyle: { control: "object" },
-    disabled: { control: "boolean" },
-    type: { control: "select", options: ["radio"] },
-    additionalWrapperClass: { control: "text" },
-    props: { control: "object" },
+    optionsKey: {
+      control: "text",
+      table: { disable: true },
+    },
+    options: {
+      table: { disable: true },
+    },
+    inputRef: {
+      table: { disable: true },
+    },
+    errorStyle: {
+      table: { disable: true },
+    },
+    State: {
+      control: "select",
+      options: ["Default", "Disabled", "NonEditable"],
+    },
+    additionalWrapperClass: { control: "text", table: { disable: true } },
+    error: { control: "text", table: { disable: true } },
+    style: { control: "object", table: { disable: true } },
+    innerStyles: { control: "object", table: { disable: true } },
+    selectedOption: { table: { disable: true } },
+    onSelect: { action: "onChange", table: { disable: true } },
+    alignVertical: { table: { disable: true } },
+    isLabelFirst: {
+      control: "select",
+      name:"Alignment",
+      options:[
+        "Right","Left"
+      ],
+      mapping:{
+        Right:false,
+        Left:true
+      }
+    },
   },
 };
 const queryClient = new QueryClient();
 
-const Template = (args) => {
-  const [selectedOption, setSelectedOption] = useState(args.value);
+const commonStyles = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  color: "#363636",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  transform: "translate(-50%, -50%)",
+};
 
-  const handleSelectOption = (e, name) => {
+const Template = (args) => {
+  const { State, ...rest } = args;
+
+  const [selectedOption, setSelectedOption] = useState(
+    State === "NonEditable" ? "Option" : args.value
+  );
+
+  const handleSelectOption = (e) => {
     const selectedValue = e.code;
     if (selectedValue !== undefined) {
-      setSelectedOption(selectedValue);
-      args.onChange(e, name);
+      setSelectedOption(e);
     }
   };
 
   return (
     <QueryClientProvider client={queryClient}>
-      <FieldV1 {...args} value={selectedOption} onChange={handleSelectOption} />
+      <div style={commonStyles}>
+        <RadioButtons
+          {...rest}
+          disabled={State === "Disabled" || State === "NonEditable"}
+          onSelect={handleSelectOption}
+          selectedOption={State === "NonEditable" ? "Option" : selectedOption}
+          value={State === "NonEditable" ? "Option" : selectedOption}
+        />
+      </div>
     </QueryClientProvider>
   );
 };
 
-const t = (key) => key;
-
-const gendersOptions = [
-  { code: "MALE", name: "MALE" },
-  { code: "FEMALE", name: "FEMALE" },
-  { code: "TRANSGENDER", name: "TRANSGENDER" },
-];
-
 const commonArgs = {
-  t: t,
-  populators: {
-    name: "gender",
-    optionsKey: "name",
-    options: gendersOptions,
-  },
+  optionsKey: "name",
+  options: [{ code: "Option", name: "Option" }],
   inputRef: null,
-  label: "Select Gender",
   errorStyle: null,
-  disabled: false,
-  type: "radio",
   additionalWrapperClass: "",
   error: "",
-  description: "",
+  alignVertical: false,
+  isLabelFirst:"Right",
+  State: "Default",
 };
 
 export const Documentation = () => (
@@ -76,41 +108,7 @@ export const Documentation = () => (
 
 Documentation.storyName = "Docs";
 
-export const Default = Template.bind({});
-Default.args = {
+export const Basic = Template.bind({});
+Basic.args = {
   ...commonArgs,
-};
-
-export const Disabled = Template.bind({});
-Disabled.args = {
-  ...commonArgs,
-  disabled: true,
-};
-Disabled.argTypes = {
-  disabled: { control: { disable: true } },
-};
-
-export const Filled = Template.bind({});
-Filled.args = {
-  ...commonArgs,
-  value: "MALE",
-};
-
-export const PreSelected = Template.bind({});
-PreSelected.args = {
-  ...commonArgs,
-  value: "MALE",
-  disabled: true,
-};
-PreSelected.argTypes = {
-  disabled: { control: { disable: true } },
-};
-
-export const AlignVertical = Template.bind({});
-AlignVertical.args = {
-  ...commonArgs,
-  populators: {
-    ...commonArgs.populators,
-    alignVertical: true,
-  },
 };

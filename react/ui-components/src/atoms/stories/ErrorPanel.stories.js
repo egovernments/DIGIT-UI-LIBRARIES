@@ -5,40 +5,58 @@ export default {
   title: "Atoms/Panels/Error",
   component: Panels,
   argTypes: {
-    type: { control: "select", options: ["success", "error"] },
+    type: {
+      control: "select",
+      options: ["success", "error"],
+      table: { disable: true },
+    },
     className: {
       control: "text",
+      table: { disable: true },
     },
     message: {
       control: "text",
+      table: { disable: true },
     },
     info: {
       control: "text",
+      table: { disable: true },
     },
     response: {
       control: "text",
+      table: { disable: true },
     },
     customIcon: {
-        control: "text",
-      },
-      iconFill: {
-        control: "text",
-      },
+      control: "text",
+      table: { disable: true },
+    },
+    iconFill: {
+      control: "text",
+      table: { disable: true },
+    },
     style: {
       control: { type: "object" },
+      table: { disable: true },
     },
     multipleResponses: {
       control: {
         type: "array",
         separator: ",",
       },
+      table: { disable: true },
     },
-    showAsSvg:{
-      control:"boolean"
+    showAsSvg: {
+      control: "boolean",
+      name: "With Animation",
+      mapping: {
+        true: false,
+        false: true,
+      },
     },
-    animationProps:{
-      control: {type :"object"}
-    }
+    animationProps: {
+      control: { type: "object" },
+      table: { disable: true },
+    },
   },
 };
 
@@ -48,12 +66,12 @@ const commonArgs = {
   className: "",
   message: "Message",
   type: "success",
-  info: "Ref ID ",
+  info: "Description ",
   response: "949749795479",
   customIcon:"",
   iconFill:"",
   style: {},
-  showAsSvg:false,
+  showAsSvg:true,
   multipleResponses:[],
   animationProps:{
     noAutoplay:false,
@@ -78,15 +96,6 @@ WithAnimationProperties.args = {
     width:100,
     height:100
   }
-};
-
-
-export const WithoutAnimation = Template.bind({});
-WithoutAnimation.args = {
-  ...commonArgs,
-  type: "error",
-  message: "Error Message!",
-  showAsSvg:true
 };
 
 export const WithMultipleResponses = Template.bind({});

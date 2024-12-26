@@ -61,6 +61,10 @@
       }
     }
 
+    &.label-first{
+      flex-direction: row-reverse;
+    }
+
   }
 
   .radio-option-container label:only-child {

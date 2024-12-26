@@ -5,7 +5,7 @@ import { CustomDropdown } from "../../molecules";
 import Iframe from "../Iframe";
 
 export default {
-  title: "Atoms/DropDown/MultiSelect",
+  title: "Atoms/MultiSelectDropDown",
   component: CustomDropdown,
   argTypes: {
     t: { control: false },

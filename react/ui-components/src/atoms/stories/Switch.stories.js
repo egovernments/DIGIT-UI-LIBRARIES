@@ -6,18 +6,42 @@ export default {
   title: "Atoms/Switch",
   component: Switch,
   argTypes: {
-    isLabelFirst: { control: "boolean" },
-    label: { control: "text" },
-    shapeOnOff: { control: "boolean" },
-    isCheckedInitially: { control: "boolean" },
-    onToggle: { action: "onToggle" },
-    className: { control: "text" },
-    style: { control: "object" },
-    disable: { control: "boolean" },
+    isLabelFirst: {
+      control: "select",
+      name: "Label Alignment",
+      options: ["Left", "Right"],
+      mapping: {
+        Left: true,
+        Right: false,
+      },
+    },
+    label: {
+      control: "boolean",
+      name: "Label",
+      mapping: {
+        true: "Label",
+        false: "",
+      },
+    },
+    shapeOnOff: { control: "boolean", table: { disable: true } },
+    isCheckedInitially: { control: "boolean", table: { disable: true } },
+    onToggle: { action: "onToggle", table: { disable: true } },
+    className: { control: "text", table: { disable: true } },
+    style: { control: "object", table: { disable: true } },
+    switchStyle: { control: "object", table: { disable: true } },
+    disable: {
+      control: "select",
+      name: "State",
+      options: ["Default", "Disabled"],
+    },
   },
 };
 
-const Template = (args) => <Switch {...args} />;
+const Template = (args) => {
+  const {disable,...rest} = args;
+
+  return <Switch {...rest} disable={disable === "Disabled"} />;
+};
 
 export const Documentation = () => (
   <Iframe
@@ -29,86 +53,29 @@ export const Documentation = () => (
 
 Documentation.storyName = "Docs";
 
-export const Default = Template.bind({});
-Default.args = {
-  label: "",
-  isLabelFirst: false,
+const commonArgs = {
+  isLabelFirst: "Right",
   shapeOnOff: false,
+  label: false,
   isCheckedInitially: false,
+  disable:"Default"
 };
 
-export const LabelOnRight = Template.bind({});
-LabelOnRight.args = {
-  label: "Toggle me",
-  isLabelFirst: false,
-  shapeOnOff: false,
-  isCheckedInitially: false,
+export const Basic = Template.bind({});
+Basic.args = {
+  ...commonArgs,
 };
 
-export const LabelOnLeft = Template.bind({});
-LabelOnLeft.args = {
-  label: "Toggle me",
-  isLabelFirst: true,
-  shapeOnOff: false,
-  isCheckedInitially: false,
-};
-
-export const OffShape = Template.bind({});
-OffShape.args = {
-  label: "Off Shape",
-  isLabelFirst: false,
+export const WithSymbol = Template.bind({});
+WithSymbol.args = {
+  ...commonArgs,
   shapeOnOff: true,
-  isCheckedInitially: false,
 };
 
-export const Checked = Template.bind({});
-Checked.args = {
-  label: "",
-  isLabelFirst: false,
-  shapeOnOff: false,
-  isCheckedInitially: true,
-};
-
-export const CheckedLabelOnRight = Template.bind({});
-CheckedLabelOnRight.args = {
-  label: "Toggle me",
-  isLabelFirst: false,
-  shapeOnOff: false,
-  isCheckedInitially: true,
-};
-
-export const CheckedLabelOnLeft = Template.bind({});
-CheckedLabelOnLeft.args = {
-  label: "Toggle me",
-  isLabelFirst: true,
-  shapeOnOff: false,
-  isCheckedInitially: true,
-};
-
-export const OnShape = Template.bind({});
-OnShape.args = {
-  label: "On Shape",
-  isLabelFirst: false,
-  shapeOnOff: true,
-  isCheckedInitially: true,
-};
-
-export const Disabled = Template.bind({});
-Disabled.args = {
-  label: "Disabled",
-  isLabelFirst: false,
-  shapeOnOff: false,
-  isCheckedInitially: false,
-  disable: true,
-};
-
-export const onToggleLogic = Template.bind({});
-onToggleLogic.args = {
-  label: "",
-  isLabelFirst: false,
-  shapeOnOff: false,
-  isCheckedInitially: false,
-  onToggle: (e) => {
-    console.log(e, "event");
+export const Custom = Template.bind({});
+Custom.args = {
+  ...commonArgs,
+  switchStyle: {
+    backgroundColor: "green",
   },
 };

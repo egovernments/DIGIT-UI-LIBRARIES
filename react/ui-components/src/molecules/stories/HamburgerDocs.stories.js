@@ -1,11 +1,11 @@
 import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
-import MobileSidebar from "../../atoms/MobileSidebar";
+import MobileSideNav from "../../atoms/MobileSideNav";
 import {Iframe} from "../../atoms";
 
 export default {
   title: "Molecules/Hamburger",
-  component: MobileSidebar,
+  component: MobileSideNav,
   argTypes: {
     items: { control: "object" },
     usermanuals: { control: "object" },

@@ -242,7 +242,7 @@ const commonArgs = {
 export const LightThemeHeader = Template.bind({});
 LightThemeHeader.args = {
   ...commonArgs,
-  ulb: "City Municipal Corporation",
+  ulb: "Logo Placeholder",
   language: "English",
   onImageClick: () => {
     console.log("image is clicked");
@@ -258,7 +258,7 @@ LightThemeHeader.args = {
 export const LightThemeHeaderWithImageOnLeft = Template.bind({});
 LightThemeHeaderWithImageOnLeft.args = {
   ...commonArgs,
-  ulb: "City Municipal Corporation",
+  ulb: "Logo Placeholder",
   language: "English",
   onImageClick: () => {
     console.log("image is clicked");
@@ -275,7 +275,7 @@ LightThemeHeaderWithImageOnLeft.args = {
 export const WithActionFields = Template.bind({});
 WithActionFields.args = {
   ...commonArgs,
-  ulb: "City Municipal Corporation",
+  ulb: "Logo Placeholder",
   onImageClick: () => {
     console.log("image is clicked");
   },
@@ -291,7 +291,7 @@ WithActionFields.args = {
 export const WithProfileAsImage = Template.bind({});
 WithProfileAsImage.args = {
   ...commonArgs,
-  ulb: "City Municipal Corporation",
+  ulb: "Logo Placeholder",
   language: "English",
   onImageClick: () => {
     console.log("image is clicked");
@@ -308,7 +308,7 @@ WithProfileAsImage.args = {
 export const WithProfileAsSvg = Template.bind({});
 WithProfileAsSvg.args = {
   ...commonArgs,
-  ulb: "City Municipal Corporation",
+  ulb: "Logo Placeholder",
   language: "English",
   onImageClick: () => {
     console.log("image is clicked");
@@ -325,7 +325,7 @@ WithProfileAsSvg.args = {
 export const WithDropdownMoreOptions = Template.bind({});
 WithDropdownMoreOptions.args = {
   ...commonArgs,
-  ulb: "City Municipal Corporation",
+  ulb: "Logo Placeholder",
   language: "English",
   onImageClick: () => {
     console.log("image is clicked");
@@ -342,7 +342,7 @@ WithDropdownMoreOptions.args = {
 export const WithActionFieldsAndImageOnLeft = Template.bind({});
 WithActionFieldsAndImageOnLeft.args = {
   ...commonArgs,
-  ulb: "City Municipal Corporation",
+  ulb: "Logo Placeholder",
   language: "English",
   onImageClick: () => {
     console.log("image is clicked");
