@@ -56,7 +56,7 @@ List<Story> infoCardStories() {
                   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi cursus eget ex in congue. Nullam finibus at urna et posuere.',
             ),
             inline: showInlineWidget ?? false,
-            additionalWidgets: [
+            additionalWidgets: showAdditionalWidget || showInfoButton ?[
               if (showAdditionalWidget)
                 ...List.generate(
                   5,
@@ -79,7 +79,7 @@ List<Story> infoCardStories() {
                     ),
                   ],
                 ),
-            ],
+            ] : null,
           ),
         );
       },
@@ -123,7 +123,7 @@ List<Story> infoCardStories() {
                   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi cursus eget ex in congue. Nullam finibus at urna et posuere.',
             ),
             inline: showInlineWidget ?? false,
-            additionalWidgets: [
+            additionalWidgets: showAdditionalWidget || showInfoButton ?[
               if (showAdditionalWidget)
                 ...List.generate(
                   5,
@@ -146,7 +146,7 @@ List<Story> infoCardStories() {
                     ),
                   ],
                 ),
-            ],
+            ] : null,
           ),
         );
       },
@@ -190,7 +190,7 @@ List<Story> infoCardStories() {
                   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi cursus eget ex in congue. Nullam finibus at urna et posuere.',
             ),
             inline: showInlineWidget ?? false,
-            additionalWidgets: [
+            additionalWidgets: showAdditionalWidget || showInfoButton ? [
               if (showAdditionalWidget)
                 ...List.generate(
                   5,
@@ -213,7 +213,7 @@ List<Story> infoCardStories() {
                     ),
                   ],
                 ),
-            ],
+            ] : null,
           ),
         );
       },
@@ -257,7 +257,7 @@ List<Story> infoCardStories() {
                   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi cursus eget ex in congue. Nullam finibus at urna et posuere.',
             ),
             inline: showInlineWidget ?? false,
-            additionalWidgets: [
+            additionalWidgets: showAdditionalWidget || showInfoButton ? [
               if (showAdditionalWidget)
                 ...List.generate(
                   5,
@@ -280,7 +280,7 @@ List<Story> infoCardStories() {
                     ),
                   ],
                 ),
-            ],
+            ] : null,
           ),
         );
       },
@@ -324,7 +324,7 @@ List<Story> infoCardStories() {
                   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi cursus eget ex in congue. Nullam finibus at urna et posuere.',
             ),
             inline: showInlineWidget ?? false,
-            additionalWidgets: [
+            additionalWidgets: showAdditionalWidget || showInfoButton ? [
               if (showAdditionalWidget)
                 ...List.generate(
                   5,
@@ -347,7 +347,7 @@ List<Story> infoCardStories() {
                     ),
                   ],
                 ),
-            ],
+            ] : null,
           ),
         );
       },

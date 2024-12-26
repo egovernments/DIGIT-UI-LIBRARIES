@@ -157,8 +157,9 @@ class MyHomePageState extends State<MyHomePage> {
         ),
         canvasColor: Theme.of(context).colorTheme.paper.primary,
         logoWidget: Container(
-          padding: EdgeInsets.only(left: 24, top: 16),
+          padding: EdgeInsets.only(left: 0, top: 16),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
                   'assets/images/Group 1079.png',
