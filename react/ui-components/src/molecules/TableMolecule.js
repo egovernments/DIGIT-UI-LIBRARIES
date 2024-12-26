@@ -210,7 +210,7 @@ const TableMolecule = ({
     ? sortedRows?.slice(indexOfFirstRow, indexOfLastRow)
     : rows?.slice(indexOfFirstRow, indexOfLastRow);
 
-  const totalPages = Math.ceil(rows?.length / rowsPerPage);
+  const totalPages = Math.ceil(pagination?.totalCount || rows?.length / rowsPerPage);
 
   const handleSort = (index) => {
     if (sortedColumnIndex === index) {
@@ -685,7 +685,7 @@ const TableMolecule = ({
                     <div>
                       <span>
                         {indexOfFirstRow + 1}-
-                        {Math.min(indexOfLastRow, rows?.length)} of{" "}
+                        {Math.min(indexOfLastRow, pagination?.totalCount || rows?.length)} of{" "}
                         {pagination?.totalCount || rows?.length}
                       </span>
                     </div>
