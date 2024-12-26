@@ -1,5 +1,5 @@
 import React from "react";
-import InfoCard from "../../atoms/InfoCard";
+import AlertCard from "../../atoms/AlertCard";
 import Button from "../../atoms/Button";
 import TextArea from "../../atoms/TextArea";
 import MultiSelectDropdown from "../../atoms/MultiSelectDropdown";
@@ -108,7 +108,7 @@ export const PrimaryCardWithElements = () => (
         console.log(value);
       }}
     />
-    <InfoCard
+    <AlertCard
       populators={{
         name: "infocard",
       }}

@@ -10,7 +10,7 @@ import {
   Card,
   Loader,
   SubmitBar,
-  ActionBar,
+  Footer,
   HorizontalNav,
   Toast,
 } from "@egovernments/digit-ui-components";
@@ -286,7 +286,7 @@ const ProjectDetails = () => {
         />
       </HorizontalNav>
       {!hideActionBar && (
-        <ActionBar>
+        <Footer>
           {showActions ? (
             <Menu
               localeKeyPrefix={`COMMON`}
@@ -301,7 +301,7 @@ const ProjectDetails = () => {
             label={t("WORKS_ACTIONS")}
             onSubmit={() => setShowActions(!showActions)}
           />
-        </ActionBar>
+        </Footer>
       )}
       {toast?.show && (
         <Toast

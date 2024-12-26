@@ -2,7 +2,7 @@ import { useGlobalFilter, usePagination, useRowSelect, useSortBy, useTable } fro
 import React, { useEffect, useState, useRef, forwardRef } from "react";
 import { CustomSVG } from "./CustomSVG";
 import CheckBox from "./CheckBox";
-import ActionBar from "./ActionBar";
+import Footer from "./Footer";
 import Toast from "./Toast";
 import Button from "./Button";
 
@@ -255,7 +255,7 @@ const Table = ({
         </div>
       )}
       {Object.keys(selectedRowIds)?.length > 0 && (
-        <ActionBar className="actionBarWrapper">
+        <Footer className="actionBarWrapper">
           <span style={{ display: "flex" }}>
             <CustomSVG.DoubleTickIcon style={{ marginRight: "8px" }} />
             <p className="search-instruction-header" style={{ marginBottom: 0 }}>{`${Object.keys(selectedRowIds)?.length} ${t(
@@ -263,7 +263,7 @@ const Table = ({
             )}`}</p>
           </span>
           <Button label={t(actionLabel)} onClick={handleSelection} />
-        </ActionBar>
+        </Footer>
       )}
       {toast?.show && <Toast label={toast?.label} type={toast?.error ? "error" : ""} isDleteBtn={true} onClose={handleToastClose}></Toast>}
     </React.Fragment>

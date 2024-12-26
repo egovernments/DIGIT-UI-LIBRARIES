@@ -146,10 +146,38 @@ const Dropdown = (props) => {
   const [forceSet, setforceSet] = useState(0);
   const [optionIndex, setOptionIndex] = useState(-1);
   const optionRef = useRef(null);
+  const dropdownComponentRef = useRef(null);
   const menuRef = useRef(null); 
   const selectorRef = useRef(null);
   const hasCustomSelector = props.customSelector ? true : false;
   const t = props.t || translateDummy;
+
+
+  const scrollIntoViewIfNeeded = () => {
+    if (dropdownComponentRef.current) {
+      const rect = dropdownComponentRef.current.getBoundingClientRect();
+      const viewportWidth = window.innerWidth;
+      const viewportHeight = window.innerHeight;
+
+      // Check if the component is outside the viewport
+      const isOutsideViewport =
+        rect.top < 0 || rect.left < 0 || rect.bottom > viewportHeight || rect.right > viewportWidth;
+
+      if (isOutsideViewport) {
+        // Scroll to make the component visible
+        dropdownComponentRef.current.scrollIntoView({
+          behavior: "smooth", // Optional: smooth scrolling
+          block: "center",    // Scroll to the center vertically
+          inline: "center",   // Scroll to the center horizontally
+        });
+      }
+    }
+  };
+
+  useEffect(() => {
+    scrollIntoViewIfNeeded();
+  }, []); // Runs on mount
+
 
   useEffect(() => {
     setSelectedOption(props.selected);
@@ -430,6 +458,7 @@ const Dropdown = (props) => {
           : "digit-dropdown-select-wrap"
       } ${props?.className ? props?.className : ""}`}
       style={props?.style || {}}
+      ref={dropdownComponentRef}
     >
       {(hasCustomSelector || props?.profilePic) && (
         <div

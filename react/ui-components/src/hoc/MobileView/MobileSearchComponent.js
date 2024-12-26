@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { InboxContext } from "../InboxSearchComposerContext";
 import { CustomSVG } from "../../atoms/CustomSVG";
-import ActionBar from "../../atoms/ActionBar";
+import Footer from "../../atoms/Footer";
 import SubmitBar from "../../atoms/SubmitBar";
 import LinkLabel from "../../atoms/LinkLabel";
 import RenderFormFields from "../../molecules/RenderFormFields";
@@ -162,12 +162,12 @@ const renderHeader = () => {
               labelStyle={{fontSize: "16px"}}
               apiDetails={apiDetails}
             />  
-            <ActionBar className="clear-search-container">
+            <Footer className="clear-search-container">
               <div className={`search-button-wrapper ${screenType} ${uiConfig?.type}`}>
                 { uiConfig?.secondaryLabel && <LinkLabel style={{marginBottom: 0, whiteSpace: 'nowrap'}} onClick={clearSearch}>{t(uiConfig?.secondaryLabel)}</LinkLabel> }
                 { uiConfig?.primaryLabel && <SubmitBar label={t(uiConfig?.primaryLabel)} submit="submit" disabled={false}/> }
               </div>
-            </ActionBar>
+            </Footer>
           </div> 
         </form>
         { showToast && <Toast 

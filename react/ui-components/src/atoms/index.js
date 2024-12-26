@@ -1,6 +1,6 @@
 import { Accordion } from "./Accordion";
-import {AccordionWrapper} from "./Accordion";
-import ActionBar from "./ActionBar";
+import {AccordionList} from "./Accordion";
+import HomeFooter from "./HomeFooter";
 import ActionLinks from "./ActionLinks";
 import Amount from "./Amount";
 import AppContainer from "./AppContainer";
@@ -31,7 +31,7 @@ import Header from "./Header";
 import HeaderBar from "./HeaderBar";
 import HorizontalNav from "./HorizontalNav";
 import Tab from "./Tab";
-import InfoCard from "./InfoCard";
+import AlertCard from "./AlertCard";
 import InputTextAmount from "./InputTextAmount";
 import KeyNote from "./KeyNote";
 import LabelFieldPair from "./LabelFieldPair";
@@ -71,8 +71,8 @@ import Stepper from "./Stepper";
 import Timeline from "./Timeline";
 import StringManipulator from "./StringManipulator";
 import InfoButton from "./InfoButton";
-import Uploader  from "./Uploader";
-import UploadPopup from "./UploadPopup";
+import FileUpload  from "./FileUpload";
+import UploadWidget from "./UploadWidget";
 import UploadImage from "./UploadImage";
 import ErrorBoundary from "./ErrorBoundary";
 import TextBlock from "./TextBlock";
@@ -84,9 +84,9 @@ import Divider from "./Divider";
 import TopBar from "./TopBar";
 import Hamburger from "./Hamburger";
 import Menu from "./Menu";
-import Sidebar from "./Sidebar";
-import MobileSidebar from "./MobileSidebar";
-import SelectionCard from "./SelectionCard";
+import SideNav from "./SideNav";
+import MobileSideNav from "./MobileSideNav";
+import SelectionTag from "./SelectionTag";
 import Tag from "./Tag";
 import Tooltip from "./Tooltip";
 import Switch from "./Switch";
@@ -97,7 +97,7 @@ import TableCell from "./TableCell";
 import TableFooter from "./TableFooter";
 import TableHeader from "./TableHeader";
 import TableRow from "./TableRow";
-import SlideOverMenu from "./SlideOverMenu";
+import SidePanel from "./SidePanel";
 import NestedTable from "./NestedTable";
 import LoaderComponent from "./LoaderComponent";
 import Iframe from "./Iframe";
@@ -105,17 +105,17 @@ import Iframe from "./Iframe";
 export {
   ErrorBoundary,
   PageBasedInput,
-  ActionBar,
+  Footer,
   ActionLinks,
   Amount,
   AppContainer,
   BackLink,
-  Sidebar,
-  MobileSidebar,
+  SideNav,
+  MobileSideNav,
   Switch,
   Accordion,
   Iframe,
-  AccordionWrapper,
+  AccordionList,
   Tooltip,
   Banner,
   BodyContainer,
@@ -138,13 +138,13 @@ export {
   DisplayPhotos,
   Dropdown,
   ErrorMessage,
-  Footer,
+  HomeFooter,
   Header,
   HeaderBar,
   HorizontalNav,
   LoaderComponent,
   Tab,
-  InfoCard,
+  AlertCard,
   InputTextAmount,
   KeyNote,
   LabelFieldPair,
@@ -154,11 +154,11 @@ export {
   MultiSelectDropdown,
   NoResultsFound,
   OTPInput,
-  SlideOverMenu,
+  SidePanel,
   Paragraph,
   PlusMinusInput,
   PopUp,
-  SelectionCard,
+  SelectionTag,
   Tag,
   PrivateRoute,
   RadioButtons,
@@ -187,8 +187,8 @@ export {
   ButtonGroup,
   StringManipulator,
   InfoButton,
-  Uploader,
-  UploadPopup,
+  FileUpload,
+  UploadWidget,
   UploadImage,
   TextBlock,
   Panels,

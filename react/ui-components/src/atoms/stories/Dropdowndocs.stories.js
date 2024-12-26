@@ -3,7 +3,7 @@ import { CustomDropdown } from "../../molecules";
 import Iframe from "../Iframe";
 
 export default {
-  title: "Atoms/DropDown/Simple",
+  title: "Atoms/SimpleDropDown",
   component: CustomDropdown,
   argTypes: {
     t: { control: false },

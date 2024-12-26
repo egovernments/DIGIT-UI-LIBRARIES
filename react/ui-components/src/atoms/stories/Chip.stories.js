@@ -9,42 +9,60 @@ export default {
   argTypes: {
     className: {
       control: "text",
+      table: { disable: true }
     },
     text: {
       control: "text",
     },
     onClick: {
       control: "function",
+      table: { disable: true }
     },
     onTagClick: {
       control: "function",
+      table: { disable: true }
     },
     extraStyles: {
       control: { type: "object" },
+      table: { disable: true }
     },
     disabled: {
       control: "boolean",
+      table: { disable: true }
     },
     isErrorTag: {
       control: "boolean",
+      table: { disable: true }
     },
     hideClose: {
       control: "boolean",
+      name:"With Close",
+      mapping:{
+        true:false,
+        false:true
+      }
     },
     error: {
       control: "text",
+      // table: { disable: true }
     },
-    iconReq: {
-      control: "text",
+    WithIcon: {
+      control: "boolean",
+      name:"With Icon"
     },
   },
 };
 
-const Template = (args) => (
-  <div className="digit-tag-container">
-    <Chip {...args} />
+const Template = (args) => {
+  const { WithIcon, ...restArgs } = args;
+
+  return (
+    <div className="digit-tag-container">
+    <Chip {...restArgs} iconReq={WithIcon ? "Edit" : ""} />
   </div>
-);
+  );
+};
+
 
 const commonArgs = {
   text: "Chip",
@@ -55,8 +73,8 @@ const commonArgs = {
   disabled: false,
   isErrorTag: false,
   error: "",
-  hideClose: true,
-  iconReq: "",
+  hideClose: false,
+  WithIcon:false
 };
 
 export const Documentation = () => (
@@ -74,26 +92,11 @@ Basic.args = {
   ...commonArgs,
 };
 
-export const WithClose = Template.bind({});
-WithClose.args = {
-  ...commonArgs,
-  text: "Chip",
-  hideClose: false,
-};
-
-export const WithIcon = Template.bind({});
-WithIcon.args = {
-  ...commonArgs,
-  text: "Chip",
-  iconReq: "Edit",
-};
-
 export const Error = Template.bind({});
 Error.args = {
   ...commonArgs,
   text: "ErrorChipWithError",
   isErrorTag: true,
   error: "ErrorMessage",
-  iconReq: "Edit",
   hideClose: false,
 };

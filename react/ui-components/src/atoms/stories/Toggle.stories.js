@@ -78,7 +78,7 @@ export const Documentation = () => (
 Documentation.storyName = "Docs";
 
 //Default Toggle
-export const Default = Template.bind({});
-Default.args = {
+export const Basic = Template.bind({});
+Basic.args = {
   ...commonArgs,
 };

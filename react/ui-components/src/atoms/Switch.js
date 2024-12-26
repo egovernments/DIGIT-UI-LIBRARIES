@@ -10,6 +10,7 @@ const Switch = ({
   className,
   style,
   disable = false,
+  switchStyle
 }) => {
   const [isChecked, setIsChecked] = useState(isCheckedInitially);
 
@@ -25,7 +26,7 @@ const Switch = ({
       className={`digit-switch-container ${className || ""} ${
         disable ? "switch-disabled" : ""
       }`}
-      style={style}
+      style={style || {}}
     >
       {isLabelFirst && (
         <span className={`digit-switch-label ${"labelFirst"}`}>{label}</span>
@@ -36,6 +37,7 @@ const Switch = ({
         } ${disable ? "switch-disabled" : ""}`}
         onClick={handleToggle}
         tabIndex={0}
+        style={switchStyle || {}}
         onKeyDown={(e) => {
           if (e.key === 'Enter' || e.key === ' ') {
             handleToggle();
@@ -67,5 +69,6 @@ Switch.propTypes = {
   onToggle: PropTypes.func,
   className: PropTypes.string,
   style: PropTypes.object,
+  switchStyle: PropTypes.object,
   disable: PropTypes.bool,
 };

@@ -65,7 +65,7 @@ const Tab = ({
                 style={
                   maxWidth
                     ? {
-                        width: `${maxWidth}px`,
+                        minWidth: `${maxWidth}px`,
                         ...itemStyle,
                       }
                     : { ...itemStyle }

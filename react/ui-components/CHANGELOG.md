@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.2-beta.60] - 2024-12-26
+### New Changes
+- SelectionCard Component is renamed as SelectionTag Component
+- AccordionWrapper Molecule is renamed as AccordionList
+- Sidebar Molecule is renamed as SideNav
+- MobileSideBar Molecule is renamed as MobileSideNav
+- SlideOverMenu Molecule is renamed as SidePanel
+- InfoCard Component is renamed as AlertCard
+- Uploader Component is renamed as FileUpload
+- ActionBar Component is renamed as Footer
 
 ## [0.0.2-beta.56] - 2024-11-16
 ### New Changes

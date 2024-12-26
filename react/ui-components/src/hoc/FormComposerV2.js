@@ -9,7 +9,7 @@ import Card from "../atoms/Card";
 import Header from "../atoms/Header";
 import Button from "../atoms/Button";
 import ActionLinks from "../atoms/ActionLinks";
-import ActionBar from "../atoms/ActionBar";
+import Footer from "../atoms/Footer";
 import LabelFieldPair from "../atoms/LabelFieldPair";
 import ErrorMessage from "../atoms/ErrorMessage";
 import HorizontalNav from "../atoms/HorizontalNav";
@@ -410,10 +410,10 @@ export const FormComposer = (props) => {
         </HorizontalNav>
       )}
       {!props.submitInForm && props.label && (
-        <ActionBar>
+        <Footer>
           <SubmitBar label={t(props.label)} submit="submit" disabled={isDisabled} />
           {props.onSkip && props.showSkip && <ActionLinks style={props?.skipStyle} label={t(`CS_SKIP_CONTINUE`)} onClick={props.onSkip} />}
-        </ActionBar>
+        </Footer>
       )}
       {showErrorToast && <Toast type={"error"} label={t("ES_COMMON_PLEASE_ENTER_ALL_MANDATORY_FIELDS")} isDleteBtn={true} onClose={closeToast} />}
     </form>

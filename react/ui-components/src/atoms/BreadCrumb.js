@@ -119,8 +119,4 @@ BreadCrumb.propTypes = {
   expandText: PropTypes.string
 };
 
-BreadCrumb.defaultProps = {
-  successful: true,
-};
-
 export default BreadCrumb;

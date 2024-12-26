@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Button from "./Button";
 
-const ButtonGroup = ({ buttonsArray ,sortButtons}) => {
+const ButtonGroup = ({ buttonsArray ,sortButtons,equalButtons}) => {
   const [isMobileView, setIsMobileView] = React.useState(
     window.innerWidth <= 480
   );
@@ -28,11 +28,11 @@ const ButtonGroup = ({ buttonsArray ,sortButtons}) => {
     };
   });
 
-  const maxWidth = Math.max(
+  const maxWidth = equalButtons ? Math.max(
     ...buttonsArray.map((button) => button.props.label.length * 14.9)
-  );
+  ) : null;
 
-  const updatedButtonsArray = buttonsArray && buttonsArray.length > 1 ? buttonsArray.map((button) => {
+  const updatedButtonsArray = buttonsArray && buttonsArray.length > 1 && equalButtons ? buttonsArray.map((button) => {
     const buttonProps = {
       ...button.props,
       style: { ...(button.props.style || {}), width: `${maxWidth}px` },
@@ -65,8 +65,12 @@ const ButtonGroup = ({ buttonsArray ,sortButtons}) => {
 
 ButtonGroup.propTypes = {
   buttonsArray: PropTypes.arrayOf(PropTypes.element).isRequired,
-  sortButtons:PropTypes.bool
+  sortButtons:PropTypes.bool,
+  equalButtons:PropTypes.bool
 };
 
+ButtonGroup.defaultProps = {
+  equalButtons: true,
+}
 export default ButtonGroup;
 

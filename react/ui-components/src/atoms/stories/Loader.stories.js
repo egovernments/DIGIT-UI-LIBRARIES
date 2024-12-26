@@ -10,18 +10,23 @@ export default {
     variant: {
       control: "select",
       options: ["Basic", "PageLoader", "OverlayLoader"],
+      table:{disable:true}
     },
     className: {
       control: "text",
+      table:{disable:true}
     },
     style: {
       control: { type: "object" },
+      table:{disable:true}
     },
     animationStyles: {
       control: { type: "object" },
+      table:{disable:true}
     },
     loaderText: {
       control: "text",
+      name:"Loader Text"
     },
   },
 };
@@ -33,6 +38,7 @@ const commonArgs = {
   style: {},
   variant: "Basic",
   animationStyles: {},
+  loaderText:"Loading"
 };
 
 export const Documentation = () => (

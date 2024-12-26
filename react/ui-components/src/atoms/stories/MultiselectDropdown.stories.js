@@ -4,7 +4,7 @@ import FieldV1 from "../../hoc/FieldV1";
 import { CustomDropdown } from "../../molecules";
 
 export default {
-  title: "Atoms/DropDown/MultiSelect",
+  title: "Atoms/MultiSelectDropDown",
   component: CustomDropdown,
   argTypes: {
     t: { control: false },

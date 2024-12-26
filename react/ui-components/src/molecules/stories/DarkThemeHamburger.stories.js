@@ -1,11 +1,11 @@
 import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
-import MobileSidebar from "../../atoms/MobileSidebar";
+import MobileSideNav from "../../atoms/MobileSideNav";
 
 
 export default {
   title: "Molecules/Hamburger/Dark",
-  component: MobileSidebar,
+  component: MobileSideNav,
   argTypes: {
     items: { control: "object" },
     usermanuals: { control: "object" },
@@ -26,7 +26,7 @@ export default {
 
 const Template = (args) => (
   <Router>
-    <MobileSidebar {...args} />
+    <MobileSideNav {...args} />
   </Router>
 );
 
