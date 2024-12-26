@@ -31,7 +31,8 @@ const TableMolecule = ({
     onPageSizeChange : () => {},
     onNextPage : () => {},
     onPrevPage : () => {},
-    currentPage : 1
+    currentPage : 1,
+    totalCount:undefined
   },
   styles = {
     withBorder: false,
@@ -66,6 +67,7 @@ const TableMolecule = ({
     addStickyFooter: false,
   },
   className,
+  wrapperClassName,
   onFilter,
   addFilter,
   onRowClick,
@@ -260,7 +262,7 @@ const TableMolecule = ({
 
   const renderTable = () => {
     return (
-      <div className={"digit-table-footer-wrapper"}>
+      <div className={`digit-table-footer-wrapper ${wrapperClassName || ""}`}>
         <div
           className={`digit-table-container ${
             styles?.withBorder ? "withBorder" : ""
@@ -684,7 +686,7 @@ const TableMolecule = ({
                       <span>
                         {indexOfFirstRow + 1}-
                         {Math.min(indexOfLastRow, rows?.length)} of{" "}
-                        {rows?.length}
+                        {pagination?.totalCount || rows?.length}
                       </span>
                     </div>
                     <div className="pagination">
@@ -791,7 +793,8 @@ TableMolecule.propTypes = {
     manualPagination: PropTypes.bool,
     onPageSizeChange : PropTypes.func,
     onNextPage : PropTypes.func,
-    onPrevPage : PropTypes.func 
+    onPrevPage : PropTypes.func ,
+    totalCount: PropTypes.number,
   }),
   styles: PropTypes.shape({
     withBorder: PropTypes.bool,
@@ -833,7 +836,8 @@ TableMolecule.defaultProps = {
     manualPagination:false,
     onPageSizeChange: () => {},
     onNextPage: () => {},
-    onPrevPage: () => {}
+    onPrevPage: () => {},
+    totalCount:undefined
   },
   styles: {
     withBorder: false,
