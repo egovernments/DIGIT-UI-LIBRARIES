@@ -9,12 +9,6 @@ import UploadPopup from "./UploadPopup";
 import UploadImage from "./UploadImage";
 import Button from "./Button";
 import { Colors} from "../constants/colors/colorconstants";
-import {
-  DocUpload,
-  DocPdfUpload,
-  DocXlsxUpload,
-  DocdocUpload,
-} from "./svgindex";
 import { CustomSVG } from "./CustomSVG";
 import { getUserType } from "../utils/digitUtils";
 
