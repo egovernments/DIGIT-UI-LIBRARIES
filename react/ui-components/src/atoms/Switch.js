@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import PropTypes from 'prop-types';
+import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 
 const Switch = ({
   isLabelFirst = false,
@@ -13,6 +13,9 @@ const Switch = ({
   switchStyle
 }) => {
   const [isChecked, setIsChecked] = useState(isCheckedInitially);
+  useEffect(() => {
+    setIsChecked(isCheckedInitially);
+  }, [isCheckedInitially]);
 
   const handleToggle = () => {
     if (!disable) {
