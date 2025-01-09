@@ -1,4 +1,4 @@
-import { AppContainer, BackButton ,Toast} from "@egovernments/digit-ui-components";
+import { AppContainer, BackLink, Toast } from "@egovernments/digit-ui-components";
 import React, { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Route, Switch, useHistory, useLocation, useRouteMatch } from "react-router-dom";
@@ -14,6 +14,9 @@ const DEFAULT_REDIRECT_URL = `/${window?.contextPath}/citizen`;
 
 /* set citizen details to enable backward compatiable */
 const setCitizenDetail = (userObject, token, tenantId) => {
+  if (Digit.Utils.getMultiRootTenant()) {
+    return;
+  }
   let locale = JSON.parse(sessionStorage.getItem("Digit.initData"))?.value?.selectedLanguage;
   localStorage.setItem("Citizen.tenant-id", tenantId);
   localStorage.setItem("tenant-id", tenantId);
@@ -233,7 +236,7 @@ const Login = ({ stateCode, isUserRegistered = true }) => {
     <div className="citizen-form-wrapper">
       <Switch>
         <AppContainer>
-          <BackButton />
+          {location.pathname.includes("login") ? null : <BackLink onClick={() => window.history.back()}/>}
           <Route path={`${path}`} exact>
             <SelectMobileNumber
               onSelect={selectMobileNumber}

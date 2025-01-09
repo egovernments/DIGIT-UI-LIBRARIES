@@ -1,7 +1,7 @@
 import { FormComposer } from "@egovernments/digit-ui-react-components";
 import { Loader, Modal } from "@egovernments/digit-ui-components";
 import React, { useState, useEffect } from "react";
-import { useQueryClient } from "react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { configBPAApproverApplication } from "../config";
 import * as predefinedConfig from "../config";
 

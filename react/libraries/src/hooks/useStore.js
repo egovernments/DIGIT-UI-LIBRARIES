@@ -3,9 +3,11 @@ import StoreData from "../services/molecules/StoreData";
 
 const useStore = {
   getInitData: () =>
-    useQuery(["STORE_DATA"], () => StoreData.getInitData(), {
-      staleTime: Infinity,
-    }),
+  useQuery({
+    queryKey: ["STORE_DATA"],
+    queryFn: () => StoreData.getInitData(),
+    staleTime: Infinity,
+  }),
 };
 
 export default useStore;

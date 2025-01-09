@@ -1,4 +1,4 @@
-import { useQuery, useQueryClient } from "react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { CustomService } from "../services/elements/CustomService";
 
 /**
@@ -16,7 +16,7 @@ import { CustomService } from "../services/elements/CustomService";
     {} ,                           // privacy value 
     {                              // other configs
       enabled: privacyState,
-      cacheTime: 100,
+      gcTime: 100,
       select: (data) => {
                                     // format data
         return  _.get(data, loadData?.jsonPath, value);
@@ -33,21 +33,19 @@ import { CustomService } from "../services/elements/CustomService";
 const useCustomAPIHook = ({ url, params, body, config = {}, plainAccessRequest,changeQueryName="Random" }) => {
   const client = useQueryClient();
 
-  const { isLoading, data, isFetching } = useQuery(
-    [url,changeQueryName].filter((e) => e),
-    () => CustomService.getResponse({ url, params, body, plainAccessRequest }),
-    {
-      cacheTime:0,
-      ...config,
-    }
-  );
+  const { isLoading, data, isFetching } = useQuery({
+    queryKey: [url, changeQueryName].filter(Boolean),
+    queryFn: () => CustomService.getResponse({ url, params, body, plainAccessRequest }),
+    gcTime: 0,
+    ...config,
+  });
 
   return {
     isLoading,
     isFetching,
     data,
     revalidate: () => {
-      data && client.invalidateQueries({ queryKey: [url].filter((e) => e) });
+      data && client.invalidateQueries([{ queryKey: [url].filter((e) => e) }]);
     },
   };
 };

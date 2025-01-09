@@ -2,7 +2,10 @@ import { Surveys } from "../../services/elements/Surveys";
 import { useMutation } from "react-query";
 
 const useCreateSurveys = (filters, config) => {
-  return useMutation((filters) => Surveys.create(filters));
+  return useMutation({
+    mutationFn: (filters) => Surveys.create(filters),
+    ...config, // Spread any additional configuration passed to the hook
+  });
 };
 
 export default useCreateSurveys;
