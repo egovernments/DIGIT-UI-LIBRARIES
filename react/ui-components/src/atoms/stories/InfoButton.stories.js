@@ -1,5 +1,6 @@
 import React from "react";
 import InfoButton from "../InfoButton";
+import Iframe from "../Iframe";
 
 export default {
   title: "Atoms/InfoButton",
@@ -11,7 +12,10 @@ export default {
     label: {
       control: "text",
     },
-    infobuttontype: { control: "select", options: ["info", "error", "success", "warning"] },
+    infobuttontype: {
+      control: "select",
+      options: ["info", "error", "success", "warning"],
+    },
     size: { control: "select", options: ["large", "medium", "small"] },
     className: {
       control: "text",
@@ -53,9 +57,18 @@ const commonArgs = {
   isDisabled: false,
   infobuttontype: "",
   isSuffix: false,
-  size:""
+  size: "",
 };
 
+export const Documentation = () => (
+  <Iframe
+    //Todo:Update the url
+    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-core-react-components/input-field"
+    title="InfoButton Documentation"
+  />
+);
+
+Documentation.storyName = "Docs";
 
 export const Infobutton = Template.bind({});
 Infobutton.args = {
@@ -63,20 +76,17 @@ Infobutton.args = {
   infobuttontype: "info",
 };
 
-
 export const Successbutton = Template.bind({});
 Successbutton.args = {
   ...commonArgs,
   infobuttontype: "success",
 };
 
-
 export const Warningbutton = Template.bind({});
 Warningbutton.args = {
   ...commonArgs,
   infobuttontype: "warning",
 };
-
 
 export const Errorbutton = Template.bind({});
 Errorbutton.args = {

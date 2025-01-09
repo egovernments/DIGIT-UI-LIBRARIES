@@ -21,6 +21,7 @@ export './atoms/digit_dropdown_input.dart';
 export './atoms/digit_toast.dart';
 export './atoms/digit_info_card.dart';
 export './atoms/labelled_fields.dart';
+export './atoms/reactive_fields.dart';
 
 
 

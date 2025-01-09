@@ -1,10 +1,10 @@
 import React from "react";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import FieldV1 from "../../hoc/FieldV1";
 import { CustomDropdown } from "../../molecules";
 
 export default {
-  title: "Atoms/DropDown",
+  title: "Atoms/DropDown/Simple",
   component: CustomDropdown,
   argTypes: {
     t: { control: false },
@@ -15,6 +15,7 @@ export default {
     value: { control: "text" },
     errorStyle: { control: "object" },
     disabled: { control: "boolean" },
+    isSearchable: { control: "boolean" },
     additionalWrapperClass: { control: "text" },
     props: { control: "object" },
     type: { control: "select", options: ["dropdown", "multiselectdropdown"] },
@@ -22,10 +23,7 @@ export default {
       control: "select",
       options: [
         "nesteddropdown",
-        "nestedmultiselect",
         "treedropdown",
-        "treemultiselect",
-        "nestedtextmultiselect",
         "nestedtextdropdown",
         "profiledropdown",
         "profilenestedtext",
@@ -45,9 +43,9 @@ const t = (key) => key;
 
 //mock options data
 const gendersOptions = [
-  { code: "MALE", name: "MALE" },
-  { code: "FEMALE", name: "FEMALE" },
-  { code: "TRANSGENDER", name: "TRANSGENDER" },
+  { code: "Option1", name: "Option1" },
+  { code: "Option2", name: "Option2" },
+  { code: "Option3", name: "Option3" },
 ];
 //options with icons
 const OptionsWithIcons = [
@@ -235,11 +233,12 @@ const commonArgs = {
     addSelectAllCheck:false,
     addCategorySelectAllCheck:false,
     selectAllLabel: "",
-    categorySelectAllLabel:""
+    categorySelectAllLabel:"",
+    chipsKey:""
   },
   error: "",
   inputRef: null,
-  label: "Enter Gender",
+  label: "Select Option",
   onChange: (e, name) => console.log("Selected value:", e, "Name:", name),
   errorStyle: null,
   disabled: false,
@@ -252,14 +251,14 @@ const commonArgs = {
   description: "",
 };
 
-export const Dropdown = Template.bind({});
-Dropdown.args = {
+export const Basic = Template.bind({});
+Basic.args = {
   ...commonArgs,
   type: "dropdown",
 };
 
-export const DropdownWithIcons = Template.bind({});
-DropdownWithIcons.args = {
+export const BasicWithIcons = Template.bind({});
+BasicWithIcons.args = {
   ...commonArgs,
   type: "dropdown",
   populators: {
@@ -270,56 +269,15 @@ DropdownWithIcons.args = {
   },
 };
 
-export const DropdownDisabled = Template.bind({});
-DropdownDisabled.args = {
+export const BasicDisabled = Template.bind({});
+BasicDisabled.args = {
   ...commonArgs,
   type: "dropdown",
   disabled: true,
 };
 
-export const MultiSelectDropdown = Template.bind({});
-MultiSelectDropdown.args = {
-  ...commonArgs,
-  type: "multiselectdropdown",
-  populators: {
-    ...commonArgs.populators,
-    isDropdownWithChip: true,
-  },
-};
-
-export const MultiSelectDropdownWithSelectAllCheck = Template.bind({});
-MultiSelectDropdownWithSelectAllCheck.args = {
-  ...commonArgs,
-  type: "multiselectdropdown",
-  populators: {
-    ...commonArgs.populators,
-    isDropdownWithChip: true,
-    addSelectAllCheck:true,
-  },
-};
-
-export const MultiSelectDropdownWithIcons = Template.bind({});
-MultiSelectDropdownWithIcons.args = {
-  ...commonArgs,
-  type: "multiselectdropdown",
-  populators: {
-    ...commonArgs.populators,
-    name: "iconoptions",
-    options: OptionsWithIcons,
-    showIcon: true,
-    isDropdownWithChip: true,
-  },
-};
-
-export const MultiSelectDropdownDisabled = Template.bind({});
-MultiSelectDropdownDisabled.args = {
-  ...commonArgs,
-  type: "multiselectdropdown",
-  disabled: true,
-};
-
-export const NestedDropdown = Template.bind({});
-NestedDropdown.args = {
+export const Categorical = Template.bind({});
+Categorical.args = {
   ...commonArgs,
   type: "dropdown",
   populators: {
@@ -330,8 +288,8 @@ NestedDropdown.args = {
   variant: "nesteddropdown",
 };
 
-export const NestedDropdownWithIcons = Template.bind({});
-NestedDropdownWithIcons.args = {
+export const CategoricalWithIcons = Template.bind({});
+CategoricalWithIcons.args = {
   ...commonArgs,
   type: "dropdown",
   populators: {
@@ -343,8 +301,8 @@ NestedDropdownWithIcons.args = {
   variant: "nesteddropdown",
 };
 
-export const NestedDropdownDisabled = Template.bind({});
-NestedDropdownDisabled.args = {
+export const CategoricalDisabled = Template.bind({});
+CategoricalDisabled.args = {
   ...commonArgs,
   type: "dropdown",
   populators: {
@@ -356,75 +314,8 @@ NestedDropdownDisabled.args = {
   disabled: true,
 };
 
-export const NestedMultiSelectDropdown = Template.bind({});
-NestedMultiSelectDropdown.args = {
-  ...commonArgs,
-  type: "multiselectdropdown",
-  populators: {
-    ...commonArgs.populators,
-    name: "nestedmultiselectoptions",
-    options: nestedOptions,
-    isDropdownWithChip: true,
-  },
-  variant: "nestedmultiselect",
-};
-
-export const NestedMultiSelectDropdownWithSelectAllCheck = Template.bind({});
-NestedMultiSelectDropdownWithSelectAllCheck.args = {
-  ...commonArgs,
-  type: "multiselectdropdown",
-  populators: {
-    ...commonArgs.populators,
-    name: "nestedmultiselectoptions",
-    options: nestedOptions,
-    isDropdownWithChip: true,
-    addSelectAllCheck:true,
-    addCategorySelectAllCheck:true
-  },
-  variant: "nestedmultiselect",
-};
-
-export const NestedMultiSelectDropdownWithIcons = Template.bind({});
-NestedMultiSelectDropdownWithIcons.args = {
-  ...commonArgs,
-  type: "multiselectdropdown",
-  populators: {
-    ...commonArgs.populators,
-    name: "nestedmultiselectoptions",
-    options: nestedOptionsWithIcons,
-    showIcon: true,
-    isDropdownWithChip: true,
-  },
-  variant: "nestedmultiselect",
-};
-
-export const TreeDropdown = Template.bind({});
-TreeDropdown.args = {
-  ...commonArgs,
-  type: "dropdown",
-  populators: {
-    ...commonArgs.populators,
-    name: "treeoptions",
-    options: treeDropdownOptions,
-  },
-  variant: "treedropdown",
-};
-
-export const TreeMultiselectDropdown = Template.bind({});
-TreeMultiselectDropdown.args = {
-  ...commonArgs,
-  type: "multiselectdropdown",
-  populators: {
-    ...commonArgs.populators,
-    name: "treeoptions",
-    options: treeDropdownOptions,
-    isDropdownWithChip: true,
-  },
-  variant: "treemultiselect",
-};
-
-export const NestedTextDropDown = Template.bind({});
-NestedTextDropDown.args = {
+export const NestedText = Template.bind({});
+NestedText.args = {
   ...commonArgs,
   type: "dropdown",
   populators: {
@@ -435,8 +326,8 @@ NestedTextDropDown.args = {
   variant: "nestedtextdropdown",
 };
 
-export const NestedTextDropDownWithIcon = Template.bind({});
-NestedTextDropDownWithIcon.args = {
+export const NestedTextWithIcon = Template.bind({});
+NestedTextWithIcon.args = {
   ...commonArgs,
   type: "dropdown",
   populators: {
@@ -448,49 +339,8 @@ NestedTextDropDownWithIcon.args = {
   variant: "nestedtextdropdown",
 };
 
-export const NestedTextMultiSelect = Template.bind({});
-NestedTextMultiSelect.args = {
-  ...commonArgs,
-  type: "multiselectdropdown",
-  populators: {
-    ...commonArgs.populators,
-    name: "nestedtextltiselect",
-    options: OptionsWithNestedText,
-    isDropdownWithChip: true,
-  },
-  variant: "nestedtextmultiselect",
-};
-
-export const NestedTextMultiSelectWithSelectAllCheck = Template.bind({});
-NestedTextMultiSelectWithSelectAllCheck.args = {
-  ...commonArgs,
-  type: "multiselectdropdown",
-  populators: {
-    ...commonArgs.populators,
-    name: "nestedtextltiselect",
-    options: OptionsWithNestedText,
-    isDropdownWithChip: true,
-    addSelectAllCheck:true
-  },
-  variant: "nestedtextmultiselect",
-};
-
-export const NestedTextMultiSelectWithIcons = Template.bind({});
-NestedTextMultiSelectWithIcons.args = {
-  ...commonArgs,
-  type: "multiselectdropdown",
-  populators: {
-    ...commonArgs.populators,
-    name: "nestedtextltiselect",
-    options: NestedTextOptionWithIcons,
-    isDropdownWithChip: true,
-    showIcon: true,
-  },
-  variant: "nestedtextmultiselect",
-};
-
-export const ProfileDropdown = Template.bind({});
-ProfileDropdown.args = {
+export const Profile = Template.bind({});
+Profile.args = {
   ...commonArgs,
   type: "dropdown",
   populators: {
@@ -501,8 +351,8 @@ ProfileDropdown.args = {
   variant: "profiledropdown",
 };
 
-export const ProfileDropdownWithCustomIcon = Template.bind({});
-ProfileDropdownWithCustomIcon.args = {
+export const ProfileWithCustomIcon = Template.bind({});
+ProfileWithCustomIcon.args = {
   ...commonArgs,
   type: "dropdown",
   populators: {
@@ -535,4 +385,16 @@ ProfileWithNestedTextWithCustomIcon.args = {
     options: NestedTextProfileOptions,
   },
   variant: "profilenestedtext",
+};
+
+export const TreeDropdown = Template.bind({});
+TreeDropdown.args = {
+  ...commonArgs,
+  type: "dropdown",
+  populators: {
+    ...commonArgs.populators,
+    name: "treeoptions",
+    options: treeDropdownOptions,
+  },
+  variant: "treedropdown",
 };

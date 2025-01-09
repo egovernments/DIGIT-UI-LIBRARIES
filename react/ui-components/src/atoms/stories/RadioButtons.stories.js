@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { CustomDropdown } from "../../molecules";
 import FieldV1 from "../../hoc/FieldV1";
+import Iframe from "../Iframe";
 
 export default {
   title: "Atoms/RadioButton",
@@ -56,7 +57,7 @@ const commonArgs = {
     options: gendersOptions,
   },
   inputRef: null,
-  label: "Enter Gender",
+  label: "Select Gender",
   errorStyle: null,
   disabled: false,
   type: "radio",
@@ -64,6 +65,16 @@ const commonArgs = {
   error: "",
   description: "",
 };
+
+export const Documentation = () => (
+  <Iframe
+    //Todo:Update the url
+    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-core-react-components/input-field"
+    title="RadioButton Documentation"
+  />
+);
+
+Documentation.storyName = "Docs";
 
 export const Default = Template.bind({});
 Default.args = {
@@ -93,4 +104,13 @@ PreSelected.args = {
 };
 PreSelected.argTypes = {
   disabled: { control: { disable: true } },
+};
+
+export const AlignVertical = Template.bind({});
+AlignVertical.args = {
+  ...commonArgs,
+  populators: {
+    ...commonArgs.populators,
+    alignVertical: true,
+  },
 };

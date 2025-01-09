@@ -2,12 +2,16 @@ import React from "react";
 import { Colors } from "../../constants/colors/colorconstants";
 import { Button } from "../../atoms";
 import TooltipWrapper from "../TooltipWrapper";
+import { IMAGES } from "../../constants/images/images";
+import {Iframe} from "../../atoms";
 
 export default {
   title: "Molecules/TooltipWrapper",
   component: TooltipWrapper,
   argTypes: {
-    title: { control: "text" },
+    content: { control: "text" },
+    header: { control: "text" },
+    description: { control: "text" },
     wrapperClassName: { control: "text" },
     ClassName: { control: "text" },
     arrow: { control: "boolean" },
@@ -59,9 +63,20 @@ const Template = (args) => (
   </div>
 );
 
+export const Documentation = () => (
+  <Iframe
+    //Todo:Update the url
+    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-core-react-components/input-field"
+    title="TooltipWrapper Documentation"
+  />
+);
+
+Documentation.storyName = "Docs";
+
+
 export const Basic = Template.bind({});
 Basic.args = {
-  title: "Tooltip",
+  content: "Tooltip",
   arrow: false,
   placement: "bottom",
   enterDelay: 100,
@@ -78,7 +93,7 @@ Basic.args = {
 
 export const MaxLabel = Template.bind({});
 MaxLabel.args = {
-  title:
+  content:
     "Tooltip Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ",
   arrow: false,
   placement: "bottom",
@@ -96,7 +111,7 @@ MaxLabel.args = {
 
 export const Positioned = Template.bind({});
 Positioned.args = {
-  title: "Tooltip",
+  content: "Tooltip",
   arrow: false,
   placement: "top",
   enterDelay: 100,
@@ -113,7 +128,7 @@ Positioned.args = {
 
 export const BasicWithArrow = Template.bind({});
 BasicWithArrow.args = {
-  title: "Tooltip",
+  content: "Tooltip",
   arrow: true,
   placement: "bottom",
   enterDelay: 100,
@@ -130,7 +145,7 @@ BasicWithArrow.args = {
 
 export const MaxLabelWithArrow = Template.bind({});
 MaxLabelWithArrow.args = {
-  title:
+  content:
     "Tooltip Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ",
   arrow: true,
   placement: "bottom",
@@ -150,7 +165,7 @@ MaxLabelWithArrow.args = {
 
 export const PositionedWithArrow = Template.bind({});
 PositionedWithArrow.args = {
-  title: "Tooltip",
+  content: "Tooltip",
   arrow: true,
   placement: "top",
   enterDelay: 100,
@@ -169,7 +184,7 @@ PositionedWithArrow.args = {
 
 export const WithCustomStyles = Template.bind({});
 WithCustomStyles.args = {
-  title: "Tooltip",
+  content: "Tooltip",
   arrow: false,
   placement: "bottom",
   enterDelay: 100,
@@ -191,20 +206,44 @@ WithCustomStyles.args = {
   },
 };
 
+const getImageUrl = (imageKey) => {
+  return IMAGES[imageKey];
+};
+
+const digitImg = getImageUrl("DIGIT_LIGHT");
+
 const htmlTooltip = (
-  <React.Fragment>
-    <em>{"And here's"}</em> <b>{"some"}</b> <u>{"amazing content"}</u>.{" "}
-    {"It's very engaging. Right?"}{" "}
-    <img
-      alt="here is your logo"
-      src="https://cdn.prod.website-files.com/5c7d318eeaea1d6e1198d906/628d4fa7695fe641bef4c60a_CTA-Tooltip.png"
-    ></img>
-  </React.Fragment>
-);
+    <React.Fragment>
+      {"And here's some amazing content It's very engaging. Right?"}<hr></hr>
+      <img
+        alt="here is your logo"
+        src={digitImg}
+      ></img>
+    </React.Fragment>
+  );
+
+
+export const WithHeader = Template.bind({});
+WithHeader.args = {
+  content: "Tooltip",
+  arrow: false,
+  placement: "bottom",
+  enterDelay: 100,
+  leaveDelay: 0,
+  followCursor: false,
+  open: false,
+  disableFocusListener: false,
+  disableHoverListener: false,
+  disableInteractive: false,
+  disableTouchListener: false,
+  children: <Button label={"Basic..."} variation={"primary"}></Button>,
+  style: {},
+  header:"Tooltip Header"
+};
 
 export const HtmlTooltip = Template.bind({});
 HtmlTooltip.args = {
-  title: htmlTooltip,
+  content: htmlTooltip,
   arrow: false,
   placement: "bottom",
   enterDelay: 100,
@@ -220,7 +259,7 @@ HtmlTooltip.args = {
 
 export const HtmlTooltipWithArrow = Template.bind({});
 HtmlTooltipWithArrow.args = {
-  title: htmlTooltip,
+  content: htmlTooltip,
   arrow: true,
   placement: "bottom",
   enterDelay: 100,

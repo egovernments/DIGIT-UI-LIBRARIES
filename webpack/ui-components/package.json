@@ -25,9 +25,9 @@
     "babel-loader": "8.0.0",
     "cross-env": "7.0.3",
     "lint-staged": "12.3.7",
-    "react": "18.3.1",
-    "react-dom": "18.3.1",
-    "webpack": "^5.89.0",
+    "react": "17.0.2",
+    "react-dom": "19.0.0",
+    "webpack": "^5.97.1",
     "webpack-cli": "^4.10.0"
   },
   "files": [
@@ -39,18 +39,19 @@
     "date-fns": "3.6.0",
     "lodash": "^4.17.21",
     "postcss-flexbugs-fixes": "^5.0.2",
-    "react": "18.3.1",
+    "react": "17.0.2",
     "react-date-range": "2.0.1",
-    "react-dom": "18.3.1",
-    "react-hook-form": "7.52.1",
+    "react-dom": "19.0.0",
+    "react-hook-form": "7.52.2",
     "react-i18next": "15.0.0",
+    "@tanstack/react-query": "^5.62.16",
     "react-lottie": "1.2.4",
     "react-responsive": "10.0.0",
     "react-router-dom": "6.25.1"
   },
   "peerDependencies": {
-    "react": "18.3.1",
-    "react-dom": "18.3.1"
+    "react": "19.0.0",
+    "react-dom": "19.0.0"
   },
   "browserslist": {
     "production": [

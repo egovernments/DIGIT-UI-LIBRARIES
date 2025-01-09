@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 
 class DigitDateUtils {
   // Function to calculate age in years and months based on the selected date.
-  static DigitDOBAge calculateAge(DateTime selectedDate) {
+  static DigitDOBAgeConvertor calculateAge(DateTime selectedDate) {
     DateTime currentDate = DateTime.now();
 
     // Calculate the difference in years, months, and days
@@ -25,7 +25,7 @@ class DigitDateUtils {
       ageInMonths += 12;
     }
 
-    return DigitDOBAge(
+    return DigitDOBAgeConvertor(
         years: ageInYears >= 0 ? ageInYears : 0,
         months: ageInMonths,
         days: ageInDays);
@@ -125,9 +125,9 @@ class DigitDateUtils {
 
   // Function to get the number of years or months between a provided date and the current date.
   static getYearsAndMonthsFromDateTime(
-    DateTime dateTime, [
-    bool getMonths = false,
-  ]) {
+      DateTime dateTime, [
+        bool getMonths = false,
+      ]) {
     int days = DateTime.now().difference(dateTime).inDays;
     int years = days ~/ 365;
     int months = (days - (years * 365)) ~/ 30;
@@ -166,10 +166,10 @@ class DigitDateUtils {
   }
 }
 
-class DigitDOBAge {
+class DigitDOBAgeConvertor {
   final int years;
   final int months;
   final int days;
 
-  DigitDOBAge({this.years = 0, this.months = 0, this.days = 0});
+  DigitDOBAgeConvertor({this.years = 0, this.months = 0, this.days = 0});
 }

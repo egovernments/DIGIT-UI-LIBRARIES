@@ -11,7 +11,7 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: RadioList(
-              radioButtons: [
+              radioDigitButtons: [
                 RadioButtonModel(code: 'A', name: 'Option A'),
                 RadioButtonModel(code: 'B', name: 'Option B'),
               ],
@@ -27,7 +27,7 @@ void main() {
       expect(find.text('Option B'), findsOneWidget);
     });
 
-    testWidgets('Selecting a radio button triggers onChanged callback', (WidgetTester tester) async {
+    testWidgets('Selecting a radio DigitButton triggers onChanged callback', (WidgetTester tester) async {
       String selectedValue = '';
 
       // Build our widget and trigger a frame
@@ -35,7 +35,7 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: RadioList(
-              radioButtons: [
+              radioDigitButtons: [
                 RadioButtonModel(code: 'A', name: 'Option A'),
                 RadioButtonModel(code: 'B', name: 'Option B'),
               ], onChanged: (value) {},
@@ -45,7 +45,7 @@ void main() {
 
       );
 
-      // Tap on the first radio button
+      // Tap on the first radio DigitButton
       await tester.tap(find.text('Option A'));
       await tester.pump();
 
@@ -53,13 +53,13 @@ void main() {
       expect(selectedValue, 'A');
     });
 
-    testWidgets('Radio buttons are disabled when isDisabled is true', (WidgetTester tester) async {
+    testWidgets('Radio DigitButtons are disabled when isDisabled is true', (WidgetTester tester) async {
       // Build our widget with isDisabled set to true
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
             body: RadioList(
-              radioButtons: [
+              radioDigitButtons: [
                 RadioButtonModel(code: 'A', name: 'Option A'),
                 RadioButtonModel(code: 'B', name: 'Option B'),
               ],
@@ -70,19 +70,19 @@ void main() {
         ),
       );
 
-      // Verify that the radio buttons are disabled and selected value doesn't change
+      // Verify that the radio DigitButtons are disabled and selected value doesn't change
       await tester.tap(find.text('Option A'));
       await tester.pump();
       expect(tester.widget<RadioList>(find.byType(RadioList)).groupValue, ''); // No change in selected value
     });
 
-    testWidgets('Radio buttons are enabled when isDisabled is false', (WidgetTester tester) async {
+    testWidgets('Radio DigitButtons are enabled when isDisabled is false', (WidgetTester tester) async {
       // Build our widget with isDisabled set to false
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
             body: RadioList(
-              radioButtons: [
+              radioDigitButtons: [
                 RadioButtonModel(code: 'A', name: 'Option A'),
                 RadioButtonModel(code: 'B', name: 'Option B'),
               ],
@@ -93,7 +93,7 @@ void main() {
         ),
       );
 
-      // Verify that the radio buttons are enabled and selected value changes
+      // Verify that the radio DigitButtons are enabled and selected value changes
       await tester.tap(find.text('Option A'));
       await tester.pump();
       expect(tester.widget<RadioList>(find.byType(RadioList)).groupValue, 'A'); // Change in selected value

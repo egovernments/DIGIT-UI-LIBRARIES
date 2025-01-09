@@ -1,0 +1,4 @@
+dependency_overrides:
+  digit_ui_components:
+    path:
+      ../digit_components

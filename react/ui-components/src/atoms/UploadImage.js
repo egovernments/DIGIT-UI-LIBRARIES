@@ -4,12 +4,7 @@ import Webcam from "react-webcam";
 import Button from "./Button";
 import ErrorMessage from "./ErrorMessage";
 import { Colors} from "../constants/colors/colorconstants";
-import {
-  DocUpload,
-  DocPdfUpload,
-  DocXlsxUpload,
-  DocdocUpload,
-} from "./svgindex";
+import { CustomSVG } from "./CustomSVG";
 
 const UploadImage = ({
   multiple,
@@ -126,7 +121,7 @@ const UploadImage = ({
     switch (fileType) {
       case "application/pdf":
         return (
-          <DocPdfUpload
+          <CustomSVG.DocPdfUpload
             className={`digit-docupload-icon ${isError ? "error" : ""}`}
             styles={isError ? { border: "1px solid #B91900" } : {}}
             fill={isError ? errorColor : ""}
@@ -138,7 +133,7 @@ const UploadImage = ({
       case "application/x-excel":
       case "application/x-msexcel":
         return (
-          <DocXlsxUpload
+          <CustomSVG.DocXlsxUpload
             className={`digit-docupload-icon ${isError ? "error" : ""}`}
             styles={isError ? { border: "1px solid #B91900" } : {}}
             fill={isError ? errorColor : ""}
@@ -147,7 +142,7 @@ const UploadImage = ({
       case "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
       case "application/msword":
         return (
-          <DocdocUpload
+          <CustomSVG.DocdocUpload
             className={`digit-docupload-icon ${isError ? "error" : ""}`}
             styles={isError ? { border: "1px solid #B91900" } : {}}
             fill={isError ? errorColor : ""}
@@ -155,7 +150,7 @@ const UploadImage = ({
         );
       default:
         return (
-          <DocUpload
+          <CustomSVG.DocUpload
             className={`digit-docupload-icon ${isError ? "error" : ""}`}
             styles={isError ? { border: "1px solid #B91900" } : {}}
             fill={isError ? errorColor : ""}

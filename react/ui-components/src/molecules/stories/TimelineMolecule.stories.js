@@ -2,6 +2,7 @@ import React from "react";
 import TimelineMolecule from "../TimelineMolecule";
 import { Button } from "../../atoms";
 import Timeline from "../../atoms";
+import {Iframe} from "../../atoms";
 
 export default {
   title: "Molecules/TimelineMolecule",
@@ -75,6 +76,17 @@ const additionalElements = [
     isSuffix={true}
   />,
 ];
+
+export const Documentation = () => (
+  <Iframe
+    //Todo:Update the url
+    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-core-react-components/input-field"
+    title="TimelineMolecule Documentation"
+  />
+);
+
+Documentation.storyName = "Docs";
+
 
 export const Default = () => (
   <TimelineMolecule>

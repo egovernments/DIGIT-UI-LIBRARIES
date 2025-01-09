@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useQueryClient } from "react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 
 import { Loader } from "@egovernments/digit-ui-components";
@@ -283,7 +283,7 @@ const ApplicationDetails = (props) => {
           clearDataDetails && setTimeout(clearDataDetails, 3000);
           setTimeout(closeToast, 5000);
           queryClient.clear();
-          queryClient.refetchQueries("APPLICATION_SEARCH");
+          queryClient.refetchQueries({queryKey: "APPLICATION_SEARCH"});
           //push false status when reject
           
         },

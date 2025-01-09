@@ -38,19 +38,17 @@ const defaultSelect = (data) => {
 
 const useGetChart = (args) => {
   const { key, type, tenantId, requestDate, filters, moduleLevel, addlFilter } = args;
-  return useQuery(
-    [args],
-    () =>
+  return useQuery({
+    queryKey: [args],
+    queryFn: () =>
       DSSService.getCharts({
         ...getRequest(type, key, requestDate, filters, moduleLevel, addlFilter),
         headers: {
           tenantId,
         },
       }),
-    {
-      select: defaultSelect,
-    }
-  );
+    select: defaultSelect,
+  });
 };
 
 export default useGetChart;

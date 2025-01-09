@@ -1,43 +1,43 @@
-/*
- ToggleList is a row of toggle buttons that allows selecting one item at a time.
+/// ToggleList is a row of toggle DigitButtons that allows selecting one item at a time.
 
-  Example usage:
- ```dart
- ToggleList(
-  toggleButtons: [
-    ToggleButtonModel(name: 'Option 1', onSelected: () => print('Option 1 selected')),
-    ToggleButtonModel(name: 'Option 2', onSelected: () => print('Option 2 selected')),
-    // Add more ToggleButtonModel instances as needed
-  ],
-  onChanged: (selectedValues) {
-    // Handle the selected values if needed
-    print('Selected values: $selectedValues');
-  },
-  contentPadding: EdgeInsets.symmetric(horizontal: 16), // Optional content padding
-)
- ....*/
+///  Example usage:
+/// ```dart
+/// ToggleList(
+///  toggleDigitButtons: [
+///    ToggleDigitButtonModel(name: 'Option 1', onSelected: () => print('Option 1 selected')),
+///    ToggleDigitButtonModel(name: 'Option 2', onSelected: () => print('Option 2 selected')),
+///    // Add more ToggleDigitButtonModel instances as needed
+///  ],
+///  onChanged: (selectedValues) {
+/// Handle the selected values if needed
+///    print('Selected values: $selectedValues');
+///  },
+///  contentPadding: EdgeInsets.symmetric(horizontal: 16), // Optional content padding
+///)
 
 import 'dart:math';
 
+import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/material.dart';
+
 import '../../models/toggleButtonModel.dart';
-import '../../theme/digit_theme.dart';
-import 'digit_toggle.dart';
 
 class ToggleList extends StatefulWidget {
-  final List<ToggleButtonModel> toggleButtons;
+  final List<ToggleButtonModel> toggleDigitButtons;
   final void Function(ToggleButtonModel) onChanged;
   final EdgeInsets? contentPadding;
   final int selectedIndex;
+  final double? toggleWidth;
   final MainAxisAlignment mainAxisAlignment;
   final CrossAxisAlignment crossAxisAlignment;
 
   const ToggleList({
     Key? key,
-    required this.toggleButtons,
+    required this.toggleDigitButtons,
     required this.onChanged,
     this.contentPadding,
     required this.selectedIndex,
+    this.toggleWidth,
     this.mainAxisAlignment = MainAxisAlignment.start,
     this.crossAxisAlignment = CrossAxisAlignment.center,
   }) : super(key: key);
@@ -61,12 +61,10 @@ class _ToggleListState extends State<ToggleList> {
   double _calculateMaxLabelWidth() {
     double maxLabelWidth = (MediaQuery.of(context).size.width) / 3 - 46;
     double maxLabel = 0;
-    for (ToggleButtonModel button in widget.toggleButtons) {
+    for (ToggleButtonModel DigitButton in widget.toggleDigitButtons) {
       TextPainter textPainter = TextPainter(
         text: TextSpan(
-          text: button.name.length > 64
-              ? "${button.name.substring(0, 64)}..."
-              : button.name,
+          text: DigitButton.name,
           style: const TextStyle(),
         ),
         textDirection: TextDirection.ltr,
@@ -79,36 +77,34 @@ class _ToggleListState extends State<ToggleList> {
 
   @override
   Widget build(BuildContext context) {
-    maxLabelWidth = _calculateMaxLabelWidth();
+    maxLabelWidth = _calculateMaxLabelWidth() + spacer12 +spacer1;
     return Row(
       mainAxisAlignment: widget.mainAxisAlignment,
       crossAxisAlignment: widget.crossAxisAlignment,
-      children: widget.toggleButtons.map(
-        (button) {
-          final index = widget.toggleButtons.indexOf(button);
+      children: widget.toggleDigitButtons.map(
+            (DigitButton) {
+          final index = widget.toggleDigitButtons.indexOf(DigitButton);
           return Padding(
-            padding: widget.contentPadding ??
-                const EdgeInsets.only(bottom: kPadding),
+            padding:
+            widget.contentPadding ?? const EdgeInsets.only(bottom: spacer2),
             child: Toggle(
               onChanged: (isSelected) {
                 setState(() {
                   if (isSelected) {
                     if (selectedIndex != index) {
-                      // Unselect the previously selected item
+                      /// Unselect the previously selected item
                       selectedIndex = index;
-                      widget.onChanged(button);
+                      widget.onChanged(DigitButton);
                     }
                   } else {
-                    /// Clicking on the already selected button, do nothing
+                    /// Clicking on the already selected DigitButton, do nothing
                     return;
                   }
                 });
               },
-              label: button.name.length > 64
-                  ? "${button.name.substring(0, 64)}..."
-                  : button.name,
+              label: DigitButton.name,
               isSelected: selectedIndex == index,
-              maxLabelWidth: maxLabelWidth,
+              maxLabelWidth: widget.toggleWidth ?? maxLabelWidth,
             ),
           );
         },

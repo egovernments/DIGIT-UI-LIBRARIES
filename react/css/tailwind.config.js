@@ -12,7 +12,7 @@ module.exports = {
     colors: {
       primary: {
         light: "#F18F5E",
-        main: "#F47738",
+        main: "#C84C0E",
         dark: "#C8602B",
       },
       secondary: "#22394D",
@@ -291,6 +291,7 @@ module.exports = {
         spacer10:"2.5rem",
         spacer11:"2.75rem",
         spacer12:"3rem",
+        spacer13:"3.5rem"
       },
       divider: {
         dividerS: "0.063rem solid #D6D5D4",

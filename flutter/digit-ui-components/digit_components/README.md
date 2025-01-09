@@ -142,85 +142,85 @@ Digit UI Components includes various text input fields with optional features su
 
 ![textArea](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/307cc5a0-87e2-4ca0-bf6e-cdc1d6b26741)
 
-### Button Variants
-Digit UI Components provides a variety of buttons with optional suffix and prefix icons, contributing to a cohesive and visually appealing UI.
+### DigitButton Variants
+Digit UI Components provides a variety of DigitButtons with optional suffix and prefix icons, contributing to a cohesive and visually appealing UI.
 
-#### Primary Button
+#### Primary DigitButton
 
-        Button(
-            label: 'Primary Button',
+        DigitButton(
+            label: 'Primary DigitButton',
             onPressed: () {},
-            type: ButtonType.primary,
+            type: DigitButtonType.primary,
         );
 
-![primary-button](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/2de133ff-f400-4612-a064-7989730b84a1)
+![primary-DigitButton](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/2de133ff-f400-4612-a064-7989730b84a1)
 
 with Suffix Icon
 
-        Button(
+        DigitButton(
             suffixIcon: Icons.add,
-            label: 'Primary Button',
+            label: 'Primary DigitButton',
             onPressed: () {},
-            type: ButtonType.primary,
+            type: DigitButtonType.primary,
         );
 
-![primary-button-1](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/6972ce4b-3bb2-4912-ae6b-784473093601)
+![primary-DigitButton-1](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/6972ce4b-3bb2-4912-ae6b-784473093601)
 
-#### Secondary Button
+#### Secondary DigitButton
 
-        Button(
-            label: 'secondary Button',
+        DigitButton(
+            label: 'secondary DigitButton',
             onPressed: () {},
-            type: ButtonType.secondary,
+            type: DigitButtonType.secondary,
         );
 
-![secondary-button](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/e07bbfaf-536a-4daf-bca1-4c8d9ff016d4)
+![secondary-DigitButton](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/e07bbfaf-536a-4daf-bca1-4c8d9ff016d4)
 
-#### Tertiary Button
+#### Tertiary DigitButton
 
-        Button(
-            label: 'tertiary Button',
+        DigitButton(
+            label: 'tertiary DigitButton',
             onPressed: () {},
-            type: ButtonType.tertiary,
+            type: DigitButtonType.tertiary,
         );
 
-![tertiary-button](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/b56da9f2-3806-4216-8bbd-d902cc4f94fc)
+![tertiary-DigitButton](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/b56da9f2-3806-4216-8bbd-d902cc4f94fc)
 
 #### Link
 
-        Button(
+        DigitButton(
             label: 'link',
             onPressed: () {},
-            type: ButtonType.link,
+            type: DigitButtonType.link,
         );
 
 ![link](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/5424ff0e-142a-4482-9559-bfb83d0ad201)
 
-### Radio Buttons
-The Radio Buttons component in Digit UI Components empowers users to make a single selection from a list of options. This intuitive interface provides a smooth user experience with hover and mouse-down effects.
+### Radio DigitButtons
+The Radio DigitButtons component in Digit UI Components empowers users to make a single selection from a list of options. This intuitive interface provides a smooth user experience with hover and mouse-down effects.
 
         RadioList(
             onChanged: (value) {},
             groupValue: '1',
-            radioButtons: [
-                RadioButtonModel(code: '1',name: 'One',),
-                RadioButtonModel(code: '2', name: 'Two'),
-                RadioButtonModel(code: '3', name: 'Three'),
+            radioDigitButtons: [
+                RadioDigitButtonModel(code: '1',name: 'One',),
+                RadioDigitButtonModel(code: '2', name: 'Two'),
+                RadioDigitButtonModel(code: '3', name: 'Three'),
             ],
         );
 
 ![radio](https://github.com/egovernments/DIGIT-UI-LIBRARIES/assets/137176770/23bd8fc9-1c44-485c-861d-cd443cc43661)
 
-### Toggle Buttons
-The Toggle Buttons component in Digit UI Components presents a list of interactive toggle buttons, providing users with the ability to select a option. Each button is equipped with callbacks for both mouse-down and hover effects, ensuring a responsive and engaging user interface.
+### Toggle DigitButtons
+The Toggle DigitButtons component in Digit UI Components presents a list of interactive toggle DigitButtons, providing users with the ability to select a option. Each DigitButton is equipped with callbacks for both mouse-down and hover effects, ensuring a responsive and engaging user interface.
 
         ToggleList(
-            toggleButtons: [
-                ToggleButtonModel(
+            toggleDigitButtons: [
+                ToggleDigitButtonModel(
                     name: 'Toggle 1', key: 'key1', onSelected: (value) {}),
-                ToggleButtonModel(
+                ToggleDigitButtonModel(
                     name: 'Toggle 2', key: 'key2', onSelected: (value) {}),
-                ToggleButtonModel(
+                ToggleDigitButtonModel(
                     name: 'Toggle 3', key: 'key3', onSelected: (value) {}),
                 ],
             selectedIndex: 1,

@@ -1,4 +1,4 @@
-import { BackButton, Loader, FormComposerV2 ,Toast} from "@egovernments/digit-ui-components";
+import { BackLink, Loader, FormComposerV2, Toast } from "@egovernments/digit-ui-components";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
@@ -7,6 +7,9 @@ import Header from "../../../components/Header";
 
 /* set employee details to enable backward compatiable */
 const setEmployeeDetail = (userObject, token) => {
+ if (Digit.Utils.getMultiRootTenant()) {
+     return;
+   }  
   let locale = JSON.parse(sessionStorage.getItem("Digit.locale"))?.value || Digit.Utils.getDefaultLanguage();
   localStorage.setItem("Employee.tenant-id", userObject?.tenantId);
   localStorage.setItem("tenant-id", userObject?.tenantId);
@@ -19,7 +22,7 @@ const setEmployeeDetail = (userObject, token) => {
   localStorage.setItem("Employee.user-info", JSON.stringify(userObject));
 };
 
-const Login = ({ config: propsConfig, t, isDisabled }) => {
+const Login = ({ config: propsConfig, t, isDisabled, loginOTPBased }) => {
   const { data: cities, isLoading } = Digit.Hooks.useTenants();
   const { data: storeData, isLoading: isStoreLoading } = Digit.Hooks.useStore.getInitData();
   const { stateInfo } = storeData || {};
@@ -86,6 +89,49 @@ const Login = ({ config: propsConfig, t, isDisabled }) => {
     setDisable(false);
   };
 
+  const reqCreate = {
+    url: `/user-otp/v1/_send`,
+    params: { tenantId: Digit.ULBService.getStateId() },
+    body: {},
+    config: {
+      enable: false,
+    },
+  };
+  const mutation = Digit.Hooks.useCustomAPIMutationHook(reqCreate);
+
+  const onOtpLogin = async (data) => {
+    const inputEmail = data.email;
+    await mutation.mutate(
+      {
+        body: {
+          otp: {
+            userName: data.email,
+            type: "login",
+            tenantId: Digit.ULBService.getStateId(),
+            userType: "EMPLOYEE",
+          },
+        },
+        config: {
+          enable: true,
+        },
+      },
+      {
+        onError: (error, variables) => {
+          setShowToast(
+            error?.response?.data?.Errors?.[0].code ? `SANDBOX_RESEND_OTP${error?.response?.data?.Errors?.[0]?.code}` : `SANDBOX_RESEND_OTP_ERROR`
+          );
+          setTimeout(closeToast, 5000);
+        },
+        onSuccess: async (data) => {
+          history.push({
+            pathname: `/${window?.contextPath}/employee/user/login/otp`,
+            state: { email: inputEmail, tenant: Digit.ULBService.getStateId() },
+          });
+        },
+      }
+    );
+  };
+
   const closeToast = () => {
     setShowToast(null);
   };
@@ -98,7 +144,7 @@ const Login = ({ config: propsConfig, t, isDisabled }) => {
     name: Digit.Utils.locale.getTransformedLocale(`TENANT_TENANTS_${Digit.ULBService.getStateId()}`),
   };
 
-  let config = [{body : propsConfig?.inputs}];
+  let config = [{ body: propsConfig?.inputs }];
 
   const { mode } = Digit.Hooks.useQueryParams();
   if (mode === "admin" && config?.[0]?.body?.[2]?.disable == false && config?.[0]?.body?.[2]?.populators?.defaultValue == undefined) {
@@ -106,31 +152,45 @@ const Login = ({ config: propsConfig, t, isDisabled }) => {
     config[0].body[2].isMandatory = false;
     config[0].body[2].populators.defaultValue = defaultValue;
   }
+
+  const onFormValueChange = (setValue, formData, formState) => {
+    // Extract keys from the config
+    const keys = config[0].body.map((field) => field.key);
+
+    const hasEmptyFields = keys.some((key) => {
+      const value = formData[key];
+      return value == null || value === "" || (key === "check" && value === false) || (key === "captcha" && value === false);
+    });
+
+    // Set disable based on the check
+    setDisable(hasEmptyFields);
+  };
+
   return isLoading || isStoreLoading ? (
     <Loader />
   ) : (
     <Background>
       <div className="employeeBackbuttonAlign">
-        <BackButton variant="white" style={{ borderBottom: "none" }} />
+      <BackLink onClick={() => window.history.back()}/>
       </div>
-
       <FormComposerV2
-        onSubmit={onLogin}
+        onSubmit={loginOTPBased ? onOtpLogin : onLogin}
         isDisabled={isDisabled || disable}
         noBoxShadow
         inline
         submitInForm
         config={config}
-        label={propsConfig.texts.submitButtonLabel}
-        secondaryActionLabel={propsConfig.texts.secondaryButtonLabel}
+        label={propsConfig?.texts?.submitButtonLabel}
+        secondaryActionLabel={propsConfig?.texts?.secondaryButtonLabel}
         onSecondayActionClick={onForgotPassword}
-        heading={propsConfig.texts.header}
-        className="loginFormStyleEmployee"
+        onFormValueChange={onFormValueChange}
+        heading={propsConfig?.texts?.header}
+        className={`loginFormStyleEmployee ${loginOTPBased ? "sandbox-onboarding-wrapper" : ""}`}
         cardSubHeaderClassName="loginCardSubHeaderClassName"
         cardClassName="loginCardClassName"
         buttonClassName="buttonClassName"
       >
-        <Header />
+        {stateInfo?.code ? <Header /> : <Header showTenant={false} /> }
       </FormComposerV2>
       {showToast && <Toast type={"error"} label={t(showToast)} onClose={closeToast} />}
       <div className="employee-login-home-footer" style={{ backgroundColor: "unset" }}>
