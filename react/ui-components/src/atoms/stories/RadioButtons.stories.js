@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { CustomDropdown } from "../../molecules";
 import FieldV1 from "../../hoc/FieldV1";
 import Iframe from "../Iframe";

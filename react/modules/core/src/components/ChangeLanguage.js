@@ -1,10 +1,12 @@
 import { Button, Dropdown } from "@egovernments/digit-ui-components";
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const ChangeLanguage = (prop) => {
   const isDropdown = prop.dropdown || false;
   const { data: storeData, isLoading } = Digit.Hooks.useStore.getInitData();
   const { languages, stateInfo } = storeData || {};
+  const { t } = useTranslation();
   const selectedLanguage = Digit.StoreData.getCurrentLanguage();
   const [selected, setselected] = useState(selectedLanguage);
   const handleChangeLanguage = (language) => {
@@ -18,12 +20,13 @@ const ChangeLanguage = (prop) => {
     return (
       <div>
         <Dropdown
+          className={"language-dropdown"}
           option={languages}
-          selected={languages.find((language) => language.value === selectedLanguage)}
+          selected={languages?.find((language) => language?.value === selectedLanguage)}
           optionKey={"label"}
           select={handleChangeLanguage}
           freeze={true}
-          customSelector={<label className="cp">{languages.find((language) => language.value === selected).label}</label>}
+          customSelector={<label className="cp">{t(languages?.find((language) => language?.value === selected)?.label)}</label>}
         />
       </div>
     );
@@ -34,7 +37,11 @@ const ChangeLanguage = (prop) => {
         <div className="language-selector">
           {languages.map((language, index) => (
             <div className="language-button-container" key={index}>
-              <Button label={language.label} onClick={() => handleChangeLanguage(language)} variation={language.value === selected ? "primary" : ""} />
+              <Button
+                label={language.label}
+                onClick={() => handleChangeLanguage(language)}
+                variation={language.value === selected ? "primary" : ""}
+              />
             </div>
           ))}
         </div>

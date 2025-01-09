@@ -1,5 +1,6 @@
 import React from "react";
 import { Redirect, Route, Switch, useLocation, useRouteMatch } from "react-router-dom";
+
 import ChangePassword from "../pages/employee/ChangePassword/index";
 import ForgotPassword from "../pages/employee/ForgotPassword/index";
 import { AppHome } from "./Home";
@@ -20,7 +21,7 @@ export const AppModules = ({ stateCode, userType, modules, appTenants, additiona
     return <Redirect to={{ pathname: `/${window?.contextPath}/employee/user/login`, state: { from: location.pathname + location.search } }} />;
   }
 
-  const appRoutes = modules.map(({ code, tenants }, index) => {
+  const appRoutes = modules?.map(({ code, tenants }, index) => {
     const Module = Digit.ComponentRegistryService.getComponent(`${code}Module`);
     return Module ? (
       <Route key={index} path={`${path}/${code.toLowerCase()}`}>
@@ -36,7 +37,7 @@ export const AppModules = ({ stateCode, userType, modules, appTenants, additiona
   });
 
   return (
-    <div className="ground-container">
+    <div className="ground-container digit-home-ground">
       <Switch>
         {appRoutes}
         <Route path={`${path}/login`}>

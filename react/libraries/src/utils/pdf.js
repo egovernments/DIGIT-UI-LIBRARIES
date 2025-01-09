@@ -1,5 +1,4 @@
 import { Fonts } from "./fonts";
-import { CustomService } from "../services/elements/CustomService";
 
 const pdfMake = require("pdfmake/build/pdfmake.js");
 // const pdfFonts = require("pdfmake/build/vfs_fonts.js");
@@ -250,7 +249,7 @@ const createBodyContentBillAmend = (table,t) => {
   let bodyData = []
   bodyData.push({
     text: t(table?.title),
-    color: "#F47738",
+    color: "#c84c0e",
     style: "header",
     fontSize: 14,
     bold: true,
@@ -260,9 +259,9 @@ const createBodyContentBillAmend = (table,t) => {
     layout:{
       fillColor:function(rowIndex,node,columnIndex){
         if(rowIndex === (table?.tableRows?.length)) {
-          return "#F47738"
+          return "#c84c0e"
         }
-        return (rowIndex % 2 === 0) ? "#F47738" : null; 
+        return (rowIndex % 2 === 0) ? "#c84c0e" : null; 
       },
       fillOpacity:function(rowIndex,node,columnIndex) {
         if (rowIndex === (table?.tableRows?.length)) {
@@ -352,7 +351,7 @@ const createHeaderBillAmend = (headerDetails, logo, tenantId,t) => {
             fontSize: 16,
             alignment: "right",
             margin: [-40, 10, 2, 0],
-            color: "#F47738"
+            color: "#c84c0e"
           }
         ],
         [
@@ -372,7 +371,7 @@ const createHeaderBillAmend = (headerDetails, logo, tenantId,t) => {
             fontSize: 16,
             margin: [0, -45, 10, 0],
             alignment: "right",
-            color: "#F47738"
+            color: "#c84c0e"
           }
         ],
         [
@@ -519,7 +518,7 @@ const createBodyContent = (details) => {
             [
               {
                 text: table?.title,
-                color: "#F47738",
+                color: "#c84c0e",
                 style: "header",
                 fontSize: 14,
                 bold: true
@@ -543,7 +542,7 @@ const createBodyContent = (details) => {
           table?.title?.map(t=>{ 
             return {
             text:t,
-            color: "#F47738",
+            color: "#c84c0e",
             style: "header",
             fontSize: 14,
             bold: true,
@@ -589,7 +588,7 @@ function createContentDetails(details) {
             [
               {
                 text: detail?.title,
-                color: "#F47738",
+                color: "#c84c0e",
                 style: "header",
                 fontSize: 14,
                 bold: true
@@ -670,7 +669,7 @@ function createHeader(headerDetails,logo,tenantId) {
             fontSize: 16,
             alignment: "right",
             margin: [-40, 10, 2, 0],
-            color: "#F47738"
+            color: "#c84c0e"
           }
         ],
         [
@@ -690,7 +689,7 @@ function createHeader(headerDetails,logo,tenantId) {
             fontSize: 16,
             margin: [0, -50, 10, 0],
             alignment: "right",
-            color: "#F47738"
+            color: "#c84c0e"
           }
         ],
         [
@@ -1080,30 +1079,5 @@ export const downloadPDFFromLink = async (link, openIn = "_blank") => {
     a.download = decodeURIComponent(link.split("?")[0].split("/").pop().slice(13));
     a.click();
     window.URL.revokeObjectURL(url);
-  }
-};
-
-
-/**
- * Custom util to Download any PDF from egov-pdf
- *
- * @author jagankumar-egov
- *
- * @example
- *  Digit.Utils.downloadEgovPDF('project/project-details',{projectId:"",tenantId:""},"project.pdf")
- *
- *  Returns the downloaded pdf
- */
-/* Download any PDF from egov-pdf */
-
-export const downloadEgovPDF = async (
-  pdfRoute,
-  queryParams={},
-  fileName="application.pdf"
-) => {
-  const response =await CustomService.getResponse({ url:`/egov-pdf/download/${pdfRoute}`, params:queryParams, useCache:false,setTimeParam:false ,userDownload:true})
-  const responseStatus = parseInt(response.status, 10);
-  if (responseStatus === 201 || responseStatus === 200) {
-    downloadPdf(new Blob([response.data], { type: "application/pdf" }), fileName);
   }
 };

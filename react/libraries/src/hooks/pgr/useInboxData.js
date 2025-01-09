@@ -29,13 +29,19 @@ const useInboxData = (searchParams) => {
     return combinedRes;
   };
 
-  const result = useQuery(["fetchInboxData", 
-  ...Object.keys(searchParams).map(i =>
-      typeof searchParams[i] === "object" ? Object.keys(searchParams[i]).map(e => searchParams[i][e]) : searchParams[i]
-     )],
-  fetchInboxData,
-  { staleTime: Infinity }
-  );
+  const result = useQuery({
+    queryKey: [
+      "fetchInboxData",
+      ...Object.keys(searchParams).map(i =>
+        typeof searchParams[i] === "object" 
+          ? Object.keys(searchParams[i]).map(e => searchParams[i][e])
+          : searchParams[i]
+      ),
+    ],
+    queryFn: fetchInboxData,
+    staleTime: Infinity,
+  });
+  
   return { ...result, revalidate: () => client.refetchQueries(["fetchInboxData"]) };
 };
 

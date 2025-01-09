@@ -5,34 +5,50 @@ import { getI18n } from "react-i18next";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
-import { DigitApp } from "./App";
+import { DigitApp, DigitAppWrapper } from "./App";
 import SelectOtp from "./pages/citizen/Login/SelectOtp";
 import ChangeCity from "./components/ChangeCity";
 import ChangeLanguage from "./components/ChangeLanguage";
 import { useState } from "react";
 import ErrorBoundary from "./components/ErrorBoundaries";
 import getStore from "./redux/store";
+import PrivacyComponent from "./components/PrivacyComponent";
+import OtpComponent from "./pages/employee/Otp/OtpCustomComponent";
 
 const DigitUIWrapper = ({ stateCode, enabledModules, moduleReducers, defaultLanding }) => {
-  const { isLoading, data: initData } = Digit.Hooks.useInitStore(stateCode, enabledModules);
+  const { isLoading, data: initData={} } = Digit.Hooks.useInitStore(stateCode, enabledModules);
   if (isLoading) {
     return <Loader page={true} />;
   }
-
-  const i18n = getI18n();
   const data=getStore(initData, moduleReducers(initData)) || {};
+  const i18n = getI18n();
+  if(!Digit.ComponentRegistryService.getComponent("PrivacyComponent")){
+    Digit.ComponentRegistryService.setComponent("PrivacyComponent", PrivacyComponent);
+  }
   return (
-    <Provider store={getStore(initData, moduleReducers(initData))}>
+    <Provider store={data}>
       <Router>
         <BodyContainer>
-          <DigitApp
-            initData={initData}
-            stateCode={stateCode}
-            modules={initData?.modules}
-            appTenants={initData.tenants}
-            logoUrl={initData?.stateInfo?.logoUrl}
-            defaultLanding={defaultLanding}
-          />
+          {Digit.Utils.getMultiRootTenant() ? (
+            <DigitAppWrapper
+              initData={initData}
+              stateCode={stateCode}
+              modules={initData?.modules}
+              appTenants={initData.tenants}
+              logoUrl={initData?.stateInfo?.logoUrl}
+              logoUrlWhite={initData?.stateInfo?.logoUrlWhite}
+              defaultLanding={defaultLanding}
+            />
+          ) : (
+            <DigitApp
+              initData={initData}
+              stateCode={stateCode}
+              modules={initData?.modules}
+              appTenants={initData.tenants}
+              logoUrl={initData?.stateInfo?.logoUrl}
+              defaultLanding={defaultLanding}
+            />
+          )}
         </BodyContainer>
       </Router>
     </Provider>
@@ -46,7 +62,7 @@ export const DigitUI = ({ stateCode, registry, enabledModules, moduleReducers, d
     defaultOptions: {
       queries: {
         staleTime: 15 * 60 * 1000,
-        cacheTime: 50 * 60 * 1000,
+        gcTime: 50 * 60 * 1000,
         retry: false,
         retryDelay: (attemptIndex) => Infinity,
         /*
@@ -113,7 +129,9 @@ export const DigitUI = ({ stateCode, registry, enabledModules, moduleReducers, d
 const componentsToRegister = {
   SelectOtp,
   ChangeCity,
-  ChangeLanguage
+  ChangeLanguage,
+  PrivacyComponent,
+  OtpComponent,
 };
 
 export const initCoreComponents = () => {

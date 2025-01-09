@@ -2,7 +2,10 @@ import { useQuery, useMutation } from "react-query";
 import HrmsService from "../../services/elements/HRMS";
 
 export const useHRMSCreate = (tenantId, config = {}) => {
-  return useMutation((data) => HrmsService.create(data, tenantId));
+  return useMutation({
+    mutationFn: (data) => HrmsService.create(data, tenantId),
+    ...config, // Spread any additional configuration passed to the hook
+  });
 };
 
 export default useHRMSCreate;

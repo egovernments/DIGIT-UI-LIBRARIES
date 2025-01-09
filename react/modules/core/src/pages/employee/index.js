@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Redirect, Route, Switch, useLocation, useRouteMatch, useHistory } from "react-router-dom";
 import { AppModules } from "../../components/AppModules";
@@ -8,11 +8,16 @@ import ChangePassword from "./ChangePassword";
 import ForgotPassword from "./ForgotPassword";
 import LanguageSelection from "./LanguageSelection";
 import EmployeeLogin from "./Login";
+import Landing from "./Landing";
+import SignUp from "./SignUp";
+import Otp from "./Otp";
+import ViewUrl from "./ViewUrl";
 import UserProfile from "../citizen/Home/UserProfile";
 import ErrorComponent from "../../components/ErrorComponent";
 import { PrivateRoute } from "@egovernments/digit-ui-components";
+import RoleLanding from "./RoleLanding";
 
-const userScreensExempted = ["user/profile", "user/error"];
+const userScreensExempted = ["user/landing", "user/profile", "user/error"];
 
 const EmployeeApp = ({
   stateInfo,
@@ -22,6 +27,7 @@ const EmployeeApp = ({
   mobileView,
   handleUserDropdownSelection,
   logoUrl,
+  logoUrlWhite,
   DSO,
   stateCode,
   modules,
@@ -56,6 +62,7 @@ const EmployeeApp = ({
               mobileView={mobileView}
               handleUserDropdownSelection={handleUserDropdownSelection}
               logoUrl={logoUrl}
+              logoUrlWhite={logoUrlWhite}
               showSidebar={isUserProfile ? true : false}
               showLanguageChange={!showLanguageChange}
             />
@@ -64,13 +71,16 @@ const EmployeeApp = ({
             className={isUserProfile ? "grounded-container" : "loginContainer"}
             style={
               isUserProfile
-                ? { padding: 0, paddingTop: "80px", marginLeft: mobileView ? "" : "64px" }
+                ? { padding: 0, paddingTop: "0", marginLeft: mobileView ? "0" : "0" }
                 : { "--banner-url": `url(${stateInfo?.bannerUrl})`, padding: "0px" }
             }
           >
             <Switch>
-              <Route path={`${path}/user/login`}>
-                <EmployeeLogin />
+              <Route exact path={`${path}/user/login`}>
+                <EmployeeLogin stateCode={stateCode} />
+              </Route>
+              <Route exact path={`${path}/user/login/otp`}>
+                <Otp isLogin={true} />
               </Route>
               <Route path={`${path}/user/forgot-password`}>
                 <ForgotPassword />
@@ -81,6 +91,17 @@ const EmployeeApp = ({
               <PrivateRoute path={`${path}/user/profile`}>
                 <UserProfile stateCode={stateCode} userType={"employee"} cityDetails={cityDetails} />
               </PrivateRoute>
+              <PrivateRoute path={`${path}/user/landing/select-role`}>
+                <div className="employee-app-wrapper sandbox-landing-wrapper">
+                  <RoleLanding />
+                </div>
+              </PrivateRoute>
+              <PrivateRoute path={`${path}/user/landing`}>
+                <div className="employee-app-wrapper sandbox-landing-wrapper">
+                  <Landing />
+                </div>
+              </PrivateRoute>
+
               <Route path={`${path}/user/error`}>
                 <ErrorComponent
                   initData={initData}
@@ -108,12 +129,19 @@ const EmployeeApp = ({
             mobileView={mobileView}
             handleUserDropdownSelection={handleUserDropdownSelection}
             logoUrl={logoUrl}
+            logoUrlWhite={logoUrlWhite}
             modules={modules}
           />
-          <div className={`main ${DSO ? "m-auto" : ""}`}>
-            <div className="employee-app-wrapper">
+          <div className={`main ${DSO ? "m-auto" : ""} digit-home-main`}>
+            <div className="employee-app-wrapper digit-home-app-wrapper">
               <ErrorBoundary initData={initData}>
-                <AppModules stateCode={stateCode} userType="employee" modules={modules} appTenants={appTenants} additionalComponent={additionalComponent} />
+                <AppModules
+                  stateCode={stateCode}
+                  userType="employee"
+                  modules={modules}
+                  appTenants={appTenants}
+                  additionalComponent={additionalComponent}
+                />
               </ErrorBoundary>
             </div>
             <div className="employee-home-footer">

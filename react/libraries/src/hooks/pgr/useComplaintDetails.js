@@ -19,7 +19,7 @@ const getDetailsRow = ({ id, service, complaintType }) => ({
   CS_COMPLAINT_FILED_DATE: Digit.DateUtils.ConvertTimestampToDate(service.auditDetails.createdTime),
   ES_CREATECOMPLAINT_ADDRESS: [
     service.address.landmark,
-    Digit.Utils.locale.getLocalityCode(service.address.locality, service.tenantId),
+    Digit.Utils.getMultiRootTenant() ? `ADMIN_${service.address.locality.code}` : Digit.Utils.locale.getLocalityCode(service.address.locality, service.tenantId),
     service.address.city,
     service.address.pincode,
   ],
@@ -69,7 +69,10 @@ const fetchComplaintDetails = async (tenantId, id) => {
 
 const useComplaintDetails = ({ tenantId, id }) => {
   const queryClient = useQueryClient();
-  const { isLoading, error, data } = useQuery(["complaintDetails", tenantId, id], () => fetchComplaintDetails(tenantId, id));
+  const { isLoading, error, data } = useQuery({
+    queryKey: ["complaintDetails", tenantId, id],
+    queryFn: () => fetchComplaintDetails(tenantId, id),
+  });
   return { isLoading, error, complaintDetails: data, revalidate: () => queryClient.invalidateQueries(["complaintDetails", tenantId, id]) };
 };
 

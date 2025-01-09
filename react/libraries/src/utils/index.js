@@ -5,13 +5,13 @@ import * as locale from "./locale";
 import * as obps from "./obps";
 import * as pt from "./pt";
 import * as privacy from "./privacy";
-import { debouncing } from "./debouncing";
-import PDFUtil, { downloadReceipt ,downloadPDFFromLink,downloadBill ,getFileUrl, downloadEgovPDF} from "./pdf";
+import PDFUtil, { downloadReceipt ,downloadPDFFromLink,downloadBill ,getFileUrl} from "./pdf";
 import getFileTypeFromFileStoreURL from "./fileType";
 import preProcessMDMSConfig from "./preProcessMDMSConfig";
 import preProcessMDMSConfigInboxSearch from "./preProcessMDMSConfigInboxSearch";
 import * as parsingUtils from "../services/atoms/Utils/ParsingUtils"
-import { getLoggedInUserDetails } from "./user";
+import { iconRender } from "./iconRender";
+import {getFieldIdName} from "./field";
 
 const GetParamFromUrl = (key, fallback, search) => {
   if (typeof window !== "undefined") {
@@ -126,6 +126,25 @@ const getStaticMapUrl = (latitude, longitude) => {
 const getLocaleRegion = () => {
   return window?.globalConfigs?.getConfig("LOCALE_REGION") || "IN";
 };
+const isContextPathMissing = (url) => {
+  const contextPath = window?.contextPath || '';
+  return url?.indexOf(`/${contextPath}`) === -1;
+}
+const getMultiRootTenant = () => {
+  return window?.globalConfigs?.getConfig("MULTI_ROOT_TENANT") || false;
+};
+
+const getRoleBasedHomeCard = () => {
+  return window?.globalConfigs?.getConfig("ROLE_BASED_HOMECARD") || false;
+};
+
+const getGlobalContext = () => {
+  return window?.globalConfigs?.getConfig("CONTEXT_PATH") || null;
+};
+
+const getOTPBasedLogin = () => {
+  return window?.globalConfigs?.getConfig("OTP_BASED_LOGIN") || false;
+};
 /**
  * Custom util to get the default locale
  *
@@ -146,7 +165,7 @@ const getLocaleDefault = () => {
  * @author jagankumar-egov
  *
  * @example
- *   Digit.Hooks.Utils.getDefaultLanguage()
+ *   Digit.Utils.getDefaultLanguage()
  *
  * @returns {string} 
  */
@@ -190,7 +209,9 @@ const pgrAccess = () => {
   const userInfo = Digit.UserService.getUser();
   const userRoles = userInfo?.info?.roles?.map((roleData) => roleData?.code);
   const pgrRoles = ["PGR_LME", "PGR-ADMIN", "CSR", "CEMP", "FEMP", "DGRO", "ULB Operator", "GRO", "GO", "RO", "GA"];
-
+  if (Digit.Utils.getMultiRootTenant()) {
+    pgrRoles.push("SUPERUSER");
+  }
   const PGR_ACCESS = userRoles?.filter((role) => pgrRoles.includes(role));
 
   return PGR_ACCESS?.length > 0;
@@ -306,12 +327,20 @@ const receiptsAccess = () => {
   const RECEIPTS_ACCESS = userRoles?.filter((role) => receiptsRoles?.includes(role));
   return RECEIPTS_ACCESS?.length > 0;
 };
-const hrmsRoles = ["HRMS_ADMIN"];
+const hrmsRoles = ["HRMS_ADMIN","SUPERUSER", "ADMIN"];
 const hrmsAccess = () => {
   const userInfo = Digit.UserService.getUser();
   const userRoles = userInfo?.info?.roles?.map((roleData) => roleData?.code);
   const HRMS_ACCESS = userRoles?.filter((role) => hrmsRoles?.includes(role));
   return HRMS_ACCESS?.length > 0;
+};
+
+const sandboxAccess = () => {
+  const sandboxRoles = ["SUPERUSER"];
+  const userInfo = Digit.UserService.getUser();
+  const userRoles = userInfo?.info?.roles?.map((roleData) => roleData?.code);
+  const SANDBOX_ACCESS = userRoles?.filter((role) => sandboxRoles?.includes(role));
+  return SANDBOX_ACCESS?.length > 0;
 };
 
 const wsAccess = () => {
@@ -334,28 +363,24 @@ const swAccess = () => {
   return SW_ACCESS?.length > 0;
 };
 
-const trimStringsInObject =  ( obj ) => {
-  if (typeof obj !== 'object' || obj === null) {
-    // If the input is not an object or is null, return as is
-    return obj;
+const transformURL = (url = "", tenantId) => {
+  const DIGIT_UI_CONTEXTS = ["digit-ui", "works-ui", "workbench-ui", "health-ui", "sanitation-ui", "core-ui", "mgramseva-web", "sandbox-ui"];
+  if (url == "/") {
+    return;
   }
-
-  if (Array.isArray(obj)) {
-    // If the input is an array, trim the strings in each element
-    return obj.map((item) => trimStringsInObject(item));
-  }
-
-  // If the input is an object, recursively trim strings in each value
-  const trimmedObj = {};
-  for (const [key, value] of Object.entries(obj)) {
-    if (typeof value === 'string') {
-      trimmedObj[key] = value.trim();
+  if (Digit.Utils.isContextPathMissing(url)) {
+    let updatedUrl = null;
+    if (getMultiRootTenant) {
+      url = url.replace("/sandbox-ui/employee", `/sandbox-ui/${tenantId}/employee`);
+      updatedUrl = url;
     } else {
-      trimmedObj[key] = trimStringsInObject(value);
+      updatedUrl = DIGIT_UI_CONTEXTS?.every((e) => url?.indexOf(`/${e}`) === -1) ? "/employee/" + url : url;
     }
+    return updatedUrl;
+  } else {
+    return url;
   }
-  return trimmedObj;
-}
+};
 
 /* to get the MDMS config module name */
 const getConfigModuleName = () => {
@@ -405,8 +430,13 @@ export default {
   getDefaultLanguage,
   getLocaleDefault,
   getLocaleRegion,
-  debouncing,
-  getLoggedInUserDetails,
-  trimStringsInObject,
-  downloadEgovPDF
+  getMultiRootTenant,
+  isContextPathMissing,
+  getGlobalContext,
+  getOTPBasedLogin,
+  getRoleBasedHomeCard,
+  sandboxAccess,
+  iconRender,
+  transformURL,
+  getFieldIdName
 };

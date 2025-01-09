@@ -68,7 +68,7 @@ const CreateProject = () => {
       },
       config:{
           enabled: isModify,
-          cacheTime:0
+          gcTime:0
       }
     })
 

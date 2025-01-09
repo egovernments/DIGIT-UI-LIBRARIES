@@ -18,7 +18,7 @@ import {
   DeathIcon,
   FirenocIcon,
   Loader
-} from "@egovernments/digit-ui-components";
+} from "@egovernments/digit-ui-react-components";
 import { Link, useLocation } from "react-router-dom";
 import SideBarMenu from "../../../config/sidebar-menu";
 import { useTranslation } from "react-i18next";
@@ -94,8 +94,16 @@ const StaticCitizenSideBar = ({ linkData, islinkDataLoading }) => {
     setShowDialog(true);
   };
   const handleOnSubmit = () => {
-    Digit.UserService.logout();
-    setShowDialog(false);
+    if (Digit.Utils.getMultiRootTenant()) {
+      Digit.UserService.logout();
+      setShowDialog(false);
+      window.location.href=`/${window?.contextPath}/citizen/login`;
+    }
+    else{
+      Digit.UserService.logout();
+      setShowDialog(false);
+    }
+
   };
   const handleOnCancel = () => {
     setShowDialog(false);
@@ -112,6 +120,10 @@ const StaticCitizenSideBar = ({ linkData, islinkDataLoading }) => {
   };
   const showProfilePage = () => {
     history.push(`/${window?.contextPath}/citizen/user/profile`);
+  };
+
+  const closeSidebar = () => {
+    history.push(`/${window?.contextPath}/citizen/all-services`);
   };
 
   let menuItems = [
@@ -157,13 +169,23 @@ const StaticCitizenSideBar = ({ linkData, islinkDataLoading }) => {
   };
   let profileItem;
 
-  if (isFetched && user && user.access_token) {
+  if (isFetched && user && user.access_token && user?.info?.type==="CITIZEN") {
     profileItem = (
       <Profile info={user?.info} stateName={stateInfo?.name} t={t} />
     );
     menuItems = menuItems.filter((item) => item?.id !== "login-btn");
     menuItems = [
       ...menuItems,
+      {
+        type: "link",
+        icon: "HomeIcon",
+        element: "HOME",
+        text: t("COMMON_BOTTOM_NAVIGATION_HOME"),
+        link: isEmployee ? `/${window?.contextPath}/employee` : `/${window?.contextPath}/citizen`,
+        populators: {
+          onClick: closeSidebar,
+        },
+      },
       {
         text: t("EDIT_PROFILE"),
         element: "PROFILE",
@@ -183,24 +205,24 @@ const StaticCitizenSideBar = ({ linkData, islinkDataLoading }) => {
           <React.Fragment>
             {t("CS_COMMON_HELPLINE")}
             <div className="telephone" style={{ marginTop: "-10%" }}>
-              {storeData?.tenants.map((i) => {
+              {storeData?.tenants?.map((i) => {
                 i.code === tenantId ? (
                   <div className="link">
-                    <a href={`tel:${storeData?.tenants[i].contactNumber}`}>
-                      {storeData?.tenants[i].contactNumber}
+                    <a href={`tel:${storeData?.tenants?.[i].contactNumber}`}>
+                      {storeData?.tenants?.[i].contactNumber}
                     </a>
                   </div>
                 ) : (
                   <div className="link">
-                    <a href={`tel:${storeData?.tenants[0].contactNumber}`}>
-                      {storeData?.tenants[0].contactNumber}
+                    <a href={`tel:${storeData?.tenants?.[0].contactNumber}`}>
+                      {storeData?.tenants?.[0].contactNumber}
                     </a>
                   </div>
                 );
               })}
               <div className="link">
-                <a href={`tel:${storeData?.tenants[0].contactNumber}`}>
-                  {storeData?.tenants[0].contactNumber}
+                <a href={`tel:${storeData?.tenants?.[0].contactNumber}`}>
+                  {storeData?.tenants?.[0].contactNumber}
                 </a>
               </div>
             </div>

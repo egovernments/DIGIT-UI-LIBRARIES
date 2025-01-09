@@ -11,7 +11,14 @@ import ApplicationUpdateActionsCustom from "../services/elements/ApplicationUpda
 
 
 const useUpdateCustom = ( url ) => {
-    return useMutation((applicationData) => ApplicationUpdateActionsCustom({url,body:applicationData}));
-};
+    return useMutation({
+        mutationFn: (applicationData) =>
+          ApplicationUpdateActionsCustom({
+            url,
+            body: applicationData,
+          }),
+        ...config,
+      });
+    };
 
 export default useUpdateCustom;
