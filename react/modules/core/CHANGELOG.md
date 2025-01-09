@@ -1,5 +1,8 @@
 # Changelog 
 
+## [1.9.1-beta.1] [9-Jan-2024]
+- Updated the react and dependecies to latest version and changed react-query to tanstack/react-query
+
 ## [1.8.13]  [16-Dec-2024]
 - Made validations for name, mobile number, and password fields in user profile update screen configurable through MDMS data
   - Implemented dynamic regex validation for profile updates based on MDMS data

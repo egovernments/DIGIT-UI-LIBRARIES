@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.9.1-beta.1] [9-Jan-2025]
+- Updated the react and dependecies to latest version and changed react-query to tanstack/react-query
+
 ## [1.8.5]  [26-Nov-2024]
 - added new field util to generate field id
 
