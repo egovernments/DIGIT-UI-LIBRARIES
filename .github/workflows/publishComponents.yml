@@ -1,4 +1,3 @@
-
 name: Node.js Publish UI Packages
 
 on:
@@ -10,7 +9,8 @@ on:
       - 'react/module/core/**'
 
 jobs:
-  build:
+  publish-webpack-ui-components:
+    name: Publish Webpack UI Components
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -19,11 +19,40 @@ jobs:
           node-version: 20
           registry-url: https://registry.npmjs.org/
       - run: |
-          # Publish webpack/ui-components
-          cd webpack/ui-components/ && yarn && npm publish --tag core-webpack-v0.1
-          # Publish react/libraries
-          cd ../../react/libraries/ && yarn && npm publish --tag libraries-v0.1
-          # Publish react/module/core
-          cd ../../react/module/core/ && yarn && npm publish --tag core-module-v0.1
+          cd webpack/ui-components/
+          yarn
+          npm publish --tag core-webpack-v0.1
         env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
+
+  publish-react-libraries:
+    name: Publish React Libraries
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org/
+      - run: |
+          cd react/libraries/
+          yarn
+          npm publish --tag libraries-v0.1
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
+
+  publish-react-module-core:
+    name: Publish React Module Core
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org/
+      - run: |
+          cd react/module/core/
+          yarn
+          npm publish --tag core-module-v0.1
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
