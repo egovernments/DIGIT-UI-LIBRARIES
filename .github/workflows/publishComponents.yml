@@ -6,6 +6,8 @@ on:
     branches: [ 'develop-webpack' ]
     paths:
       - 'webpack/ui-components/**'
+      - 'react/libraries/**'
+      - 'react/module/core/**'
 
 jobs:
   build:
@@ -16,6 +18,12 @@ jobs:
         with:
           node-version: 20
           registry-url: https://registry.npmjs.org/
-      - run: cd webpack/ui-components/ && yarn && npm publish --tag core-webpack-v0.1
+      - run: |
+          # Publish webpack/ui-components
+          cd webpack/ui-components/ && yarn && npm publish --tag core-webpack-v0.1
+          # Publish react/libraries
+          cd ../../react/libraries/ && yarn && npm publish --tag libraries-v0.1
+          # Publish react/module/core
+          cd ../../react/module/core/ && yarn && npm publish --tag core-module-v0.1
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
