@@ -81,7 +81,7 @@ class DigitToastThemeData extends ThemeExtension<DigitToastThemeData> {
       reverseAnimation: StyledToastAnimation.slideToBottom,
       toastPosition: const StyledToastPosition(
         align: Alignment.bottomCenter,
-        offset: 72
+        offset: 0
       ),
     );
   }

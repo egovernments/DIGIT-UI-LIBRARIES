@@ -9,6 +9,7 @@ import '../helper_widget/digit_profile.dart';
 class SideBar extends Drawer {
   final List<SidebarItem> sidebarItems;
   final List<SidebarItem>? footerActions;
+  final Widget? footer;
   final ProfileWidget? profile;
   final SidebarType type;
   final String logOutDigitButtonLabel;
@@ -21,6 +22,7 @@ class SideBar extends Drawer {
     this.profile,
     this.type = SidebarType.light,
     this.footerActions,
+    this.footer,
     this.onLogOut,
   }) : super(key: key);
 
@@ -85,6 +87,7 @@ class SideBar extends Drawer {
                     ],
                 ],
               ),
+            if(footer!=null) footer!,
             // Logout DigitButton at the bottom
             Container(
               padding: const EdgeInsets.all(16),
