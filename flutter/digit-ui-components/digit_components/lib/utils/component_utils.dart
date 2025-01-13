@@ -12,8 +12,8 @@ class DigitComponentsUtils {
     );
   }
 
-  static void showDialog(BuildContext context, DialogType dialogType,
-      {String? label}) {
+  static void showDialog(BuildContext context, String? label, DialogType dialogType,
+      ) {
     DigitSyncDialog.show(
       context,
       type: dialogType,
@@ -110,7 +110,7 @@ class DigitSyncDialogContent extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(icon, size: 32, color: color),
-                if (label != null) ...[
+                if (label != null || label!="") ...[
                   const SizedBox(height: spacer4),
                   Text(label!, style: labelStyle.copyWith(color: color)),
                 ],
