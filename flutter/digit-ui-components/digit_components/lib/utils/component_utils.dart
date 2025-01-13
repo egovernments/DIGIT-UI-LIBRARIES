@@ -104,12 +104,48 @@ class DigitSyncDialogContent extends StatelessWidget {
             width: 300,
             child: Column(
               mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children:
               [
                 Icon(icon, size: 32, color: color),
                 if(label != null)
                   ...[ const SizedBox(height: spacer4),
-                    Text(label!, style: labelStyle.copyWith(color: color)),]
+                    Text(label!, style: labelStyle.copyWith(color: color)),],
+                if (primaryAction != null || secondaryAction != null) ...[
+                  const SizedBox(height: spacer4),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      if (secondaryAction != null)
+                        DigitButton(
+                          type: DigitButtonType.secondary,
+                          size: DigitButtonSize.medium,
+                          label: secondaryAction!.label,
+                          onPressed: () {
+                            if (secondaryAction!.action != null) {
+                              secondaryAction!.action!(context);
+                            } else {
+                              Navigator.of(context).pop();
+                            }
+                          },
+                        ),
+                      if (primaryAction != null)
+                        DigitButton(
+                          label: primaryAction!.label,
+                          onPressed: () {
+                            if (primaryAction!.action != null) {
+                              primaryAction!.action!(context);
+                            } else {
+                              Navigator.of(context).pop();
+                            }
+                          },
+                          size: DigitButtonSize.medium,
+                          type: DigitButtonType.primary,
+                        ),
+                    ],
+                  ),
+                ],
               ],
             )
         ),
