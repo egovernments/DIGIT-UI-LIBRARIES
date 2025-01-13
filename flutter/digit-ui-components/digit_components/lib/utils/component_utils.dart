@@ -128,6 +128,7 @@ class DigitSyncDialogContent extends StatelessWidget {
                           Navigator.of(context).pop();
                         }
                       },
+                      mainAxisSize: MainAxisSize.max,
                     ),
                   if (primaryAction != null)
                     DigitButton(
@@ -141,6 +142,7 @@ class DigitSyncDialogContent extends StatelessWidget {
                       },
                       size: DigitButtonSize.medium,
                       type: DigitButtonType.primary,
+                      mainAxisSize: MainAxisSize.max,
                     ),
                 ],
               ],
