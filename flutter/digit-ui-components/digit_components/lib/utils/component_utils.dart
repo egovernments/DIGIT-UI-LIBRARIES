@@ -8,39 +8,41 @@ class DigitComponentsUtils {
       context,
       rootNavigator: true,
     ).popUntil(
-          (route) => route is! PopupRoute,
+      (route) => route is! PopupRoute,
     );
   }
 
-  static void showDialog(
-      BuildContext context, String? label, DialogType dialogType) {
+  static void showDialog(BuildContext context, DialogType dialogType,
+      {String? label}) {
     DigitSyncDialog.show(
       context,
       type: dialogType,
       label: label,
     );
   }
-
 }
-
 
 class DigitSyncDialog {
   static Future<T?> show<T>(
-      BuildContext context, {
-        Key? key,
-        bool barrierDismissible = false,
-        required DialogType type, String? label,
-        DigitDialogActions? primaryAction,
-        DigitDialogActions? secondaryAction,
-      }) async {
+    BuildContext context, {
+    Key? key,
+    bool barrierDismissible = false,
+    required DialogType type,
+    String? label,
+    DigitDialogActions? primaryAction,
+    DigitDialogActions? secondaryAction,
+  }) async {
     return showDialog<T>(
       context: context,
       barrierDismissible: barrierDismissible,
       barrierColor: const DigitColors().overLayColor.withOpacity(.70),
-      builder: (context) => DigitSyncDialogContent(type: type, label: label, primaryAction: primaryAction, secondaryAction: secondaryAction),
+      builder: (context) => DigitSyncDialogContent(
+          type: type,
+          label: label,
+          primaryAction: primaryAction,
+          secondaryAction: secondaryAction),
     );
   }
-
 }
 
 class DigitSyncDialogContent extends StatelessWidget {
@@ -106,49 +108,43 @@ class DigitSyncDialogContent extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
-              children:
-              [
+              children: [
                 Icon(icon, size: 32, color: color),
-                if(label != null)
-                  ...[ const SizedBox(height: spacer4),
-                    Text(label!, style: labelStyle.copyWith(color: color)),],
+                if (label != null) ...[
+                  const SizedBox(height: spacer4),
+                  Text(label!, style: labelStyle.copyWith(color: color)),
+                ],
                 if (primaryAction != null || secondaryAction != null) ...[
                   const SizedBox(height: spacer4),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      if (secondaryAction != null)
-                        DigitButton(
-                          type: DigitButtonType.secondary,
-                          size: DigitButtonSize.medium,
-                          label: secondaryAction!.label,
-                          onPressed: () {
-                            if (secondaryAction!.action != null) {
-                              secondaryAction!.action!(context);
-                            } else {
-                              Navigator.of(context).pop();
-                            }
-                          },
-                        ),
-                      if (primaryAction != null)
-                        DigitButton(
-                          label: primaryAction!.label,
-                          onPressed: () {
-                            if (primaryAction!.action != null) {
-                              primaryAction!.action!(context);
-                            } else {
-                              Navigator.of(context).pop();
-                            }
-                          },
-                          size: DigitButtonSize.medium,
-                          type: DigitButtonType.primary,
-                        ),
-                    ],
-                  ),
+                  if (secondaryAction != null)
+                    DigitButton(
+                      type: DigitButtonType.secondary,
+                      size: DigitButtonSize.medium,
+                      label: secondaryAction!.label,
+                      onPressed: () {
+                        if (secondaryAction!.action != null) {
+                          secondaryAction!.action!(context);
+                        } else {
+                          Navigator.of(context).pop();
+                        }
+                      },
+                    ),
+                  if (primaryAction != null)
+                    DigitButton(
+                      label: primaryAction!.label,
+                      onPressed: () {
+                        if (primaryAction!.action != null) {
+                          primaryAction!.action!(context);
+                        } else {
+                          Navigator.of(context).pop();
+                        }
+                      },
+                      size: DigitButtonSize.medium,
+                      type: DigitButtonType.primary,
+                    ),
                 ],
               ],
-            )
-        ),
+            )),
       ),
     );
   }
