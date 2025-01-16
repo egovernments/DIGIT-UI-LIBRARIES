@@ -25,8 +25,8 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
 
-  publish-react-libraries:
-    name: Publish React Libraries
+  publish-react-module-libraries:
+    name: Publish React Module Libraries
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -51,7 +51,7 @@ jobs:
           node-version: 20
           registry-url: https://registry.npmjs.org/
       - run: |
-          cd react/s/core/
+          cd react/modules/core/
           yarn
           npm publish --tag core-module-v0.1
         env:
