@@ -1,6 +1,6 @@
 {
   "name": "@egovernments/digit-ui-module-core",
-  "version": "1.9.1-beta.2",
+  "version": "1.9.1-beta.3",
   "license": "MIT",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
@@ -14,12 +14,12 @@
     "prepublish": "yarn build"
   },
   "dependencies": {
-    "@egovernments/digit-ui-components":"0.0.2-beta.58",
+    "@egovernments/digit-ui-components": "0.0.2-beta.58",
     "@egovernments/digit-ui-react-components": "1.8.13",
+    "@tanstack/react-query": "^5.62.16",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-i18next": "11.16.2",
-    "@tanstack/react-query": "^5.62.16",
     "react-redux": "7.2.8",
     "react-router-dom": "5.3.0",
     "react-tooltip": "4.1.2",
@@ -33,5 +33,9 @@
     "dpg",
     "digit-ui",
     "core"
-  ]
+  ],
+  "devDependencies": {
+    "sass": "^1.83.4",
+    "sass-loader": "^16.0.4"
+  }
 }

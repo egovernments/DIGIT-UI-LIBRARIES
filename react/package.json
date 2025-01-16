@@ -64,7 +64,9 @@
     "postcss-import": "^12.0.1",
     "postcss-prefixer": "^2.1.2",
     "postcss-preset-env": "^6.7.0",
-    "postcss-scss": "^3.0.1"
+    "postcss-scss": "^3.0.1",
+    "sass": "^1.83.4",
+    "sass-loader": "^16.0.4"
   },
   "husky": {},
   "lint-staged": {
@@ -75,8 +77,8 @@
     "@babel/preset-react": "^7.24.1",
     "@egovernments/digit-ui-components": "0.0.2-beta.58",
     "@egovernments/digit-ui-components-css": "0.0.2-beta.43",
-    "@egovernments/digit-ui-libraries": "1.9.1-beta.2",
-    "@egovernments/digit-ui-module-core": "1.9.1-beta.2",
+    "@egovernments/digit-ui-libraries": "1.9.1-beta.3",
+    "@egovernments/digit-ui-module-core": "1.9.1-beta.3",
     "@egovernments/digit-ui-module-project": "0.3.4",
     "@egovernments/digit-ui-module-sample": "0.0.1",
     "@tanstack/react-query": "^5.62.16",
