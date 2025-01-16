@@ -51,7 +51,7 @@ jobs:
           node-version: 20
           registry-url: https://registry.npmjs.org/
       - run: |
-          cd react/module/core/
+          cd react/modules/core/
           yarn
           npm publish --tag core-module-v0.1
         env:
