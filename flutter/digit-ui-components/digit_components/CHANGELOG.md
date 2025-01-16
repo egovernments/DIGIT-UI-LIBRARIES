@@ -1,3 +1,9 @@
+## 0.0.2-dev.5
+* fixed dialog empty string taking extra space issue
+* added footer content for hamburger
+* updated toast to have some additional fixed types
+* updated default theme colors
+
 ## 0.0.2-dev.4
 * fixed dob picker date formate issue
 

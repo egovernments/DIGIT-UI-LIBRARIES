@@ -28,6 +28,7 @@ class Base {
   static const String successJson = 'assets/animated_json/success.json';
   static const String digitLogoDarkSvg = 'assets/images/digit_logo_dark.png';
   static const String digitLogoLightSvg = 'assets/images/digit_logo_light.png';
+  static const String digitLogo = 'assets/images/powered_by_digit.png';
   static const String profileIconSvg = 'assets/icons/svg/profile_icon.svg';
   // Lottie animation paths for different loader categories
   static const String fullPageLoaderAnimation = 'assets/animated_json/page_loader.json';

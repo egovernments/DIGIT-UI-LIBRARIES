@@ -60,14 +60,14 @@ class DigitExtendedTheme {
 
   ColorScheme get colorScheme => ColorScheme(
     brightness: Brightness.light,
-    primary: const DigitColors().light.primary1,
+    primary: const DigitColors().light.primary2,
     onPrimary: const DigitColors().light.paperPrimary,
-    secondary: const DigitColors().light.primary2,
+    secondary: const DigitColors().light.primary1,
     onSecondary: const DigitColors().light.paperPrimary,
     error: const DigitColors().light.alertError,
     onError: const DigitColors().light.paperPrimary,
-    surface: const DigitColors().light.paperPrimary,
-    onSurface: const DigitColors().light.paperPrimary,
+    surface: const DigitColors().light.genericBackground,
+    onSurface: const DigitColors().light.textPrimary,
     onSurfaceVariant: const DigitColors().light.alertSuccess,
     inversePrimary: const DigitColors().light.alertSuccessBg,
     outline: const DigitColors().light.genericDivider,

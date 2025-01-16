@@ -157,6 +157,34 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+  }
+
+  @override
+  void didUpdateWidget(DigitDropdown<T> oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    // If the initial value changes, update the controller's text
+    if (widget.selectedOption != oldWidget.selectedOption) {
+      if (widget.selectionType == SelectionType.nestedSelect) {
+        _nestedIndex = widget.selectedOption!.code;
+        _controller.text =
+        '${widget.selectedOption?.type}: ${widget.selectedOption?.name}';
+      } else {
+        if(widget.selectedOption != null){
+          _currentIndex = widget.selectedOption!.code;
+          _controller.text = widget.selectedOption!.name;
+        }else{
+          _controller.clear();
+          _currentIndex = '';
+        }
+
+      }
+    }
+  }
+
+  @override
   void dispose() {
     /// Check if _overlayEntry is not null before removing and disposing
     if (_overlayEntry != null) {

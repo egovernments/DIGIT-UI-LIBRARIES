@@ -22,7 +22,8 @@ class Toast {
         required ToastType type,
         Duration? duration,
         Duration? animationDuration,
-        StyledToastPosition? position,
+        ToastPosition? position,
+        StyledToastPosition? customPosition,
         DigitToastThemeData? digitToastThemeData,
       }) {
     final theme = Theme.of(context);
@@ -30,16 +31,48 @@ class Toast {
         theme.extension<DigitToastThemeData>();
     final defaultThemeData = DigitToastThemeData.defaultTheme(context);
 
+    /// Determine the position based on the enum or custom position
+    final styledPosition = position == ToastPosition.custom && customPosition != null
+        ? customPosition
+        : _mapPosition(context, position ?? ToastPosition.bottom, defaultThemeData);
+
     showToastWidget(
       buildToastWidget(message, type, context, toastThemeData,),
       context: context,
       duration: toastThemeData?.animationDuration ?? defaultThemeData.animationDuration,
-      position: toastThemeData?.toastPosition ?? defaultThemeData.toastPosition,
+      position: toastThemeData?.toastPosition ?? styledPosition,
       isIgnoring: false,
       animation: toastThemeData?.animation ?? defaultThemeData.animation,
       reverseAnimation: toastThemeData?.reverseAnimation ?? defaultThemeData.reverseAnimation,
       animDuration: animationDuration,
     );
+  }
+
+  /// Maps the custom [ToastPosition] to [StyledToastPosition]
+  static StyledToastPosition _mapPosition(
+      BuildContext context, ToastPosition position, DigitToastThemeData defaultThemeData) {
+    switch (position) {
+      case ToastPosition.aboveOneButtonFooter:
+      // Position above a single-button footer
+        return const StyledToastPosition(
+          align: Alignment.bottomCenter,
+          offset: 72,
+        );
+      case ToastPosition.aboveTwoButtonFooter:
+      // Position above a two-button footer
+        return const StyledToastPosition(
+          align: Alignment.bottomCenter,
+          offset: 128,
+        );
+      case ToastPosition.bottom:
+        return defaultThemeData.toastPosition!;
+      case ToastPosition.custom:
+      // This case is handled directly in the `showToast` method if `customPosition` is provided
+        throw ArgumentError(
+            "Custom position requires a customPosition parameter.");
+      default:
+        return StyledToastPosition.bottom;
+    }
   }
 
   static Widget buildToastWidget(String message, ToastType type,

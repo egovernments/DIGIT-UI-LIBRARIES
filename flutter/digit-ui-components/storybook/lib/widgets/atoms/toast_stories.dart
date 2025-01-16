@@ -58,6 +58,7 @@ List<Story> toastStories() {
           Toast.showToast(context,
               message: 'This is a toast!',
               type: ToastType.info,
+            position: ToastPosition.aboveOneButtonFooter
           );
         },
         child: const Text("Show Toast"),

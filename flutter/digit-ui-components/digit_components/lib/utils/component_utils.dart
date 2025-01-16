@@ -8,39 +8,41 @@ class DigitComponentsUtils {
       context,
       rootNavigator: true,
     ).popUntil(
-          (route) => route is! PopupRoute,
+      (route) => route is! PopupRoute,
     );
   }
 
-  static void showDialog(
-      BuildContext context, String? label, DialogType dialogType) {
+  static void showDialog(BuildContext context, String? label, DialogType dialogType,
+      ) {
     DigitSyncDialog.show(
       context,
       type: dialogType,
       label: label,
     );
   }
-
 }
-
 
 class DigitSyncDialog {
   static Future<T?> show<T>(
-      BuildContext context, {
-        Key? key,
-        bool barrierDismissible = false,
-        required DialogType type, String? label,
-        DigitDialogActions? primaryAction,
-        DigitDialogActions? secondaryAction,
-      }) async {
+    BuildContext context, {
+    Key? key,
+    bool barrierDismissible = false,
+    required DialogType type,
+    String? label,
+    DigitDialogActions? primaryAction,
+    DigitDialogActions? secondaryAction,
+  }) async {
     return showDialog<T>(
       context: context,
       barrierDismissible: barrierDismissible,
       barrierColor: const DigitColors().overLayColor.withOpacity(.70),
-      builder: (context) => DigitSyncDialogContent(type: type, label: label, primaryAction: primaryAction, secondaryAction: secondaryAction),
+      builder: (context) => DigitSyncDialogContent(
+          type: type,
+          label: label,
+          primaryAction: primaryAction,
+          secondaryAction: secondaryAction),
     );
   }
-
 }
 
 class DigitSyncDialogContent extends StatelessWidget {
@@ -102,17 +104,50 @@ class DigitSyncDialogContent extends StatelessWidget {
               ],
             ),
             width: 300,
+            constraints: const BoxConstraints(minHeight: 100),
             child: Column(
               mainAxisSize: MainAxisSize.min,
-              children:
-              [
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
                 Icon(icon, size: 32, color: color),
-                if(label != null)
-                  ...[ const SizedBox(height: spacer4),
-                    Text(label!, style: labelStyle.copyWith(color: color)),]
+                if (label != null && label !="") ...[
+                  const SizedBox(height: spacer4),
+                  Text(label!, style: labelStyle.copyWith(color: color)),
+                ],
+                if (primaryAction != null || secondaryAction != null) ...[
+                  const SizedBox(height: spacer4),
+                  if (secondaryAction != null)
+                    DigitButton(
+                      type: DigitButtonType.secondary,
+                      size: DigitButtonSize.medium,
+                      label: secondaryAction!.label,
+                      onPressed: () {
+                        if (secondaryAction!.action != null) {
+                          secondaryAction!.action!(context);
+                        } else {
+                          Navigator.of(context).pop();
+                        }
+                      },
+                      mainAxisSize: MainAxisSize.max,
+                    ),
+                  if (primaryAction != null)
+                    DigitButton(
+                      label: primaryAction!.label,
+                      onPressed: () {
+                        if (primaryAction!.action != null) {
+                          primaryAction!.action!(context);
+                        } else {
+                          Navigator.of(context).pop();
+                        }
+                      },
+                      size: DigitButtonSize.medium,
+                      type: DigitButtonType.primary,
+                      mainAxisSize: MainAxisSize.max,
+                    ),
+                ],
               ],
-            )
-        ),
+            )),
       ),
     );
   }
