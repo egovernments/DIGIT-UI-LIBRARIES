@@ -18,9 +18,11 @@ jobs:
         with:
           node-version: 20
           registry-url: https://registry.npmjs.org/
-      - run: |
+      - name: Install dependencies for Webpack UI Components
+        run: |
           cd webpack/ui-components/
-          yarn
+          rm -rf node_modules yarn.lock
+          yarn install --frozen-lockfile
           npm publish --tag core-webpack-v0.1
         env:
           NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
@@ -34,15 +36,17 @@ jobs:
         with:
           node-version: 20
           registry-url: https://registry.npmjs.org/
-      - run: |
+      - name: Install dependencies for React Libraries
+        run: |
           cd react/libraries/
-          yarn
+          rm -rf node_modules yarn.lock
+          yarn install --frozen-lockfile
           npm publish --tag libraries-v0.1
         env:
           NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
 
-  publish-react--core:
-    name: Publish React  Core
+  publish-react-core:
+    name: Publish React Core
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -50,9 +54,21 @@ jobs:
         with:
           node-version: 20
           registry-url: https://registry.npmjs.org/
-      - run: |
+      - name: Install dependencies for React Core
+        run: |
           cd react/modules/core/
-          yarn
+          rm -rf node_modules yarn.lock
+          yarn install --frozen-lockfile
           npm publish --tag core-module-v0.1
         env:
           NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
+
+  setup-python-and-build-tools:
+    name: Set up Python and Build Tools
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Python 3 and build-essential
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3 python3-distutils build-essential
+          sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 1
