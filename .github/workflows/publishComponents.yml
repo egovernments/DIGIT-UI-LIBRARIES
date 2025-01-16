@@ -6,7 +6,7 @@ on:
     paths:
       - 'webpack/ui-components/**'
       - 'react/libraries/**'
-      - 'react/module/core/**'
+      - 'react/modules/core/**'
 
 jobs:
   publish-webpack-ui-components:
@@ -41,8 +41,8 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
 
-  publish-react-module-core:
-    name: Publish React Module Core
+  publish-react--core:
+    name: Publish React  Core
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -51,7 +51,7 @@ jobs:
           node-version: 20
           registry-url: https://registry.npmjs.org/
       - run: |
-          cd react/modules/core/
+          cd react/s/core/
           yarn
           npm publish --tag core-module-v0.1
         env:
