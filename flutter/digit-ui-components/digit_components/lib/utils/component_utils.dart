@@ -104,13 +104,14 @@ class DigitSyncDialogContent extends StatelessWidget {
               ],
             ),
             width: 300,
+            constraints: const BoxConstraints(minHeight: 100),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(icon, size: 32, color: color),
-                if (label != null || label!="") ...[
+                if (label != null && label !="") ...[
                   const SizedBox(height: spacer4),
                   Text(label!, style: labelStyle.copyWith(color: color)),
                 ],
