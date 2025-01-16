@@ -6,7 +6,7 @@ on:
     paths:
       - 'webpack/ui-components/**'
       - 'react/libraries/**'
-      - 'react/module/core/**'
+      - 'react/modules/core/**'
 
 jobs:
   publish-webpack-ui-components:
@@ -25,8 +25,8 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
 
-  publish-react-libraries:
-    name: Publish React Libraries
+  publish-react-module-libraries:
+    name: Publish React Module Libraries
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -41,8 +41,8 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
 
-  publish-react-module-core:
-    name: Publish React Module Core
+  publish-react--core:
+    name: Publish React  Core
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
