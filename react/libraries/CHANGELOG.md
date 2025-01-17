@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.9.1-beta.5] [16-Jan-2025]
+## [1.9.1-beta.6] [16-Jan-2025]
 - Updated the react and dependecies to latest version and changed react-query to tanstack/react-query
 
 ## [1.8.5]  [26-Nov-2024]
