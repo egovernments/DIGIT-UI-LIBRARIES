@@ -1,14 +1,49 @@
-import React,{Fragment} from "react";
+import React from "react";
 import MenuCardWrapper from "../MenuCardWrapper";
 import MenuCard from "../MenuCard";
-import {Iframe} from "../../atoms";
+import { Iframe } from "../../atoms";
 
 export default {
-  title: "MoleculeGroup/MenuCardWrapper",
+  title: "MoleculeGroup/Menu Card Wrapper",
   component: MenuCardWrapper,
+  argTypes: {
+    numberOfCards: {
+      control: { type: "number", min: 1 },
+      defaultValue: 3,
+      name: "No of Cards",
+      description: "Number of LandingPageCards to display",
+    },
+    className: { table: { disable: true } },
+    styles: { table: { disable: true } },
+    children: { table: { disable: true } },
+  },
 };
 
-const Template = (args) => <MenuCardWrapper {...args} />;
+const Template = (args) => {
+  const { numberOfCards, ...rest } = args;
+
+  const generateCards = (count) => {
+    return Array.from({ length: count }, (_, index) => (
+      <MenuCard
+        icon={"Article"}
+        menuName={`Card ${index + 1}`}
+        description={
+          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."
+        }
+        className={""}
+        styles={{}}
+        onClick={(e) => {
+          console.log(e);
+        }}
+        key={index}
+      />
+    ));
+  };
+
+  return (
+    <MenuCardWrapper {...rest}>{generateCards(numberOfCards)}</MenuCardWrapper>
+  );
+};
 
 export const Documentation = () => (
   <Iframe
@@ -19,57 +54,17 @@ export const Documentation = () => (
 );
 
 Documentation.storyName = "Docs";
-
-
-// Default story showing a group of MenuCards
-export const GroupOfMenuCards = Template.bind({});
-GroupOfMenuCards.args = {
-  children: (
-    <>
-      <MenuCard
-        icon={"Article"}
-        menuName={"Menu"}
-        description={
-          "Use this checklist to supervise the team formation for Registration & Distribution"
-        }
-        className={""}
-        styles={{}}
-        onClick={(e) => {
-          console.log(e);
-        }}
-      />
-      <MenuCard
-        icon={"Article"}
-        menuName={"Menu"}
-        description={
-          "Use this checklist to supervise the team formation for Registration & Distribution"
-        }
-        className={""}
-        styles={{}}
-        onClick={(e) => {
-          console.log(e);
-        }}
-      />
-      <MenuCard
-        icon={"Article"}
-        menuName={"Menu"}
-        description={
-          "Use this checklist to supervise the team formation for Registration & Distribution"
-        }
-        className={""}
-        styles={{}}
-        onClick={(e) => {
-          console.log(e);
-        }}
-      />
-    </>
-  ),
+Documentation.argTypes = {
+  numberOfCards: { table: { disable: true } },
 };
 
+// Default story showing a group of MenuCards
+export const Basic = Template.bind({});
+Basic.args = {};
+
 // MenuCardWrapper with custom styles
-export const CustomStyledWrapper = Template.bind({});
-CustomStyledWrapper.args = {
-  className: "",
+export const Custom = Template.bind({});
+Custom.args = {
   styles: {
     display: "flex",
     flexDirection: "column",
@@ -77,32 +72,4 @@ CustomStyledWrapper.args = {
     padding: "16px",
     backgroundColor: "#f4f4f4",
   },
-  children: (
-    <>
-      <MenuCard
-        icon={"Article"}
-        menuName={"Menu"}
-        description={
-          "Use this checklist to supervise the team formation for Registration & Distribution"
-        }
-        className={""}
-        styles={{}}
-        onClick={(e) => {
-          console.log(e);
-        }}
-      />
-      <MenuCard
-        icon={"Article"}
-        menuName={"Menu"}
-        description={
-          "Use this checklist to supervise the team formation for Registration & Distribution"
-        }
-        className={""}
-        styles={{}}
-        onClick={(e) => {
-          console.log(e);
-        }}
-      />
-    </>
-  ),
 };

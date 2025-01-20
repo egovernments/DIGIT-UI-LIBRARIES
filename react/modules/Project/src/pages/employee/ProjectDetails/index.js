@@ -6,7 +6,7 @@ import {
   Menu,
 } from "@egovernments/digit-ui-react-components";
 import {
-  Header,
+  HeaderComponent,
   Card,
   Loader,
   SubmitBar,
@@ -258,12 +258,12 @@ const ProjectDetails = () => {
         className={"employee-application-details"}
         style={{ marginBottom: "15px" }}
       >
-        <Header
+        <HeaderComponent
           className="works-header-view"
           styles={{ marginLeft: "0px", paddingTop: "10px" }}
         >
           {t("WORKS_PROJECT_DETAILS")}
-        </Header>
+        </HeaderComponent>
         <MultiLink
           onHeadClick={() => HandleDownloadPdf()}
           downloadBtnClassName={"employee-download-btn-className"}

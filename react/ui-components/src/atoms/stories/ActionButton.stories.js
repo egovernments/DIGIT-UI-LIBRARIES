@@ -1,8 +1,9 @@
 import React from "react";
 import Button from "../Button";
+import Iframe from "../Iframe";
 
 export default {
-  title: "Atoms/Button/Link",
+  title: "Atoms/Action Button",
   component: Button,
   argTypes: {
     label: {
@@ -14,7 +15,11 @@ export default {
       options: ["primary", "secondary", "teritiary", "link"],
       table: { disable: true },
     },
-    size: { control: "select", options: ["large", "medium", "small"],name:"Size" },
+    size: {
+      control: "select",
+      options: ["large", "medium", "small"],
+      table: { disable: true },
+    },
     className: {
       control: "text",
       table: { disable: true },
@@ -32,7 +37,8 @@ export default {
       table: { disable: true },
     },
     isSearchable: {
-      control: "boolean",table: { disable: true },
+      control: "boolean",
+      name:"Searchable"
     },
     showBottom: {
       control: "select",
@@ -42,7 +48,6 @@ export default {
         DropUp: false,
         DropDown: true,
       },
-      table: { disable: true },
     },
     optionsKey: {
       control: "text",
@@ -71,7 +76,7 @@ export default {
     type: { table: { disable: true } },
     WithIcon: {
       control: "boolean",
-      name:"With Icon"
+      table: { disable: true },
     },
     isSuffix: {
       control: "select",
@@ -81,11 +86,8 @@ export default {
         Prefix: false,
         Suffix: true,
       },
-      if: { arg: "WithIcon", truthy: true}, 
-    },
-    Width: {
-      control: "select",
-      options: ["Hug Content", "Justify"],
+      table: { disable: true },
+      if: { arg: "WithIcon", truthy: true },
     },
   },
 };
@@ -101,24 +103,14 @@ const commonStyles = {
   transform: "translate(-50%, -50%)",
 };
 
-
 const Template = (args) => {
-  const { WithIcon, isSuffix, Width, ...restArgs } = args;
-
-  const widthStyles =
-    Width === "Hug Content"
-      ? { width: "auto", whiteSpace: "nowrap" }
-      : { width: "100%" };
+  const { ...restArgs } = args;
 
   return (
-    <div
-      style={{ ...commonStyles, width: Width === "Justify" ? "100%" : "auto" }}
-    >
+    <div style={{ ...commonStyles }}>
       <Button
         {...restArgs}
-        style={{ ...restArgs.style, ...widthStyles }}
-        icon={WithIcon ? (isSuffix ? "ArrowForward" : "ArrowBack") : ""}
-        isSuffix={WithIcon && isSuffix}
+        style={{ ...restArgs.style }}
         menuStyles={!args.showBottom ? { bottom: "40px" } : undefined}
       />
     </div>
@@ -126,30 +118,66 @@ const Template = (args) => {
 };
 
 const commonArgs = {
-  label: "Button",
+  label: "ActionButton",
   className: "custom-class",
   style: {},
   onClick: () => {
     console.log("clicked");
   },
   isDisabled: "Default",
-  variation: "",
+  variation: "primary",
   size: "large",
   title: "",
   iconFill: "",
-  options: [],
-  optionsKey: "",
-  WithIcon: false,
-  isSuffix: "Prefix",
-  isSearchable: false,
-  Width:"Hug Content",
-  showBottom:"DropDown"
+  showBottom: "DropDown",
+  type: "actionButton",
+  optionsKey: "name",
+  isSearchable: true,
+  options: [
+    { name: "Action A", code: "Actiona" },
+    { name: "Action B", code: "Actionb" },
+    { name: "Action C", code: "Actionc" },
+  ],
+  onOptionSelect: (e) => {
+    console.log(e, "option selected");
+  },
 };
 
-// Button with link variantion
+export const Documentation = () => (
+  <Iframe
+    //Todo:Update the url
+    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-core-react-components/input-field"
+    title="Toggle Documentation"
+  />
+);
+
+Documentation.storyName = "Docs";
+Documentation.argTypes = {
+  isDisabled: { table: { disable: true } },
+  label: { table: { disable: true }},
+  isSearchable: { table: { disable: true }},
+  showBottom: {table: { disable: true } },
+};
+
+export const Primary = Template.bind({});
+Primary.args = {
+  ...commonArgs,
+};
+
+export const Secondary = Template.bind({});
+Secondary.args = {
+  ...commonArgs,
+  variation:"secondary"
+};
+
+export const Teritiary = Template.bind({});
+Teritiary.args = {
+  ...commonArgs,
+  variation: "teritiary",
+};
+
 export const Link = Template.bind({});
 Link.args = {
   ...commonArgs,
   variation: "link",
-  label: "Link",
 };

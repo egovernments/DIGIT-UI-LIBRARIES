@@ -12,7 +12,7 @@ import MobileSearchComponent from "./MobileView/MobileSearchComponent";
 import MobileSearchResults from "./MobileView/MobileSearchResults";
 import MediaQuery from "react-responsive";  
 import _ from "lodash";
-import Header from "../atoms/Header";
+import HeaderComponent from "../atoms/HeaderComponent";
 import { useTranslation } from "react-i18next";
 
 const InboxSearchComposer = ({ configs, headerLabel, additionalConfig, onFormValueChange = () => {} }) => {
@@ -151,7 +151,7 @@ const InboxSearchComposer = ({ configs, headerLabel, additionalConfig, onFormVal
 
   return (
     <InboxContext.Provider value={{ state, dispatch }}>
-      {headerLabel && <Header className="digit-form-composer-header">{t(headerLabel)}</Header>}
+      {headerLabel && <HeaderComponent className="digit-form-composer-header">{t(headerLabel)}</HeaderComponent>}
       <div className="inbox-search-component-wrapper ">
         <div className={`sections-parent ${configs?.type}`}>
           {configs?.sections?.links?.show && (

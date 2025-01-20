@@ -11,6 +11,7 @@ const OTPInput = ({
   style,
   label,
   inline,
+  masking = false,
 }) => {
   const [otp, setOtp] = useState(Array(length).fill(""));
   const inputRefs = useRef([]);
@@ -128,7 +129,7 @@ const OTPInput = ({
             key={index}
             type="text"
             maxLength="1"
-            value={otp[index]}
+            value={masking && otp[index] ? "●" : otp[index]}
             ref={(el) => (inputRefs.current[index] = el)}
             onChange={(e) => handleInputChange(e, index)}
             onKeyDown={(e) => handleKeyDown(e, index)}

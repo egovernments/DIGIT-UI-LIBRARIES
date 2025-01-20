@@ -1,11 +1,11 @@
 import React from "react";
-import LoaderComponent from "../LoaderComponent";
+import Loader from "../Loader";
 import theLoaderPrimary from "../../constants/animations/theLoaderPrimary.json";
 import Iframe from "../Iframe";
 
 export default {
   title: "Atoms/Loader",
-  component: LoaderComponent,
+  component: Loader,
   argTypes: {
     variant: {
       control: "select",
@@ -14,6 +14,9 @@ export default {
     },
     className: {
       control: "text",
+      table:{disable:true}
+    },
+    hideEllipsis: {
       table:{disable:true}
     },
     style: {
@@ -31,14 +34,15 @@ export default {
   },
 };
 
-const Template = (args) => <LoaderComponent {...args} />;
+const Template = (args) => <Loader {...args} />;
 
 const commonArgs = {
   className: "",
   style: {},
   variant: "Basic",
   animationStyles: {},
-  loaderText:"Loading"
+  loaderText:"Loading",
+  hideEllipsis:false
 };
 
 export const Documentation = () => (
@@ -50,6 +54,10 @@ export const Documentation = () => (
 );
 
 Documentation.storyName = "Docs";
+Documentation.argTypes = {
+  loaderText: { table: { disable: true } },
+};
+
 
 export const Basic = Template.bind({});
 Basic.args = {

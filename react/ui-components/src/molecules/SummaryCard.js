@@ -1,11 +1,11 @@
 import React, { Fragment } from "react";
 import { Card } from "../atoms";
-import { ViewCardFieldPair } from "../atoms";
+import { SummaryCardFieldPair } from "../atoms";
 import { Divider } from "../atoms";
 import { useTranslation } from "react-i18next";
 import PropTypes from "prop-types";
 
-const ViewCard = ({
+const SummaryCard = ({
   className,
   style,
   type,
@@ -40,19 +40,21 @@ const ViewCard = ({
   const renderFieldPairs = (fieldPairs) => {
     return fieldPairs?.map((pair, index) => (
       <Fragment key={index}>
-        <ViewCardFieldPair
+        <SummaryCardFieldPair
           label={t(pair?.label)}
           value={t(pair?.value)}
           inline={pair?.inline}
           className={pair?.className}
           style={pair?.style}
+          type={pair?.type}
+          renderCustomContent={pair?.renderCustomContent}
         />
         {withDivider && layout === 1 && index < fieldPairs.length - 1 && (
           <Divider />
         )}
         {withDivider && layout === 2 && (index + 1) % 2 !== 0 && (
           <div
-            className="vertical-viewcard-divider"
+            className="vertical-summarycard-divider"
             style={{
               left: `calc(100% / ${2} * ${(index % 2) + 1})`,
             }}
@@ -70,7 +72,7 @@ const ViewCard = ({
           isTwoColumnLayout ? "two-column-layout" : ""
         } ${withDivider ? "with-divider" : ""}`}
       >
-        {section?.type === "DATA" && renderFieldPairs(section?.fieldPairs)}
+        {renderFieldPairs(section?.fieldPairs)}
       </div>
       {withSectionDivider && sectionIndex < sections.length - 1 && (
         <Divider variant="medium" />
@@ -97,7 +99,6 @@ const ViewCard = ({
       </div>
     );
   }
-
 
   if (showSectionsAsMultipleCards && !asSeperateCards) {
     // When showSectionsAsMultipleCards is true, render each section inside its own Card
@@ -141,16 +142,16 @@ const ViewCard = ({
   );
 };
 
-ViewCard.propTypes = {
+SummaryCard.propTypes = {
   className: PropTypes.string,
   style: PropTypes.object,
   type: PropTypes.string,
-  sections: PropTypes.array.isRequired, 
+  sections: PropTypes.array.isRequired,
   withDivider: PropTypes.bool,
-  layout: PropTypes.number, 
+  layout: PropTypes.number,
   withSectionDivider: PropTypes.bool,
   showSectionsAsMultipleCards: PropTypes.bool,
   asSeperateCards: PropTypes.bool,
 };
 
-export default ViewCard;
+export default SummaryCard;

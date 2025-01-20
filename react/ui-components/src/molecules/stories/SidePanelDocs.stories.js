@@ -3,33 +3,39 @@ import SidePanel from "../../atoms/SidePanel";
 import Iframe from "../../atoms/Iframe";
 
 export default {
-  title: "Molecules/SidePanel",
+  title: "Molecules/Side Panel",
   component: SidePanel,
   argTypes: {
-    className: { control: "text" },
-    styles: { control: "object" },
-    type: { control: "select", options: ["static", "dynamic"] },
-    position: { control: "select", options: ["left", "right"] },
+    className: { control: "text" ,table:{disable:true}},
+    styles: { control: "object",table:{disable:true} },
+    type: { control: "select", options: ["static", "dynamic"] ,table:{disable:true}},
+    position: { control: "select", options: ["left", "right"] ,name:"Position",table:{disable:true}},
     children: {
-      control: "object",
+      control: "object",table:{disable:true}
     },
     header: {
-      control: "object",
+      control: "object",table:{disable:true}
     },
     footer: {
-      control: "object",
+      control: "object",table:{disable:true}
     },
-    bgActive: { control: "boolean" },
-    isOverlay: { control: "boolean" },
-    hideArrow: { control: "boolean" },
-    hideScrollIcon: { control: "boolean" },
-    isDraggable: { control: "boolean" },
-    defaultClosedWidth: { control: "text" },
-    defaultOpenWidth: { control: "text" },
-    addClose: { control: "boolean" },
-    closedContents: { control: "object" },
-    closedHeader: { control: "object" },
-    closedFooter: { control: "object" },
+    bgActive: { control: "boolean" ,name:'Background Active',table:{disable:true}},
+    isOverlay: { control: "boolean",table:{disable:true} },
+    hideArrow: { control: "boolean" ,name:'With Nudge',mapping:{
+      true:false,
+      false:true
+    },table:{disable:true}},
+    hideScrollIcon: { control: "boolean",table:{disable:true} },
+    isDraggable: { control: "boolean" ,name:"Draggable",table:{disable:true}},
+    defaultClosedWidth: { control: "text" ,table:{disable:true}},
+    defaultOpenWidth: { control: "text" ,table:{disable:true}},
+    addClose: { control: "boolean",name:"With Close" ,table:{disable:true}},
+    closedHeader: { control: "object" ,table:{disable:true}},
+    closedFooter: { control: "object",table:{disable:true} },
+    closedContents: { control: "object",table:{disable:true} },
+    sections: {control:'boolean',name:"With Sections",table:{disable:true} },
+    closedSections:{table:{disable:true}},
+    transitionDuration:{table:{disable:true}}
   },
 };
 

@@ -3,7 +3,7 @@ import { Card } from "../../atoms";
 import { Iframe } from "../../atoms";
 
 export default {
-  title: "Molecules/Card",
+  title: "Molecules/Filter Card",
   component: Card,
   argTypes: {},
 };

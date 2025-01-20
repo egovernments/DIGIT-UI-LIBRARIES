@@ -1,21 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState,Fragment } from "react";
 import FilterCard from "../FilterCard";
 import { LabelFieldPair } from "../../atoms";
 import { RadioButtons } from "../../atoms";
 import { TextBlock } from "../../atoms";
 import { TextInput } from "../../atoms";
-import { Dropdown } from "../../atoms";
-import { CheckBox } from "../../atoms";
-import { MultiSelectDropdown } from "../../atoms";
 import { Button } from "../../atoms";
 
 // Story metadata
 export default {
-  title: "Molecules/Card/FilterCard/Horizontal",
+  title: "Molecules/Filter Card/Horizontal",
   component: FilterCard,
   argTypes: {
-    title: { control: "text" },
-    titleIcon: { control: "text" },
+    title: { control: "boolean" ,name:"Heading"},
+    titleIcon: { table:{disable:true} },
     primaryActionLabel: { control: "text" },
     secondaryActionLabel: { control: "text" },
     layoutType: {
@@ -24,21 +21,29 @@ export default {
         options: ["horizontal", "vertical"],
       },
     },
-    equalWidthButtons: { control: "boolean" },
-    addClose: { control: "boolean" },
-    className: { control: "text" },
-    style: { control: "object" },
-    hideIcon: { control: "boolean" },
-    isPopup: { control: "boolean" },
-    onClose: { action: "onChange" },
+    equalWidthButtons: { control: "boolean" ,table:{disable:true}},
+    addClose: { control: "boolean",name:"With Close" },
+    className: { control: "text",table:{disable:true} },
+    style: { control: "object" ,table:{disable:true}},
+    hideIcon: { control: "boolean" ,name:"Header Icon"},
+    isPopup: { control: "boolean" ,table:{disable:true}},
+    onClose: { action: "onChange" ,table:{disable:true}},
     onOverlayClick: {
-      control: "function",
-    }
+      control: "function",table:{disable:true}
+    },
+    children:{table:{disable:true}},
+    primaryActionLabel:{table:{disable:true}},
+    secondaryActionLabel:{table:{disable:true}},
+    onPrimaryPressed:{table:{disable:true}},
+    onSecondaryPressed:{table:{disable:true}},
+    layoutType:{table:{disable:true}}
   },
 };
 
 // Template for the story
-const Template = (args) => <FilterCard {...args} />;
+const Template = (args) => {
+  const {title,...rest} = args;
+  return (<FilterCard {...rest} title={title ? "Filter" : ""} />);};
 
 const genderOptions = [
   { code: "M", name: "Male" },
@@ -83,9 +88,9 @@ const horizontalChildren = [
   </LabelFieldPair>
 ];
 
-export const Default = Template.bind({});
-Default.args = {
-  title: "Filter",
+export const Basic = Template.bind({});
+Basic.args = {
+  title: true,
   addClose: false,
   children: horizontalChildren,
   primaryActionLabel: "ApplyFilters",
@@ -97,35 +102,9 @@ Default.args = {
   hideIcon: false,
 };
 
-export const WithClose = Template.bind({});
-WithClose.args = {
-  title: "Filter",
-  addClose: true,
-  children: horizontalChildren,
-  primaryActionLabel: "ApplyFilters",
-  secondaryActionLabel: "Clear Filters",
-  onPrimaryPressed: () => alert("Primary action clicked!"),
-  onSecondaryPressed: () => alert("Secondary action clicked!"),
-  layoutType: "horizontal",
-  equalWidthButtons: false,
-  hideIcon: false,
-};
-
-export const WithoutHeader = Template.bind({});
-WithoutHeader.args = {
-  children: horizontalChildren,
-  primaryActionLabel: "ApplyFilters",
-  secondaryActionLabel: "Clear Filters",
-  onPrimaryPressed: () => alert("Primary action clicked!"),
-  onSecondaryPressed: () => alert("Secondary action clicked!"),
-  layoutType: "horizontal",
-  equalWidthButtons: false,
-  hideIcon: true,
-};
-
-export const WithCustomStyles = Template.bind({});
-WithCustomStyles.args = {
-  title: "Filter",
+export const Custom = Template.bind({});
+Custom.args = {
+  title: true,
   addClose: true,
   children: horizontalChildren,
   primaryActionLabel: "ApplyFilters",
@@ -142,7 +121,7 @@ WithCustomStyles.args = {
   },
 };
 
-export const WithCloseAsPopup = () => {
+export const AsPopup = () => {
   const [showPopup, setShowPopup] = useState(false);
 
   const onClose = () => {
@@ -217,9 +196,14 @@ export const WithCloseAsPopup = () => {
     </>
   );
 };
+AsPopup.argTypes=  {
+  title: { table:{disable:true}},
+  hideIcon: { table:{disable:true} },
+  addClose: {  table:{disable:true} },
+}
 
 
-export const WithCloseAsPopupWithMoreChildren = () => {
+export const AsPopupWithMoreChildren = () => {
   const [showPopup, setShowPopup] = useState(false);
 
   const onClose = () => {
@@ -352,3 +336,9 @@ export const WithCloseAsPopupWithMoreChildren = () => {
     </>
   );
 };
+
+AsPopupWithMoreChildren.argTypes=  {
+  title: { table:{disable:true}},
+  hideIcon: { table:{disable:true} },
+  addClose: {  table:{disable:true} },
+}

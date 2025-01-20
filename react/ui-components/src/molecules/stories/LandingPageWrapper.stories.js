@@ -1,100 +1,74 @@
-import React, { Fragment } from "react";
+import React from "react";
 import LandingPageCard from "../LandingPageCard";
 import LandingPageWrapper from "../LandingPageWrapper";
-import {Iframe} from "../../atoms";
+import { Iframe } from "../../atoms";
 
 export default {
-  title: "MoleculeGroup/LandingPageWrapper",
+  title: "MoleculeGroup/Landing Page Wrapper",
   component: LandingPageWrapper,
+  argTypes: {
+    numberOfCards: {
+      control: { type: "number", min: 1 },
+      defaultValue: 3,
+      name: "No of Cards",
+      description: "Number of LandingPageCards to display",
+    },
+    children: { table: { disable: true } },
+    className: { table: { disable: true } },
+    styles: { table: { disable: true } },
+  },
 };
 
-const Template = (args) => <LandingPageWrapper {...args} />;
+const Template = (args) => {
+  const { numberOfCards } = args;
+
+  const generateCards = (count) => {
+    return Array.from({ length: count }, (_, index) => (
+      <LandingPageCard
+        key={index}
+        icon="SupervisorAccount"
+        moduleName={`Card ${index + 1}`}
+        metrics={[
+          { count: 10 + index, label: `Label Metric ${index + 1}`, link: "#" },
+          { count: 20 + index, label: `Label Metric ${index + 1}`, link: "#" },
+        ]}
+        links={[
+          {
+            label: `Link ${index + 1}`,
+            link: "#",
+            icon: "Dashboard",
+          },
+          {
+            label: `Link ${index + 1}`,
+            link: "#",
+            icon: "Dashboard",
+          },
+        ]}
+      />
+    ));
+  };
+
+  return (
+    <LandingPageWrapper>{generateCards(numberOfCards)}</LandingPageWrapper>
+  );
+};
 
 export const Documentation = () => (
   <Iframe
-    //Todo:Update the url
+    // Todo: Update the URL
     src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-core-react-components/input-field"
     title="LandingPageWrapper Documentation"
   />
 );
 
 Documentation.storyName = "Docs";
-
-
-export const Example1 = () => {
-  return (
-    <LandingPageWrapper>
-      <LandingPageCard
-        icon="SupervisorAccount"
-        moduleName="Dashboard"
-        metrics={[
-          { count: 10, label: "Active Users", link: "#" },
-          { count: 20, label: "New Users", link: "#" },
-        ]}
-        links={[{ label: "View Dashboard", link: "#", icon: "Dashboard" }]}
-      />
-      <LandingPageCard
-        icon="Person"
-        moduleName="User Management"
-        metrics={[
-          { count: 100, label: "Total Users", link: "#" },
-          { count: 50, label: "New Registrations", link: "#" },
-        ]}
-        links={[
-          { label: "Add User", link: "#", icon: "Person" },
-          { label: "Edit User", link: "#", icon: "Edit" },
-        ]}
-      />
-      <LandingPageCard
-        icon="Notifications"
-        moduleName="Notifications"
-        metrics={[{ count: 5, label: "New Notifications", link: "#" }]}
-        links={[
-          { label: "View Notifications", link: "#", icon: "Notifications" },
-        ]}
-      />
-    </LandingPageWrapper>
-  );
+Documentation.argTypes = {
+  numberOfCards: {
+    table: { disable: true },
+  },
 };
 
-export const Example2 = () => {
-  return (
-    <LandingPageWrapper>
-      <LandingPageCard
-        icon="SupervisorAccount"
-        moduleAlignment={"left"}
-        iconBg={true}
-        moduleName="Dashboard"
-        metrics={[
-          { count: 10, label: "Active Users", link: "#" },
-          { count: 20, label: "New Users", link: "#" },
-        ]}
-        links={[{ label: "View Dashboard", link: "#", icon: "Dashboard" }]}
-      />
-      <LandingPageCard
-        icon="Person"
-        moduleAlignment={"left"}
-        iconBg={true}
-        moduleName="User Management"
-        metrics={[
-          { count: 100, label: "Total Users", link: "#" },
-          { count: 50, label: "New Registrations", link: "#" },
-        ]}
-        links={[
-          { label: "Add User", link: "#", icon: "Add" },
-          { label: "Edit User", link: "#", icon: "Edit" },
-        ]}
-      />
-      <LandingPageCard
-        moduleAlignment={"left"}
-        iconBg={true}
-        icon="Notifications"
-        moduleName="Notifications"
-        metrics={[{ count: 5, label: "New Notifications", link: "#" }]}
-        links={[
-          { label: "View Notifications", link: "#", icon: "Notifications" },
-        ]}
-      />
-    </LandingPageWrapper>
-  );
+export const Basic = Template.bind({});
+Basic.args = {
+  numberOfCards: 3,
 };

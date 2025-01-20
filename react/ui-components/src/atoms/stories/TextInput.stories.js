@@ -3,7 +3,7 @@ import FieldV1 from "../../hoc/FieldV1";
 import Iframe from "../Iframe";
 
 export default {
-  title: "Atoms/TextInput",
+  title: "Atoms/Text Input",
   component: FieldV1,
   argTypes: {
     type: {

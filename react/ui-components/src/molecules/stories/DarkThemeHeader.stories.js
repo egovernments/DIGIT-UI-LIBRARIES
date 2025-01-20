@@ -1,11 +1,11 @@
 import React from "react";
-import { TopBar } from "../../atoms";
+import { Header } from "../../atoms";
 import { SVG } from "../../atoms";
 import { Dropdown } from "../../atoms";
 
 export default {
   title: "Molecules/Header/Dark",
-  component: TopBar,
+  component: Header,
   argTypes: {
     className: {
       control: "text",
@@ -189,7 +189,7 @@ const DarkThemeFieldsWithProfileAsSvg = [
   />,
 ];
 
-const Template = (args) => <TopBar {...args} />;
+const Template = (args) => <Header {...args} />;
 const commonArgs = {
   img: "",
   className: "",
@@ -203,8 +203,8 @@ const commonArgs = {
     "",
 };
 
-export const Header = Template.bind({});
-Header.args = {
+export const HeaderExample = Template.bind({});
+HeaderExample.args = {
   ...commonArgs,
   theme: "dark",
   ulb: "Logo Placeholder",
@@ -219,6 +219,7 @@ Header.args = {
     console.log("hamburger clicked");
   },
 };
+HeaderExample.storyName="Header";
 
 export const HeaderWithImageOnLeft = Template.bind({});
 HeaderWithImageOnLeft.args = {

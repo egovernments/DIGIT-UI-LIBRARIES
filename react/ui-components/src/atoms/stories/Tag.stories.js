@@ -112,6 +112,12 @@ export const Documentation = () => (
 );
 
 Documentation.storyName = "Docs";
+Documentation.argTypes = {
+  label: { table: { disable: true } },
+  stroke: { table: { disable: true }},
+  onClick: { table: { disable: true }},
+  showIcon: {table: { disable: true } },
+};
 
 export const Basic = Template.bind({});
 Basic.args = {

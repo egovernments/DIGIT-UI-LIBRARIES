@@ -1,86 +1,63 @@
 import React from "react";
 import LandingPageCard from "../../molecules/LandingPageCard";
-import {Iframe} from "../../atoms";
+import { Iframe } from "../../atoms";
 
 export default {
-  title: "Molecules/LandingPageCard",
+  title: "Molecules/Landing Page Card",
   component: LandingPageCard,
   argTypes: {
-    icon: { control: "object" },
-    moduleName: { control: "text" },
-    metrics: { control: "array" },
-    links: { control: "array" },
-    className: { control: "text" },
-    style: { control: "object" },
-    moduleAlignment: { control: "select", options: ["left", "right"] },
-    metricAlignment: { control: "select", options: ["left", "centre"] },
-    iconBg: { control: "boolean" },
-    onMetricClick: { control: "action" },
-    buttonSize:{ control: "select", options: ["large","medium", "small"] },
+    icon: { control: "object", table: { disable: true } },
+    moduleName: { control: "text", name: "Heading" },
+    metrics: { control: "boolean", name: "Show Metrics" },
+    children: { control: "boolean", name: "Custom Content" },
+    links: { control: "boolean", name: "Show Links" },
+    className: { control: "text", table: { disable: true } },
+    style: { control: "object", table: { disable: true } },
+    moduleAlignment: {
+      control: "select",
+      options: ["Left", "Right"],
+      name: "Icon Alignement",
+      mapping: {
+        Left: "right",
+        Right: "left",
+      },
+    },
+    metricAlignment: {
+      control: "select",
+      options: ["left", "centre"],
+      name: "Metric Alignment",
+    },
+    iconBg: {
+      control: "select",
+      name: "Icon",
+      mapping: {
+        Default: false,
+        Filled: true,
+      },
+      options: ["Default", "Filled"],
+    },
+    onMetricClick: { control: "action", table: { disable: true } },
+    hideDivider: { table: { disable: true } },
+    buttonSize: {
+      control: "select",
+      options: ["large", "medium", "small"],
+      table: { disable: true },
+    },
   },
 };
 
-const Template = (args) => <LandingPageCard {...args} />;
+const centreChildrenToShow = [
+  <div>{"Here you can add any text content between metrics and links"}</div>,
+];
 
-const commonArgs = {
-  icon: "SupervisorAccount",
-  variation: "one",
-  moduleName: "Dashboards",
-  moduleAlignment: "right",
-  buttonSize:"medium",
-  metrics: [
-    {
-      count: 40,
-      label: "Lorem Ipsum",
-      link:
-        "https://unified-dev.digit.org/storybook/?path=/story/atoms-backlink--primary",
-    },
-    {
-      count: 40,
-      label: "Lorem Ipsum",
-      link:
-        "https://unified-dev.digit.org/storybook/?path=/story/atoms-backlink--primary",
-    },
-  ],
-  links: [
-    {
-      label: "Create User",
-      link:
-        "https://unified-dev.digit.org/storybook/?path=/story/atoms-backlink--primary",
-      icon: "Person",
-    },
-    {
-      label: "Edit User",
-      link:
-        "https://unified-dev.digit.org/storybook/?path=/story/atoms-backlink--primary",
-      icon: "Edit",
-    },
-    {
-      label: "View User",
-      link:
-        "https://unified-dev.digit.org/storybook/?path=/story/atoms-backlink--primary",
-      icon: "Preview",
-    },
-    {
-      label: "Delete User",
-      link:
-        "https://unified-dev.digit.org/storybook/?path=/story/atoms-backlink--primary",
-      icon: "Delete",
-    },
-  ],
-  className: "",
-  metricAlignment: "left",
-  style: {},
-  iconBg: false,
-  onMetricClick: (metric, count) => {
-    console.log(metric, count);
-  },
-};
+const endChildrenToShow = [
+  <div>{"Here you can add any text content below links"}</div>,
+];
 
-const longmetriclabel = [
+const metricsToShow = [
   {
     count: 40,
-    label: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
+    label: "Lorem Ipsum",
     link:
       "https://unified-dev.digit.org/storybook/?path=/story/atoms-backlink--primary",
   },
@@ -90,7 +67,64 @@ const longmetriclabel = [
     link:
       "https://unified-dev.digit.org/storybook/?path=/story/atoms-backlink--primary",
   },
-]
+];
+
+const linksToShow = [
+  {
+    label: "Create User",
+    link:
+      "https://unified-dev.digit.org/storybook/?path=/story/atoms-backlink--primary",
+    icon: "Person",
+  },
+  {
+    label: "Edit User",
+    link:
+      "https://unified-dev.digit.org/storybook/?path=/story/atoms-backlink--primary",
+    icon: "Edit",
+  },
+  {
+    label: "View User",
+    link:
+      "https://unified-dev.digit.org/storybook/?path=/story/atoms-backlink--primary",
+    icon: "Preview",
+  },
+  {
+    label: "Delete User",
+    link:
+      "https://unified-dev.digit.org/storybook/?path=/story/atoms-backlink--primary",
+    icon: "Delete",
+  },
+];
+
+const Template = (args) => {
+  const { metrics, links, children, ...rest } = args;
+  return (
+    <LandingPageCard
+      metrics={metrics ? metricsToShow : []}
+      links={links ? linksToShow : []}
+      endChildren={children ? endChildrenToShow : []}
+      centreChildren={children ? centreChildrenToShow : []}
+      {...rest}
+    />
+  );
+};
+
+const commonArgs = {
+  icon: "SupervisorAccount",
+  moduleName: "Heading",
+  moduleAlignment: "Left",
+  buttonSize: "medium",
+  metrics: true,
+  links: true,
+  className: "",
+  metricAlignment: "left",
+  style: {},
+  iconBg: "Default",
+  onMetricClick: (metric, count) => {
+    console.log(metric, count);
+  },
+  children: false,
+};
 
 export const Documentation = () => (
   <Iframe
@@ -101,63 +135,24 @@ export const Documentation = () => (
 );
 
 Documentation.storyName = "Docs";
+Documentation.argTypes = {
+  moduleName: { table: { disable: true } },
+  metrics: { table: { disable: true } },
+  links: { table: { disable: true } },
+  metricAlignment: { table: { disable: true } },
+  iconBg: { table: { disable: true } },
+  children: { table: { disable: true } },
+  moduleAlignment: { table: { disable: true } },
+};
 
 
-export const RightModuleAlignment = Template.bind({});
-RightModuleAlignment.args = {
+export const Basic = Template.bind({});
+Basic.args = {
   ...commonArgs,
 };
 
-export const RightModuleAlignmentWithIconBg = Template.bind({});
-RightModuleAlignmentWithIconBg.args = {
-  ...commonArgs,
-  iconBg: true,
-};
-
-export const LeftModuleAlignment = Template.bind({});
-LeftModuleAlignment.args = {
-  ...commonArgs,
-  moduleAlignment: "left",
-};
-
-export const LeftModuleAlignmentWithIconBg = Template.bind({});
-LeftModuleAlignmentWithIconBg.args = {
-  ...commonArgs,
-  moduleAlignment: "left",
-  iconBg: true,
-};
-
-export const LeftMetricAlignment = Template.bind({});
-LeftMetricAlignment.args = {
-  ...commonArgs,
-};
-
-export const CentreMetricAlignment = Template.bind({});
-CentreMetricAlignment.args = {
-  ...commonArgs,
-  metricAlignment: "centre",
-};
-
-export const LongText = Template.bind({});
-LongText.args = {
-  ...commonArgs,
-  moduleName:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
-  metrics:longmetriclabel
-};
-
-export const WithChildren = Template.bind({});
-WithChildren.args = {
-  ...commonArgs,
-  centreChildren:[
-    <div>{"Here you can add any text content between metrics and links"}</div>
-  ],
-  endChildren:[
-    <div>{"Here you can add any text content below links"}</div>
-  ],
-};
-
-export const WithCustomStyles = Template.bind({});
-WithCustomStyles.args = {
+export const Custom = Template.bind({});
+Custom.args = {
   ...commonArgs,
   style: {
     backgroundColor: "#fafafa",
@@ -165,69 +160,4 @@ WithCustomStyles.args = {
     borderRadius: "8px",
     border: "2px solid black",
   },
-};
-
-export const WithoutIcon = Template.bind({});
-WithoutIcon.args = {
-  ...commonArgs,
-  icon:""
-};
-
-export const WithOnlyModuleName = Template.bind({});
-WithOnlyModuleName.args = {
-  ...commonArgs,
-  links:[],
-  metrics:[],
-  centreChildren:[],
-  hideDivider:true
-};
-
-export const WithModuleAndMetrics = Template.bind({});
-WithModuleAndMetrics.args = {
-  ...commonArgs,
-  links:[],
-  centreChildren:[]
-};
-
-export const WithModuleAndLinks = Template.bind({});
-WithModuleAndLinks.args = {
-  ...commonArgs,
-  metrics: [],
-};
-
-export const WithModuleAndChildren = Template.bind({});
-WithModuleAndChildren.args = {
-  ...commonArgs,
-  metrics:[],
-  links:[],
-  centreChildren:[
-    <div>{"Here you can add any text content"}</div>
-  ]
-};
-
-export const WithModuleAndChildrenAndMetrics = Template.bind({});
-WithModuleAndChildrenAndMetrics.args = {
-  ...commonArgs,
-  links:[],
-  centreChildren:[
-    <div>{"Here you can add any text content"}</div>
-  ]
-};
-
-export const WithModuleAndChildrenAndLinks = Template.bind({});
-WithModuleAndChildrenAndLinks.args = {
-  ...commonArgs,
-  metrics:[],
-  centreChildren:[
-    <div>{"Here you can add any text content"}</div>
-  ]
-};
-
-export const WithModuleAndEndChildrenAndLinks = Template.bind({});
-WithModuleAndEndChildrenAndLinks.args = {
-  ...commonArgs,
-  metrics:[],
-  endChildren:[
-    <div>{"Here you can add any text content"}</div>
-  ]
 };

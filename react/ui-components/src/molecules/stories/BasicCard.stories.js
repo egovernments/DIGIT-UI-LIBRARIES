@@ -4,25 +4,22 @@ import Button from "../../atoms/Button";
 import TextArea from "../../atoms/TextArea";
 import MultiSelectDropdown from "../../atoms/MultiSelectDropdown";
 import Dropdown from "../../atoms/Dropdown";
-import TextInput from "../../atoms/TextInput";
-import ButtonGroup from "../../atoms/ButtonGroup";
-import { TextBlock } from "../../atoms";
 import { Card } from "../../atoms";
 
 export default {
-  title: "Molecules/Card/SecondaryCard",
+  title: "Molecules/Card/Basic",
   component: Card,
   argTypes: {
     className: {
-      control: "text",
+      control: "text",table:{disable:true}
     },
     style: {
-      control: { type: "object" },
+      control: { type: "object" },table:{disable:true}
     },
     children: {
-      control: "object",
+      control: "object",table:{disable:true}
     },
-    type: { control: "select", options: ["primary", "secondary"] },
+    type: { control: "select", mapping:{"Primary":"primary","Secondary":"secondary"} ,options: ["Primary", "Secondary"],name:"Card Style" },
     variant: {
       control: "select",
       options: [
@@ -36,55 +33,25 @@ export default {
         "action",
         "search",
       ],
+      table:{disable:true}
     },
     onClick: {
-      control: "function",
+      control: "function",table:{disable:true}
     },
     props: {
-      control: "object",
+      control: "object",table:{disable:true}
     },
   },
 };
-
-const Template = (args) => <Card {...args} />;
-
-//mock options data
+// Mock options data
 const options = [
   { code: "MALE", name: "MALE" },
   { code: "FEMALE", name: "FEMALE" },
   { code: "TRANSGENDER", name: "TRANSGENDER" },
 ];
 
-const buttons = [
-  <Button
-    type={"button"}
-    size={"large"}
-    variation={"teritiary"}
-    label="Clear Search"
-    onClick={() => console.log("Clicked Button 1")}
-  />,
-  <Button
-    type={"button"}
-    size={"large"}
-    variation={"primary"}
-    label="Search"
-    onClick={() => console.log("Clicked Button 2")}
-  />,
-];
-
-export const SecondaryEmptyCard = Template.bind({});
-SecondaryEmptyCard.args = {
-  type: "secondary",
-};
-
-export const SecondaryCardWithElements = () => (
-  <Card type={"secondary"}>
-    <div>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Orci a scelerisque
-      purus semper. Suspendisse potenti nullam ac tortor vitae. Dictum at tempor
-      commodo ullamcorper a. Amet cursus sit amet dictum sit amet justo.
-    </div>
+const Template = (args) => (
+  <Card type={args.type}>
     <TextArea
       type="textarea"
       disabled={false}
@@ -113,7 +80,7 @@ export const SecondaryCardWithElements = () => (
       }}
       variant="default"
       text={
-        "Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect theservice to get completed in 24 hrs from the time of payment."
+        "Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect the service to get completed in 24 hrs from the time of payment."
       }
       label={"Info"}
     />
@@ -142,37 +109,7 @@ export const SecondaryCardWithElements = () => (
   </Card>
 );
 
-export const SecondaryCardWithTextBlock = () => (
-  <Card type={"secondary"}>
-    <TextBlock
-      caption="Caption"
-      captionClassName=""
-      header="Header"
-      headerClassName=""
-      subHeader="Sub Header"
-      subHeaderClassName=""
-      body="Body"
-      bodyClassName=""
-    ></TextBlock>
-  </Card>
-);
-
-export const SecondarySearchCard = () => (
-  <Card type={"secondary"} variant="search">
-    <div style={{ maxWidth: "100%", width: "100%" }}>
-      <TextBlock body={"Field Name"}></TextBlock>
-      <TextInput type="text"></TextInput>
-    </div>
-    <div style={{ maxWidth: "100%", width: "100%" }}>
-      <TextBlock body={"Field Type"}></TextBlock>
-      <Dropdown
-        option={options}
-        optionKey={"code"}
-        select={(value) => {
-          console.log(value);
-        }}
-      />
-    </div>
-    <ButtonGroup buttonsArray={buttons}></ButtonGroup>
-  </Card>
-);
+export const Basic = Template.bind({});
+Basic.args = {
+  type: "Primary", 
+};

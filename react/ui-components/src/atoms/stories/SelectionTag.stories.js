@@ -1,10 +1,9 @@
 import React from "react";
 import SelectionTag from "../SelectionTag";
-import { SVG } from "../SVG";
 import Iframe from "../Iframe";
 
 export default {
-  title: "Atoms/SelectionTag",
+  title: "Atoms/Selection Tag",
   component: SelectionTag,
   argTypes: {
     width: {
@@ -123,6 +122,13 @@ export const Documentation = () => (
 );
 
 Documentation.storyName = "Docs";
+Documentation.argTypes = {
+  width: { table: { disable: true } },
+  WithIcon: { table: { disable: true }},
+  errorMessage: { table: { disable: true }},
+  withContainer: {table: { disable: true } },
+  isSuffix: { table: { disable: true } },
+};
 
 export const SingleSelect = Template.bind({});
 SingleSelect.args = {

@@ -6,39 +6,40 @@ export default {
   title: "Atoms/Panels",
   component: Panels,
   argTypes: {
-    type: { control: "select", options: ["success", "error"] },
+    type: { control: "select", options: ["success", "error"], table: { disable: true } },
     className: {
-      control: "text",
+      control: "text", table: { disable: true }
     },
     message: {
-      control: "text",
+      control: "text", table: { disable: true }
     },
     info: {
-      control: "text",
+      control: "text", table: { disable: true }
     },
     response: {
-      control: "text",
+      control: "text", table: { disable: true }
     },
     customIcon: {
-      control: "text",
+      control: "text", table: { disable: true }
     },
     iconFill: {
-      control: "text",
+      control: "text", table: { disable: true }
     },
     style: {
-      control: { type: "object" },
+      control: { type: "object" }, table: { disable: true }
     },
     multipleResponses: {
       control: {
         type: "array",
         separator: ",",
       },
+      table: { disable: true }
     },
     showAsSvg: {
-      control: "boolean",
+      control: "boolean", table: { disable: true }
     },
     animationProps: {
-      control: { type: "object" },
+      control: { type: "object" }, table: { disable: true }
     },
   },
 };

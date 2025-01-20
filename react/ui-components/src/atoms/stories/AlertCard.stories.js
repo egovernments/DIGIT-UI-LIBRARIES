@@ -5,7 +5,7 @@ import InfoButton from "../InfoButton";
 import Iframe from "../Iframe";
 
 export default {
-  title: "Atoms/AlertCard",
+  title: "Atoms/Alert Card",
   component: AlertCard,
   argTypes: {
     label: {
@@ -33,7 +33,7 @@ export default {
     inline: {
       control: "select",
       options: ["Default", "Inline"],
-      name: "WidgetsAlignment",
+      name: "Widgets Alignment",
       mapping: {
         Default: false,
         Inline: true,
@@ -41,6 +41,11 @@ export default {
     },
     WithAction: {
       control: "boolean",
+      name:"With Action"
+    },
+    WithWidgets: {
+      control: "boolean",
+      name:"With Widgets"
     },
   },
 };
@@ -132,6 +137,12 @@ export const Documentation = () => (
 );
 
 Documentation.storyName = "Docs";
+Documentation.argTypes = {
+  inline: { table: { disable: true } },
+  WithAction: { table: { disable: true }},
+  WithWidgets: {table:{disable:true}}
+};
+
 
 export const Info = Template.bind({});
 Info.args = {

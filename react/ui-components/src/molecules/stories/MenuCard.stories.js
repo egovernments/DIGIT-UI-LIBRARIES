@@ -3,15 +3,15 @@ import MenuCard from "../MenuCard";
 import {Iframe} from "../../atoms";
 
 export default {
-  title: "Molecules/MenuCard",
+  title: "Molecules/Menu Card",
   component: MenuCard,
   argTypes: {
-    icon: { control: "text" },
-    menuName: { control: "text" },
-    description: { control: "text" },
-    className: { control: "text" },
-    styles: { control: "object" },
-    onClick: { action: "clicked" },
+    icon: { control: "boolean" ,name:"Show Icon",mapping:{true:"Article",false:""}},
+    menuName: { control: "text" ,name:'Heading'},
+    description: { control: "text",name:"Description" },
+    className: { control: "text" ,table:{disable:true}},
+    styles: { control: "object" ,table:{disable:true}},
+    onClick: { action: "clicked",table:{disable:true} },
   },
 };
 
@@ -26,60 +26,29 @@ export const Documentation = () => (
 );
 
 Documentation.storyName = "Docs";
+Documentation.argTypes = {
+  icon: { table: { disable: true } },
+  menuName: { table: { disable: true } },
+  description: { table: { disable: true } },
+};
 
-
-// Default story for MenuCard
-export const Default = Template.bind({});
-Default.args = {
-  icon: "Article",
-  menuName: "Menu",
-  description:
-    "Use this checklist to supervise the team formation for Registration & Distribution",
-  className: "",
+const commonArgs = {
+  icon: true,
+  menuName: "Menu Header",
+  description:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",  className: "",
   styles: {},
   onClick:(e)=>{console.log(e)}
-};
-
-// MenuCard without description
-export const WithoutDescription = Template.bind({});
-WithoutDescription.args = {
-  icon: "Article",
-  menuName: "Menu",
-  className: "",
-  styles: {},
-};
-
+}
 // Default story for MenuCard
-export const WithLongMenuName = Template.bind({});
-WithLongMenuName.args = {
-  icon: "Article",
-  menuName:
-    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
-  description:
-    "Use this checklist to supervise the team formation for Registration & Distribution",
-  className: "",
-  styles: {},
-};
-
-// MenuCard with a longer description
-export const WithLongDescription = Template.bind({});
-WithLongDescription.args = {
-  icon: "Article",
-  menuName: "Menu",
-  description:
-    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
-  className: "profile-class",
-  styles: {},
+export const Menu1 = Template.bind({});
+Menu1.args = {
+...commonArgs,
 };
 
 // MenuCard with custom styles
-export const CustomStyles = Template.bind({});
-CustomStyles.args = {
-  icon: "Article",
-  menuName: "Menu",
-  description:
-    "Use this checklist to supervise the team formation for Registration & Distribution",
-  className: "",
+export const Custom = Template.bind({});
+Custom.args = {
+...commonArgs,
   styles: {
     backgroundColor: "#f9f9f9",
     padding: "30px",

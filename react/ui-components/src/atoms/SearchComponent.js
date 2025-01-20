@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { InboxContext } from "../hoc/InboxSearchComposerContext";
 import RenderFormFields from "../molecules/RenderFormFields";
-import Header from "../atoms/Header";
+import HeaderComponent from "../atoms/HeaderComponent";
 import LinkLabel from "../atoms/LinkLabel";
 import SubmitBar from "../atoms/SubmitBar";
 import Toast from "../atoms/Toast";
@@ -112,7 +112,7 @@ const SearchComponent = ({ uiConfig, header = "", screenType = "search", fullCon
         )
       }
       default: {
-        return <Header styles={uiConfig?.headerStyle}>{t(header)}</Header>
+        return <HeaderComponent styles={uiConfig?.headerStyle}>{t(header)}</HeaderComponent>
       }
     }
   }

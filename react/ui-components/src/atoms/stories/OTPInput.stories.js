@@ -3,32 +3,54 @@ import OTPInput from "../OTPInput";
 import Iframe from "../Iframe";
 
 export default {
-  title: "Atoms/OTPInput",
+  title: "Atoms/OTP Input",
   component: OTPInput,
   argTypes: {
     className: {
       control: "text",
+      table: { disable: true },
     },
     style: {
-      control: { type: "object" },
+      control: "object",
+      table: { disable: true },
     },
     inline: {
-      control: "boolean",
+      control: "select",
+      name:"Label Alignment",
+      options: ["Inline", "Above"],
+      mapping: { Inline: true, Above: false },
     },
     label: {
-      control: "text",
+      control: "text", name:"Label"
+    },
+    Error: {
+      control: "boolean",
+    },
+    type: {
+      control: "select",
+      name:"Type",
+      options: ["Alphanumeric", "Numeric"],
+      mapping: { Alphanumeric: "alphanumeric", Numeric: "numeric" },
+    },
+    length: {
+      control: "number",
+      table: { disable: true },
+    },
+    masking: {
+      control: "boolean",name:"Masking"
     },
   },
 };
 
 const Template = (args) => {
+  const {Error,...rest} = args;
   const [otp, setOtp] = useState("");
 
   const handleOtpChange = (value) => {
+    console.log(value,"value")
     setOtp(value);
     if (value.length === args.length) {
-      const isValid = value.includes(1);
-      if (isValid) {
+      if (!Error) {
         console.log("OTP is correct");
         return null;
       } else {
@@ -39,14 +61,17 @@ const Template = (args) => {
     return null;
   };
 
-  return <OTPInput {...args} onChange={handleOtpChange} />;
+  return <OTPInput {...rest} onChange={handleOtpChange}/>;
 };
 
 const commonArgs = {
-  length: 6,
-  type: "numeric",
-  inline: false,
+  length: 4,
+  type: "Alphanumeric",
+  inline: "Above",
   label: "Enter OTP",
+  style:{},
+  Error:false,
+  masking:false
 };
 
 export const Documentation = () => (
@@ -58,36 +83,23 @@ export const Documentation = () => (
 );
 
 Documentation.storyName = "Docs";
-
-export const Default = Template.bind({});
-Default.args = {
-  ...commonArgs,
+Documentation.argTypes = {
+  inline: { table: { disable: true } },
+  label: { table: { disable: true }},
+  Error: {table:{disable:true}},
+  type: { table: { disable: true } },
+  masking: { table: { disable: true }},
 };
 
-export const Inline = Template.bind({});
-Inline.args = {
-  ...commonArgs,
-  inline: true,
-};
-
-export const Alphanumeric = Template.bind({});
-Alphanumeric.args = {
+export const SixCharacters = Template.bind({});
+SixCharacters.args = {
   ...commonArgs,
   length: 6,
-  type: "alphanumeric",
 };
+SixCharacters.storyName = "6 Characters";
 
-export const CustomLength = Template.bind({});
-CustomLength.args = {
+export const FourCharacters = Template.bind({});
+FourCharacters.args = {
   ...commonArgs,
-  length: 8,
-  type: "numeric",
 };
-
-export const WithPlaceholder = Template.bind({});
-WithPlaceholder.args = {
-  ...commonArgs,
-  length: 6,
-  type: "numeric",
-  placeholder: "123456",
-};
+FourCharacters.storyName = "4 Characters";

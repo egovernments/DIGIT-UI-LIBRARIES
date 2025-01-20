@@ -3,7 +3,7 @@ import SidePanel from "../../atoms/SidePanel";
 import Button from "../../atoms/Button";
 
 export default {
-  title: "Molecules/SidePanel/Static",
+  title: "Molecules/Side Panel/Static",
   component: SidePanel,
   argTypes: {
     className: { control: "text", table: { disable: true } },
@@ -192,9 +192,9 @@ const footer = [
     }}
     size={"medium"}
     style={{ width: "100%" }}
-    label={"Customize Sandbox"}
+    label={"Static Sidepanel"}
     icon={"Edit"}
-    variation={"secondary"}
+    variation={"primary"}
   />,
 ];
 

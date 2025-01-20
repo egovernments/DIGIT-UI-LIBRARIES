@@ -18,7 +18,8 @@ const SideNav = ({
   expandedWidth,
   collapsedWidth,
   onSelect,
-  onBottomItemClick
+  onBottomItemClick,
+  enableSearch
 }) => {
   const { t } = useTranslation();
   const [hovered, setHovered] = useState(false);
@@ -114,7 +115,7 @@ const SideNav = ({
               className="digit-sidebar-search"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search"
+              placeholder={t("Search")}
               autoFocus={true}
               iconFill={primaryColor}
             ></TextInput>
@@ -237,7 +238,7 @@ const SideNav = ({
     <div
       className={`digit-sidebar ${hovered ? "hovered" : "collapsed"} ${
         theme || ""
-      } ${variant || ""} ${className || ""}`}
+      } ${variant || ""} ${enableSearch ? "" :"searchDisabled"} ${className || ""}`}
       style={{
         width:
           hovered && expandedWidth
@@ -251,11 +252,11 @@ const SideNav = ({
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      {renderSearch()}
+      {enableSearch && renderSearch()}
       <div
         className={`digit-sidebar-items-container ${theme || ""} ${
           variant || ""
-        }`}
+        } ${enableSearch ? "" :"searchDisabled"}`}
       >
         {filteredItems.length > 0 ? (
           renderItems(filteredItems)
@@ -319,6 +320,7 @@ SideNav.propTypes = {
   transitionDuration: PropTypes.number,
   styles: PropTypes.object,
   hideAccessbilityTools: PropTypes.bool,
+  enableSearch: PropTypes.bool,
 };
 
 SideNav.defaultProps = {
@@ -326,6 +328,7 @@ SideNav.defaultProps = {
   variant: "primary",
   transitionDuration: 0.3,
   styles: {},
+  enableSearch:true
 };
 
 export default SideNav;
