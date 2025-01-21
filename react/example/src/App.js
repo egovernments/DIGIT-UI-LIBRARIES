@@ -12,16 +12,18 @@ import { initSampleComponents } from "@egovernments/digit-ui-module-sample";
 
 import "@egovernments/digit-ui-components-css/example/index.css";
 
+
 window.contextPath = window?.globalConfigs?.getConfig("CONTEXT_PATH");
 
 const enabledModules = [
-  "DSS",
-  "NDSS",
-  "Utilities",
-  "HRMS",
-  "Engagement",
-  "Workbench",
-  "Project", "Sample"
+  // "DSS",
+  // "NDSS",
+  // "Utilities",
+  // "HRMS",
+  // "Engagement",
+  // "Workbench",
+  // "Project", 
+  "Sample"
 ];
 
 const moduleReducers = (initData) => ({

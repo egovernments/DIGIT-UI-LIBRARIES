@@ -12,7 +12,7 @@
   },
   "scripts": {
     "start": "gulp build",
-    "build": "NODE_ENV=production gulp build",
+    "build": "cross-env NODE_ENV=production gulp build",
     "build:prod": "NODE_ENV=production gulp build",
     "prepublish": "yarn build:prod",
     "publish:css-develop": "npm publish --tag core-v0.1",
