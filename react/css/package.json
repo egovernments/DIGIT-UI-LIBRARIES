@@ -20,13 +20,11 @@
     "deploy": "gulp && cp -R svg example && cp -R img example && gh-pages -d example"
   },
   "browserslist": [
-    "> 3%" ,
+    "> 3%",
     "last 2 versions"
   ],
   "style": "./dist/index.css",
-  "dependencies": {
-   
-  },
+  "dependencies": {},
   "devDependencies": {
     "node-sass": "^4.14.1",
     "normalize.css": "^8.0.1",
@@ -67,4 +65,3 @@
     "digit-ui-components"
   ]
 }
-
