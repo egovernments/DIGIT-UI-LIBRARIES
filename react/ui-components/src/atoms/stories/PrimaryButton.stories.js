@@ -5,46 +5,84 @@ export default {
   title: "Atoms/Button/Primary",
   component: Button,
   argTypes: {
-    isDisabled: {
-      control: "boolean",
-    },
     label: {
       control: "text",
     },
     variation: {
       control: "select",
       options: ["primary", "secondary", "teritiary", "link"],
+      table: { disable: true },
     },
     size: { control: "select", options: ["large", "medium", "small"] },
     className: {
       control: "text",
+      table: { disable: true },
     },
     style: {
       control: { type: "object" },
+      table: { disable: true },
     },
     onClick: {
       control: "function",
-    },
-    isSuffix: {
-      control: "boolean",
+      table: { disable: true },
     },
     title: {
       control: "text",
+      table: { disable: true },
+    },
+    isSearchable: {
+      control: "boolean",
+    },
+    showBottom: {
+      control: "select",
+      options: ["DropUp", "DropDown"],
+      name: "ActionButton",
+      mapping: {
+        DropUp: false,
+        DropDown: true,
+      },
+    },
+    optionsKey: {
+      control: "text",
+      table: { disable: true },
     },
     options: {
       control: {
         type: "array",
         separator: ",",
       },
+      table: { disable: true },
     },
-    isSearchable: {
+    isDisabled: {
+      control: "select",
+      options: ["Default", "Disabled"],
+      name: "state",
+      mapping: {
+        Default: false,
+        Disabled: true,
+      },
+    },
+    textStyles: { table: { disable: true } },
+    iconFill: { table: { disable: true } },
+    icon: { table: { disable: true } },
+    onOptionSelect: { table: { disable: true } },
+    type: { table: { disable: true } },
+    WithIcon: {
       control: "boolean",
     },
-    showBottom: {
-      control: "boolean",
+    isSuffix: {
+      control: "select",
+      options: ["Prefix", "Suffix"],
+      name: "Icon",
+      mapping: {
+        Prefix: false,
+        Suffix: true,
+      },
+      if: { arg: "WithIcon", truthy: true },
     },
-    optionsKey: {
-      control: "text",
+    Width: {
+      control: "select",
+      options: ["Hug Content", "Justify"],
     },
   },
 };
@@ -60,26 +98,48 @@ const commonStyles = {
   transform: "translate(-50%, -50%)",
 };
 
-const Template = (args) => (
-  <div style={commonStyles}>
-    <Button {...args} />
-  </div>
-);
+const Template = (args) => {
+  const { WithIcon, isSuffix, Width, ...restArgs } = args;
+
+  const widthStyles =
+    Width === "Hug Content"
+      ? { width: "auto", whiteSpace: "nowrap" }
+      : { width: "100%" };
+
+  return (
+    <div
+      style={{ ...commonStyles, width: Width === "Justify" ? "100%" : "auto" }}
+    >
+      <Button
+        {...restArgs}
+        style={{ ...restArgs.style, ...widthStyles }}
+        icon={WithIcon ? (isSuffix ? "ArrowForward" : "ArrowBack") : ""}
+        isSuffix={WithIcon && isSuffix}
+        menuStyles={!args.showBottom ? { bottom: "40px" } : undefined}
+      />
+    </div>
+  );
+};
 
 const commonArgs = {
   label: "Button",
   className: "custom-class",
   style: {},
-  onClick: () => {console.log("clicked"); } ,
-  isDisabled: false,
+  onClick: () => {
+    console.log("clicked");
+  },
+  isDisabled: "Default",
   variation: "",
-  isSuffix: false,
-  size: "",
-  title:"",
-  iconFill:"",
-  options:[],
-  optionsKey:"",
-  isSearchable:false
+  size: "large",
+  title: "",
+  iconFill: "",
+  options: [],
+  optionsKey: "",
+  WithIcon: false,
+  isSuffix: "Prefix",
+  isSearchable: false,
+  showBottom: "DropDown",
+  Width: "Hug Content",
 };
 
 // Button with primary variantion
@@ -89,110 +149,20 @@ Basic.args = {
   variation: "primary",
 };
 
-// Button with primary variantion and with icon
-export const WithIcon = Template.bind({});
-WithIcon.args = {
+export const ActionButton = Template.bind({});
+ActionButton.args = {
   ...commonArgs,
+  label: "ActionButton",
   variation: "primary",
-  icon: "MyLocation",
-};
-
-// Button with primary variantion and with icon as a suffix
-export const WithSuffixIcon = Template.bind({});
-WithSuffixIcon.args = {
-  ...commonArgs,
-  variation: "primary",
-  icon: "ArrowForward",
-  isSuffix: true,
-};
-
-// Button with primary variantion and disabled
-export const Disabled = Template.bind({});
-Disabled.args = {
-  ...commonArgs,
-  variation: "primary",
-  isDisabled: true,
-};
-
-// Button with primary variation and label with maxchars
-export const LabelWithMaxLength = Template.bind({});
-LabelWithMaxLength.args = {
-  ...commonArgs,
-  variation: "primary",
-  label: "qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopas",
-};
-
-export const ActionSelectionDropDown = Template.bind({});
-ActionSelectionDropDown.args = {
-  ...commonArgs,
-  label:"ActionButton",
-  variation: "primary",
-  type:"actionButton",
-  optionsKey:"name",
-  isSearchable:true,
-    options:[
-      { name: "Action A", code: "Actiona" },
-      { name: "Action B", code: "Actionb" },
-      { name: "Action C", code: "Actionc" },
-    ],
-  showBottom:true,
-  onOptionSelect:(e)=>{console.log(e,"option selected")}
-};
-
-export const UnsearchableActionSelectionDropDown = Template.bind({});
-UnsearchableActionSelectionDropDown.args = {
-  ...commonArgs,
-  label:"ActionButton",
-  variation: "primary",
-  type:"actionButton",
-  optionsKey:"name",
-  isSearchable:false,
-    options:[
-      { name: "Action A", code: "Actiona" },
-      { name: "Action B", code: "Actionb" },
-      { name: "Action C", code: "Actionc" },
-    ],
-  showBottom:true,
-  onOptionSelect:(e)=>{console.log(e,"option selected")}
-  
-};
-
-export const ActionSelectionDropUp = Template.bind({});
-ActionSelectionDropUp.args = {
-  ...commonArgs,
-  label:"ActionButton",
-  variation: "primary",
-  type:"actionButton",
-  optionsKey:"name",
-  isSearchable:true,
-    options:[
-      { name: "Action A", code: "Actiona" },
-      { name: "Action B", code: "Actionb" },
-      { name: "Action C", code: "Actionc" },
-    ],
-  showBottom:false,
-  menuStyles:{
-    bottom:"40px"
+  type: "actionButton",
+  optionsKey: "name",
+  isSearchable: true,
+  options: [
+    { name: "Action A", code: "Actiona" },
+    { name: "Action B", code: "Actionb" },
+    { name: "Action C", code: "Actionc" },
+  ],
+  onOptionSelect: (e) => {
+    console.log(e, "option selected");
   },
-  onOptionSelect:(e)=>{console.log(e,"option selected")}
-};
-
-export const UnsearchableActionSelectionDropUp = Template.bind({});
-UnsearchableActionSelectionDropUp.args = {
-  ...commonArgs,
-  label:"ActionButton",
-  variation: "primary",
-  type:"actionButton",
-  optionsKey:"name",
-  isSearchable:false,
-    options:[
-      { name: "Action A", code: "Actiona" },
-      { name: "Action B", code: "Actionb" },
-      { name: "Action C", code: "Actionc" },
-    ],
-  showBottom:false,
-  menuStyles:{
-    bottom:"40px"
-  },
-  onOptionSelect:(e)=>{console.log(e,"option selected")}
 };

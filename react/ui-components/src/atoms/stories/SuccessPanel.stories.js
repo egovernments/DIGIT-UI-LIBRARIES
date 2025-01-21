@@ -5,60 +5,79 @@ export default {
   title: "Atoms/Panels/Success",
   component: Panels,
   argTypes: {
-    type: { control: "select", options: ["success", "error"] },
+    type: {
+      control: "select",
+      options: ["success", "error"],
+      table: { disable: true },
+    },
     className: {
       control: "text",
+      table: { disable: true },
     },
     message: {
       control: "text",
+      table: { disable: true },
     },
     info: {
       control: "text",
+      table: { disable: true },
     },
     response: {
       control: "text",
+      table: { disable: true },
     },
     customIcon: {
-        control: "text",
-      },
-      iconFill: {
-        control: "text",
-      },
+      control: "text",
+      table: { disable: true },
+    },
+    iconFill: {
+      control: "text",
+      table: { disable: true },
+    },
     style: {
       control: { type: "object" },
+      table: { disable: true },
     },
     multipleResponses: {
       control: {
         type: "array",
         separator: ",",
       },
+      table: { disable: true },
     },
-    showAsSvg:{
-      control:"boolean"
+    showAsSvg: {
+      control: "boolean",
+      name: "With Animation",
+      mapping: {
+        true: false,
+        false: true,
+      },
     },
-    animationProps:{
-      control: {type :"object"}
-    }
+    animationProps: {
+      control: { type: "object" },
+      table: { disable: true },
+    },
   },
 };
 
-const Template = (args) => <Panels {...args} />;
-
+const Template = (args) => {
+  return <Panels {...args} />;
+};
 const commonArgs = {
   className: "",
   message: "Message",
   type: "success",
-  info: "Ref ID ",
+  info: "Description",
   response: "949749795479",
-  customIcon:"",
-  iconFill:"",
+  customIcon: "",
+  iconFill: "",
   style: {},
-  showAsSvg:false,
-  multipleResponses:[],
-  animationProps:{
-    noAutoplay:false,
-    loop :false
-  }
+  showAsSvg: true,
+  multipleResponses: [],
+  animationProps: {
+    noAutoplay: false,
+    loop: false,
+  },
 };
 
 export const Basic = Template.bind({});
@@ -73,20 +92,12 @@ WithAnimationProperties.args = {
   ...commonArgs,
   type: "success",
   message: "Success Message!",
-  animationProps:{
+  animationProps: {
     ...commonArgs.animationProps,
-    loop :true,
-    width:100,
-    height:100
-  }
-};
-
-export const WithoutAnimation = Template.bind({});
-WithoutAnimation.args = {
-  ...commonArgs,
-  type: "success",
-  message: "Success Message!",
-  showAsSvg:true
+    loop: true,
+    width: 100,
+    height: 100,
+  },
 };
 
 export const WithMultipleResponses = Template.bind({});
@@ -94,5 +105,5 @@ WithMultipleResponses.args = {
   ...commonArgs,
   type: "success",
   message: "Success Message!",
-  multipleResponses:["949749795469","949749795579","949749795499"]
+  multipleResponses: ["949749795469", "949749795579", "949749795499"],
 };

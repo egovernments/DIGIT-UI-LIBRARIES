@@ -52,6 +52,7 @@ const CustomDropdown = ({ t, config, inputRef, label, onChange,id, value, errorS
             additionalWrapperClass={additionalWrapperClass}
             innerStyles={config?.innerStyles}
             alignVertical={config?.alignVertical}
+            isLabelFirst={config?.isLabelFirst}
           />
         );
       case "dropdown":
@@ -86,6 +87,7 @@ const CustomDropdown = ({ t, config, inputRef, label, onChange,id, value, errorS
             inputRef={inputRef}
             options={data || config?.options || []}
             key={config.name}
+            style={config?.style || {}}
             optionsKey={config?.optionsKey}
             value={value}
             id={id}

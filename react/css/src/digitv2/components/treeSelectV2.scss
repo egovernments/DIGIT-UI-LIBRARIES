@@ -18,7 +18,7 @@
     @apply relative cursor-pointer flex items-center;
     height: 2.4375rem;
     gap: theme(digitv2.spacers.spacer1);
-    padding: theme(digitv2.spacers.spacer4) 0.625rem;
+    padding: theme(digitv2.spacers.spacer4) theme(digitv2.spacers.spacer3);
     &:hover {
         background: theme(digitv2.lightTheme.primary-bg);
         border: 0.063rem solid theme(digitv2.lightTheme.primary-1);

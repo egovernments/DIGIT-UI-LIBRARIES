@@ -28,7 +28,8 @@ const Accordion = ({
 }) => {
   const [isOpen, setIsOpen] = useState(isOpenInitially);
 
-  const iconColor = Colors.lightTheme.text.primary;
+  const iconColor = Colors.lightTheme.primary[1];
+  const toggleIconColor = Colors.lightTheme.text.primary;
   const toggleiconSize = Spacers.spacer6;
   const iconSize = Spacers.spacer6;
 
@@ -81,7 +82,7 @@ const Accordion = ({
           }`}
         >
           <SVG.ArrowBackIos
-            fill={iconColor}
+            fill={toggleIconColor}
             width={toggleiconSize}
             height={toggleiconSize}
           ></SVG.ArrowBackIos>
@@ -125,7 +126,7 @@ Accordion.defaultProps = {
   isClosed: false,
 };
 
-const AccordionWrapper = ({
+const AccordionList = ({
   children,
   allowMultipleOpen = true,
   addDivider,
@@ -167,7 +168,7 @@ const AccordionWrapper = ({
   );
 };
 
-AccordionWrapper.propTypes = {
+AccordionList.propTypes = {
   children: PropTypes.node.isRequired,
   allowMultipleOpen: PropTypes.bool,
   addDivider: PropTypes.bool,
@@ -175,11 +176,11 @@ AccordionWrapper.propTypes = {
   customStyles: PropTypes.object,
 };
 
-AccordionWrapper.defaultProps = {
+AccordionList.defaultProps = {
   allowMultipleOpen: true,
-  addDivider: true,
+  addDivider: false,
   customClassName: "",
   customStyles: {},
 };
 
-export { AccordionWrapper, Accordion };
+export { AccordionList, Accordion };

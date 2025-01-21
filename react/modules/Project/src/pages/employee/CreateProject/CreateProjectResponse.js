@@ -6,7 +6,7 @@ import {
   LinkLabel,
   Card,
   SubmitBar,
-  ActionBar,
+  Footer,
   ArrowLeftWhite,
   AddFileFilled,
 } from "@egovernments/digit-ui-components";
@@ -82,11 +82,11 @@ const CreateProjectResponse = () => {
           </LinkLabel>
         )}
       </div>
-      <ActionBar>
+      <Footer>
         <Link to={`/${window.contextPath}/employee`}>
           <SubmitBar label={t("CORE_COMMON_GO_TO_HOME")} />
         </Link>
-      </ActionBar>
+      </Footer>
     </Card>
   );
 };

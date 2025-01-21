@@ -9,15 +9,19 @@ export default {
     title: { control: "text" },
     children: { control: "text" },
     isOpenInitially: { control: "boolean" },
-    customClassName: { control: "text" },
-    customStyles: { control: "object" },
-    onToggle: { action: "onToggle" },
+    customClassName: { control: "text" ,table: { disable: true } },
+    customStyles: { control: "object" ,table: { disable: true } },
+    onToggle: { action: "onToggle",table: { disable: true }  },
     icon: { control: "text" },
     number: { control: "number" },
     hideCardBorder: { control: "boolean" },
     hideDivider: { control: "boolean" },
     hideCardBg: { control: "boolean" },
     hideBorderRadius: { control: "boolean" },
+    iconFill: { table: { disable: true } },
+    isClosed: { table: { disable: true } },
+    iconWidth: { table: { disable: true } },
+    iconHeight: { table: { disable: true } },
   },
 };
 
@@ -35,100 +39,41 @@ Documentation.storyName = "Docs";
 
 export const Basic = Template.bind({});
 Basic.args = {
-  title:
-    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",
-  children:
-    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
+  title: "Section Header",
+  children: `Dummy text refers to the bits of content that are used to fill a website. This text helps web designers better envision how the website will look as a finished product. It is important to understand that dummy text has no meaning whatsoever. Its sole purpose is to fill out blank spaces with “word-like” content, without making any copyright infringements. 
+  Dummy text refers to the bits of content that are used to fill a website. This text helps web designers better envision how the website will look as a finished product. It is important to understand that dummy text has no meaning whatsoever. Its sole purpose is to fill out blank spaces with “word-like” content, without making any copyright infringements.`,
   isOpenInitially: false,
   hideCardBorder: true,
   hideDivider: true,
-  hideCardBg: false,
-  hideBorderRadius: true,
-};
-
-export const WithStroke = Template.bind({});
-WithStroke.args = {
-  title:
-    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",
-  children:
-    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
-  isOpenInitially: false,
-  hideCardBorder: false,
-  hideDivider: true,
-  hideCardBg: false,
-  hideBorderRadius: false,
-};
-
-export const WithDivider = Template.bind({});
-WithDivider.args = {
-  title:
-    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",
-  children:
-    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
-  isOpenInitially: false,
-  hideCardBorder: true,
-  hideDivider: false,
   hideCardBg: true,
   hideBorderRadius: true,
+  icon:"",
+  number:""
 };
 
-export const WithStrokeAndDivider = Template.bind({});
-WithStrokeAndDivider.args = {
-  title:
-    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",
-  children:
-    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
+export const Nested = Template.bind({});
+Nested.args = {
   isOpenInitially: false,
   hideCardBorder: false,
   hideDivider: false,
   hideCardBg: false,
   hideBorderRadius: false,
-};
-
-export const WithIcon = Template.bind({});
-WithIcon.args = {
-  title: "Accordion with Icon",
-  children: "This accordion has an icon.",
-  icon: "AccountCircle",
-  isOpenInitially: false,
-  hideCardBorder: false,
-  hideDivider: false,
-  hideCardBg: false,
-  hideBorderRadius: false,
-};
-
-export const WithNumber = Template.bind({});
-WithNumber.args = {
-  title: "Accordion with Number",
-  children: "This accordion has a number.",
-  number: 1,
-  isOpenInitially: false,
-  hideCardBorder: false,
-  hideDivider: false,
-  hideCardBg: false,
-  hideBorderRadius: false,
-};
-
-export const NestedAccordion = Template.bind({});
-NestedAccordion.args = {
-  isOpenInitially: false,
-  hideCardBorder: false,
-  hideDivider: false,
-  hideCardBg: false,
-  hideBorderRadius: false,
-  title: "Main Accordion",
+  title: "Section Header",
   children: (
     <Accordion title="Nested Accordion" isChild={true}>
       This is a nested accordion demonstrating component composition. The
       isChild prop ensures proper styling and behavior.
     </Accordion>
   ),
+  icon:"",
+  number:""
 };
 
 export const Custom = Template.bind({});
 Custom.args = {
-  title: "Custom Styled Accordion",
-  children: "This accordion has custom styles.",
+  title: "Section Header",
+  children: `Dummy text refers to the bits of content that are used to fill a website. This text helps web designers better envision how the website will look as a finished product. It is important to understand that dummy text has no meaning whatsoever. Its sole purpose is to fill out blank spaces with “word-like” content, without making any copyright infringements. 
+  Dummy text refers to the bits of content that are used to fill a website. This text helps web designers better envision how the website will look as a finished product. It is important to understand that dummy text has no meaning whatsoever. Its sole purpose is to fill out blank spaces with “word-like” content, without making any copyright infringements.`,
   customClassName: "custom-accordion",
   customStyles: {
     borderColor: "#C84C0E",
@@ -138,4 +83,7 @@ Custom.args = {
   hideDivider: false,
   hideCardBg: false,
   hideBorderRadius: false,
+  icon:"",
+  number:"",
+  isOpenInitially: false,
 };

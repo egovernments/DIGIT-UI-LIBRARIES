@@ -221,7 +221,7 @@
     .digit-dropdown-item {
       display: flex;
       flex-direction: row;
-      padding: 0.625rem;
+      padding: theme(digitv2.spacers.spacer3);
       column-gap: 0.625rem;
       color: theme(colors.text.secondary);
   

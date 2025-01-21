@@ -55,6 +55,9 @@ enum ToastType {
   info,
 }
 
+/// Enum for predefined toast positions
+enum ToastPosition { bottom, aboveOneButtonFooter, aboveTwoButtonFooter, custom }
+
 /// dropdown type and subtype for dropdown wrapper
 enum DropdownType {
   singleSelect,

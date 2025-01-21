@@ -5,46 +5,84 @@ export default {
   title: "Atoms/Button/Link",
   component: Button,
   argTypes: {
-    isDisabled: {
-      control: "boolean",
-    },
     label: {
       control: "text",
     },
     variation: {
       control: "select",
       options: ["primary", "secondary", "teritiary", "link"],
+      table: { disable: true },
     },
     size: { control: "select", options: ["large", "medium", "small"] },
     className: {
       control: "text",
+      table: { disable: true },
     },
     style: {
       control: { type: "object" },
+      table: { disable: true },
     },
     onClick: {
       control: "function",
-    },
-    isSuffix: {
-      control: "boolean",
+      table: { disable: true },
     },
     title: {
       control: "text",
+      table: { disable: true },
+    },
+    isSearchable: {
+      control: "boolean"
+    },
+    showBottom: {
+      control: "select",
+      options: ["DropUp", "DropDown"],
+      name: "ActionButton",
+      mapping: {
+        DropUp: false,
+        DropDown: true,
+      },
+    },
+    optionsKey: {
+      control: "text",
+      table: { disable: true },
     },
     options: {
       control: {
         type: "array",
         separator: ",",
       },
+      table: { disable: true },
     },
-    isSearchable: {
+    isDisabled: {
+      control: "select",
+      options: ["Default", "Disabled"],
+      name: "state",
+      mapping: {
+        Default: false,
+        Disabled: true,
+      },
+    },
+    textStyles: { table: { disable: true } },
+    iconFill: { table: { disable: true } },
+    icon: { table: { disable: true } },
+    onOptionSelect: { table: { disable: true } },
+    type: { table: { disable: true } },
+    WithIcon: {
       control: "boolean",
     },
-    showBottom: {
-      control: "boolean",
+    isSuffix: {
+      control: "select",
+      options: ["Prefix", "Suffix"],
+      name: "Icon",
+      mapping: {
+        Prefix: false,
+        Suffix: true,
+      },
+      if: { arg: "WithIcon", truthy: true}, 
     },
-    optionsKey: {
-      control: "text",
+    Width: {
+      control: "select",
+      options: ["Hug Content", "Justify"],
     },
   },
 };
@@ -60,26 +98,49 @@ const commonStyles = {
   transform: "translate(-50%, -50%)",
 };
 
-const Template = (args) => (
-  <div style={commonStyles}>
-    <Button {...args} />
-  </div>
-);
+
+const Template = (args) => {
+  const { WithIcon, isSuffix, Width, ...restArgs } = args;
+
+  const widthStyles =
+    Width === "Hug Content"
+      ? { width: "auto", whiteSpace: "nowrap" }
+      : { width: "100%" };
+
+  return (
+    <div
+      style={{ ...commonStyles, width: Width === "Justify" ? "100%" : "auto" }}
+    >
+      <Button
+        {...restArgs}
+        style={{ ...restArgs.style, ...widthStyles }}
+        icon={WithIcon ? (isSuffix ? "ArrowForward" : "ArrowBack") : ""}
+        isSuffix={WithIcon && isSuffix}
+        menuStyles={!args.showBottom ? { bottom: "40px" } : undefined}
+      />
+    </div>
+  );
+};
 
 const commonArgs = {
   label: "Button",
   className: "custom-class",
   style: {},
-  onClick: () => {console.log("clicked"); } ,
-  isDisabled: false,
+  onClick: () => {
+    console.log("clicked");
+  },
+  isDisabled: "Default",
   variation: "",
-  isSuffix: false,
-  size: "",
-  title:"",
-  iconFill:"",
-  options:[],
-  optionsKey:"",
-  isSearchable:false
+  size: "large",
+  title: "",
+  iconFill: "",
+  options: [],
+  optionsKey: "",
+  WithIcon: false,
+  isSuffix: "Prefix",
+  isSearchable: false,
+  Width:"Hug Content",
+  showBottom:"DropDown"
 };
 
 // Button with link variantion
@@ -88,40 +149,4 @@ Basic.args = {
   ...commonArgs,
   variation: "link",
   label: "Link",
-};
-
-// Button with link variantion and with icon
-export const WithIcon = Template.bind({});
-WithIcon.args = {
-  ...commonArgs,
-  variation: "link",
-  label: "Link",
-  icon: "MyLocation",
-};
-
-// Button with link variantion and with icon as a suffix
-export const WithSuffixIcon = Template.bind({});
-WithSuffixIcon.args = {
-  ...commonArgs,
-  variation: "link",
-  label: "Link",
-  icon: "ArrowForward",
-  isSuffix: true,
-};
-
-// Button with link variantion and disabled
-export const Disabled = Template.bind({});
-Disabled.args = {
-  ...commonArgs,
-  variation: "link",
-  label: "Link",
-  isDisabled: true,
-};
-
-// Button with link variation and label with maxchars
-export const LabelWithMaxLength = Template.bind({});
-LabelWithMaxLength.args = {
-  ...commonArgs,
-  variation: "link",
-  label: "qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopas",
 };

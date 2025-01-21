@@ -463,6 +463,7 @@
         font-style: theme(digitv2.fontStyle.normal);
         font-weight: theme(digitv2.fontWeight.regular);
         line-height: theme(digitv2.lineHeight.lineheight2);
+        padding-left: theme(digitv2.spacers.spacer3);
     
         @media (max-aspect-ratio: 9/16) {
           /* Media query for mobile */

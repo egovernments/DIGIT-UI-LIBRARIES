@@ -199,7 +199,7 @@
 }
 .digit-dropdown-item {
   @apply flex flex-row;
-  padding: 0.625rem;
+  padding: theme(digitv2.spacers.spacer3);
   gap: 0.625rem;
   min-height: 2.438rem;
   color: theme(digitv2.lightTheme.text-primary) !important;
@@ -318,7 +318,7 @@
   }
   &.nestedtextdropdown {
     min-height: 4.75rem;
-    padding: theme(digitv2.spacers.spacer2) 0.635rem theme(digitv2.spacers.spacer2) 0.635rem;
+    padding: theme(digitv2.spacers.spacer2) theme(digitv2.spacers.spacer3) theme(digitv2.spacers.spacer2) theme(digitv2.spacers.spacer3);
     color: theme(digitv2.lightTheme.text-secondary) !important;
     &:hover {
       border: 0.063rem solid theme(digitv2.lightTheme.primary-1);
@@ -356,7 +356,7 @@
   }
   &.profiledropdown {
     min-height: theme(digitv2.spacers.spacer12);
-    padding: theme(digitv2.spacers.spacer2) 0.625rem;
+    padding: theme(digitv2.spacers.spacer2) theme(digitv2.spacers.spacer3);
   }
   &.profilenestedtext {
     min-height: 4.75rem;

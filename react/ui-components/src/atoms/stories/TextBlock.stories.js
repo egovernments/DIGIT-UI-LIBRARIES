@@ -5,6 +5,24 @@ import Iframe from "../Iframe";
 export default {
   title: "Atoms/TextBlock",
   component: TextBlock,
+  headerContentClassName: {
+    table: { disable: true },
+  },
+  headerClassName: {
+    table: { disable: true },
+  },
+  captionClassName: {
+    table: { disable: true },
+  },
+  subHeaderClassName: {
+    table: { disable: true },
+  },
+  bodyClassName: {
+    table: { disable: true },
+  },
+  wrapperClassName: {
+    table: { disable: true },
+  },
 };
 
 const Template = (args) => <TextBlock {...args} />;
@@ -19,16 +37,25 @@ export const Documentation = () => (
 
 Documentation.storyName = "Docs";
 
-export const Default = Template.bind({});
-Default.args = {
-  headerContentClassName: "",
+const commonArgs = {
+  // headerContentClassName: "",
   caption: "Caption",
-  captionClassName: "",
+  // captionClassName: "",
   header: "Heading",
-  headerClassName: "",
+  // headerClassName: "",
   subHeader: "Subheading",
-  subHeaderClassName: "",
+  // subHeaderClassName: "",
   body:
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-  bodyClassName: "",
+  // bodyClassName: "",
+};
+
+export const Basic = Template.bind({});
+Basic.args = {
+  ...commonArgs,
+};
+
+export const Custom = Template.bind({});
+Custom.args = {
+  ...commonArgs,
 };

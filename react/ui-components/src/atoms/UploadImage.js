@@ -292,7 +292,8 @@ const UploadImage = ({
               <div className="upload-options" style={{ display: "flex" }}>
                 <label
                   onClick={() => toggleWebcam()}
-                  style={{ cursor: "pointer" }}
+                  // style={{ cursor: "pointer" }}
+                  className="upload-options-svg-wrap"
                 >
                   <SVG.CameraEnhance
                     fill="#C84C0E"

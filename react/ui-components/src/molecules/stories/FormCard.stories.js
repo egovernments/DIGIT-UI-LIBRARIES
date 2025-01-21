@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Button from "../../atoms/Button";
 import TextInput from "../../atoms/TextInput";
-import Uploader from "../../atoms/Uploader";
+import FileUpload from "../../atoms/FileUpload";
 import Chip from "../../atoms/Chip";
 import {
   Card,
@@ -209,14 +209,14 @@ export const SimpleLayout = () => {
           ></Dropdown>
         </div>
       </LabelFieldPair>
-      {/* <Uploader
+      {/* <FileUpload
         style={{ marginBottom: "24px" }}
-        variant={"uploadFile"}
+        variant={"uploadField"}
         multiple={false}
         label={"Choose Document"}
         showLabel={true}
         inline={true}
-      ></Uploader> */}
+      ></FileUpload> */}
       <LabelFieldPair>
         <TextBlock style={textBlockStyle} body={"Email ID"}></TextBlock>
         <TextInput type="text"></TextInput>
@@ -398,14 +398,14 @@ export const WithLayoutExample1 = () => {
           ></Dropdown>
         </div>
       </LabelFieldPair>
-      {/* <Uploader
+      {/* <FileUpload
         style={{ marginBottom: "24px" }}
-        variant={"uploadFile"}
+        variant={"uploadField"}
         multiple={false}
         label={"Choose Document"}
         showLabel={true}
         inline={true}
-      ></Uploader> */}
+      ></FileUpload> */}
       <LabelFieldPair>
         <TextBlock style={textBlockStyle} body={"Email ID"}></TextBlock>
         <TextInput type="text"></TextInput>

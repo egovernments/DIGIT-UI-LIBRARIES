@@ -1,6 +1,6 @@
 import {
   FormComposerV2,
-  InfoCard,
+  AlertCard,
   Stepper,
   Button,
   Timeline,
@@ -913,7 +913,7 @@ const Create = () => {
         />
       </div>
       <div style={commonDivStyle}>
-        <InfoCard
+        <AlertCard
           populators={{
             name: "infocard",
           }}
@@ -923,7 +923,7 @@ const Create = () => {
           }
           label={"Info"}
         />
-        <InfoCard
+        <AlertCard
           populators={{
             name: "infocardsuccess",
           }}
@@ -933,7 +933,7 @@ const Create = () => {
           }
           label={"Success"}
         />
-        <InfoCard
+        <AlertCard
           populators={{
             name: "infocardwarning",
           }}
@@ -943,7 +943,7 @@ const Create = () => {
           }
           label={"Warning"}
         />
-        <InfoCard
+        <AlertCard
           populators={{
             name: "infocarderror",
           }}
@@ -954,7 +954,7 @@ const Create = () => {
           label={"Error"}
         />
 
-        <InfoCard
+        <AlertCard
           populators={{
             name: "infocardwithelements",
           }}
@@ -966,7 +966,7 @@ const Create = () => {
           additionalElements={additionalElementsforInfoCard}
         />
 
-        <InfoCard
+        <AlertCard
           populators={{
             name: "infocardwithelements",
           }}
