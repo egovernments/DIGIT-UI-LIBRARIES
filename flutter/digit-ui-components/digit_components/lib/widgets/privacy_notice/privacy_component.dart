@@ -150,12 +150,34 @@ class _PrivacyComponentState extends LocalizedState<PrivacyComponent> {
                 ),
                 if (field.errorText != null) ...[
                   const SizedBox(height: spacer1),
-                  Text(
-                    widget.validationMessage,
-                    style: theme.textTheme.bodySmall?.copyWith(
-                      color: theme.colorTheme.alert.error,
-                    ),
-                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment:
+                    CrossAxisAlignment.start,
+                    children: [
+                      Column(
+                        children: [
+                          const SizedBox(
+                            height: 1.5,
+                          ),
+                          Icon(
+                            Icons.info,
+                            color: theme.colorTheme.alert.error,
+                            size: spacer4,
+                          ),
+                        ],
+                      ),
+                      const SizedBox(width: spacer1),
+                      Text(
+                        widget.validationMessage,
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          color: theme.colorTheme.alert.error,
+                        ),
+                      ),
+                    ],
+                  )
+
                 ],
               ],
             );
