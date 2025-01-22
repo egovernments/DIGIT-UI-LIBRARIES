@@ -1,3 +1,7 @@
+## 0.0.2-dev.6
+* fixed privacy component error message style
+* fixed table height issue
+
 ## 0.0.2-dev.5
 * fixed dialog empty string taking extra space issue
 * added footer content for hamburger
