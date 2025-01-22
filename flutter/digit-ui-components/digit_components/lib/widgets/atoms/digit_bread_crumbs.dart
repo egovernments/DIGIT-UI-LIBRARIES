@@ -40,6 +40,24 @@ class _DigitBreadCrumbState extends State<DigitBreadCrumb> {
     _updateCrumbsToDisplay();
   }
 
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+  }
+
+  @override
+  void didUpdateWidget(covariant DigitBreadCrumb oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    // Update crumbsToDisplay when the widget's properties change
+    if (oldWidget.crumbs != widget.crumbs ||
+        oldWidget.maxItems != widget.maxItems ||
+        oldWidget.itemsBeforeCollapse != widget.itemsBeforeCollapse ||
+        oldWidget.itemsAfterCollapse != widget.itemsAfterCollapse) {
+      _updateCrumbsToDisplay();
+    }
+  }
+
   void _updateCrumbsToDisplay() {
     if (widget.maxItems != null &&
         widget.crumbs.length > widget.maxItems! &&
