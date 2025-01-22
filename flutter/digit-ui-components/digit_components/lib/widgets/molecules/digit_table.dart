@@ -484,7 +484,7 @@ class _DigitTableState extends State<DigitTable> {
                               TableBody(
                                 keys: nonFrozenKeys,
                                 controller: _nonFrozenScrollController,
-                                tableHeight: widget.tableHeight,
+                                tableHeight: widget.tableHeight!=null ? widget.tableHeight! - 48 : null,
                                 scrollPhysics: widget.scrollPhysicsForPagination,
                                 enableSelection: widget.showSelectedState,
                                 highlightedRows: _highlightedRowIndices,

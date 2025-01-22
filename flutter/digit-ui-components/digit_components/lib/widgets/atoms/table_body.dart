@@ -77,10 +77,12 @@ class _TableBodyState extends State<TableBody> {
   @override
   void didUpdateWidget(TableBody oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (widget.selectedRows != null && widget.selectedRows != oldWidget.selectedRows) {
+    if (widget.selectedRows != null &&
+        widget.selectedRows != oldWidget.selectedRows) {
       _selectedRows.addAll(widget.selectedRows!);
     }
-    if (widget.highlightedRows != null && widget.highlightedRows != oldWidget.highlightedRows) {
+    if (widget.highlightedRows != null &&
+        widget.highlightedRows != oldWidget.highlightedRows) {
       _highlightedRows.addAll(widget.highlightedRows!);
     }
   }
@@ -89,7 +91,8 @@ class _TableBodyState extends State<TableBody> {
   int _countSpecialColumns() {
     int count = 0;
     for (var column in widget.columns) {
-      if (column.type == ColumnType.checkbox || column.type == ColumnType.numeric) {
+      if (column.type == ColumnType.checkbox ||
+          column.type == ColumnType.numeric) {
         count++;
       }
     }
@@ -131,7 +134,12 @@ class _TableBodyState extends State<TableBody> {
     return ConstrainedBox(
       constraints: BoxConstraints(
         maxWidth: normalColumns * 200 + specialColumnCount * 100 + 2,
-        maxHeight: (widget.tableHeight ?? MediaQuery.of(context).size.height) - 2*headerHeight - (footerHeight==0 ? 64 : 2*footerHeight),
+        // maxHeight: (widget.tableHeight ?? MediaQuery.of(context).size.height) - 2*headerHeight - (footerHeight==0 ? 64 : 2*footerHeight),
+        maxHeight: widget.tableHeight != null
+            ? widget.tableHeight!
+            : (MediaQuery.of(context).size.height -
+                2 * headerHeight -
+                (footerHeight == 0 ? 64 : 2 * footerHeight)),
       ),
       child: ListView.builder(
         physics: widget.scrollPhysics,
@@ -158,12 +166,19 @@ class _TableBodyState extends State<TableBody> {
       cells.add(
         Container(
           constraints: BoxConstraints(
-            minWidth: (type == ColumnType.numeric || type == ColumnType.checkbox) ? 40 : 100,
-            maxWidth: (type == ColumnType.numeric || type == ColumnType.checkbox) ? 100 : 200,
+            minWidth:
+                (type == ColumnType.numeric || type == ColumnType.checkbox)
+                    ? 40
+                    : 100,
+            maxWidth:
+                (type == ColumnType.numeric || type == ColumnType.checkbox)
+                    ? 100
+                    : 200,
           ),
           decoration: BoxDecoration(
             border: Border(
-              right: widget.withColumnDividers && j!=widget.rows[rowIndex].tableRow.length-1
+              right: widget.withColumnDividers &&
+                      j != widget.rows[rowIndex].tableRow.length - 1
                   ? BorderSide(color: theme.colorTheme.generic.divider)
                   : BorderSide.none,
             ),
@@ -177,11 +192,11 @@ class _TableBodyState extends State<TableBody> {
                 type: type,
                 value: value,
                 areAllRowsSelected: (value) {
-                  if(value) {
+                  if (value) {
                     setState(() {
                       _selectedRows.add(rowIndex);
                     });
-                  }else{
+                  } else {
                     setState(() {
                       _selectedRows.remove(rowIndex);
                     });
@@ -199,37 +214,48 @@ class _TableBodyState extends State<TableBody> {
     return InkWell(
       onHover: widget.enableSelection
           ? (hover) {
-        setState(() {
-          if (hover) {
-            _hoveredRows.add(rowIndex);
-          } else {
-            _hoveredRows.remove(rowIndex);
-          }
-        });
-      }
+              setState(() {
+                if (hover) {
+                  _hoveredRows.add(rowIndex);
+                } else {
+                  _hoveredRows.remove(rowIndex);
+                }
+              });
+            }
           : null,
-      onTap: widget.rows[rowIndex].nestedTable != null ? () {
-        setState(() {
-          if (_expandedRows.contains(rowIndex)) {
-            _expandedRows.remove(rowIndex); // Collapse row
-          } else {
-            _expandedRows.add(rowIndex); // Expand row
-          }
-        });
-      } : widget.enableSelection ? (){
-        setState(() {
-          if (_selectedRows.contains(rowIndex)) {
-            _selectedRows.remove(rowIndex);
-          } else {
-            _selectedRows.add(rowIndex);
-          }
-        });
-      } : null,
+      onTap: widget.rows[rowIndex].nestedTable != null
+          ? () {
+              setState(() {
+                if (_expandedRows.contains(rowIndex)) {
+                  _expandedRows.remove(rowIndex); // Collapse row
+                } else {
+                  _expandedRows.add(rowIndex); // Expand row
+                }
+              });
+            }
+          : widget.enableSelection
+              ? () {
+                  setState(() {
+                    if (_selectedRows.contains(rowIndex)) {
+                      _selectedRows.remove(rowIndex);
+                    } else {
+                      _selectedRows.add(rowIndex);
+                    }
+                  });
+                }
+              : null,
       child: Container(
         decoration: BoxDecoration(
-          color: _hoveredRows.contains(rowIndex) ||_selectedRows.contains(rowIndex) || _highlightedRows.contains(rowIndex) ? theme.colorTheme.primary.primaryBg : rowColor,
+          color: _hoveredRows.contains(rowIndex) ||
+                  _selectedRows.contains(rowIndex) ||
+                  _highlightedRows.contains(rowIndex)
+              ? theme.colorTheme.primary.primaryBg
+              : rowColor,
           border: Border(
-            bottom: widget.withRowDividers || (!widget.withRowDividers && widget.enableBorder && rowIndex==widget.rows.length-1)
+            bottom: widget.withRowDividers ||
+                    (!widget.withRowDividers &&
+                        widget.enableBorder &&
+                        rowIndex == widget.rows.length - 1)
                 ? BorderSide(color: theme.colorTheme.generic.divider)
                 : BorderSide.none,
           ),
@@ -246,7 +272,9 @@ class _TableBodyState extends State<TableBody> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: cells,
                     ),
-                    if(widget.showExpandIconOnHover && widget.rows[rowIndex].nestedTable != null && _hoveredRows.contains(rowIndex))
+                    if (widget.showExpandIconOnHover &&
+                        widget.rows[rowIndex].nestedTable != null &&
+                        _hoveredRows.contains(rowIndex))
                       InkWell(
                         onTap: () {
                           setState(() {
@@ -278,7 +306,8 @@ class _TableBodyState extends State<TableBody> {
                               topRight: Radius.circular(4),
                               bottomRight: Radius.circular(4),
                             ),
-                            color: theme.colorTheme.primary.primary1,  // Line color
+                            color:
+                                theme.colorTheme.primary.primary1, // Line color
                           ),
                         ),
                       ),
@@ -286,10 +315,12 @@ class _TableBodyState extends State<TableBody> {
                 ),
               ],
             ),
-            if (_expandedRows.contains(rowIndex) && widget.rows[rowIndex].nestedTable != null)
+            if (_expandedRows.contains(rowIndex) &&
+                widget.rows[rowIndex].nestedTable != null)
               Container(
                 padding: const EdgeInsets.only(left: 16, right: 16, bottom: 12),
-                child: widget.rows[rowIndex].nestedTable!, // Add the nested table widget
+                child: widget
+                    .rows[rowIndex].nestedTable!, // Add the nested table widget
               ),
           ],
         ),
