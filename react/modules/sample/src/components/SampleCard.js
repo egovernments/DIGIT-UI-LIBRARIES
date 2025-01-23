@@ -12,7 +12,7 @@ const SampleCard = () => {
     ],
     links: [
       {
-        label: t("Sample Components"),
+        label: t("Microplan Components"),
         link: `/${window?.contextPath}/employee/sample/components`,
       },
     ],
