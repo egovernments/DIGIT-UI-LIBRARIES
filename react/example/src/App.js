@@ -14,7 +14,7 @@ import "@egovernments/digit-ui-components-css/dist/index.css";
 
 
 window.contextPath = window?.globalConfigs?.getConfig("CONTEXT_PATH");
-
+var Digit = window.Digit || {};
 const enabledModules = [
   // "DSS",
   // "NDSS",
@@ -23,9 +23,9 @@ const enabledModules = [
   // "Engagement",
   // "Workbench",
   // "Project", 
-  "Sample"
+  "Sample",
+  // "Microplan"
 ];
-
 const moduleReducers = (initData) => ({
   initData,
 });
