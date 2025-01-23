@@ -183,7 +183,6 @@ const FieldComposer = ({
               label={t(`${populators?.title}`)}
               styles={populators?.styles}
               style={populators?.labelStyles}
-              customLabelMarkup={populators?.customLabelMarkup}
               variant={variant ? variant : errors?.[populators.name] ? "digit-field-error" : ""}
             />
           </div>
