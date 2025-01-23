@@ -21,8 +21,11 @@ const LoaderComponent = ({
       width: animationStyles?.width || "6.25rem",
       height: animationStyles?.height || "6.25rem",
       animationData:
-        animationStyles?.animationData ??
-        (variant === "OverlayLoader" ? theLoaderWhite : theLoaderPrimary2),
+      animationStyles?.animationData !== undefined && animationStyles?.animationData !== null
+        ? animationStyles.animationData
+        : variant === "OverlayLoader"
+        ? theLoaderWhite
+        : theLoaderPrimary2,    
     };
 
     return <Animation {...commonProps} />;
