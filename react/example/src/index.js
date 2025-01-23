@@ -1,59 +1,85 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
+
 import { initLibraries } from "@egovernments/digit-ui-libraries";
-import App from './App';
+// import { paymentConfigs, PaymentLinks, PaymentModule } from "@egovernments/digit-ui-module-common";
+import { DigitUI } from "@egovernments/digit-ui-module-core";
+// import "@egovernments/digit-ui-health-css/example/index.css";
+import "@egovernments/digit-ui-components-css/dist/index.css";
+import { UICustomizations } from "./UICustomizations";
+import { initSampleComponents } from "@egovernments/digit-ui-module-sample"
 
 
-initLibraries();
+var Digit = window.Digit || {};
 
+const enabledModules = [
+  // "DSS",
+  // "HRMS",
+  // "Workbench",
+  // "HCMWORKBENCH",
+  // "Campaign",
+  // //  "Engagement", "NDSS","QuickPayLinks", "Payment",
+  // "Utilities",
+  // "Microplan",
+  // "Payments"
+  "Sample"
+  //added to check fsm
+  // "FSM"
+];
 
-window.Digit.Customizations = { };
+const initTokens = (stateCode) => {
+  const userType = window.sessionStorage.getItem("userType") || process.env.REACT_APP_USER_TYPE || "CITIZEN";
+  const token = window.localStorage.getItem("token") || process.env[`REACT_APP_${userType}_TOKEN`];
 
-const user = window.Digit.SessionStorage.get("User");
+  const citizenInfo = window.localStorage.getItem("Citizen.user-info");
 
-if (!user || !user.access_token || !user.info) {
-  // login detection
+  const citizenTenantId = window.localStorage.getItem("Citizen.tenant-id") || stateCode;
 
-  const parseValue = (value) => {
-    try {
-      return JSON.parse(value)
-    } catch (e) {
-      return value
-    }
+  const employeeInfo = window.localStorage.getItem("Employee.user-info");
+  const employeeTenantId = window.localStorage.getItem("Employee.tenant-id");
+
+  const userTypeInfo = userType === "CITIZEN" || userType === "QACT" ? "citizen" : "employee";
+  window.Digit.SessionStorage.set("user_type", userTypeInfo);
+  window.Digit.SessionStorage.set("userType", userTypeInfo);
+
+  if (userType !== "CITIZEN") {
+    window.Digit.SessionStorage.set("User", { access_token: token, info: userType !== "CITIZEN" ? JSON.parse(employeeInfo) : citizenInfo });
+  } else {
+    // if (!window.Digit.SessionStorage.get("User")?.extraRoleInfo) window.Digit.SessionStorage.set("User", { access_token: token, info: citizenInfo });
   }
 
-  const getFromStorage = (key) => {
-    const value = window.localStorage.getItem(key);
-    return value && value !== "undefined" ? parseValue(value) : null;
-  }
-
-  const token = getFromStorage("token")
-
-  const citizenToken = getFromStorage("Citizen.token")
-  const citizenInfo = getFromStorage("Citizen.user-info")
-  const citizenTenantId = getFromStorage("Citizen.tenant-id")
-
-  const employeeToken = getFromStorage("Employee.token")
-  const employeeInfo = getFromStorage("Employee.user-info")
-  const employeeTenantId = getFromStorage("Employee.tenant-id")
-  const userType = token === citizenToken ? "citizen" : "employee";
-
-  window.Digit.SessionStorage.set("user_type", userType);
-  window.Digit.SessionStorage.set("userType", userType);
-
-  const getUserDetails = (access_token, info) => ({ token: access_token, access_token, info })
-
-  const userDetails = userType === "citizen" ? getUserDetails(citizenToken, citizenInfo) : getUserDetails(employeeToken, employeeInfo)
-
-  window.Digit.SessionStorage.set("User", userDetails);
   window.Digit.SessionStorage.set("Citizen.tenantId", citizenTenantId);
-  window.Digit.SessionStorage.set("Employee.tenantId", employeeTenantId);
-  // end
-}
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+  if (employeeTenantId && employeeTenantId.length) window.Digit.SessionStorage.set("Employee.tenantId", employeeTenantId);
+};
+
+const initDigitUI = () => {
+  window.contextPath = window?.globalConfigs?.getConfig("CONTEXT_PATH") || "digit-ui";
+  window.Digit.Customizations = {
+    commonUiConfig: UICustomizations
+  };
+  window?.Digit.ComponentRegistryService.setupRegistry({
+    // PaymentModule,
+    // ...paymentConfigs,
+    // PaymentLinks,
+  });
+  // initUtilitiesComponents();
+  // initWorkbenchComponents();
+  // initWorkbenchHCMComponents();
+  // initCampaignComponents();
+  // initMicroplanComponents();
+  // initPaymentComponents();
+  initSampleComponents();
+
+  const moduleReducers = (initData) => initData;
+
+
+  const stateCode = window?.globalConfigs?.getConfig("STATE_LEVEL_TENANT_ID") || "pb";
+  initTokens(stateCode);
+
+  ReactDOM.render(<DigitUI stateCode={stateCode} enabledModules={enabledModules}       defaultLanding="employee"  moduleReducers={moduleReducers} />, document.getElementById("root"));
+};
+
+initLibraries().then(() => {
+  initDigitUI();
+});
