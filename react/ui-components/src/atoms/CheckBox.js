@@ -18,7 +18,6 @@ const CheckBox = ({
   style,
   index,
   isLabelFirst,
-  customLabelMarkup,
   hideLabel,
   isIntermediate,
   ...props
@@ -40,18 +39,7 @@ const CheckBox = ({
     >
       {(isLabelFirst && !hideLabel) ? (
         <p className={`label ${props?.labelClassName} `} style={{ maxWidth: "100%", width: "auto" ,marginRight:"0rem"}} onClick={props?.onLabelClick}>
-          {customLabelMarkup ? (
-            <>
-              <span>{t("COMMON_CERTIFY_ONE")}</span>
-              <br />
-              <span>
-                <b> {t("ES_COMMON_NOTE")}</b>
-                {t("COMMON_CERTIFY_TWO")}
-              </span>
-            </>
-          ) : (
-            sentenceCaseLabel
-          )}
+          {sentenceCaseLabel}
         </p>
       ) : null}
       <div style={{ cursor: "pointer", display: "flex", position: "relative" }} className={props?.inputWrapperClassName}>
@@ -79,18 +67,7 @@ const CheckBox = ({
       </div>
       {(!isLabelFirst && !hideLabel) ? (
         <p className={`label ${props?.labelClassName} `} style={{ maxWidth: "100%", width: "100%",marginRight:"0rem" }} onClick={props?.onLabelClick}>
-          {customLabelMarkup ? (
-            <>
-              <span>{t("COMMON_CERTIFY_ONE")}</span>
-              <br />
-              <span>
-                <b> {t("ES_COMMON_NOTE")}</b>
-                {t("COMMON_CERTIFY_TWO")}
-              </span>
-            </>
-          ) : (
-            sentenceCaseLabel
-          )}
+          {sentenceCaseLabel}
         </p>
       ) : null}
     </div>

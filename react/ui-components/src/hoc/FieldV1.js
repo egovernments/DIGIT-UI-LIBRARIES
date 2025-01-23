@@ -218,7 +218,6 @@ const FieldV1 = ({
               label={t(`${populators?.title}`)}
               styles={populators?.styles}
               style={populators?.labelStyles}
-              customLabelMarkup={populators?.customLabelMarkup}
               disabled={disabled}
               isLabelFirst={populators?.isLabelFirst}
               id={fieldId}
