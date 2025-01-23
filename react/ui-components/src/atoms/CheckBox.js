@@ -39,7 +39,7 @@ const CheckBox = ({
     >
       {isLabelFirst && !hideLabel ? (
         <label
-          htmlFor="checkbox-label-left"
+          htmlFor={props.id || `checkbox-${value}`}
           className={`label ${props?.labelClassName} `}
           style={{ maxWidth: "100%", width: "auto", marginRight: "0rem" }}
           onClick={props?.onLabelClick}
@@ -87,7 +87,7 @@ const CheckBox = ({
       </div>
       {!isLabelFirst && !hideLabel ? (
         <label
-          htmlFor="checkbox-label-right"
+          htmlFor={props.id || `checkbox-${value}`}
           className={`label ${props?.labelClassName} `}
           style={{ maxWidth: "100%", width: "100%", marginRight: "0rem" }}
           onClick={props?.onLabelClick}
