@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.2-beta.65] - 2025-01-27
+### New Changes
+- ViewCard is renamed as SummaryCard
+- ViewCardFieldPair is renamed as SummaryCardFieldPair
+- Header is renamed as HeaderComponent
+- TopBar is renamed as Header
+- Hamburger is renamed as HamburgerButton
+- MobileSideNav is renamed as Hamburger
+- LoaderScreen Component is removed
+- LoaderComponent is renamed as Loader
+
 ## [0.0.2-beta.60] - 2024-12-26
 ### New Changes
 - SelectionCard Component is renamed as SelectionTag Component

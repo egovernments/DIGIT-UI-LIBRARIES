@@ -10,7 +10,7 @@
     "build": "webpack --mode production"
   },
   "dependencies": {
-    "@egovernments/digit-ui-components": "0.0.2-beta.64",
+    "@egovernments/digit-ui-components": "0.0.2-beta.65",
     "@egovernments/digit-ui-libraries": "1.8.8",
     "@egovernments/digit-ui-module-common": "1.7.10",
     "@egovernments/digit-ui-module-core": "1.8.14",

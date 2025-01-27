@@ -2,19 +2,18 @@ import React from "react";
 import { Colors } from "../../constants/colors/colorconstants";
 import { Button } from "../../atoms";
 import TooltipWrapper from "../TooltipWrapper";
-import { IMAGES } from "../../constants/images/images";
-import {Iframe} from "../../atoms";
+import { Iframe } from "../../atoms";
+import { CustomSVG } from "../../atoms";
 
 export default {
-  title: "Molecules/TooltipWrapper",
+  title: "Molecules/Tooltip Wrapper",
   component: TooltipWrapper,
   argTypes: {
-    content: { control: "text" },
-    header: { control: "text" },
-    description: { control: "text" },
-    wrapperClassName: { control: "text" },
-    ClassName: { control: "text" },
-    arrow: { control: "boolean" },
+    content: { control: "text", name: "Content" },
+    header: { control: "text" ,name:'Header'},
+    wrapperClassName: { control: "text",table:{disable:true} },
+    ClassName: { control: "text" ,table:{disable:true}},
+    arrow: { control: "boolean", name: "Arrow" },
     placement: {
       control: "select",
       options: [
@@ -31,16 +30,21 @@ export default {
         "right",
         "right-end",
       ],
+      name: "Position",
     },
-    enterDelay: { control: "number" },
-    leaveDelay: { control: "number" },
-    followCursor: { control: "boolean" },
-    open: { control: "boolean" },
-    disableFocusListener: { control: "boolean" },
-    disableHoverListener: { control: "boolean" },
-    disableInteractive: { control: "boolean" },
-    disableTouchListener: { control: "boolean" },
-    style: { control: "object" },
+    enterDelay: { control: "number",table:{disable:true} },
+    leaveDelay: { control: "number",table:{disable:true} },
+    followCursor: { control: "boolean",table:{disable:true} },
+    open: { control: "boolean",table:{disable:true} },
+    disableFocusListener: { control: "boolean" ,table:{disable:true}},
+    disableHoverListener: { control: "boolean",table:{disable:true} },
+    disableInteractive: { control: "boolean" ,table:{disable:true}},
+    disableTouchListener: { control: "boolean",table:{disable:true} },
+    style: { control: "object",table:{disable:true} },
+    children:{table:{disable:true}},
+    title:{table:{disable:true}},
+    onOpen:{table:{disable:true}},
+    onClose:{table:{disable:true}}
   },
 };
 
@@ -57,11 +61,14 @@ const commonStyles = {
 
 const Color = Colors.lightTheme.primary[2];
 
-const Template = (args) => (
-  <div style={commonStyles}>
-    <TooltipWrapper {...args} />
-  </div>
-);
+const Template = (args) => {
+  const { ...rest } = args;
+  return (
+    <div style={commonStyles}>
+      <TooltipWrapper {...rest} />
+    </div>
+  );
+};
 
 export const Documentation = () => (
   <Iframe
@@ -72,29 +79,25 @@ export const Documentation = () => (
 );
 
 Documentation.storyName = "Docs";
+Documentation.argTypes = {
+  header:{table:{disable:true}},
+  content:{table:{disable:true}},
+  arrow:{table:{disable:true}},
+  placement:{table:{disable:true}}
+}
 
+const htmlTooltip = (
+  <React.Fragment>
+    {
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt "
+    }
+    <hr></hr>
+    <CustomSVG.PlaceholderSvg width={"200px"} height={"200px"}></CustomSVG.PlaceholderSvg>
+  </React.Fragment>
+);
 
-export const Basic = Template.bind({});
-Basic.args = {
-  content: "Tooltip",
-  arrow: false,
-  placement: "bottom",
-  enterDelay: 100,
-  leaveDelay: 0,
-  followCursor: false,
-  open: false,
-  disableFocusListener: false,
-  disableHoverListener: false,
-  disableInteractive: false,
-  disableTouchListener: false,
-  children: <Button label={"Basic..."} variation={"primary"}></Button>,
-  style: {},
-};
-
-export const MaxLabel = Template.bind({});
-MaxLabel.args = {
-  content:
-    "Tooltip Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ",
+const commonArgs = {
+  content: htmlTooltip,
   arrow: false,
   placement: "bottom",
   enterDelay: 100,
@@ -107,168 +110,21 @@ MaxLabel.args = {
   disableTouchListener: false,
   children: <Button label={"MaxLabel..."} variation={"primary"}></Button>,
   style: {},
+  header: "Tooltip Header",
 };
 
-export const Positioned = Template.bind({});
-Positioned.args = {
-  content: "Tooltip",
-  arrow: false,
-  placement: "top",
-  enterDelay: 100,
-  leaveDelay: 0,
-  followCursor: false,
-  open: false,
-  disableFocusListener: false,
-  disableHoverListener: false,
-  disableInteractive: false,
-  disableTouchListener: false,
-  children: <Button label={"Positioned..."} variation={"primary"}></Button>,
-  style: {},
+export const Basic = Template.bind({});
+Basic.args = {
+  ...commonArgs,
 };
 
-export const BasicWithArrow = Template.bind({});
-BasicWithArrow.args = {
-  content: "Tooltip",
-  arrow: true,
-  placement: "bottom",
-  enterDelay: 100,
-  leaveDelay: 0,
-  followCursor: false,
-  open: false,
-  disableFocusListener: false,
-  disableHoverListener: false,
-  disableInteractive: false,
-  disableTouchListener: false,
-  children: <Button label={"BasicWithArrow..."} variation={"primary"}></Button>,
-  style: {},
-};
-
-export const MaxLabelWithArrow = Template.bind({});
-MaxLabelWithArrow.args = {
-  content:
-    "Tooltip Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ",
-  arrow: true,
-  placement: "bottom",
-  enterDelay: 100,
-  leaveDelay: 0,
-  followCursor: false,
-  open: false,
-  disableFocusListener: false,
-  disableHoverListener: false,
-  disableInteractive: false,
-  disableTouchListener: false,
-  children: (
-    <Button label={"MaxLabelWithArrow..."} variation={"primary"}></Button>
-  ),
-  style: {},
-};
-
-export const PositionedWithArrow = Template.bind({});
-PositionedWithArrow.args = {
-  content: "Tooltip",
-  arrow: true,
-  placement: "top",
-  enterDelay: 100,
-  leaveDelay: 0,
-  followCursor: false,
-  open: false,
-  disableFocusListener: false,
-  disableHoverListener: false,
-  disableInteractive: false,
-  disableTouchListener: false,
-  children: (
-    <Button label={"PositionedWithArrow..."} variation={"primary"}></Button>
-  ),
-  style: {},
-};
-
-export const WithCustomStyles = Template.bind({});
-WithCustomStyles.args = {
-  content: "Tooltip",
-  arrow: false,
-  placement: "bottom",
-  enterDelay: 100,
-  leaveDelay: 0,
-  followCursor: false,
-  open: false,
-  disableFocusListener: false,
-  disableHoverListener: false,
-  disableInteractive: false,
-  disableTouchListener: false,
-  children: (
-    <Button label={"WithCustomStyles..."} variation={"primary"}></Button>
-  ),
+export const Custom = Template.bind({});
+Custom.args = {
+  ...commonArgs,
   style: {
     backgroundColor: Color,
     border: "3px solid #C84C0E",
-    width: "200px",
+    width: "300px",
     textAlign: "center",
   },
-};
-
-const getImageUrl = (imageKey) => {
-  return IMAGES[imageKey];
-};
-
-const digitImg = getImageUrl("DIGIT_LIGHT");
-
-const htmlTooltip = (
-    <React.Fragment>
-      {"And here's some amazing content It's very engaging. Right?"}<hr></hr>
-      <img
-        alt="here is your logo"
-        src={digitImg}
-      ></img>
-    </React.Fragment>
-  );
-
-
-export const WithHeader = Template.bind({});
-WithHeader.args = {
-  content: "Tooltip",
-  arrow: false,
-  placement: "bottom",
-  enterDelay: 100,
-  leaveDelay: 0,
-  followCursor: false,
-  open: false,
-  disableFocusListener: false,
-  disableHoverListener: false,
-  disableInteractive: false,
-  disableTouchListener: false,
-  children: <Button label={"Basic..."} variation={"primary"}></Button>,
-  style: {},
-  header:"Tooltip Header"
-};
-
-export const HtmlTooltip = Template.bind({});
-HtmlTooltip.args = {
-  content: htmlTooltip,
-  arrow: false,
-  placement: "bottom",
-  enterDelay: 100,
-  leaveDelay: 0,
-  followCursor: false,
-  open: false,
-  disableFocusListener: false,
-  disableHoverListener: false,
-  disableInteractive: false,
-  disableTouchListener: false,
-  children: <Button label={"HtmlTooltip..."} variation={"primary"}></Button>,
-};
-
-export const HtmlTooltipWithArrow = Template.bind({});
-HtmlTooltipWithArrow.args = {
-  content: htmlTooltip,
-  arrow: true,
-  placement: "bottom",
-  enterDelay: 100,
-  leaveDelay: 0,
-  followCursor: false,
-  open: false,
-  disableFocusListener: false,
-  disableHoverListener: false,
-  disableInteractive: false,
-  disableTouchListener: false,
-  children: <Button label={"HtmlTooltip..."} variation={"primary"}></Button>,
 };

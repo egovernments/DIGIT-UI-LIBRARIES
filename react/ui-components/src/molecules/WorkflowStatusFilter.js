@@ -1,6 +1,6 @@
 import React, { Fragment,useEffect,useState } from "react";
 import CheckBox from "../atoms/CheckBox";
-import { Loader } from "../atoms/Loader";
+import { Loader } from "../atoms";
 import CardLabel from "../atoms/CardLabel";
 
 const WorkflowStatusFilter = ({ props, t, populators, formData,inboxResponse }) => {

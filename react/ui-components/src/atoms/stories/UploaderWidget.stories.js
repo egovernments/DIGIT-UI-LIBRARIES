@@ -91,8 +91,8 @@ export default {
 const Template = (args) => <FileUpload {...args} />;
 
 
-export const Basic = Template.bind({});
-Basic.args = {
+export const SingleUpload = Template.bind({});
+SingleUpload.args = {
   uploadedFiles: [],
   variant: "uploadWidget",
   showDownloadButton: true,
@@ -127,8 +127,8 @@ WithValidationsWithErrorCard.args = {
   showReUploadButton: true,
 };
 
-export const WithError = Template.bind({});
-WithError.args = {
+export const Error = Template.bind({});
+Error.args = {
   uploadedFiles: [],
   variant: "uploadWidget",
   showDownloadButton: true,

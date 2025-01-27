@@ -5,7 +5,7 @@ import { Chip } from "../../atoms";
 import {Iframe} from "../../atoms";
 
 export default {
-  title: "Molecules/TableMolecule",
+  title: "Molecules/Table Molecule",
   component: TableMolecule,
   argTypes: {
     headerData: { control: "array" },

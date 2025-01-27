@@ -1,20 +1,23 @@
 import React, { Children } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import { SideNav } from "../../atoms";
+import {Iframe} from "../../atoms";
 
 export default {
-  title: "Molecules/SideNav/Custom",
+  title: "Molecules/Side Nav",
   component: SideNav,
   argTypes: {
-    items: { control: "object" },
-    collapsedWidth: { control: "text" },
-    expandedWidth: { control: "text" },
-    transitionDuration: { control: "number" },
-    theme: { control: "select", options: ["dark", "light"] },
-    variant: { control: "select", options: ["primary", "secondary"] },
-    hideAccessbilityTools: { control: "boolean" },
-    onSelect:{ action: "onChange" },
-    onBottomItemClick:{action:"onChange"}
+    items: { control: "object" ,table:{disable:true}},
+    collapsedWidth: { control: "text",table:{disable:true} },
+    expandedWidth: { control: "text" ,table:{disable:true}},
+    transitionDuration: { control: "number" ,table:{disable:true}},
+    theme: { control: "select", options: ["dark", "light"],table:{disable:true} },
+    variant: { control: "select", options: ["Complementary", "Analogous"],mapping:{"Complementary":"primary","Analogous":"secondary"},name:"Selection color"},
+    hideAccessbilityTools: { control: "boolean",name:"Universal actions",mapping:{true:false,false:true} },
+    onSelect:{ action: "onChange",table:{disable:true} },
+    onBottomItemClick:{action:"onChange",table:{disable:true}},
+    enableSearch:{control:"boolean",name:"Enable Search"},
+    styles:{table:{disable:true}}
   },
 };
 
@@ -127,13 +130,42 @@ const onBottomItemClick =(e) => {
 const commonArgs = {
   items: darkThemeitems,
   transitionDuration: 0.5,
-  theme: "dark",
   onSelect:onSelect,
-  onBottomItemClick:onBottomItemClick
+  onBottomItemClick:onBottomItemClick,
+  hideAccessbilityTools:true,
+  variant: "Complementary",
+  enableSearch:true
 };
 
-export const CustomCollapsedAndExpandedWidths = Template.bind({});
-CustomCollapsedAndExpandedWidths.args = {
+export const Documentation = () => (
+  <Iframe
+    //Todo:Update the url
+    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-core-react-components/input-field"
+    title="SideNav Documentation"
+  />
+);
+
+Documentation.storyName = "Docs";
+Documentation.argTypes = {
+  variant:{table:{disable:true}},
+  hideAccessbilityTools:{table:{disable:true}},
+  enableSearch:{table:{disable:true}},
+}
+
+export const Dark = Template.bind({});
+Dark.args = {
+  ...commonArgs,
+  theme: "dark",
+};
+
+export const Light = Template.bind({});
+Light.args = {
+  ...commonArgs,
+  theme: "light",
+};
+
+export const Custom = Template.bind({});
+Custom.args = {
   ...commonArgs,
   collapsedWidth: "80px",
   expandedWidth: "250px",

@@ -52,6 +52,11 @@ export const Documentation = () => (
 );
 
 Documentation.storyName = "Docs";
+Documentation.argTypes = {
+  disable: { table: { disable: true } },
+  label: { table: { disable: true }},
+  isLabelFirst: { table: { disable: true }},
+};
 
 const commonArgs = {
   isLabelFirst: "Right",

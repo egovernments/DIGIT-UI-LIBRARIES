@@ -1,24 +1,37 @@
 import React from "react";
-import { QueryClient, QueryClientProvider } from "react-query";
-import FieldV1 from "../../hoc/FieldV1";
-import { CustomDropdown } from "../../molecules";
+import MultiSelectDropdown from "../MultiSelectDropdown";
+import Iframe from "../Iframe";
 
 export default {
-  title: "Atoms/MultiSelectDropDown",
-  component: CustomDropdown,
+  title: "Atoms/Multi Select DropDown",
+  component: MultiSelectDropdown,
   argTypes: {
-    t: { control: false },
-    populators: { control: "object" },
-    inputRef: { control: false },
-    label: { control: "text" },
-    onChange: { action: "onChange" },
+    t: { control: false, table: { disable: true } },
+    populators: { control: "object", table: { disable: true } },
+    inputRef: { control: false, table: { disable: true } },
+    label: { control: "text", table: { disable: true } },
+    onSelect: { action: "onChange", table: { disable: true } },
+    onChange: { action: "onChange", table: { disable: true } },
     value: { control: "text" },
-    errorStyle: { control: "object" },
-    disabled: { control: "boolean" },
-    isSearchable: { control: "boolean" },
+    errorStyle: { control: "object", table: { disable: true } },
+    disabled: {
+      control: "select",
+      options: ["Default", "Disabled"],
+      name: "State",
+      mapping: {
+        Default: false,
+        Disabled: true,
+      },
+    },
+    isSearchable: { control: "boolean", name: "Searchable" },
     additionalWrapperClass: { control: "text" },
     props: { control: "object" },
-    type: { control: "select", options: ["dropdown", "multiselectdropdown"] },
+    type: {
+      control: "select",
+      options: ["dropdown", "multiselectdropdown"],
+      table: { disable: true },
+      table: { disable: true },
+    },
     variant: {
       control: "select",
       options: [
@@ -26,21 +39,42 @@ export default {
         "treemultiselect",
         "nestedtextmultiselect",
       ],
+      table: { disable: true },
     },
+    value: { table: { disable: true } },
+    ServerStyle: { table: { disable: true } },
+    isPropsNeeded: { table: { disable: true } },
+    isOBPSMultiple: { table: { disable: true } },
+    BlockNumber: { table: { disable: true } },
+    defaultUnit: { table: { disable: true } },
+    defaultLabel: { table: { disable: true } },
+    selected: { table: { disable: true } },
+    options: { table: { disable: true } },
+    config: { table: { disable: true } },
+    description: { table: { disable: true } },
+    props: { table: { disable: true } },
+    additionalWrapperClass: { table: { disable: true } },
+    name: { table: { disable: true } },
+    defaultValue: { table: { disable: true } },
+    optionsKey: { table: { disable: true } },
+    error: { table: { disable: true } },
+    optionsCustomStyle: { table: { disable: true } },
+    addSelectAllCheck: { control: "boolean", name: "Select all" },
+    addCategorySelectAllCheck: {
+      control: "boolean",
+      name: "Category level select all",
+    },
+    selectAllLabel: { table: { disable: true } },
+    categorySelectAllLabel: { table: { disable: true } },
+    showIcon: { control: "boolean", name: "Icon" },
+    isDropdownWithChip: { control: "boolean", name: "With chips" },
+    chipsKey: { table: { disable: true } },
+    clearLabel: { table: { disable: true } },
   },
 };
-const queryClient = new QueryClient();
-
-const Template = (args) => (
-  <QueryClientProvider client={queryClient}>
-    <FieldV1 {...args} />
-  </QueryClientProvider>
-);
-
-const t = (key) => key;
 
 //mock options data
-const gendersOptions = [
+const commonOptions = [
   { code: "Option1", name: "Option1" },
   { code: "Option2", name: "Option2" },
   { code: "Option3", name: "Option3" },
@@ -56,17 +90,20 @@ const OptionsWithNestedText = [
   {
     code: "Option1",
     name: "Option1",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
   },
   {
     code: "Option2",
     name: "Option2",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
   },
   {
     code: "Option3",
     name: "Option3",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
   },
 ];
 //options with description and icon
@@ -75,19 +112,22 @@ const NestedTextOptionWithIcons = [
     code: "Option1",
     name: "Option1",
     icon: "Article",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
   },
   {
     code: "Option2",
     name: "Option2",
     icon: "Article",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
   },
   {
     code: "Option3",
     name: "Option3",
     icon: "Article",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna",
   },
 ];
 
@@ -174,178 +214,128 @@ const treeDropdownOptions = [
   },
   {
     name: "Category C",
-    options: [{ code: "Category C.Option A", name: "Option A" },{ code: "Category C.Option B", name: "Option B" }],
+    options: [
+      { code: "Category C.Option A", name: "Option A" },
+      { code: "Category C.Option B", name: "Option B" },
+    ],
     code: "Category C",
   },
 ];
 
-//mock options data for chipskey
-const optionsForChipsKey = [
-  { code: "Option1chip", name: "Option1" },
-  { code: "Option2chip", name: "Option2" },
-  { code: "Option3chip", name: "Option3" },
-];
+const getOptions = (variant, showIcon) => {
+  if (showIcon) {
+    switch (variant) {
+      case "nestedmultiselect":
+        return nestedOptionsWithIcons;
+      case "treemultiselect":
+        return treeDropdownOptions;
+      case "nestedtextmultiselect":
+        return NestedTextOptionWithIcons;
+      default:
+        return OptionsWithIcons;
+    }
+  } else {
+    switch (variant) {
+      case "nestedmultiselect":
+        return nestedOptions;
+      case "treemultiselect":
+        return treeDropdownOptions;
+      case "nestedtextmultiselect":
+        return OptionsWithNestedText;
+      default:
+        return commonOptions;
+    }
+  }
+};
 
-//nested options for chips key
-const nestedOptionsForChipKey = [
-  {
-    name: "Category A",
-    options: [
-      { code: "Category A.Option A", name: "Option A Chipkey" },
-      { code: "Category A.Option B", name: "Option B Chipkey" },
-      { code: "Category A.Option C", name: "Option C Chipkey " },
-    ],
-    code: "Category A",
-  },
-  {
-    name: "Category B",
-    options: [
-      { code: "Category B.Option A", name: "Option A Chipkey" },
-      { code: "Category B.Option 2", name: "Option 2 Chipkey" },
-      { code: "Category B.Option 3", name: "Option 3 Chipkey" },
-    ],
-    code: "Category B",
-  },
-];
+const Template = (args) => {
+  const { showIcon, variant, isDropdownWithChip, ...rest } = args;
+  console.log(isDropdownWithChip, "isDropdownWithChip");
+  let config = isDropdownWithChip
+    ? showIcon
+      ? { isDropdownWithChip: true, showIcon: true }
+      : { isDropdownWithChip: true }
+    : showIcon
+    ? { showIcon: true }
+    : {};
+  console.log(config, "config");
+  return (
+    <MultiSelectDropdown
+      {...rest}
+      variant={variant}
+      showIcon={showIcon}
+      options={getOptions(variant, showIcon)}
+      onSelect={(e) => {
+        args.onChange(e, "dropdown");
+      }}
+      config={config}
+    />
+  );
+};
+
+const t = (key) => key;
 
 const commonArgs = {
+  clearLabel: "Clear All",
+  addSelectAllCheck: false,
+  addCategorySelectAllCheck: false,
+  selectAllLabel: "",
+  categorySelectAllLabel: "",
+  chipsKey: "",
   t,
-  populators: {
-    name: "genders",
-    defaultValue: "FEMALE",
-    optionsCustomStyle: {},
-    optionsKey: "name",
-    options: gendersOptions,
-    showIcon: false,
-    isSearchable:true,
-    clearLabel:"Clear All",
-    addSelectAllCheck:false,
-    addCategorySelectAllCheck:false,
-    selectAllLabel: "",
-    categorySelectAllLabel:"",
-    chipsKey:""
-  },
+  name: "genders",
+  defaultValue: "FEMALE",
+  optionsCustomStyle: {},
+  optionsKey: "name",
+  showIcon: false,
+  isSearchable: true,
   error: "",
   inputRef: null,
   label: "Select Option",
   onChange: (e, name) => console.log("Selected value:", e, "Name:", name),
   errorStyle: null,
-  disabled: false,
-  type: "dropdown",
+  disabled: "Default",
+  type: "multiselectdropdown",
   additionalWrapperClass: "",
   props: {
     isLoading: false,
-    data: gendersOptions,
+    data: commonOptions,
   },
   description: "",
+  isDropdownWithChip: true,
+};
+
+export const Documentation = () => (
+  <Iframe
+    //Todo:Update the url
+    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-core-react-components/input-field"
+    title="Multiselectdropdown Documentation"
+  />
+);
+
+Documentation.storyName = "Docs";
+Documentation.argTypes = {
+  disabled: { table: { disable: true } },
+  isSearchable: { table: { disable: true } },
+  showIcon: { table: { disable: true } },
+  addSelectAllCheck: { table: { disable: true } },
+  addCategorySelectAllCheck: { table: { disable: true } },
+  isDropdownWithChip: { table: { disable: true } },
 };
 
 export const Basic = Template.bind({});
 Basic.args = {
   ...commonArgs,
   type: "multiselectdropdown",
-  populators: {
-    ...commonArgs.populators,
-    isDropdownWithChip: true,
-  },
-};
-
-export const BasicWithSelectAllCheck = Template.bind({});
-BasicWithSelectAllCheck.args = {
-  ...commonArgs,
-  type: "multiselectdropdown",
-  populators: {
-    ...commonArgs.populators,
-    isDropdownWithChip: true,
-    addSelectAllCheck:true,
-  },
-};
-
-export const BasicWithIcons = Template.bind({});
-BasicWithIcons.args = {
-  ...commonArgs,
-  type: "multiselectdropdown",
-  populators: {
-    ...commonArgs.populators,
-    name: "iconoptions",
-    options: OptionsWithIcons,
-    showIcon: true,
-    isDropdownWithChip: true,
-  },
-};
-
-export const BasicWithChipsKey = Template.bind({});
-BasicWithChipsKey.args = {
-  ...commonArgs,
-  type: "multiselectdropdown",
-  populators: {
-    ...commonArgs.populators,
-    options:optionsForChipsKey,
-    isDropdownWithChip: true,
-    chipsKey:"code"
-  },
-};
-
-export const Disabled = Template.bind({});
-Disabled.args = {
-  ...commonArgs,
-  type: "multiselectdropdown",
-  disabled: true,
 };
 
 export const Categorical = Template.bind({});
 Categorical.args = {
   ...commonArgs,
   type: "multiselectdropdown",
-  populators: {
-    ...commonArgs.populators,
-    name: "nestedmultiselectoptions",
-    options: nestedOptions,
-    isDropdownWithChip: true,
-  },
-  variant: "nestedmultiselect",
-};
-
-export const CategoricalWithSelectAllCheck = Template.bind({});
-CategoricalWithSelectAllCheck.args = {
-  ...commonArgs,
-  type: "multiselectdropdown",
-  populators: {
-    ...commonArgs.populators,
-    name: "nestedmultiselectoptions",
-    options: nestedOptions,
-    isDropdownWithChip: true,
-    addSelectAllCheck:true,
-    addCategorySelectAllCheck:true
-  },
-  variant: "nestedmultiselect",
-};
-
-export const CategoricalWithIcons = Template.bind({});
-CategoricalWithIcons.args = {
-  ...commonArgs,
-  type: "multiselectdropdown",
-  populators: {
-    ...commonArgs.populators,
-    name: "nestedmultiselectoptions",
-    options: nestedOptionsWithIcons,
-    showIcon: true,
-    isDropdownWithChip: true,
-  },
-  variant: "nestedmultiselect",
-};
-
-export const CategoricalWithChipskey = Template.bind({});
-CategoricalWithChipskey.args = {
-  ...commonArgs,
-  type: "multiselectdropdown",
-  populators: {
-    ...commonArgs.populators,
-    name: "nestedmultiselectoptions",
-    options: nestedOptionsForChipKey,
-    isDropdownWithChip: true,
-    chipsKey:"name"
-  },
+  name: "nestedmultiselectoptions",
+  options: nestedOptions,
+  isDropdownWithChip: true,
   variant: "nestedmultiselect",
 };
 
@@ -353,40 +343,9 @@ export const NestedText = Template.bind({});
 NestedText.args = {
   ...commonArgs,
   type: "multiselectdropdown",
-  populators: {
-    ...commonArgs.populators,
-    name: "nestedtextltiselect",
-    options: OptionsWithNestedText,
-    isDropdownWithChip: true,
-  },
-  variant: "nestedtextmultiselect",
-};
-
-export const NestedTextWithSelectAllCheck = Template.bind({});
-NestedTextWithSelectAllCheck.args = {
-  ...commonArgs,
-  type: "multiselectdropdown",
-  populators: {
-    ...commonArgs.populators,
-    name: "nestedtextltiselect",
-    options: OptionsWithNestedText,
-    isDropdownWithChip: true,
-    addSelectAllCheck:true
-  },
-  variant: "nestedtextmultiselect",
-};
-
-export const NestedTextWithIcons = Template.bind({});
-NestedTextWithIcons.args = {
-  ...commonArgs,
-  type: "multiselectdropdown",
-  populators: {
-    ...commonArgs.populators,
-    name: "nestedtextltiselect",
-    options: NestedTextOptionWithIcons,
-    isDropdownWithChip: true,
-    showIcon: true,
-  },
+  name: "nestedtextltiselect",
+  options: OptionsWithNestedText,
+  isDropdownWithChip: true,
   variant: "nestedtextmultiselect",
 };
 
@@ -394,11 +353,8 @@ export const TreeMultiselect = Template.bind({});
 TreeMultiselect.args = {
   ...commonArgs,
   type: "multiselectdropdown",
-  populators: {
-    ...commonArgs.populators,
-    name: "treeoptions",
-    options: treeDropdownOptions,
-    isDropdownWithChip: true,
-  },
+  name: "treeoptions",
+  options: treeDropdownOptions,
+  isDropdownWithChip: true,
   variant: "treemultiselect",
 };

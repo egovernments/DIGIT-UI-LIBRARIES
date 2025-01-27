@@ -102,6 +102,8 @@
   input[type="time"]:disabled::-webkit-calendar-picker-indicator {
     @apply absolute cursor-pointer w-6 h-6;
     right: theme(digitv2.spacers.spacer3);
+    top: 50%;
+    transform: translateY(-50%);
   }
 
   input[type="date"]:disabled::-webkit-calendar-picker-indicator,

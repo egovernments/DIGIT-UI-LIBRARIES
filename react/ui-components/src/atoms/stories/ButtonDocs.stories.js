@@ -6,46 +6,90 @@ export default {
   title: "Atoms/Button",
   component: Button,
   argTypes: {
-    isDisabled: {
-      control: "boolean",
-    },
     label: {
       control: "text",
+      table: { disable: true }
     },
     variation: {
       control: "select",
       options: ["primary", "secondary", "teritiary", "link"],
+      table: { disable: true },
     },
-    size: { control: "select", options: ["large", "medium", "small"] },
+    size: { control: "select", options: ["large", "medium", "small"] ,table: { disable: true }},
     className: {
       control: "text",
+      table: { disable: true },
     },
     style: {
       control: { type: "object" },
+      table: { disable: true },
     },
     onClick: {
       control: "function",
-    },
-    isSuffix: {
-      control: "boolean",
+      table: { disable: true },
     },
     title: {
       control: "text",
+      table: { disable: true },
+    },
+    isSearchable: {
+      control: "boolean",
+      table: { disable: true }
+    },
+    showBottom: {
+      control: "select",
+      options: ["DropUp", "DropDown"],
+      table: { disable: true },
+      name: "ActionButton",
+      mapping: {
+        DropUp: false,
+        DropDown: true,
+      },
+    },
+    optionsKey: {
+      control: "text",
+      table: { disable: true },
     },
     options: {
       control: {
         type: "array",
         separator: ",",
       },
+      table: { disable: true },
     },
-    isSearchable: {
-      control: "boolean",
+    isDisabled: {
+      control: "select",
+      options: ["Default", "Disabled"],
+      name: "state",
+      mapping: {
+        Default: false,
+        Disabled: true,
+      },
+      table: { disable: true }
     },
-    showBottom: {
-      control: "boolean",
+    textStyles: { table: { disable: true } },
+    iconFill: { table: { disable: true } },
+    icon: { table: { disable: true } },
+    onOptionSelect: { table: { disable: true } },
+    type: { table: { disable: true } },
+    WithIcon: {
+      control: "boolean",table: { disable: true }
     },
-    optionsKey: {
-      control: "text",
+    isSuffix: {
+      control: "select",
+      options: ["Prefix", "Suffix"],
+      name: "Icon",
+      mapping: {
+        Prefix: false,
+        Suffix: true,
+      },
+      if: { arg: "WithIcon", truthy: true },
+      table: { disable: true }
+    },
+    Width: {
+      control: "select",
+      options: ["Hug Content", "Justify"],
+      table: { disable: true }
     },
   },
 };

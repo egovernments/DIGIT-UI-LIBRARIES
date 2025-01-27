@@ -32,7 +32,7 @@ export const searchconfig = () =>
           formClassName: "custom-both-clear-search",
           primaryLabel: "ES_COMMON_SEARCH",
           secondaryLabel: "ES_COMMON_CLEAR_SEARCH",
-          minReqFields: 0,
+          minReqFields: 1,
           defaultValues: defaultSearchValues, // Set default values for search fields
           fields: [
             {

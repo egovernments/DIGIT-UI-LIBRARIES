@@ -39,20 +39,20 @@ export default {
       control: { type: "boolean" },
       table: { disable: true },
     },
-    flex: {
+    alignment: {
       control: "select",
       options: ["Left", "Right"],
-      name:"Flex"
+      name:"Alignment"
     },
   },
 };
 
 const Template = (args) => {
-  const { flex, ...rest } = args;
+  const { alignment, ...rest } = args;
   return (
     <Footer
       {...rest}
-      setactionFieldsToRight={flex === "Right"}
+      setactionFieldsToRight={alignment === "Right"}
       setactionFieldsToLeft={"Left"}
     />
   );
@@ -122,8 +122,18 @@ export const Documentation = () => (
 );
 
 Documentation.storyName = "Docs";
+Documentation.argTypes = {
+  flex: { table: { disable: true } },
+};
 
-export const Basic = () => (
+export const Basic = Template.bind({});
+Basic.args = {
+  ...commonArgs,
+  actionFields: footeractionFields,
+  alignment:"Right"
+};
+
+export const Flex = () => (
   <Footer
     className={""}
     style={{}}
@@ -133,13 +143,6 @@ export const Basic = () => (
     setChildrenLeft={false}
   />
 );
-Basic.argTypes = {
-  flex: { table: { disable: true } },
-};
-
-export const Flex = Template.bind({});
-Flex.args = {
-  ...commonArgs,
-  actionFields: footeractionFields,
-  flex:"Right"
+Flex.argTypes = {
+  alignment: { table: { disable: true } },
 };

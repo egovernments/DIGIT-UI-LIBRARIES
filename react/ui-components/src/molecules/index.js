@@ -25,7 +25,7 @@ import TableMolecule from "./TableMolecule";
 import MetricCard from "./MetricCard";
 import FormCard from "./FormCard";
 import FilterCard from "./FilterCard";
-import ViewCard from "./ViewCard";
+import SummaryCard from "./SummaryCard";
 import BottomSheet from "./BottomSheet";
 
 export {
@@ -57,5 +57,5 @@ export {
   MetricCard,
   FormCard,
   FilterCard,
-  ViewCard
+  SummaryCard
 };

@@ -86,6 +86,13 @@ export const Documentation = () => (
 );
 
 Documentation.storyName = "Docs";
+Documentation.argTypes = {
+  WithIcons: { table: { disable: true } },
+  Tab1Label: { table: { disable: true }},
+  Tab2Label: { table: { disable: true }},
+  Tab3Label: {table: { disable: true } },
+  Tab4Label: { table: { disable: true } },
+};
 
 const commonArgs = {
   activeLink: "Tab 2",

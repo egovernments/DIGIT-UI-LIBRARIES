@@ -90,8 +90,8 @@ export default {
 
 const Template = (args) => <FileUpload {...args} />;
 
-export const UploadFile = Template.bind({});
-UploadFile.args = {
+export const SingleUpload = Template.bind({});
+SingleUpload.args = {
   uploadedFiles: [],
   variant: "uploadField",
 };
@@ -164,8 +164,8 @@ WithPreviewValidations.args = {
   },
 };
 
-export const WithError = Template.bind({});
-WithError.args = {
+export const Error = Template.bind({});
+Error.args = {
   uploadedFiles: [],
   variant: "uploadField",
   iserror: "Component Level Error!",

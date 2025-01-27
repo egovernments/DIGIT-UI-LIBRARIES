@@ -19,9 +19,11 @@ export default {
     customSeparator: { table: { disable: true } },
     WithIcons: {
       control: "boolean",
+      name:"With Icons"
     },
     WithCustomSeparator: {
       control: "boolean",
+      name:"With Custom Seperator"
     },
   },
 };
@@ -118,6 +120,10 @@ export const Documentation = () => (
 );
 
 Documentation.storyName = "Docs";
+Documentation.argTypes = {
+  WithCustomSeparator: { table: { disable: true } },
+  WithIcons: { table: { disable: true }},
+};
 
 export const Basic = Template.bind({});
 Basic.args = {

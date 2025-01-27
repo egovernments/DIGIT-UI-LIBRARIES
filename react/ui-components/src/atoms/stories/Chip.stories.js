@@ -12,7 +12,7 @@ export default {
       table: { disable: true }
     },
     text: {
-      control: "text",
+      control: "text",name:"Text"
     },
     onClick: {
       control: "function",
@@ -44,6 +44,7 @@ export default {
     },
     error: {
       control: "text",
+      name:'Error'
       // table: { disable: true }
     },
     WithIcon: {
@@ -86,6 +87,12 @@ export const Documentation = () => (
 );
 
 Documentation.storyName = "Docs";
+Documentation.argTypes = {
+  text: { table: { disable: true } },
+  error: { table: { disable: true }},
+  hideClose: { table: { disable: true }},
+  WithIcon: { table: { disable: true }},
+};
 
 export const Basic = Template.bind({});
 Basic.args = {
