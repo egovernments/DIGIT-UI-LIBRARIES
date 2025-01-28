@@ -90,14 +90,14 @@ export default {
 
 const Template = (args) => <FileUpload {...args} />;
 
-export const Basic = Template.bind({});
-Basic.args = {
+export const SingleUpload = Template.bind({});
+SingleUpload.args = {
   uploadedFiles: [],
   variant: "uploadImage",
 };
 
-export const UploadMultipleImages = Template.bind({});
-UploadMultipleImages.args = {
+export const MultipleUpload = Template.bind({});
+MultipleUpload.args = {
   uploadedFiles: [],
   variant: "uploadImage",
   multiple: true,

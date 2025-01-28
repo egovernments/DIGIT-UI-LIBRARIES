@@ -12,7 +12,7 @@ import MobileSearchComponent from "./MobileView/MobileSearchComponent";
 import MobileSearchResults from "./MobileView/MobileSearchResults";
 import MediaQuery from 'react-responsive';
 import _ from "lodash";
-import Header from "../atoms/Header";
+import HeaderComponent from "../atoms/HeaderComponent";
 import { useTranslation } from "react-i18next";
 
 
@@ -131,7 +131,7 @@ const InboxSearchComposer = ({configs,headerLabel,additionalConfig,onFormValueCh
 
     useEffect(() => {
         if(error){
-            setShowToast({ label:error?.message, isError: true });
+            setShowToast({ label:error?.message, type:"error" });
             closeToast()
         }
     }, [error])
@@ -160,7 +160,7 @@ const InboxSearchComposer = ({configs,headerLabel,additionalConfig,onFormValueCh
 
     return (
         <InboxContext.Provider value={{state,dispatch}} >
-                          {headerLabel&&<Header className="digit-form-composer-header">{ t(headerLabel)}</Header>}
+                          {headerLabel&&<HeaderComponent className="digit-form-composer-header">{ t(headerLabel)}</HeaderComponent>}
             <div className="inbox-search-component-wrapper ">
             <div className={`sections-parent ${configs?.type}`}>
                 {
@@ -327,7 +327,7 @@ const InboxSearchComposer = ({configs,headerLabel,additionalConfig,onFormValueCh
                 {/* One can use this Parent to add additional sub parents to render more sections */}
             </div>
             </div>   
-            {showToast && <Toast label={showToast.label} error={showToast?.isError} isDleteBtn={true} onClose={()=>setShowToast(null)}></Toast>}
+            {showToast && <Toast label={showToast?.label} type={showToast?.type} isDleteBtn={true} onClose={()=>setShowToast(null)}></Toast>}
         </InboxContext.Provider>
     )
 }

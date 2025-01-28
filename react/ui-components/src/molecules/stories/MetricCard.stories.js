@@ -3,26 +3,38 @@ import MetricCard from "../MetricCard";
 import { Iframe } from "../../atoms";
 
 export default {
-  title: "Molecules/MetricCard",
+  title: "Molecules/Metric Card",
   component: MetricCard,
   argTypes: {
-    metrics: { control: "array" },
-    layout: { control: "text" },
-    withDivider: { control: "boolean" },
-    className: { control: "text" },
-    styles: { control: "object" },
-    withBottomDivider: { control: "boolean" },
+    metrics: { control: "array", table: { disable: true } },
+    layout: { control: "text", table: { disable: true } },
+    withDivider: { control: "boolean", table: { disable: true } },
+    className: { control: "text", table: { disable: true } },
+    styles: { control: "object", table: { disable: true } },
+    statusmessage: { control: "text", table: { disable: true } },
+    withBottomDivider: { control: "boolean", table: { disable: true } },
+    Dividers: {
+      control: "select",
+      options: ["Vertical", "Horizontal", "Both"],
+    },
   },
 };
 
-const Template = (args) => <MetricCard {...args} />;
+const Template = (args) => {
+  const { Dividers, ...rest } = args;
+  return (
+    <MetricCard
+      {...rest}
+      withDivider={Dividers === "Vertical" || Dividers === "Both"}
+      withBottomDivider={Dividers === "Horizontal" || Dividers === "Both"}
+    />
+  );
+};
 
 const commonArgs = {
   metrics: [],
   className: "",
   styles: {},
-  withDivider: false,
-  withBottomDivider: false,
 };
 
 export const Documentation = () => (
@@ -34,10 +46,44 @@ export const Documentation = () => (
 );
 
 Documentation.storyName = "Docs";
+Documentation.argTypes = {
+  Dividers: { table: { disable: true } },
+};
 
-// Default story for MetricCard
-export const Default = Template.bind({});
-Default.args = {
+export const HorizontallyStacked = Template.bind({});
+HorizontallyStacked.args = {
+  ...commonArgs,
+  layout: "",
+  metrics: [
+    {
+      value: "3%",
+      description: "Test Compilance",
+      statusmessage: "10% than state average",
+      status: "Decreased",
+    },
+    {
+      value: "60%",
+      description: "Quality Tests Passed",
+      statusmessage: "80% than state average",
+      status: "Increased",
+    },
+    {
+      value: "90%",
+      description: "description",
+      statusmessage: "15% than state average",
+      status: "Nochange",
+    },
+    {
+      value: "26%",
+      description: "description",
+      statusmessage: "6% than state average",
+      status: "Increased",
+    },
+  ],
+};
+
+export const VerticallyStacked = Template.bind({});
+VerticallyStacked.args = {
   ...commonArgs,
   metrics: [
     {
@@ -67,113 +113,10 @@ Default.args = {
   ],
 };
 
-// Default story for MetricCard
-export const WithLayout = Template.bind({});
-WithLayout.args = {
+export const Mixed = Template.bind({});
+Mixed.args = {
   ...commonArgs,
   layout: "2*2",
-  metrics: [
-    {
-      value: "3%",
-      description: "Test Compilance",
-      statusmessage: "10% than state average",
-      status: "Decreased",
-    },
-    {
-      value: "60%",
-      description: "Quality Tests Passed",
-      statusmessage: "80% than state average",
-      status: "Increased",
-    },
-    {
-      value: "90%",
-      description: "description",
-      statusmessage: "15% than state average",
-      status: "Nochange",
-    },
-    {
-      value: "26%",
-      description: "description",
-      statusmessage: "6% than state average",
-      status: "Increased",
-    },
-  ],
-};
-
-// Default story for MetricCard
-export const WithDivider = Template.bind({});
-WithDivider.args = {
-  ...commonArgs,
-  layout: "2*2",
-  withDivider: true,
-  metrics: [
-    {
-      value: "3%",
-      description: "Test Compilance",
-      statusmessage: "10% than state average",
-      status: "Decreased",
-    },
-    {
-      value: "60%",
-      description: "Quality Tests Passed",
-      statusmessage: "80% than state average",
-      status: "Increased",
-    },
-    {
-      value: "90%",
-      description: "description",
-      statusmessage: "15% than state average",
-      status: "Nochange",
-    },
-    {
-      value: "26%",
-      description: "description",
-      statusmessage: "6% than state average",
-      status: "Increased",
-    },
-  ],
-};
-
-export const WithBottomDivider = Template.bind({});
-WithBottomDivider.args = {
-  ...commonArgs,
-  layout: "2*2",
-  withDivider: false,
-  withBottomDivider: true,
-  metrics: [
-    {
-      value: "3%",
-      description: "Test Compilance",
-      statusmessage: "10% than state average",
-      status: "Decreased",
-    },
-    {
-      value: "60%",
-      description: "Quality Tests Passed",
-      statusmessage: "80% than state average",
-      status: "Increased",
-    },
-    {
-      value: "90%",
-      description: "description",
-      statusmessage: "15% than state average",
-      status: "Nochange",
-    },
-    {
-      value: "26%",
-      description: "description",
-      statusmessage: "6% than state average",
-      status: "Increased",
-    },
-  ],
-};
-
-export const WithBothDividers = Template.bind({});
-WithBothDividers.args = {
-  ...commonArgs,
-  layout: "2*2",
-  withDivider: true,
-  withBottomDivider: true,
   metrics: [
     {
       value: "3%",
@@ -203,8 +146,8 @@ WithBothDividers.args = {
 };
 
 // MetricCard with custom styles
-export const CustomStyles = Template.bind({});
-CustomStyles.args = {
+export const Custom = Template.bind({});
+Custom.args = {
   className: "",
   layout: "2*2",
   metrics: [

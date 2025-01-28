@@ -5,7 +5,7 @@ import TextInput from '../atoms/TextInput'
 import { useForm, Controller } from "react-hook-form";
 import _ from "lodash";
 import { InboxContext } from './InboxSearchComposerContext';
-import { Loader } from '../atoms/Loader';
+import { Loader } from '../atoms';
 import NoResultsFound from '../atoms/NoResultsFound';
 import { CustomSVG } from '../atoms';
 

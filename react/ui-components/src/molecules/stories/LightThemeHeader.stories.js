@@ -1,11 +1,11 @@
 import React from "react";
-import { TopBar } from "../../atoms";
+import { Header } from "../../atoms";
 import { SVG } from "../../atoms";
 import { Dropdown } from "../../atoms";
 
 export default {
   title: "Molecules/Header/Light",
-  component: TopBar,
+  component: Header,
   argTypes: {
     className: {
       control: "text",
@@ -225,7 +225,7 @@ const LightThemeFieldsWithProfileAsSvg = [
   />,
 ];
 
-const Template = (args) => <TopBar {...args} />;
+const Template = (args) => <Header {...args} />;
 const commonArgs = {
   img: "",
   className: "",

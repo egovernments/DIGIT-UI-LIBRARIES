@@ -17,3 +17,11 @@ export const Documentation = () => (
   );
 
   Documentation.storyName = "Docs";
+  Documentation.argTypes = {
+    type: { table: { disable: true } },
+    variant: { table: { disable: true } },
+    onClick: { table: { disable: true } },
+    style: { table: { disable: true } },
+    className: { table: { disable: true } },
+    children: { table: { disable: true } },
+  };

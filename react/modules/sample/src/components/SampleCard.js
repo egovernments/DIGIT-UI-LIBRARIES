@@ -16,7 +16,7 @@ const SampleCard = () => {
         link: `/${window?.contextPath}/employee/sample/components`,
       },
       {
-        label: t("Sample Inbox Seach Screen"),
+        label: t("Sample Inbox Search Screen"),
         link: `/${window?.contextPath}/employee/sample/search`,
       },
     ],

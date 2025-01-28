@@ -4,7 +4,7 @@ import { ButtonGroup } from "../../atoms";
 import { Iframe } from "../../atoms";
 
 export default {
-  title: "Molecules/ButtonGroup",
+  title: "Molecules/Button Group",
   component: ButtonGroup,
   argTypes: {
     size: {
@@ -125,6 +125,11 @@ export const Documentation = () => (
 );
 
 Documentation.storyName = "Docs";
+Documentation.argTypes = {
+  size: { table: { disable: true } },
+  sortButtons: { table: { disable: true }},
+  equalButtons: { table: { disable: true }},
+};
 
 export const Basic = Template.bind({});
 Basic.args = {

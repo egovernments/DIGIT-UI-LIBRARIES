@@ -4,7 +4,7 @@ import { AccordionList } from "../../atoms";
 import {Iframe} from "../../atoms";
 
 export default {
-  title: "Molecules/AccordionList",
+  title: "Molecules/Accordion List",
   component: AccordionList,
   argTypes: {
     allowMultipleOpen: { control: "boolean" },
@@ -12,6 +12,7 @@ export default {
     children: { table: { disable: true } },
     customClassName: { table: { disable: true } },
     customStyles: { table: { disable: true } },
+    styles:{table:{disable:true}}
   },
 };
 
@@ -66,6 +67,10 @@ export const Documentation = () => (
 );
 
 Documentation.storyName = "Docs";
+Documentation.argTypes = {
+  allowMultipleOpen: { table: { disable: true } },
+  addDivider: { table: { disable: true }},
+};
 
 export const Default = Template.bind({});
 Default.args = {

@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { QueryClient, QueryClientProvider } from "react-query";
 import Iframe from "../Iframe";
 import RadioButtons from "../RadioButtons";
 
 export default {
-  title: "Atoms/RadioButton",
+  title: "Atoms/Radio Button",
   component: RadioButtons,
   argTypes: {
     optionsKey: {
@@ -44,7 +43,6 @@ export default {
     },
   },
 };
-const queryClient = new QueryClient();
 
 const commonStyles = {
   position: "absolute",
@@ -72,7 +70,6 @@ const Template = (args) => {
   };
 
   return (
-    <QueryClientProvider client={queryClient}>
       <div style={commonStyles}>
         <RadioButtons
           {...rest}
@@ -82,7 +79,6 @@ const Template = (args) => {
           value={State === "NonEditable" ? "Option" : selectedOption}
         />
       </div>
-    </QueryClientProvider>
   );
 };
 
@@ -107,6 +103,10 @@ export const Documentation = () => (
 );
 
 Documentation.storyName = "Docs";
+Documentation.argTypes = {
+  State: { table: { disable: true } },
+  isLabelFirst: { table: { disable: true }},
+};
 
 export const Basic = Template.bind({});
 Basic.args = {

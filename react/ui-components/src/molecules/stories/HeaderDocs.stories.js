@@ -1,12 +1,12 @@
 import React from "react";
-import { TopBar } from "../../atoms";
+import { Header } from "../../atoms";
 import { SVG } from "../../atoms";
 import { Dropdown } from "../../atoms";
 import {Iframe} from "../../atoms";
 
 export default {
   title: "Molecules/Header",
-  component: TopBar,
+  component: Header,
   argTypes: {
     className: {
       control: "text",

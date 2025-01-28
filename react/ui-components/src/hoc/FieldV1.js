@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import {
   CardText,
   ErrorMessage,
-  Header,
+  HeaderComponent,
   TextArea,
   TextInput,
   CheckBox,
@@ -136,6 +136,7 @@ const FieldV1 = ({
             name={populators?.name}
             onChange={onChange}
             error={error}
+            allowNegativeValues={populators?.allowNegativeValues}
             disabled={disabled}
             nonEditable={nonEditable}
             placeholder={placeholder}
@@ -362,7 +363,7 @@ const FieldV1 = ({
   return (
     <div className="label-field-wrapper">
       {!withoutLabel && (
-        <Header
+        <HeaderComponent
           className={`label ${disabled ? "disabled" : ""} ${
             nonEditable ? "noneditable" : ""
           } ${populators?.wrapLabel ? "wraplabel" : ""}`}
@@ -397,7 +398,7 @@ const FieldV1 = ({
               </div>
             ) : null}
           </div>
-        </Header>
+        </HeaderComponent>
       )}
       <div
         style={

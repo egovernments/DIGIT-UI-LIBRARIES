@@ -3,7 +3,7 @@ import { useForm,useWatch} from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { InboxContext } from "../hoc/InboxSearchComposerContext";
 import RenderFormFields from "../molecules/RenderFormFields";
-import Header from "../atoms/Header";
+import HeaderComponent from "../atoms/HeaderComponent";
 import LinkLabel from '../atoms/LinkLabel';
 import SubmitBar from "../atoms/SubmitBar";
 import Toast from "../atoms/Toast";
@@ -99,7 +99,7 @@ const SearchComponent = ({ uiConfig, header = "", screenType = "search", fullCon
         state: { limit:10,offset:0 }
       })
     } else {
-      setShowToast({ warning: true, label: t("ES_COMMON_MIN_SEARCH_CRITERIA_MSG") })
+      setShowToast({ type:"warning", label: t("ES_COMMON_MIN_SEARCH_CRITERIA_MSG") })
       setTimeout(closeToast, 3000);
     }
   }
@@ -156,7 +156,7 @@ const SearchComponent = ({ uiConfig, header = "", screenType = "search", fullCon
         )
       }
       default : {
-        return <Header styles={uiConfig?.headerStyle}>{t(header)}</Header>
+        return <HeaderComponent styles={uiConfig?.headerStyle}>{t(header)}</HeaderComponent>
       }
     }
   }
@@ -210,9 +210,8 @@ const SearchComponent = ({ uiConfig, header = "", screenType = "search", fullCon
         </div>
       </form>
       {showToast && <Toast
-        error={showToast.error}
-        warning={showToast.warning}
-        label={t(showToast.label)}
+        type={showToast?.type}
+        label={t(showToast?.label)}
         isDleteBtn={true}
         onClose={closeToast} />
       }
@@ -254,9 +253,8 @@ const SearchComponent = ({ uiConfig, header = "", screenType = "search", fullCon
           </div> 
         </form>
         { showToast && <Toast 
-          error={showToast.error}
-          warning={showToast.warning}
-          label={t(showToast.label)}
+          type={showToast?.type}
+          label={t(showToast?.label)}
           isDleteBtn={true}
           onClose={closeToast} />
         }
