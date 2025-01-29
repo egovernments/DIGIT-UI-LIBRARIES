@@ -7,14 +7,14 @@ export default {
   component: Divider,
   argTypes: {
     className: {
-      control: "boolean",
+      control: "boolean",table:{disable:true}
     },
     style: {
-      control: { type: "object" },
+      control: { type: "object" },table:{disable:true}
     },
     variant: {
       control: "select",
-      options: ["small", "medium", "large"],
+      options: ["small", "medium", "large"],table:{disable:true}
     },
   },
 };

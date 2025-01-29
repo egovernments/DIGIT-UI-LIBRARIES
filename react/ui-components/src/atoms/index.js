@@ -27,7 +27,7 @@ import DisplayPhotos from "./DisplayPhotos";
 import Dropdown from "./Dropdown";
 import ErrorMessage from "./ErrorMessage";
 import Footer from "./Footer";
-import Header from "./Header";
+import HeaderComponent from "./HeaderComponent";
 import HeaderBar from "./HeaderBar";
 import HorizontalNav from "./HorizontalNav";
 import Tab from "./Tab";
@@ -35,8 +35,6 @@ import AlertCard from "./AlertCard";
 import InputTextAmount from "./InputTextAmount";
 import KeyNote from "./KeyNote";
 import LabelFieldPair from "./LabelFieldPair";
-import { Loader } from "./Loader";
-import { LoaderScreen } from "./LoaderScreen";
 import MobileNumber from "./MobileNumber";
 import MultiSelectDropdown from "./MultiSelectDropdown";
 import NoResultsFound from "./NoResultsFound";
@@ -78,14 +76,14 @@ import ErrorBoundary from "./ErrorBoundary";
 import TextBlock from "./TextBlock";
 import Panels from "./Panels";
 import Animation from "./Animation";
-import ViewCardFieldPair from "./ViewCardFieldPair";
+import SummaryCardFieldPair from "./SummaryCardFieldPair";
 import ButtonGroup from "./ButtonGroup";
 import Divider from "./Divider";
-import TopBar from "./TopBar";
-import Hamburger from "./Hamburger";
+import Header from "./Header";
+import HamburgerButton from "./HamburgerButton";
 import Menu from "./Menu";
 import SideNav from "./SideNav";
-import MobileSideNav from "./MobileSideNav";
+import Hamburger from "./Hamburger";
 import SelectionTag from "./SelectionTag";
 import Tag from "./Tag";
 import Tooltip from "./Tooltip";
@@ -99,7 +97,7 @@ import TableHeader from "./TableHeader";
 import TableRow from "./TableRow";
 import SidePanel from "./SidePanel";
 import NestedTable from "./NestedTable";
-import LoaderComponent from "./LoaderComponent";
+import Loader from "./Loader";
 import Iframe from "./Iframe";
 
 export {
@@ -111,7 +109,7 @@ export {
   AppContainer,
   BackLink,
   SideNav,
-  MobileSideNav,
+  Hamburger,
   Switch,
   Accordion,
   Iframe,
@@ -139,17 +137,15 @@ export {
   Dropdown,
   ErrorMessage,
   HomeFooter,
-  Header,
+  HeaderComponent,
   HeaderBar,
   HorizontalNav,
-  LoaderComponent,
+  Loader,
   Tab,
   AlertCard,
   InputTextAmount,
   KeyNote,
   LabelFieldPair,
-  Loader,
-  LoaderScreen,
   MobileNumber,
   MultiSelectDropdown,
   NoResultsFound,
@@ -165,8 +161,8 @@ export {
   Rating,
   Chip,
   SVG,
-  TopBar,
-  Hamburger,
+  Header,
+  HamburgerButton,
   Menu,
   // Table,
   Telephone,
@@ -182,7 +178,7 @@ export {
   ButtonSelector,
   Stepper,
   Timeline,
-  ViewCardFieldPair,
+  SummaryCardFieldPair,
   Divider,
   ButtonGroup,
   StringManipulator,

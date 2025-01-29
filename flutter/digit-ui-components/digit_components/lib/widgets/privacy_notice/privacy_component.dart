@@ -1,6 +1,7 @@
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import '../../constants/app_constants.dart';
 import '../../models/privacy_notice/privacy_notice_model.dart';
 import '../../theme/spacers.dart';
 import '../localized.dart';
@@ -151,33 +152,34 @@ class _PrivacyComponentState extends LocalizedState<PrivacyComponent> {
                 if (field.errorText != null) ...[
                   const SizedBox(height: spacer1),
                   Row(
-                    mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment:
-                    CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       Column(
                         children: [
                           const SizedBox(
-                            height: 1.5,
+                            height: spacer1 / 2,
                           ),
                           Icon(
                             Icons.info,
                             color: theme.colorTheme.alert.error,
-                            size: spacer4,
+                            size: BaseConstants.errorIconSize,
                           ),
                         ],
                       ),
                       const SizedBox(width: spacer1),
-                      Text(
-                        widget.validationMessage,
-                        style: theme.textTheme.bodySmall?.copyWith(
-                          color: theme.colorTheme.alert.error,
+                      Flexible(
+                        fit: FlexFit.tight,
+                        child: Text(
+                          widget.validationMessage,
+                          style: Theme.of(context).digitTextTheme(context).bodyS.copyWith(
+                            color: theme.colorTheme.alert.error,
+                          ),
                         ),
                       ),
                     ],
                   )
-
                 ],
               ],
             );

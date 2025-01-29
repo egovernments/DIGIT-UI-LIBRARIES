@@ -34,6 +34,7 @@ class IllustrationStory extends StatelessWidget {
       {'name': 'Storybook logo', 'asset': 'assets/images/Group 1079.png'},
       {'name': 'Digit logo', 'asset': 'assets/images/powered_by_digit.png'},
       {'name' : 'No result found', 'asset' : 'assets/icons/svg/no_result.svg'},
+      {'name' : 'Default Search Placeholder', 'asset' : 'assets/icons/svg/default_search_placeholder.svg'},
     ];
 
     return Center(

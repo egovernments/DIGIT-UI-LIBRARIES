@@ -19,7 +19,7 @@ List<Story> typographyStories() {
 
         // Knob to select screen type
         final screenType = context.knobs.options(
-          label: 'Screen Type',
+          label: 'Break point',
           initial: ScreenType.desktop,
           options: [
             Option(label: 'Mobile', value: ScreenType.mobile),
@@ -49,7 +49,7 @@ List<Story> typographyStories() {
         final colorTheme = theme.colorTheme;
 
         final screenType = context.knobs.options(
-          label: 'Screen Type',
+          label: 'Break point',
           initial: ScreenType.desktop,
           options: [
             Option(label: 'Mobile', value: ScreenType.mobile),
@@ -78,7 +78,7 @@ List<Story> typographyStories() {
         final colorTheme = theme.colorTheme;
 
         final screenType = context.knobs.options(
-          label: 'Screen Type',
+          label: 'Break point',
           initial: ScreenType.desktop,
           options: [
             Option(label: 'Mobile', value: ScreenType.mobile),
@@ -107,7 +107,7 @@ List<Story> typographyStories() {
         final colorTheme = theme.colorTheme;
 
         final screenType = context.knobs.options(
-          label: 'Screen Type',
+          label: 'Break point',
           initial: ScreenType.desktop,
           options: [
             Option(label: 'Mobile', value: ScreenType.mobile),
@@ -135,7 +135,7 @@ List<Story> typographyStories() {
         final colorTheme = theme.colorTheme;
 
         final screenType = context.knobs.options(
-          label: 'Screen Type',
+          label: 'Break point',
           initial: ScreenType.desktop,
           options: [
             Option(label: 'Mobile', value: ScreenType.mobile),
@@ -164,7 +164,7 @@ List<Story> typographyStories() {
         final colorTheme = theme.colorTheme;
 
         final screenType = context.knobs.options(
-          label: 'Screen Type',
+          label: 'Break point',
           initial: ScreenType.desktop,
           options: [
             Option(label: 'Mobile', value: ScreenType.mobile),
@@ -193,7 +193,7 @@ List<Story> typographyStories() {
         final colorTheme = theme.colorTheme;
 
         final screenType = context.knobs.options(
-          label: 'Screen Type',
+          label: 'Break point',
           initial: ScreenType.desktop,
           options: [
             Option(label: 'Mobile', value: ScreenType.mobile),
@@ -222,7 +222,7 @@ List<Story> typographyStories() {
         final colorTheme = theme.colorTheme;
 
         final screenType = context.knobs.options(
-          label: 'Screen Type',
+          label: 'Break point',
           initial: ScreenType.desktop,
           options: [
             Option(label: 'Mobile', value: ScreenType.mobile),
@@ -250,7 +250,7 @@ List<Story> typographyStories() {
         final colorTheme = theme.colorTheme;
 
         final screenType = context.knobs.options(
-          label: 'Screen Type',
+          label: 'Break point',
           initial: ScreenType.desktop,
           options: [
             Option(label: 'Mobile', value: ScreenType.mobile),
@@ -278,7 +278,7 @@ List<Story> typographyStories() {
         final colorTheme = theme.colorTheme;
 
         final screenType = context.knobs.options(
-          label: 'Screen Type',
+          label: 'Break point',
           initial: ScreenType.desktop,
           options: [
             Option(label: 'Mobile', value: ScreenType.mobile),
@@ -306,7 +306,7 @@ List<Story> typographyStories() {
         final colorTheme = theme.colorTheme;
 
         final screenType = context.knobs.options(
-          label: 'Screen Type',
+          label: 'Break point',
           initial: ScreenType.desktop,
           options: [
             Option(label: 'Mobile', value: ScreenType.mobile),
@@ -335,7 +335,7 @@ List<Story> typographyStories() {
         final colorTheme = theme.colorTheme;
 
         final screenType = context.knobs.options(
-          label: 'Screen Type',
+          label: 'Break point',
           initial: ScreenType.desktop,
           options: [
             Option(label: 'Mobile', value: ScreenType.mobile),
@@ -364,7 +364,7 @@ List<Story> typographyStories() {
         final colorTheme = theme.colorTheme;
 
         final screenType = context.knobs.options(
-          label: 'Screen Type',
+          label: 'Break point',
           initial: ScreenType.desktop,
           options: [
             Option(label: 'Mobile', value: ScreenType.mobile),
@@ -391,7 +391,7 @@ List<Story> typographyStories() {
         final colorTheme = theme.colorTheme;
 
         final screenType = context.knobs.options(
-          label: 'Screen Type',
+          label: 'Break point',
           initial: ScreenType.desktop,
           options: [
             Option(label: 'Mobile', value: ScreenType.mobile),

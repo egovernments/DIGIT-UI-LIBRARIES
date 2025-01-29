@@ -28,7 +28,7 @@ class _PoweredByDigitState extends State<PoweredByDigit> {
               padding: widget.padding ?? const EdgeInsets.all(4),
               alignment: Alignment.center,
               child: Image.asset( Base.digitLogo,
-                  // package: 'digit_components',
+                  package: 'digit_ui_components',
                   fit: BoxFit.contain,
                   color: widget.ispaperPrimaryLogo
                       ? DigitTheme.instance.colorScheme.onPrimary

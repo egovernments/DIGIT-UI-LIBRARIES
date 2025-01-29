@@ -402,6 +402,10 @@
             justify-content: center;
         }
 
+        &.searchDisabled{
+            padding-top: theme(digitv2.spacers.spacer0);
+        }
+
         .digit-sidebar-items-container {
 
             display: flex !important;
@@ -496,6 +500,10 @@
                     border-bottom-right-radius: theme(digitv2.spacers.spacer1);
                 }
 
+            }
+
+            &.searchDisabled{
+                margin-top: theme(digitv2.spacers.spacer0);
             }
         }
     }

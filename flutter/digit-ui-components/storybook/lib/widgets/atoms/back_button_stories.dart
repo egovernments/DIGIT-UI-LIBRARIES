@@ -20,12 +20,21 @@ List<Story> digitBackButtonStories() {
       name: 'Atom/Back Link/Backlink 1',
       builder: (context) {
 
+        bool disabled = context.knobs.boolean(label: 'Disabled', initial: false);
+
         return Center(
           child: DigitBackButton(
-            handleBack: () {},
+            handleBack: disabled ? null : () {},
             digitBackButtonThemeData:
             const DigitBackButtonThemeData().copyWith(
               context: context,
+              disabledBackDigitButtonIcon: Icon(
+                Icons.arrow_left,
+                size: MediaQuery.of(context).size.width < 500
+                    ? Theme.of(context).spacerTheme.spacer5
+                    : Theme.of(context).spacerTheme.spacer6,
+                color: Theme.of(context).colorTheme.text.disabled,
+              ),
               backDigitButtonIcon: Icon(
                 Icons.arrow_left,
                 size: MediaQuery.of(context).size.width < 500
@@ -42,11 +51,20 @@ List<Story> digitBackButtonStories() {
     Story(
       name: 'Atom/Back Link/Backlink 2',
       builder: (context) {
+        bool disabled = context.knobs.boolean(label: 'Disabled', initial: false);
+
         return Center(
           child: DigitBackButton(
             digitBackButtonThemeData:
             const DigitBackButtonThemeData().copyWith(
               context: context,
+              disabledBackDigitButtonIcon: Icon(
+              Icons.arrow_circle_left_outlined,
+              size: MediaQuery.of(context).size.width < 500
+                  ? Theme.of(context).spacerTheme.spacer5
+                  : Theme.of(context).spacerTheme.spacer6,
+                color: Theme.of(context).colorTheme.text.disabled,
+            ),
               backDigitButtonIcon: Icon(
                 Icons.arrow_circle_left_outlined,
                 size: MediaQuery.of(context).size.width < 500
@@ -55,7 +73,7 @@ List<Story> digitBackButtonStories() {
                 color: Theme.of(context).colorTheme.primary.primary2,
               ),
             ),
-            handleBack: () {},
+            handleBack: disabled ? null : () {},
             label: context.knobs.text(label: 'Label', initial: 'Back'),
           ),
         );
@@ -65,19 +83,13 @@ List<Story> digitBackButtonStories() {
       name: 'Atom/Back Link/Backlink 3',
       builder: (context) {
 
+        bool disabled = context.knobs.boolean(label: 'Disabled', initial: false);
+
         return Center(
           child: DigitBackButton(
-            handleBack: () {},
+            handleBack: disabled ? null : () {},
             label: context.knobs.text(label: 'Label', initial: 'Back'),
           ),
-        );
-      },
-    ),
-    Story(
-      name: 'Atom/Back Link/Disabled',
-      builder: (context) {
-        return  Center(
-          child: DigitBackButton(label:  context.knobs.text(label: 'Label', initial: 'Back'),),
         );
       },
     ),

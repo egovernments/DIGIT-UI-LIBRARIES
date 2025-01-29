@@ -7,13 +7,14 @@ export default {
   argTypes: {
     label: {
       control: "text",
+      name:"Label"
     },
     variation: {
       control: "select",
       options: ["primary", "secondary", "teritiary", "link"],
       table: { disable: true },
     },
-    size: { control: "select", options: ["large", "medium", "small"] },
+    size: { control: "select", options: ["large", "medium", "small"],name:"Size" },
     className: {
       control: "text",
       table: { disable: true },
@@ -31,7 +32,7 @@ export default {
       table: { disable: true },
     },
     isSearchable: {
-      control: "boolean",
+      control: "boolean",table: { disable: true },
     },
     showBottom: {
       control: "select",
@@ -41,6 +42,7 @@ export default {
         DropUp: false,
         DropDown: true,
       },
+      table: { disable: true },
     },
     optionsKey: {
       control: "text",
@@ -56,7 +58,7 @@ export default {
     isDisabled: {
       control: "select",
       options: ["Default", "Disabled"],
-      name: "state",
+      name: "State",
       mapping: {
         Default: false,
         Disabled: true,
@@ -69,6 +71,7 @@ export default {
     type: { table: { disable: true } },
     WithIcon: {
       control: "boolean",
+      name:"With Icon"
     },
     isSuffix: {
       control: "select",
@@ -78,7 +81,7 @@ export default {
         Prefix: false,
         Suffix: true,
       },
-      if: { arg: "WithIcon", truthy: true },
+      if: { arg: "WithIcon", truthy: true},
     },
     Width: {
       control: "select",
@@ -143,26 +146,8 @@ const commonArgs = {
 };
 
 // Button with primary variantion
-export const Basic = Template.bind({});
-Basic.args = {
+export const Primary = Template.bind({});
+Primary.args = {
   ...commonArgs,
   variation: "primary",
-};
-
-export const ActionButton = Template.bind({});
-ActionButton.args = {
-  ...commonArgs,
-  label: "ActionButton",
-  variation: "primary",
-  type: "actionButton",
-  optionsKey: "name",
-  isSearchable: true,
-  options: [
-    { name: "Action A", code: "Actiona" },
-    { name: "Action B", code: "Actionb" },
-    { name: "Action C", code: "Actionc" },
-  ],
-  onOptionSelect: (e) => {
-    console.log(e, "option selected");
-  },
 };

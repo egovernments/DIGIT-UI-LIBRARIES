@@ -1,7 +1,7 @@
 import _ from "lodash";
 import React from "react";
 import PropTypes from "prop-types";
-import { Loader } from "../atoms/Loader";
+import { Loader } from "../atoms";
 import RadioButtons from "../atoms/RadioButtons";
 import Dropdown from "../atoms/Dropdown";
 import Toggle from "../atoms/Toggle";

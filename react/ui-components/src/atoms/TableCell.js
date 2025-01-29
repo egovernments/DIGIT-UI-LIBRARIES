@@ -117,7 +117,6 @@ const TableCell = ({
             style={cellData?.style}
             index={cellData?.index}
             isLabelFirst={cellData?.isLabelFirst}
-            customLabelMarkup={cellData?.customLabelMarkup}
             hideLabel={cellData?.hideLabel}
             props={cellData?.props}
             mainClassName={cellData?.mainClassName}

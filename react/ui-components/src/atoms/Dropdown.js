@@ -110,6 +110,7 @@ const TextField = (props) => {
       onChange={inputChange}
       onClick={props.onClick}
       onFocus={broadcastToOpen}
+      id={props?.id}
       onBlur={(e) => {
         broadcastToClose();
         props?.onBlur?.(e);

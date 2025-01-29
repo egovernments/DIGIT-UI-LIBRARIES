@@ -5,7 +5,7 @@ import LabelFieldPair from "../atoms/LabelFieldPair";
 import CardLabel from "../atoms/CardLabel";
 import CardLabelError from "../atoms/CardLabelError";
 import CitizenInfoLabel from "../atoms/CitizenInfoLabel";
-import Header from "../atoms/Header";
+import HeaderComponent from "../atoms/HeaderComponent";
 import MultiUploadWrapper from "../molecules/MultiUploadWrapper";
 import TextInput from "../atoms/TextInput";
 import { getRegex } from "../utils/uploadFileComposerUtils";
@@ -27,7 +27,7 @@ const UploadFileComposer = ({ module, config, Controller, control, register, for
 
   return (
     <React.Fragment>
-      <Header styles={{ fontSize: "24px", marginTop: "40px" }}>{t("WORKS_RELEVANT_DOCUMENTS")}</Header>
+      <HeaderComponent styles={{ fontSize: "24px", marginTop: "40px" }}>{t("WORKS_RELEVANT_DOCUMENTS")}</HeaderComponent>
       <CitizenInfoLabel info={t("ES_COMMON_INFO")} text={t(docConfig?.bannerLabel)} className="digit-doc-banner"></CitizenInfoLabel>
       {docConfig?.documents?.map((item, index) => {
         if (!item?.active) return;

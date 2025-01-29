@@ -5,6 +5,8 @@
     background-color: theme(digitv2.lightTheme.paper-primary);
     display: flex;
     flex-direction: column;
+    border-radius: theme(digitv2.spacers.spacer1);
+    box-shadow: 0rem 0.063rem 0.125rem 0rem #00000029;
 
     .digit-form-card-header {
         @apply flex-col;

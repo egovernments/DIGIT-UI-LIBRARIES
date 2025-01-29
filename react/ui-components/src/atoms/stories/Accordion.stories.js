@@ -6,18 +6,18 @@ export default {
   title: "Atoms/Accordion",
   component: Accordion,
   argTypes: {
-    title: { control: "text" },
-    children: { control: "text" },
-    isOpenInitially: { control: "boolean" },
+    title: { control: "text",name:"Title" },
+    children: { control: "text",name:"Content" },
+    isOpenInitially: { control: "boolean" ,table: { disable: true } },
     customClassName: { control: "text" ,table: { disable: true } },
     customStyles: { control: "object" ,table: { disable: true } },
     onToggle: { action: "onToggle",table: { disable: true }  },
-    icon: { control: "text" },
-    number: { control: "number" },
-    hideCardBorder: { control: "boolean" },
-    hideDivider: { control: "boolean" },
-    hideCardBg: { control: "boolean" },
-    hideBorderRadius: { control: "boolean" },
+    icon: { control: "text" ,name:"Icon"},
+    number: { control: "number",name:"Number" },
+    hideCardBorder: { control: "boolean",name:"Hide Border" },
+    hideDivider: { control: "boolean" ,name:"Hide Divider" },
+    hideCardBg: { control: "boolean",name:"Hide Background"  },
+    hideBorderRadius: { control: "boolean" ,name:"Hide Border Radius" },
     iconFill: { table: { disable: true } },
     isClosed: { table: { disable: true } },
     iconWidth: { table: { disable: true } },
@@ -36,6 +36,17 @@ export const Documentation = () => (
 );
 
 Documentation.storyName = "Docs";
+Documentation.argTypes = {
+  title: { table: { disable: true } },
+  icon: { table: { disable: true }},
+  number: { table: { disable: true }},
+  hideCardBorder: {table: { disable: true } },
+  hideDivider: { table: { disable: true } },
+  hideCardBg: { table: { disable: true }},
+  hideBorderRadius: { table: { disable: true }},
+  children: { table: { disable: true }},
+  isOpenInitially: { table: { disable: true }},
+};
 
 export const Basic = Template.bind({});
 Basic.args = {

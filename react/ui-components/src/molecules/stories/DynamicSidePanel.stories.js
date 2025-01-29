@@ -4,7 +4,7 @@ import Button from "../../atoms/Button";
 import { SVG } from "../../atoms/SVG";
 
 export default {
-  title: "Molecules/SidePanel/Dynamic",
+  title: "Molecules/Side Panel/Dynamic",
   component: SidePanel,
   argTypes: {
     className: { control: "text" ,table:{disable:true}},
@@ -353,7 +353,7 @@ const footer = [
     style={{ width: "100%" }}
     label={"Dynamic SidePanel"}
     icon={"Edit"}
-    variation={"secondary"}
+    variation={"primary"}
   />,
 ];
 

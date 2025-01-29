@@ -6,7 +6,7 @@ import _ from "lodash";
 // atoms need for initial setup
 import BreakLine from "../atoms/BreakLine";
 import Card from "../atoms/Card";
-import Header from "../atoms/Header";
+import HeaderComponent from "../atoms/HeaderComponent";
 import Button from "../atoms/Button";
 import ActionLinks from "../atoms/ActionLinks";
 import Footer from "../atoms/Footer";
@@ -183,24 +183,24 @@ export const FormComposer = (props) => {
     if (section.head && section.subHead) {
       return (
         <>
-          <Header
+          <HeaderComponent
             className={`digit-card-section-header`}
             style={props?.sectionHeadStyle ? props?.sectionHeadStyle : { margin: "5px 0px" }}
             id={section.headId}
           >
             {t(section.head)}
-          </Header>
-          <Header style={titleStyle} id={`${section.headId}_DES`}>
+          </HeaderComponent>
+          <HeaderComponent style={titleStyle} id={`${section.headId}_DES`}>
             {t(section.subHead)}
-          </Header>
+          </HeaderComponent>
         </>
       );
     } else if (section.head) {
       return (
         <>
-          <Header className={`digit-card-section-header`} style={props?.sectionHeadStyle ? props?.sectionHeadStyle : {}} id={section.headId}>
+          <HeaderComponent className={`digit-card-section-header`} style={props?.sectionHeadStyle ? props?.sectionHeadStyle : {}} id={section.headId}>
             {t(section.head)}
-          </Header>
+          </HeaderComponent>
         </>
       );
     } else {
@@ -224,14 +224,14 @@ export const FormComposer = (props) => {
               <React.Fragment key={index}>
                 <div style={field.isInsideBox ? getCombinedStyle(field?.placementinbox) : field.inline ? { display: "flex" } : {}}>
                   {/* {!field.withoutLabel && (
-                    <Header
+                    <HeaderComponent
                       style={{ color: field.isSectionText ? "#505A5F" : "", marginBottom: props.inline ? "8px" : "revert" }}
                       className={` ${field?.disable ? `disabled ${props?.labelBold ? "bolder" : ""}` : `${props?.labelBold ? "bolder" : ""}`}`}
                     >
                       {t(field.label)}
                       {field.isMandatory ? " * " : null}
                       {field.labelChildren && field.labelChildren}
-                    </Header>
+                    </HeaderComponent>
                   )} */}
                   {/* {errors && errors[field.populators?.name] && Object.keys(errors[field.populators?.name]).length ? (
                     <ErrorMessage>{t(field.populators.error || errors[field.populators?.name]?.message)}</ErrorMessage>
@@ -239,7 +239,7 @@ export const FormComposer = (props) => {
                   <div style={field.withoutLabel ? { width: "100%" } : {}} className="digit-field">
                     {fieldSelector(field.type, field.populators, field.isMandatory, field?.disable, field?.component, field, sectionFormCategory)}
                     {field?.description && (
-                      <Header
+                      <HeaderComponent
                         style={{
                           marginTop: "-24px",
                           fontSize: "16px",
@@ -250,7 +250,7 @@ export const FormComposer = (props) => {
                         className="bolder"
                       >
                         {t(field.description)}
-                      </Header>
+                      </HeaderComponent>
                     )}
                   </div>
                 </div>
@@ -271,7 +271,7 @@ export const FormComposer = (props) => {
 
                 {/* Commenting to initialize & check Field Controller and composer which render label and field Should remove later*/}
                 {/*{!field.withoutLabel && (
-                  <Header
+                  <HeaderComponent
                     style={{
                       color: field.isSectionText ? "#505A5F" : "",
                       marginBottom: props.inline ? "8px" : "revert",
@@ -282,7 +282,7 @@ export const FormComposer = (props) => {
                     {t(field.label)}
                     {field?.appendColon ? " : " : null}
                     {field.isMandatory ? " * " : null}
-                  </Header>
+                  </HeaderComponent>
                 )}
                 <div style={field.withoutLabel ? { width: "100%", ...props?.fieldStyle } : { ...props?.fieldStyle }} className="digit-field">
                   {fieldSelector(field.type, field.populators, field.isMandatory, field?.disable, field?.component, field, sectionFormCategory)}
@@ -344,8 +344,8 @@ export const FormComposer = (props) => {
   const renderFormFields = (props, section, index, array, sectionFormCategory) => (
     <React.Fragment key={index}>
       {!props.childrenAtTheBottom && props.children}
-      {props.heading && <Header styles={{ ...props.headingStyle }}> {props.heading} </Header>}
-      {props.description && <Header styles={{ ...props.descriptionStyles }}> {props.description} </Header>}
+      {props.heading && <HeaderComponent styles={{ ...props.headingStyle }}> {props.heading} </HeaderComponent>}
+      {props.description && <HeaderComponent styles={{ ...props.descriptionStyles }}> {props.description} </HeaderComponent>}
       {props.text && <p>{props.text}</p>}
       {formFields(section, index, array, sectionFormCategory)}
       {props.childrenAtTheBottom && props.children}

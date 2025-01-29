@@ -330,13 +330,14 @@ const ViewsIcon = ({fill="#C84C0E" ,width="22",height="16"}) => (
   </svg>
 );
 
-const DocumentIcon = ({fill="#C84C0E" ,width="100",height="100"}) => (
+const DocumentIcon = ({fill="#C84C0E" ,width="100",height="100",onClick}) => (
   <svg
     width={width}
     height={height}
     viewBox="0 0 18 18"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    onClick={onClick}
   >
     <path
       d="M16 0H2C0.9 0 0 0.9 0 2V16C0 17.1 0.9 18 2 18H16C17.1 18 18 17.1 18 16V2C18 0.9 17.1 0 16 0ZM11 14H4V12H11V14ZM14 10H4V8H14V10ZM14 6H4V4H14V6Z"
@@ -455,13 +456,14 @@ const ImageIcon = ({fill="#000000" ,width="24",height="24"}) => (
 // <path d="M20 2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-8.5 7.5c0 .83-.67 1.5-1.5 1.5H9v2H7.5V7H10c.83 0 1.5.67 1.5 1.5v1zm5 2c0 .83-.67 1.5-1.5 1.5h-2.5V7H15c.83 0 1.5.67 1.5 1.5v3zm4-3H19v1h1.5V11H19v2h-1.5V7h3v1.5zM9 9.5h1v-1H9v1zM4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm10 5.5h1v-3h-1v3z" />
 // </svg>
 
-const DocumentSVG = ({fill="#505A5F" ,width="80",height="80"}) => (
+const DocumentSVG = ({fill="#505A5F" ,width="80",height="80",onClick}) => (
   <svg
     width={width}
     height={height}
     viewBox="0 0 80 80"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    onClick={onClick}
   >
     <path
       d="M46.6667 6.6665H20C16.3334 6.6665 13.3667 9.6665 13.3667 13.3332L13.3334 66.6665C13.3334 70.3332 16.3 73.3332 19.9667 73.3332H60C63.6667 73.3332 66.6667 70.3332 66.6667 66.6665V26.6665L46.6667 6.6665ZM53.3334 59.9998H26.6667V53.3332H53.3334V59.9998ZM53.3334 46.6665H26.6667V39.9998H53.3334V46.6665ZM43.3334 29.9998V11.6665L61.6667 29.9998H43.3334Z"
@@ -3013,7 +3015,7 @@ const AttentionListIcon = ({ className = "", fill = "#C84C0E", style = {},width=
   </svg>
 );
 
-const XlsxFile = ({ className = "", fill = "none", style = {},width="38",height="38" }) => (
+const XlsxFile = ({ className = "", fill = "none", style = {},width="38",height="38",onClick }) => (
   <svg
     width={width}
     height={height}
@@ -3021,6 +3023,7 @@ const XlsxFile = ({ className = "", fill = "none", style = {},width="38",height=
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     className={className}
+    onClick={onClick}
   >
     <path d="M5.5 31.0801H3L5.5 33.5801V31.0801Z" fill="#006C36" />
     <path
@@ -3054,7 +3057,7 @@ const XlsxFile = ({ className = "", fill = "none", style = {},width="38",height=
   </svg>
 );
 
-const DocFile = ({ className = "", fill = "none", styles = {},width="33",height="36" }) => (
+const DocFile = ({ className = "", fill = "none", styles = {},width="33",height="36" ,onClick}) => (
   <svg
     width={width}
     height={height}
@@ -3063,6 +3066,7 @@ const DocFile = ({ className = "", fill = "none", styles = {},width="33",height=
     className={className}
     style={styles}
     xmlns="http://www.w3.org/2000/svg"
+    onClick={onClick}
   >
     <path d="M2.5 30.0801H0L2.5 32.5801V30.0801Z" fill="#064B8C" />
     <path
@@ -3082,7 +3086,7 @@ const DocFile = ({ className = "", fill = "none", styles = {},width="33",height=
     />
   </svg>
 );
-const PdfFile = ({ className = "", fill = "none", style = {},width="33",height="36" }) => (
+const PdfFile = ({ className = "", fill = "none", style = {},width="33",height="36",onClick }) => (
   <svg
     width={width}
     height={height}
@@ -3090,6 +3094,7 @@ const PdfFile = ({ className = "", fill = "none", style = {},width="33",height="
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     className={className}
+    onClick={onClick}
   >
     <path
       d="M29.8008 30.0801H32.3008L29.8008 32.5801V30.0801Z"
@@ -3108,7 +3113,7 @@ const PdfFile = ({ className = "", fill = "none", style = {},width="33",height="
     />
   </svg>
 );
-const JpgFile = ({ className = "", fill = "none", style = {} ,width="33",height="36"}) => (
+const JpgFile = ({ className = "", fill = "none", style = {} ,width="33",height="36",onClick}) => (
   <svg
     width={width}
     height={height}
@@ -3116,6 +3121,7 @@ const JpgFile = ({ className = "", fill = "none", style = {} ,width="33",height=
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     className={className}
+    onClick={onClick}
   >
     <path d="M2.5 30.0801H0L2.5 32.5801V30.0801Z" fill="#8C5606" />
     <path
@@ -3132,7 +3138,7 @@ const JpgFile = ({ className = "", fill = "none", style = {} ,width="33",height=
   </svg>
 );
 
-const PngFile = ({ className = "", fill = "none", style = {} ,width="34",height="36"}) => (
+const PngFile = ({ className = "", fill = "none", style = {} ,width="34",height="36",onClick}) => (
   <svg
     width={width}
     height={height}
@@ -3140,6 +3146,7 @@ const PngFile = ({ className = "", fill = "none", style = {} ,width="34",height=
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     className={className}
+    onClick={onClick}
   >
     <path
       d="M30.7461 30.0801H33.2461L30.7461 32.5801V30.0801Z"
@@ -3412,8 +3419,26 @@ const AddIconNew = ({
   </svg>
 );
 
+const PlaceholderSvg = ({width="800",height="800",fill}) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={width}
+    height={height}
+    viewBox="0 0 120 120"
+    fill="none"
+  >
+    <rect width="120" height="120" fill="#EFF1F3" />
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M33.2503 38.4816C33.2603 37.0472 34.4199 35.8864 35.8543 35.875H83.1463C84.5848 35.875 85.7503 37.0431 85.7503 38.4816V80.5184C85.7403 81.9528 84.5807 83.1136 83.1463 83.125H35.8543C34.4158 83.1236 33.2503 81.957 33.2503 80.5184V38.4816ZM80.5006 41.1251H38.5006V77.8751L62.8921 53.4783C63.9172 52.4536 65.5788 52.4536 66.6039 53.4783L80.5006 67.4013V41.1251ZM43.75 51.6249C43.75 54.5244 46.1005 56.8749 49 56.8749C51.8995 56.8749 54.25 54.5244 54.25 51.6249C54.25 48.7254 51.8995 46.3749 49 46.3749C46.1005 46.3749 43.75 48.7254 43.75 51.6249Z"
+      fill={fill || "#687787"}
+    />
+  </svg>
+);
 
 export const CustomSVG = {
+    PlaceholderSvg,
     ProfileIcon,
     AnnouncementIcon,
     ReceiptIcon,

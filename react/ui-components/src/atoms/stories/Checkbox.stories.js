@@ -18,14 +18,17 @@ export default {
     disabled: {
       control: "select",
       options: ["Default","Disabled"],
-      name:"state",
+      name:"State",
       mapping: {
         Default: false, 
         Disabled: true, 
       },
     },
-    isLabelFirst: { control: "boolean" },
-    label: { control: "text"},
+    isLabelFirst: { control: "select" ,name:"Label Alignment",      mapping: {
+      Left: true, 
+      Right: false, 
+    },      options: ["Left","Right"],},
+    label: { control: "text",name:"Label"},
   },
 };
 
@@ -62,7 +65,7 @@ const commonArgs = {
   onChange: () => {},
   value: "",
   checked: true,
-  isLabelFirst: false,
+  isLabelFirst: "Right",
   label: "Label",
   isIntermediate: false,
   styles: {},
@@ -79,9 +82,14 @@ export const Documentation = () => (
 );
 
 Documentation.storyName = "Docs";
+Documentation.argTypes = {
+  label: { table: { disable: true } },
+  isLabelFirst: { table: { disable: true }},
+  disabled: { table: { disable: true }},
+};
 
-export const UnChecked = Template.bind({});
-UnChecked.args = {
+export const Unchecked = Template.bind({});
+Unchecked.args = {
   ...commonArgs,
   checked:false
 };

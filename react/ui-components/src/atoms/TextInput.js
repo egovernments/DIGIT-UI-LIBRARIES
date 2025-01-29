@@ -24,17 +24,14 @@ const TextInput = (props) => {
     props?.onChange(value);
   };
   const incrementCount = () => {
-    const newValue =
-      Number(props.value) + (Number(props?.step) ? Number(props?.step) : 1);
+    const newValue = Number(props.value) + (Number(props?.step) ? Number(props?.step) : 1);
     props.onChange(newValue);
   };
 
   const decrementCount = () => {
-    const newValue = Math.max(
-      Number(props.value) - (Number(props?.step) ? Number(props?.step) : 1),
-      0
-    );
-    props.onChange(newValue);
+    const newValue = Number(props.value) - (Number(props?.step) ? Number(props?.step) : 1);
+    const finalValue = props?.allowNegativeValues ? newValue : Math.max(newValue, 0);
+    props.onChange(finalValue);
   };
 
   const renderPrefix = () => {
@@ -437,6 +434,7 @@ TextInput.propTypes = {
   min: PropTypes.number,
   disabled: PropTypes.bool,
   nonEditable: PropTypes.bool,
+  allowNegativeValues:PropTypes.bool,
   errorStyle: PropTypes.bool,
   hideSpan: PropTypes.bool,
   title: PropTypes.string,

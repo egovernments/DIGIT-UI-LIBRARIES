@@ -6,25 +6,29 @@ export default {
   title: "Atoms/Stepper",
   component: Stepper,
   argTypes: {
-    config: { control: "object" },
-    inputRef: { control: false },
-    onChange: { action: "onChange" },
-    props: { control: "object" },
-    populators: { control: "object" },
-    formData: { control: "object" },
-    onStepClick: { action: "onChange" },
-    totalSteps: { action: "number" },
-    customSteps: { control: "object" },
+    config: { control: "object" ,table:{disable:true}},
+    inputRef: { control: false,table:{disable:true} },
+    onChange: { action: "onChange",table:{disable:true} },
+    props: { control: "object" ,table:{disable:true}},
+    populators: { control: "object",table:{disable:true} },
+    formData: { control: "object",table:{disable:true} },
+    onStepClick: { action: "onChange" ,table:{disable:true}},
+    totalSteps: { action: "number",name:"Number of steps" },
+    currentStep:{table:{disable:true}},
+    customSteps: { control: "object",table:{disable:true} },
     direction: {
       control: {
         type: "select",
         options: ["vertical", "horizontal"],
       },
+      table:{disable:true}
     },
-    style: { control: "object" },
-    props: { control: "object" },
-    activeSteps: { action: "number" },
-    hideDivider: { control: "boolean" },
+    style: { control: "object",table:{disable:true} },
+    activeSteps: { action: "number",name:"Number of active steps" },
+    hideDivider: { control: "boolean" ,name:'With Divider',mapping:{
+      true:false,
+      false:true
+    }},
   },
 };
 
@@ -59,8 +63,8 @@ const commonArgs = {
   props: {
     labelStyles: {},
   },
-  activeSteps: "",
-  hideDivider: false,
+  activeSteps: 0,
+  hideDivider: true,
 };
 
 export const Documentation = () => (
@@ -72,31 +76,26 @@ export const Documentation = () => (
 );
 
 Documentation.storyName = "Docs";
+Documentation.argTypes = {
+  totalSteps: { table: { disable: true } },
+  hideDivider: { table: { disable: true }},
+  activeSteps: {table:{disable:true}},
+};
 
-//Default stepper
-export const Default = Template.bind({});
-Default.args = {
+export const Horizontal = Template.bind({});
+Horizontal.args = {
   ...commonArgs,
 };
 
-//With Active Steps stepper
-export const WithIsActive = Template.bind({});
-WithIsActive.args = {
-  ...commonArgs,
-  activeSteps: 3,
-};
-
-//Vertical stepper
-export const VerticalStepperWithDivider = Template.bind({});
-VerticalStepperWithDivider.args = {
+export const Vertical = Template.bind({});
+Vertical.args = {
   ...commonArgs,
   direction: "vertical",
 };
 
-//Vertical stepper
-export const VerticalStepperWithoutDivider = Template.bind({});
-VerticalStepperWithoutDivider.args = {
-  ...commonArgs,
-  direction: "vertical",
-  hideDivider: true,
-};
+// //With Active Steps stepper
+// export const WithIsActive = Template.bind({});
+// WithIsActive.args = {
+//   ...commonArgs,
+//   activeSteps: 3,
+// };
