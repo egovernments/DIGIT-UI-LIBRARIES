@@ -1,93 +1,75 @@
 import 'package:digit_ui_components/widgets/atoms/digit_stepper.dart';
+import 'package:digit_ui_components/widgets/atoms/stepper.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:storybook_toolkit/storybook_toolkit.dart';
 
 
 List<Story> stepperStories() {
   return [
     Story(
-      name: 'Atom/Stepper/horizontal/1',
+      name: 'stepper',
       builder: (context) => SizedBox(
-        height: 500,
-        width: MediaQuery.of(context).size.width,
-        child: DigitStepper(
-          activeIndex: context.knobs.sliderInt(label: 'active index', initial: 0,divisions: 20, max: 20),
-          stepperList:  [
-            StepperData(
-              title: 'titlelllllllllllllllllllnjjjjjjjjjjjjjjjkjkjl',
-              onStepTap: (){},
-            ),
-            const StepperData(
-              title: 'title',
-
-            ),
-            const StepperData(
-              title: 'title',
-
-            ),
-            const StepperData(
-              title: 'title',
-
-            ),
-            const StepperData(
-              title: 'title',
-
-            ),
-            const StepperData(
-              title: 'title',
-
-            ),
-            const StepperData(
-              title: 'title',
-            ),
-            const StepperData(
-              title: 'title',
-
-            ),
-            const StepperData(
-              title: 'title',
-
-            ),
-            const StepperData(
-              title: 'title',
-
-            ),
-            const StepperData(
-              title: 'title',
-            ),
-            const StepperData(
-              title: 'title',
-
-            ),
-            const StepperData(
-              title: 'title',
-
-            ),
-            const StepperData(
-              title: 'title',
-
-            ),
-            const StepperData(
-              title: 'title',
-            ),
-            const StepperData(
-              title: 'title',
-
-            ),
-            const StepperData(
-              title: 'title',
-
-            ),
-            const StepperData(
-              title: 'title',
-
-            ),
-            const StepperData(
-              title: 'title',
+        height: 140,
+        child: Column(
+          children: [
+            EasyStepper(
+              activeStep: context.knobs.sliderInt(label: 'active index', initial: 0,divisions: 20, max: 20),
+              padding: const EdgeInsetsDirectional.symmetric(
+                horizontal: 30,
+                vertical: 20,
+              ),
+              // stepRadius: 28,
+              steps: [
+                EasyStep(
+                  title: 'step 1',
+                ),
+                EasyStep(
+                    title: 'step 2',
+                ),
+                EasyStep(
+                    title: 'step 3',
+                ),
+                EasyStep(
+                    title: 'step 4',
+                ),
+                EasyStep(
+                    title: 'step 5',
+                ),
+              ],
+              // onStepReached: (index) => {},
             ),
           ],
-          stepperDirection: Axis.horizontal,
-          inverted: true,
+        ),
+      ),
+    ),
+    Story(
+      name: 'stepper1',
+      builder: (context) => SizedBox(
+        height: 140,
+        child: Column(
+          children: [
+            EasyStepper(
+              activeStep: context.knobs.sliderInt(label: 'active index', initial: 0,divisions: 20, max: 20),
+              padding: const EdgeInsetsDirectional.symmetric(
+                horizontal: 30,
+                vertical: 20,
+              ),
+              // stepRadius: 28,
+              steps: [
+                EasyStep(
+                  title: 'Cycle 1',
+                ),
+                EasyStep(
+                  title: 'Cycle 2',
+                ),
+                EasyStep(
+                  title: 'Cycle 3',
+                ),
+              ],
+              // onStepReached: (index) => {},
+            ),
+          ],
         ),
       ),
     ),

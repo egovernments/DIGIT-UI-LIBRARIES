@@ -3,6 +3,7 @@ import 'package:digit_ui_components/services/component_localization_delegate.dar
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:inspector/inspector.dart';
 import 'package:storybook/widgets/atoms/Info_card_stories.dart';
 import 'package:storybook/widgets/atoms/accordian_stories.dart';
 import 'package:storybook/widgets/atoms/action_card_stories.dart';
@@ -61,8 +62,6 @@ import 'package:storybook/widgets/molecules/show_pop_up_stories.dart';
 import 'package:storybook/widgets/molecules/side_nav_stories.dart';
 import 'package:storybook/widgets/molecules/timeline_molecule_stories.dart';
 import 'package:storybook/widgets/privacy_policy/privacy_policy_story.dart';
-import 'package:storybook/widgets/showcase_stories/show_case_widget_stories2.dart';
-import 'package:storybook/widgets/showcase_stories/showcase_stories.dart';
 import 'package:storybook_toolkit/storybook_toolkit.dart';
 import 'localization.dart';
 
@@ -133,106 +132,106 @@ class MyHomePageState extends State<MyHomePage> {
   Widget _buildContent() {
     // Your widget tree goes here
     return Scaffold(
-      body: Storybook(
-        plugins: initializePlugins(
-          enableCodeView: false,
-          enableDirectionality: false,
-          enableTimeDilation: false,
-          enableTextSizer: true,
-          localizationData: LocalizationData(
-              currentLocale: Locale("en", "MZ"), // Set the initial locale correctly
-              supportedLocales: {
-                "English": Locale.fromSubtags(languageCode: 'en', countryCode: 'MZ'),
-              },
-              delegates: [
-                DefaultMaterialLocalizations.delegate,
-                DefaultWidgetsLocalizations.delegate,
-                ComponentLocalizationDelegate(
-                  _localizationFuture,
-                  [Language('English', 'en_MZ'), Language('English (French)', 'en_FR', )],
-                ),
-              ]
-          )
-
+      body: Inspector(
+        child: Storybook(
+          plugins: initializePlugins(
+            enableCodeView: false,
+            enableDirectionality: false,
+            enableTimeDilation: false,
+            enableTextSizer: true,
+            localizationData: LocalizationData(
+                currentLocale: Locale("en", "MZ"), // Set the initial locale correctly
+                supportedLocales: {
+                  "English": Locale.fromSubtags(languageCode: 'en', countryCode: 'MZ'),
+                },
+                delegates: [
+                  DefaultMaterialLocalizations.delegate,
+                  DefaultWidgetsLocalizations.delegate,
+                  ComponentLocalizationDelegate(
+                    _localizationFuture,
+                    [Language('English', 'en_MZ'), Language('English (French)', 'en_FR', )],
+                  ),
+                ]
+            )
+        
+          ),
+          canvasColor: Theme.of(context).colorTheme.paper.primary,
+          logoWidget: Container(
+            padding: EdgeInsets.only(left: 0, top: 16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'assets/images/Group 1079.png',
+                  //  color: Theme.of(context).colorTheme.primary.primary1,
+                    height: 40,
+                  ),
+                ],
+              )),
+          initialStory: 'Introduction/doc',
+          stories: [
+            ...introStories(),
+            ...animationStories(),
+            ...colorStories(),
+            ...illustrationStories(),
+            ...materialIconStories(),
+            ...spacerStories(),
+            ...typographyStories(),
+            ...accordionStories(),
+            ...actionStories(),
+            ...infoCardStories(),
+            ...digitBackButtonStories(),
+            ...DigitBreadCrumbStories(),
+            ...buttonStories(),
+            ...digitButtonListStories(),
+            ...checkboxStories(),
+            ...chipStories(),
+            ...dividerStories(),
+            ...dropdownStories(),
+            ...fileUploaderStories(),
+            ...inputFieldStories(),
+            ...listViewStories(),
+            ...loaderStories(),
+            ...matrixCardStories(),
+            ...menuCardStories(),
+            ...otpInputStories(),
+            ...groupMenuCardStories(),
+            ...panelStories(),
+            // ...popUpStories(),
+            ...radioListStories(),
+            ...selectionCardStories(),
+            ...switchStories(),
+            ...stepperStories(),
+            ...searchBarStories(),
+            ...timeLineStories(),
+            ...toastStories(),
+            ...toggleGroupStories(),
+            ...toolTip2Stories(),
+            ...digitTagStories(),
+            ...tabStories(),
+            ...textBlockStories(),
+        
+            /// molecules stories...
+            ...accordionListStories(),
+            ...bottomSheetStories(),
+            ...cardStories(),
+            ...listViewSummaryStories(),
+            ...filterCardStories(),
+            ...formCardStories(),
+            ...footerMoleculeStories(),
+            ...headerMoleculeStories(),
+            ...hamBurgerStories(),
+            ...landingPageCardStories(),
+            ...languageSelectionCardStories(),
+            ...panelCardStories(),
+            ...showPopUPStories(),
+            ...sideNavStories(),
+            ...sliderStories(),
+            ...tableStories(),
+            ...timelineMoleculeStories(),
+           ...privacyComponentStories()
+          ],
         ),
-        canvasColor: Theme.of(context).colorTheme.paper.primary,
-        logoWidget: Container(
-          padding: EdgeInsets.only(left: 0, top: 16),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset(
-                  'assets/images/Group 1079.png',
-                //  color: Theme.of(context).colorTheme.primary.primary1,
-                  height: 40,
-                ),
-              ],
-            )),
-        initialStory: 'Introduction/doc',
-        stories: [
-          ...introStories(),
-          ...animationStories(),
-          ...colorStories(),
-          ...illustrationStories(),
-          ...materialIconStories(),
-          ...spacerStories(),
-          ...typographyStories(),
-          ...accordionStories(),
-          ...actionStories(),
-          ...infoCardStories(),
-          ...digitBackButtonStories(),
-          ...DigitBreadCrumbStories(),
-          ...buttonStories(),
-          ...digitButtonListStories(),
-          ...checkboxStories(),
-          ...chipStories(),
-          ...dividerStories(),
-          ...dropdownStories(),
-          ...fileUploaderStories(),
-          ...inputFieldStories(),
-          ...listViewStories(),
-          ...loaderStories(),
-          ...matrixCardStories(),
-          ...menuCardStories(),
-          ...otpInputStories(),
-          ...groupMenuCardStories(),
-          ...panelStories(),
-          // ...popUpStories(),
-          ...radioListStories(),
-          ...selectionCardStories(),
-          ...switchStories(),
-          ...stepperStories(),
-          ...searchBarStories(),
-          ...timeLineStories(),
-          ...toastStories(),
-          ...toggleGroupStories(),
-          ...toolTip2Stories(),
-          ...digitTagStories(),
-          ...tabStories(),
-          ...textBlockStories(),
-
-          /// molecules stories...
-          ...accordionListStories(),
-          ...bottomSheetStories(),
-          ...cardStories(),
-          ...listViewSummaryStories(),
-          ...filterCardStories(),
-          ...formCardStories(),
-          ...footerMoleculeStories(),
-          ...headerMoleculeStories(),
-          ...hamBurgerStories(),
-          ...landingPageCardStories(),
-          ...languageSelectionCardStories(),
-          ...panelCardStories(),
-          ...showPopUPStories(),
-          ...sideNavStories(),
-          ...sliderStories(),
-          ...tableStories(),
-          ...timelineMoleculeStories(),
-         ...privacyComponentStories()
-         // ...showcaseStories(),
-         // ...showcaseStories2(),
-        ],
       ),
     );
   }
