@@ -1,10 +1,10 @@
-import { AppContainer,PrivateRoute,BreadCrumb, LoaderComponent } from "@egovernments/digit-ui-components";
+import { AppContainer,PrivateRoute,BreadCrumb, Loader } from "@egovernments/digit-ui-components";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Route, Switch } from "react-router-dom";
 import Sample from "./Sample";
 import SampleSearch from "./SampleSearch";
-
+import BoundaryFilter from "../../components/BoundaryFilter";
 const ProjectBreadCrumb = ({ location }) => {
   const { t } = useTranslation();
   const crumbs = [
@@ -32,8 +32,10 @@ const App = ({ path, stateCode, userType, tenants }) => {
           <ProjectBreadCrumb location={location} />
         </React.Fragment>
         <PrivateRoute path={`${path}/components`} component={() => <Sample></Sample>} />
-        <PrivateRoute path={`${path}/test`} component={() => <LoaderComponent></LoaderComponent>} />
+        <PrivateRoute path={`${path}/test`} component={() => <Loader></Loader>} />
         <PrivateRoute path={`${path}/search`} component={() => <SampleSearch></SampleSearch>} />
+        <PrivateRoute path={`${path}/filter`} component={() => <BoundaryFilter/>} />
+
         </AppContainer>
     </Switch>
   );
