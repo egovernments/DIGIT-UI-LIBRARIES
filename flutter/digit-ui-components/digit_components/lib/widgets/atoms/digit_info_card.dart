@@ -42,6 +42,8 @@ class InfoCard extends StatelessWidget {
 
   final DigitInfoCardThemeData? infoCardThemeData;
 
+  final String? semanticLabel;
+
   const InfoCard({
     super.key,
     required this.title,
@@ -51,6 +53,7 @@ class InfoCard extends StatelessWidget {
     this.inline = false,
     this.capitalizedLetter = true,
     this.infoCardThemeData,
+    this.semanticLabel
   });
 
   @override
@@ -97,87 +100,90 @@ class InfoCard extends StatelessWidget {
     }
 
     return SingleChildScrollView(
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: themeData.borderRadius,
-          border: Border(
-            right: BorderSide(color: iconColor, width: themeData.borderWidth),
-            left: BorderSide(color: iconColor, width: theme.spacerTheme.spacer1),
-            top: BorderSide(color: iconColor, width: themeData.borderWidth),
-            bottom:
-            BorderSide(color: iconColor, width: themeData.borderWidth),
+      child: Semantics(
+        label: semanticLabel,
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: themeData.borderRadius,
+            border: Border(
+              right: BorderSide(color: iconColor, width: themeData.borderWidth),
+              left: BorderSide(color: iconColor, width: theme.spacerTheme.spacer1),
+              top: BorderSide(color: iconColor, width: themeData.borderWidth),
+              bottom:
+              BorderSide(color: iconColor, width: themeData.borderWidth),
+            ),
+            color: containerColor,
           ),
-          color: containerColor,
-        ),
-        child: Padding(
-          padding: themeData.contentPadding,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Icon(
-                    selectedIcon,
-                    size: themeData.iconSize,
-                    color: iconColor,
-                  ),
-                  const SizedBox(width: spacer2),
-                  Expanded(
-                    child: Container(
-                      alignment: Alignment.topLeft,
-                      padding: const EdgeInsets.only(
-                        top: spacer3 / 4,
-                      ),
-                      child: Text(
-                        capitalizedHeading,
-                        style: themeData.titleTextStyle.copyWith(
-                          color: iconColor,
+          child: Padding(
+            padding: themeData.contentPadding,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Icon(
+                      selectedIcon,
+                      size: themeData.iconSize,
+                      color: iconColor,
+                    ),
+                    const SizedBox(width: spacer2),
+                    Expanded(
+                      child: Container(
+                        alignment: Alignment.topLeft,
+                        padding: const EdgeInsets.only(
+                          top: spacer3 / 4,
+                        ),
+                        child: Text(
+                          capitalizedHeading,
+                          style: themeData.titleTextStyle.copyWith(
+                            color: iconColor,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(height: theme.spacerTheme.spacer2),
-              /// Description text
-              Text(
-                capitalizedDescription,
-                style: themeData.descriptionTextStyle.copyWith(
-                  color: theme.colorTheme.text.secondary,
+                  ],
                 ),
-              ),
-
-              /// Additional widgets, if provided
-              if (additionalWidgets != null)  SizedBox(height: theme.spacerTheme.spacer4),
-              if (additionalWidgets != null)
-                if (inline)
-
-                /// Display additional widgets in a row
-                  Wrap(
-                    spacing: theme.spacerTheme.spacer2,
-                    children: additionalWidgets!
-                        .map((widget) => Padding(
-                      padding: EdgeInsets.only(right: theme.spacerTheme.spacer2),
-                      child: widget,
-                    ))
-                        .toList(),
-                  )
-                else
-
-                /// Display additional widgets in a column
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: additionalWidgets!
-                        .map((widget) => Padding(
-                      padding: EdgeInsets.only(bottom: theme.spacerTheme.spacer2),
-                      child: widget,
-                    ))
-                        .toList(),
+                SizedBox(height: theme.spacerTheme.spacer2),
+                /// Description text
+                Text(
+                  capitalizedDescription,
+                  style: themeData.descriptionTextStyle.copyWith(
+                    color: theme.colorTheme.text.secondary,
                   ),
-            ],
+                ),
+
+                /// Additional widgets, if provided
+                if (additionalWidgets != null)  SizedBox(height: theme.spacerTheme.spacer4),
+                if (additionalWidgets != null)
+                  if (inline)
+
+                  /// Display additional widgets in a row
+                    Wrap(
+                      spacing: theme.spacerTheme.spacer2,
+                      children: additionalWidgets!
+                          .map((widget) => Padding(
+                        padding: EdgeInsets.only(right: theme.spacerTheme.spacer2),
+                        child: widget,
+                      ))
+                          .toList(),
+                    )
+                  else
+
+                  /// Display additional widgets in a column
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: additionalWidgets!
+                          .map((widget) => Padding(
+                        padding: EdgeInsets.only(bottom: theme.spacerTheme.spacer2),
+                        child: widget,
+                      ))
+                          .toList(),
+                    ),
+              ],
+            ),
           ),
         ),
       ),

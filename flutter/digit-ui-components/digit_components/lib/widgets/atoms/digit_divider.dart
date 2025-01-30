@@ -7,12 +7,14 @@ class DigitDivider extends StatelessWidget {
   final DividerType dividerType;
   final DividerOrientation dividerOrientation;
   final DigitDividerThemeData? dividerThemeData;
+  final String? semanticLabel;
 
   const DigitDivider({
     Key? key,
     this.dividerType = DividerType.medium,
     this.dividerOrientation = DividerOrientation.horizontal,
     this.dividerThemeData,
+    this.semanticLabel,
   }) : super(key: key);
 
   @override
@@ -28,17 +30,20 @@ class DigitDivider extends StatelessWidget {
         ? themeData.largeDividerThickness
         : themeData.smallDividerThickness;
 
-    return Container(
-      width: dividerOrientation == DividerOrientation.horizontal
-          ? themeData.width
-          : thickness,
-      height: dividerOrientation == DividerOrientation.horizontal
-          ? thickness
-          : themeData.height,
-      color: themeData.color ?? theme.colorTheme.generic.divider,
-      margin: EdgeInsets.only(
-        left: themeData.indent,
-        right: themeData.endIndent,
+    return Semantics(
+      label: semanticLabel,
+      child: Container(
+        width: dividerOrientation == DividerOrientation.horizontal
+            ? themeData.width
+            : thickness,
+        height: dividerOrientation == DividerOrientation.horizontal
+            ? thickness
+            : themeData.height,
+        color: themeData.color ?? theme.colorTheme.generic.divider,
+        margin: EdgeInsets.only(
+          left: themeData.indent,
+          right: themeData.endIndent,
+        ),
       ),
     );
   }

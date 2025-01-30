@@ -13,6 +13,7 @@ class DigitAccordion extends StatefulWidget {
   final double headerElevation;
   final EdgeInsets? padding;
   final bool divider;
+  final String? semanticLabel;
 
   const DigitAccordion({
     Key? key,
@@ -24,6 +25,7 @@ class DigitAccordion extends StatefulWidget {
     this.headerElevation = 0,
     this.padding,
     this.divider = false,
+    this.semanticLabel,
   }) : super(key: key);
 
   @override
@@ -64,29 +66,32 @@ class _DigitAccordionState extends State<DigitAccordion>
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: widget.items.asMap().entries.map((entry) {
-        int index = entry.key;
-        DigitAccordionItem item = entry.value;
-        return Column(
-          children: [
-            Padding(
-              padding: widget.padding ?? const EdgeInsets.all(12),
-              child: _buildAccordionItem(item, index, context),
-            ),
-            if (widget.divider && index < widget.items.length - 1)
-              ...[
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Divider(
-                    color: const DigitColors().light.genericDivider,
-                    height: 1,
+    return Semantics(
+      label: widget.semanticLabel,
+      child: Column(
+        children: widget.items.asMap().entries.map((entry) {
+          int index = entry.key;
+          DigitAccordionItem item = entry.value;
+          return Column(
+            children: [
+              Padding(
+                padding: widget.padding ?? const EdgeInsets.all(12),
+                child: _buildAccordionItem(item, index, context),
+              ),
+              if (widget.divider && index < widget.items.length - 1)
+                ...[
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Divider(
+                      color: const DigitColors().light.genericDivider,
+                      height: 1,
+                    ),
                   ),
-                ),
-              ],
-          ],
-        );
-      }).toList(),
+                ],
+            ],
+          );
+        }).toList(),
+      ),
     );
   }
 

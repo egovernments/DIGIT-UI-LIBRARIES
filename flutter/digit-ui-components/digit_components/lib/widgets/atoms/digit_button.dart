@@ -56,6 +56,7 @@ class DigitButton extends StatefulWidget {
   final MainAxisAlignment? mainAxisAlignment;
   final CrossAxisAlignment? crossAxisAlignment;
   final MainAxisSize? mainAxisSize;
+  final String? semanticLabel;
 
   const DigitButton({
     Key? key,
@@ -73,6 +74,7 @@ class DigitButton extends StatefulWidget {
     this.mainAxisAlignment,
     this.crossAxisAlignment,
     this.mainAxisSize,
+    this.semanticLabel,
   }) : super(key: key);
 
   @override
@@ -263,86 +265,89 @@ class _DigitButtonState extends State<DigitButton> {
           ? truncatedLabel
           : capitalizeFirstLetterOfEveryWord(truncatedLabel);
     }
-    return Container(
-      color: isFocused && widget.type == DigitButtonType.tertiary
-          ? theme.colorTheme.primary.primaryBg
-          : theme.colorTheme.generic.transparent,
-      child: Padding(
-        padding:
-        widget.type == DigitButtonType.link || widget.type == DigitButtonType.tertiary
-            ? digitButtonThemeData.linkPadding ?? digitButtonThemeDataDefault.linkPadding!
-            : digitButtonThemeData.padding ?? digitButtonThemeDataDefault.padding!,
-        child: Row(
-          mainAxisSize: widget.mainAxisSize ?? MainAxisSize.min,
-          mainAxisAlignment:
-          widget.mainAxisAlignment ?? MainAxisAlignment.center,
-          crossAxisAlignment:
-          widget.crossAxisAlignment ?? CrossAxisAlignment.center,
-          children: [
-            if (widget.prefixIcon != null) ...[
-              Icon(
-                widget.prefixIcon,
-                size: widget.type == DigitButtonType.link
-                    ? linkIconSize
-                    : buttonIconSize,
-                color: widget.iconColor ?? (widget.type == DigitButtonType.primary
-                    ? digitButtonThemeData.primaryDigitButtonColor
-                    : (widget.isDisabled
-                    ? digitButtonThemeData.disabledColor
-                    : digitButtonThemeData.DigitButtonColor)),
-              ),
-              SizedBox(
-                  width: widget.type == DigitButtonType.link ||
-                      widget.size == DigitButtonSize.small
-                      ? theme.spacerTheme.spacer1
-                      : theme.spacerTheme.spacer2),
-            ],
-            Flexible(
-              child: Text(
-                truncatedLabel,
-                textAlign: TextAlign.center,
-                style: widget.type == DigitButtonType.link
-                    ? linkStyle.copyWith(
-                  color: widget.textColor ??  (widget.isDisabled
-                      ? digitButtonThemeData.disabledColor
-                      : digitButtonThemeData.DigitButtonColor),
-                  decoration: TextDecoration.underline,
-                  decorationColor: widget.textColor ??  (widget.isDisabled
-                      ? digitButtonThemeData.disabledColor
-                      : digitButtonThemeData.DigitButtonColor),
-                  decorationThickness: isHovered || isFocused ? 2 : 1,
-                )
-                    : buttonStyle.copyWith(
-                  fontWeight:
-                  isMouseDown ? FontWeight.w700 : FontWeight.w500,
-                  color: widget.textColor ?? (widget.type == DigitButtonType.primary
+    return Semantics(
+      label: widget.semanticLabel,
+      child: Container(
+        color: isFocused && widget.type == DigitButtonType.tertiary
+            ? theme.colorTheme.primary.primaryBg
+            : theme.colorTheme.generic.transparent,
+        child: Padding(
+          padding:
+          widget.type == DigitButtonType.link || widget.type == DigitButtonType.tertiary
+              ? digitButtonThemeData.linkPadding ?? digitButtonThemeDataDefault.linkPadding!
+              : digitButtonThemeData.padding ?? digitButtonThemeDataDefault.padding!,
+          child: Row(
+            mainAxisSize: widget.mainAxisSize ?? MainAxisSize.min,
+            mainAxisAlignment:
+            widget.mainAxisAlignment ?? MainAxisAlignment.center,
+            crossAxisAlignment:
+            widget.crossAxisAlignment ?? CrossAxisAlignment.center,
+            children: [
+              if (widget.prefixIcon != null) ...[
+                Icon(
+                  widget.prefixIcon,
+                  size: widget.type == DigitButtonType.link
+                      ? linkIconSize
+                      : buttonIconSize,
+                  color: widget.iconColor ?? (widget.type == DigitButtonType.primary
                       ? digitButtonThemeData.primaryDigitButtonColor
                       : (widget.isDisabled
                       ? digitButtonThemeData.disabledColor
                       : digitButtonThemeData.DigitButtonColor)),
-                  overflow: TextOverflow.ellipsis,
+                ),
+                SizedBox(
+                    width: widget.type == DigitButtonType.link ||
+                        widget.size == DigitButtonSize.small
+                        ? theme.spacerTheme.spacer1
+                        : theme.spacerTheme.spacer2),
+              ],
+              Flexible(
+                child: Text(
+                  truncatedLabel,
+                  textAlign: TextAlign.center,
+                  style: widget.type == DigitButtonType.link
+                      ? linkStyle.copyWith(
+                    color: widget.textColor ??  (widget.isDisabled
+                        ? digitButtonThemeData.disabledColor
+                        : digitButtonThemeData.DigitButtonColor),
+                    decoration: TextDecoration.underline,
+                    decorationColor: widget.textColor ??  (widget.isDisabled
+                        ? digitButtonThemeData.disabledColor
+                        : digitButtonThemeData.DigitButtonColor),
+                    decorationThickness: isHovered || isFocused ? 2 : 1,
+                  )
+                      : buttonStyle.copyWith(
+                    fontWeight:
+                    isMouseDown ? FontWeight.w700 : FontWeight.w500,
+                    color: widget.textColor ?? (widget.type == DigitButtonType.primary
+                        ? digitButtonThemeData.primaryDigitButtonColor
+                        : (widget.isDisabled
+                        ? digitButtonThemeData.disabledColor
+                        : digitButtonThemeData.DigitButtonColor)),
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
               ),
-            ),
-            if (widget.suffixIcon != null) ...[
-              SizedBox(
-                  width: widget.type == DigitButtonType.link ||
-                      widget.size == DigitButtonSize.small
-                      ? theme.spacerTheme.spacer1
-                      : theme.spacerTheme.spacer2),
-              Icon(
-                widget.suffixIcon,
-                size: widget.type == DigitButtonType.link
-                    ? linkIconSize
-                    : buttonIconSize,
-                color: widget.iconColor ?? (widget.type == DigitButtonType.primary
-                    ? digitButtonThemeData.primaryDigitButtonColor
-                    : (widget.isDisabled
-                    ? digitButtonThemeData.disabledColor
-                    : digitButtonThemeData.DigitButtonColor)),
-              ),
+              if (widget.suffixIcon != null) ...[
+                SizedBox(
+                    width: widget.type == DigitButtonType.link ||
+                        widget.size == DigitButtonSize.small
+                        ? theme.spacerTheme.spacer1
+                        : theme.spacerTheme.spacer2),
+                Icon(
+                  widget.suffixIcon,
+                  size: widget.type == DigitButtonType.link
+                      ? linkIconSize
+                      : buttonIconSize,
+                  color: widget.iconColor ?? (widget.type == DigitButtonType.primary
+                      ? digitButtonThemeData.primaryDigitButtonColor
+                      : (widget.isDisabled
+                      ? digitButtonThemeData.disabledColor
+                      : digitButtonThemeData.DigitButtonColor)),
+                ),
+              ],
             ],
-          ],
+          ),
         ),
       ),
     );

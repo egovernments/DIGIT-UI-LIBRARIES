@@ -44,6 +44,7 @@ class DigitCheckbox extends StatefulWidget {
   final bool capitalizeFirstLetter;
 
   final DigitCheckboxThemeData? checkboxThemeData;
+  final String? semanticLabel;
 
   /// Creates a `DigitCheckbox` widget with the given parameters.
   const DigitCheckbox({
@@ -56,6 +57,7 @@ class DigitCheckbox extends StatefulWidget {
     this.alignRight = false,
     this.capitalizeFirstLetter = true,
     this.checkboxThemeData,
+    this.semanticLabel
   }) : super(key: key);
 
   @override
@@ -100,65 +102,68 @@ class _DigitCheckboxState extends State<DigitCheckbox> {
         ? convertInToSentenceCase(widget.label)
         : widget.label;
 
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      textDirection: widget.alignRight ? TextDirection.rtl : checkboxThemeData?.labelTextDirection ??
-          defaultThemeData.labelTextDirection,
-      children: [
-        Column(
-          children: [
-            SizedBox(
-              height: isMobile ? 0 : 2,
-            ),
-            InkWell(
-              hoverColor: theme.colorTheme.generic.transparent,
-              splashColor: theme.colorTheme.generic.transparent,
-              highlightColor: theme.colorTheme.generic.transparent,
-              focusColor: theme.colorTheme.generic.transparent,
-              onFocusChange: (value) {
-                setState(() {
-                  isFocused = value;
-                });
-              },
-              onHover: (hover) {
-                setState(() {
-                  isHovered = hover;
-                });
-              },
-              onTap: widget.isDisabled || widget.readOnly
-                  ? null
-                  : () {
-                if (mounted) {
+    return Semantics(
+      label: widget.semanticLabel,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        textDirection: widget.alignRight ? TextDirection.rtl : checkboxThemeData?.labelTextDirection ??
+            defaultThemeData.labelTextDirection,
+        children: [
+          Column(
+            children: [
+              SizedBox(
+                height: isMobile ? 0 : 2,
+              ),
+              InkWell(
+                hoverColor: theme.colorTheme.generic.transparent,
+                splashColor: theme.colorTheme.generic.transparent,
+                highlightColor: theme.colorTheme.generic.transparent,
+                focusColor: theme.colorTheme.generic.transparent,
+                onFocusChange: (value) {
                   setState(() {
-                    _currentState = !_currentState;
+                    isFocused = value;
                   });
-                  widget.onChanged(_currentState);
-                }
-              },
-              child: DigitCheckboxIcon(
-                state: _currentState
-                    ? DigitCheckboxState.checked
-                    : DigitCheckboxState.unchecked,
-                isDisabled: widget.isDisabled || widget.readOnly,
-                checkboxThemeData: widget.checkboxThemeData ?? defaultThemeData,
+                },
+                onHover: (hover) {
+                  setState(() {
+                    isHovered = hover;
+                  });
+                },
+                onTap: widget.isDisabled || widget.readOnly
+                    ? null
+                    : () {
+                  if (mounted) {
+                    setState(() {
+                      _currentState = !_currentState;
+                    });
+                    widget.onChanged(_currentState);
+                  }
+                },
+                child: DigitCheckboxIcon(
+                  state: _currentState
+                      ? DigitCheckboxState.checked
+                      : DigitCheckboxState.unchecked,
+                  isDisabled: widget.isDisabled || widget.readOnly,
+                  checkboxThemeData: widget.checkboxThemeData ?? defaultThemeData,
+                ),
+              ),
+            ],
+          ),
+          if (widget.label != null) ...[
+            const SizedBox(width: spacer4),
+            Expanded(
+              child: Text(
+                processedLabel!,
+                style: widget.isDisabled
+                    ? checkboxThemeData?.disabledLabelTextStyle ??
+                    defaultThemeData.disabledLabelTextStyle
+                    : checkboxThemeData?.labelTextStyle ??
+                    defaultThemeData.labelTextStyle,
               ),
             ),
-          ],
-        ),
-        if (widget.label != null) ...[
-          const SizedBox(width: spacer4),
-          Expanded(
-            child: Text(
-              processedLabel!,
-              style: widget.isDisabled
-                  ? checkboxThemeData?.disabledLabelTextStyle ??
-                  defaultThemeData.disabledLabelTextStyle
-                  : checkboxThemeData?.labelTextStyle ??
-                  defaultThemeData.labelTextStyle,
-            ),
-          ),
-        ]
-      ],
+          ]
+        ],
+      ),
     );
   }
 }
