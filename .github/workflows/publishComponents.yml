@@ -5,7 +5,7 @@ on:
     branches: [ 'develop-webpack' ]
     paths:
       - 'webpack/ui-components/**'
-      - 'react/libraries/**'
+      - ''webpack/libraries/**'
       - 'react/modules/core/**'
 
 jobs:
