@@ -1,6 +1,6 @@
 {
   "name": "@egovernments/digit-ui-components",
-  "version": "0.0.2-beta.2-webpack.2",
+  "version": "0.0.2-beta.3-webpack.2",
   "license": "MIT",
   "main": "dist/main.js",
   "module": "dist/main.js",
@@ -25,7 +25,7 @@
     "babel-loader": "8.0.0",
     "cross-env": "7.0.3",
     "lint-staged": "12.3.7",
-    "react": "17.0.2",
+    "react": "19.0.0",
     "react-dom": "19.0.0",
     "webpack": "^5.97.1",
     "webpack-cli": "^4.10.0"
@@ -39,7 +39,7 @@
     "date-fns": "3.6.0",
     "lodash": "^4.17.21",
     "postcss-flexbugs-fixes": "^5.0.2",
-    "react": "17.0.2",
+    "react": "19.0.0",
     "react-date-range": "2.0.1",
     "react-dom": "19.0.0",
     "react-hook-form": "7.52.2",
