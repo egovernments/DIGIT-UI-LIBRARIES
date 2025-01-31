@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query';
+import { useQuery } from "@tanstack/react-query";
 import { LocationService } from "../services/elements/Location";
 
 const useLocation = (tenantId, locationType, config = {}) => {

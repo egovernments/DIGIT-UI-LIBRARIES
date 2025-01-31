@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query';
+import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
 
 const useEventDetails = (tenantId, filters, config = {}) => {
