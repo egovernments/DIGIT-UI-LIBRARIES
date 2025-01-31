@@ -1,6 +1,6 @@
 {
   "name": "@egovernments/digit-ui-libraries",
-  "version": "1.8.1-upgrade.3",
+  "version": "1.8.1-upgrade.4",
   "main": "dist/main.js",
   "module": "dist/main.js",
   "source": "src/index.js",
@@ -55,18 +55,6 @@
     "xlsx": "0.17.5",
     "@egovernments/digit-ui-components": "0.0.2-beta.3-webpack.2",
     "@egovernments/digit-ui-svg-components": "1.0.9"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
   },
   "browserslist": {
     "production": [
