@@ -7,7 +7,7 @@ module.exports = {
     filename: "main.js",
     path: path.resolve(__dirname, "dist"),
     library: {
-      name: "@egovernments/digit-ui-components",
+      name: "@egovernments/digit-ui-libraries",
       type: "umd",
     },
     globalObject: 'this', // Add this line to ensure compatibility in different environments
