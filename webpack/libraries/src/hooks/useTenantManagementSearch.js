@@ -1,5 +1,5 @@
 
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 
 const tenantManagementSearchService = async ({ stateId, includeSubTenants = true, filter, pagination }) => {
   const response = await Digit.CustomService.getResponse({

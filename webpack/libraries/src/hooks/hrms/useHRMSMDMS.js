@@ -1,5 +1,5 @@
 import { MdmsService } from "../../services/elements/MDMS";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 
 const useHrmsMDMS = (tenantId, moduleCode, type, config = {}) => {
   const useHrmsRolesandDesignations = () => {

@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import AccessControlService from "../services/elements/Access";
 const useAccessControl = (tenantId) => {
   const getUserRoles = Digit.SessionStorage.get("User")?.info?.roles;

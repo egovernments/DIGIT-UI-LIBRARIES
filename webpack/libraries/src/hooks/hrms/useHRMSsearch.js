@@ -1,4 +1,4 @@
-import { useQuery, useQueryClient } from "react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import HrmsService from "../../services/elements/HRMS";
 
 export const useHRMSSearch = (searchparams, tenantId, filters, isupdated, config = {}) => {

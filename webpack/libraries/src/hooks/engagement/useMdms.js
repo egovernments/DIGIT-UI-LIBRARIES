@@ -1,5 +1,5 @@
 import { MdmsService, getGeneralCriteria } from "../../services/elements/MDMS";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 
 export const useEngagementMDMS = (tenantId, moduleCode, type, config = {}, payload = []) => {
   const useDocumentCategory = () => {

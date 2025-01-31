@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 // import mergeConfig from "../../config/mergeConfig";
 import { StoreService } from "../services/molecules/Store/service";
 

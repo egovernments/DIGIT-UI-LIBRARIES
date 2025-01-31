@@ -1,5 +1,5 @@
 import { Surveys } from "../../services/elements/Surveys";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 
 const useSearch = (filters, config) => {
   return useQuery({

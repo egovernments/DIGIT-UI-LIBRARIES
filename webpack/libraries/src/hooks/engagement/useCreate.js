@@ -1,5 +1,5 @@
 import { Engagement } from "../../services/elements/Engagement";
-import { useMutation } from "react-query";
+import { useMutation } from "@tanstack/react-query";
 
 const useCreateDocument = (filters, config) => {
   return useMutation({

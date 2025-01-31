@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { startOfMonth, endOfMonth, getTime } from "date-fns";
 import { DSSService } from "../../services/elements/DSS";
 

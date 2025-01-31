@@ -1,5 +1,5 @@
 import { Surveys } from "../../services/elements/Surveys";
-import { useMutation } from "react-query";
+import { useMutation } from "@tanstack/react-query";
 
 const useSubmitResponse = (filters, config) => {
     return useMutation({

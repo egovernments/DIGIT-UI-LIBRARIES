@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { getLocalities } from "../services/molecules/getLocalities";
 import { LocalityService } from "../services/elements/Localities";
 

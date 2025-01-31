@@ -1,4 +1,4 @@
-import { useQuery, useQueryClient } from "react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const useComplaintsList = (tenantId, filters) => {
   // TODO: move city to state

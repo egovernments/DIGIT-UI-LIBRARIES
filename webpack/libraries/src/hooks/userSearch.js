@@ -1,4 +1,4 @@
-import { useQuery, useQueryClient } from "react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { UserService } from "../services/elements/User";
 
 export const useUserSearch = (tenantId, data, filters, options = {}) => {

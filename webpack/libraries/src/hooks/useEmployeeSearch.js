@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 
 const useEmployeeSearch = (tenantId, filters, config = {}) => {
   if (filters.roles) {
