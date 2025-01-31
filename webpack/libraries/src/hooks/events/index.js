@@ -1,4 +1,4 @@
-import { useQuery, useMutation } from "react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 
 const tsToDate = (ts) => {
     const plus0 = num => `0${num.toString()}`.slice(-2)

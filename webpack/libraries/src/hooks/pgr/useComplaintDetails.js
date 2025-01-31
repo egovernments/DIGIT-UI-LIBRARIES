@@ -1,4 +1,4 @@
-import { useQuery, useQueryClient } from "react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 // TODO: move to service
 const getThumbnails = async (ids, tenantId) => {

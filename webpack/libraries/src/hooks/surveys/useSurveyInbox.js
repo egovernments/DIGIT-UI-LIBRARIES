@@ -1,5 +1,5 @@
 import { Surveys } from "../../services/elements/Surveys";
-import { useMutation, useQuery } from "react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 /* import { isObject, isObjectLike } from "lodash"; */
 
 const useSearch = (filters, config) => {

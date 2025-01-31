@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { MdmsService } from "../../services/elements/MDMS";
 
 const useDssMDMS = (tenantId, moduleCode, type, config = {}) => {

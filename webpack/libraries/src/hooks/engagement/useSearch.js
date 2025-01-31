@@ -1,5 +1,5 @@
 import { Engagement } from "../../services/elements/Engagement";
-import { useMutation, useQuery } from "react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 const useSearch = (filters, config) => {
   return useQuery({

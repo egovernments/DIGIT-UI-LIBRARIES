@@ -52,7 +52,9 @@
     "react-redux": "7.2.8",
     "react-router-dom": "5.3.0",
     "redux": "4.1.2",
-    "xlsx": "0.17.5"
+    "xlsx": "0.17.5",
+    "@egovernments/digit-ui-components": "0.0.2-beta.3-webpack.2",
+    "@egovernments/digit-ui-svg-components": "1.0.9"
   },
   "browserslist": {
     "production": [
