@@ -48,7 +48,7 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - name: Install dependencies for React Libraries
         run: |
-          cd react/libraries/
+          cd webpack/libraries/
           rm -rf node_modules yarn.lock
           yarn install --frozen-lockfile
           npm publish --tag libraries-v0.1
