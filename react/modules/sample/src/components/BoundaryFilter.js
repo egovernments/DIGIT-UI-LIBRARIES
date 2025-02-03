@@ -65,14 +65,6 @@ const BoundaryFilter = (lowestLevel) => {
 
   const [boundaryOptions, setBoundaryOptions] = useState({});
 
-
-
-
-
-
-
-
-
   const reqCriteria = {
     url: `/boundary-service/boundary-hierarchy-definition/_search`,
     changeQueryName: `${hierarchyType}`,
@@ -174,15 +166,44 @@ const BoundaryFilter = (lowestLevel) => {
       {path:"NEWTEST00222_MO.NEWTEST00222_MO_11_MARYLAND.NEWTEST00222_MO_11_06_PLEEBO.NEWTEST00222_MO_11_06_04_GBLOKEN_CLINIC",code:"NEWTEST00222_MO_11_06_04_GBLOKEN_CLINIC"}]);
 
     }
+    useEffect(() => {
+      if (hierarchy && hierarchyData) {
+        boundaryOptionsUpdate( 
+          "POSTADMINISTRATIVE", 
+          [
+            {
+              path: "NEWTEST00222_MO.NEWTEST00222_MO_11_MARYLAND.NEWTEST00222_MO_11_06_PLEEBO.NEWTEST00222_MO_11_06_05_PLEEBO_HEALTH_CENTER",
+              code: "NEWTEST00222_MO_11_06_05_PLEEBO_HEALTH_CENTER"
+            },
+            {
+              path: "NEWTEST00222_MO.NEWTEST00222_MO_11_MARYLAND.NEWTEST00222_MO_11_06_PLEEBO.NEWTEST00222_MO_11_06_04_GBLOKEN_CLINIC",
+              code: "NEWTEST00222_MO_11_06_04_GBLOKEN_CLINIC"
+            }
+          ]
+        );
+      }
+    }, [hierarchy, hierarchyData]);
 
-  // if(hierarchyData && rootBoundaryType){
-  // boundaryOptionsUpdate(rootBoundaryType,[{path:hierarchyData[0]?.path,code:hierarchyData[0]?.code,id:hierarchyData[0]?.id}])
-  // }
+  useEffect(()=>{
+    if(!hierarchyData || !hierarchy) return;
+    setBoundaryOptions((prev)=>({
+      ...prev,
+      [rootBoundaryType]:[{code:[{path:hierarchyData[0]?.path,code:hierarchyData[0]?.code,id:hierarchyData[0]?.id}]}]
+    }
+    ))
+  },[hierarchyData,hierarchy])
 
+  useEffect(() => {
+    if(!hierarchyData) return;
+    setBoundaryOptions((prev) => ({
+      ...prev, // Spread the previous state to keep other properties intact
+      [rootBoundaryType]: hierarchyData[0]
+        ? [{ code: hierarchyData[0].code, path: hierarchyData[0].path, id: hierarchyData[0].id }]
+        : [], // Ensure fallback to an empty array if hierarchyData is empty
+    }));
+}, [hierarchyData, hierarchy]); // Include rootBoundaryType in dependency array
 
-  // if(rootBoundaryType && hierarchyData){
-  // setBoundaryOptions(rootBoundaryType,[{rootBoundaryType:[{path:hierarchyData[0]?.path,code:hierarchyData[0]?.code,id:hierarchyData[0]?.id}]}])
-  // }
+  
 
   
   
@@ -195,10 +216,10 @@ const BoundaryFilter = (lowestLevel) => {
   }
   return (
     <div>
-      {hierarchy?.map((item) => {
+       {/* {hierarchy?.map((item) => {
         console.log("1111", item);
   
-        return (item?.boundaryType === rootBoundaryType) ? 
+        return (item?.boundaryType === rootBoundaryType) ? (
           <MultiSelectDropdown
             key={item?.boundaryType}
             clearLabel="Clear All"
@@ -210,42 +231,46 @@ const BoundaryFilter = (lowestLevel) => {
             }}
             type="multiselectdropdown"
             variant="nestedmultiselect"
-          />:(<div> hi </div>)
-        // ) : (() => {
-        //   const boundaries = boundaryOptions[item?.boundaryType];
+          />)
+         : (() => {
+          const boundaries = boundaryOptions[item?.boundaryType];
   
-        //   if (boundaries) {
-        //     const formattedOptions = Object.keys(boundaries).map((parentKey) => ({
-        //       code: parentKey,
-        //       name: parentKey,
-        //       options: boundaries[parentKey].map((child) => ({
-        //         code: child.code,
-        //         name: child.code, // Using child's code as name as requested
-        //       })),
-        //     }));
+          if (boundaries) {
+            const formattedOptions = Object.keys(boundaries).map((parentKey) => ({
+              code: parentKey,
+              name: parentKey,
+              options: boundaries[parentKey].map((child) => ({
+                code: child.code,
+                name: child.code, // Using child's code as name as requested
+              })),
+            }));
   
-        //     return (
-        //       <MultiSelectDropdown
-        //         key={item?.boundaryType}
-        //         clearLabel="Clear All"
-        //         options={formattedOptions}
-        //         optionsKey={"name"}
-        //         t={t}
-        //         onSelect={(values) => {
-        //           boundaryOptionsUpdate(item?.boundaryType, values);
-        //         }}
-        //         type="multiselectdropdown"
-        //         variant="nestedmultiselect"
-        //       />
-        //     );
-        //   }
+            return (
+              <MultiSelectDropdown
+                key={item?.boundaryType}
+                clearLabel="Clear All"
+                options={formattedOptions}
+                optionsKey={"name"}
+                t={t}
+                onSelect={(values) => {
+                  boundaryOptionsUpdate(item?.boundaryType, values);
+                }}
+                type="multiselectdropdown"
+                variant="nestedmultiselect"
+              />
+            );
+          }
   
-        //   return null; // Avoids rendering errors when `boundaries` is undefined
-        // })
+          return null; // Avoids rendering errors when `boundaries` is undefined
+        })();
         
-      })}
+      })}  */}
+      <div>hi</div>
     </div>
-  );
+ 
+
+ 
+);
   
 }
 
