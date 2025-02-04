@@ -5,6 +5,7 @@ import { default as EmployeeApp } from "./pages/employee";
 import SampleCard from "./components/SampleCard";
 
 export const SampleModule = ({ stateCode, userType, tenants }) => {
+  // debugger
   const { path, url } = useRouteMatch();
   const tenantId = Digit.ULBService.getCurrentTenantId();
   const moduleCode = ["sample", "common","workflow", tenantId];
@@ -22,8 +23,8 @@ export const SampleModule = ({ stateCode, userType, tenants }) => {
 };
 
 const componentsToRegister = {
-  SampleModule,
-  SampleCard
+  MicroplanModule:SampleModule,
+  MicroplanCard:SampleCard
 };
 
 export const initSampleComponents = () => {

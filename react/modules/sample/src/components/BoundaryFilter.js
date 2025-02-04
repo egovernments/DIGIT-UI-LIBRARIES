@@ -10,13 +10,14 @@ const BoundaryFilter = (lowestLevel) => {
   const t = useTranslation();
 
 
-
+  debugger;
   const { data: BOUNDARY_HIERARCHY_TYPE } = Digit.Hooks.useCustomMDMS(tenantId, "HCM-ADMIN-CONSOLE", [{ name: "HierarchySchema" }], {
     select: (data) => {
       const item = data?.["HCM-ADMIN-CONSOLE"]?.HierarchySchema?.find(
         (item) => item.type === "microplan"
       );
       setLowestHierarchy(item.lowestHierarchy)
+      console.log("1111 hier",item?.hierarchy)
       return item?.hierarchy
     },
   }, { schemaCode: "BASE_MASTER_DATA_INITIAL" });
@@ -26,8 +27,9 @@ const BoundaryFilter = (lowestLevel) => {
     changeQueryName: `${BOUNDARY_HIERARCHY_TYPE}`,
     params: {
       tenantId: tenantId,
-      hierarchyType: BOUNDARY_HIERARCHY_TYPE,
-      includeChildren: true
+      hierarchyType: hierarchyType,
+      includeChildren: true,
+      parent
     },
     body: {},
     config: {
@@ -70,7 +72,7 @@ const BoundaryFilter = (lowestLevel) => {
     changeQueryName: `${hierarchyType}`,
     body: {
       BoundaryTypeHierarchySearchCriteria: {
-        tenantId: tenantId,
+        tenantId: 'dev',
         limit: 2,
         offset: 0,
         hierarchyType: hierarchyType,
@@ -125,7 +127,7 @@ const BoundaryFilter = (lowestLevel) => {
 
   }
   const boundaryOptionsUpdate = (boundaryType, values) => {
-    debugger;
+    // debugger;
     const childBoundaryType = hierarchy.find(
       (item) => item.parentBoundaryType === boundaryType
     )?.boundaryType;
@@ -193,15 +195,7 @@ const BoundaryFilter = (lowestLevel) => {
     ))
   },[hierarchyData,hierarchy])
 
-  useEffect(() => {
-    if(!hierarchyData) return;
-    setBoundaryOptions((prev) => ({
-      ...prev, // Spread the previous state to keep other properties intact
-      [rootBoundaryType]: hierarchyData[0]
-        ? [{ code: hierarchyData[0].code, path: hierarchyData[0].path, id: hierarchyData[0].id }]
-        : [], // Ensure fallback to an empty array if hierarchyData is empty
-    }));
-}, [hierarchyData, hierarchy]); // Include rootBoundaryType in dependency array
+ 
 
   
 
