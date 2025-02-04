@@ -4,11 +4,11 @@ on:
   push:
     branches: [ 'develop-webpack' ]
     paths:
-      - 'webpack/ui-components/**'
-      - 'webpack/react-components/**'
       - 'webpack/svg-components/**'
-      - 'webpack/libraries/**'
-      - 'react/modules/core/**'
+      # - 'webpack/ui-components/**'
+      # - 'webpack/react-components/**'
+      # - 'webpack/libraries/**'
+      # - 'react/modules/core/**'
 
 jobs:
   setup-python-and-build-tools:
@@ -21,23 +21,23 @@ jobs:
           sudo apt-get install -y python3 python3-pip python3-setuptools build-essential
           sudo apt-get install -y python3-distutils || sudo apt-get install -y python3-dev
 
-  publish-webpack-ui-components:
-    name: Publish Webpack UI Components
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 20
-          registry-url: https://registry.npmjs.org/
-      - name: Install dependencies for Webpack UI Components
-        run: |
-          cd webpack/ui-components/
-          rm -rf node_modules yarn.lock
-          yarn install --frozen-lockfile
-          npm publish --tag core-webpack-v0.1
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
+  # publish-webpack-ui-components:
+  #   name: Publish Webpack UI Components
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - uses: actions/setup-node@v2
+  #       with:
+  #         node-version: 20
+  #         registry-url: https://registry.npmjs.org/
+  #     - name: Install dependencies for Webpack UI Components
+  #       run: |
+  #         cd webpack/ui-components/
+  #         rm -rf node_modules yarn.lock
+  #         yarn install --frozen-lockfile
+  #         npm publish --tag core-webpack-v0.1
+  #       env:
+  #         NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
 
   publish-webpack-svg-components:
     name: Publish Webpack SVG Components
@@ -57,56 +57,56 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
 
-  publish-webpack-react-components:
-    name: Publish Webpack React Components
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 20
-          registry-url: https://registry.npmjs.org/
-      - name: Install dependencies for Webpack UI Components
-        run: |
-          cd webpack/react-components/
-          rm -rf node_modules yarn.lock
-          yarn install --frozen-lockfile
-          npm publish --tag core-webpack-v0.1
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
+  # publish-webpack-react-components:
+  #   name: Publish Webpack React Components
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - uses: actions/setup-node@v2
+  #       with:
+  #         node-version: 20
+  #         registry-url: https://registry.npmjs.org/
+  #     - name: Install dependencies for Webpack UI Components
+  #       run: |
+  #         cd webpack/react-components/
+  #         rm -rf node_modules yarn.lock
+  #         yarn install --frozen-lockfile
+  #         npm publish --tag core-webpack-v0.1
+  #       env:
+  #         NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
 
-  publish-react-module-libraries:
-    name: Publish React Module Libraries
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 20
-          registry-url: https://registry.npmjs.org/
-      - name: Install dependencies for React Libraries
-        run: |
-          cd webpack/libraries/
-          rm -rf node_modules yarn.lock
-          yarn install --frozen-lockfile
-          npm publish --tag libraries-v0.1
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
+  # publish-react-module-libraries:
+  #   name: Publish React Module Libraries
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - uses: actions/setup-node@v2
+  #       with:
+  #         node-version: 20
+  #         registry-url: https://registry.npmjs.org/
+  #     - name: Install dependencies for React Libraries
+  #       run: |
+  #         cd webpack/libraries/
+  #         rm -rf node_modules yarn.lock
+  #         yarn install --frozen-lockfile
+  #         npm publish --tag libraries-v0.1
+  #       env:
+  #         NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
 
-  publish-react-module-core:
-    name: Publish React Module Core
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 20
-          registry-url: https://registry.npmjs.org/
-      - name: Install dependencies for React Core
-        run: |
-          cd react/modules/core/
-          rm -rf node_modules yarn.lock
-          yarn install --frozen-lockfile
-          npm publish --tag core-module-v0.1
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
+  # publish-react-module-core:
+  #   name: Publish React Module Core
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - uses: actions/setup-node@v2
+  #       with:
+  #         node-version: 20
+  #         registry-url: https://registry.npmjs.org/
+  #     - name: Install dependencies for React Core
+  #       run: |
+  #         cd react/modules/core/
+  #         rm -rf node_modules yarn.lock
+  #         yarn install --frozen-lockfile
+  #         npm publish --tag core-module-v0.1
+  #       env:
+  #         NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
