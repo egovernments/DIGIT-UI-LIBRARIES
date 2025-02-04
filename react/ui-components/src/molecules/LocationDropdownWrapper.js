@@ -5,7 +5,7 @@ import Dropdown from "../atoms/Dropdown";
 import { Loader } from "../atoms";
 import { useTranslation } from "react-i18next";
 
-const LocationDropdownWrapper = ({ populators, formData, props, inputRef, errors, setValue, variant }) => {
+const LocationDropdownWrapper = ({ populators, formData, props, inputRef, errors, setValue, variant,disabled }) => {
   const [options, setOptions] = useState([]);
 
   const { t } = useTranslation();
@@ -56,7 +56,7 @@ const LocationDropdownWrapper = ({ populators, formData, props, inputRef, errors
   return (
     <>
       {populators.allowMultiSelect && (
-        <div style={{ display: "grid", gridAutoFlow: "row" }}>
+        <div style={{ display: "grid", gridAutoFlow: "row",width:"100%" }}>
           <MultiSelectDropdown
             options={options}
             optionsKey={populators?.optionsKey}
@@ -79,6 +79,14 @@ const LocationDropdownWrapper = ({ populators, formData, props, inputRef, errors
             defaultUnit={t(populators?.selectedText)}
             config={populators}
             variant={variant}
+            chipsKey={populators?.chipsKey}
+            disabled={disabled}
+            addSelectAllCheck={populators?.addSelectAllCheck}
+            addCategorySelectAllCheck={populators?.addCategorySelectAllCheck}
+            selectAllLabel={populators?.selectAllLabel}
+            categorySelectAllLabel={populators?.categorySelectAllLabel}
+            restrictSelection={populators?.restrictSelection}
+            isSearchable={populators?.isSearchable}
           />
         </div>
       )}
@@ -99,6 +107,9 @@ const LocationDropdownWrapper = ({ populators, formData, props, inputRef, errors
           errorStyle={errors?.[populators.name]}
           optionCardStyles={populators?.optionsCustomStyle}
           variant={variant}
+          disabled={disabled}
+          showIcon={populators?.showIcon}
+          isSearchable={populators?.isSearchable}
         />
       )}
     </>

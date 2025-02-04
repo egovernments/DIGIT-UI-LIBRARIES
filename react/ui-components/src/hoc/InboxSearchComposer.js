@@ -160,12 +160,12 @@ const InboxSearchComposer = ({configs,headerLabel,additionalConfig,onFormValueCh
 
     return (
         <InboxContext.Provider value={{state,dispatch}} >
-                          {headerLabel&&<HeaderComponent className="digit-form-composer-header">{ t(headerLabel)}</HeaderComponent>}
-            <div className="inbox-search-component-wrapper ">
-            <div className={`sections-parent ${configs?.type}`}>
+            {headerLabel&&<HeaderComponent className="digit-inbox-search-composer-header">{ t(headerLabel)}</HeaderComponent>}
+            <div className="digit-inbox-search-component-wrapper ">
+            <div className={`digit-sections-parent ${configs?.type}`}>
                 {
                     configs?.sections?.links?.show &&  
-                        <div className="section links">
+                        <div className="digit-section links">
                             <InboxSearchLinks 
                               headerText={configs?.sections?.links?.uiConfig?.label} 
                               links={configs?.sections?.links?.uiConfig?.links} 
@@ -176,7 +176,7 @@ const InboxSearchComposer = ({configs,headerLabel,additionalConfig,onFormValueCh
                 }
                 {
                     configs?.type === 'search' && configs?.sections?.search?.show &&
-                        <div className={`section search ${showTab ? "tab": ""}`}>
+                        <div className={`digit-section search ${showTab ? "tab": ""}`}>
                             <SearchComponent 
                                 uiConfig={ configs?.sections?.search?.uiConfig} 
                                 header={configs?.sections?.search?.label} 
@@ -194,7 +194,7 @@ const InboxSearchComposer = ({configs,headerLabel,additionalConfig,onFormValueCh
                 {   
                     configs?.type === 'search' && configs?.sections?.filter?.show && 
 
-                        <div className="section filter">
+                        <div className="digit-section filter">
                             <SearchComponent 
                                 uiConfig={ configs?.sections?.filter?.uiConfig} 
                                 header={configs?.sections?.filter?.label} 
@@ -208,7 +208,7 @@ const InboxSearchComposer = ({configs,headerLabel,additionalConfig,onFormValueCh
                 {
                     configs?.type === 'inbox' && configs?.sections?.search?.show &&
                     <MediaQuery minWidth={426}>
-                        <div className="section search">
+                        <div className="digit-section search">
                             <SearchComponent 
                                 uiConfig={ configs?.sections?.search?.uiConfig} 
                                 header={configs?.sections?.search?.label} 
@@ -223,7 +223,7 @@ const InboxSearchComposer = ({configs,headerLabel,additionalConfig,onFormValueCh
                 {   
                     configs?.type === 'inbox' && configs?.sections?.filter?.show && 
                     <MediaQuery minWidth={426}>
-                        <div className="section filter">
+                        <div className="digit-section filter">
                             <SearchComponent 
                                 uiConfig={ configs?.sections?.filter?.uiConfig} 
                                 header={configs?.sections?.filter?.label} 
@@ -261,7 +261,7 @@ const InboxSearchComposer = ({configs,headerLabel,additionalConfig,onFormValueCh
                 }
                 {   
                     configs?.sections?.searchResult?.show &&
-                        <div className={`results-table-wrapper ${configs?.sections?.searchResult?.uiConfig?.resultsWrapperClassName}`} style={data?.[configs?.sections?.searchResult?.uiConfig?.resultsJsonPath]?.length > 0 ? (!(isLoading || isFetching) ?{ overflowX: "auto" }: {}) : {  }} >
+                        <div className={`digit-results-table-wrapper ${configs?.sections?.searchResult?.uiConfig?.resultsWrapperClassName}`} style={data?.[configs?.sections?.searchResult?.uiConfig?.resultsJsonPath]?.length > 0 ? (!(isLoading || isFetching) ?{ overflowX: "auto" }: {}) : {  }} >
                             <MediaQuery minWidth={426}>
                     {/* configs?.sections?.searchResult?.show &&  
                         <div style={data?.[configs?.sections?.searchResult?.uiConfig?.resultsJsonPath]?.length > 0 ? (!(isLoading || isFetching) ?{ overflowX: "scroll", borderRadius : "4px" }: {}) : {  }} > */}

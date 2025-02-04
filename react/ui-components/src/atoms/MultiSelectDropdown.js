@@ -560,7 +560,7 @@ const MultiSelectDropdown = ({
         <SVG.Check width="20px" height="20px" fill={primaryIconColor} />
       </div>
       <p className={`digit-label ${addSelectAllCheck ? "selectAll" : ""}`}>
-        {selectAllLabel ? selectAllLabel : "Select All"}
+        {selectAllLabel ? selectAllLabel : t("SELECT_ALL")}
       </p>
     </div>
   );
@@ -606,7 +606,7 @@ const MultiSelectDropdown = ({
                     <div className="category-selectAll-label">
                       {categorySelectAllLabel
                         ? categorySelectAllLabel
-                        : "Select All"}
+                        : t("SELECT_ALL")}
                     </div>
                     <input
                       type="checkbox"
@@ -726,7 +726,7 @@ const MultiSelectDropdown = ({
             })}
           {alreadyQueuedSelectedState.length > 0 && (
             <Button
-              label={t(config?.clearLabel ? config?.clearLabel : "Clear All")}
+              label={t(config?.clearLabel ? config?.clearLabel : t("CLEAR_ALL"))}
               onClick={handleClearAll}
               variation=""
               style={{

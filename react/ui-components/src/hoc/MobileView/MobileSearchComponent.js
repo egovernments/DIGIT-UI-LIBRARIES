@@ -257,14 +257,14 @@ const MobileSearchComponent = ({
 
   return (
     <React.Fragment>
-      <div className="search-wrapper">
+      <div className="digit-search-wrapper">
         <div>{renderHeader()}</div>
         <form
           onSubmit={handleSubmit(onSubmit)}
           onKeyDown={(e) => checkKeyDown(e)}
         >
           <div
-            className={`search-field-wrapper ${screenType} ${uiConfig?.typeMobile} vertical-gap`}
+            className={`digit-search-field-wrapper ${screenType} ${uiConfig?.typeMobile} vertical-gap`}
           >
             <RenderFormFields
               fields={uiConfig?.fields}
@@ -284,7 +284,7 @@ const MobileSearchComponent = ({
               className="clear-search-container"
               actionFields={[
                 <div
-                  className={`search-button-wrapper ${screenType} inbox  ${uiConfig?.typeMobile}`}
+                  className={`digit-search-button-wrapper ${screenType} inbox  ${uiConfig?.typeMobile}`}
                 >
                   {/* { uiConfig?.secondaryLabel && <LinkLabel style={{marginBottom: 0, whiteSpace: 'nowrap'}} onClick={clearSearch}>{t(uiConfig?.secondaryLabel)}</LinkLabel> } */}
                   {uiConfig?.secondaryLabel && (
