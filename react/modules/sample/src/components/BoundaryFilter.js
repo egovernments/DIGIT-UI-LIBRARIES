@@ -11459,6 +11459,7 @@ const preHierarchyData=[
 
 
 const processHierarchy = (nodes, parentPath = "") => {
+  // debugger;
   return nodes.map((node) => {
     // Construct the current node's full path using its code
     const currentPath = parentPath ? `${parentPath}.${node.code}` : node.code;
@@ -11473,9 +11474,10 @@ const processHierarchy = (nodes, parentPath = "") => {
   });
 };
 
-return processHierarchy(data?.TenantBoundary?.[0]?.boundary)
-const [hierarchy,setHierarchy]=useState(preHierarchy?.BoundaryHierarchy[0]?.boundaryHierarchy);
-const [hierarchyData,setHierarchyData]=useState()
+// return processHierarchy(data?.TenantBoundary?.[0]?.boundary)
+
+const [hierarchy,setHierarchy]=useState(preHierarchy[0]?.boundaryHierarchy);
+const [hierarchyData,setHierarchyData]=useState([processHierarchy(preHierarchyData[0]?.boundary)[0]])
 
 
   // debugger;
@@ -11525,7 +11527,7 @@ const [hierarchyData,setHierarchyData]=useState()
     }}
   };
   
-  const { data: hierarchyData, refetch, isLoading } = Digit.Hooks.useCustomAPIHook(reqHierarchyData);
+  const { data: hierarchyData1, refetch, isLoading } = Digit.Hooks.useCustomAPIHook(reqHierarchyData);
   
 
   // const hierarchyData = hierarchyData1;
@@ -11581,6 +11583,7 @@ const [hierarchyData,setHierarchyData]=useState()
   const lowestIndex = hierarchy?.findIndex((item) => item?.boundaryType === lowestLevel);
 
   const findNodeByPath = (nodes, targetPath) => {
+    // debugger;
     console.log("nodes",nodes);
     for (const node of nodes) {
       if (node.path === targetPath) {
@@ -11594,11 +11597,16 @@ const [hierarchyData,setHierarchyData]=useState()
     return null; // Return null if no match is found
   };
   if(hierarchyData){
-    console.log("1111 Node by path",findNodeByPath(hierarchyData,"NEWTEST00222_MO.NEWTEST00222_MO_10_MAPUTO_CITY"));
+    console.log("1111 Node by path",findNodeByPath(hierarchyData,"MICROPLAN_MO.MICROPLAN_MO_16_FCT__ABUJA_STATE"));
 
   }
   const boundaryOptionsUpdate = (boundaryType, values) => {
-    // debugger;
+    debugger;
+    if (!values || values.length === 0) return;
+    if(values){
+    values=values[0].slice(1);
+    }
+    console.log("1111 boundaryOptionsUpdate",boundaryType,values);
     const childBoundaryType = hierarchy.find(
       (item) => item.parentBoundaryType === boundaryType
     )?.boundaryType;
@@ -11611,6 +11619,7 @@ const [hierarchyData,setHierarchyData]=useState()
       values.forEach((value) => {
         if (boundaryType !== lowestLevel) {
           const children = findNodeByPath(hierarchyData, value?.path);
+          debugger;
   
           if (!updatedOptions[childBoundaryType]) {
             updatedOptions[childBoundaryType] = {}; // Initialize if missing
@@ -11632,36 +11641,38 @@ const [hierarchyData,setHierarchyData]=useState()
   };
   
   
-  if(hierarchy && hierarchyData){
-  boundaryOptionsUpdate( 
-    "POSTADMINISTRATIVE", 
-    [{path:"NEWTEST00222_MO.NEWTEST00222_MO_11_MARYLAND.NEWTEST00222_MO_11_06_PLEEBO.NEWTEST00222_MO_11_06_05_PLEEBO_HEALTH_CENTER",code:"NEWTEST00222_MO_11_06_05_PLEEBO_HEALTH_CENTER"},
-      {path:"NEWTEST00222_MO.NEWTEST00222_MO_11_MARYLAND.NEWTEST00222_MO_11_06_PLEEBO.NEWTEST00222_MO_11_06_04_GBLOKEN_CLINIC",code:"NEWTEST00222_MO_11_06_04_GBLOKEN_CLINIC"}]);
+  // if(hierarchy && hierarchyData){
+  // boundaryOptionsUpdate( 
+  //   "POSTADMINISTRATIVE", 
+  //   [{path:"NEWTEST00222_MO.NEWTEST00222_MO_11_MARYLAND.NEWTEST00222_MO_11_06_PLEEBO.NEWTEST00222_MO_11_06_05_PLEEBO_HEALTH_CENTER",code:"NEWTEST00222_MO_11_06_05_PLEEBO_HEALTH_CENTER"},
+  //     {path:"NEWTEST00222_MO.NEWTEST00222_MO_11_MARYLAND.NEWTEST00222_MO_11_06_PLEEBO.NEWTEST00222_MO_11_06_04_GBLOKEN_CLINIC",code:"NEWTEST00222_MO_11_06_04_GBLOKEN_CLINIC"}]);
 
-    }
-    useEffect(() => {
-      if (hierarchy && hierarchyData) {
-        boundaryOptionsUpdate( 
-          "POSTADMINISTRATIVE", 
-          [
-            {
-              path: "NEWTEST00222_MO.NEWTEST00222_MO_11_MARYLAND.NEWTEST00222_MO_11_06_PLEEBO.NEWTEST00222_MO_11_06_05_PLEEBO_HEALTH_CENTER",
-              code: "NEWTEST00222_MO_11_06_05_PLEEBO_HEALTH_CENTER"
-            },
-            {
-              path: "NEWTEST00222_MO.NEWTEST00222_MO_11_MARYLAND.NEWTEST00222_MO_11_06_PLEEBO.NEWTEST00222_MO_11_06_04_GBLOKEN_CLINIC",
-              code: "NEWTEST00222_MO_11_06_04_GBLOKEN_CLINIC"
-            }
-          ]
-        );
-      }
-    }, [hierarchy, hierarchyData]);
+  //   }
+    // useEffect(() => {
+    //   if (hierarchy && hierarchyData) {
+    //     boundaryOptionsUpdate( 
+    //       "POSTADMINISTRATIVE", 
+    //       [
+    //         {
+    //           path: "NEWTEST00222_MO.NEWTEST00222_MO_11_MARYLAND.NEWTEST00222_MO_11_06_PLEEBO.NEWTEST00222_MO_11_06_05_PLEEBO_HEALTH_CENTER",
+    //           code: "NEWTEST00222_MO_11_06_05_PLEEBO_HEALTH_CENTER"
+    //         },
+    //         {
+    //           path: "NEWTEST00222_MO.NEWTEST00222_MO_11_MARYLAND.NEWTEST00222_MO_11_06_PLEEBO.NEWTEST00222_MO_11_06_04_GBLOKEN_CLINIC",
+    //           code: "NEWTEST00222_MO_11_06_04_GBLOKEN_CLINIC"
+    //         }
+    //       ]
+    //     );
+    //   }
+    // }, [hierarchy, hierarchyData]);
 
   useEffect(()=>{
+    // debugger
+    // console.log("1111 useffect")
     if(!hierarchyData || !hierarchy) return;
     setBoundaryOptions((prev)=>({
       ...prev,
-      [rootBoundaryType]:[{code:[{path:hierarchyData[0]?.path,code:hierarchyData[0]?.code,id:hierarchyData[0]?.id}]}]
+      [rootBoundaryType]:[{path:hierarchyData[0]?.path,code:hierarchyData[0]?.code,id:hierarchyData[0]?.id}]
     }
     ))
   },[hierarchyData,hierarchy])
@@ -11679,57 +11690,60 @@ const [hierarchyData,setHierarchyData]=useState()
   if(boundaryOptions && boundaryOptions[rootBoundaryType]){
     console.log("1111 rootboun",boundaryOptions[rootBoundaryType]);
   }
+  // debugger;
+  console.log("1111 res",hierarchy ,hierarchyData ,boundaryOptions);
   return (
     <div>
-       {/* {hierarchy?.map((item) => {
-        console.log("1111", item);
+       {
+         hierarchy && hierarchyData && boundaryOptions[rootBoundaryType] && hierarchy?.map((item) => {
+           console.log("1111", item);
   
         return (item?.boundaryType === rootBoundaryType) ? (
           <MultiSelectDropdown
             key={item?.boundaryType}
             clearLabel="Clear All"
             options={boundaryOptions[rootBoundaryType]}
-            optionsKey={"name"}
+            optionsKey={"code"}
             t={t}
             onSelect={(values) => {
+              debugger
               boundaryOptionsUpdate(item?.boundaryType, values);
             }}
             type="multiselectdropdown"
-            variant="nestedmultiselect"
-          />)
-         : (() => {
-          const boundaries = boundaryOptions[item?.boundaryType];
+          />) :<div>hi</div>
+        //   : (() => { 
+        //   const boundaries = boundaryOptions[item?.boundaryType];
   
-          if (boundaries) {
-            const formattedOptions = Object.keys(boundaries).map((parentKey) => ({
-              code: parentKey,
-              name: parentKey,
-              options: boundaries[parentKey].map((child) => ({
-                code: child.code,
-                name: child.code, // Using child's code as name as requested
-              })),
-            }));
+        //   if (boundaries) {
+        //     const formattedOptions = Object.keys(boundaries).map((parentKey) => ({
+        //       code: parentKey,
+        //       name: parentKey,
+        //       options: boundaries[parentKey].map((child) => ({
+        //         code: child.code,
+        //         name: child.code, // Using child's code as name as requested
+        //       })),
+        //     }));
   
-            return (
-              <MultiSelectDropdown
-                key={item?.boundaryType}
-                clearLabel="Clear All"
-                options={formattedOptions}
-                optionsKey={"name"}
-                t={t}
-                onSelect={(values) => {
-                  boundaryOptionsUpdate(item?.boundaryType, values);
-                }}
-                type="multiselectdropdown"
-                variant="nestedmultiselect"
-              />
-            );
-          }
+        //     return (
+        //       <MultiSelectDropdown
+        //         key={item?.boundaryType}
+        //         clearLabel="Clear All"
+        //         options={formattedOptions}
+        //         optionsKey={"name"}
+        //         t={t}
+        //         onSelect={(values) => {
+        //           boundaryOptionsUpdate(item?.boundaryType, values);
+        //         }}
+        //         type="multiselectdropdown"
+        //         variant="nestedmultiselect"
+        //       />
+        //     );
+        //   }
   
-          return null; // Avoids rendering errors when `boundaries` is undefined
-        })();
+        //   return null; // Avoids rendering errors when `boundaries` is undefined
+        // })();
         
-      })}  */}
+      })} 
       <div>hi</div>
     </div>
  
