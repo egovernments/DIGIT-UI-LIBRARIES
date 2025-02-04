@@ -5,6 +5,8 @@ on:
     branches: [ 'develop-webpack' ]
     paths:
       - 'webpack/ui-components/**'
+      - 'webpack/react-components/**'
+      - 'webpack/svg-components/**'
       - 'webpack/libraries/**'
       - 'react/modules/core/**'
 
@@ -31,6 +33,42 @@ jobs:
       - name: Install dependencies for Webpack UI Components
         run: |
           cd webpack/ui-components/
+          rm -rf node_modules yarn.lock
+          yarn install --frozen-lockfile
+          npm publish --tag core-webpack-v0.1
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
+
+  publish-webpack-svg-components:
+    name: Publish Webpack SVG Components
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org/
+      - name: Install dependencies for Webpack UI Components
+        run: |
+          cd webpack/svg-components/
+          rm -rf node_modules yarn.lock
+          yarn install --frozen-lockfile
+          npm publish --tag core-webpack-v0.1
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
+
+  publish-webpack-react-components:
+    name: Publish Webpack React Components
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org/
+      - name: Install dependencies for Webpack UI Components
+        run: |
+          cd webpack/react-components/
           rm -rf node_modules yarn.lock
           yarn install --frozen-lockfile
           npm publish --tag core-webpack-v0.1
