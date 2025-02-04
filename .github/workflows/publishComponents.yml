@@ -48,7 +48,7 @@ jobs:
         with:
           node-version: 20
           registry-url: https://registry.npmjs.org/
-      - name: Install dependencies for Webpack UI Components
+      - name: Install dependencies for SVG Components
         run: |
           cd webpack/svg-components/
           rm -rf node_modules yarn.lock
