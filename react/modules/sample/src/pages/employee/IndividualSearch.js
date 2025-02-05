@@ -68,7 +68,7 @@ const IndividualSearch = () => {
     <React.Fragment>
       <div>{counter}</div>
       <Header styles={{ fontSize: '32px' }}>{t(indConfigs?.label)}</Header>
-      <div className="inbox-search-wrapper">
+      <div className="digit-inbox-search-wrapper">
         {/* Pass defaultValues as props to InboxSearchComposer */}
         <InboxSearchComposer
           configs={indConfigs}
