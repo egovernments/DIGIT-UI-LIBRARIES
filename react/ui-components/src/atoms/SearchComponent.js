@@ -283,7 +283,7 @@ const SearchComponent = ({ uiConfig, header = "", screenType = "search", fullCon
           hideIcon={false}
           addClose={uiConfig?.isPopUp}
           isPopup={uiConfig?.isPopUp}
-          contentClassName={"digit-inbox-serach-composer-filter-card-content"}
+          contentClassName={"digit-inbox-search-composer-filter-card-content"}
         >
           {renderContent()}
         </FilterCard>

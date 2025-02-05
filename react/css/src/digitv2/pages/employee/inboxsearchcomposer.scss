@@ -252,7 +252,7 @@
                 }
 
                 &.filter{
-                    .digit-inbox-serach-composer-filter-card-content{
+                    .digit-inbox-search-composer-filter-card-content{
                         gap:theme(digitv2.spacers.spacer4)
                     }
                 }
@@ -302,18 +302,18 @@
 }
 
 .digit-inbox-search-links-container {
-    .digit-inbox-serach-links-header {
+    .digit-inbox-search-links-header {
         display: flex;
         gap: theme(digitv2.spacers.spacer2);
         align-items: center;
         margin-bottom: theme(digitv2.spacers.spacer6);
 
-        .digit-inbox-serach-links-header-logo {
+        .digit-inbox-search-links-header-logo {
             width: theme(digitv2.spacers.spacer8);
             height: theme(digitv2.spacers.spacer8);
         }
 
-        .digit-inbox-serach-links-header-text {
+        .digit-inbox-search-links-header-text {
             @extend .typography.heading-m;
             font-family: theme(digitv2.fontFamily.sans);
             font-style: theme(digitv2.fontStyle.normal);
@@ -356,7 +356,7 @@
     }
 }
 
-.digit-inbox-serach-composer-label-pair {
+.digit-inbox-search-composer-label-pair {
     margin-bottom: theme(digitv2.spacers.spacer0);
 }
 

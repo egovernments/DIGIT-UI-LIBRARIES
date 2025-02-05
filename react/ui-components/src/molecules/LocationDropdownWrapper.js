@@ -134,6 +134,8 @@ LocationDropdownWrapper.propTypes = {
   inputRef: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
   errors: PropTypes.object,
   setValue: PropTypes.func,
+  showIcon: PropTypes.bool,
+  isSearchable: PropTypes.bool,
 };
 
 LocationDropdownWrapper.defaultProps = {

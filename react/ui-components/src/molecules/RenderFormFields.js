@@ -357,7 +357,7 @@ const RenderFormFields = ({ data, ...props }) => {
           <>
             <LabelFieldPair
               key={index}
-              className={"digit-inbox-serach-composer-label-pair"}
+              className={"digit-inbox-search-composer-label-pair"}
               vertical={true}
             >
               {item.label && (

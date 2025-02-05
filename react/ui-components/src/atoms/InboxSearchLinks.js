@@ -22,11 +22,11 @@ const InboxSearchLinks = ({
         ) || !roles?.length
     );
     setLinksToShow(linksToShow);
-  }, []);
+  }, [links,userRoles]);
 
   const renderHeader = () => (
-    <div className="digit-inbox-serach-links-header">
-      <span className="digit-inbox-serach-links-header-logo">
+    <div className="digit-inbox-search-links-header">
+      <span className="digit-inbox-search-links-header-logo">
         {logoIcon?.component &&
           iconRender(
             logoIcon?.component,
@@ -36,7 +36,7 @@ const InboxSearchLinks = ({
             logoIcon?.customClass
           )}
       </span>
-      <span className="digit-inbox-serach-links-header-text">{t(headerText)}</span>
+      <span className="digit-inbox-search-links-header-text">{t(headerText)}</span>
     </div>
   );
   return (

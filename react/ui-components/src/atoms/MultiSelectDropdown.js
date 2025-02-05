@@ -643,7 +643,7 @@ const MultiSelectDropdown = ({
         <div
           className={`digit-multiselectdropdown-master${
             active ? `-active` : ``
-          } ${disabled ? "disabled" : ""}  ${variant ? variant : ""} ${isSearchable ? "serachable" : ""}`}
+          } ${disabled ? "disabled" : ""}  ${variant ? variant : ""} ${isSearchable ? "searchable" : ""}`}
         >
           <input
             className="digit-cursorPointer"
