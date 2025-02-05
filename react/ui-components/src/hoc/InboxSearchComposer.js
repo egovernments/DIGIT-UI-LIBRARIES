@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState,useMemo } from "react";
+import React, { useEffect, useReducer, useState,useMemo,useRef } from "react";
 import Toast from "../atoms/Toast";
 import ResultsTable from "./ResultsTable"
 import reducer, { initialInboxState } from "./InboxSearchComposerReducer";
@@ -16,7 +16,9 @@ import HeaderComponent from "../atoms/HeaderComponent";
 import { useTranslation } from "react-i18next";
 
 
-const InboxSearchComposer = ({configs,headerLabel,additionalConfig,onFormValueChange=()=>{},showTab,tabData,onTabChange}) => {
+const InboxSearchComposer = ({configs,headerLabel,additionalConfig,onFormValueChange=()=>{},showTab,tabData,onTabChange,customizers={}}) => {
+    const hasRun = useRef(false);
+   
     const { t } = useTranslation();
 
     const [enable, setEnable] = useState(false);
@@ -27,6 +29,22 @@ const InboxSearchComposer = ({configs,headerLabel,additionalConfig,onFormValueCh
     const [popup, setPopup] = useState(false);
    
     const [apiDetails, setApiDetails] = useState(configs?.apiDetails);
+
+    if (!hasRun.current) {
+        hasRun.current = true;
+        // let hasCustomizers = false;
+        // if(Object.keys(customizers).length>0){
+        //     hasCustomizers = true;
+        //     // dispatch({
+        //     //     type:"customizers",
+        //     //     state:customizers
+        //     // })
+        // }
+        //if the current moduleName is there in UICustomizations already then don't do anything, otherwise add customizers to it
+        if(!Object.keys({...Digit?.Customizations?.commonUiConfig?.[configs.apiDetails.moduleName]}).length>0 && Object.keys(customizers).length>0){
+            Digit.Customizations.commonUiConfig = {...Digit.Customizations.commonUiConfig,[configs.apiDetails.moduleName]:{...customizers}}
+        }
+    }
 
     useEffect(()=>{
         setApiDetails(configs?.apiDetails)
