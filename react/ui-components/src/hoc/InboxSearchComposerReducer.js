@@ -29,9 +29,11 @@ export const initialInboxState = (config) => {
     searchForm: {},
     filterForm: {},
     tableForm: {
-    limit: 10,
-    offset: 0,
-  },
+      limit: 10,
+      offset: 0,
+    },
+    hasCustomizers:false,
+    customizers:{}
   }
 };
 
@@ -91,10 +93,12 @@ const reducer = (state, action) => {
         default:
           break;
       }
+      break;
     case 'obj':
-        const {updatedState} = action
-        return updatedState
-
+      const {updatedState} = action
+      return updatedState
+    case 'customizers':
+      return {...state,hasCustomizers:true,customizers:action.state};
     default:
       return state;
   }

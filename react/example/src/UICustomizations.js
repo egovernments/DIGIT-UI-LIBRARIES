@@ -420,6 +420,60 @@ export const UICustomizations = {
       }
     },
   },
+  // SearchIndividualConfig: {
+  //   preProcess: (data) => {
+  //     delete data.params.tenantId;
+  //     delete data.params.limit;
+  //     delete data.params.offset;
+  //     delete data.body.apiOperation;
+  //     delete data.body.Individual;
+  //     data.body.MdmsCriteria = {
+  //       "tenantId": "dev",
+  //       "filters": {},
+  //       "schemaCode": "ACCESSCONTROL-ACTIONS-TEST.actions-test",
+  //       "limit": 10,
+  //       "offset": 0
+  //   }
+  //     return data;
+  //   },
+  //   additionalCustomizations: (row, key, column, value, t, searchResult) => {
+  //     //here we can add multiple conditions
+  //     //like if a cell is link then we return link
+  //     //first we can identify which column it belongs to then we can return relevant result
+  //     switch (key) {
+  //       case "MASTERS_WAGESEEKER_ID":
+  //         return (
+  //           <span className="link">
+  //             <Link to={`/${window.contextPath}/employee/masters/view-wageseeker?tenantId=${row?.tenantId}&individualId=${value}`}>
+  //               {String(value ? (column.translate ? t(column.prefix ? `${column.prefix}${value}` : value) : value) : t("ES_COMMON_NA"))}
+  //             </Link>
+  //           </span>
+  //         );
+
+  //       case "MASTERS_SOCIAL_CATEGORY":
+  //         return value ? <span style={{ whiteSpace: "nowrap" }}>{String(t(`MASTERS_${value}`))}</span> : t("ES_COMMON_NA");
+
+  //       case "CORE_COMMON_PROFILE_CITY":
+  //         return value ? <span style={{ whiteSpace: "nowrap" }}>{String(t(Digit.Utils.locale.getCityLocale(value)))}</span> : t("ES_COMMON_NA");
+
+  //       case "MASTERS_WARD":
+  //         return value ? (
+  //           <span style={{ whiteSpace: "nowrap" }}>{String(t(Digit.Utils.locale.getMohallaLocale(value, row?.tenantId)))}</span>
+  //         ) : (
+  //           t("ES_COMMON_NA")
+  //         );
+
+  //       case "MASTERS_LOCALITY":
+  //         return value ? (
+  //           <span style={{ whiteSpace: "break-spaces" }}>{String(t(Digit.Utils.locale.getMohallaLocale(value, row?.tenantId)))}</span>
+  //         ) : (
+  //           t("ES_COMMON_NA")
+  //         );
+  //       default:
+  //         return t("ES_COMMON_NA");
+  //     }
+  //   }
+  // },
   SearchWMSProjectConfig: {
     preProcess: (data) => {
       const createdFrom = Digit.Utils.pt.convertDateToEpoch(data.body.inbox.moduleSearchCriteria?.createdFrom, "daystart");

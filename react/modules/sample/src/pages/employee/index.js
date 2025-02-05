@@ -5,6 +5,7 @@ import { Route, Switch } from "react-router-dom";
 import Sample from "./Sample";
 import SampleSearch from "./SampleSearch";
 import SampleInbox from "./SampleInbox";
+import IndividualSearch from "./IndividualSearch";
 
 const ProjectBreadCrumb = ({ location }) => {
   const { t } = useTranslation();
@@ -41,6 +42,7 @@ const App = ({ path, stateCode, userType, tenants }) => {
         <PrivateRoute path={`${path}/test`} component={() => <Loader></Loader>} />
         <PrivateRoute path={`${path}/search`} component={() => <SampleSearch></SampleSearch>} />
         <PrivateRoute path={`${path}/inbox`} component={() => <SampleInbox></SampleInbox>} />
+        <PrivateRoute path={`${path}/ind-search`} component={() => <IndividualSearch></IndividualSearch>} />
         </AppContainer>
     </Switch>
   );
