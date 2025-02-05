@@ -23,7 +23,7 @@ const enabledModules = [
   // "Microplan",
   // "Payments"
   "Sample",
-  "Microplan"
+  // "Microplan"
   //added to check fsm
   // "FSM"
 ];
