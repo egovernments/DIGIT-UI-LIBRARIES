@@ -70,7 +70,7 @@ const ProjectWMSSearch = () => {
           />
         )}
       </div>
-      <div className="inbox-search-wrapper">
+      <div className="digit-inbox-search-wrapper">
         <InboxSearchComposer configs={configs}></InboxSearchComposer>
       </div>
     </React.Fragment>

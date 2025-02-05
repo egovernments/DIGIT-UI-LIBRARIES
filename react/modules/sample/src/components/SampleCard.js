@@ -3,7 +3,6 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 const SampleCard = () => {
-  console.log("samplecard")
   const { t } = useTranslation();
   const propsForModuleCard = {
     Icon: "",
@@ -16,8 +15,12 @@ const SampleCard = () => {
         link: `/${window?.contextPath}/employee/sample/components`,
       },
       {
-        label: t("Sample Inbox Search Screen"),
+        label: t("Sample Search"),
         link: `/${window?.contextPath}/employee/sample/search`,
+      },
+      {
+        label: t("Sample Inbox"),
+        link: `/${window?.contextPath}/employee/sample/inbox`,
       },
     ],
   };

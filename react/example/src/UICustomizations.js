@@ -1,3 +1,4 @@
+import React, { useState, Fragment } from "react";
 import { Link } from "react-router-dom";
 import _ from "lodash";
 import { Amount} from "@egovernments/digit-ui-components";
@@ -614,5 +615,89 @@ export const UICustomizations = {
       });
       return link;
     },
+  },
+  FacilityMappingConfig: {
+    preProcess: (data) => {
+      return data;
+    },
+    getFacilitySearchRequest: ( prop) => {
+      const tenantId = Digit.ULBService.getCurrentTenantId();
+      const {campaignId} = Digit.Hooks.useQueryParams();
+      return {
+        url: `/project-factory/v1/project-type/search`,
+        params: {  },
+        body: {
+          CampaignDetails: {
+            "tenantId": tenantId,
+            "ids": [
+              campaignId
+            ]
+        }
+        },
+        changeQueryName: `boundarySearchForPlanFacility`,
+        config: {
+          enabled: true,
+          select: (data) => {
+            const result = data?.CampaignDetails?.[0]?.boundaries?.filter((item) => item.type == prop.lowestHierarchy) || [];
+            return result
+          },
+        },
+      };
+    },
+    // additionalCustomizations: (row, key, column, value, t, searchResult) => {
+    //   const [showPopup, setShowPopup] = useState(false);
+    //   const FacilityPopUp = Digit.ComponentRegistryService.getComponent("FacilityPopup");
+    //   const VillageHierarchyTooltipWrapper = Digit.ComponentRegistryService.getComponent("VillageHierarchyTooltipWrapper");
+
+    //   switch (key) {
+    //     case `MICROPLAN_FACILITY_${column?.projectType}_CAPACITY`:
+    //       if (row?.additionalDetails?.capacity || row?.additionalDetails?.capacity === 0) {
+    //         return row?.additionalDetails?.capacity;
+    //       }
+    //       return t("NA");
+    //     case "MICROPLAN_FACILITY_SERVINGPOPULATION":
+    //       return row?.additionalDetails?.servingPopulation;
+    //     case "MICROPLAN_FACILITY_RESIDINGVILLAGE":
+    //       return <div style={{display:"flex", gap:".5rem"}}>
+    //       {t(row?.residingBoundary)}
+    //       <VillageHierarchyTooltipWrapper  boundaryCode={row?.residingBoundary}/>
+    //     </div>
+    //     case "MICROPLAN_FACILITY_ASSIGNED_VILLAGES":
+    //       const assignedVillages = row?.serviceBoundaries;
+    //       return assignedVillages ? assignedVillages.length : null;
+    //     case "HCM_MICROPLAN_FACILITY_VIEW_ASSIGNMENT":
+    //     case "HCM_MICROPLAN_FACILITY_ACTION_ASSIGNMENT":
+    //       return (
+    //         <>
+    //           <Button
+    //             className=""
+    //             icon="ArrowForward"
+    //             iconFill=""
+    //             isSuffix
+    //             label={t(key)}
+    //             onClick={() => setShowPopup(true)}
+    //             // removed this because due to popup crashing on dev
+    //             // onClick={() => console.log("temp action")}
+    //             options={[]}
+    //             optionsKey=""
+    //             size="medium"
+    //             style={{}}
+    //             title={t(key)}
+    //             variation="primary"
+    //           />
+    //           {showPopup && (
+    //             <FacilityPopUp
+    //               detail={row}
+    //               onClose={() => {
+    //                 setShowPopup(false);
+    //               }}
+    //             />
+    //           )}
+    //         </>
+    //       );
+    //     default:
+    //       return null;
+    //   }
+    // },
   }
 };
