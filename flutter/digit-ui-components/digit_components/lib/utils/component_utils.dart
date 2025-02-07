@@ -132,7 +132,7 @@ class DigitSyncDialogContent extends StatelessWidget {
                       mainAxisSize: MainAxisSize.max,
                     ),
                   if(primaryAction != null && secondaryAction != null)
-                    const SizedBox(width: spacer4),
+                    const SizedBox(height: spacer4),
                   if (primaryAction != null)
                     DigitButton(
                       label: primaryAction!.label,
