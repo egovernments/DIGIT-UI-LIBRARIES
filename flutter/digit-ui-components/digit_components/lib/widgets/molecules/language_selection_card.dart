@@ -134,7 +134,7 @@ class _DigitRowCardState extends State<DigitRowCard> {
     }
   }
 
-  Widget _buildItem(DigitRowCardModel item, double itemWidth, BuildContext context) {
+  Widget _buildItem(DigitRowCardModel item, double itemWidth, double? width,BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.digitTextTheme(context);
 
@@ -142,7 +142,7 @@ class _DigitRowCardState extends State<DigitRowCard> {
     return InkWell(
       onTap: () => _onItemTap(item),
       child: Container(
-        width: max(itemWidth, maxLabelWidth), // Use the calculated width
+        width: width ?? max(itemWidth, maxLabelWidth), // Use the calculated width
         decoration: BoxDecoration(
           color: item.isSelected
               ? theme.colorTheme.primary.primary1
@@ -186,7 +186,7 @@ class _DigitRowCardState extends State<DigitRowCard> {
       spacing: widget.spacing,
       runSpacing: widget.spacing,
       alignment: widget.alignment,
-      children: widget.rowItems.map((item) => _buildItem(item, widget.width ?? itemWidth, context)).toList(),
+      children: widget.rowItems.map((item) => _buildItem(item, itemWidth, widget.width, context)).toList(),
     );
   }
 }
