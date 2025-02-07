@@ -34,7 +34,7 @@ const App = ({ path, stateCode, userType, tenants }) => {
         <PrivateRoute path={`${path}/components`} component={() => <Sample></Sample>} />
         <PrivateRoute path={`${path}/test`} component={() => <Loader></Loader>} />
         <PrivateRoute path={`${path}/search`} component={() => <SampleSearch></SampleSearch>} />
-        <PrivateRoute path={`${path}/filter`} component={() => <BoundaryFilter/>} />
+        <PrivateRoute path={`${path}/filter`} component={() => <BoundaryFilter lowestLevel={"VILLAGE"}/>} />
 
         </AppContainer>
     </Switch>

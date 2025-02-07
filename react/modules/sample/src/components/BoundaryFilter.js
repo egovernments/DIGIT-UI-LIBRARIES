@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { MultiSelectDropdown } from '@egovernments/digit-ui-components'
+import { CardText, MultiSelectDropdown } from '@egovernments/digit-ui-components'
 import { CheckBox } from '@egovernments/digit-ui-react-components';
 import { useTranslation } from 'react-i18next';
+import { LabelFieldPair,CardLabel } from "@egovernments/digit-ui-components";
 
-const BoundaryFilter = (lowestLevel) => {
+const BoundaryFilter = (props) => {
   const hierarchyType = "NEWTEST00222";
   const tenantId = Digit.ULBService.getCurrentTenantId();
   const [lowestHierarchy, setLowestHierarchy] = useState("")
@@ -11580,7 +11581,8 @@ const [hierarchyData,setHierarchyData]=useState([processHierarchy(preHierarchyDa
 
   console.log("byeee");
   const rootBoundaryType = hierarchy?.filter((item) => item?.parentBoundaryType === null)[0]?.boundaryType;
-  const lowestIndex = hierarchy?.findIndex((item) => item?.boundaryType === lowestLevel);
+  
+
 
   const findNodeByPath = (nodes, targetPath) => {
     // debugger;
@@ -11601,14 +11603,45 @@ const [hierarchyData,setHierarchyData]=useState([processHierarchy(preHierarchyDa
     console.log("1111 Node by path",findNodeByPath(hierarchyData,"MICROPLAN_MO.MICROPLAN_MO_16_FCT__ABUJA_STATE"));
 
   }
-  const boundaryOptionsUpdate = (boundaryType, values) => {
+
+  const cleanLowerLevels = (boundaryType, codesToRemove, setBoundaryOptions) => {
+    debugger;
+    const childType = hierarchy.find(item => item.parentBoundaryType === boundaryType)?.boundaryType;
+    if (!childType) return;
+
+    setBoundaryOptions((prev) => {
+        const updatedOptions = { ...prev };
+
+        if (!updatedOptions[childType]) return updatedOptions;
+
+        Object.keys(updatedOptions[childType]).forEach(code => {
+            // debugger
+            // Check if any child within updatedOptions[childType][code] has a path in codesToRemove
+            const shouldDelete = updatedOptions[childType][code].some(child => codesToRemove.includes(child.path));
+
+            if (shouldDelete) {
+                // Delete the entire entry
+                delete updatedOptions[childType][code];
+            }
+        });
+
+        return updatedOptions;
+    });
+
+    // Schedule recursive cleaning after state update
+    cleanLowerLevels(childType, codesToRemove, setBoundaryOptions);
+};
+
+
+
+const boundaryOptionsUpdate = (boundaryType, values) => {
     debugger;
     console.log("1111 values", values);
 
-    if (!Array.isArray(values) || values.length === 0) return;
+    if (!Array.isArray(values)) return;
 
     // Extract only the selected values, ignoring SyntheticBaseEvent
-    const selectedValues = values.map(arg => arg[1]); 
+    const selectedValues = values.map(arg => arg[1]) || [];
 
     console.log("boundaryOptionsUpdate:", boundaryType, selectedValues);
 
@@ -11617,24 +11650,50 @@ const [hierarchyData,setHierarchyData]=useState([processHierarchy(preHierarchyDa
     )?.boundaryType;
 
     if (!childBoundaryType) return; // Exit if no child boundaryType exists
+    const removedCodes = [];
+    
+    setBoundaryOptions((prev) => {
+        const updatedOptions = { ...prev };
 
+        // Get the previously stored values
+        const previousValues = updatedOptions[childBoundaryType] || {};
+
+        // Create a set of currently selected codes for quick lookup
+        const selectedCodes = new Set(selectedValues.map(v => v.code));
+
+        // Store removed codes
+        // debugger
+        
+
+        // Remove unselected values
+        Object.keys(previousValues).forEach(code => {
+            if (!selectedCodes.has(code)) {
+                delete updatedOptions[childBoundaryType][code]; // Remove unselected item
+                removedCodes.push(code); // Store for further removal in hierarchy
+            }
+        });
+
+        return updatedOptions;
+    });
+
+    // Call the new cleanLowerLevels function
+    cleanLowerLevels(boundaryType, removedCodes, setBoundaryOptions);
+
+    // Process newly selected values
     setBoundaryOptions((prev) => {
         const updatedOptions = { ...prev };
 
         selectedValues.forEach((value) => {
-            if (boundaryType !== lowestLevel) {
+            if (boundaryType !== props.lowestLevel) {
                 const children = findNodeByPath(hierarchyData, value?.path);
 
-                // Ensure updatedOptions[childBoundaryType] is initialized
                 updatedOptions[childBoundaryType] = updatedOptions[childBoundaryType] || {};
                 updatedOptions[childBoundaryType][value?.code] = updatedOptions[childBoundaryType][value?.code] || [];
 
-                // Get existing entries as a Set to remove duplicates
                 const existingEntries = new Set(
                     updatedOptions[childBoundaryType][value?.code].map(child => child.code)
                 );
 
-                // Append only new children that are not already present
                 const uniqueChildren = children.filter(child => !existingEntries.has(child.code));
 
                 updatedOptions[childBoundaryType][value?.code] = [
@@ -11647,6 +11706,9 @@ const [hierarchyData,setHierarchyData]=useState([processHierarchy(preHierarchyDa
         return updatedOptions;
     });
 };
+
+
+
 
 
   
@@ -11713,10 +11775,20 @@ const [hierarchyData,setHierarchyData]=useState([processHierarchy(preHierarchyDa
   return (
     <div>
        {
-         hierarchy && hierarchyData && boundaryOptions[rootBoundaryType] && hierarchy?.map((item) => {
+         hierarchy && hierarchyData && boundaryOptions[rootBoundaryType] && hierarchy?.filter((boundary,index) => {
+            // Find the index of the lowest hierarchy
+            // debugger;
+            const lowestIndex = hierarchy?.findIndex((item) => item?.boundaryType === props.lowestLevel);
+            return index <= lowestIndex;
+          })?.map((item) => {
            console.log("1111", item);
   
         return (item?.boundaryType === rootBoundaryType) ? (
+         <LabelFieldPair>
+            <CardLabel>
+                    {item?.boundaryType}
+                  </CardLabel>
+          <div style={{width:'20rem'}}>
           <MultiSelectDropdown
             key={item?.boundaryType}
             clearLabel="Clear All"
@@ -11728,7 +11800,9 @@ const [hierarchyData,setHierarchyData]=useState([processHierarchy(preHierarchyDa
               boundaryOptionsUpdate(item?.boundaryType, values);
             }}
             type="multiselectdropdown"
-          />) 
+          />
+          </div>
+          </LabelFieldPair>)
           : (() => { 
           const boundaries = boundaryOptions[item?.boundaryType];
   
@@ -11744,6 +11818,12 @@ const [hierarchyData,setHierarchyData]=useState([processHierarchy(preHierarchyDa
             }));
   
             return (
+            <LabelFieldPair>
+                <CardLabel>
+                    {item?.boundaryType}
+                    
+                  </CardLabel>
+                <div style={{width:'20rem'}} >
               <MultiSelectDropdown
                 key={item?.boundaryType}
                 clearLabel="Clear All"
@@ -11756,6 +11836,8 @@ const [hierarchyData,setHierarchyData]=useState([processHierarchy(preHierarchyDa
                 type="multiselectdropdown"
                 variant="nestedmultiselect"
               />
+              </div>
+            </LabelFieldPair>
             );
           }
   
