@@ -137,21 +137,31 @@ class _DigitTableState extends State<DigitTable> {
   // Method to update row heights after rendering
   void _updateRowHeights() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      // Iterate through all rows to find the maximum height
+      if (!mounted) return; // Prevent setState if disposed
+
       for (int index = 0; index < frozenKeys.length; index++) {
-        final RenderBox? frozenBox = frozenKeys[index].currentContext?.findRenderObject() as RenderBox?;
-        final RenderBox? nonFrozenBox = nonFrozenKeys[index].currentContext?.findRenderObject() as RenderBox?;
+        final frozenContext = frozenKeys[index].currentContext;
+        final nonFrozenContext = nonFrozenKeys[index].currentContext;
+
+        if (frozenContext == null || nonFrozenContext == null) continue;
+
+        final RenderBox? frozenBox = frozenContext.findRenderObject() as RenderBox?;
+        final RenderBox? nonFrozenBox = nonFrozenContext.findRenderObject() as RenderBox?;
 
         double frozenHeight = frozenBox?.size.height ?? 0;
         double nonFrozenHeight = nonFrozenBox?.size.height ?? 0;
-
-        // Calculate the maximum height for the current row
         double maxHeight = max(frozenHeight, nonFrozenHeight);
 
-        // Update the rowHeights list with the maximum height found
-        setState(() {
-          rowHeights[index] = maxHeight;
-        });
+        // Check if index is within bounds
+        if (index >= rowHeights.length) {
+          rowHeights.add(maxHeight);
+        } else {
+          if (mounted && rowHeights[index] != maxHeight) {
+            setState(() {
+              rowHeights[index] = maxHeight;
+            });
+          }
+        }
       }
     });
   }
@@ -176,6 +186,21 @@ class _DigitTableState extends State<DigitTable> {
 
     if(widget.rows != oldWidget.rows) {
       sortedRows = widget.rows;
+    }
+
+    if (widget.rows != oldWidget.rows) {
+      sortedRows = widget.rows;
+
+      // Update rowHeights and keys when row count changes
+      final newRowCount = widget.rows.length;
+      if (newRowCount != rowHeights.length) {
+        rowHeights = List.filled(newRowCount, 0.0);
+        frozenKeys = List.generate(newRowCount, (_) => GlobalKey());
+        nonFrozenKeys = List.generate(newRowCount, (_) => GlobalKey());
+      } else {
+        // Reset heights if rows change but count remains the same
+        rowHeights = List.filled(newRowCount, 0.0);
+      }
     }
 
   }
