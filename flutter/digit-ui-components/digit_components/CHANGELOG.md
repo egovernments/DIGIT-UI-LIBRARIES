@@ -1,3 +1,7 @@
+## 0.0.2-dev.7
+* fixed dialog util action button alignment issue
+* fixed language selection card issue
+
 ## 0.0.2-dev.6
 * fixed privacy component error message style
 * fixed table height issue
