@@ -1,13 +1,34 @@
 import React, { useState, Fragment } from "react";
 import { Link } from "react-router-dom";
 import _ from "lodash";
-import { Amount} from "@egovernments/digit-ui-components";
+import { Amount,Button} from "@egovernments/digit-ui-components";
 
 
 //create functions here based on module name set in mdms(eg->SearchProjectConfig)
 //how to call these -> Digit?.Customizations?.[masterName]?.[moduleName]
 // these functions will act as middlewares
 var Digit = window.Digit || {};
+
+function cleanObject(obj) {
+  for (const key in obj) {
+    if (Object.hasOwn(obj, key)) {
+      if (Array.isArray(obj[key])) {
+        if (obj[key].length === 0) {
+          delete obj[key];
+        }
+      } else if (
+        obj[key] === undefined ||
+        obj[key] === null ||
+        obj[key] === false ||
+        obj[key] === "" || // Check for empty string
+        (typeof obj[key] === "object" && Object.keys(obj[key]).length === 0)
+      ) {
+        delete obj[key];
+      }
+    }
+  }
+  return obj;
+}
 
 const businessServiceMap = {
   "muster roll": "MR",
@@ -699,5 +720,93 @@ export const UICustomizations = {
     //       return null;
     //   }
     // },
-  }
+  },
+  SampleInboxConfig: {
+    getSearchRequest: ( prop) => {
+      const tenantId = Digit.ULBService.getCurrentTenantId();
+      return {
+        url: `/plan-service/config/_search`,
+        params: {  },
+        body: {
+          CampaignDetails: {
+            "tenantId": tenantId,
+        }
+        },
+        changeQueryName: `boundarySearchForPlanFacility`,
+        config: {
+          enabled: true,
+          select: (data) => {
+            const result = data?.CampaignDetails?.[0]?.boundaries?.filter((item) => item.type == prop.lowestHierarchy) || [];
+            return result
+          },
+        },
+      };
+    },
+    additionalCustomizations: (row, key, column, value, t, searchResult) => {
+      if (key === "NAME_OF_MICROPLAN") {
+        return (
+          <Button
+            variation="link"
+            label={String(
+              value
+                ? column.translate
+                  ? t(column.prefix ? `${column.prefix}${value}` : value)
+                  : value
+                : t("ES_COMMON_NA")
+            )}
+            type="button"
+            icon="Edit"
+            size={"medium"}
+          />
+        );
+      }
+      //added this in case we change the key and not updated here , it'll throw that nothing was returned from cell error if that case is not handled here. To prevent that error putting this default
+      return <span>{t(`CASE_NOT_HANDLED`)}</span>;
+    },
+    selectionHandler: (event) => {
+      console.log(event, "selection handler event");
+    },
+    actionSelectHandler: (index, label, selectedRows) => {
+      console.log(index, label, selectedRows, "action handler");
+    },
+    onFilter: (event) =>{
+      console.log(event,"filter handler")
+    },
+    preProcess: (data, additionalDetails) => {
+      const { name, status } = data?.state?.searchForm || {};
+
+      data.body.PlanConfigurationSearchCriteria = {};
+      data.body.PlanConfigurationSearchCriteria.limit = data?.state?.tableForm?.limit;
+      // data.body.PlanConfigurationSearchCriteria.limit = 10
+      data.body.PlanConfigurationSearchCriteria.offset = data?.state?.tableForm?.offset;
+      data.body.PlanConfigurationSearchCriteria.name = name;
+      data.body.PlanConfigurationSearchCriteria.tenantId = Digit.ULBService.getCurrentTenantId();
+      data.body.PlanConfigurationSearchCriteria.userUuid = Digit.UserService.getUser().info.uuid;
+      // delete data.body.PlanConfigurationSearchCriteria.pagination
+      data.body.PlanConfigurationSearchCriteria.status = status?.status;
+      data.body.PlanConfigurationSearchCriteria.name = data?.state?.searchForm?.microplanName;
+      cleanObject(data.body.PlanConfigurationSearchCriteria);
+
+      const dic = {
+        0: [
+          "EXECUTION_TO_BE_DONE",
+          "CENSUS_DATA_APPROVAL_IN_PROGRESS",
+          "CENSUS_DATA_APPROVED",
+          "RESOURCE_ESTIMATION_IN_PROGRESS",
+          "RESOURCE_ESTIMATIONS_APPROVED",
+        ],
+        1: ["EXECUTION_TO_BE_DONE"],
+        2: ["CENSUS_DATA_APPROVAL_IN_PROGRESS", "CENSUS_DATA_APPROVED", "RESOURCE_ESTIMATION_IN_PROGRESS"],
+        3: ["RESOURCE_ESTIMATIONS_APPROVED"],
+      };
+      const url = Digit.Hooks.useQueryParams();
+
+      const tabId = url.tabId || "0"; // Default to '0' if tabId is undefined
+      data.body.PlanConfigurationSearchCriteria.status = dic[String(tabId)];
+      return data;
+    },
+    postProcess: (responseArray, uiConfig) => {
+      return responseArray;
+    },
+  },
 };
