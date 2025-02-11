@@ -1,3 +1,7 @@
+## 0.0.2-dev.11
+* updated stepper component length
+* added maxLength property for numeric field
+
 ## 0.0.2-dev.10
 * added description style prop for the label field
 * updated hamburger styles
