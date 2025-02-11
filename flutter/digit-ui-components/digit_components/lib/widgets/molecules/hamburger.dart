@@ -184,6 +184,8 @@ class _ItemWidgetState extends State<ItemWidget> {
     final theme = Theme.of(context);
     final textTheme = theme.digitTextTheme(context);
 
+    final bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
+
 
 
     Color backgroundColor  = _isSelected
@@ -240,12 +242,15 @@ class _ItemWidgetState extends State<ItemWidget> {
           ),
         ),
         if (_isExpanded && widget.children != null)
-          SideNavWithSearch(
-            type: widget.type,
-            navItems: widget.children!,
-            isSearchEnabled: widget.isSearchEnabled,
-            onChildSelected: _handleChildSelected, // Pass callback to children
-            selectedItem: _selectedChild, // Pass selected item to children
+          Padding(
+            padding: EdgeInsets.only(left: isMobile ? 8 : 16),
+            child: SideNavWithSearch(
+              type: widget.type,
+              navItems: widget.children!,
+              isSearchEnabled: widget.isSearchEnabled,
+              onChildSelected: _handleChildSelected, // Pass callback to children
+              selectedItem: _selectedChild, // Pass selected item to children
+            ),
           ),
       ],
     );

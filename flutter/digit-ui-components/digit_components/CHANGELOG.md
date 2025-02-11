@@ -1,3 +1,14 @@
+## 0.0.2-dev.10
+* added description style prop for the label field
+* updated hamburger styles
+* updated radio button enable sentence prop
+
+## 0.0.2-dev.9
+* fixed table null issue
+
+## 0.0.2-dev.8
+* added property in dropdown to enable or disable sentence casing
+
 ## 0.0.2-dev.7
 * fixed dialog util action button alignment issue
 * fixed language selection card issue
