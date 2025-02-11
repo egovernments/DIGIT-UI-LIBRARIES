@@ -52,6 +52,7 @@
     "dist"
   ],
   "dependencies": {    
+    "react-data-table-component": "7.6.2",
     "@egovernments/digit-ui-components-css": "0.0.2-beta.46",
     "@egovernments/digit-ui-react-components":"1.8.14",
     "@egovernments/digit-ui-libraries": "1.8.8",
@@ -66,7 +67,8 @@
     "react-drag-drop-files": "2.3.10",
     "@cyntler/react-doc-viewer": "1.10.3",
     "react-webcam":"7.2.0",
-    "react-lottie":"1.2.4"
+    "react-lottie":"1.2.4",
+    "styled-components":"5.0.0"
   },
   "browserslist": {
     "production": [

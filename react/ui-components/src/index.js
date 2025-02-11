@@ -101,7 +101,7 @@ import {
   Iframe
 } from "./atoms";
 
-import { FieldComposer, FieldController, Fields, FormComposerV2, Modal, UploadFileComposer, FieldV1, InboxSearchComposer, ResultsTable } from "./hoc";
+import { FieldComposer, FieldController, Fields, FormComposerV2, Modal, UploadFileComposer, FieldV1, InboxSearchComposer, ResultsTable, ResultsDataTable } from "./hoc";
 
 import {
   ApiDropdown,
@@ -262,6 +262,7 @@ export {
   SearchComponent,
   InboxSearchComposer,
   ResultsTable,
+  ResultsDataTable,
   LinkLabel,
   RoundedLabel,
   //Icons
