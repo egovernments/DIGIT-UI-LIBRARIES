@@ -10,24 +10,22 @@ const inboxConfig = () => {
     postProcessResult: true,
     type: "inbox",
     apiDetails: {
-      serviceName: "/inbox/v2/_search",
+      serviceName: "/plan-service/config/_search",
       requestParam: {},
       requestBody: {
-        inbox: {
-          processSearchCriteria: {
-            businessService: ["muster-roll-approval"],
-            moduleName: "muster-roll-service",
-          },
-          moduleSearchCriteria: {},
-        },
+        inbox:{
+          "SearchCriteria":{
+
+          }
+        }
       },
       minParametersForSearchForm: 0,
       minParametersForFilterForm: 0,
       masterName: "commonUiConfig",
-      moduleName: "AttendanceInboxConfig",
+      moduleName: "SampleInboxConfig",
       tableFormJsonPath: "requestBody.inbox",
-      filterFormJsonPath: "requestBody.inbox.moduleSearchCriteria",
-      searchFormJsonPath: "requestBody.inbox.moduleSearchCriteria",
+      filterFormJsonPath: "requestBody.inbox.SearchCriteria",
+      searchFormJsonPath: "requestBody.inbox.SearchCriteria",
     },
     sections: {
       search: {
@@ -222,21 +220,21 @@ const inboxConfig = () => {
                 optionsKey: "name",
               },
             },
-            {
-              label: "ApiDropdown",
-              type: "apidropdown",
-              addDivider: true,
-              isMandatory: false,
-              disable: false,
-              populators: {
-                name: "apidropdown",
-                optionsKey: "code",
-                allowMultiSelect: true,
-                masterName: "commonUiConfig",
-                moduleName: "FacilityMappingConfig",
-                customfn: "getFacilitySearchRequest",
-              },
-            },
+            // {
+            //   label: "ApiDropdown",
+            //   type: "apidropdown",
+            //   addDivider: true,
+            //   isMandatory: false,
+            //   disable: false,
+            //   populators: {
+            //     name: "apidropdown",
+            //     optionsKey: "code",
+            //     allowMultiSelect: true,
+            //     masterName: "commonUiConfig",
+            //     moduleName: "SampleInboxConfig",
+            //     customfn: "getSearchRequest",
+            //   },
+            // },
             // {
             //   label: "Status",
             //   type: "workflowstatesfilter",
@@ -259,28 +257,27 @@ const inboxConfig = () => {
         uiConfig: {
           columns: [
             {
-              label: "Application Number",
+              label: "NAME_OF_MICROPLAN",
               jsonPath: "businessObject.musterRollNumber",
               additionalCustomization: true,
             },
             {
-              label: "Consumer Number",
+              label: "MICROPLAN_STATUS",
               jsonPath:
                 "businessObject.additionalDetails.attendanceRegisterName",
             },
             {
-              label: "Owner",
+              label: "CAMPAIGN_DISEASE",
               jsonPath: "businessObject.additionalDetails.orgName",
             },
             {
-              label: "Status",
+              label: "CAMPAIGN_TYPE",
               jsonPath: "ProcessInstance.assignes[0].name",
               key: "assignee",
             },
             {
-              label: "SLA",
+              label: "DISTIRBUTION_STRATEGY",
               jsonPath: "ProcessInstance.state.state",
-              additionalCustomization: true,
               key: "state",
             },
           ],
