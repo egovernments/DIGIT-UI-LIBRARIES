@@ -11604,46 +11604,48 @@ const [hierarchyData,setHierarchyData]=useState([processHierarchy(preHierarchyDa
 
   }
 
-  const cleanLowerLevels = (boundaryType, codesToRemove, newBoundaryOptions) => {
-    console.log("1111 cleanlowerlevels", boundaryType, codesToRemove);
-    console.log("hellooooo");
+  const recursiveCleanup = (currentBoundaryType, updatedOptions, codesToRemove) => {
+    // debugger;
+    console.log("1111 recursive", currentBoundaryType, updatedOptions, codesToRemove);
+    const childType = hierarchy.find(item => item.parentBoundaryType === currentBoundaryType)?.boundaryType;
+    if (!childType || !updatedOptions[childType]) return;
 
-    let updatedOptions = { ...newBoundaryOptions }; // Work on a copy
-    console.log("1111 boundary options here before", updatedOptions);
+    // updatedOptions.[childType] = { ...updatedOptions, [childType]: { ...updatedOptions[childType] } };
 
+    Object.keys(updatedOptions[childType]).forEach(code => {
+        console.log("1111 boundary options here", updatedOptions[childType], code, childType);
 
-    const recursiveCleanup = (currentBoundaryType) => {
-        const childType = hierarchy.find(item => item.parentBoundaryType === currentBoundaryType)?.boundaryType;
-        if (!childType || !updatedOptions[childType]) return;
-
-        updatedOptions = { ...updatedOptions, [childType]: { ...updatedOptions[childType] } };
-
-        Object.keys(updatedOptions[childType]).forEach(code => {
-            console.log("1111 boundary options here", updatedOptions[childType], code, childType);
-
-            const shouldDelete = updatedOptions[childType][code].some(child => {
-                console.log("Checking child:", child, codesToRemove, child.path);
-                const hasMatch = codesToRemove.some(code => child.path.includes(code));
-                console.log("1111 Matching Code:", hasMatch, codesToRemove, currentBoundaryType);
-                return hasMatch;
-            });
-
-            console.log("1111 delete", shouldDelete);
-
-            if (shouldDelete) {
-                console.log("1111 shouldDelete", shouldDelete, childType, code, updatedOptions[childType][code]);
-
-                delete updatedOptions[childType][code]; // Safe deletion
-            }
+        const shouldDelete = updatedOptions[childType][code].some(child => {
+            console.log("Checking child:", child, codesToRemove, child.path);
+            const hasMatch = codesToRemove.some(code => child.path.includes(code));
+            console.log("1111 Matching Code:", hasMatch, codesToRemove, currentBoundaryType);
+            return hasMatch;
         });
 
-        console.log("1111 boundary options here1", updatedOptions, childType, codesToRemove);
+        console.log("1111 delete", shouldDelete);
 
-        // Recursively clean next level
-        recursiveCleanup(childType);
-    };
+        if (shouldDelete) {
+            console.log("1111 shouldDelete", shouldDelete, childType, code, updatedOptions[childType][code]);
+            console.log("1111 hello before delete", updatedOptions[childType][code],childType,code);
+            delete updatedOptions[childType][code]; // Safe deletion
+            console.log('1111 hello after delete', updatedOptions[childType],childType,code);
+        }
+    });
 
-    recursiveCleanup(boundaryType);
+    console.log("1111 boundary options here1", updatedOptions, childType, codesToRemove);
+
+    // Recursively clean next level
+    recursiveCleanup(childType, updatedOptions, codesToRemove);
+};
+
+  const cleanLowerLevels = (boundaryType, codesToRemove, updatedOptions) => {
+    if(codesToRemove.length==0) return updatedOptions;
+
+    console.log("1111 cleanlowerlevels", boundaryType, codesToRemove);
+    console.log("hellooooo");
+    console.log("1111 boundary options here before", updatedOptions);
+
+    recursiveCleanup(boundaryType, updatedOptions, codesToRemove);
     console.log("1111 boundary options here updated", updatedOptions);
 
     return updatedOptions; // Return the final updated state
@@ -11655,9 +11657,8 @@ const [hierarchyData,setHierarchyData]=useState([processHierarchy(preHierarchyDa
 
 
 const boundaryOptionsUpdate = (boundaryType, values) => {
-    // debugger;
-    console.log("1111 values", values);
-
+    console.log("1111 boundaryOptionsUpdate:", boundaryType, values);
+    
     if (!Array.isArray(values)) return;
 
     // Extract only the selected values, ignoring SyntheticBaseEvent
@@ -11671,41 +11672,44 @@ const boundaryOptionsUpdate = (boundaryType, values) => {
 
     if (!childBoundaryType) return; // Exit if no child boundaryType exists
     const removedCodes = [];
-    
-    setBoundaryOptions((prev) => {
-        const updatedOptions = { ...prev };
 
-        // Get the previously stored values
-        const previousValues = updatedOptions[childBoundaryType] || {};
-
-        // Create a set of currently selected codes for quick lookup
-        const selectedCodes = new Set(selectedValues.map(v => v.code));
-
-        // Store removed codes
-        // debugger
-        
-
-        // Remove unselected values
+    // Process removed codes without updating boundaryOptions yet
+    const processRemovedCodes = (previousValues, selectedCodes) => {
         Object.keys(previousValues).forEach(code => {
             if (!selectedCodes.has(code)) {
                 removedCodes.push(code); // Store for further removal in hierarchy
+                console.log("1111 Removed code:", code);
             }
         });
+    };
 
-        return updatedOptions;
-    });
+    // Call processRemovedCodes to store removed codes
+    const previousValues = boundaryOptions[childBoundaryType] || {};
+    const selectedCodes = new Set(selectedValues.map(v => v.code));
+    processRemovedCodes(previousValues, selectedCodes);
+
+    console.log("Removed codes:", removedCodes);
 
     // Call the new cleanLowerLevels function
+    console.log("Calling cleanLowerLevels with:", boundaryType, removedCodes);
     debugger;
-    let newBoundaryOptions=cleanLowerLevels(boundaryType, removedCodes, boundaryOptions);
+    const updatedOptions = JSON.parse(JSON.stringify(boundaryOptions));
+    let newBoundaryOptions = cleanLowerLevels(boundaryType, removedCodes, updatedOptions);
 
-    // Process newly selected values
+    console.log("1111 New boundaryOptions:", newBoundaryOptions);
+
+    // Process newly selected values and update boundaryOptions accordingly
+    debugger;
     setBoundaryOptions((prev) => {
-        const updatedOptions = { ...newBoundaryOptions };
+        console.log("Previous boundaryOptions:", prev);
+        let updatedOptions = { ...newBoundaryOptions };
 
         selectedValues.forEach((value) => {
+            console.log("Processing newly selected value:", value);
             if (boundaryType !== props.lowestLevel) {
                 const children = findNodeByPath(hierarchyData, value?.path);
+
+                console.log("Children:", children);
 
                 updatedOptions[childBoundaryType] = updatedOptions[childBoundaryType] || {};
                 updatedOptions[childBoundaryType][value?.code] = updatedOptions[childBoundaryType][value?.code] || [];
@@ -11714,7 +11718,11 @@ const boundaryOptionsUpdate = (boundaryType, values) => {
                     updatedOptions[childBoundaryType][value?.code].map(child => child.code)
                 );
 
+                console.log("Existing entries:", existingEntries);
+
                 const uniqueChildren = children.filter(child => !existingEntries.has(child.code));
+
+                console.log("Unique children:", uniqueChildren);
 
                 updatedOptions[childBoundaryType][value?.code] = [
                     ...updatedOptions[childBoundaryType][value?.code],
@@ -11725,6 +11733,8 @@ const boundaryOptionsUpdate = (boundaryType, values) => {
         return updatedOptions;
     });
 };
+
+/******  8630c8d4-3dda-4391-b10b-be9e58fc3a17  *******/
 
 
 
