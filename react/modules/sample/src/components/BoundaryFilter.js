@@ -11604,11 +11604,13 @@ const [hierarchyData,setHierarchyData]=useState([processHierarchy(preHierarchyDa
 
   }
 
-  const cleanLowerLevels = (boundaryType, codesToRemove, boundaryOptions) => {
+  const cleanLowerLevels = (boundaryType, codesToRemove, newBoundaryOptions) => {
     console.log("1111 cleanlowerlevels", boundaryType, codesToRemove);
     console.log("hellooooo");
 
-    let updatedOptions = { ...boundaryOptions }; // Work on a copy
+    let updatedOptions = { ...newBoundaryOptions }; // Work on a copy
+    console.log("1111 boundary options here before", updatedOptions);
+
 
     const recursiveCleanup = (currentBoundaryType) => {
         const childType = hierarchy.find(item => item.parentBoundaryType === currentBoundaryType)?.boundaryType;
@@ -11642,6 +11644,7 @@ const [hierarchyData,setHierarchyData]=useState([processHierarchy(preHierarchyDa
     };
 
     recursiveCleanup(boundaryType);
+    console.log("1111 boundary options here updated", updatedOptions);
 
     return updatedOptions; // Return the final updated state
 };
@@ -11694,11 +11697,11 @@ const boundaryOptionsUpdate = (boundaryType, values) => {
 
     // Call the new cleanLowerLevels function
     debugger;
-    let newBoundaryOptions=cleanLowerLevels(boundaryType, removedCodes, setBoundaryOptions);
+    let newBoundaryOptions=cleanLowerLevels(boundaryType, removedCodes, boundaryOptions);
 
     // Process newly selected values
     setBoundaryOptions((prev) => {
-        const updatedOptions = { ...prev };
+        const updatedOptions = { ...newBoundaryOptions };
 
         selectedValues.forEach((value) => {
             if (boundaryType !== props.lowestLevel) {
