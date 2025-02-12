@@ -1,3 +1,6 @@
+## 0.0.2-dev.12
+* fixed hamburger menu not getting updated issue
+
 ## 0.0.2-dev.11
 * updated stepper component length
 * added maxLength property for numeric field
