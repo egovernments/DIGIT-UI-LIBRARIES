@@ -275,39 +275,40 @@ const InboxSearchComposer = ({configs,headerLabel,additionalConfig,onFormValueCh
                 </div>
               </MediaQuery>
             )}
-            {/* {   
-                    configs?.sections?.searchResult?.show &&
-                        <div className={`digit-results-table-wrapper ${configs?.sections?.searchResult?.uiConfig?.resultsWrapperClassName}`} style={data?.[configs?.sections?.searchResult?.uiConfig?.resultsJsonPath]?.length > 0 ? (!(isLoading || isFetching) ?{ overflowX: "auto" }: {}) : {  }} >
-                            <MediaQuery minWidth={426}>
-                            <ResultsTable 
-                                config={configs?.sections?.searchResult?.uiConfig} 
-                                data={data} 
-                                isLoading={isLoading} 
-                                isFetching={isFetching} 
-                                fullConfig={configs}
-                                additionalConfig={additionalConfig}
-                                />
-                            </MediaQuery>
-                            <MediaQuery maxWidth={426}>
-                            <MobileSearchResults
-                              config={configs?.sections?.searchResult?.uiConfig} 
-                              data={data} 
-                              isLoading={isLoading} 
-                              isFetching={isFetching} 
-                              fullConfig={configs}/>
-                            </MediaQuery>
-                        </div>
-                } */}
-            {
-              <ResultsDataTable
-                config={configs?.sections?.searchResult?.uiConfig}
-                data={data}
-                isLoading={isLoading}
-                isFetching={isFetching}
-                fullConfig={configs}
-                additionalConfig={additionalConfig}
-              ></ResultsDataTable>
-            }
+            {configs?.sections?.searchResult?.show && (
+              <div
+                className={`digit-results-table-wrapper ${configs?.sections?.searchResult?.uiConfig?.resultsWrapperClassName}`}
+                style={
+                  data?.[
+                    configs?.sections?.searchResult?.uiConfig?.resultsJsonPath
+                  ]?.length > 0
+                    ? !(isLoading || isFetching)
+                      ? { overflowX: "auto" }
+                      : {}
+                    : {}
+                }
+              >
+                <MediaQuery minWidth={426}>
+                  <ResultsDataTable
+                    config={configs?.sections?.searchResult?.uiConfig}
+                    data={data}
+                    isLoading={isLoading}
+                    isFetching={isFetching}
+                    fullConfig={configs}
+                    additionalConfig={additionalConfig}
+                  ></ResultsDataTable>
+                </MediaQuery>
+                <MediaQuery maxWidth={426}>
+                  <MobileSearchResults
+                    config={configs?.sections?.searchResult?.uiConfig}
+                    data={data}
+                    isLoading={isLoading}
+                    isFetching={isFetching}
+                    fullConfig={configs}
+                  />
+                </MediaQuery>
+              </div>
+            )}
             {popup && (
               <PopUp>
                 {type === "FILTER" && (
