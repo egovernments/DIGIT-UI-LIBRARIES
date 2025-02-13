@@ -124,9 +124,6 @@
                     @extend .light-paper-primary;
 
                     .digit-search-field-wrapper.search.custom-both-clear-search {
-                        .digit-search-button-wrapper.search {
-                            grid-column: initial;
-                        }
 
                         .digit-search-button-wrapper {
                             .link-label {

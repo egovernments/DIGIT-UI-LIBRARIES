@@ -10,7 +10,7 @@ const inboxConfig = () => {
     postProcessResult: true,
     type: "inbox",
     apiDetails: {
-      serviceName: "/plan-service/config/_search",
+      serviceName: "/mdms-v2/v2/_search",
       requestParam: {},
       requestBody: {
         inbox:{
@@ -200,7 +200,44 @@ const inboxConfig = () => {
               },
             },
             {
-              label: "Dropdown",
+              label: "Filter field 1",
+              type: "text",
+              isMandatory: false,
+              disable: false,
+              preProcess: {
+                convertStringToRegEx: ["populators.validation.pattern"],
+              },
+              populators: {
+                name: "textfilter",
+                error: "COMMON_PATTERN_ERR_MSG_MUSTER_ID",
+                validation: {
+                  pattern: "MR\\/[0-9]+-[0-9]+\\/[0-9]+\\/[0-9]+",
+                  minlength: 2,
+                },
+              },
+            },
+            {
+              label: "Filter field 2",
+              type: "date",
+              isMandatory: false,
+              disable: false,
+              populators: {
+                name: "datefilter",
+                error: "PROJECT_PATTERN_ERR_MSG",
+              },
+            },
+            {
+              label: "Filter field 3",
+              type: "geolocation",
+              isMandatory: false,
+              disable: false,
+              populators: {
+                name: "geolocationfilter",
+                error: "PROJECT_PATTERN_ERR_MSG",
+              },
+            },
+            {
+              label: "Filter field 4",
               type: "dropdown",
               isMandatory: false,
               addDivider: true,
@@ -218,6 +255,33 @@ const inboxConfig = () => {
                   },
                 ],
                 optionsKey: "name",
+              },
+            },
+            {
+              label: "Filter field 5",
+              type: "multiselectdropdown",
+              isMandatory: false,
+              disable: false,
+              populators: {
+                isDropdownWithChip:true,
+                name: "multiselectdropdownfilter",
+                optionsKey: "name",
+                error: "Error!",
+                required: false,
+                options: [
+                  {
+                    code: "Option1",
+                    name: "Option 1",
+                  },
+                  {
+                    code: "Option2",
+                    name: "Option 2",
+                  },
+                  {
+                    code: "Option3",
+                    name: "Option 3",
+                  },
+                ],
               },
             },
             // {
@@ -257,28 +321,25 @@ const inboxConfig = () => {
         uiConfig: {
           columns: [
             {
-              label: "NAME_OF_MICROPLAN",
-              jsonPath: "businessObject.musterRollNumber",
+              label: "Facility name",
+              jsonPath: "additionalDetails.facilityName",
               additionalCustomization: true,
             },
             {
-              label: "MICROPLAN_STATUS",
-              jsonPath:
-                "businessObject.additionalDetails.attendanceRegisterName",
+              label: "Facility id",
+              jsonPath:"additionalDetails.facilityId",
             },
             {
-              label: "CAMPAIGN_DISEASE",
-              jsonPath: "businessObject.additionalDetails.orgName",
+              label: "Hierarchy type",
+              jsonPath: "hierarchyType",
             },
             {
-              label: "CAMPAIGN_TYPE",
-              jsonPath: "ProcessInstance.assignes[0].name",
-              key: "assignee",
+              label: "Status",
+              jsonPath: "status",
             },
             {
-              label: "DISTIRBUTION_STRATEGY",
-              jsonPath: "ProcessInstance.state.state",
-              key: "state",
+              label: "boundaryCode",
+              jsonPath: "boundaryCode",
             },
           ],
           enableGlobalSearch: true,
