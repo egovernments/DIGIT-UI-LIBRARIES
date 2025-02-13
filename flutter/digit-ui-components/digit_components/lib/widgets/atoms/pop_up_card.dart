@@ -71,6 +71,8 @@ class Popup extends StatefulWidget {
 
   final DigitPopupTheme? popupTheme;
 
+  final EdgeInsets? contentPadding;
+
   /// Callback when the user taps outside the container.
   final VoidCallback? onOutsideTap;
 
@@ -90,6 +92,7 @@ class Popup extends StatefulWidget {
     this.actionSpacing,
     this.actionAlignment,
     this.popupTheme,
+    this.contentPadding,
     this.onOutsideTap,
   });
 
@@ -348,7 +351,7 @@ class _PopupState extends State<Popup> {
                 .entries
                 .map(
                   (widgets) => Padding(
-                padding: EdgeInsets.only(
+                padding: widget.contentPadding ?? EdgeInsets.only(
                   bottom:
                   widgets.key != widget.additionalWidgets!.length - 1
                       ? isMobile
