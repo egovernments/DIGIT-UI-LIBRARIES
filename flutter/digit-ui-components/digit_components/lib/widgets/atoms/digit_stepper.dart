@@ -158,7 +158,7 @@ class _HorizontalStepperItemState extends State<HorizontalStepperItem> {
 
 
     final bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
-    double stepWidth = ((MediaQuery.of(context).size.width - widget.totalLength * (isMobile ? 24: 32)) / (widget.totalLength*2))-(isMobile ? 32 : 48);
+    double stepWidth = (((MediaQuery.of(context).size.width-(isMobile ? 32 : 48)) - widget.totalLength * (isMobile ? 24: 32)) / (widget.totalLength*2));
 
     final Widget dot = StepperDot(
       isHover: isHover,
