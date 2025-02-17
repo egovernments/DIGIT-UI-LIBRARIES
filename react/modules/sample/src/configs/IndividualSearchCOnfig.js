@@ -6,7 +6,7 @@ const defaultSearchValues = {
 export const searchconfig = () => 
 {
   return {
-    label: "Individual Search",
+    label: "MDMS Search",
     type: "search",
     apiDetails: {
       serviceName: "/egov-mdms-service/v2/_search",
@@ -73,13 +73,13 @@ export const searchconfig = () =>
         uiConfig: {
           columns: [
             {
-              label: "IndividualID",
+              label: "Id",
               jsonPath: "uniqueIdentifier",
-              additionalCustomization:true
+              // additionalCustomization:true
             },
             
             {
-              label: "Name",
+              label: "Popup",
               jsonPath: "data.displayName",
               additionalCustomization:true              
             },
@@ -87,10 +87,16 @@ export const searchconfig = () =>
               label: "Address",
               jsonPath: "data.path",
             },
+            // {
+            //   label: "Edit",
+            //   jsonPath: "data.paths",
+            //   additionalCustomization:true
+            // },
           ],
-
           enableColumnSort: true,
-          resultsJsonPath: "mdms"
+          resultsJsonPath: "mdms",
+          editableRows:true,//this should automatically add a button at the end for editing rows
+          editableRowsList:["Id","Address"],//this can store the labels of rows that are editable
         },
         show: true,
       },

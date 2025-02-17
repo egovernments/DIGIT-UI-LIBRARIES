@@ -1,7 +1,7 @@
 import { Header } from '@egovernments/digit-ui-react-components';
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { InboxSearchComposer, PopUp } from '@egovernments/digit-ui-components';
+import { Button, InboxSearchComposer, PopUp } from '@egovernments/digit-ui-components';
 import { searchconfig } from '../../configs/IndividualSearchCOnfig';
 
 const defaultSearchValues = {
@@ -13,7 +13,7 @@ const defaultSearchValues = {
 const IndividualSearch = () => {
   const { t } = useTranslation();
   const [defaultValues, setDefaultValues] = useState(defaultSearchValues); // State to hold default values for search fields
-  const indConfigs = searchconfig();
+  const [searchConfig,setSearchConfig] = useState(searchconfig());
   const [counter, updateCounter] = useState(0);
   const [showPopup, setShowPopup] = useState(false);
 
@@ -22,6 +22,13 @@ const IndividualSearch = () => {
     setDefaultValues(defaultSearchValues);
   }, []);
 
+  
+  const handleButtonClick = () => {
+    console.log("clicked")
+    setSearchConfig(prev => {
+      return {...prev}
+    })
+  }
   const customizers = {
     preProcess: (data) => {
       delete data.params.tenantId;
@@ -52,12 +59,22 @@ const IndividualSearch = () => {
               {`Update State ${value}`} 
             </button>
           );
-        case 'Name':
+        case 'Popup':
           return (
             <button onClick={() => setShowPopup(true)}>
               Show Popups
             </button>
           );
+        case 'Edit':
+          return(
+            <Button
+              variation="primary"
+              label={"Edit Row"}
+              type="button"
+              icon="Edit"
+              onClick={handleButtonClick}
+            />
+          )
         default:
           return t('ES_COMMON_NA');
       }
@@ -67,11 +84,11 @@ const IndividualSearch = () => {
   return (
     <React.Fragment>
       <div>{counter}</div>
-      <Header styles={{ fontSize: '32px' }}>{t(indConfigs?.label)}</Header>
+      <Header styles={{ fontSize: '32px' }}>{t(searchConfig?.label)}</Header>
       <div className="digit-inbox-search-wrapper">
         {/* Pass defaultValues as props to InboxSearchComposer */}
         <InboxSearchComposer
-          configs={indConfigs}
+          configs={searchConfig}
           defaultValues={defaultValues}
           customizers={customizers}
         ></InboxSearchComposer>

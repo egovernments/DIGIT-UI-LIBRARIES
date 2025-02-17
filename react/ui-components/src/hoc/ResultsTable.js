@@ -8,6 +8,7 @@ import { InboxContext } from './InboxSearchComposerContext';
 import { Loader } from '../atoms';
 import NoResultsFound from '../atoms/NoResultsFound';
 import { CustomSVG } from '../atoms';
+import {Button} from '../atoms';
 
 const ResultsTable = ({ tableContainerClass, config,data,isLoading,isFetching,fullConfig,revalidate,type,activeLink,browserSession,additionalConfig }) => {
     const {apiDetails} = fullConfig
@@ -56,7 +57,7 @@ const ResultsTable = ({ tableContainerClass, config,data,isLoading,isFetching,fu
 
     const tableColumns = useMemo(() => {
         //test if accessor can take jsonPath value only and then check sort and global search work properly
-        return config?.columns?.map(column => {
+        const columns = config?.columns?.map(column => {
             if(column?.svg) {
                 // const icon = Digit.ComponentRegistryService.getComponent(column.svg);
                 return {
@@ -84,10 +85,38 @@ const ResultsTable = ({ tableContainerClass, config,data,isLoading,isFetching,fu
                 headerAlign: column?.headerAlign,
                 disableSortBy:column?.disableSortBy ? column?.disableSortBy :false,
                 Cell: ({ value, col, row }) => {
+                    if(config?.editableRowsList?.length > 0 && config.editableRowsList.includes(column?.label)){
+                        return <TextInput
+                        // style={{ marginBottom: "0px" }}
+                        name={column.label}
+                        value={String(value ? column.translate? t(Digit.Utils.locale.getTransformedLocale(column.prefix?`${column.prefix}${value}`:value)) : value : t("ES_COMMON_NA"))}
+                      />
+                    }
                     return String(value ? column.translate? t(Digit.Utils.locale.getTransformedLocale(column.prefix?`${column.prefix}${value}`:value)) : value : t("ES_COMMON_NA"));
                 }
             }
         })
+        //here check whether columns are editable or not if they are editable 
+        
+        if(config?.editableRows){
+            columns.push({
+                Header: "Edit",
+                // accessor:column.jsonPath,
+                Cell: ({ value, col, row }) => {
+                    return (<Button
+                    variation="primary"
+                    label={"Edit Row"}
+                    type="button"
+                    icon="Edit"
+                    onClick={()=>{console.log(
+                        "button clicked"
+                    )}}
+                  />)
+                }
+            })
+        }
+
+        return columns;
     }, [config, searchResult])
 
     const defaultValuesFromSession = config?.customDefaultPagination ? config?.customDefaultPagination : (session?.tableForm ? {...session?.tableForm} : {limit:10,offset:0})

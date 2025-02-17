@@ -17,6 +17,14 @@ import { useTranslation } from "react-i18next";
 
 
 const InboxSearchComposer = ({configs,headerLabel,additionalConfig,onFormValueChange=()=>{},showTab,tabData,onTabChange,customizers={}}) => {
+
+    const renderCount = useRef(1); // Initialize render count
+
+    useEffect(() => {
+        console.log(`Component rendered ${renderCount.current} times`);
+        renderCount.current += 1; // Increment render count after each render
+    });
+
     const hasRun = useRef(false);
    
     const { t } = useTranslation();
