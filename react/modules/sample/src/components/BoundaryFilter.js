@@ -11538,6 +11538,7 @@ const [hierarchyData,setHierarchyData]=useState([processHierarchy(preHierarchyDa
 
 
   const [boundaryOptions, setBoundaryOptions] = useState({});
+  const [selectedValues,setSelectedValues]=useState({});
 
   const reqCriteria = {
     url: `/boundary-service/boundary-hierarchy-definition/_search`,
@@ -11669,11 +11670,10 @@ const boundaryOptionsUpdate = async (boundaryType, values) => {
     console.log("1111 boundaryOptionsUpdate:", boundaryType, values);
     
     if (!Array.isArray(values)) return;
-
     // Extract only the selected values, ignoring SyntheticBaseEvent
-    const selectedValues = values.map(arg => arg[1]) || [];
+    const selectedOptions = values.map(arg => arg[1]) || [];
 
-    console.log("boundaryOptionsUpdate:", boundaryType, selectedValues);
+    console.log("boundaryOptionsUpdate:", boundaryType, selectedOptions);
 
     const childBoundaryType = hierarchy.find(
         (item) => item.parentBoundaryType === boundaryType
@@ -11692,7 +11692,7 @@ const boundaryOptionsUpdate = async (boundaryType, values) => {
     };
 
     const previousValues = boundaryOptions[childBoundaryType] || {};
-    const selectedCodes = new Set(selectedValues.map(v => v.code));
+    const selectedCodes = new Set(selectedOptions.map(v => v.code));
     processRemovedCodes(previousValues, selectedCodes);
 
     console.log("Removed codes:", removedCodes);
@@ -11716,8 +11716,17 @@ const boundaryOptionsUpdate = async (boundaryType, values) => {
         console.log("Previous boundaryOptions:", prev);
         let updatedOptions = { ...newBoundaryOptions };
 
-        selectedValues.forEach((value) => {
-            console.log("Processing newly selected value:", value);
+        selectedOptions.forEach((value) => {
+            setSelectedValues((prev) => {
+                let updatedValues = { ...prev };
+                updatedValues[boundaryType] = updatedValues?.boundaryType || {};
+                updatedValues[boundaryType][value?.parent]=updatedValues[boundaryType][value?.parent] || [];
+                updatedValues[boundaryType][value?.parent].push(value?.code);
+
+                return updatedValues
+            })
+            console.log("1111 SelectedValues",selectedValues);
+            
             if (boundaryType !== props.lowestLevel) {
                 const children = findNodeByPath(hierarchyData, value?.path);
 
@@ -11731,6 +11740,7 @@ const boundaryOptionsUpdate = async (boundaryType, values) => {
                 );
 
                 console.log("Existing entries:", existingEntries);
+                debugger;
 
                 const uniqueChildren = children.filter(child => !existingEntries.has(child.code));
 
@@ -11788,11 +11798,24 @@ const boundaryOptionsUpdate = async (boundaryType, values) => {
     if(!hierarchyData || !hierarchy) return;
     setBoundaryOptions((prev)=>({
       ...prev,
-      [rootBoundaryType]:[{path:hierarchyData[0]?.path,code:hierarchyData[0]?.code,id:hierarchyData[0]?.id}]
+      [rootBoundaryType]:[{path:hierarchyData[0]?.path,code:hierarchyData[0]?.code,id:hierarchyData[0]?.id,parent:null}]
     }
     ))
     hierarchy.filter((item1)=>item1?.boundaryType!=rootBoundaryType)?.forEach((item)=>{
         setBoundaryOptions((prev)=>({
+            ...prev,
+            [item?.boundaryType]:{}
+        }))
+    })
+  },[hierarchyData,hierarchy])
+
+  useEffect(()=>{
+    // debugger
+    // console.log("1111 useffect")
+    if(!hierarchyData || !hierarchy) return;
+   
+    hierarchy.forEach((item)=>{
+        setSelectedValues((prev)=>({
             ...prev,
             [item?.boundaryType]:{}
         }))
@@ -11846,42 +11869,56 @@ const boundaryOptionsUpdate = async (boundaryType, values) => {
           </div>
           </LabelFieldPair>)
           : (() => { 
-          const boundaries = boundaryOptions[item?.boundaryType];
-  
-          if (boundaries) {
-            const formattedOptions = Object.keys(boundaries).map((parentKey) => ({
-              code: parentKey,
-              name: parentKey,
-              options: boundaries[parentKey].map((child) => ({
-                code: child.code,
-                name: child.code, // Using child's code as name as requested
-                path:child.path
-              })),
-            }));
-  
-            return (
-            <LabelFieldPair>
-                <CardLabel>
-                    {item?.boundaryType}
-                    
-                  </CardLabel>
-                <div style={{width:'20rem'}} >
-              <MultiSelectDropdown
-                key={item?.boundaryType}
-                clearLabel="Clear All"
-                options={formattedOptions}
-                optionsKey={"name"}
-                t={t}
-                onSelect={(values) => {
-                  boundaryOptionsUpdate(item?.boundaryType, values);
-                }}
-                type="multiselectdropdown"
-                variant="nestedmultiselect"
-              />
-              </div>
-            </LabelFieldPair>
-            );
-          }
+            const boundaries = boundaryOptions[item?.boundaryType];
+
+            if (boundaries) {
+              const formattedOptions = Object.keys(boundaries).map((parentKey) => ({
+                code: parentKey,
+                name: parentKey,
+                options: boundaries[parentKey].map((child) => ({
+                  code: child.code,
+                  name: child.code,
+                  path: child.path,
+                  parent: parentKey
+                })),
+              }));
+            
+              const boundariesSelected = selectedValues[item?.boundaryType];
+              debugger;
+              
+              const formattedSelectedValues =Object.keys(boundariesSelected).map((parentKey) => ({
+                options: boundariesSelected[parentKey].map((child) => ({
+                  code: child.code,
+                  name: child.code,
+                  path: child.path,
+                  parent: parentKey
+                })),
+              }));
+            
+            
+              return (
+                <LabelFieldPair>
+                  <CardLabel>{item?.boundaryType}</CardLabel>
+                  <div style={{ width: '20rem' }}>
+                    <MultiSelectDropdown
+                      key={item?.boundaryType}
+                      clearLabel="Clear All"
+                      options={formattedOptions}
+                      selected={formattedSelectedValues}
+                      optionsKey={"name"}
+                      t={t}
+                   
+                      onSelect={(values) => {
+                        boundaryOptionsUpdate(item?.boundaryType, values);
+                      }}
+                      type="multiselectdropdown"
+                      variant="nestedmultiselect"
+                    />
+                  </div>
+                </LabelFieldPair>
+              );
+            }
+            
   
           return null; // Avoids rendering errors when `boundaries` is undefined
         })();
