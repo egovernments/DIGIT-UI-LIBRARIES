@@ -124,9 +124,6 @@
                     @extend .light-paper-primary;
 
                     .digit-search-field-wrapper.search.custom-both-clear-search {
-                        .digit-search-button-wrapper.search {
-                            grid-column: initial;
-                        }
 
                         .digit-search-button-wrapper {
                             .link-label {
@@ -235,7 +232,6 @@
 
                 &.links,
                 &.search{
-                    align-items: flex-start;
                     background-color: theme(digitv2.lightTheme.paper-primary);
                     box-shadow: 0rem 0.063rem 0.125rem 0rem #00000029;
                     border-radius: theme(digitv2.spacers.spacer1);
@@ -243,6 +239,10 @@
                     justify-content: flex-start;
                     display: flex;
                     align-items: center;
+                }
+
+                &.links{
+                    align-items: flex-start;
                 }
 
                 &.search {
@@ -270,7 +270,7 @@
                             }
 
                             &.inbox {
-                                grid-column: 3 / span 2;
+                                grid-column: 3 / -1;
 
                                 &.filter {
                                     button {
@@ -280,7 +280,7 @@
                             }
 
                             &.search {
-                                grid-column: 3 / span 2;
+                                grid-column: 3 / -1;
                             }
                         }
                     }
@@ -365,18 +365,14 @@
         display: grid;
         row-gap: theme(digitv2.spacers.spacer6);
         column-gap: theme(digitv2.spacers.spacer4);
+        grid-template-columns: repeat(3, 1fr);
 
         &.inbox {
-            grid-template-columns: repeat(3, 1fr);
-
             &.filter {
                 display: flex;
                 flex-direction: column;
             }
         }
 
-        &.search {
-            grid-template-columns: repeat(4, 1fr);
-        }
     }
 }
