@@ -11692,7 +11692,7 @@ const boundaryOptionsUpdate = async (boundaryType, values) => {
         (item) => item.parentBoundaryType === boundaryType
     )?.boundaryType;
 
-    if (!childBoundaryType) return; // Exit if no child boundaryType exists
+    // if (!childBoundaryType) return;  Exit if no child boundaryType exists
 
     const removedCodes = [];
 
