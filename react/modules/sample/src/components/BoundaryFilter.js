@@ -11628,7 +11628,7 @@ const [hierarchyData,setHierarchyData]=useState([processHierarchy(preHierarchyDa
 
 
         if (shouldDelete) {
-            debugger;
+            // debugger;
             console.log("1111 hello should Delete", shouldDelete, updatedOptions, childType, code, updatedOptions[childType][code]);
             console.log("1111 hello before delete", updatedOptions[childType],childType,code);
             delete updatedOptions[childType][code];
@@ -11677,25 +11677,18 @@ const cleanLowerLevelsForSelectedValues = (boundaryType, removedCodes, updatedOp
 
 
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-
 const boundaryOptionsUpdate = async (boundaryType, values) => {
-    debugger;
     console.log("1111 boundaryOptionsUpdate:", boundaryType, values);
-
     if (!Array.isArray(values)) return;
-    // Extract only the selected values, ignoring SyntheticBaseEvent
-    const selectedOptions = values.map(arg => arg[1]) || [];
 
+    const selectedOptions = values.map(arg => arg[1]) || [];
     console.log("boundaryOptionsUpdate:", boundaryType, selectedOptions);
 
     const childBoundaryType = hierarchy.find(
         (item) => item.parentBoundaryType === boundaryType
     )?.boundaryType;
 
-    // if (!childBoundaryType) return;  Exit if no child boundaryType exists
-
     const removedCodes = [];
-
     const processRemovedCodes = (previousValues, selectedCodes) => {
         Object.keys(previousValues).forEach(code => {
             if (!selectedCodes.has(code)) {
@@ -11708,52 +11701,47 @@ const boundaryOptionsUpdate = async (boundaryType, values) => {
     const previousValues = boundaryOptions[childBoundaryType] || {};
     const selectedCodes = new Set(selectedOptions.map(v => v.code));
     processRemovedCodes(previousValues, selectedCodes);
-
     console.log("Removed codes:", removedCodes);
-
-    console.log("Calling cleanLowerLevels with:", boundaryType, removedCodes);
 
     const updatedOptions = boundaryOptions;
     let newBoundaryOptions = {};
-    let newSelectedOptions={}
+    let newSelectedOptions = {};
 
     if (removedCodes.length > 0) {
         newBoundaryOptions = cleanLowerLevels(boundaryType, removedCodes, { ...boundaryOptions });
-        newSelectedOptions=cleanLowerLevelsForSelectedValues(boundaryType,removedCodes,[...selectedValues])
-
+        newSelectedOptions = cleanLowerLevelsForSelectedValues(boundaryType, removedCodes, [...selectedValues]);
     } else {
-        // Delay function here
-        await delay(200); // Add your desired delay here
+        await delay(200);
         newBoundaryOptions = updatedOptions;
-        newSelectedOptions=selectedValues;
+        newSelectedOptions = selectedValues;
     }
 
-    console.log("1111 NewboundaryOptions:", newBoundaryOptions);
+    console.log("1111 NewboundaryOptions:", newBoundaryOptions, selectedValues);
+
+    // **Accumulate changes before updating state**
+    let updatedSelectedValues = [...newSelectedOptions];
 
     setBoundaryOptions((prev) => {
         console.log("Previous boundaryOptions:", prev);
         let updatedOptions = { ...newBoundaryOptions };
 
+        // **Memoizing the children lookups**
+        const childrenMap = new Map();
+
         selectedOptions.forEach((value) => {
-            setSelectedValues((prevValues) => {
-
-                let updatedValues = [...newSelectedOptions];
-                console.log("updated values",updatedValues);
-                const existingCodes = new Set(updatedValues.map(v => v.code));  
-                if (!existingCodes.has(value.code)) {
-                    updatedValues = [
-                        ...updatedValues,
-                        value
-                    ];
-                }
-                return updatedValues;
-            });
+            console.log("Processing value:", value);
             
-
-            console.log("1111 SelectedValues", selectedValues);
+            // **Update selected values locally**
+            const existingCodes = new Set(updatedSelectedValues.map(v => v.code));
+            if (!existingCodes.has(value.code)) {
+                updatedSelectedValues.push(value);
+            }
 
             if (boundaryType !== props.lowestLevel) {
-                const children = findNodeByPath(hierarchyData, value?.path);
+                if (!childrenMap.has(value?.path)) {
+                    childrenMap.set(value?.path, findNodeByPath(hierarchyData, value?.path));
+                }
+                const children = childrenMap.get(value?.path);
                 console.log("Children:", children);
 
                 updatedOptions[childBoundaryType] = updatedOptions[childBoundaryType] || {};
@@ -11764,7 +11752,6 @@ const boundaryOptionsUpdate = async (boundaryType, values) => {
                 );
 
                 console.log("Existing entries:", existingEntries);
-                debugger;
 
                 const uniqueChildren = children.filter(child => !existingEntries.has(child.code));
                 console.log("Unique children:", uniqueChildren);
@@ -11778,7 +11765,12 @@ const boundaryOptionsUpdate = async (boundaryType, values) => {
 
         return updatedOptions;
     });
+
+    // **Update selected values once at the end**
+    setSelectedValues(updatedSelectedValues);
 };
+
+
 
 
 
@@ -11903,7 +11895,7 @@ useEffect(() => {
               console.log(item?.boundaryType,"formatted options",formattedOptions);
             
               const formattedSelectedValues=selectedValues.filter((child)=>child?.boundaryType===item?.boundaryType);
-              debugger;
+            //   debugger;
               
            
             
@@ -11928,6 +11920,8 @@ useEffect(() => {
                         console.log("onclose",values,item?.boundaryType)
                         boundaryOptionsUpdate(item?.boundaryType, values);
                       }}
+                      addCategorySelectAllCheck={true}
+                      addSelectAllCheck={true}
                       type="multiselectdropdown"
                       variant="nestedmultiselect"
                     />
