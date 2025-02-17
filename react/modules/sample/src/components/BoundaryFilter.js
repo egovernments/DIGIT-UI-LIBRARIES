@@ -11538,7 +11538,7 @@ const [hierarchyData,setHierarchyData]=useState([processHierarchy(preHierarchyDa
 
 
   const [boundaryOptions, setBoundaryOptions] = useState({});
-  const [selectedValues,setSelectedValues]=useState({});
+  const [selectedValues,setSelectedValues]=useState([]);
 
   const reqCriteria = {
     url: `/boundary-service/boundary-hierarchy-definition/_search`,
@@ -11591,7 +11591,8 @@ const [hierarchyData,setHierarchyData]=useState([processHierarchy(preHierarchyDa
     if(!nodes || nodes.length==0){return}
     for (const node of nodes) {
       if (node.path === targetPath) {
-        return node.children?.map(child => ({ code: child.code,id:child.id, path: child.path })) || [];
+        console.log("node search",node.children?.map(child => ({ code: child.code,id:child.id, path: child.path })) || []);
+        return node.children?.map(child => ({ code: child.code,id:child.id, path: child.path,boundaryType:child.boundaryType })) || [];
       }
       if (node.children && node.children.length > 0) {
         const result = findNodeByPath(node.children, targetPath);
@@ -11658,6 +11659,18 @@ const [hierarchyData,setHierarchyData]=useState([processHierarchy(preHierarchyDa
     return newBoundaryOptions; // Return the final updated state
 };
 
+const cleanLowerLevelsForSelectedValues = (boundaryType, removedCodes, updatedOptions) => {
+
+    return updatedOptions.filter(option => {
+        // Ensure path is a valid string before checking `includes`
+        if (typeof option?.path !== "string") return true;
+
+        return !removedCodes.some(code => option.path.includes(code));
+    });
+};
+
+
+
 
 
 
@@ -11668,7 +11681,7 @@ const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 const boundaryOptionsUpdate = async (boundaryType, values) => {
     debugger;
     console.log("1111 boundaryOptionsUpdate:", boundaryType, values);
-    
+
     if (!Array.isArray(values)) return;
     // Extract only the selected values, ignoring SyntheticBaseEvent
     const selectedOptions = values.map(arg => arg[1]) || [];
@@ -11680,12 +11693,13 @@ const boundaryOptionsUpdate = async (boundaryType, values) => {
     )?.boundaryType;
 
     if (!childBoundaryType) return; // Exit if no child boundaryType exists
+
     const removedCodes = [];
 
     const processRemovedCodes = (previousValues, selectedCodes) => {
         Object.keys(previousValues).forEach(code => {
             if (!selectedCodes.has(code)) {
-                removedCodes.push(code); 
+                removedCodes.push(code);
                 console.log("1111 Removed code:", code);
             }
         });
@@ -11700,14 +11714,18 @@ const boundaryOptionsUpdate = async (boundaryType, values) => {
     console.log("Calling cleanLowerLevels with:", boundaryType, removedCodes);
 
     const updatedOptions = boundaryOptions;
-    
     let newBoundaryOptions = {};
+    let newSelectedOptions={}
+
     if (removedCodes.length > 0) {
         newBoundaryOptions = cleanLowerLevels(boundaryType, removedCodes, { ...boundaryOptions });
+        newSelectedOptions=cleanLowerLevelsForSelectedValues(boundaryType,removedCodes,[...selectedValues])
+
     } else {
         // Delay function here
         await delay(200); // Add your desired delay here
         newBoundaryOptions = updatedOptions;
+        newSelectedOptions=selectedValues;
     }
 
     console.log("1111 NewboundaryOptions:", newBoundaryOptions);
@@ -11717,19 +11735,25 @@ const boundaryOptionsUpdate = async (boundaryType, values) => {
         let updatedOptions = { ...newBoundaryOptions };
 
         selectedOptions.forEach((value) => {
-            setSelectedValues((prev) => {
-                let updatedValues = { ...prev };
-                updatedValues[boundaryType] = updatedValues?.boundaryType || {};
-                updatedValues[boundaryType][value?.parent]=updatedValues[boundaryType][value?.parent] || [];
-                updatedValues[boundaryType][value?.parent].push(value?.code);
+            setSelectedValues((prevValues) => {
 
-                return updatedValues
-            })
-            console.log("1111 SelectedValues",selectedValues);
+                let updatedValues = [...newSelectedOptions];
+                console.log("updated values",updatedValues);
+                const existingCodes = new Set(updatedValues.map(v => v.code));  
+                if (!existingCodes.has(value.code)) {
+                    updatedValues = [
+                        ...updatedValues,
+                        value
+                    ];
+                }
+                return updatedValues;
+            });
             
+
+            console.log("1111 SelectedValues", selectedValues);
+
             if (boundaryType !== props.lowestLevel) {
                 const children = findNodeByPath(hierarchyData, value?.path);
-
                 console.log("Children:", children);
 
                 updatedOptions[childBoundaryType] = updatedOptions[childBoundaryType] || {};
@@ -11743,7 +11767,6 @@ const boundaryOptionsUpdate = async (boundaryType, values) => {
                 debugger;
 
                 const uniqueChildren = children.filter(child => !existingEntries.has(child.code));
-
                 console.log("Unique children:", uniqueChildren);
 
                 updatedOptions[childBoundaryType][value?.code] = [
@@ -11752,14 +11775,17 @@ const boundaryOptionsUpdate = async (boundaryType, values) => {
                 ];
             }
         });
+
         return updatedOptions;
     });
 };
 
 
-/******  8630c8d4-3dda-4391-b10b-be9e58fc3a17  *******/
 
 
+useEffect(() => {
+    console.log("Updated SelectedValues (useEffect):", selectedValues);
+}, [selectedValues]);
 
 
 
@@ -11809,18 +11835,7 @@ const boundaryOptionsUpdate = async (boundaryType, values) => {
     })
   },[hierarchyData,hierarchy])
 
-  useEffect(()=>{
-    // debugger
-    // console.log("1111 useffect")
-    if(!hierarchyData || !hierarchy) return;
-   
-    hierarchy.forEach((item)=>{
-        setSelectedValues((prev)=>({
-            ...prev,
-            [item?.boundaryType]:{}
-        }))
-    })
-  },[hierarchyData,hierarchy])
+ 
 
  
 
@@ -11862,6 +11877,7 @@ const boundaryOptionsUpdate = async (boundaryType, values) => {
             t={t}
             onSelect={(values) => {
             //   debugger
+            console.log("onclose",values);
               boundaryOptionsUpdate(item?.boundaryType, values);
             }}
             type="multiselectdropdown"
@@ -11879,21 +11895,22 @@ const boundaryOptionsUpdate = async (boundaryType, values) => {
                   code: child.code,
                   name: child.code,
                   path: child.path,
-                  parent: parentKey
+                  parent: parentKey,
+                  boundaryType:child.boundaryType
                 })),
               }));
+
+              console.log(item?.boundaryType,"formatted options",formattedOptions);
             
-              const boundariesSelected = selectedValues[item?.boundaryType];
+              const formattedSelectedValues=selectedValues.filter((child)=>child?.boundaryType===item?.boundaryType);
               debugger;
               
-              const formattedSelectedValues =Object.keys(boundariesSelected).map((parentKey) => ({
-                options: boundariesSelected[parentKey].map((child) => ({
-                  code: child.code,
-                  name: child.code,
-                  path: child.path,
-                  parent: parentKey
-                })),
-              }));
+           
+            
+            
+
+              console.log(item?.boundaryType,"formatted selected",formattedSelectedValues);
+
             
             
               return (
@@ -11907,8 +11924,8 @@ const boundaryOptionsUpdate = async (boundaryType, values) => {
                       selected={formattedSelectedValues}
                       optionsKey={"name"}
                       t={t}
-                   
                       onSelect={(values) => {
+                        console.log("onclose",values,item?.boundaryType)
                         boundaryOptionsUpdate(item?.boundaryType, values);
                       }}
                       type="multiselectdropdown"
