@@ -33,6 +33,7 @@ const ResultsDataTable = ({
   activeLink,
   browserSession,
   additionalConfig,
+  TotalCount
 }) => {
   const { apiDetails } = fullConfig;
   const { t } = useTranslation();
@@ -41,7 +42,7 @@ const ResultsDataTable = ({
   const [session, setSession, clearSession] = browserSession || [];
   let searchResult = _.get(data, resultsKey, []);
   searchResult = searchResult?.length > 0 ? searchResult : [];
-  searchResult = searchResult.reverse();
+  // searchResult = searchResult.reverse();
   const [selectedRows, setSelectedRows] = useState([]);
   const { state, dispatch } = useContext(InboxContext);
   const configModule =
@@ -102,7 +103,7 @@ const ResultsDataTable = ({
           ignoreRowClick: column?.ignoreRowClick,
           wrap: column?.wrap,
           sortable: !column?.disableSortBy,
-          sortFunction: (rowA, rowB) => column?.sortFunction(rowA, rowB),
+          sortFunction: typeof column?.sortFunction === "function" ? (rowA, rowB) => column?.sortFunction(rowA, rowB) : undefined,
           selector: (row, index) => _.get(row, column?.jsonPath),
           headerAlign: column?.headerAlign,
           style: column?.style,
@@ -123,7 +124,7 @@ const ResultsDataTable = ({
           ignoreRowClick: column?.ignoreRowClick,
           wrap: column?.wrap,
           sortable: !column?.disableSortBy,
-          sortFunction: (rowA, rowB) => column?.sortFunction(rowA, rowB),
+          sortFunction: typeof column?.sortFunction === "function" ? (rowA, rowB) => column?.sortFunction(rowA, rowB) : undefined,
           selector: (row, index) => {
             return configModule?.additionalCustomizations(
               row,
@@ -152,7 +153,7 @@ const ResultsDataTable = ({
         ignoreRowClick: column?.ignoreRowClick,
         wrap: column?.wrap,
         sortable: !column?.disableSortBy,
-        sortFunction: (rowA, rowB) => column?.sortFunction(rowA, rowB),
+        sortFunction: typeof column?.sortFunction === "function" ? (rowA, rowB) => column?.sortFunction(rowA, rowB) : undefined,
         selector: (row, index) => _.get(row, column?.jsonPath),
         headerAlign: column?.headerAlign,
         style: column?.style,
@@ -380,6 +381,7 @@ const ResultsDataTable = ({
         pagination={config.isPaginationRequired !== undefined ? config.isPaginationRequired : true}
         paginationServer
         paginationTotalRows={
+          TotalCount ||
           data?.count ||
           data?.TotalCount ||
           data?.totalCount ||
