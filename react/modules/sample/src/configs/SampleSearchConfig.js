@@ -1,3 +1,9 @@
+import React from "react";
+
+const ExpandedComponent = ({ data }) => (
+  <pre>{JSON.stringify(data, null, 2)}</pre>
+);
+
 export const Config = {
     label: "WBH_SEARCH_MDMS",
     type: "search",
@@ -130,9 +136,28 @@ export const Config = {
           enableColumnSort: true,
           resultsJsonPath: "mdms",
           rowClassName:"table-row-mdms table-row-mdms-hover",
-          noColumnBorder:true,
           showTableDescription: "This is the search table description",
           showTableTitle: "Search table title",
+          addFilter: true,
+          showCheckBox: true,
+          showSelectedState: true,
+          actionButtonLabel: "Customized ActionButton",
+          expandableRows: true,
+          defaultSortAsc: true,
+          expandableRowsComponent: ExpandedComponent,
+          selectableRowsNoSelectAll: false,
+          actions: [
+            {
+              label: "Action1",
+              variation: "secondary",
+              icon: "Edit",
+            },
+            {
+              label: "Action2",
+              variation: "primary",
+              icon: "CheckCircle",
+            },
+          ],
         },
         children: {},
         show: true,

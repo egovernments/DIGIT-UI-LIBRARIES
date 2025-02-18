@@ -292,6 +292,7 @@ const InboxSearchComposer = ({configs,headerLabel,additionalConfig,onFormValueCh
                   <ResultsDataTable
                     config={configs?.sections?.searchResult?.uiConfig}
                     data={data}
+                    TotalCount={configs?.sections?.searchResult?.uiConfig?.totalCountJsonPath}
                     isLoading={isLoading}
                     isFetching={isFetching}
                     fullConfig={configs}
