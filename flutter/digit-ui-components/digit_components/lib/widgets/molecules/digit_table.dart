@@ -131,12 +131,15 @@ class _DigitTableState extends State<DigitTable> {
 
     // Listen to scroll events
     _scrollController.addListener(_onScroll);
-    _updateRowHeights();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return; // Prevent setState if disposed
+      _updateRowHeights();
+    });
   }
 
   // Method to update row heights after rendering
   void _updateRowHeights() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return; // Prevent setState if disposed
 
       for (int index = 0; index < frozenKeys.length; index++) {
@@ -163,7 +166,6 @@ class _DigitTableState extends State<DigitTable> {
           }
         }
       }
-    });
   }
 
   @override
@@ -201,6 +203,7 @@ class _DigitTableState extends State<DigitTable> {
         // Reset heights if rows change but count remains the same
         rowHeights = List.filled(newRowCount, 0.0);
       }
+       _updateRowHeights();
     }
 
   }
@@ -253,12 +256,6 @@ class _DigitTableState extends State<DigitTable> {
     }
   }
 
-
-
-  List<DigitTableColumn> _getFrozenColumns() {
-    return widget.columns.where((column) => column.isFrozen).toList();
-  }
-
   Widget _buildFrozenColumns(double scrollOffset, BuildContext context, List<DigitTableRow> row, bool isOverflowing) {
 
     final theme = Theme.of(context);
@@ -267,11 +264,6 @@ class _DigitTableState extends State<DigitTable> {
     if (_isFrozenColumnsHidden) {
       return const SizedBox(); // No frozen columns are hidden
     }
-
-
-    _updateRowHeights();
-    // Get all the columns
-    List<DigitTableColumn> allColumns = widget.columns;
 
     // Find the columns that need to be frozen based on scroll offset
     List<DigitTableColumn> frozenColumns = _getColumnsToFreeze(scrollOffset);
@@ -439,7 +431,7 @@ class _DigitTableState extends State<DigitTable> {
     );
 
     // Update header checkbox based on selected rows
-    _updateHeaderCheckbox();
+    // _updateHeaderCheckbox();
 
     if (!firstBuild) {
       firstBuild = true;

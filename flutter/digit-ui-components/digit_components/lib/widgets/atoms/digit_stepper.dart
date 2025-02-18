@@ -91,7 +91,7 @@ class _AnotherStepperState extends State<DigitStepper> {
       width: MediaQuery.of(context).size.width,
       child: ListView.builder(
         controller: _scrollController,
-        padding: const EdgeInsets.all(spacer2),
+        padding: const EdgeInsets.all(0),
         scrollDirection: widget.stepperDirection,
         physics: const AlwaysScrollableScrollPhysics(),
         itemCount: widget.stepperList.length,
@@ -158,7 +158,7 @@ class _HorizontalStepperItemState extends State<HorizontalStepperItem> {
 
 
     final bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
-    double stepWidth = (((MediaQuery.of(context).size.width-(isMobile ? 32 : 48)) - widget.totalLength * (isMobile ? 24: 32)) / (widget.totalLength*2));
+    double stepWidth = (((MediaQuery.of(context).size.width-(isMobile ? 48 : 48)) - widget.totalLength * (isMobile ? 24: 32)) / (widget.totalLength*2));
 
     final Widget dot = StepperDot(
       isHover: isHover,

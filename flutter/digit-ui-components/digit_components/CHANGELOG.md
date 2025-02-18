@@ -1,3 +1,14 @@
+## 0.0.2-dev.15
+* fixed table rebuild issue 
+* updated text styles for summary card
+
+## 0.0.2-dev.14
+* updated summary card to support heading style change
+
+## 0.0.2-dev.13
+* fixed dropdown not getting reset after re-render
+* fixed stepper alignment
+
 ## 0.0.2-dev.12
 * fixed hamburger menu not getting updated issue
 
