@@ -29,15 +29,18 @@ class LabelValueItem extends StatelessWidget {
   Widget _buildValue(dynamic value, BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.digitTextTheme(context);
+    final bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
 
     if (value is String) {
       return Text(
         value,
         maxLines: maxLines,
         overflow: TextOverflow.ellipsis,
-        style: valueTextStyle ?? textTheme.bodyS.copyWith(
+        style: valueTextStyle ?? (isMobile ? textTheme.bodyL.copyWith(
           color: theme.colorTheme.text.primary,
-        ),
+        ) : textTheme.bodyS.copyWith(
+          color: theme.colorTheme.text.primary,
+        )),
       );
     } else if (value is List<String>) {
       // If the value is a list of strings, wrap each string in a Text widget and use Wrap for multi-line support.
@@ -49,9 +52,11 @@ class LabelValueItem extends StatelessWidget {
           str,
           maxLines: maxLines,
           overflow: TextOverflow.ellipsis,
-          style: valueTextStyle ?? textTheme.bodyS.copyWith(
+          style: valueTextStyle ?? (isMobile ? textTheme.bodyL.copyWith(
             color: theme.colorTheme.text.primary,
-          ),
+          ) : textTheme.bodyS.copyWith(
+            color: theme.colorTheme.text.primary,
+          )),
         ))
             .toList(),
       );
