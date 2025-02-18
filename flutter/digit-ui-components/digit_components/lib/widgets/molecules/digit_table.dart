@@ -431,7 +431,7 @@ class _DigitTableState extends State<DigitTable> {
     );
 
     // Update header checkbox based on selected rows
-    // _updateHeaderCheckbox();
+     _updateHeaderCheckbox();
 
     if (!firstBuild) {
       firstBuild = true;
