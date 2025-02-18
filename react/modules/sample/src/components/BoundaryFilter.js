@@ -11964,7 +11964,7 @@ useEffect(() => {
   console.log("non",nonEditableHierarchies)
 
   return (
-    <div>
+    <div className="selecting-boundary-div">
        {
          hierarchy && hierarchyData && boundaryOptions[rootBoundaryType] && hierarchy?.filter((boundary,index) => {
             // Find the index of the lowest hierarchy
@@ -11979,10 +11979,10 @@ useEffect(() => {
   
         return (item?.boundaryType === rootBoundaryType) ? (
          <LabelFieldPair>
-            <CardLabel>
+            <CardLabel className={"boundary-selection-label"}>
                     {item?.boundaryType}
-                  </CardLabel>
-          <div style={{width:'20rem'}}>
+            </CardLabel>
+          <div className="digit-field">
           <MultiSelectDropdown
             key={item?.boundaryType}
             clearLabel="Clear All"
@@ -12032,8 +12032,8 @@ useEffect(() => {
             
               return (
                 <LabelFieldPair>
-                  <CardLabel>{item?.boundaryType}</CardLabel>
-                  <div style={{ width: '20rem' }}>
+                  <CardLabel className={"boundary-selection-label"}>{item?.boundaryType}</CardLabel>
+                  <div className="digit-field">
                     <MultiSelectDropdown
                       key={item?.boundaryType}
                       clearLabel="Clear All"
