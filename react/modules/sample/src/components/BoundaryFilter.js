@@ -6,6 +6,7 @@ import { LabelFieldPair,CardLabel } from "@egovernments/digit-ui-components";
 
 const BoundaryFilter = (props) => {
   const hierarchyType = "NEWTEST00222";
+  console.log("props",props);
   const tenantId = Digit.ULBService.getCurrentTenantId();
   const [lowestHierarchy, setLowestHierarchy] = useState("")
   const t = useTranslation();
@@ -11850,10 +11851,13 @@ useEffect(() => {
          hierarchy && hierarchyData && boundaryOptions[rootBoundaryType] && hierarchy?.filter((boundary,index) => {
             // Find the index of the lowest hierarchy
             // debugger;
+            // debugger
             const lowestIndex = hierarchy?.findIndex((item) => item?.boundaryType === props.lowestLevel);
-            return index <= lowestIndex;
+            const highestIndex = hierarchy?.findIndex((item) => item?.boundaryType === props.highestLevel);
+            // console.log("1111", "filter",highestIndex,lowestIndex,index,props.highesLevel);
+            return highestIndex<=index && index<= lowestIndex;
           })?.map((item) => {
-           console.log("1111", item);
+           
   
         return (item?.boundaryType === rootBoundaryType) ? (
          <LabelFieldPair>
@@ -11869,10 +11873,13 @@ useEffect(() => {
             t={t}
             onSelect={(values) => {
             //   debugger
-            console.log("onclose",values);
+            console.log("onselect",values);
               boundaryOptionsUpdate(item?.boundaryType, values);
             }}
             type="multiselectdropdown"
+            config={{
+                isDropdownWithChip:true
+              }}
           />
           </div>
           </LabelFieldPair>)
@@ -11924,6 +11931,9 @@ useEffect(() => {
                       addSelectAllCheck={true}
                       type="multiselectdropdown"
                       variant="nestedmultiselect"
+                      config={{
+                        isDropdownWithChip:true
+                      }}
                     />
                   </div>
                 </LabelFieldPair>
