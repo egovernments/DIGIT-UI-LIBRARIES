@@ -13,6 +13,7 @@ class DigitLanguageCard extends StatelessWidget {
   final String languageSubmitLabel;
   final Widget? appLogo;
   final double? rowItemWidth;
+  final EdgeInsets? contentPadding;
 
   const DigitLanguageCard({
     super.key,
@@ -22,6 +23,7 @@ class DigitLanguageCard extends StatelessWidget {
     required this.languageSubmitLabel,
     this.appLogo,
     this.rowItemWidth,
+    this.contentPadding,
   });
 
   @override
@@ -44,6 +46,7 @@ class DigitLanguageCard extends StatelessWidget {
               onChanged: onLanguageChange,
               rowItems: digitRowCardItems,
               width: rowItemWidth,
+              contentPadding: contentPadding,
             ),
             const SizedBox(height: spacer4,),
             DigitButton(
@@ -52,6 +55,7 @@ class DigitLanguageCard extends StatelessWidget {
               onPressed: onLanguageSubmit,
               type: DigitButtonType.primary,
               size: DigitButtonSize.large,
+              capitalizeLetters: false,
             ),
           ],
         )
@@ -78,6 +82,7 @@ class DigitRowCard extends StatefulWidget {
   final double spacing;
   final WrapAlignment alignment;
   final double? width;
+  final EdgeInsets? contentPadding;
 
   const DigitRowCard({
     Key? key,
@@ -86,6 +91,7 @@ class DigitRowCard extends StatefulWidget {
     this.spacing = spacer4,
     this.alignment = WrapAlignment.start,
     this.width,
+    this.contentPadding
   }) : super(key: key);
 
   @override
@@ -134,7 +140,7 @@ class _DigitRowCardState extends State<DigitRowCard> {
     }
   }
 
-  Widget _buildItem(DigitRowCardModel item, double itemWidth, BuildContext context) {
+  Widget _buildItem(DigitRowCardModel item, double itemWidth, double? width,BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.digitTextTheme(context);
 
@@ -142,7 +148,7 @@ class _DigitRowCardState extends State<DigitRowCard> {
     return InkWell(
       onTap: () => _onItemTap(item),
       child: Container(
-        width: max(itemWidth, maxLabelWidth), // Use the calculated width
+        width: width ?? max(itemWidth, maxLabelWidth), // Use the calculated width
         decoration: BoxDecoration(
           color: item.isSelected
               ? theme.colorTheme.primary.primary1
@@ -154,7 +160,7 @@ class _DigitRowCardState extends State<DigitRowCard> {
             width: 1.0,
           ),
         ),
-        padding: const EdgeInsets.symmetric(vertical: spacer2, horizontal: spacer4),
+        padding: widget.contentPadding ?? const EdgeInsets.symmetric(vertical: spacer2, horizontal: spacer4),
         child: Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -186,7 +192,7 @@ class _DigitRowCardState extends State<DigitRowCard> {
       spacing: widget.spacing,
       runSpacing: widget.spacing,
       alignment: widget.alignment,
-      children: widget.rowItems.map((item) => _buildItem(item, widget.width ?? itemWidth, context)).toList(),
+      children: widget.rowItems.map((item) => _buildItem(item, itemWidth, widget.width, context)).toList(),
     );
   }
 }

@@ -184,6 +184,12 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
         }
 
       }
+    }else if(widget.selectedOption ==null){
+      _controller.clear();
+      _currentIndex = '';
+    }else{
+      _controller.clear();
+      _currentIndex = '';
     }
   }
 

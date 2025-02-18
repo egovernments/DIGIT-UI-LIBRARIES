@@ -62,6 +62,7 @@ const CheckBox = ({
           ref={inputRef}
           disabled={disabled}
           checked={checked}
+          id={props?.id}
         />
         <p
           className={`digit-custom-checkbox ${

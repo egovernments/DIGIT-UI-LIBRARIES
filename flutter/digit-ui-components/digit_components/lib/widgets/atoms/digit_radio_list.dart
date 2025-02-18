@@ -47,7 +47,7 @@ class RadioList extends StatefulWidget {
 
   /// radio DigitButton height
   final double radioHeight;
-  final bool capitalizeFirstLetter;
+  final bool sentenceCaseEnabled;
   final TextDirection? textDirection;
 
   /// Constructor for the RadioList widget
@@ -62,7 +62,7 @@ class RadioList extends StatefulWidget {
     this.containerPadding = RadioConstant.defaultPadding,
     this.radioWidth = RadioConstant.radioWidth,
     this.radioHeight = RadioConstant.radioHeight,
-    this.capitalizeFirstLetter = true,
+    this.sentenceCaseEnabled = true,
     this.textDirection = TextDirection.ltr,
   }) : super(key: key);
 
@@ -95,7 +95,7 @@ class _RadioListState extends State<RadioList> {
     final textTheme = theme.digitTextTheme(context);
 
     String? capitalizedErrorMessage =
-    convertInToSentenceCase(widget.errorMessage);
+    widget.sentenceCaseEnabled ? convertInToSentenceCase(widget.errorMessage) : widget.errorMessage;
 
     isMobile = AppView.isMobileView(MediaQuery.of(context).size);
     if (!isMobile) {
@@ -320,7 +320,7 @@ class _RadioListState extends State<RadioList> {
                 child: Padding(
                   padding: EdgeInsets.only(top: isMobile ? spacer1 / 2 : 0),
                   child: Text(
-                    convertInToSentenceCase(DigitButton.name)!,
+                    widget.sentenceCaseEnabled ?convertInToSentenceCase(DigitButton.name)! : DigitButton.name,
                     maxLines: 5,
                     overflow: TextOverflow.ellipsis,
                     style: textTheme.bodyL.copyWith(
