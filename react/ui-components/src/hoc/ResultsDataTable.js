@@ -381,7 +381,7 @@ const ResultsDataTable = ({
         pagination={config.isPaginationRequired !== undefined ? config.isPaginationRequired : true}
         paginationServer
         paginationTotalRows={
-          TotalCount ||
+          data?.[TotalCount] ||
           data?.count ||
           data?.TotalCount ||
           data?.totalCount ||
