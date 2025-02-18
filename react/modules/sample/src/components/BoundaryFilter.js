@@ -9,6 +9,7 @@ const BoundaryFilter = (props) => {
   console.log("props",props);
   const tenantId = Digit.ULBService.getCurrentTenantId();
   const [lowestHierarchy, setLowestHierarchy] = useState("")
+  const [nonEditableHierarchies,setNonEditableHierarchies]=useState(new Set())
   const t = useTranslation();
 
   const preHierarchy=[
@@ -11575,6 +11576,17 @@ const [hierarchyData,setHierarchyData]=useState([processHierarchy(preHierarchyDa
     }
   }, [BOUNDARY_HIERARCHY_TYPE]);
 
+  useEffect(() => {
+    const highestIndex = hierarchy?.findIndex(item => item?.boundaryType === props?.highestLevel);
+
+    if (highestIndex !== -1) {
+        const tempNonEditableHierarchies = new Set(hierarchy.slice(0, highestIndex).map(item => item.boundaryType));
+
+        setNonEditableHierarchies(tempNonEditableHierarchies);
+    }
+}, [hierarchy, props.highestLevel]);
+
+
   // useEffect(() => {
   //   if (hierarchyData) {
   //     console.log("1111 hierarchyData", hierarchyData);
@@ -11782,6 +11794,8 @@ useEffect(() => {
 
 
 
+
+
   
   
   console.log("1111 boundaryOptions",boundaryOptions);
@@ -11811,23 +11825,125 @@ useEffect(() => {
     //   }
     // }, [hierarchy, hierarchyData]);
 
-  useEffect(()=>{
-    // debugger
-    // console.log("1111 useffect")
-    if(!hierarchyData || !hierarchy) return;
-    setBoundaryOptions((prev)=>({
-      ...prev,
-      [rootBoundaryType]:[{path:hierarchyData[0]?.path,code:hierarchyData[0]?.code,id:hierarchyData[0]?.id,parent:null}]
-    }
-    ))
-    hierarchy.filter((item1)=>item1?.boundaryType!=rootBoundaryType)?.forEach((item)=>{
-        setBoundaryOptions((prev)=>({
-            ...prev,
-            [item?.boundaryType]:{}
-        }))
-    })
-  },[hierarchyData,hierarchy])
 
+
+    const initializeBoundaries = (nodes, updatedOptions, nonEditableHierarchies) => {
+        // debugger
+        if (!nodes || nodes.length === 0) return updatedOptions; 
+    
+        // If the current node's boundaryType is not in the editable set, return early
+        if (!nonEditableHierarchies.has(nodes[0]?.boundaryType)) {
+            return updatedOptions;
+        }
+    
+        // Find the child boundary type of the current level
+        const childBoundaryType = hierarchy.find(
+            (item) => item.parentBoundaryType === nodes[0]?.boundaryType
+        )?.boundaryType;
+    
+        if (!childBoundaryType) return updatedOptions; // If no child boundaryType exists, return
+    
+        // Ensure the structure exists in updatedOptions
+        updatedOptions[childBoundaryType] = updatedOptions[childBoundaryType] || {};
+    
+        for (const node of nodes) {
+            updatedOptions[childBoundaryType][node.code] =
+                updatedOptions[childBoundaryType][node.code] || [];
+    
+            // Extract relevant children details
+            const children = node.children?.map(child => ({
+                code: child.code,
+                id: child.id,
+                path: child.path,
+                boundaryType: child.boundaryType
+            })) || [];
+    
+            updatedOptions[childBoundaryType][node.code].push(...children);
+    
+            // Recursively process child nodes while persisting updatedOptions
+            initializeBoundaries(node.children, updatedOptions, nonEditableHierarchies);
+        }
+    
+        return updatedOptions; // Always return the modified object
+    };
+    
+    useEffect(() => {
+        if (!hierarchyData || !hierarchy) return;
+    
+        // Initialize boundary options with root boundary type
+        let initialBoundaryOptions = {
+            [rootBoundaryType]: [{
+                path: hierarchyData[0]?.path,
+                code: hierarchyData[0]?.code,
+                id: hierarchyData[0]?.id,
+                parent: null
+            }]
+        };
+    
+        // Initialize with a new object to ensure no unwanted mutations occur
+        let tempBoundaryOptions = initializeBoundaries(
+            hierarchyData,
+            { ...initialBoundaryOptions }, 
+            nonEditableHierarchies
+        );
+        debugger;
+    
+        // Ensure that all levels exist even if they have no children
+        hierarchy.forEach((item) => {
+            console.log("boundaryType0",nonEditableHierarchies,item?.boundaryType)
+            if (!nonEditableHierarchies.has(item?.boundaryType) && item?.boundaryType!==props.highestLevel) {
+                console.log("boundaryType1",item?.boundaryType);
+                tempBoundaryOptions[item?.boundaryType] = {};
+            }
+        });
+    
+        setBoundaryOptions(tempBoundaryOptions);
+    
+    }, [hierarchyData, hierarchy, nonEditableHierarchies]);
+    
+    
+
+    console.log("initial boundary options",boundaryOptions);
+
+     // hierarchyData.forEach((item2) => {
+        //     if (!nonEditableHierarchies.has(item2.boundaryType)) return;
+    
+        //     // Ensure boundaryType exists in tempBoundaryOptions
+        //     if (!tempBoundaryOptions[item2.boundaryType]) {
+        //         tempBoundaryOptions[item2.boundaryType] = {};
+        //     }
+    
+        //     // Ensure code exists within the boundaryType
+        //     if (!tempBoundaryOptions[item2.boundaryType][item2.code]) {
+        //         tempBoundaryOptions[item2.boundaryType][item2.code] = [];
+        //     }
+    
+        //     item2.children?.forEach((item3) => {
+        //         tempBoundaryOptions[item2.boundaryType][item2.code].push({
+        //             code: item3.code,
+        //             path: item3.path,
+        //             boundaryType: item3.boundaryType,
+        //             id: item3.id
+        //         });
+        //     });
+        // });
+    
+    // useEffect(()=>{
+    //     // debugger
+    //     // console.log("1111 useffect")
+    //     if(!hierarchyData || !hierarchy) return;
+    //     setBoundaryOptions((prev)=>({
+    //       ...prev,
+    //       [rootBoundaryType]:[{path:hierarchyData[0]?.path,code:hierarchyData[0]?.code,id:hierarchyData[0]?.id,parent:null}]
+    //     }
+    //     ))
+    //     hierarchy.filter((item1)=>item1?.boundaryType!=rootBoundaryType)?.forEach((item)=>{
+    //         setBoundaryOptions((prev)=>({
+    //             ...prev,
+    //             [item?.boundaryType]:{}
+    //         }))
+    //     })
+    //   },[hierarchyData,hierarchy])
  
 
  
@@ -11845,6 +11961,8 @@ useEffect(() => {
   }
   // debugger;
   console.log("1111 res",hierarchy ,hierarchyData ,boundaryOptions);
+  console.log("non",nonEditableHierarchies)
+
   return (
     <div>
        {
