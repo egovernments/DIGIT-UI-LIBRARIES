@@ -54,7 +54,7 @@ List<Story> IntroStories() {
                     context,
                     'To install Digit UI Components, add the following dependency to your `pubspec.yaml`:',
                   ),
-                  _buildCodeSnippet(context, """dependencies:\n  digit_ui_components: ^1.0.0\n"""),
+                  _buildCodeSnippet(context, """dependencies:\n  digit_ui_components: 0.2.0\n"""),
                   const SizedBox(height: 16),
                   _buildDescriptionText(context, 'Then, fetch dependencies using:'),
                   _buildCodeSnippet(context, "flutter pub get"),
