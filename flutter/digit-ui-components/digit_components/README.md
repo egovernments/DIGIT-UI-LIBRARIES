@@ -17,7 +17,8 @@ A collection of reusable Flutter UI widgets designed to enhance development effi
 ---
 
 ## 📸 Screenshot
-![Digit UI Components Preview](your-screenshot-link)  
+
+![Digit UI Components Preview](https://github.com/user-attachments/assets/b2ff4890-0dcc-42cd-84ab-db64fd9be374)  
 _A preview of some UI components included in this package._
 
 ---
