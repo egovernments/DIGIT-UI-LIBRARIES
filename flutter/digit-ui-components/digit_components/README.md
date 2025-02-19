@@ -27,7 +27,7 @@ _A preview of some UI components included in this package._
 Add the package to your `pubspec.yaml` and run the following command:
 ```yaml
 dependencies:
-  digit_ui_components: 0.0.2
+  digit_ui_components: 0.2.0
 ```
 
 Then run:
@@ -35,6 +35,7 @@ Then run:
 ```bash
    flutter pub get
 ```
+---
 
 ## Usage
 
@@ -43,6 +44,7 @@ Import the package in your Dart code:
 ```dart
    import 'package:digit_ui_components/digit_components.dart';
 ```
+---
 
 ## ✨ Features
 ✅ 25+ Atoms (buttons, text fields, icons, etc.)
@@ -86,7 +88,7 @@ For detailed examples and usage, visit the **[Full Documentation](#-documentatio
 - Table Wrapper Components
 - and more
 
-📌 _For a complete list of components and examples, visit our **[Full Documentation](#-documentation)**._
+📌 _For a complete list of components and examples, visit our **[Full Documentation](https://app.gitbook.com/o/-MEQmzNGXk5ajuZujG7E/s/egsIWleSdyH9rMLJ8ShI/~/changes/307/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0)**._
 
 ---
 
