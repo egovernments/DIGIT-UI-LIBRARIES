@@ -1,6 +1,6 @@
 name: digit_ui_components
-description: A Flutter UI component library with reusable widgets.
-version: 0.2.0
+description: A collection of reusable Flutter UI components, including atoms, molecules, and wrapper widgets, designed for consistent, scalable, and efficient UI development.
+version: 0.2.1
 homepage: https://github.com/egovernments/DIGIT-UI-LIBRARIES/tree/master/flutter/digit-ui-components
 repository: https://github.com/egovernments/DIGIT-UI-LIBRARIES
 issue_tracker: https://github.com/egovernments/DIGIT-UI-LIBRARIES/issues
@@ -60,6 +60,14 @@ dev_dependencies:
   mockito: ^5.0.15
   build_runner: ^2.1.0
   freezed: ^2.0.0
+
+platforms:
+  android:
+  ios:
+  web:
+  macos:
+  windows:
+  linux:
 
 flutter:
   assets:

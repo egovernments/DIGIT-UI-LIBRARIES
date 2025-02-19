@@ -1,3 +1,6 @@
+## 0.2.1
+* updated readme documentation
+
 ## 0.2.0
 * A stable release of the flutter component library.
 * updated readme documentation
