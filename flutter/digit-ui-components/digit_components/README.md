@@ -69,7 +69,7 @@ For detailed examples and usage, visit the **[Full Documentation](#-documentatio
 
 ## 📖 Documentation
 
-📚 **Full Documentation:** [Digit UI Components Documentation](https://app.gitbook.com/o/-MEQmzNGXk5ajuZujG7E/s/egsIWleSdyH9rMLJ8ShI/~/changes/307/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0)
+📚 **Full Documentation:** [Digit UI Components Documentation](https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components-v0.2.0)
 
 Explore detailed guides, API references, and best practices to maximize the potential of **Digit UI Components**.
 
@@ -97,7 +97,7 @@ Explore detailed guides, API references, and best practices to maximize the pote
 - Table Wrapper Components
 - and more
 
-📌 _For a complete list of components and examples, visit our **[Full Documentation](https://app.gitbook.com/o/-MEQmzNGXk5ajuZujG7E/s/egsIWleSdyH9rMLJ8ShI/~/changes/307/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0)**._
+📌 _For a complete list of components and examples, visit our **[Full Documentation](https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components-v0.2.0)**._
 
 ---
 
