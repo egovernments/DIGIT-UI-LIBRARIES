@@ -13,7 +13,7 @@ List<Story> infoCardStories() {
       builder: (context) {
         return IframeWidget(
           url:
-              'https://egov-digit.gitbook.io/docs-templates-repo/ui-component-name-2',
+              'https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0',
         );
       },
     ),

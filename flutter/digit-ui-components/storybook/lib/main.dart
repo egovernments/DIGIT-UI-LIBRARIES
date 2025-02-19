@@ -168,7 +168,7 @@ class MyHomePageState extends State<MyHomePage> {
             )),
         initialStory: 'Introduction/doc',
         stories: [
-          ...introStories(),
+          ...IntroStories(),
           ...animationStories(),
           ...colorStories(),
           ...illustrationStories(),
@@ -227,7 +227,7 @@ class MyHomePageState extends State<MyHomePage> {
           ...sliderStories(),
           ...tableStories(),
           ...timelineMoleculeStories(),
-         ...privacyComponentStories()
+         // ...privacyComponentStories() // TODO: Will add later
         ],
       ),
     );

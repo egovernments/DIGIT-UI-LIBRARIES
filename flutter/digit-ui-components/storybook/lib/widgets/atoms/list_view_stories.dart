@@ -11,7 +11,7 @@ List<Story> listViewStories() {
       name: 'Atom/Label Value Item/Documentation',
       builder: (context) {
         return IframeWidget(
-          url: 'https://egov-digit.gitbook.io/docs-templates-repo/ui-component-name-2',
+          url: 'https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0',
         );
       },
     ),
