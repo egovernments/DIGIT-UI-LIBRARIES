@@ -284,10 +284,12 @@ packages:
   digit_ui_components:
     dependency: "direct main"
     description:
-      path: "../digit_components"
-      relative: true
-    source: path
-    version: "0.2.0"
+      path: "flutter/digit-ui-components/digit_components"
+      ref: develop
+      resolved-ref: a2c6a426c0c9f4fbfb50629b1130f80fea7dee57
+      url: "https://github.com/egovernments/DIGIT-UI-LIBRARIES"
+    source: git
+    version: "0.2.1"
   doc_widget:
     dependency: "direct main"
     description:
