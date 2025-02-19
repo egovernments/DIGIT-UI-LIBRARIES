@@ -18,6 +18,19 @@
 # -
 config:
 
+  # digit-ui-react
+  - name: builds/Digit-UI-Libraries/react/core-ui
+    build:
+      - work-dir: react/
+        dockerfile: react/docker/Dockerfile
+        image-name: core-ui
+
+  - name: builds/Digit-UI-Libraries/react/storybook
+    build:
+      - work-dir: react/ui-components/
+        dockerfile: react/ui-components/docker/Dockerfile
+        image-name: storybook
+
   # digit-ui-flutter
   - name: builds/Digit-UI-Libraries/flutter/digit-ui-components
     build:
@@ -25,3 +38,8 @@ config:
         dockerfile: flutter/docker/Dockerfile
         image-name: digit-ui-flutter
 
+  - name: builds/Digit-UI-Libraries/flutter/story-book-flutter
+    build:
+      - work-dir: flutter/digit-ui-components/storybook
+        dockerfile: flutter/docker/storybook/Dockerfile
+        image-name: story-book-flutter
