@@ -9,7 +9,7 @@ List<Story> checkboxStories() {
       name: 'Atom/Checkbox/Documentation',
       builder: (context) {
         return IframeWidget(
-          url: 'https://app.gitbook.com/o/-MEQmzNGXk5ajuZujG7E/s/egsIWleSdyH9rMLJ8ShI/~/changes/307/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0/atom/checkbox',
+          url: 'https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components-v0.2.0',
         );
       },
     ),
