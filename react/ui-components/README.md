@@ -39,7 +39,7 @@ import { SVG } from "@egovernments/digit-ui-components";
 <SVG.Accessibility />;
 ```
 
-# Local Development
+# Local Development to check storybook
 Use Node 14 version 
 
 Step 1
@@ -48,16 +48,15 @@ Step 1
 yarn install 
 ```
 
-Step 2
+Step 2 
 
  ```bash
 yarn storybook 
 ```
 
+### New Changes
 
 ## [0.0.1-beta.28] - 2024-05-24
-
-### New Changes
 
 - Added restrictSelection prop in Multiselectdropdown. If this is sent as true, it restricts any option to get selected. 
 
@@ -68,12 +67,9 @@ yarn storybook
         />
     ```
 
-
-
+### Breaking Changes while migrating from any version below 0.0.1-beta.22
 
 ## [0.0.1-beta.22] - 2024-05-20
-
-### Breaking Changes
 
 - Toast Component: From this version of `ui-components`, the `Toast` component has a new prop named `type`, replacing the separate props for `info`, `warning`, and `error`.
   - Old Usage:
@@ -125,11 +121,13 @@ DIGIT-UI-LIBRARIES Repo (https://github.com/egovernments/DIGIT-UI-LIBRARIES/tree
 
 # Contributors
 
-[nabeelmd-egov] [anilsingha-eGov] [nipunarora-eGov] [swathi-egov] [jagankumar-egov]
+[nabeelmd-egov] [bhavya-eGov] [nipunarora-eGov] [swathi-egov] [jagankumar-egov]
 
-# Reference
+# Reference 
 
-Home Page (https://unified-dev.digit.org/storybook/)
+Storybook (https://unified-dev.digit.org/storybook/)
+
+Documentation (https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0)
 
 ## License
 

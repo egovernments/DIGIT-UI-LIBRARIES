@@ -1,5 +1,79 @@
 # Changelog
 
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [0.2.0] - 2025-02-19 
+### New Components Added
+
+## Atoms
+- Accordion
+- ActionButton
+- AlertCard
+- BackLink
+- BreadCrumb
+- Button
+- CheckBox
+- Chip
+- Divider
+- Dropdown
+- Panels
+- FileUpload
+- Loader
+- MultiselectDropdown
+- OTPInput
+- RadioButton
+- SelectionTag
+- Stepper
+- Switch
+- Tab
+- Tag 
+- TextBlock
+- TextInput 
+- Timeline
+- Toast
+- Toggle
+- Tooltip
+
+## Molecules
+- AccordionList
+- PopUp
+- Card (Basic,FormCard,SummaryCard)
+- BottomSheet
+- ButtonGroup
+- Header
+- SidePanel
+- PanelCard
+- FilterCard
+- Footer
+- Hamburger
+- LandingPageCard
+- MenuCard
+- MetricCard
+- SideNav
+- TableMolecule
+- TimelineMolecule
+- TooltipWrapper
+
+## MoleculeGroup
+- LandingPageWrapper
+- MenuCardWrapper
+
+### New Changes Added
+- Added external link support in LandingPageCards
+- Added external link support in BreadCrumbs
+- Added Spacers, Colors, Typography library
+- Added Icons 
+- Added Animations 
+- Added Error Message Component. 
+- Added Info Button Component.  
+- Added RemoveableTag Component. 
+- Added Uploader Component With Three Varinats UploadFile,UploadPopup and UploadImage.
+- Supporting multiple variants in Dropdown and MultiSelectDropdown components
+
+
+
 ## [0.0.2-beta.36] - 2024-09-23
 ### Changed
 - Added Table css
