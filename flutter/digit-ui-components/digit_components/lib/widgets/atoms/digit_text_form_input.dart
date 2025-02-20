@@ -1,23 +1,21 @@
-/*
- `DigitTextFormInput` is a customizable textformfield widget that extends the baseforminput.
-
- Example usage:
- ```dart
- DigitTextFormInput(
- controller: _textController,
- label: 'Username',
- innerLabel: 'Enter your username',
- charCount: true,
- helpText: 'This is a simple example of DigitTextFormInput',
- validations: [
- // Example validation: Required field
- Validator(ValidatorType.required),
- ],
- onChange: (value) {
- print('Username changed to: $value');
- },
- ),
- ....*/
+///`DigitTextFormInput` is a customizable textformfield widget that extends the baseforminput.
+///
+/// Example usage:
+/// ```dart
+/// DigitTextFormInput(
+/// controller: _textController,
+/// label: 'Username',
+/// innerLabel: 'Enter your username',
+/// charCount: true,
+/// helpText: 'This is a simple example of DigitTextFormInput',
+/// validations: [
+/// // Example validation: Required field
+/// Validator(ValidatorType.required),
+/// ],
+/// onChange: (value) {
+/// print('Username changed to: $value');
+/// },
+/// ),
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -27,53 +25,59 @@ import 'digit_base_form_input.dart';
 class DigitTextFormInput extends BaseDigitFormInput {
   const DigitTextFormInput({
     Key? key,
-    required TextEditingController controller,
-    String? label,
-    String? initialValue,
-    String? infoText,
-    bool? info,
-    bool readOnly = false,
-    bool isDisabled = false,
-    bool isRequired = false,
-    bool charCount = false,
-    String? innerLabel,
-    String? helpText,
-    TooltipTriggerMode triggerMode = TooltipTriggerMode.tap,
-    bool preferToolTipBelow = false,
-    String? suffixText,
-    String? prefixText,
-    IconData? suffixIcon,
-    void Function(String?)? onError,
+    final TextEditingController? controller,
+    final String? initialValue,
+    final bool readOnly = false,
+    final bool isDisabled = false,
+    final bool isRequired = false,
+    final bool charCount = false,
+    final String? innerLabel,
+    final String? helpText,
+    final String? suffixText,
+    final String? prefixText,
+    final IconData? suffixIcon,
+    final void Function(String?)? onError,
     final List<Validator>? validations,
     final void Function(String)? onChange,
+    final TextInputType? keyboardType,
     final String? errorMessage,
+    final FocusNode? focusNode,
     final List<TextInputFormatter>? inputFormatters,
-    void Function(String)? onSuffixTap,
+    final void Function(String)? onSuffixTap,
+    final void Function()? onFocusLost,
+    final EdgeInsetsGeometry? contentPadding,
+    final int? maxLength,
+    final TextStyle? suffixTextStyle,
+    final TextStyle? prefixTextStyle,
+    final bool? obscureText,
   }) : super(
-          key: key,
-          controller: controller,
-          label: label,
-          info: info,
-          infoText: infoText,
-          readOnly: readOnly,
-          isRequired: isRequired,
-          isDisabled: isDisabled,
-          charCount: charCount,
-          innerLabel: innerLabel,
-          helpText: helpText,
-          triggerMode: triggerMode,
-          preferToolTipBelow: preferToolTipBelow,
-          suffixText: suffixText,
-          prefixText: prefixText,
-          onError: onError,
-          initialValue: initialValue,
-          validations: validations,
-          onChange: onChange,
-          errorMessage: errorMessage,
-          inputFormatters: inputFormatters,
-          suffixIcon: suffixIcon,
-          onSuffixTap: onSuffixTap,
-        );
+    key: key,
+    controller: controller,
+    readOnly: readOnly,
+    isRequired: isRequired,
+    isDisabled: isDisabled,
+    charCount: charCount,
+    innerLabel: innerLabel,
+    helpText: helpText,
+    suffixText: suffixText,
+    prefixText: prefixText,
+    onError: onError,
+    initialValue: initialValue,
+    validations: validations,
+    onChange: onChange,
+    keyboardType: keyboardType,
+    errorMessage: errorMessage,
+    inputFormatters: inputFormatters,
+    suffixIcon: suffixIcon,
+    onSuffixTap: onSuffixTap,
+    onFocusLost: onFocusLost,
+    focusNode: focusNode,
+    maxLength: maxLength,
+    contentPadding: contentPadding,
+    suffixTextStyle: suffixTextStyle,
+    prefixTextStyle: prefixTextStyle,
+    obscureText: obscureText,
+  );
 
   @override
   _DigitTextFormInputState createState() => _DigitTextFormInputState();

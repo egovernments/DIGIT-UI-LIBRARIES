@@ -2,7 +2,7 @@ import React, { Fragment, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import MultiSelectDropdown from "../atoms/MultiSelectDropdown";
 import Dropdown from "../atoms/Dropdown";
-import { Loader } from "../atoms/Loader";
+import { Loader } from "../atoms";
 import { useTranslation } from "react-i18next";
 
 const LocationDropdownWrapper = ({ populators, formData, props, inputRef, errors, setValue, variant }) => {

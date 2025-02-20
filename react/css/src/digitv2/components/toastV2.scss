@@ -1,28 +1,26 @@
-.digit-toast-success {
-  @apply fixed flex z-20 w-full max-w-full left-0;
-  bottom: 4rem;
-  gap: 0.5rem;
-  height: 3rem;
-  padding: 0.75rem 0.5rem 0.75rem 0.75rem !important;
+/*.digit-toast-success {
+  @apply fixed flex z-20 w-full max-w-full left-0 items-center;
+  bottom: -(theme(digitv2.spacers.spacer12));
+  gap: theme(digitv2.spacers.spacer2);
+  height: theme(digitv2.spacers.spacer12);
+  padding: theme(digitv2.spacers.spacer3) theme(digitv2.spacers.spacer2) theme(digitv2.spacers.spacer3) theme(digitv2.spacers.spacer3) !important;
   background-color: theme(digitv2.lightTheme.alert-success);
+  transition: bottom 0.5s ease;
 
-  @media (min-width: 30.063rem) and (max-width: 47.938rem) {
-    width:auto;
+  @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+    @apply w-auto max-w-full;
     min-width: 30rem;
-    max-width: 100%;
     left:50%;
     transform: translate(-50%);
   }
 
-  @media (max-width: 30rem) {
-    width: 100%;
-    align-items: center;
+  @media (max-aspect-ratio: 9/16) {
+    @apply w-full;
   }
 
-  @media (min-width: 48rem) {
-    width:auto;
+  @media (min-aspect-ratio: 3/4){
+    @apply w-auto max-w-full;
     min-width: 50rem;
-    max-width: 100%;
     left:50%;
     transform: translate(-50%);
   }
@@ -41,19 +39,15 @@
 
   .toast-label {
     @extend .typography.caption-s;
-    @apply text-left overflow-hidden whitespace-no-wrap flex-grow;
-    letter-spacing: 0rem;
+    @apply text-left overflow-hidden whitespace-no-wrap flex-grow flex items-center h-6;
+    letter-spacing: theme(digitv2.spacers.spacer0);
     color: theme(digitv2.lightTheme.paper-primary);
-    margin: 0rem;
+    margin: theme(digitv2.spacers.spacer0);
     text-overflow: ellipsis;
-    height: 1.172rem;
+  }
 
-    min-height: 1.438rem;
-
-    @media (max-width: 30rem) {
-      min-height: 1.188rem;
-    }
-
+  &.digit-info {
+    background-color: theme(digitv2.lightTheme.alert-info);
   }
 
   .digit-warning-button-container {
@@ -71,4 +65,95 @@
   svg {
     @apply flex-shrink-0;
   }
+}
+
+@keyframes slideInFromBottom {
+  from {
+    bottom: -(theme(digitv2.spacers.spacer12));
+  }
+  to {
+    bottom: 4rem;
+  }
+}
+
+.digit-toast-success.animate {
+  animation: slideInFromBottom 0.5s ease forwards;
+}*/
+
+.digit-toast-success {
+  max-width: 100%;
+  width: auto;
+  gap: theme(digitv2.spacers.spacer2);
+  height: theme(digitv2.spacers.spacer12);
+  padding: theme(digitv2.spacers.spacer3) theme(digitv2.spacers.spacer2) theme(digitv2.spacers.spacer3) theme(digitv2.spacers.spacer3) !important;
+  @apply fixed flex z-20 items-center;
+  background-color: theme(digitv2.lightTheme.alert-success);
+  transition: bottom 0.5s ease;
+  left: 0;
+
+  @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+    min-width: 30rem;
+  }
+
+  @media (max-aspect-ratio: 9/16) {
+    @apply w-full min-w-full;
+  }
+
+  @media (min-aspect-ratio: 3/4){
+    min-width: 50rem;
+  }
+
+  &.digit-info {
+    background-color: theme(digitv2.lightTheme.alert-info);
+  }
+
+  &.digit-error {
+    background-color: theme(digitv2.lightTheme.alert-error);
+  }
+
+  &.digit-warning {
+    background-color: theme(digitv2.lightTheme.alert-warning);
+
+    &.digit-warning-buttons {
+      @apply block;
+    }
+  }
+
+  .digit-warning-button-container {
+    @apply w-full flex justify-end;
+
+    button {
+      margin-left: 0.625rem;
+    }
+  }
+
+  .digit-toast-sub-container {
+    @apply flex;
+  }
+
+  svg {
+    @apply flex-shrink-0;
+  }
+
+  .toast-label {
+    @extend .typography.caption-s;
+    @apply text-left overflow-hidden whitespace-no-wrap flex-grow flex items-center h-6;
+    letter-spacing: theme(digitv2.spacers.spacer0);
+    color: theme(digitv2.lightTheme.paper-primary);
+    margin: theme(digitv2.spacers.spacer0);
+    text-overflow: ellipsis;
+  }
+}
+
+@keyframes slideInFromBottom {
+  from {
+    bottom: -100%;
+  }
+  to {
+    bottom: 4rem;
+  }
+}
+
+.digit-toast-success.animate {
+  animation: slideInFromBottom 0.5s ease forwards;
 }

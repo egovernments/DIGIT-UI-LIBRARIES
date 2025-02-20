@@ -6,11 +6,11 @@ import {
   Menu,
 } from "@egovernments/digit-ui-react-components";
 import {
-  Header,
+  HeaderComponent,
   Card,
   Loader,
   SubmitBar,
-  ActionBar,
+  Footer,
   HorizontalNav,
   Toast,
 } from "@egovernments/digit-ui-components";
@@ -258,12 +258,12 @@ const ProjectDetails = () => {
         className={"employee-application-details"}
         style={{ marginBottom: "15px" }}
       >
-        <Header
+        <HeaderComponent
           className="works-header-view"
           styles={{ marginLeft: "0px", paddingTop: "10px" }}
         >
           {t("WORKS_PROJECT_DETAILS")}
-        </Header>
+        </HeaderComponent>
         <MultiLink
           onHeadClick={() => HandleDownloadPdf()}
           downloadBtnClassName={"employee-download-btn-className"}
@@ -286,7 +286,7 @@ const ProjectDetails = () => {
         />
       </HorizontalNav>
       {!hideActionBar && (
-        <ActionBar>
+        <Footer>
           {showActions ? (
             <Menu
               localeKeyPrefix={`COMMON`}
@@ -301,12 +301,12 @@ const ProjectDetails = () => {
             label={t("WORKS_ACTIONS")}
             onSubmit={() => setShowActions(!showActions)}
           />
-        </ActionBar>
+        </Footer>
       )}
       {toast?.show && (
         <Toast
           label={toast?.label}
-          error={toast?.error}
+          type={toast?.error ? "error" : ""}
           isDleteBtn={true}
           onClose={handleToastClose}
         ></Toast>

@@ -76,7 +76,7 @@ const ViewProject = ({ fromUrl = true, module, ...props }) => {
           customClass="status-table-custom-class"
         />
       )}
-      {toast?.show && <Toast label={toast?.label} error={toast?.error} isDleteBtn={true} onClose={handleToastClose}></Toast>}
+      {toast?.show && <Toast label={toast?.label} type={toast?.error ? "error" : ""} isDleteBtn={true} onClose={handleToastClose}></Toast>}
     </>
   );
 };

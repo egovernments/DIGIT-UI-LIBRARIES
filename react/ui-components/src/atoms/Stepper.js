@@ -1,14 +1,31 @@
-import React from "react";
+import React,{useState,useEffect,useRef} from "react";
+import PropTypes from "prop-types";
 import { useTranslation } from "react-i18next";
 import { SVG } from "./SVG";
+import StringManipulator from "./StringManipulator";
+import { Colors} from "../constants/colors/colorconstants";
+import Divider from "./Divider";
 
-const Stepper = ({ currentStep = 1, onStepClick, totalSteps, customSteps, direction }) => {
-
+const Stepper = ({
+  currentStep = 1,
+  onStepClick,
+  totalSteps,
+  customSteps,
+  direction,
+  style,
+  props,
+  className,
+  activeSteps,
+  hideDivider
+}) => {
   const { t } = useTranslation();
+  const stepRefs = useRef([]);
 
-  const [isMobileView, setIsMobileView] = React.useState(window.innerWidth <= 480);
+  const [isMobileView, setIsMobileView] = useState(
+    (window.innerWidth / window.innerHeight <= 9/16)
+  );
   const onResize = () => {
-    if (window.innerWidth <= 480) {
+    if (window.innerWidth / window.innerHeight <= 9/16) {
       if (!isMobileView) {
         setIsMobileView(true);
       }
@@ -18,7 +35,7 @@ const Stepper = ({ currentStep = 1, onStepClick, totalSteps, customSteps, direct
       }
     }
   };
-  React.useEffect(() => {
+  useEffect(() => {
     window.addEventListener("resize", () => {
       onResize();
     });
@@ -29,26 +46,44 @@ const Stepper = ({ currentStep = 1, onStepClick, totalSteps, customSteps, direct
     };
   });
 
-
-  const truncateStepLabel = (stepLabel, maxLength) => {
-    if (stepLabel.length > maxLength) {
-      return stepLabel.slice(0, maxLength) + "...";
+  useEffect(() => {
+    // Scroll the current step into view when currentStep changes
+    if (stepRefs.current[currentStep]) {
+      stepRefs.current[currentStep].scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+        inline: "center",
+      });
     }
-    return stepLabel;
-  };
+  }, [currentStep]);
+
+  useEffect(() => {
+    // This useEffect will trigger a re-render when number of activeSteps changes
+  }, [activeSteps]);
+
+  const Color = Colors.lightTheme.paper.primary;
 
   const getAction = (totalSteps, customSteps) => {
     if (customSteps && Object.keys(customSteps).length !== 0) {
       return Object.values(customSteps);
     }
-    return Array.from({ length: totalSteps }, (_, index) => `Step ${index + 1}`);
+    return Array.from(
+      { length: totalSteps },
+      (_, index) => `Step ${index + 1}`
+    );
   };
   const actions = getAction(totalSteps, customSteps);
 
   return (
-    <div className={`digit-stepper-container ${direction ? direction : ""}`}>
+    <div
+      className={`digit-stepper-container ${direction ? direction : ""} ${
+        className ? className : ""
+      }`}
+      style={style ? style : null}
+    >
       {actions.map((action, index, arr) => (
         <div
+          ref={(el) => (stepRefs.current[index] = el)}
           className={`digit-stepper-checkpoint ${direction ? direction : ""}`}
           style={{ cursor: "pointer" }}
           key={index}
@@ -57,23 +92,45 @@ const Stepper = ({ currentStep = 1, onStepClick, totalSteps, customSteps, direct
             onStepClick(index);
           }}
         >
-          <div className={`digit-stepper-content ${direction ? direction : ""}`}>
-            <span className={`circle ${index <= currentStep - 1 && "active"}`}>
-              {index < currentStep - 1 ? (
-                  <SVG.Check
+          <div
+            className={`digit-stepper-content ${direction ? direction : ""}`}
+          >
+            <span
+              className={`stepper-circle ${
+                ((index <= currentStep - 1) || (index < activeSteps) ) && "active"
+              }`}
+            >
+              {((index < currentStep - 1) || (index < activeSteps) ) ? (
+                <SVG.Check
                   width={isMobileView ? "18px" : "24px"}
                   height={isMobileView ? "18px" : "24px"}
-                  fill="#ffffff"
+                  fill={Color}
                 />
               ) : (
                 index + 1
               )}
             </span>
-            <span className={`secondary-color ${index <= currentStep - 1 && "text-done"} ${currentStep - 1 === index && "text-active"}`}>
-              {t(truncateStepLabel(action, 64))}
+            <span
+              className={`stepper-label ${
+                ((index < currentStep - 1) || (index < activeSteps)) && "completed"
+              } ${currentStep - 1 === index && "current"} ${direction ? direction : ""}`}
+              style={{ ...props?.labelStyles }}
+            >
+              {t(
+                StringManipulator("TRUNCATESTRING", action, { maxLength: 64 })
+              )}
             </span>
           </div>
-          {index < arr.length - 1 && <span className={`line ${index < currentStep - 1 && "active"} ${direction ? direction : ""}`}></span>}
+          {index < arr.length - 1 && (
+            <span
+              className={`stepper-connect ${
+                ((index < currentStep - 1) || (index < activeSteps && index < activeSteps - 1 ) ) && "active"
+              } ${direction ? direction : ""} ${(index === arr.length-2 && direction !=="vertical") ? "lastbutone" : ""}`}
+            ></span>
+          )}
+          {index < arr.length - 1 && direction === "vertical" && !hideDivider &&  (
+            <Divider className="stepper-vertical-divider"></Divider>
+          )}
         </div>
       ))}
     </div>

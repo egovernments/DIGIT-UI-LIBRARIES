@@ -1,34 +1,28 @@
+/// `DigitDateFormInput` is a customizable formfield widget that  extends the baseforminput.
+///
+/// Example usage:
+/// ```dart
+/// DigitDateFormInput(
+/// controller: _textController,
+/// label: 'Username',
+/// innerLabel: 'click on the icon to choose a date',
+/// charCount: true,
+/// helpText: 'This is a simple example of DigitDateFormInput',
+/// onChange: (value) {
+/// print(value);
+/// },
+/// ),```
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../../blocs/DateSelection.dart';
+import '../../services/DateSelection.dart';
 import '../../utils/validators/validator.dart';
 import 'digit_base_form_input.dart';
-
-/*
- `DigitDateFormInput` is a customizable formfield widget that  extends the baseforminput.
-
- Example usage:
- ```dart
- DigitDateFormInput(
- controller: _textController,
- label: 'Username',
- innerLabel: 'click on the icon to choose a date',
- charCount: true,
- helpText: 'This is a simple example of DigitDateFormInput',
- onChange: (value) {
- print(value);
- },
- ),
- ....
- */
 
 class DigitDateFormInput extends BaseDigitFormInput {
   const DigitDateFormInput({
     Key? key,
-    required TextEditingController controller,
-    String? label,
-    String? infoText,
-    bool? info,
+    TextEditingController? controller,
     String? initialValue,
     bool readOnly = false,
     bool isDisabled = false,
@@ -40,42 +34,44 @@ class DigitDateFormInput extends BaseDigitFormInput {
     String? innerLabel,
     String? helpText,
     bool isRequired = false,
-    TooltipTriggerMode triggerMode = TooltipTriggerMode.tap,
-    bool preferToolTipBelow = false,
     IconData? suffixIcon,
     void Function(String?)? onError,
     final List<Validator>? validations,
     final void Function(String)? onChange,
     final String? errorMessage,
     final List<TextInputFormatter>? inputFormatters,
+    final String? cancelText,
+    final TextInputType? keyboardType,
+    final String? confirmText,
+    final void Function()? onFocusLost,
+    final Color? iconColor,
   }) : super(
-          key: key,
-          controller: controller,
-          label: label,
-          info: info,
-          infoText: infoText,
-          readOnly: readOnly,
-          isRequired: isRequired,
-          isDisabled: isDisabled,
-          charCount: charCount,
-          innerLabel: innerLabel,
-          helpText: helpText,
-          triggerMode: triggerMode,
-          preferToolTipBelow: preferToolTipBelow,
-          onError: onError,
-          suffixIcon: suffixIcon ?? Icons.date_range,
-          initialValue: initialValue,
-          validations: validations,
-          onChange: onChange,
-          initialDate: initialDate,
-          firstDate: firstDate,
-          lastDate: lastDate,
-          keyboardType: TextInputType.datetime,
-          showCurser: editable,
-          isEditable: editable,
-          errorMessage: errorMessage,
-          inputFormatters: inputFormatters,
-        );
+    key: key,
+    controller: controller,
+    readOnly: readOnly,
+    isRequired: isRequired,
+    isDisabled: isDisabled,
+    charCount: charCount,
+    innerLabel: innerLabel,
+    helpText: helpText,
+    onError: onError,
+    suffixIcon: suffixIcon ?? Icons.date_range,
+    initialValue: initialValue,
+    validations: validations,
+    onChange: onChange,
+    initialDate: initialDate,
+    firstDate: firstDate,
+    lastDate: lastDate,
+    cancelText: cancelText,
+    confirmText: confirmText,
+    keyboardType: keyboardType ?? TextInputType.datetime,
+    showCurser: editable,
+    isEditable: editable,
+    errorMessage: errorMessage,
+    inputFormatters: inputFormatters,
+    onFocusLost: onFocusLost,
+    iconColor: iconColor,
+  );
 
   @override
   _DigitDateFormInputState createState() => _DigitDateFormInputState();
@@ -93,7 +89,10 @@ class _DigitDateFormInputState extends BaseDigitFormInputState {
       lastDate: widget.lastDate,
       initialDate: widget.initialDate,
       context: context,
-      controller: widget.controller,
+      controller: controller,
+      cancelText: widget.cancelText,
+      confirmText: widget.confirmText,
+      onChange: widget.onChange,
     );
   }
 
@@ -105,7 +104,8 @@ class _DigitDateFormInputState extends BaseDigitFormInputState {
       lastDate: widget.lastDate,
       initialDate: widget.initialDate,
       context: context,
-      controller: widget.controller,
+      controller: controller,
+      onChange: widget.onChange,
     );
   }
 

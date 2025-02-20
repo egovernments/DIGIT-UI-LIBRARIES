@@ -2,9 +2,17 @@ import PropTypes from "prop-types";
 import React, { useEffect, useRef, useState } from "react";
 import { SVG } from "./SVG";
 import TreeSelect from "./TreeSelect";
+import { CustomSVG } from "./CustomSVG";
+import Menu from "./Menu";
+import { Colors } from "../constants/colors/colorconstants";
+import { iconRender } from "../utils/iconRender";
+import { getUserType } from "../utils/digitUtils";
+import StringManipulator from "./StringManipulator";
 
 const TextField = (props) => {
-  const [value, setValue] = useState(props.selectedVal ? props.selectedVal : "");
+  const [value, setValue] = useState(
+    props.selectedVal ? props.selectedVal : ""
+  );
 
   useEffect(() => {
     if (!props.keepNull)
@@ -37,7 +45,10 @@ const TextField = (props) => {
   }
 
   const replaceDotWithColon = (inputString) => {
-    if (props?.variant === "nesteddropdown" || props?.variant === "treedropdown" && inputString) {
+    if (
+      props?.variant === "nesteddropdown" ||
+      (props?.variant === "treedropdown" && inputString)
+    ) {
       const updatedInputString = inputString.replace(/\./g, ": ");
       return updatedInputString;
     }
@@ -47,36 +58,59 @@ const TextField = (props) => {
   /* Custom function to scroll and select in the dropdowns while using key up and down */
   const keyChange = (e) => {
     if (e.key == "ArrowDown") {
-      props.setOptionIndex((state) => (state + 1 == props.addProps.length ? 0 : state + 1));
+      props.setOptionIndex((state) =>
+        state + 1 == props.addProps.length ? 0 : state + 1
+      );
       if (props.addProps.currentIndex + 1 == props.addProps.length) {
-        e?.target?.parentElement?.parentElement?.children?.namedItem("jk-dropdown-unique")?.scrollTo?.(0, 0);
+        e?.target?.parentElement?.parentElement?.children
+          ?.namedItem("jk-dropdown-unique")
+          ?.scrollTo?.(0, 0);
       } else {
-        props?.addProps?.currentIndex > 2 && e?.target?.parentElement?.parentElement?.children?.namedItem("jk-dropdown-unique")?.scrollBy?.(0, 45);
+        props?.addProps?.currentIndex > 2 &&
+          e?.target?.parentElement?.parentElement?.children
+            ?.namedItem("jk-dropdown-unique")
+            ?.scrollBy?.(0, 45);
       }
       e.preventDefault();
     } else if (e.key == "ArrowUp") {
-      props.setOptionIndex((state) => (state !== 0 ? state - 1 : props.addProps.length - 1));
+      props.setOptionIndex((state) =>
+        state !== 0 ? state - 1 : props.addProps.length - 1
+      );
       if (props.addProps.currentIndex == 0) {
-        e?.target?.parentElement?.parentElement?.children?.namedItem("jk-dropdown-unique")?.scrollTo?.(100000, 100000);
+        e?.target?.parentElement?.parentElement?.children
+          ?.namedItem("jk-dropdown-unique")
+          ?.scrollTo?.(100000, 100000);
       } else {
-        props?.addProps?.currentIndex > 2 && e?.target?.parentElement?.parentElement?.children?.namedItem("jk-dropdown-unique")?.scrollBy?.(0, -45);
+        props?.addProps?.currentIndex > 2 &&
+          e?.target?.parentElement?.parentElement?.children
+            ?.namedItem("jk-dropdown-unique")
+            ?.scrollBy?.(0, -45);
       }
       e.preventDefault();
-    } else if (e.key == "Enter") {
-      props.addProps.selectOption(props.addProps.currentIndex);
+    } 
+    else if (e.key === "Enter") {
+      if (props.addProps.length === 1) {
+          props.addProps.selectOption(0);
+      }
+       else {
+          props.addProps.selectOption(props.addProps.currentIndex);
+      }
       e.preventDefault();
-    }
+  }
   };
 
   return (
     <input
       ref={props.inputRef}
-      className={`digit-employee-select-wrap--elipses ${!props.isSearchable ? "notSearchable" : ""} ${props.disable && "disabled"} ${props.variant ? props.variant : ""}`}
+      className={`digit-dropdown-employee-select-wrap--elipses ${
+        !props.isSearchable ? "notSearchable" : ""
+      } ${props.disable && "disabled"} ${props.variant ? props.variant : ""}`}
       type="text"
       value={replaceDotWithColon(value)}
       onChange={inputChange}
       onClick={props.onClick}
       onFocus={broadcastToOpen}
+      id={props?.id}
       onBlur={(e) => {
         broadcastToClose();
         props?.onBlur?.(e);
@@ -92,6 +126,7 @@ const TextField = (props) => {
       placeholder={props.placeholder}
       autoComplete={"off"}
       style={props.style}
+      title={props.showToolTip ? replaceDotWithColon(value) : undefined}
     />
   );
 };
@@ -101,16 +136,49 @@ const translateDummy = (text) => {
 };
 
 const Dropdown = (props) => {
-  const user_type = Digit.SessionStorage.get("userType");
+  const user_type = getUserType();
   const [dropdownStatus, setDropdownStatus] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(props.selected ? props.selected : null);
+  const [menuStatus, setMenuStatus] = useState(false);
+  const [selectedOption, setSelectedOption] = useState(
+    props.selected ? props.selected : null
+  );
   const [filterVal, setFilterVal] = useState("");
   const [isActive, setIsActive] = useState(-1);
   const [forceSet, setforceSet] = useState(0);
   const [optionIndex, setOptionIndex] = useState(-1);
   const optionRef = useRef(null);
+  const dropdownComponentRef = useRef(null);
+  const menuRef = useRef(null); 
+  const selectorRef = useRef(null);
   const hasCustomSelector = props.customSelector ? true : false;
   const t = props.t || translateDummy;
+
+
+  const scrollIntoViewIfNeeded = () => {
+    if (dropdownComponentRef.current) {
+      const rect = dropdownComponentRef.current.getBoundingClientRect();
+      const viewportWidth = window.innerWidth;
+      const viewportHeight = window.innerHeight;
+
+      // Check if the component is outside the viewport
+      const isOutsideViewport =
+        rect.top < 0 || rect.left < 0 || rect.bottom > viewportHeight || rect.right > viewportWidth;
+
+      if (isOutsideViewport) {
+        // Scroll to make the component visible
+        dropdownComponentRef.current.scrollIntoView({
+          behavior: "smooth", // Optional: smooth scrolling
+          block: "center",    // Scroll to the center vertically
+          inline: "center",   // Scroll to the center horizontally
+        });
+      }
+    }
+  };
+
+  useEffect(() => {
+    scrollIntoViewIfNeeded();
+  }, []); // Runs on mount
+
 
   useEffect(() => {
     setSelectedOption(props.selected);
@@ -124,6 +192,29 @@ const Dropdown = (props) => {
       }
       setDropdownStatus(!current);
       props?.onBlur?.();
+    }
+  }
+
+  function menuSwitch(){
+    if(!props.disabled){
+      var current = menuStatus;
+      if (!current) {
+        document.addEventListener("mousedown", handleClickOutside, false);
+      }
+      setMenuStatus(!current);
+      props?.onBlur?.();
+    }
+  }
+
+  function handleClickOutside(e) {
+    if (!menuRef.current || !menuRef.current.contains(e.target)) {
+      if(selectorRef?.current && selectorRef?.current.contains(e.target)){
+        return ;
+      }
+      else{
+        document.removeEventListener("mousedown", handleClickOutside, false);
+        setMenuStatus(false);
+      }
     }
   }
 
@@ -150,6 +241,7 @@ const Dropdown = (props) => {
     } else {
       setSelectedOption(val);
       setforceSet(forceSet + 1);
+      setDropdownStatus(false);
     }
   }
 
@@ -158,37 +250,42 @@ const Dropdown = (props) => {
   }
 
   let filteredOption =
-    (props.option && props.option?.filter((option) => t(option[props.optionKey])?.toUpperCase()?.indexOf(filterVal?.toUpperCase()) > -1)) || [];
+    (props.option &&
+      props.option?.filter(
+        (option) =>
+          t(option[props?.optionKey])
+            ?.toUpperCase()
+            ?.indexOf(filterVal?.toUpperCase()) > -1
+      )) ||
+    [];
   function selectOption(ind) {
-    onSelect(filteredOption[ind]);
+    const optionsToSelect =
+      props.variant === "nesteddropdown" || props.variant === "treedropdown"
+        ? flattenedOptions
+        : filteredOption;
+    onSelect(optionsToSelect[ind]);
   }
 
   if (props.isBPAREG && selectedOption) {
-    let isSelectedSameAsOptions = props.option?.filter((ob) => ob?.code === selectedOption?.code)?.length > 0;
+    let isSelectedSameAsOptions =
+      props.option?.filter((ob) => ob?.code === selectedOption?.code)?.length >
+      0;
     if (!isSelectedSameAsOptions) setSelectedOption(null);
   }
 
+  const inputBorderColor = Colors.lightTheme.generic.inputBorder;
+  const dividerColor = Colors.lightTheme.generic.divider;
+  const primaryColor = Colors.lightTheme.paper.primary;
+
   const IconRender = (iconReq, isActive) => {
-    const iconFill = isActive ? "#FFFFFF" : "#505A5F";
-    try {
-      const components = require("@egovernments/digit-ui-svg-components");
-      const DynamicIcon = components?.[iconReq];
-      if (DynamicIcon) {
-        const svgElement = DynamicIcon({
-          width: "1.25rem",
-          height: "1.25rem",
-          fill: iconFill,
-          className: "",
-        });
-        return svgElement;
-      } else {
-        console.log("Icon not found");
-        return null;
-      }
-    } catch (error) {
-      console.error("Icon not found");
-      return null;
-    }
+    const iconFill = isActive ? primaryColor : inputBorderColor;
+    return iconRender(
+      iconReq,
+      iconFill,
+      "1.25rem",
+      "1.25rem",
+      ""
+    );
   };
 
   const flattenOptions = (options) => {
@@ -203,7 +300,11 @@ const Dropdown = (props) => {
       });
     };
 
-    options.forEach((option) => {
+    const parentOptionsWithChildren = options.filter(
+      (option) => option.options && option.options.length > 0
+    );
+
+    parentOptionsWithChildren.forEach((option) => {
       if (option.options) {
         flattened.push(option);
         flattenNestedOptions(option.options);
@@ -227,60 +328,121 @@ const Dropdown = (props) => {
 
     return (
       <div
-        className={`cp profile-dropdown--item ${props.variant ? props?.variant : ""}`}
-        style={index === optionIndex ? { opacity: 1, backgroundColor: "#FFFAF7", border: "0.5px solid #F47738" } : {}}
+        className={`cp digit-dropdown-item ${
+          props.variant ? props?.variant : ""
+        } ${index === optionIndex ? "keyChange" : ""}`}
         key={index}
         onClick={() => onSelect(option)}
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
       >
-        {props?.variant === "profiledropdown" || props?.variant === "profilenestedtext" ? (
+        {props?.variant === "profiledropdown" ||
+        props?.variant === "profilenestedtext" ? (
           <div
             className={"profile-icon-container"}
             style={{
-              width: `${props?.variant === "profiledropdown" ? "2rem" : props?.variant === "profilenestedtext" ? "2.935rem" : ""}`,
-              height: `${props?.variant === "profiledropdown" ? "2rem" : props?.variant === "profilenestedtext" ? "2.935rem" : ""}`,
-              backgroundImage: `url(${
-                option.profileIcon
-                  ? option.profileIcon
-                  : "https://s3-alpha-sig.figma.com/img/a353/e61a/922f0cbf41a57918ee98e5f003d2f9b8?Expires=1705881600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=MmtDrFFMEexXuRiv~LIjrdvTBGtlOb-TqT4e6-pigcyH9ssnhhovhQa564Cp-~t9e6ZPtG33snEpEtOfVcElP-7VqK9HLqGJ7kVD3ZkR4jxGGkzVKLe7ItVqZeI3XD2HAWB2L~JY4s42dnm6658WWst~o6Fh8U9WuTJqB1iaOZyrvTf6VA2F66jcPozoTPjJeYyH0b3kGcxcGZEbkK-AbXwGkUsOJIKGr4dDVS7Gy2hgTabSd0mRkg0HTgntaLW0Zj~gzkgRTTPPUZst98npoIXE8cVimurJ4-KjYYRetx5li4O4PRl4uagRADIsxFxziDmMNv~~5IxEN4C2~0W9ew__"
-              })`,
+              width: `${
+                props?.variant === "profiledropdown"
+                  ? "2rem"
+                  : props?.variant === "profilenestedtext"
+                  ? "2.935rem"
+                  : ""
+              }`,
+              height: `${
+                props?.variant === "profiledropdown"
+                  ? "2rem"
+                  : props?.variant === "profilenestedtext"
+                  ? "2.935rem"
+                  : ""
+              }`,
+              ...(option.profileIcon && {
+                backgroundImage: `url(${option.profileIcon})`,
+              }),
             }}
-          />
+          >
+            {!option?.profileIcon && (
+              <CustomSVG.ProfileIcon
+                width={
+                  props?.variant === "profiledropdown"
+                    ? "2rem"
+                    : props?.variant === "profilenestedtext"
+                    ? "2.935rem"
+                    : ""
+                }
+                height={
+                  props?.variant === "profiledropdown"
+                    ? "2rem"
+                    : props?.variant === "profilenestedtext"
+                    ? "2.935rem"
+                    : ""
+                }
+              ></CustomSVG.ProfileIcon>
+            )}
+          </div>
         ) : null}
         <div className="option-des-container">
-          <div style={{ display: "flex", gap: "0.25rem", alignItems: "center", width: "100%", minHeight: "18px" }}>
-            {props?.showIcon && option?.icon && IconRender(option?.icon, index === isActive)}
+          <div className="icon-option">
+            {props?.showIcon &&
+              option?.icon &&
+              IconRender(option?.icon, index === isActive)}
             {props.isPropertyAssess ? (
-              <div>{props.t ? props.t(option[props.optionKey]) : option[props.optionKey]}</div>
+              <div>
+                {props.t
+                  ? props.t(option[props?.optionKey])
+                  : option[props?.optionKey]}
+              </div>
             ) : (
               <span
                 className={`main-option ${props.variant ? props?.variant : ""}`}
+                title={
+                  props.showToolTip
+                    ? props.t
+                      ? props.t(option[props?.optionKey])
+                      : option[props?.optionKey]
+                    : undefined
+                }
               >
-                {props.t ? props.t(option[props.optionKey]) : option[props.optionKey]}
+                {StringManipulator("TOSENTENCECASE", props.t
+                  ? props.t(option[props?.optionKey])
+                  : option[props?.optionKey])}
               </span>
             )}
           </div>
-          {(props.variant === "nestedtextdropdown" || props.variant === "profilenestedtext") && option.description && (
-            <div className="option-description">{option.description}</div>
-          )}
+          {(props.variant === "nestedtextdropdown" ||
+            props.variant === "profilenestedtext") &&
+            option.description && (
+              <div className="option-description">{StringManipulator("TOSENTENCECASE", option.description)}</div>
+            )}
         </div>
       </div>
     );
   };
 
-  const renderOptions = () => {
-    const optionsToRender = props.variant === "nesteddropdown" || props.variant === "treedropdown" ? flattenedOptions : filteredOption;
+  const optionsToRender =
+    props.variant === "nesteddropdown" || props.variant === "treedropdown"
+      ? flattenedOptions
+      : filteredOption;
 
+  const parentOptionsWithChildren = filteredOption.filter(
+    (option) => option.options && option.options.length > 0
+  );
+
+  const renderOptions = () => {
     return optionsToRender.map((option, index) => {
       if (option.options) {
         return (
           <div key={index} className="digit-nested-category">
             <div className="digit-category-name">
-              {props.variant === "treedropdown" && option.options.length > 0 && (
-                <SVG.ArrowDropDown width="1.5rem" height="1.5rem" className="cp" fill="#505a5f" />
-              )}
-              {option.name}
+              {props.variant === "treedropdown" &&
+                option.options.length > 0 && (
+                  <SVG.ArrowDropDown
+                    width="1.5rem"
+                    height="1.5rem"
+                    className="cp"
+                    fill={inputBorderColor}
+                  />
+                )}
+              {StringManipulator("TOSENTENCECASE",t(option[props?.optionKey]))}
             </div>
           </div>
         );
@@ -291,26 +453,63 @@ const Dropdown = (props) => {
   };
   return (
     <div
-      className={`${user_type === "employee" ? "digit-employee-select-wrap" : "digit-select-wrap"} ${props?.className ? props?.className : ""}`}
+      className={`${
+        user_type === "employee"
+          ? "digit-dropdown-employee-select-wrap"
+          : "digit-dropdown-select-wrap"
+      } ${props?.className ? props?.className : ""}`}
       style={props?.style || {}}
+      ref={dropdownComponentRef}
     >
-      {hasCustomSelector && (
-        <div className={props.showArrow ? "cp flex-right column-gap-5" : "cp"} onClick={dropdownSwitch}>
-          {props.customSelector}
-          {props.showArrow && <SVG.ArrowDropDown onClick={dropdownSwitch} className={props.disabled && "disabled"} fill="#505a5f" />}
+      {(hasCustomSelector || props?.profilePic) && (
+        <div
+          className={`header-dropdown-label ${props?.theme || ""}`}
+          onClick={menuSwitch}
+          ref={selectorRef}
+        >
+          {props?.profilePic && (
+            <span
+              className={`header-dropdown-profile ${props?.theme || ""} ${
+                typeof props?.profilePic === "string" ? "text" : ""
+              }`}
+            >
+              {typeof props?.profilePic === "string"
+                ? props?.profilePic?.[0]?.toUpperCase()
+                : props?.profilePic}
+            </span>
+          )}
+          {!props?.profilePic && props?.customSelector}
+          {props?.showArrow && (
+            <span className="header-dropdown-arrow">
+              <SVG.ArrowDropDown
+                fill={props?.theme === "dark" ? primaryColor : inputBorderColor}
+              />
+            </span>
+          )}
         </div>
       )}
-      {!hasCustomSelector && (
+
+      {!hasCustomSelector && !props?.profilePic && (
         <div
-          className={`${dropdownStatus ? "digit-select-active" : "digit-select"} ${props?.variant ? props?.variant : ""} ${!props?.isSearchable ? "notSearchable" : ""} ${
-            props.disabled && "disabled"
-          }`}
+          className={`${
+            dropdownStatus
+              ? "digit-dropdown-select-active"
+              : "digit-dropdown-select"
+          } ${props?.variant ? props?.variant : ""} ${
+            !props?.isSearchable ? "notSearchable" : ""
+          } ${props.disabled && "disabled"}`}
           style={
             props.errorStyle
-            ? { border: "1px solid red", ...(props.noBorder ? { border: "none" } : {}) }
-            : { ...(props.noBorder ? { border: "none" } : {}) }
+              ? {
+                  ...(props.noBorder ? { border: "none" } : {}),
+                }
+              : { ...(props.noBorder ? { border: "none" } : {}) }
           }
-          onClick={props.variant === "treedropdown" || !props.isSearchable ? dropdownSwitch : null}
+          onClick={
+            props.variant === "treedropdown" || !props.isSearchable
+              ? dropdownSwitch
+              : null
+          }
         >
           <TextField
             variant={props?.variant}
@@ -319,6 +518,7 @@ const Dropdown = (props) => {
             setFilter={setFilter}
             forceSet={forceSet}
             setforceSet={setforceSet}
+            id={props?.id}
             setOptionIndex={setOptionIndex}
             keepNull={props.keepNull}
             selectedVal={
@@ -327,7 +527,8 @@ const Dropdown = (props) => {
                   ? props.isMultiSelectEmp
                     ? `${selectedOption} ${t("BPA_SELECTED_TEXT")}`
                     : props.t(
-                        props.variant === "nesteddropdown" || props.variant === "treedropdown"
+                        props.variant === "nesteddropdown" ||
+                          props.variant === "treedropdown"
                           ? selectedOption.code
                           : props.optionKey
                           ? selectedOption[props.optionKey]
@@ -339,7 +540,15 @@ const Dropdown = (props) => {
                 : null
             }
             filterVal={filterVal}
-            addProps={{ length: filteredOption.length, currentIndex: optionIndex, selectOption: selectOption }}
+            addProps={{
+              length:
+                props.variant === "nesteddropdown" ||
+                props.variant === "treedropdown"
+                  ? flattenedOptions.length
+                  : filteredOption.length,
+              currentIndex: optionIndex,
+              selectOption: selectOption,
+            }}
             dropdownDisplay={dropdownOn}
             handleClick={handleClick}
             disable={props.disabled}
@@ -348,42 +557,93 @@ const Dropdown = (props) => {
             placeholder={props.placeholder}
             onBlur={props?.onBlur}
             inputRef={props.ref}
+            showToolTip={props.showToolTip}
           />
           {props.showSearchIcon ? null : (
-            <SVG.ArrowDropDown fill={props?.disabled ? "#D6D5D4" : "#505A5F"} onClick={dropdownSwitch} className="cp" disable={props.disabled} />
+            <SVG.ArrowDropDown
+              fill={props?.disabled ? dividerColor : inputBorderColor}
+              onClick={dropdownSwitch}
+              className="cp"
+              disable={props.disabled}
+            />
           )}
-          {props.showSearchIcon ? <SVG.Search onClick={dropdownSwitch} className="cp" disable={props.disabled} /> : null}
+          {props.showSearchIcon ? (
+            <SVG.Search
+              onClick={dropdownSwitch}
+              className="cp"
+              disable={props.disabled}
+            />
+          ) : null}
         </div>
       )}
-      {dropdownStatus ? (
+      {(hasCustomSelector || props?.profilePic) && menuStatus && (
+        <div className={"menu-div"} ref={menuRef}>
+          <Menu
+            options={props?.option}
+            setDropdownStatus={setMenuStatus}
+            dropdownStatus={menuStatus}
+            isSearchable={props?.isSearchable}
+            optionsKey={props?.optionKey}
+            onSelect={onSelect}
+            showBottom={props?.showBottom}
+            style={props?.menuStyles}
+            className={props?.profilePic ? "underProfile" : ""}
+          />
+        </div>
+      )}
+      {!hasCustomSelector && !props?.profilePIc && dropdownStatus ? (
         props.optionKey ? (
           <div
             id="jk-dropdown-unique"
-            className={`${hasCustomSelector ? "margin-top-10 display: table" : ""} digit-options-card`}
+            className={`digit-dropdown-options-card`}
             style={{ ...props.optionCardStyles }}
             ref={optionRef}
           >
             {props.variant === "treedropdown" ? (
-              <TreeSelect options={filteredOption} onSelect={onSelect} selectedOption={selectedOption} variant={props.variant} />
+              <TreeSelect
+                options={parentOptionsWithChildren}
+                onSelect={onSelect}
+                selectedOption={selectedOption}
+                variant={props.variant}
+                optionsKey={props?.optionKey}
+              />
             ) : (
               renderOptions()
             )}
-            {(props.variant === "nesteddropdown" ? flattenedOptions : filteredOption) &&
-              (props.variant === "nesteddropdown" ? flattenedOptions : filteredOption).length === 0 && (
-                <div className={`cp profile-dropdown--item ${props.variant ? props?.variant : ""}`} key={"-1"} onClick={() => {}}>
-                  {<span> {"NO RESULTS FOUND"}</span>}
+            {(props.variant === "nesteddropdown"
+              ? flattenedOptions
+              : filteredOption) &&
+              (props.variant === "nesteddropdown"
+                ? flattenedOptions
+                : filteredOption
+              ).length === 0 && (
+                <div
+                  className={`cp digit-dropdown-item unsuccessfulresults ${
+                    props.variant ? props?.variant : ""
+                  }`}
+                  key={"-1"}
+                  onClick={() => {}}
+                >
+                  {<span> {t("NO_RESULTS_FOUND")}</span>}
                 </div>
               )}
           </div>
         ) : (
           <div
-            className="digit-options-card"
-            style={{ ...props.optionCardStyles, overflow: "scroll", maxHeight: "350px" }}
+            className="digit-dropdown-options-card"
+            style={{
+              ...props.optionCardStyles,
+              overflow: "scroll",
+              maxHeight: "350px",
+            }}
             id="jk-dropdown-unique"
             ref={optionRef}
           >
             {props.option
-              ?.filter((option) => option?.toUpperCase().indexOf(filterVal?.toUpperCase()) > -1)
+              ?.filter(
+                (option) =>
+                  option?.toUpperCase().indexOf(filterVal?.toUpperCase()) > -1
+              )
               .map((option, index) => {
                 return (
                   <p
@@ -392,7 +652,8 @@ const Dropdown = (props) => {
                       index === optionIndex
                         ? {
                             opacity: 1,
-                            backgroundColor: "rgba(238, 238, 238, var(--bg-opacity))",
+                            backgroundColor:
+                              "rgba(238, 238, 238, var(--bg-opacity))",
                           }
                         : {}
                     }
@@ -423,7 +684,7 @@ Dropdown.propTypes = {
 Dropdown.defaultProps = {
   customSelector: null,
   showArrow: true,
-  isSearchable:true,
+  isSearchable: true,
 };
 
 export default Dropdown;

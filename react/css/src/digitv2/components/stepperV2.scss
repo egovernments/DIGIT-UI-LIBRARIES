@@ -1,0 +1,248 @@
+.digit-stepper-container {
+  @apply flex overflow-auto;
+  min-height: 4rem;
+
+  &.vertical {
+    @apply flex-col;
+  }
+
+  .digit-stepper-checkpoint {
+    @apply relative flex-1;
+    min-height: 4rem;
+    z-index: 1;
+
+    @media (max-aspect-ratio: 9/16) {
+      min-width: 3.75rem;
+    }
+
+    @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+      min-width: 5rem;
+    }
+
+    @media (min-aspect-ratio: 3/4) {
+      min-width: 6.25rem;
+    }
+  }
+
+  .digit-stepper-content {
+    @apply flex flex-col items-center font-sans font-regular;
+    min-height: 4rem;
+    gap: theme(digitv2.spacers.spacer2);
+    color: theme(digitv2.lightTheme.text-secondary);
+    font-size: theme(digitv2.spacers.spacer4);
+    line-height: theme(digitv2.spacers.spacer6);
+    text-align: center;
+
+
+    .stepper-label {
+      @extend .typography.body-s;
+      font-family: theme(digitv2.fontFamily.sans);
+      font-style: theme(digitv2.fontStyle.normal);
+      font-weight: theme(digitv2.fontWeight.regular);
+      line-height: theme(digitv2.lineHeight.lineheight2);
+  
+      @media (max-aspect-ratio: 9/16) {
+        /* Media query for mobile */
+        font-size: theme(digitv2.fontSize.body-s.mobile);
+      }
+  
+      @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+        /* Media query for tablets */
+        font-size: theme(digitv2.fontSize.body-s.tablet);
+      }
+  
+      @media (min-aspect-ratio: 3/4) {
+        /* Media query for desktop */
+        font-size: theme(digitv2.fontSize.body-s.desktop);
+      }
+      @apply text-center;
+      color: theme(digitv2.lightTheme.text-secondary);
+      letter-spacing: theme(digitv2.spacers.spacer0);
+
+      &.completed {
+        color: theme(digitv2.lightTheme.text-primary);
+      }
+
+      &.current {
+        @extend .typography.heading-s;
+        font-family: theme(digitv2.fontFamily.sans);
+        font-style: theme(digitv2.fontStyle.normal);
+        font-weight: theme(digitv2.fontWeight.bold);
+        line-height: theme(digitv2.lineHeight.lineheight1);
+    
+        @media (max-aspect-ratio: 9/16) {
+          /* Media query for mobile */
+          font-size: theme(digitv2.fontSize.heading-s.mobile);
+        }
+    
+        @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+          /* Media query for tablets */
+          font-size: theme(digitv2.fontSize.heading-s.tablet);
+        }
+    
+        @media (min-aspect-ratio: 3/4) {
+          /* Media query for desktop */
+          font-size: theme(digitv2.fontSize.heading-s.desktop);
+        }
+        line-height: 1.37rem;
+        color: theme(digitv2.lightTheme.text-primary);
+      }
+
+      &.vertical {
+        @apply text-left;
+        margin-top: 0.438rem;
+      }
+    }
+
+    &.vertical {
+      @apply flex-row;
+    }
+  }
+
+  .stepper-circle {
+    @apply flex text-center justify-center items-center font-regular w-8 h-8;
+    background-color: theme(digitv2.lightTheme.paper-primary);
+    border-radius: 50%;
+    margin-top: theme(digitv2.spacers.spacer1);
+    border: 0.125rem solid theme(digitv2.lightTheme.generic-divider);
+    color: #787878;
+
+    @media (max-aspect-ratio: 9/16) {
+      @apply w-6 h-6;
+    }
+  }
+
+  .active {
+    @apply font-bold;
+    background-color: theme(digitv2.lightTheme.primary-1);
+    border-color: theme(digitv2.lightTheme.primary-1);
+    color: theme(digitv2.lightTheme.paper-primary);
+  }
+
+  .stepper-connect {
+    @apply absolute;
+    top: theme(digitv2.spacers.spacer5);
+    left: calc(50% + (theme(digitv2.spacers.spacer2)));
+    right: calc(-50% + (theme(digitv2.spacers.spacer2)));
+    border-top: 0.125rem solid theme(colors.border);
+    z-index: -1;
+    height: 0.125rem;
+
+    @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+      /*min-width: 6.313rem;*/
+      max-width: 39.438rem;
+    }
+
+    @media (max-aspect-ratio: 9/16) {
+      /*min-width: 4.313rem;*/
+      max-width: 16.875rem;
+      top: 0.875rem;
+    }
+
+    @media (min-aspect-ratio: 3/4) {
+      /*min-width: 5.313rem;*/
+      max-width: 82.688rem;
+    }
+
+    &.lastbutone{
+      @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+        min-width: unset;
+      }
+  
+      @media (max-aspect-ratio: 9/16) {
+        min-width: unset;
+      }
+    }
+    &.active {
+      background-color: theme(digitv2.lightTheme.primary-1);
+      border-color: theme(digitv2.lightTheme.primary-1);
+      height: theme(digitv2.spacers.spacer1);
+      border-top: theme(digitv2.spacers.spacer1) solid theme(digitv2.lightTheme.primary-1);
+    }
+
+    &.vertical {
+      top: calc(50% + (theme(digitv2.spacers.spacer2)));
+      bottom: calc(-50% + (theme(digitv2.spacers.spacer2)));
+      left: -3.1rem;
+      width: 0.125rem;
+      height: auto;
+      transform: rotate(90deg);
+
+      &.active {
+        background-color: transparent;
+        border-color: theme(digitv2.lightTheme.primary-1);
+      }
+      @media (max-aspect-ratio: 9/16) {
+        left: -3.65rem;
+        min-width: 4.313rem;
+        max-width: 16.875rem;
+        top: 0.875rem;
+      }
+      @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+        left: -3.5rem;
+        min-width: 6.313rem;
+        max-width: 39.438rem;
+      }
+  
+      @media (min-aspect-ratio: 3/4) {
+        min-width: 5.313rem;
+        max-width: 82.688rem;
+      }
+    }
+  }
+
+  .digit-stepper-content:hover {
+    .stepper-circle.active {
+      outline: theme(digitv2.spacers.spacer1) solid #F477381F;
+    }
+
+    .stepper-label {
+      &.completed {
+        @extend .typography.heading-s;
+        font-family: theme(digitv2.fontFamily.sans);
+        font-style: theme(digitv2.fontStyle.normal);
+        font-weight: theme(digitv2.fontWeight.bold);
+        line-height: theme(digitv2.lineHeight.lineheight1);
+    
+        @media (max-aspect-ratio: 9/16) {
+          /* Media query for mobile */
+          font-size: theme(digitv2.fontSize.heading-s.mobile);
+        }
+    
+        @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+          /* Media query for tablets */
+          font-size: theme(digitv2.fontSize.heading-s.tablet);
+        }
+    
+        @media (min-aspect-ratio: 3/4) {
+          /* Media query for desktop */
+          font-size: theme(digitv2.fontSize.heading-s.desktop);
+        }
+        line-height: 1.37rem;
+        color: theme(digitv2.lightTheme.text-primary);
+      }
+    }
+  }
+}
+
+.digit-stepper-container::-webkit-scrollbar {
+  width: theme(digitv2.spacers.spacer0);
+  height: theme(digitv2.spacers.spacer0);
+  background-color: theme(digitv2.lightTheme.generic-background);
+}
+
+.digit-stepper-container::-webkit-scrollbar-track {
+  background-color: theme(digitv2.lightTheme.generic-background);
+  border-radius: 0.563rem;
+}
+
+.digit-stepper-container::-webkit-scrollbar-thumb {
+  background-color: theme(digitv2.lightTheme.generic-divider);
+  border-radius: 0.563rem;
+}
+
+.stepper-vertical-divider{
+  position: absolute;
+  left: theme(digitv2.spacers.spacer10);
+  margin: theme(digitv2.spacers.spacer0);
+}

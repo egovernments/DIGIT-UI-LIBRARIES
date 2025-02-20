@@ -1,68 +1,105 @@
-import React from "react";
-import { action } from "@storybook/addon-actions";
+import React, { useState } from "react";
 import OTPInput from "../OTPInput";
+import Iframe from "../Iframe";
 
 export default {
-  title: "Atoms/OTPInput",
+  title: "Atoms/OTP Input",
   component: OTPInput,
+  argTypes: {
+    className: {
+      control: "text",
+      table: { disable: true },
+    },
+    style: {
+      control: "object",
+      table: { disable: true },
+    },
+    inline: {
+      control: "select",
+      name:"Label Alignment",
+      options: ["Inline", "Above"],
+      mapping: { Inline: true, Above: false },
+    },
+    label: {
+      control: "text", name:"Label"
+    },
+    Error: {
+      control: "boolean",
+    },
+    type: {
+      control: "select",
+      name:"Type",
+      options: ["Alphanumeric", "Numeric"],
+      mapping: { Alphanumeric: "alphanumeric", Numeric: "numeric" },
+    },
+    length: {
+      control: "number",
+      table: { disable: true },
+    },
+    masking: {
+      control: "boolean",name:"Masking"
+    },
+  },
 };
 
-const Template = (args) => <OTPInput {...args} />;
+const Template = (args) => {
+  const {Error,...rest} = args;
+  const [otp, setOtp] = useState("");
 
-const defaultProps = {
-  length: 6,
-  value: "",
-  onChange: action("onChange"),
+  const handleOtpChange = (value) => {
+    console.log(value,"value")
+    setOtp(value);
+    if (value.length === args.length) {
+      if (!Error) {
+        console.log("OTP is correct");
+        return null;
+      } else {
+        console.log("Invalid OTP");
+        return "Invalid OTP";
+      }
+    }
+    return null;
+  };
+
+  return <OTPInput {...rest} onChange={handleOtpChange}/>;
 };
 
-export const Default = Template.bind({});
-Default.args = {
-  ...defaultProps,
-};
-
-// Create a Story for the OTPInput component with a value and length
-export const WithValue = Template.bind({});
-WithValue.args = {
-  ...defaultProps,
-  value: "123456",
-};
-
-// Create a Story for the OTPInput component with a different length
-export const CustomLength = Template.bind({});
-CustomLength.args = {
-  ...defaultProps,
+const commonArgs = {
   length: 4,
+  type: "Alphanumeric",
+  inline: "Above",
+  label: "Enter OTP",
+  style:{},
+  Error:false,
+  masking:false
 };
 
-// Create a Story for the OTPInput component with a focused input
-export const FocusedInput = Template.bind({});
-FocusedInput.args = {
-  ...defaultProps,
-  value: "1",
-  isFocus: true,
+export const Documentation = () => (
+  <Iframe
+    //Todo:Update the url
+    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
+    title="OTPInput Documentation"
+  />
+);
+
+Documentation.storyName = "Docs";
+Documentation.argTypes = {
+  inline: { table: { disable: true } },
+  label: { table: { disable: true }},
+  Error: {table:{disable:true}},
+  type: { table: { disable: true } },
+  masking: { table: { disable: true }},
 };
 
-// Create a Story for the OTPInput component with disabled inputs
-export const DisabledInputs = Template.bind({});
-DisabledInputs.args = {
-  ...defaultProps,
-  value: "123456",
-  disable: true,
+export const SixCharacters = Template.bind({});
+SixCharacters.args = {
+  ...commonArgs,
+  length: 6,
 };
+SixCharacters.storyName = "6 Characters";
 
-// Create a Story for the OTPInput component with error styling
-export const ErrorStyle = Template.bind({});
-ErrorStyle.args = {
-  ...defaultProps,
-  value: "12",
-  errorStyle: true,
+export const FourCharacters = Template.bind({});
+FourCharacters.args = {
+  ...commonArgs,
 };
-
-// Create a Story for the OTPInput component with a custom className and style
-export const CustomStyle = Template.bind({});
-CustomStyle.args = {
-  ...defaultProps,
-  value: "123456",
-  className: "custom-otp-input",
-  style: { color: "red", fontWeight: "bold" },
-};
+FourCharacters.storyName = "4 Characters";

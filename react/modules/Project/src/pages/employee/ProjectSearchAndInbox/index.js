@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Header, Loader,InboxSearchComposer} from "@egovernments/digit-ui-components";
+import { HeaderComponent, Loader,InboxSearchComposer} from "@egovernments/digit-ui-components";
 import inboxConfig from "../../../configs/InboxConfig";
 
 const ProjectSearchAndInboxComponent = () => {
@@ -23,7 +23,7 @@ const ProjectSearchAndInboxComponent = () => {
     // if(isLoading) return <Loader />
       return (
            <React.Fragment>
-              <Header styles={{ fontSize: "32px" }}>{t(configs?.label)}</Header>
+              <HeaderComponent styles={{ fontSize: "32px" }}>{t(configs?.label)}</HeaderComponent>
               <div className="inbox-search-wrapper">
                 <InboxSearchComposer configs={configs}></InboxSearchComposer>
               </div>

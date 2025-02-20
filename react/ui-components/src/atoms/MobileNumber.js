@@ -1,9 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import TextInput from "./TextInput";
+import { getUserType } from "../utils/digitUtils";
 
 const MobileNumber = (props) => {
-  const user_type = window?.Digit?.SessionStorage.get("userType");
+  const user_type = getUserType();
 
   const onChange = (e) => {
     let val = e.target.value;
@@ -16,13 +17,8 @@ const MobileNumber = (props) => {
   return (
     <React.Fragment>
       <div className={`digit-mobile-number-container ${props?.className ? props?.className : ""}`} style={props?.style}>
-        {!props.hideSpan ? (
-          <span style={props?.style} className="digit-citizen-card-input digit-citizen-card-input--front">
-            +91
-          </span>
-        ) : null}
         <div
-          className={`digit-text-input ${user_type === "employee" ? "" : "digit-text-mobile-input-width"} ${props.className ? props.className : ""}`}
+          className={`digit-text-input-field ${user_type === "employee" ? "" : "digit-text-mobile-input-width"} ${props.className ? props.className : ""}`}
         >
           <TextInput
             userType={props.userType}
@@ -32,6 +28,7 @@ const MobileNumber = (props) => {
             onChange={onChange}
             inputRef={props.inputRef}
             value={props.value}
+            id={props?.id}
             className={props.className}
             style={{ ...props.style }}
             maxLength={props.maxLength}
@@ -46,6 +43,9 @@ const MobileNumber = (props) => {
             autoFocus={props.autoFocus}
             onBlur={props.onBlur}
             variant={props?.variant}
+            populators={
+              !props.hideSpan ? {prefix:"+91"} :{}
+            }
           />
         </div>
       </div>

@@ -154,6 +154,10 @@ const getDefaultLanguage = () => {
   return  `${getLocaleDefault()}_${getLocaleRegion()}`;
 };
 
+const getMultiRootTenant = () => {
+  return window?.globalConfigs?.getConfig("MULTI_ROOT_TENANT") || false;
+};
+
 const detectDsoRoute = (pathname) => {
   const employeePages = ["search", "inbox", "dso-dashboard", "dso-application-details", "user"];
 
@@ -408,5 +412,6 @@ export default {
   debouncing,
   getLoggedInUserDetails,
   trimStringsInObject,
-  downloadEgovPDF
+  downloadEgovPDF,
+  getMultiRootTenant,
 };

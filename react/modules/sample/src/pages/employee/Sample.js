@@ -1,9 +1,15 @@
-import { FormComposerV2, InfoCard, Stepper } from "@egovernments/digit-ui-components";
-import React from "react";
+import {
+  FormComposerV2,
+  AlertCard,
+  Stepper,
+  Button,
+  Timeline,
+  InfoButton
+} from "@egovernments/digit-ui-components";
+import { Header } from "@egovernments/digit-ui-react-components";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { newConfig } from "../../configs/SampleConfig";
-import { Button } from "@egovernments/digit-ui-components";
-import { useState } from "react";
 
 const Create = () => {
   const { t } = useTranslation();
@@ -24,15 +30,119 @@ const Create = () => {
     borderRadius: "4px",
   };
 
+  const additionalElementsforTimeline = [
+    <div key="1">
+      Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+      Lorem Ipsum has been the industry's
+    </div>,
+    <Button variation="link" label={"Click on the link"} type="button" />,
+    <img
+      key="2"
+      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s"
+      alt="Additional Element 2"
+    />,
+    <img
+      key="3"
+      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s"
+      alt="Additional Element 3"
+    />,
+    <img
+      key="4"
+      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s"
+      alt="Additional Element 4"
+    />,
+    <img
+      key="5"
+      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s"
+      alt="Additional Element 5"
+    />,
+    <img
+      key="6"
+      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s"
+      alt="Additional Element 6"
+    />,
+    <img
+      key="7"
+      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s"
+      alt="Additional Element 7"
+    />,
+    <img
+      key="8"
+      src="https://digit.org/wp-content/uploads/2023/06/Digit-Logo-1.png"
+      alt="Additional Element 8"
+    />,
+    <Button
+      variation="primary"
+      label={"Button"}
+      type="button"
+      icon="MyLocation"
+    />,
+    <Button
+      variation="secondary"
+      label={"Button"}
+      type="button"
+      icon="MyLocation"
+      isSuffix={true}
+    />,
+  ];
+
+  const subElements = [
+    "26 / 03 / 2024",
+    "11:00 PM",
+    "26 / 03 / 2024 11:00 PM",
+    "26 / 03 / 2024 11:00 PM Mon",
+    "+91 **********",
+  ];
+
+  const additionalElementsforInfoCard = [
+    <p key="1">Additional Element 1</p>,
+    <img
+      key="2"
+      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s"
+      alt="Additional Element 2"
+    />,
+    <img
+      key="3"
+      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s"
+      alt="Additional Element 3"
+    />,
+    <img
+      key="4"
+      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s"
+      alt="Additional Element 4"
+    />,
+    <img
+      key="5"
+      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s"
+      alt="Additional Element 5"
+    />,
+    <img
+      key="6"
+      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s"
+      alt="Additional Element 6"
+    />,
+    <img
+      key="7"
+      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s"
+      alt="Additional Element 7"
+    />,
+    <img
+      key="8"
+      src="https://digit.org/wp-content/uploads/2023/06/Digit-Logo-1.png"
+      alt="Additional Element 8"
+    />,
+    <InfoButton label={"Button"} size="large" isDisabled={false}></InfoButton>,
+  ];
+
   const defaultValues = {
     "text-Default": "Sample Text Input",
     "text-Noneditable": "Sample Text Input Noneditable",
-    "text-Error": "Sample Text Input Error",
+    "text-Required Field": "Sample Text Input Error",
     "text-With Description": "Sample Text Input with description",
     "text-With CharCount": "Sample Text Input with charcount",
     "text-With Des&CharCount": "Sample Text Input with des&charcount",
-    "text-With Des&Err": "Sample Text Input with Des&Err",
-    "text-Mandatory": "Sample Text Input Mandatory",
+    "text-Required Field With Des": "Sample Text Input with Des&Err",
+    "text-Required": "Sample Text Input Mandatory",
     "text-With Info": "Sample Text Input with infomessage",
     "text-Info&Mandatory": "Sample Text Input mandatory&infomessage",
     "text-With Innerlabel": "Sample Text Input With Innerlabel",
@@ -42,15 +152,14 @@ const Create = () => {
 
     "textarea-Default": "Sample TextArea",
     "textarea-Noneditable": "Sample TextArea Noneditable",
-    "textarea-Error": "Sample TextArea Error",
+    "textarea-Required Field": "Sample TextArea Error",
     "textarea-With Description": "Sample TextArea with description",
     "textarea-With CharCount": "Sample TextArea with charcount",
     "textarea-With Des&CharCount": "Sample TextArea with des&charcount",
-    "textarea-With Des&Err": "Sample TextArea with des&err",
+    "textarea-Required Field With Des": "Sample TextArea with des&err",
     "textarea-Mandatory": "Sample TextArea mandatory",
     "textarea-With Info": "Sample TextArea with infomessage",
     "textarea-Info&Mandatory": "Sample TextArea mandatory&infomessage",
-    "textarea-With InnerLabel": "Sample TextArea with innerlabel",
     "textarea-Withoutlabel": "Sample TextArea withoutlabel",
     "textarea-With Validation": "Sample",
     "textarea-Complete": "Sample TextArea complete",
@@ -58,26 +167,29 @@ const Create = () => {
     "numeric-Default": 0,
     "numeric-With Step Value": 0,
     "numeric-Noneditable": 0,
-    "numeric-Error": 0,
+    "numeric-Required Field": 0,
     "numeric-With InfoMessage": 0,
 
     "prefix-Default": 1000,
     "prefix-Noneditable": 1000,
-    "prefix-Error": 1000,
+    "prefix-Required Field": 1000,
     "prefix-With Description": 1000,
     "prefix-With InfoMessage": 1000,
 
     "suffix-Default": 1000,
     "suffix-Noneditable": 1000,
-    "suffix-Error": 1000,
+    "suffix-Required Field": 1000,
     "suffix-With Description": 1000,
     "suffix-With Info": 1000,
 
     "password-Default": "password",
     "password-Noneditable": "password",
-    "password-Error": "password",
+    "password-Required Field": "password",
     "password-With Description": "password",
     "password-With InfoMessage": "password",
+
+    "date-Noneditable": "2024-04-03",
+    "time-Noneditable": "03:00",
   };
 
   const onSubmit = (data) => {
@@ -88,6 +200,7 @@ const Create = () => {
 
   return (
     <React.Fragment>
+      <Header styles={{ marginLeft: "16px" }}>{"New Components"}</Header>
       <FormComposerV2
         label={t("Submit")}
         config={configs.map((config) => {
@@ -98,95 +211,693 @@ const Create = () => {
         })}
         defaultValues={defaultValues}
         onSubmit={onSubmit}
+        labelfielddirectionvertical={false}
       />
       <div style={commonDivStyle}>
-        <Button variation="primary" label={"Primary"} type="button" />
-        <Button variation="primary" label={"Primary"} type="button" icon="MyLocation" />
-        <Button variation="primary" label={"Primary"} type="button" icon="MyLocation" isSuffix={true} />
-        <Button variation="primary" label={"Primary"} type="button" isDisabled={true} />
-        <Button variation="primary" label={"PrimaryWithsixtyfourcharactersPrimaryWithsixtyfourcharacterschar"} type="button" />
-        <Button variation="primary" label={"PrimaryWithmorethansixtyfourcharactersPrimaryWithsixtyfourcharacters"} type="button" />
+        <Button variation="primary" label={"Primary"} type="button"   size={"large"}/>
         <Button
           variation="primary"
-          label={"PrimaryWithmorethansixtyfourcharactersandwithiconPrimaryWithsixtyfourcharacters"}
+          label={"Primary"}
           type="button"
           icon="MyLocation"
+          size={"large"}
         />
         <Button
           variation="primary"
-          label={"PrimaryWithmorethansixtyfourcharactersandwithiconPrimaryWithsixtyfourcharacters"}
+          label={"Primary"}
           type="button"
           icon="MyLocation"
           isSuffix={true}
+          size={"large"}
+        />
+        <Button
+          variation="primary"
+          label={"Primary"}
+          type="button"
+          isDisabled={true}
+          size={"large"}
+        />
+        <Button
+          variation="primary"
+          label={
+            "PrimaryWithsixtyfourcharactersPrimaryWithsixtyfourcharacterschar"
+          }
+          type="button"
+          size={"large"}
+        />
+        <Button
+          variation="primary"
+          label={
+            "PrimaryWithmorethansixtyfourcharactersPrimaryWithsixtyfourcharacters"
+          }
+          type="button"
+          size={"large"}
+        />
+        <Button
+          variation="primary"
+          label={
+            "PrimaryWithmorethansixtyfourcharactersandwithiconPrimaryWithsixtyfourcharacters"
+          }
+          type="button"
+          icon="MyLocation"
+          size={"large"}
+        />
+        <Button
+          variation="primary"
+          label={
+            "PrimaryWithmorethansixtyfourcharactersandwithiconPrimaryWithsixtyfourcharacters"
+          }
+          type="button"
+          icon="MyLocation"
+          isSuffix={true}
+          size={"large"}
         />
 
-        <Button variation="secondary" label={"Secondary"} type="button" />
-        <Button variation="secondary" label={"Secondary"} type="button" icon="MyLocation" />
-        <Button variation="secondary" label={"Secondary"} type="button" icon="MyLocation" isSuffix={true} />
-        <Button variation="secondary" label={"Secondary"} type="button" isDisabled={true} />
-        <Button variation="secondary" label={"SecondaryWithsixtyfourcharactersSecondaryWithsixtyfourcharacters"} type="button" />
-        <Button variation="secondary" label={"SecondaryWithmorethansixtyfourcharactersSecondaryWithsixtyfourcharacters"} type="button" />
+        <Button variation="secondary" label={"Secondary"} type="button"   size={"large"}/>
         <Button
           variation="secondary"
-          label={"SecondaryWithmorethansixtyfourcharactersandwithiconSecondaryWithsixtyfourcharacters"}
+          label={"Secondary"}
           type="button"
           icon="MyLocation"
+          size={"large"}
         />
         <Button
           variation="secondary"
-          label={"SecondaryWithmorethansixtyfourcharactersandwithiconSecondaryWithsixtyfourcharacters"}
+          label={"Secondary"}
           type="button"
           icon="MyLocation"
           isSuffix={true}
+          size={"large"}
+        />
+        <Button
+          variation="secondary"
+          label={"Secondary"}
+          type="button"
+          isDisabled={true}
+          size={"large"}
+        />
+        <Button
+          variation="secondary"
+          label={
+            "SecondaryWithsixtyfourcharactersSecondaryWithsixtyfourcharacters"
+          }
+          type="button"
+          size={"large"}
+        />
+        <Button
+          variation="secondary"
+          label={
+            "SecondaryWithmorethansixtyfourcharactersSecondaryWithsixtyfourcharacters"
+          }
+          type="button"
+          size={"large"}
+        />
+        <Button
+          variation="secondary"
+          label={
+            "SecondaryWithmorethansixtyfourcharactersandwithiconSecondaryWithsixtyfourcharacters"
+          }
+          type="button"
+          icon="MyLocation"
+          size={"large"}
+        />
+        <Button
+          variation="secondary"
+          label={
+            "SecondaryWithmorethansixtyfourcharactersandwithiconSecondaryWithsixtyfourcharacters"
+          }
+          type="button"
+          icon="MyLocation"
+          isSuffix={true}
+          size={"large"}
         />
 
-        <Button variation="teritiary" label={"Teritiary"} type="button" />
-        <Button variation="teritiary" label={"Teritiary"} type="button" icon="MyLocation" />
-        <Button variation="teritiary" label={"Teritiary"} type="button" icon="MyLocation" isSuffix={true} />
-        <Button variation="teritiary" label={"Teritiary"} type="button" isDisabled={true} />
-        <Button variation="teritiary" label={"TeritiaryWithsixtyfourcharactersTeritiaryWithsixtyfourcharacters"} type="button" />
-        <Button variation="teritiary" label={"TeritiaryWithmorethansixtyfourcharactersTeritiaryWithsixtyfourcharacters"} type="button" />
+        <Button variation="teritiary" label={"Teritiary"} type="button"   size={"large"} />
         <Button
           variation="teritiary"
-          label={"TeritiaryWithmorethansixtyfourcharactersandwithiconTeritiaryWithsixtyfourcharacters"}
+          label={"Teritiary"}
           type="button"
           icon="MyLocation"
+          size={"large"}
         />
         <Button
           variation="teritiary"
-          label={"TeritiaryWithmorethansixtyfourcharactersandwithiconTeritiaryWithsixtyfourcharacters"}
+          label={"Teritiary"}
           type="button"
           icon="MyLocation"
           isSuffix={true}
+          size={"large"}
+        />
+        <Button
+          variation="teritiary"
+          label={"Teritiary"}
+          type="button"
+          isDisabled={true}
+          size={"large"}
+        />
+        <Button
+          variation="teritiary"
+          label={
+            "TeritiaryWithsixtyfourcharactersTeritiaryWithsixtyfourcharacters"
+          }
+          type="button"
+          size={"large"}
+        />
+        <Button
+          variation="teritiary"
+          label={
+            "TeritiaryWithmorethansixtyfourcharactersTeritiaryWithsixtyfourcharacters"
+          }
+          type="button"
+          size={"large"}
+        />
+        <Button
+          variation="teritiary"
+          label={
+            "TeritiaryWithmorethansixtyfourcharactersandwithiconTeritiaryWithsixtyfourcharacters"
+          }
+          type="button"
+          icon="MyLocation"
+          size={"large"}
+        />
+        <Button
+          variation="teritiary"
+          label={
+            "TeritiaryWithmorethansixtyfourcharactersandwithiconTeritiaryWithsixtyfourcharacters"
+          }
+          type="button"
+          icon="MyLocation"
+          isSuffix={true}
+          size={"large"}
         />
 
-        <Button variation="link" label={"Link"} type="button" />
-        <Button variation="link" label={"Link"} type="button" icon="MyLocation" />
-        <Button variation="link" label={"Link"} type="button" icon="MyLocation" isSuffix={true} />
-        <Button variation="link" label={"Link"} type="button" isDisabled={true} />
+        <Button variation="link" label={"Link"} type="button"   size={"large"}/>
         <Button
           variation="link"
-          label={
-            "LinkdoesnothaveanyrestrictionforthenumberofcharactersitcanhaveanynumberofcharactersLinkdoesnothaveanyrestrictionforthenumberofcharactersitcanhaveanynumberofcharactersLinkdoesnothaveanyrestrictionforthenumberofcharactersitcanhaveanynumberofcharactersLinkdoesnothaveanyrestrictionforthenumberofcharactersitcanhaveanynumberofcharacters"
-          }
+          label={"Link"}
           type="button"
+          icon="MyLocation"
+          size={"large"}
+        />
+        <Button
+          variation="link"
+          label={"Link"}
+          type="button"
+          icon="MyLocation"
+          isSuffix={true}
+          size={"large"}
+        />
+        <Button
+          variation="link"
+          label={"Link"}
+          type="button"
+          isDisabled={true}
+          size={"large"}
         />
         <Button
           variation="link"
           label={
-            "LinkdoesnothaveanyrestrictionforthenumberofcharactersitcanhaveanynumberofcharactersLinkdoesnothaveanyrestrictionforthenumberofcharactersitcanhaveanynumberofcharactersLinkdoesnothaveanyrestrictionforthenumberofcharactersitcanhaveanynumberofcharactersLinkdoesnothaveanyrestrictionforthenumberofcharactersitcanhaveanynumberofcharacters"
+            "Linkdoesnothaveanyrestrictionforthenumberofcharactersitcanhaveanynumberofcharacters"
+          }
+          type="button"
+          size={"large"}
+        />
+        <Button
+          variation="link"
+          label={
+            "Linkdoesnothaveanyrestrictionforthenumberofcharactersitcanhaveanynumberofcharacters"
           }
           type="button"
           icon="MyLocation"
+          size={"large"}
         />
         <Button
           variation="link"
           label={
-            "LinkdoesnothaveanyrestrictionforthenumberofcharactersitcanhaveanynumberofcharactersLinkdoesnothaveanyrestrictionforthenumberofcharactersitcanhaveanynumberofcharactersLinkdoesnothaveanyrestrictionforthenumberofcharactersitcanhaveanynumberofcharactersLinkdoesnothaveanyrestrictionforthenumberofcharactersitcanhaveanynumberofcharacters"
+            "Linkdoesnothaveanyrestrictionforthenumberofcharacters"
           }
           type="button"
           icon="MyLocation"
           isSuffix={true}
+          size={"large"}
+        />
+      </div>
+      <div style={commonDivStyle}>
+        <Button variation="primary" label={"Primary"} type="button"   size={"medium"} />
+        <Button
+          variation="primary"
+          label={"Primary"}
+          type="button"
+          icon="MyLocation"
+          size={"medium"}
+        />
+        <Button
+          variation="primary"
+          label={"Primary"}
+          type="button"
+          icon="MyLocation"
+          isSuffix={true}
+          size={"medium"}
+        />
+        <Button
+          variation="primary"
+          label={"Primary"}
+          type="button"
+          isDisabled={true}
+          size={"medium"}
+        />
+        <Button
+          variation="primary"
+          label={
+            "PrimaryWithsixtyfourcharactersPrimaryWithsixtyfourcharacterschar"
+          }
+          type="button"
+          size={"medium"}
+        />
+        <Button
+          variation="primary"
+          label={
+            "PrimaryWithmorethansixtyfourcharactersPrimaryWithsixtyfourcharacters"
+          }
+          type="button"
+          size={"medium"}
+        />
+        <Button
+          variation="primary"
+          label={
+            "PrimaryWithmorethansixtyfourcharactersandwithiconPrimaryWithsixtyfourcharacters"
+          }
+          type="button"
+          icon="MyLocation"
+          size={"medium"}
+        />
+        <Button
+          variation="primary"
+          label={
+            "PrimaryWithmorethansixtyfourcharactersandwithiconPrimaryWithsixtyfourcharacters"
+          }
+          type="button"
+          icon="MyLocation"
+          isSuffix={true}
+          size={"medium"}
+        />
+
+        <Button variation="secondary" label={"Secondary"} type="button" size={"medium"}/>
+        <Button
+          variation="secondary"
+          label={"Secondary"}
+          type="button"
+          icon="MyLocation"
+          size={"medium"}
+        />
+        <Button
+          variation="secondary"
+          label={"Secondary"}
+          type="button"
+          icon="MyLocation"
+          isSuffix={true}
+          size={"medium"}
+        />
+        <Button
+          variation="secondary"
+          label={"Secondary"}
+          type="button"
+          isDisabled={true}
+          size={"medium"}
+        />
+        <Button
+          variation="secondary"
+          label={
+            "SecondaryWithsixtyfourcharactersSecondaryWithsixtyfourcharacters"
+          }
+          type="button"
+          size={"medium"}
+        />
+        <Button
+          variation="secondary"
+          label={
+            "SecondaryWithmorethansixtyfourcharactersSecondaryWithsixtyfourcharacters"
+          }
+          type="button"
+          size={"medium"}
+        />
+        <Button
+          variation="secondary"
+          label={
+            "SecondaryWithmorethansixtyfourcharactersandwithiconSecondaryWithsixtyfourcharacters"
+          }
+          type="button"
+          icon="MyLocation"
+          size={"medium"}
+        />
+        <Button
+          variation="secondary"
+          label={
+            "SecondaryWithmorethansixtyfourcharactersandwithiconSecondaryWithsixtyfourcharacters"
+          }
+          type="button"
+          icon="MyLocation"
+          isSuffix={true}
+          size={"medium"}
+        />
+
+        <Button variation="teritiary" label={"Teritiary"} type="button" size={"medium"}/>
+        <Button
+          variation="teritiary"
+          label={"Teritiary"}
+          type="button"
+          icon="MyLocation"
+          size={"medium"}
+        />
+        <Button
+          variation="teritiary"
+          label={"Teritiary"}
+          type="button"
+          icon="MyLocation"
+          isSuffix={true}
+          size={"medium"}
+        />
+        <Button
+          variation="teritiary"
+          label={"Teritiary"}
+          type="button"
+          isDisabled={true}
+          size={"medium"}
+        />
+        <Button
+          variation="teritiary"
+          label={
+            "TeritiaryWithsixtyfourcharactersTeritiaryWithsixtyfourcharacters"
+          }
+          type="button"
+          size={"medium"}
+        />
+        <Button
+          variation="teritiary"
+          label={
+            "TeritiaryWithmorethansixtyfourcharactersTeritiaryWithsixtyfourcharacters"
+          }
+          type="button"
+          size={"medium"}
+        />
+        <Button
+          variation="teritiary"
+          label={
+            "TeritiaryWithmorethansixtyfourcharactersandwithiconTeritiaryWithsixtyfourcharacters"
+          }
+          type="button"
+          icon="MyLocation"
+          size={"medium"}
+        />
+        <Button
+          variation="teritiary"
+          label={
+            "TeritiaryWithmorethansixtyfourcharactersandwithiconTeritiaryWithsixtyfourcharacters"
+          }
+          type="button"
+          icon="MyLocation"
+          isSuffix={true}
+          size={"medium"}
+        />
+
+        <Button variation="link" label={"Link"} type="button" size={"medium"}/>
+        <Button
+          variation="link"
+          label={"Link"}
+          type="button"
+          icon="MyLocation"
+          size={"medium"}
+        />
+        <Button
+          variation="link"
+          label={"Link"}
+          type="button"
+          icon="MyLocation"
+          isSuffix={true}
+          size={"medium"}
+        />
+        <Button
+          variation="link"
+          label={"Link"}
+          type="button"
+          isDisabled={true}
+          size={"medium"}
+        />
+        <Button
+          variation="link"
+          label={
+            "Linkdoesnothaveanyrestrictionforthenumberofcharactersitcanhaveanynumberofcharacters"
+          }
+          type="button"
+          size={"medium"}
+        />
+        <Button
+          variation="link"
+          label={
+            "Linkdoesnothaveanyrestrictionforthenumberofcharactersitcanhaveanynumberofcharacters"
+          }
+          type="button"
+          icon="MyLocation"
+          size={"medium"}
+        />
+        <Button
+          variation="link"
+          label={
+            "Linkdoesnothaveanyrestrictionforthenumberofcharacters"
+          }
+          type="button"
+          icon="MyLocation"
+          isSuffix={true}
+          size={"medium"}
+        />
+      </div>
+      <div style={commonDivStyle}>
+        <Button variation="primary" label={"Primary"} type="button" size={"small"}/>
+        <Button
+          variation="primary"
+          label={"Primary"}
+          type="button"
+          icon="MyLocation"
+          size={"small"}
+        />
+        <Button
+          variation="primary"
+          label={"Primary"}
+          type="button"
+          icon="MyLocation"
+          isSuffix={true}
+          size={"small"}
+        />
+        <Button
+          variation="primary"
+          label={"Primary"}
+          type="button"
+          isDisabled={true}
+          size={"small"}
+        />
+        <Button
+          variation="primary"
+          label={
+            "PrimaryWithsixtyfourcharactersPrimaryWithsixtyfourcharacterschar"
+          }
+          type="button"
+          size={"small"}
+        />
+        <Button
+          variation="primary"
+          label={
+            "PrimaryWithmorethansixtyfourcharactersPrimaryWithsixtyfourcharacters"
+          }
+          type="button"
+          size={"small"}
+        />
+        <Button
+          variation="primary"
+          label={
+            "PrimaryWithmorethansixtyfourcharactersandwithiconPrimaryWithsixtyfourcharacters"
+          }
+          type="button"
+          icon="MyLocation"
+          size={"small"}
+        />
+        <Button
+          variation="primary"
+          label={
+            "PrimaryWithmorethansixtyfourcharactersandwithiconPrimaryWithsixtyfourcharacters"
+          }
+          type="button"
+          icon="MyLocation"
+          isSuffix={true}
+          size={"small"}
+        />
+
+        <Button variation="secondary" label={"Secondary"} type="button" size={"small"}/>
+        <Button
+          variation="secondary"
+          label={"Secondary"}
+          type="button"
+          icon="MyLocation"
+          size={"small"}
+        />
+        <Button
+          variation="secondary"
+          label={"Secondary"}
+          type="button"
+          icon="MyLocation"
+          isSuffix={true}
+          size={"small"}
+        />
+        <Button
+          variation="secondary"
+          label={"Secondary"}
+          type="button"
+          isDisabled={true}
+          size={"small"}
+        />
+        <Button
+          variation="secondary"
+          label={
+            "SecondaryWithsixtyfourcharactersSecondaryWithsixtyfourcharacters"
+          }
+          type="button"
+          size={"small"}
+        />
+        <Button
+          variation="secondary"
+          label={
+            "SecondaryWithmorethansixtyfourcharactersSecondaryWithsixtyfourcharacters"
+          }
+          type="button"
+          size={"small"}
+        />
+        <Button
+          variation="secondary"
+          label={
+            "SecondaryWithmorethansixtyfourcharactersandwithiconSecondaryWithsixtyfourcharacters"
+          }
+          type="button"
+          icon="MyLocation"
+          size={"small"}
+        />
+        <Button
+          variation="secondary"
+          label={
+            "SecondaryWithmorethansixtyfourcharactersandwithiconSecondaryWithsixtyfourcharacters"
+          }
+          type="button"
+          icon="MyLocation"
+          isSuffix={true}
+          size={"small"}
+        />
+
+        <Button variation="teritiary" label={"Teritiary"} type="button" size={"small"}/>
+        <Button
+          variation="teritiary"
+          label={"Teritiary"}
+          type="button"
+          icon="MyLocation"
+          size={"small"}
+        />
+        <Button
+          variation="teritiary"
+          label={"Teritiary"}
+          type="button"
+          icon="MyLocation"
+          isSuffix={true}
+          size={"small"}
+        />
+        <Button
+          variation="teritiary"
+          label={"Teritiary"}
+          type="button"
+          isDisabled={true}
+          size={"small"}
+        />
+        <Button
+          variation="teritiary"
+          label={
+            "TeritiaryWithsixtyfourcharactersTeritiaryWithsixtyfourcharacters"
+          }
+          type="button"
+          size={"small"}
+        />
+        <Button
+          variation="teritiary"
+          label={
+            "TeritiaryWithmorethansixtyfourcharactersTeritiaryWithsixtyfourcharacters"
+          }
+          type="button"
+          size={"small"}
+        />
+        <Button
+          variation="teritiary"
+          label={
+            "TeritiaryWithmorethansixtyfourcharactersandwithiconTeritiaryWithsixtyfourcharacters"
+          }
+          type="button"
+          icon="MyLocation"
+          size={"small"}
+        />
+        <Button
+          variation="teritiary"
+          label={
+            "TeritiaryWithmorethansixtyfourcharactersandwithiconTeritiaryWithsixtyfourcharacters"
+          }
+          type="button"
+          icon="MyLocation"
+          isSuffix={true}
+          size={"small"}
+        />
+
+        <Button variation="link" label={"Link"} type="button" size={"small"}/>
+        <Button
+          variation="link"
+          label={"Link"}
+          type="button"
+          icon="MyLocation"
+          size={"small"}
+        />
+        <Button
+          variation="link"
+          label={"Link"}
+          type="button"
+          icon="MyLocation"
+          isSuffix={true}
+          size={"small"}
+        />
+        <Button
+          variation="link"
+          label={"Link"}
+          type="button"
+          isDisabled={true}
+          size={"small"}
+        />
+        <Button
+          variation="link"
+          label={
+            "Linkdoesnothaveanyrestrictionforthenumberofcharactersitcanhaveanynumberofcharacters"
+          }
+          type="button"
+          size={"small"}
+        />
+        <Button
+          variation="link"
+          label={
+            "Linkdoesnothaveanyrestrictionforthenumberofcharactersitcanhaveanynumberofcharacters"
+          }
+          type="button"
+          icon="MyLocation"
+          size={"small"}
+        />
+        <Button
+          variation="link"
+          label={
+            "Linkdoesnothaveanyrestrictionforthenumberofcharacters"
+          }
+          type="button"
+          icon="MyLocation"
+          isSuffix={true}
+          size={"small"}
         />
       </div>
       <div style={commonDivStyle}>
@@ -194,7 +905,6 @@ const Create = () => {
           populators={{
             name: "stepper",
           }}
-          type="stepper"
           currentStep={currentStep + 1}
           customSteps={{}}
           totalSteps={5}
@@ -203,7 +913,7 @@ const Create = () => {
         />
       </div>
       <div style={commonDivStyle}>
-        <InfoCard
+        <AlertCard
           populators={{
             name: "infocard",
           }}
@@ -213,7 +923,7 @@ const Create = () => {
           }
           label={"Info"}
         />
-        <InfoCard
+        <AlertCard
           populators={{
             name: "infocardsuccess",
           }}
@@ -223,7 +933,7 @@ const Create = () => {
           }
           label={"Success"}
         />
-        <InfoCard
+        <AlertCard
           populators={{
             name: "infocardwarning",
           }}
@@ -233,7 +943,7 @@ const Create = () => {
           }
           label={"Warning"}
         />
-        <InfoCard
+        <AlertCard
           populators={{
             name: "infocarderror",
           }}
@@ -244,7 +954,7 @@ const Create = () => {
           label={"Error"}
         />
 
-        <InfoCard
+        <AlertCard
           populators={{
             name: "infocardwithelements",
           }}
@@ -253,43 +963,10 @@ const Create = () => {
             "Application process will take a minute to complete. It might cost around Rs.500/- to Rs.1000/- to clean your septic tank and you can expect the service to get completed in 24 hrs from the time of payment."
           }
           label={"Info"}
-          additionalElements={[
-            <p key="1">Additional Element 1</p>,
-            <img
-              key="2"
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s"
-              alt="Additional Element 2"
-            />,
-            <img
-              key="3"
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s"
-              alt="Additional Element 3"
-            />,
-            <img
-              key="4"
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s"
-              alt="Additional Element 4"
-            />,
-            <img
-              key="5"
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s"
-              alt="Additional Element 5"
-            />,
-            <img
-              key="6"
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s"
-              alt="Additional Element 6"
-            />,
-            <img
-              key="7"
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s"
-              alt="Additional Element 7"
-            />,
-            <img key="8" src="https://digit.org/wp-content/uploads/2023/06/Digit-Logo-1.png" alt="Additional Element 8" />,
-          ]}
+          additionalElements={additionalElementsforInfoCard}
         />
 
-        <InfoCard
+        <AlertCard
           populators={{
             name: "infocardwithelements",
           }}
@@ -299,40 +976,30 @@ const Create = () => {
           }
           label={"Info"}
           inline={true}
-          additionalElements={[
-            <p key="1">Additional Element 1</p>,
-            <img
-              key="2"
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s"
-              alt="Additional Element 2"
-            />,
-            <img
-              key="3"
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s"
-              alt="Additional Element 3"
-            />,
-            <img
-              key="4"
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s"
-              alt="Additional Element 4"
-            />,
-            <img
-              key="5"
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s"
-              alt="Additional Element 5"
-            />,
-            <img
-              key="6"
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s"
-              alt="Additional Element 6"
-            />,
-            <img
-              key="7"
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIGMLufj86aep95KwMzr3U0QShg7oxdAG8gBPJ9ALIFQ&s"
-              alt="Additional Element 7"
-            />,
-            <img key="8" src="https://digit.org/wp-content/uploads/2023/06/Digit-Logo-1.png" alt="Additional Element 8" />,
-          ]}
+          additionalElements={additionalElementsforInfoCard}
+        />
+      </div>
+      <div style={commonDivStyle}>
+        <Timeline
+          label={"Upcoming"}
+          variant={"upcoming"}
+          subElements={subElements}
+          additionalElements={additionalElementsforTimeline}
+          inline={false}
+        />
+        <Timeline
+          label={"Inprogress"}
+          variant={"inprogress"}
+          subElements={subElements}
+          additionalElements={additionalElementsforTimeline}
+          inline={false}
+        />
+        <Timeline
+          label={"Completed"}
+          variant={"completed"}
+          subElements={subElements}
+          additionalElements={additionalElementsforTimeline}
+          inline={false}
         />
       </div>
     </React.Fragment>

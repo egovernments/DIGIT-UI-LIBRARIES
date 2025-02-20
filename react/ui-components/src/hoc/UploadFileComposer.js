@@ -5,18 +5,18 @@ import LabelFieldPair from "../atoms/LabelFieldPair";
 import CardLabel from "../atoms/CardLabel";
 import CardLabelError from "../atoms/CardLabelError";
 import CitizenInfoLabel from "../atoms/CitizenInfoLabel";
-import Header from "../atoms/Header";
+import HeaderComponent from "../atoms/HeaderComponent";
 import MultiUploadWrapper from "../molecules/MultiUploadWrapper";
 import TextInput from "../atoms/TextInput";
 import { getRegex } from "../utils/uploadFileComposerUtils";
 import useCustomMDMS from "./techHoc/useCustomMDMS";
 
-const UploadFileComposer = ({ module, config, Controller, control, register, formData, errors, localePrefix, customClass, customErrorMsg }) => {
+const UploadFileComposer = ({ module, config, Controller, control, register, formData, errors, localePrefix, customClass, customErrorMsg,mdmsModuleName='works' }) => {
   const { t } = useTranslation();
 
   //fetch mdms config based on module name
   const tenant = Digit?.ULBService?.getStateId();
-  const { isLoading, data } = useCustomMDMS(tenant, "works", [
+  const { isLoading, data } = useCustomMDMS(tenant, mdmsModuleName, [
     {
       name: "DocumentConfig",
       filter: `[?(@.module=='${module}')]`,
@@ -27,7 +27,7 @@ const UploadFileComposer = ({ module, config, Controller, control, register, for
 
   return (
     <React.Fragment>
-      <Header styles={{ fontSize: "24px", marginTop: "40px" }}>{t("WORKS_RELEVANT_DOCUMENTS")}</Header>
+      <HeaderComponent styles={{ fontSize: "24px", marginTop: "40px" }}>{t("WORKS_RELEVANT_DOCUMENTS")}</HeaderComponent>
       <CitizenInfoLabel info={t("ES_COMMON_INFO")} text={t(docConfig?.bannerLabel)} className="digit-doc-banner"></CitizenInfoLabel>
       {docConfig?.documents?.map((item, index) => {
         if (!item?.active) return;

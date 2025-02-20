@@ -1,14 +1,14 @@
 @import url("../index.scss");
 
-.digit-checkbox-wrap {
+.digit-checkbox-container {
   @apply flex mb-md relative;
-  gap: 1rem;
+  gap: theme(digitv2.spacers.spacer4);
 
   input {
     @apply opacity-0 absolute cursor-pointer z-10;
     @extend .light-input-border;
-    width: 2rem;
-    height: 2rem;
+    width: theme(digitv2.spacers.spacer8);
+    height: theme(digitv2.spacers.spacer8);
     left: -15%;
   }
 
@@ -18,16 +18,25 @@
 
   .digit-custom-checkbox {
     @apply flex items-center border border-solid border-text-secondary justify-center;
-    width: 1.5rem;
-    height: 1.5rem;
+    width: theme(digitv2.spacers.spacer6);
+    height: theme(digitv2.spacers.spacer6);
 
     img,
     svg {
       @apply opacity-0;
     }
 
+    svg {
+      flex-shrink: 0;
+    }
+
     &:hover {
-      @apply border-2 border-primary-main;
+      @apply border-2;
+      border-color: theme(digitv2.lightTheme.primary-1);
+    }
+
+    &.intermediate {
+      border: 0.125rem solid theme(digitv2.lightTheme.primary-1);
     }
   }
 
@@ -36,11 +45,16 @@
   }
 
   input:hover~.digit-custom-checkbox {
-    @apply border-2 border-primary-main;
+    @apply border-2;
+    border-color: theme(digitv2.lightTheme.primary-1);
+  }
+
+  input:hover~.digit-custom-checkbox.intermediate{
+    border: 0.125rem solid theme(digitv2.lightTheme.primary-1);
   }
 
   input:checked~.digit-custom-checkbox {
-    border: 0.125rem solid theme(digitv2.lightTheme.primary-orange);
+    border: 0.125rem solid theme(digitv2.lightTheme.primary-1);
   }
 
 
@@ -50,30 +64,65 @@
 
   input:checked~.digit-custom-checkbox svg {
     @apply opacity-100;
-    width: 1rem;
-    height: 1rem;
+    width: theme(digitv2.spacers.spacer4);
+    height: theme(digitv2.spacers.spacer4);
+  }
+
+  .intermediate-square {
+    width: theme(digitv2.spacers.spacer4);
+    height: theme(digitv2.spacers.spacer4);
+    background-color: theme(digitv2.lightTheme.primary-1);
+    display: block;
   }
 
   .label {
     @extend .typography.body-s;
+    font-family: theme(digitv2.fontFamily.sans);
+    font-style: theme(digitv2.fontStyle.normal);
+    font-weight: theme(digitv2.fontWeight.regular);
+    line-height: theme(digitv2.lineHeight.lineheight2);
+
+    @media (max-aspect-ratio: 9/16) {
+      /* Media query for mobile */
+      font-size: theme(digitv2.fontSize.body-s.mobile);
+    }
+
+    @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+      /* Media query for tablets */
+      font-size: theme(digitv2.fontSize.body-s.tablet);
+    }
+
+    @media (min-aspect-ratio: 3/4) {
+      /* Media query for desktop */
+      font-size: theme(digitv2.fontSize.body-s.desktop);
+    }
+
     @apply text-left;
     word-break: break-word;
-    line-height: 1.5rem;
-    letter-spacing: 0rem;
-    color: theme(digitv2.lightTheme.text-primary);
+    letter-spacing: theme(digitv2.spacers.spacer0);
+    color: theme(digitv2.lightTheme.text-primary) !important;
+    display: flex;
+    align-items: center;
   }
 
   &.disabled {
-    .label {
-      color: theme(digitv2.lightTheme.text-disabled);
-    }
-
     .digit-custom-checkbox {
       border: 0.063rem solid theme(digitv2.lightTheme.text-disabled);
     }
 
     input:checked~.digit-custom-checkbox {
       border: 0.125rem solid theme(digitv2.lightTheme.text-disabled);
+    }
+
+    .digit-custom-checkbox.intermediate{
+      border: 0.125rem solid theme(digitv2.lightTheme.text-disabled);
+    }
+
+    .intermediate-square {
+      width: theme(digitv2.spacers.spacer4);
+      height: theme(digitv2.spacers.spacer4);
+      background-color: theme(digitv2.lightTheme.text-disabled);
+      display: block;
     }
   }
 }

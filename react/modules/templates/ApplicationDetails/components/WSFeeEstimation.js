@@ -105,7 +105,7 @@ const WSFeeEstimation = ({ wsAdditionalDetails, workflowDetails }) => {
             const demandId = wsAdditionalDetails?.additionalDetails?.data?.billDetails?.[0]?.demandId;
 
             if (rebateAmount > totalAmount) {
-                setShowToast({ isError: false, isWarning: true, key: "error", message: t("ERR_WS_REBATE_GREATER_THAN_AMOUNT") });
+                setShowToast({ type:"warning", key: "error", message: t("ERR_WS_REBATE_GREATER_THAN_AMOUNT") });
             } else {
                 const applicationNo = wsAdditionalDetails?.additionalDetails?.appDetails?.applicationNo;
                 const tenantId = wsAdditionalDetails?.additionalDetails?.appDetails?.tenantId;
@@ -153,11 +153,11 @@ const WSFeeEstimation = ({ wsAdditionalDetails, workflowDetails }) => {
                         showPopUp(false);
                     })
                     .catch((e) => {
-                        setShowToast({ isError: true, isWarning: false, key: "error", message: e?.response?.data?.Errors[0]?.message ? t(`${e?.response?.data?.Errors[0]?.code}`) : t("PT_COMMON_ADD_REBATE_PENALITY") });
+                        setShowToast({ type:"error", key: "error", message: e?.response?.data?.Errors[0]?.message ? t(`${e?.response?.data?.Errors[0]?.code}`) : t("PT_COMMON_ADD_REBATE_PENALITY") });
                     });
             }
         } else {
-            setShowToast({ isError: false, isWarning: true, key: "warning", message: t("ERR_WS_ENTER_ATLEAST_ONE_FIELD") });
+            setShowToast({type:"warning", key: "warning", message: t("ERR_WS_ENTER_ATLEAST_ONE_FIELD") });
         }
     }
 
@@ -332,8 +332,7 @@ const WSFeeEstimation = ({ wsAdditionalDetails, workflowDetails }) => {
                 {showToast &&
                     <Toast
                         style={{ zIndex: "10000" }}
-                        warning={showToast?.isWarning}
-                        error={showToast?.isWarning ? false : true}
+                        type={showToast?.type}
                         label={t(showToast?.message)}
                         onClose={closeToast}
                         isDleteBtn={true}

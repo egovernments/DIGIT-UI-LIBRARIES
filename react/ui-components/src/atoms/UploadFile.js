@@ -2,8 +2,9 @@ import React, { useEffect, useRef, useState, Fragment } from "react";
 import PropTypes from "prop-types";
 import ButtonSelector from "./ButtonSelector";
 import { useTranslation } from "react-i18next";
-import RemoveableTag from "./RemoveableTag";
+import Chip from "./Chip";
 import ErrorMessage from "./ErrorMessage";
+import { getUserType } from "../utils/digitUtils";
 
 const getRandomId = () => {
   return Math.floor((Math.random() || 1) * 139);
@@ -14,7 +15,7 @@ const UploadFile = (props) => {
   const inpRef = useRef();
   const [hasFile, setHasFile] = useState(false);
   const [prevSate, setprevSate] = useState(null);
-  const user_type = window?.Digit?.SessionStorage.get("userType");
+  const user_type = getUserType();
   const handleChange = () => {
     if (inpRef.current.files[0]) {
       setHasFile(true);
@@ -66,8 +67,9 @@ const UploadFile = (props) => {
             const fileDetailsData = file[1];
             return (
               <div className="digit-tag-container">
-                <RemoveableTag
+                <Chip
                   key={index}
+                  hideClose={false}
                   text={file[0].length > 64 ? `${file[0].slice(0, 64)} ...` : file[0]}
                   onClick={(e) => props?.removeTargetedFile(fileDetailsData, e)}
                 />
