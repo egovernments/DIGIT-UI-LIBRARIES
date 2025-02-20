@@ -3,7 +3,7 @@ name: Node.js Publish UI Packages
 
 on:
   push:
-    branches: [ 'develop' ]
+    branches: [ 'master','develop' ]
     paths:
       - 'react/ui-components/**'
 
