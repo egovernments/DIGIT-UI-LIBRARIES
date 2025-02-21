@@ -91,7 +91,7 @@ const PanelCard = (props) => {
           <Panels {...props}></Panels>
         </div>
       }
-      {(props?.children.length>0 || props?.description!=="") && (
+      {(props?.children?.length>0 || props?.description!=="") && (
         <div
           ref={childrenWrapRef}
           className={`digit-panelcard-children-wrap ${

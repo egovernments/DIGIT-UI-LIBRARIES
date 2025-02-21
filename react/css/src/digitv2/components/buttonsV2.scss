@@ -337,6 +337,11 @@
   min-width: 15rem;
   background-color: theme(digitv2.lightTheme.primary-1);
 
+  &.digit-formcomposer-submitbar{
+    width: fit-content;
+    margin-left: auto;
+  }
+
   h2 {
     @extend .typography.button.large;
     @apply text-white;

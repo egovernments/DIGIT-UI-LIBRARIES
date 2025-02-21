@@ -21,6 +21,23 @@ import CardLabel from "../atoms/CardLabel";
 import { SVG } from "../atoms";
 import NoResultsFound from "../atoms/NoResultsFound";
 
+const useDebounce = (value, delay) => {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+  useEffect(
+    () => {
+      const handler = setTimeout(() => {
+        setDebouncedValue(value);
+      }, delay);
+
+      return () => {
+        clearTimeout(handler);
+      };
+    },
+    [value, delay]
+  );
+  return debouncedValue;
+}
+
 const ResultsDataTable = ({
   tableContainerClass,
   config,
@@ -197,6 +214,8 @@ const ResultsDataTable = ({
   }, [session]);
 
   const [searchQuery, onSearch] = useState("");
+  const debouncedValue = config?.debouncedValue || 1000;
+  const debouncedSearchQuery = useDebounce(searchQuery,debouncedValue);
 
   const filterValue = useCallback((rows, id, filterValue = "") => {
     return rows.filter((row) => {
@@ -234,9 +253,9 @@ const ResultsDataTable = ({
   }, []);
 
   const filteredData = useMemo(() => {
-    if (!searchQuery) return searchResult; // If no query, return all rows
-    return filterValue(searchResult, null, searchQuery);
-  }, [searchQuery, searchResult, filterValue]);
+    if (!debouncedSearchQuery) return searchResult; // If no query, return all rows
+    return filterValue(searchResult, null, debouncedSearchQuery);
+  }, [debouncedSearchQuery, searchResult, filterValue]);
 
   useEffect(() => {
     register(

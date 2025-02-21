@@ -6,6 +6,7 @@ import Sample from "./Sample";
 import SampleSearch from "./SampleSearch";
 import SampleInbox from "./SampleInbox";
 import IndividualSearch from "./IndividualSearch";
+import SampleComponents from "./SampleComponents";
 
 const ProjectBreadCrumb = ({ location }) => {
   const { t } = useTranslation();
@@ -38,11 +39,12 @@ const App = ({ path, stateCode, userType, tenants }) => {
         <React.Fragment>
           <ProjectBreadCrumb location={location} />
         </React.Fragment>
-        <PrivateRoute path={`${path}/components`} component={() => <Sample></Sample>} />
-        <PrivateRoute path={`${path}/test`} component={() => <Loader></Loader>} />
+        <PrivateRoute path={`${path}/components`} component={() => <SampleComponents></SampleComponents>} />
+        <PrivateRoute path={`${path}/create`} component={() => <Sample></Sample>} />
         <PrivateRoute path={`${path}/search`} component={() => <SampleSearch></SampleSearch>} />
         <PrivateRoute path={`${path}/inbox`} component={() => <SampleInbox></SampleInbox>} />
         <PrivateRoute path={`${path}/ind-search`} component={() => <IndividualSearch></IndividualSearch>} />
+        <PrivateRoute path={`${path}/test`} component={() => <Loader></Loader>} />
         </AppContainer>
     </Switch>
   );
