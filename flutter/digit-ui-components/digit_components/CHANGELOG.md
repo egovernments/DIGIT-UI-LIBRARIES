@@ -1,3 +1,43 @@
+## 0.2.1
+* updated readme documentation
+
+## 0.2.0
+* A stable release of the flutter component library.
+* updated readme documentation
+
+## 0.0.2-dev.15
+* fixed table rebuild issue 
+* updated text styles for summary card
+
+## 0.0.2-dev.14
+* updated summary card to support heading style change
+
+## 0.0.2-dev.13
+* fixed dropdown not getting reset after re-render
+* fixed stepper alignment
+
+## 0.0.2-dev.12
+* fixed hamburger menu not getting updated issue
+
+## 0.0.2-dev.11
+* updated stepper component length
+* added maxLength property for numeric field
+
+## 0.0.2-dev.10
+* added description style prop for the label field
+* updated hamburger styles
+* updated radio button enable sentence prop
+
+## 0.0.2-dev.9
+* fixed table null issue
+
+## 0.0.2-dev.8
+* added property in dropdown to enable or disable sentence casing
+
+## 0.0.2-dev.7
+* fixed dialog util action button alignment issue
+* fixed language selection card issue
+
 ## 0.0.2-dev.6
 * fixed privacy component error message style
 * fixed table height issue

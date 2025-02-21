@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:digit_ui_components/digit_components.dart';
+import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:flutter/material.dart';
 
 class DigitStepper extends StatefulWidget {
@@ -90,7 +91,7 @@ class _AnotherStepperState extends State<DigitStepper> {
       width: MediaQuery.of(context).size.width,
       child: ListView.builder(
         controller: _scrollController,
-        padding: const EdgeInsets.all(spacer2),
+        padding: const EdgeInsets.all(0),
         scrollDirection: widget.stepperDirection,
         physics: const AlwaysScrollableScrollPhysics(),
         itemCount: widget.stepperList.length,
@@ -149,7 +150,16 @@ class HorizontalStepperItem extends StatefulWidget {
 class _HorizontalStepperItemState extends State<HorizontalStepperItem> {
   bool isHovered = false;
 
-  List<Widget> getChildren(DigitTypography currentTypography, bool isHover) {
+  List<Widget> getChildren(BuildContext context, bool isHover) {
+
+    final theme = Theme.of(context);
+    final textTheme = theme.digitTextTheme(context);
+
+
+
+    final bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
+    double stepWidth = (((MediaQuery.of(context).size.width-(isMobile ? 48 : 48)) - widget.totalLength * (isMobile ? 24: 32)) / (widget.totalLength*2));
+
     final Widget dot = StepperDot(
       isHover: isHover,
       index: widget.index,
@@ -175,13 +185,13 @@ class _HorizontalStepperItemState extends State<HorizontalStepperItem> {
             style: widget.index == widget.activeIndex ||
                     widget.index == widget.currentProgressedIndex ||
                     isHover
-                ? currentTypography.headingS.copyWith(
-                    color: const DigitColors().light.textPrimary,
+                ? textTheme.headingS.copyWith(
+                    color: theme.colorTheme.text.primary,
                   )
-                : currentTypography.bodyS.copyWith(
+                : textTheme.bodyS.copyWith(
                     color: widget.index <= widget.activeIndex
-                        ? const DigitColors().light.textPrimary
-                        : const DigitColors().light.textSecondary,
+                        ? theme.colorTheme.text.primary
+                        : theme.colorTheme.text.secondary,
                   ),
           ),
         ),
@@ -193,9 +203,8 @@ class _HorizontalStepperItemState extends State<HorizontalStepperItem> {
         children: [
           Container(
             constraints: BoxConstraints(
-              // minWidth:
-              //     MediaQuery.of(context).size.width / (widget.totalLength * 3),
-              maxWidth: max(MediaQuery.of(context).size.width / (widget.totalLength * 3), (MediaQuery.of(context).size.width / (widget.totalLength)) - (widget.totalLength*24)),
+              maxWidth: max(stepWidth, MediaQuery.of(context).size.width / (widget.totalLength *5 )),
+              // maxWidth: max(MediaQuery.of(context).size.width / (widget.totalLength *3 ), (MediaQuery.of(context).size.width / (widget.totalLength)) - (widget.totalLength*4)),
             ),
             color: widget.index == 0
                 ? Colors.transparent
@@ -209,9 +218,8 @@ class _HorizontalStepperItemState extends State<HorizontalStepperItem> {
           dot,
           Container(
             constraints: BoxConstraints(
-              // minWidth:
-              //     MediaQuery.of(context).size.width / (widget.totalLength * 3),
-              maxWidth: max(MediaQuery.of(context).size.width / (widget.totalLength * 3), (MediaQuery.of(context).size.width / (widget.totalLength)) - (widget.totalLength*24)),
+              maxWidth: max(stepWidth, MediaQuery.of(context).size.width / (widget.totalLength *5 )),
+              // maxWidth: max(MediaQuery.of(context).size.width / (widget.totalLength *3 ), (MediaQuery.of(context).size.width / (widget.totalLength)) - (widget.totalLength*4)),
             ),
             color: widget.index == widget.totalLength - 1
                 ? Colors.transparent
@@ -228,8 +236,8 @@ class _HorizontalStepperItemState extends State<HorizontalStepperItem> {
   }
 
   List<Widget> getInvertedChildren(
-      DigitTypography currentTypography, bool isHover) {
-    return getChildren(currentTypography, isHover).reversed.toList();
+      BuildContext context, bool isHover) {
+    return getChildren(context, isHover).reversed.toList();
   }
 
   @override
@@ -257,8 +265,8 @@ class _HorizontalStepperItemState extends State<HorizontalStepperItem> {
                   ? MainAxisAlignment.start
                   : MainAxisAlignment.end,
               children: widget.isInverted
-                  ? getInvertedChildren(currentTypography, isHover)
-                  : getChildren(currentTypography, isHover),
+                  ? getInvertedChildren(context, isHover)
+                  : getChildren(context, isHover),
             ),
           ),
         ],
