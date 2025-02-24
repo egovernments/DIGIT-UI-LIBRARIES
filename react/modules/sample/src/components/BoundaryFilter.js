@@ -5,12 +5,13 @@ import { useTranslation } from 'react-i18next';
 import { LabelFieldPair,CardLabel } from "@egovernments/digit-ui-components";
 
 const BoundaryFilter = (props) => {
-  const hierarchyType = "NEWTEST00222";
+  const hierarchyType = props?.hierarchyType;
   console.log("props",props);
   const tenantId = Digit.ULBService.getCurrentTenantId();
   const [lowestHierarchy, setLowestHierarchy] = useState("")
   const [nonEditableHierarchies,setNonEditableHierarchies]=useState(new Set())
   const {t} = useTranslation();
+  const moduleName=props?.module;
 
 //   const preHierarchy=[
 //     {
@@ -11485,9 +11486,9 @@ const processHierarchy = (nodes, parentPath = "") => {
 
   // debugger;
 
-  const { data: BOUNDARY_HIERARCHY_TYPE } = Digit.Hooks.useCustomMDMS(tenantId, "HCM-ADMIN-CONSOLE", [{ name: "HierarchySchema" }], {
+  const { data: BOUNDARY_HIERARCHY_TYPE } = Digit.Hooks.useCustomMDMS(tenantId, moduleName, [{ name: "HierarchySchema" }], {
     select: (data) => {
-      const item = data?.["HCM-ADMIN-CONSOLE"]?.HierarchySchema?.find(
+      const item = data?.[moduleName]?.HierarchySchema?.find(
         (item) => item.type === "microplan"
       );
       setLowestHierarchy(item.lowestHierarchy)
@@ -11677,7 +11678,8 @@ const processHierarchy = (nodes, parentPath = "") => {
 };
 
 const cleanLowerLevelsForSelectedValues = (boundaryType, removedCodes, updatedOptions) => {
-
+    console.log(removedCodes,"one1");
+    debugger;
     return updatedOptions.filter(option => {
         // Ensure path is a valid string before checking `includes`
         if (typeof option?.path !== "string") return true;
@@ -11694,6 +11696,7 @@ const cleanLowerLevelsForSelectedValues = (boundaryType, removedCodes, updatedOp
 
 
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
 const boundaryOptionsUpdate = async (boundaryType, values) => {
     console.log("1111 boundaryOptionsUpdate:", boundaryType, values);
     if (!Array.isArray(values)) return;
@@ -11723,15 +11726,20 @@ const boundaryOptionsUpdate = async (boundaryType, values) => {
     const updatedOptions = boundaryOptions;
     let newBoundaryOptions = {};
     let newSelectedOptions = {};
-
     if (removedCodes.length > 0) {
         newBoundaryOptions = cleanLowerLevels(boundaryType, removedCodes, { ...boundaryOptions });
         newSelectedOptions = cleanLowerLevelsForSelectedValues(boundaryType, removedCodes, [...selectedValues]);
+        console.log("1111 selectedValues 1", newSelectedOptions);
+    
+        // Reset removedCodes after processing
     } else {
+
         await delay(200);
         newBoundaryOptions = updatedOptions;
-        newSelectedOptions = selectedValues;
+        newSelectedOptions = cleanLowerLevelsForSelectedValues(boundaryType, removedCodes, [...selectedValues]);
+        console.log("1111 selectedValues 2", newSelectedOptions);
     }
+    
 
     console.log("1111 NewboundaryOptions:", newBoundaryOptions, selectedValues);
 
@@ -11890,7 +11898,7 @@ useEffect(() => {
             { ...initialBoundaryOptions }, 
             nonEditableHierarchies
         );
-        debugger;
+        // debugger;
     
         // Ensure that all levels exist even if they have no children
         hierarchy.forEach((item) => {
@@ -12050,7 +12058,7 @@ useEffect(() => {
                       onSelect={(values) => {
                         console.log("onclose",values,item?.boundaryType)
                         boundaryOptionsUpdate(item?.boundaryType, values);
-                      }}
+                      }}    
                       addCategorySelectAllCheck={true}
                       addSelectAllCheck={true}
                       type="multiselectdropdown"
