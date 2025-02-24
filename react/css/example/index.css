@@ -13317,6 +13317,29 @@ button:hover {
 .popup-header-fix {
   margin-top: -0.5rem !important; }
 
+.selecting-boundary-div {
+  padding-top: .5rem; }
+  .selecting-boundary-div .label-field-pair {
+    margin-bottom: 1.5rem; }
+
+.boundary-selection-label {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 700;
+  color: #363636; }
+  @media (max-width: 30rem) {
+    .boundary-selection-label {
+      font-size: 1rem; } }
+  @media (min-width: 30.063rem) and (max-width: 47.938rem) {
+    .boundary-selection-label {
+      font-size: 1rem; } }
+  @media (min-width: 48rem) {
+    .boundary-selection-label {
+      font-size: 1rem; } }
+
+.digit-card-label.boundary-selection-label {
+  width: 30%; }
+
 .light-primary, .link-label, .digit-card .digit-card-header, .digit-card .digit-card-sub-header, .digit-card .digit-card-text-button, .digit-card .digit-card-text-primary, .digit-card .digit-card-label, .digit-card .digit-card-link, .digit-employee-card .digit-card-header, .digit-employee-card .digit-card-sub-header, .digit-employee-card .digit-employee-card-sub-header, .digit-employee-card .digit-card-section-sub-text, .digit-employee-card .card-text-button, .digit-employee-card .card-text-primary, .digit-employee-card .card-label, .digit-employee-card .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field .control-label, .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field .digit-employee-card .control-label, .digit-employee-card .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field.field-boolean .checkbox label span, .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field.field-boolean .checkbox label .digit-employee-card span, .digit-employee-card .card-link, .digit-employee-mulitlink-main-div, .primary-label-btn {
   color: #f47738 !important; }
   .light-primary-button, .submit-bar, .workbench .workbench-create-form div.action-bar-wrap .submit-bar {

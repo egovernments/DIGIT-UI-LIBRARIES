@@ -1,29 +1,35 @@
 .selecting-boundary-div {
     padding-top: 0.5rem;
-    .label-field-pair {
-      margin-bottom: 1.5rem;
-    }
-  }
 
-  .boundary-selection-label {
+    .label-field-pair {
+        margin-bottom: 1.5rem;
+    }
+}
+
+.boundary-selection-label {
     font-family: theme(digitv2.fontFamily.sans);
     font-style: theme(digitv2.fontStyle.normal);
     font-weight: theme(digitv2.fontWeight.bold);
-  
+
     @media (max-width: 30rem) {
-      /* Media query for mobile */
-      font-size: theme(digitv2.fontSize.heading-s.mobile);
+        /* Media query for mobile */
+        font-size: theme(digitv2.fontSize.heading-s.mobile);
     }
-  
+
     @media (min-width: 30.063rem) and (max-width: 47.938rem) {
-      /* Media query for tablets */
-      font-size: theme(digitv2.fontSize.heading-s.tablet);
+        /* Media query for tablets */
+        font-size: theme(digitv2.fontSize.heading-s.tablet);
     }
-  
+
     @media (min-width: 48rem) {
-      /* Media query for desktop */
-      font-size: theme(digitv2.fontSize.heading-s.desktop);
+        /* Media query for desktop */
+        font-size: theme(digitv2.fontSize.heading-s.desktop);
     }
-  
+
     color: theme(digitv2.lightTheme.text-primary);
-  }
+}
+
+
+.digit-card-label.boundary-selection-label{
+    width:30%;
+} 
