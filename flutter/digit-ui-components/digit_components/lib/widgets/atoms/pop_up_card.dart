@@ -33,6 +33,8 @@ class Popup extends StatefulWidget {
   /// The title of the popup.
   final String title;
 
+  final String? semanticLabel;
+
   /// The type of the popup. Defaults to PopUpType.simple.
   final PopUpType type;
 
@@ -79,6 +81,7 @@ class Popup extends StatefulWidget {
   const Popup({
     super.key,
     required this.title,
+    this.semanticLabel,
     this.type = PopUpType.simple,
     this.width,
     this.height,
@@ -185,6 +188,7 @@ class _PopupState extends State<Popup> {
                         children: [
                           Text(
                             widget.title,
+                            semanticsLabel: widget.title,
                             style: themeData.titleTextStyle,
                           ),
                           if (widget.subHeading != null)
@@ -194,6 +198,7 @@ class _PopupState extends State<Popup> {
                           if (widget.subHeading != null)
                             Text(
                               widget.subHeading!,
+                              semanticsLabel: widget.subHeading,
                               style: themeData.subHeadingTextStyle,
                             )
                         ],
@@ -282,6 +287,7 @@ class _PopupState extends State<Popup> {
           ),
           Text(
             widget.title,
+            semanticsLabel: widget.title,
             textAlign: TextAlign.center,
             style: themeData.titleTextStyle,
           ),
@@ -292,6 +298,7 @@ class _PopupState extends State<Popup> {
           if (widget.subHeading != null)
             Text(
               widget.subHeading!,
+              semanticsLabel: widget.subHeading,
               textAlign: TextAlign.center,
               style: themeData.subHeadingTextStyle,
             ),
@@ -335,6 +342,7 @@ class _PopupState extends State<Popup> {
           if (widget.description != null)
             Text(
               widget.description!,
+              semanticsLabel: widget.description,
               style: themeData.descriptionTextStyle,
             ),
           if (widget.description != null && widget.additionalWidgets != null)
@@ -398,103 +406,106 @@ class _PopupState extends State<Popup> {
     // final double? cardWidth = widget.width;
     // final double? cardHeight = widget.height;
 
-    return GestureDetector(
-      onTap: widget.onOutsideTap,
-      child: Dialog.fullscreen(
-        backgroundColor: const DigitColors().transparent,
-        child: Center(
-          child: Container(
-            constraints: BoxConstraints(
-              maxHeight: isMobile
-                  ? MediaQuery.of(context).size.height * .80
-                  : isTab
-                  ? MediaQuery.of(context).size.height * .82
-                  : MediaQuery.of(context).size.height * .85,
-            ),
-            margin: themeData.width == null ? themeData.margin : EdgeInsets.zero,
-            width: themeData.width,
-            height: themeData.height,
-            decoration: themeData.decoration,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: widget.type == PopUpType.alert
-                  ? CrossAxisAlignment.center
-                  : CrossAxisAlignment.start,
-              children: [
-                widget.type == PopUpType.simple
-                    ? _buildSimplePopUp(context, themeData, isMobile, isTab)
-                    : _buildAlertPopUp(context, themeData, isMobile, isTab),
-                if (widget.description != null ||
-                    widget.additionalWidgets != null)
-                  Flexible(
-                    child: SingleChildScrollView(
-                      controller: _scrollController,
-                      child: _buildContent(context, themeData, isMobile, isTab),
+    return Semantics(
+      label: widget.semanticLabel,
+      child: GestureDetector(
+        onTap: widget.onOutsideTap,
+        child: Dialog.fullscreen(
+          backgroundColor: const DigitColors().transparent,
+          child: Center(
+            child: Container(
+              constraints: BoxConstraints(
+                maxHeight: isMobile
+                    ? MediaQuery.of(context).size.height * .80
+                    : isTab
+                    ? MediaQuery.of(context).size.height * .82
+                    : MediaQuery.of(context).size.height * .85,
+              ),
+              margin: themeData.width == null ? themeData.margin : EdgeInsets.zero,
+              width: themeData.width,
+              height: themeData.height,
+              decoration: themeData.decoration,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: widget.type == PopUpType.alert
+                    ? CrossAxisAlignment.center
+                    : CrossAxisAlignment.start,
+                children: [
+                  widget.type == PopUpType.simple
+                      ? _buildSimplePopUp(context, themeData, isMobile, isTab)
+                      : _buildAlertPopUp(context, themeData, isMobile, isTab),
+                  if (widget.description != null ||
+                      widget.additionalWidgets != null)
+                    Flexible(
+                      child: SingleChildScrollView(
+                        controller: _scrollController,
+                        child: _buildContent(context, themeData, isMobile, isTab),
+                      ),
                     ),
-                  ),
-                if (widget.actions != null)
-                  Container(
-                    padding: EdgeInsets.only(
-                      left: isMobile
-                          ? spacer4
-                          : isTab
-                          ? spacer5
-                          : spacer6,
-                      right: isMobile
-                          ? spacer4
-                          : isTab
-                          ? spacer5
-                          : spacer6,
-                      top: _isOverflowing ||
-                          (widget.additionalWidgets != null ||
-                              widget.description != null)
-                          ? isMobile
-                          ? spacer4
-                          : isTab
-                          ? spacer5
-                          : spacer6
-                          : 0,
-                      bottom: isMobile
-                          ? spacer4
-                          : isTab
-                          ? spacer5
-                          : spacer6,
+                  if (widget.actions != null)
+                    Container(
+                      padding: EdgeInsets.only(
+                        left: isMobile
+                            ? spacer4
+                            : isTab
+                            ? spacer5
+                            : spacer6,
+                        right: isMobile
+                            ? spacer4
+                            : isTab
+                            ? spacer5
+                            : spacer6,
+                        top: _isOverflowing ||
+                            (widget.additionalWidgets != null ||
+                                widget.description != null)
+                            ? isMobile
+                            ? spacer4
+                            : isTab
+                            ? spacer5
+                            : spacer6
+                            : 0,
+                        bottom: isMobile
+                            ? spacer4
+                            : isTab
+                            ? spacer5
+                            : spacer6,
+                      ),
+                      decoration: BoxDecoration(
+                        color: const DigitColors().light.paperPrimary,
+                        borderRadius: const BorderRadius.only(
+                            bottomLeft: Radius.circular(spacer1),
+                            bottomRight: Radius.circular(spacer1)),
+                        boxShadow: _isOverflowing
+                            ? [
+                          BoxShadow(
+                            color: const Color(0xFF000000).withOpacity(.16),
+                            offset: const Offset(0, -1),
+                            spreadRadius: 0,
+                            blurRadius: 2,
+                          ),
+                        ]
+                            : [],
+                      ),
+                      child: DigitButtonListTile(
+                        buttons: widget.actions!,
+                        isVertical: widget.inlineActions != null
+                            ? !widget.inlineActions!
+                            : (isMobile ? true : false),
+                        alignment: widget.actionAlignment ??
+                            ((isMobile || isTab) || widget.type == PopUpType.alert
+                                ? MainAxisAlignment.center
+                                : MainAxisAlignment.end),
+                        spacing: widget.actionSpacing ??
+                            (isMobile
+                                ? spacer4
+                                : isTab
+                                ? spacer5
+                                : spacer6),
+                      ),
                     ),
-                    decoration: BoxDecoration(
-                      color: const DigitColors().light.paperPrimary,
-                      borderRadius: const BorderRadius.only(
-                          bottomLeft: Radius.circular(spacer1),
-                          bottomRight: Radius.circular(spacer1)),
-                      boxShadow: _isOverflowing
-                          ? [
-                        BoxShadow(
-                          color: const Color(0xFF000000).withOpacity(.16),
-                          offset: const Offset(0, -1),
-                          spreadRadius: 0,
-                          blurRadius: 2,
-                        ),
-                      ]
-                          : [],
-                    ),
-                    child: DigitButtonListTile(
-                      buttons: widget.actions!,
-                      isVertical: widget.inlineActions != null
-                          ? !widget.inlineActions!
-                          : (isMobile ? true : false),
-                      alignment: widget.actionAlignment ??
-                          ((isMobile || isTab) || widget.type == PopUpType.alert
-                              ? MainAxisAlignment.center
-                              : MainAxisAlignment.end),
-                      spacing: widget.actionSpacing ??
-                          (isMobile
-                              ? spacer4
-                              : isTab
-                              ? spacer5
-                              : spacer6),
-                    ),
-                  ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

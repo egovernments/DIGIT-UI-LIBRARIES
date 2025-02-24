@@ -30,6 +30,7 @@ class DigitCheckbox extends StatefulWidget {
 
   /// The label associated with the DigitCheckbox.
   final String? label;
+  final String? semanticLabel;
 
   /// Callback function triggered when the DigitCheckbox value changes.
   final ValueChanged<bool> onChanged;
@@ -49,6 +50,7 @@ class DigitCheckbox extends StatefulWidget {
   const DigitCheckbox({
     Key? key,
     this.label,
+    this.semanticLabel,
     required this.onChanged,
     this.readOnly = false,
     this.isDisabled = false,
@@ -149,6 +151,7 @@ class _DigitCheckboxState extends State<DigitCheckbox> {
           const SizedBox(width: spacer4),
           Expanded(
             child: Text(
+              semanticsLabel: widget.semanticLabel ?? widget.label,
               processedLabel!,
               style: widget.isDisabled
                   ? checkboxThemeData?.disabledLabelTextStyle ??

@@ -191,6 +191,7 @@ class MatrixCard extends StatelessWidget {
       children: [
         Text(
           matrix.value,
+          semanticsLabel: matrix.value,
           style: textTheme.headingM.copyWith(
             color: theme.colorTheme.primary.primary2,
           ),
@@ -198,6 +199,7 @@ class MatrixCard extends StatelessWidget {
         const SizedBox(height: spacer1),
         Text(
           matrix.description,
+          semanticsLabel: matrix.description,
           style: textTheme.bodyS.copyWith(
             color: theme.colorTheme.text.secondary,
           ),

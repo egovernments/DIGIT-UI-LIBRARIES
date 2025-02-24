@@ -126,6 +126,7 @@ class _DigitTabBarState extends State<DigitTabBar> {
             alignment: Alignment.center,
             child: Text(
               tab,
+              semanticsLabel: tab,
               textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,
               maxLines: tabBarTheme?.maxLine ?? defaultTabBarTheme.maxLine,

@@ -33,6 +33,7 @@ class DigitTextBlock extends StatelessWidget {
     List<Widget> children = [
       Text(
         text,
+        semanticsLabel: text,
         style: style,
       ),
     ];

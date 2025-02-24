@@ -120,6 +120,7 @@ class _PanelState extends State<Panel> with SingleTickerProviderStateMixin {
           ),
           Text(
             widget.title,
+            semanticsLabel: widget.title,
             textAlign: TextAlign.center,
             style: themeData.titleTextStyle,
           ),

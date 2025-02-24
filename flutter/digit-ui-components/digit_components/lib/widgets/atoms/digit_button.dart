@@ -30,6 +30,8 @@ class DigitButton extends StatefulWidget {
   /// The text displayed on the DigitButton, representing the DigitButton's label or content.
   final String label;
 
+  final String? semanticLabel;
+
   /// Callback function invoked when the DigitButton is pressed. Defines the action to be performed.
   final VoidCallback onPressed;
 
@@ -60,6 +62,7 @@ class DigitButton extends StatefulWidget {
   const DigitButton({
     Key? key,
     required this.label,
+    this.semanticLabel,
     required this.onPressed,
     required this.type,
     required this.size,
@@ -300,6 +303,7 @@ class _DigitButtonState extends State<DigitButton> {
             Flexible(
               child: Text(
                 truncatedLabel,
+                semanticsLabel: widget.semanticLabel ?? widget.label,
                 textAlign: TextAlign.center,
                 style: widget.type == DigitButtonType.link
                     ? linkStyle.copyWith(

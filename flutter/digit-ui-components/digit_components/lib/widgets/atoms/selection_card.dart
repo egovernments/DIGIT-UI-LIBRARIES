@@ -7,6 +7,7 @@ class SelectionCard<T> extends StatefulWidget {
   final String? errorMessage;
   final List<T> options;
   final String? title;
+  final String? semanticLabel;
   final Function(List<T>) onSelectionChanged;
   final List<T>? initialSelection;
   final bool allowMultipleSelection;
@@ -22,6 +23,7 @@ class SelectionCard<T> extends StatefulWidget {
     this.width,
     this.title,
     this.errorMessage,
+    this.semanticLabel,
     required this.options,
     required this.onSelectionChanged,
     this.initialSelection,
@@ -192,122 +194,130 @@ class _SelectionCardState<T> extends State<SelectionCard<T>> {
     }
 
 
-    return widget.showParentContainer ? Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        LabeledField(
-          label: widget.title,
-          isRequired: widget.isRequired,
-          child: Container(
-            width: isMobile ? MediaQuery.of(context).size.width : null,
-            padding: EdgeInsets.all(isMobile ? spacer4 : spacer6),
-            decoration: BoxDecoration(
-              color: theme.colorTheme.paper.secondary,
-              borderRadius: BorderRadius.circular(spacer1),
-              border: Border.all(
-                color: widget.errorMessage != null ?theme.colorTheme.alert.error: theme.colorTheme.generic.divider,
-                width: 1,
-              ),
-            ),
-            child: Wrap(
-              alignment: WrapAlignment.center,
-              spacing: spacer6,
-              runSpacing: spacer6,
-              children: widget.options.map(_buildOption).toList(),
-            ),
-          ),
-        ),
-        if(widget.errorMessage != null)
-        const SizedBox(height: spacer1),
-        if (widget.errorMessage != null)
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Column(
-                children: [
-                  const SizedBox(
-                    height: spacer1 / 2,
-                  ),
-                  SizedBox(
-                    height: spacer4,
-                    width: spacer4,
-                    child: Icon(
-                      Icons.info,
-                      color: const DigitColors()
-                          .light
-                          .alertError,
-                      size: BaseConstants.errorIconSize,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(width: spacer1),
-              Flexible(
-                fit: FlexFit.tight,
-                child: Text(
-                  widget.errorMessage!,
-                  style: textTheme.bodyLarge?.copyWith(
-                    color: theme.colorTheme.alert.error,
-                  ),
+    return widget.showParentContainer ? Semantics(
+      label: widget.semanticLabel ?? widget.title,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          LabeledField(
+            label: widget.title,
+            isRequired: widget.isRequired,
+            child: Container(
+              width: isMobile ? MediaQuery.of(context).size.width : null,
+              padding: EdgeInsets.all(isMobile ? spacer4 : spacer6),
+              decoration: BoxDecoration(
+                color: theme.colorTheme.paper.secondary,
+                borderRadius: BorderRadius.circular(spacer1),
+                border: Border.all(
+                  color: widget.errorMessage != null ?theme.colorTheme.alert.error: theme.colorTheme.generic.divider,
+                  width: 1,
                 ),
               ),
-            ],
+              child: Wrap(
+                alignment: WrapAlignment.center,
+                spacing: spacer6,
+                runSpacing: spacer6,
+                children: widget.options.map(_buildOption).toList(),
+              ),
+            ),
           ),
-      ],
-    ) : Column(
-      mainAxisSize: MainAxisSize.max,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Wrap(
-          alignment: WrapAlignment.center,
-          spacing: spacer6,
-          runSpacing: spacer6,
-          children: widget.options.map(_buildOption).toList(),
-        ),
-        if(widget.errorMessage != null)
+          if(widget.errorMessage != null)
           const SizedBox(height: spacer1),
-        if (widget.errorMessage != null)
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Column(
-                children: [
-                  const SizedBox(
-                    height: spacer1 / 2,
-                  ),
-                  SizedBox(
-                    height: spacer4,
-                    width: spacer4,
-                    child: Icon(
-                      Icons.info,
-                      color: const DigitColors()
-                          .light
-                          .alertError,
-                      size: BaseConstants.errorIconSize,
+          if (widget.errorMessage != null)
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Column(
+                  children: [
+                    const SizedBox(
+                      height: spacer1 / 2,
+                    ),
+                    SizedBox(
+                      height: spacer4,
+                      width: spacer4,
+                      child: Icon(
+                        Icons.info,
+                        color: const DigitColors()
+                            .light
+                            .alertError,
+                        size: BaseConstants.errorIconSize,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(width: spacer1),
+                Flexible(
+                  fit: FlexFit.tight,
+                  child: Text(
+                    widget.errorMessage!,
+                    semanticsLabel: widget.errorMessage,
+                    style: textTheme.bodyLarge?.copyWith(
+                      color: theme.colorTheme.alert.error,
                     ),
                   ),
-                ],
-              ),
-              const SizedBox(width: spacer1),
-              Flexible(
-                fit: FlexFit.tight,
-                child: Text(
-                  widget.errorMessage!,
-                  style: textTheme.bodyLarge?.copyWith(
-                    color: theme.colorTheme.alert.error,
+                ),
+              ],
+            ),
+        ],
+      ),
+    ) : Semantics(
+      label: widget.semanticLabel,
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Wrap(
+            alignment: WrapAlignment.center,
+            spacing: spacer6,
+            runSpacing: spacer6,
+            children: widget.options.map(_buildOption).toList(),
+          ),
+          if(widget.errorMessage != null)
+            const SizedBox(height: spacer1),
+          if (widget.errorMessage != null)
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Column(
+                  children: [
+                    const SizedBox(
+                      height: spacer1 / 2,
+                    ),
+                    SizedBox(
+                      height: spacer4,
+                      width: spacer4,
+                      child: Icon(
+                        Icons.info,
+                        color: const DigitColors()
+                            .light
+                            .alertError,
+                        size: BaseConstants.errorIconSize,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(width: spacer1),
+                Flexible(
+                  fit: FlexFit.tight,
+                  child: Text(
+                    widget.errorMessage!,
+                    semanticsLabel: widget.errorMessage,
+                    style: textTheme.bodyLarge?.copyWith(
+                      color: theme.colorTheme.alert.error,
+                    ),
                   ),
                 ),
-              ),
-            ],
-          ),
-      ],
+              ],
+            ),
+        ],
+      ),
     );
   }
 }

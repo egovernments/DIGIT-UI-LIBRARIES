@@ -121,6 +121,7 @@ class _TagState extends State<Tag> {
             Flexible(
               child: Text(
                 widget.label,
+                semanticsLabel: widget.label,
                 overflow: TextOverflow.ellipsis,
                 maxLines: widget.themeData?.maxLine ??
                     defaultTagThemeData.maxLine,
