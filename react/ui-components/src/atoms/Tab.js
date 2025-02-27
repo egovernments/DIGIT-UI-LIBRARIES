@@ -48,7 +48,7 @@ const Tab = ({
   }, [configNavItems, activeLink]);
 
   return (
-    <div className={navClassName} style={navStyles}>
+    <div className={`digit-tab-main ${navClassName}`} style={navStyles}>
       {showNav && (
         <div className={`digit-tab ${className}`} style={style}>
           {configNavItems?.map((item, index) => (

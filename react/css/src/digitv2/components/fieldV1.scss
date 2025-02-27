@@ -5,6 +5,7 @@
     flex-direction: column;
     justify-content: flex-start;
     gap: theme(digitv2.spacers.spacer1);
+    width: 100%;
 }
 
 .digit-header-content {
@@ -86,6 +87,10 @@
                     @apply whitespace-normal;
                 }
             }
+        }
+
+        &.search-screen{
+            width: 100%;
         }
     }
 }

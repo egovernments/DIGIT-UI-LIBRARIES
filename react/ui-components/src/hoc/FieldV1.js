@@ -11,6 +11,7 @@ import {
   MobileNumber,
   InputTextAmount,
   StringManipulator,
+  LabelFieldPair
 } from "../atoms";
 import { useTranslation } from "react-i18next";
 import { useState, useEffect } from "react";
@@ -361,7 +362,7 @@ const FieldV1 = ({
 
 
   return (
-    <div className="label-field-wrapper">
+    <LabelFieldPair removeMargin={true} vertical={populators?.alignFieldPairVerically} className={`digit-formcomposer-fieldpair ${populators?.fieldPairClassName}`}>
       {!withoutLabel && (
         <HeaderComponent
           className={`label ${disabled ? "disabled" : ""} ${
@@ -403,8 +404,8 @@ const FieldV1 = ({
       <div
         style={
           withoutLabel
-            ? { width: "100%", ...props?.fieldStyle, marginBottom: "24px" }
-            : { ...props?.fieldStyle, marginBottom: "24px" }
+            ? { width: "100%", ...props?.fieldStyle}
+            : { ...props?.fieldStyle}
         }
         className="digit-field"
       >
@@ -420,7 +421,7 @@ const FieldV1 = ({
           {renderCharCount()}
         </div>
       </div>
-    </div>
+    </LabelFieldPair>
   );
 };
 

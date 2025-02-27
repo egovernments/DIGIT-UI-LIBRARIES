@@ -731,7 +731,7 @@ const TableMolecule = ({
         <div className="table-header-wrapper">
           <div className="header-filter-wrapper">
             {tableDetails?.tableTitle && (
-              <div className="table-header">{tableDetails?.tableTitle}</div>
+              <div className="table-header">{t(tableDetails?.tableTitle)}</div>
             )}
             {addFilter && (
               <CustomSVG.FilterSvg
@@ -745,7 +745,7 @@ const TableMolecule = ({
           </div>
           {tableDetails?.tableDescription && (
             <div className="table-description">
-              {tableDetails?.tableDescription}
+              {t(tableDetails?.tableDescription)}
             </div>
           )}
         </div>

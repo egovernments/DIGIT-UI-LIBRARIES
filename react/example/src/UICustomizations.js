@@ -1,12 +1,34 @@
+import React, { useState, Fragment } from "react";
 import { Link } from "react-router-dom";
 import _ from "lodash";
-import { Amount} from "@egovernments/digit-ui-components";
+import { Amount,Button,Tag} from "@egovernments/digit-ui-components";
 
 
 //create functions here based on module name set in mdms(eg->SearchProjectConfig)
 //how to call these -> Digit?.Customizations?.[masterName]?.[moduleName]
 // these functions will act as middlewares
 var Digit = window.Digit || {};
+
+function cleanObject(obj) {
+  for (const key in obj) {
+    if (Object.hasOwn(obj, key)) {
+      if (Array.isArray(obj[key])) {
+        if (obj[key].length === 0) {
+          delete obj[key];
+        }
+      } else if (
+        obj[key] === undefined ||
+        obj[key] === null ||
+        obj[key] === false ||
+        obj[key] === "" || // Check for empty string
+        (typeof obj[key] === "object" && Object.keys(obj[key]).length === 0)
+      ) {
+        delete obj[key];
+      }
+    }
+  }
+  return obj;
+}
 
 const businessServiceMap = {
   "muster roll": "MR",
@@ -419,6 +441,60 @@ export const UICustomizations = {
       }
     },
   },
+  // SearchIndividualConfig: {
+  //   preProcess: (data) => {
+  //     delete data.params.tenantId;
+  //     delete data.params.limit;
+  //     delete data.params.offset;
+  //     delete data.body.apiOperation;
+  //     delete data.body.Individual;
+  //     data.body.MdmsCriteria = {
+  //       "tenantId": "dev",
+  //       "filters": {},
+  //       "schemaCode": "ACCESSCONTROL-ACTIONS-TEST.actions-test",
+  //       "limit": 10,
+  //       "offset": 0
+  //   }
+  //     return data;
+  //   },
+  //   additionalCustomizations: (row, key, column, value, t, searchResult) => {
+  //     //here we can add multiple conditions
+  //     //like if a cell is link then we return link
+  //     //first we can identify which column it belongs to then we can return relevant result
+  //     switch (key) {
+  //       case "MASTERS_WAGESEEKER_ID":
+  //         return (
+  //           <span className="link">
+  //             <Link to={`/${window.contextPath}/employee/masters/view-wageseeker?tenantId=${row?.tenantId}&individualId=${value}`}>
+  //               {String(value ? (column.translate ? t(column.prefix ? `${column.prefix}${value}` : value) : value) : t("ES_COMMON_NA"))}
+  //             </Link>
+  //           </span>
+  //         );
+
+  //       case "MASTERS_SOCIAL_CATEGORY":
+  //         return value ? <span style={{ whiteSpace: "nowrap" }}>{String(t(`MASTERS_${value}`))}</span> : t("ES_COMMON_NA");
+
+  //       case "CORE_COMMON_PROFILE_CITY":
+  //         return value ? <span style={{ whiteSpace: "nowrap" }}>{String(t(Digit.Utils.locale.getCityLocale(value)))}</span> : t("ES_COMMON_NA");
+
+  //       case "MASTERS_WARD":
+  //         return value ? (
+  //           <span style={{ whiteSpace: "nowrap" }}>{String(t(Digit.Utils.locale.getMohallaLocale(value, row?.tenantId)))}</span>
+  //         ) : (
+  //           t("ES_COMMON_NA")
+  //         );
+
+  //       case "MASTERS_LOCALITY":
+  //         return value ? (
+  //           <span style={{ whiteSpace: "break-spaces" }}>{String(t(Digit.Utils.locale.getMohallaLocale(value, row?.tenantId)))}</span>
+  //         ) : (
+  //           t("ES_COMMON_NA")
+  //         );
+  //       default:
+  //         return t("ES_COMMON_NA");
+  //     }
+  //   }
+  // },
   SearchWMSProjectConfig: {
     preProcess: (data) => {
       const createdFrom = Digit.Utils.pt.convertDateToEpoch(data.body.inbox.moduleSearchCriteria?.createdFrom, "daystart");
@@ -560,5 +636,254 @@ export const UICustomizations = {
       });
       return link;
     },
-  }
+  },
+  FacilityMappingConfig: {
+    preProcess: (data) => {
+      return data;
+    },
+    getFacilitySearchRequest: ( prop) => {
+      const tenantId = Digit.ULBService.getCurrentTenantId();
+      const {campaignId} = Digit.Hooks.useQueryParams();
+      return {
+        url: `/project-factory/v1/project-type/search`,
+        params: {  },
+        body: {
+          CampaignDetails: {
+            "tenantId": tenantId,
+            "ids": [
+              campaignId
+            ]
+        }
+        },
+        changeQueryName: `boundarySearchForPlanFacility`,
+        config: {
+          enabled: true,
+          select: (data) => {
+            const result = data?.CampaignDetails?.[0]?.boundaries?.filter((item) => item.type == prop.lowestHierarchy) || [];
+            return result
+          },
+        },
+      };
+    },
+    // additionalCustomizations: (row, key, column, value, t, searchResult) => {
+    //   const [showPopup, setShowPopup] = useState(false);
+    //   const FacilityPopUp = Digit.ComponentRegistryService.getComponent("FacilityPopup");
+    //   const VillageHierarchyTooltipWrapper = Digit.ComponentRegistryService.getComponent("VillageHierarchyTooltipWrapper");
+
+    //   switch (key) {
+    //     case `MICROPLAN_FACILITY_${column?.projectType}_CAPACITY`:
+    //       if (row?.additionalDetails?.capacity || row?.additionalDetails?.capacity === 0) {
+    //         return row?.additionalDetails?.capacity;
+    //       }
+    //       return t("NA");
+    //     case "MICROPLAN_FACILITY_SERVINGPOPULATION":
+    //       return row?.additionalDetails?.servingPopulation;
+    //     case "MICROPLAN_FACILITY_RESIDINGVILLAGE":
+    //       return <div style={{display:"flex", gap:".5rem"}}>
+    //       {t(row?.residingBoundary)}
+    //       <VillageHierarchyTooltipWrapper  boundaryCode={row?.residingBoundary}/>
+    //     </div>
+    //     case "MICROPLAN_FACILITY_ASSIGNED_VILLAGES":
+    //       const assignedVillages = row?.serviceBoundaries;
+    //       return assignedVillages ? assignedVillages.length : null;
+    //     case "HCM_MICROPLAN_FACILITY_VIEW_ASSIGNMENT":
+    //     case "HCM_MICROPLAN_FACILITY_ACTION_ASSIGNMENT":
+    //       return (
+    //         <>
+    //           <Button
+    //             className=""
+    //             icon="ArrowForward"
+    //             iconFill=""
+    //             isSuffix
+    //             label={t(key)}
+    //             onClick={() => setShowPopup(true)}
+    //             // removed this because due to popup crashing on dev
+    //             // onClick={() => console.log("temp action")}
+    //             options={[]}
+    //             optionsKey=""
+    //             size="medium"
+    //             style={{}}
+    //             title={t(key)}
+    //             variation="primary"
+    //           />
+    //           {showPopup && (
+    //             <FacilityPopUp
+    //               detail={row}
+    //               onClose={() => {
+    //                 setShowPopup(false);
+    //               }}
+    //             />
+    //           )}
+    //         </>
+    //       );
+    //     default:
+    //       return null;
+    //   }
+    // },
+  },
+  SampleInboxConfig: {
+    getSearchRequest: ( prop) => {
+      const tenantId = Digit.ULBService.getCurrentTenantId();
+      return {
+        url: `/plan-service/config/_search`,
+        params: {  },
+        body: {
+          CampaignDetails: {
+            "tenantId": tenantId,
+        }
+        },
+        changeQueryName: `boundarySearchForPlanFacility`,
+        config: {
+          enabled: true,
+          select: (data) => {
+            const result = data?.CampaignDetails?.[0]?.boundaries?.filter((item) => item.type == prop.lowestHierarchy) || [];
+            return result
+          },
+        },
+      };
+    },
+    additionalCustomizations: (row, key, column, value, t, searchResult) => {
+      if (key === "Facility name") {
+        return (
+          <Button
+            variation="link"
+            label={
+              value
+                ? column.translate
+                  ? t(value)
+                  : value
+                : t("ES_COMMON_NA")
+            }
+            type="button"
+            icon="Edit"
+            size={"medium"}
+          />
+        );
+      }
+      //added this in case we change the key and not updated here , it'll throw that nothing was returned from cell error if that case is not handled here. To prevent that error putting this default
+      return <span>{t(`CASE_NOT_HANDLED`)}</span>;
+    },
+    selectionHandler: (event) => {
+      console.log(event, "selection handler event");
+    },
+    actionSelectHandler: (index, label, selectedRows) => {
+      console.log(index, label, selectedRows, "action handler");
+    },
+    onFilter: (event) =>{
+      console.log(event,"filter handler")
+    },
+    preProcess: (data, additionalDetails) => {
+      const { name, status } = data?.state?.searchForm || {};
+
+      data.body.PlanConfigurationSearchCriteria = {};
+      data.body.PlanConfigurationSearchCriteria.limit = data?.state?.tableForm?.limit;
+      // data.body.PlanConfigurationSearchCriteria.limit = 10
+      data.body.PlanConfigurationSearchCriteria.offset = data?.state?.tableForm?.offset;
+      data.body.PlanConfigurationSearchCriteria.name = name;
+      data.body.PlanConfigurationSearchCriteria.tenantId = Digit.ULBService.getCurrentTenantId();
+      data.body.PlanConfigurationSearchCriteria.userUuid = Digit.UserService.getUser().info.uuid;
+      // delete data.body.PlanConfigurationSearchCriteria.pagination
+      data.body.PlanConfigurationSearchCriteria.status = status?.status;
+      data.body.PlanConfigurationSearchCriteria.name = data?.state?.searchForm?.microplanName;
+      cleanObject(data.body.PlanConfigurationSearchCriteria);
+
+      const dic = {
+        0: [
+          "EXECUTION_TO_BE_DONE",
+          "CENSUS_DATA_APPROVAL_IN_PROGRESS",
+          "CENSUS_DATA_APPROVED",
+          "RESOURCE_ESTIMATION_IN_PROGRESS",
+          "RESOURCE_ESTIMATIONS_APPROVED",
+        ],
+        1: ["EXECUTION_TO_BE_DONE"],
+        2: ["CENSUS_DATA_APPROVAL_IN_PROGRESS", "CENSUS_DATA_APPROVED", "RESOURCE_ESTIMATION_IN_PROGRESS"],
+        3: ["RESOURCE_ESTIMATIONS_APPROVED"],
+      };
+      const url = Digit.Hooks.useQueryParams();
+
+      const tabId = url.tabId || "0"; // Default to '0' if tabId is undefined
+      data.body.PlanConfigurationSearchCriteria.status = dic[String(tabId)];
+      return data;
+    },
+    postProcess: (responseArray, uiConfig) => {
+      return responseArray;
+    },
+  },
+  SearchMDMSConfig: {
+    customValidationCheck: (data) => {
+      //checking both to and from date are present
+      const { createdFrom, createdTo, field, value } = data;
+      if (
+        (createdFrom === "" && createdTo !== "") ||
+        (createdFrom !== "" && createdTo === "")
+      )
+        return { type: "warning", label: "ES_COMMON_ENTER_DATE_RANGE" };
+
+      if ((field && !value) || (!field && value)) {
+        return {
+          type: "warning",
+          label: "WBH_MDMS_SEARCH_VALIDATION_FIELD_VALUE_PAIR",
+        };
+      }
+
+      return false;
+    },
+    preProcess: (data, additionalDetails) => {
+      const tenantId = Digit.ULBService.getCurrentTenantId();
+      data.body.MdmsCriteria.tenantId = tenantId;
+      const filters = {};
+      const custom = data.body.MdmsCriteria.custom;
+      const { field, value, isActive } = custom || {};
+      filters[field?.code] = value;
+      if (isActive) {
+        if (isActive.value === "all") delete data.body.MdmsCriteria.isActive;
+        else data.body.MdmsCriteria.isActive = isActive?.value;
+      } else {
+        delete data.body.MdmsCriteria.isActive;
+      }
+      data.body.MdmsCriteria.filters = filters;
+      // data.body.MdmsCriteria.limit = 100
+      data.body.MdmsCriteria.limit = data.state.tableForm.limit;
+      data.body.MdmsCriteria.offset = data.state.tableForm.offset;
+      data.body.MdmsCriteria.schemaCode =
+        // additionalDetails?.currentSchemaCode
+        "ACCESSCONTROL-ACTIONS-TEST.actions-test";
+      delete data.body.MdmsCriteria.custom;
+      return data;
+    },
+    additionalCustomizations: (row, key, column, value, t, searchResult) => {
+      switch (key) {
+        case "Active":
+          return (
+            <Tag
+              icon=""
+              label={value ? "Active" : "InActive"}
+              labelStyle={{}}
+              showIcon={false}
+              style={{}}
+              type="success"
+            />
+          );
+        default:
+          return t("ES_COMMON_NA");
+      }
+    },
+    MobileDetailsOnClick: (row, tenantId) => {
+      let link;
+      Object.keys(row).map((key) => {
+        if (key === "MASTERS_WAGESEEKER_ID")
+          link = `/${window.contextPath}/employee/masters/view-wageseeker?tenantId=${tenantId}&wageseekerId=${row[key]}`;
+      });
+      return link;
+    },
+    additionalValidations: (type, data, keys) => {
+      if (type === "date") {
+        return data[keys.start] && data[keys.end]
+          ? () =>
+              new Date(data[keys.start]).getTime() <=
+              new Date(data[keys.end]).getTime()
+          : true;
+      }
+    },
+  },
 };
