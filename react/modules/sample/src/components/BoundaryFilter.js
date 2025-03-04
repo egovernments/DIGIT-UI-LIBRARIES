@@ -11731,16 +11731,16 @@ const BoundaryFilter = (props) => {
       newBoundaryOptions = cleanLowerLevels(boundaryType, removedCodes, { ...boundaryOptions });
       newSelectedOptions = cleanLowerLevelsForSelectedValues(boundaryType, removedCodes, [...selectedValues]);
       console.log("1111 selectedValues 1", newSelectedOptions);
-
+    }
       // Reset removedCodes after processing
-    } else {
-
-      await delay(100);
+    else {
+      // await delay(100);
       newBoundaryOptions = updatedOptions;
-      await delay(100);
+      // await delay(100);
       newSelectedOptions = cleanLowerLevelsForSelectedValues(boundaryType, removedCodes, [...selectedValues]);
       console.log("1111 selectedValues 2", newSelectedOptions);
     }
+    
 
 
     console.log("1111 NewboundaryOptions:", newBoundaryOptions, selectedValues);
@@ -12068,7 +12068,8 @@ const BoundaryFilter = (props) => {
                           type="multiselectdropdown"
                           variant="nestedmultiselect"
                           config={{
-                            isDropdownWithChip: true
+                            isDropdownWithChip: true,
+                            chipKey: "code"
                           }}
                         />
                       </div>
