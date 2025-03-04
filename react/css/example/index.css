@@ -13410,8 +13410,6 @@ button:hover {
       flex-direction: column; }
       .digit-inbox-search-wrapper .digit-inbox-search-component-wrapper .digit-sections-parent.search .digit-section.filter, .digit-inbox-search-wrapper .digit-inbox-search-component-wrapper .digit-sections-parent.search .digit-section.links {
         display: none; }
-      .digit-inbox-search-wrapper .digit-inbox-search-component-wrapper .digit-sections-parent.search .digit-search-wrapper .digit-search-field-wrapper.search.custom-both-clear-search .digit-search-button-wrapper.search {
-        grid-column: initial; }
       .digit-inbox-search-wrapper .digit-inbox-search-component-wrapper .digit-sections-parent.search .digit-search-wrapper .digit-search-field-wrapper.search.custom-both-clear-search .digit-search-button-wrapper .link-label {
         white-space: normal; }
       .digit-inbox-search-wrapper .digit-inbox-search-component-wrapper .digit-sections-parent.search .digit-search-wrapper .digit-search-field-wrapper.search.custom-both-clear-search .digit-search-button-wrapper .submit-bar {
@@ -13470,9 +13468,6 @@ button:hover {
       grid-gap: 1.5rem;
       gap: 1.5rem; }
       .digit-inbox-search-wrapper .digit-inbox-search-component-wrapper .digit-sections-parent .digit-section.links, .digit-inbox-search-wrapper .digit-inbox-search-component-wrapper .digit-sections-parent .digit-section.search {
-        -webkit-box-align: start;
-        -ms-flex-align: start;
-        align-items: flex-start;
         background-color: #fff;
         -webkit-box-shadow: 0 0.063rem 0.125rem 0 rgba(0, 0, 0, 0.16078);
         box-shadow: 0 0.063rem 0.125rem 0 rgba(0, 0, 0, 0.16078);
@@ -13487,6 +13482,10 @@ button:hover {
         -webkit-box-align: center;
         -ms-flex-align: center;
         align-items: center; }
+      .digit-inbox-search-wrapper .digit-inbox-search-component-wrapper .digit-sections-parent .digit-section.links {
+        -webkit-box-align: start;
+        -ms-flex-align: start;
+        align-items: flex-start; }
       .digit-inbox-search-wrapper .digit-inbox-search-component-wrapper .digit-sections-parent .digit-section.search .digit-tab-main {
         width: 100%; }
       .digit-inbox-search-wrapper .digit-inbox-search-component-wrapper .digit-sections-parent .digit-section.filter .digit-inbox-search-composer-filter-card-content {
@@ -13507,11 +13506,11 @@ button:hover {
         .digit-inbox-search-wrapper .digit-inbox-search-component-wrapper .digit-sections-parent .digit-section .digit-search-wrapper .digit-search-field-wrapper .digit-search-button-wrapper.add-margin {
           margin-top: 1.5rem; }
         .digit-inbox-search-wrapper .digit-inbox-search-component-wrapper .digit-sections-parent .digit-section .digit-search-wrapper .digit-search-field-wrapper .digit-search-button-wrapper.inbox {
-          grid-column: 3/span 2; }
+          grid-column: 3/-1; }
           .digit-inbox-search-wrapper .digit-inbox-search-component-wrapper .digit-sections-parent .digit-section .digit-search-wrapper .digit-search-field-wrapper .digit-search-button-wrapper.inbox.filter button {
             width: 100%; }
         .digit-inbox-search-wrapper .digit-inbox-search-component-wrapper .digit-sections-parent .digit-section .digit-search-wrapper .digit-search-field-wrapper .digit-search-button-wrapper.search {
-          grid-column: 3/span 2; }
+          grid-column: 3/-1; }
 
 .digit-inbox-search-composer-header {
   color: #0b4b66;
@@ -13573,19 +13572,117 @@ button:hover {
   grid-column-gap: 1rem;
   -webkit-column-gap: 1rem;
   -moz-column-gap: 1rem;
-  column-gap: 1rem; }
-  .digit-search-wrapper .digit-search-field-wrapper.inbox {
-    grid-template-columns: repeat(3, 1fr); }
-    .digit-search-wrapper .digit-search-field-wrapper.inbox.filter {
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: flex;
-      -webkit-box-orient: vertical;
-      -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-      flex-direction: column; }
-  .digit-search-wrapper .digit-search-field-wrapper.search {
-    grid-template-columns: repeat(4, 1fr); }
+  column-gap: 1rem;
+  grid-template-columns: repeat(3, 1fr); }
+  .digit-search-wrapper .digit-search-field-wrapper.inbox.filter {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column; }
+
+.digit-global-serach-results-table-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-align: end;
+  -ms-flex-align: end;
+  align-items: flex-end; }
+
+.digit-global-serach-results-table {
+  margin-bottom: 1.5rem; }
+  @media (min-aspect-ratio: 9 / 16) and (max-aspect-ratio: 3 / 4) {
+    .digit-global-serach-results-table {
+      min-width: 27.5rem; } }
+  @media (max-aspect-ratio: 9 / 16) {
+    .digit-global-serach-results-table {
+      min-width: 100%;
+      width: 100%; } }
+  @media (min-aspect-ratio: 3 / 4) {
+    .digit-global-serach-results-table {
+      min-width: 37.5rem; } }
+
+.rdt_TableRow.selectedRow {
+  background-color: #fbeee8 !important;
+  border-bottom-color: #d6d5d4 !important; }
+
+.rdt_TableCol_Sortable {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  grid-gap: .25rem;
+  gap: .25rem; }
+  .rdt_TableCol_Sortable:hover {
+    opacity: 1 !important; }
+  .rdt_TableCol_Sortable > div:first-child {
+    white-space: normal; }
+  .rdt_TableCol_Sortable .__rdt_custom_sort_icon__ {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center; }
+
+.rdt_TableCol:last-of-type {
+  border-left: none !important; }
+
+.rdt_TableCol {
+  border-radius: 0 !important; }
+  .rdt_TableCol:last-of-type {
+    border-left: none !important; }
+
+.sc-fzXfNN.sc-fzXfNO.sc-fzXfNP.iSamCd.rdt_TableCell > div:first-of-type {
+  width: 100%; }
+
+.rdt_TableHead {
+  z-index: 13 !important; }
+
+.digit-data-table::-webkit-scrollbar-thumb, .digit-data-table::-webkit-scrollbar-track {
+  background-color: #d6d5d4;
+  border-radius: .563rem; }
+
+.digit-data-table::-webkit-scrollbar {
+  width: .5rem;
+  background-color: #d6d5d4; }
+
+.digit-data-table::-webkit-scrollbar:horizontal {
+  height: .5rem;
+  background-color: #d6d5d4; }
+
+.digit-data-table-select-checkbox {
+  margin-bottom: 0; }
+
+.rdt_Pagination {
+  margin-top: -1rem;
+  border: .063rem solid #d6d5d4;
+  border-top: 0; }
+
+.rdt_TableHeadRow, .rdt_TableRow {
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between; }
+
+.digit-dataTable-actions-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  grid-gap: .5rem;
+  gap: .5rem;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap; }
 
 .light-primary, .link-label, .digit-card .digit-card-header, .digit-card .digit-card-sub-header, .digit-card .digit-card-text-button, .digit-card .digit-card-text-primary, .digit-card .digit-card-label, .digit-card .digit-card-link, .digit-employee-card .digit-card-header, .digit-employee-card .digit-card-sub-header, .digit-employee-card .digit-employee-card-sub-header, .digit-employee-card .digit-card-section-sub-text, .digit-employee-card .card-text-button, .digit-employee-card .card-text-primary, .digit-employee-card .card-label, .digit-employee-card .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field .control-label, .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field .digit-employee-card .control-label, .digit-employee-card .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field.field-boolean .checkbox label span, .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field.field-boolean .checkbox label .digit-employee-card span, .digit-employee-card .card-link, .digit-employee-mulitlink-main-div, .primary-label-btn, .digit-search-wrapper .popup-label .header .icon, .digit-inbox-search-wrapper .digit-inbox-search-component-wrapper .digit-sections-parent.search .digit-search-wrapper .digit-search-field-wrapper.search.custom-both-clear-search .digit-search-button-wrapper .link-label {
   color: #f47738 !important; }

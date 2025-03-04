@@ -146,7 +146,7 @@ const InboxSearchComposer = ({configs,headerLabel,additionalConfig,onFormValueCh
         var { isLoading, data, revalidate,isFetching,refetch,error } = eval(`Digit.Hooks.${configs.customHookName}(updatedReqCriteria)`);
     }
     else {
-       var { isLoading, data, revalidate,isFetching,error } = Digit.Hooks.useCustomAPIHook(updatedReqCriteria);
+       var { isLoading, data, revalidate,isFetching,error,refetch } = Digit.Hooks.useCustomAPIHook(updatedReqCriteria);
         
     }
 
@@ -304,6 +304,7 @@ const InboxSearchComposer = ({configs,headerLabel,additionalConfig,onFormValueCh
                     isFetching={isFetching}
                     fullConfig={configs}
                     additionalConfig={additionalConfig}
+                    refetch={refetch}
                   ></ResultsDataTable>
                 </MediaQuery>
                 <MediaQuery maxWidth={426}>

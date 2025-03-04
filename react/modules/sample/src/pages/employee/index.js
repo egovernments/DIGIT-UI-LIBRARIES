@@ -40,9 +40,9 @@ const App = ({ path, stateCode, userType, tenants }) => {
         </React.Fragment>
         <PrivateRoute path={`${path}/components`} component={() => <Sample></Sample>} />
         <PrivateRoute path={`${path}/test`} component={() => <Loader></Loader>} />
-        {/* <PrivateRoute path={`${path}/search`} component={() => <SampleSearch></SampleSearch>} /> */}
+        <PrivateRoute path={`${path}/search`} component={() => <SampleSearch></SampleSearch>} />
         <PrivateRoute path={`${path}/inbox`} component={() => <SampleInbox></SampleInbox>} />
-        <PrivateRoute path={`${path}/search`} component={() => <IndividualSearch></IndividualSearch>} />
+        <PrivateRoute path={`${path}/search-edit`} component={() => <IndividualSearch></IndividualSearch>} />
         </AppContainer>
     </Switch>
   );

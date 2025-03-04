@@ -2,7 +2,7 @@ import { Header } from '@egovernments/digit-ui-react-components';
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button, InboxSearchComposer, PopUp } from '@egovernments/digit-ui-components';
-import { searchconfig } from '../../configs/IndividualSearchCOnfig';
+import { searchconfig } from '../../configs/IndividualSearchConfig';
 
 const defaultSearchValues = {
   individualName: '',
@@ -24,7 +24,6 @@ const IndividualSearch = () => {
 
   
   const handleButtonClick = () => {
-    console.log("clicked")
     setSearchConfig(prev => {
       return {...prev}
     })
@@ -40,8 +39,8 @@ const IndividualSearch = () => {
         tenantId: 'dev',
         filters: {},
         schemaCode: 'ACCESSCONTROL-ACTIONS-TEST.actions-test',
-        limit: 10,
-        offset: 0,
+        limit: data.state.tableForm.limit,
+        offset: data.state.tableForm.offset,
       };
       return data;
     },
@@ -50,7 +49,7 @@ const IndividualSearch = () => {
       //like if a cell is link then we return link
       //first we can identify which column it belongs to then we can return relevant result
       switch (key) {
-        case 'IndividualID':
+        case 'Id':
           return (
             <button onClick={() => updateCounter((prev) => {
               console.log("cliked")
@@ -79,6 +78,16 @@ const IndividualSearch = () => {
           return t('ES_COMMON_NA');
       }
     },
+    generateEditPayload:(row) => {
+      return {
+        body:{
+          Mdms:{
+            ...row
+          }
+        },
+        params:{}
+      }
+    }
   };
 
   return (

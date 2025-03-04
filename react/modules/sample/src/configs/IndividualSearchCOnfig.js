@@ -76,8 +76,8 @@ export const searchconfig = () =>
               label: "Id",
               jsonPath: "uniqueIdentifier",
               // additionalCustomization:true
+              editable:true
             },
-            
             {
               label: "Popup",
               jsonPath: "data.displayName",
@@ -86,6 +86,7 @@ export const searchconfig = () =>
             {
               label: "Address",
               jsonPath: "data.path",
+              editable:true,
             },
             // {
             //   label: "Edit",
@@ -96,7 +97,7 @@ export const searchconfig = () =>
           enableColumnSort: true,
           resultsJsonPath: "mdms",
           editableRows:true,//this should automatically add a button at the end for editing rows
-          editableRowsList:["Id","Address"],//this can store the labels of rows that are editable
+          // editableRowsList:["Id","Address"],//this can store the labels of rows that are editable
         },
         show: true,
       },

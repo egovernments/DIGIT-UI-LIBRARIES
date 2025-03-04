@@ -20,7 +20,7 @@ import Button from "../atoms/Button";
 import CardLabel from "../atoms/CardLabel";
 import { SVG } from "../atoms";
 import NoResultsFound from "../atoms/NoResultsFound";
-
+import {Toast} from "../atoms";
 const ResultsDataTable = ({
   tableContainerClass,
   config,
@@ -33,6 +33,7 @@ const ResultsDataTable = ({
   activeLink,
   browserSession,
   additionalConfig,
+  refetch
 }) => {
   const { apiDetails } = fullConfig;
   const { t } = useTranslation();
@@ -41,7 +42,7 @@ const ResultsDataTable = ({
   const [session, setSession, clearSession] = browserSession || [];
   let searchResult = _.get(data, resultsKey, []);
   searchResult = searchResult?.length > 0 ? searchResult : [];
-  searchResult = searchResult.reverse();
+  // searchResult = searchResult.reverse();
   const [selectedRows, setSelectedRows] = useState([]);
   const { state, dispatch } = useContext(InboxContext);
   const configModule =
@@ -54,6 +55,16 @@ const ResultsDataTable = ({
     limit: rowsPerPage,
     offset: (currentPage - 1) * rowsPerPage,
   });
+
+  const [showToast, setShowToast] = useState(null);
+
+  // Use the custom mutation hook
+  const mutation = Digit.Hooks.useCustomAPIMutationHook({
+    url:"/egov-mdms-service/v2/_update/ACCESSCONTROL-ACTIONS-TEST.actions-test"
+  });
+  const [editRow,setEditRow] = useState(null);
+  //edited data should always hold updated payload
+  const [editedData,setEditedData] = useState(null);
 
   //here I am just checking state.searchForm has all empty keys or not(when clicked on clear search)
   useEffect(() => {
@@ -73,9 +84,43 @@ const ResultsDataTable = ({
     };
   }, [state]);
 
+  const handleActionClicked = (row, index, column, id) => {
+    //current row should now be editable, maintain a state called editMode
+    setEditRow(row);
+    setEditedData(row);
+  }
+
+  const handleSaveRow = (updatedRow) => {
+    //use updatedRow value to call api and reset the states
+    console.log(updatedRow);
+    mutation.mutate(
+      configModule.generateEditPayload(editedData),
+      {
+        onSuccess: (data) => {
+          setShowToast({ key: "success", label: t("DATA_MODIEFIED_SUCCESS")})
+          refetch()
+        },
+        onError: (error) => {
+        }
+      }
+    );
+    setEditRow(null);
+    setEditedData(null);
+  }
+
+  const handleEdits = (value,jsonPath) => {
+    const copyToUpdate = {...editedData}
+    _.set(copyToUpdate,jsonPath,value)
+    setEditedData(copyToUpdate)
+    // setEditedData((prev) => ({
+    //   ...prev,
+    //   [field]: e.target.value,
+    // }));
+  }
+
   const tableColumns = useMemo(() => {
     //test if accessor can take jsonPath value only and then check sort and global search work properly
-    return config?.columns?.map((column) => {
+    const mappedColumns =  config?.columns?.map((column) => {
       if (column?.svg) {
         // const icon = Digit.ComponentRegistryService.getComponent(column.svg);
         return {
@@ -153,13 +198,60 @@ const ResultsDataTable = ({
         wrap: column?.wrap,
         sortable: !column?.disableSortBy,
         sortFunction: (rowA, rowB) => column?.sortFunction(rowA, rowB),
-        selector: (row, index) => _.get(row, column?.jsonPath),
+        cell: (row, index) =>  {
+          
+          if(column.editable && editRow?.id === row?.id){
+            return <TextInput
+            // style={{ marginBottom: "0px" }}
+            name={column.label}
+            onChange={(e)=> handleEdits(e.target.value,column.jsonPath)}
+            value={_.get(editedData,column.jsonPath)}
+          />
+        }
+
+          return _.get(row, column?.jsonPath)
+        },
         headerAlign: column?.headerAlign,
         style: column?.style,
         conditionalCellStyles: column?.conditionalCellStyles,
       };
     });
-  }, [config, searchResult]);
+
+    if(config?.editableRows){
+      mappedColumns.push({
+        id: crypto.randomUUID(),
+        name: "Action",
+        // format: column?.format,
+        // grow: column?.grow,
+        // width: column?.width,
+        // minWidth: column?.minWidth,
+        // maxWidth: column?.maxWidth,
+        // right: column?.right,
+        // center: column?.center,
+        // ignoreRowClick: column?.ignoreRowClick,
+        // wrap: column?.wrap,
+        // sortable: !column?.disableSortBy,
+        // sortFunction: (rowA, rowB) => column?.sortFunction(rowA, rowB),
+        // cell: (row, index) =>  _.get(row, column?.jsonPath),
+        // headerAlign: column?.headerAlign,
+        // style: column?.style,
+        // conditionalCellStyles: column?.conditionalCellStyles,
+        cell: ( row, index, column, id ) => {
+            return (<Button
+            variation="primary"
+            label={row?.id === editRow?.id ? "Save" : "Edit Row"}
+            type="button"
+            icon="Edit"
+            onClick={()=>{editRow ? handleSaveRow(editedData) : handleActionClicked(row, index, column, id)}}
+            isDisabled={editRow && row?.id !== editRow?.id  ? true : false}
+          />)
+        }
+      })
+  }
+
+  return mappedColumns;
+
+  }, [config, searchResult,editRow,editedData]);
 
   const defaultValuesFromSession = config?.customDefaultPagination
     ? config?.customDefaultPagination
@@ -480,6 +572,7 @@ const ResultsDataTable = ({
         </div>
       )}
       {renderTable()}
+      {showToast && <Toast type={showToast?.type} label={t(showToast.label)} onClose={()=> setShowToast(null)} />}
     </Card>
   );
 };
