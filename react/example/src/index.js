@@ -5,7 +5,8 @@ import { initLibraries } from "@egovernments/digit-ui-libraries";
 // import { paymentConfigs, PaymentLinks, PaymentModule } from "@egovernments/digit-ui-module-common";
 import { DigitUI } from "@egovernments/digit-ui-module-core";
 // import "@egovernments/digit-ui-health-css/example/index.css";
-import "@egovernments/digit-ui-components-css/dist/index.css";
+// import "@egovernments/digit-ui-components-css/dist/index.css";
+import "@egovernments/digit-ui-components-css/example/index.css";
 import { UICustomizations } from "./UICustomizations";
 import { initSampleComponents } from "@egovernments/digit-ui-module-sample"
 

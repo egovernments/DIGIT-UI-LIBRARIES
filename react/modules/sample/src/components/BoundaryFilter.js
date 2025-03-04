@@ -12,6 +12,15 @@ const BoundaryFilter = (props) => {
   const { t } = useTranslation();
   const moduleName = props?.module;
 
+  //2 states are there 1) boundaryOptions(objects that stores by hierarchy), selectedValues(all the selectedValues)
+  //flow->
+  //User selects from the dependent dropdown
+  //The updateBoundaryOptions is triggered
+  //The unselect logic is carried out using removedCodes, and then using cleanLowerLevels,cleanLowerLevelsForSelectedValues
+  //And then the select logic is carried using findNodeByPath
+
+
+  //For adding path like A.B.C.D to all nodes
   const processHierarchy = (nodes, parentPath = "") => {
     return nodes.map((node) => {
       // Construct the current node's full path using its code
@@ -140,6 +149,7 @@ const BoundaryFilter = (props) => {
     return null; // Return null if no match is found
   };
 
+  //for unselect logic it should happen to all the children of the unselected
   const recursiveCleanup = (currentBoundaryType, updatedOptions, codesToRemove) => {
     const childType = hierarchy.find(item => item.parentBoundaryType === currentBoundaryType)?.boundaryType;
     if (!childType || !updatedOptions[childType]) return updatedOptions;
@@ -162,13 +172,15 @@ const BoundaryFilter = (props) => {
     // Recursively clean next level
     return recursiveCleanup(childType, updatedOptions, codesToRemove);
   };
-
+  
+  //for unselect logic 
   const cleanLowerLevels = (boundaryType, codesToRemove, updatedOptions) => {
     if (codesToRemove.length == 0) return updatedOptions;
     let newBoundaryOptions = recursiveCleanup(boundaryType, updatedOptions, codesToRemove);
     return newBoundaryOptions; // Return the final updated state
   };
 
+  //for unselect logic 
   const cleanLowerLevelsForSelectedValues = (boundaryType, removedCodes, updatedOptions) => {
     return updatedOptions.filter(option => {
       // Ensure path is a valid string before checking `includes`
@@ -179,6 +191,7 @@ const BoundaryFilter = (props) => {
   };
 
 
+  //main fucntion, handles dropdown changes
   const boundaryOptionsUpdate = async (boundaryType, values) => {
     if (!Array.isArray(values)) return;
 
@@ -186,7 +199,7 @@ const BoundaryFilter = (props) => {
     const childBoundaryType = hierarchy.find(
       (item) => item.parentBoundaryType === boundaryType
     )?.boundaryType;
-
+    //to store the codes to remove
     const removedCodes = [];
     const processRemovedCodes = (previousValues, selectedCodes) => {
       Object.keys(previousValues).forEach(code => {
