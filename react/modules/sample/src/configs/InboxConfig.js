@@ -1,6 +1,5 @@
-import inboxConfig from "./SampleInboxConfig"
 
-const InboxConfig=[
+const InboxConfig=
     {
       "type": "inbox",
       "label": "ACTION_TEST_ESTIMATE_INBOX",
@@ -273,6 +272,6 @@ const InboxConfig=[
       "screenName": "EstimateInboxConfig",
       "additionalSections": {}
     }
-  ]
+  
 
-export default inboxConfig;
+export default InboxConfig;

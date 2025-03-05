@@ -7,6 +7,11 @@ import SampleSearch from "./SampleSearch";
 import SampleInbox from "./SampleInbox";
 import IndividualSearch from "./IndividualSearch";
 import SampleComponents from "./SampleComponents";
+import InboxScreen from "./InboxScreen";
+import SearchScreen from "./SearchScreen";
+import InboxScreen1 from "./InboxScreen1";
+import SearchScreen1 from "./SearchScreen1";
+import FormComposer from "./FormComposer";
 
 const ProjectBreadCrumb = ({ location }) => {
   const { t } = useTranslation();
@@ -45,6 +50,15 @@ const App = ({ path, stateCode, userType, tenants }) => {
         <PrivateRoute path={`${path}/inbox`} component={() => <SampleInbox></SampleInbox>} />
         <PrivateRoute path={`${path}/ind-search`} component={() => <IndividualSearch></IndividualSearch>} />
         <PrivateRoute path={`${path}/test`} component={() => <Loader></Loader>} />
+        <PrivateRoute path={`${path}/InboxScreen`} component={() => <InboxScreen></InboxScreen> }/>
+        <PrivateRoute path={`${path}/SearchScreen`} component={() => <SearchScreen/> }/>
+        <PrivateRoute path={`${path}/InboxScreen1`} component={() => <InboxScreen1></InboxScreen1> }/>
+        <PrivateRoute path={`${path}/SearchScreen1`} component={() => <SearchScreen/> }/>
+        <PrivateRoute path={`${path}/FormComposer`} component={() => <FormComposer/> }/>
+        
+
+        
+        
         </AppContainer>
     </Switch>
   );
