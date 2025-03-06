@@ -5,6 +5,7 @@ import { Route, Switch } from "react-router-dom";
 import Sample from "./Sample";
 import SampleSearch from "./SampleSearch";
 import BoundaryFilter from "../../components/BoundaryFilter";
+import FormComposer from "./FormComposer";
 const ProjectBreadCrumb = ({ location }) => {
   const { t } = useTranslation();
   const crumbs = [
@@ -35,13 +36,16 @@ const App = ({ path, stateCode, userType, tenants }) => {
         <PrivateRoute path={`${path}/test`} component={() => <Loader></Loader>} />
         <PrivateRoute path={`${path}/search`} component={() => <SampleSearch></SampleSearch>} />
         <PrivateRoute path={`${path}/filter`} component={() => 
-        <BoundaryFilter 
-        levelConfig={{lowestLevel:"VILLAGE", highestLevel:"COUNTRY", isSingleSelect:["LOCALITY","VILLAGE","DISTRICT"]}} 
-        hierarchyType={"NEWTEST00222"} 
-        module={"HCM-ADMIN-CONSOLE"} 
-        selectedValues={[""]}
-        isHorizontal={false}
-        />} />
+          <BoundaryFilter 
+          levelConfig={{lowestLevel:"VILLAGE", highestLevel:"COUNTRY", isSingleSelect:["LOCALITY","VILLAGE","DISTRICT"]}} 
+          hierarchyType={"NEWTEST00222"} 
+          module={"HCM-ADMIN-CONSOLE"} 
+          selectedValues={[""]}
+          isHorizontal={false}
+          />} 
+        />
+        <PrivateRoute path={`${path}/FormComposer`} component={() => <FormComposer/>} />
+
 
         </AppContainer>
     </Switch>
