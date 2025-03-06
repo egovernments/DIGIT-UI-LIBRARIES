@@ -5,14 +5,14 @@ const ExpandedComponent = ({ data }) => (
 );
 
 export const Config = {
-    label: "WBH_SEARCH_MDMS",
+    headerLabel: "Search",
     type: "search",
-    actionLabel: "WBH_ADD_MDMS",
+    actionLabel: "WBH_ADD_MDMS", // put inside inside a actions object (top/bottom)
     actionRoles: ["MDMS_ADMIN","CAMPAIGN_ADMIN","SUPERUSER"],
     actionLink: "workbench/mdms-add-v2",
     apiDetails: {
       serviceName: `/egov-mdms-service/v2/_search`,
-      requestParam: {},
+      requestParam: {}, // these two are not required
       requestBody: {
         MdmsCriteria: {
           
@@ -32,7 +32,7 @@ export const Config = {
           formClassName: "",
           primaryLabel: "ES_COMMON_SEARCH",
           secondaryLabel: "ES_COMMON_CLEAR_SEARCH",
-          minReqFields: 0,
+          minReqFields: 0, // test this 
           defaultValues: {
             value: "",
             field: "",
@@ -47,8 +47,9 @@ export const Config = {
               type: "dropdown",
               isMandatory: false,
               disable: false,
+              // all field level props should be outside populators
               populators: {
-                name: "field",
+                name: "field", // call it as jsonPath
                 optionsKey: "name",
                 optionsCustomStyle: { top: "2.3rem" },
                 options: [
@@ -115,21 +116,27 @@ export const Config = {
             {
               label: "Unique Identifier",
               jsonPath: "uniqueIdentifier",
-              // additionalCustomization:true
+              // sortFunction:(a,b)=>{console.log(a,b)}, // UiCustomizations 
+              disableSortBy:true
             },
             {
               label: "Id",
               jsonPath: "id",
-              // additionalCustomization:true
+              // sortFunction:(a,b)=>{console.log(a,b)},
+              // disableSortBy:true
             },
             {
               label: "tenantId",
               jsonPath: "tenantId",
+              // sortFunction:(a,b)=>{console.log(a,b)},
+              // disableSortBy:true
             },
             {
               label: "Active",
               jsonPath: "isActive",
-              additionalCustomization:true
+              additionalCustomization:true,
+              // sortFunction:(a,b)=>{console.log(a,b)},
+              // disableSortBy:true
             }
           ],
           enableGlobalSearch: true,
@@ -138,12 +145,13 @@ export const Config = {
           rowClassName:"table-row-mdms table-row-mdms-hover",
           showTableDescription: "This is the search table description",
           showTableTitle: "Search table title",
-          addFilter: true,
+          // group releated props to gether
           showCheckBox: true,
           showSelectedState: true,
           actionButtonLabel: "Customized ActionButton",
           expandableRows: true,
           defaultSortAsc: true,
+          // showSelectedStatePosition:"bottom", can also be sent like this
           expandableRowsComponent: ExpandedComponent,
           selectableRowsNoSelectAll: false,
           actions: [
@@ -163,6 +171,6 @@ export const Config = {
         show: true,
       },
     },
-    additionalSections: {},
+    additionalSections: {}, // no more additional sections will be supported
   };
   

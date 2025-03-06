@@ -203,6 +203,11 @@
   }
   .digit-multiselectdropodwn-menuitem {
     @apply flex w-full bg-white justify-start items-center;
+
+    &.frozen{
+      pointer-events: none;
+      opacity: 0.6;
+    }
     min-height: 2.438rem;
     .option-des-container {
       @apply w-full max-w-full overflow-hidden box-border;

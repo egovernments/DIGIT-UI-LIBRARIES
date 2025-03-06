@@ -18,6 +18,10 @@ import { useState, useEffect } from "react";
 import UploadFileComposer from "./UploadFileComposer";
 import { CustomDropdown } from "../molecules";
 import { Controller } from "react-hook-form";
+import { LocationDropdownWrapper } from "../molecules";
+import { ApiDropdown } from "../molecules";
+import { WorkflowStatusFilter } from "../molecules";
+import { DateRangeNew } from "../molecules";
 
 const FieldV1 = ({
   type = "",
@@ -354,6 +358,81 @@ const FieldV1 = ({
             }
           />
         );
+        case "locationdropdown":
+          return (
+            <Controller
+              name={`${populators?.name}`}
+              control={controllerProps?.control}
+              defaultValue={formData?.[populators?.name]}
+              rules={{ required: populators?.isMandatory, ...populators.validation }}
+              render={(props) => {
+                return (
+                  <div style={{ display: "grid", gridAutoFlow: "row" ,width:"100%"}}>
+                    <LocationDropdownWrapper
+                      props={props}
+                      populators={populators}
+                      formData={formData}
+                      inputRef={props.ref}
+                      errors={errors}
+                      disabled={disabled}
+                      setValue={controllerProps?.setValue}
+                    />
+                  </div>
+                );
+              }}
+            />
+          );
+        case "apidropdown":
+          return (
+            <Controller
+              name={`${populators?.name}`}
+              control={controllerProps?.control}
+              defaultValue={formData?.[populators?.name]}
+              rules={{ required: populators?.isMandatory, ...populators.validation }}
+              render={(props) => {
+                return (
+                  <div style={{ display: "grid", gridAutoFlow: "row",width:"100%" }}>
+                    <ApiDropdown props={props} populators={populators} formData={formData} inputRef={props.ref} errors={errors} disabled={disabled} />
+                  </div>
+                );
+              }}
+            />
+          );
+        // case "workflowstatesfilter":
+        //   return (
+        //     <Controller
+        //       name={`${populators?.name}`}
+        //       control={controllerProps?.control}
+        //       defaultValue={formData?.[populators?.name]}
+        //       rules={{ required: populators?.isMandatory }}
+        //       render={(props) => {
+        //         return (
+        //           <div style={{ display: "grid", gridAutoFlow: "row",width:"100%" }}>
+        //             <WorkflowStatusFilter inboxResponse={data} props={props} populators={populators} t={t} formData={formData} />
+        //           </div>
+        //         );
+        //       }}
+        //     />
+        //   );
+        case "dateRange":
+          return (
+            <Controller
+              render={(props) => (
+                <DateRangeNew
+                  t={t}
+                  values={formData?.[populators?.name]?.range}
+                  name={populators?.name}
+                  onFilterChange={props.onChange}
+                  inputRef={props.ref}
+                  errorStyle={errors?.[populators?.name]}
+                />
+              )}
+              rules={{ required: required, ...populators.validation }}
+              defaultValue={formData?.[populators?.name]}
+              name={populators?.name}
+              control={controllerProps?.control}
+            />
+          );
       default:
         return null;
     }

@@ -176,7 +176,9 @@ const SampleComponents = () => {
         </Accordion>
       </div>
       <div style={commonDivStyle}>
-        <HeaderComponent styles={textStyles}>{"Accordion List"}</HeaderComponent>
+        <HeaderComponent styles={textStyles}>
+          {"Accordion List"}
+        </HeaderComponent>
         <AccordionList addDivider>
           <Accordion number={1} title="Accordion 1">
             Lorem Ipsum is simply dummy text of the printing and typesetting
@@ -199,36 +201,37 @@ const SampleComponents = () => {
       <div style={commonDivStyle}>
         <HeaderComponent styles={textStyles}>{"Action Button"}</HeaderComponent>
         <Button
-          className="custom-class"
-          iconFill=""
-          isSearchable
-          label="ActionButton"
-          onClick={(e) => {
-            console.log(e);
-          }}
-          onOptionSelect={(e) => {
-            console.log(e);
-          }}
-          options={[
-            {
-              code: "Actiona",
-              name: "Action A",
-            },
-            {
-              code: "Actionb",
-              name: "Action B",
-            },
-            {
-              code: "Actionc",
-              name: "Action C",
-            },
-          ]}
-          optionsKey="name"
-          showBottom
-          style={{}}
-          title=""
-          type="actionButton"
-        />
+            wrapperClassName='sample-action-button'
+            wrapperStyles={{width:"fit-content"}}
+            iconFill=""
+            isSearchable
+            label="ActionButton"
+            onClick={(e) => {
+              console.log(e);
+            }}
+            onOptionSelect={(e) => {
+              console.log(e);
+            }}
+            options={[
+              {
+                code: "Actiona",
+                name: "Action A",
+              },
+              {
+                code: "Actionb",
+                name: "Action B",
+              },
+              {
+                code: "Actionc",
+                name: "Action C",
+              },
+            ]}
+            optionsKey="name"
+            showBottom
+            style={{}}
+            title=""
+            type="actionButton"
+          />
       </div>
       <div style={commonDivStyle}>
         <HeaderComponent styles={textStyles}>{"Alert Card"}</HeaderComponent>
@@ -362,7 +365,9 @@ const SampleComponents = () => {
         />
       </div>
       <div style={commonDivStyle}>
-        <HeaderComponent styles={textStyles}>{"Large Sized Buttons"}</HeaderComponent>
+        <HeaderComponent styles={textStyles}>
+          {"Large Sized Buttons"}
+        </HeaderComponent>
         <Button
           variation="primary"
           label={"Primary"}
@@ -605,7 +610,9 @@ const SampleComponents = () => {
         />
       </div>
       <div style={commonDivStyle}>
-        <HeaderComponent styles={textStyles}>{"Medium Sized Buttons"}</HeaderComponent>
+        <HeaderComponent styles={textStyles}>
+          {"Medium Sized Buttons"}
+        </HeaderComponent>
         <Button
           variation="primary"
           label={"Primary"}
@@ -848,7 +855,9 @@ const SampleComponents = () => {
         />
       </div>
       <div style={commonDivStyle}>
-        <HeaderComponent styles={textStyles}>{"Small Sized Buttons"}</HeaderComponent>
+        <HeaderComponent styles={textStyles}>
+          {"Small Sized Buttons"}
+        </HeaderComponent>
         <Button
           variation="primary"
           label={"Primary"}

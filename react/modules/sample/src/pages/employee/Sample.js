@@ -88,7 +88,7 @@ const Create = () => {
 
   return (
     <React.Fragment>
-      <HeaderComponent>{"New Components"}</HeaderComponent>
+      <HeaderComponent className="digit-inbox-search-composer-header" styles={{marginBottom:"1.5rem"}}>{"New Components"}</HeaderComponent>
       <FormComposerV2
         label={t("Submit")}
         config={configs.map((config) => {

@@ -6,7 +6,7 @@ const ExpandedComponent = ({ data }) => (
 
 const inboxConfig = () => {
   return {
-    label: "ES_COMMON_INBOX",
+    headerLabel: "ES_COMMON_INBOX",
     postProcessResult: true,
     type: "inbox",
     apiDetails: {
@@ -316,6 +316,9 @@ const inboxConfig = () => {
         label: "ES_COMMON_FILTERS",
         show: true,
       },
+      sort: {
+        show: true,
+      },
       searchResult: {
         label: "",
         uiConfig: {
@@ -347,7 +350,6 @@ const inboxConfig = () => {
           resultsJsonPath: "items",
           showTableDescription: "This is the table description",
           showTableTitle: "Table Title",
-          addFilter: true,
           showCheckBox: true,
           showSelectedState: true,
           actionButtonLabel: "Customized ActionButton",

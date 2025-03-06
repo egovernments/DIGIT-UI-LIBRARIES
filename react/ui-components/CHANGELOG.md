@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0-beta.1] - 2025-03-06 
+## New Components Added 
+- ResultsDataTableWrapper and ResultsDataTable components were added
+- Integrated InboxSearchComposer with ResultsDataTableWrapper
+
+## Enhancements in Multiselectdropdown
+- Limiting chips to be shown functionality 
+- Frozen Data functionality
+- Searchable functionality for nested multiselect variant 
+
+## Other Changes
+- Added onClose function as a prop in SidePanel
+
 ## [0.2.0] - 2025-02-19 
 ### New Components Added
 

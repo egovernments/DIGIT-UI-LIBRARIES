@@ -27,6 +27,8 @@ import FormCard from "./FormCard";
 import FilterCard from "./FilterCard";
 import SummaryCard from "./SummaryCard";
 import BottomSheet from "./BottomSheet";
+import SortAction from "./SortAction";
+import ResultsDataTable from "./ResultsDataTable";
 
 export {
   ApiDropdown,
@@ -38,6 +40,8 @@ export {
   LocationDropdownWrapper,
   MultiUploadWrapper,
   SearchAction,
+  SortAction,
+  ResultsDataTable,
   SearchForm,
   SearchField,
   SearchOnRadioButtons,
