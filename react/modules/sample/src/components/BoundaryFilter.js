@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Card, CardText, MultiSelectDropdown } from '@egovernments/digit-ui-components'
+import { Card, CardText, MultiSelectDropdown, Dropdown } from '@egovernments/digit-ui-components'
 import { CheckBox } from '@egovernments/digit-ui-react-components';
 import { useTranslation } from 'react-i18next';
 import { LabelFieldPair, CardLabel } from "@egovernments/digit-ui-components";
@@ -123,7 +123,7 @@ const BoundaryFilter = (props) => {
   useEffect(() => {
 
     if (hierarchy) {
-      const highestIndex = hierarchy?.findIndex(item => item?.boundaryType === props?.highestLevel);
+      const highestIndex = hierarchy?.findIndex(item => item?.boundaryType === props?.levelConfig?.highestLevel);
 
       if (highestIndex !== -1) {
         const tempNonEditableHierarchies = new Set(hierarchy.slice(0, highestIndex).map(item => item.boundaryType));
@@ -131,7 +131,7 @@ const BoundaryFilter = (props) => {
         setNonEditableHierarchies(tempNonEditableHierarchies);
       }
     }
-  }, [hierarchy, props.highestLevel]);
+  }, [hierarchy, props?.levelConfig?.highestLevel]);
 
   const rootBoundaryType = hierarchy?.filter((item) => item?.parentBoundaryType === null)[0]?.boundaryType;
 
@@ -172,7 +172,7 @@ const BoundaryFilter = (props) => {
     // Recursively clean next level
     return recursiveCleanup(childType, updatedOptions, codesToRemove);
   };
-  
+
   //for unselect logic 
   const cleanLowerLevels = (boundaryType, codesToRemove, updatedOptions) => {
     if (codesToRemove.length == 0) return updatedOptions;
@@ -192,10 +192,13 @@ const BoundaryFilter = (props) => {
 
 
   //main fucntion, handles dropdown changes
-  const boundaryOptionsUpdate = async (boundaryType, values) => {
-    if (!Array.isArray(values)) return;
-
-    const selectedOptions = values.map(arg => arg[1]) || [];
+  const boundaryOptionsUpdate = async (boundaryType, values,dropdownType) => {
+    let selectedOptions=[];
+    if(dropdownType=="Multi"){
+      selectedOptions = values.map(arg => arg[1]) || [];
+    }else{
+      selectedOptions = [values];
+    }
     const childBoundaryType = hierarchy.find(
       (item) => item.parentBoundaryType === boundaryType
     )?.boundaryType;
@@ -220,12 +223,12 @@ const BoundaryFilter = (props) => {
       newBoundaryOptions = cleanLowerLevels(boundaryType, removedCodes, { ...boundaryOptions });
       newSelectedOptions = cleanLowerLevelsForSelectedValues(boundaryType, removedCodes, [...selectedValues]);
     }
-      // Reset removedCodes after processing
+    // Reset removedCodes after processing
     else {
       newBoundaryOptions = updatedOptions;
       newSelectedOptions = cleanLowerLevelsForSelectedValues(boundaryType, removedCodes, [...selectedValues]);
     }
-    
+
 
 
 
@@ -246,7 +249,7 @@ const BoundaryFilter = (props) => {
           updatedSelectedValues.push(value);
         }
 
-        if (boundaryType !== props.lowestLevel) {
+        if (boundaryType !== props.levelConfig.lowestLevel) {
           if (!childrenMap.has(value?.path)) {
             childrenMap.set(value?.path, findNodeByPath(hierarchyData, value?.path));
           }
@@ -337,7 +340,7 @@ const BoundaryFilter = (props) => {
 
     // Ensure that all levels exist even if they have no children
     hierarchy.forEach((item) => {
-      if (!nonEditableHierarchies.has(item?.boundaryType) && item?.boundaryType !== props.highestLevel) {
+      if (!nonEditableHierarchies.has(item?.boundaryType) && item?.boundaryType !== props.levelConfig.highestLevel) {
         tempBoundaryOptions[item?.boundaryType] = {};
       }
     });
@@ -347,14 +350,15 @@ const BoundaryFilter = (props) => {
   }, [hierarchyData, hierarchy, nonEditableHierarchies]);
 
 
+
   return (
     <Card>
       <div className="selecting-boundary-div">
         {
           hierarchy && hierarchyData && boundaryOptions[rootBoundaryType] && hierarchy?.filter((boundary, index) => {
             // Find the index of the lowest hierarchy
-            const lowestIndex = hierarchy?.findIndex((item) => item?.boundaryType === props.lowestLevel);
-            const highestIndex = hierarchy?.findIndex((item) => item?.boundaryType === props.highestLevel);
+            const lowestIndex = hierarchy?.findIndex((item) => item?.boundaryType === props.levelConfig.lowestLevel);
+            const highestIndex = hierarchy?.findIndex((item) => item?.boundaryType === props.levelConfig.highestLevel);
             return highestIndex <= index && index <= lowestIndex;
           })?.map((item) => {
 
@@ -365,20 +369,35 @@ const BoundaryFilter = (props) => {
                   {item?.boundaryType}
                 </CardLabel>
                 <div className="digit-field">
-                  <MultiSelectDropdown
-                    key={item?.boundaryType}
-                    clearLabel="Clear All"
-                    options={boundaryOptions[rootBoundaryType]}
-                    optionsKey={"code"}
-                    t={t}
-                    onSelect={(values) => {
-                      boundaryOptionsUpdate(item?.boundaryType, values);
-                    }}
-                    type="multiselectdropdown"
-                    config={{
-                      isDropdownWithChip: true
-                    }}
-                  />
+                  {!(props.levelConfig.isSingleSelect.includes(item?.boundaryType)) ?
+                    <MultiSelectDropdown
+                      key={item?.boundaryType}
+                      clearLabel="Clear All"
+                      options={boundaryOptions[rootBoundaryType]}
+                      optionsKey={"code"}
+                      t={t}
+                      onSelect={(values) => {
+                        boundaryOptionsUpdate(item?.boundaryType, values,"Multi");
+                      }}
+                      type="multiselectdropdown"
+                      config={{
+                        isDropdownWithChip: true
+                      }}
+                    /> :
+                    <Dropdown
+                      key={item?.boundaryType}
+                      option={boundaryOptions[rootBoundaryType]}
+                      optionKey={"code"}
+                      t={t}
+                      select={(values) => {
+                        boundaryOptionsUpdate(item?.boundaryType, values,"Single");
+                      }}
+                      type="dropdown"
+                      variant="nesteddropdown"
+                      disabled={false}
+                      showToolTip={true}
+                    />
+                  }
                 </div>
               </LabelFieldPair>)
               : (() => {
@@ -397,8 +416,10 @@ const BoundaryFilter = (props) => {
                     })),
                   }));
 
-
-                  const formattedSelectedValues = selectedValues.filter((child) => child?.boundaryType === item?.boundaryType);
+                  let formattedSelectedValues = selectedValues.filter((child) => child?.boundaryType === item?.boundaryType);
+                  if(props.levelConfig.isSingleSelect.includes(item?.boundaryType)){
+                    formattedSelectedValues=formattedSelectedValues[0];
+                  }
 
                   return (
                     <LabelFieldPair style={{ alignItems: "flex-start", paddingRight: "30%" }}>
@@ -406,25 +427,41 @@ const BoundaryFilter = (props) => {
                         {t((hierarchyType + "_" + item?.boundaryType).toUpperCase())}
                       </CardLabel>
                       <div className="digit-field">
-                        <MultiSelectDropdown
-                          key={item?.boundaryType}
-                          clearLabel="Clear All"
-                          options={formattedOptions}
-                          selected={formattedSelectedValues}
-                          optionsKey={"name"}
-                          t={t}
-                          onSelect={(values) => {
-                            boundaryOptionsUpdate(item?.boundaryType, values);
-                          }}
-                          addCategorySelectAllCheck={true}
-                          addSelectAllCheck={true}
-                          type="multiselectdropdown"
-                          variant="nestedmultiselect"
-                          config={{
-                            isDropdownWithChip: true,
-                            chipKey: "code"
-                          }}
-                        />
+                        {!(props.levelConfig.isSingleSelect.includes(item?.boundaryType)) ?
+                          <MultiSelectDropdown
+                            key={item?.boundaryType}
+                            clearLabel="Clear All"
+                            options={formattedOptions}
+                            selected={formattedSelectedValues}
+                            optionsKey={"name"}
+                            t={t}
+                            onSelect={(values) => {
+                              boundaryOptionsUpdate(item?.boundaryType, values,"Multi");
+                            }}
+                            addCategorySelectAllCheck={true}
+                            addSelectAllCheck={true}
+                            type="multiselectdropdown"
+                            variant="nestedmultiselect"
+                            config={{
+                              isDropdownWithChip: true,
+                              chipKey: "code"
+                            }}
+                          /> :
+                          <Dropdown
+                            key={item?.boundaryType}
+                            option={formattedOptions}
+                            selected={formattedSelectedValues}
+                            optionKey={"name"}
+                            t={t}
+                            select={(values) => {
+                              boundaryOptionsUpdate(item?.boundaryType, values,"Single");
+                            }}
+                            type="dropdown"
+                            variant="nesteddropdown"
+                            disabled={false}
+                            showToolTip={true}
+                          />
+                        }
                       </div>
                     </LabelFieldPair>
                   );
