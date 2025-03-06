@@ -34,7 +34,14 @@ const App = ({ path, stateCode, userType, tenants }) => {
         <PrivateRoute path={`${path}/components`} component={() => <Sample></Sample>} />
         <PrivateRoute path={`${path}/test`} component={() => <Loader></Loader>} />
         <PrivateRoute path={`${path}/search`} component={() => <SampleSearch></SampleSearch>} />
-        <PrivateRoute path={`${path}/filter`} component={() => <BoundaryFilter levelConfig={{lowestLevel:"VILLAGE", highestLevel:"COUNTRY", isSingleSelect:["LOCALITY","VILLAGE","DISTRICT"]}} hierarchyType={"NEWTEST00222"} module={"HCM-ADMIN-CONSOLE"} />} />
+        <PrivateRoute path={`${path}/filter`} component={() => 
+        <BoundaryFilter 
+        levelConfig={{lowestLevel:"VILLAGE", highestLevel:"COUNTRY", isSingleSelect:["LOCALITY","VILLAGE","DISTRICT"]}} 
+        hierarchyType={"NEWTEST00222"} 
+        module={"HCM-ADMIN-CONSOLE"} 
+        selectedValues={[""]}
+        isHorizontal={false}
+        />} />
 
         </AppContainer>
     </Switch>

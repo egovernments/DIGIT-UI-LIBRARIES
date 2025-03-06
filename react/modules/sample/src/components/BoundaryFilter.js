@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from 'react'
-import { Card, CardText, MultiSelectDropdown, Dropdown } from '@egovernments/digit-ui-components'
-import { CheckBox } from '@egovernments/digit-ui-react-components';
+import { Card, CardText, MultiSelectDropdown, Dropdown, Toast } from '@egovernments/digit-ui-components'
 import { useTranslation } from 'react-i18next';
 import { LabelFieldPair, CardLabel } from "@egovernments/digit-ui-components";
 
 const BoundaryFilter = (props) => {
+  const { t } = useTranslation();
   const hierarchyType = props?.hierarchyType;
   const tenantId = Digit.ULBService.getCurrentTenantId();
-  const [lowestHierarchy, setLowestHierarchy] = useState("")
-  const [nonEditableHierarchies, setNonEditableHierarchies] = useState(new Set())
-  const { t } = useTranslation();
   const moduleName = props?.module;
+  const [lowestHierarchy, setLowestHierarchy] = useState("");
+  const [showToast, setShowToast] = useState(null);
+  const [boundaries,setBoundaries]=useState([]);
+  const [nonEditableHierarchies, setNonEditableHierarchies] = useState(new Set())
+  const [boundaryOptions, setBoundaryOptions] = useState({});
+  const [selectedValues, setSelectedValues] = useState([]);
+  const [selectedValuesCodes,setSelectedValuesCodes]=useState([])
 
   //2 states are there 1) boundaryOptions(objects that stores by hierarchy), selectedValues(all the selectedValues)
   //flow->
@@ -83,10 +87,6 @@ const BoundaryFilter = (props) => {
 
   const { data: hierarchyData, refetch, isLoading } = Digit.Hooks.useCustomAPIHook(reqHierarchyData);
 
-
-  const [boundaryOptions, setBoundaryOptions] = useState({});
-  const [selectedValues, setSelectedValues] = useState([]);
-
   const reqCriteria = {
     url: `/boundary-service/boundary-hierarchy-definition/_search`,
     changeQueryName: `${hierarchyType}`,
@@ -134,6 +134,12 @@ const BoundaryFilter = (props) => {
   }, [hierarchy, props?.levelConfig?.highestLevel]);
 
   const rootBoundaryType = hierarchy?.filter((item) => item?.parentBoundaryType === null)[0]?.boundaryType;
+
+  const closeToast = () => {
+    setTimeout(() => {
+      setShowToast(null);
+    }, 2000);
+  };
 
   const findNodeByPath = (nodes, targetPath) => {
     if (!nodes || nodes.length == 0) { return }
@@ -276,6 +282,7 @@ const BoundaryFilter = (props) => {
     });
 
     // **Update selected values once at the end**
+    setSelectedValuesCodes(updatedSelectedValues.map((item)=>item.code))
     setSelectedValues(updatedSelectedValues);
   };
 
@@ -349,11 +356,30 @@ const BoundaryFilter = (props) => {
 
   }, [hierarchyData, hierarchy, nonEditableHierarchies]);
 
+  useEffect(() => {
+    if (!hierarchy) return;
+    setBoundaries(hierarchy.map(item => item?.boundaryType));
+  
+  }, [hierarchy]); 
+
+  useEffect(() => {
+    if (!hierarchy || boundaries.length === 0) return;
+  
+    if (!boundaries.includes(props.levelConfig.highestLevel)) {
+      setShowToast({ key: "error", label: "HIGHEST_LEVEL_CONFIG_NOT_PRESENT" });
+    }
+  
+    if (!boundaries.includes(props.levelConfig.lowestLevel)) {
+      setShowToast({ key: "error", label: "LOWEST_LEVEL_CONFIG_NOT_PRESENT" });
+    }
+  }, [hierarchy, boundaries, props.levelConfig]); 
+
+
 
 
   return (
     <Card>
-      <div className="selecting-boundary-div">
+      <div className={`selecting-boundary-div ${props?.isHorizontal ? "horizontal-layout" : ""}`}>
         {
           hierarchy && hierarchyData && boundaryOptions[rootBoundaryType] && hierarchy?.filter((boundary, index) => {
             // Find the index of the lowest hierarchy
@@ -364,7 +390,7 @@ const BoundaryFilter = (props) => {
 
 
             return (item?.boundaryType === rootBoundaryType) ? (
-              <LabelFieldPair style={{ alignItems: "flex-start", paddingRight: "30%" }}>
+              <LabelFieldPair style={{ alignItems: "flex-start"}} className="boundary-item">
                 <CardLabel className={"boundary-selection-label"}>
                   {item?.boundaryType}
                 </CardLabel>
@@ -372,7 +398,7 @@ const BoundaryFilter = (props) => {
                   {!(props.levelConfig.isSingleSelect.includes(item?.boundaryType)) ?
                     <MultiSelectDropdown
                       key={item?.boundaryType}
-                      clearLabel="Clear All"
+                      clearLabel={"CLEAR_ALL"}
                       options={boundaryOptions[rootBoundaryType]}
                       optionsKey={"code"}
                       t={t}
@@ -422,7 +448,7 @@ const BoundaryFilter = (props) => {
                   }
 
                   return (
-                    <LabelFieldPair style={{ alignItems: "flex-start", paddingRight: "30%" }}>
+                    <LabelFieldPair style={{ alignItems: "flex-start" }} className="boundary-item">
                       <CardLabel className={"boundary-selection-label"}>
                         {t((hierarchyType + "_" + item?.boundaryType).toUpperCase())}
                       </CardLabel>
@@ -473,6 +499,14 @@ const BoundaryFilter = (props) => {
 
           })}
       </div>
+
+      {showToast && (
+          <Toast
+            type={showToast?.key === "error" ? "error" : showToast?.key === "info" ? "info" : "success"}
+            label={t(showToast?.label)}
+            onClose={closeToast}
+          />
+        )}
 
 
     </Card>
