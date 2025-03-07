@@ -57,6 +57,14 @@
        width: 100%;
      }
    }
+
+   &.removeMargin{
+    margin-bottom: theme(digitv2.spacers.spacer0);
+   }
+
+   &.digit-formcomposer-fieldpair{
+    width: 100%;
+   }
  }
 
  @screen dt {

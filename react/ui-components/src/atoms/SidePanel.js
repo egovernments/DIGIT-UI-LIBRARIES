@@ -25,7 +25,8 @@ const SidePanel = ({
   closedSections,
   closedHeader,
   closedFooter,
-  transitionDuration
+  transitionDuration,
+  onClose = null
 }) => {
   const [isOpen, setIsOpen] = useState(true);
   const sliderRef = useRef(null);
@@ -49,7 +50,7 @@ const SidePanel = ({
   };
 
   const handleClose = () => {
-    setIsOpen(false);
+    onClose ? onClose() : setIsOpen(false);
   };
 
   const handleMouseDown = (e) => {

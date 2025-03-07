@@ -4,23 +4,35 @@ import { useTranslation } from "react-i18next";
 import { Route, Switch } from "react-router-dom";
 import Sample from "./Sample";
 import SampleSearch from "./SampleSearch";
+<<<<<<< HEAD
 import BoundaryFilter from "../../components/BoundaryFilter";
 import FormComposer from "./FormComposer";
+=======
+import SampleInbox from "./SampleInbox";
+import IndividualSearch from "./IndividualSearch";
+import SampleComponents from "./SampleComponents";
+
+>>>>>>> develop
 const ProjectBreadCrumb = ({ location }) => {
   const { t } = useTranslation();
   const crumbs = [
-    // {
-    //   path: `/${window?.contextPath}/employee`,
-    //   content: t("HOME"),
-    //   show: true,
-    // },
     {
-      path: `/${window?.contextPath}/employee`,
-      content: t(location.pathname.split("/").pop()),
+      internalLink: `/${window?.contextPath}/employee`,
+      content: t("HOME"),
       show: true,
     },
+    {
+      internalLink: `/${window?.contextPath}/employee/microplan/inbox`,
+      content: t("Sample Inbox"),
+      show: location.pathname.split("/").pop() === "inbox",
+    },
+    {
+      internalLink: `/${window?.contextPath}/employee/microplan/search`,
+      content: t("Sample Search"),
+      show: location.pathname.split("/").pop() === "search",
+    },
   ];
-  return <BreadCrumb crumbs={crumbs} style={{marginLeft:"16px"}} spanStyle={{ maxWidth: "min-content" }} />;
+  return <BreadCrumb crumbs={crumbs}/>;
 };
 
 const App = ({ path, stateCode, userType, tenants }) => {
@@ -32,6 +44,7 @@ const App = ({ path, stateCode, userType, tenants }) => {
         <React.Fragment>
           <ProjectBreadCrumb location={location} />
         </React.Fragment>
+<<<<<<< HEAD
         <PrivateRoute path={`${path}/components`} component={() => <Sample></Sample>} />
         <PrivateRoute path={`${path}/test`} component={() => <Loader></Loader>} />
         <PrivateRoute path={`${path}/search`} component={() => <SampleSearch></SampleSearch>} />
@@ -49,6 +62,14 @@ const App = ({ path, stateCode, userType, tenants }) => {
         <PrivateRoute path={`${path}/FormComposer`} component={() => <FormComposer/>} />
 
 
+=======
+        <PrivateRoute path={`${path}/components`} component={() => <SampleComponents></SampleComponents>} />
+        <PrivateRoute path={`${path}/create`} component={() => <Sample></Sample>} />
+        <PrivateRoute path={`${path}/search`} component={() => <SampleSearch></SampleSearch>} />
+        <PrivateRoute path={`${path}/inbox`} component={() => <SampleInbox></SampleInbox>} />
+        <PrivateRoute path={`${path}/ind-search`} component={() => <IndividualSearch></IndividualSearch>} />
+        <PrivateRoute path={`${path}/test`} component={() => <Loader></Loader>} />
+>>>>>>> develop
         </AppContainer>
     </Switch>
   );

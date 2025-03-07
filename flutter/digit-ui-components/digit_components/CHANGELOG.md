@@ -1,3 +1,10 @@
+## 0.2.1
+* updated readme documentation
+
+## 0.2.0
+* A stable release of the flutter component library.
+* updated readme documentation
+
 ## 0.0.2-dev.15
 * fixed table rebuild issue 
 * updated text styles for summary card

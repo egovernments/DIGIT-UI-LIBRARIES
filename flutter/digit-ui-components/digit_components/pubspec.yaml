@@ -1,7 +1,14 @@
 name: digit_ui_components
-description: Digit UI Design specification
-version: 0.0.2-dev.15
+description: A collection of reusable Flutter UI components, including atoms, molecules, and wrapper widgets, designed for consistent, scalable, and efficient UI development.
+version: 0.2.1
 homepage: https://github.com/egovernments/DIGIT-UI-LIBRARIES/tree/master/flutter/digit-ui-components
+repository: https://github.com/egovernments/DIGIT-UI-LIBRARIES
+issue_tracker: https://github.com/egovernments/DIGIT-UI-LIBRARIES/issues
+topics:
+  - flutter
+  - flutter-ui
+  - components
+  - design-system
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
@@ -53,6 +60,14 @@ dev_dependencies:
   mockito: ^5.0.15
   build_runner: ^2.1.0
   freezed: ^2.0.0
+
+platforms:
+  android:
+  ios:
+  web:
+  macos:
+  windows:
+  linux:
 
 flutter:
   assets:

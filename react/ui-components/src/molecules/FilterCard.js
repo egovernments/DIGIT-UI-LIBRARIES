@@ -20,6 +20,7 @@ const FilterCard = ({
   hideIcon,
   isPopup = false,
   onOverlayClick,
+  contentClassName
 }) => {
   const [isOverflowing, setIsOverflowing] = useState(false);
   const childrenWrapRef = useRef(null);
@@ -135,7 +136,7 @@ const FilterCard = ({
   const renderContent = () => (
     <div
       ref={childrenWrapRef}
-      className={`content-container ${isOverflowing ? "with-shadow" : ""}`}
+      className={`content-container ${isOverflowing ? "with-shadow" : ""} ${contentClassName || ""}`}
     >
       {children}
       {(secondaryActionLabel || primaryActionLabel) &&

@@ -134,9 +134,9 @@ const DateRangeNew = ({ values, onFilterChange, t, labelClass, label, customStyl
     return (
         <>
             <div className="filter-label" style={{...customStyles}}>{label}</div>
-            <div className="employee-select-wrap" ref={wrapperRef}>
-                <div className="select">
-                    <input className="employee-select-wrap--elipses" type="text" value={values?.title ? `${values?.title}` : ""} readOnly />
+            <div className="digit-employee-select-wrap" ref={wrapperRef} style={{width:"100%"}}>
+                <div className="digit-select">
+                    <input className="digit-employee-select-wrap--elipses" type="text" value={values?.title ? `${values?.title}` : ""} readOnly />
                     <CustomSVG.Calender className="cursorPointer" onClick={() => setIsModalOpen((prevState) => !prevState)} />
                 </div>
                 {isModalOpen && (

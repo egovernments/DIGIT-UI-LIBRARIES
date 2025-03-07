@@ -68,14 +68,23 @@ frontend/micro-ui/web/public/index.html
 
 For a detailed changelog, see the [CHANGELOG.md](./CHANGELOG.md) file.
 
+
 ## Published from DIGIT-UI-LIBRARIES
 
 DIGIT-UI-LIBRARIES Repo (https://github.com/egovernments/DIGIT-UI-LIBRARIES/tree/master)
 
 # Contributors
 
-[jagankumar-egov] [nipunarora-eGov] [Tulika-eGov] [Ramkrishna-egov] [nabeelmd-eGov] [anil-egov] [swathi-egov]
+[nabeelmd-egov] [bhavya-eGov] [nipunarora-eGov] [swathi-egov] [jagankumar-egov] [Tulika-eGov] [Ramkrishna-egov]
+
+# Reference 
+
+Storybook (https://unified-dev.digit.org/storybook/)
+
+Documentation (https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0)
 
 ## License
 
 MIT © [jagankumar-egov](https://github.com/jagankumar-egov)
+
+![Logo](https://s3.ap-south-1.amazonaws.com/works-dev-asset/mseva-white-logo.png)
