@@ -13,10 +13,9 @@ const MultiSelectDropdown = ({
   optionsKey,
   selected = [],
   onSelect,
+  onClose,
   defaultLabel = "",
   defaultUnit = "",
-  BlockNumber = 1,
-  isOBPSMultiple = false,
   props,
   isPropsNeeded = false,
   ServerStyle = {},
@@ -29,7 +28,9 @@ const MultiSelectDropdown = ({
   categorySelectAllLabel = "",
   restrictSelection = false,
   isSearchable=false,
-  chipsKey
+  chipsKey,
+  frozenData = [],
+  handleViewMore
 }) => {
   const [active, setActive] = useState(false);
   const [searchQuery, setSearchQuery] = useState();
@@ -42,17 +43,14 @@ const MultiSelectDropdown = ({
   function reducer(state, action) {
     switch (action.type) {
       case "ADD_TO_SELECTED_EVENT_QUEUE":
+        // Check if the item already exists to prevent duplication
+        if (state.some((e) => e.code === action.payload?.[1]?.code)) {
+          return state; // Return state unchanged if item is already in queue
+        }
         return [
           ...state,
-          { code: action.payload?.[1]?.code, propsData: action.payload },
+          { code: action.payload?.[1]?.code,name: action?.payload?.[1]?.name, propsData: action.payload,},
         ];
-        // const updatedState = [...state, { code: action.payload?.[1]?.code, propsData: action.payload }];
-        //   onSelect(
-        //     updatedState.map((e) => e.propsData),
-        //     getCategorySelectAllState(),
-        //     props
-        //   );
-        //   return updatedState;
       case "REMOVE_FROM_SELECTED_EVENT_QUEUE":
         const newState = state?.filter(
           (e) => e?.code !== action.payload?.[1]?.code
@@ -62,6 +60,14 @@ const MultiSelectDropdown = ({
           getCategorySelectAllState(),
           props
         ); // Update the form state here
+        if (onClose && !active) {
+          setSearchQuery("");
+          onClose(
+            newState.map((e) => e.propsData),
+            getCategorySelectAllState(),
+            props
+          );
+        }
         return newState;
       case "REPLACE_COMPLETE_STATE":
         return action.payload;
@@ -78,7 +84,7 @@ const MultiSelectDropdown = ({
   }, [selected?.length]);
 
   function fnToSelectOptionThroughProvidedSelection(selected) {
-    return selected?.map((e) => ({ code: e?.code, propsData: [null, e] }));
+    return selected?.map((e) => ({ code: e?.code, name: e?.name,propsData: [null, e] }));
   }
   const [alreadyQueuedSelectedState, dispatch] = useReducer(
     reducer,
@@ -95,21 +101,30 @@ const MultiSelectDropdown = ({
         props
       );
     }
+    if (onClose) {
+      onClose(
+        alreadyQueuedSelectedState?.map((e) => e.propsData),
+        getCategorySelectAllState(),
+        props
+      );
+    }
   }, [active]);
 
   useEffect(() => {
     const initialCategorySelectedState = options.reduce((acc, category) => {
       if (category.options) {
-        acc[category.code] = category.options.every((option) =>
-          alreadyQueuedSelectedState.some(
-            (selectedOption) => selectedOption.code === option.code
-          )
+        var filteredCategoryOptions = category?.options;
+        if (searchQuery?.length > 0) {
+          filteredCategoryOptions = category?.options?.filter((option) => t(option?.code)?.toLowerCase()?.includes(searchQuery?.toLowerCase()));
+        }
+        acc[category.code] = filteredCategoryOptions.every((option) =>
+          alreadyQueuedSelectedState.some((selectedOption) => selectedOption.code === option.code)
         );
       }
       return acc;
     }, {});
     setCategorySelected(initialCategorySelectedState);
-  }, [options, alreadyQueuedSelectedState]);
+  }, [options, alreadyQueuedSelectedState, searchQuery]);
 
   const checkSelection = (optionstobeiterated) => {
     if (optionstobeiterated && optionstobeiterated.length > 0) {
@@ -126,7 +141,7 @@ const MultiSelectDropdown = ({
   useEffect(() => {
     const allOptionsSelected =
       variant === "nestedmultiselect"
-        ? checkSelection(flattenedOptions?.filter((option) => !option.options))
+        ? checkSelection(flattenedOptions.filter((option) => !option.options))
         : checkSelection(options);
 
     setSelectAllChecked(allOptionsSelected);
@@ -135,11 +150,30 @@ const MultiSelectDropdown = ({
     options
       .filter((option) => option.options)
       .forEach((category) => {
-        const allChildrenSelected = checkSelection(category.options);
-        newCategorySelected[category.code] = allChildrenSelected;
+        newCategorySelected[category.code] = undefined;
+      });
+    options
+      .filter((option) => option.options)
+      .forEach((category) => {
+        // If the category has already been marked as false, skip further processing for this category.
+        if (newCategorySelected[category.code] === false) return;
+        let filteredCategoryOptions = category?.options;
+        if (searchQuery?.length > 0) {
+          filteredCategoryOptions = category?.options?.filter((option) =>
+            t(option?.code)?.toLowerCase()?.includes(searchQuery?.toLowerCase())
+          );
+        }
+        if (filteredCategoryOptions?.length > 0) {
+          const allChildrenSelected = checkSelection(filteredCategoryOptions);
+          if (!allChildrenSelected) {
+            newCategorySelected[category.code] = false; // Mark as false if any child is not selected.
+          } else {
+            newCategorySelected[category.code] = true; // Mark as true if all children are selected.
+          }
+        }
       });
     setCategorySelected(newCategorySelected);
-  }, [options, alreadyQueuedSelectedState]);
+  }, [options, alreadyQueuedSelectedState, searchQuery]);
 
   function handleOutsideClickAndSubmitSimultaneously() {
     setActive(false);
@@ -238,7 +272,10 @@ const MultiSelectDropdown = ({
 
   const handleClearAll = () => {
     dispatch({ type: "REPLACE_COMPLETE_STATE", payload: [] });
-    onSelect([],getCategorySelectAllState(),props);
+    onSelect([], getCategorySelectAllState(), props);
+    if (onClose) {
+      onClose([], getCategorySelectAllState(), props);
+    }
   };
 
   const handleSelectAll = () => {
@@ -253,10 +290,12 @@ const MultiSelectDropdown = ({
                 .filter((option) => !option.options)
                 .map((option) => ({
                   code: option.code,
+                  name: option.name,
                   propsData: [null, option],
                 }))
             : options.map((option) => ({
                 code: option.code,
+                name: option.name,
                 propsData: [null, option],
               }));
         dispatch({
@@ -361,12 +400,6 @@ const MultiSelectDropdown = ({
         payload: [null, option],
       });
     }
-
-    onSelect(
-      alreadyQueuedSelectedState?.map((e) => e.propsData),
-      getCategorySelectAllState(),
-      props
-    );
   };
 
   /* Custom function to scroll and select in the dropdowns while using key up and down */
@@ -409,25 +442,40 @@ const MultiSelectDropdown = ({
       }
       e.preventDefault();
     } else if (e.key == "Enter") {
-      if(variant === "nestedmultiselect" && optionToScroll[optionIndex]?.options){
-        return ;
-      }
       selectOptionThroughKeys(e, optionToScroll[optionIndex]);
     }
   };
 
   const filteredOptions =
     searchQuery?.length > 0
-      ? options?.filter(
-          (option) =>
-            t(
-              option[optionsKey] &&
-                typeof option[optionsKey] == "string" &&
-                option[optionsKey].toUpperCase()
-            )
-              .toLowerCase()
-              .indexOf(searchQuery.toLowerCase()) >= 0
-        )
+      ? options
+          ?.map((option) => {
+            if (option?.options && option.options.length > 0) {
+              const matchingNestedOptions = option.options.filter(
+                (nestedOption) =>
+                  t(nestedOption.code)
+                    .toLowerCase()
+                    .includes(searchQuery.toLowerCase())
+              );
+
+              if (matchingNestedOptions.length > 0) {
+                return {
+                  ...option,
+
+                  options: matchingNestedOptions,
+                };
+              }
+            } else if (option?.code) {
+              if (
+                t(option.code).toLowerCase().includes(searchQuery.toLowerCase())
+              ) {
+                return option;
+              }
+            }
+
+            return null;
+          })
+          .filter(Boolean)
       : options;
 
   const parentOptionsWithChildren = filteredOptions?.filter(
@@ -437,11 +485,33 @@ const MultiSelectDropdown = ({
   const flattenOptions = (options) => {
     let flattened = [];
     options?.forEach((option) => {
-      if (option.options) {
-        flattened.push(option);
-        flattened = flattened.concat(option.options);
+      const existingOption = flattened.find(
+        (flattenedOption) => flattenedOption?.code === option?.code
+      );
+      if (existingOption) {
+        // If the code already exists, merge the new options
+        if (option.options) {
+        existingOption.options = existingOption.options || [];
+        existingOption.options = existingOption.options.concat(option.options);
+        }
       } else {
         flattened.push(option);
+      }
+      // Flatten any nested options
+      if (option.options) {
+        flattened = flattened.concat(option.options);
+      }
+    });
+    // Remove duplicates by 'code' within the flattened array
+    flattened = flattened.filter(
+      (option, index, self) =>
+        index === self.findIndex((o) => o.code === option.code)
+    );
+    flattened.forEach((option) => {
+      if (option.options) {
+        option.options = option.options.filter(
+          (opt, idx, arr) => idx === arr.findIndex((o) => o.code === opt.code)
+        );
       }
     });
     return flattened;
@@ -469,6 +539,7 @@ const MultiSelectDropdown = ({
 
   const MenuItem = ({ option, index }) => {
     const [isActive, setIsActive] = useState(false);
+    const isFrozen = frozenData.some((frozenOption) => frozenOption.code === option.code);
     return (
       <div
         key={index}
@@ -487,31 +558,29 @@ const MultiSelectDropdown = ({
           )
             ? "keyChange"
             : ""
-        }`}
+        } ${isFrozen ? "frozen" : ""}`}
         onMouseDown={() => setIsActive(true)}
         onMouseUp={() => setIsActive(false)}
         onMouseLeave={() => setIsActive(false)}
-      >
+      >                                                                                                                                                                                                                                                                                                                                           
         <input
           type="checkbox"
           value={option.code}
-          checked={
-            alreadyQueuedSelectedState.find(
-              (selectedOption) => selectedOption.code === option.code
-            )
-              ? true
-              : false
-          }
+          checked={isFrozen || alreadyQueuedSelectedState.find((selectedOption) => selectedOption.code === option.code) ? true : false}
           onChange={(e) => {
+            if (!isFrozen) {
             isPropsNeeded
               ? onSelectToAddToQueue(e, option, props)
-              : isOBPSMultiple
-              ? onSelectToAddToQueue(e, option, BlockNumber)
               : onSelectToAddToQueue(e, option);
+            }
           }}
           className={`digit-multi-select-dropdown-menuitem ${
             variant ? variant : ""
-          }`}
+          } ${isFrozen ? "disabled" : ""}`}
+          disabled={isFrozen}
+          style={{
+            cursor: isFrozen ? "not-allowed" : "pointer",
+          }}
         />
         <div className="digit-multiselectdropodwn-custom-checkbox">
           <SVG.Check width="20px" height="20px" fill={primaryColor} />
@@ -592,7 +661,7 @@ const MultiSelectDropdown = ({
               <div
                 key={index}
                 className={`digit-nested-category ${
-                  addSelectAllCheck ? "selectAll" : ""
+                  addSelectAllCheck || addCategorySelectAllCheck ? "selectAll" : ""
                 }`}
               >
                 <div className="digit-category-name">
@@ -696,35 +765,49 @@ const MultiSelectDropdown = ({
       {config?.isDropdownWithChip ? (
         <div className="digit-tag-container">
           {alreadyQueuedSelectedState.length > 0 &&
-            alreadyQueuedSelectedState.map((value, index) => {
-              if (!value.propsData[1]?.options) {
-                const translatedText = t(value?.code);
+            alreadyQueuedSelectedState
+              .filter((value) => !value.propsData[1]?.options)
+              .slice(0, config?.numberOfChips || alreadyQueuedSelectedState.length )
+              .map((value, index) => {
+                const translatedText = t(
+                  chipsKey ? value[chipsKey] : value.code
+                );
                 const replacedText = replaceDotWithColon(translatedText);
+                const isClose = frozenData.some(
+                  (frozenOption) => frozenOption.code === value.code
+                );
                 return (
                   <Chip
                     key={index}
                     text={
-                      !chipsKey
-                        ? replacedText?.length > 64
-                          ? `${replacedText?.slice(0, 64)}...`
-                          : replacedText
-                        : value?.propsData[1]?.[chipsKey]
+                      replacedText?.length > 64
+                        ? `${replacedText.slice(0, 64)}...`
+                        : replacedText
                     }
-                    hideClose={false}
                     onClick={
                       variant === "treemultiselect"
                         ? () => onSelectToAddToQueue([value])
                         : isPropsNeeded
                         ? (e) => onSelectToAddToQueue(e, value, props)
-                        : (e) => onSelectToAddToQueue(e, value)
+                        : (e) => {
+                            onSelectToAddToQueue(e, value);
+                          }
                     }
+                    hideClose={isClose}
                     className="multiselectdropdown-tag"
                   />
                 );
-              }
-              return null;
-            })}
-          {alreadyQueuedSelectedState.length > 0 && (
+              })}
+          {alreadyQueuedSelectedState.length > (config?.numberOfChips || alreadyQueuedSelectedState.length) && (
+            <Button
+              label={`+${
+                alreadyQueuedSelectedState.length - (config?.numberOfChips || alreadyQueuedSelectedState.length)
+              } ${t("SELECTED")}`}
+              onClick={() => handleViewMore(alreadyQueuedSelectedState)}
+              variation="link"
+            />
+          )}
+          {alreadyQueuedSelectedState.length > 0 &&  frozenData.length == 0 && (
             <Button
               label={t(config?.clearLabel ? config?.clearLabel : t("CLEAR_ALL"))}
               onClick={handleClearAll}
@@ -763,8 +846,6 @@ MultiSelectDropdown.propTypes = {
   onSelect: PropTypes.func.isRequired,
   defaultLabel: PropTypes.string,
   defaultUnit: PropTypes.string,
-  BlockNumber: PropTypes.number,
-  isOBPSMultiple: PropTypes.bool,
   props: PropTypes.object,
   isPropsNeeded: PropTypes.bool,
   ServerStyle: PropTypes.object,

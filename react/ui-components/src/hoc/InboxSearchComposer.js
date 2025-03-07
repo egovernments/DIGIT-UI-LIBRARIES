@@ -8,16 +8,17 @@ import SearchComponent from "../atoms/SearchComponent";
 import PopUp from "../atoms/PopUp";
 import SearchAction from "../molecules/SearchAction";
 import FilterAction from "../molecules/FilterAction";
+import SortAction from "../molecules/SortAction";
 import MobileSearchComponent from "./MobileView/MobileSearchComponent";
 import MobileSearchResults from "./MobileView/MobileSearchResults";
 import MediaQuery from 'react-responsive';
 import _ from "lodash";
 import HeaderComponent from "../atoms/HeaderComponent";
 import { useTranslation } from "react-i18next";
-import ResultsDataTable from "./ResultsDataTable";
+import ResultsDataTableWrapper from "./ResultsDataTableWrapper";
 
 
-const InboxSearchComposer = ({configs,headerLabel,additionalConfig,onFormValueChange=()=>{},showTab,tabData,onTabChange,customizers={}}) => {
+const InboxSearchComposer = ({configs,additionalConfig,onFormValueChange=()=>{},showTab,tabData,onTabChange,customizers={}}) => {
     const hasRun = useRef(false);
    
     const { t } = useTranslation();
@@ -179,14 +180,15 @@ const InboxSearchComposer = ({configs,headerLabel,additionalConfig,onFormValueCh
 
     return (
         <InboxContext.Provider value={{state,dispatch}} >
-        {headerLabel && (
+        {configs?.headerLabel && (
           <HeaderComponent className="digit-inbox-search-composer-header">
-            {t(headerLabel)}
+            {t(configs?.headerLabel)}
           </HeaderComponent>
         )}
         <div className="digit-inbox-search-component-wrapper ">
           <div className={`digit-sections-parent ${configs?.type}`}>
             {configs?.sections?.links?.show && (
+              <MediaQuery minWidth={426}>
               <div className="digit-section links">
                 <InboxSearchLinks
                   headerText={configs?.sections?.links?.uiConfig?.label}
@@ -195,6 +197,7 @@ const InboxSearchComposer = ({configs,headerLabel,additionalConfig,onFormValueCh
                   logoIcon={configs?.sections?.links?.uiConfig?.logoIcon}
                 ></InboxSearchLinks>
               </div>
+            </MediaQuery>
             )}
             {configs?.type === "search" && configs?.sections?.search?.show && (
               <div className={`digit-section search ${showTab ? "tab" : ""}`}>
@@ -254,20 +257,29 @@ const InboxSearchComposer = ({configs,headerLabel,additionalConfig,onFormValueCh
             {configs?.type === "inbox" && (
               <MediaQuery maxWidth={426}>
                 <div className="searchBox">
+                {configs?.sections?.filter?.show && (
+                    <FilterAction
+                    text={t("Filter")}
+                      handleActionClick={() => {
+                        setType("FILTER");
+                        setPopup(true);
+                      }}
+                    />
+                  )}
                   {configs?.sections?.search?.show && (
                     <SearchAction
-                      text="SEARCH"
+                    text={t("Search")}
                       handleActionClick={() => {
                         setType("SEARCH");
                         setPopup(true);
                       }}
                     />
                   )}
-                  {configs?.sections?.filter?.show && (
-                    <FilterAction
-                      text="FILTER"
+                  {configs?.sections?.sort?.show && (
+                    <SortAction
+                      text={t("Sort")}
                       handleActionClick={() => {
-                        setType("FILTER");
+                        setType("SORT");
                         setPopup(true);
                       }}
                     />
@@ -289,7 +301,7 @@ const InboxSearchComposer = ({configs,headerLabel,additionalConfig,onFormValueCh
                 }
               >
                 <MediaQuery minWidth={426}>
-                  <ResultsDataTable
+                  <ResultsDataTableWrapper
                     config={configs?.sections?.searchResult?.uiConfig}
                     data={data}
                     TotalCount={configs?.sections?.searchResult?.uiConfig?.totalCountJsonPath}
@@ -297,7 +309,7 @@ const InboxSearchComposer = ({configs,headerLabel,additionalConfig,onFormValueCh
                     isFetching={isFetching}
                     fullConfig={configs}
                     additionalConfig={additionalConfig}
-                  ></ResultsDataTable>
+                  ></ResultsDataTableWrapper>
                 </MediaQuery>
                 <MediaQuery maxWidth={426}>
                   <MobileSearchResults

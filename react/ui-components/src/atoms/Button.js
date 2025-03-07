@@ -144,7 +144,7 @@ const Button = (props) => {
   );
 
   return props?.type === "actionButton" ? (
-    <div ref={actionRef}>
+    <div className={`digit-action-button-wrapper ${props?.wrapperClassName}`} style={props?.wrapperStyles} ref={actionRef}>
       {buttonElement}
       {dropdownStatus && (
         <div className="header-dropdown-container">

@@ -376,3 +376,34 @@
 
     }
 }
+
+@media screen and (max-width: 426px) {
+
+    .digit-header-content{
+        &.digit-inbox-search-composer-header{
+            margin-left: 1rem;
+        }
+    }
+    
+    .digit-inbox-search-wrapper {
+        .digit-inbox-search-component-wrapper {
+            .digit-sections-parent {
+                display: flex;
+                flex-direction: column;
+
+                &.inbox{
+                    .searchBox{
+                        margin: 0rem 1rem;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.digit-table-loader{
+    height: 31.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center ;
+}

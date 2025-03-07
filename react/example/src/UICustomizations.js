@@ -769,9 +769,6 @@ export const UICustomizations = {
     actionSelectHandler: (index, label, selectedRows) => {
       console.log(index, label, selectedRows, "action handler");
     },
-    onFilter: (event) =>{
-      console.log(event,"filter handler")
-    },
     preProcess: (data, additionalDetails) => {
       const { name, status } = data?.state?.searchForm || {};
 

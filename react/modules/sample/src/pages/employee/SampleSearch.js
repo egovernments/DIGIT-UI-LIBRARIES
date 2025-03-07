@@ -1,15 +1,13 @@
-import { Header, InboxSearchComposer } from "@egovernments/digit-ui-components";
-import React, { useState, useEffect } from "react";
-import { useTranslation } from "react-i18next";
+import { InboxSearchComposer } from "@egovernments/digit-ui-components";
+import React from "react";
 import { Config } from "../../configs/SampleSearchConfig";
 
 const SampleSearch = () => {
-  const { t } = useTranslation();
 
   return (
     <React.Fragment>
       <div className="digit-inbox-search-wrapper">
-        <InboxSearchComposer configs={Config} headerLabel={t("Search")}></InboxSearchComposer>
+        <InboxSearchComposer configs={Config}></InboxSearchComposer>
       </div>
     </React.Fragment>
   );
