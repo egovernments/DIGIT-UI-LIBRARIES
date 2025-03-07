@@ -44,7 +44,6 @@ const App = ({ path, stateCode, userType, tenants }) => {
         <React.Fragment>
           <ProjectBreadCrumb location={location} />
         </React.Fragment>
-<<<<<<< HEAD
         <PrivateRoute path={`${path}/components`} component={() => <Sample></Sample>} />
         <PrivateRoute path={`${path}/test`} component={() => <Loader></Loader>} />
         <PrivateRoute path={`${path}/search`} component={() => <SampleSearch></SampleSearch>} />
@@ -62,14 +61,12 @@ const App = ({ path, stateCode, userType, tenants }) => {
         <PrivateRoute path={`${path}/FormComposer`} component={() => <FormComposer/>} />
 
 
-=======
         <PrivateRoute path={`${path}/components`} component={() => <SampleComponents></SampleComponents>} />
         <PrivateRoute path={`${path}/create`} component={() => <Sample></Sample>} />
         <PrivateRoute path={`${path}/search`} component={() => <SampleSearch></SampleSearch>} />
         <PrivateRoute path={`${path}/inbox`} component={() => <SampleInbox></SampleInbox>} />
         <PrivateRoute path={`${path}/ind-search`} component={() => <IndividualSearch></IndividualSearch>} />
         <PrivateRoute path={`${path}/test`} component={() => <Loader></Loader>} />
->>>>>>> develop
         </AppContainer>
     </Switch>
   );
