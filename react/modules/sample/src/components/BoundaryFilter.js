@@ -3,13 +3,24 @@ import { Card, CardText, MultiSelectDropdown, Dropdown, Toast } from '@egovernme
 import { useTranslation } from 'react-i18next';
 import { LabelFieldPair, CardLabel } from "@egovernments/digit-ui-components";
 
-const BoundaryFilter = (props) => {
+const BoundaryFilter = (rawProps) => {
   debugger;
-  console.log("props?.config.customProps",props?.config.customProps)
+  let props=rawProps;
+  console.log("props",props)
+  if(rawProps?.config?.customProps){
+    props=rawProps?.config?.customProps;
+  }
+
+  let updatedLayoutConfig = { ...props.layoutConfig };
+
+  if (updatedLayoutConfig?.isDropdownLayoutHorizontal) {
+    updatedLayoutConfig.isLabelFieldLayoutHorizontal = updatedLayoutConfig.isLabelFieldLayoutHorizontal ? updatedLayoutConfig.isLabelFieldLayoutHorizontal:false;
+  }
+
   const { t } = useTranslation();
-  const hierarchyType = props?.config.customProps?.hierarchyType;
+  const hierarchyType = props?.hierarchyType;
   const tenantId = Digit.ULBService.getCurrentTenantId();
-  const moduleName = props?.config.customProps?.module;
+  const moduleName = props?.module;
   const [lowestHierarchy, setLowestHierarchy] = useState("");
   const [showToast, setShowToast] = useState(null);
   const [boundaries,setBoundaries]=useState([]);
@@ -125,7 +136,7 @@ const BoundaryFilter = (props) => {
   useEffect(() => {
 
     if (hierarchy) {
-      const highestIndex = hierarchy?.findIndex(item => item?.boundaryType === props?.config.customProps?.levelConfig?.highestLevel);
+      const highestIndex = hierarchy?.findIndex(item => item?.boundaryType === props?.levelConfig?.highestLevel);
 
       if (highestIndex !== -1) {
         const tempNonEditableHierarchies = new Set(hierarchy.slice(0, highestIndex).map(item => item.boundaryType));
@@ -133,7 +144,7 @@ const BoundaryFilter = (props) => {
         setNonEditableHierarchies(tempNonEditableHierarchies);
       }
     }
-  }, [hierarchy, props?.config.customProps?.levelConfig?.highestLevel]);
+  }, [hierarchy, props?.levelConfig?.highestLevel]);
 
   const rootBoundaryType = hierarchy?.filter((item) => item?.parentBoundaryType === null)[0]?.boundaryType;
 
@@ -257,7 +268,7 @@ const BoundaryFilter = (props) => {
           updatedSelectedValues.push(value);
         }
 
-        if (boundaryType !== props?.config.customProps.levelConfig.lowestLevel) {
+        if (boundaryType !== props.levelConfig.lowestLevel) {
           if (!childrenMap.has(value?.path)) {
             childrenMap.set(value?.path, findNodeByPath(hierarchyData, value?.path));
           }
@@ -349,7 +360,7 @@ const BoundaryFilter = (props) => {
 
     // Ensure that all levels exist even if they have no children
     hierarchy.forEach((item) => {
-      if (!nonEditableHierarchies.has(item?.boundaryType) && item?.boundaryType !== props?.config.customProps.levelConfig.highestLevel) {
+      if (!nonEditableHierarchies.has(item?.boundaryType) && item?.boundaryType !== props.levelConfig.highestLevel) {
         tempBoundaryOptions[item?.boundaryType] = {};
       }
     });
@@ -367,37 +378,37 @@ const BoundaryFilter = (props) => {
   useEffect(() => {
     if (!hierarchy || boundaries.length === 0) return;
   
-    if (!boundaries.includes(props?.config.customProps.levelConfig.highestLevel)) {
+    if (!boundaries.includes(props.levelConfig.highestLevel)) {
       setShowToast({ key: "error", label: "HIGHEST_LEVEL_CONFIG_NOT_PRESENT" });
     }
   
-    if (!boundaries.includes(props?.config.customProps.levelConfig.lowestLevel)) {
+    if (!boundaries.includes(props.levelConfig.lowestLevel)) {
       setShowToast({ key: "error", label: "LOWEST_LEVEL_CONFIG_NOT_PRESENT" });
     }
-  }, [hierarchy, boundaries, props?.config.customProps.levelConfig]); 
+  }, [hierarchy, boundaries, props.levelConfig]); 
 
 
 
 
   return (
     <Card>
-      <div className={`selecting-boundary-div ${props?.config.customProps?.isHorizontal ? "horizontal-layout" : ""}`}>
+      <div className={`selecting-boundary-div ${props?.layoutConfig?.isDropdownLayoutHorizontal ? "horizontal-layout" : ""}`}>
         {
           hierarchy && hierarchyData && boundaryOptions[rootBoundaryType] && hierarchy?.filter((boundary, index) => {
             // Find the index of the lowest hierarchy
-            const lowestIndex = hierarchy?.findIndex((item) => item?.boundaryType === props?.config.customProps.levelConfig.lowestLevel);
-            const highestIndex = hierarchy?.findIndex((item) => item?.boundaryType === props?.config.customProps.levelConfig.highestLevel);
+            const lowestIndex = hierarchy?.findIndex((item) => item?.boundaryType === props.levelConfig.lowestLevel);
+            const highestIndex = hierarchy?.findIndex((item) => item?.boundaryType === props.levelConfig.highestLevel);
             return highestIndex <= index && index <= lowestIndex;
           })?.map((item) => {
 
 
             return (item?.boundaryType === rootBoundaryType) ? (
-              <LabelFieldPair style={{ alignItems: "flex-start"}} className="boundary-item">
+              <LabelFieldPair style={{ alignItems: "flex-start"}} className="boundary-item" vertical={!updatedLayoutConfig?.isLabelFieldLayoutHorizontal}>
                 <CardLabel className={"boundary-selection-label"}>
                   {item?.boundaryType}
                 </CardLabel>
                 <div className="digit-field">
-                  {!(props?.config.customProps.levelConfig.isSingleSelect.includes(item?.boundaryType)) ?
+                  {!(props.levelConfig.isSingleSelect.includes(item?.boundaryType)) ?
                     <MultiSelectDropdown
                       key={item?.boundaryType}
                       clearLabel={"CLEAR_ALL"}
@@ -445,17 +456,17 @@ const BoundaryFilter = (props) => {
                   }));
 
                   let formattedSelectedValues = selectedValues.filter((child) => child?.boundaryType === item?.boundaryType);
-                  if(props?.config.customProps.levelConfig.isSingleSelect.includes(item?.boundaryType)){
+                  if(props.levelConfig.isSingleSelect.includes(item?.boundaryType)){
                     formattedSelectedValues=formattedSelectedValues[0];
                   }
 
                   return (
-                    <LabelFieldPair style={{ alignItems: "flex-start" }} className="boundary-item">
+                    <LabelFieldPair style={{ alignItems: "flex-start" }} className="boundary-item" vertical={!updatedLayoutConfig?.isLabelFieldLayoutHorizontal}>
                       <CardLabel className={"boundary-selection-label"}>
                         {t((hierarchyType + "_" + item?.boundaryType).toUpperCase())}
                       </CardLabel>
                       <div className="digit-field">
-                        {!(props?.config.customProps.levelConfig.isSingleSelect.includes(item?.boundaryType)) ?
+                        {!(props.levelConfig.isSingleSelect.includes(item?.boundaryType)) ?
                           <MultiSelectDropdown
                             key={item?.boundaryType}
                             clearLabel="Clear All"

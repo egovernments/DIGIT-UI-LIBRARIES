@@ -1,10 +1,14 @@
 .selecting-boundary-div {
     padding-top: 0.5rem;
-
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr); 
     .label-field-pair {
         margin-bottom: 1.5rem;
     }
+
 }
+
+
 
 .selecting-boundary-div.horizontal-layout {
     display: flex;
@@ -35,10 +39,8 @@
     color: theme(digitv2.lightTheme.text-primary);
     width:30%;
 } 
-
-
 .selecting-boundary-div.horizontal-layout .boundary-item {
-    flex: 1 1 calc(33.33% - 16px); /* Ensures 3 items per row */
-    min-width: 250px;
-    max-width: 33.33%;
-  }
+    display: flex;
+    justify-content: center;
+ }
+ 

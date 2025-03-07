@@ -13318,7 +13318,9 @@ button:hover {
   margin-top: -0.5rem !important; }
 
 .selecting-boundary-div {
-  padding-top: .5rem; }
+  padding-top: .5rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); }
   .selecting-boundary-div .label-field-pair {
     margin-bottom: 1.5rem; }
 
@@ -13346,11 +13348,12 @@ button:hover {
       font-size: 1rem; } }
 
 .selecting-boundary-div.horizontal-layout .boundary-item {
-  -webkit-box-flex: 1;
-  -ms-flex: 1 1 calc(33.33% - 16px);
-  flex: 1 1 calc(33.33% - 16px);
-  min-width: 250px;
-  max-width: 33.33%; }
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center; }
 
 .light-primary, .link-label, .digit-card .digit-card-header, .digit-card .digit-card-sub-header, .digit-card .digit-card-text-button, .digit-card .digit-card-text-primary, .digit-card .digit-card-label, .digit-card .digit-card-link, .digit-employee-card .digit-card-header, .digit-employee-card .digit-card-sub-header, .digit-employee-card .digit-employee-card-sub-header, .digit-employee-card .digit-card-section-sub-text, .digit-employee-card .card-text-button, .digit-employee-card .card-text-primary, .digit-employee-card .card-label, .digit-employee-card .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field .control-label, .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field .digit-employee-card .control-label, .digit-employee-card .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field.field-boolean .checkbox label span, .workbench .workbench-create-form form #digit_root .field-wrapper .form-group.field.field-boolean .checkbox label .digit-employee-card span, .digit-employee-card .card-link, .digit-employee-mulitlink-main-div, .primary-label-btn {
   color: #f47738 !important; }

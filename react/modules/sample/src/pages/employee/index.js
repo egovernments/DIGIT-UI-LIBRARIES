@@ -41,7 +41,9 @@ const App = ({ path, stateCode, userType, tenants }) => {
           hierarchyType={"NEWTEST00222"} 
           module={"HCM-ADMIN-CONSOLE"} 
           selectedValues={[""]}
-          isHorizontal={false}
+          layoutConfig={{isDropdownLayoutHorizontal:false,isLabelFieldLayoutHorizontal:false}}
+          isHorizontal={true}
+
           />} 
         />
         <PrivateRoute path={`${path}/FormComposer`} component={() => <FormComposer/>} />
