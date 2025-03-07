@@ -103,7 +103,7 @@ const ResultsDataTable = ({
         paginationPerPage={paginationPerPage}
         onChangePage={onChangePage}
         paginationRowsPerPageOptions={
-          [10, 20, 30, 40, 50] || paginationRowsPerPageOptions
+          paginationRowsPerPageOptions || [10, 20, 30, 40, 50] 
         }
         noContextMenu
         fixedHeader={true}

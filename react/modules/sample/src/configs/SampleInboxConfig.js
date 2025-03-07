@@ -6,7 +6,7 @@ const ExpandedComponent = ({ data }) => (
 
 const inboxConfig = () => {
   return {
-    headerLabel: "ES_COMMON_INBOX",
+    headerLabel: "ES_COMMON_INBOX", // label is changed to headerLabel (Screen Header Label)
     postProcessResult: true,
     type: "inbox",
     apiDetails: {
@@ -316,7 +316,7 @@ const inboxConfig = () => {
         label: "ES_COMMON_FILTERS",
         show: true,
       },
-      sort: {
+      sort: { // Introduced SOrt action to show in the mobile view
         show: true,
       },
       searchResult: {

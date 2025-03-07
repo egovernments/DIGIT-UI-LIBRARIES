@@ -802,7 +802,7 @@ const MultiSelectDropdown = ({
             <Button
               label={`+${
                 alreadyQueuedSelectedState.length - (config?.numberOfChips || alreadyQueuedSelectedState.length)
-              } ${t("HCM_SELECTED")}`}
+              } ${t("SELECTED")}`}
               onClick={() => handleViewMore(alreadyQueuedSelectedState)}
               variation="link"
             />

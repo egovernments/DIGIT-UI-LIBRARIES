@@ -5,7 +5,7 @@ const ExpandedComponent = ({ data }) => (
 );
 
 export const Config = {
-    headerLabel: "Search",
+    headerLabel: "Search",  // label is changed to headerLabel (Screen Header Label)
     type: "search",
     actionLabel: "WBH_ADD_MDMS", // put inside inside a actions object (top/bottom)
     actionRoles: ["MDMS_ADMIN","CAMPAIGN_ADMIN","SUPERUSER"],
