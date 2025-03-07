@@ -4,15 +4,12 @@ import { useTranslation } from "react-i18next";
 import { Route, Switch } from "react-router-dom";
 import Sample from "./Sample";
 import SampleSearch from "./SampleSearch";
-<<<<<<< HEAD
 import BoundaryFilter from "../../components/BoundaryFilter";
 import FormComposer from "./FormComposer";
-=======
 import SampleInbox from "./SampleInbox";
 import IndividualSearch from "./IndividualSearch";
 import SampleComponents from "./SampleComponents";
 
->>>>>>> develop
 const ProjectBreadCrumb = ({ location }) => {
   const { t } = useTranslation();
   const crumbs = [
