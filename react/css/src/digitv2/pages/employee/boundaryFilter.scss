@@ -2,6 +2,7 @@
     padding-top: 0.5rem;
     display: grid; 
     grid-template-columns: repeat(3, 1fr); 
+    gap:1.5rem;
     .label-field-pair {
         margin-bottom: 1.5rem;
     }
@@ -43,4 +44,12 @@
     display: flex;
     justify-content: center;
  }
+
+ .digit-field-full{
+    width:100%;
+ }
+
+ .digit-label-field-pair.boundary-item.vertical{
+    margin-bottom: 0rem;
+ } 
  
