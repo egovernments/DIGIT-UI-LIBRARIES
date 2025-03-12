@@ -21,6 +21,9 @@ import CardLabel from "../atoms/CardLabel";
 import { SVG } from "../atoms";
 import NoResultsFound from "../atoms/NoResultsFound";
 import {Toast} from "../atoms";
+import FieldController from "./FieldController";
+import FieldV1 from "./FieldV1"
+
 const ResultsDataTable = ({
   tableContainerClass,
   config,
@@ -60,11 +63,11 @@ const ResultsDataTable = ({
 
   // Use the custom mutation hook
   const mutation = Digit.Hooks.useCustomAPIMutationHook({
-    url:"/egov-mdms-service/v2/_update/ACCESSCONTROL-ACTIONS-TEST.actions-test"
+    url:apiDetails?.mutationUrl
   });
   const [editRow,setEditRow] = useState(null);
   //edited data should always hold updated payload
-  const [editedData,setEditedData] = useState(null);
+  const [rowData,setRowData] = useState(null);
 
   //here I am just checking state.searchForm has all empty keys or not(when clicked on clear search)
   useEffect(() => {
@@ -87,14 +90,48 @@ const ResultsDataTable = ({
   const handleActionClicked = (row, index, column, id) => {
     //current row should now be editable, maintain a state called editMode
     setEditRow(row);
-    setEditedData(row);
+    setRowData({row,index,column,id});
   }
-
+  const handleRowSubmit = (rowFormData) => {
+    console.log("form submission",{register,
+      handleSubmit,
+      setValue,
+      getValues,
+      reset,
+      watch,
+      trigger,
+      control,
+      formState,
+      errors,
+      setError,
+      clearErrors,
+      unregister,});
+    console.log(rowFormData);  
+    setEditRow(null);
+    // make an api call here
+    // generate payload from a customizer
+    
+    mutation.mutate(
+      configModule.getMutationPayload(rowFormData,rowData),
+      {
+        onSuccess: (data) => {
+          setShowToast({ key: "success", label: t("DATA_MODIEFIED_SUCCESS")})
+          refetch()
+        },
+        onError: (error) => {
+          setShowToast({type:"error", key: "error", label: t("DATA_MODIEFIED_FAIL")})
+        }
+      }
+    );
+    setEditRow(null);
+    setRowData(null);
+    
+  }
   const handleSaveRow = (updatedRow) => {
     //use updatedRow value to call api and reset the states
     console.log(updatedRow);
     mutation.mutate(
-      configModule.generateEditPayload(editedData),
+      configModule.getMutationPayload(formData,rowData),
       {
         onSuccess: (data) => {
           setShowToast({ key: "success", label: t("DATA_MODIEFIED_SUCCESS")})
@@ -105,14 +142,14 @@ const ResultsDataTable = ({
       }
     );
     setEditRow(null);
-    setEditedData(null);
+    setRowData(null);
   }
 
   const handleEdits = (value,jsonPath) => {
-    const copyToUpdate = {...editedData}
+    const copyToUpdate = {...rowData}
     _.set(copyToUpdate,jsonPath,value)
-    setEditedData(copyToUpdate)
-    // setEditedData((prev) => ({
+    setRowData(copyToUpdate)
+    // setRowData((prev) => ({
     //   ...prev,
     //   [field]: e.target.value,
     // }));
@@ -154,7 +191,7 @@ const ResultsDataTable = ({
           conditionalCellStyles: column?.conditionalCellStyles,
         };
       }
-      if (column.additionalCustomization) {
+      if (column.additionalCustomization ) {
         return {
           id: column?.id,
           name: t(column?.label) || t("ES_COMMON_NA"),
@@ -199,17 +236,72 @@ const ResultsDataTable = ({
         sortable: !column?.disableSortBy,
         sortFunction: (rowA, rowB) => column?.sortFunction(rowA, rowB),
         cell: (row, index) =>  {
-          
+          // TODO: Here integrate with FieldV1 controller to support all field types
+          // if(column.editable && editRow?.id === row?.id){
+          //   return <TextInput
+          //     // style={{ marginBottom: "0px" }}
+          //     name={column.label}
+          //     onChange={(e)=> handleEdits(e.target.value,column.jsonPath)}
+          //     value={_.get(rowData,column.jsonPath)}
+          //   />
+          // }
           if(column.editable && editRow?.id === row?.id){
-            return <TextInput
-            // style={{ marginBottom: "0px" }}
-            name={column.label}
-            onChange={(e)=> handleEdits(e.target.value,column.jsonPath)}
-            value={_.get(editedData,column.jsonPath)}
-          />
-        }
+            const config = column.editableFieldConfig;
+            return (
+              <Controller
+                defaultValue={column?.editableFieldConfig?.type === "text" ? _.get(rowData?.row,column.jsonPath):{[column.editableFieldConfig.populators.optionsKey]:_.get(rowData?.row,column.jsonPath)}}
+                render={({ onChange, ref, value, onBlur }) => (
+                  <FieldV1
+                    // error= {error}
+                    label={config.label}
+                    nonEditable = {config.nonEditable}
+                    placeholder={config.placeholder}
+                    // inline={props.inline}
+                    description={config.description}
+                    charCount = {config.charCount}
+                    infoMessage={config.infoMessage}
+                    withoutLabel = {config.withoutLabel}
+                    variant={config.variant}
+                    type={config.type}
+                    populators={config.populators}
+                    required={config.isMandatory}
+                    disabled={config.disable}
+                    component={config.component}
+                    config={config}
+                    // sectionFormCategory={sectionFormCategory}
+                    formData={formData}
+                    // selectedFormCategory={selectedFormCategory}
+                    onChange={onChange}
+                    ref={ref}
+                    value={value}
+                    props={{}}
+                    errors={errors}
+                    onBlur={onBlur}
+                    controllerProps={{
+                      register,
+                      handleSubmit,
+                      setValue,
+                      getValues,
+                      reset,
+                      watch,
+                      trigger,
+                      control,
+                      formState,
+                      errors,
+                      setError,
+                      clearErrors,
+                      unregister,
+                    }}
+                  />
+                )}
+                name={config.populators?.name}
+                // rules={!disableFormValidation ? { required: isMandatory, ...populators?.validation, ...customRules } : {}}
+                control={control}
+              />
+            )
+          }
 
-          return _.get(row, column?.jsonPath)
+          return `${_.get(row, column?.jsonPath)}`
         },
         headerAlign: column?.headerAlign,
         style: column?.style,
@@ -242,7 +334,8 @@ const ResultsDataTable = ({
             label={row?.id === editRow?.id ? "Save" : "Edit Row"}
             type="button"
             icon="Edit"
-            onClick={()=>{editRow ? handleSaveRow(editedData) : handleActionClicked(row, index, column, id)}}
+            // onClick={()=>{editRow ? handleSaveRow(rowData) : handleActionClicked(row, index, column, id)}}
+            onClick={()=>{editRow ? handleSubmit(handleRowSubmit)() : handleActionClicked(row, index, column, id)}}
             isDisabled={editRow && row?.id !== editRow?.id  ? true : false}
           />)
         }
@@ -251,7 +344,7 @@ const ResultsDataTable = ({
 
   return mappedColumns;
 
-  }, [config, searchResult,editRow,editedData]);
+  }, [config, searchResult,editRow,rowData]);
 
   const defaultValuesFromSession = config?.customDefaultPagination
     ? config?.customDefaultPagination
@@ -277,6 +370,8 @@ const ResultsDataTable = ({
     defaultValues: defaultValuesFromSession,
   });
 
+  const formData = watch();
+  
   //call this fn whenever session gets updated
   const setDefaultValues = () => {
     reset(defaultValuesFromSession);

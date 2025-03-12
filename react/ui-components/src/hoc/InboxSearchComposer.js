@@ -22,7 +22,7 @@ const InboxSearchComposer = ({configs,headerLabel,additionalConfig,onFormValueCh
     const renderCount = useRef(1); // Initialize render count
 
     useEffect(() => {
-        console.log(`Component rendered ${renderCount.current} times`);
+        console.log(`Render Count:${renderCount.current}`);
         renderCount.current += 1; // Increment render count after each render
     });
 

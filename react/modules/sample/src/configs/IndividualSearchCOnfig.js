@@ -10,6 +10,7 @@ export const searchconfig = () =>
     type: "search",
     apiDetails: {
       serviceName: "/egov-mdms-service/v2/_search",
+      mutationUrl:"/egov-mdms-service/v2/_update/test.projectconfig",
       requestParam: {
           "tenantId":Digit.ULBService.getCurrentTenantId()
       },
@@ -75,18 +76,185 @@ export const searchconfig = () =>
             {
               label: "Id",
               jsonPath: "uniqueIdentifier",
-              // additionalCustomization:true
-              editable:true
-            },
-            {
-              label: "Popup",
-              jsonPath: "data.displayName",
-              additionalCustomization:true              
-            },
-            {
-              label: "Address",
-              jsonPath: "data.path",
+              // additionalCustomization:true,
               editable:true,
+              editableFieldConfig: {
+                inline: true,
+                // label: "Default",
+                isMandatory: true,
+                type: "text",
+                disable: false,
+                populators: { name: "row.uniqueIdentifier", error: "Error!",styles:{
+                  "width":"10vw",
+                  "margin-top":"2rem"
+                }, },
+                withoutLabel:true
+              },
+            },
+            {
+              label: "Name",
+              jsonPath: "data.name",
+              // additionalCustomization:true,
+              editable:true,
+              editableFieldConfig: {
+                inline: true,
+                isMandatory: false,
+                type: "text",
+                disable: false,
+                populators: { name: "row.name", error: "Error!",styles:{
+                  "width":"10vw",
+                  "margin-top":"2rem"
+                },
+              validation:{minlength:2} },
+                withoutLabel:true
+              },
+            },
+            {
+              label: "Observation Strategy",
+              jsonPath: "data.observationStrategy",
+              // additionalCustomization:true,
+              editable:true,
+              editableFieldConfig: {
+                inline: true,
+                isMandatory: false,
+                type: "text",
+                disable: false,
+                populators: { name: "row.observationStrategy", error: "Error!",styles:{
+                  "width":"10vw",
+                  "margin-top":"2rem"
+                }, },
+                withoutLabel:true
+              },
+            },
+            {
+              label: "Project Type",
+              jsonPath: "data.code",
+              editable:true,
+              editableFieldConfig:{
+                withoutLabel:true,
+                isMandatory: false,
+                type: "dropdown",
+                key: "row.code",
+                label: "Default",
+                disable: false,
+                populators: {
+                  styles:{
+                    "width":"10vw",
+                    "margin-top":"2rem"
+                  },
+                  name: "row.code",
+                  optionsKey: "code",
+                  error: "",
+                  required: true,
+                  mdmsConfig: {
+                    masterName: "projectTypes",
+                    moduleName: "HCM-PROJECT-TYPES",
+                    localePrefix: "HCM_PROJECT_TYPE",
+                  },
+                },
+              }
+            },
+            // {
+            //   label: "Popup",
+            //   jsonPath: "data.displayName",
+            //   additionalCustomization:true              
+            // },
+            // {
+            //   label: "Address",
+            //   jsonPath: "data.path",
+            //   editable:true,
+            //   editableFieldConfig:{
+            //     withoutLabel:true,
+            //     isMandatory: false,
+            //     type: "dropdown",
+            //     key: "row.genders",
+            //     label: "Default",
+            //     disable: false,
+            //     populators: {
+            //       styles:{
+            //         "width":"10vw",
+            //         "margin-top":"2rem"
+            //       },
+            //       name: "row.genders",
+            //       optionsKey: "name",
+            //       error: "",
+            //       required: true,
+            //       mdmsConfig: {
+            //         masterName: "GenderType",
+            //         moduleName: "common-masters",
+            //         localePrefix: "COMMON_GENDER",
+            //       },
+            //     },
+            //   }
+            // },
+            // {
+            //   label: "Path",
+            //   jsonPath: "data.id",
+            //   editable:true,
+            //   editableFieldConfig:{
+            //     withoutLabel:true,
+            //     isMandatory: false,
+            //     type: "dropdown",
+            //     key: "row.id",
+            //     label: "Default",
+            //     disable: false,
+            //     populators: {
+            //       styles:{
+            //         "width":"10vw",
+            //         "margin-top":"2rem"
+            //       },
+            //       name: "row.id",
+            //       optionsKey: "name",
+            //       error: "",
+            //       required: true,
+            //       mdmsConfig: {
+            //         masterName: "GenderType",
+            //         moduleName: "common-masters",
+            //         localePrefix: "COMMON_GENDER",
+            //       },
+            //     },
+            //   }
+            // },
+            {
+              label: "isActive",
+              jsonPath: "isActive",
+              editable:true,
+              editableFieldConfig:{
+                withoutLabel:true,
+                isMandatory: false,
+                type: "dropdown",
+                key: "row.isActive",
+                // label: "With Icons",
+                disable: false,
+                populators: {
+                  styles:{
+                    "width":"10vw",
+                    "margin-top":"2rem"
+                  },
+                  name: "row.isActive",
+                  optionsKey: "name",
+                  error: "",
+                  required: true,
+                  showIcon: true,
+                  options: [
+                    {
+                      code: "1",
+                      name: true,
+                      // icon: "Article",
+                    },
+                    {
+                      code: "2",
+                      name: false,
+                      // icon: "Article",
+                    },
+                    // {
+                    //   code: "3",
+                    //   name: "Option3",
+                    //   icon: "Article",
+                    // },
+                  ],
+                },
+              }
             },
             // {
             //   label: "Edit",

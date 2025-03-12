@@ -1,5 +1,5 @@
 import { Header } from '@egovernments/digit-ui-react-components';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button, InboxSearchComposer, PopUp } from '@egovernments/digit-ui-components';
 import { searchconfig } from '../../configs/IndividualSearchConfig';
@@ -28,7 +28,7 @@ const IndividualSearch = () => {
       return {...prev}
     })
   }
-  const customizers = {
+  const customizers = useMemo(()=>({
     preProcess: (data) => {
       delete data.params.tenantId;
       delete data.params.limit;
@@ -38,7 +38,7 @@ const IndividualSearch = () => {
       data.body.MdmsCriteria = {
         tenantId: 'dev',
         filters: {},
-        schemaCode: 'ACCESSCONTROL-ACTIONS-TEST.actions-test',
+        schemaCode: 'test.projectconfig',
         limit: data.state.tableForm.limit,
         offset: data.state.tableForm.offset,
       };
@@ -78,17 +78,23 @@ const IndividualSearch = () => {
           return t('ES_COMMON_NA');
       }
     },
-    generateEditPayload:(row) => {
+    getMutationPayload:(formData,rowData) => {
+      debugger
+      const row = rowData.row;
+      const {name,observationStrategy,uniqueIdentifier,isActive,code} = formData.row;
       return {
         body:{
           Mdms:{
-            ...row
+            ...row,
+            isActive:isActive.name,
+            data:{...row.data,observationStrategy,name,code:code.code},
+            uniqueIdentifier
           }
         },
         params:{}
       }
     }
-  };
+  }),[])
 
   return (
     <React.Fragment>
