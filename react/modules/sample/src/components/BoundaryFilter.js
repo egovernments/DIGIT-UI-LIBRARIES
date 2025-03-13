@@ -5,6 +5,7 @@ import { LabelFieldPair, CardLabel } from "@egovernments/digit-ui-components";
 
 const BoundaryFilter = (rawProps) => {
   debugger;
+  
   let props=rawProps;
   console.log("props",props)
   if(rawProps?.config?.customProps){
@@ -16,6 +17,7 @@ const BoundaryFilter = (rawProps) => {
   if (updatedLayoutConfig?.isDropdownLayoutHorizontal) {
     updatedLayoutConfig.isLabelFieldLayoutHorizontal = updatedLayoutConfig.isLabelFieldLayoutHorizontal ? updatedLayoutConfig.isLabelFieldLayoutHorizontal:false;
   }
+  console.log(updatedLayoutConfig);
 
   const { t } = useTranslation();
   const hierarchyType = props?.hierarchyType;
@@ -388,7 +390,7 @@ const BoundaryFilter = (rawProps) => {
   }, [hierarchy, boundaries, props.levelConfig]); 
 
 
-
+  console.log(props?.layoutConfig?.isDropdownLayoutHorizontal);
 
   return (
     <Card>

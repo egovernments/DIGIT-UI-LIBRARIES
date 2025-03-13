@@ -50,7 +50,7 @@ const App = ({ path, stateCode, userType, tenants }) => {
           hierarchyType={"NEWTEST00222"} 
           module={"HCM-ADMIN-CONSOLE"} 
           selectedValues={[""]}
-          layoutConfig={{isDropdownLayoutHorizontal:false,isLabelFieldLayoutHorizontal:false}}
+          layoutConfig={{isDropdownLayoutHorizontal:true,isLabelFieldLayoutHorizontal:false}}
           isHorizontal={true}
 
           />} 

@@ -308,6 +308,23 @@ export const FormComposerConfig=[
                 "isMandatory": false
             },
             {
+                "key": "boundaryComponnet",
+                "type": "boundary",
+                "inline": true,
+                "label": "BoundaryFIlter",
+                "disable": false,
+                "populators": {
+                    "name":"boundaryComponnet",
+                    "levelConfig": {lowestLevel:"VILLAGE", highestLevel:"COUNTRY", isSingleSelect:["LOCALITY","VILLAGE","DISTRICT"]} ,
+                    "hierarchyType":"NEWTEST00222" ,
+                    "module":"HCM-ADMIN-CONSOLE" ,
+                    "selectedValues":[""],
+                    "layoutConfig":{isDropdownLayoutHorizontal:false,isLabelFieldLayoutHorizontal:false},
+                    "isHorizontal":true
+                },
+                "onChange": (e) => console.log(e.target.value)
+            },
+            {
                 "key": "basicDetails_dateOfProposal",
                 "type": "date",
                 "label": "ES_COMMON_PROPOSAL_DATE",
@@ -392,34 +409,34 @@ export const FormComposerConfig=[
                 },
                 "isMandatory": true
             },
-            {
-                key: "boundaryFilter",
-                type: "component",
-                component: "BoundaryFilter",
-                label: "BoundaryFIlter",
-                disable: false,
-                customProps : {
-                    levelConfig:{lowestLevel:"VILLAGE", highestLevel:"COUNTRY", isSingleSelect:["LOCALITY","VILLAGE","DISTRICT"]},
-                    hierarchyType:"NEWTEST00222" ,
-                    module:"HCM-ADMIN-CONSOLE" ,
-                    selectedValues:[""],
-                    isHorizontal:false
-                },
-                "populators": {
-                    "name": "basicDetails_projectDesc",
-                    "error": "PROJECT_PATTERN_ERR_MSG_PROJECT_DESC",
-                    "validation": {
-                        "pattern": "^[a-zA-Z0-9\\/{ \\/ .\\- ,:_$@#\\'() } ]*$",
-                        "maxlength": 256,
-                        "minlength": 2
-                    }
-                },
-                "preProcess": {
-                    "convertStringToRegEx": [
-                        "populators.validation.pattern"
-                    ]
-                },
-            }
+            // {
+            //     key: "boundaryFilter",
+            //     type: "component",
+            //     component: "BoundaryFilter",
+            //     label: "BoundaryFIlter",
+            //     disable: false,
+            //     customProps : {
+            //         levelConfig:{lowestLevel:"VILLAGE", highestLevel:"COUNTRY", isSingleSelect:["LOCALITY","VILLAGE","DISTRICT"]},
+            //         hierarchyType:"NEWTEST00222" ,
+            //         module:"HCM-ADMIN-CONSOLE" ,
+            //         selectedValues:[""],
+            //         isHorizontal:false
+            //     },
+            //     "populators": {
+            //         "name": "basicDetails_projectDesc",
+            //         "error": "PROJECT_PATTERN_ERR_MSG_PROJECT_DESC",
+            //         "validation": {
+            //             "pattern": "^[a-zA-Z0-9\\/{ \\/ .\\- ,:_$@#\\'() } ]*$",
+            //             "maxlength": 256,
+            //             "minlength": 2
+            //         }
+            //     },
+            //     "preProcess": {
+            //         "convertStringToRegEx": [
+            //             "populators.validation.pattern"
+            //         ]
+            //     },
+            // }
         ],
         "head": "",
         "subHead": ""

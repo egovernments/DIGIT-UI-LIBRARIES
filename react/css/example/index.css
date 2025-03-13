@@ -13338,19 +13338,14 @@ button:hover {
 
 .selecting-boundary-div {
   padding-top: .5rem;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
   grid-gap: 1.5rem;
   gap: 1.5rem; }
   .selecting-boundary-div .label-field-pair {
     margin-bottom: 1.5rem; }
 
 .selecting-boundary-div.horizontal-layout {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap; }
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); }
 
 .digit-card-label.boundary-selection-label {
   font-family: Roboto;
