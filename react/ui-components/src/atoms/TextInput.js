@@ -415,7 +415,6 @@ const TextInput = (props) => {
 };
 
 TextInput.propTypes = {
-  userType: PropTypes.string,
   required: PropTypes.bool,
   name: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
@@ -427,7 +426,7 @@ TextInput.propTypes = {
   value: PropTypes.any,
   className: PropTypes.string,
   style: PropTypes.object,
-  maxLength: PropTypes.number,
+  maxlength: PropTypes.number,
   minlength: PropTypes.number,
   max: PropTypes.number,
   pattern: PropTypes.string,
@@ -436,7 +435,6 @@ TextInput.propTypes = {
   nonEditable: PropTypes.bool,
   allowNegativeValues:PropTypes.bool,
   errorStyle: PropTypes.bool,
-  hideSpan: PropTypes.bool,
   title: PropTypes.string,
   step: PropTypes.string,
   autoFocus: PropTypes.bool,
@@ -451,7 +449,6 @@ TextInput.propTypes = {
   type: PropTypes.string,
   watch: PropTypes.func,
   onFocus: PropTypes.func,
-  charCount: PropTypes.bool,
   errors: PropTypes.object,
   config: PropTypes.object,
   error: PropTypes.string,
@@ -459,7 +456,6 @@ TextInput.propTypes = {
 
 TextInput.defaultProps = {
   required: false,
-  charCount: false,
 };
 
 function DatePicker(props) {

@@ -111,7 +111,7 @@ const MultiSelectDropdown = ({
   }, [active]);
 
   useEffect(() => {
-    const initialCategorySelectedState = options.reduce((acc, category) => {
+    const initialCategorySelectedState = options?.reduce((acc, category) => {
       if (category.options) {
         var filteredCategoryOptions = category?.options;
         if (searchQuery?.length > 0) {
@@ -141,20 +141,20 @@ const MultiSelectDropdown = ({
   useEffect(() => {
     const allOptionsSelected =
       variant === "nestedmultiselect"
-        ? checkSelection(flattenedOptions.filter((option) => !option.options))
+        ? checkSelection(flattenedOptions?.filter((option) => !option.options))
         : checkSelection(options);
 
     setSelectAllChecked(allOptionsSelected);
 
     const newCategorySelected = { ...categorySelected };
     options
-      .filter((option) => option.options)
-      .forEach((category) => {
+      ?.filter((option) => option.options)
+      ?.forEach((category) => {
         newCategorySelected[category.code] = undefined;
       });
     options
-      .filter((option) => option.options)
-      .forEach((category) => {
+      ?.filter((option) => option.options)
+      ?.forEach((category) => {
         // If the category has already been marked as false, skip further processing for this category.
         if (newCategorySelected[category.code] === false) return;
         let filteredCategoryOptions = category?.options;
@@ -185,19 +185,6 @@ const MultiSelectDropdown = ({
     active,
     { capture: true }
   );
-  const filtOptns =
-    searchQuery?.length > 0
-      ? options?.filter(
-          (option) =>
-            t(
-              option[optionsKey] &&
-                typeof option[optionsKey] == "string" &&
-                option[optionsKey].toUpperCase()
-            )
-              .toLowerCase()
-              .indexOf(searchQuery.toLowerCase()) >= 0
-        )
-      : options;
 
   useEffect(() => {
     setOptionIndex(0);
@@ -287,8 +274,8 @@ const MultiSelectDropdown = ({
         const payload =
           variant === "nestedmultiselect"
             ? flattenedOptions
-                .filter((option) => !option.options)
-                .map((option) => ({
+                ?.filter((option) => !option.options)
+                ?.map((option) => ({
                   code: option.code,
                   name: option.name,
                   propsData: [null, option],
@@ -451,7 +438,7 @@ const MultiSelectDropdown = ({
       ? options
           ?.map((option) => {
             if (option?.options && option.options.length > 0) {
-              const matchingNestedOptions = option.options.filter(
+              const matchingNestedOptions = option?.options?.filter(
                 (nestedOption) =>
                   t(nestedOption.code)
                     .toLowerCase()
@@ -475,7 +462,7 @@ const MultiSelectDropdown = ({
 
             return null;
           })
-          .filter(Boolean)
+          ?.filter(Boolean)
       : options;
 
   const parentOptionsWithChildren = filteredOptions?.filter(
@@ -503,13 +490,13 @@ const MultiSelectDropdown = ({
       }
     });
     // Remove duplicates by 'code' within the flattened array
-    flattened = flattened.filter(
+    flattened = flattened?.filter(
       (option, index, self) =>
         index === self.findIndex((o) => o.code === option.code)
     );
     flattened.forEach((option) => {
       if (option.options) {
-        option.options = option.options.filter(
+        option.options = option?.options?.filter(
           (opt, idx, arr) => idx === arr.findIndex((o) => o.code === opt.code)
         );
       }
@@ -562,16 +549,23 @@ const MultiSelectDropdown = ({
         onMouseDown={() => setIsActive(true)}
         onMouseUp={() => setIsActive(false)}
         onMouseLeave={() => setIsActive(false)}
-      >                                                                                                                                                                                                                                                                                                                                           
+      >
         <input
           type="checkbox"
           value={option.code}
-          checked={isFrozen || alreadyQueuedSelectedState.find((selectedOption) => selectedOption.code === option.code) ? true : false}
+          checked={
+            isFrozen ||
+            alreadyQueuedSelectedState.find(
+              (selectedOption) => selectedOption.code === option.code
+            )
+              ? true
+              : false
+          }
           onChange={(e) => {
             if (!isFrozen) {
-            isPropsNeeded
-              ? onSelectToAddToQueue(e, option, props)
-              : onSelectToAddToQueue(e, option);
+              isPropsNeeded
+                ? onSelectToAddToQueue(e, option, props)
+                : onSelectToAddToQueue(e, option);
             }
           }}
           className={`digit-multi-select-dropdown-menuitem ${
@@ -723,7 +717,17 @@ const MultiSelectDropdown = ({
             value={searchQuery}
             onChange={onSearch}
           />
-          <div className="digit-multiselectdropdown-label">
+          <div
+            className="digit-multiselectdropdown-label"
+            title={
+              alreadyQueuedSelectedState.length > 0
+                ? `${variant === "treemultiselect" 
+                    ? countFinalChildOptions(alreadyQueuedSelectedState) 
+                    : alreadyQueuedSelectedState.length} 
+                   ${defaultUnit} Selected`
+                : defaultLabel
+            }
+          >
             {variant === "treemultiselect" ? (
               <p>
                 {alreadyQueuedSelectedState.length > 0
@@ -766,9 +770,9 @@ const MultiSelectDropdown = ({
         <div className="digit-tag-container">
           {alreadyQueuedSelectedState.length > 0 &&
             alreadyQueuedSelectedState
-              .filter((value) => !value.propsData[1]?.options)
-              .slice(0, config?.numberOfChips || alreadyQueuedSelectedState.length )
-              .map((value, index) => {
+              ?.filter((value) => !value.propsData[1]?.options)
+              ?.slice(0, config?.numberOfChips || alreadyQueuedSelectedState.length )
+              ?.map((value, index) => {
                 const translatedText = t(
                   chipsKey ? value[chipsKey] : value.code
                 );
@@ -807,7 +811,7 @@ const MultiSelectDropdown = ({
               variation="link"
             />
           )}
-          {alreadyQueuedSelectedState.length > 0 &&  frozenData.length == 0 && (
+          {alreadyQueuedSelectedState.length > 0 &&  frozenData.length === 0 && (
             <Button
               label={t(config?.clearLabel ? config?.clearLabel : t("CLEAR_ALL"))}
               onClick={handleClearAll}

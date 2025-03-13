@@ -31,6 +31,16 @@ const BreadCrumb = (props) => {
   function isLast(index) {
     // Filter crumbs to only include those that are displayed
     let validCrumbs = crumbsToDisplay?.filter((crumb) => crumb?.show === true);
+
+    // Check if all crumbs have the same `internalLink` or `externalLink`
+    const allHaveSameInternalLink = validCrumbs.every((crumb) => crumb.internalLink === validCrumbs[0].internalLink);
+    const allHaveSameExternalLink = validCrumbs.every((crumb) => crumb.externalLink === validCrumbs[0].externalLink);
+    
+    // If all visible crumbs have the same link, determine last crumb by index
+    if (allHaveSameInternalLink || allHaveSameExternalLink) {
+      return index === validCrumbs.length - 1;
+    }
+    
     // Check if the current crumb is the last one in the validCrumbs list
     return validCrumbs?.findIndex((ob) => {
       const linkToCheck = ob?.externalLink || ob?.internalLink; // Use externalLink if it exists, else internalLink
@@ -43,12 +53,14 @@ const BreadCrumb = (props) => {
     setExpanded(!expanded);
   };
 
+  const validCrumbsMain = crumbsToDisplay?.filter((crumb) => crumb?.show === true);
+
   return (
     <ol
       className={`digit-bread-crumb ${props?.className ? props?.className : ""}`}
       style={props?.style}
     >
-      {crumbsToDisplay?.map((crumb, ci) => {
+      {validCrumbsMain?.map((crumb, ci) => {
         if (!crumb?.show) return null;
         if (crumb?.isBack)
           return (
