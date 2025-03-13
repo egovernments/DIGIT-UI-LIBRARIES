@@ -15,6 +15,8 @@ import { CustomSVG } from "../atoms";
 import CheckBox from "../atoms/CheckBox";
 import NoResultsFound from "../atoms/NoResultsFound";
 import ResultsDataTable from "../molecules/ResultsDataTable";
+import Button from "../atoms/Button";
+import { useHistory} from "react-router-dom";
 
 const useDebounce = (value, delay) => {
   const [debouncedValue, setDebouncedValue] = useState(value);
@@ -5264,6 +5266,7 @@ const ResultsDataTableWrapper = ({
 }) => {
   const { apiDetails } = fullConfig;
   const { t } = useTranslation();
+  const history = useHistory();
   const resultsKey = config.resultsJsonPath;
   const [showResultsTable, setShowResultsTable] = useState(true);
   const [session, setSession, clearSession] = browserSession || [];
@@ -5301,77 +5304,19 @@ const ResultsDataTableWrapper = ({
     };
   }, [state]);
 
+  const handleLinkColumn = (event) => {
+    const linkColumnHandler = configModule?.linkColumnHandler || {};
+    if (typeof linkColumnHandler === "function") {
+      linkColumnHandler(event);
+    } else {
+      console.error("linkColumnHandler is not defined or is not a function");
+    }
+  };
+
   const tableColumns = useMemo(() => {
     //test if accessor can take jsonPath value only and then check sort and global search work properly
     return config?.columns?.map((column) => {
-      if (column?.svg) {
-        // const icon = Digit.ComponentRegistryService.getComponent(column.svg);
-        return {
-          id: column?.id,
-          name: t(column?.label) || t("ES_COMMON_NA"),
-          format: column?.format,
-          cell: ({ row, index, column, id }) => {
-            return (
-              <div
-                className="cursorPointer"
-                style={{ marginLeft: "1rem" }}
-                onClick={() => additionalConfig?.resultsTable?.onClickSvg(row)}
-              >
-                <CustomSVG.EditIcon />
-              </div>
-            );
-          },
-          grow: column?.grow,
-          width: column?.width,
-          minWidth: column?.minWidth,
-          maxWidth: column?.maxWidth,
-          right: column?.right,
-          center: column?.center,
-          ignoreRowClick: column?.ignoreRowClick,
-          wrap: column?.wrap,
-          sortable: !column?.disableSortBy,
-          sortFunction: typeof column?.sortFunction === "function" 
-          ? (rowA, rowB) => column.sortFunction(rowA, rowB) 
-          : (rowA, rowB) => 0,        
-          selector: (row, index) => _.get(row, column?.jsonPath),
-          headerAlign: column?.headerAlign,
-          style: column?.style,
-          conditionalCellStyles: column?.conditionalCellStyles,
-        };
-      }
-      if (column.additionalCustomization) {
-        return {
-          id: column?.id,
-          name: t(column?.label) || t("ES_COMMON_NA"),
-          format: column?.format,
-          grow: column?.grow,
-          width: column?.width,
-          minWidth: column?.minWidth,
-          maxWidth: column?.maxWidth,
-          right: column?.right,
-          center: column?.center,
-          ignoreRowClick: column?.ignoreRowClick,
-          wrap: column?.wrap,
-          sortable: !column?.disableSortBy,
-          sortFunction: typeof column?.sortFunction === "function" 
-          ? (rowA, rowB) => column.sortFunction(rowA, rowB) 
-          : (rowA, rowB) => 0,
-          selector: (row, index) => {
-            return configModule?.additionalCustomizations(
-              row,
-              column?.label,
-              column,
-              _.get(row, column?.jsonPath),
-              t,
-              searchResult
-            );
-          },
-          headerAlign: column?.headerAlign,
-          style: column?.style,
-          conditionalCellStyles: column?.conditionalCellStyles,
-        };
-      }
-      return {
+      const commonProps = {
         id: column?.id,
         name: t(column?.label) || t("ES_COMMON_NA"),
         format: column?.format,
@@ -5384,14 +5329,86 @@ const ResultsDataTableWrapper = ({
         ignoreRowClick: column?.ignoreRowClick,
         wrap: column?.wrap,
         sortable: !column?.disableSortBy,
-        sortFunction: typeof column?.sortFunction === "function" 
-        ? (rowA, rowB) => column.sortFunction(rowA, rowB) 
-        : (rowA, rowB) => 0,      
-        selector: (row, index) => _.get(row, column?.jsonPath),
         headerAlign: column?.headerAlign,
         style: column?.style,
         conditionalCellStyles: column?.conditionalCellStyles,
+        sortFunction:
+          typeof column?.sortFunction === "function"
+            ? (rowA, rowB) => column.sortFunction(rowA, rowB)
+            : (rowA, rowB) => 0,
+        selector: (row, index) => _.get(row, column?.jsonPath),
       };
+      if (column?.svg) {
+        // const icon = Digit.ComponentRegistryService.getComponent(column.svg);
+        return {
+          ...commonProps,
+          cell: ({ row, index, column, id }) => {
+            return (
+              <div
+                className="cursorPointer"
+                style={{ marginLeft: "1rem" }}
+                onClick={() => additionalConfig?.resultsTable?.onClickSvg(row)}
+              >
+                <CustomSVG.EditIcon />
+              </div>
+            );
+          },
+        };
+      }
+      if (column.additionalCustomization) {
+        return {
+          ...commonProps,
+          selector: (row, index) => {
+            return configModule?.additionalCustomizations(
+              row,
+              column?.label,
+              column,
+              _.get(row, column?.jsonPath),
+              t,
+              searchResult
+            );
+          },
+        };
+      }
+      if (column?.link) {
+        return {
+          ...commonProps,
+          cell: (row, index, col, id) => {
+            console.log(
+              row,
+              column,
+              column?.jsonPath,
+              _.get(row, column?.jsonPath),
+              "testing"
+            );
+            return (
+              <Button
+                variation="link"
+                label={
+                  _.get(row, column?.jsonPath)
+                    ? column.translate
+                      ? t(_.get(row, column?.jsonPath))
+                      : _.get(row, column?.jsonPath)
+                    : t("ES_COMMON_NA")
+                }
+                type="button"
+                icon={column?.buttonProps?.icon}
+                size={column?.buttonProps?.size || "medium"}
+                onClick={
+                  column?.buttonProps?.linkTo
+                    ? () => {
+                        history.push(
+                          `/${window?.contextPath}/employee/${column?.linkTo}`
+                        );
+                      }
+                    : () => handleLinkColumn(row)
+                }
+              />
+            );
+          },
+        };
+      }
+      return commonProps;
     });
   }, [config, searchResult]);
 
@@ -5523,7 +5540,7 @@ const ResultsDataTableWrapper = ({
     if (typeof rowClickHandler === "function") {
       rowClickHandler(event);
     } else {
-      console.error("actionSelectHandler is not defined or is not a function");
+      console.error("selectionHandler is not defined or is not a function");
     }
   };
 
@@ -5573,15 +5590,17 @@ const ResultsDataTableWrapper = ({
       data={filteredData || []}
       columns={tableColumns}
       responsive={true}
-      showCheckBox={config?.showCheckBox}
+      showCheckBox={config?.selectionProps?.showCheckBox}
+      selectableRowsNoSelectAll={config?.selectProps?.selectableRowsNoSelectAll}
+      showSelectedState={config?.selectionProps?.showSelectedState}
+      showSelectedStatePosition={config?.selectProps?.showSelectedStatePosition}
       selectableRowsHighlight={true}
       selectableRowsComponent={CheckBox}
       selectProps={selectProps}
       onSelectedRowsChange={handleRowSelect}
       onRowClicked={additionalConfig?.resultsTable?.onRowClicked}
-      selectableRowsNoSelectAll={config?.selectableRowsNoSelectAll}
-      expandableRows={config?.expandableRows}
-      expandableRowsComponent={config?.expandableRowsComponent}
+      expandableRows={config?.expandableProps?.expandableRows}
+      expandableRowsComponent={config?.expandableProps?.expandableRowsComponent}
       onRowExpandToggled={(expanded, row) =>
         config?.handleRowExpand?.(expanded, row)
       }
@@ -5601,17 +5620,15 @@ const ResultsDataTableWrapper = ({
       paginationPerPage={rowsPerPage}
       onChangePage={handlePageChange}
       paginationRowsPerPageOptions={config?.paginationRowsPerPageOptions}
-      showTableDescription={config?.showTableDescription}
-      showTableTitle={config?.showTableTitle}
+      showTableDescription={config?.tableProps?.showTableDescription}
+      showTableTitle={config?.tableProps?.showTableTitle}
       enableGlobalSearch={config?.enableGlobalSearch}
-      showSelectedState={config?.showSelectedState}
       selectedRows={selectedRows}
-      actions={config?.actions}
+      actions={config?.actionProps?.actions}
       searchHeader={config.searchHeader}
       configModule={configModule}
       onSearch={onSearch}
       handleActionSelect={handleActionSelect}
-      showSelectedStatePosition={config?.showSelectedStatePosition}
     ></ResultsDataTable>
   );
 };

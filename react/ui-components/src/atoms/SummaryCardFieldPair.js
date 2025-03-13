@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Button from "./Button";
 import { CustomSVG } from "./CustomSVG";
+import { useTranslation } from "react-i18next";
 
 const SummaryCardFieldPair = ({
   label,
@@ -12,6 +13,7 @@ const SummaryCardFieldPair = ({
   type,
   renderCustomContent,
 }) => {
+  const { t } = useTranslation();
   const renderFileIcon = (fileType, onClick) => {
     const handleClick =
       onClick && typeof onClick === "function" ? onClick : undefined;
@@ -67,7 +69,7 @@ const SummaryCardFieldPair = ({
   const renderValue = () => {
     switch (type) {
       case "text":
-        return <div className="digit-viewcard-value">{value}</div>;
+        return <div className="digit-viewcard-value">{t(value)}</div>;
       case "image":
         return (
           <img
@@ -90,12 +92,12 @@ const SummaryCardFieldPair = ({
             variation={value?.variation}
             style={value?.style}
             icon={value?.icon}
-          ></Button>
+          />
         );
       case "custom":
         return renderCustomContent ? renderCustomContent(value) : null;
       default:
-        return <div className="digit-viewcard-value">{value}</div>;
+        return <div className="digit-viewcard-value">{t(value)}</div>;
     }
   };
 

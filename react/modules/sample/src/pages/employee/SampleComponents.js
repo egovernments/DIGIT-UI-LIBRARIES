@@ -23,13 +23,16 @@ import {
   CustomSVG,
   Toggle,
   Loader,
+  MultiSelectDropdown,
+  LabelFieldPair,
+  PopUp,
 } from "@egovernments/digit-ui-components";
 import React, { Fragment, useState } from "react";
-import { useTranslation } from "react-i18next";
 
 const SampleComponents = () => {
-  const { t } = useTranslation();
   const [currentStep, setCurrentStep] = useState(0);
+  const [showPopup, setShowPopup] = useState(false);
+  const [selectedOptions, setSlectedOptions] = useState([]);
 
   const onStepClick = (step) => {
     console.log("step", step);
@@ -201,37 +204,37 @@ const SampleComponents = () => {
       <div style={commonDivStyle}>
         <HeaderComponent styles={textStyles}>{"Action Button"}</HeaderComponent>
         <Button
-            wrapperClassName='sample-action-button'
-            wrapperStyles={{width:"fit-content"}}
-            iconFill=""
-            isSearchable
-            label="ActionButton"
-            onClick={(e) => {
-              console.log(e);
-            }}
-            onOptionSelect={(e) => {
-              console.log(e);
-            }}
-            options={[
-              {
-                code: "Actiona",
-                name: "Action A",
-              },
-              {
-                code: "Actionb",
-                name: "Action B",
-              },
-              {
-                code: "Actionc",
-                name: "Action C",
-              },
-            ]}
-            optionsKey="name"
-            showBottom
-            style={{}}
-            title=""
-            type="actionButton"
-          />
+          wrapperClassName="sample-action-button"
+          wrapperStyles={{ width: "fit-content" }}
+          iconFill=""
+          isSearchable
+          label="ActionButton"
+          onClick={(e) => {
+            console.log(e);
+          }}
+          onOptionSelect={(e) => {
+            console.log(e);
+          }}
+          options={[
+            {
+              code: "Actiona",
+              name: "Action A",
+            },
+            {
+              code: "Actionb",
+              name: "Action B",
+            },
+            {
+              code: "Actionc",
+              name: "Action C",
+            },
+          ]}
+          optionsKey="name"
+          showBottom
+          style={{}}
+          title=""
+          type="actionButton"
+        />
       </div>
       <div style={commonDivStyle}>
         <HeaderComponent styles={textStyles}>{"Alert Card"}</HeaderComponent>
@@ -1212,6 +1215,158 @@ const SampleComponents = () => {
           style={{}}
           variant="Basic"
         ></Loader>
+      </div>
+      <div style={commonDivStyle}>
+        <HeaderComponent styles={textStyles}>
+          {"Multiselect Dropdown"}
+        </HeaderComponent>
+        <LabelFieldPair
+          removeMargin={true}
+          className={`digit-formcomposer-fieldpair`}
+        >
+          {
+            <HeaderComponent className={`label`}>
+              <div className={`label-container`}>
+                <label className={`label-styles`}>
+                  {"MultiSelect Dropdown"}
+                </label>
+              </div>
+            </HeaderComponent>
+          }
+          <div className="digit-field">
+            <MultiSelectDropdown
+              onClose={(values) => {
+                setSlectedOptions(values);
+              }}
+              defaultLabel="" // Default label for selected
+              defaultUnit="" // Default unit for selected
+              props={{
+                className:'', // custom class name for digit-multiselectdropdown-wrap
+                style:{} // custom styles for digit-multiselectdropdown-wrap
+              }} 
+              isPropsNeeded={false}
+              ServerStyle={{}} // custom styles for digit-multiselectdropdown-server
+              config={{
+                clearLabel: "", // label for clear all chip , default label is "Clear All"
+                isDropdownWithChip: true, // falg to show chips
+                showIcon: true, // flag to add icons for each options
+                numberOfChips: 4, // count of the chips to be showna , if more selected adds + chip
+              }}
+              disabled={false} // disable multiselect dropdown
+              selectAllLabel="" // label for select all
+              categorySelectAllLabel="" // label for category level select all
+              restrictSelection={false} // restricts to select any option
+              isSearchable={true} // flag to make multiselect dropdown selectable
+              chipsKey="" // what to be shown as label for chips
+              frozenData={[
+                {
+                  code: "Category A.Option A",
+                  name: "Option A",
+                  icon: "Article",
+                },
+              ]} 
+              // can add frozen data 
+              handleViewMore={(e) => {
+                setShowPopup(true);
+              }} // when clicked on + chip this is called
+              showTooltip={true} // flag to show the tooltip for labels and options on hover
+              variant={"nestedmultiselect"} // varinat ("treemultiselect","nestedmultiselect","nestedtextmultiselect")
+              onSelect={() => {}} // mandatory prop
+              selected={[]} // selected array
+              addSelectAllCheck={true} // flag to add select all check
+              addCategorySelectAllCheck={true} // flag to add category select all check
+              options={[
+                {
+                  name: "Category A",
+                  options: [
+                    {
+                      code: "Category A.Option A",
+                      name: "Option A",
+                      icon: "Article",
+                    },
+                    {
+                      code: "Category A.Option B",
+                      name: "Option B",
+                      icon: "Article",
+                    },
+                    {
+                      code: "Category A.Option C",
+                      name: "Option C",
+                      icon: "Article",
+                    },
+                  ],
+                  code: "Category A",
+                },
+                {
+                  name: "Category B",
+                  options: [
+                    {
+                      code: "Category B.Option 1",
+                      name: "Option 1",
+                      icon: "Article",
+                    },
+                    {
+                      code: "Category B.Option 2",
+                      name: "Option 2",
+                      icon: "Article",
+                    },
+                    {
+                      code: "Category B.Option 3",
+                      name: "Option 3",
+                      icon: "Article",
+                    },
+                  ],
+                  code: "Category B",
+                },
+              ]} // options to be shown
+              optionsKey={"code"} // key for the options
+            ></MultiSelectDropdown>
+          </div>
+        </LabelFieldPair>
+        {showPopup && (
+          <PopUp
+            className={""}
+            type={"default"} // type of popup
+            heading={"Popup header"} // popup heading
+            children={[
+              <div
+                className="digit-tag-container"
+                style={{ maxWidth: "100%", margin: "0rem" }}
+              >
+                {selectedOptions?.length > 0 &&
+                  selectedOptions?.map((value, index) => {
+                    console.log(value, "value");
+                    return (
+                      <Chip
+                        key={index}
+                        text={value[1].code}
+                        onClick={() => {}}
+                        className="multiselectdropdown-tag"
+                      />
+                    );
+                  })}
+              </div>,
+            ]} // elements inside popup
+            onOverlayClick={() => {
+              setShowPopup(false);
+            }} // on click of overlay
+            onClose={() => {
+              setShowPopup(false);
+            }} // on click of close
+            footerChildren={[
+              <Button
+                type={"button"}
+                size={"large"}
+                variation={"primary"}
+                label={"Close"}
+                onClick={() => {
+                  setShowPopup(false);
+                }}
+              />,
+            ]}
+            sortFooterChildren={true}
+          ></PopUp>
+        )}
       </div>
       <div style={commonDivStyle}>
         <HeaderComponent styles={textStyles}>{"OTPInput"}</HeaderComponent>

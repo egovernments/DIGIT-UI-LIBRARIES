@@ -11,8 +11,8 @@ const SampleCard = () => {
     ],
     links: [
       {
-        label: t("Sample Components"),
-        link: `/${window?.contextPath}/employee/sample/components`,
+        label: t("Sample Create"),
+        link: `/${window?.contextPath}/employee/sample/create`,
       },
       {
         label: t("Sample Search"),
@@ -21,6 +21,14 @@ const SampleCard = () => {
       {
         label: t("Sample Inbox"),
         link: `/${window?.contextPath}/employee/sample/inbox`,
+      },
+      {
+        label: t("Sample View"),
+        link: `/${window?.contextPath}/employee/sample/view`,
+      },
+      {
+        label: t("Sample Components"),
+        link: `/${window?.contextPath}/employee/sample/components`,
       },
     ],
   };
