@@ -432,8 +432,8 @@ const InboxSearchComposer = ({configs,additionalConfig,onFormValueChange=()=>{},
                 configs?.footerProps?.setactionFieldsToRight
               }
               sortActionFields={
-                configs?.footerProps?.setactionFieldsToRight
-                  ? configs?.footerProps?.setactionFieldsToRight
+                configs?.footerProps?.sortActionFields
+                  ? configs?.footerProps?.sortActionFields
                   : true
               }
               style={configs?.footerProps?.style || {}}
