@@ -9,8 +9,9 @@ import FormComposer from "./FormComposer";
 import SampleInbox from "./SampleInbox";
 import IndividualSearch from "./IndividualSearch";
 import SampleComponents from "./SampleComponents";
+import SampleView from "./SampleView";
 
-const ProjectBreadCrumb = ({ location }) => {
+const SampleBreadCrumbs = ({ location }) => {
   const { t } = useTranslation();
   const crumbs = [
     {
@@ -19,14 +20,29 @@ const ProjectBreadCrumb = ({ location }) => {
       show: true,
     },
     {
-      internalLink: `/${window?.contextPath}/employee/microplan/inbox`,
-      content: t("Sample Inbox"),
-      show: location.pathname.split("/").pop() === "inbox",
+      internalLink: `/${window?.contextPath}/employee/microplan/create`,
+      content: t("Sample Create"),
+      show: location.pathname.split("/").pop() === "create",
     },
     {
       internalLink: `/${window?.contextPath}/employee/microplan/search`,
       content: t("Sample Search"),
       show: location.pathname.split("/").pop() === "search",
+    },
+    {
+      internalLink: `/${window?.contextPath}/employee/microplan/inbox`,
+      content: t("Sample Inbox"),
+      show: location.pathname.split("/").pop() === "inbox",
+    },
+    {
+      internalLink: `/${window?.contextPath}/employee/microplan/view`,
+      content: t("Sample View"),
+      show: location.pathname.split("/").pop() === "view",
+    },
+    {
+      internalLink: `/${window?.contextPath}/employee/microplan/components`,
+      content: t("Sample Components"),
+      show: location.pathname.split("/").pop() === "components",
     },
   ];
   return <BreadCrumb crumbs={crumbs}/>;
@@ -39,7 +55,7 @@ const App = ({ path, stateCode, userType, tenants }) => {
     <Switch>
       <AppContainer className="ground-container">
         <React.Fragment>
-          <ProjectBreadCrumb location={location} />
+          <SampleBreadCrumbs location={location} />
         </React.Fragment>
         <PrivateRoute path={`${path}/components`} component={() => <Sample></Sample>} />
         <PrivateRoute path={`${path}/test`} component={() => <Loader></Loader>} />
@@ -62,6 +78,7 @@ const App = ({ path, stateCode, userType, tenants }) => {
         <PrivateRoute path={`${path}/create`} component={() => <Sample></Sample>} />
         <PrivateRoute path={`${path}/search`} component={() => <SampleSearch></SampleSearch>} />
         <PrivateRoute path={`${path}/inbox`} component={() => <SampleInbox></SampleInbox>} />
+        <PrivateRoute path={`${path}/view`} component={() => <SampleView></SampleView>} />
         <PrivateRoute path={`${path}/ind-search`} component={() => <IndividualSearch></IndividualSearch>} />
         <PrivateRoute path={`${path}/test`} component={() => <Loader></Loader>} />
         </AppContainer>

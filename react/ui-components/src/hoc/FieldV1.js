@@ -289,6 +289,8 @@ const FieldV1 = ({
               value={value}
               disable={disabled}
               id={fieldId}
+              prefix={populators?.prefix}
+              hideSpan={populators?.hideSpan}
               errorStyle={errors?.[populators?.name]}
             />
           </div>

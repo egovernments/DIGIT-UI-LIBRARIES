@@ -1,6 +1,6 @@
 import React, { useEffect, useReducer, useState,useMemo,useRef } from "react";
 import Toast from "../atoms/Toast";
-import ResultsTable from "./ResultsTable"
+import { useHistory} from "react-router-dom";
 import reducer, { initialInboxState } from "./InboxSearchComposerReducer";
 import InboxSearchLinks from "../atoms/InboxSearchLinks";
 import { InboxContext } from "./InboxSearchComposerContext";
@@ -15,12 +15,13 @@ import MediaQuery from 'react-responsive';
 import _ from "lodash";
 import HeaderComponent from "../atoms/HeaderComponent";
 import { useTranslation } from "react-i18next";
+import { Button, Footer } from "../atoms";
 import ResultsDataTableWrapper from "./ResultsDataTableWrapper";
 
 
 const InboxSearchComposer = ({configs,additionalConfig,onFormValueChange=()=>{},showTab,tabData,onTabChange,customizers={}}) => {
     const hasRun = useRef(false);
-   
+    const history = useHistory();
     const { t } = useTranslation();
 
     const [enable, setEnable] = useState(false);
@@ -133,7 +134,8 @@ const InboxSearchComposer = ({configs,additionalConfig,onFormValueChange=()=>{},
     //     };
     // }, [location]);
     
-    const updatedReqCriteria = Digit?.Customizations?.[apiDetails?.masterName]?.[apiDetails?.moduleName]?.preProcess ? Digit?.Customizations?.[apiDetails?.masterName]?.[apiDetails?.moduleName]?.preProcess(requestCriteria,configs.additionalDetails) : requestCriteria 
+    const configModule = Digit?.Customizations?.[apiDetails?.masterName]?.[apiDetails?.moduleName]
+    const updatedReqCriteria = configModule?.preProcess ? configModule?.preProcess(requestCriteria,configs.additionalDetails) : requestCriteria 
     
     if(configs.customHookName){
         var { isLoading, data, revalidate,isFetching,refetch,error } = eval(`Digit.Hooks.${configs.customHookName}(updatedReqCriteria)`);
@@ -179,25 +181,43 @@ const InboxSearchComposer = ({configs,additionalConfig,onFormValueChange=()=>{},
     }
 
     return (
-        <InboxContext.Provider value={{state,dispatch}} >
-        {configs?.headerLabel && (
-          <HeaderComponent className="digit-inbox-search-composer-header">
-            {t(configs?.headerLabel)}
-          </HeaderComponent>
-        )}
+      <InboxContext.Provider value={{ state, dispatch }}>
+        <div className="digit-inbox-search-composer-header-action-wrapper">
+          {configs?.headerLabel && (
+            <HeaderComponent className="digit-inbox-search-composer-header">
+              {t(configs?.headerLabel)}
+            </HeaderComponent>
+          )}
+          {Digit.Utils.didEmployeeHasAtleastOneRole(
+            configs?.actions?.actionRoles
+          ) && (
+            <Button
+              label={t(configs?.actions?.actionLabel)}
+              variation="secondary"
+              icon="Add"
+              onClick={() => {
+                history.push(
+                  `/${window?.contextPath}/employee/${configs?.actions?.actionLink}`
+                );
+              }}
+              className={"digit-inbox-search-composer-action"}
+              type="button"
+            />
+          )}
+        </div>
         <div className="digit-inbox-search-component-wrapper ">
           <div className={`digit-sections-parent ${configs?.type}`}>
             {configs?.sections?.links?.show && (
               <MediaQuery minWidth={426}>
-              <div className="digit-section links">
-                <InboxSearchLinks
-                  headerText={configs?.sections?.links?.uiConfig?.label}
-                  links={configs?.sections?.links?.uiConfig?.links}
-                  businessService="WORKS"
-                  logoIcon={configs?.sections?.links?.uiConfig?.logoIcon}
-                ></InboxSearchLinks>
-              </div>
-            </MediaQuery>
+                <div className="digit-section links">
+                  <InboxSearchLinks
+                    headerText={configs?.sections?.links?.uiConfig?.label}
+                    links={configs?.sections?.links?.uiConfig?.links}
+                    businessService="WORKS"
+                    logoIcon={configs?.sections?.links?.uiConfig?.logoIcon}
+                  ></InboxSearchLinks>
+                </div>
+              </MediaQuery>
             )}
             {configs?.type === "search" && configs?.sections?.search?.show && (
               <div className={`digit-section search ${showTab ? "tab" : ""}`}>
@@ -375,6 +395,49 @@ const InboxSearchComposer = ({configs,additionalConfig,onFormValueChange=()=>{},
             isDleteBtn={true}
             onClose={() => setShowToast(null)}
           ></Toast>
+        )}
+        {configs?.footerProps?.showFooter &&
+          Digit.Utils.didEmployeeHasAtleastOneRole(
+            configs?.footerProps?.allowedRolesForFooter
+          ) && (
+            <Footer
+              actionFields={configs?.footerProps?.actionFields
+                ?.filter((btnConfig) =>
+                  Digit.Utils.didEmployeeHasAtleastOneRole(
+                    btnConfig?.allowedRoles
+                  )
+                )
+                ?.map((btnConfig, index) => (
+                  <Button
+                    key={index}
+                    icon={btnConfig?.icon}
+                    label={btnConfig?.label}
+                    type={btnConfig?.type || "button"}
+                    variation={btnConfig?.variation || "primary"}
+                    isSuffix={btnConfig?.isSuffix}
+                    {...btnConfig}
+                    onClick={(event) =>
+                      configModule?.footerActionHandler?.(index, event)
+                    }
+                  />
+                ))}
+              className={configs?.footerProps?.className || ""}
+              maxActionFieldsAllowed={
+                configs?.footerProps?.maxActionFieldsAllowed
+              }
+              setactionFieldsToLeft={
+                configs?.footerProps?.setactionFieldsToLeft
+              }
+              setactionFieldsToRight={
+                configs?.footerProps?.setactionFieldsToRight
+              }
+              sortActionFields={
+                configs?.footerProps?.sortActionFields
+                  ? configs?.footerProps?.sortActionFields
+                  : true
+              }
+              style={configs?.footerProps?.style || {}}
+            />
         )}
       </InboxContext.Provider>
     );

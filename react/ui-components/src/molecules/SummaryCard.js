@@ -42,7 +42,7 @@ const SummaryCard = ({
       <Fragment key={index}>
         <SummaryCardFieldPair
           label={t(pair?.label)}
-          value={t(pair?.value)}
+          value={pair?.value}
           inline={pair?.inline}
           className={pair?.className}
           style={pair?.style}

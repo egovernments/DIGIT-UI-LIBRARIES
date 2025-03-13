@@ -64,7 +64,7 @@ AlertCard.defaultProps = {
   label: "",
   text: "",
   varinat: "",
-  styles: {},
+  style: {},
   textStyle: {},
   additionalElements: [],
   inline: false,
