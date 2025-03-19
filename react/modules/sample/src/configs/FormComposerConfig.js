@@ -322,7 +322,6 @@ export const FormComposerConfig=[
                     "layoutConfig":{isDropdownLayoutHorizontal:false,isLabelFieldLayoutHorizontal:false},
                     "isHorizontal":true
                 },
-                "onChange": (e) => console.log(e.target.value)
             },
             {
                 "key": "basicDetails_dateOfProposal",

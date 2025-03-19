@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { Card, CardText, MultiSelectDropdown, Dropdown, Toast } from '@egovernments/digit-ui-components'
 import { useTranslation } from 'react-i18next';
 import { LabelFieldPair, CardLabel } from "@egovernments/digit-ui-components";
+import { Loader } from '@egovernments/digit-ui-components';
 
 const BoundaryFilter = (rawProps) => {
-  debugger;
-  
+
+
   let props=rawProps;
   console.log("props",props)
   if(rawProps?.config?.customProps){
@@ -18,6 +19,8 @@ const BoundaryFilter = (rawProps) => {
     updatedLayoutConfig.isLabelFieldLayoutHorizontal = updatedLayoutConfig.isLabelFieldLayoutHorizontal ? updatedLayoutConfig.isLabelFieldLayoutHorizontal:false;
   }
   console.log(updatedLayoutConfig);
+
+
 
   const { t } = useTranslation();
   const hierarchyType = props?.hierarchyType;
@@ -301,6 +304,12 @@ const BoundaryFilter = (rawProps) => {
     setSelectedValues(updatedSelectedValues);
   };
 
+  useEffect(()=>{
+    if(props?.onChange){
+    props?.onChange(selectedValuesCodes);
+    }
+  },[selectedValuesCodes])
+
   const initializeBoundaries = (nodes, updatedOptions, nonEditableHierarchies) => {
     if (!nodes || nodes.length === 0) return updatedOptions;
 
@@ -393,6 +402,7 @@ const BoundaryFilter = (rawProps) => {
   console.log(props?.layoutConfig?.isDropdownLayoutHorizontal);
 
   return (
+     !isLoading && ! hierarchyLoading? (
     <Card>
       <div className={`selecting-boundary-div ${props?.layoutConfig?.isDropdownLayoutHorizontal ? "horizontal-layout" : ""}`}>
         {
@@ -425,6 +435,7 @@ const BoundaryFilter = (rawProps) => {
                         isDropdownWithChip: true
                       }}
                     /> :
+                    <div className="padding-dropdown">
                     <Dropdown
                       key={item?.boundaryType}
                       option={boundaryOptions[rootBoundaryType]}
@@ -438,6 +449,8 @@ const BoundaryFilter = (rawProps) => {
                       disabled={false}
                       showToolTip={true}
                     />
+                    </div>
+                    
                   }
                 </div>
               </LabelFieldPair>)
@@ -488,6 +501,7 @@ const BoundaryFilter = (rawProps) => {
                               chipKey: "code"
                             }}
                           /> :
+                          <div className="padding-dropdown">
                           <Dropdown
                             key={item?.boundaryType}
                             option={formattedOptions}
@@ -502,6 +516,7 @@ const BoundaryFilter = (rawProps) => {
                             disabled={false}
                             showToolTip={true}
                           />
+                          </div>
                         }
                       </div>
                     </LabelFieldPair>
@@ -524,7 +539,8 @@ const BoundaryFilter = (rawProps) => {
         )}
 
 
-    </Card>
+    </Card>): <Loader/>
+      
   );
 
 

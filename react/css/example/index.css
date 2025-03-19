@@ -1,5 +1,5 @@
 /*!
- * @egovernments/digit-ui-components-css - 0.2.0-beta.1
+ * @egovernments/digit-ui-components-css - 0.2.0-beta.2
  *
  * Copyright (c) 2025 Jagankumar <jagan.kumar@egovernments.org>
  * 
@@ -2058,19 +2058,19 @@ body {
   line-height: normal;
   text-decoration: underline; }
 
-.typography.heading-xl, .digit-panel-wrapper .digit-panel-message-wrapper .digit-panel-message, .digit-text-block-wrap .digit-text-block-header-content .digit-text-block-header, .digit-inbox-search-composer-header {
+.typography.heading-xl, .digit-panel-wrapper .digit-panel-message-wrapper .digit-panel-message, .digit-text-block-wrap .digit-text-block-header-content .digit-text-block-header, .digit-inbox-search-composer-header-action-wrapper .digit-inbox-search-composer-header {
   font-family: Roboto Condensed; }
   @media (max-aspect-ratio: 9 / 16) {
-    .typography.heading-xl, .digit-panel-wrapper .digit-panel-message-wrapper .digit-panel-message, .digit-text-block-wrap .digit-text-block-header-content .digit-text-block-header, .digit-inbox-search-composer-header {
+    .typography.heading-xl, .digit-panel-wrapper .digit-panel-message-wrapper .digit-panel-message, .digit-text-block-wrap .digit-text-block-header-content .digit-text-block-header, .digit-inbox-search-composer-header-action-wrapper .digit-inbox-search-composer-header {
       font-size: 2rem; } }
   @media (min-aspect-ratio: 9 / 16) and (max-aspect-ratio: 3 / 4) {
-    .typography.heading-xl, .digit-panel-wrapper .digit-panel-message-wrapper .digit-panel-message, .digit-text-block-wrap .digit-text-block-header-content .digit-text-block-header, .digit-inbox-search-composer-header {
+    .typography.heading-xl, .digit-panel-wrapper .digit-panel-message-wrapper .digit-panel-message, .digit-text-block-wrap .digit-text-block-header-content .digit-text-block-header, .digit-inbox-search-composer-header-action-wrapper .digit-inbox-search-composer-header {
       font-size: 2.25rem; } }
   @media (min-aspect-ratio: 3 / 4) {
-    .typography.heading-xl, .digit-panel-wrapper .digit-panel-message-wrapper .digit-panel-message, .digit-text-block-wrap .digit-text-block-header-content .digit-text-block-header, .digit-inbox-search-composer-header {
+    .typography.heading-xl, .digit-panel-wrapper .digit-panel-message-wrapper .digit-panel-message, .digit-text-block-wrap .digit-text-block-header-content .digit-text-block-header, .digit-inbox-search-composer-header-action-wrapper .digit-inbox-search-composer-header {
       font-size: 2.5rem; } }
 
-.typography.heading-l, .digit-popup-overlay .digit-popup-wrapper .digit-popup-header .digit-popup-icon-header-container .digit-popup-heading-subheading-wrap .digit-popup-heading, .digit-popup-overlay .digit-popup-wrapper .digit-popup-alert-content .digit-popup-alert-heading, .metric-item .metric-value, .digit-view-card .digit-view-card-header, .typography.heading-xl, .digit-panel-wrapper .digit-panel-message-wrapper .digit-panel-message, .digit-text-block-wrap .digit-text-block-header-content .digit-text-block-header, .digit-inbox-search-composer-header {
+.typography.heading-l, .digit-popup-overlay .digit-popup-wrapper .digit-popup-header .digit-popup-icon-header-container .digit-popup-heading-subheading-wrap .digit-popup-heading, .digit-popup-overlay .digit-popup-wrapper .digit-popup-alert-content .digit-popup-alert-heading, .metric-item .metric-value, .digit-view-card .digit-view-card-header, .typography.heading-xl, .digit-panel-wrapper .digit-panel-message-wrapper .digit-panel-message, .digit-text-block-wrap .digit-text-block-header-content .digit-text-block-header, .digit-inbox-search-composer-header-action-wrapper .digit-inbox-search-composer-header {
   font-style: normal;
   font-weight: 700;
   line-height: 1.14rem; }
@@ -13377,6 +13377,9 @@ button:hover {
 .digit-label-field-pair.boundary-item.vertical {
   margin-bottom: 0; }
 
+.padding-dropdown {
+  padding-bottom: 1.6rem; }
+
 .digit-search-wrapper {
   height: 100%;
   width: 100%; }
@@ -13570,10 +13573,22 @@ button:hover {
         .digit-inbox-search-wrapper .digit-inbox-search-component-wrapper .digit-sections-parent .digit-section .digit-search-wrapper .digit-search-field-wrapper .digit-search-button-wrapper.search {
           grid-column: 3/-1; }
 
-.digit-inbox-search-composer-header {
-  color: #0b4b66;
-  margin-bottom: 1.5rem;
-  line-height: normal; }
+.digit-inbox-search-composer-header-action-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between; }
+  .digit-inbox-search-composer-header-action-wrapper .digit-inbox-search-composer-action {
+    margin-bottom: 1.5rem; }
+  .digit-inbox-search-composer-header-action-wrapper .digit-inbox-search-composer-header {
+    color: #0b4b66;
+    margin-bottom: 1.5rem;
+    line-height: normal; }
 
 .digit-inbox-search-links-container .digit-inbox-search-links-header {
   display: -webkit-box;
