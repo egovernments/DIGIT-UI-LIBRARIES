@@ -79,20 +79,22 @@ const IndividualSearch = () => {
       }
     },
     getMutationPayload:(formData,rowData) => {
-      debugger
       const row = rowData.row;
       const {name,observationStrategy,uniqueIdentifier,isActive,code} = formData.row;
       return {
         body:{
           Mdms:{
             ...row,
-            isActive:isActive.name,
+            isActive:isActive==="true"?true:false,
             data:{...row.data,observationStrategy,name,code:code.code},
             uniqueIdentifier
           }
         },
         params:{}
       }
+    },
+    allowEdits:(row) => {
+      return true;
     }
   }),[])
 

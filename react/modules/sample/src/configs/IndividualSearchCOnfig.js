@@ -222,7 +222,7 @@ export const searchconfig = () =>
               editableFieldConfig:{
                 withoutLabel:true,
                 isMandatory: false,
-                type: "dropdown",
+                type: "toggle",
                 key: "row.isActive",
                 // label: "With Icons",
                 disable: false,
@@ -234,16 +234,16 @@ export const searchconfig = () =>
                   name: "row.isActive",
                   optionsKey: "name",
                   error: "",
-                  required: true,
-                  showIcon: true,
+                  required: false,
+                  // showIcon: true,
                   options: [
                     {
-                      code: "1",
+                      code: "true",
                       name: true,
                       // icon: "Article",
                     },
                     {
-                      code: "2",
+                      code: "false",
                       name: false,
                       // icon: "Article",
                     },

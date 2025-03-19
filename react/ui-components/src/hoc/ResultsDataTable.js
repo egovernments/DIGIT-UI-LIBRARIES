@@ -21,7 +21,6 @@ import CardLabel from "../atoms/CardLabel";
 import { SVG } from "../atoms";
 import NoResultsFound from "../atoms/NoResultsFound";
 import {Toast} from "../atoms";
-import FieldController from "./FieldController";
 import FieldV1 from "./FieldV1"
 
 const ResultsDataTable = ({
@@ -93,24 +92,9 @@ const ResultsDataTable = ({
     setRowData({row,index,column,id});
   }
   const handleRowSubmit = (rowFormData) => {
-    console.log("form submission",{register,
-      handleSubmit,
-      setValue,
-      getValues,
-      reset,
-      watch,
-      trigger,
-      control,
-      formState,
-      errors,
-      setError,
-      clearErrors,
-      unregister,});
-    console.log(rowFormData);  
     setEditRow(null);
     // make an api call here
     // generate payload from a customizer
-    
     mutation.mutate(
       configModule.getMutationPayload(rowFormData,rowData),
       {
@@ -127,33 +111,7 @@ const ResultsDataTable = ({
     setRowData(null);
     
   }
-  const handleSaveRow = (updatedRow) => {
-    //use updatedRow value to call api and reset the states
-    console.log(updatedRow);
-    mutation.mutate(
-      configModule.getMutationPayload(formData,rowData),
-      {
-        onSuccess: (data) => {
-          setShowToast({ key: "success", label: t("DATA_MODIEFIED_SUCCESS")})
-          refetch()
-        },
-        onError: (error) => {
-        }
-      }
-    );
-    setEditRow(null);
-    setRowData(null);
-  }
-
-  const handleEdits = (value,jsonPath) => {
-    const copyToUpdate = {...rowData}
-    _.set(copyToUpdate,jsonPath,value)
-    setRowData(copyToUpdate)
-    // setRowData((prev) => ({
-    //   ...prev,
-    //   [field]: e.target.value,
-    // }));
-  }
+  
 
   const tableColumns = useMemo(() => {
     //test if accessor can take jsonPath value only and then check sort and global search work properly
@@ -249,7 +207,7 @@ const ResultsDataTable = ({
             const config = column.editableFieldConfig;
             return (
               <Controller
-                defaultValue={column?.editableFieldConfig?.type === "text" ? _.get(rowData?.row,column.jsonPath):{[column.editableFieldConfig.populators.optionsKey]:_.get(rowData?.row,column.jsonPath)}}
+                defaultValue={column?.editableFieldConfig?.type === "text" || column?.editableFieldConfig?.type === "toggle" ? `${_.get(rowData?.row,column.jsonPath)}`:{[column.editableFieldConfig.populators.optionsKey]:`${_.get(rowData?.row,column.jsonPath)}`}}
                 render={({ onChange, ref, value, onBlur }) => (
                   <FieldV1
                     // error= {error}
@@ -336,7 +294,7 @@ const ResultsDataTable = ({
             icon="Edit"
             // onClick={()=>{editRow ? handleSaveRow(rowData) : handleActionClicked(row, index, column, id)}}
             onClick={()=>{editRow ? handleSubmit(handleRowSubmit)() : handleActionClicked(row, index, column, id)}}
-            isDisabled={editRow && row?.id !== editRow?.id  ? true : false}
+            isDisabled={ configModule?.allowEdits(row) ? editRow && row?.id !== editRow?.id  ? true : false : true}
           />)
         }
       })
