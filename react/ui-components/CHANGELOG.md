@@ -7,7 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### [0.2.0-beta.3] - 2025-03-20
 ## Fixes
 - Fixed multiple calls issue in InboxSearchLinks
-- Fixed onSUbmit function for FilterCard
+- Fixed onSubmit function for FilterCard
 
 ### [0.2.0-beta.2] - 2025-03-13
 ## Enhancements
