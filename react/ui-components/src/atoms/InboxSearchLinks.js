@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { iconRender } from "../utils/iconRender";
@@ -11,18 +11,22 @@ const InboxSearchLinks = ({
   logoIcon,
 }) => {
   const { t } = useTranslation();
-  const { roles: userRoles } = Digit.UserService.getUser().info;
+  const userRoles = useMemo(() => Digit.UserService.getUser().info.roles, []);
+  const memoizedLinks = useMemo(() => links, [links]);
   const [linksToShow, setLinksToShow] = useState([]);
 
   useEffect(() => {
-    let linksToShow = links.filter(
+    let filteredLinks = memoizedLinks.filter(
       ({ roles }) =>
         roles.some((role) =>
           userRoles.map(({ code }) => code).includes(role)
         ) || !roles?.length
     );
-    setLinksToShow(linksToShow);
-  }, [links,userRoles]);
+
+    if (JSON.stringify(filteredLinks) !== JSON.stringify(linksToShow)) {
+      setLinksToShow(filteredLinks);
+    }
+  }, [memoizedLinks, userRoles]);
 
   const renderHeader = () => (
     <div className="digit-inbox-search-links-header">

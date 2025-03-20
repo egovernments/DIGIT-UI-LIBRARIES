@@ -276,7 +276,7 @@ const SearchComponent = ({ uiConfig, header = "", screenType = "search", fullCon
           title={"Filter"}
           primaryActionLabel={uiConfig?.primaryLabel || ""}
           secondaryActionLabel={uiConfig?.secondaryLabel || ""}
-          onPrimaryPressed={(e) => handleSubmit(e)}
+          onPrimaryPressed={handleSubmit(onSubmit)}
           onSecondaryPressed={clearSearch}
           layoutType={"vertical"}
           equalWidthButtons={true}
