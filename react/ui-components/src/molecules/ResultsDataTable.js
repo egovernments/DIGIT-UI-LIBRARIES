@@ -44,6 +44,8 @@ const ResultsDataTable = ({
   onSearch,
   handleActionSelect,
   showSelectedStatePosition = "top",
+  rowsPerPageText,
+  paginationComponentOptions
 }) => {
   const { t } = useTranslation();
   const renderTable = () => {
@@ -103,11 +105,15 @@ const ResultsDataTable = ({
         paginationPerPage={paginationPerPage}
         onChangePage={onChangePage}
         paginationRowsPerPageOptions={
-          paginationRowsPerPageOptions || [10, 20, 30, 40, 50] 
+          paginationRowsPerPageOptions || [10, 20, 30, 40, 50]
         }
         noContextMenu
         fixedHeader={true}
         fixedHeaderScrollHeight={"100vh"}
+        paginationComponentOptions={{
+          ...paginationComponentOptions,
+          rowsPerPageText: rowsPerPageText || t("ROWS_PER_PAGE"),
+        }}
       />
     );
   };

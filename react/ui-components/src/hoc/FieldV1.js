@@ -69,7 +69,7 @@ const FieldV1 = ({
   const [currentCharCount, setCurrentCharCount] = useState(0);
 
   useEffect(() => {
-    setCurrentCharCount(value.length);
+    setCurrentCharCount(value?.length);
   }, [value]);
 
   const renderCharCount = () => {
