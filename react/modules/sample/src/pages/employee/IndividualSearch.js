@@ -2,7 +2,7 @@ import { Header } from '@egovernments/digit-ui-react-components';
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { InboxSearchComposer, PopUp } from '@egovernments/digit-ui-components';
-import { searchconfig } from '../../configs/IndividualSearchCOnfig';
+import { searchconfig } from '../../configs/IndividualSearchConfig';
 
 const defaultSearchValues = {
   individualName: '',
