@@ -126,7 +126,6 @@ const FieldV1 = ({
     return null;
   };
  console.log("pop",populators);
- debugger;
   const renderField = () => {
     switch (type) {
       case "boundary":
