@@ -5629,6 +5629,8 @@ const ResultsDataTableWrapper = ({
       configModule={configModule}
       onSearch={onSearch}
       handleActionSelect={handleActionSelect}
+      rowsPerPageText={config?.paginationComponentOptions?.rowsPerPage}
+      paginationComponentOptions={config?.paginationComponentOptions}
     ></ResultsDataTable>
   );
 };
