@@ -62,12 +62,34 @@ const App = ({ path, stateCode, userType, tenants }) => {
         <PrivateRoute path={`${path}/search`} component={() => <SampleSearch></SampleSearch>} />
         <PrivateRoute path={`${path}/filter`} component={() => 
           <BoundaryFilter 
-          levelConfig={{lowestLevel:"VILLAGE", highestLevel:"COUNTRY", isSingleSelect:["LOCALITY","VILLAGE","DISTRICT"]}} 
+          levelConfig={{lowestLevel:"VILLAGE", highestLevel:"COUNTRY"}} 
           hierarchyType={"NEWTEST00222"} 
           module={"HCM-ADMIN-CONSOLE"} 
           selectedValues={[""]}
           layoutConfig={{isDropdownLayoutHorizontal:true,isLabelFieldLayoutHorizontal:false}}
           isHorizontal={true}
+          frozenData={[
+            {
+              code: "NEWTEST00222_MO",
+              name: "NEWTEST00222_MO"
+            }
+          ]}
+          preSelected={
+            [{
+                code: "NEWTEST00222_MO",
+                name: "NEWTEST00222_MO"
+              },
+              {
+                code: "NEWTEST00222_MO.NEWTEST00222_MO_11_MARYLAND",
+                name: "NEWTEST00222_MO_11_MARYLAND"
+              },
+              {
+                code: "NEWTEST00222_MO.NEWTEST00222_MO_11_MARYLAND.NEWTEST00222_MO_11_06_PLEEBO",
+                name: "NEWTEST00222_MO_11_06_PLEEBO"
+              }
+            ]}
+          
+          
 
           />} 
         />

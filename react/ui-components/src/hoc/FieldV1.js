@@ -22,7 +22,7 @@ import { LocationDropdownWrapper } from "../molecules";
 import { ApiDropdown } from "../molecules";
 import { WorkflowStatusFilter } from "../molecules";
 import { DateRangeNew } from "../molecules";
-import BoundaryFilter from "../../../modules/sample/src/components/BoundaryFilter";
+import BoundaryFilter from "../atoms/BoundaryFilter";
 
 const FieldV1 = ({
   type = "",
