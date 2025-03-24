@@ -33,7 +33,7 @@ const BoundaryFilter = (rawProps) => {
   const [boundaryOptions, setBoundaryOptions] = useState({});
   const [selectedValues, setSelectedValues] = useState([]);
   const [selectedValuesCodes, setSelectedValuesCodes] = useState([]);
-  const pathMap={} // {"Maryland":MO_Mozambique.MO_MaryLand}
+  const [pathMap,setPathMap]=useState({}); // {"Maryland":MO_Mozambique.MO_MaryLand}
 
   //2 states are there 1) boundaryOptions(objects that stores by hierarchy), selectedValues(all the selectedValues)
   //flow->
@@ -42,32 +42,31 @@ const BoundaryFilter = (rawProps) => {
   //The unselect logic is carried out using removedCodes, and then using cleanLowerLevels,cleanLowerLevelsForSelectedValues
   //And then the select logic is carried using findNodeByPath
 
+  const getBoundaryType = (path, hierarchy) => {
+    if(!hierarchy) return;
+    // Count the number of dots in node.code
+    const dotCount = (path.match(/\./g) || []).length;
+    // Get the corresponding child boundary type from hierarchy
+    return hierarchy[dotCount]?.boundaryType;
+  };
 
-  const transformAndFilterData = (data) => {
-    const codeSet = new Set(data); // Store all codes for quick lookup
+  const getChildBoundaryType = (path, hierarchy) => {
+    if(!hierarchy) return;
+    // Count the number of dots in node.code
+    const dotCount = (path.match(/\./g) || []).length;
 
-    return data
-      .filter(code => {
-        // Generate possible parent codes
-        const parts = code.split(".");
-        for (let i = 1; i < parts.length; i++) {
-          const parentCode = parts.slice(0, i).join(".");
-          if (!codeSet.has(parentCode)) {
-            return false; // If any parent is missing, filter it out
-          }
-        }
-        return true;
-      })
-      .map(code => ({
-        code,
-        name: code.split(".").pop() // Extract last part as name
-      }));
-  }
+    // Get the corresponding child boundary type from hierarchy
+    return hierarchy[dotCount + 1]?.boundaryType;
+  };
 
-  const frozenDataCodes = props?.frozenData ? props?.frozenData.map((item) => item.code) : [];
-  const presSelectedCodes = props?.preSelectData ? props?.preSelectedData.map((item) => item.code) : [];
-  const frozenData = transformAndFilterData(frozenDataCodes);
-  const preSelectedData = transformAndFilterData(presSelectedCodes);
+
+  
+  
+
+  // const frozenDataCodes = props?.frozenData ? props?.frozenData.map((item) => item.code) : [];
+  // const presSelectedCodes = props?.preSelectData ? props?.preSelectedData.map((item) => item.code) : [];
+  // const frozenData = transformAndFilterData(frozenDataCodes);
+  // const preSelectedData = transformAndFilterData(presSelectedCodes);
 
 
   const { data: BOUNDARY_HIERARCHY_TYPE } = Digit.Hooks.useCustomMDMS(tenantId, moduleName, [{ name: "HierarchySchema" }], {
@@ -98,15 +97,16 @@ const BoundaryFilter = (rawProps) => {
           return nodes.map((node) => {
             // Construct the current node's full path using its code
             const currentPath = parentPath ? `${parentPath}.${node.code}` : node.code;
-            debugger;
-
-            pathMap[node.code]=currentPath;
-            if (frozenDataCodes.includes(currentPath)) {
-              setSelectedValues(prev => {
-                // Ensure immutability
-                return [...prev, { code: currentPath, name: node.code, boundaryType: node.boundaryType }]; // Correct computed property syntax
-              });
-            }
+            // debugger;
+            setPathMap((prev)=>({...prev,[node.code]:currentPath}));
+            // pathMap[node.code]=currentPath;
+            console.log("nodecode",pathMap);
+            // if (frozenDataCodes.includes(currentPath)) {
+            //   setSelectedValues(prev => {
+            //     // Ensure immutability
+            //     return [...prev, { code: currentPath, name: node.code, boundaryType: node.boundaryType }]; // Correct computed property syntax
+            //   });
+            // }
             // Process children if they exist
             if (node.children && node.children.length > 0) {
               node.children = processHierarchy(node.children, currentPath);
@@ -122,7 +122,13 @@ const BoundaryFilter = (rawProps) => {
     }
   };
 
+  console.log(pathMap,"pppppppppppp")
+  
   const { data: hierarchyData, refetch, isLoading } = Digit.Hooks.useCustomAPIHook(reqHierarchyData);
+
+  useEffect(() => {
+    console.log("PathMap updated:", pathMap);
+  }, [hierarchyData,selectedValues]); // Run effect when selectedValues updates
 
   const reqCriteria = {
     url: `/boundary-service/boundary-hierarchy-definition/_search`,
@@ -143,6 +149,7 @@ const BoundaryFilter = (rawProps) => {
   };
 
   const { isLoading: hierarchyLoading, data: hierarchy } = Digit.Hooks.useCustomAPIHook(reqCriteria);
+  console.log(pathMap,"qqqqqqqqqqqqq");
 
 
 
@@ -180,13 +187,44 @@ const BoundaryFilter = (rawProps) => {
     }, 2000);
   };
 
-  const getChildBoundaryType = (path, hierarchy) => {
-    // Count the number of dots in node.code
-    const dotCount = (path.match(/\./g) || []).length;
+  useEffect(() => {
+    if (!hierarchy || !props.frozenData) return; // Ensure hierarchy & frozenData exist
+  
+    // **Transform frozenData**
+    const transformedFrozenData = props.frozenData.map(item => ({
+      code: item.code.split('.').pop(),  // Extract last segment as code
+      path: item.code, // Keep original code as path
+      boundaryType: getBoundaryType(item.code, hierarchy), // Get boundary type
+      name: item.name, // Include name
+      parent: item.code.split('.').slice(0, -1).join('.') || null // Extract parent path
+    }));
+  
+    // **Group by boundaryType**
+    const groupedData = transformedFrozenData.reduce((acc, item) => {
+      if (!item.boundaryType) return acc; // Skip if boundaryType is undefined
+      if (!acc[item.boundaryType]) {
+        acc[item.boundaryType] = [];
+      }
+      acc[item.boundaryType].push([null, item]); // Ensure each item follows the expected structure
+      return acc;
+    }, {});
+  
+    // **Call boundaryOptionsUpdate for each boundaryType**
+    Object.entries(groupedData).forEach(([boundaryType, values]) => {
+      console.log("Calling boundaryOptionsUpdate with:", boundaryType, values, "Multi");
+      
+      // Ensure `values` is an array of arrays
+      boundaryOptionsUpdate(boundaryType, values, "Multi");
+    });
+  
+  }, [hierarchy,hierarchyData, props.frozenData]); // Depend on hierarchy & frozenData
+  
+  
+  
+  
+ 
 
-    // Get the corresponding child boundary type from hierarchy
-    return hierarchy[dotCount + 1]?.boundaryType;
-  };
+ 
 
   const findNodeByPath = (nodes, targetPath) => {
     if (!nodes || nodes.length == 0) { return }
@@ -202,41 +240,32 @@ const BoundaryFilter = (rawProps) => {
     return null; // Return null if no match is found
   };
 
-  const frozenDataUpdate = () => {
-    debugger
-    if (!hierarchy) return;
-    for (const node of frozenData) {  // ✅ Use `for...of` to iterate over values
-      const childBoundaryType = getChildBoundaryType(node.code, hierarchy);
 
-      if (!childBoundaryType) continue; // ✅ Skip if no boundaryType found
-      console.log("child", findNodeByPath(hierarchyData, node.code), node.code);
-      const children = findNodeByPath(hierarchyData, node.code);
-      setBoundaryOptions(prev => ({
-        ...prev,
-        [childBoundaryType]: [...(prev[childBoundaryType] || []), ...children]
-      }));
-    }
-  };
+  // const frozenDataUpdate = () => {
+  //   debugger
+  //   if (!hierarchy || !hierarchyData) return;
+    
+  // };
+  // frozenDataUpdate();
+  
 
-  frozenDataUpdate();
+  // const preSelectedDataUpdate = () => {
+  //   debugger
+  //   if (!hierarchy) return;
+  //   for (const node of preSelectedData) {  // ✅ Use `for...of` to iterate over values
+  //     const childBoundaryType = getChildBoundaryType(node.code, hierarchy);
 
-  const preSelectedDataUpdate = () => {
-    debugger
-    if (!hierarchy) return;
-    for (const node of preSelectedData) {  // ✅ Use `for...of` to iterate over values
-      const childBoundaryType = getChildBoundaryType(node.code, hierarchy);
+  //     if (!childBoundaryType) continue; // ✅ Skip if no boundaryType found
+  //     // console.log("child", findNodeByPath(hierarchyData, node.code), node.code);
+  //     const children = findNodeByPath(hierarchyData, pathMap[node.code]);
+  //     setBoundaryOptions(prev => ({
+  //       ...prev,
+  //       [childBoundaryType]: [...(prev[childBoundaryType] || []), ...children]
+  //     }));
+  //   }
+  // };
 
-      if (!childBoundaryType) continue; // ✅ Skip if no boundaryType found
-      // console.log("child", findNodeByPath(hierarchyData, node.code), node.code);
-      const children = findNodeByPath(hierarchyData, pathMap[node.code]);
-      setBoundaryOptions(prev => ({
-        ...prev,
-        [childBoundaryType]: [...(prev[childBoundaryType] || []), ...children]
-      }));
-    }
-  };
-
-  preSelectedDataUpdate();
+  // preSelectedDataUpdate();
 
 
 
@@ -286,6 +315,8 @@ const BoundaryFilter = (rawProps) => {
   //main fucntion, handles dropdown changes
   const boundaryOptionsUpdate = async (boundaryType, values, dropdownType) => {
     console.log("boundaryOptionsUpdate", boundaryType, values, dropdownType);
+    if(!hierarchy || !hierarchyData) return;
+    debugger;
     let selectedOptions = [];
     if (dropdownType == "Multi") {
       selectedOptions = values.map(arg => arg[1]) || [];
@@ -314,13 +345,14 @@ const BoundaryFilter = (rawProps) => {
     let newSelectedOptions = {};
     if (removedCodes.length > 0) {
       newBoundaryOptions = cleanLowerLevels(boundaryType, removedCodes, { ...boundaryOptions });
-      newSelectedOptions = cleanLowerLevelsForSelectedValues(boundaryType, removedCodes, [...selectedValues]);
+      newSelectedOptions = cleanLowerLevelsForSelectedValues(boundaryType, removedCodes, [...selectedValues,...selectedOptions]);
     }
     // Reset removedCodes after processing
     else {
       newBoundaryOptions = updatedOptions;
-      newSelectedOptions = cleanLowerLevelsForSelectedValues(boundaryType, removedCodes, [...selectedValues]);
+      newSelectedOptions = cleanLowerLevelsForSelectedValues(boundaryType, removedCodes, [...selectedValues,...selectedOptions]);
     }
+    console.log("newSelectedOptions",newSelectedOptions);
 
 
 
@@ -357,7 +389,6 @@ const BoundaryFilter = (rawProps) => {
 
 
           const uniqueChildren = children.filter(child => !existingEntries.has(child.code));
-
           updatedOptions[childBoundaryType][value?.code] = [
             ...updatedOptions[childBoundaryType][value?.code],
             ...uniqueChildren
@@ -369,9 +400,19 @@ const BoundaryFilter = (rawProps) => {
     });
 
     // **Update selected values once at the end**
-    setSelectedValuesCodes(updatedSelectedValues.map((item) => item.path))
     debugger;
-    setSelectedValues(updatedSelectedValues);
+    setSelectedValuesCodes(updatedSelectedValues.map((item) => item.path))
+    // debugger;
+    setSelectedValues((prev) => {
+      // Extract existing codes from previous state
+      const existingCodes = new Set(prev.map(item => item.code));
+    
+      // Filter out any new values that already exist
+      const uniqueUpdatedValues = updatedSelectedValues.filter(item => !existingCodes.has(item.code));
+    
+      return [...prev, ...uniqueUpdatedValues]; // Append only unique values
+    });
+    
   };
 
 
@@ -381,8 +422,8 @@ const BoundaryFilter = (rawProps) => {
     }
   }, [selectedValuesCodes])
 
-  console.log(frozenDataCodes, "cwa", nonEditableHierarchies);
-  console.log("forzendata", frozenData);
+  // console.log(frozenDataCodes, "cwa", nonEditableHierarchies);
+  // console.log("forzendata", frozenData);
   const initializeBoundaries = (nodes, updatedOptions, nonEditableHierarchies) => {
     // debugger
     if (!nodes || nodes.length === 0) return updatedOptions;
@@ -501,7 +542,7 @@ const BoundaryFilter = (rawProps) => {
                       <MultiSelectDropdown
                         key={item?.boundaryType}
                         clearLabel={"CLEAR_ALL"}
-                        frozenData={frozenData}
+                        frozenData={props.frozenData}
                         selected={selectedValues.filter((item) => item.boundaryType == rootBoundaryType)}
                         options={boundaryOptions[rootBoundaryType]}
                         optionsKey={"code"}
@@ -538,10 +579,10 @@ const BoundaryFilter = (rawProps) => {
                   const boundaries = boundaryOptions[item?.boundaryType];
 
                   // Extract all codes from preSelectedData for quick lookup
-                  const preSelectedCodes = new Set(preSelectedData.map(obj => obj.code));
+                  // const preSelectedCodes = new Set(preSelectedData.map(obj => obj.code));
 
                   // Filter boundaries to find all matching objects
-                  const tempPreSelectedValues = boundaries.filter(obj => preSelectedCodes.has(obj.code));
+                  // const tempPreSelectedValues =  Array.isArray(boundaries)  ? boundaries.filter(obj => preSelectedCodes.has(obj.code)) : [];
 
 
                   if (boundaries) {
@@ -556,9 +597,10 @@ const BoundaryFilter = (rawProps) => {
                         boundaryType: child.boundaryType
                       })),
                     }));
-                    debugger;
+                    // debugger;
                     let formattedSelectedValues = selectedValues.filter((child) => child?.boundaryType === item?.boundaryType);
-                    formattedSelectedValues.append(tempPreSelectedValues);
+                    // debugger;
+                    // formattedSelectedValues.push(tempPreSelectedValues);
                     if (props?.levelConfig?.isSingleSelect && props?.levelConfig?.isSingleSelect.includes(item?.boundaryType)) {
                       formattedSelectedValues = formattedSelectedValues[0];
                     }
@@ -573,7 +615,7 @@ const BoundaryFilter = (rawProps) => {
                             <MultiSelectDropdown
                               key={item?.boundaryType}
                               clearLabel="Clear All"
-                              frozenData={frozenData}
+                              frozenData={props.frozenData}
                               options={formattedOptions}
                               selected={formattedSelectedValues}
                               optionsKey={"name"}
