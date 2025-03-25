@@ -33,7 +33,7 @@ const BoundaryFilter = (rawProps) => {
   const [boundaryOptions, setBoundaryOptions] = useState({});
   const [selectedValues, setSelectedValues] = useState([]);
   const [selectedValuesCodes, setSelectedValuesCodes] = useState([]);
-  const [pathMap,setPathMap]=useState({}); // {"Maryland":MO_Mozambique.MO_MaryLand}
+  const [pathMap, setPathMap] = useState({}); // {"Maryland":MO_Mozambique.MO_MaryLand}
 
   //2 states are there 1) boundaryOptions(objects that stores by hierarchy), selectedValues(all the selectedValues)
   //flow->
@@ -43,7 +43,7 @@ const BoundaryFilter = (rawProps) => {
   //And then the select logic is carried using findNodeByPath
 
   const getBoundaryType = (path, hierarchy) => {
-    if(!hierarchy) return;
+    if (!hierarchy) return;
     // Count the number of dots in node.code
     const dotCount = (path.match(/\./g) || []).length;
     // Get the corresponding child boundary type from hierarchy
@@ -51,7 +51,7 @@ const BoundaryFilter = (rawProps) => {
   };
 
   const getChildBoundaryType = (path, hierarchy) => {
-    if(!hierarchy) return;
+    if (!hierarchy) return;
     // Count the number of dots in node.code
     const dotCount = (path.match(/\./g) || []).length;
 
@@ -60,8 +60,8 @@ const BoundaryFilter = (rawProps) => {
   };
 
 
-  
-  
+
+
 
   // const frozenDataCodes = props?.frozenData ? props?.frozenData.map((item) => item.code) : [];
   // const presSelectedCodes = props?.preSelectData ? props?.preSelectedData.map((item) => item.code) : [];
@@ -98,9 +98,9 @@ const BoundaryFilter = (rawProps) => {
             // Construct the current node's full path using its code
             const currentPath = parentPath ? `${parentPath}.${node.code}` : node.code;
             // debugger;
-            setPathMap((prev)=>({...prev,[node.code]:currentPath}));
+            setPathMap((prev) => ({ ...prev, [node.code]: currentPath }));
             // pathMap[node.code]=currentPath;
-            console.log("nodecode",pathMap);
+            console.log("nodecode", pathMap);
             // if (frozenDataCodes.includes(currentPath)) {
             //   setSelectedValues(prev => {
             //     // Ensure immutability
@@ -122,13 +122,13 @@ const BoundaryFilter = (rawProps) => {
     }
   };
 
-  console.log(pathMap,"pppppppppppp")
-  
+  console.log(pathMap, "pppppppppppp")
+
   const { data: hierarchyData, refetch, isLoading } = Digit.Hooks.useCustomAPIHook(reqHierarchyData);
 
   useEffect(() => {
     console.log("PathMap updated:", pathMap);
-  }, [hierarchyData,selectedValues]); // Run effect when selectedValues updates
+  }, [hierarchyData, selectedValues]); // Run effect when selectedValues updates
 
   const reqCriteria = {
     url: `/boundary-service/boundary-hierarchy-definition/_search`,
@@ -149,7 +149,7 @@ const BoundaryFilter = (rawProps) => {
   };
 
   const { isLoading: hierarchyLoading, data: hierarchy } = Digit.Hooks.useCustomAPIHook(reqCriteria);
-  console.log(pathMap,"qqqqqqqqqqqqq");
+  console.log(pathMap, "qqqqqqqqqqqqq");
 
 
 
@@ -189,7 +189,7 @@ const BoundaryFilter = (rawProps) => {
 
   useEffect(() => {
     if (!hierarchy || !props.frozenData) return; // Ensure hierarchy & frozenData exist
-  
+
     // **Transform frozenData**
     const transformedFrozenData = props.frozenData.map(item => ({
       code: item.code.split('.').pop(),  // Extract last segment as code
@@ -198,7 +198,7 @@ const BoundaryFilter = (rawProps) => {
       name: item.name, // Include name
       parent: item.code.split('.').slice(0, -1).join('.') || null // Extract parent path
     }));
-  
+
     // **Group by boundaryType**
     const groupedData = transformedFrozenData.reduce((acc, item) => {
       if (!item.boundaryType) return acc; // Skip if boundaryType is undefined
@@ -208,23 +208,59 @@ const BoundaryFilter = (rawProps) => {
       acc[item.boundaryType].push([null, item]); // Ensure each item follows the expected structure
       return acc;
     }, {});
-  
+
     // **Call boundaryOptionsUpdate for each boundaryType**
     Object.entries(groupedData).forEach(([boundaryType, values]) => {
       console.log("Calling boundaryOptionsUpdate with:", boundaryType, values, "Multi");
-      
+
       // Ensure `values` is an array of arrays
       boundaryOptionsUpdate(boundaryType, values, "Multi");
     });
-  
-  }, [hierarchy,hierarchyData, props.frozenData]); // Depend on hierarchy & frozenData
-  
-  
-  
-  
- 
 
- 
+  }, [hierarchy, hierarchyData, props.frozenData]); // Depend on hierarchy & frozenData
+
+  useEffect(() => {
+    if (!hierarchy || !props.preSelected) return; // Ensure hierarchy & frozenData exist
+
+    // **Transform frozenData**
+    const transformedPreSelectedData = props.preSelected
+      .filter(item => pathMap?.[item.code]) // Skip if pathMap[item.code] is missing
+      .map(item => ({
+        code: pathMap[item.code],
+        path: pathMap[item.code],
+        boundaryType: getBoundaryType(pathMap[item.code], hierarchy),
+        name: item.name,
+      }));
+
+
+    // **Group by boundaryType**
+    const groupedData = transformedPreSelectedData.reduce((acc, item) => {
+      if (!item.boundaryType) return acc; // Skip if boundaryType is undefined
+      if (!acc[item.boundaryType]) {
+        acc[item.boundaryType] = [];
+      }
+      acc[item.boundaryType].push([null, item]); // Ensure each item follows the expected structure
+      return acc;
+    }, {});
+
+    // **Call boundaryOptionsUpdate for each boundaryType**
+    Object.entries(groupedData).forEach(([boundaryType, values]) => {
+      console.log("Calling boundaryOptionsUpdate with:", boundaryType, values, "Multi");
+
+      // Ensure `values` is an array of arrays
+      boundaryOptionsUpdate(boundaryType, values, "Multi");
+    });
+
+  }, [hierarchy, hierarchyData, props.preSelected, pathMap]); // Depend on hierarchy & frozenData
+
+
+
+
+
+
+
+
+
 
   const findNodeByPath = (nodes, targetPath) => {
     if (!nodes || nodes.length == 0) { return }
@@ -244,10 +280,10 @@ const BoundaryFilter = (rawProps) => {
   // const frozenDataUpdate = () => {
   //   debugger
   //   if (!hierarchy || !hierarchyData) return;
-    
+
   // };
   // frozenDataUpdate();
-  
+
 
   // const preSelectedDataUpdate = () => {
   //   debugger
@@ -315,8 +351,8 @@ const BoundaryFilter = (rawProps) => {
   //main fucntion, handles dropdown changes
   const boundaryOptionsUpdate = async (boundaryType, values, dropdownType) => {
     console.log("boundaryOptionsUpdate", boundaryType, values, dropdownType);
-    if(!hierarchy || !hierarchyData) return;
-    debugger;
+    if (!hierarchy || !hierarchyData) return;
+    // debugger;
     let selectedOptions = [];
     if (dropdownType == "Multi") {
       selectedOptions = values.map(arg => arg[1]) || [];
@@ -345,14 +381,14 @@ const BoundaryFilter = (rawProps) => {
     let newSelectedOptions = {};
     if (removedCodes.length > 0) {
       newBoundaryOptions = cleanLowerLevels(boundaryType, removedCodes, { ...boundaryOptions });
-      newSelectedOptions = cleanLowerLevelsForSelectedValues(boundaryType, removedCodes, [...selectedValues,...selectedOptions]);
+      newSelectedOptions = cleanLowerLevelsForSelectedValues(boundaryType, removedCodes, [...selectedValues, ...selectedOptions]);
     }
     // Reset removedCodes after processing
     else {
       newBoundaryOptions = updatedOptions;
-      newSelectedOptions = cleanLowerLevelsForSelectedValues(boundaryType, removedCodes, [...selectedValues,...selectedOptions]);
+      newSelectedOptions = cleanLowerLevelsForSelectedValues(boundaryType, removedCodes, [...selectedValues, ...selectedOptions]);
     }
-    console.log("newSelectedOptions",newSelectedOptions);
+    console.log("newSelectedOptions", newSelectedOptions);
 
 
 
@@ -400,19 +436,19 @@ const BoundaryFilter = (rawProps) => {
     });
 
     // **Update selected values once at the end**
-    debugger;
+    // debugger;
     setSelectedValuesCodes(updatedSelectedValues.map((item) => item.path))
     // debugger;
     setSelectedValues((prev) => {
       // Extract existing codes from previous state
       const existingCodes = new Set(prev.map(item => item.code));
-    
+
       // Filter out any new values that already exist
       const uniqueUpdatedValues = updatedSelectedValues.filter(item => !existingCodes.has(item.code));
-    
+
       return [...prev, ...uniqueUpdatedValues]; // Append only unique values
     });
-    
+
   };
 
 
@@ -590,7 +626,7 @@ const BoundaryFilter = (rawProps) => {
                       code: parentKey,
                       name: parentKey,
                       options: boundaries[parentKey].map((child) => ({
-                        code: child.code,
+                        code: child.path,
                         name: child.code,
                         path: child.path,
                         parent: parentKey,

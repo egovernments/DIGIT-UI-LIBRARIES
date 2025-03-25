@@ -68,25 +68,33 @@ const App = ({ path, stateCode, userType, tenants }) => {
           selectedValues={[""]}
           layoutConfig={{isDropdownLayoutHorizontal:true,isLabelFieldLayoutHorizontal:false}}
           // isHorizontal={true}
-          frozenData={[
-            {
-              code: "NEWTEST00222_MO",
-              name: "NEWTEST00222_MO"
-            },
-            {
-              code: "NEWTEST00222_MO.NEWTEST00222_MO_11_MARYLAND",
-              name: "NEWTEST00222_MO_11_MARYLAND"
-            },
-            {
-              code: "NEWTEST00222_MO.NEWTEST00222_MO_11_MARYLAND.NEWTEST00222_MO_11_06_PLEEBO",
-              name: "NEWTEST00222_MO_11_06_PLEEBO"
-            }
-          ]}
+          // frozenData={[
+          //   {
+          //     code: "NEWTEST00222_MO",
+          //     name: "NEWTEST00222_MO"
+          //   },
+          //   {
+          //     code: "NEWTEST00222_MO.NEWTEST00222_MO_11_MARYLAND",
+          //     name: "NEWTEST00222_MO_11_MARYLAND"
+          //   },
+          //   {
+          //     code: "NEWTEST00222_MO.NEWTEST00222_MO_11_MARYLAND.NEWTEST00222_MO_11_06_PLEEBO",
+          //     name: "NEWTEST00222_MO_11_06_PLEEBO"
+          //   }
+          // ]}
           preSelected={
             [{
                 code: "NEWTEST00222_MO",
                 name: "NEWTEST00222_MO"
               },
+              {
+                code: "NEWTEST00222_MO_11_MARYLAND",
+                name: "NEWTEST00222_MO_11_MARYLAND"
+              },
+              {
+                code: "NEWTEST00222_MO_11_06_PLEEBO",
+                name: "NEWTEST00222_MO_11_06_PLEEBO"
+              }
              
             ]}
           
