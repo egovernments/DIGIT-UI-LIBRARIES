@@ -11,7 +11,8 @@ import {
   MobileNumber,
   InputTextAmount,
   StringManipulator,
-  LabelFieldPair
+  LabelFieldPair,
+  BoundaryFilter
 } from "../atoms";
 import { useTranslation } from "react-i18next";
 import { useState, useEffect } from "react";
@@ -22,7 +23,7 @@ import { LocationDropdownWrapper } from "../molecules";
 import { ApiDropdown } from "../molecules";
 import { WorkflowStatusFilter } from "../molecules";
 import { DateRangeNew } from "../molecules";
-import BoundaryFilter from "../atoms/BoundaryFilter";
+// import BoundaryFilter from "../atoms/BoundaryFilter";
 
 const FieldV1 = ({
   type = "",
@@ -52,7 +53,7 @@ const FieldV1 = ({
   controllerProps,
   variant,
 }) => {
-  debugger;
+  // debugger;
   const { t } = useTranslation();
   let disableFormValidation = false;
   if (sectionFormCategory && selectedFormCategory) {
@@ -125,20 +126,14 @@ const FieldV1 = ({
     }
     return null;
   };
- console.log("pop",populators);
+ console.log("popi",populators);
   const renderField = () => {
     switch (type) {
       case "boundary":
         return (
-          <BoundaryFilter
-            levelConfig={populators?.levelConfig}
-            hierarchyType={populators?.hierarchyType}
-            module={populators?.module}
-            selectedValues={populators?.selectedValues}
-            layoutConfig={populators?.layoutConfig}
-            isHorizontal={populators?.isHorizontal}
-            onChange={onChange}
-          />
+          <div>
+            cgvhbjnm
+          </div>
 
         );
       case "text":
