@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, Fragment } from 'react'
 import { Card, CardText, MultiSelectDropdown, Dropdown, Toast } from '@egovernments/digit-ui-components'
 import { useTranslation } from 'react-i18next';
-import { LabelFieldPair, CardLabel } from "@egovernments/digit-ui-components";
+import { LabelFieldPair, CardLabel, PopUp, Chip, Button } from "@egovernments/digit-ui-components";
 import { Loader } from '@egovernments/digit-ui-components';
 
 const BoundaryFilter = (rawProps) => {
@@ -34,6 +34,8 @@ const BoundaryFilter = (rawProps) => {
   const [selectedValues, setSelectedValues] = useState([]);
   const [selectedValuesCodes, setSelectedValuesCodes] = useState([]);
   const [pathMap, setPathMap] = useState({}); // {"Maryland":MO_Mozambique.MO_MaryLand}
+  const [showPopup, setShowPopup] = useState(false);
+
 
   //2 states are there 1) boundaryOptions(objects that stores by hierarchy), selectedValues(all the selectedValues)
   //flow->
@@ -648,26 +650,77 @@ const BoundaryFilter = (rawProps) => {
                         </CardLabel>
                         <div className="digit-field-full">
                           {!(props?.levelConfig?.isSingleSelect && props.levelConfig.isSingleSelect.includes(item?.boundaryType)) ?
-                            <MultiSelectDropdown
-                              key={item?.boundaryType}
-                              clearLabel="Clear All"
-                              frozenData={props.frozenData}
-                              options={formattedOptions}
-                              selected={formattedSelectedValues}
-                              optionsKey={"name"}
-                              t={t}
-                              onSelect={(values) => {
-                                boundaryOptionsUpdate(item?.boundaryType, values, "Multi");
-                              }}
-                              addCategorySelectAllCheck={true}
-                              addSelectAllCheck={true}
-                              type="multiselectdropdown"
-                              variant="nestedmultiselect"
-                              config={{
-                                isDropdownWithChip: true,
-                                chipKey: "code"
-                              }}
-                            /> :
+                            <>
+                              <MultiSelectDropdown
+                                key={item?.boundaryType}
+                                clearLabel="Clear All"
+                                frozenData={props.frozenData}
+                                options={formattedOptions}
+                                selected={formattedSelectedValues}
+                                optionsKey={"name"}
+                                t={t}
+                                onSelect={(values) => {
+                                  boundaryOptionsUpdate(item?.boundaryType, values, "Multi");
+                                }}
+                                addCategorySelectAllCheck={true}
+                                addSelectAllCheck={true}
+                                type="multiselectdropdown"
+                                variant="nestedmultiselect"
+                                config={{
+                                  clearLabel: "", // label for clear all chip , default label is "Clear All"
+                                  isDropdownWithChip: true, // falg to show chips
+                                  showIcon: true, // flag to add icons for each options
+                                  numberOfChips: 4, // count of the chips to be showna , if more selected adds + chip
+                                }}
+                                handleViewMore={(e) => {
+                                  setShowPopup(true);
+                                }}
+                              />
+                              {showPopup && (
+                                <PopUp
+                                  className={""}
+                                  type={"default"} // type of popup
+                                  heading={"Popup header"} // popup heading
+                                  children={[
+                                    <div
+                                      className="digit-tag-container"
+                                      style={{ maxWidth: "100%", margin: "0rem" }}
+                                    >
+                                      {formattedSelectedValues?.length > 0 &&
+                                        formattedSelectedValues?.map((value, index) => {
+                                          console.log(value, "value111",value.code,typeof value.code);
+                                          return (
+                                            <Chip
+                                              key={index}
+                                              text={value.code}
+                                              onClick={() => { }}
+                                              className="multiselectdropdown-tag"
+                                            />
+                                          );
+                                        })}
+                                    </div>
+                                  ]} // elements inside popup
+                                  onOverlayClick={() => {
+                                    setShowPopup(false);
+                                  }} // on click of overlay
+                                  onClose={() => {
+                                    setShowPopup(false);
+                                  }} // on click of close
+                                  footerChildren={[
+                                    <Button
+                                      type={"button"}
+                                      size={"large"}
+                                      variation={"primary"}
+                                      label={"Close"}
+                                      onClick={() => {
+                                        setShowPopup(false);
+                                      }}
+                                    />,
+                                  ]}
+                                  sortFooterChildren={true}
+                                ></PopUp>
+                              )}
+                            </> :
                             <div className="padding-dropdown">
                               <Dropdown
                                 key={item?.boundaryType}
