@@ -137,7 +137,7 @@ const InboxSearchComposer = ({configs,additionalConfig,onFormValueChange=()=>{},
     const configModule = Digit?.Customizations?.[apiDetails?.masterName]?.[apiDetails?.moduleName]
     const updatedReqCriteria = configModule?.preProcess ? configModule?.preProcess(requestCriteria,configs.additionalDetails) : requestCriteria 
     
-    if(configs.customHookName){
+    if(configs?.customHookName){
         var { isLoading, data, revalidate,isFetching,refetch,error } = eval(`Digit.Hooks.${configs.customHookName}(updatedReqCriteria)`);
     }
     else {
