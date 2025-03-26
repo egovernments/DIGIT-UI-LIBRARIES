@@ -18,11 +18,10 @@ const setUIConf = (uiConfig) => {
   return [{uiConfig}]
 }
 
-const SearchComponent = ({ uiConfig, header = "", screenType = "search", fullConfig, data,activeLink,setActiveLink,browserSession,showTab,showTabCount=false, tabData, onTabChange}) => {
+const SearchComponent = ({ uiConfig, header = "", screenType = "search", fullConfig, data,activeLink,browserSession,showTab,showTabCount=false, tabData, onTabChange}) => {
   
   //whenever activeLink changes we'll change uiConfig
   // const [activeLink,setActiveLink] = useState(uiConfig?.configNavItems?.filter(row=>row.activeByDefault)?.[0]?.name)
-  const [navConfig,setNavConfig] = useState(uiConfig?.configNavItems)
   const [allUiConfigs,setAllUiConfigs] = useState(setUIConf(uiConfig))
   const { t } = useTranslation();
   const { state, dispatch } = useContext(InboxContext)
@@ -204,18 +203,18 @@ const SearchComponent = ({ uiConfig, header = "", screenType = "search", fullCon
     );
   };
 
-  const navConfigMain = tabData.map((tab) => ({
+  const navConfigMain = tabData?.map((tab) => ({
     key: tab.key,
     label: showTabCount? `${t(tab?.label)}(${data?.count || data?.TotalCount || data?.totalCount})`: t(tab?.label) || `Tab ${tab.key + 1}`,
     active: tab.active,
   }));
   
-  const activeTab = tabData.find((tab) => tab.active)?.key || 0;
+  const activeTab = tabData?.find((tab) => tab.active)?.key || 0;
 
   return (
     <Tab
       configNavItems={navConfigMain}
-      showNav={navConfigMain.length > 0}
+      showNav={showTab && navConfigMain.length > 0}
       configItemKey={"key"}
       configDisplayKey={"label"}
       activeLink={activeTab}
