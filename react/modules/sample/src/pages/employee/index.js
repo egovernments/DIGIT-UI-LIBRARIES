@@ -8,6 +8,7 @@ import SampleInbox from "./SampleInbox";
 import IndividualSearch from "./IndividualSearch";
 import SampleComponents from "./SampleComponents";
 import SampleView from "./SampleView";
+import TabSearch from "./TabSearch";
 
 const SampleBreadCrumbs = ({ location }) => {
   const { t } = useTranslation();
@@ -38,6 +39,11 @@ const SampleBreadCrumbs = ({ location }) => {
       show: location.pathname.split("/").pop() === "view",
     },
     {
+      internalLink: `/${window?.contextPath}/employee/microplan/tab-search`,
+      content: t("Sample Tab Search"),
+      show: location.pathname.split("/").pop() === "tab-search",
+    },
+    {
       internalLink: `/${window?.contextPath}/employee/microplan/components`,
       content: t("Sample Components"),
       show: location.pathname.split("/").pop() === "components",
@@ -60,6 +66,7 @@ const App = ({ path, stateCode, userType, tenants }) => {
         <PrivateRoute path={`${path}/search`} component={() => <SampleSearch></SampleSearch>} />
         <PrivateRoute path={`${path}/inbox`} component={() => <SampleInbox></SampleInbox>} />
         <PrivateRoute path={`${path}/view`} component={() => <SampleView></SampleView>} />
+        <PrivateRoute path={`${path}/tab-search`} component={() => <TabSearch></TabSearch>} />
         <PrivateRoute path={`${path}/ind-search`} component={() => <IndividualSearch></IndividualSearch>} />
         <PrivateRoute path={`${path}/test`} component={() => <Loader></Loader>} />
         </AppContainer>

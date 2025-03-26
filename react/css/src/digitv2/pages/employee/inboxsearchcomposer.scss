@@ -249,6 +249,16 @@
                     .digit-tab-main {
                         width: 100%;
                     }
+
+                    &.tab{
+                        background: none !important;
+                        padding: theme(digitv2.spacers.spacer0);
+                        box-shadow: none;
+
+                        .digit-search-wrapper{
+                            padding: theme(digitv2.spacers.spacer6);
+                        }
+                    }
                 }
 
                 &.filter{
