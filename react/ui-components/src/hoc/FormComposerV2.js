@@ -348,9 +348,9 @@ export const FormComposer = (props) => {
   const renderFormFields = (props, section, index, array, sectionFormCategory) => (
     <React.Fragment key={index}>
       {!props.childrenAtTheBottom && props.children}
-      {props.heading && <HeaderComponent styles={{ ...props.headingStyle }}> {props.heading} </HeaderComponent>}
-      {props.description && <HeaderComponent styles={{ ...props.descriptionStyles }}> {props.description} </HeaderComponent>}
-      {props.text && <p>{props.text}</p>}
+      {props.heading && <HeaderComponent className={props?.cardSubHeaderClassName ? `digit-form-card-subheader ${props?.cardSubHeaderClassName}` : "digit-form-card-subheader"} styles={{ ...props.headingStyle }}> {props.heading} </HeaderComponent>}
+      {props.description && <HeaderComponent className={props?.cardDescriptionClassName ? `digit-form-card-description ${props?.cardDescriptionClassName}` : "digit-form-card-description"} styles={{ ...props.descriptionStyles }}> {props.description} </HeaderComponent>}
+      {props.text && <HeaderComponent className={props?.cardTextClassName ? `digit-form-card-text ${props?.cardTextClassName}` : "digit-form-card-text"}>{props.text}</HeaderComponent>}
       {formFields(section, index, array, sectionFormCategory)}
       {props.childrenAtTheBottom && props.children}
       {props.submitInForm && (
