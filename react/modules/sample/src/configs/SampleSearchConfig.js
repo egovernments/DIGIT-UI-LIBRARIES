@@ -29,11 +29,11 @@ export const Config = {
   sections: {
     search: {
       uiConfig: {
-        headerStyle: null,
-        formClassName: "",
-        primaryLabel: "ES_COMMON_SEARCH",
-        secondaryLabel: "ES_COMMON_CLEAR_SEARCH",
-        minReqFields: 1,
+        headerStyle: {}, // styles for the search label 
+        formClassName: "custom-digit--search-field-wrapper-classname", // custom class name for "digit-search-field-wrapper"
+        primaryLabel: "ES_COMMON_SEARCH", // label for search button
+        secondaryLabel: "ES_COMMON_CLEAR_SEARCH", // label for clear button
+        minReqFields: 1, // minimum number of fields that needs to be updated for searching 
         defaultValues: {
           value: "",
           field: "",
@@ -41,7 +41,7 @@ export const Config = {
             code: "WBH_COMMON_ALL",
             value: "all",
           },
-        },
+        }, // default values for the fields.
         fields: [
           {
             label: "Field",
@@ -102,14 +102,12 @@ export const Config = {
               ],
             },
           },
-        ],
+        ], // fields that needs to be displayed for search
       },
-      label: "",
-      children: {},
-      show: true,
-    },
+      label: "", // label for the search wrapper
+      show: true, // boolean flag to show or hide the search component
+    }, 
     searchResult: {
-      label: "",
       uiConfig: {
         columns: [
           {
@@ -136,21 +134,22 @@ export const Config = {
             jsonPath: "isActive",
             additionalCustomization: true,
           },
-        ],
+        ], // what columns to be shown in the table
         selectionProps: {
           showCheckBox: true,
           showSelectedState: true,
           selectableRowsNoSelectAll: false,
           // showSelectedStatePosition:"bottom", can also be sent like this
-        },
+        }, // props related to table row selections
         expandableProps: {
           expandableRows: true,
           expandableRowsComponent: ExpandedComponent,
-        },
+        }, // props related to table row expansions
         tableProps: {
           showTableDescription: "This is the search table description",
           showTableTitle: "Search table title",
-        },
+          tableClassName:"custom-classname-resultsdatatable"
+        }, // props related to table : title,description, custom classname
         actionProps: {
           actions: [
             {
@@ -164,15 +163,14 @@ export const Config = {
               icon: "CheckCircle",
             },
           ],
-        },
+        }, // props related to actions that needs to be performed after row selections
         enableGlobalSearch: true,
         enableColumnSort: true,
         resultsJsonPath: "mdms",
-        rowClassName: "table-row-mdms table-row-mdms-hover",
         defaultSortAsc: true,
       },
       children: {},
-      show: true,
+      show: true, // boolean flag to show or hide the search results 
     },
   },
   footerProps: {
@@ -198,8 +196,8 @@ export const Config = {
     // setactionFieldsToLeft :false, // alignment of fields
     setactionFieldsToRight: true, // alignment of fields
     // sortActionFields : false, // flag to sort the action buttons
-    className: "inbox-footer",
-    style: {},
-  },
+    className: "custom-classname-footeractions", // custom class name for footer 
+    style: {}, // custom styles for footer
+  }, // props related to footer and its actions
   // additionalSections: {}, // no more additional sections will be supported
 };

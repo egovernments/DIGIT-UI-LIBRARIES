@@ -91,7 +91,7 @@ const ResultsDataTable = ({
         conditionalRowStyles={conditionalRowStyles}
         className={
           tableClassName
-            ? tableClassName
+            ? `digit-data-table ${showCheckBox ? "selectable" : "unselectable"} ${tableClassName}`
             : `digit-data-table ${showCheckBox ? "selectable" : "unselectable"}`
         }
         defaultSortAsc={defaultSortAsc}

@@ -387,10 +387,11 @@ const ResultsDataTableWrapper = ({
       }
       progressPending={config?.progressPending}
       conditionalRowStyles={conditionalRowStyles}
-      tableClassName={config?.tableClassName ? config?.tableClassName : ""}
+      tableClassName={config?.tableProps?.tableClassName ? config?.tableProps?.tableClassName : ""}
       defaultSortAsc={config?.defaultSortAsc}
       pagination={config.isPaginationRequired}
       paginationTotalRows={
+        TotalCount ||
         data?.count ||
         data?.TotalCount ||
         data?.totalCount ||
