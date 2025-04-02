@@ -269,8 +269,8 @@ export const searchconfig = () =>
           ],
           enableColumnSort: true,
           resultsJsonPath: "mdms",
-          editableRows:false,//this should automatically add a button at the end for editing rows
-          editablePopup:true,
+          editableRows:true,//this should automatically add a button at the end for editing rows
+          editablePopup:false,
           additionalPopupColumns:[
             {
               label: "Group",
