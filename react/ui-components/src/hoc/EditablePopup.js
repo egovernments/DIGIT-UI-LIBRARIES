@@ -96,29 +96,29 @@ const EditablePopup = ({
           labelfielddirectionvertical={false}
         />,
       ]}
-      footerChildren={[
-        <Button
-          type={'button'}
-          size={'large'}
-          variation={'primary'}
-          label={t('YES')}
-          title={t('YES')}
-          onClick={() => {
-            console.log('action clicked');
-          }}
-        />,
-        <Button
-          type={'button'}
-          size={'large'}
-          variation={'secondary'}
-          label={t('NO')}
-          title={t('NO')}
-          onClick={() => {
-            console.log('action clicked');
-          }}
-        />,
-      ]}
-      sortFooterChildren={true}
+      // footerChildren={[
+      //   <Button
+      //     type={'button'}
+      //     size={'large'}
+      //     variation={'primary'}
+      //     label={t('YES')}
+      //     title={t('YES')}
+      //     onClick={() => {
+      //       console.log('action clicked');
+      //     }}
+      //   />,
+      //   <Button
+      //     type={'button'}
+      //     size={'large'}
+      //     variation={'secondary'}
+      //     label={t('NO')}
+      //     title={t('NO')}
+      //     onClick={() => {
+      //       console.log('action clicked');
+      //     }}
+      //   />,
+      // ]}
+      // sortFooterChildren={true}
       onClose={() => {
         setShowEditablePopup(false);
         setEditRow(null);
