@@ -88,10 +88,7 @@ const ResultsTable = ({ tableContainerClass, config,data,isLoading,isFetching,fu
                     return String(value ? column.translate? t(Digit.Utils.locale.getTransformedLocale(column.prefix?`${column.prefix}${value}`:value)) : value : t("ES_COMMON_NA"));
                 }
             }
-        })
-        
-
-        
+        }) 
     }, [config, searchResult])
 
     const defaultValuesFromSession = config?.customDefaultPagination ? config?.customDefaultPagination : (session?.tableForm ? {...session?.tableForm} : {limit:10,offset:0})
