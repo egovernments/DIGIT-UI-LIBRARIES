@@ -166,7 +166,7 @@ const RenderFormFields = ({ data, ...props }) => {
             rules={{ required: populators?.isMandatory }}
             render={(props) => {
               return (
-                <div style={{ display: "grid", gridAutoFlow: "row", width: "100%" }}>
+                <div style={{ gridAutoFlow: "row", width: "100%" }}>
                   <MultiSelectDropdown
                     options={populators?.options}
                     optionsKey={populators?.optionsKey}

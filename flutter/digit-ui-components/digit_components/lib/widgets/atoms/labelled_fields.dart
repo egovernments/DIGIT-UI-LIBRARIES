@@ -9,11 +9,11 @@ class LabeledField extends StatelessWidget {
   final String? description;
   final bool isRequired;
   final TextStyle? labelStyle;
+  final TextStyle? descriptionStyle;
   final EdgeInsets? padding;
   final bool preferToolTipBelow;
   final String? infoText;
   final TooltipTriggerMode tooltipTriggerMode;
-  final TextStyle? textStyle;
   final bool wrapLabelText;
   final MainAxisAlignment mainAxisAlignment;
   final CrossAxisAlignment crossAxisAlignment;
@@ -27,12 +27,12 @@ class LabeledField extends StatelessWidget {
     this.label,
     this.description,
     this.labelStyle,
+    this.descriptionStyle,
     this.padding,
     this.isRequired = false,
     this.infoText,
     this.preferToolTipBelow = false,
     this.tooltipTriggerMode = TooltipTriggerMode.tap,
-    this.textStyle,
     this.wrapLabelText = true,
     this.mainAxisAlignment = MainAxisAlignment.start,
     this.crossAxisAlignment = CrossAxisAlignment.start,
@@ -65,7 +65,7 @@ class LabeledField extends StatelessWidget {
                     text: charCondition ? processedLabel : processedLabel!.length > 64
                         ? '${processedLabel.substring(0, 64)}...'
                         : processedLabel,
-                    style: textTheme.label.copyWith(
+                    style: labelStyle ?? textTheme.label.copyWith(
                       color: theme.colorTheme.text.primary,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -101,7 +101,7 @@ class LabeledField extends StatelessWidget {
               height: spacer1,
             ),
           if(description != null)
-            Text(description!, style: textTheme.bodyS,),
+            Text(description!, style: descriptionStyle ?? textTheme.bodyS,),
           child,
         ],
       );

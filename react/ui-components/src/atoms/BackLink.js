@@ -9,11 +9,11 @@ const BackLink = ({
   className = "",
   variant,
   onClick,
-  hideIcon,
-  hideLabel,
-  disabled,
+  hideIcon = false,
+  hideLabel = false,
+  disabled = false,
   iconFill,
-  label
+  label = ""
 }) => {
   const { t } = useTranslation();
 

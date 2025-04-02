@@ -6,9 +6,9 @@ const ExpandedComponent = ({ data }) => (
 
 const inboxConfig = () => {
   return {
-    label: "ES_COMMON_INBOX",
+    headerLabel: "ES_COMMON_INBOX", // label is changed to headerLabel (Screen Header Label)
     postProcessResult: true,
-    type: "inbox",
+    type: "inbox", // type of the screen ("inbox","serach")
     apiDetails: {
       serviceName: "/mdms-v2/v2/_search",
       requestParam: {},
@@ -316,6 +316,9 @@ const inboxConfig = () => {
         label: "ES_COMMON_FILTERS",
         show: true,
       },
+      sort: { // Introduced Sort action to show in the mobile view
+        show: true,
+      },
       searchResult: {
         label: "",
         uiConfig: {
@@ -342,38 +345,45 @@ const inboxConfig = () => {
               jsonPath: "boundaryCode",
             },
           ],
+          selectionProps: {
+            showCheckBox: true,
+            showSelectedState: true,
+            selectableRowsNoSelectAll: false,
+            // showSelectedStatePosition:"bottom", can also be sent like this
+          },
+          expandableProps: {
+            expandableRows: true,
+            expandableRowsComponent: ExpandedComponent,
+          },
+          tableProps: {
+            showTableDescription: "This is the search table description",
+            showTableTitle: "Search table title",
+          },
+          actionProps: {
+            actions: [
+              {
+                label: "Action1",
+                variation: "secondary",
+                icon: "Edit",
+              },
+              {
+                label: "Action2",
+                variation: "primary",
+                icon: "CheckCircle",
+              },
+            ],
+          },
           enableGlobalSearch: true,
           enableColumnSort: true,
           resultsJsonPath: "items",
-          showTableDescription: "This is the table description",
-          showTableTitle: "Table Title",
-          addFilter: true,
-          showCheckBox: true,
-          showSelectedState: true,
-          actionButtonLabel: "Customized ActionButton",
-          expandableRows: true,
           defaultSortAsc: true,
-          expandableRowsComponent: ExpandedComponent,
-          selectableRowsNoSelectAll: false,
-          actions: [
-            {
-              label: "Action1",
-              variation: "secondary",
-              icon: "Edit",
-            },
-            {
-              label: "Action2",
-              variation: "primary",
-              icon: "CheckCircle",
-            },
-          ],
           isPaginationRequired: true,
         },
         children: {},
         show: true,
       },
     },
-    additionalSections: {},
+    // additionalSections: {}, // no more additional sections will be supported
   };
 };
 

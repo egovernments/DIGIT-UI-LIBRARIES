@@ -4,10 +4,109 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.0.2-beta.66] - 2025-02-04
+### [0.2.0-beta.5] - 2025-03-26
+## Fixes
+- Fixed Tab Functionality in InboxSearchComposer
+
+### [0.2.0-beta.3] - 2025-03-20
+## Fixes
+- Fixed multiple calls issue in InboxSearchLinks
+- Fixed onSubmit function for FilterCard
+
+### [0.2.0-beta.2] - 2025-03-13
+## Enhancements
+- Multiselect Dropdown now supports adding limit for chips and onClick function
+
+## New Changes Added
+- InboxSearchComposer now supports footer actions
+- Updated the config structure for results table - inbox and search screens
+
+
+## [0.2.0-beta.1] - 2025-03-06 
+## New Components Added 
+- ResultsDataTableWrapper and ResultsDataTable components were added
+- Integrated InboxSearchComposer with ResultsDataTableWrapper
+
+## Enhancements in Multiselectdropdown
+- Limiting chips to be shown functionality 
+- Frozen Data functionality
+- Searchable functionality for nested multiselect variant 
+
+## Other Changes
+- Added onClose function as a prop in SidePanel
+
+## [0.2.0] - 2025-02-19 
+### New Components Added
+
+## Atoms
+- Accordion
+- ActionButton
+- AlertCard
+- BackLink
+- BreadCrumb
+- Button
+- CheckBox
+- Chip
+- Divider
+- Dropdown
+- Panels
+- FileUpload
+- Loader
+- MultiselectDropdown
+- OTPInput
+- RadioButton
+- SelectionTag
+- Stepper
+- Switch
+- Tab
+- Tag 
+- TextBlock
+- TextInput 
+- Timeline
+- Toast
+- Toggle
+- Tooltip
+
+## Molecules
+- AccordionList
+- PopUp
+- Card (Basic,FormCard,SummaryCard)
+- BottomSheet
+- ButtonGroup
+- Header
+- SidePanel
+- PanelCard
+- FilterCard
+- Footer
+- Hamburger
+- LandingPageCard
+- MenuCard
+- MetricCard
+- SideNav
+- TableMolecule
+- TimelineMolecule
+- TooltipWrapper
+
+## MoleculeGroup
+- LandingPageWrapper
+- MenuCardWrapper
+
+### New Changes Added
+- Added external link support in LandingPageCards
+- Added external link support in BreadCrumbs
+- Added Spacers, Colors, Typography library
+- Added Icons 
+- Added Animations 
+- Added Error Message Component. 
+- Added Info Button Component.  
+- Added RemoveableTag Component. 
+- Added Uploader Component With Three Varinats UploadFile,UploadPopup and UploadImage.
+- Supporting multiple variants in Dropdown and MultiSelectDropdown components
+
+
+## [0.0.2-beta.66] - 2025-02-13
 ### New Changes
-- Migration of  InboxSearchComposer Code  and related Components Code to ui-components from react-components
-- Integrating Renderformfields with new UI components
+- Added id prop for checkox input
 
 ## [0.0.2-beta.65] - 2025-01-27
 ### New Changes

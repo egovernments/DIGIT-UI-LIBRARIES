@@ -249,6 +249,16 @@
                     .digit-tab-main {
                         width: 100%;
                     }
+
+                    &.tab{
+                        background: none !important;
+                        padding: theme(digitv2.spacers.spacer0);
+                        box-shadow: none;
+
+                        .digit-search-wrapper{
+                            padding: theme(digitv2.spacers.spacer6);
+                        }
+                    }
                 }
 
                 &.filter{
@@ -299,6 +309,17 @@
     color: theme(digitv2.lightTheme.primary-2);
     margin-bottom: theme(digitv2.spacers.spacer6);
     line-height: normal;
+}
+
+.digit-inbox-search-composer-header-action-wrapper{
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .digit-inbox-search-composer-action{
+        margin-bottom: theme(digitv2.spacers.spacer6);
+    }
 }
 
 .digit-inbox-search-links-container {
@@ -375,4 +396,35 @@
         }
 
     }
+}
+
+@media screen and (max-width: 426px) {
+
+    .digit-header-content{
+        &.digit-inbox-search-composer-header{
+            margin-left: 1rem;
+        }
+    }
+    
+    .digit-inbox-search-wrapper {
+        .digit-inbox-search-component-wrapper {
+            .digit-sections-parent {
+                display: flex;
+                flex-direction: column;
+
+                &.inbox{
+                    .searchBox{
+                        margin: 0rem 1rem;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.digit-table-loader{
+    height: 31.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center ;
 }

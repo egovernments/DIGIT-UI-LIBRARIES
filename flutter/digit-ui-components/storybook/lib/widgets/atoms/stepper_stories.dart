@@ -14,7 +14,7 @@ List<Story> stepperStories() {
           activeIndex: context.knobs.sliderInt(label: 'active index', initial: 0,divisions: 20, max: 20),
           stepperList:  [
             StepperData(
-              title: 'titlelllllllllllllllllllnjjjjjjjjjjjjjjjkjkjl',
+              title: 'title',
               onStepTap: (){},
             ),
             const StepperData(
