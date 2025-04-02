@@ -30,6 +30,10 @@ const SampleCard = () => {
         label: t("Sample Components"),
         link: `/${window?.contextPath}/employee/sample/components`,
       },
+      {
+        label: t("InboxSearchComposer Edit"),
+        link: `/${window?.contextPath}/employee/sample/search-edit`,
+      },
     ],
   };
   return <EmployeeModuleCard {...propsForModuleCard} />;

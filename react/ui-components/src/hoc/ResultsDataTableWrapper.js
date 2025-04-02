@@ -7,16 +7,23 @@ import React, {
   useContext,
 } from "react";
 import { useTranslation } from "react-i18next";
+import TextInput from "../atoms/TextInput";
 import { useForm, Controller } from "react-hook-form";
 import _ from "lodash";
 import { InboxContext } from "./InboxSearchComposerContext";
-import { Loader } from "../atoms";
+import { Card,Loader } from "../atoms";
 import { CustomSVG } from "../atoms";
 import CheckBox from "../atoms/CheckBox";
 import NoResultsFound from "../atoms/NoResultsFound";
-import ResultsDataTable from "../molecules/ResultsDataTable";
 import Button from "../atoms/Button";
+import CardLabel from "../atoms/CardLabel";
+import ResultsDataTable from "../molecules/ResultsDataTable";
 import { useHistory} from "react-router-dom";
+import { SVG } from "../atoms";
+import {Toast} from "../atoms";
+import FieldV1 from "./FieldV1";
+import EditablePopup from "./EditablePopup";
+
 
 const useDebounce = (value, delay) => {
   const [debouncedValue, setDebouncedValue] = useState(value);
@@ -5263,6 +5270,7 @@ const ResultsDataTableWrapper = ({
   browserSession,
   additionalConfig,
   TotalCount,
+  refetch
 }) => {
   const { apiDetails } = fullConfig;
   const { t } = useTranslation();
@@ -5286,6 +5294,16 @@ const ResultsDataTableWrapper = ({
     offset: (currentPage - 1) * rowsPerPage,
   });
 
+    const [showToast, setShowToast] = useState(null);
+    // Use the custom mutation hook
+      const mutation = Digit.Hooks.useCustomAPIMutationHook({
+        url:apiDetails?.mutationUrl
+      });
+      const [editRow,setEditRow] = useState(null);
+      const [editablePopup,setShowEditablePopup] = useState(null);
+      //edited data should always hold updated payload
+      const [rowData,setRowData] = useState(null);
+
   //here I am just checking state.searchForm has all empty keys or not(when clicked on clear search)
   useEffect(() => {
     if (
@@ -5304,6 +5322,42 @@ const ResultsDataTableWrapper = ({
     };
   }, [state]);
 
+  const handleActionClicked = (row, index, column, id) => {
+    //current row should now be editable, maintain a state called editMode
+    setEditRow(row);
+    setRowData({row,index,column,id});
+  }
+  const handleActionClickedPopupEdit = (row, index, column, id) => {
+    setEditRow(row);
+    setShowEditablePopup(true)
+    setRowData({row,index,column,id});
+  }
+  const handleRowSubmit = (rowFormData) => {
+    setEditRow(null);
+    setShowEditablePopup(false);
+    // make an api call here
+    // generate payload from a customizer
+    mutation.mutate(
+      configModule.getMutationPayload(rowFormData,rowData),
+      {
+        onSuccess: (data) => {
+          setShowToast({ key: "success", label: t("DATA_MODIEFIED_SUCCESS")})
+          setTimeout(() => {
+            refetch()
+          }, 1000);
+          
+        },
+        onError: (error) => {
+          setShowToast({type:"error", key: "error", label: t("DATA_MODIEFIED_FAIL")})
+        }
+      }
+    );
+    setEditRow(null);
+    setRowData(null);
+    
+  }
+  
+
   const handleLinkColumn = (event) => {
     const linkColumnHandler = configModule?.linkColumnHandler || {};
     if (typeof linkColumnHandler === "function") {
@@ -5315,7 +5369,7 @@ const ResultsDataTableWrapper = ({
 
   const tableColumns = useMemo(() => {
     //test if accessor can take jsonPath value only and then check sort and global search work properly
-    return config?.columns?.map((column) => {
+    const mappedColumns = config?.columns?.map((column) => {
       const commonProps = {
         id: column?.id,
         name: t(column?.label) || t("ES_COMMON_NA"),
@@ -5336,7 +5390,7 @@ const ResultsDataTableWrapper = ({
           typeof column?.sortFunction === "function"
             ? (rowA, rowB) => column.sortFunction(rowA, rowB)
             : (rowA, rowB) => 0,
-        selector: (row, index) => _.get(row, column?.jsonPath),
+        selector: (row, index) => `${_.get(row, column?.jsonPath)}`, 
       };
       if (column?.svg) {
         // const icon = Digit.ComponentRegistryService.getComponent(column.svg);
@@ -5408,9 +5462,111 @@ const ResultsDataTableWrapper = ({
           },
         };
       }
-      return commonProps;
+      return {...commonProps,cell: (row, index) =>  {
+        // TODO: Here integrate with FieldV1 controller to support all field types
+        // if(column.editable && editRow?.id === row?.id){
+        //   return <TextInput
+        //     // style={{ marginBottom: "0px" }}
+        //     name={column.label}
+        //     onChange={(e)=> handleEdits(e.target.value,column.jsonPath)}
+        //     value={_.get(rowData,column.jsonPath)}
+        //   />
+        // }
+        if(column.editable && editRow?.id === row?.id){
+          const config = column.editableFieldConfig;
+          return (
+            <Controller
+              defaultValue={column?.editableFieldConfig?.type === "text" || column?.editableFieldConfig?.type === "toggle" ? `${_.get(rowData?.row,column.jsonPath)}`:{[column.editableFieldConfig.populators.optionsKey]:`${_.get(rowData?.row,column.jsonPath)}`}}
+              render={({ onChange, ref, value, onBlur }) => (
+                <FieldV1
+                  // error= {error}
+                  label={config.label}
+                  nonEditable = {config.nonEditable}
+                  placeholder={config.placeholder}
+                  // inline={props.inline}
+                  description={config.description}
+                  charCount = {config.charCount}
+                  infoMessage={config.infoMessage}
+                  withoutLabel = {config.withoutLabel}
+                  variant={config.variant}
+                  type={config.type}
+                  populators={config.populators}
+                  required={config.isMandatory}
+                  disabled={config.disable}
+                  component={config.component}
+                  config={config}
+                  // sectionFormCategory={sectionFormCategory}
+                  formData={formData}
+                  // selectedFormCategory={selectedFormCategory}
+                  onChange={onChange}
+                  ref={ref}
+                  value={value}
+                  props={{}}
+                  errors={errors}
+                  onBlur={onBlur}
+                  controllerProps={{
+                    register,
+                    handleSubmit,
+                    setValue,
+                    getValues,
+                    reset,
+                    watch,
+                    trigger,
+                    control,
+                    formState,
+                    errors,
+                    setError,
+                    clearErrors,
+                    unregister,
+                  }}
+                />
+              )}
+              name={config.populators?.name}
+              // rules={!disableFormValidation ? { required: isMandatory, ...populators?.validation, ...customRules } : {}}
+              control={control}
+            />
+          )
+        }
+
+        return `${_.get(row, column?.jsonPath)}`
+      },};
     });
-  }, [config, searchResult]);
+
+    if(config?.editableRows || config?.editablePopup){
+          mappedColumns.push({
+            id: crypto.randomUUID(),
+            name: "Action",
+            // format: column?.format,
+            // grow: column?.grow,
+            // width: column?.width,
+            // minWidth: column?.minWidth,
+            // maxWidth: column?.maxWidth,
+            // right: column?.right,
+            // center: column?.center,
+            // ignoreRowClick: column?.ignoreRowClick,
+            // wrap: column?.wrap,
+            // sortable: !column?.disableSortBy,
+            // sortFunction: (rowA, rowB) => column?.sortFunction(rowA, rowB),
+            // cell: (row, index) =>  _.get(row, column?.jsonPath),
+            // headerAlign: column?.headerAlign,
+            // style: column?.style,
+            // conditionalCellStyles: column?.conditionalCellStyles,
+            cell: ( row, index, column, id ) => {
+                return (<Button
+                variation="primary"
+                label={row?.id === editRow?.id ? "Save" : "Edit Row"}
+                type="button"
+                icon="Edit"
+                // onClick={()=>{editRow ? handleSaveRow(rowData) : handleActionClicked(row, index, column, id)}}
+                onClick={()=>{config?.editableRows ? editRow ? handleSubmit(handleRowSubmit)() : handleActionClicked(row, index, column, id) : config?.editablePopup ? handleActionClickedPopupEdit(row, index, column, id) : null}}
+                isDisabled={ configModule?.allowEdits(row) ? editRow && row?.id !== editRow?.id  ? true : false : true}
+              />)
+            }
+          })
+      }
+
+      return mappedColumns;
+  }, [config, searchResult,editRow,rowData]);
 
   const defaultValuesFromSession = config?.customDefaultPagination
     ? config?.customDefaultPagination
@@ -5436,6 +5592,8 @@ const ResultsDataTableWrapper = ({
     defaultValues: defaultValuesFromSession,
   });
 
+  const formData = watch();
+  
   //call this fn whenever session gets updated
   const setDefaultValues = () => {
     reset(defaultValuesFromSession);
@@ -5586,6 +5744,7 @@ const ResultsDataTableWrapper = ({
   if (!showResultsTable) return <></>;
   if (searchResult?.length === 0) return <NoResultsFound />;
   return (
+    <>
     <ResultsDataTable
       data={filteredData || []}
       columns={tableColumns}
@@ -5632,6 +5791,10 @@ const ResultsDataTableWrapper = ({
       rowsPerPageText={config?.paginationComponentOptions?.rowsPerPage}
       paginationComponentOptions={config?.paginationComponentOptions}
     ></ResultsDataTable>
+
+    {showToast && <Toast type={showToast?.type} label={t(showToast.label)} onClose={()=> setShowToast(null)} />}
+          {editablePopup && <EditablePopup setShowEditablePopup={setShowEditablePopup} config={config} editRow={editRow} setEditRow={setEditRow} setRowData={setRowData} rowData={rowData} handleRowSubmit={handleRowSubmit}/>}
+    </>
   );
 };
 
