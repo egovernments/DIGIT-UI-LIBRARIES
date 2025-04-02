@@ -10,6 +10,7 @@ import SampleInbox from "./SampleInbox";
 import IndividualSearch from "./IndividualSearch";
 import SampleComponents from "./SampleComponents";
 import SampleView from "./SampleView";
+import BoundarySearchComposer from "./BoundarySearchComposer";
 
 const SampleBreadCrumbs = ({ location }) => {
   const { t } = useTranslation();
@@ -60,6 +61,7 @@ const App = ({ path, stateCode, userType, tenants }) => {
         <PrivateRoute path={`${path}/components`} component={() => <Sample></Sample>} />
         <PrivateRoute path={`${path}/test`} component={() => <Loader></Loader>} />
         <PrivateRoute path={`${path}/search`} component={() => <SampleSearch></SampleSearch>} />
+        <PrivateRoute path={`${path}/searchComposer`} component={()=><BoundarySearchComposer></BoundarySearchComposer>}/>
         <PrivateRoute path={`${path}/filter`} component={() => 
           <BoundaryFilter 
           levelConfig={{lowestLevel:"VILLAGE", highestLevel:"COUNTRY"}} 
@@ -82,24 +84,7 @@ const App = ({ path, stateCode, userType, tenants }) => {
           //     name: "NEWTEST00222_MO_11_06_PLEEBO"
           //   }
           // ]}
-          preSelected={
-            [{
-                code: "NEWTEST00222_MO",
-                name: "NEWTEST00222_MO"
-              },
-              {
-                code: "NEWTEST00222_MO_11_MARYLAND",
-                name: "NEWTEST00222_MO_11_MARYLAND"
-              },
-              {
-                code: "NEWTEST00222_MO_11_06_PLEEBO",
-                name: "NEWTEST00222_MO_11_06_PLEEBO"
-              }
-             
-            ]}
-          
-          
-
+          preSelected={["NEWTEST00222_MO","NEWTEST00222_MO_11_MARYLAND"]}
           />} 
         />
         <PrivateRoute path={`${path}/FormComposer`} component={() => <FormComposer/>} />

@@ -11,9 +11,9 @@ import {
   MobileNumber,
   InputTextAmount,
   StringManipulator,
-  LabelFieldPair,
-  BoundaryFilter
+  LabelFieldPair
 } from "../atoms";
+import BoundaryFilter  from "./BoundaryFilter";
 import { useTranslation } from "react-i18next";
 import { useState, useEffect } from "react";
 import UploadFileComposer from "./UploadFileComposer";
@@ -60,6 +60,7 @@ const FieldV1 = ({
     disableFormValidation =
       sectionFormCategory !== selectedFormCategory ? true : false;
   }
+  // debugger;
   const Component =
     typeof component === "string"
       ? Digit.ComponentRegistryService.getComponent(component)
@@ -126,15 +127,22 @@ const FieldV1 = ({
     }
     return null;
   };
- console.log("popi",populators);
+  console.log("popi", populators);
   const renderField = () => {
     switch (type) {
       case "boundary":
         return (
-          <div>
-            cgvhbjnm
-          </div>
-
+          <BoundaryFilter
+            levelConfig={populators.levelConfig}
+            hierarchyType={populators.hierarchyType}
+            module={populators.module}
+            selectedValues={populators.selectedValues}
+            layoutConfig={populators.layoutConfig}
+            isHorizontal={populators.isHorizontal}
+            preSelected={populators.preSelected}
+            frozenData={populators.frozenData}
+            onChange={onChange}
+          />
         );
       case "text":
       case "date":
@@ -500,8 +508,8 @@ const FieldV1 = ({
         {renderField()}
         <div
           className={`${charCount && !error && !description
-              ? "digit-charcount"
-              : "digit-description"
+            ? "digit-charcount"
+            : "digit-description"
             }`}
         >
           {renderDescriptionOrError()}

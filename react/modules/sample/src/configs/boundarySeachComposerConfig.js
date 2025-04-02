@@ -21,7 +21,7 @@ export const Config = {
     },
     minParametersForSearchForm: 0,
     masterName: "commonUiConfig",
-    moduleName: "SearchMDMSConfig",
+    moduleName: "BoundarySearchCompserConfig",
     tableFormJsonPath: "requestBody.MdmsCriteria",
     filterFormJsonPath: "requestBody.MdmsCriteria",
     searchFormJsonPath: "requestBody.MdmsCriteria",
@@ -44,62 +44,42 @@ export const Config = {
         },
         fields: [
           {
-            label: "Field",
-            type: "dropdown",
-            isMandatory: false,
-            disable: false,
-            // Todo: all field level props should be outside populators
-            populators: {
-              name: "field", // Todo: call it as jsonPath
-              optionsKey: "name",
-              options: [
-                {
-                  code: "code",
-                  name: "code",
-                },
-                {
-                  code: "name",
-                  name: "name",
-                },
-                {
-                  code: "description",
-                  name: "description",
-                },
-              ],
-            },
-          },
-          {
-            label: "Value",
-            type: "text",
+            label: "BoundaryFilter",
+            type: "boundary",
             isMandatory: false,
             disable: false,
             populators: {
-              name: "value",
-              validation: { pattern: {}, maxlength: 140 },
-            },
-          },
-          {
-            label: "IsActive",
-            type: "dropdown",
-            isMandatory: false,
-            disable: false,
-            populators: {
-              name: "isActive",
-              optionsKey: "code",
-              options: [
-                {
-                  code: "WBH_COMMON_YES",
-                  value: true,
-                },
-                {
-                  code: "WBH_COMMON_NO",
-                  value: false,
-                },
-                {
-                  code: "WBH_COMMON_ALL",
-                  value: "all",
-                },
-              ],
+              name:"boundaryComponnet",
+              levelConfig: {lowestLevel:"LOCALITY", highestLevel:"COUNTRY"} ,
+              hierarchyType:"NEWTEST00222" ,
+              module:"HCM-ADMIN-CONSOLE" ,
+              layoutConfig:{isDropdownLayoutHorizontal:true,isLabelFieldLayoutHorizontal:false},
+              preSelected:
+                  [{
+                      code: "NEWTEST00222_MO",
+                      name: "NEWTEST00222_MO"
+                    },
+                    {
+                      code: "NEWTEST00222_MO_11_MARYLAND",
+                      name: "NEWTEST00222_MO_11_MARYLAND"
+                    },
+                    {
+                      code: "NEWTEST00222_MO_11_06_PLEEBO",
+                      name: "NEWTEST00222_MO_11_06_PLEEBO"
+                    }],
+              // "frozenData":
+              // [{
+              //     code: "NEWTEST00222_MO",
+              //     name: "NEWTEST00222_MO"
+              //   },
+              //   {
+              //     code: "NEWTEST00222_MO_11_MARYLAND",
+              //     name: "NEWTEST00222_MO_11_MARYLAND"
+              //   },
+              //   {
+              //     code: "NEWTEST00222_MO_11_06_PLEEBO",
+              //     name: "NEWTEST00222_MO_11_06_PLEEBO"
+              //   }]
             },
           },
         ],

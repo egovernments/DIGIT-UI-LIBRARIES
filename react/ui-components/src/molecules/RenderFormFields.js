@@ -16,6 +16,7 @@ import { SVG } from "../atoms";
 import HeaderComponent from "../atoms/HeaderComponent";
 import StringManipulator from "../atoms/StringManipulator";
 import Divider from "../atoms/Divider";
+import BoundaryFilter from "../hoc/BoundaryFilter";
 
 const RenderFormFields = ({ data, ...props }) => {
   const { t } = useTranslation();
@@ -32,7 +33,32 @@ const RenderFormFields = ({ data, ...props }) => {
       : null;
     const customRules = customValidations ? { validate: customValidations } : {};
     const customProps = config?.customProps;
+    console.log(populators,type,"pop test 1");
+   
     switch (type) {
+      case "boundary":
+        return (
+          <Controller
+            defaultValue={formData?.[populators?.name]}
+            render={({ onChange, ref, value }) => (
+              <BoundaryFilter
+              levelConfig={populators.levelConfig}
+              hierarchyType={populators.hierarchyType}
+              module={populators.module}
+              selectedValues={populators.selectedValues}
+              layoutConfig={populators.layoutConfig}
+              isHorizontal={populators.isHorizontal}
+              preSelected={populators.preSelected}
+              frozenData={populators.frozenData}
+              onChange={onChange}
+            />
+            )}
+            name={populators?.name}
+            rules={{ required: isMandatory, ...populators.validation, ...customRules }}
+            control={control}
+          />
+          
+        );
       case "date":
       case "text":
       case "number":
@@ -90,7 +116,6 @@ const RenderFormFields = ({ data, ...props }) => {
               />
             )}
             name={populators?.name}
-            rules={{ required: isMandatory, ...populators.validation }}
             control={control}
           />
         );

@@ -315,12 +315,27 @@ export const FormComposerConfig=[
                 "disable": false,
                 "populators": {
                     "name":"boundaryComponnet",
-                    "levelConfig": {lowestLevel:"VILLAGE", highestLevel:"COUNTRY", isSingleSelect:["LOCALITY","VILLAGE","DISTRICT"]} ,
+                    "levelConfig": {lowestLevel:"VILLAGE", highestLevel:"COUNTRY", isSingleSelect:[]} ,
                     "hierarchyType":"NEWTEST00222" ,
                     "module":"HCM-ADMIN-CONSOLE" ,
-                    "selectedValues":[""],
-                    "layoutConfig":{isDropdownLayoutHorizontal:false,isLabelFieldLayoutHorizontal:false},
-                    "isHorizontal":true
+                    "layoutConfig":{isDropdownLayoutHorizontal:true,isLabelFieldLayoutHorizontal:false},
+                    "preSelected":
+                        ["NEWTEST00222_MO","NEWTEST00222_MO_11_MARYLAND","NEWTEST00222_MO_11_06_PLEEBO",
+                            
+                          ],
+                    // "frozenData":
+                    // [{
+                    //     code: "NEWTEST00222_MO",
+                    //     name: "NEWTEST00222_MO"
+                    //   },
+                    //   {
+                    //     code: "NEWTEST00222_MO.NEWTEST00222_MO_11_MARYLAND",
+                    //     name: "NEWTEST00222_MO_11_MARYLAND"
+                    //   },
+                    //   {
+                    //     code: "NEWTEST00222_MO.NEWTEST00222_MO_11_MARYLAND.NEWTEST00222_MO_11_06_PLEEBO",
+                    //     name: "NEWTEST00222_MO_11_06_PLEEBO"
+                    //   }]
                 },
             },
             {
