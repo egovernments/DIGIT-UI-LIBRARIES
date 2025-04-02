@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### [0.2.0-beta.7] - 2025-03-26
 ## Enhancements & New features
 ## Edit Row data within InboxSearchComposer within rows and with popups based on config
+## Added customizers support i.e., we don't need to mention functions in UICustomizations.js we can directly mention within component level
 
 ### [0.2.0-beta.5] - 2025-03-26
 ## Fixes
