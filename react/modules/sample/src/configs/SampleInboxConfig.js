@@ -8,7 +8,7 @@ const inboxConfig = () => {
   return {
     headerLabel: "ES_COMMON_INBOX", // label is changed to headerLabel (Screen Header Label)
     postProcessResult: true,
-    type: "inbox", // type of the screen ("inbox","serach")
+    type: "inbox", // type of the screen ("inbox","search")
     apiDetails: {
       serviceName: "/mdms-v2/v2/_search",
       requestParam: {},

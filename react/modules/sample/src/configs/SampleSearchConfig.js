@@ -6,7 +6,7 @@ const ExpandedComponent = ({ data }) => (
 
 export const Config = {
   headerLabel: "Search", // label is changed to headerLabel (Screen Header Label)
-  type: "search", // type of the screen ("inbox","serach")
+  type: "search", // type of the screen ("inbox","search")
   // moved actions releated props inside actions object
   actions: {
     actionLabel: "Action1", // label of the action
