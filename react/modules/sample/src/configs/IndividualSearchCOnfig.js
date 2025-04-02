@@ -80,7 +80,7 @@ export const searchconfig = () =>
               editable:true,
               editableFieldConfig: {
                 inline: true,
-                // label: "Default",
+                label: "Id",
                 isMandatory: true,
                 type: "text",
                 disable: false,
@@ -100,12 +100,13 @@ export const searchconfig = () =>
                 inline: true,
                 isMandatory: false,
                 type: "text",
+                label:"Name",
                 disable: false,
                 populators: { name: "row.name", error: "Error!",styles:{
                   "width":"10vw",
                   "margin-top":"2rem"
                 },
-              validation:{minlength:2} },
+                validation:{minlength:2} },
                 withoutLabel:true
               },
             },
@@ -115,6 +116,7 @@ export const searchconfig = () =>
               // additionalCustomization:true,
               editable:true,
               editableFieldConfig: {
+                inline:true,
                 inline: true,
                 isMandatory: false,
                 type: "text",
@@ -123,7 +125,8 @@ export const searchconfig = () =>
                   "width":"10vw",
                   "margin-top":"2rem"
                 }, },
-                withoutLabel:true
+                withoutLabel:true,
+                label:"Observation Strategy"
               },
             },
             {
@@ -131,11 +134,12 @@ export const searchconfig = () =>
               jsonPath: "data.code",
               editable:true,
               editableFieldConfig:{
+                inline:true,
                 withoutLabel:true,
+                label:"Project Type",
                 isMandatory: false,
                 type: "dropdown",
                 key: "row.code",
-                label: "Default",
                 disable: false,
                 populators: {
                   styles:{
@@ -220,11 +224,12 @@ export const searchconfig = () =>
               jsonPath: "isActive",
               editable:true,
               editableFieldConfig:{
+                inline:true,
                 withoutLabel:true,
                 isMandatory: false,
                 type: "toggle",
                 key: "row.isActive",
-                // label: "With Icons",
+                label: "Active",
                 disable: false,
                 populators: {
                   styles:{
@@ -264,7 +269,29 @@ export const searchconfig = () =>
           ],
           enableColumnSort: true,
           resultsJsonPath: "mdms",
-          editableRows:true,//this should automatically add a button at the end for editing rows
+          editableRows:false,//this should automatically add a button at the end for editing rows
+          editablePopup:true,
+          additionalPopupColumns:[
+            {
+              label: "Group",
+              jsonPath: "data.group",
+              // additionalCustomization:true,
+              editable:true,
+              editableFieldConfig: {
+                inline: true,
+                label: "Group",
+                isMandatory: true,
+                type: "text",
+                disable: false,
+                populators: { name: "row.data.group", error: "Error!",styles:{
+                  "width":"10vw",
+                  "margin-top":"2rem"
+                }, },
+                withoutLabel:true
+              },
+            },
+          ]
+          // both of the above cannot be true
           // editableRowsList:["Id","Address"],//this can store the labels of rows that are editable
         },
         show: true,

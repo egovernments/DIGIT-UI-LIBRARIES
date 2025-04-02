@@ -21,7 +21,8 @@ import CardLabel from "../atoms/CardLabel";
 import { SVG } from "../atoms";
 import NoResultsFound from "../atoms/NoResultsFound";
 import {Toast} from "../atoms";
-import FieldV1 from "./FieldV1"
+import FieldV1 from "./FieldV1";
+import EditablePopup from "./EditablePopup";
 
 const ResultsDataTable = ({
   tableContainerClass,
@@ -65,6 +66,7 @@ const ResultsDataTable = ({
     url:apiDetails?.mutationUrl
   });
   const [editRow,setEditRow] = useState(null);
+  const [editablePopup,setShowEditablePopup] = useState(null);
   //edited data should always hold updated payload
   const [rowData,setRowData] = useState(null);
 
@@ -91,8 +93,14 @@ const ResultsDataTable = ({
     setEditRow(row);
     setRowData({row,index,column,id});
   }
+  const handleActionClickedPopupEdit = (row, index, column, id) => {
+    setEditRow(row);
+    setShowEditablePopup(true)
+    setRowData({row,index,column,id});
+  }
   const handleRowSubmit = (rowFormData) => {
     setEditRow(null);
+    setShowEditablePopup(false);
     // make an api call here
     // generate payload from a customizer
     mutation.mutate(
@@ -100,7 +108,10 @@ const ResultsDataTable = ({
       {
         onSuccess: (data) => {
           setShowToast({ key: "success", label: t("DATA_MODIEFIED_SUCCESS")})
-          refetch()
+          setTimeout(() => {
+            refetch()
+          }, 1000);
+          
         },
         onError: (error) => {
           setShowToast({type:"error", key: "error", label: t("DATA_MODIEFIED_FAIL")})
@@ -267,7 +278,7 @@ const ResultsDataTable = ({
       };
     });
 
-    if(config?.editableRows){
+    if(config?.editableRows || config?.editablePopup){
       mappedColumns.push({
         id: crypto.randomUUID(),
         name: "Action",
@@ -293,7 +304,7 @@ const ResultsDataTable = ({
             type="button"
             icon="Edit"
             // onClick={()=>{editRow ? handleSaveRow(rowData) : handleActionClicked(row, index, column, id)}}
-            onClick={()=>{editRow ? handleSubmit(handleRowSubmit)() : handleActionClicked(row, index, column, id)}}
+            onClick={()=>{config?.editableRows ? editRow ? handleSubmit(handleRowSubmit)() : handleActionClicked(row, index, column, id) : config?.editablePopup ? handleActionClickedPopupEdit(row, index, column, id) : null}}
             isDisabled={ configModule?.allowEdits(row) ? editRow && row?.id !== editRow?.id  ? true : false : true}
           />)
         }
@@ -626,6 +637,7 @@ const ResultsDataTable = ({
       )}
       {renderTable()}
       {showToast && <Toast type={showToast?.type} label={t(showToast.label)} onClose={()=> setShowToast(null)} />}
+      {editablePopup && <EditablePopup setShowEditablePopup={setShowEditablePopup} config={config} editRow={editRow} setEditRow={setEditRow} setRowData={setRowData} rowData={rowData} handleRowSubmit={handleRowSubmit}/>}
     </Card>
   );
 };
