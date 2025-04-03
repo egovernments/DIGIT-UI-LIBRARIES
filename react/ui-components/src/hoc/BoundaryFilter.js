@@ -225,7 +225,7 @@ const BoundaryFilter = (rawProps) => {
       console.log("Calling boundaryOptionsUpdate with:", boundaryType, values, "Multi");
 
       // Ensure `values` is an array of arrays
-      boundaryOptionsUpdate(boundaryType, values, "Multi");
+      boundaryOptionsUpdate(boundaryType, values, "Multi",true);
     });
 
   }, [hierarchy, hierarchyData, props.frozenData]); // Depend on hierarchy & frozenData
@@ -235,12 +235,12 @@ const BoundaryFilter = (rawProps) => {
 
     // **Transform frozenData**
     const transformedPreSelectedData = props.preSelected
-      .filter(item => pathMap?.[item.code]) // Skip if pathMap[item.code] is missing
+      .filter(item => pathMap?.[item]) // Skip if pathMap[item.code] is missing
       .map(item => ({
-        code: pathMap[item.code],
-        path: pathMap[item.code],
-        boundaryType: getBoundaryType(pathMap[item.code], hierarchy),
-        name: item.name,
+        code: item,
+        path: pathMap[item],
+        boundaryType: getBoundaryType(pathMap[item], hierarchy),
+        name: item,
       }));
 
 
@@ -259,7 +259,7 @@ const BoundaryFilter = (rawProps) => {
       console.log("Calling boundaryOptionsUpdate with:", boundaryType, values, "Multi");
 
       // Ensure `values` is an array of arrays
-      boundaryOptionsUpdate(boundaryType, values, "Multi");
+      boundaryOptionsUpdate(boundaryType, values, "Multi",true);
     });
 
   }, [hierarchy, hierarchyData, props.preSelected, pathMap]); // Depend on hierarchy & frozenData
@@ -361,7 +361,7 @@ const BoundaryFilter = (rawProps) => {
 
 
   //main fucntion, handles dropdown changes
-  const boundaryOptionsUpdate = async (boundaryType, values, dropdownType) => {
+  const boundaryOptionsUpdate = async (boundaryType, values, dropdownType,isPreSelected) => {
     console.log("boundaryOptionsUpdate", boundaryType, values, dropdownType);
     if (!hierarchy || !hierarchyData) return;
     // debugger;
@@ -391,6 +391,7 @@ const BoundaryFilter = (rawProps) => {
     const updatedOptions = boundaryOptions;
     let newBoundaryOptions = {};
     let newSelectedOptions = {};
+    console.log("removedCodes",removedCodes);
     if (removedCodes.length > 0) {
       newBoundaryOptions = cleanLowerLevels(boundaryType, removedCodes, { ...boundaryOptions });
       newSelectedOptions = cleanLowerLevelsForSelectedValues(boundaryType, removedCodes, [...selectedValues]);
@@ -401,7 +402,7 @@ const BoundaryFilter = (rawProps) => {
       newSelectedOptions = selectedValues;
     }
     debugger;
-    console.log("newSelectedOptions", newSelectedOptions);
+    console.log("newSelectedOptions", newSelectedOptions,newBoundaryOptions);
 
 
 
@@ -453,14 +454,19 @@ const BoundaryFilter = (rawProps) => {
     setSelectedValuesCodes(updatedSelectedValues.map((item) => item.code))
     // debugger;
     setSelectedValues((prev) => {
-      // Extract existing codes from previous state
-      const existingCodes = new Set(prev.map(item => item.code));
-
-      // Filter out any new values that already exist
-      // const uniqueUpdatedValues = updatedSelectedValues.filter(item => !existingCodes.has(item.code));
-      debugger;
-      return [...updatedSelectedValues]; // Append only unique values
+      if (isPreSelected) {
+        // Extract existing codes from previous state
+        const existingCodes = new Set(prev.map(item => item.code));
+    
+        // Filter out only unique values
+        const uniqueUpdatedValues = updatedSelectedValues.filter(item => !existingCodes.has(item.code));
+    
+        return [...prev, ...uniqueUpdatedValues]; // Append only unique values
+      } else {
+        return [...updatedSelectedValues]; // Replace with new values
+      }
     });
+    
 
   };
 
@@ -598,7 +604,7 @@ const BoundaryFilter = (rawProps) => {
                         optionsKey={"code"}
                         t={t}
                         onSelect={(values) => {
-                          boundaryOptionsUpdate(item?.boundaryType, values, "Multi");
+                          boundaryOptionsUpdate(item?.boundaryType, values, "Multi",false);
                         }}
                         type="multiselectdropdown"
                         config={{
@@ -613,7 +619,7 @@ const BoundaryFilter = (rawProps) => {
                           selected={selectedValues.filter((item) => item.boundaryType == rootBoundaryType)}
                           t={t}
                           select={(values) => {
-                            boundaryOptionsUpdate(item?.boundaryType, values, "Single");
+                            boundaryOptionsUpdate(item?.boundaryType, values, "Single",false);
                           }}
                           type="dropdown"
                           variant="nesteddropdown"
@@ -651,6 +657,7 @@ const BoundaryFilter = (rawProps) => {
                     let formattedSelectedValues = selectedValues.filter((child) => child?.boundaryType === item?.boundaryType);
                     // debugger;
                     // formattedSelectedValues.push(tempPreSelectedValues);
+                    console.log("333 props.levelConfig.isSngleSelect",props?.levelConfig?.isSingleSelect,item?.boundaryType,props.levelConfig.isSingleSelect.includes(item?.boundaryType));
                     if (props?.levelConfig?.isSingleSelect && props?.levelConfig?.isSingleSelect.includes(item?.boundaryType)) {
                       formattedSelectedValues = formattedSelectedValues[0];
                     }
@@ -672,7 +679,7 @@ const BoundaryFilter = (rawProps) => {
                                 optionsKey={"name"}
                                 t={t}
                                 onSelect={(values) => {
-                                  boundaryOptionsUpdate(item?.boundaryType, values, "Multi");
+                                  boundaryOptionsUpdate(item?.boundaryType, values, "Multi",false);
                                 }}
                                 addCategorySelectAllCheck={true}
                                 addSelectAllCheck={true}
@@ -688,50 +695,7 @@ const BoundaryFilter = (rawProps) => {
                                   setShowPopup(true);
                                 }}
                               />
-                              {showPopup && (
-                                <PopUp
-                                  className={""}
-                                  type={"default"} // type of popup
-                                  heading={"Popup header"} // popup heading
-                                  children={[
-                                    <div
-                                      className="digit-tag-container"
-                                      style={{ maxWidth: "100%", margin: "0rem" }}
-                                    >
-                                      {formattedSelectedValues?.length > 0 &&
-                                        formattedSelectedValues?.map((value, index) => {
-                                          console.log(value, "value111",value.code,typeof value.code);
-                                          return (
-                                            <Chip
-                                              key={index}
-                                              text={value.code}
-                                              onClick={() => { }}
-                                              className="multiselectdropdown-tag"
-                                            />
-                                          );
-                                        })}
-                                    </div>
-                                  ]} // elements inside popup
-                                  onOverlayClick={() => {
-                                    setShowPopup(false);
-                                  }} // on click of overlay
-                                  onClose={() => {
-                                    setShowPopup(false);
-                                  }} // on click of close
-                                  footerChildren={[
-                                    <Button
-                                      type={"button"}
-                                      size={"large"}
-                                      variation={"primary"}
-                                      label={"Close"}
-                                      onClick={() => {
-                                        setShowPopup(false);
-                                      }}
-                                    />,
-                                  ]}
-                                  sortFooterChildren={true}
-                                ></PopUp>
-                              )}
+                             
                             </> :
                             <div className="padding-dropdown">
                               <Dropdown
@@ -741,7 +705,7 @@ const BoundaryFilter = (rawProps) => {
                                 optionKey={"name"}
                                 t={t}
                                 select={(values) => {
-                                  boundaryOptionsUpdate(item?.boundaryType, values, "Single");
+                                  boundaryOptionsUpdate(item?.boundaryType, values, "Single",false);
                                 }}
                                 type="dropdown"
                                 variant="nesteddropdown"

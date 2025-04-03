@@ -315,7 +315,7 @@ export const FormComposerConfig=[
                 "disable": false,
                 "populators": {
                     "name":"boundaryComponnet",
-                    "levelConfig": {lowestLevel:"VILLAGE", highestLevel:"COUNTRY", isSingleSelect:[]} ,
+                    "levelConfig": {lowestLevel:"VILLAGE", highestLevel:"COUNTRY", isSingleSelect:["PROVINCE","DISTRICT"]} ,
                     "hierarchyType":"NEWTEST00222" ,
                     "module":"HCM-ADMIN-CONSOLE" ,
                     "layoutConfig":{isDropdownLayoutHorizontal:true,isLabelFieldLayoutHorizontal:false},
