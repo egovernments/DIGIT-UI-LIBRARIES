@@ -320,9 +320,7 @@ export const FormComposerConfig=[
                     "module":"HCM-ADMIN-CONSOLE" ,
                     "layoutConfig":{isDropdownLayoutHorizontal:true,isLabelFieldLayoutHorizontal:false},
                     "preSelected":
-                        ["NEWTEST00222_MO","NEWTEST00222_MO_11_MARYLAND","NEWTEST00222_MO_11_06_PLEEBO",
-                            
-                          ],
+                        ["NEWTEST00222_MO","NEWTEST00222_MO_11_MARYLAND","NEWTEST00222_MO_11_06_PLEEBO"],
                     // "frozenData":
                     // [{
                     //     code: "NEWTEST00222_MO",
@@ -360,7 +358,7 @@ export const FormComposerConfig=[
             {
                 "key": "basicDetails_projectName",
                 "type": "text",
-                "label": "ES_COMMON_PROJECT_NAME",
+                "label": "ESS_COMMON_PROJECT_NAME",
                 "inline": true,
                 "disable": false,
                 "populators": {

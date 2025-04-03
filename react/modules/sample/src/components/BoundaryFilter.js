@@ -342,6 +342,7 @@ const BoundaryFilter = (rawProps) => {
 
   //for unselect logic 
   const cleanLowerLevelsForSelectedValues = (boundaryType, removedCodes, updatedOptions) => {
+    debugger;
     return updatedOptions.filter(option => {
       // Ensure path is a valid string before checking `includes`
       if (typeof option?.path !== "string") return true;
@@ -384,13 +385,14 @@ const BoundaryFilter = (rawProps) => {
     let newSelectedOptions = {};
     if (removedCodes.length > 0) {
       newBoundaryOptions = cleanLowerLevels(boundaryType, removedCodes, { ...boundaryOptions });
-      newSelectedOptions = cleanLowerLevelsForSelectedValues(boundaryType, removedCodes, [...selectedValues, ...selectedOptions]);
+      newSelectedOptions = cleanLowerLevelsForSelectedValues(boundaryType, removedCodes, [...selectedValues]);
     }
     // Reset removedCodes after processing
     else {
       newBoundaryOptions = updatedOptions;
-      newSelectedOptions = cleanLowerLevelsForSelectedValues(boundaryType, removedCodes, [...selectedValues, ...selectedOptions]);
+      newSelectedOptions = selectedValues;
     }
+    debugger;
     console.log("newSelectedOptions", newSelectedOptions);
 
 
@@ -440,16 +442,16 @@ const BoundaryFilter = (rawProps) => {
 
     // **Update selected values once at the end**
     // debugger;
-    setSelectedValuesCodes(updatedSelectedValues.map((item) => item.path))
+    setSelectedValuesCodes(updatedSelectedValues.map((item) => item.code))
     // debugger;
     setSelectedValues((prev) => {
       // Extract existing codes from previous state
       const existingCodes = new Set(prev.map(item => item.code));
 
       // Filter out any new values that already exist
-      const uniqueUpdatedValues = updatedSelectedValues.filter(item => !existingCodes.has(item.code));
-
-      return [...prev, ...uniqueUpdatedValues]; // Append only unique values
+      // const uniqueUpdatedValues = updatedSelectedValues.filter(item => !existingCodes.has(item.code));
+      debugger;
+      return [...updatedSelectedValues]; // Append only unique values
     });
 
   };
@@ -557,6 +559,7 @@ const BoundaryFilter = (rawProps) => {
 
   console.log(props?.layoutConfig?.isDropdownLayoutHorizontal);
   console.log(selectedValuesCodes);
+  console.log(boundaryOptions,"boundaryOptions");
 
   return (
     !isLoading && !hierarchyLoading ? (
@@ -629,7 +632,7 @@ const BoundaryFilter = (rawProps) => {
                       code: parentKey,
                       name: parentKey,
                       options: boundaries[parentKey].map((child) => ({
-                        code: child.path,
+                        code: child.code,
                         name: child.code,
                         path: child.path,
                         parent: parentKey,
