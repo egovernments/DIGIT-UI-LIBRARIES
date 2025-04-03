@@ -1,7 +1,7 @@
 import { Header } from '@egovernments/digit-ui-react-components';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { InboxSearchComposer, PopUp } from '@egovernments/digit-ui-components';
+import { Button, InboxSearchComposer, PopUp } from '@egovernments/digit-ui-components';
 import { searchconfig } from '../../configs/IndividualSearchConfig';
 
 const defaultSearchValues = {
@@ -13,7 +13,7 @@ const defaultSearchValues = {
 const IndividualSearch = () => {
   const { t } = useTranslation();
   const [defaultValues, setDefaultValues] = useState(defaultSearchValues); // State to hold default values for search fields
-  const indConfigs = searchconfig();
+  const [searchConfig,setSearchConfig] = useState(searchconfig());
   const [counter, updateCounter] = useState(0);
   const [showPopup, setShowPopup] = useState(false);
 
@@ -22,7 +22,13 @@ const IndividualSearch = () => {
     setDefaultValues(defaultSearchValues);
   }, []);
 
-  const customizers = {
+  
+  const handleButtonClick = () => {
+    setSearchConfig(prev => {
+      return {...prev}
+    })
+  }
+  const customizers = useMemo(()=>({
     preProcess: (data) => {
       delete data.params.tenantId;
       delete data.params.limit;
@@ -32,9 +38,9 @@ const IndividualSearch = () => {
       data.body.MdmsCriteria = {
         tenantId: 'dev',
         filters: {},
-        schemaCode: 'ACCESSCONTROL-ACTIONS-TEST.actions-test',
-        limit: 10,
-        offset: 0,
+        schemaCode: 'test.projectconfig',
+        limit: data.state.tableForm.limit,
+        offset: data.state.tableForm.offset,
       };
       return data;
     },
@@ -43,7 +49,7 @@ const IndividualSearch = () => {
       //like if a cell is link then we return link
       //first we can identify which column it belongs to then we can return relevant result
       switch (key) {
-        case 'IndividualID':
+        case 'Id':
           return (
             <button onClick={() => updateCounter((prev) => {
               console.log("cliked")
@@ -52,26 +58,54 @@ const IndividualSearch = () => {
               {`Update State ${value}`} 
             </button>
           );
-        case 'Name':
+        case 'Popup':
           return (
             <button onClick={() => setShowPopup(true)}>
               Show Popups
             </button>
           );
+        case 'Edit':
+          return(
+            <Button
+              variation="primary"
+              label={"Edit Row"}
+              type="button"
+              icon="Edit"
+              onClick={handleButtonClick}
+            />
+          )
         default:
           return t('ES_COMMON_NA');
       }
     },
-  };
+    getMutationPayload:(formData,rowData) => {
+      const row = rowData.row;
+      const {name,observationStrategy,uniqueIdentifier,isActive,code} = formData.row;
+      return {
+        body:{
+          Mdms:{
+            ...row,
+            isActive:isActive==="true"?true:false,
+            data:{...row.data,observationStrategy,name,code:code.code},
+            uniqueIdentifier
+          }
+        },
+        params:{}
+      }
+    },
+    allowEdits:(row) => {
+      return true;
+    }
+  }),[])
 
   return (
     <React.Fragment>
       <div>{counter}</div>
-      <Header styles={{ fontSize: '32px' }}>{t(indConfigs?.label)}</Header>
-      <div className="inbox-search-wrapper">
+      <Header styles={{ fontSize: '32px' }}>{t(searchConfig?.label)}</Header>
+      <div className="digit-inbox-search-wrapper">
         {/* Pass defaultValues as props to InboxSearchComposer */}
         <InboxSearchComposer
-          configs={indConfigs}
+          configs={searchConfig}
           defaultValues={defaultValues}
           customizers={customizers}
         ></InboxSearchComposer>

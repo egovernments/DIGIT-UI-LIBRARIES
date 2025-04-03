@@ -249,6 +249,16 @@
                     .digit-tab-main {
                         width: 100%;
                     }
+
+                    &.tab{
+                        background: none !important;
+                        padding: theme(digitv2.spacers.spacer0);
+                        box-shadow: none;
+
+                        .digit-search-wrapper{
+                            padding: theme(digitv2.spacers.spacer6);
+                        }
+                    }
                 }
 
                 &.filter{
@@ -294,6 +304,13 @@
     }
 }
 
+.digit-inbox-search-composer-header {
+    @extend .typography.heading-xl;
+    color: theme(digitv2.lightTheme.primary-2);
+    margin-bottom: theme(digitv2.spacers.spacer6);
+    line-height: normal;
+}
+
 .digit-inbox-search-composer-header-action-wrapper{
 
     display: flex;
@@ -302,12 +319,6 @@
 
     .digit-inbox-search-composer-action{
         margin-bottom: theme(digitv2.spacers.spacer6);
-    }
-    .digit-inbox-search-composer-header {
-        @extend .typography.heading-xl;
-        color: theme(digitv2.lightTheme.primary-2);
-        margin-bottom: theme(digitv2.spacers.spacer6);
-        line-height: normal;
     }
 }
 

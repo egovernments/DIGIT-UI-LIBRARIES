@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+### [0.2.0-beta.8] - 2025-04-03
+## Updates
+- Version Update for stability 
+
+### [0.2.0-beta.7] - 2025-03-26
+## Enhancements & New features
+## Edit Row data within InboxSearchComposer within rows and with popups based on config
+## Added customizers support i.e., we don't need to mention functions in UICustomizations.js we can directly mention within component level
+
+### [0.2.0-beta.5] - 2025-03-26
+## Fixes
+- Fixed Tab Functionality in InboxSearchComposer
+
 ### [0.2.0-beta.3] - 2025-03-20
 ## Fixes
 - Fixed multiple calls issue in InboxSearchLinks

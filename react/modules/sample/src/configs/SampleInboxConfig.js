@@ -8,7 +8,7 @@ const inboxConfig = () => {
   return {
     headerLabel: "ES_COMMON_INBOX", // label is changed to headerLabel (Screen Header Label)
     postProcessResult: true,
-    type: "inbox", // type of the screen ("inbox","serach")
+    type: "inbox", // type of the screen ("inbox","search")
     apiDetails: {
       serviceName: "/mdms-v2/v2/_search",
       requestParam: {},
@@ -30,15 +30,15 @@ const inboxConfig = () => {
     sections: {
       search: {
         uiConfig: {
-          headerStyle: null,
-          primaryLabel: "ES_COMMON_SEARCH",
-          secondaryLabel: "ES_COMMON_CLEAR_SEARCH",
-          minReqFields: 1,
+          headerStyle: null, // styles for the search label 
+          primaryLabel: "ES_COMMON_SEARCH",  // label for search button
+          secondaryLabel: "ES_COMMON_CLEAR_SEARCH", // label for clear button
+          minReqFields: 1,  // minimum number of fields that needs to be updated for searching 
           defaultValues: {
             attendanceRegisterName: "",
             orgId: "",
             musterRollNumber: "",
-          },
+          }, // default values for the fields.
           fields: [
             {
               label: "Search field 1",
@@ -129,11 +129,10 @@ const inboxConfig = () => {
                 ],
               },
             },
-          ],
+          ], // fields that needs to be displayed for search
         },
-        label: "",
-        children: {},
-        show: true,
+        label: "", // label for the search wrapper
+        show: true, // boolean flag to show or hide the search component
       },
       links: {
         uiConfig: {
@@ -158,14 +157,14 @@ const inboxConfig = () => {
           },
         },
         children: {},
-        show: true,
+        show: true, // boolean flag to show or hide the links section
       },
       filter: {
         uiConfig: {
           type: "filter",
-          headerStyle: null,
-          primaryLabel: "Apply Filters",
-          secondaryLabel: "Clear Filters",
+          label:"", // Custom Filter Card Header
+          primaryLabel: "Apply Filters", // label for filter button
+          secondaryLabel: "Clear Filters", // label for clear button
           minReqFields: 1,
           defaultValues: {
             dropdown: "",
@@ -313,14 +312,12 @@ const inboxConfig = () => {
             // },
           ],
         },
-        label: "ES_COMMON_FILTERS",
-        show: true,
+        show: true, // boolean flag to show or hide the filters section
       },
       sort: { // Introduced Sort action to show in the mobile view
         show: true,
       },
       searchResult: {
-        label: "",
         uiConfig: {
           columns: [
             {
@@ -344,21 +341,22 @@ const inboxConfig = () => {
               label: "boundaryCode",
               jsonPath: "boundaryCode",
             },
-          ],
+          ], // what columns to be shown in the table
           selectionProps: {
             showCheckBox: true,
             showSelectedState: true,
             selectableRowsNoSelectAll: false,
             // showSelectedStatePosition:"bottom", can also be sent like this
-          },
+          }, // props related to table row selections
           expandableProps: {
             expandableRows: true,
             expandableRowsComponent: ExpandedComponent,
-          },
+          }, // props related to table row expansions
           tableProps: {
             showTableDescription: "This is the search table description",
             showTableTitle: "Search table title",
-          },
+            tableClassName:"custom-classname-resultsdatatable"
+          }, // props related to table : title,description, custom classname
           actionProps: {
             actions: [
               {
@@ -372,7 +370,7 @@ const inboxConfig = () => {
                 icon: "CheckCircle",
               },
             ],
-          },
+          }, // props related to actions that needs to be performed after row selections
           enableGlobalSearch: true,
           enableColumnSort: true,
           resultsJsonPath: "items",
@@ -380,7 +378,7 @@ const inboxConfig = () => {
           isPaginationRequired: true,
         },
         children: {},
-        show: true,
+        show: true, // boolean flag to show or hide the search results 
       },
     },
     // additionalSections: {}, // no more additional sections will be supported

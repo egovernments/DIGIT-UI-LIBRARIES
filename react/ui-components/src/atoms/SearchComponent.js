@@ -18,11 +18,10 @@ const setUIConf = (uiConfig) => {
   return [{uiConfig}]
 }
 
-const SearchComponent = ({ uiConfig, header = "", screenType = "search", fullConfig, data,activeLink,setActiveLink,browserSession,showTab,showTabCount=false, tabData, onTabChange}) => {
+const SearchComponent = ({ uiConfig, header = "", screenType = "search", fullConfig, data,activeLink,browserSession,showTab,showTabCount=false, tabData, onTabChange}) => {
   
   //whenever activeLink changes we'll change uiConfig
   // const [activeLink,setActiveLink] = useState(uiConfig?.configNavItems?.filter(row=>row.activeByDefault)?.[0]?.name)
-  const [navConfig,setNavConfig] = useState(uiConfig?.configNavItems)
   const [allUiConfigs,setAllUiConfigs] = useState(setUIConf(uiConfig))
   const { t } = useTranslation();
   const { state, dispatch } = useContext(InboxContext)
@@ -204,76 +203,31 @@ const SearchComponent = ({ uiConfig, header = "", screenType = "search", fullCon
     );
   };
 
-  if(showTab){
-    return <React.Fragment>
-    {showTab && <div className="search-tabs-container">
-          <div>
-            {tabData?.map((i,num) => (
-                <button
-                className={i?.active === true ? "search-tab-head-selected" : "search-tab-head"}
-                onClick={() => {
-                    clearSearch({});
-                    onTabChange(num);
-                  }}>
-                  {showTabCount? `${t(i?.label)}(${data?.count || data?.TotalCount || data?.totalCount})`
-                  : t(i?.label)}
-                </button>
-              ))}
-          </div>
-        </div>
-      }
-    <div className={'digit-search-wrapper'}>
-      {header && renderHeader()}
-      <form onSubmit={handleSubmit(onSubmit)} onKeyDown={(e) => checkKeyDown(e)}>
-        <div>
-          {uiConfig?.showFormInstruction && <p className="search-instruction-header">{t(uiConfig?.showFormInstruction)}</p>}
-          <div className={`digit-search-field-wrapper ${screenType} ${uiConfig?.type} ${uiConfig?.formClassName ? uiConfig?.formClassName : ""}`}>
-            <RenderFormFields
-              fields={uiConfig?.fields}
-              control={control}
-              formData={formData}
-              errors={errors}
-              register={register}
-              setValue={setValue}
-              getValues={getValues}
-              setError={setError}
-              clearErrors={clearErrors}
-              labelStyle={{ fontSize: "16px" }}
-              apiDetails={apiDetails}
-              data={data}
-            />
-            <div className={`digit-search-button-wrapper ${screenType} ${uiConfig?.type} ${uiConfig?.searchWrapperClassName}`} style={uiConfig?.searchWrapperStyles}>
-              {uiConfig?.secondaryLabel && <LinkLabel style={{ marginBottom: 0, whiteSpace: 'nowrap' }} onClick={clearSearch}>{t(uiConfig?.secondaryLabel)}</LinkLabel>}
-              {uiConfig?.isPopUp && uiConfig?.primaryLabel && <SubmitBar label={t(uiConfig?.primaryLabel)} onSubmit={(e) => {
-                handleSubmit(onSubmit)(e);
-                // onSubmit(formData, e)
-              }} disabled={false} />}
-              {!uiConfig?.isPopUp && uiConfig?.primaryLabel && <SubmitBar label={t(uiConfig?.primaryLabel)} submit="submit" disabled={false} />}
-            </div>
-          </div>
-        </div>
-      </form>
-      {showToast && <Toast
-        type={showToast?.type}
-        label={t(showToast?.label)}
-        isDleteBtn={true}
-        onClose={closeToast} />
-      }
-    </div>
-  </React.Fragment>
-  }
+  const navConfigMain = tabData?.map((tab) => ({
+    key: tab.key,
+    label: showTabCount? `${t(tab?.label)}(${data?.count || data?.TotalCount || data?.totalCount})`: t(tab?.label) || `Tab ${tab.key + 1}`,
+    active: tab.active,
+  }));
+  
+  const activeTab = tabData?.find((tab) => tab.active)?.key || 0;
+
   return (
     <Tab
-      configNavItems={navConfig?.length > 0 ? navConfig : []}
-      showNav={navConfig?.length > 0 ? true : false}
-      activeLink={activeLink}
-      setActiveLink={setActiveLink}
+      configNavItems={navConfigMain}
+      showNav={showTab && navConfigMain.length > 0}
+      configItemKey={"key"}
+      configDisplayKey={"label"}
+      activeLink={activeTab}
+      setActiveLink={(key) => {
+        clearSearch({});
+        onTabChange(key);
+      }}
       fromSearchComp={true}
       horizontalLine={uiConfig?.horizontalLine}
     >
       {uiConfig?.type === "filter" ? (
         <FilterCard
-          title={"Filter"}
+          title={uiConfig?.label || "Filter"}
           primaryActionLabel={uiConfig?.primaryLabel || ""}
           secondaryActionLabel={uiConfig?.secondaryLabel || ""}
           onPrimaryPressed={handleSubmit(onSubmit)}

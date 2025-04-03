@@ -20,6 +20,14 @@ import ResultsDataTableWrapper from "./ResultsDataTableWrapper";
 
 
 const InboxSearchComposer = ({configs,additionalConfig,onFormValueChange=()=>{},showTab,tabData,onTabChange,customizers={}}) => {
+
+    const renderCount = useRef(1); // Initialize render count
+
+    useEffect(() => {
+        console.log(`Render Count:${renderCount.current}`);
+        renderCount.current += 1; // Increment render count after each render
+    });
+
     const hasRun = useRef(false);
     const history = useHistory();
     const { t } = useTranslation();
@@ -137,11 +145,11 @@ const InboxSearchComposer = ({configs,additionalConfig,onFormValueChange=()=>{},
     const configModule = Digit?.Customizations?.[apiDetails?.masterName]?.[apiDetails?.moduleName]
     const updatedReqCriteria = configModule?.preProcess ? configModule?.preProcess(requestCriteria,configs.additionalDetails) : requestCriteria 
     
-    if(configs.customHookName){
+    if(configs?.customHookName){
         var { isLoading, data, revalidate,isFetching,refetch,error } = eval(`Digit.Hooks.${configs.customHookName}(updatedReqCriteria)`);
     }
     else {
-       var { isLoading, data, revalidate,isFetching,error } = Digit.Hooks.useCustomAPIHook(updatedReqCriteria);
+       var { isLoading, data, revalidate,isFetching,error,refetch } = Digit.Hooks.useCustomAPIHook(updatedReqCriteria);
         
     }
 
@@ -329,6 +337,7 @@ const InboxSearchComposer = ({configs,additionalConfig,onFormValueChange=()=>{},
                     isFetching={isFetching}
                     fullConfig={configs}
                     additionalConfig={additionalConfig}
+                    refetch={refetch}
                   ></ResultsDataTableWrapper>
                 </MediaQuery>
                 <MediaQuery maxWidth={426}>

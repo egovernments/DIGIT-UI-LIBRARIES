@@ -9,6 +9,7 @@ import { Loader } from '../atoms';
 import NoResultsFound from '../atoms/NoResultsFound';
 import { CustomSVG } from '../atoms';
 
+
 const ResultsTable = ({ tableContainerClass, config,data,isLoading,isFetching,fullConfig,revalidate,type,activeLink,browserSession,additionalConfig }) => {
     const {apiDetails} = fullConfig
     const { t } = useTranslation();
@@ -87,7 +88,7 @@ const ResultsTable = ({ tableContainerClass, config,data,isLoading,isFetching,fu
                     return String(value ? column.translate? t(Digit.Utils.locale.getTransformedLocale(column.prefix?`${column.prefix}${value}`:value)) : value : t("ES_COMMON_NA"));
                 }
             }
-        })
+        }) 
     }, [config, searchResult])
 
     const defaultValuesFromSession = config?.customDefaultPagination ? config?.customDefaultPagination : (session?.tableForm ? {...session?.tableForm} : {limit:10,offset:0})

@@ -11,6 +11,7 @@ import IndividualSearch from "./IndividualSearch";
 import SampleComponents from "./SampleComponents";
 import SampleView from "./SampleView";
 import BoundarySearchComposer from "./BoundarySearchComposer";
+import TabSearch from "./TabSearch";
 
 const SampleBreadCrumbs = ({ location }) => {
   const { t } = useTranslation();
@@ -39,6 +40,11 @@ const SampleBreadCrumbs = ({ location }) => {
       internalLink: `/${window?.contextPath}/employee/microplan/view`,
       content: t("Sample View"),
       show: location.pathname.split("/").pop() === "view",
+    },
+    {
+      internalLink: `/${window?.contextPath}/employee/microplan/tab-search`,
+      content: t("Sample Tab Search"),
+      show: location.pathname.split("/").pop() === "tab-search",
     },
     {
       internalLink: `/${window?.contextPath}/employee/microplan/components`,
@@ -94,7 +100,9 @@ const App = ({ path, stateCode, userType, tenants }) => {
         <PrivateRoute path={`${path}/create`} component={() => <Sample></Sample>} />
         <PrivateRoute path={`${path}/search`} component={() => <SampleSearch></SampleSearch>} />
         <PrivateRoute path={`${path}/inbox`} component={() => <SampleInbox></SampleInbox>} />
+        <PrivateRoute path={`${path}/search-edit`} component={() => <IndividualSearch></IndividualSearch>} />
         <PrivateRoute path={`${path}/view`} component={() => <SampleView></SampleView>} />
+        <PrivateRoute path={`${path}/tab-search`} component={() => <TabSearch></TabSearch>} />
         <PrivateRoute path={`${path}/ind-search`} component={() => <IndividualSearch></IndividualSearch>} />
         <PrivateRoute path={`${path}/test`} component={() => <Loader></Loader>} />
         </AppContainer>
