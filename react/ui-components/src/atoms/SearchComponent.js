@@ -227,7 +227,7 @@ const SearchComponent = ({ uiConfig, header = "", screenType = "search", fullCon
     >
       {uiConfig?.type === "filter" ? (
         <FilterCard
-          title={"Filter"}
+          title={uiConfig?.label || "Filter"}
           primaryActionLabel={uiConfig?.primaryLabel || ""}
           secondaryActionLabel={uiConfig?.secondaryLabel || ""}
           onPrimaryPressed={handleSubmit(onSubmit)}

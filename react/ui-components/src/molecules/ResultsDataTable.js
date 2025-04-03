@@ -91,7 +91,7 @@ const ResultsDataTable = ({
         conditionalRowStyles={conditionalRowStyles}
         className={
           tableClassName
-            ? tableClassName
+            ? `digit-data-table ${showCheckBox ? "selectable" : "unselectable"} ${tableClassName}`
             : `digit-data-table ${showCheckBox ? "selectable" : "unselectable"}`
         }
         defaultSortAsc={defaultSortAsc}
@@ -169,14 +169,14 @@ const ResultsDataTable = ({
           {showTableDescription && (
             <div className="table-description">{t(showTableDescription)}</div>
           )}
-          <div className="digit-global-serach-results-table-wrapper">
+          <div className="digit-global-search-results-table-wrapper">
             {enableGlobalSearch && (
-              <CardLabel className="digit-global-serach-results-table-header">
+              <CardLabel className="digit-global-search-results-table-header">
                 {t(searchHeader) || t("Filter Table Records")}
               </CardLabel>
             )}
             {enableGlobalSearch && (
-              <div className="digit-global-serach-results-table">
+              <div className="digit-global-search-results-table">
                 <TextInput
                   type="search"
                   onChange={(e) => onSearch(e.target.value)}
