@@ -12,6 +12,7 @@ import SampleComponents from "./SampleComponents";
 import SampleView from "./SampleView";
 import BoundarySearchComposer from "./BoundarySearchComposer";
 import TabSearch from "./TabSearch";
+import BoundarySearchComposerWithFilter from "./BoundarySearchComposerWithFilter";
 
 const SampleBreadCrumbs = ({ location }) => {
   const { t } = useTranslation();
@@ -68,6 +69,7 @@ const App = ({ path, stateCode, userType, tenants }) => {
         <PrivateRoute path={`${path}/test`} component={() => <Loader></Loader>} />
         <PrivateRoute path={`${path}/search`} component={() => <SampleSearch></SampleSearch>} />
         <PrivateRoute path={`${path}/searchComposer`} component={()=><BoundarySearchComposer></BoundarySearchComposer>}/>
+        <PrivateRoute path={`${path}/searchComposerWithFilter`} component={()=><BoundarySearchComposerWithFilter></BoundarySearchComposerWithFilter>}/>
         <PrivateRoute path={`${path}/filter`} component={() => 
           <BoundaryFilter 
           levelConfig={{lowestLevel:"VILLAGE", highestLevel:"COUNTRY"}} 

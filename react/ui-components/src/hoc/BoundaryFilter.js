@@ -17,9 +17,6 @@ const BoundaryFilter = (props) => {
   if (updatedLayoutConfig?.isDropdownLayoutHorizontal) {
     updatedLayoutConfig.isLabelFieldLayoutHorizontal = updatedLayoutConfig.isLabelFieldLayoutHorizontal ? updatedLayoutConfig.isLabelFieldLayoutHorizontal : false;
   }
-  console.log(updatedLayoutConfig);
-
-
 
   const { t } = useTranslation();
   const hierarchyType = props?.hierarchyType; 
@@ -126,10 +123,7 @@ const BoundaryFilter = (props) => {
       },
     },
   };
-  
-
-  console.log(pathMap, "pppppppppppp")
-  
+    
   // Hiearchy Data contains the raw data from the boundary-service/boundary-relationships/_search
   const { data: hierarchyData, refetch, isLoading } = Digit.Hooks.useCustomAPIHook(reqHierarchyData);
 
@@ -204,8 +198,6 @@ const BoundaryFilter = (props) => {
 
     // **Call boundaryOptionsUpdate for each boundaryType**
     Object.entries(groupedData).forEach(([boundaryType, values]) => {
-      console.log("Calling boundaryOptionsUpdate with:", boundaryType, values, "Multi");
-
       // Ensure `values` is an array of arrays
       boundaryOptionsUpdate(boundaryType, values, "Multi",true);
     });
@@ -239,8 +231,6 @@ const BoundaryFilter = (props) => {
 
     // **Call boundaryOptionsUpdate for each boundaryType**
     Object.entries(groupedData).forEach(([boundaryType, values]) => {
-      console.log("Calling boundaryOptionsUpdate with:", boundaryType, values, "Multi",true);
-
       // Ensure `values` is an array of arrays
       boundaryOptionsUpdate(boundaryType, values, "Multi",true);
     });
@@ -597,11 +587,7 @@ const BoundaryFilter = (props) => {
                         boundaryType: child.boundaryType
                       })),
                     }));
-                    // debugger;
                     let formattedSelectedValues = selectedValues.filter((child) => child?.boundaryType === item?.boundaryType);
-                    // debugger;
-                    // formattedSelectedValues.push(tempPreSelectedValues);
-                    console.log("333 props.levelConfig.isSngleSelect",props?.levelConfig?.isSingleSelect,item?.boundaryType,props?.levelConfig?.isSingleSelect?.includes(item?.boundaryType));
                     if (props?.levelConfig?.isSingleSelect && props?.levelConfig?.isSingleSelect?.includes(item?.boundaryType)) {
                       formattedSelectedValues = formattedSelectedValues[0];
                     }
