@@ -44,7 +44,7 @@ export const Config = {
         },
         fields: [
           {
-            label: "BoundaryFilter",
+            label: "",
             type: "boundary",
             isMandatory: false,
             disable: false,
@@ -54,32 +54,24 @@ export const Config = {
               hierarchyType:"NEWTEST00222" ,
               module:"HCM-ADMIN-CONSOLE" ,
               layoutConfig:{isDropdownLayoutHorizontal:true,isLabelFieldLayoutHorizontal:false},
+              noCardStyle:true,
               preSelected:
-                  [{
-                      code: "NEWTEST00222_MO",
-                      name: "NEWTEST00222_MO"
-                    },
-                    {
-                      code: "NEWTEST00222_MO_11_MARYLAND",
-                      name: "NEWTEST00222_MO_11_MARYLAND"
-                    },
-                    {
-                      code: "NEWTEST00222_MO_11_06_PLEEBO",
-                      name: "NEWTEST00222_MO_11_06_PLEEBO"
-                    }],
-              // "frozenData":
-              // [{
-              //     code: "NEWTEST00222_MO",
-              //     name: "NEWTEST00222_MO"
-              //   },
-              //   {
-              //     code: "NEWTEST00222_MO_11_MARYLAND",
-              //     name: "NEWTEST00222_MO_11_MARYLAND"
-              //   },
-              //   {
-              //     code: "NEWTEST00222_MO_11_06_PLEEBO",
-              //     name: "NEWTEST00222_MO_11_06_PLEEBO"
-              //   }]
+                  ["NEWTEST00222_MO","NEWTEST00222_MO_11_MARYLAND",
+                      "NEWTEST00222_MO_11_06_PLEEBO"
+                    ],
+              "frozenData":
+              [{
+                  code: "NEWTEST00222_MO",
+                  name: "NEWTEST00222_MO"
+                },
+                {
+                  code: "NEWTEST00222_MO_11_MARYLAND",
+                  name: "NEWTEST00222_MO_11_MARYLAND"
+                },
+                {
+                  code: "NEWTEST00222_MO_11_06_PLEEBO",
+                  name: "NEWTEST00222_MO_11_06_PLEEBO"
+                }]
             },
           },
         ],

@@ -142,6 +142,7 @@ const FieldV1 = ({
             preSelected={populators.preSelected}
             frozenData={populators.frozenData}
             onChange={onChange}
+            noCardStyle={populators.noCardStyle}
           />
         );
       case "text":

@@ -315,12 +315,13 @@ export const FormComposerConfig=[
                 "disable": false,
                 "populators": {
                     "name":"boundaryComponnet",
-                    "levelConfig": {lowestLevel:"VILLAGE", highestLevel:"COUNTRY", isSingleSelect:["PROVINCE","DISTRICT"]} ,
+                    "levelConfig": {lowestLevel:"VILLAGE", highestLevel:"COUNTRY", isSingleSelect:[]} ,
                     "hierarchyType":"NEWTEST00222" ,
                     "module":"HCM-ADMIN-CONSOLE" ,
+                    "noCardStyle":true,
                     "layoutConfig":{isDropdownLayoutHorizontal:true,isLabelFieldLayoutHorizontal:false},
-                    "preSelected":
-                        ["NEWTEST00222_MO","NEWTEST00222_MO_11_MARYLAND","NEWTEST00222_MO_11_06_PLEEBO"],
+                    "preSelected":["NEWTEST00222_MO","NEWTEST00222_MO_11_MARYLAND","NEWTEST00222_MO_11_06_PLEEBO"],
+                    
                     // "frozenData":
                     // [{
                     //     code: "NEWTEST00222_MO",

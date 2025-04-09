@@ -13,14 +13,7 @@ import Chip from '../atoms/Chip';
 import Button from '../atoms/Button';
 
 
-const BoundaryFilter = (rawProps) => {
-
-
-  let props = rawProps;
-  console.log("props", props)
-  if (rawProps?.config?.customProps) {
-    props = rawProps?.config?.customProps;
-  }
+const BoundaryFilter = (props) => {
 
   let updatedLayoutConfig = { ...props.layoutConfig };
 
@@ -202,10 +195,12 @@ const BoundaryFilter = (rawProps) => {
     if (!hierarchy || !props.frozenData) return; // Ensure hierarchy & frozenData exist
 
     // **Transform frozenData**
-    const transformedFrozenData = props.frozenData.map(item => ({
+    const transformedFrozenData = props.frozenData
+    .filter(item => pathMap?.[item.code]) // Skip if pathMap[item.code] is missing
+    .map(item => ({
       code: item.code.split('.').pop(),  // Extract last segment as code
-      path: item.code, // Keep original code as path
-      boundaryType: getBoundaryType(item.code, hierarchy), // Get boundary type
+      path: pathMap[item.code], // Keep original code as path
+      boundaryType: getBoundaryType(pathMap[item.code], hierarchy), // Get boundary type
       name: item.name, // Include name
       parent: item.code.split('.').slice(0, -1).join('.') || null // Extract parent path
     }));
@@ -228,7 +223,7 @@ const BoundaryFilter = (rawProps) => {
       boundaryOptionsUpdate(boundaryType, values, "Multi",true);
     });
 
-  }, [hierarchy, hierarchyData, props.frozenData]); // Depend on hierarchy & frozenData
+  }, [hierarchy, hierarchyData, props.frozenData,pathMap]); // Depend on hierarchy & frozenData
 
   useEffect(() => {
     if (!hierarchy || !props.preSelected) return; // Ensure hierarchy & frozenData exist
@@ -256,7 +251,7 @@ const BoundaryFilter = (rawProps) => {
 
     // **Call boundaryOptionsUpdate for each boundaryType**
     Object.entries(groupedData).forEach(([boundaryType, values]) => {
-      console.log("Calling boundaryOptionsUpdate with:", boundaryType, values, "Multi");
+      console.log("Calling boundaryOptionsUpdate with:", boundaryType, values, "Multi",true);
 
       // Ensure `values` is an array of arrays
       boundaryOptionsUpdate(boundaryType, values, "Multi",true);
@@ -350,7 +345,7 @@ const BoundaryFilter = (rawProps) => {
 
   //for unselect logic 
   const cleanLowerLevelsForSelectedValues = (boundaryType, removedCodes, updatedOptions) => {
-    debugger;
+    // debugger;
     return updatedOptions.filter(option => {
       // Ensure path is a valid string before checking `includes`
       if (typeof option?.path !== "string") return true;
@@ -401,7 +396,7 @@ const BoundaryFilter = (rawProps) => {
       newBoundaryOptions = updatedOptions;
       newSelectedOptions = selectedValues;
     }
-    debugger;
+    // debugger;
     console.log("newSelectedOptions", newSelectedOptions,newBoundaryOptions);
 
 
@@ -574,10 +569,11 @@ const BoundaryFilter = (rawProps) => {
   console.log(props?.layoutConfig?.isDropdownLayoutHorizontal);
   console.log(selectedValuesCodes);
   console.log(boundaryOptions,"boundaryOptions");
+  console.log("propsnocard",props,props?.noCardStyle);
 
   return (
     !isLoading && !hierarchyLoading ? (
-      <Card>
+      <Card noCardStyle={props?.noCardStyle}>
         <div className={`selecting-boundary-div ${props?.layoutConfig?.isDropdownLayoutHorizontal ? "horizontal-layout" : ""}`}>
           {
             hierarchy && hierarchyData && boundaryOptions[rootBoundaryType] && hierarchy?.filter((boundary, index) => {
@@ -657,8 +653,8 @@ const BoundaryFilter = (rawProps) => {
                     let formattedSelectedValues = selectedValues.filter((child) => child?.boundaryType === item?.boundaryType);
                     // debugger;
                     // formattedSelectedValues.push(tempPreSelectedValues);
-                    console.log("333 props.levelConfig.isSngleSelect",props?.levelConfig?.isSingleSelect,item?.boundaryType,props.levelConfig.isSingleSelect.includes(item?.boundaryType));
-                    if (props?.levelConfig?.isSingleSelect && props?.levelConfig?.isSingleSelect.includes(item?.boundaryType)) {
+                    console.log("333 props.levelConfig.isSngleSelect",props?.levelConfig?.isSingleSelect,item?.boundaryType,props?.levelConfig?.isSingleSelect?.includes(item?.boundaryType));
+                    if (props?.levelConfig?.isSingleSelect && props?.levelConfig?.isSingleSelect?.includes(item?.boundaryType)) {
                       formattedSelectedValues = formattedSelectedValues[0];
                     }
 
@@ -668,7 +664,7 @@ const BoundaryFilter = (rawProps) => {
                           {t((hierarchyType + "_" + item?.boundaryType).toUpperCase())}
                         </CardLabel>
                         <div className="digit-field-full">
-                          {!(props?.levelConfig?.isSingleSelect && props.levelConfig.isSingleSelect.includes(item?.boundaryType)) ?
+                          {!(props?.levelConfig?.isSingleSelect && props?.levelConfig?.isSingleSelect?.includes(item?.boundaryType)) ?
                             <>
                               <MultiSelectDropdown
                                 key={item?.boundaryType}

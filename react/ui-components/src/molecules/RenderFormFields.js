@@ -44,6 +44,7 @@ const RenderFormFields = ({ data, ...props }) => {
               <BoundaryFilter
               levelConfig={populators.levelConfig}
               hierarchyType={populators.hierarchyType}
+              noCardStyle={populators.noCardStyle}
               module={populators.module}
               selectedValues={populators.selectedValues}
               layoutConfig={populators.layoutConfig}
