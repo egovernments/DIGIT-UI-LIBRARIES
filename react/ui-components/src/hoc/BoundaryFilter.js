@@ -72,67 +72,67 @@ const BoundaryFilter = (props) => {
   // const preSelectedData = transformAndFilterData(presSelectedCodes);
 
 
-  const { data: BOUNDARY_HIERARCHY_TYPE } = Digit.Hooks.useCustomMDMS(tenantId, moduleName, [{ name: "HierarchySchema" }], {
-    select: (data) => {
-      const item = data?.[moduleName]?.HierarchySchema?.find(
-        (item) => item.type === "microplan"
-      );
-      setLowestHierarchy(item.lowestHierarchy)
-      return item?.hierarchy
-    },
-  }, { schemaCode: "BASE_MASTER_DATA_INITIAL" });
+  // const { data: BOUNDARY_HIERARCHY_TYPE } = Digit.Hooks.useCustomMDMS(tenantId, moduleName, [{ name: "HierarchySchema" }], {
+  //   select: (data) => {
+  //     const item = data?.[moduleName]?.HierarchySchema?.find(
+  //       (item) => item.type === "microplan"
+  //     );
+  //     setLowestHierarchy(item.lowestHierarchy)
+  //     return item?.hierarchy
+  //   },
+  // }, { schemaCode: "BASE_MASTER_DATA_INITIAL" });
 
 
   const reqHierarchyData = {
     url: `/boundary-service/boundary-relationships/_search`,
-    changeQueryName: `${BOUNDARY_HIERARCHY_TYPE}`,
+    changeQueryName: `${props?.hierarchyType}`,
     params: {
       tenantId: tenantId,
       hierarchyType: hierarchyType,
-      includeChildren: true
+      includeChildren: true,
     },
     body: {},
     config: {
-      enabled: BOUNDARY_HIERARCHY_TYPE ? true : false,
+      enabled: !!props?.hierarchyType, // same as props?.hierarchyType ? true : false
       select: (data) => {
+        const tempPathMap = {}; // Store all path mappings here
+  
         // Recursive function to process hierarchy and attach paths
         const processHierarchy = (nodes, parentPath = "") => {
           return nodes.map((node) => {
-            // Construct the current node's full path using its code
+            // Build full path for current node
             const currentPath = parentPath ? `${parentPath}.${node.code}` : node.code;
-            // debugger;
-            setPathMap((prev) => ({ ...prev, [node.code]: currentPath }));
-            // pathMap[node.code]=currentPath;
-            console.log("nodecode", pathMap);
-            // if (frozenDataCodes.includes(currentPath)) {
-            //   setSelectedValues(prev => {
-            //     // Ensure immutability
-            //     return [...prev, { code: currentPath, name: node.code, boundaryType: node.boundaryType }]; // Correct computed property syntax
-            //   });
-            // }
-            // Process children if they exist
+  
+            // Store path in the temporary map
+            tempPathMap[node.code] = currentPath;
+  
+            // Recursively process children
             if (node.children && node.children.length > 0) {
               node.children = processHierarchy(node.children, currentPath);
             }
-
-            // Attach the path attribute
+  
+            // Return node with added path property
             return { ...node, path: currentPath };
           });
         };
-
-        return processHierarchy(data?.TenantBoundary?.[0]?.boundary)
-      }
-    }
+  
+        // Start processing and build hierarchy with paths
+        const processed = processHierarchy(data?.TenantBoundary?.[0]?.boundary || []);
+  
+        // Update state once with the complete map
+        setPathMap(tempPathMap);
+  
+        return processed;
+      },
+    },
   };
+  
 
   console.log(pathMap, "pppppppppppp")
   
   // Hiearchy Data contains the raw data from the boundary-service/boundary-relationships/_search
   const { data: hierarchyData, refetch, isLoading } = Digit.Hooks.useCustomAPIHook(reqHierarchyData);
 
-  useEffect(() => {
-    console.log("PathMap updated:", pathMap);
-  }, [hierarchyData, selectedValues]); // Run effect when selectedValues updates
 
   const reqCriteria = {
     url: `/boundary-service/boundary-hierarchy-definition/_search`,
@@ -154,12 +154,6 @@ const BoundaryFilter = (props) => {
 
   // Hierarchy contains the order levels of hierachy eg Country>Province>Administrative Post>Locality>Village
   const { isLoading: hierarchyLoading, data: hierarchy } = Digit.Hooks.useCustomAPIHook(reqCriteria);
-  console.log(pathMap, "qqqqqqqqqqqqq");
-
-
-
-
-
 
   useEffect(() => {
 
@@ -270,35 +264,6 @@ const BoundaryFilter = (props) => {
   };
 
 
-  // const frozenDataUpdate = () => {
-  //   debugger
-  //   if (!hierarchy || !hierarchyData) return;
-
-  // };
-  // frozenDataUpdate();
-
-
-  // const preSelectedDataUpdate = () => {
-  //   debugger
-  //   if (!hierarchy) return;
-  //   for (const node of preSelectedData) {  // ✅ Use `for...of` to iterate over values
-  //     const childBoundaryType = getChildBoundaryType(node.code, hierarchy);
-
-  //     if (!childBoundaryType) continue; // ✅ Skip if no boundaryType found
-  //     // console.log("child", findNodeByPath(hierarchyData, node.code), node.code);
-  //     const children = findNodeByPath(hierarchyData, pathMap[node.code]);
-  //     setBoundaryOptions(prev => ({
-  //       ...prev,
-  //       [childBoundaryType]: [...(prev[childBoundaryType] || []), ...children]
-  //     }));
-  //   }
-  // };
-
-  // preSelectedDataUpdate();
-
-
-
-
   //for unselect logic it should happen to all the children of the unselected
   const recursiveCleanup = (currentBoundaryType, updatedOptions, codesToRemove) => {
     const childType = hierarchy.find(item => item.parentBoundaryType === currentBoundaryType)?.boundaryType;
@@ -332,7 +297,6 @@ const BoundaryFilter = (props) => {
 
   //for unselect logic 
   const cleanLowerLevelsForSelectedValues = (boundaryType, removedCodes, updatedOptions) => {
-    // debugger;
     return updatedOptions.filter(option => {
       // Ensure path is a valid string before checking `includes`
       if (typeof option?.path !== "string") return true;
@@ -346,7 +310,6 @@ const BoundaryFilter = (props) => {
   const boundaryOptionsUpdate = async (boundaryType, values, dropdownType,isPreSelected) => {
     console.log("boundaryOptionsUpdate", boundaryType, values, dropdownType);
     if (!hierarchy || !hierarchyData) return;
-    // debugger;
     let selectedOptions = [];
     if (dropdownType == "Multi") {
       selectedOptions = values.map(arg => arg[1]) || [];
@@ -375,7 +338,6 @@ const BoundaryFilter = (props) => {
     const updatedOptions = boundaryOptions;
     let newBoundaryOptions = {};
     let newSelectedOptions = {};
-    console.log("removedCodes",removedCodes);
     if (removedCodes.length > 0) {
       //unselect the children of the removed boundaries recursively
       newBoundaryOptions = cleanLowerLevels(boundaryType, removedCodes, { ...boundaryOptions });
@@ -387,11 +349,6 @@ const BoundaryFilter = (props) => {
       newBoundaryOptions = updatedOptions;
       newSelectedOptions = selectedValues;
     }
-    // debugger;
-    console.log("newSelectedOptions", newSelectedOptions,newBoundaryOptions);
-
-
-
 
     // **Accumulate changes before updating state**
     let updatedSelectedValues = [...newSelectedOptions];
@@ -439,14 +396,12 @@ const BoundaryFilter = (props) => {
     });
 
     // **Update selected values once at the end**
-    // debugger;
     setSelectedValuesCodes(updatedSelectedValues.map((item) => item.code))
-    // debugger;
     setSelectedValues((prev) => {
       if (isPreSelected) {
         // Extract existing codes from previous state
         const existingCodes = new Set(prev.map(item => item.code));
-    
+  
         // Filter out only unique values
         const uniqueUpdatedValues = updatedSelectedValues.filter(item => !existingCodes.has(item.code));
     
@@ -466,8 +421,6 @@ const BoundaryFilter = (props) => {
     }
   }, [selectedValuesCodes])
 
-  // console.log(frozenDataCodes, "cwa", nonEditableHierarchies);
-  // console.log("forzendata", frozenData);
 
   // Initialize root level and hierarchy from highest to lowest
   const initializeBoundaries = (nodes, updatedOptions, nonEditableHierarchies) => {
@@ -509,9 +462,6 @@ const BoundaryFilter = (props) => {
     return updatedOptions; // Always return the modified object
   };
 
-
-  console.log("selectedValues", selectedValues);
-
   //UseEffect to run if lowestLevel or HigehstLevel or Hierachy data changes
   useEffect(() => {
     if (!hierarchyData || !hierarchy) return;
@@ -550,6 +500,7 @@ const BoundaryFilter = (props) => {
 
   }, [hierarchy]);
   
+  // Checking if userEnter props highestLevel,lowestLevel are valid
   useEffect(() => {
     if (!hierarchy || boundaries.length === 0) return;
 
