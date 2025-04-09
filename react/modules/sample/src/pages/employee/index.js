@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { Route, Switch } from "react-router-dom";
 import Sample from "./Sample";
 import SampleSearch from "./SampleSearch";
-import { BoundaryFilter } from "@egovernments/digit-ui-components/src/atoms";
+import { BoundaryFilter } from "@egovernments/digit-ui-components";
 import FormComposer from "./FormComposer";
 import SampleInbox from "./SampleInbox";
 import IndividualSearch from "./IndividualSearch";

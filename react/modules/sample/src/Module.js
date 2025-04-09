@@ -3,7 +3,7 @@ import React from "react";
 import { useRouteMatch } from "react-router-dom";
 import { default as EmployeeApp } from "./pages/employee";
 import SampleCard from "./components/SampleCard";
-import { BoundaryFilter } from "@egovernments/digit-ui-components/src/atoms";
+import { BoundaryFilter } from "@egovernments/digit-ui-components";
 
 export const SampleModule = ({ stateCode, userType, tenants }) => {
   // debugger
