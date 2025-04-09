@@ -23,7 +23,6 @@ import { LocationDropdownWrapper } from "../molecules";
 import { ApiDropdown } from "../molecules";
 import { WorkflowStatusFilter } from "../molecules";
 import { DateRangeNew } from "../molecules";
-// import BoundaryFilter from "../atoms/BoundaryFilter";
 
 const FieldV1 = ({
   type = "",
@@ -53,14 +52,12 @@ const FieldV1 = ({
   controllerProps,
   variant,
 }) => {
-  // debugger;
   const { t } = useTranslation();
   let disableFormValidation = false;
   if (sectionFormCategory && selectedFormCategory) {
     disableFormValidation =
       sectionFormCategory !== selectedFormCategory ? true : false;
   }
-  // debugger;
   const Component =
     typeof component === "string"
       ? Digit.ComponentRegistryService.getComponent(component)
@@ -127,7 +124,7 @@ const FieldV1 = ({
     }
     return null;
   };
-  console.log("popi", populators);
+
   const renderField = () => {
     switch (type) {
       case "boundary":
@@ -136,13 +133,10 @@ const FieldV1 = ({
             levelConfig={populators.levelConfig}
             hierarchyType={populators.hierarchyType}
             module={populators.module}
-            selectedValues={populators.selectedValues}
-            layoutConfig={populators.layoutConfig}
-            isHorizontal={populators.isHorizontal}
+            layoutConfig={{isDropdownLayoutHorizontal:false,isLabelFieldLayoutHorizontal:false}}
             preSelected={populators.preSelected}
             frozenData={populators.frozenData}
             onChange={onChange}
-            noCardStyle={populators.noCardStyle}
           />
         );
       case "text":

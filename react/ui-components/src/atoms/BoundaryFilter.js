@@ -326,7 +326,6 @@ const BoundaryFilter = (rawProps) => {
   
   console.log(frozenDataCodes,"cwa",nonEditableHierarchies);
   const initializeBoundaries = (nodes, updatedOptions, nonEditableHierarchies) => {
-    // debugger
     if (!nodes || nodes.length === 0) return updatedOptions;
 
     // If the current node's boundaryType is not in the editable set, return early

@@ -507,11 +507,11 @@ const BoundaryFilter = (props) => {
   console.log(props?.layoutConfig?.isDropdownLayoutHorizontal);
   console.log(selectedValuesCodes);
   console.log(boundaryOptions,"boundaryOptions");
-  console.log("propsnocard",props,props?.noCardStyle);
+  console.log("propsnocard1",props,props?.noCardStyle);
 
   return (
     !isLoading && !hierarchyLoading ? (
-      <Card noCardStyle={props?.noCardStyle}>
+      <Card noCardStyle={props?.noCardStyle? props.noCardStyle:true}>
         <div className={`selecting-boundary-div ${props?.layoutConfig?.isDropdownLayoutHorizontal ? "horizontal-layout" : ""}`}>
           {
             hierarchy && hierarchyData && boundaryOptions[rootBoundaryType] && hierarchy?.filter((boundary, index) => {

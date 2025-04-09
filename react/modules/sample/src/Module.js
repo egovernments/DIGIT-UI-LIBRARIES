@@ -6,7 +6,6 @@ import SampleCard from "./components/SampleCard";
 import { BoundaryFilter } from "@egovernments/digit-ui-components";
 
 export const SampleModule = ({ stateCode, userType, tenants }) => {
-  // debugger
   const { path, url } = useRouteMatch();
   const tenantId = Digit.ULBService.getCurrentTenantId();
   const moduleCode = ["sample", "common","workflow", tenantId];

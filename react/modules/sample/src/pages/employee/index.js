@@ -72,12 +72,11 @@ const App = ({ path, stateCode, userType, tenants }) => {
         <PrivateRoute path={`${path}/searchComposerWithFilter`} component={()=><BoundarySearchComposerWithFilter></BoundarySearchComposerWithFilter>}/>
         <PrivateRoute path={`${path}/filter`} component={() => 
           <BoundaryFilter 
-          levelConfig={{lowestLevel:"VILLAGE", highestLevel:"COUNTRY"}} 
+          levelConfig={{lowestLevel:"LOCALITY", highestLevel:"COUNTRY"}} 
           hierarchyType={"NEWTEST00222"} 
           module={"HCM-ADMIN-CONSOLE"} 
           selectedValues={[""]}
-          layoutConfig={{isDropdownLayoutHorizontal:true,isLabelFieldLayoutHorizontal:false}}
-          // isHorizontal={true}
+          layoutConfig={{isDropdownLayoutHorizontal:false,isLabelFieldLayoutHorizontal:false}}
           // frozenData={[
           //   {
           //     code: "NEWTEST00222_MO",

@@ -18,7 +18,6 @@ import CardLabel from "./CardLabel";
 import CardLabelError from "./CardLabelError";
 import CardText from "./CardText";
 import CheckBox from "./CheckBox";
-import BoundaryFilter from '../hoc/BoundaryFilter';
 import CitizenHomeCard from "./CitizenHomeCard";
 import CitizenInfoLabel from "./CitizenInfoLabel";
 import CollapseAndExpandGroups from "./CollapseAndExpandGroups";
@@ -118,7 +117,6 @@ export {
   Tooltip,
   Banner,
   BodyContainer,
-  BoundaryFilter,
   BreadCrumb,
   BreakLine,
   Button,
