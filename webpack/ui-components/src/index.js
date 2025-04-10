@@ -244,7 +244,9 @@ import {
   TextInputCard,
   PanelCard,
   TimelineMolecule,
-  TooltipWrapper
+  TooltipWrapper,
+  LandingPageWrapper,
+  LandingPageCard
 } from "./molecules";
 
 // import { initCoreLibraries } from "@egovernments/digit-ui-libraries-core";
@@ -500,5 +502,7 @@ export {
   ErrorBoundary,
   TestComponent,
   Tag,
-  TooltipWrapper
+  TooltipWrapper,
+  LandingPageWrapper,
+  LandingPageCard
 };
