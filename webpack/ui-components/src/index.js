@@ -52,7 +52,7 @@ import {
   Rating,
   Chip,
   SVG,
-  // Table,
+  // Table, 
   Telephone,
   TextArea,
   TextInput,
