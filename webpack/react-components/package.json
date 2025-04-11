@@ -25,6 +25,8 @@
     "@tanstack/react-query": "^5.62.16"
   },
   "devDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
     "@storybook/addon-actions": "6.4.20",
     "@storybook/addon-essentials": "6.4.20",
     "@storybook/addon-links": "6.4.20",
