@@ -35,7 +35,7 @@ jobs:
           cd webpack/svg-components/
           rm -rf node_modules yarn.lock
           yarn install --frozen-lockfile
-          npm publish --tag core-webpack-v0.1
+          npm publish --tag webpack
         env:
           NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
 
@@ -54,7 +54,7 @@ jobs:
           cd webpack/ui-components/
           rm -rf node_modules yarn.lock
           yarn install --frozen-lockfile
-          npm publish --tag core-webpack-v0.1
+          npm publish --tag webpack
         env:
           NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
 
@@ -72,7 +72,7 @@ jobs:
           cd webpack/react-components/
           rm -rf node_modules yarn.lock
           yarn install --frozen-lockfile
-          npm publish --tag core-webpack-v0.1
+          npm publish --tag webpack
         env:
           NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
 
@@ -90,7 +90,7 @@ jobs:
           cd webpack/libraries/
           rm -rf node_modules yarn.lock
           yarn install --frozen-lockfile
-          npm publish --tag libraries-v0.1
+          npm publish --tag webpack
         env:
           NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
 
