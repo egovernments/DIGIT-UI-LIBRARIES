@@ -4,6 +4,9 @@ import mergeConfig from "./config/mergeConfig";
 import { useStore } from "./services/index";
 import { initI18n } from "./translations/index";
 import { Request } from "./services/atoms/Utils/Request";
+// ---
+import { StoreService } from "./services/molecules/Store/service";
+// ---
 
 import { Storage, PersistantStorage } from "./services/atoms/Utils/Storage";
 import { UploadServices } from "./services/atoms/UploadServices";
@@ -76,12 +79,15 @@ const initLibraries = () => {
   setupLibraries("InboxGeneral", InboxGeneral);
   setupLibraries("ShareFiles", ShareFiles);
   setupLibraries("Contexts", Contexts);
-  setupLibraries("Hooks", Hooks);
+  // setupLibraries("Hooks", Hooks);
   setupLibraries("Customizations", {});
   setupLibraries("Utils", Utils);
   setupLibraries("Download", Download);
 
   setupLibraries("AccessControlService", AccessControlService);
+  //
+  setupLibraries("StoreServiceLib", StoreService);
+  //
 
   return new Promise((resolve) => {
     initI18n(resolve);

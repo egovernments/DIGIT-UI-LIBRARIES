@@ -89,7 +89,7 @@ export const StoreService = {
       uiHomePage: uiHomePage,
     };
   },
-  digitInitData: async (stateCode, enabledModules, modulePrefix) => {
+  digitInitData: async (stateCode="mz", enabledModules, modulePrefix) => {
     const { MdmsRes } = await MdmsService.init(stateCode);
     const stateInfo = MdmsRes["common-masters"]?.StateInfo?.[0] || {};
     const uiHomePage = MdmsRes["common-masters"]?.uiHomePage?.[0] || {};
@@ -135,6 +135,7 @@ export const StoreService = {
         uiHomePage: uiHomePage,
       };
     };
+
     const initData = tenantConfigFetch
       ? await fetchTenantConfig()
       : {
@@ -176,12 +177,16 @@ export const StoreService = {
     }
     // .filter((item) => !!moduleTenants.find((mt) => mt.code === item.code))
     // .map((tenant) => ({ i18nKey: `TENANT_TENANTS_${tenant.code.replace(".", "_").toUpperCase()}`, ...tenant }));
+    try {
+      await LocalizationService.getLocale({
+        modules: [`${modulePrefix}-common`, `digit-ui`, `digit-tenants`, `${modulePrefix}-${stateCode.toLowerCase()}`],
+        locale: initData.selectedLanguage,
+        tenantId: stateCode,
+      });
+    } catch (error) {
+      console.error("LocalizationService.getLocale failed:", error);
+    }
 
-    await LocalizationService.getLocale({
-      modules: [`${modulePrefix}-common`, `digit-ui`, `digit-tenants`, `${modulePrefix}-${stateCode.toLowerCase()}`],
-      locale: initData.selectedLanguage,
-      tenantId: stateCode,
-    });
     Storage.set("initData", initData);
     initData.revenue_localities = revenue_localities;
     initData.localities = localities;
