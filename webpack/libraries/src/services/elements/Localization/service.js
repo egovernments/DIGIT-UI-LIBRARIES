@@ -59,7 +59,7 @@ const LocalizationStore = {
 
   updateResources: (locale, messages) => {
     let locales = TransformArrayToObj(messages);
-    i18next.addResources(locale, "translations", locales);
+    window.i18next.addResources(locale, "translations", locales);
   },
 };
 
