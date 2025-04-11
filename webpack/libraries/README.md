@@ -23,7 +23,7 @@ frontend/micro-ui/web/package.json
 ```
 
 ```json
-"@egovernments/digit-ui-libraries":"1.8.1-webpack.11",
+"@egovernments/digit-ui-libraries":"1.8.1-webpack-20",
 ```
 
 then navigate to App.js
