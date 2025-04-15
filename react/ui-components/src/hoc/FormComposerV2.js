@@ -179,22 +179,19 @@ export const FormComposer = (props) => {
     }
   };
 
-  const titleStyle = { color: "#0B4B66", fontWeight: "700", fontSize: "40px" };
-
   const getCombinedComponent = (section) => {
     if (section.head && section.subHead) {
       return (
         <>
           <HeaderComponent
-            className={`digit-card-section-header`}
-            styles={titleStyle}
+            className={"digit-card-section-header titleStyle"}
             id={section.headId}
           >
             {t(section.head)}
           </HeaderComponent>
           <HeaderComponent 
           id={`${section.headId}_DES`}
-          styles={props?.sectionHeadStyle}
+          className={props?.sectionHeadClassName}
           >
             {t(section.subHead)}
           </HeaderComponent>
@@ -203,8 +200,7 @@ export const FormComposer = (props) => {
     } else if (section.head) {
       return (
         <>
-          <HeaderComponent className={`digit-card-section-header`} 
-          styles={titleStyle}
+          <HeaderComponent className={"digit-card-section-header titleStyle"}
           id={section.headId}
           >
             {t(section.head)}
