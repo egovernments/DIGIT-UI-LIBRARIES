@@ -179,20 +179,20 @@ export const FormComposer = (props) => {
     }
   };
 
-  const titleStyle = { color: "#505A5F", fontWeight: "700", fontSize: "16px" };
-
   const getCombinedComponent = (section) => {
     if (section.head && section.subHead) {
       return (
         <>
           <HeaderComponent
-            className={`digit-card-section-header`}
-            style={props?.sectionHeadStyle ? props?.sectionHeadStyle : { margin: "5px 0px" }}
+            className={`digit-card-section-header titleStyle ${props?.sectionHeadClassName || ""}`}
             id={section.headId}
           >
             {t(section.head)}
           </HeaderComponent>
-          <HeaderComponent style={titleStyle} id={`${section.headId}_DES`}>
+          <HeaderComponent 
+          id={`${section.headId}_DES`}
+          className={props?.sectionSubHeadClassName}
+          >
             {t(section.subHead)}
           </HeaderComponent>
         </>
@@ -200,7 +200,9 @@ export const FormComposer = (props) => {
     } else if (section.head) {
       return (
         <>
-          <HeaderComponent className={`digit-card-section-header`} style={props?.sectionHeadStyle ? props?.sectionHeadStyle : {}} id={section.headId}>
+          <HeaderComponent className={`digit-card-section-header titleStyle ${props?.sectionHeadClassName || ""}`}
+          id={section.headId}
+          >
             {t(section.head)}
           </HeaderComponent>
         </>
@@ -414,10 +416,10 @@ export const FormComposer = (props) => {
         </HorizontalNav>
       )}
       {!props.submitInForm && props.label && (
-        <Footer>
+        <Footer className={props.actionClassName}>
           <SubmitBar label={t(props.label)} className="digit-formcomposer-submitbar" submit="submit" disabled={isDisabled} />
           {props?.secondaryLabel && props?.showSecondaryLabel && (
-            <Button className="previous-button"  variation="secondary" label={t(props?.secondaryLabel)} onButtonClick={props?.onSecondayActionClick} />
+            <Button className="previous-button"  variation="secondary" label={t(props?.secondaryLabel)} onClick={props?.onSecondayActionClick} />
           )}
           {props.onSkip && props.showSkip && <ActionLinks style={props?.skipStyle} label={t(`CS_SKIP_CONTINUE`)} onClick={props.onSkip} />}
         </Footer>
