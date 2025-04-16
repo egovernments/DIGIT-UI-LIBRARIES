@@ -68,6 +68,13 @@ export const FormComposer = (props) => {
   //clear all errors if user has changed the form category.
   //This is done in case user first click on submit and have errors in cat 1, switches to cat 2 and hit submit with errors
   //So, he should not get error prompts from previous cat 1 on cat 2 submit.
+
+  useEffect(() => {
+    if (props?.defaultValues && Object.keys(props?.defaultValues).length > 0) {
+      reset(props?.defaultValues);
+    }
+  }, [props?.defaultValues]);
+
   useEffect(() => {
     clearErrors();
   }, [selectedFormCategory]);
