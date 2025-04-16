@@ -184,14 +184,14 @@ export const FormComposer = (props) => {
       return (
         <>
           <HeaderComponent
-            className={`digit-card-section-header titleStyle ${props?.section?.sectionHeadClassName || ""}`}
+            className={`digit-card-section-header titleStyle ${section?.sectionHeadClassName || ""}`}
             id={section.headId}
           >
             {t(section.head)}
           </HeaderComponent>
           <HeaderComponent 
           id={`${section.headId}_DES`}
-          className={props?.section?.sectionSubHeadClassName}
+          className={section?.sectionSubHeadClassName}
           >
             {t(section.subHead)}
           </HeaderComponent>
@@ -200,7 +200,7 @@ export const FormComposer = (props) => {
     } else if (section.head) {
       return (
         <>
-          <HeaderComponent className={`digit-card-section-header titleStyle ${props?.section?.sectionHeadClassName || ""}`}
+          <HeaderComponent className={`digit-card-section-header titleStyle ${section?.sectionHeadClassName || ""}`}
           id={section.headId}
           >
             {t(section.head)}
