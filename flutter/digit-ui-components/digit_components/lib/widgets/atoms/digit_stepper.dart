@@ -179,6 +179,7 @@ class _HorizontalStepperItemState extends State<HorizontalStepperItem> {
                       20)),
           child: Text(
             widget.item.title!,
+            semanticsLabel: widget.item.title,
             textAlign: TextAlign.center,
             maxLines: 3,
             overflow: TextOverflow.ellipsis,

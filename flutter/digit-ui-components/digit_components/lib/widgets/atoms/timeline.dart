@@ -9,6 +9,7 @@ import '../../utils/i18_key_constants.dart' as i18;
 
 class DigitTimeline extends LocalizedStatefulWidget {
   final String label;
+  final String? semanticLabel;
   final List<String> description;
   final TimelineStepState currentStep;
   final List<Widget>? additionalWidgets;
@@ -23,6 +24,7 @@ class DigitTimeline extends LocalizedStatefulWidget {
     Key? key,
     required this.currentStep,
     required this.label,
+    this.semanticLabel,
     required this.description,
     this.additionalWidgets,
     this.additionalHideWidgets,
@@ -51,111 +53,116 @@ class _TimelineState extends LocalizedState<DigitTimeline> {
         ? capitalizeFirstLetterOfEveryWord(widget.label)
         : widget.label;
 
-    return Container(
-      color: widget.currentStep == TimelineStepState.failed
-          ? theme.colorTheme.alert.errorBg
-          : theme.colorTheme.paper.primary,
+    return Semantics(
+      label: widget.semanticLabel,
+      child: Container(
+        color: widget.currentStep == TimelineStepState.failed
+            ? theme.colorTheme.alert.errorBg
+            : theme.colorTheme.paper.primary,
 
-      child: IntrinsicHeight(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Column(
-              children: [
-                _buildTimelineIcon(isMobile, context),
-                if (!widget.isLastStep) _buildConnectingLine(),
-              ],
-            ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Padding(
-                padding: EdgeInsets.only(top: isMobile ? 2.5 : 6.5),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      capitalizedLabel,
-                      style: textTheme.headingS.copyWith(
-                        color: widget.currentStep == TimelineStepState.future
-                            ? theme.colorTheme.text.secondary
-                            : widget.currentStep == TimelineStepState.failed ? theme.colorTheme.alert.error : theme.colorTheme.text.primary
+        child: IntrinsicHeight(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Column(
+                children: [
+                  _buildTimelineIcon(isMobile, context),
+                  if (!widget.isLastStep) _buildConnectingLine(),
+                ],
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.only(top: isMobile ? 2.5 : 6.5),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        capitalizedLabel,
+                        semanticsLabel: capitalizedLabel,
+                        style: textTheme.headingS.copyWith(
+                          color: widget.currentStep == TimelineStepState.future
+                              ? theme.colorTheme.text.secondary
+                              : widget.currentStep == TimelineStepState.failed ? theme.colorTheme.alert.error : theme.colorTheme.text.primary
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      height: isMobile ? spacer1 : spacer2,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: widget.description
-                          .map((desc) => Text(
-                                desc,
-                                style: textTheme.bodyS.copyWith(
-                                  color: widget.currentStep == TimelineStepState.failed ? theme.colorTheme.alert.error : theme.colorTheme.text.secondary,
-                                ),
-                              ))
-                          .toList(),
-                    ),
-                    const SizedBox(height: spacer1),
-                    Container(
-                      height: 1,
-                      color: widget.currentStep == TimelineStepState.failed ? theme.colorTheme.alert.error : theme.colorTheme.generic.divider,
-                    ),
-                    const SizedBox(height: spacer2),
-                    if (widget.additionalWidgets != null)
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Wrap(
-                            children: widget.additionalWidgets!
-                                .map(
-                                  (widgets) => Padding(
-                                    padding: const EdgeInsets.only(
-                                      right: spacer2,
-                                      bottom: spacer2,
-                                    ),
-                                    child: widgets,
-                                  ),
-                                )
-                                .toList(),
-                          ),
-                        ],
-                      ),
-                    if (!isExpanded && widget.additionalHideWidgets != null)
-                      _buildExpandDigitButton(context),
-                    if (isExpanded && widget.additionalHideWidgets != null)
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Wrap(
-                            children: widget.additionalHideWidgets!
-                                .map(
-                                  (widgets) => Padding(
-                                    padding: const EdgeInsets.only(
-                                      right: spacer2,
-                                      bottom: spacer2,
-                                    ),
-                                    child: widgets,
-                                  ),
-                                )
-                                .toList(),
-                          ),
-                          const SizedBox(height: spacer2),
-                          _buildExpandDigitButton(context),
-                        ],
-                      ),
-                    if (!widget.isLastStep)
                       SizedBox(
-                        height: isMobile
-                            ? spacer4
-                            : isTab
-                                ? spacer5
-                                : spacer6,
-                      )
-                  ],
+                        height: isMobile ? spacer1 : spacer2,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: widget.description
+                            .map((desc) => Text(
+                                  desc,
+                                  semanticsLabel: desc,
+                                  style: textTheme.bodyS.copyWith(
+                                    color: widget.currentStep == TimelineStepState.failed ? theme.colorTheme.alert.error : theme.colorTheme.text.secondary,
+                                  ),
+                                ))
+                            .toList(),
+                      ),
+                      const SizedBox(height: spacer1),
+                      Container(
+                        height: 1,
+                        color: widget.currentStep == TimelineStepState.failed ? theme.colorTheme.alert.error : theme.colorTheme.generic.divider,
+                      ),
+                      const SizedBox(height: spacer2),
+                      if (widget.additionalWidgets != null)
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Wrap(
+                              children: widget.additionalWidgets!
+                                  .map(
+                                    (widgets) => Padding(
+                                      padding: const EdgeInsets.only(
+                                        right: spacer2,
+                                        bottom: spacer2,
+                                      ),
+                                      child: widgets,
+                                    ),
+                                  )
+                                  .toList(),
+                            ),
+                          ],
+                        ),
+                      if (!isExpanded && widget.additionalHideWidgets != null)
+                        _buildExpandDigitButton(context),
+                      if (isExpanded && widget.additionalHideWidgets != null)
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Wrap(
+                              children: widget.additionalHideWidgets!
+                                  .map(
+                                    (widgets) => Padding(
+                                      padding: const EdgeInsets.only(
+                                        right: spacer2,
+                                        bottom: spacer2,
+                                      ),
+                                      child: widgets,
+                                    ),
+                                  )
+                                  .toList(),
+                            ),
+                            const SizedBox(height: spacer2),
+                            _buildExpandDigitButton(context),
+                          ],
+                        ),
+                      if (!widget.isLastStep)
+                        SizedBox(
+                          height: isMobile
+                              ? spacer4
+                              : isTab
+                                  ? spacer5
+                                  : spacer6,
+                        )
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

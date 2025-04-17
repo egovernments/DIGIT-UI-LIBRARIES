@@ -65,6 +65,7 @@ class _MenuCardState extends State<MenuCard> {
                 Expanded(
                   child: Text(
                     widget.heading,
+                    semanticsLabel: widget.heading,
                     style: textTheme.headingM.copyWith(
                       color: theme.colorTheme.primary.primary2,
                     ),
@@ -75,6 +76,7 @@ class _MenuCardState extends State<MenuCard> {
             if (widget.description != null)
               Text(
                 widget.description!,
+                semanticsLabel: widget.description,
                 style: textTheme.bodyS.copyWith(
                   color: theme.colorTheme.text.primary,
                 ),

@@ -8,7 +8,7 @@ class Toggle extends StatefulWidget {
   bool isSelected;
   final double maxLabelWidth;
 
-  Toggle({
+   Toggle({
     Key? key,
     required this.onChanged,
     required this.label,
@@ -121,6 +121,7 @@ class _ToggleState extends State<Toggle> {
                 Expanded(
                   child: Text(
                     processedLabel,
+                    semanticsLabel: processedLabel,
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
                     style: widget.isSelected

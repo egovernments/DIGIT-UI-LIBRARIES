@@ -101,95 +101,98 @@ class _DigitAccordionState extends State<DigitAccordion>
         .size);
 
     bool isExpanded = _expandedStates[index];
-    return AnimatedContainer(
-      duration: widget.animationDuration,
-      curve: Curves.easeOut,
-      decoration: BoxDecoration(
-        color: widget.headerBackgroundColor ?? theme.colorTheme.paper.primary,
-        borderRadius: BorderRadius.circular(4),
-        border: item.showBorder
-            ? Border.all(
-            color: const DigitColors().light.genericDivider, width: 1.0)
-            : null, // Conditional border based on showBorder
-        boxShadow: [
-          if (widget.headerElevation > 0)
-            BoxShadow(
-              color: Colors.black26,
-              blurRadius: widget.headerElevation,
-              offset: Offset(0, widget.headerElevation / 2),
-            ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          GestureDetector(
-            onTap: () {
-              setState(() {
-                if (!widget.allowMultipleOpen) {
-                  for (int i = 0; i < _expandedStates.length; i++) {
-                    if (i != index) {
-                      _expandedStates[i] = false;
-                      _animationControllers[i].reverse();
+    return Semantics(
+      label: item.semanticLabel ?? "Accordion",
+      child: AnimatedContainer(
+        duration: widget.animationDuration,
+        curve: Curves.easeOut,
+        decoration: BoxDecoration(
+          color: widget.headerBackgroundColor ?? theme.colorTheme.paper.primary,
+          borderRadius: BorderRadius.circular(4),
+          border: item.showBorder
+              ? Border.all(
+              color: const DigitColors().light.genericDivider, width: 1.0)
+              : null, // Conditional border based on showBorder
+          boxShadow: [
+            if (widget.headerElevation > 0)
+              BoxShadow(
+                color: Colors.black26,
+                blurRadius: widget.headerElevation,
+                offset: Offset(0, widget.headerElevation / 2),
+              ),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  if (!widget.allowMultipleOpen) {
+                    for (int i = 0; i < _expandedStates.length; i++) {
+                      if (i != index) {
+                        _expandedStates[i] = false;
+                        _animationControllers[i].reverse();
+                      }
                     }
                   }
-                }
-                _expandedStates[index] = !isExpanded;
-                if (isExpanded) {
-                  _animationControllers[index].reverse();
-                } else {
-                  _animationControllers[index].forward();
-                }
-              });
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                color: widget.headerBackgroundColor ?? theme.colorTheme.paper.primary,
-                borderRadius: BorderRadius.circular(4),
-              ),
-              padding: EdgeInsets.symmetric(horizontal: isMobile ? 16 : isTab ? 20 : 24, vertical: 20),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const SizedBox(height: 4,),
-                      item.header,
-                    ],
-                  ),
-                  const SizedBox(width: 16,),
-                  RotationTransition(
-                    turns: _animationControllers[index].drive(
-                      Tween(begin: 0.0, end: 0.25),
+                  _expandedStates[index] = !isExpanded;
+                  if (isExpanded) {
+                    _animationControllers[index].reverse();
+                  } else {
+                    _animationControllers[index].forward();
+                  }
+                });
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  color: widget.headerBackgroundColor ?? theme.colorTheme.paper.primary,
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                padding: EdgeInsets.symmetric(horizontal: isMobile ? 16 : isTab ? 20 : 24, vertical: 20),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const SizedBox(height: 4,),
+                        item.header,
+                      ],
                     ),
-                    child: const Icon(
-                      Icons.arrow_forward_ios,
-                      size: 24,
+                    const SizedBox(width: 16,),
+                    RotationTransition(
+                      turns: _animationControllers[index].drive(
+                        Tween(begin: 0.0, end: 0.25),
+                      ),
+                      child: const Icon(
+                        Icons.arrow_forward_ios,
+                        size: 24,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-          if(item.divider && isExpanded) ...[const DigitDivider(dividerType: DividerType.small,), const SizedBox(height: 8,)],
-          SizeTransition(
-            sizeFactor: CurvedAnimation(
-              parent: _animationControllers[index],
-              curve: Curves.easeOut,
-            ),
-            child: Container(
-              decoration: BoxDecoration(
-                color: widget.contentBackgroundColor ?? theme.colorTheme.paper.primary,
-                borderRadius: BorderRadius.circular(4),
+            if(item.divider && isExpanded) ...[const DigitDivider(dividerType: DividerType.small,), const SizedBox(height: 8,)],
+            SizeTransition(
+              sizeFactor: CurvedAnimation(
+                parent: _animationControllers[index],
+                curve: Curves.easeOut,
               ),
-              padding: EdgeInsets.only(left: isMobile ? 16 : isTab ? 20 : 24, right: isMobile ? 16 : isTab ? 20 : 24, bottom: 16.0, top: 8),
-              child: item.content,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: widget.contentBackgroundColor ?? theme.colorTheme.paper.primary,
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                padding: EdgeInsets.only(left: isMobile ? 16 : isTab ? 20 : 24, right: isMobile ? 16 : isTab ? 20 : 24, bottom: 16.0, top: 8),
+                child: item.content,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

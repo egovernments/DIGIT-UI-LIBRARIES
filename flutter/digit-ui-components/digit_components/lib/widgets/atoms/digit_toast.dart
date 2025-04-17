@@ -121,6 +121,7 @@ class Toast {
                 ),
                 child: Text(
                   convertInToSentenceCase(message)!,
+                  semanticsLabel: convertInToSentenceCase(message),
                   maxLines: toastThemeData?.maxLine ?? defaultThemeData.maxLine,
                   overflow: TextOverflow.ellipsis,
                   style: toastThemeData?.textStyle ?? defaultThemeData.textStyle,

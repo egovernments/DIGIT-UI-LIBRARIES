@@ -62,6 +62,7 @@ class LabeledField extends StatelessWidget {
               children: [
                 RichText(
                   text: TextSpan(
+                    semanticsLabel: processedLabel,
                     text: charCondition ? processedLabel : processedLabel!.length > 64
                         ? '${processedLabel.substring(0, 64)}...'
                         : processedLabel,
@@ -121,6 +122,7 @@ class LabeledField extends StatelessWidget {
                 children: [
                   Flexible(
                     child: Text(
+                      semanticsLabel: processedLabel,
                       processedLabel!.length > 64
                           ? '${processedLabel.substring(0, 64)}...'
                           : processedLabel,
