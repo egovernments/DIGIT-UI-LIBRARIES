@@ -1,3 +1,8 @@
+## 0.2.1+1
+* updated alert pop up to have close icon
+* added textinputtype prop for search bar
+* added radius prop for search bar
+
 ## 0.2.1
 * updated readme documentation
 

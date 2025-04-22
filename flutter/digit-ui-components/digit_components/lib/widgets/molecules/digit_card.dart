@@ -12,6 +12,7 @@ class DigitCard extends StatelessWidget {
   final double? spacing;
   final Color? borderColor;
   final bool inline;
+  final BorderRadiusGeometry? borderRadius;
   final ScrollPhysics? scrollPhysics;
 
   const DigitCard({
@@ -24,6 +25,7 @@ class DigitCard extends StatelessWidget {
     this.spacing,
     this.borderColor,
     this.cardType = CardType.primary,
+    this.borderRadius,
     this.scrollPhysics,
   });
 
@@ -37,7 +39,7 @@ class DigitCard extends StatelessWidget {
       // will take the max width of the content present inside this
       margin: margin,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(spacer1),
+        borderRadius: borderRadius ?? BorderRadius.circular(spacer1),
         border: cardType == CardType.secondary
             ? Border.all(
           width: Base.defaultBorderWidth,
