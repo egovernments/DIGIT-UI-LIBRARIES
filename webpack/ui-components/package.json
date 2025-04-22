@@ -1,6 +1,6 @@
 {
   "name": "@egovernments/digit-ui-components",
-  "version": "0.0.2-webpack-20",
+  "version": "0.0.2-webpack-21",
   "license": "MIT",
   "main": "dist/main.js",
   "module": "dist/main.js",
@@ -12,7 +12,7 @@
   "author": "Jagankumar <jagan.kumar@egov.org.in>",
   "scripts": {
     "example": "cd example && npm run start",
-    "build": "webpack  --mode=production --node-env=production --config webpack.config.js",
+    "build": "webpack  --mode=development --node-env=production --config webpack.config.js",
     "prepare": "yarn build",
     "publish:components": "npm publish --tag core-webpack-v0.1",
     "predeploy": "cd example && yarn install && yarn run build",

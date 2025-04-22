@@ -1,7 +1,7 @@
 const path = require("path");
 
 module.exports = {
-  mode: "production",
+  mode: "development",
   entry: "./src/index.js",
   output: {
     filename: "main.js",
@@ -29,7 +29,8 @@ module.exports = {
       root: 'ReactDOM',
     },
     'react-i18next': 'react-i18next',
-    'react-router-dom': 'react-router-dom'
+    'react-router-dom': 'react-router-dom',
+    "@tanstack/react-query": "@tanstack/react-query"
   },
   module: {
     rules: [

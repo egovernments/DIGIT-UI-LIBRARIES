@@ -1,6 +1,6 @@
 {
   "name": "@egovernments/digit-ui-libraries",
-  "version": "1.8.1-webpack-21",
+  "version": "1.8.1-webpack-22",
   "main": "dist/main.js",
   "module": "dist/main.js",
   "source": "src/index.js",
@@ -9,10 +9,10 @@
     "dist"
   ],
   "scripts": {
-    "start": "webpack serve --mode=production --open --hot",
+    "start": "webpack serve --mode=development --open --hot",
     "prepublish": "yarn build",
     "example": "cd example && npm run start",
-    "build": "webpack  --mode=production --node-env=production --config webpack.config.js",
+    "build": "webpack  --mode=development --node-env=production --config webpack.config.js",
     "prepare": "yarn build",
     "predeploy": "cd example && yarn install && yarn run build",
     "deploy": "gh-pages -d example/build"
@@ -36,7 +36,8 @@
     "cross-env": "7.0.3",
     "lint-staged": "12.3.7",
     "webpack": "^5.97.1",
-    "webpack-cli": "^4.10.0"
+    "webpack-cli": "^4.10.0",
+    "@tanstack/react-query": "^5.62.16"
   },
   "dependencies": {
     "axios": "0.27.2",
