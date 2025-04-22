@@ -42,9 +42,7 @@ class ExpandableSectionState extends LocalizedState<ExpandableSection> {
             child: Container(
               padding: _isExpanded
                   ? const EdgeInsets.only(
-                  top: spacer4,
-                  left: spacer4,
-                  right: spacer4)
+                      top: spacer4, left: spacer4, right: spacer4)
                   : const EdgeInsets.all(spacer4),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -75,7 +73,7 @@ class ExpandableSectionState extends LocalizedState<ExpandableSection> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children:
-                widget.content.descriptions!.asMap().entries.map((entry) {
+                    widget.content.descriptions!.asMap().entries.map((entry) {
                   int index = entry.key;
                   DescriptionNoticeModel desc = entry.value;
                   int? stepNumber = desc.type == 'step' ? index + 1 : null;
@@ -110,6 +108,8 @@ class DescriptionWidget extends LocalizedStatefulWidget {
 class DescriptionWidgetState extends LocalizedState<DescriptionWidget> {
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final textTheme = theme.digitTextTheme(context);
     final descriptionText = widget.description.text ?? '';
     final descriptionType = widget.description.type ?? "null";
     final isBold = widget.description.isBold ?? false;
@@ -120,7 +120,7 @@ class DescriptionWidgetState extends LocalizedState<DescriptionWidget> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildDescriptionText(
+          _buildDescriptionText(context,
               descriptionText, descriptionType, isBold, widget.stepNumber),
           if (hasSubDescriptions)
             Column(
@@ -144,14 +144,18 @@ class DescriptionWidgetState extends LocalizedState<DescriptionWidget> {
     );
   }
 
-  Widget _buildDescriptionText(String descriptionText, String descriptionType,
-      bool isBold, int? stepNumber) {
+  Widget _buildDescriptionText(BuildContext context, String descriptionText,
+      String descriptionType, bool isBold, int? stepNumber) {
+    final theme = Theme.of(context);
+    final textTheme = theme.digitTextTheme(context);
+
     if (descriptionType == 'step') {
       return RichText(
         text: TextSpan(
           text: '$stepNumber. ',
-          style: TextStyle(
+          style: textTheme.bodyS.copyWith(
             fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
+            color: theme.colorTheme.text.primary,
           ),
           children: [
             TextSpan(
@@ -181,8 +185,9 @@ class DescriptionWidgetState extends LocalizedState<DescriptionWidget> {
             child: RichText(
               text: TextSpan(
                 text: localizations.translate(descriptionText),
-                style: TextStyle(
+                style: textTheme.bodyS.copyWith(
                   fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
+                  color: theme.colorTheme.text.primary,
                 ),
               ),
               textAlign: TextAlign.justify,
@@ -194,8 +199,9 @@ class DescriptionWidgetState extends LocalizedState<DescriptionWidget> {
       return Text(
         localizations.translate(descriptionText),
         textAlign: TextAlign.justify,
-        style: TextStyle(
+        style: textTheme.bodyS.copyWith(
           fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
+          color: theme.colorTheme.text.primary,
         ),
       );
     }
@@ -220,6 +226,9 @@ class SubDescriptionWidget extends LocalizedStatefulWidget {
 class SubDescriptionWidgetState extends LocalizedState<SubDescriptionWidget> {
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final textTheme = theme.digitTextTheme(context);
+
     final subDescriptionText = widget.subDescription.text ?? '';
     final subDescriptionType = widget.subDescription.type ?? "null";
     final isBold = widget.subDescription.isBold ?? false;
@@ -227,27 +236,29 @@ class SubDescriptionWidgetState extends LocalizedState<SubDescriptionWidget> {
 
     return Padding(
       padding: EdgeInsets.only(
-          left: isSpaceRequired ? spacer4 : 0.0,
-          top: spacer1,
-          bottom: spacer1),
+          left: isSpaceRequired ? spacer4 : 0.0, top: spacer1, bottom: spacer1),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildSubDescriptionText(subDescriptionText, subDescriptionType,
+          _buildSubDescriptionText(context, subDescriptionText, subDescriptionType,
               isBold, widget.stepNumber),
         ],
       ),
     );
   }
 
-  Widget _buildSubDescriptionText(String subDescriptionText,
+  Widget _buildSubDescriptionText(BuildContext context, String subDescriptionText,
       String subDescriptionType, bool isBold, int? stepNumber) {
+    final theme = Theme.of(context);
+    final textTheme = theme.digitTextTheme(context);
+
     if (subDescriptionType == 'step') {
       return Text(
         '$stepNumber. ${localizations.translate(subDescriptionText)}',
         textAlign: TextAlign.justify,
-        style: TextStyle(
+        style: textTheme.bodyXS.copyWith(
           fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
+          color: theme.colorTheme.text.primary,
         ),
       );
     } else if (subDescriptionType == 'points') {
@@ -267,8 +278,9 @@ class SubDescriptionWidgetState extends LocalizedState<SubDescriptionWidget> {
             child: Text(
               localizations.translate(subDescriptionText),
               textAlign: TextAlign.justify,
-              style: TextStyle(
+              style: textTheme.bodyXS.copyWith(
                 fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
+                color: theme.colorTheme.text.primary,
               ),
             ),
           ),
@@ -278,9 +290,10 @@ class SubDescriptionWidgetState extends LocalizedState<SubDescriptionWidget> {
       return Text(
         localizations.translate(subDescriptionText),
         textAlign: TextAlign.justify,
-        style: TextStyle(
-          fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
-        ),
+        style: textTheme.bodyXS.copyWith(
+      fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
+        color: theme.colorTheme.text.primary,
+      ),
       );
     }
   }

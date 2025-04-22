@@ -1,142 +1,144 @@
 import 'package:digit_ui_components/digit_components.dart';
+import 'package:digit_ui_components/enum/app_enums.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-
 void main() {
-  group('DigitCheckbox Widget Tests', () {
-    testWidgets('DigitCheckbox should render with initial state', (WidgetTester tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: DigitCheckbox(
-              label: 'Test DigitCheckbox',
-              onChanged: (value) {},
-            ),
+  testWidgets('DigitCheckbox should render correctly', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: DigitCheckbox(
+            label: 'Accept terms',
+            onChanged: (value) {},
           ),
         ),
-      );
+      ),
+    );
 
-      expect(find.byType(DigitCheckbox), findsOneWidget);
-      expect(find.byType(DigitCheckboxIcon), findsOneWidget);
-      expect(find.byIcon(Icons.check), findsNothing);
-    });
+    expect(find.text('Accept terms'), findsOneWidget);
+    expect(find.byType(DigitCheckboxIcon), findsOneWidget);
+  });
 
-    testWidgets('DigitCheckbox should change state on tap', (WidgetTester tester) async {
-      bool isChecked = false;
+  testWidgets('DigitCheckbox should toggle state on tap', (WidgetTester tester) async {
+    bool isChecked = false;
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: DigitCheckbox(
-              label: 'Test DigitCheckbox',
-              value: isChecked,
-              onChanged: (value) {
-                isChecked = value ?? false;
-              },
-            ),
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: DigitCheckbox(
+            label: 'Enable Feature',
+            value: isChecked,
+            onChanged: (value) {
+              isChecked = value;
+            },
           ),
         ),
-      );
+      ),
+    );
 
-      expect(find.byType(DigitCheckboxIcon), findsOneWidget);
-      expect(find.byIcon(Icons.check), findsNothing);
+    final checkboxFinder = find.byType(DigitCheckboxIcon);
 
-      await tester.tap(find.byType(InkWell));
-      await tester.pump();
+    // Initial state should be unchecked
+    expect(isChecked, isFalse);
 
-      expect(find.byType(DigitCheckboxIcon), findsOneWidget);
-      expect(find.byIcon(Icons.check), findsOneWidget);
-      expect(isChecked, true);
-    });
+    // Tap the checkbox
+    await tester.tap(checkboxFinder);
+    await tester.pump();
 
-    testWidgets('DigitCheckbox should be disabled and not change state on tap', (WidgetTester tester) async {
-      bool isChecked = false;
+    // Ensure state is updated
+    expect(isChecked, isTrue);
+  });
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: DigitCheckbox(
-              label: 'Test DigitCheckbox',
-              value: isChecked,
-              onChanged: (value) {
-                isChecked = value ?? false;
-              },
-              isDisabled: true,
-            ),
+  testWidgets('DigitCheckbox should not be toggled when disabled', (WidgetTester tester) async {
+    bool isChecked = false;
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: DigitCheckbox(
+            label: 'Disabled Checkbox',
+            value: isChecked,
+            onChanged: (value) {
+              isChecked = value;
+            },
+            isDisabled: true,
           ),
         ),
-      );
+      ),
+    );
 
-      expect(find.byType(DigitCheckboxIcon), findsOneWidget);
-      expect(find.byIcon(Icons.check), findsNothing);
+    final checkboxFinder = find.byType(DigitCheckboxIcon);
 
-      await tester.tap(find.byType(InkWell));
-      await tester.pump();
+    // Tap the checkbox (should not change state)
+    await tester.tap(checkboxFinder);
+    await tester.pump();
 
-      expect(find.byType(DigitCheckboxIcon), findsOneWidget);
-      expect(find.byIcon(Icons.check), findsNothing);
-      expect(isChecked, false);
-    });
+    // Ensure state is still unchanged
+    expect(isChecked, isFalse);
+  });
 
-    testWidgets('DigitCheckbox should change state on multiple taps', (WidgetTester tester) async {
-      bool isChecked = false;
+  testWidgets('DigitCheckbox should not be toggled when readOnly', (WidgetTester tester) async {
+    bool isChecked = false;
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: DigitCheckbox(
-              label: 'Test DigitCheckbox',
-              value: isChecked,
-              onChanged: (value) {
-                isChecked = value ?? false;
-              },
-            ),
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: DigitCheckbox(
+            label: 'ReadOnly Checkbox',
+            value: isChecked,
+            onChanged: (value) {
+              isChecked = value;
+            },
+            readOnly: true,
           ),
         ),
-      );
+      ),
+    );
 
-      expect(find.byIcon(Icons.check), findsNothing);
+    final checkboxFinder = find.byType(DigitCheckboxIcon);
 
-      await tester.tap(find.byType(InkWell));
-      await tester.pump();
+    // Tap the checkbox (should not change state)
+    await tester.tap(checkboxFinder);
+    await tester.pump();
 
-      expect(find.byIcon(Icons.check), findsOneWidget);
-      expect(isChecked, true);
+    // Ensure state is still unchanged
+    expect(isChecked, isFalse);
+  });
 
-      await tester.tap(find.byType(InkWell));
-      await tester.pump();
-
-      expect(find.byIcon(Icons.check), findsNothing);
-      expect(isChecked, false);
-    });
-
-
-    testWidgets('DigitCheckbox should trigger onChanged with correct value', (WidgetTester tester) async {
-      bool isChecked = false;
-
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: DigitCheckbox(
-              label: 'Test DigitCheckbox',
-              value: isChecked,
-              onChanged: (value) {
-                isChecked = value ?? false;
-              },
-            ),
+  testWidgets('DigitCheckbox should display the correct label', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: DigitCheckbox(
+            label: 'Checkbox label test',
+            onChanged: (value) {},
           ),
         ),
-      );
+      ),
+    );
 
-      expect(find.byIcon(Icons.check), findsNothing);
+    expect(find.text('Checkbox label test'), findsOneWidget);
+  });
 
-      await tester.tap(find.byType(InkWell));
-      await tester.pump();
+  testWidgets('DigitCheckbox should have correct semantics', (WidgetTester tester) async {
+    final semanticsHandle = tester.ensureSemantics();
 
-      expect(find.byIcon(Icons.check), findsOneWidget);
-      expect(isChecked, true);
-    });
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: DigitCheckbox(
+            label: 'Accessible checkbox',
+            semanticLabel: 'Custom semantic label',
+            onChanged: (value) {},
+          ),
+        ),
+      ),
+    );
 
+    // Check if the semantics label is properly applied
+    expect(find.bySemanticsLabel('Custom semantic label'), findsOneWidget);
+
+    semanticsHandle.dispose();
   });
 }

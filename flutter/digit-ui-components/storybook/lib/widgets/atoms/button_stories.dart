@@ -50,6 +50,7 @@ List<Story> buttonStories() {
               Option(label: 'Large', value: DigitButtonSize.large),
             ],
           ),
+          semanticLabel: 'Primary Button',
           suffixIcon: context.knobs.nullable.options(
               label: 'Suffix Icon',
               initial: Icons.arrow_forward,

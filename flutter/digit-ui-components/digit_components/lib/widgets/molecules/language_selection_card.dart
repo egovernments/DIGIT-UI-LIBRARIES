@@ -167,6 +167,7 @@ class _DigitRowCardState extends State<DigitRowCard> {
           children: [
             Text(
               item.label,
+              semanticsLabel: item.label,
               style: textTheme.bodyS.copyWith(
                 fontWeight: item.isSelected ? FontWeight.bold : FontWeight.normal,
                 color: item.isSelected

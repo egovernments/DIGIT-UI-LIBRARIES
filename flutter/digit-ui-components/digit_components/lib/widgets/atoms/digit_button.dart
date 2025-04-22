@@ -120,7 +120,11 @@ class _DigitButtonState extends State<DigitButton> {
         break;
     }
 
-    return _buildDigitButtonWidget(context, digitButtonThemeData ?? digitButtonThemeDataDefault);
+    return Semantics(
+        label: widget.semanticLabel ?? widget.label,
+        button: true,
+        enabled: !widget.isDisabled,
+        child: _buildDigitButtonWidget(context, digitButtonThemeData ?? digitButtonThemeDataDefault));
   }
 
   /// Build the DigitButton widget based on its type and state.
@@ -303,7 +307,6 @@ class _DigitButtonState extends State<DigitButton> {
             Flexible(
               child: Text(
                 truncatedLabel,
-                semanticsLabel: widget.semanticLabel ?? widget.label,
                 textAlign: TextAlign.center,
                 style: widget.type == DigitButtonType.link
                     ? linkStyle.copyWith(

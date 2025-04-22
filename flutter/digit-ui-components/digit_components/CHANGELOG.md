@@ -1,3 +1,6 @@
+## 0.2.1-dev.1
+* added semantic supports for all the components
+
 ## 0.2.1
 * updated readme documentation
 
