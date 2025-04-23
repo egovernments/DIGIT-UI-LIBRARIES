@@ -1060,26 +1060,7 @@ export const UICustomizations = {
     }, 
   },
   BoundarySearchCompserConfig: {
-    // customValidationCheck: (data) => {
-    //   //checking both to and from date are present
-    //   const { createdFrom, createdTo, field, value } = data;
-    //   if (
-    //     (createdFrom === "" && createdTo !== "") ||
-    //     (createdFrom !== "" && createdTo === "")
-    //   )
-    //     return { type: "warning", label: "ES_COMMON_ENTER_DATE_RANGE" };
-
-    //   if ((field && !value) || (!field && value)) {
-    //     return {
-    //       type: "warning",
-    //       label: "WBH_MDMS_SEARCH_VALIDATION_FIELD_VALUE_PAIR",
-    //     };
-    //   }
-
-    //   return false;
-    // },
     preProcess: (data, additionalDetails) => {
-      console.log(data,"data")
       const tenantId = Digit.ULBService.getCurrentTenantId();
       data.body.MdmsCriteria.tenantId = tenantId;
       const filters = {};
@@ -1131,17 +1112,12 @@ export const UICustomizations = {
       }
     },
     selectionHandler: (event) => {
-      console.log(event, "selection handler event");
     }, // selectionHandler : Is used to handle row selections. gets on object which containes 3 key value pairs:  allSelected(whether all rows are selected or not), selectedCount (no, of rows selected),selectedRows( an array of selected rows)
     actionSelectHandler: (index, label, selectedRows) => {
-      console.log(index, label, selectedRows, "action handler");
     }, // actionSelectHandler : Is used to handle onClick functions of table action button on row selections, gets index,label and selectedRows as props
     footerActionHandler: (index, event) => {
-      console.log(index, "index");
-      console.log(event, "event");
     }, // footerActionHandler : Is used to handle onclick functions of footer action buttons, gets index and event as props
     linkColumnHandler: (row) => {
-      console.log(row, "row");
       const url = `/${window.contextPath}/employee/microplan/view?tenantId=${row?.tenantId}&uniqueIdentifier=${row?.uniqueIdentifier}`;
       window.location.href = url;
     }, 

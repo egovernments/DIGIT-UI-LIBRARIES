@@ -24,8 +24,7 @@ export const SampleModule = ({ stateCode, userType, tenants }) => {
 
 const componentsToRegister = {
   MicroplanModule:SampleModule,
-  MicroplanCard:SampleCard,
-  BoundaryFilter
+  MicroplanCard:SampleCard
 };
 
 export const initSampleComponents = () => {

@@ -18,21 +18,14 @@ const mdmsProxy = createProxyMiddleware({
   secure:false
 });
 
-const boundaryServiceProxy = createProxyMiddleware({
-  target: process.env.REACT_APP_PROXY_API || "https://localhost:3000",
-  changeOrigin: true,
-  secure: false,
-  // pathRewrite: {
-  //   '^/mi-ui/boundary-service': '/boundary-service', // Rewrites the path
-  // },
-});
+
 
 module.exports = function (app) {
   ["/mdms-v2/v2/_create"].forEach((location) => app.use(location, mdmsProxy));
-  ["/boundary-service"].forEach((location) =>app.use(location, boundaryServiceProxy));
   [
     "/access/v1/actions/mdms",
     "/egov-mdms-service",
+    "/boundary-service",
     "/mdms-v2",
     "/egov-idgen",
     "/egov-location",

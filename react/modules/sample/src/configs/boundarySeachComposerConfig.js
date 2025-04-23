@@ -44,6 +44,23 @@ export const Config = {
         },
         fields: [
           {
+            label: "Search field 1",
+            type: "text",
+            isMandatory: false,
+            disable: false,
+            preProcess: {
+              convertStringToRegEx: ["populators.validation.pattern"],
+            },
+            populators: {
+              name: "text",
+              error: "COMMON_PATTERN_ERR_MSG_MUSTER_ID",
+              validation: {
+                pattern: "MR\\/[0-9]+-[0-9]+\\/[0-9]+\\/[0-9]+",
+                minlength: 2,
+              },
+            },
+          },
+          {
             label: "",
             type: "boundary",
             isMandatory: false,
@@ -73,7 +90,7 @@ export const Config = {
                   name: "NEWTEST00222_MO_11_06_PLEEBO"
                 }]
             },
-          },
+          }
         ],
       },
       label: "",

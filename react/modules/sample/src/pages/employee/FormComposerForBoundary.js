@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { FormComposerConfig } from "../../configs/FormComposerConfig";
 // import { formComposerConfig1 } from "../../configs/FormComposerConfig1";
 
-const FormComposer = (props) => {
+const FormComposerForBoundary = (props) => {
     const { t } = useTranslation();
     const [formData, setFormData] = useState({});
     const [state, setState] = useState({});
@@ -64,4 +64,4 @@ const FormComposer = (props) => {
     );
 };
 
-export default FormComposer;
+export default FormComposerForBoundary;

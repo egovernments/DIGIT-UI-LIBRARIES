@@ -5,7 +5,7 @@ import { Route, Switch } from "react-router-dom";
 import Sample from "./Sample";
 import SampleSearch from "./SampleSearch";
 import { BoundaryFilter } from "@egovernments/digit-ui-components";
-import FormComposer from "./FormComposer";
+import FormComposerForBoundary from "./FormComposerForBoundary";
 import SampleInbox from "./SampleInbox";
 import IndividualSearch from "./IndividualSearch";
 import SampleComponents from "./SampleComponents";
@@ -75,7 +75,7 @@ const App = ({ path, stateCode, userType, tenants }) => {
           levelConfig={{lowestLevel:"LOCALITY", highestLevel:"COUNTRY"}} 
           hierarchyType={"NEWTEST00222"} 
           module={"HCM-ADMIN-CONSOLE"} 
-          selectedValues={[""]}
+          selectedValues={[]}
           layoutConfig={{isDropdownLayoutHorizontal:false,isLabelFieldLayoutHorizontal:false}}
           // frozenData={[
           //   {
@@ -92,14 +92,14 @@ const App = ({ path, stateCode, userType, tenants }) => {
           //   }
           // ]}
           preSelected={["NEWTEST00222_MO","NEWTEST00222_MO_11_MARYLAND"]}
+          noCardStyle={false}
           />} 
         />
-        <PrivateRoute path={`${path}/FormComposer`} component={() => <FormComposer/>} />
+        <PrivateRoute path={`${path}/FormComposer`} component={() => <FormComposerForBoundary/>} />
 
 
         <PrivateRoute path={`${path}/components`} component={() => <SampleComponents></SampleComponents>} />
         <PrivateRoute path={`${path}/create`} component={() => <Sample></Sample>} />
-        <PrivateRoute path={`${path}/search`} component={() => <SampleSearch></SampleSearch>} />
         <PrivateRoute path={`${path}/inbox`} component={() => <SampleInbox></SampleInbox>} />
         <PrivateRoute path={`${path}/search-edit`} component={() => <IndividualSearch></IndividualSearch>} />
         <PrivateRoute path={`${path}/view`} component={() => <SampleView></SampleView>} />

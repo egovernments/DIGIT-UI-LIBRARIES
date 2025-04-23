@@ -8,6 +8,9 @@ import Toast from '../atoms/Toast';
 import Loader from '../atoms/Loader';
 import LabelFieldPair from '../atoms/LabelFieldPair';
 import CardLabel from '../atoms/CardLabel';
+import PopUp from '../atoms/PopUp';
+import Button from '../atoms/Button';
+import Chip from '../atoms/Chip';
 
 
 const BoundaryFilter = (props) => {
@@ -19,7 +22,7 @@ const BoundaryFilter = (props) => {
   }
 
   const { t } = useTranslation();
-  const hierarchyType = props?.hierarchyType; 
+  const hierarchyType = props?.hierarchyType;
   const tenantId = Digit.ULBService.getCurrentTenantId();
   const moduleName = props?.module;
   const [lowestHierarchy, setLowestHierarchy] = useState("");
@@ -30,7 +33,7 @@ const BoundaryFilter = (props) => {
   const [selectedValues, setSelectedValues] = useState([]);     // Selected values 
   const [selectedValuesCodes, setSelectedValuesCodes] = useState([]);
   const [pathMap, setPathMap] = useState({}); // {"Maryland":MO_Mozambique.MO_MaryLand}
-  const [showPopup, setShowPopup] = useState(false);
+  const [showPopUp, setShowPopUp] = useState(false);
 
 
   //2 states are there 1) boundaryOptions(objects that stores by hierarchy), selectedValues(all the selectedValues)
@@ -93,37 +96,37 @@ const BoundaryFilter = (props) => {
       enabled: !!props?.hierarchyType, // same as props?.hierarchyType ? true : false
       select: (data) => {
         const tempPathMap = {}; // Store all path mappings here
-  
+
         // Recursive function to process hierarchy and attach paths
         const processHierarchy = (nodes, parentPath = "") => {
           return nodes.map((node) => {
             // Build full path for current node
             const currentPath = parentPath ? `${parentPath}.${node.code}` : node.code;
-  
+
             // Store path in the temporary map
             tempPathMap[node.code] = currentPath;
-  
+
             // Recursively process children
             if (node.children && node.children.length > 0) {
               node.children = processHierarchy(node.children, currentPath);
             }
-  
+
             // Return node with added path property
             return { ...node, path: currentPath };
           });
         };
-  
+
         // Start processing and build hierarchy with paths
         const processed = processHierarchy(data?.TenantBoundary?.[0]?.boundary || []);
-  
+
         // Update state once with the complete map
         setPathMap(tempPathMap);
-  
+
         return processed;
       },
     },
   };
-    
+
   // Hiearchy Data contains the raw data from the boundary-service/boundary-relationships/_search
   const { data: hierarchyData, refetch, isLoading } = Digit.Hooks.useCustomAPIHook(reqHierarchyData);
 
@@ -163,7 +166,7 @@ const BoundaryFilter = (props) => {
   }, [hierarchy, props?.levelConfig?.highestLevel]);
 
   //Highest level of Hierachy eg Country
-  const rootBoundaryType = hierarchy?.filter((item) => item?.parentBoundaryType === null)[0]?.boundaryType; 
+  const rootBoundaryType = hierarchy?.filter((item) => item?.parentBoundaryType === null)[0]?.boundaryType;
 
   const closeToast = () => {
     setTimeout(() => {
@@ -177,14 +180,14 @@ const BoundaryFilter = (props) => {
 
     // **Transform frozenData**
     const transformedFrozenData = props.frozenData
-    .filter(item => pathMap?.[item.code]) // Skip if pathMap[item.code] is missing
-    .map(item => ({
-      code: item.code.split('.').pop(),  // Extract last segment as code
-      path: pathMap[item.code], // Keep original code as path
-      boundaryType: getBoundaryType(pathMap[item.code], hierarchy), // Get boundary type
-      name: item.name, // Include name
-      parent: item.code.split('.').slice(0, -1).join('.') || null // Extract parent path
-    }));
+      .filter(item => pathMap?.[item.code]) // Skip if pathMap[item.code] is missing
+      .map(item => ({
+        code: item.code.split('.').pop(),  // Extract last segment as code
+        path: pathMap[item.code], // Keep original code as path
+        boundaryType: getBoundaryType(pathMap[item.code], hierarchy), // Get boundary type
+        name: item.name, // Include name
+        parent: item.code.split('.').slice(0, -1).join('.') || null // Extract parent path
+      }));
 
     // **Group by boundaryType**
     const groupedData = transformedFrozenData.reduce((acc, item) => {
@@ -199,10 +202,10 @@ const BoundaryFilter = (props) => {
     // **Call boundaryOptionsUpdate for each boundaryType**
     Object.entries(groupedData).forEach(([boundaryType, values]) => {
       // Ensure `values` is an array of arrays
-      boundaryOptionsUpdate(boundaryType, values, "Multi",true);
+      boundaryOptionsUpdate(boundaryType, values, "Multi", true);
     });
 
-  }, [hierarchy, hierarchyData, props.frozenData,pathMap]); // Depend on hierarchy & frozenData
+  }, [hierarchy, hierarchyData, props.frozenData, pathMap]); // Depend on hierarchy & frozenData
 
   //useEffect for initializeng boundaries mentioned in props?.preselected 
   useEffect(() => {
@@ -216,6 +219,7 @@ const BoundaryFilter = (props) => {
         path: pathMap[item],
         boundaryType: getBoundaryType(pathMap[item], hierarchy),
         name: item,
+
       }));
 
 
@@ -232,7 +236,7 @@ const BoundaryFilter = (props) => {
     // **Call boundaryOptionsUpdate for each boundaryType**
     Object.entries(groupedData).forEach(([boundaryType, values]) => {
       // Ensure `values` is an array of arrays
-      boundaryOptionsUpdate(boundaryType, values, "Multi",true);
+      boundaryOptionsUpdate(boundaryType, values, "Multi", true);
     });
 
   }, [hierarchy, hierarchyData, props.preSelected, pathMap]); // Depend on hierarchy & frozenData
@@ -297,7 +301,7 @@ const BoundaryFilter = (props) => {
 
 
   //main fucntion, handles dropdown changes
-  const boundaryOptionsUpdate = async (boundaryType, values, dropdownType,isPreSelected) => {
+  const boundaryOptionsUpdate = async (boundaryType, values, dropdownType, isPreSelected) => {
     console.log("boundaryOptionsUpdate", boundaryType, values, dropdownType);
     if (!hierarchy || !hierarchyData) return;
     let selectedOptions = [];
@@ -306,6 +310,7 @@ const BoundaryFilter = (props) => {
     } else {
       selectedOptions = [values];
     }
+    console.log("values", values);
     const childBoundaryType = hierarchy.find(
       (item) => item.parentBoundaryType === boundaryType
     )?.boundaryType;
@@ -339,6 +344,7 @@ const BoundaryFilter = (props) => {
       newBoundaryOptions = updatedOptions;
       newSelectedOptions = selectedValues;
     }
+    console.log("newSelectedOptions", newSelectedOptions);
 
     // **Accumulate changes before updating state**
     let updatedSelectedValues = [...newSelectedOptions];
@@ -351,7 +357,7 @@ const BoundaryFilter = (props) => {
 
       //Going through each of the selected Options 
       selectedOptions.forEach((value) => {
-
+        console.log("value", value)
         // **Update selected values locally**
         const existingCodes = new Set(updatedSelectedValues.map(v => v.code));
         if (!existingCodes.has(value.code)) {
@@ -391,16 +397,16 @@ const BoundaryFilter = (props) => {
       if (isPreSelected) {
         // Extract existing codes from previous state
         const existingCodes = new Set(prev.map(item => item.code));
-  
+
         // Filter out only unique values
         const uniqueUpdatedValues = updatedSelectedValues.filter(item => !existingCodes.has(item.code));
-    
+
         return [...prev, ...uniqueUpdatedValues]; // Append only unique values
       } else {
         return [...updatedSelectedValues]; // Replace with new values
       }
     });
-    
+
 
   };
 
@@ -489,7 +495,7 @@ const BoundaryFilter = (props) => {
     setBoundaries(hierarchy.map(item => item?.boundaryType));
 
   }, [hierarchy]);
-  
+
   // Checking if userEnter props highestLevel,lowestLevel are valid
   useEffect(() => {
     if (!hierarchy || boundaries.length === 0) return;
@@ -506,12 +512,13 @@ const BoundaryFilter = (props) => {
 
   console.log(props?.layoutConfig?.isDropdownLayoutHorizontal);
   console.log(selectedValuesCodes);
-  console.log(boundaryOptions,"boundaryOptions");
-  console.log("propsnocard1",props,props?.noCardStyle);
+  console.log(boundaryOptions, "boundaryOptions");
+  console.log("propsnocard1", props, props?.noCardStyle);
+  console.log("selectedValues", selectedValues);
 
   return (
     !isLoading && !hierarchyLoading ? (
-      <Card noCardStyle={props?.noCardStyle? props.noCardStyle:true}>
+      <Card noCardStyle={props?.noCardStyle === undefined ? true : props.noCardStyle}>
         <div className={`selecting-boundary-div ${props?.layoutConfig?.isDropdownLayoutHorizontal ? "horizontal-layout" : ""}`}>
           {
             hierarchy && hierarchyData && boundaryOptions[rootBoundaryType] && hierarchy?.filter((boundary, index) => {
@@ -538,7 +545,7 @@ const BoundaryFilter = (props) => {
                         optionsKey={"code"}
                         t={t}
                         onSelect={(values) => {
-                          boundaryOptionsUpdate(item?.boundaryType, values, "Multi",false);
+                          boundaryOptionsUpdate(item?.boundaryType, values, "Multi", false);
                         }}
                         type="multiselectdropdown"
                         config={{
@@ -553,7 +560,7 @@ const BoundaryFilter = (props) => {
                           selected={selectedValues.filter((item) => item.boundaryType == rootBoundaryType)}
                           t={t}
                           select={(values) => {
-                            boundaryOptionsUpdate(item?.boundaryType, values, "Single",false);
+                            boundaryOptionsUpdate(item?.boundaryType, values, "Single", false);
                           }}
                           type="dropdown"
                           variant="nesteddropdown"
@@ -602,14 +609,14 @@ const BoundaryFilter = (props) => {
                             <>
                               <MultiSelectDropdown
                                 key={item?.boundaryType}
-                                clearLabel="Clear All"
+                                clearLabel="CLEAR_ALL"
                                 frozenData={props.frozenData}
                                 options={formattedOptions}
                                 selected={formattedSelectedValues}
                                 optionsKey={"name"}
                                 t={t}
                                 onSelect={(values) => {
-                                  boundaryOptionsUpdate(item?.boundaryType, values, "Multi",false);
+                                  boundaryOptionsUpdate(item?.boundaryType, values, "Multi", false);
                                 }}
                                 addCategorySelectAllCheck={true}
                                 addSelectAllCheck={true}
@@ -619,13 +626,9 @@ const BoundaryFilter = (props) => {
                                   clearLabel: "", // label for clear all chip , default label is "Clear All"
                                   isDropdownWithChip: true, // falg to show chips
                                   showIcon: true, // flag to add icons for each options
-                                  numberOfChips: 4, // count of the chips to be showna , if more selected adds + chip
-                                }}
-                                handleViewMore={(e) => {
-                                  setShowPopup(true);
                                 }}
                               />
-                             
+
                             </> :
                             <div className="padding-dropdown">
                               <Dropdown
@@ -635,7 +638,7 @@ const BoundaryFilter = (props) => {
                                 optionKey={"name"}
                                 t={t}
                                 select={(values) => {
-                                  boundaryOptionsUpdate(item?.boundaryType, values, "Single",false);
+                                  boundaryOptionsUpdate(item?.boundaryType, values, "Single", false);
                                 }}
                                 type="dropdown"
                                 variant="nesteddropdown"
@@ -656,6 +659,7 @@ const BoundaryFilter = (props) => {
             })}
         </div>
 
+
         {showToast && (
           <Toast
             type={showToast?.key === "error" ? "error" : showToast?.key === "info" ? "info" : "success"}
@@ -663,6 +667,8 @@ const BoundaryFilter = (props) => {
             onClose={closeToast}
           />
         )}
+
+
 
 
       </Card>) : <Loader />

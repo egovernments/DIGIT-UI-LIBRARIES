@@ -1,5 +1,5 @@
 /*!
- * @egovernments/digit-ui-components-css - 0.2.0-beta.4
+ * @egovernments/digit-ui-components-css - 0.2.0-beta.6
  *
  * Copyright (c) 2025 Jagankumar <jagan.kumar@egovernments.org>
  * 
@@ -13391,7 +13391,10 @@ button:hover {
 
 .selecting-boundary-div.horizontal-layout {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); }
+  grid-template-columns: repeat(3, 1fr);
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: flex-start; }
 
 .digit-card-label.boundary-selection-label {
   font-family: Roboto;
@@ -13425,6 +13428,9 @@ button:hover {
 
 .padding-dropdown {
   padding-bottom: 1.6rem; }
+
+.filter-card.filter-card-vertical .selecting-boundary-div {
+  max-width: 90%; }
 
 .digit-search-wrapper {
   height: 100%;
@@ -13595,6 +13601,13 @@ button:hover {
         align-items: flex-start; }
       .digit-inbox-search-wrapper .digit-inbox-search-component-wrapper .digit-sections-parent .digit-section.search .digit-tab-main {
         width: 100%; }
+      .digit-inbox-search-wrapper .digit-inbox-search-component-wrapper .digit-sections-parent .digit-section.search.tab {
+        background: none !important;
+        padding: 0;
+        -webkit-box-shadow: none;
+        box-shadow: none; }
+        .digit-inbox-search-wrapper .digit-inbox-search-component-wrapper .digit-sections-parent .digit-section.search.tab .digit-search-wrapper {
+          padding: 1.5rem; }
       .digit-inbox-search-wrapper .digit-inbox-search-component-wrapper .digit-sections-parent .digit-section.filter .digit-inbox-search-composer-filter-card-content {
         grid-gap: 1rem;
         gap: 1rem; }
@@ -13619,6 +13632,11 @@ button:hover {
         .digit-inbox-search-wrapper .digit-inbox-search-component-wrapper .digit-sections-parent .digit-section .digit-search-wrapper .digit-search-field-wrapper .digit-search-button-wrapper.search {
           grid-column: 3/-1; }
 
+.digit-inbox-search-composer-header {
+  color: #0b4b66;
+  margin-bottom: 1.5rem;
+  line-height: normal; }
+
 .digit-inbox-search-composer-header-action-wrapper {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -13631,10 +13649,6 @@ button:hover {
   justify-content: space-between; }
   .digit-inbox-search-composer-header-action-wrapper .digit-inbox-search-composer-action {
     margin-bottom: 1.5rem; }
-  .digit-inbox-search-composer-header-action-wrapper .digit-inbox-search-composer-header {
-    color: #0b4b66;
-    margin-bottom: 1.5rem;
-    line-height: normal; }
 
 .digit-inbox-search-links-container .digit-inbox-search-links-header {
   display: -webkit-box;
@@ -13728,7 +13742,7 @@ button:hover {
   -ms-flex-pack: center;
   justify-content: center; }
 
-.digit-global-serach-results-table-wrapper {
+.digit-global-search-results-table-wrapper {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -13740,17 +13754,17 @@ button:hover {
   -ms-flex-align: end;
   align-items: flex-end; }
 
-.digit-global-serach-results-table {
+.digit-global-search-results-table {
   margin-bottom: 1.5rem; }
   @media (min-aspect-ratio: 9 / 16) and (max-aspect-ratio: 3 / 4) {
-    .digit-global-serach-results-table {
+    .digit-global-search-results-table {
       min-width: 27.5rem; } }
   @media (max-aspect-ratio: 9 / 16) {
-    .digit-global-serach-results-table {
+    .digit-global-search-results-table {
       min-width: 100%;
       width: 100%; } }
   @media (min-aspect-ratio: 3 / 4) {
-    .digit-global-serach-results-table {
+    .digit-global-search-results-table {
       min-width: 37.5rem; } }
 
 .rdt_TableRow.selectedRow {
