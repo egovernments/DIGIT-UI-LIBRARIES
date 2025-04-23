@@ -1,6 +1,6 @@
 {
   "name": "@egovernments/digit-ui-libraries",
-  "version": "1.8.1-webpack-22",
+  "version": "1.8.2-webpack-22",
   "main": "dist/main.js",
   "module": "dist/main.js",
   "source": "src/index.js",
@@ -18,26 +18,26 @@
     "deploy": "gh-pages -d example/build"
   },
   "peerDependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react": "19.0.0",
+    "react-dom": "19.0.0"
   },
   "devDependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
     "gh-pages": "2.2.0",
     "microbundle-crl": "0.13.11",
-    "react-scripts": "^4.0.1",
+    "react-scripts": "4.0.1",
     "sass": "^1.83.4",
     "sass-loader": "^16.0.4",
-    "@babel/core": "^7.23.3",
-    "@babel/preset-env": "^7.23.3",
-    "@babel/preset-react": "^7.23.3",
+    "@babel/core": "7.23.3",
+    "@babel/preset-env": "7.23.3",
+    "@babel/preset-react": "7.23.3",
     "babel-loader": "8.0.0",
     "cross-env": "7.0.3",
     "lint-staged": "12.3.7",
-    "webpack": "^5.97.1",
-    "webpack-cli": "^4.10.0",
-    "@tanstack/react-query": "^5.62.16"
+    "webpack": "5.97.1",
+    "webpack-cli": "4.10.0",
+    "@tanstack/react-query": "5.62.16"
   },
   "dependencies": {
     "axios": "0.27.2",
