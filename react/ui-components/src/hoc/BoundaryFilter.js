@@ -8,9 +8,6 @@ import Toast from '../atoms/Toast';
 import Loader from '../atoms/Loader';
 import LabelFieldPair from '../atoms/LabelFieldPair';
 import CardLabel from '../atoms/CardLabel';
-import PopUp from '../atoms/PopUp';
-import Button from '../atoms/Button';
-import Chip from '../atoms/Chip';
 
 
 const BoundaryFilter = (props) => {
@@ -302,7 +299,6 @@ const BoundaryFilter = (props) => {
 
   //main fucntion, handles dropdown changes
   const boundaryOptionsUpdate = async (boundaryType, values, dropdownType, isPreSelected) => {
-    console.log("boundaryOptionsUpdate", boundaryType, values, dropdownType);
     if (!hierarchy || !hierarchyData) return;
     let selectedOptions = [];
     if (dropdownType == "Multi") {
@@ -310,7 +306,6 @@ const BoundaryFilter = (props) => {
     } else {
       selectedOptions = [values];
     }
-    console.log("values", values);
     const childBoundaryType = hierarchy.find(
       (item) => item.parentBoundaryType === boundaryType
     )?.boundaryType;
@@ -344,7 +339,6 @@ const BoundaryFilter = (props) => {
       newBoundaryOptions = updatedOptions;
       newSelectedOptions = selectedValues;
     }
-    console.log("newSelectedOptions", newSelectedOptions);
 
     // **Accumulate changes before updating state**
     let updatedSelectedValues = [...newSelectedOptions];
@@ -357,7 +351,6 @@ const BoundaryFilter = (props) => {
 
       //Going through each of the selected Options 
       selectedOptions.forEach((value) => {
-        console.log("value", value)
         // **Update selected values locally**
         const existingCodes = new Set(updatedSelectedValues.map(v => v.code));
         if (!existingCodes.has(value.code)) {
@@ -509,12 +502,6 @@ const BoundaryFilter = (props) => {
     }
   }, [hierarchy, boundaries, props?.levelConfig]);
 
-
-  console.log(props?.layoutConfig?.isDropdownLayoutHorizontal);
-  console.log(selectedValuesCodes);
-  console.log(boundaryOptions, "boundaryOptions");
-  console.log("propsnocard1", props, props?.noCardStyle);
-  console.log("selectedValues", selectedValues);
 
   return (
     !isLoading && !hierarchyLoading ? (
