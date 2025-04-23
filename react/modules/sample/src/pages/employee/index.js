@@ -74,23 +74,20 @@ const App = ({ path, stateCode, userType, tenants }) => {
           <BoundaryFilter 
           levelConfig={{lowestLevel:"LOCALITY", highestLevel:"COUNTRY"}} 
           hierarchyType={"NEWTEST00222"} 
-          module={"HCM-ADMIN-CONSOLE"} 
           selectedValues={[]}
-          layoutConfig={{isDropdownLayoutHorizontal:false,isLabelFieldLayoutHorizontal:false}}
-          // frozenData={[
-          //   {
-          //     code: "NEWTEST00222_MO",
-          //     name: "NEWTEST00222_MO"
-          //   },
-          //   {
-          //     code: "NEWTEST00222_MO.NEWTEST00222_MO_11_MARYLAND",
-          //     name: "NEWTEST00222_MO_11_MARYLAND"
-          //   },
-          //   {
-          //     code: "NEWTEST00222_MO.NEWTEST00222_MO_11_MARYLAND.NEWTEST00222_MO_11_06_PLEEBO",
-          //     name: "NEWTEST00222_MO_11_06_PLEEBO"
-          //   }
-          // ]}
+          layoutConfig={{isDropdownLayoutHorizontal:true,isLabelFieldLayoutHorizontal:true}}
+          frozenData={[{
+            code: "NEWTEST00222_MO",
+            name: "NEWTEST00222_MO"
+          },
+          {
+            code: "NEWTEST00222_MO_11_MARYLAND",
+            name: "NEWTEST00222_MO_11_MARYLAND"
+          },
+          {
+            code: "NEWTEST00222_MO_11_06_PLEEBO",
+            name: "NEWTEST00222_MO_11_06_PLEEBO"
+          }]}
           preSelected={["NEWTEST00222_MO","NEWTEST00222_MO_11_MARYLAND"]}
           noCardStyle={false}
           />} 

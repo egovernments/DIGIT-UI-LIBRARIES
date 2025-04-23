@@ -1,7 +1,6 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
 import Card from '../atoms/Card';
-import CardText from '../atoms/CardText';
 import MultiSelectDropdown from '../atoms/MultiSelectDropdown';
 import Dropdown from '../atoms/Dropdown';
 import Toast from '../atoms/Toast';
@@ -21,7 +20,6 @@ const BoundaryFilter = (props) => {
   const { t } = useTranslation();
   const hierarchyType = props?.hierarchyType;
   const tenantId = Digit.ULBService.getCurrentTenantId();
-  const moduleName = props?.module;
   const [lowestHierarchy, setLowestHierarchy] = useState("");
   const [showToast, setShowToast] = useState(null);
   const [boundaries, setBoundaries] = useState([]);
@@ -30,7 +28,6 @@ const BoundaryFilter = (props) => {
   const [selectedValues, setSelectedValues] = useState([]);     // Selected values 
   const [selectedValuesCodes, setSelectedValuesCodes] = useState([]);
   const [pathMap, setPathMap] = useState({}); // {"Maryland":MO_Mozambique.MO_MaryLand}
-  const [showPopUp, setShowPopUp] = useState(false);
 
 
   //2 states are there 1) boundaryOptions(objects that stores by hierarchy), selectedValues(all the selectedValues)
@@ -58,27 +55,6 @@ const BoundaryFilter = (props) => {
     // Get the corresponding child boundary type from hierarchy
     return hierarchy[dotCount + 1]?.boundaryType;
   };
-
-
-
-
-
-  // const frozenDataCodes = props?.frozenData ? props?.frozenData.map((item) => item.code) : [];
-  // const presSelectedCodes = props?.preSelectData ? props?.preSelectedData.map((item) => item.code) : [];
-  // const frozenData = transformAndFilterData(frozenDataCodes);
-  // const preSelectedData = transformAndFilterData(presSelectedCodes);
-
-
-  // const { data: BOUNDARY_HIERARCHY_TYPE } = Digit.Hooks.useCustomMDMS(tenantId, moduleName, [{ name: "HierarchySchema" }], {
-  //   select: (data) => {
-  //     const item = data?.[moduleName]?.HierarchySchema?.find(
-  //       (item) => item.type === "microplan"
-  //     );
-  //     setLowestHierarchy(item.lowestHierarchy)
-  //     return item?.hierarchy
-  //   },
-  // }, { schemaCode: "BASE_MASTER_DATA_INITIAL" });
-
 
   const reqHierarchyData = {
     url: `/boundary-service/boundary-relationships/_search`,
