@@ -198,7 +198,7 @@ export const FormComposer = (props) => {
           </HeaderComponent>
           <HeaderComponent 
           id={`${section.headId}_DES`}
-          className={section?.sectionSubHeadClassName}
+          className={`sectionSubHeaderStyle ${section?.sectionSubHeadClassName}`}
           >
             {t(section.subHead)}
           </HeaderComponent>

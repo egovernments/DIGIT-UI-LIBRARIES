@@ -5,9 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+### [0.2.0-beta.13] - 2025-04-24
+## Updates
+- CustomDropdown now supports MultiselectDropdown 
+- Added classname and styles for section subheader in form 
+- Removed unnecessary div if description orerror or charCount is not present
+
 ### [0.2.0-beta.12] - 2025-04-16
 ## Updates
 - Fixed default data in form composer
+
 ### [0.2.0-beta.11] - 2025-04-16
 ## Updates
 - Added classname in header and subHeader
