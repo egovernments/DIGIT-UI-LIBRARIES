@@ -1,6 +1,6 @@
 import React from "react";
 import { InboxSearchComposer, Loader } from "@egovernments/digit-ui-components";
-import boundarySearchWithFilterConfig from "../../configs/boundarySCFIlterConfig";
+import boundarySearchWithFilterConfig from "../../configs/boundarySearchFilterConfig";
 
 const BoundarySearchComposerWithFilter = () => {
     const config = boundarySearchWithFilterConfig();

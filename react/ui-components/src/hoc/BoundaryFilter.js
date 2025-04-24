@@ -101,7 +101,7 @@ const BoundaryFilter = (props) => {
   };
 
   // Hiearchy Data contains the raw data from the boundary-service/boundary-relationships/_search
-  const { data: hierarchyData, refetch, isLoading } = Digit.Hooks.useCustomAPIHook(reqHierarchyData);
+  const { data: hierarchyData, refetch, isLoading, error: hierarchyError } = Digit.Hooks.useCustomAPIHook(reqHierarchyData)
 
 
   const reqCriteria = {
@@ -123,7 +123,7 @@ const BoundaryFilter = (props) => {
   };
 
   // Hierarchy contains the order levels of hierachy eg Country>Province>Administrative Post>Locality>Village
-  const { isLoading: hierarchyLoading, data: hierarchy } = Digit.Hooks.useCustomAPIHook(reqCriteria);
+  const { isLoading: hierarchyLoading, data: hierarchy, error: criteriaError } = Digit.Hooks.useCustomAPIHook(reqCriteria);
 
   useEffect(() => {
 
@@ -137,6 +137,17 @@ const BoundaryFilter = (props) => {
       }
     }
   }, [hierarchy, props?.levelConfig?.highestLevel]);
+
+  // Add error handling
+  useEffect(() => {
+    if (hierarchyError) {
+      setShowToast({ key: "error", label: "HIERARCHY_DATA_FETCH_ERROR" });
+    }
+    if (criteriaError) {
+      setShowToast({ key: "error", label: "HIERARCHY_CRITERIA_FETCH_ERROR" });
+    }
+  }, [hierarchyError, criteriaError]);
+
 
   //Highest level of Hierachy eg Country
   const rootBoundaryType = hierarchy?.filter((item) => item?.parentBoundaryType === null)[0]?.boundaryType;
@@ -238,7 +249,7 @@ const BoundaryFilter = (props) => {
 
     Object.keys(updatedOptions[childType]).forEach(code => {
 
-      const shouldDelete = updatedOptions[childType][code].some(child => {
+      const shouldDelete = (updatedOptions[childType][code] || []).some(child => {
         const hasMatch = codesToRemove.some(code => child.path.includes(code));
         return hasMatch;
       });
@@ -351,7 +362,7 @@ const BoundaryFilter = (props) => {
 
           const uniqueChildren = children.filter(child => !existingEntries.has(child.code));
           updatedOptions[childBoundaryType][value?.code] = [
-            ...updatedOptions[childBoundaryType][value?.code],
+            ...updatedOptions[childBoundaryType][value?.code] || [],
             ...uniqueChildren
           ];
         }
@@ -361,7 +372,7 @@ const BoundaryFilter = (props) => {
     });
 
     // **Update selected values once at the end**
-    setSelectedValuesCodes(updatedSelectedValues.map((item) => item.code))
+    setSelectedValuesCodes(updatedSelectedValues.map((item) => item?.code))
     setSelectedValues((prev) => {
       if (isPreSelected) {
         // Extract existing codes from previous state
