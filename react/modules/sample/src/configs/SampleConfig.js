@@ -1,6 +1,9 @@
 export const newConfig = [
   {
     head: "TEXT",
+    sectionHeadClassName:"Custom-Classname-For-Section-Head",
+    subHead:"This fields are text fields",
+    sectionSubHeadClassName:"Custom-Classname-For-Section-SubHead",
     body: [
       {
         inline: true,

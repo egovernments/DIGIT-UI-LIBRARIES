@@ -499,6 +499,6 @@
 }
 .titleStyle{
     color: theme(digitv2.lightTheme.primary-2);
-    font-weight: 700;
-    font-size: 2.5rem;
+    font-weight: theme(digitv2.fontWeight.bold);
+    font-size: theme(digitv2.spacers.spacer10);
 }
