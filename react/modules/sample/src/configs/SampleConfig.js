@@ -8,9 +8,9 @@ export const newConfig = [
         isMandatory: false,
         type: "text",
         disable: false,
-        populators: { 
-          name: "default", 
-          error: "Error!" 
+        populators: {
+          name: "default",
+          error: "Error!"
         },
       },
       {
@@ -2677,9 +2677,10 @@ export const newConfig = [
         withoutLabel: true,
         disable: false,
         customProps: {},
-        populators: { 
-          name: "complaintType", 
-          required: true },
+        populators: {
+          name: "complaintType",
+          required: true
+        },
       },
     ],
   },

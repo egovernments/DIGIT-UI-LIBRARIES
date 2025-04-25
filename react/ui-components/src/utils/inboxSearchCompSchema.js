@@ -237,7 +237,7 @@ let ibschema = {
                                 "minReqFields": {
                                     "type": "number"
                                 },
-                                "fields": fieldsSchema, 
+                                "fields": fieldsSchema,
                             }
                         }
                     },
@@ -322,7 +322,7 @@ let ibschema = {
                                 "tableProps": {
                                     "type": "object",
                                     "properties": {
-                                        "showTableDescription":{
+                                        "showTableDescription": {
                                             "anyOf": [
                                                 { "type": "string" },
                                                 { "type": "number" }

@@ -144,7 +144,7 @@ export const Config = {
         expandableProps: {
           expandableRows: true,
           expandableRowsComponent: ExpandedComponent,
-         }, // props related to table row expansions
+        }, // props related to table row expansions
         tableProps: {
           showTableDescription: "This is the search table description",
           showTableTitle: "Search table title",

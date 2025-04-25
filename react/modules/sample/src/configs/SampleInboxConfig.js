@@ -13,8 +13,8 @@ const inboxConfig = () => {
       serviceName: "/mdms-v2/v2/_search",
       requestParam: {},
       requestBody: {
-        inbox:{
-          "SearchCriteria":{
+        inbox: {
+          "SearchCriteria": {
           }
         }
       },
@@ -138,9 +138,9 @@ const inboxConfig = () => {
           links: [
             {
               text: "Menu1",
-               url: "/employee/sample/components",
-               roles: ["SYSTEM_ADMINISTRATOR", "MICROPLAN_ADMIN"],
-               hyperlink: false,
+              url: "/employee/sample/components",
+              roles: ["SYSTEM_ADMINISTRATOR", "MICROPLAN_ADMIN"],
+              hyperlink: false,
             },
             {
               text: "Menu2",
@@ -149,8 +149,8 @@ const inboxConfig = () => {
               hyperlink: false,
             },
           ],
-           label: "Module Name",
-           logoIcon: {
+          label: "Module Name",
+          logoIcon: {
             component: "Opacity",
             customClass: "search-icon--projects",
           },
@@ -161,7 +161,7 @@ const inboxConfig = () => {
       filter: {
         uiConfig: {
           type: "filter",
-          label:"", // Custom Filter Card Header
+          label: "", // Custom Filter Card Header
           primaryLabel: "Apply Filters", // label for filter button
           secondaryLabel: "Clear Filters", // label for clear button
           minReqFields: 1,
@@ -261,7 +261,7 @@ const inboxConfig = () => {
               isMandatory: false,
               disable: false,
               populators: {
-                isDropdownWithChip:true,
+                isDropdownWithChip: true,
                 name: "multiselectdropdownfilter",
                 optionsKey: "name",
                 error: "Error!",
@@ -326,7 +326,7 @@ const inboxConfig = () => {
             },
             {
               label: "Facility id",
-              jsonPath:"additionalDetails.facilityId",
+              jsonPath: "additionalDetails.facilityId",
             },
             {
               label: "Hierarchy type",
@@ -354,7 +354,7 @@ const inboxConfig = () => {
           tableProps: {
             showTableDescription: "This is the search table description",
             showTableTitle: "Search table title",
-            tableClassName:"custom-classname-resultsdatatable"
+            tableClassName: "custom-classname-resultsdatatable"
           }, // props related to table : title,description, custom classname
           actionProps: {
             actions: [

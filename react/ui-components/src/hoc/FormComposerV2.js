@@ -410,7 +410,7 @@ export const FormComposer = (props) => {
     return true;
   }, []);
 
- if (schemaValid) {
+  if (schemaValid) {
     return (
       <form onSubmit={handleSubmit(onSubmit)} onKeyDown={(e) => checkKeyDown(e)} id={props.formId} className={props.className}>
         {props?.showMultipleCardsWithoutNavs ? (
@@ -479,16 +479,16 @@ export const FormComposer = (props) => {
       <Toast
         type="error"
         style={{
-          height:"auto",
-          width:"75%",
+          height: "auto",
+          width: "75%",
         }}
         labelstyle={{
-          whiteSpace: "pre-line", 
+          whiteSpace: "pre-line",
           paddingTop: "2rem",
-          paddingBottom:"2rem",
-          overflow:"auto",
-          maxHeight:"200px",
-          height:"auto",
+          paddingBottom: "2rem",
+          overflow: "auto",
+          maxHeight: "200px",
+          height: "auto",
         }}
         transitionTime={200000}
         label={schemaToast}
