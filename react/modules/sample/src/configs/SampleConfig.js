@@ -8,7 +8,10 @@ export const newConfig = [
         isMandatory: false,
         type: "text",
         disable: false,
-        populators: { name: "text-Default", error: "Error!" },
+        populators: { 
+          name: "default", 
+          error: "Error!" 
+        },
       },
       {
         inline: true,
@@ -183,7 +186,7 @@ export const newConfig = [
         isMandatory: true,
         type: "text",
         disable: false,
-        infoMessage: "hvgvbsdvdvfvfd",
+        infoMessage: "abcd",
         description: "text-With MaxCharsLabel",
         populators: {
           name: "text-With MaxCharsLabel",
@@ -381,7 +384,7 @@ export const newConfig = [
       },
       {
         inline: true,
-        label: "With Innerlabel",
+        label: "innerlabel",
         isMandatory: false,
         description: "",
         type: "geolocation",
@@ -451,7 +454,7 @@ export const newConfig = [
         description: "",
         type: "numeric",
         disable: false,
-        populators: { name: "numeric-disableTextField", error: "Error!", disableTextField:true},
+        populators: { name: "numeric-disableTextField", error: "Error!", disableTextField: true },
       },
       {
         inline: true,
@@ -609,7 +612,6 @@ export const newConfig = [
         inline: true,
         label: "With Description",
         isMandatory: false,
-        description: "",
         type: "text",
         disable: false,
         description: "Help text",
@@ -706,7 +708,6 @@ export const newConfig = [
         inline: true,
         label: "With Description",
         isMandatory: false,
-        description: "",
         type: "text",
         disable: false,
         description: "Help Text",
@@ -785,7 +786,6 @@ export const newConfig = [
         inline: true,
         label: "With Description",
         isMandatory: false,
-        description: "",
         type: "password",
         disable: false,
         description: "Help Text",
@@ -872,7 +872,6 @@ export const newConfig = [
         inline: true,
         label: "With Description",
         isMandatory: false,
-        description: "",
         type: "search",
         disable: false,
         description: "Help Text",
@@ -2075,8 +2074,8 @@ export const newConfig = [
           optionsKey: "name",
           error: "Error!",
           required: false,
-          addSelectAllCheck:true,
-          isSearchable:true,
+          addSelectAllCheck: true,
+          isSearchable: true,
           isDropdownWithChip: true,
           options: [
             {
@@ -2131,8 +2130,8 @@ export const newConfig = [
         populators: {
           name: "multiselectdropdown-With Icons",
           optionsKey: "name",
-          addSelectAllCheck:true,
-          isSearchable:true,
+          addSelectAllCheck: true,
+          isSearchable: true,
           error: "Error!",
           required: false,
           isDropdownWithChip: true,
@@ -2171,9 +2170,9 @@ export const newConfig = [
         populators: {
           name: "nestedmultiselect-Default",
           optionsKey: "name",
-          addSelectAllCheck:true,
-          addCategorySelectAllCheck:true,
-          isSearchable:true,
+          addSelectAllCheck: true,
+          addCategorySelectAllCheck: true,
+          isSearchable: true,
           error: "Error!",
           required: false,
           isDropdownWithChip: true,
@@ -2246,9 +2245,9 @@ export const newConfig = [
           optionsKey: "name",
           error: "Error!",
           required: false,
-          addSelectAllCheck:true,
-          addCategorySelectAllCheck:true,
-          isSearchable:true,
+          addSelectAllCheck: true,
+          addCategorySelectAllCheck: true,
+          isSearchable: true,
           isDropdownWithChip: true,
           showIcon: true,
           options: [
@@ -2314,7 +2313,7 @@ export const newConfig = [
           optionsKey: "name",
           error: "Error!",
           required: false,
-          isSearchable:true,
+          isSearchable: true,
           isDropdownWithChip: true,
           options: [
             {
@@ -2663,6 +2662,24 @@ export const newConfig = [
           title:
             "In the quiet glow of dawn, the city stirred to life. A gentle breeze carried whispers of possibility through the streets, as if the day itself held secrets waiting to unfold. Birds painted ribbons of melody across the sky, joining the symphony of a waking world. The first rays of sunlight tiptoed over the horizon, casting a warm, golden hue on the buildings and trees below. In this tranquil moment, the promise of a new day hung in the air, inviting everyone to embrace the journey ahead",
         },
+      },
+    ],
+  },
+  {
+    head: "COMPLAINT TYPE",
+    key: "complaintType",
+    body: [
+      {
+        isMandatory: false,
+        key: "complaintType",
+        type: "component",
+        component: "TypeComponent",
+        withoutLabel: true,
+        disable: false,
+        customProps: {},
+        populators: { 
+          name: "complaintType", 
+          required: true },
       },
     ],
   },

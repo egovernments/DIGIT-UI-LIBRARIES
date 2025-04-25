@@ -106,7 +106,7 @@ export const Config = {
       },
       label: "", // label for the search wrapper
       show: true, // boolean flag to show or hide the search component
-    }, 
+    },
     searchResult: {
       uiConfig: {
         columns: [
@@ -119,7 +119,7 @@ export const Config = {
             label: "Id",
             jsonPath: "id",
             link: true, // to show as a link button,
-            buttonProps:{
+            buttonProps: {
               size: "", // can configure link button size
               icon: "Edit",
               // linkTo: "microplan/components", // can add icon to link button
@@ -144,11 +144,11 @@ export const Config = {
         expandableProps: {
           expandableRows: true,
           expandableRowsComponent: ExpandedComponent,
-        }, // props related to table row expansions
+         }, // props related to table row expansions
         tableProps: {
           showTableDescription: "This is the search table description",
           showTableTitle: "Search table title",
-          tableClassName:"custom-classname-resultsdatatable"
+          tableClassName: "custom-classname-resultsdatatable"
         }, // props related to table : title,description, custom classname
         actionProps: {
           actions: [

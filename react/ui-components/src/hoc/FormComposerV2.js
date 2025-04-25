@@ -2,6 +2,8 @@ import React, { useEffect, useMemo, useState, Fragment, useCallback } from "reac
 import { useForm, Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import _ from "lodash";
+import Ajv from "ajv";
+import schema from "../utils/formCompSchema";
 
 // atoms need for initial setup
 import BreakLine from "../atoms/BreakLine";
@@ -11,10 +13,26 @@ import ActionLinks from "../atoms/ActionLinks";
 import Footer from "../atoms/Footer";
 import LabelFieldPair from "../atoms/LabelFieldPair";
 import HorizontalNav from "../atoms/HorizontalNav";
-import { SubmitBar, Toast , Button } from "../atoms";
+import { SubmitBar, Toast, Button } from "../atoms";
 
 // import Fields from "./Fields";    //This is a field selector pickup from formcomposer
 import FieldController from "./FieldController";
+
+const ajv = new Ajv({ allErrors: true });
+
+ajv.addKeyword("isRegisteredComponent", {
+  errors: true,
+  validate: function isRegisteredComponent(schema, data) {
+    const isValid = !!Digit.ComponentRegistryService.getComponent(data);
+    if (!isValid) {
+      isRegisteredComponent.errors = [{
+        keyword: "isRegisteredComponent",
+        message: `"${data}" is not registered in Digit.ComponentRegistryService.`,
+      }];
+    }
+    return isValid;
+  }
+});
 
 const wrapperStyles = {
   display: "flex",
@@ -64,7 +82,8 @@ export const FormComposer = (props) => {
   const formData = watch();
   const selectedFormCategory = props?.currentFormCategory;
   const [showErrorToast, setShowErrorToast] = useState(false);
-  const [customToast, setCustomToast] = useState(false); 
+  const [customToast, setCustomToast] = useState(false);
+  const [schemaToast, setSchemaToast] = useState(null);
   //clear all errors if user has changed the form category.
   //This is done in case user first click on submit and have errors in cat 1, switches to cat 2 and hit submit with errors
   //So, he should not get error prompts from previous cat 1 on cat 2 submit.
@@ -99,9 +118,10 @@ export const FormComposer = (props) => {
     props.getFormAccessors && props.getFormAccessors({ setValue, getValues });
   }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
     setCustomToast(props?.customToast);
-  },[props?.customToast])
+  }, [props?.customToast])
+
   function onSubmit(data) {
     props.onSubmit(data);
   }
@@ -183,6 +203,7 @@ export const FormComposer = (props) => {
           marginBottom: "20px",
           borderTop: "0px",
         };
+      default:
     }
   };
 
@@ -196,9 +217,9 @@ export const FormComposer = (props) => {
           >
             {t(section.head)}
           </HeaderComponent>
-          <HeaderComponent 
-          id={`${section.headId}_DES`}
-          className={section?.sectionSubHeadClassName}
+          <HeaderComponent
+            id={`${section.headId}_DES`}
+            className={section?.sectionSubHeadClassName}
           >
             {t(section.subHead)}
           </HeaderComponent>
@@ -208,7 +229,7 @@ export const FormComposer = (props) => {
       return (
         <>
           <HeaderComponent className={`digit-card-section-header titleStyle ${section?.sectionHeadClassName || ""}`}
-          id={section.headId}
+            id={section.headId}
           >
             {t(section.head)}
           </HeaderComponent>
@@ -222,9 +243,8 @@ export const FormComposer = (props) => {
   const closeToast = () => {
     setShowErrorToast(false);
     setCustomToast(false);
-    props?.updateCustomToast&&props?.updateCustomToast(false);
+    props?.updateCustomToast && props?.updateCustomToast(false);
   };
-
 
   const formFields = useCallback(
     (section, index, array, sectionFormCategory) => (
@@ -363,7 +383,7 @@ export const FormComposer = (props) => {
       {formFields(section, index, array, sectionFormCategory)}
       {props.childrenAtTheBottom && props.children}
       {props.submitInForm && (
-        <SubmitBar label={t(props.label)} style={{ width:"100%",...props?.buttonStyle }} submit="submit" disabled={isDisabled} className="w-full"/>
+        <SubmitBar label={t(props.label)} style={{ width: "100%", ...props?.buttonStyle }} submit="submit" disabled={isDisabled} className="w-full" />
       )}
       {props.secondaryActionLabel && (
         <div className="primary-label-btn" style={{ margin: "20px auto 0 auto" }} onClick={onSecondayActionClick}>
@@ -373,66 +393,109 @@ export const FormComposer = (props) => {
     </React.Fragment>
   );
 
-  return (
-    <form onSubmit={handleSubmit(onSubmit)} onKeyDown={(e) => checkKeyDown(e)} id={props.formId} className={props.className}>
-      {props?.showMultipleCardsWithoutNavs ? (
-        props?.config?.map((section, index, array) => {
-          return (
-            !section.navLink && (
-              <Card style={getCardStyles()} noCardStyle={props.noCardStyle} className={props.cardClassName}>
-                {renderFormFields(props, section, index, array)}
-              </Card>
-            )
-          );
+  const schemaValid = useMemo(() => {
+    const validate = ajv.compile(schema);
+    const valid = validate(props.config);
+    console.log(validate.errors);
+    if (!valid) {
+      const combinedMessage = validate.errors
+        ?.map(err => {
+          const path = err.instancePath || err.dataPath;
+          return `${path}: ${err.message}`;
         })
-      ) : (
-        <Card style={getCardStyles()} noCardStyle={props.noCardStyle} className={props.cardClassName}>
-          {props?.config?.map((section, index, array) => {
-            return !section.navLink && <>{renderFormFields(props, section, index, array)}</>;
-          })}
-        </Card>
-      )}
-      {props?.showFormInNav && props.horizontalNavConfig && (
-        <HorizontalNav
-          configNavItems={props.horizontalNavConfig ? props.horizontalNavConfig : null}
-          showNav={props?.showNavs}
-          activeLink={activeLink}
-          setActiveLink={setActiveLink}
-        >
-          {props?.showMultipleCardsInNavs ? (
-            props?.config?.map((section, index, array) => {
-              return section.navLink ? (
-                <Card style={section.navLink !== activeLink ? getCardStyles(false) : getCardStyles()} noCardStyle={props.noCardStyle}>
-                  {renderFormFields(props, section, index, array, section?.sectionFormCategory)}
+        .join('\n');
+      setSchemaToast(combinedMessage);
+      return false;
+    }
+    return true;
+  }, []);
+
+ if (schemaValid) {
+    return (
+      <form onSubmit={handleSubmit(onSubmit)} onKeyDown={(e) => checkKeyDown(e)} id={props.formId} className={props.className}>
+        {props?.showMultipleCardsWithoutNavs ? (
+          props?.config?.map((section, index, array) => {
+            return (
+              !section.navLink && (
+                <Card style={getCardStyles()} noCardStyle={props.noCardStyle} className={props.cardClassName}>
+                  {renderFormFields(props, section, index, array)}
                 </Card>
-              ) : null;
-            })
-          ) : (
-            <Card style={getCardStyles()} noCardStyle={props.noCardStyle}>
-              {props?.config?.map((section, index, array) => {
+              )
+            );
+          })
+        ) : (
+          <Card style={getCardStyles()} noCardStyle={props.noCardStyle} className={props.cardClassName}>
+            {props?.config?.map((section, index, array) => {
+              return !section.navLink && <>{renderFormFields(props, section, index, array)}</>;
+            })}
+          </Card>
+        )}
+        {props?.showFormInNav && props.horizontalNavConfig && (
+          <HorizontalNav
+            configNavItems={props.horizontalNavConfig ? props.horizontalNavConfig : null}
+            showNav={props?.showNavs}
+            activeLink={activeLink}
+            setActiveLink={setActiveLink}
+          >
+            {props?.showMultipleCardsInNavs ? (
+              props?.config?.map((section, index, array) => {
                 return section.navLink ? (
-                  <>
-                    <div style={section.navLink !== activeLink ? { display: "none" } : {}}>
-                      {renderFormFields(props, section, index, array, section?.sectionFormCategory)}
-                    </div>
-                  </>
+                  <Card style={section.navLink !== activeLink ? getCardStyles(false) : getCardStyles()} noCardStyle={props.noCardStyle}>
+                    {renderFormFields(props, section, index, array, section?.sectionFormCategory)}
+                  </Card>
                 ) : null;
-              })}
-            </Card>
-          )}
-        </HorizontalNav>
-      )}
-      {!props.submitInForm && props.label && (
-        <Footer className={props.actionClassName}>
-          <SubmitBar label={t(props.label)} className="digit-formcomposer-submitbar" submit="submit" disabled={isDisabled} />
-          {props?.secondaryLabel && props?.showSecondaryLabel && (
-            <Button className="previous-button"  variation="secondary" label={t(props?.secondaryLabel)} onClick={props?.onSecondayActionClick} />
-          )}
-          {props.onSkip && props.showSkip && <ActionLinks style={props?.skipStyle} label={t(`CS_SKIP_CONTINUE`)} onClick={props.onSkip} />}
-        </Footer>
-      )}
-      {showErrorToast && <Toast type={"error"} label={t("ES_COMMON_PLEASE_ENTER_ALL_MANDATORY_FIELDS")} isDleteBtn={true} onClose={closeToast} />}
-      {customToast && <Toast type={customToast?.type} label={t(customToast?.label)} isDleteBtn={true} onClose={closeToast} />}
-    </form>
-  );
+              })
+            ) : (
+              <Card style={getCardStyles()} noCardStyle={props.noCardStyle}>
+                {props?.config?.map((section, index, array) => {
+                  return section.navLink ? (
+                    <>
+                      <div style={section.navLink !== activeLink ? { display: "none" } : {}}>
+                        {renderFormFields(props, section, index, array, section?.sectionFormCategory)}
+                      </div>
+                    </>
+                  ) : null;
+                })}
+              </Card>
+            )}
+          </HorizontalNav>
+        )}
+        {!props.submitInForm && props.label && (
+          <Footer className={props.actionClassName}>
+            <SubmitBar label={t(props.label)} className="digit-formcomposer-submitbar" submit="submit" disabled={isDisabled} />
+            {props?.secondaryLabel && props?.showSecondaryLabel && (
+              <Button className="previous-button" variation="secondary" label={t(props?.secondaryLabel)} onClick={props?.onSecondayActionClick} />
+            )}
+            {props.onSkip && props.showSkip && <ActionLinks style={props?.skipStyle} label={t(`CS_SKIP_CONTINUE`)} onClick={props.onSkip} />}
+          </Footer>
+        )}
+        {showErrorToast && <Toast type={"error"} label={t("ES_COMMON_PLEASE_ENTER_ALL_MANDATORY_FIELDS")} isDleteBtn={true} onClose={closeToast} />}
+        {customToast && <Toast type={customToast?.type} label={t(customToast?.label)} isDleteBtn={true} onClose={closeToast} />}
+      </form>
+    );
+  }
+  else {
+    return (
+      <Toast
+        type="error"
+        style={{
+          height:"auto",
+          width:"75%",
+        }}
+        labelstyle={{
+          whiteSpace: "pre-line", 
+          paddingTop: "2rem",
+          paddingBottom:"2rem",
+          overflow:"auto",
+          maxHeight:"200px",
+          height:"auto",
+        }}
+        transitionTime={200000}
+        label={schemaToast}
+        onClose={() => {
+          setSchemaToast(null);
+        }}
+      />
+    );
+  }
 };

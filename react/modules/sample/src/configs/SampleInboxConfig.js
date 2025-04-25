@@ -15,7 +15,6 @@ const inboxConfig = () => {
       requestBody: {
         inbox:{
           "SearchCriteria":{
-
           }
         }
       },
@@ -139,9 +138,9 @@ const inboxConfig = () => {
           links: [
             {
               text: "Menu1",
-              url: "/employee/sample/components",
-              roles: ["SYSTEM_ADMINISTRATOR", "MICROPLAN_ADMIN"],
-              hyperlink: false,
+               url: "/employee/sample/components",
+               roles: ["SYSTEM_ADMINISTRATOR", "MICROPLAN_ADMIN"],
+               hyperlink: false,
             },
             {
               text: "Menu2",
@@ -150,8 +149,8 @@ const inboxConfig = () => {
               hyperlink: false,
             },
           ],
-          label: "Module Name",
-          logoIcon: {
+           label: "Module Name",
+           logoIcon: {
             component: "Opacity",
             customClass: "search-icon--projects",
           },
