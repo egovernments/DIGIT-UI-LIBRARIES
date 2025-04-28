@@ -183,7 +183,7 @@ export const newConfig = [
         isMandatory: true,
         type: "text",
         disable: false,
-        infomessage: "hvgvbsdvdvfvfd",
+        infoMessage: "hvgvbsdvdvfvfd",
         description: "text-With MaxCharsLabel",
         populators: {
           name: "text-With MaxCharsLabel",
