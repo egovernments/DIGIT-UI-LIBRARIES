@@ -501,15 +501,18 @@ const FieldV1 = ({
         className="digit-field"
       >
         {renderField()}
-        <div
-          className={`${charCount && !error && !description
-            ? "digit-charcount"
-            : "digit-description"
+        {(charCount || error || description) && (
+          <div
+            className={`${
+              charCount && !error && !description
+                ? "digit-charcount"
+                : "digit-description"
             }`}
-        >
-          {renderDescriptionOrError()}
-          {renderCharCount()}
-        </div>
+          >
+            {renderDescriptionOrError()}
+            {renderCharCount()}
+          </div>
+        )}
       </div>
     </LabelFieldPair>
   );
