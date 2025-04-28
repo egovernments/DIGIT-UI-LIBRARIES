@@ -183,7 +183,7 @@ export const newConfig = [
         isMandatory: true,
         type: "text",
         disable: false,
-        infoMessage: "abcd",
+        infomessage: "hvgvbsdvdvfvfd",
         description: "text-With MaxCharsLabel",
         populators: {
           name: "text-With MaxCharsLabel",
@@ -381,7 +381,7 @@ export const newConfig = [
       },
       {
         inline: true,
-        label: "innerlabel",
+        label: "With Innerlabel",
         isMandatory: false,
         description: "",
         type: "geolocation",
