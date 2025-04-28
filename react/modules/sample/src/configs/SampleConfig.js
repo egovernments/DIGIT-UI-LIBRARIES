@@ -8,10 +8,7 @@ export const newConfig = [
         isMandatory: false,
         type: "text",
         disable: false,
-        populators: {
-          name: "default",
-          error: "Error!"
-        },
+        populators: { name: "text-Default", error: "Error!" },
       },
       {
         inline: true,
