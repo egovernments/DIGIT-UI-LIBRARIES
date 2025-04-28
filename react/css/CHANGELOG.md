@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0-beta.9] - 2025-04-28 
+### New changes added
+- Added new css for BoundaryComponent in BounDaryFilter.scss
+
 ## [0.2.0] - 2025-02-19 
 ### New Components Added
 
@@ -60,9 +64,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - LandingPageWrapper
 - MenuCardWrapper
 
-# Hoc
-- BoundaryFilter
-
 ### New Changes Added
 - Added external link support in LandingPageCards
 - Added external link support in BreadCrumbs
@@ -74,7 +75,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Added RemoveableTag Component. 
 - Added Uploader Component With Three Varinats UploadFile,UploadPopup and UploadImage.
 - Supporting multiple variants in Dropdown and MultiSelectDropdown components
-- Added BoundaryFilter Compnent in hoc
 
 
 
