@@ -1,5 +1,5 @@
 /*!
- * @egovernments/digit-ui-components-css - 0.2.0-beta.8
+ * @egovernments/digit-ui-components-css - 0.2.0-beta.4
  *
  * Copyright (c) 2025 Jagankumar <jagan.kumar@egovernments.org>
  * 
@@ -3448,11 +3448,6 @@ ol, ul {
     color: #0b4b66; }
   .digit-card-component.form .digit-label-field-pair, .digit-card-component.form .digit-radio-options-wrap {
     margin-bottom: unset; }
-
-.titleStyle {
-  color: #0b4b66;
-  font-weight: 700;
-  font-size: 2.5rem; }
 
 .digit-checkbox-container {
   display: -webkit-box;
@@ -13387,56 +13382,6 @@ button:hover {
 .popup-header-fix {
   margin-top: -0.5rem !important; }
 
-.selecting-boundary-div {
-  padding-top: .5rem;
-  grid-gap: 1.5rem;
-  gap: 1.5rem; }
-  .selecting-boundary-div .label-field-pair {
-    margin-bottom: 1.5rem; }
-
-.selecting-boundary-div.horizontal-layout {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  -webkit-box-align: start;
-  -ms-flex-align: start;
-  align-items: flex-start; }
-
-.digit-card-label.boundary-selection-label {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: 700;
-  color: #363636;
-  width: 30%; }
-  @media (max-width: 30rem) {
-    .digit-card-label.boundary-selection-label {
-      font-size: 1rem; } }
-  @media (min-width: 30.063rem) and (max-width: 47.938rem) {
-    .digit-card-label.boundary-selection-label {
-      font-size: 1rem; } }
-  @media (min-width: 48rem) {
-    .digit-card-label.boundary-selection-label {
-      font-size: 1rem; } }
-
-.selecting-boundary-div.horizontal-layout .boundary-item {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center; }
-
-.digit-field-full {
-  width: 100%; }
-
-.digit-label-field-pair.boundary-item.vertical {
-  margin-bottom: 0; }
-
-.padding-dropdown {
-  padding-bottom: 1.6rem; }
-
-.filter-card.filter-card-vertical .selecting-boundary-div {
-  max-width: 65%; }
-
 .digit-search-wrapper {
   height: 100%;
   width: 100%; }
@@ -13747,7 +13692,7 @@ button:hover {
   -ms-flex-pack: center;
   justify-content: center; }
 
-.digit-global-search-results-table-wrapper {
+.digit-global-serach-results-table-wrapper {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -13759,17 +13704,17 @@ button:hover {
   -ms-flex-align: end;
   align-items: flex-end; }
 
-.digit-global-search-results-table {
+.digit-global-serach-results-table {
   margin-bottom: 1.5rem; }
   @media (min-aspect-ratio: 9 / 16) and (max-aspect-ratio: 3 / 4) {
-    .digit-global-search-results-table {
+    .digit-global-serach-results-table {
       min-width: 27.5rem; } }
   @media (max-aspect-ratio: 9 / 16) {
-    .digit-global-search-results-table {
+    .digit-global-serach-results-table {
       min-width: 100%;
       width: 100%; } }
   @media (min-aspect-ratio: 3 / 4) {
-    .digit-global-search-results-table {
+    .digit-global-serach-results-table {
       min-width: 37.5rem; } }
 
 .rdt_TableRow.selectedRow {
