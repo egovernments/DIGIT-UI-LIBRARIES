@@ -69,7 +69,7 @@ const ComplaintType = ({ onSelect, ...props }) => {
   return (
     <>
       {documentData?.map((item, index) => (
-        <Card type="secondary" style={{ marginBottom: "1.5rem", gap: "1.5rem" }}>
+        <Card type="secondary" key={item.key} style={{ marginBottom: "1.5rem", gap: "1.5rem" }}>
           {documentData?.length > 1 ? (
             <div className="delete-resource-icon" style={{ textAlign: "right" }} onClick={() => deleteItem(item, index)}>
               <CustomSVG.DustbinIcon />

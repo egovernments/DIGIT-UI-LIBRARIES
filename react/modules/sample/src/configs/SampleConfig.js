@@ -454,7 +454,7 @@ export const newConfig = [
         description: "",
         type: "numeric",
         disable: false,
-        populators: { name: "numeric-disableTextField", error: "Error!", disableTextField: true },
+        populators: { name: "numeric-disableTextField", error: "Error!", disableTextField:true},
       },
       {
         inline: true,
@@ -2074,8 +2074,8 @@ export const newConfig = [
           optionsKey: "name",
           error: "Error!",
           required: false,
-          addSelectAllCheck: true,
-          isSearchable: true,
+          addSelectAllCheck:true,
+          isSearchable:true,
           isDropdownWithChip: true,
           options: [
             {
@@ -2130,8 +2130,8 @@ export const newConfig = [
         populators: {
           name: "multiselectdropdown-With Icons",
           optionsKey: "name",
-          addSelectAllCheck: true,
-          isSearchable: true,
+          addSelectAllCheck:true,
+          isSearchable:true,
           error: "Error!",
           required: false,
           isDropdownWithChip: true,
@@ -2170,9 +2170,9 @@ export const newConfig = [
         populators: {
           name: "nestedmultiselect-Default",
           optionsKey: "name",
-          addSelectAllCheck: true,
-          addCategorySelectAllCheck: true,
-          isSearchable: true,
+          addSelectAllCheck:true,
+          addCategorySelectAllCheck:true,
+          isSearchable:true,
           error: "Error!",
           required: false,
           isDropdownWithChip: true,
@@ -2245,9 +2245,9 @@ export const newConfig = [
           optionsKey: "name",
           error: "Error!",
           required: false,
-          addSelectAllCheck: true,
-          addCategorySelectAllCheck: true,
-          isSearchable: true,
+          addSelectAllCheck:true,
+          addCategorySelectAllCheck:true,
+          isSearchable:true,
           isDropdownWithChip: true,
           showIcon: true,
           options: [
@@ -2313,7 +2313,7 @@ export const newConfig = [
           optionsKey: "name",
           error: "Error!",
           required: false,
-          isSearchable: true,
+          isSearchable:true,
           isDropdownWithChip: true,
           options: [
             {

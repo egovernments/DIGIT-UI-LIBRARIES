@@ -15,6 +15,7 @@ const inboxConfig = () => {
       requestBody: {
         inbox: {
           "SearchCriteria": {
+
           }
         }
       },
@@ -161,7 +162,7 @@ const inboxConfig = () => {
       filter: {
         uiConfig: {
           type: "filter",
-          label: "", // Custom Filter Card Header
+          label:"", // Custom Filter Card Header
           primaryLabel: "Apply Filters", // label for filter button
           secondaryLabel: "Clear Filters", // label for clear button
           minReqFields: 1,
@@ -261,7 +262,7 @@ const inboxConfig = () => {
               isMandatory: false,
               disable: false,
               populators: {
-                isDropdownWithChip: true,
+                isDropdownWithChip:true,
                 name: "multiselectdropdownfilter",
                 optionsKey: "name",
                 error: "Error!",
@@ -326,7 +327,7 @@ const inboxConfig = () => {
             },
             {
               label: "Facility id",
-              jsonPath: "additionalDetails.facilityId",
+              jsonPath:"additionalDetails.facilityId",
             },
             {
               label: "Hierarchy type",
@@ -354,7 +355,7 @@ const inboxConfig = () => {
           tableProps: {
             showTableDescription: "This is the search table description",
             showTableTitle: "Search table title",
-            tableClassName: "custom-classname-resultsdatatable"
+            tableClassName:"custom-classname-resultsdatatable"
           }, // props related to table : title,description, custom classname
           actionProps: {
             actions: [

@@ -13,7 +13,7 @@ import ActionLinks from "../atoms/ActionLinks";
 import Footer from "../atoms/Footer";
 import LabelFieldPair from "../atoms/LabelFieldPair";
 import HorizontalNav from "../atoms/HorizontalNav";
-import { SubmitBar, Toast, Button } from "../atoms";
+import { SubmitBar, Toast , Button } from "../atoms";
 
 // import Fields from "./Fields";    //This is a field selector pickup from formcomposer
 import FieldController from "./FieldController";
@@ -118,9 +118,9 @@ export const FormComposer = (props) => {
     props.getFormAccessors && props.getFormAccessors({ setValue, getValues });
   }, []);
 
-  useEffect(() => {
+  useEffect(()=>{
     setCustomToast(props?.customToast);
-  }, [props?.customToast])
+  },[props?.customToast])
 
   function onSubmit(data) {
     props.onSubmit(data);
@@ -229,7 +229,7 @@ export const FormComposer = (props) => {
       return (
         <>
           <HeaderComponent className={`digit-card-section-header titleStyle ${section?.sectionHeadClassName || ""}`}
-            id={section.headId}
+          id={section.headId}
           >
             {t(section.head)}
           </HeaderComponent>
@@ -243,7 +243,7 @@ export const FormComposer = (props) => {
   const closeToast = () => {
     setShowErrorToast(false);
     setCustomToast(false);
-    props?.updateCustomToast && props?.updateCustomToast(false);
+    props?.updateCustomToast&&props?.updateCustomToast(false);
   };
 
   const formFields = useCallback(
@@ -383,7 +383,7 @@ export const FormComposer = (props) => {
       {formFields(section, index, array, sectionFormCategory)}
       {props.childrenAtTheBottom && props.children}
       {props.submitInForm && (
-        <SubmitBar label={t(props.label)} style={{ width: "100%", ...props?.buttonStyle }} submit="submit" disabled={isDisabled} className="w-full" />
+        <SubmitBar label={t(props.label)} style={{ width:"100%",...props?.buttonStyle }} submit="submit" disabled={isDisabled} className="w-full"/>
       )}
       {props.secondaryActionLabel && (
         <div className="primary-label-btn" style={{ margin: "20px auto 0 auto" }} onClick={onSecondayActionClick}>
