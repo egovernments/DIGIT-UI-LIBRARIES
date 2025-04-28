@@ -113,6 +113,7 @@ const RenderFormFields = ({ data, ...props }) => {
               />
             )}
             name={populators?.name}
+            rules={{ required: isMandatory, ...populators.validation }}
             control={control}
           />
         );
