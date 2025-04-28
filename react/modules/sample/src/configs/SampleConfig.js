@@ -1,6 +1,9 @@
 export const newConfig = [
   {
     head: "TEXT",
+    sectionHeadClassName:"Custom-Classname-For-Section-Head",
+    subHead:"This fields are text fields",
+    sectionSubHeadClassName:"Custom-Classname-For-Section-SubHead",
     body: [
       {
         inline: true,
@@ -8,10 +11,7 @@ export const newConfig = [
         isMandatory: false,
         type: "text",
         disable: false,
-        populators: {
-          name: "default",
-          error: "Error!"
-        },
+        populators: { name: "text-Default", error: "Error!" },
       },
       {
         inline: true,
@@ -186,7 +186,7 @@ export const newConfig = [
         isMandatory: true,
         type: "text",
         disable: false,
-        infoMessage: "abcd",
+        infoMessage: "hvgvbsdvdvfvfd",
         description: "text-With MaxCharsLabel",
         populators: {
           name: "text-With MaxCharsLabel",
@@ -384,7 +384,7 @@ export const newConfig = [
       },
       {
         inline: true,
-        label: "innerlabel",
+        label: "With Innerlabel",
         isMandatory: false,
         description: "",
         type: "geolocation",

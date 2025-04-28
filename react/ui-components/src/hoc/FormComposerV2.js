@@ -217,9 +217,9 @@ export const FormComposer = (props) => {
           >
             {t(section.head)}
           </HeaderComponent>
-          <HeaderComponent
-            id={`${section.headId}_DES`}
-            className={section?.sectionSubHeadClassName}
+          <HeaderComponent 
+          id={`${section.headId}_DES`}
+          className={`sectionSubHeaderStyle ${section?.sectionSubHeadClassName}`}
           >
             {t(section.subHead)}
           </HeaderComponent>
@@ -396,7 +396,7 @@ export const FormComposer = (props) => {
   const schemaValid = useMemo(() => {
     const validate = ajv.compile(schema);
     const valid = validate(props.config);
-    console.log(validate.errors);
+    //console.log(validate.errors);
     if (!valid) {
       const combinedMessage = validate.errors
         ?.map(err => {
