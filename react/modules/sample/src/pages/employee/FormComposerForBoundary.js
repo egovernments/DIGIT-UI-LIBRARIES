@@ -1,7 +1,7 @@
 import { FormComposerV2 } from "@egovernments/digit-ui-components";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { FormComposerConfig } from "../../configs/FormComposerConfig";
+import { FormComposerForBoundaryConfig } from "../../configs/FormComposerConfig";
 // import { formComposerConfig1 } from "../../configs/FormComposerConfig1";
 
 const FormComposerForBoundary = (props) => {
@@ -50,7 +50,7 @@ const FormComposerForBoundary = (props) => {
 
     // const config = FormComposerConfig({ defaultValue: createState, measurement }).CreateConfig[0]?.form;
 
-    const config=FormComposerConfig;
+    const config=FormComposerForBoundaryConfig;
 
     return (
         <div>

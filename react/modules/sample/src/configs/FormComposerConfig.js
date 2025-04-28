@@ -1,4 +1,4 @@
-export const FormComposerConfig=[
+export const FormComposerForBoundaryConfig=[
    
     {
         "body": [
