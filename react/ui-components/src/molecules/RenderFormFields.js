@@ -33,7 +33,6 @@ const RenderFormFields = ({ data, ...props }) => {
       : null;
     const customRules = customValidations ? { validate: customValidations } : {};
     const customProps = config?.customProps;
-    console.log(populators,type,"pop test 1");
    
     switch (type) {
       case "boundary":

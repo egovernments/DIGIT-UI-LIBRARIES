@@ -13,7 +13,6 @@ import {
   StringManipulator,
   LabelFieldPair
 } from "../atoms";
-import BoundaryFilter  from "./BoundaryFilter";
 import { useTranslation } from "react-i18next";
 import { useState, useEffect } from "react";
 import UploadFileComposer from "./UploadFileComposer";
@@ -23,6 +22,7 @@ import { LocationDropdownWrapper } from "../molecules";
 import { ApiDropdown } from "../molecules";
 import { WorkflowStatusFilter } from "../molecules";
 import { DateRangeNew } from "../molecules";
+import BoundaryFilter from "./BoundaryFilter";
 
 const FieldV1 = ({
   type = "",
@@ -127,18 +127,6 @@ const FieldV1 = ({
 
   const renderField = () => {
     switch (type) {
-      case "boundary":
-        return (
-          <BoundaryFilter
-            levelConfig={populators.levelConfig}
-            hierarchyType={populators.hierarchyType}
-            module={populators.module}
-            layoutConfig={{isDropdownLayoutHorizontal:false,isLabelFieldLayoutHorizontal:false}}
-            preSelected={populators.preSelected}
-            frozenData={populators.frozenData}
-            onChange={onChange}
-          />
-        );
       case "text":
       case "date":
       case "time":
@@ -316,6 +304,18 @@ const FieldV1 = ({
             getValues={controllerProps?.getValues}
             watch={controllerProps?.watch}
             unregister={controllerProps?.unregister}
+          />
+        );
+      case "boundary":
+        return (
+          <BoundaryFilter
+            levelConfig={populators.levelConfig}
+            hierarchyType={populators.hierarchyType}
+            module={populators.module}
+            layoutConfig={{ isDropdownLayoutHorizontal: false, isLabelFieldLayoutHorizontal: false }}
+            preSelected={populators.preSelected}
+            frozenData={populators.frozenData}
+            onChange={onChange}
           />
         );
       case "documentUpload":
@@ -503,11 +503,10 @@ const FieldV1 = ({
         {renderField()}
         {(charCount || error || description) && (
           <div
-            className={`${
-              charCount && !error && !description
+            className={`${charCount && !error && !description
                 ? "digit-charcount"
                 : "digit-description"
-            }`}
+              }`}
           >
             {renderDescriptionOrError()}
             {renderCharCount()}

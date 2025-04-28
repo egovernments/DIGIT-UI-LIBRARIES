@@ -75,7 +75,7 @@ const App = ({ path, stateCode, userType, tenants }) => {
           levelConfig={{lowestLevel:"LOCALITY", highestLevel:"COUNTRY"}} 
           hierarchyType={"NEWTEST00222"} 
           selectedValues={[]}
-          layoutConfig={{isDropdownLayoutHorizontal:true,isLabelFieldLayoutHorizontal:true}}
+          layoutConfig={{isDropdownLayoutHorizontal:true,isLabelFieldLayoutHorizontal:false}}
           frozenData={[{
             code: "NEWTEST00222_MO",
             name: "NEWTEST00222_MO"
