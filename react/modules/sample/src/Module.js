@@ -3,6 +3,7 @@ import React from "react";
 import { useRouteMatch } from "react-router-dom";
 import { default as EmployeeApp } from "./pages/employee";
 import SampleCard from "./components/SampleCard";
+import ComplaintType from "./components/complainttype";
 
 export const SampleModule = ({ stateCode, userType, tenants }) => {
   const { path, url } = useRouteMatch();
@@ -23,7 +24,8 @@ export const SampleModule = ({ stateCode, userType, tenants }) => {
 
 const componentsToRegister = {
   SampleModule,
-  SampleCard
+  SampleCard,
+  TypeComponent:ComplaintType,
 };
 
 export const initSampleComponents = () => {

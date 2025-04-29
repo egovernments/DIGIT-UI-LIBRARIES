@@ -612,7 +612,6 @@ export const newConfig = [
         inline: true,
         label: "With Description",
         isMandatory: false,
-        description: "",
         type: "text",
         disable: false,
         description: "Help text",
@@ -709,7 +708,6 @@ export const newConfig = [
         inline: true,
         label: "With Description",
         isMandatory: false,
-        description: "",
         type: "text",
         disable: false,
         description: "Help Text",
@@ -788,7 +786,6 @@ export const newConfig = [
         inline: true,
         label: "With Description",
         isMandatory: false,
-        description: "",
         type: "password",
         disable: false,
         description: "Help Text",
@@ -875,7 +872,6 @@ export const newConfig = [
         inline: true,
         label: "With Description",
         isMandatory: false,
-        description: "",
         type: "search",
         disable: false,
         description: "Help Text",
@@ -2665,6 +2661,25 @@ export const newConfig = [
           error: "Error!",
           title:
             "In the quiet glow of dawn, the city stirred to life. A gentle breeze carried whispers of possibility through the streets, as if the day itself held secrets waiting to unfold. Birds painted ribbons of melody across the sky, joining the symphony of a waking world. The first rays of sunlight tiptoed over the horizon, casting a warm, golden hue on the buildings and trees below. In this tranquil moment, the promise of a new day hung in the air, inviting everyone to embrace the journey ahead",
+        },
+      },
+    ],
+  },
+  {
+    head: "COMPLAINT TYPE",
+    key: "complaintType",
+    body: [
+      {
+        isMandatory: false,
+        key: "complaintType",
+        type: "component",
+        component: "TypeComponent",
+        withoutLabel: true,
+        disable: false,
+        customProps: {},
+        populators: {
+          name: "complaintType",
+          required: true
         },
       },
     ],
