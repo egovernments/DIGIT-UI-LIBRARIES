@@ -9,7 +9,7 @@ const ComplaintType = ({ onSelect, ...props }) => {
     {
       key: 1,
       code: null,
-      names: null,
+      name: null,
     },
   ]);
 
@@ -35,7 +35,7 @@ const ComplaintType = ({ onSelect, ...props }) => {
           if (i.key === item.key) {
             return {
               ...i, 
-              names: value.name,
+              name: value.name,
               code: value.code,
             };
           }
@@ -51,7 +51,7 @@ const ComplaintType = ({ onSelect, ...props }) => {
       {
         key: prev?.length + 1,
         code: null,
-        names: null,
+        name: null,
       },
     ]);
   };
@@ -95,7 +95,7 @@ const ComplaintType = ({ onSelect, ...props }) => {
             </HeaderComponent>
             <Dropdown
               name="name"
-              value={item?.names}
+              value={item?.name}
               option={options}
               optionKey="name"
               select={(value) => handleUpdateField({ type: "VALUE", value, item: item, index: index })}
