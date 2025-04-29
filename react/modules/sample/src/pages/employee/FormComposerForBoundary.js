@@ -1,7 +1,7 @@
 import { FormComposerV2 } from "@egovernments/digit-ui-components";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { FormComposerForBoundaryConfig } from "../../configs/FormComposerConfig";
+import { FormComposerForBoundaryConfig } from "../../configs/FormComposerConfigForBoundary";
 // import { formComposerConfig1 } from "../../configs/FormComposerConfig1";
 
 const FormComposerForBoundary = (props) => {
