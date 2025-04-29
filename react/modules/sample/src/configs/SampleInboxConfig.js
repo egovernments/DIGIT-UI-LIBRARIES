@@ -13,8 +13,8 @@ const inboxConfig = () => {
       serviceName: "/mdms-v2/v2/_search",
       requestParam: {},
       requestBody: {
-        inbox: {
-          "SearchCriteria": {
+        inbox:{
+          "SearchCriteria":{
 
           }
         }

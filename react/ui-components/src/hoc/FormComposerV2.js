@@ -203,7 +203,6 @@ export const FormComposer = (props) => {
           marginBottom: "20px",
           borderTop: "0px",
         };
-      default:
     }
   };
 
