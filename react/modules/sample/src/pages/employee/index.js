@@ -4,11 +4,15 @@ import { useTranslation } from "react-i18next";
 import { Route, Switch } from "react-router-dom";
 import Sample from "./Sample";
 import SampleSearch from "./SampleSearch";
+import { BoundaryFilter } from "@egovernments/digit-ui-components";
+import FormComposerForBoundary from "./FormComposerForBoundary";
 import SampleInbox from "./SampleInbox";
 import IndividualSearch from "./IndividualSearch";
 import SampleComponents from "./SampleComponents";
 import SampleView from "./SampleView";
+import BoundarySearchComposer from "./BoundarySearchComposer";
 import TabSearch from "./TabSearch";
+import BoundarySearchComposerWithFilter from "./BoundarySearchComposerWithFilter";
 
 const SampleBreadCrumbs = ({ location }) => {
   const { t } = useTranslation();
@@ -61,9 +65,38 @@ const App = ({ path, stateCode, userType, tenants }) => {
         <React.Fragment>
           <SampleBreadCrumbs location={location} />
         </React.Fragment>
+        <PrivateRoute path={`${path}/components`} component={() => <Sample></Sample>} />
+        <PrivateRoute path={`${path}/test`} component={() => <Loader></Loader>} />
+        <PrivateRoute path={`${path}/search`} component={() => <SampleSearch></SampleSearch>} />
+        <PrivateRoute path={`${path}/searchComposer`} component={()=><BoundarySearchComposer></BoundarySearchComposer>}/>
+        <PrivateRoute path={`${path}/searchComposerWithFilter`} component={()=><BoundarySearchComposerWithFilter></BoundarySearchComposerWithFilter>}/>
+        <PrivateRoute path={`${path}/filter`} component={() => 
+          <BoundaryFilter 
+          levelConfig={{lowestLevel:"LOCALITY", highestLevel:"COUNTRY"}} 
+          hierarchyType={"NEWTEST00222"} 
+          selectedValues={[]}
+          layoutConfig={{isDropdownLayoutHorizontal:true,isLabelFieldLayoutHorizontal:false}}
+          frozenData={[{
+            code: "NEWTEST00222_MO",
+            name: "NEWTEST00222_MO"
+          },
+          {
+            code: "NEWTEST00222_MO_11_MARYLAND",
+            name: "NEWTEST00222_MO_11_MARYLAND"
+          },
+          {
+            code: "NEWTEST00222_MO_11_06_PLEEBO",
+            name: "NEWTEST00222_MO_11_06_PLEEBO"
+          }]}
+          preSelected={["NEWTEST00222_MO","NEWTEST00222_MO_11_MARYLAND"]}
+          noCardStyle={false}
+          />} 
+        />
+        <PrivateRoute path={`${path}/FormComposer`} component={() => <FormComposerForBoundary/>} />
+
+
         <PrivateRoute path={`${path}/components`} component={() => <SampleComponents></SampleComponents>} />
         <PrivateRoute path={`${path}/create`} component={() => <Sample></Sample>} />
-        <PrivateRoute path={`${path}/search`} component={() => <SampleSearch></SampleSearch>} />
         <PrivateRoute path={`${path}/inbox`} component={() => <SampleInbox></SampleInbox>} />
         <PrivateRoute path={`${path}/search-edit`} component={() => <IndividualSearch></IndividualSearch>} />
         <PrivateRoute path={`${path}/view`} component={() => <SampleView></SampleView>} />

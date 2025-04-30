@@ -17,11 +17,15 @@ const mdmsProxy = createProxyMiddleware({
   changeOrigin: true,
   secure:false
 });
+
+
+
 module.exports = function (app) {
   ["/mdms-v2/v2/_create"].forEach((location) => app.use(location, mdmsProxy));
   [
     "/access/v1/actions/mdms",
     "/egov-mdms-service",
+    "/boundary-service",
     "/mdms-v2",
     "/egov-idgen",
     "/egov-location",

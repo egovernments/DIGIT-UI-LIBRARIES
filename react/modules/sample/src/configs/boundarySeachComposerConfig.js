@@ -6,7 +6,7 @@ const ExpandedComponent = ({ data }) => (
 
 export const Config = {
   headerLabel: "Search", // label is changed to headerLabel (Screen Header Label)
-  type: "search", // type of the screen ("inbox","search")
+  type: "search", // type of the screen ("inbox","serach")
   // moved actions releated props inside actions object
   actions: {
     actionLabel: "Action1", // label of the action
@@ -21,7 +21,7 @@ export const Config = {
     },
     minParametersForSearchForm: 0,
     masterName: "commonUiConfig",
-    moduleName: "SearchMDMSConfig",
+    moduleName: "BoundarySearchCompserConfig",
     tableFormJsonPath: "requestBody.MdmsCriteria",
     filterFormJsonPath: "requestBody.MdmsCriteria",
     searchFormJsonPath: "requestBody.MdmsCriteria",
@@ -29,11 +29,11 @@ export const Config = {
   sections: {
     search: {
       uiConfig: {
-        headerStyle: {}, // styles for the search label 
-        formClassName: "custom-digit--search-field-wrapper-classname", // custom class name for "digit-search-field-wrapper"
-        primaryLabel: "ES_COMMON_SEARCH", // label for search button
-        secondaryLabel: "ES_COMMON_CLEAR_SEARCH", // label for clear button
-        minReqFields: 1, // minimum number of fields that needs to be updated for searching 
+        headerStyle: null,
+        formClassName: "",
+        primaryLabel: "ES_COMMON_SEARCH",
+        secondaryLabel: "ES_COMMON_CLEAR_SEARCH",
+        minReqFields: 0,
         defaultValues: {
           value: "",
           field: "",
@@ -41,73 +41,64 @@ export const Config = {
             code: "WBH_COMMON_ALL",
             value: "all",
           },
-        }, // default values for the fields.
+        },
         fields: [
           {
-            label: "Field",
-            type: "dropdown",
-            isMandatory: false,
-            disable: false,
-            // Todo: all field level props should be outside populators
-            populators: {
-              name: "field", // Todo: call it as jsonPath
-              optionsKey: "name",
-              options: [
-                {
-                  code: "code",
-                  name: "code",
-                },
-                {
-                  code: "name",
-                  name: "name",
-                },
-                {
-                  code: "description",
-                  name: "description",
-                },
-              ],
-            },
-          },
-          {
-            label: "Value",
+            label: "Search field 1",
             type: "text",
             isMandatory: false,
             disable: false,
+            preProcess: {
+              convertStringToRegEx: ["populators.validation.pattern"],
+            },
             populators: {
-              name: "value",
-              validation: { pattern: {}, maxlength: 140 },
+              name: "text",
+              error: "COMMON_PATTERN_ERR_MSG_MUSTER_ID",
+              validation: {
+                pattern: "MR\\/[0-9]+-[0-9]+\\/[0-9]+\\/[0-9]+",
+                minlength: 2,
+              },
             },
           },
           {
-            label: "IsActive",
-            type: "dropdown",
+            label: "",
+            type: "boundary",
             isMandatory: false,
             disable: false,
             populators: {
-              name: "isActive",
-              optionsKey: "code",
-              options: [
-                {
-                  code: "WBH_COMMON_YES",
-                  value: true,
+              name:"boundaryComponent",
+              levelConfig: {lowestLevel:"LOCALITY", highestLevel:"COUNTRY"} ,
+              hierarchyType:"NEWTEST00222" ,
+              module:"HCM-ADMIN-CONSOLE" ,
+              layoutConfig:{isDropdownLayoutHorizontal:true,isLabelFieldLayoutHorizontal:false},
+              noCardStyle:true,
+              preSelected:
+                  ["NEWTEST00222_MO","NEWTEST00222_MO_11_MARYLAND",
+                      "NEWTEST00222_MO_11_06_PLEEBO"
+                    ],
+              "frozenData":
+              [{
+                  code: "NEWTEST00222_MO",
+                  name: "NEWTEST00222_MO"
                 },
                 {
-                  code: "WBH_COMMON_NO",
-                  value: false,
+                  code: "NEWTEST00222_MO_11_MARYLAND",
+                  name: "NEWTEST00222_MO_11_MARYLAND"
                 },
                 {
-                  code: "WBH_COMMON_ALL",
-                  value: "all",
-                },
-              ],
+                  code: "NEWTEST00222_MO_11_06_PLEEBO",
+                  name: "NEWTEST00222_MO_11_06_PLEEBO"
+                }]
             },
-          },
-        ], // fields that needs to be displayed for search
+          }
+        ],
       },
-      label: "", // label for the search wrapper
-      show: true, // boolean flag to show or hide the search component
-    }, 
+      label: "",
+      children: {},
+      show: true,
+    },
     searchResult: {
+      label: "",
       uiConfig: {
         columns: [
           {
@@ -134,22 +125,21 @@ export const Config = {
             jsonPath: "isActive",
             additionalCustomization: true,
           },
-        ], // what columns to be shown in the table
+        ],
         selectionProps: {
           showCheckBox: true,
           showSelectedState: true,
           selectableRowsNoSelectAll: false,
           // showSelectedStatePosition:"bottom", can also be sent like this
-        }, // props related to table row selections
+        },
         expandableProps: {
           expandableRows: true,
           expandableRowsComponent: ExpandedComponent,
-        }, // props related to table row expansions
+        },
         tableProps: {
           showTableDescription: "This is the search table description",
           showTableTitle: "Search table title",
-          tableClassName:"custom-classname-resultsdatatable"
-        }, // props related to table : title,description, custom classname
+        },
         actionProps: {
           actions: [
             {
@@ -163,14 +153,15 @@ export const Config = {
               icon: "CheckCircle",
             },
           ],
-        }, // props related to actions that needs to be performed after row selections
+        },
         enableGlobalSearch: true,
         enableColumnSort: true,
         resultsJsonPath: "mdms",
+        rowClassName: "table-row-mdms table-row-mdms-hover",
         defaultSortAsc: true,
       },
       children: {},
-      show: true, // boolean flag to show or hide the search results 
+      show: true,
     },
   },
   footerProps: {
@@ -196,8 +187,8 @@ export const Config = {
     // setactionFieldsToLeft :false, // alignment of fields
     setactionFieldsToRight: true, // alignment of fields
     // sortActionFields : false, // flag to sort the action buttons
-    className: "custom-classname-footeractions", // custom class name for footer 
-    style: {}, // custom styles for footer
-  }, // props related to footer and its actions
+    className: "inbox-footer",
+    style: {},
+  },
   // additionalSections: {}, // no more additional sections will be supported
 };

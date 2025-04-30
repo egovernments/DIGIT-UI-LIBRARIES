@@ -1059,4 +1059,67 @@ export const UICustomizations = {
       window.location.href = url;
     }, 
   },
+  BoundarySearchCompserConfig: {
+    preProcess: (data, additionalDetails) => {
+      const tenantId = Digit.ULBService.getCurrentTenantId();
+      data.body.MdmsCriteria.tenantId = tenantId;
+      const filters = {};
+      const custom = data.body.MdmsCriteria.custom;
+      const { boundaryData } = custom || {};
+      filters["boundaryData"] = boundaryData;
+      data.body.MdmsCriteria.boundary = filters["boundaryData"] || {};
+      // data.body.MdmsCriteria.limit = 100
+      data.body.MdmsCriteria.limit = data.state.tableForm.limit;
+      data.body.MdmsCriteria.offset = data.state.tableForm.offset;
+      data.body.MdmsCriteria.custom={}
+      data.body.MdmsCriteria.schemaCode =
+        // additionalDetails?.currentSchemaCode
+        "ACCESSCONTROL-ACTIONS-TEST.actions-test";
+      return data;
+    },
+    additionalCustomizations: (row, key, column, value, t, searchResult) => {
+      switch (key) {
+        case "Active":
+          return (
+            <Tag
+              icon=""
+              label={value ? "Active" : "InActive"}
+              labelStyle={{}}
+              showIcon={false}
+              style={{}}
+              type="success"
+            />
+          );
+        default:
+          return t("ES_COMMON_NA");
+      }
+    },
+    MobileDetailsOnClick: (row, tenantId) => {
+      let link;
+      Object.keys(row).map((key) => {
+        if (key === "MASTERS_WAGESEEKER_ID")
+          link = `/${window.contextPath}/employee/masters/view-wageseeker?tenantId=${tenantId}&wageseekerId=${row[key]}`;
+      });
+      return link;
+    },
+    additionalValidations: (type, data, keys) => {
+      if (type === "date") {
+        return data[keys.start] && data[keys.end]
+          ? () =>
+              new Date(data[keys.start]).getTime() <=
+              new Date(data[keys.end]).getTime()
+          : true;
+      }
+    },
+    selectionHandler: (event) => {
+    }, // selectionHandler : Is used to handle row selections. gets on object which containes 3 key value pairs:  allSelected(whether all rows are selected or not), selectedCount (no, of rows selected),selectedRows( an array of selected rows)
+    actionSelectHandler: (index, label, selectedRows) => {
+    }, // actionSelectHandler : Is used to handle onClick functions of table action button on row selections, gets index,label and selectedRows as props
+    footerActionHandler: (index, event) => {
+    }, // footerActionHandler : Is used to handle onclick functions of footer action buttons, gets index and event as props
+    linkColumnHandler: (row) => {
+      const url = `/${window.contextPath}/employee/microplan/view?tenantId=${row?.tenantId}&uniqueIdentifier=${row?.uniqueIdentifier}`;
+      window.location.href = url;
+    }, 
+  },
 };
