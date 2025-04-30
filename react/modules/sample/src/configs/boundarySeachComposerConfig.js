@@ -66,7 +66,7 @@ export const Config = {
             isMandatory: false,
             disable: false,
             populators: {
-              name:"boundaryComponnet",
+              name:"boundaryComponent",
               levelConfig: {lowestLevel:"LOCALITY", highestLevel:"COUNTRY"} ,
               hierarchyType:"NEWTEST00222" ,
               module:"HCM-ADMIN-CONSOLE" ,

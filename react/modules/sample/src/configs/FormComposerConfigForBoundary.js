@@ -24,13 +24,13 @@ export const FormComposerForBoundaryConfig=[
             },
             // Boundary Component
             {
-                "key": "boundaryComponnet",
+                "key": "boundaryComponent",
                 "type": "boundary",
                 "inline": true,
                 "label": "BoundaryFIlter",
                 "disable": false,
                 "populators": {
-                    "name":"boundaryComponnet",
+                    "name":"boundaryComponent",
                     "levelConfig": {lowestLevel:"LOCALITY", highestLevel:"PROVINCE", isSingleSelect:[]} ,
                     "hierarchyType":"NEWTEST00222" ,
                     "noCardStyle":true,

@@ -6,9 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### [0.2.0-beta.14] - 2025-04-28
 ## Updates
-- Added Boundary Component in hoc
-- BoundaryComponent can be rendered as separate component
-- Introduced BoundaryComponent in both FormComposer, InboxSearchComposer
+- Added `BoundaryFilter` HOC component to enable hierarchical administrative boundary selection.
+- Allowed standalone rendering of the `BoundaryFilter` component.
+- Integrated `BoundaryFilter` into `FormComposer` and `InboxSearchComposer` for boundary-based filtering.
+
 
 ### [0.2.0-beta.13] - 2025-04-24
 ## Updates
