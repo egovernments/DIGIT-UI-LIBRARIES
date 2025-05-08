@@ -1,6 +1,6 @@
 {
   "name": "@egovernments/digit-ui-react-components",
-  "version": "1.8.16-upgrade.12",
+  "version": "1.8.16-upgrade.13",
   "license": "MIT",
   "main": "dist/main.js",
   "module": "dist/main.js",
@@ -10,7 +10,7 @@
   },
   "scripts": {
     "example": "cd example && npm run start",
-    "build": "webpack  --mode=development --node-env=production --config webpack.config.js",
+    "build": "webpack  --mode=development --node-env=development --config webpack.config.js",
     "start": "microbundle-crl watch --no-compress --format modern,cjs",
     "prepare": "yarn build",
     "predeploy": "cd example && yarn install && yarn run build",
@@ -40,7 +40,6 @@
     "lint-staged": "12.3.7",
     "microbundle-crl": "0.13.11",
     "react-responsive": "9.0.2",
-    "react-router-dom": "6.25.1",
     "react-scripts": "^4.0.1",
     "@babel/core": "^7.23.3",
     "@babel/preset-env": "^7.23.3",
@@ -53,8 +52,8 @@
     "dist"
   ],
   "dependencies": {
-    "@egovernments/digit-ui-svg-components": "1.0.0-webpack-20",
-    "@egovernments/digit-ui-components": "0.0.2-webpack-20",
+    "@egovernments/digit-ui-svg-components": "1.0.0-webpack-22",
+    "@egovernments/digit-ui-components": "0.0.2-webpack-22",
     "@googlemaps/js-api-loader": "1.13.10",
     "@hookform/resolvers": "1.3.7",
     "ajv": "8.11.2",
