@@ -1,6 +1,6 @@
 {
   "name": "@egovernments/digit-ui-libraries",
-  "version": "1.8.1-webpack-23",
+  "version": "1.8.1-webpack-24",
   "main": "dist/main.js",
   "module": "dist/main.js",
   "source": "src/index.js",
@@ -52,8 +52,8 @@
     "react-redux": "9.2.0",
     "redux": "5.0.0",
     "xlsx": "0.17.5",
-    "@egovernments/digit-ui-components": "0.0.2-webpack-22",
-    "@egovernments/digit-ui-svg-components": "1.0.0-webpack-22",
+    "@egovernments/digit-ui-components": "0.0.2-webpack-23",
+    "@egovernments/digit-ui-svg-components": "1.0.0-webpack-23",
     "@tanstack/react-query": "^5.62.16"
   },
   "browserslist": {
