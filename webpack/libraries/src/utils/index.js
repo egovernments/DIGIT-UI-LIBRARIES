@@ -205,6 +205,11 @@ const didEmployeeHasAtleastOneRole = (roles = []) => {
   return roles.some((role) => didEmployeeHasRole(role));
 };
 
+const didEmployeeisAllowed = (master, module) => {
+  if (master === "WORKS-SOR" && module === "Composition") return false;
+  return true;
+};
+
 const pgrAccess = () => {
   const userInfo = Digit.UserService.getUser();
   const userRoles = userInfo?.info?.roles?.map((roleData) => roleData?.code);
@@ -415,6 +420,7 @@ export default {
   receiptsAccess,
   didEmployeeHasRole,
   didEmployeeHasAtleastOneRole,
+  didEmployeeisAllowed,
   hrmsAccess,
   getPattern,
   hrmsRoles,
