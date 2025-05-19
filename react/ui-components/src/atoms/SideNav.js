@@ -1,6 +1,7 @@
 import React, { useState, useEffect,Fragment } from "react";
 import PropTypes from "prop-types";
 import { useTranslation } from "react-i18next";
+import { useLocation } from "react-router-dom";
 import { SVG, TextInput } from "../atoms";
 import { IMAGES } from "../constants/images/images";
 import { Colors } from "../constants/colors/colorconstants";
@@ -22,6 +23,7 @@ const SideNav = ({
   enableSearch
 }) => {
   const { t } = useTranslation();
+  const location = useLocation();
   const [hovered, setHovered] = useState(false);
   const [search, setSearch] = useState("");
   const [selectedItem, setSelectedItem] = useState({});
@@ -33,6 +35,21 @@ const SideNav = ({
   const primaryColor = theme === "dark" ? darkThemeColor : lightThemeColor;
   const iconSize = Spacers.spacer6;
   const bottomIconSize = Spacers.spacer4;
+
+  useEffect(() => {
+    const updateSelectedItem = (items, parentIndex) => {
+      items?.forEach((item, index) => {
+        if (item.children) {
+          updateSelectedItem(item.children, index);
+        } else if (item.navigationUrl) {
+          if (location.pathname.startsWith(item.navigationUrl)) {
+            setSelectedItem({ item: item, index, parentIndex });
+          }
+        }
+      })
+    }
+    updateSelectedItem(items, -1);
+  }, [location.pathname, items]);
 
   const handleArrowClick = (item, index, parentIndex) => {
     if (item.children) {
