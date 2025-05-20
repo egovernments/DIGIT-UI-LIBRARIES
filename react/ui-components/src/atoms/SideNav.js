@@ -47,7 +47,7 @@ const SideNav = ({
           let redirectionUrl = item.navigationUrl;
           if (isMultiRootTenant) {
             if (redirectionUrl.includes("sandbox-ui") && tenantId) {
-              redirectionUrl.replace("/sandbox-ui/employee", `/sandbox-ui/${tenantId}/employee`);
+              redirectionUrl = redirectionUrl.replace("/sandbox-ui/employee", `/sandbox-ui/${tenantId}/employee`);
             }
           }
           if (location.pathname.startsWith(redirectionUrl)) {
