@@ -1,6 +1,6 @@
 {
   "name": "@egovernments/digit-ui-components",
-  "version": "0.2.0-beta.16",
+  "version": "0.2.0-beta.17",
   "license": "MIT",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
@@ -34,7 +34,7 @@
     "@storybook/node-logger": "6.4.20",
     "@storybook/preset-create-react-app": "3.2.0",
     "@storybook/react": "6.4.20",
-    "@storybook/blocks":"8.3.5",
+    "@storybook/blocks": "8.3.5",
     "babel-eslint": "10.1.0",
     "cross-env": "7.0.3",
     "gh-pages": "2.2.0",
@@ -51,7 +51,7 @@
   "files": [
     "dist"
   ],
-  "dependencies": {    
+  "dependencies": {
     "react-data-table-component": "7.6.2",
     "@egovernments/digit-ui-components-css": "0.2.1",
     "@egovernments/digit-ui-libraries": "1.8.10",
@@ -65,9 +65,9 @@
     "react-table": "7.7.0",
     "react-drag-drop-files": "2.3.10",
     "@cyntler/react-doc-viewer": "1.10.3",
-    "react-webcam":"7.2.0",
-    "react-lottie":"1.2.4",
-    "styled-components":"5.0.0"
+    "react-webcam": "7.2.0",
+    "react-lottie": "1.2.4",
+    "styled-components": "5.0.0"
   },
   "browserslist": {
     "production": [
@@ -88,4 +88,3 @@
     "dpg"
   ]
 }
-

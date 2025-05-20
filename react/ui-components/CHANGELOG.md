@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### [0.2.0-beta.16] - 2025-04-28
 ## Updates
+- Added custom highlighting logic in sidebar for sandbox-ui
+
+
+### [0.2.0-beta.16] - 2025-04-28
+## Updates
 - Added url based highlighting in sidebar
 
 
