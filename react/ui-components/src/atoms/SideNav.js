@@ -24,6 +24,8 @@ const SideNav = ({
 }) => {
   const { t } = useTranslation();
   const location = useLocation();
+  const isMultiRootTenant = Digit?.Utils?.getMultiRootTenant();
+  const tenantId = Digit?.ULBService?.getStateId();
   const [hovered, setHovered] = useState(false);
   const [search, setSearch] = useState("");
   const [selectedItem, setSelectedItem] = useState({});
@@ -42,7 +44,13 @@ const SideNav = ({
         if (item.children) {
           updateSelectedItem(item.children, index);
         } else if (item.navigationUrl) {
-          if (location.pathname.startsWith(item.navigationUrl)) {
+          let redirectionUrl = item.navigationUrl;
+          if (isMultiRootTenant) {
+            if (redirectionUrl.includes("sandbox-ui") && tenantId) {
+              redirectionUrl.replace("/sandbox-ui/employee", `/sandbox-ui/${tenantId}/employee`);
+            }
+          }
+          if (location.pathname.startsWith(redirectionUrl)) {
             setSelectedItem({ item: item, index, parentIndex });
           }
         }
