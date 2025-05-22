@@ -227,9 +227,9 @@ const SearchComponent = ({ uiConfig, header = "", screenType = "search", fullCon
     >
       {uiConfig?.type === "filter" ? (
         <FilterCard
-          title={uiConfig?.label || "Filter"}
-          primaryActionLabel={uiConfig?.primaryLabel || ""}
-          secondaryActionLabel={uiConfig?.secondaryLabel || ""}
+          title={t(uiConfig?.label) || t("Filter")}
+          primaryActionLabel={t(uiConfig?.primaryLabel) || ""}
+          secondaryActionLabel={t(uiConfig?.secondaryLabel) || ""}
           onPrimaryPressed={handleSubmit(onSubmit)}
           onSecondaryPressed={clearSearch}
           layoutType={"vertical"}
