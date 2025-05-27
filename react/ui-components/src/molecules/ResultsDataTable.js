@@ -10,6 +10,7 @@ import { SVG } from "../atoms";
 import CardLabel from "../atoms/CardLabel";
 import Button from "../atoms/Button";
 import TextInput from "../atoms/TextInput";
+import SearchCard from "../../../modules/sample/src/components/SearchCards";
 
 const ResultsDataTable = ({
   data,
@@ -45,27 +46,47 @@ const ResultsDataTable = ({
   handleActionSelect,
   showSelectedStatePosition = "top",
   rowsPerPageText,
-  paginationComponentOptions
+  paginationComponentOptions,
+  cardStyle,
 }) => {
   const { t } = useTranslation();
   const renderTable = () => {
+    console.log("yoo");
     return (
       <DataTable
         data={data}
-        columns={columns}
+        // columns={columns}
+        columns={
+          true
+            ? [
+                {
+                  name: "",
+                  cell: (row) => <SearchCard data={row} />,
+                  ignoreRowClick: true,
+                  allowOverflow: true,
+                  button: true,
+                  width: "100%",
+                  style: {
+                    padding: "0",
+                    margin: "0",
+                  },
+                },
+              ]
+            : columns
+        }
         responsive={true}
         sortIcon={
           <CustomSVG.SortUp width={"16px"} height={"16px"} fill={"#0b4b66"} />
         }
-        selectableRows={showCheckBox}
-        selectableRowsHighlight={true}
-        selectableRowsComponent={CheckBox}
-        selectableRowsComponentProps={selectProps}
-        onSelectedRowsChange={onSelectedRowsChange}
+        // selectableRows={showCheckBox}
+        // selectableRowsHighlight={true}
+        // selectableRowsComponent={CheckBox}
+        // selectableRowsComponentProps={selectProps}
+        // onSelectedRowsChange={onSelectedRowsChange}
         onRowClicked={onRowClicked}
         selectableRowsNoSelectAll={selectableRowsNoSelectAll}
-        expandableRows={expandableRows}
-        expandableRowsComponent={expandableRowsComponent}
+        // expandableRows={expandableRows}
+        // expandableRowsComponent={expandableRowsComponent}
         expandableIcon={{
           expanded: (
             <SVG.ArrowBackIos
@@ -91,7 +112,9 @@ const ResultsDataTable = ({
         conditionalRowStyles={conditionalRowStyles}
         className={
           tableClassName
-            ? `digit-data-table ${showCheckBox ? "selectable" : "unselectable"} ${tableClassName}`
+            ? `digit-data-table ${
+                showCheckBox ? "selectable" : "unselectable"
+              } ${tableClassName}`
             : `digit-data-table ${showCheckBox ? "selectable" : "unselectable"}`
         }
         defaultSortAsc={defaultSortAsc}
