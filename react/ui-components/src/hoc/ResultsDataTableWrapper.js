@@ -524,6 +524,20 @@ const ResultsDataTableWrapper = ({
   if (!data) return <></>;
   if (!showResultsTable) return <></>;
   if (searchResult?.length === 0) return <NoResultsFound />;
+  // Extract the custom component
+  const CustomRowComponent = Digit.ComponentRegistryService.getComponent(config?.customRow?.customRowComponent);
+  if (
+    config?.customRow?.overRideRowWithCustomRowComponent &&
+    CustomRowComponent
+  ) {
+    return (
+      <div className="digit-custom-row-wrapper">
+        {filteredData.map((rowData, index) => (
+          <CustomRowComponent key={index} rowData={rowData} />
+        ))}
+      </div>
+    );
+  }
   return (
     <>
     <ResultsDataTable

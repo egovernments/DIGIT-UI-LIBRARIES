@@ -89,7 +89,8 @@ module.exports = function (app) {
     "/wms/contract/_search",
     "/wms/estimate/_search",
     "/wms/project/_search",
-    "/pms/project/v1/_search"
+    "/pms/project/v1/_search",
+    "/project-factory"
   ].forEach((location) => app.use(location, createProxy));
   ["/pb-egov-assets"].forEach((location) => app.use(location, assetsProxy));
   ["/mdms-v2/v2/_create"].forEach((location) => app.use(location, mdmsProxy));
