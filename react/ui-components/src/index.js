@@ -130,7 +130,8 @@ import {
   FormCard,
   FilterCard,
   SummaryCard,
-  ResultsDataTable
+  ResultsDataTable,
+  ResultsDataCard
 } from "./molecules";
 
 // import { initCoreLibraries } from "@egovernments/digit-ui-libraries-core";
@@ -227,6 +228,7 @@ export {
   SearchAction,
   SortAction,
   ResultsDataTable,
+  ResultsDataCard,
   SearchForm,
   LandingPageCard,
   MetricCard,

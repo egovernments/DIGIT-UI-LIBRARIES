@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Children } from "react";
 import { useTranslation } from "react-i18next";
 import _ from "lodash";
 import { Card, Loader } from "../atoms";
@@ -10,7 +10,8 @@ import { SVG } from "../atoms";
 import CardLabel from "../atoms/CardLabel";
 import Button from "../atoms/Button";
 import TextInput from "../atoms/TextInput";
-import SearchCard from "../../../modules/sample/src/components/SearchCards";
+// import SearchCard from "../../../modules/sample/src/components/SearchCards";
+import ResultsDataCard from "./ResultsDataCard";
 
 const ResultsDataTable = ({
   data,
@@ -61,7 +62,39 @@ const ResultsDataTable = ({
             ? [
                 {
                   name: "",
-                  cell: (row) => <SearchCard data={row} />,
+                  cell: (row) => (
+                    <ResultsDataCard
+                      data={row}
+                      heading={"Bednet_campaign"}
+                      tagElements={{
+                        date: {
+                          label: "16 Aug 2023 - 20 Aug 2024",
+                          icon: "",
+                          style: {},
+                          labelStyle: {},
+                        },
+                        location: {
+                          label: "Gaza, Mozambique",
+                          icon: "",
+                          style: {},
+                          labelStyle: {},
+                          type: "warning",
+                        },
+                      }}
+                      actionButtons={{
+                        customReport: {
+                          label: "View Custom Report",
+                          onClick: () => console.log("Custom Report"),
+                        },
+                        dashboard: {
+                          label: "View Dashboard",
+                          onClick: () => console.log("Dashboard clicked"),
+                        },
+                      }}
+                    >
+                      <div className="">{"Children inside this"}</div>
+                    </ResultsDataCard>
+                  ),
                   ignoreRowClick: true,
                   allowOverflow: true,
                   button: true,

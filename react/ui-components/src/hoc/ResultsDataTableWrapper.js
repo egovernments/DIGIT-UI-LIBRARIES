@@ -7,19 +7,16 @@ import React, {
   useContext,
 } from "react";
 import { useTranslation } from "react-i18next";
-import TextInput from "../atoms/TextInput";
 import { useForm, Controller } from "react-hook-form";
 import _ from "lodash";
 import { InboxContext } from "./InboxSearchComposerContext";
-import { Card,Loader } from "../atoms";
+import { Loader } from "../atoms";
 import { CustomSVG } from "../atoms";
 import CheckBox from "../atoms/CheckBox";
 import NoResultsFound from "../atoms/NoResultsFound";
 import Button from "../atoms/Button";
-import CardLabel from "../atoms/CardLabel";
 import ResultsDataTable from "../molecules/ResultsDataTable";
 import { useHistory} from "react-router-dom";
-import { SVG } from "../atoms";
 import {Toast} from "../atoms";
 import FieldV1 from "./FieldV1";
 import EditablePopup from "./EditablePopup";

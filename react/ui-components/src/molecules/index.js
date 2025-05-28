@@ -29,6 +29,7 @@ import SummaryCard from "./SummaryCard";
 import BottomSheet from "./BottomSheet";
 import SortAction from "./SortAction";
 import ResultsDataTable from "./ResultsDataTable";
+import ResultsDataCard from "./ResultsDataCard";
 
 export {
   ApiDropdown,
@@ -61,5 +62,6 @@ export {
   MetricCard,
   FormCard,
   FilterCard,
-  SummaryCard
+  SummaryCard,
+  ResultsDataCard
 };

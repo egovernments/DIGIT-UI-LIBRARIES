@@ -2,17 +2,21 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { HeaderComponent } from "../../../../ui-components/src/atoms";
 
-const SearchCard = ({ data }) => {
+const SearchCard = ({
+  heading,
+  tagElements = {},
+  actionButtons = {},
+  children,
+  data,
+}) => {
   const { t } = useTranslation();
   console.log("column", data);
 
   return (
-    <div style={{ width: '100%', margin: 0, padding: 0 }}>
+    <div style={{ width: "100%", margin: 0, padding: 0 }}>
       <div className="flex justify-between">
         <div>
-          <HeaderComponent>
-            {t(data?.schemaCode)}
-          </HeaderComponent>
+          <HeaderComponent>{t(data?.schemaCode)}</HeaderComponent>
           <p>Start: </p>
           <p>End: </p>
         </div>
