@@ -32,6 +32,7 @@ const SearchComponent = ({ uiConfig, header = "", screenType = "search", fullCon
   const [session,setSession,clearSession] = browserSession || []
   const buttonWrapperRef = useRef(null);
   const [addMargin, setAddMargin] = useState(false);
+  const [sortOrder, setSortOrder] = useState(uiConfig?.sortConfig?.initialSortOrder || 'asc');
   
   if (fullConfig?.postProcessResult){
     //conditions can be added while calling postprocess function to pass different params
@@ -137,6 +138,13 @@ const SearchComponent = ({ uiConfig, header = "", screenType = "search", fullCon
     })
   }
 
+  const handleSort = () => {
+    const updatedSortOrder = sortOrder === "asc" ? "desc" : "asc";
+    // Dispatch sortOrder to context
+    dispatch({ type: "updateSortOrder", state: updatedSortOrder });
+    setSortOrder((prev) => (prev === "asc" ? "desc" : "asc"));
+  };
+
   //call this fn whenever session gets updated
   const setDefaultValues = () => {
     reset({...uiConfig?.defaultValues,...defValuesFromSession})
@@ -227,9 +235,9 @@ const SearchComponent = ({ uiConfig, header = "", screenType = "search", fullCon
     >
       {uiConfig?.type === "filter" ? (
         <FilterCard
-          title={uiConfig?.label || "Filter"}
-          primaryActionLabel={uiConfig?.primaryLabel || ""}
-          secondaryActionLabel={uiConfig?.secondaryLabel || ""}
+          title={t(uiConfig?.label) || t("Filter")}
+          primaryActionLabel={t(uiConfig?.primaryLabel) || ""}
+          secondaryActionLabel={t(uiConfig?.secondaryLabel) || ""}
           onPrimaryPressed={handleSubmit(onSubmit)}
           onSecondaryPressed={clearSearch}
           layoutType={"vertical"}
@@ -280,20 +288,32 @@ const SearchComponent = ({ uiConfig, header = "", screenType = "search", fullCon
                   )}
                   {uiConfig?.isPopUp && uiConfig?.primaryLabel && (
                     <Button
-                      variation="primary"
+                      variation={uiConfig?.primaryLabelVariation || "primary"}
                       label={t(uiConfig?.primaryLabel)}
                       type="submit"
                       size={"medium"}
+                      icon={uiConfig?.primaryLabelIcon || ""}
                       onClick={(e) => handleSubmit(e)}
                     />
                   )}
                   {!uiConfig?.isPopUp && uiConfig?.primaryLabel && (
                     <Button
-                      variation="primary"
+                      variation={uiConfig?.primaryLabelVariation || "primary"}
                       label={t(uiConfig?.primaryLabel)}
                       type="submit"
+                      icon={uiConfig?.primaryLabelIcon || ""}
                       size={"medium"}
                       onClick={(e) => handleSubmit(e)}
+                    />
+                  )}
+                  {uiConfig?.sortConfig && (
+                    <Button
+                      variation={uiConfig?.sortConfig?.variation}
+                      label={t(uiConfig?.sortConfig?.label)}
+                      type="button"
+                      size={"medium"}
+                      onClick={handleSort}
+                      icon={uiConfig?.sortConfig?.icon}
                     />
                   )}
                 </div>

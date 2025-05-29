@@ -19,6 +19,10 @@ const SampleCard = () => {
         link: `/${window?.contextPath}/employee/sample/search`,
       },
       {
+        label: t("New Sample Search"),
+        link: `/${window?.contextPath}/employee/sample/new-search`,
+      },
+      {
         label: t("Sample Inbox"),
         link: `/${window?.contextPath}/employee/sample/inbox`,
       },
@@ -33,6 +37,22 @@ const SampleCard = () => {
       {
         label: t("InboxSearchComposer Edit"),
         link: `/${window?.contextPath}/employee/sample/search-edit`,
+      },
+      {
+        label: t("Boundary Component"),
+        link: `/${window?.contextPath}/employee/sample/filter`,
+      },
+      {
+        label: t("Boundary with SearchComposer"),
+        link: `/${window?.contextPath}/employee/sample/searchComposer`,
+      },
+      {
+        label: t("Boundary with FormComposer"),
+        link: `/${window?.contextPath}/employee/sample/FormComposer`,
+      },
+      {
+        label: t("Boundary with SearchComposerWithFilter"),
+        link: `/${window?.contextPath}/employee/sample/searchComposerWithFilter`,
       },
     ],
   };

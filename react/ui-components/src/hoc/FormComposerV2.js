@@ -11,7 +11,7 @@ import ActionLinks from "../atoms/ActionLinks";
 import Footer from "../atoms/Footer";
 import LabelFieldPair from "../atoms/LabelFieldPair";
 import HorizontalNav from "../atoms/HorizontalNav";
-import { SubmitBar, Toast } from "../atoms";
+import { SubmitBar, Toast , Button } from "../atoms";
 
 // import Fields from "./Fields";    //This is a field selector pickup from formcomposer
 import FieldController from "./FieldController";
@@ -68,6 +68,13 @@ export const FormComposer = (props) => {
   //clear all errors if user has changed the form category.
   //This is done in case user first click on submit and have errors in cat 1, switches to cat 2 and hit submit with errors
   //So, he should not get error prompts from previous cat 1 on cat 2 submit.
+
+  useEffect(() => {
+    if (props?.defaultValues && Object.keys(props?.defaultValues).length > 0) {
+      reset(props?.defaultValues);
+    }
+  }, [props?.defaultValues]);
+
   useEffect(() => {
     clearErrors();
   }, [selectedFormCategory]);
@@ -179,20 +186,20 @@ export const FormComposer = (props) => {
     }
   };
 
-  const titleStyle = { color: "#505A5F", fontWeight: "700", fontSize: "16px" };
-
   const getCombinedComponent = (section) => {
     if (section.head && section.subHead) {
       return (
         <>
           <HeaderComponent
-            className={`digit-card-section-header`}
-            style={props?.sectionHeadStyle ? props?.sectionHeadStyle : { margin: "5px 0px" }}
+            className={`digit-card-section-header titleStyle ${section?.sectionHeadClassName || ""}`}
             id={section.headId}
           >
             {t(section.head)}
           </HeaderComponent>
-          <HeaderComponent style={titleStyle} id={`${section.headId}_DES`}>
+          <HeaderComponent 
+          id={`${section.headId}_DES`}
+          className={`sectionSubHeaderStyle ${section?.sectionSubHeadClassName}`}
+          >
             {t(section.subHead)}
           </HeaderComponent>
         </>
@@ -200,7 +207,9 @@ export const FormComposer = (props) => {
     } else if (section.head) {
       return (
         <>
-          <HeaderComponent className={`digit-card-section-header`} style={props?.sectionHeadStyle ? props?.sectionHeadStyle : {}} id={section.headId}>
+          <HeaderComponent className={`digit-card-section-header titleStyle ${section?.sectionHeadClassName || ""}`}
+          id={section.headId}
+          >
             {t(section.head)}
           </HeaderComponent>
         </>
@@ -414,8 +423,11 @@ export const FormComposer = (props) => {
         </HorizontalNav>
       )}
       {!props.submitInForm && props.label && (
-        <Footer>
+        <Footer className={props.actionClassName}>
           <SubmitBar label={t(props.label)} className="digit-formcomposer-submitbar" submit="submit" disabled={isDisabled} />
+          {props?.secondaryLabel && props?.showSecondaryLabel && (
+            <Button className="previous-button"  variation="secondary" label={t(props?.secondaryLabel)} onClick={props?.onSecondayActionClick} />
+          )}
           {props.onSkip && props.showSkip && <ActionLinks style={props?.skipStyle} label={t(`CS_SKIP_CONTINUE`)} onClick={props.onSkip} />}
         </Footer>
       )}

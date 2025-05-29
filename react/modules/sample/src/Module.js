@@ -3,6 +3,7 @@ import React from "react";
 import { useRouteMatch } from "react-router-dom";
 import { default as EmployeeApp } from "./pages/employee";
 import SampleCard from "./components/SampleCard";
+import ResultsDataCard from "./components/ResultsDataCard";
 
 export const SampleModule = ({ stateCode, userType, tenants }) => {
   const { path, url } = useRouteMatch();
@@ -22,8 +23,11 @@ export const SampleModule = ({ stateCode, userType, tenants }) => {
 };
 
 const componentsToRegister = {
+  // MicroplanModule:SampleModule,
+  // MicroplanCard:SampleCard,
   SampleModule,
-  SampleCard
+  SampleCard,
+  ResultsDataCard
 };
 
 export const initSampleComponents = () => {

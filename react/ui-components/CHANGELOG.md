@@ -4,6 +4,50 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+### [0.2.0-beta.20] - 2025-05-29
+## Enhancements
+- Enhancement in InboxSearchComposer to accept custom row component
+
+### [0.2.0-beta.19] - 2025-05-22
+## Updates
+- Added translation for filter card labels
+
+### [0.2.0-beta.18] - 2025-05-20
+## Updates
+- Fixed logic issue is sidebar highlighting
+
+
+### [0.2.0-beta.17] - 2025-05-20
+## Updates
+- Added custom highlighting logic in sidebar for sandbox-ui
+
+
+### [0.2.0-beta.16] - 2025-05-19
+## Updates
+- Added url based highlighting in sidebar
+
+
+### [0.2.0-beta.14] - 2025-04-28
+## Updates
+- Added `BoundaryFilter` HOC component to enable hierarchical administrative boundary selection.
+- Allowed standalone rendering of the `BoundaryFilter` component.
+- Integrated `BoundaryFilter` into `FormComposer` and `InboxSearchComposer` for boundary-based filtering.
+
+
+### [0.2.0-beta.13] - 2025-04-24
+## Updates
+- CustomDropdown now supports MultiselectDropdown 
+- Added classname and styles for section subheader in form 
+- Removed unnecessary div if description orerror or charCount is not present
+
+### [0.2.0-beta.12] - 2025-04-16
+## Updates
+- Fixed default data in form composer
+
+### [0.2.0-beta.11] - 2025-04-16
+## Updates
+- Added classname in header and subHeader
+
 ### [0.2.0-beta.8] - 2025-04-03
 ## Updates
 - Version Update for stability 

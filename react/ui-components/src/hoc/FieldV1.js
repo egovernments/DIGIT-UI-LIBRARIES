@@ -22,6 +22,7 @@ import { LocationDropdownWrapper } from "../molecules";
 import { ApiDropdown } from "../molecules";
 import { WorkflowStatusFilter } from "../molecules";
 import { DateRangeNew } from "../molecules";
+import BoundaryFilter from "./BoundaryFilter";
 
 const FieldV1 = ({
   type = "",
@@ -204,6 +205,7 @@ const FieldV1 = ({
             disabled={disabled}
             id={fieldId}
             errorStyle={errors?.[populators?.name]}
+            mdmsv2= {populators?.mdmsv2}
             variant={
               variant
                 ? variant
@@ -331,6 +333,18 @@ const FieldV1 = ({
             }
           />
         );
+        case "boundary":
+          return (
+            <BoundaryFilter
+              levelConfig={populators.levelConfig}
+              hierarchyType={populators.hierarchyType}
+              module={populators.module}
+              layoutConfig={{ isDropdownLayoutHorizontal: false, isLabelFieldLayoutHorizontal: false }}
+              preSelected={populators.preSelected}
+              frozenData={populators.frozenData}
+              onChange={onChange}
+            />
+          );
       case "custom":
         return populators.component;
       case "amount":
@@ -493,16 +507,18 @@ const FieldV1 = ({
         className="digit-field"
       >
         {renderField()}
-        <div
-          className={`${
-            charCount && !error && !description
-              ? "digit-charcount"
-              : "digit-description"
-          }`}
-        >
-          {renderDescriptionOrError()}
-          {renderCharCount()}
-        </div>
+        {(charCount || error || description) && (
+          <div
+            className={`${
+              charCount && !error && !description
+                ? "digit-charcount"
+                : "digit-description"
+            }`}
+          >
+            {renderDescriptionOrError()}
+            {renderCharCount()}
+          </div>
+        )}
       </div>
     </LabelFieldPair>
   );

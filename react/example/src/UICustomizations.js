@@ -30,6 +30,17 @@ function cleanObject(obj) {
   return obj;
 }
 
+const getMDMSUrl = (v2=false) => {
+  if(v2){
+    let url = window.globalConfigs?.getConfig("MDMS_V2_CONTEXT_PATH") || window.globalConfigs?.getConfig("MDMS_CONTEXT_PATH") || "mdms-v2";
+    return `/${url}`;
+  }
+    let url = window.globalConfigs?.getConfig("MDMS_V1_CONTEXT_PATH") ||  "egov-mdms-service";
+    return `/${url}`;
+  };
+  export default getMDMSUrl;
+
+
 const businessServiceMap = {
   "muster roll": "MR",
 };
@@ -1058,5 +1069,162 @@ export const UICustomizations = {
       const url = `/${window.contextPath}/employee/microplan/view?tenantId=${row?.tenantId}&uniqueIdentifier=${row?.uniqueIdentifier}`;
       window.location.href = url;
     }, 
+  },
+  BoundarySearchCompserConfig: {
+    preProcess: (data, additionalDetails) => {
+      const tenantId = Digit.ULBService.getCurrentTenantId();
+      data.body.MdmsCriteria.tenantId = tenantId;
+      const filters = {};
+      const custom = data.body.MdmsCriteria.custom;
+      const { boundaryData } = custom || {};
+      filters["boundaryData"] = boundaryData;
+      data.body.MdmsCriteria.boundary = filters["boundaryData"] || {};
+      // data.body.MdmsCriteria.limit = 100
+      data.body.MdmsCriteria.limit = data.state.tableForm.limit;
+      data.body.MdmsCriteria.offset = data.state.tableForm.offset;
+      data.body.MdmsCriteria.custom={}
+      data.body.MdmsCriteria.schemaCode =
+        // additionalDetails?.currentSchemaCode
+        "ACCESSCONTROL-ACTIONS-TEST.actions-test";
+      return data;
+    },
+    additionalCustomizations: (row, key, column, value, t, searchResult) => {
+      switch (key) {
+        case "Active":
+          return (
+            <Tag
+              icon=""
+              label={value ? "Active" : "InActive"}
+              labelStyle={{}}
+              showIcon={false}
+              style={{}}
+              type="success"
+            />
+          );
+        default:
+          return t("ES_COMMON_NA");
+      }
+    },
+    MobileDetailsOnClick: (row, tenantId) => {
+      let link;
+      Object.keys(row).map((key) => {
+        if (key === "MASTERS_WAGESEEKER_ID")
+          link = `/${window.contextPath}/employee/masters/view-wageseeker?tenantId=${tenantId}&wageseekerId=${row[key]}`;
+      });
+      return link;
+    },
+    additionalValidations: (type, data, keys) => {
+      if (type === "date") {
+        return data[keys.start] && data[keys.end]
+          ? () =>
+              new Date(data[keys.start]).getTime() <=
+              new Date(data[keys.end]).getTime()
+          : true;
+      }
+    },
+    selectionHandler: (event) => {
+    }, // selectionHandler : Is used to handle row selections. gets on object which containes 3 key value pairs:  allSelected(whether all rows are selected or not), selectedCount (no, of rows selected),selectedRows( an array of selected rows)
+    actionSelectHandler: (index, label, selectedRows) => {
+    }, // actionSelectHandler : Is used to handle onClick functions of table action button on row selections, gets index,label and selectedRows as props
+    footerActionHandler: (index, event) => {
+    }, // footerActionHandler : Is used to handle onclick functions of footer action buttons, gets index and event as props
+    linkColumnHandler: (row) => {
+      const url = `/${window.contextPath}/employee/microplan/view?tenantId=${row?.tenantId}&uniqueIdentifier=${row?.uniqueIdentifier}`;
+      window.location.href = url;
+    }, 
+  },
+  MyCampaignConfigDraftsNew: {
+    preProcess: (data, additionalDetails) => {
+      const tenantId = Digit.ULBService.getCurrentTenantId();
+      data.body = { RequestInfo: data.body.RequestInfo };
+      const { limit, offset } = data?.state?.tableForm || {};
+      const { campaignName, campaignType } = data?.state?.searchForm || {};
+      data.body.CampaignDetails = {
+        tenantId: tenantId,
+        status: ["drafted"],
+        createdBy: Digit.UserService.getUser().info.uuid,
+        pagination: {
+          sortBy: "campaignName",
+          sortOrder: data?.state?.tableForm?.sortOrder,
+          limit: limit,
+          offset: offset,
+        },
+      };
+      if (campaignName) {
+        data.body.CampaignDetails.campaignName = campaignName;
+      }
+      if (campaignType) {
+        data.body.CampaignDetails.projectType = campaignType?.[0]?.code;
+      }
+      delete data.body.custom;
+      delete data.body.custom;
+      delete data.body.inbox;
+      delete data.params;
+      return data;
+    },
+    populateCampaignTypeReqCriteria: () => {
+      const tenantId = Digit.ULBService.getCurrentTenantId();
+      const url = getMDMSUrl(true);
+      return {
+        url: `${url}/v1/_search`,
+        params: { tenantId },
+        body: {
+          MdmsCriteria: {
+            tenantId: tenantId,
+            moduleDetails: [
+              {
+                moduleName: "HCM-PROJECT-TYPES",
+                masterDetails: [
+                  {
+                    name: "projectTypes",
+                  },
+                ],
+              },
+            ],
+          },
+        },
+        changeQueryName: "setWorkflowStatus",
+        config: {
+          enabled: true,
+          select: (data) => {
+            return data?.MdmsRes?.["HCM-PROJECT-TYPES"]?.projectTypes;
+          },
+        },
+      };
+    },
+    getCustomActionLabel: (obj, row) => {
+      return "";
+    },
+    additionalCustomizations: (row, key, column, value, t, searchResult) => {
+      switch (key) {
+        case "CAMPAIGN_NAME":
+          return (
+            <span className="link">
+              <Link to={`/${window.contextPath}/employee/campaign/view-details?campaignNumber=${row.campaignNumber}&tenantId=${row.tenantId}`}>
+                {String(value ? (column.translate ? t(column.prefix ? `${column.prefix}${value}` : value) : value) : t("ES_COMMON_NA"))}
+              </Link>
+            </span>
+          );
+        case "CM_DRAFT_TYPE":
+          return value ? t("CM_UPDATE_REQUEST") : t("CM_CREATE_REQUEST");
+        case "CAMPAIGN_LAST_UPDATE":
+          return Digit.DateUtils.ConvertEpochToDate(row?.auditDetails?.lastModifiedTime);
+        case "CAMPAIGN_START_DATE":
+          return Digit.DateUtils.ConvertEpochToDate(value);
+        case "LAST_MODIFIED_TIME":
+          return Digit.DateUtils.ConvertEpochToDate(value);
+        default:
+          return "case_not_found";
+      }
+    },
+    onCardClick: (obj) => {
+      return `view-test-results?tenantId=${obj?.apiResponse?.businessObject?.tenantId}&id=${obj?.apiResponse?.businessObject?.testId}&from=TQM_BREAD_INBOX`;
+    },
+    onCardActionClick: (obj) => {
+      return `view-test-results?tenantId=${obj?.apiResponse?.businessObject?.tenantId}&id=${obj?.apiResponse?.businessObject?.testId}&from=TQM_BREAD_INBOX`;
+    },
+    getCustomActionLabel: (obj, row) => {
+      return "TQM_VIEW_TEST_DETAILS";
+    },
   },
 };
