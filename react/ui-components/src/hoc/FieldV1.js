@@ -50,8 +50,10 @@ const FieldV1 = ({
   selectedFormCategory,
   controllerProps,
   variant,
+  propT, // consuming custom translation function
 }) => {
-  const { t } = useTranslation();
+  const { t: i18nT } = useTranslation();
+  const t = propT || i18nT; // Use propT if provided, otherwise use i18nT
   let disableFormValidation = false;
   if (sectionFormCategory && selectedFormCategory) {
     disableFormValidation =
