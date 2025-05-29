@@ -1,3 +1,11 @@
+## 0.2.1+3
+* Added tooltip position as property
+
+## 0.2.1+2
+* added new infinite scroll date picker
+* updated tooltip in label component
+* added tooltip in selection card
+
 ## 0.2.1+1
 * updated alert pop up to have close icon
 * added textinputtype prop for search bar

@@ -98,11 +98,30 @@ class _DigitDobPickerState extends State<DigitDobPicker> {
   DateTime _getDateFromAge() {
     int years = int.tryParse(yearController.text) ?? 0;
     int months = int.tryParse(monthController.text) ?? 0;
-    DateTime now = DateTime.now();
+    final now = DateTime.now();
 
-    DateTime dob = DateTime(now.year - years, now.month - months);
-    return dob;
+    // Total months to subtract
+    int totalMonths = (years * 12) + months;
+
+    // Compute new year and month
+    int newYear = now.year;
+    int newMonth = now.month - totalMonths;
+
+    while (newMonth <= 0) {
+      newMonth += 12;
+      newYear -= 1;
+    }
+
+    // Preserve the day, clamp to last valid day if needed
+    int day = now.day;
+    int maxDayInMonth = DateTime(newYear, newMonth + 1, 0).day;
+    if (day > maxDayInMonth) {
+      day = maxDayInMonth;
+    }
+
+    return DateTime(newYear, newMonth, day);
   }
+
 
   @override
   Widget build(BuildContext context) {

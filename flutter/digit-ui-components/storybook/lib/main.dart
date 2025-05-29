@@ -53,6 +53,7 @@ import 'package:storybook/widgets/molecules/footer_stories.dart';
 import 'package:storybook/widgets/molecules/form_card_stories.dart';
 import 'package:storybook/widgets/molecules/hamburger_stories.dart';
 import 'package:storybook/widgets/molecules/header_stories.dart';
+import 'package:storybook/widgets/molecules/infinite_date_scroll_story.dart';
 import 'package:storybook/widgets/molecules/landing_page_card_stories.dart';
 import 'package:storybook/widgets/molecules/language_selection_card_stories.dart';
 import 'package:storybook/widgets/molecules/list_view_summary_stories.dart';
@@ -219,6 +220,7 @@ class MyHomePageState extends State<MyHomePage> {
           ...footerMoleculeStories(),
           ...headerMoleculeStories(),
           ...hamBurgerStories(),
+          ...infiniteDateScrollInputStories(),
           ...landingPageCardStories(),
           ...languageSelectionCardStories(),
           ...panelCardStories(),
