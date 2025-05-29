@@ -434,3 +434,17 @@
     flex-direction: column;
     gap: theme(digitv2.spacers.spacer6);
 }
+
+.footer-pagination-content {
+    &.digit-results-table{
+        margin-top:1.5rem;
+
+        td{
+            width: 100%;
+
+            .pagination{
+                border-top: none;
+            }
+        }
+    }
+}
