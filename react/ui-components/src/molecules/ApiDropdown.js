@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState, useEffect,useMemo } from "react";
 import PropTypes from "prop-types";
 import MultiSelectDropdown from "../atoms/MultiSelectDropdown";
 import Dropdown from "../atoms/Dropdown";
@@ -12,12 +12,22 @@ const ApiDropdown = ({ populators, formData, props, inputRef, errors ,disabled})
   const { t } = useTranslation();
 
   const reqCriteria = Digit?.Customizations?.[populators?.masterName]?.[populators?.moduleName]?.[populators?.customfn]();
+  const {
+    isLoading: isApiLoading,
+    data: apiData,
+    revalidate,
+    isFetching: isApiFetching,
+  } = reqCriteria
+    ? window?.Digit?.Hooks.useCustomAPIHook(reqCriteria)
+    : { isLoading: false, data: [], revalidate: null, isFetching: false };
 
-  const { isLoading: isApiLoading, data: apiData, revalidate, isFetching: isApiFetching } = window?.Digit?.Hooks.useCustomAPIHook(reqCriteria);
+  const memoizedApiData = useMemo(() => apiData, [JSON.stringify(apiData)]);
 
   useEffect(() => {
-    setOptions(apiData);
-  }, [apiData]);
+    if (!_.isEqual(memoizedApiData, options)) {
+      setOptions(memoizedApiData);
+    }
+  }, [memoizedApiData]);
 
   if (isApiLoading) return <Loader />;
 

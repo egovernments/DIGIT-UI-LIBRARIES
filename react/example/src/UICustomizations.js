@@ -1133,9 +1133,8 @@ export const UICustomizations = {
       window.location.href = url;
     }, 
   },
-    MyCampaignConfigDraftsNew: {
+  MyCampaignConfigDraftsNew: {
     preProcess: (data, additionalDetails) => {
-      console.log(data,"dataaaaaaaaaaaaaaa")
       const tenantId = Digit.ULBService.getCurrentTenantId();
       data.body = { RequestInfo: data.body.RequestInfo };
       const { limit, offset } = data?.state?.tableForm || {};
