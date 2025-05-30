@@ -21,7 +21,11 @@ const TextInput = (props) => {
   const handleDate = (event) => {
     const { value } = event?.target;
     setDate(value);
-    // props?.onChange(value);   // causing unnecessary onChange trigger
+    try {
+      props?.onChange(value);
+    } catch (err) {
+      // silent fail — but this can hide bugs unintentionally 
+    } 
   };
   const incrementCount = () => {
     const newValue = Number(props.value) + (Number(props?.step) ? Number(props?.step) : 1);
