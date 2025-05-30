@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-### [0.2.0-beta.21] - 2025-05-29
+### [0.2.0-beta.22] - 2025-05-30
+## Enhancements
+- Adding Try/Catch Block onChange trigger for Date in TextInput 
+
+### [0.2.0-beta.21] - 2025-05-30
 ## Enhancements
 - Commented unwanted onChange trigger for Date in TextInput 
 - Added custom Translation for FieldV1
