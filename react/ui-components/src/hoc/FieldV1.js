@@ -52,7 +52,8 @@ const FieldV1 = ({
   controllerProps,
   variant,
 }) => {
-  const { t } = useTranslation();
+  const { t: i18nT } = useTranslation();
+  const t = populators.t || i18nT; // consuming custom translation function if provided, otherwise use i18nT
   let disableFormValidation = false;
   if (sectionFormCategory && selectedFormCategory) {
     disableFormValidation =
