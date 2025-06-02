@@ -35,7 +35,7 @@ export const myCampaignConfig = {
               campaignType: "",
             },
             sortConfig: {
-              initialSortOrder: "asc",
+              initialSortOrder: "desc",
               label: "Sort",
               variation: "teritiary",
               icon: "ImportExport",
@@ -128,11 +128,6 @@ export const myCampaignConfig = {
             enableGlobalSearch: false,
             enableColumnSort: true,
             resultsJsonPath: "CampaignDetails",
-            // customDefaultPagination: {
-            //   limit: 5,
-            //   offset: 0,
-            // },
-            // customPageSizesArray: [5, 10, 15, 20],
             tableClassName: "table campaign-table",
           },
           children: {},
@@ -181,7 +176,7 @@ export const myCampaignConfig = {
               campaignType: "",
             },
             sortConfig: {
-              initialSortOrder: "asc",
+              initialSortOrder: "desc",
               label: "Sort",
               variation: "teritiary",
               icon: "ImportExport",
@@ -270,11 +265,6 @@ export const myCampaignConfig = {
             enableGlobalSearch: false,
             enableColumnSort: true,
             resultsJsonPath: "CampaignDetails",
-            // customDefaultPagination: {
-            //   limit: 5,
-            //   offset: 0,
-            // },
-            // customPageSizesArray: [5, 10, 15, 20],
             tableClassName: "table campaign-table",
           },
           children: {},
@@ -323,7 +313,7 @@ export const myCampaignConfig = {
               campaignType: "",
             },
             sortConfig: {
-              initialSortOrder: "asc",
+              initialSortOrder: "desc",
               label: "Sort",
               variation: "teritiary",
               icon: "ImportExport",
@@ -465,7 +455,7 @@ export const myCampaignConfig = {
               campaignType: "",
             },
             sortConfig: {
-              initialSortOrder: "asc",
+              initialSortOrder: "desc",
               label: "Sort",
               variation: "teritiary",
               icon: "ImportExport",
@@ -607,7 +597,7 @@ export const myCampaignConfig = {
               campaignType: "",
             },
             sortConfig: {
-              initialSortOrder: "asc",
+              initialSortOrder: "desc",
               label: "Sort",
               variation: "teritiary",
               icon: "ImportExport",
@@ -700,11 +690,6 @@ export const myCampaignConfig = {
             enableGlobalSearch: false,
             enableColumnSort: true,
             resultsJsonPath: "CampaignDetails",
-            // customDefaultPagination: {
-            //   limit: 5,
-            //   offset: 0,
-            // },
-            // customPageSizesArray: [5, 10, 15, 20],
             tableClassName: "table campaign-table",
           },
           children: {},
@@ -753,7 +738,7 @@ export const myCampaignConfig = {
               campaignType: "",
             },
             sortConfig: {
-              initialSortOrder: "asc",
+              initialSortOrder: "desc",
               label: "Sort",
               variation: "teritiary",
               icon: "ImportExport",
