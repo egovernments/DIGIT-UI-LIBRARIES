@@ -1144,7 +1144,7 @@ export const UICustomizations = {
         status: ["drafted"],
         createdBy: Digit.UserService.getUser().info.uuid,
         pagination: {
-          sortBy: "campaignName",
+          sortBy: "createdTime",
           sortOrder: data?.state?.tableForm?.sortOrder,
           limit: limit,
           offset: offset,

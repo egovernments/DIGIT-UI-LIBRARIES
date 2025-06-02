@@ -114,7 +114,7 @@ const SearchComponent = ({ uiConfig, header = "", screenType = "search", fullCon
       //here reset tableForm as well when search
       dispatch({
         type: "tableForm",
-        state: { limit:10,offset:0 }
+        state: { limit:10,offset:0,sortOrder:sortOrder }
       })
     } else {
       setShowToast({ type:"warning", label: t("ES_COMMON_MIN_SEARCH_CRITERIA_MSG") })
@@ -133,7 +133,7 @@ const SearchComponent = ({ uiConfig, header = "", screenType = "search", fullCon
     //here reset tableForm as well
     dispatch({
       type: "tableForm",
-      state: { limit:10,offset:0 }
+      state: { limit:10,offset:0,sortOrder:sortOrder }
       //need to pass form with empty strings 
     })
   }
