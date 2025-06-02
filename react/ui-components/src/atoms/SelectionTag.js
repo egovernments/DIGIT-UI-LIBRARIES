@@ -78,7 +78,7 @@ const SelectionTag = ({
             {IconRender(option?.prefixIcon, isSelected)}
           </span>
         )}
-        <span className="selectiontag-option-label">{option?.[optionsKey]}</span>
+        <span className="selectiontag-option-label">{t(option?.[optionsKey])}</span>
         {option.suffixIcon && (
           <span className="selectiontagicon">
             {IconRender(option?.suffixIcon, isSelected)}
