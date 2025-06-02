@@ -9,12 +9,15 @@ const SelectionTag = ({
   width,
   errorMessage,
   options,
+  optionsKey = "name",
   onSelectionChanged,
   allowMultipleSelection = true,
   selected,
-  withContainer
+  withContainer,
+  populators={}
 }) => {
-  const { t } = useTranslation();
+  const { t: i18nT } = useTranslation();
+  const t = populators?.t || i18nT;
   const [selectedOptions, setSelectedOptions] = useState(selected || []);
 
   const handleOptionClick = (option) => {
@@ -75,7 +78,7 @@ const SelectionTag = ({
             {IconRender(option?.prefixIcon, isSelected)}
           </span>
         )}
-        <span className="selectiontag-option-label">{option.name}</span>
+        <span className="selectiontag-option-label">{option?.[optionsKey]}</span>
         {option.suffixIcon && (
           <span className="selectiontagicon">
             {IconRender(option?.suffixIcon, isSelected)}
