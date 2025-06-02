@@ -448,3 +448,53 @@
         }
     }
 }
+.digit-results-card-component {
+    .digit-results-card-heading-tags-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .digit-results-card-heading {
+            color: theme(digitv2.lightTheme.primary-2);
+            font-family: theme(digitv2.fontFamily.sans);
+            font-style: theme(digitv2.fontStyle.normal);
+            font-weight: theme(digitv2.fontWeight.bold);
+            line-height: theme(digitv2.lineHeight.lineheight1);
+
+            @media (max-aspect-ratio: 9/16) {
+                /* Media query for mobile */
+                font-size: theme(digitv2.fontSize.heading-m.mobile);
+            }
+
+            @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+                /* Media query for tablets */
+                font-size: theme(digitv2.fontSize.heading-m.tablet);
+            }
+
+            @media (min-aspect-ratio: 3/4) {
+                /* Media query for desktop */
+                font-size: theme(digitv2.fontSize.heading-m.desktop);
+            }
+        }
+
+        .digit-results-card-tags {
+            display: flex;
+            gap: theme(digitv2.spacers.spacer4);
+        }
+    }
+}
+
+.pagination {
+    &.custom-results {
+
+        button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            svg {
+                margin-left: theme(digitv2.spacers.spacer0);
+            }
+        }
+    }
+}

@@ -543,7 +543,7 @@ const ResultsDataTableWrapper = ({
   const indexOfLastRow = currentPage * rowsPerPage;
   const indexOfFirstRow = indexOfLastRow - rowsPerPage;
   const totalPages = Math.ceil(
-    TotalCount || filteredData?.length / rowsPerPage
+    data?.[TotalCount] || filteredData?.length / rowsPerPage
   );
 
   if (isLoading || isFetching) return <div className="digit-table-loader"><Loader/></div>;
@@ -595,12 +595,12 @@ const ResultsDataTableWrapper = ({
                     {indexOfFirstRow + 1}-
                     {Math.min(
                       indexOfLastRow,
-                      TotalCount || filteredData?.length
+                      data?.[TotalCount] || filteredData?.length
                     )}{" "}
-                    of {TotalCount || filteredData?.length}
+                    of {data?.[TotalCount] || filteredData?.length}
                   </span>
                 </div>
-                <div className="pagination">
+                <div className="pagination custom-results">
                   <button
                     onClick={
                       manualPagination
@@ -659,9 +659,8 @@ const ResultsDataTableWrapper = ({
       defaultSortAsc={config?.defaultSortAsc}
       pagination={config.isPaginationRequired}
       paginationTotalRows={
-        TotalCount ||
+        data?.[TotalCount] ||
         data?.count ||
-        data?.TotalCount ||
         data?.totalCount ||
         searchResult?.length
       }

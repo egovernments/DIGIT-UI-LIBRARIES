@@ -120,6 +120,7 @@ export const myCampaignConfig = {
                 additionalCustomization: true,
               },
             ],
+            totalCountJsonPath:"totalCount",
             customRow: {
               overRideRowWithCustomRowComponent: true,
               customRowComponent: "ResultsDataCard",
@@ -261,6 +262,7 @@ export const myCampaignConfig = {
                 // disableSortBy: true,
               },
             ],
+            totalCountJsonPath:"totalCount",
             customRow: {
               overRideRowWithCustomRowComponent: true,
               customRowComponent: "ResultsDataCard",
@@ -366,6 +368,7 @@ export const myCampaignConfig = {
         },
         searchResult: {
           uiConfig: {
+            totalCountJsonPath:"totalCount",
             columns: [
               {
                 label: "CAMPAIGN_NAME",
@@ -507,6 +510,7 @@ export const myCampaignConfig = {
         },
         searchResult: {
           uiConfig: {
+            totalCountJsonPath:"totalCount",
             columns: [
               {
                 label: "CAMPAIGN_NAME",
@@ -648,6 +652,7 @@ export const myCampaignConfig = {
         },
         searchResult: {
           uiConfig: {
+            totalCountJsonPath:"totalCount",
             columns: [
               {
                 label: "CAMPAIGN_NAME",
@@ -793,6 +798,7 @@ export const myCampaignConfig = {
         },
         searchResult: {
           uiConfig: {
+            totalCountJsonPath:"totalCount",
             columns: [
               {
                 label: "CAMPAIGN_NAME",
