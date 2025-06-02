@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import ErrorMessage from "./ErrorMessage";
 import { useTranslation } from "react-i18next";
@@ -14,11 +14,46 @@ const SelectionTag = ({
   allowMultipleSelection = true,
   selected,
   withContainer,
-  populators={}
+  populators = {},
 }) => {
   const { t: i18nT } = useTranslation();
   const t = populators?.t || i18nT;
   const [selectedOptions, setSelectedOptions] = useState(selected || []);
+
+  const { isLoading, data } = window?.Digit?.Hooks.useCustomMDMS(
+    Digit?.ULBService?.getStateId(),
+    populators?.mdmsConfig?.moduleName,
+    [
+      {
+        name: populators?.mdmsConfig?.masterName,
+      },
+    ],
+    {
+      select: populators?.mdmsConfig?.select
+        ? createFunction(populators?.mdmsConfig?.select)
+        : (data) => {
+            const optionsData = _.get(
+              data,
+              `${populators?.mdmsConfig?.moduleName}.${populators?.mdmsConfig?.masterName}`,
+              []
+            );
+            return optionsData
+              .filter((opt) =>
+                opt?.hasOwnProperty("active") ? opt.active : true
+              )
+              .map((opt) => ({
+                ...opt,
+                name: `${Digit.Utils.locale.getTransformedLocale(opt.code)}`,
+              }));
+          },
+      enabled: populators?.mdmsConfig || populators?.mdmsV2 ? true : false,
+    },
+    populators?.mdmsv2
+  );
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   const handleOptionClick = (option) => {
     const updatedSelections = [...selectedOptions];
@@ -53,13 +88,7 @@ const SelectionTag = ({
 
   const IconRender = (iconReq, isActive) => {
     const iconFill = isActive ? primaryIconColor : secondaryIconColor;
-    return iconRender(
-      iconReq,
-      iconFill,
-      "1.5rem",
-      "1.5rem",
-      ""
-    );
+    return iconRender(iconReq, iconFill, "1.5rem", "1.5rem", "");
   };
 
   const renderOption = (option) => {
@@ -78,7 +107,9 @@ const SelectionTag = ({
             {IconRender(option?.prefixIcon, isSelected)}
           </span>
         )}
-        <span className="selectiontag-option-label">{t(option?.[optionsKey])}</span>
+        <span className="selectiontag-option-label">
+          {t(option?.[optionsKey])}
+        </span>
         {option.suffixIcon && (
           <span className="selectiontagicon">
             {IconRender(option?.suffixIcon, isSelected)}
@@ -90,8 +121,12 @@ const SelectionTag = ({
 
   return (
     <div className="selection-card-container">
-      <div className={`selection-card ${errorMessage ? "error" : ""} ${!withContainer ? "hideContainer" : ""}`}>
-        {options?.map(renderOption)}
+      <div
+        className={`selection-card ${errorMessage ? "error" : ""} ${
+          !withContainer ? "hideContainer" : ""
+        }`}
+      >
+        {data ? data?.map(renderOption) : options?.map(renderOption)}
       </div>
       {errorMessage && (
         <ErrorMessage
