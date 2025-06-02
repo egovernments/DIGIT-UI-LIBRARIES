@@ -1,6 +1,11 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Tag, Button, Card } from "@egovernments/digit-ui-components";
+import {
+  Tag,
+  Button,
+  Card,
+  SummaryCardFieldPair,
+} from "@egovernments/digit-ui-components";
 
 const ResultsDataCard = ({
   key,
@@ -17,7 +22,9 @@ const ResultsDataCard = ({
     <Card className={"digit-results-card-component"}>
       {/* Heading and Tags */}
       <div className="digit-results-card-heading-tags-wrapper">
-        <div className="digit-results-card-heading">{rowData?.campaignName}</div>
+        <div className="digit-results-card-heading">
+          {rowData?.campaignName}
+        </div>
         <div className="digit-results-card-tags">
           {tagElements &&
             Object.entries(tagElements).map(([key, tag]) => (
@@ -34,7 +41,50 @@ const ResultsDataCard = ({
         </div>
       </div>
       {/* Center Content (children) */}
-      <div className="digit-results-card-content">{children}</div>
+      <div className="digit-results-card-content">
+        <SummaryCardFieldPair
+          className=""
+          inline
+          label={"Start Date"}
+          style={{}}
+          value={rowData?.startDate}
+        />
+        <SummaryCardFieldPair
+          className=""
+          inline
+          label={"End Date"}
+          style={{}}
+          value={rowData?.endDate}
+        />
+        <SummaryCardFieldPair
+          className=""
+          inline
+          label={"Duration"}
+          style={{}}
+          value={rowData?.startDate}
+        />
+        <SummaryCardFieldPair
+          className=""
+          inline
+          label={"Number of cycles"}
+          style={{}}
+          value={rowData?.startDate}
+        />
+        <SummaryCardFieldPair
+          className=""
+          inline
+          label={"Resources"}
+          style={{}}
+          value={rowData?.startDate}
+        />
+        <SummaryCardFieldPair
+          className=""
+          inline
+          label={"Status"}
+          style={{}}
+          value={rowData?.status}
+        />
+      </div>
 
       {/* Action Buttons */}
       {actionButtons && Object.keys(actionButtons).length > 0 && (
