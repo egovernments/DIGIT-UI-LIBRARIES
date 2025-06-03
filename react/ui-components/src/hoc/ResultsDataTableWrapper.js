@@ -39,6 +39,7 @@ const useDebounce = (value, delay) => {
 };
 
 const ResultsDataTableWrapper = ({
+  tabData,
   config,
   data,
   isLoading,
@@ -560,7 +561,7 @@ const ResultsDataTableWrapper = ({
       <>
         <div className="digit-custom-row-wrapper">
           {filteredData.map((rowData, index) => (
-            <CustomRowComponent key={index} rowData={rowData} />
+            <CustomRowComponent key={index} rowData={rowData} tabData={tabData} />
           ))}
         </div>
         <TableRow className={`footer-pagination-content ${"digit-results-table"}`}>

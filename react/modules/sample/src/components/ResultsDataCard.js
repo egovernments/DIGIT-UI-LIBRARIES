@@ -9,14 +9,13 @@ import {
 
 const ResultsDataCard = ({
   key,
-  heading,
+  tabData,
   tagElements = {},
   actionButtons = {},
-  children,
   rowData,
 }) => {
   const { t } = useTranslation();
-  console.log("column", rowData, key);
+  console.log("column", rowData, tabData);
 
   return (
     <Card className={"digit-results-card-component"}>
