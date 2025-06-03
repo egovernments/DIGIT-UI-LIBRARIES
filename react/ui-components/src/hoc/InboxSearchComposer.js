@@ -330,6 +330,7 @@ const InboxSearchComposer = ({configs,additionalConfig,onFormValueChange=()=>{},
               >
                 <MediaQuery minWidth={426}>
                   <ResultsDataTableWrapper
+                    tabData={tabData}
                     config={configs?.sections?.searchResult?.uiConfig}
                     data={data}
                     TotalCount={configs?.sections?.searchResult?.uiConfig?.totalCountJsonPath}
