@@ -101,6 +101,13 @@ const Create = () => {
         onSubmit={onSubmit}
         onFormValueChange={onFormValueChange}
         labelfielddirectionvertical={false}
+        // // To add secondaryAction and primaryActions with icons
+        // secondaryLabel={"Secondary Label"}
+        // showSecondaryLabel={true}
+        // secondaryActionIcon={"FileDownload"}
+        // secondaryActionIconAsSuffix={true}
+        // primaryActionIconAsSuffix={true}
+        // primaryActionIcon={"FileDownload"}
       />
     </React.Fragment>
   );
