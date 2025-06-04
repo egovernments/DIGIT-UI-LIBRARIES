@@ -463,7 +463,7 @@ const FieldV1 = ({
         <HeaderComponent
           className={`label ${disabled ? "disabled" : ""} ${
             nonEditable ? "noneditable" : ""
-          } ${populators?.wrapLabel ? "wraplabel" : ""}`}
+          } ${populators?.wrapLabel ? "wraplabel" : ""} ${populators?.boldLabel ? "boldLabel" : ""}`}
         >
           <div
             className={`label-container ${

@@ -23,6 +23,10 @@
             }
         }
 
+        &.boldLabel{
+          font-weight: 700;
+        }
+
         .label-container {
             @apply flex items-center w-full;
             gap: theme(digitv2.spacers.spacer1);

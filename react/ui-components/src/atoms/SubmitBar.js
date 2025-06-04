@@ -1,7 +1,19 @@
 import React, { forwardRef } from "react";
 import PropTypes from "prop-types";
+import { iconRender } from "../utils/iconRender";
+import { Colors } from "../constants/colors/colorconstants";
 
 const SubmitBar = forwardRef((props, ref) => {
+  const primaryIconColor = Colors.lightTheme.paper.primary;
+
+  const icon = iconRender(
+    props?.icon,
+    props?.iconFill || primaryIconColor,
+    "1.5rem",
+    "1.5rem",
+    `digit-button-customIcon`
+  );
+
   return (
     <button
       ref={ref}
@@ -12,7 +24,11 @@ const SubmitBar = forwardRef((props, ref) => {
       onClick={props.onSubmit}
       {... props.form ? {form: props.form} : {}}
     >
-      <h2>{props.label}</h2>
+      <div className={`icon-label-container`}>
+        {!props?.isSuffix && props?.icon && icon}
+        <h2 className="digit-button-label">{props.label}</h2>
+        {props?.isSuffix && props?.icon && icon}
+      </div>
     </button>
   );
 });
