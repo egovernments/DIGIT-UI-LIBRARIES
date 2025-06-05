@@ -55,7 +55,7 @@ const Toggle = (props) => {
               value={option?.code}
               checked={selected === option?.code}
               onChange={() => toggleOption(option?.code)}
-              disabled={props?.disabled}
+              disabled={props?.disabled||option?.disabled}
               ref={props.inputRef}
             />
             <span className="digit-toggle-label">
