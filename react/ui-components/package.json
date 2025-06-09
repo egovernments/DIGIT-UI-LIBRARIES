@@ -1,6 +1,6 @@
 {
   "name": "@egovernments/digit-ui-components",
-  "version": "0.2.0-beta.31",
+  "version": "0.2.0-beta.32",
   "license": "MIT",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
@@ -55,7 +55,7 @@
     "react-data-table-component": "7.6.2",
     "@egovernments/digit-ui-components-css": "0.2.1",
     "@egovernments/digit-ui-libraries": "1.8.10",
-    "@egovernments/digit-ui-svg-components": "1.0.20",
+    "@egovernments/digit-ui-svg-components": "1.0.21",
     "@googlemaps/js-api-loader": "1.13.10",
     "autoprefixer": "^10.4.15",
     "postcss-flexbugs-fixes": "^5.0.2",
