@@ -38,7 +38,7 @@ const Toggle = (props) => {
             maxWidth: `${100 / props.options.length}%`,
           }}
           className={`toggle-option-container ${
-            props?.disabled ? "disabled" : ""
+            props?.disabled || option?.disabled  ? "disabled" : ""
           }`}
           key={ind}
         >
