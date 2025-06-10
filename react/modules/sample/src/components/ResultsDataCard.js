@@ -13,9 +13,10 @@ const ResultsDataCard = ({
   tagElements = {},
   actionButtons = {},
   rowData,
+  showButton
 }) => {
   const { t } = useTranslation();
-  console.log("column", rowData, tabData);
+  console.log("column", rowData, tabData,showButton);
 
   return (
     <Card className={"digit-results-card-component"}>
