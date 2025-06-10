@@ -124,6 +124,9 @@ export const myCampaignConfig = {
             customRow: {
               overRideRowWithCustomRowComponent: true,
               customRowComponent: "ResultsDataCard",
+              customRowProps:{
+                showButton:true
+              }
             },
             enableGlobalSearch: false,
             enableColumnSort: true,
@@ -261,6 +264,9 @@ export const myCampaignConfig = {
             customRow: {
               overRideRowWithCustomRowComponent: true,
               customRowComponent: "ResultsDataCard",
+              customRowProps:{
+                showButton:true
+              }
             },
             enableGlobalSearch: false,
             enableColumnSort: true,
@@ -398,6 +404,9 @@ export const myCampaignConfig = {
             customRow: {
               overRideRowWithCustomRowComponent: true,
               customRowComponent: "ResultsDataCard",
+              customRowProps:{
+                showButton:true
+              }
             },
             enableGlobalSearch: false,
             enableColumnSort: true,
@@ -540,6 +549,9 @@ export const myCampaignConfig = {
             customRow: {
               overRideRowWithCustomRowComponent: true,
               customRowComponent: "ResultsDataCard",
+              customRowProps:{
+                showButton:true
+              }
             },
             enableGlobalSearch: false,
             enableColumnSort: true,
@@ -686,6 +698,9 @@ export const myCampaignConfig = {
             customRow: {
               overRideRowWithCustomRowComponent: true,
               customRowComponent: "ResultsDataCard",
+              customRowProps:{
+                showButton:true
+              }
             },
             enableGlobalSearch: false,
             enableColumnSort: true,
@@ -828,6 +843,9 @@ export const myCampaignConfig = {
             customRow: {
               overRideRowWithCustomRowComponent: true,
               customRowComponent: "ResultsDataCard",
+              customRowProps:{
+                showButton:true
+              }
             },
             enableGlobalSearch: false,
             enableColumnSort: true,

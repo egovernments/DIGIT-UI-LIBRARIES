@@ -561,7 +561,7 @@ const ResultsDataTableWrapper = ({
       <>
         <div className="digit-custom-row-wrapper">
           {filteredData.map((rowData, index) => (
-            <CustomRowComponent key={index} rowData={rowData} tabData={tabData} />
+            <CustomRowComponent key={index} rowData={rowData} tabData={tabData} {...config?.customRow?.customRowProps}/>
           ))}
         </div>
         <TableRow className={`footer-pagination-content ${"digit-results-table"}`}>
