@@ -21,15 +21,20 @@ const Toggle = (props) => {
   // minWidth should be 40px
   const finalWidth = maxWidth < 40 ? "40" : maxWidth;
 
+  const isVertical = props?.variant === "vertical";
+
   function toggleOption(option) {
     props?.onSelect(option);
   }
   return (
     <div
       style={props?.style}
+      // className={`digit-toggle-toolbar ${
+      //   props?.additionalWrapperClass ? props?.additionalWrapperClass : ""
+      // }`}
       className={`digit-toggle-toolbar ${
-        props?.additionalWrapperClass ? props?.additionalWrapperClass : ""
-      }`}
+        props?.variant === "vertical" ? "vertical-toggle" : ""
+      } ${props?.additionalWrapperClass || ""}`}
     >
       {props?.options?.map((option, ind) => (
         <div
@@ -38,7 +43,7 @@ const Toggle = (props) => {
             maxWidth: `${100 / props.options.length}%`,
           }}
           className={`toggle-option-container ${
-            props?.disabled || option?.disabled  ? "disabled" : ""
+            props?.disabled || option?.disabled ? "disabled" : ""
           }`}
           key={ind}
         >
@@ -55,7 +60,7 @@ const Toggle = (props) => {
               value={option?.code}
               checked={selected === option?.code}
               onChange={() => toggleOption(option?.code)}
-              disabled={props?.disabled||option?.disabled}
+              disabled={props?.disabled || option?.disabled}
               ref={props.inputRef}
             />
             <span className="digit-toggle-label">
@@ -81,6 +86,7 @@ Toggle.propTypes = {
   additionalWrapperClass: PropTypes.string,
   disabled: PropTypes.bool,
   inputRef: PropTypes.object,
+  variant: PropTypes.string,
 };
 
 Toggle.defaultProps = {};
