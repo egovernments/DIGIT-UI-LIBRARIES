@@ -15,6 +15,7 @@ import { ApiDropdown, CustomDropdown, LocationDropdownWrapper, MultiUploadWrappe
 import UploadFileComposer from "./UploadFileComposer";
 import { useTranslation } from "react-i18next";
 import { useState, useEffect } from "react";
+import UploadAndDownloadDocumentHandler from "./UploadAndDownloadDocumentHandler";
 
 // const FieldComposer = (type, populators, isMandatory, disable = false, component, config, sectionFormCategory, formData, selectedFormCategory) => {
 const FieldComposer = ({
@@ -189,22 +190,42 @@ const FieldComposer = ({
         );
       case "multiupload":
         return (
-          <MultiUploadWrapper
-            t={t}
-            module="works"
-            tenantId={Digit.ULBService.getCurrentTenantId()}
-            // getFormState={getFileStoreData}              // TODO: need to discuss and should be add later
-            showHintBelow={populators?.showHintBelow ? true : false}
-            setuploadedstate={value || []}
-            allowedFileTypesRegex={populators.allowedFileTypes}
-            allowedMaxSizeInMB={populators.allowedMaxSizeInMB}
-            hintText={populators.hintText}
-            maxFilesAllowed={populators.maxFilesAllowed}
-            extraStyleName={{ padding: "0.5rem" }}
-            customClass={populators?.customClass}
-            customErrorMsg={populators?.errorMessage}
-            containerStyles={{ ...populators?.containerStyles }}
-            variant={variant ? variant : errors?.[populators.name] ? "digit-field-error" : ""}
+          <Controller
+            name={`${populators.name}`}
+            control={controllerProps?.control}
+            rules={{ required: false }}
+            render={({ onChange, ref, value = [] }) => {
+              function getFileStoreData(filesData) {
+                const numberOfFiles = filesData.length;
+                let finalDocumentData = [];
+                if (numberOfFiles > 0) {
+                  filesData.forEach((value) => {
+                    finalDocumentData.push({
+                      fileName: value?.[0],
+                      fileStoreId: value?.[1]?.fileStoreId?.fileStoreId,
+                      documentType: value?.[1]?.file?.type,
+                    });
+                  });
+                }
+                onChange(numberOfFiles > 0 ? filesData : []);
+              }
+              return (
+                <MultiUploadWrapper
+                  t={t}
+                  module="works"
+                  tenantId={Digit.ULBService.getCurrentTenantId()}
+             getFormState={getFileStoreData}
+                  showHintBelow={populators?.showHintBelow ? true : false}
+                  setuploadedstate={value}
+                  allowedFileTypesRegex={populators.allowedFileTypes}
+                  allowedMaxSizeInMB={populators.allowedMaxSizeInMB}
+                  hintText={populators.hintText}
+                  maxFilesAllowed={populators.maxFilesAllowed}
+                  extraStyleName={{ padding: "0.5rem" }}
+                  customClass={populators?.customClass}
+                />
+              );
+            }}
           />
         );
       case "select":
@@ -268,6 +289,36 @@ const FieldComposer = ({
             localePrefix={config?.localePrefix}
             variant={variant ? variant : errors?.[populators.name] ? "digit-field-error" : ""}
           />
+        );
+        case "documentUploadAndDownload":
+        return (
+          <>
+          <UploadAndDownloadDocumentHandler
+            module={config?.module}
+            config={config}
+            // Controller={Controller}        // TODO: NEED TO DISCUSS ON THIS
+            register={controllerProps?.register}
+            formData={formData}
+            errors={errors}
+            control={controllerProps?.control}
+            customClass={config?.customClass}
+            customErrorMsg={config?.error}
+            localePrefix={config?.localePrefix}
+            variant={variant ? variant : errors?.[populators.name] ? "digit-field-error" : ""}
+            flow={populators?.flow}
+            action={populators?.action}
+            onError={(error) => { 
+              console.error("Document upload/download error:", error); 
+              // Handle error state 
+            }}
+          />
+          {errors?.[populators?.name] && (
+            <ErrorMessage 
+            style={{fontStyle: "normal", color: "#D4351C"}} 
+            message={t(config?.customErrorMsg || "ERROR_DOCUMENT_UPLOAD")} 
+            /> 
+          )}
+          </>
         );
       case "form":
         return (

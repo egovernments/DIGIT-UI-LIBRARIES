@@ -11,17 +11,21 @@ import {
   MobileNumber,
   InputTextAmount,
   StringManipulator,
-  LabelFieldPair
+  LabelFieldPair,
+  Button
 } from "../atoms";
 import { useTranslation } from "react-i18next";
 import { useState, useEffect } from "react";
 import UploadFileComposer from "./UploadFileComposer";
 import { CustomDropdown } from "../molecules";
-import { Controller } from "react-hook-form";
+import { Controller, useFieldArray } from "react-hook-form";
 import { LocationDropdownWrapper } from "../molecules";
 import { ApiDropdown } from "../molecules";
 import { WorkflowStatusFilter } from "../molecules";
 import { DateRangeNew } from "../molecules";
+import { FormComposer } from "./FormComposerV2";
+import isEqual from 'lodash/isEqual';
+import UploadAndDownloadDocumentHandler from "./UploadAndDownloadDocumentHandler";
 import BoundaryFilter from "./BoundaryFilter";
 
 const FieldV1 = ({
@@ -50,10 +54,11 @@ const FieldV1 = ({
   formData,
   selectedFormCategory,
   controllerProps,
+  control,
   variant,
+  defaultValues
 }) => {
-  const { t: i18nT } = useTranslation();
-  const t = populators.t || i18nT; // consuming custom translation function if provided, otherwise use i18nT
+  const { t } = useTranslation();
   let disableFormValidation = false;
   if (sectionFormCategory && selectedFormCategory) {
     disableFormValidation =
@@ -204,7 +209,6 @@ const FieldV1 = ({
             disabled={disabled}
             id={fieldId}
             errorStyle={errors?.[populators?.name]}
-            mdmsv2= {populators?.mdmsv2}
             variant={
               variant
                 ? variant
@@ -212,6 +216,7 @@ const FieldV1 = ({
                 ? "digit-field-error"
                 : ""
             }
+            mdmsv2={populators?.mdmsv2}
           />
         );
       case "checkbox":
@@ -323,6 +328,32 @@ const FieldV1 = ({
             customClass={config?.customClass}
             customErrorMsg={config?.error}
             localePrefix={config?.localePrefix}
+            variant={
+              variant
+                ? variant
+                : errors?.[populators?.name]
+                ? "digit-field-error"
+                : ""
+            }
+          />
+        );
+        case "documentUploadAndDownload":
+        return (
+          <UploadAndDownloadDocumentHandler
+            mdmsModuleName={config?.mdmsModuleName}
+            module={config?.module}
+            config={config}
+            Controller={Controller} // TODO: NEED TO DISCUSS ON THIS
+            register={controllerProps?.register}
+            formData={formData}
+            errors={errors}
+            id={fieldId}
+            control={controllerProps?.control}
+            customClass={config?.customClass}
+            customErrorMsg={config?.error}
+            localePrefix={config?.localePrefix}
+            action={populators?.action}
+            flow={populators?.flow}
             variant={
               variant
                 ? variant
@@ -450,6 +481,103 @@ const FieldV1 = ({
               control={controllerProps?.control}
             />
           );
+          // case "childForm":
+          //   const childConfig = populators?.childform || [];
+          //   return (
+          //     <div className="border rounded-xl p-4 mb-4 shadow-sm bg-gray-50">
+          //       <Controller
+          //         render={(props) => {
+          //           return <FormComposer
+          //           config={childConfig}
+          //           //fieldPath={`tradeUnits`}
+          //           //defaultValues={controllerProps?.getValues(populators?.name)}
+          //           onFormValueChange={(setValue, childformData, formState) => {
+          //            if(childformData && !isEqual(formData?.[populators?.name],childformData)){
+          //            controllerProps.setValue(populators?.name, {...childformData});
+          //            }
+          //           }}
+          //           //onChange={props.onChange}
+          //           parentName={populators?.name}
+          //           inline={true}
+          //           hideHeader={true}
+          //         />
+          //         }}
+          //         rules={{ required: required, ...populators.validation }}
+          //         defaultValue={formData?.[populators?.name]}
+          //         name={populators?.name}
+          //         control={controllerProps?.control}
+          //     />
+          //     </div>
+          //   );
+
+            case "multiChildForm":
+            const multichildConfig = populators?.childform || [];
+            const entries = formData?.[populators?.name] || [];
+
+            return (
+              <div className="border rounded-xl p-4 mb-4 shadow-sm bg-gray-50">
+                {entries.filter((ob) => ob != undefined).map((item, index) => (
+                  <div
+                    key={index}
+                    className="mb-4 border p-4 rounded bg-white relative shadow-sm"
+                  >
+                     {/* Cross Button to Remove */}
+                     <button
+                      type="button"
+                      style={{marginLeft:"98%", marginTop:"1rem"}}
+                      className="absolute top-2 right-2 text-gray-500 hover:text-red-600 text-xl"
+                      onClick={() => {
+                        const updated = [...(formData?.[populators?.name] || [])];
+                        updated.splice(index, 1);
+                        controllerProps.setValue(`${populators?.name}[${index}]`, undefined);
+                      }}
+                    >
+                      &times;
+                    </button>
+
+                    <Controller
+                      render={(props) => {
+                        //const childformValues = props?.field?.value || [];
+                        return(<FormComposer
+                          config={multichildConfig}
+                          onFormValueChange={(setValue, childformData) => {
+                            const updated = [...(formData?.[populators?.name] || [])];
+                            updated[index] = childformData;
+
+                            if (!isEqual(updated[index], formData?.[populators?.name][index])) {
+                              controllerProps.setValue(`${populators?.name}[${index}]`, {...updated[index]});
+                            }
+                          }}
+                          defaultValues={defaultValues}
+                          parentName={`${populators?.name}[${index}]`}
+                          inline={true}
+                          hideHeader={true}
+                        />);
+                      }}
+                      name={`${populators?.name}[${index}]`}
+                      control={controllerProps?.control}
+                      defaultValue={item}
+                    />
+
+
+                  </div>
+                ))}
+
+      {/* Add Another Button */}
+      <Button
+        type="button"
+        label="Add"
+        style={{ marginTop: "1rem" }}
+        //className="mt-2 text-blue-600 underline"
+        onClick={() => {
+          const updated = [...(formData?.[populators?.name] || []), {}];
+          controllerProps.setValue(populators?.name, updated);
+        }}
+      >
+      </Button>
+    </div>
+  );
+
       default:
         return null;
     }
@@ -463,7 +591,7 @@ const FieldV1 = ({
         <HeaderComponent
           className={`label ${disabled ? "disabled" : ""} ${
             nonEditable ? "noneditable" : ""
-          } ${populators?.wrapLabel ? "wraplabel" : ""} ${populators?.boldLabel ? "boldLabel" : ""}`}
+          } ${populators?.wrapLabel ? "wraplabel" : ""}`}
         >
           <div
             className={`label-container ${
@@ -506,18 +634,16 @@ const FieldV1 = ({
         className="digit-field"
       >
         {renderField()}
-        {(charCount || error || description) && (
-          <div
-            className={`${
-              charCount && !error && !description
-                ? "digit-charcount"
-                : "digit-description"
-            }`}
-          >
-            {renderDescriptionOrError()}
-            {renderCharCount()}
-          </div>
-        )}
+        <div
+          className={`${
+            charCount && !error && !description
+              ? "digit-charcount"
+              : "digit-description"
+          }`}
+        >
+          {renderDescriptionOrError()}
+          {renderCharCount()}
+        </div>
       </div>
     </LabelFieldPair>
   );

@@ -4,11 +4,9 @@ import { SVG } from "./SVG";
 import StringManipulator from "./StringManipulator";
 import { Colors} from "../constants/colors/colorconstants";
 import { getUserType } from "../utils/digitUtils";
-import { useTranslation } from "react-i18next";
+
 
 const TextInput = (props) => {
-  const { t: i18nT } = useTranslation();
-  const t = props?.t || i18nT;
   const user_type = getUserType();
   const [date, setDate] = useState(props?.type === "date" && props?.value);
   const [visibility, setVisibility] = useState(false);
@@ -23,11 +21,7 @@ const TextInput = (props) => {
   const handleDate = (event) => {
     const { value } = event?.target;
     setDate(value);
-    try {
-      props?.onChange(value);
-    } catch (err) {
-      // silent fail — but this can hide bugs unintentionally 
-    } 
+    props?.onChange(value);
   };
   const incrementCount = () => {
     const newValue = Number(props.value) + (Number(props?.step) ? Number(props?.step) : 1);
@@ -252,7 +246,7 @@ const TextInput = (props) => {
               className={inputClassNameForMandatory}
               placeholder={StringManipulator(
                 "TOSENTENCECASE",
-                t(props.placeholder)
+                props.placeholder
               )}
               onChange={(event) => {
                 if (props?.type === "number" && props?.maxlength) {
@@ -336,7 +330,7 @@ const TextInput = (props) => {
               className={inputClassName}
               placeholder={StringManipulator(
                 "TOSENTENCECASE",
-                t(props.placeholder)
+                props.placeholder
               )}
               onChange={(event) => {
                 if (props?.type === "number" && props?.maxlength) {

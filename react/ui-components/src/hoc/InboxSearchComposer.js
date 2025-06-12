@@ -330,7 +330,6 @@ const InboxSearchComposer = ({configs,additionalConfig,onFormValueChange=()=>{},
               >
                 <MediaQuery minWidth={426}>
                   <ResultsDataTableWrapper
-                    tabData={tabData}
                     config={configs?.sections?.searchResult?.uiConfig}
                     data={data}
                     TotalCount={configs?.sections?.searchResult?.uiConfig?.totalCountJsonPath}
@@ -339,11 +338,6 @@ const InboxSearchComposer = ({configs,additionalConfig,onFormValueChange=()=>{},
                     fullConfig={configs}
                     additionalConfig={additionalConfig}
                     refetch={refetch}
-                    manualPagination={configs?.sections?.searchResult?.uiConfig?.pagination?.manualPagination}
-                    onNextPage={configs?.sections?.searchResult?.uiConfig?.pagination?.onNextPage}
-                    onPrevPage={configs?.sections?.searchResult?.uiConfig?.pagination?.onPrevPage}
-                    onPageSizeChange={configs?.sections?.searchResult?.uiConfig?.pagination?.onPageSizeChange}
-                    rowsPerPageOptions={configs?.sections?.searchResult?.uiConfig?.pagination?.rowsPerPageOptions}
                   ></ResultsDataTableWrapper>
                 </MediaQuery>
                 <MediaQuery maxWidth={426}>

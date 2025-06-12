@@ -99,14 +99,6 @@ const reducer = (state, action) => {
       return updatedState
     case 'customizers':
       return {...state,hasCustomizers:true,customizers:action.state};
-    case "updateSortOrder":
-      return {
-        ...state,
-        tableForm: {
-          ...state.tableForm,
-          sortOrder: action.state, 
-        },
-      };
     default:
       return state;
   }

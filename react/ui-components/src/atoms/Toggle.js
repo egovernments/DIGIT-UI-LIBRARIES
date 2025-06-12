@@ -38,7 +38,7 @@ const Toggle = (props) => {
             maxWidth: `${100 / props.options.length}%`,
           }}
           className={`toggle-option-container ${
-            props?.disabled || option?.disabled  ? "disabled" : ""
+            props?.disabled ? "disabled" : ""
           }`}
           key={ind}
         >
@@ -55,7 +55,7 @@ const Toggle = (props) => {
               value={option?.code}
               checked={selected === option?.code}
               onChange={() => toggleOption(option?.code)}
-              disabled={props?.disabled||option?.disabled}
+              disabled={props?.disabled}
               ref={props.inputRef}
             />
             <span className="digit-toggle-label">

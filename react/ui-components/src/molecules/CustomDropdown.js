@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import { Loader } from "../atoms";
 import RadioButtons from "../atoms/RadioButtons";
 import Dropdown from "../atoms/Dropdown";
-import MultiSelectDropdown from "../atoms/MultiSelectDropdown";
 import Toggle from "../atoms/Toggle";
 import { createFunction } from "./techMolecules/createFunction";
 
@@ -13,7 +12,6 @@ const CustomDropdown = ({ t, config, inputRef, label, onChange,id, value, errorS
   if (config?.mdmsConfig?.filter) {
     master["filter"] = config?.mdmsConfig?.filter;
   }
-
   const { isLoading, data } = window?.Digit?.Hooks.useCustomMDMS(Digit?.ULBService?.getStateId(), config?.mdmsConfig?.moduleName, [master], {
     select: config?.mdmsConfig?.select
     ? createFunction(config?.mdmsConfig?.select)
@@ -59,40 +57,6 @@ const CustomDropdown = ({ t, config, inputRef, label, onChange,id, value, errorS
       case "dropdown":
       case "radioordropdown":
       case "select":
-        if (config?.allowMultiselect) {
-          return (
-            <MultiSelectDropdown
-              options={data || config?.options || []}
-              optionsKey={config?.optionsKey}
-              chipsKey={config?.chipsKey}
-              props={config}
-              id={id}
-              isPropsNeeded={true}
-              onSelect={(e) => {
-                onChange(
-                  e
-                    ?.map((row) => {
-                      return row?.[1] ? row[1] : null;
-                    })
-                    .filter((e) => e),
-                  config?.name
-                );
-              }}
-              selected={value || []}
-              defaultLabel={t(config?.defaultText)}
-              defaultUnit={t(config?.selectedText)}
-              config={config}
-              disabled={disabled}
-              variant={variant}
-              addSelectAllCheck={config?.addSelectAllCheck}
-              addCategorySelectAllCheck={config?.addCategorySelectAllCheck}
-              selectAllLabel={config?.selectAllLabel}
-              categorySelectAllLabel={config?.categorySelectAllLabel}
-              restrictSelection={config?.restrictSelection}
-              isSearchable={config?.isSearchable}
-            />
-          );
-        }
         return (
           <Dropdown
             inputRef={inputRef}

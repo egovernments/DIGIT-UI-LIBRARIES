@@ -5,8 +5,8 @@ import StringManipulator from "./StringManipulator";
 import { useTranslation } from "react-i18next";
 
 const RadioButtons = (props) => {
-  const { t: i18nT } = useTranslation();
-  const t = props?.t || i18nT;
+  const { t } = useTranslation();
+
   var selected = props?.selectedOption;
   function selectOption(value) {
     props.onSelect(value);
@@ -27,7 +27,7 @@ const RadioButtons = (props) => {
                   className="digit-radio-btn"
                   type="radio"
                   value={option}
-                  checked={(selected === option?.code) || isEqual(selected, option) ? 1 : 0}
+                  checked={(selected === option?.code) || (selected?.code === option?.code) || isEqual(selected, option) ? 1 : 0}
                   onChange={() => selectOption(option)}
                   disabled={props?.disabled}
                   name={props?.name}
