@@ -127,13 +127,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 12px;
+  padding: 0.75rem;
   background-color: theme(digitv2.lightTheme.paper-primary);
   border: 1px solid #d6d6d6;
   cursor: pointer;
   transition:  all 0.2s ease;
   width: 8.5rem !important; 
-  min-width: 100px; 
+  min-width: 6.25rem; 
   height: 8.125rem;
 }
 
@@ -148,16 +148,16 @@
 }
 
 .digit-toggle-toolbar.vertical-toggle .digit-toggle-btn-wrap.checked {
-  border: 2px solid #b04a1d;
+  border: 2px solid theme(digitv2.lightTheme.primary-1);
   background-color: theme(digitv2.lightTheme.paper-primary) !important;
-  color: #C84C0E;
+  color: theme(digitv2.lightTheme.primary-1);
   width: 9rem !important;
   transform: scaleX(1.05); 
 }
 
 .digit-toggle-toolbar.vertical-toggle .digit-toggle-label {
   font-weight: bold;
-  font-size: 14px;
+  font-size: theme(digitv2.fontSize.heading-s);
   text-align: center;
   width: 100%;
   background-color: theme(digitv2.lightTheme.paper-primary);
@@ -169,7 +169,7 @@
 }
 .vertical-toggle .digit-toggle-btn-wrap input:checked + .digit-toggle-label {
   background-color:theme(digitv2.lightTheme.paper-primary) !important;
-  color:  #C84C0E !important;
+  color: theme(digitv2.lightTheme.primary-1) !important;
   border-bottom-right-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
 }
