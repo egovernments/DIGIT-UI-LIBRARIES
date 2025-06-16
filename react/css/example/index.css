@@ -1,5 +1,5 @@
 /*!
- * @egovernments/digit-ui-components-css - 0.2.0-beta.4
+ * @egovernments/digit-ui-components-css - 0.2.0-beta.12
  *
  * Copyright (c) 2025 Jagankumar <jagan.kumar@egovernments.org>
  * 
@@ -2193,7 +2193,7 @@ body {
       font-size: 1.25rem; } }
 
 @media (max-aspect-ratio: 9 / 16) {
-  .typography.body-s, .digit-accordion-content, .digit-bread-crumb--item .digit-bread-crumb-content, .digit-bread-crumb--item .digit-bread-crumb-content.current, .digit-bread-crumb--item .digit-bread-crumb-seperator, .digit-checkbox-container .label, .digit-error-icon-message-wrap .digit-error-message, .digit-header-content.label .info-icon .infotext, .digit-field .digit-charcount, .digit-field .digit-description, .digit-multiselectdropdown-wrap .digit-multiselectdropdown-master input[type=text], .digit-multiselectdropdown-wrap .digit-multiselectdropdown-master .digit-checkbox-container .input-emp[type=text], .digit-checkbox-container .digit-multiselectdropdown-wrap .digit-multiselectdropdown-master .input-emp[type=text], .digit-multiselectdropdown-wrap .digit-multiselectdropdown-master-active input[type=text], .digit-multiselectdropdown-wrap .digit-multiselectdropdown-master-active .digit-checkbox-container .input-emp[type=text], .digit-checkbox-container .digit-multiselectdropdown-wrap .digit-multiselectdropdown-master-active .input-emp[type=text], .digit-multiselectdropdown-wrap .digit-category-selectAll .category-selectAll-label, .digit-multiselectdropdown-wrap .digit-multiselectdropodwn-menuitem p, .digit-multiselectdropdown-wrap .digit-multiselectdropodwn-menuitem.unsuccessfulresults span, .digit-multiselectdropdown-wrap .digit-multiselectdropdown-master .digit-multiselectdropdown-label p, .digit-multiselectdropdown-wrap .digit-multiselectdropdown-master-active .digit-multiselectdropdown-label p, .digit-panelcard-wrap .digit-panelcard-children-wrap .digit-panelcard-description, .digit-popup-overlay .digit-popup-wrapper .digit-popup-children-wrap, .digit-popup-overlay .digit-popup-wrapper .digit-popup-children-wrap .digit-popup-description, .digit-radio-options-wrap label, .digit-dropdown-employee-select-wrap .digit-dropdown-select input[type=text], .digit-dropdown-employee-select-wrap .digit-dropdown-select .digit-checkbox-container .input-emp[type=text], .digit-checkbox-container .digit-dropdown-employee-select-wrap .digit-dropdown-select .input-emp[type=text], .digit-dropdown-employee-select-wrap .digit-dropdown-select-active input[type=text], .digit-dropdown-employee-select-wrap .digit-dropdown-select-active .digit-checkbox-container .input-emp[type=text], .digit-checkbox-container .digit-dropdown-employee-select-wrap .digit-dropdown-select-active .input-emp[type=text], .digit-dropdown-item .option-des-container .main-option, .digit-dropdown-item.unsuccessfulresults span, .digit-dropdown-employee-select-wrap--elipses, .digit-dropdown-select-wrap .digit-dropdown-select input[type=text], .digit-dropdown-select-wrap .digit-dropdown-select .digit-checkbox-container .input-emp[type=text], .digit-checkbox-container .digit-dropdown-select-wrap .digit-dropdown-select .input-emp[type=text], .digit-dropdown-select-wrap .digit-dropdown-select-active input[type=text], .digit-dropdown-select-wrap .digit-dropdown-select-active .digit-checkbox-container .input-emp[type=text], .digit-checkbox-container .digit-dropdown-select-wrap .digit-dropdown-select-active .input-emp[type=text], .digit-stepper-container .digit-stepper-content .stepper-label, .digit-switch-label, .option, .digit-text-block-wrap .digit-text-block-body, .timeline-date, .timeline-additional-elements-inline, .timeline-additional-elements-column, .digit-option-label, .digit-uploader-wrap .digit-uploader-content-uploadWidget .drag-drop-text, .digit-uploader-wrap .digit-uploadWidget-label, .digit-uploader-wrap .digit-uploader-input, .digit-uploader-wrap .digit-upload-helptext, .digit-viewcard-field-pair .digit-viewcard-value, .header-dropdown-label, .header-dropdown-option, .header-dropdown-nooption, .digit-topbar .digit-header-img-ulb-wrapper-mobileview .digit-topbar-ulb-mobileview, .digit-tab .digit-tab-list .digit-tab-item .digit-tab-label, .digit-sidebar .digit-sidebar-search-container ::-webkit-input-placeholder, .digit-sidebar .digit-sidebar-search-container ::-moz-placeholder, .digit-sidebar .digit-sidebar-search-container :-ms-input-placeholder, .digit-sidebar .digit-sidebar-search-container ::-ms-input-placeholder, .digit-sidebar .digit-sidebar-search-container ::placeholder, .digit-msb-no-results, .digit-mb-search-container ::-webkit-input-placeholder, .digit-mb-search-container ::-moz-placeholder, .digit-mb-search-container :-ms-input-placeholder, .digit-mb-search-container ::-ms-input-placeholder, .digit-mb-search-container ::placeholder, .digit-mb-search-container.dark ::-webkit-input-placeholder, .digit-mb-search-container.dark ::-moz-placeholder, .digit-mb-search-container.dark :-ms-input-placeholder, .digit-mb-search-container.dark ::-ms-input-placeholder, .digit-mb-search-container.dark ::placeholder, .digit-tag-wrapper .digit-tag-text, .landingpagecard-section, .digit-menu-card .digit-menucard-description, td, .pagination-dropdown, .pagination-dropdown option, .selected-state, .header-des-wrap .column-description, .table-header-wrapper .table-description, .slider-body, .metric-item .metric-description, .digit-form-card .digit-form-card-content {
+  .typography.body-s, .digit-accordion-content, .digit-bread-crumb--item .digit-bread-crumb-content, .digit-bread-crumb--item .digit-bread-crumb-content.current, .digit-bread-crumb--item .digit-bread-crumb-seperator, .digit-checkbox-container .label, .digit-error-icon-message-wrap .digit-error-message, .digit-header-content.label .info-icon .infotext, .digit-field .digit-charcount, .digit-field .digit-description, .sectionSubHeaderStyle, .digit-multiselectdropdown-wrap .digit-multiselectdropdown-master input[type=text], .digit-multiselectdropdown-wrap .digit-multiselectdropdown-master .digit-checkbox-container .input-emp[type=text], .digit-checkbox-container .digit-multiselectdropdown-wrap .digit-multiselectdropdown-master .input-emp[type=text], .digit-multiselectdropdown-wrap .digit-multiselectdropdown-master-active input[type=text], .digit-multiselectdropdown-wrap .digit-multiselectdropdown-master-active .digit-checkbox-container .input-emp[type=text], .digit-checkbox-container .digit-multiselectdropdown-wrap .digit-multiselectdropdown-master-active .input-emp[type=text], .digit-multiselectdropdown-wrap .digit-category-selectAll .category-selectAll-label, .digit-multiselectdropdown-wrap .digit-multiselectdropodwn-menuitem p, .digit-multiselectdropdown-wrap .digit-multiselectdropodwn-menuitem.unsuccessfulresults span, .digit-multiselectdropdown-wrap .digit-multiselectdropdown-master .digit-multiselectdropdown-label p, .digit-multiselectdropdown-wrap .digit-multiselectdropdown-master-active .digit-multiselectdropdown-label p, .digit-panelcard-wrap .digit-panelcard-children-wrap .digit-panelcard-description, .digit-popup-overlay .digit-popup-wrapper .digit-popup-children-wrap, .digit-popup-overlay .digit-popup-wrapper .digit-popup-children-wrap .digit-popup-description, .digit-radio-options-wrap label, .digit-dropdown-employee-select-wrap .digit-dropdown-select input[type=text], .digit-dropdown-employee-select-wrap .digit-dropdown-select .digit-checkbox-container .input-emp[type=text], .digit-checkbox-container .digit-dropdown-employee-select-wrap .digit-dropdown-select .input-emp[type=text], .digit-dropdown-employee-select-wrap .digit-dropdown-select-active input[type=text], .digit-dropdown-employee-select-wrap .digit-dropdown-select-active .digit-checkbox-container .input-emp[type=text], .digit-checkbox-container .digit-dropdown-employee-select-wrap .digit-dropdown-select-active .input-emp[type=text], .digit-dropdown-item .option-des-container .main-option, .digit-dropdown-item.unsuccessfulresults span, .digit-dropdown-employee-select-wrap--elipses, .digit-dropdown-select-wrap .digit-dropdown-select input[type=text], .digit-dropdown-select-wrap .digit-dropdown-select .digit-checkbox-container .input-emp[type=text], .digit-checkbox-container .digit-dropdown-select-wrap .digit-dropdown-select .input-emp[type=text], .digit-dropdown-select-wrap .digit-dropdown-select-active input[type=text], .digit-dropdown-select-wrap .digit-dropdown-select-active .digit-checkbox-container .input-emp[type=text], .digit-checkbox-container .digit-dropdown-select-wrap .digit-dropdown-select-active .input-emp[type=text], .digit-stepper-container .digit-stepper-content .stepper-label, .digit-switch-label, .option, .digit-text-block-wrap .digit-text-block-body, .timeline-date, .timeline-additional-elements-inline, .timeline-additional-elements-column, .digit-option-label, .digit-uploader-wrap .digit-uploader-content-uploadWidget .drag-drop-text, .digit-uploader-wrap .digit-uploadWidget-label, .digit-uploader-wrap .digit-uploader-input, .digit-uploader-wrap .digit-upload-helptext, .digit-viewcard-field-pair .digit-viewcard-value, .header-dropdown-label, .header-dropdown-option, .header-dropdown-nooption, .digit-topbar .digit-header-img-ulb-wrapper-mobileview .digit-topbar-ulb-mobileview, .digit-tab .digit-tab-list .digit-tab-item .digit-tab-label, .digit-sidebar .digit-sidebar-search-container ::-webkit-input-placeholder, .digit-sidebar .digit-sidebar-search-container ::-moz-placeholder, .digit-sidebar .digit-sidebar-search-container :-ms-input-placeholder, .digit-sidebar .digit-sidebar-search-container ::-ms-input-placeholder, .digit-sidebar .digit-sidebar-search-container ::placeholder, .digit-msb-no-results, .digit-mb-search-container ::-webkit-input-placeholder, .digit-mb-search-container ::-moz-placeholder, .digit-mb-search-container :-ms-input-placeholder, .digit-mb-search-container ::-ms-input-placeholder, .digit-mb-search-container ::placeholder, .digit-mb-search-container.dark ::-webkit-input-placeholder, .digit-mb-search-container.dark ::-moz-placeholder, .digit-mb-search-container.dark :-ms-input-placeholder, .digit-mb-search-container.dark ::-ms-input-placeholder, .digit-mb-search-container.dark ::placeholder, .digit-tag-wrapper .digit-tag-text, .landingpagecard-section, .digit-menu-card .digit-menucard-description, td, .pagination-dropdown, .pagination-dropdown option, .selected-state, .header-des-wrap .column-description, .table-header-wrapper .table-description, .slider-body, .metric-item .metric-description, .digit-form-card .digit-form-card-content {
     font-size: .875rem;
     font-family: Roboto;
     font-style: normal;
@@ -2201,7 +2201,7 @@ body {
     line-height: 1.37rem; } }
 
 @media (min-aspect-ratio: 9 / 16) and (max-aspect-ratio: 3 / 4) {
-  .typography.body-s, .digit-accordion-content, .digit-bread-crumb--item .digit-bread-crumb-content, .digit-bread-crumb--item .digit-bread-crumb-content.current, .digit-bread-crumb--item .digit-bread-crumb-seperator, .digit-checkbox-container .label, .digit-error-icon-message-wrap .digit-error-message, .digit-header-content.label .info-icon .infotext, .digit-field .digit-charcount, .digit-field .digit-description, .digit-multiselectdropdown-wrap .digit-multiselectdropdown-master input[type=text], .digit-multiselectdropdown-wrap .digit-multiselectdropdown-master .digit-checkbox-container .input-emp[type=text], .digit-checkbox-container .digit-multiselectdropdown-wrap .digit-multiselectdropdown-master .input-emp[type=text], .digit-multiselectdropdown-wrap .digit-multiselectdropdown-master-active input[type=text], .digit-multiselectdropdown-wrap .digit-multiselectdropdown-master-active .digit-checkbox-container .input-emp[type=text], .digit-checkbox-container .digit-multiselectdropdown-wrap .digit-multiselectdropdown-master-active .input-emp[type=text], .digit-multiselectdropdown-wrap .digit-category-selectAll .category-selectAll-label, .digit-multiselectdropdown-wrap .digit-multiselectdropodwn-menuitem p, .digit-multiselectdropdown-wrap .digit-multiselectdropodwn-menuitem.unsuccessfulresults span, .digit-multiselectdropdown-wrap .digit-multiselectdropdown-master .digit-multiselectdropdown-label p, .digit-multiselectdropdown-wrap .digit-multiselectdropdown-master-active .digit-multiselectdropdown-label p, .digit-panelcard-wrap .digit-panelcard-children-wrap .digit-panelcard-description, .digit-popup-overlay .digit-popup-wrapper .digit-popup-children-wrap, .digit-popup-overlay .digit-popup-wrapper .digit-popup-children-wrap .digit-popup-description, .digit-radio-options-wrap label, .digit-dropdown-employee-select-wrap .digit-dropdown-select input[type=text], .digit-dropdown-employee-select-wrap .digit-dropdown-select .digit-checkbox-container .input-emp[type=text], .digit-checkbox-container .digit-dropdown-employee-select-wrap .digit-dropdown-select .input-emp[type=text], .digit-dropdown-employee-select-wrap .digit-dropdown-select-active input[type=text], .digit-dropdown-employee-select-wrap .digit-dropdown-select-active .digit-checkbox-container .input-emp[type=text], .digit-checkbox-container .digit-dropdown-employee-select-wrap .digit-dropdown-select-active .input-emp[type=text], .digit-dropdown-item .option-des-container .main-option, .digit-dropdown-item.unsuccessfulresults span, .digit-dropdown-employee-select-wrap--elipses, .digit-dropdown-select-wrap .digit-dropdown-select input[type=text], .digit-dropdown-select-wrap .digit-dropdown-select .digit-checkbox-container .input-emp[type=text], .digit-checkbox-container .digit-dropdown-select-wrap .digit-dropdown-select .input-emp[type=text], .digit-dropdown-select-wrap .digit-dropdown-select-active input[type=text], .digit-dropdown-select-wrap .digit-dropdown-select-active .digit-checkbox-container .input-emp[type=text], .digit-checkbox-container .digit-dropdown-select-wrap .digit-dropdown-select-active .input-emp[type=text], .digit-stepper-container .digit-stepper-content .stepper-label, .digit-switch-label, .option, .digit-text-block-wrap .digit-text-block-body, .timeline-date, .timeline-additional-elements-inline, .timeline-additional-elements-column, .digit-option-label, .digit-uploader-wrap .digit-uploader-content-uploadWidget .drag-drop-text, .digit-uploader-wrap .digit-uploadWidget-label, .digit-uploader-wrap .digit-uploader-input, .digit-uploader-wrap .digit-upload-helptext, .digit-viewcard-field-pair .digit-viewcard-value, .header-dropdown-label, .header-dropdown-option, .header-dropdown-nooption, .digit-topbar .digit-header-img-ulb-wrapper-mobileview .digit-topbar-ulb-mobileview, .digit-tab .digit-tab-list .digit-tab-item .digit-tab-label, .digit-sidebar .digit-sidebar-search-container ::-webkit-input-placeholder, .digit-sidebar .digit-sidebar-search-container ::-moz-placeholder, .digit-sidebar .digit-sidebar-search-container :-ms-input-placeholder, .digit-sidebar .digit-sidebar-search-container ::-ms-input-placeholder, .digit-sidebar .digit-sidebar-search-container ::placeholder, .digit-msb-no-results, .digit-mb-search-container ::-webkit-input-placeholder, .digit-mb-search-container ::-moz-placeholder, .digit-mb-search-container :-ms-input-placeholder, .digit-mb-search-container ::-ms-input-placeholder, .digit-mb-search-container ::placeholder, .digit-mb-search-container.dark ::-webkit-input-placeholder, .digit-mb-search-container.dark ::-moz-placeholder, .digit-mb-search-container.dark :-ms-input-placeholder, .digit-mb-search-container.dark ::-ms-input-placeholder, .digit-mb-search-container.dark ::placeholder, .digit-tag-wrapper .digit-tag-text, .landingpagecard-section, .digit-menu-card .digit-menucard-description, td, .pagination-dropdown, .pagination-dropdown option, .selected-state, .header-des-wrap .column-description, .table-header-wrapper .table-description, .slider-body, .metric-item .metric-description, .digit-form-card .digit-form-card-content {
+  .typography.body-s, .digit-accordion-content, .digit-bread-crumb--item .digit-bread-crumb-content, .digit-bread-crumb--item .digit-bread-crumb-content.current, .digit-bread-crumb--item .digit-bread-crumb-seperator, .digit-checkbox-container .label, .digit-error-icon-message-wrap .digit-error-message, .digit-header-content.label .info-icon .infotext, .digit-field .digit-charcount, .digit-field .digit-description, .sectionSubHeaderStyle, .digit-multiselectdropdown-wrap .digit-multiselectdropdown-master input[type=text], .digit-multiselectdropdown-wrap .digit-multiselectdropdown-master .digit-checkbox-container .input-emp[type=text], .digit-checkbox-container .digit-multiselectdropdown-wrap .digit-multiselectdropdown-master .input-emp[type=text], .digit-multiselectdropdown-wrap .digit-multiselectdropdown-master-active input[type=text], .digit-multiselectdropdown-wrap .digit-multiselectdropdown-master-active .digit-checkbox-container .input-emp[type=text], .digit-checkbox-container .digit-multiselectdropdown-wrap .digit-multiselectdropdown-master-active .input-emp[type=text], .digit-multiselectdropdown-wrap .digit-category-selectAll .category-selectAll-label, .digit-multiselectdropdown-wrap .digit-multiselectdropodwn-menuitem p, .digit-multiselectdropdown-wrap .digit-multiselectdropodwn-menuitem.unsuccessfulresults span, .digit-multiselectdropdown-wrap .digit-multiselectdropdown-master .digit-multiselectdropdown-label p, .digit-multiselectdropdown-wrap .digit-multiselectdropdown-master-active .digit-multiselectdropdown-label p, .digit-panelcard-wrap .digit-panelcard-children-wrap .digit-panelcard-description, .digit-popup-overlay .digit-popup-wrapper .digit-popup-children-wrap, .digit-popup-overlay .digit-popup-wrapper .digit-popup-children-wrap .digit-popup-description, .digit-radio-options-wrap label, .digit-dropdown-employee-select-wrap .digit-dropdown-select input[type=text], .digit-dropdown-employee-select-wrap .digit-dropdown-select .digit-checkbox-container .input-emp[type=text], .digit-checkbox-container .digit-dropdown-employee-select-wrap .digit-dropdown-select .input-emp[type=text], .digit-dropdown-employee-select-wrap .digit-dropdown-select-active input[type=text], .digit-dropdown-employee-select-wrap .digit-dropdown-select-active .digit-checkbox-container .input-emp[type=text], .digit-checkbox-container .digit-dropdown-employee-select-wrap .digit-dropdown-select-active .input-emp[type=text], .digit-dropdown-item .option-des-container .main-option, .digit-dropdown-item.unsuccessfulresults span, .digit-dropdown-employee-select-wrap--elipses, .digit-dropdown-select-wrap .digit-dropdown-select input[type=text], .digit-dropdown-select-wrap .digit-dropdown-select .digit-checkbox-container .input-emp[type=text], .digit-checkbox-container .digit-dropdown-select-wrap .digit-dropdown-select .input-emp[type=text], .digit-dropdown-select-wrap .digit-dropdown-select-active input[type=text], .digit-dropdown-select-wrap .digit-dropdown-select-active .digit-checkbox-container .input-emp[type=text], .digit-checkbox-container .digit-dropdown-select-wrap .digit-dropdown-select-active .input-emp[type=text], .digit-stepper-container .digit-stepper-content .stepper-label, .digit-switch-label, .option, .digit-text-block-wrap .digit-text-block-body, .timeline-date, .timeline-additional-elements-inline, .timeline-additional-elements-column, .digit-option-label, .digit-uploader-wrap .digit-uploader-content-uploadWidget .drag-drop-text, .digit-uploader-wrap .digit-uploadWidget-label, .digit-uploader-wrap .digit-uploader-input, .digit-uploader-wrap .digit-upload-helptext, .digit-viewcard-field-pair .digit-viewcard-value, .header-dropdown-label, .header-dropdown-option, .header-dropdown-nooption, .digit-topbar .digit-header-img-ulb-wrapper-mobileview .digit-topbar-ulb-mobileview, .digit-tab .digit-tab-list .digit-tab-item .digit-tab-label, .digit-sidebar .digit-sidebar-search-container ::-webkit-input-placeholder, .digit-sidebar .digit-sidebar-search-container ::-moz-placeholder, .digit-sidebar .digit-sidebar-search-container :-ms-input-placeholder, .digit-sidebar .digit-sidebar-search-container ::-ms-input-placeholder, .digit-sidebar .digit-sidebar-search-container ::placeholder, .digit-msb-no-results, .digit-mb-search-container ::-webkit-input-placeholder, .digit-mb-search-container ::-moz-placeholder, .digit-mb-search-container :-ms-input-placeholder, .digit-mb-search-container ::-ms-input-placeholder, .digit-mb-search-container ::placeholder, .digit-mb-search-container.dark ::-webkit-input-placeholder, .digit-mb-search-container.dark ::-moz-placeholder, .digit-mb-search-container.dark :-ms-input-placeholder, .digit-mb-search-container.dark ::-ms-input-placeholder, .digit-mb-search-container.dark ::placeholder, .digit-tag-wrapper .digit-tag-text, .landingpagecard-section, .digit-menu-card .digit-menucard-description, td, .pagination-dropdown, .pagination-dropdown option, .selected-state, .header-des-wrap .column-description, .table-header-wrapper .table-description, .slider-body, .metric-item .metric-description, .digit-form-card .digit-form-card-content {
     font-size: 1rem;
     font-family: Roboto;
     font-style: normal;
@@ -2209,7 +2209,7 @@ body {
     line-height: 1.37rem; } }
 
 @media (min-aspect-ratio: 3 / 4) {
-  .typography.body-s, .digit-accordion-content, .digit-bread-crumb--item .digit-bread-crumb-content, .digit-bread-crumb--item .digit-bread-crumb-content.current, .digit-bread-crumb--item .digit-bread-crumb-seperator, .digit-checkbox-container .label, .digit-error-icon-message-wrap .digit-error-message, .digit-header-content.label .info-icon .infotext, .digit-field .digit-charcount, .digit-field .digit-description, .digit-multiselectdropdown-wrap .digit-multiselectdropdown-master input[type=text], .digit-multiselectdropdown-wrap .digit-multiselectdropdown-master .digit-checkbox-container .input-emp[type=text], .digit-checkbox-container .digit-multiselectdropdown-wrap .digit-multiselectdropdown-master .input-emp[type=text], .digit-multiselectdropdown-wrap .digit-multiselectdropdown-master-active input[type=text], .digit-multiselectdropdown-wrap .digit-multiselectdropdown-master-active .digit-checkbox-container .input-emp[type=text], .digit-checkbox-container .digit-multiselectdropdown-wrap .digit-multiselectdropdown-master-active .input-emp[type=text], .digit-multiselectdropdown-wrap .digit-category-selectAll .category-selectAll-label, .digit-multiselectdropdown-wrap .digit-multiselectdropodwn-menuitem p, .digit-multiselectdropdown-wrap .digit-multiselectdropodwn-menuitem.unsuccessfulresults span, .digit-multiselectdropdown-wrap .digit-multiselectdropdown-master .digit-multiselectdropdown-label p, .digit-multiselectdropdown-wrap .digit-multiselectdropdown-master-active .digit-multiselectdropdown-label p, .digit-panelcard-wrap .digit-panelcard-children-wrap .digit-panelcard-description, .digit-popup-overlay .digit-popup-wrapper .digit-popup-children-wrap, .digit-popup-overlay .digit-popup-wrapper .digit-popup-children-wrap .digit-popup-description, .digit-radio-options-wrap label, .digit-dropdown-employee-select-wrap .digit-dropdown-select input[type=text], .digit-dropdown-employee-select-wrap .digit-dropdown-select .digit-checkbox-container .input-emp[type=text], .digit-checkbox-container .digit-dropdown-employee-select-wrap .digit-dropdown-select .input-emp[type=text], .digit-dropdown-employee-select-wrap .digit-dropdown-select-active input[type=text], .digit-dropdown-employee-select-wrap .digit-dropdown-select-active .digit-checkbox-container .input-emp[type=text], .digit-checkbox-container .digit-dropdown-employee-select-wrap .digit-dropdown-select-active .input-emp[type=text], .digit-dropdown-item .option-des-container .main-option, .digit-dropdown-item.unsuccessfulresults span, .digit-dropdown-employee-select-wrap--elipses, .digit-dropdown-select-wrap .digit-dropdown-select input[type=text], .digit-dropdown-select-wrap .digit-dropdown-select .digit-checkbox-container .input-emp[type=text], .digit-checkbox-container .digit-dropdown-select-wrap .digit-dropdown-select .input-emp[type=text], .digit-dropdown-select-wrap .digit-dropdown-select-active input[type=text], .digit-dropdown-select-wrap .digit-dropdown-select-active .digit-checkbox-container .input-emp[type=text], .digit-checkbox-container .digit-dropdown-select-wrap .digit-dropdown-select-active .input-emp[type=text], .digit-stepper-container .digit-stepper-content .stepper-label, .digit-switch-label, .option, .digit-text-block-wrap .digit-text-block-body, .timeline-date, .timeline-additional-elements-inline, .timeline-additional-elements-column, .digit-option-label, .digit-uploader-wrap .digit-uploader-content-uploadWidget .drag-drop-text, .digit-uploader-wrap .digit-uploadWidget-label, .digit-uploader-wrap .digit-uploader-input, .digit-uploader-wrap .digit-upload-helptext, .digit-viewcard-field-pair .digit-viewcard-value, .header-dropdown-label, .header-dropdown-option, .header-dropdown-nooption, .digit-topbar .digit-header-img-ulb-wrapper-mobileview .digit-topbar-ulb-mobileview, .digit-tab .digit-tab-list .digit-tab-item .digit-tab-label, .digit-sidebar .digit-sidebar-search-container ::-webkit-input-placeholder, .digit-sidebar .digit-sidebar-search-container ::-moz-placeholder, .digit-sidebar .digit-sidebar-search-container :-ms-input-placeholder, .digit-sidebar .digit-sidebar-search-container ::-ms-input-placeholder, .digit-sidebar .digit-sidebar-search-container ::placeholder, .digit-msb-no-results, .digit-mb-search-container ::-webkit-input-placeholder, .digit-mb-search-container ::-moz-placeholder, .digit-mb-search-container :-ms-input-placeholder, .digit-mb-search-container ::-ms-input-placeholder, .digit-mb-search-container ::placeholder, .digit-mb-search-container.dark ::-webkit-input-placeholder, .digit-mb-search-container.dark ::-moz-placeholder, .digit-mb-search-container.dark :-ms-input-placeholder, .digit-mb-search-container.dark ::-ms-input-placeholder, .digit-mb-search-container.dark ::placeholder, .digit-tag-wrapper .digit-tag-text, .landingpagecard-section, .digit-menu-card .digit-menucard-description, td, .pagination-dropdown, .pagination-dropdown option, .selected-state, .header-des-wrap .column-description, .table-header-wrapper .table-description, .slider-body, .metric-item .metric-description, .digit-form-card .digit-form-card-content {
+  .typography.body-s, .digit-accordion-content, .digit-bread-crumb--item .digit-bread-crumb-content, .digit-bread-crumb--item .digit-bread-crumb-content.current, .digit-bread-crumb--item .digit-bread-crumb-seperator, .digit-checkbox-container .label, .digit-error-icon-message-wrap .digit-error-message, .digit-header-content.label .info-icon .infotext, .digit-field .digit-charcount, .digit-field .digit-description, .sectionSubHeaderStyle, .digit-multiselectdropdown-wrap .digit-multiselectdropdown-master input[type=text], .digit-multiselectdropdown-wrap .digit-multiselectdropdown-master .digit-checkbox-container .input-emp[type=text], .digit-checkbox-container .digit-multiselectdropdown-wrap .digit-multiselectdropdown-master .input-emp[type=text], .digit-multiselectdropdown-wrap .digit-multiselectdropdown-master-active input[type=text], .digit-multiselectdropdown-wrap .digit-multiselectdropdown-master-active .digit-checkbox-container .input-emp[type=text], .digit-checkbox-container .digit-multiselectdropdown-wrap .digit-multiselectdropdown-master-active .input-emp[type=text], .digit-multiselectdropdown-wrap .digit-category-selectAll .category-selectAll-label, .digit-multiselectdropdown-wrap .digit-multiselectdropodwn-menuitem p, .digit-multiselectdropdown-wrap .digit-multiselectdropodwn-menuitem.unsuccessfulresults span, .digit-multiselectdropdown-wrap .digit-multiselectdropdown-master .digit-multiselectdropdown-label p, .digit-multiselectdropdown-wrap .digit-multiselectdropdown-master-active .digit-multiselectdropdown-label p, .digit-panelcard-wrap .digit-panelcard-children-wrap .digit-panelcard-description, .digit-popup-overlay .digit-popup-wrapper .digit-popup-children-wrap, .digit-popup-overlay .digit-popup-wrapper .digit-popup-children-wrap .digit-popup-description, .digit-radio-options-wrap label, .digit-dropdown-employee-select-wrap .digit-dropdown-select input[type=text], .digit-dropdown-employee-select-wrap .digit-dropdown-select .digit-checkbox-container .input-emp[type=text], .digit-checkbox-container .digit-dropdown-employee-select-wrap .digit-dropdown-select .input-emp[type=text], .digit-dropdown-employee-select-wrap .digit-dropdown-select-active input[type=text], .digit-dropdown-employee-select-wrap .digit-dropdown-select-active .digit-checkbox-container .input-emp[type=text], .digit-checkbox-container .digit-dropdown-employee-select-wrap .digit-dropdown-select-active .input-emp[type=text], .digit-dropdown-item .option-des-container .main-option, .digit-dropdown-item.unsuccessfulresults span, .digit-dropdown-employee-select-wrap--elipses, .digit-dropdown-select-wrap .digit-dropdown-select input[type=text], .digit-dropdown-select-wrap .digit-dropdown-select .digit-checkbox-container .input-emp[type=text], .digit-checkbox-container .digit-dropdown-select-wrap .digit-dropdown-select .input-emp[type=text], .digit-dropdown-select-wrap .digit-dropdown-select-active input[type=text], .digit-dropdown-select-wrap .digit-dropdown-select-active .digit-checkbox-container .input-emp[type=text], .digit-checkbox-container .digit-dropdown-select-wrap .digit-dropdown-select-active .input-emp[type=text], .digit-stepper-container .digit-stepper-content .stepper-label, .digit-switch-label, .option, .digit-text-block-wrap .digit-text-block-body, .timeline-date, .timeline-additional-elements-inline, .timeline-additional-elements-column, .digit-option-label, .digit-uploader-wrap .digit-uploader-content-uploadWidget .drag-drop-text, .digit-uploader-wrap .digit-uploadWidget-label, .digit-uploader-wrap .digit-uploader-input, .digit-uploader-wrap .digit-upload-helptext, .digit-viewcard-field-pair .digit-viewcard-value, .header-dropdown-label, .header-dropdown-option, .header-dropdown-nooption, .digit-topbar .digit-header-img-ulb-wrapper-mobileview .digit-topbar-ulb-mobileview, .digit-tab .digit-tab-list .digit-tab-item .digit-tab-label, .digit-sidebar .digit-sidebar-search-container ::-webkit-input-placeholder, .digit-sidebar .digit-sidebar-search-container ::-moz-placeholder, .digit-sidebar .digit-sidebar-search-container :-ms-input-placeholder, .digit-sidebar .digit-sidebar-search-container ::-ms-input-placeholder, .digit-sidebar .digit-sidebar-search-container ::placeholder, .digit-msb-no-results, .digit-mb-search-container ::-webkit-input-placeholder, .digit-mb-search-container ::-moz-placeholder, .digit-mb-search-container :-ms-input-placeholder, .digit-mb-search-container ::-ms-input-placeholder, .digit-mb-search-container ::placeholder, .digit-mb-search-container.dark ::-webkit-input-placeholder, .digit-mb-search-container.dark ::-moz-placeholder, .digit-mb-search-container.dark :-ms-input-placeholder, .digit-mb-search-container.dark ::-ms-input-placeholder, .digit-mb-search-container.dark ::placeholder, .digit-tag-wrapper .digit-tag-text, .landingpagecard-section, .digit-menu-card .digit-menucard-description, td, .pagination-dropdown, .pagination-dropdown option, .selected-state, .header-des-wrap .column-description, .table-header-wrapper .table-description, .slider-body, .metric-item .metric-description, .digit-form-card .digit-form-card-content {
     font-size: 1rem;
     font-family: Roboto;
     font-style: normal;
@@ -3449,6 +3449,11 @@ ol, ul {
   .digit-card-component.form .digit-label-field-pair, .digit-card-component.form .digit-radio-options-wrap {
     margin-bottom: unset; }
 
+.titleStyle {
+  color: #0b4b66;
+  font-weight: 700;
+  font-size: 2.5rem; }
+
 .digit-checkbox-container {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -3615,6 +3620,8 @@ ol, ul {
       height: -moz-fit-content;
       height: fit-content;
       word-break: break-word; } }
+  .digit-header-content.label.boldLabel {
+    font-weight: 700; }
   .digit-header-content.label .label-container {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -3757,35 +3764,53 @@ ol, ul {
     .digit-form-card-description {
       font-size: 1rem; } }
 
-.digit-form-card-text {
+@media (max-aspect-ratio: 9 / 16) {
+  .digit-form-card-text {
+    font-size: 1rem; } }
+
+@media (min-aspect-ratio: 9 / 16) and (max-aspect-ratio: 3 / 4) {
+  .digit-form-card-text {
+    font-size: 1.25rem; } }
+
+@media (min-aspect-ratio: 3 / 4) {
+  .digit-form-card-text {
+    font-size: 1.25rem; } }
+
+.digit-form-card-text, .sectionSubHeaderStyle {
   font-family: Roboto;
   font-style: normal;
   font-weight: 400;
   line-height: 1.37rem;
   color: #787878; }
-  @media (max-aspect-ratio: 9 / 16) {
-    .digit-form-card-text {
-      font-size: 1rem; } }
-  @media (min-aspect-ratio: 9 / 16) and (max-aspect-ratio: 3 / 4) {
-    .digit-form-card-text {
-      font-size: 1.25rem; } }
-  @media (min-aspect-ratio: 3 / 4) {
-    .digit-form-card-text {
-      font-size: 1.25rem; } }
 
-.digit-field-container {
+.sectionSubHeaderStyle {
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline; }
+  @media (max-aspect-ratio: 9 / 16) {
+    .sectionSubHeaderStyle {
+      font-size: .875rem; } }
+  @media (min-aspect-ratio: 9 / 16) and (max-aspect-ratio: 3 / 4) {
+    .sectionSubHeaderStyle {
+      font-size: 1rem; } }
+  @media (min-aspect-ratio: 3 / 4) {
+    .sectionSubHeaderStyle {
+      font-size: 1rem; } }
+
+.digit-field-container, .sectionSubHeaderStyle {
   display: -webkit-box;
   display: -ms-flexbox;
-  display: flex;
+  display: flex; }
+
+.digit-field-container {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  display: flex;
   align-items: center; }
   .digit-field-container .component-in-front {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
@@ -7757,6 +7782,83 @@ img {
 .digit-toggle-label {
   color: #c5c5c5;
   padding: .5rem .75rem; }
+
+.digit-toggle-toolbar.vertical-toggle {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch; }
+
+.digit-toggle-toolbar.vertical-toggle .toggle-option-container {
+  width: -webkit-fit-content !important;
+  width: -moz-fit-content !important;
+  width: fit-content !important;
+  max-width: 100% !important; }
+
+.digit-toggle-toolbar.vertical-toggle .digit-toggle-btn-wrap {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  padding: 12px;
+  background-color: #fff;
+  border: 1px solid #d6d6d6;
+  cursor: pointer;
+  -webkit-transition: all .2s ease;
+  transition: all .2s ease;
+  width: 8.5rem !important;
+  min-width: 100px;
+  height: 8.125rem; }
+
+.vertical-toggle .toggle-option-container:first-child .digit-toggle-btn-wrap {
+  border-top-left-radius: .5rem;
+  border-top-right-radius: .5rem; }
+
+.vertical-toggle .toggle-option-container:last-child .digit-toggle-btn-wrap {
+  border-bottom-left-radius: .5rem;
+  border-bottom-right-radius: .5rem; }
+
+.digit-toggle-toolbar.vertical-toggle .digit-toggle-btn-wrap.checked {
+  border: 2px solid #b04a1d;
+  background-color: #fff !important;
+  color: #c84c0e;
+  width: 9rem !important;
+  -webkit-transform: scaleX(1.05);
+  transform: scaleX(1.05); }
+
+.digit-toggle-toolbar.vertical-toggle .digit-toggle-label {
+  font-weight: 700;
+  font-size: 14px;
+  text-align: center;
+  width: 100%;
+  background-color: #fff;
+  color: #0b4b66; }
+
+.digit-toggle-input {
+  display: none; }
+
+.vertical-toggle .digit-toggle-btn-wrap input:checked + .digit-toggle-label, .vertical-toggle .digit-toggle-btn-wrap .digit-checkbox-container .input-emp:checked + .digit-toggle-label, .digit-checkbox-container .vertical-toggle .digit-toggle-btn-wrap .input-emp:checked + .digit-toggle-label {
+  background-color: #fff !important;
+  color: #c84c0e !important;
+  border-bottom-right-radius: .5rem;
+  border-top-right-radius: .5rem; }
+
+.vertical-toggle .digit-toggle-btn-wrap.checked {
+  border-bottom-right-radius: .5rem;
+  border-top-right-radius: .5rem; }
 
 .digit-tree-select-options-container.first-level:nth-of-type(2n) .digit-tree-multiselect-option.level-0:not(.checked), .digit-tree-select-options-container.first-level:nth-of-type(2n) .digit-tree-select-option.level-0 {
   background-color: #fafafa; }
@@ -13382,6 +13484,56 @@ button:hover {
 .popup-header-fix {
   margin-top: -0.5rem !important; }
 
+.selecting-boundary-div {
+  padding-top: .5rem;
+  grid-gap: 1.5rem;
+  gap: 1.5rem; }
+  .selecting-boundary-div .label-field-pair {
+    margin-bottom: 1.5rem; }
+
+.selecting-boundary-div.horizontal-layout {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: flex-start; }
+
+.digit-card-label.boundary-selection-label {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 700;
+  color: #363636;
+  width: 30%; }
+  @media (max-width: 30rem) {
+    .digit-card-label.boundary-selection-label {
+      font-size: 1rem; } }
+  @media (min-width: 30.063rem) and (max-width: 47.938rem) {
+    .digit-card-label.boundary-selection-label {
+      font-size: 1rem; } }
+  @media (min-width: 48rem) {
+    .digit-card-label.boundary-selection-label {
+      font-size: 1rem; } }
+
+.selecting-boundary-div.horizontal-layout .boundary-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center; }
+
+.digit-field-full {
+  width: 100%; }
+
+.digit-label-field-pair.boundary-item.vertical {
+  margin-bottom: 0; }
+
+.padding-dropdown {
+  padding-bottom: 1.6rem; }
+
+.filter-card.filter-card-vertical .selecting-boundary-div {
+  max-width: 65%; }
+
 .digit-search-wrapper {
   height: 100%;
   width: 100%; }
@@ -13682,6 +13834,66 @@ button:hover {
 
 .digit-table-loader {
   height: 31.25rem;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center; }
+
+.digit-custom-row-wrapper, .digit-table-loader {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex; }
+
+.digit-custom-row-wrapper {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  grid-gap: 1.5rem;
+  gap: 1.5rem; }
+
+.footer-pagination-content.digit-results-table {
+  margin-top: 1.5rem; }
+  .footer-pagination-content.digit-results-table td {
+    width: 100%; }
+    .footer-pagination-content.digit-results-table td .pagination {
+      border-top: none; }
+
+.digit-results-card-component .digit-results-card-heading-tags-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between; }
+  .digit-results-card-component .digit-results-card-heading-tags-wrapper .digit-results-card-heading {
+    color: #0b4b66;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 1.14rem; }
+    @media (max-aspect-ratio: 9 / 16) {
+      .digit-results-card-component .digit-results-card-heading-tags-wrapper .digit-results-card-heading {
+        font-size: 1.25rem; } }
+    @media (min-aspect-ratio: 9 / 16) and (max-aspect-ratio: 3 / 4) {
+      .digit-results-card-component .digit-results-card-heading-tags-wrapper .digit-results-card-heading {
+        font-size: 1.375rem; } }
+    @media (min-aspect-ratio: 3 / 4) {
+      .digit-results-card-component .digit-results-card-heading-tags-wrapper .digit-results-card-heading {
+        font-size: 1.5rem; } }
+  .digit-results-card-component .digit-results-card-heading-tags-wrapper .digit-results-card-tags {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    grid-gap: 1rem;
+    gap: 1rem; }
+
+.pagination.custom-results button {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -13691,8 +13903,10 @@ button:hover {
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center; }
+  .pagination.custom-results button svg {
+    margin-left: 0; }
 
-.digit-global-serach-results-table-wrapper {
+.digit-global-search-results-table-wrapper {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -13704,17 +13918,17 @@ button:hover {
   -ms-flex-align: end;
   align-items: flex-end; }
 
-.digit-global-serach-results-table {
+.digit-global-search-results-table {
   margin-bottom: 1.5rem; }
   @media (min-aspect-ratio: 9 / 16) and (max-aspect-ratio: 3 / 4) {
-    .digit-global-serach-results-table {
+    .digit-global-search-results-table {
       min-width: 27.5rem; } }
   @media (max-aspect-ratio: 9 / 16) {
-    .digit-global-serach-results-table {
+    .digit-global-search-results-table {
       min-width: 100%;
       width: 100%; } }
   @media (min-aspect-ratio: 3 / 4) {
-    .digit-global-serach-results-table {
+    .digit-global-search-results-table {
       min-width: 37.5rem; } }
 
 .rdt_TableRow.selectedRow {
