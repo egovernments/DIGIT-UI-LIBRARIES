@@ -2,10 +2,21 @@ import React, { forwardRef, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { SVG } from "./SVG";
 import StringManipulator from "./StringManipulator";
-import { Colors} from "../constants/colors/colorconstants";
+import { Colors } from "../constants/colors/colorconstants";
 import { getUserType } from "../utils/digitUtils";
 import { useTranslation } from "react-i18next";
 
+const formatDateReadable = (dateInput) => {
+  const dateObj = new Date(dateInput);
+
+  if (isNaN(dateObj)) return ""; // Return empty string for invalid date
+
+  return dateObj.toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  });
+};
 const TextInput = (props) => {
   const { t: i18nT } = useTranslation();
   const t = props?.t || i18nT;
@@ -26,17 +37,21 @@ const TextInput = (props) => {
     try {
       props?.onChange(value);
     } catch (err) {
-      // silent fail — but this can hide bugs unintentionally 
-    } 
+      // silent fail — but this can hide bugs unintentionally
+    }
   };
   const incrementCount = () => {
-    const newValue = Number(props.value) + (Number(props?.step) ? Number(props?.step) : 1);
+    const newValue =
+      Number(props.value) + (Number(props?.step) ? Number(props?.step) : 1);
     props.onChange(newValue);
   };
 
   const decrementCount = () => {
-    const newValue = Number(props.value) - (Number(props?.step) ? Number(props?.step) : 1);
-    const finalValue = props?.allowNegativeValues ? newValue : Math.max(newValue, 0);
+    const newValue =
+      Number(props.value) - (Number(props?.step) ? Number(props?.step) : 1);
+    const finalValue = props?.allowNegativeValues
+      ? newValue
+      : Math.max(newValue, 0);
     props.onChange(finalValue);
   };
 
@@ -120,7 +135,9 @@ const TextInput = (props) => {
 
   const renderIcon = () => {
     const reqIcon = props?.type;
-    const iconFill = props?.iconFill ? props?.iconFill : props?.disabled
+    const iconFill = props?.iconFill
+      ? props?.iconFill
+      : props?.disabled
       ? disabledColor
       : props?.nonEditable
       ? "#b1b4b6"
@@ -233,9 +250,11 @@ const TextInput = (props) => {
           props.disabled ? "disabled" : ""
         }  ${props.nonEditable ? "noneditable" : ""} ${
           props.error ? "error" : ""
-        } ${defaultType ? defaultType : ""} ${props?.populators?.disableTextField ? "numeric-buttons-only" : ""} ${
-          props?.populators?.prefix ? "prefix" : ""
-        } ${props?.populators?.suffix ? "suffix" : ""} `}
+        } ${defaultType ? defaultType : ""} ${
+          props?.populators?.disableTextField ? "numeric-buttons-only" : ""
+        } ${props?.populators?.prefix ? "prefix" : ""} ${
+          props?.populators?.suffix ? "suffix" : ""
+        } `}
         style={props?.textInputStyle ? { ...props.textInputStyle } : {}}
       >
         {props.required ? (
@@ -274,7 +293,11 @@ const TextInput = (props) => {
                 }
               }}
               ref={props.inputRef}
-              value={props?.value}
+              value={
+                props.type === "date" && props?.populators?.newDateFormat
+                  ? formatDateReadable(props?.value)
+                  : props?.value
+              }
               style={{ ...props.style }}
               defaultValue={props.defaultValue}
               minLength={props.minlength}
@@ -302,7 +325,7 @@ const TextInput = (props) => {
               config={props.config}
               populators={props.populators}
               onClick={(event) => {
-                if (props.type === "date" || (props.type === "time")) {
+                if (props.type === "date" || props.type === "time") {
                   try {
                     event.target.showPicker();
                   } catch (error) {
@@ -358,7 +381,11 @@ const TextInput = (props) => {
                 }
               }}
               ref={props.inputRef}
-              value={props?.value}
+              value={
+                props.type === "date" && props?.populators?.newDateFormat
+                  ? formatDateReadable(props?.value)
+                  : props?.value
+              }
               style={{ ...props.style }}
               defaultValue={props.defaultValue}
               minLength={props.minlength}
@@ -394,7 +421,7 @@ const TextInput = (props) => {
               config={props.config}
               populators={props.populators}
               onClick={(event) => {
-                if (props.type === "date" || (props.type === "time")) {
+                if (props.type === "date" || props.type === "time") {
                   try {
                     event.target.showPicker();
                   } catch (error) {
@@ -439,7 +466,7 @@ TextInput.propTypes = {
   min: PropTypes.number,
   disabled: PropTypes.bool,
   nonEditable: PropTypes.bool,
-  allowNegativeValues:PropTypes.bool,
+  allowNegativeValues: PropTypes.bool,
   errorStyle: PropTypes.bool,
   title: PropTypes.string,
   step: PropTypes.string,
