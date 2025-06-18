@@ -1,22 +1,14 @@
-import React, { forwardRef, useEffect, useState } from "react";
+import React, { forwardRef, useEffect, useState, useRef } from "react";
 import PropTypes from "prop-types";
 import { SVG } from "./SVG";
 import StringManipulator from "./StringManipulator";
 import { Colors } from "../constants/colors/colorconstants";
 import { getUserType } from "../utils/digitUtils";
 import { useTranslation } from "react-i18next";
+import DatePicker from "react-datepicker";
+import { format } from "date-fns";
+import "react-datepicker/dist/react-datepicker.css";
 
-const formatDateReadable = (dateInput) => {
-  const dateObj = new Date(dateInput);
-
-  if (isNaN(dateObj)) return ""; // Return empty string for invalid date
-
-  return dateObj.toLocaleDateString("en-GB", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  });
-};
 const TextInput = (props) => {
   const { t: i18nT } = useTranslation();
   const t = props?.t || i18nT;
@@ -241,6 +233,8 @@ const TextInput = (props) => {
     defaultType ? defaultType : ""
   } ${props.populators?.customIcon ? "withIcon" : ""}`;
 
+  const datePickerRef = useRef(null);
+
   return (
     <React.Fragment>
       <div
@@ -257,7 +251,53 @@ const TextInput = (props) => {
         } `}
         style={props?.textInputStyle ? { ...props.textInputStyle } : {}}
       >
-        {props.required ? (
+        {props.type === "date" && props?.populators?.newDateFormat ? (
+          <div className={inputContainerClass}>
+            {renderPrefix()}
+            <div style={{ position: "relative", width: "100%" }}>
+              <DatePicker
+                ref={datePickerRef}
+                selected={props?.value ? new Date(props.value) : null}
+                onChange={(date) => props?.onChange(date?.toISOString())}
+                placeholderText={StringManipulator(
+                  "TOSENTENCECASE",
+                  t(props.placeholder)
+                )}
+                dateFormat="dd MMMM yyyy"
+                className={
+                  props.required ? inputClassNameForMandatory : inputClassName
+                }
+                disabled={props.disabled}
+                showPopperArrow={false}
+                required={props.required}
+                popperPlacement="bottom-start"
+                calendarStartDay={1}
+                onClickOutside={() => datePickerRef.current?.setOpen(false)}
+                minDate={props.min}
+                maxDate={props.max}
+              />
+              <div
+                className={`digit-new-date-format ${
+                  props.disabled ? "disabled" : ""
+                }`}
+                onClick={() => datePickerRef.current?.setOpen(true)}
+              >
+                <SVG.CalendarToday />
+              </div>
+            </div>
+
+            {renderSuffix()}
+            {props.signature && props.signatureImg}
+            {icon && (
+              <span
+                className="digit-cursor-pointer"
+                onClick={props?.onIconSelection}
+              >
+                {icon}
+              </span>
+            )}
+          </div>
+        ) : props.required ? (
           <div className={inputContainerClass}>
             {renderPrefix()}
             <input
@@ -293,11 +333,7 @@ const TextInput = (props) => {
                 }
               }}
               ref={props.inputRef}
-              value={
-                props.type === "date" && props?.populators?.newDateFormat
-                  ? formatDateReadable(props?.value)
-                  : props?.value
-              }
+              value={props?.value}
               style={{ ...props.style }}
               defaultValue={props.defaultValue}
               minLength={props.minlength}
@@ -381,11 +417,7 @@ const TextInput = (props) => {
                 }
               }}
               ref={props.inputRef}
-              value={
-                props.type === "date" && props?.populators?.newDateFormat
-                  ? formatDateReadable(props?.value)
-                  : props?.value
-              }
+              value={props?.value}
               style={{ ...props.style }}
               defaultValue={props.defaultValue}
               minLength={props.minlength}
@@ -491,34 +523,34 @@ TextInput.defaultProps = {
   required: false,
 };
 
-function DatePicker(props) {
-  useEffect(() => {
-    if (props?.shouldUpdate) {
-      props?.setDate(getDDMMYYYY(props?.data[props.name], "yyyymmdd"));
-    }
-  }, [props?.data]);
+// function DatePicker(props) {
+//   useEffect(() => {
+//     if (props?.shouldUpdate) {
+//       props?.setDate(getDDMMYYYY(props?.data[props.name], "yyyymmdd"));
+//     }
+//   }, [props?.data]);
 
-  useEffect(() => {
-    props.setDate(getDDMMYYYY(props?.defaultValue));
-  }, []);
+//   useEffect(() => {
+//     props.setDate(getDDMMYYYY(props?.defaultValue));
+//   }, []);
 
-  return (
-    <input
-      type="text"
-      className={`${props.disabled && "disabled"} digit-card-date-input`}
-      name={props.name}
-      id={props.id}
-      placeholder={props.placeholder}
-      defaultValue={props.date}
-      readOnly={true}
-    />
-  );
-}
+//   return (
+//     <input
+//       type="text"
+//       className={`${props.disabled && "disabled"} digit-card-date-input`}
+//       name={props.name}
+//       id={props.id}
+//       placeholder={props.placeholder}
+//       defaultValue={props.date}
+//       readOnly={true}
+//     />
+//   );
+// }
 
-function getDDMMYYYY(date) {
-  if (!date) return "";
+// function getDDMMYYYY(date) {
+//   if (!date) return "";
 
-  return new Date(date).toLocaleString("en-In").split(",")[0];
-}
+//   return new Date(date).toLocaleString("en-In").split(",")[0];
+// }
 
 export default TextInput;
