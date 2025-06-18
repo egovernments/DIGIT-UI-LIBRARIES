@@ -250,7 +250,7 @@ export const newConfig = [
         description: "",
         type: "date",
         disable: false,
-        populators: { name: "date-Default", error: "Error!" },
+        populators: { newDateFormat : true,name: "date-Default", error: "Error!" },
       },
       {
         inline: true,
