@@ -196,11 +196,11 @@ const TextInput = (props) => {
             });
             return svgElement;
           } else {
-            console.warn("Icon not found");
+            console.warn(`Icon not found, ${props?.populators?.customIcon}`);
             return null;
           }
         } catch (error) {
-          console.warn("Icon not found");
+            console.warn(`Icon not found, ${props?.populators?.customIcon}`);
           return null;
         }
       }

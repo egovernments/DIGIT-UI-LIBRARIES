@@ -214,13 +214,6 @@ const ResultsDataTableWrapper = ({
         return {
           ...commonProps,
           cell: (row, index, col, id) => {
-            console.log(
-              row,
-              column,
-              column?.jsonPath,
-              _.get(row, column?.jsonPath),
-              "testing"
-            );
             return (
               <Button
                 variation="link"
