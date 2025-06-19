@@ -13,7 +13,7 @@ const KeyNote = ({ keyValue, note, caption, noteStyle, children, privacy, classN
     </div>
   );
 };
-
+//
 KeyNote.propTypes = {
   keyValue: PropTypes.string,
   note: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
