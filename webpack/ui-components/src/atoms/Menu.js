@@ -16,7 +16,7 @@ const Menu = (props) => {
   };
 
   const searchFilteredOptions = props?.options.filter((option) =>
-    option[props?.optionsKey].toLowerCase().includes(searchTerm.toLowerCase())
+    option[props?.optionsKey]?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const onSelect = (val) => {
@@ -48,9 +48,13 @@ const Menu = (props) => {
     <div
       className={`header-dropdown-menu ${
         props?.footerdropdown ? "footer-dropdown" : ""
-      } ${props?.showBottom ? "showBottom" : ""}`}
+      } ${props?.showBottom ? "showBottom" : ""} ${props?.className || ""}`}
       ref={props?.ref}
       style={props?.style}
+      role="listbox"
+      aria-activedescendant={
+        optionIndex >= 0 ? `option-${optionIndex}` : undefined
+      }
     >
       {props?.isSearchable && (
         <div className="header-dropdown-search-container">
@@ -69,6 +73,10 @@ const Menu = (props) => {
           searchFilteredOptions.map((option, index) => (
             <div
               key={index}
+              id={`option-${index}`}
+              role="option"
+              aria-selected={index === optionIndex}
+              tabIndex={0}
               className={`header-dropdown-option ${
                 index === optionIndex ? "activeIndex" : ""
               } ${index === optionIndex ? "keyChange" : ""}`}

@@ -90,15 +90,16 @@ const Button = (props) => {
 
   const icon = IconRender();
 
-  const formattedLabel =
-    props?.variation === "link"
+  const formattedLabel = props?.label
+    ? props?.variation === "link"
       ? props?.label
       : StringManipulator(
           "CAPITALIZEFIRSTLETTER",
           StringManipulator("TRUNCATESTRING", props?.label, {
             maxLength: 64,
           })
-        );
+        )
+    : "";
 
   const handleActionButtonClick = (e) => {
     e.stopPropagation();
@@ -123,6 +124,9 @@ const Button = (props) => {
       disabled={props?.isDisabled || null}
       title={props?.title || ""}
       style={props.style ? props.style : null}
+      aria-label={props?.ariaLabel || formattedLabel}
+      aria-haspopup={props?.type === "actionButton" ? "menu" : undefined}
+      aria-expanded={props?.type === "actionButton" ? dropdownStatus : undefined}
     >
       <div
         className={`icon-label-container ${
@@ -143,7 +147,7 @@ const Button = (props) => {
   );
 
   return props?.type === "actionButton" ? (
-    <div ref={actionRef}>
+    <div className={`digit-action-button-wrapper ${props?.wrapperClassName}`} style={props?.wrapperStyles} ref={actionRef}>
       {buttonElement}
       {dropdownStatus && (
         <div className="header-dropdown-container">
@@ -206,7 +210,7 @@ Button.propTypes = {
 };
 
 Button.defaultProps = {
-  label: "TEST",
+  label: "",
   variation: "primary",
   onClick: () => {},
   size: "large",

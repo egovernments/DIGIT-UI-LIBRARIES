@@ -1,12 +1,17 @@
-import React, { forwardRef, useEffect, useState } from "react";
+import React, { forwardRef, useEffect, useState, useRef } from "react";
 import PropTypes from "prop-types";
 import { SVG } from "./SVG";
 import StringManipulator from "./StringManipulator";
-import { Colors} from "../constants/colors/colorconstants";
+import { Colors } from "../constants/colors/colorconstants";
 import { getUserType } from "../utils/digitUtils";
-
+import { useTranslation } from "react-i18next";
+import DatePicker from "react-datepicker";
+import { format } from "date-fns";
+import "react-datepicker/dist/react-datepicker.css";
 
 const TextInput = (props) => {
+  const { t: i18nT } = useTranslation();
+  const t = props?.t || i18nT;
   const user_type = getUserType();
   const [date, setDate] = useState(props?.type === "date" && props?.value);
   const [visibility, setVisibility] = useState(false);
@@ -21,7 +26,11 @@ const TextInput = (props) => {
   const handleDate = (event) => {
     const { value } = event?.target;
     setDate(value);
-    props?.onChange(value);
+    try {
+      props?.onChange(value);
+    } catch (err) {
+      // silent fail — but this can hide bugs unintentionally
+    }
   };
   const incrementCount = () => {
     const newValue =
@@ -30,11 +39,12 @@ const TextInput = (props) => {
   };
 
   const decrementCount = () => {
-    const newValue = Math.max(
-      Number(props.value) - (Number(props?.step) ? Number(props?.step) : 1),
-      0
-    );
-    props.onChange(newValue);
+    const newValue =
+      Number(props.value) - (Number(props?.step) ? Number(props?.step) : 1);
+    const finalValue = props?.allowNegativeValues
+      ? newValue
+      : Math.max(newValue, 0);
+    props.onChange(finalValue);
   };
 
   const renderPrefix = () => {
@@ -117,7 +127,9 @@ const TextInput = (props) => {
 
   const renderIcon = () => {
     const reqIcon = props?.type;
-    const iconFill = props?.iconFill ? props?.iconFill : props?.disabled
+    const iconFill = props?.iconFill
+      ? props?.iconFill
+      : props?.disabled
       ? disabledColor
       : props?.nonEditable
       ? "#b1b4b6"
@@ -184,11 +196,11 @@ const TextInput = (props) => {
             });
             return svgElement;
           } else {
-            console.log("Icon not found");
+            console.warn("Icon not found");
             return null;
           }
         } catch (error) {
-          console.error("Icon not found");
+          console.warn("Icon not found");
           return null;
         }
       }
@@ -210,7 +222,7 @@ const TextInput = (props) => {
     props.errorStyle ? "digit-employeeCard-inputError" : ""
   } ${props.nonEditable ? "noneditable" : ""} ${
     props.type === "numeric" ? "numeric" : ""
-  }`;
+  } ${props.customClass || ""}`;
 
   const defaultType =
     props.type === "password" && inputType === "text"
@@ -221,6 +233,8 @@ const TextInput = (props) => {
     defaultType ? defaultType : ""
   } ${props.populators?.customIcon ? "withIcon" : ""}`;
 
+  const datePickerRef = useRef(null);
+
   return (
     <React.Fragment>
       <div
@@ -230,12 +244,60 @@ const TextInput = (props) => {
           props.disabled ? "disabled" : ""
         }  ${props.nonEditable ? "noneditable" : ""} ${
           props.error ? "error" : ""
-        } ${defaultType ? defaultType : ""} ${props?.populators?.disableTextField ? "numeric-buttons-only" : ""} ${
-          props?.populators?.prefix ? "prefix" : ""
-        } ${props?.populators?.suffix ? "suffix" : ""} `}
+        } ${defaultType ? defaultType : ""} ${
+          props?.populators?.disableTextField ? "numeric-buttons-only" : ""
+        } ${props?.populators?.prefix ? "prefix" : ""} ${
+          props?.populators?.suffix ? "suffix" : ""
+        } `}
         style={props?.textInputStyle ? { ...props.textInputStyle } : {}}
       >
-        {props.required ? (
+        {props.type === "date" && props?.populators?.newDateFormat ? (
+          <div className={inputContainerClass}>
+            {renderPrefix()}
+            <div style={{ position: "relative", width: "100%" }}>
+              <DatePicker
+                ref={datePickerRef}
+                selected={props?.value ? new Date(props.value) : null}
+                onChange={(date) => props?.onChange(date?.toISOString())}
+                placeholderText={StringManipulator(
+                  "TOSENTENCECASE",
+                  t(props.placeholder)
+                )}
+                dateFormat="dd MMMM yyyy"
+                className={
+                  props.required ? inputClassNameForMandatory : inputClassName
+                }
+                disabled={props.disabled}
+                showPopperArrow={false}
+                required={props.required}
+                popperPlacement="bottom-start"
+                calendarStartDay={1}
+                onClickOutside={() => datePickerRef.current?.setOpen(false)}
+                minDate={props.min}
+                maxDate={props.max}
+              />
+              <div
+                className={`digit-new-date-format ${
+                  props.disabled ? "disabled" : ""
+                }`}
+                onClick={() => datePickerRef.current?.setOpen(true)}
+              >
+                <SVG.CalendarToday />
+              </div>
+            </div>
+
+            {renderSuffix()}
+            {props.signature && props.signatureImg}
+            {icon && (
+              <span
+                className="digit-cursor-pointer"
+                onClick={props?.onIconSelection}
+              >
+                {icon}
+              </span>
+            )}
+          </div>
+        ) : props.required ? (
           <div className={inputContainerClass}>
             {renderPrefix()}
             <input
@@ -245,11 +307,11 @@ const TextInput = (props) => {
                   : defaultType || "text"
               }
               name={props.name}
-              id={props.id}
+              id={props?.id}
               className={inputClassNameForMandatory}
               placeholder={StringManipulator(
                 "TOSENTENCECASE",
-                props.placeholder
+                t(props.placeholder)
               )}
               onChange={(event) => {
                 if (props?.type === "number" && props?.maxlength) {
@@ -299,7 +361,7 @@ const TextInput = (props) => {
               config={props.config}
               populators={props.populators}
               onClick={(event) => {
-                if (props.type === "date" || (props.type === "time")) {
+                if (props.type === "date" || props.type === "time") {
                   try {
                     event.target.showPicker();
                   } catch (error) {
@@ -333,7 +395,7 @@ const TextInput = (props) => {
               className={inputClassName}
               placeholder={StringManipulator(
                 "TOSENTENCECASE",
-                props.placeholder
+                t(props.placeholder)
               )}
               onChange={(event) => {
                 if (props?.type === "number" && props?.maxlength) {
@@ -391,7 +453,7 @@ const TextInput = (props) => {
               config={props.config}
               populators={props.populators}
               onClick={(event) => {
-                if (props.type === "date" || (props.type === "time")) {
+                if (props.type === "date" || props.type === "time") {
                   try {
                     event.target.showPicker();
                   } catch (error) {
@@ -418,7 +480,6 @@ const TextInput = (props) => {
 };
 
 TextInput.propTypes = {
-  userType: PropTypes.string,
   required: PropTypes.bool,
   name: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
@@ -430,15 +491,15 @@ TextInput.propTypes = {
   value: PropTypes.any,
   className: PropTypes.string,
   style: PropTypes.object,
-  maxLength: PropTypes.number,
+  maxlength: PropTypes.number,
   minlength: PropTypes.number,
   max: PropTypes.number,
   pattern: PropTypes.string,
   min: PropTypes.number,
   disabled: PropTypes.bool,
   nonEditable: PropTypes.bool,
+  allowNegativeValues: PropTypes.bool,
   errorStyle: PropTypes.bool,
-  hideSpan: PropTypes.bool,
   title: PropTypes.string,
   step: PropTypes.string,
   autoFocus: PropTypes.bool,
@@ -453,7 +514,6 @@ TextInput.propTypes = {
   type: PropTypes.string,
   watch: PropTypes.func,
   onFocus: PropTypes.func,
-  charCount: PropTypes.bool,
   errors: PropTypes.object,
   config: PropTypes.object,
   error: PropTypes.string,
@@ -461,37 +521,36 @@ TextInput.propTypes = {
 
 TextInput.defaultProps = {
   required: false,
-  charCount: false,
 };
 
-function DatePicker(props) {
-  useEffect(() => {
-    if (props?.shouldUpdate) {
-      props?.setDate(getDDMMYYYY(props?.data[props.name], "yyyymmdd"));
-    }
-  }, [props?.data]);
+// function DatePicker(props) {
+//   useEffect(() => {
+//     if (props?.shouldUpdate) {
+//       props?.setDate(getDDMMYYYY(props?.data[props.name], "yyyymmdd"));
+//     }
+//   }, [props?.data]);
 
-  useEffect(() => {
-    props.setDate(getDDMMYYYY(props?.defaultValue));
-  }, []);
+//   useEffect(() => {
+//     props.setDate(getDDMMYYYY(props?.defaultValue));
+//   }, []);
 
-  return (
-    <input
-      type="text"
-      className={`${props.disabled && "disabled"} digit-card-date-input`}
-      name={props.name}
-      id={props.id}
-      placeholder={props.placeholder}
-      defaultValue={props.date}
-      readOnly={true}
-    />
-  );
-}
+//   return (
+//     <input
+//       type="text"
+//       className={`${props.disabled && "disabled"} digit-card-date-input`}
+//       name={props.name}
+//       id={props.id}
+//       placeholder={props.placeholder}
+//       defaultValue={props.date}
+//       readOnly={true}
+//     />
+//   );
+// }
 
-function getDDMMYYYY(date) {
-  if (!date) return "";
+// function getDDMMYYYY(date) {
+//   if (!date) return "";
 
-  return new Date(date).toLocaleString("en-In").split(",")[0];
-}
+//   return new Date(date).toLocaleString("en-In").split(",")[0];
+// }
 
 export default TextInput;

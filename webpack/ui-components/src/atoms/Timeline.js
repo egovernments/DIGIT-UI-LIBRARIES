@@ -18,7 +18,8 @@ const Timeline = ({
   isLastStep,
   isNextActiveStep,
   showDefaultValueForDate,
-  isError
+  isError,
+  initialVisibleAdditionalElementsCount = 0
 }) => {
   const [showDetails, setShowDetails] = useState(false);
 
@@ -68,8 +69,21 @@ const Timeline = ({
   const color = Colors.lightTheme.paper.primary;
 
   return (
-    <div className={`digit-timeline-item ${className || ""} ${variant} ${isError ? "error" : ""}`}>
-      <div className={`timeline-circle ${variant} ${isError ? "error" : ""}`}>
+    <div className={`digit-timeline-item ${className || ""} ${variant} ${isError ? "error" : ""}`}
+      role="group"
+      aria-labelledby={`timeline-label-${label}`}
+    >
+      <div
+        className={`timeline-circle ${variant} ${isError ? "error" : ""}`}
+        role="img"
+        aria-label={
+          isError
+            ? "Step failed"
+            : variant === "completed"
+            ? "Step completed"
+            : `Step ${variant}`
+        }
+      >
         {variant === "completed" && !isError &&  (
           <div className="check-icon">
             <SVG.Check
@@ -118,17 +132,23 @@ const Timeline = ({
           )}
           <div className="timeline-divider"></div>
         </div>
-        {hasAdditionalElements && showDetails && (
+        {hasAdditionalElements && (
           <div
             className={
               inline
                 ? "timeline-additional-elements-inline"
                 : "timeline-additional-elements-column"
             }
+            role="region"
+            aria-label="Additional timeline details"
           >
             {additionalElements.map((element, index) => (
               <div
-                className="timeline-individual-element"
+              className={`timeline-individual-element ${
+                index >= initialVisibleAdditionalElementsCount && !showDetails
+                  ? "hidden"
+                  : ""
+              }`}
                 key={index}
                 style={individualElementStyles}
               >
@@ -137,8 +157,12 @@ const Timeline = ({
             ))}
           </div>
         )}
-        {hasAdditionalElements && (
-          <div className="timeline-toggle-details" onClick={toggleDetails}>
+        {hasAdditionalElements && additionalElements.length > initialVisibleAdditionalElementsCount && (
+          <div className="timeline-toggle-details" onClick={toggleDetails} tabIndex={0} role="button" onKeyDown={(e)=>{
+            if (e.key=="Enter" || e.key==" "){
+              toggleDetails(e)
+            }
+          }}>
             <Button
               label={
                 showDetails
