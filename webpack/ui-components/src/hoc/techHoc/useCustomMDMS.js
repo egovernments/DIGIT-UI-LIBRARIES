@@ -1,5 +1,6 @@
-import { useQuery } from "react-query";
-// import { MdmsService } from "../services/elements/MDMS";
+import { useQuery } from "@tanstack/react-query";
+// import { MdmsService } from "../services/elements/MDMS"; // Keep this if you have a local MdmsService import
+
 /**
  * Custom hook which can be used to
  * make a single hook a module to get multiple masterdetails with/without filter
@@ -22,10 +23,14 @@ import { useQuery } from "react-query";
  *                          }
  *          })
  *
- * @returns {Object} Returns the object of the useQuery from react-query.
+ * @returns {Object} Returns the object of the useQuery from @tanstack/react-query.
  */
 const useCustomMDMS = (tenantId, moduleName, masterDetails = [], config = {}) => {
-  return useQuery([tenantId, moduleName, masterDetails], () => window?.Digit?.MdmsService.getMultipleTypesWithFilter(tenantId, moduleName, masterDetails), config);
+  return useQuery({
+    queryKey: [tenantId, moduleName, masterDetails],
+    queryFn: () => window?.Digit?.MdmsService.getMultipleTypesWithFilter(tenantId, moduleName, masterDetails),
+    ...config, // Spread the rest of the config object
+  });
 };
 
 export default useCustomMDMS;
