@@ -1,6 +1,6 @@
 import React, { useEffect, useReducer, useState,useMemo,useRef } from "react";
 import Toast from "../atoms/Toast";
-import { useHistory} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import reducer, { initialInboxState } from "./InboxSearchComposerReducer";
 import InboxSearchLinks from "../atoms/InboxSearchLinks";
 import { InboxContext } from "./InboxSearchComposerContext";
@@ -29,7 +29,7 @@ const InboxSearchComposer = ({configs,additionalConfig,onFormValueChange=()=>{},
     });
 
     const hasRun = useRef(false);
-    const history = useHistory();
+    const navigate = useNavigate();
     const { t } = useTranslation();
 
     const [enable, setEnable] = useState(false);
@@ -204,7 +204,7 @@ const InboxSearchComposer = ({configs,additionalConfig,onFormValueChange=()=>{},
               variation="secondary"
               icon="Add"
               onClick={() => {
-                history.push(
+                navigate(
                   `/${window?.contextPath}/employee/${configs?.actions?.actionLink}`
                 );
               }}

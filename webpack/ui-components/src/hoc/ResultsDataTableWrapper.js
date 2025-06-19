@@ -16,7 +16,7 @@ import CheckBox from "../atoms/CheckBox";
 import NoResultsFound from "../atoms/NoResultsFound";
 import Button from "../atoms/Button";
 import ResultsDataTable from "../molecules/ResultsDataTable";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { SVG } from "../atoms";
 import { Toast } from "../atoms";
 import FieldV1 from "./FieldV1";
@@ -60,7 +60,7 @@ const ResultsDataTableWrapper = ({
 }) => {
   const { apiDetails } = fullConfig;
   const { t } = useTranslation();
-  const history = useHistory();
+  const navigate = useNavigate();
   const resultsKey = config.resultsJsonPath;
   const [showResultsTable, setShowResultsTable] = useState(true);
   const [session, setSession, clearSession] = browserSession || [];
@@ -237,7 +237,7 @@ const ResultsDataTableWrapper = ({
                 onClick={
                   column?.buttonProps?.linkTo
                     ? () => {
-                        history.push(
+                        navigate(
                           `/${window?.contextPath}/employee/${column?.linkTo}`
                         );
                       }
