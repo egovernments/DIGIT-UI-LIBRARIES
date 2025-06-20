@@ -12,6 +12,7 @@ import Footer from "../atoms/Footer";
 import LabelFieldPair from "../atoms/LabelFieldPair";
 import HorizontalNav from "../atoms/HorizontalNav";
 import { SubmitBar, Toast , Button } from "../atoms";
+import MultiChildFormWrapper from "./MultiChildFormWrapper";
 
 // import Fields from "./Fields";    //This is a field selector pickup from formcomposer
 import FieldController from "./FieldController";
@@ -128,6 +129,7 @@ export const FormComposer = (props) => {
       selectedFormCategory: selectedFormCategory,
       control: control,
       props: props,
+      defaultValues: props?.defaultValues,
       errors: errors,
       controllerProps: {
         register,
@@ -230,7 +232,20 @@ export const FormComposer = (props) => {
     (section, index, array, sectionFormCategory) => (
       <React.Fragment key={index}>
         {section && getCombinedComponent(section)}
-        {section.body.map((field, index) => {
+        {section?.type === "multiChildForm" && (
+          <MultiChildFormWrapper
+            key={`multi-child-${index}`}
+            config={section}
+            control={control}
+            formData={formData}
+            setValue={setValue}
+            getValues={getValues}
+            errors={errors}
+            props={props}
+            defaultValues={defaultValues}
+          />
+        )}
+        {section.type !== "multiChildForm" && section.body.map((field, index) => {
           if (field?.populators?.hideInForm) return null;
           if (props.inline)
             return (
@@ -373,6 +388,10 @@ export const FormComposer = (props) => {
     </React.Fragment>
   );
 
+  function onDraftLabelClick() {
+    props.onDraftLabelClick(getValues());
+  }
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} onKeyDown={(e) => checkKeyDown(e)} id={props.formId} className={props.className}>
       {props?.showMultipleCardsWithoutNavs ? (
@@ -424,6 +443,9 @@ export const FormComposer = (props) => {
       )}
       {!props.submitInForm && props.label && (
         <Footer className={props.actionClassName}>
+          {props?.draftLabel && (  
+            <SubmitBar className="digit-formcomposer-submitbar" submit={false} label={t(props?.draftLabel)} onClick={onDraftLabelClick} />
+          )}
           <SubmitBar label={t(props.label)} className="digit-formcomposer-submitbar" submit="submit" disabled={isDisabled} icon={props?.primaryActionIcon} isSuffix={props?.primaryActionIconAsSuffix} />
           {props?.secondaryLabel && props?.showSecondaryLabel && (
             <Button className="previous-button"  variation="secondary" label={t(props?.secondaryLabel)} onClick={props?.onSecondayActionClick} icon={props?.secondaryActionIcon} isSuffix={props?.secondaryActionIconAsSuffix} />

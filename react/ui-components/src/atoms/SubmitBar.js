@@ -21,7 +21,7 @@ const SubmitBar = forwardRef((props, ref) => {
       className={`${props.disabled ? `digit-submit-bar ${"disabled"}` : "digit-submit-bar"} ${props.className ? props.className : ""}`}
       type={props.submit ? "submit" : "button"}
       style={{ ...props.style }}
-      onClick={props.onSubmit}
+      onClick={props.submit ? props.onSubmit : props.onClick}
       {... props.form ? {form: props.form} : {}}
     >
       <div className={`icon-label-container`}>
