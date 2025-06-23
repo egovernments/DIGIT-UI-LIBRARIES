@@ -89,7 +89,9 @@ export const FormComposer = (props) => {
   }, [formState?.errors, formState?.submitCount]);
 
   useEffect(() =>{
+    if(showErrorToast === true){
     setShowErrorToast(false);
+    }
   },[props?.config])
 
   useEffect(() => {
