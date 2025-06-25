@@ -732,6 +732,7 @@ import { TrendingUp } from "./svg/TrendingUp";
 import { TripOrigin } from "./svg/TripOrigin";
 import { TurnedIn } from "./svg/TurnedIn";
 import { TurnedInNot } from "./svg/TurnedInNot";
+import { TutorialGuide } from "./svg/TutorialGuide";
 import { TwoWheeler } from "./svg/TwoWheeler";
 import { UnfoldLess } from "./svg/UnfoldLess";
 import { UnfoldMore } from "./svg/UnfoldMore";
@@ -817,6 +818,8 @@ import { GlobeLocationPin } from "./svg/GlobeLocationPin";
 import { NewWindow } from "./svg/NewWindow";
 import { OutpatientMed } from "./svg/OutpatientMed";
 import { AdUnits } from "./svg/AdUnits";
+import { ListAltCheck } from "./svg/ListAltCheck";
+import { UploadCloud } from "./svg/UploadCloud";
 
 export {
   AddCircle,
@@ -1637,5 +1640,8 @@ export {
   GlobeLocationPin,
   NewWindow,
   OutpatientMed,
-  AdUnits
+  AdUnits,
+  ListAltCheck,
+  UploadCloud,
+  TutorialGuide
 };

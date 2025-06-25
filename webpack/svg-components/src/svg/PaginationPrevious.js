@@ -15,9 +15,9 @@ export const PaginationPrevious = ({ className, width = "24", height = "24", sty
       </g>
       <defs>
         <clipPath id="clip0_5133_123">
-          <rect width="24" height="24" fill="white" />
+          <rect width="24" height="24" fill="white"/>
         </clipPath>
-      </defs>
+      </defs>   
     </svg>
   );
 };
