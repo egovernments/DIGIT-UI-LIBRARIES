@@ -1,0 +1,19 @@
+{
+  "name": "digit-ui-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "libraries",
+    "ui-components",
+    "svg-components",
+    "react-components"
+  ],
+  "scripts": {
+    "bootstrap": "yarn install",
+    "build:ui-lib": "yarn workspace @your-scope/ui-lib build",
+    "build:ui-comp": "yarn workspace @your-scope/ui-comp build",
+    "dev:ui-lib": "yarn workspace @your-scope/ui-lib watch",
+    "start:ui-comp": "yarn workspace @your-scope/ui-comp start",
+    "build:all": "yarn build:ui-lib && yarn build:ui-comp"
+  }
+}
