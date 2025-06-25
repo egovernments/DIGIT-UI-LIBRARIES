@@ -1,4 +1,5 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMemo } from "react";
 import { CustomService } from "../services/elements/CustomService";
 
 /**
@@ -30,12 +31,54 @@ import { CustomService } from "../services/elements/CustomService";
  */
 
 
-const useCustomAPIHook = ({ url, params, body, config = {}, plainAccessRequest,changeQueryName="Random",options={} }) => {
+const useCustomAPIHook = ({
+  url,
+  params = {},
+  body = {},
+  config = {},
+  headers = {},
+  method = "POST",
+  plainAccessRequest,
+  changeQueryName = "Random",
+  options = {},
+}) => {
   const client = useQueryClient();
-  const { isLoading, data, isFetching, refetch } = useQuery({
-    queryKey: [url, changeQueryName].filter((e) => e),
-    queryFn: () => CustomService.getResponse({ url, params, body, plainAccessRequest, ...options }),
-    gcTime: 0,
+
+  const stableBody = useMemo(() => JSON.stringify(body), [body]);
+
+  const queryKey = useMemo(() => [url, changeQueryName, stableBody], [url, changeQueryName, stableBody]);
+
+  const fetchData = async () => {
+    try {
+      const response = await CustomService.getResponse({
+        url,
+        params,
+        body,
+        plainAccessRequest,
+        headers,
+        method,
+        ...options,
+      });
+      return response || null;
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      throw error;
+    }
+  };
+
+  const {
+    isLoading,
+    isFetching,
+    data,
+    refetch,
+  } = useQuery({
+    queryKey,
+    queryFn: fetchData,
+    gcTime: options?.cacheTime || 1000,       // cacheTime is renamed to gcTime in v5
+    staleTime: options?.staleTime || 5000,
+    keepPreviousData: true,
+    retry: 2,
+    refetchOnWindowFocus: false,
     ...config,
   });
 
@@ -45,7 +88,9 @@ const useCustomAPIHook = ({ url, params, body, config = {}, plainAccessRequest,c
     data,
     refetch,
     revalidate: () => {
-      data && client.invalidateQueries({ queryKey: [url].filter((e) => e) });
+      if (data) {
+        client.invalidateQueries({ queryKey });
+      }
     },
   };
 };

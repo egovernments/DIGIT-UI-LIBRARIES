@@ -31,11 +31,11 @@ const i18nextConfig = () => ({
 });
 
 function replaceLiterals(text = "", dynamicValues = {}) {
-  let returnText = text;
+  let returnText = String(text);
   const regex = /[^\{\{][\{]\w+/;
   if (regex.exec(text) !== null) {
     Object.keys(dynamicValues).forEach((key) => {
-      returnText = returnText.replace(`{${key.toUpperCase()}}`, dynamicValues[key]);
+      returnText = returnText && returnText?.replace(`{${key.toUpperCase()}}`, dynamicValues[key]);
     });
   }
   return returnText;
@@ -56,7 +56,6 @@ export const initI18n = (callback) => {
     .use(initReactI18next)
     .init(i18nextConfig(), () => {
       window.i18next = i18next;
-      if (callback) callback();
+      callback();
     });
 };
-
