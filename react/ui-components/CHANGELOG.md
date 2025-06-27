@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### [0.2.0-beta.40] - 2025-06-24
 ## Enhancements
+- Fixed pagination issue in ResultsTableWrapper(for inboxSearchComposer)
+
+### [0.2.0-beta.40] - 2025-06-24
+## Enhancements
 - Fixed pagination issue in inbox search composer
 
 ### [0.2.0-beta.39] - 2025-06-23
