@@ -1003,7 +1003,6 @@ export const UICustomizations = {
       const filters = {};
       const custom = data.body.MdmsCriteria.custom;
       const { field, value, isActive } = custom || {};
-      console.log("999 data ",data);
       filters[field?.code] = value;
       if (isActive) {
         if (isActive.value === "all") delete data.body.MdmsCriteria.isActive;
@@ -1013,7 +1012,6 @@ export const UICustomizations = {
       }
       data.body.MdmsCriteria.filters = filters;
       data.body.MdmsCriteria.limit = 200
-      // data.body.MdmsCriteria.limit = Int16Array;
       data.body.MdmsCriteria.offset = data.state.tableForm.offset;
       data.body.MdmsCriteria.schemaCode =
         // additionalDetails?.currentSchemaCode
@@ -1136,7 +1134,7 @@ export const UICustomizations = {
   },
   MyCampaignConfigDraftsNew: {
     preProcess: (data, additionalDetails) => {
-      const tenantId = "dev";
+      const tenantId = Digit.ULBService.getCurrentTenantId();
       data.body = { RequestInfo: data.body.RequestInfo };
       const { limit, offset } = data?.state?.tableForm || {};
       const { campaignName, campaignType } = data?.state?.searchForm || {};
