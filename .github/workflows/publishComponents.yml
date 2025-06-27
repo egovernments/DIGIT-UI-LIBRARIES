@@ -39,6 +39,23 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
 
+  publish-react-module-libraries:
+    name: Publish React Module Libraries
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org/
+      - name: Install dependencies for React Libraries
+        run: |
+          cd webpack/libraries/
+          rm -rf node_modules yarn.lock
+          yarn install --frozen-lockfile
+          npm publish --tag webpack
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
 
   publish-webpack-ui-components:
     name: Publish Webpack UI Components
@@ -76,23 +93,6 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
 
-  publish-react-module-libraries:
-    name: Publish React Module Libraries
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 20
-          registry-url: https://registry.npmjs.org/
-      - name: Install dependencies for React Libraries
-        run: |
-          cd webpack/libraries/
-          rm -rf node_modules yarn.lock
-          yarn install --frozen-lockfile
-          npm publish --tag webpack
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
 
   # publish-react-module-core:
   #   name: Publish React Module Core

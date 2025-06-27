@@ -36,7 +36,8 @@
     "dist"
   ],
   "dependencies": {
-    "@egovernments/digit-ui-svg-components": "1.0.0-webpack-23",
+    "@egovernments/digit-ui-svg-components": "1.0.21-rc19.01",
+    "@egovernments/digit-ui-libraries": "1.8.17-rc19.01",
     "autoprefixer": "^10.4.15",
     "date-fns": "3.6.0",
     "lodash": "^4.17.21",
