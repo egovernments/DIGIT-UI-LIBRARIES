@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.8.17-rc19.01] [27-Jun-2025]
+- libraries(1.8.17) from develop Upgraded to react19
+- webpack for build
+- npm packages upgraded and syntax changed to make them react19 compatible
+- react, react-dom, react-router-dom and @tanstack/react-query are in peer dependencies now to avoid version conflict
+
 ## [1.8.16]  [20-Jun-2025]
 - Checking the new version due to corrupted local
 

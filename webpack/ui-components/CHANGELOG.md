@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0-beta.40-rc19.01] [27-Jun-2025]
+- ui-components(0.2.0-beta.40) from develop Upgraded to react19
+- webpack for build
+- npm packages upgraded and syntax changed to make them react19 compatible
+- react, react-dom, react-router-dom and @tanstack/react-query are in peer dependencies now to avoid version conflict
+
 ### [0.2.0-beta.40] - 2025-06-24
 ## Enhancements
 - Fixed pagination issue in inbox search composer
