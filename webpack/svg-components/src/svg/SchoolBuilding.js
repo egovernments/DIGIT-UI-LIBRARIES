@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { COLOR_FILL } from "./constants";
 
-export const SchoolBuilding = ({ className = "", fill = COLOR_FILL, fillBackground = "#FF7B42", style = {}, width = "1.5rem", height = "1.5rem", onClick = null }) => {
+export const SchoolBuilding = ({ className = "", fill = COLOR_FILL, fillBackground = "#FF7B42", style = {}, width = "1.5rem", height = "1.5rem", onClick=null }) => {
   return (
     <svg width={width} height={height} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={style} className={className} onClick={onClick}>
       <rect x="0.5" y="0.5" width={width} height={height} rx="3.5" fill={fillBackground} stroke="#D6D5D4" />

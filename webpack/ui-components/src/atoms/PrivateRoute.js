@@ -1,34 +1,32 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Route, Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 
-export const PrivateRoute = ({ component: Component, roles, ...rest }) => {
-  return (
-    <Route
-      {...rest}
-      render={(props) => {
-        const user = window?.Digit?.UserService.getUser();
-        const userType = window?.Digit?.UserService.getType();
-        function getLoginRedirectionLink() {
-          if (userType === "employee") {
-            return `/${window?.contextPath}/employee/user/language-selection`;
-          } else {
-            return `/${window?.contextPath}/citizen/login`;
-          }
-        }
-        if (!user || !user.access_token) {
-          // not logged in so redirect to login page with the return url
-          return <Navigate to={{ pathname: getLoginRedirectionLink(), state: { from: props.location.pathname + props.location.search } }} />;
-        }
+export const PrivateRoute = ({ element, roles }) => {
+  const location = useLocation();
+  const user = window?.Digit?.UserService.getUser();
+  const userType = window?.Digit?.UserService.getType();
 
-        // logged in so return component
-        return <Component {...props} />;
-      }}
-    />
-  );
+  const getLoginRedirectionLink = () => {
+    return userType === "employee"
+      ? `/${window?.contextPath}/employee/user/language-selection`
+      : `/${window?.contextPath}/citizen/login`;
+  };
+
+  if (!user || !user.access_token) {
+    return (
+      <Navigate
+        to={getLoginRedirectionLink()}
+        state={{ from: location.pathname + location.search }}
+        replace
+      />
+    );
+  }
+
+  return element; 
 };
 
 PrivateRoute.propTypes = {
-  component: PropTypes.elementType.isRequired,
+  element: PropTypes.element.isRequired,
   roles: PropTypes.arrayOf(PropTypes.string),
 };

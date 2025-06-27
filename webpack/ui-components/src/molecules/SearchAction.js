@@ -1,10 +1,15 @@
 import React from "react";
-import { SVG } from "../atoms/SVG";
+import { Button } from "../atoms";
 
 const SearchAction = ({ text, handleActionClick }) => (
-  <div className="digit-search-action" onClick={handleActionClick}>
-    <SVG.Search /> <span className="digit-search-text">{text}</span>
-  </div>
+  <Button
+    variation="secondary"
+    label={text}
+    type="button"
+    icon="FilterListAlt"
+    size={"small"}
+    onClick={handleActionClick}
+  />
 );
 
 export default SearchAction;

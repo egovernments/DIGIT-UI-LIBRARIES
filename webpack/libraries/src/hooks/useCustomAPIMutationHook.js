@@ -1,4 +1,4 @@
-import { useQueryClient, useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { CustomService } from "../services/elements/CustomService";
 
 /**
@@ -44,28 +44,47 @@ mutation.mutate({
  * @returns {Object} Returns the object which contains data and isLoading flag
  */
 
-const useCustomAPIMutationHook = ({ url, params, body, config = {}, plainAccessRequest, changeQueryName = "Random" }) => {
+const useCustomAPIMutationHook = ({
+  url,
+  params = {},
+  body = {},
+  headers = {},
+  method = "POST",
+  config = {},
+  plainAccessRequest,
+  changeQueryName = "Random",
+}) => {
   const client = useQueryClient();
 
-  const { isLoading, data, isFetching, ...rest } = useMutation({
+  const mutation = useMutation({
     mutationFn: (data) =>
       CustomService.getResponse({
         url,
         params: { ...params, ...data?.params },
         body: { ...body, ...data?.body },
+        headers: { ...headers, ...data?.headers },
         plainAccessRequest,
+        method,
       }),
-    gcTime: 0,
+    gcTime: 0, // cacheTime is now gcTime in v5
     ...config,
   });
+
+  const { isPending: isLoading, data, isSuccess, isError, isIdle, mutate, mutateAsync, ...rest } = mutation;
 
   return {
     ...rest,
     isLoading,
-    isFetching,
     data,
+    mutate,
+    mutateAsync,
+    isSuccess,
+    isError,
+    isIdle,
     revalidate: () => {
-      data && client.invalidateQueries({ queryKey: [url].filter((e) => e) });
+      if (data) {
+        client.invalidateQueries({ queryKey: [url].filter(Boolean) });
+      }
     },
   };
 };

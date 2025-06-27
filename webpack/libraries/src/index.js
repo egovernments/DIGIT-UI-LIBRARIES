@@ -4,9 +4,6 @@ import mergeConfig from "./config/mergeConfig";
 import { useStore } from "./services/index";
 import { initI18n } from "./translations/index";
 import { Request } from "./services/atoms/Utils/Request";
-// ---
-import { StoreService } from "./services/molecules/Store/service";
-// ---
 
 import { Storage, PersistantStorage } from "./services/atoms/Utils/Storage";
 import { UploadServices } from "./services/atoms/UploadServices";
@@ -85,13 +82,10 @@ const initLibraries = () => {
   setupLibraries("Download", Download);
 
   setupLibraries("AccessControlService", AccessControlService);
-  //
-  setupLibraries("StoreServiceLib", StoreService);
-  //
 
   return new Promise((resolve) => {
     initI18n(resolve);
   });
 };
 
-export { initLibraries, Enums, Hooks, subFormRegistry ,Request, initI18n};
+export { initLibraries, Enums, Hooks, subFormRegistry ,Request};

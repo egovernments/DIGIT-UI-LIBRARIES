@@ -1,8 +1,37 @@
 # Changelog
 
-## [1.9.1-beta.8] [20-Jan-2025]
+## [1.8.17-rc19.01] [27-Jun-2025]
+- libraries(1.8.17) from develop Upgraded to react19
+- webpack for build
+- npm packages upgraded and syntax changed to make them react19 compatible
+- react, react-dom, react-router-dom and @tanstack/react-query are in peer dependencies now to avoid version conflict
 
-- Updated the react and dependecies to latest version and changed react-query to tanstack/react-query
+## [1.8.16]  [20-Jun-2025]
+- Checking the new version due to corrupted local
+
+
+## [1.8.15]  [16-Jun-2025]
+- provided download of alll data per schema & enable based on flag
+- provided download of alll data per schema 'ENABLE_MDMS_BULK_DOWNLOAD'
+
+## [1.8.14]  [10-Jun-2025]
+- integrated with updated version
+
+## [1.8.13]  [25-Apr-2025]
+- Updated Custom mutation hook and usecutsomAPI hook to handle header and method in request.
+
+## [1.8.11]  [11-Mar-2025]
+- Added new function to remove localisation cache
+
+## [1.8.10]  [21-Feb-2025]
+- Publishing a new version for more stability & as part of Components Release
+
+## [1.8.9]  [1-Feb-2025]
+- FEATURE/HCMPRE-1425 : Added the workbench module patches and Updated localisation search screen, and core module #2181
+- Upgraded with new Components in core, workbench screens
+
+## [1.8.8]  [21-Jan-2025]
+- Removed support for any new context path to have employee linked in the url.To use this,the new context path should be linked with employee. 
 
 ## [1.8.5]  [26-Nov-2024]
 - added new field util to generate field id

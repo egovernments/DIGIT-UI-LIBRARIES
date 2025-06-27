@@ -3,6 +3,15 @@ Here's the `CHANGELOG` file for the specified versions:
 ```markdown
 # Changelog
 
+## [1.8.21-rc19.01] [27-Jun-2025]
+- react-components(1.8.21) from develop Upgraded to react19
+- webpack for build
+- npm packages upgraded and syntax changed to make them react19 compatible
+- react, react-dom, react-router-dom and @tanstack/react-query are in peer dependencies now to avoid version conflict
+
+
+## [1.8.21]  [10-Jun-2025]
+- integrated with updated version
 
 ## [1.8.19]  [4-Mar-2025]
 - DUCE-254 :  introduced a new formcomposercitizen for citizen variant

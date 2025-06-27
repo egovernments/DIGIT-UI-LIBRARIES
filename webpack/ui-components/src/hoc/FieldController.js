@@ -2,7 +2,6 @@ import React from "react";
 // import FieldComposer from "./FieldComposer";
 import FieldV1 from "./FieldV1";
 import { Controller } from "react-hook-form";
-
 function FieldController(args) {
   const {
     type,
@@ -35,7 +34,6 @@ function FieldController(args) {
   const customRules = customValidation ? { validate: customValidation } : customValidations ? { validate: customValidation } : {};
   const error = (populators?.name && errors && errors[populators?.name] && Object.keys(errors[populators?.name]).length) ? (populators?.error) : null
   const customProps = config?.customProps;
-
   return (
     <Controller
     defaultValue={formData?.[populators?.name] ?? ""}
@@ -45,11 +43,6 @@ function FieldController(args) {
       const ref = contoprops?.field?.ref;
       const value = contoprops?.field?.value;
       const onBlur = contoprops?.field?.onBlur;
-      console.log(contoprops,"propssst")
-      console.log("FieldController - onChange:", onChange);
-      console.log("FieldController - value:", value);
-      console.log("populators name", populators?.name);
-      console.log("Controller Render - onChange:", onChange);
       return <FieldV1
         error= {error}
         label={config.label}
@@ -71,9 +64,7 @@ function FieldController(args) {
         formData={formData}
         selectedFormCategory={selectedFormCategory}
         onChange={(val) => {
-      console.log("FieldController - New Value:", val);
-      console.log(onChange,"onchange");
-      onChange?.(val); // Ensure it updates form state
+        onChange?.(val); // Ensure it updates form state
     }}
         ref={ref}
         value={value}
@@ -89,5 +80,4 @@ function FieldController(args) {
   />
   );
 }
-
 export default FieldController;

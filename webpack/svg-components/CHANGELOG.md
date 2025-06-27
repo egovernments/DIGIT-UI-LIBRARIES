@@ -1,6 +1,15 @@
 # Changelog
 
-## [1.0.15]  [30-April-2025]
+## [1.0.21-rc19.01] [27-Jun-2025]
+- svg-components(1.0.21) from develop Upgraded to react19
+- webpack for build
+- npm packages upgraded and syntax changed to make them react19 compatible
+- react and react-dom are in peer dependencies now to avoid version conflict
+
+## [1.0.18]  [13-May-2025]
+- Added UploadCloud and ListAltCheck icons
+
+## [1.0.17]  [30-April-2025]
 - Added OutpatientMed and AdUnits icons
 
 ## [1.0.15]  [21-Feb-2025]

@@ -1,6 +1,6 @@
 {
   "name": "@egovernments/digit-ui-libraries",
-  "version": "1.8.1-webpack-25",
+  "version": "1.8.17-rc19.01",
   "main": "dist/main.js",
   "module": "dist/main.js",
   "source": "src/index.js",
@@ -18,8 +18,10 @@
     "deploy": "gh-pages -d example/build"
   },
   "peerDependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "react-router-dom": "6.25.1",
+    "@tanstack/react-query": "^5.62.16"
   },
   "devDependencies": {
     "react": "^19.0.0",
@@ -37,7 +39,8 @@
     "lint-staged": "12.3.7",
     "webpack": "^5.97.1",
     "webpack-cli": "^4.10.0",
-    "@tanstack/react-query": "^5.62.16"
+    "@tanstack/react-query": "^5.62.16",
+    "react-router-dom": "6.25.1"
   },
   "dependencies": {
     "axios": "0.27.2",
@@ -51,10 +54,7 @@
     "react-i18next": "15.0.0",
     "react-redux": "9.2.0",
     "redux": "5.0.0",
-    "xlsx": "0.17.5",
-    "@egovernments/digit-ui-components": "0.0.2-webpack-23",
-    "@egovernments/digit-ui-svg-components": "1.0.0-webpack-23",
-    "@tanstack/react-query": "^5.62.16"
+    "xlsx": "0.17.5"
   },
   "browserslist": {
     "production": [
