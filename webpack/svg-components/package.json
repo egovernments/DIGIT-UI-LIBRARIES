@@ -1,6 +1,6 @@
 {
   "name": "@egovernments/digit-ui-svg-components",
-  "version": "1.0.0-webpack-23",
+  "version": "1.0.21-rc19.01",
   "license": "MIT",
   "main": "dist/main.js",
   "module": "dist/main.js",
