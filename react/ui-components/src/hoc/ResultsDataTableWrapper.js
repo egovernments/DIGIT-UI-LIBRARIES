@@ -532,6 +532,15 @@ const ResultsDataTableWrapper = ({
     }
   }, [limitAndOffset]);
 
+  useEffect(() => {
+    setLimitAndOffset((prev) => ({
+      limit:10,           
+      offset: 0,         
+    }));
+    setRowsPerPage(10);
+    setCurrentPage(1)
+    },[tabData])
+
   const indexOfLastRow = currentPage * rowsPerPage;
   const indexOfFirstRow = indexOfLastRow - rowsPerPage;
   const totalPages = Math.ceil(
