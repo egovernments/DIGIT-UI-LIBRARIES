@@ -1,6 +1,5 @@
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
-import 'package:digit_ui_components/widgets/atoms/tooltip_2.dart';
 import 'package:flutter/material.dart';
 import '../../utils/utils.dart';
 
@@ -12,9 +11,9 @@ class LabeledField extends StatelessWidget {
   final TextStyle? labelStyle;
   final TextStyle? descriptionStyle;
   final EdgeInsets? padding;
-  final TooltipPosition tooltipPosition;
+  final bool preferToolTipBelow;
   final String? infoText;
-  final TooltipTrigger tooltipTrigger;
+  final TooltipTriggerMode tooltipTriggerMode;
   final bool wrapLabelText;
   final MainAxisAlignment mainAxisAlignment;
   final CrossAxisAlignment crossAxisAlignment;
@@ -32,8 +31,8 @@ class LabeledField extends StatelessWidget {
     this.padding,
     this.isRequired = false,
     this.infoText,
-    this.tooltipPosition = TooltipPosition.bottomCenter,
-    this.tooltipTrigger = TooltipTrigger.onTap,
+    this.preferToolTipBelow = false,
+    this.tooltipTriggerMode = TooltipTriggerMode.tap,
     this.wrapLabelText = true,
     this.mainAxisAlignment = MainAxisAlignment.start,
     this.crossAxisAlignment = CrossAxisAlignment.start,
@@ -60,7 +59,7 @@ class LabeledField extends StatelessWidget {
         children: [
           if (label != null)
             Wrap(
-              crossAxisAlignment: WrapCrossAlignment.center,
+              alignment: WrapAlignment.center,
               children: [
                 RichText(
                   text: TextSpan(
@@ -87,17 +86,13 @@ class LabeledField extends StatelessWidget {
                 ),
                 if (infoText != null) const SizedBox(width: spacer1),
                 if (infoText != null)
-                  SizedBox(
-                    height: 24,
-                    width: 24,
-                    child: DigitTooltip(
-                      tooltipPosition: tooltipPosition,
-                      trigger: tooltipTrigger,
-                      contentDescription: infoText,
-                      child: const Icon(
-                        Icons.info_outline,
-                        size: spacer4,
-                      ),
+                  Tooltip(
+                    message: infoText,
+                    preferBelow: preferToolTipBelow,
+                    triggerMode: tooltipTriggerMode,
+                    child: const Icon(
+                      Icons.info_outline,
+                      size: spacer4,
                     ),
                   ),
               ],
@@ -118,7 +113,7 @@ class LabeledField extends StatelessWidget {
         children: [
           if (label != null)
             Flexible(
-            flex: 3,
+              flex: 3,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: wrapLabelText
@@ -148,17 +143,14 @@ class LabeledField extends StatelessWidget {
                     ),
                   if (infoText != null) const SizedBox(width: spacer1),
                   if (infoText != null)
-                    SizedBox(
-                      height: 24,
-                      width: 24,
-                      child: DigitTooltip(
-                        tooltipPosition: tooltipPosition,
-                        trigger: tooltipTrigger,
-                        contentDescription: infoText,
-                        child: const Icon(
-                          Icons.info_outline,
-                          size: spacer4,
-                        ),
+                    Tooltip(
+                      message: infoText,
+                      preferBelow: preferToolTipBelow,
+                      triggerMode: tooltipTriggerMode,
+                      child: Icon(
+                        Icons.info_outline,
+                        size: spacer5,
+                        color: theme.colorTheme.text.secondary,
                       ),
                     ),
                 ],

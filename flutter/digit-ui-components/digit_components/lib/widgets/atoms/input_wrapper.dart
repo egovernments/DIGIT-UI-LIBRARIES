@@ -1,5 +1,4 @@
 import 'package:digit_ui_components/digit_components.dart';
-import 'package:digit_ui_components/widgets/atoms/tooltip_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../utils/validators/validator.dart';
@@ -30,7 +29,7 @@ class InputField extends StatelessWidget {
   final String? helpText;
   final String? suffixText;
   final String? prefixText;
-  final TooltipTrigger tooltipTrigger;
+  final TooltipTriggerMode triggerMode;
   final bool preferToolTipBelow;
   final IconData? suffixIcon;
   final TextInputType? keyboardType;
@@ -74,7 +73,7 @@ class InputField extends StatelessWidget {
     this.editable = false,
     this.innerLabel,
     this.helpText,
-    this.tooltipTrigger = TooltipTrigger.onTap,
+    this.triggerMode = TooltipTriggerMode.tap,
     this.preferToolTipBelow = false,
     this.suffixIcon,
     this.keyboardType,
@@ -273,7 +272,7 @@ class InputField extends StatelessWidget {
       infoText: infoText,
       isRequired: isRequired,
       wrapLabelText: wrapLabel,
-      tooltipTrigger: tooltipTrigger,
+      tooltipTriggerMode: triggerMode,
       child: _buildChildWidget(context),
     );
   }

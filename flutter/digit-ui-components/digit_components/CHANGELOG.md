@@ -1,3 +1,25 @@
+## 0.2.2
+* Updated date picker and infinite date scroll component 
+
+## 0.2.1+9
+* Fixed multiple onchange call inside infinite date picker
+
+## 0.2.1+8
+* Added local for date picker
+* Added required prop for checkbox
+
+## 0.2.1+7
+* Fixed infinite scroll date picker onChange twice call
+
+## 0.2.1+6
+* Reverted new tooltip changes
+
+## 0.2.1+5
+* Fixed date of birth component
+
+## 0.2.1+4
+* Fixed tooltip position
+
 ## 0.2.1+3
 * Added tooltip position as property
 

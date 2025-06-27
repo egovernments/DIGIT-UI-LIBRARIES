@@ -143,7 +143,10 @@ class _DigitDobPickerState extends State<DigitDobPicker> {
                   child: DigitDateFormInput(
                     readOnly: widget.readOnly,
                     editable: false,
-                    initialValue: selectedDate != null ? DateFormat('dd MMM yyyy').format(selectedDate!) : '',
+                    initialValue: selectedDate != null
+                        ? DateFormat('dd MMM yyyy', Localizations.localeOf(context).toLanguageTag())
+                        .format(selectedDate!)
+                        : '',
                     firstDate: widget.initialDate,
                     cancelText: widget.cancelText,
                     confirmText: widget.confirmText,

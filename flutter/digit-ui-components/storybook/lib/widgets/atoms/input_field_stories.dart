@@ -1,5 +1,7 @@
 import 'package:digit_ui_components/digit_components.dart';
+import 'package:digit_ui_components/widgets/molecules/digit_card.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:storybook_toolkit/storybook_toolkit.dart';
 
 import 'package:digit_ui_components/widgets/atoms/input_wrapper.dart';
@@ -44,21 +46,34 @@ List<Story> inputFieldStories() {
             initial: '',
           );
 
-          return InputField(
-            wrapLabel:
-                context.knobs.boolean(label: 'Wrap Label', initial: false),
-            type: InputType.text,
-            label: context.knobs.text(label: 'Label', initial: 'Label'),
-            helpText:
-                context.knobs.text(label: 'Help Text', initial: 'help text'),
-            infoText: context.knobs.text(label: 'tooltip', initial: 'info'),
-            isRequired:
-                context.knobs.boolean(label: 'Required', initial: false),
-            innerLabel:
-                context.knobs.text(label: 'Inner Label', initial: 'innerlabel'),
-            isDisabled: isDisabled,
-            readOnly: isReadOnly,
-            errorMessage: errorMessage.isNotEmpty ? errorMessage : null,
+          return Scaffold(
+            body: ScrollableContent(
+              enableFixedDigitButton: true,
+              header: Text('dfjsdlkfs'),
+              footer: Text('dfjsdlkfs'),
+              children: [
+                DigitCard(
+                  children: [
+                    InputField(
+                      wrapLabel:
+                      context.knobs.boolean(label: 'Wrap Label', initial: false),
+                      type: InputType.text,
+                      label: context.knobs.text(label: 'Label', initial: 'Label'),
+                      helpText:
+                      context.knobs.text(label: 'Help Text', initial: 'help text'),
+                      infoText: context.knobs.text(label: 'tooltip', initial: 'info'),
+                      isRequired:
+                      context.knobs.boolean(label: 'Required', initial: false),
+                      innerLabel:
+                      context.knobs.text(label: 'Inner Label', initial: 'innerlabel'),
+                      isDisabled: isDisabled,
+                      readOnly: isReadOnly,
+                      errorMessage: errorMessage.isNotEmpty ? errorMessage : null,
+                    )
+                  ],
+                ),
+              ]
+            ),
           );
         }),
     Story(

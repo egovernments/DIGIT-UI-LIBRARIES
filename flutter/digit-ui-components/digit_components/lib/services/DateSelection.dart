@@ -16,9 +16,10 @@ class DateSelectionBloc {
       confirmText: confirmText,
     );
     if (selectedDate != null) {
-      String formattedDate =
-          dateFormat?.format(selectedDate.toLocal()) ??
-              DateFormat('dd/MM/yyyy').format(selectedDate.toLocal());
+      final currentLocale = Localizations.localeOf(context).toString();
+
+      String formattedDate = dateFormat?.format(selectedDate.toLocal()) ??
+          DateFormat('dd MMM yyyy', currentLocale).format(selectedDate.toLocal());
       controller.text = formattedDate;
     }
 

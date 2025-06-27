@@ -37,6 +37,25 @@ class _DigitInfiniteDateTimelineState extends State<DigitInfiniteDateTimeline> {
   late final List<DateTime> _dates;
   int _selectedIndex = 0;
   final CarouselController _carouselController = CarouselController();
+  bool _externalChangeInProgress = false;
+
+  @override
+  void didUpdateWidget(covariant DigitInfiniteDateTimeline oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (!DateUtils.isSameDay(oldWidget.selectedDate, widget.selectedDate)) {
+      final newIndex = _dates.indexWhere((d) => DateUtils.isSameDay(d, widget.selectedDate));
+      if (newIndex != -1 && newIndex != _selectedIndex) {
+        _externalChangeInProgress = true;
+        _carouselController.animateToPage(newIndex).then((_) {
+          setState(() {
+            _selectedIndex = newIndex;
+          });
+          _externalChangeInProgress = false;
+        });
+      }
+    }
+  }
 
   @override
   void initState() {
@@ -85,9 +104,19 @@ class _DigitInfiniteDateTimelineState extends State<DigitInfiniteDateTimeline> {
 
         return GestureDetector(
           onTap: () {
-            setState(() => _selectedIndex = index);
-            widget.onDateSelected(date);
-            _carouselController.animateToPage(index);
+            if (_selectedIndex != index) {
+              // Prevent triggering onPageChanged logic again
+              _externalChangeInProgress = true;
+
+              setState(() {
+                _selectedIndex = index;
+              });
+              widget.onDateSelected(_dates[index]);
+
+              _carouselController.animateToPage(index).then((_) {
+                _externalChangeInProgress = false;
+              });
+            }
           },
           child: Container(
             margin: const EdgeInsets.all(spacer1),
@@ -146,10 +175,13 @@ class _DigitInfiniteDateTimelineState extends State<DigitInfiniteDateTimeline> {
         // <- Decrease this for less dramatic size difference
         enlargeStrategy: CenterPageEnlargeStrategy.scale,
         onPageChanged: (index, reason) {
+          if (_externalChangeInProgress || index == _selectedIndex) return;
+
           setState(() {
             _selectedIndex = index;
-            widget.onDateSelected(_dates[index]);
           });
+
+          widget.onDateSelected(_dates[index]);
         },
       ),
     );

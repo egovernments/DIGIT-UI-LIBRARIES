@@ -132,6 +132,7 @@ class MyHomePageState extends State<MyHomePage> {
   Widget _buildContent() {
     // Your widget tree goes here
     return Scaffold(
+      appBar: AppBar(),
       body: Storybook(
         plugins: initializePlugins(
           enableCodeView: false,

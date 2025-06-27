@@ -22,6 +22,7 @@ List<Story> checkboxStories() {
           children: [
             Center(
               child: DigitCheckbox(
+                value: false,
                 label: context.knobs.text(
                   label: 'Label',
                   initial: 'checkbox label',
@@ -36,6 +37,7 @@ List<Story> checkboxStories() {
                   initial: false,
                 ),
                 alignRight: context.knobs.boolean(label: 'Align Right', initial: false),
+                isRequired: context.knobs.boolean(label: 'Required', initial: false),
               ),
             ),
           ],

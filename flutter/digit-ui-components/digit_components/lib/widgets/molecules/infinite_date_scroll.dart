@@ -48,6 +48,7 @@ class DigitDateFormInputState extends BaseDigitFormInputState {
   late DateTime _selectedDate;
   late DateTime _startDate;
   late DateTime _endDate;
+  String? _lastEmittedValue;
 
   DateSelectionBloc dateSelectionBloc = DateSelectionBloc();
   final DateTimelineController _timelineController = DateTimelineController();
@@ -62,21 +63,29 @@ class DigitDateFormInputState extends BaseDigitFormInputState {
     _endDate = widget.lastDate ?? DateTime(now.year, 5, 31);
 
     if (controller.text.isEmpty) {
-      controller.text = DateFormat('dd/MM/yyyy').format(_selectedDate);
+      controller.text = DateFormat('dd MMM yyyy').format(_selectedDate);
       onTap();
     }
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _timelineController.jumpTo(_selectedDate); // scroll the timeline
-      widget.onChange?.call(controller.text);
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   _timelineController.jumpTo(_selectedDate); // scroll the timeline
+    //   _emitIfChanged(controller.text);
+    // });
   }
 
   void _onDateSelected(DateTime date) {
     setState(() {
       _selectedDate = date;
-      controller.text = DateFormat('dd/MM/yyyy').format(date);
+      controller.text = DateFormat('dd MMM yyyy').format(date);
     });
-    widget.onChange?.call(controller.text);
+    _emitIfChanged(controller.text);
+  }
+
+
+  void _emitIfChanged(String newValue) {
+    if (_lastEmittedValue != newValue) {
+      _lastEmittedValue = newValue;
+      widget.onChange?.call(newValue);
+    }
   }
 
   @override
@@ -85,18 +94,17 @@ class DigitDateFormInputState extends BaseDigitFormInputState {
       firstDate: widget.firstDate,
       lastDate: widget.lastDate,
       initialDate: _selectedDate,
-      // use the current selectedDate
       context: context,
       controller: controller,
       cancelText: widget.cancelText,
       confirmText: widget.confirmText,
       onChange: (val) {
-        final parsedDate = DateFormat('dd/MM/yyyy').parse(val);
+        final parsedDate = DateFormat('dd MMM yyyy').parse(val);
         setState(() {
           _selectedDate = parsedDate; // update selectedDate
         });
-        _timelineController.jumpTo(parsedDate); // scroll the timeline
-        widget.onChange?.call(val);
+         // _timelineController.jumpTo(parsedDate); // scroll the timeline
+        _emitIfChanged(controller.text);
       },
     );
   }
@@ -110,11 +118,11 @@ class DigitDateFormInputState extends BaseDigitFormInputState {
       context: context,
       controller: controller,
       onChange: (val) {
-        final parsedDate = DateFormat('dd/MM/yyyy').parse(val);
+        final parsedDate = DateFormat('dd MMM yyyy').parse(val);
         setState(() {
           _selectedDate = parsedDate;
         });
-        widget.onChange?.call(val);
+        _emitIfChanged(controller.text);
       },
     );
   }
