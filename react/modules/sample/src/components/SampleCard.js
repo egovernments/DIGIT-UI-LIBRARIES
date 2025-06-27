@@ -54,6 +54,14 @@ const SampleCard = () => {
         label: t("Boundary with SearchComposerWithFilter"),
         link: `/${window?.contextPath}/employee/sample/searchComposerWithFilter`,
       },
+      {
+        label: t("Sample Search"),
+        link: `/${window?.contextPath}/employee/sample/search`,
+      },
+      {
+        label: t("Sample Search with Multiple Tabs"),
+        link: `/${window?.contextPath}/employee/sample/search-multiple-tabs`,
+      }
     ],
   };
   return <EmployeeModuleCard {...propsForModuleCard} />;

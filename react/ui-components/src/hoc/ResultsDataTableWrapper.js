@@ -534,10 +534,10 @@ const ResultsDataTableWrapper = ({
 
   useEffect(() => {
     setLimitAndOffset((prev) => ({
-      limit:10,           
+      limit:config?.defaultRowsPerPage || 10,           
       offset: 0,         
     }));
-    setRowsPerPage(10);
+    setRowsPerPage( config?.defaultRowsPerPage || 10);
     setCurrentPage(1)
     },[tabData])
 
