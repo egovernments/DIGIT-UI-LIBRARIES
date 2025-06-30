@@ -533,13 +533,14 @@ const ResultsDataTableWrapper = ({
   }, [limitAndOffset]);
 
   useEffect(() => {
+    if (!tabData) return;
     setLimitAndOffset((prev) => ({
       limit:config?.defaultRowsPerPage || 10,           
       offset: 0,         
     }));
     setRowsPerPage( config?.defaultRowsPerPage || 10);
     setCurrentPage(1)
-    },[tabData])
+    },[tabData,config?.defaultRowsPerPage]);
 
   const indexOfLastRow = currentPage * rowsPerPage;
   const indexOfFirstRow = indexOfLastRow - rowsPerPage;

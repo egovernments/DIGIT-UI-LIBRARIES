@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { InboxSearchComposer, Loader } from "@egovernments/digit-ui-components";
 import { InboxConfig } from "../../configs/SampleSearchWithMultipleTabsConfig";
 
-const SampleSearchWithMultipleTabs = ({}) => {
+const SampleSearchWithMultipleTabs = () => {
   const { t } = useTranslation();
   const [config, setConfig] = useState(InboxConfig?.InboxConfig?.[0]);
   const [selectedTabIndex, setSelectedTabIndex] = useState(null);
