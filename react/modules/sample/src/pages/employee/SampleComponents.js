@@ -1569,6 +1569,7 @@ const SampleComponents = () => {
           style={{}}
           type="toggle"
           value=""
+          variant="vertical"
         />
       </div>
       <div style={commonDivStyle}>
