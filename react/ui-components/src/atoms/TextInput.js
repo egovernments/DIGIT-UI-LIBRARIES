@@ -290,7 +290,7 @@ const TextInput = (props) => {
                 }`}
                 onClick={() => datePickerRef.current?.setOpen(true)}
               >
-                <SVG.CalendarToday fill={"#c84c0e"}/>
+                <SVG.CalendarToday fill={"#505A5F"}/>
               </div>
             </div>
 
