@@ -1011,7 +1011,6 @@ export const UICustomizations = {
         delete data.body.MdmsCriteria.isActive;
       }
       data.body.MdmsCriteria.filters = filters;
-      // data.body.MdmsCriteria.limit = 100
       data.body.MdmsCriteria.limit = data.state.tableForm.limit;
       data.body.MdmsCriteria.offset = data.state.tableForm.offset;
       data.body.MdmsCriteria.schemaCode =
