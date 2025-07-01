@@ -263,6 +263,7 @@ const TextInput = (props) => {
                   "TOSENTENCECASE",
                   t(props.placeholder)
                 )}
+                locale={ Digit?.SessionStorage.get("locale")}
                 dateFormat="dd MMMM yyyy"
                 className={
                   props.required ? inputClassNameForMandatory : inputClassName

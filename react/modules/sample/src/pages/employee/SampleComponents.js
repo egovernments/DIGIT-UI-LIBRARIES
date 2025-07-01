@@ -1473,6 +1473,7 @@ const SampleComponents = () => {
       <div style={commonDivStyle}>
         <HeaderComponent styles={textStyles}>{"Tag"}</HeaderComponent>
         <Tag icon="" label="Tag" labelStyle={{}} showIcon={false} style={{}} />
+        <Tag loader = {true} label="Tag" labelStyle={{}} showIcon={true} style={{}} />
         <Tag
           icon=""
           label="Tag"
