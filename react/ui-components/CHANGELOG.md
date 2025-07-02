@@ -4,6 +4,26 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+### [0.2.0-beta.423 - 2025-07-01
+## Enhancements
+- Added Citizen form composer to render based on routes
+
+### [0.2.0-beta.42] - 2025-07-01
+## Enhancements
+- Added loader in tag
+
+### [0.2.0-beta.41] - 2025-06-27
+## Enhancements
+- Fixed pagination issue in ResultsTableWrapper(for inboxSearchComposer)
+
+### [0.2.0-beta.40] - 2025-06-24
+## Enhancements
+- Fixed pagination issue in inbox search composer
+
+### [0.2.0-beta.39] - 2025-06-23
+## Enhancements
+- Fixed show toast null issue for config change
+
 ### [0.2.0-beta.38] - 2025-06-19
 ## Enhancements
 - Added min and max validation for date

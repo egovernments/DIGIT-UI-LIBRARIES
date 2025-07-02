@@ -505,7 +505,7 @@ const BoundaryFilter = (props) => {
 
               return (item?.boundaryType === rootBoundaryType) ? (
                 <LabelFieldPair key={item.boundaryType} className="boundary-item" vertical={!updatedLayoutConfig?.isLabelFieldLayoutHorizontal}>
-                  {updatedLayoutConfig?.isLabelNeeded && <CardLabel className={"boundary-selection-label"}>
+                  {!updatedLayoutConfig?.isLabelNotNeeded && <CardLabel className={"boundary-selection-label"}>
                     {item?.boundaryType}
                   </CardLabel>}
                   <div className="digit-field-full">
@@ -575,7 +575,7 @@ const BoundaryFilter = (props) => {
 
                     return (
                       <LabelFieldPair key={item.boundaryType} className="boundary-item" vertical={!updatedLayoutConfig?.isLabelFieldLayoutHorizontal}>
-                        {updatedLayoutConfig?.isLabelNeeded  && <CardLabel className={"boundary-selection-label"}>
+                        {!updatedLayoutConfig?.isLabelNotNeeded  && <CardLabel className={"boundary-selection-label"}>
                           {t((hierarchyType + "_" + item?.boundaryType).toUpperCase())}
                         </CardLabel>}
                         <div className="digit-field-full" style={{width:"100%"}}>

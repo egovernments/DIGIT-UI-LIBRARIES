@@ -263,6 +263,7 @@ const TextInput = (props) => {
                   "TOSENTENCECASE",
                   t(props.placeholder)
                 )}
+                locale={ Digit?.SessionStorage.get("locale")}
                 dateFormat="dd MMMM yyyy"
                 className={
                   props.required ? inputClassNameForMandatory : inputClassName
@@ -290,7 +291,7 @@ const TextInput = (props) => {
                 }`}
                 onClick={() => datePickerRef.current?.setOpen(true)}
               >
-                <SVG.CalendarToday fill={"#c84c0e"}/>
+                <SVG.CalendarToday fill={"#505A5F"}/>
               </div>
             </div>
 

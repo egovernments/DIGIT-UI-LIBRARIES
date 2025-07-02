@@ -11,8 +11,10 @@ import reducer from "./InboxSearchComposerReducer";
 import { initialInboxState } from "./InboxSearchComposerReducer";
 import { InboxContext } from "./InboxSearchComposerContext";
 import InboxSearchComposer from "./InboxSearchComposer";
+import FormComposerCitizen from "./FormComposerCitizen";
+
 import BoundaryFilter from "./BoundaryFilter";
 
-export { FieldComposer, FieldController, Fields, FormComposerV2, Modal, UploadFileComposer ,FieldV1, InboxSearchComposer,ResultsTable,reducer,initialInboxState,InboxContext,ResultsDataTableWrapper,
+export { FieldComposer, FieldController, Fields, FormComposerV2, Modal, UploadFileComposer ,FormComposerCitizen,FieldV1, InboxSearchComposer,ResultsTable,reducer,initialInboxState,InboxContext,ResultsDataTableWrapper,
     BoundaryFilter
 };
