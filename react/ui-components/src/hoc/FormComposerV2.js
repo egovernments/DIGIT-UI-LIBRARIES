@@ -251,7 +251,7 @@ export const FormComposer = (props) => {
             getValues={getValues}
             errors={errors}
             props={props}
-            defaultValues={defaultValues}
+            defaultValues={props.defaultValues}
           />
         )}
         {section?.type !== "multiChildForm" && section?.body.map((field, index) => {

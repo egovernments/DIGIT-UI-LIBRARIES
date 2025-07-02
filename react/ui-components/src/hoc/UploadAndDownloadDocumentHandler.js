@@ -141,7 +141,7 @@ const UploadAndDownloadDocumentHandler = ({
 
   let docData = data ? data?.MdmsRes?.DigitStudio?.DocumentConfig2?.filter((ob) => ob?.module.toLowerCase() === moduleName)?.[0]?.actions : [];
 
-  const docConfig = docData?.filter((item) => item?.action === ("APPLY"||"apply"))?.[0];
+  const docConfig = docData?.filter((item) => item?.action === "APPLY" || item?.action === "apply")?.[0];
   const updatedDocuments = docConfig?.documents?.flatMap((doc) => {
     if (doc.templatePDFKey || doc.templatedownloadURL) {
       // Return both original and a modified copy with cleared template keys
@@ -316,6 +316,8 @@ UploadAndDownloadDocumentHandler.propTypes = {
   errors: PropTypes.object.isRequired,
   localePrefix: PropTypes.string.isRequired,
   customClass: PropTypes.string,
+  action: PropTypes.string,
+  flow: PropTypes.string,
 };
 
 export default UploadAndDownloadDocumentHandler;

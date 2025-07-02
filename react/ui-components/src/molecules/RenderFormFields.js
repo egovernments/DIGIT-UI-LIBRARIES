@@ -45,7 +45,6 @@ const RenderFormFields = ({ data, ...props }) => {
               hierarchyType={populators.hierarchyType}
               module={populators.module}
               layoutConfig={populators.layoutConfig}
-              boundaryStyle={{ "width": "100%" }}
               preSelected={populators.preSelected}
               frozenData={populators.frozenData}
               onChange={onChange}

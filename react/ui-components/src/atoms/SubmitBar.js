@@ -50,6 +50,10 @@ SubmitBar.propTypes = {
    * Optional click handler
    */
   onSubmit: PropTypes.func,
+  /**
+   * Optional click handler for non-submit buttons
+   */
+  onClick: PropTypes.func
 };
 
 SubmitBar.defaultProps = {};

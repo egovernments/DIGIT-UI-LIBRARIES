@@ -346,7 +346,6 @@ const FieldV1 = ({
               module={populators.module}
               layoutConfig={{ isDropdownLayoutHorizontal: false, isLabelFieldLayoutHorizontal: false }}
               preSelected={populators.preSelected}
-              boundaryStyle={{ "width": "100%" }}
               frozenData={populators.frozenData}
               onChange={onChange}
             />
