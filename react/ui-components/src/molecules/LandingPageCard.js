@@ -176,6 +176,7 @@ LandingPageCard.propTypes = {
   className: PropTypes.string,
   style: PropTypes.object,
   hideDivider: PropTypes.bool,
+  hideHeaderDivider: PropTypes.bool,
   iconBg: PropTypes.bool,
   onMetricClick: PropTypes.func,
 };
@@ -191,6 +192,7 @@ LandingPageCard.defaultProps = {
   icon: "",
   iconBg: false,
   hideDivider: false,
+  hideHeaderDivider: false,
   onMetricClick: () => {},
 };
 

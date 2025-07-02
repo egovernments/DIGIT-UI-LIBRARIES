@@ -578,7 +578,7 @@ const BoundaryFilter = (props) => {
                         {!updatedLayoutConfig?.isLabelNotNeeded  && <CardLabel className={"boundary-selection-label"}>
                           {t((hierarchyType + "_" + item?.boundaryType).toUpperCase())}
                         </CardLabel>}
-                        <div className="digit-field-full" style={{width:"100%"}}>
+                        <div className="digit-field-full" style={props?.boundaryStyle}>
                           {!(props?.levelConfig?.isSingleSelect && props?.levelConfig?.isSingleSelect?.includes(item?.boundaryType)) ?
                             <>
                               <MultiSelectDropdown
