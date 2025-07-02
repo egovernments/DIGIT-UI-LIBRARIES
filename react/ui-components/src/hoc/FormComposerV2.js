@@ -254,7 +254,7 @@ export const FormComposer = (props) => {
             defaultValues={defaultValues}
           />
         )}
-        {section.type !== "multiChildForm" && section.body.map((field, index) => {
+        {section?.type !== "multiChildForm" && section?.body.map((field, index) => {
           if (field?.populators?.hideInForm) return null;
           if (props.inline)
             return (

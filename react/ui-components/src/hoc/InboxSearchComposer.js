@@ -176,7 +176,7 @@ const InboxSearchComposer = ({configs,additionalConfig,onFormValueChange=()=>{},
 
     useEffect(() => {
         return () => {
-            revalidate();
+            //revalidate();
             setEnable(false);
         };
     })
