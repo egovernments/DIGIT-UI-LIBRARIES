@@ -83,7 +83,7 @@ const LandingPageCard = ({
           </div>
         )}
       </div>
-      {!hideHeaderDivider && (
+      {!hideDivider && !hideHeaderDivider && (
         <Divider className="digit-landingpage-divider" variant={"small"} />
       )}
       {metrics && metrics.length > 0 && (
