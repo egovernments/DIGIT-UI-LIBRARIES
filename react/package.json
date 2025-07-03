@@ -48,7 +48,8 @@
     "**/@babel/plugin-transform-modules-commonjs": "7.14.0",
     "**/polished": "4.2.2",
     "**/webpack": "4.44.2",
-    "**/styled-components": "5.0.0"
+    "**/styled-components": "5.0.0",
+    "**/minimatch": "7.4.6"
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "7.21.0",
