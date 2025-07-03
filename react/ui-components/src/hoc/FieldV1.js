@@ -483,6 +483,7 @@ const FieldV1 = ({
             />
           );
         case "multiChildForm":
+        {
           const multichildConfig = populators?.childform || [];
           const entries = formData?.[populators?.name] || [];
 
@@ -496,8 +497,7 @@ const FieldV1 = ({
                   {/* Cross Button to Remove */}
                   <button
                     type="button"
-                    style={{ marginLeft: "98%", marginTop: "1rem" }}
-                    className="absolute top-2 right-2 text-gray-500 hover:text-red-600 text-xl"
+                    className="digit-multichild-remove-button"
                     onClick={() => {
                       const updated = [...(formData?.[populators?.name] || [])];
                       updated.splice(index, 1);
@@ -549,6 +549,7 @@ const FieldV1 = ({
               </Button>
             </div>
           );
+        }
       default:
         return null;
     }

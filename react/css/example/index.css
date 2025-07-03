@@ -15426,3 +15426,18 @@ input[type=number], .digit-checkbox-container .input-emp[type=number] {
   margin-right: -27%;
   max-height: 120px;
   margin-top: 90px; }
+
+.digit-multichild-remove-button {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.875rem;
+  font-size: 1.125rem;
+  color: #6B7280;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0.25rem;
+}
+.digit-multichild-remove-button:hover {
+  color: #DC2626;
+}
