@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-### [0.2.0-beta.46] - 2025-07-11
+### [0.2.0-beta.47] - 2025-07-11
 ## Features
 - Added app-screen-builder feature: Introduced a set of components and utilities for dynamic app configuration screens, including AppConfigurationWrapper, AppFieldComposer, AppFieldScreenWrapper, DrawerFieldComposer, and more.
 - All UI component imports in app-screen-builder now use local atoms instead of package imports.
