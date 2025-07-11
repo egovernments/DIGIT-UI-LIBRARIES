@@ -98,10 +98,26 @@ import {
   TableCell,
   NestedTable,
   Loader,
-  Iframe
+  Iframe,
 } from "./atoms";
 
-import { FieldComposer, FormComposerCitizen, FieldController, Fields, FormComposerV2, Modal, UploadFileComposer, FieldV1, InboxSearchComposer, ResultsTable, ResultsDataTableWrapper,BoundaryFilter } from "./hoc";
+import {
+  FieldComposer,
+  FormComposerCitizen,
+  FieldController,
+  Fields,
+  FormComposerV2,
+  Modal,
+  UploadFileComposer,
+  FieldV1,
+  InboxSearchComposer,
+  ResultsTable,
+  ResultsDataTableWrapper,
+  BoundaryFilter,
+  AppLocalisationWrapper,
+  useCustomT,
+  setConstantsforAppConfig,
+} from "./hoc";
 
 import {
   ApiDropdown,
@@ -130,7 +146,7 @@ import {
   FormCard,
   FilterCard,
   SummaryCard,
-  ResultsDataTable
+  ResultsDataTable,
 } from "./molecules";
 
 // import { initCoreLibraries } from "@egovernments/digit-ui-libraries-core";
@@ -280,5 +296,8 @@ export {
   TableBody,
   TableRow,
   TableCell,
-  NestedTable
+  NestedTable,
+  AppLocalisationWrapper,
+  useCustomT,
+  setConstantsforAppConfig,
 };
