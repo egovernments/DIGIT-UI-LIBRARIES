@@ -98,7 +98,9 @@ import {
   TableCell,
   NestedTable,
   Loader,
-  Iframe
+  Iframe,
+  AppHelpDrawer,
+  HelpInfoCard
 } from "./atoms";
 
 import { FieldComposer, FormComposerCitizen, FieldController, Fields, FormComposerV2, Modal, UploadFileComposer, FieldV1, InboxSearchComposer, ResultsTable, ResultsDataTableWrapper,BoundaryFilter } from "./hoc";
@@ -280,5 +282,7 @@ export {
   TableBody,
   TableRow,
   TableCell,
-  NestedTable
+  NestedTable,
+  AppHelpDrawer,
+  HelpInfoCard
 };
