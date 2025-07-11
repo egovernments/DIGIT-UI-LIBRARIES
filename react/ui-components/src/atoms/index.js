@@ -99,6 +99,8 @@ import SidePanel from "./SidePanel";
 import NestedTable from "./NestedTable";
 import Loader from "./Loader";
 import Iframe from "./Iframe";
+import AppHelpDrawer from "./AppHelpDrawer";
+import HelpInfoCard from "./HelpInfoCard";
 
 export {
   ErrorBoundary,
@@ -201,5 +203,7 @@ export {
   TableBody,
   TableRow,
   TableCell,
-  NestedTable
+  NestedTable,
+  AppHelpDrawer,
+  HelpInfoCard
 };

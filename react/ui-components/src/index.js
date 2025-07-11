@@ -99,6 +99,8 @@ import {
   NestedTable,
   Loader,
   Iframe,
+  AppHelpDrawer,
+  HelpInfoCard
 } from "./atoms";
 
 import {
@@ -297,6 +299,8 @@ export {
   TableRow,
   TableCell,
   NestedTable,
+  AppHelpDrawer,
+  HelpInfoCard,
   AppLocalisationWrapper,
   useCustomT,
   setConstantsforAppConfig,
