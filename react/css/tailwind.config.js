@@ -154,8 +154,8 @@ module.exports = {
         },
         "heading-m": {
           mobile: "1.25rem",
-          tablet: "1.375rem",
-          desktop: "1.5rem",
+          tablet: "1.25rem",
+          desktop: "1.25rem",
         },
         "heading-s": {
           mobile: "1rem",
