@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0-beta.15] - 2025-07-15
+### Enhancement
+- Updated tablet and desktop heading-m typography
+
 ## [0.2.0-beta.9] - 2025-04-28 
 ### New changes added
 - Added new css for BoundaryComponent in BounDaryFilter.scss
