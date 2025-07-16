@@ -3535,7 +3535,7 @@ export const CustomSVG = {
     SurveyIconSolid,
     PMBIconSolid,
     DustbinIcon,
-    DustbinIconNew,
+    // DustbinIconNew,
     ExternalLinkIcon,
     DownloadImgIcon,
     ViewsIcon,
