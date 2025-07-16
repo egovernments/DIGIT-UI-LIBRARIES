@@ -1,4 +1,5 @@
 import React from "react";
+import { PRIMARY_COLOR } from "../hoc/app-config-screen-builder/app-config-utils/constants";
 
 const CreateEstimateIcon = ({ className, style = {}, fill = "#C84C0E",width = '18',height ='18' }) => (
   <svg
