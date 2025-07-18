@@ -4,14 +4,21 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-### [0.2.0-beta.44] - 2025-07-02
-## Enhancements
-- Added changes required for DIGIT-STUDIO
-- Added upload and download document handler
-- Added MultiChildForm in FieldV1
-- Added Multi Child Form Wrapper
+### [0.2.0-beta.51] - 2025-07-16
+## Features
+- app-screen-builder bug bash fixes-> pop up data resetting
 
-### [0.2.0-beta.423 - 2025-07-01
+### [0.2.0-beta.47] - 2025-07-11
+## Features
+- Added app-screen-builder feature: Introduced a set of components and utilities for dynamic app configuration screens, including AppConfigurationWrapper, AppFieldComposer, AppFieldScreenWrapper, DrawerFieldComposer, and more.
+- All UI component imports in app-screen-builder now use local atoms instead of package imports.
+- Enhanced modularity and maintainability for app configuration flows.
+
+### [0.2.0-beta.44] - 2025-07-03
+## Enhancements
+- Added disabled state for the toggle
+
+### [0.2.0-beta.43] - 2025-07-01
 ## Enhancements
 - Added Citizen form composer to render based on routes
 

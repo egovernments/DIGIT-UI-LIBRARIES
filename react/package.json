@@ -48,7 +48,9 @@
     "**/@babel/plugin-transform-modules-commonjs": "7.14.0",
     "**/polished": "4.2.2",
     "**/webpack": "4.44.2",
-    "**/styled-components": "5.0.0"
+    "**/styled-components": "5.0.0",
+    "**/minimatch": "7.4.6",
+    "**/glob": "7.2.3"
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "7.21.0",
@@ -81,7 +83,7 @@
   "dependencies": {
     "@babel/plugin-syntax-jsx": "^7.24.1",
     "@babel/preset-react": "^7.24.1",
-    "@egovernments/digit-ui-components": "0.2.0-beta.44",
+    "@egovernments/digit-ui-components": "0.2.0-beta.51",
     "@egovernments/digit-ui-react-components": "1.8.14",
     "babel-loader": "8.1.0",
     "clean-webpack-plugin": "4.0.0",

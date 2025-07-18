@@ -8458,6 +8458,9 @@ img {
   border-bottom-right-radius: .5rem;
   border-top-right-radius: .5rem; }
 
+.vertical-toggle .digit-toggle-label.disabled {
+  color: #c5c5c5 !important; }
+
 .digit-tree-select-options-container.first-level:nth-of-type(2n) .digit-tree-multiselect-option.level-0:not(.checked), .digit-tree-select-options-container.first-level:nth-of-type(2n) .digit-tree-select-option.level-0 {
   background-color: #fafafa; }
 

@@ -177,4 +177,10 @@
   border-bottom-right-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
 }
-
+.vertical-toggle{
+  .digit-toggle-label{
+    &.disabled{
+      color: theme(digitv2.lightTheme.text-disabled) !important;
+    }
+  }
+}
