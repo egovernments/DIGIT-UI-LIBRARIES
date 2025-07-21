@@ -1,6 +1,6 @@
 {
   "name": "@egovernments/digit-ui-components",
-  "version": "0.2.0-beta.52",
+  "version": "0.2.0-beta.53",
   "license": "MIT",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
@@ -69,7 +69,8 @@
     "react-lottie": "1.2.4",
     "styled-components": "5.0.0",
     "react-dnd-html5-backend": "16.0.1",
-    "react-dnd": "16.0.1"
+    "react-dnd": "16.0.1",
+    "minimatch": "7.4.6"
   },
   "browserslist": {
     "production": [
