@@ -1,4 +1,3 @@
-# FROM egovio/alpine-node-builder-14:yarn AS build
 FROM node:14-alpine3.16 AS build
 RUN apk update && apk upgrade
 RUN apk add --no-cache git>2.30.0
