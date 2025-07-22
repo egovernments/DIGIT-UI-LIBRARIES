@@ -43,6 +43,7 @@ const FieldV1 = ({
   charCount = false,
   populators = {},
   withoutLabel = false,
+  multichildbtnlabel,
   props = {},
   ref,
   onBlur,
@@ -538,7 +539,7 @@ const FieldV1 = ({
               {/* Add Another Button */}
               <Button
                 type="button"
-                label="Add"
+                label={multichildbtnlabel}
                 style={{ marginTop: "1rem" }}
                 //className="mt-2 text-blue-600 underline"
                 onClick={() => {

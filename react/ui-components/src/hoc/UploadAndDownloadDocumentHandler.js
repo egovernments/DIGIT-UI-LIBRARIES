@@ -22,6 +22,7 @@ const UploadAndDownloadDocumentHandler = ({
   formData,
   errors,
   localePrefix,
+  buttonName,
   customClass,
   action="APPLY",
   flow
@@ -32,8 +33,9 @@ const UploadAndDownloadDocumentHandler = ({
   let moduleName = `${module?.toLowerCase()}.${service?.toLowerCase()}`;
   const { serviceCode, applicationNumber:applicationNo = "" } = Digit.Hooks.useQueryParams();
 
+  const mdms_context_path = window?.globalConfigs?.getConfig("MDMS_V2_CONTEXT_PATH") || "mdms-v2";
   const serviceconfigrequestCriteria = {
-    url: "/egov-mdms-service/v2/_search",
+    url: `/${mdms_context_path}/v2/_search`,
     body: {
       MdmsCriteria: {
         tenantId: tenantId,
@@ -222,7 +224,7 @@ const UploadAndDownloadDocumentHandler = ({
                       <CustomSVG.PDFSvg width={"40"} height={"40"} />
                                 <label>{"PLACEHOLDER"}</label>
                                 <Button
-                                  label={"Download"}
+                                  label={buttonName}
                                   variation="secondary"
                                   icon={"FileDownload"}
                                   type="button"
