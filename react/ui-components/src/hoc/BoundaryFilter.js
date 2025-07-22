@@ -505,9 +505,9 @@ const BoundaryFilter = (props) => {
 
               return (item?.boundaryType === rootBoundaryType) ? (
                 <LabelFieldPair key={item.boundaryType} className="boundary-item" vertical={!updatedLayoutConfig?.isLabelFieldLayoutHorizontal}>
-                  <CardLabel className={"boundary-selection-label"}>
+                  {!updatedLayoutConfig?.isLabelNotNeeded && <CardLabel className={"boundary-selection-label"}>
                     {item?.boundaryType}
-                  </CardLabel>
+                  </CardLabel>}
                   <div className="digit-field-full">
                     {!(props?.levelConfig?.isSingleSelect && props?.levelConfig?.isSingleSelect?.includes(item?.boundaryType)) ?
                       <MultiSelectDropdown
@@ -575,9 +575,9 @@ const BoundaryFilter = (props) => {
 
                     return (
                       <LabelFieldPair key={item.boundaryType} className="boundary-item" vertical={!updatedLayoutConfig?.isLabelFieldLayoutHorizontal}>
-                        <CardLabel className={"boundary-selection-label"}>
+                        {!updatedLayoutConfig?.isLabelNotNeeded  && <CardLabel className={"boundary-selection-label"}>
                           {t((hierarchyType + "_" + item?.boundaryType).toUpperCase())}
-                        </CardLabel>
+                        </CardLabel>}
                         <div className="digit-field-full">
                           {!(props?.levelConfig?.isSingleSelect && props?.levelConfig?.isSingleSelect?.includes(item?.boundaryType)) ?
                             <>
