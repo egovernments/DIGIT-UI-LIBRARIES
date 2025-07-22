@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+### [0.2.0-beta.53] - 2025-07-21
+## Enhancements
+- Added changes required for DIGIT-STUDIO
+- Added upload and download document handler
+- Added MultiChildForm in FieldV1
+- Added Multi Child Form Wrapper
+
 ### [0.2.0-beta.51] - 2025-07-16
 ## Features
 - app-screen-builder bug bash fixes-> pop up data resetting

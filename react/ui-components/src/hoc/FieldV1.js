@@ -11,18 +11,22 @@ import {
   MobileNumber,
   InputTextAmount,
   StringManipulator,
-  LabelFieldPair
+  LabelFieldPair,
+  Button
 } from "../atoms";
 import { useTranslation } from "react-i18next";
 import { useState, useEffect } from "react";
 import UploadFileComposer from "./UploadFileComposer";
-import { CustomDropdown } from "../molecules";
+import { CustomDropdown } from "../molecules"; 
 import { Controller } from "react-hook-form";
 import { LocationDropdownWrapper } from "../molecules";
 import { ApiDropdown } from "../molecules";
 import { WorkflowStatusFilter } from "../molecules";
 import { DateRangeNew } from "../molecules";
+import { FormComposer } from "./FormComposerV2";
+import isEqual from 'lodash/isEqual';
 import BoundaryFilter from "./BoundaryFilter";
+import UploadAndDownloadDocumentHandler from "./UploadAndDownloadDocumentHandler";
 
 const FieldV1 = ({
   type = "",
@@ -49,8 +53,10 @@ const FieldV1 = ({
   sectionFormCategory,
   formData,
   selectedFormCategory,
+  control,
   controllerProps,
   variant,
+  defaultValues
 }) => {
   const { t: i18nT } = useTranslation();
   const t = populators.t || i18nT; // consuming custom translation function if provided, otherwise use i18nT
@@ -338,10 +344,36 @@ const FieldV1 = ({
               levelConfig={populators.levelConfig}
               hierarchyType={populators.hierarchyType}
               module={populators.module}
-              layoutConfig={{ isDropdownLayoutHorizontal: false, isLabelFieldLayoutHorizontal: false }}
+              layoutConfig={{ isLabelNotNeeded: populators?.layoutConfig?.isLabelNotNeeded || false, isDropdownLayoutHorizontal: false, isLabelFieldLayoutHorizontal: false }}
               preSelected={populators.preSelected}
               frozenData={populators.frozenData}
               onChange={onChange}
+            />
+          );
+        case "documentUploadAndDownload":
+          return (
+            <UploadAndDownloadDocumentHandler
+              mdmsModuleName={config?.mdmsModuleName}
+              module={config?.module}
+              config={config}
+              Controller={Controller} // TODO: NEED TO DISCUSS ON THIS
+              register={controllerProps?.register}
+              formData={formData}
+              errors={errors}
+              id={fieldId}
+              control={controllerProps?.control}
+              customClass={config?.customClass}
+              customErrorMsg={config?.error}
+              localePrefix={config?.localePrefix}
+              action={populators?.action}
+              flow={populators?.flow}
+              variant={
+                variant
+                  ? variant
+                  : errors?.[populators?.name]
+                    ? "digit-field-error"
+                    : ""
+              }
             />
           );
       case "custom":
@@ -450,6 +482,74 @@ const FieldV1 = ({
               control={controllerProps?.control}
             />
           );
+        case "multiChildForm":
+        {
+          const multichildConfig = populators?.childform || [];
+          const entries = formData?.[populators?.name] || [];
+
+          return (
+            <div className="border rounded-xl p-4 mb-4 shadow-sm bg-gray-50">
+              {entries.filter((ob) => ob != undefined).map((item, index) => (
+                <div
+                  key={index}
+                  className="mb-4 border p-4 rounded bg-white relative shadow-sm"
+                >
+                  {/* Cross Button to Remove */}
+                  <button
+                    type="button"
+                    className="digit-multichild-remove-button"
+                    onClick={() => {
+                      const updated = [...(formData?.[populators?.name] || [])];
+                      updated.splice(index, 1);
+                      controllerProps.setValue(`${populators?.name}[${index}]`, undefined);
+                    }}
+                  >
+                    &times;
+                  </button>
+
+                  <Controller
+                    render={(props) => {
+                      //const childformValues = props?.field?.value || [];
+                      return (<FormComposer
+                        config={multichildConfig}
+                        onFormValueChange={(setValue, childformData) => {
+                          const updated = [...(formData?.[populators?.name] || [])];
+                          updated[index] = childformData;
+
+                          if (!isEqual(updated[index], formData?.[populators?.name][index])) {
+                            controllerProps.setValue(`${populators?.name}[${index}]`, { ...updated[index] });
+                          }
+                        }}
+                        defaultValues={defaultValues}
+                        parentName={`${populators?.name}[${index}]`}
+                        inline={true}
+                        hideHeader={true}
+                      />);
+                    }}
+                    name={`${populators?.name}[${index}]`}
+                    control={controllerProps?.control}
+                    defaultValue={item}
+                  />
+
+
+                </div>
+              ))}
+
+              {/* Add Another Button */}
+              <Button
+                type="button"
+                label={label || t("CS_COMMON_ADD")}
+                style={{ marginTop: "1rem" }}
+                //className="mt-2 text-blue-600 underline"
+                onClick={() => {
+                  const updated = [...(formData?.[populators?.name] || []), {}];
+                  controllerProps.setValue(populators?.name, updated);
+                }}
+              >
+              </Button>
+            </div>
+          );
+        }
       default:
         return null;
     }
