@@ -224,7 +224,7 @@ const UploadAndDownloadDocumentHandler = ({
                       <CustomSVG.PDFSvg width={"40"} height={"40"} />
                                 <label>{"PLACEHOLDER"}</label>
                                 <Button
-                                  label={buttonName}
+                                  label={buttonName || t("CS_DOWNLOAD_BUTTON")}
                                   variation="secondary"
                                   icon={"FileDownload"}
                                   type="button"
