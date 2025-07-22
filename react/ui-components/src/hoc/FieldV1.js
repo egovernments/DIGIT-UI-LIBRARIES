@@ -538,7 +538,7 @@ const FieldV1 = ({
               {/* Add Another Button */}
               <Button
                 type="button"
-                label={label}
+                label={label || t("CS_COMMON_ADD")}
                 style={{ marginTop: "1rem" }}
                 //className="mt-2 text-blue-600 underline"
                 onClick={() => {
