@@ -349,18 +349,6 @@ function AppConfigurationWrapper({ screenConfig, localeModule, pageTag, children
   };
 
   useEffect(() => {
-    const handleStepChange = (e) => {
-      setNextButtonDisable(e.detail);
-    };
-
-    window.addEventListener("lastButtonDisabled", handleStepChange);
-
-    return () => {
-      window.removeEventListener("lastButtonDisabled", handleStepChange);
-    };
-  }, []);
-
-  useEffect(() => {
     dispatch({
       type: "SET_SCREEN_DATA",
       state: {
@@ -369,9 +357,6 @@ function AppConfigurationWrapper({ screenConfig, localeModule, pageTag, children
     });
   }, [screenConfig]);
 
-  if (isLoadingAppConfigMdmsData) {
-    return <Loader page={true} variant={"PageLoader"} />;
-  }
   const closeToast = () => {
     setShowToast(null);
   };
@@ -543,8 +528,32 @@ function AppConfigurationWrapper({ screenConfig, localeModule, pageTag, children
     console.info("LOCALISATION_UPSERT_SUCCESS");
   };
 
+  useEffect(() => {
+    const handleStepChange = (e) => {
+      setNextButtonDisable(e.detail);
+    };
+
+    const handleTabChange = async (e) => {
+      // Submit the form here
+      await handleSubmit(false, true, latestStateRef.current); // your submit function
+      // Now notify the caller that submit is done
+      e.detail?.onComplete?.();
+    };
+
+    window.addEventListener("lastButtonDisabled", handleStepChange);
+    window.addEventListener("tabChangeWithSave", handleTabChange);
+
+    return () => {
+      window.removeEventListener("lastButtonDisabled", handleStepChange);
+      window.removeEventListener("tabChangeWithSave", handleTabChange);
+    };
+  }, [state, locState]);
+
   const currentPage = parseInt(pageTag.split(" ")[1]);
 
+  if (isLoadingAppConfigMdmsData) {
+    return <Loader page={true} variant={"PageLoader"} />;
+  }
   return (
     <AppConfigContext.Provider value={{ state, dispatch, openAddFieldPopup }}>
       {loading && <Loader page={true} variant={"OverlayLoader"} loaderText={t("SAVING_CONFIG_IN_SERVER")} />}
