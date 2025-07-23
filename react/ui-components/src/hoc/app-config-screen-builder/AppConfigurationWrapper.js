@@ -535,7 +535,7 @@ function AppConfigurationWrapper({ screenConfig, localeModule, pageTag, children
 
     const handleTabChange = async (e) => {
       // Submit the form here
-      await handleSubmit(false, true, latestStateRef.current); // your submit function
+      await handleSubmit(false, true); // your submit function
       // Now notify the caller that submit is done
       e.detail?.onComplete?.();
     };
