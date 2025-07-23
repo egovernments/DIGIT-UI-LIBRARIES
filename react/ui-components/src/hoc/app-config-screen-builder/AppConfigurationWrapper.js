@@ -363,6 +363,9 @@ function AppConfigurationWrapper({ screenConfig, localeModule, pageTag, children
 
   function createLocaleArrays() {
     const result = {};
+    if (!Array.isArray(locState) || !locState[0] || typeof currentLocale !== "string" || !currentLocale.includes("_")) {
+      return result;
+    }
     // Dynamically determine locales
     const locales = Object.keys(locState[0]).filter(
       (key) => key.includes(currentLocale.slice(currentLocale.indexOf("_"))) && key !== currentLocale
@@ -547,7 +550,7 @@ function AppConfigurationWrapper({ screenConfig, localeModule, pageTag, children
       window.removeEventListener("lastButtonDisabled", handleStepChange);
       window.removeEventListener("tabChangeWithSave", handleTabChange);
     };
-  }, [state, locState]);
+  }, [state, locState, handleSubmit]);
 
   const currentPage = parseInt(pageTag.split(" ")[1]);
 
