@@ -496,7 +496,7 @@ function AppConfigurationWrapper({ screenConfig, localeModule, pageTag, children
     }
     return;
   };
-  const handleSubmit = async (finalSubmit) => {
+  const handleSubmit = async (finalSubmit, tabChange) => {
     if (state?.screenData?.[0]?.type === "object") {
       //skipping template screen validation
       const errorCheck = validateFromState(
@@ -529,7 +529,7 @@ function AppConfigurationWrapper({ screenConfig, localeModule, pageTag, children
     setShowPopUp(false);
     setLoading(false);
     if (updateSuccess || !updateCount) {
-      onSubmit(state, finalSubmit);
+      onSubmit(state, finalSubmit, tabChange); // assumes onSubmit is a stable function
     }
     console.info("LOCALISATION_UPSERT_SUCCESS");
   };
@@ -795,7 +795,7 @@ function AppConfigurationWrapper({ screenConfig, localeModule, pageTag, children
                 title: "ADD_FIELD_TYPE",
                 fieldPairClassName: "",
                 options: (state?.MASTER_DATA?.AppFieldType || [])
-                  .filter((item) => item?.metadata?.type !== "template")
+                  .filter((item) => item?.metadata?.type !== "template" && item?.metadata?.type !== "dynamic")
                   ?.sort((a, b) => a?.order - b?.order),
                 optionsKey: "type",
               }}
