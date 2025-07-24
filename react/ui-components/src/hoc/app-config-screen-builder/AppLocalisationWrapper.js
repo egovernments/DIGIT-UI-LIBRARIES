@@ -89,6 +89,7 @@ function AppLocalisationWrapper({ onSubmit, localeModule, screenConfig, back, sh
     tenantId: tenantId,
     locale: enabledModules?.map((i) => i.value),
     module: localeModule,
+    fetchCurrentLocaleOnly: true,
     isMultipleLocale: enabledModules?.length > 0 ? true : false,
     config: {
       select: (data) => {
@@ -133,6 +134,7 @@ function AppLocalisationWrapper({ onSubmit, localeModule, screenConfig, back, sh
           back,
           showBack,
           parentDispatch,
+          localeModule,
         }}
       >
         <AppConfigurationWrapper
