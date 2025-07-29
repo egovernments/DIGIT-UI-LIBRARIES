@@ -8,6 +8,7 @@ import { useTranslation } from "react-i18next";
 import DatePicker from "react-datepicker";
 import { format } from "date-fns";
 import "react-datepicker/dist/react-datepicker.css";
+import "./SubmitBar.css";
 
 const TextInput = (props) => {
   const { t: i18nT } = useTranslation();
@@ -45,6 +46,36 @@ const TextInput = (props) => {
       ? newValue
       : Math.max(newValue, 0);
     props.onChange(finalValue);
+  };
+
+  // Track last input type (keyboard or mouse)
+  let isKeyboard = false;
+
+  const handleKeyDown = (event) => {
+    if (event.key === 'Tab') {
+      isKeyboard = true;
+    }
+  };
+
+  const handleMouseDown = () => {
+    isKeyboard = false;
+  };
+
+  const handleFocus = (event) => {
+    console.log(event.target);
+    if (isKeyboard) {
+      event.target.classList.remove("focus-no-outline");
+      event.target.classList.add("focus-visible-outline");
+    } else {
+      event.target.classList.remove("focus-visible-outline");
+      event.target.classList.add("focus-no-outline");
+    }
+  };
+
+  const handleBlur = (event) => {
+    // reset on blur
+    event.target.classList.remove("focus-visible-outline");
+    event.target.classList.remove("focus-no-outline");
   };
 
   const renderPrefix = () => {
@@ -121,6 +152,16 @@ const TextInput = (props) => {
       console.error("Geolocation is not supported");
     }
   };
+
+  // useEffect(()=>{
+  //   window.addEventListener('keydown', handleKeyDown);
+  //   window.addEventListener('mousedown', handleMouseDown);
+
+  //   return () => {
+  //     window.removeEventListener('keydown', handleKeyDown);
+  //     window.removeEventListener('mousedown', handleMouseDown);
+  //   };
+  // },[])
 
   const disabledColor = Colors.lightTheme.generic.divider;
   const iconColor = Colors.lightTheme.generic.inputBorder;
@@ -250,6 +291,9 @@ const TextInput = (props) => {
           props?.populators?.suffix ? "suffix" : ""
         } `}
         style={props?.textInputStyle ? { ...props.textInputStyle } : {}}
+        role="group"
+        aria-label={props?.label || t(props.placeholder)}
+        aria-describedby={props.error ? `${props.id || props.name}-error` : undefined}
       >
         {props.type === "date" && props?.populators?.newDateFormat ? (
           <div className={inputContainerClass}>
@@ -283,12 +327,25 @@ const TextInput = (props) => {
                     ? new Date(props?.populators?.max)
                     : undefined
                 }
+                onFocus={handleFocus}
+                onBlur={handleBlur}
+                onKeyDown={handleKeyDown}
+                onMouseDown={handleMouseDown}
               />
               <div
                 className={`digit-new-date-format ${
                   props.disabled ? "disabled" : ""
                 }`}
                 onClick={() => datePickerRef.current?.setOpen(true)}
+                role="button"
+                aria-label="Open date picker"
+                tabIndex={props.disabled ? -1 : 0}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    datePickerRef.current?.setOpen(true);
+                  }
+                }}
               >
                 <SVG.CalendarToday fill={"#c84c0e"}/>
               </div>
@@ -300,6 +357,17 @@ const TextInput = (props) => {
               <span
                 className="digit-cursor-pointer"
                 onClick={props?.onIconSelection}
+                {...(typeof props?.onIconSelection === 'function' && {
+                tabIndex: 0,
+                role: 'button',
+                'aria-label': 'Select icon',
+                onKeyDown: (e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault(); 
+                    props.onIconSelection();
+                  }
+                }
+                })}
               >
                 {icon}
               </span>
@@ -361,10 +429,22 @@ const TextInput = (props) => {
               }
               step={props.step}
               autoFocus={props.autoFocus}
-              onBlur={props.onBlur}
+              onKeyDown={handleKeyDown}
+              onMouseDown={handleMouseDown}
+              onBlur={(event) => {
+                if (typeof props?.onBlur === "function") {
+                  props.onBlur(event);
+                }
+                handleBlur(event);
+              }}
               autoComplete="off"
               disabled={props.disabled}
-              onFocus={props?.onFocus}
+              onFocus={(event) => {
+                if (typeof props?.onFocus === "function") {
+                  props.onFocus(event);
+                }
+                handleFocus(event);
+              }}      
               nonEditable={props.nonEditable}
               config={props.config}
               populators={props.populators}
@@ -377,6 +457,10 @@ const TextInput = (props) => {
                   }
                 }
               }}
+              aria-label={props?.label || t(props.placeholder)}
+              aria-describedby={props.error ? `${props.id || props.name}-error` : undefined}
+              aria-invalid={props.error ? "true" : "false"}
+              aria-required="true"
             />
             {renderSuffix()}
             {props.signature && props.signatureImg}
@@ -384,6 +468,17 @@ const TextInput = (props) => {
               <span
                 className="digit-cursor-pointer"
                 onClick={props?.onIconSelection}
+                {...(typeof props?.onIconSelection === 'function' && {
+                tabIndex: 0,
+                role: 'button',
+                'aria-label': 'Select icon',
+                onKeyDown: (e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault(); 
+                    props.onIconSelection();
+                  }
+                }
+                })}
               >
                 {icon}
               </span>
@@ -452,11 +547,25 @@ const TextInput = (props) => {
               }
               step={props.step}
               autoFocus={props.autoFocus}
-              onBlur={props.onBlur}
               onKeyPress={props.onKeyPress}
+              onKeyDown={(event) => {
+                handleKeyDown(event);
+              }}
+              onMouseDown={handleMouseDown}
+              onFocus={(event) => {
+                if (typeof props?.onFocus === "function") {
+                  props.onFocus(event);
+                }
+                handleFocus(event);
+              }}
+              onBlur={(event) => {
+                if (typeof props?.onBlur === "function") {
+                  props.onBlur(event);
+                }
+                handleBlur(event);
+              }}
               autoComplete="off"
               disabled={props.disabled}
-              onFocus={props?.onFocus}
               nonEditable={props.nonEditable}
               config={props.config}
               populators={props.populators}
@@ -469,6 +578,10 @@ const TextInput = (props) => {
                   }
                 }
               }}
+              aria-label={props?.label || t(props.placeholder)}
+              aria-describedby={props.error ? `${props.id || props.name}-error` : undefined}
+              aria-invalid={props.error ? "true" : "false"}
+              aria-required={props.required ? "true" : "false"}
             />
             {renderSuffix()}
             {props.signature && props.signatureImg}
@@ -476,6 +589,17 @@ const TextInput = (props) => {
               <span
                 className="digit-cursor-pointer"
                 onClick={props?.onIconSelection}
+                {...(typeof props?.onIconSelection === 'function' && {
+                tabIndex: 0,
+                role: 'button',
+                'aria-label': 'Select icon',
+                onKeyDown: (e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault(); 
+                    props.onIconSelection();
+                  }
+                }
+                })}
               >
                 {icon}
               </span>
