@@ -17,6 +17,7 @@ class DigitSearchBar extends StatelessWidget {
   final TextCapitalization textCapitalization;
   final Widget? icon;
   final List<TextInputFormatter>? inputFormatters;
+  final TextInputType keyboardType;
 
   const DigitSearchBar({
     super.key,
@@ -29,6 +30,7 @@ class DigitSearchBar extends StatelessWidget {
     this.onChanged,
     this.textCapitalization = TextCapitalization.none,
     this.icon,
+    this.keyboardType = TextInputType.text,
     this.inputFormatters,
   });
 
@@ -63,6 +65,7 @@ class DigitSearchBar extends StatelessWidget {
           ),
           Expanded(
             child: TextField(
+              keyboardType: keyboardType,
               controller: controller,
               onChanged: onChanged,
               inputFormatters: inputFormatters,

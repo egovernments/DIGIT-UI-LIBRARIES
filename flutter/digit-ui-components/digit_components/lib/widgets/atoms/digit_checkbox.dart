@@ -45,6 +45,8 @@ class DigitCheckbox extends StatefulWidget {
 
   final DigitCheckboxThemeData? checkboxThemeData;
 
+  final bool isRequired;
+
   /// Creates a `DigitCheckbox` widget with the given parameters.
   const DigitCheckbox({
     Key? key,
@@ -56,6 +58,7 @@ class DigitCheckbox extends StatefulWidget {
     this.alignRight = false,
     this.capitalizeFirstLetter = true,
     this.checkboxThemeData,
+    this.isRequired = false,
   }) : super(key: key);
 
   @override
@@ -148,16 +151,28 @@ class _DigitCheckboxState extends State<DigitCheckbox> {
         if (widget.label != null) ...[
           const SizedBox(width: spacer4),
           Expanded(
-            child: Text(
-              processedLabel!,
-              style: widget.isDisabled
-                  ? checkboxThemeData?.disabledLabelTextStyle ??
-                  defaultThemeData.disabledLabelTextStyle
-                  : checkboxThemeData?.labelTextStyle ??
-                  defaultThemeData.labelTextStyle,
+            child: RichText(
+              text: TextSpan(
+                text: processedLabel,
+                style: widget.isDisabled
+                    ? checkboxThemeData?.disabledLabelTextStyle ??
+                    defaultThemeData.disabledLabelTextStyle
+                    : checkboxThemeData?.labelTextStyle ??
+                    defaultThemeData.labelTextStyle,
+                children: widget.isRequired
+                    ? [
+                  TextSpan(
+                    text: ' *',
+                    style: TextStyle(
+                      color: theme.colorTheme.alert.error, // red asterisk
+                    ),
+                  ),
+                ]
+                    : [],
+              ),
             ),
           ),
-        ]
+        ],
       ],
     );
   }

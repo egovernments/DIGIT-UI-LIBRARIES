@@ -113,7 +113,10 @@ class _DigitTooltipState extends State<DigitTooltip>
   ElementBox _getTriggerSize() {
     if (mounted) {
       final renderBox = context.findRenderObject() as RenderBox;
-      final offset = renderBox.localToGlobal(Offset.zero);
+      final overlayBox = Overlay.of(context).context.findRenderObject() as RenderBox;
+
+      final offset = renderBox.localToGlobal(Offset.zero, ancestor: overlayBox);
+
       return ElementBox(
         w: renderBox.size.width,
         h: renderBox.size.height,
@@ -124,6 +127,7 @@ class _DigitTooltipState extends State<DigitTooltip>
     _hideOverlay();
     return ElementBox(w: 0, h: 0, x: 0, y: 0);
   }
+
 
   /// Measures the size of the screen to calculate possible overflow
   ElementBox _getScreenSize() {

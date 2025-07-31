@@ -11,6 +11,7 @@ class SelectionCard<T> extends StatefulWidget {
   final List<T>? initialSelection;
   final bool allowMultipleSelection;
   final String Function(T) valueMapper;
+  final String? tooltipLabel;
   final bool isRequired;
   final bool equalWidthOptions;
   final IconData? Function(T)? prefixIconBuilder;
@@ -28,6 +29,7 @@ class SelectionCard<T> extends StatefulWidget {
     this.allowMultipleSelection = true,
     required this.valueMapper,
     this.isRequired = false,
+    this.tooltipLabel,
     this.equalWidthOptions = false,
     this.prefixIconBuilder,
     this.suffixIconBuilder,
@@ -200,6 +202,7 @@ class _SelectionCardState<T> extends State<SelectionCard<T>> {
         LabeledField(
           label: widget.title,
           isRequired: widget.isRequired,
+          infoText: widget.tooltipLabel,
           child: Container(
             width: isMobile ? MediaQuery.of(context).size.width : null,
             padding: EdgeInsets.all(isMobile ? spacer4 : spacer6),
