@@ -92,6 +92,8 @@ function AppLocalisationWrapper({ onSubmit, localeModule, screenConfig, back, sh
     fetchCurrentLocaleOnly: true,
     isMultipleLocale: enabledModules?.length > 0 ? true : false,
     config: {
+      cacheTime: 0,
+      staleTime: 0,
       select: (data) => {
         return data;
       },
