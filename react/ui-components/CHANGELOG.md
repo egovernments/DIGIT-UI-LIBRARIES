@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### [0.2.0-beta.61] - 2025-08-05
 ## Enhancement
+- All buttons to have default logic to autogenerate unique html id attribute
+
+### [0.2.0-beta.61] - 2025-08-05
+## Enhancement
 - Added validation and pattern prop for textinput in formcomposer
 
 ### [0.2.0-beta.60] - 2025-08-05

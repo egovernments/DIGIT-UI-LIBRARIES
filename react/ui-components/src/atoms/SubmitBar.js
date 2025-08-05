@@ -5,6 +5,7 @@ import { Colors } from "../constants/colors/colorconstants";
 
 const SubmitBar = forwardRef((props, ref) => {
   const primaryIconColor = Colors.lightTheme.paper.primary;
+ const fieldId = props?.id||Digit?.Utils?.getFieldIdName?.( props?.label || props?.className || "button")||"NA";
 
   const icon = iconRender(
     props?.icon,
@@ -22,7 +23,7 @@ const SubmitBar = forwardRef((props, ref) => {
       type={props.submit ? "submit" : "button"}
       style={{ ...props.style }}
       onClick={props.onSubmit}
-      id={props?.id}
+      id={props?.fieldId}
       {... props.form ? {form: props.form} : {}}
     >
       <div className={`icon-label-container`}    id={`${props?.id}-content`}>

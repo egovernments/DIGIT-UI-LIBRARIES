@@ -8,6 +8,7 @@ import { iconRender } from "../utils/iconRender";
 const Button = (props) => {
   const [dropdownStatus, setDropdownStatus] = useState(false);
   const actionRef = useRef(null);
+ const fieldId = props?.id||Digit?.Utils?.getFieldIdName?.( props?.label || props?.className || "button")||"NA";
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -121,13 +122,13 @@ const Button = (props) => {
           ? (e) => handleActionButtonClick(e)
           : props?.onClick
       }
-      id={props?.id}
+      id={fieldId}
       disabled={props?.isDisabled || null}
       title={props?.title || ""}
       style={props.style ? props.style : null}
     >
       <div
-        id={`${props?.id}-content`}
+        id={`${fieldId}-content`}
         className={`icon-label-container ${
           props?.variation ? props?.variation : ""
         } ${props?.size ? props?.size : ""}`}
