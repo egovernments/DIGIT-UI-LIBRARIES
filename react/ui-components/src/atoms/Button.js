@@ -121,11 +121,13 @@ const Button = (props) => {
           ? (e) => handleActionButtonClick(e)
           : props?.onClick
       }
+      id={props?.id}
       disabled={props?.isDisabled || null}
       title={props?.title || ""}
       style={props.style ? props.style : null}
     >
       <div
+        id={`${props?.id}-content`}
         className={`icon-label-container ${
           props?.variation ? props?.variation : ""
         } ${props?.size ? props?.size : ""}`}
@@ -147,7 +149,7 @@ const Button = (props) => {
     <div className={`digit-action-button-wrapper ${props?.wrapperClassName}`} style={props?.wrapperStyles} ref={actionRef}>
       {buttonElement}
       {dropdownStatus && (
-        <div className="header-dropdown-container">
+        <div className="header-dropdown-container"  id={props?.id} >
           <Menu
             options={props?.options}
             setDropdownStatus={setDropdownStatus}
@@ -177,6 +179,10 @@ Button.propTypes = {
    */
   variation: PropTypes.string,
   /**
+   * button id if any
+   */
+  id: PropTypes.string,
+    /**
    * button icon if any
    */
   icon: PropTypes.string,
