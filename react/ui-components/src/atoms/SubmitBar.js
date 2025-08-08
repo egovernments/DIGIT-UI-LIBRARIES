@@ -23,10 +23,10 @@ const SubmitBar = forwardRef((props, ref) => {
       type={props.submit ? "submit" : "button"}
       style={{ ...props.style }}
       onClick={props.onSubmit}
-      id={props?.fieldId}
+      id={fieldId}
       {... props.form ? {form: props.form} : {}}
     >
-      <div className={`icon-label-container`}    id={`${props?.id}-content`}>
+      <div className={`icon-label-container`}    id={`${fieldId}-content`}>
         {!props?.isSuffix && props?.icon && icon}
         <h2 className="digit-button-label">{props.label}</h2>
         {props?.isSuffix && props?.icon && icon}
