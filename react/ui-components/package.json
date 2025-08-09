@@ -1,6 +1,6 @@
 {
   "name": "@egovernments/digit-ui-components",
-  "version": "0.2.0-beta.63",
+  "version": "0.2.0-beta.64",
   "license": "MIT",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
@@ -68,7 +68,7 @@
   ],
   "dependencies": {
     "react-data-table-component": "7.6.2",
-    "@egovernments/digit-ui-components-css": "0.2.1",
+    "@egovernments/digit-ui-components-css": "0.2.0-beta.16",
     "@egovernments/digit-ui-libraries": "1.8.19",
     "@egovernments/digit-ui-svg-components": "1.0.21",
     "@googlemaps/js-api-loader": "1.13.10",
@@ -85,7 +85,8 @@
     "styled-components": "5.0.0",
     "react-dnd-html5-backend": "16.0.1",
     "react-dnd": "16.0.1",
-    "minimatch": "7.4.6"
+    "minimatch": "7.4.6",
+    "react-datepicker": "4.8.0"
   },
   "browserslist": {
     "production": [
