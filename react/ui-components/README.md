@@ -22,7 +22,7 @@ frontend/micro-ui/web/package.json
 ```
 
 ```json
-"@egovernments/digit-ui-components":"0.0.1",
+"@egovernments/digit-ui-components":"0.2.0",
 ```
 
 then navigate to App.js
@@ -88,9 +88,9 @@ yarn storybook
 
 ## Changelog
 
-### Summary for Version [0.0.2] - 2024-06-03
+### Summary for Version [0.2.0] - 2024-06-03
 
-#### New Changes
+#### New Changes (0.2.0)
 
 - Added Error Message Component.
 - Added Info Button Component.
@@ -117,11 +117,11 @@ For a detailed changelog, see the [CHANGELOG.md](./CHANGELOG.md) file.
 
 ## Published from DIGIT-UI-LIBRARIES
 
-DIGIT-UI-LIBRARIES Repo (https://github.com/egovernments/DIGIT-UI-LIBRARIES/tree/master)
+DIGIT-UI-LIBRARIES Repo (https://github.com/egovernments/DIGIT-UI-LIBRARIES/tree/develop)
 
 # Contributors
 
-[nabeelmd-egov] [bhavya-eGov] [nipunarora-eGov] [swathi-egov] [jagankumar-egov]
+[swathi-egov] [nabeelmd-egov] [bhavya-eGov] [nipunarora-eGov] [tulika-egov] [jagankumar-egov]
 
 # Reference 
 
@@ -129,9 +129,11 @@ Storybook (https://unified-dev.digit.org/storybook/)
 
 Documentation (https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0)
 
+Also here, see the [DOCUMENTATION.md](./DOCUMENTATION.md) file.
+
+
 ## License
 
 MIT © [jagankumar-egov](https://github.com/jagankumar-egov)
 
 ![Logo](https://s3.ap-south-1.amazonaws.com/works-dev-asset/mseva-white-logo.png)
-
