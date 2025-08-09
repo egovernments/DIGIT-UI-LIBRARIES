@@ -5,6 +5,7 @@ import { Colors } from "../constants/colors/colorconstants";
 
 const SubmitBar = forwardRef((props, ref) => {
   const primaryIconColor = Colors.lightTheme.paper.primary;
+ const fieldId = props?.id||Digit?.Utils?.getFieldIdName?.( props?.label || props?.className || "button")||"NA";
 
   const icon = iconRender(
     props?.icon,
@@ -22,9 +23,10 @@ const SubmitBar = forwardRef((props, ref) => {
       type={props.submit ? "submit" : "button"}
       style={{ ...props.style }}
       onClick={props.onSubmit}
+      id={fieldId}
       {... props.form ? {form: props.form} : {}}
     >
-      <div className={`icon-label-container`}>
+      <div className={`icon-label-container`}    id={`${fieldId}-content`}>
         {!props?.isSuffix && props?.icon && icon}
         <h2 className="digit-button-label">{props.label}</h2>
         {props?.isSuffix && props?.icon && icon}
@@ -38,6 +40,10 @@ SubmitBar.propTypes = {
    * Is it a normal button or submit button?
    */
   submit: PropTypes.any,
+    /**
+   * button id if any
+   */
+  id: PropTypes.string,
   /**
    * style for the button
    */

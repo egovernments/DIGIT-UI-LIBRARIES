@@ -1,4 +1,4 @@
-import React, { createContext, Fragment, useContext, useEffect, useReducer, useState } from "react";
+import React, { createContext, Fragment, useContext, useEffect, useMemo, useReducer, useState } from "react";
 import Footer from "../../atoms/Footer";
 import Button from "../../atoms/Button";
 import Loader from "../../atoms/Loader";
@@ -15,6 +15,7 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { useCustomT } from "./app-config-utils/useCustomT";
 import { MODULE_CONSTANTS } from "./app-config-utils/constants";
+import { useQueryClient } from "react-query";
 
 const AppConfigContext = createContext();
 
@@ -293,6 +294,7 @@ const reducer = (state = initialState, action, updateLocalization) => {
 };
 
 function AppConfigurationWrapper({ screenConfig, localeModule, pageTag, children, ...props }) {
+  const queryClient = useQueryClient();
   const { locState, addMissingKey, updateLocalization, onSubmit, back, showBack, parentDispatch } = useAppLocalisationContext();
   const [state, dispatch] = useReducer((state, action) => reducer(state, action, updateLocalization), initialState);
   const tenantId = Digit.ULBService.getCurrentTenantId();
@@ -301,6 +303,9 @@ function AppConfigurationWrapper({ screenConfig, localeModule, pageTag, children
   const [showPopUp, setShowPopUp] = useState(false);
   const [popupData, setPopupData] = useState(null);
   const [addFieldData, setAddFieldData] = useState(null);
+  const addFieldDataLabel = useMemo(() => {
+    return addFieldData?.label ? useCustomT(addFieldData?.label) : null;
+  }, [addFieldData]);
   const searchParams = new URLSearchParams(location.search);
   const fieldMasterName = searchParams.get("fieldType");
   const [showPreview, setShowPreview] = useState(null);
@@ -346,18 +351,6 @@ function AppConfigurationWrapper({ screenConfig, localeModule, pageTag, children
   };
 
   useEffect(() => {
-    const handleStepChange = (e) => {
-      setNextButtonDisable(e.detail);
-    };
-
-    window.addEventListener("lastButtonDisabled", handleStepChange);
-
-    return () => {
-      window.removeEventListener("lastButtonDisabled", handleStepChange);
-    };
-  }, []);
-
-  useEffect(() => {
     dispatch({
       type: "SET_SCREEN_DATA",
       state: {
@@ -366,19 +359,19 @@ function AppConfigurationWrapper({ screenConfig, localeModule, pageTag, children
     });
   }, [screenConfig]);
 
-  if (isLoadingAppConfigMdmsData) {
-    return <Loader page={true} variant={"PageLoader"} />;
-  }
   const closeToast = () => {
     setShowToast(null);
   };
 
-  function createLocaleArrays() {
+  function createLocaleArrays(fetchCurrentLocaleOnly) {
     const result = {};
+    if (!Array.isArray(locState) || !locState[0] || typeof currentLocale !== "string" || !currentLocale.includes("_")) {
+      return result;
+    }
     // Dynamically determine locales
-    const locales = Object.keys(locState[0]).filter(
-      (key) => key.includes(currentLocale.slice(currentLocale.indexOf("_"))) && key !== currentLocale
-    );
+    const locales = fetchCurrentLocaleOnly
+      ? []
+      : Object.keys(locState[0]).filter((key) => key.includes(currentLocale.slice(currentLocale.indexOf("_"))) && key !== currentLocale);
     locales.unshift(currentLocale);
     locales.forEach((locale) => {
       result[locale] = locState
@@ -491,14 +484,19 @@ function AppConfigurationWrapper({ screenConfig, localeModule, pageTag, children
       const result = await localisationMutate(localeArrays);
       updateCount = updateCount + 1;
       updateSuccess = true;
+      queryClient.removeQueries(`SEARCH_APP_LOCALISATION_FOR_TABLE`);
+      setShowToast({ key: "success", label: "TRANSLATIONS_SAVED_SUCCESSFULLY" });
     } catch (error) {
       setLoading(false);
       setShowToast({ key: "error", label: "CONFIG_SAVE_FAILED" });
       console.error(`Error sending localisation data:`, error);
+    } finally {
+      setShowPopUp(false);
+      setLoading(false);
     }
     return;
   };
-  const handleSubmit = async (finalSubmit) => {
+  const handleSubmit = async (finalSubmit, tabChange) => {
     if (state?.screenData?.[0]?.type === "object") {
       //skipping template screen validation
       const errorCheck = validateFromState(
@@ -515,7 +513,7 @@ function AppConfigurationWrapper({ screenConfig, localeModule, pageTag, children
         return;
       }
     }
-    const localeArrays = createLocaleArrays();
+    const localeArrays = createLocaleArrays(true);
     let updateCount = 0;
     let updateSuccess = false;
     try {
@@ -531,13 +529,37 @@ function AppConfigurationWrapper({ screenConfig, localeModule, pageTag, children
     setShowPopUp(false);
     setLoading(false);
     if (updateSuccess || !updateCount) {
-      onSubmit(state, finalSubmit);
+      onSubmit(state, finalSubmit, tabChange); // assumes onSubmit is a stable function
     }
     console.info("LOCALISATION_UPSERT_SUCCESS");
   };
 
+  useEffect(() => {
+    const handleStepChange = (e) => {
+      setNextButtonDisable(e.detail);
+    };
+
+    const handleTabChange = async (e) => {
+      // Submit the form here
+      await handleSubmit(false, true); // your submit function
+      // Now notify the caller that submit is done
+      e.detail?.onComplete?.();
+    };
+
+    window.addEventListener("lastButtonDisabled", handleStepChange);
+    window.addEventListener("tabChangeWithSave", handleTabChange);
+
+    return () => {
+      window.removeEventListener("lastButtonDisabled", handleStepChange);
+      window.removeEventListener("tabChangeWithSave", handleTabChange);
+    };
+  }, [state, locState, handleSubmit]);
+
   const currentPage = parseInt(pageTag.split(" ")[1]);
 
+  if (isLoadingAppConfigMdmsData) {
+    return <Loader page={true} variant={"PageLoader"} />;
+  }
   return (
     <AppConfigContext.Provider value={{ state, dispatch, openAddFieldPopup }}>
       {loading && <Loader page={true} variant={"OverlayLoader"} loaderText={t("SAVING_CONFIG_IN_SERVER")} />}
@@ -773,7 +795,7 @@ function AppConfigurationWrapper({ screenConfig, localeModule, pageTag, children
                 title: "ADD_FIELD_TYPE",
                 fieldPairClassName: "",
                 options: (state?.MASTER_DATA?.AppFieldType || [])
-                  .filter((item) => item?.metadata?.type !== "template")
+                  .filter((item) => item?.metadata?.type !== "template" && item?.metadata?.type !== "dynamic")
                   ?.sort((a, b) => a?.order - b?.order),
                 optionsKey: "type",
               }}
@@ -815,7 +837,7 @@ function AppConfigurationWrapper({ screenConfig, localeModule, pageTag, children
                     dropdown: "FIELD_TYPE_AND_LABEL_REQUIRED",
                   });
                   return;
-                } else if (!addFieldData?.label?.trim() && !addFieldData?.type) {
+                } else if (!addFieldDataLabel?.trim() && !addFieldData?.type) {
                   setShowError({
                     label: "FIELD_TYPE_AND_LABEL_REQUIRED",
                     dropdown: "FIELD_TYPE_AND_LABEL_REQUIRED",
@@ -824,7 +846,7 @@ function AppConfigurationWrapper({ screenConfig, localeModule, pageTag, children
                 } else if (!addFieldData?.type) {
                   setShowError({ dropdown: "FIELD_TYPE_AND_LABEL_REQUIRED" });
                   return;
-                } else if (!addFieldData?.label?.trim()) {
+                } else if (!addFieldDataLabel?.trim()) {
                   setShowError({ label: "FIELD_TYPE_AND_LABEL_REQUIRED" });
                   return;
                 }
