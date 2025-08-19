@@ -1,20 +1,20 @@
-@import url("../index.scss");
+//@import "../index.scss";
 
 .label-field-wrapper{
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    gap: theme(digitv2.spacers.spacer1);
+    gap: theme("digitv2.spacers.spacer1");
     width: 100%;
 }
 
 .digit-header-content {
 
     &.label {
-        @extend .typography.label;
+        @extend .typography, .label;
         @apply flex ;
-        color: theme(digitv2.lightTheme.text-primary);
-        gap: theme(digitv2.spacers.spacer1);
+        color: theme("digitv2.lightTheme.text-primary");
+        gap: theme("digitv2.spacers.spacer1");
 
         &.wraplabel {
             @media (min-aspect-ratio: 9/16){
@@ -29,7 +29,7 @@
 
         .label-container {
             @apply flex items-center w-full;
-            gap: theme(digitv2.spacers.spacer1);
+            gap: theme("digitv2.spacers.spacer1");
 
             &.wraplabel{
                 @media (min-aspect-ratio: 9/16) {
@@ -45,32 +45,32 @@
         }
 
         .info-icon .infotext {
-            @extend .typography.body-s;
+            @extend .typography, .body-s;
             @apply absolute text-center;
-            font-family: theme(digitv2.fontFamily.sans);
-            font-style: theme(digitv2.fontStyle.normal);
-            font-weight: theme(digitv2.fontWeight.regular);
-            line-height: theme(digitv2.lineHeight.lineheight2);
+            font-family: theme("digitv2.fontFamily.sans");
+            font-style: theme("digitv2.fontStyle.normal");
+            font-weight: theme("digitv2.fontWeight.regular");
+            line-height: theme("digitv2.lineHeight.lineheight2");
         
             @media (max-aspect-ratio: 9/16) {
               /* Media query for mobile */
-              font-size: theme(digitv2.fontSize.body-s.mobile);
+              font-size: theme("digitv2.fontSize.body-s.mobile");
             }
         
             @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
               /* Media query for tablets */
-              font-size: theme(digitv2.fontSize.body-s.tablet);
+              font-size: theme("digitv2.fontSize.body-s.tablet");
             }
         
             @media (min-aspect-ratio: 3/4) {
               /* Media query for desktop */
-              font-size: theme(digitv2.fontSize.body-s.desktop);
+              font-size: theme("digitv2.fontSize.body-s.desktop");
             }
             visibility: hidden;
             width: 7.5rem;
             background-color: #555555;
-            color: theme(digitv2.lightTheme.paper-primary);
-            padding: theme(digitv2.spacers.spacer2) theme(digitv2.spacers.spacer0);
+            color: theme("digitv2.lightTheme.paper-primary");
+            padding: theme("digitv2.spacers.spacer2") theme("digitv2.spacers.spacer0");
             z-index: 1;
             bottom: 100%;
             left: 50%;
@@ -83,7 +83,7 @@
         }
 
         .label-styles {
-            @apply overflow-hidden whitespace-no-wrap;
+            @apply overflow-hidden whitespace-nowrap;
             text-overflow: ellipsis;
 
             &.wraplabel {
@@ -102,32 +102,32 @@
 .digit-field {
 
     @apply flex flex-col w-full;
-    gap: theme(digitv2.spacers.spacer1);
+    gap: theme("digitv2.spacers.spacer1");
 
     .digit-description,
     .digit-charcount {
-        @extend .typography.body-s;
+        @extend .typography, .body-s;
         @apply flex justify-between items-baseline;
-        color: theme(digitv2.lightTheme.text-secondary);
-        gap: theme(digitv2.spacers.spacer2);
-        font-family: theme(digitv2.fontFamily.sans);
-        font-style: theme(digitv2.fontStyle.normal);
-        font-weight: theme(digitv2.fontWeight.regular);
-        line-height: theme(digitv2.lineHeight.lineheight2);
+        color: theme("digitv2.lightTheme.text-secondary");
+        gap: theme("digitv2.spacers.spacer2");
+        font-family: theme("digitv2.fontFamily.sans");
+        font-style: theme("digitv2.fontStyle.normal");
+        font-weight: theme("digitv2.fontWeight.regular");
+        line-height: theme("digitv2.lineHeight.lineheight2");
     
         @media (max-aspect-ratio: 9/16) {
           /* Media query for mobile */
-          font-size: theme(digitv2.fontSize.body-s.mobile);
+          font-size: theme("digitv2.fontSize.body-s.mobile");
         }
     
         @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
           /* Media query for tablets */
-          font-size: theme(digitv2.fontSize.body-s.tablet);
+          font-size: theme("digitv2.fontSize.body-s.tablet");
         }
     
         @media (min-aspect-ratio: 3/4) {
           /* Media query for desktop */
-          font-size: theme(digitv2.fontSize.body-s.desktop);
+          font-size: theme("digitv2.fontSize.body-s.desktop");
         }
 
 
@@ -151,99 +151,99 @@
 }
 
 .digit-form-card-subheader {
-    @extend .typography.caption-l;
-    font-family: theme(digitv2.fontFamily.sans);
-    font-style: theme(digitv2.fontStyle.normal);
-    font-weight: theme(digitv2.fontWeight.medium);
-    line-height: theme(digitv2.lineHeight.lineheight1);
+    @extend .typography, .caption-l;
+    font-family: theme("digitv2.fontFamily.sans");
+    font-style: theme("digitv2.fontStyle.normal");
+    font-weight: theme("digitv2.fontWeight.medium");
+    line-height: theme("digitv2.lineHeight.lineheight1");
 
     @media (max-aspect-ratio: 9/16) {
       /* Media query for mobile */
-      font-size: theme(digitv2.fontSize.caption-l.mobile);
+      font-size: theme("digitv2.fontSize.caption-l.mobile");
     }
 
     @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
       /* Media query for tablets */
-      font-size: theme(digitv2.fontSize.caption-l.tablet);
+      font-size: theme("digitv2.fontSize.caption-l.tablet");
     }
 
     @media (min-aspect-ratio: 3/4) {
       /* Media query for desktop */
-      font-size: theme(digitv2.fontSize.caption-l.desktop);
+      font-size: theme("digitv2.fontSize.caption-l.desktop");
     }
-    color: theme(digitv2.lightTheme.text-primary);
+    color: theme("digitv2.lightTheme.text-primary");
 }
 
 .digit-form-card-description {
-    @extend .typography.heading-s;
-    font-family: theme(digitv2.fontFamily.sans);
-    font-style: theme(digitv2.fontStyle.normal);
-    font-weight: theme(digitv2.fontWeight.bold);
-    line-height: theme(digitv2.lineHeight.lineheight1);
+    @extend .typography, .heading-s;
+    font-family: theme("digitv2.fontFamily.sans");
+    font-style: theme("digitv2.fontStyle.normal");
+    font-weight: theme("digitv2.fontWeight.bold");
+    line-height: theme("digitv2.lineHeight.lineheight1");
 
     @media (max-aspect-ratio: 9/16) {
       /* Media query for mobile */
-      font-size: theme(digitv2.fontSize.heading-s.mobile);
+      font-size: theme("digitv2.fontSize.heading-s.mobile");
     }
 
     @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
       /* Media query for tablets */
-      font-size: theme(digitv2.fontSize.heading-s.tablet);
+      font-size: theme("digitv2.fontSize.heading-s.tablet");
     }
 
     @media (min-aspect-ratio: 3/4) {
       /* Media query for desktop */
-      font-size: theme(digitv2.fontSize.heading-s.desktop);
+      font-size: theme("digitv2.fontSize.heading-s.desktop");
     }
-    color: theme(digitv2.lightTheme.text-secondary);
+    color: theme("digitv2.lightTheme.text-secondary");
 }
 
 .digit-form-card-text {
-    @extend .typography.body-l;
-    font-family: theme(digitv2.fontFamily.sans);
-    font-style: theme(digitv2.fontStyle.normal);
-    font-weight: theme(digitv2.fontWeight.regular);
-    line-height: theme(digitv2.lineHeight.lineheight2);
+    @extend .typography, .body-l;
+    font-family: theme("digitv2.fontFamily.sans");
+    font-style: theme("digitv2.fontStyle.normal");
+    font-weight: theme("digitv2.fontWeight.regular");
+    line-height: theme("digitv2.lineHeight.lineheight2");
 
     @media (max-aspect-ratio: 9/16) {
       /* Media query for mobile */
-      font-size: theme(digitv2.fontSize.body-l.mobile);
+      font-size: theme("digitv2.fontSize.body-l.mobile");
     }
 
     @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
       /* Media query for tablets */
-      font-size: theme(digitv2.fontSize.body-l.tablet);
+      font-size: theme("digitv2.fontSize.body-l.tablet");
     }
 
     @media (min-aspect-ratio: 3/4) {
       /* Media query for desktop */
-      font-size: theme(digitv2.fontSize.body-l.desktop);
+      font-size: theme("digitv2.fontSize.body-l.desktop");
     }
-    color: theme(digitv2.lightTheme.text-secondary);
+    color: theme("digitv2.lightTheme.text-secondary");
 
 }
 
 .sectionSubHeaderStyle{
-  @extend .typography.body-s;
+  @extend .typography, .body-s;
   @apply flex justify-between items-baseline;
-  color: theme(digitv2.lightTheme.text-secondary);
-  font-family: theme(digitv2.fontFamily.sans);
-  font-style: theme(digitv2.fontStyle.normal);
-  font-weight: theme(digitv2.fontWeight.regular);
-  line-height: theme(digitv2.lineHeight.lineheight2);
+  color: theme("digitv2.lightTheme.text-secondary");
+  font-family: theme("digitv2.fontFamily.sans");
+  font-style: theme("digitv2.fontStyle.normal");
+  font-weight: theme("digitv2.fontWeight.regular");
+  line-height: theme("digitv2.lineHeight.lineheight2");
 
   @media (max-aspect-ratio: 9/16) {
     /* Media query for mobile */
-    font-size: theme(digitv2.fontSize.body-s.mobile);
+    font-size: theme("digitv2.fontSize.body-s.mobile");
   }
 
   @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
     /* Media query for tablets */
-    font-size: theme(digitv2.fontSize.body-s.tablet);
+    font-size: theme("digitv2.fontSize.body-s.tablet");
   }
 
   @media (min-aspect-ratio: 3/4) {
     /* Media query for desktop */
-    font-size: theme(digitv2.fontSize.body-s.desktop);
+    font-size: theme("digitv2.fontSize.body-s.desktop");
   }
 }

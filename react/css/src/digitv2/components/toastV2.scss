@@ -1,10 +1,10 @@
 /*.digit-toast-success {
   @apply fixed flex z-20 w-full max-w-full left-0 items-center;
-  bottom: -(theme(digitv2.spacers.spacer12));
-  gap: theme(digitv2.spacers.spacer2);
-  height: theme(digitv2.spacers.spacer12);
-  padding: theme(digitv2.spacers.spacer3) theme(digitv2.spacers.spacer2) theme(digitv2.spacers.spacer3) theme(digitv2.spacers.spacer3) !important;
-  background-color: theme(digitv2.lightTheme.alert-success);
+  bottom: -(theme("digitv2.spacers.spacer12"));
+  gap: theme("digitv2.spacers.spacer2");
+  height: theme("digitv2.spacers.spacer12");
+  padding: theme("digitv2.spacers.spacer3") theme("digitv2.spacers.spacer2") theme("digitv2.spacers.spacer3") theme("digitv2.spacers.spacer3") !important;
+  background-color: theme("digitv2.lightTheme.alert-success");
   transition: bottom 0.5s ease;
 
   @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
@@ -26,7 +26,7 @@
   }
 
   &.digit-error {
-    background-color: theme(digitv2.lightTheme.alert-error);
+    background-color: theme("digitv2.lightTheme.alert-error");
   }
 
   &.digit-warning {
@@ -38,16 +38,16 @@
   }
 
   .toast-label {
-    @extend .typography.caption-s;
-    @apply text-left overflow-hidden whitespace-no-wrap flex-grow flex items-center h-6;
-    letter-spacing: theme(digitv2.spacers.spacer0);
-    color: theme(digitv2.lightTheme.paper-primary);
-    margin: theme(digitv2.spacers.spacer0);
+    @extend .typography, .caption-s;
+    @apply text-left overflow-hidden whitespace-nowrap flex-grow flex items-center h-6;
+    letter-spacing: theme("digitv2.spacers.spacer0");
+    color: theme("digitv2.lightTheme.paper-primary");
+    margin: theme("digitv2.spacers.spacer0");
     text-overflow: ellipsis;
   }
 
   &.digit-info {
-    background-color: theme(digitv2.lightTheme.alert-info);
+    background-color: theme("digitv2.lightTheme.alert-info");
   }
 
   .digit-warning-button-container {
@@ -69,7 +69,7 @@
 
 @keyframes slideInFromBottom {
   from {
-    bottom: -(theme(digitv2.spacers.spacer12));
+    bottom: -(theme("digitv2.spacers.spacer12"));
   }
   to {
     bottom: 4rem;
@@ -83,11 +83,11 @@
 .digit-toast-success {
   max-width: 100%;
   width: auto;
-  gap: theme(digitv2.spacers.spacer2);
-  height: theme(digitv2.spacers.spacer12);
-  padding: theme(digitv2.spacers.spacer3) theme(digitv2.spacers.spacer2) theme(digitv2.spacers.spacer3) theme(digitv2.spacers.spacer3) !important;
+  gap: theme("digitv2.spacers.spacer2");
+  height: theme("digitv2.spacers.spacer12");
+  padding: theme("digitv2.spacers.spacer3") theme("digitv2.spacers.spacer2") theme("digitv2.spacers.spacer3") theme("digitv2.spacers.spacer3") !important;
   @apply fixed flex z-20 items-center;
-  background-color: theme(digitv2.lightTheme.alert-success);
+  background-color: theme("digitv2.lightTheme.alert-success");
   transition: bottom 0.5s ease;
   left: 0;
 
@@ -104,15 +104,15 @@
   }
 
   &.digit-info {
-    background-color: theme(digitv2.lightTheme.alert-info);
+    background-color: theme("digitv2.lightTheme.alert-info");
   }
 
   &.digit-error {
-    background-color: theme(digitv2.lightTheme.alert-error);
+    background-color: theme("digitv2.lightTheme.alert-error");
   }
 
   &.digit-warning {
-    background-color: theme(digitv2.lightTheme.alert-warning);
+    background-color: theme("digitv2.lightTheme.alert-warning");
 
     &.digit-warning-buttons {
       @apply block;
@@ -136,11 +136,11 @@
   }
 
   .toast-label {
-    @extend .typography.caption-s;
-    @apply text-left overflow-hidden whitespace-no-wrap flex-grow flex items-center h-6;
-    letter-spacing: theme(digitv2.spacers.spacer0);
-    color: theme(digitv2.lightTheme.paper-primary);
-    margin: theme(digitv2.spacers.spacer0);
+    @extend .typography, .caption-s;
+    @apply text-left overflow-hidden whitespace-nowrap flex-grow flex items-center h-6;
+    letter-spacing: theme("digitv2.spacers.spacer0");
+    color: theme("digitv2.lightTheme.paper-primary");
+    margin: theme("digitv2.spacers.spacer0");
     text-overflow: ellipsis;
   }
 }

@@ -2,40 +2,40 @@
     @apply w-full flex-col;
     display: flex;
     height: fit-content;
-    border-radius: theme(digitv2.spacers.spacer1);
-    box-shadow: theme(digitv2.spacers.spacer0) 0.063rem 0.125rem theme(digitv2.spacers.spacer0) #00000029;
-    background: theme(digitv2.lightTheme.paper-primary);
+    border-radius: theme("digitv2.spacers.spacer1");
+    box-shadow: theme("digitv2.spacers.spacer0") 0.063rem 0.125rem theme("digitv2.spacers.spacer0") #00000029;
+    background: theme("digitv2.lightTheme.paper-primary");
 
     .digit-panelcard-header{
 
         &.with-shadow {
-            box-shadow: theme(digitv2.spacers.spacer0) 0.063rem 0.125rem theme(digitv2.spacers.spacer0) #00000026;
+            box-shadow: theme("digitv2.spacers.spacer0") 0.063rem 0.125rem theme("digitv2.spacers.spacer0") #00000026;
           }
       
           @media (min-width: 48rem) {
-            padding: theme(digitv2.spacers.spacer6);
-            padding-bottom: theme(digitv2.spacers.spacer0);
+            padding: theme("digitv2.spacers.spacer6");
+            padding-bottom: theme("digitv2.spacers.spacer0");
       
             &.with-shadow {
-              padding-bottom: theme(digitv2.spacers.spacer6);
+              padding-bottom: theme("digitv2.spacers.spacer6");
             }
           }
       
           @media (min-width: 30.063rem) and (max-width: 47.938rem) {
-            padding: theme(digitv2.spacers.spacer5);
-            padding-bottom: theme(digitv2.spacers.spacer0);
+            padding: theme("digitv2.spacers.spacer5");
+            padding-bottom: theme("digitv2.spacers.spacer0");
       
             &.with-shadow {
-              padding-bottom: theme(digitv2.spacers.spacer5);
+              padding-bottom: theme("digitv2.spacers.spacer5");
             }
           }
       
           @media (max-width: 30rem) {
-            padding: theme(digitv2.spacers.spacer4);
-            padding-bottom: theme(digitv2.spacers.spacer0);
+            padding: theme("digitv2.spacers.spacer4");
+            padding-bottom: theme("digitv2.spacers.spacer0");
       
             &.with-shadow {
-              padding-bottom: theme(digitv2.spacers.spacer4);
+              padding-bottom: theme("digitv2.spacers.spacer4");
             }
           }
     }
@@ -51,59 +51,59 @@
         }
 
         @media (min-width: 48rem) {
-            gap: theme(digitv2.spacers.spacer6);
-            padding: theme(digitv2.spacers.spacer6) theme(digitv2.spacers.spacer6) theme(digitv2.spacers.spacer0) theme(digitv2.spacers.spacer6);
+            gap: theme("digitv2.spacers.spacer6");
+            padding: theme("digitv2.spacers.spacer6") theme("digitv2.spacers.spacer6") theme("digitv2.spacers.spacer0") theme("digitv2.spacers.spacer6");
       
             &.with-shadow,
             &.without-footer{
-              padding: theme(digitv2.spacers.spacer6);
+              padding: theme("digitv2.spacers.spacer6");
             }
       
           }
       
           @media (min-width: 30.063rem) and (max-width: 47.938rem) {
-            gap: theme(digitv2.spacers.spacer5);
-            padding: theme(digitv2.spacers.spacer5) theme(digitv2.spacers.spacer5) theme(digitv2.spacers.spacer0) theme(digitv2.spacers.spacer5);
+            gap: theme("digitv2.spacers.spacer5");
+            padding: theme("digitv2.spacers.spacer5") theme("digitv2.spacers.spacer5") theme("digitv2.spacers.spacer0") theme("digitv2.spacers.spacer5");
           
             &.with-shadow,
             &.without-footer{
-              padding: theme(digitv2.spacers.spacer5);
+              padding: theme("digitv2.spacers.spacer5");
             }
           
           }
       
           @media (max-width: 30rem) {
-            gap: theme(digitv2.spacers.spacer4);
-            padding: theme(digitv2.spacers.spacer4) theme(digitv2.spacers.spacer4) theme(digitv2.spacers.spacer0) theme(digitv2.spacers.spacer4);
+            gap: theme("digitv2.spacers.spacer4");
+            padding: theme("digitv2.spacers.spacer4") theme("digitv2.spacers.spacer4") theme("digitv2.spacers.spacer0") theme("digitv2.spacers.spacer4");
           
             &.with-shadow,
             &.without-footer{
-              padding: theme(digitv2.spacers.spacer4);
+              padding: theme("digitv2.spacers.spacer4");
             }
           }
 
         .digit-panelcard-description {
-            @extend .typography.body-s;
-            font-family: theme(digitv2.fontFamily.sans);
-            font-style: theme(digitv2.fontStyle.normal);
-            font-weight: theme(digitv2.fontWeight.regular);
-            line-height: theme(digitv2.lineHeight.lineheight2);
+            @extend .typography, .body-s;
+            font-family: theme("digitv2.fontFamily.sans");
+            font-style: theme("digitv2.fontStyle.normal");
+            font-weight: theme("digitv2.fontWeight.regular");
+            line-height: theme("digitv2.lineHeight.lineheight2");
         
             @media (max-aspect-ratio: 9/16) {
               /* Media query for mobile */
-              font-size: theme(digitv2.fontSize.body-s.mobile);
+              font-size: theme("digitv2.fontSize.body-s.mobile");
             }
         
             @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
               /* Media query for tablets */
-              font-size: theme(digitv2.fontSize.body-s.tablet);
+              font-size: theme("digitv2.fontSize.body-s.tablet");
             }
         
             @media (min-aspect-ratio: 3/4) {
               /* Media query for desktop */
-              font-size: theme(digitv2.fontSize.body-s.desktop);
+              font-size: theme("digitv2.fontSize.body-s.desktop");
             }
-            color: theme(digitv2.lightTheme.generic-inputborder);
+            color: theme("digitv2.lightTheme.generic-inputborder");
         }
 
     }
@@ -111,31 +111,31 @@
     .digit-panelcard-footer {
         @apply flex-wrap;
         display: flex;
-        gap: theme(digitv2.spacers.spacer4);
+        gap: theme("digitv2.spacers.spacer4");
     
         &.with-shadow {
-          box-shadow: theme(digitv2.spacers.spacer0) -0.063rem 0.125rem theme(digitv2.spacers.spacer0) #00000026;
+          box-shadow: theme("digitv2.spacers.spacer0") -0.063rem 0.125rem theme("digitv2.spacers.spacer0") #00000026;
         }
     
         @media (min-width: 48rem) {
-          padding: theme(digitv2.spacers.spacer6);
+          padding: theme("digitv2.spacers.spacer6");
         }
     
         @media (min-width: 30.063rem) and (max-width: 47.938rem) {
           @apply w-full;
-          padding: theme(digitv2.spacers.spacer5);
+          padding: theme("digitv2.spacers.spacer5");
         }
     
         @media (max-width: 30rem) {
           @apply flex-col;
-          padding: theme(digitv2.spacers.spacer4);
+          padding: theme("digitv2.spacers.spacer4");
         }
       }
     
       .digit-panelcard-footer-buttons {
         margin-left: auto;
         display: flex;
-        gap: theme(digitv2.spacers.spacer4);
+        gap: theme("digitv2.spacers.spacer4");
         @apply max-w-full flex-wrap;
     
         @media (min-width: 30.063rem) and (max-width: 47.938rem) {
@@ -148,7 +148,7 @@
     
         @media (max-width: 30rem) {
           @apply flex-col;
-          margin: theme(digitv2.spacers.spacer0);
+          margin: theme("digitv2.spacers.spacer0");
     
           button {
             width: 100%;
@@ -157,7 +157,7 @@
       }
 
     .panelcard-infocard{
-        margin: theme(digitv2.spacers.spacer0);
+        margin: theme("digitv2.spacers.spacer0");
         width: 100%;
         max-width: 100%;
         min-width: 100%;
@@ -165,16 +165,16 @@
 }
 
 .digit-panelcard-children-wrap::-webkit-scrollbar {
-    width: theme(digitv2.spacers.spacer2);
-    background-color: theme(digitv2.lightTheme.generic-background);
+    width: theme("digitv2.spacers.spacer2");
+    background-color: theme("digitv2.lightTheme.generic-background");
   }
   
   .digit-panelcard-children-wrap::-webkit-scrollbar-track {
-    background-color: theme(digitv2.lightTheme.generic-background);
+    background-color: theme("digitv2.lightTheme.generic-background");
     border-radius: 0.563rem;
   }
   
   .digit-panelcard-children-wrap::-webkit-scrollbar-thumb {
-    background-color: theme(digitv2.lightTheme.generic-divider);
+    background-color: theme("digitv2.lightTheme.generic-divider");
     border-radius: 0.563rem;
   }

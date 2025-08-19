@@ -1,7 +1,7 @@
 .digit-tag-wrapper {
 
-    border-radius: theme(digitv2.spacers.spacer1);
-    padding: theme(digitv2.spacers.spacer1) theme(digitv2.spacers.spacer3);
+    border-radius: theme("digitv2.spacers.spacer1");
+    padding: theme("digitv2.spacers.spacer1") theme("digitv2.spacers.spacer3");
     gap: 0.625rem;
     display: flex;
     align-items: center;
@@ -21,81 +21,81 @@
     }
 
     &.success {
-        background-color: theme(digitv2.lightTheme.alert-successbg);
+        background-color: theme("digitv2.lightTheme.alert-successbg");
 
         .digit-tag-text {
-            color: theme(digitv2.lightTheme.alert-success);
+            color: theme("digitv2.lightTheme.alert-success");
         }
     }
 
     &.error {
-        background-color: theme(digitv2.lightTheme.alert-errorbg);
+        background-color: theme("digitv2.lightTheme.alert-errorbg");
 
         .digit-tag-text {
-            color: theme(digitv2.lightTheme.alert-error);
+            color: theme("digitv2.lightTheme.alert-error");
         }
     }
 
     &.warning {
-        background-color: theme(digitv2.lightTheme.alert-warning-bg);
+        background-color: theme("digitv2.lightTheme.alert-warning-bg");
 
         .digit-tag-text {
-            color: theme(digitv2.lightTheme.alert-warning);
+            color: theme("digitv2.lightTheme.alert-warning");
         }
     }
 
     &.monochrome {
-        background-color: theme(digitv2.lightTheme.paper-secondary);
+        background-color: theme("digitv2.lightTheme.paper-secondary");
 
         .digit-tag-text {
-            color: theme(digitv2.lightTheme.primary-2);
+            color: theme("digitv2.lightTheme.primary-2");
         }
     }
 
 
     &.stroke {
         &.success {
-            border: 0.031rem solid theme(digitv2.lightTheme.alert-success);
+            border: 0.031rem solid theme("digitv2.lightTheme.alert-success");
         }
 
         &.error {
-            border: 0.031rem solid theme(digitv2.lightTheme.alert-error);
+            border: 0.031rem solid theme("digitv2.lightTheme.alert-error");
         }
 
         &.warning {
-            border: 0.031rem solid theme(digitv2.lightTheme.alert-warning);
+            border: 0.031rem solid theme("digitv2.lightTheme.alert-warning");
         }
 
         &.monochrome {
-            border: 0.031rem solid theme(digitv2.lightTheme.primary-2);
+            border: 0.031rem solid theme("digitv2.lightTheme.primary-2");
         }
     }
 
     .digit-tag-customIcon {
-        width: theme(digitv2.spacers.spacer4);
-        height: theme(digitv2.spacers.spacer4);
+        width: theme("digitv2.spacers.spacer4");
+        height: theme("digitv2.spacers.spacer4");
     }
 
     .digit-tag-text {
-        @extend .typography.body-s;
-        font-family: theme(digitv2.fontFamily.sans);
-        font-style: theme(digitv2.fontStyle.normal);
-        font-weight: theme(digitv2.fontWeight.regular);
-        line-height: theme(digitv2.lineHeight.lineheight2);
+        @extend .typography, .body-s;
+        font-family: theme("digitv2.fontFamily.sans");
+        font-style: theme("digitv2.fontStyle.normal");
+        font-weight: theme("digitv2.fontWeight.regular");
+        line-height: theme("digitv2.lineHeight.lineheight2");
 
         @media (max-aspect-ratio: 9/16) {
             /* Media query for mobile */
-            font-size: theme(digitv2.fontSize.body-s.mobile);
+            font-size: theme("digitv2.fontSize.body-s.mobile");
         }
 
         @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
             /* Media query for tablets */
-            font-size: theme(digitv2.fontSize.body-s.tablet);
+            font-size: theme("digitv2.fontSize.body-s.tablet");
         }
 
         @media (min-aspect-ratio: 3/4) {
             /* Media query for desktop */
-            font-size: theme(digitv2.fontSize.body-s.desktop);
+            font-size: theme("digitv2.fontSize.body-s.desktop");
         }
     }
 

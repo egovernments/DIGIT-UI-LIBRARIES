@@ -1,36 +1,36 @@
 .digit-info-button {
     @apply text-center cursor-pointer outline-none flex max-w-full items-center justify-center h-10;
     width: fit-content;
-    padding-left: theme(digitv2.spacers.spacer6);
-    padding-right: theme(digitv2.spacers.spacer6);
-    gap: theme(digitv2.spacers.spacer2);
+    padding-left: theme("digitv2.spacers.spacer6");
+    padding-right: theme("digitv2.spacers.spacer6");
+    gap: theme("digitv2.spacers.spacer2");
     min-width: 6.5625rem;
 
     &.info{
-        background-color: theme(digitv2.lightTheme.alert-info);
+        background-color: theme("digitv2.lightTheme.alert-info");
     }
 
     &.error{
-        background-color: theme(digitv2.lightTheme.alert-error);
+        background-color: theme("digitv2.lightTheme.alert-error");
     }
 
     &.success{
-        background-color: theme(digitv2.lightTheme.alert-success);
+        background-color: theme("digitv2.lightTheme.alert-success");
     }
 
     &.warning{
-        background-color: theme(digitv2.lightTheme.alert-warning);
+        background-color: theme("digitv2.lightTheme.alert-warning");
     }
   
     h1 {
-      @extend .typography.button.large;
+      @extend .typography, .button, .large;
       margin: 0;
-      color: theme(digitv2.lightTheme.paper-primary) !important;
+      color: theme("digitv2.lightTheme.paper-primary") !important;
     }
   
     &.disabled {
       @apply opacity-50;
-      background: theme(digitv2.lightTheme.text-disabled);
+      background: theme("digitv2.lightTheme.text-disabled");
     }
   
     &:focus {
@@ -38,14 +38,14 @@
     }
   
     &:hover {
-      box-shadow: theme(digitv2.spacers.spacer0) -0.125rem theme(digitv2.spacers.spacer0) theme(digitv2.spacers.spacer0) theme(digitv2.lightTheme.text-primary) inset;
+      box-shadow: theme("digitv2.spacers.spacer0") -0.125rem theme("digitv2.spacers.spacer0") theme("digitv2.spacers.spacer0") theme("digitv2.lightTheme.text-primary") inset;
     }
   
     &:active {
-      box-shadow: theme(digitv2.spacers.spacer0) -0.125rem theme(digitv2.spacers.spacer0) theme(digitv2.spacers.spacer0) #0B0C0C inset, theme(digitv2.spacers.spacer0) 0.063rem 0.175rem theme(digitv2.spacers.spacer0) #00000040;
+      box-shadow: theme("digitv2.spacers.spacer0") -0.125rem theme("digitv2.spacers.spacer0") theme("digitv2.spacers.spacer0") #0B0C0C inset, theme("digitv2.spacers.spacer0") 0.063rem 0.175rem theme("digitv2.spacers.spacer0") #00000040;
   
       h1{
-        font-weight: theme(digitv2.fontWeight.bold);
+        font-weight: theme("digitv2.fontWeight.bold");
       }
     }
   
@@ -60,7 +60,7 @@
       @apply h-8;
   
       h1{
-        @extend .typography.button.medium;
+        @extend .typography, .button, .medium;
       }
     }
   
@@ -68,7 +68,7 @@
       @apply h-6;
   
       h1 {
-        @extend .typography.button.small;
+        @extend .typography, .button, .small;
       }
     }
   

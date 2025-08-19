@@ -1,8 +1,8 @@
-@import url("../typography.scss");
+@import "../typography.scss";
 
 .digit-card-label {
-  font-weight: theme(digitv2.fontWeight.regular);
+  font-weight: theme("digitv2.fontWeight.regular");
   font-size: 16px;
   line-height: 19px;
-  color: theme(digitv2.lightTheme.text-primary);
+  color: theme("digitv2.lightTheme.text-primary");
 }

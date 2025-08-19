@@ -1,4 +1,4 @@
-@import url("../index.scss");
+//@import "../index.scss";
 
 .digit-card {
     @apply bg-white m-sm px-md pt-md pb-lg shadow-card;
@@ -178,7 +178,7 @@
 .submit-bar {
     @extend .light-primary-button;
     @apply h-10 text-center w-full outline-none;
-    box-shadow: inset 0px -2px 0px theme(colors.text.primary);
+    box-shadow: inset 0px -2px 0px theme("colors.text.primary");
     cursor: pointer;
 
     &:focus {
@@ -335,7 +335,7 @@
 
 .digit-card-section-header {
     @apply text-heading-m font-bold;
-    color: theme(digitv2.lightTheme.text-primary);
+    color: theme("digitv2.lightTheme.text-primary");
 }
 
 .digit-card-search-heading {
@@ -389,16 +389,16 @@
 
     width: 100%;
     height: auto;
-    background-color: theme(digitv2.lightTheme.paper-primary);
-    border-radius: theme(digitv2.spacers.spacer1);
+    background-color: theme("digitv2.lightTheme.paper-primary");
+    border-radius: theme("digitv2.spacers.spacer1");
     box-shadow: 0rem 0.063rem 0.125rem 0rem #00000029;
     display: flex;
-    gap: theme(digitv2.spacers.spacer4);
+    gap: theme("digitv2.spacers.spacer4");
     flex-direction: column;
 
     &.secondary {
-        background-color: theme(digitv2.lightTheme.paper-secondary);
-        border: 0.063em solid theme(digitv2.lightTheme.generic-divider);
+        background-color: theme("digitv2.lightTheme.paper-secondary");
+        border: 0.063em solid theme("digitv2.lightTheme.generic-divider");
     }
 
     &.secondary.search,
@@ -460,20 +460,20 @@
     }
 
     @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4)  {
-        padding: theme(digitv2.spacers.spacer5);
+        padding: theme("digitv2.spacers.spacer5");
     }
 
     @media (min-aspect-ratio: 3/4) {
-        padding: theme(digitv2.spacers.spacer6);
+        padding: theme("digitv2.spacers.spacer6");
     }
 
     @media (max-aspect-ratio: 9/16) {
-        padding: theme(digitv2.spacers.spacer4);
+        padding: theme("digitv2.spacers.spacer4");
     }
 
     &.action {
-        padding: theme(digitv2.spacers.spacer6);
-        gap: theme(digitv2.spacers.spacer6);
+        padding: theme("digitv2.spacers.spacer6");
+        gap: theme("digitv2.spacers.spacer6");
 
         button {
             width: 100%;
@@ -483,7 +483,7 @@
     &.summarycard{
 
         .digit-text-block-wrap .digit-text-block-header-content .digit-text-block-subheader{
-            color: theme(digitv2.lightTheme.primary-2);
+            color: theme("digitv2.lightTheme.primary-2");
         }
     }
 
@@ -498,7 +498,7 @@
     }
 }
 .titleStyle{
-    color: theme(digitv2.lightTheme.primary-2);
-    font-weight: theme(digitv2.fontWeight.bold);
-    font-size: theme(digitv2.spacers.spacer10);
+    color: theme("digitv2.lightTheme.primary-2");
+    font-weight: theme("digitv2.fontWeight.bold");
+    font-size: theme("digitv2.spacers.spacer10");
 }

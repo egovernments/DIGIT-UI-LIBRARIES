@@ -12,15 +12,15 @@
             display: flex;
             width: 100%;
             min-height: 3.75rem;
-            padding: theme(digitv2.spacers.spacer4) theme(digitv2.spacers.spacer6);
+            padding: theme("digitv2.spacers.spacer4") theme("digitv2.spacers.spacer6");
             height: 3.75rem;
             align-items: center;
             justify-content: center;
-            background-color: theme(digitv2.lightTheme.paper-secondary);
-            border: 0.063rem solid theme(digitv2.lightTheme.generic-inputborder);
-            border-radius: theme(digitv2.spacers.spacer2) theme(digitv2.spacers.spacer2) theme(digitv2.spacers.spacer0) theme(digitv2.spacers.spacer0);
+            background-color: theme("digitv2.lightTheme.paper-secondary");
+            border: 0.063rem solid theme("digitv2.lightTheme.generic-inputborder");
+            border-radius: theme("digitv2.spacers.spacer2") theme("digitv2.spacers.spacer2") theme("digitv2.spacers.spacer0") theme("digitv2.spacers.spacer0");
             cursor: pointer;
-            gap: theme(digitv2.spacers.spacer1);
+            gap: theme("digitv2.spacers.spacer1");
 
             .digit-tab-icon {
                 display: flex;
@@ -36,31 +36,31 @@
 
 
             .digit-tab-label {
-                @extend .typography.body-s;
-                font-family: theme(digitv2.fontFamily.sans);
-                font-style: theme(digitv2.fontStyle.normal);
-                font-weight: theme(digitv2.fontWeight.regular);
-                line-height: theme(digitv2.lineHeight.lineheight2);
+                @extend .typography, .body-s;
+                font-family: theme("digitv2.fontFamily.sans");
+                font-style: theme("digitv2.fontStyle.normal");
+                font-weight: theme("digitv2.fontWeight.regular");
+                line-height: theme("digitv2.lineHeight.lineheight2");
 
                 @media (max-aspect-ratio: 9/16) {
                     /* Media query for mobile */
-                    font-size: theme(digitv2.fontSize.body-s.mobile);
+                    font-size: theme("digitv2.fontSize.body-s.mobile");
                 }
 
 
                 @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
                     /* Media query for tablets */
-                    font-size: theme(digitv2.fontSize.body-s.tablet);
+                    font-size: theme("digitv2.fontSize.body-s.tablet");
                 }
 
 
 
                 @media (min-aspect-ratio: 3/4) {
                     /* Media query for desktop */
-                    font-size: theme(digitv2.fontSize.body-s.desktop);
+                    font-size: theme("digitv2.fontSize.body-s.desktop");
                 }
 
-                color: theme(digitv2.lightTheme.text-secondary);
+                color: theme("digitv2.lightTheme.text-secondary");
                 white-space: noWrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
@@ -72,34 +72,34 @@
             height: 4rem;
 
             .digit-tab-item {
-                border: 0.125rem solid theme(digitv2.lightTheme.primary-1);
-                border-bottom: theme(digitv2.spacers.spacer1) solid theme(digitv2.lightTheme.primary-1);
-                background-color: theme(digitv2.lightTheme.paper-primary);
+                border: 0.125rem solid theme("digitv2.lightTheme.primary-1");
+                border-bottom: theme("digitv2.spacers.spacer1") solid theme("digitv2.lightTheme.primary-1");
+                background-color: theme("digitv2.lightTheme.paper-primary");
                 height: 4rem;
                 min-height: 4rem;
 
                 .digit-tab-label {
-                    @extend .typography.heading-s;
-                    font-family: theme(digitv2.fontFamily.sans);
-                    font-style: theme(digitv2.fontStyle.normal);
-                    font-weight: theme(digitv2.fontWeight.bold);
-                    line-height: theme(digitv2.lineHeight.lineheight1);
+                    @extend .typography, .heading-s;
+                    font-family: theme("digitv2.fontFamily.sans");
+                    font-style: theme("digitv2.fontStyle.normal");
+                    font-weight: theme("digitv2.fontWeight.bold");
+                    line-height: theme("digitv2.lineHeight.lineheight1");
                 
                     @media (max-aspect-ratio: 9/16) {
                       /* Media query for mobile */
-                      font-size: theme(digitv2.fontSize.heading-s.mobile);
+                      font-size: theme("digitv2.fontSize.heading-s.mobile");
                     }
                 
                     @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
                       /* Media query for tablets */
-                      font-size: theme(digitv2.fontSize.heading-s.tablet);
+                      font-size: theme("digitv2.fontSize.heading-s.tablet");
                     }
                 
                     @media (min-aspect-ratio: 3/4) {
                       /* Media query for desktop */
-                      font-size: theme(digitv2.fontSize.heading-s.desktop);
+                      font-size: theme("digitv2.fontSize.heading-s.desktop");
                     }
-                    color: theme(digitv2.lightTheme.primary-1);
+                    color: theme("digitv2.lightTheme.primary-1");
                     white-space: noWrap;
                     overflow: hidden;
                     text-overflow: ellipsis;
