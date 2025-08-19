@@ -40,7 +40,8 @@
     "**/minimatch": "7.4.6",
     "**/glob": "7.2.3",
     "minimatch": "7.4.6",
-    "glob": "7.2.3"
+    "glob": "7.2.3",
+     "react-draggable": "4.4.3"
   },
   "devDependencies": {
     "@storybook/addon-actions": "6.4.20",
