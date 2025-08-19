@@ -15,20 +15,6 @@ ENV GENERATE_SOURCEMAP "false"
 COPY ${WORK_DIR} .
 RUN ls -lah
 
-# Set working directory
-WORKDIR /app/web
-
-# Show heap size limit
-RUN node -e "console.log('Heap limit (MB):', v8.getHeapStatistics().heap_size_limit / (1024 * 1024))"
-
-# Print a marker log (optional debug message)
-RUN node -e "console.log('core only')"
-
-
-WORKDIR /var/storybook
-RUN chmod +x ./install-deps.sh
-RUN ./install-deps.sh
-
 # Return to main directory for install/build
 WORKDIR /var/storybook
 
