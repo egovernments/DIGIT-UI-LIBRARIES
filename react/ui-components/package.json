@@ -39,6 +39,8 @@
     "**/styled-components": "5.0.0",
     "**/minimatch": "7.4.6",
     "**/glob": "7.2.3",
+        "react-draggable": "4.4.3",
+        "react-scripts": "4.0.1",
     "minimatch": "7.4.6",
     "glob": "7.2.3"
   },
