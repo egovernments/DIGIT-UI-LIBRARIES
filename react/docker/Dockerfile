@@ -1,27 +1,29 @@
-# FROM egovio/alpine-node-builder-14:yarn AS build
-FROM ghcr.io/egovernments/alpine-node-builder-14:yarn AS build
-RUN apk update && apk upgrade
-RUN apk add --no-cache git>2.30.0
+FROM node:14-alpine3.14 AS build
+RUN apk update
+RUN apk add --no-cache 'git>2.30.0'
+# Install dependencies required for node-gyp (Python, make, g++, etc.)
+RUN apk add --no-cache python2 make g++ \
+    && ln -sf /usr/bin/python2 /usr/bin/python
+
 ARG WORK_DIR
 WORKDIR /app
-ENV NODE_OPTIONS "--max-old-space-size=8168"
+ENV NODE_OPTIONS="--max-old-space-size=8168"
 
 COPY ${WORK_DIR} .
 RUN ls -lah
 
-#RUN node web/envs.js
-RUN  ls \
-   && yarn install \
-    && yarn build
+
+RUN ls
+RUN yarn install
+RUN yarn build
 
 COPY ./example/src ${WORK_DIR}/src
 COPY ./example/public ${WORK_DIR}/public
 
-RUN  ls \
-    && yarn buildW:webpack
+RUN  ls
+RUN yarn buildW:webpack
 
 FROM nginx:mainline-alpine
-#FROM ghcr.io/egovernments/nginx:mainline-alpine
 ENV WORK_DIR=/var/web/core-ui
 
 RUN mkdir -p ${WORK_DIR}
