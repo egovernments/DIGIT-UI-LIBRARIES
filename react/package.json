@@ -54,7 +54,6 @@
     "minimatch": "7.4.6",
     "glob": "7.2.3",
     "react-draggable": "4.4.3"
-
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "7.21.0",
