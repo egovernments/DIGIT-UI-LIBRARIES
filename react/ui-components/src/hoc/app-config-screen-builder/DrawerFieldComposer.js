@@ -180,7 +180,8 @@ const RenderField = ({ state, panelItem, drawerState, setDrawerState, updateLoca
         </div>
       );
     }
-    case "text": {
+    case "text": 
+    case "number":{
       const switchRef = useRef(null);
       const [showTooltip, setShowTooltip] = useState(false);
       const isDisabled = disableFieldForMandatory(drawerState, panelItem, resourceData);
