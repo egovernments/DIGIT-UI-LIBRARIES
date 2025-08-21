@@ -7,6 +7,8 @@ import FieldV1 from "../FieldV1";
 import { useTranslation } from "react-i18next";
 import { useCustomT } from "./app-config-utils/useCustomT";
 import { DustbinIconNew as DustbinIcon } from "../../atoms/CustomSVG";
+import FiltersRenderer from "./FiltersRenderer";
+import DependentFieldsWrapper from "../DependentFieldsWrapper";
 
 export const RenderConditionalField = ({
   cField,
@@ -231,6 +233,27 @@ export const RenderConditionalField = ({
           optionsKey="code"
         />
       );
+    case "filters":
+      return (
+        <FiltersRenderer
+          cField={cField}
+          drawerState={drawerState}
+          setDrawerState={setDrawerState}
+          t={t}
+          disabled={disabled}
+        />
+      );
+    case "dependencyFieldWrapper":
+      return (
+        <DependentFieldsWrapper
+          currentPage="beneficiaryLocation"
+          t={t}
+          parentState={parentState}
+          onExpressionChange={handleExpressionChange}
+          screenConfig={screenConfig}
+          selectedFieldItem={selectedField}
+        />
+      )
     default:
       return null;
   }
