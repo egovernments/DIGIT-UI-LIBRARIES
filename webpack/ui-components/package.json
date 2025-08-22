@@ -11,12 +11,14 @@
   "homepage": "https://unified-dev.digit.org/storybook/",
   "author": "Jagankumar <jagan.kumar@egov.org.in>",
   "scripts": {
+    "start": "webpack serve --mode=development --open --hot",
+    "start:prod": "webpack serve --mode=production --open",
     "example": "cd example && npm run start",
-    "build": "webpack  --mode=development --node-env=development --config webpack.config.js",
+    "build": "webpack --mode=production --config webpack.config.js",
+    "build:dev": "webpack --mode=development --config webpack.config.js",
     "prepare": "yarn build",
     "publish:components": "npm publish --tag core-webpack-v0.1",
     "predeploy": "cd example && yarn install && yarn run build",
-    "deploy": "gh-pages -d example/build",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },

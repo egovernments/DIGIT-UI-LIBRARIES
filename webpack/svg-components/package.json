@@ -11,11 +11,13 @@
   "homepage": "https://unified-dev.digit.org/storybook-svg/",
   "author": "Jagankumar <jagan.kumar@egov.org.in>",
   "scripts": {
+    "start": "webpack serve --mode=development --open --hot",
+    "start:prod": "webpack serve --mode=production --open",
     "example": "cd example && npm run start",
-    "build": "webpack  --mode=development --node-env=development --config webpack.config.js",
+    "build": "webpack --mode=production --config webpack.config.js",
+    "build:dev": "webpack --mode=development --config webpack.config.js",
     "prepare": "yarn build",
-    "predeploy": "cd example && yarn install && yarn run build",
-    "deploy": "gh-pages -d example/build"
+    "predeploy": "cd example && yarn install && yarn run build"
   },
   "devDependencies": {
     "@babel/core": "^7.23.3",

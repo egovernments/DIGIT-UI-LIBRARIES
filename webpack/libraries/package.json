@@ -10,12 +10,13 @@
   ],
   "scripts": {
     "start": "webpack serve --mode=development --open --hot",
+    "start:prod": "webpack serve --mode=production --open",
     "prepublish": "yarn build",
     "example": "cd example && npm run start",
-    "build": "webpack  --mode=development --node-env=development --config webpack.config.js",
+    "build": "webpack --mode=production --config webpack.config.js",
+    "build:dev": "webpack --mode=development --config webpack.config.js",
     "prepare": "yarn build",
-    "predeploy": "cd example && yarn install && yarn run build",
-    "deploy": "gh-pages -d example/build"
+    "predeploy": "cd example && yarn install && yarn run build"
   },
   "peerDependencies": {
     "react": "19.0.0",
@@ -26,9 +27,6 @@
   "devDependencies": {
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "gh-pages": "2.2.0",
-    "microbundle-crl": "0.13.11",
-    "react-scripts": "^4.0.1",
     "sass": "^1.83.4",
     "sass-loader": "^16.0.4",
     "@babel/core": "^7.23.3",
