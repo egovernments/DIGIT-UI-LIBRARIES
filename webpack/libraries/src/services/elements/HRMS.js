@@ -1,4 +1,4 @@
-import { roundToNearestMinutes } from "date-fns/esm";
+import { roundToNearestMinutes } from "date-fns";
 import Urls from "../atoms/urls";
 import { Request } from "../atoms/Utils/Request";
 

@@ -17,12 +17,8 @@ const getIconComponent = (iconName = "") => {
   }
   
   try {
-    // Trying to get the icon from "digit-ui-react-components"
-    let IconComponent = require("@egovernments/digit-ui-react-components")?.[iconName];
-    // If the icon is not found, trying to get it from "digit-ui-svg-components"
-    if (!IconComponent) {
-      IconComponent = require("@egovernments/digit-ui-svg-components")?.[iconName];
-    }
+    // Only try to get the icon from "digit-ui-svg-components" to avoid circular dependency
+    const IconComponent = require("@egovernments/digit-ui-svg-components")?.[iconName];
     // Cache the component
     iconComponents[iconName] = IconComponent;
     return IconComponent;
