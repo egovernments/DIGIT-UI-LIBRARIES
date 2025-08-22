@@ -5,7 +5,7 @@ import { SVG } from "./SVG";
 import StringManipulator from "./StringManipulator";
 import { Colors} from "../constants/colors/colorconstants";
 import Divider from "./Divider";
-import "./SubmitBar.css"
+// import "./SubmitBar.css" // Commented out for webpack build compatibility
 
 const Stepper = ({
   currentStep = 1,

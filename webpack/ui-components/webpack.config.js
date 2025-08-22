@@ -9,13 +9,13 @@ module.exports = (env, argv) => {
     entry: "./src/index.js",
     output: {
       filename: "main.js", // Predictable filename for libraries
-      path: path.resolve(__dirname, "dist"),
+      path: path.resolve(__dirname, "build"),
       library: {
         name: "@egovernments/digit-ui-components",
         type: "umd",
       },
       globalObject: 'this',
-      clean: true, // Clean dist folder before each build
+      clean: true, // Clean build folder before each build
     },
     resolve: {
       extensions: [".js", ".jsx"],
@@ -46,7 +46,12 @@ module.exports = (env, argv) => {
       // Form libraries that consumers might provide
       'react-hook-form': 'react-hook-form',
       // Date picker should be externalized to prevent version conflicts
-      'react-datepicker': 'react-datepicker'
+      'react-datepicker': 'react-datepicker',
+      // Additional UI dependencies that should be externalized
+      'react-table': 'react-table',
+      'react-data-table-component': 'react-data-table-component',
+      'react-webcam': 'react-webcam',
+      'react-drag-drop-files': 'react-drag-drop-files'
     },
     module: {
       rules: [
@@ -62,8 +67,7 @@ module.exports = (env, argv) => {
                     browsers: ["> 1%", "last 2 versions", "not ie <= 8"]
                   },
                   modules: false, // Let webpack handle modules
-                  useBuiltIns: "usage",
-                  corejs: 3
+                  useBuiltIns: false // Disable core-js polyfills for consistency
                 }],
                 ["@babel/preset-react", {
                   runtime: "automatic" // Use new JSX transform
@@ -72,7 +76,7 @@ module.exports = (env, argv) => {
               plugins: [
                 "@babel/plugin-transform-optional-chaining",
                 "@babel/plugin-transform-nullish-coalescing-operator",
-                isProduction && ["babel-plugin-transform-remove-console", { "exclude": ["error", "warn"] }]
+                // Removed babel-plugin-transform-remove-console for stability
               ].filter(Boolean),
               // Enable caching for faster builds
               cacheDirectory: true,
@@ -139,7 +143,7 @@ module.exports = (env, argv) => {
     // Development server config (for yarn start)
     devServer: isProduction ? undefined : {
       static: {
-        directory: path.join(__dirname, 'dist'),
+        directory: path.join(__dirname, 'build'),
       },
       compress: true,
       port: 3004,

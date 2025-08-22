@@ -1,4 +1,4 @@
-import "./index.css"
+// import "./index.css" // Commented out for webpack build compatibility
 import {
   Accordion,
   AccordionList,

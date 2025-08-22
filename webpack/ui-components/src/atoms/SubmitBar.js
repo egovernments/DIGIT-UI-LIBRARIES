@@ -2,7 +2,7 @@ import React, { forwardRef } from "react";
 import PropTypes from "prop-types";
 import { iconRender } from "../utils/iconRender";
 import { Colors } from "../constants/colors/colorconstants";
-import "./SubmitBar.css"
+// import "./SubmitBar.css" // Commented out for webpack build compatibility
 
 const SubmitBar = forwardRef((props, ref) => {
   const primaryIconColor = Colors.lightTheme.paper.primary;

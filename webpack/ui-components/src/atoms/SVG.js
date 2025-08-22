@@ -1,5 +1,5 @@
 import React from "react"
-import "../../src/index.css"
+// import "../../src/index.css" // Commented out for webpack build compatibility
 
 import {
   Rotation3D,

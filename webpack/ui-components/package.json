@@ -1,9 +1,9 @@
 {
   "name": "@egovernments/digit-ui-components",
-  "version": "0.2.0-rc-test-04",
+  "version": "0.2.0-stable",
   "license": "MIT",
-  "main": "dist/main.js",
-  "module": "dist/main.js",
+  "main": "build/main.js",
+  "module": "build/main.js",
   "source": "src/index.js",
   "engines": {
     "node": ">=18"
@@ -61,11 +61,11 @@
     "@tanstack/react-query": "^5.62.16"
   },
   "files": [
-    "dist"
+    "build"
   ],
   "dependencies": {
-    "@egovernments/digit-ui-svg-components": "1.0.22-rc-test-04",
-    "@egovernments/digit-ui-libraries": "1.8.18-rc-test-04",
+    "@egovernments/digit-ui-svg-components": "1.0.22-stable",
+    "@egovernments/digit-ui-libraries": "1.8.18-stable",
     "@egovernments/digit-ui-components-css":"0.2.0-beta.14",
     "autoprefixer": "^10.4.15",
     "date-fns": "3.6.0",

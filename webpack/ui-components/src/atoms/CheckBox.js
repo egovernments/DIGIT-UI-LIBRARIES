@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import { useTranslation } from "react-i18next";
 import { Colors } from "../constants/colors/colorconstants";
 import { getUserType } from "../utils/digitUtils";
-import "../index.css"
+// import "../index.css" // Commented out for webpack build compatibility
 
 const CheckBox = ({
   onChange,

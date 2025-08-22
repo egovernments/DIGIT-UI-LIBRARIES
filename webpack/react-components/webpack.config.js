@@ -9,7 +9,7 @@ module.exports = (env, argv) => {
     entry: "./src/index.js",
     output: {
       filename: "main.js", // Predictable filename for libraries
-      path: path.resolve(__dirname, "dist"),
+      path: path.resolve(__dirname, "build"),
       library: {
         name: "@egovernments/digit-ui-react-components",
         type: "umd",
@@ -70,8 +70,7 @@ module.exports = (env, argv) => {
               ],
               plugins: [
                 "@babel/plugin-transform-optional-chaining",
-                "@babel/plugin-transform-nullish-coalescing-operator",
-                isProduction && ["babel-plugin-transform-remove-console", { "exclude": ["error", "warn"] }]
+                "@babel/plugin-transform-nullish-coalescing-operator"
               ].filter(Boolean),
               // Enable caching for faster builds
               cacheDirectory: true,

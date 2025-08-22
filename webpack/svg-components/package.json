@@ -1,9 +1,9 @@
 {
   "name": "@egovernments/digit-ui-svg-components",
-  "version": "1.0.22-rc-test-04",
+  "version": "1.0.22-stable",
   "license": "MIT",
-  "main": "dist/main.js",
-  "module": "dist/main.js",
+  "main": "build/main.js",
+  "module": "build/main.js",
   "source": "src/index.js",
   "engines": {
     "node": ">=18"
@@ -37,7 +37,7 @@
     "react-dom": "19.0.0"
   },
   "files": [
-    "dist"
+    "build"
   ],
   "dependencies": {
     "prop-types": "15.8.1"

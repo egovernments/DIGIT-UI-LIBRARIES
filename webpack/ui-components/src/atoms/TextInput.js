@@ -7,8 +7,8 @@ import { getUserType } from "../utils/digitUtils";
 import { useTranslation } from "react-i18next";
 import DatePicker from "react-datepicker";
 import { format } from "date-fns";
-import "react-datepicker/dist/react-datepicker.css";
-import "./SubmitBar.css";
+// import "react-datepicker/dist/react-datepicker.css"; // Commented out for webpack build compatibility
+// import "./SubmitBar.css"; // Commented out for webpack build compatibility
 
 const TextInput = (props) => {
   const { t: i18nT } = useTranslation();
