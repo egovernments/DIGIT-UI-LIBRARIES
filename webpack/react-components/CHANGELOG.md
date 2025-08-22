@@ -3,6 +3,13 @@ Here's the `CHANGELOG` file for the specified versions:
 ```markdown
 # Changelog
 
+## [1.8.22-rc-test-03] [22-Aug-2025]
+- Fixed Node.js 17+ OpenSSL compatibility issues with --openssl-legacy-provider flag
+- Updated core-js to v3.38.1 to resolve security and performance issues
+- Enhanced build scripts for Node.js 18+ compatibility
+- Eliminated "digital envelope routines::unsupported" errors
+- Improved component library build stability
+
 ## [1.8.22-rc-test-02] [22-Aug-2025]
 - Fixed deprecated Babel plugin names (proposal → transform)
 - Replaced @babel/plugin-proposal-optional-chaining with @babel/plugin-transform-optional-chaining

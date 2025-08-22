@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.22-rc-test-03] [22-Aug-2025]
+- Fixed Node.js 17+ OpenSSL compatibility issues with --openssl-legacy-provider flag
+- Updated core-js to v3.38.1 to resolve security and performance issues
+- Enhanced build scripts for Node.js 18+ compatibility
+- Eliminated "digital envelope routines::unsupported" errors
+- Optimized SVG component build process
+
 ## [1.0.22-rc-test-02] [22-Aug-2025]
 - Fixed deprecated Babel plugin names (proposal → transform)
 - Replaced @babel/plugin-proposal-optional-chaining with @babel/plugin-transform-optional-chaining

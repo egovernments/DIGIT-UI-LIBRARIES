@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0-beta.41-rc-test-03] [22-Aug-2025]
+- Fixed Node.js 17+ OpenSSL compatibility issues with --openssl-legacy-provider flag
+- Updated core-js to v3.38.1 to resolve security and performance issues
+- Enhanced build scripts for Node.js 18+ compatibility
+- Eliminated "digital envelope routines::unsupported" errors
+- Improved UI component build stability with modern Node.js
+
 ## [0.2.0-beta.41-rc-test-02] [22-Aug-2025]
 - Fixed deprecated Babel plugin names (proposal → transform)
 - Replaced @babel/plugin-proposal-optional-chaining with @babel/plugin-transform-optional-chaining
