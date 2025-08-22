@@ -92,7 +92,7 @@ module.exports = (env, argv) => {
     },
     optimization: {
       minimize: isProduction,
-      // Don't split chunks for libraries - keep as single bundle
+      // Libraries package is mainly hooks/utilities - keep as single bundle
       splitChunks: false,
       // Tree shaking optimization
       sideEffects: false,

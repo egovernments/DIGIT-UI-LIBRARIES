@@ -1,6 +1,6 @@
 {
   "name": "@egovernments/digit-ui-react-components",
-  "version": "1.8.22-stable",
+  "version": "1.9.0-beta-1",
   "license": "MIT",
   "main": "build/main.js",
   "module": "build/main.js",
@@ -25,7 +25,8 @@
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-router-dom": "6.25.1",
-    "@tanstack/react-query": "^5.62.16"
+    "@tanstack/react-query": "^5.62.16",
+    "react-i18next": "15.0.0"
   },
   "devDependencies": {
     "react": "^19.0.0",
@@ -54,13 +55,13 @@
     "@tanstack/react-query": "^5.62.16"
   },
   "files": [
-    "dist"
+    "build"
   ],
   "dependencies": {
     "lodash": "^4.17.21",
     "prop-types": "^15.8.1",
-    "@egovernments/digit-ui-svg-components": "1.0.22-stable",
-    "@egovernments/digit-ui-components": "0.2.0-stable",
+    "@egovernments/digit-ui-svg-components": "1.1.0-beta-1",
+    "@egovernments/digit-ui-components": "0.3.0-beta-1",
     "@googlemaps/js-api-loader": "1.13.10",
     "@hookform/resolvers": "1.3.7",
     "ajv": "8.11.2",

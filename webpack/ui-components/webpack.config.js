@@ -127,8 +127,25 @@ module.exports = (env, argv) => {
     },
     optimization: {
       minimize: isProduction,
-      // Don't split chunks for libraries - keep as single bundle
-      splitChunks: false,
+      // Enable code splitting for heavy UI components
+      splitChunks: {
+        chunks: 'async',
+        minSize: 20000,
+        cacheGroups: {
+          // Group heavy UI components
+          heavyComponents: {
+            test: /[\\/]node_modules[\\/](react-webcam|react-lottie|react-data-table-component|react-select)[\\/]/,
+            name: 'heavy-components',
+            priority: 10,
+            chunks: 'async'
+          },
+          vendors: {
+            test: /[\\/]node_modules[\\/]/,
+            priority: -10,
+            chunks: 'async'
+          }
+        }
+      },
       // Tree shaking optimization
       sideEffects: false,
       usedExports: true,

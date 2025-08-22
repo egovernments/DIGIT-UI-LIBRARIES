@@ -88,4 +88,14 @@ const initLibraries = () => {
   });
 };
 
-export { initLibraries, Enums, Hooks, subFormRegistry ,Request};
+// Export lazy loading utilities for heavy dependencies
+import * as LazyImports from "./utils/LazyImports";
+
+export { 
+  initLibraries, 
+  Enums, 
+  Hooks, 
+  subFormRegistry,
+  Request,
+  LazyImports
+};

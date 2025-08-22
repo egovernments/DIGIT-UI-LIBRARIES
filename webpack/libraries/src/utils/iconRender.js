@@ -22,11 +22,11 @@ export const iconRender = (iconReq, iconFill, width, height, className) => {
   //     });
   //     return svgElement;
   //   } else {
-  //     console.error("Icon not found");
+  //     console.error("🔍 Icon not found: Please check icon name");
   //     return null;
   //   }
   // } catch (error) {
-  //   console.error("Icon not found");
+  //   console.error("🔍 Icon loading failed:", error.message);
   //   return null;
   // }
   return (

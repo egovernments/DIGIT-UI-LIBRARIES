@@ -1,4 +1,5 @@
 // import "./index.css" // Commented out for webpack build compatibility
+import LazyComponent from "./utils/LazyComponent";
 import {
   Accordion,
   AccordionList,
@@ -138,7 +139,7 @@ import {
 import { initLibraries } from "@egovernments/digit-ui-libraries";
 
 initLibraries().then(() => {
-  console.info("DIGIT Contants enabled");
+  console.info("🚀 DIGIT UI Components v0.3.0-beta-1 initialized successfully");
 });
 
 export {
@@ -280,5 +281,7 @@ export {
   TableBody,
   TableRow,
   TableCell,
-  NestedTable
+  NestedTable,
+  // Lazy loading utilities
+  LazyComponent
 };

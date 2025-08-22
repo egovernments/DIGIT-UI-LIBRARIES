@@ -61,7 +61,7 @@ const useCustomAPIHook = ({
       });
       return response || null;
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.error("🚨 API Hook Error:", error.message || error, "- Check network or endpoint");
       throw error;
     }
   };
