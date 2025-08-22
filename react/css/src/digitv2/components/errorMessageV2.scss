@@ -1,5 +1,5 @@
-//@import "../index.scss";
-@import "../typography.scss";
+@import './theme-variables.css';
+@import '../typography.scss';
 
 .digit-error-icon-message-wrap {
   @apply flex w-full whitespace-pre-wrap break-words;
@@ -14,7 +14,7 @@
   }
 
   .digit-error-message {
-    @extend .typography, .body-s;
+    @include typography-body-s;
     @apply w-full;
     font-family: theme("digitv2.fontFamily.sans");
     font-style: theme("digitv2.fontStyle.normal");

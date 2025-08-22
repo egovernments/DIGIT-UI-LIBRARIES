@@ -1,6 +1,9 @@
+@import './theme-variables.css';
+@import '../typography.scss';
+
 .digit-view-card {
   .digit-view-card-header {
-    @extend .typography, .heading-l;
+    @include typography-heading-l;
     font-family: theme("digitv2.fontFamily.sans");
     font-style: theme("digitv2.fontStyle.normal");
     font-weight: theme("digitv2.fontWeight.bold");
@@ -31,7 +34,7 @@
   }
 
   .digit-view-card-subheader {
-    @extend .typography, .heading-m;
+    @include typography-heading-m;
     font-family: theme("digitv2.fontFamily.sans");
     font-style: theme("digitv2.fontStyle.normal");
     font-weight: theme("digitv2.fontWeight.bold");

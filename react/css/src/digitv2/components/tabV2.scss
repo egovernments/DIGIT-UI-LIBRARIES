@@ -1,3 +1,6 @@
+@import './theme-variables.css';
+@import '../typography.scss';
+
 .digit-tab {
     display: flex;
     height: fit-content;
@@ -36,7 +39,7 @@
 
 
             .digit-tab-label {
-                @extend .typography, .body-s;
+                @include typography-body-s;
                 font-family: theme("digitv2.fontFamily.sans");
                 font-style: theme("digitv2.fontStyle.normal");
                 font-weight: theme("digitv2.fontWeight.regular");
@@ -79,7 +82,7 @@
                 min-height: 4rem;
 
                 .digit-tab-label {
-                    @extend .typography, .heading-s;
+                    @include typography-heading-s;
                     font-family: theme("digitv2.fontFamily.sans");
                     font-style: theme("digitv2.fontStyle.normal");
                     font-weight: theme("digitv2.fontWeight.bold");

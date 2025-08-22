@@ -1,3 +1,6 @@
+@import './theme-variables.css';
+@import '../typography.scss';
+
 .digit-menu-card {
 
     display: flex;
@@ -43,7 +46,7 @@
         }
 
         .digit-menuacard-menuName {
-            @extend .typography, .heading-m;
+            @include typography-heading-m;
             font-family: theme("digitv2.fontFamily.sans");
             font-style: theme("digitv2.fontStyle.normal");
             font-weight: theme("digitv2.fontWeight.bold");
@@ -69,7 +72,7 @@
     }
 
     .digit-menucard-description {
-        @extend .typography, .body-s;
+        @include typography-body-s;
         font-family: theme("digitv2.fontFamily.sans");
         font-style: theme("digitv2.fontStyle.normal");
         font-weight: theme("digitv2.fontWeight.regular");

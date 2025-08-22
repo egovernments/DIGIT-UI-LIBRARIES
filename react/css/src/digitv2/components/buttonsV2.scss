@@ -1,11 +1,12 @@
-//@import "../index.scss";
+@import './theme-variables.css';
+@import '../typography.scss';
 
 .icon-label-container {
   @apply flex max-w-full items-center;
-  gap: theme("digitv2.spacers.spacer2");
+  gap: var(--digitv2-spacers-spacer2);
 
   &.small{
-    gap: theme("digitv2.spacers.spacer1");
+    gap: var(--digitv2-spacers-spacer1);
   }
 
   .digit-button-customIcon {
@@ -23,7 +24,7 @@
 
   &.link {
     @apply items-start;
-    gap: theme("digitv2.spacers.spacer1");
+    gap: var(--digitv2-spacers-spacer1);
 
     .digit-button-customIcon {
       @apply w-5 h-5 flex-shrink-0;
@@ -31,14 +32,14 @@
       &.small {
         width: 0.875rem;
         height: 0.875rem;
-        margin-top:theme("digitv2.spacers.spacer1");
+        margin-top:var(--digitv2-spacers-spacer1);
       }
     }
   }
 }
 
 .digit-button-label {
-  @extend .typography, .button, .large;
+  @include typography-button-large;
   @apply text-center text-white w-full overflow-hidden whitespace-nowrap;
   text-overflow: ellipsis;
 }
@@ -47,15 +48,15 @@
   @apply text-center cursor-pointer outline-none inline-flex bg-white max-w-full items-center;
   height: fit-content;
   width: fit-content;
-  gap: theme("digitv2.spacers.spacer2");
+  gap: var(--digitv2-spacers-spacer2);
   border: 0.063rem solid #000000;
-  padding-left: theme("digitv2.spacers.spacer6");
-  padding-right: theme("digitv2.spacers.spacer6");
+  padding-left: var(--digitv2-spacers-spacer6);
+  padding-right: var(--digitv2-spacers-spacer6);
   min-width: 6.5625rem;
-  min-height: theme("digitv2.spacers.spacer10");
+  min-height: var(--digitv2-spacers-spacer10);
 
   h2 {
-    @extend .typography, .button, .large;
+    @include typography-button-large;
     @apply text-black h-5;
     margin: 0;
   }
@@ -64,21 +65,21 @@
 .digit-button-primary {
   @apply text-center cursor-pointer outline-none flex max-w-full items-center justify-center h-10;
   width: fit-content;
-  padding-left:  theme("digitv2.spacers.spacer6");
-  padding-right:  theme("digitv2.spacers.spacer6");
-  gap:  theme("digitv2.spacers.spacer2");
+  padding-left: var(--digitv2-spacers-spacer6);
+  padding-right: var(--digitv2-spacers-spacer6);
+  gap: var(--digitv2-spacers-spacer2);
   min-width: 6.5625rem;
-  background-color: theme("digitv2.lightTheme.primary-1");
+  background-color: var(--digitv2-lightTheme-primary-1);
 
   h2 {
-    @extend .typography, .button, .large;
+    @include typography-button-large;
     @apply text-white;
     margin: 0;
   }
 
   &.disabled {
     @apply opacity-50;
-    background: theme("digitv2.lightTheme.text-disabled");
+    background: var(--digitv2-lightTheme-text-disabled);
   }
 
   &:focus {
@@ -86,14 +87,14 @@
   }
 
   &:hover {
-    box-shadow: theme("digitv2.spacers.spacer0") -0.125rem theme("digitv2.spacers.spacer0") theme("digitv2.spacers.spacer0") theme("digitv2.lightTheme.text-primary") inset;
+    box-shadow: var(--digitv2-spacers-spacer0) -0.125rem var(--digitv2-spacers-spacer0) var(--digitv2-spacers-spacer0) var(--digitv2-lightTheme-text-primary) inset;
   }
 
   &:active {
-    box-shadow: theme("digitv2.spacers.spacer0") -0.125rem theme("digitv2.spacers.spacer0") theme("digitv2.spacers.spacer0") #0B0C0C inset, theme("digitv2.spacers.spacer0") 0.063rem 0.175rem theme("digitv2.spacers.spacer0") #00000040;
+    box-shadow: var(--digitv2-spacers-spacer0) -0.125rem var(--digitv2-spacers-spacer0) var(--digitv2-spacers-spacer0) #0B0C0C inset, var(--digitv2-spacers-spacer0) 0.063rem 0.175rem var(--digitv2-spacers-spacer0) #00000040;
 
     h2 {
-      font-weight: theme("digitv2.fontWeight.bold");
+      font-weight: var(--digitv2-fontWeight-bold);
     }
   }
 
@@ -108,7 +109,7 @@
     @apply h-8;
 
     h2 {
-      @extend .typography, .button, .medium;
+      @include typography-button-medium;
     }
   }
 
@@ -116,7 +117,7 @@
     @apply h-6;
 
     h2 {
-      @extend .typography, .button, .small;
+      @include typography-button-small;
     }
   }
 
@@ -124,11 +125,11 @@
 
 .digit-button-secondary {
   @apply text-center cursor-pointer outline-none bg-white flex max-w-full items-center justify-center h-10;
-  padding-left:  theme("digitv2.spacers.spacer6");
-  padding-right:  theme("digitv2.spacers.spacer6");
-  gap:  theme("digitv2.spacers.spacer2");
+  padding-left: var(--digitv2-spacers-spacer6);
+  padding-right: var(--digitv2-spacers-spacer6);
+  gap: var(--digitv2-spacers-spacer2);
   min-width: 6.5625rem;
-  border: 0.063rem solid theme("digitv2.lightTheme.primary-1");
+  border: 0.063rem solid var(--digitv2-lightTheme-primary-1);
   width: fit-content;
 
   &:focus {
@@ -137,34 +138,34 @@
 
   &:hover {
     @apply bg-white;
-    box-shadow: theme("digitv2.spacers.spacer0") -0.125rem theme("digitv2.spacers.spacer0") theme("digitv2.spacers.spacer0") theme("digitv2.lightTheme.primary-1") inset;
+    box-shadow: var(--digitv2-spacers-spacer0) -0.125rem var(--digitv2-spacers-spacer0) var(--digitv2-spacers-spacer0) var(--digitv2-lightTheme-primary-1) inset;
   }
 
   &:active {
     @apply bg-white;
-    box-shadow: theme("digitv2.spacers.spacer0") -0.125rem theme("digitv2.spacers.spacer0") theme("digitv2.spacers.spacer0") theme("digitv2.lightTheme.primary-1") inset, theme("digitv2.spacers.spacer0") theme("digitv2.spacers.spacer1") theme("digitv2.spacers.spacer1") theme("digitv2.spacers.spacer0") #C84C0E33;
+    box-shadow: var(--digitv2-spacers-spacer0) -0.125rem var(--digitv2-spacers-spacer0) var(--digitv2-spacers-spacer0) var(--digitv2-lightTheme-primary-1) inset, var(--digitv2-spacers-spacer0) var(--digitv2-spacers-spacer1) var(--digitv2-spacers-spacer1) var(--digitv2-spacers-spacer0) #C84C0E33;
 
     h2 {
-      font-weight: theme("digitv2.fontWeight.bold");
+      font-weight: var(--digitv2-fontWeight-bold);
     }
   }
 
   h2 {
-    @extend .typography, .button, .large;
+    @include typography-button-large;
     margin: 0;
-    color: theme("digitv2.lightTheme.primary-1");
+    color: var(--digitv2-lightTheme-primary-1);
   }
 
   .digit-button-label{
-    color: theme("digitv2.lightTheme.primary-1");
+    color: var(--digitv2-lightTheme-primary-1);
   }
 
   &.disabled {
     @apply opacity-50;
-    border: 0.063rem solid theme("digitv2.lightTheme.text-disabled");
+    border: 0.063rem solid var(--digitv2-lightTheme-text-disabled);
 
     h2 {
-      color: theme("digitv2.lightTheme.text-disabled");
+      color: var(--digitv2-lightTheme-text-disabled);
     }
   }
 
@@ -178,7 +179,7 @@
     @apply h-8;
 
     h2 {
-      @extend .typography, .button, .medium;
+      @include typography-button-medium;
     }
   }
 
@@ -186,7 +187,7 @@
     @apply h-6;
 
     h2 {
-      @extend .typography, .button, .small;
+      @include typography-button-small;
     }
   }
 }
@@ -195,9 +196,9 @@
   @apply text-center cursor-pointer outline-none flex max-w-full items-center justify-center h-10;
   background: none;
   width: fit-content;
-  padding-left:  theme("digitv2.spacers.spacer0");
-  padding-right: theme("digitv2.spacers.spacer0");
-  gap:  theme("digitv2.spacers.spacer2");
+  padding-left: var(--digitv2-spacers-spacer0);
+  padding-right: var(--digitv2-spacers-spacer0);
+  gap: var(--digitv2-spacers-spacer2);
   min-width: 6.5625rem;
 
   &:focus {
@@ -206,16 +207,16 @@
 
   h2 {
     @apply w-auto;
-    @extend .typography, .button, .large;
+    @include typography-button-large;
     margin: 0;
-    color: theme("digitv2.lightTheme.primary-1");
+    color: var(--digitv2-lightTheme-primary-1);
   }
 
   &.disabled {
     @apply opacity-50;
 
     h2 {
-      color: theme("digitv2.lightTheme.text-disabled");
+      color: var(--digitv2-lightTheme-text-disabled);
     }
   }
 
@@ -230,7 +231,7 @@
     @apply h-8;
 
     h2 {
-      @extend .typography, .button, .medium;
+      @include typography-button-medium;
     }
   }
 
@@ -238,13 +239,13 @@
     @apply h-6;
 
     h2 {
-      @extend .typography, .button, .small;
+      @include typography-button-small;
     }
   }
 
   &:active{
     h2{
-      font-weight: theme("digitv2.fontWeight.bold");
+      font-weight: var(--digitv2-fontWeight-bold);
     }
   }
 }
@@ -254,9 +255,9 @@
   background: none;
   width: fit-content;
   height: fit-content;
-  padding-left:  theme("digitv2.spacers.spacer0");
-  padding-right: theme("digitv2.spacers.spacer0");
-  gap: theme("digitv2.spacers.spacer2");
+  padding-left: var(--digitv2-spacers-spacer0);
+  padding-right: var(--digitv2-spacers-spacer0);
+  gap: var(--digitv2-spacers-spacer2);
   min-width: 4.875rem;
 
   &:focus {
@@ -264,21 +265,21 @@
   }
 
   h2 {
-    @extend .typography, .link-L;
+    @include typography-link-L;
     @apply h-auto whitespace-normal text-left w-auto;
     margin: 0;
     word-break: break-word;
-    color: theme("digitv2.lightTheme.primary-1");
+    color: var(--digitv2-lightTheme-primary-1);
     height: fit-content;
   }
 
   &:hover {
     h2 {
-      @extend .typography, .link-L;
+      @include typography-link-L;
       @apply h-auto whitespace-normal text-left;
       margin: 0;
       word-break: break-word;
-      color: theme("digitv2.lightTheme.primary-1");
+      color: var(--digitv2-lightTheme-primary-1);
       height: fit-content;
       text-decoration-thickness: 0.125rem;
     }
@@ -288,21 +289,21 @@
     @apply opacity-50;
 
     h2 {
-      color: theme("digitv2.lightTheme.text-disabled");
+      color: var(--digitv2-lightTheme-text-disabled);
     }
   }
 
   &.medium {
 
     h2 {
-      @extend .typography, .link-S;
+      @include typography-link-S;
     }
   }
 
   &.small {
 
     h2 {
-      @extend .typography, .link-XS;
+      @include typography-link-XS;
     }
   }
 }
@@ -325,17 +326,17 @@
   h2 {
     @apply font-medium text-black flex justify-center items-center;
     margin: 0;
-    font-family: theme("digitv2.fontFamily.sans")
+    font-family: var(--digitv2-fontFamily-sans)
   }
 }
 
 .digit-submit-bar {
   @apply w-full text-center cursor-pointer outline-none flex max-w-full items-center justify-center h-10;
-  padding-left:  theme("digitv2.spacers.spacer6");
-  padding-right:  theme("digitv2.spacers.spacer6");
-  gap:  theme("digitv2.spacers.spacer2");
+  padding-left: var(--digitv2-spacers-spacer6);
+  padding-right: var(--digitv2-spacers-spacer6);
+  gap: var(--digitv2-spacers-spacer2);
   min-width: 15rem;
-  background-color: theme("digitv2.lightTheme.primary-1");
+  background-color: var(--digitv2-lightTheme-primary-1);
 
   &.digit-formcomposer-submitbar{
     width: fit-content;
@@ -343,7 +344,7 @@
   }
 
   h2 {
-    @extend .typography, .button, .large;
+    @include typography-button-large;
     @apply text-white;
     margin: 0;
     width: 100%;
@@ -356,7 +357,7 @@
 
   &.disabled {
     @apply opacity-50;
-    background: theme("digitv2.lightTheme.text-disabled");
+    background: var(--digitv2-lightTheme-text-disabled);
   }
 
   &:focus {
@@ -364,21 +365,21 @@
   }
 
   &:hover {
-    box-shadow: theme("digitv2.spacers.spacer0") -0.125rem theme("digitv2.spacers.spacer0") theme("digitv2.spacers.spacer0") theme("digitv2.lightTheme.text-primary") inset;
+    box-shadow: var(--digitv2-spacers-spacer0) -0.125rem var(--digitv2-spacers-spacer0) var(--digitv2-spacers-spacer0) var(--digitv2-lightTheme-text-primary) inset;
   }
 
   &:active {
-    box-shadow: theme("digitv2.spacers.spacer0") -0.125rem theme("digitv2.spacers.spacer0") theme("digitv2.spacers.spacer0") #0B0C0C inset, theme("digitv2.spacers.spacer0") 0.063rem 0.175rem theme("digitv2.spacers.spacer0") #00000040;
+    box-shadow: var(--digitv2-spacers-spacer0) -0.125rem var(--digitv2-spacers-spacer0) var(--digitv2-spacers-spacer0) #0B0C0C inset, var(--digitv2-spacers-spacer0) 0.063rem 0.175rem var(--digitv2-spacers-spacer0) #00000040;
 
     h2 {
-      font-weight: theme("digitv2.fontWeight.bold");
+      font-weight: var(--digitv2-fontWeight-bold);
     }
   }
 }
 
 .digit-selector-button-primary {
   @apply h-8 text-center border-b-2 border-input-border border-solid outline-none px-lg;
-  background-color: theme("digitv2.lightTheme.primary-1");
+  background-color: var(--digitv2-lightTheme-primary-1);
 
   &:focus {
     @apply outline-none;
@@ -403,7 +404,7 @@
 
 .digit-selector-button-primary-disabled {
   @apply h-8 text-center border-b-2 border-input-border border-solid outline-none px-lg opacity-50;
-  background-color: theme("digitv2.lightTheme.primary-1");
+  background-color: var(--digitv2-lightTheme-primary-1);
 
   &:focus {
     @apply outline-none;
@@ -422,7 +423,7 @@
   display: flex;
   flex-direction: row;
   height: fit-content;
-  gap:theme("digitv2.spacers.spacer4");
+  gap:var(--digitv2-spacers-spacer4);
 
   @media (max-width: 30rem) {
     flex-direction: column;
@@ -442,7 +443,7 @@
 
   .header-dropdown-menu {
     @apply absolute z-30;
-    bottom: theme("digitv2.spacers.spacer5");
+    bottom: var(--digitv2-spacers-spacer5);
     right: 0;
     max-height: unset;
     margin-top: unset;
@@ -460,4 +461,3 @@
     }
   }
 }
-

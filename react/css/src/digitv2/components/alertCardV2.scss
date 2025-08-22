@@ -1,5 +1,5 @@
-//@import "../index.scss";
-@import "../typography.scss";
+@import './theme-variables.css';
+@import '../typography.scss';
 
 .digit-infobanner-wrap {
   @apply p-md flex flex-col; 

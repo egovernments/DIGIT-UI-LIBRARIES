@@ -1,3 +1,6 @@
+@import './theme-variables.css';
+@import '../typography.scss';
+
 .digit-info-button {
     @apply text-center cursor-pointer outline-none flex max-w-full items-center justify-center h-10;
     width: fit-content;
@@ -23,7 +26,7 @@
     }
   
     h1 {
-      @extend .typography, .button, .large;
+      @include typography-button-large;
       margin: 0;
       color: theme("digitv2.lightTheme.paper-primary") !important;
     }
@@ -60,7 +63,7 @@
       @apply h-8;
   
       h1{
-        @extend .typography, .button, .medium;
+        @include typography-button-medium;
       }
     }
   
@@ -68,7 +71,7 @@
       @apply h-6;
   
       h1 {
-        @extend .typography, .button, .small;
+        @include typography-button-small;
       }
     }
   

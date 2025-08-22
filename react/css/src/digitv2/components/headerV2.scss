@@ -1,3 +1,6 @@
+@import './theme-variables.css';
+@import '../typography.scss';
+
 .topbar {
   position: fixed;
   top: 0;
@@ -253,7 +256,7 @@ video::-webkit-media-controls-panel {
     display: flex !important;
     gap: theme("digitv2.spacers.spacer4");
     align-items: center !important;
-    max-width: calc(50%-(theme("digitv2.spacers.spacer6")));
+    max-width: calc(50% - (theme("digitv2.spacers.spacer6")));
 
     @media (min-width: 48rem) {
       height: theme("digitv2.spacers.spacer8");
@@ -276,7 +279,7 @@ video::-webkit-media-controls-panel {
     }
 
     .digit-topbar-ulb {
-      @extend .typography, .heading-s;
+      @include typography-heading-s;
       font-family: theme("digitv2.fontFamily.sans");
       font-style: theme("digitv2.fontStyle.normal");
       font-weight: theme("digitv2.fontWeight.bold");
@@ -369,7 +372,7 @@ video::-webkit-media-controls-panel {
     display: flex;
     align-items: center;
     height: theme("digitv2.spacers.spacer6");
-    max-width: calc(100%-(theme("digitv2.spacers.spacer6")));
+    max-width: calc(100% - (theme("digitv2.spacers.spacer6")));
 
     .digit-header-img {
       margin-right: theme("digitv2.spacers.spacer2");
@@ -394,7 +397,7 @@ video::-webkit-media-controls-panel {
 
     .digit-topbar-ulb-mobileview {
       @apply overflow-hidden whitespace-nowrap;
-      @extend .typography, .body-s;
+      @include typography-body-s;
       font-family: theme("digitv2.fontFamily.sans");
       font-style: theme("digitv2.fontStyle.normal");
       font-weight: theme("digitv2.fontWeight.regular");

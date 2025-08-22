@@ -1,3 +1,6 @@
+@import './theme-variables.css';
+@import '../typography.scss';
+
 /*.digit-toast-success {
   @apply fixed flex z-20 w-full max-w-full left-0 items-center;
   bottom: -(theme("digitv2.spacers.spacer12"));
@@ -38,7 +41,7 @@
   }
 
   .toast-label {
-    @extend .typography, .caption-s;
+    @include typography-caption-s;
     @apply text-left overflow-hidden whitespace-nowrap flex-grow flex items-center h-6;
     letter-spacing: theme("digitv2.spacers.spacer0");
     color: theme("digitv2.lightTheme.paper-primary");
@@ -136,7 +139,7 @@
   }
 
   .toast-label {
-    @extend .typography, .caption-s;
+    @include typography-caption-s;
     @apply text-left overflow-hidden whitespace-nowrap flex-grow flex items-center h-6;
     letter-spacing: theme("digitv2.spacers.spacer0");
     color: theme("digitv2.lightTheme.paper-primary");

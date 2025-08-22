@@ -1,3 +1,6 @@
+@import './theme-variables.css';
+@import '../typography.scss';
+
 .digit-panel-wrapper {
   @apply flex flex-col items-center;
   gap: theme("digitv2.spacers.spacer6");
@@ -81,7 +84,7 @@
     }
 
     .digit-panel-message {
-      @extend .typography, .heading-xl;
+      @include typography-heading-xl;
       @apply whitespace-pre-wrap break-words text-center;
       line-height: normal;
       color: theme("digitv2.lightTheme.paper-primary");
@@ -95,7 +98,7 @@
     gap: theme("digitv2.spacers.spacer1");
 
     .digit-panel-info {
-      @extend .typography, .body-l;
+      @include typography-body-l;
       color: theme("digitv2.lightTheme.paper-primary");
     }
 
@@ -106,7 +109,7 @@
     }
 
     .digit-panel-response {
-      @extend .typography, .heading-m;
+      @include typography-heading-m;
       font-family: theme("digitv2.fontFamily.sans");
       font-style: theme("digitv2.fontStyle.normal");
       font-weight: theme("digitv2.fontWeight.bold");

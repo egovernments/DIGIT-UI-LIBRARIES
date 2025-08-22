@@ -1,3 +1,6 @@
+@import './theme-variables.css';
+@import '../typography.scss';
+
 .digit-upload-image-drawer {
   @apply w-full fixed left-0 right-0 flex-col;
   display: flex;
@@ -27,7 +30,7 @@
     }
 
     .upload-options-label {
-      @extend .typography, .button, .large;
+      @include typography-button-large;
       @apply cursor-pointer;
       color: theme("digitv2.lightTheme.primary-1");
     }
@@ -83,7 +86,7 @@
   }
   
   .digit-upload-label {
-    @extend .typography, .label;
+    @include typography-label;
     @apply text-left;
     margin: theme("digitv2.spacers.spacer0");
     color: theme("digitv2.lightTheme.text-primary");
@@ -140,7 +143,7 @@
     }
 
     .drag-drop-text {
-      @extend .typography, .body-s;
+      @include typography-body-s;
       font-family: theme("digitv2.fontFamily.sans");
       font-style: theme("digitv2.fontStyle.normal");
       font-weight: theme("digitv2.fontWeight.regular");
@@ -171,7 +174,7 @@
     }
 
     .drag-drop-link{
-      @extend .typography, .link-S;
+      @include typography-link-S;
       margin-left: theme("digitv2.spacers.spacer1");
       color: theme("digitv2.lightTheme.primary-1");
       cursor: pointer;
@@ -184,7 +187,7 @@
   }
 
   .digit-uploadWidget-label {
-    @extend .typography, .body-s;
+    @include typography-body-s;
     font-family: theme("digitv2.fontFamily.sans");
     font-style: theme("digitv2.fontStyle.normal");
     font-weight: theme("digitv2.fontWeight.regular");
@@ -212,7 +215,7 @@
   }
 
   .digit-uploader-input {
-    @extend .typography, .body-s;
+    @include typography-body-s;
     font-family: theme("digitv2.fontFamily.sans");
     font-style: theme("digitv2.fontStyle.normal");
     font-weight: theme("digitv2.fontWeight.regular");
@@ -316,7 +319,7 @@
       }
 
       .preview-file-name{
-        @extend .typography, .body-xs;
+        @include typography-body-xs;
         @apply whitespace-pre-wrap break-words;
         color: theme("digitv2.lightTheme.text-secondary");
         word-break: break-word;
@@ -391,7 +394,7 @@
   }
 
   .digit-upload-helptext {
-    @extend .typography, .body-s;
+    @include typography-body-s;
     font-family: theme("digitv2.fontFamily.sans");
     font-style: theme("digitv2.fontStyle.normal");
     font-weight: theme("digitv2.fontWeight.regular");
@@ -444,7 +447,7 @@
       gap: theme("digitv2.spacers.spacer2");
 
       .uploaded-file-details {
-        @extend .typography, .heading-s;
+        @include typography-heading-s;
         font-family: theme("digitv2.fontFamily.sans");
         font-style: theme("digitv2.fontStyle.normal");
         font-weight: theme("digitv2.fontWeight.bold");
@@ -555,7 +558,7 @@
     }
 
     .upload-image-label {
-      @extend .typography, .body-xs;
+      @include typography-body-xs;
       color: theme("digitv2.lightTheme.primary-1");
     }
   }
@@ -631,7 +634,7 @@
   }
 
   .capture-heading {
-    @extend .typography, .heading-m;
+    @include typography-heading-m;
     font-family: theme("digitv2.fontFamily.sans");
     font-style: theme("digitv2.fontStyle.normal");
     font-weight: theme("digitv2.fontWeight.bold");

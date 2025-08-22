@@ -1,4 +1,7 @@
- .digit-label-field-pair {
+@import './theme-variables.css';
+@import '../typography.scss';
+
+.digit-label-field-pair {
    @apply mb-lg flex;
 
 

@@ -1,3 +1,6 @@
+@import './theme-variables.css';
+@import '../typography.scss';
+
 .digit-popup-overlay {
   position: fixed;
   top: 0;
@@ -98,12 +101,12 @@
           color: theme("digitv2.lightTheme.text-primary");
   
           .digit-popup-heading {
-            @extend .typography, .heading-l;
+            @include typography-heading-l;
             line-height: normal;
           }
   
           .digit-popup-subheading {
-            @extend .typography, .caption-s;
+            @include typography-caption-s;
           }
         }
       }
@@ -142,7 +145,7 @@
     }
   
     .digit-popup-children-wrap {
-      @extend .typography, .body-s;
+      @include typography-body-s;
       font-family: theme("digitv2.fontFamily.sans");
       font-style: theme("digitv2.fontStyle.normal");
       font-weight: theme("digitv2.fontWeight.regular");
@@ -168,7 +171,7 @@
       color: theme("digitv2.lightTheme.text-primary");
 
       .digit-popup-description {
-        @extend .typography, .body-s;
+        @include typography-body-s;
         @media (max-aspect-ratio: 9/16) {
           /* Media query for mobile */
           font-size: theme("digitv2.fontSize.body-s.mobile");
@@ -310,13 +313,13 @@
       gap: theme("digitv2.spacers.spacer2");
   
       .digit-popup-alert-heading {
-        @extend .typography, .heading-l;
+        @include typography-heading-l;
         line-height: normal;
         color: theme("digitv2.lightTheme.text-primary");
       }
   
       .digit-popup-alert-message {
-        @extend .typography, .caption-s;
+        @include typography-caption-s;
         text-align: center;
         color: theme("digitv2.lightTheme.text-primary");
       }

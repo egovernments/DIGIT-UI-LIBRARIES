@@ -1,4 +1,5 @@
-//@import "../index.scss";
+@import './theme-variables.css';
+@import '../typography.scss';
 
 .digit-radio-options-wrap {
   @apply leading-10 flex justify-between flex-wrap;
@@ -82,7 +83,7 @@
   }
 
   label {
-    @extend .typography, .body-s;
+    @include typography-body-s;
     font-family: theme("digitv2.fontFamily.sans");
     font-style: theme("digitv2.fontStyle.normal");
     font-weight: theme("digitv2.fontWeight.regular");

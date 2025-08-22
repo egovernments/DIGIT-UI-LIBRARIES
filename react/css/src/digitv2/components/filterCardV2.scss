@@ -1,3 +1,6 @@
+@import './theme-variables.css';
+@import '../typography.scss';
+
 .digit-filter-card-popup-overlay {
   position: fixed;
   top: 0;
@@ -175,7 +178,7 @@
 }
 
 .filter-header .filter-title {
-  @extend .typography, .caption-l;
+  @include typography-caption-l;
   color: theme("digitv2.lightTheme.primary-2");
 }
 

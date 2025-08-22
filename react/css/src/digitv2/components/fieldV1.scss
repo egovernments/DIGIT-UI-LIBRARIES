@@ -1,4 +1,5 @@
-//@import "../index.scss";
+@import './theme-variables.css';
+@import '../typography.scss';
 
 .label-field-wrapper{
     display: flex;
@@ -11,7 +12,7 @@
 .digit-header-content {
 
     &.label {
-        @extend .typography, .label;
+        @include typography-label;
         @apply flex ;
         color: theme("digitv2.lightTheme.text-primary");
         gap: theme("digitv2.spacers.spacer1");
@@ -45,7 +46,7 @@
         }
 
         .info-icon .infotext {
-            @extend .typography, .body-s;
+            @include typography-body-s;
             @apply absolute text-center;
             font-family: theme("digitv2.fontFamily.sans");
             font-style: theme("digitv2.fontStyle.normal");
@@ -106,7 +107,7 @@
 
     .digit-description,
     .digit-charcount {
-        @extend .typography, .body-s;
+        @include typography-body-s;
         @apply flex justify-between items-baseline;
         color: theme("digitv2.lightTheme.text-secondary");
         gap: theme("digitv2.spacers.spacer2");
@@ -151,7 +152,7 @@
 }
 
 .digit-form-card-subheader {
-    @extend .typography, .caption-l;
+    @include typography-caption-l;
     font-family: theme("digitv2.fontFamily.sans");
     font-style: theme("digitv2.fontStyle.normal");
     font-weight: theme("digitv2.fontWeight.medium");
@@ -175,7 +176,7 @@
 }
 
 .digit-form-card-description {
-    @extend .typography, .heading-s;
+    @include typography-heading-s;
     font-family: theme("digitv2.fontFamily.sans");
     font-style: theme("digitv2.fontStyle.normal");
     font-weight: theme("digitv2.fontWeight.bold");
@@ -199,7 +200,7 @@
 }
 
 .digit-form-card-text {
-    @extend .typography, .body-l;
+    @include typography-body-l;
     font-family: theme("digitv2.fontFamily.sans");
     font-style: theme("digitv2.fontStyle.normal");
     font-weight: theme("digitv2.fontWeight.regular");
@@ -224,7 +225,7 @@
 }
 
 .sectionSubHeaderStyle{
-  @extend .typography, .body-s;
+  @include typography-body-s;
   @apply flex justify-between items-baseline;
   color: theme("digitv2.lightTheme.text-secondary");
   font-family: theme("digitv2.fontFamily.sans");

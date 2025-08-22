@@ -1,3 +1,6 @@
+@import './theme-variables.css';
+@import '../typography.scss';
+
 .digit-stepper-container {
   @apply flex overflow-auto;
   min-height: 4rem;
@@ -35,7 +38,7 @@
 
 
     .stepper-label {
-      @extend .typography, .body-s;
+      @include typography-body-s;
       font-family: theme("digitv2.fontFamily.sans");
       font-style: theme("digitv2.fontStyle.normal");
       font-weight: theme("digitv2.fontWeight.regular");
@@ -64,7 +67,7 @@
       }
 
       &.current {
-        @extend .typography, .heading-s;
+        @include typography-heading-s;
         font-family: theme("digitv2.fontFamily.sans");
         font-style: theme("digitv2.fontStyle.normal");
         font-weight: theme("digitv2.fontWeight.bold");
@@ -198,7 +201,7 @@
 
     .stepper-label {
       &.completed {
-        @extend .typography, .heading-s;
+        @include typography-heading-s;
         font-family: theme("digitv2.fontFamily.sans");
         font-style: theme("digitv2.fontStyle.normal");
         font-weight: theme("digitv2.fontWeight.bold");

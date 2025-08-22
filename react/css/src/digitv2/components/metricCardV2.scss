@@ -1,3 +1,6 @@
+@import './theme-variables.css';
+@import '../typography.scss';
+
 .digit-metric-card {
     position: relative;
     @media (max-aspect-ratio: 9/16) {
@@ -54,13 +57,13 @@
     padding: theme("digitv2.spacers.spacer4");
 
     .metric-value {
-        @extend .typography, .heading-l;
+        @include typography-heading-l;
         color: theme("digitv2.lightTheme.primary-2");
         line-height: normal;
     }
 
     .metric-description {
-        @extend .typography, .body-s;
+        @include typography-body-s;
         text-align: center;
         color: theme("digitv2.lightTheme.text-primary");
 
@@ -93,7 +96,7 @@
     }
 
     .metric-status {
-        @extend .typography, .body-xs;
+        @include typography-body-xs;
         display: flex;
         text-align: center;
         align-items: center;

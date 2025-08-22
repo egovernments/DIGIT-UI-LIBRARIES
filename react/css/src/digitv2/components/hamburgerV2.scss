@@ -1,3 +1,6 @@
+@import './theme-variables.css';
+@import '../typography.scss';
+
 .digit-msb-sidebar {
   background-color: theme("digitv2.lightTheme.paper-primary");
   color: theme("digitv2.lightTheme.primary-2");
@@ -163,7 +166,7 @@
 
 .digit-msb-item-label{
   &.usermanuals{
-    @extend .typography, .body-xs;
+    @include typography-body-xs;
     font-family: theme("digitv2.fontFamily.sans");
     font-style: theme("digitv2.fontStyle.normal");
     font-weight: theme("digitv2.fontWeight.regular");
@@ -217,7 +220,7 @@
 }
 
 .digit-msb-no-results{
-  @extend .typography, .body-s;
+  @include typography-body-s;
   display: flex;
   text-align: center;
   flex-direction: column;
@@ -295,7 +298,7 @@
 
   ::placeholder {
     content: attr(placeholder);
-    @extend .typography, .body-s;
+    @include typography-body-s;
     font-family: theme("digitv2.fontFamily.sans");
     font-style: theme("digitv2.fontStyle.normal");
     font-weight: theme("digitv2.fontWeight.regular");
@@ -360,7 +363,7 @@
 
   ::placeholder {
     content: attr(placeholder);
-    @extend .typography, .body-s;
+    @include typography-body-s;
     font-family: theme("digitv2.fontFamily.sans");
     font-style: theme("digitv2.fontStyle.normal");
     font-weight: theme("digitv2.fontWeight.regular");

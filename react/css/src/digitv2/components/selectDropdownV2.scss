@@ -1,3 +1,6 @@
+@import './theme-variables.css';
+@import '../typography.scss';
+
 .digit-dropdown-employee-select-wrap {
   @apply w-full relative;
   @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
@@ -27,7 +30,7 @@
       color: theme("digitv2.lightTheme.generic-divider") !important;
     }
     input[type="text"] {
-      @extend .typography, .body-s;
+      @include typography-body-s;
       @media (max-aspect-ratio: 9/16) {
         /* Media query for mobile */
         font-size: theme("digitv2.fontSize.body-s.mobile");
@@ -78,7 +81,7 @@
     @apply relative block w-full h-10 bg-white;
     border: 0.063rem solid theme("digitv2.lightTheme.primary-1");
     input[type="text"] {
-      @extend .typography, .body-s;
+      @include typography-body-s;
       @media (max-aspect-ratio: 9/16) {
         /* Media query for mobile */
         font-size: theme("digitv2.fontSize.body-s.mobile");
@@ -173,7 +176,7 @@
   margin-top: theme("digitv2.spacers.spacer4");
 }
 .digit-category-name {
-  @extend .typography, .heading-s;
+  @include typography-heading-s;
   @apply flex items-center overflow-hidden whitespace-nowrap;
   color: theme("digitv2.lightTheme.text-primary");
   gap: theme("digitv2.spacers.spacer1");
@@ -223,7 +226,7 @@
       }
     }
     .main-option {
-      @extend .typography, .body-s;
+      @include typography-body-s;
       font-family: theme("digitv2.fontFamily.sans");
       font-style: theme("digitv2.fontStyle.normal");
       font-weight: theme("digitv2.fontWeight.regular");
@@ -247,12 +250,12 @@
       text-overflow: ellipsis;
       &.nestedtextdropdown,
       &.profilenestedtext {
-        @extend .typography, .body-l;
+        @include typography-body-l;
         color: theme("digitv2.lightTheme.text-secondary");
       }
     }
     .option-description {
-      @extend .typography, .body-xs;
+      @include typography-body-xs;
       color: theme("digitv2.lightTheme.text-secondary");
     }
   }
@@ -293,7 +296,7 @@
     }
     .option-des-container {
       .main-option {
-        @extend .typography, .heading-s;
+        @include typography-heading-s;
         font-family: theme("digitv2.fontFamily.sans");
         font-style: theme("digitv2.fontStyle.normal");
         font-weight: theme("digitv2.fontWeight.bold");
@@ -329,7 +332,7 @@
     &:active {
       .option-des-container {
         .main-option {
-          @extend .typography, .heading-s;
+          @include typography-heading-s;
           font-family: theme("digitv2.fontFamily.sans");
           font-style: theme("digitv2.fontStyle.normal");
           font-weight: theme("digitv2.fontWeight.bold");
@@ -367,7 +370,7 @@
     &:active {
       .option-des-container {
         .main-option {
-          @extend .typography, .heading-s;
+          @include typography-heading-s;
           font-family: theme("digitv2.fontFamily.sans");
           font-style: theme("digitv2.fontStyle.normal");
           font-weight: theme("digitv2.fontWeight.bold");
@@ -396,7 +399,7 @@
     background-color: theme("digitv2.lightTheme.paper-secondary");
     pointer-events: none;
     span {
-      @extend .typography, .body-s;
+      @include typography-body-s;
       font-family: theme("digitv2.fontFamily.sans");
       font-style: theme("digitv2.fontStyle.normal");
       font-weight: theme("digitv2.fontWeight.regular");
@@ -421,7 +424,7 @@
   }
 }
 .digit-dropdown-employee-select-wrap--elipses {
-  @extend .typography, .body-s;
+  @include typography-body-s;
   @media (max-aspect-ratio: 9/16) {
     /* Media query for mobile */
     font-size: theme("digitv2.fontSize.body-s.mobile");
@@ -476,7 +479,7 @@
     @apply relative block w-full h-10 bg-white;
     border: 0.063rem solid theme("digitv2.lightTheme.text-secondary");
     input[type="text"] {
-      @extend .typography, .body-s;
+      @include typography-body-s;
       @media (max-aspect-ratio: 9/16) {
         /* Media query for mobile */
         font-size: theme("digitv2.fontSize.body-s.mobile");
@@ -532,7 +535,7 @@
     @apply relative block w-full h-10;
     border: 0.063rem solid theme("digitv2.lightTheme.primary-1");
     input[type="text"] {
-      @extend .typography, .body-s;
+      @include typography-body-s;
       @media (max-aspect-ratio: 9/16) {
         /* Media query for mobile */
         font-size: theme("digitv2.fontSize.body-s.mobile");

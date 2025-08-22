@@ -1,3 +1,6 @@
+@import './theme-variables.css';
+@import '../typography.scss';
+
 .digit-text-block-wrap {
 
     @apply flex flex-col;
@@ -17,13 +20,13 @@
 
     .digit-text-block-header-content {
         .digit-text-block-caption {
-            @extend .typography, .caption-s;
+            @include typography-caption-s;
             padding-bottom: theme("digitv2.spacers.spacer1");
             color: theme("digitv2.lightTheme.text-secondary");
         }
 
         .digit-text-block-header {
-            @extend .typography, .heading-xl;
+            @include typography-heading-xl;
             padding-bottom: theme("digitv2.spacers.spacer2");
             color: theme("digitv2.lightTheme.text-primary");
             line-height: normal;
@@ -34,7 +37,7 @@
         }
 
         .digit-text-block-subheader {
-            @extend .typography, .heading-m;
+            @include typography-heading-m;
             font-family: theme("digitv2.fontFamily.sans");
             font-style: theme("digitv2.fontStyle.normal");
             font-weight: theme("digitv2.fontWeight.bold");
@@ -60,7 +63,7 @@
     }
 
     .digit-text-block-body {
-        @extend .typography, .body-s;
+        @include typography-body-s;
         font-family: theme("digitv2.fontFamily.sans");
         font-style: theme("digitv2.fontStyle.normal");
         font-weight: theme("digitv2.fontWeight.regular");

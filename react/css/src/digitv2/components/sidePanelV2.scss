@@ -1,3 +1,6 @@
+@import './theme-variables.css';
+@import '../typography.scss';
+
 .digit-slider-container {
   position: fixed;
   top: 0;
@@ -102,7 +105,7 @@
 }
 
 .slider-header {
-  @extend .typography, .heading-m;
+  @include typography-heading-m;
   flex-shrink: 0;
   padding: theme("digitv2.spacers.spacer4");
   font-family: theme("digitv2.fontFamily.sans");
@@ -163,7 +166,7 @@
   flex-grow: 1;
   padding: theme("digitv2.spacers.spacer4");
   gap: theme("digitv2.spacers.spacer4");
-  @extend .typography, .body-s;
+  @include typography-body-s;
   flex-direction: column;
   color: theme("digitv2.lightTheme.text-primary");
   overflow-y: auto;

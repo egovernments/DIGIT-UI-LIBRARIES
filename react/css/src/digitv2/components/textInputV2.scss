@@ -1,5 +1,5 @@
-//@import "../index.scss";
-@import "../typography.scss";
+@import './theme-variables.css';
+@import '../typography.scss';
 
 .digit-card-inputError {
   @apply block w-full h-10 outline-none bg-white text-text-primary;
@@ -229,7 +229,7 @@
 }
 
 .digit-employeeCard-input {
-  @extend .typography, .text-body-s;
+  @include typography-text-body-s;
   @apply outline-none block w-full h-10 bg-white text-form-field;
   font-style: theme("digitv2.fontStyle.normal");
   padding-left: theme("digitv2.spacers.spacer3");
@@ -246,7 +246,7 @@
 }
 
 .digit-employeeCard-input--front {
-  @extend .typography, .text-body-s;
+  @include typography-text-body-s;
   @apply flex items-center;
   width: fit-content !important;
   background: theme("colors.grey.mid");
@@ -255,7 +255,7 @@
 }
 
 .digit-employeeCard-inputError {
-  @extend .typography, .text-body-s;
+  @include typography-text-body-s;
   @apply block w-full h-10 outline-none bg-white text-form-field text-text-primary;
   font-style: theme("digitv2.fontStyle.normal");
   padding-left: theme("digitv2.spacers.spacer3");
@@ -313,7 +313,7 @@
 }
 
 .digit-citizenCard-input {
-  @extend .typography, .text-body-s;
+  @include typography-text-body-s;
   @apply outline-none block w-full h-10 bg-white;
   font-style: theme("digitv2.fontStyle.normal");
   padding-left: theme("digitv2.spacers.spacer3");
@@ -325,7 +325,7 @@
 }
 
 .digit-citizenCard-input--front {
-  @extend .typography, .text-body-s;
+  @include typography-text-body-s;
   @apply flex items-center;
   width: fit-content !important;
   background: theme("colors.grey.mid");
@@ -334,7 +334,7 @@
 }
 
 .digit-employeeCard-inputError {
-  @extend .typography, .text-body-s;
+  @include typography-text-body-s;
   @extend .light-input-border;
   @apply block w-full h-10 outline-none bg-white text-form-field text-text-primary;
   font-style: theme("digitv2.fontStyle.normal");

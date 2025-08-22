@@ -305,7 +305,7 @@
 }
 
 .digit-inbox-search-composer-header {
-    @extend .typography, .heading-xl;
+    @include typography-heading-xl;
     color: theme("digitv2.lightTheme.primary-2");
     margin-bottom: theme("digitv2.spacers.spacer6");
     line-height: normal;
@@ -335,7 +335,7 @@
         }
 
         .digit-inbox-search-links-header-text {
-            @extend .typography, .heading-m;
+            @include typography-heading-m;
             font-family: theme("digitv2.fontFamily.sans");
             font-style: theme("digitv2.fontStyle.normal");
             font-weight: theme("digitv2.fontWeight.bold");
@@ -371,7 +371,7 @@
         }
 
         .digit-inbox-search-link {
-            @extend .typography, .link-L;
+            @include typography-link-L;
             color: theme("digitv2.lightTheme.primary-1");
         }
     }

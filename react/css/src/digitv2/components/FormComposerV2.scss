@@ -1,4 +1,5 @@
-//@import "../index.scss";
+@import './theme-variables.css';
+@import '../typography.scss';
 
 .digit-field-container {
   display: flex;
@@ -114,5 +115,5 @@
 }
 
 .digit-form-composer-header {
-  font-size: theme("digitv2.fontSize.heading-l-dt");
+  font-size: theme("digitv2.fontSize.heading-l.desktop");
 }

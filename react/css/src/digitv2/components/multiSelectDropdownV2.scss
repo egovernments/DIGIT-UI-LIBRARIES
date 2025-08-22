@@ -1,4 +1,6 @@
-//@import "../index.scss";
+@import './theme-variables.css';
+@import '../typography.scss';
+
 .digit-multiselectdropdown-wrap {
   margin-bottom: 0.625rem;
 
@@ -24,7 +26,7 @@
     @apply relative h-10 w-full bg-white;
     border: 0.063rem solid theme("digitv2.lightTheme.generic-inputborder");
     input[type="text"] {
-      @extend .typography, .body-s;
+      @include typography-body-s;
       @media (max-aspect-ratio: 9/16) {
         /* Media query for mobile */
         font-size: theme("digitv2.fontSize.body-s.mobile");
@@ -126,7 +128,7 @@
     margin-top: theme("digitv2.spacers.spacer0");
   }
   .digit-category-name {
-    @extend .typography, .heading-s;
+    @include typography-heading-s;
     font-family: theme("digitv2.fontFamily.sans");
     font-style: theme("digitv2.fontStyle.normal");
     font-weight: theme("digitv2.fontWeight.bold");
@@ -154,7 +156,7 @@
     cursor: pointer !important;
     align-items: center;
     .category-selectAll-label {
-      @extend .typography, .body-s;
+      @include typography-body-s;
       font-family: theme("digitv2.fontFamily.sans");
       font-style: theme("digitv2.fontStyle.normal");
       font-weight: theme("digitv2.fontWeight.regular");
@@ -251,7 +253,7 @@
       background: theme("digitv2.lightTheme.primary-1");
       border: 0.031rem solid theme("digitv2.lightTheme.primary-1");
       p {
-        @extend .typography, .heading-s;
+        @include typography-heading-s;
         font-family: theme("digitv2.fontFamily.sans");
         font-style: theme("digitv2.fontStyle.normal");
         font-weight: theme("digitv2.fontWeight.bold");
@@ -275,7 +277,7 @@
       }
       .digit-label {
         &.selectAll {
-          @extend .typography, .body-l;
+          @include typography-body-l;
           color: theme("digitv2.lightTheme.primary-1");
         }
       }
@@ -285,7 +287,7 @@
       @apply absolute min-w-full opacity-0 z-20 cursor-pointer;
     }
     p {
-      @extend .typography, .body-s;
+      @include typography-body-s;
       @apply w-full overflow-hidden whitespace-nowrap max-w-full;
       font-family: theme("digitv2.fontFamily.sans");
       font-style: theme("digitv2.fontStyle.normal");
@@ -313,7 +315,7 @@
     &.checked {
       background: theme("digitv2.lightTheme.primary-1");
       p {
-        @extend .typography, .heading-s;
+        @include typography-heading-s;
         font-family: theme("digitv2.fontFamily.sans");
         font-style: theme("digitv2.fontStyle.normal");
         font-weight: theme("digitv2.fontWeight.bold");
@@ -337,7 +339,7 @@
       }
       .digit-label {
         &.selectAll {
-          @extend .typography, .body-l;
+          @include typography-body-l;
           color: theme("digitv2.lightTheme.primary-1");
         }
       }
@@ -385,7 +387,7 @@
         width: 100% !important;
         margin: theme("digitv2.spacers.spacer0");
         p {
-          @extend .typography, .body-l;
+          @include typography-body-l;
           color: theme("digitv2.lightTheme.text-secondary");
           padding: theme("digitv2.spacers.spacer0");
           margin-bottom: theme("digitv2.spacers.spacer0");
@@ -415,7 +417,7 @@
         }
         .option-des-container {
           p {
-            @extend .typography, .heading-s;
+            @include typography-heading-s;
             font-family: theme("digitv2.fontFamily.sans");
             font-style: theme("digitv2.fontStyle.normal");
             font-weight: theme("digitv2.fontWeight.bold");
@@ -455,7 +457,7 @@
     }
     .digit-label {
       &.selectAll {
-        @extend .typography, .body-l;
+        @include typography-body-l;
         color: theme("digitv2.lightTheme.primary-1");
       }
     }
@@ -463,7 +465,7 @@
       background-color: theme("digitv2.lightTheme.paper-secondary");
       pointer-events: none;
       span {
-        @extend .typography, .body-s;
+        @include typography-body-s;
         font-family: theme("digitv2.fontFamily.sans");
         font-style: theme("digitv2.fontStyle.normal");
         font-weight: theme("digitv2.fontWeight.regular");
@@ -495,7 +497,7 @@
   .digit-multiselectdropdown-master-active {
     .digit-multiselectdropdown-label {
       p {
-        @extend .typography, .body-s;
+        @include typography-body-s;
         @media (max-aspect-ratio: 9/16) {
           /* Media query for mobile */
           font-size: theme("digitv2.fontSize.body-s.mobile");

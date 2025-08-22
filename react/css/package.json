@@ -11,6 +11,7 @@
     "prefix": ""
   },
   "scripts": {
+    "generate-theme": "node extract-theme.js",
     "start": "cross-env NODE_ENV=development webpack serve --config webpack.config.js",
     "build": "cross-env NODE_ENV=production webpack --config webpack.config.js",
     "prepublish": "yarn build",

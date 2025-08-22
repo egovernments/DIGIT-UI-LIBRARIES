@@ -1,3 +1,6 @@
+@import './theme-variables.css';
+@import '../typography.scss';
+
 .digit-landing-page-card {
     width: fit-content;
     background-color: theme("digitv2.lightTheme.paper-primary");
@@ -68,7 +71,7 @@
         }
 
         .ladingcard-moduleName {
-            @extend .typography, .heading-m;
+            @include typography-heading-m;
             font-family: theme("digitv2.fontFamily.sans");
             font-style: theme("digitv2.fontStyle.normal");
             font-weight: theme("digitv2.fontWeight.bold");
@@ -128,7 +131,7 @@
             }
 
             .metric-count {
-                @extend .typography, .heading-m;
+                @include typography-heading-m;
                 font-family: theme("digitv2.fontFamily.sans");
                 font-style: theme("digitv2.fontStyle.normal");
                 font-weight: theme("digitv2.fontWeight.bold");
@@ -152,7 +155,7 @@
             }
 
             .metric-label {
-                @extend .typography, .body-xs;
+                @include typography-body-xs;
                 overflow: hidden;
                 word-wrap: break-word;
                 word-break: break-word;
@@ -204,7 +207,7 @@
     display: flex;
     flex-direction: column;
     color: theme("digitv2.lightTheme.text-primary");
-    @extend .typography, .body-s;
+    @include typography-body-s;
     text-align: left;
     justify-content: flex-start;
     @media (max-aspect-ratio: 9/16) {

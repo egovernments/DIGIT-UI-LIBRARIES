@@ -1,4 +1,6 @@
-//@import "../index.scss";
+@import './theme-variables.css';
+@import '../typography.scss';
+
 @import "../typography.scss";
 
 .digit-bread-crumb {
@@ -19,7 +21,7 @@
 
 
     .digit-bread-crumb-content {
-        @extend .typography, .body-s;
+        @include typography-body-s;
         font-family: theme("digitv2.fontFamily.sans");
         font-style: theme("digitv2.fontStyle.normal");
         font-weight: theme("digitv2.fontWeight.regular");
@@ -62,7 +64,7 @@
 
     .digit-bread-crumb-content.current,
     .digit-bread-crumb-seperator {
-        @extend .typography, .body-s;
+        @include typography-body-s;
         font-family: theme("digitv2.fontFamily.sans");
         font-style: theme("digitv2.fontStyle.normal");
         font-weight: theme("digitv2.fontWeight.regular");

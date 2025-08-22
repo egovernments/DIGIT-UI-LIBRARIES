@@ -1,3 +1,6 @@
+@import './theme-variables.css';
+@import '../typography.scss';
+
 .digit-timeline-item {
   @apply flex items-start relative ;
   gap: theme("digitv2.spacers.spacer4");
@@ -55,7 +58,7 @@
 }
 
 .timeline-label {
-  @extend .typography, .heading-s;
+  @include typography-heading-s;
   font-family: theme("digitv2.fontFamily.sans");
   font-style: theme("digitv2.fontStyle.normal");
   font-weight: theme("digitv2.fontWeight.bold");
@@ -91,7 +94,7 @@
 }
 
 .timeline-date {
-  @extend .typography, .body-s;
+  @include typography-body-s;
   font-family: theme("digitv2.fontFamily.sans");
   font-style: theme("digitv2.fontStyle.normal");
   font-weight: theme("digitv2.fontWeight.regular");
@@ -124,7 +127,7 @@
 .timeline-additional-elements-inline {
   @apply flex flex-wrap items-start;
   gap: theme("digitv2.spacers.spacer4");
-  @extend .typography, .body-s;
+  @include typography-body-s;
   font-family: theme("digitv2.fontFamily.sans");
   font-style: theme("digitv2.fontStyle.normal");
   font-weight: theme("digitv2.fontWeight.regular");
@@ -148,7 +151,7 @@
 
 .timeline-additional-elements-column {
   @apply flex flex-col items-start;
-  @extend .typography, .body-s;
+  @include typography-body-s;
   font-family: theme("digitv2.fontFamily.sans");
   font-style: theme("digitv2.fontStyle.normal");
   font-weight: theme("digitv2.fontWeight.regular");

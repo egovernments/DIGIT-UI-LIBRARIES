@@ -1,3 +1,6 @@
+@import './theme-variables.css';
+@import '../typography.scss';
+
 .digit-tag-error-container {
   @apply flex flex-col max-w-full;
   gap: theme("digitv2.spacers.spacer1");
@@ -55,7 +58,7 @@
     }
 
     .digit-text {
-      @extend .typography, .body-xs;
+      @include typography-body-xs;
       @apply overflow-hidden items-center whitespace-nowrap;
       font-family: theme("digitv2.fontFamily.sans");
       font-style: theme("digitv2.fontStyle.normal");
@@ -135,7 +138,7 @@
       box-shadow: 0.125rem 0.125rem theme("digitv2.spacers.spacer1") theme("digitv2.spacers.spacer0") #D4351C4D;
 
       .digit-text {
-        @extend .typography, .heading-xs;
+        @include typography-heading-xs;
         color: theme("digitv2.lightTheme.alert-error");
       }
 

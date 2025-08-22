@@ -1,3 +1,6 @@
+@import './theme-variables.css';
+@import '../typography.scss';
+
 .digit-table-footer-wrapper{
     display: flex;
     flex-direction: column;
@@ -44,7 +47,7 @@ table {
 }
 
 th {
-    @extend .typography, .heading-s;
+    @include typography-heading-s;
     font-family: theme("digitv2.fontFamily.sans");
     font-style: theme("digitv2.fontStyle.normal");
     font-weight: theme("digitv2.fontWeight.bold");
@@ -115,7 +118,7 @@ td {
     padding: theme("digitv2.spacers.spacer4");
     word-wrap: break-word;
     white-space: normal;
-    @extend .typography, .body-s;
+    @include typography-body-s;
     color: theme("digitv2.lightTheme.text-primary");
     font-family: theme("digitv2.fontFamily.sans");
     font-style: theme("digitv2.fontStyle.normal");
@@ -251,7 +254,7 @@ tbody tr.addHover:hover td{
 
 
 tfoot td {
-    @extend .typography, .heading-s;
+    @include typography-heading-s;
     font-family: theme("digitv2.fontFamily.sans");
     font-style: theme("digitv2.fontStyle.normal");
     font-weight: theme("digitv2.fontWeight.bold");
@@ -307,7 +310,7 @@ tfoot td {
     padding: theme("digitv2.spacers.spacer1");
     outline: none;
     min-width: 4rem;
-    @extend .typography, .body-s;
+    @include typography-body-s;
     color: theme("digitv2.lightTheme.text-primary");
     font-family: theme("digitv2.fontFamily.sans");
     font-style: theme("digitv2.fontStyle.normal");
@@ -332,7 +335,7 @@ tfoot td {
     option{
         width: 100%;
         text-align: center;
-        @extend .typography, .body-s;
+        @include typography-body-s;
         color: theme("digitv2.lightTheme.text-primary");
         font-family: theme("digitv2.fontFamily.sans");
         font-style: theme("digitv2.fontStyle.normal");
@@ -431,7 +434,7 @@ tr td:last-child {
 }
 
 .selected-state {
-    @extend .typography, .body-s;
+    @include typography-body-s;
     color: theme("digitv2.lightTheme.text-primary");
     font-family: theme("digitv2.fontFamily.sans");
     font-style: theme("digitv2.fontStyle.normal");
@@ -462,7 +465,7 @@ tr td:last-child {
     gap: theme("digitv2.spacers.spacer1");
 
     .column-header{
-        @extend .typography, .heading-s;
+        @include typography-heading-s;
         font-family: theme("digitv2.fontFamily.sans");
         font-style: theme("digitv2.fontStyle.normal");
         font-weight: theme("digitv2.fontWeight.bold");
@@ -491,7 +494,7 @@ tr td:last-child {
     .column-description {
         color: theme("digitv2.lightTheme.text-secondary");
         white-space: nowrap;
-        @extend .typography, .body-s;
+        @include typography-body-s;
         font-family: theme("digitv2.fontFamily.sans");
         font-style: theme("digitv2.fontStyle.normal");
         font-weight: theme("digitv2.fontWeight.regular");
@@ -531,7 +534,7 @@ tr td:last-child {
         }
 
         .table-header {
-            @extend .typography, .heading-m;
+            @include typography-heading-m;
             font-family: theme("digitv2.fontFamily.sans");
             font-style: theme("digitv2.fontStyle.normal");
             font-weight: theme("digitv2.fontWeight.bold");
@@ -559,7 +562,7 @@ tr td:last-child {
     }
 
     .table-description {
-        @extend .typography, .body-s;
+        @include typography-body-s;
         font-family: theme("digitv2.fontFamily.sans");
         font-style: theme("digitv2.fontStyle.normal");
         font-weight: theme("digitv2.fontWeight.regular");
@@ -660,7 +663,7 @@ tr td:last-child {
         }
 
         .selected-state{
-            @extend .typography, .heading-s;
+            @include typography-heading-s;
             font-family: theme("digitv2.fontFamily.sans");
             font-style: theme("digitv2.fontStyle.normal");
             font-weight: theme("digitv2.fontWeight.bold");

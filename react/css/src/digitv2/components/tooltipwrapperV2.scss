@@ -1,3 +1,6 @@
+@import './theme-variables.css';
+@import '../typography.scss';
+
 .tooltip-wrapper {
   position: relative;
   display: inline-block;
@@ -45,7 +48,7 @@
   }
 
   .tooltip-header {
-    @extend .typography, .heading-s;
+    @include typography-heading-s;
     font-family: theme("digitv2.fontFamily.sans");
     font-style: theme("digitv2.fontStyle.normal");
     font-weight: theme("digitv2.fontWeight.bold");
@@ -82,7 +85,7 @@
   }
 
   .tooltip-description {
-    @extend .typography, .body-xs;
+    @include typography-body-xs;
     color: theme("digitv2.lightTheme.paper-primary");
 
     &.light {
@@ -223,7 +226,7 @@
   content: "";
   position: absolute;
   top: -0.5rem;
-  left: calc(100% -0.25rem);
+  left: calc(100% - 0.25rem);
   transform: translateX(-50%);
   border-bottom: theme("digitv2.spacers.spacer2") solid theme("digitv2.lightTheme.generic-inputborder");
   border-left: theme("digitv2.spacers.spacer2") solid transparent;
@@ -266,7 +269,7 @@
   content: "";
   position: absolute;
   bottom: -0.5rem;
-  left: calc(100% -0.25rem);
+  left: calc(100% - 0.25rem);
   transform: translateX(-50%);
   border-top: theme("digitv2.spacers.spacer2") solid theme("digitv2.lightTheme.generic-inputborder");
   border-left: theme("digitv2.spacers.spacer2") solid transparent;
@@ -309,7 +312,7 @@
 .tooltip-left-end.with-arrow:before {
   content: "";
   position: absolute;
-  top: calc(100% -0.25rem);
+  top: calc(100% - 0.25rem);
   right: -0.45rem;
   border-left: theme("digitv2.spacers.spacer2") solid theme("digitv2.lightTheme.generic-inputborder");
   border-top: theme("digitv2.spacers.spacer2") solid transparent;
@@ -353,7 +356,7 @@
 .tooltip-right-end.with-arrow:before {
   content: "";
   position: absolute;
-  top: calc(100% -0.25rem);
+  top: calc(100% - 0.25rem);
   left: -0.45rem;
   border-right: theme("digitv2.spacers.spacer2") solid theme("digitv2.lightTheme.generic-inputborder");
   border-top: theme("digitv2.spacers.spacer2") solid transparent;

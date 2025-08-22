@@ -1,3 +1,6 @@
+@import './theme-variables.css';
+@import '../typography.scss';
+
 .digit-animation{
     width: fit-content;
 }
@@ -10,7 +13,7 @@
     align-items: center; 
 
     .digit-loader-text {
-        @extend .typography, .caption-s;
+        @include typography-caption-s;
         color: theme("digitv2.lightTheme.primary-2");
     }
 

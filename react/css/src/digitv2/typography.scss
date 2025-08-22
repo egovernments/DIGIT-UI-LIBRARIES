@@ -1,654 +1,647 @@
-//@import "../index.scss";
+/* typography.scss — theme(...) calls replaced with CSS variables */
 
-.typography {
+/* NOTE: values come from your generated :root tokens (e.g. --digitv2-...) */
 
-  &.text-heading-l {
-    font-family: theme("digitv2.fontFamily.sans");
-    font-style: theme("digitv2.fontStyle.normal");
-    font-weight: theme("digitv2.fontWeight.bold");
-    color: theme("digitv2.lightTheme.text-primary");
-    line-height: theme("digitv2.lineHeight.normal");
+@mixin typography-text-heading-l {
+  font-family: var(--digitv2-fontFamily-sans);
+  font-style: var(--digitv2-fontStyle-normal);
+  font-weight: var(--digitv2-fontWeight-bold);
+  color: var(--digitv2-lightTheme-text-primary);
+  line-height: var(--digitv2-lineHeight-normal);
 
-    @media screen and (min-width: theme("digitv2.screens.desktop")) {
-      font-size: theme("digitv2.fontSize.heading-l.desktop");
-    }
-
-    @media screen and (min-width: theme("digitv2.screens.tablet")) {
-      font-size: theme("digitv2.fontSize.heading-l.tablet");
-    }
-
-    @media screen and (min-width: theme("digitv2.screens.mobile")) {
-      font-size: theme("digitv2.fontSize.heading-l.mobile");
-    }
+  @media screen and (min-width: var(--digitv2-screens-desktop)) {
+    font-size: var(--digitv2-fontSize-heading-l-desktop);
   }
 
-  &.text-heading-m {
-    font-family: theme("digitv2.fontFamily.sans");
-    font-style: theme("digitv2.fontStyle.normal");
-    font-weight: theme("digitv2.fontWeight.bold");
-    color: theme("digitv2.lightTheme.text-primary");
-    line-height: theme("digitv2.lineHeight.normal");
-
-    @media screen and (min-width: theme("digitv2.screens.desktop")) {
-      font-size: theme("digitv2.fontSize.heading-m.desktop");
-    }
-
-    @media screen and (min-width: theme("digitv2.screens.tablet")) {
-      font-size: theme("digitv2.fontSize.heading-m.tablet");
-    }
-
-    @media screen and (min-width: theme("digitv2.screens.mobile")) {
-      font-size: theme("digitv2.fontSize.heading-m.desktop");
-    }
+  @media screen and (min-width: var(--digitv2-screens-tablet)) {
+    font-size: var(--digitv2-fontSize-heading-l-tablet);
   }
 
-  &.text-heading-s {
-    font-family: theme("digitv2.fontFamily.sans");
-    font-style: theme("digitv2.fontStyle.normal");
-    font-weight: theme("digitv2.fontWeight.bold");
-    color: theme("digitv2.lightTheme.text-primary");
-    line-height: theme("digitv2.lineHeight.normal");
+  @media screen and (min-width: var(--digitv2-screens-mobile)) {
+    font-size: var(--digitv2-fontSize-heading-l-mobile);
+  }
+}
 
-    @media screen and (min-width: theme("digitv2.screens.desktop")) {
-      font-size: theme("digitv2.fontSize.heading-s.desktop");
-    }
+@mixin typography-text-heading-m {
+  font-family: var(--digitv2-fontFamily-sans);
+  font-style: var(--digitv2-fontStyle-normal);
+  font-weight: var(--digitv2-fontWeight-bold);
+  color: var(--digitv2-lightTheme-text-primary);
+  line-height: var(--digitv2-lineHeight-normal);
 
-    @media screen and (min-width: theme("digitv2.screens.tablet")) {
-      font-size: theme("digitv2.fontSize.heading-s.tablet");
-    }
-
-    @media screen and (min-width: theme("digitv2.screens.mobile")) {
-      font-size: theme("digitv2.fontSize.heading-s.mobile");
-    }
+  @media screen and (min-width: var(--digitv2-screens-desktop)) {
+    font-size: var(--digitv2-fontSize-heading-m-desktop);
   }
 
-  &.text-heading-xs {
-    @media screen and (min-width: theme("digitv2.screens.mobile")) {
-      font-size: theme("digitv2.fontSize.heading-xs.mobile");
-      font-family: theme("digitv2.fontFamily.sans");
-      font-style: theme("digitv2.fontStyle.normal");
-      font-weight: theme("digitv2.fontWeight.bold");
-      color: theme("digitv2.lightTheme.text-primary");
-      line-height: theme("digitv2.lineHeight.normal");
-    }
+  @media screen and (min-width: var(--digitv2-screens-tablet)) {
+    font-size: var(--digitv2-fontSize-heading-m-tablet);
   }
 
-  &.text-caption-l {
-    font-family: theme("digitv2.fontFamily.sans");
-    font-style: theme("digitv2.fontStyle.italic");
-    font-weight: theme("digitv2.fontWeight.medium");
-    color: theme("digitv2.lightTheme.text-primary");
-    line-height: theme("digitv2.lineHeight.normal");
+  @media screen and (min-width: var(--digitv2-screens-mobile)) {
+    font-size: var(--digitv2-fontSize-heading-m-desktop);
+  }
+}
 
-    @media screen and (min-width: theme("digitv2.screens.desktop")) {
-      font-size: theme("digitv2.fontSize.caption-l.desktop");
-    }
+@mixin typography-text-heading-s {
+  font-family: var(--digitv2-fontFamily-sans);
+  font-style: var(--digitv2-fontStyle-normal);
+  font-weight: var(--digitv2-fontWeight-bold);
+  color: var(--digitv2-lightTheme-text-primary);
+  line-height: var(--digitv2-lineHeight-normal);
 
-    @media screen and (min-width: theme("digitv2.screens.tablet")) {
-      font-size: theme("digitv2.fontSize.caption-l.tablet");
-    }
-
-    @media screen and (min-width: theme("digitv2.screens.mobile")) {
-      font-size: theme("digitv2.fontSize.caption-l.mobile");
-    }
+  @media screen and (min-width: var(--digitv2-screens-desktop)) {
+    font-size: var(--digitv2-fontSize-heading-s-desktop);
   }
 
-  &.text-caption-m {
-    font-family: theme("digitv2.fontFamily.sans");
-    font-style: theme("digitv2.fontStyle.italic");
-    font-weight: theme("digitv2.fontWeight.medium");
-    color: theme("digitv2.lightTheme.text-primary");
-    line-height: theme("digitv2.lineHeight.normal");
-
-    @media screen and (min-width: theme("digitv2.screens.desktop")) {
-      font-size: theme("digitv2.fontSize.caption-m.desktop");
-    }
-
-    @media screen and (min-width: theme("digitv2.screens.tablet")) {
-      font-size: theme("digitv2.fontSize.caption-m.tablet");
-    }
-
-    @media screen and (min-width: theme("digitv2.screens.mobile")) {
-      font-size: theme("digitv2.fontSize.caption-m.mobile");
-    }
+  @media screen and (min-width: var(--digitv2-screens-tablet)) {
+    font-size: var(--digitv2-fontSize-heading-s-tablet);
   }
 
-  &.text-caption-s {
-    font-family: theme("digitv2.fontFamily.sans");
-    font-style: theme("digitv2.fontStyle.italic");
-    font-weight: theme("digitv2.fontWeight.medium");
-    color: theme("digitv2.lightTheme.text-primary");
-    line-height: theme("digitv2.lineHeight.normal");
+  @media screen and (min-width: var(--digitv2-screens-mobile)) {
+    font-size: var(--digitv2-fontSize-heading-s-mobile);
+  }
+}
 
-    @media screen and (min-width: theme("digitv2.screens.desktop")) {
-      font-size: theme("digitv2.fontSize.caption-s.desktop");
-    }
+@mixin typography-text-heading-xs {
+  @media screen and (min-width: var(--digitv2-screens-mobile)) {
+    font-size: var(--digitv2-fontSize-heading-xs-mobile);
+    font-family: var(--digitv2-fontFamily-sans);
+    font-style: var(--digitv2-fontStyle-normal);
+    font-weight: var(--digitv2-fontWeight-bold);
+    color: var(--digitv2-lightTheme-text-primary);
+    line-height: var(--digitv2-lineHeight-normal);
+  }
+}
 
-    @media screen and (min-width: theme("digitv2.screens.tablet")) {
-      font-size: theme("digitv2.fontSize.caption-s.tablet");
-    }
+@mixin typography-text-caption-l {
+  font-family: var(--digitv2-fontFamily-sans);
+  font-style: var(--digitv2-fontStyle-italic);
+  font-weight: var(--digitv2-fontWeight-medium);
+  color: var(--digitv2-lightTheme-text-primary);
+  line-height: var(--digitv2-lineHeight-normal);
 
-    @media screen and (min-width: theme("digitv2.screens.mobile")) {
-      font-size: theme("digitv2.fontSize.caption-s.desktop");
-    }
+  @media screen and (min-width: var(--digitv2-screens-desktop)) {
+    font-size: var(--digitv2-fontSize-caption-l-desktop);
   }
 
-  &.text-body-l {
-    font-family: theme("digitv2.fontFamily.sans");
-    font-style: theme("digitv2.fontStyle.italic");
-    font-weight: theme("digitv2.fontWeight.regular");
-    color: theme("digitv2.lightTheme.text-primary");
-
-    @media screen and (min-width: theme("digitv2.screens.desktop")) {
-      font-size: theme("digitv2.fontSize.body-l.desktop");
-      line-height: theme("digitv2.lineHeight.line-height-body-l.desktop");
-    }
-
-    @media screen and (min-width: theme("digitv2.screens.tablet")) {
-      font-size: theme("digitv2.fontSize.body-l.tablet");
-      line-height: theme("digitv2.lineHeight.line-height-body-l.tablet");
-    }
-
-    @media screen and (min-width: theme("digitv2.screens.mobile")) {
-      font-size: theme("digitv2.fontSize.body-l.mobile");
-      line-height: theme("digitv2.lineHeight.line-height-body-l.mobile");
-    }
+  @media screen and (min-width: var(--digitv2-screens-tablet)) {
+    font-size: var(--digitv2-fontSize-caption-l-tablet);
   }
 
-  &.text-body-s {
-    font-family: theme("digitv2.fontFamily.sans");
-    font-style: theme("digitv2.fontStyle.italic");
-    font-weight: theme("digitv2.fontWeight.regular");
-    color: theme("digitv2.lightTheme.text-primary");
+  @media screen and (min-width: var(--digitv2-screens-mobile)) {
+    font-size: var(--digitv2-fontSize-caption-l-mobile);
+  }
+}
 
-    @media screen and (min-width: theme("digitv2.screens.desktop")) {
-      font-size: theme("digitv2.fontSize.body-s.desktop");
-      line-height: theme("digitv2.lineHeight.line-height-body-s.desktop");
-    }
+@mixin typography-text-caption-m {
+  font-family: var(--digitv2-fontFamily-sans);
+  font-style: var(--digitv2-fontStyle-italic);
+  font-weight: var(--digitv2-fontWeight-medium);
+  color: var(--digitv2-lightTheme-text-primary);
+  line-height: var(--digitv2-lineHeight-normal);
 
-    @media screen and (min-width: theme("digitv2.screens.tablet")) {
-      font-size: theme("digitv2.fontSize.body-s.tablet");
-      line-height: theme("digitv2.lineHeight.line-height-body-s.tablet");
-    }
-
-    @media screen and (min-width: theme("digitv2.screens.mobile")) {
-      font-size: theme("digitv2.fontSize.body-s.mobile");
-      line-height: theme("digitv2.lineHeight.line-height-body-s.mobile");
-    }
+  @media screen and (min-width: var(--digitv2-screens-desktop)) {
+    font-size: var(--digitv2-fontSize-caption-m-desktop);
   }
 
-  &.text-body-xs {
-    font-family: theme("digitv2.fontFamily.sans");
-    font-style: theme("digitv2.fontStyle.italic");
-    font-weight: theme("digitv2.fontWeight.regular");
-    color: theme("digitv2.lightTheme.text-primary");
-
-    @media screen and (min-width: theme("digitv2.screens.desktop")) {
-      font-size: theme("digitv2.fontSize.body-xs.desktop");
-      line-height: theme("digitv2.lineHeight.line-height-body-xs.desktop");
-    }
-
-    @media screen and (min-width: theme("digitv2.screens.tablet")) {
-      font-size: theme("digitv2.fontSize.body-xs.tablet");
-      line-height: theme("digitv2.lineHeight.line-height-body-xs.tablet");
-    }
-
-    @media screen and (min-width: theme("digitv2.screens.mobile")) {
-      font-size: theme("digitv2.fontSize.body-xs.mobile");
-      line-height: theme("digitv2.lineHeight.line-height-body-xs.mobile");
-    }
+  @media screen and (min-width: var(--digitv2-screens-tablet)) {
+    font-size: var(--digitv2-fontSize-caption-m-tablet);
   }
 
-  &.text-label {
-    font-family: theme("digitv2.fontFamily.sans");
-    font-style: theme("digitv2.fontStyle.italic");
-    font-weight: theme("digitv2.fontWeight.regular");
-    color: theme("digitv2.lightTheme.text-primary");
-    line-height: theme("digitv2.lineHeight.normal");
+  @media screen and (min-width: var(--digitv2-screens-mobile)) {
+    font-size: var(--digitv2-fontSize-caption-m-mobile);
+  }
+}
 
-    @media screen and (min-width: theme("digitv2.screens.desktop")) {
-      font-size: theme("digitv2.fontSize.label.desktop");
-    }
+@mixin typography-text-caption-s {
+  font-family: var(--digitv2-fontFamily-sans);
+  font-style: var(--digitv2-fontStyle-italic);
+  font-weight: var(--digitv2-fontWeight-medium);
+  color: var(--digitv2-lightTheme-text-primary);
+  line-height: var(--digitv2-lineHeight-normal);
 
-    @media screen and (min-width: theme("digitv2.screens.tablet")) {
-      font-size: theme("digitv2.fontSize.label.tablet");
-    }
-
-    @media screen and (min-width: theme("digitv2.screens.mobile")) {
-      font-size: theme("digitv2.fontSize.label.mobile");
-    }
+  @media screen and (min-width: var(--digitv2-screens-desktop)) {
+    font-size: var(--digitv2-fontSize-caption-s-desktop);
   }
 
-  &.text-link {
-    font-family: theme("digitv2.fontFamily.sans");
-    font-style: theme("digitv2.fontStyle.normal");
-    font-weight: theme("digitv2.fontWeight.regular");
-    color: theme("digitv2.lightTheme.text-primary");
-    line-height: theme("digitv2.lineHeight.normal");
-    text-decoration: theme("digitv2.textDecorationLine.underline");
-
-    @media screen and (min-width: theme("digitv2.screens.desktop")) {
-      font-size: theme("digitv2.fontSize.link-l.desktop");
-    }
-
-    @media screen and (min-width: theme("digitv2.screens.tablet")) {
-      font-size: theme("digitv2.fontSize.link-l.tablet");
-    }
-
-    @media screen and (min-width: theme("digitv2.screens.mobile")) {
-      font-size: theme("digitv2.fontSize.link-l.mobile");
-    }
+  @media screen and (min-width: var(--digitv2-screens-tablet)) {
+    font-size: var(--digitv2-fontSize-caption-s-tablet);
   }
 
+  @media screen and (min-width: var(--digitv2-screens-mobile)) {
+    font-size: var(--digitv2-fontSize-caption-s-desktop);
+  }
+}
 
-  &.heading-xl {
-    font-family: theme("digitv2.fontFamily.rc");
-    font-style: theme("digitv2.fontStyle.normal");
-    font-weight: theme("digitv2.fontWeight.bold");
-    line-height: theme("digitv2.lineHeight.lineheight1");
+@mixin typography-text-body-l {
+  font-family: var(--digitv2-fontFamily-sans);
+  font-style: var(--digitv2-fontStyle-italic);
+  font-weight: var(--digitv2-fontWeight-regular);
+  color: var(--digitv2-lightTheme-text-primary);
 
-    @media (max-aspect-ratio: 9/16) {
-      /* Media query for mobile */
-      font-size: theme("digitv2.fontSize.heading-xl.mobile");
-    }
-
-    @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
-      /* Media query for tablets */
-      font-size: theme("digitv2.fontSize.heading-xl.tablet");
-    }
-
-    @media (min-aspect-ratio: 3/4) {
-      /* Media query for desktop */
-      font-size: theme("digitv2.fontSize.heading-xl.desktop");
-    }
+  @media screen and (min-width: var(--digitv2-screens-desktop)) {
+    font-size: var(--digitv2-fontSize-body-l-desktop);
+    line-height: var(--digitv2-lineHeight-line-height-body-l-desktop);
   }
 
-  &.heading-l {
-    font-family: theme("digitv2.fontFamily.sans");
-    font-style: theme("digitv2.fontStyle.normal");
-    font-weight: theme("digitv2.fontWeight.bold");
-    line-height: theme("digitv2.lineHeight.lineheight1");
-
-    @media (max-aspect-ratio: 9/16) {
-      /* Media query for mobile */
-      font-size: theme("digitv2.fontSize.heading-l.mobile");
-    }
-
-    @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
-      /* Media query for tablets */
-      font-size: theme("digitv2.fontSize.heading-l.tablet");
-    }
-
-    @media (min-aspect-ratio: 3/4) {
-      /* Media query for desktop */
-      font-size: theme("digitv2.fontSize.heading-l.desktop");
-    }
+  @media screen and (min-width: var(--digitv2-screens-tablet)) {
+    font-size: var(--digitv2-fontSize-body-l-tablet);
+    line-height: var(--digitv2-lineHeight-line-height-body-l-tablet);
   }
 
-  &.heading-m {
-    font-family: theme("digitv2.fontFamily.sans");
-    font-style: theme("digitv2.fontStyle.normal");
-    font-weight: theme("digitv2.fontWeight.bold");
-    line-height: theme("digitv2.lineHeight.lineheight1");
+  @media screen and (min-width: var(--digitv2-screens-mobile)) {
+    font-size: var(--digitv2-fontSize-body-l-mobile);
+    line-height: var(--digitv2-lineHeight-line-height-body-l-mobile);
+  }
+}
 
-    @media (max-aspect-ratio: 9/16) {
-      /* Media query for mobile */
-      font-size: theme("digitv2.fontSize.heading-m.mobile");
-    }
+@mixin typography-text-body-s {
+  font-family: var(--digitv2-fontFamily-sans);
+  font-style: var(--digitv2-fontStyle-italic);
+  font-weight: var(--digitv2-fontWeight-regular);
+  color: var(--digitv2-lightTheme-text-primary);
 
-    @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
-      /* Media query for tablets */
-      font-size: theme("digitv2.fontSize.heading-m.tablet");
-    }
-
-    @media (min-aspect-ratio: 3/4) {
-      /* Media query for desktop */
-      font-size: theme("digitv2.fontSize.heading-m.desktop");
-    }
+  @media screen and (min-width: var(--digitv2-screens-desktop)) {
+    font-size: var(--digitv2-fontSize-body-s-desktop);
+    line-height: var(--digitv2-lineHeight-line-height-body-s-desktop);
   }
 
-  &.heading-s {
-    font-family: theme("digitv2.fontFamily.sans");
-    font-style: theme("digitv2.fontStyle.normal");
-    font-weight: theme("digitv2.fontWeight.bold");
-    line-height: theme("digitv2.lineHeight.lineheight1");
-
-    @media (max-aspect-ratio: 9/16) {
-      /* Media query for mobile */
-      font-size: theme("digitv2.fontSize.heading-s.mobile");
-    }
-
-    @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
-      /* Media query for tablets */
-      font-size: theme("digitv2.fontSize.heading-s.tablet");
-    }
-
-    @media (min-aspect-ratio: 3/4) {
-      /* Media query for desktop */
-      font-size: theme("digitv2.fontSize.heading-s.desktop");
-    }
+  @media screen and (min-width: var(--digitv2-screens-tablet)) {
+    font-size: var(--digitv2-fontSize-body-s-tablet);
+    line-height: var(--digitv2-lineHeight-line-height-body-s-tablet);
   }
 
-  &.heading-xs {
-    font-family: theme("digitv2.fontFamily.sans");
-    font-style: theme("digitv2.fontStyle.normal");
-    font-weight: theme("digitv2.fontWeight.bold");
-    line-height: theme("digitv2.lineHeight.lineheight1");
+  @media screen and (min-width: var(--digitv2-screens-mobile)) {
+    font-size: var(--digitv2-fontSize-body-s-mobile);
+    line-height: var(--digitv2-lineHeight-line-height-body-s-mobile);
+  }
+}
 
-    @media (max-aspect-ratio: 9/16) {
-      /* Media query for mobile */
-      font-size: theme("digitv2.fontSize.heading-xs.mobile");
-    }
+@mixin typography-text-body-xs {
+  font-family: var(--digitv2-fontFamily-sans);
+  font-style: var(--digitv2-fontStyle-italic);
+  font-weight: var(--digitv2-fontWeight-regular);
+  color: var(--digitv2-lightTheme-text-primary);
 
-    @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
-      /* Media query for tablets */
-      font-size: theme("digitv2.fontSize.heading-xs.tablet");
-    }
-
-    @media (min-aspect-ratio: 3/4) {
-      /* Media query for desktop */
-      font-size: theme("digitv2.fontSize.heading-xs.desktop");
-    }
+  @media screen and (min-width: var(--digitv2-screens-desktop)) {
+    font-size: var(--digitv2-fontSize-body-xs-desktop);
+    line-height: var(--digitv2-lineHeight-line-height-body-xs-desktop);
   }
 
-  &.caption-l {
-    font-family: theme("digitv2.fontFamily.sans");
-    font-style: theme("digitv2.fontStyle.normal");
-    font-weight: theme("digitv2.fontWeight.medium");
-    line-height: theme("digitv2.lineHeight.lineheight1");
-
-    @media (max-aspect-ratio: 9/16) {
-      /* Media query for mobile */
-      font-size: theme("digitv2.fontSize.caption-l.mobile");
-    }
-
-    @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
-      /* Media query for tablets */
-      font-size: theme("digitv2.fontSize.caption-l.tablet");
-    }
-
-    @media (min-aspect-ratio: 3/4) {
-      /* Media query for desktop */
-      font-size: theme("digitv2.fontSize.caption-l.desktop");
-    }
+  @media screen and (min-width: var(--digitv2-screens-tablet)) {
+    font-size: var(--digitv2-fontSize-body-xs-tablet);
+    line-height: var(--digitv2-lineHeight-line-height-body-xs-tablet);
   }
 
-  &.caption-m {
-    font-family: theme("digitv2.fontFamily.sans");
-    font-style: theme("digitv2.fontStyle.normal");
-    font-weight: theme("digitv2.fontWeight.medium");
-    line-height: theme("digitv2.lineHeight.lineheight1");
+  @media screen and (min-width: var(--digitv2-screens-mobile)) {
+    font-size: var(--digitv2-fontSize-body-xs-mobile);
+    line-height: var(--digitv2-lineHeight-line-height-body-xs-mobile);
+  }
+}
 
-    @media (max-aspect-ratio: 9/16) {
-      /* Media query for mobile */
-      font-size: theme("digitv2.fontSize.caption-m.mobile");
-    }
+@mixin typography-text-label {
+  font-family: var(--digitv2-fontFamily-sans);
+  font-style: var(--digitv2-fontStyle-italic);
+  font-weight: var(--digitv2-fontWeight-regular);
+  color: var(--digitv2-lightTheme-text-primary);
+  line-height: var(--digitv2-lineHeight-normal);
 
-    @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
-      /* Media query for tablets */
-      font-size: theme("digitv2.fontSize.caption-m.tablet");
-
-    }
-
-    @media (min-aspect-ratio: 3/4) {
-      /* Media query for desktop */
-      font-size: theme("digitv2.fontSize.caption-m.desktop");
-    }
-
+  @media screen and (min-width: var(--digitv2-screens-desktop)) {
+    font-size: var(--digitv2-fontSize-label-desktop);
   }
 
-  &.caption-s {
-    font-family: theme("digitv2.fontFamily.sans");
-    font-style: theme("digitv2.fontStyle.normal");
-    font-weight: theme("digitv2.fontWeight.medium");
-    line-height: theme("digitv2.lineHeight.lineheight1");
-
-    @media (max-aspect-ratio: 9/16) {
-      /* Media query for mobile */
-      font-size: theme("digitv2.fontSize.caption-s.mobile");
-    }
-
-    @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
-      /* Media query for tablets */
-      font-size: theme("digitv2.fontSize.caption-s.tablet");
-    }
-
-    @media (min-aspect-ratio: 3/4) {
-      /* Media query for desktop */
-      font-size: theme("digitv2.fontSize.caption-s.desktop");
-    }
-
+  @media screen and (min-width: var(--digitv2-screens-tablet)) {
+    font-size: var(--digitv2-fontSize-label-tablet);
   }
 
-  &.body-l {
-    font-family: theme("digitv2.fontFamily.sans");
-    font-style: theme("digitv2.fontStyle.normal");
-    font-weight: theme("digitv2.fontWeight.regular");
-    line-height: theme("digitv2.lineHeight.lineheight2");
+  @media screen and (min-width: var(--digitv2-screens-mobile)) {
+    font-size: var(--digitv2-fontSize-label-mobile);
+  }
+}
 
-    @media (max-aspect-ratio: 9/16) {
-      /* Media query for mobile */
-      font-size: theme("digitv2.fontSize.body-l.mobile");
-    }
+@mixin typography-text-link {
+  font-family: var(--digitv2-fontFamily-sans);
+  font-style: var(--digitv2-fontStyle-normal);
+  font-weight: var(--digitv2-fontWeight-regular);
+  color: var(--digitv2-lightTheme-text-primary);
+  line-height: var(--digitv2-lineHeight-normal);
+  text-decoration: var(--digitv2-textDecorationLine-underline);
 
-    @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
-      /* Media query for tablets */
-      font-size: theme("digitv2.fontSize.body-l.tablet");
-    }
-
-    @media (min-aspect-ratio: 3/4) {
-      /* Media query for desktop */
-      font-size: theme("digitv2.fontSize.body-l.desktop");
-    }
+  @media screen and (min-width: var(--digitv2-screens-desktop)) {
+    font-size: var(--digitv2-fontSize-link-l-desktop);
   }
 
-  &.body-s {
-    @media (max-aspect-ratio: 9/16) {
-      /* Media query for mobile */
-      font-size: theme("digitv2.fontSize.body-s.mobile");
-      font-family: theme("digitv2.fontFamily.sans");
-      font-style: theme("digitv2.fontStyle.normal");
-      font-weight: theme("digitv2.fontWeight.regular");
-      line-height: theme("digitv2.lineHeight.lineheight2");
-    }
-
-    @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
-      /* Media query for tablets */
-      font-size: theme("digitv2.fontSize.body-s.tablet");
-      font-family: theme("digitv2.fontFamily.sans");
-      font-style: theme("digitv2.fontStyle.normal");
-      font-weight: theme("digitv2.fontWeight.regular");
-      line-height: theme("digitv2.lineHeight.lineheight2");
-    }
-
-    @media (min-aspect-ratio: 3/4) {
-      /* Media query for desktop */
-      font-size: theme("digitv2.fontSize.body-s.desktop");
-      font-family: theme("digitv2.fontFamily.sans");
-      font-style: theme("digitv2.fontStyle.normal");
-      font-weight: theme("digitv2.fontWeight.regular");
-      line-height: theme("digitv2.lineHeight.lineheight2");
-    }
+  @media screen and (min-width: var(--digitv2-screens-tablet)) {
+    font-size: var(--digitv2-fontSize-link-l-tablet);
   }
 
-  &.body-xs {
+  @media screen and (min-width: var(--digitv2-screens-mobile)) {
+    font-size: var(--digitv2-fontSize-link-l-mobile);
+  }
+}
 
-    @media (max-aspect-ratio: 9/16) {
-      /* Media query for mobile */
-      font-size: theme("digitv2.fontSize.body-xs.mobile");
-      font-family: theme("digitv2.fontFamily.sans");
-      font-style: theme("digitv2.fontStyle.normal");
-      font-weight: theme("digitv2.fontWeight.regular");
-      line-height: theme("digitv2.lineHeight.lineheight2");
-    }
 
-    @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
-      /* Media query for tablets */
-      font-size: theme("digitv2.fontSize.body-xs.tablet");
-      font-family: theme("digitv2.fontFamily.sans");
-      font-style: theme("digitv2.fontStyle.normal");
-      font-weight: theme("digitv2.fontWeight.regular");
-      line-height: theme("digitv2.lineHeight.lineheight2");
-    }
+@mixin typography-heading-xl {
+  font-family: var(--digitv2-fontFamily-rc);
+  font-style: var(--digitv2-fontStyle-normal);
+  font-weight: var(--digitv2-fontWeight-bold);
+  line-height: var(--digitv2-lineHeight-lineheight1);
 
-    @media (min-aspect-ratio: 3/4) {
-      /* Media query for desktop */
-      font-size: theme("digitv2.fontSize.body-xs.desktop");
-      font-family: theme("digitv2.fontFamily.sans");
-      font-style: theme("digitv2.fontStyle.normal");
-      font-weight: theme("digitv2.fontWeight.regular");
-      line-height: theme("digitv2.lineHeight.lineheight2");
-    }
+  @media (max-aspect-ratio: 9/16) {
+    /* Media query for mobile */
+    font-size: var(--digitv2-fontSize-heading-xl-mobile);
   }
 
-  &.label {
-    font-family: theme("digitv2.fontFamily.sans");
-    font-style: theme("digitv2.fontStyle.normal");
-    font-weight: theme("digitv2.fontWeight.regular");
-    line-height: theme("digitv2.lineHeight.lineheight2");
-
-    @media (max-aspect-ratio: 9/16) {
-      /* Media query for mobile */
-      font-size: theme("digitv2.fontSize.label.mobile");
-    }
-
-    @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
-      /* Media query for tablets */
-      font-size: theme("digitv2.fontSize.label.tablet");
-    }
-
-    @media (min-aspect-ratio: 3/4) {
-      /* Media query for desktop */
-      font-size: theme("digitv2.fontSize.label.desktop");
-    }
+  @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+    /* Media query for tablets */
+    font-size: var(--digitv2-fontSize-heading-xl-tablet);
   }
 
-  &.link {
-    font-family: theme("digitv2.fontFamily.sans");
-    font-style: theme("digitv2.fontStyle.normal");
-    font-weight: theme("digitv2.fontWeight.regular");
-    text-decoration: theme("digitv2.textDecorationLine.underline");
-    font-size: theme("digitv2.fontSize.link-l.mobile");
+  @media (min-aspect-ratio: 3/4) {
+    /* Media query for desktop */
+    font-size: var(--digitv2-fontSize-heading-xl-desktop);
+  }
+}
+
+@mixin typography-heading-l {
+  font-family: var(--digitv2-fontFamily-sans);
+  font-style: var(--digitv2-fontStyle-normal);
+  font-weight: var(--digitv2-fontWeight-bold);
+  line-height: var(--digitv2-lineHeight-lineheight1);
+
+  @media (max-aspect-ratio: 9/16) {
+    /* Media query for mobile */
+    font-size: var(--digitv2-fontSize-heading-l-mobile);
   }
 
-  &.link-L {
-    @media (max-aspect-ratio: 9/16) {
-      /* Media query for mobile */
-      font-family: theme("digitv2.fontFamily.sans");
-      font-size: theme("digitv2.fontSize.link-l.mobile");
-      font-weight: theme("digitv2.fontWeight.regular");
-      line-height: theme("digitv2.lineHeight.lineheight2");
-      text-decoration: theme("digitv2.textDecorationLine.underline");
-      text-decoration-thickness: 0.063rem;
-    }
-
-    @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
-      /* Media query for tablets */
-      font-family: theme("digitv2.fontFamily.sans");
-      font-size: theme("digitv2.fontSize.link-l.tablet");
-      font-weight: theme("digitv2.fontWeight.regular");
-      line-height: theme("digitv2.lineHeight.lineheight2");
-      text-decoration: theme("digitv2.textDecorationLine.underline");
-      text-decoration-thickness: 0.063rem;
-    }
-
-    @media (min-aspect-ratio: 3/4) {
-      /* Media query for desktop */
-      font-family: theme("digitv2.fontFamily.sans");
-      font-size: theme("digitv2.fontSize.link-l.desktop");
-      font-weight: theme("digitv2.fontWeight.regular");
-      line-height: theme("digitv2.lineHeight.lineheight2");
-      text-decoration: theme("digitv2.textDecorationLine.underline");
-      text-decoration-thickness: 0.063rem;
-    }
+  @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+    /* Media query for tablets */
+    font-size: var(--digitv2-fontSize-heading-l-tablet);
   }
 
-  &.link-S {
-    @media (max-aspect-ratio: 9/16) {
-      /* Media query for mobile */
-      font-family: theme("digitv2.fontFamily.sans");
-      font-size: theme("digitv2.fontSize.link-s.mobile");
-      font-weight: theme("digitv2.fontWeight.regular");
-      line-height: theme("digitv2.lineHeight.lineheight2");
-      text-decoration: theme("digitv2.textDecorationLine.underline");
-      text-decoration-thickness: 0.063rem;
-    }
+  @media (min-aspect-ratio: 3/4) {
+    /* Media query for desktop */
+    font-size: var(--digitv2-fontSize-heading-l-desktop);
+  }
+}
 
-    @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
-      /* Media query for tablets */
-      font-family: theme("digitv2.fontFamily.sans");
-      font-size: theme("digitv2.fontSize.link-s.tablet");
-      font-weight: theme("digitv2.fontWeight.regular");
-      line-height: theme("digitv2.lineHeight.lineheight2");
-      text-decoration: theme("digitv2.textDecorationLine.underline");
-      text-decoration-thickness: 0.063rem;
-    }
+@mixin typography-heading-m {
+  font-family: var(--digitv2-fontFamily-sans);
+  font-style: var(--digitv2-fontStyle-normal);
+  font-weight: var(--digitv2-fontWeight-bold);
+  line-height: var(--digitv2-lineHeight-lineheight1);
 
-
-    @media (min-aspect-ratio: 3/4) {
-      /* Media query for desktop */
-      font-family: theme("digitv2.fontFamily.sans");
-      font-size: theme("digitv2.fontSize.link-s.desktop");
-      font-weight: theme("digitv2.fontWeight.regular");
-      line-height: theme("digitv2.lineHeight.lineheight2");
-      text-decoration: theme("digitv2.textDecorationLine.underline");
-      text-decoration-thickness: 0.063rem;
-    }
+  @media (max-aspect-ratio: 9/16) {
+    /* Media query for mobile */
+    font-size: var(--digitv2-fontSize-heading-m-mobile);
   }
 
-  &.link-XS {
-    @media (max-aspect-ratio: 9/16) {
-      /* Media query for mobile */
-      font-family: theme("digitv2.fontFamily.sans");
-      font-size: theme("digitv2.fontSize.link-xs.mobile");
-      font-weight: theme("digitv2.fontWeight.regular");
-      line-height: theme("digitv2.lineHeight.lineheight2");
-      text-decoration: theme("digitv2.textDecorationLine.underline");
-      text-decoration-thickness: 0.063rem;
-    }
-
-    @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
-      /* Media query for tablets */
-      font-family: theme("digitv2.fontFamily.sans");
-      font-size: theme("digitv2.fontSize.link-xs.tablet");
-      font-weight: theme("digitv2.fontWeight.regular");
-      line-height: theme("digitv2.lineHeight.lineheight2");
-      text-decoration: theme("digitv2.textDecorationLine.underline");
-      text-decoration-thickness: 0.063rem;
-    }
-
-    @media (min-aspect-ratio: 3/4) {
-      /* Media query for desktop */
-      font-family: theme("digitv2.fontFamily.sans");
-      font-size: theme("digitv2.fontSize.link-xs.desktop");
-      font-weight: theme("digitv2.fontWeight.regular");
-      line-height: theme("digitv2.lineHeight.lineheight2");
-      text-decoration: theme("digitv2.textDecorationLine.underline");
-      text-decoration-thickness: 0.063rem;
-    }
+  @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+    /* Media query for tablets */
+    font-size: var(--digitv2-fontSize-heading-m-tablet);
   }
 
-  &.button {
-
-    &.large {
-      font-size: theme("digitv2.fontSize.button.large");
-      line-height: theme("digitv2.lineHeight.lineheight1");
-      font-family: theme("digitv2.fontFamily.sans");
-      font-weight: theme("digitv2.fontWeight.medium");
-    }
-
-    &.medium {
-      font-size: theme("digitv2.fontSize.button.medium");
-      line-height: theme("digitv2.lineHeight.lineheight1");
-      font-family: theme("digitv2.fontFamily.sans");
-      font-weight: theme("digitv2.fontWeight.medium");
-    }
-
-    &.small {
-      font-size: theme("digitv2.fontSize.button.small");
-      line-height: theme("digitv2.lineHeight.lineheight1");
-      font-family: theme("digitv2.fontFamily.sans");
-      font-weight: theme("digitv2.fontWeight.medium");
-    }
+  @media (min-aspect-ratio: 3/4) {
+    /* Media query for desktop */
+    font-size: var(--digitv2-fontSize-heading-m-desktop);
   }
+}
+
+@mixin typography-heading-s {
+  font-family: var(--digitv2-fontFamily-sans);
+  font-style: var(--digitv2-fontStyle-normal);
+  font-weight: var(--digitv2-fontWeight-bold);
+  line-height: var(--digitv2-lineHeight-lineheight1);
+
+  @media (max-aspect-ratio: 9/16) {
+    /* Media query for mobile */
+    font-size: var(--digitv2-fontSize-heading-s-mobile);
+  }
+
+  @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+    /* Media query for tablets */
+    font-size: var(--digitv2-fontSize-heading-s-tablet);
+  }
+
+  @media (min-aspect-ratio: 3/4) {
+    /* Media query for desktop */
+    font-size: var(--digitv2-fontSize-heading-s-desktop);
+  }
+}
+
+@mixin typography-heading-xs {
+  font-family: var(--digitv2-fontFamily-sans);
+  font-style: var(--digitv2-fontStyle-normal);
+  font-weight: var(--digitv2-fontWeight-bold);
+  line-height: var(--digitv2-lineHeight-lineheight1);
+
+  @media (max-aspect-ratio: 9/16) {
+    /* Media query for mobile */
+    font-size: var(--digitv2-fontSize-heading-xs-mobile);
+  }
+
+  @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+    /* Media query for tablets */
+    font-size: var(--digitv2-fontSize-heading-xs-tablet);
+  }
+
+  @media (min-aspect-ratio: 3/4) {
+    /* Media query for desktop */
+    font-size: var(--digitv2-fontSize-heading-xs-desktop);
+  }
+}
+
+@mixin typography-caption-l {
+  font-family: var(--digitv2-fontFamily-sans);
+  font-style: var(--digitv2-fontStyle-normal);
+  font-weight: var(--digitv2-fontWeight-medium);
+  line-height: var(--digitv2-lineHeight-lineheight1);
+
+  @media (max-aspect-ratio: 9/16) {
+    /* Media query for mobile */
+    font-size: var(--digitv2-fontSize-caption-l-mobile);
+  }
+
+  @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+    /* Media query for tablets */
+    font-size: var(--digitv2-fontSize-caption-l-tablet);
+  }
+
+  @media (min-aspect-ratio: 3/4) {
+    /* Media query for desktop */
+    font-size: var(--digitv2-fontSize-caption-l-desktop);
+  }
+}
+
+@mixin typography-caption-m {
+  font-family: var(--digitv2-fontFamily-sans);
+  font-style: var(--digitv2-fontStyle-normal);
+  font-weight: var(--digitv2-fontWeight-medium);
+  line-height: var(--digitv2-lineHeight-lineheight1);
+
+  @media (max-aspect-ratio: 9/16) {
+    /* Media query for mobile */
+    font-size: var(--digitv2-fontSize-caption-m-mobile);
+  }
+
+  @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+    /* Media query for tablets */
+    font-size: var(--digitv2-fontSize-caption-m-tablet);
+  }
+
+  @media (min-aspect-ratio: 3/4) {
+    /* Media query for desktop */
+    font-size: var(--digitv2-fontSize-caption-m-desktop);
+  }
+}
+
+@mixin typography-caption-s {
+  font-family: var(--digitv2-fontFamily-sans);
+  font-style: var(--digitv2-fontStyle-normal);
+  font-weight: var(--digitv2-fontWeight-medium);
+  line-height: var(--digitv2-lineHeight-lineheight1);
+
+  @media (max-aspect-ratio: 9/16) {
+    /* Media query for mobile */
+    font-size: var(--digitv2-fontSize-caption-s-mobile);
+  }
+
+  @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+    /* Media query for tablets */
+    font-size: var(--digitv2-fontSize-caption-s-tablet);
+  }
+
+  @media (min-aspect-ratio: 3/4) {
+    /* Media query for desktop */
+    font-size: var(--digitv2-fontSize-caption-s-desktop);
+  }
+}
+
+@mixin typography-body-l {
+  font-family: var(--digitv2-fontFamily-sans);
+  font-style: var(--digitv2-fontStyle-normal);
+  font-weight: var(--digitv2-fontWeight-regular);
+  line-height: var(--digitv2-lineHeight-lineheight2);
+
+  @media (max-aspect-ratio: 9/16) {
+    /* Media query for mobile */
+    font-size: var(--digitv2-fontSize-body-l-mobile);
+  }
+
+  @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+    /* Media query for tablets */
+    font-size: var(--digitv2-fontSize-body-l-tablet);
+  }
+
+  @media (min-aspect-ratio: 3/4) {
+    /* Media query for desktop */
+    font-size: var(--digitv2-fontSize-body-l-desktop);
+  }
+}
+
+@mixin typography-body-s {
+  @media (max-aspect-ratio: 9/16) {
+    /* Media query for mobile */
+    font-size: var(--digitv2-fontSize-body-s-mobile);
+    font-family: var(--digitv2-fontFamily-sans);
+    font-style: var(--digitv2-fontStyle-normal);
+    font-weight: var(--digitv2-fontWeight-regular);
+    line-height: var(--digitv2-lineHeight-lineheight2);
+  }
+
+  @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+    /* Media query for tablets */
+    font-size: var(--digitv2-fontSize-body-s-tablet);
+    font-family: var(--digitv2-fontFamily-sans);
+    font-style: var(--digitv2-fontStyle-normal);
+    font-weight: var(--digitv2-fontWeight-regular);
+    line-height: var(--digitv2-lineHeight-lineheight2);
+  }
+
+  @media (min-aspect-ratio: 3/4) {
+    /* Media query for desktop */
+    font-size: var(--digitv2-fontSize-body-s-desktop);
+    font-family: var(--digitv2-fontFamily-sans);
+    font-style: var(--digitv2-fontStyle-normal);
+    font-weight: var(--digitv2-fontWeight-regular);
+    line-height: var(--digitv2-lineHeight-lineheight2);
+  }
+}
+
+@mixin typography-body-xs {
+
+  @media (max-aspect-ratio: 9/16) {
+    /* Media query for mobile */
+    font-size: var(--digitv2-fontSize-body-xs-mobile);
+    font-family: var(--digitv2-fontFamily-sans);
+    font-style: var(--digitv2-fontStyle-normal);
+    font-weight: var(--digitv2-fontWeight-regular);
+    line-height: var(--digitv2-lineHeight-lineheight2);
+  }
+
+  @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+    /* Media query for tablets */
+    font-size: var(--digitv2-fontSize-body-xs-tablet);
+    font-family: var(--digitv2-fontFamily-sans);
+    font-style: var(--digitv2-fontStyle-normal);
+    font-weight: var(--digitv2-fontWeight-regular);
+    line-height: var(--digitv2-lineHeight-lineheight2);
+  }
+
+  @media (min-aspect-ratio: 3/4) {
+    /* Media query for desktop */
+    font-size: var(--digitv2-fontSize-body-xs-desktop);
+    font-family: var(--digitv2-fontFamily-sans);
+    font-style: var(--digitv2-fontStyle-normal);
+    font-weight: var(--digitv2-fontWeight-regular);
+    line-height: var(--digitv2-lineHeight-lineheight2);
+  }
+}
+
+@mixin typography-label {
+  font-family: var(--digitv2-fontFamily-sans);
+  font-style: var(--digitv2-fontStyle-normal);
+  font-weight: var(--digitv2-fontWeight-regular);
+  line-height: var(--digitv2-lineHeight-lineheight2);
+
+  @media (max-aspect-ratio: 9/16) {
+    /* Media query for mobile */
+    font-size: var(--digitv2-fontSize-label-mobile);
+  }
+
+  @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+    /* Media query for tablets */
+    font-size: var(--digitv2-fontSize-label-tablet);
+  }
+
+  @media (min-aspect-ratio: 3/4) {
+    /* Media query for desktop */
+    font-size: var(--digitv2-fontSize-label-desktop);
+  }
+}
+
+@mixin typography-link {
+  font-family: var(--digitv2-fontFamily-sans);
+  font-style: var(--digitv2-fontStyle-normal);
+  font-weight: var(--digitv2-fontWeight-regular);
+  text-decoration: var(--digitv2-textDecorationLine-underline);
+  font-size: var(--digitv2-fontSize-link-l-mobile);
+}
+
+@mixin typography-link-L {
+  @media (max-aspect-ratio: 9/16) {
+    /* Media query for mobile */
+    font-family: var(--digitv2-fontFamily-sans);
+    font-size: var(--digitv2-fontSize-link-l-mobile);
+    font-weight: var(--digitv2-fontWeight-regular);
+    line-height: var(--digitv2-lineHeight-lineheight2);
+    text-decoration: var(--digitv2-textDecorationLine-underline);
+    text-decoration-thickness: 0.063rem;
+  }
+
+  @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+    /* Media query for tablets */
+    font-family: var(--digitv2-fontFamily-sans);
+    font-size: var(--digitv2-fontSize-link-l-tablet);
+    font-weight: var(--digitv2-fontWeight-regular);
+    line-height: var(--digitv2-lineHeight-lineheight2);
+    text-decoration: var(--digitv2-textDecorationLine-underline);
+    text-decoration-thickness: 0.063rem;
+  }
+
+  @media (min-aspect-ratio: 3/4) {
+    /* Media query for desktop */
+    font-family: var(--digitv2-fontFamily-sans);
+    font-size: var(--digitv2-fontSize-link-l-desktop);
+    font-weight: var(--digitv2-fontWeight-regular);
+    line-height: var(--digitv2-lineHeight-lineheight2);
+    text-decoration: var(--digitv2-textDecorationLine-underline);
+    text-decoration-thickness: 0.063rem;
+  }
+}
+
+@mixin typography-link-S {
+  @media (max-aspect-ratio: 9/16) {
+    /* Media query for mobile */
+    font-family: var(--digitv2-fontFamily-sans);
+    font-size: var(--digitv2-fontSize-link-s-mobile);
+    font-weight: var(--digitv2-fontWeight-regular);
+    line-height: var(--digitv2-lineHeight-lineheight2);
+    text-decoration: var(--digitv2-textDecorationLine-underline);
+    text-decoration-thickness: 0.063rem;
+  }
+
+  @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+    /* Media query for tablets */
+    font-family: var(--digitv2-fontFamily-sans);
+    font-size: var(--digitv2-fontSize-link-s-tablet);
+    font-weight: var(--digitv2-fontWeight-regular);
+    line-height: var(--digitv2-lineHeight-lineheight2);
+    text-decoration: var(--digitv2-textDecorationLine-underline);
+    text-decoration-thickness: 0.063rem;
+  }
+
+  @media (min-aspect-ratio: 3/4) {
+    /* Media query for desktop */
+    font-family: var(--digitv2-fontFamily-sans);
+    font-size: var(--digitv2-fontSize-link-s-desktop);
+    font-weight: var(--digitv2-fontWeight-regular);
+    line-height: var(--digitv2-lineHeight-lineheight2);
+    text-decoration: var(--digitv2-textDecorationLine-underline);
+    text-decoration-thickness: 0.063rem;
+  }
+}
+
+@mixin typography-link-XS {
+  @media (max-aspect-ratio: 9/16) {
+    /* Media query for mobile */
+    font-family: var(--digitv2-fontFamily-sans);
+    font-size: var(--digitv2-fontSize-link-xs-mobile);
+    font-weight: var(--digitv2-fontWeight-regular);
+    line-height: var(--digitv2-lineHeight-lineheight2);
+    text-decoration: var(--digitv2-textDecorationLine-underline);
+    text-decoration-thickness: 0.063rem;
+  }
+
+  @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+    /* Media query for tablets */
+    font-family: var(--digitv2-fontFamily-sans);
+    font-size: var(--digitv2-fontSize-link-xs-tablet);
+    font-weight: var(--digitv2-fontWeight-regular);
+    line-height: var(--digitv2-lineHeight-lineheight2);
+    text-decoration: var(--digitv2-textDecorationLine-underline);
+    text-decoration-thickness: 0.063rem;
+  }
+
+  @media (min-aspect-ratio: 3/4) {
+    /* Media query for desktop */
+    font-family: var(--digitv2-fontFamily-sans);
+    font-size: var(--digitv2-fontSize-link-xs-desktop);
+    font-weight: var(--digitv2-fontWeight-regular);
+    line-height: var(--digitv2-lineHeight-lineheight2);
+    text-decoration: var(--digitv2-textDecorationLine-underline);
+    text-decoration-thickness: 0.063rem;
+  }
+}
+
+
+@mixin typography-button-large {
+  font-size: var(--digitv2-fontSize-button-large);
+  line-height: var(--digitv2-lineHeight-lineheight1);
+  font-family: var(--digitv2-fontFamily-sans);
+  font-weight: var(--digitv2-fontWeight-medium);
+}
+
+@mixin typography-button-medium {
+  font-size: var(--digitv2-fontSize-button-medium);
+  line-height: var(--digitv2-lineHeight-lineheight1);
+  font-family: var(--digitv2-fontFamily-sans);
+  font-weight: var(--digitv2-fontWeight-medium);
+}
+
+@mixin typography-button-small {
+  font-size: var(--digitv2-fontSize-button-small);
+  line-height: var(--digitv2-lineHeight-lineheight1);
+  font-family: var(--digitv2-fontFamily-sans);
+  font-weight: var(--digitv2-fontWeight-medium);
 }

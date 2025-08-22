@@ -1,3 +1,6 @@
+@import './theme-variables.css';
+@import '../typography.scss';
+
 .header-dropdown-profile {
     display: flex;
     align-items: center;
@@ -29,7 +32,7 @@
   }
   
   .header-dropdown-label {
-    @extend .typography, .body-s;
+    @include typography-body-s;
     cursor: pointer;
     font-family: theme("digitv2.fontFamily.sans");
     font-style: theme("digitv2.fontStyle.normal");
@@ -117,7 +120,7 @@
   }
   
   .header-dropdown-option {
-    @extend .typography, .body-s;
+    @include typography-body-s;
     @apply whitespace-nowrap w-full max-w-full overflow-hidden;
     font-family: theme("digitv2.fontFamily.sans");
     font-style: theme("digitv2.fontStyle.normal");
@@ -158,7 +161,7 @@
   }
   
   .header-dropdown-nooption {
-    @extend .typography, .body-s;
+    @include typography-body-s;
     font-family: theme("digitv2.fontFamily.sans");
     font-style: theme("digitv2.fontStyle.normal");
     font-weight: theme("digitv2.fontWeight.regular");
@@ -192,7 +195,7 @@
   
   .header-dropdown-option:active,
   .header-dropdown-option.activeIndex {
-    @extend .typography, .heading-s;
+    @include typography-heading-s;
     background: theme("digitv2.lightTheme.primary-1") !important;
     color: theme("digitv2.lightTheme.paper-primary");
 

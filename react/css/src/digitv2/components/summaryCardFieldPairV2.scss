@@ -1,3 +1,6 @@
+@import './theme-variables.css';
+@import '../typography.scss';
+
 .digit-viewcard-field-pair{
   @apply w-full flex-col;
   display: flex;
@@ -6,7 +9,7 @@
   gap: theme("digitv2.spacers.spacer1");
 
   .digit-viewcard-label{
-      @extend .typography, .heading-s;
+      @include typography-heading-s;
       font-family: theme("digitv2.fontFamily.sans");
       font-style: theme("digitv2.fontStyle.normal");
       font-weight: theme("digitv2.fontWeight.bold");
@@ -32,7 +35,7 @@
   }
 
   .digit-viewcard-value{
-      @extend .typography, .body-s;
+      @include typography-body-s;
       font-family: theme("digitv2.fontFamily.sans");
       font-style: theme("digitv2.fontStyle.normal");
       font-weight: theme("digitv2.fontWeight.regular");
