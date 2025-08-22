@@ -60,13 +60,12 @@ module.exports = (env, argv) => {
                 }]
               ],
               plugins: [
-                "@babel/plugin-proposal-optional-chaining",
-                "@babel/plugin-proposal-nullish-coalescing-operator",
+                "@babel/plugin-transform-optional-chaining",
+                "@babel/plugin-transform-nullish-coalescing-operator",
                 isProduction && ["babel-plugin-transform-remove-console", { "exclude": ["error", "warn"] }]
               ].filter(Boolean),
               // Enable caching for faster builds
               cacheDirectory: true,
-              cacheCompression: false,
             },
           },
         },

@@ -3,6 +3,14 @@ Here's the `CHANGELOG` file for the specified versions:
 ```markdown
 # Changelog
 
+## [1.8.22-rc-test-02] [22-Aug-2025]
+- Fixed deprecated Babel plugin names (proposal → transform)
+- Replaced @babel/plugin-proposal-optional-chaining with @babel/plugin-transform-optional-chaining
+- Replaced @babel/plugin-proposal-nullish-coalescing-operator with @babel/plugin-transform-nullish-coalescing-operator
+- Removed invalid cacheCompression option from Babel configuration
+- Updated package dependencies with maintained plugin versions
+- All webpack configurations validated and working
+
 ## [1.8.22-rc-test-01] [22-Aug-2025]
 - Production-optimized webpack configuration for stable component library
 - Enhanced Babel with modern JSX transform and automatic polyfill injection
