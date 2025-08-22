@@ -5,21 +5,25 @@ module.exports = (env, argv) => {
   
   return {
     mode: isProduction ? 'production' : 'development',
-    devtool: isProduction ? 'source-map' : 'inline-source-map',
+    devtool: isProduction ? 'source-map' : 'eval-cheap-module-source-map',
     entry: "./src/index.js",
     output: {
-      filename: "main.js",
+      filename: "main.js", // Predictable filename for libraries
       path: path.resolve(__dirname, "dist"),
       library: {
         name: "@egovernments/digit-ui-components",
         type: "umd",
       },
       globalObject: 'this',
+      clean: true, // Clean dist folder before each build
     },
     resolve: {
-      extensions: [".js"],
+      extensions: [".js", ".jsx"],
+      // Add module resolution optimization
+      modules: [path.resolve(__dirname, "src"), "node_modules"],
     },
     externals: {
+      // Core React ecosystem - should be provided by consumer
       react: {
         commonjs: 'react',
         commonjs2: 'react',
@@ -32,39 +36,116 @@ module.exports = (env, argv) => {
         amd: 'react-dom',
         root: 'ReactDOM',
       },
-      'react-i18next': 'react-i18next',
+      // Router and state management
       'react-router-dom': 'react-router-dom',
-      "@tanstack/react-query": "@tanstack/react-query"
-      // Add react-datepicker to externals if you want it to be consumed by the host application
-      // and not bundled with your ui-components. This is common for UI libraries.
-      // However, if your ui-components directly uses DatePicker internally and needs its CSS
-      // bundled, then keep it out of externals.
-      // 'react-datepicker': 'react-datepicker', // <--- Consider adding this if it's an external dependency of the consumer app
+      'react-i18next': 'react-i18next',
+      "@tanstack/react-query": "@tanstack/react-query",
+      // UI library dependencies
+      '@egovernments/digit-ui-libraries': '@egovernments/digit-ui-libraries',
+      '@egovernments/digit-ui-svg-components': '@egovernments/digit-ui-svg-components',
+      // Form libraries that consumers might provide
+      'react-hook-form': 'react-hook-form',
+      // Date picker should be externalized to prevent version conflicts
+      'react-datepicker': 'react-datepicker'
     },
     module: {
       rules: [
         {
-          test: /\.js$/,
+          test: /\.(js|jsx)$/,
           exclude: /node_modules/,
           use: {
             loader: "babel-loader",
             options: {
-              presets: ["@babel/preset-env", "@babel/preset-react"],
+              presets: [
+                ["@babel/preset-env", {
+                  targets: {
+                    browsers: ["> 1%", "last 2 versions", "not ie <= 8"]
+                  },
+                  modules: false, // Let webpack handle modules
+                  useBuiltIns: "usage",
+                  corejs: 3
+                }],
+                ["@babel/preset-react", {
+                  runtime: "automatic" // Use new JSX transform
+                }]
+              ],
+              plugins: [
+                "@babel/plugin-proposal-optional-chaining",
+                "@babel/plugin-proposal-nullish-coalescing-operator",
+                isProduction && ["babel-plugin-transform-remove-console", { "exclude": ["error", "warn"] }]
+              ].filter(Boolean),
+              // Enable caching for faster builds
+              cacheDirectory: true,
+              cacheCompression: false,
             },
           },
         },
+        // Handle CSS imports (important for UI components)
         {
-          test: /\.css$/i,
-          use: ["style-loader", "css-loader"],
+          test: /\.css$/,
+          use: [
+            "style-loader", 
+            {
+              loader: "css-loader",
+              options: {
+                modules: {
+                  auto: true, // Enable CSS modules for .module.css files
+                },
+              },
+            }
+          ],
+        },
+        // Handle SCSS/SASS
+        {
+          test: /\.(scss|sass)$/,
+          use: [
+            "style-loader",
+            {
+              loader: "css-loader",
+              options: {
+                modules: {
+                  auto: true,
+                },
+              },
+            },
+            "sass-loader"
+          ],
+        },
+        // Handle fonts and assets
+        {
+          test: /\.(woff|woff2|eot|ttf|otf)$/,
+          type: 'asset/resource',
+        },
+        {
+          test: /\.(png|svg|jpg|jpeg|gif)$/,
+          type: 'asset/resource',
         },
       ],
     },
     optimization: {
       minimize: isProduction,
-      sideEffects: false
+      // Don't split chunks for libraries - keep as single bundle
+      splitChunks: false,
+      // Tree shaking optimization
+      sideEffects: false,
+      usedExports: true,
+      // Module concatenation for better performance
+      concatenateModules: isProduction,
     },
     performance: {
-      hints: isProduction ? 'warning' : false
-    }
+      hints: isProduction ? 'warning' : false,
+      maxEntrypointSize: 750000, // 750kb for full UI component library
+      maxAssetSize: 750000,
+    },
+    // Development server config (for yarn start)
+    devServer: isProduction ? undefined : {
+      static: {
+        directory: path.join(__dirname, 'dist'),
+      },
+      compress: true,
+      port: 3004,
+      hot: true,
+      open: false, // Don't auto-open browser for library development
+    },
   };
 };

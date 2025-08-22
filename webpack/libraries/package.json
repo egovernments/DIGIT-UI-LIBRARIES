@@ -1,6 +1,6 @@
 {
   "name": "@egovernments/digit-ui-libraries",
-  "version": "1.8.17-rc19.01",
+  "version": "1.8.18-rc-test-01",
   "main": "dist/main.js",
   "module": "dist/main.js",
   "source": "src/index.js",
@@ -15,6 +15,7 @@
     "example": "cd example && npm run start",
     "build": "webpack --mode=production --config webpack.config.js",
     "build:dev": "webpack --mode=development --config webpack.config.js",
+    "build:analyze": "webpack --mode=production --analyze --config webpack.config.js",
     "prepare": "yarn build",
     "predeploy": "cd example && yarn install && yarn run build"
   },
@@ -32,7 +33,11 @@
     "@babel/core": "^7.23.3",
     "@babel/preset-env": "^7.23.3",
     "@babel/preset-react": "^7.23.3",
+    "@babel/plugin-proposal-optional-chaining": "^7.21.0",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.18.6",
+    "babel-plugin-transform-remove-console": "^6.9.4",
     "babel-loader": "8.0.0",
+    "core-js": "^3.32.0",
     "cross-env": "7.0.3",
     "lint-staged": "12.3.7",
     "webpack": "^5.97.1",

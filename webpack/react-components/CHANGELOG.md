@@ -3,6 +3,18 @@ Here's the `CHANGELOG` file for the specified versions:
 ```markdown
 # Changelog
 
+## [1.8.22-rc-test-01] [22-Aug-2025]
+- Production-optimized webpack configuration for stable component library
+- Enhanced Babel with modern JSX transform and automatic polyfill injection
+- Tree-shaking optimization with sideEffects: false for unused code elimination
+- Performance budget set to 500KB with bundle size monitoring
+- Externalized DIGIT UI dependencies to prevent version conflicts
+- Added build caching and console removal in production builds
+- Implemented CSS modules support for component styling
+- Added bundle analysis: yarn build:analyze
+- Optimized dev server with HMR on port 3002
+- Enhanced asset handling for images, fonts, and stylesheets
+
 ## [1.8.21-rc19.01] [27-Jun-2025]
 - react-components(1.8.21) from develop Upgraded to react19
 - webpack for build
