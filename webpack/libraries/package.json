@@ -1,6 +1,6 @@
 {
   "name": "@egovernments/digit-ui-libraries",
-  "version": "1.8.18-rc-test-03",
+  "version": "1.8.18-rc-test-04",
   "main": "dist/main.js",
   "module": "dist/main.js",
   "source": "src/index.js",

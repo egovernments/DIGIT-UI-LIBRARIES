@@ -1,6 +1,6 @@
 {
   "name": "@egovernments/digit-ui-components",
-  "version": "0.2.0-beta.41-rc-test-03",
+  "version": "0.2.0-rc-test-04",
   "license": "MIT",
   "main": "dist/main.js",
   "module": "dist/main.js",
@@ -45,7 +45,6 @@
     "@babel/plugin-transform-optional-chaining": "^7.23.4",
     "@babel/plugin-transform-nullish-coalescing-operator": "^7.23.4",
     "babel-plugin-transform-remove-console": "^6.9.4",
-    "babel-plugin-transform-remove-console": "^6.9.4",
     "babel-loader": "8.0.0",
     "core-js": "^3.38.1",
     "cross-env": "7.0.3",
@@ -65,8 +64,8 @@
     "dist"
   ],
   "dependencies": {
-    "@egovernments/digit-ui-svg-components": "1.0.21-rc19.01",
-    "@egovernments/digit-ui-libraries": "1.8.17-rc19.01",
+    "@egovernments/digit-ui-svg-components": "1.0.22-rc-test-04",
+    "@egovernments/digit-ui-libraries": "1.8.18-rc-test-04",
     "@egovernments/digit-ui-components-css":"0.2.0-beta.14",
     "autoprefixer": "^10.4.15",
     "date-fns": "3.6.0",

@@ -1,6 +1,6 @@
 {
   "name": "@egovernments/digit-ui-svg-components",
-  "version": "1.0.22-rc-test-03",
+  "version": "1.0.22-rc-test-04",
   "license": "MIT",
   "main": "dist/main.js",
   "module": "dist/main.js",
