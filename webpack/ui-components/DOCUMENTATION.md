@@ -1,25 +1,19 @@
 
-##          Digit UI Components (React)
+# Digit UI Components (React)
 
-### Overview
-
-
+## Overview
 
 This document details the essential modifications needed in the modules for smooth integration of components from the "ui-components" package.
 
-
-In the ui-components package, several enhancements have been implemented to improve code clarity and address issues related to pixel inconsistencies,responsiveness,duplicate components in the library,difference between figma and the developed UI, writing custom code over existing code, localization issues etc. 
+In the ui-components package, several enhancements have been implemented to improve code clarity and address issues related to pixel inconsistencies, responsiveness, duplicate components in the library, difference between figma and the developed UI, writing custom code over existing code, localization issues etc.
 
 Previously, there were challenges associated with pixel-based sizing, leading to inconsistencies across different devices and screen resolutions. To mitigate this, the codebase has been updated to utilize rems as the primary unit of measurement. This transition to rems offers several advantages over pixels, including improved scalability and responsiveness across various viewport sizes.
 
-
 Adopting rems ensures the components' styling is more consistent and adaptable, providing a seamless user experience across different platforms and devices.
-
 
 Furthermore, Most of the components offer different variants. Adding variants for these components makes them more flexible, serving a wider range of purposes and meeting different design needs effectively.
 
-
-$# digit-ui-components
+## digit-ui-components
 
 ## Install
 
@@ -27,120 +21,108 @@ $# digit-ui-components
 npm install --save @egovernments/digit-ui-components
 ```
 
+## Reference
 
-## Reference 
-
-Storybook (https://unified-dev.digit.org/storybook/)
-
+[Storybook](https://unified-dev.digit.org/storybook/)
 
 ## Components List
 
-
-Groups
-Components
-Foundations
-Animations
-Typography
-Iconography
-Colors
-Spacers
-Atoms
-Accordion
-ActionButton
-AlertCard
-Backlink 
-BreadCrumb
-Button
-CheckBox
-Chip
-Divider
-Dropdown
-ErrorMessage
-FileUpload
-InfoButton
-LabelFieldPair
-Loader
-Menu
-MultiSelectDropdown
-OTPInput
-Panels
-RadioButtons
-SelectionTag
-Stepper
-StringManipulator
-SummaryCardFieldPair
-Switch
-Tab
-Tag
-TextArea
-TextBlock
-TextInput
-Timeline
-Toast
-Toggle
-Tooltip
-Molecules
-AccordionList
-BottomSheet
-ButtonGroup
-Card
-FilterCard
-FormCard
-Footer
-Hamburger
-LandingPageCard
-MenuCard
-MetricCard
-PanelCard
-PopUp
-ResultsDataTable
-SideNav
-SidePanel
-SummaryCard
-TableMolecule
-TimelineMolecule
-TooltipWrapper
-Molecule Groups
-LandingPageWrapper
-MenuCardWrapper
-Organisms
-FormComposerV2
-InboxSearchComposer
-
+| Groups | Components |
+|--------|------------|
+| **Foundations** | |
+| | Animations |
+| | Typography |
+| | Iconography |
+| | Colors |
+| | Spacers |
+| **Atoms** | |
+| | Accordion |
+| | ActionButton |
+| | AlertCard |
+| | Backlink |
+| | BreadCrumb |
+| | Button |
+| | CheckBox |
+| | Chip |
+| | Divider |
+| | Dropdown |
+| | ErrorMessage |
+| | FileUpload |
+| | InfoButton |
+| | LabelFieldPair |
+| | Loader |
+| | Menu |
+| | MultiSelectDropdown |
+| | OTPInput |
+| | Panels |
+| | RadioButtons |
+| | SelectionTag |
+| | Stepper |
+| | StringManipulator |
+| | SummaryCardFieldPair |
+| | Switch |
+| | Tab |
+| | Tag |
+| | TextArea |
+| | TextBlock |
+| | TextInput |
+| | Timeline |
+| | Toast |
+| | Toggle |
+| | Tooltip |
+| **Molecules** | |
+| | AccordionList |
+| | BottomSheet |
+| | ButtonGroup |
+| | Card |
+| | FilterCard |
+| | FormCard |
+| | Footer |
+| | Hamburger |
+| | LandingPageCard |
+| | MenuCard |
+| | MetricCard |
+| | PanelCard |
+| | PopUp |
+| | ResultsDataTable |
+| | SideNav |
+| | SidePanel |
+| | SummaryCard |
+| | TableMolecule |
+| | TimelineMolecule |
+| | TooltipWrapper |
+| **Molecule Groups** | |
+| | LandingPageWrapper |
+| | MenuCardWrapper |
+| **Organisms** | |
+| | FormComposerV2 |
+| | InboxSearchComposer |
 
 
-## Components : Variants & Features
+
+## Components: Variants & Features
+
+### Animations
+
+| Component | States & Features |
+|-----------|------------------|
+| Animations | Success, Error, Warning, Warning2 |
+| Loaders | LoaderPrimary, LoaderPrimary2, LoaderWhite |
 
 
-Components
-Variants
-States & Features
-Animations
-Success
-Error
-Warning
-Warning2
-LoaderPrimary
-LoaderPrimary2
-LoaderWhite
+### Typography
 
+| Component | Variants |
+|-----------|----------|
+| Body | Body L, Body S, Body XS |
+| Button | Button L, Button M, Button S |
+| Caption | Caption L, Caption M, Caption S |
+| Heading | Heading XL, Heading L, Heading M, Heading S, Heading XS |
+| Label | Label |
+| Link | Link L, Link S, Link XS |
+### Colors
 
-Typography
-Body
-Button
-Caption
-Heading
-
-Label
-Link
-Body L, Body S, Body XS
-Button L, Button M, Button S
-Caption L, Caption M, Caption S
-Heading XL, Heading L, Heading M,Heading S,Heading XS
-Label
-Link L, LInk S, Link XS
-Colors
-Primary
+#### Primary
 
 
 Text
