@@ -1,21 +1,6 @@
 # Changelog
 
-## [1.8.18-rc-test-03] [22-Aug-2025]
-- Fixed Node.js 17+ OpenSSL compatibility issues with --openssl-legacy-provider flag
-- Updated core-js to v3.38.1 to resolve security and performance issues
-- Removed deprecated babel-preset-react dependency causing core-js@2 conflicts
-- Enhanced build scripts for Node.js 18+ compatibility
-- Eliminated "digital envelope routines::unsupported" errors
-
-## [1.8.18-rc-test-02] [22-Aug-2025]
-- Fixed deprecated Babel plugin names (proposal → transform)
-- Replaced @babel/plugin-proposal-optional-chaining with @babel/plugin-transform-optional-chaining
-- Replaced @babel/plugin-proposal-nullish-coalescing-operator with @babel/plugin-transform-nullish-coalescing-operator
-- Removed invalid cacheCompression option from Babel configuration
-- Updated package dependencies with maintained plugin versions
-- All webpack configurations validated and working
-
-## [1.8.18-rc-test-01] [22-Aug-2025]
+## [1.8.18-rc-optim-03]
 - Major webpack optimization for production-ready library builds
 - Enhanced Babel configuration with modern JSX transform and smart polyfills
 - Added advanced tree-shaking with sideEffects: false and module concatenation
