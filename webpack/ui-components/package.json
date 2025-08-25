@@ -1,6 +1,6 @@
 {
   "name": "@egovernments/digit-ui-components",
-  "version": "0.2.0-beta.40-rc19.02",
+  "version": "0.1.0-rc-optim-01",
   "license": "MIT",
   "main": "dist/main.js",
   "module": "dist/main.js",
@@ -11,12 +11,15 @@
   "homepage": "https://unified-dev.digit.org/storybook/",
   "author": "Jagankumar <jagan.kumar@egov.org.in>",
   "scripts": {
+    "start": "webpack serve --mode=development --open --hot",
+    "start:prod": "webpack serve --mode=production --open",
     "example": "cd example && npm run start",
-    "build": "webpack  --mode=development --node-env=development --config webpack.config.js",
+    "build": "NODE_OPTIONS='--openssl-legacy-provider' webpack --mode=production --config webpack.config.js",
+    "build:dev": "NODE_OPTIONS='--openssl-legacy-provider' webpack --mode=development --config webpack.config.js",
+    "build:analyze": "NODE_OPTIONS='--openssl-legacy-provider' webpack --mode=production --analyze --config webpack.config.js",
     "prepare": "yarn build",
     "publish:components": "npm publish --tag core-webpack-v0.1",
     "predeploy": "cd example && yarn install && yarn run build",
-    "deploy": "gh-pages -d example/build",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
@@ -39,7 +42,11 @@
     "@storybook/preset-create-react-app": "3.2.0",
     "@storybook/test": "8.6.14",
     "babel-eslint": "10.1.0",
+    "@babel/plugin-transform-optional-chaining": "^7.23.4",
+    "@babel/plugin-transform-nullish-coalescing-operator": "^7.23.4",
+    "babel-plugin-transform-remove-console": "^6.9.4",
     "babel-loader": "8.0.0",
+    "core-js": "^3.38.1",
     "cross-env": "7.0.3",
     "css-loader": "^7.1.2",
     "lint-staged": "12.3.7",
@@ -57,8 +64,8 @@
     "dist"
   ],
   "dependencies": {
-    "@egovernments/digit-ui-svg-components": "1.0.21-rc19.01",
-    "@egovernments/digit-ui-libraries": "1.8.17-rc19.01",
+    "@egovernments/digit-ui-svg-components": "0.1.0-rc-optim-01",
+    "@egovernments/digit-ui-libraries": "0.1.0-rc-optim-01",
     "@egovernments/digit-ui-components-css":"0.2.0-beta.14",
     "autoprefixer": "^10.4.15",
     "date-fns": "3.6.0",
