@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.0.21-rc-optimization-01]
+## [0.1.0-rc-optim-01]
 - Optimized webpack configuration for efficient SVG icon library
 - Enhanced tree-shaking with sideEffects: false for maximum unused icon elimination
 - Modern Babel configuration with automatic JSX transform

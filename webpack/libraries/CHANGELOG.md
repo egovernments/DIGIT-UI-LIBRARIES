@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.8.18-rc-optim-03]
+## [0.1.0-rc-optim-01]
 - Major webpack optimization for production-ready library builds
 - Enhanced Babel configuration with modern JSX transform and smart polyfills
 - Added advanced tree-shaking with sideEffects: false and module concatenation
