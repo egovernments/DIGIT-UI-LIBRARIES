@@ -1,0 +1,95 @@
+@import './theme-variables.css';
+@import '../typography.scss';
+
+.digit-label-field-pair {
+   @apply mb-lg flex;
+
+
+   @media (min-aspect-ratio: 9/16) {
+     @apply items-start;
+   }
+
+   @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+     gap: theme("digitv2.spacers.spacer5");
+   }
+
+   @media (max-aspect-ratio: 9/16) {
+     @apply flex-col items-start;
+     gap: theme("digitv2.spacers.spacer4");
+   }
+
+   @media (min-aspect-ratio: 3/4) {
+     gap: theme("digitv2.spacers.spacer6");
+   }
+
+   .digit-text-block-wrap {
+     margin-top: 0.565rem;
+   }
+
+   .digit-radio-options-wrap {
+     margin-top: 0.565rem;
+   }
+
+   &.vertical {
+     @apply flex-col items-start;
+     gap: theme("digitv2.spacers.spacer2");
+
+     .digit-text-block-wrap {
+       margin-top: theme("digitv2.spacers.spacer0");
+     }
+
+     .digit-radio-options-wrap {
+       margin-top: theme("digitv2.spacers.spacer0");
+     }
+
+   }
+
+   & .label,
+   & header {
+     width: 33%;
+
+     @media (max-aspect-ratio: 9/16) {
+       @apply w-full;
+     }
+   }
+
+   & .digit-field {
+     width: 60%;
+
+     @media (max-aspect-ratio: 9/16) {
+       width: 100%;
+     }
+   }
+
+   &.removeMargin{
+    margin-bottom: theme("digitv2.spacers.spacer0");
+   }
+
+   &.digit-formcomposer-fieldpair{
+    width: 100%;
+   }
+ }
+
+ @screen dt {
+   .digit-employee-card {
+     .digit-label-field-pair {
+       @apply mb-lg flex;
+
+       h2 {
+         width: 30%;
+       }
+
+       .digit-field {
+
+         .field {
+           margin-right: unset;
+         }
+
+         .digit-field {
+           @apply mb-lg;
+           margin-right: unset;
+         }
+       }
+     }
+   }
+ }

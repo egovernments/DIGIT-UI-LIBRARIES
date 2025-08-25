@@ -1,0 +1,193 @@
+@import './theme-variables.css';
+@import '../typography.scss';
+
+.digit-tree-select-options-container.first-level:nth-of-type(even) {
+    .digit-tree-select-option.level-0,
+    .digit-tree-multiselect-option.level-0:not(.checked){
+        background-color: theme("digitv2.lightTheme.paper-secondary");
+    }
+}
+.digit-tree-select-options-container.first-level:nth-of-type(odd) {
+    .digit-tree-select-option.level-0,
+    .digit-tree-multiselect-option.level-0:not(.checked){
+        background-color: theme("digitv2.lightTheme.paper-primary");
+    }
+}
+.container.innerlevel {
+    border-left: 0.063rem solid #D6D5D4;
+}
+.digit-tree-select-option,
+.digit-tree-multiselect-option {
+    @apply relative cursor-pointer flex items-center;
+    height: 2.4375rem;
+    gap: theme("digitv2.spacers.spacer1");
+    padding: theme("digitv2.spacers.spacer4") theme("digitv2.spacers.spacer3");
+    &:hover {
+        background: theme("digitv2.lightTheme.primary-bg");
+        border: 0.063rem solid theme("digitv2.lightTheme.primary-1");
+    }
+    &.expanded {
+        .digit-option-label {
+            @include typography-heading-s;
+            font-family: theme("digitv2.fontFamily.sans");
+            font-style: theme("digitv2.fontStyle.normal");
+            font-weight: theme("digitv2.fontWeight.bold");
+            line-height: theme("digitv2.lineHeight.lineheight1");
+        
+            @media (max-aspect-ratio: 9/16) {
+              /* Media query for mobile */
+              font-size: theme("digitv2.fontSize.heading-s.mobile");
+            }
+        
+            @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+              /* Media query for tablets */
+              font-size: theme("digitv2.fontSize.heading-s.tablet");
+            }
+        
+            @media (min-aspect-ratio: 3/4) {
+              /* Media query for desktop */
+              font-size: theme("digitv2.fontSize.heading-s.desktop");
+            }
+            color: theme("digitv2.lightTheme.text-primary");
+            /*font-size: 1rem;
+            font-weight: theme("digitv2.fontWeight.bold");
+            line-height: 1.188rem;*/
+        }
+    }
+    input {
+        @apply absolute opacity-0 cursor-pointer;
+        margin: 0;
+    }
+    .digit-toggle-dropdown {
+        width: theme("digitv2.spacers.spacer6");
+        height: theme("digitv2.spacers.spacer6");
+    }
+    .digit-custom-checkbox {
+        height: theme("digitv2.spacers.spacer5");
+        width: theme("digitv2.spacers.spacer5");
+        @apply flex items-center justify-center;
+        border: 0.063rem solid theme("digitv2.lightTheme.text-secondary");
+        svg {
+            @apply opacity-0 z-10;
+        }
+        &.checked {
+            border: 0.125rem solid theme("digitv2.lightTheme.primary-1");
+            svg {
+                @apply opacity-100;
+                width: theme("digitv2.spacers.spacer4");
+                height: theme("digitv2.spacers.spacer4");
+            }
+        }
+        &.intermediate {
+            border: 0.125rem solid theme("digitv2.lightTheme.primary-1");
+            .intermediate-state {
+                width: theme("digitv2.spacers.spacer3");
+                height: theme("digitv2.spacers.spacer3");
+                background-color: theme("digitv2.lightTheme.primary-1");
+                opacity: 1;
+            }
+        }
+    }
+}
+.container .digit-tree-multiselect-option.parent.checked.all-child-selected+.child-options-container,
+.container .digit-tree-multiselect-option.parent.checked.all-child-selected .child-options-container {
+    background-color: theme("digitv2.lightTheme.primary-bg");
+    .digit-tree-multiselect-option.checked {
+        background: theme("digitv2.lightTheme.primary-bg") !important;
+        .digit-toggle-dropdown.svg {
+            fill: #0B0C0C;
+        }
+        .digit-custom-checkbox {
+            border: 0.125rem solid theme("digitv2.lightTheme.primary-1");
+        }
+        .digit-option-label {
+            color: theme("digitv2.lightTheme.text-primary");
+        }
+    }
+    .container {
+        border: none;
+    }
+}
+.digit-tree-select-option {
+    &.expanded{
+        &.level-0{
+            background-color: theme("digitv2.lightTheme.paper-secondary") !important;
+        }
+    }
+    &.child {
+        .digit-option-label {
+            padding-left: theme("digitv2.spacers.spacer7");
+        }
+    }
+}
+.digit-tree-multiselect-option {
+    &.expanded{
+        &.level-0:not(.checked){
+            background-color: theme("digitv2.lightTheme.paper-secondary") !important;
+        }
+    }
+    &.checked {
+        background-color: theme("digitv2.lightTheme.primary-1");
+        .digit-custom-checkbox {
+            border: 0.125rem solid theme("digitv2.lightTheme.paper-primary");
+        }
+        .digit-option-label {
+            @include typography-heading-s;
+            font-family: theme("digitv2.fontFamily.sans");
+            font-style: theme("digitv2.fontStyle.normal");
+            font-weight: theme("digitv2.fontWeight.bold");
+            line-height: theme("digitv2.lineHeight.lineheight1");
+        
+            @media (max-aspect-ratio: 9/16) {
+              /* Media query for mobile */
+              font-size: theme("digitv2.fontSize.heading-s.mobile");
+            }
+        
+            @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+              /* Media query for tablets */
+              font-size: theme("digitv2.fontSize.heading-s.tablet");
+            }
+        
+            @media (min-aspect-ratio: 3/4) {
+              /* Media query for desktop */
+              font-size: theme("digitv2.fontSize.heading-s.desktop");
+            }
+            color: theme("digitv2.lightTheme.paper-primary");
+        }
+    }
+    &.child {
+        .digit-custom-checkbox {
+            margin-left: 2.25rem;
+        }
+    }
+    .digit-option-checkbox {
+        display: none;
+    }
+}
+.digit-option-label {
+    @include typography-body-s;
+    font-family: theme("digitv2.fontFamily.sans");
+    font-style: theme("digitv2.fontStyle.normal");
+    font-weight: theme("digitv2.fontWeight.regular");
+    line-height: theme("digitv2.lineHeight.lineheight2");
+
+    @media (max-aspect-ratio: 9/16) {
+      /* Media query for mobile */
+      font-size: theme("digitv2.fontSize.body-s.mobile");
+    }
+
+    @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+      /* Media query for tablets */
+      font-size: theme("digitv2.fontSize.body-s.tablet");
+    }
+
+    @media (min-aspect-ratio: 3/4) {
+      /* Media query for desktop */
+      font-size: theme("digitv2.fontSize.body-s.desktop");
+    }
+    @apply overflow-hidden w-full;
+    flex: 1;
+    color: theme("digitv2.lightTheme.text-primary");}
+.digit-toggle-dropdown {
+    @apply cursor-pointer;
+}
