@@ -2,7 +2,7 @@ name: Node.js Publish UI Packages
 
 on:
   push:
-    branches: [ 'optim' ]
+    branches: [ 'develop-webpack' ]
     paths:
       - 'webpack/react-components/**'
       - 'webpack/svg-components/**'

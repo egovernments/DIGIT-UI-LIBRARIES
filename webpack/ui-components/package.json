@@ -1,6 +1,6 @@
 {
   "name": "@egovernments/digit-ui-components",
-  "version": "0.1.0-rc-optim-01",
+  "version": "2.0.0-rc19-01",
   "license": "MIT",
   "main": "dist/main.js",
   "module": "dist/main.js",
@@ -64,8 +64,8 @@
     "dist"
   ],
   "dependencies": {
-    "@egovernments/digit-ui-svg-components": "0.1.0-rc-optim-01",
-    "@egovernments/digit-ui-libraries": "0.1.0-rc-optim-01",
+    "@egovernments/digit-ui-svg-components": "2.0.0-rc19-01",
+    "@egovernments/digit-ui-libraries": "2.0.0-rc19-01",
     "@egovernments/digit-ui-components-css":"0.2.0-beta.14",
     "autoprefixer": "^10.4.15",
     "date-fns": "3.6.0",

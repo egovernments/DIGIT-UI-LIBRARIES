@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.1.0-rc-optim-01] [22-Aug-2025]
+## [2.0.0-rc19-01] [22-Aug-2025]
 - Advanced webpack optimization for comprehensive UI component library
 - Full CSS modules support with auto-detection for .module.css files
 - Enhanced asset handling for fonts, images, and static resources
