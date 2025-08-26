@@ -1,6 +1,6 @@
 # Changelog
 
-## [2.0.0-rc19-01]
+## [2.0.0-rc19-01] [26-Aug-2025]
 - Major webpack optimization for production-ready library builds
 - Enhanced Babel configuration with modern JSX transform and smart polyfills
 - Added advanced tree-shaking with sideEffects: false and module concatenation
@@ -9,7 +9,6 @@
 - Enabled build caching for 20-30% faster rebuild times
 - Console removal in production builds (preserving error/warn)
 - Added bundle analysis command: yarn build:analyze
-- Optimized development server with HMR on port 3001
 - Added CSS/SCSS support with proper asset handling
 
 ## [1.8.17-rc19.01] [27-Jun-2025]

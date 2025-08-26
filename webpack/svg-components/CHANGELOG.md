@@ -1,6 +1,6 @@
 # Changelog
 
-## [2.0.0-rc19-01]
+## [2.0.0-rc19-01] [26-Aug-2025]
 - Optimized webpack configuration for efficient SVG icon library
 - Enhanced tree-shaking with sideEffects: false for maximum unused icon elimination
 - Modern Babel configuration with automatic JSX transform
@@ -8,7 +8,6 @@
 - Added build caching for faster development iterations
 - Console removal in production builds (preserving error/warn)
 - Added bundle analysis command: yarn build:analyze
-- Optimized dev server with HMR on port 3003
 - Streamlined externals (React ecosystem only) for minimal overhead
 
 ## [1.0.21-rc19.01] [27-Jun-2025]
