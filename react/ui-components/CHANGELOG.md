@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### [0.2.0-beta.66] - 2025-09-12
 ## Enhancement
-- Added Pagination fixes for InboxSearchComposerr
+- Added Pagination fixes for InboxSearchComposer
 
 ### [0.2.0-beta.65] - 2025-08-20
 ## Added Dependent Field Wrapper and Filter
