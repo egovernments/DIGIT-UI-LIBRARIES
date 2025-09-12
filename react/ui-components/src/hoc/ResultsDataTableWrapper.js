@@ -442,6 +442,25 @@ const ResultsDataTableWrapper = ({
     );
   });
 
+  const handleDefaultPagination = (event) => {
+    setLimitAndOffset({ offset: 0, limit: config?.defaultRowsPerPage || 10 });
+    setRowsPerPage(config?.defaultRowsPerPage || 10);
+    setCurrentPage(1);
+    setValue("limit", config?.defaultRowsPerPage || 10);
+    setValue("offset", 0);
+    handleSubmit(onSubmit)();
+  };
+
+  useEffect(() => {
+    // Add event listener for popstate to detect URL changes
+    window.addEventListener("tableFormUpdate", handleDefaultPagination);
+
+    // Clean up the event listener when the component unmounts or on URL change
+    return () => {
+      window.removeEventListener("tableFormUpdate", handleDefaultPagination);
+    };
+  }, []);
+
   const onSubmit = (data) => {
     //here update the reducer state
     //call a dispatch to update table's part of the state and update offset, limit
