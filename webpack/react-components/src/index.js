@@ -289,7 +289,7 @@ import LoaderWithGap from "./atoms/LoaderWithGap";
 // Importing From SVG Library
 import {SVG} from "./atoms/SVG";
 
-//Tutorial
+//Tutorial 
 import Tutorial from "./hoc/Tutorial/Tutorial";
 import { useTourState,TourProvider } from "./hoc/Tutorial/TourProvider";
 import Help from "./hoc/Tutorial/Help";
