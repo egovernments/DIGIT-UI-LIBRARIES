@@ -3,6 +3,8 @@ Here's the `CHANGELOG` file for the specified versions:
 ```markdown
 # Changelog
 
+## [2.0.0-rc19-02] [26-Aug-2025]
+-Changes for accessibility.
 
 ## [2.0.0-rc19-01] [26-Aug-2025]
 - Major webpack optimization for production-ready library builds
