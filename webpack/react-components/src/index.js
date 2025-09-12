@@ -1,3 +1,4 @@
+import "./index.css";
 import ActionBar from "./atoms/ActionBar";
 import ActionLinks from "./atoms/ActionLinks";
 import AppContainer from "./atoms/AppContainer";
@@ -297,6 +298,8 @@ import FormComposerCitizen from "./hoc/FormComposerCitizen";
 //View Composer
 import ViewComposer from "./hoc/ViewComposer";
 import XlsPreview from "./atoms/XlsPreview";
+
+console.log("react components loaded");
 export {
   XlsPreview,
   ViewComposer,

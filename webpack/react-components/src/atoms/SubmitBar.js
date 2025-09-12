@@ -1,20 +1,23 @@
 import React, { forwardRef } from "react";
 import PropTypes from "prop-types";
+import "./SubmitBar.css";
 
 const SubmitBar = forwardRef((props, ref) => {
   return (
-    <button
-      ref={ref}
-      disabled={props.disabled ? true : false}
-      className={`${props.disabled ? "submit-bar-disabled" : "submit-bar"} ${props.className ? props.className : ""}`}
-      type={props.submit ? "submit" : "button"}
-      style={{ ...props.style }}
-      onClick={props.onSubmit}
-      {... props.form ? {form: props.form} : {}}
-    >
-      <header style={{...props?.headerStyle}}>{props.label}</header>
-      {props?.submitIcon}
-    </button>
+    <span className="spanWrapper">
+      <button
+        ref={ref}
+        disabled={props.disabled ? true : false}
+        className={`${props.disabled ? "submit-bar-disabled" : "submit-bar"} ${props.className ? props.className : ""}`}
+        type={props.submit ? "submit" : "button"}
+        style={{ ...props.style }}
+        onClick={props.onSubmit}
+        {... props.form ? {form: props.form} : {}}
+      >
+        <header style={{...props?.headerStyle}}>{props.label}</header>
+        {props?.submitIcon}
+      </button>
+    </span>
   );
 });
 
