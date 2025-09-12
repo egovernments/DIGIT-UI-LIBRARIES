@@ -116,6 +116,10 @@ const SearchComponent = ({ uiConfig, header = "", screenType = "search", fullCon
         type: "tableForm",
         state: { limit:10,offset:0,sortOrder:sortOrder }
       })
+      //dispatch event to notify table to reset pagination
+      const event = new CustomEvent("tableFormUpdate", { pagination: { limit: "10", offset: "0" } });
+      window.dispatchEvent(event);
+
     } else {
       setShowToast({ type:"warning", label: t("ES_COMMON_MIN_SEARCH_CRITERIA_MSG") })
       setTimeout(closeToast, 3000);
