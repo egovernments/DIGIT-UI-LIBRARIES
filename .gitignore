@@ -6,6 +6,7 @@ index.lock
 node_modules/
 dist/
 build/
+storybook-static/
 
 yarn.lock
 package-lock.json
