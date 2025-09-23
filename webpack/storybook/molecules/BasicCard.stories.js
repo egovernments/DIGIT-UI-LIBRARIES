@@ -1,10 +1,10 @@
 import React from "react";
-import AlertCard from "@egovernments/digit-ui-components/molecules/../atoms/AlertCard";
-import Button from "@egovernments/digit-ui-components/molecules/../atoms/Button";
-import TextArea from "@egovernments/digit-ui-components/molecules/../atoms/TextArea";
-import MultiSelectDropdown from "@egovernments/digit-ui-components/molecules/../atoms/MultiSelectDropdown";
-import Dropdown from "@egovernments/digit-ui-components/molecules/../atoms/Dropdown";
-import { Card } from "@egovernments/digit-ui-components/molecules/../atoms";
+import AlertCard from "@egovernments/digit-ui-components/atoms/AlertCard";
+import Button from "@egovernments/digit-ui-components/atoms/Button";
+import TextArea from "@egovernments/digit-ui-components/atoms/TextArea";
+import MultiSelectDropdown from "@egovernments/digit-ui-components/atoms/MultiSelectDropdown";
+import Dropdown from "@egovernments/digit-ui-components/atoms/Dropdown";
+import { Card } from "@egovernments/digit-ui-components/atoms";
 
 export default {
   title: "Molecules/Card/Basic",

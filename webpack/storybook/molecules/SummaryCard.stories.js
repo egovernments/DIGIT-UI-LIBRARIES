@@ -1,6 +1,6 @@
 import React from "react";
 import SummaryCard from "@egovernments/digit-ui-components/molecules/SummaryCard";
-import { Tag } from "@egovernments/digit-ui-components/molecules/../atoms";
+import { Tag } from "@egovernments/digit-ui-components/atoms";
 
 export default {
   title: "Molecules/Card/Summary Card",

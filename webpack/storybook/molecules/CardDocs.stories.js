@@ -1,6 +1,6 @@
 import React from "react";
-import { Card } from "@egovernments/digit-ui-components/molecules/../atoms";
-import {Iframe} from "@egovernments/digit-ui-components/molecules/../atoms";
+import { Card } from "@egovernments/digit-ui-components/atoms";
+import {Iframe} from "@egovernments/digit-ui-components/atoms";
 
 export default {
   title: "Molecules/Card",

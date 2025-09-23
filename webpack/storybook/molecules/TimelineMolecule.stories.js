@@ -1,8 +1,8 @@
 import React from "react";
 import TimelineMolecule from "@egovernments/digit-ui-components/molecules/TimelineMolecule";
-import { Button } from "@egovernments/digit-ui-components/molecules/../atoms";
-import Timeline from "@egovernments/digit-ui-components/molecules/../atoms";
-import { Iframe } from "@egovernments/digit-ui-components/molecules/../atoms";
+import { Button } from "@egovernments/digit-ui-components/atoms";
+import Timeline from "@egovernments/digit-ui-components/atoms";
+import { Iframe } from "@egovernments/digit-ui-components/atoms";
 
 export default {
   title: "Molecules/Timeline Molecule",

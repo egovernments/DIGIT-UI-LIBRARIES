@@ -1,10 +1,10 @@
 import React, { useState ,Fragment} from "react";
 import FilterCard from "@egovernments/digit-ui-components/molecules/FilterCard";
-import { LabelFieldPair } from "@egovernments/digit-ui-components/molecules/../atoms";
-import { RadioButtons } from "@egovernments/digit-ui-components/molecules/../atoms";
-import { TextBlock } from "@egovernments/digit-ui-components/molecules/../atoms";
-import { TextInput } from "@egovernments/digit-ui-components/molecules/../atoms";
-import { Button } from "@egovernments/digit-ui-components/molecules/../atoms";
+import { LabelFieldPair } from "@egovernments/digit-ui-components/atoms";
+import { RadioButtons } from "@egovernments/digit-ui-components/atoms";
+import { TextBlock } from "@egovernments/digit-ui-components/atoms";
+import { TextInput } from "@egovernments/digit-ui-components/atoms";
+import { Button } from "@egovernments/digit-ui-components/atoms";
 
 // Story metadata
 export default {

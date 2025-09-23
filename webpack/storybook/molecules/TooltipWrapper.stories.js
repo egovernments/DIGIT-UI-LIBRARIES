@@ -1,9 +1,9 @@
 import React from "react";
 import { Colors } from "@egovernments/digit-ui-components/molecules/../constants/colors/colorconstants";
-import { Button } from "@egovernments/digit-ui-components/molecules/../atoms";
+import { Button } from "@egovernments/digit-ui-components/atoms";
 import TooltipWrapper from "@egovernments/digit-ui-components/molecules/TooltipWrapper";
-import { Iframe } from "@egovernments/digit-ui-components/molecules/../atoms";
-import { CustomSVG } from "@egovernments/digit-ui-components/molecules/../atoms";
+import { Iframe } from "@egovernments/digit-ui-components/atoms";
+import { CustomSVG } from "@egovernments/digit-ui-components/atoms";
 
 export default {
   title: "Molecules/Tooltip Wrapper",

@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import Button from "@egovernments/digit-ui-components/molecules/../atoms/Button";
-import TextInput from "@egovernments/digit-ui-components/molecules/../atoms/TextInput";
+import Button from "@egovernments/digit-ui-components/atoms/Button";
+import TextInput from "@egovernments/digit-ui-components/atoms/TextInput";
 import {
   CheckBox,
   Dropdown,
   LabelFieldPair,
   RadioButtons,
   TextBlock,
-} from "@egovernments/digit-ui-components/molecules/../atoms";
+} from "@egovernments/digit-ui-components/atoms";
 import FormCard from "@egovernments/digit-ui-components/molecules/FormCard";
 
 export default {

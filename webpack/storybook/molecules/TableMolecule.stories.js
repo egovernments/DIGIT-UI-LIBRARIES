@@ -1,8 +1,8 @@
 import React from "react";
 import TableMolecule from "@egovernments/digit-ui-components/molecules/TableMolecule";
-import { Button } from "@egovernments/digit-ui-components/molecules/../atoms";
-import { Chip } from "@egovernments/digit-ui-components/molecules/../atoms";
-import {Iframe} from "@egovernments/digit-ui-components/molecules/../atoms";
+import { Button } from "@egovernments/digit-ui-components/atoms";
+import { Chip } from "@egovernments/digit-ui-components/atoms";
+import {Iframe} from "@egovernments/digit-ui-components/atoms";
 
 export default {
   title: "Molecules/Table Molecule",

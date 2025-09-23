@@ -1,6 +1,6 @@
 import React from "react";
-import SidePanel from "@egovernments/digit-ui-components/molecules/../atoms/SidePanel";
-import Button from "@egovernments/digit-ui-components/molecules/../atoms/Button";
+import SidePanel from "@egovernments/digit-ui-components/atoms/SidePanel";
+import Button from "@egovernments/digit-ui-components/atoms/Button";
 
 export default {
   title: "Molecules/Side Panel/Static",

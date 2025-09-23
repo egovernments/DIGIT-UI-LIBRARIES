@@ -1,7 +1,7 @@
 import React, { useState,Fragment } from "react";
-import PopUp from "@egovernments/digit-ui-components/molecules/../atoms/PopUp";
-import AlertCard from "@egovernments/digit-ui-components/molecules/../atoms/AlertCard";
-import Button from "@egovernments/digit-ui-components/molecules/../atoms/Button";
+import PopUp from "@egovernments/digit-ui-components/atoms/PopUp";
+import AlertCard from "@egovernments/digit-ui-components/atoms/AlertCard";
+import Button from "@egovernments/digit-ui-components/atoms/Button";
 
 export default {
   title: "Molecules/PopUp/Alert",

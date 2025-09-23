@@ -1,7 +1,7 @@
 import React from "react";
-import { Button } from "@egovernments/digit-ui-components/molecules/../atoms";
-import { ButtonGroup } from "@egovernments/digit-ui-components/molecules/../atoms";
-import { Iframe } from "@egovernments/digit-ui-components/molecules/../atoms";
+import { Button } from "@egovernments/digit-ui-components/atoms";
+import { ButtonGroup } from "@egovernments/digit-ui-components/atoms";
+import { Iframe } from "@egovernments/digit-ui-components/atoms";
 
 export default {
   title: "Molecules/Button Group",

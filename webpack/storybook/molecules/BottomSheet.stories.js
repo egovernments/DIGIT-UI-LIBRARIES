@@ -1,8 +1,8 @@
 import React from "react";
 import BottomSheet from "@egovernments/digit-ui-components/molecules/BottomSheet";
-import { Button } from "@egovernments/digit-ui-components/molecules/../atoms";
+import { Button } from "@egovernments/digit-ui-components/atoms";
 import { IMAGES } from "@egovernments/digit-ui-components/molecules/../constants/images/images";
-import { Iframe } from "@egovernments/digit-ui-components/molecules/../atoms";
+import { Iframe } from "@egovernments/digit-ui-components/atoms";
 
 export default {
   title: "Molecules/Bottom Sheet",

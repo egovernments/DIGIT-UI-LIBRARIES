@@ -1,8 +1,8 @@
 import React from "react";
-import { Header } from "@egovernments/digit-ui-components/molecules/../atoms";
-import { SVG } from "@egovernments/digit-ui-components/molecules/../atoms";
-import { Dropdown } from "@egovernments/digit-ui-components/molecules/../atoms";
-import {Iframe} from "@egovernments/digit-ui-components/molecules/../atoms";
+import { Header } from "@egovernments/digit-ui-components/atoms";
+import { SVG } from "@egovernments/digit-ui-components/atoms";
+import { Dropdown } from "@egovernments/digit-ui-components/atoms";
+import {Iframe} from "@egovernments/digit-ui-components/atoms";
 
 export default {
   title: "Molecules/Header",

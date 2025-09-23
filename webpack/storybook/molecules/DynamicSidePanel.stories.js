@@ -1,7 +1,7 @@
 import React from "react";
-import SidePanel from "@egovernments/digit-ui-components/molecules/../atoms/SidePanel";
-import Button from "@egovernments/digit-ui-components/molecules/../atoms/Button";
-import { SVG } from "@egovernments/digit-ui-components/molecules/../atoms/SVG";
+import SidePanel from "@egovernments/digit-ui-components/atoms/SidePanel";
+import Button from "@egovernments/digit-ui-components/atoms/Button";
+import { SVG } from "@egovernments/digit-ui-components/atoms/SVG";
 
 export default {
   title: "Molecules/Side Panel/Dynamic",

@@ -1,7 +1,7 @@
 import React from "react";
-import { Accordion } from "@egovernments/digit-ui-components/molecules/../atoms";
-import { AccordionList } from "@egovernments/digit-ui-components/molecules/../atoms";
-import {Iframe} from "@egovernments/digit-ui-components/molecules/../atoms";
+import { Accordion } from "@egovernments/digit-ui-components/atoms";
+import { AccordionList } from "@egovernments/digit-ui-components/atoms";
+import {Iframe} from "@egovernments/digit-ui-components/atoms";
 
 export default {
   title: "Molecules/Accordion List",

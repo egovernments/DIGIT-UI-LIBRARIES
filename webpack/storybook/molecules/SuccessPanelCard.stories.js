@@ -1,6 +1,6 @@
 import React from "react";
-import { AlertCard } from "@egovernments/digit-ui-components/molecules/../atoms";
-import { Button } from "@egovernments/digit-ui-components/molecules/../atoms";
+import { AlertCard } from "@egovernments/digit-ui-components/atoms";
+import { Button } from "@egovernments/digit-ui-components/atoms";
 import PanelCard from "@egovernments/digit-ui-components/molecules/PanelCard";
 
 export default {

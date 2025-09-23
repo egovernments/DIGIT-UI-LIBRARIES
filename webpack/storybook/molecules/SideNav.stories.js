@@ -1,7 +1,7 @@
 import React, { Children } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
-import { SideNav } from "@egovernments/digit-ui-components/molecules/../atoms";
-import {Iframe} from "@egovernments/digit-ui-components/molecules/../atoms";
+import { SideNav } from "@egovernments/digit-ui-components/atoms";
+import {Iframe} from "@egovernments/digit-ui-components/atoms";
 
 export default {
   title: "Molecules/Side Nav",

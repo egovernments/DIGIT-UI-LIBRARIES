@@ -1,6 +1,6 @@
 import React from "react";
 import MetricCard from "@egovernments/digit-ui-components/molecules/MetricCard";
-import { Iframe } from "@egovernments/digit-ui-components/molecules/../atoms";
+import { Iframe } from "@egovernments/digit-ui-components/atoms";
 
 export default {
   title: "Molecules/Metric Card",

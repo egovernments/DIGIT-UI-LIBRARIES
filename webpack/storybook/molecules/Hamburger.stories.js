@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
-import Hamburger from "@egovernments/digit-ui-components/molecules/../atoms/Hamburger";
-import { Iframe } from "@egovernments/digit-ui-components/molecules/../atoms";
+import Hamburger from "@egovernments/digit-ui-components/atoms/Hamburger";
+import { Iframe } from "@egovernments/digit-ui-components/atoms";
 
 export default {
   title: "Molecules/Hamburger",

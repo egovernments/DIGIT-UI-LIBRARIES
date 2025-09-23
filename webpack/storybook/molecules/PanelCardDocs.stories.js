@@ -1,6 +1,6 @@
 import React from "react";
 import PanelCard from "@egovernments/digit-ui-components/molecules/PanelCard";
-import { Iframe } from "@egovernments/digit-ui-components/molecules/../atoms";
+import { Iframe } from "@egovernments/digit-ui-components/atoms";
 
 export default {
   title: "Molecules/Panel Card",

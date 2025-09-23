@@ -1,6 +1,6 @@
 import React from "react";
 import LandingPageCard from "@egovernments/digit-ui-components/molecules/../molecules/LandingPageCard";
-import { Iframe } from "@egovernments/digit-ui-components/molecules/../atoms";
+import { Iframe } from "@egovernments/digit-ui-components/atoms";
 
 export default {
   title: "Molecules/Landing Page Card",

@@ -1,6 +1,6 @@
 import React from "react";
 import MenuCard from "@egovernments/digit-ui-components/molecules/MenuCard";
-import {Iframe} from "@egovernments/digit-ui-components/molecules/../atoms";
+import {Iframe} from "@egovernments/digit-ui-components/atoms";
 
 export default {
   title: "Molecules/Menu Card",

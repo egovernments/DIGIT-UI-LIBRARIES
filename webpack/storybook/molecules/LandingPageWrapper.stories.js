@@ -1,7 +1,7 @@
 import React from "react";
 import LandingPageCard from "@egovernments/digit-ui-components/molecules/LandingPageCard";
 import LandingPageWrapper from "@egovernments/digit-ui-components/molecules/LandingPageWrapper";
-import { Iframe } from "@egovernments/digit-ui-components/molecules/../atoms";
+import { Iframe } from "@egovernments/digit-ui-components/atoms";
 
 export default {
   title: "MoleculeGroup/Landing Page Wrapper",
