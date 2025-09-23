@@ -41,6 +41,7 @@ const config = {
     config.resolve.alias = {
       ...config.resolve.alias,
       '@egovernments/digit-ui-components': uiComponentsPath,
+      '@egovernments/digit-ui-components/atoms': resolve(uiComponentsPath, 'atoms'),
       '@egovernments/digit-ui-components/molecules': resolve(uiComponentsPath, 'molecules'),
       '@egovernments/digit-ui-components/constants': resolve(uiComponentsPath, 'constants'),
       '@egovernments/digit-ui-svg-components': resolve(__dirname, '../node_modules/@egovernments/digit-ui-svg-components'),
