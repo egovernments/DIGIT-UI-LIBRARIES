@@ -2,7 +2,7 @@ name: Deploy Storybook to GitHub Pages
 
 on:
   push:
-    branches: [storybook-fix]
+    branches: [master, main]
     paths: ['webpack/storybook/**', 'webpack/ui-components/**']
   workflow_dispatch:
 
@@ -26,8 +26,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
-          cache-dependency-path: webpack/storybook/package-lock.json
 
       - name: Install storybook dependencies
         run: |
