@@ -116,7 +116,7 @@ const Template = (args) => {
   );
 };
 
-export const Documentation = () => (
+() => (
   <Iframe
     //Todo:Update the url
     src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
@@ -135,3 +135,5 @@ export const Basic = Template.bind({});
 Basic.args = {
   ...commonArgs
 };
+
+export const Documentation =

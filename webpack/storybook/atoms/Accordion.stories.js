@@ -27,27 +27,6 @@ export default {
 
 const Template = (args) => <Accordion {...args} />;
 
-export const Documentation = () => (
-  <Iframe
-    //Todo:Update the url
-    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
-    title="Accordion Documentation"
-  />
-);
-
-Documentation.storyName = "Docs";
-Documentation.argTypes = {
-  title: { table: { disable: true } },
-  icon: { table: { disable: true }},
-  number: { table: { disable: true }},
-  hideCardBorder: {table: { disable: true } },
-  hideDivider: { table: { disable: true } },
-  hideCardBg: { table: { disable: true }},
-  hideBorderRadius: { table: { disable: true }},
-  children: { table: { disable: true }},
-  isOpenInitially: { table: { disable: true }},
-};
-
 export const Basic = Template.bind({});
 Basic.args = {
   title: "Section Header",
@@ -97,4 +76,25 @@ Custom.args = {
   icon:"",
   number:"",
   isOpenInitially: false,
+};
+
+export const Documentation = () => (
+  <Iframe
+    //Todo:Update the url
+    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
+    title="Accordion Documentation"
+  />
+);
+
+Documentation.storyName = "Docs";
+Documentation.argTypes = {
+  title: { table: { disable: true } },
+  icon: { table: { disable: true }},
+  number: { table: { disable: true }},
+  hideCardBorder: {table: { disable: true } },
+  hideDivider: { table: { disable: true } },
+  hideCardBg: { table: { disable: true }},
+  hideBorderRadius: { table: { disable: true }},
+  children: { table: { disable: true }},
+  isOpenInitially: { table: { disable: true }},
 };

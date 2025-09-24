@@ -126,26 +126,6 @@ const commonArgs = {
   children: false,
 };
 
-export const Documentation = () => (
-  <Iframe
-    //Todo:Update the url
-    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
-    title="LandingPageCard Documentation"
-  />
-);
-
-Documentation.storyName = "Docs";
-Documentation.argTypes = {
-  moduleName: { table: { disable: true } },
-  metrics: { table: { disable: true } },
-  links: { table: { disable: true } },
-  metricAlignment: { table: { disable: true } },
-  iconBg: { table: { disable: true } },
-  children: { table: { disable: true } },
-  moduleAlignment: { table: { disable: true } },
-};
-
-
 export const Basic = Template.bind({});
 Basic.args = {
   ...commonArgs,
@@ -160,4 +140,23 @@ Custom.args = {
     borderRadius: "8px",
     border: "2px solid black",
   },
+};
+
+export const Documentation = () => (
+  <Iframe
+    //Todo:Update the url
+    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
+    title="LandingPageCard Documentation"
+  />
+);
+
+Documentation.storyName = "Docs";
+Documentation.argTypes = {
+  moduleName: { table: { disable: true } },
+  links: { table: { disable: true } },
+  metrics: { table: { disable: true } },
+  metricAlignment: { table: { disable: true } },
+  iconBg: { table: { disable: true } },
+  children: { table: { disable: true } },
+  moduleAlignment: { table: { disable: true } },
 };
