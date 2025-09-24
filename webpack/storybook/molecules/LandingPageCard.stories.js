@@ -1,5 +1,5 @@
 import React from "react";
-import LandingPageCard from "@egovernments/digit-ui-components/molecules/../molecules/LandingPageCard";
+import LandingPageCard from "@egovernments/digit-ui-components/molecules/LandingPageCard";
 import { Iframe } from "@egovernments/digit-ui-components/atoms";
 
 export default {

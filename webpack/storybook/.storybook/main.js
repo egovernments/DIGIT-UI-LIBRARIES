@@ -35,15 +35,17 @@ const config = {
     options: {},
   },
   webpackFinal: async (config) => {
-    const uiComponentsPath = '/Users/jagankumar/Office/Work/repo/DIGIT-UI-LIBRARIES/webpack/ui-components/src';
+    const uiComponentsPath = resolve(__dirname, '../../ui-components/src');
     console.log('UI Components path:', uiComponentsPath);
     
     config.resolve.alias = {
       ...config.resolve.alias,
-      '@egovernments/digit-ui-components': uiComponentsPath,
       '@egovernments/digit-ui-components/atoms': resolve(uiComponentsPath, 'atoms'),
       '@egovernments/digit-ui-components/molecules': resolve(uiComponentsPath, 'molecules'),
       '@egovernments/digit-ui-components/constants': resolve(uiComponentsPath, 'constants'),
+      '@egovernments/digit-ui-components/hoc': resolve(uiComponentsPath, 'hoc'),
+      '@egovernments/digit-ui-components/utils': resolve(uiComponentsPath, 'utils'),
+      '@egovernments/digit-ui-components': uiComponentsPath,
       '@egovernments/digit-ui-svg-components': resolve(__dirname, '../node_modules/@egovernments/digit-ui-svg-components'),
       '@egovernments/digit-ui-libraries': resolve(__dirname, '../node_modules/@egovernments/digit-ui-libraries'),
       '@egovernments/digit-ui-components-css': resolve(__dirname, '../node_modules/@egovernments/digit-ui-components-css'),
