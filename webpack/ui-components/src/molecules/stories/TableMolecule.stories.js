@@ -1423,7 +1423,7 @@ export const Documentation = () => (
   />
 );
 
-Documentation.storyName = "Docs";
+Documentation.storyName = "Detailed Props Definition";
 
 
 export const Default = Template.bind({});

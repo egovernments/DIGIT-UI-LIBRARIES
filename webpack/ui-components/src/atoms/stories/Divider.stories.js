@@ -39,7 +39,7 @@ export const Documentation = () => (
   />
 );
 
-Documentation.storyName = "Docs";
+Documentation.storyName = "Detailed Props Definition";
 
 export const Small = Template.bind({});
 Small.args = {

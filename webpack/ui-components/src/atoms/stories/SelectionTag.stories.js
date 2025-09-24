@@ -121,7 +121,7 @@ export const Documentation = () => (
   />
 );
 
-Documentation.storyName = "Docs";
+Documentation.storyName = "Detailed Props Definition";
 Documentation.argTypes = {
   width: { table: { disable: true } },
   WithIcon: { table: { disable: true }},

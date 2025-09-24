@@ -151,7 +151,7 @@ export const Documentation = () => (
   />
 );
 
-Documentation.storyName = "Docs";
+Documentation.storyName = "Detailed Props Definition";
 Documentation.argTypes = {
   isDisabled: { table: { disable: true } },
   label: { table: { disable: true }},

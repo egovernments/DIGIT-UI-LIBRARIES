@@ -84,7 +84,7 @@ export const Documentation = () => (
   />
 );
 
-Documentation.storyName = "Docs";
+Documentation.storyName = "Detailed Props Definition";
 
 export const Basic = Template.bind({});
 Basic.args = {

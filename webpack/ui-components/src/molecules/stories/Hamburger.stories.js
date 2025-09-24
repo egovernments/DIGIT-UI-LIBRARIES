@@ -214,7 +214,7 @@ export const Documentation = () => (
   />
 );
 
-Documentation.storyName = "Docs";
+Documentation.storyName = "Detailed Props Definition";
 Documentation.argTypes = {
   isSearchable: { table: { disable: true } },
   hideUserManuals: { table: { disable: true } },

@@ -66,7 +66,7 @@ export const Documentation = () => (
   />
 );
 
-Documentation.storyName = "Docs";
+Documentation.storyName = "Detailed Props Definition";
 Documentation.argTypes = {
   allowMultipleOpen: { table: { disable: true } },
   addDivider: { table: { disable: true }},
