@@ -2,7 +2,7 @@ name: Deploy Storybook to GitHub Pages
 
 on:
   push:
-    branches: [master, main]
+    branches: [develop-webpack]
     paths: ['webpack/storybook/**', 'webpack/ui-components/**']
   workflow_dispatch:
 
