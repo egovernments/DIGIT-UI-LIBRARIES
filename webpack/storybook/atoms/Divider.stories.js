@@ -31,15 +31,7 @@ const commonArgs = {
   style: {},
 };
 
-() => (
-  <Iframe
-    //Todo:Update the url
-    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
-    title="Divider Documentation"
-  />
-);
 
-Documentation.storyName = "Docs";
 
 export const Small = Template.bind({});
 Small.args = {
@@ -68,4 +60,13 @@ Custom.args = {
   },
 };
 
-export const Documentation =
+export const Documentation = () => (
+  <Iframe
+    //Todo:Update the url
+    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
+    title="Divider Documentation"
+  />
+);
+
+Documentation.storyName = "Docs";
+

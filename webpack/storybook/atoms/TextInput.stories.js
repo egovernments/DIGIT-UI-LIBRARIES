@@ -121,25 +121,7 @@ const commonArgs = {
   State: "Default",
 };
 
-() => (
-  <Iframe
-    //Todo:Update the url
-    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
-    title="TextInput Documentation"
-  />
-);
 
-Documentation.storyName = "Docs";
-Documentation.argTypes = {
-  label: { table: { disable: true } },
-  error: { table: { disable: true }},
-  placeholder: {table:{disable:true}},
-  description: {table:{disable:true}},
-  charCount: {table:{disable:true}},
-  required: {table:{disable:true}},
-  infoMessage: {table:{disable:true}},
-  State: {table:{disable:true}},
-};
 
 export const SimpleText = Template.bind({});
 SimpleText.args = {
@@ -230,4 +212,23 @@ Search.args = {
   },
 };
 
-export const Documentation =
+export const Documentation = () => (
+  <Iframe
+    //Todo:Update the url
+    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
+    title="TextInput Documentation"
+  />
+);
+
+Documentation.storyName = "Docs";
+Documentation.argTypes = {
+  label: { table: { disable: true } },
+  error: { table: { disable: true }},
+  placeholder: {table:{disable:true}},
+  description: {table:{disable:true}},
+  charCount: {table:{disable:true}},
+  required: {table:{disable:true}},
+  infoMessage: {table:{disable:true}},
+  State: {table:{disable:true}},
+};
+

@@ -81,7 +81,21 @@ const additionalElements = [
   />,
 ];
 
-() => (
+
+
+const Template = (args) => {
+  return <Wrapper {...args} />;
+};
+
+export const Basic = Template.bind({});
+Basic.args = {};
+
+export const Collapsible = Template.bind({});
+Collapsible.args = {
+  initialVisibleCount: 3,
+};
+
+export const Documentation = () => (
   <Iframe
     //Todo:Update the url
     src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
@@ -170,16 +184,3 @@ const Wrapper = (args) => {
   return <TimelineMolecule {...rest} children={updatedChildren} />;
 };
 
-const Template = (args) => {
-  return <Wrapper {...args} />;
-};
-
-export const Basic = Template.bind({});
-Basic.args = {};
-
-export const Collapsible = Template.bind({});
-Collapsible.args = {
-  initialVisibleCount: 3,
-};
-
-export const Documentation =

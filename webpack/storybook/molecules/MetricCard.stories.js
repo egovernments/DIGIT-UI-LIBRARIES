@@ -37,18 +37,7 @@ const commonArgs = {
   styles: {},
 };
 
-() => (
-  <Iframe
-    //Todo:Update the url
-    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
-    title="MetricCard Documentation"
-  />
-);
 
-Documentation.storyName = "Docs";
-Documentation.argTypes = {
-  Dividers: { table: { disable: true } },
-};
 
 export const HorizontallyStacked = Template.bind({});
 HorizontallyStacked.args = {
@@ -183,4 +172,16 @@ Custom.args = {
   },
 };
 
-export const Documentation =
+export const Documentation = () => (
+  <Iframe
+    //Todo:Update the url
+    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
+    title="MetricCard Documentation"
+  />
+);
+
+Documentation.storyName = "Docs";
+Documentation.argTypes = {
+  Dividers: { table: { disable: true } },
+};
+

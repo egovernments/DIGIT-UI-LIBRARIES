@@ -77,21 +77,7 @@ const commonArgs = {
   WithIcon:false
 };
 
-() => (
-  <Iframe
-    //Todo:Update the url
-    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
-    title="Chip Documentation"
-  />
-);
 
-Documentation.storyName = "Docs";
-Documentation.argTypes = {
-  text: { table: { disable: true } },
-  error: { table: { disable: true }},
-  hideClose: { table: { disable: true }},
-  WithIcon: { table: { disable: true }},
-};
 
 export const Basic = Template.bind({});
 Basic.args = {
@@ -107,4 +93,19 @@ Error.args = {
   hideClose: false,
 };
 
-export const Documentation =
+export const Documentation = () => (
+  <Iframe
+    //Todo:Update the url
+    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
+    title="Chip Documentation"
+  />
+);
+
+Documentation.storyName = "Docs";
+Documentation.argTypes = {
+  text: { table: { disable: true } },
+  error: { table: { disable: true }},
+  hideClose: { table: { disable: true }},
+  WithIcon: { table: { disable: true }},
+};
+

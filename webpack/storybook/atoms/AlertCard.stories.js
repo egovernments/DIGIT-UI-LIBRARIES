@@ -128,20 +128,6 @@ const commonArgs = {
   WithAction:false
 };
 
-() => (
-  <Iframe
-    //Todo:Update the url
-    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
-    title="AlertCard Documentation"
-  />
-);
-
-Documentation.storyName = "Docs";
-Documentation.argTypes = {
-  inline: { table: { disable: true } },
-  WithAction: { table: { disable: true }},
-  WithWidgets: {table:{disable:true}}
-};
 
 export const Info = Template.bind({});
 Info.args = {
@@ -179,4 +165,17 @@ Custom.args = {
   }
 };
 
-export const Documentation =
+export const Documentation = () => (
+  <Iframe
+    //Todo:Update the url
+    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
+    title="AlertCard Documentation"
+  />
+);
+
+Documentation.storyName = "Docs";
+Documentation.argTypes = {
+  inline: { table: { disable: true } },
+  WithAction: { table: { disable: true }},
+  WithWidgets: {table:{disable:true}}
+};

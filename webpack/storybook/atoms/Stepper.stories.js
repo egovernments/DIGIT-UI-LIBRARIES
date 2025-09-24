@@ -67,20 +67,7 @@ const commonArgs = {
   hideDivider: true,
 };
 
-() => (
-  <Iframe
-    //Todo:Update the url
-    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
-    title="Stepper Documentation"
-  />
-);
 
-Documentation.storyName = "Docs";
-Documentation.argTypes = {
-  totalSteps: { table: { disable: true } },
-  hideDivider: { table: { disable: true }},
-  activeSteps: {table:{disable:true}},
-};
 
 export const Horizontal = Template.bind({});
 Horizontal.args = {
@@ -100,4 +87,18 @@ Vertical.args = {
 //   activeSteps: 3,
 // };
 
-export const Documentation =
+export const Documentation = () => (
+  <Iframe
+    //Todo:Update the url
+    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
+    title="Stepper Documentation"
+  />
+);
+
+Documentation.storyName = "Docs";
+Documentation.argTypes = {
+  totalSteps: { table: { disable: true } },
+  hideDivider: { table: { disable: true }},
+  activeSteps: {table:{disable:true}},
+};
+

@@ -305,23 +305,7 @@ const commonArgs = {
   isDropdownWithChip: true,
 };
 
-() => (
-  <Iframe
-    //Todo:Update the url
-    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
-    title="Multiselectdropdown Documentation"
-  />
-);
 
-Documentation.storyName = "Docs";
-Documentation.argTypes = {
-  disabled: { table: { disable: true } },
-  isSearchable: { table: { disable: true } },
-  showIcon: { table: { disable: true } },
-  addSelectAllCheck: { table: { disable: true } },
-  addCategorySelectAllCheck: { table: { disable: true } },
-  isDropdownWithChip: { table: { disable: true } },
-};
 
 export const Basic = Template.bind({});
 Basic.args = {
@@ -359,4 +343,21 @@ TreeMultiselect.args = {
   variant: "treemultiselect",
 };
 
-export const Documentation =
+export const Documentation = () => (
+  <Iframe
+    //Todo:Update the url
+    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
+    title="Multiselectdropdown Documentation"
+  />
+);
+
+Documentation.storyName = "Docs";
+Documentation.argTypes = {
+  disabled: { table: { disable: true } },
+  isSearchable: { table: { disable: true } },
+  showIcon: { table: { disable: true } },
+  addSelectAllCheck: { table: { disable: true } },
+  addCategorySelectAllCheck: { table: { disable: true } },
+  isDropdownWithChip: { table: { disable: true } },
+};
+

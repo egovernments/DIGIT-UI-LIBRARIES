@@ -58,19 +58,7 @@ const commonArgs = {
   addDivider: false,
 };
 
-() => (
-  <Iframe
-    //Todo:Update the url
-    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
-    title="AccordionList Documentation"
-  />
-);
 
-Documentation.storyName = "Docs";
-Documentation.argTypes = {
-  allowMultipleOpen: { table: { disable: true } },
-  addDivider: { table: { disable: true }},
-};
 
 export const Default = Template.bind({});
 Default.args = {
@@ -90,4 +78,17 @@ Custom.args = {
   },
 };
 
-export const Documentation =
+export const Documentation = () => (
+  <Iframe
+    //Todo:Update the url
+    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
+    title="AccordionList Documentation"
+  />
+);
+
+Documentation.storyName = "Docs";
+Documentation.argTypes = {
+  allowMultipleOpen: { table: { disable: true } },
+  addDivider: { table: { disable: true }},
+};
+

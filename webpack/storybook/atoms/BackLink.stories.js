@@ -39,18 +39,7 @@ const commonArgs = {
   label: "Back",
 };
 
-() => (
-  <Iframe
-    //Todo:Update the url
-    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
-    title="BackLink Documentation"
-  />
-);
 
-Documentation.storyName = "Docs";
-Documentation.argTypes = {
-  disabled: { table: { disable: true } },
-};
 
 export const Backlink1 = Template.bind({});
 Backlink1.args = {
@@ -70,4 +59,16 @@ Backlink3.args = {
   variant: "teritiary",
 };
 
-export const Documentation =
+export const Documentation = () => (
+  <Iframe
+    //Todo:Update the url
+    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
+    title="BackLink Documentation"
+  />
+);
+
+Documentation.storyName = "Docs";
+Documentation.argTypes = {
+  disabled: { table: { disable: true } },
+};
+

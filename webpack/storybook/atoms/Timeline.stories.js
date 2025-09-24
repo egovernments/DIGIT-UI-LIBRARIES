@@ -130,23 +130,7 @@ const Template = (args) => {
   );
 };
 
-() => (
-  <Iframe
-    //Todo:Update the url
-    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
-    title="Timeline Documentation"
-  />
-);
 
-Documentation.storyName = "Docs";
-Documentation.argTypes = {
-  label: { table: { disable: true } },
-  subElements: { table: { disable: true }},
-  inline: {table:{disable:true}},
-  showConnector: {table:{disable:true}},
-  isError: {table:{disable:true}},
-  additionalElements: {table:{disable:true}},
-};
 
 const commonArgs = {
   label: "Inprogress",
@@ -178,4 +162,21 @@ Upcoming.args = {
   variant: "upcoming",
 };
 
-export const Documentation =
+export const Documentation = () => (
+  <Iframe
+    //Todo:Update the url
+    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
+    title="Timeline Documentation"
+  />
+);
+
+Documentation.storyName = "Docs";
+Documentation.argTypes = {
+  label: { table: { disable: true } },
+  subElements: { table: { disable: true }},
+  inline: {table:{disable:true}},
+  showConnector: {table:{disable:true}},
+  isError: {table:{disable:true}},
+  additionalElements: {table:{disable:true}},
+};
+

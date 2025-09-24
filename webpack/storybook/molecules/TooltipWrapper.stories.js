@@ -70,7 +70,25 @@ const Template = (args) => {
   );
 };
 
-() => (
+
+
+export const Basic = Template.bind({});
+Basic.args = {
+  ...commonArgs,
+};
+
+export const Custom = Template.bind({});
+Custom.args = {
+  ...commonArgs,
+  style: {
+    backgroundColor: Color,
+    border: "3px solid #C84C0E",
+    width: "300px",
+    textAlign: "center",
+  },
+};
+
+export const Documentation = () => (
   <Iframe
     //Todo:Update the url
     src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
@@ -113,20 +131,3 @@ const commonArgs = {
   header: "Tooltip Header",
 };
 
-export const Basic = Template.bind({});
-Basic.args = {
-  ...commonArgs,
-};
-
-export const Custom = Template.bind({});
-Custom.args = {
-  ...commonArgs,
-  style: {
-    backgroundColor: Color,
-    border: "3px solid #C84C0E",
-    width: "300px",
-    textAlign: "center",
-  },
-};
-
-export const Documentation =

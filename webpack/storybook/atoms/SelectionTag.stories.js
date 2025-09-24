@@ -113,7 +113,20 @@ const commonArgs = {
   isSuffix:"Prefix"
 };
 
-() => (
+
+
+export const SingleSelect = Template.bind({});
+SingleSelect.args = {
+  ...commonArgs,
+};
+
+export const MultiSelect = Template.bind({});
+MultiSelect.args = {
+  ...commonArgs,
+  allowMultipleSelection: true,
+};
+
+export const Documentation = () => (
   <Iframe
     //Todo:Update the url
     src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
@@ -130,15 +143,3 @@ Documentation.argTypes = {
   isSuffix: { table: { disable: true } },
 };
 
-export const SingleSelect = Template.bind({});
-SingleSelect.args = {
-  ...commonArgs,
-};
-
-export const MultiSelect = Template.bind({});
-MultiSelect.args = {
-  ...commonArgs,
-  allowMultipleSelection: true,
-};
-
-export const Documentation =

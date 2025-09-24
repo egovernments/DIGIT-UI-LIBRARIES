@@ -206,7 +206,21 @@ const commonArgs = {
   closeOnClickOutside: false,
 };
 
-() => (
+
+
+export const Dark = Template.bind({});
+Dark.args = {
+  ...commonArgs,
+  theme: "dark",
+};
+
+export const Light = Template.bind({});
+Light.args = {
+  ...commonArgs,
+  theme: "light",
+};
+
+export const Documentation = () => (
   <Iframe
     //Todo:Update the url
     src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
@@ -221,16 +235,3 @@ Documentation.argTypes = {
   profile: { table: { disable: true } },
 };
 
-export const Dark = Template.bind({});
-Dark.args = {
-  ...commonArgs,
-  theme: "dark",
-};
-
-export const Light = Template.bind({});
-Light.args = {
-  ...commonArgs,
-  theme: "light",
-};
-
-export const Documentation =

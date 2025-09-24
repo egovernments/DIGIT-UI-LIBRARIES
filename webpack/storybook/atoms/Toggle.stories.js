@@ -91,21 +91,7 @@ const commonArgs = {
   numberOfToggleItems: 3,
 };
 
-() => (
-  <Iframe
-    //Todo:Update the url
-    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
-    title="Toggle Documentation"
-  />
-);
 
-Documentation.storyName = "Docs";
-Documentation.argTypes = {
-  numberOfToggleItems: { table: { disable: true } },
-  Toggle1Label: { table: { disable: true }},
-  Toggle2Label: { table: { disable: true }},
-  Toggle3Label: {table: { disable: true } },
-};
 
 //Default Toggle
 export const Basic = Template.bind({});
@@ -126,4 +112,19 @@ Custom.args = {
   },
 };
 
-export const Documentation =
+export const Documentation = () => (
+  <Iframe
+    //Todo:Update the url
+    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
+    title="Toggle Documentation"
+  />
+);
+
+Documentation.storyName = "Docs";
+Documentation.argTypes = {
+  numberOfToggleItems: { table: { disable: true } },
+  Toggle1Label: { table: { disable: true }},
+  Toggle2Label: { table: { disable: true }},
+  Toggle3Label: {table: { disable: true } },
+};
+

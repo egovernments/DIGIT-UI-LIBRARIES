@@ -77,22 +77,7 @@ const Template = (args) => {
   );
 };
 
-() => (
-  <Iframe
-    //Todo:Update the url
-    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
-    title="Tab Documentation"
-  />
-);
 
-Documentation.storyName = "Docs";
-Documentation.argTypes = {
-  WithIcons: { table: { disable: true } },
-  Tab1Label: { table: { disable: true }},
-  Tab2Label: { table: { disable: true }},
-  Tab3Label: {table: { disable: true } },
-  Tab4Label: { table: { disable: true } },
-};
 
 const commonArgs = {
   activeLink: "Tab 2",
@@ -125,4 +110,20 @@ Custom.args = {
   itemStyle: { backgroundColor: "#FAFAFA", border: "1px solid black" },
 };
 
-export const Documentation =
+export const Documentation = () => (
+  <Iframe
+    //Todo:Update the url
+    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
+    title="Tab Documentation"
+  />
+);
+
+Documentation.storyName = "Docs";
+Documentation.argTypes = {
+  WithIcons: { table: { disable: true } },
+  Tab1Label: { table: { disable: true }},
+  Tab2Label: { table: { disable: true }},
+  Tab3Label: {table: { disable: true } },
+  Tab4Label: { table: { disable: true } },
+};
+

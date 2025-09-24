@@ -17,20 +17,7 @@ export default {
 
 const Template = (args) => <MenuCard {...args} />;
 
-() => (
-  <Iframe
-    //Todo:Update the url
-    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
-    title="MenuCard Documentation"
-  />
-);
 
-Documentation.storyName = "Docs";
-Documentation.argTypes = {
-  icon: { table: { disable: true } },
-  menuName: { table: { disable: true } },
-  description: { table: { disable: true } },
-};
 
 const commonArgs = {
   icon: true,
@@ -57,4 +44,18 @@ Custom.args = {
   },
 };
 
-export const Documentation =
+export const Documentation = () => (
+  <Iframe
+    //Todo:Update the url
+    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
+    title="MenuCard Documentation"
+  />
+);
+
+Documentation.storyName = "Docs";
+Documentation.argTypes = {
+  icon: { table: { disable: true } },
+  menuName: { table: { disable: true } },
+  description: { table: { disable: true } },
+};
+

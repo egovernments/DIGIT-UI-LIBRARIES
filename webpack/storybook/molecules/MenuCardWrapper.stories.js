@@ -45,18 +45,7 @@ const Template = (args) => {
   );
 };
 
-() => (
-  <Iframe
-    //Todo:Update the url
-    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
-    title="MenuCardWrapper Documentation"
-  />
-);
 
-Documentation.storyName = "Docs";
-Documentation.argTypes = {
-  numberOfCards: { table: { disable: true } },
-};
 
 // Default story showing a group of MenuCards
 export const Basic = Template.bind({});
@@ -74,4 +63,16 @@ Custom.args = {
   },
 };
 
-export const Documentation =
+export const Documentation = () => (
+  <Iframe
+    //Todo:Update the url
+    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
+    title="MenuCardWrapper Documentation"
+  />
+);
+
+Documentation.storyName = "Docs";
+Documentation.argTypes = {
+  numberOfCards: { table: { disable: true } },
+};
+

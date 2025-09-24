@@ -111,18 +111,7 @@ const Template = (args) => {
   );
 };
 
-() => (
-  <Iframe
-    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
-    title="Breadcrumb Documentation"
-  />
-);
 
-Documentation.storyName = "Docs";
-Documentation.argTypes = {
-  WithCustomSeparator: { table: { disable: true } },
-  WithIcons: { table: { disable: true }},
-};
 
 export const Basic = Template.bind({});
 Basic.args = {
@@ -146,4 +135,16 @@ Custom.args = {
   },
 };
 
-export const Documentation =
+export const Documentation = () => (
+  <Iframe
+    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
+    title="Breadcrumb Documentation"
+  />
+);
+
+Documentation.storyName = "Docs";
+Documentation.argTypes = {
+  WithCustomSeparator: { table: { disable: true } },
+  WithIcons: { table: { disable: true }},
+};
+

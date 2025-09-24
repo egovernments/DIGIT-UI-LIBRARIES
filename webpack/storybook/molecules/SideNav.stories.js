@@ -137,7 +137,22 @@ const commonArgs = {
   enableSearch:true
 };
 
-() => (
+
+
+export const Light = Template.bind({});
+Light.args = {
+  ...commonArgs,
+  theme: "light",
+};
+
+export const Custom = Template.bind({});
+Custom.args = {
+  ...commonArgs,
+  collapsedWidth: "80px",
+  expandedWidth: "250px",
+};
+
+export const Documentation = () => (
   <Iframe
     //Todo:Update the url
     src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
@@ -158,17 +173,3 @@ Dark.args = {
   theme: "dark",
 };
 
-export const Light = Template.bind({});
-Light.args = {
-  ...commonArgs,
-  theme: "light",
-};
-
-export const Custom = Template.bind({});
-Custom.args = {
-  ...commonArgs,
-  collapsedWidth: "80px",
-  expandedWidth: "250px",
-};
-
-export const Documentation =
