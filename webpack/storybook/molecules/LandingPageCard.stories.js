@@ -126,6 +126,22 @@ const commonArgs = {
   children: false,
 };
 
+export const Basic = Template.bind({});
+Basic.args = {
+  ...commonArgs,
+};
+
+export const Custom = Template.bind({});
+Custom.args = {
+  ...commonArgs,
+  style: {
+    backgroundColor: "#fafafa",
+    padding: "20px",
+    borderRadius: "8px",
+    border: "2px solid black",
+  },
+};
+
 export const Documentation = () => (
   <Iframe
     //Todo:Update the url
@@ -143,21 +159,4 @@ Documentation.argTypes = {
   iconBg: { table: { disable: true } },
   children: { table: { disable: true } },
   moduleAlignment: { table: { disable: true } },
-};
-
-
-export const Basic = Template.bind({});
-Basic.args = {
-  ...commonArgs,
-};
-
-export const Custom = Template.bind({});
-Custom.args = {
-  ...commonArgs,
-  style: {
-    backgroundColor: "#fafafa",
-    padding: "20px",
-    borderRadius: "8px",
-    border: "2px solid black",
-  },
 };

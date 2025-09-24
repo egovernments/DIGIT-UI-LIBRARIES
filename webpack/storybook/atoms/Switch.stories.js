@@ -43,20 +43,6 @@ const Template = (args) => {
   return <Switch {...rest} disable={disable === "Disabled"} />;
 };
 
-export const Documentation = () => (
-  <Iframe
-    //Todo:Update the url
-    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
-    title="Switch Documentation"
-  />
-);
-
-Documentation.storyName = "Docs";
-Documentation.argTypes = {
-  disable: { table: { disable: true } },
-  label: { table: { disable: true }},
-  isLabelFirst: { table: { disable: true }},
-};
 
 const commonArgs = {
   isLabelFirst: "Right",
@@ -83,4 +69,19 @@ Custom.args = {
   switchStyle: {
     backgroundColor: "green",
   },
+};
+
+export const Documentation = () => (
+  <Iframe
+    //Todo:Update the url
+    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
+    title="Switch Documentation"
+  />
+);
+
+Documentation.storyName = "Docs";
+Documentation.argTypes = {
+  disable: { table: { disable: true } },
+  label: { table: { disable: true }},
+  isLabelFirst: { table: { disable: true }},
 };

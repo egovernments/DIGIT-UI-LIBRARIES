@@ -143,22 +143,6 @@ const commonArgs = {
   },
 };
 
-export const Documentation = () => (
-  <Iframe
-    //Todo:Update the url
-    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
-    title="Toggle Documentation"
-  />
-);
-
-Documentation.storyName = "Docs";
-Documentation.argTypes = {
-  isDisabled: { table: { disable: true } },
-  label: { table: { disable: true }},
-  isSearchable: { table: { disable: true }},
-  showBottom: {table: { disable: true } },
-};
-
 export const Primary = Template.bind({});
 Primary.args = {
   ...commonArgs,
@@ -180,4 +164,20 @@ export const Link = Template.bind({});
 Link.args = {
   ...commonArgs,
   variation: "link",
+};
+
+export const Documentation = () => (
+  <Iframe
+    //Todo:Update the url
+    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
+    title="Toggle Documentation"
+  />
+);
+
+Documentation.storyName = "Docs";
+Documentation.argTypes = {
+  isDisabled: { table: { disable: true } },
+  label: { table: { disable: true }},
+  isSearchable: { table: { disable: true }},
+  showBottom: {table: { disable: true } },
 };

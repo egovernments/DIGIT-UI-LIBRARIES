@@ -67,7 +67,7 @@ const commonArgs = {
   hideDivider: true,
 };
 
-export const Documentation = () => (
+() => (
   <Iframe
     //Todo:Update the url
     src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
@@ -99,3 +99,5 @@ Vertical.args = {
 //   ...commonArgs,
 //   activeSteps: 3,
 // };
+
+export const Documentation =
