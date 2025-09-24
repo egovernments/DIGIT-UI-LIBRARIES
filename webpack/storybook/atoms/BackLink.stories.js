@@ -39,7 +39,7 @@ const commonArgs = {
   label: "Back",
 };
 
-() => (
+export const Documentation = () => (
   <Iframe
     //Todo:Update the url
     src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
@@ -69,5 +69,3 @@ Backlink3.args = {
   ...commonArgs,
   variant: "teritiary",
 };
-
-export const Documentation =

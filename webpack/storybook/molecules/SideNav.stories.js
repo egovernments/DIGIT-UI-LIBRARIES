@@ -137,7 +137,7 @@ const commonArgs = {
   enableSearch:true
 };
 
-() => (
+export const Documentation = () => (
   <Iframe
     //Todo:Update the url
     src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
@@ -170,5 +170,3 @@ Custom.args = {
   collapsedWidth: "80px",
   expandedWidth: "250px",
 };
-
-export const Documentation =

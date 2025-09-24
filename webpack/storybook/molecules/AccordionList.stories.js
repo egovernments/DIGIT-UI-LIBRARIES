@@ -58,7 +58,7 @@ const commonArgs = {
   addDivider: false,
 };
 
-() => (
+export const Documentation = () => (
   <Iframe
     //Todo:Update the url
     src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
@@ -89,5 +89,3 @@ Custom.args = {
     padding: "24px",
   },
 };
-
-export const Documentation =

@@ -64,6 +64,7 @@ const Template = (args) => {
   );
 };
 
+
 const commonArgs = {
   text: "Chip",
   className: "",
@@ -77,7 +78,7 @@ const commonArgs = {
   WithIcon:false
 };
 
-() => (
+export const Documentation = () => (
   <Iframe
     //Todo:Update the url
     src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
@@ -106,5 +107,3 @@ Error.args = {
   error: "ErrorMessage",
   hideClose: false,
 };
-
-export const Documentation =

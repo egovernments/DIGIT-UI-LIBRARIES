@@ -31,7 +31,7 @@ const commonArgs = {
   style: {},
 };
 
-() => (
+export const Documentation = () => (
   <Iframe
     //Todo:Update the url
     src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
@@ -67,5 +67,3 @@ Custom.args = {
     border: "10px solid #0B4B66",
   },
 };
-
-export const Documentation =

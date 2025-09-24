@@ -89,6 +89,7 @@ const crumbs = [
   },
 ];
 
+
 const commonArgs = {
   WithCustomSeparator: false,
   WithIcons:false
@@ -111,7 +112,7 @@ const Template = (args) => {
   );
 };
 
-() => (
+export const Documentation = () => (
   <Iframe
     src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
     title="Breadcrumb Documentation"
@@ -145,5 +146,3 @@ Custom.args = {
     color: "#0B4B66",
   },
 };
-
-export const Documentation =

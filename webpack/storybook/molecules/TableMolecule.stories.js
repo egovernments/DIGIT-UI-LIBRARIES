@@ -1415,7 +1415,7 @@ const commonArgs = {
   onFilter:()=>{},
 }
 
-() => (
+export const Documentation = () => (
   <Iframe
     //Todo:Update the url
     src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
@@ -1424,6 +1424,7 @@ const commonArgs = {
 );
 
 Documentation.storyName = "Docs";
+
 
 export const Default = Template.bind({});
 Default.args = {
@@ -2311,6 +2312,7 @@ WithStickyFooterContent.args = {
   },
 };
 
+
 export const WithScrollableStickyFooterContent = Template.bind({});
 WithScrollableStickyFooterContent.args = {
   headerData: headerData,
@@ -2484,6 +2486,7 @@ WithCustomStyles.args = {
   isStickyHeader: false,
 };
 
+
 export const WithAscendingAsInitialSortOrder = Template.bind({});
 WithAscendingAsInitialSortOrder.args = {
   ...commonArgs,
@@ -2566,6 +2569,7 @@ WithAccessor.args = {
   onRowClick: undefined,
 };
 
+
 export const WithNestedTable = Template.bind({});
 WithNestedTable.args = {
   ...commonArgs,
@@ -2597,6 +2601,7 @@ WithNestedTable.args = {
   },
   onRowClick: undefined
 };
+
 
 export const WithOnlyOneRowNestedTable = Template.bind({});
 WithOnlyOneRowNestedTable.args = {
@@ -2670,6 +2675,7 @@ const myCustomSort = (rows, columnIndex) => {
   return [...firstHalfReversed, ...secondHalf];
 };
 
+
 export const WithCustomSortOrder = Template.bind({});
 WithCustomSortOrder.args = {
   ...commonArgs,
@@ -2685,8 +2691,6 @@ WithCustomSortOrder.args = {
     initialSelectedRows: [],
     onSelectedRowsChange: (e) => {
       console.log("These are the selected rows", e);
-
-export const Documentation =
     },
     showSelectedState: false,
   },
