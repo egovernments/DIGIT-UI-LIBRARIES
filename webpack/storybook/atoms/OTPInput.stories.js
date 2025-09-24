@@ -74,20 +74,7 @@ const commonArgs = {
   masking:false
 };
 
-
-export const SixCharacters = Template.bind({});
-SixCharacters.args = {
-  ...commonArgs,
-  length: 6,
-};
-SixCharacters.storyName = "6 Characters";
-
-export const FourCharacters = Template.bind({});
-FourCharacters.args = {
-  ...commonArgs,
-};
-
-export const Documentation = () => (
+() => (
   <Iframe
     //Todo:Update the url
     src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
@@ -104,4 +91,17 @@ Documentation.argTypes = {
   masking: { table: { disable: true }},
 };
 
+export const SixCharacters = Template.bind({});
+SixCharacters.args = {
+  ...commonArgs,
+  length: 6,
+};
+SixCharacters.storyName = "6 Characters";
+
+export const FourCharacters = Template.bind({});
+FourCharacters.args = {
+  ...commonArgs,
+};
+
+export const Documentation = 
 FourCharacters.storyName = "4 Characters";
