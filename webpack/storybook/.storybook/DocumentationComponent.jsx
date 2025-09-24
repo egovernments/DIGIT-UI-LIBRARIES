@@ -35,6 +35,17 @@ export const DocumentationComponent = ({
     <Iframe
       src={documentationUrl}
       title={iframeTitle}
+       onLoad={(e) => {
+    const iframeDoc = e.target.contentDocument || e.target.contentWindow.document;
+    if (iframeDoc) {
+      const style = iframeDoc.createElement("style");
+      style.innerHTML = `
+        header, nav, aside { display: none !important; }
+        main { margin: 0 !important; }
+      `;
+      iframeDoc.head.appendChild(style);
+    }
+  }}
     />
   );
 };
