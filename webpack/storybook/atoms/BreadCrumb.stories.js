@@ -3,6 +3,7 @@ import BreadCrumb from "@egovernments/digit-ui-components/atoms/BreadCrumb";
 import { BrowserRouter as Router } from "react-router-dom";
 import { SVG } from "@egovernments/digit-ui-components/atoms/SVG";
 import Iframe from "@egovernments/digit-ui-components/atoms/Iframe";
+import { createDocumentationStory } from "../.storybook/DocumentationComponent";
 
 export default {
   title: "Atoms/BreadCrumb",
@@ -135,16 +136,4 @@ Custom.args = {
   },
 };
 
-export const Documentation = () => (
-  <Iframe
-    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
-    title="Breadcrumb Documentation"
-  />
-);
-
-Documentation.storyName = "Detailed Props Definition";
-Documentation.argTypes = {
-  WithCustomSeparator: { table: { disable: true } },
-  WithIcons: { table: { disable: true }},
-};
-
+export const Documentation = createDocumentationStory("BreadCrumb", "atoms");

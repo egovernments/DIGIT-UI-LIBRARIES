@@ -2,6 +2,7 @@ import React from "react";
 import Timeline from "@egovernments/digit-ui-components/atoms/Timeline";
 import Button from "@egovernments/digit-ui-components/atoms/Button";
 import Iframe from "@egovernments/digit-ui-components/atoms/Iframe";
+import { createDocumentationStory } from "../.storybook/DocumentationComponent";
 
 export default {
   title: "Atoms/Timeline",
@@ -162,21 +163,4 @@ Upcoming.args = {
   variant: "upcoming",
 };
 
-export const Documentation = () => (
-  <Iframe
-    //Todo:Update the url
-    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
-    title="Timeline Documentation"
-  />
-);
-
-Documentation.storyName = "Detailed Props Definition";
-Documentation.argTypes = {
-  label: { table: { disable: true } },
-  subElements: { table: { disable: true }},
-  inline: {table:{disable:true}},
-  showConnector: {table:{disable:true}},
-  isError: {table:{disable:true}},
-  additionalElements: {table:{disable:true}},
-};
-
+export const Documentation = createDocumentationStory("Timeline", "atoms");

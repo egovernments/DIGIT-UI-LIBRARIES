@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import PopUp from "@egovernments/digit-ui-components/atoms/PopUp";
 import Iframe from "@egovernments/digit-ui-components/atoms/Iframe";
+import { createDocumentationStory } from "../.storybook/DocumentationComponent";
 
 export default {
   title: "Molecules/PopUp",

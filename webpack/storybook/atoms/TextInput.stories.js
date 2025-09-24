@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import FieldV1 from "@egovernments/digit-ui-components/atoms/../hoc/FieldV1";
 import Iframe from "@egovernments/digit-ui-components/atoms/Iframe";
+import { createDocumentationStory } from "../.storybook/DocumentationComponent";
 
 export default {
   title: "Atoms/Text Input",
@@ -212,23 +213,4 @@ Search.args = {
   },
 };
 
-export const Documentation = () => (
-  <Iframe
-    //Todo:Update the url
-    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
-    title="TextInput Documentation"
-  />
-);
-
-Documentation.storyName = "Detailed Props Definition";
-Documentation.argTypes = {
-  label: { table: { disable: true } },
-  error: { table: { disable: true }},
-  placeholder: {table:{disable:true}},
-  description: {table:{disable:true}},
-  charCount: {table:{disable:true}},
-  required: {table:{disable:true}},
-  infoMessage: {table:{disable:true}},
-  State: {table:{disable:true}},
-};
-
+export const Documentation = createDocumentationStory("TextInput", "atoms");

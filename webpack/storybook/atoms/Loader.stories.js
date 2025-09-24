@@ -2,6 +2,7 @@ import React from "react";
 import Loader from "@egovernments/digit-ui-components/atoms/Loader";
 import theLoaderPrimary from "@egovernments/digit-ui-components/atoms/../constants/animations/theLoaderPrimary.json";
 import Iframe from "@egovernments/digit-ui-components/atoms/Iframe";
+import { createDocumentationStory } from "../.storybook/DocumentationComponent";
 
 export default {
   title: "Atoms/Loader",
@@ -83,16 +84,4 @@ Custom.args = {
   className: "custom-loader-example",
 };
 
-export const Documentation = () => (
-  <Iframe
-    //Todo:Update the url
-    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
-    title="Loader Documentation"
-  />
-);
-
-Documentation.storyName = "Detailed Props Definition";
-Documentation.argTypes = {
-  loaderText: { table: { disable: true } },
-};
-
+export const Documentation = createDocumentationStory("Loader", "atoms");

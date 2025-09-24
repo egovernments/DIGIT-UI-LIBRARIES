@@ -2,8 +2,8 @@ import React from "react";
 import { Colors } from "@egovernments/digit-ui-components/molecules/../constants/colors/colorconstants";
 import { Button } from "@egovernments/digit-ui-components/atoms";
 import TooltipWrapper from "@egovernments/digit-ui-components/molecules/TooltipWrapper";
-import { Iframe } from "@egovernments/digit-ui-components/atoms";
 import { CustomSVG } from "@egovernments/digit-ui-components/atoms";
+import { createDocumentationStory } from "../.storybook/DocumentationComponent";
 
 export default {
   title: "Molecules/Tooltip Wrapper",
@@ -88,46 +88,4 @@ Custom.args = {
   },
 };
 
-export const Documentation = () => (
-  <Iframe
-    //Todo:Update the url
-    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
-    title="TooltipWrapper Documentation"
-  />
-);
-
-Documentation.storyName = "Detailed Props Definition";
-Documentation.argTypes = {
-  header:{table:{disable:true}},
-  content:{table:{disable:true}},
-  arrow:{table:{disable:true}},
-  placement:{table:{disable:true}}
-}
-
-const htmlTooltip = (
-  <React.Fragment>
-    {
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt "
-    }
-    <hr></hr>
-    <CustomSVG.PlaceholderSvg width={"200px"} height={"200px"}></CustomSVG.PlaceholderSvg>
-  </React.Fragment>
-);
-
-const commonArgs = {
-  content: htmlTooltip,
-  arrow: false,
-  placement: "bottom",
-  enterDelay: 100,
-  leaveDelay: 0,
-  followCursor: false,
-  open: false,
-  disableFocusListener: false,
-  disableHoverListener: false,
-  disableInteractive: false,
-  disableTouchListener: false,
-  children: <Button label={"MaxLabel..."} variation={"primary"}></Button>,
-  style: {},
-  header: "Tooltip Header",
-};
-
+export const Documentation = createDocumentationStory("TooltipWrapper", "molecules");

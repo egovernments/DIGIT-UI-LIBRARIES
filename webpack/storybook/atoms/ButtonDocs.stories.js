@@ -1,6 +1,7 @@
 import React from "react";
 import Button from "@egovernments/digit-ui-components/atoms/Button";
 import Iframe from "@egovernments/digit-ui-components/atoms/Iframe";
+import { createDocumentationStory } from "../.storybook/DocumentationComponent";
 
 export default {
   title: "Atoms/Button",

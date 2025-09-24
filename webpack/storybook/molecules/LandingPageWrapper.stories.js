@@ -1,8 +1,7 @@
 import React from "react";
 import LandingPageCard from "@egovernments/digit-ui-components/molecules/LandingPageCard";
 import LandingPageWrapper from "@egovernments/digit-ui-components/molecules/LandingPageWrapper";
-import { Iframe } from "@egovernments/digit-ui-components/atoms";
-
+import { createDocumentationStory } from "../.storybook/DocumentationComponent";
 export default {
   title: "MoleculeGroup/Landing Page Wrapper",
   component: LandingPageWrapper,
@@ -60,18 +59,4 @@ Basic.args = {
   numberOfCards: 3,
 };
 
-export const Documentation = () => (
-  <Iframe
-    // Todo: Update the URL
-    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
-    title="LandingPageWrapper Documentation"
-  />
-);
-
-Documentation.storyName = "Detailed Props Definition";
-Documentation.argTypes = {
-  numberOfCards: {
-    table: { disable: true },
-  },
-};
-
+export const Documentation = createDocumentationStory("LandingPageWrapper", "molecules");

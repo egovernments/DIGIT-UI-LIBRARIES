@@ -1,7 +1,6 @@
 import React from "react";
 import LandingPageCard from "@egovernments/digit-ui-components/molecules/LandingPageCard";
-import { Iframe } from "@egovernments/digit-ui-components/atoms";
-
+import { createDocumentationStory } from "../.storybook/DocumentationComponent";
 export default {
   title: "Molecules/Landing Page Card",
   component: LandingPageCard,
@@ -142,21 +141,4 @@ Custom.args = {
   },
 };
 
-export const Documentation = () => (
-  <Iframe
-    //Todo:Update the url
-    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
-    title="LandingPageCard Documentation"
-  />
-);
-
-Documentation.storyName = "Detailed Props Definition";
-Documentation.argTypes = {
-  moduleName: { table: { disable: true } },
-  metrics: { table: { disable: true } },
-  links: { table: { disable: true } },
-  metricAlignment: { table: { disable: true } },
-  iconBg: { table: { disable: true } },
-  children: { table: { disable: true } },
-  moduleAlignment: { table: { disable: true } },
-};
+export const Documentation = createDocumentationStory("LandingPageCard", "molecules");

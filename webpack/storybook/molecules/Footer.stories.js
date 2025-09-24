@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "@egovernments/digit-ui-components/atoms";
 import { Footer } from "@egovernments/digit-ui-components/atoms";
-import { Iframe } from "@egovernments/digit-ui-components/atoms";
+import { createDocumentationStory } from "../.storybook/DocumentationComponent";
 
 export default {
   title: "Molecules/Footer",
@@ -121,18 +121,9 @@ Basic.args = {
   alignment:"Right"
 };
 
-export const Documentation = () => (
-  <Iframe
-    //Todo:Update the url
-    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
-    title="Footer Documentation"
-  />
-);
-
-Documentation.storyName = "Detailed Props Definition";
-Documentation.argTypes = {
+export const Documentation = createDocumentationStory("Footer", "molecules", {
   flex: { table: { disable: true } },
-};
+});
 
 export const Flex = () => (
   <Footer

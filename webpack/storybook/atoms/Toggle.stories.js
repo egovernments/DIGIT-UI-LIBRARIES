@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Toggle from "@egovernments/digit-ui-components/atoms/Toggle";
 import Iframe from "@egovernments/digit-ui-components/atoms/Iframe";
+import { createDocumentationStory } from "../.storybook/DocumentationComponent";
 
 export default {
   title: "Atoms/Toggle",
@@ -112,19 +113,4 @@ Custom.args = {
   },
 };
 
-export const Documentation = () => (
-  <Iframe
-    //Todo:Update the url
-    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
-    title="Toggle Documentation"
-  />
-);
-
-Documentation.storyName = "Detailed Props Definition";
-Documentation.argTypes = {
-  numberOfToggleItems: { table: { disable: true } },
-  Toggle1Label: { table: { disable: true }},
-  Toggle2Label: { table: { disable: true }},
-  Toggle3Label: {table: { disable: true } },
-};
-
+export const Documentation = createDocumentationStory("Toggle", "atoms");

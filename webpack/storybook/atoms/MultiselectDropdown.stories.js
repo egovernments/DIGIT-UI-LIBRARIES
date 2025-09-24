@@ -1,6 +1,7 @@
 import React from "react";
 import MultiSelectDropdown from "@egovernments/digit-ui-components/atoms/MultiSelectDropdown";
 import Iframe from "@egovernments/digit-ui-components/atoms/Iframe";
+import { createDocumentationStory } from "../.storybook/DocumentationComponent";
 
 export default {
   title: "Atoms/Multi Select DropDown",
@@ -343,21 +344,4 @@ TreeMultiselect.args = {
   variant: "treemultiselect",
 };
 
-export const Documentation = () => (
-  <Iframe
-    //Todo:Update the url
-    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
-    title="Multiselectdropdown Documentation"
-  />
-);
-
-Documentation.storyName = "Detailed Props Definition";
-Documentation.argTypes = {
-  disabled: { table: { disable: true } },
-  isSearchable: { table: { disable: true } },
-  showIcon: { table: { disable: true } },
-  addSelectAllCheck: { table: { disable: true } },
-  addCategorySelectAllCheck: { table: { disable: true } },
-  isDropdownWithChip: { table: { disable: true } },
-};
-
+export const Documentation = createDocumentationStory("MultiselectDropdown", "atoms");

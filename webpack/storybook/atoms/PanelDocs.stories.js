@@ -1,6 +1,7 @@
 import React from "react";
 import Panels from "@egovernments/digit-ui-components/atoms/Panels";
 import Iframe from "@egovernments/digit-ui-components/atoms/Iframe";
+import { createDocumentationStory } from "../.storybook/DocumentationComponent";
 
 export default {
   title: "Atoms/Panels",

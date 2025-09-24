@@ -1,6 +1,7 @@
 import React from "react";
 import Tag from "@egovernments/digit-ui-components/atoms/Tag";
 import Iframe from "@egovernments/digit-ui-components/atoms/Iframe";
+import { createDocumentationStory } from "../.storybook/DocumentationComponent";
 
 export default {
   title: "Atoms/Tag",
@@ -139,19 +140,4 @@ Custom.args = {
   icon: "ArrowLeft",
 };
 
-export const Documentation = () => (
-  <Iframe
-    //Todo:Update the url
-    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
-    title="Tag Documentation"
-  />
-);
-
-Documentation.storyName = "Detailed Props Definition";
-Documentation.argTypes = {
-  label: { table: { disable: true } },
-  stroke: { table: { disable: true }},
-  onClick: { table: { disable: true }},
-  showIcon: {table: { disable: true } },
-};
-
+export const Documentation = createDocumentationStory("Tag", "atoms");

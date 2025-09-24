@@ -1,7 +1,6 @@
 import React from "react";
 import MenuCard from "@egovernments/digit-ui-components/molecules/MenuCard";
-import {Iframe} from "@egovernments/digit-ui-components/atoms";
-
+import { createDocumentationStory } from "../.storybook/DocumentationComponent";
 export default {
   title: "Molecules/Menu Card",
   component: MenuCard,
@@ -44,18 +43,4 @@ Custom.args = {
   },
 };
 
-export const Documentation = () => (
-  <Iframe
-    //Todo:Update the url
-    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
-    title="MenuCard Documentation"
-  />
-);
-
-Documentation.storyName = "Detailed Props Definition";
-Documentation.argTypes = {
-  icon: { table: { disable: true } },
-  menuName: { table: { disable: true } },
-  description: { table: { disable: true } },
-};
-
+export const Documentation = createDocumentationStory("MenuCard", "molecules");

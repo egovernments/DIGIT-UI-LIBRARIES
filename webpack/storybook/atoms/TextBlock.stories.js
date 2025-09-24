@@ -1,6 +1,7 @@
 import React from "react";
 import TextBlock from "@egovernments/digit-ui-components/atoms/TextBlock";
 import Iframe from "@egovernments/digit-ui-components/atoms/Iframe";
+import { createDocumentationStory } from "../.storybook/DocumentationComponent";
 
 export default {
   title: "Atoms/Text Block",
@@ -89,19 +90,4 @@ Custom.args = {
   }
 };
 
-export const Documentation = () => (
-  <Iframe
-    //Todo:Update the url
-    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
-    title="TextBlock Documentation"
-  />
-);
-
-Documentation.storyName = "Detailed Props Definition";
-Documentation.argTypes = {
-  caption: { table: { disable: true } },
-  header: { table: { disable: true }},
-  subHeader: {table:{disable:true}},
-  body: {table:{disable:true}},
-};
-
+export const Documentation = createDocumentationStory("TextBlock", "atoms");

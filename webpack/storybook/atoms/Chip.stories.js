@@ -2,6 +2,7 @@ import React from "react";
 import { action } from "@storybook/addon-actions";
 import Chip from "@egovernments/digit-ui-components/atoms/Chip";
 import Iframe from "@egovernments/digit-ui-components/atoms/Iframe";
+import { createDocumentationStory } from "../.storybook/DocumentationComponent";
 
 export default {
   title: "Atoms/Chip",
@@ -93,19 +94,4 @@ Error.args = {
   hideClose: false,
 };
 
-export const Documentation = () => (
-  <Iframe
-    //Todo:Update the url
-    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
-    title="Chip Documentation"
-  />
-);
-
-Documentation.storyName = "Detailed Props Definition";
-Documentation.argTypes = {
-  text: { table: { disable: true } },
-  error: { table: { disable: true }},
-  hideClose: { table: { disable: true }},
-  WithIcon: { table: { disable: true }},
-};
-
+export const Documentation = createDocumentationStory("Chip", "atoms");

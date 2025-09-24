@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Stepper from "@egovernments/digit-ui-components/atoms/Stepper";
 import Iframe from "@egovernments/digit-ui-components/atoms/Iframe";
+import { createDocumentationStory } from "../.storybook/DocumentationComponent";
 
 export default {
   title: "Atoms/Stepper",
@@ -87,18 +88,4 @@ Vertical.args = {
 //   activeSteps: 3,
 // };
 
-export const Documentation = () => (
-  <Iframe
-    //Todo:Update the url
-    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
-    title="Stepper Documentation"
-  />
-);
-
-Documentation.storyName = "Detailed Props Definition";
-Documentation.argTypes = {
-  totalSteps: { table: { disable: true } },
-  hideDivider: { table: { disable: true }},
-  activeSteps: {table:{disable:true}},
-};
-
+export const Documentation = createDocumentationStory("Stepper", "atoms");

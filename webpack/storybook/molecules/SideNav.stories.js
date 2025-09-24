@@ -1,8 +1,7 @@
 import React, { Children } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import { SideNav } from "@egovernments/digit-ui-components/atoms";
-import {Iframe} from "@egovernments/digit-ui-components/atoms";
-
+import { createDocumentationStory } from "../.storybook/DocumentationComponent";
 export default {
   title: "Molecules/Side Nav",
   component: SideNav,
@@ -152,24 +151,4 @@ Custom.args = {
   expandedWidth: "250px",
 };
 
-export const Documentation = () => (
-  <Iframe
-    //Todo:Update the url
-    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
-    title="SideNav Documentation"
-  />
-);
-
-Documentation.storyName = "Detailed Props Definition";
-Documentation.argTypes = {
-  variant:{table:{disable:true}},
-  hideAccessbilityTools:{table:{disable:true}},
-  enableSearch:{table:{disable:true}},
-}
-
-export const Dark = Template.bind({});
-Dark.args = {
-  ...commonArgs,
-  theme: "dark",
-};
-
+export const Documentation = createDocumentationStory("SideNav", "molecules");

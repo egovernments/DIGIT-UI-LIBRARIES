@@ -1,6 +1,7 @@
 import React from "react";
 import FileUpload from "@egovernments/digit-ui-components/atoms/FileUpload";
 import Iframe from "@egovernments/digit-ui-components/atoms/Iframe";
+import { createDocumentationStory } from "../.storybook/DocumentationComponent";
 
 export default {
   title: "Atoms/FileUpload",

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import OTPInput from "@egovernments/digit-ui-components/atoms/OTPInput";
 import Iframe from "@egovernments/digit-ui-components/atoms/Iframe";
+import { createDocumentationStory } from "../.storybook/DocumentationComponent";
 
 export default {
   title: "Atoms/OTP Input",
@@ -89,19 +90,10 @@ FourCharacters.args = {
 
 FourCharacters.storyName = "4 Characters";
 
-export const Documentation = () => (
-  <Iframe
-    //Todo:Update the url
-    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
-    title="OTPInput Documentation"
-  />
-);
-
-Documentation.storyName = "Detailed Props Definition";
-Documentation.argTypes = {
+export const Documentation = createDocumentationStory("OTPInput", "atoms", {
   inline: { table: { disable: true } },
   label: { table: { disable: true }},
   Error: {table:{disable:true}},
   type: { table: { disable: true } },
   masking: { table: { disable: true }},
-};
+});

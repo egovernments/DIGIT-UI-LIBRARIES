@@ -1,6 +1,7 @@
 import React from "react";
 import SidePanel from "@egovernments/digit-ui-components/atoms/SidePanel";
 import Iframe from "@egovernments/digit-ui-components/atoms/Iframe";
+import { createDocumentationStory } from "../.storybook/DocumentationComponent";
 
 export default {
   title: "Molecules/Side Panel",

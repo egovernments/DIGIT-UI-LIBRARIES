@@ -1,8 +1,7 @@
 import React from "react";
 import MenuCardWrapper from "@egovernments/digit-ui-components/molecules/MenuCardWrapper";
 import MenuCard from "@egovernments/digit-ui-components/molecules/MenuCard";
-import { Iframe } from "@egovernments/digit-ui-components/atoms";
-
+import { createDocumentationStory } from "../.storybook/DocumentationComponent";
 export default {
   title: "MoleculeGroup/Menu Card Wrapper",
   component: MenuCardWrapper,
@@ -63,16 +62,4 @@ Custom.args = {
   },
 };
 
-export const Documentation = () => (
-  <Iframe
-    //Todo:Update the url
-    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
-    title="MenuCardWrapper Documentation"
-  />
-);
-
-Documentation.storyName = "Detailed Props Definition";
-Documentation.argTypes = {
-  numberOfCards: { table: { disable: true } },
-};
-
+export const Documentation = createDocumentationStory("MenuCardWrapper", "molecules");

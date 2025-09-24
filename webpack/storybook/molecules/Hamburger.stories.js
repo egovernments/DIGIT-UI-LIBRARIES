@@ -1,8 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import Hamburger from "@egovernments/digit-ui-components/atoms/Hamburger";
-import { Iframe } from "@egovernments/digit-ui-components/atoms";
-
+import { createDocumentationStory } from "../.storybook/DocumentationComponent";
 export default {
   title: "Molecules/Hamburger",
   component: Hamburger,
@@ -220,18 +219,4 @@ Light.args = {
   theme: "light",
 };
 
-export const Documentation = () => (
-  <Iframe
-    //Todo:Update the url
-    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
-    title="Hamburger Documentation"
-  />
-);
-
-Documentation.storyName = "Detailed Props Definition";
-Documentation.argTypes = {
-  isSearchable: { table: { disable: true } },
-  hideUserManuals: { table: { disable: true } },
-  profile: { table: { disable: true } },
-};
-
+export const Documentation = createDocumentationStory("Hamburger", "molecules");

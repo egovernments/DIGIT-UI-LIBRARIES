@@ -2,8 +2,7 @@ import React from "react";
 import TimelineMolecule from "@egovernments/digit-ui-components/molecules/TimelineMolecule";
 import { Button } from "@egovernments/digit-ui-components/atoms";
 import Timeline from "@egovernments/digit-ui-components/atoms";
-import { Iframe } from "@egovernments/digit-ui-components/atoms";
-
+import { createDocumentationStory } from "../.storybook/DocumentationComponent";
 export default {
   title: "Molecules/Timeline Molecule",
   component: TimelineMolecule,
@@ -95,92 +94,4 @@ Collapsible.args = {
   initialVisibleCount: 3,
 };
 
-export const Documentation = () => (
-  <Iframe
-    //Todo:Update the url
-    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
-    title="TimelineMolecule Documentation"
-  />
-);
-
-Documentation.storyName = "Detailed Props Definition";
-Documentation.argTypes = {
-  additionalWidgets:{table:{disable:true}}
-}
-
-const Wrapper = (args) => {
-  const { additionalWidgets, ...rest } = args;
-  const updatedChildren = additionalWidgets
-    ? [
-        <Timeline
-          label="Upcoming Timeline Step2"
-          subElements={subElements}
-          variant="upcoming"
-          showConnector={true}
-          additionalElements={additionalElements}
-        />,
-        <Timeline
-          label="Upcoming Timeline Step"
-          subElements={subElements}
-          variant="upcoming"
-          showConnector={true}
-          additionalElements={additionalElements}
-        />,
-        <Timeline
-          label="Inprogress Timeline Step"
-          subElements={subElements}
-          variant="inprogress"
-          showConnector={true}
-          additionalElements={additionalElements}
-        />,
-        <Timeline
-          label="Completed Timeline Step2"
-          subElements={subElements}
-          variant="completed"
-          showConnector={true}
-          additionalElements={additionalElements}
-        />,
-        <Timeline
-          label="Completed Timeline Step"
-          subElements={subElements}
-          variant="completed"
-          showConnector={true}
-          additionalElements={additionalElements}
-        />,
-      ]
-    : [
-        <Timeline
-          label="Upcoming Timeline Step2"
-          subElements={subElements}
-          variant="upcoming"
-          showConnector={true}
-        />,
-        <Timeline
-          label="Upcoming Timeline Step"
-          subElements={subElements}
-          variant="upcoming"
-          showConnector={true}
-        />,
-        <Timeline
-          label="Inprogress Timeline Step"
-          subElements={subElements}
-          variant="inprogress"
-          showConnector={true}
-        />,
-        <Timeline
-          label="Completed Timeline Step2"
-          subElements={subElements}
-          variant="completed"
-          showConnector={true}
-        />,
-        <Timeline
-          label="Completed Timeline Step"
-          subElements={subElements}
-          variant="completed"
-          showConnector={true}
-        />,
-      ];
-
-  return <TimelineMolecule {...rest} children={updatedChildren} />;
-};
-
+export const Documentation = createDocumentationStory("TimelineMolecule", "molecules");

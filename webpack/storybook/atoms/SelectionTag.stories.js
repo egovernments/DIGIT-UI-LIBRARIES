@@ -1,6 +1,7 @@
 import React from "react";
 import SelectionTag from "@egovernments/digit-ui-components/atoms/SelectionTag";
 import Iframe from "@egovernments/digit-ui-components/atoms/Iframe";
+import { createDocumentationStory } from "../.storybook/DocumentationComponent";
 
 export default {
   title: "Atoms/Selection Tag",
@@ -126,20 +127,4 @@ MultiSelect.args = {
   allowMultipleSelection: true,
 };
 
-export const Documentation = () => (
-  <Iframe
-    //Todo:Update the url
-    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
-    title="SelectionTag Documentation"
-  />
-);
-
-Documentation.storyName = "Detailed Props Definition";
-Documentation.argTypes = {
-  width: { table: { disable: true } },
-  WithIcon: { table: { disable: true }},
-  errorMessage: { table: { disable: true }},
-  withContainer: {table: { disable: true } },
-  isSuffix: { table: { disable: true } },
-};
-
+export const Documentation = createDocumentationStory("SelectionTag", "atoms");

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Tab from "@egovernments/digit-ui-components/atoms/Tab";
 import Iframe from "@egovernments/digit-ui-components/atoms/Iframe";
+import { createDocumentationStory } from "../.storybook/DocumentationComponent";
 
 export default {
   title: "Atoms/Tab",
@@ -110,20 +111,4 @@ Custom.args = {
   itemStyle: { backgroundColor: "#FAFAFA", border: "1px solid black" },
 };
 
-export const Documentation = () => (
-  <Iframe
-    //Todo:Update the url
-    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
-    title="Tab Documentation"
-  />
-);
-
-Documentation.storyName = "Detailed Props Definition";
-Documentation.argTypes = {
-  WithIcons: { table: { disable: true } },
-  Tab1Label: { table: { disable: true }},
-  Tab2Label: { table: { disable: true }},
-  Tab3Label: {table: { disable: true } },
-  Tab4Label: { table: { disable: true } },
-};
-
+export const Documentation = createDocumentationStory("Tab", "atoms");

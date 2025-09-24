@@ -1,6 +1,6 @@
 import React from "react";
 import { Accordion } from "@egovernments/digit-ui-components/atoms/Accordion";
-import Iframe from "@egovernments/digit-ui-components/atoms/Iframe";
+import { createDocumentationStory } from "../.storybook/DocumentationComponent";
 
 export default {
   title: "Atoms/Accordion",
@@ -78,16 +78,7 @@ Custom.args = {
   isOpenInitially: false,
 };
 
-export const Documentation = () => (
-  <Iframe
-    //Todo:Update the url
-    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
-    title="Accordion Documentation"
-  />
-);
-
-Documentation.storyName = "Detailed Props Definition";
-Documentation.argTypes = {
+export const Documentation = createDocumentationStory("Accordion", "atoms", {
   title: { table: { disable: true } },
   icon: { table: { disable: true }},
   number: { table: { disable: true }},
@@ -97,4 +88,4 @@ Documentation.argTypes = {
   hideBorderRadius: { table: { disable: true }},
   children: { table: { disable: true }},
   isOpenInitially: { table: { disable: true }},
-};
+});

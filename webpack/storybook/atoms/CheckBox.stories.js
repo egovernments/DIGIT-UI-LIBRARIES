@@ -1,6 +1,7 @@
 import React from "react";
 import CheckBox from "@egovernments/digit-ui-components/atoms/CheckBox";
 import Iframe from "@egovernments/digit-ui-components/atoms/Iframe";
+import { createDocumentationStory } from "../.storybook/DocumentationComponent";
 
 export default {
   title: "Atoms/CheckBox",
@@ -94,18 +95,4 @@ Checked.args = {
   checked:true
 };
 
-export const Documentation = () => (
-  <Iframe
-    //Todo:Update the url
-    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
-    title="Checkbox Documentation"
-  />
-);
-
-Documentation.storyName = "Detailed Props Definition";
-Documentation.argTypes = {
-  label: { table: { disable: true } },
-  isLabelFirst: { table: { disable: true }},
-  disabled: { table: { disable: true }},
-};
-
+export const Documentation = createDocumentationStory("CheckBox", "atoms");

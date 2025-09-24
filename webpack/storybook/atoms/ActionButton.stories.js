@@ -1,6 +1,7 @@
 import React from "react";
 import Button from "@egovernments/digit-ui-components/atoms/Button";
 import Iframe from "@egovernments/digit-ui-components/atoms/Iframe";
+import { createDocumentationStory } from "../.storybook/DocumentationComponent";
 
 export default {
   title: "Atoms/Action Button",
@@ -166,18 +167,4 @@ Link.args = {
   variation: "link",
 };
 
-export const Documentation = () => (
-  <Iframe
-    //Todo:Update the url
-    src="https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0"
-    title="Toggle Documentation"
-  />
-);
-
-Documentation.storyName = "Detailed Props Definition";
-Documentation.argTypes = {
-  isDisabled: { table: { disable: true } },
-  label: { table: { disable: true }},
-  isSearchable: { table: { disable: true }},
-  showBottom: {table: { disable: true } },
-};
+export const Documentation = createDocumentationStory("ActionButton", "atoms");
