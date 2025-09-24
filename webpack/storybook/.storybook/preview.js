@@ -34,15 +34,19 @@ const preview = {
       },
     },
     backgrounds: {
-      default: "twitter",
+      default: "light",
       values: [
         {
-          name: "twitter",
-          value: "#00ACED",
+          name: "light",
+          value: "#FFFFFF",
         },
         {
-          name: "facebook",
-          value: "#3B5998",
+          name: "gray",
+          value: "#F5F5F5",
+        },
+        {
+          name: "dark",
+          value: "#333333",
         },
       ],
     },
