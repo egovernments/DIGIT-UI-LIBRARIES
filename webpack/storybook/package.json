@@ -1,6 +1,6 @@
 {
   "name": "@egovernments/digit-ui-components-storybook",
-  "version": "2.0.0-rc19-01",
+  "version": "2.0.0-rc19-04",
   "private": true,
   "description": "Storybook for DIGIT UI Components",
   "scripts": {
@@ -49,9 +49,9 @@
     "react-webcam": "7.2.0",
     "react-drag-drop-files": "2.3.10",
     "react-data-table-component": "7.6.2",
-    "@egovernments/digit-ui-svg-components": "2.0.0-rc19-01",
-    "@egovernments/digit-ui-libraries": "2.0.0-rc19-01",
+    "@egovernments/digit-ui-svg-components": "2.0.0-rc19-04",
+    "@egovernments/digit-ui-libraries": "2.0.0-rc19-04",
     "@egovernments/digit-ui-components-css": "0.2.0-rc.16",
-    "@egovernments/digit-ui-components": "2.0.0-rc19-02"
+    "@egovernments/digit-ui-components": "2.0.0-rc19-04"
   }
 }
