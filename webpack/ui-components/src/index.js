@@ -101,6 +101,7 @@ import {
   Loader,
   Iframe
 } from "./atoms";
+import { lazyWithFallback } from "./utils/lazyWithFallback";
 
 import { FieldComposer, FieldController, Fields, FormComposerV2, Modal, UploadFileComposer, FieldV1, InboxSearchComposer, ResultsTable, ResultsDataTableWrapper,BoundaryFilter } from "./hoc";
 
@@ -133,6 +134,7 @@ import {
   SummaryCard,
   ResultsDataTable
 } from "./molecules";
+
 
 // import { initCoreLibraries } from "@egovernments/digit-ui-libraries-core";
 import { initLibraries } from "@egovernments/digit-ui-libraries";
@@ -280,5 +282,6 @@ export {
   TableBody,
   TableRow,
   TableCell,
-  NestedTable
+  NestedTable,
+  lazyWithFallback,
 };
