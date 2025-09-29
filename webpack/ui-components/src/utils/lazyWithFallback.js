@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from "react";
-import { Loader } from "@egovernments/digit-ui-components";
+import { Loader } from "../atoms";
 
 /**
  * Creates a component with lazy loading that gracefully falls back to synchronous import.
