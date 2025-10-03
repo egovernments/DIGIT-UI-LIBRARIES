@@ -90,7 +90,6 @@ class _DropdownOptionState extends State<DropdownOption> {
                 }
               },
               onTap: () {
-                print('DropdownOption onTap called');
                 widget.onOptionSelected?.call(widget.selectedOptions);
               },
               child: Container(

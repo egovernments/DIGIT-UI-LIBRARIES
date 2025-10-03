@@ -34,6 +34,7 @@ import 'package:digit_ui_components/theme/ComponentTheme/checkbox_theme.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import '../../utils/utils.dart';
 import '../helper_widget/dropdown_options.dart';
 import 'digit_chip.dart';
@@ -194,33 +195,27 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
 
   /// Handles the focus change to show/hide the dropdown.
   _handleFocusChange() {
-    if (kDebugMode) {
-      print('_handleFocusChange - hasFocus: ${_focusNode.hasFocus}');
-    }
-    if ((_focusNode.hasFocus ||
-            (_searchFocusNode.hasFocus && widget.isSearchable)) &&
-        mounted) {
-      if (kDebugMode) print('Opening overlay');
+    final hasAnyFocus = _focusNode.hasFocus ||
+        (widget.isSearchable && _searchFocusNode.hasFocus);
+
+    if (hasAnyFocus && mounted && _overlayEntry == null) {
       _overlayEntry = _buildOverlayEntry();
       Overlay.of(context).insert(_overlayEntry!);
       _focusedIndex = -1;
       _focusedNestedIndex = NestedFocusedIndex(-1, -1);
     }
 
-    if ((_focusNode.hasFocus == false ||
-            (_searchFocusNode.hasFocus == false && widget.isSearchable)) &&
-        _overlayEntry != null) {
-      if (kDebugMode) print('Focus lost - checking if interacting: $_isInteractingWithDropdown');
+    if (!hasAnyFocus && _overlayEntry != null) {
       // Don't remove overlay if user is currently interacting with dropdown options
       if (!_isInteractingWithDropdown) {
-        if (kDebugMode) print('Removing overlay - focus lost');
-        _overlayEntry?.remove();
+        if (_overlayEntry?.mounted == true) {
+          _overlayEntry?.remove();
+        }
+        _overlayEntry = null;
         _focusedIndex = -1;
         _searchController.text = '';
         _focusedNestedIndex = NestedFocusedIndex(-1, -1);
         _filteredOptions = widget.options;
-      } else {
-        if (kDebugMode) print('Keeping overlay - user is interacting');
       }
     }
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -337,8 +332,17 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
               splashColor: const DigitColors().transparent,
               highlightColor: const DigitColors().transparent,
               hoverColor: const DigitColors().transparent,
-              onTap:
-                  !widget.isDisabled && !widget.readOnly ? _toggleFocus : null,
+              onTap: !widget.isDisabled && !widget.readOnly
+                  ? () {
+                      // If searchable and dropdown is already open, don't toggle
+                      if (widget.isSearchable && _selectionMode) {
+                        // Keep focus on search field
+                        _searchFocusNode.requestFocus();
+                      } else {
+                        _toggleFocus();
+                      }
+                    }
+                  : null,
 
               /// Disable onTap if dropdown is disabled
               child: Container(
@@ -359,32 +363,24 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                 child: Row(
                   children: [
                     Expanded(
-                      child:
-                          //widget.isSearchable
-                          //     ? FocusScope(
-                          //   child: TextField(
-                          //     decoration: InputDecoration(
-                          //       border: InputBorder.none,
-                          //       contentPadding: const EdgeInsets.only(bottom: spacer2),
-                          //       suffixIconConstraints: const BoxConstraints(
-                          //         maxHeight: spacer6,
-                          //         maxWidth: spacer6,
-                          //       ),
-                          //       suffixIcon: Icon(
-                          //         widget.suffixIcon,
-                          //         color: widget.isDisabled
-                          //             ? const DigitColors().light.genericDivider
-                          //             : const DigitColors().light.textSecondary,
-                          //       ),
-                          //     ),
-                          //     focusNode: widget.isSearchable ? _searchFocusNode : null,
-                          //     controller: _searchController,
-                          //     onChanged: (value){
-                          //       _filterOptions(value);
-                          //     },
-                          //   ),
-                          // ):
-                          (_selectedOptions.isNotEmpty)
+                      child: widget.isSearchable
+                          ? TextField(
+                              decoration: const InputDecoration(
+                                border: InputBorder.none,
+                                contentPadding:
+                                    EdgeInsets.only(bottom: spacer2),
+                                suffixIconConstraints: BoxConstraints(
+                                  maxHeight: spacer6,
+                                  maxWidth: spacer6,
+                                ),
+                              ),
+                              focusNode: _searchFocusNode,
+                              controller: _searchController,
+                              onChanged: (value) {
+                                _filterOptions(value);
+                              },
+                            )
+                          : (_selectedOptions.isNotEmpty)
                               ? Text(
                                   '${_selectedOptions.length} Selected',
                                   style: currentTypography.bodyL.copyWith(
@@ -397,7 +393,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                                 )
                               : const Text(''),
                     ),
-                    if (!widget.isSearchable)
+                    if (!widget.isSearchable || !_selectionMode)
                       Icon(
                         widget.suffixIcon,
                         color: widget.isDisabled
@@ -707,12 +703,10 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
 
   /// Handle the focus change on tap outside of the dropdown.
   void _onOutSideTap() {
-    if (kDebugMode) print('_onOutSideTap called');
     _isInteractingWithDropdown = false; // Reset flag when tapping outside
     _focusNode.unfocus();
     // Explicitly close overlay if it's open
     if (_overlayEntry != null && mounted) {
-      if (kDebugMode) print('Explicitly closing overlay from _onOutSideTap');
       _overlayEntry?.remove();
       _overlayEntry = null;
       _focusedIndex = -1;
@@ -754,10 +748,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
       return StatefulBuilder(builder: ((context, dropdownState) {
         /// full screen GestureDetector to register when a user has clicked away from the dropdown
         return GestureDetector(
-          onTap: () {
-            if (kDebugMode) print('Outer GestureDetector tapped');
-            _onOutSideTap();
-          },
+          onTap: _onOutSideTap,
           behavior: HitTestBehavior.translucent,
 
           /// full screen SizedBox to register taps anywhere and close drop down
@@ -774,11 +765,9 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                   offset: Offset.zero,
                   child: Listener(
                     onPointerDown: (_) {
-                      if (kDebugMode) print('Pointer down on dropdown');
                       _isInteractingWithDropdown = true;
                     },
                     onPointerUp: (_) {
-                      if (kDebugMode) print('Pointer up on dropdown');
                       // Delay resetting the flag to allow tap to complete
                       Future.delayed(const Duration(milliseconds: 100), () {
                         _isInteractingWithDropdown = false;
@@ -788,33 +777,33 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                       borderRadius: Base.radius,
                       shadowColor: null,
                       child: Container(
-                      width: size.width,
-                      decoration: BoxDecoration(
-                        boxShadow: [
-                          if (_filteredOptions.isNotEmpty)
-                            const BoxShadow(
-                              offset: Offset(0, 1),
-                              blurRadius: 4.4,
-                              spreadRadius: 0,
-                              color: Color(0x26000000), // #00000026
-                            ),
-                        ],
-                      ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          _filteredOptions.isEmpty
-                              ? _buildEmptyContainer(width)
-                              : widget.selectionType ==
-                                      SelectionType.nestedSelect
-                                  ? _buildNestedItems(width, values, options,
-                                      selectedOptions, dropdownState)
-                                  : _buildFlatOptions(width, values, options,
-                                      selectedOptions, dropdownState),
-                        ],
+                        width: size.width,
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            if (_filteredOptions.isNotEmpty)
+                              const BoxShadow(
+                                offset: Offset(0, 1),
+                                blurRadius: 4.4,
+                                spreadRadius: 0,
+                                color: Color(0x26000000), // #00000026
+                              ),
+                          ],
+                        ),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            _filteredOptions.isEmpty
+                                ? _buildEmptyContainer(width)
+                                : widget.selectionType ==
+                                        SelectionType.nestedSelect
+                                    ? _buildNestedItems(width, values, options,
+                                        selectedOptions, dropdownState)
+                                    : _buildFlatOptions(width, values, options,
+                                        selectedOptions, dropdownState),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
                   ),
                 ),
               ],
@@ -842,12 +831,44 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
   }
 
   void _filterOptions(String? value) {
-    if (value != null || value != '') {
+    if (value != null && value.isNotEmpty) {
       setState(() {
-        _filteredOptions = _options
-            .where((item) =>
-                item.name.toLowerCase().contains(value!.toLowerCase()))
-            .toList();
+        final searchLower = value.toLowerCase();
+
+        if (widget.selectionType == SelectionType.nestedSelect) {
+          // For nested options: filter by both name and type
+          // If searching by parent type, include all children of that type
+          // If searching by child name, include that child
+          final groupedOptions = groupBy(_options, (option) => option.type);
+          _filteredOptions = [];
+
+          groupedOptions.forEach((type, items) {
+            // Check if parent/type matches
+            final typeMatches =
+                type != null && type.toLowerCase().contains(searchLower);
+
+            if (typeMatches) {
+              // Parent matches: include all children
+              _filteredOptions.addAll(items);
+            } else {
+              // Parent doesn't match: check individual children
+              final matchingChildren = items
+                  .where(
+                      (item) => item.name.toLowerCase().contains(searchLower))
+                  .toList();
+              _filteredOptions.addAll(matchingChildren);
+            }
+          });
+        } else {
+          // For flat options: just filter by name
+          _filteredOptions = _options
+              .where((item) => item.name.toLowerCase().contains(searchLower))
+              .toList();
+        }
+      });
+    } else {
+      setState(() {
+        _filteredOptions = _options;
       });
     }
     _updateOverlay();
