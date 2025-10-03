@@ -15,7 +15,8 @@ List<Story> dropdownStories() {
       name: 'Atom/Dropdown/Documentation',
       builder: (context) {
         return IframeWidget(
-          url: 'https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0',
+          url:
+              'https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0',
         );
       },
     ),
@@ -23,7 +24,9 @@ List<Story> dropdownStories() {
       name: 'Atom/Dropdown/Simple Dropdown/default/default',
       builder: (context) => Column(
         children: [
-          const SizedBox(height: 300,),
+          const SizedBox(
+            height: 300,
+          ),
           DigitDropdown<int>(
             isDisabled: context.knobs.boolean(
               label: 'Disabled',
@@ -31,8 +34,8 @@ List<Story> dropdownStories() {
             ),
             onSelect: (item) => {},
             dropdownController: TextEditingController(),
-            isSearchable: context.knobs
-                .boolean(label: 'Searchable', initial: false),
+            isSearchable:
+                context.knobs.boolean(label: 'Searchable', initial: false),
             items: [
               'one',
               'two',
@@ -43,10 +46,10 @@ List<Story> dropdownStories() {
                 .entries
                 .map(
                   (item) => DropdownItem(
-                name: item.value,
-                code: item.key.toString(),
-              ),
-            )
+                    name: item.value,
+                    code: item.key.toString(),
+                  ),
+                )
                 .toList(),
           ),
         ],
@@ -56,15 +59,17 @@ List<Story> dropdownStories() {
       name: 'Atom/Dropdown/Simple Dropdown/default/nested text',
       builder: (context) => Column(
         children: [
-          const SizedBox(height: 300,),
+          const SizedBox(
+            height: 300,
+          ),
           DigitDropdown<int>(
             isDisabled: context.knobs.boolean(
               label: 'Disabled',
               initial: false,
             ),
             onSelect: (item) => {},
-            isSearchable: context.knobs
-                .boolean(label: 'Searchable', initial: false),
+            isSearchable:
+                context.knobs.boolean(label: 'Searchable', initial: false),
             dropdownController: TextEditingController(),
             items: [
               'one',
@@ -76,11 +81,11 @@ List<Story> dropdownStories() {
                 .entries
                 .map(
                   (item) => DropdownItem(
-                name: item.value,
-                code: item.key.toString(),
-                description: 'description for ${item.value} one',
-              ),
-            )
+                    name: item.value,
+                    code: item.key.toString(),
+                    description: 'description for ${item.value} one',
+                  ),
+                )
                 .toList(),
           ),
         ],
@@ -90,15 +95,17 @@ List<Story> dropdownStories() {
       name: 'Atom/Dropdown/Simple Dropdown/default/icon',
       builder: (context) => Column(
         children: [
-          const SizedBox(height: 300,),
+          const SizedBox(
+            height: 300,
+          ),
           DigitDropdown<int>(
             isDisabled: context.knobs.boolean(
               label: 'Disabled',
               initial: false,
             ),
             onSelect: (item) => {},
-            isSearchable: context.knobs
-                .boolean(label: 'Searchable', initial: false),
+            isSearchable:
+                context.knobs.boolean(label: 'Searchable', initial: false),
             dropdownController: TextEditingController(),
             items: [
               'one',
@@ -110,11 +117,11 @@ List<Story> dropdownStories() {
                 .entries
                 .map(
                   (item) => DropdownItem(
-                name: item.value,
-                code: item.key.toString(),
-                textIcon: Icons.article,
-              ),
-            )
+                    name: item.value,
+                    code: item.key.toString(),
+                    textIcon: Icons.article,
+                  ),
+                )
                 .toList(),
           ),
         ],
@@ -124,15 +131,17 @@ List<Story> dropdownStories() {
       name: 'Atom/Dropdown/Simple Dropdown/default/profile',
       builder: (context) => Column(
         children: [
-          const SizedBox(height: 300,),
+          const SizedBox(
+            height: 300,
+          ),
           DigitDropdown<int>(
             isDisabled: context.knobs.boolean(
               label: 'Disabled',
               initial: false,
             ),
             onSelect: (item) => {},
-            isSearchable: context.knobs
-                .boolean(label: 'Searchable', initial: false),
+            isSearchable:
+                context.knobs.boolean(label: 'Searchable', initial: false),
             dropdownController: TextEditingController(),
             items: [
               'one',
@@ -144,11 +153,13 @@ List<Story> dropdownStories() {
                 .entries
                 .map(
                   (item) => DropdownItem(
-                name: item.value,
-                code: item.key.toString(),
-                profileImageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
-              ),
-            ).toList(),
+                    name: item.value,
+                    code: item.key.toString(),
+                    profileImageUrl:
+                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzBXNuO6PezhC18aYH_2cYtS0I7KbxoKYdwA&usqp=CAU',
+                  ),
+                )
+                .toList(),
           ),
         ],
       ),
@@ -157,7 +168,9 @@ List<Story> dropdownStories() {
       name: 'Atom/Dropdown/Simple Dropdown/nested/simple',
       builder: (context) => Column(
         children: [
-          const SizedBox(height: 300,),
+          const SizedBox(
+            height: 300,
+          ),
           DigitDropdown<int>(
             isDisabled: context.knobs.boolean(
               label: 'Disabled',
@@ -166,8 +179,8 @@ List<Story> dropdownStories() {
             onSelect: (item) => {},
             dropdownController: TextEditingController(),
             selectionType: SelectionType.nestedSelect,
-            isSearchable: context.knobs
-                .boolean(label: 'Searchable', initial: false),
+            isSearchable:
+                context.knobs.boolean(label: 'Searchable', initial: false),
             items: const [
               DropdownItem(
                 name: 'one',
@@ -207,7 +220,9 @@ List<Story> dropdownStories() {
       name: 'Atom/Dropdown/Simple Dropdown/nested/nested text',
       builder: (context) => Column(
         children: [
-          const SizedBox(height: 300,),
+          const SizedBox(
+            height: 300,
+          ),
           DigitDropdown<int>(
             isDisabled: context.knobs.boolean(
               label: 'Disabled',
@@ -216,8 +231,8 @@ List<Story> dropdownStories() {
             onSelect: (item) => {},
             dropdownController: TextEditingController(),
             selectionType: SelectionType.nestedSelect,
-            isSearchable: context.knobs
-                .boolean(label: 'Searchable', initial: false),
+            isSearchable:
+                context.knobs.boolean(label: 'Searchable', initial: false),
             items: const [
               DropdownItem(
                 name: 'one',
@@ -263,8 +278,7 @@ List<Story> dropdownStories() {
     Story(
       name: 'Atom/Dropdown/Simple Dropdown/tree',
       builder: (context) => TreeSelectDropDown<int>(
-        isDisabled: context.knobs
-            .boolean(label: 'disabled', initial: false),
+        isDisabled: context.knobs.boolean(label: 'disabled', initial: false),
         onOptionSelected: (List<TreeNode> selectedOptions) {},
         options: [
           TreeNode('A', 'A', [
@@ -296,8 +310,8 @@ List<Story> dropdownStories() {
         ),
         onSelect: (item) => {},
         dropdownController: TextEditingController(),
-        isSearchable: context.knobs
-            .boolean(label: 'Searchable', initial: false),
+        isSearchable:
+            context.knobs.boolean(label: 'Searchable', initial: false),
         items: [
           'one',
           'two',
@@ -308,19 +322,18 @@ List<Story> dropdownStories() {
             .entries
             .map(
               (item) => DropdownItem(
-            name: item.value,
-            code: item.key.toString(),
-          ),
-        )
+                name: item.value,
+                code: item.key.toString(),
+              ),
+            )
             .toList(),
       ),
     ),
     Story(
       name: 'Atom/Dropdown/MultiSelect Dropdown/default/default',
       builder: (context) => MultiSelectDropDown<int>(
-      //  isSearchable: true,
-        isDisabled: context.knobs
-            .boolean(label: 'disabled', initial: false),
+        // isSearchable: true,
+        isDisabled: context.knobs.boolean(label: 'disabled', initial: false),
         onOptionSelected: (List<DropdownItem> selectedOptions) {},
         options: const [
           DropdownItem(code: '1', name: 'one'),
@@ -334,23 +347,41 @@ List<Story> dropdownStories() {
     Story(
       name: 'Atom/Dropdown/MultiSelect Dropdown/default/nested text',
       builder: (context) => MultiSelectDropDown<int>(
-        isDisabled: context.knobs
-            .boolean(label: 'disabled', initial: false),
+        isDisabled: context.knobs.boolean(label: 'disabled', initial: false),
         onOptionSelected: (List<DropdownItem> selectedOptions) {},
         options: const [
-          DropdownItem(code: '1', name: 'one',  description: 'description for one',),
-          DropdownItem(code: '2', name: 'two',  description: 'description for two',),
-          DropdownItem(code: '3', name: 'three', description: 'description for three',),
-          DropdownItem(code: '4', name: 'four', description: 'description for four',),
-          DropdownItem(code: '5', name: 'five', description: 'description for five',),
+          DropdownItem(
+            code: '1',
+            name: 'one',
+            description: 'description for one',
+          ),
+          DropdownItem(
+            code: '2',
+            name: 'two',
+            description: 'description for two',
+          ),
+          DropdownItem(
+            code: '3',
+            name: 'three',
+            description: 'description for three',
+          ),
+          DropdownItem(
+            code: '4',
+            name: 'four',
+            description: 'description for four',
+          ),
+          DropdownItem(
+            code: '5',
+            name: 'five',
+            description: 'description for five',
+          ),
         ],
       ),
     ),
     Story(
       name: 'Atom/Dropdown/MultiSelect Dropdown/default/icon',
       builder: (context) => MultiSelectDropDown<int>(
-        isDisabled: context.knobs
-            .boolean(label: 'disabled', initial: false),
+        isDisabled: context.knobs.boolean(label: 'disabled', initial: false),
         onOptionSelected: (List<DropdownItem> selectedOptions) {},
         options: const [
           DropdownItem(code: '1', name: 'one', textIcon: Icons.article),
@@ -364,30 +395,14 @@ List<Story> dropdownStories() {
     Story(
       name: 'Atom/Dropdown/MultiSelect Dropdown/nested/default',
       builder: (context) => MultiSelectDropDown<int>(
-        isDisabled: context.knobs
-            .boolean(label: 'disabled', initial: false),
+        isDisabled: context.knobs.boolean(label: 'disabled', initial: false),
         onOptionSelected: (List<DropdownItem> selectedOptions) {},
         options: const [
-          DropdownItem(
-              code: '1',
-              name: 'one',
-              type: 'Group A'),
-          DropdownItem(
-              code: '2',
-              name: 'two',
-              type: 'Group B'),
-          DropdownItem(
-              code: '3',
-              name: 'three',
-              type: 'Group B'),
-          DropdownItem(
-              code: '4',
-              name: 'four',
-              type: 'Group B'),
-          DropdownItem(
-              code: '5',
-              name: 'five',
-              type: 'Group A'),
+          DropdownItem(code: '1', name: 'one', type: 'Group A'),
+          DropdownItem(code: '2', name: 'two', type: 'Group B'),
+          DropdownItem(code: '3', name: 'three', type: 'Group B'),
+          DropdownItem(code: '4', name: 'four', type: 'Group B'),
+          DropdownItem(code: '5', name: 'five', type: 'Group A'),
         ],
         selectionType: SelectionType.nestedSelect,
       ),
@@ -395,8 +410,7 @@ List<Story> dropdownStories() {
     Story(
       name: 'Atom/Dropdown/MultiSelect Dropdown/nested/nested text',
       builder: (context) => MultiSelectDropDown<int>(
-        isDisabled: context.knobs
-            .boolean(label: 'disabled', initial: false),
+        isDisabled: context.knobs.boolean(label: 'disabled', initial: false),
         onOptionSelected: (List<DropdownItem> selectedOptions) {},
         options: const [
           DropdownItem(
@@ -431,8 +445,7 @@ List<Story> dropdownStories() {
     Story(
       name: 'Atom/Dropdown/MultiSelect Dropdown/nested/icon',
       builder: (context) => MultiSelectDropDown<int>(
-        isDisabled: context.knobs
-            .boolean(label: 'disabled', initial: false),
+        isDisabled: context.knobs.boolean(label: 'disabled', initial: false),
         onOptionSelected: (List<DropdownItem> selectedOptions) {},
         options: const [
           DropdownItem(
@@ -463,7 +476,8 @@ List<Story> dropdownStories() {
             code: '5',
             name: 'five',
             type: 'Group A',
-            textIcon: Icons.article,),
+            textIcon: Icons.article,
+          ),
         ],
         selectionType: SelectionType.nestedSelect,
       ),
@@ -471,8 +485,7 @@ List<Story> dropdownStories() {
     Story(
       name: 'Atom/Dropdown/MultiSelect Dropdown/tree',
       builder: (context) => TreeSelectDropDown<int>(
-        isDisabled: context.knobs
-            .boolean(label: 'disabled', initial: false),
+        isDisabled: context.knobs.boolean(label: 'disabled', initial: false),
         onOptionSelected: (List<TreeNode> selectedOptions) {},
         options: [
           TreeNode('A', 'A', [
@@ -495,5 +508,6 @@ List<Story> dropdownStories() {
         treeSelectionType: DropdownType.multiSelect,
       ),
     ),
+    // MultiSelectDropDownV2 Stories
   ];
 }

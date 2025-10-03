@@ -24,6 +24,7 @@ List<Story> infiniteDateScrollInputStories() {
             onChange: (value) {
               debugPrint("Selected date: $value");
             },
+            disableScroll: true,
           ),
         );
       },

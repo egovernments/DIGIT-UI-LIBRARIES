@@ -1,10 +1,8 @@
 import 'package:digit_ui_components/digit_components.dart';
+import 'package:digit_ui_components/widgets/atoms/input_wrapper.dart';
 import 'package:digit_ui_components/widgets/molecules/digit_card.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:storybook_toolkit/storybook_toolkit.dart';
-
-import 'package:digit_ui_components/widgets/atoms/input_wrapper.dart';
 
 import '../../iframe/iframe_widget.dart';
 
@@ -14,7 +12,8 @@ List<Story> inputFieldStories() {
       name: 'Atom/Input Field/Documentation',
       builder: (context) {
         return IframeWidget(
-          url: 'https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0',
+          url:
+              'https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0',
         );
       },
     ),
@@ -48,32 +47,34 @@ List<Story> inputFieldStories() {
 
           return Scaffold(
             body: ScrollableContent(
-              enableFixedDigitButton: true,
-              header: Text('dfjsdlkfs'),
-              footer: Text('dfjsdlkfs'),
-              children: [
-                DigitCard(
-                  children: [
-                    InputField(
-                      wrapLabel:
-                      context.knobs.boolean(label: 'Wrap Label', initial: false),
-                      type: InputType.text,
-                      label: context.knobs.text(label: 'Label', initial: 'Label'),
-                      helpText:
-                      context.knobs.text(label: 'Help Text', initial: 'help text'),
-                      infoText: context.knobs.text(label: 'tooltip', initial: 'info'),
-                      isRequired:
-                      context.knobs.boolean(label: 'Required', initial: false),
-                      innerLabel:
-                      context.knobs.text(label: 'Inner Label', initial: 'innerlabel'),
-                      isDisabled: isDisabled,
-                      readOnly: isReadOnly,
-                      errorMessage: errorMessage.isNotEmpty ? errorMessage : null,
-                    )
-                  ],
-                ),
-              ]
-            ),
+                enableFixedDigitButton: true,
+                header: Text('dfjsdlkfs'),
+                footer: Text('dfjsdlkfs'),
+                children: [
+                  DigitCard(
+                    children: [
+                      InputField(
+                        wrapLabel: context.knobs
+                            .boolean(label: 'Wrap Label', initial: false),
+                        type: InputType.text,
+                        label: context.knobs
+                            .text(label: 'Label', initial: 'Label'),
+                        helpText: context.knobs
+                            .text(label: 'Help Text', initial: 'help text'),
+                        infoText: context.knobs
+                            .text(label: 'tooltip', initial: 'info'),
+                        isRequired: context.knobs
+                            .boolean(label: 'Required', initial: false),
+                        innerLabel: context.knobs
+                            .text(label: 'Inner Label', initial: 'innerlabel'),
+                        isDisabled: isDisabled,
+                        readOnly: isReadOnly,
+                        errorMessage:
+                            errorMessage.isNotEmpty ? errorMessage : null,
+                      )
+                    ],
+                  ),
+                ]),
           );
         }),
     Story(
@@ -275,44 +276,23 @@ List<Story> inputFieldStories() {
     Story(
         name: 'Atom/Input Field/Date Field',
         builder: (context) {
-          // Create an option knob for read-only and disabled states
-          final fieldState = context.knobs.options<String>(
-            label: 'Field State',
-            initial: 'Default', // Ensure an initial value is set
-            options: [
-              Option(label: 'Default', value: 'default'),
-              Option(label: 'Non Editable', value: 'readOnly'),
-              Option(label: 'Disabled', value: 'disabled'),
-            ],
-          );
-
-          // Set the values for readOnly and isDisabled based on the selected option
-          bool isReadOnly = false;
-          bool isDisabled = false;
-
-          if (fieldState == 'readOnly') {
-            isReadOnly = true;
-          } else if (fieldState == 'disabled') {
-            isDisabled = true;
-          }
-          final errorMessage = context.knobs.text(
-            label: 'Error Message',
-            initial: '',
-          );
-
-          return InputField(
-            type: InputType.date,
-            infoText: context.knobs.text(label: 'tooltip', initial: 'info'),
+          return DigitDateFormInput(
+            // type: InputType.date,
+            // infoText: context.knobs.text(label: 'tooltip', initial: 'info'),
             isRequired:
                 context.knobs.boolean(label: 'Required', initial: false),
             helpText:
                 context.knobs.text(label: 'Help Text', initial: 'help text'),
             innerLabel:
                 context.knobs.text(label: 'Inner Label', initial: 'innerlabel'),
-            isDisabled: isDisabled,
-            readOnly: isReadOnly,
+            // isDisabled: isDisabled,
+            // readOnly: isReadOnly,
             editable: context.knobs.boolean(label: 'Editable', initial: false),
-            errorMessage: errorMessage.isNotEmpty ? errorMessage : null,
+            // errorMessage: errorMessage.isNotEmpty ? errorMessage : null,
+            onChange: (value) {
+              print('fdlfjsdfsdfjsdkfjsd');
+              print(value);
+            },
           );
         }),
     Story(

@@ -1,3 +1,32 @@
+## 0.2.2+9
+* Added width property in card
+* Updated properties for scrollable content
+
+## 0.2.2+8
+* Added readOnly property in selection card
+
+## 0.2.2+7
+* Updated date picker to show initial date
+
+## 0.2.2+6
+* Updated dob date return type as dd mmm yyyy
+* Fix misalignment in privacy component 
+
+## 0.2.2+5
+* Added property to enable or disable action in panel cards
+
+## 0.2.2+4
+* Added show function for bottom sheet
+
+## 0.2.2+3
+* initial Date update in date scroll
+
+## 0.2.2+2
+* Fixed date not getting updated
+
+## 0.2.2+1
+* Added property to disable scroll in date component
+
 ## 0.2.2
 * Updated date picker and infinite date scroll component 
 

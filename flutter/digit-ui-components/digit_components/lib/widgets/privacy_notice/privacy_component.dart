@@ -1,12 +1,13 @@
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:reactive_forms/reactive_forms.dart';
+
 import '../../constants/app_constants.dart';
 import '../../models/privacy_notice/privacy_notice_model.dart';
 import '../../theme/spacers.dart';
 import '../localized.dart';
 import 'privacy_notice_dialog.dart';
-import 'package:reactive_forms/reactive_forms.dart';
 
 class PrivacyComponent extends LocalizedStatefulWidget {
   final String formControlName;
@@ -56,48 +57,48 @@ class _PrivacyComponentState extends LocalizedState<PrivacyComponent> {
         return ValueListenableBuilder<bool>(
           valueListenable: checkboxStateNotifier,
           builder: (context, value, child) {
-
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     GestureDetector(
                       onTap: () {
                         checkboxStateNotifier.value =
-                        !checkboxStateNotifier.value;
+                            !checkboxStateNotifier.value;
                         field.didChange(checkboxStateNotifier.value);
                       },
                       child: value
                           ? Container(
-                        width: spacer6,
-                        height: spacer6,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: theme.colorTheme.primary.primary1,
-                            width: 2,
-                          ),
-                          borderRadius: BorderRadius.zero,
-                        ),
-                        child: Center(
-                          child: Icon(
-                            Icons.check,
-                            size: spacer4,
-                            color: theme.colorTheme.primary.primary1,
-                          ),
-                        ),
-                      )
+                              width: spacer6,
+                              height: spacer6,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: theme.colorTheme.primary.primary1,
+                                  width: 2,
+                                ),
+                                borderRadius: BorderRadius.zero,
+                              ),
+                              child: Center(
+                                child: Icon(
+                                  Icons.check,
+                                  size: spacer4,
+                                  color: theme.colorTheme.primary.primary1,
+                                ),
+                              ),
+                            )
                           : Container(
-                        width: spacer6,
-                        height: spacer6,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: theme.colorTheme.text.primary,
-                            width: 1,
-                          ),
-                          borderRadius: BorderRadius.zero,
-                        ),
-                      ),
+                              width: spacer6,
+                              height: spacer6,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: theme.colorTheme.text.primary,
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.zero,
+                              ),
+                            ),
                     ),
                     const SizedBox(width: spacer2),
                     Expanded(
@@ -113,16 +114,18 @@ class _PrivacyComponentState extends LocalizedState<PrivacyComponent> {
                               style: theme.textTheme.bodyLarge?.copyWith(
                                 color: theme.colorTheme.primary.primary1,
                                 decoration: TextDecoration.underline,
-                                decorationColor: theme.colorTheme.primary.primary1,
+                                decorationColor:
+                                    theme.colorTheme.primary.primary1,
                               ),
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
                                   showDialog(
                                     context: context,
                                     builder: (context) {
-
                                       return FullPageDialog(
-                                        privacyPolicy: widget.privacyPolicy ?? const PrivacyNoticeModel(header: '', module: ''),
+                                        privacyPolicy: widget.privacyPolicy ??
+                                            const PrivacyNoticeModel(
+                                                header: '', module: ''),
                                         onAccept: () {
                                           checkboxStateNotifier.value = true;
                                           field.didChange(true);
@@ -173,9 +176,12 @@ class _PrivacyComponentState extends LocalizedState<PrivacyComponent> {
                         fit: FlexFit.tight,
                         child: Text(
                           widget.validationMessage,
-                          style: Theme.of(context).digitTextTheme(context).bodyS.copyWith(
-                            color: theme.colorTheme.alert.error,
-                          ),
+                          style: Theme.of(context)
+                              .digitTextTheme(context)
+                              .bodyS
+                              .copyWith(
+                                color: theme.colorTheme.alert.error,
+                              ),
                         ),
                       ),
                     ],

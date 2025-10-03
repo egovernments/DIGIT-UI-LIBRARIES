@@ -17,6 +17,7 @@ class SelectionCard<T> extends StatefulWidget {
   final IconData? Function(T)? prefixIconBuilder;
   final IconData? Function(T)? suffixIconBuilder;
   final bool showParentContainer;
+  final bool readOnly;
 
   const SelectionCard({
     Key? key,
@@ -34,6 +35,7 @@ class SelectionCard<T> extends StatefulWidget {
     this.prefixIconBuilder,
     this.suffixIconBuilder,
     this.showParentContainer = false,
+    this.readOnly = false,
   }) : super(key: key);
 
   @override
@@ -59,6 +61,7 @@ class _SelectionCardState<T> extends State<SelectionCard<T>> {
       _calculateMaxOptionWidth(context);
     }
   }
+
   @override
   void didUpdateWidget(covariant SelectionCard<T> oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -68,7 +71,6 @@ class _SelectionCardState<T> extends State<SelectionCard<T>> {
         _selectedOptions.addAll(widget.initialSelection ?? []);
       });
     }
-
   }
 
   void _calculateMaxOptionWidth(BuildContext context) {
@@ -77,8 +79,8 @@ class _SelectionCardState<T> extends State<SelectionCard<T>> {
     for (var option in widget.options) {
       final textPainter = TextPainter(
         text: TextSpan(
-            text: widget.valueMapper(option),
-            style: Theme.of(context).digitTextTheme(context).bodyL,
+          text: widget.valueMapper(option),
+          style: Theme.of(context).digitTextTheme(context).bodyL,
         ),
         textDirection: TextDirection.ltr,
       );
@@ -89,7 +91,9 @@ class _SelectionCardState<T> extends State<SelectionCard<T>> {
     }
 
     setState(() {
-      _maxOptionWidth = maxWidth + spacer10; /// Add padding
+      _maxOptionWidth = maxWidth + spacer10;
+
+      /// Add padding
     });
   }
 
@@ -114,25 +118,28 @@ class _SelectionCardState<T> extends State<SelectionCard<T>> {
   }
 
   Widget _buildOption(T option) {
-
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
     bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
     final isSelected = _selectedOptions.contains(option);
 
     return GestureDetector(
-      onTap: () => _onOptionTap(option),
+      onTap: () => widget.readOnly ? null : _onOptionTap(option),
       child: Container(
         width: widget.equalWidthOptions ? _maxOptionWidth : widget.width,
-        padding: const EdgeInsets.symmetric(
-            vertical: spacer2, horizontal: spacer4),
+        padding:
+            const EdgeInsets.symmetric(vertical: spacer2, horizontal: spacer4),
         decoration: BoxDecoration(
-          color: isSelected
-              ? theme.colorTheme.primary.primary1
-              : theme.colorTheme.paper.primary,
+          color: widget.readOnly && isSelected
+              ? theme.colorTheme.text.secondary
+              : isSelected
+                  ? theme.colorTheme.primary.primary1
+                  : theme.colorTheme.paper.primary,
           borderRadius: BorderRadius.circular(spacer1),
           border: Border.all(
-            color: theme.colorTheme.generic.divider,
+            color: widget.readOnly
+                ? theme.colorTheme.text.disabled
+                : theme.colorTheme.generic.divider,
             width: 1,
           ),
         ),
@@ -140,16 +147,17 @@ class _SelectionCardState<T> extends State<SelectionCard<T>> {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (widget.prefixIconBuilder != null && widget.prefixIconBuilder!(option) != null)
-              ...[Icon(
+            if (widget.prefixIconBuilder != null &&
+                widget.prefixIconBuilder!(option) != null) ...[
+              Icon(
                 widget.prefixIconBuilder!(option),
                 color: isSelected
                     ? theme.colorTheme.paper.primary
                     : theme.colorTheme.text.primary,
                 size: isMobile ? spacer4 : spacer6,
               ),
-                const SizedBox(width: spacer2),
-              ],
+              const SizedBox(width: spacer2),
+            ],
             Flexible(
               child: Text(
                 widget.valueMapper(option),
@@ -157,24 +165,29 @@ class _SelectionCardState<T> extends State<SelectionCard<T>> {
                 textAlign: TextAlign.center,
                 style: isSelected
                     ? textTheme.bodyLarge?.copyWith(
-                  color: theme.colorTheme.paper.primary,
-                  fontWeight: FontWeight.w700,
-                )
-                    : textTheme.bodyLarge?.copyWith(
-                  color: theme.colorTheme.text.primary,
-                ),
+                        color: theme.colorTheme.paper.primary,
+                        fontWeight: FontWeight.w700,
+                      )
+                    : widget.readOnly
+                        ? textTheme.bodyLarge?.copyWith(
+                            color: theme.colorTheme.text.disabled,
+                          )
+                        : textTheme.bodyLarge?.copyWith(
+                            color: theme.colorTheme.text.primary,
+                          ),
               ),
             ),
-            if (widget.suffixIconBuilder != null && widget.suffixIconBuilder!(option) != null)
-              ...[
-                const SizedBox(width: spacer2),
-                Icon(
-                  widget.suffixIconBuilder!(option),
-                  color: isSelected
-                      ? theme.colorTheme.paper.primary
-                      : theme.colorTheme.text.primary,
-                  size: isMobile ? spacer4 : spacer6,
-                ),]
+            if (widget.suffixIconBuilder != null &&
+                widget.suffixIconBuilder!(option) != null) ...[
+              const SizedBox(width: spacer2),
+              Icon(
+                widget.suffixIconBuilder!(option),
+                color: isSelected
+                    ? theme.colorTheme.paper.primary
+                    : theme.colorTheme.text.primary,
+                size: isMobile ? spacer4 : spacer6,
+              ),
+            ]
           ],
         ),
       ),
@@ -188,129 +201,125 @@ class _SelectionCardState<T> extends State<SelectionCard<T>> {
 
     bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
 
-
     if (widget.equalWidthOptions) {
       _calculateMaxOptionWidth(context);
     }
 
-
-    return widget.showParentContainer ? Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        LabeledField(
-          label: widget.title,
-          isRequired: widget.isRequired,
-          infoText: widget.tooltipLabel,
-          child: Container(
-            width: isMobile ? MediaQuery.of(context).size.width : null,
-            padding: EdgeInsets.all(isMobile ? spacer4 : spacer6),
-            decoration: BoxDecoration(
-              color: theme.colorTheme.paper.secondary,
-              borderRadius: BorderRadius.circular(spacer1),
-              border: Border.all(
-                color: widget.errorMessage != null ?theme.colorTheme.alert.error: theme.colorTheme.generic.divider,
-                width: 1,
-              ),
-            ),
-            child: Wrap(
-              alignment: WrapAlignment.center,
-              spacing: spacer6,
-              runSpacing: spacer6,
-              children: widget.options.map(_buildOption).toList(),
-            ),
-          ),
-        ),
-        if(widget.errorMessage != null)
-        const SizedBox(height: spacer1),
-        if (widget.errorMessage != null)
-          Row(
+    return widget.showParentContainer
+        ? Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Column(
-                children: [
-                  const SizedBox(
-                    height: spacer1 / 2,
-                  ),
-                  SizedBox(
-                    height: spacer4,
-                    width: spacer4,
-                    child: Icon(
-                      Icons.info,
-                      color: const DigitColors()
-                          .light
-                          .alertError,
-                      size: BaseConstants.errorIconSize,
+              LabeledField(
+                label: widget.title,
+                isRequired: widget.isRequired,
+                infoText: widget.tooltipLabel,
+                child: Container(
+                  width: isMobile ? MediaQuery.of(context).size.width : null,
+                  padding: EdgeInsets.all(isMobile ? spacer4 : spacer6),
+                  decoration: BoxDecoration(
+                    color: theme.colorTheme.paper.secondary,
+                    borderRadius: BorderRadius.circular(spacer1),
+                    border: Border.all(
+                      color: widget.errorMessage != null
+                          ? theme.colorTheme.alert.error
+                          : theme.colorTheme.generic.divider,
+                      width: 1,
                     ),
                   ),
-                ],
-              ),
-              const SizedBox(width: spacer1),
-              Flexible(
-                fit: FlexFit.tight,
-                child: Text(
-                  widget.errorMessage!,
-                  style: textTheme.bodyLarge?.copyWith(
-                    color: theme.colorTheme.alert.error,
+                  child: Wrap(
+                    alignment: WrapAlignment.center,
+                    spacing: spacer6,
+                    runSpacing: spacer6,
+                    children: widget.options.map(_buildOption).toList(),
                   ),
                 ),
               ),
-            ],
-          ),
-      ],
-    ) : Column(
-      mainAxisSize: MainAxisSize.max,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Wrap(
-          alignment: WrapAlignment.center,
-          spacing: spacer6,
-          runSpacing: spacer6,
-          children: widget.options.map(_buildOption).toList(),
-        ),
-        if(widget.errorMessage != null)
-          const SizedBox(height: spacer1),
-        if (widget.errorMessage != null)
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Column(
-                children: [
-                  const SizedBox(
-                    height: spacer1 / 2,
-                  ),
-                  SizedBox(
-                    height: spacer4,
-                    width: spacer4,
-                    child: Icon(
-                      Icons.info,
-                      color: const DigitColors()
-                          .light
-                          .alertError,
-                      size: BaseConstants.errorIconSize,
+              if (widget.errorMessage != null) const SizedBox(height: spacer1),
+              if (widget.errorMessage != null)
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Column(
+                      children: [
+                        const SizedBox(
+                          height: spacer1 / 2,
+                        ),
+                        SizedBox(
+                          height: spacer4,
+                          width: spacer4,
+                          child: Icon(
+                            Icons.info,
+                            color: const DigitColors().light.alertError,
+                            size: BaseConstants.errorIconSize,
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(width: spacer1),
-              Flexible(
-                fit: FlexFit.tight,
-                child: Text(
-                  widget.errorMessage!,
-                  style: textTheme.bodyLarge?.copyWith(
-                    color: theme.colorTheme.alert.error,
-                  ),
+                    const SizedBox(width: spacer1),
+                    Flexible(
+                      fit: FlexFit.tight,
+                      child: Text(
+                        widget.errorMessage!,
+                        style: textTheme.bodyLarge?.copyWith(
+                          color: theme.colorTheme.alert.error,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
             ],
-          ),
-      ],
-    );
+          )
+        : Column(
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Wrap(
+                alignment: WrapAlignment.center,
+                spacing: spacer6,
+                runSpacing: spacer6,
+                children: widget.options.map(_buildOption).toList(),
+              ),
+              if (widget.errorMessage != null) const SizedBox(height: spacer1),
+              if (widget.errorMessage != null)
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Column(
+                      children: [
+                        const SizedBox(
+                          height: spacer1 / 2,
+                        ),
+                        SizedBox(
+                          height: spacer4,
+                          width: spacer4,
+                          child: Icon(
+                            Icons.info,
+                            color: const DigitColors().light.alertError,
+                            size: BaseConstants.errorIconSize,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(width: spacer1),
+                    Flexible(
+                      fit: FlexFit.tight,
+                      child: Text(
+                        widget.errorMessage!,
+                        style: textTheme.bodyLarge?.copyWith(
+                          color: theme.colorTheme.alert.error,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+            ],
+          );
   }
 }

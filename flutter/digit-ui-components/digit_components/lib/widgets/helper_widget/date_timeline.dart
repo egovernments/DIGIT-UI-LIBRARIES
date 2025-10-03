@@ -14,6 +14,7 @@ class DigitInfiniteDateTimeline extends StatefulWidget {
   final Color selectedTextColor;
   final Color unselectedTextColor;
   final DateTimelineController? controller;
+  final bool disableScroll;
 
   const DigitInfiniteDateTimeline({
     super.key,
@@ -26,6 +27,7 @@ class DigitInfiniteDateTimeline extends StatefulWidget {
     this.unselectedColor = Colors.white,
     this.selectedTextColor = Colors.white,
     this.unselectedTextColor = Colors.black87,
+    this.disableScroll = false,
   });
 
   @override
@@ -172,7 +174,7 @@ class _DigitInfiniteDateTimelineState extends State<DigitInfiniteDateTimeline> {
         initialPage: _selectedIndex,
         enlargeCenterPage: true,
         enlargeFactor: 0.12,
-        // <- Decrease this for less dramatic size difference
+        scrollPhysics: widget.disableScroll ? const NeverScrollableScrollPhysics() : null,
         enlargeStrategy: CenterPageEnlargeStrategy.scale,
         onPageChanged: (index, reason) {
           if (_externalChangeInProgress || index == _selectedIndex) return;

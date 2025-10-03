@@ -1,5 +1,7 @@
+import 'dart:async';
 import 'dart:math';
 
+import 'package:digit_ui_components/constants/AppView.dart';
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:digit_ui_components/widgets/atoms/table_container.dart';
@@ -76,28 +78,45 @@ class _DigitTableState extends State<DigitTable> {
   SortOrder? sortOrder;
   int? sortedColumnIndex;
   List<DigitTableRow> sortedRows = [];
-  List<double> columnWidths = [];
-  final List<GlobalKey> headerKeys = [];
-  bool _isFrozenColumnsHidden = false;
+  
+  // Cache for column widths to avoid recalculation
+  late Map<String, double> _columnWidthCache;
+  
+  // Optimized frozen column state
+  List<DigitTableColumn> _frozenColumns = [];
+  double _frozenWidth = 0;
+  bool _showFrozenColumns = false;
+  
+  // Row height management - simplified
   List<double> rowHeights = [];
   List<GlobalKey> frozenKeys = [];
   List<GlobalKey> nonFrozenKeys = [];
+  
+  /// Calculate total table width based on column widths
+  double _calculateTableWidth() {
+    double totalWidth = 0;
+    for (var column in widget.columns) {
+      totalWidth += _getColumnWidth(column);
+    }
+    return totalWidth + 2; // Add 2 for borders
+  }
 
   // Checkbox state management
   bool _headerCheckboxValue = false;
-  bool _headerCheckboxIndeterminate = false; // Added for intermediate state
+  bool _headerCheckboxIndeterminate = false;
   late Set<int> _selectedRowIndices = Set<int>();
   late Set<int> _highlightedRowIndices = Set<int>();
-  final ScrollController _scrollController = ScrollController();
-  final ScrollController _verticalScrollController = ScrollController();
-  double _scrollOffset = 0.0;
-  bool _isOverflowing = false;
-  bool _isOverflowingVertical = false;
-  bool firstBuild = false;
-
+  
+  // Scroll controllers - simplified
+  final ScrollController _horizontalScrollController = ScrollController();
   late final LinkedScrollControllerGroup _linkedScrollGroup;
   late final ScrollController _nonFrozenScrollController;
   late final ScrollController _frozenScrollController;
+  
+  // Performance flags
+  bool _isOverflowing = false;
+  bool _needsRebuild = false;
+  Timer? _scrollDebounce;
 
 
   @override
@@ -105,67 +124,73 @@ class _DigitTableState extends State<DigitTable> {
     super.initState();
     sortedRows = widget.rows;
     _selectedRowIndices = Set<int>();
-
-    // Initialize keys for each row
-
-    frozenKeys = List.generate(widget.rows.length, (_) => GlobalKey());
-
-    nonFrozenKeys = List.generate(widget.rows.length, (_) => GlobalKey());
-
-    // Initialize row heights to zero
-    rowHeights = List.filled(widget.rows.length, 0.0);
-
-    // Initialize linked scroll controllers
+    _columnWidthCache = {};
+    
+    // Initialize keys only if needed for frozen columns
+    final validFrozenCount = widget.frozenColumnsCount.clamp(0, widget.columns.length);
+    if (validFrozenCount > 0 && widget.rows.isNotEmpty) {
+      frozenKeys = List.generate(widget.rows.length, (_) => GlobalKey());
+      nonFrozenKeys = List.generate(widget.rows.length, (_) => GlobalKey());
+      rowHeights = List.filled(widget.rows.length, 52.0); // Default height
+    } else {
+      frozenKeys = [];
+      nonFrozenKeys = [];
+      rowHeights = [];
+    }
+    
+    // Initialize linked scroll controllers for frozen columns
     _linkedScrollGroup = LinkedScrollControllerGroup();
     _nonFrozenScrollController = _linkedScrollGroup.addAndGet();
     _frozenScrollController = _linkedScrollGroup.addAndGet();
-
-
+    
     if(widget.selectedRows.isNotEmpty) {
       _selectedRowIndices = widget.selectedRows.toSet();
     }
-
+    
     if(widget.highlightedRows.isNotEmpty) {
       _highlightedRowIndices = widget.highlightedRows.toSet();
     }
-
-    // Listen to scroll events
-    _scrollController.addListener(_onScroll);
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (!mounted) return; // Prevent setState if disposed
-      _updateRowHeights();
-    });
+    
+    // Calculate frozen columns once
+    _updateFrozenColumns();
+    
+    // Listen to scroll events with debouncing
+    _horizontalScrollController.addListener(_onScrollDebounced);
   }
 
-  // Method to update row heights after rendering
-  void _updateRowHeights() {
-      if (!mounted) return; // Prevent setState if disposed
-
-      for (int index = 0; index < frozenKeys.length; index++) {
-        final frozenContext = frozenKeys[index].currentContext;
-        final nonFrozenContext = nonFrozenKeys[index].currentContext;
-
-        if (frozenContext == null || nonFrozenContext == null) continue;
-
-        final RenderBox? frozenBox = frozenContext.findRenderObject() as RenderBox?;
-        final RenderBox? nonFrozenBox = nonFrozenContext.findRenderObject() as RenderBox?;
-
-        double frozenHeight = frozenBox?.size.height ?? 0;
-        double nonFrozenHeight = nonFrozenBox?.size.height ?? 0;
-        double maxHeight = max(frozenHeight, nonFrozenHeight);
-
-        // Check if index is within bounds
-        if (index >= rowHeights.length) {
-          rowHeights.add(maxHeight);
+  // Calculate frozen columns once instead of on every scroll
+  void _updateFrozenColumns() {
+    // Ensure frozen count doesn't exceed actual columns
+    final validFrozenCount = widget.frozenColumnsCount.clamp(0, widget.columns.length);
+    
+    if (validFrozenCount > 0 && widget.columns.isNotEmpty) {
+      _frozenColumns = widget.columns.take(validFrozenCount).toList();
+      _frozenWidth = _frozenColumns.fold(0, (sum, col) => sum + _getColumnWidth(col));
+      _showFrozenColumns = true;
+    } else {
+      _frozenColumns = [];
+      _frozenWidth = 0;
+      _showFrozenColumns = false;
+    }
+  }
+  
+  // Debounced scroll handler for better performance
+  void _onScrollDebounced() {
+    _scrollDebounce?.cancel();
+    _scrollDebounce = Timer(const Duration(milliseconds: 10), () {
+      if (mounted && _horizontalScrollController.hasClients) {
+        final offset = _horizontalScrollController.offset;
+        if (offset > 10 && widget.frozenColumnsCount > 0) {
+          if (!_showFrozenColumns) {
+            setState(() => _showFrozenColumns = true);
+          }
         } else {
-          if (mounted && rowHeights[index] != maxHeight) {
-            setState(() {
-              rowHeights[index] = maxHeight;
-            });
+          if (_showFrozenColumns && widget.frozenColumnsCount == 0) {
+            setState(() => _showFrozenColumns = false);
           }
         }
       }
+    });
   }
 
   @override
@@ -176,54 +201,48 @@ class _DigitTableState extends State<DigitTable> {
   @override
   void didUpdateWidget(DigitTable oldWidget) {
     super.didUpdateWidget(oldWidget);
-
-
+    
     if (widget.selectedRows != oldWidget.selectedRows) {
       _selectedRowIndices.addAll(widget.selectedRows);
     }
-
+    
     if (widget.highlightedRows != oldWidget.highlightedRows) {
       _highlightedRowIndices.addAll(widget.highlightedRows);
     }
-
+    
     if(widget.rows != oldWidget.rows) {
       sortedRows = widget.rows;
-    }
-
-    if (widget.rows != oldWidget.rows) {
-      sortedRows = widget.rows;
-
-      // Update rowHeights and keys when row count changes
-      final newRowCount = widget.rows.length;
-      if (newRowCount != rowHeights.length) {
-        rowHeights = List.filled(newRowCount, 0.0);
+      // Update keys only if using frozen columns
+      final validFrozenCount = widget.frozenColumnsCount.clamp(0, widget.columns.length);
+      if (validFrozenCount > 0 && widget.rows.isNotEmpty) {
+        final newRowCount = widget.rows.length;
+        rowHeights = List.filled(newRowCount, 52.0);
         frozenKeys = List.generate(newRowCount, (_) => GlobalKey());
         nonFrozenKeys = List.generate(newRowCount, (_) => GlobalKey());
       } else {
-        // Reset heights if rows change but count remains the same
-        rowHeights = List.filled(newRowCount, 0.0);
+        frozenKeys = [];
+        nonFrozenKeys = [];
+        rowHeights = [];
       }
-       _updateRowHeights();
     }
-
+    
+    if (widget.frozenColumnsCount != oldWidget.frozenColumnsCount || 
+        widget.columns.length != oldWidget.columns.length) {
+      _updateFrozenColumns();
+      _columnWidthCache.clear(); // Clear cache when config changes
+    }
   }
 
   @override
   void dispose() {
+    _scrollDebounce?.cancel();
     _nonFrozenScrollController.dispose();
     _frozenScrollController.dispose();
-    _scrollController.dispose();
-    _verticalScrollController.dispose();
+    _horizontalScrollController.dispose();
     super.dispose();
   }
 
-  void _onScroll() {
-    double scrollOffset = _scrollController.offset;
-    // Check if the frozen columns are hidden
-    setState(() {
-      _isFrozenColumnsHidden = _getColumnsToFreeze(scrollOffset).isEmpty;
-    });
-  }
+  // Removed _onScroll method - using debounced version instead
 
   void _sortRows() {
     if (sortedColumnIndex != null && sortOrder != null) {
@@ -256,77 +275,65 @@ class _DigitTableState extends State<DigitTable> {
     }
   }
 
-  Widget _buildFrozenColumns(double scrollOffset, BuildContext context, List<DigitTableRow> row, bool isOverflowing) {
-
+  Widget _buildFrozenColumns(BuildContext context, List<DigitTableRow> rows) {
     final theme = Theme.of(context);
-
-    // If frozen columns should not be hidden, return an empty widget
-    if (_isFrozenColumnsHidden) {
-      return const SizedBox(); // No frozen columns are hidden
+    
+    // If no frozen columns or not scrolled, return empty
+    if (!_showFrozenColumns || _frozenColumns.isEmpty) {
+      return const SizedBox.shrink();
     }
-
-    // Find the columns that need to be frozen based on scroll offset
-    List<DigitTableColumn> frozenColumns = _getColumnsToFreeze(scrollOffset);
-
-    // Define frozen column width based on the columns to be frozen
-    double frozenWidth = frozenColumns.fold(0, (sum, column) => sum + _getColumnWidth(column));
     return Positioned(
       top: 0,
-      left: scrollOffset,
+      left: 0,
       bottom: widget.stickyFooter ? 64 : 0,
       child: Container(
         margin: _isOverflowing ? const EdgeInsets.only(bottom: 12) : EdgeInsets.zero,
         decoration: BoxDecoration(
-          color: theme.colorTheme.generic.transparent,
-          boxShadow: [BoxShadow(color: theme.colorTheme.text.disabled, spreadRadius: 0, blurRadius: 1, offset: const Offset(1, 0))],
+          color: theme.colorTheme.paper.primary,
+          boxShadow: [BoxShadow(
+            color: theme.colorTheme.text.disabled.withOpacity(0.2), 
+            spreadRadius: 0, 
+            blurRadius: 2, 
+            offset: const Offset(2, 0)
+          )],
         ),
-        width: frozenWidth,
+        width: _frozenWidth,
         child: Column(
           children: [
             TableHeader(
               withRowDividers: widget.withRowDividers,
-              columns: frozenColumns,
+              columns: _frozenColumns,
               sortedColumnIndex: sortedColumnIndex,
               sortOrder: sortOrder,
               enabledBorder: widget.enableBorder,
-              onSort: (index, order) {
-                setState(() {
-                  if (sortedColumnIndex == index) {
-                    sortOrder = sortOrder == SortOrder.ascending
-                        ? SortOrder.descending
-                        : SortOrder.ascending;
-                  } else {
-                    sortedColumnIndex = index;
-                    sortOrder = SortOrder.ascending;
-                  }
-                  _sortRows();
-                  currentPage = 1;
-                });
-              },
+              getColumnWidth: _getColumnWidth,
+              onSort: _handleSort,
               withColumnDividers: widget.withColumnDividers,
               headerCheckboxValue: _headerCheckboxValue,
               headerCheckboxIndeterminate: _headerCheckboxIndeterminate,
               onHeaderCheckboxChanged: _onHeaderCheckboxChanged,
             ),
-            TableBody(
-              keys: frozenKeys,
-              rowHeights: rowHeights,
-              isFrozen: true,
-              controller: _frozenScrollController,
-              tableHeight: widget.tableHeight,
-              enableSelection: widget.showSelectedState,
-              highlightedRows: _highlightedRowIndices,
-              selectedRows: _selectedRowIndices,
-              hasFooter: widget.showPagination,
-              rows: row.map((row) {
-                /// Filter cells for the current row that match the frozen columns
-                List<DigitTableData> filteredCells = row.tableRow.where((cell) {
-                  return frozenColumns.any((column) => column.cellValue == cell.cellKey);
-                }).toList();
-
-                return DigitTableRow(tableRow: filteredCells);
-              }).toList(),
-              columns: frozenColumns,
+            if (_frozenColumns.isNotEmpty && rows.isNotEmpty)
+              TableBody(
+                keys: frozenKeys.isNotEmpty ? frozenKeys : List.generate(rows.length, (_) => GlobalKey()),
+                rowHeights: rowHeights.isNotEmpty ? rowHeights : null,
+                isFrozen: true,
+                controller: _frozenScrollController,
+                tableHeight: widget.tableHeight,
+                enableSelection: widget.showSelectedState,
+                highlightedRows: _highlightedRowIndices,
+                selectedRows: _selectedRowIndices,
+                hasFooter: widget.showPagination,
+                getColumnWidth: _getColumnWidth,
+                rows: rows.map((row) {
+                  // Take only the frozen column cells, ensure we don't exceed available cells
+                  final cellCount = row.tableRow.length.clamp(0, _frozenColumns.length);
+                  List<DigitTableData> frozenCells = cellCount > 0 
+                      ? row.tableRow.take(cellCount).toList()
+                      : [];
+                  return DigitTableRow(tableRow: frozenCells);
+                }).toList(),
+                columns: _frozenColumns,
               alternateRowColor: widget.alternateRowColor,
               withRowDividers: widget.withRowDividers,
               enableBorder: widget.enableBorder,
@@ -352,29 +359,64 @@ class _DigitTableState extends State<DigitTable> {
     );
   }
 
-  /// Get the list of columns that need to be frozen based on the scroll offset
-  List<DigitTableColumn> _getColumnsToFreeze(double scrollOffset) {
-    List<DigitTableColumn> frozenColumns = [];
+  // Removed _getColumnsToFreeze - now using pre-calculated _frozenColumns
 
-    // Loop through all columns and freeze those that have scrolled out of view
-    double cumulativeWidth = 0;
-    for (int i = 0; i < widget.columns.length; i++) {
-      DigitTableColumn column = widget.columns[i];
-      double columnWidth = _getColumnWidth(column);
-
-      // If the cumulative width of the columns is less than the scroll offset,
-      // it means the column has scrolled out of view and should be frozen
-      if ( scrollOffset >cumulativeWidth || widget.columns[i].isFrozen) {
-        frozenColumns.add(column);
-      }
-      cumulativeWidth += columnWidth;
-    }
-    return frozenColumns;
-  }
-
-  /// Helper to get the width of a column
+  /// Helper to get the width of a column with caching
   double _getColumnWidth(DigitTableColumn column) {
-    return column.width ?? 202.0;
+    // Use cache key based on column header and type
+    final cacheKey = '${column.header}_${column.type}';
+    
+    // Return cached value if exists
+    if (_columnWidthCache.containsKey(cacheKey)) {
+      return _columnWidthCache[cacheKey]!;
+    }
+    
+    final screenSize = MediaQuery.of(context).size;
+    double width;
+    
+    // If width is provided, use responsive calculation
+    if (column.width != null) {
+      if (AppView.isMobileView(screenSize)) {
+        width = column.width! * 0.7;
+      } else if (AppView.isTabletView(screenSize)) {
+        width = column.width! * 0.85;
+      } else {
+        width = column.width!;
+      }
+    } else {
+      // Default responsive widths based on column type
+      switch (column.type) {
+        case ColumnType.checkbox:
+        case ColumnType.numeric:
+          width = AppView.isMobileView(screenSize) ? 50 : 
+                 AppView.isTabletView(screenSize) ? 70 : 100;
+          break;
+        case ColumnType.DigitButton:
+        case ColumnType.dropDown:
+        case ColumnType.textField:
+          width = AppView.isMobileView(screenSize) ? 120 : 
+                 AppView.isTabletView(screenSize) ? 150 : 180;
+          break;
+        case ColumnType.tags:
+        case ColumnType.switchs:
+          width = AppView.isMobileView(screenSize) ? 100 : 
+                 AppView.isTabletView(screenSize) ? 130 : 160;
+          break;
+        case ColumnType.description:
+          width = AppView.isMobileView(screenSize) ? 180 : 
+                 AppView.isTabletView(screenSize) ? 220 : 280;
+          break;
+        case ColumnType.text:
+        default:
+          width = AppView.isMobileView(screenSize) ? 140 : 
+                 AppView.isTabletView(screenSize) ? 170 : 202;
+          break;
+      }
+    }
+    
+    // Cache the calculated width
+    _columnWidthCache[cacheKey] = width;
+    return width;
   }
 
   void _onHeaderCheckboxChanged(bool? newValue) {
@@ -404,48 +446,111 @@ class _DigitTableState extends State<DigitTable> {
     }
   }
 
-  // Method to count how many checkbox or numeric columns exist
-  int _countSpecialColumns() {
-    int count = 0;
-    for (var column in widget.columns) {
-      if (column.type == ColumnType.checkbox || column.type == ColumnType.numeric) {
-        count++;
-      }
-    }
-    return count;
-  }
 
-  @override
-  Widget build(BuildContext context) {
-    // Get the count of checkbox and numeric columns
-    int specialColumnCount = _countSpecialColumns();
-
-    int normalColumns = widget.columns.length - specialColumnCount;
-
-    int totalPages = (sortedRows.length / rowsPerPage).ceil();
+  // Extract pagination logic
+  List<DigitTableRow> _getPaginatedRows() {
+    if (!widget.showPagination) return sortedRows;
+    
     int startIndex = (currentPage - 1) * rowsPerPage;
     int endIndex = startIndex + rowsPerPage;
-    List<DigitTableRow> paginatedRows = sortedRows.sublist(
+    return sortedRows.sublist(
       startIndex,
       endIndex > sortedRows.length ? sortedRows.length : endIndex,
     );
-
-    // Update header checkbox based on selected rows
-     _updateHeaderCheckbox();
-
-    if (!firstBuild) {
-      firstBuild = true;
-      SchedulerBinding.instance.addPostFrameCallback((_) {
+  }
+  
+  // Build table header widget
+  Widget _buildTableHeader() {
+    return TableHeader(
+      withRowDividers: widget.withRowDividers,
+      columns: widget.columns,
+      sortedColumnIndex: sortedColumnIndex,
+      sortOrder: sortOrder,
+      enabledBorder: widget.enableBorder,
+      getColumnWidth: _getColumnWidth,
+      onSort: _handleSort,
+      withColumnDividers: widget.withColumnDividers,
+      headerCheckboxValue: _headerCheckboxValue,
+      headerCheckboxIndeterminate: _headerCheckboxIndeterminate,
+      onHeaderCheckboxChanged: _onHeaderCheckboxChanged,
+    );
+  }
+  
+  // Handle sort action
+  void _handleSort(int index, SortOrder order) {
+    setState(() {
+      if (sortedColumnIndex == index) {
+        sortOrder = sortOrder == SortOrder.ascending
+            ? SortOrder.descending
+            : SortOrder.ascending;
+      } else {
+        sortedColumnIndex = index;
+        sortOrder = SortOrder.ascending;
+      }
+      _sortRows();
+      currentPage = 1;
+    });
+  }
+  
+  // Build table footer widget
+  Widget _buildTableFooter(int totalPages) {
+    return TableFooter(
+      enableBorder: widget.enableBorder,
+      width: _calculateTableWidth(),
+      currentPage: currentPage,
+      totalPages: totalPages,
+      rowsPerPage: rowsPerPage,
+      rowsPerPageOptions: widget.rowsPerPageOptions,
+      onRowsPerPageChanged: (value) {
         setState(() {
-          if (_scrollController.hasClients) {
-            _isOverflowing = (_scrollController.position.maxScrollExtent > 0);
-          }
-          if (_verticalScrollController.hasClients) {
-            _isOverflowingVertical = (_scrollController.position.maxScrollExtent > 0);
-          }
+          rowsPerPage = value;
+          currentPage = 1;
         });
-      });
+      },
+      onPageChanged: (page) {
+        setState(() => currentPage = page);
+      },
+      onNext: () {
+        if (currentPage < totalPages) {
+          setState(() => currentPage++);
+        }
+      },
+      onPrevious: () {
+        if (currentPage > 1) {
+          setState(() => currentPage--);
+        }
+      },
+      onPageSelected: (page) {
+        setState(() => currentPage = page);
+      },
+      showRowsPerPage: widget.showRowsPerPage,
+    );
+  }
+  
+  @override
+  Widget build(BuildContext context) {
+    // Early return if no columns or rows
+    if (widget.columns.isEmpty) {
+      return const Center(
+        child: Text('No columns configured'),
+      );
     }
+    
+    final paginatedRows = _getPaginatedRows();
+    final totalPages = sortedRows.isEmpty ? 1 : (sortedRows.length / rowsPerPage).ceil();
+    
+    // Update header checkbox based on selected rows
+    _updateHeaderCheckbox();
+
+    // Check overflow once after first build
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      if (mounted && _horizontalScrollController.hasClients) {
+        final hasOverflow = _horizontalScrollController.position.maxScrollExtent > 0;
+        if (hasOverflow != _isOverflowing) {
+          setState(() => _isOverflowing = hasOverflow);
+        }
+      }
+    });
 
     return SizedBox(
       height: widget.tableHeight,
@@ -461,45 +566,20 @@ class _DigitTableState extends State<DigitTable> {
                 Stack(
                   children: [
                     Scrollbar(
-                      controller: _scrollController,
+                      controller: _horizontalScrollController,
                       thumbVisibility: _isOverflowing,
                       child: SingleChildScrollView(
                         padding: _isOverflowing ? const EdgeInsets.only(bottom: 12) : EdgeInsets.zero,
-                        controller: _scrollController,
+                        controller: _horizontalScrollController,
                         scrollDirection: Axis.horizontal,
                         child: SingleChildScrollView(
                           scrollDirection: Axis.vertical,
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              if (!widget.stickyHeader)
-                                TableHeader(
-                                  withRowDividers: widget.withRowDividers,
-                                  columns: widget.columns,
-                                  sortedColumnIndex: sortedColumnIndex,
-                                  sortOrder: sortOrder,
-                                  enabledBorder: widget.enableBorder,
-                                  onSort: (index, order) {
-                                    setState(() {
-                                      if (sortedColumnIndex == index) {
-                                        sortOrder = sortOrder == SortOrder.ascending
-                                            ? SortOrder.descending
-                                            : SortOrder.ascending;
-                                      } else {
-                                        sortedColumnIndex = index;
-                                        sortOrder = SortOrder.ascending;
-                                      }
-                                      _sortRows();
-                                      currentPage = 1;
-                                    });
-                                  },
-                                  withColumnDividers: widget.withColumnDividers,
-                                  headerCheckboxValue: _headerCheckboxValue,
-                                  headerCheckboxIndeterminate: _headerCheckboxIndeterminate, // Pass down
-                                  onHeaderCheckboxChanged: _onHeaderCheckboxChanged,
-                                ),
+                              if (!widget.stickyHeader) _buildTableHeader(),
                               TableBody(
-                                keys: nonFrozenKeys,
+                                keys: nonFrozenKeys.isNotEmpty ? nonFrozenKeys : List.generate(paginatedRows.length, (_) => GlobalKey()),
                                 controller: _nonFrozenScrollController,
                                 tableHeight: widget.tableHeight!=null ? widget.tableHeight! - 48 : null,
                                 scrollPhysics: widget.scrollPhysicsForPagination,
@@ -507,7 +587,8 @@ class _DigitTableState extends State<DigitTable> {
                                 highlightedRows: _highlightedRowIndices,
                                 selectedRows: _selectedRowIndices,
                                 hasFooter: widget.showPagination,
-                                rows: widget.showPagination ? paginatedRows: sortedRows,
+                                getColumnWidth: _getColumnWidth,
+                                rows: paginatedRows,
                                 columns: widget.columns,
                                 alternateRowColor: widget.alternateRowColor,
                                 withRowDividers: widget.withRowDividers,
@@ -535,7 +616,8 @@ class _DigitTableState extends State<DigitTable> {
                         ),
                       ),
                     ),
-                    _buildFrozenColumns(_scrollOffset, context, widget.showPagination ? paginatedRows: sortedRows, _isOverflowing),
+                    if (widget.frozenColumnsCount > 0)
+                      _buildFrozenColumns(context, paginatedRows),
                   ],
                 ),
                 if (widget.customRow != null && !widget.isCustomRowFixed)
@@ -549,46 +631,7 @@ class _DigitTableState extends State<DigitTable> {
                       ),
                       child: widget.customRow!),
                 if(widget.showPagination && !widget.stickyFooter)
-                  TableFooter(
-                    enableBorder: widget.enableBorder,
-                    width: normalColumns * 200 + specialColumnCount * 100+2,
-                    currentPage: currentPage,
-                    totalPages: totalPages,
-                    rowsPerPage: rowsPerPage,
-                    rowsPerPageOptions: widget.rowsPerPageOptions,
-                    onRowsPerPageChanged: (value) {
-                      setState(() {
-                        rowsPerPage = value;
-                        currentPage =
-                        1; // Reset to the first page when rows per page changes
-                      });
-                    },
-                    onPageChanged: (page) {
-                      setState(() {
-                        currentPage = page;
-                      });
-                    },
-                    onNext: () {
-                      setState(() {
-                        if (currentPage < totalPages) {
-                          currentPage++;
-                        }
-                      });
-                    },
-                    onPrevious: () {
-                      setState(() {
-                        if (currentPage > 1) {
-                          currentPage--;
-                        }
-                      });
-                    },
-                    onPageSelected: (page) {
-                      setState(() {
-                        currentPage = page;
-                      });
-                    },
-                    showRowsPerPage: widget.showRowsPerPage,
-                  ),
+                  _buildTableFooter(totalPages),
               ],
             ),
           ),
@@ -608,82 +651,19 @@ class _DigitTableState extends State<DigitTable> {
                   ),
                   child: widget.customRow!),
             ),
-          if ( widget.stickyHeader)
+          if (widget.stickyHeader)
             Positioned(
               top: 0,
               left: 0,
               right: 0,
-              child: TableHeader(
-                withRowDividers: widget.withRowDividers,
-                columns: widget.columns,
-                sortedColumnIndex: sortedColumnIndex,
-                sortOrder: sortOrder,
-                enabledBorder: widget.enableBorder,
-                onSort: (index, order) {
-                  setState(() {
-                    if (sortedColumnIndex == index) {
-                      sortOrder = sortOrder == SortOrder.ascending
-                          ? SortOrder.descending
-                          : SortOrder.ascending;
-                    } else {
-                      sortedColumnIndex = index;
-                      sortOrder = SortOrder.ascending;
-                    }
-                    _sortRows();
-                    currentPage = 1;
-                  });
-                },
-                withColumnDividers: widget.withColumnDividers,
-                headerCheckboxValue: _headerCheckboxValue,
-                headerCheckboxIndeterminate: _headerCheckboxIndeterminate, // Pass down
-                onHeaderCheckboxChanged: _onHeaderCheckboxChanged,
-              ),
+              child: _buildTableHeader(),
             ),
           if (widget.showPagination && widget.stickyFooter)
             Positioned(
               bottom: 0,
               left: 0,
               right: 0,
-              child: TableFooter(
-                enableBorder: widget.enableBorder,
-                width: normalColumns * 200 + specialColumnCount * 100+2,
-                currentPage: currentPage,
-                totalPages: totalPages,
-                rowsPerPage: rowsPerPage,
-                rowsPerPageOptions: widget.rowsPerPageOptions,
-                onRowsPerPageChanged: (value) {
-                  setState(() {
-                    rowsPerPage = value;
-                    currentPage =
-                    1; // Reset to the first page when rows per page changes
-                  });
-                },
-                onPageChanged: (page) {
-                  setState(() {
-                    currentPage = page;
-                  });
-                },
-                onNext: () {
-                  setState(() {
-                    if (currentPage < totalPages) {
-                      currentPage++;
-                    }
-                  });
-                },
-                onPrevious: () {
-                  setState(() {
-                    if (currentPage > 1) {
-                      currentPage--;
-                    }
-                  });
-                },
-                onPageSelected: (page) {
-                  setState(() {
-                    currentPage = page;
-                  });
-                },
-                showRowsPerPage: widget.showRowsPerPage,
-              ),
+              child: _buildTableFooter(totalPages),
             ),
         ],
       ),

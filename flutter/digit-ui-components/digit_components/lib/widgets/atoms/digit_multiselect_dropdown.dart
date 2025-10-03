@@ -40,6 +40,14 @@ import 'digit_chip.dart';
 
 typedef OnOptionSelect<T> = void Function(List<DropdownItem> selectedOptions);
 
+/// Custom FocusNode that always allows focus requests
+/// This fixes the focus issue in Flutter 3.22+ where the framework's
+/// focus management can prevent focus from being maintained in overlays
+class AlwaysFocusableFocusNode extends FocusNode {
+  @override
+  bool get canRequestFocus => true;
+}
+
 class MultiSelectDropDown<int> extends StatefulWidget {
   /// selection type of the dropdown
   final SelectionType selectionType;
@@ -131,6 +139,9 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
   late final FocusNode _focusNode;
   final LayerLink _layerLink = LayerLink();
 
+  /// Flag to track if user is currently interacting with dropdown options
+  bool _isInteractingWithDropdown = false;
+
   /// value notifier that is used for controller.
   MultiSelectController<T>? _controller;
 
@@ -144,7 +155,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
       _initialize();
     });
 
-    _focusNode = widget.focusNode ?? FocusNode();
+    _focusNode = widget.focusNode ?? AlwaysFocusableFocusNode();
     _searchFocusNode = FocusNode();
 
     _filteredOptions = widget.options;
@@ -183,9 +194,13 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
 
   /// Handles the focus change to show/hide the dropdown.
   _handleFocusChange() {
+    if (kDebugMode) {
+      print('_handleFocusChange - hasFocus: ${_focusNode.hasFocus}');
+    }
     if ((_focusNode.hasFocus ||
             (_searchFocusNode.hasFocus && widget.isSearchable)) &&
         mounted) {
+      if (kDebugMode) print('Opening overlay');
       _overlayEntry = _buildOverlayEntry();
       Overlay.of(context).insert(_overlayEntry!);
       _focusedIndex = -1;
@@ -195,11 +210,18 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
     if ((_focusNode.hasFocus == false ||
             (_searchFocusNode.hasFocus == false && widget.isSearchable)) &&
         _overlayEntry != null) {
-      _overlayEntry?.remove();
-      _focusedIndex = -1;
-      _searchController.text = '';
-      _focusedNestedIndex = NestedFocusedIndex(-1, -1);
-      _filteredOptions = widget.options;
+      if (kDebugMode) print('Focus lost - checking if interacting: $_isInteractingWithDropdown');
+      // Don't remove overlay if user is currently interacting with dropdown options
+      if (!_isInteractingWithDropdown) {
+        if (kDebugMode) print('Removing overlay - focus lost');
+        _overlayEntry?.remove();
+        _focusedIndex = -1;
+        _searchController.text = '';
+        _focusedNestedIndex = NestedFocusedIndex(-1, -1);
+        _filteredOptions = widget.options;
+      } else {
+        if (kDebugMode) print('Keeping overlay - user is interacting');
+      }
     }
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) {
@@ -685,7 +707,19 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
 
   /// Handle the focus change on tap outside of the dropdown.
   void _onOutSideTap() {
+    if (kDebugMode) print('_onOutSideTap called');
+    _isInteractingWithDropdown = false; // Reset flag when tapping outside
     _focusNode.unfocus();
+    // Explicitly close overlay if it's open
+    if (_overlayEntry != null && mounted) {
+      if (kDebugMode) print('Explicitly closing overlay from _onOutSideTap');
+      _overlayEntry?.remove();
+      _overlayEntry = null;
+      _focusedIndex = -1;
+      _searchController.text = '';
+      _focusedNestedIndex = NestedFocusedIndex(-1, -1);
+      _filteredOptions = widget.options;
+    }
   }
 
   /// Method to toggle the focus of the dropdown.
@@ -720,7 +754,10 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
       return StatefulBuilder(builder: ((context, dropdownState) {
         /// full screen GestureDetector to register when a user has clicked away from the dropdown
         return GestureDetector(
-          onTap: _onOutSideTap,
+          onTap: () {
+            if (kDebugMode) print('Outer GestureDetector tapped');
+            _onOutSideTap();
+          },
           behavior: HitTestBehavior.translucent,
 
           /// full screen SizedBox to register taps anywhere and close drop down
@@ -735,10 +772,22 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                   targetAnchor: Alignment.bottomLeft,
                   followerAnchor: Alignment.topLeft,
                   offset: Offset.zero,
-                  child: Material(
-                    borderRadius: Base.radius,
-                    shadowColor: null,
-                    child: Container(
+                  child: Listener(
+                    onPointerDown: (_) {
+                      if (kDebugMode) print('Pointer down on dropdown');
+                      _isInteractingWithDropdown = true;
+                    },
+                    onPointerUp: (_) {
+                      if (kDebugMode) print('Pointer up on dropdown');
+                      // Delay resetting the flag to allow tap to complete
+                      Future.delayed(const Duration(milliseconds: 100), () {
+                        _isInteractingWithDropdown = false;
+                      });
+                    },
+                    child: Material(
+                      borderRadius: Base.radius,
+                      shadowColor: null,
+                      child: Container(
                       width: size.width,
                       decoration: BoxDecoration(
                         boxShadow: [
@@ -765,6 +814,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                         ],
                       ),
                     ),
+                  ),
                   ),
                 ),
               ],

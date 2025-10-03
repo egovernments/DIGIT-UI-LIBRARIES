@@ -8,6 +8,9 @@ import '../helper_widget/date_timeline.dart';
 
 
 class InfiniteDateScrollInput extends BaseDigitFormInput {
+
+  final bool disableScroll;
+
   const InfiniteDateScrollInput({
     super.key,
     super.controller,
@@ -33,6 +36,7 @@ class InfiniteDateScrollInput extends BaseDigitFormInput {
     super.confirmText,
     super.onFocusLost,
     super.iconColor,
+    this.disableScroll = false,
   }) : super(
     suffixIcon: suffixIcon ?? Icons.date_range,
     keyboardType: keyboardType ?? TextInputType.datetime,
@@ -70,6 +74,23 @@ class DigitDateFormInputState extends BaseDigitFormInputState {
     //   _timelineController.jumpTo(_selectedDate); // scroll the timeline
     //   _emitIfChanged(controller.text);
     // });
+  }
+
+  @override
+  void didUpdateWidget(covariant InfiniteDateScrollInput oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    final newInitialDate = widget.initialDate;
+    if (newInitialDate != null && newInitialDate != _selectedDate) {
+      final formattedDate = DateFormat('dd MMM yyyy').format(newInitialDate);
+
+      setState(() {
+        _selectedDate = newInitialDate;
+        controller.text = formattedDate;
+      });
+
+      _emitIfChanged(formattedDate);
+    }
   }
 
   void _onDateSelected(DateTime date) {
@@ -133,6 +154,7 @@ class DigitDateFormInputState extends BaseDigitFormInputState {
       children: [
         super.build(context),
         DigitInfiniteDateTimeline(
+          disableScroll : (widget as InfiniteDateScrollInput).disableScroll,
           controller: _timelineController,
           selectedDate: _selectedDate,
           onDateSelected: _onDateSelected,

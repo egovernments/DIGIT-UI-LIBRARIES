@@ -60,9 +60,12 @@ class _DigitDobPickerState extends State<DigitDobPicker> {
   @override
   void initState() {
     super.initState();
-    if(widget.initialValue != null) {
-      selectedDate = DigitDateUtils.getFormattedDateToDateTime(widget.initialValue.toString());
-      _setAgeFromDate(selectedDate); /// updated all the controller value also
+    if (widget.initialValue != null) {
+      selectedDate = DigitDateUtils.getFormattedDateToDateTime(
+          widget.initialValue.toString());
+      _setAgeFromDate(selectedDate);
+
+      /// updated all the controller value also
     }
   }
 
@@ -122,7 +125,6 @@ class _DigitDobPickerState extends State<DigitDobPicker> {
     return DateTime(newYear, newMonth, day);
   }
 
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -132,7 +134,8 @@ class _DigitDobPickerState extends State<DigitDobPicker> {
       mainAxisSize: MainAxisSize.min,
       children: [
         DigitCard(
-          borderColor: widget.errorMessage != null ? theme.colorTheme.alert.error : null,
+          borderColor:
+              widget.errorMessage != null ? theme.colorTheme.alert.error : null,
           cardType: CardType.secondary,
           children: [
             Column(
@@ -144,8 +147,9 @@ class _DigitDobPickerState extends State<DigitDobPicker> {
                     readOnly: widget.readOnly,
                     editable: false,
                     initialValue: selectedDate != null
-                        ? DateFormat('dd MMM yyyy', Localizations.localeOf(context).toLanguageTag())
-                        .format(selectedDate!)
+                        ? DateFormat('dd MMM yyyy',
+                                Localizations.localeOf(context).toLanguageTag())
+                            .format(selectedDate!)
                         : '',
                     firstDate: widget.initialDate,
                     cancelText: widget.cancelText,
@@ -154,12 +158,10 @@ class _DigitDobPickerState extends State<DigitDobPicker> {
                     onChange: (value) {
                       if (value.isNotEmpty) {
                         setState(() {
-                          selectedDate = DateFormat('dd/MM/yyyy').parse(
-                            value
-                          );
+                          selectedDate = DateFormat('dd MMM yyyy').parse(value);
                           _setAgeFromDate(selectedDate);
                         });
-                        if(widget.onChangeOfFormControl != null) {
+                        if (widget.onChangeOfFormControl != null) {
                           widget.onChangeOfFormControl!(selectedDate);
                         }
                       }
@@ -196,7 +198,7 @@ class _DigitDobPickerState extends State<DigitDobPicker> {
                             setState(() {
                               selectedDate = _getDateFromAge();
                             });
-                            if(widget.onChangeOfFormControl != null) {
+                            if (widget.onChangeOfFormControl != null) {
                               widget.onChangeOfFormControl!(selectedDate);
                             }
                           },
@@ -226,7 +228,7 @@ class _DigitDobPickerState extends State<DigitDobPicker> {
                             setState(() {
                               selectedDate = _getDateFromAge();
                             });
-                            if(widget.onChangeOfFormControl != null) {
+                            if (widget.onChangeOfFormControl != null) {
                               widget.onChangeOfFormControl!(selectedDate);
                             }
                           },
@@ -241,43 +243,42 @@ class _DigitDobPickerState extends State<DigitDobPicker> {
             )
           ],
         ),
-        if(widget.errorMessage != null)
-          ...[
-            const SizedBox(height: spacer1),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Column(
-                  children: [
-                    const SizedBox(
-                      height: spacer1 / 2,
-                    ),
-                    SizedBox(
-                      height: spacer4,
-                      width: spacer4,
-                      child: Icon(
-                        Icons.info,
-                        color: theme.colorTheme.alert.error,
-                        size: spacer4,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(width: spacer1),
-                Flexible(
-                  fit: FlexFit.tight,
-                  child: Text(
-                    widget.errorMessage!,
-                    style: textTheme.bodyL.copyWith(
+        if (widget.errorMessage != null) ...[
+          const SizedBox(height: spacer1),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Column(
+                children: [
+                  const SizedBox(
+                    height: spacer1 / 2,
+                  ),
+                  SizedBox(
+                    height: spacer4,
+                    width: spacer4,
+                    child: Icon(
+                      Icons.info,
                       color: theme.colorTheme.alert.error,
+                      size: spacer4,
                     ),
                   ),
+                ],
+              ),
+              const SizedBox(width: spacer1),
+              Flexible(
+                fit: FlexFit.tight,
+                child: Text(
+                  widget.errorMessage!,
+                  style: textTheme.bodyL.copyWith(
+                    color: theme.colorTheme.alert.error,
+                  ),
                 ),
-              ],
-            ),
-          ]
+              ),
+            ],
+          ),
+        ]
       ],
     );
   }
