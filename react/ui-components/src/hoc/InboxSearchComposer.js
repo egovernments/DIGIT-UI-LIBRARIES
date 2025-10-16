@@ -204,7 +204,7 @@ const InboxSearchComposer = ({configs,additionalConfig,onFormValueChange=()=>{},
               icon="Add"
               onClick={() => {
                 history.push(
-                  `/${window?.contextPath}/employee/${configs?.actions?.actionLink}`
+                  `/${window?.contextPath}/${window.sessionStorage.getItem("userType") || Digit.SessionStorage.get("userType")}/${configs?.actions?.actionLink}`
                 );
               }}
               className={"digit-inbox-search-composer-action"}
