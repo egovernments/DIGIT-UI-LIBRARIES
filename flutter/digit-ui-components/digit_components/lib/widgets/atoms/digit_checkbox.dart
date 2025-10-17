@@ -1,4 +1,3 @@
-
 /// `DigitCheckbox` is a DigitCheckbox component with a label and optional icon customization.
 
 /// This widget allows the user to toggle between checked and unchecked states. It supports
@@ -22,6 +21,7 @@ import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/theme/ComponentTheme/checkbox_theme.dart';
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:flutter/material.dart';
+
 import '../../utils/utils.dart';
 
 class DigitCheckbox extends StatefulWidget {
@@ -105,8 +105,10 @@ class _DigitCheckboxState extends State<DigitCheckbox> {
 
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
-      textDirection: widget.alignRight ? TextDirection.rtl : checkboxThemeData?.labelTextDirection ??
-          defaultThemeData.labelTextDirection,
+      textDirection: widget.alignRight
+          ? TextDirection.rtl
+          : checkboxThemeData?.labelTextDirection ??
+              defaultThemeData.labelTextDirection,
       children: [
         Column(
           children: [
@@ -131,13 +133,13 @@ class _DigitCheckboxState extends State<DigitCheckbox> {
               onTap: widget.isDisabled || widget.readOnly
                   ? null
                   : () {
-                if (mounted) {
-                  setState(() {
-                    _currentState = !_currentState;
-                  });
-                  widget.onChanged(_currentState);
-                }
-              },
+                      if (mounted) {
+                        setState(() {
+                          _currentState = !_currentState;
+                        });
+                        widget.onChanged(_currentState);
+                      }
+                    },
               child: DigitCheckboxIcon(
                 state: _currentState
                     ? DigitCheckboxState.checked
@@ -153,27 +155,76 @@ class _DigitCheckboxState extends State<DigitCheckbox> {
           Expanded(
             child: RichText(
               text: TextSpan(
-                text: processedLabel,
-                style: widget.isDisabled
-                    ? checkboxThemeData?.disabledLabelTextStyle ??
-                    defaultThemeData.disabledLabelTextStyle
-                    : checkboxThemeData?.labelTextStyle ??
-                    defaultThemeData.labelTextStyle,
-                children: widget.isRequired
-                    ? [
-                  TextSpan(
-                    text: ' *',
-                    style: TextStyle(
-                      color: theme.colorTheme.alert.error, // red asterisk
-                    ),
-                  ),
-                ]
-                    : [],
+                children: _parseLabelText(
+                  processedLabel ?? '',
+                  widget.isDisabled
+                      ? checkboxThemeData?.disabledLabelTextStyle ??
+                          defaultThemeData.disabledLabelTextStyle
+                      : checkboxThemeData?.labelTextStyle ??
+                          defaultThemeData.labelTextStyle,
+                  widget.isDisabled
+                      ? (checkboxThemeData?.disabledLabelTextStyle ??
+                              defaultThemeData.disabledLabelTextStyle)
+                          ?.copyWith(fontWeight: FontWeight.bold)
+                      : (checkboxThemeData?.labelTextStyle ??
+                              defaultThemeData.labelTextStyle)
+                          ?.copyWith(fontWeight: FontWeight.bold),
+                  theme.colorTheme.alert.error,
+                  widget.isRequired,
+                ),
               ),
             ),
           ),
         ],
       ],
     );
+  }
+
+  List<TextSpan> _parseLabelText(
+    String text,
+    TextStyle? normalStyle,
+    TextStyle? boldStyle,
+    Color requiredColor,
+    bool isRequired,
+  ) {
+    final spans = <TextSpan>[];
+    final regex = RegExp(r'\*\*(.*?)\*\*'); // match **bold text**
+    int lastIndex = 0;
+
+    for (final match in regex.allMatches(text)) {
+      // Add normal text before **
+      if (match.start > lastIndex) {
+        spans.add(TextSpan(
+          text: text.substring(lastIndex, match.start),
+          style: normalStyle,
+        ));
+      }
+
+      // Add bold text inside **
+      spans.add(TextSpan(
+        text: match.group(1),
+        style: boldStyle,
+      ));
+
+      lastIndex = match.end;
+    }
+
+    // Add any remaining text
+    if (lastIndex < text.length) {
+      spans.add(TextSpan(
+        text: text.substring(lastIndex),
+        style: normalStyle,
+      ));
+    }
+
+    // Add red asterisk if required
+    if (isRequired) {
+      spans.add(TextSpan(
+        text: ' *',
+        style: TextStyle(color: requiredColor),
+      ));
+    }
+
+    return spans;
   }
 }

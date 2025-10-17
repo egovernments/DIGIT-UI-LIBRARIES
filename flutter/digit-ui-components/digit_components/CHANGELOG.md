@@ -1,3 +1,6 @@
+## 0.2.2+10
+* Updated checkbox label to support markdown bold
+
 ## 0.2.2+9
 * Added width property in card
 * Updated properties for scrollable content
