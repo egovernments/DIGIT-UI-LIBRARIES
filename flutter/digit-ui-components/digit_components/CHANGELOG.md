@@ -1,4 +1,4 @@
-## 0.2.2+10
+## 0.2.3
 * Updated checkbox label to support markdown bold
 
 ## 0.2.2+9
