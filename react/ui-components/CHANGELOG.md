@@ -4,6 +4,178 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+### [0.2.1] - 2025-10-23
+## 📦 Version Updates
+
+- CSS Library: v0.2.0-beta.15 → v0.2.0-beta.64
+- UI Components: Multiple beta version increments
+
+---
+⚛️ Atoms (Basic Components)
+
+Button
+
+- ✨ Enhanced button identifier system
+- 🔧 Improved accessibility attributes
+
+TextInput
+
+- ✨ Added validation prop for custom validation rules
+- ✨ Added pattern prop for input pattern matching
+- 🐛 Improved error handling with try-catch blocks
+- 🔧 Enhanced input field validation logic
+
+Toggle
+
+- ✨ Added vertical variant for vertical toggle layout
+- ✨ Implemented disabled state handling
+- 💅 Updated styling for better visual feedback
+
+Tag
+
+- ✨ Added loader prop for showing loading state
+- 💅 Enhanced tag component styling
+
+RadioButtons
+
+- ✨ Added custom translation options support
+- 🔧 Improved radio button group handling
+
+OTPInput
+
+- 🐛 Minor bug fixes and improvements
+
+---
+🧩 Molecules (Composite Components)
+
+CustomDropdown
+
+- ✨ Added MDMS v2 prop support for new data source
+- 🔧 Enhanced dropdown configuration options
+- 🐛 Fixed dropdown text clearing issue after re-render
+
+ApiDropdown
+
+- 🐛 Fixed API dropdown data fetching issues
+- 🔧 Improved error handling for API calls
+
+ResultsDataTable
+
+- ✨ Enhanced to accept custom row components
+- ✨ Added pagination support with total count
+- 🔧 Improved table rendering performance
+
+FilterCard
+
+- ✨ Added translation support for filter labels
+- 💅 Updated filter card styling
+
+SummaryCard
+
+- 🔧 Minor improvements and bug fixes
+
+---
+🎯 HOC (Higher Order Components)
+
+InboxSearchComposer
+
+- ✨ Major Enhancement: Added support for custom row components
+- ✨ Improved pagination functionality with proper props
+- 🐛 Fixed multiple API call issues
+- 🐛 Replaced employee with proper userType for actionLink
+- 🔧 Enhanced search and submit functionality
+- 🔧 Better state management for search results
+
+FormComposerV2
+
+- ✨ Added backButton prop for navigation
+- ✨ Enhanced form configuration flexibility
+- 🔧 Improved form submission handling
+
+BoundaryFilter
+
+- ✨ Added multi-select and single-select options
+- ✨ Enhanced boundary selection logic
+- ✨ Improved pre-selection handling
+- ✨ Added frozen data support
+- 🔧 Better hierarchy management
+
+---
+🎨 CSS & Styling Updates
+
+Typography
+
+- 📱 Updated responsive typography for tablet and desktop
+- 💅 Enhanced font sizes and line heights
+- 🔧 Improved spacing and margins
+
+Component Styles
+
+- ✨ New styles for BoundaryComponent
+- 💅 Updated button, card, and field styling
+- 💅 Enhanced dropdown and modal styles
+- 📱 Improved mobile responsiveness
+
+---
+🏗️ Infrastructure & Build
+
+CI/CD
+
+- ✨ Added comprehensive GitHub Actions workflow
+- ✨ Multi-architecture Docker build support (amd64, arm64)
+- 🔧 Improved build pipeline configuration
+
+Docker
+
+- 📦 Updated Dockerfiles for better optimization
+- 🔧 Enhanced container build process
+
+---
+🌍 Localization & Configuration
+
+Localization
+
+- 🐛 Fixed localization search query issues
+- ✨ Enhanced translation support across components
+- 🔧 Improved language switching functionality
+
+App Configuration
+
+- ✨ Better tab change handling
+- 🔧 Optimized configuration loading
+- 🐛 Fixed configuration-related bugs
+
+---
+🐛 Notable Bug Fixes
+
+1. Submit button tag rendering fixed
+2. Dropdown text clearing issue resolved
+3. Pagination props properly passed to components
+4. API dropdown data fetching stabilized
+5. Multiple API call prevention in search composers
+6. Form validation improvements
+
+---
+⚠️ Potential Breaking Changes
+
+- Components now require specific prop formats for MDMS v2
+- Pagination implementation may require prop updates
+- Custom row components in tables need specific structure
+
+---
+📊 Summary
+
+This version represents a major update focusing on:
+- Enhanced component flexibility and configurability
+- Improved error handling and validation
+- Better performance and UX
+- Comprehensive styling updates
+- Robust build and deployment infrastructure
+
+### [0.2.0-beta.100] - 2025-10-23
+## Fix
+- test build
+
 ### [0.2.0-beta.68] - 2025-10-17
 ## Fix
 - Removed Logout button from Hamburger if user not logged in.
