@@ -463,3 +463,19 @@
     @apply pointer-events-none;
   }
 }
+
+.digit-new-date-format{
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  z-index: 2;
+  pointer-events: auto;
+}
+
+.digit-new-date-format.disabled{
+  pointer-events: none;
+  opacity: 0.4;
+  cursor: not-allowed;
+}

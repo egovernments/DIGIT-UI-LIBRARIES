@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState,useMemo } from "react";
+import React, { useContext, useEffect, useState,useMemo,useRef,useLayoutEffect } from "react";
 import { useForm,useWatch} from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { InboxContext } from "../hoc/InboxSearchComposerContext";
@@ -9,6 +9,8 @@ import SubmitBar from "../atoms/SubmitBar";
 import Toast from "../atoms/Toast";
 import { CustomSVG } from "./CustomSVG";
 import Tab from "./Tab";
+import Button from "./Button";
+import FilterCard from "../molecules/FilterCard";
 
 const setUIConf = (uiConfig) => {
   if(uiConfig.additionalTabs)
@@ -16,11 +18,10 @@ const setUIConf = (uiConfig) => {
   return [{uiConfig}]
 }
 
-const SearchComponent = ({ uiConfig, header = "", screenType = "search", fullConfig, data,activeLink,setActiveLink,browserSession,showTab,showTabCount=false, tabData, onTabChange}) => {
+const SearchComponent = ({ uiConfig, header = "", screenType = "search", fullConfig, data,activeLink,browserSession,showTab,showTabCount=false, tabData, onTabChange}) => {
   
   //whenever activeLink changes we'll change uiConfig
   // const [activeLink,setActiveLink] = useState(uiConfig?.configNavItems?.filter(row=>row.activeByDefault)?.[0]?.name)
-  const [navConfig,setNavConfig] = useState(uiConfig?.configNavItems)
   const [allUiConfigs,setAllUiConfigs] = useState(setUIConf(uiConfig))
   const { t } = useTranslation();
   const { state, dispatch } = useContext(InboxContext)
@@ -29,6 +30,9 @@ const SearchComponent = ({ uiConfig, header = "", screenType = "search", fullCon
   const {apiDetails} = fullConfig
   const customDefaultPagination = fullConfig?.sections?.searchResult?.uiConfig?.customDefaultPagination || null
   const [session,setSession,clearSession] = browserSession || []
+  const buttonWrapperRef = useRef(null);
+  const [addMargin, setAddMargin] = useState(false);
+  const [sortOrder, setSortOrder] = useState(uiConfig?.sortConfig?.initialSortOrder || 'asc');
   
   if (fullConfig?.postProcessResult){
     //conditions can be added while calling postprocess function to pass different params
@@ -74,6 +78,20 @@ const SearchComponent = ({ uiConfig, header = "", screenType = "search", fullCon
   useEffect(() => {
     clearSearch()
   }, [activeLink])
+
+  useLayoutEffect(() => {
+    if (buttonWrapperRef.current) {
+      const buttonTop = buttonWrapperRef.current.offsetTop;
+      const formFields = document.querySelectorAll(".digit-search-field-wrapper .digit-label-field-pair");
+      let isAligned = false;
+      formFields.forEach((field) => {
+        if (field?.offsetTop === buttonTop) {
+          isAligned = true;
+        }
+      });
+      setAddMargin(isAligned);
+    }
+  }, []);
   
   const onSubmit = (data,e) => {
     e?.preventDefault?.();
@@ -96,8 +114,12 @@ const SearchComponent = ({ uiConfig, header = "", screenType = "search", fullCon
       //here reset tableForm as well when search
       dispatch({
         type: "tableForm",
-        state: { limit:10,offset:0 }
+        state: { limit:10,offset:0,sortOrder:sortOrder }
       })
+      //dispatch event to notify table to reset pagination
+      const event = new CustomEvent("tableFormUpdate", { pagination: { limit: "10", offset: "0" } });
+      window.dispatchEvent(event);
+
     } else {
       setShowToast({ type:"warning", label: t("ES_COMMON_MIN_SEARCH_CRITERIA_MSG") })
       setTimeout(closeToast, 3000);
@@ -108,17 +130,24 @@ const SearchComponent = ({ uiConfig, header = "", screenType = "search", fullCon
     
     reset(uiConfig?.defaultValues)
     dispatch({
-      type: uiConfig?.type === "filter"?"clearFilterForm" :"clearSearchForm",
+      type: uiConfig?.type === "filter"? "clearFilterForm" :"clearSearchForm",
       state: { ...uiConfig?.defaultValues }
       //need to pass form with empty strings 
     })
     //here reset tableForm as well
     dispatch({
       type: "tableForm",
-      state: { limit:10,offset:0 }
+      state: { limit:10,offset:0,sortOrder:sortOrder }
       //need to pass form with empty strings 
     })
   }
+
+  const handleSort = () => {
+    const updatedSortOrder = sortOrder === "asc" ? "desc" : "asc";
+    // Dispatch sortOrder to context
+    dispatch({ type: "updateSortOrder", state: updatedSortOrder });
+    setSortOrder((prev) => (prev === "asc" ? "desc" : "asc"));
+  };
 
   //call this fn whenever session gets updated
   const setDefaultValues = () => {
@@ -148,7 +177,7 @@ const SearchComponent = ({ uiConfig, header = "", screenType = "search", fullCon
     switch(uiConfig?.type) {
       case "filter" : {
         return (
-          <div className="filter-header-wrapper">
+          <div className="digit-filter-header-wrapper">
             <div className="icon-filter"><CustomSVG.FilterIcon></CustomSVG.FilterIcon></div>
             <div className="label">{t(header)}</div>
             <div className="icon-refresh" onClick={handleFilterRefresh}><CustomSVG.RefreshIcon></CustomSVG.RefreshIcon></div>
@@ -160,107 +189,153 @@ const SearchComponent = ({ uiConfig, header = "", screenType = "search", fullCon
       }
     }
   }
-  if(showTab){
-    return <React.Fragment>
-    {showTab && <div className="search-tabs-container">
-          <div>
-            {tabData?.map((i,num) => (
-                <button
-                className={i?.active === true ? "search-tab-head-selected" : "search-tab-head"}
-                onClick={() => {
-                    clearSearch({});
-                    onTabChange(num);
-                  }}>
-                  {showTabCount? `${t(i?.label)}(${data?.count || data?.TotalCount || data?.totalCount})`
-                  : t(i?.label)}
-                </button>
-              ))}
-          </div>
-        </div>
-      }
-    <div className={'search-wrapper'}>
-      {header && renderHeader()}
-      <form onSubmit={handleSubmit(onSubmit)} onKeyDown={(e) => checkKeyDown(e)}>
-        <div>
-          {uiConfig?.showFormInstruction && <p className="search-instruction-header">{t(uiConfig?.showFormInstruction)}</p>}
-          <div className={`search-field-wrapper ${screenType} ${uiConfig?.type} ${uiConfig?.formClassName ? uiConfig?.formClassName : ""}`}>
-            <RenderFormFields
-              fields={uiConfig?.fields}
-              control={control}
-              formData={formData}
-              errors={errors}
-              register={register}
-              setValue={setValue}
-              getValues={getValues}
-              setError={setError}
-              clearErrors={clearErrors}
-              labelStyle={{ fontSize: "16px" }}
-              apiDetails={apiDetails}
-              data={data}
-            />
-            <div className={`search-button-wrapper ${screenType} ${uiConfig?.type} ${uiConfig?.searchWrapperClassName}`} style={uiConfig?.searchWrapperStyles}>
-              {uiConfig?.secondaryLabel && <LinkLabel style={{ marginBottom: 0, whiteSpace: 'nowrap' }} onClick={clearSearch}>{t(uiConfig?.secondaryLabel)}</LinkLabel>}
-              {uiConfig?.isPopUp && uiConfig?.primaryLabel && <SubmitBar label={t(uiConfig?.primaryLabel)} onSubmit={(e) => {
-                handleSubmit(onSubmit)(e);
-                // onSubmit(formData, e)
-              }} disabled={false} />}
-              {!uiConfig?.isPopUp && uiConfig?.primaryLabel && <SubmitBar label={t(uiConfig?.primaryLabel)} submit="submit" disabled={false} />}
-            </div>
-          </div>
-        </div>
-      </form>
-      {showToast && <Toast
-        type={showToast?.type}
-        label={t(showToast?.label)}
-        isDleteBtn={true}
-        onClose={closeToast} />
-      }
-    </div>
-  </React.Fragment>
-  }
+
+  const renderContent = () => {
+    return (
+      <RenderFormFields
+        fields={
+          activeLink
+            ? allUiConfigs?.filter(
+                (uiConf) => activeLink?.name === uiConf.uiConfig.navLink
+              )?.[0]?.uiConfig?.fields
+            : uiConfig?.fields
+        }
+        control={control}
+        formData={formData}
+        errors={errors}
+        register={register}
+        setValue={setValue}
+        getValues={getValues}
+        setError={setError}
+        clearErrors={clearErrors}
+        labelStyle={{ fontSize: "16px" }}
+        apiDetails={apiDetails}
+        data={data}
+      />
+    );
+  };
+
+  const navConfigMain = tabData?.map((tab) => ({
+    key: tab.key,
+    label: showTabCount? `${t(tab?.label)}(${data?.count || data?.TotalCount || data?.totalCount})`: t(tab?.label) || `Tab ${tab.key + 1}`,
+    active: tab.active,
+  }));
+  
+  const activeTab = tabData?.find((tab) => tab.active)?.key || 0;
+
   return (
-    <Tab configNavItems={navConfig?.length > 0 ? navConfig : []} showNav={navConfig?.length > 0 ? true : false} activeLink={activeLink} setActiveLink={setActiveLink} fromSearchComp={true} horizontalLine={uiConfig?.horizontalLine}>
-      <div className={'search-wrapper'}>
-        {header && renderHeader()}
-        <form onSubmit={handleSubmit(onSubmit)} onKeyDown={(e) => checkKeyDown(e)}>
-          <div>
-            {uiConfig?.showFormInstruction && <p className="search-instruction-header">{t(uiConfig?.showFormInstruction)}</p>}
-            <div className={`search-field-wrapper ${screenType} ${uiConfig?.formClassName ? uiConfig?.formClassName:""}`}>
-              <RenderFormFields 
-                // fields={uiConfig?.fields} 
-                fields={activeLink ? allUiConfigs?.filter(uiConf => activeLink?.name === uiConf.uiConfig.navLink)?.[0]?.uiConfig?.fields : uiConfig?.fields}
-                control={control} 
-                formData={formData}
-                errors={errors}
-                register={register}
-                setValue={setValue}
-                getValues={getValues}
-                setError={setError}
-                clearErrors={clearErrors}
-                labelStyle={{fontSize: "16px"}}
-                apiDetails={apiDetails}
-                data={data}
-              />  
-              <div className={`search-button-wrapper ${screenType} ${uiConfig?.type} ${uiConfig?.searchWrapperClassName}`} style={uiConfig?.searchWrapperStyles} >
-                { uiConfig?.secondaryLabel && <LinkLabel style={{marginBottom: 0, whiteSpace: 'nowrap'}} onClick={clearSearch}>{t(uiConfig?.secondaryLabel)}</LinkLabel> }
-                {uiConfig?.isPopUp && uiConfig?.primaryLabel && <SubmitBar label={t(uiConfig?.primaryLabel)} onSubmit={(e) => {
-                  handleSubmit(onSubmit)(e);
-                  // onSubmit(formData, e)
-                }} disabled={false} />}
-                {!uiConfig?.isPopUp && uiConfig?.primaryLabel && <SubmitBar label={t(uiConfig?.primaryLabel)} submit="submit" disabled={false} />}
+    <Tab
+      configNavItems={navConfigMain}
+      showNav={showTab && navConfigMain.length > 0}
+      configItemKey={"key"}
+      configDisplayKey={"label"}
+      activeLink={activeTab}
+      setActiveLink={(key) => {
+        clearSearch({});
+        onTabChange(key);
+      }}
+      fromSearchComp={true}
+      horizontalLine={uiConfig?.horizontalLine}
+    >
+      {uiConfig?.type === "filter" ? (
+        <FilterCard
+          title={t(uiConfig?.label) || t("Filter")}
+          primaryActionLabel={t(uiConfig?.primaryLabel) || ""}
+          secondaryActionLabel={t(uiConfig?.secondaryLabel) || ""}
+          onPrimaryPressed={handleSubmit(onSubmit)}
+          onSecondaryPressed={clearSearch}
+          layoutType={"vertical"}
+          equalWidthButtons={true}
+          hideIcon={false}
+          addClose={uiConfig?.isPopUp}
+          isPopup={uiConfig?.isPopUp}
+          contentClassName={"digit-inbox-search-composer-filter-card-content"}
+        >
+          {renderContent()}
+        </FilterCard>
+      ) : (
+        <div className={"digit-search-wrapper"}>
+          {header && renderHeader()}
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            onKeyDown={(e) => checkKeyDown(e)}
+          >
+            <div>
+              {uiConfig?.showFormInstruction && (
+                <p className="search-instruction-header">
+                  {t(uiConfig?.showFormInstruction)}
+                </p>
+              )}
+              <div
+                className={`digit-search-field-wrapper ${screenType} ${
+                  uiConfig?.formClassName ? uiConfig?.formClassName : ""
+                }`}
+              >
+                {renderContent()}
+                <div
+                  className={`digit-search-button-wrapper ${screenType} ${
+                    uiConfig?.type
+                  } ${uiConfig?.searchWrapperClassName} ${
+                    addMargin ? "add-margin" : "donot-add-margin"
+                  }`}
+                  style={uiConfig?.searchWrapperStyles}
+                  ref={buttonWrapperRef}
+                >
+                  {uiConfig?.isPopUp && uiConfig?.primaryLabel && (
+                    <Button
+                      variation={uiConfig?.primaryLabelVariation || "primary"}
+                      label={t(uiConfig?.primaryLabel)}
+                      type="submit"
+                      size={"medium"}
+                      icon={uiConfig?.primaryLabelIcon || ""}
+                      onClick={(e) => handleSubmit(e)}
+                    />
+                  )}
+                  {!uiConfig?.isPopUp && uiConfig?.primaryLabel && (
+                    <Button
+                      variation={uiConfig?.primaryLabelVariation || "primary"}
+                      label={t(uiConfig?.primaryLabel)}
+                      type="submit"
+                      icon={uiConfig?.primaryLabelIcon || ""}
+                      size={"medium"}
+                      onClick={(e) => handleSubmit(e)}
+                    />
+                  )}
+                  {uiConfig?.secondaryLabel && (
+                    <Button
+                      variation="teritiary"
+                      label={t(uiConfig?.secondaryLabel)}
+                      type="button"
+                      size={"medium"}
+                      onClick={clearSearch}
+                    />
+                  )}
+                  {uiConfig?.sortConfig && (
+                    <Button
+                      variation={uiConfig?.sortConfig?.variation}
+                      label={t(uiConfig?.sortConfig?.label)}
+                      type="button"
+                      size={"medium"}
+                      onClick={handleSort}
+                      icon={uiConfig?.sortConfig?.icon}
+                    />
+                  )}
+                </div>
               </div>
             </div>
-          </div> 
-        </form>
-        { showToast && <Toast 
-          type={showToast?.type}
-          label={t(showToast?.label)}
-          isDleteBtn={true}
-          onClose={closeToast} />
-        }
-      </div>
+          </form>
+          {showToast && (
+            <Toast
+              type={showToast?.type}
+              label={t(showToast?.label)}
+              isDleteBtn={true}
+              onClose={closeToast}
+            />
+          )}
+        </div>
+      )}
     </Tab>
-  )
+  );
 }
 
 export default SearchComponent

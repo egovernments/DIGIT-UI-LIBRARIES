@@ -103,19 +103,7 @@ module.exports = {
     extend: {},
     digitv2: {
       lightTheme: {
-        primary: "#F47738",
         "text-color-primary": "#0B0C0C",
-        "text-color-secondary": "#505A5F",
-        "text-color-disabled": "#B1B4B6",
-        background: "#EEEEEE",
-        paper: "#FFFFFF",
-        divider: "#D6D5D4",
-        "header-sidenav": "#0B4B66",
-        "input-border": "#505A5F",
-        "primary-orange": "#F47738",
-        "primary-bluegray": "#0B4B66",
-        "primary-orangebg": "#FEEFE7",
-
         "primary-1": "#C84C0E",
         "primary-bg": "#FBEEE8",
         "primary-2": "#0B4B66",
@@ -166,8 +154,8 @@ module.exports = {
         },
         "heading-m": {
           mobile: "1.25rem",
-          tablet: "1.375rem",
-          desktop: "1.5rem",
+          tablet: "1.25rem",
+          desktop: "1.25rem",
         },
         "heading-s": {
           mobile: "1rem",

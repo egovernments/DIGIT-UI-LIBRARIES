@@ -1,6 +1,9 @@
 export const newConfig = [
   {
     head: "TEXT",
+    sectionHeadClassName:"Custom-Classname-For-Section-Head",
+    subHead:"This fields are text fields",
+    sectionSubHeadClassName:"Custom-Classname-For-Section-SubHead",
     body: [
       {
         inline: true,
@@ -247,7 +250,25 @@ export const newConfig = [
         description: "",
         type: "date",
         disable: false,
-        populators: { name: "date-Default", error: "Error!" },
+        populators: {
+          newDateFormat: true,
+          name: "date-Default",
+          error: "Error!",
+          min: "2025-06-01", 
+          max: "2025-07-30",
+        },
+      },
+      {
+        inline: true,
+        label: "Default",
+        isMandatory: false,
+        description: "",
+        type: "date",
+        disable: false,
+        populators: {
+          name: "date-Default",
+          error: "Error!"
+        },
       },
       {
         inline: true,
@@ -885,7 +906,7 @@ export const newConfig = [
         description: "",
         type: "search",
         disable: false,
-        infoMessage: "serach field",
+        infoMessage: "search field",
         populators: { name: "search-With Info", error: "Error!" },
       },
     ],
@@ -2075,6 +2096,8 @@ export const newConfig = [
           optionsKey: "name",
           error: "Error!",
           required: false,
+          addSelectAllCheck: true,
+          isSearchable: true,
           isDropdownWithChip: true,
           options: [
             {
@@ -2129,6 +2152,8 @@ export const newConfig = [
         populators: {
           name: "multiselectdropdown-With Icons",
           optionsKey: "name",
+          addSelectAllCheck: true,
+          isSearchable: true,
           error: "Error!",
           required: false,
           isDropdownWithChip: true,
@@ -2167,6 +2192,9 @@ export const newConfig = [
         populators: {
           name: "nestedmultiselect-Default",
           optionsKey: "name",
+          addSelectAllCheck: true,
+          addCategorySelectAllCheck: true,
+          isSearchable: true,
           error: "Error!",
           required: false,
           isDropdownWithChip: true,
@@ -2239,6 +2267,9 @@ export const newConfig = [
           optionsKey: "name",
           error: "Error!",
           required: false,
+          addSelectAllCheck: true,
+          addCategorySelectAllCheck: true,
+          isSearchable: true,
           isDropdownWithChip: true,
           showIcon: true,
           options: [
@@ -2304,6 +2335,7 @@ export const newConfig = [
           optionsKey: "name",
           error: "Error!",
           required: false,
+          isSearchable: true,
           isDropdownWithChip: true,
           options: [
             {

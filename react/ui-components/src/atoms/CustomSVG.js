@@ -435,6 +435,15 @@ const DustbinIcon = ({fill="#C84C0E" ,width="14",height="18"}) => (
   </svg>
 );
 
+export const DustbinIconNew = ({ fill="#C84C0E" }) => (
+  <svg width="12" height="16" viewBox="0 0 12 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M0.999837 13.8333C0.999837 14.75 1.74984 15.5 2.6665 15.5L9.33317 15.5C10.2498 15.5 10.9998 14.75 10.9998 13.8333L10.9998 3.83333L0.999837 3.83333L0.999837 13.8333ZM11.8332 1.33333L8.9165 1.33333L8.08317 0.5L3.9165 0.5L3.08317 1.33333L0.166504 1.33333L0.166504 3L11.8332 3V1.33333Z"
+      fill={fill}
+    />
+  </svg>
+);
+
 const ImageIcon = ({fill="#000000" ,width="24",height="24"}) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -3437,7 +3446,36 @@ const PlaceholderSvg = ({width="800",height="800",fill}) => (
   </svg>
 );
 
+const TabInactive = ({ width = "32", height = "32", fill = "#C84C0E" }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={width}
+    height={height}
+    viewBox="0 0 32 32"
+    fill="none"
+  >
+    <mask
+      id="mask0_72697_9905"
+      maskUnits="userSpaceOnUse"
+      x="0"
+      y="0"
+      width="32"
+      height="32"
+    >
+      <rect width="32" height="32" fill="#D9D9D9" />
+    </mask>
+    <g mask="url(#mask0_72697_9905)">
+      <path
+        d="M10.6665 29.3334C9.93317 29.3334 9.30539 29.0723 8.78317 28.5501C8.26095 28.0279 7.99984 27.4001 7.99984 26.6667V24.0001H5.33317C4.59984 24.0001 3.97206 23.739 3.44984 23.2167C2.92762 22.6945 2.6665 22.0667 2.6665 21.3334V18.6667H5.33317V21.3334H7.99984V10.6667C7.99984 9.93341 8.26095 9.30564 8.78317 8.78341C9.30539 8.26119 9.93317 8.00008 10.6665 8.00008H21.3332V5.33341H18.6665V2.66675H21.3332C22.0665 2.66675 22.6943 2.92786 23.2165 3.45008C23.7387 3.9723 23.9998 4.60008 23.9998 5.33341V8.00008H26.6665C27.3998 8.00008 28.0276 8.26119 28.5498 8.78341C29.0721 9.30564 29.3332 9.93341 29.3332 10.6667V26.6667C29.3332 27.4001 29.0721 28.0279 28.5498 28.5501C28.0276 29.0723 27.3998 29.3334 26.6665 29.3334H10.6665ZM10.6665 26.6667H26.6665V10.6667H10.6665V26.6667ZM2.6665 16.0001V10.6667H5.33317V16.0001H2.6665ZM2.6665 8.00008V5.33341C2.6665 4.60008 2.92762 3.9723 3.44984 3.45008C3.97206 2.92786 4.59984 2.66675 5.33317 2.66675H7.99984V5.33341H5.33317V8.00008H2.6665ZM10.6665 5.33341V2.66675H15.9998V5.33341H10.6665Z"
+        fill={fill}
+      />
+    </g>
+  </svg>
+);
+
+
 export const CustomSVG = {
+    TabInactive,
     PlaceholderSvg,
     ProfileIcon,
     AnnouncementIcon,
@@ -3497,6 +3535,7 @@ export const CustomSVG = {
     SurveyIconSolid,
     PMBIconSolid,
     DustbinIcon,
+    // DustbinIconNew,
     ExternalLinkIcon,
     DownloadImgIcon,
     ViewsIcon,

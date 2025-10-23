@@ -60,14 +60,14 @@
 /* important to be remove after fixing the components */
 .light {
   &-primary {
-    color: theme(digitv2.lightTheme.primary-orange) !important;
+    color: theme(digitv2.lightTheme.primary-1) !important;
 
     &-button {
-      background-color: theme(digitv2.lightTheme.primary-orange);
+      background-color: theme(digitv2.lightTheme.primary-1);
     }
 
     &-bg {
-      background-color: theme(digitv2.lightTheme.primary-orangebg);
+      background-color: theme(digitv2.lightTheme.primary-bg);
     }
   }
 
@@ -120,7 +120,7 @@
   }
 
   &-header-sidenav {
-    color: theme(digitv2.lightTheme.primary-bluegray);
+    color: theme(digitv2.lightTheme.primary-2);
   }
 
   &-input-border {

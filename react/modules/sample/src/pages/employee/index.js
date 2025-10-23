@@ -1,25 +1,61 @@
-import { AppContainer,PrivateRoute,BreadCrumb, LoaderComponent } from "@egovernments/digit-ui-components";
+import { AppContainer,PrivateRoute,BreadCrumb, Loader } from "@egovernments/digit-ui-components";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Route, Switch } from "react-router-dom";
 import Sample from "./Sample";
 import SampleSearch from "./SampleSearch";
+import { BoundaryFilter } from "@egovernments/digit-ui-components";
+import FormComposerForBoundary from "./FormComposerForBoundary";
+import SampleInbox from "./SampleInbox";
+import IndividualSearch from "./IndividualSearch";
+import SampleComponents from "./SampleComponents";
+import SampleView from "./SampleView";
+import BoundarySearchComposer from "./BoundarySearchComposer";
+import TabSearch from "./TabSearch";
+import BoundarySearchComposerWithFilter from "./BoundarySearchComposerWithFilter";
+import NewSampleSearch from "./NewSampleSearch";
+import SampleSearchWithMultipleTabs from "./SampleSearchWithMultipleTabs";
 
-const ProjectBreadCrumb = ({ location }) => {
+const SampleBreadCrumbs = ({ location }) => {
   const { t } = useTranslation();
   const crumbs = [
-    // {
-    //   path: `/${window?.contextPath}/employee`,
-    //   content: t("HOME"),
-    //   show: true,
-    // },
     {
-      path: `/${window?.contextPath}/employee`,
-      content: t(location.pathname.split("/").pop()),
+      internalLink: `/${window?.contextPath}/employee`,
+      content: t("HOME"),
       show: true,
     },
+    {
+      internalLink: `/${window?.contextPath}/employee/microplan/create`,
+      content: t("Sample Create"),
+      show: location.pathname.split("/").pop() === "create",
+    },
+    {
+      internalLink: `/${window?.contextPath}/employee/microplan/search`,
+      content: t("Sample Search"),
+      show: location.pathname.split("/").pop() === "search",
+    },
+    {
+      internalLink: `/${window?.contextPath}/employee/microplan/inbox`,
+      content: t("Sample Inbox"),
+      show: location.pathname.split("/").pop() === "inbox",
+    },
+    {
+      internalLink: `/${window?.contextPath}/employee/microplan/view`,
+      content: t("Sample View"),
+      show: location.pathname.split("/").pop() === "view",
+    },
+    {
+      internalLink: `/${window?.contextPath}/employee/microplan/tab-search`,
+      content: t("Sample Tab Search"),
+      show: location.pathname.split("/").pop() === "tab-search",
+    },
+    {
+      internalLink: `/${window?.contextPath}/employee/microplan/components`,
+      content: t("Sample Components"),
+      show: location.pathname.split("/").pop() === "components",
+    },
   ];
-  return <BreadCrumb crumbs={crumbs} style={{marginLeft:"16px"}} spanStyle={{ maxWidth: "min-content" }} />;
+  return <BreadCrumb crumbs={crumbs}/>;
 };
 
 const App = ({ path, stateCode, userType, tenants }) => {
@@ -29,11 +65,48 @@ const App = ({ path, stateCode, userType, tenants }) => {
     <Switch>
       <AppContainer className="ground-container">
         <React.Fragment>
-          <ProjectBreadCrumb location={location} />
+          <SampleBreadCrumbs location={location} />
         </React.Fragment>
         <PrivateRoute path={`${path}/components`} component={() => <Sample></Sample>} />
-        <PrivateRoute path={`${path}/test`} component={() => <LoaderComponent></LoaderComponent>} />
+        <PrivateRoute path={`${path}/test`} component={() => <Loader></Loader>} />
+        <PrivateRoute path={`${path}/search-multiple-tabs`} component={() =><SampleSearchWithMultipleTabs/>} />
+        <PrivateRoute path={`${path}/new-search`} component={() => <NewSampleSearch></NewSampleSearch>} />
+        <PrivateRoute path={`${path}/searchComposer`} component={()=><BoundarySearchComposer></BoundarySearchComposer>}/>
         <PrivateRoute path={`${path}/search`} component={() => <SampleSearch></SampleSearch>} />
+        <PrivateRoute path={`${path}/searchComposerWithFilter`} component={()=><BoundarySearchComposerWithFilter></BoundarySearchComposerWithFilter>}/>
+        <PrivateRoute path={`${path}/filter`} component={() => 
+          <BoundaryFilter 
+          levelConfig={{lowestLevel:"LOCALITY", highestLevel:"COUNTRY"}} 
+          hierarchyType={"NEWTEST00222"} 
+          selectedValues={[]}
+          layoutConfig={{isDropdownLayoutHorizontal:true,isLabelFieldLayoutHorizontal:false}}
+          frozenData={[{
+            code: "NEWTEST00222_MO",
+            name: "NEWTEST00222_MO"
+          },
+          {
+            code: "NEWTEST00222_MO_11_MARYLAND",
+            name: "NEWTEST00222_MO_11_MARYLAND"
+          },
+          {
+            code: "NEWTEST00222_MO_11_06_PLEEBO",
+            name: "NEWTEST00222_MO_11_06_PLEEBO"
+          }]}
+          preSelected={["NEWTEST00222_MO","NEWTEST00222_MO_11_MARYLAND"]}
+          noCardStyle={false}
+          />} 
+        />
+        <PrivateRoute path={`${path}/FormComposer`} component={() => <FormComposerForBoundary/>} />
+
+
+        <PrivateRoute path={`${path}/components`} component={() => <SampleComponents></SampleComponents>} />
+        <PrivateRoute path={`${path}/create`} component={() => <Sample></Sample>} />
+        <PrivateRoute path={`${path}/inbox`} component={() => <SampleInbox></SampleInbox>} />
+        <PrivateRoute path={`${path}/search-edit`} component={() => <IndividualSearch></IndividualSearch>} />
+        <PrivateRoute path={`${path}/view`} component={() => <SampleView></SampleView>} />
+        <PrivateRoute path={`${path}/tab-search`} component={() => <TabSearch></TabSearch>} />
+        <PrivateRoute path={`${path}/ind-search`} component={() => <IndividualSearch></IndividualSearch>} />
+        <PrivateRoute path={`${path}/test`} component={() => <Loader></Loader>} />
         </AppContainer>
     </Switch>
   );

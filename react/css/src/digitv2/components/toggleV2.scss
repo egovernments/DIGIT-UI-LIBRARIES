@@ -109,3 +109,78 @@
   color: theme(digitv2.lightTheme.text-disabled);
   padding: theme(digitv2.spacers.spacer2) theme(digitv2.spacers.spacer3);
 }
+
+
+.digit-toggle-toolbar.vertical-toggle {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.digit-toggle-toolbar.vertical-toggle .toggle-option-container {
+  width: fit-content !important;
+  max-width: 100% !important;
+}
+
+.digit-toggle-toolbar.vertical-toggle .digit-toggle-btn-wrap {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem;
+  background-color: theme(digitv2.lightTheme.paper-primary);
+  border: 1px solid #d6d6d6;
+  cursor: pointer;
+  transition:  all 0.2s ease;
+  width: 8.5rem !important; 
+  min-width: 6.25rem; 
+  height: 8.125rem;
+}
+
+.vertical-toggle .toggle-option-container:first-child .digit-toggle-btn-wrap {
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+}
+
+.vertical-toggle .toggle-option-container:last-child .digit-toggle-btn-wrap {
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+}
+
+.digit-toggle-toolbar.vertical-toggle .digit-toggle-btn-wrap.checked {
+  border: 2px solid theme(digitv2.lightTheme.primary-1);
+  background-color: theme(digitv2.lightTheme.paper-primary) !important;
+  color: theme(digitv2.lightTheme.primary-1);
+  width: 9rem !important;
+  transform: scaleX(1.05); 
+}
+
+.digit-toggle-toolbar.vertical-toggle .digit-toggle-label {
+  font-weight: bold;
+  font-size: theme(digitv2.fontSize.heading-s);
+  text-align: center;
+  width: 100%;
+  background-color: theme(digitv2.lightTheme.paper-primary);
+  color: theme(digitv2.lightTheme.primary-2);
+}
+
+.digit-toggle-input {
+  display: none;
+}
+.vertical-toggle .digit-toggle-btn-wrap input:checked + .digit-toggle-label {
+  background-color:theme(digitv2.lightTheme.paper-primary) !important;
+  color: theme(digitv2.lightTheme.primary-1) !important;
+  border-bottom-right-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+}
+.vertical-toggle .digit-toggle-btn-wrap.checked {
+  border-bottom-right-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+}
+.vertical-toggle{
+  .digit-toggle-label{
+    &.disabled{
+      color: theme(digitv2.lightTheme.text-disabled) !important;
+    }
+  }
+}

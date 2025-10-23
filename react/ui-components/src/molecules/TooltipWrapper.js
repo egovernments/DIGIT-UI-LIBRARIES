@@ -22,6 +22,7 @@ const TooltipWrapper = ({
   ClassName,
   header,
   description,
+  theme,
   ...props
 }) => {
   const [open, setOpen] = useState(openProp || false);
@@ -128,6 +129,7 @@ const TooltipWrapper = ({
           className={ClassName}
           header={header}
           description={description}
+          theme={theme}
         />
       )}
     </div>

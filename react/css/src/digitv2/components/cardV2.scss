@@ -334,7 +334,8 @@
 }
 
 .digit-card-section-header {
-    @apply text-text-primary text-heading-m font-bold;
+    @apply text-heading-m font-bold;
+    color: theme(digitv2.lightTheme.text-primary);
 }
 
 .digit-card-search-heading {
@@ -495,4 +496,9 @@
             margin-bottom: unset;
         }
     }
+}
+.titleStyle{
+    color: theme(digitv2.lightTheme.primary-2);
+    font-weight: theme(digitv2.fontWeight.bold);
+    font-size: theme(digitv2.spacers.spacer10);
 }

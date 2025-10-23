@@ -164,7 +164,7 @@
 }
 .digit-nested-category {
   @apply flex items-center flex-shrink-0;
-  background: theme(digitv2.lightTheme.background);
+  background: theme(digitv2.lightTheme.generic-background);
   height: 2.4375rem;
   padding: theme(digitv2.spacers.spacer4) 0.625rem;
   gap: 0.625rem;

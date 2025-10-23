@@ -7,13 +7,11 @@ import _ from "lodash";
 import BreakLine from "../atoms/BreakLine";
 import Card from "../atoms/Card";
 import HeaderComponent from "../atoms/HeaderComponent";
-import Button from "../atoms/Button";
 import ActionLinks from "../atoms/ActionLinks";
 import Footer from "../atoms/Footer";
 import LabelFieldPair from "../atoms/LabelFieldPair";
-import ErrorMessage from "../atoms/ErrorMessage";
 import HorizontalNav from "../atoms/HorizontalNav";
-import { CardText, SubmitBar, Toast } from "../atoms";
+import { SubmitBar, Toast , Button } from "../atoms";
 
 // import Fields from "./Fields";    //This is a field selector pickup from formcomposer
 import FieldController from "./FieldController";
@@ -66,9 +64,17 @@ export const FormComposer = (props) => {
   const formData = watch();
   const selectedFormCategory = props?.currentFormCategory;
   const [showErrorToast, setShowErrorToast] = useState(false);
+  const [customToast, setCustomToast] = useState(false); 
   //clear all errors if user has changed the form category.
   //This is done in case user first click on submit and have errors in cat 1, switches to cat 2 and hit submit with errors
   //So, he should not get error prompts from previous cat 1 on cat 2 submit.
+
+  useEffect(() => {
+    if (props?.defaultValues && Object.keys(props?.defaultValues).length > 0) {
+      reset(props?.defaultValues);
+    }
+  }, [props?.defaultValues]);
+
   useEffect(() => {
     clearErrors();
   }, [selectedFormCategory]);
@@ -77,7 +83,16 @@ export const FormComposer = (props) => {
     if (Object.keys(formState?.errors).length > 0 && formState?.submitCount > 0) {
       setShowErrorToast(true);
     }
+    else{
+       setShowErrorToast(false);
+    }
   }, [formState?.errors, formState?.submitCount]);
+
+  useEffect(() =>{
+    if(showErrorToast === true){
+    setShowErrorToast(false);
+    }
+  },[props?.config])
 
   useEffect(() => {
     if (
@@ -93,6 +108,9 @@ export const FormComposer = (props) => {
     props.getFormAccessors && props.getFormAccessors({ setValue, getValues });
   }, []);
 
+  useEffect(()=>{
+    setCustomToast(props?.customToast);
+  },[props?.customToast])
   function onSubmit(data) {
     props.onSubmit(data);
   }
@@ -177,20 +195,20 @@ export const FormComposer = (props) => {
     }
   };
 
-  const titleStyle = { color: "#505A5F", fontWeight: "700", fontSize: "16px" };
-
   const getCombinedComponent = (section) => {
     if (section.head && section.subHead) {
       return (
         <>
           <HeaderComponent
-            className={`digit-card-section-header`}
-            style={props?.sectionHeadStyle ? props?.sectionHeadStyle : { margin: "5px 0px" }}
+            className={`digit-card-section-header titleStyle ${section?.sectionHeadClassName || ""}`}
             id={section.headId}
           >
             {t(section.head)}
           </HeaderComponent>
-          <HeaderComponent style={titleStyle} id={`${section.headId}_DES`}>
+          <HeaderComponent 
+          id={`${section.headId}_DES`}
+          className={`sectionSubHeaderStyle ${section?.sectionSubHeadClassName}`}
+          >
             {t(section.subHead)}
           </HeaderComponent>
         </>
@@ -198,7 +216,9 @@ export const FormComposer = (props) => {
     } else if (section.head) {
       return (
         <>
-          <HeaderComponent className={`digit-card-section-header`} style={props?.sectionHeadStyle ? props?.sectionHeadStyle : {}} id={section.headId}>
+          <HeaderComponent className={`digit-card-section-header titleStyle ${section?.sectionHeadClassName || ""}`}
+          id={section.headId}
+          >
             {t(section.head)}
           </HeaderComponent>
         </>
@@ -210,6 +230,8 @@ export const FormComposer = (props) => {
 
   const closeToast = () => {
     setShowErrorToast(false);
+    setCustomToast(false);
+    props?.updateCustomToast&&props?.updateCustomToast(false);
   };
 
 
@@ -344,9 +366,9 @@ export const FormComposer = (props) => {
   const renderFormFields = (props, section, index, array, sectionFormCategory) => (
     <React.Fragment key={index}>
       {!props.childrenAtTheBottom && props.children}
-      {props.heading && <HeaderComponent styles={{ ...props.headingStyle }}> {props.heading} </HeaderComponent>}
-      {props.description && <HeaderComponent styles={{ ...props.descriptionStyles }}> {props.description} </HeaderComponent>}
-      {props.text && <p>{props.text}</p>}
+      {props.heading && <HeaderComponent className={props?.cardSubHeaderClassName ? `digit-form-card-subheader ${props?.cardSubHeaderClassName}` : "digit-form-card-subheader"} styles={{ ...props.headingStyle }}> {props.heading} </HeaderComponent>}
+      {props.description && <HeaderComponent className={props?.cardDescriptionClassName ? `digit-form-card-description ${props?.cardDescriptionClassName}` : "digit-form-card-description"} styles={{ ...props.descriptionStyles }}> {props.description} </HeaderComponent>}
+      {props.text && <HeaderComponent className={props?.cardTextClassName ? `digit-form-card-text ${props?.cardTextClassName}` : "digit-form-card-text"}>{props.text}</HeaderComponent>}
       {formFields(section, index, array, sectionFormCategory)}
       {props.childrenAtTheBottom && props.children}
       {props.submitInForm && (
@@ -359,9 +381,9 @@ export const FormComposer = (props) => {
       )}
     </React.Fragment>
   );
-
+const fieldId=Digit?.Utils?.getFieldIdName?.(props?.formId || props?.className || "form")||"NA";
   return (
-    <form onSubmit={handleSubmit(onSubmit)} onKeyDown={(e) => checkKeyDown(e)} id={props.formId} className={props.className}>
+    <form onSubmit={handleSubmit(onSubmit)} onKeyDown={(e) => checkKeyDown(e)} id={fieldId} className={props.className}>
       {props?.showMultipleCardsWithoutNavs ? (
         props?.config?.map((section, index, array) => {
           return (
@@ -410,12 +432,16 @@ export const FormComposer = (props) => {
         </HorizontalNav>
       )}
       {!props.submitInForm && props.label && (
-        <Footer>
-          <SubmitBar label={t(props.label)} submit="submit" disabled={isDisabled} />
-          {props.onSkip && props.showSkip && <ActionLinks style={props?.skipStyle} label={t(`CS_SKIP_CONTINUE`)} onClick={props.onSkip} />}
+        <Footer className={props.actionClassName}>
+          <SubmitBar label={t(props.label)} id={`${fieldId}-primary`} className="digit-formcomposer-submitbar" submit="submit" disabled={isDisabled} icon={props?.primaryActionIcon} isSuffix={props?.primaryActionIconAsSuffix} />
+          {props?.secondaryLabel && props?.showSecondaryLabel && (
+            <Button id={`${fieldId}-secondary`} className="previous-button"  variation="secondary" label={t(props?.secondaryLabel)} onClick={props?.onSecondayActionClick} icon={props?.secondaryActionIcon} isSuffix={props?.secondaryActionIconAsSuffix} />
+          )}
+          {props.onSkip && props.showSkip && <ActionLinks style={props?.skipStyle} label={t(`CS_SKIP_CONTINUE`)} id={`${fieldId}-links`} onClick={props.onSkip} />}
         </Footer>
       )}
       {showErrorToast && <Toast type={"error"} label={t("ES_COMMON_PLEASE_ENTER_ALL_MANDATORY_FIELDS")} isDleteBtn={true} onClose={closeToast} />}
+      {customToast && <Toast type={customToast?.type} label={t(customToast?.label)} isDleteBtn={true} onClose={closeToast} />}
     </form>
   );
 };

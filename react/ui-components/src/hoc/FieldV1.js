@@ -11,12 +11,18 @@ import {
   MobileNumber,
   InputTextAmount,
   StringManipulator,
+  LabelFieldPair
 } from "../atoms";
 import { useTranslation } from "react-i18next";
 import { useState, useEffect } from "react";
 import UploadFileComposer from "./UploadFileComposer";
 import { CustomDropdown } from "../molecules";
 import { Controller } from "react-hook-form";
+import { LocationDropdownWrapper } from "../molecules";
+import { ApiDropdown } from "../molecules";
+import { WorkflowStatusFilter } from "../molecules";
+import { DateRangeNew } from "../molecules";
+import BoundaryFilter from "./BoundaryFilter";
 
 const FieldV1 = ({
   type = "",
@@ -46,7 +52,8 @@ const FieldV1 = ({
   controllerProps,
   variant,
 }) => {
-  const { t } = useTranslation();
+  const { t: i18nT } = useTranslation();
+  const t = populators.t || i18nT; // consuming custom translation function if provided, otherwise use i18nT
   let disableFormValidation = false;
   if (sectionFormCategory && selectedFormCategory) {
     disableFormValidation =
@@ -64,7 +71,7 @@ const FieldV1 = ({
   const [currentCharCount, setCurrentCharCount] = useState(0);
 
   useEffect(() => {
-    setCurrentCharCount(value.length);
+    setCurrentCharCount(value?.length);
   }, [value]);
 
   const renderCharCount = () => {
@@ -150,6 +157,8 @@ const FieldV1 = ({
             min={populators?.validation?.min}
             maxlength={populators?.validation?.maxlength}
             minlength={populators?.validation?.minlength}
+            pattern={populators?.validation?.pattern}
+            validation={populators?.validation}
             customIcon={populators?.customIcon}
             customClass={populators?.customClass}
             onIconSelection={populators?.onIconSelection}
@@ -197,6 +206,7 @@ const FieldV1 = ({
             disabled={disabled}
             id={fieldId}
             errorStyle={errors?.[populators?.name]}
+            mdmsv2= {populators?.mdmsv2}
             variant={
               variant
                 ? variant
@@ -268,6 +278,8 @@ const FieldV1 = ({
               value={value}
               disable={disabled}
               id={fieldId}
+              prefix={populators?.prefix}
+              hideSpan={populators?.hideSpan}
               errorStyle={errors?.[populators?.name]}
             />
           </div>
@@ -322,6 +334,18 @@ const FieldV1 = ({
             }
           />
         );
+        case "boundary":
+          return (
+            <BoundaryFilter
+              levelConfig={populators.levelConfig}
+              hierarchyType={populators.hierarchyType}
+              module={populators.module}
+              layoutConfig={{ isDropdownLayoutHorizontal: false, isLabelFieldLayoutHorizontal: false }}
+              preSelected={populators.preSelected}
+              frozenData={populators.frozenData}
+              onChange={onChange}
+            />
+          );
       case "custom":
         return populators.component;
       case "amount":
@@ -353,6 +377,81 @@ const FieldV1 = ({
             }
           />
         );
+        case "locationdropdown":
+          return (
+            <Controller
+              name={`${populators?.name}`}
+              control={controllerProps?.control}
+              defaultValue={formData?.[populators?.name]}
+              rules={{ required: populators?.isMandatory, ...populators.validation }}
+              render={(props) => {
+                return (
+                  <div style={{ display: "grid", gridAutoFlow: "row" ,width:"100%"}}>
+                    <LocationDropdownWrapper
+                      props={props}
+                      populators={populators}
+                      formData={formData}
+                      inputRef={props.ref}
+                      errors={errors}
+                      disabled={disabled}
+                      setValue={controllerProps?.setValue}
+                    />
+                  </div>
+                );
+              }}
+            />
+          );
+        case "apidropdown":
+          return (
+            <Controller
+              name={`${populators?.name}`}
+              control={controllerProps?.control}
+              defaultValue={formData?.[populators?.name]}
+              rules={{ required: populators?.isMandatory, ...populators.validation }}
+              render={(props) => {
+                return (
+                  <div style={{ display: "grid", gridAutoFlow: "row",width:"100%" }}>
+                    <ApiDropdown props={props} populators={populators} formData={formData} inputRef={props.ref} errors={errors} disabled={disabled} />
+                  </div>
+                );
+              }}
+            />
+          );
+        // case "workflowstatesfilter":
+        //   return (
+        //     <Controller
+        //       name={`${populators?.name}`}
+        //       control={controllerProps?.control}
+        //       defaultValue={formData?.[populators?.name]}
+        //       rules={{ required: populators?.isMandatory }}
+        //       render={(props) => {
+        //         return (
+        //           <div style={{ display: "grid", gridAutoFlow: "row",width:"100%" }}>
+        //             <WorkflowStatusFilter inboxResponse={data} props={props} populators={populators} t={t} formData={formData} />
+        //           </div>
+        //         );
+        //       }}
+        //     />
+        //   );
+        case "dateRange":
+          return (
+            <Controller
+              render={(props) => (
+                <DateRangeNew
+                  t={t}
+                  values={formData?.[populators?.name]?.range}
+                  name={populators?.name}
+                  onFilterChange={props.onChange}
+                  inputRef={props.ref}
+                  errorStyle={errors?.[populators?.name]}
+                />
+              )}
+              rules={{ required: required, ...populators.validation }}
+              defaultValue={formData?.[populators?.name]}
+              name={populators?.name}
+              control={controllerProps?.control}
+            />
+          );
       default:
         return null;
     }
@@ -361,12 +460,12 @@ const FieldV1 = ({
 
 
   return (
-    <div className="label-field-wrapper">
+    <LabelFieldPair removeMargin={true} vertical={populators?.alignFieldPairVerically} className={`digit-formcomposer-fieldpair ${populators?.fieldPairClassName}`}>
       {!withoutLabel && (
         <HeaderComponent
-          className={`label ${disabled ? "disabled" : ""} ${
+          className={`label ${
             nonEditable ? "noneditable" : ""
-          } ${populators?.wrapLabel ? "wraplabel" : ""}`}
+          } ${populators?.wrapLabel ? "wraplabel" : ""} ${populators?.boldLabel ? "boldLabel" : ""}`}
         >
           <div
             className={`label-container ${
@@ -403,24 +502,26 @@ const FieldV1 = ({
       <div
         style={
           withoutLabel
-            ? { width: "100%", ...props?.fieldStyle, marginBottom: "24px" }
-            : { ...props?.fieldStyle, marginBottom: "24px" }
+            ? { width: "100%", ...props?.fieldStyle}
+            : { ...props?.fieldStyle}
         }
         className="digit-field"
       >
         {renderField()}
-        <div
-          className={`${
-            charCount && !error && !description
-              ? "digit-charcount"
-              : "digit-description"
-          }`}
-        >
-          {renderDescriptionOrError()}
-          {renderCharCount()}
-        </div>
+        {(charCount || error || description) && (
+          <div
+            className={`${
+              charCount && !error && !description
+                ? "digit-charcount"
+                : "digit-description"
+            }`}
+          >
+            {renderDescriptionOrError()}
+            {renderCharCount()}
+          </div>
+        )}
       </div>
-    </div>
+    </LabelFieldPair>
   );
 };
 

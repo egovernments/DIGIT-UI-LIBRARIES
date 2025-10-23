@@ -1,7 +1,20 @@
 import React, { forwardRef } from "react";
 import PropTypes from "prop-types";
+import { iconRender } from "../utils/iconRender";
+import { Colors } from "../constants/colors/colorconstants";
 
 const SubmitBar = forwardRef((props, ref) => {
+  const primaryIconColor = Colors.lightTheme.paper.primary;
+ const fieldId = props?.id||Digit?.Utils?.getFieldIdName?.( props?.label || props?.className || "button")||"NA";
+
+  const icon = iconRender(
+    props?.icon,
+    props?.iconFill || primaryIconColor,
+    "1.5rem",
+    "1.5rem",
+    `digit-button-customIcon`
+  );
+
   return (
     <button
       ref={ref}
@@ -10,9 +23,14 @@ const SubmitBar = forwardRef((props, ref) => {
       type={props.submit ? "submit" : "button"}
       style={{ ...props.style }}
       onClick={props.onSubmit}
+      id={fieldId}
       {... props.form ? {form: props.form} : {}}
     >
-      <h2>{props.label}</h2>
+      <div className={`icon-label-container`}    id={`${fieldId}-content`}>
+        {!props?.isSuffix && props?.icon && icon}
+        <h2 className="digit-button-label">{props.label}</h2>
+        {props?.isSuffix && props?.icon && icon}
+      </div>
     </button>
   );
 });
@@ -22,6 +40,10 @@ SubmitBar.propTypes = {
    * Is it a normal button or submit button?
    */
   submit: PropTypes.any,
+    /**
+   * button id if any
+   */
+  id: PropTypes.string,
   /**
    * style for the button
    */

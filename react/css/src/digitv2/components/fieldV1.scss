@@ -5,6 +5,7 @@
     flex-direction: column;
     justify-content: flex-start;
     gap: theme(digitv2.spacers.spacer1);
+    width: 100%;
 }
 
 .digit-header-content {
@@ -20,6 +21,10 @@
                 height: fit-content;
                 word-break: break-word;
             }
+        }
+
+        &.boldLabel{
+          font-weight: 700;
         }
 
         .label-container {
@@ -87,6 +92,10 @@
                 }
             }
         }
+
+        &.search-screen{
+            width: 100%;
+        }
     }
 }
 
@@ -139,4 +148,102 @@
     .digit-charcount {
         @apply justify-end;
     }
+}
+
+.digit-form-card-subheader {
+    @extend .typography.caption-l;
+    font-family: theme(digitv2.fontFamily.sans);
+    font-style: theme(digitv2.fontStyle.normal);
+    font-weight: theme(digitv2.fontWeight.medium);
+    line-height: theme(digitv2.lineHeight.lineheight1);
+
+    @media (max-aspect-ratio: 9/16) {
+      /* Media query for mobile */
+      font-size: theme(digitv2.fontSize.caption-l.mobile);
+    }
+
+    @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+      /* Media query for tablets */
+      font-size: theme(digitv2.fontSize.caption-l.tablet);
+    }
+
+    @media (min-aspect-ratio: 3/4) {
+      /* Media query for desktop */
+      font-size: theme(digitv2.fontSize.caption-l.desktop);
+    }
+    color: theme(digitv2.lightTheme.text-primary);
+}
+
+.digit-form-card-description {
+    @extend .typography.heading-s;
+    font-family: theme(digitv2.fontFamily.sans);
+    font-style: theme(digitv2.fontStyle.normal);
+    font-weight: theme(digitv2.fontWeight.bold);
+    line-height: theme(digitv2.lineHeight.lineheight1);
+
+    @media (max-aspect-ratio: 9/16) {
+      /* Media query for mobile */
+      font-size: theme(digitv2.fontSize.heading-s.mobile);
+    }
+
+    @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+      /* Media query for tablets */
+      font-size: theme(digitv2.fontSize.heading-s.tablet);
+    }
+
+    @media (min-aspect-ratio: 3/4) {
+      /* Media query for desktop */
+      font-size: theme(digitv2.fontSize.heading-s.desktop);
+    }
+    color: theme(digitv2.lightTheme.text-secondary);
+}
+
+.digit-form-card-text {
+    @extend .typography.body-l;
+    font-family: theme(digitv2.fontFamily.sans);
+    font-style: theme(digitv2.fontStyle.normal);
+    font-weight: theme(digitv2.fontWeight.regular);
+    line-height: theme(digitv2.lineHeight.lineheight2);
+
+    @media (max-aspect-ratio: 9/16) {
+      /* Media query for mobile */
+      font-size: theme(digitv2.fontSize.body-l.mobile);
+    }
+
+    @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+      /* Media query for tablets */
+      font-size: theme(digitv2.fontSize.body-l.tablet);
+    }
+
+    @media (min-aspect-ratio: 3/4) {
+      /* Media query for desktop */
+      font-size: theme(digitv2.fontSize.body-l.desktop);
+    }
+    color: theme(digitv2.lightTheme.text-secondary);
+
+}
+
+.sectionSubHeaderStyle{
+  @extend .typography.body-s;
+  @apply flex justify-between items-baseline;
+  color: theme(digitv2.lightTheme.text-secondary);
+  font-family: theme(digitv2.fontFamily.sans);
+  font-style: theme(digitv2.fontStyle.normal);
+  font-weight: theme(digitv2.fontWeight.regular);
+  line-height: theme(digitv2.lineHeight.lineheight2);
+
+  @media (max-aspect-ratio: 9/16) {
+    /* Media query for mobile */
+    font-size: theme(digitv2.fontSize.body-s.mobile);
+  }
+
+  @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+    /* Media query for tablets */
+    font-size: theme(digitv2.fontSize.body-s.tablet);
+  }
+
+  @media (min-aspect-ratio: 3/4) {
+    /* Media query for desktop */
+    font-size: theme(digitv2.fontSize.body-s.desktop);
+  }
 }

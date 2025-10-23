@@ -9,8 +9,12 @@ on:
         required: true
         type: choice
         options:
-          - flutter
-          - react
+          # React Options
+          - builds/Digit-UI-Libraries/react/core-ui
+          - builds/Digit-UI-Libraries/react/storybook
+          # Flutter Options
+          - builds/Digit-UI-Libraries/flutter/digit-ui-components
+          - builds/Digit-UI-Libraries/flutter/story-book-flutter
 
 env:
   DOCKER_USERNAME: ${{ vars.DOCKER_USERNAME }}
@@ -21,10 +25,10 @@ jobs:
     name: Resolve ${{ github.event.inputs.pipeline_name }} config
     runs-on: ubuntu-latest
     outputs:
-      work_dir:    ${{ steps.setenv.outputs.work_dir }}
-      image_name:  ${{ steps.setenv.outputs.image_name }}
-      dockerfile:  ${{ steps.setenv.outputs.dockerfile }}
-      tag:         ${{ steps.tag.outputs.tag }}
+      work_dir:   ${{ steps.setenv.outputs.work_dir }}
+      image_name: ${{ steps.setenv.outputs.image_name }}
+      dockerfile: ${{ steps.setenv.outputs.dockerfile }}
+      tag:        ${{ steps.tag.outputs.tag }}
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -43,8 +47,8 @@ jobs:
           DEFAULT_DOCKERFILE="Dockerfile"
           echo "### Pipeline Name - $PIPELINE_NAME" >> $GITHUB_STEP_SUMMARY
 
-          # Find exactly one matching config block
-          MATCHING_CONFIGS=$(yq eval -o=json '.config[] | select(.name | test("/'"$PIPELINE_NAME"'$"))' build/build-config.yml)
+          # Find exactly one matching config block (using an exact match)
+          MATCHING_CONFIGS=$(yq eval -o=json '.config[] | select(.name == "'"$PIPELINE_NAME"'")' build/build-config.yml)
           MATCH_COUNT=$(echo "$MATCHING_CONFIGS" | jq -s 'length')
           if [ "$MATCH_COUNT" -ne 1 ]; then
             echo "ERROR: Expected exactly 1 matching pipeline config, but found $MATCH_COUNT"

@@ -3,7 +3,7 @@ name: Node.js Publish UI Packages
 
 on:
   push:
-    branches: [ 'master','develop' ]
+    branches: [ 'master' ]
     paths:
       - 'react/ui-components/**'
 
@@ -16,6 +16,6 @@ jobs:
         with:
           node-version: 14
           registry-url: https://registry.npmjs.org/
-      - run: cd react/ && yarn && cd ui-components/ && yarn build && npm publish --tag corev0.2
+      - run: cd react/ && yarn && cd ui-components/ && yarn build && npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}

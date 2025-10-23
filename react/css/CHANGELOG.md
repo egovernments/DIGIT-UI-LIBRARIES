@@ -4,6 +4,35 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.1] - 2025-10-23
+### Enhancement CSS & Styling Updates
+#### Typography
+- 📱 Updated responsive typography for tablet and desktop
+- 💅 Enhanced font sizes and line heights
+- 🔧 Improved spacing and margins
+
+#### Component Styles
+- ✨ New styles for BoundaryComponent
+- 💅 Updated button, card, and field styling
+- 💅 Enhanced dropdown and modal styles
+- 📱 Improved mobile responsiveness
+
+### [0.2.0-rc.1] - 2025-10-23
+## Fix
+- test build
+
+### [0.2.0-beta.17] - 2025-10-23
+## Fix
+- test build
+
+## [0.2.0-beta.15] - 2025-07-15
+### Enhancement
+- Updated tablet and desktop heading-m typography
+
+## [0.2.0-beta.9] - 2025-04-28 
+### New changes added
+- Added new css for BoundaryComponent in BounDaryFilter.scss
+
 ## [0.2.0] - 2025-02-19 
 ### New Components Added
 

@@ -7,6 +7,7 @@ const headerString = `
  * ${name} - ${version}
  *
  * Copyright (c) ${new Date().getFullYear()} ${author}
+ * Published on: ${new Date().toISOString().split('T')[0]}
  * 
  */
   `;
