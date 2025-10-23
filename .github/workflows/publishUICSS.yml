@@ -2,7 +2,7 @@ name: Node.js Publish UI CSS Packages
 
 on:
   push:
-    branches: [ 'master','develop' ]
+    branches: [ 'master' ]
     paths:
       - 'react/css/**'
 
@@ -15,7 +15,7 @@ jobs:
         with:
           node-version: 14
           registry-url: https://registry.npmjs.org/
-      - run: yarn && yarn build &&  npm publish --tag corev0.2
+      - run: yarn && yarn build &&  npm publish --access public
         working-directory: ./react/css/
         env:
           NODE_AUTH_TOKEN: ${{ secrets.npm_token }}

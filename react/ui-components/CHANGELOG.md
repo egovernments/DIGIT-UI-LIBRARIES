@@ -172,6 +172,10 @@ This version represents a major update focusing on:
 - Comprehensive styling updates
 - Robust build and deployment infrastructure
 
+### [0.2.0-rc.1] - 2025-10-23
+## Fix
+- test build
+
 ### [0.2.0-beta.100] - 2025-10-23
 ## Fix
 - test build
