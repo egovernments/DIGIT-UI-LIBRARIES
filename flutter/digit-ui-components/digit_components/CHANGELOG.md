@@ -1,3 +1,6 @@
+## 0.2.3+1
+* Fixed initial image not getting updated issue
+
 ## 0.2.3
 * Updated checkbox label to support markdown bold
 

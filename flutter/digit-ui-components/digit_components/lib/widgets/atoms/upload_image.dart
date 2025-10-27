@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:ui';
+
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/theme/ComponentTheme/pop_up_card_theme.dart';
 import 'package:digit_ui_components/utils/utils.dart';
@@ -7,10 +8,10 @@ import 'package:digit_ui_components/widgets/atoms/pop_up_card.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+
 import '../../utils/validators/file_validator.dart';
 import '../../utils/validators/image_validator.dart';
 import '../helper_widget/camera_handler.dart';
-import 'digit_button.dart';
 
 class ImageUploader extends StatefulWidget {
   final Function(List<File>) onImagesSelected;
@@ -27,17 +28,17 @@ class ImageUploader extends StatefulWidget {
 
   const ImageUploader(
       {super.key,
-        required this.onImagesSelected,
-        this.allowMultiples = false,
-        this.initialImages,
-        this.errorMessage,
-        this.label,
-        this.cameraTitle,
-        this.galleryTitle,
-        this.captureText,
-        this.cancelText,
-        this.chooseOptionLabel,
-        this.validators});
+      required this.onImagesSelected,
+      this.allowMultiples = false,
+      this.initialImages,
+      this.errorMessage,
+      this.label,
+      this.cameraTitle,
+      this.galleryTitle,
+      this.captureText,
+      this.cancelText,
+      this.chooseOptionLabel,
+      this.validators});
 
   @override
   _ImageUploaderState createState() => _ImageUploaderState();
@@ -64,7 +65,11 @@ class _ImageUploaderState extends State<ImageUploader> {
             child: Popup(
               popupTheme: const DigitPopupTheme().copyWith(
                 context: context,
-                width: isMobile ? 360 : isTab ? 440 : 720,
+                width: isMobile
+                    ? 360
+                    : isTab
+                        ? 440
+                        : 720,
               ),
               onCrossTap: () {
                 Navigator.of(context).pop();
@@ -75,7 +80,7 @@ class _ImageUploaderState extends State<ImageUploader> {
                 DigitButton(
                   mainAxisSize: MainAxisSize.max,
                   prefixIcon: Icons.camera_enhance,
-                  label: widget.captureText ??'Capture',
+                  label: widget.captureText ?? 'Capture',
                   size: DigitButtonSize.large,
                   type: DigitButtonType.primary,
                   onPressed: () {
@@ -115,7 +120,7 @@ class _ImageUploaderState extends State<ImageUploader> {
         if (pickedFile != null) {
           if (widget.validators != null) {
             String? validationError =
-            validateImage(pickedFile, widget.validators!, pickedFile.name);
+                validateImage(pickedFile, widget.validators!, pickedFile.name);
             if (validationError != null) {
               setState(() {
                 fileError = validationError;
@@ -153,6 +158,19 @@ class _ImageUploaderState extends State<ImageUploader> {
   }
 
   @override
+  void didUpdateWidget(covariant ImageUploader oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (widget.initialImages != oldWidget.initialImages) {
+      setState(() {
+        _imageFiles
+          ..clear()
+          ..addAll(widget.initialImages ?? []);
+      });
+    }
+  }
+
+  @override
   void dispose() {
     super.dispose();
   }
@@ -175,59 +193,62 @@ class _ImageUploaderState extends State<ImageUploader> {
         });
         !isMobile
             ? showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
-              child: Popup(
-                popupTheme: const DigitPopupTheme().copyWith(
-                  context: context,
-                  width: isTab ? 440 : 600,
-                  height: isTab ? 228 : 240,
-                )   ,
-                title: widget.chooseOptionLabel ?? 'Choose an option to upload',
-                onCrossTap: () {
-                  Navigator.of(context).pop();
+                context: context,
+                builder: (BuildContext context) {
+                  return BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
+                    child: Popup(
+                      popupTheme: const DigitPopupTheme().copyWith(
+                        context: context,
+                        width: isTab ? 440 : 600,
+                        height: isTab ? 228 : 240,
+                      ),
+                      title: widget.chooseOptionLabel ??
+                          'Choose an option to upload',
+                      onCrossTap: () {
+                        Navigator.of(context).pop();
+                      },
+                      additionalWidgets: [
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            _buildInkWell(Icons.camera_enhance,
+                                widget.cameraTitle ?? "Camera", () {
+                              Navigator.of(context).pop();
+                              _getImage(ImageSource.camera);
+                            }, currentTypography),
+                            _buildInkWell(Icons.perm_media,
+                                widget.galleryTitle ?? "My Files", () {
+                              Navigator.of(context).pop();
+                              _getImage(ImageSource.gallery);
+                            }, currentTypography),
+                          ],
+                        ),
+                      ],
+                    ),
+                  );
                 },
-                additionalWidgets: [
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      _buildInkWell(Icons.camera_enhance, widget.cameraTitle ?? "Camera", () {
-                        Navigator.of(context).pop();
-                        _getImage(ImageSource.camera);
-                      }, currentTypography),
-                      _buildInkWell(Icons.perm_media, widget.galleryTitle ?? "My Files", () {
-                        Navigator.of(context).pop();
-                        _getImage(ImageSource.gallery);
-                      }, currentTypography),
-                    ],
-                  ),
-                ],
-              ),
-            );
-          },
-        )
+              )
             : showModalBottomSheet(
-          context: context,
-          isScrollControlled: true,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(spacer2),
-                topRight: Radius.circular(spacer2)),
-          ),
-          constraints: BoxConstraints(
-            minWidth: MediaQuery.of(context).size.width,
-            minHeight: 120,
-            maxHeight: 120,
-          ),
-          backgroundColor: const DigitColors().light.paperPrimary,
-          builder: (BuildContext context) {
-            return _buildBottomSheetContent();
-          },
-        );
+                context: context,
+                isScrollControlled: true,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(spacer2),
+                      topRight: Radius.circular(spacer2)),
+                ),
+                constraints: BoxConstraints(
+                  minWidth: MediaQuery.of(context).size.width,
+                  minHeight: 120,
+                  maxHeight: 120,
+                ),
+                backgroundColor: const DigitColors().light.paperPrimary,
+                builder: (BuildContext context) {
+                  return _buildBottomSheetContent();
+                },
+              );
       },
       child: _buildImageDisplay(),
     );
@@ -240,11 +261,13 @@ class _ImageUploaderState extends State<ImageUploader> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
-          _buildInkWell(Icons.camera_enhance, widget.cameraTitle ?? "Camera", () {
+          _buildInkWell(Icons.camera_enhance, widget.cameraTitle ?? "Camera",
+              () {
             Navigator.of(context).pop();
             _getImage(ImageSource.camera);
           }, currentTypography),
-          _buildInkWell(Icons.perm_media, widget.galleryTitle ?? "My Files", () {
+          _buildInkWell(Icons.perm_media, widget.galleryTitle ?? "My Files",
+              () {
             Navigator.of(context).pop();
             _getImage(ImageSource.gallery);
           }, currentTypography),
@@ -340,21 +363,21 @@ class _ImageUploaderState extends State<ImageUploader> {
                   fit: FlexFit.tight,
                   child: fileError != ''
                       ? Text(
-                    fileError.length > 256
-                        ? '${fileError.substring(0, 256)}...'
-                        : fileError,
-                    style: currentTypography.bodyS.copyWith(
-                      color: const DigitColors().light.alertError,
-                    ),
-                  )
+                          fileError.length > 256
+                              ? '${fileError.substring(0, 256)}...'
+                              : fileError,
+                          style: currentTypography.bodyS.copyWith(
+                            color: const DigitColors().light.alertError,
+                          ),
+                        )
                       : Text(
-                    capitalizedErrorMessage!.length > 256
-                        ? '${capitalizedErrorMessage?.substring(0, 256)}...'
-                        : capitalizedErrorMessage!,
-                    style: currentTypography.bodyS.copyWith(
-                      color: const DigitColors().light.alertError,
-                    ),
-                  ),
+                          capitalizedErrorMessage!.length > 256
+                              ? '${capitalizedErrorMessage?.substring(0, 256)}...'
+                              : capitalizedErrorMessage!,
+                          style: currentTypography.bodyS.copyWith(
+                            color: const DigitColors().light.alertError,
+                          ),
+                        ),
                 ),
               ],
             ),
@@ -379,109 +402,109 @@ class _ImageUploaderState extends State<ImageUploader> {
     }
     return _imageFiles.isNotEmpty
         ? Stack(
-      children: [
-        widget.allowMultiples
-            ? Container(
-          color: const DigitColors().light.genericDivider,
-          width: Base.imageSize,
-          height: Base.imageSize,
-          constraints: const BoxConstraints(
-            minWidth: Base.imageSize,
-          ),
-          child: ClipRRect(
-            borderRadius: Base.radius,
-            child: Stack(
-              fit: StackFit.expand,
-              children: [
-                kIsWeb
-                    ? Image.network(
-                  _imageFiles[index].path,
-                  width: Base.imageSize,
-                  height: Base.imageSize,
-                  fit: BoxFit.cover,
-                )
-                    : Image.file(
-                  _imageFiles[index],
-                  width: Base.imageSize,
-                  height: Base.imageSize,
-                  fit: BoxFit.cover,
-                ),
-                Positioned(
-                  top: 0,
-                  right: 0,
-                  child: InkWell(
-                    hoverColor: const DigitColors().transparent,
-                    highlightColor: const DigitColors().transparent,
-                    splashColor: const DigitColors().transparent,
-                    onTap: () {
-                      _removeImage(index);
-                    },
-                    child: Container(
-                      width: spacer6,
-                      height: spacer6,
-                      decoration: BoxDecoration(
-                        color: const DigitColors().light.primary2,
+            children: [
+              widget.allowMultiples
+                  ? Container(
+                      color: const DigitColors().light.genericDivider,
+                      width: Base.imageSize,
+                      height: Base.imageSize,
+                      constraints: const BoxConstraints(
+                        minWidth: Base.imageSize,
                       ),
-                      child: Icon(
-                        Icons.close,
-                        size: spacer4,
-                        color:
-                        const DigitColors().light.paperPrimary,
+                      child: ClipRRect(
+                        borderRadius: Base.radius,
+                        child: Stack(
+                          fit: StackFit.expand,
+                          children: [
+                            kIsWeb
+                                ? Image.network(
+                                    _imageFiles[index].path,
+                                    width: Base.imageSize,
+                                    height: Base.imageSize,
+                                    fit: BoxFit.cover,
+                                  )
+                                : Image.file(
+                                    _imageFiles[index],
+                                    width: Base.imageSize,
+                                    height: Base.imageSize,
+                                    fit: BoxFit.cover,
+                                  ),
+                            Positioned(
+                              top: 0,
+                              right: 0,
+                              child: InkWell(
+                                hoverColor: const DigitColors().transparent,
+                                highlightColor: const DigitColors().transparent,
+                                splashColor: const DigitColors().transparent,
+                                onTap: () {
+                                  _removeImage(index);
+                                },
+                                child: Container(
+                                  width: spacer6,
+                                  height: spacer6,
+                                  decoration: BoxDecoration(
+                                    color: const DigitColors().light.primary2,
+                                  ),
+                                  child: Icon(
+                                    Icons.close,
+                                    size: spacer4,
+                                    color:
+                                        const DigitColors().light.paperPrimary,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
+                  : AspectRatio(
+                      aspectRatio: 3 / 2,
+                      child: ClipRRect(
+                        borderRadius: Base.radius,
+                        child: Stack(
+                          fit: StackFit.expand,
+                          children: [
+                            kIsWeb
+                                ? Image.network(
+                                    _imageFiles[index].path,
+                                    fit: BoxFit.fitHeight,
+                                  )
+                                : Image.file(
+                                    _imageFiles[index],
+                                    fit: BoxFit.cover,
+                                  ),
+                            Positioned(
+                              top: 0,
+                              right: 0,
+                              child: InkWell(
+                                hoverColor: const DigitColors().transparent,
+                                highlightColor: const DigitColors().transparent,
+                                splashColor: const DigitColors().transparent,
+                                onTap: () {
+                                  _removeImage(index);
+                                },
+                                child: Container(
+                                  width: spacer6,
+                                  height: spacer6,
+                                  decoration: BoxDecoration(
+                                    color: const DigitColors().light.primary2,
+                                  ),
+                                  child: Icon(
+                                    Icons.close,
+                                    size: spacer4,
+                                    color:
+                                        const DigitColors().light.paperPrimary,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        )
-            : AspectRatio(
-          aspectRatio: 3 / 2,
-          child: ClipRRect(
-            borderRadius: Base.radius,
-            child: Stack(
-              fit: StackFit.expand,
-              children: [
-                kIsWeb
-                    ? Image.network(
-                  _imageFiles[index].path,
-                  fit: BoxFit.fitHeight,
-                )
-                    : Image.file(
-                  _imageFiles[index],
-                  fit: BoxFit.cover,
-                ),
-                Positioned(
-                  top: 0,
-                  right: 0,
-                  child: InkWell(
-                    hoverColor: const DigitColors().transparent,
-                    highlightColor: const DigitColors().transparent,
-                    splashColor: const DigitColors().transparent,
-                    onTap: () {
-                      _removeImage(index);
-                    },
-                    child: Container(
-                      width: spacer6,
-                      height: spacer6,
-                      decoration: BoxDecoration(
-                        color: const DigitColors().light.primary2,
-                      ),
-                      child: Icon(
-                        Icons.close,
-                        size: spacer4,
-                        color:
-                        const DigitColors().light.paperPrimary,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ],
-    )
+            ],
+          )
         : const SizedBox.shrink();
   }
 
