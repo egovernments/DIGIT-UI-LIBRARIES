@@ -1,3 +1,6 @@
+@import './theme-variables.css';
+@import '../typography.scss';
+
 .digit-table-footer-wrapper{
     display: flex;
     flex-direction: column;
@@ -11,8 +14,8 @@
     max-width: 100%;
 
     &.withBorder {
-        border-radius: theme(digitv2.spacers.spacer1) theme(digitv2.spacers.spacer1) theme(digitv2.spacers.spacer0) theme(digitv2.spacers.spacer0);
-        border: 0.063rem solid theme(digitv2.lightTheme.generic-divider);
+        border-radius: theme("digitv2.spacers.spacer1") theme("digitv2.spacers.spacer1") theme("digitv2.spacers.spacer0") theme("digitv2.spacers.spacer0");
+        border: 0.063rem solid theme("digitv2.lightTheme.generic-divider");
     }
 
     .digit-cursorPointer {
@@ -44,29 +47,29 @@ table {
 }
 
 th {
-    @extend .typography.heading-s;
-    font-family: theme(digitv2.fontFamily.sans);
-    font-style: theme(digitv2.fontStyle.normal);
-    font-weight: theme(digitv2.fontWeight.bold);
-    line-height: theme(digitv2.lineHeight.lineheight1);
+    @include typography-heading-s;
+    font-family: theme("digitv2.fontFamily.sans");
+    font-style: theme("digitv2.fontStyle.normal");
+    font-weight: theme("digitv2.fontWeight.bold");
+    line-height: theme("digitv2.lineHeight.lineheight1");
 
     @media (max-aspect-ratio: 9/16) {
       /* Media query for mobile */
-      font-size: theme(digitv2.fontSize.heading-s.mobile);
+      font-size: theme("digitv2.fontSize.heading-s.mobile");
     }
 
     @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
       /* Media query for tablets */
-      font-size: theme(digitv2.fontSize.heading-s.tablet);
+      font-size: theme("digitv2.fontSize.heading-s.tablet");
     }
 
     @media (min-aspect-ratio: 3/4) {
       /* Media query for desktop */
-      font-size: theme(digitv2.fontSize.heading-s.desktop);
+      font-size: theme("digitv2.fontSize.heading-s.desktop");
     }
-    color: theme(digitv2.lightTheme.primary-2);
-    background-color: theme(digitv2.lightTheme.generic-background);
-    padding: theme(digitv2.spacers.spacer4);
+    color: theme("digitv2.lightTheme.primary-2");
+    background-color: theme("digitv2.lightTheme.generic-background");
+    padding: theme("digitv2.spacers.spacer4");
     min-width: 9.375rem;    
     word-wrap: break-word;
     white-space: normal;
@@ -74,11 +77,11 @@ th {
     width: fit-content;
 
     &.withBorder {
-        border-bottom: 0.063rem solid theme(digitv2.lightTheme.generic-divider);
+        border-bottom: 0.063rem solid theme("digitv2.lightTheme.generic-divider");
     }
 
     &.withColumnDivider {
-        border-right: 0.063rem solid theme(digitv2.lightTheme.generic-divider);
+        border-right: 0.063rem solid theme("digitv2.lightTheme.generic-divider");
     }
 
     &.scrollable-columns.withHeaderDivider {
@@ -87,11 +90,11 @@ th {
         &::after {
             content: "";
             position: absolute;
-            top: theme(digitv2.spacers.spacer4);
+            top: theme("digitv2.spacers.spacer4");
             right: 0;
-            bottom: theme(digitv2.spacers.spacer4);
+            bottom: theme("digitv2.spacers.spacer4");
             width: 0.063rem;
-            background-color: theme(digitv2.lightTheme.text-secondary);
+            background-color: theme("digitv2.lightTheme.text-secondary");
         }
     }
 }
@@ -112,19 +115,19 @@ thead th.withHeaderDivider:last-child::after {
     }
 }
 td {
-    padding: theme(digitv2.spacers.spacer4);
+    padding: theme("digitv2.spacers.spacer4");
     word-wrap: break-word;
     white-space: normal;
-    @extend .typography.body-s;
-    color: theme(digitv2.lightTheme.text-primary);
-    font-family: theme(digitv2.fontFamily.sans);
-    font-style: theme(digitv2.fontStyle.normal);
-    font-weight: theme(digitv2.fontWeight.regular);
-    line-height: theme(digitv2.lineHeight.lineheight2);
+    @include typography-body-s;
+    color: theme("digitv2.lightTheme.text-primary");
+    font-family: theme("digitv2.fontFamily.sans");
+    font-style: theme("digitv2.fontStyle.normal");
+    font-weight: theme("digitv2.fontWeight.regular");
+    line-height: theme("digitv2.lineHeight.lineheight2");
     text-align: left;
     vertical-align: top;
     width: fit-content;
-    background-color: theme(digitv2.lightTheme.paper-primary);
+    background-color: theme("digitv2.lightTheme.paper-primary");
 
     &.numeric,
     &.serialno{
@@ -133,25 +136,25 @@ td {
 
     @media (max-aspect-ratio: 9/16) {
         /* Media query for mobile */
-        font-size: theme(digitv2.fontSize.body-s.mobile);
+        font-size: theme("digitv2.fontSize.body-s.mobile");
     }
 
     @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
         /* Media query for tablets */
-        font-size: theme(digitv2.fontSize.body-s.tablet);
+        font-size: theme("digitv2.fontSize.body-s.tablet");
     }
 
     @media (min-aspect-ratio: 3/4) {
         /* Media query for desktop */
-        font-size: theme(digitv2.fontSize.body-s.desktop);
+        font-size: theme("digitv2.fontSize.body-s.desktop");
     }
 
     &.withRowDivider {
-        border-bottom: 0.063rem solid theme(digitv2.lightTheme.generic-divider);
+        border-bottom: 0.063rem solid theme("digitv2.lightTheme.generic-divider");
     }
 
     &.withColumnDivider {
-        border-right: 0.063rem solid theme(digitv2.lightTheme.generic-divider);
+        border-right: 0.063rem solid theme("digitv2.lightTheme.generic-divider");
     }
 
     &.text,
@@ -182,17 +185,17 @@ td {
     &.numeric {
         @media (max-aspect-ratio: 9/16) {
             /* Media query for mobile */
-            min-width: theme(digitv2.spacers.spacer10);
+            min-width: theme("digitv2.spacers.spacer10");
         }
 
         @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
             /* Media query for tablets */
-            min-width: theme(digitv2.spacers.spacer10);;
+            min-width: theme("digitv2.spacers.spacer10");;
         }
 
         @media (min-aspect-ratio: 3/4) {
             /* Media query for desktop */
-            min-width: theme(digitv2.spacers.spacer10);;
+            min-width: theme("digitv2.spacers.spacer10");;
         }
     }
     &.button {
@@ -220,7 +223,7 @@ tbody tr:last-child {
 }
 
 tbody tr:nth-child(even).withAlternateBg td{
-    background-color: theme(digitv2.lightTheme.paper-secondary);
+    background-color: theme("digitv2.lightTheme.paper-secondary");
 }
 
 tbody tr.addHover{
@@ -229,7 +232,7 @@ tbody tr.addHover{
 
 tbody tr.selected{
     td{
-        background-color: theme(digitv2.lightTheme.primary-bg) !important;
+        background-color: theme("digitv2.lightTheme.primary-bg") !important;
     }
 
     td:first-child::before{
@@ -238,47 +241,47 @@ tbody tr.selected{
         top: 0.062rem;
         left: 0;
         bottom: 0.063rem;
-        width: theme(digitv2.spacers.spacer1);
-        background: theme(digitv2.lightTheme.primary-1);
-        border-top-right-radius: theme(digitv2.spacers.spacer1);
-        border-bottom-right-radius: theme(digitv2.spacers.spacer1);
+        width: theme("digitv2.spacers.spacer1");
+        background: theme("digitv2.lightTheme.primary-1");
+        border-top-right-radius: theme("digitv2.spacers.spacer1");
+        border-bottom-right-radius: theme("digitv2.spacers.spacer1");
     }
 }
 
 tbody tr.addHover:hover td{
-    background-color: theme(digitv2.lightTheme.primary-bg) !important;
+    background-color: theme("digitv2.lightTheme.primary-bg") !important;
 }
 
 
 tfoot td {
-    @extend .typography.heading-s;
-    font-family: theme(digitv2.fontFamily.sans);
-    font-style: theme(digitv2.fontStyle.normal);
-    font-weight: theme(digitv2.fontWeight.bold);
-    line-height: theme(digitv2.lineHeight.lineheight1);
+    @include typography-heading-s;
+    font-family: theme("digitv2.fontFamily.sans");
+    font-style: theme("digitv2.fontStyle.normal");
+    font-weight: theme("digitv2.fontWeight.bold");
+    line-height: theme("digitv2.lineHeight.lineheight1");
 
     @media (max-aspect-ratio: 9/16) {
       /* Media query for mobile */
-      font-size: theme(digitv2.fontSize.heading-s.mobile);
+      font-size: theme("digitv2.fontSize.heading-s.mobile");
     }
 
     @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
       /* Media query for tablets */
-      font-size: theme(digitv2.fontSize.heading-s.tablet);
+      font-size: theme("digitv2.fontSize.heading-s.tablet");
     }
 
     @media (min-aspect-ratio: 3/4) {
       /* Media query for desktop */
-      font-size: theme(digitv2.fontSize.heading-s.desktop);
+      font-size: theme("digitv2.fontSize.heading-s.desktop");
     }
-    color: theme(digitv2.lightTheme.text-primary);
-    background-color: theme(digitv2.lightTheme.generic-background);
-    padding: theme(digitv2.spacers.spacer4);
+    color: theme("digitv2.lightTheme.text-primary");
+    background-color: theme("digitv2.lightTheme.generic-background");
+    padding: theme("digitv2.spacers.spacer4");
     text-align: center;
     width: 100%;
 
     &.withBorder {
-        border: 0.063rem solid theme(digitv2.lightTheme.generic-divider);
+        border: 0.063rem solid theme("digitv2.lightTheme.generic-divider");
         border-top:none;
     }
 }
@@ -292,7 +295,7 @@ tfoot td {
 .footer-pagination-container {
     display: flex;
     align-items: center;
-    gap: theme(digitv2.spacers.spacer2);
+    gap: theme("digitv2.spacers.spacer2");
     margin-left: auto;
 }
 
@@ -300,68 +303,68 @@ tfoot td {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: theme(digitv2.spacers.spacer2);
+    gap: theme("digitv2.spacers.spacer2");
 }
 
 .pagination-dropdown{
-    padding: theme(digitv2.spacers.spacer1);
+    padding: theme("digitv2.spacers.spacer1");
     outline: none;
     min-width: 4rem;
-    @extend .typography.body-s;
-    color: theme(digitv2.lightTheme.text-primary);
-    font-family: theme(digitv2.fontFamily.sans);
-    font-style: theme(digitv2.fontStyle.normal);
-    font-weight: theme(digitv2.fontWeight.regular);
-    line-height: theme(digitv2.lineHeight.lineheight2);
+    @include typography-body-s;
+    color: theme("digitv2.lightTheme.text-primary");
+    font-family: theme("digitv2.fontFamily.sans");
+    font-style: theme("digitv2.fontStyle.normal");
+    font-weight: theme("digitv2.fontWeight.regular");
+    line-height: theme("digitv2.lineHeight.lineheight2");
 
     @media (max-aspect-ratio: 9/16) {
         /* Media query for mobile */
-        font-size: theme(digitv2.fontSize.body-s.mobile);
+        font-size: theme("digitv2.fontSize.body-s.mobile");
     }
 
     @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
         /* Media query for tablets */
-        font-size: theme(digitv2.fontSize.body-s.tablet);
+        font-size: theme("digitv2.fontSize.body-s.tablet");
     }
 
     @media (min-aspect-ratio: 3/4) {
         /* Media query for desktop */
-        font-size: theme(digitv2.fontSize.body-s.desktop);
+        font-size: theme("digitv2.fontSize.body-s.desktop");
     }
 
     option{
         width: 100%;
         text-align: center;
-        @extend .typography.body-s;
-        color: theme(digitv2.lightTheme.text-primary);
-        font-family: theme(digitv2.fontFamily.sans);
-        font-style: theme(digitv2.fontStyle.normal);
-        font-weight: theme(digitv2.fontWeight.regular);
-        line-height: theme(digitv2.lineHeight.lineheight2);
+        @include typography-body-s;
+        color: theme("digitv2.lightTheme.text-primary");
+        font-family: theme("digitv2.fontFamily.sans");
+        font-style: theme("digitv2.fontStyle.normal");
+        font-weight: theme("digitv2.fontWeight.regular");
+        line-height: theme("digitv2.lineHeight.lineheight2");
     
         @media (max-aspect-ratio: 9/16) {
             /* Media query for mobile */
-            font-size: theme(digitv2.fontSize.body-s.mobile);
+            font-size: theme("digitv2.fontSize.body-s.mobile");
         }
     
         @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
             /* Media query for tablets */
-            font-size: theme(digitv2.fontSize.body-s.tablet);
+            font-size: theme("digitv2.fontSize.body-s.tablet");
         }
     
         @media (min-aspect-ratio: 3/4) {
             /* Media query for desktop */
-            font-size: theme(digitv2.fontSize.body-s.desktop);
+            font-size: theme("digitv2.fontSize.body-s.desktop");
         }
     }
 }
 
 
 .pagination button {
-    border: 0.063 solid theme(digitv2.lightTheme.generic-divider);
+    border: 0.063 solid theme("digitv2.lightTheme.generic-divider");
     cursor: pointer;
-    width: theme(digitv2.spacers.spacer6);
-    height: theme(digitv2.spacers.spacer6);
+    width: theme("digitv2.spacers.spacer6");
+    height: theme("digitv2.spacers.spacer6");
 }
 
 .pagination button:disabled {
@@ -396,15 +399,15 @@ tr td:last-child {
 
     td {
         text-align: right;
-        background-color: theme(digitv2.lightTheme.paper-secondary);
-        color: theme(digitv2.lightTheme.primary-2);
+        background-color: theme("digitv2.lightTheme.paper-secondary");
+        color: theme("digitv2.lightTheme.primary-2");
         overflow-x: auto;
     }
 }
 
 .sort-icon{
-    width: theme(digitv2.spacers.spacer4);
-    height: theme(digitv2.spacers.spacer4);
+    width: theme("digitv2.spacers.spacer4");
+    height: theme("digitv2.spacers.spacer4");
     cursor: pointer;
 }
 .footer-pagination-content{
@@ -426,90 +429,90 @@ tr td:last-child {
 .digit-table-card {
 
     .digit-text-block-wrap .digit-text-block-header-content .digit-text-block-subheader.table-header {
-        color: theme(digitv2.lightTheme.text-primary)
+        color: theme("digitv2.lightTheme.text-primary")
     }
 }
 
 .selected-state {
-    @extend .typography.body-s;
-    color: theme(digitv2.lightTheme.text-primary);
-    font-family: theme(digitv2.fontFamily.sans);
-    font-style: theme(digitv2.fontStyle.normal);
-    font-weight: theme(digitv2.fontWeight.regular);
-    line-height: theme(digitv2.lineHeight.lineheight2);
+    @include typography-body-s;
+    color: theme("digitv2.lightTheme.text-primary");
+    font-family: theme("digitv2.fontFamily.sans");
+    font-style: theme("digitv2.fontStyle.normal");
+    font-weight: theme("digitv2.fontWeight.regular");
+    line-height: theme("digitv2.lineHeight.lineheight2");
     text-align: left;
     vertical-align: top;
 
     @media (max-aspect-ratio: 9/16) {
         /* Media query for mobile */
-        font-size: theme(digitv2.fontSize.body-s.mobile);
+        font-size: theme("digitv2.fontSize.body-s.mobile");
     }
 
     @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
         /* Media query for tablets */
-        font-size: theme(digitv2.fontSize.body-s.tablet);
+        font-size: theme("digitv2.fontSize.body-s.tablet");
     }
 
     @media (min-aspect-ratio: 3/4) {
         /* Media query for desktop */
-        font-size: theme(digitv2.fontSize.body-s.desktop);
+        font-size: theme("digitv2.fontSize.body-s.desktop");
     }
 }
 
 .header-des-wrap {
     display: flex;
     flex-direction: column;
-    gap: theme(digitv2.spacers.spacer1);
+    gap: theme("digitv2.spacers.spacer1");
 
     .column-header{
-        @extend .typography.heading-s;
-        font-family: theme(digitv2.fontFamily.sans);
-        font-style: theme(digitv2.fontStyle.normal);
-        font-weight: theme(digitv2.fontWeight.bold);
-        line-height: theme(digitv2.lineHeight.lineheight1);
+        @include typography-heading-s;
+        font-family: theme("digitv2.fontFamily.sans");
+        font-style: theme("digitv2.fontStyle.normal");
+        font-weight: theme("digitv2.fontWeight.bold");
+        line-height: theme("digitv2.lineHeight.lineheight1");
     
         @media (max-aspect-ratio: 9/16) {
           /* Media query for mobile */
-          font-size: theme(digitv2.fontSize.heading-s.mobile);
+          font-size: theme("digitv2.fontSize.heading-s.mobile");
         }
     
         @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
           /* Media query for tablets */
-          font-size: theme(digitv2.fontSize.heading-s.tablet);
+          font-size: theme("digitv2.fontSize.heading-s.tablet");
         }
     
         @media (min-aspect-ratio: 3/4) {
           /* Media query for desktop */
-          font-size: theme(digitv2.fontSize.heading-s.desktop);
+          font-size: theme("digitv2.fontSize.heading-s.desktop");
         }
         white-space: nowrap;
         display: flex;
         align-items: center;
-        gap:theme(digitv2.spacers.spacer1);
+        gap:theme("digitv2.spacers.spacer1");
     }
 
     .column-description {
-        color: theme(digitv2.lightTheme.text-secondary);
+        color: theme("digitv2.lightTheme.text-secondary");
         white-space: nowrap;
-        @extend .typography.body-s;
-        font-family: theme(digitv2.fontFamily.sans);
-        font-style: theme(digitv2.fontStyle.normal);
-        font-weight: theme(digitv2.fontWeight.regular);
-        line-height: theme(digitv2.lineHeight.lineheight2);
+        @include typography-body-s;
+        font-family: theme("digitv2.fontFamily.sans");
+        font-style: theme("digitv2.fontStyle.normal");
+        font-weight: theme("digitv2.fontWeight.regular");
+        line-height: theme("digitv2.lineHeight.lineheight2");
 
         @media (max-aspect-ratio: 9/16) {
             /* Media query for mobile */
-            font-size: theme(digitv2.fontSize.body-s.mobile);
+            font-size: theme("digitv2.fontSize.body-s.mobile");
         }
 
         @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
             /* Media query for tablets */
-            font-size: theme(digitv2.fontSize.body-s.tablet);
+            font-size: theme("digitv2.fontSize.body-s.tablet");
         }
 
         @media (min-aspect-ratio: 3/4) {
             /* Media query for desktop */
-            font-size: theme(digitv2.fontSize.body-s.desktop);
+            font-size: theme("digitv2.fontSize.body-s.desktop");
         }
     }
 }
@@ -517,7 +520,7 @@ tr td:last-child {
 .table-header-wrapper {
     display: flex;
     flex-direction: column;
-    gap: theme(digitv2.spacers.spacer2);
+    gap: theme("digitv2.spacers.spacer2");
 
     .header-filter-wrapper{
         display: flex;
@@ -531,27 +534,27 @@ tr td:last-child {
         }
 
         .table-header {
-            @extend .typography.heading-m;
-            font-family: theme(digitv2.fontFamily.sans);
-            font-style: theme(digitv2.fontStyle.normal);
-            font-weight: theme(digitv2.fontWeight.bold);
-            line-height: theme(digitv2.lineHeight.lineheight1);
+            @include typography-heading-m;
+            font-family: theme("digitv2.fontFamily.sans");
+            font-style: theme("digitv2.fontStyle.normal");
+            font-weight: theme("digitv2.fontWeight.bold");
+            line-height: theme("digitv2.lineHeight.lineheight1");
         
             @media (max-aspect-ratio: 9/16) {
               /* Media query for mobile */
-              font-size: theme(digitv2.fontSize.heading-m.mobile);
+              font-size: theme("digitv2.fontSize.heading-m.mobile");
             }
         
             @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
               /* Media query for tablets */
-              font-size: theme(digitv2.fontSize.heading-m.tablet);
+              font-size: theme("digitv2.fontSize.heading-m.tablet");
             }
         
             @media (min-aspect-ratio: 3/4) {
               /* Media query for desktop */
-              font-size: theme(digitv2.fontSize.heading-m.desktop);
+              font-size: theme("digitv2.fontSize.heading-m.desktop");
             }
-            color: theme(digitv2.lightTheme.text-primary);
+            color: theme("digitv2.lightTheme.text-primary");
             line-height: normal;
         }
 
@@ -559,58 +562,58 @@ tr td:last-child {
     }
 
     .table-description {
-        @extend .typography.body-s;
-        font-family: theme(digitv2.fontFamily.sans);
-        font-style: theme(digitv2.fontStyle.normal);
-        font-weight: theme(digitv2.fontWeight.regular);
-        line-height: theme(digitv2.lineHeight.lineheight2);
+        @include typography-body-s;
+        font-family: theme("digitv2.fontFamily.sans");
+        font-style: theme("digitv2.fontStyle.normal");
+        font-weight: theme("digitv2.fontWeight.regular");
+        line-height: theme("digitv2.lineHeight.lineheight2");
 
         @media (max-aspect-ratio: 9/16) {
             /* Media query for mobile */
-            font-size: theme(digitv2.fontSize.body-s.mobile);
+            font-size: theme("digitv2.fontSize.body-s.mobile");
         }
 
         @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
             /* Media query for tablets */
-            font-size: theme(digitv2.fontSize.body-s.tablet);
+            font-size: theme("digitv2.fontSize.body-s.tablet");
         }
 
         @media (min-aspect-ratio: 3/4) {
             /* Media query for desktop */
-            font-size: theme(digitv2.fontSize.body-s.desktop);
+            font-size: theme("digitv2.fontSize.body-s.desktop");
         }
 
-        color: theme(digitv2.lightTheme.generic-inputborder);
+        color: theme("digitv2.lightTheme.generic-inputborder");
     }
 }
 
 .sticker-footer-td::-webkit-scrollbar {
     height: 0.5rem;
-    background-color: theme(digitv2.lightTheme.generic-background);
+    background-color: theme("digitv2.lightTheme.generic-background");
 }
 
 .sticker-footer-td::-webkit-scrollbar-track {
-    background-color: theme(digitv2.lightTheme.generic-background);
+    background-color: theme("digitv2.lightTheme.generic-background");
     border-radius: 0.563rem;
 }
 
 .sticker-footer-td::-webkit-scrollbar-thumb {
-    background-color: theme(digitv2.lightTheme.generic-divider);
+    background-color: theme("digitv2.lightTheme.generic-divider");
     border-radius: 0.563rem;
 }
 
 .digit-table-container::-webkit-scrollbar {
     height: 0.5rem;
-    background-color: theme(digitv2.lightTheme.generic-background);
+    background-color: theme("digitv2.lightTheme.generic-background");
 }
 
 .digit-table-container::-webkit-scrollbar-track {
-    background-color: theme(digitv2.lightTheme.generic-background);
+    background-color: theme("digitv2.lightTheme.generic-background");
     border-radius: 0.563rem;
 }
 
 .digit-table-container::-webkit-scrollbar-thumb {
-    background-color: theme(digitv2.lightTheme.generic-divider);
+    background-color: theme("digitv2.lightTheme.generic-divider");
     border-radius: 0.563rem;
 }
 
@@ -630,14 +633,14 @@ tr td:last-child {
 }
 
 .table-checkbox {
-    margin: theme(digitv2.spacers.spacer0);
+    margin: theme("digitv2.spacers.spacer0");
 
     input {
-        margin: theme(digitv2.spacers.spacer0);
+        margin: theme("digitv2.spacers.spacer0");
     }
 
     p {
-        margin: theme(digitv2.spacers.spacer0);
+        margin: theme("digitv2.spacers.spacer0");
     }
 }
 
@@ -647,40 +650,40 @@ tr td:last-child {
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    gap: theme(digitv2.spacers.spacer2);
+    gap: theme("digitv2.spacers.spacer2");
 
     .svg-state-wrapper{
     
         display: flex;
         align-items: center;
-        gap: theme(digitv2.spacers.spacer2);
+        gap: theme("digitv2.spacers.spacer2");
 
         svg{
             flex-shrink: 0
         }
 
         .selected-state{
-            @extend .typography.heading-s;
-            font-family: theme(digitv2.fontFamily.sans);
-            font-style: theme(digitv2.fontStyle.normal);
-            font-weight: theme(digitv2.fontWeight.bold);
-            line-height: theme(digitv2.lineHeight.lineheight1);
+            @include typography-heading-s;
+            font-family: theme("digitv2.fontFamily.sans");
+            font-style: theme("digitv2.fontStyle.normal");
+            font-weight: theme("digitv2.fontWeight.bold");
+            line-height: theme("digitv2.lineHeight.lineheight1");
         
             @media (max-aspect-ratio: 9/16) {
               /* Media query for mobile */
-              font-size: theme(digitv2.fontSize.heading-s.mobile);
+              font-size: theme("digitv2.fontSize.heading-s.mobile");
             }
         
             @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
               /* Media query for tablets */
-              font-size: theme(digitv2.fontSize.heading-s.tablet);
+              font-size: theme("digitv2.fontSize.heading-s.tablet");
             }
         
             @media (min-aspect-ratio: 3/4) {
               /* Media query for desktop */
-              font-size: theme(digitv2.fontSize.heading-s.desktop);
+              font-size: theme("digitv2.fontSize.heading-s.desktop");
             }
-            color: theme(digitv2.lightTheme.primary-2);
+            color: theme("digitv2.lightTheme.primary-2");
         }
     }
 

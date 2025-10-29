@@ -332,9 +332,9 @@ const Hamburger = ({
           renderChildItems(userManualsToShow,-1,true)
         )
       }
-      {localStorage.getItem("token") && <div className={`digit-msb-sidebar-bottom ${theme || ""}`}>
+      <div className={`digit-msb-sidebar-bottom ${theme || ""}`}>
         <Button onClick={onLogoutClick} label={t("Logout")} icon={"Logout"} variation={"secondary"} size={"medium"} />
-      </div>}
+      </div>
     </div>
   ) :  null;
 };

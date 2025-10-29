@@ -1,6 +1,9 @@
+@import './theme-variables.css';
+@import '../typography.scss';
+
 .digit-msb-sidebar {
-  background-color: theme(digitv2.lightTheme.paper-primary);
-  color: theme(digitv2.lightTheme.primary-2);
+  background-color: theme("digitv2.lightTheme.paper-primary");
+  color: theme("digitv2.lightTheme.primary-2");
   display: flex;
   flex-direction: column;
   transition: width 0.3s;
@@ -14,85 +17,85 @@
   flex-direction: column;
 
   &.dark {
-    background-color: theme(digitv2.lightTheme.primary-2);
-    color: theme(digitv2.lightTheme.paper-primary);
+    background-color: theme("digitv2.lightTheme.primary-2");
+    color: theme("digitv2.lightTheme.paper-primary");
   }
 }
 
 .digit-msb-profile {
   display: flex;
   align-items: center;
-  padding: theme(digitv2.spacers.spacer6);
+  padding: theme("digitv2.spacers.spacer6");
   flex-direction: column;
-  gap: theme(digitv2.spacers.spacer3);
+  gap: theme("digitv2.spacers.spacer3");
 }
 
 .digit-msb-profile-icon {
   width: 3.875rem;
   height: 4rem;
-  margin-right: theme(digitv2.spacers.spacer4);
+  margin-right: theme("digitv2.spacers.spacer4");
 }
 
 .digit-msb-profile-details {
   display: flex;
   flex-direction: column;
-  gap: theme(digitv2.spacers.spacer1);
+  gap: theme("digitv2.spacers.spacer1");
   text-align: center;
 }
 
 .digit-msb-profile-name {
-  font-family: theme(digitv2.fontFamily.sans);
-  font-style: theme(digitv2.fontStyle.normal);
-  font-weight: theme(digitv2.fontWeight.bold);
-  line-height: theme(digitv2.lineHeight.lineheight1);
+  font-family: theme("digitv2.fontFamily.sans");
+  font-style: theme("digitv2.fontStyle.normal");
+  font-weight: theme("digitv2.fontWeight.bold");
+  line-height: theme("digitv2.lineHeight.lineheight1");
 
   @media (max-aspect-ratio: 9/16) {
     /* Media query for mobile */
-    font-size: theme(digitv2.fontSize.heading-s.mobile);
+    font-size: theme("digitv2.fontSize.heading-s.mobile");
   }
 
   @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
     /* Media query for tablets */
-    font-size: theme(digitv2.fontSize.heading-s.tablet);
+    font-size: theme("digitv2.fontSize.heading-s.tablet");
   }
 
   @media (min-aspect-ratio: 3/4) {
     /* Media query for desktop */
-    font-size: theme(digitv2.fontSize.heading-s.desktop);
+    font-size: theme("digitv2.fontSize.heading-s.desktop");
   }
 
-  color: theme(digitv2.lightTheme.text-primary);
+  color: theme("digitv2.lightTheme.text-primary");
 
   &.dark {
-    color: theme(digitv2.lightTheme.paper-primary);
+    color: theme("digitv2.lightTheme.paper-primary");
   }
 }
 
 .digit-msb-profile-phone {
-  font-family: theme(digitv2.fontFamily.sans);
-  font-style: theme(digitv2.fontStyle.normal);
-  font-weight: theme(digitv2.fontWeight.regular);
-  line-height: theme(digitv2.lineHeight.lineheight2);
+  font-family: theme("digitv2.fontFamily.sans");
+  font-style: theme("digitv2.fontStyle.normal");
+  font-weight: theme("digitv2.fontWeight.regular");
+  line-height: theme("digitv2.lineHeight.lineheight2");
 
   @media (max-aspect-ratio: 9/16) {
     /* Media query for mobile */
-    font-size: theme(digitv2.fontSize.body-s.mobile);
+    font-size: theme("digitv2.fontSize.body-s.mobile");
   }
 
   @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
     /* Media query for tablets */
-    font-size: theme(digitv2.fontSize.body-s.tablet);
+    font-size: theme("digitv2.fontSize.body-s.tablet");
   }
 
   @media (min-aspect-ratio: 3/4) {
     /* Media query for desktop */
-    font-size: theme(digitv2.fontSize.body-s.desktop);
+    font-size: theme("digitv2.fontSize.body-s.desktop");
   }
 
-  color: theme(digitv2.lightTheme.text-secondary);
+  color: theme("digitv2.lightTheme.text-secondary");
 
   &.dark {
-    color: theme(digitv2.lightTheme.paper-primary);
+    color: theme("digitv2.lightTheme.paper-primary");
   }
 }
 
@@ -105,24 +108,24 @@
 .digit-msb-item-child-wrapper {
   display: flex;
   flex-direction: column;
-  height: theme(digitv2.spacers.spacer12);
-  padding: theme(digitv2.spacers.spacer3) theme(digitv2.spacers.spacer6);
+  height: theme("digitv2.spacers.spacer12");
+  padding: theme("digitv2.spacers.spacer3") theme("digitv2.spacers.spacer6");
   justify-content: space-between;
-  border-top: 0.063rem solid theme(digitv2.lightTheme.generic-divider);
+  border-top: 0.063rem solid theme("digitv2.lightTheme.generic-divider");
 
   &.usermanuals{
-    padding: theme(digitv2.spacers.spacer4) theme(digitv2.spacers.spacer6);
+    padding: theme("digitv2.spacers.spacer4") theme("digitv2.spacers.spacer6");
     height: 3.5rem;
   }
 }
 
 .digit-msb-item-child-wrapper:last-child,
 .digit-msb-item-child-wrapper.expanded {
-  border-bottom: 0.063rem solid theme(digitv2.lightTheme.generic-divider);
+  border-bottom: 0.063rem solid theme("digitv2.lightTheme.generic-divider");
 }
 
 .digit-msb-item-child-wrapper:not(.dark):nth-child(2n+1) {
-  background-color: theme(digitv2.lightTheme.paper-secondary);
+  background-color: theme("digitv2.lightTheme.paper-secondary");
 }
 
 .digit-msb-item-child-wrapper.expanded {
@@ -136,65 +139,65 @@
 }
 
 .digit-msb-sidebar-item.digit-msb-parentLevel {
-  height: theme(digitv2.spacers.spacer6);
+  height: theme("digitv2.spacers.spacer6");
 
   .digit-msb-item-label {
-    font-family: theme(digitv2.fontFamily.sans);
-    font-style: theme(digitv2.fontStyle.normal);
-    font-weight: theme(digitv2.fontWeight.bold);
-    line-height: theme(digitv2.lineHeight.lineheight1);
+    font-family: theme("digitv2.fontFamily.sans");
+    font-style: theme("digitv2.fontStyle.normal");
+    font-weight: theme("digitv2.fontWeight.bold");
+    line-height: theme("digitv2.lineHeight.lineheight1");
 
     @media (max-aspect-ratio: 9/16) {
       /* Media query for mobile */
-      font-size: theme(digitv2.fontSize.heading-s.mobile);
+      font-size: theme("digitv2.fontSize.heading-s.mobile");
     }
 
     @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
       /* Media query for tablets */
-      font-size: theme(digitv2.fontSize.heading-s.tablet);
+      font-size: theme("digitv2.fontSize.heading-s.tablet");
     }
 
     @media (min-aspect-ratio: 3/4) {
       /* Media query for desktop */
-      font-size: theme(digitv2.fontSize.heading-s.desktop);
+      font-size: theme("digitv2.fontSize.heading-s.desktop");
     }
   }
 }
 
 .digit-msb-item-label{
   &.usermanuals{
-    @extend .typography.body-xs;
-    font-family: theme(digitv2.fontFamily.sans);
-    font-style: theme(digitv2.fontStyle.normal);
-    font-weight: theme(digitv2.fontWeight.regular);
-    line-height: theme(digitv2.lineHeight.lineheight2);
+    @include typography-body-xs;
+    font-family: theme("digitv2.fontFamily.sans");
+    font-style: theme("digitv2.fontStyle.normal");
+    font-weight: theme("digitv2.fontWeight.regular");
+    line-height: theme("digitv2.lineHeight.lineheight2");
 
     @media (max-aspect-ratio: 9/16) {
       /* Media query for mobile */
-      font-size: theme(digitv2.fontSize.body-xs.mobile);
+      font-size: theme("digitv2.fontSize.body-xs.mobile");
     }
 
     @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
       /* Media query for tablets */
-      font-size: theme(digitv2.fontSize.body-xs.tablet);
+      font-size: theme("digitv2.fontSize.body-xs.tablet");
     }
 
     @media (min-aspect-ratio: 3/4) {
       /* Media query for desktop */
-      font-size: theme(digitv2.fontSize.body-xs.desktop);
+      font-size: theme("digitv2.fontSize.body-xs.desktop");
     }
   }
 }
 .digit-msb-sidebar-item .digit-msb-icon {
-  margin-right: theme(digitv2.spacers.spacer4);
+  margin-right: theme("digitv2.spacers.spacer4");
 
   &.usermanuals{
     display: flex;
-    width: theme(digitv2.spacers.spacer6);
-    height: theme(digitv2.spacers.spacer6);
+    width: theme("digitv2.spacers.spacer6");
+    height: theme("digitv2.spacers.spacer6");
     justify-content: center;
     align-items: center;
-    margin-right: theme(digitv2.spacers.spacer2);
+    margin-right: theme("digitv2.spacers.spacer2");
   }
 }
 
@@ -208,42 +211,42 @@
 
   .digit-inner-level-child {
     margin-left: 2.25rem;
-    border-left: 0.063rem solid theme(digitv2.lightTheme.generic-divider);
+    border-left: 0.063rem solid theme("digitv2.lightTheme.generic-divider");
 
     &.dark {
-      border-left: 0.063rem solid theme(digitv2.lightTheme.paper-primary);
+      border-left: 0.063rem solid theme("digitv2.lightTheme.paper-primary");
     }
   }
 }
 
 .digit-msb-no-results{
-  @extend .typography.body-s;
+  @include typography-body-s;
   display: flex;
   text-align: center;
   flex-direction: column;
-  height: theme(digitv2.spacers.spacer12);
-  padding: theme(digitv2.spacers.spacer3) theme(digitv2.spacers.spacer6);
+  height: theme("digitv2.spacers.spacer12");
+  padding: theme("digitv2.spacers.spacer3") theme("digitv2.spacers.spacer6");
   justify-content: space-between;
-  border-top: 0.063rem solid theme(digitv2.lightTheme.generic-divider);
-  color:theme(digitv2.lightTheme.text-disabled);
-  font-family: theme(digitv2.fontFamily.sans);
-  font-style: theme(digitv2.fontStyle.normal);
-  font-weight: theme(digitv2.fontWeight.regular);
-  line-height: theme(digitv2.lineHeight.lineheight2);
+  border-top: 0.063rem solid theme("digitv2.lightTheme.generic-divider");
+  color:theme("digitv2.lightTheme.text-disabled");
+  font-family: theme("digitv2.fontFamily.sans");
+  font-style: theme("digitv2.fontStyle.normal");
+  font-weight: theme("digitv2.fontWeight.regular");
+  line-height: theme("digitv2.lineHeight.lineheight2");
 
   @media (max-aspect-ratio: 9/16) {
     /* Media query for mobile */
-    font-size: theme(digitv2.fontSize.body-s.mobile);
+    font-size: theme("digitv2.fontSize.body-s.mobile");
   }
 
   @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
     /* Media query for tablets */
-    font-size: theme(digitv2.fontSize.body-s.tablet);
+    font-size: theme("digitv2.fontSize.body-s.tablet");
   }
 
   @media (min-aspect-ratio: 3/4) {
     /* Media query for desktop */
-    font-size: theme(digitv2.fontSize.body-s.desktop);
+    font-size: theme("digitv2.fontSize.body-s.desktop");
   }
 }
 
@@ -257,17 +260,17 @@
   height: 4.5rem;
   min-width: 15rem;
   width: auto;
-  padding: theme(digitv2.spacers.spacer4) !important;
+  padding: theme("digitv2.spacers.spacer4") !important;
 
   .digit-mb-search {
-    height: theme(digitv2.spacers.spacer10) !important;
+    height: theme("digitv2.spacers.spacer10") !important;
     min-width: 13rem;
 
     .digit-text-input-customIcon {
-      height: theme(digitv2.spacers.spacer6);
-      width: theme(digitv2.spacers.spacer6);
-      top: theme(digitv2.spacers.spacer2);
-      right: theme(digitv2.spacers.spacer2);
+      height: theme("digitv2.spacers.spacer6");
+      width: theme("digitv2.spacers.spacer6");
+      top: theme("digitv2.spacers.spacer2");
+      right: theme("digitv2.spacers.spacer2");
     }
 
     .input-container {
@@ -276,46 +279,46 @@
 
     input {
       max-height: 100%;
-      background-color: theme(digitv2.lightTheme.paper-primary);
-      border: 0.063rem solid theme(digitv2.lightTheme.generic-divider);
-      color: theme(digitv2.lightTheme.text-primary);
-      height: theme(digitv2.spacers.spacer8) !important;
+      background-color: theme("digitv2.lightTheme.paper-primary");
+      border: 0.063rem solid theme("digitv2.lightTheme.generic-divider");
+      color: theme("digitv2.lightTheme.text-primary");
+      height: theme("digitv2.spacers.spacer8") !important;
 
       ::placeholder {
-        color: theme(digitv2.lightTheme.text-disabled);
+        color: theme("digitv2.lightTheme.text-disabled");
       }
     }
 
     .input-container:focus-within {
       input {
-        border: 0.063rem solid theme(digitv2.lightTheme.generic-divider) !important;
+        border: 0.063rem solid theme("digitv2.lightTheme.generic-divider") !important;
       }
     }
   }
 
   ::placeholder {
     content: attr(placeholder);
-    @extend .typography.body-s;
-    font-family: theme(digitv2.fontFamily.sans);
-    font-style: theme(digitv2.fontStyle.normal);
-    font-weight: theme(digitv2.fontWeight.regular);
-    line-height: theme(digitv2.lineHeight.lineheight2);
+    @include typography-body-s;
+    font-family: theme("digitv2.fontFamily.sans");
+    font-style: theme("digitv2.fontStyle.normal");
+    font-weight: theme("digitv2.fontWeight.regular");
+    line-height: theme("digitv2.lineHeight.lineheight2");
 
     @media (max-aspect-ratio: 9/16) {
       /* Media query for mobile */
-      font-size: theme(digitv2.fontSize.body-s.mobile);
+      font-size: theme("digitv2.fontSize.body-s.mobile");
     }
 
     @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
       /* Media query for tablets */
-      font-size: theme(digitv2.fontSize.body-s.tablet);
+      font-size: theme("digitv2.fontSize.body-s.tablet");
     }
 
     @media (min-aspect-ratio: 3/4) {
       /* Media query for desktop */
-      font-size: theme(digitv2.fontSize.body-s.desktop);
+      font-size: theme("digitv2.fontSize.body-s.desktop");
     }
-    color: theme(digitv2.lightTheme.text-disabled);
+    color: theme("digitv2.lightTheme.text-disabled");
   }
 }
 
@@ -323,17 +326,17 @@
   height: 4.5rem;
   min-width: 15rem;
   width: auto;
-  padding: theme(digitv2.spacers.spacer4) !important;
+  padding: theme("digitv2.spacers.spacer4") !important;
 
   .digit-mb-search {
-    height: theme(digitv2.spacers.spacer10) !important;
+    height: theme("digitv2.spacers.spacer10") !important;
     min-width: 13rem;
 
     .digit-text-input-customIcon {
-      height: theme(digitv2.spacers.spacer6);
-      width: theme(digitv2.spacers.spacer6);
-      top: theme(digitv2.spacers.spacer2);
-      right: theme(digitv2.spacers.spacer2);
+      height: theme("digitv2.spacers.spacer6");
+      width: theme("digitv2.spacers.spacer6");
+      top: theme("digitv2.spacers.spacer2");
+      right: theme("digitv2.spacers.spacer2");
     }
 
     .input-container {
@@ -343,55 +346,55 @@
     input {
       max-height: 100%;
       background-color: transparent;
-      border: 0.063rem solid theme(digitv2.lightTheme.paper-secondary);
-      color: theme(digitv2.lightTheme.generic-background);
+      border: 0.063rem solid theme("digitv2.lightTheme.paper-secondary");
+      color: theme("digitv2.lightTheme.generic-background");
 
       ::placeholder {
-        color: theme(digitv2.lightTheme.generic-background);
+        color: theme("digitv2.lightTheme.generic-background");
       }
     }
 
     .input-container:focus-within {
       input {
-        border: 0.063rem solid theme(digitv2.lightTheme.paper-secondary) !important;
+        border: 0.063rem solid theme("digitv2.lightTheme.paper-secondary") !important;
       }
     }
   }
 
   ::placeholder {
     content: attr(placeholder);
-    @extend .typography.body-s;
-    font-family: theme(digitv2.fontFamily.sans);
-    font-style: theme(digitv2.fontStyle.normal);
-    font-weight: theme(digitv2.fontWeight.regular);
-    line-height: theme(digitv2.lineHeight.lineheight2);
+    @include typography-body-s;
+    font-family: theme("digitv2.fontFamily.sans");
+    font-style: theme("digitv2.fontStyle.normal");
+    font-weight: theme("digitv2.fontWeight.regular");
+    line-height: theme("digitv2.lineHeight.lineheight2");
 
     @media (max-aspect-ratio: 9/16) {
       /* Media query for mobile */
-      font-size: theme(digitv2.fontSize.body-s.mobile);
+      font-size: theme("digitv2.fontSize.body-s.mobile");
     }
 
     @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
       /* Media query for tablets */
-      font-size: theme(digitv2.fontSize.body-s.tablet);
+      font-size: theme("digitv2.fontSize.body-s.tablet");
     }
 
     @media (min-aspect-ratio: 3/4) {
       /* Media query for desktop */
-      font-size: theme(digitv2.fontSize.body-s.desktop);
+      font-size: theme("digitv2.fontSize.body-s.desktop");
     }
-    color: theme(digitv2.lightTheme.generic-background);
+    color: theme("digitv2.lightTheme.generic-background");
   }
 }
 
 .digit-msb-sidebar-bottom {
-  background-color: theme(digitv2.lightTheme.paper-secondary);
+  background-color: theme("digitv2.lightTheme.paper-secondary");
   z-index: 5;
-  padding: theme(digitv2.spacers.spacer4);
+  padding: theme("digitv2.spacers.spacer4");
   display: flex;
   flex-direction: column;
-  gap: theme(digitv2.spacers.spacer4);
-  border-top: 0.063rem solid theme(digitv2.lightTheme.generic-divider);
+  gap: theme("digitv2.spacers.spacer4");
+  border-top: 0.063rem solid theme("digitv2.lightTheme.generic-divider");
   height: 4rem;
 
 
@@ -399,54 +402,54 @@
     width: 100%;
 
     .icon-label-container .digit-button-customIcon {
-      width: theme(digitv2.spacers.spacer5);
-      height: theme(digitv2.spacers.spacer5);
+      width: theme("digitv2.spacers.spacer5");
+      height: theme("digitv2.spacers.spacer5");
       ;
     }
   }
 
   &.dark {
-    background-color: theme(digitv2.lightTheme.primary-2);
+    background-color: theme("digitv2.lightTheme.primary-2");
   }
 }
 
 .digit-icon-msb {
-  margin-right: theme(digitv2.spacers.spacer3);
-  width: theme(digitv2.spacers.spacer6);
-  height: theme(digitv2.spacers.spacer6);
-  margin-left: theme(digitv2.spacers.spacer6);
+  margin-right: theme("digitv2.spacers.spacer3");
+  width: theme("digitv2.spacers.spacer6");
+  height: theme("digitv2.spacers.spacer6");
+  margin-left: theme("digitv2.spacers.spacer6");
 }
 
 .digit-item-label-msb {
 
-  font-family: theme(digitv2.fontFamily.sans);
-  font-style: theme(digitv2.fontStyle.normal);
-  font-weight: theme(digitv2.fontWeight.regular);
-  line-height: theme(digitv2.lineHeight.lineheight2);
+  font-family: theme("digitv2.fontFamily.sans");
+  font-style: theme("digitv2.fontStyle.normal");
+  font-weight: theme("digitv2.fontWeight.regular");
+  line-height: theme("digitv2.lineHeight.lineheight2");
 
   @media (max-aspect-ratio: 9/16) {
     /* Media query for mobile */
-    font-size: theme(digitv2.fontSize.body-s.mobile);
+    font-size: theme("digitv2.fontSize.body-s.mobile");
   }
 
   @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
     /* Media query for tablets */
-    font-size: theme(digitv2.fontSize.body-s.tablet);
+    font-size: theme("digitv2.fontSize.body-s.tablet");
   }
 
   @media (min-aspect-ratio: 3/4) {
     /* Media query for desktop */
-    font-size: theme(digitv2.fontSize.body-s.desktop);
+    font-size: theme("digitv2.fontSize.body-s.desktop");
   }
 
   &.withoutIcon{
-    margin-left: theme(digitv2.spacers.spacer7);
+    margin-left: theme("digitv2.spacers.spacer7");
   }
 }
 
 .digit-expand-icon-msb {
-  width: theme(digitv2.spacers.spacer6);
-  height: theme(digitv2.spacers.spacer6);
+  width: theme("digitv2.spacers.spacer6");
+  height: theme("digitv2.spacers.spacer6");
   margin-left: auto !important;
 
   &.child-level{
@@ -469,7 +472,7 @@
 
 .digit-item-child-wrapper-msb {
   width: 100%;
-  height: theme(digitv2.spacers.spacer12);
+  height: theme("digitv2.spacers.spacer12");
   display: flex;
   align-items: center;
   justify-content: center;
@@ -484,7 +487,7 @@
     background: #c84c0e1a;
 
     .digit-item-label-msb {
-      color: theme(digitv2.lightTheme.primary-2);
+      color: theme("digitv2.lightTheme.primary-2");
     }
   }
 
@@ -499,18 +502,18 @@
     top: 0.062rem;
     left: 0;
     bottom: 0.063rem;
-    width: theme(digitv2.spacers.spacer2);
-    background: theme(digitv2.lightTheme.primary-1);
-    border-top-right-radius: theme(digitv2.spacers.spacer1);
-    border-bottom-right-radius: theme(digitv2.spacers.spacer1);
+    width: theme("digitv2.spacers.spacer2");
+    background: theme("digitv2.lightTheme.primary-1");
+    border-top-right-radius: theme("digitv2.spacers.spacer1");
+    border-bottom-right-radius: theme("digitv2.spacers.spacer1");
   }
 
   .digit-sidebar-item-msb.dark:active,
   .digit-sidebar-item-msb.dark.selected,
   .digit-sidebar-item-msb.dark.selectedAsParent {
-    background: theme(digitv2.lightTheme.primary-1);
+    background: theme("digitv2.lightTheme.primary-1");
     .digit-item-label-msb {
-      color: theme(digitv2.lightTheme.paper-primary);
+      color: theme("digitv2.lightTheme.paper-primary");
     }
   }
 
@@ -525,26 +528,26 @@
     top: 0.062rem;
     left: 0;
     bottom: 0.063rem;
-    width: theme(digitv2.spacers.spacer2);
-    background: theme(digitv2.lightTheme.paper-primary);
-    border-top-right-radius: theme(digitv2.spacers.spacer1);
-    border-bottom-right-radius: theme(digitv2.spacers.spacer1);
+    width: theme("digitv2.spacers.spacer2");
+    background: theme("digitv2.lightTheme.paper-primary");
+    border-top-right-radius: theme("digitv2.spacers.spacer1");
+    border-bottom-right-radius: theme("digitv2.spacers.spacer1");
   }
 }
 
 
 .digit-msb-sidebar-items::-webkit-scrollbar {
   width: 0.375rem;
-  background-color: theme(digitv2.lightTheme.generic-background);
+  background-color: theme("digitv2.lightTheme.generic-background");
 }
 
 .digit-msb-sidebar-items::-webkit-scrollbar-track {
-  background-color: theme(digitv2.lightTheme.generic-background);
+  background-color: theme("digitv2.lightTheme.generic-background");
   border-radius: 0.563rem;
 }
 
 .digit-msb-sidebar-items::-webkit-scrollbar-thumb {
-  background-color: theme(digitv2.lightTheme.generic-divider);
+  background-color: theme("digitv2.lightTheme.generic-divider");
   border-radius: 0.563rem;
 }
 

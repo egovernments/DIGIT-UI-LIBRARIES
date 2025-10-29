@@ -1,3 +1,6 @@
+@import './theme-variables.css';
+@import '../typography.scss';
+
 .tooltip-wrapper {
   position: relative;
   display: inline-block;
@@ -5,10 +8,10 @@
 
 .tooltip-content {
   position: absolute;
-  background-color: theme(digitv2.lightTheme.generic-inputborder);
-  color: theme(digitv2.lightTheme.paper-primary);
-  padding: theme(digitv2.spacers.spacer2);
-  border-radius: theme(digitv2.spacers.spacer1);
+  background-color: theme("digitv2.lightTheme.generic-inputborder");
+  color: theme("digitv2.lightTheme.paper-primary");
+  padding: theme("digitv2.spacers.spacer2");
+  border-radius: theme("digitv2.spacers.spacer1");
   z-index: 1000;
   pointer-events: none;
   width: max-content;
@@ -20,56 +23,56 @@
   min-width: 4.125rem;
   max-width: 14.563rem;
 
-  font-family: theme(digitv2.fontFamily.sans);
-  font-style: theme(digitv2.fontStyle.normal);
-  font-weight: theme(digitv2.fontWeight.regular);
-  line-height: theme(digitv2.lineHeight.lineheight2);
+  font-family: theme("digitv2.fontFamily.sans");
+  font-style: theme("digitv2.fontStyle.normal");
+  font-weight: theme("digitv2.fontWeight.regular");
+  line-height: theme("digitv2.lineHeight.lineheight2");
 
   @media (max-aspect-ratio: 9/16) {
-    font-size: theme(digitv2.fontSize.body-s.mobile);
+    font-size: theme("digitv2.fontSize.body-s.mobile");
   }
 
   @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
-    font-size: theme(digitv2.fontSize.body-s.tablet);
+    font-size: theme("digitv2.fontSize.body-s.tablet");
   }
 
   @media (min-aspect-ratio: 3/4) {
-    font-size: theme(digitv2.fontSize.body-s.desktop);
+    font-size: theme("digitv2.fontSize.body-s.desktop");
   }
 
   &.light {
-    color: theme(digitv2.lightTheme.text-primary);
-    background-color: theme(digitv2.lightTheme.paper-secondary);
+    color: theme("digitv2.lightTheme.text-primary");
+    background-color: theme("digitv2.lightTheme.paper-secondary");
     box-shadow: 0rem 0.063rem 0.125rem 0rem #36363629;
-    border: 0.063rem solid theme(digitv2.lightTheme.generic-divider);
+    border: 0.063rem solid theme("digitv2.lightTheme.generic-divider");
   }
 
   .tooltip-header {
-    @extend .typography.heading-s;
-    font-family: theme(digitv2.fontFamily.sans);
-    font-style: theme(digitv2.fontStyle.normal);
-    font-weight: theme(digitv2.fontWeight.bold);
-    line-height: theme(digitv2.lineHeight.lineheight1);
+    @include typography-heading-s;
+    font-family: theme("digitv2.fontFamily.sans");
+    font-style: theme("digitv2.fontStyle.normal");
+    font-weight: theme("digitv2.fontWeight.bold");
+    line-height: theme("digitv2.lineHeight.lineheight1");
 
     @media (max-aspect-ratio: 9/16) {
       /* Media query for mobile */
-      font-size: theme(digitv2.fontSize.heading-s.mobile);
+      font-size: theme("digitv2.fontSize.heading-s.mobile");
     }
 
     @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
       /* Media query for tablets */
-      font-size: theme(digitv2.fontSize.heading-s.tablet);
+      font-size: theme("digitv2.fontSize.heading-s.tablet");
     }
 
     @media (min-aspect-ratio: 3/4) {
       /* Media query for desktop */
-      font-size: theme(digitv2.fontSize.heading-s.desktop);
+      font-size: theme("digitv2.fontSize.heading-s.desktop");
     }
 
-    color: theme(digitv2.lightTheme.paper-primary);
+    color: theme("digitv2.lightTheme.paper-primary");
 
     &.light {
-      color: theme(digitv2.lightTheme.text-primary);
+      color: theme("digitv2.lightTheme.text-primary");
     }
   }
 
@@ -82,33 +85,33 @@
   }
 
   .tooltip-description {
-    @extend .typography.body-xs;
-    color: theme(digitv2.lightTheme.paper-primary);
+    @include typography-body-xs;
+    color: theme("digitv2.lightTheme.paper-primary");
 
     &.light {
-      color: theme(digitv2.lightTheme.text-primary);
+      color: theme("digitv2.lightTheme.text-primary");
     }
   }
 }
 
 .tooltip-content.tooltip-bottom-start {
-  top: theme(digitv2.spacers.spacer12);
+  top: theme("digitv2.spacers.spacer12");
   left: 0;
 
   &.with-arrow {
-    border-top-left-radius: theme(digitv2.spacers.spacer0);
+    border-top-left-radius: theme("digitv2.spacers.spacer0");
   }
 
 }
 
 .tooltip-content.tooltip-bottom {
-  top: theme(digitv2.spacers.spacer12);
+  top: theme("digitv2.spacers.spacer12");
   left: 50%;
   transform: translateX(-50%);
 }
 
 .tooltip-content.tooltip-bottom-end {
-  top: theme(digitv2.spacers.spacer12);
+  top: theme("digitv2.spacers.spacer12");
   right: 0;
 
   &.with-arrow {
@@ -117,75 +120,75 @@
 }
 
 .tooltip-content.tooltip-top-start {
-  bottom: theme(digitv2.spacers.spacer12);
+  bottom: theme("digitv2.spacers.spacer12");
   left: 0;
 
   &.with-arrow {
-    border-bottom-left-radius: theme(digitv2.spacers.spacer0);
+    border-bottom-left-radius: theme("digitv2.spacers.spacer0");
   }
 }
 
 .tooltip-content.tooltip-top {
-  bottom: theme(digitv2.spacers.spacer12);
+  bottom: theme("digitv2.spacers.spacer12");
   left: 50%;
   transform: translateX(-50%);
 }
 
 
 .tooltip-content.tooltip-top-end {
-  bottom: theme(digitv2.spacers.spacer12);
+  bottom: theme("digitv2.spacers.spacer12");
   right: 0;
 
   &.with-arrow {
-    border-bottom-right-radius: theme(digitv2.spacers.spacer0);
+    border-bottom-right-radius: theme("digitv2.spacers.spacer0");
   }
 }
 
 .tooltip-content.tooltip-left-start {
-  right: calc(100% + theme(digitv2.spacers.spacer2));
+  right: calc(100% + theme("digitv2.spacers.spacer2"));
   top: 0;
 
   &.with-arrow {
-    border-top-right-radius: theme(digitv2.spacers.spacer0);
+    border-top-right-radius: theme("digitv2.spacers.spacer0");
   }
 }
 
 .tooltip-content.tooltip-left {
-  right: calc(100% + theme(digitv2.spacers.spacer2));
+  right: calc(100% + theme("digitv2.spacers.spacer2"));
   top: 50%;
   transform: translateY(-50%);
 }
 
 .tooltip-content.tooltip-left-end {
-  right: calc(100% + theme(digitv2.spacers.spacer2));
+  right: calc(100% + theme("digitv2.spacers.spacer2"));
   bottom: 0;
 
   &.with-arrow {
-    border-bottom-right-radius: theme(digitv2.spacers.spacer0);
+    border-bottom-right-radius: theme("digitv2.spacers.spacer0");
   }
 }
 
 .tooltip-content.tooltip-right-start {
-  left: calc(100% + theme(digitv2.spacers.spacer2));
+  left: calc(100% + theme("digitv2.spacers.spacer2"));
   top: 0;
 
   &.with-arrow {
-    border-top-left-radius: theme(digitv2.spacers.spacer0);
+    border-top-left-radius: theme("digitv2.spacers.spacer0");
   }
 }
 
 .tooltip-content.tooltip-right {
-  left: calc(100% + theme(digitv2.spacers.spacer2));
+  left: calc(100% + theme("digitv2.spacers.spacer2"));
   top: 50%;
   transform: translateY(-50%);
 }
 
 .tooltip-content.tooltip-right-end {
-  left: calc(100% + theme(digitv2.spacers.spacer2));
+  left: calc(100% + theme("digitv2.spacers.spacer2"));
   bottom: 0;
 
   &.with-arrow {
-    border-bottom-left-radius: theme(digitv2.spacers.spacer0);
+    border-bottom-left-radius: theme("digitv2.spacers.spacer0");
   }
 }
 
@@ -194,14 +197,14 @@
   content: "";
   position: absolute;
   top: -0.5rem;
-  left: theme(digitv2.spacers.spacer1);
+  left: theme("digitv2.spacers.spacer1");
   transform: translateX(-50%);
-  border-bottom: theme(digitv2.spacers.spacer2) solid theme(digitv2.lightTheme.generic-inputborder);
-  border-right: theme(digitv2.spacers.spacer2) solid transparent;
+  border-bottom: theme("digitv2.spacers.spacer2") solid theme("digitv2.lightTheme.generic-inputborder");
+  border-right: theme("digitv2.spacers.spacer2") solid transparent;
 }
 
 .tooltip-bottom-start.with-arrow.light:before {
-  border-bottom: theme(digitv2.spacers.spacer2) solid theme(digitv2.lightTheme.paper-secondary);
+  border-bottom: theme("digitv2.spacers.spacer2") solid theme("digitv2.lightTheme.paper-secondary");
 }
 
 .tooltip-bottom.with-arrow:before {
@@ -210,41 +213,41 @@
   top: -0.5rem;
   left: 50%;
   transform: translateX(-50%);
-  border-bottom: theme(digitv2.spacers.spacer2) solid theme(digitv2.lightTheme.generic-inputborder);
-  border-left: theme(digitv2.spacers.spacer1) solid transparent;
-  border-right: theme(digitv2.spacers.spacer1) solid transparent;
+  border-bottom: theme("digitv2.spacers.spacer2") solid theme("digitv2.lightTheme.generic-inputborder");
+  border-left: theme("digitv2.spacers.spacer1") solid transparent;
+  border-right: theme("digitv2.spacers.spacer1") solid transparent;
 }
 
 .tooltip-bottom.with-arrow.light:before {
-  border-bottom: theme(digitv2.spacers.spacer2) solid theme(digitv2.lightTheme.paper-secondary);
+  border-bottom: theme("digitv2.spacers.spacer2") solid theme("digitv2.lightTheme.paper-secondary");
 }
 
 .tooltip-bottom-end.with-arrow:before {
   content: "";
   position: absolute;
   top: -0.5rem;
-  left: calc(100% -0.25rem);
+  left: calc(100% - 0.25rem);
   transform: translateX(-50%);
-  border-bottom: theme(digitv2.spacers.spacer2) solid theme(digitv2.lightTheme.generic-inputborder);
-  border-left: theme(digitv2.spacers.spacer2) solid transparent;
+  border-bottom: theme("digitv2.spacers.spacer2") solid theme("digitv2.lightTheme.generic-inputborder");
+  border-left: theme("digitv2.spacers.spacer2") solid transparent;
 }
 
 .tooltip-bottom-end.with-arrow.light:before {
-  border-bottom: theme(digitv2.spacers.spacer2) solid theme(digitv2.lightTheme.paper-secondary);
+  border-bottom: theme("digitv2.spacers.spacer2") solid theme("digitv2.lightTheme.paper-secondary");
 }
 
 .tooltip-top-start.with-arrow:before {
   content: "";
   position: absolute;
   bottom: -0.5rem;
-  left: theme(digitv2.spacers.spacer1);
+  left: theme("digitv2.spacers.spacer1");
   transform: translateX(-50%);
-  border-top: theme(digitv2.spacers.spacer2) solid theme(digitv2.lightTheme.generic-inputborder);
-  border-right: theme(digitv2.spacers.spacer2) solid transparent;
+  border-top: theme("digitv2.spacers.spacer2") solid theme("digitv2.lightTheme.generic-inputborder");
+  border-right: theme("digitv2.spacers.spacer2") solid transparent;
 }
 
 .tooltip-top-start.with-arrow.light:before {
-  border-top: theme(digitv2.spacers.spacer2) solid theme(digitv2.lightTheme.paper-secondary);
+  border-top: theme("digitv2.spacers.spacer2") solid theme("digitv2.lightTheme.paper-secondary");
 }
 
 .tooltip-top.with-arrow:before {
@@ -253,41 +256,41 @@
   bottom: -0.5rem;
   left: 50%;
   transform: translateX(-50%);
-  border-top: theme(digitv2.spacers.spacer2) solid theme(digitv2.lightTheme.generic-inputborder);
-  border-left: theme(digitv2.spacers.spacer1) solid transparent;
-  border-right: theme(digitv2.spacers.spacer1) solid transparent;
+  border-top: theme("digitv2.spacers.spacer2") solid theme("digitv2.lightTheme.generic-inputborder");
+  border-left: theme("digitv2.spacers.spacer1") solid transparent;
+  border-right: theme("digitv2.spacers.spacer1") solid transparent;
 }
 
 .tooltip-top.with-arrow.light:before {
-  border-top: theme(digitv2.spacers.spacer2) solid theme(digitv2.lightTheme.paper-secondary);
+  border-top: theme("digitv2.spacers.spacer2") solid theme("digitv2.lightTheme.paper-secondary");
 }
 
 .tooltip-top-end.with-arrow:before {
   content: "";
   position: absolute;
   bottom: -0.5rem;
-  left: calc(100% -0.25rem);
+  left: calc(100% - 0.25rem);
   transform: translateX(-50%);
-  border-top: theme(digitv2.spacers.spacer2) solid theme(digitv2.lightTheme.generic-inputborder);
-  border-left: theme(digitv2.spacers.spacer2) solid transparent;
+  border-top: theme("digitv2.spacers.spacer2") solid theme("digitv2.lightTheme.generic-inputborder");
+  border-left: theme("digitv2.spacers.spacer2") solid transparent;
 }
 
 .tooltip-top-end.with-arrow.light:before {
-  border-top: theme(digitv2.spacers.spacer2) solid theme(digitv2.lightTheme.paper-secondary);
+  border-top: theme("digitv2.spacers.spacer2") solid theme("digitv2.lightTheme.paper-secondary");
 }
 
 .tooltip-left-start.with-arrow:before {
   content: "";
   position: absolute;
-  top: theme(digitv2.spacers.spacer1);
+  top: theme("digitv2.spacers.spacer1");
   right: -0.45rem;
-  border-left: theme(digitv2.spacers.spacer2) solid theme(digitv2.lightTheme.generic-inputborder);
-  border-bottom: theme(digitv2.spacers.spacer2) solid transparent;
+  border-left: theme("digitv2.spacers.spacer2") solid theme("digitv2.lightTheme.generic-inputborder");
+  border-bottom: theme("digitv2.spacers.spacer2") solid transparent;
   transform: translateY(-50%);
 }
 
 .tooltip-left-start.with-arrow.light:before {
-  border-left: theme(digitv2.spacers.spacer2) solid theme(digitv2.lightTheme.paper-secondary);
+  border-left: theme("digitv2.spacers.spacer2") solid theme("digitv2.lightTheme.paper-secondary");
 
 }
 
@@ -296,43 +299,43 @@
   position: absolute;
   top: 50%;
   right: -0.5rem;
-  border-left: theme(digitv2.spacers.spacer2) solid theme(digitv2.lightTheme.generic-inputborder);
-  border-top: theme(digitv2.spacers.spacer1) solid transparent;
-  border-bottom: theme(digitv2.spacers.spacer1) solid transparent;
+  border-left: theme("digitv2.spacers.spacer2") solid theme("digitv2.lightTheme.generic-inputborder");
+  border-top: theme("digitv2.spacers.spacer1") solid transparent;
+  border-bottom: theme("digitv2.spacers.spacer1") solid transparent;
   transform: translateY(-50%);
 }
 
 .tooltip-left.with-arrow.light:before {
-  border-left: theme(digitv2.spacers.spacer2) solid theme(digitv2.lightTheme.paper-secondary);
+  border-left: theme("digitv2.spacers.spacer2") solid theme("digitv2.lightTheme.paper-secondary");
 }
 
 .tooltip-left-end.with-arrow:before {
   content: "";
   position: absolute;
-  top: calc(100% -0.25rem);
+  top: calc(100% - 0.25rem);
   right: -0.45rem;
-  border-left: theme(digitv2.spacers.spacer2) solid theme(digitv2.lightTheme.generic-inputborder);
-  border-top: theme(digitv2.spacers.spacer2) solid transparent;
+  border-left: theme("digitv2.spacers.spacer2") solid theme("digitv2.lightTheme.generic-inputborder");
+  border-top: theme("digitv2.spacers.spacer2") solid transparent;
   transform: translateY(-50%);
 }
 
 .tooltip-left-end.with-arrow.light:before {
-  border-left: theme(digitv2.spacers.spacer2) solid theme(digitv2.lightTheme.paper-secondary);
+  border-left: theme("digitv2.spacers.spacer2") solid theme("digitv2.lightTheme.paper-secondary");
 
 }
 
 .tooltip-right-start.with-arrow:before {
   content: "";
   position: absolute;
-  top: theme(digitv2.spacers.spacer1);
+  top: theme("digitv2.spacers.spacer1");
   left: -0.45rem;
-  border-right: theme(digitv2.spacers.spacer2) solid theme(digitv2.lightTheme.generic-inputborder);
-  border-bottom: theme(digitv2.spacers.spacer2) solid transparent;
+  border-right: theme("digitv2.spacers.spacer2") solid theme("digitv2.lightTheme.generic-inputborder");
+  border-bottom: theme("digitv2.spacers.spacer2") solid transparent;
   transform: translateY(-50%);
 }
 
 .tooltip-right-start.with-arrow.light:before {
-  border-right: theme(digitv2.spacers.spacer2) solid theme(digitv2.lightTheme.paper-secondary);
+  border-right: theme("digitv2.spacers.spacer2") solid theme("digitv2.lightTheme.paper-secondary");
 }
 
 .tooltip-right.with-arrow:before {
@@ -340,26 +343,26 @@
   position: absolute;
   top: 50%;
   left: -0.5rem;
-  border-right: theme(digitv2.spacers.spacer2) solid theme(digitv2.lightTheme.generic-inputborder);
-  border-top: theme(digitv2.spacers.spacer1) solid transparent;
-  border-bottom: theme(digitv2.spacers.spacer1) solid transparent;
+  border-right: theme("digitv2.spacers.spacer2") solid theme("digitv2.lightTheme.generic-inputborder");
+  border-top: theme("digitv2.spacers.spacer1") solid transparent;
+  border-bottom: theme("digitv2.spacers.spacer1") solid transparent;
   transform: translateY(-50%);
 }
 
 .tooltip-right.with-arrow.light:before {
-  border-right: theme(digitv2.spacers.spacer2) solid theme(digitv2.lightTheme.paper-secondary);
+  border-right: theme("digitv2.spacers.spacer2") solid theme("digitv2.lightTheme.paper-secondary");
 }
 
 .tooltip-right-end.with-arrow:before {
   content: "";
   position: absolute;
-  top: calc(100% -0.25rem);
+  top: calc(100% - 0.25rem);
   left: -0.45rem;
-  border-right: theme(digitv2.spacers.spacer2) solid theme(digitv2.lightTheme.generic-inputborder);
-  border-top: theme(digitv2.spacers.spacer2) solid transparent;
+  border-right: theme("digitv2.spacers.spacer2") solid theme("digitv2.lightTheme.generic-inputborder");
+  border-top: theme("digitv2.spacers.spacer2") solid transparent;
   transform: translateY(-50%);
 }
 
 .tooltip-right-end.with-arrow.light:before {
-  border-right: theme(digitv2.spacers.spacer2) solid theme(digitv2.lightTheme.paper-secondary);
+  border-right: theme("digitv2.spacers.spacer2") solid theme("digitv2.lightTheme.paper-secondary");
 }

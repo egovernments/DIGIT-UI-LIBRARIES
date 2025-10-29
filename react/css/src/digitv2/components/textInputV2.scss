@@ -1,15 +1,15 @@
-@import url("../index.scss");
-@import url("../typography.scss");
+@import './theme-variables.css';
+@import '../typography.scss';
 
 .digit-card-inputError {
   @apply block w-full h-10 outline-none bg-white text-text-primary;
-  font-style: theme(digitv2.fontStyle.normal);
-  padding-left:theme(digitv2.spacers.spacer3);
-  font-family: theme(digitv2.fontFamily.sans);
-  font-size: theme(digitv2.spacers.spacer4);
-  color: theme(digitv2.lightTheme.text-primary);
-  line-height: theme(digitv2.spacers.spacer6);
-  border: 0.094rem solid theme(digitv2.lightTheme.alert-error);
+  font-style: theme("digitv2.fontStyle.normal");
+  padding-left:theme("digitv2.spacers.spacer3");
+  font-family: theme("digitv2.fontFamily.sans");
+  font-size: theme("digitv2.spacers.spacer4");
+  color: theme("digitv2.lightTheme.text-primary");
+  line-height: theme("digitv2.spacers.spacer6");
+  border: 0.094rem solid theme("digitv2.lightTheme.alert-error");
 }
 
 .digit-text-input-field {
@@ -23,7 +23,7 @@
 
   &.numeric {
     input {
-      @apply text-center overflow-hidden whitespace-no-wrap;
+      @apply text-center overflow-hidden whitespace-nowrap;
       text-overflow: ellipsis;
     }
 
@@ -60,10 +60,10 @@
 
   &.password {
     input {
-      font-family: theme(digitv2.fontFamily.sans);
-      font-size: theme(digitv2.spacers.spacer4);
+      font-family: theme("digitv2.fontFamily.sans");
+      font-size: theme("digitv2.spacers.spacer4");
       font-weight: 900;
-      line-height: theme(digitv2.spacers.spacer6);
+      line-height: theme("digitv2.spacers.spacer6");
     }
   }
 
@@ -76,9 +76,9 @@
     .digit-numeric-button-suffix {
       pointer-events: none !important;
       cursor: not-allowed;
-      background-color: theme(digitv2.lightTheme.generic-background);
-      border: 0.063rem solid theme(digitv2.lightTheme.generic-divider);
-      color: theme(digitv2.lightTheme.generic-divider);
+      background-color: theme("digitv2.lightTheme.generic-background");
+      border: 0.063rem solid theme("digitv2.lightTheme.generic-divider");
+      color: theme("digitv2.lightTheme.generic-divider");
     }
 
     input {
@@ -101,7 +101,7 @@
   input[type="date"]:disabled::-webkit-calendar-picker-indicator,
   input[type="time"]:disabled::-webkit-calendar-picker-indicator {
     @apply absolute cursor-pointer w-6 h-6;
-    right: theme(digitv2.spacers.spacer3);
+    right: theme("digitv2.spacers.spacer3");
     top: 50%;
     transform: translateY(-50%);
   }
@@ -125,11 +125,11 @@
   input[type="date"][value=""]:not(:placeholder-shown)::before,
   input[type="time"][value=""]:not(:placeholder-shown)::before {
     content: attr(placeholder);
-    color: theme(digitv2.lightTheme.text-disabled);
-    font-family: theme(digitv2.fontFamily.sans);
-    font-weight: theme(digitv2.fontWeight.regular);
-    font-size: theme(digitv2.spacers.spacer4);
-    line-height: theme(digitv2.spacers.spacer6);
+    color: theme("digitv2.lightTheme.text-disabled");
+    font-family: theme("digitv2.fontFamily.sans");
+    font-weight: theme("digitv2.fontWeight.regular");
+    font-size: theme("digitv2.spacers.spacer4");
+    line-height: theme("digitv2.spacers.spacer6");
   }
 
   &.noneditable {
@@ -139,15 +139,15 @@
     .digit-numeric-button-prefix,
     .digit-numeric-button-suffix {
       pointer-events: none !important;
-      border: 0.063rem solid theme(digitv2.lightTheme.generic-inputborder);
-      background: theme(digitv2.lightTheme.generic-background);
-      color: theme(digitv2.lightTheme.text-secondary);
+      border: 0.063rem solid theme("digitv2.lightTheme.generic-inputborder");
+      background: theme("digitv2.lightTheme.generic-background");
+      color: theme("digitv2.lightTheme.text-secondary");
     }
 
     input {
-      border: 0.063rem solid theme(digitv2.lightTheme.generic-inputborder);
-      background: theme(digitv2.lightTheme.generic-background);
-      color: theme(digitv2.lightTheme.text-secondary);
+      border: 0.063rem solid theme("digitv2.lightTheme.generic-inputborder");
+      background: theme("digitv2.lightTheme.generic-background");
+      color: theme("digitv2.lightTheme.text-secondary");
     }
 
     .digit-numeric-button-prefix,
@@ -174,17 +174,17 @@
     .digit-suffix,
     .digit-numeric-button-prefix,
     .digit-numeric-button-suffix {
-      border: 0.094rem solid theme(digitv2.lightTheme.alert-error);
+      border: 0.094rem solid theme("digitv2.lightTheme.alert-error");
     }
 
     .digit-numeric-button-prefix,
     .digit-prefix {
-      border-right: 0.063rem solid theme(digitv2.lightTheme.text-secondary);
+      border-right: 0.063rem solid theme("digitv2.lightTheme.text-secondary");
     }
 
     .digit-numeric-button-suffix,
     .digit-suffix {
-      border-left: 0.063rem solid theme(digitv2.lightTheme.text-secondary);
+      border-left: 0.063rem solid theme("digitv2.lightTheme.text-secondary");
     }
 
     &.numeric {
@@ -211,33 +211,33 @@
 
 .digit-card-input-field {
   @apply outline-none mt-sm block w-full h-10 bg-white text-form-field;
-  padding-left: theme(digitv2.spacers.spacer3);
-  border: 0.063rem solid theme(digitv2.lightTheme.text-secondary);
-  color: theme(digitv2.lightTheme.text-primary);
-  line-height: theme(digitv2.spacers.spacer6);
+  padding-left: theme("digitv2.spacers.spacer3");
+  border: 0.063rem solid theme("digitv2.lightTheme.text-secondary");
+  color: theme("digitv2.lightTheme.text-primary");
+  line-height: theme("digitv2.spacers.spacer6");
 }
 
 .digit-card-inputError {
   @apply block w-full h-10 outline-none bg-white text-form-field text-text-primary;
-  font-style: theme(digitv2.fontStyle.normal);
-  padding-left: theme(digitv2.spacers.spacer3);
-  font-family: theme(digitv2.fontFamily.sans);
-  font-size: theme(digitv2.spacers.spacer4);
-  color: theme(digitv2.lightTheme.text-primary);
-  line-height: theme(digitv2.spacers.spacer6);
-  border: 0.094rem solid theme(digitv2.lightTheme.alert-error);
+  font-style: theme("digitv2.fontStyle.normal");
+  padding-left: theme("digitv2.spacers.spacer3");
+  font-family: theme("digitv2.fontFamily.sans");
+  font-size: theme("digitv2.spacers.spacer4");
+  color: theme("digitv2.lightTheme.text-primary");
+  line-height: theme("digitv2.spacers.spacer6");
+  border: 0.094rem solid theme("digitv2.lightTheme.alert-error");
 }
 
 .digit-employeeCard-input {
-  @extend .typography.text-body-s;
+  @include typography-text-body-s;
   @apply outline-none block w-full h-10 bg-white text-form-field;
-  font-style: theme(digitv2.fontStyle.normal);
-  padding-left: theme(digitv2.spacers.spacer3);
-  font-family: theme(digitv2.fontFamily.sans);
-  font-size: theme(digitv2.spacers.spacer4);
-  border: 0.063rem solid theme(digitv2.lightTheme.text-secondary);
-  color: theme(digitv2.lightTheme.text-primary);
-  line-height: theme(digitv2.spacers.spacer6);
+  font-style: theme("digitv2.fontStyle.normal");
+  padding-left: theme("digitv2.spacers.spacer3");
+  font-family: theme("digitv2.fontFamily.sans");
+  font-size: theme("digitv2.spacers.spacer4");
+  border: 0.063rem solid theme("digitv2.lightTheme.text-secondary");
+  color: theme("digitv2.lightTheme.text-primary");
+  line-height: theme("digitv2.spacers.spacer6");
 }
 
 .digit-employeeCard-input:disabled {
@@ -246,24 +246,24 @@
 }
 
 .digit-employeeCard-input--front {
-  @extend .typography.text-body-s;
+  @include typography-text-body-s;
   @apply flex items-center;
   width: fit-content !important;
-  background: theme(colors.grey.mid);
+  background: theme("colors.grey.mid");
   border-right: 0;
   padding-right: 0.313rem;
 }
 
 .digit-employeeCard-inputError {
-  @extend .typography.text-body-s;
+  @include typography-text-body-s;
   @apply block w-full h-10 outline-none bg-white text-form-field text-text-primary;
-  font-style: theme(digitv2.fontStyle.normal);
-  padding-left: theme(digitv2.spacers.spacer3);
-  font-family: theme(digitv2.fontFamily.sans);
-  font-size: theme(digitv2.spacers.spacer4);
-  color: theme(digitv2.lightTheme.text-primary);
-  line-height: theme(digitv2.spacers.spacer6);
-  border: 0.094rem solid theme(digitv2.lightTheme.alert-error);
+  font-style: theme("digitv2.fontStyle.normal");
+  padding-left: theme("digitv2.spacers.spacer3");
+  font-family: theme("digitv2.fontFamily.sans");
+  font-size: theme("digitv2.spacers.spacer4");
+  color: theme("digitv2.lightTheme.text-primary");
+  line-height: theme("digitv2.spacers.spacer6");
+  border: 0.094rem solid theme("digitv2.lightTheme.alert-error");
 }
 
 .digit-inputWrapper {
@@ -275,7 +275,7 @@
   }
 
   span {
-    margin-top: theme(digitv2.spacers.spacer4);
+    margin-top: theme("digitv2.spacers.spacer4");
     margin-left: 10%;
     margin-right: 10%;
   }
@@ -313,49 +313,49 @@
 }
 
 .digit-citizenCard-input {
-  @extend .typography.text-body-s;
+  @include typography-text-body-s;
   @apply outline-none block w-full h-10 bg-white;
-  font-style: theme(digitv2.fontStyle.normal);
-  padding-left: theme(digitv2.spacers.spacer3);
-  font-family: theme(digitv2.fontFamily.sans);
-  font-size: theme(digitv2.spacers.spacer4);
-  border: 0.063rem solid theme(digitv2.lightTheme.text-secondary);
-  color: theme(digitv2.lightTheme.text-primary);
-  line-height: theme(digitv2.spacers.spacer6);
+  font-style: theme("digitv2.fontStyle.normal");
+  padding-left: theme("digitv2.spacers.spacer3");
+  font-family: theme("digitv2.fontFamily.sans");
+  font-size: theme("digitv2.spacers.spacer4");
+  border: 0.063rem solid theme("digitv2.lightTheme.text-secondary");
+  color: theme("digitv2.lightTheme.text-primary");
+  line-height: theme("digitv2.spacers.spacer6");
 }
 
 .digit-citizenCard-input--front {
-  @extend .typography.text-body-s;
+  @include typography-text-body-s;
   @apply flex items-center;
   width: fit-content !important;
-  background: theme(colors.grey.mid);
+  background: theme("colors.grey.mid");
   border-right: 0;
   padding-right: 0.313rem;
 }
 
 .digit-employeeCard-inputError {
-  @extend .typography.text-body-s;
+  @include typography-text-body-s;
   @extend .light-input-border;
   @apply block w-full h-10 outline-none bg-white text-form-field text-text-primary;
-  font-style: theme(digitv2.fontStyle.normal);
-  padding-left: theme(digitv2.spacers.spacer3);
-  font-family: theme(digitv2.fontFamily.sans);
-  font-size: theme(digitv2.spacers.spacer4);
-  color: theme(digitv2.lightTheme.text-primary);
-  line-height:theme(digitv2.spacers.spacer6);
-  border: 0.094rem solid theme(digitv2.lightTheme.alert-error);
+  font-style: theme("digitv2.fontStyle.normal");
+  padding-left: theme("digitv2.spacers.spacer3");
+  font-family: theme("digitv2.fontFamily.sans");
+  font-size: theme("digitv2.spacers.spacer4");
+  color: theme("digitv2.lightTheme.text-primary");
+  line-height:theme("digitv2.spacers.spacer6");
+  border: 0.094rem solid theme("digitv2.lightTheme.alert-error");
 }
 
 .digit-card-inputError {
   @extend .light-input-border;
   @apply block w-full h-10 outline-none bg-white text-form-field text-text-primary;
-  font-family: theme(digitv2.fontFamily.sans);
-  padding-left: theme(digitv2.spacers.spacer3);
-  font-family: theme(digitv2.fontFamily.sans);
-  font-size: theme(digitv2.spacers.spacer4);
-  color: theme(digitv2.lightTheme.text-primary);
-  line-height: theme(digitv2.spacers.spacer6);
-  border: 0.094rem solid theme(digitv2.lightTheme.alert-error);
+  font-family: theme("digitv2.fontFamily.sans");
+  padding-left: theme("digitv2.spacers.spacer3");
+  font-family: theme("digitv2.fontFamily.sans");
+  font-size: theme("digitv2.spacers.spacer4");
+  color: theme("digitv2.lightTheme.text-primary");
+  line-height: theme("digitv2.spacers.spacer6");
+  border: 0.094rem solid theme("digitv2.lightTheme.alert-error");
 }
 
 
@@ -371,7 +371,7 @@
   &.passwordToText,
   &.withIcon {
     input {
-      padding-right: theme(digitv2.spacers.spacer10);
+      padding-right: theme("digitv2.spacers.spacer10");
     }
   }
 
@@ -401,17 +401,17 @@
   .digit-suffix:not([readonly]),
   input:not([readonly]) {
     outline: none;
-    border: 0.094rem solid theme(digitv2.lightTheme.primary-1);
+    border: 0.094rem solid theme("digitv2.lightTheme.primary-1");
   }
 
   .digit-numeric-button-prefix,
   .digit-prefix {
-    border-right: 0.063rem solid theme(digitv2.lightTheme.text-secondary) !important;
+    border-right: 0.063rem solid theme("digitv2.lightTheme.text-secondary") !important;
   }
 
   .digit-numeric-button-suffix,
   .digit-suffix {
-    border-left: 0.063rem solid theme(digitv2.lightTheme.text-secondary) !important;
+    border-left: 0.063rem solid theme("digitv2.lightTheme.text-secondary") !important;
   }
 }
 
@@ -420,22 +420,22 @@
 .digit-numeric-button-prefix,
 .digit-numeric-button-suffix {
   @apply font-bold text-center;
-  font-family: theme(digitv2.fontFamily.sans);
-  font-style: theme(digitv2.fontStyle.normal);
-  color: theme(digitv2.lightTheme.text-secondary);
-  font-size: theme(digitv2.spacers.spacer5);
-  height: theme(digitv2.spacers.spacer10) !important;
-  border: 0.063rem solid theme(digitv2.lightTheme.text-secondary);
+  font-family: theme("digitv2.fontFamily.sans");
+  font-style: theme("digitv2.fontStyle.normal");
+  color: theme("digitv2.lightTheme.text-secondary");
+  font-size: theme("digitv2.spacers.spacer5");
+  height: theme("digitv2.spacers.spacer10") !important;
+  border: 0.063rem solid theme("digitv2.lightTheme.text-secondary");
   line-height: 1.172rem;
-  background: theme(colors.grey.mid);
+  background: theme("colors.grey.mid");
   max-width: none !important;
   flex: 0 0 2.5rem;
 }
 
 .digit-numeric-button-prefix,
 .digit-numeric-button-suffix {
-  width: theme(digitv2.spacers.spacer10) !important;
-  font-size: theme(digitv2.spacers.spacer6);
+  width: theme("digitv2.spacers.spacer10") !important;
+  font-size: theme("digitv2.spacers.spacer6");
 }
 
 .digit-prefix,
@@ -455,8 +455,8 @@
 
 .digit-text-input-customIcon {
   @apply absolute w-6 h-6 cursor-pointer;
-  top: theme(digitv2.spacers.spacer2);
-  right: theme(digitv2.spacers.spacer3);
+  top: theme("digitv2.spacers.spacer2");
+  right: theme("digitv2.spacers.spacer3");
 
   &.nonEditable,
   &.disabled {

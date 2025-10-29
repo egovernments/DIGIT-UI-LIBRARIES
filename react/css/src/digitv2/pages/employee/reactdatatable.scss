@@ -29,14 +29,14 @@
 .rdt_TableRow {
     &.selectedRow {
         background-color: #FBEEE8 !important;
-        border-bottom-color: theme(digitv2.lightTheme.generic-divider) !important;
+        border-bottom-color: theme("digitv2.lightTheme.generic-divider") !important;
     }
 }
 
 .rdt_TableCol_Sortable {
     display: flex;
     align-items: center;
-    gap: theme(digitv2.spacers.spacer1);
+    gap: theme("digitv2.spacers.spacer1");
 
     &:hover {
         opacity: 1 !important;
@@ -54,7 +54,7 @@
 }
 
 .rdt_TableCol {
-    border-radius: theme(digitv2.spacers.spacer0) !important;
+    border-radius: theme("digitv2.spacers.spacer0") !important;
 
     &:last-of-type {
         border-left: none !important;
@@ -62,7 +62,7 @@
 }
 
 .rdt_TableCol {
-    border-radius: theme(digitv2.spacers.spacer0) !important;
+    border-radius: theme("digitv2.spacers.spacer0") !important;
 
     &:last-of-type {
         border-left: none !important;
@@ -86,33 +86,33 @@
 }
 
 .digit-data-table::-webkit-scrollbar-track {
-    background-color: theme(digitv2.lightTheme.generic-divider);
+    background-color: theme("digitv2.lightTheme.generic-divider");
     border-radius: 0.563rem;
 }
 
 .digit-data-table::-webkit-scrollbar-thumb {
-    background-color: theme(digitv2.lightTheme.generic-divider);
+    background-color: theme("digitv2.lightTheme.generic-divider");
     border-radius: 0.563rem;
 }
 
 .digit-data-table::-webkit-scrollbar {
-    width: theme(digitv2.spacers.spacer2);
-    background-color: theme(digitv2.lightTheme.generic-divider);
+    width: theme("digitv2.spacers.spacer2");
+    background-color: theme("digitv2.lightTheme.generic-divider");
 }
 
 .digit-data-table::-webkit-scrollbar:horizontal {
-    height: theme(digitv2.spacers.spacer2);
-    background-color: theme(digitv2.lightTheme.generic-divider);
+    height: theme("digitv2.spacers.spacer2");
+    background-color: theme("digitv2.lightTheme.generic-divider");
 }
 
 .digit-data-table-select-checkbox {
-    margin-bottom: theme(digitv2.spacers.spacer0);
+    margin-bottom: theme("digitv2.spacers.spacer0");
 }
 
 .rdt_Pagination {
     margin-top: -1rem;
     border: 0.063rem solid #d6d5d4;
-    border-top: theme(digitv2.spacers.spacer0);
+    border-top: theme("digitv2.spacers.spacer0");
 }
 
 
@@ -126,7 +126,7 @@
 
 .digit-dataTable-actions-container{
     display: flex;
-    gap:theme(digitv2.spacers.spacer2);
+    gap:theme("digitv2.spacers.spacer2");
     align-items: center;
     flex-wrap: wrap;
 }

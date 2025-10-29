@@ -1,125 +1,128 @@
+@import './theme-variables.css';
+@import '../typography.scss';
+
 .digit-form-card{
     width: 100%;
     max-width: 100%;
     height: fit-content;
-    background-color: theme(digitv2.lightTheme.paper-primary);
+    background-color: theme("digitv2.lightTheme.paper-primary");
     display: flex;
     flex-direction: column;
-    border-radius: theme(digitv2.spacers.spacer1);
+    border-radius: theme("digitv2.spacers.spacer1");
     box-shadow: 0rem 0.063rem 0.125rem 0rem #00000029;
 
     .digit-form-card-header {
         @apply flex-col;
         display: flex !important;
-        gap: theme(digitv2.spacers.spacer4);
+        gap: theme("digitv2.spacers.spacer4");
     
         &.with-shadow {
-          box-shadow: theme(digitv2.spacers.spacer0) 0.063rem 0.125rem theme(digitv2.spacers.spacer0) #00000026;
+          box-shadow: theme("digitv2.spacers.spacer0") 0.063rem 0.125rem theme("digitv2.spacers.spacer0") #00000026;
         }
     
         @media (min-width: 48rem) {
-          padding: theme(digitv2.spacers.spacer6);
-          padding-bottom: theme(digitv2.spacers.spacer0);
+          padding: theme("digitv2.spacers.spacer6");
+          padding-bottom: theme("digitv2.spacers.spacer0");
     
           &.with-shadow {
-            padding-bottom: theme(digitv2.spacers.spacer6);
+            padding-bottom: theme("digitv2.spacers.spacer6");
           }
         }
     
         @media (min-width: 30.063rem) and (max-width: 47.938rem) {
-          padding: theme(digitv2.spacers.spacer5);
-          padding-bottom: theme(digitv2.spacers.spacer0);
+          padding: theme("digitv2.spacers.spacer5");
+          padding-bottom: theme("digitv2.spacers.spacer0");
     
           &.with-shadow {
-            padding-bottom: theme(digitv2.spacers.spacer5);
+            padding-bottom: theme("digitv2.spacers.spacer5");
           }
         }
     
         @media (max-width: 30rem) {
-          padding: theme(digitv2.spacers.spacer4);
-          padding-bottom: theme(digitv2.spacers.spacer0);
+          padding: theme("digitv2.spacers.spacer4");
+          padding-bottom: theme("digitv2.spacers.spacer0");
     
           &.with-shadow {
-            padding-bottom: theme(digitv2.spacers.spacer4);
+            padding-bottom: theme("digitv2.spacers.spacer4");
           }
         }
     
       }
     
       .digit-form-card-content {
-        @extend .typography.body-s;
+        @include typography-body-s;
         position: relative;
-        font-family: theme(digitv2.fontFamily.sans);
-        font-style: theme(digitv2.fontStyle.normal);
-        font-weight: theme(digitv2.fontWeight.regular);
-        line-height: theme(digitv2.lineHeight.lineheight2);
+        font-family: theme("digitv2.fontFamily.sans");
+        font-style: theme("digitv2.fontStyle.normal");
+        font-weight: theme("digitv2.fontWeight.regular");
+        line-height: theme("digitv2.lineHeight.lineheight2");
     
         @media (max-aspect-ratio: 9/16) {
           /* Media query for mobile */
-          font-size: theme(digitv2.fontSize.body-s.mobile);
+          font-size: theme("digitv2.fontSize.body-s.mobile");
         }
     
         @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
           /* Media query for tablets */
-          font-size: theme(digitv2.fontSize.body-s.tablet);
+          font-size: theme("digitv2.fontSize.body-s.tablet");
         }
     
         @media (min-aspect-ratio: 3/4) {
           /* Media query for desktop */
-          font-size: theme(digitv2.fontSize.body-s.desktop);
+          font-size: theme("digitv2.fontSize.body-s.desktop");
         }
         @apply overflow-hidden overflow-y-auto flex-col;
         display: flex;
         flex: 1;
-        color: theme(digitv2.lightTheme.text-primary);
+        color: theme("digitv2.lightTheme.text-primary");
     
         &.inline {
           flex-direction: row;
         }
     
         @media (min-width: 48rem) {
-          gap: theme(digitv2.spacers.spacer6);
-          padding: theme(digitv2.spacers.spacer6) theme(digitv2.spacers.spacer6) theme(digitv2.spacers.spacer0) theme(digitv2.spacers.spacer6);
+          gap: theme("digitv2.spacers.spacer6");
+          padding: theme("digitv2.spacers.spacer6") theme("digitv2.spacers.spacer6") theme("digitv2.spacers.spacer0") theme("digitv2.spacers.spacer6");
     
           &.with-shadow,
           &.without-footer{
-            padding: theme(digitv2.spacers.spacer6);
+            padding: theme("digitv2.spacers.spacer6");
           }
     
         }
     
         @media (min-width: 30.063rem) and (max-width: 47.938rem) {
-          gap: theme(digitv2.spacers.spacer5);
-          padding: theme(digitv2.spacers.spacer5) theme(digitv2.spacers.spacer5) theme(digitv2.spacers.spacer0) theme(digitv2.spacers.spacer5);
+          gap: theme("digitv2.spacers.spacer5");
+          padding: theme("digitv2.spacers.spacer5") theme("digitv2.spacers.spacer5") theme("digitv2.spacers.spacer0") theme("digitv2.spacers.spacer5");
         
           &.with-shadow,
           &.without-footer{
-            padding: theme(digitv2.spacers.spacer5);
+            padding: theme("digitv2.spacers.spacer5");
           }
         
         }
     
         @media (max-width: 30rem) {
-          gap: theme(digitv2.spacers.spacer4);
-          padding: theme(digitv2.spacers.spacer4) theme(digitv2.spacers.spacer4) theme(digitv2.spacers.spacer0) theme(digitv2.spacers.spacer4);
+          gap: theme("digitv2.spacers.spacer4");
+          padding: theme("digitv2.spacers.spacer4") theme("digitv2.spacers.spacer4") theme("digitv2.spacers.spacer0") theme("digitv2.spacers.spacer4");
         
           &.with-shadow,
           &.without-footer{
-            padding: theme(digitv2.spacers.spacer4);
+            padding: theme("digitv2.spacers.spacer4");
           }
         }
 
         &.with-divider{
           @media (min-width: 48rem) {
-            grid-column-gap: theme(digitv2.spacers.spacer12);
+            grid-column-gap: theme("digitv2.spacers.spacer12");
           }
       
           @media (min-width: 30.063rem) and (max-width: 47.938rem) {
-            grid-column-gap: theme(digitv2.spacers.spacer10);
+            grid-column-gap: theme("digitv2.spacers.spacer10");
           }
       
           @media (max-width: 30rem) {
-            grid-column-gap: theme(digitv2.spacers.spacer8);
+            grid-column-gap: theme("digitv2.spacers.spacer8");
           }
         }
 
@@ -135,31 +138,31 @@
       .digit-form-card-footer {
         @apply flex-wrap;
         display: flex;
-        gap: theme(digitv2.spacers.spacer4);
+        gap: theme("digitv2.spacers.spacer4");
     
         &.with-shadow {
-          box-shadow: theme(digitv2.spacers.spacer0) -0.063rem 0.125rem theme(digitv2.spacers.spacer0) #00000026;
+          box-shadow: theme("digitv2.spacers.spacer0") -0.063rem 0.125rem theme("digitv2.spacers.spacer0") #00000026;
         }
     
         @media (min-width: 48rem) {
-          padding: theme(digitv2.spacers.spacer6);
+          padding: theme("digitv2.spacers.spacer6");
         }
     
         @media (min-width: 30.063rem) and (max-width: 47.938rem) {
           @apply w-full;
-          padding: theme(digitv2.spacers.spacer5);
+          padding: theme("digitv2.spacers.spacer5");
         }
     
         @media (max-width: 30rem) {
           @apply flex-col;
-          padding: theme(digitv2.spacers.spacer4);
+          padding: theme("digitv2.spacers.spacer4");
         }
 
 
         .digit-form-card-buttons {
           margin-left: auto;
           display: flex;
-          gap: theme(digitv2.spacers.spacer4);
+          gap: theme("digitv2.spacers.spacer4");
           @apply max-w-full flex-wrap;
       
           @media (min-width: 30.063rem) and (max-width: 47.938rem) {
@@ -172,7 +175,7 @@
       
           @media (max-width: 30rem) {
             @apply flex-col;
-            margin: theme(digitv2.spacers.spacer0);
+            margin: theme("digitv2.spacers.spacer0");
       
             button {
               width: 100%;
@@ -198,37 +201,37 @@
 
         @media (max-aspect-ratio: 9/16) {
             /* Media query for mobile */
-            top: theme(digitv2.spacers.spacer4);
+            top: theme("digitv2.spacers.spacer4");
             /*height: calc(100% - 2rem);*/
         }
     
         @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
             /* Media query for tablets */
-            top: theme(digitv2.spacers.spacer5);
+            top: theme("digitv2.spacers.spacer5");
             /*height: calc(100% - 2.5rem);*/
         }
     
         @media (min-aspect-ratio: 3/4) {
             /* Media query for desktop */
-            top: theme(digitv2.spacers.spacer6);
+            top: theme("digitv2.spacers.spacer6");
             /*height: calc(100% - 3rem);*/
         }
-        border: 0.063rem solid theme(digitv2.lightTheme.generic-divider);
+        border: 0.063rem solid theme("digitv2.lightTheme.generic-divider");
         z-index: 1;
       }
 }
 
 
 .digit-form-card-content::-webkit-scrollbar {
-  width: theme(digitv2.spacers.spacer2);
-  background-color: theme(digitv2.lightTheme.generic-background);
+  width: theme("digitv2.spacers.spacer2");
+  background-color: theme("digitv2.lightTheme.generic-background");
 }
 .digit-form-card-content::-webkit-scrollbar-track {
-  background-color: theme(digitv2.lightTheme.generic-background);
+  background-color: theme("digitv2.lightTheme.generic-background");
   border-radius: 0.563rem;
 }
 
 .digit-form-card-content::-webkit-scrollbar-thumb {
-  background-color: theme(digitv2.lightTheme.generic-divider);
+  background-color: theme("digitv2.lightTheme.generic-divider");
   border-radius: 0.563rem;
 }

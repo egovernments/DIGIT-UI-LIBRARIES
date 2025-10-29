@@ -4,26 +4,8 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.2.3] - 2025-10-23
-### Enhancement CSS & Styling Updates
-#### Typography
-- 📱 Updated responsive typography for tablet and desktop
-- 💅 Enhanced font sizes and line heights
-- 🔧 Improved spacing and margins
-
-#### Component Styles
-- ✨ New styles for BoundaryComponent
-- 💅 Updated button, card, and field styling
-- 💅 Enhanced dropdown and modal styles
-- 📱 Improved mobile responsiveness
-
-### [0.2.0-rc.1] - 2025-10-23
-## Fix
-- test build
-
-### [0.2.0-beta.17] - 2025-10-23
-## Fix
-- test build
+## [2.0.0-dev-01] [29-Aug-2025]
+- Merged with latest react 17 master changes
 
 ## [0.2.0-beta.15] - 2025-07-15
 ### Enhancement

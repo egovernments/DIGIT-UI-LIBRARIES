@@ -375,15 +375,26 @@ export const FormComposer = (props) => {
         <SubmitBar label={t(props.label)} style={{ width:"100%",...props?.buttonStyle }} submit="submit" disabled={isDisabled} className="w-full"/>
       )}
       {props.secondaryActionLabel && (
-        <div className="primary-label-btn" style={{ margin: "20px auto 0 auto" }} onClick={onSecondayActionClick}>
+        <div
+          className="primary-label-btn"
+          role="button"
+          tabIndex={0}
+          style={{ margin: "20px auto 0 auto" }}
+          onClick={onSecondayActionClick}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              onSecondayActionClick();
+            }
+          }}
+        >
           {props.secondaryActionLabel}
         </div>
       )}
     </React.Fragment>
   );
-const fieldId=Digit?.Utils?.getFieldIdName?.(props?.formId || props?.className || "form")||"NA";
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)} onKeyDown={(e) => checkKeyDown(e)} id={fieldId} className={props.className}>
+    <form onSubmit={handleSubmit(onSubmit)} onKeyDown={(e) => checkKeyDown(e)} id={props.formId} className={props.className}>
       {props?.showMultipleCardsWithoutNavs ? (
         props?.config?.map((section, index, array) => {
           return (
@@ -433,11 +444,11 @@ const fieldId=Digit?.Utils?.getFieldIdName?.(props?.formId || props?.className |
       )}
       {!props.submitInForm && props.label && (
         <Footer className={props.actionClassName}>
-          <SubmitBar label={t(props.label)} id={`${fieldId}-primary`} className="digit-formcomposer-submitbar" submit="submit" disabled={isDisabled} icon={props?.primaryActionIcon} isSuffix={props?.primaryActionIconAsSuffix} />
+          <SubmitBar label={t(props.label)} className="digit-formcomposer-submitbar" submit="submit" disabled={isDisabled} icon={props?.primaryActionIcon} isSuffix={props?.primaryActionIconAsSuffix} />
           {props?.secondaryLabel && props?.showSecondaryLabel && (
-            <Button id={`${fieldId}-secondary`} className="previous-button"  variation="secondary" label={t(props?.secondaryLabel)} onClick={props?.onSecondayActionClick} icon={props?.secondaryActionIcon} isSuffix={props?.secondaryActionIconAsSuffix} />
+            <Button className="previous-button"  variation="secondary" label={t(props?.secondaryLabel)} onClick={props?.onSecondayActionClick} icon={props?.secondaryActionIcon} isSuffix={props?.secondaryActionIconAsSuffix} />
           )}
-          {props.onSkip && props.showSkip && <ActionLinks style={props?.skipStyle} label={t(`CS_SKIP_CONTINUE`)} id={`${fieldId}-links`} onClick={props.onSkip} />}
+          {props.onSkip && props.showSkip && <ActionLinks style={props?.skipStyle} label={t(`CS_SKIP_CONTINUE`)} onClick={props.onSkip} />}
         </Footer>
       )}
       {showErrorToast && <Toast type={"error"} label={t("ES_COMMON_PLEASE_ENTER_ALL_MANDATORY_FIELDS")} isDleteBtn={true} onClose={closeToast} />}

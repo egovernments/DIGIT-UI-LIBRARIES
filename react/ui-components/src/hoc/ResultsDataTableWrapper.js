@@ -16,7 +16,7 @@ import CheckBox from "../atoms/CheckBox";
 import NoResultsFound from "../atoms/NoResultsFound";
 import Button from "../atoms/Button";
 import ResultsDataTable from "../molecules/ResultsDataTable";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { SVG } from "../atoms";
 import { Toast } from "../atoms";
 import FieldV1 from "./FieldV1";
@@ -60,7 +60,7 @@ const ResultsDataTableWrapper = ({
 }) => {
   const { apiDetails } = fullConfig;
   const { t } = useTranslation();
-  const history = useHistory();
+  const navigate = useNavigate();
   const resultsKey = config.resultsJsonPath;
   const [showResultsTable, setShowResultsTable] = useState(true);
   const [session, setSession, clearSession] = browserSession || [];
@@ -184,11 +184,21 @@ const ResultsDataTableWrapper = ({
             return (
               <div
                 className="cursorPointer"
+                role="button"
+                tabIndex={0}
+                aria-label="Edit"
                 style={{ marginLeft: "1rem" }}
                 onClick={() => additionalConfig?.resultsTable?.onClickSvg(row)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    additionalConfig?.resultsTable?.onClickSvg(row);
+                  }
+                }}
               >
                 <CustomSVG.EditIcon />
               </div>
+
             );
           },
         };
@@ -228,7 +238,7 @@ const ResultsDataTableWrapper = ({
                 onClick={
                   column?.buttonProps?.linkTo
                     ? () => {
-                        history.push(
+                        navigate(
                           `/${window?.contextPath}/employee/${column?.linkTo}`
                         );
                       }
@@ -442,25 +452,6 @@ const ResultsDataTableWrapper = ({
     );
   });
 
-  const handleDefaultPagination = (event) => {
-    setLimitAndOffset({ offset: 0, limit: config?.defaultRowsPerPage || 10 });
-    setRowsPerPage(config?.defaultRowsPerPage || 10);
-    setCurrentPage(1);
-    setValue("limit", config?.defaultRowsPerPage || 10);
-    setValue("offset", 0);
-    handleSubmit(onSubmit)();
-  };
-
-  useEffect(() => {
-    // Add event listener for popstate to detect URL changes
-    window.addEventListener("tableFormUpdate", handleDefaultPagination);
-
-    // Clean up the event listener when the component unmounts or on URL change
-    return () => {
-      window.removeEventListener("tableFormUpdate", handleDefaultPagination);
-    };
-  }, []);
-
   const onSubmit = (data) => {
     //here update the reducer state
     //call a dispatch to update table's part of the state and update offset, limit
@@ -550,16 +541,6 @@ const ResultsDataTableWrapper = ({
       setValue("offset", limitAndOffset.offset);
     }
   }, [limitAndOffset]);
-
-  useEffect(() => {
-    if (!tabData) return;
-    setLimitAndOffset((prev) => ({
-      limit:config?.defaultRowsPerPage || 10,           
-      offset: 0,         
-    }));
-    setRowsPerPage( config?.defaultRowsPerPage || 10);
-    setCurrentPage(1)
-    },[tabData,config?.defaultRowsPerPage]);
 
   const indexOfLastRow = currentPage * rowsPerPage;
   const indexOfFirstRow = indexOfLastRow - rowsPerPage;

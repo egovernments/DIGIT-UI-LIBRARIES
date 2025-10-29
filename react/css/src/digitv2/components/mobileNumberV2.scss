@@ -1,5 +1,5 @@
-@import url("../index.scss");
-@import url("../typography.scss");
+@import './theme-variables.css';
+@import '../typography.scss';
 
 .digit-mobile-number-container {
   @apply flex  items-center;
@@ -30,34 +30,34 @@
     }
   }
   .digit-citizen-card-input--front {
-    @extend .typography.text-body-s;
+    @include typography-text-body-s;
     @extend .light-background;
     width: fit-content !important;
     display: flex;
     align-items: center;
-    /* background: theme(colors.grey.mid); */
+    /* background: theme("colors.grey.mid"); */
     border-right: 0;
     padding-right: 5px;
   }
 
   .digit-citizen-card-input {
-    @extend .typography.text-body-s;
+    @include typography-text-body-s;
     @apply pl-sm outline-none block w-full h-10 bg-white leading-10 text-form-field;
-    border: 1px solid theme(digitv2.lightTheme.text-secondary);
-    color: theme(digitv2.lightTheme.text-primary);
+    border: 1px solid theme("digitv2.lightTheme.text-secondary");
+    color: theme("digitv2.lightTheme.text-primary");
   }
 
   .digit-citizen-card-input--front {
-    @extend .typography.text-body-s;
+    @include typography-text-body-s;
     width: fit-content !important;
     display: flex;
     align-items: center;
-    background: theme(colors.grey.mid);
+    background: theme("colors.grey.mid");
     border-right: 0;
     padding-right: 5px;
   }
   .digit-employee-card-input-error {
-    @extend .typography.text-body-s;
+    @include typography-text-body-s;
     @extend .light-input-border;
     @extend .alert-error;
     @apply mb-lg pl-sm block w-full h-10 outline-none border-2 border-solid bg-white leading-10 text-form-field text-text-primary;

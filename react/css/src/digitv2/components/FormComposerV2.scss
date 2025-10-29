@@ -1,4 +1,5 @@
-@import url("../index.scss");
+@import './theme-variables.css';
+@import '../typography.scss';
 
 .digit-field-container {
   display: flex;
@@ -62,7 +63,7 @@
   width: fit-content !important;
   display: flex;
   align-items: center;
-  /* background: theme(colors.grey.mid); */
+  /* background: theme("colors.grey.mid"); */
   border-right: 0;
   padding-right: 5px;
 }
@@ -90,7 +91,7 @@
   width: fit-content !important;
   display: flex;
   align-items: center;
-  /* background: theme(colors.grey.mid); */
+  /* background: theme("colors.grey.mid"); */
   border-right: 0;
   padding-right: 5px;
 }
@@ -109,10 +110,10 @@
   gap: 10px;
 
   svg {
-    fill: theme(colors.primary.main);
+    fill: theme("colors.primary.main");
   }
 }
 
 .digit-form-composer-header {
-  font-size: theme(digitv2.fontSize.heading-l-dt);
+  font-size: theme("digitv2.fontSize.heading-l.desktop");
 }

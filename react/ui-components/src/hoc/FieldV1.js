@@ -157,8 +157,6 @@ const FieldV1 = ({
             min={populators?.validation?.min}
             maxlength={populators?.validation?.maxlength}
             minlength={populators?.validation?.minlength}
-            pattern={populators?.validation?.pattern}
-            validation={populators?.validation}
             customIcon={populators?.customIcon}
             customClass={populators?.customClass}
             onIconSelection={populators?.onIconSelection}
@@ -463,7 +461,7 @@ const FieldV1 = ({
     <LabelFieldPair removeMargin={true} vertical={populators?.alignFieldPairVerically} className={`digit-formcomposer-fieldpair ${populators?.fieldPairClassName}`}>
       {!withoutLabel && (
         <HeaderComponent
-          className={`label ${
+          className={`label ${disabled ? "disabled" : ""} ${
             nonEditable ? "noneditable" : ""
           } ${populators?.wrapLabel ? "wraplabel" : ""} ${populators?.boldLabel ? "boldLabel" : ""}`}
         >

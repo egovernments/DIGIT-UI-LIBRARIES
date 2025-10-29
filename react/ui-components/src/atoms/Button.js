@@ -8,7 +8,6 @@ import { iconRender } from "../utils/iconRender";
 const Button = (props) => {
   const [dropdownStatus, setDropdownStatus] = useState(false);
   const actionRef = useRef(null);
- const fieldId = props?.id||Digit?.Utils?.getFieldIdName?.( props?.label || props?.className || "button")||"NA";
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -122,13 +121,14 @@ const Button = (props) => {
           ? (e) => handleActionButtonClick(e)
           : props?.onClick
       }
-      id={fieldId}
       disabled={props?.isDisabled || null}
       title={props?.title || ""}
       style={props.style ? props.style : null}
+      aria-label={props?.ariaLabel || formattedLabel}
+      aria-haspopup={props?.type === "actionButton" ? "menu" : undefined}
+      aria-expanded={props?.type === "actionButton" ? dropdownStatus : undefined}
     >
       <div
-        id={`${fieldId}-content`}
         className={`icon-label-container ${
           props?.variation ? props?.variation : ""
         } ${props?.size ? props?.size : ""}`}
@@ -150,7 +150,7 @@ const Button = (props) => {
     <div className={`digit-action-button-wrapper ${props?.wrapperClassName}`} style={props?.wrapperStyles} ref={actionRef}>
       {buttonElement}
       {dropdownStatus && (
-        <div className="header-dropdown-container"  id={props?.id} >
+        <div className="header-dropdown-container">
           <Menu
             options={props?.options}
             setDropdownStatus={setDropdownStatus}
@@ -180,10 +180,6 @@ Button.propTypes = {
    */
   variation: PropTypes.string,
   /**
-   * button id if any
-   */
-  id: PropTypes.string,
-    /**
    * button icon if any
    */
   icon: PropTypes.string,

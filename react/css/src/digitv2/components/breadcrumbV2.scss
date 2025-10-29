@@ -1,16 +1,18 @@
-@import url("../index.scss");
-@import url("../typography.scss");
+@import './theme-variables.css';
+@import '../typography.scss';
+
+@import "../typography.scss";
 
 .digit-bread-crumb {
     display: flex;
-    gap: theme(digitv2.spacers.spacer2);
+    gap: theme("digitv2.spacers.spacer2");
     height: 1.375rem;
     padding: unset;
 }
 
 .digit-bread-crumb--item {
     display: flex;
-    gap: theme(digitv2.spacers.spacer2);
+    gap: theme("digitv2.spacers.spacer2");
 
 
     button {
@@ -19,37 +21,37 @@
 
 
     .digit-bread-crumb-content {
-        @extend .typography.body-s;
-        font-family: theme(digitv2.fontFamily.sans);
-        font-style: theme(digitv2.fontStyle.normal);
-        font-weight: theme(digitv2.fontWeight.regular);
-        line-height: theme(digitv2.lineHeight.lineheight2);
+        @include typography-body-s;
+        font-family: theme("digitv2.fontFamily.sans");
+        font-style: theme("digitv2.fontStyle.normal");
+        font-weight: theme("digitv2.fontWeight.regular");
+        line-height: theme("digitv2.lineHeight.lineheight2");
     
         @media (max-aspect-ratio: 9/16) {
           /* Media query for mobile */
-          font-size: theme(digitv2.fontSize.body-s.mobile);
+          font-size: theme("digitv2.fontSize.body-s.mobile");
         }
     
         @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
           /* Media query for tablets */
-          font-size: theme(digitv2.fontSize.body-s.tablet);
+          font-size: theme("digitv2.fontSize.body-s.tablet");
         }
     
         @media (min-aspect-ratio: 3/4) {
           /* Media query for desktop */
-          font-size: theme(digitv2.fontSize.body-s.desktop);
+          font-size: theme("digitv2.fontSize.body-s.desktop");
         }
         display: flex !important;
-        gap: theme(digitv2.spacers.spacer1);
+        gap: theme("digitv2.spacers.spacer1");
         cursor: pointer;
         text-decoration: none;
 
         svg {
-            width: theme(digitv2.spacers.spacer5);
-            height: theme(digitv2.spacers.spacer5);
+            width: theme("digitv2.spacers.spacer5");
+            height: theme("digitv2.spacers.spacer5");
         }
 
-        color: theme(digitv2.lightTheme.primary-1);
+        color: theme("digitv2.lightTheme.primary-1");
 
         &:hover {
             text-decoration: underline;
@@ -62,27 +64,27 @@
 
     .digit-bread-crumb-content.current,
     .digit-bread-crumb-seperator {
-        @extend .typography.body-s;
-        font-family: theme(digitv2.fontFamily.sans);
-        font-style: theme(digitv2.fontStyle.normal);
-        font-weight: theme(digitv2.fontWeight.regular);
-        line-height: theme(digitv2.lineHeight.lineheight2);
+        @include typography-body-s;
+        font-family: theme("digitv2.fontFamily.sans");
+        font-style: theme("digitv2.fontStyle.normal");
+        font-weight: theme("digitv2.fontWeight.regular");
+        line-height: theme("digitv2.lineHeight.lineheight2");
     
         @media (max-aspect-ratio: 9/16) {
           /* Media query for mobile */
-          font-size: theme(digitv2.fontSize.body-s.mobile);
+          font-size: theme("digitv2.fontSize.body-s.mobile");
         }
     
         @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
           /* Media query for tablets */
-          font-size: theme(digitv2.fontSize.body-s.tablet);
+          font-size: theme("digitv2.fontSize.body-s.tablet");
         }
     
         @media (min-aspect-ratio: 3/4) {
           /* Media query for desktop */
-          font-size: theme(digitv2.fontSize.body-s.desktop);
+          font-size: theme("digitv2.fontSize.body-s.desktop");
         }
-        color: theme(digitv2.lightTheme.text-secondary);
+        color: theme("digitv2.lightTheme.text-secondary");
         text-decoration: none;
         cursor: default;
     }

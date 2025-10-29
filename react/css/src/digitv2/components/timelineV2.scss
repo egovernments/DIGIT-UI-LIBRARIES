@@ -1,6 +1,9 @@
+@import './theme-variables.css';
+@import '../typography.scss';
+
 .digit-timeline-item {
   @apply flex items-start relative ;
-  gap: theme(digitv2.spacers.spacer4);
+  gap: theme("digitv2.spacers.spacer4");
 }
 
 .timeline-circle {
@@ -17,12 +20,12 @@
   @apply absolute bottom-0 border-solid border-border;
   border-left-width: 0.125rem;
   margin-left: 0.938rem;
-  top: theme(digitv2.spacers.spacer8);
+  top: theme("digitv2.spacers.spacer8");
 
   &.completed,
   &.inprogress,
   &.nextActiveStep{
-    border-color: theme(digitv2.lightTheme.primary-1);
+    border-color: theme("digitv2.lightTheme.primary-1");
   }
 
   &.nextActiveStep{
@@ -32,7 +35,7 @@
   @media (max-aspect-ratio: 9/16) {
     /* Media query for mobile */
     margin-left: 0.688rem;
-    top: theme(digitv2.spacers.spacer6);
+    top: theme("digitv2.spacers.spacer6");
     border-left-width: 0.063rem;
   }
 }
@@ -40,43 +43,43 @@
 .timeline-content,
 .timeline-info {
   @apply flex flex-col w-full;
-  gap: theme(digitv2.spacers.spacer2);
+  gap: theme("digitv2.spacers.spacer2");
 }
 
 .timeline-info{
   @media (max-aspect-ratio: 9/16) {
     /* Media query for mobile */
-    gap: theme(digitv2.spacers.spacer1);
+    gap: theme("digitv2.spacers.spacer1");
   }
 }
 
 .timeline-divider {
-  border: 0.063rem solid theme(digitv2.lightTheme.generic-divider);
+  border: 0.063rem solid theme("digitv2.lightTheme.generic-divider");
 }
 
 .timeline-label {
-  @extend .typography.heading-s;
-  font-family: theme(digitv2.fontFamily.sans);
-  font-style: theme(digitv2.fontStyle.normal);
-  font-weight: theme(digitv2.fontWeight.bold);
-  line-height: theme(digitv2.lineHeight.lineheight1);
+  @include typography-heading-s;
+  font-family: theme("digitv2.fontFamily.sans");
+  font-style: theme("digitv2.fontStyle.normal");
+  font-weight: theme("digitv2.fontWeight.bold");
+  line-height: theme("digitv2.lineHeight.lineheight1");
 
   @media (max-aspect-ratio: 9/16) {
     /* Media query for mobile */
-    font-size: theme(digitv2.fontSize.heading-s.mobile);
+    font-size: theme("digitv2.fontSize.heading-s.mobile");
   }
 
   @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
     /* Media query for tablets */
-    font-size: theme(digitv2.fontSize.heading-s.tablet);
+    font-size: theme("digitv2.fontSize.heading-s.tablet");
   }
 
   @media (min-aspect-ratio: 3/4) {
     /* Media query for desktop */
-    font-size: theme(digitv2.fontSize.heading-s.desktop);
+    font-size: theme("digitv2.fontSize.heading-s.desktop");
   }
   @apply whitespace-normal h-auto text-left;
-  color: theme(digitv2.lightTheme.text-primary);
+  color: theme("digitv2.lightTheme.text-primary");
   word-break: break-word;
   padding-top: 0.414rem;
 
@@ -86,89 +89,89 @@
   }
 
   &.upcoming{
-    color:theme(digitv2.lightTheme.text-secondary);
+    color:theme("digitv2.lightTheme.text-secondary");
   }
 }
 
 .timeline-date {
-  @extend .typography.body-s;
-  font-family: theme(digitv2.fontFamily.sans);
-  font-style: theme(digitv2.fontStyle.normal);
-  font-weight: theme(digitv2.fontWeight.regular);
-  line-height: theme(digitv2.lineHeight.lineheight2);
+  @include typography-body-s;
+  font-family: theme("digitv2.fontFamily.sans");
+  font-style: theme("digitv2.fontStyle.normal");
+  font-weight: theme("digitv2.fontWeight.regular");
+  line-height: theme("digitv2.lineHeight.lineheight2");
 
   @media (max-aspect-ratio: 9/16) {
     /* Media query for mobile */
-    font-size: theme(digitv2.fontSize.body-s.mobile);
+    font-size: theme("digitv2.fontSize.body-s.mobile");
   }
 
   @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
     /* Media query for tablets */
-    font-size: theme(digitv2.fontSize.body-s.tablet);
+    font-size: theme("digitv2.fontSize.body-s.tablet");
   }
 
   @media (min-aspect-ratio: 3/4) {
     /* Media query for desktop */
-    font-size: theme(digitv2.fontSize.body-s.desktop);
+    font-size: theme("digitv2.fontSize.body-s.desktop");
   }
   @apply text-left;
-  color: theme(digitv2.lightTheme.text-secondary);
+  color: theme("digitv2.lightTheme.text-secondary");
 }
 
 .timeline-toggle-details {
   @apply flex items-center cursor-pointer;
-  gap: theme(digitv2.spacers.spacer1);
+  gap: theme("digitv2.spacers.spacer1");
   width: fit-content;
 }
 
 .timeline-additional-elements-inline {
   @apply flex flex-wrap items-start;
-  gap: theme(digitv2.spacers.spacer4);
-  @extend .typography.body-s;
-  font-family: theme(digitv2.fontFamily.sans);
-  font-style: theme(digitv2.fontStyle.normal);
-  font-weight: theme(digitv2.fontWeight.regular);
-  line-height: theme(digitv2.lineHeight.lineheight2);
+  gap: theme("digitv2.spacers.spacer4");
+  @include typography-body-s;
+  font-family: theme("digitv2.fontFamily.sans");
+  font-style: theme("digitv2.fontStyle.normal");
+  font-weight: theme("digitv2.fontWeight.regular");
+  line-height: theme("digitv2.lineHeight.lineheight2");
 
   @media (max-aspect-ratio: 9/16) {
     /* Media query for mobile */
-    font-size: theme(digitv2.fontSize.body-s.mobile);
+    font-size: theme("digitv2.fontSize.body-s.mobile");
   }
 
   @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
     /* Media query for tablets */
-    font-size: theme(digitv2.fontSize.body-s.tablet);
+    font-size: theme("digitv2.fontSize.body-s.tablet");
   }
 
   @media (min-aspect-ratio: 3/4) {
     /* Media query for desktop */
-    font-size: theme(digitv2.fontSize.body-s.desktop);
+    font-size: theme("digitv2.fontSize.body-s.desktop");
   }
 }
 
 .timeline-additional-elements-column {
   @apply flex flex-col items-start;
-  @extend .typography.body-s;
-  font-family: theme(digitv2.fontFamily.sans);
-  font-style: theme(digitv2.fontStyle.normal);
-  font-weight: theme(digitv2.fontWeight.regular);
-  line-height: theme(digitv2.lineHeight.lineheight2);
+  @include typography-body-s;
+  font-family: theme("digitv2.fontFamily.sans");
+  font-style: theme("digitv2.fontStyle.normal");
+  font-weight: theme("digitv2.fontWeight.regular");
+  line-height: theme("digitv2.lineHeight.lineheight2");
 
   @media (max-aspect-ratio: 9/16) {
     /* Media query for mobile */
-    font-size: theme(digitv2.fontSize.body-s.mobile);
+    font-size: theme("digitv2.fontSize.body-s.mobile");
   }
 
   @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
     /* Media query for tablets */
-    font-size: theme(digitv2.fontSize.body-s.tablet);
+    font-size: theme("digitv2.fontSize.body-s.tablet");
   }
 
   @media (min-aspect-ratio: 3/4) {
     /* Media query for desktop */
-    font-size: theme(digitv2.fontSize.body-s.desktop);
+    font-size: theme("digitv2.fontSize.body-s.desktop");
   }
-  gap: theme(digitv2.spacers.spacer4);
+  gap: theme("digitv2.spacers.spacer4");
 
   .timeline-individual-element {
     @apply w-full max-w-full;
@@ -187,12 +190,12 @@ img {
 /* Circle Variants */
 .timeline-circle,
 .timeline-circle.upcoming {
-  background-color: theme(digitv2.lightTheme.text-disabled);
+  background-color: theme("digitv2.lightTheme.text-disabled");
 }
 
 .timeline-circle.inprogress {
   background-color: transparent;
-  border: 0.125rem solid theme(digitv2.lightTheme.primary-1);
+  border: 0.125rem solid theme("digitv2.lightTheme.primary-1");
 }
 
 .timeline-circle.inprogress:not(.error)::after {
@@ -202,7 +205,7 @@ img {
   left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 50%;
-  background-color: theme(digitv2.lightTheme.primary-1);
+  background-color: theme("digitv2.lightTheme.primary-1");
 
   @media (max-aspect-ratio: 9/16) {
     /* Media query for mobile */
@@ -226,7 +229,7 @@ img {
 }
 
 .timeline-circle.completed {
-  background-color: theme(digitv2.lightTheme.primary-1);
+  background-color: theme("digitv2.lightTheme.primary-1");
 }
 
 .digit-timeline-molecule{
@@ -236,52 +239,52 @@ img {
 
     @media (min-aspect-ratio: 3/4) {
       /* Media query for desktop */
-      margin-bottom: theme(digitv2.spacers.spacer6);
+      margin-bottom: theme("digitv2.spacers.spacer6");
     }
 
     @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
       /* Media query for tablets */
-      margin-bottom: theme(digitv2.spacers.spacer5);
+      margin-bottom: theme("digitv2.spacers.spacer5");
     }
     @media (max-aspect-ratio: 9/16) {
       /* Media query for mobile */
-      margin-bottom: theme(digitv2.spacers.spacer4);
+      margin-bottom: theme("digitv2.spacers.spacer4");
     }
   }
 }
 
 .view-more-past-container {
-  margin-top: theme(digitv2.spacers.spacer4);
+  margin-top: theme("digitv2.spacers.spacer4");
 }
 
 .view-more-future-container {
-  margin-bottom: theme(digitv2.spacers.spacer4);
+  margin-bottom: theme("digitv2.spacers.spacer4");
 }
 
 .digit-timeline-item {
   &.error{
 
     .timeline-circle{
-      background-color: theme(digitv2.lightTheme.alert-error);
+      background-color: theme("digitv2.lightTheme.alert-error");
     }
 
     .timeline-content{
-      background-color: theme(digitv2.lightTheme.alert-errorbg);
-      border-radius: theme(digitv2.spacers.spacer1);
-      padding: theme(digitv2.spacers.spacer2) theme(digitv2.spacers.spacer3);
+      background-color: theme("digitv2.lightTheme.alert-errorbg");
+      border-radius: theme("digitv2.spacers.spacer1");
+      padding: theme("digitv2.spacers.spacer2") theme("digitv2.spacers.spacer3");
 
 
       .timeline-info{
         .timeline-label{
-          color: theme(digitv2.lightTheme.alert-error);
+          color: theme("digitv2.lightTheme.alert-error");
           padding-top: 0rem;
         }
         .timeline-date{
-          color: theme(digitv2.lightTheme.alert-error);
+          color: theme("digitv2.lightTheme.alert-error");
         }
 
         .timeline-divider {
-          border: 0.063rem solid theme(digitv2.lightTheme.alert-error);
+          border: 0.063rem solid theme("digitv2.lightTheme.alert-error");
         }
       }
     }

@@ -1,12 +1,15 @@
+@import './theme-variables.css';
+@import '../typography.scss';
+
 .digit-upload-image-drawer {
   @apply w-full fixed left-0 right-0 flex-col;
   display: flex;
-  background-color: theme(digitv2.lightTheme.paper-primary);
-  border-radius: theme(digitv2.spacers.spacer2) theme(digitv2.spacers.spacer2) theme(digitv2.spacers.spacer0) theme(digitv2.spacers.spacer0);
+  background-color: theme("digitv2.lightTheme.paper-primary");
+  border-radius: theme("digitv2.spacers.spacer2") theme("digitv2.spacers.spacer2") theme("digitv2.spacers.spacer0") theme("digitv2.spacers.spacer0");
   z-index: 1000;
-  border-radius: theme(digitv2.spacers.spacer1);
-  gap: theme(digitv2.spacers.spacer6);
-  padding: theme(digitv2.spacers.spacer6);
+  border-radius: theme("digitv2.spacers.spacer1");
+  gap: theme("digitv2.spacers.spacer6");
+  padding: theme("digitv2.spacers.spacer6");
 
   .image-upload-options {
     @apply h-full;
@@ -17,19 +20,19 @@
       display: flex;
       flex: 1;
       justify-content: center;
-      gap: theme(digitv2.spacers.spacer2) theme(digitv2.spacers.spacer0);
+      gap: theme("digitv2.spacers.spacer2") theme("digitv2.spacers.spacer0");
     }
 
     .upload-options-svg-wrap{
-      width: theme(digitv2.spacers.spacer10);
-      height: theme(digitv2.spacers.spacer10);
+      width: theme("digitv2.spacers.spacer10");
+      height: theme("digitv2.spacers.spacer10");
       cursor: pointer;
     }
 
     .upload-options-label {
-      @extend .typography.button.large;
+      @include typography-button-large;
       @apply cursor-pointer;
-      color: theme(digitv2.lightTheme.primary-1);
+      color: theme("digitv2.lightTheme.primary-1");
     }
   }
 
@@ -68,14 +71,14 @@
 
 .digit-uploader-wrap {
   @apply flex flex-col;
-  gap: theme(digitv2.spacers.spacer3);
+  gap: theme("digitv2.spacers.spacer3");
 
   @media (max-width: 30rem) {
-    gap: theme(digitv2.spacers.spacer2);
+    gap: theme("digitv2.spacers.spacer2");
   }
 
   &.error{
-    gap:theme(digitv2.spacers.spacer1);
+    gap:theme("digitv2.spacers.spacer1");
   }
 
   &.inline{
@@ -83,15 +86,15 @@
   }
   
   .digit-upload-label {
-    @extend .typography.label;
+    @include typography-label;
     @apply text-left;
-    margin: theme(digitv2.spacers.spacer0);
-    color: theme(digitv2.lightTheme.text-primary);
+    margin: theme("digitv2.spacers.spacer0");
+    color: theme("digitv2.lightTheme.text-primary");
   }
 
   .digit-uploader-content {
     @apply flex w-full;
-    gap: theme(digitv2.spacers.spacer3);
+    gap: theme("digitv2.spacers.spacer3");
 
     @media (min-width: 30.063rem) and (max-width: 47.938rem) {
       max-width: 27.5rem;
@@ -116,10 +119,10 @@
 
   .digit-uploader-content-uploadWidget {
     @apply flex flex-col w-full items-center justify-center max-w-full;
-    gap: theme(digitv2.spacers.spacer4);
-    border: 0.063rem solid theme(digitv2.lightTheme.generic-divider);
-    background: theme(digitv2.lightTheme.paper-secondary);
-    padding: theme(digitv2.spacers.spacer4);
+    gap: theme("digitv2.spacers.spacer4");
+    border: 0.063rem solid theme("digitv2.lightTheme.generic-divider");
+    background: theme("digitv2.lightTheme.paper-secondary");
+    padding: theme("digitv2.spacers.spacer4");
     height: 9rem;
     border-style: dashed;
 
@@ -140,30 +143,30 @@
     }
 
     .drag-drop-text {
-      @extend .typography.body-s;
-      font-family: theme(digitv2.fontFamily.sans);
-      font-style: theme(digitv2.fontStyle.normal);
-      font-weight: theme(digitv2.fontWeight.regular);
-      line-height: theme(digitv2.lineHeight.lineheight2);
+      @include typography-body-s;
+      font-family: theme("digitv2.fontFamily.sans");
+      font-style: theme("digitv2.fontStyle.normal");
+      font-weight: theme("digitv2.fontWeight.regular");
+      line-height: theme("digitv2.lineHeight.lineheight2");
   
       @media (max-aspect-ratio: 9/16) {
         /* Media query for mobile */
-        font-size: theme(digitv2.fontSize.body-s.mobile);
+        font-size: theme("digitv2.fontSize.body-s.mobile");
       }
   
       @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
         /* Media query for tablets */
-        font-size: theme(digitv2.fontSize.body-s.tablet);
+        font-size: theme("digitv2.fontSize.body-s.tablet");
       }
   
       @media (min-aspect-ratio: 3/4) {
         /* Media query for desktop */
-        font-size: theme(digitv2.fontSize.body-s.desktop);
+        font-size: theme("digitv2.fontSize.body-s.desktop");
       }
       @apply items-center;
-      color: theme(digitv2.lightTheme.text-disabled);
+      color: theme("digitv2.lightTheme.text-disabled");
       display: flex;
-      margin: theme(digitv2.spacers.spacer0);
+      margin: theme("digitv2.spacers.spacer0");
 
       @media (max-width: 30rem) {
         @apply flex-col;
@@ -171,40 +174,40 @@
     }
 
     .drag-drop-link{
-      @extend .typography.link-S;
-      margin-left: theme(digitv2.spacers.spacer1);
-      color: theme(digitv2.lightTheme.primary-1);
+      @include typography-link-S;
+      margin-left: theme("digitv2.spacers.spacer1");
+      color: theme("digitv2.lightTheme.primary-1");
       cursor: pointer;
     }
 
     &.error {
       border-style: dashed !important;
-      border: 0.094rem solid theme(digitv2.lightTheme.alert-error);
+      border: 0.094rem solid theme("digitv2.lightTheme.alert-error");
     }
   }
 
   .digit-uploadWidget-label {
-    @extend .typography.body-s;
-    font-family: theme(digitv2.fontFamily.sans);
-    font-style: theme(digitv2.fontStyle.normal);
-    font-weight: theme(digitv2.fontWeight.regular);
-    line-height: theme(digitv2.lineHeight.lineheight2);
+    @include typography-body-s;
+    font-family: theme("digitv2.fontFamily.sans");
+    font-style: theme("digitv2.fontStyle.normal");
+    font-weight: theme("digitv2.fontWeight.regular");
+    line-height: theme("digitv2.lineHeight.lineheight2");
 
     @media (max-aspect-ratio: 9/16) {
       /* Media query for mobile */
-      font-size: theme(digitv2.fontSize.body-s.mobile);
+      font-size: theme("digitv2.fontSize.body-s.mobile");
     }
 
     @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
       /* Media query for tablets */
-      font-size: theme(digitv2.fontSize.body-s.tablet);
+      font-size: theme("digitv2.fontSize.body-s.tablet");
     }
 
     @media (min-aspect-ratio: 3/4) {
       /* Media query for desktop */
-      font-size: theme(digitv2.fontSize.body-s.desktop);
+      font-size: theme("digitv2.fontSize.body-s.desktop");
     }
-    color: theme(digitv2.lightTheme.text-disabled);
+    color: theme("digitv2.lightTheme.text-disabled");
   }
 
   .digit-upload {
@@ -212,44 +215,44 @@
   }
 
   .digit-uploader-input {
-    @extend .typography.body-s;
-    font-family: theme(digitv2.fontFamily.sans);
-    font-style: theme(digitv2.fontStyle.normal);
-    font-weight: theme(digitv2.fontWeight.regular);
-    line-height: theme(digitv2.lineHeight.lineheight2);
+    @include typography-body-s;
+    font-family: theme("digitv2.fontFamily.sans");
+    font-style: theme("digitv2.fontStyle.normal");
+    font-weight: theme("digitv2.fontWeight.regular");
+    line-height: theme("digitv2.lineHeight.lineheight2");
 
     @media (max-aspect-ratio: 9/16) {
       /* Media query for mobile */
-      font-size: theme(digitv2.fontSize.body-s.mobile);
+      font-size: theme("digitv2.fontSize.body-s.mobile");
     }
 
     @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
       /* Media query for tablets */
-      font-size: theme(digitv2.fontSize.body-s.tablet);
+      font-size: theme("digitv2.fontSize.body-s.tablet");
     }
 
     @media (min-aspect-ratio: 3/4) {
       /* Media query for desktop */
-      font-size: theme(digitv2.fontSize.body-s.desktop);
+      font-size: theme("digitv2.fontSize.body-s.desktop");
     }
     @apply h-10;
     background-color: transparent;
-    border: 0.063rem solid theme(digitv2.lightTheme.text-secondary);
-    padding: theme(digitv2.spacers.spacer2);
-    color: theme(digitv2.lightTheme.text-primary) !important;
+    border: 0.063rem solid theme("digitv2.lightTheme.text-secondary");
+    padding: theme("digitv2.spacers.spacer2");
+    color: theme("digitv2.lightTheme.text-primary") !important;
 
     &:focus {
       @apply outline-none;
     }
 
     &.error {
-      border: 0.094rem solid theme(digitv2.lightTheme.alert-error);
+      border: 0.094rem solid theme("digitv2.lightTheme.alert-error");
     }
 
   }
 
   input::placeholder {
-    color: theme(digitv2.lightTheme.text-disabled) !important;
+    color: theme("digitv2.lightTheme.text-disabled") !important;
   }
 
   .digit-upload,
@@ -276,7 +279,7 @@
 
   .digit-img-container {
     @apply flex flex-wrap max-w-full;
-    gap: theme(digitv2.spacers.spacer3);
+    gap: theme("digitv2.spacers.spacer3");
 
     .preview-container {
       @apply relative cursor-pointer h-auto;
@@ -308,7 +311,7 @@
       }
 
       .digit-docupload-icon{
-        border: 0.063rem solid theme(digitv2.lightTheme.generic-divider);
+        border: 0.063rem solid theme("digitv2.lightTheme.generic-divider");
 
         &:hover{
           box-shadow: 0rem 0.063rem 0.125rem 0rem #00000029;
@@ -316,9 +319,9 @@
       }
 
       .preview-file-name{
-        @extend .typography.body-xs;
+        @include typography-body-xs;
         @apply whitespace-pre-wrap break-words;
-        color: theme(digitv2.lightTheme.text-secondary);
+        color: theme("digitv2.lightTheme.text-secondary");
         word-break: break-word;
         cursor: default;
       }
@@ -334,7 +337,7 @@
 
       &.error {
         img {
-          border: 0.063rem solid theme(digitv2.lightTheme.alert-error);
+          border: 0.063rem solid theme("digitv2.lightTheme.alert-error");
         }
       }
 
@@ -382,49 +385,49 @@
 
   .digit-uploader-close-icon {
     @apply absolute top-0 right-0 w-6 h-6 cursor-pointer;
-    background-color: theme(digitv2.lightTheme.primary-2);
-    padding: theme(digitv2.spacers.spacer1);
+    background-color: theme("digitv2.lightTheme.primary-2");
+    padding: theme("digitv2.spacers.spacer1");
 
     &.error {
-      background-color: theme(digitv2.lightTheme.alert-error);
+      background-color: theme("digitv2.lightTheme.alert-error");
     }
   }
 
   .digit-upload-helptext {
-    @extend .typography.body-s;
-    font-family: theme(digitv2.fontFamily.sans);
-    font-style: theme(digitv2.fontStyle.normal);
-    font-weight: theme(digitv2.fontWeight.regular);
-    line-height: theme(digitv2.lineHeight.lineheight2);
+    @include typography-body-s;
+    font-family: theme("digitv2.fontFamily.sans");
+    font-style: theme("digitv2.fontStyle.normal");
+    font-weight: theme("digitv2.fontWeight.regular");
+    line-height: theme("digitv2.lineHeight.lineheight2");
 
     @media (max-aspect-ratio: 9/16) {
       /* Media query for mobile */
-      font-size: theme(digitv2.fontSize.body-s.mobile);
+      font-size: theme("digitv2.fontSize.body-s.mobile");
     }
 
     @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
       /* Media query for tablets */
-      font-size: theme(digitv2.fontSize.body-s.tablet);
+      font-size: theme("digitv2.fontSize.body-s.tablet");
     }
 
     @media (min-aspect-ratio: 3/4) {
       /* Media query for desktop */
-      font-size: theme(digitv2.fontSize.body-s.desktop);
+      font-size: theme("digitv2.fontSize.body-s.desktop");
     }
     @apply text-left;
-    margin: theme(digitv2.spacers.spacer0);
-    color: theme(digitv2.lightTheme.text-secondary);
+    margin: theme("digitv2.spacers.spacer0");
+    color: theme("digitv2.lightTheme.text-secondary");
   }
 
   .digit-uploaded-file-container {
     @apply items-start relative w-full max-w-full flex-wrap;
     display: flex !important;
-    gap: theme(digitv2.spacers.spacer3);
-    border: 0.063rem solid theme(digitv2.lightTheme.generic-divider);
-    background-color: theme(digitv2.lightTheme.paper-secondary);
-    margin: theme(digitv2.spacers.spacer0);
-    padding: theme(digitv2.spacers.spacer4);
-    border-radius: theme(digitv2.spacers.spacer0);
+    gap: theme("digitv2.spacers.spacer3");
+    border: 0.063rem solid theme("digitv2.lightTheme.generic-divider");
+    background-color: theme("digitv2.lightTheme.paper-secondary");
+    margin: theme("digitv2.spacers.spacer0");
+    padding: theme("digitv2.spacers.spacer4");
+    border-radius: theme("digitv2.spacers.spacer0");
 
     @media (min-width: 30.063rem) and (max-width: 47.938rem) {
       min-width: 18.75rem;
@@ -441,30 +444,30 @@
     .uploaded-file-container-sub {
       @apply items-center cursor-pointer;
       display: flex !important;
-      gap: theme(digitv2.spacers.spacer2);
+      gap: theme("digitv2.spacers.spacer2");
 
       .uploaded-file-details {
-        @extend .typography.heading-s;
-        font-family: theme(digitv2.fontFamily.sans);
-        font-style: theme(digitv2.fontStyle.normal);
-        font-weight: theme(digitv2.fontWeight.bold);
-        line-height: theme(digitv2.lineHeight.lineheight1);
+        @include typography-heading-s;
+        font-family: theme("digitv2.fontFamily.sans");
+        font-style: theme("digitv2.fontStyle.normal");
+        font-weight: theme("digitv2.fontWeight.bold");
+        line-height: theme("digitv2.lineHeight.lineheight1");
     
         @media (max-aspect-ratio: 9/16) {
           /* Media query for mobile */
-          font-size: theme(digitv2.fontSize.heading-s.mobile);
+          font-size: theme("digitv2.fontSize.heading-s.mobile");
         }
     
         @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
           /* Media query for tablets */
-          font-size: theme(digitv2.fontSize.heading-s.tablet);
+          font-size: theme("digitv2.fontSize.heading-s.tablet");
         }
     
         @media (min-aspect-ratio: 3/4) {
           /* Media query for desktop */
-          font-size: theme(digitv2.fontSize.heading-s.desktop);
+          font-size: theme("digitv2.fontSize.heading-s.desktop");
         }
-        color: theme(digitv2.lightTheme.text-secondary);
+        color: theme("digitv2.lightTheme.text-secondary");
       }
 
       svg {
@@ -475,19 +478,19 @@
     .digit-upload-and-download-button {
       @apply flex-wrap;
       display: flex !important;
-      gap: theme(digitv2.spacers.spacer4);
+      gap: theme("digitv2.spacers.spacer4");
       margin-left: auto;
-      margin-right: theme(digitv2.spacers.spacer6);
+      margin-right: theme("digitv2.spacers.spacer6");
 
       &.error-card{
-        margin-right: theme(digitv2.spacers.spacer0);
+        margin-right: theme("digitv2.spacers.spacer0");
       }
     }
 
     .digit-uploadWidget-close-icon {
       @apply absolute top-0 right-0 w-6 h-6 items-center cursor-pointer;
-      background: theme(digitv2.lightTheme.generic-background);
-      border: 0.063rem solid theme(digitv2.lightTheme.generic-divider);
+      background: theme("digitv2.lightTheme.generic-background");
+      border: 0.063rem solid theme("digitv2.lightTheme.generic-divider");
       display: flex !important;
       justify-content: center;
       border-top: none;
@@ -499,11 +502,11 @@
     }
 
     &.error {
-      border: 0.063rem solid theme(digitv2.lightTheme.alert-error);
+      border: 0.063rem solid theme("digitv2.lightTheme.alert-error");
 
       .digit-uploadWidget-close-icon {
-        background: theme(digitv2.lightTheme.alert-error);
-        border: 0.063rem solid theme(digitv2.lightTheme.alert-error);
+        background: theme("digitv2.lightTheme.alert-error");
+        border: 0.063rem solid theme("digitv2.lightTheme.alert-error");
         border-top: none;
         border-right: none;
       }
@@ -512,15 +515,15 @@
 
         .uploaded-file-details {
           @apply flex-col;
-          color: theme(digitv2.lightTheme.alert-error);
+          color: theme("digitv2.lightTheme.alert-error");
           display: flex;
-          gap: theme(digitv2.spacers.spacer1);
+          gap: theme("digitv2.spacers.spacer1");
         }
       }
 
       .uploadWidget-error-card {
         @apply w-full max-w-full;
-        margin: theme(digitv2.spacers.spacer0);
+        margin: theme("digitv2.spacers.spacer0");
       }
     }
   }
@@ -528,17 +531,17 @@
   .image-background {
     @apply fixed top-0 left-0 right-0 bottom-0 w-full;
     height: 100vh;
-    background-color: theme(digitv2.lightTheme.text-color-primary);
+    background-color: theme("digitv2.lightTheme.text-color-primary");
   }
 
   .digit-image-uploader {
     @apply flex-col items-center cursor-pointer;
     display: flex;
-    border: 0.063rem solid theme(digitv2.lightTheme.generic-inputborder);
+    border: 0.063rem solid theme("digitv2.lightTheme.generic-inputborder");
     background-color: transparent;
     justify-content: center;
     gap: 0.188rem;
-    padding: theme(digitv2.spacers.spacer10);
+    padding: theme("digitv2.spacers.spacer10");
 
     width: 100%;
 
@@ -555,8 +558,8 @@
     }
 
     .upload-image-label {
-      @extend .typography.body-xs;
-      color: theme(digitv2.lightTheme.primary-1);
+      @include typography-body-xs;
+      color: theme("digitv2.lightTheme.primary-1");
     }
   }
 
@@ -566,10 +569,10 @@
     left: 50%;
     top: 25%;
     transform: translateX(-50%);
-    gap: theme(digitv2.spacers.spacer6);
-    background-color: theme(digitv2.lightTheme.paper-primary);
-    border-radius: theme(digitv2.spacers.spacer1);
-    padding: theme(digitv2.spacers.spacer6);
+    gap: theme("digitv2.spacers.spacer6");
+    background-color: theme("digitv2.lightTheme.paper-primary");
+    border-radius: theme("digitv2.spacers.spacer1");
+    padding: theme("digitv2.spacers.spacer6");
 
     @media (min-width: 30.063rem) and (max-width: 47.938rem) {
       max-height: 31.25rem;
@@ -607,7 +610,7 @@
       }
 
       video {
-        border: 0.063rem solid theme(digitv2.lightTheme.text-secondary);
+        border: 0.063rem solid theme("digitv2.lightTheme.text-secondary");
         width: 100% !important;
         height: 100% !important;
         max-width: 100% !important;
@@ -615,12 +618,12 @@
     }
 
     .cancel-capture-button-wrap {
-      gap: theme(digitv2.spacers.spacer6);
+      gap: theme("digitv2.spacers.spacer6");
       margin-left: auto;
 
       @media (max-width: 30rem) {
         justify-content: space-between;
-        margin-left: theme(digitv2.spacers.spacer0);
+        margin-left: theme("digitv2.spacers.spacer0");
         flex-direction: column;
 
         button {
@@ -631,25 +634,25 @@
   }
 
   .capture-heading {
-    @extend .typography.heading-m;
-    font-family: theme(digitv2.fontFamily.sans);
-    font-style: theme(digitv2.fontStyle.normal);
-    font-weight: theme(digitv2.fontWeight.bold);
-    line-height: theme(digitv2.lineHeight.lineheight1);
+    @include typography-heading-m;
+    font-family: theme("digitv2.fontFamily.sans");
+    font-style: theme("digitv2.fontStyle.normal");
+    font-weight: theme("digitv2.fontWeight.bold");
+    line-height: theme("digitv2.lineHeight.lineheight1");
 
     @media (max-aspect-ratio: 9/16) {
       /* Media query for mobile */
-      font-size: theme(digitv2.fontSize.heading-m.mobile);
+      font-size: theme("digitv2.fontSize.heading-m.mobile");
     }
 
     @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
       /* Media query for tablets */
-      font-size: theme(digitv2.fontSize.heading-m.tablet);
+      font-size: theme("digitv2.fontSize.heading-m.tablet");
     }
 
     @media (min-aspect-ratio: 3/4) {
       /* Media query for desktop */
-      font-size: theme(digitv2.fontSize.heading-m.desktop);
+      font-size: theme("digitv2.fontSize.heading-m.desktop");
     }
     @apply items-center;
     color: #000000;
@@ -693,19 +696,19 @@
   flex-direction: column;
 
   @media (min-width: 30.063rem) and (max-width: 47.938rem) {
-   gap:theme(digitv2.spacers.spacer5);
+   gap:theme("digitv2.spacers.spacer5");
   }
 
   @media (max-width: 30rem) {
-    gap:theme(digitv2.spacers.spacer4);
+    gap:theme("digitv2.spacers.spacer4");
   }
 
   @media (min-width: 48rem) {
-    gap:theme(digitv2.spacers.spacer6);
+    gap:theme("digitv2.spacers.spacer6");
   }
 
   .upload-filecomposer-header{
-    color: theme(digitv2.lightTheme.text-primary) !important;
+    color: theme("digitv2.lightTheme.text-primary") !important;
   }
 
 }

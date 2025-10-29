@@ -5,13 +5,13 @@ import * as locale from "./locale";
 import * as obps from "./obps";
 import * as pt from "./pt";
 import * as privacy from "./privacy";
-import { debouncing } from "./debouncing";
-import PDFUtil, { downloadReceipt ,downloadPDFFromLink,downloadBill ,getFileUrl, downloadEgovPDF} from "./pdf";
+import PDFUtil, { downloadReceipt ,downloadPDFFromLink,downloadBill ,getFileUrl} from "./pdf";
 import getFileTypeFromFileStoreURL from "./fileType";
 import preProcessMDMSConfig from "./preProcessMDMSConfig";
 import preProcessMDMSConfigInboxSearch from "./preProcessMDMSConfigInboxSearch";
 import * as parsingUtils from "../services/atoms/Utils/ParsingUtils"
-import { getLoggedInUserDetails } from "./user";
+import { iconRender } from "./iconRender";
+import {getFieldIdName} from "./field";
 
 const GetParamFromUrl = (key, fallback, search) => {
   if (typeof window !== "undefined") {
@@ -126,6 +126,25 @@ const getStaticMapUrl = (latitude, longitude) => {
 const getLocaleRegion = () => {
   return window?.globalConfigs?.getConfig("LOCALE_REGION") || "IN";
 };
+const isContextPathMissing = (url) => {
+  const contextPath = window?.contextPath || '';
+  return url?.indexOf(`/${contextPath}`) === -1;
+}
+const getMultiRootTenant = () => {
+  return window?.globalConfigs?.getConfig("MULTI_ROOT_TENANT") || false;
+};
+
+const getRoleBasedHomeCard = () => {
+  return window?.globalConfigs?.getConfig("ROLE_BASED_HOMECARD") || false;
+};
+
+const getGlobalContext = () => {
+  return window?.globalConfigs?.getConfig("CONTEXT_PATH") || null;
+};
+
+const getOTPBasedLogin = () => {
+  return window?.globalConfigs?.getConfig("OTP_BASED_LOGIN") || false;
+};
 /**
  * Custom util to get the default locale
  *
@@ -146,16 +165,12 @@ const getLocaleDefault = () => {
  * @author jagankumar-egov
  *
  * @example
- *   Digit.Hooks.Utils.getDefaultLanguage()
+ *   Digit.Utils.getDefaultLanguage()
  *
  * @returns {string} 
  */
 const getDefaultLanguage = () => {
   return  `${getLocaleDefault()}_${getLocaleRegion()}`;
-};
-
-const getMultiRootTenant = () => {
-  return window?.globalConfigs?.getConfig("MULTI_ROOT_TENANT") || false;
 };
 
 const detectDsoRoute = (pathname) => {
@@ -185,6 +200,12 @@ const didEmployeeHasRole = (role = "") => {
   return rolearray?.length > 0;
 };
 
+/* for customization wether the user will have access for add button */
+const didEmployeeisAllowed = (master, module) => {
+  if (master === "WORKS-SOR" && module === "Composition") return false;
+  return true;
+};
+
 /* to check the employee (loggedin user ) has given roles  */
 const didEmployeeHasAtleastOneRole = (roles = []) => {
   return roles.some((role) => didEmployeeHasRole(role));
@@ -194,7 +215,9 @@ const pgrAccess = () => {
   const userInfo = Digit.UserService.getUser();
   const userRoles = userInfo?.info?.roles?.map((roleData) => roleData?.code);
   const pgrRoles = ["PGR_LME", "PGR-ADMIN", "CSR", "CEMP", "FEMP", "DGRO", "ULB Operator", "GRO", "GO", "RO", "GA"];
-
+  if (Digit.Utils.getMultiRootTenant()) {
+    pgrRoles.push("SUPERUSER");
+  }
   const PGR_ACCESS = userRoles?.filter((role) => pgrRoles.includes(role));
 
   return PGR_ACCESS?.length > 0;
@@ -310,12 +333,20 @@ const receiptsAccess = () => {
   const RECEIPTS_ACCESS = userRoles?.filter((role) => receiptsRoles?.includes(role));
   return RECEIPTS_ACCESS?.length > 0;
 };
-const hrmsRoles = ["HRMS_ADMIN"];
+const hrmsRoles = ["HRMS_ADMIN","SUPERUSER", "ADMIN"];
 const hrmsAccess = () => {
   const userInfo = Digit.UserService.getUser();
   const userRoles = userInfo?.info?.roles?.map((roleData) => roleData?.code);
   const HRMS_ACCESS = userRoles?.filter((role) => hrmsRoles?.includes(role));
   return HRMS_ACCESS?.length > 0;
+};
+
+const sandboxAccess = () => {
+  const sandboxRoles = ["SUPERUSER"];
+  const userInfo = Digit.UserService.getUser();
+  const userRoles = userInfo?.info?.roles?.map((roleData) => roleData?.code);
+  const SANDBOX_ACCESS = userRoles?.filter((role) => sandboxRoles?.includes(role));
+  return SANDBOX_ACCESS?.length > 0;
 };
 
 const wsAccess = () => {
@@ -338,33 +369,137 @@ const swAccess = () => {
   return SW_ACCESS?.length > 0;
 };
 
-const trimStringsInObject =  ( obj ) => {
-  if (typeof obj !== 'object' || obj === null) {
-    // If the input is not an object or is null, return as is
-    return obj;
+const transformURL = (url = "", tenantId) => {
+  if (url == "/") {
+    return;
   }
-
-  if (Array.isArray(obj)) {
-    // If the input is an array, trim the strings in each element
-    return obj.map((item) => trimStringsInObject(item));
-  }
-
-  // If the input is an object, recursively trim strings in each value
-  const trimmedObj = {};
-  for (const [key, value] of Object.entries(obj)) {
-    if (typeof value === 'string') {
-      trimmedObj[key] = value.trim();
+  if (Digit.Utils.isContextPathMissing(url)) {
+    let updatedUrl = null;
+    if (getMultiRootTenant) {
+      url = url.replace("/sandbox-ui/employee", `/sandbox-ui/${tenantId}/employee`);
+      updatedUrl = url;
     } else {
-      trimmedObj[key] = trimStringsInObject(value);
+      updatedUrl = url;
     }
+    return updatedUrl;
+  } else {
+    return url;
   }
-  return trimmedObj;
-}
+};
 
 /* to get the MDMS config module name */
 const getConfigModuleName = () => {
   return window?.globalConfigs?.getConfig("UICONFIG_MODULENAME") || "commonUiConfig";
 };
+
+const mdms_context_path = window?.globalConfigs?.getConfig("MDMS_V2_CONTEXT_PATH") || "mdms-v2";
+
+/**
+ * Generates criteria for fetching data from MDMS v1.
+ * 
+ * @param {string} tenantId - The tenant identifier for the MDMS request.
+ * @param {string} moduleName - The name of the module whose data is to be fetched.
+ * @param {Array} masterDetails - An array specifying the master details to fetch from the module.
+ * @param {string} cacheKey - A unique key used for caching the query results.
+ * 
+ * @returns {Object} - A query object to be used with React Query or a similar data fetching utility.
+ */
+const getMDMSV1Criteria= (tenantId, moduleName, masterDetails, cacheKey="MDMS",config={}) => {
+  const MDMSV1Criteria = {
+    // API endpoint for MDMS v1 search
+    url: `/${mdms_context_path}/v1/_search`,
+
+    // Request payload with tenant and module/master details
+    body: {
+      MdmsCriteria: {
+        tenantId: tenantId,
+        moduleDetails: [
+          {
+            moduleName: moduleName,
+            masterDetails: masterDetails
+          }
+        ]
+      }
+    },
+
+    // Custom query name for React Query caching and identification
+    changeQueryName: `MDMSv1-${cacheKey}`,
+
+    // Query configuration for caching and data selection
+    config: {
+      enabled: true,              // Enables the query
+      cacheTime: Infinity,        // Keeps cached data forever
+      staleTime: Infinity,        // Data never becomes stale
+      select: (data) => {
+        // Select and return the module's data
+        return data?.MdmsRes?.[moduleName];
+      },
+      ...config
+    },
+  };
+
+  return MDMSV1Criteria;
+}
+/**
+ * Generates criteria for fetching data from MDMS v2.
+ * 
+ * @param {string} tenantId - The tenant identifier for the MDMS request.
+ * @param {string} schemaCode - The schema code for the MDMS v2 request.
+ * @param {Object} filters - Filter criteria for the MDMS v2 search.
+ * @param {string} cacheKey - A unique key used for caching the query results.
+ * @param {Object} config - Additional configuration options for React Query.
+ * 
+ * @returns {Object} - A query object to be used with React Query or a similar data fetching utility.
+ */
+const getMDMSV2Criteria= (tenantId, schemaCode,filters={}, cacheKey="MDMS",config={}) => {
+  const MDMSV2Criteria = {
+    // API endpoint for MDMS v2 search
+    url: `/${mdms_context_path}/v2/_search`,
+
+    // Request payload with tenant and module/master details
+    body: {
+          MdmsCriteria: {
+            tenantId: tenantId,
+            schemaCode: schemaCode,
+            isActive: true,
+            filters
+          },
+    },
+
+    // Custom query name for React Query caching and identification
+    changeQueryName: `MDMSv2-${cacheKey}-${schemaCode}`,
+
+    // Query configuration for caching and data selection
+    config: {
+      enabled: true,              // Enables the query
+      cacheTime: Number.POSITIVE_INFINITY,        // Keeps cached data forever
+      staleTime: Number.POSITIVE_INFINITY,        // Data never becomes stale
+      select: (data) => {
+        // Select and return the mdms's data
+        return data?.mdms;
+      },
+      ...config
+    },
+  };
+
+  return MDMSV2Criteria;
+}
+
+ const getMDMSV1Selector=(moduleName,masterName) =>{
+  return {
+    select: (data) => {
+      // Select and return the module's data
+      return data?.MdmsRes?.[moduleName]?.[masterName];
+    }
+  };
+}
+
+const mdms={
+  getMDMSV1Criteria,
+  getMDMSV2Criteria,
+  getMDMSV1Selector
+}
+
 export default {
   pdf: PDFUtil,
   createFunction,
@@ -373,6 +508,7 @@ export default {
   downloadPDFFromLink,
   downloadBill,
   getFileUrl,
+  mdms,
   getFileTypeFromFileStoreURL,
   browser: BrowserUtil,
   locale,
@@ -393,6 +529,7 @@ export default {
   mCollectAccess,
   receiptsAccess,
   didEmployeeHasRole,
+  didEmployeeisAllowed,
   didEmployeeHasAtleastOneRole,
   hrmsAccess,
   getPattern,
@@ -409,9 +546,13 @@ export default {
   getDefaultLanguage,
   getLocaleDefault,
   getLocaleRegion,
-  debouncing,
-  getLoggedInUserDetails,
-  trimStringsInObject,
-  downloadEgovPDF,
   getMultiRootTenant,
+  isContextPathMissing,
+  getGlobalContext,
+  getOTPBasedLogin,
+  getRoleBasedHomeCard,
+  sandboxAccess,
+  iconRender,
+  transformURL,
+  getFieldIdName
 };

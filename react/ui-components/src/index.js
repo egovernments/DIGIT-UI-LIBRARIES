@@ -1,3 +1,4 @@
+import "./index.css"
 import {
   Accordion,
   AccordionList,
@@ -98,28 +99,11 @@ import {
   TableCell,
   NestedTable,
   Loader,
-  Iframe,
-  AppHelpDrawer,
-  HelpInfoCard
+  Iframe
 } from "./atoms";
+import { lazyWithFallback } from "./utils/lazyWithFallback";
 
-import {
-  FieldComposer,
-  FormComposerCitizen,
-  FieldController,
-  Fields,
-  FormComposerV2,
-  Modal,
-  UploadFileComposer,
-  FieldV1,
-  InboxSearchComposer,
-  ResultsTable,
-  ResultsDataTableWrapper,
-  BoundaryFilter,
-  AppLocalisationWrapper,
-  useCustomT,
-  setConstantsforAppConfig,
-} from "./hoc";
+import { FieldComposer, FieldController, Fields, FormComposerV2, Modal, UploadFileComposer, FieldV1, InboxSearchComposer, ResultsTable, ResultsDataTableWrapper,BoundaryFilter } from "./hoc";
 
 import {
   ApiDropdown,
@@ -148,8 +132,16 @@ import {
   FormCard,
   FilterCard,
   SummaryCard,
-  ResultsDataTable,
+  ResultsDataTable
 } from "./molecules";
+
+
+// import { initCoreLibraries } from "@egovernments/digit-ui-libraries-core";
+import { initLibraries } from "@egovernments/digit-ui-libraries";
+
+initLibraries().then(() => {
+  console.info("DIGIT Contants enabled");
+});
 
 export {
   Footer,
@@ -224,7 +216,6 @@ export {
   FieldController,
   Fields,
   FormComposerV2,
-  FormComposerCitizen,
   BoundaryFilter,
   Modal,
   UploadFileComposer,
@@ -292,9 +283,5 @@ export {
   TableRow,
   TableCell,
   NestedTable,
-  AppHelpDrawer,
-  HelpInfoCard,
-  AppLocalisationWrapper,
-  useCustomT,
-  setConstantsforAppConfig,
+  lazyWithFallback,
 };
