@@ -54,7 +54,7 @@ jobs:
           cd webpack/libraries/
           rm -rf node_modules yarn.lock package-lock.json
           yarn install --frozen-lockfile
-          npm publish --tag beta
+          npm publish --tag react-19
         env:
           NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
 
@@ -65,7 +65,7 @@ jobs:
           cd webpack/svg-components/
           rm -rf node_modules yarn.lock package-lock.json
           yarn install --frozen-lockfile
-          npm publish --tag beta
+          npm publish --tag react-19
         env:
           NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
 
@@ -130,7 +130,7 @@ jobs:
           cd webpack/ui-components/
           rm -rf node_modules yarn.lock package-lock.json
           yarn install --frozen-lockfile
-          npm publish --tag beta
+          npm publish --tag react-19
         env:
           NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
 
@@ -186,7 +186,7 @@ jobs:
           cd webpack/react-components/
           rm -rf node_modules yarn.lock package-lock.json
           yarn install --frozen-lockfile
-          npm publish --tag beta
+          npm publish --tag react-19
         env:
           NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
 
@@ -214,21 +214,3 @@ jobs:
           echo "npm install @egovernments/digit-ui-components@${{ needs.publish-ui-components.outputs.ui-version }}"
           echo "npm install @egovernments/digit-ui-react-components@latest"
 
-
-  # publish-react-module-core:
-  #   name: Publish React Module Core
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - uses: actions/setup-node@v2
-  #       with:
-  #         node-version: 20
-  #         registry-url: https://registry.npmjs.org/
-  #     - name: Install dependencies for React Core
-  #       run: |
-  #         cd react/modules/core/
-  #         rm -rf node_modules yarn.lock
-  #         yarn install --frozen-lockfile
-  #         npm publish --tag core-module-v0.1
-  #       env:
-  #         NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
