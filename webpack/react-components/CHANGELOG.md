@@ -3,6 +3,9 @@ Here's the `CHANGELOG` file for the specified versions:
 ```markdown
 # Changelog
 
+## [2.0.0-dev-01] [29-Aug-2025]
+- Merged with latest react 17 master changes
+
 ## [2.0.0-rc19-02] [26-Aug-2025]
 -Changes for accessibility.
 

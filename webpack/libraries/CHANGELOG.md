@@ -1,5 +1,8 @@
 # Changelog
 
+## [2.0.0-dev-01] [29-Aug-2025]
+- Merged with latest react 17 master changes
+
 ## [2.0.0-rc19-01] [26-Aug-2025]
 - Major webpack optimization for production-ready library builds
 - Enhanced Babel configuration with modern JSX transform and smart polyfills

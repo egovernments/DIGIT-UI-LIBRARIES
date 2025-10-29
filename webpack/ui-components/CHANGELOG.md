@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0-dev-01] [29-Aug-2025]
+- Merged with latest react 17 master changes
+
 ## [2.0.0-rc19-02] [29-Seo-2025]
 - Advanced webpack optimization for comprehensive UI component library
 
