@@ -1,5 +1,8 @@
 # Changelog
 
+## [2.0.0-dev-01] [29-Aug-2025]
+- Merged with latest react 17 master changes
+
 ## [2.0.0-rc19-01] [26-Aug-2025]
 - Optimized webpack configuration for efficient SVG icon library
 - Enhanced tree-shaking with sideEffects: false for maximum unused icon elimination
