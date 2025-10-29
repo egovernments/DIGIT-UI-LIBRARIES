@@ -1,4 +1,3 @@
-import "./index.css";
 import ActionBar from "./atoms/ActionBar";
 import ActionLinks from "./atoms/ActionLinks";
 import AppContainer from "./atoms/AppContainer";
@@ -214,6 +213,11 @@ import {
   HelpOutlineIcon,
   InputIcon,
   TreatmentQualityIcon,
+  BarsChart,
+  Employee,
+  Calculate,
+  FeatureSearch,
+  HierarchyGraph
 } from "./atoms/svgindex";
 import Table from "./atoms/Table";
 import TelePhone from "./atoms/TelePhone";
@@ -289,8 +293,7 @@ import LoaderWithGap from "./atoms/LoaderWithGap";
 // Importing From SVG Library
 import {SVG} from "./atoms/SVG";
 
-//Tutorial 
-
+//Tutorial
 import Tutorial from "./hoc/Tutorial/Tutorial";
 import { useTourState,TourProvider } from "./hoc/Tutorial/TourProvider";
 import Help from "./hoc/Tutorial/Help";
@@ -299,7 +302,6 @@ import FormComposerCitizen from "./hoc/FormComposerCitizen";
 //View Composer
 import ViewComposer from "./hoc/ViewComposer";
 import XlsPreview from "./atoms/XlsPreview";
-
 export {
   XlsPreview,
   ViewComposer,
@@ -601,9 +603,12 @@ export {
   HistoryIcon,
   WarningIcon,
   AttentionListIcon,
-
+  BarsChart,
+  Employee,
+  Calculate,
+  FeatureSearch,
+  HierarchyGraph,
 
   // Exported all svgs from svg-component library
   SVG
 };
-

@@ -90,6 +90,7 @@ export const StoreService = {
     };
   },
   digitInitData: async (stateCode, enabledModules, modulePrefix) => {
+
     const { MdmsRes } = await MdmsService.init(stateCode);
     const stateInfo = MdmsRes["common-masters"]?.StateInfo?.[0] || {};
     const uiHomePage = MdmsRes["common-masters"]?.uiHomePage?.[0] || {};
@@ -185,9 +186,9 @@ export const StoreService = {
     Storage.set("initData", initData);
     initData.revenue_localities = revenue_localities;
     initData.localities = localities;
-    setTimeout(() => {
-      renderTenantLogos(stateInfo, initData.tenants);
-    }, 0);
+    // setTimeout(() => {
+    //   renderTenantLogos(stateInfo, initData.tenants);
+    // }, 0);
     return initData;
   },
   defaultData: async (stateCode, moduleCode, language, modulePrefix) => {

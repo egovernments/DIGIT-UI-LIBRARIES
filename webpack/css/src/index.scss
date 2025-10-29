@@ -677,3 +677,11 @@ input[type="number"] {
   max-height: 120px;
   margin-top: 90px;
 }
+
+*:focus-visible {
+    outline: 2px solid #b91900 !important;
+}
+
+.spanWrapper .submit-bar:focus-visible{
+    outline: 2px solid #b91900 !important;
+}
