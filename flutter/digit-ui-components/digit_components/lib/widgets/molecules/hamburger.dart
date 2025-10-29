@@ -3,14 +3,14 @@ import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
 import 'package:digit_ui_components/widgets/atoms/digit_divider.dart';
 import 'package:flutter/material.dart';
-import '../atoms/digit_button.dart';
 import '../helper_widget/digit_profile.dart';
 
-
-class SideBar extends Drawer {
+class SideBar extends StatefulWidget {
   final List<SidebarItem> sidebarItems;
   final List<SidebarItem>? footerActions;
+  final Widget? footer;
   final ProfileWidget? profile;
+  final SidebarType type;
   final String logOutDigitButtonLabel;
   final VoidCallback? onLogOut;
 
@@ -19,22 +19,36 @@ class SideBar extends Drawer {
     required this.sidebarItems,
     required this.logOutDigitButtonLabel,
     this.profile,
+    this.type = SidebarType.light,
     this.footerActions,
+    this.footer,
     this.onLogOut,
   }) : super(key: key);
 
   @override
+  _SideBarState createState() => _SideBarState();
+}
+
+class _SideBarState extends State<SideBar> {
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-
     return Drawer(
       width: 280,
       elevation: 0,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.zero,
-      ),
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
       child: Container(
-        color: theme.colorTheme.paper.primary,
+        color: widget.type == SidebarType.dark
+            ? theme.colorTheme.primary.primary2
+            : theme.colorTheme.paper.primary,
         child: Column(
           children: [
             // Top content with profile and sidebar items
@@ -42,30 +56,39 @@ class SideBar extends Drawer {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  if (profile != null) profile!,
-                  if (profile != null) const DigitDivider(dividerType: DividerType.small),
+                  if (widget.profile != null) widget.profile!,
+                  if (widget.profile != null)
+                    const DigitDivider(dividerType: DividerType.small),
                   Expanded(
-                    child: SingleChildScrollView(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          for (var i = 0; i < sidebarItems.length; i++)
-                            Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                ItemWidget(
-                                  title: sidebarItems[i].title,
-                                  icon: sidebarItems[i].icon,
-                                  onPressed: sidebarItems[i].onPressed,
-                                  index: i,
-                                  isSearchEnabled: sidebarItems[i].isSearchEnabled,
-                                  initiallySelected: sidebarItems[i].initiallySelected,
-                                  children: sidebarItems[i].children,
-                                ),
-                                const DigitDivider(dividerType: DividerType.small),
-                              ],
-                            ),
-                        ],
+                    child: Scrollbar(
+                      controller: _scrollController,
+                      thumbVisibility: true,
+                      child: SingleChildScrollView(
+                        controller: _scrollController,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            for (var i = 0; i < widget.sidebarItems.length; i++)
+                              Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  ItemWidget(
+                                    type: widget.type,
+                                    title: widget.sidebarItems[i].title,
+                                    icon: widget.sidebarItems[i].icon,
+                                    onPressed: widget.sidebarItems[i].onPressed,
+                                    index: i,
+                                    isSearchEnabled:
+                                    widget.sidebarItems[i].isSearchEnabled,
+                                    initiallySelected:
+                                    widget.sidebarItems[i].initiallySelected,
+                                    children: widget.sidebarItems[i].children,
+                                  ),
+                                  const DigitDivider(dividerType: DividerType.small),
+                                ],
+                              ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -73,16 +96,20 @@ class SideBar extends Drawer {
               ),
             ),
             // Optional footer actions
-            if (footerActions != null && footerActions!.isNotEmpty)
+            if (widget.footerActions != null && widget.footerActions!.isNotEmpty)
               Column(
                 children: [
-                  for (var action in footerActions!)
+                  for (var action in widget.footerActions!)
                     ...[
                       const DigitDivider(dividerType: DividerType.small),
-                      ChildItemWidget(item: action)
+                      ChildItemWidget(
+                        item: action,
+                        type: widget.type,
+                      ),
                     ],
                 ],
               ),
+            if (widget.footer != null) widget.footer!,
             // Logout DigitButton at the bottom
             Container(
               padding: const EdgeInsets.all(16),
@@ -92,15 +119,17 @@ class SideBar extends Drawer {
                   color: theme.colorTheme.generic.divider,
                   width: 1,
                 ),
-                color: theme.colorTheme.paper.primary,
+                color: widget.type == SidebarType.dark
+                    ? theme.colorTheme.primary.primary2
+                    : theme.colorTheme.paper.primary,
               ),
               child: DigitButton(
                 size: DigitButtonSize.medium,
                 type: DigitButtonType.secondary,
                 prefixIcon: Icons.logout,
-                label: logOutDigitButtonLabel,
+                label: widget.logOutDigitButtonLabel,
                 mainAxisSize: MainAxisSize.max,
-                onPressed: onLogOut != null ? onLogOut! : () {},
+                onPressed: widget.onLogOut ?? () {},
               ),
             ),
           ],
@@ -117,6 +146,7 @@ class ItemWidget extends StatefulWidget {
   final bool initiallySelected;
   final Function() onPressed;
   final int index;
+  final SidebarType type;
   final List<SidebarItem>? children;
 
   const ItemWidget({
@@ -127,6 +157,7 @@ class ItemWidget extends StatefulWidget {
     this.initiallySelected = false,
     required this.onPressed,
     required this.index,
+    this.type = SidebarType.light,
     this.children,
   }) : super(key: key);
 
@@ -137,39 +168,54 @@ class ItemWidget extends StatefulWidget {
 class _ItemWidgetState extends State<ItemWidget> {
   bool _isExpanded = false;
   bool _isSelected = false;
-  final bool isHovering = false;
-  SidebarItem? _selectedChild; // Track selected child
+  String? _selectedChildId; // Track selected child by title
 
   @override
   void initState() {
     super.initState();
-
+    _isSelected = widget.initiallySelected;
     if (widget.children != null && widget.children!.any((child) => child.initiallySelected)) {
       _isExpanded = true;
     }
-    _isSelected = widget.initiallySelected;
-    if(widget.children != null && widget.children!.isNotEmpty) {
-      _selectedChild = widget.children!.firstWhereOrNull((child) => child.initiallySelected);
+    SidebarItem? initiallySelectedChild = _findInitiallySelectedChild(widget.children);
+    _selectedChildId = initiallySelectedChild?.title;
+  }
+
+  @override
+  void didUpdateWidget(covariant ItemWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.initiallySelected != oldWidget.initiallySelected) {
+      setState(() => _isSelected = widget.initiallySelected);
     }
+
+    // Update selected child if children change
+    if (!const DeepCollectionEquality().equals(widget.children, oldWidget.children)) {
+      SidebarItem? newSelected = widget.children?.firstWhereOrNull(
+            (child) => child.title == _selectedChildId,
+      ) ?? _findInitiallySelectedChild(widget.children);
+      setState(() => _selectedChildId = newSelected?.title);
+    }
+    if (widget.children != null && widget.children!.any((child) => child.initiallySelected)) {
+      _isExpanded = true;
+    }
+  }
+
+  SidebarItem? _findInitiallySelectedChild(List<SidebarItem>? children) {
+    if (children == null || children.isEmpty) return null;
+    return children.firstWhereOrNull((child) => child.initiallySelected);
   }
 
   void _handleItemTap() {
     if (widget.children != null) {
-      setState(() {
-        _isExpanded = !_isExpanded;
-      });
+      setState(() => _isExpanded = !_isExpanded);
     } else {
-      setState(() {
-        _isSelected = true;
-      });
+      setState(() => _isSelected = true);
       widget.onPressed();
     }
   }
 
   void _handleChildSelected(SidebarItem selectedItem) {
-    setState(() {
-      _selectedChild = selectedItem;
-    });
+    setState(() => _selectedChildId = selectedItem.title);
   }
 
   @override
@@ -177,12 +223,14 @@ class _ItemWidgetState extends State<ItemWidget> {
     final theme = Theme.of(context);
     final textTheme = theme.digitTextTheme(context);
 
-
-
-    Color backgroundColor  = _isSelected
+    final backgroundColor = _isSelected
         ? theme.colorTheme.primary.primaryBg
         : (widget.index % 2 == 0 || _isExpanded
-        ? theme.colorTheme.paper.secondary
+        ? widget.type == SidebarType.dark
+        ? theme.colorTheme.primary.primary2
+        : theme.colorTheme.paper.secondary
+        : widget.type == SidebarType.dark
+        ? theme.colorTheme.primary.primary2
         : theme.colorTheme.paper.primary);
 
     return Column(
@@ -190,15 +238,10 @@ class _ItemWidgetState extends State<ItemWidget> {
       children: [
         InkWell(
           onTap: _handleItemTap,
-          onHover: (isHovering) {
-            setState(() {
-              isHovering = isHovering;
-            });
-          },
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
             decoration: BoxDecoration(
-              color: isHovering ? theme.colorTheme.primary.primaryBg: backgroundColor,
+              color: backgroundColor,
               borderRadius: BorderRadius.zero,
             ),
             width: MediaQuery.of(context).size.width,
@@ -211,14 +254,18 @@ class _ItemWidgetState extends State<ItemWidget> {
                       Icon(
                         widget.icon,
                         size: 24,
-                        color: theme.colorTheme.primary.primary2,
+                        color: widget.type == SidebarType.dark
+                            ? theme.colorTheme.paper.primary
+                            : theme.colorTheme.primary.primary2,
                       ),
                       const SizedBox(width: 8),
                     ],
                     Text(
                       widget.title,
                       style: textTheme.headingS.copyWith(
-                        color: theme.colorTheme.primary.primary2,
+                        color: widget.type == SidebarType.dark
+                            ? theme.colorTheme.paper.primary
+                            : theme.colorTheme.primary.primary2,
                       ),
                     ),
                   ],
@@ -226,18 +273,26 @@ class _ItemWidgetState extends State<ItemWidget> {
                 if (widget.children != null)
                   Icon(
                     _isExpanded ? Icons.arrow_drop_down : Icons.arrow_right,
-                    color: theme.colorTheme.primary.primary2,
+                    color: widget.type == SidebarType.dark
+                        ? theme.colorTheme.paper.primary
+                        : theme.colorTheme.primary.primary2,
                   ),
               ],
             ),
           ),
         ),
         if (_isExpanded && widget.children != null)
-          SideNavWithSearch(
-            navItems: widget.children!,
-            isSearchEnabled: widget.isSearchEnabled,
-            onChildSelected: _handleChildSelected, // Pass callback to children
-            selectedItem: _selectedChild, // Pass selected item to children
+          Padding(
+            padding: const EdgeInsets.only(left: 16),
+            child: SideNavWithSearch(
+              type: widget.type,
+              navItems: widget.children!,
+              isSearchEnabled: widget.isSearchEnabled,
+              onChildSelected: _handleChildSelected,
+              selectedItem: widget.children?.firstWhereOrNull(
+                    (child) => child.title == _selectedChildId,
+              ),
+            ),
           ),
       ],
     );
@@ -247,8 +302,9 @@ class _ItemWidgetState extends State<ItemWidget> {
 class SideNavWithSearch extends StatefulWidget {
   final List<SidebarItem> navItems;
   final bool isSearchEnabled;
-  final ValueChanged<SidebarItem>? onChildSelected; // Callback to notify parent
-  final SidebarItem? selectedItem; // Track selected item
+  final ValueChanged<SidebarItem>? onChildSelected;
+  final SidebarItem? selectedItem;
+  final SidebarType type;
 
   const SideNavWithSearch({
     Key? key,
@@ -256,6 +312,7 @@ class SideNavWithSearch extends StatefulWidget {
     this.isSearchEnabled = true,
     this.onChildSelected,
     this.selectedItem,
+    this.type = SidebarType.light,
   }) : super(key: key);
 
   @override
@@ -270,52 +327,23 @@ class _SideNavWithSearchState extends State<SideNavWithSearch> {
   @override
   void initState() {
     super.initState();
-    if (widget.isSearchEnabled) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        searchFocusNode.requestFocus();
-      });
-    }
     _searchController = TextEditingController();
     _filteredItems = widget.navItems;
-
     _searchController.addListener(_filterItems);
   }
 
   void _filterItems() {
     setState(() {
-      if (_searchController.text.isEmpty) {
-        _filteredItems = widget.navItems;
-      } else {
-        _filteredItems = widget.navItems.where((item) {
-          return _containsSearchText(item);
-        }).toList();
-      }
+      _filteredItems = widget.navItems.where((item) {
+        return item.title.toLowerCase().contains(_searchController.text.toLowerCase());
+      }).toList();
     });
-  }
-
-  bool _containsSearchText(SidebarItem item) {
-    if (item.title.toLowerCase().contains(_searchController.text.toLowerCase())) {
-      return true;
-    }
-
-    if (item.children != null) {
-      return item.children!.any(_containsSearchText);
-    }
-
-    return false;
-  }
-
-  void _handleChildSelected(SidebarItem selectedItem) {
-    if (widget.onChildSelected != null) {
-      widget.onChildSelected!(selectedItem); // Notify parent
-    }
   }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final textTheme = Theme.of(context).digitTextTheme(context);
-
+    final textTheme = theme.digitTextTheme(context);
 
     return Column(
       children: [
@@ -325,29 +353,37 @@ class _SideNavWithSearchState extends State<SideNavWithSearch> {
             child: DigitSearchFormInput(
               height: 32,
               textStyle: textTheme.bodyS.copyWith(
-                color: theme.colorTheme.text.primary,
+                color: widget.type == SidebarType.dark
+                    ? theme.colorTheme.paper.primary
+                    : theme.colorTheme.text.primary,
               ),
               iconSize: 16,
               focusNode: searchFocusNode,
               controller: _searchController,
               enableBorder: OutlineInputBorder(
                 borderSide: BorderSide(
-                  color: theme.colorTheme.generic.divider,
+                  color: widget.type == SidebarType.dark
+                      ? theme.colorTheme.paper.primary
+                      : theme.colorTheme.generic.divider,
                   width: 1.0,
                 ),
                 borderRadius: BorderRadius.zero,
               ),
-              iconColor: theme.colorTheme.primary.primary2,
+              iconColor: widget.type == SidebarType.dark
+                  ? theme.colorTheme.paper.primary
+                  : theme.colorTheme.primary.primary2,
               focusBorder: OutlineInputBorder(
                 borderSide: BorderSide(
-                  color: theme.colorTheme.primary.primary2,
+                  color: widget.type == SidebarType.dark
+                      ? theme.colorTheme.paper.primary
+                      : theme.colorTheme.primary.primary2,
                   width: 1.5,
                 ),
                 borderRadius: BorderRadius.zero,
               ),
             ),
           ),
-        if(_filteredItems.isEmpty)
+        if (_filteredItems.isEmpty)
           Padding(
             padding: const EdgeInsets.only(bottom: 16.0, top: 16),
             child: Text(
@@ -357,28 +393,28 @@ class _SideNavWithSearchState extends State<SideNavWithSearch> {
               ),
             ),
           ),
-        if(_filteredItems.isNotEmpty)
+        if (_filteredItems.isNotEmpty)
           ..._filteredItems.map((item) => ChildItemWidget(
+            type: widget.type,
             item: item,
-            isSelected: item == widget.selectedItem, // Pass selection state to ChildItemWidget
-            onChildSelected: _handleChildSelected, // Pass callback to ChildItemWidget
+            isSelected: item.title == widget.selectedItem?.title,
+            onChildSelected: widget.onChildSelected,
           )).toList(),
       ],
     );
   }
 }
 
-
-
-
 class ChildItemWidget extends StatelessWidget {
   final SidebarItem item;
-  final bool isSelected; // Track selection state
-  final ValueChanged<SidebarItem>? onChildSelected; // Callback to notify parent
+  final SidebarType type;
+  final bool isSelected;
+  final ValueChanged<SidebarItem>? onChildSelected;
 
   const ChildItemWidget({
     Key? key,
     required this.item,
+    this.type = SidebarType.light,
     this.isSelected = false,
     this.onChildSelected,
   }) : super(key: key);
@@ -389,13 +425,17 @@ class ChildItemWidget extends StatelessWidget {
     final textTheme = theme.digitTextTheme(context);
 
     final backgroundColor = isSelected
-        ? theme.colorTheme.primary.primaryBg
+        ? type == SidebarType.dark
+        ? theme.colorTheme.primary.primary1
+        : theme.colorTheme.primary.primaryBg
+        : type == SidebarType.dark
+        ? theme.colorTheme.primary.primary2
         : theme.colorTheme.paper.primary;
 
     return InkWell(
       onTap: () {
         if (onChildSelected != null) {
-          onChildSelected!(item); // Notify parent
+          onChildSelected!(item);
         }
         item.onPressed();
       },
@@ -417,25 +457,31 @@ class ChildItemWidget extends StatelessWidget {
                     borderRadius: const BorderRadius.only(
                         topRight: Radius.circular(4),
                         bottomRight: Radius.circular(4)),
-                    color: const DigitColors().light.primary1,
+                    color: type == SidebarType.dark
+                        ? theme.colorTheme.paper.primary
+                        : const DigitColors().light.primary1,
                   ),
                 ),
-              if (isSelected) const SizedBox(width: 18,),
+              if (isSelected) const SizedBox(width: 18),
               Padding(
-                padding:  EdgeInsets.only(right: 24, top: 12, bottom: 12, left: isSelected ? 0 : 24),
+                padding: EdgeInsets.only(
+                    right: 24, top: 12, bottom: 12, left: isSelected ? 0 : 24),
                 child: Row(
                   children: [
                     if (item.icon != null)
                       Icon(
                         item.icon,
-                        color: theme.colorTheme.primary.primary2,
+                        color: type == SidebarType.dark
+                            ? theme.colorTheme.paper.primary
+                            : theme.colorTheme.primary.primary2,
                       ),
-                    if (item.icon != null)
-                      const SizedBox(width: 12),
+                    if (item.icon != null) const SizedBox(width: 12),
                     Text(
                       item.title,
                       style: textTheme.headingS.copyWith(
-                        color: theme.colorTheme.primary.primary2,
+                        color: type == SidebarType.dark
+                            ? theme.colorTheme.paper.primary
+                            : theme.colorTheme.primary.primary2,
                       ),
                     ),
                   ],
@@ -449,9 +495,6 @@ class ChildItemWidget extends StatelessWidget {
   }
 }
 
-
-
-// Define SidebarItem model class
 class SidebarItem {
   final String title;
   final IconData? icon;
@@ -468,4 +511,9 @@ class SidebarItem {
     this.isSearchEnabled = true,
     this.children,
   });
+}
+
+enum SidebarType {
+  dark,
+  light,
 }

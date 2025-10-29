@@ -11,7 +11,7 @@ List<Story> toastStories() {
       name: 'Atom/Toast/Documentation',
       builder: (context) {
         return IframeWidget(
-          url: 'https://egov-digit.gitbook.io/docs-templates-repo/ui-component-name-2',
+          url: 'https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components0.2.0',
         );
       },
     ),
@@ -58,6 +58,7 @@ List<Story> toastStories() {
           Toast.showToast(context,
               message: 'This is a toast!',
               type: ToastType.info,
+            position: ToastPosition.aboveOneButtonFooter
           );
         },
         child: const Text("Show Toast"),

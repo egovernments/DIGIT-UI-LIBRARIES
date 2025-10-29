@@ -80,6 +80,8 @@ class DigitDropdown<T> extends StatefulWidget {
 
   final void Function()? onFocusLost;
 
+  final bool sentenceCaseEnabled;
+
   /// Custom function for focus lost
 
   const DigitDropdown({
@@ -101,6 +103,7 @@ class DigitDropdown<T> extends StatefulWidget {
     this.readOnly = false,
     this.onChange,
     this.onFocusLost,
+    this.sentenceCaseEnabled = true,
   }) : super(key: key);
 
   @override
@@ -153,6 +156,40 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
           _controller.text = widget.selectedOption!.name;
         }
       });
+    }
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+  }
+
+  @override
+  void didUpdateWidget(DigitDropdown<T> oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    // If the initial value changes, update the controller's text
+    if (widget.selectedOption != oldWidget.selectedOption) {
+      if (widget.selectionType == SelectionType.nestedSelect) {
+        _nestedIndex = widget.selectedOption!.code;
+        _controller.text =
+        '${widget.selectedOption?.type}: ${widget.selectedOption?.name}';
+      } else {
+        if(widget.selectedOption != null){
+          _currentIndex = widget.selectedOption!.code;
+          _controller.text = widget.selectedOption!.name;
+        }else{
+          _controller.clear();
+          _currentIndex = '';
+        }
+
+      }
+    }else if(widget.selectedOption ==null){
+      _controller.clear();
+      _currentIndex = '';
+    }else{
+      _controller.clear();
+      _currentIndex = '';
     }
   }
 
@@ -741,8 +778,8 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                       ? overlayWidth - 40
                                       : overlayWidth - 16,
                                   child: Text(
-                                    convertInToSentenceCase(
-                                        filteredItems[index].name)!,
+                                    widget.sentenceCaseEnabled ? convertInToSentenceCase(
+                                        filteredItems[index].name)! : filteredItems[index].name,
                                     softWrap: true,
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
@@ -1094,9 +1131,9 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                                       : overlayWidth -
                                                       16,
                                                   child: Text(
-                                                    convertInToSentenceCase(
+                                                    widget.sentenceCaseEnabled ? convertInToSentenceCase(
                                                         typeItems[index]
-                                                            .name)!,
+                                                            .name)! : typeItems[index].name,
                                                     maxLines: 1,
                                                     softWrap: true,
                                                     style: _itemMouseDownStates[
@@ -1139,9 +1176,9 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                                     : overlayWidth -
                                                     16,
                                                 child: Text(
-                                                  convertInToSentenceCase(
+                                                  widget.sentenceCaseEnabled ? convertInToSentenceCase(
                                                       typeItems[index]
-                                                          .description!)!,
+                                                          .description!)! : typeItems[index].description!,
                                                   maxLines: 10,
                                                   softWrap: true,
                                                   style: currentTypography

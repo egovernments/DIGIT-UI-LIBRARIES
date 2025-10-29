@@ -60,10 +60,7 @@ import 'package:storybook/widgets/molecules/panel_card_stories.dart';
 import 'package:storybook/widgets/molecules/show_pop_up_stories.dart';
 import 'package:storybook/widgets/molecules/side_nav_stories.dart';
 import 'package:storybook/widgets/molecules/timeline_molecule_stories.dart';
-import 'package:storybook/widgets/molecules/view_card_stories.dart';
 import 'package:storybook/widgets/privacy_policy/privacy_policy_story.dart';
-import 'package:storybook/widgets/showcase_stories/show_case_widget_stories2.dart';
-import 'package:storybook/widgets/showcase_stories/showcase_stories.dart';
 import 'package:storybook_toolkit/storybook_toolkit.dart';
 import 'localization.dart';
 
@@ -158,8 +155,9 @@ class MyHomePageState extends State<MyHomePage> {
         ),
         canvasColor: Theme.of(context).colorTheme.paper.primary,
         logoWidget: Container(
-          padding: EdgeInsets.only(left: 24, top: 16),
+          padding: EdgeInsets.only(left: 0, top: 16),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
                   'assets/images/Group 1079.png',
@@ -170,7 +168,7 @@ class MyHomePageState extends State<MyHomePage> {
             )),
         initialStory: 'Introduction/doc',
         stories: [
-          ...introStories(),
+          ...IntroStories(),
           ...animationStories(),
           ...colorStories(),
           ...illustrationStories(),
@@ -197,7 +195,7 @@ class MyHomePageState extends State<MyHomePage> {
           ...otpInputStories(),
           ...groupMenuCardStories(),
           ...panelStories(),
-          ...popUpStories(),
+          // ...popUpStories(),
           ...radioListStories(),
           ...selectionCardStories(),
           ...switchStories(),
@@ -229,10 +227,7 @@ class MyHomePageState extends State<MyHomePage> {
           ...sliderStories(),
           ...tableStories(),
           ...timelineMoleculeStories(),
-          ...viewCardStories(),
-         ...privacyComponentStories()
-         // ...showcaseStories(),
-         // ...showcaseStories2(),
+         // ...privacyComponentStories() // TODO: Will add later
         ],
       ),
     );

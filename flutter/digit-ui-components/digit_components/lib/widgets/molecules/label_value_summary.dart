@@ -7,6 +7,7 @@ import '../atoms/label_value_list.dart';
 
 class LabelValueSummary extends StatelessWidget {
   final String? heading;
+  final TextStyle? headingStyle;
   final List<LabelValueItem> items;
   final EdgeInsets? padding;
   final bool withDivider;
@@ -16,6 +17,7 @@ class LabelValueSummary extends StatelessWidget {
   const LabelValueSummary({
     Key? key,
     this.heading,
+    this.headingStyle,
     required this.items,
     this.padding,
     this.withDivider = false,
@@ -41,7 +43,7 @@ class LabelValueSummary extends StatelessWidget {
               padding: const EdgeInsets.only(bottom: spacer4),
               child: Text(
                 heading!,
-                style: textTheme.headingL.copyWith(
+                style: headingStyle ?? textTheme.headingL.copyWith(
                   color: theme.colorTheme.text.primary,
                 ),
               ),
@@ -50,6 +52,7 @@ class LabelValueSummary extends StatelessWidget {
           if (action != null) ...[
             const SizedBox(height: spacer4),
             DigitButtonListTile(
+              spacing: 24,
               alignment: !withCard && !isMobile ? MainAxisAlignment.center : MainAxisAlignment.end,
                 buttons: action!),
           ],

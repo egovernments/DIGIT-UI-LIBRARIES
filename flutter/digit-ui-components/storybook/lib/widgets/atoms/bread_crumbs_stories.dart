@@ -11,67 +11,70 @@ List<Story> DigitBreadCrumbStories() {
       name: 'Atom/Breadcrumbs/Documentation',
       builder: (context) {
         return IframeWidget(
-          url: 'https://egov-digit.gitbook.io/docs-templates-repo/ui-component-name-2',
+          url: 'https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components-v0.2.0',
         );
       },
     ),
     Story(
-      name: 'Atom/Breadcrumbs/Default',
-      builder: (context){
+      name: 'Atom/Breadcrumbs/Basic',
+      builder: (context) {
+        // Add a knob to enable/disable icons
+        final showIcons = context.knobs.boolean(label: 'Show Icons', initial: false);
+        final showCustomSeparator = context.knobs.boolean(label: 'Show Custom Separator', initial: false);
+
         return DigitBreadCrumb(
           crumbs: [
-            DigitBreadCrumbItem(content: 'Home',),
-            DigitBreadCrumbItem(content: 'Category',),
-            DigitBreadCrumbItem(content: 'Product',),
-            DigitBreadCrumbItem(content: 'Details'),
+            DigitBreadCrumbItem(
+              content: 'Home',
+              icon: showIcons ? Icons.home : null,
+            ),
+            DigitBreadCrumbItem(
+              content: 'Category',
+              icon: showIcons ? Icons.category : null,
+            ),
+            DigitBreadCrumbItem(
+              content: 'Product',
+              icon: showIcons ? Icons.production_quantity_limits : null,
+            ),
+            DigitBreadCrumbItem(
+              content: 'Details',
+              icon: showIcons ? Icons.details : null,
+            ),
           ],
-          onClick: (item){},
+          onClick: (item) {},
+          customSeparator: showCustomSeparator ? Icon(Icons.chevron_right) : null,
         );
-      }
+      },
     ),
-    Story(
-        name: 'Atom/Breadcrumbs/With icon',
-        builder: (context){
 
-          return DigitBreadCrumb(
-            crumbs: [
-              DigitBreadCrumbItem(content: 'Home', icon: Icons.home),
-              DigitBreadCrumbItem(content: 'Category', icon: Icons.category),
-              DigitBreadCrumbItem(content: 'Product', icon: Icons.production_quantity_limits),
-              DigitBreadCrumbItem(content: 'Details', icon:  Icons.details),
-            ],
-            onClick: (item){},
-          );
-        }
-    ),
     Story(
-      name: 'Atom/Breadcrumbs/Custom separator',
+      name: 'Atom/Breadcrumbs/Collapsed',
       builder: (context){
+
+        // Add a knob to enable/disable icons
+        final showIcons = context.knobs.boolean(label: 'Show Icons', initial: false);
+        final showCustomSeparator = context.knobs.boolean(label: 'Show Custom Separator', initial: false);
 
         return DigitBreadCrumb(
           crumbs: [
-            DigitBreadCrumbItem(content: 'Home', icon: Icons.home),
-            DigitBreadCrumbItem(content: 'Category',),
-            DigitBreadCrumbItem(content: 'Product',),
-            DigitBreadCrumbItem(content: 'Details'),
+            DigitBreadCrumbItem(
+              content: 'Home',
+              icon: showIcons ? Icons.home : null,
+            ),
+            DigitBreadCrumbItem(
+              content: 'Category',
+              icon: showIcons ? Icons.category : null,
+            ),
+            DigitBreadCrumbItem(
+              content: 'Product',
+              icon: showIcons ? Icons.production_quantity_limits : null,
+            ),
+            DigitBreadCrumbItem(
+              content: 'Details',
+              icon: showIcons ? Icons.details : null,
+            ),
           ],
-          customSeparator: Icon(Icons.chevron_right),
-          onClick: (item){},
-        );
-      }
-    ),
-    Story(
-      name: 'Atom/Breadcrumbs/With collapsed items',
-      builder: (context){
-
-        return DigitBreadCrumb(
-          crumbs: [
-            DigitBreadCrumbItem(content: 'Home', icon: Icons.home),
-            DigitBreadCrumbItem(content: 'Category',),
-            DigitBreadCrumbItem(content: 'Product',),
-            DigitBreadCrumbItem(content: 'Details'),
-            DigitBreadCrumbItem(content: 'Details 2'),
-          ],
+          customSeparator: showCustomSeparator ? Icon(Icons.chevron_right) : null,
           maxItems: 3,
           expandText: '...',
           onClick: (item){},
@@ -79,7 +82,7 @@ List<Story> DigitBreadCrumbStories() {
       }
     ),
     Story(
-      name: 'Atom/Breadcrumbs/Custom styles',
+      name: 'Atom/Breadcrumbs/Custom',
       builder: (context){
 
         return DigitBreadCrumb(

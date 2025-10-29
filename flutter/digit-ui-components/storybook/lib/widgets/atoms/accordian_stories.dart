@@ -14,7 +14,7 @@ List<Story> accordionStories() {
       name: 'Atom/Accordion/Documentation',
       builder: (context) {
         return IframeWidget(
-          url: 'https://egov-digit.gitbook.io/docs-templates-repo/ui-component-name-2',
+          url: 'https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components-v0.2.0/atom/accordion',
         );
       },
     ),
@@ -23,62 +23,23 @@ List<Story> accordionStories() {
       builder: (context) {
         final theme = Theme.of(context);
         final textTheme = theme.digitTextTheme(context);
-        return DigitAccordion(
-          items: [
-            DigitAccordionItem(
-              header: Text(context.knobs.text(label: 'Header', initial: 'Accordion'), style: textTheme.headingS),
-              content: Text(context.knobs.text(label: 'Content', initial: 'This is the content of Accordion'),
-                  style: textTheme.bodyS
-                      .copyWith(color: theme.colorTheme.text.primary)),
-              initiallyExpanded: context.knobs.boolean(label: 'Expanded', initial: false),
-            ),
-          ],
-          allowMultipleOpen: false,
-          headerElevation: 0,
-          animationDuration: const Duration(milliseconds: 200),
-        );
-      },
-    ),
-    Story(
-      name: 'Atom/Accordion/With Icons',
-      builder: (context) {
-        final theme = Theme.of(context);
-        final textTheme = theme.digitTextTheme(context);
+
+        bool showDivider = context.knobs.boolean(label: 'Show Divider', initial: false);
+        bool showBorder = context.knobs.boolean(label: 'Show Border', initial: true);
+        bool withStrokes = context.knobs.boolean(label: 'With Strokes', initial: false);
+        bool withIcons = context.knobs.boolean(label: 'With Icons', initial: false);
+        bool withNumbers = context.knobs.boolean(label: 'With Numbers', initial: false);
+
         return DigitAccordion(
           items: [
             DigitAccordionItem(
               header: Row(
                 children: [
-                  const Icon(Icons.account_circle),
-                  const SizedBox(
-                    width: spacer3,
-                  ),
-                  Text(context.knobs.text(label: 'Header', initial: 'Accordion'), style: textTheme.headingS),
-                ],
-              ),
-              content: Text(context.knobs.text(label: 'Content', initial: 'This is the content of Accordion'),
-                  style: textTheme.bodyS
-                      .copyWith(color: theme.colorTheme.text.primary)),
-              initiallyExpanded: context.knobs.boolean(label: 'Expanded', initial: false),
-            ),
-          ],
-          allowMultipleOpen: false,
-          headerElevation: 0,
-          animationDuration: const Duration(milliseconds: 200),
-        );
-      },
-    ),
-    Story(
-      name: 'Atom/Accordion/With Numbers',
-      builder: (context) {
-        final theme = Theme.of(context);
-        final textTheme = theme.digitTextTheme(context);
-        return DigitAccordion(
-          items: [
-            DigitAccordionItem(
-              header: Row(
-                children: [
+                  if(withNumbers)
                   Text('1.', style: textTheme.headingS),
+                  if(withIcons)
+                  const Icon(Icons.account_circle),
+                  if(withIcons || withNumbers)
                   const SizedBox(
                     width: spacer3,
                   ),
@@ -89,81 +50,18 @@ List<Story> accordionStories() {
                   style: textTheme.bodyS
                       .copyWith(color: theme.colorTheme.text.primary)),
               initiallyExpanded: context.knobs.boolean(label: 'Expanded', initial: false),
+              divider: showDivider,
+              showBorder: showBorder,
             ),
           ],
           allowMultipleOpen: false,
-          headerElevation: 0,
+          headerElevation: withStrokes ? 2: 0,
           animationDuration: const Duration(milliseconds: 200),
         );
       },
     ),
     Story(
-      name: 'Atom/Accordion/With Divider',
-      builder: (context) {
-        final theme = Theme.of(context);
-        final textTheme = theme.digitTextTheme(context);
-        return DigitAccordion(
-          items: [
-            DigitAccordionItem(
-              header: Text(context.knobs.text(label: 'Header', initial: 'Accordion'), style: textTheme.headingS),
-              content: Text(context.knobs.text(label: 'Content', initial: 'This is the content of Accordion'),
-                  style: textTheme.bodyS
-                      .copyWith(color: theme.colorTheme.text.primary)),
-              initiallyExpanded: context.knobs.boolean(label: 'Expanded', initial: false),
-              showBorder: context.knobs.boolean(label: 'Show Border', initial: true),
-              divider: true,
-            ),
-          ],
-          allowMultipleOpen: false,
-          animationDuration: const Duration(milliseconds: 200),
-        );
-      },
-    ),
-    Story(
-      name: 'Atom/Accordion/With stroke',
-      builder: (context) {
-        final theme = Theme.of(context);
-        final textTheme = theme.digitTextTheme(context);
-        return DigitAccordion(
-          items: [
-            DigitAccordionItem(
-              header: Text(context.knobs.text(label: 'Header', initial: 'Accordion'), style: textTheme.headingS),
-              content: Text(context.knobs.text(label: 'Content', initial: 'This is the content of Accordion'),
-                  style: textTheme.bodyS
-                      .copyWith(color: theme.colorTheme.text.primary)),
-              initiallyExpanded: context.knobs.boolean(label: 'Expanded', initial: false),
-            ),
-          ],
-          allowMultipleOpen: false,
-          headerElevation: 2,
-          animationDuration: const Duration(milliseconds: 200),
-        );
-      },
-    ),
-    Story(
-      name: 'Atom/Accordion/With stroke and with divider',
-      builder: (context) {
-        final theme = Theme.of(context);
-        final textTheme = theme.digitTextTheme(context);
-        return DigitAccordion(
-          items: [
-            DigitAccordionItem(
-              header: Text(context.knobs.text(label: 'Header', initial: 'Accordion'), style: textTheme.headingS),
-              content: Text(context.knobs.text(label: 'Content', initial: 'This is the content of Accordion'),
-                  style: textTheme.bodyS
-                      .copyWith(color: theme.colorTheme.text.primary)),
-              initiallyExpanded: context.knobs.boolean(label: 'Expanded', initial: false),
-              divider: true,
-            ),
-          ],
-          allowMultipleOpen: false,
-          headerElevation: 2,
-          animationDuration: const Duration(milliseconds: 200),
-        );
-      },
-    ),
-    Story(
-      name: 'Atom/Accordion/nested accordion',
+      name: 'Atom/Accordion/Nested',
       builder: (context) {
         final theme = Theme.of(context);
         final textTheme = theme.digitTextTheme(context);

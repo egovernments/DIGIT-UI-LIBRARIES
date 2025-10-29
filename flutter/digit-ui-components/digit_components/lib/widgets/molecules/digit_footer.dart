@@ -8,6 +8,7 @@ class DigitFooter extends StatefulWidget {
   final double? actionSpacing;
   final MainAxisAlignment? actionAlignment;
   final bool? inlineAction;
+  final Widget? footerContent;
 
   const DigitFooter({
     Key? key,
@@ -15,6 +16,7 @@ class DigitFooter extends StatefulWidget {
     this.actionSpacing,
     this.actionAlignment,
     this.inlineAction,
+    this.footerContent
   }) : super(key: key);
 
   @override
@@ -112,11 +114,26 @@ class _DigitFooterState extends State<DigitFooter> {
       }
     }
 
-    return Column(
+    return widget.footerContent != null ?
+     Column(
+       children: [
+         if (widget.footerContent != null) widget.footerContent!,
+         if (widget.footerContent != null) const SizedBox(height: spacer6,),
+         Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: actionWidgets,
+             ),
+       ],
+     )
+    :Column(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.end,
       crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: actionWidgets,
+      children: [
+        ...actionWidgets
+      ],
     );
   }
 
@@ -154,10 +171,25 @@ class _DigitFooterState extends State<DigitFooter> {
       }
     }
 
-    return Row(
+    return widget.footerContent != null ?
+    Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        if (widget.footerContent != null) widget.footerContent!,
+        const SizedBox(width: spacer6,),
+        Row(
+          mainAxisAlignment:
+          widget.actionAlignment ?? MainAxisAlignment.spaceBetween,
+          children: actionWidgets,
+        ),
+      ],
+    ) : Row(
       mainAxisAlignment:
           widget.actionAlignment ?? MainAxisAlignment.spaceBetween,
-      children: actionWidgets,
+      children: [
+        if (widget.footerContent != null) widget.footerContent!,
+        ...actionWidgets
+      ],
     );
   }
 }

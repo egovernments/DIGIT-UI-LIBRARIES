@@ -114,7 +114,7 @@ class MatrixList extends StatelessWidget {
         columnWidgets.add(
           Padding(
             padding: EdgeInsets.only(
-              bottom: (j != columnItems.length - 1 && showItemDivider) ? 24 : 0.0,
+              bottom: (j != columnItems.length - 1 ) ? 24 : 0.0,
               top: (j != 0 && showItemDivider) ? 24 : 0.0,
             ),
             child: MatrixCard(matrix: columnItems[j]),

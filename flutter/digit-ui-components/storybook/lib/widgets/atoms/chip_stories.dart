@@ -9,39 +9,21 @@ List<Story> chipStories() {
       name: 'Atom/Chip/Documentation',
       builder: (context) {
         return IframeWidget(
-          url: 'https://egov-digit.gitbook.io/docs-templates-repo/ui-component-name-2',
+          url: 'https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components-v0.2.0',
         );
       },
     ),
     Story(
       name: 'Atom/Chip/Basic',
       builder: (context) {
+        final bool withIcon = context.knobs.boolean(label: 'With Icon', initial: false);
+        final bool withCloseIcon = context.knobs.boolean(label: 'With Close Icon', initial: false);
         final withOnClick = context.knobs.boolean(label: 'Enable onClick', initial: false);
         return DigitChip(
+          icon: withIcon ? Icons.check : null,
           onClick: withOnClick ? () {} : null,
           label: context.knobs.text(label: 'Chip label', initial: 'Label'),
-        );
-      },
-    ),
-    Story(
-      name: 'Atom/Chip/With Icon',
-      builder: (context) {
-        final withOnClick = context.knobs.boolean(label: 'Enable onClick', initial: false);
-        return DigitChip(
-          icon: Icons.check,
-          onClick: withOnClick ? () {} : null,
-          label: context.knobs.text(label: 'Chip label', initial: 'Label'),
-        );
-      },
-    ),
-    Story(
-      name: 'Atom/Chip/With close',
-      builder: (context) {
-        final withOnClick = context.knobs.boolean(label: 'Enable onClick', initial: false);
-        return DigitChip(
-          onClick: withOnClick ? () {} : null,
-          label: context.knobs.text(label: 'Chip label', initial: 'Label'),
-          onItemDelete: (){},
+          onItemDelete: withCloseIcon ?(){} : null,
         );
       },
     ),
