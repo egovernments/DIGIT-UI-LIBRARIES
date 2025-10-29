@@ -15,9 +15,9 @@ export const PaginationLast = ({ className, width = "24", height = "24", style =
       </g>
       <defs>
         <clipPath id="clip0_5133_131">
-          <rect width="24" height="24" fill="white" />
+          <rect width="24" height="24" fill="white"/>
         </clipPath>
-      </defs>
+      </defs>   
     </svg>
   );
 };
