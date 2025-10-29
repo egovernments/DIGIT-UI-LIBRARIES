@@ -1,21 +1,215 @@
-
 name: Node.js Publish UI Packages
 
 on:
   push:
-    branches: [ 'master' ]
+    branches: [ 'develop' ]
     paths:
+      - 'react/react-components/**'
+      - 'react/svg-components/**'
       - 'react/ui-components/**'
+      - 'react/libraries/**'
 
 jobs:
-  build:
+  setup-python-and-build-tools:
+    name: Set up Python and Build Tools
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - name: Update apt and install Python 3 and build tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3 python3-pip python3-setuptools build-essential
+          sudo apt-get install -y python3-distutils || sudo apt-get install -y python3-dev
+
+  # Step 1: Publish base packages with no internal dependencies
+  publish-base-packages:
+    name: Publish Base Packages (Libraries & SVG Components)
+    runs-on: ubuntu-latest
+    needs: setup-python-and-build-tools
+    outputs:
+      libraries-version: ${{ steps.get-versions.outputs.libraries-version }}
+      svg-version: ${{ steps.get-versions.outputs.svg-version }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          node-version: 14
+          node-version: 20
           registry-url: https://registry.npmjs.org/
-      - run: cd react/ && yarn && cd ui-components/ && yarn build && npm publish --access public
+
+      # Get package versions for later use
+      - name: Get package versions
+        id: get-versions
+        run: |
+          LIBRARIES_VERSION=$(node -p "require('./react/libraries/package.json').version")
+          SVG_VERSION=$(node -p "require('./react/svg-components/package.json').version")
+          echo "libraries-version=$LIBRARIES_VERSION" >> $GITHUB_OUTPUT
+          echo "svg-version=$SVG_VERSION" >> $GITHUB_OUTPUT
+          echo "📦 Libraries version: $LIBRARIES_VERSION"
+          echo "📦 SVG Components version: $SVG_VERSION"
+
+      # Publish libraries package
+      - name: Publish Libraries Package
+        run: |
+          echo "🚀 Publishing @egovernments/digit-ui-libraries..."
+          cd react/libraries/
+          rm -rf node_modules yarn.lock package-lock.json
+          yarn install --frozen-lockfile
+          npm publish --tag react-19
         env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
+
+      # Publish SVG components package  
+      - name: Publish SVG Components Package
+        run: |
+          echo "🚀 Publishing @egovernments/digit-ui-svg-components..."
+          cd react/svg-components/
+          rm -rf node_modules yarn.lock package-lock.json
+          yarn install --frozen-lockfile
+          npm publish --tag react-19
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
+
+  # Step 2: Wait for base packages to be available on npm, then publish ui-components
+  publish-ui-components:
+    name: Publish UI Components
+    runs-on: ubuntu-latest
+    needs: publish-base-packages
+    outputs:
+      ui-version: ${{ steps.get-ui-version.outputs.ui-version }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org/
+
+      - name: Get UI Components version
+        id: get-ui-version
+        run: |
+          UI_VERSION=$(node -p "require('./react/ui-components/package.json').version")
+          echo "ui-version=$UI_VERSION" >> $GITHUB_OUTPUT
+          echo "📦 UI Components version: $UI_VERSION"
+
+      # Wait for dependencies to be available on npm
+      - name: Wait for dependencies to be available
+        run: |
+          echo "⏳ Waiting for dependencies to be available on npm..."
+          
+          # Function to check if package version is available
+          check_package() {
+            local package_name=$1
+            local version=$2
+            local max_attempts=30
+            local attempt=1
+            
+            echo "🔍 Checking availability of $package_name@$version..."
+            
+            while [ $attempt -le $max_attempts ]; do
+              if npm view "$package_name@$version" version &>/dev/null; then
+                echo "✅ $package_name@$version is available!"
+                return 0
+              else
+                echo "⏳ Attempt $attempt/$max_attempts: $package_name@$version not yet available..."
+                sleep 30
+                ((attempt++))
+              fi
+            done
+            
+            echo "❌ $package_name@$version is still not available after $max_attempts attempts"
+            return 1
+          }
+          
+          # Check both dependencies
+          check_package "@egovernments/digit-ui-libraries" "${{ needs.publish-base-packages.outputs.libraries-version }}"
+          check_package "@egovernments/digit-ui-svg-components" "${{ needs.publish-base-packages.outputs.svg-version }}"
+
+      # Publish UI components package
+      - name: Publish UI Components Package
+        run: |
+          echo "🚀 Publishing @egovernments/digit-ui-components..."
+          cd react/ui-components/
+          rm -rf node_modules yarn.lock package-lock.json
+          yarn install --frozen-lockfile
+          npm publish --tag react-19
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
+
+  # Step 3: Wait for ui-components to be available, then publish react-components
+  publish-react-components:
+    name: Publish React Components
+    runs-on: ubuntu-latest
+    needs: [publish-base-packages, publish-ui-components]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org/
+
+      # Wait for all dependencies to be available on npm
+      - name: Wait for dependencies to be available
+        run: |
+          echo "⏳ Waiting for all dependencies to be available on npm..."
+          
+          # Function to check if package version is available
+          check_package() {
+            local package_name=$1
+            local version=$2
+            local max_attempts=30
+            local attempt=1
+            
+            echo "🔍 Checking availability of $package_name@$version..."
+            
+            while [ $attempt -le $max_attempts ]; do
+              if npm view "$package_name@$version" version &>/dev/null; then
+                echo "✅ $package_name@$version is available!"
+                return 0
+              else
+                echo "⏳ Attempt $attempt/$max_attempts: $package_name@$version not yet available..."
+                sleep 30
+                ((attempt++))
+              fi
+            done
+            
+            echo "❌ $package_name@$version is still not available after $max_attempts attempts"
+            return 1
+          }
+          
+          # Check all dependencies
+          check_package "@egovernments/digit-ui-svg-components" "${{ needs.publish-base-packages.outputs.svg-version }}"
+          check_package "@egovernments/digit-ui-components" "${{ needs.publish-ui-components.outputs.ui-version }}"
+
+      # Publish react components package
+      - name: Publish React Components Package
+        run: |
+          echo "🚀 Publishing @egovernments/digit-ui-react-components..."
+          cd react/react-components/
+          rm -rf node_modules yarn.lock package-lock.json
+          yarn install --frozen-lockfile
+          npm publish --tag react-19
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
+
+  # Final step: Summary
+  publish-summary:
+    name: Publish Summary
+    runs-on: ubuntu-latest
+    needs: [publish-base-packages, publish-ui-components, publish-react-components]
+    if: always()
+    steps:
+      - name: Publish Summary
+        run: |
+          echo "📋 Package Publishing Summary:"
+          echo "================================"
+          echo "✅ @egovernments/digit-ui-libraries@${{ needs.publish-base-packages.outputs.libraries-version }}"
+          echo "✅ @egovernments/digit-ui-svg-components@${{ needs.publish-base-packages.outputs.svg-version }}"
+          echo "✅ @egovernments/digit-ui-components@${{ needs.publish-ui-components.outputs.ui-version }}"
+          echo "✅ @egovernments/digit-ui-react-components - Published successfully"
+          echo ""
+          echo "🎉 All packages published in the correct dependency order!"
+          echo ""
+          echo "📦 Installation commands:"
+          echo "npm install @egovernments/digit-ui-libraries@${{ needs.publish-base-packages.outputs.libraries-version }}"
+          echo "npm install @egovernments/digit-ui-svg-components@${{ needs.publish-base-packages.outputs.svg-version }}"
+          echo "npm install @egovernments/digit-ui-components@${{ needs.publish-ui-components.outputs.ui-version }}"
+          echo "npm install @egovernments/digit-ui-react-components@latest"
+

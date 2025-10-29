@@ -1,0 +1,50 @@
+@import './theme-variables.css';
+@import '../typography.scss';
+
+.digit-animation{
+    width: fit-content;
+}
+
+.digit-loader-new {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: fit-content;
+    align-items: center; 
+
+    .digit-loader-text {
+        @include typography-caption-s;
+        color: theme("digitv2.lightTheme.primary-2");
+    }
+
+    &.PageLoader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    &.OverlayLoader {
+
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(11, 12, 12, 0.7);
+        z-index: 9999;
+        backdrop-filter: blur(0.125rem);
+        -webkit-backdrop-filter: blur(0.125rem);
+    
+        .digit-loader-text{
+            color: theme("digitv2.lightTheme.paper-primary");
+        }
+    }
+}
+
+.custom-loader-example{
+    .digit-loader-text{
+        color: theme("digitv2.lightTheme.primary-1");
+    }
+}

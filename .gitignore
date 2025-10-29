@@ -6,8 +6,10 @@ index.lock
 node_modules/
 dist/
 build/
+storybook-static/
 
 yarn.lock
 package-lock.json
 yarn-error.log
-/webpack/storybook
+
+webpack/CLAUDE.md

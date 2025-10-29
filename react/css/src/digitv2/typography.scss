@@ -1,0 +1,647 @@
+/* typography.scss — theme(...) calls replaced with CSS variables */
+
+/* NOTE: values come from your generated :root tokens (e.g. --digitv2-...) */
+
+@mixin typography-text-heading-l {
+  font-family: var(--digitv2-fontFamily-sans);
+  font-style: var(--digitv2-fontStyle-normal);
+  font-weight: var(--digitv2-fontWeight-bold);
+  color: var(--digitv2-lightTheme-text-primary);
+  line-height: var(--digitv2-lineHeight-normal);
+
+  @media screen and (min-width: var(--digitv2-screens-desktop)) {
+    font-size: var(--digitv2-fontSize-heading-l-desktop);
+  }
+
+  @media screen and (min-width: var(--digitv2-screens-tablet)) {
+    font-size: var(--digitv2-fontSize-heading-l-tablet);
+  }
+
+  @media screen and (min-width: var(--digitv2-screens-mobile)) {
+    font-size: var(--digitv2-fontSize-heading-l-mobile);
+  }
+}
+
+@mixin typography-text-heading-m {
+  font-family: var(--digitv2-fontFamily-sans);
+  font-style: var(--digitv2-fontStyle-normal);
+  font-weight: var(--digitv2-fontWeight-bold);
+  color: var(--digitv2-lightTheme-text-primary);
+  line-height: var(--digitv2-lineHeight-normal);
+
+  @media screen and (min-width: var(--digitv2-screens-desktop)) {
+    font-size: var(--digitv2-fontSize-heading-m-desktop);
+  }
+
+  @media screen and (min-width: var(--digitv2-screens-tablet)) {
+    font-size: var(--digitv2-fontSize-heading-m-tablet);
+  }
+
+  @media screen and (min-width: var(--digitv2-screens-mobile)) {
+    font-size: var(--digitv2-fontSize-heading-m-desktop);
+  }
+}
+
+@mixin typography-text-heading-s {
+  font-family: var(--digitv2-fontFamily-sans);
+  font-style: var(--digitv2-fontStyle-normal);
+  font-weight: var(--digitv2-fontWeight-bold);
+  color: var(--digitv2-lightTheme-text-primary);
+  line-height: var(--digitv2-lineHeight-normal);
+
+  @media screen and (min-width: var(--digitv2-screens-desktop)) {
+    font-size: var(--digitv2-fontSize-heading-s-desktop);
+  }
+
+  @media screen and (min-width: var(--digitv2-screens-tablet)) {
+    font-size: var(--digitv2-fontSize-heading-s-tablet);
+  }
+
+  @media screen and (min-width: var(--digitv2-screens-mobile)) {
+    font-size: var(--digitv2-fontSize-heading-s-mobile);
+  }
+}
+
+@mixin typography-text-heading-xs {
+  @media screen and (min-width: var(--digitv2-screens-mobile)) {
+    font-size: var(--digitv2-fontSize-heading-xs-mobile);
+    font-family: var(--digitv2-fontFamily-sans);
+    font-style: var(--digitv2-fontStyle-normal);
+    font-weight: var(--digitv2-fontWeight-bold);
+    color: var(--digitv2-lightTheme-text-primary);
+    line-height: var(--digitv2-lineHeight-normal);
+  }
+}
+
+@mixin typography-text-caption-l {
+  font-family: var(--digitv2-fontFamily-sans);
+  font-style: var(--digitv2-fontStyle-italic);
+  font-weight: var(--digitv2-fontWeight-medium);
+  color: var(--digitv2-lightTheme-text-primary);
+  line-height: var(--digitv2-lineHeight-normal);
+
+  @media screen and (min-width: var(--digitv2-screens-desktop)) {
+    font-size: var(--digitv2-fontSize-caption-l-desktop);
+  }
+
+  @media screen and (min-width: var(--digitv2-screens-tablet)) {
+    font-size: var(--digitv2-fontSize-caption-l-tablet);
+  }
+
+  @media screen and (min-width: var(--digitv2-screens-mobile)) {
+    font-size: var(--digitv2-fontSize-caption-l-mobile);
+  }
+}
+
+@mixin typography-text-caption-m {
+  font-family: var(--digitv2-fontFamily-sans);
+  font-style: var(--digitv2-fontStyle-italic);
+  font-weight: var(--digitv2-fontWeight-medium);
+  color: var(--digitv2-lightTheme-text-primary);
+  line-height: var(--digitv2-lineHeight-normal);
+
+  @media screen and (min-width: var(--digitv2-screens-desktop)) {
+    font-size: var(--digitv2-fontSize-caption-m-desktop);
+  }
+
+  @media screen and (min-width: var(--digitv2-screens-tablet)) {
+    font-size: var(--digitv2-fontSize-caption-m-tablet);
+  }
+
+  @media screen and (min-width: var(--digitv2-screens-mobile)) {
+    font-size: var(--digitv2-fontSize-caption-m-mobile);
+  }
+}
+
+@mixin typography-text-caption-s {
+  font-family: var(--digitv2-fontFamily-sans);
+  font-style: var(--digitv2-fontStyle-italic);
+  font-weight: var(--digitv2-fontWeight-medium);
+  color: var(--digitv2-lightTheme-text-primary);
+  line-height: var(--digitv2-lineHeight-normal);
+
+  @media screen and (min-width: var(--digitv2-screens-desktop)) {
+    font-size: var(--digitv2-fontSize-caption-s-desktop);
+  }
+
+  @media screen and (min-width: var(--digitv2-screens-tablet)) {
+    font-size: var(--digitv2-fontSize-caption-s-tablet);
+  }
+
+  @media screen and (min-width: var(--digitv2-screens-mobile)) {
+    font-size: var(--digitv2-fontSize-caption-s-desktop);
+  }
+}
+
+@mixin typography-text-body-l {
+  font-family: var(--digitv2-fontFamily-sans);
+  font-style: var(--digitv2-fontStyle-italic);
+  font-weight: var(--digitv2-fontWeight-regular);
+  color: var(--digitv2-lightTheme-text-primary);
+
+  @media screen and (min-width: var(--digitv2-screens-desktop)) {
+    font-size: var(--digitv2-fontSize-body-l-desktop);
+    line-height: var(--digitv2-lineHeight-line-height-body-l-desktop);
+  }
+
+  @media screen and (min-width: var(--digitv2-screens-tablet)) {
+    font-size: var(--digitv2-fontSize-body-l-tablet);
+    line-height: var(--digitv2-lineHeight-line-height-body-l-tablet);
+  }
+
+  @media screen and (min-width: var(--digitv2-screens-mobile)) {
+    font-size: var(--digitv2-fontSize-body-l-mobile);
+    line-height: var(--digitv2-lineHeight-line-height-body-l-mobile);
+  }
+}
+
+@mixin typography-text-body-s {
+  font-family: var(--digitv2-fontFamily-sans);
+  font-style: var(--digitv2-fontStyle-italic);
+  font-weight: var(--digitv2-fontWeight-regular);
+  color: var(--digitv2-lightTheme-text-primary);
+
+  @media screen and (min-width: var(--digitv2-screens-desktop)) {
+    font-size: var(--digitv2-fontSize-body-s-desktop);
+    line-height: var(--digitv2-lineHeight-line-height-body-s-desktop);
+  }
+
+  @media screen and (min-width: var(--digitv2-screens-tablet)) {
+    font-size: var(--digitv2-fontSize-body-s-tablet);
+    line-height: var(--digitv2-lineHeight-line-height-body-s-tablet);
+  }
+
+  @media screen and (min-width: var(--digitv2-screens-mobile)) {
+    font-size: var(--digitv2-fontSize-body-s-mobile);
+    line-height: var(--digitv2-lineHeight-line-height-body-s-mobile);
+  }
+}
+
+@mixin typography-text-body-xs {
+  font-family: var(--digitv2-fontFamily-sans);
+  font-style: var(--digitv2-fontStyle-italic);
+  font-weight: var(--digitv2-fontWeight-regular);
+  color: var(--digitv2-lightTheme-text-primary);
+
+  @media screen and (min-width: var(--digitv2-screens-desktop)) {
+    font-size: var(--digitv2-fontSize-body-xs-desktop);
+    line-height: var(--digitv2-lineHeight-line-height-body-xs-desktop);
+  }
+
+  @media screen and (min-width: var(--digitv2-screens-tablet)) {
+    font-size: var(--digitv2-fontSize-body-xs-tablet);
+    line-height: var(--digitv2-lineHeight-line-height-body-xs-tablet);
+  }
+
+  @media screen and (min-width: var(--digitv2-screens-mobile)) {
+    font-size: var(--digitv2-fontSize-body-xs-mobile);
+    line-height: var(--digitv2-lineHeight-line-height-body-xs-mobile);
+  }
+}
+
+@mixin typography-text-label {
+  font-family: var(--digitv2-fontFamily-sans);
+  font-style: var(--digitv2-fontStyle-italic);
+  font-weight: var(--digitv2-fontWeight-regular);
+  color: var(--digitv2-lightTheme-text-primary);
+  line-height: var(--digitv2-lineHeight-normal);
+
+  @media screen and (min-width: var(--digitv2-screens-desktop)) {
+    font-size: var(--digitv2-fontSize-label-desktop);
+  }
+
+  @media screen and (min-width: var(--digitv2-screens-tablet)) {
+    font-size: var(--digitv2-fontSize-label-tablet);
+  }
+
+  @media screen and (min-width: var(--digitv2-screens-mobile)) {
+    font-size: var(--digitv2-fontSize-label-mobile);
+  }
+}
+
+@mixin typography-text-link {
+  font-family: var(--digitv2-fontFamily-sans);
+  font-style: var(--digitv2-fontStyle-normal);
+  font-weight: var(--digitv2-fontWeight-regular);
+  color: var(--digitv2-lightTheme-text-primary);
+  line-height: var(--digitv2-lineHeight-normal);
+  text-decoration: var(--digitv2-textDecorationLine-underline);
+
+  @media screen and (min-width: var(--digitv2-screens-desktop)) {
+    font-size: var(--digitv2-fontSize-link-l-desktop);
+  }
+
+  @media screen and (min-width: var(--digitv2-screens-tablet)) {
+    font-size: var(--digitv2-fontSize-link-l-tablet);
+  }
+
+  @media screen and (min-width: var(--digitv2-screens-mobile)) {
+    font-size: var(--digitv2-fontSize-link-l-mobile);
+  }
+}
+
+
+@mixin typography-heading-xl {
+  font-family: var(--digitv2-fontFamily-rc);
+  font-style: var(--digitv2-fontStyle-normal);
+  font-weight: var(--digitv2-fontWeight-bold);
+  line-height: var(--digitv2-lineHeight-lineheight1);
+
+  @media (max-aspect-ratio: 9/16) {
+    /* Media query for mobile */
+    font-size: var(--digitv2-fontSize-heading-xl-mobile);
+  }
+
+  @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+    /* Media query for tablets */
+    font-size: var(--digitv2-fontSize-heading-xl-tablet);
+  }
+
+  @media (min-aspect-ratio: 3/4) {
+    /* Media query for desktop */
+    font-size: var(--digitv2-fontSize-heading-xl-desktop);
+  }
+}
+
+@mixin typography-heading-l {
+  font-family: var(--digitv2-fontFamily-sans);
+  font-style: var(--digitv2-fontStyle-normal);
+  font-weight: var(--digitv2-fontWeight-bold);
+  line-height: var(--digitv2-lineHeight-lineheight1);
+
+  @media (max-aspect-ratio: 9/16) {
+    /* Media query for mobile */
+    font-size: var(--digitv2-fontSize-heading-l-mobile);
+  }
+
+  @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+    /* Media query for tablets */
+    font-size: var(--digitv2-fontSize-heading-l-tablet);
+  }
+
+  @media (min-aspect-ratio: 3/4) {
+    /* Media query for desktop */
+    font-size: var(--digitv2-fontSize-heading-l-desktop);
+  }
+}
+
+@mixin typography-heading-m {
+  font-family: var(--digitv2-fontFamily-sans);
+  font-style: var(--digitv2-fontStyle-normal);
+  font-weight: var(--digitv2-fontWeight-bold);
+  line-height: var(--digitv2-lineHeight-lineheight1);
+
+  @media (max-aspect-ratio: 9/16) {
+    /* Media query for mobile */
+    font-size: var(--digitv2-fontSize-heading-m-mobile);
+  }
+
+  @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+    /* Media query for tablets */
+    font-size: var(--digitv2-fontSize-heading-m-tablet);
+  }
+
+  @media (min-aspect-ratio: 3/4) {
+    /* Media query for desktop */
+    font-size: var(--digitv2-fontSize-heading-m-desktop);
+  }
+}
+
+@mixin typography-heading-s {
+  font-family: var(--digitv2-fontFamily-sans);
+  font-style: var(--digitv2-fontStyle-normal);
+  font-weight: var(--digitv2-fontWeight-bold);
+  line-height: var(--digitv2-lineHeight-lineheight1);
+
+  @media (max-aspect-ratio: 9/16) {
+    /* Media query for mobile */
+    font-size: var(--digitv2-fontSize-heading-s-mobile);
+  }
+
+  @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+    /* Media query for tablets */
+    font-size: var(--digitv2-fontSize-heading-s-tablet);
+  }
+
+  @media (min-aspect-ratio: 3/4) {
+    /* Media query for desktop */
+    font-size: var(--digitv2-fontSize-heading-s-desktop);
+  }
+}
+
+@mixin typography-heading-xs {
+  font-family: var(--digitv2-fontFamily-sans);
+  font-style: var(--digitv2-fontStyle-normal);
+  font-weight: var(--digitv2-fontWeight-bold);
+  line-height: var(--digitv2-lineHeight-lineheight1);
+
+  @media (max-aspect-ratio: 9/16) {
+    /* Media query for mobile */
+    font-size: var(--digitv2-fontSize-heading-xs-mobile);
+  }
+
+  @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+    /* Media query for tablets */
+    font-size: var(--digitv2-fontSize-heading-xs-tablet);
+  }
+
+  @media (min-aspect-ratio: 3/4) {
+    /* Media query for desktop */
+    font-size: var(--digitv2-fontSize-heading-xs-desktop);
+  }
+}
+
+@mixin typography-caption-l {
+  font-family: var(--digitv2-fontFamily-sans);
+  font-style: var(--digitv2-fontStyle-normal);
+  font-weight: var(--digitv2-fontWeight-medium);
+  line-height: var(--digitv2-lineHeight-lineheight1);
+
+  @media (max-aspect-ratio: 9/16) {
+    /* Media query for mobile */
+    font-size: var(--digitv2-fontSize-caption-l-mobile);
+  }
+
+  @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+    /* Media query for tablets */
+    font-size: var(--digitv2-fontSize-caption-l-tablet);
+  }
+
+  @media (min-aspect-ratio: 3/4) {
+    /* Media query for desktop */
+    font-size: var(--digitv2-fontSize-caption-l-desktop);
+  }
+}
+
+@mixin typography-caption-m {
+  font-family: var(--digitv2-fontFamily-sans);
+  font-style: var(--digitv2-fontStyle-normal);
+  font-weight: var(--digitv2-fontWeight-medium);
+  line-height: var(--digitv2-lineHeight-lineheight1);
+
+  @media (max-aspect-ratio: 9/16) {
+    /* Media query for mobile */
+    font-size: var(--digitv2-fontSize-caption-m-mobile);
+  }
+
+  @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+    /* Media query for tablets */
+    font-size: var(--digitv2-fontSize-caption-m-tablet);
+  }
+
+  @media (min-aspect-ratio: 3/4) {
+    /* Media query for desktop */
+    font-size: var(--digitv2-fontSize-caption-m-desktop);
+  }
+}
+
+@mixin typography-caption-s {
+  font-family: var(--digitv2-fontFamily-sans);
+  font-style: var(--digitv2-fontStyle-normal);
+  font-weight: var(--digitv2-fontWeight-medium);
+  line-height: var(--digitv2-lineHeight-lineheight1);
+
+  @media (max-aspect-ratio: 9/16) {
+    /* Media query for mobile */
+    font-size: var(--digitv2-fontSize-caption-s-mobile);
+  }
+
+  @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+    /* Media query for tablets */
+    font-size: var(--digitv2-fontSize-caption-s-tablet);
+  }
+
+  @media (min-aspect-ratio: 3/4) {
+    /* Media query for desktop */
+    font-size: var(--digitv2-fontSize-caption-s-desktop);
+  }
+}
+
+@mixin typography-body-l {
+  font-family: var(--digitv2-fontFamily-sans);
+  font-style: var(--digitv2-fontStyle-normal);
+  font-weight: var(--digitv2-fontWeight-regular);
+  line-height: var(--digitv2-lineHeight-lineheight2);
+
+  @media (max-aspect-ratio: 9/16) {
+    /* Media query for mobile */
+    font-size: var(--digitv2-fontSize-body-l-mobile);
+  }
+
+  @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+    /* Media query for tablets */
+    font-size: var(--digitv2-fontSize-body-l-tablet);
+  }
+
+  @media (min-aspect-ratio: 3/4) {
+    /* Media query for desktop */
+    font-size: var(--digitv2-fontSize-body-l-desktop);
+  }
+}
+
+@mixin typography-body-s {
+  @media (max-aspect-ratio: 9/16) {
+    /* Media query for mobile */
+    font-size: var(--digitv2-fontSize-body-s-mobile);
+    font-family: var(--digitv2-fontFamily-sans);
+    font-style: var(--digitv2-fontStyle-normal);
+    font-weight: var(--digitv2-fontWeight-regular);
+    line-height: var(--digitv2-lineHeight-lineheight2);
+  }
+
+  @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+    /* Media query for tablets */
+    font-size: var(--digitv2-fontSize-body-s-tablet);
+    font-family: var(--digitv2-fontFamily-sans);
+    font-style: var(--digitv2-fontStyle-normal);
+    font-weight: var(--digitv2-fontWeight-regular);
+    line-height: var(--digitv2-lineHeight-lineheight2);
+  }
+
+  @media (min-aspect-ratio: 3/4) {
+    /* Media query for desktop */
+    font-size: var(--digitv2-fontSize-body-s-desktop);
+    font-family: var(--digitv2-fontFamily-sans);
+    font-style: var(--digitv2-fontStyle-normal);
+    font-weight: var(--digitv2-fontWeight-regular);
+    line-height: var(--digitv2-lineHeight-lineheight2);
+  }
+}
+
+@mixin typography-body-xs {
+
+  @media (max-aspect-ratio: 9/16) {
+    /* Media query for mobile */
+    font-size: var(--digitv2-fontSize-body-xs-mobile);
+    font-family: var(--digitv2-fontFamily-sans);
+    font-style: var(--digitv2-fontStyle-normal);
+    font-weight: var(--digitv2-fontWeight-regular);
+    line-height: var(--digitv2-lineHeight-lineheight2);
+  }
+
+  @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+    /* Media query for tablets */
+    font-size: var(--digitv2-fontSize-body-xs-tablet);
+    font-family: var(--digitv2-fontFamily-sans);
+    font-style: var(--digitv2-fontStyle-normal);
+    font-weight: var(--digitv2-fontWeight-regular);
+    line-height: var(--digitv2-lineHeight-lineheight2);
+  }
+
+  @media (min-aspect-ratio: 3/4) {
+    /* Media query for desktop */
+    font-size: var(--digitv2-fontSize-body-xs-desktop);
+    font-family: var(--digitv2-fontFamily-sans);
+    font-style: var(--digitv2-fontStyle-normal);
+    font-weight: var(--digitv2-fontWeight-regular);
+    line-height: var(--digitv2-lineHeight-lineheight2);
+  }
+}
+
+@mixin typography-label {
+  font-family: var(--digitv2-fontFamily-sans);
+  font-style: var(--digitv2-fontStyle-normal);
+  font-weight: var(--digitv2-fontWeight-regular);
+  line-height: var(--digitv2-lineHeight-lineheight2);
+
+  @media (max-aspect-ratio: 9/16) {
+    /* Media query for mobile */
+    font-size: var(--digitv2-fontSize-label-mobile);
+  }
+
+  @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+    /* Media query for tablets */
+    font-size: var(--digitv2-fontSize-label-tablet);
+  }
+
+  @media (min-aspect-ratio: 3/4) {
+    /* Media query for desktop */
+    font-size: var(--digitv2-fontSize-label-desktop);
+  }
+}
+
+@mixin typography-link {
+  font-family: var(--digitv2-fontFamily-sans);
+  font-style: var(--digitv2-fontStyle-normal);
+  font-weight: var(--digitv2-fontWeight-regular);
+  text-decoration: var(--digitv2-textDecorationLine-underline);
+  font-size: var(--digitv2-fontSize-link-l-mobile);
+}
+
+@mixin typography-link-L {
+  @media (max-aspect-ratio: 9/16) {
+    /* Media query for mobile */
+    font-family: var(--digitv2-fontFamily-sans);
+    font-size: var(--digitv2-fontSize-link-l-mobile);
+    font-weight: var(--digitv2-fontWeight-regular);
+    line-height: var(--digitv2-lineHeight-lineheight2);
+    text-decoration: var(--digitv2-textDecorationLine-underline);
+    text-decoration-thickness: 0.063rem;
+  }
+
+  @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+    /* Media query for tablets */
+    font-family: var(--digitv2-fontFamily-sans);
+    font-size: var(--digitv2-fontSize-link-l-tablet);
+    font-weight: var(--digitv2-fontWeight-regular);
+    line-height: var(--digitv2-lineHeight-lineheight2);
+    text-decoration: var(--digitv2-textDecorationLine-underline);
+    text-decoration-thickness: 0.063rem;
+  }
+
+  @media (min-aspect-ratio: 3/4) {
+    /* Media query for desktop */
+    font-family: var(--digitv2-fontFamily-sans);
+    font-size: var(--digitv2-fontSize-link-l-desktop);
+    font-weight: var(--digitv2-fontWeight-regular);
+    line-height: var(--digitv2-lineHeight-lineheight2);
+    text-decoration: var(--digitv2-textDecorationLine-underline);
+    text-decoration-thickness: 0.063rem;
+  }
+}
+
+@mixin typography-link-S {
+  @media (max-aspect-ratio: 9/16) {
+    /* Media query for mobile */
+    font-family: var(--digitv2-fontFamily-sans);
+    font-size: var(--digitv2-fontSize-link-s-mobile);
+    font-weight: var(--digitv2-fontWeight-regular);
+    line-height: var(--digitv2-lineHeight-lineheight2);
+    text-decoration: var(--digitv2-textDecorationLine-underline);
+    text-decoration-thickness: 0.063rem;
+  }
+
+  @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+    /* Media query for tablets */
+    font-family: var(--digitv2-fontFamily-sans);
+    font-size: var(--digitv2-fontSize-link-s-tablet);
+    font-weight: var(--digitv2-fontWeight-regular);
+    line-height: var(--digitv2-lineHeight-lineheight2);
+    text-decoration: var(--digitv2-textDecorationLine-underline);
+    text-decoration-thickness: 0.063rem;
+  }
+
+  @media (min-aspect-ratio: 3/4) {
+    /* Media query for desktop */
+    font-family: var(--digitv2-fontFamily-sans);
+    font-size: var(--digitv2-fontSize-link-s-desktop);
+    font-weight: var(--digitv2-fontWeight-regular);
+    line-height: var(--digitv2-lineHeight-lineheight2);
+    text-decoration: var(--digitv2-textDecorationLine-underline);
+    text-decoration-thickness: 0.063rem;
+  }
+}
+
+@mixin typography-link-XS {
+  @media (max-aspect-ratio: 9/16) {
+    /* Media query for mobile */
+    font-family: var(--digitv2-fontFamily-sans);
+    font-size: var(--digitv2-fontSize-link-xs-mobile);
+    font-weight: var(--digitv2-fontWeight-regular);
+    line-height: var(--digitv2-lineHeight-lineheight2);
+    text-decoration: var(--digitv2-textDecorationLine-underline);
+    text-decoration-thickness: 0.063rem;
+  }
+
+  @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
+    /* Media query for tablets */
+    font-family: var(--digitv2-fontFamily-sans);
+    font-size: var(--digitv2-fontSize-link-xs-tablet);
+    font-weight: var(--digitv2-fontWeight-regular);
+    line-height: var(--digitv2-lineHeight-lineheight2);
+    text-decoration: var(--digitv2-textDecorationLine-underline);
+    text-decoration-thickness: 0.063rem;
+  }
+
+  @media (min-aspect-ratio: 3/4) {
+    /* Media query for desktop */
+    font-family: var(--digitv2-fontFamily-sans);
+    font-size: var(--digitv2-fontSize-link-xs-desktop);
+    font-weight: var(--digitv2-fontWeight-regular);
+    line-height: var(--digitv2-lineHeight-lineheight2);
+    text-decoration: var(--digitv2-textDecorationLine-underline);
+    text-decoration-thickness: 0.063rem;
+  }
+}
+
+
+@mixin typography-button-large {
+  font-size: var(--digitv2-fontSize-button-large);
+  line-height: var(--digitv2-lineHeight-lineheight1);
+  font-family: var(--digitv2-fontFamily-sans);
+  font-weight: var(--digitv2-fontWeight-medium);
+}
+
+@mixin typography-button-medium {
+  font-size: var(--digitv2-fontSize-button-medium);
+  line-height: var(--digitv2-lineHeight-lineheight1);
+  font-family: var(--digitv2-fontFamily-sans);
+  font-weight: var(--digitv2-fontWeight-medium);
+}
+
+@mixin typography-button-small {
+  font-size: var(--digitv2-fontSize-button-small);
+  line-height: var(--digitv2-lineHeight-lineheight1);
+  font-family: var(--digitv2-fontFamily-sans);
+  font-weight: var(--digitv2-fontWeight-medium);
+}
