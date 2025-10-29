@@ -2,13 +2,12 @@ name: Node.js Publish UI Packages
 
 on:
   push:
-    branches: [ 'develop-webpack' ]
+    branches: [ 'develop' ]
     paths:
       - 'webpack/react-components/**'
       - 'webpack/svg-components/**'
       - 'webpack/ui-components/**'
       - 'webpack/libraries/**'
-      # - 'react/modules/core/**'
 
 jobs:
   setup-python-and-build-tools:

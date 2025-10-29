@@ -2,7 +2,7 @@ name: Node.js Publish UI CSS Packages
 
 on:
   push:
-    branches: [ 'develop-webpack' ]
+    branches: [ 'develop' ]
     paths:
       - 'webpack/css/**'
 
