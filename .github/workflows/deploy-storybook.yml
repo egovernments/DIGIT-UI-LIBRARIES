@@ -3,7 +3,7 @@ name: Deploy Storybook to GitHub Pages
 on:
   push:
     branches: [develop]
-    paths: ['webpack/storybook/**', 'webpack/ui-components/**']
+    paths: ['react/storybook/**', 'react/ui-components/**']
   workflow_dispatch:
 
 permissions:
@@ -27,16 +27,16 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
-          cache-dependency-path: webpack/storybook/package-lock.json
+          cache-dependency-path: react/storybook/package-lock.json
 
       - name: Install storybook dependencies
         run: |
-          cd webpack/storybook
+          cd react/storybook
           npm ci
 
       - name: Build Storybook
         run: |
-          cd webpack/storybook
+          cd react/storybook
           npm run build-storybook
 
       - name: Setup Pages
@@ -45,7 +45,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: webpack/storybook/storybook-static
+          path: react/storybook/storybook-static
 
   deploy:
     environment:

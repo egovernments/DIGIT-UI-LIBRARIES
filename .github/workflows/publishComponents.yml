@@ -4,10 +4,10 @@ on:
   push:
     branches: [ 'develop' ]
     paths:
-      - 'webpack/react-components/**'
-      - 'webpack/svg-components/**'
-      - 'webpack/ui-components/**'
-      - 'webpack/libraries/**'
+      - 'react/react-components/**'
+      - 'react/svg-components/**'
+      - 'react/ui-components/**'
+      - 'react/libraries/**'
 
 jobs:
   setup-python-and-build-tools:
@@ -39,8 +39,8 @@ jobs:
       - name: Get package versions
         id: get-versions
         run: |
-          LIBRARIES_VERSION=$(node -p "require('./webpack/libraries/package.json').version")
-          SVG_VERSION=$(node -p "require('./webpack/svg-components/package.json').version")
+          LIBRARIES_VERSION=$(node -p "require('./react/libraries/package.json').version")
+          SVG_VERSION=$(node -p "require('./react/svg-components/package.json').version")
           echo "libraries-version=$LIBRARIES_VERSION" >> $GITHUB_OUTPUT
           echo "svg-version=$SVG_VERSION" >> $GITHUB_OUTPUT
           echo "📦 Libraries version: $LIBRARIES_VERSION"
@@ -50,7 +50,7 @@ jobs:
       - name: Publish Libraries Package
         run: |
           echo "🚀 Publishing @egovernments/digit-ui-libraries..."
-          cd webpack/libraries/
+          cd react/libraries/
           rm -rf node_modules yarn.lock package-lock.json
           yarn install --frozen-lockfile
           npm publish --tag react-19
@@ -61,7 +61,7 @@ jobs:
       - name: Publish SVG Components Package
         run: |
           echo "🚀 Publishing @egovernments/digit-ui-svg-components..."
-          cd webpack/svg-components/
+          cd react/svg-components/
           rm -rf node_modules yarn.lock package-lock.json
           yarn install --frozen-lockfile
           npm publish --tag react-19
@@ -85,7 +85,7 @@ jobs:
       - name: Get UI Components version
         id: get-ui-version
         run: |
-          UI_VERSION=$(node -p "require('./webpack/ui-components/package.json').version")
+          UI_VERSION=$(node -p "require('./react/ui-components/package.json').version")
           echo "ui-version=$UI_VERSION" >> $GITHUB_OUTPUT
           echo "📦 UI Components version: $UI_VERSION"
 
@@ -126,7 +126,7 @@ jobs:
       - name: Publish UI Components Package
         run: |
           echo "🚀 Publishing @egovernments/digit-ui-components..."
-          cd webpack/ui-components/
+          cd react/ui-components/
           rm -rf node_modules yarn.lock package-lock.json
           yarn install --frozen-lockfile
           npm publish --tag react-19
@@ -182,7 +182,7 @@ jobs:
       - name: Publish React Components Package
         run: |
           echo "🚀 Publishing @egovernments/digit-ui-react-components..."
-          cd webpack/react-components/
+          cd react/react-components/
           rm -rf node_modules yarn.lock package-lock.json
           yarn install --frozen-lockfile
           npm publish --tag react-19
