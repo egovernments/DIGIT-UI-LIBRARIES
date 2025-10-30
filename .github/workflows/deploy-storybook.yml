@@ -30,7 +30,7 @@ jobs:
       - name: Install storybook dependencies
         run: |
           cd react/storybook
-          npm install
+          npm install --legacy-peer-deps
 
       - name: Build Storybook
         run: |
