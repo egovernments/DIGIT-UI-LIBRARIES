@@ -2,6 +2,10 @@
 
 This is a separate package that contains the Storybook setup for the DIGIT UI Components library.
 
+## Live Storybook
+
+View the live Storybook documentation at: [https://egovernments.github.io/DIGIT-UI-LIBRARIES/](https://egovernments.github.io/DIGIT-UI-LIBRARIES/?path=/docs/intro--docs)
+
 ## Structure
 
 ```
@@ -11,6 +15,9 @@ storybook/
 │   ├── main.js          # Main configuration
 │   ├── preview.js       # Preview configuration
 │   └── preview-head.html # HTML head content
+├── atoms/                # Atomic component stories
+├── molecules/            # Molecular component stories
+├── foundationstories/    # Foundation stories
 └── README.md            # This file
 ```
 
@@ -19,8 +26,8 @@ storybook/
 ### Installation
 
 ```bash
-cd storybook
-npm install
+cd react/storybook
+npm install --legacy-peer-deps
 ```
 
 ### Running Storybook
@@ -29,8 +36,8 @@ npm install
 # From the storybook directory
 npm run storybook
 
-# From the ui-components directory (using proxy scripts)
-npm run storybook
+# Or directly
+npm run storybook:serve
 ```
 
 ### Building Storybook
@@ -38,10 +45,18 @@ npm run storybook
 ```bash
 # From the storybook directory
 npm run build-storybook
-
-# From the ui-components directory (using proxy scripts)
-npm run build-storybook
 ```
+
+## GitHub Pages Deployment
+
+The Storybook is automatically deployed to GitHub Pages when changes are pushed to the `develop` branch. The deployment is handled by the `.github/workflows/deploy-storybook.yml` workflow.
+
+### Deployment Configuration
+
+- **Trigger**: Pushes to `develop` branch affecting `react/storybook/**` or `react/ui-components/**`
+- **Node Version**: 20
+- **Build Output**: `react/storybook/storybook-static`
+- **URL**: https://egovernments.github.io/DIGIT-UI-LIBRARIES/
 
 ## How it works
 
@@ -49,9 +64,9 @@ npm run build-storybook
 
 2. **Webpack Aliases**: The main.js configuration sets up webpack aliases to resolve components from the parent ui-components directory.
 
-3. **Story Discovery**: Stories are discovered from `../ui-components/src/**/*.stories.@(js|jsx|mjs|ts|tsx)`.
+3. **Story Discovery**: Stories are discovered from `../ui-components/src/**/*.stories.@(js|jsx|mjs|ts|tsx)` and local story files.
 
-4. **Proxy Scripts**: The ui-components package.json contains proxy scripts that delegate to this package.
+4. **Package Versions**: Uses development versions of DIGIT UI packages (`2.0.0-dev-01`)
 
 ## Benefits
 
@@ -60,3 +75,4 @@ npm run build-storybook
 - ✅ Isolated Storybook environment
 - ✅ Easy maintenance and updates
 - ✅ No interference with main build process
+- ✅ Automatic deployment to GitHub Pages
