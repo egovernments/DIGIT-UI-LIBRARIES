@@ -126,7 +126,7 @@ const Button = (props) => {
       id={fieldId}
       disabled={props?.isDisabled || null}
       title={props?.title || ""}
-      style={props.style ? {borderRadius,...props.style} : props.borderRadius}
+      style={props.style ? { borderRadius, ...props.style } : borderRadius ? { borderRadius } : undefined}
     >
       <div
         id={`${fieldId}-content`}

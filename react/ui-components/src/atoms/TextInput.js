@@ -284,7 +284,7 @@ const TextInput = (props) => {
                     ? new Date(props?.populators?.max)
                     : undefined
                 }
-                style={{ borderRadius,...props.style }}
+                style={props.style ? { borderRadius, ...props.style } : borderRadius ? { borderRadius } : undefined}
               />
               <div
                 className={`digit-new-date-format ${
@@ -344,7 +344,7 @@ const TextInput = (props) => {
               }}
               ref={props.inputRef}
               value={props?.value}
-              style={{ borderRadius,...props.style }}
+              style={props.style ? { borderRadius, ...props.style } : borderRadius ? { borderRadius } : undefined}
               defaultValue={props.defaultValue}
               minLength={props.minlength}
               maxLength={props.maxlength}
@@ -428,7 +428,7 @@ const TextInput = (props) => {
               }}
               ref={props.inputRef}
               value={props?.value}
-              style={{ borderRadius,...props.style }}
+              style={props.style ? { borderRadius, ...props.style } : borderRadius ? { borderRadius } : undefined}
               defaultValue={props.defaultValue}
               minLength={props.minlength}
               maxLength={props.maxlength}
