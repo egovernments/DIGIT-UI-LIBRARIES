@@ -281,6 +281,22 @@ module.exports = {
         spacer12:"3rem",
         spacer13:"3.5rem"
       },
+      borderRadius:{
+        radius0:"0rem",
+        radius1: "0.25rem",
+        radius2: "0.375rem",
+        radius3: "0.5rem",
+        radius4: "0.625rem",
+        radius5: "0.75rem",
+        radius6: "0.875rem",
+        radius7: "1rem",
+        radius8: "1.125rem",
+        radius9: "1.25rem",
+        radius10: "1.5rem",
+        radius11: "1.75rem",
+        radius12: "2rem",
+        radius13: "2.5rem"
+},
       divider: {
         dividerS: "0.063rem solid #D6D5D4",
         dividerM: "0.125rem solid #D6D5D4",

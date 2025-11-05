@@ -90,6 +90,7 @@ const Button = (props) => {
   };
 
   const icon = IconRender();
+  const borderRadius = props?.borderRadius;
 
   const formattedLabel = props?.label
     ? props?.variation === "link"
@@ -125,7 +126,7 @@ const Button = (props) => {
       id={fieldId}
       disabled={props?.isDisabled || null}
       title={props?.title || ""}
-      style={props.style ? props.style : null}
+      style={props.style ? {borderRadius,...props.style} : props.borderRadius}
     >
       <div
         id={`${fieldId}-content`}
@@ -211,6 +212,8 @@ Button.propTypes = {
    * button size
    */
   size: PropTypes.string,
+
+  borderRadius: PropTypes.string
 };
 
 Button.defaultProps = {

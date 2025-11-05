@@ -234,7 +234,7 @@ const TextInput = (props) => {
   } ${props.populators?.customIcon ? "withIcon" : ""}`;
 
   const datePickerRef = useRef(null);
-
+  const borderRadius = props.borderRadius;
   return (
     <React.Fragment>
       <div
@@ -284,6 +284,7 @@ const TextInput = (props) => {
                     ? new Date(props?.populators?.max)
                     : undefined
                 }
+                style={{ borderRadius,...props.style }}
               />
               <div
                 className={`digit-new-date-format ${
@@ -343,7 +344,7 @@ const TextInput = (props) => {
               }}
               ref={props.inputRef}
               value={props?.value}
-              style={{ ...props.style }}
+              style={{ borderRadius,...props.style }}
               defaultValue={props.defaultValue}
               minLength={props.minlength}
               maxLength={props.maxlength}
@@ -427,7 +428,7 @@ const TextInput = (props) => {
               }}
               ref={props.inputRef}
               value={props?.value}
-              style={{ ...props.style }}
+              style={{ borderRadius,...props.style }}
               defaultValue={props.defaultValue}
               minLength={props.minlength}
               maxLength={props.maxlength}
@@ -526,6 +527,7 @@ TextInput.propTypes = {
   errors: PropTypes.object,
   config: PropTypes.object,
   error: PropTypes.string,
+  borderRadius: PropTypes.string
 };
 
 TextInput.defaultProps = {
