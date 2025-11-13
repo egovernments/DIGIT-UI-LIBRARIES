@@ -140,7 +140,7 @@ const DateRangeNew = ({ values, onFilterChange, t, labelClass, label, customStyl
                     <CustomSVG.Calender className="cursorPointer" onClick={() => setIsModalOpen((prevState) => !prevState)} />
                 </div>
                 {isModalOpen && (
-                    <div className={`digit-options-card force-unset-width ${optionsCardClassName || ""}`} style={{ overflow: "visible", width: "unset",marginTop:"0rem"}}>
+                    <div className={`digit-options-card force-unset-width ${optionsCardClassName || ""}`} style={{ overflow: "visible",marginTop:"0rem"}}>
                         <DateRange
                             className={`pickerShadow ${dateRangeClassName || ""}`}
                             focusedRange={focusedRange}
