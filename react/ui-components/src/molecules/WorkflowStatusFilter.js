@@ -55,6 +55,7 @@ const WorkflowStatusFilter = ({ props, t, populators, formData,inboxResponse,dis
             style={populators?.labelStyles}
             disabled={disabled}
             isLabelFirst={populators?.isLabelFirst}
+            removeMargin={populators?.removeMargin}
           />
         );
       })}

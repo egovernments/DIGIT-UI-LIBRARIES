@@ -166,7 +166,7 @@ const ResultsDataTableWrapper = ({
         center: column?.center,
         ignoreRowClick: column?.ignoreRowClick,
         wrap: column?.wrap,
-        sortable: !column?.disableSortBy,
+        sortable: config?.enableColumnSort === false ? false : !column?.disableSortBy,
         headerAlign: column?.headerAlign,
         style: column?.style,
         conditionalCellStyles: column?.conditionalCellStyles,
@@ -679,6 +679,7 @@ const ResultsDataTableWrapper = ({
       showTableDescription={config?.tableProps?.showTableDescription}
       showTableTitle={config?.tableProps?.showTableTitle}
       enableGlobalSearch={config?.enableGlobalSearch}
+      enableColumnSort={config?.enableColumnSort}
       selectedRows={selectedRows}
       actions={config?.actionProps?.actions}
       searchHeader={config.searchHeader}

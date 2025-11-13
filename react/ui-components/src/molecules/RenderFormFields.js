@@ -291,6 +291,9 @@ const RenderFormFields = ({ data, ...props }) => {
                 onFilterChange={props.onChange}
                 inputRef={props.ref}
                 errorStyle={errors?.[populators?.name]}
+                labelClass={populators?.labelClass}
+                optionsCardClassName={populators?.optionsCardClassName}
+                dateRangeClassName={populators?.dateRangeClassName}
               />
             )}
             rules={{ required: isMandatory, ...populators.validation }}

@@ -37,6 +37,7 @@ const ResultsDataTable = ({
   showTableDescription,
   showTableTitle,
   enableGlobalSearch,
+  enableColumnSort,
   showSelectedState,
   selectedRows,
   actions,
@@ -55,7 +56,9 @@ const ResultsDataTable = ({
         columns={columns}
         responsive={true}
         sortIcon={
-          <CustomSVG.SortUp width={"16px"} height={"16px"} fill={"#0b4b66"} />
+          enableColumnSort !== false ? (
+            <CustomSVG.SortUp width={"16px"} height={"16px"} fill={"#0b4b66"} />
+          ) : null
         }
         selectableRows={showCheckBox}
         selectableRowsHighlight={true}

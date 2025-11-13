@@ -126,4 +126,8 @@
       display: block;
     }
   }
+
+  &.noMargin{
+    margin-bottom: theme("digitv2.spacers.spacer0");
+  }
 }

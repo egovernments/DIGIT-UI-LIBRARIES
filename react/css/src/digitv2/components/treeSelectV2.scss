@@ -191,3 +191,9 @@
 .digit-toggle-dropdown {
     @apply cursor-pointer;
 }
+
+.digit-employee-select-wrap .digit-options-card{
+    &.force-unset-width{
+        width: unset !important;
+    }
+}

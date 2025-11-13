@@ -61,7 +61,7 @@
   ],
   "dependencies": {
     "@cyntler/react-doc-viewer": "1.10.3",
-    "@egovernments/digit-ui-components": "2.0.0-dev-01",
+    "@egovernments/digit-ui-components": "2.0.0-dev-02",
     "@egovernments/digit-ui-svg-components": "2.0.0-dev-01",
     "@googlemaps/js-api-loader": "1.13.10",
     "@hookform/resolvers": "1.3.7",

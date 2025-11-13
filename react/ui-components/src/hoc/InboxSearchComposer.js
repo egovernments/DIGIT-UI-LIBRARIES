@@ -19,7 +19,7 @@ import { Button, Footer } from "../atoms";
 import ResultsDataTableWrapper from "./ResultsDataTableWrapper";
 
 
-const InboxSearchComposer = ({configs,additionalConfig,onFormValueChange=()=>{},showTab,tabData,onTabChange,customizers={}}) => {
+const InboxSearchComposer = ({configs,additionalConfig,onFormValueChange=()=>{},showTab,tabData,onTabChange,customizers={},onClearSearch}) => {
 
     const renderCount = useRef(1); // Initialize render count
 
@@ -238,6 +238,7 @@ const InboxSearchComposer = ({configs,additionalConfig,onFormValueChange=()=>{},
                   showTabCount={configs?.sections?.search?.uiConfig?.showTabCount}
                   tabData={tabData}
                   onTabChange={onTabChange}
+                  onClearSearch={onClearSearch}
                 />
               </div>
             )}
@@ -250,6 +251,7 @@ const InboxSearchComposer = ({configs,additionalConfig,onFormValueChange=()=>{},
                   fullConfig={configs}
                   data={data}
                   showTabCount={configs?.sections?.filter?.uiConfig?.showTabCount}
+                  onClearSearch={onClearSearch}
                 />
               </div>
             )}
@@ -263,6 +265,7 @@ const InboxSearchComposer = ({configs,additionalConfig,onFormValueChange=()=>{},
                     fullConfig={configs}
                     data={data}
                     showTabCount={configs?.sections?.search?.uiConfig?.showTabCount}
+                    onClearSearch={onClearSearch}
                   />
                 </div>
               </MediaQuery>
@@ -277,6 +280,7 @@ const InboxSearchComposer = ({configs,additionalConfig,onFormValueChange=()=>{},
                     fullConfig={configs}
                     data={data}
                     showTabCount={configs?.sections?.filter?.uiConfig?.showTabCount}
+                    onClearSearch={onClearSearch}
                   />
                 </div>
               </MediaQuery>
