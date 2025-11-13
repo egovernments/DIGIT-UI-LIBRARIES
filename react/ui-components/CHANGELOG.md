@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0-dev-02] [13-Nov-2025]
+- Added removeMargin prop to CheckBox component
+- Disabled sort icon based on enableColumnSort prop
+- Added onClearSearch callback support in SearchComponent
+- Modified error display logic in FormComposer with showFieldLevelErrors and showFormLevelErrorToast checks.
+- Added custom classnames support in DateRange component
+
 ## [2.0.0-dev-01] [29-Aug-2025]
 - Merged with latest react 17 master changes
 

@@ -32,7 +32,7 @@ function FieldController(args) {
       )
     : null;
   const customRules = customValidation ? { validate: customValidation } : customValidations ? { validate: customValidation } : {};
-  const error = (populators?.name && errors && errors[populators?.name] && Object.keys(errors[populators?.name]).length) ? (populators?.error) : null
+  const error = (props?.showFieldLevelErrors !== false && populators?.name && errors && errors[populators?.name] && Object.keys(errors[populators?.name]).length) ? (populators?.error) : null
   const customProps = config?.customProps;
   return (
     <Controller

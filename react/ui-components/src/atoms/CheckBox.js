@@ -21,6 +21,7 @@ const CheckBox = ({
   isLabelFirst,
   hideLabel,
   isIntermediate,
+  removeMargin,
   ...props
 }) => {
   const { t } = useTranslation();
@@ -35,7 +36,8 @@ const CheckBox = ({
   return (
     <div
       className={`digit-checkbox-container ${!isLabelFirst ? "checkboxFirst" : "labelFirst"
-        } ${disabled ? "disabled" : " "} ${props?.mainClassName}`}
+        } ${disabled ? "disabled" : " "} ${removeMargin ? "noMargin" : ""
+        } ${props?.mainClassName}`}
     >
       {isLabelFirst && !hideLabel ? (
         <label

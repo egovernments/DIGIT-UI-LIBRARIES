@@ -229,6 +229,7 @@ const FieldV1 = ({
               style={populators?.labelStyles}
               disabled={disabled}
               isLabelFirst={populators?.isLabelFirst}
+              removeMargin={populators?.removeMargin}
               id={fieldId}
             />
           </div>
@@ -442,6 +443,9 @@ const FieldV1 = ({
                   onFilterChange={props.onChange}
                   inputRef={props.ref}
                   errorStyle={errors?.[populators?.name]}
+                  labelClass={populators?.labelClass}
+                  optionsCardClassName={populators?.optionsCardClassName}
+                  dateRangeClassName={populators?.dateRangeClassName}
                 />
               )}
               rules={{ required: required, ...populators.validation }}

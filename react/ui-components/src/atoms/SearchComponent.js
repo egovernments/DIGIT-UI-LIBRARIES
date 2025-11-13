@@ -18,7 +18,7 @@ const setUIConf = (uiConfig) => {
   return [{uiConfig}]
 }
 
-const SearchComponent = ({ uiConfig, header = "", screenType = "search", fullConfig, data,activeLink,browserSession,showTab,showTabCount=false, tabData, onTabChange}) => {
+const SearchComponent = ({ uiConfig, header = "", screenType = "search", fullConfig, data,activeLink,browserSession,showTab,showTabCount=false, tabData, onTabChange,onClearSearch}) => {
   
   //whenever activeLink changes we'll change uiConfig
   // const [activeLink,setActiveLink] = useState(uiConfig?.configNavItems?.filter(row=>row.activeByDefault)?.[0]?.name)
@@ -136,6 +136,9 @@ const SearchComponent = ({ uiConfig, header = "", screenType = "search", fullCon
       state: { limit:10,offset:0,sortOrder:sortOrder }
       //need to pass form with empty strings 
     })
+    if(onClearSearch){
+      onClearSearch(uiConfig?.type);
+    }
   }
 
   const handleSort = () => {
