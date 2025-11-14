@@ -48,6 +48,7 @@ jobs:
 
       # Publish libraries package
       - name: Publish Libraries Package
+        continue-on-error: true
         run: |
           echo "🚀 Publishing @egovernments/digit-ui-libraries..."
           cd react/libraries/
@@ -59,6 +60,7 @@ jobs:
 
       # Publish SVG components package  
       - name: Publish SVG Components Package
+        continue-on-error: true
         run: |
           echo "🚀 Publishing @egovernments/digit-ui-svg-components..."
           cd react/svg-components/
@@ -124,6 +126,7 @@ jobs:
 
       # Publish UI components package
       - name: Publish UI Components Package
+        continue-on-error: true
         run: |
           echo "🚀 Publishing @egovernments/digit-ui-components..."
           cd react/ui-components/
@@ -180,6 +183,7 @@ jobs:
 
       # Publish react components package
       - name: Publish React Components Package
+        continue-on-error: true
         run: |
           echo "🚀 Publishing @egovernments/digit-ui-react-components..."
           cd react/react-components/
