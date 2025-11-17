@@ -1,3 +1,6 @@
+## 0.2.3+2
+* Added icon mapping constant
+
 ## 0.2.3+1
 * Fixed initial image not getting updated issue
 
