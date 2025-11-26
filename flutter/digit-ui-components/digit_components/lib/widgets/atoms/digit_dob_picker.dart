@@ -129,6 +129,7 @@ class _DigitDobPickerState extends State<DigitDobPicker> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.digitTextTheme(context);
+    final currentLocale = Localizations.localeOf(context).toString();
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -147,8 +148,7 @@ class _DigitDobPickerState extends State<DigitDobPicker> {
                     readOnly: widget.readOnly,
                     editable: false,
                     initialValue: selectedDate != null
-                        ? DateFormat('dd MMM yyyy',
-                                Localizations.localeOf(context).toLanguageTag())
+                        ? DateFormat('dd MMM yyyy', currentLocale)
                             .format(selectedDate!)
                         : '',
                     firstDate: widget.initialDate,
@@ -158,7 +158,9 @@ class _DigitDobPickerState extends State<DigitDobPicker> {
                     onChange: (value) {
                       if (value.isNotEmpty) {
                         setState(() {
-                          selectedDate = DateFormat('dd MMM yyyy').parse(value);
+                          selectedDate =
+                              DateFormat('dd MMM yyyy', currentLocale)
+                                  .parse(value);
                           _setAgeFromDate(selectedDate);
                         });
                         if (widget.onChangeOfFormControl != null) {
