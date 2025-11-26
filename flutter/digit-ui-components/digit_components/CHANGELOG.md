@@ -1,3 +1,6 @@
+## 0.2.3+3
+* Added locale while converting date selected
+
 ## 0.2.3+2
 * Added icon mapping constant
 
