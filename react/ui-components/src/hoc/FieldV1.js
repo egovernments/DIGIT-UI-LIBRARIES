@@ -383,14 +383,14 @@ const FieldV1 = ({
               control={controllerProps?.control}
               defaultValue={formData?.[populators?.name]}
               rules={{ required: populators?.isMandatory, ...populators.validation }}
-              render={(props) => {
+              render={({ field }) => {
                 return (
                   <div style={{ display: "grid", gridAutoFlow: "row" ,width:"100%"}}>
                     <LocationDropdownWrapper
-                      props={props}
+                      props={{ field }}
                       populators={populators}
                       formData={formData}
-                      inputRef={props.ref}
+                      inputRef={field.ref}
                       errors={errors}
                       disabled={disabled}
                       setValue={controllerProps?.setValue}
@@ -407,10 +407,10 @@ const FieldV1 = ({
               control={controllerProps?.control}
               defaultValue={formData?.[populators?.name]}
               rules={{ required: populators?.isMandatory, ...populators.validation }}
-              render={(props) => {
+              render={({ field }) => {
                 return (
                   <div style={{ display: "grid", gridAutoFlow: "row",width:"100%" }}>
-                    <ApiDropdown props={props} populators={populators} formData={formData} inputRef={props.ref} errors={errors} disabled={disabled} />
+                    <ApiDropdown props={{ field }} populators={populators} formData={formData} inputRef={field.ref} errors={errors} disabled={disabled} />
                   </div>
                 );
               }}
@@ -435,13 +435,13 @@ const FieldV1 = ({
         case "dateRange":
           return (
             <Controller
-              render={(props) => (
+              render={({ field }) => (
                 <DateRangeNew
                   t={t}
                   values={formData?.[populators?.name]?.range}
                   name={populators?.name}
-                  onFilterChange={props.onChange}
-                  inputRef={props.ref}
+                  onFilterChange={field.onChange}
+                  inputRef={field.ref}
                   errorStyle={errors?.[populators?.name]}
                   labelClass={populators?.labelClass}
                   optionsCardClassName={populators?.optionsCardClassName}

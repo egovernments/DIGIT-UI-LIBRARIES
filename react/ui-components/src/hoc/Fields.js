@@ -52,13 +52,13 @@ const Fields = (
           {populators?.componentInFront ? <span className={`component-in-front ${disable && "disabled"}`}>{populators.componentInFront}</span> : null}
           <Controller
             defaultValue={formData?.[populators.name]}
-            render={({ onChange, ref, value }) => (
+            render={({ field }) => (
               <TextInput
-                value={formData?.[populators.name]}
+                value={field.value}
                 type={type}
                 name={populators.name}
-                onChange={onChange}
-                inputRef={ref}
+                onChange={field.onChange}
+                inputRef={field.ref}
                 errorStyle={errors?.[populators.name]}
                 max={populators?.validation?.max}
                 min={populators?.validation?.min}
@@ -82,13 +82,13 @@ const Fields = (
           {populators?.componentInFront ? <span className={`component-in-front ${disable && "disabled"}`}>{populators.componentInFront}</span> : null}
           <Controller
             defaultValue={formData?.[populators.name]}
-            render={({ onChange, ref, value }) => (
+            render={({ field }) => (
               <InputTextAmount
-                value={formData?.[populators.name]}
+                value={field.value}
                 type={"text"}
                 name={populators.name}
-                onChange={onChange}
-                inputRef={ref}
+                onChange={field.onChange}
+                inputRef={field.ref}
                 errorStyle={errors?.[populators.name]}
                 max={populators?.validation?.max}
                 min={populators?.validation?.min}
@@ -113,13 +113,13 @@ const Fields = (
         <div className="field-container">
           <Controller
             defaultValue={formData?.[populators.name]}
-            render={({ onChange, ref, value }) => (
+            render={({ field }) => (
               <TextArea
-                value={formData?.[populators.name]}
+                value={field.value}
                 type={type}
                 name={populators.name}
-                onChange={onChange}
-                inputRef={ref}
+                onChange={field.onChange}
+                inputRef={field.ref}
                 disable={disable}
                 errorStyle={errors?.[populators.name]}
                 style={{ marginTop: 0 }}
@@ -138,11 +138,11 @@ const Fields = (
         <div className="field-container">
           <Controller
             defaultValue={formData?.[populators.name]}
-            render={({ onChange, ref, value }) => (
+            render={({ field }) => (
               <Paragraph
-                value={formData?.[populators.name]}
+                value={field.value}
                 name={populators.name}
-                inputRef={ref}
+                inputRef={field.ref}
                 customClass={populators?.customClass}
                 customStyle={populators?.customStyle}
               />
@@ -157,14 +157,13 @@ const Fields = (
       return (
         <div className="field-container">
           <Controller
-            render={(props) => (
+            render={({ field }) => (
               <MobileNumber
-                inputRef={props.ref}
+                inputRef={field.ref}
                 // className="field fullWidth"
-                onChange={props.onChange}
-                value={props.value}
+                onChange={field.onChange}
+                value={field.value}
                 disable={disable}
-                {...props}
                 errorStyle={errors?.[populators.name]}
               />
             )}
@@ -178,7 +177,7 @@ const Fields = (
     case "custom":
       return (
         <Controller
-          render={(props) => populators.component({ ...props, setValue }, populators.customProps)}
+          render={({ field, fieldState, formState }) => populators.component({ ...field, fieldState, formState, setValue }, populators.customProps)}
           defaultValue={populators.defaultValue}
           name={populators?.name}
           control={control}
@@ -191,20 +190,20 @@ const Fields = (
           control={control}
           defaultValue={formData?.[populators.name]}
           rules={{ required: populators?.isMandatory }}
-          render={(props) => {
+          render={({ field }) => {
             return (
               <div style={{ display: "grid", gridAutoFlow: "row" }}>
                 <CheckBox
                   onChange={(e) => {
                     // const obj = {
-                    //   ...props.value,
+                    //   ...field.value,
                     //   [e.target.value]: e.target.checked
                     // }
 
-                    props.onChange(e.target.checked);
+                    field.onChange(e.target.checked);
                   }}
-                  value={formData?.[populators.name]}
-                  checked={formData?.[populators.name]}
+                  value={field.value}
+                  checked={field.value}
                   label={t(`${populators?.title}`)}
                   styles={populators?.styles}
                   style={populators?.labelStyles}
@@ -220,7 +219,7 @@ const Fields = (
           name={`${populators.name}`}
           control={control}
           rules={!disableFormValidation ? { required: false } : {}}
-          render={({ onChange, ref, value = [] }) => {
+          render={({ field }) => {
             function getFileStoreData(filesData) {
               const numberOfFiles = filesData.length;
               let finalDocumentData = [];
@@ -234,7 +233,7 @@ const Fields = (
                 });
               }
               //here we need to update the form the same way as the state of the reducer in multiupload, since Upload component within the multiupload wrapper uses that same format of state so we need to set the form data as well in the same way. Previously we were altering it and updating the formData
-              onChange(numberOfFiles > 0 ? filesData : []);
+              field.onChange(numberOfFiles > 0 ? filesData : []);
             }
             return (
               <MultiUploadWrapper
@@ -243,7 +242,7 @@ const Fields = (
                 tenantId={Digit.ULBService.getCurrentTenantId()}
                 getFormState={getFileStoreData}
                 showHintBelow={populators?.showHintBelow ? true : false}
-                setuploadedstate={value || []}
+                setuploadedstate={field.value || []}
                 allowedFileTypesRegex={populators.allowedFileTypes}
                 allowedMaxSizeInMB={populators.allowedMaxSizeInMB}
                 hintText={populators.hintText}
@@ -264,15 +263,15 @@ const Fields = (
       return (
         <div className="field-container">
           <Controller
-            render={(props) => (
+            render={({ field }) => (
               <CustomDropdown
                 t={t}
                 label={config?.label}
                 type={type}
-                onBlur={props.onBlur}
-                value={props.value}
-                inputRef={props.ref}
-                onChange={props.onChange}
+                onBlur={field.onBlur}
+                value={field.value}
+                inputRef={field.ref}
+                onChange={field.onChange}
                 config={populators}
                 disable={config?.disable}
                 errorStyle={errors?.[populators.name]}
@@ -288,7 +287,7 @@ const Fields = (
     case "component":
       return (
         <Controller
-          render={(props) => (
+          render={({ field, fieldState }) => (
             <Component
               userType={"employee"}
               t={t}
@@ -299,11 +298,11 @@ const Fields = (
               formData={formData}
               register={register}
               errors={errors}
-              props={{ ...props, ...customProps }}
+              props={{ ...field, fieldState, ...customProps }}
               setError={setError}
               clearErrors={clearErrors}
               formState={formState}
-              onBlur={props.onBlur}
+              onBlur={field.onBlur}
               control={control}
               sectionFormCategory={sectionFormCategory}
               selectedFormCategory={selectedFormCategory}
@@ -359,14 +358,14 @@ const Fields = (
             control={control}
             defaultValue={formData?.[populators.name]}
             rules={{ required: populators?.isMandatory, ...populators.validation }}
-            render={(props) => {
+            render={({ field }) => {
               return (
                 // <div style={{ display: "grid", gridAutoFlow: "row" }}>
                   <LocationDropdownWrapper
-                    props={props}
+                    props={{ field }}
                     populators={populators}
                     formData={formData}
-                    inputRef={props.ref}
+                    inputRef={field.ref}
                     errors={errors}
                     setValue={setValue}
                   />
@@ -383,10 +382,10 @@ const Fields = (
           control={control}
           defaultValue={formData?.[populators.name]}
           rules={{ required: populators?.isMandatory, ...populators.validation }}
-          render={(props) => {
+          render={({ field }) => {
             return (
               <div style={{ display: "grid", gridAutoFlow: "row" }}>
-                <ApiDropdown props={props} populators={populators} formData={formData} inputRef={props.ref} errors={errors} />
+                <ApiDropdown props={{ field }} populators={populators} formData={formData} inputRef={field.ref} errors={errors} />
               </div>
             );
           }}
@@ -399,16 +398,16 @@ const Fields = (
           control={control}
           defaultValue={formData?.[populators.name]}
           rules={{ required: isMandatory }}
-          render={(props) => {
+          render={({ field }) => {
             return (
               <div style={{ display: "grid", gridAutoFlow: "row" }}>
                 <MultiSelectDropdown
                   options={populators?.options}
                   optionsKey={populators?.optionsKey}
-                  props={props}
+                  props={{ field }}
                   isPropsNeeded={true}
                   onSelect={(e) => {
-                    props.onChange(
+                    field.onChange(
                       e
                         ?.map((row) => {
                           return row?.[1] ? row[1] : null;
@@ -416,7 +415,7 @@ const Fields = (
                         .filter((e) => e)
                     );
                   }}
-                  selected={props?.value || []}
+                  selected={field?.value || []}
                   defaultLabel={t(populators?.defaultText)}
                   defaultUnit={t(populators?.selectedText)}
                   config={populators}

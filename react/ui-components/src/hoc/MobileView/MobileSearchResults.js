@@ -115,15 +115,18 @@ const MobileSearchResults = ({ config, data, isLoading, isFetching,fullConfig })
     }, [data]);
 
     const rows = propsMobileInboxCards.map((row) => {
+      const mobileDetailsOnClickFn = Digit?.Customizations?.[apiDetails?.masterName]?.[apiDetails?.moduleName]?.MobileDetailsOnClick;
+      const linkTo = mobileDetailsOnClickFn ? mobileDetailsOnClickFn(row.mapping, tenantId) : "#";
+
       return {
-        _searchResults : <Link to={Digit?.Customizations?.[apiDetails?.masterName]?.[apiDetails?.moduleName]?.MobileDetailsOnClick(row.mapping, tenantId)}>
+        _searchResults : <Link to={linkTo}>
         <div className="details-container">
           {Object.keys(row.mapping).map(key => {
             let toRender;
               if(row.additionalCustomization[key]){
                 toRender = (
                 <Details label={t(key)} 
-                  name={Digit?.Customizations?.[apiDetails?.masterName]?.[apiDetails?.moduleName]?.additionalCustomizations(row.details, key, {}, row.mapping[key], t, searchResult)} 
+                  name={Digit?.Customizations?.[apiDetails?.masterName]?.[apiDetails?.moduleName]?.additionalCustomizations?.(row.details, key, {}, row.mapping[key], t, searchResult)} 
                   onClick={() =>{}} 
                   row={row.mapping} />)
               }
