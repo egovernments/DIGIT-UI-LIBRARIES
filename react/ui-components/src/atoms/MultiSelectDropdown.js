@@ -1,4 +1,5 @@
 import React, { useEffect, useReducer, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import PropTypes from "prop-types";
 import { useTranslation } from "react-i18next";
 import Chip from "./Chip";
@@ -30,15 +31,42 @@ const MultiSelectDropdown = ({
   isSearchable=false,
   chipsKey,
   frozenData = [],
-  handleViewMore
+  handleViewMore,
+  disablePortal = false,
 }) => {
   const [active, setActive] = useState(false);
   const [searchQuery, setSearchQuery] = useState();
   const [optionIndex, setOptionIndex] = useState(-1);
   const [selectAllChecked, setSelectAllChecked] = useState(false);
   const [categorySelected, setCategorySelected] = useState({});
+  const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0, width: 0 });
   const dropdownRef = useRef();
   const { t } = useTranslation();
+
+  // Update dropdown position when it opens or on scroll/resize
+  useEffect(() => {
+    const updatePosition = () => {
+      if (active && dropdownRef.current) {
+        const rect = dropdownRef.current.getBoundingClientRect();
+        setDropdownPosition({
+          top: rect.bottom + window.scrollY,
+          left: rect.left + window.scrollX,
+          width: rect.width
+        });
+      }
+    };
+
+    if (active) {
+      updatePosition();
+      window.addEventListener("scroll", updatePosition, true);
+      window.addEventListener("resize", updatePosition);
+    }
+
+    return () => {
+      window.removeEventListener("scroll", updatePosition, true);
+      window.removeEventListener("resize", updatePosition);
+    };
+  }, [active]);
 
   function reducer(state, action) {
     switch (action.type) {
@@ -775,27 +803,44 @@ const MultiSelectDropdown = ({
             <SVG.ArrowDropDown onClick={() => setActive(true)} fill={disabled ? dividerColor : inputBorderColor} />
           </div>
         </div>
-        {active ? (
-          <div
-            className="digit-multiselectdropdown-server"
-            id="jk-dropdown-unique"
-            style={ServerStyle ? ServerStyle : {}}
-            role="region"
-            aria-label="Dropdown options"
-          >
-            {variant === "treemultiselect" ? (
-              <TreeSelect
-                options={parentOptionsWithChildren}
-                onSelect={onSelectToAddToQueue}
-                selectedOption={alreadyQueuedSelectedState}
-                variant={variant}
-                optionsKey={optionsKey}
-              />
-            ) : (
-              <Menu />
-            )}
-          </div>
-        ) : null}
+        {active && (() => {
+          const dropdownContent = (
+            <div
+              className="digit-multiselectdropdown-server"
+              id="jk-dropdown-unique"
+              style={{
+                ...(disablePortal ? {} : {
+                  position: "absolute",
+                  top: dropdownPosition.top,
+                  left: dropdownPosition.left,
+                  width: dropdownPosition.width || "auto",
+                  zIndex: 999999,
+                }),
+                ...(ServerStyle ? ServerStyle : {}),
+              }}
+              role="region"
+              aria-label="Dropdown options"
+            >
+              {variant === "treemultiselect" ? (
+                <TreeSelect
+                  options={parentOptionsWithChildren}
+                  onSelect={onSelectToAddToQueue}
+                  selectedOption={alreadyQueuedSelectedState}
+                  variant={variant}
+                  optionsKey={optionsKey}
+                />
+              ) : (
+                <Menu />
+              )}
+            </div>
+          );
+
+          // Use portal only if not disabled and document exists
+          if (!disablePortal && typeof document !== "undefined") {
+            return createPortal(dropdownContent, document.body);
+          }
+          return dropdownContent;
+        })()}
       </div>
       {config?.isDropdownWithChip ? (
         <div className="digit-tag-container" role="region" aria-label="Selected options">
@@ -885,6 +930,11 @@ MultiSelectDropdown.propTypes = {
   isPropsNeeded: PropTypes.bool,
   ServerStyle: PropTypes.object,
   config: PropTypes.object,
+  disablePortal: PropTypes.bool,
+};
+
+MultiSelectDropdown.defaultProps = {
+  disablePortal: false,
 };
 
 export default MultiSelectDropdown;

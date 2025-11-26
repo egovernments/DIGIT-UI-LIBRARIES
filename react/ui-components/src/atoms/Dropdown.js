@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import React, { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { SVG } from "./SVG";
 import TreeSelect from "./TreeSelect";
 import { CustomSVG } from "./CustomSVG";
@@ -146,12 +147,38 @@ const Dropdown = (props) => {
   const [isActive, setIsActive] = useState(-1);
   const [forceSet, setforceSet] = useState(0);
   const [optionIndex, setOptionIndex] = useState(-1);
+  const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0, width: 0 });
   const optionRef = useRef(null);
   const dropdownComponentRef = useRef(null);
   const menuRef = useRef(null); 
   const selectorRef = useRef(null);
   const hasCustomSelector = props.customSelector ? true : false;
   const t = props.t || translateDummy;
+
+  // Update dropdown position when it opens or on scroll/resize
+  useEffect(() => {
+    const updatePosition = () => {
+      if (dropdownStatus && dropdownComponentRef.current) {
+        const rect = dropdownComponentRef.current.getBoundingClientRect();
+        setDropdownPosition({
+          top: rect.bottom + window.scrollY,
+          left: rect.left + window.scrollX,
+          width: rect.width
+        });
+      }
+    };
+
+    if (dropdownStatus) {
+      updatePosition();
+      window.addEventListener("scroll", updatePosition, true);
+      window.addEventListener("resize", updatePosition);
+    }
+
+    return () => {
+      window.removeEventListener("scroll", updatePosition, true);
+      window.removeEventListener("resize", updatePosition);
+    };
+  }, [dropdownStatus]);
 
 
   const scrollIntoViewIfNeeded = () => {
@@ -610,12 +637,21 @@ const Dropdown = (props) => {
           />
         </div>
       )}
-      {!hasCustomSelector && !props?.profilePIc && dropdownStatus ? (
-        props.optionKey ? (
+      {!hasCustomSelector && !props?.profilePIc && dropdownStatus && (() => {
+        const dropdownContent = props.optionKey ? (
           <div
             id="jk-dropdown-unique"
             className={`digit-dropdown-options-card`}
-            style={{ ...props.optionCardStyles }}
+            style={{
+              ...(props.disablePortal ? {} : {
+                position: "absolute",
+                top: dropdownPosition.top,
+                left: dropdownPosition.left,
+                width: dropdownPosition.width || "auto",
+                zIndex: 999999,
+              }),
+              ...props.optionCardStyles,
+            }}
             ref={optionRef}
             role="listbox"
           >
@@ -652,9 +688,19 @@ const Dropdown = (props) => {
           <div
             className="digit-dropdown-options-card"
             style={{
-              ...props.optionCardStyles,
-              overflow: "scroll",
-              maxHeight: "350px",
+              ...(props.disablePortal ? {
+                overflow: "scroll",
+                maxHeight: "350px",
+              } : {
+                position: "absolute",
+                top: dropdownPosition.top,
+                left: dropdownPosition.left,
+                width: dropdownPosition.width || "auto",
+                zIndex: 999999,
+                overflow: "scroll",
+                maxHeight: "350px",
+              }),
+               ...props.optionCardStyles,
             }}
             id="jk-dropdown-unique"
             ref={optionRef}
@@ -692,8 +738,14 @@ const Dropdown = (props) => {
                 );
               })}
           </div>
-        )
-      ) : null}
+        );
+
+        // Use portal only if not disabled and document exists
+        if (!props.disablePortal && typeof document !== "undefined") {
+          return createPortal(dropdownContent, document.body);
+        }
+        return dropdownContent;
+      })()}
     </div>
   );
 };
@@ -707,12 +759,14 @@ Dropdown.propTypes = {
   optionKey: PropTypes.any,
   select: PropTypes.any,
   t: PropTypes.func,
+  disablePortal: PropTypes.bool,
 };
 
 Dropdown.defaultProps = {
   customSelector: null,
   showArrow: true,
   isSearchable: true,
+  disablePortal: false,
 };
 
 export default Dropdown;
