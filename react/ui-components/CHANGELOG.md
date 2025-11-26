@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0-dev-04] [26-Nov-2025]
+- Added createPortal support to render dropdown options at document body level, preventing options from being clipped by parent containers with overflow: hidden or lower z-index.
+
 ## [2.0.0-dev-03] [26-Nov-2025]
 - Updated Controller render props from ({ onChange, ref, value }) to ({ field }) pattern
 - Fixed form inputs not working in InboxSearchComposer and FormComposerV2
