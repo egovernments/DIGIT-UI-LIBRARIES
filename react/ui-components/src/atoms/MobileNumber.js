@@ -44,7 +44,7 @@ const MobileNumber = (props) => {
             onBlur={props.onBlur}
             variant={props?.variant}
             populators={
-              !props.hideSpan ? {prefix: props?.prefix || "+91"} :{}
+              !props.hideSpan ? {prefix: props?.prefix || ""} :{}
             }
           />
         </div>
