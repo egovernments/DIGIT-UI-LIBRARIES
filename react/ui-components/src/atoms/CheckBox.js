@@ -22,6 +22,7 @@ const CheckBox = ({
   hideLabel,
   isIntermediate,
   removeMargin,
+  required,
   ...props
 }) => {
   const { t } = useTranslation();
@@ -40,29 +41,32 @@ const CheckBox = ({
         } ${props?.mainClassName}`}
     >
       {isLabelFirst && !hideLabel ? (
-        <label
-          htmlFor={props.id || `checkbox-${value}`}
-          className={`label ${props?.labelClassName} `}
-          style={{ maxWidth: "100%", width: "auto", marginRight: "0rem" }}
-          onClick={props?.onLabelClick}
-          tabIndex={0}
-          role={"button"}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" || e.key === " ") {
-              e.preventDefault();
-              if (typeof props?.onLabelClick === "function") {
-                props.onLabelClick();
-              } else {
-                const inputElement = document.getElementById(props?.id || `checkbox-${value}`);
-                if (inputElement) {
-                  inputElement.click();
+        <Fragment>
+          <label
+            htmlFor={props.id || `checkbox-${value}`}
+            className={`label ${props?.labelClassName} `}
+            style={{ maxWidth: "100%", width: "auto", marginRight: "0rem" }}
+            onClick={props?.onLabelClick}
+            tabIndex={0}
+            role={"button"}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                if (typeof props?.onLabelClick === "function") {
+                  props.onLabelClick();
+                } else {
+                  const inputElement = document.getElementById(props?.id || `checkbox-${value}`);
+                  if (inputElement) {
+                    inputElement.click();
+                  }
                 }
               }
-            }
-          }}
-        >
-          {sentenceCaseLabel}
-        </label>
+            }}
+          >
+            {sentenceCaseLabel}
+          </label>
+          {required && <span style={{ color: "#B91900" }}> *</span>}
+        </Fragment>
       ) : null}
       <div
         style={{ cursor: "pointer", display: "flex", position: "relative" }}
@@ -117,35 +121,38 @@ const CheckBox = ({
         </p>
       </div>
       {!isLabelFirst && !hideLabel ? (
-        <label
-          htmlFor={props.id || `checkbox-${value}`}
-          className={`label ${props?.labelClassName} `}
-          style={{ maxWidth: "100%", width: "100%", marginRight: "0rem" }}
-          onClick={props?.onLabelClick}
-          tabIndex={0}
-          role={"button"}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" || e.key === " ") {
-              e.preventDefault();
-              // First try onLabelClick if it exists
-              if (typeof props?.onLabelClick === "function") {
-                props.onLabelClick();
-              } else {
-                // Fallback to triggering onChange with the opposite of current checked state
-                if (typeof onChange === "function") {
-                  onChange({
-                    target: {
-                      checked: !checked,
-                      value: value || label
-                    }
-                  });
+        <Fragment>
+          <label
+            htmlFor={props.id || `checkbox-${value}`}
+            className={`label ${props?.labelClassName} `}
+            style={{ maxWidth: "100%", width: "100%", marginRight: "0rem" }}
+            onClick={props?.onLabelClick}
+            tabIndex={0}
+            role={"button"}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                // First try onLabelClick if it exists
+                if (typeof props?.onLabelClick === "function") {
+                  props.onLabelClick();
+                } else {
+                  // Fallback to triggering onChange with the opposite of current checked state
+                  if (typeof onChange === "function") {
+                    onChange({
+                      target: {
+                        checked: !checked,
+                        value: value || label
+                      }
+                    });
+                  }
                 }
               }
-            }
-          }}
-        >
-          {sentenceCaseLabel}
-        </label>
+            }}
+          >
+            {sentenceCaseLabel}
+          </label>
+          {required && <span style={{ color: "#B91900" }}> *</span>}
+        </Fragment>
       ) : null}
     </div>
   );
@@ -167,6 +174,10 @@ CheckBox.propTypes = {
   userType: PropTypes.string,
   hideLabel: PropTypes.bool,
   isIntermediate: PropTypes.bool,
+  /**
+   * Shows required asterisk (*) beside label
+   */
+  required: PropTypes.bool,
 };
 
 CheckBox.defaultProps = {

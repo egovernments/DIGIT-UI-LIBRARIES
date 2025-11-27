@@ -231,6 +231,7 @@ const FieldV1 = ({
               isLabelFirst={populators?.isLabelFirst}
               removeMargin={populators?.removeMargin}
               id={fieldId}
+              required={required}
             />
           </div>
         );

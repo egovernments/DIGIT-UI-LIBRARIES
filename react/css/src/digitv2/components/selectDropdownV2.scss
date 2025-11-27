@@ -610,3 +610,25 @@
 .cp{
   cursor: pointer;
 }
+
+.digit-dropdown-options-card {
+  p {
+    @extend .light-text-color-primary;
+    padding-top: 0.875rem;
+    @apply w-full h-12 pl-sm text-text-primary text-form-field;
+
+    &:hover {
+      @extend .light-background;
+      @apply bg-grey-mid;
+    }
+  }
+}
+
+.digit-dropdown-options-card {
+  box-shadow: 0rem 0.063rem 0.275rem 0rem #00000026;
+  max-height: 20vmax;
+  position: absolute;
+  background-color: #ffffff;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
