@@ -43,10 +43,57 @@ const MultiSelectDropdown = ({
   const dropdownRef = useRef();
   const { t } = useTranslation();
 
+  // Helper function to check if element is visible within all scroll ancestors
+  const isElementVisibleInScrollParents = (element) => {
+    if (!element) return false;
+
+    const rect = element.getBoundingClientRect();
+    let parent = element.parentElement;
+
+    while (parent) {
+      const parentStyle = window.getComputedStyle(parent);
+      const overflowY = parentStyle.overflowY;
+      const overflow = parentStyle.overflow;
+
+      // Check if parent has vertical scrolling enabled
+      const hasVerticalScroll =
+        overflowY === 'auto' ||
+        overflowY === 'scroll' ||
+        overflow === 'auto' ||
+        overflow === 'scroll';
+
+      // Also check if parent actually has scrollable content (scrollHeight > clientHeight)
+      const isActuallyScrollable = hasVerticalScroll && parent.scrollHeight > parent.clientHeight;
+
+      if (isActuallyScrollable) {
+        const parentRect = parent.getBoundingClientRect();
+        // Check if element is outside the scrollable parent's visible area
+        if (rect.bottom <= parentRect.top || rect.top >= parentRect.bottom) {
+          return false;
+        }
+      }
+      parent = parent.parentElement;
+    }
+
+    // Also check viewport visibility
+    const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+    if (rect.bottom <= 0 || rect.top >= viewportHeight) {
+      return false;
+    }
+
+    return true;
+  };
+
   // Update dropdown position when it opens or on scroll/resize
   useEffect(() => {
     const updatePosition = () => {
       if (active && dropdownRef.current) {
+        // Check if the input field is visible within scroll parents and viewport
+        if (!isElementVisibleInScrollParents(dropdownRef.current)) {
+          setActive(false);
+          return;
+        }
+
         const rect = dropdownRef.current.getBoundingClientRect();
         setDropdownPosition({
           top: rect.bottom + window.scrollY,
