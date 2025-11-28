@@ -21,6 +21,7 @@
     @apply flex items-center border border-solid border-text-secondary justify-center;
     width: theme("digitv2.spacers.spacer6");
     height: theme("digitv2.spacers.spacer6");
+    border: 1px solid #505A5F;
 
     img,
     svg {
