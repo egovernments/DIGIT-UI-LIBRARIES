@@ -41,6 +41,7 @@ const MultiSelectDropdown = ({
   const [categorySelected, setCategorySelected] = useState({});
   const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0, width: 0 });
   const dropdownRef = useRef();
+  const isInitialMount = useRef(true);
   const { t } = useTranslation();
 
   // Helper function to check if element is visible within all scroll ancestors
@@ -130,19 +131,7 @@ const MultiSelectDropdown = ({
         const newState = state?.filter(
           (e) => e?.code !== action.payload?.[1]?.code
         );
-        onSelect(
-          newState.map((e) => e.propsData),
-          getCategorySelectAllState(),
-          props
-        ); // Update the form state here
-        if (onClose && !active) {
-          setSearchQuery("");
-          onClose(
-            newState.map((e) => e.propsData),
-            getCategorySelectAllState(),
-            props
-          );
-        }
+        // onSelect is now called via useEffect when state changes
         return newState;
       case "REPLACE_COMPLETE_STATE":
         return action.payload;
@@ -167,21 +156,36 @@ const MultiSelectDropdown = ({
     fnToSelectOptionThroughProvidedSelection
   );
 
+  // Store callbacks in refs to avoid stale closures and unnecessary re-renders
+  const onSelectRef = useRef(onSelect);
+  const onCloseRef = useRef(onClose);
+  onSelectRef.current = onSelect;
+  onCloseRef.current = onClose;
+
+  // Call onSelect whenever selection changes (real-time updates)
+  // Skip initial mount to maintain backward compatibility
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      return;
+    }
+    onSelectRef.current(
+      alreadyQueuedSelectedState?.map((e) => e.propsData),
+      getCategorySelectAllState(),
+      props
+    );
+  }, [alreadyQueuedSelectedState]);
+
   useEffect(() => {
     if (!active) {
       setSearchQuery("");
-      onSelect(
-        alreadyQueuedSelectedState?.map((e) => e.propsData),
-        getCategorySelectAllState(),
-        props
-      );
-    }
-    if (onClose) {
-      onClose(
-        alreadyQueuedSelectedState?.map((e) => e.propsData),
-        getCategorySelectAllState(),
-        props
-      );
+      if (onCloseRef.current) {
+        onCloseRef.current(
+          alreadyQueuedSelectedState?.map((e) => e.propsData),
+          getCategorySelectAllState(),
+          props
+        );
+      }
     }
   }, [active]);
 
@@ -305,13 +309,8 @@ const MultiSelectDropdown = ({
               payload: arguments,
             });
       }
-      onSelect(
-        alreadyQueuedSelectedState?.map((e) => e.propsData),
-        getCategorySelectAllState(),
-        props
-      );
     } else {
-      onSelect();
+      onSelectRef.current();
     }
   }
 
@@ -334,9 +333,9 @@ const MultiSelectDropdown = ({
 
   const handleClearAll = () => {
     dispatch({ type: "REPLACE_COMPLETE_STATE", payload: [] });
-    onSelect([], getCategorySelectAllState(), props);
-    if (onClose) {
-      onClose([], getCategorySelectAllState(), props);
+    // onSelect is called via useEffect when alreadyQueuedSelectedState changes
+    if (onCloseRef.current) {
+      onCloseRef.current([], getCategorySelectAllState(), props);
     }
   };
 
@@ -366,13 +365,9 @@ const MultiSelectDropdown = ({
         });
         setSelectAllChecked(true);
       }
-      onSelect(
-        alreadyQueuedSelectedState?.map((e) => e.propsData),
-        getCategorySelectAllState(),
-        props
-      );
+      // onSelect is called via useEffect when alreadyQueuedSelectedState changes
     } else {
-      onSelect();
+      onSelectRef.current();
     }
   };
 
@@ -401,13 +396,9 @@ const MultiSelectDropdown = ({
         ...prev,
         [parentOption.code]: !categorySelected[parentOption.code],
       }));
-      onSelect(
-        alreadyQueuedSelectedState?.map((e) => e.propsData),
-        getCategorySelectAllState(),
-        props
-      );
+      // onSelect is called via useEffect when alreadyQueuedSelectedState changes
     } else {
-      onSelect();
+      onSelectRef.current();
     }
   };
 
