@@ -51,7 +51,7 @@
     "react-data-table-component": "7.6.2",
     "@egovernments/digit-ui-svg-components": "2.0.0-dev-01",
     "@egovernments/digit-ui-libraries": "2.0.0-dev-01",
-    "@egovernments/digit-ui-components-css": "2.0.0-dev-04",
-    "@egovernments/digit-ui-components": "2.0.0-dev-06"
+    "@egovernments/digit-ui-components-css": "2.0.0-dev-05",
+    "@egovernments/digit-ui-components": "2.0.0-dev-07"
   }
 }
