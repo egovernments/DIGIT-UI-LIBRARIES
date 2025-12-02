@@ -487,8 +487,8 @@ const FieldV1 = ({
                   maxLength: 64,
                 })
               )}
+              <span style={{ color: "#B91900" }}>{required ? " * " : null}</span>
             </label>
-            <div style={{ color: "#B91900" }}>{required ? " * " : null}</div>
             {infoMessage ? (
               <div className="info-icon">
                 <SVG.InfoOutline
