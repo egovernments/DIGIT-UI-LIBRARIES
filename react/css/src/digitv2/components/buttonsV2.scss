@@ -380,6 +380,7 @@
 .digit-selector-button-primary {
   @apply h-8 text-center border-b-2 border-input-border border-solid outline-none px-lg;
   background-color: var(--digitv2-lightTheme-primary-1);
+  border-bottom-width: 2px;
 
   &:focus {
     @apply outline-none;
@@ -392,6 +393,7 @@
 
 .digit-selector-button-border {
   @apply h-8 bg-border text-center border-b-2 border-input-border border-solid outline-none px-lg;
+  border-bottom-width: 2px;
 
   &:focus {
     @apply outline-none;
@@ -405,6 +407,7 @@
 .digit-selector-button-primary-disabled {
   @apply h-8 text-center border-b-2 border-input-border border-solid outline-none px-lg opacity-50;
   background-color: var(--digitv2-lightTheme-primary-1);
+  border-bottom-width: 2px;
 
   &:focus {
     @apply outline-none;

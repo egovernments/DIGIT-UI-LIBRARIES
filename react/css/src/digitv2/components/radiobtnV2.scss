@@ -80,6 +80,7 @@
   .digit-radio-btn-checkmark {
     @extend .light-input-border;
     @apply h-6 w-6 border border-input-border border-solid rounded-full block;
+    border-width:1px;
   }
 
   label {
@@ -141,4 +142,8 @@
   div {
     @apply flex flex-row-reverse place-content-between items-center;
   }
+}
+
+.digit-radio-options-wrap .digit-radio-btn-checkmark{ 
+  border-width: 1px
 }
