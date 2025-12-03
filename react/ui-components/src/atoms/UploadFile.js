@@ -55,18 +55,18 @@ const UploadFile = (props) => {
         } ${props.disabled ? " disabled" : ""}`}
         style={props?.style}
       >
-        <div className="digit-upload-file-button-wrap">
+        <div className="digit-upload-file-button-wrap" style={{marginTop: "1.9px"}}>
           <ButtonSelector
             theme="border"
             label={t("CS_COMMON_CHOOSE_FILE")}
-            style={{ ...(props?.extraStyles ? props?.extraStyles?.buttonStyles : {}), ...(!props?.enableButton ? { opacity: 0.5 } : {}) }}
+            style={{ ...(props?.extraStyles ? props?.extraStyles?.buttonStyles : {}), ...(!props?.enableButton ? { opacity: 0.5 } : {})}}
             textStyles={props?.textStyles}
             type={props.buttonType}
           />
           {props?.uploadedFiles?.map((file, index) => {
             const fileDetailsData = file[1];
             return (
-              <div className="digit-tag-container">
+              <div className="digit-tag-container" style={{justifyContent: "unset"}}>
                 <Chip
                   key={index}
                   hideClose={false}
@@ -76,7 +76,7 @@ const UploadFile = (props) => {
               </div>
             );
           })}
-          {props?.uploadedFiles.length === 0 && <h2 className="digit-file-upload-status">{props.message}</h2>}
+          {props?.uploadedFiles.length === 0 && <h2 className="digit-file-upload-status" style={{marginLeft: "1rem"}}>{props.message}</h2>}
         </div>
         <input
           className={props.disabled ? "disabled" : "" + "digit-input-mirror-selector-button"}

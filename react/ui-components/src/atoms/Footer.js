@@ -45,7 +45,7 @@ const Footer = (props) => {
 
 
   return (
-    <div className={`digit-action-bar-wrap ${props?.className ? props?.className : ""}`} style={props?.style}>
+    <div className={`digit-action-bar-wrap ${props?.className ? props?.className : ""}`} style={isMobileView ? (props?.style? {...props?.style,height:"4rem"} : {height:"4rem"}): props?.style}>
       {hasActionFields && (
         <div
           className={`digit-action-bar-fields ${

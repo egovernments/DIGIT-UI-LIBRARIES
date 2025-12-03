@@ -40,16 +40,17 @@ const Chip = ({
         !disabled && onTagClick ? "cp" : ""
       }`}
       onClick={disabled ? null : onTagClick}
+      style={{marginTop: "0rem"}}
     >
       <div
         className={`digit-tag ${isErrorTag ? "errortag" : ""} ${hideClose ? "noClose" : ""} ${!iconReq ? "noIcon" : ""} ${onTagClick || onClick ? "clickable" : ""} ${
           className ? className : ""
         }`}
-        style={tagStyles}
+        style={{...tagStyles, gridGap: 0, gap: 0}}
       >
         {iconReq && IconRender(iconReq,isErrorTag)}
         <span className="digit-text" style={textStyles}>
-          {text}
+          {text.length > 20 ? text.slice(0, 20) + "..." : text}
         </span>
         {
           !hideClose &&         <span
