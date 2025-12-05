@@ -19,7 +19,8 @@ const LandingPageCard = ({
   buttonSize,
   onMetricClick,
   centreChildren,
-  endChildren
+  endChildren,
+  hideHeaderDivider
 }) => {
   const history = useHistory();
 
@@ -82,7 +83,7 @@ const LandingPageCard = ({
           </div>
         )}
       </div>
-      {!hideDivider && (
+      {!hideHeaderDivider && (
         <Divider className="digit-landingpage-divider" variant={"small"} />
       )}
       {metrics && metrics.length > 0 && (

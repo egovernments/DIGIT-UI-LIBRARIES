@@ -8,8 +8,13 @@ const MobileNumber = (props) => {
 
   const onChange = (e) => {
     let val = e.target.value;
+    // Prevent non-numeric characters, spaces, and scientific notation
     if (isNaN(val) || [" ", "e", "E"].some((e) => val.includes(e)) || val.length > (props.maxLength || 10)) {
       val = val.slice(0, -1);
+    }
+    // Prevent starting with 0
+    if (val.length > 0 && val[0] === "0") {
+      val = val.slice(1);
     }
     props?.onChange?.(val);
   };

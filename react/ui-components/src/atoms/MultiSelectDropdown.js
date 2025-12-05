@@ -84,7 +84,7 @@ const MultiSelectDropdown = ({
   }, [selected?.length]);
 
   function fnToSelectOptionThroughProvidedSelection(selected) {
-    return selected?.map((e) => ({ code: e?.code, name: e?.name,propsData: [null, e] }));
+    return selected?.length > 0 ? selected?.map((e) => ({ code: e?.code, name: e?.name,propsData: [null, e] })) : [];
   }
   const [alreadyQueuedSelectedState, dispatch] = useReducer(
     reducer,

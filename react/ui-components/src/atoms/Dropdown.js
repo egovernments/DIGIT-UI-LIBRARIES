@@ -456,7 +456,7 @@ const Dropdown = (props) => {
       className={`${
         user_type === "employee"
           ? "digit-dropdown-employee-select-wrap"
-          : "digit-dropdown-select-wrap"
+          : "digit-dropdown-employee-select-wrap"
       } ${props?.className ? props?.className : ""}`}
       style={props?.style || {}}
       ref={dropdownComponentRef}
@@ -501,9 +501,9 @@ const Dropdown = (props) => {
           style={
             props.errorStyle
               ? {
-                  ...(props.noBorder ? { border: "none" } : {}),
+                  ...(props.noBorder ? { border: "none" } : {borderRadius: "4px"}),
                 }
-              : { ...(props.noBorder ? { border: "none" } : {}) }
+              : { ...(props.noBorder ? { border: "none" } : {borderRadius: "4px"}) }
           }
           onClick={
             props.variant === "treedropdown" || !props.isSearchable
@@ -596,7 +596,7 @@ const Dropdown = (props) => {
           <div
             id="jk-dropdown-unique"
             className={`digit-dropdown-options-card`}
-            style={{ ...props.optionCardStyles }}
+            style={{ ...props.optionCardStyles, maxHeight: "8vmax"  }}
             ref={optionRef}
           >
             {props.variant === "treedropdown" ? (

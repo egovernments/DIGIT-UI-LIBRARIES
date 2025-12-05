@@ -189,7 +189,7 @@ const SidePanel = ({
               : closedContents}
           </div>
 
-          {footer && isOpen && <div className="slider-footer">{footer}</div>}
+          {footer && isOpen && <div style={{marginBottom:"0px"}} className="slider-footer">{footer}</div>}
           {closedFooter && !isOpen && <div className="slider-footer">{closedFooter}</div>}
         </div>
       </div>
