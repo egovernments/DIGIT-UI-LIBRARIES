@@ -21,7 +21,7 @@ const TextBlock = ({
           className={`digit-text-block-header-content ${headerContentClassName}`}
         >
           {caption && (
-            <div className={`digit-text-block-caption ${captionClassName}`} style={{fontSize:"small"}}>
+            <div className={`digit-text-block-caption ${captionClassName}`}>
               {caption}
             </div>
           )}
