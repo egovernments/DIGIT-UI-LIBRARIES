@@ -49,7 +49,7 @@ const Chip = ({
       >
         {iconReq && IconRender(iconReq,isErrorTag)}
         <span className="digit-text" style={textStyles}>
-          {text}
+          {text.length > 20 ? text.slice(0, 20) + "..." : text}
         </span>
         {
           !hideClose &&         <span

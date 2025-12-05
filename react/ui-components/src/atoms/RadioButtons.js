@@ -5,8 +5,8 @@ import StringManipulator from "./StringManipulator";
 import { useTranslation } from "react-i18next";
 
 const RadioButtons = (props) => {
-  const { t: i18nT } = useTranslation();
-  const t = props?.t || i18nT;
+  const { t } = useTranslation();
+
   var selected = props?.selectedOption;
   function selectOption(value) {
     props.onSelect(value);
@@ -17,7 +17,7 @@ const RadioButtons = (props) => {
   );
 
   return (
-    <div style={props?.style} className={`digit-radio-options-wrap ${props?.alignVertical ? "vertical" : ""} ${props?.additionalWrapperClass ? props?.additionalWrapperClass : ""}`}>
+    <div style={{ justifyContent: 'unset', gap: '1.5rem', ...props?.style }} className={`digit-radio-options-wrap ${props?.alignVertical ? "vertical" : ""} ${props?.additionalWrapperClass ? props?.additionalWrapperClass : ""}`}>
       {props?.options?.map((option, ind) => {
         if (props?.optionsKey && !props?.isDependent) {
           return (
@@ -27,7 +27,7 @@ const RadioButtons = (props) => {
                   className="digit-radio-btn"
                   type="radio"
                   value={option}
-                  checked={(selected === option?.code) || isEqual(selected, option) ? 1 : 0}
+                  checked={(selected === option?.code) || (selected?.code === option?.code) || isEqual(selected, option) ? 1 : 0}
                   onChange={() => selectOption(option)}
                   disabled={props?.disabled}
                   name={props?.name}

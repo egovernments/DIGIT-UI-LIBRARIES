@@ -131,11 +131,14 @@ const PopUp = (props) => {
   };
 
   const handleOverlayClick = () => {
+  const closeHandler = props?.onOverlayClick || props?.onClose;
+  if (closeHandler) {
     setIsClosing(true);
     setTimeout(() => {
-      props?.onOverlayClick();
+      closeHandler();
     }, 300);
-  };
+  }
+};
 
   return (
     <div
@@ -144,19 +147,19 @@ const PopUp = (props) => {
       ref={overlayRef}
       onKeyDown={handleKeyDown}
       tabIndex={0}
+      style={{ pointerEvents: "auto" }}   // <-- FIX: Changed from none to auto
     >
       <div
-        className={`digit-popup-wrapper ${isClosing ? 'closing' : ''} ${
-          props?.className ? props?.className : ""
-        } ${props?.type ? props?.type : ""}`}
-        style={props?.style}
+        className={`digit-popup-wrapper ${isClosing ? 'closing' : ''} ${props?.className ? props?.className : ""
+          } ${props?.type ? props?.type : ""}`}
+        style={{ ...props?.style }}
         onClick={(e) => e.stopPropagation()}
       >
+
         {props?.type === "alert" ? (
           <div
-            className={`digit-popup-alert-content ${
-              isOverflowing ? "with-shadow" : ""
-            }`}
+            className={`digit-popup-alert-content ${isOverflowing ? "with-shadow" : ""
+              }`}
           >
             {!props?.customIcon && props?.showAlertAsSvg && (
               <SVG.Warning
@@ -186,9 +189,8 @@ const PopUp = (props) => {
         ) : (
           <>
             <div
-              className={`digit-popup-header ${
-                props?.headerclassName ? props?.headerclassName : ""
-              }  ${isOverflowing ? "with-shadow" : ""}`}
+              className={`digit-popup-header ${props?.headerclassName ? props?.headerclassName : ""
+                }  ${isOverflowing ? "with-shadow" : ""}`}
               style={{ display: "flex" }}
             >
               <div
@@ -256,11 +258,9 @@ const PopUp = (props) => {
         )}
         <div
           ref={childrenWrapRef}
-          className={`digit-popup-children-wrap ${
-            props?.showChildrenInline ? "inline" : ""
-          } ${isOverflowing ? "with-shadow" : ""} ${
-            !hasFooterChildren ? "without-footer" : ""
-          }`}
+          className={`digit-popup-children-wrap ${props?.showChildrenInline ? "inline" : ""
+            } ${isOverflowing ? "with-shadow" : ""} ${!hasFooterChildren ? "without-footer" : ""
+            }`}
         >
           {props?.description && (
             <div className="digit-popup-description">{props?.description}</div>
@@ -269,14 +269,12 @@ const PopUp = (props) => {
         </div>
         {hasFooterChildren && (
           <div
-            className={`digit-popup-footer ${
-              props?.footerclassName ? props?.footerclassName : ""
-            } ${isOverflowing ? "with-shadow" : ""}`}
+            className={`digit-popup-footer ${props?.footerclassName ? props?.footerclassName : ""
+              } ${isOverflowing ? "with-shadow" : ""}`}
           >
             <div
-              className={`digit-popup-footer-buttons ${
-                props?.equalWidthButtons ? "equal-buttons" : ""
-              }`}
+              className={`digit-popup-footer-buttons ${props?.equalWidthButtons ? "equal-buttons" : ""
+                }`}
               style={{ ...props?.footerStyles }}
             >
               {finalFooterArray}

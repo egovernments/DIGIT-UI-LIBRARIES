@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+### [0.2.4] - 2025-12-05
+-New components introduced during studio development : MultiChildFormWrapper and UploadAndDownloadDocumentHandler
+- Few enhancements in existing components including formcomposer and inboxsearchcomposer
+- New SVGs introduced in customSVG
+- exporting all the svg items separately in index.js file as at many places they are being imported directly
+
 ### [0.2.3] - 2025-10-23
 ## 📦 Version Updates
 

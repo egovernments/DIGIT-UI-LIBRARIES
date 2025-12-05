@@ -16,6 +16,9 @@ import AppLocalisationWrapper from "./app-config-screen-builder/AppLocalisationW
 import BoundaryFilter from "./BoundaryFilter";
 import { useCustomT } from "./app-config-screen-builder/app-config-utils/useCustomT";
 import { setConstantsforAppConfig } from "./app-config-screen-builder/app-config-utils/constants";
+// Local additions - components used by FormComposerV2 and FieldV1
+import MultiChildFormWrapper from "./MultiChildFormWrapper";
+import UploadAndDownloadDocumentHandler from "./UploadAndDownloadDocumentHandler";
 
 export {
   FieldComposer,
@@ -36,4 +39,7 @@ export {
   AppLocalisationWrapper,
   useCustomT,
   setConstantsforAppConfig,
+  // Local additions
+  MultiChildFormWrapper,
+  UploadAndDownloadDocumentHandler,
 };
