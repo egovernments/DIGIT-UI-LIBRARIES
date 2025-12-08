@@ -23,7 +23,7 @@ const getUnique = (arr) => {
 };
 
 const LocalizationStore = {
-  getCaheData: async (key) => {    
+  getCacheData: async (key) => {    
       const idbValue = await IndexedDbStorage.get(key);
       return idbValue;    
   },
@@ -32,9 +32,9 @@ const LocalizationStore = {
     const ttl = cacheSetting?.cacheTimeInSecs || null;
     await IndexedDbStorage.set(key, value, ttl);
   },
-  getList: async(locale) => (await LocalizationStore.getCaheData(LOCALE_LIST(locale))) || [],
+  getList: async(locale) => (await LocalizationStore.getCacheData(LOCALE_LIST(locale))) || [],
   setList: async(locale, namespaces) => LocalizationStore.setCacheData(LOCALE_LIST(locale), namespaces),
-  getAllList: async() => (await LocalizationStore.getCaheData(LOCALE_ALL_LIST())) || [],
+  getAllList: async() => (await LocalizationStore.getCacheData(LOCALE_ALL_LIST())) || [],
   setAllList: async(namespaces) => LocalizationStore.setCacheData(LOCALE_ALL_LIST(), namespaces),
   store: async (locale, modules, messages) => {
     const AllNamespaces = await LocalizationStore.getAllList();
@@ -57,7 +57,7 @@ const LocalizationStore = {
     }
     const messages = [];
     for (const module of storedModules) {
-      const moduleMsgs = await LocalizationStore.getCaheData(LOCALE_MODULE(locale, module));
+      const moduleMsgs = await LocalizationStore.getCacheData(LOCALE_MODULE(locale, module));
       if (moduleMsgs) messages.push(...moduleMsgs);
     }
     return [newModules, messages];
