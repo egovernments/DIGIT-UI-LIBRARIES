@@ -3,6 +3,7 @@
     @extend .light-paper-primary;
     height: 100%;
     width: 100%;
+    border-radius:var(--digitv2-borderRadius-radius5);
 
     .popup-label {
         display: flex;
@@ -111,6 +112,7 @@
                 flex-direction: column;
 
                 .digit-section {
+                    border-radius: var(--digitv2-borderRadius-radius5);
                     &.links {
                         display: none;
                     }
