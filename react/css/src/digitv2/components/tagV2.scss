@@ -10,6 +10,7 @@
     align-items: center;
     width: fit-content;
     justify-content: center;
+    border-radius: var(--digitv2-borderRadius-radius3);
 
     &.left {
         justify-content: flex-start;

@@ -464,3 +464,22 @@
     }
   }
 }
+
+.digit-button-primary,
+.digit-button-secondary,
+.digit-button-teritiary,
+.digit-button-default {
+  &.large {
+    border-radius: var(--digitv2-borderRadius-radius3);
+  }
+
+  &.medium,
+  &.small {
+    border-radius: var(--digitv2-borderRadius-radius2);
+  }
+}
+
+.digit-submit-bar,
+.digit-selector-button-primary {
+  border-radius: var(--digitv2-borderRadius-radius2);
+}

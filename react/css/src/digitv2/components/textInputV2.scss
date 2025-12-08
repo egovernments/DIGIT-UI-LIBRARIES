@@ -479,3 +479,58 @@
   opacity: 0.4;
   cursor: not-allowed;
 }
+
+.digit-employeeCard-input,
+.digit-citizenCard-input,
+.digit-employeeCard-inputError,
+.digit-card-inputError,
+.digit-dropdown-select-active,
+.digit-dropdown-select,
+.digit-multiselectdropdown-master,
+.digit-employee-card-textarea-field,
+.digit-card-textarea-field {
+  border-radius: var(--digitv2-borderRadius-radius2);
+}
+
+.digit-text-input-field {
+  &.numeric {
+    .digit-employeeCard-input,
+    .digit-citizenCard-input,
+    .digit-employeeCard-inputError,
+    .digit-card-inputError {
+      border-radius: var(--digitv2-borderRadius-radius0);
+    }
+  }
+
+  &.prefix{
+    .digit-employeeCard-input,
+    .digit-citizenCard-input,
+    .digit-employeeCard-inputError,
+    .digit-card-inputError {
+      border-top-left-radius: var(--digitv2-borderRadius-radius0);
+      border-bottom-left-radius: var(--digitv2-borderRadius-radius0);
+    }
+  }
+
+  &.suffix {
+    .digit-employeeCard-input,
+    .digit-citizenCard-input,
+    .digit-employeeCard-inputError,
+    .digit-card-inputError {
+      border-top-right-radius: var(--digitv2-borderRadius-radius0);
+      border-bottom-right-radius: var(--digitv2-borderRadius-radius0);
+    }
+  }
+}
+
+.digit-prefix,
+.digit-numeric-button-prefix{
+  border-top-left-radius: var(--digitv2-borderRadius-radius2);
+  border-bottom-left-radius: var(--digitv2-borderRadius-radius2);
+}
+
+.digit-suffix,
+.digit-numeric-button-suffix{
+  border-top-right-radius:var(--digitv2-borderRadius-radius2);
+  border-bottom-right-radius: var(--digitv2-borderRadius-radius2);
+}
