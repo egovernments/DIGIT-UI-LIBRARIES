@@ -48,7 +48,7 @@
   ],
   "dependencies": {
     "@egovernments/digit-ui-svg-components": "2.0.0-dev-01",
-    "@egovernments/digit-ui-libraries": "2.0.0-dev-01",
+    "@egovernments/digit-ui-libraries": "2.0.0-dev-02",
     "@egovernments/digit-ui-components-css":"2.0.0-dev-06",
     "autoprefixer": "^10.4.15",
     "date-fns": "3.6.0",
