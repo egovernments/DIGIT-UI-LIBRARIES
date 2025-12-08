@@ -127,6 +127,8 @@ const RenderFormFields = ({ data, ...props }) => {
                 value={field.value}
                 disable={disable}
                 errorStyle={errors?.[populators?.name]}
+                prefix={populators?.prefix}
+                hideSpan={populators?.hideSpan}
               />
             )}
             defaultValue={populators.defaultValue}

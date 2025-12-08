@@ -124,6 +124,20 @@
   --digitv2-divider-dividerS: 0.063rem solid #D6D5D4;
   --digitv2-divider-dividerM: 0.125rem solid #D6D5D4;
   --digitv2-divider-dividerL: 0.25rem solid #D6D5D4;
+  --digitv2-borderRadius-radius0: 0rem;
+  --digitv2-borderRadius-radius1: 0.25rem;
+  --digitv2-borderRadius-radius2: 0.375rem;
+  --digitv2-borderRadius-radius3: 0.5rem;
+  --digitv2-borderRadius-radius4: 0.625rem;
+  --digitv2-borderRadius-radius5: 0.75rem;
+  --digitv2-borderRadius-radius6: 0.875rem;
+  --digitv2-borderRadius-radius7: 1rem;
+  --digitv2-borderRadius-radius8: 1.125rem;
+  --digitv2-borderRadius-radius9: 1.25rem;
+  --digitv2-borderRadius-radius10: 1.5rem;
+  --digitv2-borderRadius-radius11: 1.75rem;
+  --digitv2-borderRadius-radius12: 2rem;
+  --digitv2-borderRadius-radius13: 2.5rem;
 }
 
 /* Usage Examples:
