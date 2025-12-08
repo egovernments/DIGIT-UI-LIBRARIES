@@ -3,6 +3,7 @@ import { PersistantStorage } from "../../atoms/Utils/Storage";
 import i18next from "i18next";
 import { Request } from "../../atoms/Utils/Request";
 import { ApiCacheService } from "../../atoms/ApiCacheService";
+import { IndexedDbStorage } from "../../atoms/Utils/IndexedDbStorage";
 
 const LOCALE_LIST = (locale) => `Locale.${locale}.List`;
 const LOCALE_ALL_LIST = () => `Locale.List`;
@@ -22,38 +23,43 @@ const getUnique = (arr) => {
 };
 
 const LocalizationStore = {
-  getCaheData: (key) => PersistantStorage.get(key),
-  setCacheData: (key, value) => {
-    const cacheSetting = ApiCacheService.getSettingByServiceUrl(Urls.localization);
-    PersistantStorage.set(key, value, cacheSetting.cacheTimeInSecs);
+  getCaheData: async (key) => {    
+      const idbValue = await IndexedDbStorage.get(key);
+      return idbValue;    
   },
-  getList: (locale) => LocalizationStore.getCaheData(LOCALE_LIST(locale)) || [],
-  setList: (locale, namespaces) => LocalizationStore.setCacheData(LOCALE_LIST(locale), namespaces),
-  getAllList: () => LocalizationStore.getCaheData(LOCALE_ALL_LIST()) || [],
-  setAllList: (namespaces) => LocalizationStore.setCacheData(LOCALE_ALL_LIST(), namespaces),
-  store: (locale, modules, messages) => {
-    const AllNamespaces = LocalizationStore.getAllList();
-    const Namespaces = LocalizationStore.getList(locale);
-    modules.forEach((module) => {
+  setCacheData: async (key, value) => {
+    const cacheSetting = ApiCacheService.getSettingByServiceUrl(Urls.localization);
+    const ttl = cacheSetting?.cacheTimeInSecs || null;
+    await IndexedDbStorage.set(key, value, ttl);
+  },
+  getList: async(locale) => (await LocalizationStore.getCaheData(LOCALE_LIST(locale))) || [],
+  setList: async(locale, namespaces) => LocalizationStore.setCacheData(LOCALE_LIST(locale), namespaces),
+  getAllList: async() => (await LocalizationStore.getCaheData(LOCALE_ALL_LIST())) || [],
+  setAllList: async(namespaces) => LocalizationStore.setCacheData(LOCALE_ALL_LIST(), namespaces),
+  store: async (locale, modules, messages) => {
+    const AllNamespaces = await LocalizationStore.getAllList();
+    const Namespaces = await LocalizationStore.getList(locale);
+    for (const module of modules) {
       if (!Namespaces.includes(module)) {
         Namespaces.push(module);
         const moduleMessages = messages.filter((message) => message.module === module);
-        LocalizationStore.setCacheData(LOCALE_MODULE(locale, module), moduleMessages);
+        await LocalizationStore.setCacheData(LOCALE_MODULE(locale, module), moduleMessages);
       }
-    });
-    LocalizationStore.setCacheData(LOCALE_LIST(locale), Namespaces);
-    LocalizationStore.setAllList(getUnique([...AllNamespaces, ...Namespaces]));
+    }
+    await LocalizationStore.setCacheData(LOCALE_LIST(locale), Namespaces);
+    await LocalizationStore.setAllList(getUnique([...AllNamespaces, ...Namespaces]));
   },
-  get: (locale, modules) => {
-    const storedModules = LocalizationStore.getList(locale);
+  get:async (locale, modules) => {
+    const storedModules = await LocalizationStore.getList(locale);
     const newModules = modules.filter((module) => !storedModules.includes(module));
     if (Digit.Utils.getMultiRootTenant()) {
       newModules.push("digit-tenants");
     }
     const messages = [];
-    storedModules.forEach((module) => {
-      messages.push(...LocalizationStore.getCaheData(LOCALE_MODULE(locale, module)));
-    });
+    for (const module of storedModules) {
+      const moduleMsgs = await LocalizationStore.getCaheData(LOCALE_MODULE(locale, module));
+      if (moduleMsgs) messages.push(...moduleMsgs);
+    }
     return [newModules, messages];
   },
 
@@ -73,7 +79,7 @@ export const LocalizationService = {
     if (locale.indexOf(Digit.Utils.getLocaleRegion()) === -1) {
       locale += Digit.Utils.getLocaleRegion();
     }
-    const [newModules, messages] = LocalizationStore.get(locale, modules);
+    const [newModules, messages] = await LocalizationStore.get(locale, modules);
     if (newModules.length > 0) {
       const data = await Request({ url: Urls.localization, params: { module: newModules.join(","), locale, tenantId }, useCache: false });
       messages.push(...data.messages);
@@ -83,7 +89,7 @@ export const LocalizationService = {
     return messages;
   },
   getUpdatedMessages: async ({ modules = [], locale = Digit.Utils.getDefaultLanguage(), tenantId }) => {
-    const [module, messages] = LocalizationStore.get(locale, modules);
+    const [module, messages] = await LocalizationStore.get(locale, modules);
     const data = await Request({ url: Urls.localization, params: { module: modules.join(","), locale, tenantId }, useCache: false });
     const uniques = getUniqueData(messages,data.messages);
     messages.push(...uniques);
@@ -91,11 +97,11 @@ export const LocalizationService = {
     LocalizationStore.updateResources(locale, messages);
     return messages;
   },
-  changeLanguage: (locale, tenantId) => {
-    const modules = LocalizationStore.getList(locale);
-    const allModules = LocalizationStore.getAllList();
+  changeLanguage: async(locale, tenantId) => {
+    const modules = await LocalizationStore.getList(locale);
+    const allModules = await LocalizationStore.getAllList();
     const uniqueModules = allModules.filter((module) => !modules.includes(module));
-    LocalizationService.getLocale({ modules: uniqueModules, locale, tenantId });
+    await LocalizationService.getLocale({ modules: uniqueModules, locale, tenantId });
     localStorage.setItem("Employee.locale", locale);
     localStorage.setItem("Citizen.locale", locale);
     Digit.SessionStorage.set("locale", locale);
@@ -106,5 +112,13 @@ export const LocalizationService = {
       locale += Digit.Utils.getLocaleRegion();
     }
     LocalizationStore.updateResources(locale, messages);
+  },
+  getLocaleMessage: async ({ modules = [], locale = Digit.Utils.getDefaultLanguage(), tenantId, code }) => {
+    const messages = [];
+    if (modules.length > 0) {
+      const data = await Request({ url: Urls.localization, params: { module: modules.join(","), locale: locale, tenantId }, useCache: false });
+      messages.push(...data.messages);
+    }
+    return messages.find(item => item.code === code)?.message ;
   },
 };

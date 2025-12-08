@@ -1,5 +1,8 @@
 # Changelog
 
+## [2.0.0-dev-02] [08-Dec-2025]
+- Migrated localization caching from localStorage to IndexedDB
+
 ## [2.0.0-dev-01] [29-Aug-2025]
 - Merged with latest react 17 master changes
 
