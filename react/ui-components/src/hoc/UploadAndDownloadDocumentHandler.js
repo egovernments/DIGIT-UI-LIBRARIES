@@ -14,7 +14,7 @@ import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import { Button, CustomSVG } from "../atoms";
 
 const UploadAndDownloadDocumentHandler = ({
-  schemaCode = "DigitStudio.DocumentConfig",
+  schemaCode,
   config,
   Controller,
   control,
@@ -43,7 +43,7 @@ const UploadAndDownloadDocumentHandler = ({
     body: {
       MdmsCriteria: {
         tenantId: tenantId,
-        schemaCode: "Studio.ServiceConfiguration",
+        schemaCode,
         filters:{
           module:module
         }
