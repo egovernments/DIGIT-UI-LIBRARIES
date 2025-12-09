@@ -5,7 +5,8 @@ import StringManipulator from "./StringManipulator";
 import { useTranslation } from "react-i18next";
 
 const RadioButtons = (props) => {
-  const { t } = useTranslation();
+  const { t: i18nT } = useTranslation();
+  const t = props?.t || i18nT;
 
   var selected = props?.selectedOption;
   function selectOption(value) {

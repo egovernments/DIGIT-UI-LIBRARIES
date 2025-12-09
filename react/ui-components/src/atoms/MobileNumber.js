@@ -12,10 +12,6 @@ const MobileNumber = (props) => {
     if (isNaN(val) || [" ", "e", "E"].some((e) => val.includes(e)) || val.length > (props.maxLength || 10)) {
       val = val.slice(0, -1);
     }
-    // Prevent starting with 0
-    if (val.length > 0 && val[0] === "0") {
-      val = val.slice(1);
-    }
     props?.onChange?.(val);
   };
 
