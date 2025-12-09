@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Fragment } from 'react';
+import React, { useEffect, useState, Fragment, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import Card from '../atoms/Card';
 import MultiSelectDropdown from '../atoms/MultiSelectDropdown';
@@ -109,7 +109,7 @@ const BoundaryFilter = (props) => {
     changeQueryName: `${hierarchyType}`,
     body: {
       BoundaryTypeHierarchySearchCriteria: {
-        tenantId: 'dev',
+        tenantId: tenantId,
         limit: 2,
         offset: 0,
         hierarchyType: hierarchyType,
@@ -191,39 +191,37 @@ const BoundaryFilter = (props) => {
 
   }, [hierarchy, hierarchyData, props.frozenData, pathMap]); // Depend on hierarchy & frozenData
 
-  //useEffect for initializeng boundaries mentioned in props?.preselected 
-  useEffect(() => {
-    if (!hierarchy || !props.preSelected) return; // Ensure hierarchy & frozenData exist
+  // Create deep-stable preSelected
+const stablePreSelected = useMemo(
+  () => props.preSelected,
+  [JSON.stringify(props.preSelected)]
+);
 
-    // **Transform frozenData**
-    const transformedPreSelectedData = props.preSelected
-      .filter(item => pathMap?.[item]) // Skip if pathMap[item.code] is missing
-      .map(item => ({
-        code: item,
-        path: pathMap[item],
-        boundaryType: getBoundaryType(pathMap[item], hierarchy),
-        name: item,
+useEffect(() => {
+  if (!hierarchy || !stablePreSelected) return;
 
-      }));
+  const transformedPreSelectedData = stablePreSelected
+    .filter(item => pathMap?.[item])
+    .map(item => ({
+      code: item,
+      path: pathMap[item],
+      boundaryType: getBoundaryType(pathMap[item], hierarchy),
+      name: item,
+    }));
 
+  const groupedData = transformedPreSelectedData.reduce((acc, item) => {
+    if (!item.boundaryType) return acc;
+    if (!acc[item.boundaryType]) acc[item.boundaryType] = [];
+    acc[item.boundaryType].push([null, item]);
+    return acc;
+  }, {});
 
-    // **Group by boundaryType**
-    const groupedData = transformedPreSelectedData.reduce((acc, item) => {
-      if (!item.boundaryType) return acc; // Skip if boundaryType is undefined
-      if (!acc[item.boundaryType]) {
-        acc[item.boundaryType] = [];
-      }
-      acc[item.boundaryType].push([null, item]); // Ensure each item follows the expected structure
-      return acc;
-    }, {});
+  Object.entries(groupedData).forEach(([boundaryType, values]) => {
+    boundaryOptionsUpdate(boundaryType, values, "Multi", true);
+  });
 
-    // **Call boundaryOptionsUpdate for each boundaryType**
-    Object.entries(groupedData).forEach(([boundaryType, values]) => {
-      // Ensure `values` is an array of arrays
-      boundaryOptionsUpdate(boundaryType, values, "Multi", true);
-    });
+}, [hierarchy, hierarchyData, stablePreSelected, pathMap]);
 
-  }, [hierarchy, hierarchyData, props.preSelected, pathMap]); // Depend on hierarchy & frozenData
 
 
   // If a boundary JSON path is provided, traverse boundaryHierarchyData to find the node and return its children
@@ -390,12 +388,13 @@ const BoundaryFilter = (props) => {
 
   };
 
-
   useEffect(() => {
-    if (props?.onChange) {
-      props?.onChange(selectedValuesCodes);
-    }
-  }, [selectedValuesCodes])
+    if (!props?.onChange) return;
+  
+    // Trigger only when actual content changes
+    props.onChange([...selectedValuesCodes]);
+  
+  }, [selectedValuesCodes.join(",")]);
 
 
   // Initialize root level and hierarchy from highest to lowest
@@ -502,12 +501,11 @@ const BoundaryFilter = (props) => {
               return highestIndex <= index && index <= lowestIndex;
             })?.map((item) => {
 
-
               return (item?.boundaryType === rootBoundaryType) ? (
                 <LabelFieldPair key={item.boundaryType} className="boundary-item" vertical={!updatedLayoutConfig?.isLabelFieldLayoutHorizontal}>
-                  <CardLabel className={"boundary-selection-label"}>
+                  {!updatedLayoutConfig?.isLabelNotNeeded && <CardLabel className={"boundary-selection-label"}>
                     {item?.boundaryType}
-                  </CardLabel>
+                  </CardLabel>}
                   <div className="digit-field-full">
                     {!(props?.levelConfig?.isSingleSelect && props?.levelConfig?.isSingleSelect?.includes(item?.boundaryType)) ?
                       <MultiSelectDropdown
@@ -575,9 +573,9 @@ const BoundaryFilter = (props) => {
 
                     return (
                       <LabelFieldPair key={item.boundaryType} className="boundary-item" vertical={!updatedLayoutConfig?.isLabelFieldLayoutHorizontal}>
-                        <CardLabel className={"boundary-selection-label"}>
+                        {!updatedLayoutConfig?.isLabelNotNeeded  && <CardLabel className={"boundary-selection-label"}>
                           {t((hierarchyType + "_" + item?.boundaryType).toUpperCase())}
-                        </CardLabel>
+                        </CardLabel>}
                         <div className="digit-field-full">
                           {!(props?.levelConfig?.isSingleSelect && props?.levelConfig?.isSingleSelect?.includes(item?.boundaryType)) ?
                             <>

@@ -73,38 +73,68 @@ const InboxSearchComposer = ({configs,additionalConfig,onFormValueChange=()=>{},
     useEffect(()=>{
         clearSessionFormData();
     },[]);
+
+    // Clear reducer state and session storage when component unmounts
+    useEffect(() => {
+        return () => {
+            // Clear session storage
+            clearSessionFormData();
+
+            // Reset search and filter forms to default values
+            if (configs?.sections?.search?.uiConfig?.defaultValues) {
+                dispatch({
+                    type: "clearSearchForm",
+                    state: configs.sections.search.uiConfig.defaultValues
+                });
+            }
+            if (configs?.sections?.filter?.uiConfig?.defaultValues) {
+                dispatch({
+                    type: "clearFilterForm",
+                    state: configs.sections.filter.uiConfig.defaultValues
+                });
+            }
+        };
+    }, [configs]);
     
     useEffect(() => {
         //here if jsonpaths for search & table are same then searchform gets overridden
-        
+        const newApiDetails = { ...apiDetails };
+
         if (Object.keys(state.searchForm)?.length >= 0) {
-            const result = { ..._.get(apiDetails, apiDetails?.searchFormJsonPath, {}), ...state.searchForm }
+            const result = { ..._.get(newApiDetails, newApiDetails?.searchFormJsonPath, {}), ...state.searchForm }
             Object.keys(result).forEach(key => {
                 if (!result[key]) delete result[key]
             });
-            _.set(apiDetails, apiDetails?.searchFormJsonPath, result)
+            _.set(newApiDetails, newApiDetails?.searchFormJsonPath, result)
         }
         if (Object.keys(state.filterForm)?.length >= 0) {
-            const result = { ..._.get(apiDetails, apiDetails?.filterFormJsonPath, {}), ...state.filterForm }
+            const result = { ..._.get(newApiDetails, newApiDetails?.filterFormJsonPath, {}), ...state.filterForm }
             Object.keys(result).forEach(key => {
                 if (!result[key] || result[key]?.length===0) delete result[key]
             });
-            _.set(apiDetails, apiDetails?.filterFormJsonPath, result)
+            _.set(newApiDetails, newApiDetails?.filterFormJsonPath, result)
         }
-        
+
         if(Object.keys(state.tableForm)?.length >= 0) {
-            _.set(apiDetails, apiDetails?.tableFormJsonPath, { ..._.get(apiDetails, apiDetails?.tableFormJsonPath, {}),...state.tableForm })  
+            _.set(newApiDetails, newApiDetails?.tableFormJsonPath, { ..._.get(newApiDetails, newApiDetails?.tableFormJsonPath, {}),...state.tableForm })
         }
+
+        if (JSON.stringify(newApiDetails) !== JSON.stringify(apiDetails)) {
+            setApiDetails(newApiDetails);
+        }
+
         const searchFormParamCount = Object.keys(state.searchForm).reduce((count,key)=>state.searchForm[key]===""?count:count+1,0)
         const filterFormParamCount = Object.keys(state.filterForm).reduce((count, key) => state.filterForm[key] === "" ? count : count + 1, 0)
-        
+
         if (Object.keys(state.tableForm)?.length > 0 && (searchFormParamCount >= apiDetails?.minParametersForSearchForm || filterFormParamCount >= apiDetails?.minParametersForFilterForm)){
-            setEnable(true)
+            if (!enable) setEnable(true)
         }
 
-        if(configs?.type === 'inbox' || configs?.type === 'download') setEnable(true)
+        if(configs?.type === 'inbox' || configs?.type === 'download') {
+            if (!enable) setEnable(true)
+        }
 
-    },[state])
+    },[state, apiDetails, enable, configs?.type])
     
 
     useEffect(() => {
@@ -112,15 +142,18 @@ const InboxSearchComposer = ({configs,additionalConfig,onFormValueChange=()=>{},
     }, [state])
     
 
-    let requestCriteria = {
+    const requestCriteria = useMemo(() => ({
         url:configs?.apiDetails?.serviceName,
         params:configs?.apiDetails?.requestParam,
         body:configs?.apiDetails?.requestBody,
         config: {
             enabled: enable,
+            cacheTime:0,
+            staleTime:0,
+            keepPreviousData:false
         },
         state
-    };
+    }), [configs?.apiDetails?.serviceName, configs?.apiDetails?.requestParam, configs?.apiDetails?.requestBody, enable, state]);
 
     //clear the reducer state when user moves away from inbox screen(it already resets when component unmounts)(keeping this code here for reference)
     // useEffect(() => {
@@ -140,9 +173,12 @@ const InboxSearchComposer = ({configs,additionalConfig,onFormValueChange=()=>{},
     //         }
     //     };
     // }, [location]);
-    
+
     const configModule = Digit?.Customizations?.[apiDetails?.masterName]?.[apiDetails?.moduleName]
-    const updatedReqCriteria = configModule?.preProcess ? configModule?.preProcess(requestCriteria,configs.additionalDetails) : requestCriteria 
+    const updatedReqCriteria = useMemo(() =>
+        configModule?.preProcess ? configModule?.preProcess(requestCriteria,configs.additionalDetails) : requestCriteria,
+        [requestCriteria, configModule, configs.additionalDetails]
+    ) 
     
     if(configs?.customHookName){
         var { isLoading, data, revalidate,isFetching,refetch,error } = eval(`Digit.Hooks.${configs.customHookName}(updatedReqCriteria)`);
@@ -151,6 +187,11 @@ const InboxSearchComposer = ({configs,additionalConfig,onFormValueChange=()=>{},
        var { isLoading, data, revalidate,isFetching,error,refetch } = Digit.Hooks.useCustomAPIHook(updatedReqCriteria);
         
     }
+      
+    //usecustomAPI hook is getting cached during pagination, assignee, and status updates also hence adding this fix.
+    useEffect(() => {
+      refetch();
+    }, [updatedReqCriteria?.body?.inbox?.limit, updatedReqCriteria?.body?.inbox?.offset, updatedReqCriteria?.body?.inbox?.moduleSearchCriteria?.assignee, updatedReqCriteria?.body?.inbox?.moduleSearchCriteria?.status]);
 
     const closeToast = () => {
         setTimeout(() => {
@@ -174,12 +215,12 @@ const InboxSearchComposer = ({configs,additionalConfig,onFormValueChange=()=>{},
     }, [additionalConfig?.search?.callRefetch])
     
 
-    useEffect(() => {
-        return () => {
-            revalidate();
-            setEnable(false);
-        };
-    })
+    // useEffect(() => {
+    //     return () => {
+    //         revalidate();
+    //         setEnable(false);
+    //     };
+    // })
 
     //for mobile view
     const handlePopupClose = () => {

@@ -38,8 +38,8 @@ const TextArea = (props) => {
         }}
         className={`${
           user_type !== "citizen"
-            ? "digit-employee-card-textarea-field"
-            : "digit-card-textarea-field"
+            ? " light-placeholder digit-employee-card-textarea-field"
+            : " light-placeholder digit-card-textarea-field"
         } ${props?.className ? props?.className : ""} ${
           props.disabled ? "disabled" : ""
         } ${props.nonEditable ? "noneditable" : ""} ${
