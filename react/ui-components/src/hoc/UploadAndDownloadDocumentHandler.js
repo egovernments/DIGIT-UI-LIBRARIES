@@ -25,7 +25,8 @@ const UploadAndDownloadDocumentHandler = ({
   customClass,
   previewConfig,
   action = "APPLY",
-  flow
+  flow,
+  templateUrl
 }) => {
   if(previewConfig) flow = "APPLY"
   const { t } = useTranslation();
@@ -91,12 +92,10 @@ const UploadAndDownloadDocumentHandler = ({
           applicationNumber: formData?.applicationNumber || applicationNo,
           pdfKey: templatePDFKey
         }
-      
-        let url = `/studio-pdf/download/pdf/generatepdf`;
   
         try {
           const response = await Digit.CustomService.getResponse({
-            url,
+            templateUrl,
             params,
             method: "POST",
             useCache: false,
