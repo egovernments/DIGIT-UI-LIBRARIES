@@ -315,7 +315,7 @@ import {
 import BoundaryFilter from "./hoc/BoundaryFilter";
 
 // import { initCoreLibraries } from "@egovernments/digit-ui-libraries-core";
-import { initLibraries } from "@egovernments/digit-ui-libraries";
+// import { initLibraries } from "@egovernments/digit-ui-libraries";
 
 // initLibraries().then(() => {
 //   console.info("DIGIT Contants enabled");
