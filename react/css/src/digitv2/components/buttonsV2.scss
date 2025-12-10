@@ -53,6 +53,7 @@
   padding-right: theme(digitv2.spacers.spacer6);
   min-width: 6.5625rem;
   min-height: theme(digitv2.spacers.spacer10);
+  border-radius: theme(digitv2.borderRadius.radius0);
 
   h2 {
     @extend .typography.button.large;
@@ -69,6 +70,7 @@
   gap:  theme(digitv2.spacers.spacer2);
   min-width: 6.5625rem;
   background-color: theme(digitv2.lightTheme.primary-1);
+  border-radius: theme(digitv2.borderRadius.radius0);
 
   h2 {
     @extend .typography.button.large;
@@ -130,6 +132,7 @@
   min-width: 6.5625rem;
   border: 0.063rem solid theme(digitv2.lightTheme.primary-1);
   width: fit-content;
+  border-radius: theme(digitv2.borderRadius.radius0);
 
   &:focus {
     @apply outline-none;
@@ -199,6 +202,7 @@
   padding-right: theme(digitv2.spacers.spacer0);
   gap:  theme(digitv2.spacers.spacer2);
   min-width: 6.5625rem;
+  border-radius: theme(digitv2.borderRadius.radius0);
 
   &:focus {
     @apply outline-none;
@@ -258,6 +262,7 @@
   padding-right: theme(digitv2.spacers.spacer0);
   gap: theme(digitv2.spacers.spacer2);
   min-width: 4.875rem;
+  border-radius: theme(digitv2.borderRadius.radius0);
 
   &:focus {
     @apply outline-none;
