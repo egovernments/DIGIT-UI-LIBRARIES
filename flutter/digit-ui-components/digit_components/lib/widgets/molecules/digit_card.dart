@@ -30,15 +30,38 @@ class DigitCard extends StatelessWidget {
     this.width,
   });
 
+  /// Removes widgets that should not create spacing
+  List<Widget> _filterVisibleChildren(List<Widget> items) {
+    return items.where((w) {
+      if (w is SizedBox) {
+        final h = w.height ?? -1;
+        final k = w.width ?? -1;
+        // SizedBox.shrink() → height=0,width=0
+        if (h == 0 && k == 0) return false;
+      }
+      if (w is Container && w.child == null) return false;
+      return true;
+    }).toList();
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    bool isMobile = AppView.isMobileView(MediaQuery.of(context).size);
-    bool isTab = AppView.isTabletView(MediaQuery.of(context).size);
+    final isMobile = AppView.isMobileView(MediaQuery.of(context).size);
+    final isTab = AppView.isTabletView(MediaQuery.of(context).size);
+
+    final spacingValue = spacing ??
+        (isMobile
+            ? 16
+            : isTab
+                ? 20
+                : 24);
+
+    // Keep only visible children
+    final visibleChildren = _filterVisibleChildren(children);
 
     return Container(
       width: width,
-      // will take the max width of the content present inside this
       margin: margin,
       decoration: BoxDecoration(
         borderRadius: borderRadius ?? BorderRadius.circular(spacer1),
@@ -76,52 +99,32 @@ class DigitCard extends StatelessWidget {
             physics: scrollPhysics,
             child: inline && !isMobile
                 ? Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: children
-                        .asMap()
-                        .entries
-                        .map((entry) => Flexible(
-                              child: Padding(
-                                padding: EdgeInsets.only(
-                                  right: entry.key == children.length - 1
-                                      ? 0
-                                      : spacing ??
-                                          (isMobile
-                                              ? 16
-                                              : isTab
-                                                  ? 20
-                                                  : 24),
-                                ),
-                                child: entry.value,
-                              ),
-                            ))
-                        .toList(),
+                    children: visibleChildren.asMap().entries.map(
+                      (entry) {
+                        final isLast = entry.key == visibleChildren.length - 1;
+                        return Padding(
+                          padding:
+                              EdgeInsets.only(right: isLast ? 0 : spacingValue),
+                          child: entry.value,
+                        );
+                      },
+                    ).toList(),
                   )
                 : Column(
                     mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: isMobile
-                        ? MainAxisAlignment.center
-                        : MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: children
-                        .asMap()
-                        .entries
-                        .map((entry) => Padding(
-                              padding: EdgeInsets.only(
-                                bottom: entry.key == children.length - 1
-                                    ? 0
-                                    : spacing ??
-                                        (isMobile
-                                            ? 16
-                                            : isTab
-                                                ? 20
-                                                : 24),
-                              ),
-                              child: entry.value,
-                            ))
-                        .toList(),
+                    children: visibleChildren.asMap().entries.map(
+                      (entry) {
+                        final isLast = entry.key == visibleChildren.length - 1;
+                        return Padding(
+                          padding: EdgeInsets.only(
+                              bottom: isLast ? 0 : spacingValue),
+                          child: entry.value,
+                        );
+                      },
+                    ).toList(),
                   ),
           ),
         ),

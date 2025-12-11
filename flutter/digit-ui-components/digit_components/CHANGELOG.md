@@ -1,3 +1,6 @@
+## 0.2.3+4
+* Updated card component to remove extra spaces if child is empty
+
 ## 0.2.3+3
 * Added locale while converting date selected
 
