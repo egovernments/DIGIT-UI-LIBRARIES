@@ -90,6 +90,7 @@ const CustomDropdown = ({ t, config, inputRef, label, onChange,id, value, errorS
               categorySelectAllLabel={config?.categorySelectAllLabel}
               restrictSelection={config?.restrictSelection}
               isSearchable={config?.isSearchable}
+              disablePortal={config?.disablePortal}
             />
           );
         }
@@ -114,6 +115,7 @@ const CustomDropdown = ({ t, config, inputRef, label, onChange,id, value, errorS
             showIcon={config?.showIcon}
             variant={variant}
             isSearchable={config?.isSearchable}
+            disablePortal={config?.disablePortal}
           />
         );
       case "toggle":
