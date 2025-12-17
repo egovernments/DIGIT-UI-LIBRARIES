@@ -9,24 +9,62 @@ import Toggle from "../atoms/Toggle";
 import { createFunction } from "./techMolecules/createFunction";
 
 const CustomDropdown = ({ t, config, inputRef, label, onChange,id, value, errorStyle, disabled, type, additionalWrapperClass = "",variant,mdmsv2}) => {
-  const master = { name: config?.mdmsConfig?.masterName };
-  if (config?.mdmsConfig?.filter) {
-    master["filter"] = config?.mdmsConfig?.filter;
+  // Handle case when mdmsConfig is null or undefined
+  const hasMdmsConfig = config?.mdmsConfig && config?.mdmsConfig?.moduleName && config?.mdmsConfig?.masterName;
+
+  const master = hasMdmsConfig ? { name: config.mdmsConfig.masterName } : { name: "" };
+  if (hasMdmsConfig && config?.mdmsConfig?.filter) {
+    master["filter"] = config.mdmsConfig.filter;
   }
 
-  const { isLoading, data } = window?.Digit?.Hooks.useCustomMDMS(Digit?.ULBService?.getStateId(), config?.mdmsConfig?.moduleName, [master], {
-    select: config?.mdmsConfig?.select
-    ? createFunction(config?.mdmsConfig?.select)
-    : (data) => {
-        const optionsData = _.get(data, `${config?.mdmsConfig?.moduleName}.${config?.mdmsConfig?.masterName}`, []);
-        return optionsData
-          .filter((opt) => (opt?.hasOwnProperty("active") ? opt.active : true))
-          .map((opt) => ({ ...opt, name: `${config?.mdmsConfig?.localePrefix}_${Digit.Utils.locale.getTransformedLocale(opt.code)}` }));
-      },
-    enabled: (config?.mdmsConfig || config?.mdmsv2) ? true : false,
-  },mdmsv2);
+  const { isLoading, data, isFetching, isError } = window?.Digit?.Hooks?.useCustomMDMS?.(
+    Digit?.ULBService?.getStateId(),
+    config?.mdmsConfig?.moduleName,
+    [master],
+    {
+      select: config?.mdmsConfig?.select
+        ? createFunction(config?.mdmsConfig?.select)
+        : (data) => {
+            const optionsData = _.get(data, `${config?.mdmsConfig?.moduleName}.${config?.mdmsConfig?.masterName}`, []);
+            return optionsData
+              .filter((opt) => (opt?.hasOwnProperty("active") ? opt.active : true))
+              .map((opt) => ({ ...opt, name: `${config?.mdmsConfig?.localePrefix}_${Digit.Utils.locale.getTransformedLocale(opt.code)}` }));
+          },
+      enabled: hasMdmsConfig || config?.mdmsv2 ? true : false,
+    },
+    mdmsv2
+  ) || { isLoading: false, data: null, isFetching: false, isError: false };
 
-  if (isLoading) {
+  // Compute effective options handling all edge cases
+  const getEffectiveOptions = () => {
+    // If still loading or fetching, return empty array (blank dropdown)
+    if (isLoading || isFetching) {
+      return [];
+    }
+
+    // If there's an error, return empty array (blank dropdown)
+    if (isError) {
+      return [];
+    }
+
+    // If mdmsConfig is provided and we have data, use it
+    if (hasMdmsConfig && data && Array.isArray(data) && data.length > 0) {
+      return data;
+    }
+
+    // Fallback to config.options if available, ensuring it's a valid array
+    if (config?.options && Array.isArray(config.options) && config.options.length > 0) {
+      return config.options;
+    }
+
+    // Default to empty array if nothing is available
+    return [];
+  };
+
+  const effectiveOptions = getEffectiveOptions();
+  const showLoader = (isLoading || isFetching) && hasMdmsConfig;
+
+  if (showLoader) {
     return <Loader />;
   }
 
@@ -37,7 +75,7 @@ const CustomDropdown = ({ t, config, inputRef, label, onChange,id, value, errorS
           <RadioButtons
             inputRef={inputRef}
             style={{...config.styles }}
-            options={data || config?.options || []}
+            options={effectiveOptions}
             key={config.name}
             optionsKey={config?.optionsKey}
             value={value}
@@ -62,7 +100,7 @@ const CustomDropdown = ({ t, config, inputRef, label, onChange,id, value, errorS
         if (config?.allowMultiselect) {
           return (
             <MultiSelectDropdown
-              options={data || config?.options || []}
+              options={effectiveOptions}
               optionsKey={config?.optionsKey}
               chipsKey={config?.chipsKey}
               props={config}
@@ -98,7 +136,7 @@ const CustomDropdown = ({ t, config, inputRef, label, onChange,id, value, errorS
           <Dropdown
             inputRef={inputRef}
             style={{...config.styles }}
-            option={data || config?.options || []}
+            option={effectiveOptions}
             key={config.name}
             optionKey={config?.optionsKey}
             value={value}
@@ -122,7 +160,7 @@ const CustomDropdown = ({ t, config, inputRef, label, onChange,id, value, errorS
         return (
          <Toggle
             inputRef={inputRef}
-            options={data || config?.options || []}
+            options={effectiveOptions}
             key={config.name}
             style={config?.style || {}}
             optionsKey={config?.optionsKey}
