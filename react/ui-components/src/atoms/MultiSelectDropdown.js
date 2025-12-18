@@ -6,7 +6,7 @@ import Chip from "./Chip";
 import { SVG } from "./SVG";
 import Button from "./Button";
 import TreeSelect from "./TreeSelect";
-import { Colors} from "../constants/colors/colorconstants";
+import { Colors } from "../constants/colors/colorconstants";
 import { iconRender } from "../utils/iconRender";
 
 const MultiSelectDropdown = ({
@@ -28,11 +28,13 @@ const MultiSelectDropdown = ({
   selectAllLabel = "",
   categorySelectAllLabel = "",
   restrictSelection = false,
-  isSearchable=false,
+  isSearchable = false,
   chipsKey,
   frozenData = [],
   handleViewMore,
   disablePortal = false,
+  disableClearAll = false,
+  onChipClose,
 }) => {
   const [active, setActive] = useState(false);
   const [searchQuery, setSearchQuery] = useState();
@@ -125,7 +127,7 @@ const MultiSelectDropdown = ({
         }
         return [
           ...state,
-          { code: action.payload?.[1]?.code,name: action?.payload?.[1]?.name, propsData: action.payload,},
+          { code: action.payload?.[1]?.code, name: action?.payload?.[1]?.name, propsData: action.payload, },
         ];
       case "REMOVE_FROM_SELECTED_EVENT_QUEUE":
         const newState = state?.filter(
@@ -148,7 +150,7 @@ const MultiSelectDropdown = ({
   }, [selected?.length]);
 
   function fnToSelectOptionThroughProvidedSelection(selected) {
-    return selected?.map((e) => ({ code: e?.code, name: e?.name,propsData: [null, e] }));
+    return selected?.map((e) => ({ code: e?.code, name: e?.name, propsData: [null, e] }));
   }
   const [alreadyQueuedSelectedState, dispatch] = useReducer(
     reducer,
@@ -305,9 +307,9 @@ const MultiSelectDropdown = ({
         isChecked
           ? dispatch({ type: "ADD_TO_SELECTED_EVENT_QUEUE", payload: arguments })
           : dispatch({
-              type: "REMOVE_FROM_SELECTED_EVENT_QUEUE",
-              payload: arguments,
-            });
+            type: "REMOVE_FROM_SELECTED_EVENT_QUEUE",
+            payload: arguments,
+          });
       }
     } else {
       onSelectRef.current();
@@ -332,6 +334,9 @@ const MultiSelectDropdown = ({
   };
 
   const handleClearAll = () => {
+    // Prevent clear all if disabled
+    if (disableClearAll) return;
+
     dispatch({ type: "REPLACE_COMPLETE_STATE", payload: [] });
     // onSelect is called via useEffect when alreadyQueuedSelectedState changes
     if (onCloseRef.current) {
@@ -348,17 +353,17 @@ const MultiSelectDropdown = ({
         const payload =
           variant === "nestedmultiselect"
             ? flattenedOptions
-                ?.filter((option) => !option.options)
-                ?.map((option) => ({
-                  code: option.code,
-                  name: option.name,
-                  propsData: [null, option],
-                }))
-            : options.map((option) => ({
+              ?.filter((option) => !option.options)
+              ?.map((option) => ({
                 code: option.code,
                 name: option.name,
                 propsData: [null, option],
-              }));
+              }))
+            : options.map((option) => ({
+              code: option.code,
+              name: option.name,
+              propsData: [null, option],
+            }));
         dispatch({
           type: "REPLACE_COMPLETE_STATE",
           payload: payload,
@@ -460,9 +465,9 @@ const MultiSelectDropdown = ({
     const optionToScroll =
       variant === "nestedmultiselect" ? flattenedOptions : filteredOptions;
 
-      if (optionToScroll.length === 0) {
-        return; // No options to navigate
-      }
+    if (optionToScroll.length === 0) {
+      return; // No options to navigate
+    }
 
     if (e.key == "ArrowDown") {
       setOptionIndex((state) =>
@@ -502,33 +507,33 @@ const MultiSelectDropdown = ({
   const filteredOptions =
     searchQuery?.length > 0
       ? options
-          ?.map((option) => {
-            if (option?.options && option.options.length > 0) {
-              const matchingNestedOptions = option?.options?.filter(
-                (nestedOption) =>
-                  t(nestedOption.code)
-                    .toLowerCase()
-                    .includes(searchQuery.toLowerCase())
-              );
+        ?.map((option) => {
+          if (option?.options && option.options.length > 0) {
+            const matchingNestedOptions = option?.options?.filter(
+              (nestedOption) =>
+                t(nestedOption.code)
+                  .toLowerCase()
+                  .includes(searchQuery.toLowerCase())
+            );
 
-              if (matchingNestedOptions.length > 0) {
-                return {
-                  ...option,
+            if (matchingNestedOptions.length > 0) {
+              return {
+                ...option,
 
-                  options: matchingNestedOptions,
-                };
-              }
-            } else if (option?.code) {
-              if (
-                t(option.code).toLowerCase().includes(searchQuery.toLowerCase())
-              ) {
-                return option;
-              }
+                options: matchingNestedOptions,
+              };
             }
+          } else if (option?.code) {
+            if (
+              t(option.code).toLowerCase().includes(searchQuery.toLowerCase())
+            ) {
+              return option;
+            }
+          }
 
-            return null;
-          })
-          ?.filter(Boolean)
+          return null;
+        })
+        ?.filter(Boolean)
       : options;
 
   const parentOptionsWithChildren = filteredOptions?.filter(
@@ -544,8 +549,8 @@ const MultiSelectDropdown = ({
       if (existingOption) {
         // If the code already exists, merge the new options
         if (option.options) {
-        existingOption.options = existingOption.options || [];
-        existingOption.options = existingOption.options.concat(option.options);
+          existingOption.options = existingOption.options || [];
+          existingOption.options = existingOption.options.concat(option.options);
         }
       } else {
         flattened.push(option);
@@ -590,22 +595,40 @@ const MultiSelectDropdown = ({
     return null;
   }
 
+  // Handler for chip close with disableClearAll check
+  const handleChipClose = (value) => {
+    // If disableClearAll is true, trigger callback instead of removing
+    if (disableClearAll) {
+      return;
+    }
+
+    if (variant === "treemultiselect") {
+      onSelectToAddToQueue([value]);
+    } else if (isPropsNeeded) {
+      onSelectToAddToQueue({ target: { checked: false } }, value, props);
+    } else {
+      onSelectToAddToQueue({ target: { checked: false } }, value);
+    }
+
+    if (onChipClose) {
+        onChipClose(value);
+      }
+  };
+
   const MenuItem = ({ option, index }) => {
     const [isActive, setIsActive] = useState(false);
     const isFrozen = frozenData.some((frozenOption) => frozenOption.code === option.code);
-  const isSelected = alreadyQueuedSelectedState.find(
-    (selectedOption) => selectedOption.code === option.code
-  );
-  const isKeyboardFocused = index === optionIndex && !isSelected;
+    const isSelected = alreadyQueuedSelectedState.find(
+      (selectedOption) => selectedOption.code === option.code
+    );
+    const isKeyboardFocused = index === optionIndex && !isSelected;
 
     return (
       <div
         key={index}
-        className={`digit-multiselectdropodwn-menuitem ${
-          variant ? variant : ""
-        } ${isSelected ? "checked" : ""} ${
-          isKeyboardFocused ? "keyChange" : ""
-        } ${isFrozen ? "frozen" : ""}`}
+        className={`digit-multiselectdropodwn-menuitem ${variant ? variant : ""
+          } ${isSelected ? "checked" : ""} ${isKeyboardFocused ? "keyChange" : ""
+          } ${isFrozen ? "frozen" : ""}`}
         onMouseDown={() => setIsActive(true)}
         onMouseUp={() => setIsActive(false)}
         onMouseLeave={() => setIsActive(false)}
@@ -625,17 +648,16 @@ const MultiSelectDropdown = ({
                 : onSelectToAddToQueue(e, option);
             }
           }}
-          className={`digit-multi-select-dropdown-menuitem ${
-            variant ? variant : ""
-          } ${isFrozen ? "disabled" : ""}`}
+          className={`digit-multi-select-dropdown-menuitem ${variant ? variant : ""
+            } ${isFrozen ? "disabled" : ""}`}
           disabled={isFrozen}
           style={{
             cursor: isFrozen ? "not-allowed" : "pointer",
           }}
           aria-label={`${isFrozen ? "Disabled option" : "Select option"}: ${t(
             option[optionsKey] &&
-              typeof option[optionsKey] == "string" &&
-              option[optionsKey]
+            typeof option[optionsKey] == "string" &&
+            option[optionsKey]
           )}`}
           aria-describedby={
             variant === "nestedtextmultiselect" && option.description
@@ -658,14 +680,14 @@ const MultiSelectDropdown = ({
             <p className="digit-label">
               {t(
                 option[optionsKey] &&
-                  typeof option[optionsKey] == "string" &&
-                  option[optionsKey]
+                typeof option[optionsKey] == "string" &&
+                option[optionsKey]
               )}
             </p>
           </div>
           {variant === "nestedtextmultiselect" && option.description && (
-            <div 
-              className="option-description" 
+            <div
+              className="option-description"
               id={`option-desc-${index}`}
               aria-label="Option description"
             >
@@ -679,9 +701,8 @@ const MultiSelectDropdown = ({
 
   const selectAllOption = addSelectAllCheck && (
     <div
-      className={`digit-multiselectdropodwn-menuitem ${
-        variant ? variant : ""
-      } ${addSelectAllCheck ? "selectAll" : ""}`}
+      className={`digit-multiselectdropodwn-menuitem ${variant ? variant : ""
+        } ${addSelectAllCheck ? "selectAll" : ""}`}
       role="option"
       aria-selected={selectAllChecked ? "true" : "false"}
       tabIndex={-1}
@@ -708,11 +729,10 @@ const MultiSelectDropdown = ({
     if (!optionsToRender || optionsToRender?.length === 0) {
       return (
         <div
-          className={`digit-multiselectdropodwn-menuitem ${
-            variant ? variant : ""
-          } unsuccessfulresults`}
+          className={`digit-multiselectdropodwn-menuitem ${variant ? variant : ""
+            } unsuccessfulresults`}
           key={"-1"}
-          onClick={() => {}}
+          onClick={() => { }}
           role="option"
           aria-selected="false"
           aria-disabled="true"
@@ -731,9 +751,8 @@ const MultiSelectDropdown = ({
             return (
               <div
                 key={index}
-                className={`digit-nested-category ${
-                  addSelectAllCheck || addCategorySelectAllCheck ? "selectAll" : ""
-                }`}
+                className={`digit-nested-category ${addSelectAllCheck || addCategorySelectAllCheck ? "selectAll" : ""
+                  }`}
                 role="group"
                 aria-label={`Category: ${t(option[optionsKey])}`}
               >
@@ -782,16 +801,14 @@ const MultiSelectDropdown = ({
   return (
     <div>
       <div
-        className={`digit-multiselectdropdown-wrap ${
-          props?.className ? props?.className : ""
-        } ${variant ? variant : ""}`}
+        className={`digit-multiselectdropdown-wrap ${props?.className ? props?.className : ""
+          } ${variant ? variant : ""}`}
         ref={dropdownRef}
         style={props?.style}
       >
         <div
-          className={`digit-multiselectdropdown-master${
-            active ? `-active` : ``
-          } ${disabled ? "disabled" : ""}  ${variant ? variant : ""} ${isSearchable ? "searchable" : ""}`}
+          className={`digit-multiselectdropdown-master${active ? `-active` : ``
+            } ${disabled ? "disabled" : ""}  ${variant ? variant : ""} ${isSearchable ? "searchable" : ""}`}
           role="combobox"
           aria-expanded={active ? "true" : "false"}
           aria-haspopup="listbox"
@@ -808,15 +825,15 @@ const MultiSelectDropdown = ({
             value={searchQuery}
             onChange={onSearch}
             aria-label={`Search options in ${defaultLabel}`}
-            aria-autocomplete="list"            
+            aria-autocomplete="list"
           />
           <div
             className="digit-multiselectdropdown-label"
             title={
               alreadyQueuedSelectedState.length > 0
-                ? `${variant === "treemultiselect" 
-                    ? countFinalChildOptions(alreadyQueuedSelectedState) 
-                    : alreadyQueuedSelectedState.length} 
+                ? `${variant === "treemultiselect"
+                  ? countFinalChildOptions(alreadyQueuedSelectedState)
+                  : alreadyQueuedSelectedState.length} 
                    ${defaultUnit} Selected`
                 : defaultLabel
             }
@@ -827,8 +844,8 @@ const MultiSelectDropdown = ({
               <p>
                 {alreadyQueuedSelectedState.length > 0
                   ? `${countFinalChildOptions(
-                      alreadyQueuedSelectedState
-                    )} ${defaultUnit} Selected`
+                    alreadyQueuedSelectedState
+                  )} ${defaultUnit} Selected`
                   : defaultLabel}
               </p>
             ) : (
@@ -885,7 +902,7 @@ const MultiSelectDropdown = ({
           {alreadyQueuedSelectedState.length > 0 &&
             alreadyQueuedSelectedState
               ?.filter((value) => !value.propsData[1]?.options)
-              ?.slice(0, config?.numberOfChips || alreadyQueuedSelectedState.length )
+              ?.slice(0, config?.numberOfChips || alreadyQueuedSelectedState.length)
               ?.map((value, index) => {
                 const translatedText = t(
                   chipsKey ? value[chipsKey] : value.code
@@ -902,30 +919,21 @@ const MultiSelectDropdown = ({
                         ? `${replacedText.slice(0, 64)}...`
                         : replacedText
                     }
-                    onClick={
-                      variant === "treemultiselect"
-                        ? () => onSelectToAddToQueue([value])
-                        : isPropsNeeded
-                        ? (e) => onSelectToAddToQueue(e, value, props)
-                        : (e) => {
-                            onSelectToAddToQueue(e, value);
-                          }
-                    }
-                    hideClose={isClose}
+                    onClick={() => handleChipClose(value)}
+                    hideClose={isClose || (disableClearAll && alreadyQueuedSelectedState.length === 1)}
                     className="multiselectdropdown-tag"
                   />
                 );
               })}
           {alreadyQueuedSelectedState.length > (config?.numberOfChips || alreadyQueuedSelectedState.length) && (
             <Button
-              label={`+${
-                alreadyQueuedSelectedState.length - (config?.numberOfChips || alreadyQueuedSelectedState.length)
-              } ${t("SELECTED")}`}
+              label={`+${alreadyQueuedSelectedState.length - (config?.numberOfChips || alreadyQueuedSelectedState.length)
+                } ${t("SELECTED")}`}
               onClick={() => handleViewMore(alreadyQueuedSelectedState)}
               variation="link"
             />
           )}
-          {alreadyQueuedSelectedState.length > 0 &&  frozenData.length === 0 && (
+          {alreadyQueuedSelectedState.length > 0 && frozenData.length === 0 && !disableClearAll && (
             <Button
               label={t(config?.clearLabel ? config?.clearLabel : t("CLEAR_ALL"))}
               onClick={handleClearAll}
@@ -969,10 +977,13 @@ MultiSelectDropdown.propTypes = {
   ServerStyle: PropTypes.object,
   config: PropTypes.object,
   disablePortal: PropTypes.bool,
+  disableClearAll: PropTypes.bool,
+  onChipClose: PropTypes.func,
 };
 
 MultiSelectDropdown.defaultProps = {
   disablePortal: false,
+  disableClearAll: false,
 };
 
 export default MultiSelectDropdown;
