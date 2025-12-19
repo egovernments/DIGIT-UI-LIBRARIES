@@ -1,6 +1,6 @@
 {
   "name": "@egovernments/digit-ui-react-components",
-  "version": "2.0.0-dev-01",
+  "version": "2.0.0-dev-02",
   "license": "MIT",
   "main": "dist/main.js",
   "module": "dist/main.js",
@@ -74,7 +74,8 @@
     "react-hook-form": "6.15.8",
     "react-i18next": "15.0.0",
     "react-joyride": "2.5.5",
-    "react-table": "7.7.0"
+    "react-table": "7.7.0",
+    "@egovernments/digit-ui-libraries": "2.0.0-dev-03"
   },
   "resolutions": {
     "**/ajv": "8.11.2",
