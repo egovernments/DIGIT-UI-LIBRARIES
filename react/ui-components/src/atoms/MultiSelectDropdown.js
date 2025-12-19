@@ -597,11 +597,6 @@ const MultiSelectDropdown = ({
 
   // Handler for chip close with disableClearAll check
   const handleChipClose = (value) => {
-    // If disableClearAll is true, trigger callback instead of removing
-    if (disableClearAll) {
-      return;
-    }
-
     if (variant === "treemultiselect") {
       onSelectToAddToQueue([value]);
     } else if (isPropsNeeded) {
