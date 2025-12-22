@@ -8,9 +8,15 @@ import MultiSelectDropdown from "../atoms/MultiSelectDropdown";
 import Toggle from "../atoms/Toggle";
 import { createFunction } from "./techMolecules/createFunction";
 
-const CustomDropdown = ({ t, config, inputRef, label, onChange,id, value, errorStyle, disabled, type, additionalWrapperClass = "",variant,mdmsv2}) => {
+const CustomDropdown = ({ t, config, inputRef, label, onChange, id, value, errorStyle, disabled, type, additionalWrapperClass = "", variant, mdmsv2 }) => {
   // Handle case when mdmsConfig is null or undefined
-  const hasMdmsConfig = config?.mdmsConfig && config?.mdmsConfig?.moduleName && config?.mdmsConfig?.masterName;
+  // Ensure moduleName and masterName are not empty strings
+  const hasMdmsConfig =
+    config?.mdmsConfig &&
+    config?.mdmsConfig?.moduleName &&
+    config?.mdmsConfig?.moduleName.trim() !== "" &&
+    config?.mdmsConfig?.masterName &&
+    config?.mdmsConfig?.masterName.trim() !== "";
 
   const master = hasMdmsConfig ? { name: config.mdmsConfig.masterName } : { name: "" };
   if (hasMdmsConfig && config?.mdmsConfig?.filter) {
@@ -19,17 +25,25 @@ const CustomDropdown = ({ t, config, inputRef, label, onChange,id, value, errorS
 
   const { isLoading, data, isFetching, isError } = window?.Digit?.Hooks?.useCustomMDMS?.(
     Digit?.ULBService?.getStateId(),
-    config?.mdmsConfig?.moduleName,
+    config?.mdmsConfig?.moduleName || "",
     [master],
     {
       select: config?.mdmsConfig?.select
         ? createFunction(config?.mdmsConfig?.select)
         : (data) => {
-            const optionsData = _.get(data, `${config?.mdmsConfig?.moduleName}.${config?.mdmsConfig?.masterName}`, []);
-            return optionsData
-              .filter((opt) => (opt?.hasOwnProperty("active") ? opt.active : true))
-              .map((opt) => ({ ...opt, name: `${config?.mdmsConfig?.localePrefix}_${Digit.Utils.locale.getTransformedLocale(opt.code)}` }));
-          },
+          // Safe check: ensure data exists and is properly structured
+          if (!data || !config?.mdmsConfig?.moduleName || !config?.mdmsConfig?.masterName) {
+            return [];
+          }
+          const optionsData = _.get(data, `${config?.mdmsConfig?.moduleName}.${config?.mdmsConfig?.masterName}`, []);
+          // Ensure optionsData is an array before filtering
+          if (!Array.isArray(optionsData)) {
+            return [];
+          }
+          return optionsData
+            .filter((opt) => (opt?.hasOwnProperty("active") ? opt.active : true))
+            .map((opt) => ({ ...opt, name: `${config?.mdmsConfig?.localePrefix}_${Digit.Utils.locale.getTransformedLocale(opt.code)}` }));
+        },
       enabled: hasMdmsConfig || config?.mdmsv2 ? true : false,
     },
     mdmsv2
@@ -74,7 +88,7 @@ const CustomDropdown = ({ t, config, inputRef, label, onChange,id, value, errorS
         return (
           <RadioButtons
             inputRef={inputRef}
-            style={{...config.styles }}
+            style={{ ...config.styles }}
             options={effectiveOptions}
             key={config.name}
             optionsKey={config?.optionsKey}
@@ -135,7 +149,7 @@ const CustomDropdown = ({ t, config, inputRef, label, onChange,id, value, errorS
         return (
           <Dropdown
             inputRef={inputRef}
-            style={{...config.styles }}
+            style={{ ...config.styles }}
             option={effectiveOptions}
             key={config.name}
             optionKey={config?.optionsKey}
@@ -158,7 +172,7 @@ const CustomDropdown = ({ t, config, inputRef, label, onChange,id, value, errorS
         );
       case "toggle":
         return (
-         <Toggle
+          <Toggle
             inputRef={inputRef}
             options={effectiveOptions}
             key={config.name}
