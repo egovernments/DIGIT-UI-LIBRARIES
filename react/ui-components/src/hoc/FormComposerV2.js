@@ -207,26 +207,28 @@ export const FormComposer = (props) => {
           </HeaderComponent>
           <HeaderComponent 
           id={`${section.headId}_DES`}
-          className={`sectionSubHeaderStyle ${section?.sectionSubHeadClassName}`}
+          className={`sectionSubHeaderStyle ${section?.sectionSubHeadClassName || ""}`}
           >
             {t(section.subHead)}
           </HeaderComponent>
         </>
       );
-    } else if (section.head) {
-      return (
-        <>
-          <HeaderComponent className={`digit-card-section-header titleStyle ${section?.sectionHeadClassName || ""}`}
-          id={section.headId}
-          >
-            {t(section.head)}
-          </HeaderComponent>
-        </>
-      );
-    } else {
-      return <div></div>;
     }
+
+    if (section.head) {
+      return (
+        <HeaderComponent
+          className={`digit-card-section-header titleStyle ${section?.sectionHeadClassName || ""}`}
+          id={section.headId}
+        >
+          {t(section.head)}
+        </HeaderComponent>
+      );
+    }
+
+    return null; 
   };
+
 
   const closeToast = () => {
     setShowErrorToast(false);
