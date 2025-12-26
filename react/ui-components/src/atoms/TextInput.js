@@ -117,7 +117,7 @@ const TextInput = (props) => {
       );
     }
     if (
-      props?.type === "text" &&
+      (props?.type === "text" || props?.type === "number") &&
       !props?.populators?.customIcon &&
       suffixValue
     ) {
