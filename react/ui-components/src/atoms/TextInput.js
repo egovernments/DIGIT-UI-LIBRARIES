@@ -331,6 +331,7 @@ const TextInput = (props) => {
                 onBlur={handleBlur}
                 onKeyDown={handleKeyDown}
                 onMouseDown={handleMouseDown}
+                withPortal={props?.populators?.asPortal || false}
               />
               <div
                 className={`digit-new-date-format ${
