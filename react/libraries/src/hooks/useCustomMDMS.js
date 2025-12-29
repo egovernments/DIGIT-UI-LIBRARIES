@@ -33,9 +33,9 @@ const useCustomMDMS = (tenantId, moduleName, masterDetails = [], config = {}, md
   const isValidMasterDetails = Array.isArray(masterDetails) && masterDetails.length > 0 &&
     masterDetails.every(detail => detail?.name && typeof detail.name === 'string' && detail.name.trim() !== "");
 
-  // Determine if the hook should be enabled - respect config.enabled if provided
-  const configEnabled = config.enabled !== undefined ? config.enabled : true;
-  const shouldFetch = isValidModuleName && isValidMasterDetails && configEnabled;
+  // Determine if the hook should be enabled - respect config.enabled if provided, force to boolean
+  const configEnabled = config.enabled !== undefined ? Boolean(config.enabled) : true;
+  const shouldFetch = Boolean(isValidModuleName && isValidMasterDetails && configEnabled);
 
   if (mdmsv2) {
     // Here call the mdmsv2 api and return the options array
@@ -56,7 +56,8 @@ const useCustomMDMS = (tenantId, moduleName, masterDetails = [], config = {}, md
         },
       },
       config: {
-        enabled: shouldFetch && mdmsv2 ? true : false,
+        ...config,
+        enabled: Boolean(shouldFetch && mdmsv2),
         select: (response) => {
           //mdms will be an array of master data
           //published this change in 1.8.2-beta.7
@@ -91,7 +92,7 @@ const useCustomMDMS = (tenantId, moduleName, masterDetails = [], config = {}, md
     },
     // Spread config first, then override enabled to ensure our logic takes precedence
     ...config,
-    enabled: shouldFetch,
+    enabled: Boolean(shouldFetch),
   });
 };
 
