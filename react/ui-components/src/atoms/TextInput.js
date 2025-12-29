@@ -331,7 +331,18 @@ const TextInput = (props) => {
                 onBlur={handleBlur}
                 onKeyDown={handleKeyDown}
                 onMouseDown={handleMouseDown}
-                withPortal={props?.populators?.asPortal || false}
+                popperProps={{
+                  strategy: props?.populators?.useFixedPosition ? 'fixed' : 'absolute'
+                }}
+                popperClassName="datepicker-popper-high-zindex"
+                closeOnScroll={(e) => {
+                  if (!props?.populators?.useFixedPosition) return false;
+                  const inputEl = datePickerRef.current?.input;
+                  if (!inputEl) return false;
+                  const rect = inputEl.getBoundingClientRect();
+                  // Close if input is not visible in viewport
+                  return rect.bottom < 0 || rect.top > window.innerHeight;
+                }}
               />
               <div
                 className={`digit-new-date-format ${
