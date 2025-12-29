@@ -242,6 +242,7 @@ const SearchComponent = ({ uiConfig, header = "", screenType = "search", fullCon
       configDisplayKey={"label"}
       activeLink={activeTab}
       setActiveLink={(key) => {
+        if (key === activeTab) return;  
         clearSearch({});
         onTabChange(key);
       }}
