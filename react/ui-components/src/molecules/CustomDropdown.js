@@ -44,7 +44,7 @@ const CustomDropdown = ({ t, config, inputRef, label, onChange, id, value, error
             .filter((opt) => (opt?.hasOwnProperty("active") ? opt.active : true))
             .map((opt) => ({ ...opt, name: `${config?.mdmsConfig?.localePrefix}_${Digit.Utils.locale.getTransformedLocale(opt.code)}` }));
         },
-      enabled: hasMdmsConfig || config?.mdmsv2 ? true : false,
+      enabled: Boolean(hasMdmsConfig || !!mdmsv2),
     },
     mdmsv2
   ) || { isLoading: false, data: null, isFetching: false, isError: false };
