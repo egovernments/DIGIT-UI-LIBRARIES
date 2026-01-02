@@ -97,6 +97,22 @@ const ArrowDown = ({ className, onClick, styles, disable,width="18",height="18",
   </svg>
 );
 
+const ArrowUp = ({ className, onClick, styles, disable,width="18",height="18",fill="black"}) => (
+  <svg
+    style={{ ...styles, transform: 'rotate(180deg)' }}
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill={disable ? "#9E9E9E" : fill}
+    className={className}
+    onClick={onClick}
+    width={width}
+    height={height}
+  >
+    <path d="M0 0h24v24H0V0z" fill="none" />
+    <path d="M7 10l5 5 5-5H7z" />
+  </svg>
+);
+
 const DuplicateIcon = ({ className, onClick, styles, disable,width="18",height="18",fill="black", viewBox}) => (
   <svg
     style={{ ...styles }}
@@ -3542,6 +3558,7 @@ export const CustomSVG = {
     GotoInboxIcon,
     ArrowLeft,
     ArrowDown,
+    ArrowUp,
     DuplicateIcon,
     CameraSvg,
     DeleteBtn,
