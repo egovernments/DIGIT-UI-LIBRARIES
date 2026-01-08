@@ -6,6 +6,18 @@ const CheckBox = ({ onChange, label, value, disable, ref, checked, inputRef, pag
   const { t } = useTranslation()
   const userType = pageType || Digit.SessionStorage.get("userType");
   let wrkflwStyle = props.styles;
+
+  // Generate unique ID for tracking (single source of truth)
+  // ID Pattern: screenPath + composerType + composerId + sectionId + name + type
+  const fieldId = Digit?.Utils?.generateUniqueId?.({
+    screenPath: props?.screenPath || "",
+    composerType: props?.composerType || "standalone",
+    composerId: props?.composerId || "",
+    sectionId: props?.sectionId || "",
+    name: props?.name || label || "checkbox",
+    type: "checkbox",
+    id: props?.id
+  }) || props?.id || props?.name;
   if (isLabelFirst) {
     return (
       <div className="checkbox-wrap" style={wrkflwStyle ? wrkflwStyle : {}}>
@@ -16,6 +28,7 @@ const CheckBox = ({ onChange, label, value, disable, ref, checked, inputRef, pag
         <div>
           <input
             type="checkbox"
+            id={fieldId}
             className={userType === "employee" ? "input-emp" : ""}
             onChange={onChange}
             style={{ cursor: "pointer", left: "90%" }}
@@ -37,6 +50,7 @@ const CheckBox = ({ onChange, label, value, disable, ref, checked, inputRef, pag
         <div>
           <input
             type="checkbox"
+            id={fieldId}
             className={userType === "employee" ? "input-emp" : ""}
             onChange={onChange}
             style={{ cursor: "pointer" }}

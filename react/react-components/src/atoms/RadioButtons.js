@@ -11,6 +11,20 @@ const RadioButtons = (props) => {
     props.onSelect(value);
   }
 
+  // Generate unique ID for tracking (single source of truth)
+  // ID Pattern: screenPath + composerType + composerId + sectionId + name + type + optionIndex
+  const generateRadioId = (optionIndex, optionCode) => {
+    return Digit?.Utils?.generateUniqueId?.({
+      screenPath: props?.screenPath || "",
+      composerType: props?.composerType || "standalone",
+      composerId: props?.composerId || "",
+      sectionId: props?.sectionId || "",
+      name: props?.name || "radio",
+      type: `radio-${optionCode || optionIndex}`,
+      id: props?.id ? `${props.id}-${optionIndex}` : ""
+    }) || `${props?.name || "radio"}-${optionIndex}`;
+  };
+
   return (
     <div style={props.style} className={`radio-wrap ${props?.additionalWrapperClass}`}>
       {props?.options?.map((option, ind) => {
@@ -19,6 +33,7 @@ const RadioButtons = (props) => {
             <div style={props.innerStyles} key={ind}>
               <span className="radio-btn-wrap">
                 <input
+                  id={generateRadioId(ind, option?.code)}
                   className="radio-btn"
                   type="radio"
                   value={option}
@@ -38,6 +53,7 @@ const RadioButtons = (props) => {
             <div style={props.innerStyles} key={ind}>
               <span className="radio-btn-wrap">
                 <input
+                  id={generateRadioId(ind, option?.code)}
                   className="radio-btn"
                   type="radio"
                   value={option}
@@ -57,6 +73,7 @@ const RadioButtons = (props) => {
             <div style={props.innerStyles} key={ind}>
               <span className="radio-btn-wrap">
                 <input
+                  id={generateRadioId(ind, option)}
                   className="radio-btn"
                   type="radio"
                   value={option}

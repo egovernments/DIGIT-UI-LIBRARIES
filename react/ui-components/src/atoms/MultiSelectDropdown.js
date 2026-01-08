@@ -35,6 +35,12 @@ const MultiSelectDropdown = ({
   disablePortal = false,
   disableClearAll = false,
   onChipClose,
+  screenPath,
+  composerType,
+  composerId,
+  sectionId,
+  name,
+  id,
 }) => {
   const [active, setActive] = useState(false);
   const [searchQuery, setSearchQuery] = useState();
@@ -45,6 +51,18 @@ const MultiSelectDropdown = ({
   const dropdownRef = useRef();
   const isInitialMount = useRef(true);
   const { t } = useTranslation();
+
+  // Generate unique ID for tracking (single source of truth)
+  // ID Pattern: screenPath + composerType + composerId + sectionId + name + type
+  const fieldId = Digit?.Utils?.generateUniqueId?.({
+    screenPath: screenPath || "",
+    composerType: composerType || "standalone",
+    composerId: composerId || "",
+    sectionId: sectionId || "",
+    name: name || optionsKey || "multiselect",
+    type: "multiselect",
+    id: id
+  }) || id || name;
 
   // Helper function to check if element is visible within all scroll ancestors
   const isElementVisibleInScrollParents = (element) => {
@@ -796,6 +814,7 @@ const MultiSelectDropdown = ({
   return (
     <div>
       <div
+        id={fieldId}
         className={`digit-multiselectdropdown-wrap ${props?.className ? props?.className : ""
           } ${variant ? variant : ""}`}
         ref={dropdownRef}

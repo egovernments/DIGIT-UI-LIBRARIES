@@ -11,7 +11,17 @@ const ButtonSelector = (props) => {
       theme = "selector-button-primary";
       break;
   }
-  const fieldId = props?.id||Digit?.Utils?.getFieldIdName?.( props?.label || props?.className || "button")||"NA";
+  // Use generateUniqueId for stable ID generation (single source of truth)
+  // ID Pattern: screenPath + composerType + composerId + sectionId + name + type
+  const fieldId = Digit?.Utils?.generateUniqueId?.({
+    screenPath: props?.screenPath || "",
+    composerType: props?.composerType || "standalone",
+    composerId: props?.composerId || "",
+    sectionId: props?.sectionId || "",
+    name: props?.name || props?.className || "selector",
+    type: "btn",
+    id: props?.id
+  }) || props?.id || "NA";
   
   return (
     <button

@@ -101,6 +101,18 @@ const Dropdown = (props) => {
   const hasCustomSelector = props.customSelector ? true : false;
   const t = props.t || translateDummy;
 
+  // Generate unique ID for tracking (single source of truth)
+  // ID Pattern: screenPath + composerType + composerId + sectionId + name + type
+  const fieldId = Digit?.Utils?.generateUniqueId?.({
+    screenPath: props?.screenPath || "",
+    composerType: props?.composerType || "standalone",
+    composerId: props?.composerId || "",
+    sectionId: props?.sectionId || "",
+    name: props?.name || props?.optionKey || "dropdown",
+    type: "dropdown",
+    id: props?.id
+  }) || props?.id || props?.name;
+
   useEffect(() => {
     setSelectedOption(props.selected);
   }, [props.selected]);
@@ -170,6 +182,7 @@ const Dropdown = (props) => {
       )}
       {!hasCustomSelector && (
         <div
+          id={fieldId}
           className={`${dropdownStatus ? "select-active" : "select"} ${props.disable && "disabled"}`}
           style={props.errorStyle ? { border: "1px solid red", ...(props.noBorder ? { "border": "none" } : {}) } : { ...(props.noBorder ? { "border": "none" } : {}) }}
         >

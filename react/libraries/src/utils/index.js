@@ -11,7 +11,7 @@ import preProcessMDMSConfig from "./preProcessMDMSConfig";
 import preProcessMDMSConfigInboxSearch from "./preProcessMDMSConfigInboxSearch";
 import * as parsingUtils from "../services/atoms/Utils/ParsingUtils"
 import { iconRender } from "./iconRender";
-import {getFieldIdName} from "./field";
+import {generateUniqueId, getFieldIdName, generateElementId, resetFieldIdCounter, getFieldIdCounter, sanitizeToHtmlId, getScreenPrefix, generateUniqueString} from "./field";
 
 const GetParamFromUrl = (key, fallback, search) => {
   if (typeof window !== "undefined") {
@@ -554,5 +554,12 @@ export default {
   sandboxAccess,
   iconRender,
   transformURL,
-  getFieldIdName
+  generateUniqueId,
+  getFieldIdName,
+  generateElementId,
+  resetFieldIdCounter,
+  getFieldIdCounter,
+  sanitizeToHtmlId,
+  getScreenPrefix,
+  generateUniqueString
 };
