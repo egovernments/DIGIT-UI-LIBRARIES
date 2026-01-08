@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 const BACKSPACE = 8;
 
-const SingleInput = ({ isFocus, onChange, onFocus, value, ...rest }) => {
+const SingleInput = ({ isFocus, onChange, onFocus, value, id, ...rest }) => {
   const inputRef = useRef();
   useEffect(() => {
     if (isFocus) {
@@ -13,12 +13,13 @@ const SingleInput = ({ isFocus, onChange, onFocus, value, ...rest }) => {
 
   return (
     <input
+      id={id}
       className="input-otp"
       maxLength={1}
       onChange={onChange}
       onFocus={onFocus}
       ref={inputRef}
-      type="text"  
+      type="text"
       value={value ? value : ""}
       {...rest}
     />
@@ -27,6 +28,20 @@ const SingleInput = ({ isFocus, onChange, onFocus, value, ...rest }) => {
 
 const OTPInput = (props) => {
   const [activeInput, setActiveInput] = useState(0);
+
+  // Generate unique ID for tracking (single source of truth)
+  // ID Pattern: screenPath + composerType + composerId + sectionId + name + type + index
+  const generateOTPFieldId = (index) => {
+    return Digit?.Utils?.generateUniqueId?.({
+      screenPath: props?.screenPath || "",
+      composerType: props?.composerType || "standalone",
+      composerId: props?.composerId || "",
+      sectionId: props?.sectionId || "",
+      name: props?.name || "otp",
+      type: `otp-${index}`,
+      id: props?.id ? `${props.id}-${index}` : ""
+    }) || `${props?.name || "otp"}-${index}`;
+  };
 
   const isInputValueValid = (value) => {
     return /^[0-9]$/.test(value); 
@@ -75,6 +90,7 @@ const OTPInput = (props) => {
     OTPStack.push(
       <SingleInput
         key={i}
+        id={generateOTPFieldId(i)}
         isFocus={activeInput === i}
         onChange={inputChange}
         onKeyDown={handleKeyDown}

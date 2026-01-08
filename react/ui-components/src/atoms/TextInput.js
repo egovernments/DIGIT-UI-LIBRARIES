@@ -17,6 +17,19 @@ const TextInput = (props) => {
   const [date, setDate] = useState(props?.type === "date" && props?.value);
   const [visibility, setVisibility] = useState(false);
   const [inputType, setInputType] = useState(props?.type || "text");
+
+  // Generate unique ID for tracking (single source of truth)
+  // ID Pattern: screenPath + composerType + composerId + sectionId + name + type
+  const fieldId = Digit?.Utils?.generateUniqueId?.({
+    screenPath: props?.screenPath || "",
+    composerType: props?.composerType || "standalone",
+    composerId: props?.composerId || "",
+    sectionId: props?.sectionId || "",
+    name: props?.name || props?.placeholder || "textinput",
+    type: "input",
+    id: props?.id
+  }) || props?.id || props?.name;
+
   const data = props?.watch
     ? {
         fromDate: props?.watch("fromDate"),
@@ -395,7 +408,7 @@ const TextInput = (props) => {
                   : defaultType || "text"
               }
               name={props.name}
-              id={props?.id}
+              id={fieldId}
               className={inputClassNameForMandatory}
               placeholder={StringManipulator(
                 "TOSENTENCECASE",

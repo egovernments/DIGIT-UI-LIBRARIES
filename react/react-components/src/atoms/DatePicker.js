@@ -6,6 +6,18 @@ const DatePicker = (props) => {
   // const [date, setDate] = useState(() => props.initialDate || null);
   const dateInp = useRef();
 
+  // Generate unique ID for tracking (single source of truth)
+  // ID Pattern: screenPath + composerType + composerId + sectionId + name + type
+  const fieldId = Digit?.Utils?.generateUniqueId?.({
+    screenPath: props?.screenPath || "",
+    composerType: props?.composerType || "standalone",
+    composerId: props?.composerId || "",
+    sectionId: props?.sectionId || "",
+    name: props?.name || "datepicker",
+    type: "date",
+    id: props?.id
+  }) || props?.id || props?.name;
+
   function defaultFormatFunc(date) {
     if (date) {
       const operationDate = typeof date === "string" ? new Date(date) : date;
@@ -40,6 +52,7 @@ const DatePicker = (props) => {
         /> 
          <CalendarIcon isdisabled={props.disabled ? true : false} style={{ right: "6px", zIndex: "10", top: 6, position: "absolute" }} /> */}
         <input
+          id={fieldId}
           className={`employee-card-input ${props.disabled ? "disabled" : ""}`}
           // className={`${props.disabled ? "disabled" : ""}`}
           style={{ width: "calc(100%-62px)",paddingRight:"9px",...props.style }}

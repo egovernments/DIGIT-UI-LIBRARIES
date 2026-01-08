@@ -46,6 +46,10 @@ const MobileNumber = (props) => {
             populators={
               !props.hideSpan ? {prefix: props?.prefix || ""} :{}
             }
+            screenPath={props?.screenPath}
+            composerType={props?.composerType}
+            composerId={props?.composerId}
+            sectionId={props?.sectionId}
           />
         </div>
       </div>

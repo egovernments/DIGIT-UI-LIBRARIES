@@ -4,6 +4,18 @@ import PropTypes from "prop-types";
 const MobileNumber = (props) => {
   const user_type = Digit.SessionStorage.get("userType");
 
+  // Generate unique ID for tracking (single source of truth)
+  // ID Pattern: screenPath + composerType + composerId + sectionId + name + type
+  const fieldId = Digit?.Utils?.generateUniqueId?.({
+    screenPath: props?.screenPath || "",
+    composerType: props?.composerType || "standalone",
+    composerId: props?.composerId || "",
+    sectionId: props?.sectionId || "",
+    name: props?.name || "mobile",
+    type: "input",
+    id: props?.id
+  }) || props?.id || props?.name;
+
   const onChange = (e) => {
     let val = e.target.value;
     if (isNaN(val) || [" ", "e", "E"].some((e) => val.includes(e)) || val.length > (props.maxLength || 10)) {
@@ -24,7 +36,7 @@ const MobileNumber = (props) => {
           <input
             type={"text"}
             name={props.name}
-            id={props.id}
+            id={fieldId}
             className={`${user_type ? "employee-card-input" : "citizen-card-input"} ${props.disable && "disabled"} focus-visible ${props.errorStyle && "employee-card-input-error"}`}
             placeholder={props.placeholder}
             onChange={onChange}

@@ -5,6 +5,19 @@ import { LocateIcon } from "./svgindex";
 const TextInput = (props) => {
   const user_type = Digit.SessionStorage.get("userType");
   const [date, setDate] = useState(props?.type==="date"&&props?.value);
+
+  // Generate unique ID for tracking (single source of truth)
+  // ID Pattern: screenPath + composerType + composerId + sectionId + name + type
+  const fieldId = Digit?.Utils?.generateUniqueId?.({
+    screenPath: props?.screenPath || "",
+    composerType: props?.composerType || "standalone",
+    composerId: props?.composerId || "",
+    sectionId: props?.sectionId || "",
+    name: props?.name || props?.placeholder || "textinput",
+    type: "input",
+    id: props?.id
+  }) || props?.id || props?.name;
+
   const data = props?.watch
     ? {
         fromDate: props?.watch("fromDate"),
@@ -24,7 +37,7 @@ const TextInput = (props) => {
           <input
             type={props?.validation && props.ValidationRequired ? props?.validation?.type : (props.type || "text")}
             name={props.name}
-            id={props.id}
+            id={fieldId}
             className={`${user_type ? "employee-card-input-error" : "card-input-error"} ${props.disable && "disabled"} ${props.customClass}`}
             placeholder={props.placeholder}
             onChange={(event) => {
@@ -61,7 +74,7 @@ const TextInput = (props) => {
           <input
             type={props?.validation && props.ValidationRequired ? props?.validation?.type : (props.type || "text")}
             name={props.name}
-            id={props.id}
+            id={fieldId}
             className={`${user_type ? "employee-card-input" : "citizen-card-input"} ${props.disable && "disabled"} focus-visible ${props.errorStyle && "employee-card-input-error"} ${props.customClass}`}
             placeholder={props.placeholder}
             onChange={(event) => {

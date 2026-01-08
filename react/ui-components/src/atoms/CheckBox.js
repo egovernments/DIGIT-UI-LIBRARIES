@@ -29,6 +29,18 @@ const CheckBox = ({
   const userType = pageType || getUserType();
   let styles = props?.styles;
 
+  // Generate unique ID for tracking (single source of truth)
+  // ID Pattern: screenPath + composerType + composerId + sectionId + name + type
+  const fieldId = Digit?.Utils?.generateUniqueId?.({
+    screenPath: props?.screenPath || "",
+    composerType: props?.composerType || "standalone",
+    composerId: props?.composerId || "",
+    sectionId: props?.sectionId || "",
+    name: props?.name || label || "checkbox",
+    type: "checkbox",
+    id: props?.id
+  }) || props?.id || `checkbox-${value}`;
+
   const sentenceCaseLabel = StringManipulator("TOSENTENCECASE", label);
 
   const diabledIconColor = Colors.lightTheme.text.disabled;
@@ -43,7 +55,7 @@ const CheckBox = ({
       {isLabelFirst && !hideLabel ? (
         <Fragment>
           <label
-            htmlFor={props.id || `checkbox-${value}`}
+            htmlFor={fieldId}
             className={`label ${props?.labelClassName} `}
             style={{ maxWidth: "100%", width: "auto", marginRight: "0rem" }}
             onClick={props?.onLabelClick}
@@ -55,7 +67,7 @@ const CheckBox = ({
                 if (typeof props?.onLabelClick === "function") {
                   props.onLabelClick();
                 } else {
-                  const inputElement = document.getElementById(props?.id || `checkbox-${value}`);
+                  const inputElement = document.getElementById(fieldId);
                   if (inputElement) {
                     inputElement.click();
                   }
@@ -83,7 +95,7 @@ const CheckBox = ({
           ref={inputRef}
           disabled={disabled}
           checked={checked}
-          id={props?.id}
+          id={fieldId}
           aria-checked={checked}
           aria-disabled={disabled}
         />
@@ -123,7 +135,7 @@ const CheckBox = ({
       {!isLabelFirst && !hideLabel ? (
         <Fragment>
           <label
-            htmlFor={props.id || `checkbox-${value}`}
+            htmlFor={fieldId}
             className={`label ${props?.labelClassName} `}
             style={{ maxWidth: "100%", width: "100%", marginRight: "0rem" }}
             onClick={props?.onLabelClick}

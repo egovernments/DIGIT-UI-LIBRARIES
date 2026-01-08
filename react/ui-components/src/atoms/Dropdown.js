@@ -155,6 +155,18 @@ const Dropdown = (props) => {
   const hasCustomSelector = props.customSelector ? true : false;
   const t = props.t || translateDummy;
 
+  // Generate unique ID for tracking (single source of truth)
+  // ID Pattern: screenPath + composerType + composerId + sectionId + name + type
+  const fieldId = Digit?.Utils?.generateUniqueId?.({
+    screenPath: props?.screenPath || "",
+    composerType: props?.composerType || "standalone",
+    composerId: props?.composerId || "",
+    sectionId: props?.sectionId || "",
+    name: props?.name || props?.optionKey || "dropdown",
+    type: "dropdown",
+    id: props?.id
+  }) || props?.id || props?.name;
+
   // Helper function to check if element is visible within all scroll ancestors
   const isElementVisibleInScrollParents = (element) => {
     if (!element) return false;
@@ -611,7 +623,7 @@ const Dropdown = (props) => {
             setFilter={setFilter}
             forceSet={forceSet}
             setforceSet={setforceSet}
-            id={props?.id}
+            id={fieldId}
             setOptionIndex={setOptionIndex}
             keepNull={props.keepNull}
             selectedVal={

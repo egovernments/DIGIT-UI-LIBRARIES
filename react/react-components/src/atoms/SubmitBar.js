@@ -2,7 +2,17 @@ import React, { forwardRef } from "react";
 import PropTypes from "prop-types";
 
 const SubmitBar = forwardRef((props, ref) => {
-  const fieldId = props?.id||Digit?.Utils?.getFieldIdName?.( props?.label || props?.className || "submitbutton")||"NA";
+  // Use generateUniqueId for stable ID generation (single source of truth)
+  // ID Pattern: screenPath + composerType + composerId + sectionId + name + type
+  const fieldId = Digit?.Utils?.generateUniqueId?.({
+    screenPath: props?.screenPath || "",
+    composerType: props?.composerType || "standalone",
+    composerId: props?.composerId || "",
+    sectionId: props?.sectionId || "",
+    name: props?.name || props?.className || "submit",
+    type: "btn",
+    id: props?.id
+  }) || props?.id || "NA";
   
   return (
     <span className="spanWrapper">

@@ -103,7 +103,24 @@ import {
 } from "./atoms";
 import { lazyWithFallback } from "./utils/lazyWithFallback";
 
-import { FieldComposer, FieldController, Fields, FormComposerV2, Modal, UploadFileComposer, FieldV1, InboxSearchComposer, ResultsTable, ResultsDataTableWrapper,BoundaryFilter } from "./hoc";
+import {
+  FieldComposer,
+  FieldController,
+  Fields,
+  FormComposerV2,
+  Modal,
+  UploadFileComposer,
+  FieldV1,
+  InboxSearchComposer,
+  ResultsTable,
+  ResultsDataTableWrapper,
+  BoundaryFilter,
+  ButtonIdentificationProvider,
+  SectionIdentificationProvider,
+  useButtonIdentification,
+  useButtonId,
+  generateButtonId
+} from "./hoc";
 
 import {
   ApiDropdown,
@@ -273,6 +290,12 @@ export {
   ResultsDataTableWrapper,
   LinkLabel,
   RoundedLabel,
+  // Button Identification System
+  ButtonIdentificationProvider,
+  SectionIdentificationProvider,
+  useButtonIdentification,
+  useButtonId,
+  generateButtonId,
   //Icons
   CustomSVG,
   ErrorBoundary,

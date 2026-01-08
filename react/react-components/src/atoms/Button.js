@@ -19,7 +19,17 @@ import PropTypes from "prop-types";
 
 const Button = (props) => {
   let className = props?.variation !== "primary" ? `jk-digit-secondary-btn` : `jk-digit-primary-btn`;
-   const fieldId = props?.id||Digit?.Utils?.getFieldIdName?.( props?.label || props?.className || "button")||"NA";
+  // Use generateUniqueId for stable ID generation (single source of truth)
+  // ID Pattern: screenPath + composerType + composerId + sectionId + name + type
+  const fieldId = Digit?.Utils?.generateUniqueId?.({
+    screenPath: props?.screenPath || "",
+    composerType: props?.composerType || "standalone",
+    composerId: props?.composerId || "",
+    sectionId: props?.sectionId || "",
+    name: props?.name || props?.className || "button",
+    type: "btn",
+    id: props?.id
+  }) || props?.id || "NA";
 
   return (
     <button
@@ -44,6 +54,15 @@ Button.propTypes = {
    * ButtonSelector content
    */
   label: PropTypes.string.isRequired,
+  /**
+   * Semantic name for stable ID generation (NOT localized)
+   * IMPORTANT: Use this for GTM tracking stability
+   */
+  name: PropTypes.string,
+  /**
+   * Explicit ID (overrides auto-generation)
+   */
+  id: PropTypes.string,
   /**
    * button border theme
    */

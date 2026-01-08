@@ -4,6 +4,18 @@ import PropTypes from "prop-types";
 const TextArea = (props) => {
   const user_type = Digit.SessionStorage.get("userType");
 
+  // Generate unique ID for tracking (single source of truth)
+  // ID Pattern: screenPath + composerType + composerId + sectionId + name + type
+  const fieldId = Digit?.Utils?.generateUniqueId?.({
+    screenPath: props?.screenPath || "",
+    composerType: props?.composerType || "standalone",
+    composerId: props?.composerId || "",
+    sectionId: props?.sectionId || "",
+    name: props?.name || "textarea",
+    type: "textarea",
+    id: props?.id
+  }) || props?.id || props?.name;
+
   return (
     <React.Fragment>
     <textarea
@@ -11,7 +23,7 @@ const TextArea = (props) => {
       name={props.name}
       ref={props.inputRef}
       style={props.style}
-      id={props.id}
+      id={fieldId}
       value={props.value}
       onChange={props.onChange}
       className={`${user_type !== "citizen" ? "employee-card-textarea" : "card-textarea"} ${props.disable && "disabled"} ${

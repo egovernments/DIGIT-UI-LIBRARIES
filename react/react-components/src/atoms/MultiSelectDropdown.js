@@ -4,12 +4,24 @@ import { useTranslation } from "react-i18next";
 import { COLOR_FILL } from "./contants";
 import RemoveableTag from "./RemoveableTag";
 
-const MultiSelectDropdown = ({ options, optionsKey, selected = [], onSelect, defaultLabel = "", defaultUnit = "",BlockNumber=1,isOBPSMultiple=false,props={},isPropsNeeded=false,ServerStyle={}, isSurvey=false,placeholder, disable=false,config}) => {
+const MultiSelectDropdown = ({ options, optionsKey, selected = [], onSelect, defaultLabel = "", defaultUnit = "",BlockNumber=1,isOBPSMultiple=false,props={},isPropsNeeded=false,ServerStyle={}, isSurvey=false,placeholder, disable=false,config, screenPath, composerType, composerId, sectionId, name, id}) => {
   const [active, setActive] = useState(false);
   const [searchQuery, setSearchQuery] = useState();
   const [optionIndex, setOptionIndex] = useState(-1);
   const dropdownRef = useRef();
   const { t } = useTranslation();
+
+  // Generate unique ID for tracking (single source of truth)
+  // ID Pattern: screenPath + composerType + composerId + sectionId + name + type
+  const fieldId = Digit?.Utils?.generateUniqueId?.({
+    screenPath: screenPath || "",
+    composerType: composerType || "standalone",
+    composerId: composerId || "",
+    sectionId: sectionId || "",
+    name: name || optionsKey || "multiselect",
+    type: "multiselect",
+    id: id
+  }) || id || name;
 
   function reducer(state, action){
     switch(action.type){
@@ -111,7 +123,7 @@ const MultiSelectDropdown = ({ options, optionsKey, selected = [], onSelect, def
 
   return (
     <div>
-    <div className={`multi-select-dropdown-wrap ${disable ? "disabled" : ""}`} ref={dropdownRef}>
+    <div id={fieldId} className={`multi-select-dropdown-wrap ${disable ? "disabled" : ""}`} ref={dropdownRef}>
       <div className={`master${active ? `-active` : ``} ${disable ? "disabled" : ""}`}>
         <input className="cursorPointer" type="text" onKeyDown={keyChange} onFocus={() => setActive(true)} value={searchQuery} onChange={onSearch} placeholder={t(placeholder)} />
         <div className="label">

@@ -1,68 +1,168 @@
-/* 
- * Utility function to generate a unique field identifier or name for form fields.
- * It combines a screen-specific prefix, a unique field name, and/or an identifier.
- * 
+/*
+ * SINGLE SOURCE OF TRUTH for unique ID generation.
+ * Used for tracking all UI elements: buttons, inputs, dropdowns, textareas, etc.
+ *
  * @author jagankumar-egov
  *
+ * IMPORTANT: IDs are DETERMINISTIC - same inputs always produce same output.
+ * This ensures IDs remain stable across:
+ * - Page refreshes
+ * - Logout/login
+ * - Browser restarts
+ *
+ * Used by:
+ * - react-components (Button, SubmitBar, ButtonSelector, inputs, etc.)
+ * - ui-components (Button, SubmitBar, ButtonSelector, inputs, etc.)
  *
  * @example
- * 
- * Usage: Digit.Utils.getFieldIdName(fieldName = "", fieldId = "TO_OVERRIDE_ID_WITHTHIS_VALUE", screenPrefix = "TO_OVERRIDE_PREFIX_WITHTHIS_VALUE")
-*/
-export const getFieldIdName = (fieldName = "", fieldId = "", screenPrefix = "") => {
-  // Generate a unique field name if none is provided
-  fieldName = fieldName ? fieldName : generateUniqueString(10);
+ * // With name (RECOMMENDED - fully deterministic):
+ * Digit.Utils.generateUniqueId({ name: "submit-btn", type: "btn" })
+ * // → "works-inbox-standalone-submit-btn-btn"  (ALWAYS same on this screen)
+ *
+ * // Without name (uses counter - less stable):
+ * Digit.Utils.generateUniqueId({ type: "btn" })
+ * // → "works-inbox-standalone-btn-1"
+ */
 
-  // Use the provided fieldId if available, otherwise generate a sanitized HTML ID
-  return fieldId
-    ? fieldId
-    : sanitizeToHtmlId(`${getScreenPrefix(screenPrefix)}-${fieldName}`);
-};
+// Counter for elements without explicit names (fallback only)
+let globalIdCounter = 0;
 
-/*
-  Helper function to derive a screen-specific prefix from the current URL path.
-  If a custom prefix is provided, it is used directly; otherwise, the prefix is generated
-  by concatenating the last two segments of the URL path (e.g., "/parent/child").
-*/
-const getScreenPrefix = (prefix = "") => {
-  const screenPaths = window.location.pathname
-    .split("/")
-    .filter(Boolean) // removes empty segments
-    .slice(2); // ignores the first segment
-
-  return prefix
-    ? prefix
-    : `${screenPaths.join("-")}`;
-};
-  
-/*
-  Helper function to generate a random unique string of a given length.
-  Default length is 10. The string includes alphanumeric characters.
-*/
-const generateUniqueString = (length = 10) => {
-  const characters =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  let result = "";
-
-  for (let i = 0; i < length; i++) {
-    result += characters.charAt(Math.floor(Math.random() * characters.length));
+/**
+ * MAIN FUNCTION - Generates unique ID for any UI element.
+ *
+ * IMPORTANT: For stable IDs across page loads, ALWAYS provide a `name`.
+ * IDs without names use a counter which may change based on render order.
+ *
+ * @param {Object} options - Configuration options
+ * @param {string} [options.screenPath] - Screen path (auto-detected from URL if not provided)
+ * @param {string} [options.composerType] - "formcomposer", "inboxsearchcomposer", "standalone"
+ * @param {string} [options.composerId] - Form ID, module name, config ID, etc.
+ * @param {string} [options.sectionId] - Section ID within composer (headId from config)
+ * @param {string} [options.name] - Semantic name for the element (REQUIRED for stable IDs)
+ * @param {string} [options.type] - Element type: "btn", "input", "dropdown", "textarea", etc.
+ * @param {string} [options.id] - Explicit ID (if provided, returns this directly)
+ * @returns {string} Unique, sanitized HTML ID
+ */
+export const generateUniqueId = ({
+  screenPath = "",
+  composerType = "standalone",
+  composerId = "",
+  sectionId = "",
+  name = "",
+  type = "field",
+  id = ""
+} = {}) => {
+  // If explicit ID provided, use it directly
+  if (id) {
+    return id;
   }
 
-  return result;
+  // Get screen path from URL if not provided
+  const screen = screenPath || getScreenPrefix();
+
+  // Build ID parts array
+  const idParts = [
+    sanitizeToHtmlId(screen),
+    sanitizeToHtmlId(composerType),
+    sanitizeToHtmlId(composerId),
+    sanitizeToHtmlId(sectionId),
+    sanitizeToHtmlId(name),
+    type
+  ].filter(part => part && part !== "");
+
+  // If no name provided, add counter as fallback for uniqueness
+  // WARNING: Counter-based IDs may not be stable across page loads
+  if (!name) {
+    idParts.push((++globalIdCounter).toString());
+  }
+
+  return idParts.join("-");
 };
 
-/*
-  Sanitizes a string to be used as a valid HTML ID:
-  1. Converts the string to lowercase.
-  2. Replaces invalid characters (anything other than letters, numbers, hyphens, and underscores) with hyphens.
-  3. Trims leading or trailing hyphens.
-  4. If the input is empty or invalid, defaults to "id".
-*/
-const sanitizeToHtmlId = (input) => {
-  if (!input) return "id"; // Default to 'id' if input is empty or invalid
+/**
+ * SIMPLE FUNCTION - For backward compatibility.
+ *
+ * @param {string} fieldName - Semantic name (REQUIRED for stable IDs)
+ * @param {string} fieldId - Explicit ID (overrides if provided)
+ * @param {string} screenPrefix - Custom screen prefix
+ * @returns {string} Unique ID
+ */
+export const getFieldIdName = (fieldName = "", fieldId = "", screenPrefix = "") => {
+  return generateUniqueId({
+    screenPath: screenPrefix,
+    name: fieldName,
+    type: "field",
+    id: fieldId
+  });
+};
+
+/**
+ * Derives screen path from current URL.
+ * This is DETERMINISTIC - same URL always gives same prefix.
+ *
+ * @param {string} prefix - Custom prefix (optional)
+ * @returns {string} Screen path
+ *
+ * @example
+ * // URL: /digit-ui/employee/works/inbox
+ * getScreenPrefix() // → "works-inbox"
+ */
+export const getScreenPrefix = (prefix = "") => {
+  if (prefix) return prefix;
+
+  if (typeof window === "undefined") return "ssr";
+
+  const screenPaths = window.location.pathname
+    .split("/")
+    .filter(Boolean)
+    .slice(2);
+
+  return screenPaths.length > 0
+    ? screenPaths.join("-").toLowerCase()
+    : "root";
+};
+
+/**
+ * Sanitizes string to valid HTML ID.
+ * DETERMINISTIC - same input always gives same output.
+ *
+ * @param {string} input - String to sanitize
+ * @returns {string} Valid HTML ID
+ */
+export const sanitizeToHtmlId = (input) => {
+  if (!input) return "";
 
   return input
     .toLowerCase()
-    .replace(/[^a-z0-9-_]+/g, "-") // Replace invalid characters with hyphens
-    .replace(/^-+|-+$/g, ""); // Trim leading/trailing hyphens
+    .replace(/[^a-z0-9-_]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .replace(/-+/g, "-");
 };
+
+/**
+ * Resets global counter. Use for testing.
+ */
+export const resetFieldIdCounter = () => {
+  globalIdCounter = 0;
+};
+
+/**
+ * Gets current counter value (for debugging).
+ * @returns {number}
+ */
+export const getFieldIdCounter = () => globalIdCounter;
+
+/**
+ * @deprecated Use generateUniqueId instead.
+ */
+export const generateUniqueString = (length = 10) => {
+  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  let result = "";
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * characters.length));
+  }
+  return result;
+};
+
+// Alias for backward compatibility
+export const generateElementId = generateUniqueId;

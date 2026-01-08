@@ -12,7 +12,33 @@ import { initialInboxState } from "./InboxSearchComposerReducer";
 import { InboxContext } from "./InboxSearchComposerContext";
 import InboxSearchComposer from "./InboxSearchComposer";
 import BoundaryFilter from "./BoundaryFilter";
+import {
+  ButtonIdentificationProvider,
+  SectionIdentificationProvider,
+  useButtonIdentification,
+  useButtonId,
+  generateButtonId
+} from "./ButtonIdentificationContext";
 
-export { FieldComposer, FieldController, Fields, FormComposerV2, Modal, UploadFileComposer ,FieldV1, InboxSearchComposer,ResultsTable,reducer,initialInboxState,InboxContext,ResultsDataTableWrapper,
-    BoundaryFilter
+export {
+  FieldComposer,
+  FieldController,
+  Fields,
+  FormComposerV2,
+  Modal,
+  UploadFileComposer,
+  FieldV1,
+  InboxSearchComposer,
+  ResultsTable,
+  reducer,
+  initialInboxState,
+  InboxContext,
+  ResultsDataTableWrapper,
+  BoundaryFilter,
+  // Button Identification exports
+  ButtonIdentificationProvider,
+  SectionIdentificationProvider,
+  useButtonIdentification,
+  useButtonId,
+  generateButtonId
 };
