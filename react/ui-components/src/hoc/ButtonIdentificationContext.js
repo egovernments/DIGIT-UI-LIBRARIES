@@ -28,29 +28,35 @@ export const useButtonIdentification = () => {
  * Gets Digit.Utils functions (single source of truth from libraries)
  */
 const getDigitUtils = () => {
-  if (typeof window !== 'undefined' && window.Digit?.Utils) {
-    return {
-      generateUniqueId: window.Digit.Utils.generateUniqueId,
-      getScreenPrefix: window.Digit.Utils.getScreenPrefix,
-      sanitizeToHtmlId: window.Digit.Utils.sanitizeToHtmlId,
-    };
-  }
-  // Fallback if Digit not available
+  // Fallback implementations
+  const fallbackGenerateUniqueId = ({ screenPath, composerType, composerId, sectionId, name, type, id }) => {
+    if (id) return id;
+    const parts = [screenPath || 'root', composerType, composerId, sectionId, name, type].filter(Boolean);
+    return parts.join('-').toLowerCase().replace(/[^a-z0-9-_]+/g, '-');
+  };
+  const fallbackGetScreenPrefix = () => {
+    if (typeof window === 'undefined') return 'ssr';
+    const paths = window.location.pathname.split('/').filter(Boolean).slice(2);
+    return paths.length > 0 ? paths.join('-').toLowerCase() : 'root';
+  };
+  const fallbackSanitizeToHtmlId = (str) => {
+    if (!str) return '';
+    return str.toLowerCase().replace(/[^a-z0-9-_]+/g, '-').replace(/^-+|-+$/g, '').replace(/-+/g, '-');
+  };
+
+  // Check if Digit.Utils functions are available, fall back if not
+  const digitUtils = typeof window !== 'undefined' ? window.Digit?.Utils : null;
+
   return {
-    generateUniqueId: ({ screenPath, composerType, composerId, sectionId, name, type, id }) => {
-      if (id) return id;
-      const parts = [screenPath || 'root', composerType, composerId, sectionId, name, type].filter(Boolean);
-      return parts.join('-').toLowerCase().replace(/[^a-z0-9-_]+/g, '-');
-    },
-    getScreenPrefix: () => {
-      if (typeof window === 'undefined') return 'ssr';
-      const paths = window.location.pathname.split('/').filter(Boolean).slice(2);
-      return paths.length > 0 ? paths.join('-').toLowerCase() : 'root';
-    },
-    sanitizeToHtmlId: (str) => {
-      if (!str) return '';
-      return str.toLowerCase().replace(/[^a-z0-9-_]+/g, '-').replace(/^-+|-+$/g, '').replace(/-+/g, '-');
-    },
+    generateUniqueId: typeof digitUtils?.generateUniqueId === 'function'
+      ? digitUtils.generateUniqueId
+      : fallbackGenerateUniqueId,
+    getScreenPrefix: typeof digitUtils?.getScreenPrefix === 'function'
+      ? digitUtils.getScreenPrefix
+      : fallbackGetScreenPrefix,
+    sanitizeToHtmlId: typeof digitUtils?.sanitizeToHtmlId === 'function'
+      ? digitUtils.sanitizeToHtmlId
+      : fallbackSanitizeToHtmlId,
   };
 };
 
