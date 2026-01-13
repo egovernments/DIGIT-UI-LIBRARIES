@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
+import 'package:digit_ui_components/theme/radius.dart';
 import 'package:flutter/material.dart';
 
 class DigitCheckboxThemeData extends ThemeExtension<DigitCheckboxThemeData> {
@@ -48,7 +49,7 @@ class DigitCheckboxThemeData extends ThemeExtension<DigitCheckboxThemeData> {
       padding: EdgeInsets.zero,
       labelTextDirection: TextDirection.ltr,
       iconSize: theme.spacerTheme.spacer6,
-      borderRadius: 0,
+      borderRadius: radius1,
       borderWidth: 1.0,
       focusBorderWidth: 2.0,
     );

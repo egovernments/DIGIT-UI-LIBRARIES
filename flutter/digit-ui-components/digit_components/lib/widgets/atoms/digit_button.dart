@@ -182,7 +182,9 @@ class _DigitButtonState extends State<DigitButton> {
                 ? digitButtonThemeData.primaryDigitButtonHoverBoxShadow
                 : digitButtonThemeData.DigitButtonHoverBoxShadow
                 : [],
-            borderRadius: digitButtonThemeData.radius,
+            borderRadius: widget.size == DigitButtonSize.large
+                ? digitButtonThemeData.largeRadius
+                : digitButtonThemeData.smallMediumRadius,
             border: Border.all(
               color: widget.isDisabled
                   ? digitButtonThemeData.disabledColor ?? digitButtonThemeDataDefault.disabledColor!

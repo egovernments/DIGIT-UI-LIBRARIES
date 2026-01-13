@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
+import 'package:digit_ui_components/theme/radius.dart';
 import 'package:flutter/material.dart';
 import '../../constants/AppView.dart';
 
@@ -37,7 +38,7 @@ class DigitPopupTheme extends ThemeExtension<DigitPopupTheme> {
 
     return DigitPopupTheme(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(theme.spacerTheme.spacer1),
+        borderRadius: BorderRadius.circular(radius4),
         color: theme.colorTheme.paper.primary,
         boxShadow: [
           BoxShadow(

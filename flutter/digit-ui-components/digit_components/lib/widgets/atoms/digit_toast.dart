@@ -85,13 +85,16 @@ class Toast {
       constraints: BoxConstraints(
         minWidth: toastThemeData?.toastWidth ?? defaultThemeData.toastWidth!,
       ),
-      color: type == ToastType.success
-          ? toastThemeData?.successColor ?? defaultThemeData.successColor
-          : type == ToastType.error
-          ? toastThemeData?.errorColor ?? defaultThemeData.errorColor
-          : type == ToastType.warning
-          ? toastThemeData?.warningColor ?? defaultThemeData.warningColor
-          : toastThemeData?.infoColor ?? defaultThemeData.infoColor,
+      decoration: BoxDecoration(
+        color: type == ToastType.success
+            ? toastThemeData?.successColor ?? defaultThemeData.successColor
+            : type == ToastType.error
+            ? toastThemeData?.errorColor ?? defaultThemeData.errorColor
+            : type == ToastType.warning
+            ? toastThemeData?.warningColor ?? defaultThemeData.warningColor
+            : toastThemeData?.infoColor ?? defaultThemeData.infoColor,
+        borderRadius: toastThemeData?.borderRadius ?? defaultThemeData.borderRadius,
+      ),
       padding: toastThemeData?.padding ?? defaultThemeData.padding,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
+import 'package:digit_ui_components/theme/radius.dart';
 import 'package:flutter/material.dart';
 import '../../constants/AppView.dart';
 
@@ -29,7 +30,7 @@ class DigitDigitActionCardTheme extends ThemeExtension<DigitDigitActionCardTheme
 
     return DigitDigitActionCardTheme(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(spacer1),
+        borderRadius: BorderRadius.circular(radius4),
         color: theme.colorTheme.paper.primary,
         boxShadow: [
           BoxShadow(

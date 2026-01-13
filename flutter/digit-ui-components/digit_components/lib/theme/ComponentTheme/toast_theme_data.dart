@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
+import 'package:digit_ui_components/theme/radius.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
@@ -25,6 +26,7 @@ class DigitToastThemeData extends ThemeExtension<DigitToastThemeData> {
   final StyledToastAnimation? animation;
   final StyledToastAnimation? reverseAnimation;
   final StyledToastPosition? toastPosition;
+  final BorderRadius? borderRadius;
 
   const DigitToastThemeData({
     this.textStyle,
@@ -44,6 +46,7 @@ class DigitToastThemeData extends ThemeExtension<DigitToastThemeData> {
     this.animation,
     this.reverseAnimation,
     this.toastPosition,
+    this.borderRadius,
   });
 
   static DigitToastThemeData defaultTheme(BuildContext context) {
@@ -83,6 +86,7 @@ class DigitToastThemeData extends ThemeExtension<DigitToastThemeData> {
         align: Alignment.bottomCenter,
         offset: 0
       ),
+      borderRadius: BorderRadius.circular(radius2),
     );
   }
 
@@ -105,6 +109,7 @@ class DigitToastThemeData extends ThemeExtension<DigitToastThemeData> {
     StyledToastAnimation? animation,
     StyledToastAnimation? reverseAnimation,
     StyledToastPosition? toastPosition,
+    BorderRadius? borderRadius,
   }) {
     return DigitToastThemeData(
       textStyle: textStyle ?? this.textStyle,
@@ -124,6 +129,7 @@ class DigitToastThemeData extends ThemeExtension<DigitToastThemeData> {
       animation: animation ?? this.animation,
       reverseAnimation: reverseAnimation ?? this.reverseAnimation,
       toastPosition: toastPosition ?? this.toastPosition,
+      borderRadius: borderRadius ?? this.borderRadius,
     );
   }
 
@@ -149,6 +155,7 @@ class DigitToastThemeData extends ThemeExtension<DigitToastThemeData> {
       animation: t<0.5 ? animation : other.animation,
       reverseAnimation: t<0.5 ? reverseAnimation : other.reverseAnimation,
       toastPosition: t<0.5 ? toastPosition : other.toastPosition,
+      borderRadius: BorderRadius.lerp(borderRadius, other.borderRadius, t),
     );
   }
 }
