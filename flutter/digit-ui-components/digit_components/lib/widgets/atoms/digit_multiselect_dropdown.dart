@@ -776,9 +776,11 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                     child: Material(
                       borderRadius: Base.radius,
                       shadowColor: null,
+                      clipBehavior: Clip.antiAlias,
                       child: Container(
                         width: size.width,
                         decoration: BoxDecoration(
+                          borderRadius: Base.radius,
                           boxShadow: [
                             if (_filteredOptions.isNotEmpty)
                               const BoxShadow(
@@ -789,18 +791,21 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                               ),
                           ],
                         ),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            _filteredOptions.isEmpty
-                                ? _buildEmptyContainer(width)
-                                : widget.selectionType ==
-                                        SelectionType.nestedSelect
-                                    ? _buildNestedItems(width, values, options,
-                                        selectedOptions, dropdownState)
-                                    : _buildFlatOptions(width, values, options,
-                                        selectedOptions, dropdownState),
-                          ],
+                        child: ClipRRect(
+                          borderRadius: Base.radius,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              _filteredOptions.isEmpty
+                                  ? _buildEmptyContainer(width)
+                                  : widget.selectionType ==
+                                          SelectionType.nestedSelect
+                                      ? _buildNestedItems(width, values, options,
+                                          selectedOptions, dropdownState)
+                                      : _buildFlatOptions(width, values, options,
+                                          selectedOptions, dropdownState),
+                            ],
+                          ),
                         ),
                       ),
                     ),

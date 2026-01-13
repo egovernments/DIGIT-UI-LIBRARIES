@@ -5,6 +5,7 @@ import 'package:reactive_forms/reactive_forms.dart';
 
 import '../../constants/app_constants.dart';
 import '../../models/privacy_notice/privacy_notice_model.dart';
+import '../../theme/radius.dart';
 import '../../theme/spacers.dart';
 import '../localized.dart';
 import 'privacy_notice_dialog.dart';
@@ -78,7 +79,7 @@ class _PrivacyComponentState extends LocalizedState<PrivacyComponent> {
                                   color: theme.colorTheme.primary.primary1,
                                   width: 2,
                                 ),
-                                borderRadius: BorderRadius.zero,
+                                borderRadius: BorderRadius.circular(radius1),
                               ),
                               child: Center(
                                 child: Icon(

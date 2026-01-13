@@ -540,7 +540,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                     elevation: 0,
                     borderRadius: Base.radius,
                     color: const DigitColors().light.paperPrimary,
-                    clipBehavior: Clip.none,
+                    clipBehavior: Clip.antiAlias,
                     child: ConstrainedBox(
                       constraints: BoxConstraints(
                         maxHeight:
@@ -548,6 +548,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                       ),
                       child: Container(
                           decoration: BoxDecoration(
+                            borderRadius: Base.radius,
                             boxShadow: [
                               if (filteredItems.isNotEmpty)
                                 const BoxShadow(
@@ -558,7 +559,10 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                 ),
                             ],
                           ),
-                          child: _buildDropdownListView(size.width)),
+                          child: ClipRRect(
+                            borderRadius: Base.radius,
+                            child: _buildDropdownListView(size.width),
+                          )),
                     ),
                   ),
                 ),

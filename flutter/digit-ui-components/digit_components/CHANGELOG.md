@@ -1,3 +1,6 @@
+## 0.2.3+6
+* Updated radius for privacy component
+
 ## 0.2.3+5
 * Updated radius for every component
 * Added radius library

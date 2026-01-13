@@ -20,6 +20,7 @@ class DigitButtonThemeData extends ThemeExtension<DigitButtonThemeData> {
   final double? mediumDigitButtonHeight;
   final double? largeDigitButtonHeight;
   final double? borderWidth;
+  final BorderRadius? radius;
   final BorderRadius? smallMediumRadius;
   final BorderRadius? largeRadius;
   final EdgeInsets? padding;
@@ -53,6 +54,7 @@ class DigitButtonThemeData extends ThemeExtension<DigitButtonThemeData> {
      this.mediumDigitButtonHeight,
      this.largeDigitButtonHeight,
      this.borderWidth,
+    this.radius,
      this.smallMediumRadius,
      this.largeRadius,
      this.padding,
@@ -86,6 +88,7 @@ class DigitButtonThemeData extends ThemeExtension<DigitButtonThemeData> {
       mediumLinkIconSize: 20.0,
       largeLinkIconSize: 20.0,
       smallIconSize: 14.0,
+      radius: BorderRadius.zero,
       mediumIconSize: 20.0,
       largeIconSize: 24.0,
       smallDigitButtonHeight: 24.0,
@@ -165,6 +168,7 @@ class DigitButtonThemeData extends ThemeExtension<DigitButtonThemeData> {
     double? largeLinkIconSize,
     double? smallIconSize,
     double? mediumIconSize,
+    BorderRadius? radius,
     double? largeIconSize,
     double? smallDigitButtonHeight,
     double? mediumDigitButtonHeight,
@@ -209,6 +213,7 @@ class DigitButtonThemeData extends ThemeExtension<DigitButtonThemeData> {
       largeLinkTextStyle: largeLinkTextStyle ??
           defaultTheme?.largeLinkTextStyle ??
           this.largeLinkTextStyle,
+      radius: radius ?? defaultTheme?.radius ?? this.radius,
       smallIconSize:
           smallIconSize ?? defaultTheme?.smallIconSize ?? this.smallIconSize,
       mediumIconSize:
@@ -283,6 +288,7 @@ class DigitButtonThemeData extends ThemeExtension<DigitButtonThemeData> {
           TextStyle.lerp(mediumLinkTextStyle, other.mediumLinkTextStyle, t),
       largeLinkTextStyle:
           TextStyle.lerp(largeLinkTextStyle, other.largeLinkTextStyle, t),
+      radius: BorderRadius.lerp(radius, other.radius, t),
       smallIconSize: lerpDouble(smallIconSize, other.smallIconSize, t),
       mediumIconSize: lerpDouble(mediumIconSize, other.mediumIconSize, t),
       largeIconSize: lerpDouble(largeIconSize, other.largeIconSize, t),
