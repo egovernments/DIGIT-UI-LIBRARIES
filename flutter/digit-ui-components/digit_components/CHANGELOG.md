@@ -1,3 +1,6 @@
+## 0.2.3+7
+* Updated radius for card component
+
 ## 0.2.3+6
 * Updated radius for privacy component
 

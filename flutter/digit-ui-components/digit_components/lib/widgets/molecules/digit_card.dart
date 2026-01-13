@@ -64,7 +64,7 @@ class DigitCard extends StatelessWidget {
       width: width,
       margin: margin,
       decoration: BoxDecoration(
-        borderRadius: borderRadius ?? BorderRadius.circular(spacer1),
+        borderRadius: borderRadius ?? BorderRadius.circular(radius4),
         border: cardType == CardType.secondary
             ? Border.all(
                 width: Base.defaultBorderWidth,
@@ -86,7 +86,7 @@ class DigitCard extends StatelessWidget {
             : [],
       ),
       child: InkWell(
-        borderRadius: BorderRadius.circular(spacer1),
+        borderRadius: BorderRadius.circular(radius4),
         onTap: onPressed,
         child: Padding(
           padding: padding ??

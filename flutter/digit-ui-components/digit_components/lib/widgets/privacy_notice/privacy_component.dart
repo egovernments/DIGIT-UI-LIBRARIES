@@ -97,7 +97,7 @@ class _PrivacyComponentState extends LocalizedState<PrivacyComponent> {
                                   color: theme.colorTheme.text.primary,
                                   width: 1,
                                 ),
-                                borderRadius: BorderRadius.zero,
+                                borderRadius: BorderRadius.circular(radius1),
                               ),
                             ),
                     ),
