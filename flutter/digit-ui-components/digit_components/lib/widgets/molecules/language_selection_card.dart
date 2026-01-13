@@ -150,6 +150,7 @@ class _DigitRowCardState extends State<DigitRowCard> {
       child: Container(
         width: width ?? max(itemWidth, maxLabelWidth), // Use the calculated width
         decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(radius2),
           color: item.isSelected
               ? theme.colorTheme.primary.primary1
               : theme.colorTheme.paper.secondary,

@@ -1,5 +1,6 @@
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
+import 'package:digit_ui_components/theme/radius.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -607,6 +608,10 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                                   ),
                                   decoration: BoxDecoration(
                                     color: theme.colorTheme.generic.background,
+                                    borderRadius: BorderRadius.only(
+                                      topRight: Radius.circular(radius2),
+                                      bottomRight: Radius.circular(radius2),
+                                    ),
                                     border: Border(
                                       right: BorderSide.none,
                                       top: BorderSide.none,
@@ -650,6 +655,10 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                                 ),
                                 decoration: BoxDecoration(
                                   color: theme.colorTheme.generic.background,
+                                  borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(radius2),
+                                    bottomRight: Radius.circular(radius2),
+                                  ),
                                   border: Border(
                                     right: BorderSide.none,
                                     top: BorderSide.none,
@@ -735,6 +744,10 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                                   ),
                                   decoration: BoxDecoration(
                                     color: theme.colorTheme.generic.background,
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(radius2),
+                                      bottomLeft: Radius.circular(radius2),
+                                    ),
                                     border: Border(
                                       right: BorderSide(
                                         color: widget.isDisabled
@@ -782,6 +795,10 @@ class BaseDigitFormInputState extends State<BaseDigitFormInput> {
                                   color: const DigitColors()
                                       .light
                                       .genericBackground,
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(radius2),
+                                    bottomLeft: Radius.circular(radius2),
+                                  ),
                                   border: Border(
                                     right: BorderSide(
                                       color: widget.isDisabled

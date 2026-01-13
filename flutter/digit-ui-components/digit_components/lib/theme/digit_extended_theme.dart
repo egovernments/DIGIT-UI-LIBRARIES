@@ -5,6 +5,7 @@ import 'package:digit_ui_components/theme/ColorTheme/light_color_theme.dart';
 import 'package:digit_ui_components/theme/TextTheme/desktop_text_theme.dart';
 import 'package:digit_ui_components/theme/TextTheme/mobile_text_theme.dart';
 import 'package:digit_ui_components/theme/TextTheme/tab_text_theme.dart';
+import 'package:digit_ui_components/theme/radius.dart';
 import 'package:flutter/material.dart';
 import 'ColorTheme/color_theme.dart';
 import 'SpacerTheme/spacer_theme.dart';
@@ -98,7 +99,7 @@ class DigitExtendedTheme {
     return TimePickerThemeData(
       backgroundColor: const DigitColors().light.paperPrimary,
       hourMinuteShape: RoundedRectangleBorder(
-        borderRadius: const BorderRadius.all(Radius.circular(4)),
+        borderRadius: BorderRadius.all(Radius.circular(radius1)),
         side: BorderSide(color: const DigitColors().light.primary1, width: 1),
       ),
       dayPeriodBorderSide:
@@ -225,32 +226,28 @@ class DigitExtendedTheme {
     ),
   );
 
-  CardTheme get cardTheme => const CardTheme(
-    margin: EdgeInsets.fromLTRB(spacer2, spacer4, spacer2, 0),
+  CardTheme get cardTheme => CardTheme(
+    margin: const EdgeInsets.fromLTRB(spacer2, spacer4, spacer2, 0),
     elevation: 1,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.all(
-        Radius.circular(4),
+        Radius.circular(radius4),
       ),
     ),
   );
 
   InputDecorationTheme get inputDecorationTheme => InputDecorationTheme(
     enabledBorder: OutlineInputBorder(
-      borderRadius: const BorderRadius.all(
-        Radius.circular(
-          0,
-        ),
+      borderRadius: BorderRadius.all(
+        Radius.circular(radius2),
       ),
       borderSide: BorderSide(
         color: const DigitColors().light.textSecondary,
       ),
     ),
     focusedBorder: OutlineInputBorder(
-      borderRadius: const BorderRadius.all(
-        Radius.circular(
-          0,
-        ),
+      borderRadius: BorderRadius.all(
+        Radius.circular(radius2),
       ),
       borderSide: BorderSide(
         color: const DigitColors().light.primary1,
@@ -258,44 +255,36 @@ class DigitExtendedTheme {
       ),
     ),
     disabledBorder: OutlineInputBorder(
-      borderRadius: const BorderRadius.all(
-        Radius.circular(
-          0,
-        ),
+      borderRadius: BorderRadius.all(
+        Radius.circular(radius2),
       ),
       borderSide: BorderSide(color: const DigitColors().light.textDisabled, width: 1),
     ),
     contentPadding: const EdgeInsets.all(12),
     floatingLabelBehavior: FloatingLabelBehavior.never,
     errorBorder: OutlineInputBorder(
-      borderRadius: const BorderRadius.all(
-        Radius.circular(
-          0,
-        ),
+      borderRadius: BorderRadius.all(
+        Radius.circular(radius2),
       ),
       borderSide: BorderSide(
         color: const DigitColors().light.alertError,
       ),
     ),
     focusedErrorBorder: OutlineInputBorder(
-      borderRadius: const BorderRadius.all(
-        Radius.circular(
-          0,
-        ),
+      borderRadius: BorderRadius.all(
+        Radius.circular(radius2),
       ),
       borderSide: BorderSide(color: const DigitColors().light.alertError, width: 2),
     ),
   );
 
-  DialogTheme get dialogTheme => const DialogTheme(
+  DialogTheme get dialogTheme => DialogTheme(
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.all(
-        Radius.circular(
-          4,
-        ),
+        Radius.circular(radius1),
       ),
     ),
-    actionsPadding: EdgeInsets.all(spacer2),
+    actionsPadding: const EdgeInsets.all(spacer2),
   );
 
   BorderSide get tableCellBorder => BorderSide(

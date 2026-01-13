@@ -349,7 +349,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                       left: spacer3,
                       top: spacer2,
                     ),
-                    border: const OutlineInputBorder(
+                    border: OutlineInputBorder(
                       borderRadius: Base.radius,
                     ),
                     enabledBorder: OutlineInputBorder(

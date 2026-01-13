@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
+import 'package:digit_ui_components/theme/radius.dart';
 import 'package:flutter/material.dart';
 
 class DigitButtonThemeData extends ThemeExtension<DigitButtonThemeData> {
@@ -19,7 +20,8 @@ class DigitButtonThemeData extends ThemeExtension<DigitButtonThemeData> {
   final double? mediumDigitButtonHeight;
   final double? largeDigitButtonHeight;
   final double? borderWidth;
-  final BorderRadius? radius;
+  final BorderRadius? smallMediumRadius;
+  final BorderRadius? largeRadius;
   final EdgeInsets? padding;
   final EdgeInsets? linkPadding;
   final Color? hightlightColor;
@@ -51,7 +53,8 @@ class DigitButtonThemeData extends ThemeExtension<DigitButtonThemeData> {
      this.mediumDigitButtonHeight,
      this.largeDigitButtonHeight,
      this.borderWidth,
-     this.radius,
+     this.smallMediumRadius,
+     this.largeRadius,
      this.padding,
      this.linkPadding,
      this.hoverColor,
@@ -89,7 +92,8 @@ class DigitButtonThemeData extends ThemeExtension<DigitButtonThemeData> {
       mediumDigitButtonHeight: 32.0,
       largeDigitButtonHeight: 40.0,
       borderWidth: 1.0,
-      radius: BorderRadius.zero,
+      smallMediumRadius: BorderRadius.circular(radius2),
+      largeRadius: BorderRadius.circular(radius3),
       padding: EdgeInsets.symmetric(
           horizontal: theme.spacerTheme.spacer6, vertical: 0),
       linkPadding: const EdgeInsets.all(0),
@@ -166,7 +170,8 @@ class DigitButtonThemeData extends ThemeExtension<DigitButtonThemeData> {
     double? mediumDigitButtonHeight,
     double? largeDigitButtonHeight,
     double? borderWidth,
-    BorderRadius? radius,
+    BorderRadius? smallMediumRadius,
+    BorderRadius? largeRadius,
     EdgeInsets? padding,
     EdgeInsets? linkPadding,
     Color? hoverColor,
@@ -229,7 +234,8 @@ class DigitButtonThemeData extends ThemeExtension<DigitButtonThemeData> {
           defaultTheme?.largeDigitButtonHeight ??
           this.largeDigitButtonHeight,
       borderWidth: borderWidth ?? defaultTheme?.borderWidth ?? this.borderWidth,
-      radius: radius ?? defaultTheme?.radius ?? this.radius,
+      smallMediumRadius: smallMediumRadius ?? defaultTheme?.smallMediumRadius ?? this.smallMediumRadius,
+      largeRadius: largeRadius ?? defaultTheme?.largeRadius ?? this.largeRadius,
       padding: padding ?? defaultTheme?.padding ?? this.padding,
       linkPadding: linkPadding ?? defaultTheme?.linkPadding ?? this.linkPadding,
       hoverColor: hoverColor ?? defaultTheme?.hoverColor ?? this.hoverColor,
@@ -293,7 +299,8 @@ class DigitButtonThemeData extends ThemeExtension<DigitButtonThemeData> {
       largeDigitButtonHeight:
           lerpDouble(largeDigitButtonHeight, other.largeDigitButtonHeight, t),
       borderWidth: lerpDouble(borderWidth, other.borderWidth, t),
-      radius: BorderRadius.lerp(radius, other.radius, t),
+      smallMediumRadius: BorderRadius.lerp(smallMediumRadius, other.smallMediumRadius, t),
+      largeRadius: BorderRadius.lerp(largeRadius, other.largeRadius, t),
       padding: EdgeInsets.lerp(padding, other.padding, t),
       linkPadding: EdgeInsets.lerp(linkPadding, other.linkPadding, t),
       hoverColor: Color.lerp(hoverColor, other.hoverColor, t),
