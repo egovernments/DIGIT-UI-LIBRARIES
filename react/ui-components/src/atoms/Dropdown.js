@@ -335,15 +335,53 @@ const Dropdown = (props) => {
     setFilterVal(val);
   }
 
+  // Filter options - for nested dropdowns, also search within child options
   let filteredOption =
-    (props.option &&
-      props.option?.filter(
-        (option) =>
-          t(option[props?.optionKey])
-            ?.toUpperCase()
-            ?.indexOf(filterVal?.toUpperCase()) > -1
-      )) ||
-    [];
+    props.variant === "nesteddropdown" || props.variant === "treedropdown"
+      ? filterVal?.length > 0
+        ? props.option
+            ?.map((option) => {
+              const optionName = t(option[props?.optionKey])?.toUpperCase() || "";
+              const searchVal = filterVal?.toUpperCase();
+              const categoryMatches = optionName.indexOf(searchVal) > -1;
+
+              if (option?.options && option.options.length > 0) {
+                // Search within nested options
+                const matchingNestedOptions = option?.options?.filter(
+                  (nestedOption) =>
+                    t(nestedOption[props?.optionKey])
+                      ?.toUpperCase()
+                      ?.indexOf(searchVal) > -1
+                );
+
+                // Include category if category name matches OR any children match
+                if (categoryMatches) {
+                  // Category matches - show all children
+                  return option;
+                } else if (matchingNestedOptions.length > 0) {
+                  // Children match - show category with only matching children
+                  return {
+                    ...option,
+                    options: matchingNestedOptions,
+                  };
+                }
+              } else if (categoryMatches) {
+                // Non-nested option that matches
+                return option;
+              }
+
+              return null;
+            })
+            ?.filter(Boolean) || []
+        : props.option || []
+      : (props.option &&
+          props.option?.filter(
+            (option) =>
+              t(option[props?.optionKey])
+                ?.toUpperCase()
+                ?.indexOf(filterVal?.toUpperCase()) > -1
+          )) ||
+        [];
   function selectOption(ind) {
     const optionsToSelect =
       props.variant === "nesteddropdown" || props.variant === "treedropdown"

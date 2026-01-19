@@ -534,3 +534,20 @@
   border-top-right-radius:var(--digitv2-borderRadius-radius2);
   border-bottom-right-radius: var(--digitv2-borderRadius-radius2);
 }
+
+
+input{
+  outline: none !important;
+
+  &:focus-visible{
+      outline: none !important;
+  }
+}
+
+.datepicker-popper-high-zindex {
+  z-index: 999999 !important;
+}
+
+.react-datepicker-popper {
+  z-index: 999999 !important;
+}
