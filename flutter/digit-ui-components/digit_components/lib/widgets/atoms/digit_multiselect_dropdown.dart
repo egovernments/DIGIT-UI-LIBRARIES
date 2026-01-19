@@ -997,19 +997,23 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                     backgroundColor: backgroundColor,
                     selectedOptions: selectedOptions,
                     onOptionSelected: (List<DropdownItem> selectedOptions) {
-                      if (isSelected) {
+                      // Check selection state inside callback to get current state
+                      final currentlySelected = selectedOptions.any((item) =>
+                          item.code == option.code && item.name == option.name);
+                      if (currentlySelected) {
                         dropdownState(() {
-                          selectedOptions.remove(option);
+                          selectedOptions.removeWhere((item) =>
+                              item.code == option.code && item.name == option.name);
                         });
                         setState(() {
-                          _selectedOptions = selectedOptions;
+                          _selectedOptions = List.from(selectedOptions);
                         });
                       } else {
                         dropdownState(() {
                           selectedOptions.add(option);
                         });
                         setState(() {
-                          _selectedOptions = selectedOptions;
+                          _selectedOptions = List.from(selectedOptions);
                         });
                       }
 
@@ -1241,12 +1245,17 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                     selectedOptions: selectedOptions,
                     isFocused: isFocused,
                     onOptionSelected: (List<DropdownItem> selectedOptions) {
-                      if (isSelected) {
+                      // Check selection state inside callback to get current state
+                      final currentlySelected = selectedOptions.any((item) =>
+                          item.code == option.code && item.name == option.name);
+                      if (currentlySelected) {
                         dropdownState(() {
-                          selectedOptions.remove(option);
+                          selectedOptions.removeWhere((item) =>
+                              item.code == option.code && item.name == option.name);
                         });
                         setState(() {
-                          _selectedOptions.remove(option);
+                          _selectedOptions.removeWhere((item) =>
+                              item.code == option.code && item.name == option.name);
                         });
                       } else {
                         dropdownState(() {

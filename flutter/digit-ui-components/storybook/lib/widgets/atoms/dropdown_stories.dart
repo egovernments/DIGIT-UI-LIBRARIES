@@ -335,7 +335,11 @@ List<Story> dropdownStories() {
         isSearchable:
             context.knobs.boolean(label: 'Searchable', initial: false),
         isDisabled: context.knobs.boolean(label: 'disabled', initial: false),
-        onOptionSelected: (List<DropdownItem> selectedOptions) {},
+        onOptionSelected: (List<DropdownItem> selectedOptions) {
+          print(selectedOptions.length);
+          print("called event");
+        },
+
         options: const [
           DropdownItem(code: '1', name: 'one'),
           DropdownItem(code: '2', name: 'two'),

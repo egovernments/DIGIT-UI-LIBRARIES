@@ -64,7 +64,7 @@ List<Story> tableStories() {
         rows: [
           DigitTableRow(tableRow: [
             DigitTableData(
-              'Row 1',
+              'Row 1ghjkkkkkkkkkkkkkkkkkkkkkjkjkj',
               cellKey: 'first',
               callBack: (data) {
                 print(data);

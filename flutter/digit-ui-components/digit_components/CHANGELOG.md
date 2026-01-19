@@ -1,3 +1,7 @@
+## 0.2.3+8
+* Updated radius for pop up component
+* Fixed multiselect dropdown build issue
+
 ## 0.2.3+7
 * Updated radius for card component
 

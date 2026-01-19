@@ -124,7 +124,7 @@ class DigitTableCell extends StatelessWidget {
       default:
         return cellData.widget ?? Text(
           cellData.label,
-          maxLines: 1,
+          softWrap: true,
           style: textTheme.bodyS.copyWith(color: theme.colorTheme.text.primary),
         );
     }

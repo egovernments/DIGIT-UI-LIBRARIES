@@ -22,6 +22,7 @@ import '../../constants/AppView.dart';
 import '../../enum/app_enums.dart';
 import '../../theme/ComponentTheme/pop_up_card_theme.dart';
 import '../../theme/colors.dart';
+import '../../theme/radius.dart';
 import '../../theme/spacers.dart';
 import '../../theme/typography.dart';
 import 'package:flutter/scheduler.dart';
@@ -126,8 +127,8 @@ class _PopupState extends State<Popup> {
       decoration: BoxDecoration(
         color: const DigitColors().light.paperPrimary,
         borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(spacer1),
-            topRight: Radius.circular(spacer1)),
+            topLeft: Radius.circular(radius4),
+            topRight: Radius.circular(radius4)),
         boxShadow: _isOverflowing
             ? [
           BoxShadow(
@@ -245,8 +246,8 @@ class _PopupState extends State<Popup> {
       decoration: BoxDecoration(
         color: const DigitColors().light.paperPrimary,
         borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(spacer1),
-            topRight: Radius.circular(spacer1)),
+            topLeft: Radius.circular(radius4),
+            topRight: Radius.circular(radius4)),
         boxShadow: _isOverflowing
             ? [
           BoxShadow(
@@ -490,8 +491,8 @@ class _PopupState extends State<Popup> {
                     decoration: BoxDecoration(
                       color: const DigitColors().light.paperPrimary,
                       borderRadius: const BorderRadius.only(
-                          bottomLeft: Radius.circular(spacer1),
-                          bottomRight: Radius.circular(spacer1)),
+                          bottomLeft: Radius.circular(radius4),
+                          bottomRight: Radius.circular(radius4)),
                       boxShadow: _isOverflowing
                           ? [
                         BoxShadow(
