@@ -168,6 +168,7 @@ const CustomDropdown = ({ t, config, inputRef, label, onChange, id, value, error
             variant={variant}
             isSearchable={config?.isSearchable}
             disablePortal={config?.disablePortal}
+            showTooltip={config?.showTooltip}
           />
         );
       case "toggle":
