@@ -947,7 +947,7 @@ const MultiSelectDropdown = ({
               variation="link"
             />
           )}
-          {alreadyQueuedSelectedState.length > 0 && frozenData.length === 0 && !disableClearAll && (
+          {((alreadyQueuedSelectedState.length > 0 && frozenData.length === 0) || !disableClearAll) && (
             <Button
               label={t(config?.clearLabel ? config?.clearLabel : t("CLEAR_ALL"))}
               onClick={handleClearAll}
