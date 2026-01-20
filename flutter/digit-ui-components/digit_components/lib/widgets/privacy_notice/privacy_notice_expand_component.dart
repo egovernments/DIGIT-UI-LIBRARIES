@@ -150,7 +150,7 @@ class DescriptionWidgetState extends LocalizedState<DescriptionWidget> {
       return RichText(
         text: TextSpan(
           text: '$stepNumber. ',
-          style: TextStyle(
+          style: Theme.of(context).digitTextTheme(context).bodyS.copyWith(
             fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
           ),
           children: [
@@ -181,7 +181,7 @@ class DescriptionWidgetState extends LocalizedState<DescriptionWidget> {
             child: RichText(
               text: TextSpan(
                 text: localizations.translate(descriptionText),
-                style: TextStyle(
+                style: Theme.of(context).digitTextTheme(context).bodyS.copyWith(
                   fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
                 ),
               ),
@@ -194,7 +194,7 @@ class DescriptionWidgetState extends LocalizedState<DescriptionWidget> {
       return Text(
         localizations.translate(descriptionText),
         textAlign: TextAlign.justify,
-        style: TextStyle(
+        style: Theme.of(context).digitTextTheme(context).bodyS.copyWith(
           fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
         ),
       );
@@ -246,9 +246,9 @@ class SubDescriptionWidgetState extends LocalizedState<SubDescriptionWidget> {
       return Text(
         '$stepNumber. ${localizations.translate(subDescriptionText)}',
         textAlign: TextAlign.justify,
-        style: TextStyle(
-          fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
-        ),
+        style: Theme.of(context).digitTextTheme(context).bodyS.copyWith(
+        fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
+      ),
       );
     } else if (subDescriptionType == 'points') {
       return Row(
@@ -267,7 +267,7 @@ class SubDescriptionWidgetState extends LocalizedState<SubDescriptionWidget> {
             child: Text(
               localizations.translate(subDescriptionText),
               textAlign: TextAlign.justify,
-              style: TextStyle(
+              style: Theme.of(context).digitTextTheme(context).bodyS.copyWith(
                 fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
               ),
             ),
@@ -278,7 +278,7 @@ class SubDescriptionWidgetState extends LocalizedState<SubDescriptionWidget> {
       return Text(
         localizations.translate(subDescriptionText),
         textAlign: TextAlign.justify,
-        style: TextStyle(
+        style: Theme.of(context).digitTextTheme(context).bodyS.copyWith(
           fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
         ),
       );

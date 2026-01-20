@@ -1,3 +1,6 @@
+## 0.2.3+9
+* Fixed alignment issue in privacy component
+
 ## 0.2.3+8
 * Updated radius for pop up component
 * Fixed multiselect dropdown build issue
