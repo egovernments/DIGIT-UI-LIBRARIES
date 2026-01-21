@@ -208,12 +208,18 @@ const Dropdown = (props) => {
     return true;
   };
 
-  // Update dropdown position when it opens or on scroll/resize
+  // Update dropdown position when it opens or on scroll/resize (only when using portal)
   useEffect(() => {
-    const updatePosition = () => {
+    // Skip if portal is disabled - no need to track position or visibility
+    if (props.disablePortal) return;
+
+    // Only check visibility on scroll/resize, not on initial position update
+    const updatePositionOnScroll = () => {
       if (dropdownStatus && dropdownComponentRef.current) {
         // Check if the input field is visible within scroll parents and viewport
         if (!isElementVisibleInScrollParents(dropdownComponentRef.current)) {
+          // Remove the mousedown listener before closing to prevent it from blocking reopening
+          document.removeEventListener("mousedown", handleClick, false);
           setDropdownStatus(false);
           return;
         }
@@ -227,17 +233,29 @@ const Dropdown = (props) => {
       }
     };
 
+    // Initial position update without visibility check
+    const setInitialPosition = () => {
+      if (dropdownComponentRef.current) {
+        const rect = dropdownComponentRef.current.getBoundingClientRect();
+        setDropdownPosition({
+          top: rect.bottom + window.scrollY,
+          left: rect.left + window.scrollX,
+          width: rect.width
+        });
+      }
+    };
+
     if (dropdownStatus) {
-      updatePosition();
-      window.addEventListener("scroll", updatePosition, true);
-      window.addEventListener("resize", updatePosition);
+      setInitialPosition();
+      window.addEventListener("scroll", updatePositionOnScroll, true);
+      window.addEventListener("resize", updatePositionOnScroll);
     }
 
     return () => {
-      window.removeEventListener("scroll", updatePosition, true);
-      window.removeEventListener("resize", updatePosition);
+      window.removeEventListener("scroll", updatePositionOnScroll, true);
+      window.removeEventListener("resize", updatePositionOnScroll);
     };
-  }, [dropdownStatus]);
+  }, [dropdownStatus, props.disablePortal]);
 
 
   const scrollIntoViewIfNeeded = () => {
