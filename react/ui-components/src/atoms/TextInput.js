@@ -415,8 +415,36 @@ const TextInput = (props) => {
                 t(props.placeholder)
               )}
               onChange={(event) => {
-                if (props?.type === "number" && props?.maxlength) {
-                  if (event.target.value.length > props?.maxlength) {
+                // NUMBER TYPE
+                if (props?.type === "number") {
+                  const allowNegative =
+                    props?.allowNegativeValues !== undefined
+                      ? props.allowNegativeValues
+                      : false;
+                  // allow clearing input
+                  if (event.target.value === "") {
+                    props?.onChange?.(event);
+                    return;
+                  }
+                  // allow intermediate "-" only if negatives allowed
+                  if (allowNegative && event.target.value === "-") {
+                    props?.onChange?.(event);
+                    return;
+                  }
+                  // block invalid number formats
+                  const numberRegex = allowNegative ? /^-?\d+$/ : /^\d+$/;
+                  if (!numberRegex.test(event.target.value)) {
+                    return;
+                  }
+                  // prevent negative values if not allowed
+                  if (!allowNegative && Number(event.target.value) < 0) {
+                    return;
+                  }
+                  // enforce maxlength (AFTER validation)
+                  if (
+                    props?.maxlength &&
+                    event.target.value.length > props.maxlength
+                  ) {
                     event.target.value = event.target.value.slice(0, -1);
                   }
                 }
@@ -526,8 +554,36 @@ const TextInput = (props) => {
                 t(props.placeholder)
               )}
               onChange={(event) => {
-                if (props?.type === "number" && props?.maxlength) {
-                  if (event.target.value.length > props?.maxlength) {
+                // NUMBER TYPE
+                if (props?.type === "number") {
+                  const allowNegative =
+                    props?.allowNegativeValues !== undefined
+                      ? props.allowNegativeValues
+                      : false;
+                  // allow clearing input
+                  if (event.target.value === "") {
+                    props?.onChange?.(event);
+                    return;
+                  }
+                  // allow intermediate "-" only if negatives allowed
+                  if (allowNegative && event.target.value === "-") {
+                    props?.onChange?.(event);
+                    return;
+                  }
+                  // block invalid number formats
+                  const numberRegex = allowNegative ? /^-?\d+$/ : /^\d+$/;
+                  if (!numberRegex.test(event.target.value)) {
+                    return;
+                  }
+                  // prevent negative values if not allowed
+                  if (!allowNegative && Number(event.target.value) < 0) {
+                    return;
+                  }
+                  // enforce maxlength (AFTER validation)
+                  if (
+                    props?.maxlength &&
+                    event.target.value.length > props.maxlength
+                  ) {
                     event.target.value = event.target.value.slice(0, -1);
                   }
                 }
