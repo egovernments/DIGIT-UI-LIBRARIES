@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 // import { MdmsService } from "../services/elements/MDMS";
 /**
  * Custom hook which can be used to
@@ -36,7 +36,7 @@ const useCustomMDMS = (tenantId, moduleName, masterDetails = [], config = {}, md
     return useCustomAPIHook({
       url: Urls.mdms_v2.search,
       params: {},
-      changeQueryName: `mdms-v2-dropdowns${mdmsv2?.schemaCode}`,
+      changeQueryName: `mdms-v2-dropdowns-${mdmsv2?.schemaCode}`,
       body: {
         MdmsCriteria: {
           // tenantId, //changing here to send user's tenantId always whether stateId or city
@@ -47,28 +47,32 @@ const useCustomMDMS = (tenantId, moduleName, masterDetails = [], config = {}, md
         },
       },
       config: {
-        enabled: mdmsv2 ? true : false,
+        enabled: Boolean(mdmsv2),
         select: (response) => {
-          //mdms will be an array of master data
-          const { mdms } = response;
-          //first filter with isActive
-          //then make a data array with actual data
-          //refer the "code" key in data(for now) and set options array , also set i18nKey in each object to show in UI
-          const options = mdms
+          const { mdms } = response || {};
+          return mdms
             ?.filter((row) => row?.isActive)
-            ?.map((row) => {
-              return {
-                i18nKey: Digit.Utils.locale.getTransformedLocale(`${row?.schemaCode}_${row?.data?.code}`),
-                ...row.data,
-              };
-            });
-          return options;
+            ?.map((row) => ({
+              i18nKey: Digit.Utils.locale.getTransformedLocale(
+                `${row?.schemaCode}_${row?.data?.code}`
+              ),
+              ...row.data,
+            }));
         },
       },
     });
   }
-  return useQuery([tenantId, moduleName, masterDetails], () => MdmsService.getMultipleTypesWithFilter(tenantId, moduleName, masterDetails), {
-    cacheTime: 0,
+
+  // MDMS v1 flow (TanStack v5)
+  return useQuery({
+    queryKey: ["mdms", tenantId, moduleName, masterDetails],
+    queryFn: () =>
+      MdmsService.getMultipleTypesWithFilter(
+        tenantId,
+        moduleName,
+        masterDetails
+      ),
+    gcTime: 0, // replaces cacheTime
     ...config,
   });
 };

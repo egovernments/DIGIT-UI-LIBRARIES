@@ -15,7 +15,7 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { useCustomT } from "./app-config-utils/useCustomT";
 import { MODULE_CONSTANTS } from "./app-config-utils/constants";
-import { useQueryClient } from "react-query";
+import { useQueryClient } from "@tanstack/react-query";
 
 const AppConfigContext = createContext();
 

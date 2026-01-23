@@ -1,8 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Redirect, Route, Switch, useHistory, useRouteMatch, useLocation } from "react-router-dom";
+import { Navigate, Route, Routes, useNavigate, useLocation } from "react-router-dom";
 import { FormComposerV2 } from "..";
-
 
 /**
  * FormComposerCitizen 
@@ -20,12 +19,21 @@ import { FormComposerV2 } from "..";
  * still not used officialy anywhere so feel free to contribute new features to use this hoc
  * 
  */
-const FormComposerCitizen = ({config : baseConfig,onSubmit:onFinalSubmit,onFormValueChange,nextStepLabel,submitLabel,baseRoute="",sessionKey="DEFAULT_CITIZEN_CREATE",submitInForm=true,fieldStyle={ marginRight: 0 }}) => {
-  const { pathname } = useLocation(); // Gets the current URL pathname
-  const match = useRouteMatch(); // Matches the current route
-  const { t } = useTranslation(); // Localization hook for translations
-  const history = useHistory(); // React Router history object for navigation
-  
+const FormComposerCitizen = ({
+  config: baseConfig,
+  onSubmit: onFinalSubmit,
+  onFormValueChange,
+  nextStepLabel,
+  submitLabel,
+  baseRoute = "",
+  sessionKey = "DEFAULT_CITIZEN_CREATE",
+  submitInForm = true,
+  fieldStyle = { marginRight: 0 }
+}) => {
+  const { pathname } = useLocation();
+  const { t } = useTranslation();
+  const navigate = useNavigate(); // Replaces useHistory
+
   /**
    * Filters out configurations that have a defined route.
    */
@@ -42,7 +50,7 @@ const FormComposerCitizen = ({config : baseConfig,onSubmit:onFinalSubmit,onFormV
 
   // State to store session data using custom session storage hook
   const [params, setParams, clearParams] = Digit.Hooks.useSessionStorage(sessionKey, {});
-  const [nextStep, setNextStep] = useState(baseRoute); // State to manage the next step in the form flow
+  const [nextStep, setNextStep] = useState(baseRoute);
 
   /**
    * Handles form submission.
@@ -51,9 +59,9 @@ const FormComposerCitizen = ({config : baseConfig,onSubmit:onFinalSubmit,onFormV
   const onSubmit = async (data) => {
     setParams({ ...params, ...data });
     if (nextStep !== null) {
-      history.push(`${match.path}/${nextStep}`); // Navigate to the next step
+      navigate(nextStep); // Use relative navigation
     } else {
-        onFinalSubmit({ ...params, ...data }); // Final form submission
+      onFinalSubmit({ ...params, ...data });
     }
   };
 
@@ -68,7 +76,7 @@ const FormComposerCitizen = ({config : baseConfig,onSubmit:onFinalSubmit,onFormV
       currentConfig
         .map((config) => {
           const newConfig = { ...config };
-          const bodyConfigs = newConfig?.body?.filter((configs) => configs.route == currentPath);
+          const bodyConfigs = newConfig?.body?.filter((configs) => configs.route === currentPath);
           newConfig.body = bodyConfigs;
           return newConfig;
         })
@@ -77,9 +85,9 @@ const FormComposerCitizen = ({config : baseConfig,onSubmit:onFinalSubmit,onFormV
   );
 
   // Clears session storage parameters when the component mounts
-  useEffect(()=>{
+  useEffect(() => {
     return clearParams();
-  },[]);
+  }, []);
 
   // Updates the next step based on the current form configuration
   useEffect(() => {
@@ -88,29 +96,28 @@ const FormComposerCitizen = ({config : baseConfig,onSubmit:onFinalSubmit,onFormV
 
   return (
     <div>
-      <Switch>
+      <Routes>
         {/* Renders the FormComposerV2 component for the current step */}
-        <Route path={`${match.path}/${currentPath}`} key={""}>
-          <FormComposerV2
-            label={nextStep==null?t(submitLabel):t(nextStepLabel)}
-            config={currentRunningConfig.map((config) => {
-              return {
+        <Route
+          path={currentPath}
+          element={
+            <FormComposerV2
+              label={nextStep === null ? t(submitLabel) : t(nextStepLabel)}
+              config={currentRunningConfig.map((config) => ({
                 ...config,
-              };
-            })}
-            defaultValues={{ ...params }}
-            submitInForm={submitInForm}
-            onFormValueChange={onFormValueChange}
-            onSubmit={(data) => onSubmit(data)}
-            fieldStyle={fieldStyle}
-          />
-        </Route>
+              }))}
+              defaultValues={{ ...params }}
+              submitInForm={submitInForm}
+              onFormValueChange={onFormValueChange}
+              onSubmit={(data) => onSubmit(data)}
+              fieldStyle={fieldStyle}
+            />
+          }
+        />
 
         {/* Redirects to the base route if no matching route is found */}
-        <Route>
-          <Redirect to={`${match.path}/${baseRoute}`} />
-        </Route>
-      </Switch>
+        <Route path="*" element={<Navigate to={baseRoute} replace />} />
+      </Routes>
     </div>
   );
 };

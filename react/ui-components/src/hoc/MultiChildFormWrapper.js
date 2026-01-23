@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import FieldController from "./FieldController";
-import { Button } from "@egovernments/digit-ui-react-components";
+import { Button } from "../atoms";
 
 const MultiChildFormWrapper = ({ config, control, formData, setValue, getValues, errors, props, defaultValues }) => {
   const [instances, setInstances] = useState(() => {

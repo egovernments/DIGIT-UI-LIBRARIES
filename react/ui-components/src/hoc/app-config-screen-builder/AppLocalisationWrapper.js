@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useReducer } from "react";
-import { useQueryClient } from "react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import Loader from "../../atoms/Loader";
 import AppConfigurationWrapper from "./AppConfigurationWrapper";
 import { MODULE_CONSTANTS } from "./app-config-utils/constants";
