@@ -11,6 +11,8 @@ import reducer from "./InboxSearchComposerReducer";
 import { initialInboxState } from "./InboxSearchComposerReducer";
 import { InboxContext } from "./InboxSearchComposerContext";
 import InboxSearchComposer from "./InboxSearchComposer";
+import FormComposerCitizen from "./FormComposerCitizen";
+import AppLocalisationWrapper from "./app-config-screen-builder/AppLocalisationWrapper";
 import BoundaryFilter from "./BoundaryFilter";
 import {
   ButtonIdentificationProvider,
@@ -19,6 +21,11 @@ import {
   useButtonId,
   generateButtonId
 } from "./ButtonIdentificationContext";
+import { useCustomT } from "./app-config-screen-builder/app-config-utils/useCustomT";
+import { setConstantsforAppConfig } from "./app-config-screen-builder/app-config-utils/constants";
+// Local additions - components used by FormComposerV2 and FieldV1
+import MultiChildFormWrapper from "./MultiChildFormWrapper";
+import UploadAndDownloadDocumentHandler from "./UploadAndDownloadDocumentHandler";
 
 export {
   FieldComposer,
@@ -27,6 +34,7 @@ export {
   FormComposerV2,
   Modal,
   UploadFileComposer,
+  FormComposerCitizen,
   FieldV1,
   InboxSearchComposer,
   ResultsTable,
@@ -35,7 +43,13 @@ export {
   InboxContext,
   ResultsDataTableWrapper,
   BoundaryFilter,
-  // Button Identification exports
+  AppLocalisationWrapper,
+  useCustomT,
+  setConstantsforAppConfig,
+  // Local additions
+  MultiChildFormWrapper,
+  UploadAndDownloadDocumentHandler,
+    // Button Identification exports
   ButtonIdentificationProvider,
   SectionIdentificationProvider,
   useButtonIdentification,

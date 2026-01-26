@@ -63,7 +63,9 @@ const Toggle = (props) => {
               disabled={props?.disabled || option?.disabled}
               ref={props.inputRef}
             />
-            <span className="digit-toggle-label">
+            <span className={`digit-toggle-label ${
+            props?.disabled || option?.disabled ? "disabled" : ""
+          }`}>
               {t(
                 StringManipulator(
                   "CAPITALIZEFIRSTLETTER",

@@ -14,9 +14,10 @@ import {
 import { ApiDropdown, CustomDropdown, LocationDropdownWrapper, MultiUploadWrapper } from "../molecules";
 import UploadFileComposer from "./UploadFileComposer";
 import { useTranslation } from "react-i18next";
+import { Controller } from "react-hook-form";
 import { useState, useEffect } from "react";
+import UploadAndDownloadDocumentHandler from "./UploadAndDownloadDocumentHandler";
 
-// const FieldComposer = (type, populators, isMandatory, disable = false, component, config, sectionFormCategory, formData, selectedFormCategory) => {
 const FieldComposer = ({
   type,
   populators,
@@ -52,8 +53,11 @@ const FieldComposer = ({
   const [currentCharCount, setCurrentCharCount] = useState(0);
 
   useEffect(() => {
-    setCurrentCharCount(value.length);
+    if (value) {
+      setCurrentCharCount(value.length);
+    }
   }, [value]);
+
   const renderField = () => {
     switch (type) {
       case "date":
@@ -111,7 +115,7 @@ const FieldComposer = ({
             customClass={populators?.customClass}
             prefix={populators?.prefix}
             intlConfig={populators?.intlConfig}
-            state={state ? state : errors?.[populators.name] ? "digit-field-error" : ""}
+            state={errors?.[populators.name] ? "digit-field-error" : ""}
           />
         );
       case "textarea":
@@ -159,7 +163,6 @@ const FieldComposer = ({
               onChange={onChange}
               value={value}
               disable={disable}
-              // {...props}
               errorStyle={errors?.[populators.name]}
               variant={variant ? variant : errors?.[populators.name] ? "digit-field-error" : ""}
             />
@@ -172,10 +175,6 @@ const FieldComposer = ({
           <div style={{ display: "grid", gridAutoFlow: "row" }}>
             <CheckBox
               onChange={(e) => {
-                // const obj = {
-                //   ...props.value,
-                //   [e.target.value]: e.target.checked
-                // }
                 onChange(e.target.checked);
               }}
               value={formData?.[populators.name]}
@@ -188,23 +187,46 @@ const FieldComposer = ({
           </div>
         );
       case "multiupload":
+        // RHF v7: Controller render prop now receives { field, fieldState, formState }
+        // field contains: onChange, onBlur, value, name, ref
         return (
-          <MultiUploadWrapper
-            t={t}
-            module="works"
-            tenantId={Digit.ULBService.getCurrentTenantId()}
-            // getFormState={getFileStoreData}              // TODO: need to discuss and should be add later
-            showHintBelow={populators?.showHintBelow ? true : false}
-            setuploadedstate={value || []}
-            allowedFileTypesRegex={populators.allowedFileTypes}
-            allowedMaxSizeInMB={populators.allowedMaxSizeInMB}
-            hintText={populators.hintText}
-            maxFilesAllowed={populators.maxFilesAllowed}
-            extraStyleName={{ padding: "0.5rem" }}
-            customClass={populators?.customClass}
-            customErrorMsg={populators?.errorMessage}
-            containerStyles={{ ...populators?.containerStyles }}
-            variant={variant ? variant : errors?.[populators.name] ? "digit-field-error" : ""}
+          <Controller
+            name={`${populators.name}`}
+            control={controllerProps?.control}
+            rules={{ required: false }}
+            defaultValue={[]}
+            render={({ field: { onChange: fieldOnChange, value: fieldValue = [], ref: fieldRef } }) => {
+              function getFileStoreData(filesData) {
+                const numberOfFiles = filesData.length;
+                let finalDocumentData = [];
+                if (numberOfFiles > 0) {
+                  filesData.forEach((value) => {
+                    finalDocumentData.push({
+                      fileName: value?.[0],
+                      fileStoreId: value?.[1]?.fileStoreId?.fileStoreId,
+                      documentType: value?.[1]?.file?.type,
+                    });
+                  });
+                }
+                fieldOnChange(numberOfFiles > 0 ? filesData : []);
+              }
+              return (
+                <MultiUploadWrapper
+                  t={t}
+                  module="works"
+                  tenantId={Digit.ULBService.getCurrentTenantId()}
+                  getFormState={getFileStoreData}
+                  showHintBelow={populators?.showHintBelow ? true : false}
+                  setuploadedstate={fieldValue}
+                  allowedFileTypesRegex={populators.allowedFileTypes}
+                  allowedMaxSizeInMB={populators.allowedMaxSizeInMB}
+                  hintText={populators.hintText}
+                  maxFilesAllowed={populators.maxFilesAllowed}
+                  extraStyleName={{ padding: "0.5rem" }}
+                  customClass={populators?.customClass}
+                />
+              );
+            }}
           />
         );
       case "select":
@@ -258,7 +280,6 @@ const FieldComposer = ({
           <UploadFileComposer
             module={config?.module}
             config={config}
-            // Controller={Controller}        // TODO: NEED TO DISCUSS ON THIS
             register={controllerProps?.register}
             formData={formData}
             errors={errors}
@@ -268,6 +289,34 @@ const FieldComposer = ({
             localePrefix={config?.localePrefix}
             variant={variant ? variant : errors?.[populators.name] ? "digit-field-error" : ""}
           />
+        );
+      case "documentUploadAndDownload":
+        return (
+          <>
+            <UploadAndDownloadDocumentHandler
+              module={config?.module}
+              config={config}
+              register={controllerProps?.register}
+              formData={formData}
+              errors={errors}
+              control={controllerProps?.control}
+              customClass={config?.customClass}
+              customErrorMsg={config?.error}
+              localePrefix={config?.localePrefix}
+              variant={variant ? variant : errors?.[populators.name] ? "digit-field-error" : ""}
+              flow={populators?.flow}
+              action={populators?.action}
+              onError={(error) => {
+                console.error("Document upload/download error:", error);
+              }}
+            />
+            {errors?.[populators?.name] && (
+              <ErrorMessage
+                style={{ fontStyle: "normal", color: "#D4351C" }}
+                message={t(config?.customErrorMsg || "ERROR_DOCUMENT_UPLOAD")}
+              />
+            )}
+          </>
         );
       case "form":
         return (
@@ -356,7 +405,7 @@ const FieldComposer = ({
         </CardText>
       );
     }
-  }
+  };
 
   return (
     <>
@@ -372,13 +421,13 @@ const FieldComposer = ({
           {t(config.label)}
           {config?.appendColon ? " : " : null}
           {config.isMandatory ? " * " : null}
-          {config.withoutInfo ? null : <label > ⓘ</label>}
+          {config.withoutInfo ? null : <label> ⓘ</label>}
         </HeaderComponent>
       )}
       <div style={config.withoutLabel ? { width: "100%", ...props?.fieldStyle } : { ...props?.fieldStyle }} className="digit-field">
         {renderField()}
         <div style={{ color: " #505A5F", width: "23.75rem", display: "flex", justifyContent: "space-between", fontSize: "1rem", marginTop: "-40px", lineHeight: "1.5rem" }}>
-          {config?.description && <CardText >{t(config?.description)}</CardText>}
+          {config?.description && <CardText>{t(config?.description)}</CardText>}
           {renderCharCount()}
         </div>
         {errors.errorMessage ? (
@@ -390,13 +439,9 @@ const FieldComposer = ({
               fontSize: "0.875rem",
               lineHeight: "1.5rem"
             }}
-            message={t(errors?.errorMessage)} />
+            message={t(errors?.errorMessage)}
+          />
         ) : null}
-        {/* {populators?.name && errors && errors[populators?.name] && Object.keys(errors[populators?.name]).length ? (
-          <ErrorMessage style={{fontStyle: "normal",color: "#D4351C" }} message={t(populators?.error)} />
-        ) : // {t(field?.populators?.error)}
-          // </ErrorMessage>
-          null} */}
       </div>
     </>
   );

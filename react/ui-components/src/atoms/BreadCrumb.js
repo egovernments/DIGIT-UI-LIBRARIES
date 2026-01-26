@@ -81,8 +81,8 @@ const BreadCrumb = (props) => {
             );
 
           return (
-            <Fragment key={ci}>
-              <li
+            <Fragment>
+              <li key={ci}
                 style={props?.itemStyle}
                 className="digit-bread-crumb--item"
               >

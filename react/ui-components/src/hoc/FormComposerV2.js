@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState, Fragment, useCallback } from "react";
+import React, { useEffect, useState, Fragment, useCallback } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import _ from "lodash";
@@ -11,7 +11,8 @@ import ActionLinks from "../atoms/ActionLinks";
 import Footer from "../atoms/Footer";
 import LabelFieldPair from "../atoms/LabelFieldPair";
 import HorizontalNav from "../atoms/HorizontalNav";
-import { SubmitBar, Toast , Button } from "../atoms";
+import { SubmitBar, Toast, Button } from "../atoms";
+import MultiChildFormWrapper from "./MultiChildFormWrapper";
 
 // import Fields from "./Fields";    //This is a field selector pickup from formcomposer
 import FieldController from "./FieldController";
@@ -44,6 +45,7 @@ const wrapperStyles = {
  */
 
 export const FormComposer = (props) => {
+  // ✅ Fixed: v7 syntax - errors comes from formState
   const {
     register,
     handleSubmit,
@@ -53,22 +55,22 @@ export const FormComposer = (props) => {
     watch,
     trigger,
     control,
-    formState,
-    errors,
     setError,
     clearErrors,
     unregister,
+    formState,  // Keep formState for passing to children
   } = useForm({
     defaultValues: props.defaultValues,
   });
+
+  // ✅ Extract errors and submitCount from formState
+  const { errors, submitCount } = formState;
+
   const { t } = useTranslation();
   const formData = watch();
   const selectedFormCategory = props?.currentFormCategory;
   const [showErrorToast, setShowErrorToast] = useState(false);
-  const [customToast, setCustomToast] = useState(false); 
-  //clear all errors if user has changed the form category.
-  //This is done in case user first click on submit and have errors in cat 1, switches to cat 2 and hit submit with errors
-  //So, he should not get error prompts from previous cat 1 on cat 2 submit.
+  const [customToast, setCustomToast] = useState(false);
 
   useEffect(() => {
     if (props?.defaultValues && Object.keys(props?.defaultValues).length > 0) {
@@ -80,20 +82,20 @@ export const FormComposer = (props) => {
     clearErrors();
   }, [selectedFormCategory]);
 
+  // ✅ Fixed: Use extracted errors and submitCount
   useEffect(() => {
-    if (Object.keys(formState?.errors).length > 0 && formState?.submitCount > 0) {
+    if (Object.keys(errors).length > 0 && submitCount > 0) {
       setShowErrorToast(true);
+    } else {
+      setShowErrorToast(false);
     }
-    else{
-       setShowErrorToast(false);
-    }
-  }, [formState?.errors, formState?.submitCount]);
+  }, [errors, submitCount]);
 
-  useEffect(() =>{
-    if(showErrorToast === true){
-    setShowErrorToast(false);
+  useEffect(() => {
+    if (showErrorToast === true) {
+      setShowErrorToast(false);
     }
-  },[props?.config])
+  }, [props?.config]);
 
   useEffect(() => {
     if (
@@ -109,9 +111,10 @@ export const FormComposer = (props) => {
     props.getFormAccessors && props.getFormAccessors({ setValue, getValues });
   }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
     setCustomToast(props?.customToast);
-  },[props?.customToast])
+  }, [props?.customToast]);
+
   function onSubmit(data) {
     props.onSubmit(data);
   }
@@ -123,6 +126,40 @@ export const FormComposer = (props) => {
   useEffect(() => {
     props.onFormValueChange && props.onFormValueChange(setValue, formData, formState, reset, setError, clearErrors, trigger, getValues);
   }, [formData]);
+
+  // Effect to handle valueExpression - automatically calculate field values
+  useEffect(() => {
+    if (!props.config) return;
+
+    // Helper to evaluate value expression
+    const evaluateValueExpression = (expression, formData) => {
+      if (!expression) return null;
+      try {
+        const func = new Function("values", `return ${expression};`);
+        return func(formData);
+      } catch (e) {
+        console.error("Error evaluating valueExpression", e, "expression:", expression);
+        return null;
+      }
+    };
+
+    // Iterate through all fields and update values based on valueExpression
+    props.config.forEach((section) => {
+      if (section?.body) {
+        section.body.forEach((field) => {
+          if (field?.valueExpression) {
+            const calculatedValue = evaluateValueExpression(field.valueExpression, formData);
+            const currentValue = getValues(field.populators?.name);
+
+            // Only update if the calculated value is different from current value
+            if (calculatedValue !== null && calculatedValue !== currentValue) {
+              setValue(field.populators?.name, calculatedValue);
+            }
+          }
+        });
+      }
+    });
+  }, [formData, props.config, setValue, getValues]);
 
   const fieldSelector = (type, populators, isMandatory, disable = false, component, config, sectionFormCategory) =>
     // Calling field controller to render all label and fields
@@ -139,6 +176,7 @@ export const FormComposer = (props) => {
       control: control,
       props: props,
       errors: errors,
+      defaultValues: props?.defaultValues,
       controllerProps: {
         register,
         handleSubmit,
@@ -148,8 +186,8 @@ export const FormComposer = (props) => {
         watch,
         trigger,
         control,
-        formState,
-        errors,
+        formState,  // ✅ Pass full formState for compatibility
+        errors,     // ✅ Also pass extracted errors
         setError,
         clearErrors,
         unregister,
@@ -193,141 +231,153 @@ export const FormComposer = (props) => {
           marginBottom: "20px",
           borderTop: "0px",
         };
+      default:
+        return {};
     }
   };
+
+  const titleStyle = { color: "#505A5F", fontWeight: "700", fontSize: "16px" };
 
   const getCombinedComponent = (section) => {
     if (section.head && section.subHead) {
       return (
         <>
           <HeaderComponent
-            className={`digit-card-section-header titleStyle ${section?.sectionHeadClassName || ""}`}
+            className={`digit-card-section-header`}
+            style={props?.sectionHeadStyle ? props?.sectionHeadStyle : { margin: "5px 0px" }}
             id={section.headId}
           >
             {t(section.head)}
           </HeaderComponent>
-          <HeaderComponent 
-          id={`${section.headId}_DES`}
-          className={`sectionSubHeaderStyle ${section?.sectionSubHeadClassName || ""}`}
+          <HeaderComponent
+            id={`${section.headId}_DES`}
+            className={`sectionSubHeaderStyle ${section?.sectionSubHeadClassName || ""}`}
           >
             {t(section.subHead)}
           </HeaderComponent>
         </>
       );
-    }
-
-    if (section.head) {
+    } else if (section.head) {
       return (
-        <HeaderComponent
-          className={`digit-card-section-header titleStyle ${section?.sectionHeadClassName || ""}`}
-          id={section.headId}
-        >
-          {t(section.head)}
-        </HeaderComponent>
+        <>
+          <HeaderComponent className={`digit-card-section-header titleStyle ${section?.sectionHeadClassName || ""}`}
+            id={section.headId}
+          >
+            {t(section.head)}
+          </HeaderComponent>
+        </>
       );
+    } else {
+      return <div></div>;
     }
-
-    return null; 
   };
-
 
   const closeToast = () => {
     setShowErrorToast(false);
     setCustomToast(false);
-    props?.updateCustomToast&&props?.updateCustomToast(false);
+    props?.updateCustomToast && props?.updateCustomToast(false);
   };
 
-
   const formFields = useCallback(
-    (section, index, array, sectionFormCategory) => (
-      <React.Fragment key={index}>
-        {section && getCombinedComponent(section)}
-        {section.body.map((field, index) => {
-          if (field?.populators?.hideInForm) return null;
-          if (props.inline)
-            return (
-              <React.Fragment key={index}>
-                <div style={field.isInsideBox ? getCombinedStyle(field?.placementinbox) : field.inline ? { display: "flex" } : {}}>
-                  {/* {!field.withoutLabel && (
-                    <HeaderComponent
-                      style={{ color: field.isSectionText ? "#505A5F" : "", marginBottom: props.inline ? "8px" : "revert" }}
-                      className={` ${field?.disable ? `disabled ${props?.labelBold ? "bolder" : ""}` : `${props?.labelBold ? "bolder" : ""}`}`}
-                    >
-                      {t(field.label)}
-                      {field.isMandatory ? " * " : null}
-                      {field.labelChildren && field.labelChildren}
-                    </HeaderComponent>
-                  )} */}
-                  {/* {errors && errors[field.populators?.name] && Object.keys(errors[field.populators?.name]).length ? (
-                    <ErrorMessage>{t(field.populators.error || errors[field.populators?.name]?.message)}</ErrorMessage>
-                  ) : null} */}
-                  <div style={field.withoutLabel ? { width: "100%" } : {}} className="digit-field">
-                    {fieldSelector(field.type, field.populators, field.isMandatory, field?.disable, field?.component, field, sectionFormCategory)}
-                    {field?.description && (
-                      <HeaderComponent
-                        style={{
-                          marginTop: "-24px",
-                          fontSize: "16px",
-                          fontWeight: "bold",
-                          color: "#505A5F",
-                          ...field?.descriptionStyles,
-                        }}
-                        className="bolder"
-                      >
-                        {t(field.description)}
-                      </HeaderComponent>
-                    )}
+    (section, index, array, sectionFormCategory) => {
+      // Helper function to evaluate visibility expression dynamically
+      const evaluateVisibility = (visibilityExpression, formData) => {
+        if (!visibilityExpression) return true;
+        try {
+          if (typeof visibilityExpression === "function") {
+            return visibilityExpression(formData);
+          } else if (typeof visibilityExpression === "string") {
+            const func = new Function("values", `return ${visibilityExpression};`);
+            const result = func(formData);
+            return result;
+          }
+        } catch (e) {
+          console.error("Error evaluating visibilityExpression", e, "expression:", visibilityExpression);
+          return false;
+        }
+        return true;
+      };
+
+      return (
+        <React.Fragment key={index}>
+          {section && getCombinedComponent(section)}
+          {section?.type === "multiChildForm" && (
+            <MultiChildFormWrapper
+              key={`multi-child-${index}`}
+              config={section}
+              control={control}
+              formData={formData}
+              setValue={setValue}
+              getValues={getValues}
+              errors={errors}
+              props={props}
+              defaultValues={props?.defaultValues}
+            />
+          )}
+          {section?.type !== "multiChildForm" && section?.body?.map((field, fieldIndex) => {
+            // Check static hideInForm flag
+            if (field?.populators?.hideInForm) return null;
+
+            // Dynamically evaluate visibilityExpression with current form data
+            const isVisible = evaluateVisibility(field?.visibilityExpression, formData);
+            if (!isVisible) return null;
+
+            // Check if field should be disabled due to readOnlyWhenAutoFilled
+            let isFieldDisabled = field?.disable;
+            if (field?.readOnlyWhenAutoFilled && field?.valueExpression) {
+              const currentValue = formData?.[field.populators?.name];
+              // Disable if the field has a value (has been auto-filled)
+              if (currentValue !== undefined && currentValue !== null && currentValue !== '') {
+                isFieldDisabled = true;
+              }
+            }
+
+            if (props.inline)
+              return (
+                <React.Fragment key={fieldIndex}>
+                  <div style={field.isInsideBox ? getCombinedStyle(field?.placementinbox) : field.inline ? { display: "flex" } : {}}>
+                    <div style={field.withoutLabel ? { width: "100%" } : {}} className="digit-field">
+                      {fieldSelector(field.type, field.populators, field.isMandatory, isFieldDisabled, field?.component, field, sectionFormCategory)}
+                      {field?.description && (
+                        <HeaderComponent
+                          style={{
+                            marginTop: "-24px",
+                            fontSize: "16px",
+                            fontWeight: "bold",
+                            color: "#505A5F",
+                            ...field?.descriptionStyles,
+                          }}
+                          className="bolder"
+                        >
+                          {t(field.description)}
+                        </HeaderComponent>
+                      )}
+                    </div>
                   </div>
-                </div>
-              </React.Fragment>
+                </React.Fragment>
+              );
+
+            return (
+              <Fragment>
+                <LabelFieldPair
+                  key={index}
+                  style={
+                    props?.showWrapperContainers && !field.hideContainer
+                      ? { ...wrapperStyles, ...field?.populators?.customStyle }
+                      : { border: "none", background: "white", ...field?.populators?.customStyle }
+                  }
+                  vertical={props?.labelfielddirectionvertical}
+                >
+                  {fieldSelector(field.type, field.populators, field.isMandatory, isFieldDisabled, field?.component, field, sectionFormCategory)}
+                </LabelFieldPair>
+              </Fragment>
             );
-          return (
-            <Fragment>
-              <LabelFieldPair
-                key={index}
-                style={
-                  props?.showWrapperContainers && !field.hideContainer
-                    ? { ...wrapperStyles, ...field?.populators?.customStyle }
-                    : { border: "none", background: "white", ...field?.populators?.customStyle }
-                }
-                vertical={props?.labelfielddirectionvertical}
-              >
-                {fieldSelector(field.type, field.populators, field.isMandatory, field?.disable, field?.component, field, sectionFormCategory)}
-
-                {/* Commenting to initialize & check Field Controller and composer which render label and field Should remove later*/}
-                {/*{!field.withoutLabel && (
-                  <HeaderComponent
-                    style={{
-                      color: field.isSectionText ? "#505A5F" : "",
-                      marginBottom: props.inline ? "8px" : "revert",
-                      fontWeight: props.isDescriptionBold ? "600" : null,
-                    }}
-                    className="label"
-                  >
-                    {t(field.label)}
-                    {field?.appendColon ? " : " : null}
-                    {field.isMandatory ? " * " : null}
-                  </HeaderComponent>
-                )}
-                <div style={field.withoutLabel ? { width: "100%", ...props?.fieldStyle } : { ...props?.fieldStyle }} className="digit-field">
-                  {fieldSelector(field.type, field.populators, field.isMandatory, field?.disable, field?.component, field, sectionFormCategory)}
-                  {field?.description && <CardText style={{ fontSize: "14px", marginTop: "-24px" }}>{t(field?.description)}</CardText>}
-                  </div> */}
-              </LabelFieldPair>
-
-              {/* Migrating error message to field container as here it renders outside the field */}
-              {/* {field?.populators?.name && errors && errors[field?.populators?.name] && Object.keys(errors[field?.populators?.name]).length ? (
-                <ErrorMessage message={t(field?.populators?.error)} />
-              ) : // {t(field?.populators?.error)}
-              // </ErrorMessage>
-              null} */}
-            </Fragment>
-          );
-        })}
-        {!props.noBreakLine && (array.length - 1 === index ? null : <BreakLine style={props?.breaklineStyle ? props?.breaklineStyle : {}} />)}
-      </React.Fragment>
-    ),
-    [props.config, formData]
+          })}
+          {!props.noBreakLine && (array.length - 1 === index ? null : <BreakLine style={props?.breaklineStyle ? props?.breaklineStyle : {}} />)}
+        </React.Fragment>
+      );
+    },
+    [props.config, formData, errors]
   );
 
   const getCardStyles = (shouldDisplay = true) => {
@@ -338,6 +388,7 @@ export const FormComposer = (props) => {
   };
 
   const isDisabled = props.isDisabled || false;
+
   const checkKeyDown = (e) => {
     const keyCode = e.keyCode ? e.keyCode : e.key ? e.key : e.which;
     if (keyCode === 13) {
@@ -369,13 +420,31 @@ export const FormComposer = (props) => {
   const renderFormFields = (props, section, index, array, sectionFormCategory) => (
     <React.Fragment key={index}>
       {!props.childrenAtTheBottom && props.children}
-      {props.heading && <HeaderComponent className={props?.cardSubHeaderClassName ? `digit-form-card-subheader ${props?.cardSubHeaderClassName}` : "digit-form-card-subheader"} styles={{ ...props.headingStyle }}> {props.heading} </HeaderComponent>}
-      {props.description && <HeaderComponent className={props?.cardDescriptionClassName ? `digit-form-card-description ${props?.cardDescriptionClassName}` : "digit-form-card-description"} styles={{ ...props.descriptionStyles }}> {props.description} </HeaderComponent>}
-      {props.text && <HeaderComponent className={props?.cardTextClassName ? `digit-form-card-text ${props?.cardTextClassName}` : "digit-form-card-text"}>{props.text}</HeaderComponent>}
+      {props.heading && (
+        <HeaderComponent
+          className={props?.cardSubHeaderClassName ? `digit-form-card-subheader ${props?.cardSubHeaderClassName}` : "digit-form-card-subheader"}
+          styles={{ ...props.headingStyle }}
+        >
+          {props.heading}
+        </HeaderComponent>
+      )}
+      {props.description && (
+        <HeaderComponent
+          className={props?.cardDescriptionClassName ? `digit-form-card-description ${props?.cardDescriptionClassName}` : "digit-form-card-description"}
+          styles={{ ...props.descriptionStyles }}
+        >
+          {props.description}
+        </HeaderComponent>
+      )}
+      {props.text && (
+        <HeaderComponent className={props?.cardTextClassName ? `digit-form-card-text ${props?.cardTextClassName}` : "digit-form-card-text"}>
+          {props.text}
+        </HeaderComponent>
+      )}
       {formFields(section, index, array, sectionFormCategory)}
       {props.childrenAtTheBottom && props.children}
       {props.submitInForm && (
-        <SubmitBar label={t(props.label)} style={{ width:"100%",...props?.buttonStyle }} submit="submit" disabled={isDisabled} className="w-full"/>
+        <SubmitBar label={t(props.label)} style={{ width: "100%", ...props?.buttonStyle }} submit="submit" disabled={isDisabled} className="w-full" />
       )}
       {props.secondaryActionLabel && (
         <div
@@ -396,18 +465,24 @@ export const FormComposer = (props) => {
     </React.Fragment>
   );
 
+  function onDraftLabelClick() {
+    props.onDraftLabelClick && props.onDraftLabelClick(getValues());
+  }
+
+  const fieldId = Digit?.Utils?.getFieldIdName?.(props?.formId || props?.className || "form") || "NA";
+
   return (
     <ButtonIdentificationProvider
       composerType="formcomposer"
       composerId={props.formId || props.className || "form"}
     >
-      <form onSubmit={handleSubmit(onSubmit)} onKeyDown={(e) => checkKeyDown(e)} id={props.formId} className={props.className}>
+      <form onSubmit={handleSubmit(onSubmit)} onKeyDown={(e) => checkKeyDown(e)} id={fieldId} className={props.className}>
         {props?.showMultipleCardsWithoutNavs ? (
           props?.config?.map((section, index, array) => {
             return (
               !section.navLink && (
                 <SectionIdentificationProvider key={index} sectionId={section?.headId || `section-${index}`}>
-                  <Card style={getCardStyles()} noCardStyle={props.noCardStyle} className={props.cardClassName}>
+                  <Card key={index} style={getCardStyles()} noCardStyle={props.noCardStyle} className={props.cardClassName}>
                     {renderFormFields(props, section, index, array)}
                   </Card>
                 </SectionIdentificationProvider>
@@ -436,7 +511,7 @@ export const FormComposer = (props) => {
               props?.config?.map((section, index, array) => {
                 return section.navLink ? (
                   <SectionIdentificationProvider key={index} sectionId={section?.headId || section.navLink || `nav-section-${index}`}>
-                    <Card style={section.navLink !== activeLink ? getCardStyles(false) : getCardStyles()} noCardStyle={props.noCardStyle}>
+                    <Card key={index} style={section.navLink !== activeLink ? getCardStyles(false) : getCardStyles()} noCardStyle={props.noCardStyle}>
                       {renderFormFields(props, section, index, array, section?.sectionFormCategory)}
                     </Card>
                   </SectionIdentificationProvider>
@@ -459,14 +534,41 @@ export const FormComposer = (props) => {
         )}
         {!props.submitInForm && props.label && (
           <Footer className={props.actionClassName}>
-            <SubmitBar name="primary-submit" label={t(props.label)} className="digit-formcomposer-submitbar" submit="submit" disabled={isDisabled} icon={props?.primaryActionIcon} isSuffix={props?.primaryActionIconAsSuffix} />
-            {props?.secondaryLabel && props?.showSecondaryLabel && (
-              <Button name="secondary-action" className="previous-button" variation="secondary" label={t(props?.secondaryLabel)} onClick={props?.onSecondayActionClick} icon={props?.secondaryActionIcon} isSuffix={props?.secondaryActionIconAsSuffix} />
+            {props?.draftLabel && (
+              <SubmitBar
+                style={props?.submitButtonStyle}
+                className="digit-formcomposer-submitbar"
+                submit={false}
+                label={t(props?.draftLabel)}
+                onClick={onDraftLabelClick}
+              />
             )}
-            {props.onSkip && props.showSkip && <ActionLinks style={props?.skipStyle} label={t(`CS_SKIP_CONTINUE`)} onClick={props.onSkip} />}
+            <SubmitBar
+              label={t(props.label)}
+              id={`${fieldId}-primary`}
+              className="digit-formcomposer-submitbar"
+              submit="submit"
+              disabled={isDisabled}
+              icon={props?.primaryActionIcon}
+              isSuffix={props?.primaryActionIconAsSuffix}
+            />
+            {props?.secondaryLabel && props?.showSecondaryLabel && (
+              <Button
+                id={`${fieldId}-secondary`}
+                className="previous-button"
+                variation="secondary"
+                label={t(props?.secondaryLabel)}
+                onClick={props?.onSecondayActionClick}
+                icon={props?.secondaryActionIcon}
+                isSuffix={props?.secondaryActionIconAsSuffix}
+              />
+            )}
+            {props.onSkip && props.showSkip && (
+              <ActionLinks style={props?.skipStyle} label={t(`CS_SKIP_CONTINUE`)} id={`${fieldId}-links`} onClick={props.onSkip} />
+            )}
           </Footer>
         )}
-        {showErrorToast && props?.showFormLevelErrorToast !== false && <Toast type={"error"} label={t(props?.formLevelErrorMessage || "ES_COMMON_PLEASE_ENTER_ALL_MANDATORY_FIELDS")} isDleteBtn={true} onClose={closeToast} />}
+        {showErrorToast && <Toast type={"error"} label={t("ES_COMMON_PLEASE_ENTER_ALL_MANDATORY_FIELDS")} isDleteBtn={true} onClose={closeToast} />}
         {customToast && <Toast type={customToast?.type} label={t(customToast?.label)} isDleteBtn={true} onClose={closeToast} />}
       </form>
     </ButtonIdentificationProvider>
