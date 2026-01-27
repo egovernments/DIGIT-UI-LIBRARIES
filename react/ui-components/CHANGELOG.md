@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0-dev-30] [27-JAN-2026]
+- Components addition and merge from stable react17 ui-components
+
 ## [2.0.0-dev-15] [18-Dec-2025]
 - Added disableClearAll prop in MultiselectDropdown component
 

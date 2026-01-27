@@ -147,7 +147,6 @@ const Button = (props) => {
       aria-label={props?.ariaLabel || formattedLabel}
       aria-haspopup={props?.type === "actionButton" ? "menu" : undefined}
       aria-expanded={props?.type === "actionButton" ? dropdownStatus : undefined}
-      {...dataAttributes}
     >
       <div
         id={`${fieldId}-content`}
