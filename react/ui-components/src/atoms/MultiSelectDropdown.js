@@ -50,6 +50,7 @@ const MultiSelectDropdown = ({
   const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0, width: 0 });
   const dropdownRef = useRef();
   const isInitialMount = useRef(true);
+  const closedByScrollRef = useRef(false);
   const { t } = useTranslation();
 
   // Generate unique ID for tracking (single source of truth)
@@ -105,12 +106,17 @@ const MultiSelectDropdown = ({
     return true;
   };
 
-  // Update dropdown position when it opens or on scroll/resize
+  // Update dropdown position when it opens or on scroll/resize (only when using portal)
   useEffect(() => {
-    const updatePosition = () => {
+    // Skip if portal is disabled - no need to track position or visibility
+    if (disablePortal) return;
+
+    // Only check visibility on scroll/resize, not on initial position update
+    const updatePositionOnScroll = () => {
       if (active && dropdownRef.current) {
         // Check if the input field is visible within scroll parents and viewport
         if (!isElementVisibleInScrollParents(dropdownRef.current)) {
+          closedByScrollRef.current = true;
           setActive(false);
           return;
         }
@@ -124,17 +130,31 @@ const MultiSelectDropdown = ({
       }
     };
 
+    // Initial position update without visibility check
+    const setInitialPosition = () => {
+      if (dropdownRef.current) {
+        const rect = dropdownRef.current.getBoundingClientRect();
+        setDropdownPosition({
+          top: rect.bottom + window.scrollY,
+          left: rect.left + window.scrollX,
+          width: rect.width
+        });
+      }
+    };
+
     if (active) {
-      updatePosition();
-      window.addEventListener("scroll", updatePosition, true);
-      window.addEventListener("resize", updatePosition);
+      // Reset the scroll-closed flag when dropdown opens
+      closedByScrollRef.current = false;
+      setInitialPosition();
+      window.addEventListener("scroll", updatePositionOnScroll, true);
+      window.addEventListener("resize", updatePositionOnScroll);
     }
 
     return () => {
-      window.removeEventListener("scroll", updatePosition, true);
-      window.removeEventListener("resize", updatePosition);
+      window.removeEventListener("scroll", updatePositionOnScroll, true);
+      window.removeEventListener("resize", updatePositionOnScroll);
     };
-  }, [active]);
+  }, [active, disablePortal]);
 
   function reducer(state, action) {
     switch (action.type) {
@@ -275,6 +295,11 @@ const MultiSelectDropdown = ({
   }, [options, alreadyQueuedSelectedState, searchQuery]);
 
   function handleOutsideClickAndSubmitSimultaneously() {
+    // Skip if dropdown was just closed by scroll - prevents blocking reopening
+    if (closedByScrollRef.current) {
+      closedByScrollRef.current = false;
+      return;
+    }
     setActive(false);
   }
 
@@ -947,7 +972,7 @@ const MultiSelectDropdown = ({
               variation="link"
             />
           )}
-          {((alreadyQueuedSelectedState.length > 0 && frozenData.length === 0) || !disableClearAll) && (
+          {alreadyQueuedSelectedState.length > 0 && frozenData.length === 0 && !disableClearAll && (
             <Button
               label={t(config?.clearLabel ? config?.clearLabel : t("CLEAR_ALL"))}
               onClick={handleClearAll}
