@@ -375,12 +375,13 @@ export const FormComposer = (props) => {
       {formFields(section, index, array, sectionFormCategory)}
       {props.childrenAtTheBottom && props.children}
       {props.submitInForm && (
-        <SubmitBar label={t(props.label)} style={{ width:"100%",...props?.buttonStyle }} submit="submit" disabled={isDisabled} className="w-full"/>
+        <SubmitBar id={props?.primaryActionId || "formcomposer-submit-action"} label={t(props.label)} style={{ width:"100%",...props?.buttonStyle }} submit="submit" disabled={isDisabled} className="w-full"/>
       )}
       {props.secondaryActionLabel && (
         <div
           className="primary-label-btn"
           role="button"
+          id={props?.secondaryActionId || "formcomposer-secondary-action"}
           tabIndex={0}
           style={{ margin: "20px auto 0 auto" }}
           onClick={onSecondayActionClick}
