@@ -239,6 +239,16 @@
 
   min-height: 2.438rem;
 
+  &:first-child {
+    border-top-left-radius: var(--digitv2-borderRadius-radius2);
+    border-top-right-radius: var(--digitv2-borderRadius-radius2);
+  }
+
+  &:last-child {
+    border-bottom-left-radius: var(--digitv2-borderRadius-radius2);
+    border-bottom-right-radius: var(--digitv2-borderRadius-radius2);
+  }
+
   .option-des-container {
     @apply w-full max-w-full overflow-hidden box-border;
     margin: 0.594rem theme("digitv2.spacers.spacer0") 0.594rem theme("digitv2.spacers.spacer0");
@@ -615,4 +625,8 @@
   overflow-y: auto;
   max-height: 20vmax;
   box-shadow: 0rem 0.063rem 0.275rem 0rem #00000026;
+}
+
+.digit-multiselectdropdown-master-active{
+  overflow: hidden;
 }
