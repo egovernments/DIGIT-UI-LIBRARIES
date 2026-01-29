@@ -93,6 +93,7 @@
   background-color: theme("digitv2.lightTheme.alert-success");
   transition: bottom 0.5s ease;
   left: 0;
+  border-radius: var(--digitv2-borderRadius-radius2);
 
   @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4) {
     min-width: 30rem;
