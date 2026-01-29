@@ -142,15 +142,17 @@ const LandingPageCard = ({
         centreChildren.length > 0 && (
           <Divider className="digit-landingpage-divider" variant={"small"} />
         )}
-      {links.map(({ label, link, icon }, index) => (
+      {links.map(({ id,label, link, icon }, index) => (
         <Button
           variation="teritiary"
+          key={id || `${label}-${index}`}
           label={label}
           icon={icon}
           type="button"
           size={buttonSize || "medium"}
           onClick={() => handleLinkClick({ link, label, icon })}
           style={{ padding: "0px" }}
+          id={id || null}
         />
       ))}
       {!hideDivider &&
@@ -184,6 +186,7 @@ LandingPageCard.propTypes = {
       count: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
       label: PropTypes.string,
       link: PropTypes.string,
+      id: PropTypes.string, 
     })
   ),
   className: PropTypes.string,
@@ -194,7 +197,7 @@ LandingPageCard.propTypes = {
 };
 
 LandingPageCard.defaultProps = {
-  metris: [],
+  metrics: [],
   links: [],
   className: "",
   style: {},

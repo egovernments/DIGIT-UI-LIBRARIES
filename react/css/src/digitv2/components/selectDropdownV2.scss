@@ -206,6 +206,16 @@
   gap: 0.625rem;
   min-height: 2.438rem;
   color: theme("digitv2.lightTheme.text-primary") !important;
+
+  &:first-child {
+    border-top-left-radius: var(--digitv2-borderRadius-radius2);
+    border-top-right-radius: var(--digitv2-borderRadius-radius2);
+  }
+
+  &:last-child {
+    border-bottom-left-radius: var(--digitv2-borderRadius-radius2);
+    border-bottom-right-radius: var(--digitv2-borderRadius-radius2);
+  }
   .profile-icon-container {
     flex-shrink: 0;
     border-radius: 4.5rem;

@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState, Fragment, useCallback } from "react";
 import { useForm, Controller } from "react-hook-form";
 import BreakLine from "../atoms/BreakLine";
-import {Card} from "@egovernments/digit-ui-components";
+import {Card, Footer} from "@egovernments/digit-ui-components";
 import CardLabel from "../atoms/CardLabel";
 import CardText from "../atoms/CardText";
 // import CardLabelError from "../atoms/CardLabelError";
@@ -11,7 +11,6 @@ import CardLabelDesc from "../atoms/CardLabelDesc";
 import CardLabelError from "../atoms/CardLabelError";
 import TextArea from "../atoms/TextArea";
 import {TextInput} from "@egovernments/digit-ui-components";
-import ActionBar from "../atoms/ActionBar";
 import {SubmitBar} from "@egovernments/digit-ui-components";
 import LabelFieldPair from "../atoms/LabelFieldPair";
 import LinkButton from "../atoms/LinkButton";
@@ -877,13 +876,13 @@ export const FormComposer = (props) => {
         )
       }
       {!props.submitInForm && props.label && (
-        <ActionBar className={props.actionClassName}>  
-          <SubmitBar  id={`${fieldId}-primary`} label={t(props.label)} submit="submit" disabled={isDisabled} submitIcon={props?.submitIcon}/>
+        <Footer className={props.actionClassName}>
+          <SubmitBar  id={`${fieldId}-primary`} label={t(props.label)} submit="submit" disabled={isDisabled} icon={props?.submitIcon || props?.primaryActionIcon} isSuffix={props?.primaryActionIconAsSuffix}/>
           {props.secondaryLabel && props.showSecondaryLabel && (
-            <Button  id={`${fieldId}-secondary`} className="previous-button"  variation="secondary" label={t(props.secondaryLabel)} onButtonClick={props.onSecondayActionClick} />
+            <Button  id={`${fieldId}-secondary`} className="previous-button"  variation="secondary" label={t(props.secondaryLabel)} onButtonClick={props.onSecondayActionClick} icon={props?.secondaryActionIcon} isSuffix={props?.secondaryActionIconAsSuffix} />
           )}
           {props.onSkip && props.showSkip && <LinkButton  id={`${fieldId}-skip`} style={props?.skipStyle} label={props?.skiplabel || t(`CS_SKIP_CONTINUE`)} onClick={props.onSkip} />}
-        </ActionBar>
+        </Footer>
       )}
       {showErrorToast && <Toast type={"error"} label={t("ES_COMMON_PLEASE_ENTER_ALL_MANDATORY_FIELDS")} isDleteBtn={true} onClose={closeToast} />}
       {customToast && <Toast type={customToast?.type} label={t(customToast?.label)} isDleteBtn={true} onClose={closeToast} />}

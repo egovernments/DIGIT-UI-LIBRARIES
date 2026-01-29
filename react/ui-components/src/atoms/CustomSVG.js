@@ -3792,6 +3792,29 @@ const AddIconNew = ({
   </svg>
 );
 
+const UndoIcon = ({
+  width = "16",
+  height = "15",
+  fill = "#C84C0E",
+  className = "",
+  style = {},
+  ...props
+}) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={width}
+    height={height}
+    viewBox="0 0 16 15"
+    fill="none"
+    className={className}
+    style={style}
+    {...props}
+  >
+
+    <path d="M3 15V13H10.1C11.15 13 12.0625 12.6667 12.8375 12C13.6125 11.3333 14 10.5 14 9.5C14 8.5 13.6125 7.66667 12.8375 7C12.0625 6.33333 11.15 6 10.1 6H3.8L6.4 8.6L5 10L0 5L5 0L6.4 1.4L3.8 4H10.1C11.7167 4 13.1042 4.525 14.2625 5.575C15.4208 6.625 16 7.93333 16 9.5C16 11.0667 15.4208 12.375 14.2625 13.425C13.1042 14.475 11.7167 15 10.1 15H3Z" fill={fill} />
+  </svg>
+);
+
 const PlaceholderSvg = ({width="800",height="800",fill}) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -4016,4 +4039,5 @@ export const CustomSVG = {
     DocPdfUpload,
     DocdocUpload,
     AddIconNew,
+    UndoIcon
 };
