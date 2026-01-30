@@ -57,7 +57,8 @@ const FieldV1 = ({
   controllerProps,
   control,
   variant,
-  defaultValues
+  defaultValues,
+  disablePortal
 }) => {
   const { t: i18nT } = useTranslation();
   const t = populators.t || i18nT; // consuming custom translation function if provided, otherwise use i18nT
@@ -276,6 +277,7 @@ const FieldV1 = ({
               categorySelectAllLabel={populators?.categorySelectAllLabel}
               restrictSelection={populators?.restrictSelection}
               isSearchable={populators?.isSearchable}
+              disablePortal={disablePortal}
             />
           </div>
         );

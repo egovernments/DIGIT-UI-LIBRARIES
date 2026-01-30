@@ -162,7 +162,7 @@ const UploadAndDownloadDocumentHandler = ({
           name={`${config?.populators?.name}`}
           control={control}
           rules={{ required: false }}
-          render={({ onChange, ref, value = [] }) => {
+          render={({ field: { value = [], onChange } }) => {
             function getFileStoreData(filesData) {
               const numberOfFiles = filesData.length;
               let finalDocumentData = [];
@@ -334,7 +334,7 @@ const UploadAndDownloadDocumentHandler = ({
 
               {!(item?.templatePDFKey || item?.templateDownloadURL) && <div style={{ marginBottom: "24px" }}>
                 <Controller
-                  render={({ value = [], onChange }) => {
+                  render={({ field: { value = [], onChange } }) => {
                     function getFileStoreData(filesData) {
                       let finalDocumentData = [];
                       filesData.forEach((value) => {
