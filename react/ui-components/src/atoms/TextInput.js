@@ -68,6 +68,34 @@ const TextInput = (props) => {
     if (event.key === 'Tab') {
       isKeyboard = true;
     }
+    if (props?.type === "number") {
+      // Always block e, E, +, . for integer inputs
+      if (["e", "E", "+", "."].includes(event.key)) {
+        event.preventDefault();
+        return;
+      }
+      // Handle minus key
+      if (event.key === "-") {
+        const input = event.target;
+        const currentValue = input.value || "";
+        const cursorPosition = input.selectionStart;
+        // Block minus if negative values are not allowed
+        if (!props?.allowNegativeValues) {
+          event.preventDefault();
+          return;
+        }
+        // Block minus if it already exists in the input
+        if (currentValue.includes("-")) {
+          event.preventDefault();
+          return;
+        }
+        // Block minus if not at the beginning (cursor position 0)
+        if (cursorPosition !== 0) {
+          event.preventDefault();
+          return;
+        }
+      }
+    }
   };
 
   const handleMouseDown = () => {
