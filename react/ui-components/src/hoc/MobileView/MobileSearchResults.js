@@ -13,11 +13,28 @@ const MobileSearchResults = ({ config, data, isLoading, isFetching, fullConfig }
     const { apiDetails } = fullConfig
     const { t } = useTranslation();
     const resultsKey = config.resultsJsonPath
+
+    //let searchResult = data?.[resultsKey]?.length>0 ? data?.[resultsKey] : []
+    //searchResult = searchResult.reverse()
+    //const tenantId =  Digit.ULBService.getCurrentTenantId();
+
     let searchResult = _.get(data, resultsKey, [])
     searchResult = searchResult?.length > 0 ? searchResult : []
     searchResult = searchResult.reverse();
     const tenantId = Digit.ULBService.getCurrentTenantId();
     const headerLocale = Digit.Utils.locale.getTransformedLocale(tenantId);
+
+    //reversing reason -> for some reason if we enable sorting on columns results from the api are reversed and shown, for now -> reversing the results(max size 50 so not a performance issue)
+    
+    // if (fullConfig?.postProcessResult){
+    //     var { isPostProcessFetching,
+    //         isPostProcessLoading,
+    //         combinedResponse }  =  Digit?.Customizations?.[apiDetails?.masterName]?.[apiDetails?.moduleName]?.postProcess(searchResult) 
+
+    //     if(combinedResponse?.length > 0){
+    //         searchResult = combinedResponse
+    //     } 
+    // }
 
     const { dispatch } = useContext(InboxContext)
 
