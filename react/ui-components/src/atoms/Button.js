@@ -4,27 +4,18 @@ import StringManipulator from "./StringManipulator";
 import Menu from "./Menu";
 import { Colors } from "../constants/colors/colorconstants";
 import { iconRender } from "../utils/iconRender";
+import { useButtonId } from "../hoc/ButtonIdentificationContext";
 
 const Button = (props) => {
   const [dropdownStatus, setDropdownStatus] = useState(false);
   const actionRef = useRef(null);
- // Fixed: Handle non-string labels safely
-  const getFieldId = () => {
-    if (props?.id) return props.id;
-    
-    const labelForId = typeof props?.label === 'string' ? props.label : null;
-    const classNameForId = typeof props?.className === 'string' ? props.className : null;
-    
-    if (labelForId && Digit?.Utils?.getFieldIdName) {
-      return Digit.Utils.getFieldIdName(labelForId);
-    }
-    if (classNameForId && Digit?.Utils?.getFieldIdName) {
-      return Digit.Utils.getFieldIdName(classNameForId);
-    }
-    return "button";
-  };
-  
-  const fieldId = getFieldId();
+
+  // Generate unique button ID using context-aware hook
+  const { id: generatedId, dataAttributes } = useButtonId({
+    explicitId: props?.id,
+    buttonType: props?.type === "actionButton" ? "action" : (props?.submit ? "submit" : "button"),
+    buttonName: props?.name || "",
+  });
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -107,14 +98,12 @@ const Button = (props) => {
 
   const icon = IconRender();
 
-  const formattedLabel = React.isValidElement(props?.label)
-  ? props?.label  // If it's a React element, render it as-is
-  : props?.label
+  const formattedLabel = props?.label
     ? props?.variation === "link"
       ? props?.label
       : StringManipulator(
           "CAPITALIZEFIRSTLETTER",
-          StringManipulator("TRUNCATESTRING", String(props?.label), {
+          StringManipulator("TRUNCATESTRING", props?.label, {
             maxLength: 64,
           })
         )
@@ -128,6 +117,7 @@ const Button = (props) => {
   const buttonElement = (
     <button
       ref={props?.ref}
+      id={generatedId}
       className={`digit-button-${
         props?.variation ? props?.variation : "default"
       } ${props?.size ? props?.size : "large"} ${
@@ -140,16 +130,15 @@ const Button = (props) => {
           ? (e) => handleActionButtonClick(e)
           : props?.onClick
       }
-      id={fieldId}
       disabled={props?.isDisabled || null}
       title={props?.title || ""}
       style={props.style ? props.style : null}
       aria-label={props?.ariaLabel || formattedLabel}
       aria-haspopup={props?.type === "actionButton" ? "menu" : undefined}
       aria-expanded={props?.type === "actionButton" ? dropdownStatus : undefined}
+      {...dataAttributes}
     >
       <div
-        id={`${fieldId}-content`}
         className={`icon-label-container ${
           props?.variation ? props?.variation : ""
         } ${props?.size ? props?.size : ""}`}
@@ -171,7 +160,7 @@ const Button = (props) => {
     <div className={`digit-action-button-wrapper ${props?.wrapperClassName}`} style={props?.wrapperStyles} ref={actionRef}>
       {buttonElement}
       {dropdownStatus && (
-        <div className="header-dropdown-container"  id={props?.id} >
+        <div className="header-dropdown-container">
           <Menu
             options={props?.options}
             setDropdownStatus={setDropdownStatus}
