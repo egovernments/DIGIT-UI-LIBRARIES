@@ -115,7 +115,7 @@ const FieldComposer = ({
             customClass={populators?.customClass}
             prefix={populators?.prefix}
             intlConfig={populators?.intlConfig}
-            state={errors?.[populators.name] ? "digit-field-error" : ""}
+            state={state ? state : errors?.[populators.name] ? "digit-field-error" : ""}
           />
         );
       case "textarea":

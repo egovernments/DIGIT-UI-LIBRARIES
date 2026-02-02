@@ -33,7 +33,7 @@ import { useQuery } from "@tanstack/react-query";
 const useCustomMDMS = (tenantId, moduleName, masterDetails = [], config = {}, mdmsv2 ) => {
   if (mdmsv2) {
     //here call the mdmsv2 api and return the options array
-    return useCustomAPIHook({
+    return window?.Digit?.Hooks.useCustomAPIHook({
       url: Urls.mdms_v2.search,
       params: {},
       changeQueryName: `mdms-v2-dropdowns-${mdmsv2?.schemaCode}`,

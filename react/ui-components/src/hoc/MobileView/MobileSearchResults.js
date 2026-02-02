@@ -48,8 +48,8 @@ const MobileSearchResults = ({ config, data, isLoading, isFetching, fullConfig }
     // ✅ Fixed: v7 register doesn't take default value as second argument
     // Default values are already set in useForm, so we just need to register
     useEffect(() => {
-        register("offset");
-        register("limit");
+        register("offset", 0);
+        register("limit", 10);
     }, [register]);
 
     function onPageSizeChange(e) {
