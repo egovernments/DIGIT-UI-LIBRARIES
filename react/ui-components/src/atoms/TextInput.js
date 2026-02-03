@@ -194,16 +194,6 @@ const TextInput = (props) => {
     }
   };
 
-  // useEffect(()=>{
-  //   window.addEventListener('keydown', handleKeyDown);
-  //   window.addEventListener('mousedown', handleMouseDown);
-
-  //   return () => {
-  //     window.removeEventListener('keydown', handleKeyDown);
-  //     window.removeEventListener('mousedown', handleMouseDown);
-  //   };
-  // },[])
-
   const disabledColor = Colors.lightTheme.generic.divider;
   const iconColor = Colors.lightTheme.generic.inputBorder;
 
@@ -348,6 +338,7 @@ const TextInput = (props) => {
                   "TOSENTENCECASE",
                   t(props.placeholder)
                 )}
+                locale={ Digit?.SessionStorage.get("locale")}
                 dateFormat="dd MMMM yyyy"
                 className={
                   props.required ? inputClassNameForMandatory : inputClassName
