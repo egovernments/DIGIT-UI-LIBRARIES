@@ -44,7 +44,7 @@ const wrapperStyles = {
  *
  */
 
-export const FormComposer = (props) => {
+export const FormComposerStudio = (props) => {
   // ✅ Fixed: v7 syntax - errors comes from formState
   const {
     register,
