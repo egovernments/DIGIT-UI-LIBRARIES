@@ -2,6 +2,7 @@ import FieldComposer from "./FieldComposer";
 import FieldController from "./FieldController";
 import Fields from "./Fields";
 import { FormComposer as FormComposerV2 } from "./FormComposerV2";
+import { FormComposerStudio } from "./FormComposerStudio";
 import Modal from "./Modal";
 import UploadFileComposer from "./UploadFileComposer";
 import FieldV1 from "./FieldV1";
@@ -32,6 +33,7 @@ export {
   FieldController,
   Fields,
   FormComposerV2,
+  FormComposerStudio,
   Modal,
   UploadFileComposer,
   FormComposerCitizen,
