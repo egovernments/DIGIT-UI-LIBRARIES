@@ -639,6 +639,7 @@ class DigitIconMapping {
     'SnippetFolder': Icons.snippet_folder,
     'Source': Icons.source,
     'South': Icons.south,
+    'SortSvg': Icons.sort_outlined,
     'SouthEast': Icons.south_east,
     'SouthWest': Icons.south_west,
     'SpeakerNotes': Icons.speaker_notes,

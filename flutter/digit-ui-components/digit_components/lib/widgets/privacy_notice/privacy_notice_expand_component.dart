@@ -151,12 +151,14 @@ class DescriptionWidgetState extends LocalizedState<DescriptionWidget> {
         text: TextSpan(
           text: '$stepNumber. ',
           style: Theme.of(context).digitTextTheme(context).bodyS.copyWith(
+            color: Theme.of(context).colorTheme.text.primary,
             fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
           ),
           children: [
             TextSpan(
               text: localizations.translate(descriptionText),
               style: TextStyle(
+                color: Theme.of(context).colorTheme.text.primary,
                 fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
               ),
             ),
@@ -182,6 +184,7 @@ class DescriptionWidgetState extends LocalizedState<DescriptionWidget> {
               text: TextSpan(
                 text: localizations.translate(descriptionText),
                 style: Theme.of(context).digitTextTheme(context).bodyS.copyWith(
+                  color: Theme.of(context).colorTheme.text.primary,
                   fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
                 ),
               ),
@@ -195,6 +198,7 @@ class DescriptionWidgetState extends LocalizedState<DescriptionWidget> {
         localizations.translate(descriptionText),
         textAlign: TextAlign.justify,
         style: Theme.of(context).digitTextTheme(context).bodyS.copyWith(
+          color: Theme.of(context).colorTheme.text.primary,
           fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
         ),
       );
@@ -247,6 +251,7 @@ class SubDescriptionWidgetState extends LocalizedState<SubDescriptionWidget> {
         '$stepNumber. ${localizations.translate(subDescriptionText)}',
         textAlign: TextAlign.justify,
         style: Theme.of(context).digitTextTheme(context).bodyS.copyWith(
+          color: Theme.of(context).colorTheme.text.primary,
         fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
       ),
       );
@@ -268,6 +273,7 @@ class SubDescriptionWidgetState extends LocalizedState<SubDescriptionWidget> {
               localizations.translate(subDescriptionText),
               textAlign: TextAlign.justify,
               style: Theme.of(context).digitTextTheme(context).bodyS.copyWith(
+                color: Theme.of(context).colorTheme.text.primary,
                 fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
               ),
             ),
@@ -278,7 +284,9 @@ class SubDescriptionWidgetState extends LocalizedState<SubDescriptionWidget> {
       return Text(
         localizations.translate(subDescriptionText),
         textAlign: TextAlign.justify,
-        style: Theme.of(context).digitTextTheme(context).bodyS.copyWith(
+        style: Theme.of(context).digitTextTheme(
+            context).bodyS.copyWith(
+          color: Theme.of(context).colorTheme.text.primary,
           fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
         ),
       );

@@ -18,6 +18,7 @@ class DropdownOption extends StatefulWidget {
   final List<DropdownItem> selectedOptions;
   final Function(List<DropdownItem>)? onOptionSelected;
   final Function(DropdownItem currentHoverItem, bool isHovered)? onHover;
+  final bool sentenceCaseEnabled;
 
   const DropdownOption({
     super.key,
@@ -31,6 +32,7 @@ class DropdownOption extends StatefulWidget {
     this.isFocused,
     this.onHover,
     this.focusedIndex,
+    this.sentenceCaseEnabled = true,
   });
 
   @override
@@ -169,7 +171,7 @@ class _DropdownOptionState extends State<DropdownOption> {
                                   ),
                                 Flexible(
                                   child: Text(
-                                    capitalizeFirstLetter(widget.option.name),
+                                    widget.sentenceCaseEnabled ? capitalizeFirstLetter(widget.option.name) : widget.option.name,
                                     maxLines: 3,
                                     overflow: TextOverflow.ellipsis,
                                     style: widget.isSelected ||
@@ -202,7 +204,7 @@ class _DropdownOptionState extends State<DropdownOption> {
                         Padding(
                           padding: const EdgeInsets.only(left: spacer8),
                           child: Text(
-                            capitalizeFirstLetter(widget.option.description!),
+                            widget.sentenceCaseEnabled ? capitalizeFirstLetter(widget.option.description!) : widget.option.description!,
                             style: currentTypography.bodyXS.copyWith(
                               color: widget.isSelected ||
                                   _itemMouseDownStates[widget.option] ==

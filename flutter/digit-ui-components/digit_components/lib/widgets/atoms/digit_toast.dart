@@ -25,6 +25,7 @@ class Toast {
         ToastPosition? position,
         StyledToastPosition? customPosition,
         DigitToastThemeData? digitToastThemeData,
+        bool sentenceCaseEnabled = true,
       }) {
     final theme = Theme.of(context);
     final toastThemeData = digitToastThemeData ??
@@ -37,7 +38,7 @@ class Toast {
         : _mapPosition(context, position ?? ToastPosition.bottom, defaultThemeData);
 
     showToastWidget(
-      buildToastWidget(message, type, context, toastThemeData,),
+      buildToastWidget(message, type, context, toastThemeData, sentenceCaseEnabled: sentenceCaseEnabled,),
       context: context,
       duration: toastThemeData?.animationDuration ?? defaultThemeData.animationDuration,
       position: toastThemeData?.toastPosition ?? styledPosition,
@@ -76,7 +77,7 @@ class Toast {
   }
 
   static Widget buildToastWidget(String message, ToastType type,
-      BuildContext context, DigitToastThemeData? toastThemeData) {
+      BuildContext context, DigitToastThemeData? toastThemeData, {bool sentenceCaseEnabled = true,}) {
     final theme = Theme.of(context);
     final defaultThemeData = DigitToastThemeData.defaultTheme(context);
 
@@ -123,7 +124,7 @@ class Toast {
                       (theme.spacerTheme.spacer6) * 3,
                 ),
                 child: Text(
-                  convertInToSentenceCase(message)!,
+                  sentenceCaseEnabled ? convertInToSentenceCase(message)! : message,
                   maxLines: toastThemeData?.maxLine ?? defaultThemeData.maxLine,
                   overflow: TextOverflow.ellipsis,
                   style: toastThemeData?.textStyle ?? defaultThemeData.textStyle,

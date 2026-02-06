@@ -1,3 +1,11 @@
+## 0.2.4+1
+* Fixed sentence case not applied to selected value in dropdown
+* Added sentenceCaseEnabled property in multiselect dropdown and toast
+* Added sentenceCaseEnabled property in dropdown option to enable or disable casing
+
+## 0.2.4
+* Updated location bloc
+
 ## 0.2.3+9
 * Fixed alignment issue in privacy component
 

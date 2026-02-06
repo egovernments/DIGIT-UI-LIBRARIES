@@ -89,6 +89,7 @@ class MultiSelectDropDown<int> extends StatefulWidget {
   final bool isSearchable;
   final bool showSelectAll;
   final String selectAllText;
+  final bool sentenceCaseEnabled;
 
   const MultiSelectDropDown({
     Key? key,
@@ -109,6 +110,7 @@ class MultiSelectDropDown<int> extends StatefulWidget {
     this.showSelectAll = false,
     this.emptyItemText = 'No Options available',
     this.selectAllText = 'Select All',
+    this.sentenceCaseEnabled = true,
   }) : super(key: key);
 
   @override
@@ -826,7 +828,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
       child: Padding(
         padding: DropdownConstants.noItemAvailablePadding,
         child: Text(
-          convertInToSentenceCase(widget.emptyItemText)!,
+          widget.sentenceCaseEnabled ? convertInToSentenceCase(widget.emptyItemText)! : widget.emptyItemText,
           style: currentTypography.bodyS.copyWith(
             color: const DigitColors().light.textDisabled,
           ),
@@ -996,6 +998,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                     isSelected: isSelected,
                     backgroundColor: backgroundColor,
                     selectedOptions: selectedOptions,
+                    sentenceCaseEnabled: widget.sentenceCaseEnabled,
                     onOptionSelected: (List<DropdownItem> selectedOptions) {
                       // Check selection state inside callback to get current state
                       final currentlySelected = selectedOptions.any((item) =>
@@ -1154,7 +1157,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      convertInToSentenceCase(type)!,
+                      widget.sentenceCaseEnabled ? convertInToSentenceCase(type)! : type!,
                       style: currentTypography.headingS.copyWith(
                         color: const DigitColors().light.textSecondary,
                       ),
@@ -1244,6 +1247,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                     backgroundColor: backgroundColor,
                     selectedOptions: selectedOptions,
                     isFocused: isFocused,
+                    sentenceCaseEnabled: widget.sentenceCaseEnabled,
                     onOptionSelected: (List<DropdownItem> selectedOptions) {
                       // Check selection state inside callback to get current state
                       final currentlySelected = selectedOptions.any((item) =>
@@ -1351,7 +1355,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                 color: const DigitColors().light.paperSecondary,
               ),
               child: Text(
-                convertInToSentenceCase(widget.clearAllText)!,
+                widget.sentenceCaseEnabled ? convertInToSentenceCase(widget.clearAllText)! : widget.clearAllText,
                 style: currentTypography.bodyS.copyWith(
                   color: const DigitColors().light.primary1,
                 ),
@@ -1365,6 +1369,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
   /// Build the selected item chip.
   Widget _buildChip(DropdownItem item) {
     return DigitChip(
+      capitalizedFirstLetter: widget.sentenceCaseEnabled,
       label: widget.valueMapper != null
           ? getAssociatedValue(item.code, widget.valueMapper!)
           : widget.selectionType == SelectionType.nestedSelect
