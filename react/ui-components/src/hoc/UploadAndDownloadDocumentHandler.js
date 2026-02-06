@@ -134,11 +134,33 @@ const UploadAndDownloadDocumentHandler = ({
     }
   };
 
+  // Helper function to evaluate visibility expression for documents
+  const evaluateDocumentVisibility = (visibilityExpression) => {
+    if (!visibilityExpression) return true;
+    try {
+      const evalFunc = new Function('values', `
+        try {
+          return ${visibilityExpression};
+        } catch (e) {
+          return true;
+        }
+      `);
+      return evalFunc(formData);
+    } catch (error) {
+      console.warn('Error evaluating document visibility expression:', error);
+      return true;
+    }
+  };
+
   let docData = serviceconfig ? serviceconfig?.mdms?.filter((ob) => ob?.uniqueIdentifier.toLowerCase() === moduleName)?.[0]?.data?.documents?.[0].actions : [];
   if(previewConfig) docData = previewConfig?.[0]?.actions;
   const docConfig = docData?.[0];
 
-  const updatedDocuments = docConfig?.documents?.flatMap((doc) => {
+  // Use pre-filtered documents from config prop if available (supports visibilityExpression from parent),
+  // fall back to MDMS-fetched documents
+  const sourceDocuments = config?.documents || docConfig?.documents;
+
+  const updatedDocuments = sourceDocuments?.flatMap((doc) => {
     if (doc.templatePDFKey || doc.templateDownloadURL) {
       // Return both original and a modified copy with cleared template keys
       return [
@@ -197,7 +219,9 @@ const UploadAndDownloadDocumentHandler = ({
       }
       {flow !== "WORKFLOW" && updatedDocuments?.map((item, index) => {
         if (!item?.active) return null;
-        
+        // Check visibility expression - hide document if expression evaluates to false
+        if (!evaluateDocumentVisibility(item?.visibilityExpression)) return null;
+
         if(previewConfig) {
           return (
             <div key={index} style={{
