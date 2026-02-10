@@ -50,6 +50,7 @@ const isExpressionSafe = (expression) => {
   const withoutComparisons = stripped
     .replace(/===/g, '')
     .replace(/!==/g, '')
+    .replace(/!=/g, '')
     .replace(/==/g, '')
     .replace(/>=/g, '')
     .replace(/<=/g, '');
