@@ -365,6 +365,7 @@ const FieldV1 = ({
             localePrefix={config?.localePrefix}
             action={populators?.action}
             flow={populators?.flow}
+            onDocumentUpload={onChange}
             variant={
               variant
                 ? variant
