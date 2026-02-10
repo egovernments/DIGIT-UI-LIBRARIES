@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { useTranslation } from "react-i18next";
 import LabelFieldPair from "../atoms/LabelFieldPair";
@@ -11,6 +11,53 @@ import TextInput from "../atoms/TextInput";
 import { getRegex } from "../utils/uploadFileComposerUtils";
 import { useParams } from "react-router-dom";
 import { Button, CustomSVG } from "../atoms";
+
+/**
+ * Validates that a visibility expression only contains safe operations
+ * allowed for dependent dropdown conditions:
+ * property access, comparisons, logical operators, and literals.
+ * Blocks dangerous patterns like function calls, assignments, and global object access.
+ */
+const isExpressionSafe = (expression) => {
+  if (!expression || typeof expression !== 'string') return false;
+
+  // Strip string literals to avoid false positives in keyword matching
+  const stripped = expression.replace(/"(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*'/g, '""');
+
+  const blockedPatterns = [
+    /\b(function|class|new|delete|void|typeof|import|require|export|eval|with|this)\b/,
+    /\b(window|document|globalThis|self|top|parent|frames|navigator)\b/,
+    /\b(constructor|prototype|__proto__)\b/,
+    /\b(setTimeout|setInterval|setImmediate|requestAnimationFrame)\b/,
+    /\b(fetch|XMLHttpRequest|WebSocket|EventSource)\b/,
+    /\b(localStorage|sessionStorage|cookie)\b/,
+    /\b(alert|confirm|prompt|console)\b/,
+    /\b(process|child_process|exec|spawn)\b/,
+    /\b(return|throw|try|catch|finally)\b/,
+    /\b(while|for|do|switch|case|break|continue)\b/,
+    /\b(yield|await|async)\b/,
+    /=>/,                            // arrow functions
+    /`/,                             // template literals
+    /\.\s*(call|apply|bind)\s*\(/,   // .call(), .apply(), .bind()
+  ];
+
+  for (const pattern of blockedPatterns) {
+    if (pattern.test(stripped)) return false;
+  }
+
+  // Block assignment operators (=, +=, -=, *=, /=, %=)
+  // but allow comparison operators (==, ===, !=, !==, <=, >=)
+  const withoutComparisons = stripped
+    .replace(/===/g, '')
+    .replace(/!==/g, '')
+    .replace(/!=/g, '')
+    .replace(/==/g, '')
+    .replace(/>=/g, '')
+    .replace(/<=/g, '');
+  if (/[+\-*/%]?=/.test(withoutComparisons)) return false;
+
+  return true;
+};
 
 const UploadAndDownloadDocumentHandler = ({
   schemaCode,
@@ -25,7 +72,8 @@ const UploadAndDownloadDocumentHandler = ({
   previewConfig,
   action = "APPLY",
   flow,
-  templateUrl
+  templateUrl,
+  onDocumentUpload,
 }) => {
   if(previewConfig) flow = "APPLY"
   const { t } = useTranslation();
@@ -134,11 +182,42 @@ const UploadAndDownloadDocumentHandler = ({
     }
   };
 
+  // Evaluates a visibility expression for documents.
+  // The expression is validated against a safelist before execution.
+  // formData is bound to the 'values' parameter so expressions
+  // reference form fields as values.fieldName (e.g. values?.uploadedDocs?.["Adhaar"])
+  const evaluateDocumentVisibility = (visibilityExpression) => {
+    if (!visibilityExpression) return true;
+
+    if (!isExpressionSafe(visibilityExpression)) {
+      console.warn('Blocked unsafe document visibility expression:', visibilityExpression);
+      return true;
+    }
+
+    try {
+      const evalFunc = new Function('values', `
+        try {
+          return ${visibilityExpression};
+        } catch (e) {
+          return true;
+        }
+      `);
+      return evalFunc(formData);
+    } catch (error) {
+      console.warn('Error evaluating document visibility expression:', error);
+      return true;
+    }
+  };
+
   let docData = serviceconfig ? serviceconfig?.mdms?.filter((ob) => ob?.uniqueIdentifier.toLowerCase() === moduleName)?.[0]?.data?.documents?.[0].actions : [];
   if(previewConfig) docData = previewConfig?.[0]?.actions;
   const docConfig = docData?.[0];
 
-  const updatedDocuments = docConfig?.documents?.flatMap((doc) => {
+  // Use pre-filtered documents from config prop if available (supports visibilityExpression from parent),
+  // fall back to MDMS-fetched documents
+  const sourceDocuments = config?.documents || docConfig?.documents;
+
+  const updatedDocuments = sourceDocuments?.flatMap((doc) => {
     if (doc.templatePDFKey || doc.templateDownloadURL) {
       // Return both original and a modified copy with cleared template keys
       return [
@@ -197,7 +276,9 @@ const UploadAndDownloadDocumentHandler = ({
       }
       {flow !== "WORKFLOW" && updatedDocuments?.map((item, index) => {
         if (!item?.active) return null;
-        
+        // Check visibility expression - hide document if expression evaluates to false
+        if (!evaluateDocumentVisibility(item?.visibilityExpression)) return null;
+
         if(previewConfig) {
           return (
             <div key={index} style={{
@@ -268,7 +349,11 @@ const UploadAndDownloadDocumentHandler = ({
                   <MultiUploadWrapper
                     t={t}
                     module="DigitStudio"
-                    getFormState={() => {}}
+                    getFormState={(filesData) => {
+                      if (onDocumentUpload) {
+                        onDocumentUpload(filesData?.length > 0 ? filesData : []);
+                      }
+                    }}
                     setuploadedstate={[]}
                     showHintBelow={Boolean(item?.hintText)}
                     hintText={item?.hintText}
