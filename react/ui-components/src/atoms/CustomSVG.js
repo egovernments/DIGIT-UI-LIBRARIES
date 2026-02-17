@@ -306,10 +306,10 @@ const DeleteBtn = ({ className, onClick, fill="white",width="18",height="18" }) 
   </svg>
 );
 
-const Devices = ({ className, onClick, fill="white",width="18",height="18" }) => (
+const Devices = ({ className, onClick, fill="white",width="18",height="18", viewBox }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
+    viewBox={viewBox ? viewBox : "0 0 40 40"}
     fill={fill}
     className={className}
     onClick={onClick}
