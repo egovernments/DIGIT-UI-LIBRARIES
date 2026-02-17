@@ -306,6 +306,33 @@ const DeleteBtn = ({ className, onClick, fill="white",width="18",height="18" }) 
   </svg>
 );
 
+const Devices = ({ className, onClick, fill="white",width="18",height="18" }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill={fill}
+    className={className}
+    onClick={onClick}
+    width={width}
+    height={height}
+    role={onClick ? "button" : "img"}
+    aria-label= "Devices"
+    tabIndex={onClick ? 0 : undefined}
+    onKeyDown={onClick ? (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        onClick(e);
+      }
+    } : undefined}
+    style={{ 
+      cursor: onClick ? 'pointer' : 'default'
+    }}
+  >
+    <path d="M0 32V28H20V32H0ZM6 26C4.9 26 3.95833 25.6083 3.175 24.825C2.39167 24.0417 2 23.1 2 22V4C2 2.9 2.39167 1.95833 3.175 1.175C3.95833 0.391667 4.9 0 6 0H34C35.1 0 36.0417 0.391667 36.825 1.175C37.6083 1.95833 38 2.9 38 4H6V22H20V26H6ZM36 28V12H28V28H36ZM27 32C26.1667 32 25.4583 31.7083 24.875 31.125C24.2917 30.5417 24 29.8333 24 29V11C24 10.1667 24.2917 9.45833 24.875 8.875C25.4583 8.29167 26.1667 8 27 8H37C37.8333 8 38.5417 8.29167 39.125 8.875C39.7083 9.45833 40 10.1667 40 11V29C40 29.8333 39.7083 30.5417 39.125 31.125C38.5417 31.7083 37.8333 32 37 32H27ZM32 17C32.4333 17 32.7917 16.85 33.075 16.55C33.3583 16.25 33.5 15.9 33.5 15.5C33.5 15.0667 33.3583 14.7083 33.075 14.425C32.7917 14.1417 32.4333 14 32 14C31.6 14 31.25 14.1417 30.95 14.425C30.65 14.7083 30.5 15.0667 30.5 15.5C30.5 15.9 30.65 16.25 30.95 16.55C31.25 16.85 31.6 17 32 17Z" fill={fill}/>
+  </svg>
+);
+
+
 const SuccessSvg = ({ className,fill="#00703C" ,width="24",height="24"}) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -4005,6 +4032,7 @@ export const CustomSVG = {
     AddFilled,
     AddFileFilled,
     LocateIcon,
+    Devices,
     /* Works Management  */
     NoResultsFoundIcon,
     WorksMgmtIcon,
