@@ -3888,7 +3888,27 @@ const TabInactive = ({ width = "32", height = "32", fill = "#C84C0E" }) => (
 );
 
 
+const VariableAddFilled = ({
+  width = "32",
+  height = "32",
+  fill = "#C84C0E",
+}) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={width}
+    height={height}
+    viewBox="0 0 21 13"
+    fill="none"
+  >
+    <path
+      d="M0 10V0H18V3.075C17.8333 3.04167 17.6708 3.02083 17.5125 3.0125C17.3542 3.00417 17.1833 3 17 3C15.3333 3 13.9167 3.58333 12.75 4.75C11.5833 5.91667 11 7.33333 11 9C11 9.18333 11.0042 9.35417 11.0125 9.5125C11.0208 9.67083 11.0417 9.83333 11.075 10H0ZM16 13V10H13V8H16V5H18V8H21V10H18V13H16Z"
+      fill={fill}
+    />
+  </svg>
+);
+
 export const CustomSVG = {
+    VariableAddFilled,
     TabInactive,
     PlaceholderSvg,
     ProfileIcon,

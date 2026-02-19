@@ -132,6 +132,7 @@ import {
 
 //exporting all the svg items separately as at few places they are being imported directly
 export const {
+    VariableAddFilled,
     PlaceholderSvg,
     ProfileIcon,
     AnnouncementIcon,
