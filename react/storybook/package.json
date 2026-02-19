@@ -37,6 +37,8 @@
     "css-loader": "^7.1.2",
     "prop-types": "15.8.1",
     "react": "19.0.0",
+    "react-dnd": "^16.0.1",
+    "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "19.0.0",
     "react-router-dom": "7.9.1",
     "storybook": "8.6.14",
@@ -45,13 +47,13 @@
     "webpack-cli": "^6.0.1"
   },
   "dependencies": {
-    "react-datepicker": "^8.7.0",
-    "react-webcam": "7.2.0",
-    "react-drag-drop-files": "2.3.10",
-    "react-data-table-component": "7.6.2",
-    "@egovernments/digit-ui-svg-components": "2.0.0-dev-01",
+    "@egovernments/digit-ui-components": "2.0.0-dev-37",
+    "@egovernments/digit-ui-components-css": "2.0.0-dev-12",
     "@egovernments/digit-ui-libraries": "2.0.0-dev-08",
-    "@egovernments/digit-ui-components-css": "2.0.0-dev-11",
-    "@egovernments/digit-ui-components": "2.0.0-dev-32"
+    "@egovernments/digit-ui-svg-components": "2.0.0-dev-01",
+    "react-data-table-component": "7.6.2",
+    "react-datepicker": "^8.7.0",
+    "react-drag-drop-files": "2.3.10",
+    "react-webcam": "7.2.0"
   }
 }
