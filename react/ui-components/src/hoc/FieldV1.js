@@ -296,7 +296,6 @@ const FieldV1 = ({
               maxLength={populators?.maxLength}
               showCountryCodeDropdown={populators?.showCountryCodeDropdown}
               countryCodeConfig={populators?.countryCodeConfig}
-              defaultCountryCode={populators?.defaultCountryCode}
             />
           </div>
         );

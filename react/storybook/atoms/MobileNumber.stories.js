@@ -132,9 +132,8 @@ const Template = (args) => {
           maxLength,
           showCountryCodeDropdown,
           countryCodeConfig: showCountryCodeDropdown
-            ? { moduleName: "common-masters", masterName: "CountryCodes" }
+            ? { moduleName: "common-masters", masterName: "CountryCodes", defaultCountryCode }
             : undefined,
-          defaultCountryCode,
         }}
       />
       <div style={{ marginTop: "1rem", padding: "0.75rem", background: "#f5f5f5", borderRadius: "4px", fontSize: "0.875rem" }}>

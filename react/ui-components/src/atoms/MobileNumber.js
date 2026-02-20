@@ -4,41 +4,48 @@ import TextInput from "./TextInput";
 import Dropdown from "./Dropdown";
 import { getUserType } from "../utils/digitUtils";
 
+// Default fallback values when countryCodeConfig is not provided
+const FALLBACK_MODULE_NAME = "common-masters";
+const FALLBACK_MASTER_NAME = "CountryCodes";
+const FALLBACK_DEFAULT_COUNTRY_CODE = "+91";
+
 const MobileNumber = (props) => {
   const user_type = getUserType();
-  const {
-    showCountryCodeDropdown,
-    countryCodeConfig,
-    defaultCountryCode = "+91",
-  } = props;
+  const { showCountryCodeDropdown, countryCodeConfig } = props;
 
-  // Fetch country codes from MDMS when dropdown is enabled
-  // Always call the hook (rules of hooks) but control via `enabled`
+  // Resolving config with fallback values
+  const resolvedModuleName = countryCodeConfig?.moduleName || FALLBACK_MODULE_NAME;
+  const resolvedMasterName = countryCodeConfig?.masterName || FALLBACK_MASTER_NAME;
+  const resolvedDefaultCode = countryCodeConfig?.defaultCountryCode || FALLBACK_DEFAULT_COUNTRY_CODE;
+
+  // Get stateId
   let stateId = "";
   try {
-    stateId = Digit?.ULBService?.getStateId?.() || "";
+    stateId = Digit?.ULBService?.getStateId?.() || window?.globalConfigs?.getConfig?.("STATE_LEVEL_TENANT_ID") || "";
   } catch (e) {
     stateId = "";
   }
 
-  const isMdmsEnabled = Boolean(showCountryCodeDropdown && countryCodeConfig?.moduleName && countryCodeConfig?.masterName);
+  // Only enabling MDMS call when dropdown is requested and stateId is available
+  const isMdmsEnabled = Boolean(showCountryCodeDropdown && stateId);
 
   const mdmsResult = Digit?.Hooks?.useCustomMDMS?.(
     stateId,
-    countryCodeConfig?.moduleName || "",
-    [{ name: countryCodeConfig?.masterName || "" }],
+    resolvedModuleName,
+    [{ name: resolvedMasterName }],
     {
       select: (data) => {
-        if (!countryCodeConfig?.moduleName || !countryCodeConfig?.masterName) return [];
-        const optionsData = data?.[countryCodeConfig.moduleName]?.[countryCodeConfig.masterName] || [];
-        return optionsData
-          .filter((opt) => (opt?.hasOwnProperty("active") ? opt.active : true))
-          .map((opt) => ({
-            ...opt,
-            displayLabel: `${opt.dialCode} ${opt.name}`,
-          }));
-      },
-      enabled: isMdmsEnabled,
+          const optionsData =
+            data?.[resolvedModuleName]?.[resolvedMasterName] || [];
+          return optionsData
+            .filter((opt) =>opt?.hasOwnProperty("active") ? opt.active : true)
+            .map((opt) => ({
+              ...opt,
+              displayLabel: `${opt.dialCode} ${opt.name}`,
+            }));
+        },
+        enabled: isMdmsEnabled,
+      staleTime: 300000,
     }
   ) || { isLoading: false, data: [] };
 
@@ -62,8 +69,8 @@ const MobileNumber = (props) => {
 
   // Find the default country code object from options
   const defaultOption = useMemo(() => {
-    return countryCodeOptions?.find((opt) => opt.dialCode === defaultCountryCode) || null;
-  }, [countryCodeOptions, defaultCountryCode]);
+    return (countryCodeOptions?.find((opt) => opt.dialCode === resolvedDefaultCode) || null);
+  }, [countryCodeOptions, resolvedDefaultCode]);
 
   // Initialize selected country code once options load
   useEffect(() => {
@@ -103,13 +110,17 @@ const MobileNumber = (props) => {
     props?.onChange?.(selectedOption.dialCode + rawNumber);
   };
 
+  // Determining if we should render the dropdown
+  // Only show if enabled AND we have options loaded
+  const shouldShowDropdown = showCountryCodeDropdown && countryCodeOptions?.length > 0;
+
   return (
     <React.Fragment>
       <div
-        className={`digit-mobile-number-container ${showCountryCodeDropdown ? "has-country-dropdown" : ""} ${props?.className ? props?.className : ""}`}
+        className={`digit-mobile-number-container ${shouldShowDropdown ? "has-country-dropdown" : ""} ${props?.className ? props?.className : ""}`}
         style={props?.style}
       >
-        {showCountryCodeDropdown && (
+        {shouldShowDropdown && (
           <div className="digit-country-code-dropdown">
             <Dropdown
               option={countryCodeOptions || []}
@@ -118,7 +129,7 @@ const MobileNumber = (props) => {
               select={onCountryCodeChange}
               isSearchable={true}
               disabled={props.disable}
-              placeholder={defaultCountryCode}
+              placeholder={resolvedDefaultCode}
               t={(text) => text}
               disablePortal={true}
               optionCardStyles={{
@@ -141,7 +152,7 @@ const MobileNumber = (props) => {
             placeholder={props.placeholder}
             onChange={onChange}
             inputRef={props.inputRef}
-            value={showCountryCodeDropdown ? getRawNumber() : props.value}
+            value={shouldShowDropdown ? getRawNumber() : props.value}
             id={props?.id}
             className={props.className}
             style={{ ...props.style }}
@@ -151,14 +162,16 @@ const MobileNumber = (props) => {
             pattern={props.pattern}
             min={props.min}
             disabled={props.disable}
-            hideSpan={showCountryCodeDropdown ? true : props.hideSpan}
+            hideSpan={shouldShowDropdown ? true : props.hideSpan}
             title={props.title}
             step={props.step}
             autoFocus={props.autoFocus}
             onBlur={props.onBlur}
             variant={props?.variant}
             populators={
-              !showCountryCodeDropdown && !props.hideSpan ? { prefix: props?.prefix || "" } : {}
+              !shouldShowDropdown && !props.hideSpan
+                ? { prefix: props?.prefix || "" }
+                : {}
             }
             screenPath={props?.screenPath}
             composerType={props?.composerType}
@@ -197,14 +210,13 @@ MobileNumber.propTypes = {
   countryCodeConfig: PropTypes.shape({
     moduleName: PropTypes.string,
     masterName: PropTypes.string,
+    defaultCountryCode: PropTypes.string,
   }),
-  defaultCountryCode: PropTypes.string,
 };
 
 MobileNumber.defaultProps = {
   isMandatory: false,
   showCountryCodeDropdown: false,
-  defaultCountryCode: "+91",
 };
 
 export default MobileNumber;
