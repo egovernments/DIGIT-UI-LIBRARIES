@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0-dev-37] [20-Feb-2026]
+- Added country code dropdown support for MobileNumber component
+- When `showCountryCodeDropdown` is true in populators, the static prefix becomes a searchable country code dropdown
+- Country code data is fetched from MDMS via `useCustomMDMS` hook
+- Consumers can pass custom `countryCodeConfig` with `moduleName`, `masterName`, and `defaultCountryCode`
+- Falls back to `common-masters/CountryCodes` master with default `+91` when no config is provided
+- Component gracefully falls back to normal mobile input if MDMS returns no data or config is not passed
+- Combined value format: country code + number (e.g., `+919876543210`)
+
 ## [2.0.0-dev-36] [17-Feb-2026]
 - Made the viewbox dynamic for Devices icon
 

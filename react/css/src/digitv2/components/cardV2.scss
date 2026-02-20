@@ -336,7 +336,7 @@
 
 .digit-card-section-header {
     @apply text-heading-m font-bold;
-    color: theme("digitv2.lightTheme.text-primary");
+    color: var(--digitv2-lightTheme-text-primary);
 }
 
 .digit-card-search-heading {
@@ -390,16 +390,16 @@
 
     width: 100%;
     height: auto;
-    background-color: theme("digitv2.lightTheme.paper-primary");
+    background-color: var(--digitv2-lightTheme-paper-primary);
     border-radius: var(--digitv2-borderRadius-radius5);
     box-shadow: 0rem 0.063rem 0.125rem 0rem #00000029;
     display: flex;
-    gap: theme("digitv2.spacers.spacer4");
+    gap: var(--digitv2-spacers-spacer4);
     flex-direction: column;
 
     &.secondary {
-        background-color: theme("digitv2.lightTheme.paper-secondary");
-        border: 0.063em solid theme("digitv2.lightTheme.generic-divider");
+        background-color: var(--digitv2-lightTheme-paper-secondary);
+        border: 0.063em solid var(--digitv2-lightTheme-generic-divider);
     }
 
     &.secondary.search,
@@ -461,20 +461,20 @@
     }
 
     @media (min-aspect-ratio: 9/16) and (max-aspect-ratio: 3/4)  {
-        padding: theme("digitv2.spacers.spacer5");
+        padding: var(--digitv2-spacers-spacer5);
     }
 
     @media (min-aspect-ratio: 3/4) {
-        padding: theme("digitv2.spacers.spacer6");
+        padding: var(--digitv2-spacers-spacer6);
     }
 
     @media (max-aspect-ratio: 9/16) {
-        padding: theme("digitv2.spacers.spacer4");
+        padding: var(--digitv2-spacers-spacer4);
     }
 
     &.action {
-        padding: theme("digitv2.spacers.spacer6");
-        gap: theme("digitv2.spacers.spacer6");
+        padding: var(--digitv2-spacers-spacer6);
+        gap: var(--digitv2-spacers-spacer6);
 
         button {
             width: 100%;
@@ -484,7 +484,7 @@
     &.summarycard{
 
         .digit-text-block-wrap .digit-text-block-header-content .digit-text-block-subheader{
-            color: theme("digitv2.lightTheme.primary-2");
+            color: var(--digitv2-lightTheme-primary-2);
         }
     }
 
@@ -499,7 +499,7 @@
     }
 }
 .titleStyle{
-    color: theme("digitv2.lightTheme.primary-2");
-    font-weight: theme("digitv2.fontWeight.bold");
-    font-size: theme("digitv2.spacers.spacer10");
+    color: var(--digitv2-lightTheme-primary-2);
+    font-weight: var(--digitv2-fontWeight-bold);
+    font-size: var(--digitv2-spacers-spacer10);
 }

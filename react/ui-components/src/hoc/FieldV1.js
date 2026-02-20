@@ -294,6 +294,8 @@ const FieldV1 = ({
               hideSpan={populators?.hideSpan}
               errorStyle={errors?.[populators?.name]}
               maxLength={populators?.maxLength}
+              showCountryCodeDropdown={populators?.showCountryCodeDropdown}
+              countryCodeConfig={populators?.countryCodeConfig}
             />
           </div>
         );
