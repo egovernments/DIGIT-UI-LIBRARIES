@@ -132,6 +132,12 @@ import {
 
 //exporting all the svg items separately as at few places they are being imported directly
 export const {
+    FontDownload,
+    TextAd,
+    RadioButtonChecked,
+    Numeric123,
+    EventList,
+    CheckboxSVG,
     VariableAddFilled,
     PlaceholderSvg,
     ProfileIcon,
