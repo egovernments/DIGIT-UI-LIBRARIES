@@ -132,6 +132,9 @@ import {
 
 //exporting all the svg items separately as at few places they are being imported directly
 export const {
+    FlowFilled,
+    VariableAdd,
+    FlowUnfilled,
     FontDownload,
     TextAd,
     RadioButtonChecked,
