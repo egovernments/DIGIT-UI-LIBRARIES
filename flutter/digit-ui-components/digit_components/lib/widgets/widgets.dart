@@ -13,6 +13,7 @@ export './atoms/digit_radio_list.dart';
 export './atoms/digit_search_form_input.dart';
 export './atoms/digit_text_area_form_input.dart';
 export './atoms/digit_text_form_input.dart';
+export './atoms/digit_mobile_number_input.dart';
 export './atoms/digit_time_form_input.dart';
 export './atoms/digit_toggle.dart';
 export './atoms/digit_toggle_list.dart';
