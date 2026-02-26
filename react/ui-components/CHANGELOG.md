@@ -4,10 +4,206 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0-dev-39] [25-Feb-2026]
+-FormStep syntax changes as per react-hook-form v7
+
+## [2.0.0-dev-37] [20-Feb-2026]
+- Added country code dropdown support for MobileNumber component
+- When `showCountryCodeDropdown` is true in populators, the static prefix becomes a searchable country code dropdown
+- Country code data is fetched from MDMS via `useCustomMDMS` hook
+- Consumers can pass custom `countryCodeConfig` with `moduleName`, `masterName`, and `defaultCountryCode`
+- Falls back to `common-masters/CountryCodes` master with default `+91` when no config is provided
+- Component gracefully falls back to normal mobile input if MDMS returns no data or config is not passed
+- Combined value format: country code + number (e.g., `+919876543210`)
+
+## [2.0.0-dev-36] [17-Feb-2026]
+- Made the viewbox dynamic for Devices icon
+
+## [2.0.0-dev-35] [10-Feb-2026]
+- Added Devices Icon in the custom svg
+
+## [2.0.0-dev-34] [10-Feb-2026]
+- Added visibility expression feature to uploadandDownloadDocumentHandler
+
+## [2.0.0-dev-33] [03-Feb-2026]
+- Added missing export of FormComposerStudio
+
+## [2.0.0-dev-32] [03-Feb-2026]
+- Components addition and merge from stable react17 ui-components for studio
+- InboxSearchComposer
+    Prevented direct mutation of "apiDetails" by using immutable updates, introduced newApiDetails.
+    Fixed pagination, assignee, and status update caching issues using forced refetch.
+    Memoized requestCriteria to reduce unnecessary re-renders.
+    Removed aggressive "revalidation" on unmount to avoid redundant API calls.
+- New FormComposerStudio component added specific to studio
+- Fixed syntax for react-hook-form wherever required
+
+## [2.0.0-dev-15] [18-Dec-2025]
+- Added disableClearAll prop in MultiselectDropdown component
+
+## [2.0.0-dev-05] [27-Nov-2025]
+- Fixed dropdown css issue and Added required prop in Checkbox
+
+## [2.0.0-dev-04] [26-Nov-2025]
+- Added createPortal support to render dropdown options at document body level, preventing options from being clipped by parent containers with overflow: hidden or lower z-index.
+
+## [2.0.0-dev-03] [26-Nov-2025]
+- Updated Controller render props from ({ onChange, ref, value }) to ({ field }) pattern
+- Fixed form inputs not working in InboxSearchComposer and FormComposerV2
+- Fixed MobileDetailsOnClick error in mobile view
+
+## [2.0.0-dev-02] [13-Nov-2025]
+- Added removeMargin prop to CheckBox component
+- Disabled sort icon based on enableColumnSort prop
+- Added onClearSearch callback support in SearchComponent
+- Modified error display logic in FormComposer with showFieldLevelErrors and showFormLevelErrorToast checks.
+- Added custom classnames support in DateRange component
+
+## [2.0.0-dev-01] [29-Aug-2025]
+- Merged with latest react 17 master changes
+
+## [2.0.0-rc19-02] [29-Seo-2025]
+- Advanced webpack optimization for comprehensive UI component library
+
+## [2.0.0-rc19-01] [26-Aug-2025]
+- Advanced webpack optimization for comprehensive UI component library
+- Full CSS modules support with auto-detection for .module.css files
+- Enhanced asset handling for fonts, images, and static resources
+- Performance budget increased to 750KB for full-featured component library
+- Externalized form libraries (react-hook-form, react-datepicker) to prevent conflicts
+- Modern Babel configuration with smart polyfill injection
+- Tree-shaking optimization with module concatenation in production
+- Added build caching and console removal in production
+- Bundle analysis command: yarn build:analyze
+- Optimized dev server with HMR on port 3004
+
+## [0.2.0-beta.40-rc19.02] [28-Jun-2025]
+-New css classes introduced in index.css and submitbar.css for keyboard focus accessibilty
+-Keyboard and screen reader accessibilty implemented to each atoms, molecules and HOCs
+
+## [0.2.0-beta.40-rc19.01] [27-Jun-2025]
+- ui-components(0.2.0-beta.40) from develop Upgraded to react19
+- webpack for build
+- npm packages upgraded and syntax changed to make them react19 compatible
+- react, react-dom, react-router-dom and @tanstack/react-query are in peer dependencies now to avoid version conflict
+
+### [0.2.0-beta.40] - 2025-06-24
+## Enhancements
+- Fixed pagination issue in inbox search composer
+
+### [0.2.0-beta.39] - 2025-06-23
+## Enhancements
+- Fixed show toast null issue for config change
+
+### [0.2.0-beta.38] - 2025-06-19
+## Enhancements
+- Added min and max validation for date
+
+### [0.2.0-beta.37] - 2025-06-18
+## Enhancements
+- Removed few logs & errors
+
+### [0.2.0-beta.36] - 2025-06-18
+## Enhancements
+- added new date format
+
+### [0.2.0-beta.34] - 2025-06-12
+## Enhancements
+- added vertical variant to toogle
+
+### [0.2.0-beta.33] - 2025-06-10
+## Enhancements
+- added props to custom row component in results 
+
+### [0.2.0-beta.32] - 2025-06-09
+## Enhancements
+- updated svg 
+
+### [0.2.0-beta.31] - 2025-06-09
+## Enhancements
+- updated svg 
+
+### [0.2.0-beta.30] - 2025-06-09
+## Enhancements
+- fixed toogle disable prop to disable a particular option
+
+### [0.2.0-beta.29] - 2025-06-05
+## Enhancements
+- Added toogle disbale prop to disable a particular option
+
+### [0.2.0-beta.28] - 2025-06-04
+## Enhancements
+- Added icon props for formcomposer action buttons 
+
+### [0.2.0-beta.27] - 2025-06-03
+## Enhancements
+- Sending tabData as a prop to Custom Row Component
+
+### [0.2.0-beta.26] - 2025-06-02
+## Enhancements
+- Added TabInactive Svg
+
+### [0.2.0-beta.25] - 2025-06-02
+## Enhancements
+- Added mdms and t selection Tag 
+
+### [0.2.0-beta.24] - 2025-06-02
+## Enhancements
+- Added custom translation for radio button and selection Tag 
+
+### [0.2.0-beta.23] - 2025-05-30
+## Enhancements
+- Fixed Total Count value issue in Inbox 
+
+### [0.2.0-beta.22] - 2025-05-30
+## Enhancements
+- Adding Try/Catch Block onChange trigger for Date in TextInput 
+
+### [0.2.0-beta.21] - 2025-05-30
+## Enhancements
+- Commented unwanted onChange trigger for Date in TextInput 
+- Added custom Translation for FieldV1
+
+### [0.2.0-beta.20] - 2025-05-29
+## Enhancements
+- Enhancement in InboxSearchComposer to accept custom row component
+
+### [0.2.0-beta.19] - 2025-05-22
+## Updates
+- Added translation for filter card labels
+
+### [0.2.0-beta.18] - 2025-05-20
+## Updates
+- Fixed logic issue is sidebar highlighting
+
+
+### [0.2.0-beta.17] - 2025-05-20
+## Updates
+- Added custom highlighting logic in sidebar for sandbox-ui
+
+
+### [0.2.0-beta.16] - 2025-05-19
+## Updates
+- Added url based highlighting in sidebar
+
+
+### [0.2.0-beta.14] - 2025-04-28
+## Updates
+- Added `BoundaryFilter` HOC component to enable hierarchical administrative boundary selection.
+- Allowed standalone rendering of the `BoundaryFilter` component.
+- Integrated `BoundaryFilter` into `FormComposer` and `InboxSearchComposer` for boundary-based filtering.
+
+
+### [0.2.0-beta.13] - 2025-04-24
+## Updates
+- CustomDropdown now supports MultiselectDropdown 
+- Added classname and styles for section subheader in form 
+- Removed unnecessary div if description orerror or charCount is not present
 
 ### [0.2.0-beta.12] - 2025-04-16
 ## Updates
 - Fixed default data in form composer
+
 ### [0.2.0-beta.11] - 2025-04-16
 ## Updates
 - Added classname in header and subHeader

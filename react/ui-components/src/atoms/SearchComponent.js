@@ -18,7 +18,7 @@ const setUIConf = (uiConfig) => {
   return [{uiConfig}]
 }
 
-const SearchComponent = ({ uiConfig, header = "", screenType = "search", fullConfig, data,activeLink,browserSession,showTab,showTabCount=false, tabData, onTabChange}) => {
+const SearchComponent = ({ uiConfig, header = "", screenType = "search", fullConfig, data,activeLink,browserSession,showTab,showTabCount=false, tabData, onTabChange,onClearSearch}) => {
   
   //whenever activeLink changes we'll change uiConfig
   // const [activeLink,setActiveLink] = useState(uiConfig?.configNavItems?.filter(row=>row.activeByDefault)?.[0]?.name)
@@ -32,6 +32,7 @@ const SearchComponent = ({ uiConfig, header = "", screenType = "search", fullCon
   const [session,setSession,clearSession] = browserSession || []
   const buttonWrapperRef = useRef(null);
   const [addMargin, setAddMargin] = useState(false);
+  const [sortOrder, setSortOrder] = useState(uiConfig?.sortConfig?.initialSortOrder || 'asc');
   
   if (fullConfig?.postProcessResult){
     //conditions can be added while calling postprocess function to pass different params
@@ -113,7 +114,7 @@ const SearchComponent = ({ uiConfig, header = "", screenType = "search", fullCon
       //here reset tableForm as well when search
       dispatch({
         type: "tableForm",
-        state: { limit:10,offset:0 }
+        state: { limit:10,offset:0,sortOrder:sortOrder }
       })
     } else {
       setShowToast({ type:"warning", label: t("ES_COMMON_MIN_SEARCH_CRITERIA_MSG") })
@@ -132,10 +133,20 @@ const SearchComponent = ({ uiConfig, header = "", screenType = "search", fullCon
     //here reset tableForm as well
     dispatch({
       type: "tableForm",
-      state: { limit:10,offset:0 }
+      state: { limit:10,offset:0,sortOrder:sortOrder }
       //need to pass form with empty strings 
     })
+    if(onClearSearch){
+      onClearSearch(uiConfig?.type);
+    }
   }
+
+  const handleSort = () => {
+    const updatedSortOrder = sortOrder === "asc" ? "desc" : "asc";
+    // Dispatch sortOrder to context
+    dispatch({ type: "updateSortOrder", state: updatedSortOrder });
+    setSortOrder((prev) => (prev === "asc" ? "desc" : "asc"));
+  };
 
   //call this fn whenever session gets updated
   const setDefaultValues = () => {
@@ -165,10 +176,22 @@ const SearchComponent = ({ uiConfig, header = "", screenType = "search", fullCon
     switch(uiConfig?.type) {
       case "filter" : {
         return (
-          <div className="digit-filter-header-wrapper">
+          <div className="digit-filter-header-wrapper" role="banner">
             <div className="icon-filter"><CustomSVG.FilterIcon></CustomSVG.FilterIcon></div>
             <div className="label">{t(header)}</div>
-            <div className="icon-refresh" onClick={handleFilterRefresh}><CustomSVG.RefreshIcon></CustomSVG.RefreshIcon></div>
+            <div className="icon-refresh" onClick={handleFilterRefresh}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  handleFilterRefresh();
+                }
+              }}
+              tabIndex={0}
+              role="button"
+              aria-label="Icon Refresh"
+            >
+              <CustomSVG.RefreshIcon></CustomSVG.RefreshIcon>
+            </div>
           </div>
         )
       }
@@ -219,6 +242,7 @@ const SearchComponent = ({ uiConfig, header = "", screenType = "search", fullCon
       configDisplayKey={"label"}
       activeLink={activeTab}
       setActiveLink={(key) => {
+        if (key === activeTab) return;  
         clearSearch({});
         onTabChange(key);
       }}
@@ -227,9 +251,9 @@ const SearchComponent = ({ uiConfig, header = "", screenType = "search", fullCon
     >
       {uiConfig?.type === "filter" ? (
         <FilterCard
-          title={uiConfig?.label || "Filter"}
-          primaryActionLabel={uiConfig?.primaryLabel || ""}
-          secondaryActionLabel={uiConfig?.secondaryLabel || ""}
+          title={t(uiConfig?.label) || t("Filter")}
+          primaryActionLabel={t(uiConfig?.primaryLabel) || ""}
+          secondaryActionLabel={t(uiConfig?.secondaryLabel) || ""}
           onPrimaryPressed={handleSubmit(onSubmit)}
           onSecondaryPressed={clearSearch}
           layoutType={"vertical"}
@@ -242,15 +266,29 @@ const SearchComponent = ({ uiConfig, header = "", screenType = "search", fullCon
           {renderContent()}
         </FilterCard>
       ) : (
-        <div className={"digit-search-wrapper"}>
-          {header && renderHeader()}
+        <div 
+          className={"digit-search-wrapper"} 
+          role="tabpanel" 
+          aria-labelledby={header ? "search-header" : undefined}
+        >
+          {header && (
+            <div id="search-header">
+              {renderHeader()}
+            </div>
+          )}
           <form
             onSubmit={handleSubmit(onSubmit)}
             onKeyDown={(e) => checkKeyDown(e)}
+            role="search"
+            aria-label={t("Search form")}
           >
             <div>
               {uiConfig?.showFormInstruction && (
-                <p className="search-instruction-header">
+                <p 
+                  className="search-instruction-header"
+                  id="search-instructions"
+                  aria-live="polite"
+                >
                   {t(uiConfig?.showFormInstruction)}
                 </p>
               )}
@@ -258,6 +296,8 @@ const SearchComponent = ({ uiConfig, header = "", screenType = "search", fullCon
                 className={`digit-search-field-wrapper ${screenType} ${
                   uiConfig?.formClassName ? uiConfig?.formClassName : ""
                 }`}
+                role="group"
+                aria-labelledby={uiConfig?.showFormInstruction ? "search-instructions" : undefined}
               >
                 {renderContent()}
                 <div
@@ -268,7 +308,29 @@ const SearchComponent = ({ uiConfig, header = "", screenType = "search", fullCon
                   }`}
                   style={uiConfig?.searchWrapperStyles}
                   ref={buttonWrapperRef}
+                  role="group"
+                  aria-label={t("Search actions")}
                 >
+                  {uiConfig?.isPopUp && uiConfig?.primaryLabel && (
+                    <Button
+                      variation={uiConfig?.primaryLabelVariation || "primary"}
+                      label={t(uiConfig?.primaryLabel)}
+                      type="submit"
+                      size={"medium"}
+                      icon={uiConfig?.primaryLabelIcon || ""}
+                      onClick={(e) => handleSubmit(e)}
+                    />
+                  )}
+                  {!uiConfig?.isPopUp && uiConfig?.primaryLabel && (
+                    <Button
+                      variation={uiConfig?.primaryLabelVariation || "primary"}
+                      label={t(uiConfig?.primaryLabel)}
+                      type="submit"
+                      icon={uiConfig?.primaryLabelIcon || ""}
+                      size={"medium"}
+                      onClick={(e) => handleSubmit(e)}
+                    />
+                  )}
                   {uiConfig?.secondaryLabel && (
                     <Button
                       variation="teritiary"
@@ -278,22 +340,14 @@ const SearchComponent = ({ uiConfig, header = "", screenType = "search", fullCon
                       onClick={clearSearch}
                     />
                   )}
-                  {uiConfig?.isPopUp && uiConfig?.primaryLabel && (
+                  {uiConfig?.sortConfig && (
                     <Button
-                      variation="primary"
-                      label={t(uiConfig?.primaryLabel)}
-                      type="submit"
+                      variation={uiConfig?.sortConfig?.variation}
+                      label={t(uiConfig?.sortConfig?.label)}
+                      type="button"
                       size={"medium"}
-                      onClick={(e) => handleSubmit(e)}
-                    />
-                  )}
-                  {!uiConfig?.isPopUp && uiConfig?.primaryLabel && (
-                    <Button
-                      variation="primary"
-                      label={t(uiConfig?.primaryLabel)}
-                      type="submit"
-                      size={"medium"}
-                      onClick={(e) => handleSubmit(e)}
+                      onClick={handleSort}
+                      icon={uiConfig?.sortConfig?.icon}
                     />
                   )}
                 </div>

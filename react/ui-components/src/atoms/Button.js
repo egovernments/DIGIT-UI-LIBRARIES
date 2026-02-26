@@ -4,10 +4,18 @@ import StringManipulator from "./StringManipulator";
 import Menu from "./Menu";
 import { Colors } from "../constants/colors/colorconstants";
 import { iconRender } from "../utils/iconRender";
+import { useButtonId } from "../hoc/ButtonIdentificationContext";
 
 const Button = (props) => {
   const [dropdownStatus, setDropdownStatus] = useState(false);
   const actionRef = useRef(null);
+
+  // Generate unique button ID using context-aware hook
+  const { id: generatedId, dataAttributes } = useButtonId({
+    explicitId: props?.id,
+    buttonType: props?.type === "actionButton" ? "action" : (props?.submit ? "submit" : "button"),
+    buttonName: props?.name || "",
+  });
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -109,6 +117,7 @@ const Button = (props) => {
   const buttonElement = (
     <button
       ref={props?.ref}
+      id={generatedId}
       className={`digit-button-${
         props?.variation ? props?.variation : "default"
       } ${props?.size ? props?.size : "large"} ${
@@ -124,6 +133,10 @@ const Button = (props) => {
       disabled={props?.isDisabled || null}
       title={props?.title || ""}
       style={props.style ? props.style : null}
+      aria-label={props?.ariaLabel || formattedLabel}
+      aria-haspopup={props?.type === "actionButton" ? "menu" : undefined}
+      aria-expanded={props?.type === "actionButton" ? dropdownStatus : undefined}
+      {...dataAttributes}
     >
       <div
         className={`icon-label-container ${
@@ -204,6 +217,14 @@ Button.propTypes = {
    * button size
    */
   size: PropTypes.string,
+  /**
+   * Explicit ID for the button (optional - auto-generated if not provided)
+   */
+  id: PropTypes.string,
+  /**
+   * Semantic name for the button (used in auto-ID generation, not localized)
+   */
+  name: PropTypes.string,
 };
 
 Button.defaultProps = {

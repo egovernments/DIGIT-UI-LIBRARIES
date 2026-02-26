@@ -1,67 +1,226 @@
+# DIGIT UI Libraries
 
-# digit ui components
+<div align="center">
+  <img src="https://s3.ap-south-1.amazonaws.com/works-dev-asset/mseva-white-logo.png" alt="DIGIT Logo" width="300"/>
+  
+  [![Storybook](https://img.shields.io/badge/Storybook-Live-ff4785?logo=storybook)](https://egovernments.github.io/DIGIT-UI-LIBRARIES/?path=/docs/intro--docs)
+  [![React](https://img.shields.io/badge/React-19.0.0-61dafb?logo=react)](https://reactjs.org/)
+  [![Flutter](https://img.shields.io/badge/Flutter-Latest-02569b?logo=flutter)](https://flutter.dev/)
+  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+</div>
 
-Welcome to the Digit UI Component Library Repository! This repository houses core component libraries for building user interfaces (UI) using both React and Flutter. The components provided here are designed to be reusable, customizable, and easily integrable into your projects.
+## Overview
 
-## React Components
+DIGIT UI Libraries is a comprehensive collection of reusable, accessible, and customizable UI components designed for building modern government digital services. This monorepo contains component libraries for both **React** and **Flutter** platforms, ensuring consistent user experiences across web and mobile applications.
 
-The `react` directory contains a collection of reusable UI components built specifically for React applications. These components are written in JavaScript  and follow best practices for React development. They are designed to provide consistent styling, functionality, and behavior across different React projects.
+## 🚀 Quick Links
+
+- 📚 **[Live Storybook Documentation](https://egovernments.github.io/DIGIT-UI-LIBRARIES/?path=/docs/intro--docs)** - Interactive component playground
+- 📖 **[React Components Guide](https://core.digit.org/v/2.9-lts/guides/developer-guide/ui-developer-guide/digit-ui/ui-components/ui-components-standardisation/digit-ui-core-react-components)**
+- 📱 **[Flutter Components Guide](https://core.digit.org/v/2.9-lts/guides/developer-guide/ui-developer-guide/digit-ui/ui-components/ui-components-standardisation/digit-ui-core-flutter-components)**
+- 🎨 **[Flutter Storybook](https://unified-dev.digit.org/digit-ui-flutter/)** - Flutter component showcase
+
+## 📦 Package Structure
+
+```
+DIGIT-UI-LIBRARIES/
+├── react/                    # React component libraries
+│   ├── ui-components/        # Core React components
+│   ├── storybook/           # Storybook documentation
+│   └── ...                  # Other React packages
+├── flutter/                 # Flutter component libraries
+│   └── digit_ui_components/ # Core Flutter components
+└── .github/                 # GitHub workflows and CI/CD
+```
+
+## 🎯 Features
+
+### Component Libraries
+- **Atomic Design Principles** - Components organized into atoms, molecules, and organisms
+- **Accessibility First** - WCAG compliant components with proper ARIA attributes
+- **Theme Support** - Built-in support for light/dark themes and custom branding
+- **Responsive Design** - Mobile-first approach with responsive layouts
+- **TypeScript Support** - Full TypeScript definitions for type safety
+
+### Developer Experience
+- **Interactive Documentation** - Live component playground with Storybook
+- **Comprehensive Examples** - Real-world usage examples and best practices
+- **Automated Deployment** - GitHub Pages deployment for documentation
+- **Version Management** - Semantic versioning with controlled releases
+
+## 🛠️ React Components
+
+### Installation
+
+```bash
+npm install @egovernments/digit-ui-components
+# or
+yarn add @egovernments/digit-ui-components
+```
+
+### Basic Usage
+
+```jsx
+import { Button, Card, Input } from '@egovernments/digit-ui-components';
+
+function App() {
+  return (
+    <Card>
+      <Input label="Name" placeholder="Enter your name" />
+      <Button variant="primary" onClick={() => alert('Clicked!')}>
+        Submit
+      </Button>
+    </Card>
+  );
+}
+```
+
+### Available Components
+
+#### Atoms
+- Buttons (Primary, Secondary, Tertiary)
+- Input fields (Text, Number, Date, File)
+- Checkboxes and Radio buttons
+- Chips and Tags
+- Loaders and Spinners
+- Icons and Images
+
+#### Molecules
+- Cards (Basic, Form, Summary, Metric)
+- Headers and Footers
+- Navigation (Side nav, Breadcrumbs)
+- Modals and Popups
+- Forms and Form composers
+- Tables and Data grids
+
+### Development
+
+```bash
+# Navigate to React storybook
+cd react/storybook
+
+# Install dependencies (use legacy peer deps for React 19)
+npm install --legacy-peer-deps
+
+# Start development server
+npm run storybook
+
+# Build for production
+npm run build-storybook
+```
+
+## 📱 Flutter Components
+
+### Installation
+
+Add to your `pubspec.yaml`:
+
+```yaml
+dependencies:
+  digit_ui_components:
+    git:
+      url: https://github.com/egovernments/DIGIT-UI-LIBRARIES.git
+      path: flutter/digit_ui_components
+```
+
+### Basic Usage
+
+```dart
+import 'package:digit_ui_components/digit_ui_components.dart';
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return DigitButton(
+      label: 'Submit',
+      onPressed: () => print('Button pressed'),
+      variant: ButtonVariant.primary,
+    );
+  }
+}
+```
+
+### Available Components
+- Form controls (Input, Select, Checkbox)
+- Navigation components
+- Cards and containers
+- Feedback components (Toast, Alert)
+- Data display (Tables, Lists)
+
+## 🚀 Deployment
+
+### GitHub Pages (Storybook)
+
+The React Storybook is automatically deployed to GitHub Pages through GitHub Actions when changes are pushed to the `develop` branch.
+
+**Deployment Workflow:**
+- Triggers on push to `develop` branch
+- Monitors changes in `react/storybook/**` and `react/ui-components/**`
+- Builds with Node.js 20
+- Deploys to: https://egovernments.github.io/DIGIT-UI-LIBRARIES/
+
+## 🤝 Contributing
+
+We welcome contributions to enhance the DIGIT UI Libraries! Here's how you can help:
 
 ### Getting Started
 
-To use the React components in your project, follow these steps:
+1. **Fork the repository**
+   ```bash
+   git clone https://github.com/egovernments/DIGIT-UI-LIBRARIES.git
+   cd DIGIT-UI-LIBRARIES
+   ```
 
-1. Navigate to the `react` directory.
-2. Import the component(s) into your React components.
-3. Customize the components as needed to suit your project requirements.
-4. Enjoy the benefits of reusable UI components in your React application!
+2. **Create a feature branch**
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
 
-### Documentation
+3. **Make your changes**
+   - Follow existing code patterns and conventions
+   - Ensure components are accessible
+   - Add/update stories for new components
+   - Write comprehensive documentation
 
-Explore the documentation and examples of React components in [Storybook](https://unified-dev.digit.org/storybook). Storybook provides an interactive environment to view and interact with the components, along with detailed [documentation](https://core.digit.org/v/2.9-lts/guides/developer-guide/ui-developer-guide/digit-ui/ui-components/ui-components-standardisation/digit-ui-core-react-components)
+4. **Test your changes**
+   ```bash
+   # For React components
+   cd react/storybook
+   npm run storybook
+   
+   # Verify build works
+   npm run build-storybook
+   ```
 
-## Flutter Components
+5. **Submit a Pull Request**
+   - Provide clear description of changes
+   - Reference any related issues
+   - Include screenshots for UI changes
 
-The `flutter` directory contains a set of reusable UI components tailored for Flutter applications. These components are written in Dart and are compatible with both Android and iOS platforms. They adhere to Flutter's widget architecture and provide a consistent look and feel for your Flutter apps.
+### Guidelines
 
-### Getting Started
+- **Code Style**: Follow existing patterns and linting rules
+- **Documentation**: Update README and add Storybook stories
+- **Testing**: Ensure all components work as expected
+- **Accessibility**: Maintain WCAG compliance
+- **Performance**: Keep bundle sizes minimal
 
-To incorporate the Flutter components into your project, follow these steps:
+## 📄 License
 
-1. Navigate to the `flutter` directory.
-2. Copy the desired component(s) into your Flutter project's `lib` directory.
-3. Import the component(s) into your Flutter Dart files.
-4. Utilize the components within your Flutter UI hierarchy.
-5. Customize the components to match your app's design language and functionality.
-6. Experience the ease of building beautiful UIs with reusable Flutter components!
+This project is licensed under the [MIT License](LICENSE) - you are free to use, modify, and distribute the code for both personal and commercial purposes with attribution.
 
-### Documentation
+## 🆘 Support
 
-Explore the documentation and examples of React components in [Storybook](https://unified-dev.digit.org/digit-ui-flutter/
-). Storybook provides an interactive environment to view and interact with the components, along with detailed [documentation](https://core.digit.org/v/2.9-lts/guides/developer-guide/ui-developer-guide/digit-ui/ui-components/ui-components-standardisation/digit-ui-core-flutter-components)
+Need help or found an issue?
 
-## Contributing
+- 📝 **[Report Issues](https://github.com/egovernments/DIGIT-UI-LIBRARIES/issues)** - Report bugs or request features
+- 💬 **[Discussions](https://github.com/egovernments/DIGIT-UI-LIBRARIES/discussions)** - Ask questions and share ideas
+- 📧 **Contact** - Reach out to the maintainers for critical issues
 
-We welcome contributions from the community to enhance and expand this UI component library. Whether you're interested in adding new components, improving existing ones, or fixing bugs, your contributions are highly appreciated. Please refer to our [contribution guidelines](CONTRIBUTING.md) for more information on how to get involved.
+## 🏆 Acknowledgments
 
-## License
+Built with ❤️ by the DIGIT team for digital governance transformation.
 
-This project is licensed under the [MIT License](LICENSE), which means you are free to use, modify, and distribute the code for both personal and commercial purposes. However, we kindly ask that you include attribution to this repository when using the provided components.
-
-## Support
-
-If you have any questions, feedback, or need assistance with using the components, feel free to [open an issue](https://github.com/your-username/ui-component-library/issues) in this repository. Our team and the community will be happy to help you.
-
-Thank you for choosing our UI Component Library! We hope it accelerates your UI development process and contributes to the success of your projects.
-
-## License
-
-[MIT](https://choosealicense.com/licenses/mit/)
-
-![Logo](https://s3.ap-south-1.amazonaws.com/works-dev-asset/mseva-white-logo.png)
-
-
-
-
-![Logo](https://s3.ap-south-1.amazonaws.com/works-dev-asset/mseva-lightPaperPrimary-logo.png)
-
+<div align="center">
+  <img src="https://s3.ap-south-1.amazonaws.com/works-dev-asset/mseva-lightPaperPrimary-logo.png" alt="DIGIT Logo" width="200"/>
+</div>

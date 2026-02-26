@@ -1,16 +1,35 @@
-import React, { forwardRef, useEffect, useState } from "react";
+import React, { forwardRef, useEffect, useState, useRef } from "react";
 import PropTypes from "prop-types";
 import { SVG } from "./SVG";
 import StringManipulator from "./StringManipulator";
-import { Colors} from "../constants/colors/colorconstants";
+import { Colors } from "../constants/colors/colorconstants";
 import { getUserType } from "../utils/digitUtils";
-
+import { useTranslation } from "react-i18next";
+import DatePicker from "react-datepicker";
+import { format } from "date-fns";
+import "react-datepicker/dist/react-datepicker.css";
+import "./SubmitBar.css";
 
 const TextInput = (props) => {
+  const { t: i18nT } = useTranslation();
+  const t = props?.t || i18nT;
   const user_type = getUserType();
   const [date, setDate] = useState(props?.type === "date" && props?.value);
   const [visibility, setVisibility] = useState(false);
   const [inputType, setInputType] = useState(props?.type || "text");
+
+  // Generate unique ID for tracking (single source of truth)
+  // ID Pattern: screenPath + composerType + composerId + sectionId + name + type
+  const fieldId = Digit?.Utils?.generateUniqueId?.({
+    screenPath: props?.screenPath || "",
+    composerType: props?.composerType || "standalone",
+    composerId: props?.composerId || "",
+    sectionId: props?.sectionId || "",
+    name: props?.name || props?.placeholder || "textinput",
+    type: "input",
+    id: props?.id
+  }) || props?.id || props?.name;
+
   const data = props?.watch
     ? {
         fromDate: props?.watch("fromDate"),
@@ -21,17 +40,83 @@ const TextInput = (props) => {
   const handleDate = (event) => {
     const { value } = event?.target;
     setDate(value);
-    props?.onChange(value);
+    try {
+      props?.onChange(value);
+    } catch (err) {
+      // silent fail — but this can hide bugs unintentionally
+    }
   };
   const incrementCount = () => {
-    const newValue = Number(props.value) + (Number(props?.step) ? Number(props?.step) : 1);
+    const newValue =
+      Number(props.value) + (Number(props?.step) ? Number(props?.step) : 1);
     props.onChange(newValue);
   };
 
   const decrementCount = () => {
-    const newValue = Number(props.value) - (Number(props?.step) ? Number(props?.step) : 1);
-    const finalValue = props?.allowNegativeValues ? newValue : Math.max(newValue, 0);
+    const newValue =
+      Number(props.value) - (Number(props?.step) ? Number(props?.step) : 1);
+    const finalValue = props?.allowNegativeValues
+      ? newValue
+      : Math.max(newValue, 0);
     props.onChange(finalValue);
+  };
+
+  // Track last input type (keyboard or mouse)
+  let isKeyboard = false;
+
+  const handleKeyDown = (event) => {
+    if (event.key === 'Tab') {
+      isKeyboard = true;
+    }
+    if (props?.type === "number") {
+      // Always block e, E, +, . for integer inputs
+      if (["e", "E", "+", "."].includes(event.key)) {
+        event.preventDefault();
+        return;
+      }
+      // Handle minus key
+      if (event.key === "-") {
+        const input = event.target;
+        const currentValue = input.value || "";
+        const cursorPosition = input.selectionStart;
+        // Block minus if negative values are not allowed
+        if (!props?.allowNegativeValues) {
+          event.preventDefault();
+          return;
+        }
+        // Block minus if it already exists in the input
+        if (currentValue.includes("-")) {
+          event.preventDefault();
+          return;
+        }
+        // Block minus if not at the beginning (cursor position 0)
+        if (cursorPosition !== 0) {
+          event.preventDefault();
+          return;
+        }
+      }
+    }
+  };
+
+  const handleMouseDown = () => {
+    isKeyboard = false;
+  };
+
+  const handleFocus = (event) => {
+    console.log(event.target);
+    if (isKeyboard) {
+      event.target.classList.remove("focus-no-outline");
+      event.target.classList.add("focus-visible-outline");
+    } else {
+      event.target.classList.remove("focus-visible-outline");
+      event.target.classList.add("focus-no-outline");
+    }
+  };
+
+  const handleBlur = (event) => {
+    // reset on blur
+    event.target.classList.remove("focus-visible-outline");
+    event.target.classList.remove("focus-no-outline");
   };
 
   const renderPrefix = () => {
@@ -73,7 +158,7 @@ const TextInput = (props) => {
       );
     }
     if (
-      props?.type === "text" &&
+      (props?.type === "text" || props?.type === "number") &&
       !props?.populators?.customIcon &&
       suffixValue
     ) {
@@ -114,7 +199,9 @@ const TextInput = (props) => {
 
   const renderIcon = () => {
     const reqIcon = props?.type;
-    const iconFill = props?.iconFill ? props?.iconFill : props?.disabled
+    const iconFill = props?.iconFill
+      ? props?.iconFill
+      : props?.disabled
       ? disabledColor
       : props?.nonEditable
       ? "#b1b4b6"
@@ -181,11 +268,11 @@ const TextInput = (props) => {
             });
             return svgElement;
           } else {
-            console.warn("Icon not found");
+            console.warn(`Icon not found, ${props?.populators?.customIcon}`);
             return null;
           }
         } catch (error) {
-          console.warn("Icon not found");
+          console.warn(`Icon not found, ${props?.populators?.customIcon}`);
           return null;
         }
       }
@@ -218,6 +305,8 @@ const TextInput = (props) => {
     defaultType ? defaultType : ""
   } ${props.populators?.customIcon ? "withIcon" : ""}`;
 
+  const datePickerRef = useRef(null);
+
   return (
     <React.Fragment>
       <div
@@ -227,12 +316,108 @@ const TextInput = (props) => {
           props.disabled ? "disabled" : ""
         }  ${props.nonEditable ? "noneditable" : ""} ${
           props.error ? "error" : ""
-        } ${defaultType ? defaultType : ""} ${props?.populators?.disableTextField ? "numeric-buttons-only" : ""} ${
-          props?.populators?.prefix ? "prefix" : ""
-        } ${props?.populators?.suffix ? "suffix" : ""} `}
+        } ${defaultType ? defaultType : ""} ${
+          props?.populators?.disableTextField ? "numeric-buttons-only" : ""
+        } ${props?.populators?.prefix ? "prefix" : ""} ${
+          props?.populators?.suffix ? "suffix" : ""
+        } `}
         style={props?.textInputStyle ? { ...props.textInputStyle } : {}}
+        role="group"
+        aria-label={props?.label || t(props.placeholder)}
+        aria-describedby={props.error ? `${props.id || props.name}-error` : undefined}
       >
-        {props.required ? (
+        {props.type === "date" && props?.populators?.newDateFormat ? (
+          <div className={inputContainerClass}>
+            {renderPrefix()}
+            <div style={{ position: "relative", width: "100%" }}>
+              <DatePicker
+                ref={datePickerRef}
+                selected={props?.value ? new Date(props.value) : null}
+                onChange={(date) => props?.onChange(date?.toISOString())}
+                placeholderText={StringManipulator(
+                  "TOSENTENCECASE",
+                  t(props.placeholder)
+                )}
+                locale={ Digit?.SessionStorage.get("locale")}
+                dateFormat="dd MMMM yyyy"
+                className={
+                  props.required ? inputClassNameForMandatory : inputClassName
+                }
+                disabled={props.disabled}
+                showPopperArrow={false}
+                required={props.required}
+                popperPlacement="bottom-start"
+                calendarStartDay={1}
+                onClickOutside={() => datePickerRef.current?.setOpen(false)}
+                minDate={
+                  props?.populators?.min
+                    ? new Date(props?.populators?.min)
+                    : undefined
+                }
+                maxDate={
+                  props?.populators?.max
+                    ? new Date(props?.populators?.max)
+                    : undefined
+                }
+                onFocus={handleFocus}
+                onBlur={handleBlur}
+                onKeyDown={handleKeyDown}
+                onMouseDown={handleMouseDown}
+                popperProps={{
+                  strategy: props?.populators?.useFixedPosition ? 'fixed' : 'absolute'
+                }}
+                popperClassName="datepicker-popper-high-zindex"
+                closeOnScroll={(e) => {
+                  if (!props?.populators?.useFixedPosition) return false;
+                  const inputEl = datePickerRef.current?.input;
+                  if (!inputEl) return false;
+                  const rect = inputEl.getBoundingClientRect();
+                  // Close if input is not visible in viewport
+                  return rect.bottom < 0 || rect.top > window.innerHeight;
+                }}
+              />
+              <div
+                className={`digit-new-date-format ${
+                  props.disabled ? "disabled" : ""
+                }`}
+                onClick={() => datePickerRef.current?.setOpen(true)}
+                role="button"
+                aria-label="Open date picker"
+                tabIndex={props.disabled ? -1 : 0}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    datePickerRef.current?.setOpen(true);
+                  }
+                }}
+              >
+                <SVG.CalendarToday fill={"#505A5F"}/>
+              </div>
+            </div>
+
+            {renderSuffix()}
+            {props.signature && props.signatureImg}
+            {icon && (
+              <span
+                className="digit-cursor-pointer"
+                onClick={props?.onIconSelection}
+                {...(typeof props?.onIconSelection === 'function' && {
+                tabIndex: 0,
+                role: 'button',
+                'aria-label': 'Select icon',
+                onKeyDown: (e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault(); 
+                    props.onIconSelection();
+                  }
+                }
+                })}
+              >
+                {icon}
+              </span>
+            )}
+          </div>
+        ) : props.required ? (
           <div className={inputContainerClass}>
             {renderPrefix()}
             <input
@@ -242,15 +427,43 @@ const TextInput = (props) => {
                   : defaultType || "text"
               }
               name={props.name}
-              id={props?.id}
+              id={fieldId}
               className={inputClassNameForMandatory}
               placeholder={StringManipulator(
                 "TOSENTENCECASE",
-                props.placeholder
+                t(props.placeholder)
               )}
               onChange={(event) => {
-                if (props?.type === "number" && props?.maxlength) {
-                  if (event.target.value.length > props?.maxlength) {
+                // NUMBER TYPE
+                if (props?.type === "number") {
+                  const allowNegative =
+                    props?.allowNegativeValues !== undefined
+                      ? props.allowNegativeValues
+                      : false;
+                  // allow clearing input
+                  if (event.target.value === "") {
+                    props?.onChange?.(event);
+                    return;
+                  }
+                  // allow intermediate "-" only if negatives allowed
+                  if (allowNegative && event.target.value === "-") {
+                    props?.onChange?.(event);
+                    return;
+                  }
+                  // block invalid number formats
+                  const numberRegex = allowNegative ? /^-?\d+$/ : /^\d+$/;
+                  if (!numberRegex.test(event.target.value)) {
+                    return;
+                  }
+                  // prevent negative values if not allowed
+                  if (!allowNegative && Number(event.target.value) < 0) {
+                    return;
+                  }
+                  // enforce maxlength (AFTER validation)
+                  if (
+                    props?.maxlength &&
+                    event.target.value.length > props.maxlength
+                  ) {
                     event.target.value = event.target.value.slice(0, -1);
                   }
                 }
@@ -288,15 +501,27 @@ const TextInput = (props) => {
               }
               step={props.step}
               autoFocus={props.autoFocus}
-              onBlur={props.onBlur}
+              onKeyDown={handleKeyDown}
+              onMouseDown={handleMouseDown}
+              onBlur={(event) => {
+                if (typeof props?.onBlur === "function") {
+                  props.onBlur(event);
+                }
+                handleBlur(event);
+              }}
               autoComplete="off"
               disabled={props.disabled}
-              onFocus={props?.onFocus}
+              onFocus={(event) => {
+                if (typeof props?.onFocus === "function") {
+                  props.onFocus(event);
+                }
+                handleFocus(event);
+              }}      
               nonEditable={props.nonEditable}
               config={props.config}
               populators={props.populators}
               onClick={(event) => {
-                if (props.type === "date" || (props.type === "time")) {
+                if (props.type === "date" || props.type === "time") {
                   try {
                     event.target.showPicker();
                   } catch (error) {
@@ -304,6 +529,10 @@ const TextInput = (props) => {
                   }
                 }
               }}
+              aria-label={props?.label || t(props.placeholder)}
+              aria-describedby={props.error ? `${props.id || props.name}-error` : undefined}
+              aria-invalid={props.error ? "true" : "false"}
+              aria-required="true"
             />
             {renderSuffix()}
             {props.signature && props.signatureImg}
@@ -311,6 +540,17 @@ const TextInput = (props) => {
               <span
                 className="digit-cursor-pointer"
                 onClick={props?.onIconSelection}
+                {...(typeof props?.onIconSelection === 'function' && {
+                tabIndex: 0,
+                role: 'button',
+                'aria-label': 'Select icon',
+                onKeyDown: (e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault(); 
+                    props.onIconSelection();
+                  }
+                }
+                })}
               >
                 {icon}
               </span>
@@ -330,11 +570,39 @@ const TextInput = (props) => {
               className={inputClassName}
               placeholder={StringManipulator(
                 "TOSENTENCECASE",
-                props.placeholder
+                t(props.placeholder)
               )}
               onChange={(event) => {
-                if (props?.type === "number" && props?.maxlength) {
-                  if (event.target.value.length > props?.maxlength) {
+                // NUMBER TYPE
+                if (props?.type === "number") {
+                  const allowNegative =
+                    props?.allowNegativeValues !== undefined
+                      ? props.allowNegativeValues
+                      : false;
+                  // allow clearing input
+                  if (event.target.value === "") {
+                    props?.onChange?.(event);
+                    return;
+                  }
+                  // allow intermediate "-" only if negatives allowed
+                  if (allowNegative && event.target.value === "-") {
+                    props?.onChange?.(event);
+                    return;
+                  }
+                  // block invalid number formats
+                  const numberRegex = allowNegative ? /^-?\d+$/ : /^\d+$/;
+                  if (!numberRegex.test(event.target.value)) {
+                    return;
+                  }
+                  // prevent negative values if not allowed
+                  if (!allowNegative && Number(event.target.value) < 0) {
+                    return;
+                  }
+                  // enforce maxlength (AFTER validation)
+                  if (
+                    props?.maxlength &&
+                    event.target.value.length > props.maxlength
+                  ) {
                     event.target.value = event.target.value.slice(0, -1);
                   }
                 }
@@ -379,16 +647,30 @@ const TextInput = (props) => {
               }
               step={props.step}
               autoFocus={props.autoFocus}
-              onBlur={props.onBlur}
               onKeyPress={props.onKeyPress}
+              onKeyDown={(event) => {
+                handleKeyDown(event);
+              }}
+              onMouseDown={handleMouseDown}
+              onFocus={(event) => {
+                if (typeof props?.onFocus === "function") {
+                  props.onFocus(event);
+                }
+                handleFocus(event);
+              }}
+              onBlur={(event) => {
+                if (typeof props?.onBlur === "function") {
+                  props.onBlur(event);
+                }
+                handleBlur(event);
+              }}
               autoComplete="off"
               disabled={props.disabled}
-              onFocus={props?.onFocus}
               nonEditable={props.nonEditable}
               config={props.config}
               populators={props.populators}
               onClick={(event) => {
-                if (props.type === "date" || (props.type === "time")) {
+                if (props.type === "date" || props.type === "time") {
                   try {
                     event.target.showPicker();
                   } catch (error) {
@@ -396,6 +678,10 @@ const TextInput = (props) => {
                   }
                 }
               }}
+              aria-label={props?.label || t(props.placeholder)}
+              aria-describedby={props.error ? `${props.id || props.name}-error` : undefined}
+              aria-invalid={props.error ? "true" : "false"}
+              aria-required={props.required ? "true" : "false"}
             />
             {renderSuffix()}
             {props.signature && props.signatureImg}
@@ -403,6 +689,17 @@ const TextInput = (props) => {
               <span
                 className="digit-cursor-pointer"
                 onClick={props?.onIconSelection}
+                {...(typeof props?.onIconSelection === 'function' && {
+                tabIndex: 0,
+                role: 'button',
+                'aria-label': 'Select icon',
+                onKeyDown: (e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault(); 
+                    props.onIconSelection();
+                  }
+                }
+                })}
               >
                 {icon}
               </span>
@@ -433,7 +730,7 @@ TextInput.propTypes = {
   min: PropTypes.number,
   disabled: PropTypes.bool,
   nonEditable: PropTypes.bool,
-  allowNegativeValues:PropTypes.bool,
+  allowNegativeValues: PropTypes.bool,
   errorStyle: PropTypes.bool,
   title: PropTypes.string,
   step: PropTypes.string,
@@ -458,34 +755,34 @@ TextInput.defaultProps = {
   required: false,
 };
 
-function DatePicker(props) {
-  useEffect(() => {
-    if (props?.shouldUpdate) {
-      props?.setDate(getDDMMYYYY(props?.data[props.name], "yyyymmdd"));
-    }
-  }, [props?.data]);
+// function DatePicker(props) {
+//   useEffect(() => {
+//     if (props?.shouldUpdate) {
+//       props?.setDate(getDDMMYYYY(props?.data[props.name], "yyyymmdd"));
+//     }
+//   }, [props?.data]);
 
-  useEffect(() => {
-    props.setDate(getDDMMYYYY(props?.defaultValue));
-  }, []);
+//   useEffect(() => {
+//     props.setDate(getDDMMYYYY(props?.defaultValue));
+//   }, []);
 
-  return (
-    <input
-      type="text"
-      className={`${props.disabled && "disabled"} digit-card-date-input`}
-      name={props.name}
-      id={props.id}
-      placeholder={props.placeholder}
-      defaultValue={props.date}
-      readOnly={true}
-    />
-  );
-}
+//   return (
+//     <input
+//       type="text"
+//       className={`${props.disabled && "disabled"} digit-card-date-input`}
+//       name={props.name}
+//       id={props.id}
+//       placeholder={props.placeholder}
+//       defaultValue={props.date}
+//       readOnly={true}
+//     />
+//   );
+// }
 
-function getDDMMYYYY(date) {
-  if (!date) return "";
+// function getDDMMYYYY(date) {
+//   if (!date) return "";
 
-  return new Date(date).toLocaleString("en-In").split(",")[0];
-}
+//   return new Date(date).toLocaleString("en-In").split(",")[0];
+// }
 
 export default TextInput;

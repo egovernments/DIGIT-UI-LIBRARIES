@@ -16,6 +16,7 @@ import { SVG } from "../atoms";
 import HeaderComponent from "../atoms/HeaderComponent";
 import StringManipulator from "../atoms/StringManipulator";
 import Divider from "../atoms/Divider";
+import BoundaryFilter from "../hoc/BoundaryFilter";
 
 const RenderFormFields = ({ data, ...props }) => {
   const { t } = useTranslation();
@@ -32,7 +33,29 @@ const RenderFormFields = ({ data, ...props }) => {
       : null;
     const customRules = customValidations ? { validate: customValidations } : {};
     const customProps = config?.customProps;
+   
     switch (type) {
+      case "boundary":
+        return (
+          <Controller
+            defaultValue={formData?.[populators?.name]}
+            render={({ field }) => (
+              <BoundaryFilter
+              levelConfig={populators.levelConfig}
+              hierarchyType={populators.hierarchyType}
+              module={populators.module}
+              layoutConfig={populators.layoutConfig}
+              preSelected={populators.preSelected}
+              frozenData={populators.frozenData}
+              onChange={field.onChange}
+            />
+            )}
+            name={populators?.name}
+            rules={{ required: isMandatory, ...populators.validation, ...customRules }}
+            control={control}
+          />
+
+        );
       case "date":
       case "text":
       case "number":
@@ -44,13 +67,13 @@ const RenderFormFields = ({ data, ...props }) => {
         return (
           <Controller
             defaultValue={formData?.[populators?.name]}
-            render={({ onChange, ref, value }) => (
+            render={({ field }) => (
               <TextInput
                 type={type}
-                value={formData?.[populators?.name]}
+                value={field.value}
                 name={populators?.name}
-                onChange={onChange}
-                inputRef={ref}
+                onChange={field.onChange}
+                inputRef={field.ref}
                 max={populators?.max}
                 min={populators?.min}
                 errorStyle={errors?.[populators?.name]}
@@ -75,13 +98,13 @@ const RenderFormFields = ({ data, ...props }) => {
         return (
           <Controller
             defaultValue={formData?.[populators?.name]}
-            render={({ onChange, ref, value }) => (
+            render={({ field }) => (
               <TextArea
                 type={type}
-                value={formData?.[populators?.name]}
+                value={field.value}
                 name={populators?.name}
-                onChange={onChange}
-                inputRef={ref}
+                onChange={field.onChange}
+                inputRef={field.ref}
                 disabled={disable}
                 errorStyle={errors?.[populators?.name]}
                 populators={populators}
@@ -97,14 +120,15 @@ const RenderFormFields = ({ data, ...props }) => {
       case "mobileNumber":
         return (
           <Controller
-            render={(props) => (
+            render={({ field }) => (
               <MobileNumber
-                inputRef={props.ref}
-                onChange={props.onChange}
-                value={props.value}
+                inputRef={field.ref}
+                onChange={field.onChange}
+                value={field.value}
                 disable={disable}
-                {...props}
                 errorStyle={errors?.[populators?.name]}
+                prefix={populators?.prefix}
+                hideSpan={populators?.hideSpan}
               />
             )}
             defaultValue={populators.defaultValue}
@@ -116,7 +140,7 @@ const RenderFormFields = ({ data, ...props }) => {
       case "custom":
         return (
           <Controller
-            render={(props) => populators.component({ ...props, setValue }, populators.customProps)}
+            render={({ field, fieldState, formState }) => populators.component({ ...field, fieldState, formState, setValue }, populators.customProps)}
             defaultValue={populators.defaultValue}
             name={populators?.name}
             control={control}
@@ -129,15 +153,15 @@ const RenderFormFields = ({ data, ...props }) => {
         case "toggle":
         return (
           <Controller
-            render={(props) => (
+            render={({ field }) => (
               <CustomDropdown
                 t={t}
                 label={config?.label}
                 type={type}
-                onBlur={props.onBlur}
-                value={props.value}
-                inputRef={props.ref}
-                onChange={props.onChange}
+                onBlur={field.onBlur}
+                value={field.value}
+                inputRef={field.ref}
+                onChange={field.onChange}
                 config={populators}
                 disabled={config?.disable}
                 errorStyle={errors?.[populators?.name]}
@@ -164,17 +188,17 @@ const RenderFormFields = ({ data, ...props }) => {
             control={control}
             defaultValue={formData?.[populators?.name]}
             rules={{ required: populators?.isMandatory }}
-            render={(props) => {
+            render={({ field }) => {
               return (
                 <div style={{ gridAutoFlow: "row", width: "100%" }}>
                   <MultiSelectDropdown
                     options={populators?.options}
                     optionsKey={populators?.optionsKey}
                     chipsKey={populators?.chipsKey}
-                    props={props}
+                    props={{ field }}
                     isPropsNeeded={true}
                     onSelect={(e) => {
-                      props.onChange(
+                      field.onChange(
                         e
                           ?.map((row) => {
                             return row?.[1] ? row[1] : null;
@@ -182,7 +206,7 @@ const RenderFormFields = ({ data, ...props }) => {
                           .filter((e) => e)
                       );
                     }}
-                    selected={props?.value || []}
+                    selected={field?.value || []}
                     defaultLabel={t(populators?.defaultText)}
                     defaultUnit={t(populators?.selectedText)}
                     config={populators}
@@ -207,14 +231,14 @@ const RenderFormFields = ({ data, ...props }) => {
             control={control}
             defaultValue={formData?.[populators?.name]}
             rules={{ required: populators?.isMandatory, ...populators.validation }}
-            render={(props) => {
+            render={({ field }) => {
               return (
                 <div style={{ display: "grid", gridAutoFlow: "row" ,width:"100%"}}>
                   <LocationDropdownWrapper
-                    props={props}
+                    props={{ field }}
                     populators={populators}
                     formData={formData}
-                    inputRef={props.ref}
+                    inputRef={field.ref}
                     errors={errors}
                     disabled={disable}
                     setValue={setValue}
@@ -231,10 +255,10 @@ const RenderFormFields = ({ data, ...props }) => {
             control={control}
             defaultValue={formData?.[populators?.name]}
             rules={{ required: populators?.isMandatory, ...populators.validation }}
-            render={(props) => {
+            render={({ field }) => {
               return (
                 <div style={{ display: "grid", gridAutoFlow: "row",width:"100%" }}>
-                  <ApiDropdown props={props} populators={populators} formData={formData} inputRef={props.ref} errors={errors} disabled={disable} />
+                  <ApiDropdown props={{ field }} populators={populators} formData={formData} inputRef={field.ref} errors={errors} disabled={disable} />
                 </div>
               );
             }}
@@ -248,10 +272,10 @@ const RenderFormFields = ({ data, ...props }) => {
             control={control}
             defaultValue={formData?.[populators?.name]}
             rules={{ required: populators?.isMandatory }}
-            render={(props) => {
+            render={({ field }) => {
               return (
                 <div style={{ display: "grid", gridAutoFlow: "row",width:"100%" }}>
-                  <WorkflowStatusFilter inboxResponse={data} props={props} populators={populators} t={t} formData={formData} />
+                  <WorkflowStatusFilter inboxResponse={data} props={{ field }} populators={populators} t={t} formData={formData} />
                 </div>
               );
             }}
@@ -260,14 +284,17 @@ const RenderFormFields = ({ data, ...props }) => {
       case "dateRange":
         return (
           <Controller
-            render={(props) => (
+            render={({ field }) => (
               <DateRangeNew
                 t={t}
                 values={formData?.[populators?.name]?.range}
                 name={populators?.name}
-                onFilterChange={props.onChange}
-                inputRef={props.ref}
+                onFilterChange={field.onChange}
+                inputRef={field.ref}
                 errorStyle={errors?.[populators?.name]}
+                labelClass={populators?.labelClass}
+                optionsCardClassName={populators?.optionsCardClassName}
+                dateRangeClassName={populators?.dateRangeClassName}
               />
             )}
             rules={{ required: isMandatory, ...populators.validation }}
@@ -280,7 +307,7 @@ const RenderFormFields = ({ data, ...props }) => {
       case "component":
         return (
           <Controller
-            render={(props) => (
+            render={({ field, fieldState }) => (
               <Component
                 userType={"employee"}
                 t={t}
@@ -291,10 +318,10 @@ const RenderFormFields = ({ data, ...props }) => {
                 formData={formData}
                 register={register}
                 errors={errors}
-                props={{ ...props, ...customProps }}
+                props={{ ...field, fieldState, ...customProps }}
                 setError={setError}
                 clearErrors={clearErrors}
-                onBlur={props.onBlur}
+                onBlur={field.onBlur}
                 control={control}
                 getValues={getValues}
                 responseData={data}

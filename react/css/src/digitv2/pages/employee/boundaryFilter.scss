@@ -1,0 +1,63 @@
+.selecting-boundary-div {
+    padding-top: 0.5rem;
+   
+    gap:1.5rem;
+    .label-field-pair {
+        margin-bottom: 1.5rem;
+    }
+
+}
+
+
+
+.selecting-boundary-div.horizontal-layout {
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr); 
+    align-items: flex-start;
+  }
+
+
+.digit-card-label.boundary-selection-label{
+    font-family: var(--digitv2-fontFamily-sans);
+    font-style: var(--digitv2-fontStyle-normal);
+    font-weight: var(--digitv2-fontWeight-bold);
+
+    @media (max-width: 30rem) {
+        /* Media query for mobile */
+        font-size: var(--digitv2-fontSize-heading-s-mobile);
+    }
+
+    @media (min-width: 30.063rem) and (max-width: 47.938rem) {
+        /* Media query for tablets */
+        font-size: var(--digitv2-fontSize-heading-s-tablet);
+    }
+
+    @media (min-width: 48rem) {
+        /* Media query for desktop */
+        font-size: var(--digitv2-fontSize-heading-s-desktop);
+    }
+
+    color: var(--digitv2-lightTheme-text-primary);
+    width:30%;
+} 
+.selecting-boundary-div.horizontal-layout .boundary-item {
+    display: flex;
+    justify-content: center;
+ }
+
+ .digit-field-full{
+    width:100%;
+ }
+
+ .digit-label-field-pair.boundary-item.vertical{
+    margin-bottom: 0rem;
+ } 
+ 
+ .padding-dropdown{
+    padding-bottom: 1.6rem;
+ }
+
+ .filter-card.filter-card-vertical .selecting-boundary-div {
+    max-width: 65%;
+  }
+  

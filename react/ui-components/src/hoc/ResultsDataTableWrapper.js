@@ -7,23 +7,22 @@ import React, {
   useContext,
 } from "react";
 import { useTranslation } from "react-i18next";
-import TextInput from "../atoms/TextInput";
 import { useForm, Controller } from "react-hook-form";
 import _ from "lodash";
 import { InboxContext } from "./InboxSearchComposerContext";
-import { Card,Loader } from "../atoms";
+import { Loader } from "../atoms";
 import { CustomSVG } from "../atoms";
 import CheckBox from "../atoms/CheckBox";
 import NoResultsFound from "../atoms/NoResultsFound";
 import Button from "../atoms/Button";
-import CardLabel from "../atoms/CardLabel";
 import ResultsDataTable from "../molecules/ResultsDataTable";
-import { useHistory} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { SVG } from "../atoms";
-import {Toast} from "../atoms";
+import { Toast } from "../atoms";
 import FieldV1 from "./FieldV1";
 import EditablePopup from "./EditablePopup";
-
+import TableRow from "../atoms/TableRow";
+import TableCell from "../atoms/TableCell";
 
 const useDebounce = (value, delay) => {
   const [debouncedValue, setDebouncedValue] = useState(value);
@@ -40,6 +39,7 @@ const useDebounce = (value, delay) => {
 };
 
 const ResultsDataTableWrapper = ({
+  tabData,
   config,
   data,
   isLoading,
@@ -51,11 +51,16 @@ const ResultsDataTableWrapper = ({
   browserSession,
   additionalConfig,
   TotalCount,
-  refetch
+  refetch,
+  manualPagination,
+  onNextPage,
+  onPrevPage,
+  onPageSizeChange,
+  rowsPerPageOptions = [5, 10, 15, 20],
 }) => {
   const { apiDetails } = fullConfig;
   const { t } = useTranslation();
-  const history = useHistory();
+  const navigate = useNavigate();
   const resultsKey = config.resultsJsonPath;
   const [showResultsTable, setShowResultsTable] = useState(true);
   const [session, setSession, clearSession] = browserSession || [];
@@ -135,9 +140,7 @@ const ResultsDataTableWrapper = ({
     );
     setEditRow(null);
     setRowData(null);
-    
-  }
-  
+  };
 
   const handleLinkColumn = (event) => {
     const linkColumnHandler = configModule?.linkColumnHandler || {};
@@ -163,7 +166,7 @@ const ResultsDataTableWrapper = ({
         center: column?.center,
         ignoreRowClick: column?.ignoreRowClick,
         wrap: column?.wrap,
-        sortable: !column?.disableSortBy,
+        sortable: config?.enableColumnSort === false ? false : !column?.disableSortBy,
         headerAlign: column?.headerAlign,
         style: column?.style,
         conditionalCellStyles: column?.conditionalCellStyles,
@@ -171,7 +174,7 @@ const ResultsDataTableWrapper = ({
           typeof column?.sortFunction === "function"
             ? (rowA, rowB) => column.sortFunction(rowA, rowB)
             : (rowA, rowB) => 0,
-        selector: (row, index) => `${_.get(row, column?.jsonPath)}`, 
+        selector: (row, index) => `${_.get(row, column?.jsonPath)}`,
       };
       if (column?.svg) {
         // const icon = Digit.ComponentRegistryService.getComponent(column.svg);
@@ -181,11 +184,21 @@ const ResultsDataTableWrapper = ({
             return (
               <div
                 className="cursorPointer"
+                role="button"
+                tabIndex={0}
+                aria-label="Edit"
                 style={{ marginLeft: "1rem" }}
                 onClick={() => additionalConfig?.resultsTable?.onClickSvg(row)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    additionalConfig?.resultsTable?.onClickSvg(row);
+                  }
+                }}
               >
                 <CustomSVG.EditIcon />
               </div>
+
             );
           },
         };
@@ -209,13 +222,6 @@ const ResultsDataTableWrapper = ({
         return {
           ...commonProps,
           cell: (row, index, col, id) => {
-            console.log(
-              row,
-              column,
-              column?.jsonPath,
-              _.get(row, column?.jsonPath),
-              "testing"
-            );
             return (
               <Button
                 variation="link"
@@ -232,7 +238,7 @@ const ResultsDataTableWrapper = ({
                 onClick={
                   column?.buttonProps?.linkTo
                     ? () => {
-                        history.push(
+                        navigate(
                           `/${window?.contextPath}/employee/${column?.linkTo}`
                         );
                       }
@@ -374,7 +380,7 @@ const ResultsDataTableWrapper = ({
   });
 
   const formData = watch();
-  
+
   //call this fn whenever session gets updated
   const setDefaultValues = () => {
     reset(defaultValuesFromSession);
@@ -513,6 +519,22 @@ const ResultsDataTableWrapper = ({
     setValue("offset", newOffset);
     handleSubmit(onSubmit)();
   };
+
+  const handleRowsPerPageChangeThroughEvent = (event) => {
+    setRowsPerPage(Number(event?.target?.value));
+    setCurrentPage(1);
+    const newLimit = Number(event?.target?.value);
+    const newOffset = (currentPage - 1) * Number(event?.target?.value);
+    setLimitAndOffset({
+      limit: newLimit,
+      offset: newOffset,
+    });
+    setValue("limit", newLimit);
+    setValue("offset", newOffset);
+    handleSubmit(onSubmit)();
+  };
+
+
   useEffect(() => {
     if (limitAndOffset) {
       setValue("limit", limitAndOffset.limit);
@@ -520,10 +542,104 @@ const ResultsDataTableWrapper = ({
     }
   }, [limitAndOffset]);
 
+  const indexOfLastRow = currentPage * rowsPerPage;
+  const indexOfFirstRow = indexOfLastRow - rowsPerPage;
+  const totalPages = Math.ceil(
+    data?.[TotalCount] || filteredData?.length / rowsPerPage
+  );
+
   if (isLoading || isFetching) return <div className="digit-table-loader"><Loader/></div>;
   if (!data) return <></>;
   if (!showResultsTable) return <></>;
   if (searchResult?.length === 0) return <NoResultsFound />;
+  // Extract the custom component
+  const CustomRowComponent = Digit.ComponentRegistryService.getComponent(config?.customRow?.customRowComponent);
+  if (
+    config?.customRow?.overRideRowWithCustomRowComponent &&
+    CustomRowComponent
+  ) {
+    return (
+      <>
+        <div className="digit-custom-row-wrapper">
+          {filteredData.map((rowData, index) => (
+            <CustomRowComponent key={index} rowData={rowData} tabData={tabData} {...config?.customRow?.customRowProps}/>
+          ))}
+        </div>
+        <TableRow className={`footer-pagination-content ${"digit-results-table"}`}>
+          <TableCell
+            isHeader={false}
+            isFooter={true}
+          >
+            <div className="footer-content">
+              <div className={"footer-pagination-container"}>
+                <div className="rows-per-page">
+                  <label htmlFor="rowsPerPage">
+                    {t("CS_COMMON_ROWS_PER_PAGE")}
+                    {":"}{" "}
+                  </label>
+                  <select
+                    className="pagination-dropdown"
+                    id="rowsPerPage"
+                    value={rowsPerPage}
+                    onChange={
+                      manualPagination ? onPageSizeChange : handleRowsPerPageChangeThroughEvent
+                    }
+                  >
+                    {rowsPerPageOptions.map((option) => (
+                      <option key={option} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <span>
+                    {indexOfFirstRow + 1}-
+                    {Math.min(
+                      indexOfLastRow,
+                      data?.[TotalCount] || filteredData?.length
+                    )}{" "}
+                    of {data?.[TotalCount] || filteredData?.length}
+                  </span>
+                </div>
+                <div className="pagination custom-results">
+                  <button
+                    onClick={
+                      manualPagination
+                        ? () => onPrevPage()
+                        : () => handlePageChange(currentPage - 1)
+                    }
+                    disabled={currentPage === 1}
+                  >
+                    <SVG.ChevronLeft
+                      fill={currentPage === 1 ? "#C5C5C5" : "#363636"}
+                    ></SVG.ChevronLeft>
+                  </button>
+                  <button
+                    onClick={
+                      manualPagination
+                        ? () => onNextPage()
+                        : () => handlePageChange(currentPage + 1)
+                    }
+                    disabled={
+                      currentPage === totalPages ||
+                      indexOfLastRow >=
+                        (data?.[TotalCount] || filteredData?.length)
+                    }
+                    // disabled={currentPage === totalPages}
+                  >
+                    <SVG.ChevronRight
+                      fill={currentPage === totalPages ? "#C5C5C5" : "#363636"}
+                    ></SVG.ChevronRight>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </TableCell>
+        </TableRow>
+      </>
+    );
+  }
   return (
     <>
     <ResultsDataTable
@@ -550,9 +666,8 @@ const ResultsDataTableWrapper = ({
       defaultSortAsc={config?.defaultSortAsc}
       pagination={config.isPaginationRequired}
       paginationTotalRows={
-        TotalCount ||
+        data?.[TotalCount] ||
         data?.count ||
-        data?.TotalCount ||
         data?.totalCount ||
         searchResult?.length
       }
@@ -564,6 +679,7 @@ const ResultsDataTableWrapper = ({
       showTableDescription={config?.tableProps?.showTableDescription}
       showTableTitle={config?.tableProps?.showTableTitle}
       enableGlobalSearch={config?.enableGlobalSearch}
+      enableColumnSort={config?.enableColumnSort}
       selectedRows={selectedRows}
       actions={config?.actionProps?.actions}
       searchHeader={config.searchHeader}
@@ -574,8 +690,24 @@ const ResultsDataTableWrapper = ({
       paginationComponentOptions={config?.paginationComponentOptions}
     ></ResultsDataTable>
 
-    {showToast && <Toast type={showToast?.type} label={t(showToast.label)} onClose={()=> setShowToast(null)} />}
-          {editablePopup && <EditablePopup setShowEditablePopup={setShowEditablePopup} config={config} editRow={editRow} setEditRow={setEditRow} setRowData={setRowData} rowData={rowData} handleRowSubmit={handleRowSubmit}/>}
+      {showToast && (
+        <Toast
+          type={showToast?.type}
+          label={t(showToast.label)}
+          onClose={() => setShowToast(null)}
+        />
+      )}
+      {editablePopup && (
+        <EditablePopup
+          setShowEditablePopup={setShowEditablePopup}
+          config={config}
+          editRow={editRow}
+          setEditRow={setEditRow}
+          setRowData={setRowData}
+          rowData={rowData}
+          handleRowSubmit={handleRowSubmit}
+        />
+      )}
     </>
   );
 };

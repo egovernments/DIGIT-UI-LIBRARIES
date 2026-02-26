@@ -1,3 +1,6 @@
+@import './theme-variables.css';
+@import '../typography.scss';
+
 .digit-card-based-options {
     box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.16);
     @apply bg-white mb-md px-sm py-md mx-sm rounded w-full;
@@ -25,7 +28,7 @@
           svg {
             height: 20px;
             width: 20px;
-            fill: theme(colors.primary.main);
+            fill: theme("colors.primary.main");
             margin: auto;
           }
         }

@@ -15,6 +15,7 @@ import { SubmitBar, Toast , Button } from "../atoms";
 
 // import Fields from "./Fields";    //This is a field selector pickup from formcomposer
 import FieldController from "./FieldController";
+import { ButtonIdentificationProvider, SectionIdentificationProvider } from "./ButtonIdentificationContext";
 
 const wrapperStyles = {
   display: "flex",
@@ -83,7 +84,16 @@ export const FormComposer = (props) => {
     if (Object.keys(formState?.errors).length > 0 && formState?.submitCount > 0) {
       setShowErrorToast(true);
     }
+    else{
+       setShowErrorToast(false);
+    }
   }, [formState?.errors, formState?.submitCount]);
+
+  useEffect(() =>{
+    if(showErrorToast === true){
+    setShowErrorToast(false);
+    }
+  },[props?.config])
 
   useEffect(() => {
     if (
@@ -198,26 +208,28 @@ export const FormComposer = (props) => {
           </HeaderComponent>
           <HeaderComponent 
           id={`${section.headId}_DES`}
-          className={section?.sectionSubHeadClassName}
+          className={`sectionSubHeaderStyle ${section?.sectionSubHeadClassName || ""}`}
           >
             {t(section.subHead)}
           </HeaderComponent>
         </>
       );
-    } else if (section.head) {
-      return (
-        <>
-          <HeaderComponent className={`digit-card-section-header titleStyle ${section?.sectionHeadClassName || ""}`}
-          id={section.headId}
-          >
-            {t(section.head)}
-          </HeaderComponent>
-        </>
-      );
-    } else {
-      return <div></div>;
     }
+
+    if (section.head) {
+      return (
+        <HeaderComponent
+          className={`digit-card-section-header titleStyle ${section?.sectionHeadClassName || ""}`}
+          id={section.headId}
+        >
+          {t(section.head)}
+        </HeaderComponent>
+      );
+    }
+
+    return null; 
   };
+
 
   const closeToast = () => {
     setShowErrorToast(false);
@@ -363,10 +375,22 @@ export const FormComposer = (props) => {
       {formFields(section, index, array, sectionFormCategory)}
       {props.childrenAtTheBottom && props.children}
       {props.submitInForm && (
-        <SubmitBar label={t(props.label)} style={{ width:"100%",...props?.buttonStyle }} submit="submit" disabled={isDisabled} className="w-full"/>
+        <SubmitBar id={props?.primaryActionId || "formcomposer-submit-action"} label={t(props.label)} style={{ width:"100%",...props?.buttonStyle }} submit="submit" disabled={isDisabled} className="w-full"/>
       )}
       {props.secondaryActionLabel && (
-        <div className="primary-label-btn" style={{ margin: "20px auto 0 auto" }} onClick={onSecondayActionClick}>
+        <div
+          className="primary-label-btn"
+          role="button"
+          id={props?.secondaryActionId || "formcomposer-secondary-action"}
+          tabIndex={0}
+          style={{ margin: "20px auto 0 auto" }}
+          onClick={onSecondayActionClick}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              onSecondayActionClick();
+            }
+          }}
+        >
           {props.secondaryActionLabel}
         </div>
       )}
@@ -374,65 +398,78 @@ export const FormComposer = (props) => {
   );
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} onKeyDown={(e) => checkKeyDown(e)} id={props.formId} className={props.className}>
-      {props?.showMultipleCardsWithoutNavs ? (
-        props?.config?.map((section, index, array) => {
-          return (
-            !section.navLink && (
-              <Card style={getCardStyles()} noCardStyle={props.noCardStyle} className={props.cardClassName}>
-                {renderFormFields(props, section, index, array)}
-              </Card>
-            )
-          );
-        })
-      ) : (
-        <Card style={getCardStyles()} noCardStyle={props.noCardStyle} className={props.cardClassName}>
-          {props?.config?.map((section, index, array) => {
-            return !section.navLink && <>{renderFormFields(props, section, index, array)}</>;
-          })}
-        </Card>
-      )}
-      {props?.showFormInNav && props.horizontalNavConfig && (
-        <HorizontalNav
-          configNavItems={props.horizontalNavConfig ? props.horizontalNavConfig : null}
-          showNav={props?.showNavs}
-          activeLink={activeLink}
-          setActiveLink={setActiveLink}
-        >
-          {props?.showMultipleCardsInNavs ? (
-            props?.config?.map((section, index, array) => {
-              return section.navLink ? (
-                <Card style={section.navLink !== activeLink ? getCardStyles(false) : getCardStyles()} noCardStyle={props.noCardStyle}>
-                  {renderFormFields(props, section, index, array, section?.sectionFormCategory)}
-                </Card>
-              ) : null;
-            })
-          ) : (
-            <Card style={getCardStyles()} noCardStyle={props.noCardStyle}>
-              {props?.config?.map((section, index, array) => {
+    <ButtonIdentificationProvider
+      composerType="formcomposer"
+      composerId={props.formId || props.className || "form"}
+    >
+      <form onSubmit={handleSubmit(onSubmit)} onKeyDown={(e) => checkKeyDown(e)} id={props.formId} className={props.className}>
+        {props?.showMultipleCardsWithoutNavs ? (
+          props?.config?.map((section, index, array) => {
+            return (
+              !section.navLink && (
+                <SectionIdentificationProvider key={index} sectionId={section?.headId || `section-${index}`}>
+                  <Card style={getCardStyles()} noCardStyle={props.noCardStyle} className={props.cardClassName}>
+                    {renderFormFields(props, section, index, array)}
+                  </Card>
+                </SectionIdentificationProvider>
+              )
+            );
+          })
+        ) : (
+          <Card style={getCardStyles()} noCardStyle={props.noCardStyle} className={props.cardClassName}>
+            {props?.config?.map((section, index, array) => {
+              return !section.navLink && (
+                <SectionIdentificationProvider key={index} sectionId={section?.headId || `section-${index}`}>
+                  {renderFormFields(props, section, index, array)}
+                </SectionIdentificationProvider>
+              );
+            })}
+          </Card>
+        )}
+        {props?.showFormInNav && props.horizontalNavConfig && (
+          <HorizontalNav
+            configNavItems={props.horizontalNavConfig ? props.horizontalNavConfig : null}
+            showNav={props?.showNavs}
+            activeLink={activeLink}
+            setActiveLink={setActiveLink}
+          >
+            {props?.showMultipleCardsInNavs ? (
+              props?.config?.map((section, index, array) => {
                 return section.navLink ? (
-                  <>
-                    <div style={section.navLink !== activeLink ? { display: "none" } : {}}>
+                  <SectionIdentificationProvider key={index} sectionId={section?.headId || section.navLink || `nav-section-${index}`}>
+                    <Card style={section.navLink !== activeLink ? getCardStyles(false) : getCardStyles()} noCardStyle={props.noCardStyle}>
                       {renderFormFields(props, section, index, array, section?.sectionFormCategory)}
-                    </div>
-                  </>
+                    </Card>
+                  </SectionIdentificationProvider>
                 ) : null;
-              })}
-            </Card>
-          )}
-        </HorizontalNav>
-      )}
-      {!props.submitInForm && props.label && (
-        <Footer className={props.actionClassName}>
-          <SubmitBar label={t(props.label)} className="digit-formcomposer-submitbar" submit="submit" disabled={isDisabled} />
-          {props?.secondaryLabel && props?.showSecondaryLabel && (
-            <Button className="previous-button"  variation="secondary" label={t(props?.secondaryLabel)} onClick={props?.onSecondayActionClick} />
-          )}
-          {props.onSkip && props.showSkip && <ActionLinks style={props?.skipStyle} label={t(`CS_SKIP_CONTINUE`)} onClick={props.onSkip} />}
-        </Footer>
-      )}
-      {showErrorToast && <Toast type={"error"} label={t("ES_COMMON_PLEASE_ENTER_ALL_MANDATORY_FIELDS")} isDleteBtn={true} onClose={closeToast} />}
-      {customToast && <Toast type={customToast?.type} label={t(customToast?.label)} isDleteBtn={true} onClose={closeToast} />}
-    </form>
+              })
+            ) : (
+              <Card style={getCardStyles()} noCardStyle={props.noCardStyle}>
+                {props?.config?.map((section, index, array) => {
+                  return section.navLink ? (
+                    <SectionIdentificationProvider key={index} sectionId={section?.headId || section.navLink || `nav-section-${index}`}>
+                      <div style={section.navLink !== activeLink ? { display: "none" } : {}}>
+                        {renderFormFields(props, section, index, array, section?.sectionFormCategory)}
+                      </div>
+                    </SectionIdentificationProvider>
+                  ) : null;
+                })}
+              </Card>
+            )}
+          </HorizontalNav>
+        )}
+        {!props.submitInForm && props.label && (
+          <Footer className={props.actionClassName}>
+            <SubmitBar name="primary-submit" label={t(props.label)} className="digit-formcomposer-submitbar" submit="submit" disabled={isDisabled} icon={props?.primaryActionIcon} isSuffix={props?.primaryActionIconAsSuffix} />
+            {props?.secondaryLabel && props?.showSecondaryLabel && (
+              <Button name="secondary-action" className="previous-button" variation="secondary" label={t(props?.secondaryLabel)} onClick={props?.onSecondayActionClick} icon={props?.secondaryActionIcon} isSuffix={props?.secondaryActionIconAsSuffix} />
+            )}
+            {props.onSkip && props.showSkip && <ActionLinks style={props?.skipStyle} label={t(`CS_SKIP_CONTINUE`)} onClick={props.onSkip} />}
+          </Footer>
+        )}
+        {showErrorToast && props?.showFormLevelErrorToast !== false && <Toast type={"error"} label={t(props?.formLevelErrorMessage || "ES_COMMON_PLEASE_ENTER_ALL_MANDATORY_FIELDS")} isDleteBtn={true} onClose={closeToast} />}
+        {customToast && <Toast type={customToast?.type} label={t(customToast?.label)} isDleteBtn={true} onClose={closeToast} />}
+      </form>
+    </ButtonIdentificationProvider>
   );
 };

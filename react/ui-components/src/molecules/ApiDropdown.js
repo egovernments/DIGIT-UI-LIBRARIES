@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState, useEffect,useMemo } from "react";
 import PropTypes from "prop-types";
 import MultiSelectDropdown from "../atoms/MultiSelectDropdown";
 import Dropdown from "../atoms/Dropdown";
@@ -12,14 +12,27 @@ const ApiDropdown = ({ populators, formData, props, inputRef, errors ,disabled})
   const { t } = useTranslation();
 
   const reqCriteria = Digit?.Customizations?.[populators?.masterName]?.[populators?.moduleName]?.[populators?.customfn]();
+  const {
+    isLoading: isApiLoading,
+    data: apiData,
+    revalidate,
+    isFetching: isApiFetching,
+  } = reqCriteria
+    ? window?.Digit?.Hooks.useCustomAPIHook(reqCriteria)
+    : { isLoading: false, data: [], revalidate: null, isFetching: false };
 
-  const { isLoading: isApiLoading, data: apiData, revalidate, isFetching: isApiFetching } = window?.Digit?.Hooks.useCustomAPIHook(reqCriteria);
+  const memoizedApiData = useMemo(() => apiData, [JSON.stringify(apiData)]);
 
   useEffect(() => {
-    setOptions(apiData);
-  }, [apiData]);
+    if (!_.isEqual(memoizedApiData, options)) {
+      setOptions(memoizedApiData);
+    }
+  }, [memoizedApiData]);
 
   if (isApiLoading) return <Loader />;
+
+  // Support both old format (props.onChange) and new format (props.field.onChange)
+  const field = props?.field || props;
 
   return (
     <>
@@ -31,7 +44,7 @@ const ApiDropdown = ({ populators, formData, props, inputRef, errors ,disabled})
             props={props} //these are props from Controller
             isPropsNeeded={true}
             onSelect={(e) => {
-              props.onChange(
+              field?.onChange?.(
                 e
                   ?.map((row) => {
                     return row?.[1] ? row[1] : null;
@@ -39,7 +52,7 @@ const ApiDropdown = ({ populators, formData, props, inputRef, errors ,disabled})
                   .filter((e) => e)
               );
             }}
-            selected={props?.value}
+            selected={field?.value}
             defaultLabel={t(populators?.defaultText)}
             defaultUnit={t(populators?.selectedText)}
             config={populators}
@@ -61,12 +74,12 @@ const ApiDropdown = ({ populators, formData, props, inputRef, errors ,disabled})
           option={options || []}
           key={populators.name}
           optionKey={populators?.optionsKey}
-          value={props.value?.[0]}
+          value={field?.value?.[0]}
           select={(e) => {
-            props.onChange([e], populators.name);
+            field?.onChange?.([e], populators.name);
           }}
-          selected={props.value?.[0] || populators.defaultValue}
-          defaultValue={props.value?.[0] || populators.defaultValue}
+          selected={field?.value?.[0] || populators.defaultValue}
+          defaultValue={field?.value?.[0] || populators.defaultValue}
           t={t}
           errorStyle={errors?.[populators.name]}
           optionCardStyles={populators?.optionsCustomStyle}

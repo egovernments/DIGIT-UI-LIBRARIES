@@ -1,0 +1,98 @@
+import React from "react";
+import PropTypes from "prop-types";
+
+/**
+ * Button Component 
+ *
+ * @author jagankumar-egov
+ *
+ * Feature :: CORE
+ *
+ * @example
+ *  // Primary button
+    <Button label={t(configs?.label)} onButtonClick={()=>{}} type="button" style={{ marginLeft: "10px" }} />
+    // Secondary button & Optional with Icon
+    <Button label={t(configs?.label)} variation="secondary" icon={<AddFilled />} onButtonClick={()=>{}} type="button" style={{ marginLeft: "10px" }} />
+    // Disabled Button
+    <Button label={t("Disabled")} onButtonClick={()=>{}} type="button" style={{ marginLeft: "10px" }} isDisabled={true} />
+ */
+
+const Button = (props) => {
+  let className = props?.variation !== "primary" ? `jk-digit-secondary-btn` : `jk-digit-primary-btn`;
+  // Use generateUniqueId for stable ID generation (single source of truth)
+  // ID Pattern: screenPath + composerType + composerId + sectionId + name + type
+  const fieldId = Digit?.Utils?.generateUniqueId?.({
+    screenPath: props?.screenPath || "",
+    composerType: props?.composerType || "standalone",
+    composerId: props?.composerId || "",
+    sectionId: props?.sectionId || "",
+    name: props?.name || props?.className || "button",
+    type: "btn",
+    id: props?.id
+  }) || props?.id || "NA";
+
+  return (
+    <button
+      className={`${className} ${(props?.className && props?.className) || ""} ${(props?.isDisabled && "jk-digit-disabled-btn") || ""}`}
+      type={props.type || "button"}
+      form={props.formId}
+      id={fieldId}
+      onClick={props.onButtonClick}
+      disabled={props?.isDisabled}
+      style={props.style ? props.style : null}
+      onChange={props?.onChange}
+    >
+      {props?.icon && props.icon}
+      <h2 style={{ ...props?.textStyles, ...{ width: "100%" } }}>{props.label}</h2>
+      {props.children}
+    </button>
+  );
+};
+
+Button.propTypes = {
+  /**
+   * ButtonSelector content
+   */
+  label: PropTypes.string.isRequired,
+  /**
+   * Semantic name for stable ID generation (NOT localized)
+   * IMPORTANT: Use this for GTM tracking stability
+   */
+  name: PropTypes.string,
+  /**
+   * Explicit ID (overrides auto-generation)
+   */
+  id: PropTypes.string,
+  /**
+   * button border theme
+   */
+  variation: PropTypes.string,
+  /**
+   * button icon if any
+   */
+  icon: PropTypes.element,
+  /**
+   * click handler
+   */
+  onButtonClick: PropTypes.func.isRequired,
+  /**
+   * Custom classname
+   */
+  className: PropTypes.string,
+  /**
+   * Custom styles
+   */
+  style: PropTypes.object,
+  /**
+   * Custom label style or h2 style
+   */
+  textStyles: PropTypes.object,
+};
+
+Button.defaultProps = {
+  label: "TEST",
+  variation: "primary",
+  onButtonClick: () => {},
+};
+
+export default Button;

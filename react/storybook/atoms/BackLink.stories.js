@@ -1,0 +1,63 @@
+import React from "react";
+import BackLink from "@egovernments/digit-ui-components/atoms/BackLink";
+import Iframe from "@egovernments/digit-ui-components/atoms/Iframe";
+import { createDocumentationStory } from "../.storybook/DocumentationComponent";
+
+export default {
+  title: "Atoms/BackLink",
+  component: BackLink,
+  argTypes: {
+    variant: { table: { disable: true } },
+    className: { table: { disable: true } },
+    style: { table: { disable: true } },
+    label: { table: { disable: true } },
+    onClick: { table: { disable: true } },
+    hideIcon: { table: { disable: true } },
+    hideLabel: { table: { disable: true } },
+    iconFill: { table: { disable: true } },
+    disabled: {
+      control: "select",
+      options: ["Default", "Disabled"],
+      name:"State",
+      mapping: {
+        Default: false, 
+        Disabled: true, 
+      },
+    },
+  },
+};
+
+const Template = (args) => <BackLink {...args} />;
+
+const commonArgs = {
+  style: {},
+  onClick: () => console.log("clicked"),
+  disabled: "Default",
+  variant: "",
+  hideIcon: false,
+  hideLabel: false,
+  iconFill: "",
+  label: "Back",
+};
+
+
+
+export const Backlink1 = Template.bind({});
+Backlink1.args = {
+  ...commonArgs,
+  variant: "primary",
+};
+
+export const Backlink2 = Template.bind({});
+Backlink2.args = {
+  ...commonArgs,
+  variant: "secondary",
+};
+
+export const Backlink3 = Template.bind({});
+Backlink3.args = {
+  ...commonArgs,
+  variant: "teritiary",
+};
+
+export const Documentation = createDocumentationStory("BackLink", "atoms");

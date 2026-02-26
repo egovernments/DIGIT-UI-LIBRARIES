@@ -22,7 +22,7 @@ frontend/micro-ui/web/package.json
 ```
 
 ```json
-"@egovernments/digit-ui-components":"0.0.1",
+"@egovernments/digit-ui-components":"0.2.0",
 ```
 
 then navigate to App.js

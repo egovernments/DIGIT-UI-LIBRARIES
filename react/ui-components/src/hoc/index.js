@@ -2,6 +2,7 @@ import FieldComposer from "./FieldComposer";
 import FieldController from "./FieldController";
 import Fields from "./Fields";
 import { FormComposer as FormComposerV2 } from "./FormComposerV2";
+import { FormComposerStudio } from "./FormComposerStudio";
 import Modal from "./Modal";
 import UploadFileComposer from "./UploadFileComposer";
 import FieldV1 from "./FieldV1";
@@ -11,5 +12,49 @@ import reducer from "./InboxSearchComposerReducer";
 import { initialInboxState } from "./InboxSearchComposerReducer";
 import { InboxContext } from "./InboxSearchComposerContext";
 import InboxSearchComposer from "./InboxSearchComposer";
+import FormComposerCitizen from "./FormComposerCitizen";
+import AppLocalisationWrapper from "./app-config-screen-builder/AppLocalisationWrapper";
+import BoundaryFilter from "./BoundaryFilter";
+import {
+  ButtonIdentificationProvider,
+  SectionIdentificationProvider,
+  useButtonIdentification,
+  useButtonId,
+  generateButtonId
+} from "./ButtonIdentificationContext";
+import { useCustomT } from "./app-config-screen-builder/app-config-utils/useCustomT";
+import { setConstantsforAppConfig } from "./app-config-screen-builder/app-config-utils/constants";
+// Local additions - components used by FormComposerV2 and FieldV1
+import MultiChildFormWrapper from "./MultiChildFormWrapper";
+import UploadAndDownloadDocumentHandler from "./UploadAndDownloadDocumentHandler";
 
-export { FieldComposer, FieldController, Fields, FormComposerV2, Modal, UploadFileComposer ,FieldV1, InboxSearchComposer,ResultsTable,reducer,initialInboxState,InboxContext,ResultsDataTableWrapper};
+export {
+  FieldComposer,
+  FieldController,
+  Fields,
+  FormComposerV2,
+  FormComposerStudio,
+  Modal,
+  UploadFileComposer,
+  FormComposerCitizen,
+  FieldV1,
+  InboxSearchComposer,
+  ResultsTable,
+  reducer,
+  initialInboxState,
+  InboxContext,
+  ResultsDataTableWrapper,
+  BoundaryFilter,
+  AppLocalisationWrapper,
+  useCustomT,
+  setConstantsforAppConfig,
+  // Local additions
+  MultiChildFormWrapper,
+  UploadAndDownloadDocumentHandler,
+    // Button Identification exports
+  ButtonIdentificationProvider,
+  SectionIdentificationProvider,
+  useButtonIdentification,
+  useButtonId,
+  generateButtonId
+};

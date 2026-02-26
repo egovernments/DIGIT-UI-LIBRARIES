@@ -1,5 +1,5 @@
-@import url("../index.scss");
-@import url("../typography.scss");
+@import './theme-variables.css';
+@import '../typography.scss';
 
 .digit-mobile-number-container {
   @apply flex  items-center;
@@ -23,43 +23,133 @@
     max-width: 37.5rem;
     min-width: 12.5rem;
   }
-  
+
   .digit-text-mobile-input-width {
     .digit-text-input-width {
       width: calc(540px - 41px);
     }
   }
   .digit-citizen-card-input--front {
-    @extend .typography.text-body-s;
+    @include typography-text-body-s;
     @extend .light-background;
     width: fit-content !important;
     display: flex;
     align-items: center;
-    /* background: theme(colors.grey.mid); */
+    /* background: theme("colors.grey.mid"); */
     border-right: 0;
     padding-right: 5px;
   }
 
   .digit-citizen-card-input {
-    @extend .typography.text-body-s;
+    @include typography-text-body-s;
     @apply pl-sm outline-none block w-full h-10 bg-white leading-10 text-form-field;
-    border: 1px solid theme(digitv2.lightTheme.text-secondary);
-    color: theme(digitv2.lightTheme.text-primary);
+    border: 1px solid var(--digitv2-lightTheme-text-secondary);
+    color: var(--digitv2-lightTheme-text-primary);
   }
 
   .digit-citizen-card-input--front {
-    @extend .typography.text-body-s;
+    @include typography-text-body-s;
     width: fit-content !important;
     display: flex;
     align-items: center;
-    background: theme(colors.grey.mid);
+    background: theme("colors.grey.mid");
     border-right: 0;
     padding-right: 5px;
   }
   .digit-employee-card-input-error {
-    @extend .typography.text-body-s;
+    @include typography-text-body-s;
     @extend .light-input-border;
     @extend .alert-error;
     @apply mb-lg pl-sm block w-full h-10 outline-none border-2 border-solid bg-white leading-10 text-form-field text-text-primary;
   }
+
+  // Country code dropdown styles
+  .digit-country-code-dropdown {
+    flex-shrink: 0;
+    width: 7.5rem;
+    position: relative;
+    overflow: visible;
+    height: 40px;
+
+    .digit-dropdown-employee-select-wrap,
+    .digit-dropdown-select-wrap {
+      width: 100%;
+      min-width: unset;
+      max-width: unset;
+      overflow: visible;
+    }
+
+    .digit-dropdown-select,
+    .digit-dropdown-select-active {
+      height: var(--digitv2-spacers-spacer10);
+      border-top-right-radius: 0 !important;
+      border-bottom-right-radius: 0 !important;
+      border-right: none !important;
+      border-top-left-radius: var(--digitv2-borderRadius-radius2);
+      border-bottom-left-radius: var(--digitv2-borderRadius-radius2);
+    }
+
+    .digit-dropdown-employee-select-wrap--elipses {
+      @apply font-bold;
+      font-size: var(--digitv2-spacers-spacer4);
+      color: var(--digitv2-lightTheme-text-secondary);
+    }
+  }
+
+  &.has-country-dropdown {
+    // The text input field should take remaining width
+    > .digit-text-input-field {
+      flex: 1;
+      min-width: 0;
+    }
+
+    // Remove left border-radius from inputs so they merge with dropdown
+    .digit-text-input-field {
+      .digit-employeeCard-input,
+      .digit-citizenCard-input,
+      .digit-employeeCard-inputError,
+      .digit-card-inputError {
+        border-top-left-radius: 0 !important;
+        border-bottom-left-radius: 0 !important;
+      }
+    }
+
+    .digit-dropdown-select {
+      border-color: #787878;
+    }
+
+    .digit-country-code-dropdown {
+        .digit-dropdown-select,
+        .digit-dropdown-select-active {
+          border-right: none !important;
+
+          &.disabled{
+            input{
+                color: #787878;
+            }
+          }
+        }
+    }
+
+    // Unified focus state — highlight both dropdown and input as one unit
+    &:focus-within {
+      .digit-country-code-dropdown {
+        .digit-dropdown-select,
+        .digit-dropdown-select-active {
+          border-color: var(--digitv2-lightTheme-primary-1) !important;
+          border-right: none !important;
+        }
+      }
+
+      .digit-text-input-field {
+        .digit-employeeCard-input,
+        .digit-citizenCard-input,
+        .digit-employeeCard-inputError,
+        .digit-card-inputError {
+          border-color: var(--digitv2-lightTheme-primary-1) !important;
+        }
+      }
+    }
+  }
 }
+
