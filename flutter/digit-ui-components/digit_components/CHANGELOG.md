@@ -1,3 +1,6 @@
+## 0.3.0
+* Added mobile number component
+
 ## 0.2.4+1
 * Fixed sentence case not applied to selected value in dropdown
 * Added sentenceCaseEnabled property in multiselect dropdown and toast
