@@ -343,11 +343,6 @@
     margin-left: auto;
   }
 
-  &.digit-formcomposer-submitbar{
-    width: fit-content;
-    margin-left: auto;
-  }
-
   h2 {
     @include typography-button-large;
     @apply text-white;
