@@ -210,6 +210,7 @@ class _DigitTableState extends State<DigitTable> {
     super.didChangeDependencies();
     _columnWidthCache.clear();
     _updateFrozenColumns();
+    _checkOverflow();
   }
 
   @override
@@ -246,14 +247,14 @@ class _DigitTableState extends State<DigitTable> {
     }
     
     if (widget.frozenColumnsCount != oldWidget.frozenColumnsCount ||
-        widget.columns.length != oldWidget.columns.length) {
+        widget.columns != oldWidget.columns) {
+      _columnWidthCache.clear();
       _updateFrozenColumns();
-      _columnWidthCache.clear(); // Clear cache when config changes
     }
 
     // Re-check overflow when layout-affecting properties change
     if (widget.rows != oldWidget.rows ||
-        widget.columns.length != oldWidget.columns.length ||
+        widget.columns != oldWidget.columns ||
         widget.frozenColumnsCount != oldWidget.frozenColumnsCount) {
       _checkOverflow();
     }

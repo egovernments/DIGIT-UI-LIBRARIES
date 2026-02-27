@@ -98,7 +98,7 @@ class _DigitInfiniteDateTimelineState extends State<DigitInfiniteDateTimeline> {
   }
 
   void _handleControllerChange() {
-    final jumpDate = widget.controller?.jumpDate;
+    final jumpDate = widget.controller?.consumeJumpDate();
     if (jumpDate != null) {
       final index = _dates.indexWhere((d) => DateUtils.isSameDay(d, jumpDate));
       if (index != -1) {
@@ -216,6 +216,13 @@ class DateTimelineController extends ChangeNotifier {
   void jumpTo(DateTime date) {
     _jumpDate = date;
     notifyListeners();
+  }
+
+  /// Returns and clears the pending jump date so it is only consumed once.
+  DateTime? consumeJumpDate() {
+    final date = _jumpDate;
+    _jumpDate = null;
+    return date;
   }
 
   DateTime? get jumpDate => _jumpDate;

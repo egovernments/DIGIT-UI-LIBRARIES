@@ -134,9 +134,9 @@ class DigitDateFormInputState extends BaseDigitFormInputState {
       onChange: (val) {
         final parsedDate = DateFormat('dd MMM yyyy').parse(val);
         setState(() {
-          _selectedDate = parsedDate; // update selectedDate
+          _selectedDate = parsedDate;
         });
-         // _timelineController.jumpTo(parsedDate); // scroll the timeline
+        _timelineController.jumpTo(parsedDate);
         _emitIfChanged(controller.text);
       },
     );
@@ -155,6 +155,7 @@ class DigitDateFormInputState extends BaseDigitFormInputState {
         setState(() {
           _selectedDate = parsedDate;
         });
+        _timelineController.jumpTo(parsedDate);
         _emitIfChanged(controller.text);
       },
     );
