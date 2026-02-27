@@ -36,7 +36,7 @@ class DigitInfiniteDateTimeline extends StatefulWidget {
 }
 
 class _DigitInfiniteDateTimelineState extends State<DigitInfiniteDateTimeline> {
-  late final List<DateTime> _dates;
+  late List<DateTime> _dates;
   int _selectedIndex = 0;
   final CarouselController _carouselController = CarouselController();
   bool _externalChangeInProgress = false;
@@ -44,6 +44,25 @@ class _DigitInfiniteDateTimelineState extends State<DigitInfiniteDateTimeline> {
   @override
   void didUpdateWidget(covariant DigitInfiniteDateTimeline oldWidget) {
     super.didUpdateWidget(oldWidget);
+
+    // Rewire controller listener if the controller instance changed
+    if (widget.controller != oldWidget.controller) {
+      oldWidget.controller?.removeListener(_handleControllerChange);
+      widget.controller?.addListener(_handleControllerChange);
+    }
+
+    // Rebuild date list when range bounds change
+    if (!DateUtils.isSameDay(oldWidget.startDate, widget.startDate) ||
+        !DateUtils.isSameDay(oldWidget.endDate, widget.endDate)) {
+      setState(() {
+        _dates = _buildDates(widget.startDate, widget.endDate);
+        final index = _dates.indexWhere(
+          (d) => DateUtils.isSameDay(d, widget.selectedDate),
+        );
+        _selectedIndex = index != -1 ? index : 0;
+      });
+      return;
+    }
 
     if (!DateUtils.isSameDay(oldWidget.selectedDate, widget.selectedDate)) {
       final newIndex = _dates.indexWhere((d) => DateUtils.isSameDay(d, widget.selectedDate));
@@ -59,13 +78,16 @@ class _DigitInfiniteDateTimelineState extends State<DigitInfiniteDateTimeline> {
     }
   }
 
+  List<DateTime> _buildDates(DateTime start, DateTime end) {
+    final days = end.difference(start).inDays;
+    if (days < 0) return [start];
+    return List.generate(days + 1, (i) => start.add(Duration(days: i)));
+  }
+
   @override
   void initState() {
     super.initState();
-    _dates = List.generate(
-      widget.endDate.difference(widget.startDate).inDays + 1,
-      (index) => widget.startDate.add(Duration(days: index)),
-    );
+    _dates = _buildDates(widget.startDate, widget.endDate);
 
     final index = _dates.indexWhere(
       (d) => DateUtils.isSameDay(d, widget.selectedDate),
@@ -147,22 +169,19 @@ class _DigitInfiniteDateTimelineState extends State<DigitInfiniteDateTimeline> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(DateFormat('EEE').format(date),
-                    style:  isSelected ? textTheme.bodyL.copyWith(
-                      color: theme.colorTheme.primary.primary2,
-                    ) : textTheme.bodyS
-                        .copyWith(color: theme.colorTheme.primary.primary2)),
+                    style: isSelected
+                        ? textTheme.bodyL.copyWith(color: widget.selectedTextColor)
+                        : textTheme.bodyS.copyWith(color: widget.unselectedTextColor)),
                 const SizedBox(height: spacer2),
                 Text(DateFormat('dd').format(date),
-                    style: isSelected ?textTheme.headingL.copyWith(
-                      color: theme.colorTheme.primary.primary2,
-                    ) :  textTheme.headingS
-                        .copyWith(color: theme.colorTheme.primary.primary2)),
+                    style: isSelected
+                        ? textTheme.headingL.copyWith(color: widget.selectedTextColor)
+                        : textTheme.headingS.copyWith(color: widget.unselectedTextColor)),
                 const SizedBox(height: spacer2),
                 Text(DateFormat('MMM').format(date),
-                    style:  isSelected ? textTheme.bodyL.copyWith(
-                      color: theme.colorTheme.primary.primary2,
-                    ) : textTheme.bodyS
-                        .copyWith(color: theme.colorTheme.primary.primary2)),
+                    style: isSelected
+                        ? textTheme.bodyL.copyWith(color: widget.selectedTextColor)
+                        : textTheme.bodyS.copyWith(color: widget.unselectedTextColor)),
               ],
             ),
           ),

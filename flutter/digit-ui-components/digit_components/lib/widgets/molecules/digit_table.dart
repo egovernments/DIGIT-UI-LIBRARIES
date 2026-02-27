@@ -163,9 +163,6 @@ class _DigitTableState extends State<DigitTable> {
       _highlightedRowIndices = widget.highlightedRows.toSet();
     }
     
-    // Calculate frozen columns once
-    _updateFrozenColumns();
-    
     // Listen to scroll events with debouncing
     _horizontalScrollController.addListener(_onScrollDebounced);
 
@@ -211,6 +208,8 @@ class _DigitTableState extends State<DigitTable> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    _columnWidthCache.clear();
+    _updateFrozenColumns();
   }
 
   @override
@@ -477,13 +476,17 @@ class _DigitTableState extends State<DigitTable> {
   // Extract pagination logic
   List<DigitTableRow> _getPaginatedRows() {
     if (!widget.showPagination) return sortedRows;
-    
+
+    if (sortedRows.isEmpty) return sortedRows;
+
     int startIndex = (currentPage - 1) * rowsPerPage;
-    int endIndex = startIndex + rowsPerPage;
-    return sortedRows.sublist(
-      startIndex,
-      endIndex > sortedRows.length ? sortedRows.length : endIndex,
-    );
+    if (startIndex >= sortedRows.length) {
+      // currentPage is stale after row count dropped — reset to last valid page
+      currentPage = (sortedRows.length / rowsPerPage).ceil().clamp(1, double.maxFinite.toInt());
+      startIndex = (currentPage - 1) * rowsPerPage;
+    }
+    final endIndex = (startIndex + rowsPerPage).clamp(0, sortedRows.length);
+    return sortedRows.sublist(startIndex, endIndex);
   }
   
   // Build table header widget

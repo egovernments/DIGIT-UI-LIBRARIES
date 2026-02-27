@@ -63,8 +63,8 @@ class DigitDateFormInputState extends BaseDigitFormInputState {
 
     final now = DateTime.now();
     _selectedDate = widget.initialDate ?? now;
-    _startDate = widget.firstDate ?? DateTime(now.year, 5, 1);
-    _endDate = widget.lastDate ?? DateTime(now.year, 5, 31);
+    _startDate = widget.firstDate ?? DateTime(now.year, now.month, 1);
+    _endDate = widget.lastDate ?? DateTime(now.year, now.month + 1, 0);
 
     if (controller.text.isEmpty) {
       controller.text = DateFormat('dd MMM yyyy').format(_selectedDate);
@@ -80,6 +80,16 @@ class DigitDateFormInputState extends BaseDigitFormInputState {
   void didUpdateWidget(covariant InfiniteDateScrollInput oldWidget) {
     super.didUpdateWidget(oldWidget);
 
+    bool rangeChanged = false;
+    if (widget.firstDate != oldWidget.firstDate) {
+      _startDate = widget.firstDate ?? DateTime(DateTime.now().year, DateTime.now().month, 1);
+      rangeChanged = true;
+    }
+    if (widget.lastDate != oldWidget.lastDate) {
+      _endDate = widget.lastDate ?? DateTime(DateTime.now().year, DateTime.now().month + 1, 0);
+      rangeChanged = true;
+    }
+
     final newInitialDate = widget.initialDate;
     if (newInitialDate != null && newInitialDate != _selectedDate) {
       final formattedDate = DateFormat('dd MMM yyyy').format(newInitialDate);
@@ -90,6 +100,8 @@ class DigitDateFormInputState extends BaseDigitFormInputState {
       });
 
       _emitIfChanged(formattedDate);
+    } else if (rangeChanged) {
+      setState(() {});
     }
   }
 
