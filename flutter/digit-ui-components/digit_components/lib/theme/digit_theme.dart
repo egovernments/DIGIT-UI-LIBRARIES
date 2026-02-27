@@ -2,6 +2,7 @@ library digit_theme;
 
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:digit_ui_components/theme/colors.dart';
+import 'package:digit_ui_components/theme/radius.dart';
 import 'package:digit_ui_components/theme/typography.dart';
 import 'package:digit_ui_components/theme/typography.dart';
 import 'package:flutter/material.dart';

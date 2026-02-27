@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:digit_ui_components/theme/radius.dart';
 import 'package:flutter/material.dart';
 import '../../constants/AppView.dart';
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
@@ -40,11 +41,7 @@ class PanelThemeData extends ThemeExtension<PanelThemeData> {
       titleTextStyle: textTheme.headingXl.copyWith(color: theme.colorTheme.paper.primary),
       successBackgroundColor: theme.colorTheme.alert.success,
       errorBackgroundColor: theme.colorTheme.alert.error,
-      radiusGeometry: isMobile
-          ?  BorderRadius.only(
-          topLeft: Radius.circular(theme.spacerTheme.spacer1),
-          topRight: Radius.circular(theme.spacerTheme.spacer1))
-          : BorderRadius.zero,
+      radiusGeometry: BorderRadius.circular(radius4),
       successAnimationSize: isMobile ? 80.0 : isTab ? 100.0 : 120.0,
       errorAnimationSize: isMobile ? 56.0 : isTab ? 64.0 : 74.0,
       successPadding: EdgeInsets.only(

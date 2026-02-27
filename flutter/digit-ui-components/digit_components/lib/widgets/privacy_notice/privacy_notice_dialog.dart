@@ -113,34 +113,6 @@ class FullPageDialogState extends LocalizedState<FullPageDialog> {
                       widget.onDecline();
                       Navigator.of(context).pop();
                     }, type: DigitButtonType.secondary, size: DigitButtonSize.large, mainAxisSize: MainAxisSize.max,),
-                    // DigitElevatedButton(
-                    //   onPressed: () {
-                    //     widget.onAccept();
-                    //     Navigator.of(context).pop();
-                    //   },
-                    //   child: Text(localizations.translate(i18.privacyPolicy.acceptText)),
-                    // ),
-                    // DigitOutLineButton(
-                    //   onPressed: () {
-                    //     widget.onDecline();
-                    //     Navigator.of(context).pop();
-                    //   },
-                    //   label: localizations.translate(i18.privacyPolicy.declineText),
-                    //   buttonStyle: OutlinedButton.styleFrom(
-                    //     backgroundColor: Colors.white,
-                    //     side: BorderSide(
-                    //       width: 1.0,
-                    //       color: Theme.of(context).colorScheme.secondary,
-                    //     ),
-                    //     minimumSize: Size(
-                    //       MediaQuery.of(context).size.width,
-                    //       50,
-                    //     ),
-                    //     shape: const RoundedRectangleBorder(
-                    //       borderRadius: BorderRadius.zero,
-                    //     ),
-                    //   ),
-                    // ),
                   ],
 
               ),

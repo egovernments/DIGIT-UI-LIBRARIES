@@ -1,3 +1,110 @@
+## 0.3.0
+* Added mobile number component
+
+## 0.2.4+1
+* Fixed sentence case not applied to selected value in dropdown
+* Added sentenceCaseEnabled property in multiselect dropdown and toast
+* Added sentenceCaseEnabled property in dropdown option to enable or disable casing
+
+## 0.2.4
+* Updated location bloc
+
+## 0.2.3+9
+* Fixed alignment issue in privacy component
+
+## 0.2.3+8
+* Updated radius for pop up component
+* Fixed multiselect dropdown build issue
+
+## 0.2.3+7
+* Updated radius for card component
+
+## 0.2.3+6
+* Updated radius for privacy component
+
+## 0.2.3+5
+* Updated radius for every component
+* Added radius library
+
+## 0.2.3+4
+* Updated card component to remove extra spaces if child is empty
+
+## 0.2.3+3
+* Added locale while converting date selected
+
+## 0.2.3+2
+* Added icon mapping constant
+
+## 0.2.3+1
+* Fixed initial image not getting updated issue
+
+## 0.2.3
+* Updated checkbox label to support markdown bold
+
+## 0.2.2+9
+* Added width property in card
+* Updated properties for scrollable content
+
+## 0.2.2+8
+* Added readOnly property in selection card
+
+## 0.2.2+7
+* Updated date picker to show initial date
+
+## 0.2.2+6
+* Updated dob date return type as dd mmm yyyy
+* Fix misalignment in privacy component 
+
+## 0.2.2+5
+* Added property to enable or disable action in panel cards
+
+## 0.2.2+4
+* Added show function for bottom sheet
+
+## 0.2.2+3
+* initial Date update in date scroll
+
+## 0.2.2+2
+* Fixed date not getting updated
+
+## 0.2.2+1
+* Added property to disable scroll in date component
+
+## 0.2.2
+* Updated date picker and infinite date scroll component 
+
+## 0.2.1+9
+* Fixed multiple onchange call inside infinite date picker
+
+## 0.2.1+8
+* Added local for date picker
+* Added required prop for checkbox
+
+## 0.2.1+7
+* Fixed infinite scroll date picker onChange twice call
+
+## 0.2.1+6
+* Reverted new tooltip changes
+
+## 0.2.1+5
+* Fixed date of birth component
+
+## 0.2.1+4
+* Fixed tooltip position
+
+## 0.2.1+3
+* Added tooltip position as property
+
+## 0.2.1+2
+* added new infinite scroll date picker
+* updated tooltip in label component
+* added tooltip in selection card
+
+## 0.2.1+1
+* updated alert pop up to have close icon
+* added textinputtype prop for search bar
+* added radius prop for search bar
+
 ## 0.2.1
 * updated readme documentation
 

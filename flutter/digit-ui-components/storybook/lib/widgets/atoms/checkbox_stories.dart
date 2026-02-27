@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:digit_ui_components/widgets/atoms/digit_checkbox.dart';
+import 'package:flutter/material.dart';
 import 'package:storybook_toolkit/storybook_toolkit.dart';
+
 import '../../iframe/iframe_widget.dart';
 
 List<Story> checkboxStories() {
@@ -9,7 +10,8 @@ List<Story> checkboxStories() {
       name: 'Atom/Checkbox/Documentation',
       builder: (context) {
         return IframeWidget(
-          url: 'https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components-v0.2.0',
+          url:
+              'https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui/ui-components-standardisation/digit-ui-components-v0.2.0',
         );
       },
     ),
@@ -22,9 +24,10 @@ List<Story> checkboxStories() {
           children: [
             Center(
               child: DigitCheckbox(
+                value: false,
                 label: context.knobs.text(
                   label: 'Label',
-                  initial: 'checkbox label',
+                  initial: 'checkbox **value** label',
                 ),
                 onChanged: (value) {},
                 readOnly: context.knobs.boolean(
@@ -35,7 +38,10 @@ List<Story> checkboxStories() {
                   label: 'Disabled',
                   initial: false,
                 ),
-                alignRight: context.knobs.boolean(label: 'Align Right', initial: false),
+                alignRight:
+                    context.knobs.boolean(label: 'Align Right', initial: false),
+                isRequired:
+                    context.knobs.boolean(label: 'Required', initial: false),
               ),
             ),
           ],
@@ -65,7 +71,8 @@ List<Story> checkboxStories() {
                   label: 'Disabled',
                   initial: false,
                 ),
-                alignRight: context.knobs.boolean(label: 'Align Right', initial: false),
+                alignRight:
+                    context.knobs.boolean(label: 'Align Right', initial: false),
               ),
             ),
           ],
@@ -94,7 +101,8 @@ List<Story> checkboxStories() {
                   label: 'Disabled',
                   initial: false,
                 ),
-                alignRight: context.knobs.boolean(label: 'Align Right', initial: false),
+                alignRight:
+                    context.knobs.boolean(label: 'Align Right', initial: false),
               ),
             ),
           ],

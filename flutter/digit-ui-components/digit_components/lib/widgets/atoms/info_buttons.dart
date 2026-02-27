@@ -207,7 +207,9 @@ class _InfoDigitButtonState extends State<InfoButton> {
               : isHovered
               ? digitButtonThemeData.primaryDigitButtonHoverBoxShadow
               : [],
-          borderRadius: digitButtonThemeData.radius,
+          borderRadius: widget.size == DigitButtonSize.large
+              ? digitButtonThemeData.largeRadius
+              : digitButtonThemeData.smallMediumRadius,
           border: Border.all(
             color: widget.isDisabled
                 ? theme.colorTheme.text.disabled

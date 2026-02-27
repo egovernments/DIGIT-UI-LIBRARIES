@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
+import 'package:digit_ui_components/theme/radius.dart';
 import 'package:flutter/material.dart';
 
 class DigitInfoCardThemeData extends ThemeExtension<DigitInfoCardThemeData> {
@@ -61,7 +62,7 @@ class DigitInfoCardThemeData extends ThemeExtension<DigitInfoCardThemeData> {
       infoIcon: Icons.info,
       warningIcon: Icons.warning,
       borderWidth: 1.0,
-      borderRadius: BorderRadius.zero,
+      borderRadius: BorderRadius.circular(radius4),
       successBackgroundColor: theme.colorTheme.alert.successBg,
       errorBackgroundColor: theme.colorTheme.alert.errorBg,
       warningBackgroundColor: theme.colorTheme.alert.warningBg,

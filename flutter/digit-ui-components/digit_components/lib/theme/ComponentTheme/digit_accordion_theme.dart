@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
+import 'package:digit_ui_components/theme/radius.dart';
 import 'package:flutter/material.dart';
 
 class DigitAccordionThemeData extends ThemeExtension<DigitAccordionThemeData> {
@@ -47,7 +48,7 @@ class DigitAccordionThemeData extends ThemeExtension<DigitAccordionThemeData> {
       animationDuration: const Duration(milliseconds: 300),
       borderColor: theme.colorTheme.generic.divider,
       borderWidth: 1.0,
-      borderRadius: const BorderRadius.all(Radius.circular(4)),
+      borderRadius: BorderRadius.all(Radius.circular(radius1)),
     );
   }
 

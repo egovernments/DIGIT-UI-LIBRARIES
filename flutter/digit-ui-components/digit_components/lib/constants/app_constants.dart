@@ -1,4 +1,5 @@
 import 'package:digit_ui_components/digit_components.dart';
+import 'package:digit_ui_components/theme/radius.dart';
 import 'package:flutter/material.dart';
 import '../theme/theme.dart';
 
@@ -14,7 +15,7 @@ class Base {
   static const double focusedBorderWidth = 1.5;
   static const double errorBorderWidth = 1.5;
   static const double hoverBorderWidth = 0.5;
-  static const BorderRadius radius = BorderRadius.zero;
+  static BorderRadius radius = BorderRadius.circular(radius2);
   static const double imageSize = 100;
   static const String textAreaSvg = 'assets/icons/svg/text_area_expand.svg';
   static const String profileSvg = 'assets/icons/svg/Profile.svg';
@@ -58,12 +59,12 @@ class BaseConstants {
   // Custom borders for focused and disabled states
   static final OutlineInputBorder focusedBorder = OutlineInputBorder(
     borderSide: BorderSide(color: const DigitColors().light.primary1, width: 1.5),
-    borderRadius: BorderRadius.zero,
+    borderRadius: BorderRadius.circular(radius2),
   );
 
   static final OutlineInputBorder disabledBorder = OutlineInputBorder(
     borderSide: BorderSide(color: const DigitColors().light.genericDivider, width: 1.0),
-    borderRadius: BorderRadius.zero,
+    borderRadius: BorderRadius.circular(radius2),
   );
 
   // Default padding value

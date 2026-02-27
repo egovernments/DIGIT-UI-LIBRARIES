@@ -22,6 +22,7 @@ import '../../constants/AppView.dart';
 import '../../enum/app_enums.dart';
 import '../../theme/ComponentTheme/pop_up_card_theme.dart';
 import '../../theme/colors.dart';
+import '../../theme/radius.dart';
 import '../../theme/spacers.dart';
 import '../../theme/typography.dart';
 import 'package:flutter/scheduler.dart';
@@ -126,8 +127,8 @@ class _PopupState extends State<Popup> {
       decoration: BoxDecoration(
         color: const DigitColors().light.paperPrimary,
         borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(spacer1),
-            topRight: Radius.circular(spacer1)),
+            topLeft: Radius.circular(radius4),
+            topRight: Radius.circular(radius4)),
         boxShadow: _isOverflowing
             ? [
           BoxShadow(
@@ -245,8 +246,8 @@ class _PopupState extends State<Popup> {
       decoration: BoxDecoration(
         color: const DigitColors().light.paperPrimary,
         borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(spacer1),
-            topRight: Radius.circular(spacer1)),
+            topLeft: Radius.circular(radius4),
+            topRight: Radius.circular(radius4)),
         boxShadow: _isOverflowing
             ? [
           BoxShadow(
@@ -263,6 +264,31 @@ class _PopupState extends State<Popup> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          if (widget.onCrossTap != null)
+            Align(
+              alignment: Alignment.topRight,
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  top: 0,
+                  right: 0,
+                ),
+                child: InkWell(
+                  hoverColor: const DigitColors().transparent,
+                  highlightColor: const DigitColors().transparent,
+                  splashColor: const DigitColors().transparent,
+                  onTap: widget.onCrossTap,
+                  child: Icon(
+                    Icons.close,
+                    size: isMobile
+                        ? spacer6
+                        : isTab
+                        ? spacer6
+                        : spacer7,
+                    color: const DigitColors().light.textPrimary,
+                  ),
+                ),
+              ),
+            ),
           widget.titleIcon ??
               Lottie.asset('assets/animated_json/alert.json',
                   repeat: false,
@@ -295,6 +321,7 @@ class _PopupState extends State<Popup> {
               textAlign: TextAlign.center,
               style: themeData.subHeadingTextStyle,
             ),
+
         ],
       ),
     );
@@ -464,8 +491,8 @@ class _PopupState extends State<Popup> {
                     decoration: BoxDecoration(
                       color: const DigitColors().light.paperPrimary,
                       borderRadius: const BorderRadius.only(
-                          bottomLeft: Radius.circular(spacer1),
-                          bottomRight: Radius.circular(spacer1)),
+                          bottomLeft: Radius.circular(radius4),
+                          bottomRight: Radius.circular(radius4)),
                       boxShadow: _isOverflowing
                           ? [
                         BoxShadow(

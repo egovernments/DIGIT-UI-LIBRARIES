@@ -92,7 +92,7 @@ class DigitSyncDialogContent extends StatelessWidget {
         child: Container(
             padding: const EdgeInsets.all(spacer4),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(4),
+              borderRadius: BorderRadius.circular(radius4),
               color: theme.colorTheme.paper.primary,
               boxShadow: [
                 BoxShadow(

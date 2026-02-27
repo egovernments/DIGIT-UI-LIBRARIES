@@ -1,6 +1,7 @@
 import 'package:digit_ui_components/digit_components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+
 import '../atoms/panel.dart';
 import '../helper_widget/button_list.dart';
 
@@ -16,6 +17,7 @@ class PanelCard extends StatefulWidget {
   final MainAxisAlignment? actionAlignment;
   final bool? animate;
   final bool? repeat;
+  final bool? sortButtons;
 
   const PanelCard({
     Key? key,
@@ -30,6 +32,7 @@ class PanelCard extends StatefulWidget {
     this.actionAlignment,
     this.animate,
     this.repeat,
+    this.sortButtons = true,
   }) : super(key: key);
 
   @override
@@ -54,27 +57,27 @@ class _PanelCardState extends State<PanelCard> {
         left: isMobile
             ? spacer4
             : isTab
-            ? spacer5
-            : spacer6,
+                ? spacer5
+                : spacer6,
         right: isMobile
             ? spacer4
             : isTab
-            ? spacer5
-            : spacer6,
+                ? spacer5
+                : spacer6,
         top: _isOverflowing
             ? (isMobile
-            ? spacer4
-            : isTab
-            ? spacer5
-            : spacer6)
+                ? spacer4
+                : isTab
+                    ? spacer5
+                    : spacer6)
             : 0,
         bottom: !_isOverflowing && (widget.actions != null)
             ? 0
             : isMobile
-            ? spacer4
-            : isTab
-            ? spacer5
-            : spacer6,
+                ? spacer4
+                : isTab
+                    ? spacer5
+                    : spacer6,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -91,8 +94,8 @@ class _PanelCardState extends State<PanelCard> {
               height: isMobile
                   ? spacer4
                   : isTab
-                  ? spacer5
-                  : spacer6,
+                      ? spacer5
+                      : spacer6,
             ),
           if (widget.additionWidgets != null)
             ...widget.additionWidgets!
@@ -100,18 +103,18 @@ class _PanelCardState extends State<PanelCard> {
                 .entries
                 .map(
                   (widgets) => Padding(
-                padding: EdgeInsets.only(
-                  bottom: widgets.key != widget.additionWidgets!.length - 1
-                      ? (isMobile
-                      ? spacer4
-                      : isTab
-                      ? spacer5
-                      : spacer6)
-                      : 0,
-                ),
-                child: widgets.value,
-              ),
-            )
+                    padding: EdgeInsets.only(
+                      bottom: widgets.key != widget.additionWidgets!.length - 1
+                          ? (isMobile
+                              ? spacer4
+                              : isTab
+                                  ? spacer5
+                                  : spacer6)
+                          : 0,
+                    ),
+                    child: widgets.value,
+                  ),
+                )
                 .toList(),
         ],
       ),
@@ -165,8 +168,8 @@ class _PanelCardState extends State<PanelCard> {
             padding: isMobile
                 ? const EdgeInsets.all(spacer4)
                 : EdgeInsets.all(
-              isTab ? spacer5 : spacer6,
-            ),
+                    isTab ? spacer5 : spacer6,
+                  ),
             decoration: BoxDecoration(
               color: const DigitColors().light.paperPrimary,
               borderRadius: const BorderRadius.only(
@@ -174,13 +177,13 @@ class _PanelCardState extends State<PanelCard> {
                   topRight: Radius.circular(spacer1)),
               boxShadow: _isOverflowing
                   ? [
-                BoxShadow(
-                  color: const Color(0xFF000000).withOpacity(.16),
-                  offset: const Offset(0, 1),
-                  spreadRadius: 0,
-                  blurRadius: 2,
-                ),
-              ]
+                      BoxShadow(
+                        color: const Color(0xFF000000).withOpacity(.16),
+                        offset: const Offset(0, 1),
+                        spreadRadius: 0,
+                        blurRadius: 2,
+                      ),
+                    ]
                   : [],
             ),
             child: Panel(
@@ -199,27 +202,27 @@ class _PanelCardState extends State<PanelCard> {
                   left: isMobile
                       ? spacer4
                       : isTab
-                      ? spacer5
-                      : spacer6,
+                          ? spacer5
+                          : spacer6,
                   right: isMobile
                       ? spacer4
                       : isTab
-                      ? spacer5
-                      : spacer6,
+                          ? spacer5
+                          : spacer6,
                   top: _isOverflowing ||
-                      (widget.additionWidgets != null ||
-                          widget.description != null)
+                          (widget.additionWidgets != null ||
+                              widget.description != null)
                       ? isMobile
-                      ? spacer4
-                      : isTab
-                      ? spacer5
-                      : spacer6
+                          ? spacer4
+                          : isTab
+                              ? spacer5
+                              : spacer6
                       : 0,
                   bottom: isMobile
                       ? spacer4
                       : isTab
-                      ? spacer5
-                      : spacer6,
+                          ? spacer5
+                          : spacer6,
                 ),
                 decoration: BoxDecoration(
                   color: const DigitColors().light.paperPrimary,
@@ -228,13 +231,13 @@ class _PanelCardState extends State<PanelCard> {
                       bottomRight: Radius.circular(spacer1)),
                   boxShadow: _isOverflowing
                       ? [
-                    BoxShadow(
-                      color: const Color(0xFF000000).withOpacity(.16),
-                      offset: const Offset(0, -1),
-                      spreadRadius: 0,
-                      blurRadius: 2,
-                    ),
-                  ]
+                          BoxShadow(
+                            color: const Color(0xFF000000).withOpacity(.16),
+                            offset: const Offset(0, -1),
+                            spreadRadius: 0,
+                            blurRadius: 2,
+                          ),
+                        ]
                       : [],
                 ),
                 child: DigitButtonListTile(
@@ -250,8 +253,9 @@ class _PanelCardState extends State<PanelCard> {
                       (isMobile
                           ? spacer4
                           : isTab
-                          ? spacer5
-                          : spacer6),
+                              ? spacer5
+                              : spacer6),
+                  sortDigitButtons: widget.sortButtons ?? true,
                 )),
         ],
       ),

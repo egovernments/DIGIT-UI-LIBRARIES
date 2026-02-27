@@ -14,16 +14,16 @@ class ScrollableContent extends StatelessWidget {
 
   const ScrollableContent(
       {super.key,
-        this.footer,
-        this.header,
-        this.primary,
-        this.controller,
-        this.mainAxisAlignment = MainAxisAlignment.start,
-        this.crossAxisAlignment = CrossAxisAlignment.start,
-        this.children = const <Widget>[],
-        this.slivers = const [],
-        this.backgroundColor,
-        this.enableFixedDigitButton = false});
+      this.footer,
+      this.header,
+      this.primary,
+      this.controller,
+      this.mainAxisAlignment = MainAxisAlignment.start,
+      this.crossAxisAlignment = CrossAxisAlignment.start,
+      this.children = const <Widget>[],
+      this.slivers = const [],
+      this.backgroundColor,
+      this.enableFixedDigitButton = false});
 
   @override
   Widget build(BuildContext context) {
@@ -44,10 +44,12 @@ class ScrollableContent extends StatelessWidget {
             hasScrollBody: false,
             child: Center(
               child: Column(
+                mainAxisAlignment: mainAxisAlignment,
                 crossAxisAlignment: crossAxisAlignment,
                 children: [
                   Expanded(
                     child: Column(
+                      crossAxisAlignment: crossAxisAlignment,
                       mainAxisAlignment: mainAxisAlignment,
                       children: children,
                     ),

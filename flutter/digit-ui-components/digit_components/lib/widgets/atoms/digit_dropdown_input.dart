@@ -149,11 +149,16 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
       setState(() {
         if (widget.selectionType == SelectionType.nestedSelect) {
           _nestedIndex = widget.selectedOption!.code;
-          _controller.text =
-          '${widget.selectedOption?.type}: ${widget.selectedOption?.name}';
+          final type = widget.selectedOption?.type;
+          final name = widget.selectedOption?.name;
+          _controller.text = widget.sentenceCaseEnabled
+              ? '${convertInToSentenceCase(type)}: ${convertInToSentenceCase(name)}'
+              : '$type: $name';
         } else {
           _currentIndex = widget.selectedOption!.code;
-          _controller.text = widget.selectedOption!.name;
+          _controller.text = widget.sentenceCaseEnabled
+              ? (convertInToSentenceCase(widget.selectedOption!.name) ?? widget.selectedOption!.name)
+              : widget.selectedOption!.name;
         }
       });
     }
@@ -172,12 +177,17 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
     if (widget.selectedOption != oldWidget.selectedOption) {
       if (widget.selectionType == SelectionType.nestedSelect) {
         _nestedIndex = widget.selectedOption!.code;
-        _controller.text =
-        '${widget.selectedOption?.type}: ${widget.selectedOption?.name}';
+        final type = widget.selectedOption?.type;
+        final name = widget.selectedOption?.name;
+        _controller.text = widget.sentenceCaseEnabled
+            ? '${convertInToSentenceCase(type)}: ${convertInToSentenceCase(name)}'
+            : '$type: $name';
       } else {
         if(widget.selectedOption != null){
           _currentIndex = widget.selectedOption!.code;
-          _controller.text = widget.selectedOption!.name;
+          _controller.text = widget.sentenceCaseEnabled
+              ? (convertInToSentenceCase(widget.selectedOption!.name) ?? widget.selectedOption!.name)
+              : widget.selectedOption!.name;
         }else{
           _controller.clear();
           _currentIndex = '';
@@ -349,7 +359,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                       left: spacer3,
                       top: spacer2,
                     ),
-                    border: const OutlineInputBorder(
+                    border: OutlineInputBorder(
                       borderRadius: Base.radius,
                     ),
                     enabledBorder: OutlineInputBorder(
@@ -540,7 +550,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                     elevation: 0,
                     borderRadius: Base.radius,
                     color: const DigitColors().light.paperPrimary,
-                    clipBehavior: Clip.none,
+                    clipBehavior: Clip.antiAlias,
                     child: ConstrainedBox(
                       constraints: BoxConstraints(
                         maxHeight:
@@ -548,6 +558,7 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                       ),
                       child: Container(
                           decoration: BoxDecoration(
+                            borderRadius: Base.radius,
                             boxShadow: [
                               if (filteredItems.isNotEmpty)
                                 const BoxShadow(
@@ -558,7 +569,10 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
                                 ),
                             ],
                           ),
-                          child: _buildDropdownListView(size.width)),
+                          child: ClipRRect(
+                            borderRadius: Base.radius,
+                            child: _buildDropdownListView(size.width),
+                          )),
                     ),
                   ),
                 ),
@@ -1351,7 +1365,9 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
       /// Check if the found item is not the default item
       if (selectedItem.name.isNotEmpty) {
         setState(() {
-          _controller.text = '${selectedItem.type}: ${selectedItem.name}';
+          _controller.text = widget.sentenceCaseEnabled
+              ? '${convertInToSentenceCase(selectedItem.type)}: ${convertInToSentenceCase(selectedItem.name)}'
+              : '${selectedItem.type}: ${selectedItem.name}';
         });
       }
     } else {
@@ -1363,7 +1379,9 @@ class _DigitDropdownState<T> extends State<DigitDropdown<T>>
       /// Check if the found item is not the default item
       if (selectedItem.name.isNotEmpty) {
         setState(() {
-          _controller.text = selectedItem.name;
+          _controller.text = widget.sentenceCaseEnabled
+              ? (convertInToSentenceCase(selectedItem.name) ?? selectedItem.name)
+              : selectedItem.name;
         });
       }
     }

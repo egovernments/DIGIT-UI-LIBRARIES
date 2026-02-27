@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:digit_ui_components/theme/digit_extended_theme.dart';
+import 'package:digit_ui_components/theme/radius.dart';
 import 'package:flutter/material.dart';
 
 class TagThemeData extends ThemeExtension<TagThemeData> {
@@ -56,7 +57,7 @@ class TagThemeData extends ThemeExtension<TagThemeData> {
       warningBackgroundColor: theme.colorTheme.alert.warningBg,
       errorBackgroundColor: theme.colorTheme.alert.errorBg,
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-      borderRadius: BorderRadius.circular(4),
+      borderRadius: BorderRadius.circular(radius3),
       borderWidth: .5,
       successIcon: Icon(
         Icons.check_circle,

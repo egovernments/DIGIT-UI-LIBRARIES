@@ -60,9 +60,12 @@ class _DigitDobPickerState extends State<DigitDobPicker> {
   @override
   void initState() {
     super.initState();
-    if(widget.initialValue != null) {
-      selectedDate = DigitDateUtils.getFormattedDateToDateTime(widget.initialValue.toString());
-      _setAgeFromDate(selectedDate); /// updated all the controller value also
+    if (widget.initialValue != null) {
+      selectedDate = DigitDateUtils.getFormattedDateToDateTime(
+          widget.initialValue.toString());
+      _setAgeFromDate(selectedDate);
+
+      /// updated all the controller value also
     }
   }
 
@@ -98,22 +101,42 @@ class _DigitDobPickerState extends State<DigitDobPicker> {
   DateTime _getDateFromAge() {
     int years = int.tryParse(yearController.text) ?? 0;
     int months = int.tryParse(monthController.text) ?? 0;
-    DateTime now = DateTime.now();
+    final now = DateTime.now();
 
-    DateTime dob = DateTime(now.year - years, now.month - months);
-    return dob;
+    // Total months to subtract
+    int totalMonths = (years * 12) + months;
+
+    // Compute new year and month
+    int newYear = now.year;
+    int newMonth = now.month - totalMonths;
+
+    while (newMonth <= 0) {
+      newMonth += 12;
+      newYear -= 1;
+    }
+
+    // Preserve the day, clamp to last valid day if needed
+    int day = now.day;
+    int maxDayInMonth = DateTime(newYear, newMonth + 1, 0).day;
+    if (day > maxDayInMonth) {
+      day = maxDayInMonth;
+    }
+
+    return DateTime(newYear, newMonth, day);
   }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.digitTextTheme(context);
+    final currentLocale = Localizations.localeOf(context).toString();
 
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         DigitCard(
-          borderColor: widget.errorMessage != null ? theme.colorTheme.alert.error : null,
+          borderColor:
+              widget.errorMessage != null ? theme.colorTheme.alert.error : null,
           cardType: CardType.secondary,
           children: [
             Column(
@@ -124,7 +147,10 @@ class _DigitDobPickerState extends State<DigitDobPicker> {
                   child: DigitDateFormInput(
                     readOnly: widget.readOnly,
                     editable: false,
-                    initialValue: selectedDate != null ? DateFormat('dd MMM yyyy').format(selectedDate!) : '',
+                    initialValue: selectedDate != null
+                        ? DateFormat('dd MMM yyyy', currentLocale)
+                            .format(selectedDate!)
+                        : '',
                     firstDate: widget.initialDate,
                     cancelText: widget.cancelText,
                     confirmText: widget.confirmText,
@@ -132,12 +158,12 @@ class _DigitDobPickerState extends State<DigitDobPicker> {
                     onChange: (value) {
                       if (value.isNotEmpty) {
                         setState(() {
-                          selectedDate = DateFormat('dd/MM/yyyy').parse(
-                            value
-                          );
+                          selectedDate =
+                              DateFormat('dd MMM yyyy', currentLocale)
+                                  .parse(value);
                           _setAgeFromDate(selectedDate);
                         });
-                        if(widget.onChangeOfFormControl != null) {
+                        if (widget.onChangeOfFormControl != null) {
                           widget.onChangeOfFormControl!(selectedDate);
                         }
                       }
@@ -174,7 +200,7 @@ class _DigitDobPickerState extends State<DigitDobPicker> {
                             setState(() {
                               selectedDate = _getDateFromAge();
                             });
-                            if(widget.onChangeOfFormControl != null) {
+                            if (widget.onChangeOfFormControl != null) {
                               widget.onChangeOfFormControl!(selectedDate);
                             }
                           },
@@ -204,7 +230,7 @@ class _DigitDobPickerState extends State<DigitDobPicker> {
                             setState(() {
                               selectedDate = _getDateFromAge();
                             });
-                            if(widget.onChangeOfFormControl != null) {
+                            if (widget.onChangeOfFormControl != null) {
                               widget.onChangeOfFormControl!(selectedDate);
                             }
                           },
@@ -219,43 +245,42 @@ class _DigitDobPickerState extends State<DigitDobPicker> {
             )
           ],
         ),
-        if(widget.errorMessage != null)
-          ...[
-            const SizedBox(height: spacer1),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Column(
-                  children: [
-                    const SizedBox(
-                      height: spacer1 / 2,
-                    ),
-                    SizedBox(
-                      height: spacer4,
-                      width: spacer4,
-                      child: Icon(
-                        Icons.info,
-                        color: theme.colorTheme.alert.error,
-                        size: spacer4,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(width: spacer1),
-                Flexible(
-                  fit: FlexFit.tight,
-                  child: Text(
-                    widget.errorMessage!,
-                    style: textTheme.bodyL.copyWith(
+        if (widget.errorMessage != null) ...[
+          const SizedBox(height: spacer1),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Column(
+                children: [
+                  const SizedBox(
+                    height: spacer1 / 2,
+                  ),
+                  SizedBox(
+                    height: spacer4,
+                    width: spacer4,
+                    child: Icon(
+                      Icons.info,
                       color: theme.colorTheme.alert.error,
+                      size: spacer4,
                     ),
                   ),
+                ],
+              ),
+              const SizedBox(width: spacer1),
+              Flexible(
+                fit: FlexFit.tight,
+                child: Text(
+                  widget.errorMessage!,
+                  style: textTheme.bodyL.copyWith(
+                    color: theme.colorTheme.alert.error,
+                  ),
                 ),
-              ],
-            ),
-          ]
+              ),
+            ],
+          ),
+        ]
       ],
     );
   }
