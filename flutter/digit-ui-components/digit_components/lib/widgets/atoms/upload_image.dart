@@ -134,7 +134,7 @@ class _ImageUploaderState extends State<ImageUploader> {
                 ? _imageFiles.add(File(pickedFile.path))
                 : _imageFiles.add(File(pickedFile.path));
           });
-          widget.onImagesSelected(_imageFiles);
+          widget.onImagesSelected(List<File>.from(_imageFiles));
         } else {
           if (kDebugMode) {
             print('No image selected.');
@@ -153,15 +153,15 @@ class _ImageUploaderState extends State<ImageUploader> {
   @override
   void initState() {
     super.initState();
-    // Initialize _imageFiles with initialImages if provided
-    _imageFiles = widget.initialImages ?? [];
+    // Initialize _imageFiles with a defensive copy of initialImages
+    _imageFiles = List<File>.from(widget.initialImages ?? []);
   }
 
   @override
   void didUpdateWidget(covariant ImageUploader oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    if (widget.initialImages != oldWidget.initialImages) {
+    if (!listEquals(widget.initialImages, oldWidget.initialImages)) {
       setState(() {
         _imageFiles
           ..clear()

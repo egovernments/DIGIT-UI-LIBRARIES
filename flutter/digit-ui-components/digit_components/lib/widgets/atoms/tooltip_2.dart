@@ -69,7 +69,9 @@ class _DigitTooltipState extends State<DigitTooltip>
 
   /// Measures the hidden tooltip after it's loaded with _loadHiddenOverlay(_)
   void _getHiddenOverlaySize(context) {
-    RenderBox box = _widgetKey.currentContext?.findRenderObject() as RenderBox;
+    final renderObject = _widgetKey.currentContext?.findRenderObject();
+    if (renderObject == null || renderObject is! RenderBox) return;
+    final RenderBox box = renderObject;
     if (mounted) {
       setState(() {
         _overlayBox = ElementBox(
@@ -113,7 +115,12 @@ class _DigitTooltipState extends State<DigitTooltip>
   ElementBox _getTriggerSize() {
     if (mounted) {
       final renderBox = context.findRenderObject() as RenderBox;
-      final overlayBox = Overlay.of(context).context.findRenderObject() as RenderBox;
+      final overlayRenderObject = Overlay.of(context).context.findRenderObject();
+      if (overlayRenderObject == null) {
+        _hideOverlay();
+        return ElementBox(w: 0, h: 0, x: 0, y: 0);
+      }
+      final overlayBox = overlayRenderObject as RenderBox;
 
       final offset = renderBox.localToGlobal(Offset.zero, ancestor: overlayBox);
 

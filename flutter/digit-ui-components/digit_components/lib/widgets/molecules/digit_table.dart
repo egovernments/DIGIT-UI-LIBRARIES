@@ -118,6 +118,18 @@ class _DigitTableState extends State<DigitTable> {
   bool _needsRebuild = false;
   Timer? _scrollDebounce;
 
+  void _checkOverflow() {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      if (mounted && _horizontalScrollController.hasClients) {
+        final hasOverflow =
+            _horizontalScrollController.position.maxScrollExtent > 0;
+        if (hasOverflow != _isOverflowing) {
+          setState(() => _isOverflowing = hasOverflow);
+        }
+      }
+    });
+  }
+
 
   @override
   void initState() {
@@ -156,6 +168,9 @@ class _DigitTableState extends State<DigitTable> {
     
     // Listen to scroll events with debouncing
     _horizontalScrollController.addListener(_onScrollDebounced);
+
+    // Check overflow after the first layout
+    _checkOverflow();
   }
 
   // Calculate frozen columns once instead of on every scroll
@@ -205,11 +220,11 @@ class _DigitTableState extends State<DigitTable> {
     if (widget.selectedRows != oldWidget.selectedRows) {
       _selectedRowIndices.addAll(widget.selectedRows);
     }
-    
+
     if (widget.highlightedRows != oldWidget.highlightedRows) {
       _highlightedRowIndices.addAll(widget.highlightedRows);
     }
-    
+
     if(widget.rows != oldWidget.rows) {
       sortedRows = widget.rows;
       // Update keys only if using frozen columns
@@ -225,11 +240,23 @@ class _DigitTableState extends State<DigitTable> {
         rowHeights = [];
       }
     }
+
+    if (widget.selectedRows != oldWidget.selectedRows ||
+        widget.rows != oldWidget.rows) {
+      _updateHeaderCheckbox();
+    }
     
-    if (widget.frozenColumnsCount != oldWidget.frozenColumnsCount || 
+    if (widget.frozenColumnsCount != oldWidget.frozenColumnsCount ||
         widget.columns.length != oldWidget.columns.length) {
       _updateFrozenColumns();
       _columnWidthCache.clear(); // Clear cache when config changes
+    }
+
+    // Re-check overflow when layout-affecting properties change
+    if (widget.rows != oldWidget.rows ||
+        widget.columns.length != oldWidget.columns.length ||
+        widget.frozenColumnsCount != oldWidget.frozenColumnsCount) {
+      _checkOverflow();
     }
   }
 
@@ -538,19 +565,6 @@ class _DigitTableState extends State<DigitTable> {
     
     final paginatedRows = _getPaginatedRows();
     final totalPages = sortedRows.isEmpty ? 1 : (sortedRows.length / rowsPerPage).ceil();
-    
-    // Update header checkbox based on selected rows
-    _updateHeaderCheckbox();
-
-    // Check overflow once after first build
-    SchedulerBinding.instance.addPostFrameCallback((_) {
-      if (mounted && _horizontalScrollController.hasClients) {
-        final hasOverflow = _horizontalScrollController.position.maxScrollExtent > 0;
-        if (hasOverflow != _isOverflowing) {
-          setState(() => _isOverflowing = hasOverflow);
-        }
-      }
-    });
 
     return SizedBox(
       height: widget.tableHeight,

@@ -68,7 +68,7 @@ class DigitDateFormInputState extends BaseDigitFormInputState {
 
     if (controller.text.isEmpty) {
       controller.text = DateFormat('dd MMM yyyy').format(_selectedDate);
-      onTap();
+      _emitIfChanged(controller.text);
     }
     // WidgetsBinding.instance.addPostFrameCallback((_) {
     //   _timelineController.jumpTo(_selectedDate); // scroll the timeline

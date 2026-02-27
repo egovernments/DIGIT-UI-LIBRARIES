@@ -67,9 +67,10 @@ class _DigitInfiniteDateTimelineState extends State<DigitInfiniteDateTimeline> {
       (index) => widget.startDate.add(Duration(days: index)),
     );
 
-    _selectedIndex = _dates.indexWhere(
+    final index = _dates.indexWhere(
       (d) => DateUtils.isSameDay(d, widget.selectedDate),
     );
+    _selectedIndex = index != -1 ? index : 0;
 
     widget.controller?.addListener(_handleControllerChange);
   }
