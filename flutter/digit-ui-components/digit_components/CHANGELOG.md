@@ -1,3 +1,6 @@
+## 0.3.0+1
+* Added maxItems and maxItemWarningCallback in multiselect dropdown to limit selection and show warning
+
 ## 0.3.0
 * Added mobile number component
 

@@ -86,6 +86,9 @@ class MultiSelectDropDown<int> extends StatefulWidget {
   final String? helpText;
   final String emptyItemText;
 
+  final int? maxItems;
+  final void Function()? maxItemWarningCallback;
+
   final bool isSearchable;
   final bool showSelectAll;
   final String selectAllText;
@@ -111,6 +114,8 @@ class MultiSelectDropDown<int> extends StatefulWidget {
     this.emptyItemText = 'No Options available',
     this.selectAllText = 'Select All',
     this.sentenceCaseEnabled = true,
+    this.maxItems,
+    this.maxItemWarningCallback,
   }) : super(key: key);
 
   @override
@@ -583,6 +588,10 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
         var selectedOption = currentTypeItems[_focusedNestedIndex.index];
 
         if (!_selectedOptions.contains(selectedOption)) {
+          if (!_canSelectMoreItems()) {
+            _handleMaxItemLimitExceeded();
+            return;
+          }
           setState(() {
             _selectedOptions.add(selectedOption);
             widget.onOptionSelected?.call(_selectedOptions);
@@ -606,10 +615,26 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
     }
   }
 
+  bool _canSelectMoreItems() {
+    final maxItems = widget.maxItems;
+    if (maxItems == null) return true;
+    return _selectedOptions.length < (maxItems as int);
+  }
+
+  void _handleMaxItemLimitExceeded() {
+    if (!_canSelectMoreItems()) {
+      widget.maxItemWarningCallback?.call();
+    }
+  }
+
   void _selectDropdownOption() {
     if (_focusedIndex >= 0 && _focusedIndex < _options.length) {
       final selectedOption = _options[_focusedIndex];
       if (!_selectedOptions.contains(selectedOption)) {
+        if (!_canSelectMoreItems()) {
+          _handleMaxItemLimitExceeded();
+          return;
+        }
         setState(() {
           _selectedOptions.add(selectedOption);
           widget.onOptionSelected?.call(_selectedOptions);
@@ -802,10 +827,18 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                                   ? _buildEmptyContainer(width)
                                   : widget.selectionType ==
                                           SelectionType.nestedSelect
-                                      ? _buildNestedItems(width, values, options,
-                                          selectedOptions, dropdownState)
-                                      : _buildFlatOptions(width, values, options,
-                                          selectedOptions, dropdownState),
+                                      ? _buildNestedItems(
+                                          width,
+                                          values,
+                                          options,
+                                          selectedOptions,
+                                          dropdownState)
+                                      : _buildFlatOptions(
+                                          width,
+                                          values,
+                                          options,
+                                          selectedOptions,
+                                          dropdownState),
                             ],
                           ),
                         ),
@@ -828,7 +861,9 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
       child: Padding(
         padding: DropdownConstants.noItemAvailablePadding,
         child: Text(
-          widget.sentenceCaseEnabled ? convertInToSentenceCase(widget.emptyItemText)! : widget.emptyItemText,
+          widget.sentenceCaseEnabled
+              ? convertInToSentenceCase(widget.emptyItemText)!
+              : widget.emptyItemText,
           style: currentTypography.bodyS.copyWith(
             color: const DigitColors().light.textDisabled,
           ),
@@ -1006,12 +1041,17 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                       if (currentlySelected) {
                         dropdownState(() {
                           selectedOptions.removeWhere((item) =>
-                              item.code == option.code && item.name == option.name);
+                              item.code == option.code &&
+                              item.name == option.name);
                         });
                         setState(() {
                           _selectedOptions = List.from(selectedOptions);
                         });
                       } else {
+                        if (!_canSelectMoreItems()) {
+                          _handleMaxItemLimitExceeded();
+                          return;
+                        }
                         dropdownState(() {
                           selectedOptions.add(option);
                         });
@@ -1157,7 +1197,9 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      widget.sentenceCaseEnabled ? convertInToSentenceCase(type)! : type!,
+                      widget.sentenceCaseEnabled
+                          ? convertInToSentenceCase(type)!
+                          : type!,
                       style: currentTypography.headingS.copyWith(
                         color: const DigitColors().light.textSecondary,
                       ),
@@ -1255,13 +1297,19 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                       if (currentlySelected) {
                         dropdownState(() {
                           selectedOptions.removeWhere((item) =>
-                              item.code == option.code && item.name == option.name);
+                              item.code == option.code &&
+                              item.name == option.name);
                         });
                         setState(() {
                           _selectedOptions.removeWhere((item) =>
-                              item.code == option.code && item.name == option.name);
+                              item.code == option.code &&
+                              item.name == option.name);
                         });
                       } else {
+                        if (!_canSelectMoreItems()) {
+                          _handleMaxItemLimitExceeded();
+                          return;
+                        }
                         dropdownState(() {
                           selectedOptions.add(option);
                         });
@@ -1355,7 +1403,9 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                 color: const DigitColors().light.paperSecondary,
               ),
               child: Text(
-                widget.sentenceCaseEnabled ? convertInToSentenceCase(widget.clearAllText)! : widget.clearAllText,
+                widget.sentenceCaseEnabled
+                    ? convertInToSentenceCase(widget.clearAllText)!
+                    : widget.clearAllText,
                 style: currentTypography.bodyS.copyWith(
                   color: const DigitColors().light.primary1,
                 ),
