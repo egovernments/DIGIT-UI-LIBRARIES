@@ -66,10 +66,11 @@ class _TagState extends State<Tag> {
         icon = tagThemeData?.errorIcon ?? defaultTagThemeData.errorIcon!;
         break;
       case TagType.monochrome:
-        backgroundColor = theme.colorTheme.paper.secondary;
+        backgroundColor = tagThemeData?.monochromeBackgroundColor ??
+            defaultTagThemeData.monochromeBackgroundColor!;
         textColor = tagThemeData?.monochromeColor ??
             defaultTagThemeData.monochromeColor!;
-        icon = null;
+        icon = tagThemeData?.monochromeIcon;
         break;
     }
 
@@ -114,9 +115,10 @@ class _TagState extends State<Tag> {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (widget.isIcon && !(widget.type == TagType.monochrome && widget.customIcon == null)) ...[
+            if (widget.isIcon && !(widget.type == TagType.monochrome && widget.customIcon == null && icon == null)) ...[
               widget.customIcon ?? icon!,
-              SizedBox(width: theme.spacerTheme.spacer3),
+              SizedBox(width: tagThemeData?.iconLabelGap ??
+                  defaultTagThemeData.iconLabelGap!),
             ],
             Flexible(
               child: Text(

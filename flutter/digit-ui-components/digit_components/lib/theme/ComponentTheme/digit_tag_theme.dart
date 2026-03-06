@@ -17,12 +17,15 @@ class TagThemeData extends ThemeExtension<TagThemeData> {
   final Color? errorColor;
   final Icon? errorIcon;
   final Color? monochromeColor;
+  final Color? monochromeBackgroundColor;
+  final Icon? monochromeIcon;
   final TextStyle? textStyle;
   final EdgeInsets? padding;
   final BorderRadius? borderRadius;
   final double? borderWidth;
   final double? tagWidth;
   final int? maxLine;
+  final double? iconLabelGap;
 
   const TagThemeData({
     this.successBackgroundColor,
@@ -35,12 +38,15 @@ class TagThemeData extends ThemeExtension<TagThemeData> {
     this.errorColor,
     this.errorIcon,
     this.monochromeColor,
+    this.monochromeBackgroundColor,
+    this.monochromeIcon,
     this.textStyle,
     this.padding,
     this.borderRadius,
     this.borderWidth,
     this.tagWidth,
     this.maxLine,
+    this.iconLabelGap,
   });
 
   static TagThemeData defaultTheme(BuildContext context) {
@@ -74,7 +80,9 @@ class TagThemeData extends ThemeExtension<TagThemeData> {
         color: theme.colorTheme.alert.error,
         size: 16,
       ),
+      monochromeBackgroundColor: theme.colorTheme.paper.secondary,
       maxLine: 1,
+      iconLabelGap: theme.spacerTheme.spacer2,
     );
   }
 
@@ -90,12 +98,15 @@ class TagThemeData extends ThemeExtension<TagThemeData> {
     Color? errorColor,
     Icon? errorIcon,
     Color? monochromeColor,
+    Color? monochromeBackgroundColor,
+    Icon? monochromeIcon,
     TextStyle? textStyle,
     EdgeInsets? padding,
     BorderRadius? borderRadius,
     double? borderWidth,
     double? tagWidth,
     int? maxLine,
+    double? iconLabelGap,
   }) {
     return TagThemeData(
       successBackgroundColor:
@@ -110,12 +121,16 @@ class TagThemeData extends ThemeExtension<TagThemeData> {
       errorColor: errorColor ?? this.errorColor,
       errorIcon: errorIcon ?? this.errorIcon,
       monochromeColor: monochromeColor ?? this.monochromeColor,
+      monochromeBackgroundColor:
+          monochromeBackgroundColor ?? this.monochromeBackgroundColor,
+      monochromeIcon: monochromeIcon ?? this.monochromeIcon,
       textStyle: textStyle ?? this.textStyle,
       padding: padding ?? this.padding,
       borderRadius: borderRadius ?? this.borderRadius,
       borderWidth: borderWidth ?? this.borderWidth,
       tagWidth: tagWidth ?? this.tagWidth,
       maxLine: maxLine ?? this.maxLine,
+      iconLabelGap: iconLabelGap ?? this.iconLabelGap,
     );
   }
 
@@ -137,12 +152,16 @@ class TagThemeData extends ThemeExtension<TagThemeData> {
       errorColor: Color.lerp(errorColor, other.errorColor, t),
       errorIcon: t < 0.5 ? errorIcon : other.errorIcon,
       monochromeColor: Color.lerp(monochromeColor, other.monochromeColor, t),
+      monochromeBackgroundColor: Color.lerp(
+          monochromeBackgroundColor, other.monochromeBackgroundColor, t),
+      monochromeIcon: t < 0.5 ? monochromeIcon : other.monochromeIcon,
       textStyle: TextStyle.lerp(textStyle, other.textStyle, t),
       padding: EdgeInsets.lerp(padding, other.padding, t),
       borderRadius: BorderRadius.lerp(borderRadius, other.borderRadius, t),
       borderWidth: lerpDouble(borderWidth, other.borderWidth, t),
       tagWidth: lerpDouble(tagWidth, other.tagWidth, t),
       maxLine: t < 0.5 ? maxLine : other.maxLine,
+      iconLabelGap: lerpDouble(iconLabelGap, other.iconLabelGap, t),
     );
   }
 }

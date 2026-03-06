@@ -1,3 +1,10 @@
+## 0.3.0+2
+* Enhanced maxItems in multiselect dropdown to disable unselected options after max selection is reached
+* maxItemWarningCallback now fires only when max item count is exactly reached
+* Hidden Select All option when maxItems is set
+* Added monochromeBackgroundColor, monochromeIcon, and iconLabelGap to TagThemeData for full theme override support
+* Reduced default icon-label gap in Tag component for better mobile spacing
+
 ## 0.3.0+1
 * Added maxItems and maxItemWarningCallback in multiselect dropdown to limit selection and show warning
 

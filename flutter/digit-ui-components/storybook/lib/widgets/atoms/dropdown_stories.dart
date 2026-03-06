@@ -3,6 +3,7 @@ import 'package:digit_ui_components/models/DropdownModels.dart';
 import 'package:digit_ui_components/models/TreeModel.dart';
 import 'package:digit_ui_components/widgets/atoms/digit_dropdown_input.dart';
 import 'package:digit_ui_components/widgets/atoms/digit_multiselect_dropdown.dart';
+import 'package:digit_ui_components/widgets/atoms/digit_toast.dart';
 import 'package:digit_ui_components/widgets/atoms/digit_tree_select_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:storybook_toolkit/storybook_toolkit.dart';
@@ -331,23 +332,40 @@ List<Story> dropdownStories() {
     ),
     Story(
       name: 'Atom/Dropdown/MultiSelect Dropdown/default/default',
-      builder: (context) => MultiSelectDropDown<int>(
-        isSearchable:
-            context.knobs.boolean(label: 'Searchable', initial: false),
-        isDisabled: context.knobs.boolean(label: 'disabled', initial: false),
-        onOptionSelected: (List<DropdownItem> selectedOptions) {
-          print(selectedOptions.length);
-          print("called event");
-        },
-
-        options: const [
-          DropdownItem(code: '1', name: 'one'),
-          DropdownItem(code: '2', name: 'two'),
-          DropdownItem(code: '3', name: 'three'),
-          DropdownItem(code: '4', name: 'four'),
-          DropdownItem(code: '5', name: 'five'),
-        ],
-      ),
+      builder: (context) {
+        final maxItemsValue = context.knobs.sliderInt(
+          label: 'Max Items (0 = unlimited)',
+          initial: 0,
+          min: 0,
+          max: 5,
+        );
+        return MultiSelectDropDown<int>(
+          isSearchable:
+              context.knobs.boolean(label: 'Searchable', initial: false),
+          isDisabled: context.knobs.boolean(label: 'disabled', initial: false),
+          maxItems: maxItemsValue > 0 ? maxItemsValue : null,
+          maxItemWarningCallback: maxItemsValue > 0
+              ? () {
+                  Toast.showToast(
+                    context,
+                    message: 'Maximum $maxItemsValue items selected',
+                    type: ToastType.warning,
+                  );
+                }
+              : null,
+          onOptionSelected: (List<DropdownItem> selectedOptions) {
+            print(selectedOptions.length);
+            print("called event");
+          },
+          options: const [
+            DropdownItem(code: '1', name: 'one'),
+            DropdownItem(code: '2', name: 'two'),
+            DropdownItem(code: '3', name: 'three'),
+            DropdownItem(code: '4', name: 'four'),
+            DropdownItem(code: '5', name: 'five'),
+          ],
+        );
+      },
     ),
     Story(
       name: 'Atom/Dropdown/MultiSelect Dropdown/default/nested text',
