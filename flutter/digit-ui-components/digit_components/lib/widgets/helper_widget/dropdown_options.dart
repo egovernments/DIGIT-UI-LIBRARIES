@@ -19,6 +19,7 @@ class DropdownOption extends StatefulWidget {
   final Function(List<DropdownItem>)? onOptionSelected;
   final Function(DropdownItem currentHoverItem, bool isHovered)? onHover;
   final bool sentenceCaseEnabled;
+  final bool isDisabled;
 
   const DropdownOption({
     super.key,
@@ -33,6 +34,7 @@ class DropdownOption extends StatefulWidget {
     this.onHover,
     this.focusedIndex,
     this.sentenceCaseEnabled = true,
+    this.isDisabled = false,
   });
 
   @override
@@ -64,12 +66,12 @@ class _DropdownOptionState extends State<DropdownOption> {
         StatefulBuilder(
           builder: (context, setState) {
             return InkWell(
-              onTapDown: (_) {
+              onTapDown: widget.isDisabled ? null : (_) {
                 setState(() {
                   _itemMouseDownStates[widget.option] = true;
                 });
               },
-              onTapUp: (_) {
+              onTapUp: widget.isDisabled ? null : (_) {
                 setState(() {
                   _itemMouseDownStates[widget.option] = false;
                 });
@@ -77,7 +79,7 @@ class _DropdownOptionState extends State<DropdownOption> {
               splashColor: const DigitColors().transparent,
               hoverColor: const DigitColors().transparent,
               highlightColor: const DigitColors().transparent,
-              onHover: (hover) {
+              onHover: widget.isDisabled ? null : (hover) {
                 if (widget.focusedIndex != -1 && widget.isFocused == true) {
                   setState(() {
                     _itemHoverStates[widget.option] = false;
@@ -91,7 +93,7 @@ class _DropdownOptionState extends State<DropdownOption> {
                   });
                 }
               },
-              onTap: () {
+              onTap: widget.isDisabled ? null : () {
                 widget.onOptionSelected?.call(widget.selectedOptions);
               },
               child: Container(
@@ -99,14 +101,18 @@ class _DropdownOptionState extends State<DropdownOption> {
                 decoration: BoxDecoration(
                   border: Border.all(
                     width: Base.hoverBorderWidth,
-                    color: _itemMouseDownStates[widget.option] == true ||
+                    color: widget.isDisabled
+                        ? Colors.transparent
+                        : _itemMouseDownStates[widget.option] == true ||
                         widget.isFocused == true ||
                         _itemHoverStates[widget.option] == true ||
                         widget.isSelected
                         ? const DigitColors().light.primary1
                         : Colors.transparent,
                   ),
-                  color: _itemMouseDownStates[widget.option] == true ||
+                  color: widget.isDisabled
+                      ? theme.colorTheme.paper.secondary
+                      : _itemMouseDownStates[widget.option] == true ||
                       widget.isSelected
                       ? const DigitColors().light.primary1
                       : _itemHoverStates[widget.option] == true ||
@@ -134,7 +140,15 @@ class _DropdownOptionState extends State<DropdownOption> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          widget.isSelected ||
+                          widget.isDisabled
+                              ? const DigitCheckboxIcon(
+                            checkboxThemeData: DigitCheckboxThemeData(
+                              iconSize: spacer5,
+                            ),
+                            isDisabled: true,
+                            state: DigitCheckboxState.unchecked,
+                          )
+                              : widget.isSelected ||
                               _itemMouseDownStates[widget.option] == true
                               ?  DigitCheckboxIcon(
                             // size: spacer5,
@@ -159,7 +173,9 @@ class _DropdownOptionState extends State<DropdownOption> {
                                   Icon(
                                     widget.option.textIcon,
                                     size: DropdownConstants.textIconSize,
-                                    color: widget.isSelected ||
+                                    color: widget.isDisabled
+                                        ? theme.colorTheme.text.disabled
+                                        : widget.isSelected ||
                                         _itemMouseDownStates[widget.option] ==
                                             true
                                         ? const DigitColors().light.paperPrimary
@@ -174,7 +190,11 @@ class _DropdownOptionState extends State<DropdownOption> {
                                     widget.sentenceCaseEnabled ? capitalizeFirstLetter(widget.option.name) : widget.option.name,
                                     maxLines: 3,
                                     overflow: TextOverflow.ellipsis,
-                                    style: widget.isSelected ||
+                                    style: widget.isDisabled
+                                        ? currentTypography.bodyS.copyWith(
+                                      color: theme.colorTheme.text.disabled,
+                                    )
+                                        : widget.isSelected ||
                                         _itemMouseDownStates[widget.option] ==
                                             true
                                         ? currentTypography.headingS.copyWith(
@@ -206,7 +226,9 @@ class _DropdownOptionState extends State<DropdownOption> {
                           child: Text(
                             widget.sentenceCaseEnabled ? capitalizeFirstLetter(widget.option.description!) : widget.option.description!,
                             style: currentTypography.bodyXS.copyWith(
-                              color: widget.isSelected ||
+                              color: widget.isDisabled
+                                  ? theme.colorTheme.text.disabled
+                                  : widget.isSelected ||
                                   _itemMouseDownStates[widget.option] ==
                                       true
                                   ? const DigitColors().light.paperPrimary

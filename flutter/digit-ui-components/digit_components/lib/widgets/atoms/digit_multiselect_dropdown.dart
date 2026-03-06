@@ -632,13 +632,16 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
       final selectedOption = _options[_focusedIndex];
       if (!_selectedOptions.contains(selectedOption)) {
         if (!_canSelectMoreItems()) {
-          _handleMaxItemLimitExceeded();
           return;
         }
         setState(() {
           _selectedOptions.add(selectedOption);
           widget.onOptionSelected?.call(_selectedOptions);
         });
+
+        if (!_canSelectMoreItems()) {
+          _handleMaxItemLimitExceeded();
+        }
 
         if (_controller != null) {
           _controller!.addSelectedOption(selectedOption);
@@ -937,7 +940,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        if (widget.showSelectAll)
+        if (widget.showSelectAll && widget.maxItems == null)
           InkWell(
             onTap: () {
               /// Toggle the selection state
@@ -1031,6 +1034,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                     option: option,
                     isFocused: isFocused,
                     isSelected: isSelected,
+                    isDisabled: !isSelected && !_canSelectMoreItems(),
                     backgroundColor: backgroundColor,
                     selectedOptions: selectedOptions,
                     sentenceCaseEnabled: widget.sentenceCaseEnabled,
@@ -1048,16 +1052,15 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                           _selectedOptions = List.from(selectedOptions);
                         });
                       } else {
-                        if (!_canSelectMoreItems()) {
-                          _handleMaxItemLimitExceeded();
-                          return;
-                        }
                         dropdownState(() {
                           selectedOptions.add(option);
                         });
                         setState(() {
                           _selectedOptions = List.from(selectedOptions);
                         });
+                        if (!_canSelectMoreItems()) {
+                          _handleMaxItemLimitExceeded();
+                        }
                       }
 
                       if (_controller != null) {
@@ -1087,7 +1090,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        if (widget.showSelectAll)
+        if (widget.showSelectAll && widget.maxItems == null)
           InkWell(
             onTap: () {
               /// Toggle the selection state
@@ -1204,7 +1207,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                         color: const DigitColors().light.textSecondary,
                       ),
                     ),
-                    if (widget.showSelectAll)
+                    if (widget.showSelectAll && widget.maxItems == null)
                       InkWell(
                         onTap: () {
                           /// Toggle the selection state
@@ -1286,6 +1289,7 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                     width: width,
                     option: option,
                     isSelected: selectedOptions.contains(option),
+                    isDisabled: !selectedOptions.contains(option) && !_canSelectMoreItems(),
                     backgroundColor: backgroundColor,
                     selectedOptions: selectedOptions,
                     isFocused: isFocused,
@@ -1306,16 +1310,15 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                               item.name == option.name);
                         });
                       } else {
-                        if (!_canSelectMoreItems()) {
-                          _handleMaxItemLimitExceeded();
-                          return;
-                        }
                         dropdownState(() {
                           selectedOptions.add(option);
                         });
                         setState(() {
                           _selectedOptions.add(option);
                         });
+                        if (!_canSelectMoreItems()) {
+                          _handleMaxItemLimitExceeded();
+                        }
                       }
 
                       if (_controller != null) {
