@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0-dev-40] [13-Mar-2026]
+-Removed the rolec as button for whole popup
+
 ## [2.0.0-dev-39] [25-Feb-2026]
 -FormStep syntax changes as per react-hook-form v7
 
