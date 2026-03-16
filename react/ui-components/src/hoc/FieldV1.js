@@ -289,6 +289,10 @@ const FieldV1 = ({
               hideSpan={populators?.hideSpan}
               errorStyle={errors?.[populators?.name]}
               maxLength={populators?.maxLength}
+              showCountryCodeSelector={populators?.showCountryCodeSelector}
+              countryCode={populators?.countryCode}
+              onCountryCodeChange={populators?.onCountryCodeChange}
+              tenantId={populators?.tenantId || props?.tenantId}
             />
           </div>
         );

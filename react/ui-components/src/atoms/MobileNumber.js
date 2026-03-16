@@ -1,10 +1,29 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import TextInput from "./TextInput";
 import { getUserType } from "../utils/digitUtils";
 
 const MobileNumber = (props) => {
   const user_type = getUserType();
+  const [countryCode, setCountryCode] = useState(props.countryCode || props.prefix || "+91");
+
+  // Import CountryCodeSelector dynamically if needed
+  const CountryCodeSelector = props.showCountryCodeSelector
+    ? (typeof window !== 'undefined' && window.Digit?.ComponentRegistryService?.getComponent?.('CountryCodeSelector'))
+    : null;
+
+  useEffect(() => {
+    if (props.countryCode) {
+      setCountryCode(props.countryCode);
+    }
+  }, [props.countryCode]);
+
+  const handleCountryCodeChange = (code) => {
+    setCountryCode(code);
+    if (props.onCountryCodeChange) {
+      props.onCountryCodeChange(code);
+    }
+  };
 
   const onChange = (e) => {
     let val = e.target.value;
@@ -18,6 +37,16 @@ const MobileNumber = (props) => {
   return (
     <React.Fragment>
       <div className={`digit-mobile-number-container ${props?.className ? props?.className : ""}`} style={props?.style}>
+        {props.showCountryCodeSelector && CountryCodeSelector && (
+          <div style={{ marginBottom: "8px" }}>
+            <CountryCodeSelector
+              value={countryCode}
+              onChange={handleCountryCodeChange}
+              tenantId={props.tenantId}
+              disabled={props.disable}
+            />
+          </div>
+        )}
         <div
           className={`digit-text-input-field ${user_type === "employee" ? "" : "digit-text-mobile-input-width"} ${props.className ? props.className : ""}`}
         >
@@ -45,7 +74,7 @@ const MobileNumber = (props) => {
             onBlur={props.onBlur}
             variant={props?.variant}
             populators={
-              !props.hideSpan ? {prefix: props?.prefix || "+91"} :{}
+              !props.hideSpan ? {prefix: countryCode} :{}
             }
           />
         </div>
@@ -76,10 +105,17 @@ MobileNumber.propTypes = {
   step: PropTypes.string,
   autoFocus: PropTypes.bool,
   onBlur: PropTypes.func,
+  prefix: PropTypes.string,
+  showCountryCodeSelector: PropTypes.bool,
+  countryCode: PropTypes.string,
+  onCountryCodeChange: PropTypes.func,
+  tenantId: PropTypes.string,
 };
 
 MobileNumber.defaultProps = {
   isMandatory: false,
+  showCountryCodeSelector: false,
+  countryCode: "+91",
 };
 
 export default MobileNumber;
