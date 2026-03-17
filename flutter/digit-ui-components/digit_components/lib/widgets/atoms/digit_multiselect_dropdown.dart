@@ -374,6 +374,11 @@ class _MultiSelectDropDownState<T> extends State<MultiSelectDropDown<T>> {
                           ? TextField(
                               decoration: const InputDecoration(
                                 border: InputBorder.none,
+                                enabledBorder: InputBorder.none,
+                                focusedBorder: InputBorder.none,
+                                disabledBorder: InputBorder.none,
+                                errorBorder: InputBorder.none,
+                                focusedErrorBorder: InputBorder.none,
                                 contentPadding:
                                     EdgeInsets.only(bottom: spacer2),
                                 suffixIconConstraints: BoxConstraints(

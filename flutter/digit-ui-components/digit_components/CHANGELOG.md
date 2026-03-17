@@ -1,3 +1,6 @@
+## 0.3.0+3
+* Added bold text support (**bold**) for popup title, subHeading, and description
+
 ## 0.3.0+2
 * Enhanced maxItems in multiselect dropdown to disable unselected options after max selection is reached
 * maxItemWarningCallback now fires only when max item count is exactly reached

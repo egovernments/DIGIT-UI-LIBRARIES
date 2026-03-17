@@ -112,6 +112,36 @@ class _PopupState extends State<Popup> {
     super.dispose();
   }
 
+  /// Parses text with **bold** markers into a list of TextSpans
+  List<TextSpan> _parseBoldText(String text, TextStyle? normalStyle) {
+    final spans = <TextSpan>[];
+    final regex = RegExp(r'\*\*(.*?)\*\*');
+    int lastIndex = 0;
+
+    for (final match in regex.allMatches(text)) {
+      if (match.start > lastIndex) {
+        spans.add(TextSpan(
+          text: text.substring(lastIndex, match.start),
+          style: normalStyle,
+        ));
+      }
+      spans.add(TextSpan(
+        text: match.group(1),
+        style: normalStyle?.copyWith(fontWeight: FontWeight.bold),
+      ));
+      lastIndex = match.end;
+    }
+
+    if (lastIndex < text.length) {
+      spans.add(TextSpan(
+        text: text.substring(lastIndex),
+        style: normalStyle,
+      ));
+    }
+
+    return spans;
+  }
+
   Widget _buildSimplePopUp(BuildContext context, DigitPopupTheme themeData,
       bool isMobile, bool isTab) {
     final theme = Theme.of(context);
@@ -184,19 +214,27 @@ class _PopupState extends State<Popup> {
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            widget.title,
-                            style: themeData.titleTextStyle,
+                          RichText(
+                            text: TextSpan(
+                              children: _parseBoldText(
+                                widget.title,
+                                themeData.titleTextStyle,
+                              ),
+                            ),
                           ),
                           if (widget.subHeading != null)
                             const SizedBox(
                               height: spacer2,
                             ),
                           if (widget.subHeading != null)
-                            Text(
-                              widget.subHeading!,
-                              style: themeData.subHeadingTextStyle,
-                            )
+                            RichText(
+                              text: TextSpan(
+                                children: _parseBoldText(
+                                  widget.subHeading!,
+                                  themeData.subHeadingTextStyle,
+                                ),
+                              ),
+                            ),
                         ],
                       ),
                     ),
@@ -306,20 +344,28 @@ class _PopupState extends State<Popup> {
           const SizedBox(
             width: spacer2,
           ),
-          Text(
-            widget.title,
+          RichText(
             textAlign: TextAlign.center,
-            style: themeData.titleTextStyle,
+            text: TextSpan(
+              children: _parseBoldText(
+                widget.title,
+                themeData.titleTextStyle,
+              ),
+            ),
           ),
           if (widget.subHeading != null)
             const SizedBox(
               height: spacer2,
             ),
           if (widget.subHeading != null)
-            Text(
-              widget.subHeading!,
+            RichText(
               textAlign: TextAlign.center,
-              style: themeData.subHeadingTextStyle,
+              text: TextSpan(
+                children: _parseBoldText(
+                  widget.subHeading!,
+                  themeData.subHeadingTextStyle,
+                ),
+              ),
             ),
 
         ],
@@ -360,9 +406,13 @@ class _PopupState extends State<Popup> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           if (widget.description != null)
-            Text(
-              widget.description!,
-              style: themeData.descriptionTextStyle,
+            RichText(
+              text: TextSpan(
+                children: _parseBoldText(
+                  widget.description!,
+                  themeData.descriptionTextStyle,
+                ),
+              ),
             ),
           if (widget.description != null && widget.additionalWidgets != null)
             SizedBox(
