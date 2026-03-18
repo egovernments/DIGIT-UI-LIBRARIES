@@ -223,6 +223,7 @@ const FieldV1 = ({
                   : ""
             }
             mdmsv2={populators?.mdmsv2}
+            disablePortal={disablePortal}
           />
         );
       case "checkbox":
