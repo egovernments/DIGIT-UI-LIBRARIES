@@ -4,7 +4,7 @@ import { Loader } from "../atoms";
 import RadioButtons from "../atoms/RadioButtons";
 import Dropdown from "../atoms/Dropdown";
 
-const CustomDropdown = ({ t, config, inputRef, label, onChange, value, errorStyle, disable, type, additionalWrapperClass = "" }) => {
+const CustomDropdown = ({ t, config, inputRef, label, onChange, value, errorStyle, disable, type, additionalWrapperClass = "", disablePortal }) => {
   const master = { name: config?.mdmsConfig?.masterName };
   if (config?.mdmsConfig?.filter) {
     master["filter"] = config?.mdmsConfig?.filter;
@@ -62,6 +62,7 @@ const CustomDropdown = ({ t, config, inputRef, label, onChange, value, errorStyl
           t={t}
           errorStyle={errorStyle}
           optionCardStyles={config?.optionsCustomStyle}
+          disablePortal={disablePortal}
         />
       )}
     </React.Fragment>
