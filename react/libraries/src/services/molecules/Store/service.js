@@ -185,7 +185,7 @@ export const StoreService = {
       locale: initData.selectedLanguage,
       tenantId: stateCode,
     });
-    i18next.changeLanguage(initData.selectedLanguage);
+    await i18next.changeLanguage(initData.selectedLanguage);
     Storage.set("initData", initData);
     initData.revenue_localities = revenue_localities;
     initData.localities = localities;
