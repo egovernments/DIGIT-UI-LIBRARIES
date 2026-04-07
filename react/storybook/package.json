@@ -47,9 +47,9 @@
     "webpack-cli": "^6.0.1"
   },
   "dependencies": {
-    "@egovernments/digit-ui-components": "2.0.0-dev-38",
+    "@egovernments/digit-ui-components": "2.0.0-dev-43",
     "@egovernments/digit-ui-components-css": "2.0.0-dev-12",
-    "@egovernments/digit-ui-libraries": "2.0.0-dev-08",
+    "@egovernments/digit-ui-libraries": "2.0.0-dev-09",
     "@egovernments/digit-ui-svg-components": "2.0.0-dev-01",
     "react-data-table-component": "7.6.2",
     "react-datepicker": "^8.7.0",

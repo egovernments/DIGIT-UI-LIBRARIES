@@ -1,3 +1,4 @@
+import i18next from "i18next";
 import { LocalizationService } from "../../elements/Localization/service";
 import { MdmsService } from "../../elements/MDMS";
 import { Storage } from "../../atoms/Utils/Storage";
@@ -157,6 +158,7 @@ export const StoreService = {
           uiHomePage: uiHomePage,
         };
     initData.selectedLanguage = Digit.SessionStorage.get("locale") || initData.languages[0].value;
+    Digit.SessionStorage.set("locale", initData.selectedLanguage);
 
     ApiCacheService.saveSetting(MdmsRes["DIGIT-UI"]?.ApiCachingSettings);
 
@@ -183,6 +185,7 @@ export const StoreService = {
       locale: initData.selectedLanguage,
       tenantId: stateCode,
     });
+    i18next.changeLanguage(initData.selectedLanguage);
     Storage.set("initData", initData);
     initData.revenue_localities = revenue_localities;
     initData.localities = localities;
