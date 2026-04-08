@@ -67,10 +67,10 @@ const LocalizationStore = {
       const Namespaces = await LocalizationStore.getList(locale);
 
       for (const module of modules) {
+        const moduleMessages = messages.filter((message) => message.module === module);
+        await LocalizationStore.setCacheData(LOCALE_MODULE(locale, module), moduleMessages);
         if (!Namespaces.includes(module)) {
           Namespaces.push(module);
-          const moduleMessages = messages.filter((message) => message.module === module);
-          await LocalizationStore.setCacheData(LOCALE_MODULE(locale, module), moduleMessages);
         }
       }
 
@@ -127,25 +127,40 @@ export const LocalizationService = {
         locale += Digit.Utils.getLocaleRegion();
       }
 
-      const [newModules, messages] = await LocalizationStore.get(locale, modules);
+      // Step 1: Serve cached translations instantly (so UI doesn't show raw keys)
+      const [, cachedMessages] = await LocalizationStore.get(locale, modules);
+      if (cachedMessages.length > 0) {
+        LocalizationStore.updateResources(locale, cachedMessages);
+      }
 
-      if (newModules.length > 0) {
+      // Step 2: Always fetch from API for all requested modules (fresh data)
+      const allModules = [...modules];
+      if (Digit.Utils.getMultiRootTenant() && !allModules.includes("digit-tenants")) {
+        allModules.push("digit-tenants");
+      }
+
+      try {
         const data = await Request({
           url: Urls.localization,
-          params: { module: newModules.join(","), locale, tenantId },
+          params: { module: allModules.join(","), locale, tenantId },
           useCache: false
         });
 
         if (data?.messages) {
-          messages.push(...data.messages);
-          LocalizationStore.store(locale, newModules, data.messages).catch(err => {
+          // Update cache with fresh data
+          LocalizationStore.store(locale, allModules, data.messages).catch(err => {
             console.error('Error storing localization:', err);
           });
+          // Update i18next with fresh translations
+          LocalizationStore.updateResources(locale, data.messages);
+          return data.messages;
         }
+      } catch (apiErr) {
+        console.error('API fetch failed, using cached translations:', apiErr);
       }
 
-      LocalizationStore.updateResources(locale, messages);
-      return messages;
+      // Step 3: If API failed, return whatever we had from cache
+      return cachedMessages;
     } catch (err) {
       console.error('Error in getLocale:', err);
       return [];
