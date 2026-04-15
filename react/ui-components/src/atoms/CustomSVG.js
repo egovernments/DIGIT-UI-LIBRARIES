@@ -785,6 +785,21 @@ const Phone = ({ className, fillcolor, style,fill="#C84C0E" ,width="24",height="
   </svg>
 );
 
+const ManageUsers = ({ className, fillcolor, style,fill="#C84C0E" ,width="24",height="24", viewBox="0 0 24 24"  }) => (
+  <svg 
+    fill={fill}
+    viewBox={viewBox}
+    style={style ? style : {}}
+    className={className}
+    width={width}
+    height={height}
+    xmlns="http://www.w3.org/2000/svg">
+  <path d="M12 9H17V7H12V9ZM12 6H17V4H12V6ZM3 12H11V11.45C11 10.7 10.6333 10.1042 9.9 9.6625C9.16667 9.22083 8.2 9 7 9C5.8 9 4.83333 9.22083 4.1 9.6625C3.36667 10.1042 3 10.7 3 11.45V12ZM8.4125 7.4125C8.80417 7.02083 9 6.55 9 6C9 5.45 8.80417 4.97917 8.4125 4.5875C8.02083 4.19583 7.55 4 7 4C6.45 4 5.97917 4.19583 5.5875 4.5875C5.19583 4.97917 5 5.45 5 6C5 6.55 5.19583 7.02083 5.5875 7.4125C5.97917 7.80417 6.45 8 7 8C7.55 8 8.02083 7.80417 8.4125 7.4125ZM2 16C1.45 16 0.979167 15.8042 0.5875 15.4125C0.195833 15.0208 0 14.55 0 14V2C0 1.45 0.195833 0.979167 0.5875 0.5875C0.979167 0.195833 1.45 0 2 0H18C18.55 0 19.0208 0.195833 19.4125 0.5875C19.8042 0.979167 20 1.45 20 2V14C20 14.55 19.8042 15.0208 19.4125 15.4125C19.0208 15.8042 18.55 16 18 16H2ZM2 14H18V2H2V14Z" fill={fill}/>
+</svg>
+
+);
+
+
 const FilterSvg = ({
   className,
   style,
@@ -4134,6 +4149,7 @@ export const CustomSVG = {
     RoundedCheck,
     Calender,
     Phone,
+    ManageUsers,
     FilterSvg,
     SortSvg,
     Close,
