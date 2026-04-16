@@ -72,11 +72,18 @@ export const FormComposerStudio = (props) => {
   const [showErrorToast, setShowErrorToast] = useState(false);
   const [customToast, setCustomToast] = useState(false);
 
+  // Generate a stable key from defaultValues to enable deep comparison.
+  // React useEffect dependencies are compared by reference, so even if the data
+  // is the same but the object reference changes, the effect would re-run.
+  // Using JSON.stringify ensures this effect runs only when the actual content
+  // of defaultValues changes, avoiding unnecessary reset() calls.
+
+  const defaultValuesKey = JSON.stringify(props?.defaultValues);
   useEffect(() => {
     if (props?.defaultValues && Object.keys(props?.defaultValues).length > 0) {
       reset(props?.defaultValues);
     }
-  }, [props?.defaultValues]);
+  }, [defaultValuesKey]);
 
   useEffect(() => {
     clearErrors();
@@ -444,7 +451,7 @@ export const FormComposerStudio = (props) => {
       {formFields(section, index, array, sectionFormCategory)}
       {props.childrenAtTheBottom && props.children}
       {props.submitInForm && (
-        <SubmitBar id={props?.primaryActionId || "formcomposer-submit-action"} label={t(props.label)} style={{ width:"100%",...props?.buttonStyle }} submit="submit" disabled={isDisabled} className="w-full"/>
+        <SubmitBar id={props?.primaryActionId || "formcomposer-submit-action"} label={t(props.label)} style={{ width: "100%", ...props?.buttonStyle }} submit="submit" disabled={isDisabled} className="w-full" />
       )}
       {props.secondaryActionLabel && (
         <div

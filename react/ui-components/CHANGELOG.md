@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0-dev-46] [16-Apr-2026]
+-Formcomposerstudio bugfix for inputs not editable in edit mode.
+
 ## [2.0.0-dev-45] [18-Mar-2026]
 -Added Manage Users Icon
 
