@@ -24,6 +24,16 @@ export const UserService = {
       }
       return authResponse;
   },
+  microsoftAuthenticate: (details) => {
+    return ServiceRequest({
+      serviceName: "microsoftAuthenticate",
+      url: Urls.MicrosoftAuthenticate,
+      data: details,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  },
   logoutUser: () => {
     let user = UserService.getUser();
     if (!user || !user.info || !user.access_token) return false;
