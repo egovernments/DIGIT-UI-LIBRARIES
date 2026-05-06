@@ -85,6 +85,7 @@ const Button = (props) => {
       width = "1.5rem";
       height = "1.5rem";
     }
+
     return iconRender(
       iconReq,
       iconFill,
