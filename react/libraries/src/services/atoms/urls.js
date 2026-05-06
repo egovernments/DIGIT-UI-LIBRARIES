@@ -23,6 +23,7 @@ const Urls = {
 
   OTP_Send: "/user-otp/v1/_send",
   Authenticate: "/user/oauth/token",
+  MicrosoftAuthenticate: "/user/v1/microsoft/login",
   RegisterUser: "/user/citizen/_create",
   ChangePassword: "/user/password/nologin/_update",
   ChangePassword1: "/user/password/_update",

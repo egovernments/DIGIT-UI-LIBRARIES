@@ -17,6 +17,23 @@ const CreateEstimateIcon = ({ className, style = {}, fill = "#C84C0E",width = '1
   </svg>
 );
 
+const Microsoft = ({ className, style = {}, width = "21", height = "21" }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={width}
+    height={height}
+    viewBox="0 0 21 21"
+    className={className}
+    style={style}
+  >
+    <title>MS-SymbolLockup</title>
+    <rect x="1" y="1" width="9" height="9" fill="#f25022" />
+    <rect x="11" y="1" width="9" height="9" fill="#7fba00" />
+    <rect x="1" y="11" width="9" height="9" fill="#00a4ef" />
+    <rect x="11" y="11" width="9" height="9" fill="#ffb900" />
+  </svg>
+);
+
 const GotoInboxIcon = ({ className, style = {}, fill = "#C84C0E",width="15",height="13" }) => (
   <svg
     width={width}
@@ -4115,6 +4132,7 @@ const FlowUnfilled = ({ width = "24", height = "24", fill = "#C84C0E" }) => (
 );
 
 export const CustomSVG = {
+    Microsoft,
     VariableAdd,
     FlowFilled,
     FlowUnfilled,

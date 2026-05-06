@@ -90,7 +90,7 @@ import useGetHowItWorksJSON from "./useHowItWorksJSON";
 import { usePrivacyContext } from "./usePrivacyContext";
 import useStaticData from "./useStaticData";
 import { useTenantManagementSearch } from "./useTenantManagementSearch";
-
+import useSSOConfig from "./useSSOConfig";
 
 
 const pgr = {
@@ -213,7 +213,8 @@ const Hooks = {
   useDynamicData,
   useBulkPdfDetails,
   useLocation,
-  useTenantManagementSearch
+  useTenantManagementSearch,
+  useSSOConfig
 };
 
 export default Hooks;
