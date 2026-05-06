@@ -557,7 +557,7 @@ export const FormComposer = (props) => {
     }
   };
 
-  const [activeLink, setActiveLink] = useState(props.horizontalNavConfig?.[0]?.name || null);
+  const [activeLink, setActiveLink] = useState(props.horizontalNavConfig?props.horizontalNavConfig?.[0].name:null);
 
   useEffect(()=>{
     setActiveLink(props.horizontalNavConfig?.[0].name);
@@ -574,178 +574,66 @@ export const FormComposer = (props) => {
           {props.submitInForm && (
             <SubmitBar label={t(props.label)} style={{ ...props?.buttonStyle }} submit="submit" disabled={isDisabled} className="w-full" />
           )}
-          {props.submitInForm && (props.loginWithMicroSoft || (props.ssoConfigs?.length > 0)) && (
-        <div style={{ display: "flex", alignItems: "center", margin: "20px 0" }}>
-          <div style={{ flex: 1, height: "1px", backgroundColor: "#D6D5D4" }}></div>
-          <span style={{ margin: "0 10px", color: "#505A5F", fontSize: "14px" }}>
-            {props.ssoConfigs?.length > 1 ? t("CORE_COMMON_OR_SIGN_IN_WITH") : t("CORE_COMMON_OR")}
-          </span>
-          <div style={{ flex: 1, height: "1px", backgroundColor: "#D6D5D4" }}></div>
-        </div>
-      )}
-      {props.loginWithMicroSoft && (
-        <div
-          className="microsoft-login-btn"
-          style={{
-            margin: "0 auto",
-            cursor: "pointer",
-            backgroundColor: "#f47738",
-            border: "1px solid #f47738",
-            color: "#FFF",
-            height: "40px",
-            fontWeight: "700",
-            boxShadow: "0 2px 0 #0b0c0c",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            padding: "10px 12px",
-            border: "1px solid #8A8886",
-            borderRadius: "0px", // Microsoft branding usually square
-            width: "100%",
-            maxWidth: "100%",
-            fontFamily: '"Segoe UI", "Helvetica Neue", "Lucida Grande", Roboto, "Ebrima", "Nirmala UI", "Gadugi", "Segoe Xbox Symbol", "Segoe UI Symbol", "Meiryo UI", "Khmer UI", "Tunga", "Lao UI", "Raavi", "Iskoola Pota", "Latha", "Leelawadee", "Microsoft YaHei UI", "Microsoft JhengHei UI", "Malgun Gothic", "Estrangelo Edessa", "Microsoft Himalaya", "Microsoft New Tai Lue", "Microsoft PhagsPa", "Microsoft Tai Le", "Microsoft Yi Baiti", "Mongolian Baiti", "MV Boli", "Myanmar Text", "Cambria Math"',
-            fontSize: "15px",
-            fontWeight: "600"
-          }}
-          onClick={() => props.onSSOLogin({
-            authStrategy: "MSAL",
-            provider: "MICROSOFT",
-            clientId: window?.globalConfigs?.getConfig?.("MICROSOFT_CLIENT_ID"),
-            tenantId: window?.globalConfigs?.getConfig?.("MICROSOFT_TENANT_ID")
-          })}
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" style={{ marginRight: "12px" }}>
-            <title>MS-SymbolLockup</title>
-            <rect x="1" y="1" width="9" height="9" fill="#f25022" />
-            <rect x="11" y="1" width="9" height="9" fill="#7fba00" />
-            <rect x="1" y="11" width="9" height="9" fill="#00a4ef" />
-            <rect x="11" y="11" width="9" height="9" fill="#ffb900" />
-          </svg>
-          {t(props.loginWithMicroSoft)}
-        </div>
-      )}
-      {props.ssoConfigs && props.ssoConfigs.length > 1 ? (
-        <div style={{ display: "flex", justifyContent: "center", gap: "24px", marginTop: "16px", flexWrap: "wrap" }}>
-          {props.ssoConfigs.map((sso, index) => (
-            <div
-              key={index}
-              className={`sso-login-icon ${sso.provider.toLowerCase()}-login-icon`}
-              style={{
-                cursor: "pointer",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                width: "48px",
-                height: "48px",
-                border: "1px solid #D6D5D4",
-                borderRadius: "4px",
-                backgroundColor: "#F7F8F9",
-                transition: "all 0.2s ease",
-                padding: "8px",
-                ...sso.iconStyle
-              }}
-              onClick={() => sso.onLogin(sso)}
-              title={t(sso.label)}
-            >
-              <div style={{ width: "24px", height: "24px", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                {sso.icon}
-              </div>
-            </div>
-          ))}
-        </div>
-      ) : (
-        props.ssoConfigs && props.ssoConfigs.map((sso, index) => (
-          <div
-            key={index}
-            className={`sso-login-btn ${sso.provider.toLowerCase()}-login-btn`}
-            style={{
-              margin: "10px auto 0 auto",
-              cursor: "pointer",
-              backgroundColor: sso.backgroundColor || "#f47738",
-              color: sso.color || "#FFF",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              padding: "10px 12px",
-              border: "1px solid #f47738",
-              borderRadius: sso.borderRadius || "0px",
-              width: "100%",
-              maxWidth: "100%",
-              fontSize: "15px",
-              fontWeight: "700",
-              height: "40px",
-              boxShadow: "0 2px 0 #0b0c0c",
-              ...sso.style
-            }}
-            onClick={() => sso.onLogin(sso)}
-          >
-            <div style={{ width: "21px", height: "21px", marginRight: "12px", display: "flex", alignItems: "center", justifyContent: "center" }}>
-              {sso.icon}
-            </div>
-            {t(sso.label)}
-          </div>
-        ))
-      )}
-      {props.secondaryActionLabel && (
-        <div className="primary-label-btn" style={{ margin: "20px auto 0 auto" }} onClick={onSecondayActionClick}>
-          {props.secondaryActionLabel}
-        </div>)}
+          {props.secondaryActionLabel && (
+          <div className="primary-label-btn" style={{ margin: "20px auto 0 auto" }} onClick={onSecondayActionClick}>
+            {props.secondaryActionLabel}
+          </div>)}
       </React.Fragment>  
   );
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} onKeyDown={(e) => checkKeyDown(e)} id={props.formId} className={props.className}>
       {props?.showMultipleCardsWithoutNavs ? (
-        props?.config?.map((section, index, array) => {
-          return !section.navLink && (
-            <Card style={getCardStyles()} noCardStyle={props.noCardStyle}>
-              {renderFormFields(props, section, index, array, section?.sectionFormCategory)}
-            </Card>
-          )
-        })
-      ) : (
-        <Card style={getCardStyles()} noCardStyle={props.noCardStyle}>
-          {
-            props?.config?.map((section, index, array) => {
-              return !section.navLink && (
-                <>
-                  {renderFormFields(props, section, index, array, section?.sectionFormCategory)}
-                </>
-              )
-            })
-          }
-        </Card>
-      )
-      }
-      {props?.showNavs && props.horizontalNavConfig && (
-        <HorizontalNav configNavItems={props.horizontalNavConfig ? props.horizontalNavConfig : null} showNav={true} activeLink={activeLink} setActiveLink={setActiveLink}>
-          {props?.showMultipleCardsInNavs ? (
-            props?.config?.map((section, index, array) => {
-              return section.navLink ? (
-                <Card style={section.navLink !== activeLink ? getCardStyles(false) : getCardStyles()} noCardStyle={props.noCardStyle}>
-                  {renderFormFields(props, section, index, array, section?.sectionFormCategory)}
-                </Card>
-              ) : null
-            })
-          ) :
-            (
+          props?.config?.map((section, index, array) => {
+            return !section.navLink && (
               <Card style={getCardStyles()} noCardStyle={props.noCardStyle}>
-                {
-                  props?.config?.map((section, index, array) => {
-                    return section.navLink ? (
-                      <>
-                        <div style={section.navLink !== activeLink ? { display: "none" } : {}}>
-                          {renderFormFields(props, section, index, array, section?.sectionFormCategory)}
-                        </div>
-                      </>
-                    ) : null
-                  })
-                }
+                {renderFormFields(props, section, index, array)}
               </Card>
             )
-          }
-        </HorizontalNav>
-      )
+          })
+        ) :  (         
+          <Card style={getCardStyles()} noCardStyle={props.noCardStyle}>
+            {
+              props?.config?.map((section, index, array) => {
+                return !section.navLink && (
+                    <>
+                      {renderFormFields(props, section, index, array)}
+                    </>
+                )
+              })
+            }
+          </Card>
+          )
+      }
+      { props?.showNavs && props.horizontalNavConfig && (
+           <HorizontalNav configNavItems={props.horizontalNavConfig?props.horizontalNavConfig:null} showNav={true} activeLink={activeLink} setActiveLink={setActiveLink}>
+           {props?.showMultipleCardsInNavs ? (
+             props?.config?.map((section, index, array) => {
+               return section.navLink ? (
+                 <Card style={section.navLink !== activeLink ? getCardStyles(false) : getCardStyles()} noCardStyle={props.noCardStyle}>
+                    {renderFormFields(props, section, index, array, section?.sectionFormCategory)}
+                 </Card>
+               ) : null
+             })
+           ) :   
+             ( 
+                 <Card style={getCardStyles()} noCardStyle={props.noCardStyle}>
+                   {
+                     props?.config?.map((section, index, array) => {
+                      return section.navLink ?  (
+                         <>
+                            <div style={section.navLink !== activeLink ? {display : "none"} : {}}>
+                              {renderFormFields(props, section, index, array, section?.sectionFormCategory)}
+                            </div>
+                         </>
+                       ) : null
+                     })
+                   }
+                 </Card>
+             )
+           }
+           </HorizontalNav>
+        )
       }
       {!props.submitInForm && props.label && (
         <ActionBar>
