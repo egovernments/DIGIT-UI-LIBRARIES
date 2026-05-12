@@ -1,5 +1,8 @@
 # Changelog
 
+## [2.0.0-dev-02] [12-May-2026]
+-Added new SVGs used in studio
+
 ## [2.0.0-dev-01] [29-Aug-2025]
 - Merged with latest react 17 master changes
 
