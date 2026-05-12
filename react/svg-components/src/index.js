@@ -826,6 +826,21 @@ import { Employee } from "./svg/Employee";
 import { FeatureSearch } from "./svg/FeatureSearch";
 import { HierarchyGraph } from "./svg/HierarchyGraph";
 import { MobileWrench } from "./svg/MobileWrench";
+import { Mobile } from "./svg/Mobile";
+import { Tablet } from "./svg/Tablet";
+import { Desktop } from "./svg/Desktop";
+import { ManageUsers } from "./svg/ManageUsers";
+import { Copy } from "./svg/Copy";
+import { LinkIcon } from "./svg/LinkIcon";
+import { CreateServiceWelcomeSvg } from "./svg/CreateServiceWelcomeSvg";
+import { BackNew } from "./svg/BackNew";
+import { PlusIcon } from "./svg/PlusIcon";
+import { FormBuilder } from "./svg/FormBuilder";
+import { Workflow } from "./svg/Workflow";
+import { Checklist } from "./svg/Checklist";
+import { ManageRoles } from "./svg/ManageRoles";
+import { ChecklistIllustration } from "./svg/ChecklistIllustration";
+import { NotificationIllustration } from "./svg/NotificationIllustration";
 
 
 export {
@@ -1656,5 +1671,20 @@ export {
   Employee,
   FeatureSearch,
   HierarchyGraph,
-  MobileWrench
+  MobileWrench,
+  Mobile,
+  Tablet,
+  Desktop,
+  ManageUsers,
+  Copy,
+  LinkIcon,
+  CreateServiceWelcomeSvg,
+  BackNew,
+  PlusIcon,
+  FormBuilder,
+  Workflow,
+  Checklist,
+  ManageRoles,
+  ChecklistIllustration,
+  NotificationIllustration
 };
