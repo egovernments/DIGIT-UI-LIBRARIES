@@ -119,10 +119,10 @@ const TimelineMolecule = ({
           />
         </div>
       )}
-      {Children.map(visibleChildren, (child, index) => (
+      {visibleChildren.map((child, index) => (
         <Timeline
           {...child.props}
-          isLastStep={index === Children.count(visibleChildren) - 1}
+          isLastStep={index === visibleChildren.length - 1}
           isNextActiveStep={nextStep === child}
         />
       ))}
