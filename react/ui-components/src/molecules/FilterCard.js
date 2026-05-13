@@ -103,7 +103,7 @@ const FilterCard = ({
         } ${isOverflowing ? "with-shadow" : ""}`}
       >
         {primaryActionLabel && onPrimaryPressed && (
-          <Button label={primaryActionLabel} onClick={onPrimaryPressed} />
+          <Button label={primaryActionLabel} onClick={onPrimaryPressed} variation="primary"/>
         )}
 
         {secondaryActionLabel && onSecondaryPressed && (
@@ -128,7 +128,7 @@ const FilterCard = ({
           />
         )}
         {primaryActionLabel && onPrimaryPressed && (
-          <Button label={primaryActionLabel} onClick={onPrimaryPressed} />
+          <Button label={primaryActionLabel} onClick={onPrimaryPressed} variation="primary"/>
         )}
       </div>
     );
