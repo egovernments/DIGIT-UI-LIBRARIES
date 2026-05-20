@@ -239,10 +239,10 @@ export const FormComposer = (props) => {
 
 
   const formFields = useCallback(
-    (section, index, array, sectionFormCategory) => (
+    (section, index, array, sectionFormCategory, isAfterSubmit = false) => (
       <React.Fragment key={index}>
         {section && getCombinedComponent(section)}
-        {section.body.filter((field) => !field?.renderAfterSubmit).map((field, index) => {
+        {section.body.filter((field) => isAfterSubmit ? field?.renderAfterSubmit : !field?.renderAfterSubmit).map((field, index) => {
           if (field?.populators?.hideInForm) return null;
           if (props.inline)
             return (
@@ -378,12 +378,7 @@ export const FormComposer = (props) => {
         <SubmitBar id={props?.primaryActionId || "formcomposer-submit-action"} label={t(props.label)} style={{ width:"100%",...props?.buttonStyle }} submit="submit" disabled={isDisabled} className="w-full"/>
       )}
       {section.body.some((f) => f?.renderAfterSubmit) &&
-        formFields(
-          { ...section, body: section.body.filter((f) => f?.renderAfterSubmit) },
-          0,
-          [section],
-          sectionFormCategory
-        )
+        formFields(section, 0, [section], sectionFormCategory, true)
       }
       {props.secondaryActionLabel && (
         <div
