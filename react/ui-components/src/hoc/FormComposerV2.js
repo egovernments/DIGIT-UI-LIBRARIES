@@ -242,7 +242,7 @@ export const FormComposer = (props) => {
     (section, index, array, sectionFormCategory) => (
       <React.Fragment key={index}>
         {section && getCombinedComponent(section)}
-        {section.body.map((field, index) => {
+        {section.body.filter((field) => !field?.renderAfterSubmit).map((field, index) => {
           if (field?.populators?.hideInForm) return null;
           if (props.inline)
             return (
@@ -377,6 +377,14 @@ export const FormComposer = (props) => {
       {props.submitInForm && (
         <SubmitBar id={props?.primaryActionId || "formcomposer-submit-action"} label={t(props.label)} style={{ width:"100%",...props?.buttonStyle }} submit="submit" disabled={isDisabled} className="w-full"/>
       )}
+      {section.body.some((f) => f?.renderAfterSubmit) &&
+        formFields(
+          { ...section, body: section.body.filter((f) => f?.renderAfterSubmit) },
+          0,
+          [section],
+          sectionFormCategory
+        )
+      }
       {props.secondaryActionLabel && (
         <div
           className="primary-label-btn"
