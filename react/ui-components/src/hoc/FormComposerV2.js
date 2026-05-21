@@ -238,92 +238,96 @@ export const FormComposer = (props) => {
   };
 
 
+  const renderField = (field, index, sectionFormCategory) => {
+    if (field?.populators?.hideInForm) return null;
+    if (props.inline)
+      return (
+        <React.Fragment key={index}>
+          <div style={field.isInsideBox ? getCombinedStyle(field?.placementinbox) : field.inline ? { display: "flex" } : {}}>
+            {/* {!field.withoutLabel && (
+              <HeaderComponent
+                style={{ color: field.isSectionText ? "#505A5F" : "", marginBottom: props.inline ? "8px" : "revert" }}
+                className={` ${field?.disable ? `disabled ${props?.labelBold ? "bolder" : ""}` : `${props?.labelBold ? "bolder" : ""}`}`}
+              >
+                {t(field.label)}
+                {field.isMandatory ? " * " : null}
+                {field.labelChildren && field.labelChildren}
+              </HeaderComponent>
+            )} */}
+            {/* {errors && errors[field.populators?.name] && Object.keys(errors[field.populators?.name]).length ? (
+              <ErrorMessage>{t(field.populators.error || errors[field.populators?.name]?.message)}</ErrorMessage>
+            ) : null} */}
+            <div style={field.withoutLabel ? { width: "100%" } : {}} className="digit-field">
+              {fieldSelector(field.type, field.populators, field.isMandatory, field?.disable, field?.component, field, sectionFormCategory)}
+              {field?.description && (
+                <HeaderComponent
+                  style={{
+                    marginTop: "-24px",
+                    fontSize: "16px",
+                    fontWeight: "bold",
+                    color: "#505A5F",
+                    ...field?.descriptionStyles,
+                  }}
+                  className="bolder"
+                >
+                  {t(field.description)}
+                </HeaderComponent>
+              )}
+            </div>
+          </div>
+        </React.Fragment>
+      );
+    return (
+      <Fragment key={index}>
+        <LabelFieldPair
+          style={
+            props?.showWrapperContainers && !field.hideContainer
+              ? { ...wrapperStyles, ...field?.populators?.customStyle }
+              : { border: "none", background: "white", ...field?.populators?.customStyle }
+          }
+          vertical={props?.labelfielddirectionvertical}
+        >
+          {fieldSelector(field.type, field.populators, field.isMandatory, field?.disable, field?.component, field, sectionFormCategory)}
+
+          {/* Commenting to initialize & check Field Controller and composer which render label and field Should remove later*/}
+          {/*{!field.withoutLabel && (
+            <HeaderComponent
+              style={{
+                color: field.isSectionText ? "#505A5F" : "",
+                marginBottom: props.inline ? "8px" : "revert",
+                fontWeight: props.isDescriptionBold ? "600" : null,
+              }}
+              className="label"
+            >
+              {t(field.label)}
+              {field?.appendColon ? " : " : null}
+              {field.isMandatory ? " * " : null}
+            </HeaderComponent>
+          )}
+          <div style={field.withoutLabel ? { width: "100%", ...props?.fieldStyle } : { ...props?.fieldStyle }} className="digit-field">
+            {fieldSelector(field.type, field.populators, field.isMandatory, field?.disable, field?.component, field, sectionFormCategory)}
+            {field?.description && <CardText style={{ fontSize: "14px", marginTop: "-24px" }}>{t(field?.description)}</CardText>}
+            </div> */}
+        </LabelFieldPair>
+
+        {/* Migrating error message to field container as here it renders outside the field */}
+        {/* {field?.populators?.name && errors && errors[field?.populators?.name] && Object.keys(errors[field?.populators?.name]).length ? (
+          <ErrorMessage message={t(field?.populators?.error)} />
+        ) : // {t(field?.populators?.error)}
+        // </ErrorMessage>
+        null} */}
+      </Fragment>
+    );
+  };
+
   const formFields = useCallback(
-    (section, index, array, sectionFormCategory, isAfterSubmit = false) => (
+    (section, index, array, sectionFormCategory) => (
       <React.Fragment key={index}>
         {section && getCombinedComponent(section)}
-        {section.body.filter((field) => isAfterSubmit ? field?.renderAfterSubmit : !field?.renderAfterSubmit).map((field, index) => {
-          if (field?.populators?.hideInForm) return null;
-          if (props.inline)
-            return (
-              <React.Fragment key={index}>
-                <div style={field.isInsideBox ? getCombinedStyle(field?.placementinbox) : field.inline ? { display: "flex" } : {}}>
-                  {/* {!field.withoutLabel && (
-                    <HeaderComponent
-                      style={{ color: field.isSectionText ? "#505A5F" : "", marginBottom: props.inline ? "8px" : "revert" }}
-                      className={` ${field?.disable ? `disabled ${props?.labelBold ? "bolder" : ""}` : `${props?.labelBold ? "bolder" : ""}`}`}
-                    >
-                      {t(field.label)}
-                      {field.isMandatory ? " * " : null}
-                      {field.labelChildren && field.labelChildren}
-                    </HeaderComponent>
-                  )} */}
-                  {/* {errors && errors[field.populators?.name] && Object.keys(errors[field.populators?.name]).length ? (
-                    <ErrorMessage>{t(field.populators.error || errors[field.populators?.name]?.message)}</ErrorMessage>
-                  ) : null} */}
-                  <div style={field.withoutLabel ? { width: "100%" } : {}} className="digit-field">
-                    {fieldSelector(field.type, field.populators, field.isMandatory, field?.disable, field?.component, field, sectionFormCategory)}
-                    {field?.description && (
-                      <HeaderComponent
-                        style={{
-                          marginTop: "-24px",
-                          fontSize: "16px",
-                          fontWeight: "bold",
-                          color: "#505A5F",
-                          ...field?.descriptionStyles,
-                        }}
-                        className="bolder"
-                      >
-                        {t(field.description)}
-                      </HeaderComponent>
-                    )}
-                  </div>
-                </div>
-              </React.Fragment>
-            );
-          return (
-            <Fragment>
-              <LabelFieldPair
-                key={index}
-                style={
-                  props?.showWrapperContainers && !field.hideContainer
-                    ? { ...wrapperStyles, ...field?.populators?.customStyle }
-                    : { border: "none", background: "white", ...field?.populators?.customStyle }
-                }
-                vertical={props?.labelfielddirectionvertical}
-              >
-                {fieldSelector(field.type, field.populators, field.isMandatory, field?.disable, field?.component, field, sectionFormCategory)}
-
-                {/* Commenting to initialize & check Field Controller and composer which render label and field Should remove later*/}
-                {/*{!field.withoutLabel && (
-                  <HeaderComponent
-                    style={{
-                      color: field.isSectionText ? "#505A5F" : "",
-                      marginBottom: props.inline ? "8px" : "revert",
-                      fontWeight: props.isDescriptionBold ? "600" : null,
-                    }}
-                    className="label"
-                  >
-                    {t(field.label)}
-                    {field?.appendColon ? " : " : null}
-                    {field.isMandatory ? " * " : null}
-                  </HeaderComponent>
-                )}
-                <div style={field.withoutLabel ? { width: "100%", ...props?.fieldStyle } : { ...props?.fieldStyle }} className="digit-field">
-                  {fieldSelector(field.type, field.populators, field.isMandatory, field?.disable, field?.component, field, sectionFormCategory)}
-                  {field?.description && <CardText style={{ fontSize: "14px", marginTop: "-24px" }}>{t(field?.description)}</CardText>}
-                  </div> */}
-              </LabelFieldPair>
-
-              {/* Migrating error message to field container as here it renders outside the field */}
-              {/* {field?.populators?.name && errors && errors[field?.populators?.name] && Object.keys(errors[field?.populators?.name]).length ? (
-                <ErrorMessage message={t(field?.populators?.error)} />
-              ) : // {t(field?.populators?.error)}
-              // </ErrorMessage>
-              null} */}
-            </Fragment>
-          );
-        })}
+        {section.body
+          .filter((field) => !field?.renderAfterSubmit)
+          .map((field, fieldIndex) => renderField(field, fieldIndex, sectionFormCategory))
+        }
         {!props.noBreakLine && (array.length - 1 === index ? null : <BreakLine style={props?.breaklineStyle ? props?.breaklineStyle : {}} />)}
       </React.Fragment>
     ),
@@ -377,8 +381,9 @@ export const FormComposer = (props) => {
       {props.submitInForm && (
         <SubmitBar id={props?.primaryActionId || "formcomposer-submit-action"} label={t(props.label)} style={{ width:"100%",...props?.buttonStyle }} submit="submit" disabled={isDisabled} className="w-full"/>
       )}
-      {section.body.some((f) => f?.renderAfterSubmit) &&
-        formFields(section, 0, [section], sectionFormCategory, true)
+      {section.body
+        .filter((f) => f?.renderAfterSubmit)
+        .map((field, index) => renderField(field, index, sectionFormCategory))
       }
       {props.secondaryActionLabel && (
         <div
