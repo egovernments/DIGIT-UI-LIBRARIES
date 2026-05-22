@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { COLOR_FILL } from "./constants";
 
-export const Version = ({ className, height = "24", width = "24", style = {}, fill = COLOR_FILL, onClick = null }) => {
+export const Version = ({ className, height = "24", width = "24", style = {}, viewBox="0 0 24 24" fill = COLOR_FILL, onClick = null }) => {
   return (
     <svg width={width} height={height} className={className} viewBox={viewBox} onClick={onClick} style={style} fill="none" xmlns="http://www.w3.org/2000/svg">
         <mask id="mask_version_sbc" style={{ maskType: "alpha" }} maskUnits="userSpaceOnUse" x="0" y="0" width="16" height="16">
@@ -20,6 +20,8 @@ Version.propTypes = {
   width: PropTypes.string,
   /** custom height of the svg icon */
   height: PropTypes.string,
+  /** custom viewBox of the svg icon */
+  viewBox: PropTypes.string,
   /** custom colour of the svg icon */
   fill: PropTypes.string,
   /** custom class of the svg icon */
