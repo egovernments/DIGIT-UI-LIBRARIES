@@ -35,7 +35,15 @@ module.exports = (env, argv) => {
         commonjs2: 'react-dom',
         amd: 'react-dom',
         root: 'ReactDOM',
-      }
+      },
+      "react/jsx-runtime": {
+        commonjs: "react/jsx-runtime",
+        commonjs2: "react/jsx-runtime",
+      },
+      "react/jsx-dev-runtime": {
+        commonjs: "react/jsx-dev-runtime",
+        commonjs2: "react/jsx-dev-runtime",
+      },
       // SVG components typically don't need router/state management externals
     },
     module: {

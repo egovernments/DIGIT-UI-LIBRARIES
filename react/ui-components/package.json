@@ -67,8 +67,8 @@
     "dist"
   ],
   "dependencies": {
-    "@egovernments/digit-ui-svg-components": "2.0.0-dev-01",
-    "@egovernments/digit-ui-libraries": "2.0.0-dev-11",
+    "@egovernments/digit-ui-svg-components": "2.0.0-dev-05",
+    "@egovernments/digit-ui-libraries": "2.0.0-dev-13",
     "@egovernments/digit-ui-components-css":"2.0.0-dev-12",
     "@googlemaps/js-api-loader": "1.13.10",
     "@cyntler/react-doc-viewer": "1.10.3",
