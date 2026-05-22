@@ -36,6 +36,13 @@ module.exports = (env, argv) => {
         amd: 'react-dom',
         root: 'ReactDOM',
       },
+      'react/jsx-runtime': { 
+        commonjs: 'react/jsx-runtime', 
+        commonjs2: 'react/jsx-runtime' 
+      },
+      'react/jsx-dev-runtime': { 
+        commonjs: 'react/jsx-dev-runtime', 
+        commonjs2: 'react/jsx-dev-runtime' },
       // Router and state management
       'react-router-dom': 'react-router-dom',
       'react-i18next': 'react-i18next',
