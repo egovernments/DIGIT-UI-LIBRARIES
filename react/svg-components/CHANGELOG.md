@@ -1,5 +1,8 @@
 # Changelog
 
+## [2.0.0-dev-06] [25-May-2026]
+-Added ServicePreview SVG for Studio
+
 ## [2.0.0-dev-04] [22-May-2026]
 -Added Version SVG for Studio
 

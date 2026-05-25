@@ -844,6 +844,8 @@ import { NotificationIllustration } from "./svg/NotificationIllustration";
 import { Emptyformillustration } from "./svg/Emptyformillustration";
 import { Devices } from "./svg/Devices";
 import { Workflowillustration } from "./svg/Workflowillustration";
+import { Version } from "./svg/Version";
+import { ServicePreviewIcon } from "./svg/ServicePreviewIcon";
 
 
 export {
@@ -1692,5 +1694,7 @@ export {
   NotificationIllustration,
   Devices,
   Workflowillustration,
-  Emptyformillustration
+  Emptyformillustration,
+  Version,
+  ServicePreviewIcon
 };
