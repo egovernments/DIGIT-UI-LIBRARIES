@@ -146,7 +146,7 @@ class _DigitDobPickerState extends State<DigitDobPicker> {
                 // Date picker component to select the date of birth
                 LabeledField(
                   label: widget.datePickerLabel,
-                  isRequired: widget.isRequired,
+                  isRequired: widget.isRequired ?? false,
                   child: DigitDateFormInput(
                     readOnly: widget.readOnly,
                     editable: false,
@@ -187,7 +187,7 @@ class _DigitDobPickerState extends State<DigitDobPicker> {
                       // Text form field for entering the age in years
                       child: LabeledField(
                         labelInline: false,
-                        isRequired: widget.isRequired,
+                        isRequired: widget.isRequired ?? false,
                         label: widget.ageFieldLabel,
                         child: DigitTextFormInput(
                           errorMessage: widget.ageErrorMessage,
