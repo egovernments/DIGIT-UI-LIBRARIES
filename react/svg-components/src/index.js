@@ -841,7 +841,7 @@ import { Checklist } from "./svg/Checklist";
 import { ManageRoles } from "./svg/ManageRoles";
 import { ChecklistIllustration } from "./svg/ChecklistIllustration";
 import { NotificationIllustration } from "./svg/NotificationIllustration";
-import { Emptyformillustration } from "./svg/Emptyformillustration";
+import { EmptyFormIllustration } from "./svg/EmptyFormIllustration";
 import { Devices } from "./svg/Devices";
 import { Workflowillustration } from "./svg/Workflowillustration";
 import { Version } from "./svg/Version";
@@ -1694,7 +1694,7 @@ export {
   NotificationIllustration,
   Devices,
   Workflowillustration,
-  Emptyformillustration,
+  EmptyFormIllustration,
   Version,
   ServicePreviewIcon
 };

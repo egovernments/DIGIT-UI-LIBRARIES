@@ -1,5 +1,8 @@
 # Changelog
 
+## [2.0.0-dev-07] [29-May-2026]
+-Bugfix for EmptyFormIllustration, casing issue in import and export
+
 ## [2.0.0-dev-06] [25-May-2026]
 -Added ServicePreview SVG for Studio
 
