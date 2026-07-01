@@ -502,6 +502,7 @@ class DigitIconMapping {
     'PeopleAlt': Icons.people_alt,
     'PeopleOutline': Icons.people_outline,
     'PermCameraMic': Icons.perm_camera_mic,
+    'CameraAltRounded': Icons.camera_alt_rounded,
     'PermContactCalendar': Icons.perm_contact_calendar,
     'PermDataSetting': Icons.perm_data_setting,
     'PermDeviceInformation': Icons.perm_device_information,
